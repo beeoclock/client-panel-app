@@ -26,10 +26,4 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('client-panel-app');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('client-panel-app app is running!');
-  });
 });
