@@ -20,15 +20,11 @@ jobs:
         with:
           args: target:apply hosting panel-beeoclock-cloud-00000000000000 beeoclock-cloud-00000000000000
           env:
-            GCP_SA_KEY: >-
-              ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEEOCLOCK_CLOUD_00000000000000
-              }}
+            GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEEOCLOCK_CLOUD_00000000000000}}
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: >-
-            ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEEOCLOCK_CLOUD_00000000000000
-            }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEEOCLOCK_CLOUD_00000000000000}}
           channelId: live
           entryPoint: "./firebase/beeoclock-cloud-00000000000000"
           projectId: beeoclock-cloud-00000000000000
@@ -39,15 +35,11 @@ jobs:
         with:
           args: target:apply hosting panel-beeoclock-cloud-00000000000001 beeoclock-cloud-00000000000001
           env:
-            GCP_SA_KEY: >-
-              ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEEOCLOCK_CLOUD_00000000000001
-              }}
+            GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEEOCLOCK_CLOUD_00000000000001}}
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: >-
-            ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEEOCLOCK_CLOUD_00000000000001
-            }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEEOCLOCK_CLOUD_00000000000001}}
           channelId: live
           entryPoint: "./firebase/beeoclock-cloud-00000000000001"
           projectId: beeoclock-cloud-00000000000001
