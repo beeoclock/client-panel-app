@@ -16,5 +16,5 @@
 #          firebaseServiceAccount: >-
 #            ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEEOCLOCK_CLOUD_00000000000000
 #            }}
-#          entryPoint: "./firebase/beeoclock-cloud-00000000000000.firebase.json"
+#          entryPoint: "./beeoclock-cloud-00000000000000"
 #          projectId: beeoclock-cloud-00000000000000
