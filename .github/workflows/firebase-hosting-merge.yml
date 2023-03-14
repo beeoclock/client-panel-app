@@ -21,7 +21,7 @@ jobs:
             ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEEOCLOCK_CLOUD_00000000000000
             }}
           channelId: live
-          entryPoint: ./firebase/beeoclock-cloud-00000000000000.firebase.json
+          entryPoint: "./firebase/beeoclock-cloud-00000000000000.firebase.json"
           projectId: beeoclock-cloud-00000000000000
           target: panel-beeoclock-cloud-00000000000000
       #00000000000001
@@ -32,6 +32,6 @@ jobs:
             ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEEOCLOCK_CLOUD_00000000000001
             }}
           channelId: live
-          entryPoint: ./firebase/beeoclock-cloud-00000000000001.firebase.json
+          entryPoint: "./firebase/beeoclock-cloud-00000000000001.firebase.json"
           projectId: beeoclock-cloud-00000000000001
           target: panel-beeoclock-cloud-00000000000001
