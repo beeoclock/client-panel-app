@@ -2,10 +2,11 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase Hosting on merge
-'on':
-  push:
-    branches:
-      - firebase
+'on': pull_request
+#'on':
+#  push:
+#    branches:
+#      - firebase
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
@@ -20,6 +21,7 @@ jobs:
             ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEEOCLOCK_CLOUD_00000000000000
             }}
           channelId: live
+          entryPoint: ./firebase/beeoclock-cloud-00000000000000.firebase.json
           projectId: beeoclock-cloud-00000000000000
           target: panel-beeoclock-cloud-00000000000000
       #00000000000001
@@ -30,5 +32,6 @@ jobs:
             ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEEOCLOCK_CLOUD_00000000000001
             }}
           channelId: live
+          entryPoint: ./firebase/beeoclock-cloud-00000000000001.firebase.json
           projectId: beeoclock-cloud-00000000000001
           target: panel-beeoclock-cloud-00000000000001
