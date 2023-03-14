@@ -14,7 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: npm ci && npm run build
-      #00000000000000
+      # 00000000000000
+      - name: 00000000000000
+        uses: w9jds/firebase-action@master
+        with:
+          args: target:apply hosting panel-beeoclock-cloud-00000000000000 beeoclock-cloud-00000000000000
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
@@ -25,7 +29,11 @@ jobs:
           entryPoint: "./firebase/beeoclock-cloud-00000000000000"
           projectId: beeoclock-cloud-00000000000000
           target: panel-beeoclock-cloud-00000000000000
-      #00000000000001
+      # 00000000000001
+      - name: 00000000000001
+        uses: w9jds/firebase-action@master
+        with:
+          args: target:apply hosting panel-beeoclock-cloud-00000000000001 beeoclock-cloud-00000000000001
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
