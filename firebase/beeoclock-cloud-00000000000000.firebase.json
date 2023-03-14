@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "target": "panel-beeoclock-cloud-00000000000000",
+    "public": "dist/client-panel-app",
+    "ignore": [
+      "**/firebase/**",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
