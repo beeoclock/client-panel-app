@@ -13,13 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: npm ci && npm run build
+
+      - name: Install packages and build project
+        run: npm ci && npm run build
 
       - name: Install firebase tools
         run: sudo npm install -g firebase-tools
 
       # 00000000000000
-      - name: '00000000000000'
+      - name: 00000000000000
         env:
           GOOGLE_APPLICATION_CREDENTIALS: >-
             ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEEOCLOCK_CLOUD_00000000000000
@@ -30,7 +32,7 @@ jobs:
         run: firebase deploy --only hosting:panel-beeoclock-cloud-00000000000000
 
       # 00000000000001
-      - name: '00000000000001'
+      - name: 00000000000001
         env:
           GOOGLE_APPLICATION_CREDENTIALS: >-
             ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEEOCLOCK_CLOUD_00000000000001
