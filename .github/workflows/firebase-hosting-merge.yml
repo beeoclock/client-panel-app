@@ -24,7 +24,7 @@ jobs:
       # 00000000000000
       - id: 'beeoclock_cloud_00000000000000'
         name: 'Authenticate to Google Cloud'
-        uses: `google-github-actions/auth@v0.4.0'
+        uses: google-github-actions/auth@v0.4.0
         with:
           credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEEOCLOCK_CLOUD_00000000000000 }}'
       - name: 'Echo project_id'
