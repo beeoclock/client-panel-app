@@ -14,6 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: npm ci && npm run build
+
       # 00000000000000
       - run: firebase target:apply hosting panel-beeoclock-cloud-00000000000000 beeoclock-cloud-00000000000000
       - uses: FirebaseExtended/action-hosting-deploy@v0
@@ -25,6 +26,7 @@ jobs:
           channelId: live
           projectId: beeoclock-cloud-00000000000000
           target: panel-beeoclock-cloud-00000000000000
+
       # 00000000000001
       - run: firebase target:apply hosting panel-beeoclock-cloud-00000000000001 beeoclock-cloud-00000000000001
       - uses: FirebaseExtended/action-hosting-deploy@v0
