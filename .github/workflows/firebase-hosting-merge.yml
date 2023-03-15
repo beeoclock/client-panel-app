@@ -31,7 +31,7 @@ jobs:
         run: echo ${{ steps.auth_00000000000000.outputs.project_id }}
       - name: Update target project
         run: firebase use ${{ steps.auth_00000000000000.outputs.project_id }}
-      - run: echo firebase target
+      - run: firebase target
 #      - name: Deploy to firebase hosting
 #        run: firebase deploy --only hosting:panel-beeoclock-cloud-00000000000000
 
