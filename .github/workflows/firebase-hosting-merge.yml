@@ -12,10 +12,7 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Action checkout
       - uses: actions/checkout@v2
-
-      - name: Install packages and build project
         run: npm ci && npm run build
 
       - name: Install firebase tools
