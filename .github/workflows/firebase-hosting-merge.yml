@@ -15,8 +15,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-#      - name: Install packages and build project
-#        run: npm ci && npm run build
+      - name: Install packages and build project
+        run: npm ci && npm run build
 
       - name: Install firebase tools
         run: sudo npm install -g firebase-tools
