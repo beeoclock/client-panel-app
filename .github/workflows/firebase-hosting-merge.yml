@@ -33,7 +33,7 @@ jobs:
       - name: Update target project
         run: firebase target:apply hosting panel-beeoclock-cloud-00000000000000 ${{ steps.auth_00000000000000.outputs.project_id }}
       - name: Firebase deploy
-        run: firebase deploy
+        run: firebase deploy --only hosting:panel-beeoclock-cloud-00000000000000
 
       # 00000000000001
 #      - name: Update target project 00000000000001
