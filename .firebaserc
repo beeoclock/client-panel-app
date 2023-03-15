@@ -1,5 +1,7 @@
 {
-  "projects": {},
+  "projects": {
+    "default": "beeoclock-cloud-00000000000000"
+  },
   "targets": {
     "beeoclock-cloud-00000000000000": {
       "hosting": {
@@ -7,7 +9,13 @@
           "beeoclock-cloud-00000000000000"
         ]
       }
+    },
+    "beeoclock-cloud-00000000000001": {
+      "hosting": {
+        "panel-beeoclock-cloud-00000000000001": [
+          "beeoclock-cloud-00000000000001"
+        ]
+      }
     }
-  },
-  "etags": {}
+  }
 }
