@@ -1,0 +1,230 @@
+$dark-grays: (
+  'black': $white,
+  '100': $gray-1100,
+  '200': $gray-1000,
+  '300': $gray-900,
+  '400': $gray-800,
+  '500': $gray-700,
+  '600': $gray-600,
+  '700': $gray-500,
+  '800': $gray-400,
+  '900': $gray-300,
+  '1000': $gray-200,
+  '1100': $gray-100,
+  'white': $black,
+) !default;
+
+$theme-dark-colors: (
+  'primary': $primary,
+  'secondary': $secondary,
+  'success': $success,
+  'info': $info,
+  'warning': $warning,
+  'danger': $danger,
+  'light': rgba(map-get($dark-grays, '200'), 0.25), //TODO
+  'dark': $light,
+) !default;
+
+$primary-bg-subtle-dark: shift-color($primary, 70%) !default;
+$secondary-bg-subtle-dark: shift-color($secondary, 70%) !default;
+$success-bg-subtle-dark: shift-color($success, 70%) !default;
+$info-bg-subtle-dark: shift-color($info, 70%) !default;
+$warning-bg-subtle-dark: shift-color($warning, 70%) !default;
+$danger-bg-subtle-dark: shift-color($danger, 70%) !default;
+$light-bg-subtle-dark: shift-color($light, 70%) !default;
+$dark-bg-subtle-dark: shift-color($dark, 70%) !default;
+
+// Dark color mode variables
+//
+// Custom variables for the `[data-bs-theme="dark"]` theme. Use this as a starting point for your own custom color modes by creating a new theme-specific file like `_variables-dark.scss` and adding the variables you need.
+
+//
+// Global colors
+//
+
+$body-dark: map-get($dark-grays, '200') !default;
+$body-color-dark: map-get($dark-grays, '700') !default;
+$body-bg-dark: map-get($dark-grays, '100') !default;
+$border-color-dark: rgba($white, 0.05) !default;
+
+$link-color-dark: map-get($theme-dark-colors, 'primary') !default;
+$link-hover-color-dark: shift-color($link-color-dark, $link-shade-percentage) !default;
+
+/* --------------------------------- Shadow --------------------------------- */
+$box-shadow-dark: 0 7px 14px 0 rgba(3, 12, 51, 0.15), 0 3px 6px 0 rgba(0, 0, 0, 0.2) !default;
+$box-shadow-sm-dark: 0 .125rem .25rem rgba($black, .075) !default;
+$box-shadow-lg-dark: 0 1rem 4rem rgba($black, 0.175) !default;
+$box-shadow-inset-dark: inset 0 1px 2px rgba($black, .075) !default;
+
+
+/* ---------------------------------- Form ---------------------------------- */
+$input-bg-dark: $dark !default;
+$input-color-dark: map-get($dark-grays, '900') !default;
+$input-border-color-dark: map-get($dark-grays, '300') !default;
+$input-focus-border-color-dark: shade-color($component-active-bg, 50%) !default;
+$input-placeholder-color-dark: map-get($grays, '900') !default;
+
+$form-check-input-border-color-dark: map-get($dark-grays, '400') !default;
+
+
+/* --------------------------------- Navbar --------------------------------- */
+$bg-navbar-glass-dark: rgba(map-get($dark-grays, '100'), 0.96) !default;
+
+$navbar-dark-color-dark: rgba($dark, .55) !default;
+$navbar-dark-hover-color-dark: rgba($dark, .75) !default;
+$navbar-dark-active-color-dark: $dark !default;
+$navbar-dark-disabled-color-dark: rgba($dark, .25) !default;
+$navbar-dark-toggler-border-color-dark: rgba($dark, .1) !default;
+
+$navbar-light-color-dark: rgba($white, .55) !default;
+$navbar-light-hover-color-dark: rgba($white, .7) !default;
+$navbar-light-active-color-dark: rgba($white, .9) !default;
+$navbar-light-disabled-color-dark: rgba($white, .3) !default;
+$navbar-light-toggler-border-color-dark: rgba($white, .1) !default;
+
+
+$navbar-light-brand-color-dark: map-get($theme-dark-colors, 'primary') !default;
+$navbar-dark-brand-color-dark: map-get($theme-dark-colors, 'primary') !default;
+
+// --------------------------- nav dropdown ------------------------------------
+$nav-dropdown-link-hover-bg-dark: lighten(map-get($dark-grays, '100'), 5%) !default;
+
+/* -------------------------------------------------------------------------- */
+/*                               Navbar Vertical                              */
+/* -------------------------------------------------------------------------- */
+
+/* --------------------------------- Default -------------------------------- */
+$navbar-vertical-default-link-color-dark: map-get($dark-grays, '700') !default;
+$navbar-vertical-default-link-hover-color-dark: map-get($dark-grays, '1000') !default;
+$navbar-vertical-default-link-active-color-dark: map-get($theme-dark-colors, 'primary') !default;
+$navbar-vertical-default-link-disable-color-dark: map-get($dark-grays, '400') !default;
+$navbar-vertical-default-hr-color-dark: rgba($white, 0.08) !default;
+$navbar-vertical-default-scrollbar-color-dark: rgba(map-get($dark-grays, '600'), 0.3) !default;
+
+/* ----------------------------- Navbar Card ---------------------------- */
+$navbar-vertical-card-hr-color-dark: rgba($white, 0.08) !default;
+$navbar-vertical-card-bg-color-dark: $card-bg-dark !default;
+
+/* -------------------------------------------------------------------------- */
+/*                           End Navbar Vertical                              */
+/* -------------------------------------------------------------------------- */
+
+/* ------------------------------ Reveal Button ----------------------------- */
+$btn-reveal-color-dark: dark !default;
+$btn-reveal-bg-dark: shade-color($dark, 10%) !default;
+$btn-reveal-border-color-dark: shade-color($dark, 12.5%) !default;
+
+/* ------------------------------ Falcon Button ----------------------------- */
+
+$btn-falcon-background-dark: var(--#{$prefix}body-bg) !default;
+$btn-disabled-color-dark: #4d5969 !default;
+$btn-falcon-box-shadow-dark: 0 0 0 1px rgba(0, 8, 19, .3), 0 2px 5px 0 rgba(0, 13, 33, .5), 0 1px 1.5px 0 rgba(0, 8, 1, .48), 0 1px 2px 0 rgba(0, 8, 1, .4) !default;
+$btn-falcon-hover-box-shadow-dark: 0 0 0 1px rgba(0, 8, 19, .3), 0 3px 7px 0 rgba(0, 13, 33, .8), 0 1px 1.5px 0 #000801, 0 1px 2px 0 #000801 !default;
+
+$btn-falcon-default-color-dark: map-get($dark-grays, '800') !default;
+$btn-falcon-default-hover-color-dark: shift-color(map-get($dark-grays, '800'), -17%) !default;
+$btn-falcon-default-active-background-dark: shade-color($dark, 10%) !default;
+$btn-falcon-default-active-border-dark: shift-color(map-get($dark-grays, '800'), -17%) !default;
+
+$transparent-50-dark: rgba($dark, 0.5) !default;
+
+/* --------------------------------- Avarar --------------------------------- */
+$avatar-status-border-color-dark: $dark !default;
+$avatar-name-bg-dark: map-get($dark-grays, '400') !default;
+$avatar-button-bg-dark: map-get($dark-grays, '400') !default;
+$avatar-button-hover-bg-dark: map-get($dark-grays, '500') !default;
+
+/* ------------------------------ Notification ------------------------------ */
+$notification-bg-dark: var(--#{$prefix}card-cap-bg) !default;
+$notification-title-bg-dark: map-get($dark-grays, '300') !default;
+$notification-unread-bg-dark: map-get($dark-grays, '200') !default;
+$notification-unread-hover-bg-dark: darken(map-get($dark-grays, '200'), 5%) !default;
+$notification-indicator-border-color-dark: #0a1727 !default;
+
+$code-color-dark: $pink !default;
+
+/* --------------------------------- Kanban --------------------------------- */
+$kanban-bg-dark: rgba(map-get($dark-grays, '200'), 0.25) !default;
+$kanban-item-bg-dark: map-get($dark-grays, '200') !default;
+$kanban-item-color-dark: map-get($dark-grays, '900') !default;
+$kanban-btn-add-hover-bg-dark: map-get($dark-grays, '200') !default;
+$kanban-draggable-source-dragging-bg-dark: map-get($dark-grays, '100') !default;
+$kanban-bg-attachment-bg-dark: map-get($dark-grays, '300') !default;
+$kanban-footer-color-dark: map-get($dark-grays, '600') !default;
+$kanban-nav-link-card-details-color-dark: map-get($dark-grays, '700') !default;
+$kanban-nav-link-card-details-hover-bg-dark: map-get($dark-grays, '300') !default;
+
+/* --------------------------- Gradient Background -------------------------- */
+$bg-shape-bg-dark: #01224b !default;
+$bg-shape-bg-ltd-dark: linear-gradient(-45deg, rgba(20, 58, 101, .41), #053571) !default;
+$bg-shape-bg-dtl-dark: linear-gradient(-45deg, #0a3b79, rgba(9, 25, 43, .41)) !default;
+
+$line-chart-gradient-dark: linear-gradient(45deg, #012552, #001835) !default;
+$card-gradient-dark: linear-gradient(45deg, #012552, #001835) !default;
+$bg-circle-shape-dark: linear-gradient(-45deg, rgba(9, 25, 43, .41), #0a3b79) !default;
+$bg-circle-shape-bg-dark: #4695ff !default;
+$modal-shape-header-dark: linear-gradient(-45deg, #012552, #001835) !default;
+$modal-shape-header-after-dark: linear-gradient(-45deg, rgba(20, 58, 101, .41), #053571) !default;
+$modal-shape-header-bg-dark: #01224b !default;
+
+/* ------------------------------ Full Calendar ----------------------------- */
+$fc-button-list-day-cushion-dark: $dark !default;
+$fc-page-bg-color-dark: $dark !default;
+$fc-neutral-bg-color-dark: map-get($dark-grays, '200') !default;
+
+/* -------------------------------- Flatpickr ------------------------------- */
+$flatpickr-calendar-bg-dark: $dark !default;
+
+/* -------------------------------- Flatpickr ------------------------------- */
+$leaflet-bar-bg-dark: map-get($dark-grays, '300') !default;
+$leaflet-popup-content-wrapper-bg-dark: $dark !default;
+
+/* --------------------------------- Choices -------------------------------- */
+$choices-item-has-no-choices-bg-dark: $dark !default;
+$bg-choices-close-button-dark: map-get($dark-grays, '400') !default;
+
+/* -------------------------------- Thumbnail ------------------------------- */
+$thumbnail-bg-dark: map-get($dark-grays, '200') !default;
+
+/* ---------------------------------- Chat ---------------------------------- */
+$chat-contact-bg-dark: #121e2d !default;
+
+/* --------------------------------- Tinymce -------------------------------- */
+$tinymce-bg-dark: $dark !default;
+
+/* --------------------------------- Swiper --------------------------------- */
+$swiper-nav-bg-dark: rgba($dark, 0.8) !default;
+
+/* --------------------------------- Wizard --------------------------------- */
+$theme-wizard-nav-item-circle-bg-dark: $dark !default;
+
+/* -------------------------------- Card Span ------------------------------- */
+$card-span-img-bg-dark: $dark !default;
+$card-span-img-box-shadow-dark: $box-shadow-sm !default;
+$card-span-img-hover-box-shadow-dark: $box-shadow !default;
+
+/* ------------------------------ showcase-page ------------------------------ */
+$setting-toggle-shadow-dark: 0 -7px 14px 0 rgba(3, 12, 51, 0.15), 0 3px 6px 0 rgba(0, 0, 0, 0.2) !default;
+
+/* -------------------------------- Scrollbar ------------------------------- */
+$scrollbar-bg-dark: rgba($gray-900, 0.6) !default;
+$simplebar-bg-dark: rgba($gray-400, 0.6) !default;
+
+
+/* ------------------------------- Falcon Pill ------------------------------ */
+$nav-pills-falcon-active-bg-color-dark: map-get($dark-grays, '100') !default;
+
+/* ------------------------------- Custom disabled button ------------------------------ */
+$btn-disabled-custom-background-dark: rgba($dark, 0.65) !default;
+$btn-disabled-custom-color-dark: rgba($white, 0.2) !default;
+
+/* ------------------------------- Accordion ------------------------------ */
+$accordion-border-color-dark: rgba($white, 0.125) !default;
+$accordion-bg-dark: $card-bg-dark !default;
+$accordion-color-dark: map-get($dark-grays, '700') !default;
+$accordion-button-icon-dark: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{map-get($dark-grays, '500')}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !default;
+$accordion-button-active-icon-dark: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{map-get($dark-grays, '500')}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !default;
+$accordion-button-color-dark: map-get($dark-grays, '500') !default;
+
+$form-select-indicator-color-dark: map-get($dark-grays, '400') !default;
+$form-select-indicator-dark: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='#{$form-select-indicator-color-dark}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/></svg>") !default;
