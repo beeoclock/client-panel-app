@@ -1,0 +1,21 @@
+/*-----------------------------------------------
+|   Card
+-----------------------------------------------*/
+.card {
+  box-shadow: var(--#{$prefix}box-shadow);
+}
+
+.card-link {
+  font-size: map_get($font-sizes, "-1");
+  font-weight: $font-weight-semi-bold;
+}
+
+.card-title {
+  font-weight: $font-weight-semi-bold;
+  font-size: map_get($font-sizes, 1);
+}
+
+.card-body:last-child {
+  border-bottom-left-radius: $card-border-radius;
+  border-bottom-right-radius: $card-border-radius;
+}

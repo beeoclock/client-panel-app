@@ -1,0 +1,107 @@
+//*-----------------------------------------------
+//|   Color System
+//-----------------------------------------------*/
+
+$white: #fff !default;
+$gray-100: #f9fafd !default;
+$gray-200: #edf2f9 !default;
+$gray-300: #d8e2ef !default;
+$gray-400: #b6c1d2 !default;
+$gray-500: #9da9bb !default;
+$gray-600: #748194 !default;
+$gray-700: #5e6e82 !default;
+$gray-800: #4d5969 !default;
+$gray-900: #344050 !default;
+$gray-1000: #232e3c !default;
+$gray-1100: #0b1727 !default;
+$black: #000 !default;
+
+
+$grays: (
+  'black': $black,
+  '100': $gray-100,
+  '200': $gray-200,
+  '300': $gray-300,
+  '400': $gray-400,
+  '500': $gray-500,
+  '600': $gray-600,
+  '700': $gray-700,
+  '800': $gray-800,
+  '900': $gray-900,
+  '1000': $gray-1000,
+  '1100': $gray-1100,
+  'white': $white,
+) !default;
+// $body-bg: $gray-200 !default;
+
+//*-----------------------------------------------
+//|   Solid Colors
+//-----------------------------------------------*/
+$blue: #2c7be5 !default;
+$indigo: #727cf5 !default;
+$purple: #6b5eae !default;
+$pink: #ff679b !default;
+$red: #e63757 !default;
+$orange: #fd7e14 !default;
+$yellow: #f5803e !default;
+$green: #00d27a !default;
+$teal: #02a8b5 !default;
+$cyan: #27bcfd !default;
+
+//*-----------------------------------------------
+//|   Theme Colors
+//-----------------------------------------------*/
+$primary: $blue !default;
+$secondary: $gray-600 !default;
+$success: $green !default;
+$info: $cyan !default;
+$warning: $yellow !default;
+$danger: $red !default;
+$light: $gray-100 !default;
+$dark: $gray-1100 !default;
+
+$theme-colors: (
+  'primary': $primary,
+  'secondary': $secondary,
+  'success': $success,
+  'info': $info,
+  'warning': $warning,
+  'danger': $danger,
+  'light': $light,
+  'dark': $dark,
+) !default;
+
+$primary-bg-subtle: tint-color($primary, 88%) !default;
+$secondary-bg-subtle: tint-color($secondary, 88%) !default;
+$success-bg-subtle: tint-color($success, 88%) !default;
+$info-bg-subtle: tint-color($info, 88%) !default;
+$warning-bg-subtle: tint-color($warning, 88%) !default;
+$danger-bg-subtle: tint-color($danger, 88%) !default;
+$light-bg-subtle: tint-color($light, 88%) !default;
+$dark-bg-subtle: tint-color($dark, 88%) !default;
+
+//*-----------------------------------------------
+//|   Brand colors
+//-----------------------------------------------*/
+$linkedin: #0077b5 !default;
+$facebook: #3c5a99 !default;
+$twitter: #1da1f2 !default;
+$google-plus: #dd4b39 !default;
+$github: #333333 !default;
+$youtube: #ff0001 !default;
+
+$brand-colors: (
+  'facebook': $facebook,
+  'google-plus': $google-plus,
+  'twitter': $twitter,
+  'linkedin': $linkedin,
+  'youtube': $youtube,
+  'github': $github,
+) !default;
+
+$icon-circle-colors: (
+  'primary': $primary,
+  'success': $success,
+  'info': $info,
+  'warning': $warning,
+) !default;

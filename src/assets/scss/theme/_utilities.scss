@@ -1,0 +1,233 @@
+/* -------------------------------------------------------------------------- */
+/*                                  Utilities                                 */
+/* -------------------------------------------------------------------------- */
+
+$utilities: () !default;
+$utilities: map_merge(
+    (
+      "opacity": (
+        property: opacity,
+        responsive: true,
+        values: $opacities,
+      ),
+      "font-family": (
+        property: font-family,
+        class: font,
+        values: (
+          monospace: var(--#{$prefix}font-monospace),
+          sans-serif: var(--#{$prefix}font-sans-serif),
+          base: var(--#{$prefix}font-base),
+        )
+      ),
+      "cursor": (
+        property: cursor,
+        values: (
+          default: default,
+          pointer: pointer,
+        )
+      ),
+      "transition": (
+        property: transition,
+        values: (
+          base: $transition-base,
+          none: none,
+        )
+      ),
+      "text-align": (
+        responsive: true,
+        property: text-align,
+        class: text,
+        values: (
+          start: left,
+          end: right,
+          center: center,
+          justify: justify,
+        )
+      ),
+      "font-weight": (
+        property: font-weight,
+        class: fw,
+        values: $font-weights,
+      ),
+      "font-size": (
+        property: font-size,
+        class: fs,
+        responsive: true,
+        values: $font-sizes,
+      ),
+      "position": (
+        property: position,
+        responsive: true,
+        values: $positions,
+      ),
+      "height": (
+        property: height,
+        class: h,
+        responsive: true,
+        values: $sizes,
+      ),
+      "width": (
+        property: width,
+        responsive: true,
+        class: w,
+        values: $sizes
+      ),
+      "min-viewport-height": (
+        property: min-height,
+        class: min-vh,
+        responsive: true,
+        values: $viewport-heights,
+      ),
+      "viewport-height": (
+        property: height,
+        class: vh,
+        responsive: true,
+        values: $viewport-heights,
+      ),
+      "max-viewport-height": (
+        property: max-height,
+        class: max-vh,
+        responsive: true,
+        values: $viewport-heights,
+      ),
+      "viewport-width": (
+        property: width,
+        class: vw,
+        responsive: true,
+        values: $viewport-widths,
+      ),
+      "border": (
+        property: border,
+        responsive: true,
+        values: (
+          null: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color),
+          0: 0
+        )
+      ),
+      "border-top-width": (
+        property: border-top-width,
+        responsive: true,
+        class: border-top,
+        values: map-merge((0: 0), $border-widths),
+      ),
+      "border-top": (
+        property: border-top,
+        responsive: true,
+        class: border-top,
+        values: (
+          null: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color),
+        )
+      ),
+      "border-end-width": (
+        property: border-right-width,
+        responsive: true,
+        class: border-end,
+        values: map-merge((0: 0), $border-widths),
+      ),
+      "border-end": (
+        property: border-right,
+        responsive: true,
+        class: border-end,
+        values: (
+          null: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color),
+        )
+      ),
+      "border-start-width": (
+        property: border-left-width,
+        responsive: true,
+        class: border-start,
+        values: map-merge((0: 0), $border-widths),
+      ),
+      "border-start": (
+        property: border-left,
+        responsive: true,
+        class: border-start,
+        values: (
+          null: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color),
+        )
+      ),
+      "border-bottom": (
+        property: border-bottom,
+        responsive: true,
+        class: border-bottom,
+        values: (
+          null: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color),
+        )
+      ),
+      "border-bottom-width": (
+        property: border-bottom-width,
+        responsive: true,
+        class: border-bottom,
+        values: map-merge((0: 0), $border-widths)
+      ),
+      "border-x": (
+        property: border-left-width border-right-width,
+        responsive: true,
+        class: border-x,
+        values: map-merge((0: 0), $border-widths),
+      ),
+      "border-y": (
+        property: border-top-width border-bottom-width,
+        responsive: true,
+        class: border-y,
+        values: map-merge((0: 0), $border-widths),
+      ),
+      "border-style": (
+        css-var: true,
+        css-variable-name: border-style,
+        class: border,
+        values: $border-styles
+      ),
+      "border-width": (
+        responsive: true,
+        css-var: true,
+        css-variable-name: border-width,
+        class: border,
+        values: $border-widths
+      ),
+      "border-color": false, // Preventing bootstrap to generate border colors
+      "subtle-border-color": false, // Preventing bootstrap to generate border subtle colors
+      // scss-docs-start utils-border-radius
+      "rounded": (
+        responsive: true,
+        property: border-radius,
+        class: rounded,
+        values: $border-radiuses
+      ),
+      "rounded-top": (
+        responsive: true,
+        property: border-top-left-radius border-top-right-radius,
+        class: rounded-top,
+        values: $border-radiuses
+      ),
+      "rounded-end": (
+        responsive: true,
+        property: border-top-right-radius border-bottom-right-radius,
+        class: rounded-end,
+        values: $border-radiuses
+      ),
+      "rounded-bottom": (
+        responsive: true,
+        property: border-bottom-right-radius border-bottom-left-radius,
+        class: rounded-bottom,
+        values: $border-radiuses
+      ),
+      "rounded-start": (
+        responsive: true,
+        property: border-bottom-left-radius border-top-left-radius,
+        class: rounded-start,
+        values: $border-radiuses
+      ),
+      "translate-middle": (
+        property: transform,
+        class: translate-middle,
+        responsive: true,
+        values: (
+          null: (translateX(-50%) translateY(-50%)),
+          x: translateX(-50%),
+          y: translateY(-50%),
+        )
+      ),
+    ),
+    $utilities
+);
