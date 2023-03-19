@@ -32,6 +32,17 @@ TODO
 19. Open project and open file in the path: client-panel-app/.github/workflows/firebase-hosting-merge.yml
 20. Duplicate last section of the file (pattern name of section `# Section: {{name_14_length}}`)
 21. Change duplication `{{name_14_length}}` (this is pattern) in the new last section on the new client `{{name_14_length}}` (this is pattern).
+22. Open firebase and go to `Project settings > General`
+23. Scroll to `Your apps` and add a new application of `web`
+24. App nickname: `panel-beeoclock-cloud-{{name_14_length}}`
+25. Also set up Firebase Hosting for this app - select `panel-beeoclock-cloud-{{name_14_length}}`
+26. Register APP
+27. Copy value of firebaseConfig variable
+28. Return back to project and create new environment file in `src/environments` like `environment.beeoclock-cloud-{{name_14_length}}.ts`
+29. Open file and create new property `firebase` and paste there the copied data
+30. Return back on the firebase website and click `next` btn
+31. Again `next` and click on `Continue on console`
+32. 
 
 ### Generate random name of client {{name_14_length}}
 1. Open the site: [https://onlinetools.com/random/generate-random-string](https://onlinetools.com/random/generate-random-string)
