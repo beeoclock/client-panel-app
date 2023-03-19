@@ -63,6 +63,24 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "beeoclock-cloud-00000000000000": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.beeoclock-cloud-00000000000000.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "beeoclock-cloud-00000000000001": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.beeoclock-cloud-00000000000001.ts"
+                }
+              ],
+              "outputHashing": "all"
             }
           },
           "defaultConfiguration": "production"

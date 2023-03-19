@@ -42,7 +42,9 @@ TODO
 29. Open file and create new property `firebase` and paste there the copied data
 30. Return back on the firebase website and click `next` btn
 31. Again `next` and click on `Continue on console`
-32. 
+32. Return back to project and open `angular.json` file
+33. Find `beeoclock-cloud-00000000000000` in `configuration` and create duplication the config
+34. Change all names in duplication from `beeoclock-cloud-00000000000000` to `beeoclock-cloud-{{name_14_length}}`
 
 ### Generate random name of client {{name_14_length}}
 1. Open the site: [https://onlinetools.com/random/generate-random-string](https://onlinetools.com/random/generate-random-string)
