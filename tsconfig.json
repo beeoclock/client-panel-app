@@ -23,7 +23,54 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@src/*": [
+        "./src/*"
+      ],
+      "@environments/*": [
+        "./src/environments/*"
+      ],
+      "@assets/*": [
+        "./src/assets/*"
+      ],
+      "@scss/*": [
+        "./src/assets/scss/*"
+      ],
+      "@icon/*": [
+        "./src/assets/icon/*"
+      ],
+      "@app/*": [
+        "./src/app/*"
+      ],
+      "@domains/*": [
+        "./src/domains/*"
+      ],
+      "@company/*": [
+        "./src/domains/company/*"
+      ],
+      "@customer/*": [
+        "./src/domains/customer/*"
+      ],
+      "@event/*": [
+        "./src/domains/event/*"
+      ],
+      "@identity/*": [
+        "./src/domains/identity/*"
+      ],
+      "@service/*": [
+        "./src/domains/service/*"
+      ],
+      "@specialist/*": [
+        "./src/domains/specialist/*"
+      ],
+      "@user/*": [
+        "./src/domains/user/*"
+      ],
+      "@utility/*": [
+        "./src/domains/utility/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -15,7 +15,24 @@
     "preset": "jest-preset-angular",
     "setupFilesAfterEnv": [
       "<rootDir>/setup-jest.ts"
-    ]
+    ],
+    "moduleNameMapper": {
+      "@src/(.*)": "<rootDir>/src/$1",
+      "@environments/(.*)": "<rootDir>/src/environments/$1",
+      "@assets/(.*)": "<rootDir>/src/assets/$1",
+      "@scss/(.*)": "<rootDir>/src/assets/scss/$1",
+      "@icon/(.*)": "<rootDir>/src/assets/icon/$1",
+      "@app/(.*)": "<rootDir>/src/app/$1",
+      "@domains/(.*)": "<rootDir>/src/domains/$1",
+      "@utility/(.*)": "<rootDir>/src/domains/utility/$1",
+      "@identity/(.*)": "<rootDir>/src/domains/identity/$1",
+      "@company/(.*)": "<rootDir>/src/domains/company/$1",
+      "@customer/(.*)": "<rootDir>/src/domains/customer/$1",
+      "@event/(.*)": "<rootDir>/src/domains/event/$1",
+      "@service/(.*)": "<rootDir>/src/domains/service/$1",
+      "@specialist/(.*)": "<rootDir>/src/domains/specialist/$1",
+      "@user/(.*)": "<rootDir>/src/domains/user/$1"
+    }
   },
   "private": true,
   "dependencies": {
