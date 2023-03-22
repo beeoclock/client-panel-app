@@ -40,6 +40,7 @@
           "error",
           {
             "suffixes": [
+              "Index",
               "Page",
               "Component"
             ]

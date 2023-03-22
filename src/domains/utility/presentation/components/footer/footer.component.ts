@@ -1,11 +1,11 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 
 @Component({
-  selector: 'identity-confirm-email-page',
-  templateUrl: 'page.html',
   standalone: true,
+  selector: 'utility-footer-component',
+  templateUrl: 'footer.component.html',
   encapsulation: ViewEncapsulation.None
 })
-export default class Page {
+export default class FooterComponent {
 
 }

@@ -1,11 +1,11 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 
 @Component({
-  selector: 'identity-login-page',
-  templateUrl: 'page.html',
+  selector: 'identity-reset-password-page',
+  templateUrl: 'index.html',
   standalone: true,
   encapsulation: ViewEncapsulation.None
 })
-export default class Page {
+export default class Index {
 
 }
