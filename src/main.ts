@@ -10,6 +10,8 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {provideRouter, Routes} from '@angular/router';
+import WrapperPanelComponent from '@utility/presentation/components/wrapper-panel/wrapper-panel.component';
+import WrapperIdentityComponent from '@utility/presentation/components/wrapper-identity/wrapper-identity.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -19,17 +21,29 @@ export function HttpLoaderFactory(http: HttpClient) {
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: '/identity',
+    component: WrapperPanelComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: '/identity',
+      },
+      {
+        path: 'utility',
+        loadChildren: () => import('@utility/presentation')
+      },
+    ]
   },
   {
     path: 'identity',
+    component: WrapperIdentityComponent,
     // canActivate: [AuthorizationGuard],
-    loadChildren: () => import('@identity/presentation')
-  },
-  {
-    path: 'utility',
-    loadChildren: () => import('@utility/presentation')
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('@identity/presentation')
+      },
+    ]
   },
   {
     path: '**',
