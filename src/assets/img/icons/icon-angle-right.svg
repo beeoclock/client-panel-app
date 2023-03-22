@@ -1,0 +1,24 @@
+<svg viewBox="0 0 34.33 34.33" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>.cls-1, .cls-2 {
+      fill: none;
+    }
+
+    .cls-2 {
+      stroke: #157dfb;
+      stroke-miterlimit: 10;
+      stroke-width: 6px;
+    }</style>
+  </defs>
+  <title>Asset 2octa</title>
+  <g data-name="Layer 2" id="Layer_2">
+    <g data-name="Layer 1" id="Layer_1-2">
+      <rect class="cls-1" height="34.33" width="34.33"/>
+      <g data-name="Layer 2" id="Layer_2-2">
+        <g data-name="Layer 1-2" id="Layer_1-2-2">
+          <polyline class="cls-2" points="11.02 5.09 23.32 16.95 11.45 29.25"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
