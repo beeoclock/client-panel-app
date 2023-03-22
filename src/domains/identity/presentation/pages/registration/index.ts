@@ -1,11 +1,11 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 
 @Component({
-  selector: 'identity-confirm-email-page',
-  templateUrl: 'page.html',
+  selector: 'identity-registration-page',
+  templateUrl: 'index.html',
   standalone: true,
   encapsulation: ViewEncapsulation.None
 })
-export default class Page {
+export default class Index {
 
 }

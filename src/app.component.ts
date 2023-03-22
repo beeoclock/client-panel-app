@@ -1,10 +1,15 @@
-import {AfterViewInit, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, ViewEncapsulation} from '@angular/core';
 import {RouterModule} from '@angular/router';
+import SidebarComponent from '@utility/presentation/components/sidebar/sidebar.component';
+import CustomizeComponent from '@utility/presentation/components/customize/customize.component';
+import NavbarComponent from '@utility/presentation/components/navbar/navbar.component';
+import FooterComponent from '@utility/presentation/components/footer/footer.component';
+import ModalComponent from '@utility/presentation/components/modal/modal.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, SidebarComponent, CustomizeComponent, NavbarComponent, FooterComponent, ModalComponent],
   templateUrl: 'app.component.html',
   encapsulation: ViewEncapsulation.None
 })

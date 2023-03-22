@@ -1,11 +1,11 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 
 @Component({
-  selector: 'utility-not-found-page',
-  template: `Not found!`,
+  selector: 'utility-dashboard-page',
+  templateUrl: 'index.html',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
 })
-export default class Page {
+export default class Index {
 
 }

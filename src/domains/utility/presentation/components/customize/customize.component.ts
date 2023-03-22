@@ -1,11 +1,11 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 
 @Component({
-  selector: 'identity-registration-page',
-  templateUrl: 'page.html',
   standalone: true,
+  selector: 'utility-customize-component',
+  templateUrl: 'customize.component.html',
   encapsulation: ViewEncapsulation.None
 })
-export default class Page {
+export default class CustomizeComponent {
 
 }

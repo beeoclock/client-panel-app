@@ -25,11 +25,11 @@ const routes: Routes = [
   {
     path: 'identity',
     // canActivate: [AuthorizationGuard],
-    loadChildren: () => import('@identity/presentation/router')
+    loadChildren: () => import('@identity/presentation')
   },
   {
-    path: 'utility/not-found',
-    loadChildren: () => import('@utility/presentation/router')
+    path: 'utility',
+    loadChildren: () => import('@utility/presentation')
   },
   {
     path: '**',
@@ -59,4 +59,4 @@ bootstrapApplication(AppComponent, {
       }
     }))
   ]
-})
+}).catch(e => console.error(e));
