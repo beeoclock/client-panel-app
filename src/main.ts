@@ -1,7 +1,7 @@
 // import {HttpLoaderFactory} from './app.module';
 import {bootstrapApplication, BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from '@src/app.component';
-import {importProvidersFrom} from '@angular/core';
+import {enableProdMode, importProvidersFrom} from '@angular/core';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {environment} from '@environments/environment';
 import {getAuth, provideAuth} from '@angular/fire/auth';
@@ -36,6 +36,10 @@ const routes: Routes = [
     redirectTo: '/utility/not-found',
   }
 ];
+
+if (environment.production) {
+  enableProdMode();
+}
 
 bootstrapApplication(AppComponent, {
   providers: [
