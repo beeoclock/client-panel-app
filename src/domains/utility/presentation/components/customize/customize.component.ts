@@ -6,6 +6,6 @@ import {Component, ViewEncapsulation} from '@angular/core';
   templateUrl: 'customize.component.html',
   encapsulation: ViewEncapsulation.None
 })
-export default class CustomizeComponent {
+export class CustomizeComponent {
 
 }

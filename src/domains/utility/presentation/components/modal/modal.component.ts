@@ -6,6 +6,6 @@ import {Component, ViewEncapsulation} from '@angular/core';
   templateUrl: 'modal.component.html',
   encapsulation: ViewEncapsulation.None
 })
-export default class ModalComponent {
+export class ModalComponent {
 
 }
