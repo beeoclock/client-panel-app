@@ -1,4 +1,7 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, ViewEncapsulation} from '@angular/core';
+import {utils} from '@src/scripts/utls';
+import {navbarTopDropShadow} from '@src/scripts/navbar-top';
+import {searchInit} from '@src/scripts/search';
 
 @Component({
   standalone: true,
@@ -9,6 +12,13 @@ import {Component, ViewEncapsulation} from '@angular/core';
     'class': 'navbar navbar-light navbar-glass navbar-top navbar-expand'
   }
 })
-export default class NavbarComponent {
+export class NavbarComponent implements AfterViewInit {
+
+  public ngAfterViewInit(): void {
+
+    utils.docReady(navbarTopDropShadow);
+    utils.docReady(searchInit);
+
+  }
 
 }

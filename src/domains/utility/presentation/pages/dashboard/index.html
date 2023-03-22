@@ -1,81 +1,4 @@
-<div class="row g-3">
-  <div class="col-xxl-9">
-    <div class="card rounded-3 overflow-hidden h-100">
-      <div class="card-body bg-line-chart-gradient d-flex flex-column justify-content-between">
-        <div class="row align-items-center g-0">
-          <div class="col" data-bs-theme="light">
-            <h4 class="text-white mb-0">Today $764.39</h4>
-            <p class="fs--1 fw-semi-bold text-white">Yesterday <span class="opacity-50">$684.87</span></p>
-          </div>
-          <div class="col-auto d-none d-sm-block">
-            <select class="form-select form-select-sm mb-3" id="dashboard-chart-select">
-              <option value="all">All Payments</option>
-              <option selected="selected" value="successful">Successful Payments</option>
-              <option value="failed">Failed Payments</option>
-            </select>
-          </div>
-        </div>
-        <!-- Find the JS file for the following calendar at: src/js/charts/echarts/line-payment.js-->
-        <!-- If you are not using gulp based workflow, you can find the transpiled code at: public/assets/js/theme.js-->
-        <div class="echart-line-payment" data-echart-responsive="true" style="height:200px"></div>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="row g-3">
-      <div class="col-md-4 col-xxl-12">
-        <div class="card h-100">
-          <div class="card-body">
-            <div class="row flex-between-center g-0">
-              <div class="col-6 d-lg-block flex-between-center">
-                <h6 class="mb-2 text-900">Active Users</h6>
-                <h4 class="fs-3 fw-normal text-700 mb-0">765k</h4>
-              </div>
-              <div class="col-auto h-100">
-                <div data-echarts='{"xAxis":{"show":false,"boundaryGap":false},"series":[{"data":[3,7,6,8,5,12,11],"type":"line","symbol":"none"}],"grid":{"right":"0px","left":"0px","bottom":"0px","top":"0px"}}'
-                     style="height:50px;min-width:80px;"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 col-xxl-12">
-        <div class="card h-100">
-          <div class="card-body">
-            <div class="row flex-between-center">
-              <div class="col d-md-flex d-lg-block flex-between-center">
-                <h6 class="mb-md-0 mb-lg-2">Revenue</h6><span
-                class="badge rounded-pill badge-subtle-success"><span
-                class="fas fa-caret-up"></span> 61.8%</span>
-              </div>
-              <div class="col-auto">
-                <h4 class="fs-3 fw-normal text-700"
-                    data-countup='{"endValue":82.18,"decimalPlaces":2,"suffix":"M","prefix":"$"}'>0</h4>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 col-xxl-12">
-        <div class="card h-100">
-          <div class="card-body">
-            <div class="row flex-between-center">
-              <div class="col d-md-flex d-lg-block flex-between-center">
-                <h6 class="mb-md-0 mb-lg-2">Conversion</h6><span
-                class="badge rounded-pill badge-subtle-primary"><span
-                class="fas fa-caret-up"></span> 29.4%</span>
-              </div>
-              <div class="col-auto">
-                <h4 class="fs-3 fw-normal text-primary"
-                    data-countup='{"endValue":28.5,"decimalPlaces":2,"suffix":"%"}'>0</h4>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
 <div class="row g-3 mb-3">
   <div class="col-xxl-9">
     <div class="card bg-light my-3">
@@ -268,109 +191,47 @@
                 <p class="text-500 fs--2 mb-0">Editor</p>
               </div>
             </div>
-            <div class="d-flex align-items-center position-relative mb-3">
-              <div class="avatar avatar-2xl status-offline">
-                <img alt="" class="rounded-circle" src="assets/img/team/6.jpg"/>
-
-              </div>
-              <div class="flex-1 ms-3">
-                <h6 class="mb-0 fw-semi-bold"><a class="stretched-link text-900"
-                                                 href="../pages/user/profile.html">Bucky Robert</a></h6>
-                <p class="text-500 fs--2 mb-0">Editor</p>
-              </div>
-            </div>
-            <div class="d-flex align-items-center position-relative false">
-              <div class="avatar avatar-2xl status-offline">
-                <img alt="" class="rounded-circle" src="assets/img/team/7.jpg"/>
-
-              </div>
-              <div class="flex-1 ms-3">
-                <h6 class="mb-0 fw-semi-bold"><a class="stretched-link text-900"
-                                                 href="../pages/user/profile.html">Tom Hanks</a></h6>
-                <p class="text-500 fs--2 mb-0">Editor</p>
-              </div>
-            </div>
           </div>
           <div class="card-footer bg-light p-0"><a class="btn btn-sm btn-link d-block w-100 py-2"
                                                    href="../app/social/followers.html">All active users<span
             class="fas fa-chevron-right ms-1 fs--2"></span></a></div>
         </div>
       </div>
-      <div class="col-lg-8">
-        <div class="card h-100">
-          <div class="card-header">
-            <div class="row justify-content-between gx-0">
-              <div class="col-auto">
-                <h1 class="fs-0 text-900">Gross revenue</h1>
-                <div class="d-flex">
-                  <h4 class="text-primary mb-0">$165.50</h4>
-                  <div class="ms-3"><span class="badge rounded-pill badge-subtle-primary"><span
-                    class="fas fa-caret-up"></span> 5%</span></div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <select class="form-select form-select-sm pe-4" id="select-gross-revenue-month">
-                  <option value="0">Jan</option>
-                  <option value="1">Feb</option>
-                  <option value="2">Mar</option>
-                  <option value="3">Apr</option>
-                  <option value="4">May</option>
-                  <option value="5">Jun</option>
-                  <option value="6">Jul</option>
-                  <option value="7">Aug</option>
-                  <option value="8">Sep</option>
-                  <option value="9">Oct</option>
-                  <option value="10">Nov</option>
-                  <option value="11">Dec</option>
-                </select>
-              </div>
+      <div class="col-lg-4">
+
+        <div class="card">
+          <div class="card-body px-4 py-3 my-2">
+            <h4 class="text-800">More with Falcon</h4>
+            <h5 class="text-600 fs-0">Get <span class="text-primary fw-semi-bold">70% OFF </span>with Falcon+
+            </h5>
+            <div class="alert alert-success mt-3">
+              <h3 class="mb-0 text-800">$29<span class="fs-0 fw-medium font-sans-serif text-600">/month</span>
+              </h3>
             </div>
-          </div>
-          <div class="card-body pt-0 pb-3 h-100">
-            <div class="mx-nx1">
-              <table class="table table-borderless font-sans-serif fw-medium fs--1">
-                <tr>
-                  <td class="pb-2 pt-0">Point of sale</td>
-                  <td class="pb-2 pt-0 text-end" style="width: 20%">$791.64</td>
-                  <td class="pb-2 pt-0 text-end text-700" style="max-width: 20%"><span
-                    class="me-1 fas fa-long-arrow-alt-down text-danger"></span>13%
-                  </td>
-                </tr>
-                <tr>
-                  <td class="pb-2 pt-0">Online Store</td>
-                  <td class="pb-2 pt-0 text-end" style="width: 20%">$113.86</td>
-                  <td class="pb-2 pt-0 text-end text-700" style="max-width: 20%"><span
-                    class="me-1 fas fa-long-arrow-alt-up text-success"></span>178%
-                  </td>
-                </tr>
-                <tr>
-                  <td class="pb-2 pt-0">Online Store</td>
-                  <td class="pb-2 pt-0 text-end" style="width: 20%">$0.00</td>
-                  <td class="pb-2 pt-0 text-end text-700" style="max-width: 20%"><span
-                    class="me-1 false text-success"></span>-
-                  </td>
-                </tr>
-              </table>
-              <!-- Find the JS file for the following calendar at: src/js/charts/echarts/gross-revenue.js-->
-              <!-- If you are not using gulp based workflow, you can find the transpiled code at: public/assets/js/theme.js-->
-              <div class="echart-gross-revenue-chart px-3 h-100" data-echart-responsive="true"
-                   data-options='{"target":"gross-revenue-footer","monthSelect":"select-gross-revenue-month","optionOne":"currentMonth","optionTwo":"prevMonth"}'></div>
-            </div>
-          </div>
-          <div class="card-footer border-top py-2 d-flex flex-between-center">
-            <div class="d-flex" id="gross-revenue-footer">
-              <div class="btn btn-sm btn-text d-flex align-items-center p-0 shadow-none" data-month="current"
-                   id="currentMonth"><span class="fas fa-circle text-primary fs--2 me-1"></span><span
-                class="text">Jan</span></div>
-              <div class="btn btn-sm btn-text d-flex align-items-center p-0 shadow-none ms-2" data-month="prev"
-                   id="prevMonth"><span class="fas fa-circle text-300 fs--2 me-1"></span><span
-                class="text">Dec</span></div>
-            </div>
-            <a class="btn btn-link btn-sm px-0" href="#!">View report<span
-              class="fas fa-chevron-right ms-1 fs--2"></span></a>
+            <ul class="fa-ul ms-2 ps-x1 mb-2">
+              <li class="py-1">
+                <h6 class="text-700"><span class="fa-li text-success"><i class="fas fa-infinity"></i></span>Unlimited
+                  downloads</h6>
+              </li>
+              <li class="py-1">
+                <h6 class="text-700"><span class="fa-li text-success"><i class="fas fa-check"></i></span>Commercial
+                  use</h6>
+              </li>
+              <li class="py-1">
+                <h6 class="text-700"><span class="fa-li text-success"><i class="fas fa-check"></i></span>100%
+                  moneyback guarantee</h6>
+              </li>
+              <li class="py-1">
+                <h6 class="text-700"><span class="fa-li text-success"><i class="fas fa-check"></i></span>Lifetime
+                  free updates</h6>
+              </li>
+            </ul>
+            <button class="btn btn-success w-100"><span class="fas fa-crown me-2"></span>Upgrade to Falcon+
+            </button>
           </div>
         </div>
       </div>
+
     </div>
   </div>
   <div class="col">
@@ -523,39 +384,6 @@
               </div>
               <div class="col-auto"><a class="fs--1 font-sans-serif" href="#!">Help</a></div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md col-xxl-12">
-        <div class="card">
-          <div class="card-body px-4 py-3 my-2">
-            <h4 class="text-800">More with Falcon</h4>
-            <h5 class="text-600 fs-0">Get <span class="text-primary fw-semi-bold">70% OFF </span>with Falcon+
-            </h5>
-            <div class="alert alert-success mt-3">
-              <h3 class="mb-0 text-800">$29<span class="fs-0 fw-medium font-sans-serif text-600">/month</span>
-              </h3>
-            </div>
-            <ul class="fa-ul ms-2 ps-x1 mb-2">
-              <li class="py-1">
-                <h6 class="text-700"><span class="fa-li text-success"><i class="fas fa-infinity"></i></span>Unlimited
-                  downloads</h6>
-              </li>
-              <li class="py-1">
-                <h6 class="text-700"><span class="fa-li text-success"><i class="fas fa-check"></i></span>Commercial
-                  use</h6>
-              </li>
-              <li class="py-1">
-                <h6 class="text-700"><span class="fa-li text-success"><i class="fas fa-check"></i></span>100%
-                  moneyback guarantee</h6>
-              </li>
-              <li class="py-1">
-                <h6 class="text-700"><span class="fa-li text-success"><i class="fas fa-check"></i></span>Lifetime
-                  free updates</h6>
-              </li>
-            </ul>
-            <button class="btn btn-success w-100"><span class="fas fa-crown me-2"></span>Upgrade to Falcon+
-            </button>
           </div>
         </div>
       </div>

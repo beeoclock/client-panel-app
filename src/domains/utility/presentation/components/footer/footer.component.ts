@@ -6,6 +6,6 @@ import {Component, ViewEncapsulation} from '@angular/core';
   templateUrl: 'footer.component.html',
   encapsulation: ViewEncapsulation.None
 })
-export default class FooterComponent {
+export class FooterComponent {
 
 }
