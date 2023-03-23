@@ -132,31 +132,31 @@ $column-header-height + $horizontal-scroll-height); // Except column footer heig
 }
 
 // Update Draggable default styles
-.draggable--is-dragging * {
-  cursor: grab !important;
-}
+//.draggable--is-dragging * {
+//  cursor: grab !important;
+//}
 
-.draggable-source--is-dragging {
-  background-color: var(--#{$prefix}kanban-draggable-source-dragging-bg) !important;
-  box-shadow: none !important;
-  border-radius: $border-radius-lg;
+//.draggable-source--is-dragging {
+//  background-color: var(--#{$prefix}kanban-draggable-source-dragging-bg) !important;
+//  box-shadow: none !important;
+//  border-radius: $border-radius-lg;
+//
+//  * {
+//    opacity: 0;
+//  }
+//}
 
-  * {
-    opacity: 0;
-  }
-}
+//.add-card-form + .draggable-source--is-dragging {
+//  margin-top: 0 !important;
+//}
 
-.add-card-form + .draggable-source--is-dragging {
-  margin-top: 0 !important;
-}
-
-.draggable-mirror {
-  z-index: 1100;
-
-  .kanban-item-card {
-    transform: rotate(-2deg);
-  }
-}
+//.draggable-mirror {
+//  z-index: 1100;
+//
+//  .kanban-item-card {
+//    transform: rotate(-2deg);
+//  }
+//}
 
 button.btn-circle {
   width: 2.5rem;
@@ -179,12 +179,12 @@ button.btn-circle {
   margin-right: map_get($spacers, 3);
 }
 
-div[data-collapse],
-.draggable--original:first-child {
-  + .kanban-item {
-    margin-top: 0;
-  }
-}
+//div[data-collapse],
+//.draggable--original:first-child {
+//  + .kanban-item {
+//    margin-top: 0;
+//  }
+//}
 
 .nav-link-card-details {
   background-color: var(--#{$prefix}kanban-bg);

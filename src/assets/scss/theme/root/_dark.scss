@@ -169,7 +169,7 @@
     --#{$prefix}kanban-item-bg: #{$kanban-item-bg-dark};
     --#{$prefix}kanban-item-color: #{$kanban-item-color-dark};
     --#{$prefix}kanban-btn-add-hover-bg: #{$kanban-btn-add-hover-bg-dark};
-    --#{$prefix}kanban-draggable-source-dragging-bg: #{$kanban-draggable-source-dragging-bg-dark};
+    //--#{$prefix}kanban-draggable-source-dragging-bg: #{$kanban-draggable-source-dragging-bg-dark};
     --#{$prefix}kanban-bg-attachment-bg: #{$kanban-bg-attachment-bg-dark};
     --#{$prefix}kanban-footer-color: #{$kanban-footer-color-dark};
     --#{$prefix}kanban-nav-link-card-details-color: #{$kanban-nav-link-card-details-color-dark};
@@ -202,8 +202,8 @@
     //--#{$prefix}leaflet-popup-content-wrapper-bg: #{$leaflet-popup-content-wrapper-bg-dark};
 
     /* --------------------------------- Choices -------------------------------- */
-    --#{$prefix}choices-item-has-no-choices-bg: #{$choices-item-has-no-choices-bg-dark};
-    --#{$prefix}bg-choices-close-button: #{$bg-choices-close-button-dark};
+    //--#{$prefix}choices-item-has-no-choices-bg: #{$choices-item-has-no-choices-bg-dark};
+    //--#{$prefix}bg-choices-close-button: #{$bg-choices-close-button-dark};
 
     /* -------------------------------- Thumbnail ------------------------------- */
     --#{$prefix}thumbnail-bg: #{$thumbnail-bg-dark};

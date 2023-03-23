@@ -336,7 +336,7 @@
   --#{$prefix}kanban-item-bg: #{map-get($grays, 'white')};
   --#{$prefix}kanban-item-color: #{map-get($grays, '900')};
   --#{$prefix}kanban-btn-add-hover-bg: #{map-get($grays, '200')};
-  --#{$prefix}kanban-draggable-source-dragging-bg: #{map-get($grays, '200')};
+  //--#{$prefix}kanban-draggable-source-dragging-bg: #{map-get($grays, '200')};
   --#{$prefix}kanban-bg-attachment-bg: #{map-get($grays, '300')};
   --#{$prefix}kanban-footer-color: #{map-get($grays, '600')};
   --#{$prefix}kanban-nav-link-card-details-color: #{map-get($grays, '700')};
@@ -372,9 +372,9 @@
   //--#{$prefix}leaflet-popup-content-wrapper-bg: #{$white};
 
   /* --------------------------------- Choices -------------------------------- */
-  --#{$prefix}choices-item-selectable-highlighted-bg: #{$white};
-  --#{$prefix}choices-item-has-no-choices-bg: #{$white};
-  --#{$prefix}bg-choices-close-button: #{map-get($grays, '200')};
+  //--#{$prefix}choices-item-selectable-highlighted-bg: #{$white};
+  //--#{$prefix}choices-item-has-no-choices-bg: #{$white};
+  //--#{$prefix}bg-choices-close-button: #{map-get($grays, '200')};
 
 
   /* -------------------------------- Thumbnail ------------------------------- */

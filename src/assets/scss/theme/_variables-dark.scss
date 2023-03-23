@@ -148,7 +148,7 @@ $kanban-bg-dark: rgba(map-get($dark-grays, '200'), 0.25) !default;
 $kanban-item-bg-dark: map-get($dark-grays, '200') !default;
 $kanban-item-color-dark: map-get($dark-grays, '900') !default;
 $kanban-btn-add-hover-bg-dark: map-get($dark-grays, '200') !default;
-$kanban-draggable-source-dragging-bg-dark: map-get($dark-grays, '100') !default;
+//$kanban-draggable-source-dragging-bg-dark: map-get($dark-grays, '100') !default;
 $kanban-bg-attachment-bg-dark: map-get($dark-grays, '300') !default;
 $kanban-footer-color-dark: map-get($dark-grays, '600') !default;
 $kanban-nav-link-card-details-color-dark: map-get($dark-grays, '700') !default;
@@ -180,8 +180,8 @@ $fc-neutral-bg-color-dark: map-get($dark-grays, '200') !default;
 //$leaflet-popup-content-wrapper-bg-dark: $dark !default;
 
 /* --------------------------------- Choices -------------------------------- */
-$choices-item-has-no-choices-bg-dark: $dark !default;
-$bg-choices-close-button-dark: map-get($dark-grays, '400') !default;
+//$choices-item-has-no-choices-bg-dark: $dark !default;
+//$bg-choices-close-button-dark: map-get($dark-grays, '400') !default;
 
 /* -------------------------------- Thumbnail ------------------------------- */
 $thumbnail-bg-dark: map-get($dark-grays, '200') !default;
