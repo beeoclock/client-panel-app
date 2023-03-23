@@ -173,11 +173,11 @@ $fc-page-bg-color-dark: $dark !default;
 $fc-neutral-bg-color-dark: map-get($dark-grays, '200') !default;
 
 /* -------------------------------- Flatpickr ------------------------------- */
-$flatpickr-calendar-bg-dark: $dark !default;
+//$flatpickr-calendar-bg-dark: $dark !default;
 
 /* -------------------------------- Flatpickr ------------------------------- */
-$leaflet-bar-bg-dark: map-get($dark-grays, '300') !default;
-$leaflet-popup-content-wrapper-bg-dark: $dark !default;
+//$leaflet-bar-bg-dark: map-get($dark-grays, '300') !default;
+//$leaflet-popup-content-wrapper-bg-dark: $dark !default;
 
 /* --------------------------------- Choices -------------------------------- */
 $choices-item-has-no-choices-bg-dark: $dark !default;
