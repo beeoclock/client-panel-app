@@ -13,26 +13,17 @@ import {scrollInit} from '@src/scripts/scroll';
   selector: 'utility-wrapper-panel-component',
   standalone: true,
   template: `
-    <!-- ===============================================-->
-    <!--    Main Content-->
-    <!-- ===============================================-->
     <main class="main" id="top">
       <div class="container" data-layout="container">
         <utility-sidebar-component></utility-sidebar-component>
         <div class="content">
           <utility-navbar-component></utility-navbar-component>
-          <!--      Content-->
           <router-outlet></router-outlet>
-
-          <!--      Content-->
           <utility-footer-component></utility-footer-component>
         </div>
         <utility-modal-component></utility-modal-component>
       </div>
     </main>
-    <!-- ===============================================-->
-    <!--    End of Main Content-->
-    <!-- ===============================================-->
     <utility-customize-component></utility-customize-component>
 
   `,

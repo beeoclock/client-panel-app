@@ -121,7 +121,7 @@ export const themeControl = () => {
       utils.setItemToStore("navbarPosition", e.target.value);
 
       const pageUrl = utils.getData(target.node.selectedOptions[0], "page-url");
-      !!pageUrl
+      pageUrl
         ? window.location.replace(pageUrl)
         : window.location.replace(window.location.href.split("#")[0]);
     }
