@@ -38,32 +38,32 @@ export class SidebarComponent implements AfterViewInit {
         {
           label: 'Dashboard',
           url: '/utility/dashboard',
-          icon: 'bi bi-pie-chart-fill',
+          icon: 'bi bi-pie-chart',
         },
         {
           label: 'Customers',
-          url: '/users',
-          icon: 'bi bi-person-vcard-fill'
+          url: '/customer',
+          icon: 'bi bi-person-vcard'
         },
         {
           label: 'Employees',
-          url: '/users',
-          icon: 'bi bi-people-fill'
+          url: '/employee',
+          icon: 'bi bi-people'
         },
         {
           label: 'Service',
-          url: '/sensor-units',
+          url: '/service',
           icon: 'bi bi-shop-window'
         },
         {
           label: 'Events',
-          url: '/devices',
-          icon: 'bi bi-calendar2-week-fill'
+          url: '/event',
+          icon: 'bi bi-calendar2-week'
         },
         {
           label: 'Settings',
-          url: '/settings',
-          icon: 'bi bi-gear-fill'
+          url: '/company',
+          icon: 'bi bi-gear'
         },
       ]
     }

@@ -56,6 +56,10 @@ const routes: Routes = [
         path: 'service',
         loadChildren: () => import('@service/presentation')
       },
+      {
+        path: 'employee',
+        loadChildren: () => import('@service/presentation')
+      },
     ]
   },
   {
