@@ -7,6 +7,7 @@ import {NotificationComponent} from '@utility/presentation/components/notificati
 import {ApplicationsComponent} from '@utility/presentation/components/applications/applications.component';
 import {ProfileComponent} from '@utility/presentation/components/profile/profile.component';
 import {ToggleThemeComponent} from '@utility/presentation/components/toggle-theme/toggle-theme.component';
+import {RouterLink} from '@angular/router';
 
 @Component({
   standalone: true,
@@ -18,7 +19,8 @@ import {ToggleThemeComponent} from '@utility/presentation/components/toggle-them
     NotificationComponent,
     ApplicationsComponent,
     ProfileComponent,
-    ToggleThemeComponent
+    ToggleThemeComponent,
+    RouterLink
   ]
 })
 export class NavbarComponent implements AfterViewInit {
