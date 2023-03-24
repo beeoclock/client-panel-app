@@ -148,7 +148,7 @@ $kanban-bg-dark: rgba(map-get($dark-grays, '200'), 0.25) !default;
 $kanban-item-bg-dark: map-get($dark-grays, '200') !default;
 $kanban-item-color-dark: map-get($dark-grays, '900') !default;
 $kanban-btn-add-hover-bg-dark: map-get($dark-grays, '200') !default;
-$kanban-draggable-source-dragging-bg-dark: map-get($dark-grays, '100') !default;
+//$kanban-draggable-source-dragging-bg-dark: map-get($dark-grays, '100') !default;
 $kanban-bg-attachment-bg-dark: map-get($dark-grays, '300') !default;
 $kanban-footer-color-dark: map-get($dark-grays, '600') !default;
 $kanban-nav-link-card-details-color-dark: map-get($dark-grays, '700') !default;
@@ -173,15 +173,15 @@ $fc-page-bg-color-dark: $dark !default;
 $fc-neutral-bg-color-dark: map-get($dark-grays, '200') !default;
 
 /* -------------------------------- Flatpickr ------------------------------- */
-$flatpickr-calendar-bg-dark: $dark !default;
+//$flatpickr-calendar-bg-dark: $dark !default;
 
 /* -------------------------------- Flatpickr ------------------------------- */
-$leaflet-bar-bg-dark: map-get($dark-grays, '300') !default;
-$leaflet-popup-content-wrapper-bg-dark: $dark !default;
+//$leaflet-bar-bg-dark: map-get($dark-grays, '300') !default;
+//$leaflet-popup-content-wrapper-bg-dark: $dark !default;
 
 /* --------------------------------- Choices -------------------------------- */
-$choices-item-has-no-choices-bg-dark: $dark !default;
-$bg-choices-close-button-dark: map-get($dark-grays, '400') !default;
+//$choices-item-has-no-choices-bg-dark: $dark !default;
+//$bg-choices-close-button-dark: map-get($dark-grays, '400') !default;
 
 /* -------------------------------- Thumbnail ------------------------------- */
 $thumbnail-bg-dark: map-get($dark-grays, '200') !default;
@@ -193,7 +193,7 @@ $chat-contact-bg-dark: #121e2d !default;
 $tinymce-bg-dark: $dark !default;
 
 /* --------------------------------- Swiper --------------------------------- */
-$swiper-nav-bg-dark: rgba($dark, 0.8) !default;
+//$swiper-nav-bg-dark: rgba($dark, 0.8) !default;
 
 /* --------------------------------- Wizard --------------------------------- */
 $theme-wizard-nav-item-circle-bg-dark: $dark !default;
@@ -208,7 +208,7 @@ $setting-toggle-shadow-dark: 0 -7px 14px 0 rgba(3, 12, 51, 0.15), 0 3px 6px 0 rg
 
 /* -------------------------------- Scrollbar ------------------------------- */
 $scrollbar-bg-dark: rgba($gray-900, 0.6) !default;
-$simplebar-bg-dark: rgba($gray-400, 0.6) !default;
+//$simplebar-bg-dark: rgba($gray-400, 0.6) !default;
 
 
 /* ------------------------------- Falcon Pill ------------------------------ */

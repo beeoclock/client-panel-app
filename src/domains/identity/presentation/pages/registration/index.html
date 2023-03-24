@@ -104,8 +104,8 @@
                role="tabpanel">
             <form>
               <div class="mb-3">
-                <div class="row dz-clickable" data-dropzone="data-dropzone"
-                     data-options="{&quot;maxFiles&quot;:1,&quot;data&quot;:[{&quot;name&quot;:&quot;avatar.png&quot;,&quot;size&quot;:&quot;54kb&quot;,&quot;url&quot;:&quot;../../assets/img/team&quot;}]}">
+                <!--                 data-dropzone="data-dropzone" data-options="{&quot;maxFiles&quot;:1,&quot;data&quot;:[{&quot;name&quot;:&quot;avatar.png&quot;,&quot;size&quot;:&quot;54kb&quot;,&quot;url&quot;:&quot;../../assets/img/team&quot;}]}"-->
+                <div class="row dz-clickable">
 
                   <div class="col-md-auto">
                     <div class="dz-preview dz-preview-single">
@@ -113,15 +113,17 @@
                         class="dz-preview-cover d-flex align-items-center justify-content-center mb-3 mb-md-0 dz-image-preview">
                         <div class="avatar avatar-4xl"><img alt="avatar.png"
                                                             class="rounded-circle" data-dz-thumbnail="data-dz-thumbnail"
-                                                            src="../../assets/img/team/avatar.png"></div>
+                                                            src="/assets/img/logo.png"></div>
                         <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress=""></span></div>
                       </div>
                     </div>
                   </div>
                   <div class="col-md">
-                    <div class="dz-message dropzone-area px-2 py-3" data-dz-message="data-dz-message">
+                    <!--                    dropzone-area-->
+                    <div class="dz-message px-2 py-3" data-dz-message="data-dz-message">
                       <div class="text-center"><img alt="" class="me-2"
-                                                    src="../../assets/img/icons/cloud-upload.svg" width="25">Upload your profile picture
+                                                    src="../../assets/img/icons/cloud-upload.svg" width="25">Upload your
+                        profile picture
                         <p class="mb-0 fs--1 text-400">Upload a 300x300 jpg image with <br>a maximum size of 400KB
                         </p>
                       </div>
@@ -143,12 +145,12 @@
                 <input class="form-control" id="bootstrap-wizard-wizard-phone" name="phone" placeholder="Phone"
                        type="text">
               </div>
-              <div class="mb-3">
-                <label class="form-label" for="bootstrap-wizard-wizard-datepicker">Date of Birth</label>
-                <input class="form-control datetimepicker flatpickr-input" data-options="{&quot;dateFormat&quot;:&quot;d/m/y&quot;,&quot;disableMobile&quot;:true}" id="bootstrap-wizard-wizard-datepicker"
-                       placeholder="d/m/y"
-                       readonly="readonly" type="text">
-              </div>
+              <!--              <div class="mb-3">-->
+              <!--                <label class="form-label" for="bootstrap-wizard-wizard-datepicker">Date of Birth</label>-->
+              <!--                <input class="form-control datetimepicker flatpickr-input" data-options="{&quot;dateFormat&quot;:&quot;d/m/y&quot;,&quot;disableMobile&quot;:true}" id="bootstrap-wizard-wizard-datepicker"-->
+              <!--                       placeholder="d/m/y"-->
+              <!--                       readonly="readonly" type="text">-->
+              <!--              </div>-->
               <div class="mb-3">
                 <label class="form-label" for="bootstrap-wizard-wizard-address">Address</label>
                 <textarea class="form-control" id="bootstrap-wizard-wizard-address" rows="4"></textarea>
