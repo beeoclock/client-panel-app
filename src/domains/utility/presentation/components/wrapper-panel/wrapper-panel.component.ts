@@ -6,7 +6,6 @@ import {FooterComponent} from '@utility/presentation/components/footer/footer.co
 import {ModalComponent} from '@utility/presentation/components/modal/modal.component';
 import {RouterOutlet} from '@angular/router';
 import {utils} from '@src/scripts/utls';
-import {scrollbarInit} from '@src/scripts/scrollbar';
 import {scrollInit} from '@src/scripts/scroll';
 
 @Component({
@@ -34,7 +33,6 @@ export default class WrapperPanelComponent implements AfterViewInit {
 
   public ngAfterViewInit(): void {
 
-    utils.docReady(scrollbarInit);
     utils.docReady(scrollInit);
 
   }
