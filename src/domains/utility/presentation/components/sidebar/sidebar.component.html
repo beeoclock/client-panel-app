@@ -8,57 +8,37 @@
   </div>
   <a class="navbar-brand" href="../index.html">
     <div class="d-flex align-items-center py-3">
+      <!--    TODO Add logo -->
       <!--      <img alt=""-->
       <!--           class="me-2"-->
       <!--           src="assets/img/logo.png" width="40"/>-->
-      <span class="font-sans-serif">Bee O`clock</span>
+      <span class="font-sans-serif">Hive.Sensors</span>
     </div>
   </a>
 </div>
 <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
   <div class="navbar-vertical-content scrollbar">
     <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
-      <li class="nav-item">
-
-        <!-- parent pages--><a class="nav-link" role="button" routerLink="/utility/dashboard" routerLinkActive="active">
-        <div class="d-flex align-items-center"><span class="nav-link-icon"><span
-          class="fas fa-chart-pie"></span></span><span class="nav-link-text ps-1">Dashboard</span>
-        </div>
-      </a>
-      </li>
-      <li class="nav-item">
+      <li *ngFor="let group of menu">
         <!-- label-->
-        <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
-          <div class="col-auto navbar-vertical-label">App
+        <div *ngIf="group.label" class="row navbar-vertical-label-wrapper mt-3 mb-2">
+          <div class="col-auto navbar-vertical-label">{{ group.label }}
           </div>
           <div class="col ps-0">
             <hr class="mb-0 navbar-vertical-divider"/>
           </div>
         </div>
-        <!-- parent pages--><a class="nav-link" href="../app/calendar.html" role="button">
-        <div class="d-flex align-items-center"><span class="nav-link-icon"><span
-          class="fas fa-calendar-alt"></span></span><span class="nav-link-text ps-1">Calendar</span>
-        </div>
-      </a>
+        <!-- parent pages-->
+        <a *ngFor="let item of group.items" [attr.target]="item.target" [class.disabled]="item.disabled ?? false"
+           [routerLink]="item.url" class="nav-link" role="button" routerLinkActive="active">
+          <div class="d-flex align-items-center">
+            <span class="nav-link-icon">
+              <span [class]="item.icon"></span>
+            </span>
+            <span class="nav-link-text ps-1">{{ item.label }}</span>
+          </div>
+        </a>
       </li>
     </ul>
-    <div class="settings mb-3">
-      <div class="card shadow-none">
-        <div class="card-body alert mb-0" role="alert">
-          <div class="btn-close-falcon-container">
-            <button aria-label="Close" class="btn btn-link btn-close-falcon p-0"
-                    data-bs-dismiss="alert"></button>
-          </div>
-          <div class="text-center"><img alt=""
-                                        src="../../../../../assets/img/icons/spot-illustrations/navbar-vertical.png"
-                                        width="80"/>
-            <p class="fs--2 mt-2">Loving what you see? <br/>Get your copy of <a href="#!">Falcon</a></p>
-            <div class="d-grid"><a class="btn btn-sm btn-purchase"
-                                   href="https://themes.getbootstrap.com/product/falcon-admin-dashboard-webapp-template/"
-                                   target="_blank">Purchase</a></div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
