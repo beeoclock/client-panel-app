@@ -8,7 +8,7 @@ import {Component, ViewEncapsulation} from '@angular/core';
     <a aria-expanded="false" aria-haspopup="true" class="nav-link pe-0 ps-2"
        data-bs-toggle="dropdown" id="navbarDropdownUser" role="button">
       <div class="avatar avatar-xl">
-        <img alt="" class="rounded-circle" src="assets/img/team/3-thumb.png"/>
+        <img alt="" class="rounded-circle" src="assets/img/logo.png"/>
 
       </div>
     </a>
@@ -17,12 +17,12 @@ import {Component, ViewEncapsulation} from '@angular/core';
       <div class="bg-white dark__bg-1000 rounded-2 py-2">
 
         <a class="dropdown-item" href="#!">Set status</a>
-        <a class="dropdown-item" href="../pages/user/profile.html">Profile &amp; account</a>
+        <a class="dropdown-item" href="/">Profile &amp; account</a>
         <a class="dropdown-item" href="#!">Feedback</a>
 
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="../pages/user/settings.html">Settings</a>
-        <a class="dropdown-item" href="../pages/authentication/card/logout.html">Logout</a>
+        <a class="dropdown-item" href="/">Settings</a>
+        <a class="dropdown-item" href="/">Logout</a>
       </div>
     </div>
   `

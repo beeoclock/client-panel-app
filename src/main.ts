@@ -32,6 +32,30 @@ const routes: Routes = [
         path: 'utility',
         loadChildren: () => import('@utility/presentation')
       },
+      {
+        path: 'specialist',
+        loadChildren: () => import('@specialist/presentation')
+      },
+      {
+        path: 'user',
+        loadChildren: () => import('@user/presentation')
+      },
+      {
+        path: 'event',
+        loadChildren: () => import('@event/presentation')
+      },
+      {
+        path: 'company',
+        loadChildren: () => import('@company/presentation')
+      },
+      {
+        path: 'customer',
+        loadChildren: () => import('@customer/presentation')
+      },
+      {
+        path: 'service',
+        loadChildren: () => import('@service/presentation')
+      },
     ]
   },
   {

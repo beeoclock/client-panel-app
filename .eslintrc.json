@@ -31,7 +31,13 @@
               "storybook",
               "app",
               "identity",
-              "utility"
+              "utility",
+              "event",
+              "company",
+              "customer",
+              "service",
+              "user",
+              "specialist"
             ],
             "style": "kebab-case"
           }

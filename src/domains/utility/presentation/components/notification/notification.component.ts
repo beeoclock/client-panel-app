@@ -25,23 +25,23 @@ import {Component, ViewEncapsulation} from "@angular/core";
             </div>
           </div>
         </div>
-          <div class="list-group list-group-flush fw-normal fs--1">
-            <div class="list-group-title border-bottom">NEW</div>
-            <div class="list-group-item">
-              <a class="notification notification-flush notification-unread" href="#!">
-                <div class="notification-avatar">
-                  <div class="avatar avatar-2xl me-3">
-                    <img alt="" class="rounded-circle" src="assets/img/team/avatar.png"/>
-
-                  </div>
-                </div>
-                <div class="notification-body">
-                  <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world 😍"</p>
-                  <span class="notification-time"><span aria-label="Emoji" class="me-2"
-                                                        role="img">💬</span>Just now</span>
+        <div class="list-group list-group-flush fw-normal fs--1">
+          <div class="list-group-title border-bottom">NEW</div>
+          <div class="list-group-item">
+            <a class="notification notification-flush notification-unread" href="#!">
+              <div class="notification-avatar">
+                <div class="avatar avatar-2xl me-3">
+                  <img alt="" class="rounded-circle" src="/assets/img/logo.png"/>
 
                 </div>
-              </a>
+              </div>
+              <div class="notification-body">
+                <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world 😍"</p>
+                <span class="notification-time"><span aria-label="Emoji" class="me-2"
+                                                      role="img">💬</span>Just now</span>
+
+              </div>
+            </a>
 
             </div>
             <div class="list-group-item">
@@ -80,21 +80,21 @@ import {Component, ViewEncapsulation} from "@angular/core";
               </a>
 
             </div>
-            <div class="list-group-item">
-              <a class="border-bottom-0 notification notification-flush" href="#!">
-                <div class="notification-avatar">
-                  <div class="avatar avatar-xl me-3">
-                    <img alt="" class="rounded-circle" src="assets/img/team/avatar.png"/>
-
-                  </div>
-                </div>
-                <div class="notification-body">
-                  <p class="mb-1"><strong>James Cameron</strong> invited to join the group: United Nations
-                    International Children's Fund</p>
-                  <span class="notification-time"><span aria-label="Emoji" class="me-2"
-                                                        role="img">🙋‍</span>2d</span>
+          <div class="list-group-item">
+            <a class="border-bottom-0 notification notification-flush" href="#!">
+              <div class="notification-avatar">
+                <div class="avatar avatar-xl me-3">
+                  <img alt="" class="rounded-circle" src="/assets/img/logo.png"/>
 
                 </div>
+              </div>
+              <div class="notification-body">
+                <p class="mb-1"><strong>James Cameron</strong> invited to join the group: United Nations
+                  International Children's Fund</p>
+                <span class="notification-time"><span aria-label="Emoji" class="me-2"
+                                                      role="img">🙋‍</span>2d</span>
+
+              </div>
               </a>
 
             </div>

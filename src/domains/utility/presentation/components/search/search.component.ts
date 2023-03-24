@@ -78,7 +78,7 @@ import {Component, ViewEncapsulation} from "@angular/core";
           class="dropdown-item px-x1 py-2" href="../pages/user/profile.html">
           <div class="d-flex align-items-center">
             <div class="avatar avatar-l status-online me-2">
-              <img alt="" class="rounded-circle" src="assets/img/team/avatar.png"/>
+              <img alt="" class="rounded-circle" src="/assets/img/logo.png"/>
 
             </div>
             <div class="flex-1">
@@ -90,7 +90,7 @@ import {Component, ViewEncapsulation} from "@angular/core";
           <a class="dropdown-item px-x1 py-2" href="../pages/user/profile.html">
             <div class="d-flex align-items-center">
               <div class="avatar avatar-l me-2">
-                <img alt="" class="rounded-circle" src="assets/img/team/avatar.png"/>
+                <img alt="" class="rounded-circle" src="/assets/img/logo.png"/>
 
               </div>
               <div class="flex-1">
@@ -102,7 +102,7 @@ import {Component, ViewEncapsulation} from "@angular/core";
           <a class="dropdown-item px-x1 py-2" href="../pages/user/profile.html">
             <div class="d-flex align-items-center">
               <div class="avatar avatar-l me-2">
-                <img alt="" class="rounded-circle" src="assets/img/team/avatar.png"/>
+                <img alt="" class="rounded-circle" src="/assets/img/logo.png"/>
 
               </div>
               <div class="flex-1">
