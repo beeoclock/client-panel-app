@@ -6,7 +6,7 @@ import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {environment} from '@environments/environment';
 import {getAuth, provideAuth} from '@angular/fire/auth';
 import {getFirestore, provideFirestore} from '@angular/fire/firestore';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClient, provideHttpClient} from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {provideRouter, Routes} from '@angular/router';
@@ -63,8 +63,8 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(provideAuth(() => getAuth())),
     importProvidersFrom(provideFirestore(() => getFirestore())),
 
-    BrowserModule,
-    HttpClientModule,
+    BrowserModule, // TODO check if is need?
+    provideHttpClient(),
     importProvidersFrom(TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
