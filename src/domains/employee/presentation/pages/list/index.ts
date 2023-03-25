@@ -1,7 +1,7 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 
 @Component({
-  selector: 'specialist-list-page',
+  selector: 'employee-list-page',
   template: `Specialist list`,
   encapsulation: ViewEncapsulation.None,
   standalone: true

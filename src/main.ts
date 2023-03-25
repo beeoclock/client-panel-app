@@ -33,8 +33,8 @@ const routes: Routes = [
         loadChildren: () => import('@utility/presentation')
       },
       {
-        path: 'specialist',
-        loadChildren: () => import('@specialist/presentation')
+        path: 'employee',
+        loadChildren: () => import('@domains/employee/presentation')
       },
       {
         path: 'user',

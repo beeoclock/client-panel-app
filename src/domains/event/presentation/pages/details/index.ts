@@ -1,8 +1,8 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 
 @Component({
-  selector: 'specialist-detail-page',
-  template: `Specialist Detail`,
+  selector: 'event-detail-page',
+  template: `event Detail`,
   encapsulation: ViewEncapsulation.None,
   standalone: true
 })

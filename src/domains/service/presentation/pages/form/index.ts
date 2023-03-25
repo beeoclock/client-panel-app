@@ -1,7 +1,7 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 
 @Component({
-  selector: 'specialist-form-page',
+  selector: 'employee-form-page',
   template: `Specialist Form`,
   encapsulation: ViewEncapsulation.None,
   standalone: true
