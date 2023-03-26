@@ -1,5 +1,5 @@
 // import {HttpLoaderFactory} from './app.module';
-import {bootstrapApplication, BrowserModule} from '@angular/platform-browser';
+import {bootstrapApplication} from '@angular/platform-browser';
 import {AppComponent} from '@src/app.component';
 import {enableProdMode, importProvidersFrom} from '@angular/core';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
@@ -29,7 +29,6 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(provideAuth(() => getAuth())),
     importProvidersFrom(provideFirestore(() => getFirestore())),
 
-    BrowserModule, // TODO check if is need?
     provideHttpClient(),
     importProvidersFrom(TranslateModule.forRoot({
       loader: {
