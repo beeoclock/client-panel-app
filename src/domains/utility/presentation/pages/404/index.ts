@@ -2,13 +2,13 @@ import {Component, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 
 @Component({
-  selector: 'identity-login-page',
+  selector: 'utility-404-page',
   templateUrl: 'index.html',
   standalone: true,
+  encapsulation: ViewEncapsulation.None,
   imports: [
     RouterLink
-  ],
-  encapsulation: ViewEncapsulation.None
+  ]
 })
 export default class Index {
 
