@@ -24,7 +24,7 @@ export const routes: Routes = [
       },
       {
         path: 'employee',
-        loadChildren: () => import('@domains/employee/presentation')
+        loadChildren: () => import('@employee/presentation')
       },
       {
         path: 'user',
