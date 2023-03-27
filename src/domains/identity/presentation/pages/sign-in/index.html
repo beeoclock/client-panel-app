@@ -1,0 +1,101 @@
+<div class="row min-vh-100 flex-center g-0">
+  <div class="col-lg-10 col-xxl-7 py-3 position-relative">
+    <img alt=""
+         class="bg-auth-circle-shape"
+         src="/assets/img/icons/spot-illustrations/bg-shape.png"
+         width="250">
+    <img alt=""
+         class="bg-auth-circle-shape-2"
+         src="/assets/img/icons/spot-illustrations/shape-1.png"
+         width="150">
+    <div class="card overflow-hidden z-1">
+      <div class="card-body p-0">
+        <div class="row g-0 h-100">
+          <div class="col-md-5 text-center bg-card-gradient">
+            <div class="position-relative p-4 pt-md-5 pb-md-7" data-bs-theme="light">
+              <div class="bg-holder bg-auth-card-shape"
+                   style="background-image:url(/assets/img/icons/spot-illustrations/half-circle.png);">
+              </div>
+              <!--/.bg-holder-->
+
+              <div class="z-1 position-relative">
+                <a
+                  class="link-light mb-4 font-sans-serif fs-4 d-inline-block fw-bolder" routerLink="/">
+                  Bee O`clock
+                </a>
+                <p class="opacity-75 text-white">
+                  With the power of Bee O`clock, you can now focus only on functionaries
+                  for
+                  your digital products, while leaving the UI design on us!
+                </p>
+              </div>
+            </div>
+            <div class="mt-3 mb-4 mt-md-4 mb-md-5" data-bs-theme="light">
+              <p class="text-white">
+                Don't have an account?<br>
+                <a class="text-decoration-underline link-light" routerLink="sign-up">Get started!</a>
+              </p>
+              <p class="mb-0 mt-4 mt-md-5 fs--1 fw-semi-bold text-white opacity-75">
+                Read our
+                <a class="text-decoration-underline text-white" routerLink="/404">terms</a>
+                and
+                <a class="text-decoration-underline text-white" routerLink="/404">conditions </a>
+              </p>
+            </div>
+          </div>
+          <div class="col-md-7 d-flex flex-center">
+            <div class="p-4 p-md-5 flex-grow-1">
+              <div class="row flex-between-center">
+                <div class="col-auto text-center w-100">
+                  <h3>{{ 'identity.sign-in.form.label' | translate }}</h3>
+                </div>
+              </div>
+              <form (ngSubmit)="signIn()" [formGroup]="form">
+                <div class="mb-3">
+                  <label class="form-label"
+                         for="sign-in_email">{{ 'identity.sign-in.form.inputs.email.label' | translate }}</label>
+                  <input [placeholder]="'identity.sign-in.form.inputs.email.placeholder' | translate"
+                         class="form-control"
+                         formControlName="email"
+                         id="sign-in_email"
+                         type="email">
+                </div>
+                <div class="mb-3">
+                  <div class="d-flex justify-content-between">
+                    <label class="form-label"
+                           for="sign-in_password">{{ 'identity.sign-in.form.inputs.password.label' | translate }}</label>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input [placeholder]="'identity.sign-in.form.inputs.password.placeholder' | translate"
+                           [type]="passwordToggle.isOff ? 'password' : 'text'"
+                           aria-describedby="basic-addon1"
+                           aria-label="Username"
+                           class="form-control"
+                           formControlName="password"
+                           id="sign-in_password">
+                    <button (click)="passwordToggle.toggle()" class="btn btn-primary" id="button-addon2" type="button">
+                      <i *ngIf="passwordToggle.isOff" class="bi bi-eye-fill"></i>
+                      <i *ngIf="passwordToggle.isOn" class="bi bi-eye-slash-fill"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="row flex-between-center">
+                  <div class="mb-3">
+                    <button class="btn btn-primary d-block w-100 mt-3" type="submit">
+                      {{ 'identity.sign-in.form.button.submit' | translate }}
+                    </button>
+                  </div>
+                  <div class="col-auto w-100 text-center">
+                    <a class="fs--1" routerLink="forgot-password">
+                      {{ 'identity.sign-in.form.button.forgot-password' | translate }}
+                    </a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

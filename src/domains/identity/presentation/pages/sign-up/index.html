@@ -1,0 +1,104 @@
+<div class="row flex-center min-vh-100 py-6">
+  <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+    <a class="d-flex flex-center mb-4"
+       href="">
+      <img alt=""
+           class="me-2"
+           src="assets/img/logo.png" width="58">
+      <span
+        class="font-sans-serif fw-bolder fs-5 d-inline-block">
+        Bee O`clock
+      </span>
+    </a>
+    <div class="card">
+      <div class="card-body p-4 p-sm-5">
+        <div class="row flex-between-center mb-2">
+          <div class="col-auto">
+            <h5>{{ 'identity.sign-up.form.label' | translate }}</h5>
+          </div>
+          <div class="col-auto fs--1 text-600">
+            <span class="mb-0 undefined">
+              Have an account?
+            </span>
+            <span>
+              <a routerLink="/">Login</a>
+            </span>
+          </div>
+        </div>
+        <form (ngSubmit)="signUp()" [formGroup]="form">
+          <div class="mb-3">
+            <label class="form-label"
+                   for="sign_up-display_name">{{ 'identity.sign-up.form.inputs.display-name.label' | translate }}</label>
+            <input [placeholder]="'identity.sign-up.form.inputs.display-name.placeholder' | translate"
+                   class="form-control"
+                   formControlName="displayName"
+                   id="sign_up-display_name"
+                   type="email">
+          </div>
+          <div class="mb-3">
+            <label class="form-label"
+                   for="sign_up-email">{{ 'identity.sign-up.form.inputs.email.label' | translate }}</label>
+            <input [placeholder]="'identity.sign-up.form.inputs.email.placeholder' | translate"
+                   class="form-control"
+                   formControlName="email"
+                   id="sign_up-email"
+                   type="email">
+          </div>
+          <div class="mb-3">
+            <div class="d-flex justify-content-between">
+              <label class="form-label"
+                     for="sign-up_password">{{ 'identity.sign-up.form.inputs.password.label' | translate }}</label>
+            </div>
+            <div class="input-group mb-3">
+              <input [placeholder]="'identity.sign-up.form.inputs.password.placeholder' | translate"
+                     [type]="passwordToggle.isOff ? 'password' : 'text'"
+                     aria-describedby="basic-addon1"
+                     aria-label="Username"
+                     class="form-control"
+                     formControlName="passwordConfirm"
+                     id="sign-up_password">
+              <button (click)="passwordToggle.toggle()" class="btn btn-primary" id="button-toggle-password"
+                      type="button">
+                <i *ngIf="passwordToggle.isOff" class="bi bi-eye-fill"></i>
+                <i *ngIf="passwordToggle.isOn" class="bi bi-eye-slash-fill"></i>
+              </button>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="d-flex justify-content-between">
+              <label class="form-label"
+                     for="sign_up-password-confirm">{{ 'identity.sign-up.form.inputs.password.label' | translate }}</label>
+            </div>
+            <div class="input-group mb-3">
+              <input [placeholder]="'identity.sign-up.form.inputs.password.placeholder' | translate"
+                     [type]="passwordConfirmToggle.isOff ? 'password' : 'text'"
+                     aria-describedby="basic-addon1"
+                     aria-label="Username"
+                     class="form-control"
+                     formControlName="password"
+                     id="sign_up-password-confirm">
+              <button (click)="passwordConfirmToggle.toggle()" class="btn btn-primary" id="button-toggle-password-confirm"
+                      type="button">
+                <i *ngIf="passwordConfirmToggle.isOff" class="bi bi-eye-fill"></i>
+                <i *ngIf="passwordConfirmToggle.isOn" class="bi bi-eye-slash-fill"></i>
+              </button>
+            </div>
+          </div>
+          <!--          <div class="form-check">-->
+          <!--            <input class="form-check-input" type="checkbox" id="basic-register-checkbox">-->
+          <!--            <label-->
+          <!--              class="form-label" for="basic-register-checkbox">-->
+          <!--              I accept the <a href="#!">terms </a>and <a href="#!">privacy-->
+          <!--              policy</a>-->
+          <!--            </label>-->
+          <!--          </div>-->
+          <div class="mb-3">
+            <button class="btn btn-primary d-block w-100 mt-3" name="submit" type="submit">
+              {{ 'identity.sign-up.form.button.submit' | translate }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -7,12 +7,14 @@ import {popoverInit} from '@src/scripts/popover';
 import {toastInit} from '@src/scripts/toast';
 import {formValidationInit} from '@src/scripts/form-validation';
 import {cookieNoticeInit} from '@src/scripts/cookie-notice';
+import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule],
-  template: '<router-outlet></router-outlet>',
+  imports: [RouterModule, TranslateModule],
+  template: `
+    <router-outlet></router-outlet>`,
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements AfterViewInit {

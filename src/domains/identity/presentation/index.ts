@@ -3,11 +3,11 @@ import {Route} from '@angular/router';
 export default [
   {
     path: '',
-    loadComponent: () => import('./pages/login')
+    loadComponent: () => import('./pages/sign-in')
   },
   {
-    path: 'registration',
-    loadComponent: () => import('./pages/registration')
+    path: 'sign-up',
+    loadComponent: () => import('./pages/sign-up')
   },
   {
     path: 'reset-password',

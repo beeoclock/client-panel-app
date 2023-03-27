@@ -6,7 +6,8 @@ interface ILoginForm {
   email: FormControl<string | null>;
   password: FormControl<string | null>;
 
-  // confirmPassword: FormControl<string | null>;
+  passwordConfirm: FormControl<string | null>;
+
   [key: string]: AbstractControl<any, any>;
 }
 
@@ -16,7 +17,7 @@ export default class LoginForm extends FormGroup<ILoginForm> {
       displayName: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required]),
       password: new FormControl(null, [Validators.required]),
-      // confirmPassword: new FormControl(null, [Validators.required]),
+      passwordConfirm: new FormControl(null, [Validators.required]),
     });
   }
 }
