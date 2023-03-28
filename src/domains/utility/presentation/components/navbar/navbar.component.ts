@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, HostBinding, ViewEncapsulation} from '@angular/core';
-import {utils} from '@src/scripts/utls';
 import {navbarTopDropShadow} from '@src/scripts/navbar-top';
 import {searchInit} from '@src/scripts/search';
 import {SearchComponent} from '@utility/presentation/components/search/search.component';
@@ -28,8 +27,8 @@ export class NavbarComponent implements AfterViewInit {
 
   public ngAfterViewInit(): void {
 
-    utils.docReady(navbarTopDropShadow);
-    utils.docReady(searchInit);
+    navbarTopDropShadow();
+    searchInit();
 
   }
 

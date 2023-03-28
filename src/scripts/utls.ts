@@ -1,14 +1,6 @@
 /* -------------------------------------------------------------------------- */
 /*                                    Utils                                   */
 /* -------------------------------------------------------------------------- */
-const docReady = (fn: any) => {
-  // see if DOM is already available
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", fn);
-  } else {
-    setTimeout(fn, 1);
-  }
-};
 
 const resize = (fn: any) => window.addEventListener("resize", fn);
 
@@ -243,7 +235,6 @@ const getRandomNumber = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min) + min);
 
 export const utils = {
-  docReady,
   breakpoints,
   resize,
   isIterableArray,
