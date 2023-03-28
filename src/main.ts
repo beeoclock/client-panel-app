@@ -1,20 +1,19 @@
-// import {HttpLoaderFactory} from './app.module';
-import {bootstrapApplication, BrowserModule} from '@angular/platform-browser';
+import {bootstrapApplication} from '@angular/platform-browser';
 import {AppComponent} from '@src/app.component';
 import {enableProdMode, importProvidersFrom} from '@angular/core';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {environment} from '@environments/environment';
-import {getAuth, provideAuth} from '@angular/fire/auth';
+import {Auth, browserSessionPersistence, getAuth, provideAuth} from '@angular/fire/auth';
 import {getFirestore, provideFirestore} from '@angular/fire/firestore';
-import {HttpClient, provideHttpClient} from '@angular/common/http';
+import {HttpClient, provideHttpClient, withInterceptors} from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {provideRouter} from '@angular/router';
+import {provideRouter, withInMemoryScrolling} from '@angular/router';
 import {routes} from '@src/routers';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 if (environment.production) {
@@ -23,15 +22,36 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideRouter(routes),
+    provideRouter(
+      routes,
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled'
+      })
+    ),
+
+    provideHttpClient(
+      withInterceptors([
+        // Utility.Interceptors.Approval, // TODO find way how to handle firebase network!
+        // Utility.Interceptors.Loading,
+        // Utility.Interceptors.Notification,
+        // Utility.Interceptors.Error,
+      ]),
+    ),
 
     importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebase))),
-    importProvidersFrom(provideAuth(() => getAuth())),
+    importProvidersFrom(provideAuth(() => {
+      const auth: Auth = getAuth();
+      auth.setPersistence(browserSessionPersistence)
+        .catch((error) => {
+          console.log(error);
+        });
+      return auth;
+    })),
     importProvidersFrom(provideFirestore(() => getFirestore())),
 
-    BrowserModule, // TODO check if is need?
-    provideHttpClient(),
     importProvidersFrom(TranslateModule.forRoot({
+      useDefaultLang: true,
+      defaultLanguage: environment.config.language,
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,

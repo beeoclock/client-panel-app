@@ -62,8 +62,8 @@
       "@service/*": [
         "./src/domains/service/*"
       ],
-      "@specialist/*": [
-        "./src/domains/specialist/*"
+      "@employee/*": [
+        "./src/domains/employee/*"
       ],
       "@user/*": [
         "./src/domains/user/*"

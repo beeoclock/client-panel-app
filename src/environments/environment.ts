@@ -4,6 +4,9 @@
 
 export const environment = {
   production: false,
+  config: {
+    language: 'en'
+  },
   firebase: {
     projectId: 'beeoclock-cloud-00000000000000',
     appId: '1:917223590640:web:9ce518f7fe4fee4380d035',

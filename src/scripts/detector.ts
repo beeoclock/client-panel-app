@@ -6,7 +6,6 @@ import {utils} from '@src/scripts/utls';
 
 export const detectorInit = () => {
   const {is} = window as any;
-  console.log(is);
   const html: HTMLElement = document.querySelector('html') as any;
 
   is.opera() && utils.addClass(html, 'opera');
