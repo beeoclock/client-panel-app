@@ -3,9 +3,9 @@
 /* -------------------------------------------------------------------------- */
 
 import {utils} from '@src/scripts/utls';
+import {is} from 'thiis';
 
 export const detectorInit = () => {
-  const {is} = window as any;
   const html: HTMLElement = document.querySelector('html') as any;
 
   is.opera() && utils.addClass(html, 'opera');
@@ -20,6 +20,5 @@ export const detectorInit = () => {
   is.chrome() && utils.addClass(html, 'chrome');
   is.mac() && utils.addClass(html, 'osx');
   is.windows() && utils.addClass(html, 'windows');
-  navigator.userAgent.match('CriOS') && utils.addClass(html, 'chrome');
 };
 
