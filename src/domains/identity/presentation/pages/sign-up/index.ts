@@ -10,8 +10,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import RegistrationForm from '@identity/form/registration.form';
 import {Router, RouterLink} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
-import {Utility} from '@utility/index';
 import {NgIf} from '@angular/common';
+import {SignUpComponent} from '@identity/presentation/components/sign-up.component/sign-up.component';
 
 @Component({
   selector: 'identity-sign-up-page',
@@ -21,7 +21,8 @@ import {NgIf} from '@angular/common';
     ReactiveFormsModule,
     RouterLink,
     TranslateModule,
-    NgIf
+    NgIf,
+    SignUpComponent
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -29,11 +30,10 @@ export default class Index {
 
   public readonly form: RegistrationForm = new RegistrationForm();
   private readonly auth: Auth = inject(Auth);
-  public readonly passwordToggle = new Utility.BooleanStateModel(false);
-  public readonly passwordConfirmToggle = new Utility.BooleanStateModel(false);
   private readonly router: Router = inject(Router);
 
   public signUp(): void {
+    this.form.markAllAsTouched();
     if (this.form.valid) {
       const {email, password, displayName} = this.form.value;
       if (email && password && displayName) {

@@ -6,14 +6,12 @@ import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
 import {TogglePasswordModule} from '@utility/pipes/toggle-password/toggle-password.module';
 import {RouterLink} from '@angular/router';
-import {EmailSignInComponent} from '@identity/presentation/components/email.sign-in.component/email.sign-in.component';
-import {
-  PasswordSignInComponent
-} from '@identity/presentation/components/password.sign-in.component/password.sign-in.component';
+import {EmailComponent} from '@identity/presentation/components/email.component/email.component';
+import {PasswordComponent} from '@identity/presentation/components/password.component/password.component';
 import LoginForm from '@identity/form/login.form';
 
 @Component({
-  selector: 'identity-form-sign-in-component',
+  selector: 'identity-sign-in-component',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   template: `
@@ -25,13 +23,19 @@ import LoginForm from '@identity/form/login.form';
       </div>
       <form (ngSubmit)="submit()" [formGroup]="form" novalidate>
 
-        <identity-email-sign-in-component
+        <identity-email-component
+          id="identity-sign_in-form-input-email"
+          label="identity.sign-in.form.inputs.email.label"
+          placeholder="identity.sign-in.form.inputs.email.placeholder"
           [control]="form.controls.email">
-        </identity-email-sign-in-component>
+        </identity-email-component>
 
-        <identity-password-sign-in-component
+        <identity-password-component
+          id="identity-sign_in-form-input-password"
+          label="identity.sign-in.form.inputs.password.label"
+          placeholder="identity.sign-in.form.inputs.password.placeholder"
           [control]="form.controls.password">
-        </identity-password-sign-in-component>
+        </identity-password-component>
 
         <div class="row flex-between-center">
           <div class="mb-3">
@@ -56,11 +60,11 @@ import LoginForm from '@identity/form/login.form';
     FirstKeyNameModule,
     TogglePasswordModule,
     RouterLink,
-    EmailSignInComponent,
-    PasswordSignInComponent
+    EmailComponent,
+    PasswordComponent
   ]
 })
-export class FormSignInComponent {
+export class SignInComponent {
 
   @Input()
   public form!: LoginForm;

@@ -1,7 +1,7 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 
 
-interface ILoginForm {
+interface IRegistrationForm {
   displayName: FormControl<string | null>;
   email: FormControl<string | null>;
   password: FormControl<string | null>;
@@ -11,7 +11,7 @@ interface ILoginForm {
   [key: string]: AbstractControl<any, any>;
 }
 
-export default class LoginForm extends FormGroup<ILoginForm> {
+export default class RegistrationForm extends FormGroup<IRegistrationForm> {
   constructor() {
     super({
       displayName: new FormControl(null, [Validators.required]),

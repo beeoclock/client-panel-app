@@ -6,25 +6,25 @@ import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
 
 @Component({
-  selector: 'identity-email-sign-in-component',
+  selector: 'identity-email-component',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   template: `
     <div class="mb-3 position-relative">
       <label
-        translate="identity.sign-in.form.inputs.email.label"
         class="form-label"
-        for="identity-sign_in-form-input-email"></label>
+        [translate]="label"
+        [id]="id"></label>
       <div class="input-group">
 
         <input [checkFormError]="true"
                [inputGroup]="true"
                [name]="'person-fill'"
-               [placeholder]="'identity.sign-in.form.inputs.email.placeholder' | translate"
+               [placeholder]="placeholder | translate"
                [formControl]="control"
+               [id]="id"
                hasError
                class="form-control"
-               id="identity-sign_in-form-input-email"
                type="email">
 
       </div>
@@ -42,7 +42,16 @@ import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.m
     FirstKeyNameModule
   ]
 })
-export class EmailSignInComponent {
+export class EmailComponent {
+
+  @Input()
+  public id!: string;
+
+  @Input()
+  public label!: string;
+
+  @Input()
+  public placeholder!: string;
 
   @Input()
   public control!: FormControl;

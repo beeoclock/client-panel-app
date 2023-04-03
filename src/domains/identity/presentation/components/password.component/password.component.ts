@@ -7,21 +7,21 @@ import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.m
 import {TogglePasswordModule} from '@utility/pipes/toggle-password/toggle-password.module';
 
 @Component({
-  selector: 'identity-password-sign-in-component',
+  selector: 'identity-password-component',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   template: `
     <div class="mb-3 position-relative">
       <label
-        translate="identity.sign-in.form.inputs.password.label"
         class="form-label"
-        for="identity-sign_in-form-input-password">
+        [translate]="label"
+        [for]="id">
       </label>
 
       <div class="input-group">
 
         <input
-          id="identity-sign_in-form-input-password"
+          [id]="id"
           [formControl]="control"
           class="form-control"
           togglePassword
@@ -29,7 +29,7 @@ import {TogglePasswordModule} from '@utility/pipes/toggle-password/toggle-passwo
           [inputGroup]="true"
           [checkFormError]="true"
           [name]="'key-fill'"
-          [placeholder]="'identity.sign-in.form.inputs.password.placeholder' | translate"
+          [placeholder]="placeholder | translate"
           [class.border-danger]="loginFormHasError && control.root.touched">
 
       </div>
@@ -49,7 +49,16 @@ import {TogglePasswordModule} from '@utility/pipes/toggle-password/toggle-passwo
     TogglePasswordModule
   ]
 })
-export class PasswordSignInComponent {
+export class PasswordComponent {
+
+  @Input()
+  public id!: string;
+
+  @Input()
+  public label!: string;
+
+  @Input()
+  public placeholder!: string;
 
   @Input()
   public control!: FormControl;

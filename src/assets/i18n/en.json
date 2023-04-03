@@ -123,6 +123,10 @@
             "label": "Password",
             "placeholder": "Enter password"
           },
+          "password-confirm": {
+            "label": "Password confirm",
+            "placeholder": "Enter password confirm"
+          },
           "timezone": {
             "inputs": {
               "offset": {
