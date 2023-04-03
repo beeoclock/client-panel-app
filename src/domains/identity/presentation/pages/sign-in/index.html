@@ -50,16 +50,30 @@
                   <h3>{{ 'identity.sign-in.form.label' | translate }}</h3>
                 </div>
               </div>
-              <form (ngSubmit)="signIn()" [formGroup]="form">
-                <div class="mb-3">
+              <form (ngSubmit)="signIn()" [formGroup]="form" novalidate>
+
+                <div class="mb-3 position-relative">
                   <label class="form-label"
                          for="sign-in_email">{{ 'identity.sign-in.form.inputs.email.label' | translate }}</label>
-                  <input [placeholder]="'identity.sign-in.form.inputs.email.placeholder' | translate"
-                         class="form-control"
-                         formControlName="email"
-                         id="sign-in_email"
-                         type="email">
+                  <div class="input-group">
+
+                    <input [checkFormError]="true"
+                           [inputGroup]="true"
+                           [name]="'person-fill'"
+                           [placeholder]="'identity.sign-in.form.inputs.email.placeholder' | translate"
+                           class="form-control"
+                           formControlName="email"
+                           hasError
+                           id="identity-sign-in-form-input-email"
+                           type="email">
+
+                  </div>
+                  <div *ngIf="form.controls.email.errors" class="invalid-tooltip">
+                    {{ 'form.validation.' + (form.controls.email.errors | firstKeyName) | translate }}
+                  </div>
+
                 </div>
+
                 <div class="mb-3">
                   <div class="d-flex justify-content-between">
                     <label class="form-label"

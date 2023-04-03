@@ -19,7 +19,10 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "app",
+            "prefix": [
+              "app",
+              ""
+            ],
             "style": "camelCase"
           }
         ],

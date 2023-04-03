@@ -7,6 +7,8 @@ import {TranslateModule} from '@ngx-translate/core';
 import {Utility} from '@utility/index';
 import {NgIf} from '@angular/common';
 import {FirebaseError} from '@angular/fire/app';
+import {HasErrorModule} from '@utility/directives/has-error/has-error.module';
+import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
 
 @Component({
   selector: 'identity-sign-in-page',
@@ -16,7 +18,9 @@ import {FirebaseError} from '@angular/fire/app';
     RouterLink,
     ReactiveFormsModule,
     TranslateModule,
-    NgIf
+    NgIf,
+    HasErrorModule,
+    FirstKeyNameModule
   ],
   encapsulation: ViewEncapsulation.None
 })
