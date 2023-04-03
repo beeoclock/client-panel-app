@@ -43,71 +43,7 @@
               </p>
             </div>
           </div>
-          <div class="col-md-7 d-flex flex-center">
-            <div class="p-4 p-md-5 flex-grow-1">
-              <div class="row flex-between-center">
-                <div class="col-auto text-center w-100">
-                  <h3>{{ 'identity.sign-in.form.label' | translate }}</h3>
-                </div>
-              </div>
-              <form (ngSubmit)="signIn()" [formGroup]="form" novalidate>
-
-                <div class="mb-3 position-relative">
-                  <label class="form-label"
-                         for="sign-in_email">{{ 'identity.sign-in.form.inputs.email.label' | translate }}</label>
-                  <div class="input-group">
-
-                    <input [checkFormError]="true"
-                           [inputGroup]="true"
-                           [name]="'person-fill'"
-                           [placeholder]="'identity.sign-in.form.inputs.email.placeholder' | translate"
-                           class="form-control"
-                           formControlName="email"
-                           hasError
-                           id="identity-sign-in-form-input-email"
-                           type="email">
-
-                  </div>
-                  <div *ngIf="form.controls.email.errors" class="invalid-tooltip">
-                    {{ 'form.validation.' + (form.controls.email.errors | firstKeyName) | translate }}
-                  </div>
-
-                </div>
-
-                <div class="mb-3">
-                  <div class="d-flex justify-content-between">
-                    <label class="form-label"
-                           for="sign-in_password">{{ 'identity.sign-in.form.inputs.password.label' | translate }}</label>
-                  </div>
-                  <div class="input-group mb-3">
-                    <input [placeholder]="'identity.sign-in.form.inputs.password.placeholder' | translate"
-                           [type]="passwordToggle.isOff ? 'password' : 'text'"
-                           aria-describedby="basic-addon1"
-                           aria-label="Username"
-                           class="form-control"
-                           formControlName="password"
-                           id="sign-in_password">
-                    <button (click)="passwordToggle.toggle()" class="btn btn-primary" id="button-addon2" type="button">
-                      <i *ngIf="passwordToggle.isOff" class="bi bi-eye-fill"></i>
-                      <i *ngIf="passwordToggle.isOn" class="bi bi-eye-slash-fill"></i>
-                    </button>
-                  </div>
-                </div>
-                <div class="row flex-between-center">
-                  <div class="mb-3">
-                    <button class="btn btn-primary d-block w-100 mt-3" type="submit">
-                      {{ 'identity.sign-in.form.button.submit' | translate }}
-                    </button>
-                  </div>
-                  <div class="col-auto w-100 text-center">
-                    <a class="fs--1" routerLink="forgot-password">
-                      {{ 'identity.sign-in.form.button.forgot-password' | translate }}
-                    </a>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
+          <identity-form-sign-in-component (submit)="signIn()" [form]="form"></identity-form-sign-in-component>
         </div>
       </div>
     </div>

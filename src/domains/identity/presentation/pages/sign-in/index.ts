@@ -3,12 +3,8 @@ import {Router, RouterLink} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {Auth, signInWithEmailAndPassword} from '@angular/fire/auth';
 import LoginForm from '@identity/form/login.form';
-import {TranslateModule} from '@ngx-translate/core';
-import {Utility} from '@utility/index';
-import {NgIf} from '@angular/common';
 import {FirebaseError} from '@angular/fire/app';
-import {HasErrorModule} from '@utility/directives/has-error/has-error.module';
-import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
+import {FormSignInComponent} from '@identity/presentation/components/form.sign-in.component/form.sign-in.component';
 
 @Component({
   selector: 'identity-sign-in-page',
@@ -17,17 +13,13 @@ import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.m
   imports: [
     RouterLink,
     ReactiveFormsModule,
-    TranslateModule,
-    NgIf,
-    HasErrorModule,
-    FirstKeyNameModule
+    FormSignInComponent
   ],
   encapsulation: ViewEncapsulation.None
 })
 export default class Index {
 
   public readonly form = new LoginForm();
-  public readonly passwordToggle = new Utility.BooleanStateModel(false);
   private readonly auth = inject(Auth);
   private readonly router = inject(Router);
 
