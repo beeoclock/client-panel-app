@@ -1,5 +1,8 @@
 export const environment = {
   production: true,
+  config: {
+    language: 'en'
+  },
   firebase: {
     apiKey: "AIzaSyB4V6b5T25u43cS8LfpQ02NWq_nP0QgXS4",
     authDomain: "beeoclock-cloud-00000000000000.firebaseapp.com",

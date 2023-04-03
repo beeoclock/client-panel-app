@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, HostBinding, ViewEncapsulation} from '@angular/core';
-import {utils} from '@src/scripts/utls';
 import {themeControl} from '@src/scripts/theme-control';
 import {handleNavbarVerticalCollapsed} from '@src/scripts/navbar-vertical';
 import {RouterLink, RouterLinkActive} from '@angular/router';
@@ -37,7 +36,7 @@ export class SidebarComponent implements AfterViewInit {
       items: [
         {
           label: 'Dashboard',
-          url: '/utility/dashboard',
+          url: '/dashboard',
           icon: 'bi bi-pie-chart',
         },
         {
@@ -71,8 +70,8 @@ export class SidebarComponent implements AfterViewInit {
 
   public ngAfterViewInit(): void {
 
-    utils.docReady(handleNavbarVerticalCollapsed);
-    utils.docReady(themeControl);
+    handleNavbarVerticalCollapsed();
+    themeControl();
 
   }
 

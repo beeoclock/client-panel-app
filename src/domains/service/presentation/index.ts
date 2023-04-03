@@ -2,7 +2,7 @@ import {Routes} from '@angular/router';
 
 export default [
   {
-    path: 'list',
+    path: '',
     loadComponent: () => import('./pages/list')
   },
   {

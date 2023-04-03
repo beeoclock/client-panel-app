@@ -1,4 +1,5 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Auth} from '@angular/fire/auth';
 
 @Component({
   selector: 'utility-dashboard-page',
@@ -6,6 +7,15 @@ import {Component, ViewEncapsulation} from '@angular/core';
   standalone: true,
   encapsulation: ViewEncapsulation.None,
 })
-export default class Index {
+export default class Index implements OnInit {
+
+  private readonly auth: Auth = inject(Auth);
+
+  public ngOnInit(): void {
+    console.log(this.auth.currentUser);
+    this.auth.onAuthStateChanged((result) => {
+      console.log(result);
+    });
+  }
 
 }

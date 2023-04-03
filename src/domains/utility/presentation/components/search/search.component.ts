@@ -66,7 +66,7 @@ import {Component, ViewEncapsulation} from "@angular/core";
               <div class="file-thumbnail me-2"><img alt="" class="img-fluid"
                                                     src="assets/img/icons/zip.png"/></div>
               <div class="flex-1">
-                <h6 class="mb-0 title">Falcon v1.8.2</h6>
+                <h6 class="mb-0 title">Bee O\`clock v1.8.2</h6>
                 <p class="fs--2 mb-0 d-flex"><span class="fw-semi-bold">John</span><span
                   class="fw-medium text-600 ms-2">30 Sep at 12:30 PM</span></p>
               </div>

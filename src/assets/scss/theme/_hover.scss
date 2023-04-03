@@ -67,7 +67,7 @@ a[href] {
   }
 }
 
-// used in crm todo list
+// used in crm todo settings
 .hover-bg {
   @each $color, $value in $grays {
     &-#{$color} {

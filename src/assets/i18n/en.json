@@ -1,0 +1,156 @@
+{
+  "language": {
+    "en": "English",
+    "uk": "Українська",
+    "pl": "Polski"
+  },
+  "form": {
+    "validation": {
+      "required": "Required field"
+    }
+  },
+  "page": {
+    "calendar": {
+      "title": "Calendar"
+    },
+    "select-company": {
+      "title": "Select company",
+      "form": {
+        "button": {
+          "submit": "Select"
+        }
+      },
+      "button": {
+        "create-new-company": "Create a new company"
+      }
+    }
+  },
+  "service": {
+    "title": "Service"
+  },
+  "customer": {
+    "title": "Customer"
+  },
+  "event": {
+    "title": "Event"
+  },
+  "company": {
+    "title": "Settings",
+    "form": {
+      "inputs": {
+        "name": {
+          "label": "Name",
+          "placeholder": "Type Company or Personal name"
+        },
+        "description": {
+          "label": "Description",
+          "placeholder": "Type description of company"
+        },
+        "active": {
+          "label": "Active",
+          "placeholder": "Switch on if you want to be active"
+        }
+      }
+    }
+  },
+  "identity": {
+    "logout": {
+      "button": "Logout"
+    },
+    "reset-password": {
+      "form": {
+        "label": "Reset password",
+        "inputs": {
+          "password": {
+            "label": "Password",
+            "placeholder": "Enter password"
+          }
+        },
+        "button": {
+          "submit": "Change password",
+          "sign-in": "Login"
+        }
+      }
+    },
+    "forgot-password": {
+      "form": {
+        "label": "Forgot password",
+        "inputs": {
+          "email": {
+            "label": "E-mail",
+            "placeholder": "Enter E-mail"
+          }
+        },
+        "button": {
+          "submit": "Send",
+          "sign-in": "Login"
+        }
+      }
+    },
+    "sign-in": {
+      "form": {
+        "label": "Login",
+        "inputs": {
+          "email": {
+            "label": "E-mail",
+            "placeholder": "name.surname@beeoclock.com"
+          },
+          "password": {
+            "label": "Password",
+            "placeholder": "Enter password"
+          }
+        },
+        "button": {
+          "forgot-password": "Forgot password",
+          "submit": "Login",
+          "sign-up": "Registration"
+        }
+      }
+    },
+    "sign-up": {
+      "form": {
+        "label": "Registration",
+        "inputs": {
+          "display-name": {
+            "label": "How should everyone call you",
+            "placeholder": "e.g. Company name, Personal name"
+          },
+          "email": {
+            "label": "E-mail",
+            "placeholder": "Enter text"
+          },
+          "password": {
+            "label": "Password",
+            "placeholder": "Enter password"
+          },
+          "password-confirm": {
+            "label": "Password confirm",
+            "placeholder": "Enter password confirm"
+          },
+          "timezone": {
+            "inputs": {
+              "offset": {
+                "label": "Password confirm",
+                "placeholder": "Enter password confirm"
+              }
+            }
+          }
+        },
+        "button": {
+          "sign-in": "Login",
+          "submit": "Registration"
+        }
+      }
+    }
+  },
+  "http": {
+    "response": {
+      "status": {
+        "504": {
+          "title": "Server Error",
+          "content": "Check internet or try again later."
+        }
+      }
+    }
+  }
+}

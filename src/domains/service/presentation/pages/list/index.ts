@@ -1,9 +1,13 @@
 import {Component, ViewEncapsulation} from '@angular/core';
+import {GettingStartedComponent} from '@utility/presentation/components/getting-started/getting-started.component';
 
 @Component({
-  selector: 'specialist-list-page',
-  template: `Specialist list`,
+  selector: 'service-settings-page',
+  templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
+  imports: [
+    GettingStartedComponent
+  ],
   standalone: true
 })
 export default class Index {

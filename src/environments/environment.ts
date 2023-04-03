@@ -1,9 +1,12 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
+// The settings of file replacements can be found in `angular.json`.
 
 export const environment = {
   production: false,
+  config: {
+    language: 'en'
+  },
   firebase: {
     projectId: 'beeoclock-cloud-00000000000000',
     appId: '1:917223590640:web:9ce518f7fe4fee4380d035',
