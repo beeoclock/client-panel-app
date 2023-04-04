@@ -1,5 +1,4 @@
 import {Component, ViewEncapsulation} from '@angular/core';
-import {GettingStartedComponent} from '@utility/presentation/components/getting-started/getting-started.component';
 import {ExampleTableComponent} from '@utility/presentation/components/table/example.table.component';
 
 @Component({
