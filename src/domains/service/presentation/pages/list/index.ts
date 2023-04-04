@@ -7,7 +7,6 @@ import {ExampleTableComponent} from '@utility/presentation/components/table/exam
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
   imports: [
-    GettingStartedComponent,
     ExampleTableComponent
   ],
   standalone: true

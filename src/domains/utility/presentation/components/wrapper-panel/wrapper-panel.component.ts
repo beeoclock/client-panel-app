@@ -27,7 +27,6 @@ import {Auth} from '@angular/fire/auth';
   encapsulation: ViewEncapsulation.None
 })
 export default class WrapperPanelComponent {
-
   private readonly router: Router = inject(Router);
   private readonly auth: Auth = inject(Auth);
 

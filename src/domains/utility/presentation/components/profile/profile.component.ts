@@ -1,6 +1,7 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {Auth} from '@angular/fire/auth';
 
+
 @Component({
   selector: 'utility-profile-component',
   encapsulation: ViewEncapsulation.None,
@@ -37,6 +38,7 @@ export class ProfileComponent {
     this.auth.signOut()
       .then(() => {
         console.log('Sign out!');
+
       })
       .catch((error) => {
         console.error(error);
