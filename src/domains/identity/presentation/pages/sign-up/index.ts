@@ -8,7 +8,7 @@ import {
 } from '@angular/fire/auth';
 import {ReactiveFormsModule} from '@angular/forms';
 import RegistrationForm from '@identity/form/registration.form';
-import {Router, RouterLink} from '@angular/router';
+import {RouterLink} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
 import {NgIf} from '@angular/common';
 import {SignUpComponent} from '@identity/presentation/components/sign-up.component/sign-up.component';
@@ -30,7 +30,6 @@ export default class Index {
 
   public readonly form: RegistrationForm = new RegistrationForm();
   private readonly auth: Auth = inject(Auth);
-  private readonly router: Router = inject(Router);
 
   public signUp(): void {
     this.form.markAllAsTouched();
@@ -48,7 +47,6 @@ export default class Index {
               displayName
             });
             console.log('E-mail is sent.');
-            this.router.navigate(['/']);
           })
           .catch((error) => {
             console.log(error);

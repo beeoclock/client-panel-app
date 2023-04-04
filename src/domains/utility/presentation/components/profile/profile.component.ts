@@ -1,6 +1,5 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {Auth} from '@angular/fire/auth';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'utility-profile-component',
@@ -32,14 +31,12 @@ import {Router} from '@angular/router';
 export class ProfileComponent {
 
   private readonly auth: Auth = inject(Auth);
-  private readonly router: Router = inject(Router);
 
   public signOut(): void {
     // TODO ask if user really want to sign out!
     this.auth.signOut()
       .then(() => {
         console.log('Sign out!');
-        this.router.navigate(['/', 'identity']);
       })
       .catch((error) => {
         console.error(error);

@@ -1,5 +1,5 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
+import {RouterLink} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {Auth, signInWithEmailAndPassword} from '@angular/fire/auth';
 import LoginForm from '@identity/form/login.form';
@@ -21,7 +21,6 @@ export default class Index {
 
   public readonly form = new LoginForm();
   private readonly auth = inject(Auth);
-  private readonly router = inject(Router);
 
   public signIn(): void {
 
@@ -35,7 +34,6 @@ export default class Index {
           .then((result) => {
 
             console.log(result);
-            this.router.navigate(['/', 'dashboard']);
 
             return result;
           })
