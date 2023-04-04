@@ -1,5 +1,6 @@
-import {Component, ViewEncapsulation} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
+import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {Router, RouterOutlet} from '@angular/router';
+import {Auth} from '@angular/fire/auth';
 
 @Component({
   selector: 'utility-wrapper-identity-component',
@@ -16,6 +17,17 @@ import {RouterOutlet} from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 export default class WrapperIdentityComponent {
+
+  private readonly router: Router = inject(Router);
+  private readonly auth: Auth = inject(Auth);
+
+  constructor() {
+    this.auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.router.navigate(['/', 'dashboard']);
+      }
+    });
+  }
 
 }
 

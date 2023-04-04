@@ -1,9 +1,10 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {SidebarComponent} from '@utility/presentation/components/sidebar/sidebar.component';
 import {NavbarComponent} from '@utility/presentation/components/navbar/navbar.component';
 import {FooterComponent} from '@utility/presentation/components/footer/footer.component';
 import {ModalComponent} from '@utility/presentation/components/modal/modal.component';
-import {RouterOutlet} from '@angular/router';
+import {Router, RouterOutlet} from '@angular/router';
+import {Auth} from '@angular/fire/auth';
 
 @Component({
   selector: 'utility-wrapper-panel-component',
@@ -26,6 +27,17 @@ import {RouterOutlet} from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 export default class WrapperPanelComponent {
+
+  private readonly router: Router = inject(Router);
+  private readonly auth: Auth = inject(Auth);
+
+  constructor() {
+    this.auth.onAuthStateChanged((user) => {
+      if (!user) {
+        this.router.navigate(['/', 'identity']);
+      }
+    });
+  }
 
 }
 
