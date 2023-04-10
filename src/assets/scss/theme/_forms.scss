@@ -71,3 +71,7 @@ input[type="file"].form-control-lg {
 option:disabled {
   color: var(--#{$prefix}gray-400);
 }
+
+.form-control {
+  padding: .4rem .8rem;
+}
