@@ -1,5 +1,4 @@
 {
-  "projects": {},
   "targets": {
     "beeoclock-cloud-00000000000000": {
       "hosting": {
@@ -15,6 +14,5 @@
         ]
       }
     }
-  },
-  "etags": {}
+  }
 }
