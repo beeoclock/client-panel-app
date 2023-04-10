@@ -24,3 +24,4 @@ jobs:
       - run: firebase target:apply hosting panel-beeoclock-cloud-00000000000000 panel-beeoclock-cloud-00000000000000
       - name: Deploy to PREPROD
         run: firebase hosting:channel:deploy preprod --expires 2d --only panel-beeoclock-cloud-00000000000000
+      - run: firebase deploy --only firestore:rules
