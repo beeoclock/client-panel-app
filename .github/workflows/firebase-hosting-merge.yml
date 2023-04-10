@@ -29,6 +29,7 @@ jobs:
       - run: firebase use beeoclock-cloud-00000000000000
       - run: firebase target:apply hosting panel-beeoclock-cloud-00000000000000 panel-beeoclock-cloud-00000000000000
       - run: firebase deploy --only hosting:panel-beeoclock-cloud-00000000000000
+      - run: firebase deploy --only firestore:rules
 
       # Section: 00000000000001
       - id: 'auth_00000000000001'
@@ -40,3 +41,4 @@ jobs:
       - run: firebase use beeoclock-cloud-00000000000001
       - run: firebase target:apply hosting panel-beeoclock-cloud-00000000000001 panel-beeoclock-cloud-00000000000001
       - run: firebase deploy --only hosting:panel-beeoclock-cloud-00000000000001
+      - run: firebase deploy --only firestore:rules
