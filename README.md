@@ -20,7 +20,7 @@ TODO
 7. Create the new account (submit)
 8. Go to `IAM` click on `GRANT CCESS` and write to `New princials` the new service account `github-actions@...`
    9. Select roles: API Keys Viewer, Cloud Run Viewer, Firebase Authentication Admin, Firebase Hosting Admin, Firebase
-      Rules Firestore Service Agent
+      Rules Firestore Service Agent, Cloud Datastore Index Admin
 10. Click on `Save`
 11. Return to `Service accounts` click on the account `github-actions@...`
 12. Change tab on the `KEYS` and click on `ADD KEY` select `Create new key`
