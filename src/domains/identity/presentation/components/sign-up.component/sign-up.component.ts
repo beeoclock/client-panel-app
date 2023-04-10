@@ -11,7 +11,6 @@ import {PasswordComponent} from '@identity/presentation/components/password.comp
 import RegistrationForm from '@identity/form/registration.form';
 import {DisplayNameComponent} from '@identity/presentation/components/display-name.component/display-name.component';
 import {ButtonComponent} from '@utility/presentation/components/button/button.component';
-import {PrimaryButtonComponent} from '@utility/presentation/components/button/primary.button.component';
 
 @Component({
   selector: 'identity-sign-up-component',
@@ -58,7 +57,12 @@ import {PrimaryButtonComponent} from '@utility/presentation/components/button/pr
       <!--          </div>-->
 
       <div class="my-3 d-grid">
-        <button beeoclock-primary-button translate="identity.sign-up.form.button.submit"></button>
+        <button
+          beeoclock-button
+          [disabled]="form.pending"
+          [showLoader]="form.pending">
+          {{ 'identity.sign-up.form.button.submit' | translate }}
+        </button>
       </div>
     </form>
 
@@ -75,7 +79,6 @@ import {PrimaryButtonComponent} from '@utility/presentation/components/button/pr
     PasswordComponent,
     DisplayNameComponent,
     ButtonComponent,
-    PrimaryButtonComponent
   ]
 })
 export class SignUpComponent {

@@ -27,6 +27,7 @@ export default class Index {
     this.form.markAllAsTouched();
 
     if (this.form.valid) {
+      this.form.markAsPending();
 
       const {email, password} = this.form.value;
       if (email && password) {
@@ -38,10 +39,15 @@ export default class Index {
             return result;
           })
           .catch((result: FirebaseError) => {
-
+            this.form.updateValueAndValidity();
           });
+
+      } else {
+        this.form.updateValueAndValidity();
       }
 
+    } else {
+      this.form.updateValueAndValidity();
     }
 
 

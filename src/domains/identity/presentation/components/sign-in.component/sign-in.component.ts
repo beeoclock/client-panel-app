@@ -10,7 +10,6 @@ import {EmailComponent} from '@identity/presentation/components/email.component/
 import {PasswordComponent} from '@identity/presentation/components/password.component/password.component';
 import LoginForm from '@identity/form/login.form';
 import {ButtonComponent} from '@utility/presentation/components/button/button.component';
-import {PrimaryButtonComponent} from '@utility/presentation/components/button/primary.button.component';
 
 @Component({
   selector: 'identity-sign-in-component',
@@ -40,11 +39,15 @@ import {PrimaryButtonComponent} from '@utility/presentation/components/button/pr
 
         <div class="row flex-between-center">
           <div class="my-3 d-grid">
-            <button beeoclock-primary-button translate="identity.sign-in.form.button.submit"></button>
+            <button
+              beeoclock-button
+              [disabled]="form.pending"
+              [showLoader]="form.pending">
+              {{ 'identity.sign-in.form.button.submit' | translate }}
+            </button>
           </div>
           <div class="col-auto w-100 text-center">
-            <a class="fs--1" routerLink="forgot-password">
-              {{ 'identity.sign-in.form.button.forgot-password' | translate }}
+            <a class="fs--1" routerLink="forgot-password" translate="identity.sign-in.form.button.forgot-password">
             </a>
           </div>
         </div>
@@ -62,8 +65,7 @@ import {PrimaryButtonComponent} from '@utility/presentation/components/button/pr
     RouterLink,
     EmailComponent,
     PasswordComponent,
-    ButtonComponent,
-    PrimaryButtonComponent
+    ButtonComponent
   ]
 })
 export class SignInComponent {

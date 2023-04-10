@@ -34,6 +34,7 @@ export default class Index {
   public signUp(): void {
     this.form.markAllAsTouched();
     if (this.form.valid) {
+      this.form.markAsPending();
       const {email, password, displayName} = this.form.value;
       if (email && password && displayName) {
         createUserWithEmailAndPassword(this.auth, email, password)
@@ -49,11 +50,11 @@ export default class Index {
             console.log('E-mail is sent.');
           })
           .catch((error) => {
-            console.log(error);
+            this.form.updateValueAndValidity();
           });
       }
     } else {
-      console.log(this.form);
+      this.form.updateValueAndValidity();
     }
   }
 
