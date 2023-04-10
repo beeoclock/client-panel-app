@@ -9,11 +9,12 @@ import {RouterLink} from '@angular/router';
 import {EmailComponent} from '@identity/presentation/components/email.component/email.component';
 import {PasswordComponent} from '@identity/presentation/components/password.component/password.component';
 import LoginForm from '@identity/form/login.form';
+import {ButtonComponent} from '@utility/presentation/components/button/button.component';
+import {PrimaryButtonComponent} from '@utility/presentation/components/button/primary.button.component';
 
 @Component({
   selector: 'identity-sign-in-component',
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   template: `
     <div class="p-4 p-md-5 flex-grow-1">
       <div class="row flex-between-center">
@@ -38,10 +39,8 @@ import LoginForm from '@identity/form/login.form';
         </identity-password-component>
 
         <div class="row flex-between-center">
-          <div class="mb-3">
-            <button class="btn btn-primary d-block w-100 mt-3" type="submit">
-              {{ 'identity.sign-in.form.button.submit' | translate }}
-            </button>
+          <div class="my-3 d-grid">
+            <button beeoclock-primary-button translate="identity.sign-in.form.button.submit"></button>
           </div>
           <div class="col-auto w-100 text-center">
             <a class="fs--1" routerLink="forgot-password">
@@ -52,6 +51,7 @@ import LoginForm from '@identity/form/login.form';
       </form>
     </div>
   `,
+  standalone: true,
   imports: [
     ReactiveFormsModule,
     HasErrorModule,
@@ -61,7 +61,9 @@ import LoginForm from '@identity/form/login.form';
     TogglePasswordModule,
     RouterLink,
     EmailComponent,
-    PasswordComponent
+    PasswordComponent,
+    ButtonComponent,
+    PrimaryButtonComponent
   ]
 })
 export class SignInComponent {

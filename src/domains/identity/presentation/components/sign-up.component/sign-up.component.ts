@@ -10,6 +10,8 @@ import {EmailComponent} from '@identity/presentation/components/email.component/
 import {PasswordComponent} from '@identity/presentation/components/password.component/password.component';
 import RegistrationForm from '@identity/form/registration.form';
 import {DisplayNameComponent} from '@identity/presentation/components/display-name.component/display-name.component';
+import {ButtonComponent} from '@utility/presentation/components/button/button.component';
+import {PrimaryButtonComponent} from '@utility/presentation/components/button/primary.button.component';
 
 @Component({
   selector: 'identity-sign-up-component',
@@ -55,10 +57,8 @@ import {DisplayNameComponent} from '@identity/presentation/components/display-na
       <!--            </label>-->
       <!--          </div>-->
 
-      <div class="mb-3">
-        <button class="btn btn-primary d-block w-100 mt-3" name="submit" type="submit">
-          {{ 'identity.sign-up.form.button.submit' | translate }}
-        </button>
+      <div class="my-3 d-grid">
+        <button beeoclock-primary-button translate="identity.sign-up.form.button.submit"></button>
       </div>
     </form>
 
@@ -73,7 +73,9 @@ import {DisplayNameComponent} from '@identity/presentation/components/display-na
     RouterLink,
     EmailComponent,
     PasswordComponent,
-    DisplayNameComponent
+    DisplayNameComponent,
+    ButtonComponent,
+    PrimaryButtonComponent
   ]
 })
 export class SignUpComponent {
