@@ -4,6 +4,7 @@ import {HasErrorModule} from '@utility/directives/has-error/has-error.module';
 import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
+import {InputComponent} from '@utility/presentation/components/input/input.component';
 
 @Component({
   selector: 'identity-email-component',
@@ -24,7 +25,7 @@ import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.m
                [formControl]="control"
                [id]="id"
                hasError
-               class="form-control"
+               beeoclock
                type="email">
 
       </div>
@@ -39,7 +40,9 @@ import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.m
     HasErrorModule,
     NgIf,
     TranslateModule,
-    FirstKeyNameModule
+    FirstKeyNameModule,
+    InputComponent,
+    InputComponent
   ]
 })
 export class EmailComponent {

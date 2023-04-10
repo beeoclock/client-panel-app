@@ -15,7 +15,7 @@ type BtnColorType =
   | 'btn-white';
 
 @Component({
-  selector: 'button[beeoclock-button]',
+  selector: 'button[beeoclock]',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
   template: `

@@ -40,7 +40,7 @@ import {ButtonComponent} from '@utility/presentation/components/button/button.co
         <div class="row flex-between-center">
           <div class="my-3 d-grid">
             <button
-              beeoclock-button
+              beeoclock
               [disabled]="form.pending"
               [showLoader]="form.pending">
               {{ 'identity.sign-in.form.button.submit' | translate }}

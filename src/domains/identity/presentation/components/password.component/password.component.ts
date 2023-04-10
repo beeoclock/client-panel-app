@@ -5,6 +5,7 @@ import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
 import {TogglePasswordModule} from '@utility/pipes/toggle-password/toggle-password.module';
+import {InputComponent} from '@utility/presentation/components/input/input.component';
 
 @Component({
   selector: 'identity-password-component',
@@ -23,7 +24,7 @@ import {TogglePasswordModule} from '@utility/pipes/toggle-password/toggle-passwo
         <input
           [id]="id"
           [formControl]="control"
-          class="form-control"
+          beeoclock
           togglePassword
           hasError
           [inputGroup]="true"
@@ -46,7 +47,9 @@ import {TogglePasswordModule} from '@utility/pipes/toggle-password/toggle-passwo
     NgIf,
     TranslateModule,
     FirstKeyNameModule,
-    TogglePasswordModule
+    TogglePasswordModule,
+    InputComponent,
+    InputComponent
   ]
 })
 export class PasswordComponent {
