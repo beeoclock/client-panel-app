@@ -1,0 +1,131 @@
+@each $color, $value in $theme-colors {
+  .noUi-#{$color} {
+    .noUi-connect {
+      background: var(--#{$prefix}#{$color}) !important;
+    }
+  }
+}
+
+.noUi-handle-square {
+  &.noUi-target {
+    --#{$prefix}noUi-handle-top: -2px;
+    .noUi-handle {
+      height: 16px;
+      width: 16px;
+
+      &::after, &::before {
+        display: none;
+      }
+    }
+  }
+}
+.noUi-handle-circle {
+  &.noUi-target {
+    --#{$prefix}noUi-handle-top: -3px;
+    .noUi-handle {
+      height: 18px;
+      width: 18px;
+
+      border-radius: 50%;
+      &::after, &::before {
+        display: none;
+      }
+    }
+  }
+}
+.noUi-slider-slim {
+  &.noUi-target {
+    --#{$prefix}noUi-track-height: 4px;
+    --#{$prefix}noUi-handle-top: -10px;
+  }
+}
+
+.noUi-target {
+  --#{$prefix}noUi-track-height: 0.75rem;
+  --#{$prefix}noUi-handle-top: -6px;
+  background: $form-range-track-bg;
+  border: none;
+  box-shadow: $box-shadow-inset;
+
+  &.noUi-horizontal {
+    height: var(--#{$prefix}noUi-track-height);
+
+    .noUi-handle {
+      right: -8px;
+    }
+  }
+  
+  .noUi-connect {
+    background: var(--#{$prefix}primary);
+    box-shadow: $box-shadow-inset;
+  }
+
+  .noUi-handle {
+    width: 16px;
+    height: 24px;
+    background: $white;
+    border: 1px solid $white;
+    box-shadow: $btn-falcon-box-shadow;
+    top: var(--#{$prefix}noUi-handle-top);
+    cursor: grab;
+
+    &:hover {
+      background: $gray-100;
+      .noUi-tooltip {
+        display: block;
+      }
+    }
+
+    &::after, &::before {
+      background: $gray-300;
+      height: 10px;
+      top: 6px;
+    }
+    &::after {
+      left: 9px;
+    } 
+    &::before {
+      left: 4px;
+    }
+
+    .noUi-tooltip {
+      display: none;
+      background: $card-bg;
+      border: 1px solid $border-color;
+      font-size: $tooltip-font-size;
+    }
+
+    &:active {
+      cursor: grabbing;
+      box-shadow: var(--#{$prefix}btn-falcon-hover-box-shadow);
+    }
+
+    &.noUi-active {
+      .noUi-tooltip {
+        display: block;
+      }
+    } 
+  }
+
+  .noUi-pips {
+    color: var(--#{$prefix}gray-400);
+    margin-top: map-get($spacers, 1);
+    .noUi-value-sub {
+      color: var(--#{$prefix}gray-400);
+    }
+    .noUi-marker, .noUi-marker-large {
+      background: var(--#{$prefix}gray-400);
+    }
+  }
+}
+
+@if $enable-dark-mode {
+  @include color-mode(dark, true) { 
+    .noUi-handle {      
+      .noUi-tooltip {
+        background: map-get($dark-grays, '200');
+        color: $white;
+      }
+    }
+  }
+}

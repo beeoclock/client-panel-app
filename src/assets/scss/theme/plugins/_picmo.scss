@@ -1,0 +1,100 @@
+.picmo__popupContainer {
+  z-index: 9999;
+}
+.picmo__picker.picmo__picker {
+  width: 18.75rem;
+  --background-color: #{$white};
+  --category-name-background-color: var(--#{$prefix}white);
+  --border-color: #{$border-color};
+  --category-tab-color: var(--#{$prefix}gray-700);
+  --category-tab-highlight-background-color: #{$gray-200};
+  --text-color: var(--#{$prefix}body-color);
+  --search-placeholder-color: var(--#{$prefix}gray-400);
+  --search-icon-color: var(--#{$prefix}gray-500);
+  --search-background-color: #{$input-bg};
+  --search-focus-background-color: #{$input-bg};
+  --search-focus-border-color: #{$primary};
+
+  .picmo__emojiArea {
+    @extend .scrollbar;
+  }
+
+  section {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .picmo__header {
+    --secondary-background-color: var(--#{$prefix}white);
+  }
+  .picmo__preview {
+    --preview-background-color: var(--#{$prefix}white);
+  }
+  .picmo__emojiCategory {
+    .picmo__categoryName {
+      --category-name-text-color: var(--#{$prefix}gray-600);
+      font-weight: 500;
+    }
+  }
+
+  .picmo__emojiButton {
+    --emoji-size: 1.7rem;
+    &:hover {
+      --hover-background-color: #{$gray-200};
+    }
+  }
+
+  .picmo__content {
+    min-height: unset !important;
+    padding: unset !important;
+  }
+
+  .picmo__searchContainer .picmo__searchField {
+    border: 1px solid var(--#{$prefix}border-color);
+    border-radius: 0.375rem;
+    padding: 1rem;
+  }
+  .picmo__categoryButtons {
+    .picmo__categoryTab {
+      &.picmo__categoryTabActive .picmo__categoryButton {
+        border: unset;
+        background: unset;
+        color: $primary;
+        &:hover {
+          background: var(--#{$prefix}gray-200);
+        }
+      }
+      .picmo__categoryButton svg {
+        width: 0.8em;
+      }
+    }
+
+  } 
+}
+
+.safari {
+  .picmo__categoryButtons {
+    outline: none;
+  } 
+}
+
+@if $enable-dark-mode {
+  @include color-mode(dark, true) {
+    .picmo__picker.picmo__picker {
+      --background-color: #{map-get($dark-grays, '200')};
+      --border-color: #{map-get($dark-grays, '300')};
+      --category-tab-highlight-background-color: #{map-get($dark-grays, '300')};
+      --category-name-background-color: #{map-get($dark-grays, '200')};
+      --search-focus-border-color: #{map-get($dark-grays, '700')};
+      .picmo__header {
+        --secondary-background-color: #{map-get($dark-grays, '200')};
+      }
+      .picmo__preview {
+        --preview-background-color: #{map-get($dark-grays, '200')};
+      }
+
+      .picmo__emojiButton:hover {
+        --hover-background-color: #{map-get($dark-grays, '300')};
+      }
+    }
+  }
+}

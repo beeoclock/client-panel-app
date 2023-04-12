@@ -20,11 +20,11 @@ import {ReactiveFormsModule} from '@angular/forms';
   ],
   template: `
     <form [formGroup]="form" (ngSubmit)="form.save()" class="row g-3">
-      <div class="col-lg-11">
+      <div class="col-lg-10">
         <label class="form-label" for="first-name">Name</label>
         <input beeoclock id="name" formControlName="name">
       </div>
-      <div class="col-lg-1">
+      <div class="col-lg-2">
         <label class="form-label" for="flexSwitchCheckDefault">Active</label>
         <div class="form-check form-switch d-flex align-items-center fs-2">
           <input class="form-check-input" type="checkbox" role="switch" id="active" formControlName="active">

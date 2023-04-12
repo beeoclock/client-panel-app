@@ -6,6 +6,10 @@ export default [
     loadComponent: () => import('./pages/list')
   },
   {
+    path: 'calendar',
+    loadComponent: () => import('./pages/calendar')
+  },
+  {
     path: 'details',
     children: [
       {
