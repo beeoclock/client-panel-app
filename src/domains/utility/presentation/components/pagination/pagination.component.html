@@ -1,21 +1,40 @@
 <div class="card my-3">
   <div class="card-body py-0">
-    <div class="d-flex justify-content-center my-3">
-      <button
-        class="btn btn-sm btn-falcon-default me-1"
-        data-list-pagination="prev"
-        title="Previous"
-        type="button">
-        <
-      </button>
-      <ul class="pagination mb-0"></ul>
-      <button
-        class="btn btn-sm btn-falcon-default ms-1"
-        data-list-pagination="next"
-        title="Next"
-        type="button">
-        >
-      </button>
+    <div class="row my-3">
+      <div class="col-lg-4 d-flex align-items-center">
+        Total: 802
+      </div>
+
+      <div class="col-lg-4 d-flex justify-content-center">
+        <button
+          class="btn btn-sm btn-falcon-default me-2"
+          data-list-pagination="prev"
+          title="Previous"
+          type="button">
+          <
+        </button>
+        <a class="btn btn-sm btn-falcon-default text-primary me-2" href="#!">1</a>
+        <a class="btn btn-sm btn-falcon-default me-2" href="#!">2</a>
+        <a class="btn btn-sm btn-falcon-default" href="#!">35</a>
+        <button
+          class="btn btn-sm btn-falcon-default ms-2"
+          data-list-pagination="next"
+          title="Next"
+          type="button">
+          >
+        </button>
+      </div>
+
+      <div class="col-lg-4">
+        <form class="row gx-2 justify-content-end">
+          <div class="col-auto"><small>Items per page: </small></div>
+          <div class="col-auto"><select class="form-select form-select-sm" aria-label="Bulk actions">
+            <option selected="">25</option>
+            <option value="Refund">50</option>
+            <option value="Delete">100</option>
+          </select></div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

@@ -1,17 +1,19 @@
-import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {CustomerFormService} from '@customer/service/customer.form.service';
 import {ActivatedRoute} from '@angular/router';
 import {ICustomer} from '@customer/interface/customer.interface';
 import {CardComponent} from '@utility/presentation/components/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/components/card/body.card.component';
-import {NgIf} from '@angular/common';
+import {AsyncPipe, NgIf} from '@angular/common';
+import {exhaustMap, Observable} from 'rxjs';
+import {SpinnerComponent} from '@utility/presentation/components/spinner/spinner.component';
 
 @Component({
   selector: 'customer-detail-page',
   template: `
     <utility-card-component>
       <utility-body-card-component>
-        <ul class="list-group" *ngIf="customer">
+        <ul class="list-group" *ngIf="customer$ | async as customer; else LoadingTemplate">
           <li class="list-group-item">
             <strong>First name:</strong>
             <p class="m-0">{{ customer.firstName }}</p>
@@ -35,26 +37,29 @@ import {NgIf} from '@angular/common';
         </ul>
       </utility-body-card-component>
     </utility-card-component>
+    <ng-template #LoadingTemplate>
+      <div spinner></div>
+    </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,
   imports: [
     CardComponent,
     BodyCardComponent,
-    NgIf
+    NgIf,
+    AsyncPipe,
+    SpinnerComponent
   ],
   standalone: true
 })
-export default class Index implements OnInit {
+export default class Index {
   public readonly customerFormService: CustomerFormService = inject(CustomerFormService);
   public readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
-  public customer: ICustomer | undefined;
+  public readonly customer$: Observable<ICustomer | undefined> = this.activatedRoute.params.pipe(
+    exhaustMap(async ({id}) => {
+      const customerDoc = await this.customerFormService.item(id);
+      return customerDoc.data();
+    }),
+  );
 
-  public ngOnInit(): void {
-    this.activatedRoute.params.subscribe(({id}) => {
-      this.customerFormService.item(id).then((customerDoc) => {
-        this.customer = customerDoc.data();
-      });
-    });
-  }
 }
