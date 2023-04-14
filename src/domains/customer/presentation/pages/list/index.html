@@ -3,4 +3,30 @@
     <button beeoclock routerLink="form">Form</button>
   </utility-body-card-component>
 </utility-card-component>
-<utility-example-table-component></utility-example-table-component>
+
+
+<utility-table-component>
+  <thead utility-header-table-component>
+  <tr>
+    <th class="sort pe-1 align-middle white-space-nowrap desc" data-sort="name">
+      Customer
+    </th>
+    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
+      Email
+    </th>
+  </tr>
+  </thead>
+  <tbody utility-body-table-component>
+  <tr class="btn-reveal-trigger" *ngFor="let item of list">
+    <th class="align-middle white-space-nowrap name">
+      <a [routerLink]="['details', item.id]">
+        {{ item.data().firstName }} {{ item.data().lastName }}
+      </a>
+    </th>
+    <td class="align-middle white-space-nowrap email">
+      {{ item.data().email }}
+    </td>
+  </tr>
+  </tbody>
+</utility-table-component>
+<utility-pagination-component></utility-pagination-component>

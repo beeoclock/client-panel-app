@@ -5,6 +5,13 @@ import {BodyCardComponent} from '@utility/presentation/components/card/body.card
 import {RouterLink} from '@angular/router';
 import {ButtonComponent} from '@utility/presentation/components/button/button.component';
 import {CustomerFormService} from '@customer/service/customer.form.service';
+import {TableComponent} from '@utility/presentation/components/table/table.component';
+import {HeaderTableComponent} from '@utility/presentation/components/table/header.table.component';
+import {BodyTableComponent} from '@utility/presentation/components/table/body.table.component';
+import {PaginationComponent} from '@utility/presentation/components/pagination/pagination.component';
+import {NgForOf} from '@angular/common';
+import {ICustomer} from '@customer/interface/customer.interface';
+import {QueryDocumentSnapshot} from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'customer-settings-page',
@@ -15,16 +22,23 @@ import {CustomerFormService} from '@customer/service/customer.form.service';
     CardComponent,
     BodyCardComponent,
     RouterLink,
-    ButtonComponent
+    ButtonComponent,
+    TableComponent,
+    HeaderTableComponent,
+    BodyTableComponent,
+    PaginationComponent,
+    NgForOf
   ],
   standalone: true
 })
 export default class Index {
   public readonly customer: CustomerFormService = inject(CustomerFormService);
 
+  public list: QueryDocumentSnapshot<ICustomer>[] = [];
+
   constructor() {
     this.customer.list().then((list) => {
-      console.log(list);
+      this.list = list.docs;
     });
   }
 }

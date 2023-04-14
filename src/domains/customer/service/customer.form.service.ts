@@ -1,7 +1,8 @@
 import {inject, Injectable} from '@angular/core';
-import {DocumentData} from '@angular/fire/firestore';
+import {DocumentSnapshot} from '@angular/fire/firestore';
 import {CustomerFirebasePort} from '@customer/port/firebase/customer.firebase.port';
 import {QuerySnapshot} from '@angular/fire/compat/firestore';
+import {ICustomer} from '@customer/interface/customer.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,11 @@ export class CustomerFormService {
     this.customerFirebasePort.save(value);
   }
 
-  public list(): Promise<QuerySnapshot<DocumentData>> {
+  public item(id: string): Promise<DocumentSnapshot<ICustomer>> {
+    return this.customerFirebasePort.item(id);
+  }
+
+  public list(): Promise<QuerySnapshot<ICustomer>> {
     return this.customerFirebasePort.list();
   }
 }
