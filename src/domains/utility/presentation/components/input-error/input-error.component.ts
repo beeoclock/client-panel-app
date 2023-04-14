@@ -14,7 +14,7 @@ import {FormControl} from '@angular/forms';
     TranslateModule
   ],
   template: `
-    {{ 'form.validation.' + ((control?.errors ?? {}) | firstKeyName) | translate }}
+    {{ 'form.validation.' + (control.errors | firstKeyName) | translate }}
   `
 })
 export class InputErrorComponent {

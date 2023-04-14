@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {DocumentData, DocumentSnapshot} from '@angular/fire/firestore';
-import {SettingsFirebasePort} from '@company/port/settings.firebase.port';
+import {SettingsFirebasePort} from '@company/port/firebase/settings.firebase.port';
 
 @Injectable({
   providedIn: 'root'
