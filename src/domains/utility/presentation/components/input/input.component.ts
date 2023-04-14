@@ -1,4 +1,4 @@
-import {Component, HostBinding, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostBinding, inject, ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'input[beeoclock]',
@@ -8,10 +8,16 @@ import {Component, HostBinding, ViewEncapsulation} from '@angular/core';
     <ng-content></ng-content>
   `
 })
-export class InputComponent {
+export class InputComponent implements AfterViewInit {
   @HostBinding()
   public class = ['form-control'];
 
   @HostBinding()
   public type = 'text';
+
+  public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
+
+  public ngAfterViewInit(): void {
+    console.log(this.elementRef.nativeElement.id);
+  }
 }

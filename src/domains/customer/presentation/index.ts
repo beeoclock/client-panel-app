@@ -19,11 +19,11 @@ export default [
     children: [
       {
         path: '',
-        loadComponent: () => import('./pages/details'),
+        loadComponent: () => import('./pages/form'),
       },
       {
         path: ':id',
-        loadComponent: () => import('./pages/details'),
+        loadComponent: () => import('./pages/form'),
       }
     ]
   }

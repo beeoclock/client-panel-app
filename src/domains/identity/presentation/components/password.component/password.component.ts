@@ -6,6 +6,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
 import {TogglePasswordModule} from '@utility/pipes/toggle-password/toggle-password.module';
 import {InputComponent} from '@utility/presentation/components/input/input.component';
+import {InputErrorComponent} from '@utility/presentation/components/input-error/input-error.component';
 
 @Component({
   selector: 'identity-password-component',
@@ -35,9 +36,7 @@ import {InputComponent} from '@utility/presentation/components/input/input.compo
 
       </div>
 
-      <div class="invalid-tooltip" *ngIf="control.errors">
-        {{ ('form.validation.' + (control.errors | firstKeyName)) | translate }}
-      </div>
+      <utility-input-error-component [control]="control"></utility-input-error-component>
 
     </div>
   `,
@@ -49,7 +48,8 @@ import {InputComponent} from '@utility/presentation/components/input/input.compo
     FirstKeyNameModule,
     TogglePasswordModule,
     InputComponent,
-    InputComponent
+    InputComponent,
+    InputErrorComponent
   ]
 })
 export class PasswordComponent {

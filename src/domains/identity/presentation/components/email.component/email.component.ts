@@ -5,6 +5,7 @@ import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
 import {InputComponent} from '@utility/presentation/components/input/input.component';
+import {InputErrorComponent} from '@utility/presentation/components/input-error/input-error.component';
 
 @Component({
   selector: 'identity-email-component',
@@ -29,9 +30,7 @@ import {InputComponent} from '@utility/presentation/components/input/input.compo
                type="email">
 
       </div>
-      <div *ngIf="control.errors" class="invalid-tooltip">
-        {{ 'form.validation.' + (control.errors | firstKeyName) | translate }}
-      </div>
+      <utility-input-error-component [control]="control"></utility-input-error-component>
 
     </div>
   `,
@@ -42,7 +41,8 @@ import {InputComponent} from '@utility/presentation/components/input/input.compo
     TranslateModule,
     FirstKeyNameModule,
     InputComponent,
-    InputComponent
+    InputComponent,
+    InputErrorComponent
   ]
 })
 export class EmailComponent {

@@ -11,7 +11,4 @@ import {Component, HostBinding, ViewEncapsulation} from '@angular/core';
 export class TextareaComponent {
   @HostBinding()
   public class = ['form-control'];
-
-  @HostBinding()
-  public type = 'text';
 }
