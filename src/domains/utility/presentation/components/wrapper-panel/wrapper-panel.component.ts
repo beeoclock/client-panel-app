@@ -5,13 +5,14 @@ import {FooterComponent} from '@utility/presentation/components/footer/footer.co
 import {ModalComponent} from '@utility/presentation/components/modal/modal.component';
 import {Router, RouterOutlet} from '@angular/router';
 import {Auth} from '@angular/fire/auth';
+import {StreamToastComponent} from '@utility/presentation/components/toast/stream.toast.component';
 
 @Component({
   selector: 'utility-wrapper-panel-component',
   standalone: true,
   template: `
     <main class="main" id="top">
-      <div class="container" data-layout="container">
+      <div class="container position-relative" data-layout="container">
         <utility-sidebar-component></utility-sidebar-component>
         <div class="content">
           <utility-navbar-component></utility-navbar-component>
@@ -19,11 +20,11 @@ import {Auth} from '@angular/fire/auth';
           <utility-footer-component></utility-footer-component>
         </div>
         <utility-modal-component></utility-modal-component>
+        <utility-stream-toast-component></utility-stream-toast-component>
       </div>
     </main>
-
   `,
-  imports: [SidebarComponent, NavbarComponent, FooterComponent, ModalComponent, RouterOutlet],
+  imports: [SidebarComponent, NavbarComponent, FooterComponent, ModalComponent, RouterOutlet, StreamToastComponent],
   encapsulation: ViewEncapsulation.None
 })
 export default class WrapperPanelComponent {

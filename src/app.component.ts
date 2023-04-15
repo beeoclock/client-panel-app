@@ -9,7 +9,8 @@ import {TranslateModule} from '@ngx-translate/core';
   standalone: true,
   imports: [RouterModule, TranslateModule],
   template: `
-    <router-outlet></router-outlet>`,
+    <router-outlet></router-outlet>
+  `,
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements AfterViewInit {

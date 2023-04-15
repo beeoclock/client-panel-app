@@ -10,8 +10,8 @@ import {ISettings} from '@company/infrastructure/settings.interface';
 export class SettingsFormAdapt extends Adapt {
   private readonly settingsFirebasePort: SettingsFirebasePort = inject(SettingsFirebasePort);
 
-  public override save(value: any): void {
-    this.settingsFirebasePort.save(value);
+  public override save(value: any): Promise<void> {
+    return this.settingsFirebasePort.save(value);
   }
 
   public override item(): Promise<DocumentSnapshot<ISettings>> {

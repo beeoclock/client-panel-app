@@ -2,6 +2,8 @@ import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/form
 import {SettingsFormAdapt} from '@company/network/adapt/settings.form.adapt';
 import {inject} from '@angular/core';
 import {ISettings} from '@company/infrastructure/settings.interface';
+import {Notification} from '@utility/notification';
+import BooleanStateModel from '@utility/boolean.state.model';
 
 export enum ActiveEnum {
   NO,
@@ -19,6 +21,7 @@ export interface ISettingsForm {
 export class SettingsForm extends FormGroup<ISettingsForm> {
 
   private readonly settingsFormAdapt: SettingsFormAdapt = inject(SettingsFormAdapt);
+  public readonly loadingData: BooleanStateModel = new BooleanStateModel(true);
 
   constructor() {
     super({
@@ -35,13 +38,16 @@ export class SettingsForm extends FormGroup<ISettingsForm> {
           this.controls[key].setValue(data[key as keyof ISettings]);
         }
       }
+      this.loadingData.switchOff();
     });
 
   }
 
   // Save data
   public save(): void {
-    this.settingsFormAdapt.save(this.value);
+    this.settingsFormAdapt.save(this.value).then(() => {
+      Notification.push(new Notification('Success'));
+    });
   }
 
 }

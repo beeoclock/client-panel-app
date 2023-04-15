@@ -4,6 +4,8 @@ import {TextareaComponent} from '@utility/presentation/components/textarea/texta
 import {ButtonComponent} from '@utility/presentation/components/button/button.component';
 import {SettingsForm} from '@company/form/settings.form';
 import {ReactiveFormsModule} from '@angular/forms';
+import {SpinnerComponent} from '@utility/presentation/components/spinner/spinner.component';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'company-form-settings-component',
@@ -16,29 +18,34 @@ import {ReactiveFormsModule} from '@angular/forms';
     InputComponent,
     TextareaComponent,
     ButtonComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SpinnerComponent,
+    NgIf
   ],
   template: `
-    <form [formGroup]="form" (ngSubmit)="form.save()" class="row g-3">
-      <div class="col-lg-10">
-        <label class="form-label" for="first-name">Name</label>
-        <input beeoclock id="name" formControlName="name">
-      </div>
-      <div class="col-lg-2">
-        <label class="form-label" for="flexSwitchCheckDefault">Active</label>
-        <div class="form-check form-switch d-flex align-items-center fs-2">
-          <input class="form-check-input" type="checkbox" role="switch" id="active" formControlName="active">
+    <div spinner *ngIf="form.loadingData.isOn; else Content"></div>
+    <ng-template #Content>
+      <form [formGroup]="form" (ngSubmit)="form.save()" class="row g-3">
+        <div class="col-lg-10">
+          <label class="form-label" for="first-name">Name</label>
+          <input beeoclock id="name" formControlName="name">
         </div>
-      </div>
-      <div class="col-lg-12">
-        <label class="form-label" for="intro">Description</label>
-        <textarea beeoclock id="description" formControlName="description">
+        <div class="col-lg-2">
+          <label class="form-label" for="flexSwitchCheckDefault">Active</label>
+          <div class="form-check form-switch d-flex align-items-center fs-2">
+            <input class="form-check-input" type="checkbox" role="switch" id="active" formControlName="active">
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <label class="form-label" for="intro">Description</label>
+          <textarea beeoclock id="description" formControlName="description">
       </textarea>
-      </div>
-      <div class="col-12 d-grid">
-        <button beeoclock>Save</button>
-      </div>
-    </form>
+        </div>
+        <div class="col-12 d-grid">
+          <button beeoclock>Save</button>
+        </div>
+      </form>
+    </ng-template>
   `
 })
 export class FormSettingsComponent {
