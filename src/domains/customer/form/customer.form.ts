@@ -1,6 +1,6 @@
 import {AbstractControl, FormControl, FormGroup} from '@angular/forms';
 import {inject} from '@angular/core';
-import {CustomerFormService} from '@customer/service/customer.form.service';
+import {CustomerFormAdapt} from '@customer/network/adapt/customer.form.adapt';
 
 export interface ICustomerForm {
   firstName: FormControl<string | null>;
@@ -14,7 +14,7 @@ export interface ICustomerForm {
 
 export class CustomerForm extends FormGroup<ICustomerForm> {
 
-  private readonly customerFormService: CustomerFormService = inject(CustomerFormService);
+  private readonly customerFormAdapt: CustomerFormAdapt = inject(CustomerFormAdapt);
 
   constructor() {
     super({
@@ -29,6 +29,6 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
   // TODO add validator: if form is empty then "note" control is required!
   public save(): void {
     console.log(this.value);
-    this.customerFormService.save(this.value);
+    this.customerFormAdapt.save(this.value);
   }
 }

@@ -8,6 +8,8 @@ import {TextareaComponent} from '@utility/presentation/components/textarea/texta
 import {ButtonComponent} from '@utility/presentation/components/button/button.component';
 import {InputErrorComponent} from '@utility/presentation/components/input-error/input-error.component';
 import {HasErrorModule} from '@utility/directives/has-error/has-error.module';
+import {RouterLink} from '@angular/router';
+import {BackLinkComponent} from '@utility/presentation/components/link/back.link.component';
 
 @Component({
   selector: 'customer-form-page',
@@ -21,7 +23,9 @@ import {HasErrorModule} from '@utility/directives/has-error/has-error.module';
     TextareaComponent,
     ButtonComponent,
     InputErrorComponent,
-    HasErrorModule
+    HasErrorModule,
+    RouterLink,
+    BackLinkComponent
   ],
   standalone: true
 })

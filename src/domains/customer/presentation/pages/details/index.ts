@@ -1,5 +1,5 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
-import {CustomerFormService} from '@customer/service/customer.form.service';
+import {CustomerFormAdapt} from '@customer/network/adapt/customer.form.adapt';
 import {ActivatedRoute} from '@angular/router';
 import {ICustomer} from '@customer/interface/customer.interface';
 import {CardComponent} from '@utility/presentation/components/card/card.component';
@@ -7,11 +7,13 @@ import {BodyCardComponent} from '@utility/presentation/components/card/body.card
 import {AsyncPipe, NgIf} from '@angular/common';
 import {exhaustMap, Observable} from 'rxjs';
 import {SpinnerComponent} from '@utility/presentation/components/spinner/spinner.component';
+import {BackLinkComponent} from '@utility/presentation/components/link/back.link.component';
 
 @Component({
   selector: 'customer-detail-page',
   template: `
-    <utility-card-component>
+    <utility-back-link-component url="../../"></utility-back-link-component>
+    <utility-card-component class="mt-3">
       <utility-body-card-component>
         <ul class="list-group" *ngIf="customer$ | async as customer; else LoadingTemplate">
           <li class="list-group-item">
@@ -47,17 +49,18 @@ import {SpinnerComponent} from '@utility/presentation/components/spinner/spinner
     BodyCardComponent,
     NgIf,
     AsyncPipe,
-    SpinnerComponent
+    SpinnerComponent,
+    BackLinkComponent
   ],
   standalone: true
 })
 export default class Index {
-  public readonly customerFormService: CustomerFormService = inject(CustomerFormService);
+  public readonly customerFormAdapt: CustomerFormAdapt = inject(CustomerFormAdapt);
   public readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
   public readonly customer$: Observable<ICustomer | undefined> = this.activatedRoute.params.pipe(
     exhaustMap(async ({id}) => {
-      const customerDoc = await this.customerFormService.item(id);
+      const customerDoc = await this.customerFormAdapt.item(id);
       return customerDoc.data();
     }),
   );

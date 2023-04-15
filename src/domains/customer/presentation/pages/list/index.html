@@ -1,8 +1,11 @@
-<utility-card-component class="mb-3">
-  <utility-body-card-component class="d-flex justify-content-end">
-    <button beeoclock routerLink="form">Add new customer</button>
-  </utility-body-card-component>
-</utility-card-component>
+<div class="row mb-3">
+  <div class="col-12 d-flex justify-content-end">
+    <button beeoclock routerLink="form">
+      <i class="bi bi-plus-lg me-2"></i>
+      Add new customer
+    </button>
+  </div>
+</div>
 
 <utility-table-component>
   <thead utility-header-table-component>
@@ -12,6 +15,9 @@
     </th>
     <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
       Email
+    </th>
+    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">
+      Phone
     </th>
   </tr>
   </thead>
@@ -23,7 +29,10 @@
       </a>
     </th>
     <td class="align-middle white-space-nowrap email">
-      {{ item.data().email }}
+      <a href="mailto:{{ item.data().email }}">{{ item.data().email }}</a>
+    </td>
+    <td class="align-middle white-space-nowrap email">
+      {{ item.data().phone }}
     </td>
   </tr>
   </tbody>

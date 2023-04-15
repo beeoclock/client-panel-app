@@ -4,7 +4,7 @@ import {CardComponent} from '@utility/presentation/components/card/card.componen
 import {BodyCardComponent} from '@utility/presentation/components/card/body.card.component';
 import {RouterLink} from '@angular/router';
 import {ButtonComponent} from '@utility/presentation/components/button/button.component';
-import {CustomerFormService} from '@customer/service/customer.form.service';
+import {CustomerFormAdapt} from '@customer/network/adapt/customer.form.adapt';
 import {TableComponent} from '@utility/presentation/components/table/table.component';
 import {HeaderTableComponent} from '@utility/presentation/components/table/header.table.component';
 import {BodyTableComponent} from '@utility/presentation/components/table/body.table.component';
@@ -32,12 +32,12 @@ import {QueryDocumentSnapshot} from '@angular/fire/compat/firestore';
   standalone: true
 })
 export default class Index {
-  public readonly customer: CustomerFormService = inject(CustomerFormService);
+  public readonly customerFormAdapt: CustomerFormAdapt = inject(CustomerFormAdapt);
 
   public list: QueryDocumentSnapshot<ICustomer>[] = [];
 
   constructor() {
-    this.customer.list().then((list) => {
+    this.customerFormAdapt.list().then((list) => {
       this.list = list.docs;
     });
   }

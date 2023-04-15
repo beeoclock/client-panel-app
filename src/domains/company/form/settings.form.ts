@@ -1,5 +1,5 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {SettingsFormService} from '@company/service/settings.form.service';
+import {SettingsFormAdapt} from '@company/network/adapt/settings.form.adapt';
 import {inject} from '@angular/core';
 
 export enum ActiveEnum {
@@ -17,7 +17,7 @@ export interface ISettingsForm {
 
 export class SettingsForm extends FormGroup<ISettingsForm> {
 
-  private readonly settingsFormService: SettingsFormService = inject(SettingsFormService);
+  private readonly settingsFormAdapt: SettingsFormAdapt = inject(SettingsFormAdapt);
 
   constructor() {
     super({
@@ -27,7 +27,7 @@ export class SettingsForm extends FormGroup<ISettingsForm> {
     });
 
     // Init data
-    this.settingsFormService.get().then((result) => {
+    this.settingsFormAdapt.item().then((result) => {
       const data = result.data();
       for (const key in data) {
         this.controls[key].setValue(data[key]);
@@ -38,8 +38,7 @@ export class SettingsForm extends FormGroup<ISettingsForm> {
 
   // Save data
   public save(): void {
-    console.log(this.value);
-    this.settingsFormService.save(this.value);
+    this.settingsFormAdapt.save(this.value);
   }
 
 }
