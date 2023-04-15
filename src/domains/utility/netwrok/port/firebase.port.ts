@@ -42,7 +42,7 @@ export class FirebasePort<ITEM> {
   }
 
   public list(): Promise<QuerySnapshot<ITEM>> {
-    const q = query(this.itemsCollection, orderBy('lastName'), limit(2));
+    const q = query(this.itemsCollection, orderBy('lastName'), limit(25));
     return getDocs(q) as unknown as Promise<QuerySnapshot<ITEM>>;
   }
 
