@@ -351,7 +351,7 @@
       "deprecated": false,
       "file": "src/app/app.module.ts",
       "methods": [],
-      "sourceCode": "import {NgModule} from '@angular/core';\nimport {BrowserModule} from '@angular/platform-browser';\n\nimport {AppRoutingModule} from './app-routing.module';\nimport {AppComponent} from './app.component';\nimport {initializeApp, provideFirebaseApp} from '@angular/fire/app';\nimport {environment} from '../environments/environment';\nimport {getAuth, provideAuth} from '@angular/fire/auth';\nimport {getFirestore, provideFirestore} from '@angular/fire/firestore';\nimport {HttpClient, HttpClientModule} from '@angular/common/http';\nimport {TranslateLoader, TranslateModule} from '@ngx-translate/core';\nimport {TranslateHttpLoader} from '@ngx-translate/http-loader';\n\n// AoT requires an exported function for factories\nexport function HttpLoaderFactory(http: HttpClient) {\n  return new TranslateHttpLoader(http);\n}\n\n@NgModule({\n  declarations: [\n    AppComponent\n  ],\n  imports: [\n    BrowserModule,\n    AppRoutingModule,\n    provideFirebaseApp(() => initializeApp(environment.firebase)),\n    provideAuth(() => getAuth()),\n    provideFirestore(() => getFirestore()),\n    HttpClientModule,\n    TranslateModule.forRoot({\n      loader: {\n        provide: TranslateLoader,\n        useFactory: HttpLoaderFactory,\n        deps: [HttpClient]\n      }\n    })\n  ],\n  providers: [],\n  bootstrap: [AppComponent]\n})\nexport class AppModule {\n}\n",
+      "sourceCode": "import {NgModule} from '@angular/core';\nimport {BrowserModule} from '@angular/platform-browser';\n\nimport {AppRoutingModule} from './app-routing.module';\nimport {AppComponent} from './app.component';\nimport {initializeApp, provideFirebaseApp} from '@angular/fire/app';\nimport {environment} from '../environment/environment';\nimport {getAuth, provideAuth} from '@angular/fire/auth';\nimport {getFirestore, provideFirestore} from '@angular/fire/firestore';\nimport {HttpClient, HttpClientModule} from '@angular/common/http';\nimport {TranslateLoader, TranslateModule} from '@ngx-translate/core';\nimport {TranslateHttpLoader} from '@ngx-translate/http-loader';\n\n// AoT requires an exported function for factories\nexport function HttpLoaderFactory(http: HttpClient) {\n  return new TranslateHttpLoader(http);\n}\n\n@NgModule({\n  declarations: [\n    AppComponent\n  ],\n  imports: [\n    BrowserModule,\n    AppRoutingModule,\n    provideFirebaseApp(() => initializeApp(environment.firebase)),\n    provideAuth(() => getAuth()),\n    provideFirestore(() => getFirestore()),\n    HttpClientModule,\n    TranslateModule.forRoot({\n      loader: {\n        provide: TranslateLoader,\n        useFactory: HttpLoaderFactory,\n        deps: [HttpClient]\n      }\n    })\n  ],\n  providers: [],\n  bootstrap: [AppComponent]\n})\nexport class AppModule {\n}\n",
       "children": [
         {
           "type": "providers",
@@ -443,7 +443,7 @@
         "name": "environment",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/environments/environment.beeoclock-cloud-00000000000001.ts",
+        "file": "src/environment/environment.beeoclock-cloud-00000000000001.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "object",
@@ -453,7 +453,7 @@
         "name": "environment",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/environments/environment.prod.ts",
+        "file": "src/environment/environment.prod.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "object",
@@ -463,7 +463,7 @@
         "name": "environment",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/environments/environment.beeoclock-cloud-00000000000000.ts",
+        "file": "src/environment/environment.beeoclock-cloud-00000000000000.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "object",
@@ -473,7 +473,7 @@
         "name": "environment",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/environments/environment.ts",
+        "file": "src/environment/environment.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "object",
@@ -623,48 +623,48 @@
     "typealiases": [],
     "enumerations": [],
     "groupedVariables": {
-      "src/environments/environment.beeoclock-cloud-00000000000001.ts": [
+      "src/environment/environment.beeoclock-cloud-00000000000001.ts": [
         {
           "name": "environment",
           "ctype": "miscellaneous",
           "subtype": "variable",
-          "file": "src/environments/environment.beeoclock-cloud-00000000000001.ts",
+          "file": "src/environment/environment.beeoclock-cloud-00000000000001.ts",
           "deprecated": false,
           "deprecationMessage": "",
           "type": "object",
           "defaultValue": "{\n  production: true,\n  firebase: {\n    apiKey: \"AIzaSyBbsA4zGz5ffnxmVUSKKuGBV-XlnkrtLgE\",\n    authDomain: \"beeoclock-cloud-00000000000001.firebaseapp.com\",\n    projectId: \"beeoclock-cloud-00000000000001\",\n    storageBucket: \"beeoclock-cloud-00000000000001.appspot.com\",\n    messagingSenderId: \"1024117457795\",\n    appId: \"1:1024117457795:web:f341080322df37c400ecb6\"\n  }\n}"
         }
       ],
-      "src/environments/environment.prod.ts": [
+      "src/environment/environment.prod.ts": [
         {
           "name": "environment",
           "ctype": "miscellaneous",
           "subtype": "variable",
-          "file": "src/environments/environment.prod.ts",
+          "file": "src/environment/environment.prod.ts",
           "deprecated": false,
           "deprecationMessage": "",
           "type": "object",
           "defaultValue": "{\n  firebase: {}, // TODO init this data of central panel which will help administrators to open their panels.\n  production: true,\n}"
         }
       ],
-      "src/environments/environment.beeoclock-cloud-00000000000000.ts": [
+      "src/environment/environment.beeoclock-cloud-00000000000000.ts": [
         {
           "name": "environment",
           "ctype": "miscellaneous",
           "subtype": "variable",
-          "file": "src/environments/environment.beeoclock-cloud-00000000000000.ts",
+          "file": "src/environment/environment.beeoclock-cloud-00000000000000.ts",
           "deprecated": false,
           "deprecationMessage": "",
           "type": "object",
           "defaultValue": "{\n  production: true,\n  firebase: {\n    apiKey: \"AIzaSyB4V6b5T25u43cS8LfpQ02NWq_nP0QgXS4\",\n    authDomain: \"beeoclock-cloud-00000000000000.firebaseapp.com\",\n    projectId: \"beeoclock-cloud-00000000000000\",\n    storageBucket: \"beeoclock-cloud-00000000000000.appspot.com\",\n    messagingSenderId: \"917223590640\",\n    appId: \"1:917223590640:web:9ce518f7fe4fee4380d035\"\n  }\n}"
         }
       ],
-      "src/environments/environment.ts": [
+      "src/environment/environment.ts": [
         {
           "name": "environment",
           "ctype": "miscellaneous",
           "subtype": "variable",
-          "file": "src/environments/environment.ts",
+          "file": "src/environment/environment.ts",
           "deprecated": false,
           "deprecationMessage": "",
           "type": "object",
@@ -861,7 +861,7 @@
         "status": "low"
       },
       {
-        "filePath": "src/environments/environment.beeoclock-cloud-00000000000000.ts",
+        "filePath": "src/environment/environment.beeoclock-cloud-00000000000000.ts",
         "type": "variable",
         "linktype": "miscellaneous",
         "linksubtype": "variable",
@@ -871,7 +871,7 @@
         "status": "low"
       },
       {
-        "filePath": "src/environments/environment.beeoclock-cloud-00000000000001.ts",
+        "filePath": "src/environment/environment.beeoclock-cloud-00000000000001.ts",
         "type": "variable",
         "linktype": "miscellaneous",
         "linksubtype": "variable",
@@ -881,7 +881,7 @@
         "status": "low"
       },
       {
-        "filePath": "src/environments/environment.prod.ts",
+        "filePath": "src/environment/environment.prod.ts",
         "type": "variable",
         "linktype": "miscellaneous",
         "linksubtype": "variable",
@@ -891,7 +891,7 @@
         "status": "low"
       },
       {
-        "filePath": "src/environments/environment.ts",
+        "filePath": "src/environment/environment.ts",
         "type": "variable",
         "linktype": "miscellaneous",
         "linksubtype": "variable",

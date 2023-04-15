@@ -48,7 +48,7 @@ TODO
 25. Also set up Firebase Hosting for this app - select `panel-beeoclock-cloud-{{name_14_length}}`
 26. Register APP
 27. Copy value of firebaseConfig variable
-28. Return back to project and create new environment file in `src/environments` like `environment.beeoclock-cloud-{{name_14_length}}.ts`
+28. Return back to project and create new environment file in `src/environment` like `environment.beeoclock-cloud-{{name_14_length}}.ts`
 29. Open file and create new property `firebase` and paste there the copied data
 30. Return back on the firebase website and click `next` btn
 31. Again `next` and click on `Continue on console`

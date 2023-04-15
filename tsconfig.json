@@ -29,8 +29,8 @@
       "@src/*": [
         "./src/*"
       ],
-      "@environments/*": [
-        "./src/environments/*"
+      "@environment/*": [
+        "./src/environment/*"
       ],
       "@assets/*": [
         "./src/assets/*"
