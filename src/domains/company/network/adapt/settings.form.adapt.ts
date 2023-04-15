@@ -1,7 +1,8 @@
 import {inject, Injectable} from '@angular/core';
-import {DocumentData, DocumentSnapshot} from '@angular/fire/firestore';
+import {DocumentSnapshot} from '@angular/fire/firestore';
 import {SettingsFirebasePort} from '@company/network/port/firebase/settings.firebase.port';
 import {Adapt} from '@utility/netwrok/adapt/adapt';
+import {ISettings} from '@company/infrastructure/settings.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class SettingsFormAdapt extends Adapt {
     this.settingsFirebasePort.save(value);
   }
 
-  public override item(): Promise<DocumentSnapshot<DocumentData>> {
+  public override item(): Promise<DocumentSnapshot<ISettings>> {
     return this.settingsFirebasePort.get();
   }
 }

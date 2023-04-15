@@ -1,34 +1,23 @@
-import {inject, Injectable} from '@angular/core';
-import {
-  collection,
-  CollectionReference,
-  doc,
-  DocumentData,
-  DocumentSnapshot,
-  Firestore,
-  getDoc,
-  setDoc
-} from '@angular/fire/firestore';
+import {Injectable} from '@angular/core';
+import {doc, DocumentSnapshot, getDoc} from '@angular/fire/firestore';
+import {FirebasePort} from '@utility/netwrok/port/firebase.port';
+import {ISettings} from '@company/infrastructure/settings.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SettingsFirebasePort {
-
-  private readonly firestore: Firestore = inject(Firestore);
-
-  private readonly itemsCollection: CollectionReference<DocumentData>;
+export class SettingsFirebasePort extends FirebasePort<ISettings> {
 
   constructor() {
-    this.itemsCollection = collection(this.firestore, 'company');
+    super();
+    this.initCollectionReference('company');
   }
 
-  public save(value: any): Promise<void> {
-    const documentRef = doc(this.itemsCollection, 'settings');
-    return setDoc(documentRef, value);
+  public override save(value: ISettings): Promise<void> {
+    return super.save(value, 'settings');
   }
 
-  public get(): Promise<DocumentSnapshot<DocumentData>> {
+  public get(): Promise<DocumentSnapshot<ISettings>> {
     const documentRef = doc(this.itemsCollection, 'settings');
     return getDoc(documentRef);
   }

@@ -1,6 +1,7 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {SettingsFormAdapt} from '@company/network/adapt/settings.form.adapt';
 import {inject} from '@angular/core';
+import {ISettings} from '@company/infrastructure/settings.interface';
 
 export enum ActiveEnum {
   NO,
@@ -29,8 +30,10 @@ export class SettingsForm extends FormGroup<ISettingsForm> {
     // Init data
     this.settingsFormAdapt.item().then((result) => {
       const data = result.data();
-      for (const key in data) {
-        this.controls[key].setValue(data[key]);
+      if (data) {
+        for (const key in data) {
+          this.controls[key].setValue(data[key as keyof ISettings]);
+        }
       }
     });
 
