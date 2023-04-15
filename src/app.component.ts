@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ViewEncapsulation} from '@angular/core';
 import {RouterModule} from '@angular/router';
-import {detectorInit} from '@src/scripts/detector';
-import {formValidationInit} from '@src/scripts/form-validation';
+import {detectorInit} from '@src/script/detector';
+import {formValidationInit} from '@src/script/form-validation';
 import {TranslateModule} from '@ngx-translate/core';
 
 @Component({

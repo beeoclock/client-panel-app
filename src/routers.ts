@@ -1,6 +1,6 @@
 import {Routes} from '@angular/router';
-import WrapperPanelComponent from '@utility/presentation/components/wrapper-panel/wrapper-panel.component';
-import WrapperIdentityComponent from '@utility/presentation/components/wrapper-identity/wrapper-identity.component';
+import WrapperPanelComponent from '@utility/presentation/component/wrapper-panel/wrapper-panel.component';
+import WrapperIdentityComponent from '@utility/presentation/component/wrapper-identity/wrapper-identity.component';
 import {AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['identity']);
@@ -20,7 +20,7 @@ export const routes: Routes = [
       },
       {
         path: 'dashboard',
-        loadComponent: () => import('@utility/presentation/pages/dashboard')
+        loadComponent: () => import('@utility/presentation/page/dashboard')
       },
       {
         path: 'employee',

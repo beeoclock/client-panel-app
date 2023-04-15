@@ -1,0 +1,33 @@
+<div class="row flex-center min-vh-100 py-6">
+  <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+    <a class="d-flex flex-center mb-4"
+       href="">
+      <img alt=""
+           class="me-2"
+           src="../../../../../asset/img/logo.png" width="58">
+      <span
+        class="font-sans-serif fw-bolder fs-5 d-inline-block">
+        Bee O`clock
+      </span>
+    </a>
+    <div class="card">
+      <div class="card-body p-4 p-sm-5">
+        <div class="row flex-between-center mb-2">
+          <div class="col-auto">
+            <h5>{{ 'identity.sign-up.form.label' | translate }}</h5>
+          </div>
+          <div class="col-auto fs--1 text-600">
+            <span class="mb-0 undefined">
+              Have an account?
+            </span>
+            <span>
+              <a routerLink="/">Login</a>
+            </span>
+          </div>
+        </div>
+
+        <identity-sign-up-component (signUp)="signUp()" [form]="form"></identity-sign-up-component>
+      </div>
+    </div>
+  </div>
+</div>
