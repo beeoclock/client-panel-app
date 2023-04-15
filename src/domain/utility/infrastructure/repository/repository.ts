@@ -18,8 +18,4 @@ export abstract class Repository {
     throw new NotImplementedYetError();
   }
 
-  public update(id: string, value: unknown) {
-    throw new NotImplementedYetError();
-  }
-
 }

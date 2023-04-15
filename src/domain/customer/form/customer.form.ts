@@ -5,6 +5,8 @@ import {is} from 'thiis';
 import {Notification} from '@utility/notification';
 
 export interface ICustomerForm {
+  id: FormControl<string | null>;
+
   firstName: FormControl<string | null>;
   lastName: FormControl<string | null>;
   note: FormControl<string | null>;
@@ -20,6 +22,8 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
 
   constructor() {
     super({
+      id: new FormControl(null),
+
       firstName: new FormControl(null),
       lastName: new FormControl(null),
       note: new FormControl(null),
@@ -39,14 +43,12 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
     });
   }
 
-  // TODO add validator: if form is empty then "note" control is required!
-  public save(): void {
-    console.log(this.value, this.valid, this.errors);
+  public async save(): Promise<void> {
     this.markAllAsTouched();
     if (this.valid) {
-      this.customerFormAdapt.save(this.value).then(() => {
-        Notification.push(new Notification('success'));
-      });
+      const {id, ...value} = this.value;
+      await this.customerFormAdapt.save(value, id);
+      Notification.push(new Notification('success'));
     }
   }
 }

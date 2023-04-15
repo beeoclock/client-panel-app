@@ -31,7 +31,7 @@ export class FirebaseAdapter<ITEM> {
     this.itemsCollection = collection(this.firestore, this.path) as CollectionReference<ITEM>;
   }
 
-  public save(value: ITEM, forceId?: string | undefined): Promise<void> {
+  public save(value: ITEM, forceId?: string | undefined | null): Promise<void> {
     const documentRef = doc(this.itemsCollection, forceId ?? doc(this.itemsCollection).id);
     return setDoc(documentRef, value);
   }

@@ -6,7 +6,7 @@ import {RouterLink} from '@angular/router';
   standalone: true,
   template: `
     <a [routerLink]="url" class="btn btn-secondary">
-      <i class="bi bi-arrow-left"></i>
+      <i class="bi bi-arrow-left me-2"></i>
       back
     </a>
   `,

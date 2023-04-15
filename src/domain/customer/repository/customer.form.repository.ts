@@ -11,8 +11,8 @@ import {Repository} from '@utility/infrastructure/repository/repository';
 export class CustomerFormRepository extends Repository {
   private readonly customerAdapter: CustomerFirebaseAdapter = inject(CustomerFirebaseAdapter);
 
-  public override async save(value: any): Promise<void> {
-    return await this.customerAdapter.save(value);
+  public override async save(value: any, forceId?: string | null | undefined): Promise<void> {
+    return await this.customerAdapter.save(value, forceId);
   }
 
   public override item(id: string): Promise<DocumentSnapshot<ICustomer>> {
