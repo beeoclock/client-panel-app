@@ -1,6 +1,6 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
-import {InputComponent} from '@utility/presentation/component/input/input.component';
-import {TextareaComponent} from '@utility/presentation/component/textarea/textarea.component';
+import {InputDirective} from '@utility/directives/input/input.directive';
+import {TextareaDirective} from '@utility/directives/textarea/textarea.directive';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {SettingsForm} from '@company/form/settings.form';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -12,11 +12,11 @@ import {NgIf} from '@angular/common';
   standalone: true,
   encapsulation: ViewEncapsulation.None,
   imports: [
-    InputComponent,
-    InputComponent,
-    TextareaComponent,
-    InputComponent,
-    TextareaComponent,
+    InputDirective,
+    InputDirective,
+    TextareaDirective,
+    InputDirective,
+    TextareaDirective,
     ButtonComponent,
     ReactiveFormsModule,
     SpinnerComponent,

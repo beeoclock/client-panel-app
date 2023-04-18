@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
-import * as Customer from '@customer/domain';
+import * as Event from '@event/domain';
 import {FirebaseAdapter} from '@utility/adapter/firebase-adapter.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerFirebaseAdapter extends FirebaseAdapter<Customer.Interface.ICustomer> {
+export class EventFirebaseAdapter extends FirebaseAdapter<Event.Interface.IEvent> {
 
   constructor() {
     super();
-    this.initCollectionReference('customer');
+    this.initCollectionReference('event');
   }
 
 }

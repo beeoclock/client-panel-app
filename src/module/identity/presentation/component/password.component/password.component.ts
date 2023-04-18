@@ -5,7 +5,7 @@ import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
 import {TogglePasswordModule} from '@utility/pipes/toggle-password/toggle-password.module';
-import {InputComponent} from '@utility/presentation/component/input/input.component';
+import {InputDirective} from '@utility/directives/input/input.directive';
 import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
 
 @Component({
@@ -47,8 +47,8 @@ import {InputErrorComponent} from '@utility/presentation/component/input-error/i
     TranslateModule,
     FirstKeyNameModule,
     TogglePasswordModule,
-    InputComponent,
-    InputComponent,
+    InputDirective,
+    InputDirective,
     InputErrorComponent
   ]
 })

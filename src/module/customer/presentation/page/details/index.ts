@@ -73,7 +73,7 @@ export default class Index {
   public readonly customerFormAdapt: CustomerFormRepository = inject(CustomerFormRepository);
   public readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
-  public readonly customer$: Observable<Customer.ICustomer | undefined> = this.activatedRoute.params.pipe(
+  public readonly customer$: Observable<Customer.Interface.ICustomer | undefined> = this.activatedRoute.params.pipe(
     exhaustMap(async ({id}) => {
       this.customerId = id;
       const customerDoc = await this.customerFormAdapt.item(this.customerId);

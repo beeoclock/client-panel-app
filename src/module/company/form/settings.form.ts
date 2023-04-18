@@ -35,7 +35,7 @@ export class SettingsForm extends FormGroup<ISettingsForm> {
       const data = result.data();
       if (data) {
         for (const key in data) {
-          this.controls[key].setValue(data[key as keyof Company.ISettings]);
+          this.controls[key].setValue(data[key as keyof Company.Interface.ISettings]);
         }
       }
       this.loadingData.switchOff();

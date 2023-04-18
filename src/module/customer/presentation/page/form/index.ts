@@ -3,8 +3,8 @@ import {CustomerForm} from '@customer/form/customer.form';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {InputComponent} from '@utility/presentation/component/input/input.component';
-import {TextareaComponent} from '@utility/presentation/component/textarea/textarea.component';
+import {InputDirective} from '@utility/directives/input/input.directive';
+import {TextareaDirective} from '@utility/directives/textarea/textarea.directive';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
 import {HasErrorModule} from '@utility/directives/has-error/has-error.module';
@@ -20,8 +20,8 @@ import {CustomerFormRepository} from '@customer/repository/customer.form.reposit
     CardComponent,
     BodyCardComponent,
     ReactiveFormsModule,
-    InputComponent,
-    TextareaComponent,
+    InputDirective,
+    TextareaDirective,
     ButtonComponent,
     InputErrorComponent,
     HasErrorModule,

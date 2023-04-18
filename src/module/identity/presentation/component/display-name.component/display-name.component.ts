@@ -4,7 +4,7 @@ import {HasErrorModule} from '@utility/directives/has-error/has-error.module';
 import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
-import {InputComponent} from '@utility/presentation/component/input/input.component';
+import {InputDirective} from '@utility/directives/input/input.directive';
 import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
 
 @Component({
@@ -39,8 +39,8 @@ import {InputErrorComponent} from '@utility/presentation/component/input-error/i
     NgIf,
     TranslateModule,
     FirstKeyNameModule,
-    InputComponent,
-    InputComponent,
+    InputDirective,
+    InputDirective,
     InputErrorComponent
   ]
 })

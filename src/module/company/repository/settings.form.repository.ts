@@ -7,14 +7,14 @@ import * as Company from '@company/domain';
 @Injectable({
   providedIn: 'root'
 })
-export class SettingsFormRepository extends Utility.Repository {
+export class SettingsFormRepository extends Utility.Repository.Repository {
   private readonly settingsAdapter: SettingsFirebaseAdapter = inject(SettingsFirebaseAdapter);
 
   public override save(value: any): Promise<void> {
     return this.settingsAdapter.save(value);
   }
 
-  public override item(): Promise<DocumentSnapshot<Company.ISettings>> {
+  public override item(): Promise<DocumentSnapshot<Company.Interface.ISettings>> {
     return this.settingsAdapter.get();
   }
 }

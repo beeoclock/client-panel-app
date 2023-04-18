@@ -1,1 +1,1 @@
-export * from './interface';
+export * as Interface from './interface';

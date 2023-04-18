@@ -1,0 +1,85 @@
+<utility-back-link-component [url]="url"></utility-back-link-component>
+
+<utility-card-component class="mt-3">
+  <utility-body-card-component>
+    <form [formGroup]="form" class="row g-3">
+      <div class="col-12 position-relative">
+        <label for="event-form-title">Title</label>
+        <input
+          beeoclock
+          hasError
+          placeholder="Write title of event"
+          id="event-form-title"
+          formControlName="title">
+        <utility-input-error-component [control]="form.controls.title"></utility-input-error-component>
+      </div>
+      <div class="col-12">
+        <div class="row">
+          <div class="col-md-6 position-relative">
+            <label for="event-form-start">Start</label>
+            <input
+              class="form-control"
+              hasError
+              type="datetime-local"
+              placeholder="Write start of event"
+              id="event-form-start"
+              formControlName="start">
+            <utility-input-error-component [control]="form.controls.start"></utility-input-error-component>
+          </div>
+          <div class="col-md-6 position-relative">
+            <label for="event-form-end">End</label>
+            <input
+              class="form-control"
+              hasError
+              type="datetime-local"
+              placeholder="Write end of event"
+              id="event-form-end"
+              formControlName="end">
+            <utility-input-error-component [control]="form.controls.end"></utility-input-error-component>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 position-relative">
+        <label for="event-form-languages">Languages</label>
+        <ng-select [items]="form.languages"
+                   [multiple]="true"
+                   id="event-form-languages"
+                   bindLabel="name"
+                   bindValue="code"
+                   formControlName="languageCodes">
+        </ng-select>
+        <utility-input-error-component [control]="form.controls.languageCodes"></utility-input-error-component>
+      </div>
+      <div class="col-12 position-relative">
+        <label for="event-form-services">Services</label>
+        <ng-select [items]="[]"
+                   [multiple]="true"
+                   id="event-form-services"
+                   bindLabel="name"
+                   bindValue="id"
+                   formControlName="services">
+        </ng-select>
+        <utility-input-error-component [control]="form.controls.services"></utility-input-error-component>
+      </div>
+      <div class="col-12">
+        <hr>
+      </div>
+      <event-attendees-component [attendeesFormArray]="form.controls.attendees"></event-attendees-component>
+      <div class="col-12">
+        <hr>
+      </div>
+      <div class="col-12">
+        <label for="event-form-description">Description</label>
+        <textarea
+          beeoclock
+          placeholder="Write some description of event"
+          id="event-form-description"
+          formControlName="description"></textarea>
+        <utility-input-error-component [control]="form.controls.description"></utility-input-error-component>
+      </div>
+      <div class="col-12 d-grid">
+        <button beeoclock (click)="form.save()">Save</button>
+      </div>
+    </form>
+  </utility-body-card-component>
+</utility-card-component>

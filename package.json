@@ -52,6 +52,7 @@
     "@fullcalendar/interaction": "^6.1.5",
     "@fullcalendar/list": "^6.1.5",
     "@fullcalendar/timegrid": "^6.1.5",
+    "@ng-select/ng-select": "^10.0.4",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "@p4ck493/ts-type-guard": "^1.0.1",

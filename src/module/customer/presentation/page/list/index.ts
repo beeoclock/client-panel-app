@@ -34,7 +34,7 @@ import {QueryDocumentSnapshot} from '@angular/fire/compat/firestore';
 export default class Index {
   public readonly customerFormAdapt: CustomerFormRepository = inject(CustomerFormRepository);
 
-  public list: QueryDocumentSnapshot<Customer.ICustomer>[] = [];
+  public list: QueryDocumentSnapshot<Customer.Interface.ICustomer>[] = [];
 
   constructor() {
     this.customerFormAdapt.list().then((list) => {
