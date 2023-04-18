@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, ViewEncapsulation} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {detectorInit} from '@src/script/detector';
-import {formValidationInit} from '@src/script/form-validation';
 import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
@@ -17,7 +16,6 @@ export class AppComponent implements AfterViewInit {
 
   public ngAfterViewInit(): void {
     detectorInit();
-    formValidationInit();
   }
 
 }

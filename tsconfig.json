@@ -44,32 +44,32 @@
       "@app/*": [
         "./src/app/*"
       ],
-      "@domain/*": [
-        "./src/domain/*"
+      "@module/*": [
+        "./src/module/*"
       ],
       "@company/*": [
-        "./src/domain/company/*"
+        "./src/module/company/*"
       ],
       "@customer/*": [
-        "./src/domain/customer/*"
+        "./src/module/customer/*"
       ],
       "@event/*": [
-        "./src/domain/event/*"
+        "./src/module/event/*"
       ],
       "@identity/*": [
-        "./src/domain/identity/*"
+        "./src/module/identity/*"
       ],
       "@service/*": [
-        "./src/domain/service/*"
+        "./src/module/service/*"
       ],
       "@employee/*": [
-        "./src/domain/employee/*"
+        "./src/module/employee/*"
       ],
       "@user/*": [
-        "./src/domain/user/*"
+        "./src/module/user/*"
       ],
       "@utility/*": [
-        "./src/domain/utility/*"
+        "./src/module/utility/*"
       ]
     }
   },
