@@ -14,7 +14,7 @@ import * as Customer from '@customer/domain';
 import {QueryDocumentSnapshot} from '@angular/fire/compat/firestore';
 
 @Component({
-  selector: 'customer-settings-page',
+  selector: 'customer-list-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
   imports: [

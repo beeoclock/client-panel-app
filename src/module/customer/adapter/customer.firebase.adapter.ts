@@ -9,7 +9,7 @@ export class CustomerFirebaseAdapter extends FirebaseAdapter<Customer.Interface.
 
   constructor() {
     super();
-    this.initCollectionReference('customer');
+    this.initCollectionReference('customer', 'lastName');
   }
 
 }

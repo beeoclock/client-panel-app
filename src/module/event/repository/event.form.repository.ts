@@ -15,11 +15,11 @@ export class EventFormRepository extends Utility.Repository.Repository {
     return await this.customerAdapter.save(value, forceId);
   }
 
-  public override item(id: string): Promise<DocumentSnapshot<Event.Interface.IEvent>> {
+  public override item(id: string): Promise<DocumentSnapshot<Event.IEvent>> {
     return this.customerAdapter.item(id);
   }
 
-  public override list(): Promise<QuerySnapshot<Event.Interface.IEvent>> {
+  public override list(): Promise<QuerySnapshot<Event.IEvent>> {
     return this.customerAdapter.list();
   }
 }

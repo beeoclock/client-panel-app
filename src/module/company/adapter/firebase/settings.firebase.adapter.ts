@@ -10,7 +10,7 @@ export class SettingsFirebaseAdapter extends FirebaseAdapter<Company.Interface.I
 
   constructor() {
     super();
-    this.initCollectionReference('company');
+    this.initCollectionReference('company', 'lastName');
   }
 
   public override save(value: Company.Interface.ISettings): Promise<void> {

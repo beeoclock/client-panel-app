@@ -6,4 +6,47 @@
     </button>
   </div>
 </div>
-<utility-example-table-component></utility-example-table-component>
+
+<utility-table-component>
+  <thead utility-header-table-component>
+  <tr>
+    <th class="sort pe-1 align-middle white-space-nowrap desc" data-sort="title">
+      Title
+    </th>
+    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="start">
+      Start
+    </th>
+    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="end">
+      End
+    </th>
+    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="languageCodes">
+      Languages
+    </th>
+    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="attendees">
+      Attendees
+    </th>
+  </tr>
+  </thead>
+  <tbody utility-body-table-component>
+  <tr class="btn-reveal-trigger" *ngFor="let item of list">
+    <th class="align-middle white-space-nowrap title">
+      <a [routerLink]="['details', item.id]">
+        {{ item.data().title }}
+      </a>
+    </th>
+    <td class="align-middle white-space-nowrap start">
+      {{ item.data().start | date: 'hh:mm dd-MM-yyyy' }}
+    </td>
+    <td class="align-middle white-space-nowrap end">
+      {{ item.data().end | date: 'hh:mm dd-MM-yyyy' }}
+    </td>
+    <td class="align-middle white-space-nowrap languageCodes">
+      {{ item.data().languageCodes.join(', ') }}
+    </td>
+    <td class="align-middle white-space-nowrap attendees">
+      <i class="bi bi-person-fill"></i>{{ item.data().attendees.length }}
+    </td>
+  </tr>
+  </tbody>
+</utility-table-component>
+<utility-pagination-component></utility-pagination-component>

@@ -5,11 +5,11 @@ import {FirebaseAdapter} from '@utility/adapter/firebase-adapter.service';
 @Injectable({
   providedIn: 'root'
 })
-export class EventFirebaseAdapter extends FirebaseAdapter<Event.Interface.IEvent> {
+export class EventFirebaseAdapter extends FirebaseAdapter<Event.IEvent> {
 
   constructor() {
     super();
-    this.initCollectionReference('event');
+    this.initCollectionReference('event', 'start');
   }
 
 }

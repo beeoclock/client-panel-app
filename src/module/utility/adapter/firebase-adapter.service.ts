@@ -22,12 +22,14 @@ export class FirebaseAdapter<ITEM> {
   private readonly firestore: Firestore = inject(Firestore);
   protected itemsCollection!: CollectionReference<ITEM>;
   private path: string | undefined;
+  private orderBy: string | undefined;
 
-  public initCollectionReference(path: string): void {
+  public initCollectionReference(path: string, orderBy: string): void {
     if (this.path) {
       return;
     }
     this.path = path;
+    this.orderBy = orderBy;
     this.itemsCollection = collection(this.firestore, this.path) as CollectionReference<ITEM>;
   }
 
@@ -42,7 +44,10 @@ export class FirebaseAdapter<ITEM> {
   }
 
   public list(): Promise<QuerySnapshot<ITEM>> {
-    const q = query(this.itemsCollection, orderBy('lastName'), limit(25));
+    if (!this.orderBy) {
+      throw new Error('OrderBy is empty.')
+    }
+    const q = query(this.itemsCollection, orderBy(this.orderBy), limit(25));
     return getDocs(q) as unknown as Promise<QuerySnapshot<ITEM>>;
   }
 
