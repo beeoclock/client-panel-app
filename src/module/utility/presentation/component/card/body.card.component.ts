@@ -10,5 +10,5 @@ import {Component, HostBinding, ViewEncapsulation} from '@angular/core';
 })
 export class BodyCardComponent {
   @HostBinding()
-  public readonly class = ['card-body', 'bg-light'];
+  public readonly class = ['card-body', 'rounded', 'bg-light'];
 }

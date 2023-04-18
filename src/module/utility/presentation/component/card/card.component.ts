@@ -18,5 +18,5 @@ import {NgIf} from '@angular/common';
 })
 export class CardComponent {
   @HostBinding()
-  public readonly class = ['card'];
+  public readonly class = ['card', 'rounded'];
 }
