@@ -13,6 +13,9 @@ import {EventForm} from '@event/form/event.form';
 import {EventFormRepository} from '@event/repository/event.form.repository';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {AttendeesComponent} from '@event/presentation/component/attendees/attendees.component';
+import {FlatpickrModule} from 'angularx-flatpickr';
+import {Notification} from '@utility/notification';
+import {is} from 'thiis';
 
 @Component({
   selector: 'event-form-page',
@@ -31,7 +34,8 @@ import {AttendeesComponent} from '@event/presentation/component/attendees/attend
     BackLinkComponent,
     NgSelectModule,
     FormsModule,
-    AttendeesComponent
+    AttendeesComponent,
+    FlatpickrModule
   ],
   standalone: true
 })
@@ -45,6 +49,7 @@ export default class Index {
   public readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
   public readonly form: EventForm = new EventForm();
+  private readonly repository: EventFormRepository = inject(EventFormRepository);
 
   constructor() {
     this.activatedRoute.params.subscribe(({id}) => {
@@ -59,6 +64,39 @@ export default class Index {
           }
         });
       }
-    })
+    });
+
+    this.form.controls.start.valueChanges.subscribe((value: string | Date) => {
+      if (is.Date(value)) {
+        this.form.controls.start.patchValue(value.toISOString(), {
+          onlySelf: false,
+          emitEvent: false,
+          emitModelToViewChange: false,
+          emitViewToModelChange: false,
+        });
+      }
+    });
+
+    this.form.controls.end.valueChanges.subscribe((value: string | Date) => {
+      if (is.Date(value)) {
+        this.form.controls.end.patchValue(value.toISOString(), {
+          onlySelf: false,
+          emitEvent: false,
+          emitModelToViewChange: false,
+          emitViewToModelChange: false,
+        });
+      }
+    });
+
+  }
+
+  public async save(): Promise<void> {
+
+    this.form.markAllAsTouched();
+    if (this.form.valid) {
+      const {id, ...value} = this.form.value;
+      await this.repository.save(value, id);
+      Notification.push(new Notification('success'));
+    }
   }
 }

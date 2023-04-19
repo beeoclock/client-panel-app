@@ -11,7 +11,7 @@
   <thead utility-header-table-component>
   <tr>
     <th class="sort pe-1 align-middle white-space-nowrap desc" data-sort="name">
-      Customer
+      Full name
     </th>
     <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
       Email
@@ -23,11 +23,11 @@
   </thead>
   <tbody utility-body-table-component>
   <tr class="btn-reveal-trigger" *ngFor="let item of list">
-    <th class="align-middle white-space-nowrap name">
+    <td class="align-middle white-space-nowrap name">
       <a [routerLink]="['details', item.id]">
         {{ item.data().firstName }} {{ item.data().lastName }}
       </a>
-    </th>
+    </td>
     <td class="align-middle white-space-nowrap email">
       <a href="mailto:{{ item.data().email }}">{{ item.data().email }}</a>
     </td>

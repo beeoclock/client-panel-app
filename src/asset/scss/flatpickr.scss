@@ -1,0 +1,9 @@
+.flatpickr-calendar {
+  background-color: white !important;
+}
+
+@include color-mode(dark) {
+  .flatpickr-calendar {
+    background-color: #232e3c !important;
+  }
+}

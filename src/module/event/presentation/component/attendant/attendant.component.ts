@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {IAttendeesCreateForm} from '@event/form/event.form';
+import {IAttendeesForm} from '@event/form/event.form';
 
 @Component({
   selector: 'event-attendant-component',
@@ -19,6 +19,6 @@ import {IAttendeesCreateForm} from '@event/form/event.form';
 export class AttendantComponent {
 
   @Input()
-  public attendantFormGroup!: FormGroup<IAttendeesCreateForm>;
+  public attendantFormGroup!: FormGroup<IAttendeesForm>;
 
 }

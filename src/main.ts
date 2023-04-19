@@ -10,6 +10,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {provideRouter, withInMemoryScrolling} from '@angular/router';
 import {routes} from '@src/routers';
+import {FlatpickrModule} from 'angularx-flatpickr';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -48,6 +49,8 @@ bootstrapApplication(AppComponent, {
       return auth;
     })),
     importProvidersFrom(provideFirestore(() => getFirestore())),
+
+    importProvidersFrom(FlatpickrModule.forRoot()),
 
     importProvidersFrom(TranslateModule.forRoot({
       useDefaultLang: true,

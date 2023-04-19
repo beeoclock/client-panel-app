@@ -31,7 +31,8 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/asset/scss/theme.scss"
+              "src/asset/scss/theme.scss",
+              "node_modules/flatpickr/dist/flatpickr.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"

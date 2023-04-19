@@ -1,8 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {AttendantComponent} from '@event/presentation/component/attendant/attendant.component';
 import {NgForOf} from '@angular/common';
-import {FormArray, FormGroup} from '@angular/forms';
-import {IAttendeesCreateForm} from '@event/form/event.form';
+import {FormArray} from '@angular/forms';
+import {AttendeesForm} from '@event/form/event.form';
 
 @Component({
   selector: 'event-attendees-component',
@@ -13,12 +13,14 @@ import {IAttendeesCreateForm} from '@event/form/event.form';
     NgForOf
   ],
   template: `
-    <event-attendant-component *ngFor="let attendantFormControl of attendeesFormArray.controls"
-                               [attendantFormGroup]="attendantFormControl"></event-attendant-component>
+    <event-attendant-component
+      *ngFor="let attendantFormControl of attendeesFormArray.controls"
+      [attendantFormGroup]="attendantFormControl">
+    </event-attendant-component>
   `
 })
 export class AttendeesComponent {
   @Input()
-  public attendeesFormArray!: FormArray<FormGroup<IAttendeesCreateForm>>;
+  public attendeesFormArray!: FormArray<AttendeesForm>;
 
 }

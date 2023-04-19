@@ -18,23 +18,35 @@
           <div class="col-md-6 position-relative">
             <label for="event-form-start">Start</label>
             <input
-              class="form-control"
               hasError
-              type="datetime-local"
-              placeholder="Write start of event"
               id="event-form-start"
-              formControlName="start">
+              type="text"
+              class="form-control"
+              mwlFlatpickr
+              formControlName="start"
+              altFormat="h:m d-m-Y"
+              [time24hr]="true"
+              [enableTime]="true"
+              [altInput]="true"
+              [convertModelValue]="true"
+            />
             <utility-input-error-component [control]="form.controls.start"></utility-input-error-component>
           </div>
           <div class="col-md-6 position-relative">
             <label for="event-form-end">End</label>
             <input
-              class="form-control"
               hasError
-              type="datetime-local"
-              placeholder="Write end of event"
               id="event-form-end"
-              formControlName="end">
+              type="text"
+              class="form-control"
+              mwlFlatpickr
+              altFormat="h:m d-m-Y"
+              formControlName="end"
+              [time24hr]="true"
+              [enableTime]="true"
+              [altInput]="true"
+              [convertModelValue]="true"
+            />
             <utility-input-error-component [control]="form.controls.end"></utility-input-error-component>
           </div>
         </div>
@@ -72,13 +84,14 @@
         <label for="event-form-description">Description</label>
         <textarea
           beeoclock
+          hasError
           placeholder="Write some description of event"
           id="event-form-description"
           formControlName="description"></textarea>
         <utility-input-error-component [control]="form.controls.description"></utility-input-error-component>
       </div>
       <div class="col-12 d-grid">
-        <button beeoclock (click)="form.save()">Save</button>
+        <button beeoclock (click)="save()">Save</button>
       </div>
     </form>
   </utility-body-card-component>
