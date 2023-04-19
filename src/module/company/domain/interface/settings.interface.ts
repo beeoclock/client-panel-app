@@ -1,4 +1,4 @@
-import {ActiveEnum} from '@company/form/settings.form';
+import {ActiveEnum} from '@utility/domain/enum/active.enum';
 
 export interface ISettings {
   name: string;

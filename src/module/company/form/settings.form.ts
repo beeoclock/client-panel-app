@@ -4,11 +4,7 @@ import {Notification} from '@utility/notification';
 import BooleanStateModel from '@utility/boolean.state.model';
 import * as Company from '@company/domain';
 import {SettingsFormRepository} from '@company/repository/settings.form.repository';
-
-export enum ActiveEnum {
-  NO,
-  YES
-}
+import {ActiveEnum} from '@utility/domain/enum/active.enum';
 
 export interface ISettingsForm {
   name: FormControl<string | null>;

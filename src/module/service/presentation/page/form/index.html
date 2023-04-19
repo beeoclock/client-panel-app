@@ -1,0 +1,25 @@
+<utility-back-link-component [url]="url"></utility-back-link-component>
+
+<utility-card-component class="mt-3">
+  <utility-body-card-component>
+    <form [formGroup]="form" class="row g-3">
+
+      <service-services-form-component
+        [languageVersionsForm]="form.controls.languageVersions">
+      </service-services-form-component>
+
+      <service-durations-form-component
+        (handlePushNewDurationVersionFormForm)="form.pushNewDurationVersionForm()"
+        [durationVersionsForm]="form.controls.durationVersions">
+      </service-durations-form-component>
+
+      <service-schedules-form-component
+        (handlePushNewScheduleForm)="form.pushNewScheduleForm()"
+        [schedulesForm]="form.controls.schedules">
+      </service-schedules-form-component>
+
+      <button class="btn btn-primary" (click)="save()">Add Service</button>
+
+    </form>
+  </utility-body-card-component>
+</utility-card-component>

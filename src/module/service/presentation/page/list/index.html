@@ -1,1 +1,29 @@
-<utility-example-table-component></utility-example-table-component>
+<div class="row mb-3">
+  <div class="col-12 d-flex justify-content-end">
+    <button beeoclock routerLink="form">
+      <i class="bi bi-plus-lg me-2"></i>
+      Add new service
+    </button>
+  </div>
+</div>
+
+<utility-table-component>
+  <thead utility-header-table-component>
+  <tr>
+    <th class="sort pe-1 align-middle white-space-nowrap desc" data-sort="lastName">
+      Full name
+    </th>
+  </tr>
+  </thead>
+  <tbody utility-body-table-component>
+  <tr class="btn-reveal-trigger" *ngFor="let item of list">
+    <td class="align-middle white-space-nowrap title">
+      <a [routerLink]="['details', item.id]">
+        TODO
+<!--        {{ item.data() }}-->
+      </a>
+    </td>
+  </tr>
+  </tbody>
+</utility-table-component>
+<utility-pagination-component></utility-pagination-component>
