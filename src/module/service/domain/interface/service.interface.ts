@@ -1,7 +1,7 @@
 import {ActiveEnum} from '@utility/domain/enum/active.enum';
 import {LanguageCodeEnum} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
-import {DaysOfWeekEnum} from '@utility/domain/enum/days-of-week.enum';
+import {WeekDaysEnum} from '@utility/domain/enum/days-of-week.enum';
 
 export interface IConfiguration {
   earliestDateTime?: string;
@@ -16,13 +16,12 @@ export interface IPrepaymentPolicy {
 }
 
 export interface ISchedule {
-  daysOfTheWeek?: DaysOfWeekEnum[];
+  workDays?: WeekDaysEnum[];
   startTime?: string;
   endTime?: string;
 }
 
 export interface ILanguageVersion {
-  service?: string;
   title?: string;
   description?: string;
   language?: LanguageCodeEnum;
@@ -37,7 +36,6 @@ export interface IPrice {
 
 export interface IDurationVersion {
   break?: number;
-  service?: string;
   active?: ActiveEnum;
   duration?: number;
   prices?: IPrice[];

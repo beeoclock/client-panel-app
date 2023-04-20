@@ -1,7 +1,8 @@
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {LanguageCodeEnum} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
-import {DaysOfWeekEnum, WORK_WEEK} from '@utility/domain/enum/days-of-week.enum';
+import {WeekDaysEnum, WORK_WEEK} from '@utility/domain/enum/days-of-week.enum';
+import {ActiveEnum} from '@utility/domain/enum/active.enum';
 
 
 export interface ILanguageVersionForm {
@@ -111,7 +112,7 @@ export class PrepaymentPolicyForm extends FormGroup<IPrepaymentPolicyForm> {
 }
 
 export interface IScheduleForm {
-  workDays: FormControl<DaysOfWeekEnum[]>;
+  workDays: FormControl<WeekDaysEnum[]>;
   startTime: FormControl<string>;
   endTime: FormControl<string>;
 
@@ -140,6 +141,7 @@ export interface IServiceForm {
   languageVersions: FormArray<LanguageVersionForm>;
   durationVersions: FormArray<DurationVersionForm>;
   id: FormControl<string>;
+  active: FormControl<ActiveEnum>;
   createdAt: FormControl<string>;
   updatedAt: FormControl<string>;
 
@@ -154,6 +156,7 @@ export class ServiceForm extends FormGroup<IServiceForm> {
       prepaymentPolicy: new PrepaymentPolicyForm(),
       languageVersions: new FormArray([new LanguageVersionForm()]),
       durationVersions: new FormArray([new DurationVersionForm()]),
+      active: new FormControl(),
       id: new FormControl(),
       createdAt: new FormControl(),
       updatedAt: new FormControl(),
@@ -162,6 +165,7 @@ export class ServiceForm extends FormGroup<IServiceForm> {
   }
 
   public initValue(): void {
+    this.controls.active.setValue(ActiveEnum.YES);
     this.controls.createdAt.setValue(new Date().toISOString());
     this.controls.updatedAt.setValue(new Date().toISOString());
   }

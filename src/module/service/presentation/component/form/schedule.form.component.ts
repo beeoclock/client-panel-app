@@ -1,6 +1,6 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {ScheduleForm} from '@service/form/service.form';
-import {WEEK} from '@utility/domain/enum/days-of-week.enum';
+import {WEEK, WEEK_DAYS_NAME} from '@utility/domain/enum/days-of-week.enum';
 import {HasErrorModule} from '@utility/directives/has-error/has-error.module';
 import {FlatpickrModule} from 'angularx-flatpickr';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -75,9 +75,9 @@ export class ScheduleFormComponent {
   @Input()
   public form: ScheduleForm = new ScheduleForm();
 
-  public readonly week = WEEK.map(day => ({
+  public readonly week = WEEK.map((day) => ({
     id: day,
-    name: day
+    name: WEEK_DAYS_NAME[day]
   }));
 
 }

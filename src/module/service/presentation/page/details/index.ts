@@ -1,7 +1,7 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {ServiceFormRepository} from '@service/repository/service.form.repository';
 import {ActivatedRoute, RouterLink} from '@angular/router';
-import {AsyncPipe, NgIf} from '@angular/common';
+import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import {exhaustMap, Observable} from 'rxjs';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
@@ -23,10 +23,136 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
       </div>
       <utility-card-component class="mt-3">
         <utility-body-card-component>
+          <strong>languageVersions</strong>
+          <ul *ngFor="let languageVersion of service.languageVersions" class="list-group">
+            <li class="list-group-item">
+              <strong>Language:</strong>
+              <p class="m-0">{{ languageVersion.language }}</p>
+            </li>
+            <li class="list-group-item">
+              <strong>Title:</strong>
+              <p class="m-0">{{ languageVersion.title }}</p>
+            </li>
+            <li class="list-group-item">
+              <strong>Description:</strong>
+              <p class="m-0">{{ languageVersion.description }}</p>
+            </li>
+            <li class="list-group-item">
+              <strong>Active:</strong>
+              <p class="m-0">{{ languageVersion.active }}</p>
+            </li>
+          </ul>
+        </utility-body-card-component>
+      </utility-card-component>
+      <utility-card-component class="mt-3">
+        <utility-body-card-component>
+          <strong>schedules</strong>
+          <ul *ngFor="let schedule of service.schedules" class="list-group">
+            <li class="list-group-item">
+              <strong>startTime:</strong>
+              <p class="m-0">{{ schedule.startTime }}</p>
+            </li>
+            <li class="list-group-item">
+              <strong>startTime:</strong>
+              <p class="m-0">{{ schedule.startTime }}</p>
+            </li>
+            <li class="list-group-item">
+              <strong>workDays:</strong>
+              <p class="m-0">{{ schedule.workDays?.join(', ') }}</p>
+            </li>
+          </ul>
+        </utility-body-card-component>
+      </utility-card-component>
+      <utility-card-component class="mt-3">
+        <utility-body-card-component>
+          <strong>durationVersions</strong>
+          <ul *ngFor="let durationVersion of service.durationVersions" class="list-group">
+            <li class="list-group-item">
+              <strong>Duration:</strong>
+              <p class="m-0">{{ durationVersion.duration }}</p>
+            </li>
+            <li class="list-group-item">
+              <strong>Title:</strong>
+              <p class="m-0">{{ durationVersion.break }}</p>
+            </li>
+            <li class="list-group-item">
+              <strong>Active:</strong>
+              <p class="m-0">{{ durationVersion.active }}</p>
+            </li>
+            <li class="list-group-item">
+              <strong>Prices:</strong>
+
+              <ul *ngFor="let price of durationVersion.prices" class="list-group">
+                <li class="list-group-item">
+                  <strong>price:</strong>
+                  <p class="m-0">{{ price.price }}</p>
+                </li>
+                <li class="list-group-item">
+                  <strong>currency:</strong>
+                  <p class="m-0">{{ price.currency }}</p>
+                </li>
+                <li class="list-group-item">
+                  <strong>preferredLanguages:</strong>
+                  <p class="m-0">{{ price.preferredLanguages?.join(', ') }}</p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </utility-body-card-component>
+      </utility-card-component>
+      <utility-card-component class="mt-3">
+        <utility-body-card-component>
+          <strong>configuration</strong>
           <ul class="list-group">
             <li class="list-group-item">
-              <strong>First name:</strong>
-              <p class="m-0">TODO</p>
+              <strong>earliestDateTime:</strong>
+              <p class="m-0">{{ service.configuration?.earliestDateTime }}</p>
+            </li>
+            <li class="list-group-item">
+              <strong>latestDateTime:</strong>
+              <p class="m-0">{{ service.configuration?.latestDateTime }}</p>
+            </li>
+          </ul>
+        </utility-body-card-component>
+      </utility-card-component>
+      <utility-card-component class="mt-3">
+        <utility-body-card-component>
+          <strong>prepaymentPolicy</strong>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <strong>isRequired:</strong>
+              <p class="m-0">{{ service.prepaymentPolicy?.isRequired }}</p>
+            </li>
+            <li class="list-group-item">
+              <strong>isPercentage:</strong>
+              <p class="m-0">{{ service.prepaymentPolicy?.isPercentage }}</p>
+            </li>
+            <li class="list-group-item">
+              <strong>value:</strong>
+              <p class="m-0">{{ service.prepaymentPolicy?.value }}</p>
+            </li>
+            <li class="list-group-item">
+              <strong>minimalCancelTime:</strong>
+              <p class="m-0">{{ service.prepaymentPolicy?.minimalCancelTime }}</p>
+            </li>
+          </ul>
+        </utility-body-card-component>
+      </utility-card-component>
+      <utility-card-component class="mt-3">
+        <utility-body-card-component>
+          <strong>service</strong>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <strong>Active:</strong>
+              <p class="m-0">{{ service.active }}</p>
+            </li>
+            <li class="list-group-item">
+              <strong>Created at:</strong>
+              <p class="m-0">{{ service.createdAt }}</p>
+            </li>
+            <li class="list-group-item">
+              <strong>Update at:</strong>
+              <p class="m-0">{{ service.updatedAt }}</p>
             </li>
           </ul>
         </utility-body-card-component>
@@ -47,7 +173,8 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
     BodyCardComponent,
     BackLinkComponent,
     ButtonComponent,
-    RouterLink
+    RouterLink,
+    NgForOf
   ],
   standalone: true
 })

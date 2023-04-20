@@ -10,8 +10,17 @@
 <utility-table-component>
   <thead utility-header-table-component>
   <tr>
-    <th class="sort pe-1 align-middle white-space-nowrap desc" data-sort="lastName">
-      Full name
+    <th class="sort pe-1 align-middle white-space-nowrap desc" data-sort="title">
+      Title
+    </th>
+    <th class="sort pe-1 align-middle white-space-nowrap desc" data-sort="title">
+      Language
+    </th>
+    <th class="sort pe-1 align-middle white-space-nowrap desc" data-sort="active">
+      Active
+    </th>
+    <th class="sort pe-1 align-middle white-space-nowrap desc" data-sort="createdAt">
+      Created At
     </th>
   </tr>
   </thead>
@@ -19,9 +28,17 @@
   <tr class="btn-reveal-trigger" *ngFor="let item of list">
     <td class="align-middle white-space-nowrap title">
       <a [routerLink]="['details', item.id]">
-        TODO
-<!--        {{ item.data() }}-->
+        {{ item.data().languageVersions?.[0]?.title }}
       </a>
+    </td>
+    <td class="align-middle white-space-nowrap language">
+      {{ item.data().languageVersions?.[0]?.language }}
+    </td>
+    <td class="align-middle white-space-nowrap active">
+      {{ item.data().active }}
+    </td>
+    <td class="align-middle white-space-nowrap createdAt">
+      {{ item.data().createdAt | date: 'hh:mm dd-MM-yyyy' }}
     </td>
   </tr>
   </tbody>
