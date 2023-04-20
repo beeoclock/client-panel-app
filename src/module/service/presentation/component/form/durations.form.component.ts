@@ -17,6 +17,7 @@ import {NgForOf} from '@angular/common';
       *ngFor="let durationVersionForm of durationVersionsForm.controls"
       [form]="durationVersionForm">
     </service-duration-form-component>
+    <hr>
     <button class="btn btn-primary" (click)="pushNewDurationVersionFormForm($event)">Add new duration</button>
   `
 })

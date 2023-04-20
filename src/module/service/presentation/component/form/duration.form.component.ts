@@ -24,26 +24,34 @@ import {LanguageCodeEnum} from '@utility/domain/enum';
   template: `
     <form [formGroup]="form">
 
-      <div class="col-12 position-relative">
+      <div class="col-12 mt-2 position-relative">
         <label for="service-form-break">Break</label>
-        <input
-          beeoclock
-          hasError
-          placeholder="Write title of service"
-          id="service-form-break"
-          formControlName="break">
+        <div class="input-group">
+          <input
+            beeoclock
+            type="number"
+            hasError
+            placeholder="Write title of service"
+            id="service-form-break"
+            formControlName="break">
+          <span class="input-group-text" id="basic-addon2">minute</span>
+        </div>
         <utility-input-error-component
           [control]="form.controls.break"></utility-input-error-component>
       </div>
 
-      <div class="col-12 position-relative">
+      <div class="col-12 mt-2 position-relative">
         <label for="service-form-duration">Duration</label>
-        <input
-          beeoclock
-          hasError
-          placeholder="Write title of service"
-          id="service-form-duration"
-          formControlName="duration">
+        <div class="input-group">
+          <input
+            beeoclock
+            hasError
+            type="number"
+            placeholder="Write title of service"
+            id="service-form-duration"
+            formControlName="duration">
+          <span class="input-group-text" id="basic-addon2">minute</span>
+        </div>
         <utility-input-error-component
           [control]="form.controls.duration"></utility-input-error-component>
       </div>
@@ -56,28 +64,29 @@ import {LanguageCodeEnum} from '@utility/domain/enum';
 
             <div class="col-12 position-relative">
               <label for="service-form-price">Price</label>
-              <input
-                beeoclock
-                hasError
-                placeholder="Write price"
-                id="service-form-price"
-                formControlName="price">
+              <div class="input-group">
+                <input
+                  beeoclock
+                  hasError
+                  placeholder="Write price"
+                  id="service-form-price"
+                  formControlName="price">
+                <ng-select [items]="currencyList"
+                           [clearable]="false"
+                           style="width: 100px"
+                           id="service-form-currency"
+                           bindLabel="name"
+                           bindValue="id"
+                           formControlName="currency">
+                </ng-select>
+              </div>
               <utility-input-error-component
                 [control]="priceControl.controls.price"></utility-input-error-component>
+              <utility-input-error-component
+                [control]="priceControl.controls.currency"></utility-input-error-component>
             </div>
 
-            <div class="col-12 position-relative">
-              <label for="service-form-currency">Currency</label>
-              <ng-select [items]="currencyList"
-                         id="service-form-currency"
-                         bindLabel="name"
-                         bindValue="id"
-                         formControlName="currency">
-              </ng-select>
-              <utility-input-error-component [control]="priceControl.controls.currency"></utility-input-error-component>
-            </div>
-
-            <div class="col-12 position-relative">
+            <div class="col-12 mt-2 position-relative">
               <label for="service-form-preferredLanguages">Preferred languages</label>
               <ng-select [items]="languageList"
                          [multiple]="true"

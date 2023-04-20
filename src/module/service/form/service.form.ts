@@ -72,6 +72,12 @@ export class DurationVersionForm extends FormGroup<IDurationVersionForm> {
       duration: new FormControl(),
       prices: new FormArray([new PriceForm()]),
     });
+    this.initValue();
+  }
+
+  public initValue(): void {
+    this.controls.break.setValue(15);
+    this.controls.duration.setValue(45);
   }
 }
 
@@ -130,7 +136,9 @@ export class ScheduleForm extends FormGroup<IScheduleForm> {
   }
 
   public initValue(): void {
-    this.controls.workDays.setValue(WORK_WEEK)
+    this.controls.workDays.setValue(WORK_WEEK);
+    this.controls.startTime.setValue('08:00');
+    this.controls.endTime.setValue('18:00');
   }
 }
 

@@ -23,18 +23,18 @@ import {NgSelectModule} from '@ng-select/ng-select';
   template: `
     <form [formGroup]="languageVersionForm">
 
-      <div class="col-12 position-relative">
+      <div class="col-12 mt-2 position-relative">
+        <label for="service-form-language">Language</label>
+        <ng-select [items]="languageList"
+                   id="service-form-language"
+                   bindLabel="name"
+                   bindValue="id"
+                   formControlName="language">
+        </ng-select>
+        <utility-input-error-component [control]="languageVersionForm.controls.language"></utility-input-error-component>
+      </div>
 
-        <div class="col-12 position-relative">
-          <label for="service-form-language">Language</label>
-          <ng-select [items]="languageList"
-                     id="service-form-language"
-                     bindLabel="name"
-                     bindValue="id"
-                     formControlName="language">
-          </ng-select>
-          <utility-input-error-component [control]="languageVersionForm.controls.language"></utility-input-error-component>
-        </div>
+      <div class="col-12 mt-2 position-relative">
 
         <label for="service-form-title">Title</label>
         <input
@@ -46,7 +46,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
         <utility-input-error-component
           [control]="languageVersionForm.controls.title"></utility-input-error-component>
       </div>
-      <div class="col-12">
+      <div class="col-12 mt-2 position-relative">
         <label for="service-form-description">Description</label>
         <textarea
           beeoclock

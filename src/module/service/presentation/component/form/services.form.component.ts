@@ -22,6 +22,7 @@ import {ServiceFormComponent} from '@service/presentation/component/form/service
       *ngFor="let languageVersionForm of languageVersionsForm.controls"
       [languageVersionForm]="languageVersionForm">
     </service-service-form-component>
+    <hr>
     <button class="btn btn-primary" (click)="pushNewLanguageVersionForm($event)">Add new language version</button>
   `
 })

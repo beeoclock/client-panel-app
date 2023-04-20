@@ -5,6 +5,7 @@
     <form [formGroup]="form" class="row g-3">
 
       <service-services-form-component
+        (handlePushNewLanguageVersionForm)="form.pushNewLanguageVersionForm()"
         [languageVersionsForm]="form.controls.languageVersions">
       </service-services-form-component>
 
@@ -18,7 +19,9 @@
         [schedulesForm]="form.controls.schedules">
       </service-schedules-form-component>
 
-      <button class="btn btn-primary" (click)="save()">Add Service</button>
+      <div class="col-12 d-grid">
+        <button class="btn btn-primary" (click)="save()">Add Service</button>
+      </div>
 
     </form>
   </utility-body-card-component>

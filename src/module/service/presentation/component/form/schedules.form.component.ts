@@ -20,6 +20,7 @@ import {ScheduleFormComponent} from '@service/presentation/component/form/schedu
       *ngFor="let scheduleForm of schedulesForm.controls"
       [form]="scheduleForm">
     </service-schedule-form-component>
+    <hr>
     <button class="btn btn-primary" (click)="pushNewScheduleForm($event)">Add new interval</button>
   `
 })

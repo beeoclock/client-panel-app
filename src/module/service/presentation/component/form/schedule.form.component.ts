@@ -20,7 +20,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
   ],
   template: `
     <form [formGroup]="form">
-      <div class="col-12 position-relative">
+      <div class="col-12 mt-2 position-relative">
         <label for="service-form-workDays">Work days</label>
         <ng-select [items]="week"
                    [multiple]="true"
@@ -31,7 +31,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
         </ng-select>
         <utility-input-error-component [control]="form.controls.workDays"></utility-input-error-component>
       </div>
-      <div class="col-12">
+      <div class="col-12 mt-2">
         <div class="row">
           <div class="col-md-6 position-relative">
             <label for="service-form-startTime">Start</label>
