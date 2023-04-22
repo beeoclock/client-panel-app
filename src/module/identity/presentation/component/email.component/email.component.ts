@@ -25,6 +25,7 @@ import {InputErrorComponent} from '@utility/presentation/component/input-error/i
                [placeholder]="placeholder | translate"
                [formControl]="control"
                [id]="id"
+               autofocus
                hasError
                beeoclock
                type="email">

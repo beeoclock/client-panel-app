@@ -1,7 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {AttendantComponent} from '@event/presentation/component/attendant/attendant.component';
 import {NgForOf} from '@angular/common';
-import {FormArray} from '@angular/forms';
 import {AttendeesForm} from '@event/form/event.form';
 
 @Component({
@@ -14,13 +13,20 @@ import {AttendeesForm} from '@event/form/event.form';
   ],
   template: `
     <event-attendant-component
-      *ngFor="let attendantFormControl of attendeesFormArray.controls"
-      [attendantFormGroup]="attendantFormControl">
+      *ngFor="let control of form.controls; let index = index"
+      (removeEvent)="form.removeAttendant(index)"
+      [showRemoveButton]="index > 0"
+      [form]="control">
     </event-attendant-component>
+
+    <button (click)="form.pushNewAttendant()" class="btn btn-primary mt-2">
+      <i class="bi bi-plus-lg"></i>
+      Add new attendant
+    </button>
   `
 })
 export class AttendeesComponent {
   @Input()
-  public attendeesFormArray!: FormArray<AttendeesForm>;
+  public form!: AttendeesForm;
 
 }

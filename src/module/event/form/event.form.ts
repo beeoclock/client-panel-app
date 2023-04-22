@@ -2,7 +2,7 @@ import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@a
 import * as Utility from '@utility/domain';
 
 
-export interface IAttendeesForm {
+export interface IAttendantForm {
   email: FormControl<string>;
 
   [key: string]: AbstractControl<any, any>;
@@ -15,7 +15,7 @@ export interface IEventForm {
   description: FormControl<string>;
   start: FormControl<string>;
   end: FormControl<string>;
-  attendees: FormArray<AttendeesForm>;
+  attendees: AttendeesForm;
   languageCodes: FormControl<Utility.Enum.LanguageCodeEnum[]>;
 
   [key: string]: AbstractControl<any, any>;
@@ -49,7 +49,7 @@ export class EventForm extends FormGroup<IEventForm> {
       start: new FormControl(),
       services: new FormControl(),
       title: new FormControl(),
-      attendees: new FormArray<AttendeesForm>([]),
+      attendees: new AttendeesForm(),
       languageCodes: new FormControl()
     });
     this.initValidators();
@@ -67,19 +67,34 @@ export class EventForm extends FormGroup<IEventForm> {
     this.controls.start.patchValue(new Date().toISOString());
 
     this.controls.languageCodes.patchValue([Utility.Enum.LanguageCodeEnum.en]);
-
-    this.controls.attendees.push(new AttendeesForm());
   }
 
 }
 
-export class AttendeesForm extends FormGroup<IAttendeesForm> {
+export class AttendeesForm extends FormArray<AttendantForm> {
+
+  constructor() {
+    super([new AttendantForm()]);
+  }
+
+  public pushNewAttendant(): void {
+    this.controls.push(new AttendantForm());
+  }
+
+  public removeAttendant(index: number): void {
+    this.controls.splice(index, 1);
+  }
+
+}
+
+export class AttendantForm extends FormGroup<IAttendantForm> {
   constructor() {
     super({
       email: new FormControl(),
     });
     this.initValidators();
   }
+
   public initValidators(): void {
     this.controls.email.setValidators([Validators.required, Validators.email]);
   }

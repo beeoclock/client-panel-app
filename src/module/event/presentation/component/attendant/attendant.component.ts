@@ -1,24 +1,50 @@
-import {Component, Input} from '@angular/core';
-import {FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {IAttendeesForm} from '@event/form/event.form';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
+import {AttendantForm} from '@event/form/event.form';
+import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'event-attendant-component',
   standalone: true,
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    InputErrorComponent,
+    NgIf
   ],
   template: `
-    <form [formGroup]="attendantFormGroup">
+    <form [formGroup]="form">
       <label>E-mail</label>
-      <input class="form-control" formControlName="email" type="email">
-      <!--          TODO-->
+      <div class="input-group mb-3">
+        <input
+          formControlName="email"
+          type="email"
+          class="form-control"
+          placeholder="E-mail"
+          aria-label="E-mail"
+          aria-describedby="button-addon2">
+        <button
+          *ngIf="showRemoveButton"
+          (click)="removeEvent.emit()"
+          class="btn btn-danger"
+          type="button"
+          id="button-addon2">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+      <utility-input-error-component [control]="form.controls.email"></utility-input-error-component>
     </form>
   `
 })
 export class AttendantComponent {
 
   @Input()
-  public attendantFormGroup!: FormGroup<IAttendeesForm>;
+  public form!: AttendantForm;
+
+  @Input()
+  public showRemoveButton = false;
+
+  @Output()
+  public removeEvent: EventEmitter<void> = new EventEmitter<void>();
 
 }
