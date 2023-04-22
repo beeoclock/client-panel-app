@@ -6,12 +6,12 @@ import {InputDirective} from '@utility/directives/input/input.directive';
 import {TextareaDirective} from '@utility/directives/textarea/textarea.directive';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
-import {HasErrorModule} from '@utility/directives/has-error/has-error.module';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {EmployeeForm} from '@employee/form/employee.form';
 import {Notification} from '@utility/notification';
 import {EmployeeFormRepository} from '@employee/repository/employee.form.repository';
+import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 
 @Component({
   selector: 'employee-form-page',
@@ -25,7 +25,7 @@ import {EmployeeFormRepository} from '@employee/repository/employee.form.reposit
     TextareaDirective,
     ButtonComponent,
     InputErrorComponent,
-    HasErrorModule,
+    HasErrorDirective,
     RouterLink,
     BackLinkComponent
   ],

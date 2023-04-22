@@ -1,2 +1,7 @@
 @import "bootstrap-icons";
 @import "~@ng-select/ng-select/themes/default.theme.css";
+
+label.form-label[required]:after {
+  content:" *";
+  color: red;
+}

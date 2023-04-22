@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {HasErrorModule} from '@utility/directives/has-error/has-error.module';
 import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
@@ -11,6 +10,7 @@ import {PasswordComponent} from '@identity/presentation/component/password.compo
 import RegistrationForm from '@identity/form/registration.form';
 import {DisplayNameComponent} from '@identity/presentation/component/display-name.component/display-name.component';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
+import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 
 @Component({
   selector: 'identity-sign-up-component',
@@ -69,7 +69,7 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
   `,
   imports: [
     ReactiveFormsModule,
-    HasErrorModule,
+    HasErrorDirective,
     NgIf,
     TranslateModule,
     FirstKeyNameModule,

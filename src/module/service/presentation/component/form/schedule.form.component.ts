@@ -1,18 +1,18 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {ScheduleForm} from '@service/form/service.form';
 import {WEEK, WEEK_DAYS_NAME} from '@utility/domain/enum/days-of-week.enum';
-import {HasErrorModule} from '@utility/directives/has-error/has-error.module';
 import {FlatpickrModule} from 'angularx-flatpickr';
 import {ReactiveFormsModule} from '@angular/forms';
 import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 
 @Component({
   selector: 'service-schedule-form-component',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [
-    HasErrorModule,
+    HasErrorDirective,
     FlatpickrModule,
     ReactiveFormsModule,
     InputErrorComponent,

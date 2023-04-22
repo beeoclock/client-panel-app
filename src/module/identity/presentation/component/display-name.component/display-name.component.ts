@@ -1,11 +1,11 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
-import {HasErrorModule} from '@utility/directives/has-error/has-error.module';
 import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
 import {InputDirective} from '@utility/directives/input/input.directive';
 import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
+import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 
 @Component({
   selector: 'identity-display-name-component',
@@ -35,7 +35,7 @@ import {InputErrorComponent} from '@utility/presentation/component/input-error/i
   `,
   imports: [
     ReactiveFormsModule,
-    HasErrorModule,
+    HasErrorDirective,
     NgIf,
     TranslateModule,
     FirstKeyNameModule,

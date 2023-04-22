@@ -1,6 +1,5 @@
 import {Component, EventEmitter, HostBinding, Input, Output, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {HasErrorModule} from '@utility/directives/has-error/has-error.module';
 import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
@@ -10,6 +9,7 @@ import {EmailComponent} from '@identity/presentation/component/email.component/e
 import {PasswordComponent} from '@identity/presentation/component/password.component/password.component';
 import LoginForm from '@identity/form/login.form';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
+import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 
 @Component({
   selector: 'identity-sign-in-component',
@@ -57,7 +57,7 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    HasErrorModule,
+    HasErrorDirective,
     NgIf,
     TranslateModule,
     FirstKeyNameModule,

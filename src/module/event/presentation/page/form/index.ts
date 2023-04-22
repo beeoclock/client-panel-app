@@ -6,7 +6,6 @@ import {InputDirective} from '@utility/directives/input/input.directive';
 import {TextareaDirective} from '@utility/directives/textarea/textarea.directive';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
-import {HasErrorModule} from '@utility/directives/has-error/has-error.module';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {EventForm} from '@event/form/event.form';
@@ -16,6 +15,7 @@ import {AttendeesComponent} from '@event/presentation/component/attendees/attend
 import {FlatpickrModule} from 'angularx-flatpickr';
 import {Notification} from '@utility/notification';
 import {is} from 'thiis';
+import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 
 @Component({
   selector: 'event-form-page',
@@ -29,7 +29,7 @@ import {is} from 'thiis';
     TextareaDirective,
     ButtonComponent,
     InputErrorComponent,
-    HasErrorModule,
+    HasErrorDirective,
     RouterLink,
     BackLinkComponent,
     NgSelectModule,

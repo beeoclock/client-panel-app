@@ -2,7 +2,8 @@ import {AfterViewInit, Directive, ElementRef, Input, Optional} from '@angular/co
 import {AbstractControl, FormArray, NgControl} from '@angular/forms';
 
 @Directive({
-  selector: '[hasError]'
+  selector: '[hasError]',
+  standalone: true
 })
 export class HasErrorDirective implements AfterViewInit {
 

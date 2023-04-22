@@ -3,10 +3,10 @@ import {LanguageVersionForm} from '@service/form/service.form';
 import {LanguageCodeEnum} from '@utility/domain/enum';
 import {ReactiveFormsModule} from '@angular/forms';
 import {InputDirective} from '@utility/directives/input/input.directive';
-import {HasErrorModule} from '@utility/directives/has-error/has-error.module';
 import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
 import {TextareaDirective} from '@utility/directives/textarea/textarea.directive';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 
 @Component({
   selector: 'service-service-form-component',
@@ -15,7 +15,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
   imports: [
     ReactiveFormsModule,
     InputDirective,
-    HasErrorModule,
+    HasErrorDirective,
     InputErrorComponent,
     TextareaDirective,
     NgSelectModule
@@ -31,7 +31,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
                    bindValue="id"
                    formControlName="language">
         </ng-select>
-        <utility-input-error-component [control]="languageVersionForm.controls.language"></utility-input-error-component>
+        <utility-input-error-component
+          [control]="languageVersionForm.controls.language"></utility-input-error-component>
       </div>
 
       <div class="col-12 mt-2 position-relative">

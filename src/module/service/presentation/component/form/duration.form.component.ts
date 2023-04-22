@@ -5,9 +5,9 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
 import {InputDirective} from '@utility/directives/input/input.directive';
-import {HasErrorModule} from '@utility/directives/has-error/has-error.module';
 import {NgForOf} from '@angular/common';
 import {LanguageCodeEnum} from '@utility/domain/enum';
+import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 
 @Component({
   selector: 'service-duration-form-component',
@@ -18,7 +18,7 @@ import {LanguageCodeEnum} from '@utility/domain/enum';
     NgSelectModule,
     ReactiveFormsModule,
     InputDirective,
-    HasErrorModule,
+    HasErrorDirective,
     NgForOf
   ],
   template: `
@@ -95,7 +95,8 @@ import {LanguageCodeEnum} from '@utility/domain/enum';
                          bindValue="id"
                          formControlName="preferredLanguages">
               </ng-select>
-              <utility-input-error-component [control]="priceControl.controls.preferredLanguages"></utility-input-error-component>
+              <utility-input-error-component
+                [control]="priceControl.controls.preferredLanguages"></utility-input-error-component>
             </div>
 
           </ng-container>

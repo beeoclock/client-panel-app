@@ -7,10 +7,10 @@ import {InputDirective} from '@utility/directives/input/input.directive';
 import {TextareaDirective} from '@utility/directives/textarea/textarea.directive';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
-import {HasErrorModule} from '@utility/directives/has-error/has-error.module';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {CustomerFormRepository} from '@customer/repository/customer.form.repository';
+import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 
 @Component({
   selector: 'customer-form-page',
@@ -24,7 +24,7 @@ import {CustomerFormRepository} from '@customer/repository/customer.form.reposit
     TextareaDirective,
     ButtonComponent,
     InputErrorComponent,
-    HasErrorModule,
+    HasErrorDirective,
     RouterLink,
     BackLinkComponent
   ],
@@ -42,7 +42,7 @@ export default class Index {
   public readonly form: CustomerForm = new CustomerForm();
 
   constructor() {
-    this.activatedRoute.params.subscribe( ({id}) => {
+    this.activatedRoute.params.subscribe(({id}) => {
       if (id) {
         this.customerId = id;
         this.url = ['../../', 'details', id];
