@@ -14,7 +14,7 @@ import {AttendeesForm} from '@event/form/event.form';
   template: `
     <event-attendant-component
       *ngFor="let control of form.controls; let index = index"
-      (removeEvent)="form.removeAttendant(index)"
+      (removeEvent)="form.remove(index)"
       [showRemoveButton]="index > 0"
       [index]="index"
       [form]="control">

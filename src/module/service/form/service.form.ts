@@ -60,7 +60,7 @@ export class PriceForm extends FormGroup<IPriceForm> {
 export interface IDurationVersionForm {
   break: FormControl<number>;
   duration: FormControl<number>;
-  prices: FormArray<PriceForm>;
+  prices: PricesForm;
 
   [key: string]: AbstractControl<any, any>;
 }
@@ -70,7 +70,7 @@ export class DurationVersionForm extends FormGroup<IDurationVersionForm> {
     super({
       break: new FormControl(),
       duration: new FormControl(),
-      prices: new FormArray([new PriceForm()]),
+      prices: new PricesForm(),
     });
     this.initValue();
   }
@@ -78,6 +78,21 @@ export class DurationVersionForm extends FormGroup<IDurationVersionForm> {
   public initValue(): void {
     this.controls.break.setValue(15);
     this.controls.duration.setValue(45);
+  }
+}
+
+export class PricesForm extends FormArray<PriceForm> {
+  constructor() {
+    super([]);
+    this.pushNewPriceForm();
+  }
+
+  public pushNewPriceForm(): void {
+    this.controls.push(new PriceForm());
+  }
+
+  public remove(index: number): void {
+    this.controls.splice(index, 1);
   }
 }
 

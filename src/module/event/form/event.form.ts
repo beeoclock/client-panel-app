@@ -23,24 +23,6 @@ export interface IEventForm {
 
 export class EventForm extends FormGroup<IEventForm> {
 
-  public readonly languages: {
-    code: Utility.Enum.LanguageCodeEnum;
-    name: string;
-  }[] = [
-    {
-      code: Utility.Enum.LanguageCodeEnum.en,
-      name: 'English'
-    },
-    {
-      code: Utility.Enum.LanguageCodeEnum.uk,
-      name: 'Українська'
-    },
-    {
-      code: Utility.Enum.LanguageCodeEnum.pl,
-      name: 'Polski'
-    },
-  ];
-
   constructor() {
     super({
       id: new FormControl(),
@@ -81,7 +63,7 @@ export class AttendeesForm extends FormArray<AttendantForm> {
     this.controls.push(new AttendantForm());
   }
 
-  public removeAttendant(index: number): void {
+  public remove(index: number): void {
     this.controls.splice(index, 1);
   }
 
