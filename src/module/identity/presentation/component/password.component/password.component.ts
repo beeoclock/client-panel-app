@@ -3,7 +3,6 @@ import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
-import {TogglePasswordModule} from '@utility/pipes/toggle-password/toggle-password.module';
 import {InputDirective} from '@utility/directives/input/input.directive';
 import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
@@ -23,16 +22,27 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
       <div class="input-group">
 
         <input
+          #passwordInput
           [id]="id"
           [formControl]="control"
-          beeoclock
-          togglePassword
+          class="form-control"
           hasError
+          type="password"
           [inputGroup]="true"
           [checkFormError]="true"
           [name]="'key-fill'"
           [placeholder]="placeholder | translate"
           [class.border-danger]="loginFormHasError && control.root.touched">
+
+        <button
+          (click)="passwordInput.type = passwordInput.type === 'text' ? 'password' : 'text'"
+          class="btn btn-primary">
+          <i
+            class="bi"
+            [class.bi-eye-slash]="passwordInput.type === 'text'"
+            [class.bi-eye]="passwordInput.type === 'password'">
+          </i>
+        </button>
 
       </div>
 
@@ -46,7 +56,6 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
     NgIf,
     TranslateModule,
     FirstKeyNameModule,
-    TogglePasswordModule,
     InputDirective,
     InputDirective,
     InputErrorComponent

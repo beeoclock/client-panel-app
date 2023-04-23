@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/client-panel-app",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -31,7 +31,6 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/asset/scss/theme.scss",
               "node_modules/flatpickr/dist/flatpickr.css"
             ],
             "scripts": [

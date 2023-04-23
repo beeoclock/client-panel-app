@@ -3,7 +3,6 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
-import {TogglePasswordModule} from '@utility/pipes/toggle-password/toggle-password.module';
 import {RouterLink} from '@angular/router';
 import {EmailComponent} from '@identity/presentation/component/email.component/email.component';
 import {PasswordComponent} from '@identity/presentation/component/password.component/password.component';
@@ -61,7 +60,6 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
     NgIf,
     TranslateModule,
     FirstKeyNameModule,
-    TogglePasswordModule,
     RouterLink,
     EmailComponent,
     PasswordComponent,
