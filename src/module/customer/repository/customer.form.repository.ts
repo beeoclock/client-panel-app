@@ -3,12 +3,12 @@ import {DocumentSnapshot} from '@angular/fire/firestore';
 import {CustomerFirebaseAdapter} from '@customer/adapter/customer.firebase.adapter';
 import {QuerySnapshot} from '@angular/fire/compat/firestore';
 import * as Customer from '@customer/domain';
-import * as Utility from '@utility/domain';
+import {Repository} from '@utility/repository/repository';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerFormRepository extends Utility.Repository.Repository {
+export class CustomerFormRepository extends Repository {
   private readonly customerAdapter: CustomerFirebaseAdapter = inject(CustomerFirebaseAdapter);
 
   public override async save(value: any, forceId?: string | null | undefined): Promise<void> {

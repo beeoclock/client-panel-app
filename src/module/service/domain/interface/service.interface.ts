@@ -50,4 +50,5 @@ export interface IService {
   durationVersions?: IDurationVersion[];
   createdAt?: string;
   updatedAt?: string;
+  id?: string;
 }

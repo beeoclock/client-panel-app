@@ -176,6 +176,9 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
     RouterLink,
     NgForOf
   ],
+  providers: [
+    ServiceFormRepository,
+  ],
   standalone: true
 })
 export default class Index {

@@ -24,6 +24,9 @@ import {SchedulesFormComponent} from '@service/presentation/component/form/sched
     ServicesFormComponent,
     SchedulesFormComponent,
   ],
+  providers: [
+    ServiceFormRepository,
+  ],
   standalone: true
 })
 export default class Index {

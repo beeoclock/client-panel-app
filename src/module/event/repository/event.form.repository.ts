@@ -1,14 +1,14 @@
 import {inject, Injectable} from '@angular/core';
 import {DocumentSnapshot} from '@angular/fire/firestore';
 import {QuerySnapshot} from '@angular/fire/compat/firestore';
-import * as Utility from '@utility/domain';
 import * as Event from '@event/domain';
 import {EventFirebaseAdapter} from '@event/adapter/event.firebase.adapter';
+import {Repository} from '@utility/repository/repository';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EventFormRepository extends Utility.Repository.Repository {
+export class EventFormRepository extends Repository {
   private readonly storageAdapter: EventFirebaseAdapter = inject(EventFirebaseAdapter);
 
   public override async save(value: any, forceId?: string | null | undefined): Promise<void> {

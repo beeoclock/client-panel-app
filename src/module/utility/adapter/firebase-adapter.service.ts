@@ -20,7 +20,7 @@ import {QuerySnapshot} from '@angular/fire/compat/firestore';
 export class FirebaseAdapter<ITEM> {
 
   private readonly firestore: Firestore = inject(Firestore);
-  protected itemsCollection!: CollectionReference<ITEM>;
+  public itemsCollection!: CollectionReference<ITEM>;
   private path: string | undefined;
   private orderBy: string | undefined;
 

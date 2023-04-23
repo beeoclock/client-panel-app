@@ -1,13 +1,13 @@
 import {inject, Injectable} from '@angular/core';
 import {DocumentSnapshot} from '@angular/fire/firestore';
 import {SettingsFirebaseAdapter} from '@src/module/company/adapter/firebase/settings.firebase.adapter';
-import * as Utility from '@utility/domain';
 import * as Company from '@company/domain';
+import {Repository} from '@utility/repository/repository';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SettingsFormRepository extends Utility.Repository.Repository {
+export class SettingsFormRepository extends Repository {
   private readonly settingsAdapter: SettingsFirebaseAdapter = inject(SettingsFirebaseAdapter);
 
   public override save(value: any): Promise<void> {

@@ -1,5 +1,6 @@
 <div class="row mb-3">
-  <div class="col-12 d-flex justify-content-end">
+  <div class="col-12 d-flex justify-content-between">
+    <service-filter-component></service-filter-component>
     <button beeoclock routerLink="form">
       <i class="bi bi-plus-lg me-2"></i>
       Add new service
@@ -25,22 +26,31 @@
   </tr>
   </thead>
   <tbody utility-body-table-component>
-  <tr class="btn-reveal-trigger" *ngFor="let item of list">
-    <td class="align-middle white-space-nowrap title">
-      <a [routerLink]="['details', item.id]">
-        {{ item.data().languageVersions?.[0]?.title }}
-      </a>
-    </td>
-    <td class="align-middle white-space-nowrap language">
-      {{ item.data().languageVersions?.[0]?.language }}
-    </td>
-    <td class="align-middle white-space-nowrap active">
-      {{ item.data().active }}
-    </td>
-    <td class="align-middle white-space-nowrap createdAt">
-      {{ item.data().createdAt | date: 'hh:mm dd-MM-yyyy' }}
-    </td>
-  </tr>
+    <ng-container *ngIf="repository.loading.isOff; else LoadingTemplate">
+      <ng-container *ngIf="repository.state$ | async as state; else LoadingTemplate">
+        <tr class="btn-reveal-trigger" *ngFor="let item of state.items">
+          <td class="align-middle white-space-nowrap title">
+            <a [routerLink]="['details', item.id]">
+              {{ item.languageVersions?.[0]?.title }}
+            </a>
+          </td>
+          <td class="align-middle white-space-nowrap language">
+            {{ item.languageVersions?.[0]?.language }}
+          </td>
+          <td class="align-middle white-space-nowrap active">
+            {{ item.active }}
+          </td>
+          <td class="align-middle white-space-nowrap createdAt">
+            {{ item.createdAt | date: 'hh:mm dd-MM-yyyy' }}
+          </td>
+        </tr>
+      </ng-container>
+    </ng-container>
   </tbody>
 </utility-table-component>
 <utility-pagination-component></utility-pagination-component>
+<ng-template #LoadingTemplate>
+  <div class="p-4">
+    <div spinner></div>
+  </div>
+</ng-template>

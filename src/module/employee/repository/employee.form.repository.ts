@@ -1,14 +1,14 @@
 import {inject, Injectable} from '@angular/core';
 import {DocumentSnapshot} from '@angular/fire/firestore';
 import {QuerySnapshot} from '@angular/fire/compat/firestore';
-import * as Utility from '@utility/domain';
 import * as Employee from '@employee/domain';
 import {EmployeeFirebaseAdapter} from '@employee/adapter/employee.firebase.adapter';
+import {Repository} from '@utility/repository/repository';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeFormRepository extends Utility.Repository.Repository {
+export class EmployeeFormRepository extends Repository {
   private readonly storageAdapter: EmployeeFirebaseAdapter = inject(EmployeeFirebaseAdapter);
 
   public override async save(value: any, forceId?: string | null | undefined): Promise<void> {
