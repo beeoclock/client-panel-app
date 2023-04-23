@@ -2,7 +2,7 @@ import {LanguageVersionForm, LanguageVersionsForm} from '@service/form/service.f
 import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {ScheduleFormComponent} from '@service/presentation/component/form/schedule.form.component';
-import {ServiceFormComponent} from '@service/presentation/component/form/service.form.component';
+import {ServiceFormComponent} from '@service/presentation/component/form/service/service.form.component';
 import {LANGUAGES} from '@utility/domain/enum';
 
 @Component({

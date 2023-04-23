@@ -7,8 +7,8 @@ import {ServiceFormRepository} from '@service/repository/service.form.repository
 import {ServiceForm} from '@service/form/service.form';
 import {ReactiveFormsModule} from '@angular/forms';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
-import {DurationsFormComponent} from '@service/presentation/component/form/durations.form.component';
-import {ServicesFormComponent} from '@service/presentation/component/form/services.form.component';
+import {DurationsFormComponent} from '@service/presentation/component/form/duration/durations.form.component';
+import {ServicesFormComponent} from '@service/presentation/component/form/service/services.form.component';
 import {SchedulesFormComponent} from '@service/presentation/component/form/schedules.form.component';
 
 @Component({
