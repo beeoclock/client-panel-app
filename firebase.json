@@ -2,7 +2,7 @@
   "hosting": [
     {
       "target": "panel-beeoclock-cloud-00000000000000",
-      "public": "dist/client-panel-app",
+      "public": "dist",
       "ignore": [
         "**/firebase/**",
         "**/.*",
@@ -17,7 +17,7 @@
     },
     {
       "target": "panel-beeoclock-cloud-00000000000001",
-      "public": "dist/client-panel-app",
+      "public": "dist",
       "ignore": [
         "**/firebase/**",
         "**/.*",
