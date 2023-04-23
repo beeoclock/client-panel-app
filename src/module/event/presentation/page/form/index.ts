@@ -16,7 +16,7 @@ import {FlatpickrModule} from 'angularx-flatpickr';
 import {Notification} from '@utility/notification';
 import {is} from 'thiis';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
-import {languages} from '@utility/domain/enum';
+import {LANGUAGES} from '@utility/domain/enum';
 
 @Component({
   selector: 'event-form-page',
@@ -52,7 +52,7 @@ export default class Index {
   public readonly form: EventForm = new EventForm();
   private readonly repository: EventFormRepository = inject(EventFormRepository);
 
-  public readonly languageList = languages;
+  public readonly languageList = LANGUAGES;
 
   constructor() {
     this.activatedRoute.params.subscribe(({id}) => {

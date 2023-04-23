@@ -18,13 +18,15 @@ import {PaginationModel} from '@utility/domain/model';
 import BooleanStateModel from '@utility/boolean.state.model';
 import {is} from 'thiis';
 import {FilterForm} from '@service/form/filter.form';
+import {TranslateService} from '@ngx-translate/core';
 
 @Injectable()
 export class ServiceFormRepository extends Repository {
 
   #lastDocumentRef: QueryDocumentSnapshot<IService> | undefined;
 
-  private readonly storageAdapter: ServiceFirebaseAdapter = inject(ServiceFirebaseAdapter);
+  private readonly translateService = inject(TranslateService);
+  private readonly storageAdapter = inject(ServiceFirebaseAdapter);
 
   readonly #state$ = new BehaviorSubject<PaginationModel<Service.IService>>(new PaginationModel());
   public readonly loading = new BooleanStateModel(false);
@@ -71,7 +73,8 @@ export class ServiceFormRepository extends Repository {
     const {search} = this.filterForm.value;
 
     if (search) {
-      fieldPath = 'languageVersions.title';
+      const currentLanguage = this.translateService.getDefaultLang();
+      fieldPath = `languageVersions.${currentLanguage}.title`;
       additionalRequestParams.push(where(fieldPath, '>=', search));
       additionalRequestParams.push(where(fieldPath, '<=', `${search}\\ut8ff`));
     }

@@ -1,5 +1,5 @@
-import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {LanguageCodeEnum} from '@utility/domain/enum';
+import {AbstractControl, FormArray, FormControl, FormGroup, Validators, ɵFormGroupValue} from '@angular/forms';
+import {LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
 import {WeekDaysEnum, WORK_WEEK} from '@utility/domain/enum/days-of-week.enum';
 import {ActiveEnum} from '@utility/domain/enum/active.enum';
@@ -14,7 +14,9 @@ export interface ILanguageVersionForm {
 }
 
 export class LanguageVersionForm extends FormGroup<ILanguageVersionForm> {
-  constructor() {
+  constructor(
+    public readonly language: LanguageCodeEnum = LanguageCodeEnum.en
+  ) {
     super({
       title: new FormControl(),
       description: new FormControl(),
@@ -30,7 +32,7 @@ export class LanguageVersionForm extends FormGroup<ILanguageVersionForm> {
   }
 
   public initValue(): void {
-    this.controls.language.patchValue(LanguageCodeEnum.en);
+    this.controls.language.patchValue(this.language);
   }
 }
 
@@ -51,6 +53,7 @@ export class PriceForm extends FormGroup<IPriceForm> {
     });
     this.initValue();
   }
+
   public initValue(): void {
     this.controls.preferredLanguages.setValue([LanguageCodeEnum.en]);
     this.controls.currency.setValue(CurrencyCodeEnum.USD);
@@ -157,11 +160,23 @@ export class ScheduleForm extends FormGroup<IScheduleForm> {
   }
 }
 
+export type ILanguageVersionsForm = {
+  [key in keyof typeof LanguageCodeEnum]?: LanguageVersionForm;
+};
+
+export class LanguageVersionsForm extends FormGroup<ILanguageVersionsForm> {
+  constructor() {
+    super({
+      [LanguageCodeEnum.en]: new LanguageVersionForm(),
+    });
+  }
+}
+
 export interface IServiceForm {
   schedules: FormArray<ScheduleForm>;
   configuration: ConfigurationForm;
   prepaymentPolicy: PrepaymentPolicyForm;
-  languageVersions: FormArray<LanguageVersionForm>;
+  languageVersions: LanguageVersionsForm;
   durationVersions: FormArray<DurationVersionForm>;
   id: FormControl<string>;
   active: FormControl<ActiveEnum>;
@@ -177,7 +192,7 @@ export class ServiceForm extends FormGroup<IServiceForm> {
       schedules: new FormArray([new ScheduleForm()]),
       configuration: new ConfigurationForm(),
       prepaymentPolicy: new PrepaymentPolicyForm(),
-      languageVersions: new FormArray([new LanguageVersionForm()]),
+      languageVersions: new LanguageVersionsForm(),
       durationVersions: new FormArray([new DurationVersionForm()]),
       active: new FormControl(),
       id: new FormControl(),
@@ -202,6 +217,30 @@ export class ServiceForm extends FormGroup<IServiceForm> {
   }
 
   public pushNewLanguageVersionForm(): void {
-    this.controls.languageVersions.push(new LanguageVersionForm());
+    for (const language of LANGUAGES) {
+      if (language.code in this.controls.languageVersions.controls) {
+        continue;
+      }
+      this.addNewLanguageVersionControl(language.code);
+      break;
+    }
   }
+
+  public addNewLanguageVersionControl(languageCode: LanguageCodeEnum): void {
+    this.controls.languageVersions.addControl(languageCode, new LanguageVersionForm(languageCode));
+  }
+
+  public override patchValue(
+    value: ɵFormGroupValue<IServiceForm>,
+    options?: {
+      onlySelf?: boolean;
+      emitEvent?: boolean;
+    }
+  ): void {
+    Object.keys(value.languageVersions ?? {}).forEach((key: string) => {
+      this.addNewLanguageVersionControl(key as LanguageCodeEnum);
+    });
+    super.patchValue(value, options);
+  }
+
 }

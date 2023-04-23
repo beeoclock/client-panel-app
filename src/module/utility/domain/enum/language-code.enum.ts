@@ -5,7 +5,7 @@ export enum LanguageCodeEnum {
 }
 
 
-export const languages: {
+export const LANGUAGES: {
   code: LanguageCodeEnum;
   name: string;
 }[] = [

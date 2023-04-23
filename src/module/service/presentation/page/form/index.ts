@@ -35,10 +35,10 @@ export default class Index {
 
   public docId: string | undefined;
 
-  public readonly repository: ServiceFormRepository = inject(ServiceFormRepository);
-  public readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  public readonly repository = inject(ServiceFormRepository);
+  public readonly activatedRoute = inject(ActivatedRoute);
 
-  public readonly form: ServiceForm = new ServiceForm();
+  public readonly form = new ServiceForm();
 
   constructor() {
     this.activatedRoute.params.subscribe(({id}) => {

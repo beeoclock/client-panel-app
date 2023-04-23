@@ -18,7 +18,7 @@ import {ServiceFormRepository} from '@service/repository/service.form.repository
   `
 })
 export class FilterComponent {
-  public readonly repository: ServiceFormRepository = inject(ServiceFormRepository);
+  public readonly repository = inject(ServiceFormRepository);
   public readonly form = this.repository.filterForm;
 
   constructor() {

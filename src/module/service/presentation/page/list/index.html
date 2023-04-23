@@ -15,7 +15,7 @@
       Title
     </th>
     <th class="sort pe-1 align-middle white-space-nowrap desc" data-sort="title">
-      Language
+      Languages
     </th>
     <th class="sort pe-1 align-middle white-space-nowrap desc" data-sort="active">
       Active
@@ -31,11 +31,11 @@
         <tr class="btn-reveal-trigger" *ngFor="let item of state.items">
           <td class="align-middle white-space-nowrap title">
             <a [routerLink]="['details', item.id]">
-              {{ item.languageVersions?.[0]?.title }}
+              {{ item.languageVersions?.[getFirstLanguageCode(item.languageVersions)]?.title }}
             </a>
           </td>
           <td class="align-middle white-space-nowrap language">
-            {{ item.languageVersions?.[0]?.language }}
+            {{ getLanguageCodes(item.languageVersions) }}
           </td>
           <td class="align-middle white-space-nowrap active">
             {{ item.active }}

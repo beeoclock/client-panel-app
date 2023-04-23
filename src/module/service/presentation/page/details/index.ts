@@ -8,6 +8,7 @@ import {BodyCardComponent} from '@utility/presentation/component/card/body.card.
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import * as Service from '@service/domain';
+import {ILanguageVersion} from '@service/domain';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 
 @Component({
@@ -24,7 +25,7 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
       <utility-card-component class="mt-3">
         <utility-body-card-component>
           <strong>languageVersions</strong>
-          <ul *ngFor="let languageVersion of service.languageVersions" class="list-group">
+          <ul *ngFor="let languageVersion of languageVersions(service.languageVersions)" class="list-group mt-4">
             <li class="list-group-item">
               <strong>Language:</strong>
               <p class="m-0">{{ languageVersion.language }}</p>
@@ -194,5 +195,9 @@ export default class Index {
       return doc.data();
     }),
   );
+
+  public languageVersions(languageVersion: any): ILanguageVersion[] {
+    return Object.values(languageVersion);
+  }
 
 }

@@ -1,7 +1,8 @@
-import {AfterViewInit, Component, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, inject, ViewEncapsulation} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {detectorInit} from '@src/script/detector';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {LanguageCodeEnum} from '@utility/domain/enum';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,16 @@ import {TranslateModule} from '@ngx-translate/core';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements AfterViewInit {
+
+  private readonly translateService = inject(TranslateService);
+
+  constructor() {
+    if (this.translateService.getDefaultLang() in LanguageCodeEnum) {
+      this.translateService.setDefaultLang(this.translateService.getDefaultLang());
+    } else {
+      this.translateService.setDefaultLang(LanguageCodeEnum.en);
+    }
+  }
 
   public ngAfterViewInit(): void {
     detectorInit();

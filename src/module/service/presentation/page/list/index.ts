@@ -11,6 +11,9 @@ import {AsyncPipe, DatePipe, NgForOf, NgIf} from '@angular/common';
 import {ServiceFormRepository} from '@service/repository/service.form.repository';
 import {FilterComponent} from '@service/presentation/component/filter/filter.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
+import {TranslateService} from '@ngx-translate/core';
+import {LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
+import {ILanguageVersion} from '@service/domain';
 
 @Component({
   selector: 'service-list-page',
@@ -39,8 +42,24 @@ import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.
 })
 export default class Index {
   public readonly repository = inject(ServiceFormRepository);
+  public readonly translateService = inject(TranslateService);
 
   constructor() {
     this.repository.init();
+  }
+
+  public get currentLanguageCode(): LanguageCodeEnum {
+    return this.translateService.getDefaultLang() as LanguageCodeEnum;
+  }
+
+  public getFirstLanguageCode(languageVersions: {[key in keyof typeof LanguageCodeEnum]?: ILanguageVersion} = {}): LanguageCodeEnum {
+    if (this.currentLanguageCode in languageVersions) {
+      return this.currentLanguageCode;
+    }
+    return Object.keys(languageVersions)[0] as LanguageCodeEnum;
+  }
+
+  public getLanguageCodes(languageVersions: {[key in keyof typeof LanguageCodeEnum]?: ILanguageVersion} = {}): string {
+    return Object.keys(languageVersions).map(code => LANGUAGES.find(language => language.code === code)?.name ?? '').join(', ');
   }
 }

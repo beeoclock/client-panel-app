@@ -1,6 +1,6 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {LanguageVersionForm} from '@service/form/service.form';
-import {languages} from '@utility/domain/enum';
+import {LANGUAGES} from '@utility/domain/enum';
 import {ReactiveFormsModule} from '@angular/forms';
 import {InputDirective} from '@utility/directives/input/input.directive';
 import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
@@ -23,7 +23,7 @@ import {IsRequiredDirective} from '@utility/directives/is-required/is-required';
     IsRequiredDirective
   ],
   template: `
-    <form [formGroup]="languageVersionForm">
+    <form [formGroup]="languageVersionForm" class="mt-4">
 
       <div class="col-12 mt-2 position-relative">
         <label for="service-form-language">Language</label>
@@ -72,6 +72,6 @@ export class ServiceFormComponent {
   @Input()
   public languageVersionForm: LanguageVersionForm = new LanguageVersionForm();
 
-  public readonly languageList = languages;
+  public readonly languageList = LANGUAGES;
 
 }
