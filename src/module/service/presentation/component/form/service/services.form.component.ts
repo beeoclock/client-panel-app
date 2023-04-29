@@ -21,7 +21,7 @@ import {LANGUAGES} from '@utility/domain/enum';
     </strong>
     <service-service-form-component
       *ngFor="let languageVersionForm of controls"
-      [languageVersionForm]="languageVersionForm">
+      [form]="languageVersionForm">
     </service-service-form-component>
     <hr>
     <button class="btn btn-primary" *ngIf="showAddMore" (click)="pushNewLanguageVersionForm($event)">Add new language version</button>
