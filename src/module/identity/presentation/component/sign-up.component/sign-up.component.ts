@@ -16,7 +16,7 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   template: `
-    <form (ngSubmit)="submit()" [formGroup]="form">
+    <form [formGroup]="form">
 
       <identity-display-name-component
         id="identity-sign_up-form-input-display-name"
@@ -58,6 +58,7 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
       <div class="my-3 d-grid">
         <button
           beeoclock
+          (click)="submit()"
           [disabled]="form.pending"
           [showLoader]="form.pending">
           {{ 'identity.sign-up.form.button.submit' | translate }}

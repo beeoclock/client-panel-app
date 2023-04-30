@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {ExampleTableComponent} from '@utility/presentation/component/table/example.table.component';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
@@ -12,6 +12,7 @@ import {DatePipe, NgForOf} from '@angular/common';
 import * as Employee from '@employee/domain';
 import {QueryDocumentSnapshot} from '@angular/fire/compat/firestore';
 import {EmployeeFormRepository} from '@employee/repository/employee.form.repository';
+import {Functions, httpsCallableData} from '@angular/fire/functions';
 
 @Component({
   selector: 'employee-list-page',
@@ -32,8 +33,9 @@ import {EmployeeFormRepository} from '@employee/repository/employee.form.reposit
   ],
   standalone: true
 })
-export default class Index {
+export default class Index implements OnInit {
   public readonly repository: EmployeeFormRepository = inject(EmployeeFormRepository);
+  public readonly functions = inject(Functions);
 
   public list: QueryDocumentSnapshot<Employee.IEmployee>[] = [];
 
@@ -41,6 +43,13 @@ export default class Index {
     this.repository.list().then((list) => {
       console.log(list);
       this.list = list.docs;
+    });
+  }
+
+  public ngOnInit() {
+    const employeeListGet = httpsCallableData(this.functions, 'employeeListGet', {});
+    employeeListGet().subscribe((data) => {
+      console.log(data);
     });
   }
 }

@@ -48,7 +48,9 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
     if (this.valid) {
       const {id, ...value} = this.value;
       await this.customerFormAdapt.save(value, id);
-      Notification.push(new Notification('success'));
+      Notification.push({
+        message: 'success'
+      });
     }
   }
 }

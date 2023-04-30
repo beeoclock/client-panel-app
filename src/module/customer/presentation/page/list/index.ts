@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {ExampleTableComponent} from '@utility/presentation/component/table/example.table.component';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
@@ -12,6 +12,7 @@ import {PaginationComponent} from '@utility/presentation/component/pagination/pa
 import {NgForOf} from '@angular/common';
 import * as Customer from '@customer/domain';
 import {QueryDocumentSnapshot} from '@angular/fire/compat/firestore';
+import {Functions, httpsCallableData} from '@angular/fire/functions';
 
 @Component({
   selector: 'customer-list-page',
@@ -31,14 +32,22 @@ import {QueryDocumentSnapshot} from '@angular/fire/compat/firestore';
   ],
   standalone: true
 })
-export default class Index {
+export default class Index implements OnInit {
   public readonly customerFormAdapt: CustomerFormRepository = inject(CustomerFormRepository);
+  public readonly functions = inject(Functions);
 
   public list: QueryDocumentSnapshot<Customer.Interface.ICustomer>[] = [];
 
   constructor() {
     this.customerFormAdapt.list().then((list) => {
       this.list = list.docs;
+    });
+  }
+
+  public ngOnInit() {
+    const customerListGet = httpsCallableData(this.functions, 'customerListGet', {});
+    customerListGet().subscribe((data) => {
+      console.log(data);
     });
   }
 }

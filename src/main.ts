@@ -3,14 +3,15 @@ import {AppComponent} from '@src/app.component';
 import {enableProdMode, importProvidersFrom} from '@angular/core';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {environment} from '@src/environment/environment';
-import {Auth, browserSessionPersistence, getAuth, provideAuth} from '@angular/fire/auth';
-import {getFirestore, provideFirestore} from '@angular/fire/firestore';
+import {Auth, browserSessionPersistence, connectAuthEmulator, getAuth, provideAuth} from '@angular/fire/auth';
+import {connectFirestoreEmulator, getFirestore, provideFirestore} from '@angular/fire/firestore';
 import {HttpClient, provideHttpClient, withInterceptors} from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {provideRouter, withInMemoryScrolling} from '@angular/router';
 import {routes} from '@src/routers';
 import {FlatpickrModule} from 'angularx-flatpickr';
+import {connectFunctionsEmulator, getFunctions, provideFunctions} from '@angular/fire/functions';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -46,9 +47,27 @@ bootstrapApplication(AppComponent, {
         .catch((error) => {
           console.log(error);
         });
+      if (!environment.production) {
+        connectAuthEmulator(auth, 'http://localhost:9099');
+      }
       return auth;
     })),
-    importProvidersFrom(provideFirestore(() => getFirestore())),
+    importProvidersFrom(provideFunctions(() => {
+      const functions = getFunctions();
+      if (!environment.production) {
+        connectFunctionsEmulator(functions, 'localhost', 5001);
+      }
+      return functions;
+    })),
+    importProvidersFrom(
+      provideFirestore(() => {
+        const firestore = getFirestore();
+        if (!environment.production) {
+          connectFirestoreEmulator(firestore, 'localhost', 8080);
+        }
+        return firestore;
+      }),
+    ),
 
     importProvidersFrom(FlatpickrModule.forRoot()),
 

@@ -99,7 +99,9 @@ export default class Index {
     if (this.form.valid) {
       const {id, ...value} = this.form.value;
       await this.repository.save(value, id);
-      Notification.push(new Notification('success'));
+      Notification.push({
+        message: 'success'
+      });
     }
   }
 }

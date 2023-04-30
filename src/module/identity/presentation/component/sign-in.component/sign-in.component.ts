@@ -20,7 +20,7 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
           <h3>{{ 'identity.sign-in.form.label' | translate }}</h3>
         </div>
       </div>
-      <form (ngSubmit)="submit()" [formGroup]="form" novalidate>
+      <form [formGroup]="form" novalidate>
 
         <identity-email-component
           id="identity-sign_in-form-input-email"
@@ -40,6 +40,7 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
           <div class="my-3 d-grid">
             <button
               beeoclock
+              (click)="submit()"
               [disabled]="form.pending"
               [showLoader]="form.pending">
               {{ 'identity.sign-in.form.button.submit' | translate }}

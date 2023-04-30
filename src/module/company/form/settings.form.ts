@@ -42,7 +42,9 @@ export class SettingsForm extends FormGroup<ISettingsForm> {
   // Save data
   public save(): void {
     this.settingsFormRepository.save(this.value).then(() => {
-      Notification.push(new Notification('Success'));
+      Notification.push({
+        message: 'Success'
+      });
     });
   }
 

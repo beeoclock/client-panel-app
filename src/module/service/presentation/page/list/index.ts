@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {RouterLink} from '@angular/router';
@@ -14,6 +14,7 @@ import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.
 import {TranslateService} from '@ngx-translate/core';
 import {LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
 import {ILanguageVersion} from '@service/domain';
+import {Functions, httpsCallableData} from '@angular/fire/functions';
 
 @Component({
   selector: 'service-list-page',
@@ -40,12 +41,22 @@ import {ILanguageVersion} from '@service/domain';
   ],
   standalone: true
 })
-export default class Index {
+export default class Index implements OnInit {
   public readonly repository = inject(ServiceFormRepository);
   public readonly translateService = inject(TranslateService);
+  public readonly functions = inject(Functions);
 
   constructor() {
     this.repository.init();
+  }
+
+  public ngOnInit() {
+    const serviceListGet = httpsCallableData(this.functions, 'serviceListGet', {
+
+    });
+    serviceListGet().subscribe((data) => {
+      console.log(data);
+    });
   }
 
   public get currentLanguageCode(): LanguageCodeEnum {

@@ -12,6 +12,7 @@ import {RouterLink} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
 import {NgIf} from '@angular/common';
 import {SignUpComponent} from '@identity/presentation/component/sign-up.component/sign-up.component';
+import {Notification, WarningNotification} from '@utility/notification';
 
 @Component({
   selector: 'identity-sign-up-page',
@@ -47,14 +48,27 @@ export default class Index {
             await updateProfile(user, {
               displayName
             });
-            console.log('E-mail is sent.');
+            Notification.push({
+              message: 'E-mail is sent.',
+            });
           })
           .catch((error) => {
             this.form.updateValueAndValidity();
+            console.log(error);
+            WarningNotification.push({
+              message: error,
+            });
           });
+      } else {
+        WarningNotification.push({
+          message: 'Form is not valid',
+        });
       }
     } else {
       this.form.updateValueAndValidity();
+      WarningNotification.push({
+        message: 'Form is not valid',
+      });
     }
   }
 
