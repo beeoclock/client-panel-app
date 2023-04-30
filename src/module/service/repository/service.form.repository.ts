@@ -1,14 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {
-  DocumentSnapshot,
-  getDocs,
-  limit,
-  orderBy,
-  query,
-  QueryDocumentSnapshot,
-  startAfter,
-  where
-} from '@angular/fire/firestore';
+import {DocumentSnapshot} from '@angular/fire/firestore';
 import * as Service from '@service/domain';
 import {IService} from '@service/domain';
 import {ServiceFirebaseAdapter} from '@service/adapter/service.firebase.adapter';
@@ -19,14 +10,14 @@ import BooleanStateModel from '@utility/boolean.state.model';
 import {is} from 'thiis';
 import {FilterForm} from '@service/form/filter.form';
 import {TranslateService} from '@ngx-translate/core';
+import {Functions, httpsCallableData} from '@angular/fire/functions';
 
 @Injectable()
 export class ServiceFormRepository extends Repository {
 
-  #lastDocumentRef: QueryDocumentSnapshot<IService> | undefined;
-
   private readonly translateService = inject(TranslateService);
   private readonly storageAdapter = inject(ServiceFirebaseAdapter);
+  private readonly functions = inject(Functions);
 
   readonly #state$ = new BehaviorSubject<PaginationModel<Service.IService>>(new PaginationModel());
   public readonly loading = new BooleanStateModel(false);
@@ -61,44 +52,66 @@ export class ServiceFormRepository extends Repository {
 
   private makeRequest(): void {
 
-    const {orderDir: directionStr, pageSize} = this.#state$.value;
-    let {orderBy: fieldPath} = this.#state$.value;
-
-    const additionalRequestParams: any = [];
-
-    if (this.#lastDocumentRef) {
-      additionalRequestParams.push(startAfter(this.#lastDocumentRef))
-    }
+    const {orderDir, orderBy, pageSize, page} = this.#state$.value;
 
     const {search} = this.filterForm.value;
+    const filters = {};
 
     if (search) {
-      const currentLanguage = this.translateService.getDefaultLang();
-      fieldPath = `languageVersions.${currentLanguage}.title`;
-      additionalRequestParams.push(where(fieldPath, '>=', search));
-      additionalRequestParams.push(where(fieldPath, '<=', `${search}\\ut8ff`));
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      filters['$or'] = [
+        {
+          languageVersions: {
+            $elemMatch: {
+              "title": {
+                $regex: search ?? '',
+                $options: "i"
+              },
+            }
+          }
+        },
+        {
+          languageVersions: {
+            $elemMatch: {
+              "description": {
+                $regex: search ?? '',
+                $options: "i"
+              },
+            }
+          }
+        },
+      ];
     }
 
-    const request = query(
-      this.storageAdapter.itemsCollection,
-      orderBy(fieldPath, directionStr),
-      limit(pageSize),
-      ...additionalRequestParams
-    );
-    getDocs(request)
-      .then((response) => {
-        this.#lastDocumentRef = response.docs.at(-1);
-        const items = response.docs.map((documentRef) => ({
-          id: documentRef.id,
-          ...documentRef.data()
-        }));
+    const serviceListGet = httpsCallableData(this.functions, 'serviceListGet');
+    serviceListGet({
+      pageSize,
+      page,
+      orderBy,
+      orderDir,
+
+      // Filters
+      // active: 1,
+      // 'durationVersions.break': {$gte: 10},
+      ...filters
+    }).subscribe({
+      next: (data: any) => {
+        const {total, items} = data;
+
         const newPagination = new PaginationModel<IService>();
+        newPagination.totalSize = total;
         newPagination.items = items;
-        this.#state$.next(this.#state$.value.updateFromObject(newPagination.toObject()));
-      })
-      .finally(() => {
+        this.#state$.next(
+          this.#state$.value.updateFromObject(
+            newPagination.toObject()
+          )
+        );
+      },
+      complete: () => {
         this.loading.switchOff();
-      });
+      }
+    });
 
   }
 

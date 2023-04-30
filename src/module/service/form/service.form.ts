@@ -1,14 +1,14 @@
-import {AbstractControl, FormArray, FormControl, FormGroup, Validators, ɵFormGroupValue} from '@angular/forms';
-import {LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
+import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActiveEnum, LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
 import {WeekDaysEnum, WORK_WEEK} from '@utility/domain/enum/days-of-week.enum';
-import {ActiveEnum} from '@utility/domain/enum/active.enum';
 
 
 export interface ILanguageVersionForm {
   title: FormControl<string>;
   description: FormControl<string>;
   language: FormControl<LanguageCodeEnum>;
+  active: FormControl<ActiveEnum>;
 
   [key: string]: AbstractControl<any, any>;
 }
@@ -21,6 +21,7 @@ export class LanguageVersionForm extends FormGroup<ILanguageVersionForm> {
       title: new FormControl(),
       description: new FormControl(),
       language: new FormControl(),
+      active: new FormControl(),
     });
     this.initValidators();
     this.initValue();
@@ -32,7 +33,8 @@ export class LanguageVersionForm extends FormGroup<ILanguageVersionForm> {
   }
 
   public initValue(): void {
-    this.controls.language.patchValue(this.language);
+    this.controls.language.setValue(this.language);
+    this.controls.active.setValue(ActiveEnum.YES);
   }
 }
 
@@ -160,15 +162,9 @@ export class ScheduleForm extends FormGroup<IScheduleForm> {
   }
 }
 
-export type ILanguageVersionsForm = {
-  [key in keyof typeof LanguageCodeEnum]?: LanguageVersionForm;
-};
-
-export class LanguageVersionsForm extends FormGroup<ILanguageVersionsForm> {
+export class LanguageVersionsForm extends FormArray<LanguageVersionForm> {
   constructor() {
-    super({
-      [LanguageCodeEnum.en]: new LanguageVersionForm(),
-    });
+    super([new LanguageVersionForm()]);
   }
 }
 
@@ -218,7 +214,7 @@ export class ServiceForm extends FormGroup<IServiceForm> {
 
   public pushNewLanguageVersionForm(): void {
     for (const language of LANGUAGES) {
-      if (language.code in this.controls.languageVersions.controls) {
+      if (Object.values(this.controls.languageVersions.controls).map(({language}) => language).includes(language.code)) {
         continue;
       }
       this.addNewLanguageVersionControl(language.code);
@@ -227,20 +223,7 @@ export class ServiceForm extends FormGroup<IServiceForm> {
   }
 
   public addNewLanguageVersionControl(languageCode: LanguageCodeEnum): void {
-    this.controls.languageVersions.addControl(languageCode, new LanguageVersionForm(languageCode));
-  }
-
-  public override patchValue(
-    value: ɵFormGroupValue<IServiceForm>,
-    options?: {
-      onlySelf?: boolean;
-      emitEvent?: boolean;
-    }
-  ): void {
-    Object.keys(value.languageVersions ?? {}).forEach((key: string) => {
-      this.addNewLanguageVersionControl(key as LanguageCodeEnum);
-    });
-    super.patchValue(value, options);
+    this.controls.languageVersions.push(new LanguageVersionForm(languageCode));
   }
 
 }

@@ -46,7 +46,7 @@ export interface IService {
   configuration?: IConfiguration;
   prepaymentPolicy?: IPrepaymentPolicy;
   schedules?: ISchedule[];
-  languageVersions?: {[key in keyof typeof LanguageCodeEnum]?: ILanguageVersion};
+  languageVersions?: ILanguageVersion[];
   durationVersions?: IDurationVersion[];
   createdAt?: string;
   updatedAt?: string;

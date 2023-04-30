@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {RouterLink} from '@angular/router';
@@ -14,7 +14,6 @@ import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.
 import {TranslateService} from '@ngx-translate/core';
 import {LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
 import {ILanguageVersion} from '@service/domain';
-import {Functions, httpsCallableData} from '@angular/fire/functions';
 
 @Component({
   selector: 'service-list-page',
@@ -41,36 +40,24 @@ import {Functions, httpsCallableData} from '@angular/fire/functions';
   ],
   standalone: true
 })
-export default class Index implements OnInit {
+export default class Index {
   public readonly repository = inject(ServiceFormRepository);
   public readonly translateService = inject(TranslateService);
-  public readonly functions = inject(Functions);
 
   constructor() {
     this.repository.init();
-  }
-
-  public ngOnInit() {
-    const serviceListGet = httpsCallableData(this.functions, 'serviceListGet', {
-
-    });
-    serviceListGet().subscribe((data) => {
-      console.log(data);
-    });
   }
 
   public get currentLanguageCode(): LanguageCodeEnum {
     return this.translateService.getDefaultLang() as LanguageCodeEnum;
   }
 
-  public getFirstLanguageCode(languageVersions: {[key in keyof typeof LanguageCodeEnum]?: ILanguageVersion} = {}): LanguageCodeEnum {
-    if (this.currentLanguageCode in languageVersions) {
-      return this.currentLanguageCode;
-    }
-    return Object.keys(languageVersions)[0] as LanguageCodeEnum;
+  public getFirstLanguageVersion(languageVersions: ILanguageVersion[] = []): ILanguageVersion {
+    const firstOption = languageVersions.find(({language}) => language === this.currentLanguageCode);
+    return firstOption ?? languageVersions[0];
   }
 
-  public getLanguageCodes(languageVersions: {[key in keyof typeof LanguageCodeEnum]?: ILanguageVersion} = {}): string {
-    return Object.keys(languageVersions).map(code => LANGUAGES.find(language => language.code === code)?.name ?? '').join(', ');
+  public getLanguageCodes(languageVersions: ILanguageVersion[] = []): string {
+    return languageVersions.map(({language}) => LANGUAGES.find(({code}) => code === language)?.name ?? '').join(', ');
   }
 }

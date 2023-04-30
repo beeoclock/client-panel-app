@@ -1,4 +1,4 @@
-import {LanguageVersionForm, LanguageVersionsForm} from '@service/form/service.form';
+import {LanguageVersionsForm} from '@service/form/service.form';
 import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {ScheduleFormComponent} from '@service/presentation/component/form/schedule.form.component';
@@ -20,17 +20,19 @@ import {LANGUAGES} from '@utility/domain/enum';
       When are you available for the service:
     </strong>
     <service-service-form-component
-      *ngFor="let languageVersionForm of controls"
+      *ngFor="let languageVersionForm of form.controls"
       [form]="languageVersionForm">
     </service-service-form-component>
     <hr>
-    <button class="btn btn-primary" *ngIf="showAddMore" (click)="pushNewLanguageVersionForm($event)">Add new language version</button>
+    <button class="btn btn-primary" *ngIf="showAddMore" (click)="pushNewLanguageVersionForm($event)">Add new language
+      version
+    </button>
   `
 })
 export class ServicesFormComponent {
 
   @Input()
-  public languageVersionsForm = new LanguageVersionsForm();
+  public form = new LanguageVersionsForm();
 
   @Output()
   public readonly handlePushNewLanguageVersionForm: EventEmitter<Event> = new EventEmitter();
@@ -40,11 +42,7 @@ export class ServicesFormComponent {
   }
 
   public get showAddMore(): boolean {
-    return this.controls.length !== LANGUAGES.length;
-  }
-
-  public get controls(): LanguageVersionForm[] {
-    return Object.values(this.languageVersionsForm.controls);
+    return this.form.length !== LANGUAGES.length;
   }
 
 }

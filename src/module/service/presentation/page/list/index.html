@@ -31,7 +31,7 @@
         <tr class="btn-reveal-trigger" *ngFor="let item of state.items">
           <td class="align-middle white-space-nowrap title">
             <a [routerLink]="['details', item.id]">
-              {{ item.languageVersions?.[getFirstLanguageCode(item.languageVersions)]?.title }}
+              {{ getFirstLanguageVersion(item.languageVersions).title }}
             </a>
           </td>
           <td class="align-middle white-space-nowrap language">
