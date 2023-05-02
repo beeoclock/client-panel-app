@@ -1,6 +1,6 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
-import {CustomerFormRepository} from '@customer/repository/customer.form.repository';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {CustomerRepository} from '@customer/repository/customer.repository';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {AsyncPipe, NgIf} from '@angular/common';
 import {exhaustMap, Observable} from 'rxjs';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
@@ -16,7 +16,11 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
     <ng-container *ngIf="customer$ | async as customer; else LoadingTemplate">
       <div class="d-flex justify-content-between">
         <utility-back-link-component url="../../"></utility-back-link-component>
-        <a class="btn btn-primary" [routerLink]="['../../', 'form', customerId]">
+        <button class="btn btn-danger" (click)="delete(customer._id)">
+          <i class="bi bi-trash"></i>
+          Delete
+        </button>
+        <a class="btn btn-primary" [routerLink]="['../../', 'form', customer._id]">
           <i class="bi bi-pencil-fill me-3"></i>
           Edit
         </a>
@@ -68,17 +72,21 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
   standalone: true
 })
 export default class Index {
-  public customerId!: string;
 
-  public readonly customerFormAdapt: CustomerFormRepository = inject(CustomerFormRepository);
-  public readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  public readonly repository = inject(CustomerRepository);
+  public readonly activatedRoute = inject(ActivatedRoute);
+  public readonly router = inject(Router);
 
-  public readonly customer$: Observable<Customer.Interface.ICustomer | undefined> = this.activatedRoute.params.pipe(
+  public readonly customer$: Observable<Customer.ICustomer | undefined> = this.activatedRoute.params.pipe(
     exhaustMap(async ({id}) => {
-      this.customerId = id;
-      const customerDoc = await this.customerFormAdapt.item(this.customerId);
-      return customerDoc.data();
+      return (await this.repository.item(id)).data;
     }),
   );
+
+  public delete(id: string): void {
+    this.repository.remove(id).then(() => {
+      this.router.navigate(['/', 'customer']);
+    });
+  }
 
 }

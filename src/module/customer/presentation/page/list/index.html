@@ -24,15 +24,15 @@
   <tbody utility-body-table-component>
   <tr class="btn-reveal-trigger" *ngFor="let item of list">
     <td class="align-middle white-space-nowrap name">
-      <a [routerLink]="['details', item.id]">
-        {{ item.data().firstName }} {{ item.data().lastName }}
+      <a [routerLink]="['details', item._id]">
+        {{ item.firstName }} {{ item.lastName }}
       </a>
     </td>
     <td class="align-middle white-space-nowrap email">
-      <a href="mailto:{{ item.data().email }}">{{ item.data().email }}</a>
+      <a href="mailto:{{ item.email }}">{{ item.email }}</a>
     </td>
     <td class="align-middle white-space-nowrap email">
-      {{ item.data().phone }}
+      {{ item.phone }}
     </td>
   </tr>
   </tbody>

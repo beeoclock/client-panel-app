@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {FilterPanelComponent} from '@utility/presentation/component/panel/filter.panel.component';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
-import {ServiceFormRepository} from '@service/repository/service.form.repository';
+import {ServiceRepository} from '@service/repository/service.repository';
 
 @Component({
   selector: 'service-filter-component',
@@ -18,7 +18,7 @@ import {ServiceFormRepository} from '@service/repository/service.form.repository
   `
 })
 export class FilterComponent {
-  public readonly repository = inject(ServiceFormRepository);
+  public readonly repository = inject(ServiceRepository);
   public readonly form = this.repository.filterForm;
 
   constructor() {

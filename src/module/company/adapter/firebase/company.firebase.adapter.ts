@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
-import * as Event from '@event/domain';
+import * as Company from '@company/domain'
 import {CloudFunctionFirebaseAdapter} from "@utility/adapter/cloud-function.firebase.adapter";
 
 @Injectable({
   providedIn: 'root'
 })
-export class EventFirebaseAdapter extends CloudFunctionFirebaseAdapter<Event.IEvent> {
+export class CompanyFirebaseAdapter extends CloudFunctionFirebaseAdapter<Company.ISettings> {
 
   constructor() {
     super();
-    this.initCollectionReference('event');
+    this.initCollectionReference('company');
   }
 
 }

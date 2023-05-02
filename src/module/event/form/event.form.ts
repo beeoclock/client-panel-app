@@ -9,7 +9,7 @@ export interface IAttendantForm {
 }
 
 export interface IEventForm {
-  id: FormControl<string>;
+  _id: FormControl<string>;
   title: FormControl<string>;
   services: FormControl<string[]>;
   description: FormControl<string>;
@@ -25,7 +25,7 @@ export class EventForm extends FormGroup<IEventForm> {
 
   constructor() {
     super({
-      id: new FormControl(),
+      _id: new FormControl(),
       description: new FormControl(),
       end: new FormControl(),
       start: new FormControl(),

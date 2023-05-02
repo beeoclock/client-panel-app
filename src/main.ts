@@ -47,14 +47,14 @@ bootstrapApplication(AppComponent, {
         .catch((error) => {
           console.log(error);
         });
-      if (!environment.production) {
+      if (environment.emulator) {
         connectAuthEmulator(auth, 'http://localhost:9099');
       }
       return auth;
     })),
     importProvidersFrom(provideFunctions(() => {
       const functions = getFunctions();
-      if (!environment.production) {
+      if (environment.emulator) {
         connectFunctionsEmulator(functions, 'localhost', 5001);
       }
       return functions;
@@ -62,7 +62,7 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(
       provideFirestore(() => {
         const firestore = getFirestore();
-        if (!environment.production) {
+        if (environment.emulator) {
           connectFirestoreEmulator(firestore, 'localhost', 8080);
         }
         return firestore;

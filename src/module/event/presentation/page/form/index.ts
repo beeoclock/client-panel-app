@@ -13,10 +13,10 @@ import {EventFormRepository} from '@event/repository/event.form.repository';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {AttendeesComponent} from '@event/presentation/component/attendees/attendees.component';
 import {FlatpickrModule} from 'angularx-flatpickr';
-import {Notification} from '@utility/notification';
 import {is} from 'thiis';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {LANGUAGES} from '@utility/domain/enum';
+import {IEvent} from "@event/domain";
 
 @Component({
   selector: 'event-form-page',
@@ -44,10 +44,7 @@ export default class Index {
 
   public url = ['../'];
 
-  public eventId: string | undefined;
-
-  public readonly eventFormAdapt: EventFormRepository = inject(EventFormRepository);
-  public readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  public readonly activatedRoute = inject(ActivatedRoute);
 
   public readonly form: EventForm = new EventForm();
   private readonly repository: EventFormRepository = inject(EventFormRepository);
@@ -57,13 +54,10 @@ export default class Index {
   constructor() {
     this.activatedRoute.params.subscribe(({id}) => {
       if (id) {
-        this.eventId = id;
         this.url = ['../../', 'details', id];
-        this.form.controls.id.patchValue(id);
-        this.eventFormAdapt.item(id).then((eventDoc) => {
-          const event = eventDoc.data();
-          if (event) {
-            this.form.patchValue(event);
+        this.repository.item(id).then(({data}) => {
+          if (data) {
+            this.form.patchValue(data);
           }
         });
       }
@@ -97,11 +91,7 @@ export default class Index {
 
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      const {id, ...value} = this.form.value;
-      await this.repository.save(value, id);
-      Notification.push({
-        message: 'success'
-      });
+      await this.repository.save(this.form.value as IEvent);
     }
   }
 }

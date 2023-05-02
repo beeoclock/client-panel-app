@@ -35,20 +35,20 @@ export interface IPrice {
 }
 
 export interface IDurationVersion {
-  break?: number;
-  active?: ActiveEnum;
-  duration?: number;
-  prices?: IPrice[];
+  break: number;
+  active: ActiveEnum;
+  duration: number;
+  prices: IPrice[];
 }
 
 export interface IService {
-  active?: ActiveEnum;
-  configuration?: IConfiguration;
-  prepaymentPolicy?: IPrepaymentPolicy;
-  schedules?: ISchedule[];
-  languageVersions?: ILanguageVersion[];
-  durationVersions?: IDurationVersion[];
-  createdAt?: string;
-  updatedAt?: string;
-  id?: string;
+  active: ActiveEnum;
+  configuration: IConfiguration;
+  prepaymentPolicy: IPrepaymentPolicy;
+  schedules: ISchedule[];
+  languageVersions: ILanguageVersion[];
+  durationVersions: IDurationVersion[];
+  createdAt: string;
+  updatedAt: string;
+  _id: string;
 }

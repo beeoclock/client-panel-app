@@ -9,8 +9,9 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
 import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
-import {CustomerFormRepository} from '@customer/repository/customer.form.repository';
+import {CustomerRepository} from '@customer/repository/customer.repository';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
+import {ICustomer} from "@customer/domain";
 
 @Component({
   selector: 'customer-form-page',
@@ -34,26 +35,28 @@ export default class Index {
 
   public url = ['../'];
 
-  public customerId: string | undefined;
+  private readonly repository = inject(CustomerRepository);
+  private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
-  public readonly customerFormAdapt: CustomerFormRepository = inject(CustomerFormRepository);
-  public readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
-
-  public readonly form: CustomerForm = new CustomerForm();
+  public readonly form = new CustomerForm();
 
   constructor() {
     this.activatedRoute.params.subscribe(({id}) => {
       if (id) {
-        this.customerId = id;
         this.url = ['../../', 'details', id];
-        this.form.controls.id.patchValue(id);
-        this.customerFormAdapt.item(id).then((customerDoc) => {
-          const customer = customerDoc.data();
-          if (customer) {
-            this.form.patchValue(customer);
+        this.repository.item(id).then(({data}) => {
+          if (data) {
+            this.form.patchValue(data);
           }
         });
       }
     })
+  }
+
+  public async save(): Promise<void> {
+    this.form.markAllAsTouched();
+    if (this.form.valid) {
+      await this.repository.save(this.form.value as ICustomer);
+    }
   }
 }

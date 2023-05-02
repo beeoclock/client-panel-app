@@ -1,23 +1,16 @@
-import {inject, Injectable} from '@angular/core';
-import {DocumentSnapshot} from '@angular/fire/firestore';
+import {Injectable} from '@angular/core';
 import * as Service from '@service/domain';
 import {IService} from '@service/domain';
-import {ServiceFirebaseAdapter} from '@service/adapter/service.firebase.adapter';
-import {Repository} from '@utility/repository/repository';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {PaginationModel} from '@utility/domain/model';
 import BooleanStateModel from '@utility/boolean.state.model';
 import {is} from 'thiis';
 import {FilterForm} from '@service/form/filter.form';
-import {TranslateService} from '@ngx-translate/core';
-import {Functions, httpsCallableData} from '@angular/fire/functions';
+import {ServiceFirebaseAdapter} from "@service/adapter/service.firebase.adapter";
 
 @Injectable()
-export class ServiceFormRepository extends Repository {
+export class ServiceRepository extends ServiceFirebaseAdapter {
 
-  private readonly translateService = inject(TranslateService);
-  private readonly storageAdapter = inject(ServiceFirebaseAdapter);
-  private readonly functions = inject(Functions);
 
   readonly #state$ = new BehaviorSubject<PaginationModel<Service.IService>>(new PaginationModel());
   public readonly loading = new BooleanStateModel(false);
@@ -84,8 +77,7 @@ export class ServiceFormRepository extends Repository {
       ];
     }
 
-    const serviceListGet = httpsCallableData(this.functions, 'serviceListGet');
-    serviceListGet({
+    this.list(
       pageSize,
       page,
       orderBy,
@@ -94,33 +86,22 @@ export class ServiceFormRepository extends Repository {
       // Filters
       // active: 1,
       // 'durationVersions.break': {$gte: 10},
-      ...filters
-    }).subscribe({
-      next: (data: any) => {
-        const {total, items} = data;
+      filters
+    ).then((data: any) => {
+      const {total, items} = data;
 
-        const newPagination = new PaginationModel<IService>();
-        newPagination.totalSize = total;
-        newPagination.items = items;
-        this.#state$.next(
-          this.#state$.value.updateFromObject(
-            newPagination.toObject()
-          )
-        );
-      },
-      complete: () => {
-        this.loading.switchOff();
-      }
+      const newPagination = new PaginationModel<IService>();
+      newPagination.totalSize = total;
+      newPagination.items = items;
+      this.#state$.next(
+        this.#state$.value.updateFromObject(
+          newPagination.toObject()
+        )
+      );
+    }).finally(() => {
+      this.loading.switchOff();
     });
 
-  }
-
-  public override async save(value: any, forceId?: string | null | undefined): Promise<void> {
-    return await this.storageAdapter.save(value, forceId);
-  }
-
-  public override item(id: string): Promise<DocumentSnapshot<Service.IService>> {
-    return this.storageAdapter.item(id);
   }
 
 

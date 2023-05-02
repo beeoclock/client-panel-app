@@ -1,4 +1,5 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {environment} from "@environment/environment";
 
 
 interface IRegistrationForm {
@@ -19,5 +20,15 @@ export default class RegistrationForm extends FormGroup<IRegistrationForm> {
       password: new FormControl(null, [Validators.required]),
       passwordConfirm: new FormControl(null, [Validators.required]),
     });
+    this.initValue();
+  }
+
+  private initValue(): void {
+    if (environment.emulator) {
+      this.controls.displayName.setValue('Default Name Of New User');
+      this.controls.email.setValue('text@example.com');
+      this.controls.password.setValue('testPassword');
+      this.controls.passwordConfirm.setValue('testPassword');
+    }
   }
 }

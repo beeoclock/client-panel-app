@@ -17,7 +17,7 @@ import {QuerySnapshot} from '@angular/fire/compat/firestore';
 @Injectable({
   providedIn: 'root'
 })
-export class FirebaseAdapter<ITEM> {
+export class FirestoreFirebaseAdapter<ITEM> {
 
   private readonly firestore: Firestore = inject(Firestore);
   public itemsCollection!: CollectionReference<ITEM>;

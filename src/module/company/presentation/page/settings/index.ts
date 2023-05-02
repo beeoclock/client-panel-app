@@ -17,5 +17,4 @@ import {FormSettingsComponent} from '@company/presentation/component/settings/fo
   standalone: true
 })
 export default class Index {
-
 }

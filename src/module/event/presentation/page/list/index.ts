@@ -10,9 +10,7 @@ import {BodyTableComponent} from '@utility/presentation/component/table/body.tab
 import {PaginationComponent} from '@utility/presentation/component/pagination/pagination.component';
 import {DatePipe, NgForOf} from '@angular/common';
 import * as Event from '@event/domain';
-import {QueryDocumentSnapshot} from '@angular/fire/compat/firestore';
 import {EventFormRepository} from '@event/repository/event.form.repository';
-import {Functions, httpsCallableData} from '@angular/fire/functions';
 
 @Component({
   selector: 'event-list-page',
@@ -34,24 +32,20 @@ import {Functions, httpsCallableData} from '@angular/fire/functions';
   standalone: true
 })
 export default class Index implements OnInit {
-  public readonly eventFormAdapt: EventFormRepository = inject(EventFormRepository);
+  public readonly repository = inject(EventFormRepository);
 
-  public list: QueryDocumentSnapshot<Event.IEvent>[] = [];
-  public readonly functions = inject(Functions)
+  public list: Event.IEvent[] = [];
 
   public ngOnInit() {
-    const eventListGet = httpsCallableData(this.functions, 'eventListGet', {
-
-    });
-    eventListGet().subscribe((data) => {
-      console.log(data);
-    });
-  }
-
-  constructor() {
-    this.eventFormAdapt.list().then((list) => {
-      console.log(list);
-      this.list = list.docs;
-    });
+    this.repository.list(
+      10,
+      1,
+      'createdAt',
+      'asc',
+      {}
+    ).then((result) => {
+      const {items, total} = result.data;
+      this.list = items;
+    })
   }
 }

@@ -67,6 +67,15 @@
               "sourceMap": true,
               "namedChunks": true
             },
+            "emulator": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environment/environment.ts",
+                  "with": "src/environment/environment.emulator.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "beeoclock-cloud-00000000000000": {
               "fileReplacements": [
                 {
@@ -96,6 +105,9 @@
             },
             "development": {
               "browserTarget": "client-panel-app:build:development"
+            },
+            "emulator": {
+              "browserTarget": "client-panel-app:build:emulator"
             }
           },
           "defaultConfiguration": "development"

@@ -174,7 +174,7 @@ export interface IServiceForm {
   prepaymentPolicy: PrepaymentPolicyForm;
   languageVersions: LanguageVersionsForm;
   durationVersions: FormArray<DurationVersionForm>;
-  id: FormControl<string>;
+  _id: FormControl<string>;
   active: FormControl<ActiveEnum>;
   createdAt: FormControl<string>;
   updatedAt: FormControl<string>;
@@ -191,7 +191,7 @@ export class ServiceForm extends FormGroup<IServiceForm> {
       languageVersions: new LanguageVersionsForm(),
       durationVersions: new FormArray([new DurationVersionForm()]),
       active: new FormControl(),
-      id: new FormControl(),
+      _id: new FormControl(),
       createdAt: new FormControl(),
       updatedAt: new FormControl(),
     });

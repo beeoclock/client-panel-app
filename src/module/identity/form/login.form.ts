@@ -1,4 +1,5 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {environment} from "@environment/environment";
 
 interface ILoginForm {
   email: FormControl<string | null>;
@@ -13,5 +14,13 @@ export default class LoginForm extends FormGroup<ILoginForm> {
       email: new FormControl(null, [Validators.required]),
       password: new FormControl(null, [Validators.required])
     });
+    this.initValue();
+  }
+
+  private initValue(): void {
+    if (environment.emulator) {
+      this.controls.email.setValue('text@example.com');
+      this.controls.password.setValue('testPassword');
+    }
   }
 }

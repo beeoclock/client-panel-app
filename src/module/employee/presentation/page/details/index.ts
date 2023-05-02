@@ -1,5 +1,5 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
-import {EmployeeFormRepository} from '@employee/repository/employee.form.repository';
+import {EmployeeRepository} from '@employee/repository/employee.repository';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {AsyncPipe, NgIf} from '@angular/common';
 import {exhaustMap, Observable} from 'rxjs';
@@ -16,7 +16,7 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
     <ng-container *ngIf="employee$ | async as employee; else LoadingTemplate">
       <div class="d-flex justify-content-between">
         <utility-back-link-component url="../../"></utility-back-link-component>
-        <a class="btn btn-primary" [routerLink]="['../../', 'form', docId]">
+        <a class="btn btn-primary" [routerLink]="['../../', 'form', employee._id]">
           <i class="bi bi-pencil-fill me-3"></i>
           Edit
         </a>
@@ -64,16 +64,13 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
   standalone: true
 })
 export default class Index {
-  public docId!: string;
 
-  public readonly repository: EmployeeFormRepository = inject(EmployeeFormRepository);
+  public readonly repository: EmployeeRepository = inject(EmployeeRepository);
   public readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
   public readonly employee$: Observable<Employee.IEmployee | undefined> = this.activatedRoute.params.pipe(
     exhaustMap(async ({id}) => {
-      this.docId = id;
-      const doc = await this.repository.item(this.docId);
-      return doc.data();
+      return (await this.repository.item(id)).data;
     }),
   );
 

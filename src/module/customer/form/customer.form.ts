@@ -1,11 +1,8 @@
 import {AbstractControl, FormControl, FormGroup} from '@angular/forms';
-import {inject} from '@angular/core';
-import {CustomerFormRepository} from '@customer/repository/customer.form.repository';
 import {is} from 'thiis';
-import {Notification} from '@utility/notification';
 
 export interface ICustomerForm {
-  id: FormControl<string | null>;
+  _id: FormControl<string | null>;
 
   firstName: FormControl<string | null>;
   lastName: FormControl<string | null>;
@@ -18,11 +15,9 @@ export interface ICustomerForm {
 
 export class CustomerForm extends FormGroup<ICustomerForm> {
 
-  private readonly customerFormAdapt: CustomerFormRepository = inject(CustomerFormRepository);
-
   constructor() {
     super({
-      id: new FormControl(null),
+      _id: new FormControl(null),
 
       firstName: new FormControl(null),
       lastName: new FormControl(null),
@@ -41,16 +36,5 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
       }
       return null;
     });
-  }
-
-  public async save(): Promise<void> {
-    this.markAllAsTouched();
-    if (this.valid) {
-      const {id, ...value} = this.value;
-      await this.customerFormAdapt.save(value, id);
-      Notification.push({
-        message: 'success'
-      });
-    }
   }
 }

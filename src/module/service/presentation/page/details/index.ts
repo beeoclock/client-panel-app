@@ -1,5 +1,5 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
-import {ServiceFormRepository} from '@service/repository/service.form.repository';
+import {ServiceRepository} from '@service/repository/service.repository';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import {exhaustMap, Observable} from 'rxjs';
@@ -17,7 +17,7 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
     <ng-container *ngIf="service$ | async as service; else LoadingTemplate">
       <div class="d-flex justify-content-between">
         <utility-back-link-component url="../../"></utility-back-link-component>
-        <a class="btn btn-primary" [routerLink]="['../../', 'form', docId]">
+        <a class="btn btn-primary" [routerLink]="['../../', 'form', service._id]">
           <i class="bi bi-pencil-fill me-3"></i>
           Edit
         </a>
@@ -107,11 +107,11 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
           <ul class="list-group">
             <li class="list-group-item">
               <strong>earliestDateTime:</strong>
-              <p class="m-0">{{ service.configuration?.earliestDateTime }}</p>
+              <p class="m-0">{{ service.configuration.earliestDateTime }}</p>
             </li>
             <li class="list-group-item">
               <strong>latestDateTime:</strong>
-              <p class="m-0">{{ service.configuration?.latestDateTime }}</p>
+              <p class="m-0">{{ service.configuration.latestDateTime }}</p>
             </li>
           </ul>
         </utility-body-card-component>
@@ -122,19 +122,19 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
           <ul class="list-group">
             <li class="list-group-item">
               <strong>isRequired:</strong>
-              <p class="m-0">{{ service.prepaymentPolicy?.isRequired }}</p>
+              <p class="m-0">{{ service.prepaymentPolicy.isRequired }}</p>
             </li>
             <li class="list-group-item">
               <strong>isPercentage:</strong>
-              <p class="m-0">{{ service.prepaymentPolicy?.isPercentage }}</p>
+              <p class="m-0">{{ service.prepaymentPolicy.isPercentage }}</p>
             </li>
             <li class="list-group-item">
               <strong>value:</strong>
-              <p class="m-0">{{ service.prepaymentPolicy?.value }}</p>
+              <p class="m-0">{{ service.prepaymentPolicy.value }}</p>
             </li>
             <li class="list-group-item">
               <strong>minimalCancelTime:</strong>
-              <p class="m-0">{{ service.prepaymentPolicy?.minimalCancelTime }}</p>
+              <p class="m-0">{{ service.prepaymentPolicy.minimalCancelTime }}</p>
             </li>
           </ul>
         </utility-body-card-component>
@@ -178,21 +178,18 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
     NgForOf
   ],
   providers: [
-    ServiceFormRepository,
+    ServiceRepository,
   ],
   standalone: true
 })
 export default class Index {
-  public docId!: string;
 
-  public readonly repository: ServiceFormRepository = inject(ServiceFormRepository);
+  public readonly repository: ServiceRepository = inject(ServiceRepository);
   public readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
   public readonly service$: Observable<Service.IService | undefined> = this.activatedRoute.params.pipe(
     exhaustMap(async ({id}) => {
-      this.docId = id;
-      const doc = await this.repository.item(this.docId);
-      return doc.data();
+      return (await this.repository.item(id)).data;
     }),
   );
 

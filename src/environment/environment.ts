@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  emulator: false,
   config: {
     language: 'en'
   },

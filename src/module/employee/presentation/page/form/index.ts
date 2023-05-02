@@ -9,9 +9,9 @@ import {InputErrorComponent} from '@utility/presentation/component/input-error/i
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {EmployeeForm} from '@employee/form/employee.form';
-import {Notification} from '@utility/notification';
-import {EmployeeFormRepository} from '@employee/repository/employee.form.repository';
+import {EmployeeRepository} from '@employee/repository/employee.repository';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
+import {IEmployee} from "@employee/domain";
 
 @Component({
   selector: 'employee-form-page',
@@ -35,9 +35,7 @@ export default class Index {
 
   public url = ['../'];
 
-  public docId: string | undefined;
-
-  public readonly repository: EmployeeFormRepository = inject(EmployeeFormRepository);
+  public readonly repository: EmployeeRepository = inject(EmployeeRepository);
   public readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
   public readonly form: EmployeeForm = new EmployeeForm();
@@ -45,13 +43,10 @@ export default class Index {
   constructor() {
     this.activatedRoute.params.subscribe(({id}) => {
       if (id) {
-        this.docId = id;
         this.url = ['../../', 'details', id];
-        this.form.controls.id.patchValue(id);
-        this.repository.item(id).then((docRef) => {
-          const doc = docRef.data();
-          if (doc) {
-            this.form.patchValue(doc);
+        this.repository.item(id).then(({data}) => {
+          if (data) {
+            this.form.patchValue(data);
           }
         });
       }
@@ -62,11 +57,7 @@ export default class Index {
 
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      const {id, ...value} = this.form.value;
-      await this.repository.save(value, id);
-      Notification.push({
-        message: 'success'
-      });
+      await this.repository.save(this.form.value as IEmployee);
     }
   }
 }

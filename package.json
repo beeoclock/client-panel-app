@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:emulator": "ng serve --configuration emulator",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "jest",

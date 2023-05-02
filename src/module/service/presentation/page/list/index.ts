@@ -8,7 +8,7 @@ import {HeaderTableComponent} from '@utility/presentation/component/table/header
 import {BodyTableComponent} from '@utility/presentation/component/table/body.table.component';
 import {PaginationComponent} from '@utility/presentation/component/pagination/pagination.component';
 import {AsyncPipe, DatePipe, NgForOf, NgIf} from '@angular/common';
-import {ServiceFormRepository} from '@service/repository/service.form.repository';
+import {ServiceRepository} from '@service/repository/service.repository';
 import {FilterComponent} from '@service/presentation/component/filter/filter.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {TranslateService} from '@ngx-translate/core';
@@ -36,12 +36,12 @@ import {ILanguageVersion} from '@service/domain';
     SpinnerComponent
   ],
   providers: [
-    ServiceFormRepository
+    ServiceRepository
   ],
   standalone: true
 })
 export default class Index {
-  public readonly repository = inject(ServiceFormRepository);
+  public readonly repository = inject(ServiceRepository);
   public readonly translateService = inject(TranslateService);
 
   constructor() {

@@ -4,15 +4,14 @@ import {CardComponent} from '@utility/presentation/component/card/card.component
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {RouterLink} from '@angular/router';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
-import {CustomerFormRepository} from '@customer/repository/customer.form.repository';
+import {CustomerRepository} from '@customer/repository/customer.repository';
 import {TableComponent} from '@utility/presentation/component/table/table.component';
 import {HeaderTableComponent} from '@utility/presentation/component/table/header.table.component';
 import {BodyTableComponent} from '@utility/presentation/component/table/body.table.component';
 import {PaginationComponent} from '@utility/presentation/component/pagination/pagination.component';
 import {NgForOf} from '@angular/common';
 import * as Customer from '@customer/domain';
-import {QueryDocumentSnapshot} from '@angular/fire/compat/firestore';
-import {Functions, httpsCallableData} from '@angular/fire/functions';
+import {Functions} from '@angular/fire/functions';
 
 @Component({
   selector: 'customer-list-page',
@@ -33,21 +32,16 @@ import {Functions, httpsCallableData} from '@angular/fire/functions';
   standalone: true
 })
 export default class Index implements OnInit {
-  public readonly customerFormAdapt: CustomerFormRepository = inject(CustomerFormRepository);
+  public readonly repository = inject(CustomerRepository);
   public readonly functions = inject(Functions);
 
-  public list: QueryDocumentSnapshot<Customer.Interface.ICustomer>[] = [];
-
-  constructor() {
-    this.customerFormAdapt.list().then((list) => {
-      this.list = list.docs;
-    });
-  }
+  public list: Customer.ICustomer[] = [];
 
   public ngOnInit() {
-    const customerListGet = httpsCallableData(this.functions, 'customerListGet', {});
-    customerListGet().subscribe((data) => {
-      console.log(data);
-    });
+    this.repository.list(10, 1, 'lastName', 'asc', {})
+      .then((result) => {
+        console.log(result.data.items);
+        this.list = result.data.items;
+      });
   }
 }

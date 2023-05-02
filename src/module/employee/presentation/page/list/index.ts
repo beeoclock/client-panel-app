@@ -10,9 +10,7 @@ import {BodyTableComponent} from '@utility/presentation/component/table/body.tab
 import {PaginationComponent} from '@utility/presentation/component/pagination/pagination.component';
 import {DatePipe, NgForOf} from '@angular/common';
 import * as Employee from '@employee/domain';
-import {QueryDocumentSnapshot} from '@angular/fire/compat/firestore';
-import {EmployeeFormRepository} from '@employee/repository/employee.form.repository';
-import {Functions, httpsCallableData} from '@angular/fire/functions';
+import {EmployeeRepository} from '@employee/repository/employee.repository';
 
 @Component({
   selector: 'employee-list-page',
@@ -34,22 +32,20 @@ import {Functions, httpsCallableData} from '@angular/fire/functions';
   standalone: true
 })
 export default class Index implements OnInit {
-  public readonly repository: EmployeeFormRepository = inject(EmployeeFormRepository);
-  public readonly functions = inject(Functions);
+  public readonly repository = inject(EmployeeRepository);
 
-  public list: QueryDocumentSnapshot<Employee.IEmployee>[] = [];
-
-  constructor() {
-    this.repository.list().then((list) => {
-      console.log(list);
-      this.list = list.docs;
-    });
-  }
+  public list: Employee.IEmployee[] = [];
 
   public ngOnInit() {
-    const employeeListGet = httpsCallableData(this.functions, 'employeeListGet', {});
-    employeeListGet().subscribe((data) => {
-      console.log(data);
-    });
+    this.repository.list(
+      10,
+      1,
+      'createdAt',
+      'asc',
+      {}
+    ).then((result) => {
+      const {items, total} = result.data;
+      this.list = items;
+    })
   }
 }

@@ -16,7 +16,7 @@ import {EventFormRepository} from '@event/repository/event.form.repository';
     <ng-container *ngIf="event$ | async as event; else LoadingTemplate">
       <div class="d-flex justify-content-between">
         <utility-back-link-component url="../../"></utility-back-link-component>
-        <a class="btn btn-primary" [routerLink]="['../../', 'form', docId]">
+        <a class="btn btn-primary" [routerLink]="['../../', 'form', event._id]">
           <i class="bi bi-pencil-fill me-3"></i>
           Edit
         </a>
@@ -77,16 +77,13 @@ import {EventFormRepository} from '@event/repository/event.form.repository';
   standalone: true
 })
 export default class Index {
-  public docId!: string;
 
-  public readonly eventFormAdapt: EventFormRepository = inject(EventFormRepository);
-  public readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  public readonly eventFormAdapt = inject(EventFormRepository);
+  public readonly activatedRoute = inject(ActivatedRoute);
 
   public readonly event$: Observable<Event.IEvent | undefined> = this.activatedRoute.params.pipe(
     exhaustMap(async ({id}) => {
-      this.docId = id;
-      const doc = await this.eventFormAdapt.item(this.docId);
-      return doc.data();
+      return (await this.eventFormAdapt.item(id)).data;
     }),
   );
 

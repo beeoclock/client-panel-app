@@ -1,6 +1,7 @@
 import * as Utility from '@utility/domain';
 
 export interface IEvent {
+  _id: string;
   title: string;
   service: string;
   description: string;

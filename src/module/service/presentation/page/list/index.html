@@ -30,7 +30,7 @@
       <ng-container *ngIf="repository.state$ | async as state; else LoadingTemplate">
         <tr class="btn-reveal-trigger" *ngFor="let item of state.items">
           <td class="align-middle white-space-nowrap title">
-            <a [routerLink]="['details', item.id]">
+            <a [routerLink]="['details', item._id]">
               {{ getFirstLanguageVersion(item.languageVersions).title }}
             </a>
           </td>

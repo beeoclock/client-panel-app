@@ -1,7 +1,7 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 
 export interface IEmployeeForm {
-  id: FormControl<string>;
+  _id: FormControl<string>;
   firstName: FormControl<string>;
   secondName: FormControl<string>;
   lastName: FormControl<string>;
@@ -17,7 +17,7 @@ export class EmployeeForm extends FormGroup<IEmployeeForm> {
 
   constructor() {
     super({
-      id: new FormControl(),
+      _id: new FormControl(),
       firstName: new FormControl(),
       secondName: new FormControl(),
       lastName: new FormControl(),
