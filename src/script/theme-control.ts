@@ -66,7 +66,6 @@ export const themeControl = () => {
   initialDomSetup(themeController.node);
 
   themeController.on("click", (e: any) => {
-    console.log(e);
     const target = new DomNode(e.target);
 
     if (target.data("theme-control")) {

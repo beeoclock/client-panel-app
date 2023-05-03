@@ -10,8 +10,6 @@ import {HeaderTableComponent} from '@utility/presentation/component/table/header
 import {BodyTableComponent} from '@utility/presentation/component/table/body.table.component';
 import {PaginationComponent} from '@utility/presentation/component/pagination/pagination.component';
 import {NgForOf} from '@angular/common';
-import * as Customer from '@customer/domain';
-import {Functions} from '@angular/fire/functions';
 
 @Component({
   selector: 'customer-list-page',
@@ -33,15 +31,8 @@ import {Functions} from '@angular/fire/functions';
 })
 export default class Index implements OnInit {
   public readonly repository = inject(CustomerRepository);
-  public readonly functions = inject(Functions);
-
-  public list: Customer.ICustomer[] = [];
 
   public ngOnInit() {
-    this.repository.list(10, 1, 'lastName', 'asc', {})
-      .then((result) => {
-        console.log(result.data.items);
-        this.list = result.data.items;
-      });
+    this.repository.pagination.executeDelegate();
   }
 }

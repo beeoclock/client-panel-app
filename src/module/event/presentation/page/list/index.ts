@@ -8,7 +8,7 @@ import {TableComponent} from '@utility/presentation/component/table/table.compon
 import {HeaderTableComponent} from '@utility/presentation/component/table/header.table.component';
 import {BodyTableComponent} from '@utility/presentation/component/table/body.table.component';
 import {PaginationComponent} from '@utility/presentation/component/pagination/pagination.component';
-import {DatePipe, NgForOf} from '@angular/common';
+import {AsyncPipe, DatePipe, NgForOf} from '@angular/common';
 import * as Event from '@event/domain';
 import {EventFormRepository} from '@event/repository/event.form.repository';
 
@@ -27,7 +27,8 @@ import {EventFormRepository} from '@event/repository/event.form.repository';
     BodyTableComponent,
     PaginationComponent,
     NgForOf,
-    DatePipe
+    DatePipe,
+    AsyncPipe
   ],
   standalone: true
 })

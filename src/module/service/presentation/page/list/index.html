@@ -25,32 +25,23 @@
     </th>
   </tr>
   </thead>
-  <tbody utility-body-table-component>
-    <ng-container *ngIf="repository.loading.isOff; else LoadingTemplate">
-      <ng-container *ngIf="repository.state$ | async as state; else LoadingTemplate">
-        <tr class="btn-reveal-trigger" *ngFor="let item of state.items">
-          <td class="align-middle white-space-nowrap title">
-            <a [routerLink]="['details', item._id]">
-              {{ getFirstLanguageVersion(item.languageVersions).title }}
-            </a>
-          </td>
-          <td class="align-middle white-space-nowrap language">
-            {{ getLanguageCodes(item.languageVersions) }}
-          </td>
-          <td class="align-middle white-space-nowrap active">
-            {{ item.active }}
-          </td>
-          <td class="align-middle white-space-nowrap createdAt">
-            {{ item.createdAt | date: 'hh:mm dd-MM-yyyy' }}
-          </td>
-        </tr>
-      </ng-container>
-    </ng-container>
+  <tbody utility-body-table-component [loader]="repository.loading" [pagination]="repository.pagination">
+    <tr class="btn-reveal-trigger" *ngFor="let item of repository.pagination.items">
+      <td class="align-middle white-space-nowrap title">
+        <a [routerLink]="['details', item._id]">
+          {{ getFirstLanguageVersion(item.languageVersions).title }}
+        </a>
+      </td>
+      <td class="align-middle white-space-nowrap language">
+        {{ getLanguageCodes(item.languageVersions) }}
+      </td>
+      <td class="align-middle white-space-nowrap active">
+        {{ item.active }}
+      </td>
+      <td class="align-middle white-space-nowrap createdAt">
+        {{ item.createdAt | date: 'hh:mm dd-MM-yyyy' }}
+      </td>
+    </tr>
   </tbody>
 </utility-table-component>
-<utility-pagination-component></utility-pagination-component>
-<ng-template #LoadingTemplate>
-  <div class="p-4">
-    <div spinner></div>
-  </div>
-</ng-template>
+<utility-pagination-component [pagination]="repository.pagination"></utility-pagination-component>

@@ -26,7 +26,6 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
       phone: new FormControl(null),
     });
     this.addValidators((control: AbstractControl) => {
-      console.log(control);
       if (is.object(control.value)) {
         if (Object.values(control.value).every(is.null)) {
           return {

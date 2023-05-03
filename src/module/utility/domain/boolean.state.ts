@@ -1,4 +1,4 @@
-export default class BooleanStateModel {
+export class BooleanState {
   constructor(
     private state: boolean = true,
   ) {

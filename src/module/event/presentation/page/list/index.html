@@ -27,8 +27,8 @@
     </th>
   </tr>
   </thead>
-  <tbody utility-body-table-component>
-  <tr class="btn-reveal-trigger" *ngFor="let item of list">
+  <tbody utility-body-table-component [loader]="repository.loading" [pagination]="repository.pagination">
+  <tr class="btn-reveal-trigger" *ngFor="let item of repository.pagination.items">
     <th class="align-middle white-space-nowrap title">
       <a [routerLink]="['details', item._id]">
         {{ item.title }}

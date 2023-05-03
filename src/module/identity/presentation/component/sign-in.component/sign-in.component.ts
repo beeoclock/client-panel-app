@@ -44,7 +44,7 @@ import {Notification, WarningNotification} from "@utility/domain/notification";
             <button
               beeoclock
               (click)="signIn()"
-              [disabled]="form.disabled"
+              [disabled]="form.pending"
               [showLoader]="form.pending">
               {{ 'identity.sign-in.form.button.submit' | translate }}
             </button>
@@ -90,12 +90,6 @@ export class SignInComponent {
       if (email && password) {
 
         signInWithEmailAndPassword(this.auth, email, password)
-          .then((result) => {
-
-            console.log(result);
-
-            return result;
-          })
           .catch((result: FirebaseError) => {
             this.form.enable();
             this.form.updateValueAndValidity();
@@ -119,7 +113,6 @@ export class SignInComponent {
         message: 'Form is not valid!'
       });
     }
-
 
   }
 

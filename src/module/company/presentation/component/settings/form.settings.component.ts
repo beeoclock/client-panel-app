@@ -7,8 +7,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {NgIf} from '@angular/common';
 import {SettingsFormRepository} from "@company/repository/settings.form.repository";
-import BooleanStateModel from "@utility/domain/boolean.state.model";
 import {ISettings} from "@company/domain";
+import {BooleanState} from "@utility/domain";
 
 @Component({
   selector: 'company-form-settings-component',
@@ -54,7 +54,7 @@ import {ISettings} from "@company/domain";
 })
 export class FormSettingsComponent {
   private readonly repository = inject(SettingsFormRepository);
-  public readonly loadingData: BooleanStateModel = new BooleanStateModel(true);
+  public readonly loadingData = new BooleanState(true);
 
   public readonly form = new SettingsForm();
 

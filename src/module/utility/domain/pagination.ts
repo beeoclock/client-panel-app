@@ -2,7 +2,7 @@ import {TypeGuard} from '@p4ck493/ts-type-guard';
 import {is} from 'thiis';
 import {OrderByEnum} from '@utility/domain/enum';
 
-export interface IPaginationModel_Configuration {
+export interface IPagination_Configuration {
   checkPageSizeBeforeSet: boolean;
   checkPageMaxBeforeSet: boolean;
   checkPageMinBeforeSet: boolean;
@@ -10,7 +10,7 @@ export interface IPaginationModel_Configuration {
 
 export type OrderDirType = 'desc' | 'asc';
 
-export interface IPaginationModel<ITEM> {
+export interface IPagination<ITEM> {
   page?: number;
   maxPage?: number;
   minPage?: number;
@@ -19,25 +19,27 @@ export interface IPaginationModel<ITEM> {
   orderBy?: string;
   items?: ITEM[];
   totalSize?: number;
-  configuration?: IPaginationModel_Configuration;
+  configuration?: IPagination_Configuration;
 }
 
-export type IPaginationModel_QueryParams = Pick<IPaginationModel<any>, 'orderDir' | 'orderBy' | 'pageSize' | 'page'>;
+export type IPagination_QueryParams = Pick<IPagination<any>, 'orderDir' | 'orderBy' | 'pageSize' | 'page'>;
 
-export type IPaginationModel_List_Response<ITEM> = Pick<IPaginationModel<ITEM>, 'items' | 'totalSize'>;
+export type IPagination_List_Response<ITEM> = Pick<IPagination<ITEM>, 'items' | 'totalSize'>;
 
-export class PaginationModel<ITEM> implements IPaginationModel<ITEM> {
+export class Pagination<ITEM> implements IPagination<ITEM> {
+
+  #delegate: undefined | null | ((pagination: Pagination<ITEM>) => void);
 
   constructor(
-    public page: number = PaginationModel.defaultPage,
-    public maxPage: number = PaginationModel.defaultMaxPage,
-    public minPage: number = PaginationModel.defaultMinPage,
-    public pageSize: number = PaginationModel.defaultPageSize,
-    public orderDir: OrderDirType = PaginationModel.defaultOrderDirection,
-    public orderBy: string = PaginationModel.defaultOrderBy,
+    public page: number = Pagination.defaultPage,
+    public maxPage: number = Pagination.defaultMaxPage,
+    public minPage: number = Pagination.defaultMinPage,
+    public pageSize: number = Pagination.defaultPageSize,
+    public orderDir: OrderDirType = Pagination.defaultOrderDirection,
+    public orderBy: string = Pagination.defaultOrderBy,
     public items: ITEM[] = [],
     public totalSize: number = 0,
-    public configuration: IPaginationModel_Configuration = {
+    public configuration: IPagination_Configuration = {
       checkPageSizeBeforeSet: true,
       checkPageMaxBeforeSet: true,
       checkPageMinBeforeSet: true,
@@ -82,49 +84,84 @@ export class PaginationModel<ITEM> implements IPaginationModel<ITEM> {
   }
 
   @TypeGuard([is.object.not.empty])
-  public static fromObject<ITEM>(data: IPaginationModel<ITEM>): PaginationModel<ITEM> {
-    let model: PaginationModel<ITEM> = new PaginationModel<ITEM>();
+  public static fromObject<ITEM>(data: IPagination<ITEM>): Pagination<ITEM> {
+    let model: Pagination<ITEM> = new Pagination<ITEM>();
     model = Object.assign(model, data);
     model.updateModel();
     return model;
   }
 
+  public deleteDelegate(): void {
+    this.#delegate = null;
+  }
+
+  public setDelegate(delegate: (pagination: Pagination<ITEM>) => void): void {
+    this.#delegate = delegate;
+  }
+
+  public executeDelegate(): void {
+    if (this.#delegate) {
+      this.#delegate(this);
+    }
+  }
+
   @TypeGuard([is.object.not.empty])
-  public updateFromObject(obj: IPaginationModel<ITEM>): PaginationModel<ITEM> {
+  public updateFromObject(obj: IPagination<ITEM>): this {
     Object.assign(this, obj);
     this.updateModel();
     return this;
   }
 
+  public setItems(items: ITEM[]): this {
+    this.items = items;
+    return this;
+  }
+
   @TypeGuard([is.number])
-  public setTotalSize(newTotalSize: number): void {
+  public setTotalSize(newTotalSize: number): this {
     if (newTotalSize < 0) {
       throw new Error('You try to set a new totalSize, which is less than 0.');
     }
     this.totalSize = newTotalSize;
     this.updateModel();
+    return this;
   }
 
   @TypeGuard([is.number])
-  public setMaxPage(newMaxPage: number): void {
+  public setMaxPage(newMaxPage: number): this {
     if (newMaxPage < this.minPage) {
       throw new Error('You try to set a new maxPage, which is less than minPage.');
     }
     this.maxPage = newMaxPage;
+    return this;
+  }
+
+  public setOrderBy(orderBy: string): this {
+    this.orderBy = orderBy;
+    this.executeDelegate();
+    return this;
+  }
+
+  public toggleOrderDir(force?: OrderDirType): this {
+    this.orderDir = force ?? this.orderDir === 'asc' ? 'desc' : 'asc';
+    this.executeDelegate();
+    return this;
   }
 
   @TypeGuard([is.number])
-  public setPageSize(newPageSize: number): void {
+  public setPageSize(newPageSize: number): this {
     if (this.configuration.checkPageSizeBeforeSet) {
-      if (is.false(PaginationModel.availablePageSize.includes(newPageSize))) {
+      if (is.false(Pagination.availablePageSize.includes(newPageSize))) {
         throw new Error('You try to set a new pageSize, which is not available.');
       }
     }
     this.pageSize = newPageSize;
+    this.executeDelegate();
+    return this;
   }
 
   @TypeGuard([is.number])
-  public setPage(newPage: number): void {
+  public setPage(newPage: number): this {
     if (this.configuration.checkPageMaxBeforeSet) {
       if (newPage > this.maxPage) {
         throw new Error('You try to set a new page, which is more than maxPage.');
@@ -136,6 +173,8 @@ export class PaginationModel<ITEM> implements IPaginationModel<ITEM> {
       }
     }
     this.page = newPage;
+    this.executeDelegate();
+    return this;
   }
 
   public updateModel(): void {
@@ -143,19 +182,19 @@ export class PaginationModel<ITEM> implements IPaginationModel<ITEM> {
     this.setMaxPage(newMaxPage > this.minPage ? newMaxPage : 1);
   }
 
-  public nextPage(): void {
-    this.setPage(this.page + 1);
+  public nextPage(): this {
+    return this.setPage(this.page + 1);
   }
 
-  public prevPage(): void {
-    this.setPage(this.page - 1);
+  public prevPage(): this {
+    return this.setPage(this.page - 1);
   }
 
-  public toObject(): IPaginationModel<ITEM> {
+  public toObject(): IPagination<ITEM> {
     return Object.assign({}, this);
   }
 
-  public toQueryParams(): IPaginationModel_QueryParams {
+  public toQueryParams(): IPagination_QueryParams {
     const {orderBy, orderDir, page, pageSize} = this;
     return {
       orderBy,

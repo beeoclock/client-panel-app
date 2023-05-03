@@ -13,20 +13,22 @@ export class CloudFunctionFirebaseAdapter<ITEM> {
   private readonly functions = inject(Functions);
 
   public itemsCollection!: CollectionReference<ITEM>;
+  #cloudFunction: {
+    write: ReturnType<typeof httpsCallable>,
+    read: ReturnType<typeof httpsCallable<string, ITEM>>,
+    pagination: ReturnType<typeof httpsCallable<{
+      pageSize: number;
+      page: number;
+      orderBy: string;
+      orderDir: string;
+      filters: {};
+    }, {
+      items: ITEM[];
+      total: number;
+    }>>,
+    delete: ReturnType<typeof httpsCallable>
+  } | undefined;
   private path: string | undefined;
-  private write: ReturnType<typeof httpsCallable> | undefined;
-  private read: ReturnType<typeof httpsCallable<string, ITEM>> | undefined;
-  private pagination: ReturnType<typeof httpsCallable<{
-    pageSize: number;
-    page: number;
-    orderBy: string;
-    orderDir: string;
-    filters: {};
-  }, {
-    items: ITEM[];
-    total: number;
-  }>> | undefined;
-  private delete: ReturnType<typeof httpsCallable> | undefined;
 
   public initCollectionReference(path: string): void {
     if (this.path) {
@@ -35,17 +37,19 @@ export class CloudFunctionFirebaseAdapter<ITEM> {
     this.path = path;
     this.itemsCollection = collection(this.firestore, this.path) as CollectionReference<ITEM>;
 
-    this.write = httpsCallable(this.functions, `${this.path}Write`);
-    this.read = httpsCallable(this.functions, `${this.path}Read`);
-    this.pagination = httpsCallable(this.functions, `${this.path}Pagination`);
-    this.delete = httpsCallable(this.functions, `${this.path}Delete`);
+    this.#cloudFunction = {
+      write: httpsCallable(this.functions, `${this.path}Write`),
+      read: httpsCallable(this.functions, `${this.path}Read`),
+      pagination: httpsCallable(this.functions, `${this.path}Pagination`),
+      delete: httpsCallable(this.functions, `${this.path}Delete`)
+    };
   }
 
   public save(value: ITEM): Promise<any> {
-    if (!this.write) {
+    if (!this.#cloudFunction?.write) {
       throw new NotImplementedYetError();
     }
-    return this.write(value).then((result) => {
+    return this.#cloudFunction.write(value).then((result) => {
       Notification.push({
         message: 'success'
       });
@@ -54,17 +58,17 @@ export class CloudFunctionFirebaseAdapter<ITEM> {
   }
 
   public item(id: string): Promise<HttpsCallableResult<ITEM>> {
-    if (!this.read) {
+    if (!this.#cloudFunction?.read) {
       throw new NotImplementedYetError();
     }
-    return this.read(id);
+    return this.#cloudFunction.read(id);
   }
 
   public remove(id: string): Promise<HttpsCallableResult<any>> {
-    if (!this.delete) {
+    if (!this.#cloudFunction?.delete) {
       throw new NotImplementedYetError();
     }
-    return this.delete(id);
+    return this.#cloudFunction.delete(id);
   }
 
   public list(
@@ -77,10 +81,10 @@ export class CloudFunctionFirebaseAdapter<ITEM> {
     items: ITEM[];
     total: number;
   }>> {
-    if (!this.pagination) {
+    if (!this.#cloudFunction?.pagination) {
       throw new NotImplementedYetError();
     }
-    return this.pagination({
+    return this.#cloudFunction.pagination({
       pageSize,
       page,
       orderBy,

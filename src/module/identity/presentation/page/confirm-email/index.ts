@@ -21,7 +21,6 @@ export default class Index implements OnInit {
       continueUrl?: string,
       lang?: string
     }) => {
-      console.log(params);
       if (params?.mode === this.firebaseMode) {
         applyActionCode(this.auth, params.oobCode)
           .then(() => {

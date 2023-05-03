@@ -12,7 +12,6 @@ export default class Index implements OnInit {
   private readonly auth: Auth = inject(Auth);
 
   public ngOnInit(): void {
-    console.log(this.auth.currentUser);
     this.auth.onAuthStateChanged((result) => {
       console.log(result);
     });

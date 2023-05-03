@@ -1,4 +1,4 @@
-import BooleanStateModel from '@utility/domain/boolean.state.model';
+import BooleanStateModel from '@utility/domain/boolean.state';
 import * as _Interceptors from "./interceptors";
 
 export const Utility = {

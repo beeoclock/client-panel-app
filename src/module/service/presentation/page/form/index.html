@@ -20,7 +20,12 @@
       </service-schedules-form-component>
 
       <div class="col-12 d-grid">
-        <button class="btn btn-primary" (click)="save()">Add Service</button>
+        <button
+          beeoclock
+          [showLoader]="form.pending"
+          [disabled]="form.disabled"
+          (click)="save()">Add Service
+        </button>
       </div>
 
     </form>

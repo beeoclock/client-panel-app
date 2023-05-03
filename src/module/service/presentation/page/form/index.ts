@@ -10,6 +10,8 @@ import {DurationsFormComponent} from '@service/presentation/component/form/durat
 import {ServicesFormComponent} from '@service/presentation/component/form/service/services.form.component';
 import {SchedulesFormComponent} from '@service/presentation/component/form/schedules.form.component';
 import {IService} from "@service/domain";
+import {Notification, WarningNotification} from "@utility/domain/notification";
+import {ButtonComponent} from "@utility/presentation/component/button/button.component";
 
 @Component({
   selector: 'employee-form-page',
@@ -23,6 +25,7 @@ import {IService} from "@service/domain";
     DurationsFormComponent,
     ServicesFormComponent,
     SchedulesFormComponent,
+    ButtonComponent,
   ],
   providers: [
     ServiceRepository,
@@ -55,7 +58,24 @@ export default class Index {
 
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      await this.repository.save(this.form.value as IService);
+      this.form.disable();
+      this.form.markAsPending();
+      this.repository.save(this.form.value as IService)
+        .then((result) => {
+          this.form.enable();
+          this.form.updateValueAndValidity();
+          this.form.reset();
+          Notification.push({
+            message: 'Success'
+          })
+        })
+        .catch((error) => {
+          this.form.enable();
+          this.form.updateValueAndValidity();
+          WarningNotification.push({
+            message: error
+          })
+        });
     }
   }
 }

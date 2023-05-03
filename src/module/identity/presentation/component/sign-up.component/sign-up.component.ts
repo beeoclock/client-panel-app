@@ -67,7 +67,7 @@ import {Notification, WarningNotification} from "@utility/domain/notification";
         <button
           beeoclock
           (click)="signUp()"
-          [disabled]="form.disabled"
+          [disabled]="form.pending"
           [showLoader]="form.pending">
           {{ 'identity.sign-up.form.button.submit' | translate }}
         </button>

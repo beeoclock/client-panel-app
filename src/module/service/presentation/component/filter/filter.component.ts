@@ -23,7 +23,7 @@ export class FilterComponent {
 
   constructor() {
     this.form.valueChanges.subscribe(() => {
-      this.repository.updateState();
+      // this.repository.updateState();
     });
   }
 }

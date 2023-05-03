@@ -45,7 +45,7 @@ export default class Index {
   public readonly translateService = inject(TranslateService);
 
   constructor() {
-    this.repository.init();
+    this.repository.pagination.executeDelegate();
   }
 
   public get currentLanguageCode(): LanguageCodeEnum {
