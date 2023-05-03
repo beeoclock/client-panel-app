@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {getFirstKey} from '@utility/first-key-name.tool';
+import {getFirstKey} from '@utility/domain/first-key-name.tool';
 
 @Pipe({
   name: 'firstKeyName'

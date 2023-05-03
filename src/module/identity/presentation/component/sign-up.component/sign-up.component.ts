@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
+import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
@@ -10,6 +10,14 @@ import RegistrationForm from '@identity/form/registration.form';
 import {DisplayNameComponent} from '@identity/presentation/component/display-name.component/display-name.component';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  updateProfile,
+  UserCredential
+} from "@angular/fire/auth";
+import {Notification, WarningNotification} from "@utility/domain/notification";
 
 @Component({
   selector: 'identity-sign-up-component',
@@ -46,20 +54,20 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
         [control]="form.controls.passwordConfirm">
       </identity-password-component>
 
-      <!--          <div class="form-check">-->
-      <!--            <input class="form-check-input" type="checkbox" id="basic-register-checkbox">-->
-      <!--            <label-->
-      <!--              class="form-label" for="basic-register-checkbox">-->
-      <!--              I accept the <a href="#!">terms </a>and <a href="#!">privacy-->
-      <!--              policy</a>-->
-      <!--            </label>-->
-      <!--          </div>-->
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="basic-register-checkbox">
+        <label
+          class="form-label" for="basic-register-checkbox">
+          I accept the <a href="#!">terms </a>and <a href="#!">privacy
+          policy</a>
+        </label>
+      </div>
 
       <div class="my-3 d-grid">
         <button
           beeoclock
-          (click)="submit()"
-          [disabled]="form.pending"
+          (click)="signUp()"
+          [disabled]="form.disabled"
           [showLoader]="form.pending">
           {{ 'identity.sign-up.form.button.submit' | translate }}
         </button>
@@ -82,14 +90,51 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
 })
 export class SignUpComponent {
 
-  @Input()
-  public form!: RegistrationForm;
+  public readonly form = new RegistrationForm();
+  private readonly auth = inject(Auth);
 
-  @Output()
-  public signUp = new EventEmitter<void>();
-
-  public submit(): void {
-    this.signUp.emit();
+  public signUp(): void {
+    this.form.markAllAsTouched();
+    if (this.form.valid) {
+      this.form.disable();
+      this.form.markAsPending();
+      const {email, password, displayName} = this.form.value;
+      if (email && password && displayName) {
+        createUserWithEmailAndPassword(this.auth, email, password)
+          .then(async (userCredential: UserCredential) => {
+            const {user} = userCredential;
+            await sendEmailVerification(user, {
+              // url: `${location.origin}/identity/confirm-email` // The url only for redirect from standard verification feature and also you can use the param when create own link to verify e-mail.
+              url: location.origin,
+            });
+            await updateProfile(user, {
+              displayName
+            });
+            Notification.push({
+              message: 'E-mail is sent.',
+            });
+          })
+          .catch((error) => {
+            this.form.enable();
+            this.form.updateValueAndValidity();
+            WarningNotification.push({
+              message: error,
+            });
+          });
+      } else {
+        this.form.enable();
+        this.form.updateValueAndValidity();
+        WarningNotification.push({
+          message: 'Form is not valid',
+        });
+      }
+    } else {
+      this.form.enable();
+      this.form.updateValueAndValidity();
+      WarningNotification.push({
+        message: 'Form is not valid',
+      });
+    }
   }
 
 }

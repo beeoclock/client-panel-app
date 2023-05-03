@@ -7,7 +7,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {NgIf} from '@angular/common';
 import {SettingsFormRepository} from "@company/repository/settings.form.repository";
-import BooleanStateModel from "@utility/boolean.state.model";
+import BooleanStateModel from "@utility/domain/boolean.state.model";
 import {ISettings} from "@company/domain";
 
 @Component({

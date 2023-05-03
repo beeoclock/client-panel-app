@@ -3,7 +3,7 @@ import * as Service from '@service/domain';
 import {IService} from '@service/domain';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {PaginationModel} from '@utility/domain/model';
-import BooleanStateModel from '@utility/boolean.state.model';
+import BooleanStateModel from '@utility/domain/boolean.state.model';
 import {is} from 'thiis';
 import {FilterForm} from '@service/form/filter.form';
 import {ServiceFirebaseAdapter} from "@service/adapter/service.firebase.adapter";

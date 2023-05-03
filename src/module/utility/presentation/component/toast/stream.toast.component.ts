@@ -1,5 +1,5 @@
 import {Component, HostBinding, ViewEncapsulation} from '@angular/core';
-import {Notification, NotificationStateEnum} from '@utility/notification';
+import {Notification, NotificationStateEnum} from '@utility/domain/notification';
 import {AsyncPipe, NgClass, NgForOf} from '@angular/common';
 
 @Component({
@@ -64,7 +64,7 @@ export class StreamToastComponent {
   }
 
   public delete(deleteId: string): void {
-    this.queueNotification = this.queueNotification.filter(({id}) => id === deleteId);
+    this.queueNotification = this.queueNotification.filter(({id}) => id !== deleteId);
   }
 
   public getBgClass(state: undefined | NotificationStateEnum): string {

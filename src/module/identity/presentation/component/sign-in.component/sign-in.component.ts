@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostBinding, Input, Output, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
@@ -9,6 +9,9 @@ import {PasswordComponent} from '@identity/presentation/component/password.compo
 import LoginForm from '@identity/form/login.form';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
+import {Auth, signInWithEmailAndPassword} from "@angular/fire/auth";
+import {FirebaseError} from "@angular/fire/app";
+import {Notification, WarningNotification} from "@utility/domain/notification";
 
 @Component({
   selector: 'identity-sign-in-component',
@@ -40,8 +43,8 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
           <div class="my-3 d-grid">
             <button
               beeoclock
-              (click)="submit()"
-              [disabled]="form.pending"
+              (click)="signIn()"
+              [disabled]="form.disabled"
               [showLoader]="form.pending">
               {{ 'identity.sign-in.form.button.submit' | translate }}
             </button>
@@ -69,17 +72,55 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
 })
 export class SignInComponent {
 
-  @Input()
-  public form!: LoginForm;
-
-  @Output()
-  public signIn = new EventEmitter<void>();
-
   @HostBinding()
   public class = 'col-md-7 d-flex flex-center';
 
-  public submit(): void {
-    this.signIn.emit();
+  public readonly form = new LoginForm();
+  private readonly auth = inject(Auth);
+
+  public signIn(): void {
+
+    this.form.markAllAsTouched();
+
+    if (this.form.valid) {
+      this.form.disable();
+      this.form.markAsPending();
+
+      const {email, password} = this.form.value;
+      if (email && password) {
+
+        signInWithEmailAndPassword(this.auth, email, password)
+          .then((result) => {
+
+            console.log(result);
+
+            return result;
+          })
+          .catch((result: FirebaseError) => {
+            this.form.enable();
+            this.form.updateValueAndValidity();
+            WarningNotification.push({
+              message: result.message,
+            });
+          });
+
+      } else {
+        this.form.enable();
+        this.form.updateValueAndValidity();
+        Notification.push({
+          message: 'E-mail or password is wrong!'
+        });
+      }
+
+    } else {
+      this.form.enable();
+      this.form.updateValueAndValidity();
+      Notification.push({
+        message: 'Form is not valid!'
+      });
+    }
+
+
   }
 
 }
