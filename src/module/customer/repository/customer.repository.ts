@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {CustomerFirebaseAdapter} from '@customer/adapter/customer.firebase.adapter';
 import {BooleanState, Pagination} from "@utility/domain";
 import * as Customer from "@customer/domain";
-import {FilterForm} from "@event/form/filter.form";
+import {FilterForm} from "@customer/form/filter.form";
 
 @Injectable({
   providedIn: 'root'
@@ -69,7 +69,6 @@ export class CustomerRepository extends CustomerFirebaseAdapter {
         this.pagination
           .setTotalSize(total)
           .setItems(items);
-        console.log(this.pagination);
       }).finally(() => {
         this.loading.switchOff();
       });

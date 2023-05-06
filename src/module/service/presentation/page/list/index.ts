@@ -14,6 +14,7 @@ import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.
 import {TranslateService} from '@ngx-translate/core';
 import {LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
 import {ILanguageVersion} from '@service/domain';
+import {ListPage} from "@utility/list.page";
 
 @Component({
   selector: 'service-list-page',
@@ -40,13 +41,9 @@ import {ILanguageVersion} from '@service/domain';
   ],
   standalone: true
 })
-export default class Index {
-  public readonly repository = inject(ServiceRepository);
+export default class Index extends ListPage {
+  public override readonly repository = inject(ServiceRepository);
   public readonly translateService = inject(TranslateService);
-
-  constructor() {
-    this.repository.pagination.executeDelegate();
-  }
 
   public get currentLanguageCode(): LanguageCodeEnum {
     return this.translateService.getDefaultLang() as LanguageCodeEnum;

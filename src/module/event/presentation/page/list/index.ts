@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {ExampleTableComponent} from '@utility/presentation/component/table/example.table.component';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
@@ -9,8 +9,8 @@ import {HeaderTableComponent} from '@utility/presentation/component/table/header
 import {BodyTableComponent} from '@utility/presentation/component/table/body.table.component';
 import {PaginationComponent} from '@utility/presentation/component/pagination/pagination.component';
 import {AsyncPipe, DatePipe, NgForOf} from '@angular/common';
-import * as Event from '@event/domain';
 import {EventFormRepository} from '@event/repository/event.form.repository';
+import {ListPage} from "@utility/list.page";
 
 @Component({
   selector: 'event-list-page',
@@ -32,21 +32,6 @@ import {EventFormRepository} from '@event/repository/event.form.repository';
   ],
   standalone: true
 })
-export default class Index implements OnInit {
-  public readonly repository = inject(EventFormRepository);
-
-  public list: Event.IEvent[] = [];
-
-  public ngOnInit() {
-    this.repository.list(
-      10,
-      1,
-      'createdAt',
-      'asc',
-      {}
-    ).then((result) => {
-      const {items, total} = result.data;
-      this.list = items;
-    })
-  }
+export default class Index extends ListPage {
+  public override readonly repository = inject(EventFormRepository);
 }

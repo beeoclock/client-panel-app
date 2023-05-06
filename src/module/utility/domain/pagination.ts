@@ -208,4 +208,30 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     };
   }
 
+  /**
+   *
+   * @param params
+   */
+  public fromQueryParams(params: {
+    orderBy?: string,
+    orderDir?: OrderDirType,
+    page?: string,
+    pageSize?: string
+  }): void {
+    if (is.object.not.empty(params)) {
+      if (params?.page) {
+        this.page = +params?.page;
+      }
+      if (params?.pageSize) {
+        this.pageSize = +params?.pageSize;
+      }
+      if (params?.orderBy) {
+        this.orderBy = params?.orderBy;
+      }
+      if (params?.orderDir) {
+        this.orderDir = params?.orderDir;
+      }
+    }
+  }
+
 }
