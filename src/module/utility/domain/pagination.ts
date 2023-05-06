@@ -1,6 +1,7 @@
 import {TypeGuard} from '@p4ck493/ts-type-guard';
 import {is} from 'thiis';
 import {OrderByEnum} from '@utility/domain/enum';
+import {getPaginationItems} from "@utility/domain/pagination.items";
 
 export interface IPagination_Configuration {
   checkPageSizeBeforeSet: boolean;
@@ -28,7 +29,8 @@ export type IPagination_List_Response<ITEM> = Pick<IPagination<ITEM>, 'items' | 
 
 export class Pagination<ITEM> implements IPagination<ITEM> {
 
-  #delegate: undefined | null | ((pagination: Pagination<ITEM>) => void);
+  #delegate: ((pagination: Pagination<ITEM>) => void)[] = [];
+  public pages: number[] = [];
 
   constructor(
     public page: number = Pagination.defaultPage,
@@ -92,16 +94,16 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
   }
 
   public deleteDelegate(): void {
-    this.#delegate = null;
+    this.#delegate = [];
   }
 
   public setDelegate(delegate: (pagination: Pagination<ITEM>) => void): void {
-    this.#delegate = delegate;
+    this.#delegate.push(delegate);
   }
 
   public executeDelegate(): void {
     if (this.#delegate) {
-      this.#delegate(this);
+      this.#delegate.forEach((delegate) => delegate(this));
     }
   }
 
@@ -180,6 +182,8 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
   public updateModel(): void {
     const newMaxPage: number = Math.ceil(this.totalSize / this.pageSize);
     this.setMaxPage(newMaxPage > this.minPage ? newMaxPage : 1);
+    // todo
+    this.pages = getPaginationItems(this.page, this.maxPage, 5);
   }
 
   public nextPage(): this {

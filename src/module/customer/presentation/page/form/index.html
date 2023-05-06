@@ -50,7 +50,11 @@
         <utility-input-error-component [control]="form.controls.note"></utility-input-error-component>
       </div>
       <div class="col-12 d-grid">
-        <button beeoclock (click)="save()">Save</button>
+        <button
+          beeoclock
+          [disabled]="form.disabled"
+          [showLoader]="form.pending"
+          (click)="save()">Save</button>
       </div>
     </form>
   </utility-body-card-component>

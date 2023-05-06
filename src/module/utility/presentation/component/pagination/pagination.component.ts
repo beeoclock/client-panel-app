@@ -3,6 +3,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {Pagination} from "@utility/domain";
 import {ReactiveFormsModule} from "@angular/forms";
 import {NgForOf, NgIf} from "@angular/common";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'utility-pagination-component',
@@ -12,7 +13,8 @@ import {NgForOf, NgIf} from "@angular/common";
     NgSelectModule,
     NgForOf,
     ReactiveFormsModule,
-    NgIf
+    NgIf,
+    RouterLink,
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -23,8 +25,16 @@ export class PaginationComponent {
 
   public readonly paginationRef = Pagination;
 
-  public change($event: Event): void {
+  public changePageSize($event: Event): void {
     const target: HTMLOptionElement = $event.target as any;
     this.pagination.setPageSize(+target.value);
+  }
+
+  /**
+   *
+   * @param page
+   */
+  public isNaN(page: number): boolean {
+    return isNaN(page);
   }
 }

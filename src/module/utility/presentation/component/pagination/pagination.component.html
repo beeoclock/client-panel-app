@@ -9,18 +9,27 @@
         <ng-container *ngIf="pagination.totalSize > 1">
           <button
             (click)="pagination.prevPage()"
+            [disabled]="pagination.page === pagination.minPage"
+            *ngIf="pagination.pages.length > 1"
             class="btn btn-sm btn-falcon-default me-2"
             data-list-pagination="prev"
             title="Previous"
             type="button">
             <
           </button>
-          <a class="btn btn-sm btn-falcon-default text-primary me-2" href="#!">1</a>
-          <a class="btn btn-sm btn-falcon-default me-2" href="#!">2</a>
-          <a class="btn btn-sm btn-falcon-default" href="#!">35</a>
+          <button
+            *ngFor="let page of pagination.pages"
+            [class.disabled]="isNaN(page)"
+            [class.active]="pagination.page === page"
+            (click)="pagination.setPage(page)"
+            class="btn btn-sm btn-falcon-default text-primary me-2 d-flex align-items-center">
+            {{ isNaN(page) ? '...' : page }}
+          </button>
           <button
             (click)="pagination.nextPage()"
-            class="btn btn-sm btn-falcon-default ms-2"
+            [disabled]="pagination.page === pagination.maxPage"
+            *ngIf="pagination.pages.length > 1"
+            class="btn btn-sm btn-falcon-default"
             data-list-pagination="next"
             title="Next"
             type="button">
@@ -35,9 +44,9 @@
             <small>Items per page: </small>
           </div>
           <div class="col-auto">
-            <select class="form-select" (change)="change($event)">
+            <select class="form-select" (change)="changePageSize($event)">
               <option *ngFor="let size of paginationRef.availablePageSize" [ngValue]="size"
-                      [selected]="pagination.pageSize">
+                      [selected]="pagination.pageSize === size">
                 {{ size }}
               </option>
             </select>

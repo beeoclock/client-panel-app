@@ -56,7 +56,17 @@ export default class Index {
   public async save(): Promise<void> {
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      await this.repository.save(this.form.value as ICustomer);
+      this.form.disable();
+      this.form.markAsPending();
+      this.repository.save(this.form.value as ICustomer)
+        .then(() => {
+          this.form.enable();
+          this.form.updateValueAndValidity();
+        })
+        .catch(() => {
+          this.form.enable();
+          this.form.updateValueAndValidity();
+        });
     }
   }
 }
