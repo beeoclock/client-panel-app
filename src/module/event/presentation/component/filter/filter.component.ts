@@ -1,10 +1,10 @@
 import {Component, inject} from '@angular/core';
 import {FilterPanelComponent} from '@utility/presentation/component/panel/filter.panel.component';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
-import {ServiceRepository} from '@service/repository/service.repository';
+import {EventRepository} from "@event/repository/event.repository";
 
 @Component({
-  selector: 'service-filter-component',
+  selector: 'event-filter-component',
   standalone: true,
   imports: [
     FilterPanelComponent,
@@ -18,7 +18,7 @@ import {ServiceRepository} from '@service/repository/service.repository';
   `
 })
 export class FilterComponent {
-  public readonly repository = inject(ServiceRepository);
+  public readonly repository = inject(EventRepository);
   public readonly form = this.repository.filterForm;
 
   constructor() {

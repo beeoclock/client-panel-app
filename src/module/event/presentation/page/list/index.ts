@@ -9,8 +9,9 @@ import {HeaderTableComponent} from '@utility/presentation/component/table/header
 import {BodyTableComponent} from '@utility/presentation/component/table/body.table.component';
 import {PaginationComponent} from '@utility/presentation/component/pagination/pagination.component';
 import {AsyncPipe, DatePipe, NgForOf} from '@angular/common';
-import {EventFormRepository} from '@event/repository/event.form.repository';
+import {EventRepository} from '@event/repository/event.repository';
 import {ListPage} from "@utility/list.page";
+import {FilterComponent} from "@event/presentation/component/filter/filter.component";
 
 @Component({
   selector: 'event-list-page',
@@ -28,10 +29,11 @@ import {ListPage} from "@utility/list.page";
     PaginationComponent,
     NgForOf,
     DatePipe,
-    AsyncPipe
+    AsyncPipe,
+    FilterComponent
   ],
   standalone: true
 })
 export default class Index extends ListPage {
-  public override readonly repository = inject(EventFormRepository);
+  public override readonly repository = inject(EventRepository);
 }

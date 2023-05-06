@@ -7,7 +7,7 @@ import {BooleanState, Pagination} from "@utility/domain";
 @Injectable({
   providedIn: 'root'
 })
-export class EventFormRepository extends EventFirebaseAdapter {
+export class EventRepository extends EventFirebaseAdapter {
 
   public readonly pagination = new Pagination<Event.IEvent>();
   public readonly loading = new BooleanState(false);

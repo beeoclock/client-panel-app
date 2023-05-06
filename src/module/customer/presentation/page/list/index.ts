@@ -11,6 +11,7 @@ import {PaginationComponent} from '@utility/presentation/component/pagination/pa
 import {NgForOf} from '@angular/common';
 import {ListPage} from "@utility/list.page";
 import {CustomerRepository} from "@customer/repository/customer.repository";
+import {FilterComponent} from "@customer/presentation/component/filter/filter.component";
 
 @Component({
   selector: 'customer-list-page',
@@ -26,7 +27,8 @@ import {CustomerRepository} from "@customer/repository/customer.repository";
     HeaderTableComponent,
     BodyTableComponent,
     PaginationComponent,
-    NgForOf
+    NgForOf,
+    FilterComponent
   ],
   standalone: true
 })

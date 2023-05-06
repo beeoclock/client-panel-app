@@ -8,7 +8,7 @@ import {BackLinkComponent} from '@utility/presentation/component/link/back.link.
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import * as Event from '@event/domain';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
-import {EventFormRepository} from '@event/repository/event.form.repository';
+import {EventRepository} from '@event/repository/event.repository';
 
 @Component({
   selector: 'event-detail-page',
@@ -78,7 +78,7 @@ import {EventFormRepository} from '@event/repository/event.form.repository';
 })
 export default class Index {
 
-  public readonly eventFormAdapt = inject(EventFormRepository);
+  public readonly eventFormAdapt = inject(EventRepository);
   public readonly activatedRoute = inject(ActivatedRoute);
 
   public readonly event$: Observable<Event.IEvent | undefined> = this.activatedRoute.params.pipe(

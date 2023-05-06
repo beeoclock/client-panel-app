@@ -11,6 +11,7 @@ import {PaginationComponent} from '@utility/presentation/component/pagination/pa
 import {DatePipe, NgForOf} from '@angular/common';
 import {ListPage} from "@utility/list.page";
 import {EmployeeRepository} from "@employee/repository/employee.repository";
+import {FilterComponent} from "@employee/presentation/component/filter/filter.component";
 
 @Component({
   selector: 'employee-list-page',
@@ -27,7 +28,8 @@ import {EmployeeRepository} from "@employee/repository/employee.repository";
     BodyTableComponent,
     PaginationComponent,
     NgForOf,
-    DatePipe
+    DatePipe,
+    FilterComponent
   ],
   standalone: true
 })

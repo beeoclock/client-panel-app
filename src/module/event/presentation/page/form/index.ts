@@ -9,7 +9,7 @@ import {InputErrorComponent} from '@utility/presentation/component/input-error/i
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {EventForm} from '@event/form/event.form';
-import {EventFormRepository} from '@event/repository/event.form.repository';
+import {EventRepository} from '@event/repository/event.repository';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {AttendeesComponent} from '@event/presentation/component/attendees/attendees.component';
 import {FlatpickrModule} from 'angularx-flatpickr';
@@ -47,7 +47,7 @@ export default class Index {
   public readonly activatedRoute = inject(ActivatedRoute);
 
   public readonly form: EventForm = new EventForm();
-  private readonly repository: EventFormRepository = inject(EventFormRepository);
+  private readonly repository: EventRepository = inject(EventRepository);
 
   public readonly languageList = LANGUAGES;
 
