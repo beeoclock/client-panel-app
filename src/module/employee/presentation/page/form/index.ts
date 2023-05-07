@@ -57,7 +57,17 @@ export default class Index {
 
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      await this.repository.save(this.form.value as IEmployee);
+      this.form.disable();
+      this.form.markAsPending();
+      this.repository.save(this.form.value as IEmployee)
+        .then(() => {
+          this.form.updateValueAndValidity();
+          this.form.enable();
+        })
+        .catch(() => {
+          this.form.updateValueAndValidity();
+          this.form.enable();
+        });
     }
   }
 }

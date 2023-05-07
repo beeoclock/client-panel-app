@@ -66,7 +66,7 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
   }
 
   public static get defaultPageSize(): number {
-    return this.availablePageSize[3];
+    return this.availablePageSize[1];
   }
 
   public static get availableOrderDirection(): OrderDirType[] {

@@ -2,6 +2,7 @@ import {Component, inject} from '@angular/core';
 import {FilterPanelComponent} from '@utility/presentation/component/panel/filter.panel.component';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {EmployeeRepository} from "@employee/repository/employee.repository";
+import {debounceTime} from 'rxjs';
 
 @Component({
   selector: 'employee-filter-component',
@@ -22,7 +23,9 @@ export class FilterComponent {
   public readonly form = this.repository.filterForm;
 
   constructor() {
-    this.form.valueChanges.subscribe(() => {
+    this.form.valueChanges.pipe(
+      debounceTime(500),
+    ).subscribe(() => {
       this.repository.pagination.executeDelegate();
     });
   }

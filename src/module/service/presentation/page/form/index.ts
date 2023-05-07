@@ -10,7 +10,6 @@ import {DurationsFormComponent} from '@service/presentation/component/form/durat
 import {ServicesFormComponent} from '@service/presentation/component/form/service/services.form.component';
 import {SchedulesFormComponent} from '@service/presentation/component/form/schedules.form.component';
 import {IService} from "@service/domain";
-import {Notification, WarningNotification} from "@utility/domain/notification";
 import {ButtonComponent} from "@utility/presentation/component/button/button.component";
 
 @Component({
@@ -65,16 +64,10 @@ export default class Index {
           this.form.enable();
           this.form.updateValueAndValidity();
           this.form.reset();
-          Notification.push({
-            message: 'Success'
-          })
         })
         .catch((error) => {
           this.form.enable();
           this.form.updateValueAndValidity();
-          WarningNotification.push({
-            message: error
-          })
         });
     }
   }
