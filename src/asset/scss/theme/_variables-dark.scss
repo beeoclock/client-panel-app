@@ -51,7 +51,7 @@ $link-color-dark: map-get($theme-dark-colors, 'primary') !default;
 $link-hover-color-dark: shift-color($link-color-dark, $link-shade-percentage) !default;
 
 /* --------------------------------- Shadow --------------------------------- */
-$box-shadow-dark: 0 7px 14px 0 rgb(30, 34, 40), 0 3px 6px 0 rgb(30, 34, 40) !default;
+$box-shadow-dark: 0 7px 14px 0 rgb(30, 30, 30), 0 3px 6px 0 rgb(30, 30, 30) !default;
 $box-shadow-sm-dark: 0 .125rem .25rem rgba($black, .075) !default;
 $box-shadow-lg-dark: 0 1rem 4rem rgba($black, 0.175) !default;
 $box-shadow-inset-dark: inset 0 1px 2px rgba($black, .075) !default;
