@@ -1,5 +1,6 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {Auth} from '@angular/fire/auth';
+import {Dropdown} from "bootstrap";
 
 
 @Component({
@@ -7,7 +8,7 @@ import {Auth} from '@angular/fire/auth';
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   template: `
-    <a aria-expanded="false" aria-haspopup="true" class="nav-link pe-0 ps-2"
+    <a class="nav-link pe-0 ps-2"
        data-bs-toggle="dropdown" id="navbarDropdownUser" role="button">
       <div class="avatar avatar-xl">
         <img alt="" class="rounded-circle" src="asset/img/logo.png"/>
@@ -29,9 +30,18 @@ import {Auth} from '@angular/fire/auth';
     </div>
   `
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
 
-  private readonly auth: Auth = inject(Auth);
+  private readonly auth = inject(Auth);
+  public dropdown: Dropdown | undefined;
+
+  public ngOnInit(): void {
+
+    this.dropdown = new Dropdown('utility-profile-component > #navbarDropdownUser', {
+
+    });
+
+  }
 
   public signOut(): void {
     // TODO ask if user really want to sign out!

@@ -14,7 +14,7 @@ import {BodyCardComponent} from '@utility/presentation/component/card/body.card.
   encapsulation: ViewEncapsulation.None,
   template: `
     <utility-card-component>
-      <utility-body-card-component class="p-0">
+      <utility-body-card-component class="p-0 border">
         <div class="table-responsive scrollbar">
           <table class="table table-striped fs--1 mb-0 overflow-hidden rounded">
             <ng-content></ng-content>

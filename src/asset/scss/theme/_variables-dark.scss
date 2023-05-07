@@ -51,7 +51,7 @@ $link-color-dark: map-get($theme-dark-colors, 'primary') !default;
 $link-hover-color-dark: shift-color($link-color-dark, $link-shade-percentage) !default;
 
 /* --------------------------------- Shadow --------------------------------- */
-$box-shadow-dark: 0 7px 14px 0 rgba(3, 12, 51, 0.15), 0 3px 6px 0 rgba(0, 0, 0, 0.2) !default;
+$box-shadow-dark: 0 7px 14px 0 rgb(30, 34, 40), 0 3px 6px 0 rgb(30, 34, 40) !default;
 $box-shadow-sm-dark: 0 .125rem .25rem rgba($black, .075) !default;
 $box-shadow-lg-dark: 0 1rem 4rem rgba($black, 0.175) !default;
 $box-shadow-inset-dark: inset 0 1px 2px rgba($black, .075) !default;
@@ -68,7 +68,7 @@ $form-check-input-border-color-dark: map-get($dark-grays, '400') !default;
 
 
 /* --------------------------------- Navbar --------------------------------- */
-$bg-navbar-glass-dark: rgba(map-get($dark-grays, '100'), 0.96) !default;
+$bg-navbar-glass-dark: map-get($dark-grays, '100') !default;
 
 $navbar-dark-color-dark: rgba($dark, .55) !default;
 $navbar-dark-hover-color-dark: rgba($dark, .75) !default;
@@ -118,8 +118,8 @@ $btn-reveal-border-color-dark: shade-color($dark, 12.5%) !default;
 
 $btn-falcon-background-dark: var(--#{$prefix}body-bg) !default;
 $btn-disabled-color-dark: #4d5969 !default;
-$btn-falcon-box-shadow-dark: 0 0 0 1px rgba(0, 8, 19, .3), 0 2px 5px 0 rgba(0, 13, 33, .5), 0 1px 1.5px 0 rgba(0, 8, 1, .48), 0 1px 2px 0 rgba(0, 8, 1, .4) !default;
-$btn-falcon-hover-box-shadow-dark: 0 0 0 1px rgba(0, 8, 19, .3), 0 3px 7px 0 rgba(0, 13, 33, .8), 0 1px 1.5px 0 #000801, 0 1px 2px 0 #000801 !default;
+$btn-falcon-box-shadow-dark: 0 0 0 1px rgb(34, 39, 46), 0 2px 5px 0 rgb(34, 39, 46), 0 1px 1.5px 0 rgb(34, 39, 46), 0 1px 2px 0 rgb(34, 39, 46) !default;
+$btn-falcon-hover-box-shadow-dark: 0 0 0 1px rgb(30, 34, 40), 0 3px 7px 0 rgb(30, 34, 40), 0 1px 1.5px 0 #1e2228, 0 1px 2px 0 #1e2228 !default;
 
 $btn-falcon-default-color-dark: map-get($dark-grays, '800') !default;
 $btn-falcon-default-hover-color-dark: shift-color(map-get($dark-grays, '800'), -17%) !default;
