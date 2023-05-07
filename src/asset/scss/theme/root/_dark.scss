@@ -326,9 +326,11 @@
     .table {
       --#{$prefix}table-border-color: #{map-get($dark-grays, '100')};
       --#{$prefix}table-striped-bg: #{map-get($dark-grays, '100')};
+      --#{$prefix}table-striped-color: #{map-get($dark-grays, '500')};
       --#{$prefix}table-color: #{map-get($dark-grays, '500')};
 
     }
+
     @each $color, $value in $theme-colors {
       .table-#{$color} {
         --#{$prefix}table-bg: #{shift-color($value, -$table-bg-scale)};

@@ -4,7 +4,7 @@ $dark-grays: (
   '200': $gray-1000,
   '300': $gray-900,
   '400': $gray-800,
-  '500': $gray-700,
+  '500': #9b9b9b,
   '600': $gray-600,
   '700': $gray-500,
   '800': $gray-400,
@@ -15,7 +15,7 @@ $dark-grays: (
 ) !default;
 
 $theme-dark-colors: (
-  'primary': $primary,
+  'primary': #0099FF,
   'secondary': $secondary,
   'success': $success,
   'info': $info,
