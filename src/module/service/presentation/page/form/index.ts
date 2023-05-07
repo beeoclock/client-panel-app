@@ -43,14 +43,18 @@ export default class Index {
   constructor() {
     this.activatedRoute.params.subscribe(({id}) => {
       if (id) {
+        this.form.disable();
+        this.form.markAsPending();
         this.url = ['../../', 'details', id];
         this.repository.item(id).then(({data}) => {
           if (data) {
             this.form.patchValue(data);
           }
+          this.form.updateValueAndValidity();
+          this.form.enable();
         });
       }
-    })
+    });
   }
 
   public async save(): Promise<void> {

@@ -12,6 +12,7 @@ import {DatePipe, NgForOf} from '@angular/common';
 import {ListPage} from "@utility/list.page";
 import {EmployeeRepository} from "@employee/repository/employee.repository";
 import {FilterComponent} from "@employee/presentation/component/filter/filter.component";
+import {PopoverComponent} from "@utility/presentation/component/popover/popover.component";
 
 @Component({
   selector: 'employee-list-page',
@@ -29,7 +30,8 @@ import {FilterComponent} from "@employee/presentation/component/filter/filter.co
     PaginationComponent,
     NgForOf,
     DatePipe,
-    FilterComponent
+    FilterComponent,
+    PopoverComponent
   ],
   standalone: true
 })

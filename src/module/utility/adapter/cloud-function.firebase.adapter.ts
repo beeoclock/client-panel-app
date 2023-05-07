@@ -64,11 +64,14 @@ export class CloudFunctionFirebaseAdapter<ITEM> {
     return this.#cloudFunction.read(id);
   }
 
-  public remove(id: string): Promise<HttpsCallableResult<any>> {
+  public remove(id: string): Promise<HttpsCallableResult<any> | null> {
     if (!this.#cloudFunction?.delete) {
       throw new NotImplementedYetError();
     }
-    return this.#cloudFunction.delete(id);
+    if (confirm('Are you shore?')) {
+      return this.#cloudFunction.delete(id);
+    }
+    return new Promise((resolve) => resolve(null));
   }
 
   public list(

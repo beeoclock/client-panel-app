@@ -15,27 +15,29 @@ import {TranslateService} from '@ngx-translate/core';
 import {LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
 import {ILanguageVersion} from '@service/domain';
 import {ListPage} from "@utility/list.page";
+import {PopoverComponent} from "@utility/presentation/component/popover/popover.component";
 
 @Component({
   selector: 'service-list-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    CardComponent,
-    BodyCardComponent,
-    RouterLink,
-    ButtonComponent,
-    TableComponent,
-    HeaderTableComponent,
-    BodyTableComponent,
-    PaginationComponent,
-    NgForOf,
-    DatePipe,
-    FilterComponent,
-    AsyncPipe,
-    NgIf,
-    SpinnerComponent
-  ],
+    imports: [
+        CardComponent,
+        BodyCardComponent,
+        RouterLink,
+        ButtonComponent,
+        TableComponent,
+        HeaderTableComponent,
+        BodyTableComponent,
+        PaginationComponent,
+        NgForOf,
+        DatePipe,
+        FilterComponent,
+        AsyncPipe,
+        NgIf,
+        SpinnerComponent,
+        PopoverComponent
+    ],
   providers: [
     ServiceRepository
   ],

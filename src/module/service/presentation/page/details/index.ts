@@ -1,6 +1,6 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {ServiceRepository} from '@service/repository/service.repository';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import {exhaustMap, Observable} from 'rxjs';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
@@ -10,6 +10,7 @@ import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.
 import * as Service from '@service/domain';
 import {ILanguageVersion} from '@service/domain';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
+import {PopoverComponent} from "@utility/presentation/component/popover/popover.component";
 
 @Component({
   selector: 'service-detail-page',
@@ -17,10 +18,25 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
     <ng-container *ngIf="service$ | async as service; else LoadingTemplate">
       <div class="d-flex justify-content-between">
         <utility-back-link-component url="../../"></utility-back-link-component>
-        <a class="btn btn-primary" [routerLink]="['../../', 'form', service._id]">
-          <i class="bi bi-pencil-fill me-3"></i>
-          Edit
-        </a>
+        <utility-popover id="list-menu">
+          <i button class="bi bi-three-dots-vertical"></i>
+          <ul content class="list-group border-0">
+            <li
+              [routerLink]="['../../', 'form', service._id]"
+              close-on-self-click
+              class="list-group-item list-group-item-action cursor-pointer border-0">
+              <i class="bi bi-pencil"></i>
+              Edit
+            </li>
+            <li
+              (click)="delete(service._id)"
+              close-on-self-click
+              class="list-group-item list-group-item-action cursor-pointer border-0">
+              <i class="bi bi-trash"></i>
+              Delete
+            </li>
+          </ul>
+        </utility-popover>
       </div>
       <utility-card-component class="mt-3">
         <utility-body-card-component>
@@ -175,7 +191,8 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
     BackLinkComponent,
     ButtonComponent,
     RouterLink,
-    NgForOf
+    NgForOf,
+    PopoverComponent
   ],
   providers: [
     ServiceRepository,
@@ -184,8 +201,9 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
 })
 export default class Index {
 
-  public readonly repository: ServiceRepository = inject(ServiceRepository);
-  public readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  public readonly repository = inject(ServiceRepository);
+  public readonly activatedRoute = inject(ActivatedRoute);
+  public readonly router = inject(Router);
 
   public readonly service$: Observable<Service.IService | undefined> = this.activatedRoute.params.pipe(
     exhaustMap(async ({id}) => {
@@ -195,6 +213,14 @@ export default class Index {
 
   public languageVersions(languageVersion: any): ILanguageVersion[] {
     return Object.values(languageVersion);
+  }
+
+  public delete(id: string): void {
+    this.repository.remove(id).then((result) => {
+      if (result) {
+        this.router.navigate(['/', 'service']);
+      }
+    });
   }
 
 }

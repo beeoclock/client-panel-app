@@ -1,5 +1,5 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import {exhaustMap, Observable} from 'rxjs';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
@@ -9,6 +9,7 @@ import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.
 import * as Event from '@event/domain';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {EventRepository} from '@event/repository/event.repository';
+import {PopoverComponent} from "@utility/presentation/component/popover/popover.component";
 
 @Component({
   selector: 'event-detail-page',
@@ -16,10 +17,25 @@ import {EventRepository} from '@event/repository/event.repository';
     <ng-container *ngIf="event$ | async as event; else LoadingTemplate">
       <div class="d-flex justify-content-between">
         <utility-back-link-component url="../../"></utility-back-link-component>
-        <a class="btn btn-primary" [routerLink]="['../../', 'form', event._id]">
-          <i class="bi bi-pencil-fill me-3"></i>
-          Edit
-        </a>
+        <utility-popover id="list-menu">
+          <i button class="bi bi-three-dots-vertical"></i>
+          <ul content class="list-group border-0">
+            <li
+              [routerLink]="['../../', 'form', event._id]"
+              close-on-self-click
+              class="list-group-item list-group-item-action cursor-pointer border-0">
+              <i class="bi bi-pencil"></i>
+              Edit
+            </li>
+            <li
+              (click)="delete(event._id)"
+              close-on-self-click
+              class="list-group-item list-group-item-action cursor-pointer border-0">
+              <i class="bi bi-trash"></i>
+              Delete
+            </li>
+          </ul>
+        </utility-popover>
       </div>
       <utility-card-component class="mt-3">
         <utility-body-card-component>
@@ -72,19 +88,29 @@ import {EventRepository} from '@event/repository/event.repository';
     BackLinkComponent,
     ButtonComponent,
     RouterLink,
-    NgForOf
+    NgForOf,
+    PopoverComponent
   ],
   standalone: true
 })
 export default class Index {
 
-  public readonly eventFormAdapt = inject(EventRepository);
+  public readonly repository = inject(EventRepository);
   public readonly activatedRoute = inject(ActivatedRoute);
+  public readonly router = inject(Router);
 
   public readonly event$: Observable<Event.IEvent | undefined> = this.activatedRoute.params.pipe(
     exhaustMap(async ({id}) => {
-      return (await this.eventFormAdapt.item(id)).data;
+      return (await this.repository.item(id)).data;
     }),
   );
+
+  public delete(id: string): void {
+    this.repository.remove(id).then((result) => {
+      if (result) {
+        this.router.navigate(['/', 'event']);
+      }
+    });
+  }
 
 }

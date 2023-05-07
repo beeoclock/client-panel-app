@@ -12,26 +12,28 @@ import {AsyncPipe, DatePipe, NgForOf} from '@angular/common';
 import {EventRepository} from '@event/repository/event.repository';
 import {ListPage} from "@utility/list.page";
 import {FilterComponent} from "@event/presentation/component/filter/filter.component";
+import {PopoverComponent} from "@utility/presentation/component/popover/popover.component";
 
 @Component({
   selector: 'event-list-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    ExampleTableComponent,
-    CardComponent,
-    BodyCardComponent,
-    RouterLink,
-    ButtonComponent,
-    TableComponent,
-    HeaderTableComponent,
-    BodyTableComponent,
-    PaginationComponent,
-    NgForOf,
-    DatePipe,
-    AsyncPipe,
-    FilterComponent
-  ],
+    imports: [
+        ExampleTableComponent,
+        CardComponent,
+        BodyCardComponent,
+        RouterLink,
+        ButtonComponent,
+        TableComponent,
+        HeaderTableComponent,
+        BodyTableComponent,
+        PaginationComponent,
+        NgForOf,
+        DatePipe,
+        AsyncPipe,
+        FilterComponent,
+        PopoverComponent
+    ],
   standalone: true
 })
 export default class Index extends ListPage {

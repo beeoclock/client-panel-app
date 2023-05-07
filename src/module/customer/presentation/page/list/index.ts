@@ -12,24 +12,26 @@ import {NgForOf} from '@angular/common';
 import {ListPage} from "@utility/list.page";
 import {CustomerRepository} from "@customer/repository/customer.repository";
 import {FilterComponent} from "@customer/presentation/component/filter/filter.component";
+import {PopoverComponent} from "@utility/presentation/component/popover/popover.component";
 
 @Component({
   selector: 'customer-list-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    ExampleTableComponent,
-    CardComponent,
-    BodyCardComponent,
-    RouterLink,
-    ButtonComponent,
-    TableComponent,
-    HeaderTableComponent,
-    BodyTableComponent,
-    PaginationComponent,
-    NgForOf,
-    FilterComponent
-  ],
+    imports: [
+        ExampleTableComponent,
+        CardComponent,
+        BodyCardComponent,
+        RouterLink,
+        ButtonComponent,
+        TableComponent,
+        HeaderTableComponent,
+        BodyTableComponent,
+        PaginationComponent,
+        NgForOf,
+        FilterComponent,
+        PopoverComponent
+    ],
   standalone: true
 })
 export default class Index extends ListPage {
