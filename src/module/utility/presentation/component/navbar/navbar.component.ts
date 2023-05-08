@@ -3,8 +3,6 @@ import {navbarTopDropShadow} from '@src/script/navbar-top';
 import {searchInit} from '@src/script/search';
 import {SearchComponent} from '@utility/presentation/component/search/search.component';
 import {NotificationComponent} from '@utility/presentation/component/notification/notification.component';
-import {ProfileComponent} from '@utility/presentation/component/profile/profile.component';
-import {ToggleThemeComponent} from '@utility/presentation/component/toggle-theme/toggle-theme.component';
 import {RouterLink} from '@angular/router';
 
 @Component({
@@ -15,8 +13,6 @@ import {RouterLink} from '@angular/router';
   imports: [
     SearchComponent,
     NotificationComponent,
-    ProfileComponent,
-    ToggleThemeComponent,
     RouterLink
   ]
 })

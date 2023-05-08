@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, HostBinding, ViewEncapsulation} from '@angular/core';
-import {themeControl} from '@src/script/theme-control';
 import {handleNavbarVerticalCollapsed} from '@src/script/navbar-vertical';
-import {RouterLink, RouterLinkActive} from '@angular/router';
+import {IsActiveMatchOptions, RouterLink, RouterLinkActive} from '@angular/router';
 import {NgForOf, NgIf} from '@angular/common';
 
 @Component({
@@ -29,6 +28,9 @@ export class SidebarComponent implements AfterViewInit {
       icon: string;
       target?: '_blank';
       disabled?: boolean;
+      routerLinkActiveOptions: {
+        exact: boolean;
+      } | IsActiveMatchOptions
     }[]
   }[] = [
     {
@@ -38,31 +40,80 @@ export class SidebarComponent implements AfterViewInit {
           label: 'Dashboard',
           url: '/dashboard',
           icon: 'bi bi-pie-chart',
+          routerLinkActiveOptions: {
+            exact: true
+          }
         },
+      ]
+    },
+    {
+      label: '',
+      items: [
         {
           label: 'Customers',
           url: '/customer',
-          icon: 'bi bi-person-vcard'
+          icon: 'bi bi-person-vcard',
+          routerLinkActiveOptions: {
+            exact: true
+          }
         },
         {
           label: 'Employees',
           url: '/employee',
-          icon: 'bi bi-people'
+          icon: 'bi bi-people',
+          routerLinkActiveOptions: {
+            exact: true
+          }
         },
         {
           label: 'Service',
           url: '/service',
-          icon: 'bi bi-shop-window'
+          icon: 'bi bi-shop-window',
+          routerLinkActiveOptions: {
+            exact: true
+          }
+        },
+      ]
+    },
+    {
+      label: 'Events',
+      items: [
+        {
+          label: 'Calendar',
+          url: '/event/calendar',
+          icon: 'bi bi-calendar2-week',
+          routerLinkActiveOptions: {
+            exact: true
+          }
         },
         {
-          label: 'Events',
+          label: 'Table',
           url: '/event',
-          icon: 'bi bi-calendar2-week'
+          icon: 'bi bi-list',
+          routerLinkActiveOptions: {
+            exact: true
+          }
+        },
+      ]
+    },
+    {
+      label: 'Private',
+      items: [
+        {
+          label: 'Profile',
+          url: '/company/profile',
+          icon: 'bi bi-person',
+          routerLinkActiveOptions: {
+            exact: true
+          }
         },
         {
           label: 'Settings',
-          url: '/company',
-          icon: 'bi bi-gear'
+          url: '/company/settings',
+          icon: 'bi bi-gear',
+          routerLinkActiveOptions: {
+            exact: true
+          }
         },
       ]
     }
@@ -71,7 +122,6 @@ export class SidebarComponent implements AfterViewInit {
   public ngAfterViewInit(): void {
 
     handleNavbarVerticalCollapsed();
-    themeControl();
 
   }
 

@@ -33,11 +33,8 @@ type BtnColorType =
 })
 export class ButtonComponent {
 
-  @Input()
-  public color: BtnColorType = 'btn-primary';
-
   @HostBinding()
-  public class = ['btn', this.color, 'd-flex', 'justify-content-center', 'align-items-center'];
+  public class = ['btn', 'btn-primary', 'd-flex', 'justify-content-center', 'align-items-center'];
 
   @HostBinding()
   public type: 'reset' | 'button' | 'submit' = 'submit';

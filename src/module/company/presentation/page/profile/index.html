@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card mb-3 btn-reveal-trigger">
+      <div class="card-header position-relative min-vh-25 mb-8">
+        <div class="cover-image">
+          <div class="bg-holder rounded-3 rounded-bottom-0 bg-primary"></div>
+          <!--/.bg-holder-->
+          <input class="d-none" id="upload-cover-image" type="file">
+          <label class="cover-image-file-input" for="upload-cover-image">
+            <i class="bi bi-camera"></i>
+            <span class="ms-2">Change cover photo</span>
+          </label>
+        </div>
+        <div class="avatar avatar-5xl avatar-profile shadow-sm img-thumbnail rounded-circle">
+          <div class="h-100 w-100 rounded-circle overflow-hidden position-relative">
+            <img alt="" data-dz-thumbnail="data-dz-thumbnail" src="https://placehold.co/200x200" width="200">
+            <input class="d-none" id="profile-image" type="file">
+            <label class="mb-0 overlay-icon d-flex flex-center" for="profile-image">
+              <span class="bg-holder overlay overlay-0"></span>
+              <span class="z-index-1 text-center fs--1">
+                <i class="bi bi-camera"></i>
+                <span class="d-block">Update</span>
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row g-0">
+  <div class="col-lg-12">
+    <div class="card mb-3">
+      <div class="card-header">
+        <h5 class="mb-0">Profile</h5>
+      </div>
+      <div class="card-body bg-light">
+        <company-form-settings-component></company-form-settings-component>
+      </div>
+    </div>
+  </div>
+</div>

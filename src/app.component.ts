@@ -27,6 +27,11 @@ export class AppComponent implements AfterViewInit {
 
   public ngAfterViewInit(): void {
     detectorInit();
+
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.setAttribute('data-bs-theme', 'dark');
+    }
+
   }
 
 }

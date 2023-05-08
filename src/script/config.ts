@@ -23,7 +23,3 @@ Object.keys(CONFIG).forEach((key) => {
 if (JSON.parse(localStorage.getItem('isNavbarVerticalCollapsed') ?? '')) {
   document.documentElement.classList.add('navbar-vertical-collapsed');
 }
-
-if (localStorage.getItem('theme') === 'dark') {
-  document.documentElement.setAttribute('data-bs-theme', 'dark');
-}

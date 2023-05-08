@@ -14,7 +14,7 @@ export abstract class ListPage implements OnInit {
     this.repository.pagination.setDelegate((pagination: any) => {
       this.router.navigate([], {
         queryParams: pagination.toQueryParams(),
-        queryParamsHandling: "merge"
+        queryParamsHandling: "merge",
       });
     });
     this.activatedRoute.queryParams.subscribe((params) => {
