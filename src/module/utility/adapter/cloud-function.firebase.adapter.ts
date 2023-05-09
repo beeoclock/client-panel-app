@@ -9,8 +9,8 @@ import {NotImplementedYetError} from "@utility/domain/error";
 })
 export class CloudFunctionFirebaseAdapter<ITEM> {
 
-  private readonly firestore: Firestore = inject(Firestore);
-  private readonly functions = inject(Functions);
+  protected readonly firestore: Firestore = inject(Firestore);
+  protected readonly functions = inject(Functions);
 
   public itemsCollection!: CollectionReference<ITEM>;
   #cloudFunction: {
@@ -28,7 +28,8 @@ export class CloudFunctionFirebaseAdapter<ITEM> {
     }>>,
     delete: ReturnType<typeof httpsCallable>
   } | undefined;
-  private path: string | undefined;
+
+  protected path: string | undefined;
 
   public initCollectionReference(path: string): void {
     if (this.path) {
