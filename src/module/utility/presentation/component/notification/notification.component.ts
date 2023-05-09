@@ -1,14 +1,17 @@
-import {Component, ViewEncapsulation} from "@angular/core";
+import {AfterViewInit, Component, ViewEncapsulation} from "@angular/core";
+import {Dropdown} from "bootstrap";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'utility-notification-component',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
+  imports: [
+    RouterLink
+  ],
   template: `
 
-    <a aria-expanded="false"
-       aria-haspopup="true" class="nav-link notification-indicator notification-indicator-primary px-0"
-       data-bs-toggle="dropdown" data-hide-on-body-scroll="data-hide-on-body-scroll"
+    <a class="nav-link notification-indicator notification-indicator-primary px-0" data-bs-toggle="dropdown"
        id="navbarDropdownNotification" role="button">
       <i class="bi bi-bell-fill h4"></i>
     </a>
@@ -43,43 +46,43 @@ import {Component, ViewEncapsulation} from "@angular/core";
               </div>
             </a>
 
-            </div>
-            <div class="list-group-item">
-              <a class="notification notification-flush notification-unread" href="#!">
-                <div class="notification-avatar">
-                  <div class="avatar avatar-2xl me-3">
-                    <div class="avatar-name rounded-circle"><span>AB</span></div>
-                  </div>
+          </div>
+          <div class="list-group-item">
+            <a class="notification notification-flush notification-unread" href="#!">
+              <div class="notification-avatar">
+                <div class="avatar avatar-2xl me-3">
+                  <div class="avatar-name rounded-circle"><span>AB</span></div>
                 </div>
-                <div class="notification-body">
-                  <p class="mb-1"><strong>Albert Brooks</strong> reacted to <strong>Mia Khalifa's</strong>
-                    status</p>
-                  <span class="notification-time"><span
-                    class="me-2 fab fa-gratipay text-danger"></span>9hr</span>
+              </div>
+              <div class="notification-body">
+                <p class="mb-1"><strong>Albert Brooks</strong> reacted to <strong>Mia Khalifa's</strong>
+                  status</p>
+                <span class="notification-time"><span
+                  class="me-2 fab fa-gratipay text-danger"></span>9hr</span>
 
-                </div>
-              </a>
+              </div>
+            </a>
 
-            </div>
-            <div class="list-group-title border-bottom">EARLIER</div>
-            <div class="list-group-item">
-              <a class="notification notification-flush" href="#!">
-                <div class="notification-avatar">
-                  <div class="avatar avatar-2xl me-3">
-                    <img alt="" class="rounded-circle" src="asset/img/icons/weather-sm.jpg"/>
-
-                  </div>
-                </div>
-                <div class="notification-body">
-                  <p class="mb-1">The forecast today shows a low of 20&#8451; in California. See today's
-                    weather.</p>
-                  <span class="notification-time"><span aria-label="Emoji" class="me-2"
-                                                        role="img">🌤️</span>1d</span>
+          </div>
+          <div class="list-group-title border-bottom">EARLIER</div>
+          <div class="list-group-item">
+            <a class="notification notification-flush" href="#!">
+              <div class="notification-avatar">
+                <div class="avatar avatar-2xl me-3">
+                  <img alt="" class="rounded-circle" src="asset/img/icons/weather-sm.jpg"/>
 
                 </div>
-              </a>
+              </div>
+              <div class="notification-body">
+                <p class="mb-1">The forecast today shows a low of 20&#8451; in California. See today's
+                  weather.</p>
+                <span class="notification-time"><span aria-label="Emoji" class="me-2"
+                                                      role="img">🌤️</span>1d</span>
 
-            </div>
+              </div>
+            </a>
+
+          </div>
           <div class="list-group-item">
             <a class="border-bottom-0 notification notification-flush" href="#!">
               <div class="notification-avatar">
@@ -95,17 +98,22 @@ import {Component, ViewEncapsulation} from "@angular/core";
                                                       role="img">🙋‍</span>2d</span>
 
               </div>
-              </a>
+            </a>
 
-            </div>
           </div>
-        <div class="card-footer text-center border-top"><a class="card-link d-block"
-                                                           href="../app/social/notifications.html">View
-          all</a></div>
+        </div>
+        <div class="card-footer text-center border-top">
+          <a class="card-link d-block" routerLink="/company/notification">View all</a>
+        </div>
       </div>
     </div>
   `
 })
-export class NotificationComponent {
+export class NotificationComponent implements AfterViewInit {
 
+  public dropdown: undefined | Dropdown;
+
+  public ngAfterViewInit(): void {
+    this.dropdown = new Dropdown('utility-notification-component > [data-bs-toggle="dropdown"]', {})
+  }
 }

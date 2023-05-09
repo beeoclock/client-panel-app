@@ -3,11 +3,12 @@ import {RouterModule} from '@angular/router';
 import {detectorInit} from '@src/script/detector';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {LanguageCodeEnum} from '@utility/domain/enum';
+import {ModalComponent} from "@utility/presentation/component/modal/modal.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, TranslateModule],
+  imports: [RouterModule, TranslateModule, ModalComponent],
   template: `
     <router-outlet></router-outlet>
   `,

@@ -1,54 +1,31 @@
-<div aria-hidden="true" aria-labelledby="authentication-modal-label" class="modal fade" id="authentication-modal"
-     role="dialog" tabindex="-1">
-  <div class="modal-dialog mt-6" role="document">
-    <div class="modal-content border-0">
-      <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
-        <div class="position-relative z-1" data-bs-theme="light">
-          <h4 class="mb-0 text-white" id="authentication-modal-label">Register</h4>
-          <p class="fs--1 mb-0 text-white">Please create your free Bee O`clock account</p>
-        </div>
-        <button aria-label="Close"
-                class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2" data-bs-dismiss="modal"></button>
+<div #modalRef class="modal fade" [id]="id" tabindex="-1" [attr.aria-labelledby]="id + '_label'" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" [ngClass]="modalSize">
+    <div class="modal-content shadow-none">
+      <div class="modal-header">
+        <h4 class="modal-title" [ngClass]="titleClasses" [id]="id + '_label'" [innerHtml]="title">
+        </h4>
+        <button #btnCloseRef type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel"></button>
       </div>
-      <div class="modal-body py-4 px-5">
-        <form>
-          <div class="mb-3">
-            <label class="form-label" for="modal-auth-name">Name</label>
-            <input autocomplete="on" class="form-control" id="modal-auth-name" type="text"/>
-          </div>
-          <div class="mb-3">
-            <label class="form-label" for="modal-auth-email">Email address</label>
-            <input autocomplete="on" class="form-control" id="modal-auth-email" type="email"/>
-          </div>
-          <div class="row gx-2">
-            <div class="mb-3 col-sm-6">
-              <label class="form-label" for="modal-auth-password">Password</label>
-              <input autocomplete="on" class="form-control" id="modal-auth-password" type="password"/>
-            </div>
-            <div class="mb-3 col-sm-6">
-              <label class="form-label" for="modal-auth-confirm-password">Confirm Password</label>
-              <input autocomplete="on" class="form-control" id="modal-auth-confirm-password" type="password"/>
-            </div>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" id="modal-auth-register-checkbox" type="checkbox"/>
-            <label class="form-label" for="modal-auth-register-checkbox">I accept the <a href="#!">terms </a>and
-              <a href="#!">privacy policy</a></label>
-          </div>
-          <div class="mb-3">
-            <button class="btn btn-primary d-block w-100 mt-3" name="submit" type="submit">Register</button>
-          </div>
-        </form>
-        <div class="position-relative mt-5">
-          <hr/>
-          <div class="divider-content-center">or register with</div>
+      <ng-container *ngIf="showBody">
+        <div *ngIf="contentHTML?.length" class="modal-body" [innerHTML]="contentHTML"></div>
+        <div #contentRef class="modal-body" [class.fix-height]="fixHeight">
+          <ng-content></ng-content>
         </div>
-        <div class="row g-2 mt-2">
-          <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span
-            class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
-          <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span
-            class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> facebook</a></div>
-        </div>
+      </ng-container>
+      <div *ngIf="buttons?.length" [class]="buttonSectionClass">
+        <button type="button"
+                *ngFor="let button of buttons"
+                [id]="idPrefix + button.role"
+                [ngClass]="button.classList"
+                [disabled]="button?.disabled"
+                (click)="buttonAction($event, button)">
+          <ng-container *ngIf="button?.loading; else DefaultTemplate">
+            <div spinner></div>
+          </ng-container>
+          <ng-template #DefaultTemplate>
+            {{ button?.text }}
+          </ng-template>
+        </button>
       </div>
     </div>
   </div>

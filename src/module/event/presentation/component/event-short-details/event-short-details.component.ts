@@ -1,0 +1,42 @@
+import {Component, inject} from '@angular/core';
+import {EventRepository} from "@event/repository/event.repository";
+import {IEvent} from "@event/domain";
+import {NgIf} from "@angular/common";
+
+@Component({
+  selector: 'event-short-details-component',
+  standalone: true,
+  imports: [
+    NgIf
+  ],
+  template: `
+    <ul class="list-group" *ngIf="event">
+      <li class="list-group-item">
+        <strong>Title:</strong>
+        <p class="m-0">{{ event.title }}</p>
+      </li>
+      <li class="list-group-item">
+        <strong>Start:</strong>
+        <p class="m-0">{{ event.start }}</p>
+      </li>
+      <li class="list-group-item">
+        <strong>End:</strong>
+        <p class="m-0">{{ event.end }}</p>
+      </li>
+      <li class="list-group-item">
+        <strong>Languages:</strong>
+        <p class="m-0">{{ event.languageCodes.join(', ') }}</p>
+      </li>
+      <li class="list-group-item">
+        <strong>Description:</strong>
+        <p class="m-0">{{ event.description }}</p>
+      </li>
+    </ul>
+  `
+})
+export class EventShortDetailsComponent {
+
+  public readonly repository = inject(EventRepository);
+  public event: undefined | IEvent;
+
+}

@@ -2,7 +2,10 @@ export const environment = {
   production: false,
   emulator: true,
   config: {
-    language: 'en'
+    language: 'en',
+    modal: {
+      prefix: 'beeoclock_modal_'
+    },
   },
   firebase: {
     apiKey: "AIzaSyB4V6b5T25u43cS8LfpQ02NWq_nP0QgXS4",

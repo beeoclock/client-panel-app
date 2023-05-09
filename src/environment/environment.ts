@@ -6,7 +6,10 @@ export const environment = {
   production: false,
   emulator: false,
   config: {
-    language: 'en'
+    language: 'en',
+    modal: {
+      prefix: 'beeoclock_modal_'
+    },
   },
   firebase: {
     projectId: 'beeoclock-cloud-00000000000000',

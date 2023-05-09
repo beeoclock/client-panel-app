@@ -2,7 +2,6 @@ import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {SidebarComponent} from '@utility/presentation/component/sidebar/sidebar.component';
 import {NavbarComponent} from '@utility/presentation/component/navbar/navbar.component';
 import {FooterComponent} from '@utility/presentation/component/footer/footer.component';
-import {ModalComponent} from '@utility/presentation/component/modal/modal.component';
 import {Router, RouterOutlet} from '@angular/router';
 import {Auth} from '@angular/fire/auth';
 import {StreamToastComponent} from '@utility/presentation/component/toast/stream.toast.component';
@@ -19,12 +18,11 @@ import {StreamToastComponent} from '@utility/presentation/component/toast/stream
           <router-outlet></router-outlet>
           <utility-footer-component></utility-footer-component>
         </div>
-        <utility-modal-component></utility-modal-component>
         <utility-stream-toast-component></utility-stream-toast-component>
       </div>
     </main>
   `,
-  imports: [SidebarComponent, NavbarComponent, FooterComponent, ModalComponent, RouterOutlet, StreamToastComponent],
+  imports: [SidebarComponent, NavbarComponent, FooterComponent, RouterOutlet, StreamToastComponent],
   encapsulation: ViewEncapsulation.None
 })
 export default class WrapperPanelComponent {

@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, inject, ViewChild, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, inject, ViewChild, ViewEncapsulation} from '@angular/core';
 import {FullCalendarComponent, FullCalendarModule} from '@fullcalendar/angular';
 import {CalendarOptions, DateSelectArg, EventApi, EventClickArg} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -10,6 +10,11 @@ import {CardComponent} from '@utility/presentation/component/card/card.component
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {HeaderCardComponent} from '@utility/presentation/component/card/header.card.component';
 import {EventRepository} from "@event/repository/event.repository";
+import {ModalService} from "@utility/presentation/component/modal/services/modal/modal.service";
+import {
+  EventShortDetailsComponent
+} from "@event/presentation/component/event-short-details/event-short-details.component";
+import {IEvent} from "@event/domain";
 
 @Component({
   selector: 'event-calendar-page',
@@ -26,10 +31,13 @@ import {EventRepository} from "@event/repository/event.repository";
     HeaderCardComponent
   ]
 })
-export default class Index implements AfterViewInit {
+export default class Index {
 
   public readonly repository = inject(EventRepository);
   private readonly changeDetector = inject(ChangeDetectorRef);
+  private readonly modalService = inject(ModalService);
+
+  public events: IEvent[] = [];
 
   calendarOptions: CalendarOptions = {
     plugins: [
@@ -53,6 +61,13 @@ export default class Index implements AfterViewInit {
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
+    datesSet: (event) => {
+      const {startStr, endStr} = event;
+      this.repository.calendar(startStr, endStr).then((result: any) => {
+        this.events = result.data.items;
+        this.calendarOptions.events = this.events;
+      });
+    },
     // events: (a) => {
     //   console.log(a);
     // }
@@ -68,29 +83,13 @@ export default class Index implements AfterViewInit {
   public fullCalendarComponent: FullCalendarComponent | undefined;
 
   constructor() {
-    setTimeout( function() {
+    setTimeout(function () {
       window.dispatchEvent(new Event('resize'))
     }, 1)
   }
 
-  public ngAfterViewInit(): void {
-    if (this.fullCalendarComponent) {
-      const start = new Date();
-      start.setDate(-14);
-      start.setHours(0);
-      start.setMinutes(0);
-      start.setSeconds(0);
-      const end = new Date(start.toISOString());
-      end.setMonth(end.getMonth() + 2);
-      end.setDate(14);
-      this.repository.calendar(start.toISOString(), end.toISOString()).then((result: any) => {
-        this.calendarOptions.events = result.data.items;
-      });
-    }
-  }
-
   handleWeekendsToggle() {
-    const { calendarOptions } = this;
+    const {calendarOptions} = this;
     calendarOptions.weekends = !calendarOptions.weekends;
   }
 
@@ -112,9 +111,22 @@ export default class Index implements AfterViewInit {
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove();
-    }
+    this.modalService.create([{
+      component: EventShortDetailsComponent,
+      data: {
+        event: this.events.find(({_id}) => _id === clickInfo.event.extendedProps['_id']),
+      }
+    }], {
+      buttons: [],
+      fixHeight: false,
+      title: 'Event'
+    }).then((modal) => {
+      console.log(modal);
+      return modal;
+    });
+
+    // clickInfo.event.remove();
+
   }
 
   handleEvents(events: EventApi[]) {
