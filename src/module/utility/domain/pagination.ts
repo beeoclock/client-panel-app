@@ -182,7 +182,7 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
   public updateModel(): void {
     const newMaxPage: number = Math.ceil(this.totalSize / this.pageSize);
     this.setMaxPage(newMaxPage > this.minPage ? newMaxPage : 1);
-    // todo
+    // TODO: Move the method into the class
     this.pages = getPaginationItems(this.page, this.maxPage, 5);
   }
 
@@ -219,18 +219,20 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     pageSize?: string
   }): void {
     if (is.object.not.empty(params)) {
+      const newObject: any = {};
       if (params?.page) {
-        this.page = +params?.page;
+        newObject.page = +params?.page;
       }
       if (params?.pageSize) {
-        this.pageSize = +params?.pageSize;
+        newObject.pageSize = +params?.pageSize;
       }
       if (params?.orderBy) {
-        this.orderBy = params?.orderBy;
+        newObject.orderBy = params?.orderBy;
       }
       if (params?.orderDir) {
-        this.orderDir = params?.orderDir;
+        newObject.orderDir = params?.orderDir;
       }
+      this.updateFromObject(newObject);
     }
   }
 

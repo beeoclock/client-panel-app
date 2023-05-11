@@ -1,5 +1,6 @@
 import {Component, inject, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
+import {is} from "thiis";
 
 @Component({
   selector: 'utility-list-page',
@@ -18,8 +19,11 @@ export abstract class ListPage implements OnInit {
       });
     });
     this.activatedRoute.queryParams.subscribe((params) => {
-      this.repository.pagination.fromQueryParams(params);
-      this.repository.pagination.executeDelegate();
+      if (is.object.not.empty(params)) {
+        this.repository.pagination.fromQueryParams(params);
+      } else {
+        this.repository.pagination.executeDelegate();
+      }
     });
   }
 

@@ -54,7 +54,10 @@ export class SidebarComponent implements AfterViewInit {
           url: '/customer',
           icon: 'bi bi-person-vcard',
           routerLinkActiveOptions: {
-            exact: true
+            paths: "exact",
+            matrixParams: "ignored",
+            queryParams: "ignored",
+            fragment: "ignored",
           }
         },
         {
@@ -62,7 +65,10 @@ export class SidebarComponent implements AfterViewInit {
           url: '/employee',
           icon: 'bi bi-people',
           routerLinkActiveOptions: {
-            exact: true
+            paths: "exact",
+            matrixParams: "ignored",
+            queryParams: "ignored",
+            fragment: "ignored",
           }
         },
         {
@@ -70,7 +76,10 @@ export class SidebarComponent implements AfterViewInit {
           url: '/service',
           icon: 'bi bi-shop-window',
           routerLinkActiveOptions: {
-            exact: true
+            paths: "exact",
+            matrixParams: "ignored",
+            queryParams: "ignored",
+            fragment: "ignored",
           }
         },
       ]
