@@ -103,6 +103,14 @@ export class SidebarComponent implements AfterViewInit {
             exact: true
           }
         },
+        {
+          label: 'Add event',
+          url: '/event/form',
+          icon: 'bi bi-plus',
+          routerLinkActiveOptions: {
+            exact: true
+          }
+        },
       ]
     },
     {
