@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "start:emulator": "ng serve --configuration emulator",
+    "start:emulator:authorization": "ng serve --configuration emulator-authorization",
+    "start:emulator:function": "ng serve --configuration emulator-functions",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "jest",

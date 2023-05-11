@@ -1,6 +1,6 @@
 export const environment = {
-  production: true,
-  emulator: false,
+  production: false,
+  emulator: true,
   config: {
     language: 'en',
     modal: {
@@ -14,12 +14,12 @@ export const environment = {
       projectId: "beeoclock-cloud-00000000000000",
       storageBucket: "beeoclock-cloud-00000000000000.appspot.com",
       messagingSenderId: "917223590640",
-      appId: "1:917223590640:web:9ce518f7fe4fee4380d035",
+      appId: "1:917223590640:web:9ce518f7fe4fee4380d035"
     },
     emulator: {
       all: false,
       authorization: false,
-      functions: false
+      functions: true
     }
   }
 };

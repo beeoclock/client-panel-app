@@ -73,6 +73,24 @@
               ],
               "outputHashing": "all"
             },
+            "emulator-authorization": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environment/environment.ts",
+                  "with": "src/environment/environment.emulator.authorization.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "emulator-functions": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environment/environment.ts",
+                  "with": "src/environment/environment.emulator.functions.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "beeoclock-cloud-00000000000000": {
               "fileReplacements": [
                 {
@@ -105,6 +123,12 @@
             },
             "emulator": {
               "browserTarget": "client-panel-app:build:emulator"
+            },
+            "emulator-authorization": {
+              "browserTarget": "client-panel-app:build:emulator-authorization"
+            },
+            "emulator-functions": {
+              "browserTarget": "client-panel-app:build:emulator-functions"
             }
           },
           "defaultConfiguration": "development"

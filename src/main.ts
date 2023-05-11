@@ -4,7 +4,6 @@ import {enableProdMode, importProvidersFrom} from '@angular/core';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {environment} from '@src/environment/environment';
 import {Auth, connectAuthEmulator, getAuth, provideAuth} from '@angular/fire/auth';
-import {connectFirestoreEmulator, getFirestore, provideFirestore} from '@angular/fire/firestore';
 import {HttpClient, provideHttpClient, withInterceptors} from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
@@ -41,34 +40,25 @@ bootstrapApplication(AppComponent, {
       ]),
     ),
 
-    importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebase))),
+    importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebase.options))),
     importProvidersFrom(provideAuth(() => {
       const auth: Auth = getAuth();
       auth.setPersistence(browserLocalPersistence)
         .catch((error) => {
           console.log(error);
         });
-      if (environment.emulator) {
+      if (environment.firebase.emulator.all || environment.firebase.emulator.authorization) {
         connectAuthEmulator(auth, 'http://localhost:9099');
       }
       return auth;
     })),
     importProvidersFrom(provideFunctions(() => {
       const functions = getFunctions();
-      if (environment.emulator) {
+      if (environment.firebase.emulator.all || environment.firebase.emulator.functions) {
         connectFunctionsEmulator(functions, 'localhost', 5001);
       }
       return functions;
     })),
-    importProvidersFrom(
-      provideFirestore(() => {
-        const firestore = getFirestore();
-        if (environment.emulator) {
-          connectFirestoreEmulator(firestore, 'localhost', 8080);
-        }
-        return firestore;
-      }),
-    ),
 
     importProvidersFrom(FlatpickrModule.forRoot()),
 

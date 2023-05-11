@@ -1,5 +1,4 @@
 import {inject, Injectable} from '@angular/core';
-import {collection, CollectionReference, Firestore} from '@angular/fire/firestore';
 import {Functions, httpsCallable, HttpsCallableResult} from "@angular/fire/functions";
 import {Notification} from "@utility/domain/notification";
 import {NotImplementedYetError} from "@utility/domain/error";
@@ -9,10 +8,8 @@ import {NotImplementedYetError} from "@utility/domain/error";
 })
 export class CloudFunctionFirebaseAdapter<ITEM> {
 
-  protected readonly firestore: Firestore = inject(Firestore);
   protected readonly functions = inject(Functions);
 
-  public itemsCollection!: CollectionReference<ITEM>;
   #cloudFunction: {
     write: ReturnType<typeof httpsCallable>,
     read: ReturnType<typeof httpsCallable<string, ITEM>>,
@@ -36,7 +33,6 @@ export class CloudFunctionFirebaseAdapter<ITEM> {
       return;
     }
     this.path = path;
-    this.itemsCollection = collection(this.firestore, this.path) as CollectionReference<ITEM>;
 
     this.#cloudFunction = {
       write: httpsCallable(this.functions, `${this.path}Write`),
