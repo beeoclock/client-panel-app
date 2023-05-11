@@ -12,6 +12,7 @@ import {EmployeeForm} from '@employee/form/employee.form';
 import {EmployeeRepository} from '@employee/repository/employee.repository';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {IEmployee} from "@employee/domain";
+import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
 
 @Component({
   selector: 'employee-form-page',
@@ -27,7 +28,8 @@ import {IEmployee} from "@employee/domain";
     InputErrorComponent,
     HasErrorDirective,
     RouterLink,
-    BackLinkComponent
+    BackLinkComponent,
+    HeaderCardComponent
   ],
   standalone: true
 })

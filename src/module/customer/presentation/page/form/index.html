@@ -1,61 +1,85 @@
 <utility-back-link-component [url]="url"></utility-back-link-component>
 
-<utility-card-component class="mt-3">
-  <utility-body-card-component>
-    <form [formGroup]="form" class="row g-3">
-      <div class="col-12 position-relative">
-        <label for="customer-form-firstName">First name</label>
-        <input
-          beeoclock
-          hasError
-          placeholder="Write first name of customer"
-          id="customer-form-firstName"
-          formControlName="firstName">
-        <utility-input-error-component [control]="form.controls.firstName"></utility-input-error-component>
-      </div>
-      <div class="col-12">
-        <label for="customer-form-lastName">Last name</label>
-        <input
-          beeoclock
-          placeholder="Write last name of customer"
-          id="customer-form-lastName"
-          formControlName="lastName">
-        <utility-input-error-component [control]="form.controls.lastName"></utility-input-error-component>
-      </div>
-      <div class="col-12">
-        <label for="customer-form-email">e-mail</label>
-        <input
-          beeoclock
-          placeholder="Write E-mail of customer"
-          id="customer-form-email"
-          formControlName="email">
-        <utility-input-error-component [control]="form.controls.email"></utility-input-error-component>
-      </div>
-      <div class="col-12">
-        <label for="customer-form-phone">Phone</label>
-        <input
-          beeoclock
-          placeholder="Write phone of customer"
-          id="customer-form-phone"
-          formControlName="phone">
-        <utility-input-error-component [control]="form.controls.phone"></utility-input-error-component>
-      </div>
-      <div class="col-12">
-        <label for="customer-form-note">Note</label>
-        <textarea
-          beeoclock
-          placeholder="Write some notes of customer"
-          id="customer-form-note"
-          formControlName="note"></textarea>
-        <utility-input-error-component [control]="form.controls.note"></utility-input-error-component>
-      </div>
-      <div class="col-12 d-grid">
-        <button
-          beeoclock
-          [disabled]="form.disabled"
-          [showLoader]="form.pending"
-          (click)="save()">Save</button>
-      </div>
-    </form>
-  </utility-body-card-component>
-</utility-card-component>
+<form [formGroup]="form" class="row mt-3">
+  <div class="col-4">
+    <utility-card-component class="border">
+      <utility-header-card-component>
+        Information
+      </utility-header-card-component>
+      <utility-body-card-component>
+        <div class="col-12 position-relative">
+          <label for="customer-form-firstName">First name</label>
+          <input
+            beeoclock
+            hasError
+            placeholder="Write first name of customer"
+            id="customer-form-firstName"
+            formControlName="firstName">
+          <utility-input-error-component [control]="form.controls.firstName"></utility-input-error-component>
+        </div>
+        <div class="col-12">
+          <label for="customer-form-lastName">Last name</label>
+          <input
+            beeoclock
+            placeholder="Write last name of customer"
+            id="customer-form-lastName"
+            formControlName="lastName">
+          <utility-input-error-component [control]="form.controls.lastName"></utility-input-error-component>
+        </div>
+      </utility-body-card-component>
+    </utility-card-component>
+  </div>
+  <div class="col-4 p-lg-0">
+    <utility-card-component class="border">
+      <utility-header-card-component>
+        Contact
+      </utility-header-card-component>
+      <utility-body-card-component>
+        <div class="col-12">
+          <label for="customer-form-email">e-mail</label>
+          <input
+            beeoclock
+            placeholder="Write E-mail of customer"
+            id="customer-form-email"
+            formControlName="email">
+          <utility-input-error-component [control]="form.controls.email"></utility-input-error-component>
+        </div>
+        <div class="col-12">
+          <label for="customer-form-phone">Phone</label>
+          <input
+            beeoclock
+            placeholder="Write phone of customer"
+            id="customer-form-phone"
+            formControlName="phone">
+          <utility-input-error-component [control]="form.controls.phone"></utility-input-error-component>
+        </div>
+      </utility-body-card-component>
+    </utility-card-component>
+  </div>
+  <div class="col-4">
+    <utility-card-component class="border">
+      <utility-header-card-component>
+        Additional
+      </utility-header-card-component>
+      <utility-body-card-component>
+        <div class="col-12">
+          <label for="customer-form-note">Note</label>
+          <textarea
+            beeoclock
+            rows="4"
+            placeholder="Write some notes of customer"
+            id="customer-form-note"
+            formControlName="note"></textarea>
+          <utility-input-error-component [control]="form.controls.note"></utility-input-error-component>
+        </div>
+      </utility-body-card-component>
+    </utility-card-component>
+  </div>
+  <div class="col-12 d-grid mt-3">
+    <button
+      beeoclock
+      [disabled]="form.disabled"
+      [showLoader]="form.pending"
+      (click)="save()">Save</button>
+  </div>
+</form>

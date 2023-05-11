@@ -12,23 +12,25 @@ import {BackLinkComponent} from '@utility/presentation/component/link/back.link.
 import {CustomerRepository} from '@customer/repository/customer.repository';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {ICustomer} from "@customer/domain";
+import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
 
 @Component({
   selector: 'customer-form-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    CardComponent,
-    BodyCardComponent,
-    ReactiveFormsModule,
-    InputDirective,
-    TextareaDirective,
-    ButtonComponent,
-    InputErrorComponent,
-    HasErrorDirective,
-    RouterLink,
-    BackLinkComponent
-  ],
+    imports: [
+        CardComponent,
+        BodyCardComponent,
+        ReactiveFormsModule,
+        InputDirective,
+        TextareaDirective,
+        ButtonComponent,
+        InputErrorComponent,
+        HasErrorDirective,
+        RouterLink,
+        BackLinkComponent,
+        HeaderCardComponent
+    ],
   standalone: true
 })
 export default class Index {
