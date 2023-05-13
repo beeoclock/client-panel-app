@@ -34,13 +34,19 @@
     <th class="sort pe-1 align-middle white-space-nowrap" data-sort="attendees">
       Attendees
     </th>
+    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="attendees">
+      Created at
+    </th>
+    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="attendees">
+      Updated at
+    </th>
   </tr>
   </thead>
   <tbody utility-body-table-component [loader]="repository.loading" [pagination]="repository.pagination">
   <tr class="btn-reveal-trigger" *ngFor="let item of repository.pagination.items">
     <th class="align-middle white-space-nowrap title">
       <a [routerLink]="['details', item._id]">
-        {{ item.title }}
+        {{ item?.services?.[0]?.languageVersions?.[0]?.title ?? item.title }}
       </a>
     </th>
     <td class="align-middle white-space-nowrap start">
@@ -54,6 +60,12 @@
     </td>
     <td class="align-middle white-space-nowrap attendees">
       <i class="bi bi-person-fill"></i>{{ item.attendees.length }}
+    </td>
+    <td class="align-middle white-space-nowrap end">
+      {{ item.createdAt | date: 'hh:mm dd-MM-yyyy' }}
+    </td>
+    <td class="align-middle white-space-nowrap end">
+      {{ item.updatedAt | date: 'hh:mm dd-MM-yyyy' }}
     </td>
   </tr>
   </tbody>

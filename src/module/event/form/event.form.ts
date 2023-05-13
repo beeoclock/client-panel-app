@@ -1,5 +1,6 @@
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import * as Utility from '@utility/domain';
+import {IService} from "@service/domain";
 
 
 export interface IAttendantForm {
@@ -11,7 +12,7 @@ export interface IAttendantForm {
 export interface IEventForm {
   _id: FormControl<string>;
   title: FormControl<string>;
-  services: FormControl<string[]>;
+  services: FormControl<IService[]>;
   description: FormControl<string>;
   start: FormControl<string>;
   end: FormControl<string>;
