@@ -1,4 +1,14 @@
-import {AfterViewInit, Component, inject, Input, TemplateRef, ViewChild, ViewEncapsulation} from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostBinding,
+  inject,
+  Input,
+  TemplateRef,
+  ViewChild,
+  ViewEncapsulation
+} from "@angular/core";
 import {Popover} from "bootstrap";
 import {DOCUMENT} from "@angular/common";
 
@@ -8,6 +18,7 @@ import {DOCUMENT} from "@angular/common";
   standalone: true,
   template: `
     <button
+      #button
       (click)="showPopover()"
       [id]="id"
       type="button"
@@ -26,7 +37,11 @@ export class PopoverComponent implements AfterViewInit {
   @ViewChild('popoverContent', {read: TemplateRef})
   popoverContent!: TemplateRef<any>;
 
+  @ViewChild('button')
+  public button!: ElementRef<HTMLButtonElement>;
+
   @Input()
+  @HostBinding()
   public id = 'utility-popover-btn';
 
   public popover!: Popover;
@@ -51,7 +66,8 @@ export class PopoverComponent implements AfterViewInit {
     if (!content) {
       throw new Error('Content is empty!');
     }
-    this.popover = new Popover(`utility-popover > [id="${this.id}"][data-bs-toggle="popover"]`, {
+    console.log(this.button);
+    this.popover = new Popover(this.button.nativeElement, {
       container: 'body',
       placement: 'bottom',
       trigger: 'manual',

@@ -1,6 +1,6 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {CustomerRepository} from '@customer/repository/customer.repository';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {AsyncPipe, NgIf} from '@angular/common';
 import {exhaustMap, Observable} from 'rxjs';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
@@ -28,7 +28,7 @@ import {PopoverComponent} from "@utility/presentation/component/popover/popover.
               Edit
             </li>
             <li
-              (click)="delete(customer._id)"
+              (click)="repository.delete(customer._id)"
               close-on-self-click
               class="list-group-item list-group-item-action cursor-pointer border-0">
               <i class="bi bi-trash"></i>
@@ -88,20 +88,11 @@ export default class Index {
 
   public readonly repository = inject(CustomerRepository);
   public readonly activatedRoute = inject(ActivatedRoute);
-  public readonly router = inject(Router);
 
   public readonly customer$: Observable<Customer.ICustomer | undefined> = this.activatedRoute.params.pipe(
     exhaustMap(async ({id}) => {
       return (await this.repository.item(id)).data;
     }),
   );
-
-  public delete(id: string): void {
-    this.repository.remove(id).then((result) => {
-      if (result) {
-        this.router.navigate(['/', 'customer']);
-      }
-    });
-  }
 
 }

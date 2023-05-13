@@ -1,8 +1,9 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {EmployeeFirebaseAdapter} from '@employee/adapter/employee.firebase.adapter';
 import {BooleanState, Pagination} from "@utility/domain";
 import * as Customer from "@customer/domain";
 import {FilterForm} from "@employee/form/filter.form";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class EmployeeRepository extends EmployeeFirebaseAdapter {
   public readonly pagination = new Pagination<Customer.ICustomer>();
   public readonly loading = new BooleanState(false);
   public readonly filterForm = new FilterForm();
+  public readonly router = inject(Router);
 
   constructor() {
     super();
@@ -73,6 +75,18 @@ export class EmployeeRepository extends EmployeeFirebaseAdapter {
         this.loading.switchOff();
       });
 
+    });
+  }
+
+  public delete(id: string, refreshList = false): void {
+    this.remove(id).then((result) => {
+      if (result) {
+        if (refreshList) {
+          this.pagination.executeDelegate();
+        } else {
+          this.router.navigate(['/', 'employee']);
+        }
+      }
     });
   }
 }

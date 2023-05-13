@@ -1,8 +1,9 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import * as Service from '@service/domain';
 import {FilterForm} from '@service/form/filter.form';
 import {ServiceFirebaseAdapter} from "@service/adapter/service.firebase.adapter";
 import {BooleanState, Pagination} from "@utility/domain";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class ServiceRepository extends ServiceFirebaseAdapter {
@@ -10,6 +11,7 @@ export class ServiceRepository extends ServiceFirebaseAdapter {
   public readonly pagination = new Pagination<Service.IService>();
   public readonly loading = new BooleanState(false);
   public readonly filterForm = new FilterForm();
+  public readonly router = inject(Router);
 
   constructor() {
     super();
@@ -61,6 +63,18 @@ export class ServiceRepository extends ServiceFirebaseAdapter {
         this.loading.switchOff();
       });
 
+    });
+  }
+
+  public delete(id: string, refreshList = false): void {
+    this.remove(id).then((result) => {
+      if (result) {
+        if (refreshList) {
+          this.pagination.executeDelegate();
+        } else {
+          this.router.navigate(['/', 'service']);
+        }
+      }
     });
   }
 

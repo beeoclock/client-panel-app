@@ -1,6 +1,6 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {ServiceRepository} from '@service/repository/service.repository';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import {exhaustMap, Observable} from 'rxjs';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
@@ -29,7 +29,7 @@ import {PopoverComponent} from "@utility/presentation/component/popover/popover.
               Edit
             </li>
             <li
-              (click)="delete(service._id)"
+              (click)="repository.delete(service._id)"
               close-on-self-click
               class="list-group-item list-group-item-action cursor-pointer border-0">
               <i class="bi bi-trash"></i>
@@ -203,7 +203,6 @@ export default class Index {
 
   public readonly repository = inject(ServiceRepository);
   public readonly activatedRoute = inject(ActivatedRoute);
-  public readonly router = inject(Router);
 
   public readonly service$: Observable<Service.IService | undefined> = this.activatedRoute.params.pipe(
     exhaustMap(async ({id}) => {
@@ -213,14 +212,6 @@ export default class Index {
 
   public languageVersions(languageVersion: any): ILanguageVersion[] {
     return Object.values(languageVersion);
-  }
-
-  public delete(id: string): void {
-    this.repository.remove(id).then((result) => {
-      if (result) {
-        this.router.navigate(['/', 'service']);
-      }
-    });
   }
 
 }

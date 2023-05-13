@@ -21,10 +21,9 @@ export abstract class ListPage implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       if (is.object.not.empty(params)) {
         this.repository.pagination.fromQueryParams(params);
-      } else {
-        this.repository.pagination.executeDelegate();
       }
     });
+    this.repository.pagination.executeDelegate();
   }
 
 }

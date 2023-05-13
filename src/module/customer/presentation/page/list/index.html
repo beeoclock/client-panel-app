@@ -28,6 +28,9 @@
     <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">
       Phone
     </th>
+    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">
+      Action
+    </th>
   </tr>
   </thead>
   <tbody utility-body-table-component [loader]="repository.loading" [pagination]="repository.pagination">
@@ -42,6 +45,34 @@
     </td>
     <td class="align-middle white-space-nowrap email">
       {{ item.phone }}
+    </td>
+    <td>
+      <utility-popover id="table-row-{{ item._id }}">
+        <i button class="bi bi-three-dots-vertical"></i>
+        <ul content class="list-group border-0">
+          <li
+            [routerLink]="['details', item._id]"
+            close-on-self-click
+            class="list-group-item list-group-item-action cursor-pointer border-0">
+            <i class="bi bi-eye"></i>
+            Details
+          </li>
+          <li
+            [routerLink]="['form', item._id]"
+            close-on-self-click
+            class="list-group-item list-group-item-action cursor-pointer border-0">
+            <i class="bi bi-pencil"></i>
+            Edit
+          </li>
+          <li
+            (click)="repository.delete(item._id, true)"
+            close-on-self-click
+            class="list-group-item list-group-item-action cursor-pointer border-0">
+            <i class="bi bi-trash"></i>
+            Delete
+          </li>
+        </ul>
+      </utility-popover>
     </td>
   </tr>
   </tbody>
