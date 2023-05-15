@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {AttendantComponent} from '@event/presentation/component/attendant/attendant.component';
+import {AttendantComponent} from '@event/presentation/component/form/attendant/attendant.component';
 import {NgForOf} from '@angular/common';
 import {AttendeesForm} from '@event/form/event.form';
 
@@ -20,10 +20,12 @@ import {AttendeesForm} from '@event/form/event.form';
       [form]="control">
     </event-attendant-component>
 
-    <button (click)="form.pushNewAttendant()" class="btn btn-primary mt-2">
-      <i class="bi bi-plus-lg"></i>
-      Add new attendant
-    </button>
+    <div class="d-grid">
+      <button (click)="form.pushNewAttendant()" class="btn btn-primary mt-2">
+        <i class="bi bi-plus-lg"></i>
+        Add attendant
+      </button>
+    </div>
   `
 })
 export class AttendeesComponent {

@@ -9,16 +9,18 @@ import {ActivatedRoute, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {EventForm} from '@event/form/event.form';
 import {EventRepository} from '@event/repository/event.repository';
-import {AttendeesComponent} from '@event/presentation/component/attendees/attendees.component';
+import {AttendeesComponent} from '@event/presentation/component/form/attendees/attendees.component';
 import {FlatpickrModule} from 'angularx-flatpickr';
 import {is} from 'thiis';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
-import {LANGUAGES} from '@utility/domain/enum';
 import {IEvent} from "@event/domain";
 import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
-import {ServicesFormComponent} from "@event/presentation/component/services/services.form.component";
+import {ServicesFormComponent} from "@event/presentation/component/form/services/services.form.component";
 import {InputErrorComponent} from "@utility/presentation/component/input-error/input-error.component";
 import {NgSelectModule} from "@ng-select/ng-select";
+import {NgForOf} from "@angular/common";
+import {ModalService} from "@utility/presentation/component/modal/services/modal/modal.service";
+import {ServiceComponent} from "@event/presentation/component/form/service/service.component";
 
 @Component({
   selector: 'event-form-page',
@@ -40,7 +42,8 @@ import {NgSelectModule} from "@ng-select/ng-select";
     HeaderCardComponent,
     ServicesFormComponent,
     InputErrorComponent,
-    NgSelectModule
+    NgSelectModule,
+    NgForOf
   ],
   standalone: true
 })
@@ -49,11 +52,10 @@ export default class Index {
   public url = ['../'];
 
   public readonly activatedRoute = inject(ActivatedRoute);
+  public readonly modalService = inject(ModalService);
 
   public readonly form = new EventForm();
   private readonly repository = inject(EventRepository);
-
-  public readonly languageList = LANGUAGES;
 
   constructor() {
     this.activatedRoute.params.subscribe(({id}) => {
@@ -112,4 +114,25 @@ export default class Index {
         });
     }
   }
+
+  public openServiceModal(): void {
+    this.modalService.create([{
+      component: ServiceComponent,
+      data: {}
+    }], {
+      buttons: [],
+      fixHeight: false,
+      title: 'Add new service'
+    }).then((modal) => {
+      console.log(modal);
+      const serviceComponent = modal.instance.componentChildRefList[0].instance as unknown as ServiceComponent;
+      serviceComponent.emitter.subscribe((event) => {
+        console.log('event', event);
+        this.form.controls.services.patchValue([...(this.form.controls.services.value ?? []), event])
+        modal.instance.closeModal();
+      });
+      return modal;
+    });
+  }
+
 }

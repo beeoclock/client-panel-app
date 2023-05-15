@@ -25,7 +25,8 @@ import {IService} from "@service/domain";
         id="event-form-services"
         placeholder="Select service or list of services"
         (scrollToEnd)="scrollToEnd($event)"
-        [multiple]="true"
+        [loading]="control.pending"
+        [multiple]="multiple"
         [formControl]="control">
         <ng-option *ngFor="let item of items" [value]="item">
           {{item.languageVersions[0].title}}
@@ -40,15 +41,20 @@ export class ServicesFormComponent implements OnInit {
   @Input()
   public control = new FormControl();
 
+  @Input()
+  public multiple = false;
+
   public readonly serviceRepository = inject(ServiceRepository);
 
   public items: IService[] = [];
 
   public ngOnInit(): void {
+    this.control.markAsPending();
     this.serviceRepository
       .list(10, 1, 'createdAt', 'asc', {})
       .then((result) => {
         this.items = result.data.items;
+        this.control.updateValueAndValidity();
       });
 
   }

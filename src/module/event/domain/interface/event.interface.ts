@@ -1,9 +1,7 @@
-import * as Utility from '@utility/domain';
 import {IService} from "@service/domain";
 
 export interface IEvent {
   _id: string;
-  title: string;
   services: IService[];
   description: string;
   start: string;
@@ -13,5 +11,4 @@ export interface IEvent {
   attendees: {
     email: string;
   }[];
-  languageCodes: Utility.Enum.LanguageCodeEnum[];
 }

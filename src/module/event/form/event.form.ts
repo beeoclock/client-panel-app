@@ -1,5 +1,4 @@
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import * as Utility from '@utility/domain';
 import {IService} from "@service/domain";
 
 
@@ -11,13 +10,11 @@ export interface IAttendantForm {
 
 export interface IEventForm {
   _id: FormControl<string>;
-  title: FormControl<string>;
   services: FormControl<IService[]>;
   description: FormControl<string>;
   start: FormControl<string>;
   end: FormControl<string>;
   attendees: AttendeesForm;
-  languageCodes: FormControl<Utility.Enum.LanguageCodeEnum[]>;
 
   [key: string]: AbstractControl<any, any>;
 }
@@ -31,9 +28,7 @@ export class EventForm extends FormGroup<IEventForm> {
       end: new FormControl(),
       start: new FormControl(),
       services: new FormControl(),
-      title: new FormControl(),
       attendees: new AttendeesForm(),
-      languageCodes: new FormControl()
     });
     this.initValidators();
     this.initValue();
@@ -48,8 +43,6 @@ export class EventForm extends FormGroup<IEventForm> {
   public initValue(): void {
     this.controls.end.patchValue(new Date().toISOString());
     this.controls.start.patchValue(new Date().toISOString());
-
-    this.controls.languageCodes.patchValue([Utility.Enum.LanguageCodeEnum.en]);
   }
 
 }

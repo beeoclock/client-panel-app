@@ -1,26 +1,9 @@
 <utility-back-link-component [url]="url"></utility-back-link-component>
 
-<form [formGroup]="form" class="row mt-3">
-  <div class="col-12 mb-3">
+<form [formGroup]="form" class="row">
+  <div class="col-6 mt-3">
     <utility-card-component>
       <utility-body-card-component>
-        <event-services-form-component [control]="form.controls.services"></event-services-form-component>
-      </utility-body-card-component>
-    </utility-card-component>
-  </div>
-  <div class="col-6">
-    <utility-card-component>
-      <utility-body-card-component>
-        <div class="col-12 position-relative">
-          <label for="event-form-title">Title</label>
-          <input
-            beeoclock
-            hasError
-            placeholder="Write title of event"
-            id="event-form-title"
-            formControlName="title">
-          <utility-input-error-component [control]="form.controls.title"></utility-input-error-component>
-        </div>
         <div class="col-12">
           <div class="row">
             <div class="col-md-6 position-relative">
@@ -59,21 +42,46 @@
             </div>
           </div>
         </div>
-        <div class="col-12 position-relative">
-          <label for="event-form-languages">Languages</label>
-          <ng-select [items]="languageList"
-                     [multiple]="true"
-                     id="event-form-languages"
-                     bindLabel="name"
-                     bindValue="code"
-                     formControlName="languageCodes">
-          </ng-select>
-          <utility-input-error-component [control]="form.controls.languageCodes"></utility-input-error-component>
+      </utility-body-card-component>
+    </utility-card-component>
+  </div>
+  <div class="col-6 mt-3">
+    <utility-card-component>
+      <utility-header-card-component>
+        Services
+      </utility-header-card-component>
+      <utility-body-card-component>
+        <div *ngFor="let service of form.controls.services.value" class="card border rounded-4 shadow-none mb-4">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div class="d-flex w-100 justify-content-between">
+                <small>{{service.languageVersions[0].language}}</small>
+              </div>
+              <p class="mb-1">{{service.languageVersions[0].title}}</p>
+            </li>
+            <li class="list-group-item">Duration: {{ service.durationVersions[0].duration }} minut</li>
+            <li class="list-group-item">
+              Price: {{ service.durationVersions[0].prices[0].price }} {{ service.durationVersions[0].prices[0].currency }}</li>
+          </ul>
+          <div class="card-body">
+            <a href="#" class="card-link">Go to service</a>
+            <a href="#" class="card-link text-warning">Change</a>
+            <a href="#" class="card-link text-danger">Delete</a>
+          </div>
+        </div>
+        <div class="d-grid">
+          <button
+            beeoclock
+            [disabled]="form.disabled"
+            [showLoader]="form.pending"
+            (click)="openServiceModal()">
+            Add service
+          </button>
         </div>
       </utility-body-card-component>
     </utility-card-component>
   </div>
-  <div class="col-6">
+  <div class="col-6 mt-3">
     <utility-card-component>
       <utility-header-card-component>
         Additional
