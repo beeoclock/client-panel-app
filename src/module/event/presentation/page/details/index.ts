@@ -42,20 +42,12 @@ import {PopoverComponent} from "@utility/presentation/component/popover/popover.
           <h5>Event</h5>
           <ul class="list-group">
             <li class="list-group-item">
-              <strong>Title:</strong>
-              <p class="m-0">{{ event.title }}</p>
-            </li>
-            <li class="list-group-item">
               <strong>Start:</strong>
               <p class="m-0">{{ event.start }}</p>
             </li>
             <li class="list-group-item">
               <strong>End:</strong>
               <p class="m-0">{{ event.end }}</p>
-            </li>
-            <li class="list-group-item">
-              <strong>Languages:</strong>
-              <p class="m-0">{{ event.languageCodes.join(', ') }}</p>
             </li>
             <li class="list-group-item">
               <strong>Description:</strong>
