@@ -65,6 +65,12 @@
               "namedChunks": true
             },
             "emulator": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
               "fileReplacements": [
                 {
                   "replace": "src/environment/environment.ts",
@@ -74,6 +80,12 @@
               "outputHashing": "all"
             },
             "emulator-authorization": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
               "fileReplacements": [
                 {
                   "replace": "src/environment/environment.ts",
@@ -83,6 +95,12 @@
               "outputHashing": "all"
             },
             "emulator-functions": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
               "fileReplacements": [
                 {
                   "replace": "src/environment/environment.ts",
