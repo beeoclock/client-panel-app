@@ -66,7 +66,6 @@ export class PopoverComponent implements AfterViewInit {
     if (!content) {
       throw new Error('Content is empty!');
     }
-    console.log(this.button);
     this.popover = new Popover(this.button.nativeElement, {
       container: 'body',
       placement: 'bottom',
