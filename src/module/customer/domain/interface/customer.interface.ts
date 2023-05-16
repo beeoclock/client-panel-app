@@ -5,4 +5,6 @@ export interface ICustomer {
   phone: string;
   email: string;
   note: string;
+  createdAt: string;
+  updatedAt: string;
 }

@@ -1,16 +1,16 @@
 import {inject, Injectable} from '@angular/core';
 import {EmployeeFirebaseAdapter} from '@employee/adapter/employee.firebase.adapter';
 import {BooleanState, Pagination} from "@utility/domain";
-import * as Customer from "@customer/domain";
 import {FilterForm} from "@employee/form/filter.form";
 import {Router} from "@angular/router";
+import {IEmployee} from "@employee/domain";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeRepository extends EmployeeFirebaseAdapter {
 
-  public readonly pagination = new Pagination<Customer.ICustomer>();
+  public readonly pagination = new Pagination<IEmployee>();
   public readonly loading = new BooleanState(false);
   public readonly filterForm = new FilterForm();
   public readonly router = inject(Router);

@@ -21,23 +21,23 @@ import {PopoverComponent} from "@utility/presentation/component/popover/popover.
   selector: 'service-list-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-    imports: [
-        CardComponent,
-        BodyCardComponent,
-        RouterLink,
-        ButtonComponent,
-        TableComponent,
-        HeaderTableComponent,
-        BodyTableComponent,
-        PaginationComponent,
-        NgForOf,
-        DatePipe,
-        FilterComponent,
-        AsyncPipe,
-        NgIf,
-        SpinnerComponent,
-        PopoverComponent
-    ],
+  imports: [
+    CardComponent,
+    BodyCardComponent,
+    RouterLink,
+    ButtonComponent,
+    TableComponent,
+    HeaderTableComponent,
+    BodyTableComponent,
+    PaginationComponent,
+    NgForOf,
+    DatePipe,
+    FilterComponent,
+    AsyncPipe,
+    NgIf,
+    SpinnerComponent,
+    PopoverComponent
+  ],
   providers: [
     ServiceRepository
   ],
@@ -59,4 +59,5 @@ export default class Index extends ListPage {
   public getLanguageCodes(languageVersions: ILanguageVersion[] = []): string {
     return languageVersions.map(({language}) => LANGUAGES.find(({code}) => code === language)?.name ?? '').join(', ');
   }
+
 }

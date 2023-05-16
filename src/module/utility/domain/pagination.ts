@@ -139,7 +139,11 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
   }
 
   public setOrderBy(orderBy: string): this {
-    this.orderBy = orderBy;
+    if (this.orderBy === orderBy) {
+      this.orderDir = this.orderDir === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.orderBy = orderBy;
+    }
     this.executeDelegate();
     return this;
   }

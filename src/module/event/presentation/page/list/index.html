@@ -22,17 +22,33 @@
     <th class="sort pe-1 align-middle white-space-nowrap desc" data-sort="title">
       Attendees
     </th>
-    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="start">
+    <th class="sort pe-1 align-middle white-space-nowrap cursor-pointer" (click)="repository.pagination.setOrderBy('start')">
       Start
+      <i class="bi"
+         *ngIf="repository.pagination.orderBy === 'start'"
+         [class.bi-sort-alpha-down]="repository.pagination.orderDir === 'asc'"
+         [class.bi-sort-alpha-up]="repository.pagination.orderDir === 'desc'"></i>
     </th>
-    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="end">
+    <th class="sort pe-1 align-middle white-space-nowrap cursor-pointer" (click)="repository.pagination.setOrderBy('end')">
       End
+      <i class="bi"
+         *ngIf="repository.pagination.orderBy === 'end'"
+         [class.bi-sort-alpha-down]="repository.pagination.orderDir === 'asc'"
+         [class.bi-sort-alpha-up]="repository.pagination.orderDir === 'desc'"></i>
     </th>
-    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="attendees">
+    <th class="sort pe-1 align-middle white-space-nowrap cursor-pointer" (click)="repository.pagination.setOrderBy('createdAt')">
       Created at
+      <i class="bi"
+         *ngIf="repository.pagination.orderBy === 'createdAt'"
+         [class.bi-sort-alpha-down]="repository.pagination.orderDir === 'asc'"
+         [class.bi-sort-alpha-up]="repository.pagination.orderDir === 'desc'"></i>
     </th>
-    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="attendees">
+    <th class="sort pe-1 align-middle white-space-nowrap cursor-pointer" (click)="repository.pagination.setOrderBy('updatedAt')">
       Updated at
+      <i class="bi"
+         *ngIf="repository.pagination.orderBy === 'updatedAt'"
+         [class.bi-sort-alpha-down]="repository.pagination.orderDir === 'asc'"
+         [class.bi-sort-alpha-up]="repository.pagination.orderDir === 'desc'"></i>
     </th>
     <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">
       Action
@@ -88,4 +104,4 @@
   </tr>
   </tbody>
 </utility-table-component>
-<utility-pagination-component></utility-pagination-component>
+<utility-pagination-component [pagination]="repository.pagination"></utility-pagination-component>

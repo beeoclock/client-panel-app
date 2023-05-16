@@ -8,7 +8,7 @@ import {TableComponent} from '@utility/presentation/component/table/table.compon
 import {HeaderTableComponent} from '@utility/presentation/component/table/header.table.component';
 import {BodyTableComponent} from '@utility/presentation/component/table/body.table.component';
 import {PaginationComponent} from '@utility/presentation/component/pagination/pagination.component';
-import {DatePipe, NgForOf} from '@angular/common';
+import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {ListPage} from "@utility/list.page";
 import {EmployeeRepository} from "@employee/repository/employee.repository";
 import {FilterComponent} from "@employee/presentation/component/filter/filter.component";
@@ -31,7 +31,8 @@ import {PopoverComponent} from "@utility/presentation/component/popover/popover.
     NgForOf,
     DatePipe,
     FilterComponent,
-    PopoverComponent
+    PopoverComponent,
+    NgIf
   ],
   standalone: true
 })

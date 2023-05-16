@@ -8,7 +8,7 @@ import {TableComponent} from '@utility/presentation/component/table/table.compon
 import {HeaderTableComponent} from '@utility/presentation/component/table/header.table.component';
 import {BodyTableComponent} from '@utility/presentation/component/table/body.table.component';
 import {PaginationComponent} from '@utility/presentation/component/pagination/pagination.component';
-import {NgForOf} from '@angular/common';
+import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {ListPage} from "@utility/list.page";
 import {CustomerRepository} from "@customer/repository/customer.repository";
 import {FilterComponent} from "@customer/presentation/component/filter/filter.component";
@@ -18,20 +18,22 @@ import {PopoverComponent} from "@utility/presentation/component/popover/popover.
   selector: 'customer-list-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-    imports: [
-        ExampleTableComponent,
-        CardComponent,
-        BodyCardComponent,
-        RouterLink,
-        ButtonComponent,
-        TableComponent,
-        HeaderTableComponent,
-        BodyTableComponent,
-        PaginationComponent,
-        NgForOf,
-        FilterComponent,
-        PopoverComponent
-    ],
+  imports: [
+    ExampleTableComponent,
+    CardComponent,
+    BodyCardComponent,
+    RouterLink,
+    ButtonComponent,
+    TableComponent,
+    HeaderTableComponent,
+    BodyTableComponent,
+    PaginationComponent,
+    NgForOf,
+    FilterComponent,
+    PopoverComponent,
+    DatePipe,
+    NgIf
+  ],
   standalone: true
 })
 export default class Index extends ListPage {
