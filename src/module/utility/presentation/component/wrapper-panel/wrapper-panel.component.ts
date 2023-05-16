@@ -16,7 +16,6 @@ import {StreamToastComponent} from '@utility/presentation/component/toast/stream
         <div class="content">
           <utility-navbar-component></utility-navbar-component>
           <router-outlet></router-outlet>
-          <utility-footer-component></utility-footer-component>
         </div>
         <utility-stream-toast-component></utility-stream-toast-component>
       </div>

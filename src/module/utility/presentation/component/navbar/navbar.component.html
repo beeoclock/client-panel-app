@@ -1,7 +1,7 @@
 <button aria-controls="navbarVerticalCollapse"
         aria-expanded="false"
         aria-label="Toggle Navigation"
-        class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3"
+        class="btn navbar-toggler-humburger-icon navbar-toggler ms-0 me-3"
         data-bs-target="#navbarVerticalCollapse"
         data-bs-toggle="collapse"
         type="button">
@@ -9,13 +9,27 @@
     <span class="toggle-line"></span>
   </span>
 </button>
-<!--<ul class="navbar-nav align-items-center d-none d-lg-block">-->
-<!--  <li class="nav-item">-->
-<!--    <utility-search-component></utility-search-component>-->
-<!--  </li>-->
-<!--</ul>-->
+<ul class="navbar-nav align-items-center">
+  <li class="border d-flex flex-column nav-item px-3 py-2 rounded-3 small bg-200">
+      <div class="d-flex">
+        <div class="me-3">
+          <i class="bi bi-patch-check"
+             data-bs-toggle="tooltip"
+             [attr.data-bs-title]="auth?.currentUser?.emailVerified ? 'E-mail address is verified!' : 'Check you E-mail to verify your E-mail address!'"
+             [class.text-warning]="!auth?.currentUser?.emailVerified"
+             [class.text-success]="auth?.currentUser?.emailVerified"></i>
+        </div>
+        <div class="text-truncate" style="max-width: 200px;">
+          {{ auth?.currentUser?.email }}
+        </div>
+<!--        <div class="ms-3">-->
+<!--          <i class="bi bi-chevron-down"></i>-->
+<!--        </div>-->
+      </div>
+  </li>
+</ul>
 <ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center">
-  <li class="nav-item dropdown">
+  <li class="nav-item dropdown ps-lg-3">
     <utility-notification-component></utility-notification-component>
   </li>
 </ul>

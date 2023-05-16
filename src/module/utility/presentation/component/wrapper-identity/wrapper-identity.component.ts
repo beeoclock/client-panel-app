@@ -20,8 +20,8 @@ import {StreamToastComponent} from '@utility/presentation/component/toast/stream
 })
 export default class WrapperIdentityComponent {
 
-  private readonly router: Router = inject(Router);
-  private readonly auth: Auth = inject(Auth);
+  private readonly router = inject(Router);
+  private readonly auth = inject(Auth);
 
   constructor() {
     this.auth.onAuthStateChanged((user) => {

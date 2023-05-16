@@ -11,6 +11,8 @@ import * as Service from '@service/domain';
 import {ILanguageVersion} from '@service/domain';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {PopoverComponent} from "@utility/presentation/component/popover/popover.component";
+import {LanguagePipe} from "@utility/pipes/language.pipe";
+import {WeekDayPipe} from "@utility/pipes/week-day.pipe";
 
 @Component({
   selector: 'service-detail-page',
@@ -38,142 +40,176 @@ import {PopoverComponent} from "@utility/presentation/component/popover/popover.
           </ul>
         </utility-popover>
       </div>
-      <utility-card-component class="mt-3">
-        <utility-body-card-component>
-          <strong>languageVersions</strong>
-          <ul *ngFor="let languageVersion of languageVersions(service.languageVersions)" class="list-group mt-4">
-            <li class="list-group-item">
-              <strong>Language:</strong>
-              <p class="m-0">{{ languageVersion.language }}</p>
-            </li>
-            <li class="list-group-item">
-              <strong>Title:</strong>
-              <p class="m-0">{{ languageVersion.title }}</p>
-            </li>
-            <li class="list-group-item">
-              <strong>Description:</strong>
-              <p class="m-0">{{ languageVersion.description }}</p>
-            </li>
-            <li class="list-group-item">
-              <strong>Active:</strong>
-              <p class="m-0">{{ languageVersion.active }}</p>
-            </li>
-          </ul>
-        </utility-body-card-component>
-      </utility-card-component>
-      <utility-card-component class="mt-3">
-        <utility-body-card-component>
-          <strong>schedules</strong>
-          <ul *ngFor="let schedule of service.schedules" class="list-group">
-            <li class="list-group-item">
-              <strong>startTime:</strong>
-              <p class="m-0">{{ schedule.startTime }}</p>
-            </li>
-            <li class="list-group-item">
-              <strong>startTime:</strong>
-              <p class="m-0">{{ schedule.startTime }}</p>
-            </li>
-            <li class="list-group-item">
-              <strong>workDays:</strong>
-              <p class="m-0">{{ schedule.workDays?.join(', ') }}</p>
-            </li>
-          </ul>
-        </utility-body-card-component>
-      </utility-card-component>
-      <utility-card-component class="mt-3">
-        <utility-body-card-component>
-          <strong>durationVersions</strong>
-          <ul *ngFor="let durationVersion of service.durationVersions" class="list-group">
-            <li class="list-group-item">
-              <strong>Duration:</strong>
-              <p class="m-0">{{ durationVersion.duration }}</p>
-            </li>
-            <li class="list-group-item">
-              <strong>Title:</strong>
-              <p class="m-0">{{ durationVersion.break }}</p>
-            </li>
-            <li class="list-group-item">
-              <strong>Active:</strong>
-              <p class="m-0">{{ durationVersion.active }}</p>
-            </li>
-            <li class="list-group-item">
-              <strong>Prices:</strong>
+      <div class="row">
+        <div class="col-md-8">
 
-              <ul *ngFor="let price of durationVersion.prices" class="list-group">
-                <li class="list-group-item">
-                  <strong>price:</strong>
-                  <p class="m-0">{{ price.price }}</p>
-                </li>
-                <li class="list-group-item">
-                  <strong>currency:</strong>
-                  <p class="m-0">{{ price.currency }}</p>
-                </li>
-                <li class="list-group-item">
-                  <strong>preferredLanguages:</strong>
-                  <p class="m-0">{{ price.preferredLanguages?.join(', ') }}</p>
+          <utility-card-component class="mt-3 border">
+            <utility-body-card-component>
+              <strong>languageVersions</strong>
+            </utility-body-card-component>
+          </utility-card-component>
+          <utility-card-component class="mt-3"
+                                  *ngFor="let languageVersion of languageVersions(service.languageVersions)">
+            <utility-body-card-component class="p-0">
+              <ul class="list-group">
+                <li class="list-group-item" aria-current="true">
+                  <div class="d-flex w-100 justify-content-between">
+                    <small class="mb-1">
+                      {{ languageVersion.language | language }}
+                    </small>
+                    <small
+                      [class.text-danger]="!languageVersion.active"
+                      [class.text-success]="languageVersion.active">
+                      {{ languageVersion.active ? 'active' : 'Inactive' }}
+                    </small>
+                  </div>
+                  <p class="mb-1">{{ languageVersion.title }}</p>
+                  <small>{{ languageVersion.description }}</small>
                 </li>
               </ul>
-            </li>
-          </ul>
-        </utility-body-card-component>
-      </utility-card-component>
-      <utility-card-component class="mt-3">
-        <utility-body-card-component>
-          <strong>configuration</strong>
-          <ul class="list-group">
-            <li class="list-group-item">
-              <strong>earliestDateTime:</strong>
-              <p class="m-0">{{ service.configuration.earliestDateTime }}</p>
-            </li>
-            <li class="list-group-item">
-              <strong>latestDateTime:</strong>
-              <p class="m-0">{{ service.configuration.latestDateTime }}</p>
-            </li>
-          </ul>
-        </utility-body-card-component>
-      </utility-card-component>
-      <utility-card-component class="mt-3">
-        <utility-body-card-component>
-          <strong>prepaymentPolicy</strong>
-          <ul class="list-group">
-            <li class="list-group-item">
-              <strong>isRequired:</strong>
-              <p class="m-0">{{ service.prepaymentPolicy.isRequired }}</p>
-            </li>
-            <li class="list-group-item">
-              <strong>isPercentage:</strong>
-              <p class="m-0">{{ service.prepaymentPolicy.isPercentage }}</p>
-            </li>
-            <li class="list-group-item">
-              <strong>value:</strong>
-              <p class="m-0">{{ service.prepaymentPolicy.value }}</p>
-            </li>
-            <li class="list-group-item">
-              <strong>minimalCancelTime:</strong>
-              <p class="m-0">{{ service.prepaymentPolicy.minimalCancelTime }}</p>
-            </li>
-          </ul>
-        </utility-body-card-component>
-      </utility-card-component>
-      <utility-card-component class="mt-3">
-        <utility-body-card-component>
-          <strong>service</strong>
-          <ul class="list-group">
-            <li class="list-group-item">
-              <strong>Active:</strong>
-              <p class="m-0">{{ service.active }}</p>
-            </li>
-            <li class="list-group-item">
-              <strong>Created at:</strong>
-              <p class="m-0">{{ service.createdAt }}</p>
-            </li>
-            <li class="list-group-item">
-              <strong>Update at:</strong>
-              <p class="m-0">{{ service.updatedAt }}</p>
-            </li>
-          </ul>
-        </utility-body-card-component>
-      </utility-card-component>
+            </utility-body-card-component>
+          </utility-card-component>
+          <utility-card-component class="mt-3 border">
+            <utility-body-card-component>
+              <strong>schedules</strong>
+            </utility-body-card-component>
+          </utility-card-component>
+          <utility-card-component *ngFor="let schedule of service.schedules" class="mt-3">
+            <utility-body-card-component class="p-0">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <strong>startTime:</strong>
+                  <p class="m-0">{{ schedule.startTime }}</p>
+                </li>
+                <li class="list-group-item">
+                  <strong>startTime:</strong>
+                  <p class="m-0">{{ schedule.startTime }}</p>
+                </li>
+                <li class="list-group-item">
+                  <strong>workDays:</strong>
+                  <p class="m-0">
+                    <span
+                      *ngFor="let indexOfDay of schedule.workDays; let index = index">{{ index > 0 && index < (schedule?.workDays?.length ?? 0) ? ', ' : '' }}{{ indexOfDay | weekDay }}</span>
+                  </p>
+                </li>
+              </ul>
+            </utility-body-card-component>
+          </utility-card-component>
+          <utility-card-component class="mt-3 border">
+            <utility-body-card-component>
+              <strong>durationVersions</strong>
+            </utility-body-card-component>
+          </utility-card-component>
+          <utility-card-component *ngFor="let durationVersion of service.durationVersions" class="mt-3">
+            <utility-body-card-component class="p-0">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <strong>Duration:</strong>
+                  <p class="m-0">{{ durationVersion.duration }} minute</p>
+                </li>
+                <li class="list-group-item">
+                  <strong>Brake:</strong>
+                  <p class="m-0">{{ durationVersion.break }} minute</p>
+                </li>
+                <li class="list-group-item">
+                  <strong>Prices:</strong>
+
+                  <ul *ngFor="let price of durationVersion.prices" class="list-group my-2">
+
+                    <li class="list-group-item d-flex align-items-center justify-content-between"
+                        aria-current="true">
+                      <div>
+                        <small class="mb-1">
+                          Preferred Languages:
+                        </small>
+                        <p class="mb-1">
+                          <span
+                            *ngFor="let languageCode of price.preferredLanguages; let index = index">{{ index > 0 && index < (price?.preferredLanguages?.length ?? 0) ? ', ' : '' }}{{ languageCode | language }}</span>
+                        </p>
+                      </div>
+                      <h5 class="m-0">
+                        {{ price.price }}&nbsp;{{ price.currency }}
+                      </h5>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </utility-body-card-component>
+          </utility-card-component>
+        </div>
+        <div class="col-md-4">
+          <utility-card-component class="mt-3 border">
+            <utility-body-card-component>
+              <strong>configuration</strong>
+            </utility-body-card-component>
+          </utility-card-component>
+          <utility-card-component class="mt-3">
+            <utility-body-card-component class="p-0">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <strong>earliestDateTime:</strong>
+                  <p class="m-0">{{ service.configuration.earliestDateTime }}</p>
+                </li>
+                <li class="list-group-item">
+                  <strong>latestDateTime:</strong>
+                  <p class="m-0">{{ service.configuration.latestDateTime }}</p>
+                </li>
+              </ul>
+            </utility-body-card-component>
+          </utility-card-component>
+          <utility-card-component class="mt-3 border">
+            <utility-body-card-component>
+              <strong>Prepayment Policy</strong>
+            </utility-body-card-component>
+          </utility-card-component>
+          <utility-card-component class="mt-3">
+            <utility-body-card-component class="p-0">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <strong>isRequired:</strong>
+                  <p class="m-0">{{ service.prepaymentPolicy.isRequired }}</p>
+                </li>
+                <li class="list-group-item">
+                  <strong>isPercentage:</strong>
+                  <p class="m-0">{{ service.prepaymentPolicy.isPercentage }}</p>
+                </li>
+                <li class="list-group-item">
+                  <strong>value:</strong>
+                  <p class="m-0">{{ service.prepaymentPolicy.value }}</p>
+                </li>
+                <li class="list-group-item">
+                  <strong>minimalCancelTime:</strong>
+                  <p class="m-0">{{ service.prepaymentPolicy.minimalCancelTime }}</p>
+                </li>
+              </ul>
+            </utility-body-card-component>
+          </utility-card-component>
+          <utility-card-component class="mt-3 border">
+            <utility-body-card-component>
+              <strong>Service</strong>
+            </utility-body-card-component>
+          </utility-card-component>
+          <utility-card-component class="mt-3">
+            <utility-body-card-component class="p-0">
+              <strong></strong>
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <strong>Active:</strong>
+                  <p class="m-0">{{ service.active }}</p>
+                </li>
+                <li class="list-group-item">
+                  <strong>Created at:</strong>
+                  <p class="m-0">{{ service.createdAt }}</p>
+                </li>
+                <li class="list-group-item">
+                  <strong>Update at:</strong>
+                  <p class="m-0">{{ service.updatedAt }}</p>
+                </li>
+              </ul>
+            </utility-body-card-component>
+          </utility-card-component>
+        </div>
+      </div>
     </ng-container>
     <ng-template #LoadingTemplate>
       <div spinner></div>
@@ -192,7 +228,9 @@ import {PopoverComponent} from "@utility/presentation/component/popover/popover.
     ButtonComponent,
     RouterLink,
     NgForOf,
-    PopoverComponent
+    PopoverComponent,
+    LanguagePipe,
+    WeekDayPipe
   ],
   providers: [
     ServiceRepository,

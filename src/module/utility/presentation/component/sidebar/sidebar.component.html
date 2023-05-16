@@ -1,9 +1,14 @@
 <div class="d-flex align-items-center">
   <div class="toggle-icon-wrapper">
 
-    <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-bs-placement="left"
-            data-bs-toggle="tooltip" title="Toggle Navigation"><span class="navbar-toggle-icon"><span
-      class="toggle-line"></span></span></button>
+    <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle"
+            data-bs-placement="left"
+            data-bs-toggle="tooltip"
+            title="Toggle Navigation">
+      <span class="navbar-toggle-icon">
+        <span class="toggle-line"></span>
+      </span>
+    </button>
 
   </div>
   <a class="navbar-brand" routerLink="/">
@@ -12,12 +17,13 @@
       <!--      <img alt=""-->
       <!--           class="me-2"-->
       <!--           src="asset/img/logo.png" width="40"/>-->
-      <span class="font-sans-serif">Bee O`clock</span>
+<!--      <span class="font-sans-serif">Bee O`clock</span>-->
+      <span class="font-sans-serif">&nbsp;</span>
     </div>
   </a>
 </div>
 <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
-  <div class="navbar-vertical-content scrollbar">
+  <div class="navbar-vertical-content scrollbar pt-0">
     <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
       <li *ngFor="let group of menu">
         <!-- label-->
@@ -36,7 +42,7 @@
            class="nav-link border"
            role="button"
            [routerLinkActiveOptions]="item.routerLinkActiveOptions"
-           routerLinkActive="active">
+           [routerLinkActive]="['active']">
           <div class="d-flex align-items-center">
             <span class="nav-link-icon">
               <span [class]="item.icon"></span>
@@ -44,6 +50,9 @@
             <span class="nav-link-text ps-1">{{ item.label }}</span>
           </div>
         </a>
+      </li>
+      <li class="mt-4 text-body-tertiary text-center">
+        Bee O`clock
       </li>
     </ul>
   </div>

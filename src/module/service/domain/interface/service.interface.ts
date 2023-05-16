@@ -36,7 +36,6 @@ export interface IPrice {
 
 export interface IDurationVersion {
   break: number;
-  active: ActiveEnum;
   duration: number;
   prices: IPrice[];
 }

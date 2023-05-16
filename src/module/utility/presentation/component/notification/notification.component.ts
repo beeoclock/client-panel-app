@@ -114,6 +114,11 @@ export class NotificationComponent implements AfterViewInit {
   public dropdown: undefined | Dropdown;
 
   public ngAfterViewInit(): void {
-    this.dropdown = new Dropdown('utility-notification-component > [data-bs-toggle="dropdown"]', {})
+    this.dropdown = new Dropdown('utility-notification-component > [data-bs-toggle="dropdown"]', {
+      display: 'dynamic',
+      popperConfig: {
+        placement: 'bottom-end'
+      }
+    })
   }
 }
