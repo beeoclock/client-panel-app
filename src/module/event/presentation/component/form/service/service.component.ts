@@ -82,6 +82,7 @@ export class ServiceComponent {
     // TODO takeUntil
     this.control.valueChanges.subscribe((service) => {
       console.log(service);
+      this.resetSelectedItems();
     });
     if (this.editItem) {
       this.control.setValue(this.editItem);
@@ -121,4 +122,11 @@ export class ServiceComponent {
     });
     this.emitter.emit(this.selectedService);
   }
+
+  public resetSelectedItems(): void {
+    this.selectedPrice = undefined;
+    this.selectedLanguageVersion = undefined;
+    this.selectedDurationVersion = undefined;
+  }
+
 }

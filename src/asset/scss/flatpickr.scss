@@ -1,9 +1,55 @@
 .flatpickr-calendar {
   background-color: white !important;
+
+  &::before {
+    display: none !important;
+  }
+
+  &::after {
+    display: none !important;
+  }
+}
+
+.flatpickr-day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @include color-mode(dark) {
   .flatpickr-calendar {
-    background-color: #232e3c !important;
+    background-color: #1e1e1e !important;
+  }
+  .flatpickr-day {
+    color: #a8a8a8;
+
+    &:hover {
+      background: #282828;
+      border-color: #333333;
+    }
+
+    &.nextMonthDay {
+      color: #707070;
+
+      &:hover {
+        background: #282828;
+        border-color: #333333;
+      }
+    }
+
+    &.prevMonthDay {
+      color: #707070;
+
+      &:hover {
+        background: #282828;
+        border-color: #333333;
+      }
+    }
+  }
+  .flatpickr-months .flatpickr-prev-month, .flatpickr-months .flatpickr-next-month {
+    color: #a8a8a8;
+  }
+  .flatpickr-time input {
+    color: #a8a8a8;
   }
 }

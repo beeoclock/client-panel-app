@@ -94,23 +94,23 @@ body {
 
   //List of options
   .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
-    background-color: #121e2e;
+    background-color: #1e1e1e;
     color: #9da9bb;
-    border-color: #1e2938;
+    border-color: #373737;
   }
 
   //Not selected searchable input
   .ng-select .ng-select-container {
     background-color: #0b1727;
     color: #9da9bb;
-    border-color: #344050;
+    border-color: #373737;
   }
 
   //Selected/Opened searchable input
   .ng-select.ng-select-opened > .ng-select-container {
     background-color: #0b1727;
     color: #9da9bb;
-    border-color: #344050;
+    border-color: #373737;
   }
 
   //Searchable input placeholder
@@ -122,21 +122,21 @@ body {
   .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked,
   .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected,
   .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked.ng-option.ng-option-selected {
-    background-color: #1e2938;
+    background-color: #141414;
     color: #9da9bb;
-    border-color: #121e2e;
+    border-color: #373737;
   }
 
   //Dropdown and searchable input separator border
   .ng-dropdown-panel.ng-select-bottom, .ng-dropdown-panel.ng-select-top {
-    border-color: #344050;
+    border-color: #373737;
   }
 
   //Multiple selected value labels
   .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
-    background-color: #1e2938;
+    background-color: #282828;
     color: #9da9bb;
-    border-color: #121e2e;
+    border-color: #373737;
   }
 
   //Fix for white corners

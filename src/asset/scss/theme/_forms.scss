@@ -74,4 +74,7 @@ option:disabled {
 
 .form-control {
   padding: .4rem .8rem;
+  &:focus {
+    box-shadow: var(--falcon-box-shadow-inset),0 0 0 .25rem #333333;
+  }
 }

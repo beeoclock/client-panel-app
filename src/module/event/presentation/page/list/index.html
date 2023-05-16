@@ -20,16 +20,13 @@
   <thead utility-header-table-component>
   <tr>
     <th class="sort pe-1 align-middle white-space-nowrap desc" data-sort="title">
-      Description
+      Attendees
     </th>
     <th class="sort pe-1 align-middle white-space-nowrap" data-sort="start">
       Start
     </th>
     <th class="sort pe-1 align-middle white-space-nowrap" data-sort="end">
       End
-    </th>
-    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="attendees">
-      Attendees
     </th>
     <th class="sort pe-1 align-middle white-space-nowrap" data-sort="attendees">
       Created at
@@ -45,18 +42,14 @@
   <tbody utility-body-table-component [loader]="repository.loading" [pagination]="repository.pagination">
   <tr class="btn-reveal-trigger" *ngFor="let item of repository.pagination.items">
     <th class="align-middle white-space-nowrap title">
-      <a [routerLink]="['details', item._id]">
-        {{ item.description }}
-      </a>
+      <i class="bi bi-person"></i>
+      {{ item.attendees.length }}
     </th>
     <td class="align-middle white-space-nowrap start">
       {{ item.start | date: 'hh:mm dd-MM-yyyy' }}
     </td>
     <td class="align-middle white-space-nowrap end">
       {{ item.end | date: 'hh:mm dd-MM-yyyy' }}
-    </td>
-    <td class="align-middle white-space-nowrap attendees">
-      <i class="bi bi-person-fill"></i>{{ item.attendees.length }}
     </td>
     <td class="align-middle white-space-nowrap end">
       {{ item.createdAt | date: 'hh:mm dd-MM-yyyy' }}

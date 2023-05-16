@@ -1,5 +1,5 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
-import {NgForOf} from '@angular/common';
+import {AfterViewInit, Component, inject, Input} from '@angular/core';
+import {NgForOf, NgIf} from '@angular/common';
 import {NgSelectModule} from "@ng-select/ng-select";
 import {InputErrorComponent} from "@utility/presentation/component/input-error/input-error.component";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
@@ -13,19 +13,21 @@ import {IService} from "@service/domain";
     NgForOf,
     NgSelectModule,
     InputErrorComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgIf
   ],
   providers: [
     ServiceRepository
   ],
   template: `
-    <div class="col-12 position-relative">
+    <div class="col-12 position-relative" *ngIf="control">
       <label for="event-form-services">Services</label>
       <ng-select
         id="event-form-services"
         placeholder="Select service or list of services"
         (scrollToEnd)="scrollToEnd($event)"
         [loading]="control.pending"
+        [disabled]="control.pending"
         [multiple]="multiple"
         [formControl]="control">
         <ng-option *ngFor="let item of items" [value]="item">
@@ -36,10 +38,10 @@ import {IService} from "@service/domain";
     </div>
   `
 })
-export class ServicesFormComponent implements OnInit {
+export class ServicesFormComponent implements AfterViewInit {
 
   @Input()
-  public control = new FormControl();
+  public control!: FormControl;
 
   @Input()
   public multiple = false;
@@ -48,7 +50,7 @@ export class ServicesFormComponent implements OnInit {
 
   public items: IService[] = [];
 
-  public ngOnInit(): void {
+  public ngAfterViewInit(): void {
     this.control.markAsPending();
     this.serviceRepository
       .list(10, 1, 'createdAt', 'asc', {})
