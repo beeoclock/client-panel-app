@@ -4,6 +4,7 @@ import {IDurationVersion, ILanguageVersion, IPrice, IService} from "@service/dom
 import {FormControl} from "@angular/forms";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {ButtonComponent} from "@utility/presentation/component/button/button.component";
+import {IEmployee} from "@employee/domain";
 
 @Component({
   selector: 'event-form-service-component',
@@ -30,6 +31,25 @@ import {ButtonComponent} from "@utility/presentation/component/button/button.com
             <small>{{ languageVersion.language }}</small>
           </div>
           <p class="mb-1">{{ languageVersion.title }}</p>
+        </a>
+      </div>
+      <p class="mt-3"><strong>Select employee</strong></p>
+      <div *ngFor="let permanentEmployee of control.value.permanentEmployees" class="list-group mb-2">
+        <a
+          (click)="selectPermanentEmployee(permanentEmployee)"
+          [ngClass]="selectedPermanentEmployee && permanentEmployee.employee._id === selectedPermanentEmployee.employee._id ? classOfSelectedItem : []"
+          class="list-group-item list-group-item-action cursor-pointer d-flex flex-column"
+          aria-current="true">
+          <p class="mb-1">
+            <i class="bi bi-person"></i>
+            {{ permanentEmployee.employee.firstName }} {{ permanentEmployee.employee.lastName }}
+          </p>
+          <small>
+            {{ permanentEmployee.employee.email }}
+          </small>
+          <small>
+            {{ permanentEmployee.employee.phone }}
+          </small>
         </a>
       </div>
       <p class="mt-3"><strong>Select duration</strong></p>
@@ -72,6 +92,7 @@ export class ServiceComponent {
   public selectedPrice: undefined | IPrice;
   public selectedLanguageVersion: undefined | ILanguageVersion;
   public selectedDurationVersion: undefined | IDurationVersion;
+  public selectedPermanentEmployee: undefined | {employee: IEmployee};
   public readonly control: FormControl<IService> = new FormControl();
   public selectedService: undefined | IService;
   public readonly emitter = new EventEmitter();
@@ -95,6 +116,10 @@ export class ServiceComponent {
 
   public selectDuration(durationVersion: IDurationVersion): void {
     this.selectedDurationVersion = durationVersion;
+  }
+
+  public selectPermanentEmployee(permanentEmployee: {employee: IEmployee}): void {
+    this.selectedPermanentEmployee = permanentEmployee;
   }
 
   public selectPrice(price: IPrice): void {

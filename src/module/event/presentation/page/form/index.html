@@ -14,9 +14,13 @@
               <ul class="list-group list-group-flush">
                 <li class="bg-light list-group-item rounded-4">
                   <div class="d-flex w-100 justify-content-between">
-                    <small>{{service.languageVersions[0].language}}</small>
+                    <small>{{ service.languageVersions[0].language | language }}</small>
                   </div>
                   <p class="mb-1">{{service.languageVersions[0].title}}</p>
+                </li>
+                <li class="list-group-item">
+                  <i class="bi bi-person"></i>
+                  {{ service.permanentEmployees[0].employee.firstName }} {{ service.permanentEmployees[0].employee.lastName }}
                 </li>
                 <li class="list-group-item">Duration: {{ service.durationVersions[0].duration }} minut</li>
                 <li class="list-group-item">
@@ -54,7 +58,7 @@
         <utility-card-component>
           <utility-body-card-component>
             <div class="row">
-              <div class="col-md-6 position-relative">
+              <div class="col-md-12 position-relative">
                 <label for="event-form-start">Start</label>
                 <input
                   hasError
@@ -70,23 +74,7 @@
                   [convertModelValue]="true"
                 />
                 <utility-input-error-component [control]="form.controls.start"></utility-input-error-component>
-              </div>
-              <div class="col-md-6 position-relative">
-                <label for="event-form-end">End</label>
-                <input
-                  hasError
-                  id="event-form-end"
-                  type="text"
-                  class="form-control"
-                  mwlFlatpickr
-                  altFormat="H:i d-m-Y"
-                  formControlName="end"
-                  [time24hr]="true"
-                  [enableTime]="true"
-                  [altInput]="true"
-                  [convertModelValue]="true"
-                />
-                <utility-input-error-component [control]="form.controls.end"></utility-input-error-component>
+                In future add feature to chose slots
               </div>
             </div>
             <div class="col-12 mt-3">

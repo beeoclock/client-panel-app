@@ -21,30 +21,33 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {NgForOf} from "@angular/common";
 import {ModalService} from "@utility/presentation/component/modal/services/modal/modal.service";
 import {ServiceComponent} from "@event/presentation/component/form/service/service.component";
+import {LanguagePipe} from "@utility/pipes/language.pipe";
+import {IService} from "@service/domain";
 
 @Component({
   selector: 'event-form-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    CardComponent,
-    BodyCardComponent,
-    ReactiveFormsModule,
-    InputDirective,
-    TextareaDirective,
-    ButtonComponent,
-    HasErrorDirective,
-    RouterLink,
-    BackLinkComponent,
-    FormsModule,
-    AttendeesComponent,
-    FlatpickrModule,
-    HeaderCardComponent,
-    ServicesFormComponent,
-    InputErrorComponent,
-    NgSelectModule,
-    NgForOf
-  ],
+    imports: [
+        CardComponent,
+        BodyCardComponent,
+        ReactiveFormsModule,
+        InputDirective,
+        TextareaDirective,
+        ButtonComponent,
+        HasErrorDirective,
+        RouterLink,
+        BackLinkComponent,
+        FormsModule,
+        AttendeesComponent,
+        FlatpickrModule,
+        HeaderCardComponent,
+        ServicesFormComponent,
+        InputErrorComponent,
+        NgSelectModule,
+        NgForOf,
+        LanguagePipe
+    ],
   standalone: true
 })
 export default class Index {
@@ -84,9 +87,13 @@ export default class Index {
       }
     });
 
-    this.form.controls.end.valueChanges.subscribe((value: string | Date) => {
-      if (is.Date(value)) {
-        this.form.controls.end.patchValue(value.toISOString(), {
+    this.form.controls.services.valueChanges.subscribe((value: IService[]) => {
+      if (value) {
+        const start = new Date(this.form.controls.start.value);
+        start.setMinutes(start.getMinutes() + value.reduce((prev, curr) => {
+          return prev + curr.durationVersions[0].duration + curr.durationVersions[0].break;
+        }, 0));
+        this.form.controls.end.patchValue(start.toISOString(), {
           onlySelf: false,
           emitEvent: false,
           emitModelToViewChange: false,
