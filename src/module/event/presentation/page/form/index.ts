@@ -78,6 +78,7 @@ export default class Index {
 
     this.form.controls.start.valueChanges.subscribe((value: string | Date) => {
       if (is.Date(value)) {
+        // TODO update end time
         this.form.controls.start.patchValue(value.toISOString(), {
           onlySelf: false,
           emitEvent: false,
@@ -108,9 +109,11 @@ export default class Index {
 
     this.form.markAllAsTouched();
     if (this.form.valid) {
+      const value = structuredClone(this.form.value);
       this.form.disable();
       this.form.markAsPending();
-      this.repository.save(this.form.value as IEvent)
+      console.log(value);
+      this.repository.save(value as IEvent)
         .then(() => {
           this.form.enable();
           this.form.updateValueAndValidity();
