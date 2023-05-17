@@ -11,21 +11,23 @@ import {ServicesFormComponent} from '@service/presentation/component/form/servic
 import {SchedulesFormComponent} from '@service/presentation/component/form/schedules.form.component';
 import {IService} from "@service/domain";
 import {ButtonComponent} from "@utility/presentation/component/button/button.component";
+import {EmployeesFormComponent} from "@service/presentation/component/form/employees/employees.form.component";
 
 @Component({
   selector: 'employee-form-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    CardComponent,
-    BodyCardComponent,
-    ReactiveFormsModule,
-    BackLinkComponent,
-    DurationsFormComponent,
-    ServicesFormComponent,
-    SchedulesFormComponent,
-    ButtonComponent,
-  ],
+    imports: [
+        CardComponent,
+        BodyCardComponent,
+        ReactiveFormsModule,
+        BackLinkComponent,
+        DurationsFormComponent,
+        ServicesFormComponent,
+        SchedulesFormComponent,
+        ButtonComponent,
+        EmployeesFormComponent,
+    ],
   providers: [
     ServiceRepository,
   ],

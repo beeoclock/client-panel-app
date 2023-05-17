@@ -45,7 +45,36 @@ import {WeekDayPipe} from "@utility/pipes/week-day.pipe";
 
           <utility-card-component class="mt-3 border">
             <utility-body-card-component>
-              <strong>languageVersions</strong>
+              <strong>Permanent employees</strong>
+            </utility-body-card-component>
+          </utility-card-component>
+          <utility-card-component class="mt-3"
+                                  *ngFor="let permanentEmployee of service.permanentEmployees">
+            <utility-body-card-component class="p-0">
+              <ul class="list-group">
+                <li class="list-group-item d-flex flex-column" aria-current="true">
+                  <div class="d-flex w-100 justify-content-between">
+                  </div>
+                  <p class="mb-1">
+                    <i class="bi bi-person"></i>
+                    {{ permanentEmployee.employee.firstName }} {{ permanentEmployee.employee.lastName }}
+                  </p>
+                  <small>
+                    {{ permanentEmployee.employee.email }}
+                  </small>
+                  <small>
+                    {{ permanentEmployee.employee.phone }}
+                  </small>
+                </li>
+              </ul>
+            </utility-body-card-component>
+          </utility-card-component>
+
+          <hr class="my-4">
+
+          <utility-card-component class="border">
+            <utility-body-card-component>
+              <strong>Language Versions</strong>
             </utility-body-card-component>
           </utility-card-component>
           <utility-card-component class="mt-3"
@@ -69,7 +98,10 @@ import {WeekDayPipe} from "@utility/pipes/week-day.pipe";
               </ul>
             </utility-body-card-component>
           </utility-card-component>
-          <utility-card-component class="mt-3 border">
+
+          <hr class="my-4">
+
+          <utility-card-component class="border">
             <utility-body-card-component>
               <strong>schedules</strong>
             </utility-body-card-component>
@@ -95,9 +127,12 @@ import {WeekDayPipe} from "@utility/pipes/week-day.pipe";
               </ul>
             </utility-body-card-component>
           </utility-card-component>
-          <utility-card-component class="mt-3 border">
+
+          <hr class="my-4">
+
+          <utility-card-component class="border">
             <utility-body-card-component>
-              <strong>durationVersions</strong>
+              <strong>Duration Versions</strong>
             </utility-body-card-component>
           </utility-card-component>
           <utility-card-component *ngFor="let durationVersion of service.durationVersions" class="mt-3">
@@ -140,7 +175,7 @@ import {WeekDayPipe} from "@utility/pipes/week-day.pipe";
         <div class="col-md-4">
           <utility-card-component class="mt-3 border">
             <utility-body-card-component>
-              <strong>configuration</strong>
+              <strong>Configuration</strong>
             </utility-body-card-component>
           </utility-card-component>
           <utility-card-component class="mt-3">

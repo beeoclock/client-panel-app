@@ -2,6 +2,7 @@ import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@a
 import {ActiveEnum, LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
 import {WeekDaysEnum, WORK_WEEK} from '@utility/domain/enum/days-of-week.enum';
+import {IEmployee} from "@employee/domain";
 
 
 export interface ILanguageVersionForm {
@@ -175,6 +176,7 @@ export interface IServiceForm {
   languageVersions: LanguageVersionsForm;
   durationVersions: FormArray<DurationVersionForm>;
   _id: FormControl<string>;
+  permanentEmployees: FormControl<{employee: IEmployee}[]>;
   active: FormControl<ActiveEnum>;
   createdAt: FormControl<string>;
   updatedAt: FormControl<string>;
@@ -190,6 +192,7 @@ export class ServiceForm extends FormGroup<IServiceForm> {
       prepaymentPolicy: new PrepaymentPolicyForm(),
       languageVersions: new LanguageVersionsForm(),
       durationVersions: new FormArray([new DurationVersionForm()]),
+      permanentEmployees: new FormControl(),
       active: new FormControl(),
       _id: new FormControl(),
       createdAt: new FormControl(),
@@ -199,6 +202,7 @@ export class ServiceForm extends FormGroup<IServiceForm> {
   }
 
   public initValue(): void {
+    this.controls.permanentEmployees.setValue([]);
     this.controls.active.setValue(ActiveEnum.YES);
     this.controls.createdAt.setValue(new Date().toISOString());
     this.controls.updatedAt.setValue(new Date().toISOString());

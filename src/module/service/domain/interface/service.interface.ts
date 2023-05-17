@@ -2,6 +2,7 @@ import {ActiveEnum} from '@utility/domain/enum/active.enum';
 import {LanguageCodeEnum} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
 import {WeekDaysEnum} from '@utility/domain/enum/days-of-week.enum';
+import {IEmployee} from "@employee/domain";
 
 export interface IConfiguration {
   earliestDateTime?: string;
@@ -47,6 +48,7 @@ export interface IService {
   schedules: ISchedule[];
   languageVersions: ILanguageVersion[];
   durationVersions: IDurationVersion[];
+  permanentEmployees: {employee: IEmployee}[];
   createdAt: string;
   updatedAt: string;
   _id: string;

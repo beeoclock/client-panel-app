@@ -29,6 +29,9 @@
     <th class="sort pe-1 align-middle white-space-nowrap">
       Languages
     </th>
+    <th class="sort pe-1 align-middle white-space-nowrap">
+      Employees
+    </th>
     <th class="sort pe-1 align-middle white-space-nowrap cursor-pointer" (click)="repository.pagination.setOrderBy('active')">
       Active
       <i class="bi"
@@ -57,21 +60,29 @@
   </thead>
   <tbody utility-body-table-component [loader]="repository.loading" [pagination]="repository.pagination">
     <tr class="btn-reveal-trigger" *ngFor="let item of repository.pagination.items">
-      <td class="align-middle white-space-nowrap title">
+      <td class="align-middle white-space-nowrap">
         <a [routerLink]="['details', item._id]">
           {{ getFirstLanguageVersion(item.languageVersions).title }}
         </a>
       </td>
-      <td class="align-middle white-space-nowrap language">
+      <td class="align-middle white-space-nowrap">
         {{ getLanguageCodes(item.languageVersions) }}
       </td>
-      <td class="align-middle white-space-nowrap active">
-        {{ item.active }}
+      <td class="align-middle white-space-nowrap">
+        <i class="bi bi-person"></i>
+        {{ item?.permanentEmployees?.length ?? 0 }}
       </td>
-      <td class="align-middle white-space-nowrap createdAt">
+      <td class="align-middle white-space-nowrap">
+        <span
+          [class.text-danger]="!item.active"
+          [class.text-success]="item.active">
+          {{ item.active ? 'active' : 'Inactive' }}
+        </span>
+      </td>
+      <td class="align-middle white-space-nowrap">
         {{ item.createdAt | date: 'hh:mm dd-MM-yyyy' }}
       </td>
-      <td class="align-middle white-space-nowrap createdAt">
+      <td class="align-middle white-space-nowrap">
         {{ item.updatedAt | date: 'hh:mm dd-MM-yyyy' }}
       </td>
       <td>

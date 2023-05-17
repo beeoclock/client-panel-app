@@ -3,7 +3,7 @@ import {AppComponent} from '@src/app.component';
 import {enableProdMode, importProvidersFrom} from '@angular/core';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {environment} from '@src/environment/environment';
-import {Auth, connectAuthEmulator, getAuth, provideAuth} from '@angular/fire/auth';
+import {connectAuthEmulator, getAuth, provideAuth} from '@angular/fire/auth';
 import {HttpClient, provideHttpClient, withInterceptors} from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
@@ -42,7 +42,7 @@ bootstrapApplication(AppComponent, {
 
     importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebase.options))),
     importProvidersFrom(provideAuth(() => {
-      const auth: Auth = getAuth();
+      const auth = getAuth();
       auth.setPersistence(browserLocalPersistence)
         .catch((error) => {
           console.log(error);
