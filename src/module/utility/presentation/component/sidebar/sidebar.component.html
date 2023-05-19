@@ -22,7 +22,7 @@
     </div>
   </a>
 </div>
-<div class="collapse navbar-collapse min-vh-100" id="navbarVerticalCollapse">
+<div class="collapse navbar-collapse min-vh-100" id="navbarVerticalCollapse" #navbarVerticalCollapse>
   <div class="navbar-vertical-content scrollbar pt-0">
     <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
       <li *ngFor="let group of menu">
@@ -41,6 +41,7 @@
            [routerLink]="item.url"
            class="nav-link border"
            role="button"
+           (click)="navbarVerticalCollapse.classList.remove('show')"
            [routerLinkActiveOptions]="item.routerLinkActiveOptions"
            [routerLinkActive]="['active']">
           <div class="d-flex align-items-center">
