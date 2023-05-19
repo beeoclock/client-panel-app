@@ -18,7 +18,7 @@ import {NgForOf, NgIf} from '@angular/common';
 export class SidebarComponent implements AfterViewInit {
 
   @HostBinding()
-  class = 'navbar navbar-light navbar-vertical navbar-expand-xl h-100';
+  class = 'navbar navbar-light navbar-vertical navbar-expand-xl';
 
   public readonly menu: {
     label: string;

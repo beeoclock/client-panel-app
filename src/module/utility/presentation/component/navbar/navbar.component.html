@@ -15,12 +15,12 @@
         <div class="me-3">
           <i class="bi bi-patch-check"
              data-bs-toggle="tooltip"
-             [attr.data-bs-title]="auth?.currentUser?.emailVerified ? 'E-mail address is verified!' : 'Check you E-mail to verify your E-mail address!'"
-             [class.text-warning]="!auth?.currentUser?.emailVerified"
-             [class.text-success]="auth?.currentUser?.emailVerified"></i>
+             [attr.data-bs-title]="auth.currentUser?.emailVerified ? 'E-mail address is verified!' : 'Check you E-mail to verify your E-mail address!'"
+             [class.text-warning]="!auth.currentUser?.emailVerified"
+             [class.text-success]="auth.currentUser?.emailVerified"></i>
         </div>
         <div class="text-truncate" style="max-width: 200px;">
-          {{ auth?.currentUser?.email }}
+          {{ auth.currentUser?.email }}
         </div>
 <!--        <div class="ms-3">-->
 <!--          <i class="bi bi-chevron-down"></i>-->
