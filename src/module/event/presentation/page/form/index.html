@@ -10,6 +10,12 @@
             Services
           </utility-header-card-component>
           <utility-body-card-component>
+            <div class="form-check mb-4">
+              <input class="form-check-input" formControlName="servicesAreProvidedInParallel" type="checkbox" [value]="true" id="servicesAreProvidedInParallel">
+              <label class="form-check-label" for="servicesAreProvidedInParallel">
+                Services are provided in parallel
+              </label>
+            </div>
             <div *ngFor="let service of form.controls.services.value" class="card border rounded-4 shadow-none mb-4">
               <ul class="list-group list-group-flush">
                 <li class="bg-light list-group-item rounded-4">
@@ -75,6 +81,19 @@
                 <utility-input-error-component [control]="form.controls.start"></utility-input-error-component>
                 In future add feature to chose slots
               </div>
+            </div>
+            <div class="col-12 mt-3">
+              Duration:
+              <ng-container *ngIf="!duration">
+                <small class="text-warning">Select services to calculate duration of event</small>
+              </ng-container>
+              <ng-container *ngIf="duration">
+                {{ duration }} minut
+              </ng-container>
+            </div>
+            <div class="col-12 mt-3">
+              Finish at:
+              {{ form.controls.end.value | date: 'full' }}
             </div>
             <div class="col-12 mt-3">
               <label for="event-form-description">Description</label>

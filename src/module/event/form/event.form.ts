@@ -10,6 +10,7 @@ export interface IAttendantForm {
 
 export interface IEventForm {
   _id: FormControl<string>;
+  servicesAreProvidedInParallel: FormControl<boolean>;
   services: FormControl<IService[]>;
   description: FormControl<string>;
   start: FormControl<string>;
@@ -27,6 +28,7 @@ export class EventForm extends FormGroup<IEventForm> {
       description: new FormControl(),
       end: new FormControl(),
       start: new FormControl(),
+      servicesAreProvidedInParallel: new FormControl(),
       services: new FormControl(),
       attendees: new AttendeesForm(),
     });
@@ -41,6 +43,7 @@ export class EventForm extends FormGroup<IEventForm> {
   }
 
   public initValue(): void {
+    this.controls.servicesAreProvidedInParallel.patchValue(false);
     this.controls.end.patchValue(new Date().toISOString());
     this.controls.start.patchValue(new Date().toISOString());
   }

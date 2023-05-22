@@ -18,7 +18,7 @@ import {HeaderCardComponent} from "@utility/presentation/component/card/header.c
 import {ServicesFormComponent} from "@event/presentation/component/form/services/services.form.component";
 import {InputErrorComponent} from "@utility/presentation/component/input-error/input-error.component";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {NgForOf} from "@angular/common";
+import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {ModalService} from "@utility/presentation/component/modal/services/modal/modal.service";
 import {ServiceComponent} from "@event/presentation/component/form/service/service.component";
 import {LanguagePipe} from "@utility/pipes/language.pipe";
@@ -46,7 +46,9 @@ import {IService} from "@service/domain";
     InputErrorComponent,
     NgSelectModule,
     NgForOf,
-    LanguagePipe
+    LanguagePipe,
+    NgIf,
+    DatePipe
   ],
   standalone: true
 })
@@ -59,6 +61,8 @@ export default class Index {
 
   public readonly form = new EventForm();
   private readonly repository = inject(EventRepository);
+
+  public duration: number = 0;
 
   constructor() {
     this.activatedRoute.params.subscribe(({id}) => {
@@ -85,23 +89,49 @@ export default class Index {
           emitModelToViewChange: false,
           emitViewToModelChange: false,
         });
+        this.calculateFinish();
       }
     });
 
-    this.form.controls.services.valueChanges.subscribe((value: IService[]) => {
-      if (value) {
-        const start = new Date(this.form.controls.start.value);
-        start.setMinutes(start.getMinutes() + value.reduce((prev, curr) => {
-          return prev + curr.durationVersions[0].duration + curr.durationVersions[0].break;
-        }, 0));
-        this.form.controls.end.patchValue(start.toISOString(), {
-          onlySelf: false,
-          emitEvent: false,
-          emitModelToViewChange: false,
-          emitViewToModelChange: false,
-        });
-      }
+    this.form.controls.services.valueChanges.subscribe(() => {
+      this.calculateDuration();
     });
+
+    this.form.controls.servicesAreProvidedInParallel.valueChanges.subscribe(() => {
+      this.calculateDuration();
+    });
+
+  }
+
+  private calculateFinish(): void {
+
+    const start = new Date(this.form.controls.start.value);
+    start.setMinutes(start.getMinutes() + this.duration);
+    this.form.controls.end.patchValue(start.toISOString(), {
+      onlySelf: true,
+      emitEvent: false,
+    });
+
+  }
+
+  private calculateDuration(): void {
+
+    const value = this.form.controls.servicesAreProvidedInParallel.value;
+
+    this.duration = 0;
+    if (value) {
+      this.form.controls.services.value.forEach((service) => {
+        if (service.durationVersions[0].duration > this.duration) {
+          this.duration = service.durationVersions[0].duration;
+        }
+      });
+    } else {
+      this.form.controls.services.value.forEach((service) => {
+        this.duration += service.durationVersions[0].duration;
+      })
+    }
+
+    this.calculateFinish();
 
   }
 
