@@ -121,7 +121,6 @@ export default class Index {
       fixHeight: false,
       title: 'Event'
     }).then((modal) => {
-      console.log(modal);
       return modal;
     });
 

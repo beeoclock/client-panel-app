@@ -88,7 +88,6 @@ import {IEmployee} from "@employee/domain";
 })
 export class ServiceComponent {
 
-  public editItem: undefined | IService;
   public selectedPrice: undefined | IPrice;
   public selectedLanguageVersion: undefined | ILanguageVersion;
   public selectedDurationVersion: undefined | IDurationVersion;
@@ -102,12 +101,8 @@ export class ServiceComponent {
   public constructor() {
     // TODO takeUntil
     this.control.valueChanges.subscribe((service) => {
-      console.log(service);
       this.resetSelectedItems();
     });
-    if (this.editItem) {
-      this.control.setValue(this.editItem);
-    }
   }
 
   public selectLanguage(languageVersion: ILanguageVersion): void {
@@ -134,6 +129,17 @@ export class ServiceComponent {
     return !this.selectedLanguageVersion || !this.selectedDurationVersion || !this.selectedPrice;
   }
 
+  public setSelectedService(service: IService): void {
+    this.control.setValue(service, {
+      emitEvent: false,
+      onlySelf: true
+    });
+    this.selectedDurationVersion = service.durationVersions[0];
+    this.selectedPrice = service.durationVersions[0].prices[0];
+    this.selectedLanguageVersion = service.languageVersions[0];
+    this.selectedPermanentEmployee = service.permanentEmployees[0];
+  }
+
   public select(): void {
     this.selectedService = structuredClone(this.control.value);
     this.selectedService.durationVersions = this.selectedService.durationVersions.filter((durationVersion) => {
@@ -144,6 +150,9 @@ export class ServiceComponent {
     });
     this.selectedService.languageVersions = this.selectedService.languageVersions.filter((languageVersion) => {
       return this.selectedLanguageVersion && languageVersion.language === this.selectedLanguageVersion.language;
+    });
+    this.selectedService.permanentEmployees = this.selectedService?.permanentEmployees.filter((permanentEmployee) => {
+      return this.selectedPermanentEmployee && permanentEmployee.employee._id === this.selectedPermanentEmployee.employee._id;
     });
     this.emitter.emit(this.selectedService);
   }

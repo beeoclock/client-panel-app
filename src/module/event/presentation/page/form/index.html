@@ -27,9 +27,8 @@
                   Price: {{ service.durationVersions[0].prices[0].price }} {{ service.durationVersions[0].prices[0].currency }}</li>
               </ul>
               <div class="card-body d-flex justify-content-between">
-                <a href="#" class="card-link">Details</a>
-                <a href="#" class="card-link text-warning">Change</a>
-                <a href="#" class="card-link text-danger">Delete</a>
+                <button (click)="editServiceFromSelectedList(service)" class="btn btn-outline-warning">Edit</button>
+                <button (click)="removeServiceFromSelectedList(service)" class="btn btn-outline-danger">Delete</button>
               </div>
             </div>
             <div class="d-grid">

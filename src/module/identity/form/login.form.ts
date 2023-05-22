@@ -18,7 +18,7 @@ export default class LoginForm extends FormGroup<ILoginForm> {
   }
 
   private initValue(): void {
-    if (environment.emulator) {
+    if (environment.firebase.emulator) {
       this.controls.email.setValue('text@example.com');
       this.controls.password.setValue('testPassword');
     }

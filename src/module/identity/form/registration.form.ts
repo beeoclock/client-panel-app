@@ -24,7 +24,7 @@ export default class RegistrationForm extends FormGroup<IRegistrationForm> {
   }
 
   private initValue(): void {
-    if (environment.emulator) {
+    if (environment.firebase.emulator) {
       this.controls.displayName.setValue('Default Name Of New User');
       this.controls.email.setValue('text@example.com');
       this.controls.password.setValue('testPassword');
