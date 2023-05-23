@@ -6,7 +6,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {InputDirective} from '@utility/directives/input/input.directive';
 import {NgForOf} from '@angular/common';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
-import {PriceFormComponent} from '@service/presentation/component/form/price.form.component';
+import {PriceFormComponent} from "@service/presentation/component/form/price/price.form.component";
 
 @Component({
   selector: 'service-prices-form-component',

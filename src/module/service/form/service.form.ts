@@ -167,16 +167,43 @@ export class LanguageVersionsForm extends FormArray<LanguageVersionForm> {
   constructor() {
     super([new LanguageVersionForm()]);
   }
+
+  public remove(index: number): void {
+    this.controls.splice(index, 1);
+  }
+
+}
+
+export class DurationVersionsForm extends FormArray<DurationVersionForm> {
+  constructor() {
+    super([new DurationVersionForm()]);
+  }
+
+  public remove(index: number): void {
+    this.controls.splice(index, 1);
+  }
+
+}
+
+export class SchedulesForm extends FormArray<ScheduleForm> {
+  constructor() {
+    super([new ScheduleForm()]);
+  }
+
+  public remove(index: number): void {
+    this.controls.splice(index, 1);
+  }
+
 }
 
 export interface IServiceForm {
-  schedules: FormArray<ScheduleForm>;
+  schedules: SchedulesForm;
   configuration: ConfigurationForm;
   prepaymentPolicy: PrepaymentPolicyForm;
   languageVersions: LanguageVersionsForm;
-  durationVersions: FormArray<DurationVersionForm>;
+  durationVersions: DurationVersionsForm;
   _id: FormControl<string>;
-  permanentEmployees: FormControl<{employee: IEmployee}[]>;
+  permanentEmployees: FormControl<{ employee: IEmployee }[]>;
   active: FormControl<ActiveEnum>;
   createdAt: FormControl<string>;
   updatedAt: FormControl<string>;
@@ -187,11 +214,11 @@ export interface IServiceForm {
 export class ServiceForm extends FormGroup<IServiceForm> {
   constructor() {
     super({
-      schedules: new FormArray([new ScheduleForm()]),
+      schedules: new SchedulesForm(),
       configuration: new ConfigurationForm(),
       prepaymentPolicy: new PrepaymentPolicyForm(),
       languageVersions: new LanguageVersionsForm(),
-      durationVersions: new FormArray([new DurationVersionForm()]),
+      durationVersions: new DurationVersionsForm(),
       permanentEmployees: new FormControl(),
       active: new FormControl(),
       _id: new FormControl(),

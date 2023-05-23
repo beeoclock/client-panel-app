@@ -8,10 +8,10 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {DurationsFormComponent} from '@service/presentation/component/form/duration/durations.form.component';
 import {ServicesFormComponent} from '@service/presentation/component/form/service/services.form.component';
-import {SchedulesFormComponent} from '@service/presentation/component/form/schedules.form.component';
 import {IService} from "@service/domain";
 import {ButtonComponent} from "@utility/presentation/component/button/button.component";
 import {EmployeesFormComponent} from "@service/presentation/component/form/employees/employees.form.component";
+import {SchedulesFormComponent} from "@service/presentation/component/form/schedule/schedules.form.component";
 
 @Component({
   selector: 'employee-form-page',

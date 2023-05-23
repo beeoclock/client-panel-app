@@ -1,36 +1,30 @@
 <utility-back-link-component [url]="url"></utility-back-link-component>
 
-<utility-card-component class="mt-3">
-  <utility-body-card-component>
-    <form [formGroup]="form" class="row g-3">
+<form [formGroup]="form">
+  <service-employees-form-component [control]="form.controls.permanentEmployees">
+  </service-employees-form-component>
 
-      <service-employees-form-component [control]="form.controls.permanentEmployees">
-      </service-employees-form-component>
+  <service-services-form-component
+    (handlePushNewLanguageVersionForm)="form.pushNewLanguageVersionForm()"
+    [form]="form.controls.languageVersions">
+  </service-services-form-component>
 
-      <service-services-form-component
-        (handlePushNewLanguageVersionForm)="form.pushNewLanguageVersionForm()"
-        [form]="form.controls.languageVersions">
-      </service-services-form-component>
+  <service-durations-form-component
+    (handlePushNewDurationVersionFormForm)="form.pushNewDurationVersionForm()"
+    [durationVersionsForm]="form.controls.durationVersions">
+  </service-durations-form-component>
 
-      <service-durations-form-component
-        (handlePushNewDurationVersionFormForm)="form.pushNewDurationVersionForm()"
-        [durationVersionsForm]="form.controls.durationVersions">
-      </service-durations-form-component>
+  <service-schedules-form-component
+    (handlePushNewScheduleForm)="form.pushNewScheduleForm()"
+    [schedulesForm]="form.controls.schedules">
+  </service-schedules-form-component>
 
-      <service-schedules-form-component
-        (handlePushNewScheduleForm)="form.pushNewScheduleForm()"
-        [schedulesForm]="form.controls.schedules">
-      </service-schedules-form-component>
-
-      <div class="col-12 d-grid">
-        <button
-          beeoclock
-          [showLoader]="form.pending"
-          [disabled]="form.disabled"
-          (click)="save()">Add Service
-        </button>
-      </div>
-
-    </form>
-  </utility-body-card-component>
-</utility-card-component>
+  <div class="col-12 d-grid mt-3">
+    <button
+      beeoclock
+      [showLoader]="form.pending"
+      [disabled]="form.disabled"
+      (click)="save()">Add Service
+    </button>
+  </div>
+</form>

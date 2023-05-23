@@ -6,11 +6,11 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {InputDirective} from '@utility/directives/input/input.directive';
 import {NgForOf} from '@angular/common';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
-import {PricesFormComponent} from '@service/presentation/component/form/prices.form.component';
 import {BreakDurationFormComponent} from '@service/presentation/component/form/duration/break.duration.form.component';
 import {
   DurationDurationFormComponent
 } from '@service/presentation/component/form/duration/duration.duration.form.component';
+import {PricesFormComponent} from "@service/presentation/component/form/price/prices.form.component";
 
 @Component({
   selector: 'service-duration-form-component',
