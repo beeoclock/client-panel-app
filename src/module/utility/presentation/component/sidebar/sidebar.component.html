@@ -13,18 +13,13 @@
   </div>
   <a class="navbar-brand" routerLink="/">
     <div class="d-flex align-items-center py-3">
-      <!--    TODO Add logo -->
-      <!--      <img alt=""-->
-      <!--           class="me-2"-->
-      <!--           src="asset/img/logo.png" width="40"/>-->
-<!--      <span class="font-sans-serif">Bee O`clock</span>-->
       <span class="font-sans-serif">&nbsp;</span>
     </div>
   </a>
 </div>
-<div class="collapse navbar-collapse min-vh-100" id="navbarVerticalCollapse" #navbarVerticalCollapse>
+<div class="collapse navbar-collapse" id="navbarVerticalCollapse" #navbarVerticalCollapse>
   <div class="navbar-vertical-content scrollbar pt-0">
-    <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
+    <ul class="navbar-nav flex-column mb-3 min-vh-100" id="navbarVerticalNav">
       <li *ngFor="let group of menu">
         <!-- label-->
         <div *ngIf="group.label" class="row navbar-vertical-label-wrapper mt-3 mb-2">

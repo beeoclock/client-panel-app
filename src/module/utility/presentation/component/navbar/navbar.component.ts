@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
-import {navbarTopDropShadow} from '@src/script/navbar-top';
 import {SearchComponent} from '@utility/presentation/component/search/search.component';
 import {NotificationComponent} from '@utility/presentation/component/notification/notification.component';
 import {RouterLink} from '@angular/router';
@@ -32,9 +31,6 @@ export class NavbarComponent implements AfterViewInit {
     this.document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((element) => {
       this.tooltipList.push(new Tooltip(element));
     });
-
-    navbarTopDropShadow();
-    // searchInit();
 
   }
 

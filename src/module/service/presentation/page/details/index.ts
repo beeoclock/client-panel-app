@@ -13,6 +13,7 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
 import {PopoverComponent} from "@utility/presentation/component/popover/popover.component";
 import {LanguagePipe} from "@utility/pipes/language.pipe";
 import {WeekDayPipe} from "@utility/pipes/week-day.pipe";
+import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 
 @Component({
   selector: 'service-detail-page',
@@ -247,7 +248,7 @@ import {WeekDayPipe} from "@utility/pipes/week-day.pipe";
       </div>
     </ng-container>
     <ng-template #LoadingTemplate>
-      <div spinner></div>
+      <utility-loader-component></utility-loader-component>
     </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,
@@ -265,7 +266,8 @@ import {WeekDayPipe} from "@utility/pipes/week-day.pipe";
     NgForOf,
     PopoverComponent,
     LanguagePipe,
-    WeekDayPipe
+    WeekDayPipe,
+    LoaderComponent
   ],
   providers: [
     ServiceRepository,

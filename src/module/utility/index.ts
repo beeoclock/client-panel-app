@@ -1,7 +1,7 @@
-import BooleanStateModel from '@utility/domain/boolean.state';
+import {BooleanState} from '@utility/domain/boolean.state';
 import * as _Interceptors from "./interceptors";
 
 export const Utility = {
-  BooleanStateModel,
+  BooleanState,
   Interceptors: _Interceptors.Interceptors,
 }

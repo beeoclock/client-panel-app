@@ -10,8 +10,8 @@ type TextColorType =
   | 'text-light'
   | 'text-success'
   | 'text-muted'
+  | 'text-body'
   | 'text-white';
-;
 
 @Component({
   selector: 'div[spinner]',
@@ -24,7 +24,7 @@ type TextColorType =
 export class SpinnerComponent {
 
   @Input()
-  public color: TextColorType = 'text-white';
+  public color: TextColorType = 'text-body';
 
   @Input()
   @HostBinding('class.spinner-border-sm')

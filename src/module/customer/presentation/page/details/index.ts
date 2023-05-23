@@ -10,6 +10,7 @@ import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.
 import * as Customer from '@customer/domain';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {PopoverComponent} from "@utility/presentation/component/popover/popover.component";
+import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 
 @Component({
   selector: 'customer-detail-page',
@@ -65,7 +66,7 @@ import {PopoverComponent} from "@utility/presentation/component/popover/popover.
       </utility-card-component>
     </ng-container>
     <ng-template #LoadingTemplate>
-      <div spinner></div>
+      <utility-loader-component></utility-loader-component>
     </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,
@@ -80,7 +81,8 @@ import {PopoverComponent} from "@utility/presentation/component/popover/popover.
     BackLinkComponent,
     ButtonComponent,
     RouterLink,
-    PopoverComponent
+    PopoverComponent,
+    LoaderComponent
   ],
   standalone: true
 })

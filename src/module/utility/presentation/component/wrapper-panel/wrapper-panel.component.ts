@@ -12,7 +12,7 @@ import {DOCUMENT} from "@angular/common";
   standalone: true,
   template: `
     <main class="main" id="top">
-      <div class="container position-relative" data-layout="container">
+      <div class="container-fluid position-relative" data-layout="container">
         <utility-sidebar-component></utility-sidebar-component>
         <div class="content">
           <utility-navbar-component></utility-navbar-component>

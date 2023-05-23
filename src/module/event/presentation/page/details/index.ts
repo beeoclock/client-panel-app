@@ -10,6 +10,7 @@ import * as Event from '@event/domain';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {EventRepository} from '@event/repository/event.repository';
 import {PopoverComponent} from "@utility/presentation/component/popover/popover.component";
+import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 
 @Component({
   selector: 'event-detail-page',
@@ -65,7 +66,7 @@ import {PopoverComponent} from "@utility/presentation/component/popover/popover.
       </utility-card-component>
     </ng-container>
     <ng-template #LoadingTemplate>
-      <div spinner></div>
+      <utility-loader-component></utility-loader-component>
     </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,
@@ -81,7 +82,8 @@ import {PopoverComponent} from "@utility/presentation/component/popover/popover.
     ButtonComponent,
     RouterLink,
     NgForOf,
-    PopoverComponent
+    PopoverComponent,
+    LoaderComponent
   ],
   standalone: true
 })
