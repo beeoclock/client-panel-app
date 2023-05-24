@@ -13,28 +13,30 @@ import {EventRepository} from '@event/repository/event.repository';
 import {ListPage} from "@utility/list.page";
 import {FilterComponent} from "@event/presentation/component/filter/filter.component";
 import {PopoverComponent} from "@utility/presentation/component/popover/popover.component";
+import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 
 @Component({
   selector: 'event-list-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-    imports: [
-        ExampleTableComponent,
-        CardComponent,
-        BodyCardComponent,
-        RouterLink,
-        ButtonComponent,
-        TableComponent,
-        HeaderTableComponent,
-        BodyTableComponent,
-        PaginationComponent,
-        NgForOf,
-        DatePipe,
-        AsyncPipe,
-        FilterComponent,
-        PopoverComponent,
-        NgIf
-    ],
+  imports: [
+    ExampleTableComponent,
+    CardComponent,
+    BodyCardComponent,
+    RouterLink,
+    ButtonComponent,
+    TableComponent,
+    HeaderTableComponent,
+    BodyTableComponent,
+    PaginationComponent,
+    NgForOf,
+    DatePipe,
+    AsyncPipe,
+    FilterComponent,
+    PopoverComponent,
+    NgIf,
+    SortIndicatorComponent
+  ],
   standalone: true
 })
 export default class Index extends ListPage {

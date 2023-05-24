@@ -13,6 +13,7 @@ import {ListPage} from "@utility/list.page";
 import {CustomerRepository} from "@customer/repository/customer.repository";
 import {FilterComponent} from "@customer/presentation/component/filter/filter.component";
 import {PopoverComponent} from "@utility/presentation/component/popover/popover.component";
+import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 
 @Component({
   selector: 'customer-list-page',
@@ -32,7 +33,8 @@ import {PopoverComponent} from "@utility/presentation/component/popover/popover.
     FilterComponent,
     PopoverComponent,
     DatePipe,
-    NgIf
+    NgIf,
+    SortIndicatorComponent
   ],
   standalone: true
 })
