@@ -50,7 +50,7 @@ export class PopoverComponent implements AfterViewInit {
   private readonly document: Document = inject(DOCUMENT);
 
   public clickHandler = ($event: Event) => {
-    this.popoverIsShow && ($event.target as HTMLElement).id !== this.id && this.hide();
+    this.popoverIsShow && ($event.target as HTMLElement).id !== this.id;
   };
 
   public stopPropagation = ($event: Event) => {

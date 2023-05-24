@@ -1,7 +1,20 @@
-import {AfterViewInit, Component, HostBinding, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, inject, ViewEncapsulation} from '@angular/core';
 import {handleNavbarVerticalCollapsed} from '@src/script/navbar-vertical';
 import {IsActiveMatchOptions, RouterLink, RouterLinkActive} from '@angular/router';
 import {NgForOf, NgIf} from '@angular/common';
+import {Auth} from "@angular/fire/auth";
+
+interface IMenuItem {
+  label: string;
+  url?: string;
+  icon?: string;
+  target?: '_blank';
+  disabled?: boolean;
+  routerLinkActiveOptions: {
+    exact: boolean;
+  } | IsActiveMatchOptions;
+  items?: IMenuItem[]
+}
 
 @Component({
   standalone: true,
@@ -17,75 +30,56 @@ import {NgForOf, NgIf} from '@angular/common';
 })
 export class SidebarComponent implements AfterViewInit {
 
-  @HostBinding()
-  class = 'navbar navbar-light navbar-vertical navbar-expand-xl';
+  public readonly auth = inject(Auth);
 
-  public readonly menu: {
-    label: string;
-    items: {
-      label: string;
-      url: string;
-      icon: string;
-      target?: '_blank';
-      disabled?: boolean;
-      routerLinkActiveOptions: {
-        exact: boolean;
-      } | IsActiveMatchOptions
-    }[]
-  }[] = [
+  public readonly menu: IMenuItem[] = [
     {
-      label: '',
-      items: [
-        {
-          label: 'Dashboard',
-          url: '/dashboard',
-          icon: 'bi bi-pie-chart',
-          routerLinkActiveOptions: {
-            exact: true
-          }
-        },
-      ]
+      label: 'Dashboard',
+      url: '/dashboard',
+      icon: 'bi bi-pie-chart',
+      routerLinkActiveOptions: {
+        exact: true
+      }
     },
     {
-      label: '',
-      items: [
-        {
-          label: 'Customers',
-          url: '/customer',
-          icon: 'bi bi-person-vcard',
-          routerLinkActiveOptions: {
-            paths: "exact",
-            matrixParams: "ignored",
-            queryParams: "ignored",
-            fragment: "ignored",
-          }
-        },
-        {
-          label: 'Employees',
-          url: '/employee',
-          icon: 'bi bi-people',
-          routerLinkActiveOptions: {
-            paths: "exact",
-            matrixParams: "ignored",
-            queryParams: "ignored",
-            fragment: "ignored",
-          }
-        },
-        {
-          label: 'Service',
-          url: '/service',
-          icon: 'bi bi-shop-window',
-          routerLinkActiveOptions: {
-            paths: "exact",
-            matrixParams: "ignored",
-            queryParams: "ignored",
-            fragment: "ignored",
-          }
-        },
-      ]
+      label: 'Customers',
+      url: '/customer',
+      icon: 'bi bi-person-vcard',
+      routerLinkActiveOptions: {
+        paths: "exact",
+        matrixParams: "ignored",
+        queryParams: "ignored",
+        fragment: "ignored",
+      }
+    },
+    {
+      label: 'Employees',
+      url: '/employee',
+      icon: 'bi bi-people',
+      routerLinkActiveOptions: {
+        paths: "exact",
+        matrixParams: "ignored",
+        queryParams: "ignored",
+        fragment: "ignored",
+      }
+    },
+    {
+      label: 'Service',
+      url: '/service',
+      icon: 'bi bi-shop-window',
+      routerLinkActiveOptions: {
+        paths: "exact",
+        matrixParams: "ignored",
+        queryParams: "ignored",
+        fragment: "ignored",
+      }
     },
     {
       label: 'Events',
+      icon: 'bi bi-calendar2-week',
+      routerLinkActiveOptions: {
+        exact: true
+      },
       items: [
         {
           label: 'Calendar',
@@ -100,7 +94,10 @@ export class SidebarComponent implements AfterViewInit {
           url: '/event',
           icon: 'bi bi-list',
           routerLinkActiveOptions: {
-            exact: true
+            paths: "exact",
+            matrixParams: "ignored",
+            queryParams: "ignored",
+            fragment: "ignored",
           }
         },
         {
@@ -115,6 +112,10 @@ export class SidebarComponent implements AfterViewInit {
     },
     {
       label: 'Private',
+      icon: 'bi bi-person',
+      routerLinkActiveOptions: {
+        exact: true
+      },
       items: [
         {
           label: 'Profile',
@@ -141,5 +142,4 @@ export class SidebarComponent implements AfterViewInit {
     handleNavbarVerticalCollapsed();
 
   }
-
 }

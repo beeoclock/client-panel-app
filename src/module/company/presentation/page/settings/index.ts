@@ -31,6 +31,11 @@ export default class Index {
     this.darkModeControl.valueChanges.subscribe((controlValue) => {
       const newValue = controlValue ? 'dark' : 'light';
       document.documentElement.setAttribute("data-bs-theme", newValue);
+      if (controlValue) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
       localStorage.setItem('theme', newValue);
     });
   }

@@ -30,6 +30,7 @@ export class AppComponent implements AfterViewInit {
     detectorInit();
 
     if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
       document.documentElement.setAttribute('data-bs-theme', 'dark');
     }
 

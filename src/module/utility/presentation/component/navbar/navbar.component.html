@@ -1,35 +1,30 @@
-<button aria-controls="navbarVerticalCollapse"
-        aria-expanded="false"
-        aria-label="Toggle Navigation"
-        class="btn navbar-toggler-humburger-icon navbar-toggler ms-0 me-3"
-        data-bs-target="#navbarVerticalCollapse"
-        data-bs-toggle="collapse"
-        type="button">
-  <span class="navbar-toggle-icon">
-    <span class="toggle-line"></span>
-  </span>
-</button>
-<ul class="navbar-nav align-items-center">
-  <li class="border d-flex flex-column nav-item px-3 py-2 rounded-3 small bg-200">
-      <div class="d-flex">
-        <div class="me-3">
-          <i class="bi bi-patch-check"
-             data-bs-toggle="tooltip"
-             [attr.data-bs-title]="auth.currentUser?.emailVerified ? 'E-mail address is verified!' : 'Check you E-mail to verify your E-mail address!'"
-             [class.text-warning]="!auth.currentUser?.emailVerified"
-             [class.text-success]="auth.currentUser?.emailVerified"></i>
-        </div>
-        <div class="text-truncate" style="max-width: 200px;">
-          {{ auth.currentUser?.email }}
-        </div>
-<!--        <div class="ms-3">-->
-<!--          <i class="bi bi-chevron-down"></i>-->
-<!--        </div>-->
+<nav class="fixed h-16 top-0 z-50 w-full bg-white border-b border-grey-200 dark:bg-grey-800 dark:border-grey-700">
+  <div class="px-3 py-3 lg:px-5 lg:pl-3">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center justify-start">
+        <button
+          (click)="toggleSidebar()"
+          type="button"
+          class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-grey-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-grey-700 dark:focus:ring-gray-600">
+          <span class="sr-only">Open sidebar</span>
+          <i class="w-6 h-6 flex items-center text-2xl bi bi-list"></i>
+        </button>
+        <a href="https://flowbite.com" class="flex ml-2 md:mr-24">
+          <img alt="" class="h-8 mr-3" src="asset/img/logo.png"/>
+          <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
+            Bee O`clock
+          </span>
+        </a>
       </div>
-  </li>
-</ul>
-<ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center">
-  <li class="nav-item dropdown ps-lg-3">
-    <utility-notification-component></utility-notification-component>
-  </li>
-</ul>
+      <div class="flex items-center">
+        <div class="flex items-center ml-3">
+          <div>
+            <span class="text-black dark:text-white">
+            </span>
+            <utility-notification-component></utility-notification-component>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

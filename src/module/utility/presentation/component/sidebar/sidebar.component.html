@@ -1,55 +1,132 @@
-<div class="d-flex align-items-center">
-  <div class="toggle-icon-wrapper">
+<aside id="main-sidebar"
+       class="
+        fixed
+        top-0
+        left-0
+        z-40
+        w-full
+        md:w-64
+        h-screen
+        pt-20
+        transition-transform
+        -translate-x-full
+        bg-white
+        border-r
+        border-grey-200
+        sm:translate-x-0
+        dark:bg-grey-800
+        dark:border-grey-700"
+       aria-label="Sidebar">
 
-    <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle"
-            data-bs-placement="left"
-            data-bs-toggle="tooltip"
-            title="Toggle Navigation">
-      <span class="navbar-toggle-icon">
-        <span class="toggle-line"></span>
-      </span>
-    </button>
+  <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-grey-800">
 
-  </div>
-  <a class="navbar-brand" routerLink="/">
-    <div class="d-flex align-items-center py-3">
-      <span class="font-sans-serif">&nbsp;</span>
-    </div>
-  </a>
-</div>
-<div class="collapse navbar-collapse" id="navbarVerticalCollapse" #navbarVerticalCollapse>
-  <div class="navbar-vertical-content scrollbar pt-0">
-    <ul class="navbar-nav flex-column mb-3 min-vh-100" id="navbarVerticalNav">
-      <li *ngFor="let group of menu">
-        <!-- label-->
-        <div *ngIf="group.label" class="row navbar-vertical-label-wrapper mt-3 mb-2">
-          <div class="col-auto navbar-vertical-label">{{ group.label }}
-          </div>
-          <div class="col ps-0">
-            <hr class="mb-0 navbar-vertical-divider"/>
-          </div>
-        </div>
-        <!-- parent pages-->
-        <a *ngFor="let item of group.items"
-           [attr.target]="item.target"
-           [class.disabled]="item.disabled ?? false"
-           [routerLink]="item.url"
-           class="nav-link border"
-           role="button"
-           (click)="navbarVerticalCollapse.classList.remove('show')"
-           [routerLinkActiveOptions]="item.routerLinkActiveOptions"
-           [routerLinkActive]="['active']">
-          <div class="d-flex align-items-center">
-            <span class="nav-link-icon">
-              <span [class]="item.icon"></span>
+    <ul class="space-y-2 font-medium">
+
+      <li *ngFor="let item of menu">
+
+        <ng-container *ngIf="item?.items?.length;">
+
+          <button
+            #buttonOfSubMenu
+            (click)="buttonOfSubMenu.toggleAttribute('data-close')"
+            data-close
+            type="button"
+            class="
+              flex
+              items-center
+              w-full
+              p-2
+              text-gray-900
+              transition
+              duration-75
+              rounded-lg
+              group
+              hover:bg-grey-100
+              dark:text-white
+              dark:hover:bg-grey-700">
+
+            <i
+              class="
+                flex-shrink-0
+                w-6
+                h-6
+                text-gray-500
+                transition
+                duration-75
+                group-hover:text-gray-900
+                dark:text-gray-400
+                dark:group-hover:text-white"
+              [class]="item.icon"></i>
+
+            <span class="flex-1 ml-3 text-left whitespace-nowrap">
+              {{ item.label }}
             </span>
-            <span class="nav-link-text ps-1">{{ item.label }}</span>
-          </div>
-        </a>
+
+            <i class="bi bi-chevron-down"></i>
+
+          </button>
+
+          <ul [class.hidden]="buttonOfSubMenu.hasAttribute('data-close')" class="py-2 space-y-2">
+            <li *ngFor="let subItem of item.items">
+              <a
+                (isActiveChange)="$event && buttonOfSubMenu.removeAttribute('data-close')"
+                [routerLink]="subItem.url"
+                [attr.target]="item.target"
+                [class.disabled]="item.disabled ?? false"
+                [routerLinkActiveOptions]="subItem.routerLinkActiveOptions"
+                [routerLinkActive]="['bg-grey-100', 'dark:bg-grey-700']"
+                class="
+                  flex
+                  items-center
+                  w-full
+                  p-2
+                  text-gray-900
+                  transition
+                  duration-75
+                  rounded-lg
+                  pl-11
+                  group
+                  hover:bg-grey-100
+                  dark:text-white
+                  dark:hover:bg-grey-700">
+                {{ subItem.label }}
+              </a>
+            </li>
+          </ul>
+        </ng-container>
+
+        <ng-container *ngIf="!item?.items">
+
+          <a
+            [routerLink]="item.url"
+            [attr.target]="item.target"
+            [class.disabled]="item.disabled ?? false"
+            [routerLinkActiveOptions]="item.routerLinkActiveOptions"
+            [routerLinkActive]="['bg-grey-100', 'dark:bg-grey-700']"
+            class="
+              flex
+              items-center
+              p-2
+              text-gray-900
+              rounded-lg
+              dark:text-white
+              hover:bg-grey-100
+              dark:hover:bg-grey-700">
+
+            <i
+              class="w-6 h-6 ms-2 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+              [class]="item.icon"></i>
+
+            <span class="ml-3">{{ item.label }}</span>
+
+          </a>
+
+        </ng-container>
+
       </li>
-      <li class="mt-4 text-body-tertiary text-center">
-        Bee O`clock
-      </li>
+
     </ul>
+
   </div>
-</div>
+
+</aside>
