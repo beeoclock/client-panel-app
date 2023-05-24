@@ -5,7 +5,7 @@ import {RouterLink} from '@angular/router';
   selector: 'utility-back-link-component',
   standalone: true,
   template: `
-    <a [routerLink]="url" class="btn btn-secondary">
+    <a [routerLink]="url" class="bg-blue-600 flex items-center justify-center p-2 rounded text-center text-white w-24">
       <i class="bi bi-arrow-left me-2"></i>
       back
     </a>

@@ -17,6 +17,16 @@
         dark:bg-grey-800
         dark:border-grey-700"
        aria-label="Sidebar">
+  <div class="flex flex-col items-center mb-2">
+    <div class="bg-grey-200 rounded p-2">
+      <strong class="mx-2 font-medium text-gray-800 dark:text-gray-200">
+        {{ auth.currentUser?.displayName }}
+      </strong>
+      <p class="mx-2 mt-1 text-sm font-medium text-gray-600 dark:text-gray-400">
+        {{ auth.currentUser?.email }}
+      </p>
+    </div>
+  </div>
 
   <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-grey-800">
 
