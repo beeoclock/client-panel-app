@@ -10,7 +10,7 @@ import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.
 import * as Service from '@service/domain';
 import {ILanguageVersion} from '@service/domain';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
-import {PopoverComponent} from "@utility/presentation/component/popover/popover.component";
+import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {LanguagePipe} from "@utility/pipes/language.pipe";
 import {WeekDayPipe} from "@utility/pipes/week-day.pipe";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
@@ -21,7 +21,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
     <ng-container *ngIf="service$ | async as service; else LoadingTemplate">
       <div class="d-flex justify-content-between">
         <utility-back-link-component url="../../"></utility-back-link-component>
-        <utility-popover id="list-menu">
+        <utility-dropdown id="list-menu">
           <i button class="bi bi-three-dots-vertical"></i>
           <ul content class="list-group border-0">
             <li
@@ -39,7 +39,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
               Delete
             </li>
           </ul>
-        </utility-popover>
+        </utility-dropdown>
       </div>
       <div class="row">
         <div class="col-md-8">
@@ -264,7 +264,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
     ButtonComponent,
     RouterLink,
     NgForOf,
-    PopoverComponent,
+    DropdownComponent,
     LanguagePipe,
     WeekDayPipe,
     LoaderComponent

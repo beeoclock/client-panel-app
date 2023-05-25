@@ -12,32 +12,34 @@ import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {ListPage} from "@utility/list.page";
 import {EmployeeRepository} from "@employee/repository/employee.repository";
 import {FilterComponent} from "@employee/presentation/component/filter/filter.component";
-import {PopoverComponent} from "@utility/presentation/component/popover/popover.component";
+import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
+import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 
 @Component({
   selector: 'employee-list-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-    imports: [
-        ExampleTableComponent,
-        CardComponent,
-        BodyCardComponent,
-        RouterLink,
-        ButtonComponent,
-        TableComponent,
-        HeaderTableComponent,
-        BodyTableComponent,
-        PaginationComponent,
-        NgForOf,
-        DatePipe,
-        FilterComponent,
-        PopoverComponent,
-        NgIf,
-        SortIndicatorComponent,
-        LoaderComponent
-    ],
+  imports: [
+    ExampleTableComponent,
+    CardComponent,
+    BodyCardComponent,
+    RouterLink,
+    ButtonComponent,
+    TableComponent,
+    HeaderTableComponent,
+    BodyTableComponent,
+    PaginationComponent,
+    NgForOf,
+    DatePipe,
+    FilterComponent,
+    DropdownComponent,
+    NgIf,
+    SortIndicatorComponent,
+    LoaderComponent,
+    ActionComponent
+  ],
   standalone: true
 })
 export default class Index extends ListPage {

@@ -9,7 +9,7 @@ import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.
 import * as Event from '@event/domain';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {EventRepository} from '@event/repository/event.repository';
-import {PopoverComponent} from "@utility/presentation/component/popover/popover.component";
+import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 
 @Component({
@@ -63,7 +63,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
               </button>
             </span>
 
-            <utility-popover [smHidden]="true">
+            <utility-dropdown [smHidden]="true">
               <ng-container content>
                 <a [routerLink]="['../../', 'form', event._id]" class="block px-4 py-2 text-sm text-neutral-700" role="menuitem" tabindex="-1"
                    id="mobile-menu-item-0">
@@ -76,7 +76,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
                   Delete
                 </button>
               </ng-container>
-            </utility-popover>
+            </utility-dropdown>
           </div>
         </div>
         <hr class="my-6">
@@ -106,7 +106,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
     ButtonComponent,
     RouterLink,
     NgForOf,
-    PopoverComponent,
+    DropdownComponent,
     LoaderComponent,
     DatePipe
   ],

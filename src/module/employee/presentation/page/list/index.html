@@ -1,6 +1,6 @@
-<div class="flex justify-between">
+<div class="flex justify-between p-4">
   <employee-filter-component></employee-filter-component>
-  <utility-popover buttonLabel="Menu">
+  <utility-dropdown buttonLabel="Menu">
     <ng-container content>
       <a
         routerLink="form"
@@ -9,7 +9,7 @@
         Add employee
       </a>
     </ng-container>
-  </utility-popover>
+  </utility-dropdown>
 </div>
 
 <ng-container *ngIf="repository.loading.isOn; else ContentTemplate">
@@ -89,29 +89,7 @@
           {{ item.updatedAt | date: 'hh:mm dd-MM-yyyy' }}
         </td>
         <td class="px-6 py-2 text-center text-neutral-700 dark:text-neutral-100">
-          <utility-popover [threeDot]="true"> id="table-row-{{ item._id }}">
-            <ng-container content>
-              <a
-                [routerLink]="['details', item._id]"
-                class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100" role="menuitem" tabindex="-1">
-                <i class="bi bi-eye"></i>
-                Details
-              </a>
-              <a
-                [routerLink]="['form', item._id]"
-                class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100" role="menuitem" tabindex="-1">
-                <i class="bi bi-pencil"></i>
-                Edit
-              </a>
-              <button
-                (click)="repository.delete(item._id, true)"
-                class="block w-full text-start px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100" role="menuitem"
-                tabindex="-1">
-                <i class="bi bi-trash"></i>
-                Delete
-              </button>
-            </ng-container>
-          </utility-popover>
+          <utility-table-column-action [item]="item" [repository]="repository"></utility-table-column-action>
         </td>
       </tr>
 

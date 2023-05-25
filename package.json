@@ -69,6 +69,7 @@
     "angularx-flatpickr": "^7.2.0",
     "bootstrap-icons": "^1.10.3",
     "flatpickr": "^4.6.13",
+    "flowbite": "^1.6.5",
     "rxjs": "~7.5.0",
     "thiis": "^1.0.1",
     "tslib": "^2.3.0",

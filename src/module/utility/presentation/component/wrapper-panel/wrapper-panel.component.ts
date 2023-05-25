@@ -18,15 +18,14 @@ import {DOCUMENT} from "@angular/common";
     <div class="pt-16 sm:ml-64">
       <router-outlet></router-outlet>
     </div>
+    <utility-stream-toast-component></utility-stream-toast-component>
+
+    <!--    <div class="bg-opacity-50 bg-black w-full h-full absolute top-0 left-0 z-50 flex items-center justify-center">-->
+    <!--      <div class="bg-white border rounded-lg p-4 max-w-2xl absolute z-50">-->
 
 
-<!--    <main class="main" id="top">-->
-<!--      <div class="container-fluid position-relative" data-layout="container">-->
-<!--        <div class="content">-->
-<!--        </div>-->
-<!--        <utility-stream-toast-component></utility-stream-toast-component>-->
-<!--      </div>-->
-<!--    </main>-->
+    <!--      </div>-->
+    <!--    </div>-->
   `,
   imports: [SidebarComponent, NavbarComponent, FooterComponent, RouterOutlet, StreamToastComponent],
   encapsulation: ViewEncapsulation.None
