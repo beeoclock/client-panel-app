@@ -8,7 +8,7 @@ import {FormControl, ReactiveFormsModule} from '@angular/forms';
     ReactiveFormsModule
   ],
   template: `
-    <input type="text" [formControl]="control" class="form-control" [placeholder]="placeholder">
+    <input type="text" [formControl]="control" class="rounded px-3 py-2 border" [placeholder]="placeholder">
   `
 })
 export class SearchInputComponent {

@@ -248,7 +248,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
       </div>
     </ng-container>
     <ng-template #LoadingTemplate>
-      <utility-loader-component></utility-loader-component>
+      <utility-loader></utility-loader>
     </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,

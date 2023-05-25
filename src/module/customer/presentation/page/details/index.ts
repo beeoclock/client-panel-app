@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
 import {CustomerRepository} from '@customer/repository/customer.repository';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {AsyncPipe, NgIf} from '@angular/common';
@@ -17,7 +17,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
   template: `
     <utility-back-link-component url="../../"></utility-back-link-component>
     <ng-container *ngIf="customer$ | async as customer; else LoadingTemplate">
-      <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8">
+      <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
         <div class="lg:flex lg:items-center lg:justify-between">
           <div class="min-w-0 flex-1">
             <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
@@ -37,8 +37,8 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
           <div class="mt-5 flex lg:ml-4 lg:mt-0">
             <span class="hidden sm:block">
               <a type="button"
-                      [routerLink]="['../../', 'form', customer._id]"
-                      class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                 [routerLink]="['../../', 'form', customer._id]"
+                 class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                 <i class="bi bi-pencil me-2"></i>
                 Edit
               </a>
@@ -47,17 +47,48 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
             <span class="ml-3 hidden sm:block">
               <button type="button"
                       (click)="repository.delete(customer._id)"
-                      class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                      class="
+                      inline-flex
+                      items-center
+                      rounded-md
+                      bg-white
+                      px-3
+                      py-2
+                      text-sm
+                      font-semibold
+                      text-red-500
+                      shadow-sm
+                      ring-1
+                      ring-inset
+                      ring-gray-300
+                      hover:bg-gray-50">
                 <i class="bi bi-trash me-2"></i>
                 Delete
               </button>
             </span>
 
             <!-- Dropdown -->
-            <div class="relative ml-3 sm:hidden">
+            <div class="relative sm:hidden">
               <button type="button"
-                      class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:ring-gray-400"
-                      id="mobile-menu-button" aria-expanded="false" aria-haspopup="true">
+                      (click)="mobileMenu.toggleAttribute('data-close')"
+                      class="
+                        inline-flex
+                        items-center
+                        rounded-md
+                        bg-white
+                        px-3
+                        py-2
+                        text-sm
+                        font-semibold
+                        text-gray-900
+                        shadow-sm
+                        ring-1
+                        ring-inset
+                        ring-gray-300
+                        hover:ring-gray-400"
+                      id="mobile-menu-button"
+                      aria-expanded="false"
+                      aria-haspopup="true">
                 More
                 <svg class="-mr-1 ml-1.5 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
                      aria-hidden="true">
@@ -67,14 +98,25 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
                 </svg>
               </button>
               <div
-                class="absolute right-0 z-10 -mr-1 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                role="menu" aria-orientation="vertical" aria-labelledby="mobile-menu-button"
+                #mobileMenu
+                data-close
+                [class.hidden]="mobileMenu.hasAttribute('data-close')"
+                class="absolute z-10 -mr-1 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                role="menu"
+                aria-orientation="vertical"
+                aria-labelledby="mobile-menu-button"
                 tabindex="-1">
                 <!-- Active: "bg-gray-100", Not Active: "" -->
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
-                   id="mobile-menu-item-0">Edit</a>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
-                   id="mobile-menu-item-1">View</a>
+                <a [routerLink]="['../../', 'form', customer._id]" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                   id="mobile-menu-item-0">
+                  <i class="bi bi-pencil me-2"></i>
+                  Edit
+                </a>
+                <button (click)="repository.delete(customer._id)" class="block px-4 py-2 text-sm text-red-500" role="menuitem" tabindex="-1"
+                   id="mobile-menu-item-1">
+                  <i class="bi bi-trash me-2"></i>
+                  Delete
+                </button>
               </div>
             </div>
           </div>
@@ -87,7 +129,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
       </div>
     </ng-container>
     <ng-template #LoadingTemplate>
-      <utility-loader-component></utility-loader-component>
+      <utility-loader></utility-loader>
     </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,
@@ -111,6 +153,9 @@ export default class Index {
 
   public readonly repository = inject(CustomerRepository);
   public readonly activatedRoute = inject(ActivatedRoute);
+
+  @HostBinding()
+  public readonly class = 'p-4 block';
 
   public readonly customer$: Observable<Customer.ICustomer | undefined> = this.activatedRoute.params.pipe(
     exhaustMap(async ({id}) => {

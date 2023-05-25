@@ -62,7 +62,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
       </utility-card-component>
     </ng-container>
     <ng-template #LoadingTemplate>
-      <utility-loader-component></utility-loader-component>
+      <utility-loader></utility-loader>
     </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,
