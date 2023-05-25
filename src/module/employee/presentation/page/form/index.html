@@ -1,66 +1,59 @@
-<utility-back-link-component [url]="url"></utility-back-link-component>
+<div class="p-4">
+  <utility-back-link-component [url]="url"></utility-back-link-component>
 
-<form [formGroup]="form" class="row mt-3">
-  <div class="col-6">
-    <utility-card-component class="border">
-      <utility-header-card-component>
-        Information
-      </utility-header-card-component>
-      <utility-body-card-component>
-        <div class="col-12 position-relative">
-          <label for="customer-form-firstName">First name</label>
-          <input
-            beeoclock
-            hasError
-            placeholder="Write first name of customer"
-            id="customer-form-firstName"
-            formControlName="firstName">
-          <utility-input-error-component [control]="form.controls.firstName"></utility-input-error-component>
-        </div>
-        <div class="col-12">
-          <label for="customer-form-lastName">Last name</label>
-          <input
-            beeoclock
-            placeholder="Write last name of customer"
-            id="customer-form-lastName"
-            formControlName="lastName">
-          <utility-input-error-component [control]="form.controls.lastName"></utility-input-error-component>
-        </div>
-      </utility-body-card-component>
-    </utility-card-component>
-  </div>
-  <div class="col-6 ps-lg-0">
-    <utility-card-component class="border">
-      <utility-header-card-component>
-        Contact
-      </utility-header-card-component>
-      <utility-body-card-component>
-        <div class="col-12">
-          <label for="customer-form-email">e-mail</label>
-          <input
-            beeoclock
-            placeholder="Write E-mail of customer"
-            id="customer-form-email"
-            formControlName="email">
-          <utility-input-error-component [control]="form.controls.email"></utility-input-error-component>
-        </div>
-        <div class="col-12">
-          <label for="customer-form-phone">Phone</label>
-          <input
-            beeoclock
-            placeholder="Write phone of customer"
-            id="customer-form-phone"
-            formControlName="phone">
-          <utility-input-error-component [control]="form.controls.phone"></utility-input-error-component>
-        </div>
-      </utility-body-card-component>
-    </utility-card-component>
-  </div>
-  <div class="col-12 d-grid mt-3">
-    <button
-      beeoclock
-      [disabled]="form.disabled"
-      [showLoader]="form.pending"
-      (click)="save()">Save</button>
-  </div>
-</form>
+  <form [formGroup]="form" class="mt-4">
+    <div class="bg-white border rounded-lg p-4">
+
+      <strong>Information</strong>
+
+      <div class="flex flex-col mt-4">
+        <label for="customer-form-firstName">First name</label>
+        <input
+          class="border rounded bg-white px-2 py-1"
+          placeholder="Write first name of customer"
+          id="customer-form-firstName"
+          formControlName="firstName">
+        <utility-input-error-component [control]="form.controls.firstName"></utility-input-error-component>
+      </div>
+      <div class="flex flex-col mt-4">
+        <label for="customer-form-lastName">Last name</label>
+        <input
+          class="border rounded bg-white px-2 py-1"
+          placeholder="Write last name of customer"
+          id="customer-form-lastName"
+          formControlName="lastName">
+        <utility-input-error-component [control]="form.controls.lastName"></utility-input-error-component>
+      </div>
+    </div>
+    <div class="bg-white border rounded-lg p-4 mt-4">
+      <strong>Contact</strong>
+
+      <div class="flex flex-col mt-4">
+        <label for="customer-form-email">e-mail</label>
+        <input
+          class="border rounded bg-white px-2 py-1"
+          placeholder="Write E-mail of customer"
+          id="customer-form-email"
+          formControlName="email">
+        <utility-input-error-component [control]="form.controls.email"></utility-input-error-component>
+      </div>
+      <div class="flex flex-col mt-4">
+        <label for="customer-form-phone">Phone</label>
+        <input
+          class="border rounded bg-white px-2 py-1"
+          placeholder="Write phone of customer"
+          id="customer-form-phone"
+          formControlName="phone">
+        <utility-input-error-component [control]="form.controls.phone"></utility-input-error-component>
+      </div>
+    </div>
+    <div class="mt-4">
+      <button
+        class="px-4 py-2 bg-blue-600 rounded-lg text-white w-full hover:bg-blue-700 cursor-pointer transition"
+        [disabled]="form.disabled"
+        (click)="save()">Save
+      </button>
+    </div>
+  </form>
+
+</div>
