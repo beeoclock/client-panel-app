@@ -59,7 +59,7 @@ import {Notification, WarningNotification} from "@utility/domain/notification";
 
     <form [formGroup]="form" class="space-y-6" action="#" method="POST">
       <div>
-        <label for="email" class="block text-sm font-medium leading-6 text-grey-900 dark:text-white">Email
+        <label for="email" class="block text-sm font-medium leading-6 text-neutral-900 dark:text-white">Email
           address</label>
         <div class="mt-2">
           <input
@@ -76,14 +76,14 @@ import {Notification, WarningNotification} from "@utility/domain/notification";
                 rounded-md
                 border-0
                 py-1.5
-                text-grey-900
-                dark:text-grey-100
+                text-neutral-900
+                dark:text-neutral-100
                 shadow-sm
-                dark:bg-grey-700
+                dark:bg-neutral-700
                 ring-1
                 ring-inset
-                ring-grey-300
-                placeholder:text-grey-400
+                ring-neutral-300
+                placeholder:text-neutral-400
                 focus:ring-2
                 focus:ring-inset
                 focus:ring-stone-800
@@ -94,7 +94,7 @@ import {Notification, WarningNotification} from "@utility/domain/notification";
       <div>
         <div class="flex items-center justify-between">
           <label for="password"
-                 class="block text-sm font-medium leading-6 text-grey-900 dark:text-white">Password</label>
+                 class="block text-sm font-medium leading-6 text-neutral-900 dark:text-white">Password</label>
           <div class="text-sm">
             <a href="#" class="font-semibold text-blue-600 dark:text-black hover:text-blue-500">Forgot
               password?</a>
@@ -114,15 +114,15 @@ import {Notification, WarningNotification} from "@utility/domain/notification";
                 w-full
                 rounded-md
                 border-0
-                dark:bg-grey-700
+                dark:bg-neutral-700
                 py-1.5
-                text-grey-900
-                dark:text-grey-100
+                text-neutral-900
+                dark:text-neutral-100
                 shadow-sm
                 ring-1
                 ring-inset
-                ring-grey-300
-                placeholder:text-grey-400
+                ring-neutral-300
+                placeholder:text-neutral-400
                 focus:ring-2
                 focus:ring-inset
                 focus:ring-stone-800

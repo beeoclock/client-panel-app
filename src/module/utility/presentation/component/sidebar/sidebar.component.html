@@ -12,23 +12,23 @@
         -translate-x-full
         bg-white
         border-r
-        border-grey-200
+        border-neutral-200
         sm:translate-x-0
-        dark:bg-grey-800
-        dark:border-grey-700"
+        dark:bg-neutral-800
+        dark:border-neutral-700"
        aria-label="Sidebar">
   <div class="flex flex-col items-center mb-2">
-    <div class="bg-grey-200 rounded p-2">
-      <strong class="mx-2 font-medium text-gray-800 dark:text-gray-200">
+    <div class="bg-neutral-200 rounded p-2">
+      <strong class="mx-2 font-medium text-neutral-800 dark:text-neutral-200">
         {{ auth.currentUser?.displayName }}
       </strong>
-      <p class="mx-2 mt-1 text-sm font-medium text-gray-600 dark:text-gray-400">
+      <p class="mx-2 mt-1 text-sm font-medium text-neutral-600 dark:text-neutral-400">
         {{ auth.currentUser?.email }}
       </p>
     </div>
   </div>
 
-  <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-grey-800">
+  <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-neutral-800">
 
     <ul class="space-y-2 font-medium">
 
@@ -46,25 +46,26 @@
               items-center
               w-full
               p-2
-              text-gray-900
+              text-neutral-900
               transition
               duration-75
               rounded-lg
               group
-              hover:bg-grey-100
+              hover:bg-neutral-100
               dark:text-white
-              dark:hover:bg-grey-700">
+              dark:hover:bg-neutral-700">
 
             <i
               class="
                 flex-shrink-0
                 w-6
                 h-6
-                text-gray-500
+                ms-1
+                text-neutral-500
                 transition
                 duration-75
-                group-hover:text-gray-900
-                dark:text-gray-400
+                group-hover:text-neutral-900
+                dark:text-neutral-400
                 dark:group-hover:text-white"
               [class]="item.icon"></i>
 
@@ -72,7 +73,7 @@
               {{ item.label }}
             </span>
 
-            <i class="bi bi-chevron-down"></i>
+            <i class="bi bi-chevron-down me-1"></i>
 
           </button>
 
@@ -84,21 +85,21 @@
                 [attr.target]="item.target"
                 [class.disabled]="item.disabled ?? false"
                 [routerLinkActiveOptions]="subItem.routerLinkActiveOptions"
-                [routerLinkActive]="['bg-grey-100', 'dark:bg-grey-700']"
+                [routerLinkActive]="['bg-neutral-100', 'dark:bg-neutral-700']"
                 class="
                   flex
                   items-center
                   w-full
                   p-2
-                  text-gray-900
+                  text-neutral-900
                   transition
                   duration-75
                   rounded-lg
                   pl-11
                   group
-                  hover:bg-grey-100
+                  hover:bg-neutral-100
                   dark:text-white
-                  dark:hover:bg-grey-700">
+                  dark:hover:bg-neutral-700">
                 {{ subItem.label }}
               </a>
             </li>
@@ -112,19 +113,19 @@
             [attr.target]="item.target"
             [class.disabled]="item.disabled ?? false"
             [routerLinkActiveOptions]="item.routerLinkActiveOptions"
-            [routerLinkActive]="['bg-grey-100', 'dark:bg-grey-700']"
+            [routerLinkActive]="['bg-neutral-100', 'dark:bg-neutral-700']"
             class="
               flex
               items-center
               p-2
-              text-gray-900
+              text-neutral-900
               rounded-lg
               dark:text-white
-              hover:bg-grey-100
-              dark:hover:bg-grey-700">
+              hover:bg-neutral-100
+              dark:hover:bg-neutral-700">
 
             <i
-              class="w-6 h-6 ms-2 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+              class="w-6 h-6 ms-2 text-neutral-500 transition duration-75 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white"
               [class]="item.icon"></i>
 
             <span class="ml-3">{{ item.label }}</span>

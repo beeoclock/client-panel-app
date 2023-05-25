@@ -18,19 +18,19 @@ import {HeaderCardComponent} from "@utility/presentation/component/card/header.c
   selector: 'customer-form-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-    imports: [
-        CardComponent,
-        BodyCardComponent,
-        ReactiveFormsModule,
-        InputDirective,
-        TextareaDirective,
-        ButtonComponent,
-        InputErrorComponent,
-        HasErrorDirective,
-        RouterLink,
-        BackLinkComponent,
-        HeaderCardComponent
-    ],
+  imports: [
+    CardComponent,
+    BodyCardComponent,
+    ReactiveFormsModule,
+    InputDirective,
+    TextareaDirective,
+    ButtonComponent,
+    InputErrorComponent,
+    HasErrorDirective,
+    RouterLink,
+    BackLinkComponent,
+    HeaderCardComponent
+  ],
   standalone: true
 })
 export default class Index {

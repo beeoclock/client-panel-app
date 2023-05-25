@@ -1,27 +1,25 @@
 <div class="flex justify-between">
   <service-filter-component></service-filter-component>
-  <utility-popover id="list-menu">
-    <i button class="bi bi-three-dots-vertical"></i>
-    <ul content class="list-group border-0">
-      <li
+  <utility-popover buttonLabel="Menu">
+    <ng-container content>
+      <a
         routerLink="form"
-        close-on-self-click
-        class="list-group-item list-group-item-action cursor-pointer border-0">
+        class="block px-4 py-2 text-sm text-neutral-700" role="menuitem" tabindex="-1">
         <i class="bi bi-plus-lg"></i>
-        Add new service
-      </li>
-    </ul>
+        Add service
+      </a>
+    </ng-container>
   </utility-popover>
 </div>
 
 <div class="relative overflow-x-auto">
-  <table class="w-full text-sm text-left text-grey-500 dark:text-grey-400">
-    <thead class="text-xs text-grey-700 uppercase border-b dark:bg-grey-700 dark:text-grey-400">
+  <table class="w-full text-sm text-left text-neutral-500 dark:text-neutral-400">
+    <thead class="text-xs text-neutral-700 uppercase border-b dark:bg-neutral-700 dark:text-neutral-400">
     <tr>
       <th scope="col" class="p-4">
         <div class="flex items-center">
           <input id="checkbox-all" type="checkbox"
-                 class="w-4 h-4 text-blue-600 bg-grey-100 border-grey-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-grey-800 dark:focus:ring-offset-grey-800 focus:ring-2 dark:bg-grey-700 dark:border-grey-300">
+                 class="w-4 h-4 text-blue-600 bg-neutral-100 border-neutral-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-neutral-800 dark:focus:ring-offset-neutral-800 focus:ring-2 dark:bg-neutral-700 dark:border-neutral-300">
           <label for="checkbox-all" class="sr-only">checkbox</label>
         </div>
       </th>
@@ -67,66 +65,62 @@
     </thead>
     <tbody>
     <tr
-      class="bg-white border-b dark:bg-grey-800 dark:border-grey-700 hover:bg-grey-100 dark:hover:bg-grey-300"
+      class="bg-white border-b dark:bg-neutral-800 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-300"
       *ngFor="let item of repository.pagination.items">
-      <td class="w-4 p-4">
+      <td class="w-4 px-4 py-2">
         <div class="flex items-center">
           <input id="checkbox-table-1" type="checkbox"
-                 class="w-4 h-4 text-blue-600 bg-grey-100 border-grey-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-grey-800 dark:focus:ring-offset-grey-800 focus:ring-2 dark:bg-grey-700 dark:border-grey-300">
+                 class="w-4 h-4 text-blue-600 bg-neutral-100 border-neutral-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-neutral-800 dark:focus:ring-offset-neutral-800 focus:ring-2 dark:bg-neutral-700 dark:border-neutral-300">
           <label for="checkbox-table-1" class="sr-only">checkbox</label>
         </div>
       </td>
-      <td class="px-6 py-4 text-grey-700 dark:text-gray-100">
+      <td class="px-6 py-2 text-neutral-700 dark:text-neutral-100">
         <a [routerLink]="['details', item._id]">
           {{ getFirstLanguageVersion(item.languageVersions).title }}
         </a>
       </td>
-      <td class="px-6 py-4 text-grey-700 dark:text-gray-100">
+      <td class="px-6 py-2 text-neutral-700 dark:text-neutral-100">
         {{ getLanguageCodes(item.languageVersions) }}
       </td>
-      <td class="px-6 py-4 text-grey-700 dark:text-gray-100">
+      <td class="px-6 py-2 text-neutral-700 dark:text-neutral-100">
         <i class="bi bi-person"></i>
         {{ item?.permanentEmployees?.length ?? 0 }}
       </td>
-      <td class="px-6 py-4 text-grey-700 dark:text-gray-100">
+      <td class="px-6 py-2 text-neutral-700 dark:text-neutral-100">
         <span
           [class.text-danger]="!item.active"
           [class.text-success]="item.active">
           {{ item.active ? 'active' : 'Inactive' }}
         </span>
       </td>
-      <td class="px-6 py-4 text-grey-700 dark:text-gray-100">
+      <td class="px-6 py-2 text-neutral-700 dark:text-neutral-100">
         {{ item.createdAt | date: 'hh:mm dd-MM-yyyy' }}
       </td>
-      <td class="px-6 py-4 text-grey-700 dark:text-gray-100">
+      <td class="px-6 py-2 text-neutral-700 dark:text-neutral-100">
         {{ item.updatedAt | date: 'hh:mm dd-MM-yyyy' }}
       </td>
-      <td>
-        <utility-popover id="table-row-{{ item._id }}">
-          <i button class="bi bi-three-dots-vertical"></i>
-          <ul content class="list-group border-0">
-            <li
+      <td class="px-6 py-2 text-center text-neutral-700 dark:text-neutral-100">
+        <utility-popover [threeDot]="true"> id="table-row-{{ item._id }}">
+          <ng-container content>
+            <a
               [routerLink]="['details', item._id]"
-              close-on-self-click
-              class="list-group-item list-group-item-action cursor-pointer border-0">
+              class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100" role="menuitem" tabindex="-1">
               <i class="bi bi-eye"></i>
               Details
-            </li>
-            <li
+            </a>
+            <a
               [routerLink]="['form', item._id]"
-              close-on-self-click
-              class="list-group-item list-group-item-action cursor-pointer border-0">
+              class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100" role="menuitem" tabindex="-1">
               <i class="bi bi-pencil"></i>
               Edit
-            </li>
-            <li
+            </a>
+            <button
               (click)="repository.delete(item._id, true)"
-              close-on-self-click
-              class="list-group-item list-group-item-action cursor-pointer border-0">
+              class="block w-full text-start px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100" role="menuitem" tabindex="-1">
               <i class="bi bi-trash"></i>
               Delete
-            </li>
-          </ul>
+            </button>
+          </ng-container>
         </utility-popover>
       </td>
     </tr>
