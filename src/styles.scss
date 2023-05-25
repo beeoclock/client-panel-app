@@ -1,3 +1,38 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+//$client-panel-app-primary: mat.define-palette(mat.$indigo-palette);
+//$client-panel-app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+//
+//// The warn palette is optional (defaults to red).
+//$client-panel-app-warn: mat.define-palette(mat.$red-palette);
+//
+//// Create the theme object. A theme consists of configurations for individual
+//// theming systems such as "color" or "typography".
+//$client-panel-app-theme: mat.define-light-theme((
+//  color: (
+//    primary: $client-panel-app-primary,
+//    accent: $client-panel-app-accent,
+//    warn: $client-panel-app-warn,
+//  )
+//));
+//
+//// Include theme styles for core and each component used in your app.
+//// Alternatively, you can import and @include the theme mixins for each component
+//// that you are using.
+//@include mat.all-component-themes($client-panel-app-theme);
+
 @import "bootstrap-icons";
 //@import "~@ng-select/ng-select/themes/default.theme.css";
 //@import "./asset/scss/theme.scss";
@@ -10,146 +45,3 @@ label.form-label[required]:after {
   content:" *";
   color: red;
 }
-
-
-//.ng-input {
-//  input {
-//    cursor: text;
-//  }
-//}
-//
-//.ng-select {
-//
-//  &.ng-select-multiple {
-//    .ng-select-container {
-//      .ng-value-container {
-//        .ng-input {
-//          >input {
-//            color: $input-color;
-//          }
-//        }
-//      }
-//    }
-//  }
-//
-//  &.ng-select-opened {
-//    .ng-select-container {
-//      border-bottom-left-radius: 0 !important;
-//      border-bottom-right-radius: 0 !important;
-//    }
-//  }
-//
-//  .ng-select-container {
-//    height: 38.8px !important;
-//    //display: block;
-//    //width: 100%;
-//    //padding: $input-padding-y $input-padding-x/4;
-//    font-family: $input-font-family;
-//    @include font-size($input-font-size);
-//    font-weight: $input-font-weight;
-//    line-height: $input-line-height;
-//    color: $input-color !important;
-//    background-color: $input-bg !important;
-//    background-clip: padding-box;
-//    border: $input-border-width solid $input-border-color !important;
-//    appearance: none; // Fix appearance for date inputs in Safari
-//
-//    // Note: This has no effect on <select>s in some browsers, due to the limited stylability of `<select>`s in CSS.
-//    @include border-radius($input-border-radius !important, 0);
-//
-//    @include box-shadow($input-box-shadow);
-//    @include transition($input-transition);
-//  }
-//
-//  .scroll-host {
-//    border-bottom-left-radius: 3px;
-//
-//    @include scrollbar();
-//
-//    &::-webkit-scrollbar-track-piece {
-//      border-left: 1px solid $input-border-color;
-//      background-color: $input-bg;
-//      border-bottom-right-radius: 3px;
-//    }
-//
-//    &::-webkit-scrollbar-track {
-//      background-color: $input-bg;
-//      border-bottom-right-radius: 3px;
-//    }
-//  }
-//
-//}
-//
-//
-//body {
-//  @include scrollbar();
-//}
-//
-//@include color-mode(dark) {
-//
-//  .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon:hover {
-//    background-color: #758194;
-//  }
-//
-//  .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon.left {
-//    border-right-color: #1e2938;
-//    border-radius: 2px 0 0 2px;
-//  }
-//
-//  //List of options
-//  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
-//    background-color: #1e1e1e;
-//    color: #9da9bb;
-//    border-color: #373737;
-//  }
-//
-//  //Not selected searchable input
-//  .ng-select .ng-select-container {
-//    background-color: #0b1727;
-//    color: #9da9bb;
-//    border-color: #373737;
-//  }
-//
-//  //Selected/Opened searchable input
-//  .ng-select.ng-select-opened > .ng-select-container {
-//    background-color: #0b1727;
-//    color: #9da9bb;
-//    border-color: #373737;
-//  }
-//
-//  //Searchable input placeholder
-//  .ng-select .ng-select-container .ng-value-container .ng-placeholder {
-//    color: #9da9bb;
-//  }
-//
-//  //Selected/Marked/Selected&Marked dropdown option
-//  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked,
-//  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected,
-//  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked.ng-option.ng-option-selected {
-//    background-color: #141414;
-//    color: #9da9bb;
-//    border-color: #373737;
-//  }
-//
-//  //Dropdown and searchable input separator border
-//  .ng-dropdown-panel.ng-select-bottom, .ng-dropdown-panel.ng-select-top {
-//    border-color: #373737;
-//  }
-//
-//  //Multiple selected value labels
-//  .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
-//    background-color: #282828;
-//    color: #9da9bb;
-//    border-color: #373737;
-//  }
-//
-//  //Fix for white corners
-//  .ng-dropdown-panel.ng-select-bottom .ng-dropdown-panel-items.scroll-host .ng-option:last-child {
-//    border-bottom-right-radius: 0;
-//    border-bottom-left-radius: 0;
-//  }
-//  .ng-dropdown-panel.ng-select-top .ng-dropdown-panel-items.scroll-host .ng-option:first-child {
-//    border-top-right-radius: 0;
-//    border-top-left-radius: 0;
-//  }
-//}

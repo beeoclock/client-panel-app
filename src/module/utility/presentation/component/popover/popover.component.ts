@@ -1,105 +1,97 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  HostBinding,
-  inject,
-  Input,
-  TemplateRef,
-  ViewChild,
-  ViewEncapsulation
-} from "@angular/core";
-import {Popover} from "bootstrap";
-import {DOCUMENT} from "@angular/common";
+import {Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
+import {CdkMenu, CdkMenuTrigger} from "@angular/cdk/menu";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'utility-popover',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
+  imports: [
+    CdkMenuTrigger,
+    CdkMenu,
+    NgIf
+  ],
   template: `
     <button
-      #button
-      (click)="showPopover()"
-      [id]="id"
+      [cdkMenuTriggerFor]="menu"
       type="button"
-      class="btn btn-link px-2"
-      data-bs-toggle="popover">
-      <ng-content select="[button]"></ng-content>
+      class="
+        inline-flex
+        items-center
+        rounded-md
+        bg-white
+        px-3
+        py-2
+        text-sm
+        font-semibold
+        text-gray-900
+        shadow-sm
+        ring-1
+        ring-inset
+        ring-gray-300
+        hover:ring-gray-400"
+      [id]="id"
+      aria-expanded="false"
+      aria-haspopup="true">
+      <ng-container *ngIf="threeDot; else DefaultTemplate">
+        <i class="bi bi-three-dots-vertical"></i>
+      </ng-container>
+      <ng-template #DefaultTemplate>
+        {{ buttonLabel }}
+        <svg class="-mr-1 ml-1.5 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
+             aria-hidden="true">
+          <path fill-rule="evenodd"
+                d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                clip-rule="evenodd"/>
+        </svg>
+      </ng-template>
     </button>
-
-    <ng-template #popoverContent>
-      <ng-content select="[content]"></ng-content>
+    <ng-template #menu>
+      <div
+        cdkMenu
+        class="
+        abstract
+        z-10
+        -mr-1
+        mt-2
+        w-48
+        origin-top-right
+        rounded-md
+        bg-white
+        py-1
+        shadow-lg
+        ring-1
+        ring-black
+        ring-opacity-5
+        focus:outline-none"
+        role="menu"
+        aria-orientation="vertical"
+        [attr.aria-labelledby]="id"
+        tabindex="-1">
+        <ng-content select="[content]"></ng-content>
+      </div>
     </ng-template>
   `
 })
-export class PopoverComponent implements AfterViewInit {
+export class PopoverComponent {
 
-  @ViewChild('popoverContent', {read: TemplateRef})
-  popoverContent!: TemplateRef<any>;
+  @Input()
+  public buttonLabel = 'More';
 
-  @ViewChild('button')
-  public button!: ElementRef<HTMLButtonElement>;
+  @Input()
+  public threeDot = false;
 
   @Input()
   @HostBinding()
   public id = 'utility-popover-btn';
 
-  public popover!: Popover;
-  public popoverIsShow = false;
+  // The popover will present only on mobile size
+  @Input()
+  @HostBinding('class.sm:hidden')
+  public smHidden = false;
 
-  private readonly document: Document = inject(DOCUMENT);
-
-  public clickHandler = ($event: Event) => {
-    this.popoverIsShow && ($event.target as HTMLElement).id !== this.id;
-  };
-
-  public stopPropagation = ($event: Event) => {
-    const li: HTMLLIElement | undefined = $event.target as HTMLLIElement | undefined;
-    if (li?.hasAttribute('close-on-self-click') || li?.parentElement?.hasAttribute('close-on-self-click')) {
-      this.hide();
-    }
-    $event.stopPropagation();
-  };
-
-  public ngAfterViewInit(): void {
-    const content = this.popoverContent.createEmbeddedView(this.popoverContent).rootNodes[0];
-    if (!content) {
-      throw new Error('Content is empty!');
-    }
-    this.popover = new Popover(this.button.nativeElement, {
-      container: 'body',
-      placement: 'bottom',
-      trigger: 'manual',
-      html: true,
-      template: `
-        <div class="popover" role="tooltip">
-          <div class="popover-arrow"></div>
-          <h3 class="popover-header"></h3>
-          <div class="popover-inner"></div>
-          <div class="popover-body p-0"></div>
-        </div>
-      `,
-      content
-    });
-  }
-
-  public showPopover(): void {
-    this.popoverIsShow ? this.hide() : this.show();
-  }
-
-  public show(): void {
-    this.popover.show();
-    this.document.body.addEventListener('click', this.clickHandler);
-    this.popoverContent.createEmbeddedView(this.popoverContent).rootNodes[0].addEventListener('click', this.stopPropagation);
-    this.popoverIsShow = true;
-  }
-
-  public hide(): void {
-    this.popover.hide();
-    this.document.body.removeEventListener('click', this.clickHandler);
-    this.popoverContent.createEmbeddedView(this.popoverContent).rootNodes[0].removeEventListener('click', this.stopPropagation);
-    this.popoverIsShow = false;
-  }
+  @HostBinding()
+  public class = 'relative';
 
 }
 

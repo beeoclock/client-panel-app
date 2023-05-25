@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, ViewEncapsulation} from "@angular/core";
-import {Dropdown} from "bootstrap";
 import {RouterLink} from "@angular/router";
 
 @Component({
@@ -126,14 +125,14 @@ import {RouterLink} from "@angular/router";
 })
 export class NotificationComponent implements AfterViewInit {
 
-  public dropdown: undefined | Dropdown;
+  // public dropdown: undefined | Dropdown;
 
   public ngAfterViewInit(): void {
-    this.dropdown = new Dropdown('utility-notification-component > [data-bs-toggle="dropdown"]', {
-      display: 'dynamic',
-      popperConfig: {
-        placement: 'bottom-end'
-      }
-    })
+    // this.dropdown = new Dropdown('utility-notification-component > [data-bs-toggle="dropdown"]', {
+    //   display: 'dynamic',
+    //   popperConfig: {
+    //     placement: 'bottom-end'
+    //   }
+    // })
   }
 }

@@ -10,10 +10,6 @@ import {CardComponent} from '@utility/presentation/component/card/card.component
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {HeaderCardComponent} from '@utility/presentation/component/card/header.card.component';
 import {EventRepository} from "@event/repository/event.repository";
-import {ModalService} from "@utility/presentation/component/modal/services/modal/modal.service";
-import {
-  EventShortDetailsComponent
-} from "@event/presentation/component/event-short-details/event-short-details.component";
 import {IEvent} from "@event/domain";
 
 @Component({
@@ -35,7 +31,6 @@ export default class Index {
 
   public readonly repository = inject(EventRepository);
   private readonly changeDetector = inject(ChangeDetectorRef);
-  private readonly modalService = inject(ModalService);
 
   public events: IEvent[] = [];
 
@@ -111,18 +106,18 @@ export default class Index {
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    this.modalService.create([{
-      component: EventShortDetailsComponent,
-      data: {
-        event: this.events.find(({_id}) => _id === clickInfo.event.extendedProps['_id']),
-      }
-    }], {
-      buttons: [],
-      fixHeight: false,
-      title: 'Event'
-    }).then((modal) => {
-      return modal;
-    });
+    // this.modalService.create([{
+    //   component: EventShortDetailsComponent,
+    //   data: {
+    //     event: this.events.find(({_id}) => _id === clickInfo.event.extendedProps['_id']),
+    //   }
+    // }], {
+    //   buttons: [],
+    //   fixHeight: false,
+    //   title: 'Event'
+    // }).then((modal) => {
+    //   return modal;
+    // });
 
     // clickInfo.event.remove();
 

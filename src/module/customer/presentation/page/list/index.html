@@ -1,16 +1,14 @@
 <div class="flex justify-between">
   <customer-filter-component></customer-filter-component>
-  <utility-popover id="list-menu">
-    <i button class="bi bi-three-dots-vertical"></i>
-    <ul content class="list-group border-0">
-      <li
+  <utility-popover buttonLabel="Menu">
+    <ng-container content>
+      <a
         routerLink="form"
-        close-on-self-click
-        class="list-group-item list-group-item-action cursor-pointer border-0">
+        class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1">
         <i class="bi bi-plus-lg"></i>
         Add new customer
-      </li>
-    </ul>
+      </a>
+    </ng-container>
   </utility-popover>
 </div>
 
@@ -64,7 +62,7 @@
             [asc]="repository.pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
-        <th scope="col" class="px-6 py-3">
+        <th scope="col" class="px-6 py-3 text-center">
           Action
         </th>
       </tr>
@@ -97,32 +95,28 @@
         <td class="px-6 py-4 text-grey-700 dark:text-gray-100">
           {{ item.updatedAt | date: 'hh:mm dd-MM-yyyy' }}
         </td>
-        <td>
-          <utility-popover id="table-row-{{ item._id }}">
-            <i button class="bi bi-three-dots-vertical"></i>
-            <ul content class="list-group border-0">
-              <li
+        <td class="px-6 py-4 text-center text-grey-700 dark:text-gray-100">
+          <utility-popover [threeDot]="true"> id="table-row-{{ item._id }}">
+            <ng-container content>
+              <a
                 [routerLink]="['details', item._id]"
-                close-on-self-click
-                class="list-group-item list-group-item-action cursor-pointer border-0">
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-grey-100" role="menuitem" tabindex="-1">
                 <i class="bi bi-eye"></i>
                 Details
-              </li>
-              <li
+              </a>
+              <a
                 [routerLink]="['form', item._id]"
-                close-on-self-click
-                class="list-group-item list-group-item-action cursor-pointer border-0">
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-grey-100" role="menuitem" tabindex="-1">
                 <i class="bi bi-pencil"></i>
                 Edit
-              </li>
-              <li
+              </a>
+              <button
                 (click)="repository.delete(item._id, true)"
-                close-on-self-click
-                class="list-group-item list-group-item-action cursor-pointer border-0">
+                class="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-grey-100" role="menuitem" tabindex="-1">
                 <i class="bi bi-trash"></i>
                 Delete
-              </li>
-            </ul>
+              </button>
+            </ng-container>
           </utility-popover>
         </td>
       </tr>

@@ -67,58 +67,20 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
               </button>
             </span>
 
-            <!-- Dropdown -->
-            <div class="relative sm:hidden">
-              <button type="button"
-                      (click)="mobileMenu.toggleAttribute('data-close')"
-                      class="
-                        inline-flex
-                        items-center
-                        rounded-md
-                        bg-white
-                        px-3
-                        py-2
-                        text-sm
-                        font-semibold
-                        text-gray-900
-                        shadow-sm
-                        ring-1
-                        ring-inset
-                        ring-gray-300
-                        hover:ring-gray-400"
-                      id="mobile-menu-button"
-                      aria-expanded="false"
-                      aria-haspopup="true">
-                More
-                <svg class="-mr-1 ml-1.5 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
-                     aria-hidden="true">
-                  <path fill-rule="evenodd"
-                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                        clip-rule="evenodd"/>
-                </svg>
-              </button>
-              <div
-                #mobileMenu
-                data-close
-                [class.hidden]="mobileMenu.hasAttribute('data-close')"
-                class="absolute z-10 -mr-1 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                role="menu"
-                aria-orientation="vertical"
-                aria-labelledby="mobile-menu-button"
-                tabindex="-1">
-                <!-- Active: "bg-gray-100", Not Active: "" -->
+            <utility-popover [smHidden]="true">
+              <ng-container content>
                 <a [routerLink]="['../../', 'form', customer._id]" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
                    id="mobile-menu-item-0">
                   <i class="bi bi-pencil me-2"></i>
                   Edit
                 </a>
                 <button (click)="repository.delete(customer._id)" class="block px-4 py-2 text-sm text-red-500" role="menuitem" tabindex="-1"
-                   id="mobile-menu-item-1">
+                        id="mobile-menu-item-1">
                   <i class="bi bi-trash me-2"></i>
                   Delete
                 </button>
-              </div>
-            </div>
+              </ng-container>
+            </utility-popover>
           </div>
         </div>
         <hr class="my-6">

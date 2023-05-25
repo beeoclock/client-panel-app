@@ -19,8 +19,6 @@ import {ServicesFormComponent} from "@event/presentation/component/form/services
 import {InputErrorComponent} from "@utility/presentation/component/input-error/input-error.component";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
-import {ModalService} from "@utility/presentation/component/modal/services/modal/modal.service";
-import {ServiceComponent} from "@event/presentation/component/form/service/service.component";
 import {LanguagePipe} from "@utility/pipes/language.pipe";
 import {IService} from "@service/domain";
 
@@ -57,7 +55,6 @@ export default class Index {
   public url = ['../'];
 
   public readonly activatedRoute = inject(ActivatedRoute);
-  public readonly modalService = inject(ModalService);
 
   public readonly form = new EventForm();
   private readonly repository = inject(EventRepository);
@@ -155,28 +152,28 @@ export default class Index {
   }
 
   public openServiceModal(service?: undefined | IService): void {
-    this.modalService.create([{
-      component: ServiceComponent,
-      data: {}
-    }], {
-      buttons: [],
-      fixHeight: false,
-      title: 'Add new service'
-    }).then((modal) => {
-      const serviceComponent = modal.instance.componentChildRefList[0].instance as unknown as ServiceComponent;
-      if (service) {
-        serviceComponent.setSelectedService(service);
-      }
-      serviceComponent.emitter.subscribe((event: IService) => {
-        if (service) {
-          this.form.controls.services.patchValue([...(this.form.controls.services.value ?? []).filter(({_id}) => _id !== service._id), event])
-        } else {
-          this.form.controls.services.patchValue([...(this.form.controls.services.value ?? []), event])
-        }
-        modal.instance.closeModal();
-      });
-      return modal;
-    });
+    // this.modalService.create([{
+    //   component: ServiceComponent,
+    //   data: {}
+    // }], {
+    //   buttons: [],
+    //   fixHeight: false,
+    //   title: 'Add new service'
+    // }).then((modal) => {
+    //   const serviceComponent = modal.instance.componentChildRefList[0].instance as unknown as ServiceComponent;
+    //   if (service) {
+    //     serviceComponent.setSelectedService(service);
+    //   }
+    //   serviceComponent.emitter.subscribe((event: IService) => {
+    //     if (service) {
+    //       this.form.controls.services.patchValue([...(this.form.controls.services.value ?? []).filter(({_id}) => _id !== service._id), event])
+    //     } else {
+    //       this.form.controls.services.patchValue([...(this.form.controls.services.value ?? []), event])
+    //     }
+    // modal.instance.closeModal();
+    // });
+    //   return modal;
+    // });
   }
 
   public removeServiceFromSelectedList(service: IService): void {
