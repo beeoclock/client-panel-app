@@ -17,6 +17,7 @@ import {ILanguageVersion} from '@service/domain';
 import {ListPage} from "@utility/list.page";
 import {PopoverComponent} from "@utility/presentation/component/popover/popover.component";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
+import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 
 @Component({
   selector: 'service-list-page',
@@ -38,7 +39,8 @@ import {SortIndicatorComponent} from "@utility/presentation/component/pagination
         NgIf,
         SpinnerComponent,
         PopoverComponent,
-        SortIndicatorComponent
+        SortIndicatorComponent,
+        LoaderComponent
     ],
   providers: [
     ServiceRepository
