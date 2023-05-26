@@ -22,8 +22,59 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
     <ng-container *ngIf="service$ | async as service; else LoadingTemplate">
       <div class="grid grid-cols-12 gap-4">
         <div class="col-span-12 lg:col-span-8">
-          <div
-            class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
+          <div class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4  mt-4">
+            <div class="flex">
+                <span class="hidden sm:block">
+                  <a type="button"
+                     [routerLink]="['../../', 'form', service._id]"
+                     class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-neutral-900 shadow-sm ring-1 ring-inset ring-neutral-300 hover:bg-neutral-50">
+                    <i class="bi bi-pencil me-2"></i>
+                    Edit
+                  </a>
+                </span>
+
+              <span class="ml-3 hidden sm:block">
+                  <button type="button"
+                          (click)="repository.delete(service._id)"
+                          class="
+                          inline-flex
+                          items-center
+                          rounded-md
+                          bg-white
+                          px-3
+                          py-2
+                          text-sm
+                          font-semibold
+                          text-red-500
+                          shadow-sm
+                          ring-1
+                          ring-inset
+                          ring-neutral-300
+                          hover:bg-neutral-50">
+                    <i class="bi bi-trash me-2"></i>
+                    Delete
+                  </button>
+                </span>
+
+              <utility-dropdown [smHidden]="true">
+                <ng-container content>
+                  <a [routerLink]="['../../', 'form', service._id]" class="block px-4 py-2 text-sm text-neutral-700"
+                     role="menuitem" tabindex="-1"
+                     id="mobile-menu-item-0">
+                    <i class="bi bi-pencil me-2"></i>
+                    Edit
+                  </a>
+                  <button (click)="repository.delete(service._id)" class="block px-4 py-2 text-sm text-red-500"
+                          role="menuitem" tabindex="-1"
+                          id="mobile-menu-item-1">
+                    <i class="bi bi-trash me-2"></i>
+                    Delete
+                  </button>
+                </ng-container>
+              </utility-dropdown>
+            </div>
+          </div>
+          <div class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4  mt-4">
             <h4>
               Permanent employees
             </h4>
@@ -34,20 +85,20 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
                 </div>
                 <p class="mb-1">
                   <i class="bi bi-person"></i>
-                  {{ permanentEmployee.employee.firstName }} {{ permanentEmployee.employee.lastName }}
+                  {{ permanentEmployee.firstName }} {{ permanentEmployee.lastName }}
                 </p>
                 <small>
-                  {{ permanentEmployee.employee.email }}
+                  {{ permanentEmployee.email }}
                 </small>
                 <small>
-                  {{ permanentEmployee.employee.phone }}
+                  {{ permanentEmployee.phone }}
                 </small>
               </li>
             </ul>
 
           </div>
           <div
-            class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
+            class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4  mt-4">
             <h4>
               Language Versions
             </h4>
@@ -58,8 +109,8 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
                     {{ languageVersion.language | language }}
                   </small>
                   <small
-                    [class.text-danger]="!languageVersion.active"
-                    [class.text-success]="languageVersion.active">
+                    [class.text-red-500]="!languageVersion.active"
+                    [class.text-green-500]="languageVersion.active">
                     {{ languageVersion.active ? 'active' : 'Inactive' }}
                   </small>
                 </div>
@@ -70,7 +121,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 
           </div>
           <div
-            class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
+            class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4  mt-4">
             <h4>
               Schedules
             </h4>
@@ -94,7 +145,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 
           </div>
           <div
-            class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
+            class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4  mt-4">
             <h4>
               Duration Versions
             </h4>
@@ -137,7 +188,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
         <div class="col-span-12 lg:col-span-4">
 
           <div
-            class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
+            class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4  mt-4">
             <h4>
               Configuration
             </h4>
@@ -155,7 +206,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
           </div>
 
           <div
-            class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
+            class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4  mt-4">
             <h4>
               Prepayment Policy
             </h4>
@@ -181,7 +232,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
           </div>
 
           <div
-            class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
+            class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4  mt-4">
             <h4>
               Service
             </h4>
@@ -207,75 +258,6 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
     <ng-template #LoadingTemplate>
       <utility-loader></utility-loader>
     </ng-template>
-
-    <!--    <div class="lg:flex lg:items-center lg:justify-between">-->
-    <!--      <div class="min-w-0 flex-1">-->
-    <!--        <h2-->
-    <!--          class="text-2xl font-bold leading-7 text-neutral-900 dark:text-neutral-200 sm:truncate sm:text-3xl sm:tracking-tight">-->
-    <!--          {{ employe.firstName }}&nbsp;{{ employe.lastName }}-->
-    <!--        </h2>-->
-    <!--        <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">-->
-    <!--          <div class="mt-2 flex items-center text-sm text-neutral-500">-->
-    <!--            <i class="bi bi-at"></i>-->
-    <!--            {{ employe.email || 'No data' }}-->
-    <!--          </div>-->
-    <!--          <div class="mt-2 flex items-center text-sm text-neutral-500">-->
-    <!--            <i class="bi bi-phone"></i>-->
-    <!--            {{ employe.phone || 'No data' }}-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--      <div class="mt-5 flex lg:ml-4 lg:mt-0">-->
-    <!--            <span class="hidden sm:block">-->
-    <!--              <a type="button"-->
-    <!--                 [routerLink]="['../../', 'form', service._id]"-->
-    <!--                 class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-neutral-900 shadow-sm ring-1 ring-inset ring-neutral-300 hover:bg-neutral-50">-->
-    <!--                <i class="bi bi-pencil me-2"></i>-->
-    <!--                Edit-->
-    <!--              </a>-->
-    <!--            </span>-->
-
-    <!--        <span class="ml-3 hidden sm:block">-->
-    <!--              <button type="button"-->
-    <!--                      (click)="repository.delete(service._id)"-->
-    <!--                      class="-->
-    <!--                      inline-flex-->
-    <!--                      items-center-->
-    <!--                      rounded-md-->
-    <!--                      bg-white-->
-    <!--                      px-3-->
-    <!--                      py-2-->
-    <!--                      text-sm-->
-    <!--                      font-semibold-->
-    <!--                      text-red-500-->
-    <!--                      shadow-sm-->
-    <!--                      ring-1-->
-    <!--                      ring-inset-->
-    <!--                      ring-neutral-300-->
-    <!--                      hover:bg-neutral-50">-->
-    <!--                <i class="bi bi-trash me-2"></i>-->
-    <!--                Delete-->
-    <!--              </button>-->
-    <!--            </span>-->
-
-    <!--        <utility-dropdown [smHidden]="true">-->
-    <!--          <ng-container content>-->
-    <!--            <a [routerLink]="['../../', 'form', service._id]" class="block px-4 py-2 text-sm text-neutral-700"-->
-    <!--               role="menuitem" tabindex="-1"-->
-    <!--               id="mobile-menu-item-0">-->
-    <!--              <i class="bi bi-pencil me-2"></i>-->
-    <!--              Edit-->
-    <!--            </a>-->
-    <!--            <button (click)="repository.delete(service._id)" class="block px-4 py-2 text-sm text-red-500"-->
-    <!--                    role="menuitem" tabindex="-1"-->
-    <!--                    id="mobile-menu-item-1">-->
-    <!--              <i class="bi bi-trash me-2"></i>-->
-    <!--              Delete-->
-    <!--            </button>-->
-    <!--          </ng-container>-->
-    <!--        </utility-dropdown>-->
-    <!--      </div>-->
-    <!--    </div>-->
   `,
   encapsulation: ViewEncapsulation.None,
   imports: [

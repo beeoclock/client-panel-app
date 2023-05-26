@@ -17,14 +17,12 @@ import {IsRequiredDirective} from '@utility/directives/is-required/is-required';
     IsRequiredDirective,
   ],
   template: `
-
-    <div class="col-12 mt-2 position-relative">
-
+    <div class="mb-2 flex-col">
       <label for="service-form-title" class="form-label">Title</label>
       <input
         isRequired
-        beeoclock
         hasError
+        class="border rounded px-3 py-2 w-full"
         placeholder="Write title of service"
         id="service-form-title"
         [formControl]="control">

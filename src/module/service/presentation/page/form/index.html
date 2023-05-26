@@ -1,30 +1,60 @@
 <utility-back-link-component [url]="url"></utility-back-link-component>
 
 <form [formGroup]="form">
-  <service-employees-form-component [control]="form.controls.permanentEmployees">
-  </service-employees-form-component>
 
-  <service-services-form-component
-    (handlePushNewLanguageVersionForm)="form.pushNewLanguageVersionForm()"
-    [form]="form.controls.languageVersions">
-  </service-services-form-component>
+  <div class="grid grid-cols-12 gap-4">
 
-  <service-durations-form-component
-    (handlePushNewDurationVersionFormForm)="form.pushNewDurationVersionForm()"
-    [durationVersionsForm]="form.controls.durationVersions">
-  </service-durations-form-component>
+    <div class="col-span-12 lg:col-span-8">
 
-  <service-schedules-form-component
-    (handlePushNewScheduleForm)="form.pushNewScheduleForm()"
-    [schedulesForm]="form.controls.schedules">
-  </service-schedules-form-component>
+      <div class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4 p-4 mt-4">
 
-  <div class="col-12 d-grid mt-3">
+        <service-services-form-component
+          (handlePushNewLanguageVersionForm)="form.pushNewLanguageVersionForm()"
+          [form]="form.controls.languageVersions">
+        </service-services-form-component>
+
+      </div>
+      <div class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4 p-4 mt-4">
+
+        <service-durations-form-component
+          (handlePushNewDurationVersionFormForm)="form.pushNewDurationVersionForm()"
+          [durationVersionsForm]="form.controls.durationVersions">
+        </service-durations-form-component>
+
+      </div>
+      <div class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4 p-4 mt-4">
+
+        <service-schedules-form-component
+          (handlePushNewScheduleForm)="form.pushNewScheduleForm()"
+          [schedulesForm]="form.controls.schedules">
+        </service-schedules-form-component>
+
+      </div>
+
+    </div>
+
+    <div class="col-span-12 lg:col-span-4">
+
+      <div
+        class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4 p-4 mt-4">
+
+        <service-employees-form-component [control]="form.controls.permanentEmployees">
+        </service-employees-form-component>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="mt-4">
+
     <button
-      beeoclock
-      [showLoader]="form.pending"
+      class="bg-blue-600 text-white rounded px-4 py-2 w-full"
       [disabled]="form.disabled"
       (click)="save()">Add Service
     </button>
+
   </div>
+
 </form>

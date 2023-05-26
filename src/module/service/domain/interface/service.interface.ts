@@ -48,7 +48,7 @@ export interface IService {
   schedules: ISchedule[];
   languageVersions: ILanguageVersion[];
   durationVersions: IDurationVersion[];
-  permanentEmployees: {employee: IEmployee}[];
+  permanentEmployees: IEmployee[];
   createdAt: string;
   updatedAt: string;
   _id: string;

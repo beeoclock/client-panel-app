@@ -6,6 +6,7 @@ import {Router, RouterOutlet} from '@angular/router';
 import {Auth} from '@angular/fire/auth';
 import {StreamToastComponent} from '@utility/presentation/component/toast/stream.toast.component';
 import {DOCUMENT} from "@angular/common";
+import {ModalComponent} from "@utility/presentation/component/modal/modal.component";
 
 @Component({
   selector: 'utility-wrapper-panel-component',
@@ -20,14 +21,8 @@ import {DOCUMENT} from "@angular/common";
     </div>
     <utility-stream-toast-component></utility-stream-toast-component>
 
-    <!--    <div class="bg-opacity-50 bg-black w-full h-full absolute top-0 left-0 z-50 flex items-center justify-center">-->
-    <!--      <div class="bg-white border rounded-lg p-4 max-w-2xl absolute z-50">-->
-
-
-    <!--      </div>-->
-    <!--    </div>-->
   `,
-  imports: [SidebarComponent, NavbarComponent, FooterComponent, RouterOutlet, StreamToastComponent],
+  imports: [SidebarComponent, NavbarComponent, FooterComponent, RouterOutlet, StreamToastComponent, ModalComponent],
   encapsulation: ViewEncapsulation.None
 })
 export default class WrapperPanelComponent implements AfterViewInit {

@@ -14,7 +14,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
     NgSelectModule,
   ],
   template: `
-    <div class="col-12 mt-2 position-relative">
+    <div class="mb-2 flex-col">
       <label for="service-form-language">Language</label>
       <ng-select [items]="languageList"
                  id="service-form-language"
