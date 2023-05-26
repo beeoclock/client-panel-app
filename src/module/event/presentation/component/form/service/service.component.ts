@@ -1,4 +1,4 @@
-import {Component, EventEmitter, ViewEncapsulation} from "@angular/core";
+import {Component, EventEmitter, Output, ViewEncapsulation} from "@angular/core";
 import {ServicesFormComponent} from "@event/presentation/component/form/services/services.form.component";
 import {IDurationVersion, ILanguageVersion, IPrice, IService} from "@service/domain";
 import {FormControl} from "@angular/forms";
@@ -19,71 +19,158 @@ import {IEmployee} from "@employee/domain";
   ],
   template: `
     <event-services-form-component [control]="control"></event-services-form-component>
+
     <ng-container *ngIf="control.value">
+
       <p class="mt-3"><strong>Select language version of service</strong></p>
-      <div *ngFor="let languageVersion of control.value.languageVersions" class="list-group mb-2">
-        <a
+
+      <div *ngFor="let languageVersion of control.value.languageVersions; let index = index;" class="list-group mb-2">
+
+        <div
           (click)="selectLanguage(languageVersion)"
-          [ngClass]="selectedLanguageVersion && languageVersion.language === selectedLanguageVersion.language ? classOfSelectedItem : []"
-          class="list-group-item list-group-item-action cursor-pointer"
-          aria-current="true">
-          <div class="d-flex w-100 justify-content-between">
-            <small>{{ languageVersion.language }}</small>
-          </div>
-          <p class="mb-1">{{ languageVersion.title }}</p>
-        </a>
-      </div>
-      <p class="mt-3"><strong>Select employee</strong></p>
-      <div *ngFor="let permanentEmployee of control.value.permanentEmployees" class="list-group mb-2">
-        <a
-          (click)="selectPermanentEmployee(permanentEmployee)"
-          [ngClass]="selectedPermanentEmployee && permanentEmployee.employee._id === selectedPermanentEmployee.employee._id ? classOfSelectedItem : []"
-          class="list-group-item list-group-item-action cursor-pointer d-flex flex-column"
-          aria-current="true">
-          <p class="mb-1">
-            <i class="bi bi-person"></i>
-            {{ permanentEmployee.employee.firstName }} {{ permanentEmployee.employee.lastName }}
-          </p>
-          <small>
-            {{ permanentEmployee.employee.email }}
-          </small>
-          <small>
-            {{ permanentEmployee.employee.phone }}
-          </small>
-        </a>
-      </div>
-      <p class="mt-3"><strong>Select duration</strong></p>
-      <div *ngFor="let durationVersion of control.value.durationVersions" class="list-group mb-2">
-        <a
-          (click)="selectDuration(durationVersion)"
-          [ngClass]="selectedDurationVersion && durationVersion.duration === selectedDurationVersion.duration ? classOfSelectedItem : []"
-          class="list-group-item list-group-item-action cursor-pointer"
-          aria-current="true">
-          <div class="d-flex w-100 justify-content-between">
-            <small>minutes</small>
-          </div>
-          <p class="mb-1">{{ durationVersion.duration }}</p>
-        </a>
-      </div>
-      <ng-container *ngIf="selectedDurationVersion">
-        <p class="mt-3"><strong>Select price</strong></p>
-        <div *ngFor="let price of selectedDurationVersion.prices" class="list-group mb-2">
-          <a
-            (click)="selectPrice(price)"
-            [ngClass]="selectedPrice && price.price === selectedPrice.price && price.currency === selectedPrice.currency ? classOfSelectedItem : []"
-            class="list-group-item list-group-item-action cursor-pointer"
-            aria-current="true">
-            <div class="d-flex w-100 justify-content-between">
-              <small>{{ price.currency }}</small>
+          class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700 cursor-pointer">
+
+          <input
+            id="language-version-#{{ index }}"
+            type="radio"
+            [checked]="selectedLanguageVersion && languageVersion.language === selectedLanguageVersion.language"
+            name="language-version"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer">
+
+          <label
+            for="language-version-#{{ index }}"
+            class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">
+
+            <div class="w-full">
+
+              <small>{{ languageVersion.language }}</small>
+
             </div>
-            <p class="mb-1">{{ price.price }}</p>
-          </a>
+
+            <p class="mb-1">{{ languageVersion.title }}</p>
+
+          </label>
+
         </div>
+
+      </div>
+
+      <p class="mt-3"><strong>Select employee</strong></p>
+
+      <div *ngFor="let permanentEmployee of control.value.permanentEmployees; let index = index;"
+           class="list-group mb-2">
+
+        <div
+          (click)="selectPermanentEmployee(permanentEmployee)"
+          class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700 cursor-pointer">
+
+          <input
+            id="permanent-employee-#{{ index }}"
+            type="radio"
+            [checked]="selectedPermanentEmployee && permanentEmployee._id === selectedPermanentEmployee._id"
+            name="permanent-employee"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer">
+
+          <label
+            for="permanent-employee-#{{ index }}"
+            class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">
+
+            <p class="mb-1">
+
+              <i class="bi bi-person"></i>
+              {{ permanentEmployee.firstName }} {{ permanentEmployee.lastName }}
+
+            </p>
+
+            <small>
+
+              {{ permanentEmployee.email }}
+
+            </small>
+
+            <small>
+
+              {{ permanentEmployee.phone }}
+
+            </small>
+
+          </label>
+
+        </div>
+
+      </div>
+
+      <p class="mt-3"><strong>Select duration</strong></p>
+
+      <div *ngFor="let durationVersion of control.value.durationVersions; let index = index;" class="list-group mb-2">
+
+        <div
+          (click)="selectDuration(durationVersion)"
+          class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700 cursor-pointer">
+
+          <input
+            id="duration-version-#{{ index }}"
+            type="radio"
+            [checked]="selectedDurationVersion && durationVersion.duration === selectedDurationVersion.duration"
+            name="duration-version"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer">
+
+          <label
+            for="duration-version-#{{ index }}"
+            class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">
+
+            <div class="d-flex w-100 justify-content-between">
+
+              <small>minutes</small>
+
+            </div>
+
+            <p class="mb-1">{{ durationVersion.duration }}</p>
+
+          </label>
+
+        </div>
+
+      </div>
+
+      <ng-container *ngIf="selectedDurationVersion">
+
+        <p class="mt-3"><strong>Select price</strong></p>
+
+        <div *ngFor="let price of selectedDurationVersion.prices; let index = index;" class="list-group mb-2">
+
+          <div
+            (click)="selectPrice(price)"
+            class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700 cursor-pointer">
+
+            <input
+              id="price-#{{ index }}"
+              type="radio"
+              [checked]="selectedPrice && price.price === selectedPrice.price && price.currency === selectedPrice.currency"
+              name="price"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer">
+
+            <label
+              for="price-#{{ index }}"
+              class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">
+
+              <div class="d-flex w-100 justify-content-between">
+
+                <small>{{ price.currency }}</small>
+
+              </div>
+
+              <p class="mb-1">{{ price.price }}</p>
+
+            </label>
+
+          </div>
+
+        </div>
+
       </ng-container>
+
     </ng-container>
-    <div class="d-grid mt-3">
-      <button beeoclock [disabled]="isInvalid" (click)="select()">Select</button>
-    </div>
   `
 })
 export class ServiceComponent {
@@ -91,12 +178,13 @@ export class ServiceComponent {
   public selectedPrice: undefined | IPrice;
   public selectedLanguageVersion: undefined | ILanguageVersion;
   public selectedDurationVersion: undefined | IDurationVersion;
-  public selectedPermanentEmployee: undefined | {employee: IEmployee};
+  public selectedPermanentEmployee: undefined | IEmployee;
   public readonly control: FormControl<IService> = new FormControl();
-  public selectedService: undefined | IService;
-  public readonly emitter = new EventEmitter();
 
-  public readonly classOfSelectedItem = ['border-primary', 'text-primary', 'bg-primary-subtle'];
+  public selectedService: undefined | IService;
+
+  @Output()
+  public readonly emitter = new EventEmitter();
 
   public constructor() {
     // TODO takeUntil
@@ -113,7 +201,7 @@ export class ServiceComponent {
     this.selectedDurationVersion = durationVersion;
   }
 
-  public selectPermanentEmployee(permanentEmployee: {employee: IEmployee}): void {
+  public selectPermanentEmployee(permanentEmployee: IEmployee): void {
     this.selectedPermanentEmployee = permanentEmployee;
   }
 
@@ -134,6 +222,7 @@ export class ServiceComponent {
       emitEvent: false,
       onlySelf: true
     });
+
     this.selectedDurationVersion = service.durationVersions[0];
     this.selectedPrice = service.durationVersions[0].prices[0];
     this.selectedLanguageVersion = service.languageVersions[0];
@@ -152,7 +241,7 @@ export class ServiceComponent {
       return this.selectedLanguageVersion && languageVersion.language === this.selectedLanguageVersion.language;
     });
     this.selectedService.permanentEmployees = this.selectedService?.permanentEmployees.filter((permanentEmployee) => {
-      return this.selectedPermanentEmployee && permanentEmployee.employee._id === this.selectedPermanentEmployee.employee._id;
+      return this.selectedPermanentEmployee && permanentEmployee._id === this.selectedPermanentEmployee._id;
     });
     this.emitter.emit(this.selectedService);
   }
@@ -161,6 +250,7 @@ export class ServiceComponent {
     this.selectedPrice = undefined;
     this.selectedLanguageVersion = undefined;
     this.selectedDurationVersion = undefined;
+    this.selectedPermanentEmployee = undefined;
   }
 
 }

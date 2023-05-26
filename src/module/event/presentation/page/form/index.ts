@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -21,6 +21,13 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {LanguagePipe} from "@utility/pipes/language.pipe";
 import {IService} from "@service/domain";
+import {ModalService} from "@utility/presentation/component/modal/modal.service";
+import {ServiceComponent} from "@event/presentation/component/form/service/service.component";
+import {
+  ModalButtonInterface,
+  ModalButtonRoleEnum,
+  ModalComponent
+} from '@src/module/utility/presentation/component/modal/modal.component';
 
 @Component({
   selector: 'event-form-page',
@@ -46,7 +53,7 @@ import {IService} from "@service/domain";
     NgForOf,
     LanguagePipe,
     NgIf,
-    DatePipe
+    DatePipe,
   ],
   standalone: true
 })
@@ -58,8 +65,12 @@ export default class Index {
 
   public readonly form = new EventForm();
   private readonly repository = inject(EventRepository);
+  private readonly modalService = inject(ModalService);
 
-  public duration: number = 0;
+  public duration = 0;
+
+  @HostBinding()
+  public readonly class = 'p-4 block';
 
   constructor() {
     this.activatedRoute.params.subscribe(({id}) => {
@@ -116,17 +127,15 @@ export default class Index {
     const value = this.form.controls.servicesAreProvidedInParallel.value;
 
     this.duration = 0;
-    if (value) {
-      this.form.controls.services.value.forEach((service) => {
+    this.form.controls.services.value.forEach((service) => {
+      if (value) {
         if (service.durationVersions[0].duration > this.duration) {
           this.duration = service.durationVersions[0].duration;
         }
-      });
-    } else {
-      this.form.controls.services.value.forEach((service) => {
+      } else {
         this.duration += service.durationVersions[0].duration;
-      })
-    }
+      }
+    });
 
     this.calculateFinish();
 
@@ -152,32 +161,60 @@ export default class Index {
   }
 
   public openServiceModal(service?: undefined | IService): void {
-    // this.modalService.create([{
-    //   component: ServiceComponent,
-    //   data: {}
-    // }], {
-    //   buttons: [],
-    //   fixHeight: false,
-    //   title: 'Add new service'
-    // }).then((modal) => {
-    //   const serviceComponent = modal.instance.componentChildRefList[0].instance as unknown as ServiceComponent;
-    //   if (service) {
-    //     serviceComponent.setSelectedService(service);
-    //   }
-    //   serviceComponent.emitter.subscribe((event: IService) => {
-    //     if (service) {
-    //       this.form.controls.services.patchValue([...(this.form.controls.services.value ?? []).filter(({_id}) => _id !== service._id), event])
-    //     } else {
-    //       this.form.controls.services.patchValue([...(this.form.controls.services.value ?? []), event])
-    //     }
-    // modal.instance.closeModal();
-    // });
-    //   return modal;
-    // });
+
+    const buttons: ModalButtonInterface[] = [
+      {
+        text: 'Cancel',
+        classList: ModalComponent.buttons[ModalButtonRoleEnum.cancel].classList,
+        role: ModalButtonRoleEnum.cancel,
+        callback: (modal: ModalComponent) => {
+          // options?.buttons?.cancel?.callback?.();
+          console.log(modal);
+          modal.closeModal();
+        }
+      },
+      {
+        text: 'Confirm',
+        classList: ModalComponent.buttons[ModalButtonRoleEnum.accept].classList,
+        role: ModalButtonRoleEnum.accept,
+        enabledDebounceClick: true,
+        callback: (modal: ModalComponent) => {
+          console.log(modal);
+          // options?.buttons?.confirm?.callback?.();
+          // modal.closeModal();
+          const serviceComponent = modal.componentChildRefList[0].instance as unknown as ServiceComponent;
+          serviceComponent.select();
+        }
+      }
+    ];
+
+    this.modalService.create([{
+      component: ServiceComponent,
+      data: {}
+    }], {
+      buttons,
+      fixHeight: false,
+      title: 'Add new service'
+    }).then((modal) => {
+      const serviceComponent = modal.instance.componentChildRefList[0].instance as unknown as ServiceComponent;
+      if (service) {
+        serviceComponent.setSelectedService(service);
+      }
+      serviceComponent.emitter.subscribe((event: IService) => {
+        console.log(event);
+        if (service) {
+          this.form.controls.services.patchValue([...(this.form.controls.services.value ?? []).filter(({_id}) => _id !== service._id), event])
+        } else {
+          this.form.controls.services.patchValue([...(this.form.controls.services.value ?? []), event])
+        }
+        modal.instance.closeModal();
+      });
+      return modal;
+    });
   }
 
-  public removeServiceFromSelectedList(service: IService): void {
-    this.form.controls.services.patchValue(this.form.controls.services.value.filter((({_id}) => _id !== service._id)));
+  public removeServiceFromSelectedList(deleteIndex: number): void {
+    this.form.controls.services.patchValue(this.form.controls.services.value.filter(((_, index) => index !== deleteIndex)));
   }
 
   public editServiceFromSelectedList(service: IService): void {
