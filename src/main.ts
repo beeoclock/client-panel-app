@@ -40,36 +40,36 @@ bootstrapApplication(AppComponent, {
       ]),
     ),
 
-    importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebase.options))),
-    importProvidersFrom(provideAuth(() => {
-      const auth = getAuth();
-      auth.setPersistence(browserLocalPersistence)
-        .catch((error) => {
-          console.log(error);
-        });
-      if (environment.firebase.emulator.all || environment.firebase.emulator.authorization) {
-        connectAuthEmulator(auth, 'http://localhost:9099');
-      }
-      return auth;
-    })),
-    importProvidersFrom(provideFunctions(() => {
-      const functions = getFunctions();
-      if (environment.firebase.emulator.all || environment.firebase.emulator.functions) {
-        connectFunctionsEmulator(functions, 'localhost', 5001);
-      }
-      return functions;
-    })),
-
-    importProvidersFrom(FlatpickrModule.forRoot()),
-
-    importProvidersFrom(TranslateModule.forRoot({
-      useDefaultLang: true,
-      defaultLanguage: environment.config.language,
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }))
+    importProvidersFrom(
+      FlatpickrModule.forRoot(),
+      provideFirebaseApp(() => initializeApp(environment.firebase.options)),
+      provideAuth(() => {
+        const auth = getAuth();
+        auth.setPersistence(browserLocalPersistence)
+          .catch((error) => {
+            console.log(error);
+          });
+        if (environment.firebase.emulator.all || environment.firebase.emulator.authorization) {
+          connectAuthEmulator(auth, 'http://localhost:9099');
+        }
+        return auth;
+      }),
+      provideFunctions(() => {
+        const functions = getFunctions();
+        if (environment.firebase.emulator.all || environment.firebase.emulator.functions) {
+          connectFunctionsEmulator(functions, 'localhost', 5001);
+        }
+        return functions;
+      }),
+      TranslateModule.forRoot({
+        useDefaultLang: true,
+        defaultLanguage: environment.config.language,
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+        }
+      })
+    ),
   ]
 }).catch(e => console.error(e));

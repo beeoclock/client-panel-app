@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {ActivatedRoute} from '@angular/router';
@@ -18,15 +18,15 @@ import {SchedulesFormComponent} from "@service/presentation/component/form/sched
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
     imports: [
-        CardComponent,
-        BodyCardComponent,
-        ReactiveFormsModule,
-        BackLinkComponent,
-        DurationsFormComponent,
-        ServicesFormComponent,
-        SchedulesFormComponent,
-        ButtonComponent,
-        EmployeesFormComponent,
+      CardComponent,
+      BodyCardComponent,
+      ReactiveFormsModule,
+      BackLinkComponent,
+      DurationsFormComponent,
+      ServicesFormComponent,
+      SchedulesFormComponent,
+      ButtonComponent,
+      EmployeesFormComponent,
     ],
   providers: [
     ServiceRepository,
@@ -41,6 +41,9 @@ export default class Index {
   public readonly activatedRoute = inject(ActivatedRoute);
 
   public readonly form = new ServiceForm();
+
+  @HostBinding()
+  public readonly class = 'p-4 block';
 
   constructor() {
     this.activatedRoute.params.subscribe(({id}) => {
@@ -69,7 +72,9 @@ export default class Index {
         .then((result) => {
           this.form.enable();
           this.form.updateValueAndValidity();
-          this.form.reset();
+          if (!this.form.value._id) {
+            this.form.reset();
+          }
         })
         .catch((error) => {
           this.form.enable();

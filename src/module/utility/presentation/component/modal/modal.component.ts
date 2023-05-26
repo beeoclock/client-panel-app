@@ -1,12 +1,21 @@
-import {AfterViewInit, Component, ComponentRef, ElementRef, HostListener, inject, ViewChild} from '@angular/core';
-import {Modal} from 'bootstrap';
-import {Subject} from 'rxjs';
-import {take} from 'rxjs/operators';
-import {TypeGuard} from '@p4ck493/ts-type-guard';
-import {Reactive} from "@utility/cdk/reactive";
-import {is} from "thiis";
+import {
+  AfterViewInit,
+  Component,
+  ComponentRef,
+  ElementRef,
+  HostListener,
+  inject,
+  Input,
+  ViewChild
+} from "@angular/core";
+import {Modal, ModalInterface, ModalOptions} from "flowbite";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
-import {SpinnerComponent} from "@utility/presentation/component/spinner/spinner.component";
+import {is} from "thiis";
+import {TypeGuard} from "@p4ck493/ts-type-guard";
+import {Subject, take} from "rxjs";
+import {Reactive} from "@utility/cdk/reactive";
+import {DebounceClickDirective} from "@utility/directives/debounce/debounce.directive";
+import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 
 export enum ModalButtonRoleEnum {
   'cancel',
@@ -28,20 +37,90 @@ export type modalSizeType = 'modal-sm' | '' | 'modal-lg' | 'modal-xl';
 
 @Component({
   selector: 'utility-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss'],
   standalone: true,
   imports: [
     NgIf,
     NgForOf,
     NgClass,
-    SpinnerComponent
+    DebounceClickDirective,
+    LoaderComponent
   ],
+  template: `
+    <div
+      #modalRef
+      [id]="id"
+      data-modal-backdrop="static"
+      tabindex="-1"
+      aria-hidden="true"
+      class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div class="relative w-full max-w-2xl max-h-full">
+
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+
+          <!-- Modal header -->
+          <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+            <h3 [ngClass]="titleClasses" [id]="id + '_label'" [innerHtml]="title">
+            </h3>
+            <button
+              type="button"
+              #btnCloseRef
+              (click)="closeModal()"
+              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              data-modal-hide="defaultModal">
+              <i class="bi bi-x-lg w-5 h-5"></i>
+              <span class="sr-only">Close modal</span>
+            </button>
+          </div>
+
+          <!-- Modal body -->
+          <div #contentRef class="p-6 space-y-6 overflow-y-auto h-96">
+            <ng-content></ng-content>
+          </div>
+
+          <!-- Modal footer -->
+          <div *ngIf="buttons?.length"
+               class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600 justify-between">
+
+            <button
+              type="button"
+              *ngFor="let button of buttons"
+              [id]="idPrefix + button.role"
+              [ngClass]="button.classList"
+              [disabled]="button?.disabled"
+              appDebounceClick
+              [enabledDebounceClick]="button?.enabledDebounceClick ?? true"
+              (debounceClick)="buttonAction($event, button)">
+
+              <ng-container *ngIf="button?.loading; else DefaultTemplate">
+                <utility-loader></utility-loader>
+              </ng-container>
+
+              <ng-template #DefaultTemplate>
+                {{ button?.text }}
+              </ng-template>
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  `
 })
 export class ModalComponent extends Reactive implements AfterViewInit {
 
-  @ViewChild('modalRef')
-  public modalRef: ElementRef<HTMLElement> | undefined;
+  public static buttons = {
+    [ModalButtonRoleEnum.accept]: {
+      classList: ['text-white', 'bg-blue-700', 'hover:bg-blue-800', 'focus:ring-4', 'focus:outline-none', 'focus:ring-blue-300', 'font-medium', 'rounded-lg', 'text-sm', 'px-5', 'py-2.5', 'text-center', 'dark:bg-blue-600', 'dark:hover:bg-blue-700', 'dark:focus:ring-blue-800']
+    },
+    [ModalButtonRoleEnum.cancel]: {
+      classList: ['text-gray-500', 'bg-white', 'hover:bg-gray-100', 'focus:ring-4', 'focus:outline-none', 'focus:ring-blue-300', 'rounded-lg', 'border', 'border-gray-200', 'text-sm', 'font-medium', 'px-5', 'py-2.5', 'hover:text-gray-900', 'focus:z-10', 'dark:bg-gray-700', 'dark:text-gray-300', 'dark:border-gray-500', 'dark:hover:text-white', 'dark:hover:bg-gray-600', 'dark:focus:ring-gray-600']
+    }
+  };
 
   @ViewChild('contentRef')
   public contentRef: ElementRef<HTMLElement> | undefined;
@@ -49,28 +128,29 @@ export class ModalComponent extends Reactive implements AfterViewInit {
   @ViewChild('btnCloseRef')
   public btnCloseRef: ElementRef<HTMLButtonElement> | undefined;
 
-  public titleClasses: string[] = ['fw-bold', 'd-flex', 'align-items-center'];
+  public titleClasses: string[] = ['text-xl', 'font-semibold', 'text-gray-900', 'dark:text-white'];
 
   public modalSize: modalSizeType = '';
 
-  public showBody = true;
+  // public showBody: boolean = true;
+  //
+  // public fixHeight: boolean = true;
 
-  public fixHeight = true;
-
-  public readonly id!: string;
+  @Input()
+  public id = 'modal-default-id';
 
   public readonly idPrefix: string = `${this.id}_buttons_`;
 
-  #modal: undefined | Modal;
+  private readonly closeModal$ = new Subject<void>();
 
-  private readonly closeModal$: Subject<void> = new Subject<void>();
+  public title = 'Title';
 
-  public buttonSectionClass: string[] = ['modal-footer', 'flex-nowrap', 'justify-content-between'];
+  public readonly backdropClasses = 'bg-black bg-opacity-50 dark:bg-opacity-80 fixed h-full inset-0 left-0 top-0 w-full z-40';
 
-  public modalOptions: Partial<Modal.Options> = {
+  public modalOptions: ModalOptions = {
     backdrop: 'static',
-    keyboard: true,
-    focus: true,
+    backdropClasses: this.backdropClasses,
+    closable: true,
   };
 
   public buttons: ModalButtonInterface[] = [
@@ -80,7 +160,7 @@ export class ModalComponent extends Reactive implements AfterViewInit {
       value: false,
       disabled: false,
       enabledDebounceClick: false,
-      classList: ['btn btn-secondary']
+      classList: ModalComponent.buttons[ModalButtonRoleEnum.cancel].classList,
     },
     {
       text: 'Continue',
@@ -88,19 +168,45 @@ export class ModalComponent extends Reactive implements AfterViewInit {
       value: true,
       disabled: false,
       enabledDebounceClick: true,
-      classList: ['btn btn-primary']
+      classList: ModalComponent.buttons[ModalButtonRoleEnum.accept].classList
     }
   ];
-
-  public title = 'Title';
-
-  public contentHTML: string | undefined;
 
   public componentChildRefList: ComponentRef<any>[] = [];
 
   public externalMethodOnCloseModalEvent: ((id: string) => void) | undefined;
 
-  private readonly elementRef = inject(ElementRef<HTMLElement>);
+  //
+
+  @Input()
+  public useButton = true;
+
+  @Input()
+  public buttonLabel = 'Open modal';
+
+  // @ViewChild('buttonRef')
+  // public buttonRef: ElementRef<HTMLButtonElement> | undefined;
+
+  @ViewChild('modalRef')
+  public modalRef: ElementRef<HTMLDivElement> | undefined;
+
+  #modal: ModalInterface | undefined;
+
+  public get modal(): ModalInterface | undefined {
+
+    return this.#modal;
+
+  }
+
+  private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
+
+  public ngAfterViewInit(): void {
+
+    this.initModal();
+    this.deleteContentIfEmpty();
+    this.initHandleOnCloseModalButton();
+
+  }
 
   @HostListener('document:keydown.enter')
   private handleOnEnterKey(): void {
@@ -140,46 +246,39 @@ export class ModalComponent extends Reactive implements AfterViewInit {
     button.toggleAttribute('disabled', force ?? !button?.disabled);
   }
 
-  public ngAfterViewInit(): void {
-    this.initModal();
-    this.deleteContentIfEmpty();
-    this.initHandleOnCloseModalButton();
-  }
-
   private initModal(): void {
+
     if (this.modalRef) {
+
       this.#modal = new Modal(this.modalRef.nativeElement, this.modalOptions);
-      this.#modal.show();
+      this.#modal?.show();
 
-      this.closeModal$.pipe(take(1), this.takeUntil()).subscribe(() => {
-
-        this.#modal?.hide();
-        setTimeout(() => {
-          try {
-            this.externalMethodOnCloseModalEvent?.(this.id);
-            this.elementRef?.nativeElement?.remove();
-          } catch (error) {
-            console.error(error);
-          }
-        }, 500);
-
-      });
-      this.initHandleOnCloseModal();
     }
 
-  }
+    // this.#modal = new Modal(this.modalRef.nativeElement, this.modalOptions);
 
-  public get modal(): undefined | Modal {
-    return this.#modal;
+    this.closeModal$.pipe(take(1), this.takeUntil()).subscribe(() => {
+
+      this.#modal?.hide();
+      setTimeout(() => {
+        try {
+          this.externalMethodOnCloseModalEvent?.(this.id);
+          this.elementRef?.nativeElement?.remove();
+        } catch (error) {
+          console.error(error);
+        }
+      }, 500);
+
+    });
+    this.initHandleOnCloseModal();
+
   }
 
   public show(): Promise<void> {
 
     return new Promise<void>((resolve) => {
 
-      if (this.#modal) {
-        this.#modal.show();
-      }
+      this.#modal?.show();
 
       setTimeout(() => {
         resolve();
@@ -191,9 +290,12 @@ export class ModalComponent extends Reactive implements AfterViewInit {
   private initHandleOnCloseModal(): void {
 
     if (this.#modal) {
-      (<any>this.#modal)['_element'].addEventListener('hidden.bs.modal', () => {
-        this.closeModal$.next();
-      });
+
+      // TODO
+      // this.#modal['_element'].addEventListener('hidden.bs.modal', () => {
+      //   this.closeModal$.next();
+      // });
+
     }
 
   }
@@ -215,7 +317,9 @@ export class ModalComponent extends Reactive implements AfterViewInit {
   public buttonAction($event: MouseEvent, button: ModalButtonInterface): void {
 
     if (button?.callback) {
+
       button.callback(this, this.getInstanceList());
+
     }
 
   }
@@ -235,4 +339,5 @@ export class ModalComponent extends Reactive implements AfterViewInit {
       this.executeCallback(ModalButtonRoleEnum.cancel);
     });
   }
+
 }

@@ -10,6 +10,9 @@ import {BodyCardComponent} from "@utility/presentation/component/card/body.card.
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
 import {FooterCardComponent} from "@utility/presentation/component/card/footer.card.component";
+import {
+  ModalEmployeesFormComponent
+} from "@service/presentation/component/form/employees/modal.employees.form.component";
 
 @Component({
   selector: 'service-employees-form-component',
@@ -23,37 +26,51 @@ import {FooterCardComponent} from "@utility/presentation/component/card/footer.c
     BodyCardComponent,
     CardComponent,
     HeaderCardComponent,
-    FooterCardComponent
+    FooterCardComponent,
+    ModalEmployeesFormComponent
   ],
   providers: [
     ServiceRepository
   ],
   template: `
-    <utility-card-component class="mt-3">
-      <utility-header-card-component class="border-bottom">
-        Employees that can do the service
-      </utility-header-card-component>
-      <utility-body-card-component>
-        <div class="col-12 position-relative" *ngIf="control">
-          <label for="service-form-employees">Employees</label>
-          <ng-select
-            id="service-form-employees"
-            class="cursor-pointer"
-            placeholder="Select employees"
-            (scrollToEnd)="scrollToEnd($event)"
-            [closeOnSelect]="false"
-            [loading]="control.pending"
-            [disabled]="control.pending"
-            [multiple]="multiple"
-            [formControl]="control">
-            <ng-option *ngFor="let item of items" [value]="item">
-              {{item.employee.firstName}} {{item.employee.lastName}}
-            </ng-option>
-          </ng-select>
-          <utility-input-error-component [control]="control"></utility-input-error-component>
-        </div>
-      </utility-body-card-component>
-    </utility-card-component>
+<!--    <h4>-->
+<!--      Employees that can do the service-->
+<!--    </h4>-->
+<!--    <service-modal-employees-form-component>-->
+<!--    </service-modal-employees-form-component>-->
+    <div class="col-12 position-relative" *ngIf="control">
+      <label for="service-form-employees">Employees</label>
+      <ng-select
+        id="service-form-employees"
+        class="cursor-pointer"
+        placeholder="Select employees"
+        bindLabel="_id"
+        (scrollToEnd)="scrollToEnd($event)"
+        [closeOnSelect]="false"
+        [loading]="control.pending"
+        [disabled]="control.pending"
+        [multiple]="multiple"
+        [formControl]="control">
+        <ng-template ng-label-tmp let-item="item" let-clear="clear">
+          <span>{{item.firstName}} {{item.lastName}}</span>
+          <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+        </ng-template>
+        <ng-template ng-header-tmp>
+
+          <div>
+            <button class="text-blue-600 mx-2"
+                    (click)="onSelectAll()">Select All</button>
+            <button class="text-blue-600 mx-2"
+                    (click)="onClearAll()">Clear All</button>
+          </div>
+
+        </ng-template>
+        <ng-option *ngFor="let item of items" [value]="item">
+          {{item.firstName}} {{item.lastName}}
+        </ng-option>
+      </ng-select>
+      <utility-input-error-component [control]="control"></utility-input-error-component>
+    </div>
   `
 })
 export class EmployeesFormComponent implements AfterViewInit {
@@ -66,17 +83,26 @@ export class EmployeesFormComponent implements AfterViewInit {
 
   public readonly employeeRepository = inject(EmployeeRepository);
 
-  public items: { employee: IEmployee }[] = [];
+  public items: IEmployee[] = [];
 
   public ngAfterViewInit(): void {
     this.control.markAsPending();
     this.employeeRepository
       .list(10, 1, 'createdAt', 'asc', {})
       .then((result) => {
-        this.items = result.data.items.map((employee) => ({employee: employee}));
+        this.items = result.data.items;
         this.control.updateValueAndValidity();
       });
 
+  }
+
+  public onSelectAll() {
+    const selected = this.items;
+    this.control.patchValue(selected);
+  }
+
+  public onClearAll() {
+    this.control.patchValue([]);
   }
 
   scrollToEnd($event: any) {

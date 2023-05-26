@@ -1,51 +1,21 @@
-<div class="row min-vh-100 flex-center g-0">
-  <div class="col-lg-10 col-xxl-7 py-3 position-relative">
-    <img alt=""
-         class="bg-auth-circle-shape"
-         src="/src/asset/img/icons/spot-illustrations/bg-shape.png"
-         width="250">
-    <img alt=""
-         class="bg-auth-circle-shape-2"
-         src="/src/asset/img/icons/spot-illustrations/shape-1.png"
-         width="150">
-    <div class="card overflow-hidden z-1">
-      <div class="card-body p-0">
-        <div class="row g-0 h-100">
-          <div class="col-md-5 text-center bg-card-gradient">
-            <div class="position-relative p-4 pt-md-5 pb-md-7" data-bs-theme="light">
-              <div class="bg-holder bg-auth-card-shape"
-                   style="background-image:url(/src/asset/img/icons/spot-illustrations/half-circle.png);">
-              </div>
-              <!--/.bg-holder-->
+<div class="sm:mx-auto sm:w-full sm:max-w-sm">
+  <img class="mx-auto h-10 w-auto"
+       src="asset/img/logo.png"
+       alt="Bee O`clock">
+  <h2
+    class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-neutral-900 dark:text-white">
+    Sign in to your account
+  </h2>
+</div>
 
-              <div class="z-1 position-relative">
-                <a
-                  class="link-light mb-4 font-sans-serif fs-4 d-inline-block fw-bolder" routerLink="/">
-                  Bee O`clock
-                </a>
-                <p class="opacity-75 text-white">
-                  With the power of Bee O`clock, you can now focus only on functionaries
-                  for
-                  your digital products, while leaving the UI design on us!
-                </p>
-              </div>
-            </div>
-            <div class="mt-3 mb-4 mt-md-4 mb-md-5" data-bs-theme="light">
-              <p class="text-white">
-                Don't have an account?<br>
-                <a class="text-decoration-underline link-light" routerLink="sign-up">Get started!</a>
-              </p>
-              <p class="mb-0 mt-4 mt-md-5 fs--1 fw-semi-bold text-white opacity-75">
-                Read our
-                <a class="text-decoration-underline text-white" routerLink="/404">terms</a>
-                and
-                <a class="text-decoration-underline text-white" routerLink="/404">conditions </a>
-              </p>
-            </div>
-          </div>
-          <identity-sign-in-component></identity-sign-in-component>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+
+  <identity-sign-in-component></identity-sign-in-component>
+
+  <p class="mt-10 text-center text-sm text-neutral-500">
+    Not a member?
+    <a routerLink="sign-up" class="font-semibold leading-6 text-blue-600 dark:text-black hover:text-blue-500">
+      Registration
+    </a>
+  </p>
 </div>

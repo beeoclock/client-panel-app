@@ -1,9 +1,0 @@
-.bottom-bar {
-  transform: translateY(0%);
-  transition: $transition-base;
-  @extend .fixed-bottom;
-
-  &.hide {
-    transform: translateY(100%);
-  }
-}

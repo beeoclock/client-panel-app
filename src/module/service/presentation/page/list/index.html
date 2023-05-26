@@ -1,119 +1,116 @@
-<div class="row mb-3">
-  <div class="col-12 d-flex justify-content-between">
-    <service-filter-component></service-filter-component>
-    <utility-popover id="list-menu">
-      <i button class="bi bi-three-dots-vertical"></i>
-      <ul content class="list-group border-0">
-        <li
-          routerLink="form"
-          close-on-self-click
-          class="list-group-item list-group-item-action cursor-pointer border-0">
-          <i class="bi bi-plus-lg"></i>
-          Add new service
-        </li>
-      </ul>
-    </utility-popover>
-  </div>
+<div class="flex justify-between p-4">
+  <service-filter-component></service-filter-component>
+  <utility-dropdown buttonLabel="Menu">
+    <ng-container content>
+      <a
+        routerLink="form"
+        class="block px-4 py-2 text-sm text-neutral-700" role="menuitem" tabindex="-1">
+        <i class="bi bi-plus-lg"></i>
+        Add service
+      </a>
+    </ng-container>
+  </utility-dropdown>
 </div>
 
-<utility-table-component>
-  <thead utility-header-table-component>
-  <tr>
-    <th class="sort pe-1 align-middle white-space-nowrap cursor-pointer" (click)="repository.pagination.setOrderBy('languageVersions.title')">
-      Title
-      <i class="bi"
-         *ngIf="repository.pagination.orderBy === 'languageVersions.title'"
-         [class.bi-sort-alpha-down]="repository.pagination.orderDir === 'asc'"
-         [class.bi-sort-alpha-up]="repository.pagination.orderDir === 'desc'"></i>
-    </th>
-    <th class="sort pe-1 align-middle white-space-nowrap">
-      Languages
-    </th>
-    <th class="sort pe-1 align-middle white-space-nowrap">
-      Employees
-    </th>
-    <th class="sort pe-1 align-middle white-space-nowrap cursor-pointer" (click)="repository.pagination.setOrderBy('active')">
-      Active
-      <i class="bi"
-         *ngIf="repository.pagination.orderBy === 'active'"
-         [class.bi-sort-alpha-down]="repository.pagination.orderDir === 'asc'"
-         [class.bi-sort-alpha-up]="repository.pagination.orderDir === 'desc'"></i>
-    </th>
-    <th class="sort pe-1 align-middle white-space-nowrap cursor-pointer" (click)="repository.pagination.setOrderBy('createdAt')">
-      Created At
-      <i class="bi"
-         *ngIf="repository.pagination.orderBy === 'createdAt'"
-         [class.bi-sort-alpha-down]="repository.pagination.orderDir === 'asc'"
-         [class.bi-sort-alpha-up]="repository.pagination.orderDir === 'desc'"></i>
-    </th>
-    <th class="sort pe-1 align-middle white-space-nowrap cursor-pointer" (click)="repository.pagination.setOrderBy('updatedAt')">
-      Updated At
-      <i class="bi"
-         *ngIf="repository.pagination.orderBy === 'updatedAt'"
-         [class.bi-sort-alpha-down]="repository.pagination.orderDir === 'asc'"
-         [class.bi-sort-alpha-up]="repository.pagination.orderDir === 'desc'"></i>
-    </th>
-    <th class="sort pe-1 align-middle white-space-nowrap">
-      Action
-    </th>
-  </tr>
-  </thead>
-  <tbody utility-body-table-component [loader]="repository.loading" [pagination]="repository.pagination">
-    <tr class="btn-reveal-trigger" *ngFor="let item of repository.pagination.items">
-      <td class="align-middle white-space-nowrap">
-        <a [routerLink]="['details', item._id]">
-          {{ getFirstLanguageVersion(item.languageVersions).title }}
-        </a>
-      </td>
-      <td class="align-middle white-space-nowrap">
-        {{ getLanguageCodes(item.languageVersions) }}
-      </td>
-      <td class="align-middle white-space-nowrap">
-        <i class="bi bi-person"></i>
-        {{ item?.permanentEmployees?.length ?? 0 }}
-      </td>
-      <td class="align-middle white-space-nowrap">
+
+<ng-container *ngIf="repository.loading.isOn; else ContentTemplate">
+  <utility-loader></utility-loader>
+</ng-container>
+<ng-template #ContentTemplate>
+  <div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left text-neutral-500 dark:text-neutral-400">
+      <thead class="text-xs text-neutral-700 uppercase border-b dark:bg-neutral-700 dark:text-neutral-400">
+      <tr>
+        <th scope="col" class="p-4">
+          <div class="flex items-center">
+            <input id="checkbox-all" type="checkbox"
+                   class="w-4 h-4 text-blue-600 bg-neutral-100 border-neutral-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-neutral-800 dark:focus:ring-offset-neutral-800 focus:ring-2 dark:bg-neutral-700 dark:border-neutral-300">
+            <label for="checkbox-all" class="sr-only">checkbox</label>
+          </div>
+        </th>
+        <th scope="col" class="px-6 py-3 cursor-pointer"
+            (click)="repository.pagination.setOrderBy('languageVersions.title')">
+          Full name
+          <i class="bi"
+             *ngIf="repository.pagination.orderBy === 'languageVersions.title'"
+             [class.bi-sort-alpha-down]="repository.pagination.orderDir === 'asc'"
+             [class.bi-sort-alpha-up]="repository.pagination.orderDir === 'desc'"></i>
+        </th>
+        <th scope="col" class="px-6 py-3 cursor-pointer">
+          Languages
+        </th>
+        <th scope="col" class="px-6 py-3 cursor-pointer">
+          Employees
+        </th>
+        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('email')">
+          Active
+          <utility-sort-indicator
+            [show]="repository.pagination.orderBy === 'active'"
+            [asc]="repository.pagination.orderDir === 'asc'"
+          ></utility-sort-indicator>
+        </th>
+        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('createdAt')">
+          Created At
+          <utility-sort-indicator
+            [show]="repository.pagination.orderBy === 'createdAt'"
+            [asc]="repository.pagination.orderDir === 'asc'"
+          ></utility-sort-indicator>
+        </th>
+        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('updatedAt')">
+          Updated At
+          <utility-sort-indicator
+            [show]="repository.pagination.orderBy === 'updatedAt'"
+            [asc]="repository.pagination.orderDir === 'asc'"
+          ></utility-sort-indicator>
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Action
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr
+        class="bg-white border-b dark:bg-neutral-800 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-300"
+        *ngFor="let item of repository.pagination.items">
+        <td class="w-4 px-4 py-2">
+          <div class="flex items-center">
+            <input id="checkbox-table-1" type="checkbox"
+                   class="w-4 h-4 text-blue-600 bg-neutral-100 border-neutral-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-neutral-800 dark:focus:ring-offset-neutral-800 focus:ring-2 dark:bg-neutral-700 dark:border-neutral-300">
+            <label for="checkbox-table-1" class="sr-only">checkbox</label>
+          </div>
+        </td>
+        <td class="px-6 py-2 text-neutral-700 dark:text-neutral-100">
+          <a [routerLink]="['details', item._id]">
+            {{ getFirstLanguageVersion(item.languageVersions).title }}
+          </a>
+        </td>
+        <td class="px-6 py-2 text-neutral-700 dark:text-neutral-100">
+          {{ getLanguageCodes(item.languageVersions) }}
+        </td>
+        <td class="px-6 py-2 text-neutral-700 dark:text-neutral-100">
+          <i class="bi bi-person"></i>
+          {{ item?.permanentEmployees?.length ?? 0 }}
+        </td>
+        <td class="px-6 py-2 text-neutral-700 dark:text-neutral-100">
         <span
           [class.text-danger]="!item.active"
           [class.text-success]="item.active">
           {{ item.active ? 'active' : 'Inactive' }}
         </span>
-      </td>
-      <td class="align-middle white-space-nowrap">
-        {{ item.createdAt | date: 'hh:mm dd-MM-yyyy' }}
-      </td>
-      <td class="align-middle white-space-nowrap">
-        {{ item.updatedAt | date: 'hh:mm dd-MM-yyyy' }}
-      </td>
-      <td>
-        <utility-popover id="table-row-{{ item._id }}">
-          <i button class="bi bi-three-dots-vertical"></i>
-          <ul content class="list-group border-0">
-            <li
-              [routerLink]="['details', item._id]"
-              close-on-self-click
-              class="list-group-item list-group-item-action cursor-pointer border-0">
-              <i class="bi bi-eye"></i>
-              Details
-            </li>
-            <li
-              [routerLink]="['form', item._id]"
-              close-on-self-click
-              class="list-group-item list-group-item-action cursor-pointer border-0">
-              <i class="bi bi-pencil"></i>
-              Edit
-            </li>
-            <li
-              (click)="repository.delete(item._id, true)"
-              close-on-self-click
-              class="list-group-item list-group-item-action cursor-pointer border-0">
-              <i class="bi bi-trash"></i>
-              Delete
-            </li>
-          </ul>
-        </utility-popover>
-      </td>
-    </tr>
-  </tbody>
-</utility-table-component>
-<utility-pagination-component [pagination]="repository.pagination"></utility-pagination-component>
+        </td>
+        <td class="px-6 py-2 text-neutral-700 dark:text-neutral-100">
+          {{ item.createdAt | date: 'hh:mm dd-MM-yyyy' }}
+        </td>
+        <td class="px-6 py-2 text-neutral-700 dark:text-neutral-100">
+          {{ item.updatedAt | date: 'hh:mm dd-MM-yyyy' }}
+        </td>
+        <td class="px-6 py-2 text-center text-neutral-700 dark:text-neutral-100">
+          <utility-table-column-action [item]="item" [repository]="repository"></utility-table-column-action>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+  <utility-pagination-component [pagination]="repository.pagination"></utility-pagination-component>
+</ng-template>

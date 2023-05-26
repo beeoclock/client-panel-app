@@ -12,7 +12,10 @@ import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {ListPage} from "@utility/list.page";
 import {EmployeeRepository} from "@employee/repository/employee.repository";
 import {FilterComponent} from "@employee/presentation/component/filter/filter.component";
-import {PopoverComponent} from "@utility/presentation/component/popover/popover.component";
+import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
+import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
+import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
+import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 
 @Component({
   selector: 'employee-list-page',
@@ -31,8 +34,11 @@ import {PopoverComponent} from "@utility/presentation/component/popover/popover.
     NgForOf,
     DatePipe,
     FilterComponent,
-    PopoverComponent,
-    NgIf
+    DropdownComponent,
+    NgIf,
+    SortIndicatorComponent,
+    LoaderComponent,
+    ActionComponent
   ],
   standalone: true
 })

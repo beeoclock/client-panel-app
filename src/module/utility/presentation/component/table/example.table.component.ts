@@ -123,7 +123,7 @@ export class ExampleTableComponent {
       "email": "estobartf@adobe.com",
       "payment": false
     }, {
-      "fullName": "Gray Biskupiak",
+      "fullName": "neutral Biskupiak",
       "email": "gbiskupiakg@netvibes.com",
       "payment": false
     }, {

@@ -1,55 +1,143 @@
-<div class="d-flex align-items-center">
-  <div class="toggle-icon-wrapper">
-
-    <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle"
-            data-bs-placement="left"
-            data-bs-toggle="tooltip"
-            title="Toggle Navigation">
-      <span class="navbar-toggle-icon">
-        <span class="toggle-line"></span>
-      </span>
-    </button>
-
-  </div>
-  <a class="navbar-brand" routerLink="/">
-    <div class="d-flex align-items-center py-3">
-      <span class="font-sans-serif">&nbsp;</span>
+<aside id="main-sidebar"
+       class="
+        fixed
+        top-0
+        left-0
+        z-30
+        w-full
+        md:w-64
+        h-screen
+        pt-20
+        transition-transform
+        -translate-x-full
+        bg-white
+        border-r
+        border-neutral-200
+        sm:translate-x-0
+        dark:bg-neutral-800
+        dark:border-neutral-700"
+       aria-label="Sidebar">
+  <div class="flex flex-col items-center mb-2">
+    <div class="bg-neutral-200 rounded p-2">
+      <strong class="mx-2 font-medium text-neutral-800 dark:text-neutral-200">
+        {{ auth.currentUser?.displayName }}
+      </strong>
+      <p class="mx-2 mt-1 text-sm font-medium text-neutral-600 dark:text-neutral-400">
+        {{ auth.currentUser?.email }}
+      </p>
     </div>
-  </a>
-</div>
-<div class="collapse navbar-collapse" id="navbarVerticalCollapse" #navbarVerticalCollapse>
-  <div class="navbar-vertical-content scrollbar pt-0">
-    <ul class="navbar-nav flex-column mb-3 min-vh-100" id="navbarVerticalNav">
-      <li *ngFor="let group of menu">
-        <!-- label-->
-        <div *ngIf="group.label" class="row navbar-vertical-label-wrapper mt-3 mb-2">
-          <div class="col-auto navbar-vertical-label">{{ group.label }}
-          </div>
-          <div class="col ps-0">
-            <hr class="mb-0 navbar-vertical-divider"/>
-          </div>
-        </div>
-        <!-- parent pages-->
-        <a *ngFor="let item of group.items"
-           [attr.target]="item.target"
-           [class.disabled]="item.disabled ?? false"
-           [routerLink]="item.url"
-           class="nav-link border"
-           role="button"
-           (click)="navbarVerticalCollapse.classList.remove('show')"
-           [routerLinkActiveOptions]="item.routerLinkActiveOptions"
-           [routerLinkActive]="['active']">
-          <div class="d-flex align-items-center">
-            <span class="nav-link-icon">
-              <span [class]="item.icon"></span>
-            </span>
-            <span class="nav-link-text ps-1">{{ item.label }}</span>
-          </div>
-        </a>
-      </li>
-      <li class="mt-4 text-body-tertiary text-center">
-        Bee O`clock
-      </li>
-    </ul>
   </div>
-</div>
+
+  <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-neutral-800">
+
+    <ul class="space-y-2 font-medium">
+
+      <li *ngFor="let item of menu">
+
+        <ng-container *ngIf="item?.items?.length;">
+
+          <button
+            #buttonOfSubMenu
+            (click)="buttonOfSubMenu.toggleAttribute('data-close')"
+            data-close
+            type="button"
+            class="
+              flex
+              items-center
+              w-full
+              p-2
+              text-neutral-900
+              transition
+              duration-75
+              rounded-lg
+              group
+              hover:bg-neutral-100
+              dark:text-white
+              dark:hover:bg-neutral-700">
+
+            <i
+              class="
+                flex-shrink-0
+                w-6
+                h-6
+                ms-1
+                text-neutral-500
+                transition
+                duration-75
+                group-hover:text-neutral-900
+                dark:text-neutral-400
+                dark:group-hover:text-white"
+              [class]="item.icon"></i>
+
+            <span class="flex-1 ml-3 text-left whitespace-nowrap">
+              {{ item.label }}
+            </span>
+
+            <i class="bi bi-chevron-down me-1"></i>
+
+          </button>
+
+          <ul [class.hidden]="buttonOfSubMenu.hasAttribute('data-close')" class="py-2 space-y-2">
+            <li *ngFor="let subItem of item.items">
+              <a
+                (isActiveChange)="$event && buttonOfSubMenu.removeAttribute('data-close')"
+                [routerLink]="subItem.url"
+                [attr.target]="item.target"
+                [class.disabled]="item.disabled ?? false"
+                [routerLinkActiveOptions]="subItem.routerLinkActiveOptions"
+                [routerLinkActive]="['bg-neutral-100', 'dark:bg-neutral-700']"
+                class="
+                  flex
+                  items-center
+                  w-full
+                  p-2
+                  text-neutral-900
+                  transition
+                  duration-75
+                  rounded-lg
+                  pl-11
+                  group
+                  hover:bg-neutral-100
+                  dark:text-white
+                  dark:hover:bg-neutral-700">
+                {{ subItem.label }}
+              </a>
+            </li>
+          </ul>
+        </ng-container>
+
+        <ng-container *ngIf="!item?.items">
+
+          <a
+            [routerLink]="item.url"
+            [attr.target]="item.target"
+            [class.disabled]="item.disabled ?? false"
+            [routerLinkActiveOptions]="item.routerLinkActiveOptions"
+            [routerLinkActive]="['bg-neutral-100', 'dark:bg-neutral-700']"
+            class="
+              flex
+              items-center
+              p-2
+              text-neutral-900
+              rounded-lg
+              dark:text-white
+              hover:bg-neutral-100
+              dark:hover:bg-neutral-700">
+
+            <i
+              class="w-6 h-6 ms-2 text-neutral-500 transition duration-75 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white"
+              [class]="item.icon"></i>
+
+            <span class="ml-3">{{ item.label }}</span>
+
+          </a>
+
+        </ng-container>
+
+      </li>
+
+    </ul>
+
+  </div>
+
+</aside>

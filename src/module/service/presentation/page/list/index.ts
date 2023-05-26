@@ -15,7 +15,10 @@ import {TranslateService} from '@ngx-translate/core';
 import {LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
 import {ILanguageVersion} from '@service/domain';
 import {ListPage} from "@utility/list.page";
-import {PopoverComponent} from "@utility/presentation/component/popover/popover.component";
+import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
+import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
+import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
+import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 
 @Component({
   selector: 'service-list-page',
@@ -36,7 +39,10 @@ import {PopoverComponent} from "@utility/presentation/component/popover/popover.
     AsyncPipe,
     NgIf,
     SpinnerComponent,
-    PopoverComponent
+    DropdownComponent,
+    SortIndicatorComponent,
+    LoaderComponent,
+    ActionComponent
   ],
   providers: [
     ServiceRepository

@@ -3,12 +3,11 @@ import {RouterModule} from '@angular/router';
 import {detectorInit} from '@src/script/detector';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {LanguageCodeEnum} from '@utility/domain/enum';
-import {ModalComponent} from "@utility/presentation/component/modal/modal.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, TranslateModule, ModalComponent],
+  imports: [RouterModule, TranslateModule],
   template: `
     <router-outlet></router-outlet>
   `,
@@ -30,6 +29,7 @@ export class AppComponent implements AfterViewInit {
     detectorInit();
 
     if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
       document.documentElement.setAttribute('data-bs-theme', 'dark');
     }
 

@@ -31,40 +31,38 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
         </ng-select>
         <utility-input-error-component [control]="form.controls.workDays"></utility-input-error-component>
       </div>
-      <div class="col-12 mt-2">
-        <div class="row">
-          <div class="col-md-6 position-relative">
-            <label for="service-form-startTime">Start</label>
-            <input
-              hasError
-              id="service-form-startTime"
-              type="text"
-              class="form-control"
-              formControlName="startTime"
-              [time24hr]="true"
-              mwlFlatpickr
-              [noCalendar]="true"
-              [enableTime]="true"
-              [dateFormat]="'H:i'"
-            />
-            <utility-input-error-component [control]="form.controls.startTime"></utility-input-error-component>
-          </div>
-          <div class="col-md-6 position-relative">
-            <label for="service-form-endTime">End</label>
-            <input
-              hasError
-              id="service-form-endTime"
-              type="text"
-              class="form-control"
-              formControlName="endTime"
-              [time24hr]="true"
-              mwlFlatpickr
-              [noCalendar]="true"
-              [enableTime]="true"
-              [dateFormat]="'H:i'"
-            />
-            <utility-input-error-component [control]="form.controls.endTime"></utility-input-error-component>
-          </div>
+      <div class="grid grid-cols-2 gap-4 mt-2">
+        <div class="">
+          <label for="service-form-startTime">Start</label>
+          <input
+            hasError
+            id="service-form-startTime"
+            type="text"
+            class="border rounded px-3 py-2 w-full"
+            formControlName="startTime"
+            [time24hr]="true"
+            mwlFlatpickr
+            [noCalendar]="true"
+            [enableTime]="true"
+            [dateFormat]="'H:i'"
+          />
+          <utility-input-error-component [control]="form.controls.startTime"></utility-input-error-component>
+        </div>
+        <div class="">
+          <label for="service-form-endTime">End</label>
+          <input
+            hasError
+            id="service-form-endTime"
+            type="text"
+            class="border rounded px-3 py-2 w-full"
+            formControlName="endTime"
+            [time24hr]="true"
+            mwlFlatpickr
+            [noCalendar]="true"
+            [enableTime]="true"
+            [dateFormat]="'H:i'"
+          />
+          <utility-input-error-component [control]="form.controls.endTime"></utility-input-error-component>
         </div>
       </div>
     </form>

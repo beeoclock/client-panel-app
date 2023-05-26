@@ -24,34 +24,43 @@ import {FooterCardComponent} from "@utility/presentation/component/card/footer.c
     FooterCardComponent
   ],
   template: `
-    <utility-card-component class="mt-3">
-      <utility-header-card-component class="border-bottom">
-        When are you available for the service
-      </utility-header-card-component>
-      <utility-body-card-component>
+    Language versions section
 
-        <ul class="list-group mt-3"
-            *ngFor="let languageVersionForm of form.controls; let index = index">
-          <li class="list-group-item list-group-item-secondary border d-flex justify-content-between">
-            <strong>Language version #{{ index + 1 }}</strong>
-            <button class="btn btn-link text-danger py-0" (click)="form.remove(index)" *ngIf="index > 0">
-              <i class="bi bi-trash"></i>
-            </button>
-          </li>
-          <li class="list-group-item pb-3">
-            <service-service-form-component
-              [form]="languageVersionForm">
-            </service-service-form-component>
-          </li>
-        </ul>
-
-      </utility-body-card-component>
-      <utility-footer-card-component class="border-top">
-        <button class="btn btn-primary" *ngIf="showAddMore" (click)="pushNewLanguageVersionForm($event)">Add new
-          language version
+    <div
+      *ngFor="let languageVersionForm of form.controls; let index = index"
+      class="border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white mt-4">
+      <div
+        class="
+          justify-between
+          flex
+          w-full
+          px-4
+          py-2
+          bg-neutral-100
+          border-b
+          border-gray-200
+          rounded-t-lg
+          cursor-pointer
+          dark:bg-gray-800
+          dark:border-gray-600">
+        Language version #{{ index + 1 }}
+        <button class="text-red-500" (click)="form.remove(index)" *ngIf="index > 0">
+          <i class="bi bi-trash"></i>
         </button>
-      </utility-footer-card-component>
-    </utility-card-component>
+      </div>
+      <div class="p-4">
+        <service-service-form-component
+          [form]="languageVersionForm">
+        </service-service-form-component>
+      </div>
+    </div>
+
+    <hr *ngIf="showAddMore" class="my-4">
+
+    <button class="border rounded px-4 py-2" *ngIf="showAddMore" (click)="pushNewLanguageVersionForm($event)">
+      <i class="bi bi-plus-lg me-2"></i>
+      Add new language version
+    </button>
   `
 })
 export class ServicesFormComponent {

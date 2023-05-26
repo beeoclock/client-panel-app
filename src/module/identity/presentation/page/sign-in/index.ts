@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SignInComponent} from '@identity/presentation/component/sign-in.component/sign-in.component';
@@ -15,5 +15,8 @@ import {SignInComponent} from '@identity/presentation/component/sign-in.componen
   encapsulation: ViewEncapsulation.None
 })
 export default class Index {
+
+  @HostBinding()
+  public readonly class = 'w-96 p-8 border dark:border-neutral-700 bg-white rounded dark:bg-neutral-800';
 
 }

@@ -1,13 +1,8 @@
-import {ComponentRef, inject, Injectable, Type} from '@angular/core';
-import {Modal} from 'bootstrap';
+import {ComponentRef, Injectable, Type} from '@angular/core';
 import {TypeGuard} from '@p4ck493/ts-type-guard';
-import {is} from "thiis";
-import {
-  ModalButtonInterface,
-  ModalComponent,
-  modalSizeType
-} from "@utility/presentation/component/modal/modal.component";
+import {ModalButtonInterface, ModalComponent} from './modal.component';
 import {InjectionComponentService} from "@utility/injection-component/injection-component.service";
+import {is} from "thiis";
 import {environment} from "@environment/environment";
 import {v4} from "uuid";
 
@@ -19,7 +14,11 @@ export type storeOfModalsType = Record<string, ComponentRef<ModalComponent>>;
 export class ModalService {
 
   readonly #storeOfModals: storeOfModalsType = {};
-  private readonly injectionComponentService = inject(InjectionComponentService);
+
+  constructor(
+    private readonly injectionComponentService: InjectionComponentService
+  ) {
+  }
 
   public get storeOfModals(): storeOfModalsType {
     return this.#storeOfModals;
@@ -48,14 +47,14 @@ export class ModalService {
       data: any,
     }[],
     options: {
-      modalOptions?: Partial<Modal.Options>;
+      modalOptions?: unknown;
       titleClasses?: string[];
       title?: string;
       id?: string;
       fixHeight?: boolean;
       showBody?: boolean;
       buttonSectionClass?: string[],
-      modalSize?: modalSizeType;
+      modalSize?: unknown;
       contentHTML?: string;
       buttons?: ModalButtonInterface[];
       componentChildRefList?: ComponentRef<any>[];
@@ -100,7 +99,7 @@ export class ModalService {
    * Close, delete and clear modal by id or all if id is empty
    * @param id
    */
-  public close(id: undefined | string = undefined): void {
+  public close(id: string | null = null): void {
     if (id) {
       // Close only one selected by id modal
       this.closeModalById(id);
@@ -126,7 +125,7 @@ export class ModalService {
             componentRef.destroy();
           });
         }
-        this.#storeOfModals[id].instance?.modal?.dispose?.();
+        // this.#storeOfModals[id].instance?.modal?.dispose?.(); // TODO
         this.#storeOfModals[id].destroy();
       }
       Reflect.deleteProperty(this.#storeOfModals, id);

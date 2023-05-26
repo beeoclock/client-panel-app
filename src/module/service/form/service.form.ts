@@ -203,7 +203,7 @@ export interface IServiceForm {
   languageVersions: LanguageVersionsForm;
   durationVersions: DurationVersionsForm;
   _id: FormControl<string>;
-  permanentEmployees: FormControl<{ employee: IEmployee }[]>;
+  permanentEmployees: FormControl<IEmployee[]>;
   active: FormControl<ActiveEnum>;
   createdAt: FormControl<string>;
   updatedAt: FormControl<string>;

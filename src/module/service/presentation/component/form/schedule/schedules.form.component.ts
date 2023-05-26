@@ -21,32 +21,43 @@ import {FooterCardComponent} from "@utility/presentation/component/card/footer.c
     NgIf,
   ],
   template: `
-    <utility-card-component class="mt-3">
-      <utility-header-card-component class="border-bottom">
-        When are you available for the service
-      </utility-header-card-component>
-      <utility-body-card-component>
+    Schedules versions section
 
-        <ul class="list-group mt-3"
-            *ngFor="let scheduleForm of schedulesForm.controls; let index = index">
-          <li class="list-group-item list-group-item-secondary border d-flex justify-content-between">
-            <strong>Schedule version #{{ index + 1 }}</strong>
-            <button class="btn btn-link text-danger py-0" (click)="schedulesForm.remove(index)" *ngIf="index > 0">
-              <i class="bi bi-trash"></i>
-            </button>
-          </li>
-          <li class="list-group-item pb-3">
-            <service-schedule-form-component
-              [form]="scheduleForm">
-            </service-schedule-form-component>
-          </li>
-        </ul>
+    <div
+      *ngFor="let scheduleForm of schedulesForm.controls; let index = index"
+      class="border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white mt-4">
+      <div
+        class="
+          justify-between
+          flex
+          w-full
+          px-4
+          py-2
+          bg-neutral-100
+          border-b
+          border-gray-200
+          rounded-t-lg
+          cursor-pointer
+          dark:bg-gray-800
+          dark:border-gray-600">
+        Schedule version #{{ index + 1 }}
+        <button class="text-red-500" (click)="schedulesForm.remove(index)" *ngIf="index > 0">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+      <div class="p-4">
+        <service-schedule-form-component
+          [form]="scheduleForm">
+        </service-schedule-form-component>
+      </div>
+    </div>
 
-      </utility-body-card-component>
-      <utility-footer-card-component class="border-top">
-        <button class="btn btn-primary" (click)="pushNewScheduleForm($event)">Add new interval</button>
-      </utility-footer-card-component>
-    </utility-card-component>
+    <hr class="my-4">
+
+    <button class="border rounded px-4 py-2" (click)="pushNewScheduleForm($event)">
+      <i class="bi bi-plus-lg me-2"></i>
+      Add new interval
+    </button>
   `
 })
 export class SchedulesFormComponent {

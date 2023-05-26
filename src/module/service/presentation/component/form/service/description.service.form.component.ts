@@ -15,11 +15,10 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
     InputErrorComponent,
   ],
   template: `
-
-    <div class="col-12 mt-2 position-relative">
+    <div class="flex-col mb-2">
       <label for="service-form-description">Description</label>
       <textarea
-        beeoclock
+        class="border rounded px-3 py-2 w-full"
         hasError
         placeholder="Write some description of service"
         id="service-form-description"
