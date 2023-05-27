@@ -20,12 +20,10 @@ import {AttendeesForm} from '@event/form/event.form';
       [form]="control">
     </event-attendant-component>
 
-    <div class="d-grid">
-      <button (click)="form.pushNewAttendant()" class="btn btn-primary mt-2">
-        <i class="bi bi-plus-lg"></i>
-        Add attendant
-      </button>
-    </div>
+    <button (click)="form.pushNewAttendant()" class="w-full border rounded px-4 py-2 hover:bg-neutral-100">
+      <i class="bi bi-plus-lg"></i>
+      Add attendant
+    </button>
   `
 })
 export class AttendeesComponent {
