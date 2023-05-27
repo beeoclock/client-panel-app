@@ -9,6 +9,7 @@ import {NgIf} from '@angular/common';
 import {SettingsFormRepository} from "@company/repository/settings.form.repository";
 import {ISettings} from "@company/domain";
 import {BooleanState} from "@utility/domain";
+import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 
 @Component({
   selector: 'company-form-settings-component',
@@ -23,31 +24,33 @@ import {BooleanState} from "@utility/domain";
     ButtonComponent,
     ReactiveFormsModule,
     SpinnerComponent,
-    NgIf
+    NgIf,
+    LoaderComponent
   ],
   template: `
-    <div spinner *ngIf="loadingData.isOn; else Content"></div>
-    <ng-template #Content>
-      <form [formGroup]="form" class="row g-3">
-        <div class="col-lg-10">
-          <label class="form-label" for="first-name">Name</label>
-          <input beeoclock id="name" formControlName="name">
+    <utility-loader *ngIf="loadingData.isOn; else ContentTemplate"></utility-loader>
+    <ng-template #ContentTemplate>
+      <form [formGroup]="form">
+        <div class="pb-4">
+          <label for="first-name">Name</label>
+          <input class="rounded border px-3 py-2 w-full" id="first-name" formControlName="name">
         </div>
-        <div class="col-lg-2">
-          <label class="form-label" for="flexSwitchCheckDefault">Active</label>
-          <div class="form-check form-switch d-flex align-items-center fs-2">
-            <input class="form-check-input" type="checkbox" role="switch" id="active"
-                   formControlName="active">
-          </div>
+        <div class="pb-4">
+          <input class="me-2"
+                 type="checkbox"
+                 role="switch"
+                 id="active"
+                 formControlName="active">
+          <label for="active">Active</label>
         </div>
-        <div class="col-lg-12">
-          <label class="form-label" for="intro">Description</label>
-          <textarea beeoclock id="description" formControlName="description">
-      </textarea>
+        <div class="pb-4">
+          <label for="description">Description</label>
+          <textarea class="rounded border px-3 py-2 w-full"
+                    id="description"
+                    formControlName="description">
+          </textarea>
         </div>
-        <div class="col-12 d-grid">
-          <button (click)="save()" beeoclock>Save</button>
-        </div>
+        <button (click)="save()" class="px-4 py-2 border rounded w-full hover:bg-neutral-100">Save</button>
       </form>
     </ng-template>
   `

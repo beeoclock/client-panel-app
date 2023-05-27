@@ -49,14 +49,6 @@ import {SpinnerComponent} from "@utility/presentation/component/spinner/spinner.
       </svg>
       Loading...
     </button>
-<!--    <utility-card-component class="border">-->
-<!--      <utility-body-card-component>-->
-<!--        <div class="d-flex align-items-center">-->
-<!--          <div spinner></div>-->
-<!--          <span class="ms-3">Loading...</span>-->
-<!--        </div>-->
-<!--      </utility-body-card-component>-->
-<!--    </utility-card-component>-->
   `
 })
 export class LoaderComponent {

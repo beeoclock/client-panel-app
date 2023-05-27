@@ -1,9 +1,8 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, ViewEncapsulation} from '@angular/core';
 import {DangerZoneComponent} from '@company/presentation/component/danger-zone/danger-zone.component';
 import {ChangePasswordComponent} from '@company/presentation/component/change-password/change-password.component';
 import {FormSettingsComponent} from '@company/presentation/component/settings/form.settings.component';
 import {ButtonComponent} from "@utility/presentation/component/button/button.component";
-import {Auth} from "@angular/fire/auth";
 
 @Component({
   selector: 'company-settings-page',
@@ -19,15 +18,6 @@ import {Auth} from "@angular/fire/auth";
 })
 export default class Index {
 
-  private readonly auth = inject(Auth);
-
-  public logout(): void {
-    this.auth.signOut()
-      .then(() => {
-
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  @HostBinding()
+  public readonly class = 'p-4 block';
 }

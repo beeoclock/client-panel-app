@@ -1,122 +1,159 @@
-<div class="row g-0">
-  <div class="col-lg-8 pe-lg-2">
-    <div class="card mb-3">
-      <div class="card-body p-0">
-        <ul class="list-group">
-          <li class="list-group-item">
-            <h4 class="p-0 m-0">
-              Settings
-            </h4>
-          </li>
-          <li class="list-group-item d-flex align-items-center justify-content-between">
-            <label class="form-label m-0" for="theme-dark-mode">Dark mode</label>
-            <div class="form-check form-switch d-flex align-items-center fs-2 m-0 p-0">
+<div class="grid grid-cols-12 gap-4">
+
+  <div class="col-span-12 lg:col-span-8">
+
+    <div class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg mb-4">
+
+      <ul
+        class="text-sm font-medium text-neutral-900 bg-white rounded-lg dark:bg-neutral-700 dark:border-neutral-600 dark:text-white">
+        <li
+          class="bg-neutral-100 dark:bg-neutral-800 rounded-t w-full px-4 py-2 border-b border-neutral-200 dark:border-neutral-600">
+          Settings
+        </li>
+        <li class="w-full px-4 py-2 border-b border-neutral-200 dark:border-neutral-600 justify-between flex items-center">
+          <div>
+            Dark mode
+          </div>
+          <div>
+
+            <label class="relative inline-flex items-center cursor-pointer">
               <input
                 [formControl]="darkModeControl"
-                class="form-check-input cursor-pointer m-0 p-0"
+                class="sr-only peer"
                 id="theme-dark-mode"
                 type="checkbox"
                 role="switch">
-            </div>
-          </li>
-          <li class="list-group-item d-flex align-items-center justify-content-between">
-            <label class="form-label m-0" for="theme-dark-mode">Language</label>
-            <div class="d-flex align-items-center">
-              Soon!
-            </div>
-          </li>
-        </ul>
-      </div>
+              <div
+                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+            </label>
+
+          </div>
+        </li>
+        <li class="w-full px-4 py-2 rounded-b border-neutral-200 dark:border-neutral-600 justify-between flex">
+          <div>
+            Language
+          </div>
+          <div>
+            Soon!
+          </div>
+        </li>
+      </ul>
+
     </div>
-    <div class="card mb-3">
-      <div class="card-body p-0">
-        <ul class="list-group">
-          <li class="list-group-item">
-            <h5 class="p-0 m-0">
-              Default data of service
-            </h5>
-          </li>
-          <li class="list-group-item d-flex align-items-center justify-content-between">
-            <label class="form-label m-0" for="theme-dark-mode">Default service duration</label>
-            <div class="d-flex align-items-center">
-              Soon!
-            </div>
-          </li>
-          <li class="list-group-item d-flex align-items-center justify-content-between">
-            <label class="form-label m-0" for="theme-dark-mode">Default service language</label>
-            <div class="d-flex align-items-center">
-              Soon!
-            </div>
-          </li>
-          <li class="list-group-item d-flex align-items-center justify-content-between">
-            <label class="form-label m-0" for="theme-dark-mode">Default service price</label>
-            <div class="d-flex align-items-center">
-              Soon!
-            </div>
-          </li>
-          <li class="list-group-item d-flex align-items-center justify-content-between">
-            <label class="form-label m-0" for="theme-dark-mode">Default service work days</label>
-            <div class="d-flex align-items-center">
-              Soon!
-            </div>
-          </li>
-          <li class="list-group-item d-flex align-items-center justify-content-between">
-            <label class="form-label m-0" for="theme-dark-mode">Default service break</label>
-            <div class="d-flex align-items-center">
-              Soon!
-            </div>
-          </li>
-          <li class="list-group-item d-flex align-items-center justify-content-between">
-            <label class="form-label m-0" for="theme-dark-mode">Default service start to work</label>
-            <div class="d-flex align-items-center">
-              Soon!
-            </div>
-          </li>
-          <li class="list-group-item d-flex align-items-center justify-content-between">
-            <label class="form-label m-0" for="theme-dark-mode">Default service end to work</label>
-            <div class="d-flex align-items-center">
-              Soon!
-            </div>
-          </li>
-        </ul>
-      </div>
+    <div class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg mb-4">
+
+      <ul
+        class="text-sm font-medium text-neutral-900 bg-white rounded-lg dark:bg-neutral-700 dark:border-neutral-600 dark:text-white">
+        <li
+          class="bg-neutral-100 dark:bg-neutral-800 rounded-t w-full px-4 py-2 border-b border-neutral-200 dark:border-neutral-600">
+          Default data of event
+        </li>
+        <li class="w-full px-4 py-2 border-b border-neutral-200 dark:border-neutral-600 justify-between flex">
+          <div>
+            Default event language
+          </div>
+          <div>
+            Soon!
+          </div>
+        </li>
+        <li class="w-full px-4 py-2 rounded-b border-neutral-200 dark:border-neutral-600 justify-between flex">
+          <div>
+            Default event service (top service)
+          </div>
+          <div>
+            Soon!
+          </div>
+        </li>
+      </ul>
+
     </div>
-    <div class="card mb-3">
-      <div class="card-body p-0">
-        <ul class="list-group">
-          <li class="list-group-item">
-            <h5 class="p-0 m-0">
-              Default data of event
-            </h5>
-          </li>
-          <li class="list-group-item d-flex align-items-center justify-content-between">
-            <label class="form-label m-0" for="theme-dark-mode">Default event language</label>
-            <div class="d-flex align-items-center">
-              Soon!
-            </div>
-          </li>
-          <li class="list-group-item d-flex align-items-center justify-content-between">
-            <label class="form-label m-0" for="theme-dark-mode">Default event service (top service)</label>
-            <div class="d-flex align-items-center">
-              Soon!
-            </div>
-          </li>
-        </ul>
-      </div>
+    <div class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg mb-4">
+
+      <ul
+        class="text-sm font-medium text-neutral-900 bg-white rounded-lg dark:bg-neutral-700 dark:border-neutral-600 dark:text-white">
+        <li
+          class="bg-neutral-100 dark:bg-neutral-800 rounded-t w-full px-4 py-2 border-b border-neutral-200 dark:border-neutral-600">
+          Default data of service
+        </li>
+        <li class="w-full px-4 py-2 border-b border-neutral-200 dark:border-neutral-600 justify-between flex">
+          <div>
+            Default service duration
+          </div>
+          <div>
+            Soon!
+          </div>
+        </li>
+        <li class="w-full px-4 py-2 border-b border-neutral-200 dark:border-neutral-600 justify-between flex">
+          <div>
+            Default service language
+          </div>
+          <div>
+            Soon!
+          </div>
+        </li>
+        <li class="w-full px-4 py-2 border-b border-neutral-200 dark:border-neutral-600 justify-between flex">
+          <div>
+            Default service work days
+          </div>
+          <div>
+            Soon!
+          </div>
+        </li>
+        <li class="w-full px-4 py-2 border-b border-neutral-200 dark:border-neutral-600 justify-between flex">
+          <div>
+            Default service break
+          </div>
+          <div>
+            Soon!
+          </div>
+        </li>
+        <li class="w-full px-4 py-2 border-b border-neutral-200 dark:border-neutral-600 justify-between flex">
+          <div>
+            Default service start to work
+          </div>
+          <div>
+            Soon!
+          </div>
+        </li>
+        <li class="w-full px-4 py-2 border-b border-neutral-200 dark:border-neutral-600 justify-between flex">
+          <div>
+            Default service end to work
+          </div>
+          <div>
+            Soon!
+          </div>
+        </li>
+        <li class="w-full px-4 py-2 rounded-b border-neutral-200 dark:border-neutral-600 justify-between flex">
+          <div>
+            Default service price
+          </div>
+          <div>
+            Soon!
+          </div>
+        </li>
+      </ul>
+
     </div>
+
   </div>
-  <div class="col-lg-4 ps-lg-2">
-    <company-change-password-component></company-change-password-component>
-    <div class="card mb-3">
-      <div class="card-body bg-light">
-        <h5 class="fs-0">Sign out</h5>
-        <p class="fs--1">Perhaps you just want to add new account?</p>
-        <p class="fs--1">If yes: click "Add new account" or "Switch to another account"</p>
-        <div class="d-grid">
-          <button beeoclock class="btn-danger" (click)="logout()">Logout</button>
-        </div>
+
+  <div class="col-span-12 lg:col-span-4">
+
+    <div
+      class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg mb-4 p-4">
+
+<!--      <company-change-password-component></company-change-password-component>-->
+
+      <!--          <p class="fs&#45;&#45;1">Perhaps you just want to add new account?</p>-->
+      <!--          <p class="fs&#45;&#45;1">If yes: click "Add new account" or "Switch to another account"</p>-->
+      <div class="mb-2">
+        <strong>Sign out</strong>
       </div>
+      <button class="w-full px-4 py-2 rounded border border-red-500 text-red-500 hover:bg-red-100" (click)="logout()">Logout</button>
+<!--      <company-danger-zone-component></company-danger-zone-component>-->
+
     </div>
-    <company-danger-zone-component></company-danger-zone-component>
+
   </div>
+
 </div>
