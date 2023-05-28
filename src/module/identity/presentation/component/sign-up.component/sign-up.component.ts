@@ -78,7 +78,7 @@ import {Notification, WarningNotification} from "@utility/domain/notification";
 
     <form [formGroup]="form" class="space-y-6" action="#" method="POST">
       <div>
-        <label for="displayName" class="block text-sm font-medium leading-6 text-beecolor-900 dark:text-white">
+        <label for="displayName" class="block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
           {{ 'identity.sign-up.form.inputs.display-name.label' | translate }}
         </label>
         <div class="mt-2">
@@ -96,14 +96,14 @@ import {Notification, WarningNotification} from "@utility/domain/notification";
                 rounded-md
                 border-0
                 py-1.5
-                text-beecolor-900
-                dark:text-beecolor-100
+                text-beeColor-900
+                dark:text-beeDarkColor-100
                 shadow-sm
-                dark:bg-beecolor-700
+                dark:bg-beeDarkColor-700
                 ring-1
                 ring-inset
-                ring-beecolor-300
-                placeholder:text-beecolor-400
+                ring-beeColor-300
+                placeholder:text-beeColor-400
                 focus:ring-2
                 focus:ring-inset
                 focus:ring-stone-800
@@ -112,7 +112,7 @@ import {Notification, WarningNotification} from "@utility/domain/notification";
       </div>
 
       <div>
-        <label for="email" class="block text-sm font-medium leading-6 text-beecolor-900 dark:text-white">
+        <label for="email" class="block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
           {{ 'identity.sign-up.form.inputs.email.label' | translate }}
         </label>
         <div class="mt-2">
@@ -130,14 +130,14 @@ import {Notification, WarningNotification} from "@utility/domain/notification";
                 rounded-md
                 border-0
                 py-1.5
-                text-beecolor-900
-                dark:text-beecolor-100
+                text-beeColor-900
+                dark:text-beeDarkColor-100
                 shadow-sm
-                dark:bg-beecolor-700
+                dark:bg-beeDarkColor-700
                 ring-1
                 ring-inset
-                ring-beecolor-300
-                placeholder:text-beecolor-400
+                ring-beeColor-300
+                placeholder:text-beeColor-400
                 focus:ring-2
                 focus:ring-inset
                 focus:ring-stone-800
@@ -148,7 +148,7 @@ import {Notification, WarningNotification} from "@utility/domain/notification";
       <div>
         <div class="flex items-center justify-between">
           <label for="password"
-                 class="block text-sm font-medium leading-6 text-beecolor-900 dark:text-white">Password</label>
+                 class="block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">Password</label>
         </div>
         <div class="mt-2">
           <input
@@ -164,15 +164,15 @@ import {Notification, WarningNotification} from "@utility/domain/notification";
                 w-full
                 rounded-md
                 border-0
-                dark:bg-beecolor-700
+                dark:bg-beeDarkColor-700
                 py-1.5
-                text-beecolor-900
-                dark:text-beecolor-100
+                text-beeColor-900
+                dark:text-beeDarkColor-100
                 shadow-sm
                 ring-1
                 ring-inset
-                ring-beecolor-300
-                placeholder:text-beecolor-400
+                ring-beeColor-300
+                placeholder:text-beeColor-400
                 focus:ring-2
                 focus:ring-inset
                 focus:ring-stone-800
@@ -184,7 +184,7 @@ import {Notification, WarningNotification} from "@utility/domain/notification";
       <div>
         <div class="flex items-center justify-between">
           <label for="password"
-                 class="block text-sm font-medium leading-6 text-beecolor-900 dark:text-white">
+                 class="block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
             Password confirm
           </label>
         </div>
@@ -202,15 +202,15 @@ import {Notification, WarningNotification} from "@utility/domain/notification";
                 w-full
                 rounded-md
                 border-0
-                dark:bg-beecolor-700
+                dark:bg-beeDarkColor-700
                 py-1.5
-                text-beecolor-900
-                dark:text-beecolor-100
+                text-beeColor-900
+                dark:text-beeDarkColor-100
                 shadow-sm
                 ring-1
                 ring-inset
-                ring-beecolor-300
-                placeholder:text-beecolor-400
+                ring-beeColor-300
+                placeholder:text-beeColor-400
                 focus:ring-2
                 focus:ring-inset
                 focus:ring-stone-800

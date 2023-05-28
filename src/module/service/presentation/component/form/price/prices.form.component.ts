@@ -27,7 +27,7 @@ import {PriceFormComponent} from "@service/presentation/component/form/price/pri
 
     <div
       *ngFor="let control of form.controls; let index = index"
-      class="border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white mt-4">
+      class="border border-beeColor-200 rounded-lg dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 dark:text-white mt-4">
       <div
         class="
           justify-between
@@ -35,13 +35,13 @@ import {PriceFormComponent} from "@service/presentation/component/form/price/pri
           w-full
           px-4
           py-2
-          bg-beecolor-100
+          bg-beeColor-100
           border-b
-          border-gray-200
+          border-beeColor-200
           rounded-t-lg
           cursor-pointer
-          dark:bg-gray-800
-          dark:border-gray-600">
+          dark:bg-beeDarkColor-800
+          dark:border-beeDarkColor-600">
         Price #{{ index + 1 }}
         <button class="text-red-500" (click)="form.remove(index)" *ngIf="index > 0">
           <i class="bi bi-trash"></i>

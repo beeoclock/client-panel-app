@@ -16,15 +16,15 @@ import {RouterLink} from "@angular/router";
         items-center
         p-2
         text-sm
-        text-beecolor-500
+        text-beeColor-500
         rounded-lg
-        hover:bg-beecolor-100
+        hover:bg-beeColor-100
         focus:outline-none
         focus:ring-2
-        focus:ring-beecolor-200
-        dark:text-beecolor-400
-        dark:hover:bg-beecolor-700
-        dark:focus:ring-beecolor-600"
+        focus:ring-beeColor-200
+        dark:text-beeDarkColor-400
+        dark:hover:bg-beeColor-700
+        dark:focus:ring-beeColor-600"
       id="navbarDropdownNotification"
       role="button">
       <i class="bi bi-bell-fill h4"></i>

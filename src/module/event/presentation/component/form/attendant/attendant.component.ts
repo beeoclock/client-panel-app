@@ -35,9 +35,9 @@ import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/inval
           [class.rounded-l]="showRemoveButton"
           [class.rounded]="!showRemoveButton"
           class="
-            bg-gray-50
+            bg-beeColor-50
             border
-            text-gray-900
+            text-beeColor-900
             focus:ring-blue-500
             focus:border-blue-500
             block
@@ -45,12 +45,12 @@ import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/inval
             min-w-0
             w-full
             text-sm
-            border-gray-300
+            border-beeColor-300
             px-3
             py-2
-            dark:bg-gray-700
-            dark:border-gray-600
-            dark:placeholder-gray-400
+            dark:bg-beeDarkColor-700
+            dark:border-beeDarkColor-600
+            dark:placeholder-beeDarkColor-400
             dark:text-white
             dark:focus:ring-blue-500
             dark:focus:border-blue-500">
@@ -63,16 +63,16 @@ import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/inval
             items-center
             px-3
             text-sm
-            text-gray-900
-            bg-gray-200
+            text-beeColor-900
+            bg-beeColor-200
             border
             border-l-0
-            border-gray-300
+            border-beeColor-300
             rounded-r
             hover:bg-red-100
-            dark:bg-gray-600
-            dark:text-gray-400
-            dark:border-gray-600">
+            dark:bg-beeDarkColor-600
+            dark:text-beeDarkColor-400
+            dark:border-beeDarkColor-600">
           <i class="bi bi-trash"></i>
         </button>
       </div>

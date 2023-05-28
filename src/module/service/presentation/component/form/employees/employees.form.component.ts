@@ -33,7 +33,7 @@ import {
   ],
   template: `
 
-    <div class="bg-white dark:bg-beecolor-800 dark:border dark:border-beecolor-700 shadow rounded-lg p-4 mt-4">
+    <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4 mt-4">
       <!--    <h4>-->
       <!--      Employees that can do the service-->
       <!--    </h4>-->

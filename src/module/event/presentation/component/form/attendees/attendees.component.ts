@@ -20,7 +20,7 @@ import {AttendeesForm} from '@event/form/event.form';
       [form]="control">
     </event-attendant-component>
 
-    <button (click)="form.pushNewAttendant()" class="w-full border rounded px-4 py-2 hover:bg-beecolor-100">
+    <button (click)="form.pushNewAttendant()" class="w-full border rounded px-4 py-2 hover:bg-beeColor-100">
       <i class="bi bi-plus-lg"></i>
       Add attendant
     </button>

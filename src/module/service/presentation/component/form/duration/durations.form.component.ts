@@ -21,11 +21,11 @@ import {FooterCardComponent} from "@utility/presentation/component/card/footer.c
     NgIf
   ],
   template: `
-    <div class="bg-white dark:bg-beecolor-800 dark:border dark:border-beecolor-700 shadow rounded-lg p-4 mt-4">
+    <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4 mt-4">
 
       <div
         *ngFor="let durationVersionForm of durationVersionsForm.controls; let index = index"
-        class="border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        class="border border-beeColor-200 rounded-lg dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 dark:text-white">
         <div
           class="
           justify-between
@@ -33,13 +33,13 @@ import {FooterCardComponent} from "@utility/presentation/component/card/footer.c
           w-full
           px-4
           py-2
-          bg-beecolor-100
+          bg-beeColor-100
           border-b
-          border-gray-200
+          border-beeColor-200
           rounded-t-lg
           cursor-pointer
-          dark:bg-gray-800
-          dark:border-gray-600">
+          dark:bg-beeDarkColor-800
+          dark:border-beeDarkColor-600">
           Duration version #{{ index + 1 }}
           <button class="text-red-500" (click)="durationVersionsForm.remove(index)" *ngIf="index > 0">
             <i class="bi bi-trash"></i>

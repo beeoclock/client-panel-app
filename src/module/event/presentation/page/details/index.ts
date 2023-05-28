@@ -17,14 +17,14 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
   template: `
     <utility-back-link-component url="../../"></utility-back-link-component>
     <ng-container *ngIf="event$ | async as event; else LoadingTemplate">
-      <div class="bg-white dark:bg-beecolor-800 dark:border dark:border-beecolor-700 shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
+      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
         <div class="lg:flex lg:items-center lg:justify-between">
           <div class="min-w-0 flex-1">
-            <h2 class="text-2xl font-bold leading-7 text-beecolor-900 dark:text-beecolor-200 sm:truncate sm:text-3xl sm:tracking-tight">
+            <h2 class="text-2xl font-bold leading-7 text-beeColor-900 dark:text-beeDarkColor-200 sm:truncate sm:text-3xl sm:tracking-tight">
               {{ event.start | date }} - {{ event.end | date }}
             </h2>
             <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
-              <div class="mt-2 flex items-center text-sm text-beecolor-500">
+              <div class="mt-2 flex items-center text-sm text-beeColor-500">
                 <i class="bi bi-egg me-2"></i>
                 {{ event.createdAt | date }}
               </div>
@@ -34,7 +34,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
             <span class="hidden sm:block">
               <a type="button"
                  [routerLink]="['../../', 'form', event._id]"
-                 class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-beecolor-900 shadow-sm ring-1 ring-inset ring-beecolor-300 hover:bg-beecolor-50">
+                 class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-beeColor-900 shadow-sm ring-1 ring-inset ring-beeColor-300 hover:bg-beeColor-50">
                 <i class="bi bi-pencil me-2"></i>
                 Edit
               </a>
@@ -56,8 +56,8 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
                       shadow-sm
                       ring-1
                       ring-inset
-                      ring-beecolor-300
-                      hover:bg-beecolor-50">
+                      ring-beeColor-300
+                      hover:bg-beeColor-50">
                 <i class="bi bi-trash me-2"></i>
                 Delete
               </button>
@@ -65,7 +65,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 
             <utility-dropdown [smHidden]="true">
               <ng-container content>
-                <a [routerLink]="['../../', 'form', event._id]" class="block px-4 py-2 text-sm text-beecolor-700" role="menuitem" tabindex="-1"
+                <a [routerLink]="['../../', 'form', event._id]" class="block px-4 py-2 text-sm text-beeColor-700" role="menuitem" tabindex="-1"
                    id="mobile-menu-item-0">
                   <i class="bi bi-pencil me-2"></i>
                   Edit

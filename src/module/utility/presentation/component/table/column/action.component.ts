@@ -15,7 +15,7 @@ import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdo
         <li>
           <a
             [routerLink]="['details', item._id]"
-            class="text-start block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+            class="text-start block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeColor-600 dark:hover:text-white">
             <i class="bi bi-eye"></i>
             Details
           </a>
@@ -23,7 +23,7 @@ import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdo
         <li>
           <a
             [routerLink]="['form', item._id]"
-            class="text-start block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+            class="text-start block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeColor-600 dark:hover:text-white">
             <i class="bi bi-pencil"></i>
             Edit
           </a>
@@ -31,7 +31,7 @@ import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdo
         <li>
           <button
             (click)="repository.delete(item._id, true)"
-            class="text-start block w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+            class="text-start block w-full px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeColor-600 dark:hover:text-white">
             <i class="bi bi-trash"></i>
             Delete
           </button>

@@ -22,12 +22,12 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
     <ng-container *ngIf="service$ | async as service; else LoadingTemplate">
       <div class="grid grid-cols-12 gap-4">
         <div class="col-span-12 lg:col-span-8">
-          <div class="bg-white dark:bg-beecolor-800 dark:border dark:border-beecolor-700 shadow rounded-lg p-4  mt-4">
+          <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4  mt-4">
             <div class="flex">
                 <span class="hidden sm:block">
                   <a type="button"
                      [routerLink]="['../../', 'form', service._id]"
-                     class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-beecolor-900 shadow-sm ring-1 ring-inset ring-beecolor-300 hover:bg-beecolor-50">
+                     class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-beeColor-900 shadow-sm ring-1 ring-inset ring-beeColor-300 hover:bg-beeColor-50">
                     <i class="bi bi-pencil me-2"></i>
                     Edit
                   </a>
@@ -49,8 +49,8 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
                           shadow-sm
                           ring-1
                           ring-inset
-                          ring-beecolor-300
-                          hover:bg-beecolor-50">
+                          ring-beeColor-300
+                          hover:bg-beeColor-50">
                     <i class="bi bi-trash me-2"></i>
                     Delete
                   </button>
@@ -58,7 +58,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 
               <utility-dropdown [smHidden]="true">
                 <ng-container content>
-                  <a [routerLink]="['../../', 'form', service._id]" class="block px-4 py-2 text-sm text-beecolor-700"
+                  <a [routerLink]="['../../', 'form', service._id]" class="block px-4 py-2 text-sm text-beeColor-700"
                      role="menuitem" tabindex="-1"
                      id="mobile-menu-item-0">
                     <i class="bi bi-pencil me-2"></i>
@@ -74,7 +74,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
               </utility-dropdown>
             </div>
           </div>
-          <div class="bg-white dark:bg-beecolor-800 dark:border dark:border-beecolor-700 shadow rounded-lg p-4  mt-4">
+          <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4  mt-4">
             <h4>
               Permanent employees
             </h4>
@@ -98,7 +98,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 
           </div>
           <div
-            class="bg-white dark:bg-beecolor-800 dark:border dark:border-beecolor-700 shadow rounded-lg p-4  mt-4">
+            class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4  mt-4">
             <h4>
               Language Versions
             </h4>
@@ -121,7 +121,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 
           </div>
           <div
-            class="bg-white dark:bg-beecolor-800 dark:border dark:border-beecolor-700 shadow rounded-lg p-4  mt-4">
+            class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4  mt-4">
             <h4>
               Schedules
             </h4>
@@ -145,7 +145,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 
           </div>
           <div
-            class="bg-white dark:bg-beecolor-800 dark:border dark:border-beecolor-700 shadow rounded-lg p-4  mt-4">
+            class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4  mt-4">
             <h4>
               Duration Versions
             </h4>
@@ -188,7 +188,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
         <div class="col-span-12 lg:col-span-4">
 
           <div
-            class="bg-white dark:bg-beecolor-800 dark:border dark:border-beecolor-700 shadow rounded-lg p-4  mt-4">
+            class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4  mt-4">
             <h4>
               Configuration
             </h4>
@@ -206,7 +206,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
           </div>
 
           <div
-            class="bg-white dark:bg-beecolor-800 dark:border dark:border-beecolor-700 shadow rounded-lg p-4  mt-4">
+            class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4  mt-4">
             <h4>
               Prepayment Policy
             </h4>
@@ -232,7 +232,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
           </div>
 
           <div
-            class="bg-white dark:bg-beecolor-800 dark:border dark:border-beecolor-700 shadow rounded-lg p-4  mt-4">
+            class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4  mt-4">
             <h4>
               Service
             </h4>

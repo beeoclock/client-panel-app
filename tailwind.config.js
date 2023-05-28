@@ -9,7 +9,8 @@ module.exports = {
   theme: {
     colors: {
       ...colors,
-      beecolor: colors.neutral,
+      beeColor: colors.neutral,
+      beeDarkColor: colors.neutral,
     },
     extend: {
 

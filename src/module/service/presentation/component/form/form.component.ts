@@ -21,7 +21,7 @@ import {NgForOf} from "@angular/common";
         (click)="activeSection(index)"
         [id]="idStepPrefix + index"
         [class.text-blue-600.dark:text-blue-500]="step.isActive"
-        [class.hover:bg-beecolor-50]="!step.isActive"
+        [class.hover:bg-beeColor-50]="!step.isActive"
         class="
             cursor-pointer
             flex
@@ -36,7 +36,7 @@ import {NgForOf} from "@angular/common";
             space-x-2.5">
         <span
           [class.border-blue-600.dark:border-blue-500]="step.isActive"
-          [class.border.border-gray-500.dark:border-gray-400]="!step.isActive"
+          [class.border.border-beeColor-500.dark:border-beeDarkColor-400]="!step.isActive"
           class="
             flex
             items-center

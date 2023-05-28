@@ -28,18 +28,18 @@ import {IEmployee} from "@employee/domain";
 
         <div
           (click)="selectLanguage(languageVersion)"
-          class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700 cursor-pointer">
+          class="flex items-center pl-4 border border-beeColor-200 rounded dark:border-beeDarkColor-700 cursor-pointer">
 
           <input
             id="language-version-#{{ index }}"
             type="radio"
             [checked]="selectedLanguageVersion && languageVersion.language === selectedLanguageVersion.language"
             name="language-version"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer">
+            class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeDarkColor-800 focus:ring-2 dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 cursor-pointer">
 
           <label
             for="language-version-#{{ index }}"
-            class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">
+            class="w-full py-4 ml-2 text-sm font-medium text-beeColor-900 dark:text-beeDarkColor-300 cursor-pointer">
 
             <div class="w-full">
 
@@ -62,18 +62,18 @@ import {IEmployee} from "@employee/domain";
 
         <div
           (click)="selectPermanentEmployee(permanentEmployee)"
-          class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700 cursor-pointer">
+          class="flex items-center pl-4 border border-beeColor-200 rounded dark:border-beeDarkColor-700 cursor-pointer">
 
           <input
             id="permanent-employee-#{{ index }}"
             type="radio"
             [checked]="selectedPermanentEmployee && permanentEmployee._id === selectedPermanentEmployee._id"
             name="permanent-employee"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer">
+            class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeDarkColor-800 focus:ring-2 dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 cursor-pointer">
 
           <label
             for="permanent-employee-#{{ index }}"
-            class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">
+            class="w-full py-4 ml-2 text-sm font-medium text-beeColor-900 dark:text-beeDarkColor-300 cursor-pointer">
 
             <p class="mb-1">
 
@@ -106,18 +106,18 @@ import {IEmployee} from "@employee/domain";
 
         <div
           (click)="selectDuration(durationVersion)"
-          class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700 cursor-pointer">
+          class="flex items-center pl-4 border border-beeColor-200 rounded dark:border-beeDarkColor-700 cursor-pointer">
 
           <input
             id="duration-version-#{{ index }}"
             type="radio"
             [checked]="selectedDurationVersion && durationVersion.duration === selectedDurationVersion.duration"
             name="duration-version"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer">
+            class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeDarkColor-800 focus:ring-2 dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 cursor-pointer">
 
           <label
             for="duration-version-#{{ index }}"
-            class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">
+            class="w-full py-4 ml-2 text-sm font-medium text-beeColor-900 dark:text-beeDarkColor-300 cursor-pointer">
 
             <div class="d-flex w-100 justify-content-between">
 
@@ -141,18 +141,18 @@ import {IEmployee} from "@employee/domain";
 
           <div
             (click)="selectPrice(price)"
-            class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700 cursor-pointer">
+            class="flex items-center pl-4 border border-beeColor-200 rounded dark:border-beeDarkColor-700 cursor-pointer">
 
             <input
               id="price-#{{ index }}"
               type="radio"
               [checked]="selectedPrice && price.price === selectedPrice.price && price.currency === selectedPrice.currency"
               name="price"
-              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer">
+              class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeDarkColor-800 focus:ring-2 dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 cursor-pointer">
 
             <label
               for="price-#{{ index }}"
-              class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">
+              class="w-full py-4 ml-2 text-sm font-medium text-beeColor-900 dark:text-beeDarkColor-300 cursor-pointer">
 
               <div class="d-flex w-100 justify-content-between">
 

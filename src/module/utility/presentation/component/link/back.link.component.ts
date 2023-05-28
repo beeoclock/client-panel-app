@@ -9,8 +9,8 @@ import {RouterLink} from '@angular/router';
        class="
         text-black
         dark:text-white
-        hover:bg-beecolor-300
-        dark:hover:bg-beecolor-700
+        hover:bg-beeColor-300
+        dark:hover:bg-beeColor-700
         flex items-center
         justify-center
         p-2

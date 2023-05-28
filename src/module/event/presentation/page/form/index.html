@@ -6,7 +6,7 @@
 
     <div class="col-span-12 lg:col-span-8">
 
-      <div class="bg-white dark:bg-beecolor-800 dark:border dark:border-beecolor-700 shadow rounded-lg p-4 mt-4">
+      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4 mt-4">
 
         <div class="form-check mb-4">
           <input class="form-check-input" formControlName="servicesAreProvidedInParallel" type="checkbox" [value]="true" id="servicesAreProvidedInParallel">
@@ -17,7 +17,7 @@
 
         <div
           *ngFor="let service of form.controls.services.value; let index = index;"
-          class="border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white mt-4">
+          class="border border-beeColor-200 rounded-lg dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 dark:text-white mt-4">
           <div
             class="
               justify-between
@@ -25,36 +25,36 @@
               w-full
               px-4
               py-2
-              bg-beecolor-100
+              bg-beeColor-100
               border-b
-              border-gray-200
+              border-beeColor-200
               rounded-t-lg
               cursor-pointer
-              dark:bg-gray-800
-              dark:border-gray-600">
+              dark:bg-beeDarkColor-800
+              dark:border-beeDarkColor-600">
             Service #{{ index + 1 }}
             <button class="text-red-500" (click)="removeServiceFromSelectedList(index)">
               <i class="bi bi-trash"></i>
             </button>
           </div>
-          <ul class="text-sm font-medium text-gray-900 bg-white rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-            <li class="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">
+          <ul class="text-sm font-medium text-beeColor-900 bg-white rounded-lg dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 dark:text-white">
+            <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600">
               {{ service.languageVersions[0].language | language }}
             </li>
-            <li class="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">
+            <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600">
               {{ service.languageVersions[0].title }}
             </li>
-            <li class="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">
+            <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600">
               <i class="bi bi-person"></i>
               {{ service.permanentEmployees[0].firstName }} {{ service.permanentEmployees[0].lastName }}
             </li>
-            <li class="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">
+            <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600">
               Duration: {{ service.durationVersions[0].duration }} minut
             </li>
-            <li class="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">
+            <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600">
               Price: {{ service.durationVersions[0].prices[0].price }} {{ service.durationVersions[0].prices[0].currency }}
             </li>
-            <li class="w-full px-4 py-2 dark:border-gray-600 text-orange-500 cursor-pointer hover:bg-orange-100" (click)="editServiceFromSelectedList(service)">
+            <li class="w-full px-4 py-2 dark:border-beeDarkColor-600 text-orange-500 cursor-pointer hover:bg-orange-100" (click)="editServiceFromSelectedList(service)">
               Edit
             </li>
           </ul>
@@ -62,7 +62,7 @@
 
         <div class="mt-4">
           <button
-            class="px-4 py-2 border rounded w-full hover:bg-beecolor-100"
+            class="px-4 py-2 border rounded w-full hover:bg-beeColor-100"
             [disabled]="form.disabled"
             (click)="openServiceModal()">
             <i class="bi bi-plus-lg me-2"></i>
@@ -71,7 +71,7 @@
         </div>
 
       </div>
-      <div class="bg-white dark:bg-beecolor-800 dark:border dark:border-beecolor-700 shadow rounded-lg p-4 mt-4">
+      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4 mt-4">
 
         <div class="relative">
           <label for="event-form-start">Start</label>
@@ -122,7 +122,7 @@
     <div class="col-span-12 lg:col-span-4">
 
       <div
-        class="bg-white dark:bg-beecolor-800 dark:border dark:border-beecolor-700 shadow rounded-lg p-4 mt-4">
+        class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4 mt-4">
 
         Attendees
 
