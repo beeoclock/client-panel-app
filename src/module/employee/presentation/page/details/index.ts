@@ -18,19 +18,19 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
     <utility-back-link-component url="../../"></utility-back-link-component>
     <ng-container *ngIf="employee$ | async as employee; else LoadingTemplate">
       <div
-        class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
+        class="bg-white dark:bg-beecolor-800 dark:border dark:border-beecolor-700 shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
         <div class="lg:flex lg:items-center lg:justify-between">
           <div class="min-w-0 flex-1">
             <h2
-              class="text-2xl font-bold leading-7 text-neutral-900 dark:text-neutral-200 sm:truncate sm:text-3xl sm:tracking-tight">
+              class="text-2xl font-bold leading-7 text-beecolor-900 dark:text-beecolor-200 sm:truncate sm:text-3xl sm:tracking-tight">
               {{ employee.firstName }}&nbsp;{{ employee.lastName }}
             </h2>
             <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
-              <div class="mt-2 flex items-center text-sm text-neutral-500">
+              <div class="mt-2 flex items-center text-sm text-beecolor-500">
                 <i class="bi bi-at"></i>
                 {{ employee.email || 'No data' }}
               </div>
-              <div class="mt-2 flex items-center text-sm text-neutral-500">
+              <div class="mt-2 flex items-center text-sm text-beecolor-500">
                 <i class="bi bi-phone"></i>
                 {{ employee.phone || 'No data' }}
               </div>
@@ -40,7 +40,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
             <span class="hidden sm:block">
               <a type="button"
                  [routerLink]="['../../', 'form', employee._id]"
-                 class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-neutral-900 shadow-sm ring-1 ring-inset ring-neutral-300 hover:bg-neutral-50">
+                 class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-beecolor-900 shadow-sm ring-1 ring-inset ring-beecolor-300 hover:bg-beecolor-50">
                 <i class="bi bi-pencil me-2"></i>
                 Edit
               </a>
@@ -62,8 +62,8 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
                       shadow-sm
                       ring-1
                       ring-inset
-                      ring-neutral-300
-                      hover:bg-neutral-50">
+                      ring-beecolor-300
+                      hover:bg-beecolor-50">
                 <i class="bi bi-trash me-2"></i>
                 Delete
               </button>
@@ -71,7 +71,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 
             <utility-dropdown [smHidden]="true">
               <ng-container content>
-                <a [routerLink]="['../../', 'form', employee._id]" class="block px-4 py-2 text-sm text-neutral-700"
+                <a [routerLink]="['../../', 'form', employee._id]" class="block px-4 py-2 text-sm text-beecolor-700"
                    role="menuitem" tabindex="-1"
                    id="mobile-menu-item-0">
                   <i class="bi bi-pencil me-2"></i>

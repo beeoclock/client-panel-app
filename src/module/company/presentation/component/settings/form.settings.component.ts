@@ -50,7 +50,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
                     formControlName="description">
           </textarea>
         </div>
-        <button (click)="save()" class="px-4 py-2 border rounded w-full hover:bg-neutral-100">Save</button>
+        <button (click)="save()" class="px-4 py-2 border rounded w-full hover:bg-beecolor-100">Save</button>
       </form>
     </ng-template>
   `

@@ -5,19 +5,19 @@
 <div class="mt-4" *ngIf="formComponent">
 
   <div
-    class="flex items-center justify-between border rounded border-neutral-200 bg-white dark:bg-neutral-800 p-4">
+    class="flex items-center justify-between border rounded border-beecolor-200 bg-white dark:bg-beecolor-800 p-4">
     <div class="flex flex-1 justify-between">
       <button
         *ngIf="formComponent.activeSectionIsNotFirst"
         (click)="formComponent.activePrevSection()"
-        class="relative inline-flex items-center rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100">
+        class="relative inline-flex items-center rounded-md border border-beecolor-300 bg-white px-4 py-2 text-sm font-medium text-beecolor-700 hover:bg-beecolor-100">
         Previous
       </button>
       <div></div>
       <button
         *ngIf="formComponent.activeSectionIsNotLast"
         (click)="formComponent.activeNextSection()"
-        class="relative ml-3 inline-flex items-center rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100">
+        class="relative ml-3 inline-flex items-center rounded-md border border-beecolor-300 bg-white px-4 py-2 text-sm font-medium text-beecolor-700 hover:bg-beecolor-100">
         Next
       </button>
       <button

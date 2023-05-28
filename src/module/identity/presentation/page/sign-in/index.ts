@@ -17,6 +17,6 @@ import {SignInComponent} from '@identity/presentation/component/sign-in.componen
 export default class Index {
 
   @HostBinding()
-  public readonly class = 'w-96 p-8 border dark:border-neutral-700 bg-white rounded dark:bg-neutral-800';
+  public readonly class = 'w-96 p-8 border dark:border-beecolor-700 bg-white rounded dark:bg-beecolor-800';
 
 }

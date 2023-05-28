@@ -19,13 +19,13 @@
 </ng-container>
 <ng-template #ContentTemplate>
   <div class="relative overflow-x-auto">
-    <table class="w-full text-sm text-left text-neutral-500 dark:text-neutral-400">
-      <thead class="text-xs text-neutral-700 uppercase border-b dark:bg-neutral-700 dark:text-neutral-400">
+    <table class="w-full text-sm text-left text-beecolor-500 dark:text-beecolor-400">
+      <thead class="text-xs text-beecolor-700 uppercase border-b dark:bg-beecolor-700 dark:text-beecolor-400">
       <tr>
         <th scope="col" class="p-4">
           <div class="flex items-center">
             <input id="checkbox-all" type="checkbox"
-                   class="w-4 h-4 text-blue-600 bg-neutral-100 border-neutral-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-neutral-800 dark:focus:ring-offset-neutral-800 focus:ring-2 dark:bg-neutral-700 dark:border-neutral-300">
+                   class="w-4 h-4 text-blue-600 bg-beecolor-100 border-beecolor-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beecolor-800 dark:focus:ring-offset-beecolor-800 focus:ring-2 dark:bg-beecolor-700 dark:border-beecolor-300">
             <label for="checkbox-all" class="sr-only">checkbox</label>
           </div>
         </th>
@@ -71,33 +71,33 @@
       </thead>
       <tbody>
       <tr
-        class="bg-white border-b dark:bg-neutral-800 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-300"
+        class="bg-white border-b dark:bg-beecolor-800 dark:border-beecolor-700 hover:bg-beecolor-100 dark:hover:bg-beecolor-300"
         *ngFor="let item of repository.pagination.items">
         <td class="w-4 py-2 px-4">
           <div class="flex items-center">
             <input id="checkbox-table-1" type="checkbox"
-                   class="w-4 h-4 text-blue-600 bg-neutral-100 border-neutral-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-neutral-800 dark:focus:ring-offset-neutral-800 focus:ring-2 dark:bg-neutral-700 dark:border-neutral-300">
+                   class="w-4 h-4 text-blue-600 bg-beecolor-100 border-beecolor-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beecolor-800 dark:focus:ring-offset-beecolor-800 focus:ring-2 dark:bg-beecolor-700 dark:border-beecolor-300">
             <label for="checkbox-table-1" class="sr-only">checkbox</label>
           </div>
         </td>
-        <td class="px-6 py-2 text-neutral-700 dark:text-neutral-100">
+        <td class="px-6 py-2 text-beecolor-700 dark:text-beecolor-100">
           <a [routerLink]="['details', item._id]">
             {{ item.firstName }} {{ item.lastName }}
           </a>
         </td>
-        <td class="px-6 py-2 text-neutral-700 dark:text-neutral-100">
+        <td class="px-6 py-2 text-beecolor-700 dark:text-beecolor-100">
           <a href="mailto:{{ item.email }}">{{ item.email }}</a>
         </td>
-        <td class="px-6 py-2 text-neutral-700 dark:text-neutral-100">
+        <td class="px-6 py-2 text-beecolor-700 dark:text-beecolor-100">
           {{ item.phone }}
         </td>
-        <td class="px-6 py-2 text-neutral-700 dark:text-neutral-100">
+        <td class="px-6 py-2 text-beecolor-700 dark:text-beecolor-100">
           {{ item.createdAt | date: 'hh:mm dd-MM-yyyy' }}
         </td>
-        <td class="px-6 py-2 text-neutral-700 dark:text-neutral-100">
+        <td class="px-6 py-2 text-beecolor-700 dark:text-beecolor-100">
           {{ item.updatedAt | date: 'hh:mm dd-MM-yyyy' }}
         </td>
-        <td class="px-6 py-2 text-center text-neutral-700 dark:text-neutral-100">
+        <td class="px-6 py-2 text-center text-beecolor-700 dark:text-beecolor-100">
           <utility-table-column-action [item]="item" [repository]="repository"></utility-table-column-action>
         </td>
       </tr>

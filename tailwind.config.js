@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
@@ -5,7 +7,13 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
+    colors: {
+      ...colors,
+      beecolor: colors.neutral,
+    },
+    extend: {
+
+    },
   },
   variants: {},
   plugins: [

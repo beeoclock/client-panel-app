@@ -18,12 +18,12 @@ import {Dropdown, DropdownInterface, DropdownOptions} from "flowbite";
     <button
       #dropdownButton
       class="
-        text-neutral-800
-        bg-neutral-200
-        hover:bg-neutral-300
+        text-beecolor-800
+        bg-beecolor-200
+        hover:bg-beecolor-300
         focus:ring-4
         focus:outline-none
-        focus:ring-neutral-400
+        focus:ring-beecolor-400
         font-medium
         rounded-lg
         text-sm

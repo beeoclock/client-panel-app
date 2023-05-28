@@ -35,7 +35,7 @@ import {PriceFormComponent} from "@service/presentation/component/form/price/pri
           w-full
           px-4
           py-2
-          bg-neutral-100
+          bg-beecolor-100
           border-b
           border-gray-200
           rounded-t-lg
