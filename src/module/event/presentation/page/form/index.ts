@@ -5,7 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InputDirective} from '@utility/directives/input/input.directive';
 import {TextareaDirective} from '@utility/directives/textarea/textarea.directive';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {EventForm} from '@event/form/event.form';
 import {EventRepository} from '@event/repository/event.repository';
@@ -63,6 +63,7 @@ export default class Index {
   public url = ['../'];
 
   public readonly activatedRoute = inject(ActivatedRoute);
+  public readonly router = inject(Router);
 
   public readonly form = new EventForm();
   private readonly repository = inject(EventRepository);
@@ -150,9 +151,14 @@ export default class Index {
       this.form.disable();
       this.form.markAsPending();
       this.repository.save(value as IEvent)
-        .then(() => {
-          this.form.enable();
-          this.form.updateValueAndValidity();
+        .then(({data}) => {
+          console.log(data);
+
+          this.router.navigate(['../', 'details', data.id], {
+            relativeTo: this.activatedRoute
+          });
+          // this.form.enable();
+          // this.form.updateValueAndValidity();
         })
         .catch(() => {
           this.form.enable();

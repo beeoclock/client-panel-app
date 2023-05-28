@@ -6,7 +6,7 @@ import {InputDirective} from '@utility/directives/input/input.directive';
 import {TextareaDirective} from '@utility/directives/textarea/textarea.directive';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {EmployeeForm} from '@employee/form/employee.form';
 import {EmployeeRepository} from '@employee/repository/employee.repository';
@@ -39,8 +39,9 @@ export default class Index {
 
   public url = ['../'];
 
-  public readonly repository: EmployeeRepository = inject(EmployeeRepository);
-  public readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  public readonly router = inject(Router);
+  public readonly repository = inject(EmployeeRepository);
+  public readonly activatedRoute = inject(ActivatedRoute);
 
   public readonly form: EmployeeForm = new EmployeeForm();
 
@@ -68,9 +69,16 @@ export default class Index {
       this.form.disable();
       this.form.markAsPending();
       this.repository.save(this.form.value as IEmployee)
-        .then(() => {
-          this.form.updateValueAndValidity();
-          this.form.enable();
+        .then(({data}) => {
+          console.log(data);
+          this.router.navigate(['../', 'details', data.id], {
+            relativeTo: this.activatedRoute
+          });
+          // this.form.enable();
+          // this.form.updateValueAndValidity();
+          // if (!this.form.value._id) {
+          //   this.form.reset();
+          // }
         })
         .catch(() => {
           this.form.updateValueAndValidity();

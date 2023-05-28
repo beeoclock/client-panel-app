@@ -7,7 +7,7 @@ import {InputDirective} from '@utility/directives/input/input.directive';
 import {TextareaDirective} from '@utility/directives/textarea/textarea.directive';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {CustomerRepository} from '@customer/repository/customer.repository';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
@@ -39,6 +39,7 @@ export default class Index {
 
   public url = ['../'];
 
+  private readonly router = inject(Router);
   private readonly repository = inject(CustomerRepository);
   private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
@@ -67,9 +68,17 @@ export default class Index {
       this.form.disable();
       this.form.markAsPending();
       this.repository.save(this.form.value as ICustomer)
-        .then(() => {
-          this.form.enable();
-          this.form.updateValueAndValidity();
+        .then(({data}) => {
+          console.log(data);
+
+          this.router.navigate(['../', 'details', data.id], {
+            relativeTo: this.activatedRoute
+          });
+          // this.form.enable();
+          // this.form.updateValueAndValidity();
+          // if (!this.form.value._id) {
+          //   this.form.reset();
+          // }
         })
         .catch(() => {
           this.form.enable();

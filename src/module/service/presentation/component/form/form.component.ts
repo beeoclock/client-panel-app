@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ElementRef, inject, QueryList, ViewChildren} f
 import {ServiceForm} from "@service/form/service.form";
 import {IService} from "@service/domain";
 import {ServiceRepository} from "@service/repository/service.repository";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {StepWrapperComponent} from "@service/presentation/component/form/step-wrapper.component";
 import {NgForOf} from "@angular/common";
 
@@ -75,6 +75,7 @@ export class FormComponent implements AfterViewInit {
 
   public readonly idStepPrefix = 'service-form-steps-bar-section-';
 
+  public readonly router = inject(Router);
   public readonly repository = inject(ServiceRepository);
   public readonly activatedRoute = inject(ActivatedRoute);
   public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
@@ -189,12 +190,17 @@ export class FormComponent implements AfterViewInit {
       this.form.disable();
       this.form.markAsPending();
       this.repository.save(this.form.value as IService)
-        .then((result) => {
-          this.form.enable();
-          this.form.updateValueAndValidity();
-          if (!this.form.value._id) {
-            this.form.reset();
-          }
+        .then(({data}) => {
+          console.log(data);
+
+          this.router.navigate(['../', 'details', data.id], {
+            relativeTo: this.activatedRoute
+          });
+          // this.form.enable();
+          // this.form.updateValueAndValidity();
+          // if (!this.form.value._id) {
+          //   this.form.reset();
+          // }
         })
         .catch((error) => {
           this.form.enable();
