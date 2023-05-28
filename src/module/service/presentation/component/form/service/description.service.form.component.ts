@@ -1,8 +1,9 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
-import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
+
 import {TextareaDirective} from '@utility/directives/textarea/textarea.directive';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
+import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 
 @Component({
   selector: 'service-description-service-form-component',
@@ -12,7 +13,8 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
     ReactiveFormsModule,
     TextareaDirective,
     HasErrorDirective,
-    InputErrorComponent,
+    InvalidTooltipDirective,
+
   ],
   template: `
     <div class="flex-col mb-2">
@@ -20,12 +22,10 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
       <textarea
         class="border rounded px-3 py-2 w-full"
         hasError
+        invalidTooltip
         placeholder="Write some description of service"
         id="service-form-description"
         [formControl]="control"></textarea>
-      <utility-input-error-component
-        [control]="control">
-      </utility-input-error-component>
     </div>
   `
 })

@@ -1,18 +1,20 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
-import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
+
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {InputDirective} from '@utility/directives/input/input.directive';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
+import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 
 @Component({
   selector: 'service-break-duration-form-component',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
   imports: [
-    InputErrorComponent,
+
     ReactiveFormsModule,
     InputDirective,
-    HasErrorDirective
+    HasErrorDirective,
+    InvalidTooltipDirective
   ],
   template: `
 
@@ -20,7 +22,7 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
       <label for="service-form-break">Break</label>
       <div class="input-group">
         <input
-          beeoclock
+          invalidTooltip
           type="number"
           hasError
           placeholder="Write title of service"
@@ -28,8 +30,6 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
           [formControl]="control">
         <span class="input-group-text" id="basic-addon2">minute</span>
       </div>
-      <utility-input-error-component
-        [control]="control"></utility-input-error-component>
     </div>
   `
 })

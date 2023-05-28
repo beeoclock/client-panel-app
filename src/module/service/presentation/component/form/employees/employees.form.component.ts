@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, inject, Input} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {NgSelectModule} from "@ng-select/ng-select";
-import {InputErrorComponent} from "@utility/presentation/component/input-error/input-error.component";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {ServiceRepository} from "@service/repository/service.repository";
 import {EmployeeRepository} from "@employee/repository/employee.repository";
@@ -20,7 +19,7 @@ import {
   imports: [
     NgForOf,
     NgSelectModule,
-    InputErrorComponent,
+
     ReactiveFormsModule,
     NgIf,
     BodyCardComponent,
@@ -69,7 +68,6 @@ import {
           {{item.firstName}} {{item.lastName}}
         </ng-option>
       </ng-select>
-      <utility-input-error-component [control]="control"></utility-input-error-component>
     </div>
   `
 })

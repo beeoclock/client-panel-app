@@ -1,7 +1,7 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {LANGUAGES} from '@utility/domain/enum';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
-import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
+
 import {NgSelectModule} from '@ng-select/ng-select';
 
 @Component({
@@ -10,7 +10,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
   encapsulation: ViewEncapsulation.None,
   imports: [
     ReactiveFormsModule,
-    InputErrorComponent,
+
     NgSelectModule,
   ],
   template: `
@@ -22,9 +22,6 @@ import {NgSelectModule} from '@ng-select/ng-select';
                  bindValue="code"
                  [formControl]="control">
       </ng-select>
-      <utility-input-error-component
-        [control]="control">
-      </utility-input-error-component>
     </div>
   `
 })

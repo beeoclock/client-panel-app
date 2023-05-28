@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, inject, Input} from '@angular/core';
 import {JsonPipe, NgForOf, NgIf} from '@angular/common';
 import {NgSelectModule} from "@ng-select/ng-select";
-import {InputErrorComponent} from "@utility/presentation/component/input-error/input-error.component";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {ServiceRepository} from "@service/repository/service.repository";
 import {IService} from "@service/domain";
@@ -12,7 +11,7 @@ import {IService} from "@service/domain";
   imports: [
     NgForOf,
     NgSelectModule,
-    InputErrorComponent,
+
     ReactiveFormsModule,
     NgIf,
     JsonPipe
@@ -42,7 +41,6 @@ import {IService} from "@service/domain";
           </p>
         </ng-option>
       </ng-select>
-      <utility-input-error-component [control]="control"></utility-input-error-component>
     </div>
   `
 })

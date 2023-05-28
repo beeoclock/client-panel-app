@@ -1,73 +1,78 @@
-<div class="p-4">
-  <utility-back-link-component [url]="url"></utility-back-link-component>
+<div class="p-4 pb-48 grid grid-cols-12">
 
-  <form [formGroup]="form" class="mt-4">
-    <div class="bg-white border rounded-lg p-4">
+  <div class="col-span-12 lg:col-start-4 lg:col-span-6">
 
-      <strong>Information</strong>
+    <utility-back-link-component [url]="url"></utility-back-link-component>
 
-      <div class="flex flex-col mt-4">
-        <label for="customer-form-firstName">First name</label>
-        <input
-          class="border rounded bg-white px-2 py-1"
-          placeholder="Write first name of customer"
-          id="customer-form-firstName"
-          formControlName="firstName">
-        <utility-input-error-component [control]="form.controls.firstName"></utility-input-error-component>
-      </div>
-      <div class="flex flex-col mt-4">
-        <label for="customer-form-lastName">Last name</label>
-        <input
-          class="border rounded bg-white px-2 py-1"
-          placeholder="Write last name of customer"
-          id="customer-form-lastName"
-          formControlName="lastName">
-        <utility-input-error-component [control]="form.controls.lastName"></utility-input-error-component>
-      </div>
-    </div>
-    <div class="bg-white border rounded-lg p-4 mt-4">
-      <strong>Contact</strong>
+    <form [formGroup]="form" class="mt-4">
+      <div class="bg-white border rounded-lg p-4">
 
-      <div class="flex flex-col mt-4">
-        <label for="customer-form-email">e-mail</label>
-        <input
-          class="border rounded bg-white px-2 py-1"
-          placeholder="Write E-mail of customer"
-          id="customer-form-email"
-          formControlName="email">
-        <utility-input-error-component [control]="form.controls.email"></utility-input-error-component>
-      </div>
-      <div class="flex flex-col mt-4">
-        <label for="customer-form-phone">Phone</label>
-        <input
-          class="border rounded bg-white px-2 py-1"
-          placeholder="Write phone of customer"
-          id="customer-form-phone"
-          formControlName="phone">
-        <utility-input-error-component [control]="form.controls.phone"></utility-input-error-component>
-      </div>
-    </div>
-    <div class="bg-white border rounded-lg p-4 mt-4">
-      <strong>Additional</strong>
+        <strong>Information</strong>
 
-      <div class="flex flex-col mt-4">
-        <label for="customer-form-note">Note</label>
-        <textarea
-          class="border rounded bg-white px-2 py-1"
-          rows="4"
-          placeholder="Write some notes of customer"
-          id="customer-form-note"
-          formControlName="note"></textarea>
-        <utility-input-error-component [control]="form.controls.note"></utility-input-error-component>
+        <div class="flex flex-col mt-4">
+          <label for="customer-form-firstName">First name</label>
+          <input
+            hasError
+            invalidTooltip
+            class="border rounded bg-white px-2 py-1"
+            placeholder="Write first name of customer"
+            id="customer-form-firstName"
+            formControlName="firstName">
+        </div>
+        <div class="flex flex-col mt-4">
+          <label for="customer-form-lastName">Last name</label>
+          <input
+            invalidTooltip
+            class="border rounded bg-white px-2 py-1"
+            placeholder="Write last name of customer"
+            id="customer-form-lastName"
+            formControlName="lastName">
+        </div>
       </div>
-    </div>
-    <div class="mt-4">
-      <button
-        class="px-4 py-2 bg-blue-600 rounded-lg text-white w-full hover:bg-blue-700 cursor-pointer transition"
-        [disabled]="form.disabled"
-        (click)="save()">Save
-      </button>
-    </div>
-  </form>
+      <div class="bg-white border rounded-lg p-4 mt-4">
+        <strong>Contact</strong>
+
+        <div class="flex flex-col mt-4">
+          <label for="customer-form-email">e-mail</label>
+          <input
+            invalidTooltip
+            class="border rounded bg-white px-2 py-1"
+            placeholder="Write E-mail of customer"
+            id="customer-form-email"
+            formControlName="email">
+        </div>
+        <div class="flex flex-col mt-4">
+          <label for="customer-form-phone">Phone</label>
+          <input
+            invalidTooltip
+            class="border rounded bg-white px-2 py-1"
+            placeholder="Write phone of customer"
+            id="customer-form-phone"
+            formControlName="phone">
+        </div>
+      </div>
+      <div class="bg-white border rounded-lg p-4 mt-4">
+        <strong>Additional</strong>
+
+        <div class="flex flex-col mt-4">
+          <label for="customer-form-note">Note</label>
+          <textarea
+            invalidTooltip
+            class="border rounded bg-white px-2 py-1"
+            rows="4"
+            placeholder="Write some notes of customer"
+            id="customer-form-note"
+            formControlName="note"></textarea>
+        </div>
+      </div>
+      <div class="mt-4">
+        <button
+          class="px-4 py-2 bg-blue-600 rounded-lg text-white w-full hover:bg-blue-700 cursor-pointer transition"
+          [disabled]="form.disabled"
+          (click)="save()">Save
+        </button>
+      </div>
+    </form>
+  </div>
 
 </div>

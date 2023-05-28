@@ -1,6 +1,6 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {PricesForm} from '@service/form/service.form';
-import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
+
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ReactiveFormsModule} from '@angular/forms';
 import {InputDirective} from '@utility/directives/input/input.directive';
@@ -13,7 +13,7 @@ import {PriceFormComponent} from "@service/presentation/component/form/price/pri
   standalone: true,
   encapsulation: ViewEncapsulation.None,
   imports: [
-    InputErrorComponent,
+
     NgSelectModule,
     ReactiveFormsModule,
     InputDirective,

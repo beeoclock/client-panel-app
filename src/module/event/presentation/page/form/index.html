@@ -77,6 +77,7 @@
           <label for="event-form-start">Start</label>
           <input
             hasError
+            invalidTooltip
             id="event-form-start"
             type="text"
             class="px-3 py-2 border rounded w-full"
@@ -88,7 +89,6 @@
             [altInput]="true"
             [convertModelValue]="true"
           />
-          <utility-input-error-component [control]="form.controls.start"></utility-input-error-component>
         </div>
         In future add feature to chose slots
         <div class="mt-3">
@@ -109,10 +109,10 @@
           <textarea
             class="px-3 py-2 border rounded w-full"
             hasError
+            invalidTooltip
             placeholder="Write some description of event"
             id="event-form-description"
             formControlName="description"></textarea>
-          <utility-input-error-component [control]="form.controls.description"></utility-input-error-component>
         </div>
 
       </div>

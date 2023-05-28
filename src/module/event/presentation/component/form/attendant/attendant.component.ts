@@ -1,20 +1,22 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AttendantForm} from '@event/form/event.form';
-import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
+
 import {NgIf} from '@angular/common';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {IsRequiredDirective} from '@utility/directives/is-required/is-required';
+import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 
 @Component({
   selector: 'event-attendant-component',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    InputErrorComponent,
+
     NgIf,
     HasErrorDirective,
-    IsRequiredDirective
+    IsRequiredDirective,
+    InvalidTooltipDirective
   ],
   template: `
     <form [formGroup]="form" class="mb-4">
@@ -23,6 +25,7 @@ import {IsRequiredDirective} from '@utility/directives/is-required/is-required';
         <input
           [id]="prefix + index"
           hasError
+          invalidTooltip
           isRequired
           type="email"
           formControlName="email"
@@ -73,7 +76,6 @@ import {IsRequiredDirective} from '@utility/directives/is-required/is-required';
           <i class="bi bi-trash"></i>
         </button>
       </div>
-      <utility-input-error-component [control]="form.controls.email"></utility-input-error-component>
     </form>
   `
 })

@@ -1,4 +1,4 @@
-import {AbstractControl, FormControl, FormGroup} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {is} from 'thiis';
 
 export interface ICustomerForm {
@@ -19,7 +19,7 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
     super({
       _id: new FormControl(null),
 
-      firstName: new FormControl(null),
+      firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null),
       note: new FormControl(null),
       email: new FormControl(null),

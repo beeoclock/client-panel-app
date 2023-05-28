@@ -4,9 +4,11 @@ import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
 import {InputDirective} from '@utility/directives/input/input.directive';
-import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
-import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 
+import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
+import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
+
+// TODO change on tailwind
 @Component({
   selector: 'identity-password-component',
   encapsulation: ViewEncapsulation.None,
@@ -27,8 +29,8 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
           [formControl]="control"
           class="form-control"
           hasError
+          invalidTooltip
           type="password"
-          [inputGroup]="true"
           [checkFormError]="true"
           [name]="'key-fill'"
           [placeholder]="placeholder | translate"
@@ -46,7 +48,6 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
 
       </div>
 
-      <utility-input-error-component [control]="control"></utility-input-error-component>
 
     </div>
   `,
@@ -58,7 +59,7 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
     FirstKeyNameModule,
     InputDirective,
     InputDirective,
-    InputErrorComponent
+    InvalidTooltipDirective,
   ]
 })
 export class PasswordComponent {

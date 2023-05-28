@@ -1,9 +1,10 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {InputDirective} from '@utility/directives/input/input.directive';
-import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
+
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {IsRequiredDirective} from '@utility/directives/is-required/is-required';
+import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 
 @Component({
   selector: 'service-title-service-form-component',
@@ -11,10 +12,11 @@ import {IsRequiredDirective} from '@utility/directives/is-required/is-required';
   encapsulation: ViewEncapsulation.None,
   imports: [
     ReactiveFormsModule,
-    InputErrorComponent,
+
     HasErrorDirective,
     InputDirective,
     IsRequiredDirective,
+    InvalidTooltipDirective,
   ],
   template: `
     <div class="mb-2 flex-col">
@@ -22,13 +24,11 @@ import {IsRequiredDirective} from '@utility/directives/is-required/is-required';
       <input
         isRequired
         hasError
+        invalidTooltip
         class="border rounded px-3 py-2 w-full"
         placeholder="Write title of service"
         id="service-form-title"
         [formControl]="control">
-      <utility-input-error-component
-        [control]="control">
-      </utility-input-error-component>
     </div>
   `
 })

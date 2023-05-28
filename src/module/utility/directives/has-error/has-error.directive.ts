@@ -11,12 +11,6 @@ export class HasErrorDirective implements AfterViewInit {
   public errorClass = 'is-invalid';
 
   @Input()
-  public isMatFormField = false;
-
-  @Input()
-  public inputGroup = false;
-
-  @Input()
   public checkFormError = false;
 
   @Input()
@@ -112,14 +106,6 @@ export class HasErrorDirective implements AfterViewInit {
       invalidTooltip.classList.toggle('d-none', !isInvalid);
     }
 
-    if (parentElement?.classList?.contains?.('input-group')) {
-      Array.from(parentElement.children).forEach((child: Element) => {
-        if (!child.classList.contains('invalid-tooltip') && !child.classList.contains('valid-tooltip')) {
-          child.classList.toggle('border-danger', isInvalid);
-        }
-      });
-    }
-
     if (this.elementRef.nativeElement.nodeName === 'NG-SELECT') {
       const div: HTMLElement | null = this.elementRef.nativeElement.querySelector(`.${this.ngSelectQuerySelectorClass}`);
       if (div) {
@@ -127,32 +113,7 @@ export class HasErrorDirective implements AfterViewInit {
       }
     }
 
-    if (this.inputGroup) {
-      const findInputGroup = (element: HTMLElement) => {
-        if (element.classList.contains('input-group')) {
-          return element;
-        }
-        return parentElement;
-      };
-      const inputGroup: HTMLElement = findInputGroup(this.elementRef.nativeElement);
-      if (inputGroup) {
-        inputGroup.classList.toggle(this.errorClass, isInvalid);
-      }
-    } else {
-      if (this.isMatFormField) {
-        const findParentMatFormField = (element: HTMLElement | null | undefined): HTMLElement => {
-          if (element) {
-            if (element.tagName === 'MAT-FORM-FIELD') {
-              return element;
-            }
-          }
-          return findParentMatFormField(element?.parentElement);
-        };
-        findParentMatFormField(this.elementRef.nativeElement).classList.toggle(this.errorClass, isInvalid);
-      } else {
-        this.elementRef.nativeElement.classList.toggle(this.errorClass, isInvalid);
-      }
-    }
+    this.elementRef.nativeElement.classList.toggle(this.errorClass, isInvalid);
 
   }
 

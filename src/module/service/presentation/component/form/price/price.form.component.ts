@@ -1,6 +1,6 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {PriceForm} from '@service/form/service.form';
-import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
+
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
@@ -8,19 +8,21 @@ import {InputDirective} from '@utility/directives/input/input.directive';
 import {NgForOf, NgIf} from '@angular/common';
 import {LanguageCodeEnum} from '@utility/domain/enum';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
+import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 
 @Component({
   selector: 'service-price-form-component',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
   imports: [
-    InputErrorComponent,
+
     NgSelectModule,
     ReactiveFormsModule,
     InputDirective,
     HasErrorDirective,
     NgForOf,
-    NgIf
+    NgIf,
+    InvalidTooltipDirective
   ],
   template: `
     <form [formGroup]="form">
@@ -31,6 +33,7 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
             type="text"
             id="website-admin"
             hasError
+            invalidTooltip
             placeholder="Write price"
             [id]="prefix + 'price'"
             formControlName="price"
@@ -80,10 +83,6 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
           </ng-select>
         </span>
         </div>
-        <utility-input-error-component
-          [control]="form.controls.price"></utility-input-error-component>
-        <utility-input-error-component
-          [control]="form.controls.currency"></utility-input-error-component>
       </div>
 
       <div class="col-12 mt-2 position-relative">
@@ -96,8 +95,6 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
           bindValue="id"
           formControlName="preferredLanguages">
         </ng-select>
-        <utility-input-error-component
-          [control]="form.controls.preferredLanguages"></utility-input-error-component>
       </div>
 
     </form>

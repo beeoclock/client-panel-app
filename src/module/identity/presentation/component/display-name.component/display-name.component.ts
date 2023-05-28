@@ -4,9 +4,11 @@ import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
 import {InputDirective} from '@utility/directives/input/input.directive';
-import {InputErrorComponent} from '@utility/presentation/component/input-error/input-error.component';
-import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 
+import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
+import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
+
+// TODO change to taildwind
 @Component({
   selector: 'identity-display-name-component',
   encapsulation: ViewEncapsulation.None,
@@ -20,16 +22,14 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
       <div class="input-group">
 
         <input [checkFormError]="true"
-               [inputGroup]="true"
                [name]="'person-fill'"
                [placeholder]="placeholder | translate"
                [formControl]="control"
                [id]="id"
                hasError
-               beeoclock>
+               invalidTooltip>
 
       </div>
-      <utility-input-error-component [control]="control"></utility-input-error-component>
 
     </div>
   `,
@@ -41,7 +41,7 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
     FirstKeyNameModule,
     InputDirective,
     InputDirective,
-    InputErrorComponent
+    InvalidTooltipDirective
   ]
 })
 export class DisplayNameComponent {

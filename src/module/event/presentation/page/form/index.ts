@@ -16,7 +16,6 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
 import {IEvent} from "@event/domain";
 import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
 import {ServicesFormComponent} from "@event/presentation/component/form/services/services.form.component";
-import {InputErrorComponent} from "@utility/presentation/component/input-error/input-error.component";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {LanguagePipe} from "@utility/pipes/language.pipe";
@@ -28,6 +27,7 @@ import {
   ModalButtonRoleEnum,
   ModalComponent
 } from '@src/module/utility/presentation/component/modal/modal.component';
+import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 
 @Component({
   selector: 'event-form-page',
@@ -48,12 +48,13 @@ import {
     FlatpickrModule,
     HeaderCardComponent,
     ServicesFormComponent,
-    InputErrorComponent,
+
     NgSelectModule,
     NgForOf,
     LanguagePipe,
     NgIf,
     DatePipe,
+    InvalidTooltipDirective,
   ],
   standalone: true
 })
