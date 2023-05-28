@@ -1,13 +1,47 @@
 {
-  "language": {
-    "en": "English",
-    "uk": "Українська",
-    "pl": "Polski"
-  },
   "form": {
     "validation": {
       "required": "Required field"
     }
+  },
+  "general": {
+    "phone": "Phone",
+    "fullName": "Full name",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "E-mail",
+    "note": "Note",
+    "description": "Description",
+    "title": "Title",
+    "name": "Name",
+    "createdAt": "Created at",
+    "updatedAt": "Updated at",
+    "action": "Action",
+    "delete": "Delete",
+    "update": "Updated",
+    "save": "Save",
+    "edit": "Edit",
+    "information": "Information",
+    "additional": "Additional",
+    "contact": "Contact",
+    "active": "Active",
+    "languages": "Languages",
+    "employees": "Employees",
+    "soon": "Soon",
+    "signOut": "Sign out"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "employees": "Employees",
+    "customers": "Customers",
+    "services": "Services",
+    "events": "Events",
+    "calendar": "Calendar",
+    "table": "Table",
+    "addEvent": "Add event",
+    "private": "Private",
+    "profile": "Profile",
+    "settings": "Settings"
   },
   "page": {
     "calendar": {
@@ -29,26 +63,90 @@
     "title": "Service"
   },
   "customer": {
-    "title": "Customer"
+    "title": "Customer",
+    "button": {
+      "create": "Add customer"
+    }
+  },
+  "employee": {
+    "title": "Employee",
+    "button": {
+      "create": "Add employee"
+    }
   },
   "event": {
     "title": "Event"
   },
   "company": {
-    "title": "Settings",
-    "form": {
-      "inputs": {
-        "name": {
-          "label": "Name",
-          "placeholder": "Type Company or Personal name"
+    "settings": {
+      "title": "Settings",
+      "form": {
+        "inputs": {
+          "darkMode": {
+            "label": "Dark mode"
+          }
+        }
+      },
+      "defaultData": {
+        "event": {
+          "title": "Default data of event",
+          "form": {
+            "inputs": {
+              "language": {
+                "label": "Default event language"
+              },
+              "service": {
+                "label": "Default event service (top service)"
+              }
+            }
+          }
         },
-        "description": {
-          "label": "Description",
-          "placeholder": "Type description of company"
-        },
-        "active": {
-          "label": "Active",
-          "placeholder": "Switch on if you want to be active"
+        "service": {
+          "title": "Default data of service",
+          "form": {
+            "inputs": {
+              "duration": {
+                "label": "Default service duration"
+              },
+              "language": {
+                "label": "Default service language"
+              },
+              "workDays": {
+                "label": "Default service work days"
+              },
+              "break": {
+                "label": "Default service break"
+              },
+              "startWork": {
+                "label": "Default service start to work"
+              },
+              "endWork": {
+                "label": "Default service end to work"
+              },
+              "price": {
+                "label": "Default service price"
+              }
+            }
+          }
+        }
+      }
+    },
+    "profile": {
+      "title": "Profile",
+      "form": {
+        "inputs": {
+          "name": {
+            "label": "Name",
+            "placeholder": "Type Company or Personal name"
+          },
+          "description": {
+            "label": "Description",
+            "placeholder": "Type description of company"
+          },
+          "active": {
+            "label": "Active",
+            "placeholder": "Switch on if you want to be active"
+          }
         }
       }
     }

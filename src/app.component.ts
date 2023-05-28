@@ -18,10 +18,11 @@ export class AppComponent implements AfterViewInit {
   private readonly translateService = inject(TranslateService);
 
   constructor() {
-    if (this.translateService.getDefaultLang() in LanguageCodeEnum) {
-      this.translateService.setDefaultLang(this.translateService.getDefaultLang());
+    const browserLanguage = this.translateService.getBrowserLang();
+    if (browserLanguage && browserLanguage in LanguageCodeEnum) {
+      this.translateService.use(browserLanguage);
     } else {
-      this.translateService.setDefaultLang(LanguageCodeEnum.en);
+      this.translateService.use(this.translateService.getDefaultLang());
     }
   }
 

@@ -16,30 +16,32 @@ import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdo
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'customer-list-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    ExampleTableComponent,
-    CardComponent,
-    BodyCardComponent,
-    RouterLink,
-    ButtonComponent,
-    TableComponent,
-    HeaderTableComponent,
-    BodyTableComponent,
-    PaginationComponent,
-    NgForOf,
-    FilterComponent,
-    DropdownComponent,
-    DatePipe,
-    NgIf,
-    SortIndicatorComponent,
-    LoaderComponent,
-    ActionComponent
-  ],
+    imports: [
+        ExampleTableComponent,
+        CardComponent,
+        BodyCardComponent,
+        RouterLink,
+        ButtonComponent,
+        TableComponent,
+        HeaderTableComponent,
+        BodyTableComponent,
+        PaginationComponent,
+        NgForOf,
+        FilterComponent,
+        DropdownComponent,
+        DatePipe,
+        NgIf,
+        SortIndicatorComponent,
+        LoaderComponent,
+        ActionComponent,
+        TranslateModule
+    ],
   standalone: true
 })
 export default class Index extends ListPage {

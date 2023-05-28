@@ -28,6 +28,7 @@ import {
   ModalComponent
 } from '@src/module/utility/presentation/component/modal/modal.component';
 import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'event-form-page',
@@ -55,6 +56,7 @@ import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/inval
     NgIf,
     DatePipe,
     InvalidTooltipDirective,
+    TranslateModule,
   ],
   standalone: true
 })

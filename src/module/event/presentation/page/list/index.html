@@ -46,21 +46,21 @@
           ></utility-sort-indicator>
         </th>
         <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('createdAt')">
-          Created At
+          {{ 'general.createdAt' | translate }}
           <utility-sort-indicator
             [show]="repository.pagination.orderBy === 'createdAt'"
             [asc]="repository.pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
         <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('updatedAt')">
-          Updated At
+          {{ 'general.updatedAt' | translate }}
           <utility-sort-indicator
             [show]="repository.pagination.orderBy === 'updatedAt'"
             [asc]="repository.pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
         <th scope="col" class="px-6 py-3 text-center">
-          Action
+          {{ 'general.action' | translate }}
         </th>
       </tr>
       </thead>

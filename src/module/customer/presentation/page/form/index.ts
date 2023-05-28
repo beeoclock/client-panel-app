@@ -14,6 +14,7 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
 import {ICustomer} from "@customer/domain";
 import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
 import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'customer-form-page',
@@ -31,7 +32,8 @@ import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/inval
     RouterLink,
     BackLinkComponent,
     HeaderCardComponent,
-    InvalidTooltipDirective
+    InvalidTooltipDirective,
+    TranslateModule
   ],
   standalone: true
 })

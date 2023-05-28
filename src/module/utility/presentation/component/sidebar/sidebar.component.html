@@ -70,7 +70,7 @@
               [class]="item.icon"></i>
 
             <span class="flex-1 ml-3 text-left whitespace-nowrap">
-              {{ item.label }}
+              {{ item.translateKey | translate }}
             </span>
 
             <i class="bi bi-chevron-down me-1"></i>
@@ -100,7 +100,7 @@
                   hover:bg-beeColor-100
                   dark:text-white
                   dark:hover:bg-beeColor-700">
-                {{ subItem.label }}
+                {{ subItem.translateKey | translate }}
               </a>
             </li>
           </ul>
@@ -128,7 +128,7 @@
               class="w-6 h-6 ms-2 text-beeColor-500 transition duration-75 dark:text-beeDarkColor-400 group-hover:text-beeColor-900 dark:group-hover:text-white"
               [class]="item.icon"></i>
 
-            <span class="ml-3">{{ item.label }}</span>
+            <span class="ml-3">{{ item.translateKey | translate }}</span>
 
           </a>
 

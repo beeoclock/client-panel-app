@@ -3,11 +3,12 @@ import {handleNavbarVerticalCollapsed} from '@src/script/navbar-vertical';
 import {IsActiveMatchOptions, RouterLink, RouterLinkActive} from '@angular/router';
 import {NgForOf, NgIf} from '@angular/common';
 import {Auth} from "@angular/fire/auth";
+import {TranslateModule} from "@ngx-translate/core";
 
 interface IMenuItem {
-  label: string;
   url?: string;
   icon?: string;
+  translateKey: string;
   target?: '_blank';
   disabled?: boolean;
   routerLinkActiveOptions: {
@@ -25,7 +26,8 @@ interface IMenuItem {
     NgIf,
     NgForOf,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    TranslateModule
   ],
 })
 export class SidebarComponent implements AfterViewInit {
@@ -34,16 +36,16 @@ export class SidebarComponent implements AfterViewInit {
 
   public readonly menu: IMenuItem[] = [
     {
-      label: 'Dashboard',
       url: '/dashboard',
+      translateKey: 'sidebar.dashboard',
       icon: 'bi bi-pie-chart',
       routerLinkActiveOptions: {
         exact: true
       }
     },
     {
-      label: 'Customers',
       url: '/customer',
+      translateKey: 'sidebar.customers',
       icon: 'bi bi-person-vcard',
       routerLinkActiveOptions: {
         paths: "exact",
@@ -53,8 +55,8 @@ export class SidebarComponent implements AfterViewInit {
       }
     },
     {
-      label: 'Employees',
       url: '/employee',
+      translateKey: 'sidebar.employees',
       icon: 'bi bi-people',
       routerLinkActiveOptions: {
         paths: "exact",
@@ -64,8 +66,8 @@ export class SidebarComponent implements AfterViewInit {
       }
     },
     {
-      label: 'Service',
       url: '/service',
+      translateKey: 'sidebar.services',
       icon: 'bi bi-shop-window',
       routerLinkActiveOptions: {
         paths: "exact",
@@ -75,24 +77,24 @@ export class SidebarComponent implements AfterViewInit {
       }
     },
     {
-      label: 'Events',
+      translateKey: 'sidebar.events',
       icon: 'bi bi-calendar2-week',
       routerLinkActiveOptions: {
         exact: true
       },
       items: [
         {
-          label: 'Calendar',
           url: '/event/calendar',
+          translateKey: 'sidebar.calendar',
           icon: 'bi bi-calendar2-week',
           routerLinkActiveOptions: {
             exact: true
           }
         },
         {
-          label: 'Table',
           url: '/event',
           icon: 'bi bi-list',
+          translateKey: 'sidebar.table',
           routerLinkActiveOptions: {
             paths: "exact",
             matrixParams: "ignored",
@@ -101,7 +103,7 @@ export class SidebarComponent implements AfterViewInit {
           }
         },
         {
-          label: 'Add event',
+          translateKey: 'sidebar.addEvent',
           url: '/event/form',
           icon: 'bi bi-plus',
           routerLinkActiveOptions: {
@@ -111,14 +113,14 @@ export class SidebarComponent implements AfterViewInit {
       ]
     },
     {
-      label: 'Private',
       icon: 'bi bi-person',
+      translateKey: 'sidebar.private',
       routerLinkActiveOptions: {
         exact: true
       },
       items: [
         {
-          label: 'Profile',
+          translateKey: 'sidebar.profile',
           url: '/company/profile',
           icon: 'bi bi-person',
           routerLinkActiveOptions: {
@@ -126,7 +128,7 @@ export class SidebarComponent implements AfterViewInit {
           }
         },
         {
-          label: 'Settings',
+          translateKey: 'sidebar.settings',
           url: '/company/settings',
           icon: 'bi bi-gear',
           routerLinkActiveOptions: {

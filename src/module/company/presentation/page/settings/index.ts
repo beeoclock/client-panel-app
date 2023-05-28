@@ -5,6 +5,8 @@ import {FormSettingsComponent} from '@company/presentation/component/settings/fo
 import {ButtonComponent} from "@utility/presentation/component/button/button.component";
 import {Auth} from "@angular/fire/auth";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {LanguageInputComponent} from "@company/presentation/component/settings/language-input.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'company-settings-page',
@@ -15,7 +17,9 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
     ChangePasswordComponent,
     FormSettingsComponent,
     ButtonComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LanguageInputComponent,
+    TranslateModule
   ],
   standalone: true
 })

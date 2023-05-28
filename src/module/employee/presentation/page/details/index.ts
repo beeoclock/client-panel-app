@@ -11,6 +11,7 @@ import * as Employee from '@employee/domain';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'employee-detail-page',
@@ -42,7 +43,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
                  [routerLink]="['../../', 'form', employee._id]"
                  class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-beeColor-900 shadow-sm ring-1 ring-inset ring-beeColor-300 hover:bg-beeColor-50">
                 <i class="bi bi-pencil me-2"></i>
-                Edit
+                {{ 'general.edit' | translate }}
               </a>
             </span>
 
@@ -65,7 +66,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
                       ring-beeColor-300
                       hover:bg-beeColor-50">
                 <i class="bi bi-trash me-2"></i>
-                Delete
+                {{ 'general.delete' | translate }}
               </button>
             </span>
 
@@ -75,13 +76,13 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
                    role="menuitem" tabindex="-1"
                    id="mobile-menu-item-0">
                   <i class="bi bi-pencil me-2"></i>
-                  Edit
+                  {{ 'general.edit' | translate }}
                 </a>
                 <button (click)="repository.delete(employee._id)" class="block px-4 py-2 text-sm text-red-500"
                         role="menuitem" tabindex="-1"
                         id="mobile-menu-item-1">
                   <i class="bi bi-trash me-2"></i>
-                  Delete
+                  {{ 'general.delete' | translate }}
                 </button>
               </ng-container>
             </utility-dropdown>
@@ -106,7 +107,8 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
     ButtonComponent,
     RouterLink,
     DropdownComponent,
-    LoaderComponent
+    LoaderComponent,
+    TranslateModule
   ],
   standalone: true
 })

@@ -30,41 +30,41 @@
         </th>
         <th scope="col" class="px-6 py-3 cursor-pointer"
             (click)="repository.pagination.setOrderBy('languageVersions.title')">
-          Full name
+          {{ 'general.fullName' | translate }}
           <i class="bi"
              *ngIf="repository.pagination.orderBy === 'languageVersions.title'"
              [class.bi-sort-alpha-down]="repository.pagination.orderDir === 'asc'"
              [class.bi-sort-alpha-up]="repository.pagination.orderDir === 'desc'"></i>
         </th>
         <th scope="col" class="px-6 py-3 cursor-pointer">
-          Languages
+          {{ 'general.languages' | translate }}
         </th>
         <th scope="col" class="px-6 py-3 cursor-pointer">
-          Employees
+          {{ 'general.employees' | translate }}
         </th>
         <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('email')">
-          Active
+          {{ 'general.active' | translate }}
           <utility-sort-indicator
             [show]="repository.pagination.orderBy === 'active'"
             [asc]="repository.pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
         <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('createdAt')">
-          Created At
+          {{ 'general.createdAt' | translate }}
           <utility-sort-indicator
             [show]="repository.pagination.orderBy === 'createdAt'"
             [asc]="repository.pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
         <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('updatedAt')">
-          Updated At
+          {{ 'general.updatedAt' | translate }}
           <utility-sort-indicator
             [show]="repository.pagination.orderBy === 'updatedAt'"
             [asc]="repository.pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
         <th scope="col" class="px-6 py-3">
-          Action
+          {{ 'general.action' | translate }}
         </th>
       </tr>
       </thead>

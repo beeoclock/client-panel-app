@@ -8,10 +8,10 @@
       <form [formGroup]="form" class="mt-4">
         <div class="bg-white border rounded-lg p-4">
 
-          <strong>Information</strong>
+          <strong>{{ 'general.information' | translate }}</strong>
 
           <div class="flex flex-col mt-4">
-            <label for="customer-form-firstName">First name</label>
+            <label for="customer-form-firstName">{{ 'general.firstName' | translate }}</label>
             <input
               invalidTooltip
               hasError
@@ -21,7 +21,7 @@
               formControlName="firstName">
           </div>
           <div class="flex flex-col mt-4">
-            <label for="customer-form-lastName">Last name</label>
+            <label for="customer-form-lastName">{{ 'general.lastName' | translate }}</label>
             <input
               invalidTooltip
               hasError
@@ -32,10 +32,10 @@
           </div>
         </div>
         <div class="bg-white border rounded-lg p-4 mt-4">
-          <strong>Contact</strong>
+          <strong>{{ 'general.contact' | translate }}</strong>
 
           <div class="flex flex-col mt-4">
-            <label for="customer-form-email">e-mail</label>
+            <label for="customer-form-email">{{ 'general.email' | translate }}</label>
             <input
               invalidTooltip
               hasError
@@ -45,7 +45,7 @@
               formControlName="email">
           </div>
           <div class="flex flex-col mt-4">
-            <label for="customer-form-phone">Phone</label>
+            <label for="customer-form-phone">{{ 'general.phone' | translate }}</label>
             <input
               hasError
               invalidTooltip
@@ -59,7 +59,8 @@
           <button
             class="px-4 py-2 bg-blue-600 rounded-lg text-white w-full hover:bg-blue-700 cursor-pointer transition"
             [disabled]="form.disabled"
-            (click)="save()">Save
+            (click)="save()">
+            {{ 'general.save' | translate }}
           </button>
         </div>
       </form>

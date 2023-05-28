@@ -16,6 +16,7 @@ import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdo
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'event-list-page',
@@ -39,7 +40,8 @@ import {ActionComponent} from "@utility/presentation/component/table/column/acti
     NgIf,
     SortIndicatorComponent,
     LoaderComponent,
-    ActionComponent
+    ActionComponent,
+    TranslateModule
   ],
   standalone: true
 })

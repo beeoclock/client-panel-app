@@ -8,11 +8,11 @@
         class="text-sm font-medium text-beeColor-900 bg-white rounded-lg dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 dark:text-white">
         <li
           class="bg-beeColor-100 dark:bg-beeDarkColor-800 rounded-t w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600">
-          Settings
+          {{ 'company.settings.title' | translate }}
         </li>
         <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600 justify-between flex items-center">
           <div>
-            Dark mode
+            {{ 'company.settings.form.inputs.darkMode.label' | translate }}
           </div>
           <div>
 
@@ -29,12 +29,12 @@
 
           </div>
         </li>
-        <li class="w-full px-4 py-2 rounded-b border-beeColor-200 dark:border-beeDarkColor-600 justify-between flex">
+        <li class="w-full px-4 py-2 rounded-b border-beeColor-200 dark:border-beeDarkColor-600 justify-between flex items-center">
           <div>
             Language
           </div>
           <div>
-            Soon!
+            <company-settings-language-input-component></company-settings-language-input-component>
           </div>
         </li>
       </ul>
@@ -46,22 +46,22 @@
         class="text-sm font-medium text-beeColor-900 bg-white rounded-lg dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 dark:text-white">
         <li
           class="bg-beeColor-100 dark:bg-beeDarkColor-800 rounded-t w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600">
-          Default data of event
+          {{ 'company.settings.defaultData.event.title' | translate }}
         </li>
         <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600 justify-between flex">
           <div>
-            Default event language
+            {{ 'company.settings.defaultData.event.form.inputs.language.label' | translate }}
           </div>
           <div>
-            Soon!
+            {{ 'general.soon' | translate }}
           </div>
         </li>
         <li class="w-full px-4 py-2 rounded-b border-beeColor-200 dark:border-beeDarkColor-600 justify-between flex">
           <div>
-            Default event service (top service)
+            {{ 'company.settings.defaultData.event.form.inputs.service.label' | translate }}
           </div>
           <div>
-            Soon!
+            {{ 'general.soon' | translate }}
           </div>
         </li>
       </ul>
@@ -73,62 +73,62 @@
         class="text-sm font-medium text-beeColor-900 bg-white rounded-lg dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 dark:text-white">
         <li
           class="bg-beeColor-100 dark:bg-beeDarkColor-800 rounded-t w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600">
-          Default data of service
+          {{ 'company.settings.defaultData.service.title' | translate }}
         </li>
         <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600 justify-between flex">
           <div>
-            Default service duration
+            {{ 'company.settings.defaultData.service.form.inputs.duration.label' | translate }}
           </div>
           <div>
-            Soon!
-          </div>
-        </li>
-        <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600 justify-between flex">
-          <div>
-            Default service language
-          </div>
-          <div>
-            Soon!
+            {{ 'general.soon' | translate }}
           </div>
         </li>
         <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600 justify-between flex">
           <div>
-            Default service work days
+            {{ 'company.settings.defaultData.service.form.inputs.language.label' | translate }}
           </div>
           <div>
-            Soon!
-          </div>
-        </li>
-        <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600 justify-between flex">
-          <div>
-            Default service break
-          </div>
-          <div>
-            Soon!
+            {{ 'general.soon' | translate }}
           </div>
         </li>
         <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600 justify-between flex">
           <div>
-            Default service start to work
+            {{ 'company.settings.defaultData.service.form.inputs.workDays.label' | translate }}
           </div>
           <div>
-            Soon!
+            {{ 'general.soon' | translate }}
           </div>
         </li>
         <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600 justify-between flex">
           <div>
-            Default service end to work
+            {{ 'company.settings.defaultData.service.form.inputs.break.label' | translate }}
           </div>
           <div>
-            Soon!
+            {{ 'general.soon' | translate }}
+          </div>
+        </li>
+        <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600 justify-between flex">
+          <div>
+            {{ 'company.settings.defaultData.service.form.inputs.startWork.label' | translate }}
+          </div>
+          <div>
+            {{ 'general.soon' | translate }}
+          </div>
+        </li>
+        <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600 justify-between flex">
+          <div>
+            {{ 'company.settings.defaultData.service.form.inputs.endWork.label' | translate }}
+          </div>
+          <div>
+            {{ 'general.soon' | translate }}
           </div>
         </li>
         <li class="w-full px-4 py-2 rounded-b border-beeColor-200 dark:border-beeDarkColor-600 justify-between flex">
           <div>
-            Default service price
+            {{ 'company.settings.defaultData.service.form.inputs.price.label' | translate }}
           </div>
           <div>
-            Soon!
+            {{ 'general.soon' | translate }}
           </div>
         </li>
       </ul>
@@ -147,7 +147,7 @@
       <!--          <p class="fs&#45;&#45;1">Perhaps you just want to add new account?</p>-->
       <!--          <p class="fs&#45;&#45;1">If yes: click "Add new account" or "Switch to another account"</p>-->
       <div class="mb-2">
-        <strong>Sign out</strong>
+        <strong>{{ 'general.signOut' | translate }}</strong>
       </div>
       <button class="w-full px-4 py-2 rounded border border-red-500 text-red-500 hover:bg-red-100" (click)="logout()">Logout</button>
 <!--      <company-danger-zone-component></company-danger-zone-component>-->

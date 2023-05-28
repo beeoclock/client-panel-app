@@ -7,7 +7,7 @@
           routerLink="form"
           class="block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeColor-600 dark:hover:text-white">
           <i class="bi bi-plus-lg"></i>
-          Add customer
+          {{ 'customer.button.create' | translate }}
         </a>
       </li>
     </ng-container>
@@ -30,42 +30,42 @@
           </div>
         </th>
         <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('lastName')">
-          Full name
+          {{ 'general.fullName' | translate }}
           <i class="bi"
              *ngIf="repository.pagination.orderBy === 'lastName'"
              [class.bi-sort-alpha-down]="repository.pagination.orderDir === 'asc'"
              [class.bi-sort-alpha-up]="repository.pagination.orderDir === 'desc'"></i>
         </th>
         <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('email')">
-          E-mail
+          {{ 'general.email' | translate }}
           <utility-sort-indicator
             [show]="repository.pagination.orderBy === 'email'"
             [asc]="repository.pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
         <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('phone')">
-          Phone
+          {{ 'general.phone' | translate }}
           <utility-sort-indicator
             [show]="repository.pagination.orderBy === 'phone'"
             [asc]="repository.pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
         <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('createdAt')">
-          Created At
+          {{ 'general.createdAt' | translate }}
           <utility-sort-indicator
             [show]="repository.pagination.orderBy === 'createdAt'"
             [asc]="repository.pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
         <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('updatedAt')">
-          Updated At
+          {{ 'general.updatedAt' | translate }}
           <utility-sort-indicator
             [show]="repository.pagination.orderBy === 'updatedAt'"
             [asc]="repository.pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
         <th scope="col" class="px-6 py-3 text-center">
-          Action
+          {{ 'general.action' | translate }}
         </th>
       </tr>
       </thead>

@@ -11,7 +11,7 @@ import {AsyncPipe, DatePipe, NgForOf, NgIf} from '@angular/common';
 import {ServiceRepository} from '@service/repository/service.repository';
 import {FilterComponent} from '@service/presentation/component/filter/filter.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
-import {TranslateService} from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
 import {ILanguageVersion} from '@service/domain';
 import {ListPage} from "@utility/list.page";
@@ -42,7 +42,8 @@ import {ActionComponent} from "@utility/presentation/component/table/column/acti
     DropdownComponent,
     SortIndicatorComponent,
     LoaderComponent,
-    ActionComponent
+    ActionComponent,
+    TranslateModule
   ],
   providers: [
     ServiceRepository

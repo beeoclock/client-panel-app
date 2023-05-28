@@ -14,6 +14,7 @@ import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdo
 import {LanguagePipe} from "@utility/pipes/language.pipe";
 import {WeekDayPipe} from "@utility/pipes/week-day.pipe";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'service-detail-page',
@@ -239,15 +240,15 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 
             <ul class="list-group">
               <li class="list-group-item">
-                <strong>Active:</strong>
+                <strong>{{ 'general.active' | translate }}:</strong>
                 <p class="m-0">{{ service.active }}</p>
               </li>
               <li class="list-group-item">
-                <strong>Created at:</strong>
+                <strong>{{ 'general.createdAt' | translate }}:</strong>
                 <p class="m-0">{{ service.createdAt }}</p>
               </li>
               <li class="list-group-item">
-                <strong>Update at:</strong>
+                <strong>{{ 'general.updatedAt' | translate }}:</strong>
                 <p class="m-0">{{ service.updatedAt }}</p>
               </li>
             </ul>
@@ -275,7 +276,8 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
     DropdownComponent,
     LanguagePipe,
     WeekDayPipe,
-    LoaderComponent
+    LoaderComponent,
+    TranslateModule
   ],
   providers: [
     ServiceRepository,

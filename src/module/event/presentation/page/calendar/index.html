@@ -1,10 +1,6 @@
-<utility-card-component>
-  <utility-body-card-component class="">
-    <full-calendar [options]='calendarOptions'>
-      <ng-template #eventContent let-arg>
-        <b>{{ arg.timeText }}</b>
-        <i>{{ arg.event.description }}</i>
-      </ng-template>
-    </full-calendar>
-  </utility-body-card-component>
-</utility-card-component>
+<full-calendar [options]='calendarOptions'>
+  <ng-template #eventContent let-arg>
+    <b>{{ arg.timeText }}</b>
+    <i>{{ arg.event.description }}</i>
+  </ng-template>
+</full-calendar>

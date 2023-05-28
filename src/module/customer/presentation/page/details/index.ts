@@ -11,6 +11,7 @@ import * as Customer from '@customer/domain';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'customer-detail-page',
@@ -40,7 +41,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
                  [routerLink]="['../../', 'form', customer._id]"
                  class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-beeColor-900 shadow-sm ring-1 ring-inset ring-beeColor-300 hover:bg-beeColor-50">
                 <i class="bi bi-pencil me-2"></i>
-                Edit
+                {{ 'general.edit' | translate }}
               </a>
             </span>
 
@@ -63,7 +64,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
                       ring-beeColor-300
                       hover:bg-beeColor-50">
                 <i class="bi bi-trash me-2"></i>
-                Delete
+                {{ 'general.delete' | translate }}
               </button>
             </span>
 
@@ -72,19 +73,19 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
                 <a [routerLink]="['../../', 'form', customer._id]" class="block px-4 py-2 text-sm text-beeColor-700" role="menuitem" tabindex="-1"
                    id="mobile-menu-item-0">
                   <i class="bi bi-pencil me-2"></i>
-                  Edit
+                  {{ 'general.edit' | translate }}
                 </a>
                 <button (click)="repository.delete(customer._id)" class="block px-4 py-2 text-sm text-red-500" role="menuitem" tabindex="-1"
                         id="mobile-menu-item-1">
                   <i class="bi bi-trash me-2"></i>
-                  Delete
+                  {{ 'general.delete' | translate }}
                 </button>
               </ng-container>
             </utility-dropdown>
           </div>
         </div>
         <hr class="my-6">
-        <strong>Note</strong>
+        <strong>{{ 'general.note' | translate }}</strong>
         <p>
           {{ customer.note || 'No data' }}
         </p>
@@ -107,7 +108,8 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
     ButtonComponent,
     RouterLink,
     DropdownComponent,
-    LoaderComponent
+    LoaderComponent,
+    TranslateModule
   ],
   standalone: true
 })
