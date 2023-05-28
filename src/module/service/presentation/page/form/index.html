@@ -1,60 +1,33 @@
-<utility-back-link-component [url]="url"></utility-back-link-component>
+<utility-back-link-component *ngIf="formComponent" [url]="formComponent.url"></utility-back-link-component>
 
-<form [formGroup]="form">
+<service-form-component></service-form-component>
 
-  <div class="grid grid-cols-12 gap-4">
+<div class="mt-4" *ngIf="formComponent">
 
-    <div class="col-span-12 lg:col-span-8">
-
-      <div class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4 mt-4">
-
-        <service-services-form-component
-          (handlePushNewLanguageVersionForm)="form.pushNewLanguageVersionForm()"
-          [form]="form.controls.languageVersions">
-        </service-services-form-component>
-
-      </div>
-      <div class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4 mt-4">
-
-        <service-durations-form-component
-          (handlePushNewDurationVersionFormForm)="form.pushNewDurationVersionForm()"
-          [durationVersionsForm]="form.controls.durationVersions">
-        </service-durations-form-component>
-
-      </div>
-      <div class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4 mt-4">
-
-        <service-schedules-form-component
-          (handlePushNewScheduleForm)="form.pushNewScheduleForm()"
-          [schedulesForm]="form.controls.schedules">
-        </service-schedules-form-component>
-
-      </div>
-
+  <div
+    class="flex items-center justify-between border rounded border-neutral-200 bg-white dark:bg-neutral-800 p-4">
+    <div class="flex flex-1 justify-between">
+      <button
+        *ngIf="formComponent.activeSectionIsNotFirst"
+        (click)="formComponent.activePrevSection()"
+        class="relative inline-flex items-center rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100">
+        Previous
+      </button>
+      <div></div>
+      <button
+        *ngIf="formComponent.activeSectionIsNotLast"
+        (click)="formComponent.activeNextSection()"
+        class="relative ml-3 inline-flex items-center rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100">
+        Next
+      </button>
+      <button
+        *ngIf="formComponent.activeSectionIsLast"
+        class="bg-blue-600 text-white rounded px-4 py-2"
+        [disabled]="formComponent.form.disabled"
+        (click)="save()">Add Service
+      </button>
     </div>
-
-    <div class="col-span-12 lg:col-span-4">
-
-      <div
-        class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4 mt-4">
-
-        <service-employees-form-component [control]="form.controls.permanentEmployees">
-        </service-employees-form-component>
-
-      </div>
-
-    </div>
-
   </div>
 
-  <div class="mt-4">
+</div>
 
-    <button
-      class="bg-blue-600 text-white rounded px-4 py-2 w-full"
-      [disabled]="form.disabled"
-      (click)="save()">Add Service
-    </button>
-
-  </div>
-
-</form>

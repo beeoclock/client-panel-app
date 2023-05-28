@@ -32,42 +32,47 @@ import {
     ServiceRepository
   ],
   template: `
-<!--    <h4>-->
-<!--      Employees that can do the service-->
-<!--    </h4>-->
-<!--    <service-modal-employees-form-component>-->
-<!--    </service-modal-employees-form-component>-->
-    <div class="col-12 position-relative" *ngIf="control">
-      <label for="service-form-employees">Employees</label>
-      <ng-select
-        id="service-form-employees"
-        class="cursor-pointer"
-        placeholder="Select employees"
-        bindLabel="_id"
-        (scrollToEnd)="scrollToEnd($event)"
-        [closeOnSelect]="false"
-        [loading]="control.pending"
-        [disabled]="control.pending"
-        [multiple]="multiple"
-        [formControl]="control">
-        <ng-template ng-label-tmp let-item="item" let-clear="clear">
-          <span>{{item.firstName}} {{item.lastName}}</span>
-          <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-        </ng-template>
-        <ng-template ng-header-tmp>
 
-          <div>
-            <button class="text-blue-600 mx-2"
-                    (click)="onSelectAll()">Select All</button>
-            <button class="text-blue-600 mx-2"
-                    (click)="onClearAll()">Clear All</button>
-          </div>
+    <div class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4 mt-4">
+      <!--    <h4>-->
+      <!--      Employees that can do the service-->
+      <!--    </h4>-->
+      <!--    <service-modal-employees-form-component>-->
+      <!--    </service-modal-employees-form-component>-->
+      <div class="col-12 position-relative" *ngIf="control">
+        <label for="service-form-employees">Employees</label>
+        <ng-select
+          id="service-form-employees"
+          class="cursor-pointer"
+          placeholder="Select employees"
+          bindLabel="_id"
+          (scrollToEnd)="scrollToEnd($event)"
+          [closeOnSelect]="false"
+          [loading]="control.pending"
+          [disabled]="control.pending"
+          [multiple]="multiple"
+          [formControl]="control">
+          <ng-template ng-label-tmp let-item="item" let-clear="clear">
+            <span>{{item.firstName}} {{item.lastName}}</span>
+            <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+          </ng-template>
+          <ng-template ng-header-tmp>
 
-        </ng-template>
-        <ng-option *ngFor="let item of items" [value]="item">
-          {{item.firstName}} {{item.lastName}}
-        </ng-option>
-      </ng-select>
+            <div>
+              <button class="text-blue-600 mx-2"
+                      (click)="onSelectAll()">Select All
+              </button>
+              <button class="text-blue-600 mx-2"
+                      (click)="onClearAll()">Clear All
+              </button>
+            </div>
+
+          </ng-template>
+          <ng-option *ngFor="let item of items" [value]="item">
+            {{item.firstName}} {{item.lastName}}
+          </ng-option>
+        </ng-select>
+      </div>
     </div>
   `
 })

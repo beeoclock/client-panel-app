@@ -24,13 +24,14 @@ import {FooterCardComponent} from "@utility/presentation/component/card/footer.c
     FooterCardComponent
   ],
   template: `
-    Language versions section
 
-    <div
-      *ngFor="let languageVersionForm of form.controls; let index = index"
-      class="border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white mt-4">
+    <div class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4 mt-4">
+
       <div
-        class="
+        *ngFor="let languageVersionForm of form.controls; let index = index"
+        class="border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        <div
+          class="
           justify-between
           flex
           w-full
@@ -43,24 +44,25 @@ import {FooterCardComponent} from "@utility/presentation/component/card/footer.c
           cursor-pointer
           dark:bg-gray-800
           dark:border-gray-600">
-        Language version #{{ index + 1 }}
-        <button class="text-red-500" (click)="form.remove(index)" *ngIf="index > 0">
-          <i class="bi bi-trash"></i>
-        </button>
+          Language version #{{ index + 1 }}
+          <button class="text-red-500" (click)="form.remove(index)" *ngIf="index > 0">
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
+        <div class="p-4">
+          <service-service-form-component
+            [form]="languageVersionForm">
+          </service-service-form-component>
+        </div>
       </div>
-      <div class="p-4">
-        <service-service-form-component
-          [form]="languageVersionForm">
-        </service-service-form-component>
-      </div>
+
+      <hr *ngIf="showAddMore" class="my-4">
+
+      <button class="border rounded px-4 py-2" *ngIf="showAddMore" (click)="pushNewLanguageVersionForm($event)">
+        <i class="bi bi-plus-lg me-2"></i>
+        Add new language version
+      </button>
     </div>
-
-    <hr *ngIf="showAddMore" class="my-4">
-
-    <button class="border rounded px-4 py-2" *ngIf="showAddMore" (click)="pushNewLanguageVersionForm($event)">
-      <i class="bi bi-plus-lg me-2"></i>
-      Add new language version
-    </button>
   `
 })
 export class ServicesFormComponent {

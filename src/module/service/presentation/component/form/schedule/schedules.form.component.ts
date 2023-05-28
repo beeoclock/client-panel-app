@@ -21,13 +21,13 @@ import {FooterCardComponent} from "@utility/presentation/component/card/footer.c
     NgIf,
   ],
   template: `
-    Schedules versions section
+    <div class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 shadow rounded-lg p-4 mt-4">
 
-    <div
-      *ngFor="let scheduleForm of schedulesForm.controls; let index = index"
-      class="border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white mt-4">
       <div
-        class="
+        *ngFor="let scheduleForm of schedulesForm.controls; let index = index"
+        class="border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        <div
+          class="
           justify-between
           flex
           w-full
@@ -40,24 +40,25 @@ import {FooterCardComponent} from "@utility/presentation/component/card/footer.c
           cursor-pointer
           dark:bg-gray-800
           dark:border-gray-600">
-        Schedule version #{{ index + 1 }}
-        <button class="text-red-500" (click)="schedulesForm.remove(index)" *ngIf="index > 0">
-          <i class="bi bi-trash"></i>
-        </button>
+          Schedule version #{{ index + 1 }}
+          <button class="text-red-500" (click)="schedulesForm.remove(index)" *ngIf="index > 0">
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
+        <div class="p-4">
+          <service-schedule-form-component
+            [form]="scheduleForm">
+          </service-schedule-form-component>
+        </div>
       </div>
-      <div class="p-4">
-        <service-schedule-form-component
-          [form]="scheduleForm">
-        </service-schedule-form-component>
-      </div>
+
+      <hr class="my-4">
+
+      <button class="border rounded px-4 py-2" (click)="pushNewScheduleForm($event)">
+        <i class="bi bi-plus-lg me-2"></i>
+        Add new interval
+      </button>
     </div>
-
-    <hr class="my-4">
-
-    <button class="border rounded px-4 py-2" (click)="pushNewScheduleForm($event)">
-      <i class="bi bi-plus-lg me-2"></i>
-      Add new interval
-    </button>
   `
 })
 export class SchedulesFormComponent {
