@@ -12,6 +12,8 @@ import {routes} from '@src/routers';
 import {FlatpickrModule} from 'angularx-flatpickr';
 import {connectFunctionsEmulator, getFunctions, provideFunctions} from '@angular/fire/functions';
 import {browserLocalPersistence} from "@firebase/auth";
+import {NgxsModule} from "@ngxs/store";
+import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -69,7 +71,15 @@ bootstrapApplication(AppComponent, {
           useFactory: HttpLoaderFactory,
           deps: [HttpClient]
         }
-      })
+      }),
+
+      NgxsModule.forRoot([], {
+        developmentMode: !environment.production
+      }),
+
+      NgxsReduxDevtoolsPluginModule.forRoot({
+        disabled: environment.production
+      }),
     ),
   ]
 }).catch(e => console.error(e));

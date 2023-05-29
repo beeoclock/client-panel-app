@@ -6,7 +6,7 @@ import {NotImplementedYetError} from "@utility/domain/error";
 @Injectable({
   providedIn: 'root'
 })
-export class CloudFunctionFirebaseAdapter<ITEM> {
+export class CloudFunctionFirebaseRepository<ITEM> {
 
   protected readonly functions = inject(Functions);
 

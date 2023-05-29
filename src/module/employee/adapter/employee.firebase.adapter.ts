@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import * as Employee from '@employee/domain';
-import {CloudFunctionFirebaseAdapter} from "@utility/adapter/cloud-function.firebase.adapter";
+import {CloudFunctionFirebaseRepository} from "@utility/repository/cloud-function.firebase.repository";
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeFirebaseAdapter extends CloudFunctionFirebaseAdapter<Employee.IEmployee> {
+export class EmployeeFirebaseAdapter extends CloudFunctionFirebaseRepository<Employee.IEmployee> {
 
   constructor() {
     super();
