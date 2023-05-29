@@ -78,7 +78,7 @@ export class CustomerRepository extends CustomerFirebaseAdapter {
     });
   }
 
-  public delete(id: string, refreshList: boolean = false): void {
+  public delete(id: string, refreshList = false): void {
     this.remove(id).then((result) => {
       if (result) {
         if (refreshList) {

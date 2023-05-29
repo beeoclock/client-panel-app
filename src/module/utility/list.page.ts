@@ -16,6 +16,7 @@ export abstract class ListPage implements OnInit {
       this.router.navigate([], {
         queryParams: pagination.toQueryParams(),
         queryParamsHandling: "merge",
+        replaceUrl: true
       });
     });
     this.activatedRoute.queryParams.subscribe((params) => {
