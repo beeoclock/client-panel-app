@@ -143,31 +143,13 @@ export class EventState {
     if (search) {
       filters['$or'] = [
         {
-          firstName: {
+          title: {
             $regex: search ?? '',
             $options: "i"
           }
         },
         {
-          lastName: {
-            $regex: search ?? '',
-            $options: "i"
-          }
-        },
-        {
-          email: {
-            $regex: search ?? '',
-            $options: "i"
-          }
-        },
-        {
-          phone: {
-            $regex: search ?? '',
-            $options: "i"
-          }
-        },
-        {
-          note: {
+          description: {
             $regex: search ?? '',
             $options: "i"
           }

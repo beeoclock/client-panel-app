@@ -1,29 +1,31 @@
 import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
-import {ServiceRepository} from '@service/repository/service.repository';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {RouterLink} from '@angular/router';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
-import {exhaustMap, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
-import * as Service from '@service/domain';
-import {ILanguageVersion} from '@service/domain';
+import {ILanguageVersion, IService} from '@service/domain';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {LanguagePipe} from "@utility/pipes/language.pipe";
 import {WeekDayPipe} from "@utility/pipes/week-day.pipe";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {TranslateModule} from "@ngx-translate/core";
+import {Select, Store} from "@ngxs/store";
+import {ServiceState} from "@service/state/service/service.state";
+import {ServiceActions} from "@service/state/service/service.actions";
 
 @Component({
   selector: 'service-detail-page',
   template: `
     <utility-back-link-component url="../../"></utility-back-link-component>
-    <ng-container *ngIf="service$ | async as service; else LoadingTemplate">
+    <ng-container *ngIf="item$ | async as service; else LoadingTemplate">
       <div class="grid grid-cols-12 gap-4">
         <div class="col-span-12 lg:col-span-8">
-          <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4  mt-4">
+          <div
+            class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4  mt-4">
             <div class="flex">
                 <span class="hidden sm:block">
                   <a type="button"
@@ -36,7 +38,7 @@ import {TranslateModule} from "@ngx-translate/core";
 
               <span class="ml-3 hidden sm:block">
                   <button type="button"
-                          (click)="repository.delete(service._id)"
+                          (click)="delete(service._id)"
                           class="
                           inline-flex
                           items-center
@@ -65,7 +67,7 @@ import {TranslateModule} from "@ngx-translate/core";
                     <i class="bi bi-pencil me-2"></i>
                     Edit
                   </a>
-                  <button (click)="repository.delete(service._id)" class="block px-4 py-2 text-sm text-red-500"
+                  <button (click)="delete(service._id)" class="block px-4 py-2 text-sm text-red-500"
                           role="menuitem" tabindex="-1"
                           id="mobile-menu-item-1">
                     <i class="bi bi-trash me-2"></i>
@@ -75,7 +77,8 @@ import {TranslateModule} from "@ngx-translate/core";
               </utility-dropdown>
             </div>
           </div>
-          <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4  mt-4">
+          <div
+            class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4  mt-4">
             <h4>
               Permanent employees
             </h4>
@@ -279,24 +282,26 @@ import {TranslateModule} from "@ngx-translate/core";
     LoaderComponent,
     TranslateModule
   ],
-  providers: [
-    ServiceRepository,
-  ],
   standalone: true
 })
 export default class Index {
 
-  public readonly repository = inject(ServiceRepository);
-  public readonly activatedRoute = inject(ActivatedRoute);
+  // TODO add base index of details with store and delete method
+
+  @Select(ServiceState.item)
+  public readonly item$!: Observable<IService>;
 
   @HostBinding()
   public readonly class = 'p-4 block';
 
-  public readonly service$: Observable<Service.IService | undefined> = this.activatedRoute.params.pipe(
-    exhaustMap(async ({id}) => {
-      return (await this.repository.item(id)).data;
-    }),
-  );
+  public readonly store = inject(Store);
+
+  public delete(id: string): void {
+    this.store.dispatch(new ServiceActions.DeleteItem({
+      id,
+      goToTheList: true
+    }));
+  }
 
   public languageVersions(languageVersion: any): ILanguageVersion[] {
     return Object.values(languageVersion);

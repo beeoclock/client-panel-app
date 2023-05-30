@@ -1,5 +1,4 @@
 import {Component, HostBinding, ViewChild, ViewEncapsulation} from '@angular/core';
-import {ServiceRepository} from '@service/repository/service.repository';
 import {FormComponent} from "@service/presentation/component/form/form.component";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {NgIf} from "@angular/common";
@@ -13,9 +12,6 @@ import {NgIf} from "@angular/common";
     FormComponent,
     BackLinkComponent,
     NgIf,
-  ],
-  providers: [
-    ServiceRepository,
   ]
 })
 export default class Index {

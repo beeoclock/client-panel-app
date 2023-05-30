@@ -21,47 +21,6 @@ export class EventRepository extends EventFirebaseAdapter {
     super();
 
     this.calendarCloudFunction = httpsCallable(this.functions, `${this.path}Calendar`);
-
-    this.pagination.setDelegate(({orderDir, orderBy, pageSize, page}) => {
-
-      this.loading.switchOn();
-
-      const {search} = this.filterForm.value;
-      const filters: any = {};
-
-      if (search) {
-        filters['$or'] = [
-          {
-            title: {
-              $regex: search ?? '',
-              $options: "i"
-            }
-          },
-          {
-            description: {
-              $regex: search ?? '',
-              $options: "i"
-            }
-          },
-        ];
-      }
-
-      this.list(
-        pageSize,
-        page,
-        orderBy,
-        orderDir,
-        filters
-      ).then(({data}: any) => {
-        const {total, items} = data;
-        // this.pagination
-        //   .setTotalSize(total)
-        //   .setItems(items);
-      }).finally(() => {
-        this.loading.switchOff();
-      });
-
-    });
   }
 
   public calendar(from: string, to: string): Promise<null | { items: Event.IEvent[]; total: number; }> {
@@ -69,18 +28,6 @@ export class EventRepository extends EventFirebaseAdapter {
       from,
       to
     }) as any;
-  }
-
-  public delete(id: string, refreshList = false): void {
-    this.remove(id).then((result) => {
-      if (result) {
-        if (refreshList) {
-          this.pagination.executeDelegate();
-        } else {
-          this.router.navigate(['/', 'event']);
-        }
-      }
-    });
   }
 
 }

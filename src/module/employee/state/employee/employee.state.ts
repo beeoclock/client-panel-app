@@ -148,6 +148,12 @@ export class EmployeeState {
           }
         },
         {
+          secondName: {
+            $regex: search ?? '',
+            $options: "i"
+          }
+        },
+        {
           lastName: {
             $regex: search ?? '',
             $options: "i"
@@ -161,12 +167,6 @@ export class EmployeeState {
         },
         {
           phone: {
-            $regex: search ?? '',
-            $options: "i"
-          }
-        },
-        {
-          note: {
             $regex: search ?? '',
             $options: "i"
           }
