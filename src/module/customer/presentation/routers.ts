@@ -1,4 +1,5 @@
 import {Routes} from "@angular/router";
+import {customerDetailsResolver} from "@customer/resolver/customer.details.resolver";
 
 export const routers = [
   {
@@ -10,6 +11,9 @@ export const routers = [
     children: [
       {
         path: ':id',
+        resolve: {
+          item: customerDetailsResolver
+        },
         loadComponent: () => import('./page/details')
       }
     ]

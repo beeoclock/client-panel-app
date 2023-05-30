@@ -26,7 +26,7 @@ export class FilterComponent {
     this.form.valueChanges.pipe(
       debounceTime(500),
     ).subscribe(() => {
-      this.repository.pagination.executeDelegate();
+      // this.repository.pagination.executeDelegate();
     });
   }
 }

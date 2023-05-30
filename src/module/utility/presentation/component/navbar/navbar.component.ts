@@ -19,6 +19,6 @@ export class NavbarComponent {
   public readonly document = inject(DOCUMENT);
 
   public toggleSidebar(): void {
-    this.document.getElementById('main-sidebar')?.classList?.toggle('-translate-x-full')
+    this.document.getElementById('main-sidebar')?.classList?.toggle('translate-x-0')
   }
 }
