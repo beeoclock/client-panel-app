@@ -7,7 +7,7 @@ import {connectAuthEmulator, getAuth, provideAuth} from '@angular/fire/auth';
 import {HttpClient, provideHttpClient, withInterceptors} from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {provideRouter, withInMemoryScrolling} from '@angular/router';
+import {PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading} from '@angular/router';
 import {routes} from '@src/routers';
 import {FlatpickrModule} from 'angularx-flatpickr';
 import {connectFunctionsEmulator, getFunctions, provideFunctions} from '@angular/fire/functions';
@@ -30,7 +30,9 @@ bootstrapApplication(AppComponent, {
       routes,
       withInMemoryScrolling({
         scrollPositionRestoration: 'enabled'
-      })
+      }),
+      // TODO check if the strategy does not slow down first download
+      withPreloading(PreloadAllModules)
     ),
 
     provideHttpClient(

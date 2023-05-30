@@ -1,16 +1,16 @@
 import {RouterModule} from '@angular/router';
 import {NgModule} from "@angular/core";
 import {NgxsModule} from "@ngxs/store";
-import {routers} from "@company/presentation/routers";
-import {CompanyState} from "@company/state/company/company.state";
+import {CustomerState} from "@customer/state/customer/customer.state";
+import {routers} from "@customer/presentation";
 
 
 @NgModule({
   imports: [
-    NgxsModule.forFeature([CompanyState]),
+    NgxsModule.forFeature([CustomerState]),
     RouterModule.forChild(routers)
   ]
 })
-export class CompanyModule {
+export class Module {
 
 }

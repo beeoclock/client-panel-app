@@ -1,8 +1,10 @@
 import {Component, inject} from '@angular/core';
 import {FilterPanelComponent} from '@utility/presentation/component/panel/filter.panel.component';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
-import {EmployeeRepository} from "@employee/repository/employee.repository";
 import {debounceTime} from 'rxjs';
+import {Store} from "@ngxs/store";
+import {FilterForm} from "@customer/form/filter.form";
+import {EmployeeActions} from "@employee/state/employee/employee.actions";
 
 @Component({
   selector: 'employee-filter-component',
@@ -19,14 +21,15 @@ import {debounceTime} from 'rxjs';
   `
 })
 export class FilterComponent {
-  public readonly repository = inject(EmployeeRepository);
-  public readonly form = this.repository.filterForm;
+  public readonly store = inject(Store);
+  public readonly form = new FilterForm();
 
   constructor() {
     this.form.valueChanges.pipe(
       debounceTime(500),
-    ).subscribe(() => {
-      this.repository.pagination.executeDelegate();
+    ).subscribe((value) => {
+      console.log(value);
+      this.store.dispatch(new EmployeeActions.UpdateFilters(<{ search: string }>value));
     });
   }
 }

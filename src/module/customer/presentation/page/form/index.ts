@@ -39,6 +39,8 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export default class Index {
 
+  // TODO move functions to store effects/actions
+
   public url = ['../'];
 
   private readonly router = inject(Router);

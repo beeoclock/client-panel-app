@@ -14,11 +14,11 @@
   </utility-dropdown>
 </div>
 
-<ng-container *ngIf="repository.loading.isOn; else ContentTemplate">
+<ng-container *ngIf="loading$ | async; else ContentTemplate">
   <utility-loader></utility-loader>
 </ng-container>
 <ng-template #ContentTemplate>
-  <div class="relative overflow-x-auto">
+  <div *ngIf="pagination$ | async as pagination" class="relative overflow-x-auto">
     <table class="w-full text-sm text-left text-beeColor-500 dark:text-beeDarkColor-400">
       <thead class="text-xs text-beeColor-700 uppercase border-b dark:bg-beeDarkColor-700 dark:text-beeDarkColor-400">
       <tr>
@@ -29,39 +29,39 @@
             <label for="checkbox-all" class="sr-only">checkbox</label>
           </div>
         </th>
-        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('lastName')">
+        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="pagination.setOrderBy('lastName')">
           {{ 'general.fullName' | translate }}
           <i class="bi"
-             *ngIf="repository.pagination.orderBy === 'lastName'"
-             [class.bi-sort-alpha-down]="repository.pagination.orderDir === 'asc'"
-             [class.bi-sort-alpha-up]="repository.pagination.orderDir === 'desc'"></i>
+             *ngIf="pagination.orderBy === 'lastName'"
+             [class.bi-sort-alpha-down]="pagination.orderDir === 'asc'"
+             [class.bi-sort-alpha-up]="pagination.orderDir === 'desc'"></i>
         </th>
-        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('email')">
+        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="pagination.setOrderBy('email')">
           {{ 'general.email' | translate }}
           <utility-sort-indicator
-            [show]="repository.pagination.orderBy === 'email'"
-            [asc]="repository.pagination.orderDir === 'asc'"
+            [show]="pagination.orderBy === 'email'"
+            [asc]="pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
-        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('phone')">
+        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="pagination.setOrderBy('phone')">
           {{ 'general.phone' | translate }}
           <utility-sort-indicator
-            [show]="repository.pagination.orderBy === 'phone'"
-            [asc]="repository.pagination.orderDir === 'asc'"
+            [show]="pagination.orderBy === 'phone'"
+            [asc]="pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
-        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('createdAt')">
+        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="pagination.setOrderBy('createdAt')">
           {{ 'general.createdAt' | translate }}
           <utility-sort-indicator
-            [show]="repository.pagination.orderBy === 'createdAt'"
-            [asc]="repository.pagination.orderDir === 'asc'"
+            [show]="pagination.orderBy === 'createdAt'"
+            [asc]="pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
-        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('updatedAt')">
+        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="pagination.setOrderBy('updatedAt')">
           {{ 'general.updatedAt' | translate }}
           <utility-sort-indicator
-            [show]="repository.pagination.orderBy === 'updatedAt'"
-            [asc]="repository.pagination.orderDir === 'asc'"
+            [show]="pagination.orderBy === 'updatedAt'"
+            [asc]="pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
         <th scope="col" class="px-6 py-3 text-center">
@@ -72,7 +72,7 @@
       <tbody>
       <tr
         class="bg-white border-b dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 hover:bg-beeColor-100 dark:hover:bg-beeColor-300"
-        *ngFor="let item of repository.pagination.items">
+        *ngFor="let item of items$ | async">
         <td class="w-4 py-2 px-4">
           <div class="flex items-center">
             <input id="checkbox-table-1" type="checkbox"
@@ -98,12 +98,12 @@
           {{ item.updatedAt | date: 'hh:mm dd-MM-yyyy' }}
         </td>
         <td class="px-6 py-2 text-center text-beeColor-700 dark:text-beeDarkColor-100">
-          <utility-table-column-action [item]="item" [repository]="repository"></utility-table-column-action>
+          <utility-table-column-action [id]="item._id" (delete)="delete($event)"></utility-table-column-action>
         </td>
       </tr>
 
       </tbody>
     </table>
+    <utility-pagination-component [pagination]="pagination"></utility-pagination-component>
   </div>
-  <utility-pagination-component [pagination]="repository.pagination"></utility-pagination-component>
 </ng-template>

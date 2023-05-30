@@ -16,9 +16,6 @@ import {IService} from "@service/domain";
     NgIf,
     JsonPipe
   ],
-  providers: [
-    ServiceRepository
-  ],
   template: `
     <div class="col-12 position-relative" *ngIf="control">
       <label for="event-form-services">Services</label>

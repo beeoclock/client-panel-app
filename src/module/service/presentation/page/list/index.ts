@@ -8,17 +8,21 @@ import {HeaderTableComponent} from '@utility/presentation/component/table/header
 import {BodyTableComponent} from '@utility/presentation/component/table/body.table.component';
 import {PaginationComponent} from '@utility/presentation/component/pagination/pagination.component';
 import {AsyncPipe, DatePipe, NgForOf, NgIf} from '@angular/common';
-import {ServiceRepository} from '@service/repository/service.repository';
 import {FilterComponent} from '@service/presentation/component/filter/filter.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
-import {ILanguageVersion} from '@service/domain';
+import {ILanguageVersion, IService} from '@service/domain';
 import {ListPage} from "@utility/list.page";
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
+import {Select} from "@ngxs/store";
+import {Observable} from "rxjs";
+import {Pagination} from "@utility/domain";
+import {ServiceActions} from "@service/state/service/service.actions";
+import {ServiceState} from "@service/state/service/service.state";
 
 @Component({
   selector: 'service-list-page',
@@ -45,13 +49,21 @@ import {ActionComponent} from "@utility/presentation/component/table/column/acti
     ActionComponent,
     TranslateModule
   ],
-  providers: [
-    ServiceRepository
-  ],
   standalone: true
 })
 export default class Index extends ListPage {
-  public override readonly repository = inject(ServiceRepository);
+
+  public override readonly actions = ServiceActions;
+
+  @Select(ServiceState.listLoading)
+  public readonly loading$!: Observable<boolean>;
+
+  @Select(ServiceState.listPagination)
+  public readonly pagination$!: Observable<Pagination<IService>>;
+
+  @Select(ServiceState.listItems)
+  public readonly items$!: Observable<IService[]>;
+
   public readonly translateService = inject(TranslateService);
 
   public get currentLanguageCode(): LanguageCodeEnum {

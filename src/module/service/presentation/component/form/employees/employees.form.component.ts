@@ -2,7 +2,6 @@ import {AfterViewInit, Component, inject, Input} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {ServiceRepository} from "@service/repository/service.repository";
 import {EmployeeRepository} from "@employee/repository/employee.repository";
 import {IEmployee} from "@employee/domain";
 import {BodyCardComponent} from "@utility/presentation/component/card/body.card.component";
@@ -27,9 +26,6 @@ import {
     HeaderCardComponent,
     FooterCardComponent,
     ModalEmployeesFormComponent
-  ],
-  providers: [
-    ServiceRepository
   ],
   template: `
 
