@@ -121,6 +121,8 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 })
 export default class Index {
 
+  // TODO add base index of details with store and delete method
+
   @Select(CustomerState.item)
   public readonly item$!: Observable<ICustomer>;
 
