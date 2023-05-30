@@ -7,6 +7,9 @@ import {Auth} from '@angular/fire/auth';
 import {StreamToastComponent} from '@utility/presentation/component/toast/stream.toast.component';
 import {DOCUMENT} from "@angular/common";
 import {ModalComponent} from "@utility/presentation/component/modal/modal.component";
+import {
+  PageLoadingProgressBarComponent
+} from "@utility/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
 
 @Component({
   selector: 'utility-wrapper-panel-component',
@@ -17,12 +20,13 @@ import {ModalComponent} from "@utility/presentation/component/modal/modal.compon
     <utility-sidebar-component></utility-sidebar-component>
 
     <div class="pt-16 sm:ml-64">
+      <utility-page-loading-progress-bar></utility-page-loading-progress-bar>
       <router-outlet></router-outlet>
     </div>
     <utility-stream-toast-component></utility-stream-toast-component>
 
   `,
-  imports: [SidebarComponent, NavbarComponent, FooterComponent, RouterOutlet, StreamToastComponent, ModalComponent],
+  imports: [SidebarComponent, NavbarComponent, FooterComponent, RouterOutlet, StreamToastComponent, ModalComponent, PageLoadingProgressBarComponent],
   encapsulation: ViewEncapsulation.None
 })
 export default class WrapperPanelComponent implements AfterViewInit {

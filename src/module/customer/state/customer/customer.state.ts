@@ -16,13 +16,19 @@ export interface ICustomerState {
     items: Customer.ICustomer[];
     total: number;
   };
-  item: undefined | Customer.ICustomer;
+  item: {
+    loading: boolean;
+    data: undefined | Customer.ICustomer
+  };
 }
 
 @State<ICustomerState>({
   name: 'customer',
   defaults: {
-    item: undefined,
+    item: {
+      loading: false,
+      data: undefined,
+    },
     list: {
       filters: {
         search: undefined,
@@ -92,10 +98,23 @@ export class CustomerState {
 
   @Action(CustomerActions.GetItem)
   public async GetItem(ctx: StateContext<ICustomerState>, {payload}: CustomerActions.GetItem): Promise<void> {
-    const {data} = await this.repository.item(payload);
+
     ctx.patchState({
-      item: data
+      item: {
+        data: undefined,
+        loading: true,
+      }
     });
+
+    const {data} = await this.repository.item(payload);
+
+    ctx.patchState({
+      item: {
+        loading: false,
+        data
+      }
+    });
+
   }
 
   @Action(CustomerActions.DeleteItem)
@@ -124,7 +143,7 @@ export class CustomerState {
         ...state.list,
         loading: true,
       }
-    })
+    });
 
     const {
       pageSize,
@@ -203,8 +222,13 @@ export class CustomerState {
   }
 
   @Selector()
-  public static item(state: ICustomerState) {
-    return state.item;
+  public static itemData(state: ICustomerState) {
+    return state.item.data;
+  }
+
+  @Selector()
+  public static itemLoading(state: ICustomerState) {
+    return state.item.loading;
   }
 
   @Selector()

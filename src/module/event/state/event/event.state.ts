@@ -16,13 +16,19 @@ export interface IEventState {
     items: Event.IEvent[];
     total: number;
   };
-  item: undefined | Event.IEvent;
+  item: {
+    loading: boolean;
+    data: undefined | Event.IEvent
+  };
 }
 
 @State<IEventState>({
   name: 'event',
   defaults: {
-    item: undefined,
+    item: {
+      loading: false,
+      data: undefined,
+    },
     list: {
       filters: {
         search: undefined,
@@ -96,9 +102,21 @@ export class EventState {
   @Action(EventActions.GetItem)
   public async GetItem(ctx: StateContext<IEventState>, {payload}: EventActions.GetItem): Promise<void> {
     // TODO return existing data if last download of data was less then 10min and if use use "refresh" then force download new data
-    const {data} = await this.repository.item(payload);
+
     ctx.patchState({
-      item: data
+      item: {
+        data: undefined,
+        loading: true,
+      }
+    });
+
+    const {data} = await this.repository.item(payload);
+
+    ctx.patchState({
+      item: {
+        loading: false,
+        data
+      }
     });
   }
 
@@ -189,8 +207,13 @@ export class EventState {
   }
 
   @Selector()
-  public static item(state: IEventState) {
-    return state.item;
+  public static itemData(state: IEventState) {
+    return state.item.data;
+  }
+
+  @Selector()
+  public static itemLoading(state: IEventState) {
+    return state.item.loading;
   }
 
   @Selector()

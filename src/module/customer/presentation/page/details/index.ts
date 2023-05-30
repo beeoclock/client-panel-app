@@ -123,7 +123,7 @@ export default class Index {
 
   // TODO add base index of details with store and delete method
 
-  @Select(CustomerState.item)
+  @Select(CustomerState.itemData)
   public readonly item$!: Observable<ICustomer>;
 
   @HostBinding()

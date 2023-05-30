@@ -1,16 +1,16 @@
 import {RouterModule} from '@angular/router';
 import {NgModule} from "@angular/core";
 import {NgxsModule} from "@ngxs/store";
-import {EventState} from "@event/state/event/event.state";
-import {routers} from "@event/presentation/routers";
+import {CompanyState} from "@company/state/company/company.state";
+import {routers} from "@company/presentation";
 
 
 @NgModule({
   imports: [
-    NgxsModule.forFeature([EventState]),
+    NgxsModule.forFeature([CompanyState]),
     RouterModule.forChild(routers)
   ]
 })
-export class EventModule {
+export class Module {
 
 }

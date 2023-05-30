@@ -288,7 +288,7 @@ export default class Index {
 
   // TODO add base index of details with store and delete method
 
-  @Select(ServiceState.item)
+  @Select(ServiceState.itemData)
   public readonly item$!: Observable<IService>;
 
   @HostBinding()

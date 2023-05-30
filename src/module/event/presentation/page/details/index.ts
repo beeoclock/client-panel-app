@@ -122,7 +122,7 @@ export default class Index {
 
   // TODO add base index of details with store and delete method
 
-  @Select(EventState.item)
+  @Select(EventState.itemData)
   public readonly item$!: Observable<IEvent>;
 
   @HostBinding()

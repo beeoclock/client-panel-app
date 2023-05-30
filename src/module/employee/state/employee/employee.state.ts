@@ -5,6 +5,7 @@ import * as Employee from "@employee/domain";
 import {Router} from "@angular/router";
 import {EmployeeRepository} from "@employee/repository/employee.repository";
 import {Pagination} from "@utility/domain";
+import {ICustomerState} from "@customer/state/customer/customer.state";
 
 export interface IEmployeeState {
   list: {
@@ -16,13 +17,19 @@ export interface IEmployeeState {
     items: Employee.IEmployee[];
     total: number;
   };
-  item: undefined | Employee.IEmployee;
+  item: {
+    loading: boolean;
+    data: undefined | Employee.IEmployee
+  };
 }
 
 @State<IEmployeeState>({
   name: 'employee',
   defaults: {
-    item: undefined,
+    item: {
+      loading: false,
+      data: undefined,
+    },
     list: {
       filters: {
         search: undefined,
@@ -95,10 +102,23 @@ export class EmployeeState {
 
   @Action(EmployeeActions.GetItem)
   public async GetItem(ctx: StateContext<IEmployeeState>, {payload}: EmployeeActions.GetItem): Promise<void> {
-    const {data} = await this.repository.item(payload);
+
     ctx.patchState({
-      item: data
+      item: {
+        data: undefined,
+        loading: true,
+      }
     });
+
+    const {data} = await this.repository.item(payload);
+
+    ctx.patchState({
+      item: {
+        loading: false,
+        data
+      }
+    });
+
   }
 
   @Action(EmployeeActions.DeleteItem)
@@ -206,8 +226,13 @@ export class EmployeeState {
   }
 
   @Selector()
-  public static item(state: IEmployeeState) {
-    return state.item;
+  public static itemData(state: IEmployeeState) {
+    return state.item.data;
+  }
+
+  @Selector()
+  public static itemLoading(state: ICustomerState) {
+    return state.item.loading;
   }
 
   @Selector()

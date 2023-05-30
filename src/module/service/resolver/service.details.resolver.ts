@@ -1,14 +1,13 @@
 import {inject} from "@angular/core";
 import {ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot} from "@angular/router";
 import {Store} from "@ngxs/store";
-import {ICustomer} from "@customer/domain";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {catchError, EMPTY, tap} from "rxjs";
-import {ICustomerState} from "@customer/state/customer/customer.state";
 import {AppActions} from "@utility/state/app/app.actions";
+import {IService} from "@service/domain";
+import {IServiceState} from "@service/state/service/service.state";
+import {ServiceActions} from "@service/state/service/service.actions";
 
-
-export const customerDetailsResolver: ResolveFn<ICustomer> = (
+export const serviceDetailsResolver: ResolveFn<IService> = (
   route: ActivatedRouteSnapshot,
   _state: RouterStateSnapshot
 ) => {
@@ -20,7 +19,7 @@ export const customerDetailsResolver: ResolveFn<ICustomer> = (
     return EMPTY;
   }
 
-  const state: ICustomerState = store.snapshot();
+  const state: IServiceState = store.snapshot();
 
   if (state?.item?.loading) {
     return EMPTY;
@@ -28,7 +27,7 @@ export const customerDetailsResolver: ResolveFn<ICustomer> = (
 
   store.dispatch(new AppActions.PageLoading(true));
 
-  return store.dispatch(new CustomerActions.GetItem(id))
+  return store.dispatch(new ServiceActions.GetItem(id))
     .pipe(
       tap(() => store.dispatch(new AppActions.PageLoading(false))),
       catchError((error) => EMPTY)

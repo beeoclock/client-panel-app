@@ -16,13 +16,19 @@ export interface IServiceState {
     items: Service.IService[];
     total: number;
   };
-  item: undefined | Service.IService;
+  item: {
+    loading: boolean;
+    data: undefined | Service.IService
+  };
 }
 
 @State<IServiceState>({
   name: 'service',
   defaults: {
-    item: undefined,
+    item: {
+      loading: false,
+      data: undefined,
+    },
     list: {
       filters: {
         search: undefined,
@@ -96,9 +102,21 @@ export class ServiceState {
   @Action(ServiceActions.GetItem)
   public async GetItem(ctx: StateContext<IServiceState>, {payload}: ServiceActions.GetItem): Promise<void> {
     // TODO return existing data if last download of data was less then 10min and if use use "refresh" then force download new data
-    const {data} = await this.repository.item(payload);
+
     ctx.patchState({
-      item: data
+      item: {
+        data: undefined,
+        loading: true,
+      }
+    });
+
+    const {data} = await this.repository.item(payload);
+
+    ctx.patchState({
+      item: {
+        loading: false,
+        data
+      }
     });
   }
 
@@ -197,8 +215,13 @@ export class ServiceState {
   }
 
   @Selector()
-  public static item(state: IServiceState) {
-    return state.item;
+  public static itemData(state: IServiceState) {
+    return state.item.data;
+  }
+
+  @Selector()
+  public static itemLoading(state: IServiceState) {
+    return state.item.loading;
   }
 
   @Selector()

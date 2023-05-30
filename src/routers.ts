@@ -20,11 +20,11 @@ export const routes: Routes = [
       },
       {
         path: 'dashboard',
-        loadComponent: () => import('@utility/presentation/page/dashboard')
+        loadChildren: () => import('@utility/index')
       },
       {
         path: 'employee',
-        loadChildren: () => import('@employee/presentation')
+        loadChildren: () => import('@employee/index')
       },
       {
         path: 'user',
@@ -32,23 +32,19 @@ export const routes: Routes = [
       },
       {
         path: 'event',
-        loadChildren: () => import('@event/presentation')
+        loadChildren: () => import('@event/index')
       },
       {
         path: 'company',
-        loadChildren: () => import('@company/presentation')
+        loadChildren: () => import('@company/index')
       },
       {
         path: 'customer',
-        loadChildren: () => import('@customer/presentation')
+        loadChildren: () => import('@customer/index')
       },
       {
         path: 'service',
-        loadChildren: () => import('@service/presentation')
-      },
-      {
-        path: 'employee',
-        loadChildren: () => import('@service/presentation')
+        loadChildren: () => import('@service/index')
       },
     ]
   },
@@ -65,11 +61,7 @@ export const routes: Routes = [
     ]
   },
   {
-    path: '',
-    loadChildren: () => import('@utility/presentation')
-  },
-  {
     path: '**',
-    redirectTo: '/404',
+    redirectTo: '/',
   }
 ];

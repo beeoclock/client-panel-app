@@ -11,6 +11,10 @@ label.form-label[required]:after {
   color: red;
 }
 
+.transform-origin-0-50 {
+  transform-origin: 0 50%;
+}
+
 .disabled {
   pointer-events: none;
   cursor: not-allowed;

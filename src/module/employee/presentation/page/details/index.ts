@@ -116,7 +116,7 @@ import {IEmployee} from "@employee/domain";
 })
 export default class Index {
 
-  @Select(EmployeeState.item)
+  @Select(EmployeeState.itemData)
   public readonly item$!: Observable<IEmployee>;
 
   @HostBinding()
