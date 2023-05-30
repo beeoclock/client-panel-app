@@ -56,9 +56,9 @@ export class ServiceRepository extends ServiceFirebaseAdapter {
         filters
       ).then(({data}) => {
         const {total, items} = data;
-        this.pagination
-          .setTotalSize(total)
-          .setItems(items);
+        // this.pagination
+        //   .setTotalSize(total)
+        //   .setItems(items);
       }).finally(() => {
         this.loading.switchOff();
       });

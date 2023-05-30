@@ -61,37 +61,37 @@
       </tr>
       </thead>
       <tbody>
-      <tr
-        class="bg-white border-b dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 hover:bg-beeColor-100 dark:hover:bg-beeColor-300"
-        *ngFor="let item of repository.pagination.items">
-        <td class="w-4 py-2 px-4">
-          <div class="flex items-center">
-            <input id="checkbox-table-1" type="checkbox"
-                   class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeColor-800 dark:focus:ring-offset-beeColor-800 focus:ring-2 dark:bg-beeDarkColor-700 dark:border-beeDarkColor-300">
-            <label for="checkbox-table-1" class="sr-only">checkbox</label>
-          </div>
-        </td>
-        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-          <a [routerLink]="['details', item._id]">
-            {{ item.firstName }} {{ item.lastName }}
-          </a>
-        </td>
-        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-          <a href="mailto:{{ item.email }}">{{ item.email }}</a>
-        </td>
-        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-          {{ item.phone }}
-        </td>
-        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-          {{ item.createdAt | date: 'hh:mm dd-MM-yyyy' }}
-        </td>
-        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-          {{ item.updatedAt | date: 'hh:mm dd-MM-yyyy' }}
-        </td>
-        <td class="px-6 py-2 text-center text-beeColor-700 dark:text-beeDarkColor-100">
-          <utility-table-column-action [item]="item" [repository]="repository"></utility-table-column-action>
-        </td>
-      </tr>
+<!--      <tr-->
+<!--        class="bg-white border-b dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 hover:bg-beeColor-100 dark:hover:bg-beeColor-300"-->
+<!--        *ngFor="let item of repository.pagination.items">-->
+<!--        <td class="w-4 py-2 px-4">-->
+<!--          <div class="flex items-center">-->
+<!--            <input id="checkbox-table-1" type="checkbox"-->
+<!--                   class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeColor-800 dark:focus:ring-offset-beeColor-800 focus:ring-2 dark:bg-beeDarkColor-700 dark:border-beeDarkColor-300">-->
+<!--            <label for="checkbox-table-1" class="sr-only">checkbox</label>-->
+<!--          </div>-->
+<!--        </td>-->
+<!--        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">-->
+<!--          <a [routerLink]="['details', item._id]">-->
+<!--            {{ item.firstName }} {{ item.lastName }}-->
+<!--          </a>-->
+<!--        </td>-->
+<!--        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">-->
+<!--          <a href="mailto:{{ item.email }}">{{ item.email }}</a>-->
+<!--        </td>-->
+<!--        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">-->
+<!--          {{ item.phone }}-->
+<!--        </td>-->
+<!--        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">-->
+<!--          {{ item.createdAt | date: 'hh:mm dd-MM-yyyy' }}-->
+<!--        </td>-->
+<!--        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">-->
+<!--          {{ item.updatedAt | date: 'hh:mm dd-MM-yyyy' }}-->
+<!--        </td>-->
+<!--        <td class="px-6 py-2 text-center text-beeColor-700 dark:text-beeDarkColor-100">-->
+<!--          <utility-table-column-action [item]="item" [repository]="repository"></utility-table-column-action>-->
+<!--        </td>-->
+<!--      </tr>-->
 
       </tbody>
     </table>

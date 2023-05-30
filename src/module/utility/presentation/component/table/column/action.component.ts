@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {RouterLink} from "@angular/router";
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 
@@ -10,11 +10,11 @@ import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdo
     DropdownComponent
   ],
   template: `
-    <utility-dropdown [threeDot]="true" id="table-row-{{ item._id }}">
+    <utility-dropdown [threeDot]="true" id="table-row-{{ id }}">
       <ng-container content>
         <li>
           <a
-            [routerLink]="['details', item._id]"
+            [routerLink]="['details', id]"
             class="text-start block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeColor-600 dark:hover:text-white">
             <i class="bi bi-eye"></i>
             Details
@@ -22,7 +22,7 @@ import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdo
         </li>
         <li>
           <a
-            [routerLink]="['form', item._id]"
+            [routerLink]="['form', id]"
             class="text-start block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeColor-600 dark:hover:text-white">
             <i class="bi bi-pencil"></i>
             Edit
@@ -30,7 +30,7 @@ import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdo
         </li>
         <li>
           <button
-            (click)="repository.delete(item._id, true)"
+            (click)="delete.emit(id)"
             class="text-start block w-full px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeColor-600 dark:hover:text-white">
             <i class="bi bi-trash"></i>
             Delete
@@ -43,9 +43,9 @@ import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdo
 export class ActionComponent {
 
   @Input()
-  public item!: any; // todo interface
+  public id!: string;
 
-  @Input()
-  public repository!: any; // todo interface
+  @Output()
+  public readonly delete = new EventEmitter<string>();
 
 }

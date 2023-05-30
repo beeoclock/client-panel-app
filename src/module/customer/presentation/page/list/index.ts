@@ -62,4 +62,5 @@ export default class Index extends ListPage {
 
   @Select(CustomerState.listItems)
   public readonly items$!: Observable<ICustomer[]>;
+
 }

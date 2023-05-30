@@ -1,11 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/no-namespace
 import {IPagination_QueryParams} from "@utility/domain/pagination";
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace CustomerActions {
-
-  export class UpdateQueryParamsAtNavigator {
-    public static readonly type = '[Customer State] Update QueryParams At Navigator';
-  }
 
   export class GetList {
     public static readonly type = '[Customer API] Get List';
@@ -15,7 +11,11 @@ export namespace CustomerActions {
     public static readonly type = '[Customer API] Delete Item';
 
     constructor(
-      public payload: string,
+      public payload: {
+        id: string;
+        refreshList?: boolean;
+        goToTheList?: boolean;
+      },
     ) {
     }
   }
@@ -27,6 +27,23 @@ export namespace CustomerActions {
       public payload: string,
     ) {
     }
+  }
+
+  // Updates of state
+
+  export class UpdateFilters {
+    public static readonly type = '[Customer State] Update Filters';
+
+    constructor(
+      public payload: {
+        search: string | undefined;
+      },
+    ) {
+    }
+  }
+
+  export class UpdateQueryParamsAtNavigator {
+    public static readonly type = '[Customer State] Update QueryParams At Navigator';
   }
 
   export class UpdatePaginationFromQueryParams {

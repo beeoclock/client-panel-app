@@ -68,9 +68,9 @@ export class EmployeeRepository extends EmployeeFirebaseAdapter {
         filters
       ).then(({data}: any) => {
         const {total, items} = data;
-        this.pagination
-          .setTotalSize(total)
-          .setItems(items);
+        // this.pagination
+        //   .setTotalSize(total)
+        //   .setItems(items);
       }).finally(() => {
         this.loading.switchOff();
       });

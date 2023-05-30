@@ -14,18 +14,23 @@ export abstract class ListPage implements OnInit {
   public readonly actions!: {
     UpdatePaginationFromQueryParams: any;
     UpdateQueryParamsAtNavigator: any;
+    DeleteItem: any;
   };
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params) => {
       if (is.object.not.empty(params)) {
-        console.log(params);
         this.store.dispatch(new this.actions.UpdatePaginationFromQueryParams(params));
       } else {
         this.store.dispatch(new this.actions.UpdateQueryParamsAtNavigator());
       }
     });
-    // this.repository.pagination.executeDelegate();
+  }
+
+  public delete(id: string): void {
+    this.store.dispatch(new this.actions.DeleteItem({
+      id
+    }));
   }
 
 }

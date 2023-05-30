@@ -98,7 +98,7 @@
           {{ item.updatedAt | date: 'hh:mm dd-MM-yyyy' }}
         </td>
         <td class="px-6 py-2 text-center text-beeColor-700 dark:text-beeDarkColor-100">
-          <utility-table-column-action [item]="item" [repository]="repository"></utility-table-column-action>
+          <utility-table-column-action [id]="item._id" (delete)="delete($event)"></utility-table-column-action>
         </td>
       </tr>
 

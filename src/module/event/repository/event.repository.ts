@@ -54,9 +54,9 @@ export class EventRepository extends EventFirebaseAdapter {
         filters
       ).then(({data}: any) => {
         const {total, items} = data;
-        this.pagination
-          .setTotalSize(total)
-          .setItems(items);
+        // this.pagination
+        //   .setTotalSize(total)
+        //   .setItems(items);
       }).finally(() => {
         this.loading.switchOff();
       });

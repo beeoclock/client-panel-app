@@ -11,6 +11,10 @@ label.form-label[required]:after {
   color: red;
 }
 
+.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+}
 
 .ng-select {
 
