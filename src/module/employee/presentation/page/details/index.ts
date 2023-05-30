@@ -1,23 +1,25 @@
 import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
-import {EmployeeRepository} from '@employee/repository/employee.repository';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {RouterLink} from '@angular/router';
 import {AsyncPipe, NgIf} from '@angular/common';
-import {exhaustMap, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
-import * as Employee from '@employee/domain';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {TranslateModule} from "@ngx-translate/core";
+import {Select, Store} from "@ngxs/store";
+import {EmployeeState} from "@employee/state/employee/employee.state";
+import {EmployeeActions} from "@employee/state/employee/employee.actions";
+import {IEmployee} from "@employee/domain";
 
 @Component({
   selector: 'employee-detail-page',
   template: `
     <utility-back-link-component url="../../"></utility-back-link-component>
-    <ng-container *ngIf="employee$ | async as employee; else LoadingTemplate">
+    <ng-container *ngIf="item$ | async as employee; else LoadingTemplate">
       <div
         class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
         <div class="lg:flex lg:items-center lg:justify-between">
@@ -49,7 +51,7 @@ import {TranslateModule} from "@ngx-translate/core";
 
             <span class="ml-3 hidden sm:block">
               <button type="button"
-                      (click)="repository.delete(employee._id)"
+                      (click)="delete(employee._id)"
                       class="
                       inline-flex
                       items-center
@@ -78,7 +80,7 @@ import {TranslateModule} from "@ngx-translate/core";
                   <i class="bi bi-pencil me-2"></i>
                   {{ 'general.edit' | translate }}
                 </a>
-                <button (click)="repository.delete(employee._id)" class="block px-4 py-2 text-sm text-red-500"
+                <button (click)="delete(employee._id)" class="block px-4 py-2 text-sm text-red-500"
                         role="menuitem" tabindex="-1"
                         id="mobile-menu-item-1">
                   <i class="bi bi-trash me-2"></i>
@@ -114,16 +116,19 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export default class Index {
 
-  public readonly repository = inject(EmployeeRepository);
-  public readonly activatedRoute = inject(ActivatedRoute);
+  @Select(EmployeeState.item)
+  public readonly item$!: Observable<IEmployee>;
 
   @HostBinding()
   public readonly class = 'p-4 block';
 
-  public readonly employee$: Observable<Employee.IEmployee | undefined> = this.activatedRoute.params.pipe(
-    exhaustMap(async ({id}) => {
-      return (await this.repository.item(id)).data;
-    }),
-  );
+  public readonly store = inject(Store);
+
+  public delete(id: string): void {
+    this.store.dispatch(new EmployeeActions.DeleteItem({
+      id,
+      goToTheList: true
+    }));
+  }
 
 }
