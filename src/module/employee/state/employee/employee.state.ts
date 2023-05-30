@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 import {EmployeeRepository} from "@employee/repository/employee.repository";
 import {Pagination} from "@utility/domain";
 
-export interface ICustomerState {
+export interface IEmployeeState {
   list: {
     filters: {
       search: undefined | string;
@@ -19,7 +19,7 @@ export interface ICustomerState {
   item: undefined | Employee.IEmployee;
 }
 
-@State<ICustomerState>({
+@State<IEmployeeState>({
   name: 'employee',
   defaults: {
     item: undefined,
@@ -44,7 +44,7 @@ export class EmployeeState {
   public readonly repository = inject(EmployeeRepository);
 
   @Action(EmployeeActions.UpdateFilters)
-  public async UpdateFilters(ctx: StateContext<ICustomerState>, {payload}: EmployeeActions.UpdateFilters): Promise<void> {
+  public async UpdateFilters(ctx: StateContext<IEmployeeState>, {payload}: EmployeeActions.UpdateFilters): Promise<void> {
 
     const store = ctx.getState();
 
@@ -60,7 +60,7 @@ export class EmployeeState {
   }
 
   @Action(EmployeeActions.UpdateQueryParamsAtNavigator)
-  public async UpdateQueryParamsAtNavigator(ctx: StateContext<ICustomerState>): Promise<void> {
+  public async UpdateQueryParamsAtNavigator(ctx: StateContext<IEmployeeState>): Promise<void> {
 
     const store = ctx.getState();
 
@@ -76,7 +76,7 @@ export class EmployeeState {
   }
 
   @Action(EmployeeActions.UpdatePaginationFromQueryParams)
-  public UpdatePaginationFromQueryParams(ctx: StateContext<ICustomerState>, {payload}: EmployeeActions.UpdatePaginationFromQueryParams): void {
+  public UpdatePaginationFromQueryParams(ctx: StateContext<IEmployeeState>, {payload}: EmployeeActions.UpdatePaginationFromQueryParams): void {
 
     const store = ctx.getState();
     const newPagination = Pagination.fromObject(store.list.pagination);
@@ -94,7 +94,7 @@ export class EmployeeState {
   }
 
   @Action(EmployeeActions.GetItem)
-  public async GetItem(ctx: StateContext<ICustomerState>, {payload}: EmployeeActions.GetItem): Promise<void> {
+  public async GetItem(ctx: StateContext<IEmployeeState>, {payload}: EmployeeActions.GetItem): Promise<void> {
     const {data} = await this.repository.item(payload);
     ctx.patchState({
       item: data
@@ -102,7 +102,7 @@ export class EmployeeState {
   }
 
   @Action(EmployeeActions.DeleteItem)
-  public deleteItem(ctx: StateContext<ICustomerState>, {payload}: EmployeeActions.DeleteItem): void {
+  public deleteItem(ctx: StateContext<IEmployeeState>, {payload}: EmployeeActions.DeleteItem): void {
     const {id, refreshList, goToTheList} = payload;
     this.repository.remove(id).then((result) => {
       if (result) {
@@ -118,7 +118,7 @@ export class EmployeeState {
   }
 
   @Action(EmployeeActions.GetList)
-  public async getList(ctx: StateContext<ICustomerState>): Promise<void> {
+  public async getList(ctx: StateContext<IEmployeeState>): Promise<void> {
 
     const state = ctx.getState();
 
@@ -201,27 +201,27 @@ export class EmployeeState {
   // Selectors
 
   @Selector()
-  public static list(state: ICustomerState) {
+  public static list(state: IEmployeeState) {
     return state.list;
   }
 
   @Selector()
-  public static item(state: ICustomerState) {
+  public static item(state: IEmployeeState) {
     return state.item;
   }
 
   @Selector()
-  public static listItems(state: ICustomerState) {
+  public static listItems(state: IEmployeeState) {
     return state.list.items;
   }
 
   @Selector()
-  public static listLoading(state: ICustomerState) {
+  public static listLoading(state: IEmployeeState) {
     return state.list.loading;
   }
 
   @Selector()
-  public static listPagination(state: ICustomerState) {
+  public static listPagination(state: IEmployeeState) {
     return state.list.pagination;
   }
 

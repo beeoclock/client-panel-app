@@ -13,11 +13,11 @@
 </div>
 
 
-<ng-container *ngIf="repository.loading.isOn; else ContentTemplate">
+<ng-container *ngIf="loading$ | async; else ContentTemplate">
   <utility-loader></utility-loader>
 </ng-container>
 <ng-template #ContentTemplate>
-  <div class="relative overflow-x-auto">
+  <div *ngIf="pagination$ | async as pagination" class="relative overflow-x-auto">
     <table class="w-full text-sm text-left text-beeColor-500 dark:text-beeDarkColor-400">
       <thead class="text-xs text-beeColor-700 uppercase border-b dark:bg-beeDarkColor-700 dark:text-beeDarkColor-400">
       <tr>
@@ -31,32 +31,32 @@
         <th scope="col" class="px-6 py-3 cursor-pointer">
           Attendees
         </th>
-        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('start')">
+        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="pagination.setOrderBy('start')">
           Start
           <utility-sort-indicator
-            [show]="repository.pagination.orderBy === 'start'"
-            [asc]="repository.pagination.orderDir === 'asc'"
+            [show]="pagination.orderBy === 'start'"
+            [asc]="pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
-        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('end')">
+        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="pagination.setOrderBy('end')">
           End
           <utility-sort-indicator
-            [show]="repository.pagination.orderBy === 'end'"
-            [asc]="repository.pagination.orderDir === 'asc'"
+            [show]="pagination.orderBy === 'end'"
+            [asc]="pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
-        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('createdAt')">
+        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="pagination.setOrderBy('createdAt')">
           {{ 'general.createdAt' | translate }}
           <utility-sort-indicator
-            [show]="repository.pagination.orderBy === 'createdAt'"
-            [asc]="repository.pagination.orderDir === 'asc'"
+            [show]="pagination.orderBy === 'createdAt'"
+            [asc]="pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
-        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="repository.pagination.setOrderBy('updatedAt')">
+        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="pagination.setOrderBy('updatedAt')">
           {{ 'general.updatedAt' | translate }}
           <utility-sort-indicator
-            [show]="repository.pagination.orderBy === 'updatedAt'"
-            [asc]="repository.pagination.orderDir === 'asc'"
+            [show]="pagination.orderBy === 'updatedAt'"
+            [asc]="pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
         <th scope="col" class="px-6 py-3 text-center">
@@ -65,39 +65,39 @@
       </tr>
       </thead>
       <tbody>
-<!--      <tr-->
-<!--        class="bg-white border-b dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 hover:bg-beeColor-100 dark:hover:bg-beeColor-300"-->
-<!--        *ngFor="let item of repository.pagination.items">-->
-<!--        <td class="w-4 px-4 py-2">-->
-<!--          <div class="flex items-center">-->
-<!--            <input id="checkbox-table-1" type="checkbox"-->
-<!--                   class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeColor-800 dark:focus:ring-offset-beeColor-800 focus:ring-2 dark:bg-beeDarkColor-700 dark:border-beeDarkColor-300">-->
-<!--            <label for="checkbox-table-1" class="sr-only">checkbox</label>-->
-<!--          </div>-->
-<!--        </td>-->
-<!--        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">-->
-<!--          <i class="bi bi-person"></i>-->
-<!--          {{ item.attendees.length }}-->
-<!--        </td>-->
-<!--        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">-->
-<!--          {{ item.start | date: 'hh:mm dd-MM-yyyy' }}-->
-<!--        </td>-->
-<!--        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">-->
-<!--          {{ item.end | date: 'hh:mm dd-MM-yyyy' }}-->
-<!--        </td>-->
-<!--        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">-->
-<!--          {{ item.createdAt | date: 'hh:mm dd-MM-yyyy' }}-->
-<!--        </td>-->
-<!--        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">-->
-<!--          {{ item.updatedAt | date: 'hh:mm dd-MM-yyyy' }}-->
-<!--        </td>-->
-<!--        <td class="px-6 py-2 text-center text-beeColor-700 dark:text-beeDarkColor-100">-->
-<!--          <utility-table-column-action [item]="item" [repository]="repository"></utility-table-column-action>-->
-<!--        </td>-->
-<!--      </tr>-->
+      <tr
+        class="bg-white border-b dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 hover:bg-beeColor-100 dark:hover:bg-beeColor-300"
+        *ngFor="let item of items$ | async">
+        <td class="w-4 px-4 py-2">
+          <div class="flex items-center">
+            <input id="checkbox-table-1" type="checkbox"
+                   class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeColor-800 dark:focus:ring-offset-beeColor-800 focus:ring-2 dark:bg-beeDarkColor-700 dark:border-beeDarkColor-300">
+            <label for="checkbox-table-1" class="sr-only">checkbox</label>
+          </div>
+        </td>
+        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+          <i class="bi bi-person"></i>
+          {{ item.attendees.length }}
+        </td>
+        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+          {{ item.start | date: 'hh:mm dd-MM-yyyy' }}
+        </td>
+        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+          {{ item.end | date: 'hh:mm dd-MM-yyyy' }}
+        </td>
+        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+          {{ item.createdAt | date: 'hh:mm dd-MM-yyyy' }}
+        </td>
+        <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+          {{ item.updatedAt | date: 'hh:mm dd-MM-yyyy' }}
+        </td>
+        <td class="px-6 py-2 text-center text-beeColor-700 dark:text-beeDarkColor-100">
+          <utility-table-column-action [id]="item._id" (delete)="delete($event)"></utility-table-column-action>
+        </td>
+      </tr>
 
       </tbody>
     </table>
+    <utility-pagination-component [pagination]="pagination"></utility-pagination-component>
   </div>
-  <utility-pagination-component [pagination]="repository.pagination"></utility-pagination-component>
 </ng-template>
