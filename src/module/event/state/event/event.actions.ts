@@ -3,7 +3,7 @@ import {BaseActions} from "@utility/state/base/base.actions";
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace EventActions {
 
-  export class GetList extends BaseActions.GetItem {
+  export class GetList extends BaseActions.GetList {
     public static override readonly type = '[Event API] Get List';
   }
 
