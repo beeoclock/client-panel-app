@@ -4,24 +4,11 @@ import * as Employee from "@employee/domain";
 import {Router} from "@angular/router";
 import {EmployeeRepository} from "@employee/repository/employee.repository";
 import {Pagination} from "@utility/domain";
-import {BaseState} from "@utility/state/base/base.state";
+import {BaseState, IBaseState} from "@utility/state/base/base.state";
 import {EmployeeActions} from "@employee/state/employee/employee.actions";
+import {Observable} from "rxjs";
 
-export interface IEmployeeState {
-  list: {
-    filters: {
-      search: undefined | string;
-    },
-    pagination: Pagination<Employee.IEmployee>,
-    loading: boolean;
-    items: Employee.IEmployee[];
-    total: number;
-  };
-  item: {
-    loading: boolean;
-    data: undefined | Employee.IEmployee
-  };
-}
+export type IEmployeeState = IBaseState<Employee.IEmployee>;
 
 @State<IEmployeeState>({
   name: 'employee',
@@ -31,6 +18,7 @@ export interface IEmployeeState {
       data: undefined,
     },
     list: {
+      initialized: false,
       filters: {
         search: undefined,
       },
@@ -57,13 +45,13 @@ export class EmployeeState extends BaseState<Employee.IEmployee> {
   }
 
   @Action(EmployeeActions.UpdateQueryParamsAtNavigator)
-  public override async UpdateQueryParamsAtNavigator(ctx: StateContext<IEmployeeState>): Promise<void> {
-    await super.UpdateQueryParamsAtNavigator(ctx);
+  public override async UpdateQueryParamsAtNavigator(ctx: StateContext<IEmployeeState>, action: EmployeeActions.UpdateQueryParamsAtNavigator): Promise<void> {
+    await super.UpdateQueryParamsAtNavigator(ctx, action);
   }
 
   @Action(EmployeeActions.UpdatePaginationFromQueryParams)
-  public override UpdatePaginationFromQueryParams(ctx: StateContext<IEmployeeState>, action: EmployeeActions.UpdatePaginationFromQueryParams): void {
-    super.UpdatePaginationFromQueryParams(ctx, action);
+  public override UpdatePaginationFromQueryParams(ctx: StateContext<IEmployeeState>, action: EmployeeActions.UpdatePaginationFromQueryParams): Observable<any> {
+    return super.UpdatePaginationFromQueryParams(ctx, action);
   }
 
   @Action(EmployeeActions.GetItem)

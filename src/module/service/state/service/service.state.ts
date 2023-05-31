@@ -7,6 +7,7 @@ import {Pagination} from "@utility/domain";
 import {ServiceRepository} from "@service/repository/service.repository";
 import {BaseState, IBaseState} from "@utility/state/base/base.state";
 import {ServiceActions} from "@service/state/service/service.actions";
+import {Observable} from "rxjs";
 
 export type IServiceState = IBaseState<Service.IService>
 
@@ -18,6 +19,7 @@ export type IServiceState = IBaseState<Service.IService>
       data: undefined,
     },
     list: {
+      initialized: false,
       filters: {
         search: undefined,
       },
@@ -44,13 +46,13 @@ export class ServiceState extends BaseState<IService> {
   }
 
   @Action(ServiceActions.UpdateQueryParamsAtNavigator)
-  public override async UpdateQueryParamsAtNavigator(ctx: StateContext<IServiceState>): Promise<void> {
-    await super.UpdateQueryParamsAtNavigator(ctx);
+  public override async UpdateQueryParamsAtNavigator(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateQueryParamsAtNavigator): Promise<void> {
+    await super.UpdateQueryParamsAtNavigator(ctx, action);
   }
 
   @Action(ServiceActions.UpdatePaginationFromQueryParams)
-  public override UpdatePaginationFromQueryParams(ctx: StateContext<IServiceState>, action: ServiceActions.UpdatePaginationFromQueryParams): void {
-    super.UpdatePaginationFromQueryParams(ctx, action);
+  public override UpdatePaginationFromQueryParams(ctx: StateContext<IServiceState>, action: ServiceActions.UpdatePaginationFromQueryParams): Observable<any> {
+    return super.UpdatePaginationFromQueryParams(ctx, action);
   }
 
   @Action(ServiceActions.GetItem)

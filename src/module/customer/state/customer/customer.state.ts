@@ -2,26 +2,13 @@ import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {Router} from "@angular/router";
 import {Pagination} from "@utility/domain";
-import {BaseState} from "@utility/state/base/base.state";
+import {BaseState, IBaseState} from "@utility/state/base/base.state";
 import {EmployeeRepository} from "@employee/repository/employee.repository";
 import * as Customer from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {Observable} from "rxjs";
 
-export interface ICustomerState {
-  list: {
-    filters: {
-      search: undefined | string;
-    },
-    pagination: Pagination<Customer.ICustomer>,
-    loading: boolean;
-    items: Customer.ICustomer[];
-    total: number;
-  };
-  item: {
-    loading: boolean;
-    data: undefined | Customer.ICustomer
-  };
-}
+export type ICustomerState = IBaseState<Customer.ICustomer>;
 
 @State<ICustomerState>({
   name: 'customer',
@@ -31,6 +18,7 @@ export interface ICustomerState {
       data: undefined,
     },
     list: {
+      initialized: false,
       filters: {
         search: undefined,
       },
@@ -57,13 +45,13 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
   }
 
   @Action(CustomerActions.UpdateQueryParamsAtNavigator)
-  public override async UpdateQueryParamsAtNavigator(ctx: StateContext<ICustomerState>): Promise<void> {
-    await super.UpdateQueryParamsAtNavigator(ctx);
+  public override async UpdateQueryParamsAtNavigator(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateQueryParamsAtNavigator): Promise<void> {
+    await super.UpdateQueryParamsAtNavigator(ctx, action);
   }
 
   @Action(CustomerActions.UpdatePaginationFromQueryParams)
-  public override UpdatePaginationFromQueryParams(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdatePaginationFromQueryParams): void {
-    super.UpdatePaginationFromQueryParams(ctx, action);
+  public override UpdatePaginationFromQueryParams(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdatePaginationFromQueryParams): Observable<any> {
+    return super.UpdatePaginationFromQueryParams(ctx, action);
   }
 
   @Action(CustomerActions.GetItem)
@@ -81,7 +69,6 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
     await super.getList(ctx, (queryFilters: any, filters: any) => {
 
       const {search} = filters;
-
 
       if (search) {
         queryFilters['$or'] = [

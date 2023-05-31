@@ -44,6 +44,11 @@ export namespace BaseActions {
 
   export abstract class UpdateQueryParamsAtNavigator {
     public static readonly type: string = '[TODO] Not Implemented Yet!';
+
+    constructor(
+      public payload: string[] = [],
+    ) {
+    }
   }
 
   export abstract class UpdatePaginationFromQueryParams {

@@ -4,24 +4,11 @@ import * as Event from "@event/domain";
 import {Router} from "@angular/router";
 import {EventRepository} from "@event/repository/event.repository";
 import {Pagination} from "@utility/domain";
-import {BaseState} from "@utility/state/base/base.state";
+import {BaseState, IBaseState} from "@utility/state/base/base.state";
 import {EventActions} from "@event/state/event/event.actions";
+import {Observable} from "rxjs";
 
-export interface IEventState {
-  list: {
-    filters: {
-      search: undefined | string;
-    },
-    pagination: Pagination<Event.IEvent>,
-    loading: boolean;
-    items: Event.IEvent[];
-    total: number;
-  };
-  item: {
-    loading: boolean;
-    data: undefined | Event.IEvent
-  };
-}
+export type IEventState = IBaseState<Event.IEvent>;
 
 @State<IEventState>({
   name: 'event',
@@ -31,6 +18,7 @@ export interface IEventState {
       data: undefined,
     },
     list: {
+      initialized: false,
       filters: {
         search: undefined,
       },
@@ -57,13 +45,13 @@ export class EventState extends BaseState<Event.IEvent> {
   }
 
   @Action(EventActions.UpdateQueryParamsAtNavigator)
-  public override async UpdateQueryParamsAtNavigator(ctx: StateContext<IEventState>): Promise<void> {
-    await super.UpdateQueryParamsAtNavigator(ctx);
+  public override async UpdateQueryParamsAtNavigator(ctx: StateContext<IEventState>, action: EventActions.UpdateQueryParamsAtNavigator): Promise<void> {
+    await super.UpdateQueryParamsAtNavigator(ctx, action);
   }
 
   @Action(EventActions.UpdatePaginationFromQueryParams)
-  public override UpdatePaginationFromQueryParams(ctx: StateContext<IEventState>, action: EventActions.UpdatePaginationFromQueryParams): void {
-    super.UpdatePaginationFromQueryParams(ctx, action);
+  public override UpdatePaginationFromQueryParams(ctx: StateContext<IEventState>, action: EventActions.UpdatePaginationFromQueryParams): Observable<any> {
+    return super.UpdatePaginationFromQueryParams(ctx, action);
   }
 
   @Action(EventActions.GetItem)

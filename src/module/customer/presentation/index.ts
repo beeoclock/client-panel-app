@@ -1,9 +1,14 @@
 import {Routes} from "@angular/router";
 import {customerDetailsResolver} from "@customer/resolver/customer.details.resolver";
+import {customerListResolver} from "@customer/resolver/customer.list.resolver";
 
 export const routers = [
   {
     path: '',
+    runGuardsAndResolvers: 'paramsOrQueryParamsChange',
+    resolve: {
+      items: customerListResolver
+    },
     loadComponent: () => import('./page/list')
   },
   {

@@ -20,9 +20,9 @@ export abstract class ListPage implements OnInit {
   public ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params) => {
       if (is.object.not.empty(params)) {
-        this.store.dispatch(new this.actions.UpdatePaginationFromQueryParams(params));
+        // this.store.dispatch(new this.actions.UpdatePaginationFromQueryParams(params));
       } else {
-        this.store.dispatch(new this.actions.UpdateQueryParamsAtNavigator());
+        // this.store.dispatch(new this.actions.UpdateQueryParamsAtNavigator());
       }
     });
   }

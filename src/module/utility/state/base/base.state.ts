@@ -1,9 +1,11 @@
 import {StateContext} from "@ngxs/store";
 import {Pagination} from "@utility/domain";
 import {BaseActions} from "@utility/state/base/base.actions";
+import {Observable} from "rxjs";
 
 export interface IBaseState<ITEM> {
   list: {
+    initialized: boolean;
     filters: {
       search: undefined | string;
     },
@@ -44,11 +46,11 @@ export abstract class BaseState<ITEM = any> {
 
   }
 
-  public async UpdateQueryParamsAtNavigator(ctx: StateContext<IBaseState<ITEM>>): Promise<void> {
+  public async UpdateQueryParamsAtNavigator(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateQueryParamsAtNavigator): Promise<void> {
 
     const store = ctx.getState();
 
-    await this.router.navigate([], {
+    await this.router.navigate(payload, {
       queryParams: {
         ...store.list.pagination.toQueryParams(),
         ...store.list.filters
@@ -59,7 +61,7 @@ export abstract class BaseState<ITEM = any> {
 
   }
 
-  public UpdatePaginationFromQueryParams(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdatePaginationFromQueryParams): void {
+  public UpdatePaginationFromQueryParams(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdatePaginationFromQueryParams): Observable<any> {
 
     const store = ctx.getState();
     const newPagination = Pagination.fromObject(store.list.pagination);
@@ -73,7 +75,7 @@ export abstract class BaseState<ITEM = any> {
       }
     })
 
-    ctx.dispatch(new this.actions.GetList());
+    return ctx.dispatch(new this.actions.GetList());
 
   }
 
@@ -85,7 +87,7 @@ export abstract class BaseState<ITEM = any> {
       ...store,
       item: {
         data: undefined,
-        loading: true,
+        loading: false,
       }
     });
 
@@ -120,13 +122,14 @@ export abstract class BaseState<ITEM = any> {
 
     const state = ctx.getState();
 
-    ctx.patchState({
-      ...state,
-      list: {
-        ...state.list,
-        loading: true,
-      }
-    })
+    // ctx.patchState({
+    //   ...state,
+    //   list: {
+    //     ...state.list,
+    //     initialized: true,
+    //     loading: false,
+    //   }
+    // })
 
     const {
       pageSize,
@@ -158,7 +161,8 @@ export abstract class BaseState<ITEM = any> {
         pagination: newPagination,
         items,
         total,
-        loading: false,
+        initialized: true,
+        // loading: false,
       }
     });
 
