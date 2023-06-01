@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {AsyncPipe, NgIf} from '@angular/common';
 import {Observable} from 'rxjs';
@@ -119,7 +119,7 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
   ],
   standalone: true
 })
-export default class Index {
+export default class Index implements OnInit {
 
   // TODO add base index of details with store and delete method
 
@@ -130,6 +130,12 @@ export default class Index {
   public readonly class = 'p-4 block';
 
   public readonly store = inject(Store);
+
+  public ngOnInit() {
+    this.item$.subscribe((resulr) => {
+      console.log(resulr);
+    });
+  }
 
   public delete(id: string): void {
     this.store.dispatch(new CustomerActions.DeleteItem({

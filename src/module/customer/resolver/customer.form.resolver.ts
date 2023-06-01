@@ -8,7 +8,7 @@ import {ICustomerState} from "@customer/state/customer/customer.state";
 import {AppActions} from "@utility/state/app/app.actions";
 
 
-export const customerDetailsResolver: ResolveFn<ICustomer> = (
+export const customerFormResolver: ResolveFn<ICustomer> = (
   route: ActivatedRouteSnapshot,
   _state: RouterStateSnapshot
 ) => {

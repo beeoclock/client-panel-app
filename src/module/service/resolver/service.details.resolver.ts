@@ -1,7 +1,7 @@
 import {inject} from "@angular/core";
 import {ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot} from "@angular/router";
 import {Store} from "@ngxs/store";
-import {catchError, EMPTY, tap} from "rxjs";
+import {catchError, EMPTY, of, switchMap} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {IService} from "@service/domain";
 import {IServiceState} from "@service/state/service/service.state";
@@ -19,17 +19,31 @@ export const serviceDetailsResolver: ResolveFn<IService> = (
     return EMPTY;
   }
 
-  const state: IServiceState = store.snapshot();
+  const {service}: { service: IServiceState } = store.snapshot();
 
-  if (state?.item?.loading) {
+  if (service?.item?.loading) {
     return EMPTY;
+  }
+
+  console.log(service);
+
+  if (service.item?.data) {
+    if (service.item.data._id === id) {
+      return service.item.data;
+    }
   }
 
   store.dispatch(new AppActions.PageLoading(true));
 
   return store.dispatch(new ServiceActions.GetItem(id))
     .pipe(
-      tap(() => store.dispatch(new AppActions.PageLoading(false))),
+      switchMap(({service}: { service: IServiceState }) => {
+        store.dispatch(new AppActions.PageLoading(false));
+        if (!service.item.data) {
+          return EMPTY;
+        }
+        return of(service.item.data);
+      }),
       catchError((error) => EMPTY)
     );
 };

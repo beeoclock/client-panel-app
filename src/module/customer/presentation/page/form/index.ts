@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {CustomerForm} from '@customer/form/customer.form';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
@@ -15,6 +15,9 @@ import {ICustomer} from "@customer/domain";
 import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
 import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 import {TranslateModule} from "@ngx-translate/core";
+import {CustomerState} from "@customer/state/customer/customer.state";
+import {Observable} from "rxjs";
+import {Select} from "@ngxs/store";
 
 @Component({
   selector: 'customer-form-page',
@@ -37,7 +40,7 @@ import {TranslateModule} from "@ngx-translate/core";
   ],
   standalone: true
 })
-export default class Index {
+export default class Index implements OnInit {
 
   // TODO move functions to store effects/actions
 
@@ -49,21 +52,18 @@ export default class Index {
 
   public readonly form = new CustomerForm();
 
-  constructor() {
-    this.activatedRoute.params.subscribe(({id}) => {
-      if (id) {
-        this.form.disable();
-        this.form.markAsPending();
-        this.url = ['../../', 'details', id];
-        this.repository.item(id).then(({data}) => {
-          if (data) {
-            this.form.patchValue(data);
-          }
-          this.form.enable();
-          this.form.updateValueAndValidity();
-        });
+  @Select(CustomerState.itemData)
+  public itemData$!: Observable<ICustomer | undefined>;
+
+  public ngOnInit(): void {
+    this.itemData$.subscribe((result) => {
+      console.log(result);
+      if (result) {
+        this.url = ['../../', 'details', result._id];
+        this.form.patchValue(result);
+        this.form.updateValueAndValidity();
       }
-    })
+    });
   }
 
   public async save(): Promise<void> {

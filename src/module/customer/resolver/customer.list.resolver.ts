@@ -14,6 +14,8 @@ export const customerListResolver: ResolveFn<any> = (
   const store = inject(Store); // NGXS
   store.dispatch(new AppActions.PageLoading(true));
 
+  // TODO check if we have list, check page and when the last update was!
+
   if (Object.keys(route.queryParams).length) {
     return store.dispatch(new CustomerActions.UpdatePaginationFromQueryParams(route.queryParams))
       .pipe(
