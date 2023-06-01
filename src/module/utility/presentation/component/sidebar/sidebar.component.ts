@@ -48,7 +48,7 @@ export class SidebarComponent implements AfterViewInit {
       translateKey: 'sidebar.customers',
       icon: 'bi bi-person-vcard',
       routerLinkActiveOptions: {
-        paths: "exact",
+        paths: "subset",
         matrixParams: "ignored",
         queryParams: "ignored",
         fragment: "ignored",
@@ -59,7 +59,7 @@ export class SidebarComponent implements AfterViewInit {
       translateKey: 'sidebar.employees',
       icon: 'bi bi-people',
       routerLinkActiveOptions: {
-        paths: "exact",
+        paths: "subset",
         matrixParams: "ignored",
         queryParams: "ignored",
         fragment: "ignored",
@@ -70,7 +70,7 @@ export class SidebarComponent implements AfterViewInit {
       translateKey: 'sidebar.services',
       icon: 'bi bi-shop-window',
       routerLinkActiveOptions: {
-        paths: "exact",
+        paths: "subset",
         matrixParams: "ignored",
         queryParams: "ignored",
         fragment: "ignored",
@@ -82,35 +82,7 @@ export class SidebarComponent implements AfterViewInit {
       routerLinkActiveOptions: {
         exact: true
       },
-      items: [
-        {
-          url: '/event/calendar',
-          translateKey: 'sidebar.calendar',
-          icon: 'bi bi-calendar2-week',
-          routerLinkActiveOptions: {
-            exact: true
-          }
-        },
-        {
-          url: '/event',
-          icon: 'bi bi-list',
-          translateKey: 'sidebar.table',
-          routerLinkActiveOptions: {
-            paths: "exact",
-            matrixParams: "ignored",
-            queryParams: "ignored",
-            fragment: "ignored",
-          }
-        },
-        {
-          translateKey: 'sidebar.addEvent',
-          url: '/event/form',
-          icon: 'bi bi-plus',
-          routerLinkActiveOptions: {
-            exact: true
-          }
-        },
-      ]
+      url: '/event',
     },
     {
       icon: 'bi bi-person',
