@@ -46,7 +46,7 @@ import {IEvent} from "@event/domain";
 
             <span class="ml-3 hidden sm:block">
               <button type="button"
-                      (click)="delete(event._id)"
+                      (click)="delete(event._id!)"
                       class="
                       inline-flex
                       items-center
@@ -75,7 +75,7 @@ import {IEvent} from "@event/domain";
                   <i class="bi bi-pencil me-2"></i>
                   Edit
                 </a>
-                <button (click)="delete(event._id)" class="block px-4 py-2 text-sm text-red-500"
+                <button (click)="delete(event._id!)" class="block px-4 py-2 text-sm text-red-500"
                         role="menuitem" tabindex="-1"
                         id="mobile-menu-item-1">
                   <i class="bi bi-trash me-2"></i>
