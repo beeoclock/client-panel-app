@@ -9,11 +9,11 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading} from '@angular/router';
 import {routes} from '@src/routers';
-import {FlatpickrModule} from 'angularx-flatpickr';
 import {connectFunctionsEmulator, getFunctions, provideFunctions} from '@angular/fire/functions';
 import {browserLocalPersistence} from "@firebase/auth";
 import {NgxsModule} from "@ngxs/store";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
+import {IonicModule} from "@ionic/angular";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -45,7 +45,10 @@ bootstrapApplication(AppComponent, {
     ),
 
     importProvidersFrom(
-      FlatpickrModule.forRoot(),
+      IonicModule.forRoot({
+        mode: 'ios',
+        animated: false
+      }),
       provideFirebaseApp(() => initializeApp(environment.firebase.options)),
       provideAuth(() => {
         const auth = getAuth();

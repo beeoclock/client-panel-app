@@ -75,20 +75,13 @@
 
         <div class="relative">
           <label for="event-form-start">Start</label>
-          <input
-            hasError
-            invalidTooltip
-            id="event-form-start"
-            type="text"
-            class="px-3 py-2 border rounded w-full"
-            mwlFlatpickr
-            formControlName="start"
-            altFormat="H:i d-m-Y"
-            [time24hr]="true"
-            [enableTime]="true"
-            [altInput]="true"
-            [convertModelValue]="true"
-          />
+          <ion-datetime-button datetime="event-form-start"></ion-datetime-button>
+
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime formControlName="start" id="event-form-start"></ion-datetime>
+            </ng-template>
+          </ion-modal>
         </div>
         In future add feature to chose slots
         <div class="mt-3">

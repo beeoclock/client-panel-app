@@ -31,7 +31,6 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/flatpickr/dist/flatpickr.css"
             ]
           },
           "configurations": {

@@ -10,8 +10,6 @@ import {BackLinkComponent} from '@utility/presentation/component/link/back.link.
 import {EventForm} from '@event/form/event.form';
 import {EventRepository} from '@event/repository/event.repository';
 import {AttendeesComponent} from '@event/presentation/component/form/attendees/attendees.component';
-import {FlatpickrModule} from 'angularx-flatpickr';
-import {is} from 'thiis';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {IEvent} from "@event/domain";
 import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
@@ -29,6 +27,7 @@ import {
 } from '@src/module/utility/presentation/component/modal/modal.component';
 import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 import {TranslateModule} from "@ngx-translate/core";
+import {IonicModule} from "@ionic/angular";
 
 @Component({
   selector: 'event-form-page',
@@ -46,10 +45,8 @@ import {TranslateModule} from "@ngx-translate/core";
     BackLinkComponent,
     FormsModule,
     AttendeesComponent,
-    FlatpickrModule,
     HeaderCardComponent,
     ServicesFormComponent,
-
     NgSelectModule,
     NgForOf,
     LanguagePipe,
@@ -57,6 +54,7 @@ import {TranslateModule} from "@ngx-translate/core";
     DatePipe,
     InvalidTooltipDirective,
     TranslateModule,
+    IonicModule,
   ],
   standalone: true
 })
@@ -92,10 +90,11 @@ export default class Index {
       }
     });
 
-    this.form.controls.start.valueChanges.subscribe((value: string | Date) => {
-      if (is.Date(value)) {
+    this.form.controls.start.valueChanges.subscribe((value: string) => {
+      if (value) {
+        const newValue = new Date(value);
         // TODO update end time
-        this.form.controls.start.patchValue(value.toISOString(), {
+        this.form.controls.start.patchValue(newValue.toISOString(), {
           onlySelf: false,
           emitEvent: false,
           emitModelToViewChange: false,

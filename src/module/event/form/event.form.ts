@@ -15,6 +15,7 @@ export interface IEventForm {
   description: FormControl<string>;
   start: FormControl<string>;
   end: FormControl<string>;
+  timeZone: FormControl<string>;
   attendees: AttendeesForm;
 
   [key: string]: AbstractControl<any, any>;
@@ -30,6 +31,7 @@ export class EventForm extends FormGroup<IEventForm> {
       start: new FormControl(),
       servicesAreProvidedInParallel: new FormControl(),
       services: new FormControl(),
+      timeZone: new FormControl(),
       attendees: new AttendeesForm(),
     });
     this.initValidators();
@@ -46,6 +48,7 @@ export class EventForm extends FormGroup<IEventForm> {
     this.controls.servicesAreProvidedInParallel.patchValue(false);
     this.controls.end.patchValue(new Date().toISOString());
     this.controls.start.patchValue(new Date().toISOString());
+    this.controls.timeZone.patchValue(Intl.DateTimeFormat().resolvedOptions().timeZone);
   }
 
 }

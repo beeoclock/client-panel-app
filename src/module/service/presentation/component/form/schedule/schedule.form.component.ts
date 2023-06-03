@@ -1,12 +1,12 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {ScheduleForm} from '@service/form/service.form';
 import {WEEK, WEEK_DAYS_NAME} from '@utility/domain/enum/days-of-week.enum';
-import {FlatpickrModule} from 'angularx-flatpickr';
 import {ReactiveFormsModule} from '@angular/forms';
 
 import {NgSelectModule} from '@ng-select/ng-select';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
+import {IonicModule} from "@ionic/angular";
 
 @Component({
   selector: 'service-schedule-form-component',
@@ -14,11 +14,10 @@ import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/inval
   standalone: true,
   imports: [
     HasErrorDirective,
-    FlatpickrModule,
     ReactiveFormsModule,
-
     NgSelectModule,
-    InvalidTooltipDirective
+    InvalidTooltipDirective,
+    IonicModule
   ],
   template: `
     <form [formGroup]="form">
@@ -35,35 +34,23 @@ import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/inval
       <div class="grid grid-cols-2 gap-4 mt-2">
         <div class="">
           <label for="service-form-startTime">Start</label>
-          <input
-            hasError
-            invalidTooltip
-            id="service-form-startTime"
-            type="text"
-            class="border rounded px-3 py-2 w-full"
-            formControlName="startTime"
-            [time24hr]="true"
-            mwlFlatpickr
-            [noCalendar]="true"
-            [enableTime]="true"
-            [dateFormat]="'H:i'"
-          />
+          <ion-datetime-button datetime="service-form-startTime"></ion-datetime-button>
+
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime presentation="time" formControlName="startTime" id="service-form-startTime"></ion-datetime>
+            </ng-template>
+          </ion-modal>
         </div>
         <div class="">
           <label for="service-form-endTime">End</label>
-          <input
-            hasError
-            invalidTooltip
-            id="service-form-endTime"
-            type="text"
-            class="border rounded px-3 py-2 w-full"
-            formControlName="endTime"
-            [time24hr]="true"
-            mwlFlatpickr
-            [noCalendar]="true"
-            [enableTime]="true"
-            [dateFormat]="'H:i'"
-          />
+          <ion-datetime-button datetime="service-form-endTime"></ion-datetime-button>
+
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime presentation="time" formControlName="endTime" id="service-form-endTime"></ion-datetime>
+            </ng-template>
+          </ion-modal>
         </div>
       </div>
     </form>
@@ -72,7 +59,7 @@ import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/inval
 export class ScheduleFormComponent {
 
   @Input()
-  public form: ScheduleForm = new ScheduleForm();
+  public form = new ScheduleForm();
 
   public readonly week = WEEK.map((day) => ({
     id: day,
