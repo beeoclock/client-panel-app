@@ -32,8 +32,9 @@ export type RIPagination_QueryParams = Required<IPagination_QueryParams>;
 export class Pagination<ITEM> implements IPagination<ITEM> {
 
   #delegate: ((pagination: Pagination<ITEM>) => void)[] = [];
-  public pages: number[] = [];
   #hashSum: undefined | string;
+  #lastUpdate: Date = new Date();
+  public pages: number[] = [];
 
   constructor(
     public page: number = Pagination.defaultPage,
@@ -205,6 +206,7 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     // TODO: Move the method into the class
     this.pages = getPaginationItems(this.page, this.maxPage, 5);
     this.#hashSum = hash_sum(this);
+    this.#lastUpdate = new Date();
   }
 
   public nextPage(): this {
