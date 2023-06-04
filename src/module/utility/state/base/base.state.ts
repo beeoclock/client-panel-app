@@ -3,32 +3,102 @@ import {Pagination} from "@utility/domain";
 import {BaseActions} from "@utility/state/base/base.actions";
 import {Observable} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
+import {CacheActions} from "@utility/state/cache/cache.actions";
+
+export interface IBaseStateList<ITEM> {
+  filters: {
+    search: undefined | string;
+  },
+  pagination: Pagination<ITEM>,
+  lastPaginationHasSum: undefined | string;
+  loading: boolean;
+  items: ITEM[];
+  total: number;
+}
 
 export interface IBaseState<ITEM> {
-  list: {
-    filters: {
-      search: undefined | string;
-    },
-    pagination: Pagination<ITEM>,
-    lastPaginationHasSum: undefined | string;
-    loading: boolean;
-    items: ITEM[];
-    total: number;
-  };
+  list: IBaseStateList<ITEM>;
   item: {
     data: undefined | ITEM
+  };
+  cache: {
+    items: { [key: string]: ITEM },
+    lists: { [key: string]: IBaseStateList<ITEM> },
+  }
+}
+
+export function baseDefaults<T>(): IBaseState<T> {
+  return {
+    item: {
+      data: undefined,
+    },
+    list: {
+      filters: {
+        search: undefined,
+      },
+      loading: false,
+      pagination: new Pagination<T>(),
+      lastPaginationHasSum: undefined,
+      items: [],
+      total: 0
+    },
+    cache: {
+      items: {},
+      lists: {}
+    }
   };
 }
 
 export abstract class BaseState<ITEM = any> {
 
   protected constructor(
-    public readonly actions: any
+    public readonly actions: any,
+    public readonly cacheKeys: {
+      lists: string;
+      items: string;
+    } = {
+      lists: 'TODO',
+      items: 'TODO',
+    },
   ) {
   }
 
   public readonly router!: any;
   public readonly repository!: any;
+
+  /**
+   * Init default from cache
+   * @param ctx
+   * @constructor
+   */
+  public async InitDefaultsFromCache(
+    ctx: StateContext<IBaseState<ITEM>>
+  ): Promise<void> {
+
+    const store = ctx.getState();
+
+    const lists = JSON.parse(localStorage.getItem(this.cacheKeys.lists) ?? 'null');
+    const items = JSON.parse(localStorage.getItem(this.cacheKeys.items) ?? 'null');
+
+    if (lists) {
+      ctx.patchState({
+        cache: {
+          ...store.cache,
+          lists,
+        }
+      });
+    }
+
+    if (items) {
+      ctx.patchState({
+        cache: {
+          ...store.cache,
+          items,
+        }
+      });
+    }
+
+  }
 
   /**
    *
@@ -107,36 +177,33 @@ export abstract class BaseState<ITEM = any> {
 
     const store = ctx.getState();
 
-    try {
+    const {_id} = (store.item?.data ?? {}) as { _id: string };
 
-      const {_id} = (store.item?.data ?? {}) as { _id: string };
+    if (_id !== payload) {
 
-      if (_id !== payload) {
+      ctx.dispatch(new AppActions.PageLoading(true));
 
-        ctx.dispatch(new AppActions.PageLoading(true));
+      // TODO check in cache
 
-        ctx.patchState({
-          ...store,
-          item: {
-            data: undefined,
-          }
-        });
+      ctx.patchState({
+        ...store,
+        item: {
+          data: undefined,
+        }
+      });
 
-        const {data} = await this.repository.item(payload);
+      const {data} = await this.repository.item(payload);
 
-        ctx.patchState({
-          ...store,
-          item: {
-            data
-          }
-        });
+      // TODO set to cache prev item state
 
-        ctx.dispatch(new AppActions.PageLoading(false));
+      ctx.patchState({
+        ...store,
+        item: {
+          data
+        }
+      });
 
-      }
-    } catch (e) {
-
-      throw e;
+      ctx.dispatch(new AppActions.PageLoading(false));
 
     }
 
@@ -157,12 +224,15 @@ export abstract class BaseState<ITEM = any> {
 
         const state = ctx.getState();
         const {_id} = (state.item?.data ?? {}) as { _id: string };
+
         if (_id === id) {
           ctx.patchState({
             item: {
               data: undefined,
             }
           })
+        } else {
+          // TODO delete from cache
         }
 
         if (goToTheList) {
@@ -185,47 +255,97 @@ export abstract class BaseState<ITEM = any> {
    */
   public async getList(ctx: StateContext<IBaseState<ITEM>>, filterProcessing?: <T = any, FILTERS = any>(queryFilters: T, filters: FILTERS) => void): Promise<void> {
 
-    const state = ctx.getState();
+    let state = ctx.getState();
 
-    if (state.list.pagination.hasSum !== state.list.lastPaginationHasSum) {
+    if (state.list.pagination.hashSum !== state.list.lastPaginationHasSum) {
 
-      ctx.dispatch(new AppActions.PageLoading(true));
+      // Check if in local cache exist data of current pagination has
+      if (
+        state.list.pagination.hashSum &&
+        Reflect.has(state.cache.lists, state.list.pagination.hashSum)
+      ) {
 
-      const {
-        pageSize,
-        page,
-        orderBy,
-        orderDir,
-      } = state.list.pagination.toQueryParams();
+        const prevListState = state.cache.lists[state.list.pagination.hashSum];
+        const newPagination = Pagination.fromObject(prevListState.pagination);
 
-      const filters: any = {};
+        ctx.patchState({
+          ...state,
+          list: {
+            ...prevListState,
+            pagination: newPagination,
+            lastPaginationHasSum: newPagination.hashSum,
+          }
+        });
 
-      filterProcessing?.(filters, state.list.filters);
+      } else {
 
-      const {data} = await this.repository.list(
-        pageSize,
-        page,
-        orderBy,
-        orderDir,
-        filters
-      );
+        ctx.dispatch(new AppActions.PageLoading(true));
 
-      const {items, total} = data;
-      const newPagination = Pagination.fromObject(state.list.pagination);
-      newPagination.setTotalSize(total);
+        const {
+          pageSize,
+          page,
+          orderBy,
+          orderDir,
+        } = state.list.pagination.toQueryParams();
 
-      ctx.patchState({
-        ...state,
-        list: {
-          ...state.list,
-          pagination: newPagination,
-          lastPaginationHasSum: newPagination.hasSum,
-          items,
-          total,
+        const filters: any = {};
+
+        filterProcessing?.(filters, state.list.filters);
+
+        const {data} = await this.repository.list(
+          pageSize,
+          page,
+          orderBy,
+          orderDir,
+          filters
+        );
+
+        // Update current state
+        const {items, total} = data;
+        const newPagination = Pagination.fromObject(state.list.pagination);
+        newPagination.setTotalSize(total);
+
+        ctx.patchState({
+          ...state,
+          list: {
+            ...state.list,
+            pagination: newPagination,
+            lastPaginationHasSum: newPagination.hashSum,
+            items,
+            total,
+          }
+        });
+
+        state = ctx.getState();
+
+        // Check if we have prev state, if true, update cache
+        if (items.length && state.list.pagination.hashSum) {
+
+          // Update local cache and update localStorage
+          ctx.patchState({
+            cache: {
+              ...state.cache,
+              lists: {
+                ...state.cache.lists,
+                [state.list.pagination.hashSum]: state.list
+              }
+            }
+          });
+
+          state = ctx.getState();
+
+          ctx.dispatch(new CacheActions.Set({
+            strategy: localStorage,
+            key: this.cacheKeys.lists,
+            value: JSON.stringify(state.cache.lists)
+          }));
+
         }
-      });
 
-      ctx.dispatch(new AppActions.PageLoading(false));
+        // Switch of page loader
+        ctx.dispatch(new AppActions.PageLoading(false));
+
+      }
 
     }
 

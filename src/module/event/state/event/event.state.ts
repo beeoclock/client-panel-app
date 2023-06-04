@@ -3,8 +3,7 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 import * as Event from "@event/domain";
 import {Router} from "@angular/router";
 import {EventRepository} from "@event/repository/event.repository";
-import {Pagination} from "@utility/domain";
-import {BaseState, IBaseState} from "@utility/state/base/base.state";
+import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {EventActions} from "@event/state/event/event.actions";
 import {Observable} from "rxjs";
 
@@ -12,21 +11,7 @@ export type IEventState = IBaseState<Event.IEvent>;
 
 @State<IEventState>({
   name: 'event',
-  defaults: {
-    item: {
-      data: undefined,
-    },
-    list: {
-      filters: {
-        search: undefined,
-      },
-      loading: false,
-      pagination: new Pagination<Event.IEvent>(),
-      lastPaginationHasSum: undefined,
-      items: [],
-      total: 0
-    },
-  }
+  defaults: baseDefaults<Event.IEvent>()
 })
 @Injectable()
 export class EventState extends BaseState<Event.IEvent> {
@@ -36,6 +21,11 @@ export class EventState extends BaseState<Event.IEvent> {
 
   constructor() {
     super(EventActions);
+  }
+
+  @Action(EventActions.InitDefaultsFromCache)
+  public override async InitDefaultsFromCache(ctx: StateContext<IEventState>): Promise<void> {
+    await super.InitDefaultsFromCache(ctx);
   }
 
   @Action(EventActions.UpdateFilters)

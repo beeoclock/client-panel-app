@@ -3,8 +3,7 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 import * as Employee from "@employee/domain";
 import {Router} from "@angular/router";
 import {EmployeeRepository} from "@employee/repository/employee.repository";
-import {Pagination} from "@utility/domain";
-import {BaseState, IBaseState} from "@utility/state/base/base.state";
+import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {EmployeeActions} from "@employee/state/employee/employee.actions";
 import {Observable} from "rxjs";
 
@@ -12,21 +11,7 @@ export type IEmployeeState = IBaseState<Employee.IEmployee>;
 
 @State<IEmployeeState>({
   name: 'employee',
-  defaults: {
-    item: {
-      data: undefined,
-    },
-    list: {
-      filters: {
-        search: undefined,
-      },
-      loading: false,
-      pagination: new Pagination<Employee.IEmployee>(),
-      lastPaginationHasSum: undefined,
-      items: [],
-      total: 0
-    },
-  }
+  defaults: baseDefaults<Employee.IEmployee>()
 })
 @Injectable()
 export class EmployeeState extends BaseState<Employee.IEmployee> {
@@ -36,6 +21,11 @@ export class EmployeeState extends BaseState<Employee.IEmployee> {
 
   constructor() {
     super(EmployeeActions);
+  }
+
+  @Action(EmployeeActions.InitDefaultsFromCache)
+  public override async InitDefaultsFromCache(ctx: StateContext<IEmployeeState>): Promise<void> {
+    await super.InitDefaultsFromCache(ctx);
   }
 
   @Action(EmployeeActions.UpdateFilters)

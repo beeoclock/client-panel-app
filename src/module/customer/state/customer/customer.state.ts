@@ -1,41 +1,38 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {Router} from "@angular/router";
-import {Pagination} from "@utility/domain";
-import {BaseState, IBaseState} from "@utility/state/base/base.state";
-import {EmployeeRepository} from "@employee/repository/employee.repository";
+import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import * as Customer from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {Observable} from "rxjs";
+import {CustomerRepository} from "@customer/repository/customer.repository";
 
 export type ICustomerState = IBaseState<Customer.ICustomer>;
 
 @State<ICustomerState>({
   name: 'customer',
-  defaults: {
-    item: {
-      data: undefined,
-    },
-    list: {
-      filters: {
-        search: undefined,
-      },
-      loading: false,
-      pagination: new Pagination<Customer.ICustomer>(),
-      lastPaginationHasSum: undefined,
-      items: [],
-      total: 0
-    },
-  }
+  defaults: baseDefaults<Customer.ICustomer>()
 })
 @Injectable()
 export class CustomerState extends BaseState<Customer.ICustomer> {
 
   public override readonly router = inject(Router);
-  public override readonly repository = inject(EmployeeRepository);
+  public override readonly repository = inject(CustomerRepository);
 
   constructor() {
-    super(CustomerActions);
+    super(
+      CustomerActions,
+      {
+        lists: 'customer.cache.lists',
+        items: 'customer.cache.items'
+      }
+    );
+  }
+
+  @Action(CustomerActions.InitDefaultsFromCache)
+  public override async InitDefaultsFromCache(ctx: StateContext<ICustomerState>): Promise<void> {
+    console.log('Customer|InitDefaultsFromCache')
+    await super.InitDefaultsFromCache(ctx);
   }
 
   @Action(CustomerActions.UpdateFilters)

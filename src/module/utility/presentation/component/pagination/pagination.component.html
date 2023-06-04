@@ -58,7 +58,8 @@
 <!--</div>-->
 
 
-<div class="flex items-center justify-between border-t border-beeColor-200 bg-white dark:bg-beeDarkColor-800 px-4 py-3 sm:px-6">
+<div
+  class="flex items-center justify-between border-t border-beeColor-200 bg-white dark:bg-beeDarkColor-800 px-4 py-3 sm:px-6">
   <div class="flex flex-1 justify-between sm:hidden">
     <button
       (click)="pagination.prevPage()"
@@ -85,8 +86,14 @@
         <!--        results-->
       </p>
     </div>
-    <div *ngIf="pagination.totalSize > 1">
-      <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+    <div>
+      <p class="text-sm text-beeColor-700">
+        Last update: {{ getRelativeTime(pagination.lastUpdate) }}
+      </p>
+    </div>
+    <div>
+      <nav *ngIf="pagination.totalSize > 1" class="isolate inline-flex -space-x-px rounded-md shadow-sm"
+           aria-label="Pagination">
         <a
           [class.disabled]="pagination.minPage === pagination.page"
           [routerLink]="[]"

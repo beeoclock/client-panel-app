@@ -3,9 +3,8 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 import * as Service from "@service/domain";
 import {IService} from "@service/domain";
 import {Router} from "@angular/router";
-import {Pagination} from "@utility/domain";
 import {ServiceRepository} from "@service/repository/service.repository";
-import {BaseState, IBaseState} from "@utility/state/base/base.state";
+import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {Observable} from "rxjs";
 
@@ -13,21 +12,7 @@ export type IServiceState = IBaseState<Service.IService>
 
 @State<IServiceState>({
   name: 'service',
-  defaults: {
-    item: {
-      data: undefined,
-    },
-    list: {
-      filters: {
-        search: undefined,
-      },
-      loading: false,
-      pagination: new Pagination<Service.IService>(),
-      lastPaginationHasSum: undefined,
-      items: [],
-      total: 0
-    },
-  }
+  defaults: baseDefaults<Service.IService>()
 })
 @Injectable()
 export class ServiceState extends BaseState<IService> {
@@ -37,6 +22,11 @@ export class ServiceState extends BaseState<IService> {
 
   constructor() {
     super(ServiceActions);
+  }
+
+  @Action(ServiceActions.InitDefaultsFromCache)
+  public override async InitDefaultsFromCache(ctx: StateContext<IServiceState>): Promise<void> {
+    await super.InitDefaultsFromCache(ctx);
   }
 
   @Action(ServiceActions.UpdateFilters)

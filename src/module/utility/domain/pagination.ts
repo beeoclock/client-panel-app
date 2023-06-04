@@ -32,7 +32,6 @@ export type RIPagination_QueryParams = Required<IPagination_QueryParams>;
 export class Pagination<ITEM> implements IPagination<ITEM> {
 
   #hashSum: undefined | string;
-  #lastUpdate: Date = new Date();
   public pages: number[] = [];
 
   constructor(
@@ -42,7 +41,7 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     public pageSize: number = Pagination.defaultPageSize,
     public orderDir: OrderDirType = Pagination.defaultOrderDirection,
     public orderBy: string = Pagination.defaultOrderBy,
-    // public items: ITEM[] = [],
+    public lastUpdate: Date = new Date(),
     public totalSize: number = 0,
     public configuration: IPagination_Configuration = {
       checkPageSizeBeforeSet: true,
@@ -52,7 +51,7 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
   ) {
   }
 
-  public get hasSum(): undefined | string {
+  public get hashSum(): undefined | string {
     return this.#hashSum;
   }
 
@@ -100,7 +99,7 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
   public static fromObject<ITEM>(data: IPagination<ITEM>): Pagination<ITEM> {
     let model: Pagination<ITEM> = new Pagination<ITEM>();
     model = Object.assign(model, data);
-    model.updateModel();
+    model.updateModel(false);
     return model;
   }
 
@@ -125,7 +124,7 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
   @TypeGuard([is.object.not.empty])
   public updateFromObject(obj: IPagination<ITEM>): this {
     Object.assign(this, obj);
-    this.updateModel();
+    this.updateModel(false);
     return this;
   }
 
@@ -222,12 +221,41 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     return this;
   }
 
-  public updateModel(): void {
+  /**
+   *
+   * @param updateLastUpdate
+   */
+  public updateModel(updateLastUpdate = true): void {
+
     const newMaxPage: number = Math.ceil(this.totalSize / this.pageSize);
     this.setMaxPage(newMaxPage > this.minPage ? newMaxPage : 1);
     this.pages = getPaginationItems(this.page, this.maxPage, 5);
-    this.#hashSum = hash_sum(this);
-    this.#lastUpdate = new Date();
+
+    // Generate new hash_sum
+    const {orderBy, orderDir, page, pageSize} = this;
+    this.#hashSum = hash_sum({
+      orderBy,
+      orderDir,
+      page,
+      pageSize
+    });
+
+    if (updateLastUpdate) {
+
+      // Update last update data
+      this.lastUpdate = new Date();
+
+    } else {
+
+      if (is.string(this.lastUpdate)) {
+
+        this.lastUpdate = new Date(this.lastUpdate);
+
+      }
+
+    }
+
+
   }
 
   public nextPage(): this {

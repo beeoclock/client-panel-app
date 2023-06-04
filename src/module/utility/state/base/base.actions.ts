@@ -7,6 +7,10 @@ export namespace BaseActions {
     public static readonly type: string = '[TODO] Not Implemented Yet!';
   }
 
+  export abstract class InitDefaultsFromCache {
+    public static readonly type: string = '[TODO] Not Implemented Yet!';
+  }
+
   export abstract class DeleteItem {
     public static readonly type: string = '[TODO] Not Implemented Yet!';
 
