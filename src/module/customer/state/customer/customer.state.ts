@@ -14,16 +14,15 @@ export type ICustomerState = IBaseState<Customer.ICustomer>;
   name: 'customer',
   defaults: {
     item: {
-      loading: false,
       data: undefined,
     },
     list: {
-      initialized: false,
       filters: {
         search: undefined,
       },
       loading: false,
       pagination: new Pagination<Customer.ICustomer>(),
+      lastPaginationHasSum: undefined,
       items: [],
       total: 0
     },
@@ -119,11 +118,6 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
   @Selector()
   public static itemData(state: ICustomerState) {
     return state.item.data;
-  }
-
-  @Selector()
-  public static itemLoading(state: ICustomerState) {
-    return state.item.loading;
   }
 
   @Selector()

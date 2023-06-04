@@ -2,20 +2,20 @@ import {StateContext} from "@ngxs/store";
 import {Pagination} from "@utility/domain";
 import {BaseActions} from "@utility/state/base/base.actions";
 import {Observable} from "rxjs";
+import {AppActions} from "@utility/state/app/app.actions";
 
 export interface IBaseState<ITEM> {
   list: {
-    initialized: boolean;
     filters: {
       search: undefined | string;
     },
     pagination: Pagination<ITEM>,
+    lastPaginationHasSum: undefined | string;
     loading: boolean;
     items: ITEM[];
     total: number;
   };
   item: {
-    loading: boolean;
     data: undefined | ITEM
   };
 }
@@ -30,6 +30,12 @@ export abstract class BaseState<ITEM = any> {
   public readonly router!: any;
   public readonly repository!: any;
 
+  /**
+   *
+   * @param ctx
+   * @param payload
+   * @constructor
+   */
   public async UpdateFilters(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateFilters): Promise<void> {
 
     const store = ctx.getState();
@@ -46,6 +52,12 @@ export abstract class BaseState<ITEM = any> {
 
   }
 
+  /**
+   *
+   * @param ctx
+   * @param payload
+   * @constructor
+   */
   public async UpdateQueryParamsAtNavigator(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateQueryParamsAtNavigator): Promise<void> {
 
     const store = ctx.getState();
@@ -61,6 +73,12 @@ export abstract class BaseState<ITEM = any> {
 
   }
 
+  /**
+   *
+   * @param ctx
+   * @param payload
+   * @constructor
+   */
   public UpdatePaginationFromQueryParams(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdatePaginationFromQueryParams): Observable<any> {
 
     const store = ctx.getState();
@@ -79,34 +97,74 @@ export abstract class BaseState<ITEM = any> {
 
   }
 
+  /**
+   *
+   * @param ctx
+   * @param payload
+   * @constructor
+   */
   public async GetItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.GetItem): Promise<void> {
 
     const store = ctx.getState();
 
-    ctx.patchState({
-      ...store,
-      item: {
-        data: undefined,
-        loading: false,
-      }
-    });
+    try {
 
-    const {data} = await this.repository.item(payload);
+      const {_id} = (store.item?.data ?? {}) as { _id: string };
 
-    ctx.patchState({
-      ...store,
-      item: {
-        loading: false,
-        data
+      if (_id !== payload) {
+
+        ctx.dispatch(new AppActions.PageLoading(true));
+
+        ctx.patchState({
+          ...store,
+          item: {
+            data: undefined,
+          }
+        });
+
+        const {data} = await this.repository.item(payload);
+
+        ctx.patchState({
+          ...store,
+          item: {
+            data
+          }
+        });
+
+        ctx.dispatch(new AppActions.PageLoading(false));
+
       }
-    });
+    } catch (e) {
+
+      throw e;
+
+    }
 
   }
 
+  /**
+   *
+   * @param ctx
+   * @param payload
+   */
   public deleteItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.DeleteItem): void {
+
+    ctx.dispatch(new AppActions.PageLoading(true));
+
     const {id, refreshList, goToTheList} = payload;
     this.repository.remove(id).then((result: any) => {
       if (result) {
+
+        const state = ctx.getState();
+        const {_id} = (state.item?.data ?? {}) as { _id: string };
+        if (_id === id) {
+          ctx.patchState({
+            item: {
+              data: undefined,
+            }
+          })
+        }
+
         if (goToTheList) {
           this.router.navigate(['/', 'employee']);
         } else {
@@ -116,55 +174,60 @@ export abstract class BaseState<ITEM = any> {
         }
       }
     });
+
+    ctx.dispatch(new AppActions.PageLoading(false));
   }
 
+  /**
+   *
+   * @param ctx
+   * @param filterProcessing
+   */
   public async getList(ctx: StateContext<IBaseState<ITEM>>, filterProcessing?: <T = any, FILTERS = any>(queryFilters: T, filters: FILTERS) => void): Promise<void> {
 
     const state = ctx.getState();
 
-    // ctx.patchState({
-    //   ...state,
-    //   list: {
-    //     ...state.list,
-    //     initialized: true,
-    //     loading: false,
-    //   }
-    // })
+    if (state.list.pagination.hasSum !== state.list.lastPaginationHasSum) {
 
-    const {
-      pageSize,
-      page,
-      orderBy,
-      orderDir,
-    } = state.list.pagination.toQueryParams();
+      ctx.dispatch(new AppActions.PageLoading(true));
 
-    const filters: any = {};
+      const {
+        pageSize,
+        page,
+        orderBy,
+        orderDir,
+      } = state.list.pagination.toQueryParams();
 
-    filterProcessing?.(filters, state.list.filters);
+      const filters: any = {};
 
-    const {data} = await this.repository.list(
-      pageSize,
-      page,
-      orderBy,
-      orderDir,
-      filters
-    );
+      filterProcessing?.(filters, state.list.filters);
 
-    const {items, total} = data;
-    const newPagination = Pagination.fromObject(state.list.pagination);
-    newPagination.setTotalSize(total);
+      const {data} = await this.repository.list(
+        pageSize,
+        page,
+        orderBy,
+        orderDir,
+        filters
+      );
 
-    ctx.patchState({
-      ...state,
-      list: {
-        ...state.list,
-        pagination: newPagination,
-        items,
-        total,
-        initialized: true,
-        // loading: false,
-      }
-    });
+      const {items, total} = data;
+      const newPagination = Pagination.fromObject(state.list.pagination);
+      newPagination.setTotalSize(total);
+
+      ctx.patchState({
+        ...state,
+        list: {
+          ...state.list,
+          pagination: newPagination,
+          lastPaginationHasSum: newPagination.hasSum,
+          items,
+          total,
+        }
+      });
+
+      ctx.dispatch(new AppActions.PageLoading(false));
+
+    }
 
   }
 

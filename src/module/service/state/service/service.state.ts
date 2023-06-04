@@ -15,16 +15,15 @@ export type IServiceState = IBaseState<Service.IService>
   name: 'service',
   defaults: {
     item: {
-      loading: false,
       data: undefined,
     },
     list: {
-      initialized: false,
       filters: {
         search: undefined,
       },
       loading: false,
       pagination: new Pagination<Service.IService>(),
+      lastPaginationHasSum: undefined,
       items: [],
       total: 0
     },
@@ -110,11 +109,6 @@ export class ServiceState extends BaseState<IService> {
   @Selector()
   public static itemData(state: IServiceState) {
     return state.item.data;
-  }
-
-  @Selector()
-  public static itemLoading(state: IServiceState) {
-    return state.item.loading;
   }
 
   @Selector()

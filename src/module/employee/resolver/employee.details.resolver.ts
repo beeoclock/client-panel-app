@@ -2,10 +2,10 @@ import {inject} from "@angular/core";
 import {ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot} from "@angular/router";
 import {Store} from "@ngxs/store";
 import {catchError, EMPTY, of, switchMap} from "rxjs";
-import {AppActions} from "@utility/state/app/app.actions";
 import {IEmployeeState} from "@employee/state/employee/employee.state";
 import {EmployeeActions} from "@employee/state/employee/employee.actions";
 import {IEmployee} from "@employee/domain";
+import {IAppState} from "@utility/state/app/app.state";
 
 export const employeeDetailsResolver: ResolveFn<IEmployee> = (
   route: ActivatedRouteSnapshot,
@@ -19,26 +19,15 @@ export const employeeDetailsResolver: ResolveFn<IEmployee> = (
     return EMPTY;
   }
 
-  const {employee}: { employee: IEmployeeState } = store.snapshot();
+  const {app}: { app: IAppState } = store.snapshot();
 
-  if (employee?.item?.loading) {
+  if (app.pageLoading) {
     return EMPTY;
   }
-
-  console.log(employee);
-
-  if (employee.item?.data) {
-    if (employee.item.data._id === id) {
-      return employee.item.data;
-    }
-  }
-
-  store.dispatch(new AppActions.PageLoading(true));
 
   return store.dispatch(new EmployeeActions.GetItem(id))
     .pipe(
       switchMap(({employee}: { employee: IEmployeeState }) => {
-        store.dispatch(new AppActions.PageLoading(false));
         if (!employee.item.data) {
           return EMPTY;
         }

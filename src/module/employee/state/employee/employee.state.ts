@@ -14,16 +14,15 @@ export type IEmployeeState = IBaseState<Employee.IEmployee>;
   name: 'employee',
   defaults: {
     item: {
-      loading: false,
       data: undefined,
     },
     list: {
-      initialized: false,
       filters: {
         search: undefined,
       },
       loading: false,
       pagination: new Pagination<Employee.IEmployee>(),
+      lastPaginationHasSum: undefined,
       items: [],
       total: 0
     },
@@ -120,11 +119,6 @@ export class EmployeeState extends BaseState<Employee.IEmployee> {
   @Selector()
   public static itemData(state: IEmployeeState) {
     return state.item.data;
-  }
-
-  @Selector()
-  public static itemLoading(state: IEmployeeState) {
-    return state.item.loading;
   }
 
   @Selector()

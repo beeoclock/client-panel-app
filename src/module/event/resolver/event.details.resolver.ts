@@ -2,10 +2,10 @@ import {inject} from "@angular/core";
 import {ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot} from "@angular/router";
 import {Store} from "@ngxs/store";
 import {catchError, EMPTY, of, switchMap} from "rxjs";
-import {AppActions} from "@utility/state/app/app.actions";
 import {IEventState} from "@event/state/event/event.state";
 import {EventActions} from "@event/state/event/event.actions";
 import {IEvent} from "@event/domain";
+import {IAppState} from "@utility/state/app/app.state";
 
 export const eventDetailsResolver: ResolveFn<IEvent> = (
   route: ActivatedRouteSnapshot,
@@ -19,26 +19,15 @@ export const eventDetailsResolver: ResolveFn<IEvent> = (
     return EMPTY;
   }
 
-  const {event}: { event: IEventState } = store.snapshot();
+  const {app}: { app: IAppState } = store.snapshot();
 
-  if (event?.item?.loading) {
+  if (app.pageLoading) {
     return EMPTY;
   }
-
-  console.log(event);
-
-  if (event.item?.data) {
-    if (event.item.data._id === id) {
-      return event.item.data;
-    }
-  }
-
-  store.dispatch(new AppActions.PageLoading(true));
 
   return store.dispatch(new EventActions.GetItem(id))
     .pipe(
       switchMap(({event}: { event: IEventState }) => {
-        store.dispatch(new AppActions.PageLoading(false));
         if (!event.item.data) {
           return EMPTY;
         }

@@ -2,6 +2,7 @@ import {TypeGuard} from '@p4ck493/ts-type-guard';
 import {is} from 'thiis';
 import {OrderByEnum} from '@utility/domain/enum';
 import {getPaginationItems} from "@utility/domain/pagination.items";
+import hash_sum from "hash-sum";
 
 export interface IPagination_Configuration {
   checkPageSizeBeforeSet: boolean;
@@ -32,6 +33,7 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
 
   #delegate: ((pagination: Pagination<ITEM>) => void)[] = [];
   public pages: number[] = [];
+  #hashSum: undefined | string;
 
   constructor(
     public page: number = Pagination.defaultPage,
@@ -48,6 +50,10 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
       checkPageMinBeforeSet: true,
     }
   ) {
+  }
+
+  public get hasSum(): undefined | string {
+    return this.#hashSum;
   }
 
   public static get defaultMaxPage(): number {
@@ -198,6 +204,7 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     this.setMaxPage(newMaxPage > this.minPage ? newMaxPage : 1);
     // TODO: Move the method into the class
     this.pages = getPaginationItems(this.page, this.maxPage, 5);
+    this.#hashSum = hash_sum(this);
   }
 
   public nextPage(): this {

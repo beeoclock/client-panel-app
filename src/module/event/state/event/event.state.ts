@@ -14,16 +14,15 @@ export type IEventState = IBaseState<Event.IEvent>;
   name: 'event',
   defaults: {
     item: {
-      loading: false,
       data: undefined,
     },
     list: {
-      initialized: false,
       filters: {
         search: undefined,
       },
       loading: false,
       pagination: new Pagination<Event.IEvent>(),
+      lastPaginationHasSum: undefined,
       items: [],
       total: 0
     },
@@ -102,11 +101,6 @@ export class EventState extends BaseState<Event.IEvent> {
   @Selector()
   public static itemData(state: IEventState) {
     return state.item.data;
-  }
-
-  @Selector()
-  public static itemLoading(state: IEventState) {
-    return state.item.loading;
   }
 
   @Selector()
