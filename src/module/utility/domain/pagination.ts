@@ -140,6 +140,10 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     return this;
   }
 
+  public getNextOrderDir(orderBy: string): string {
+    return this.orderBy === orderBy ? (this.orderDir === 'asc' ? 'desc' : 'asc') : this.orderDir;
+  }
+
   public setOrderBy(orderBy: string): this {
     if (this.orderBy === orderBy) {
       this.orderDir = this.orderDir === 'asc' ? 'desc' : 'asc';
@@ -235,4 +239,7 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     }
   }
 
+  public getNewQueryParamsOfOrderBy(orderBy: string): { orderBy: string; orderDir: string; } {
+    return {orderBy, orderDir: this.getNextOrderDir(orderBy)};
+  }
 }

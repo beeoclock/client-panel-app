@@ -29,7 +29,7 @@
           </div>
         </th>
         <th scope="col" class="px-6 py-3 cursor-pointer"
-            (click)="pagination.setOrderBy('languageVersions.title')">
+            [routerLink]="[]" queryParamsHandling="merge" [queryParams]="pagination.getNewQueryParamsOfOrderBy('languageVersions.title')">
           {{ 'general.fullName' | translate }}
           <i class="bi"
              *ngIf="pagination.orderBy === 'languageVersions.title'"
@@ -42,21 +42,21 @@
         <th scope="col" class="px-6 py-3 cursor-pointer">
           {{ 'general.employees' | translate }}
         </th>
-        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="pagination.setOrderBy('email')">
+        <th scope="col" class="px-6 py-3 cursor-pointer" [routerLink]="[]" queryParamsHandling="merge" [queryParams]="pagination.getNewQueryParamsOfOrderBy('active')">
           {{ 'general.active' | translate }}
           <utility-sort-indicator
             [show]="pagination.orderBy === 'active'"
             [asc]="pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
-        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="pagination.setOrderBy('createdAt')">
+        <th scope="col" class="px-6 py-3 cursor-pointer" [routerLink]="[]" queryParamsHandling="merge" [queryParams]="pagination.getNewQueryParamsOfOrderBy('createdAt')">
           {{ 'general.createdAt' | translate }}
           <utility-sort-indicator
             [show]="pagination.orderBy === 'createdAt'"
             [asc]="pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
-        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="pagination.setOrderBy('updatedAt')">
+        <th scope="col" class="px-6 py-3 cursor-pointer" [routerLink]="[]" queryParamsHandling="merge" [queryParams]="pagination.getNewQueryParamsOfOrderBy('updatedAt')">
           {{ 'general.updatedAt' | translate }}
           <utility-sort-indicator
             [show]="pagination.orderBy === 'updatedAt'"

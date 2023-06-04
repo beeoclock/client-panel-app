@@ -31,28 +31,28 @@
         <th scope="col" class="px-6 py-3 cursor-pointer">
           Attendees
         </th>
-        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="pagination.setOrderBy('start')">
+        <th scope="col" class="px-6 py-3 cursor-pointer" [routerLink]="[]" queryParamsHandling="merge" [queryParams]="pagination.getNewQueryParamsOfOrderBy('start')">
           Start
           <utility-sort-indicator
             [show]="pagination.orderBy === 'start'"
             [asc]="pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
-        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="pagination.setOrderBy('end')">
+        <th scope="col" class="px-6 py-3 cursor-pointer" [routerLink]="[]" queryParamsHandling="merge" [queryParams]="pagination.getNewQueryParamsOfOrderBy('end')">
           End
           <utility-sort-indicator
             [show]="pagination.orderBy === 'end'"
             [asc]="pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
-        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="pagination.setOrderBy('createdAt')">
+        <th scope="col" class="px-6 py-3 cursor-pointer" [routerLink]="[]" queryParamsHandling="merge" [queryParams]="pagination.getNewQueryParamsOfOrderBy('createdAt')">
           {{ 'general.createdAt' | translate }}
           <utility-sort-indicator
             [show]="pagination.orderBy === 'createdAt'"
             [asc]="pagination.orderDir === 'asc'"
           ></utility-sort-indicator>
         </th>
-        <th scope="col" class="px-6 py-3 cursor-pointer" (click)="pagination.setOrderBy('updatedAt')">
+        <th scope="col" class="px-6 py-3 cursor-pointer" [routerLink]="[]" queryParamsHandling="merge" [queryParams]="pagination.getNewQueryParamsOfOrderBy('updatedAt')">
           {{ 'general.updatedAt' | translate }}
           <utility-sort-indicator
             [show]="pagination.orderBy === 'updatedAt'"
