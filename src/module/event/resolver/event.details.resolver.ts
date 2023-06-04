@@ -1,8 +1,7 @@
 import {inject} from "@angular/core";
 import {ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot} from "@angular/router";
 import {Store} from "@ngxs/store";
-import {catchError, EMPTY, of, switchMap} from "rxjs";
-import {IEventState} from "@event/state/event/event.state";
+import {catchError, EMPTY} from "rxjs";
 import {EventActions} from "@event/state/event/event.actions";
 import {IEvent} from "@event/domain";
 import {IAppState} from "@utility/state/app/app.state";
@@ -27,12 +26,6 @@ export const eventDetailsResolver: ResolveFn<IEvent> = (
 
   return store.dispatch(new EventActions.GetItem(id))
     .pipe(
-      switchMap(({event}: { event: IEventState }) => {
-        if (!event.item.data) {
-          return EMPTY;
-        }
-        return of(event.item.data);
-      }),
       catchError((error) => EMPTY)
     );
 };

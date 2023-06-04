@@ -32,6 +32,9 @@ export const routers = [
       },
       {
         path: ':id',
+        resolve: {
+          item: serviceDetailsResolver
+        },
         loadComponent: () => import('./page/form'),
       }
     ]

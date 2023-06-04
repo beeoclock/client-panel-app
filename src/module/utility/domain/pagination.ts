@@ -19,7 +19,6 @@ export interface IPagination<ITEM> {
   pageSize?: number;
   orderDir?: OrderDirType;
   orderBy?: string;
-  // items?: ITEM[];
   totalSize?: number;
   configuration?: IPagination_Configuration;
 }
@@ -27,8 +26,9 @@ export interface IPagination<ITEM> {
 export type IPagination_QueryParams = Pick<IPagination<any>, 'orderDir' | 'orderBy' | 'pageSize' | 'page'>;
 export type RIPagination_QueryParams = Required<IPagination_QueryParams>;
 
-// export type IPagination_List_Response<ITEM> = Pick<IPagination<ITEM>, 'items' | 'totalSize'>;
-
+/**
+ *
+ */
 export class Pagination<ITEM> implements IPagination<ITEM> {
 
   #hashSum: undefined | string;
@@ -92,6 +92,10 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     return this.availableOrderBy[0];
   }
 
+  /**
+   *
+   * @param data
+   */
   @TypeGuard([is.object.not.empty])
   public static fromObject<ITEM>(data: IPagination<ITEM>): Pagination<ITEM> {
     let model: Pagination<ITEM> = new Pagination<ITEM>();
@@ -100,6 +104,11 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     return model;
   }
 
+  /**
+   *
+   * @param first
+   * @param second
+   */
   @TypeGuard([is.object.not.empty])
   public static merge<ITEM>(first: IPagination<ITEM>, second: IPagination<ITEM>): Pagination<ITEM> {
     let model: Pagination<ITEM> = new Pagination<ITEM>();
@@ -109,6 +118,10 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     return model;
   }
 
+  /**
+   *
+   * @param obj
+   */
   @TypeGuard([is.object.not.empty])
   public updateFromObject(obj: IPagination<ITEM>): this {
     Object.assign(this, obj);
@@ -116,11 +129,10 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     return this;
   }
 
-  // public setItems(items: ITEM[]): this {
-  //   this.items = items;
-  //   return this;
-  // }
-
+  /**
+   *
+   * @param newTotalSize
+   */
   @TypeGuard([is.number])
   public setTotalSize(newTotalSize: number): this {
     if (newTotalSize < 0) {
@@ -131,6 +143,10 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     return this;
   }
 
+  /**
+   *
+   * @param newMaxPage
+   */
   @TypeGuard([is.number])
   public setMaxPage(newMaxPage: number): this {
     if (newMaxPage < this.minPage) {
@@ -140,10 +156,19 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     return this;
   }
 
+  /**
+   *
+   * @param orderBy
+   */
+  @TypeGuard([is.string])
   public getNextOrderDir(orderBy: string): string {
     return this.orderBy === orderBy ? (this.orderDir === 'asc' ? 'desc' : 'asc') : this.orderDir;
   }
 
+  /**
+   *
+   * @param orderBy
+   */
   public setOrderBy(orderBy: string): this {
     if (this.orderBy === orderBy) {
       this.orderDir = this.orderDir === 'asc' ? 'desc' : 'asc';
@@ -153,11 +178,19 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     return this;
   }
 
+  /**
+   *
+   * @param force
+   */
   public toggleOrderDir(force?: OrderDirType): this {
     this.orderDir = force ?? this.orderDir === 'asc' ? 'desc' : 'asc';
     return this;
   }
 
+  /**
+   *
+   * @param newPageSize
+   */
   @TypeGuard([is.number])
   public setPageSize(newPageSize: number): this {
     if (this.configuration.checkPageSizeBeforeSet) {
@@ -169,6 +202,10 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     return this;
   }
 
+  /**
+   *
+   * @param newPage
+   */
   @TypeGuard([is.number])
   public setPage(newPage: number): this {
     if (this.configuration.checkPageMaxBeforeSet) {
@@ -188,7 +225,6 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
   public updateModel(): void {
     const newMaxPage: number = Math.ceil(this.totalSize / this.pageSize);
     this.setMaxPage(newMaxPage > this.minPage ? newMaxPage : 1);
-    // TODO: Move the method into the class
     this.pages = getPaginationItems(this.page, this.maxPage, 5);
     this.#hashSum = hash_sum(this);
     this.#lastUpdate = new Date();
@@ -239,6 +275,10 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     }
   }
 
+  /**
+   *
+   * @param orderBy
+   */
   public getNewQueryParamsOfOrderBy(orderBy: string): { orderBy: string; orderDir: string; } {
     return {orderBy, orderDir: this.getNextOrderDir(orderBy)};
   }

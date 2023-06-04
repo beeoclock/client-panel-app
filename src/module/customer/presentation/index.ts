@@ -1,7 +1,6 @@
 import {Routes} from "@angular/router";
 import {customerDetailsResolver} from "@customer/resolver/customer.details.resolver";
 import {customerListResolver} from "@customer/resolver/customer.list.resolver";
-import {customerFormResolver} from "@customer/resolver/customer.form.resolver";
 
 export const routers = [
   {
@@ -34,7 +33,7 @@ export const routers = [
       {
         path: ':id',
         resolve: {
-          item: customerFormResolver
+          item: customerDetailsResolver
         },
         loadComponent: () => import('./page/form'),
       }

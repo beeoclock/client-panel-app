@@ -36,6 +36,9 @@ export const routers = [
       },
       {
         path: ':id',
+        resolve: {
+          item: eventDetailsResolver
+        },
         loadComponent: () => import('./page/form'),
       }
     ]
