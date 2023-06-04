@@ -31,7 +31,6 @@ export type RIPagination_QueryParams = Required<IPagination_QueryParams>;
 
 export class Pagination<ITEM> implements IPagination<ITEM> {
 
-  #delegate: ((pagination: Pagination<ITEM>) => void)[] = [];
   #hashSum: undefined | string;
   #lastUpdate: Date = new Date();
   public pages: number[] = [];
@@ -110,20 +109,6 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     return model;
   }
 
-  public deleteDelegate(): void {
-    this.#delegate = [];
-  }
-
-  public setDelegate(delegate: (pagination: Pagination<ITEM>) => void): void {
-    this.#delegate.push(delegate);
-  }
-
-  public executeDelegate(): void {
-    if (this.#delegate) {
-      this.#delegate.forEach((delegate) => delegate(this));
-    }
-  }
-
   @TypeGuard([is.object.not.empty])
   public updateFromObject(obj: IPagination<ITEM>): this {
     Object.assign(this, obj);
@@ -161,13 +146,11 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     } else {
       this.orderBy = orderBy;
     }
-    this.executeDelegate();
     return this;
   }
 
   public toggleOrderDir(force?: OrderDirType): this {
     this.orderDir = force ?? this.orderDir === 'asc' ? 'desc' : 'asc';
-    this.executeDelegate();
     return this;
   }
 
@@ -179,7 +162,6 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
       }
     }
     this.pageSize = newPageSize;
-    this.executeDelegate();
     return this;
   }
 
@@ -196,7 +178,6 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
       }
     }
     this.page = newPage;
-    this.executeDelegate();
     return this;
   }
 
