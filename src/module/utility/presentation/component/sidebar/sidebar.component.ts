@@ -80,7 +80,10 @@ export class SidebarComponent implements AfterViewInit {
       translateKey: 'sidebar.events',
       icon: 'bi bi-calendar2-week',
       routerLinkActiveOptions: {
-        exact: true
+        paths: "subset",
+        matrixParams: "ignored",
+        queryParams: "ignored",
+        fragment: "ignored",
       },
       url: '/event',
     },

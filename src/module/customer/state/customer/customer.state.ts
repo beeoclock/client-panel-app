@@ -31,7 +31,6 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
   @Action(CustomerActions.InitDefaultsFromCache)
   public override async InitDefaultsFromCache(ctx: StateContext<ICustomerState>): Promise<void> {
-    console.log('Customer|InitDefaultsFromCache')
     await super.InitDefaultsFromCache(ctx);
   }
 
