@@ -177,7 +177,6 @@ export default class Index {
         role: ModalButtonRoleEnum.cancel,
         callback: (modal: ModalComponent) => {
           // options?.buttons?.cancel?.callback?.();
-          console.log(modal);
           modal.closeModal();
         }
       },
@@ -187,7 +186,6 @@ export default class Index {
         role: ModalButtonRoleEnum.accept,
         enabledDebounceClick: true,
         callback: (modal: ModalComponent) => {
-          console.log(modal);
           // options?.buttons?.confirm?.callback?.();
           // modal.closeModal();
           const serviceComponent = modal.componentChildRefList[0].instance as unknown as ServiceComponent;
@@ -209,7 +207,6 @@ export default class Index {
         serviceComponent.setSelectedService(service);
       }
       serviceComponent.emitter.subscribe((event: IService) => {
-        console.log(event);
         if (service) {
           this.form.controls.services.patchValue([...(this.form.controls.services.value ?? []).filter(({_id}) => _id !== service._id), event])
         } else {

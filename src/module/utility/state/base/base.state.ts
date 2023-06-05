@@ -19,11 +19,17 @@ export interface IBaseStateList<ITEM> {
 export interface IBaseState<ITEM> {
   list: IBaseStateList<ITEM>;
   item: {
-    data: undefined | ITEM
+    data: undefined | ITEM;
+    downloadedAt: Date;
   };
   cache: {
-    items: { [key: string]: ITEM },
-    lists: { [key: string]: IBaseStateList<ITEM> },
+    items: {
+      [key: string]: {
+        data: ITEM | undefined;
+        downloadedAt: Date;
+      }
+    };
+    lists: { [key: string]: IBaseStateList<ITEM> };
   }
 }
 
@@ -31,6 +37,7 @@ export function baseDefaults<T>(): IBaseState<T> {
   return {
     item: {
       data: undefined,
+      downloadedAt: new Date(),
     },
     list: {
       filters: {
@@ -75,28 +82,15 @@ export abstract class BaseState<ITEM = any> {
     ctx: StateContext<IBaseState<ITEM>>
   ): Promise<void> {
 
-    const store = ctx.getState();
+    const lists = JSON.parse(localStorage.getItem(this.cacheKeys.lists) ?? '{}');
+    const items = JSON.parse(localStorage.getItem(this.cacheKeys.items) ?? '{}');
 
-    const lists = JSON.parse(localStorage.getItem(this.cacheKeys.lists) ?? 'null');
-    const items = JSON.parse(localStorage.getItem(this.cacheKeys.items) ?? 'null');
-
-    if (lists) {
-      ctx.patchState({
-        cache: {
-          ...store.cache,
-          lists,
-        }
-      });
-    }
-
-    if (items) {
-      ctx.patchState({
-        cache: {
-          ...store.cache,
-          items,
-        }
-      });
-    }
+    ctx.patchState({
+      cache: {
+        lists,
+        items,
+      }
+    });
 
   }
 
@@ -175,35 +169,62 @@ export abstract class BaseState<ITEM = any> {
    */
   public async GetItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.GetItem): Promise<void> {
 
-    const store = ctx.getState();
+    let state = ctx.getState();
 
-    const {_id} = (store.item?.data ?? {}) as { _id: string };
+    const {_id} = (state.item?.data ?? {}) as { _id: string };
 
     if (_id !== payload) {
 
-      ctx.dispatch(new AppActions.PageLoading(true));
+      const itemFromCache = state.cache.items[payload];
 
-      // TODO check in cache
+      if (itemFromCache) {
 
-      ctx.patchState({
-        ...store,
-        item: {
-          data: undefined,
+        ctx.patchState({
+          ...state,
+          item: itemFromCache
+        });
+
+      } else {
+
+        ctx.dispatch(new AppActions.PageLoading(true));
+
+        const {data} = await this.repository.item(payload);
+
+        // Check if we have prev state, if true, update cache
+        if (state.item.data) {
+
+          // Update local cache and update localStorage
+          ctx.patchState({
+            cache: {
+              ...state.cache,
+              items: {
+                ...state.cache.items,
+                [payload]: state.item
+              }
+            }
+          });
+
+          state = ctx.getState();
+
+          ctx.dispatch(new CacheActions.Set({
+            strategy: localStorage,
+            key: this.cacheKeys.items,
+            value: JSON.stringify(state.cache.items)
+          }));
+
         }
-      });
 
-      const {data} = await this.repository.item(payload);
+        ctx.patchState({
+          ...state,
+          item: {
+            data,
+            downloadedAt: new Date(),
+          }
+        });
 
-      // TODO set to cache prev item state
+        ctx.dispatch(new AppActions.PageLoading(false));
 
-      ctx.patchState({
-        ...store,
-        item: {
-          data
-        }
-      });
-
-      ctx.dispatch(new AppActions.PageLoading(false));
+      }
 
     }
 
@@ -226,13 +247,18 @@ export abstract class BaseState<ITEM = any> {
         const {_id} = (state.item?.data ?? {}) as { _id: string };
 
         if (_id === id) {
+
           ctx.patchState({
             item: {
               data: undefined,
+              downloadedAt: new Date(),
             }
-          })
+          });
+
         } else {
+
           // TODO delete from cache
+
         }
 
         if (goToTheList) {

@@ -20,7 +20,7 @@ export const employeeDetailsResolver: ResolveFn<IEmployee> = (
 
   const {app}: { app: IAppState } = store.snapshot();
 
-  if (app.pageLoading) {
+  if (app?.pageLoading) {
     return EMPTY;
   }
 

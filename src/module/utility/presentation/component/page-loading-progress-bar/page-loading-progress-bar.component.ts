@@ -23,7 +23,6 @@ export class PageLoadingProgressBarComponent {
 
   constructor() {
     this.pageLoading.subscribe((result) => {
-      console.log(result);
       this.hidden = !result;
     });
   }

@@ -57,7 +57,6 @@ export default class Index implements OnInit {
 
   public ngOnInit(): void {
     this.itemData$.subscribe((result) => {
-      console.log(result);
       if (result) {
         this.url = ['../../', 'details', result._id];
         this.form.patchValue(result);
@@ -73,7 +72,6 @@ export default class Index implements OnInit {
       this.form.markAsPending();
       this.repository.save(this.form.value as ICustomer)
         .then(({data}) => {
-          console.log(data);
 
           this.router.navigate(['../', 'details', data.id], {
             relativeTo: this.activatedRoute

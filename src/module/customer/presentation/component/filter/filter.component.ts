@@ -28,7 +28,6 @@ export class FilterComponent {
     this.form.valueChanges.pipe(
       debounceTime(500),
     ).subscribe((value) => {
-      console.log(value);
       this.store.dispatch(new CustomerActions.UpdateFilters(<{search: string}>value));
     });
   }

@@ -191,7 +191,6 @@ export class FormComponent implements AfterViewInit {
       this.form.markAsPending();
       this.repository.save(this.form.value as IService)
         .then(({data}) => {
-          console.log(data);
 
           this.router.navigate(['../', 'details', data.id], {
             relativeTo: this.activatedRoute

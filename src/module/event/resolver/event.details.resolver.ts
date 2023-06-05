@@ -20,7 +20,7 @@ export const eventDetailsResolver: ResolveFn<IEvent> = (
 
   const {app}: { app: IAppState } = store.snapshot();
 
-  if (app.pageLoading) {
+  if (app?.pageLoading) {
     return EMPTY;
   }
 

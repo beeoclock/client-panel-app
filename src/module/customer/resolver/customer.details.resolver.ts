@@ -21,7 +21,7 @@ export const customerDetailsResolver: ResolveFn<ICustomer> = (
 
   const {app}: { app: IAppState } = store.snapshot();
 
-  if (app.pageLoading) {
+  if (app?.pageLoading) {
     return EMPTY;
   }
 
