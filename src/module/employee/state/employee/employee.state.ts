@@ -20,7 +20,13 @@ export class EmployeeState extends BaseState<Employee.IEmployee> {
   public override readonly repository = inject(EmployeeRepository);
 
   constructor() {
-    super(EmployeeActions);
+    super(
+      EmployeeActions,
+      {
+        lists: 'employee.cache.lists',
+        items: 'employee.cache.items'
+      }
+    );
   }
 
   @Action(EmployeeActions.InitDefaultsFromCache)

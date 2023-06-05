@@ -20,7 +20,13 @@ export class EventState extends BaseState<Event.IEvent> {
   public override readonly repository = inject(EventRepository);
 
   constructor() {
-    super(EventActions);
+    super(
+      EventActions,
+      {
+        lists: 'event.cache.lists',
+        items: 'event.cache.items'
+      }
+    );
   }
 
   @Action(EventActions.InitDefaultsFromCache)

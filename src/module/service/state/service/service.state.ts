@@ -21,7 +21,13 @@ export class ServiceState extends BaseState<IService> {
   public override readonly repository = inject(ServiceRepository);
 
   constructor() {
-    super(ServiceActions);
+    super(
+      ServiceActions,
+      {
+        lists: 'service.cache.lists',
+        items: 'service.cache.items'
+      }
+    );
   }
 
   @Action(ServiceActions.InitDefaultsFromCache)
