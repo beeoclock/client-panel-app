@@ -21,11 +21,11 @@ export default class WrapperIdentityComponent {
   private readonly auth = inject(Auth);
 
   constructor() {
-    this.auth.onAuthStateChanged((user) => {
-      if (user) {
-        this.router.navigate(['/', 'dashboard']);
-      }
-    });
+    // this.auth.onAuthStateChanged((user) => {
+    //   if (user) {
+    //     this.router.navigate(['/', 'dashboard']);
+    //   }
+    // });
   }
 
 }

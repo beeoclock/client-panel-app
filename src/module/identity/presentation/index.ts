@@ -21,4 +21,8 @@ export default [
     path: 'confirm-email',
     loadComponent: () => import('./page/confirm-email')
   },
+  {
+    path: 'corridor',
+    loadComponent: () => import('./page/corridor')
+  },
 ] as Route[];

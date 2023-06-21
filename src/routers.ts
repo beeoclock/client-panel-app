@@ -1,10 +1,10 @@
 import {Routes} from '@angular/router';
 import WrapperPanelComponent from '@utility/presentation/component/wrapper-panel/wrapper-panel.component';
 import WrapperIdentityComponent from '@utility/presentation/component/wrapper-identity/wrapper-identity.component';
-import {AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
+import {AuthGuard, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['identity']);
-const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['dashboard']);
+// const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['identity/corridor']);
 
 export const routes: Routes = [
   {
@@ -51,8 +51,8 @@ export const routes: Routes = [
   {
     path: 'identity',
     component: WrapperIdentityComponent,
-    canActivate: [AuthGuard],
-    data: {authGuardPipe: redirectLoggedInToSendEmail},
+    // canActivate: [AuthGuard],
+    // data: {authGuardPipe: redirectLoggedInToSendEmail},
     children: [
       {
         path: '',
