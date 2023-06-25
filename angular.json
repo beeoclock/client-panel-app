@@ -30,7 +30,7 @@
               "src/asset"
             ],
             "styles": [
-              "src/styles.scss",
+              "src/styles.scss"
             ]
           },
           "configurations": {
@@ -93,39 +93,6 @@
               ],
               "outputHashing": "all"
             },
-            "emulator-functions": {
-              "buildOptimizer": false,
-              "optimization": false,
-              "vendorChunk": true,
-              "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true,
-              "fileReplacements": [
-                {
-                  "replace": "src/environment/environment.ts",
-                  "with": "src/environment/environment.emulator.functions.ts"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "beeoclock-cloud-00000000000000": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environment/environment.ts",
-                  "with": "src/environment/environment.beeoclock-cloud-00000000000000.ts"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "beeoclock-cloud-00000000000001": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environment/environment.ts",
-                  "with": "src/environment/environment.beeoclock-cloud-00000000000001.ts"
-                }
-              ],
-              "outputHashing": "all"
-            }
           },
           "defaultConfiguration": "production"
         },
@@ -144,9 +111,6 @@
             "emulator-authorization": {
               "browserTarget": "client-panel-app:build:emulator-authorization"
             },
-            "emulator-functions": {
-              "browserTarget": "client-panel-app:build:emulator-functions"
-            }
           },
           "defaultConfiguration": "development"
         },

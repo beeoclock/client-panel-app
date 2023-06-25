@@ -9,7 +9,6 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading} from '@angular/router';
 import {routes} from '@src/routers';
-import {connectFunctionsEmulator, getFunctions, provideFunctions} from '@angular/fire/functions';
 import {browserLocalPersistence} from "@firebase/auth";
 import {NgxsModule} from "@ngxs/store";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
@@ -60,13 +59,6 @@ bootstrapApplication(AppComponent, {
           connectAuthEmulator(auth, 'http://localhost:9099');
         }
         return auth;
-      }),
-      provideFunctions(() => {
-        const functions = getFunctions();
-        if (environment.firebase.emulator.all || environment.firebase.emulator.functions) {
-          connectFunctionsEmulator(functions, 'localhost', 5001);
-        }
-        return functions;
       }),
       TranslateModule.forRoot({
         useDefaultLang: true,

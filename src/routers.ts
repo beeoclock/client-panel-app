@@ -4,7 +4,6 @@ import WrapperIdentityComponent from '@utility/presentation/component/wrapper-id
 import {AuthGuard, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['identity']);
-// const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['identity/corridor']);
 
 export const routes: Routes = [
   {
@@ -51,12 +50,10 @@ export const routes: Routes = [
   {
     path: 'identity',
     component: WrapperIdentityComponent,
-    // canActivate: [AuthGuard],
-    // data: {authGuardPipe: redirectLoggedInToSendEmail},
     children: [
       {
         path: '',
-        loadChildren: () => import('@identity/presentation')
+        loadChildren: () => import('@identity/index')
       },
     ]
   },

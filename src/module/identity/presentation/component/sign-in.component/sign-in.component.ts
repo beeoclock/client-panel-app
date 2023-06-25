@@ -12,6 +12,8 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
 import {Auth, signInWithEmailAndPassword} from "@angular/fire/auth";
 import {FirebaseError} from "@angular/fire/app";
 import {Notification, WarningNotification} from "@utility/domain/notification";
+import {Store} from "@ngxs/store";
+import {IdentityActions} from "@identity/state/identity/identity.actions";
 
 @Component({
   selector: 'identity-sign-in-component',
@@ -179,6 +181,7 @@ export class SignInComponent {
 
   public readonly form = new LoginForm();
   private readonly auth = inject(Auth);
+  private readonly store = inject(Store);
 
   public signIn(): void {
 
@@ -192,6 +195,9 @@ export class SignInComponent {
       if (email && password) {
 
         signInWithEmailAndPassword(this.auth, email, password)
+          .then(() => {
+            this.store.dispatch(new IdentityActions.InitToken());
+          })
           .catch((result: FirebaseError) => {
             this.form.enable();
             this.form.updateValueAndValidity();

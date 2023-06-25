@@ -10,8 +10,8 @@ export interface IConfiguration {
 }
 
 export interface IPrepaymentPolicy {
-  isRequired?: string;
-  isPercentage?: string;
+  isRequired?: boolean;
+  isPercentage?: boolean;
   value?: string;
   minimalCancelTime?: string;
 }

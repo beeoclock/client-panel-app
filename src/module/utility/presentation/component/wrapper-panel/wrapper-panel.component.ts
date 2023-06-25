@@ -2,8 +2,7 @@ import {AfterViewInit, Component, inject, ViewEncapsulation} from '@angular/core
 import {SidebarComponent} from '@utility/presentation/component/sidebar/sidebar.component';
 import {NavbarComponent} from '@utility/presentation/component/navbar/navbar.component';
 import {FooterComponent} from '@utility/presentation/component/footer/footer.component';
-import {Router, RouterOutlet} from '@angular/router';
-import {Auth} from '@angular/fire/auth';
+import {RouterOutlet} from '@angular/router';
 import {StreamToastComponent} from '@utility/presentation/component/toast/stream.toast.component';
 import {DOCUMENT} from "@angular/common";
 import {ModalComponent} from "@utility/presentation/component/modal/modal.component";
@@ -31,24 +30,21 @@ import {
 })
 export default class WrapperPanelComponent implements AfterViewInit {
 
-  private readonly router = inject(Router);
-  private readonly auth = inject(Auth);
   private readonly document = inject(DOCUMENT);
   private checkerTimer: undefined | NodeJS.Timeout;
   private isUserOnWebSite = true;
 
   constructor() {
-    this.auth.onAuthStateChanged((user) => {
-      if (!user) {
-        this.router.navigate(['/', 'identity']);
-      } else {
-        this.initNotificationChecker();
-      }
-    });
+    this.initNotificationChecker();
   }
 
   public ngAfterViewInit(): void {
     this.initDetectorIfUserHasActiveWebsite();
+  }
+
+  private clearNotificationChecker(): void {
+    clearTimeout(this.checkerTimer);
+    this.checkerTimer = undefined;
   }
 
   private initNotificationChecker(): void {
@@ -60,7 +56,7 @@ export default class WrapperPanelComponent implements AfterViewInit {
 
         }
 
-        this.checkerTimer = undefined;
+        this.clearNotificationChecker();
         this.initNotificationChecker();
 
       }, 60_000);

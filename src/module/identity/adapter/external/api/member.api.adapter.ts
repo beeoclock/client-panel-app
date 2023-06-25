@@ -1,7 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {IdentityBeeoclockMemberEndpointEnum} from "@identity/endpoint/identity.beeoclock.member.endpoint";
+import {memberEndpointEnum} from "@identity/endpoint/member.endpoint";
 
 @Injectable()
 export class MemberApiAdapter {
@@ -21,7 +21,7 @@ export class MemberApiAdapter {
    *
    */
   public getMembers$(): Observable<unknown> {
-    return this.http.get(IdentityBeeoclockMemberEndpointEnum.getMembers);
+    return this.http.get(memberEndpointEnum.getMembers);
   }
 
 }

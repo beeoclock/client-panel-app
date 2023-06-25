@@ -2,14 +2,14 @@ import {Endpoint, EndpointCollectionType} from "@utility/domain/endpoint";
 import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
 
-export enum IdentityBeeoclockMemberEndpointEnum {
+export enum memberEndpointEnum {
   getMembers = '/api/v1/member',
 }
 
-export const identityBeeoclockMemberEndpoint: EndpointCollectionType = {
+export const memberEndpoint: EndpointCollectionType = {
   GET: {
-    [IdentityBeeoclockMemberEndpointEnum.getMembers]: {
-      path: IdentityBeeoclockMemberEndpointEnum.getMembers,
+    [memberEndpointEnum.getMembers]: {
+      path: memberEndpointEnum.getMembers,
       method: RequestMethodEnum.GET,
       source: SourceNetworkEnum.panel
     }
@@ -17,4 +17,4 @@ export const identityBeeoclockMemberEndpoint: EndpointCollectionType = {
 }
 
 
-Endpoint.registerEndpointCollection(identityBeeoclockMemberEndpoint);
+Endpoint.registerEndpointCollection(memberEndpoint);

@@ -119,8 +119,8 @@ export class ConfigurationForm extends FormGroup<IConfigurationForm> {
 }
 
 export interface IPrepaymentPolicyForm {
-  isRequired: FormControl<string>;
-  isPercentage: FormControl<string>;
+  isRequired: FormControl<boolean>;
+  isPercentage: FormControl<boolean>;
   value: FormControl<string>;
   minimalCancelTime: FormControl<string>;
 
