@@ -10,7 +10,7 @@
     }
   },
   "/identity/*": {
-    "target": "http://localhost:3030",
+    "target": "http://localhost:4000",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,

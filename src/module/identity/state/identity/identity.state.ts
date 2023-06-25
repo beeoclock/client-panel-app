@@ -48,7 +48,7 @@ export class IdentityState {
     // update state
     ctx.patchState({
       token
-    })
+    });
   }
 
   @Action(IdentityActions.ClearToken)
@@ -56,7 +56,7 @@ export class IdentityState {
     // update state
     ctx.patchState({
       token: undefined
-    })
+    });
   }
 
 }

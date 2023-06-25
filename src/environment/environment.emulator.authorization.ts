@@ -1,6 +1,18 @@
 export const environment = {
   production: false,
   emulator: true,
+  proxy: false,
+  apiUrls: {
+    panel: 'panel',
+    identity: 'identity',
+  },
+  endpoint: {
+    config: {
+      replace: false,
+      loading: false,
+      defaultErrorHandler: true,
+    }
+  },
   config: {
     language: 'en',
     modal: {

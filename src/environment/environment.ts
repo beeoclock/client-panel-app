@@ -4,6 +4,19 @@
 
 export const environment = {
   production: false,
+  emulator: false,
+  proxy: false,
+  apiUrls: {
+    panel: 'panel',
+    identity: 'identity',
+  },
+  endpoint: {
+    config: {
+      replace: false,
+      loading: false,
+      defaultErrorHandler: true,
+    }
+  },
   config: {
     language: 'en',
     modal: {

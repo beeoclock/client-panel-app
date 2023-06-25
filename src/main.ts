@@ -13,6 +13,9 @@ import {browserLocalPersistence} from "@firebase/auth";
 import {NgxsModule} from "@ngxs/store";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {IonicModule} from "@ionic/angular";
+import {Utility} from "@utility/index";
+import {initRuntimeEnvironment} from "@src/runtime.environment";
+import {IdentityState} from "@identity/state/identity/identity.state";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -22,6 +25,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 if (environment.production) {
   enableProdMode();
 }
+
+initRuntimeEnvironment();
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -40,6 +45,17 @@ bootstrapApplication(AppComponent, {
         // Utility.Interceptors.Loading,
         // Utility.Interceptors.Notification,
         // Utility.Interceptors.Error,
+
+
+        Utility.Interceptors.AccessTokenInterceptor,
+        Utility.Interceptors.PrepareLocalHeadersInterceptor,
+        Utility.Interceptors.ParamsReplaceInterceptor,
+        Utility.Interceptors.ApprovalInterceptor,
+        Utility.Interceptors.LoadingInterceptor,
+        Utility.Interceptors.NotificationInterceptor,
+        Utility.Interceptors.ErrorInterceptor,
+        Utility.Interceptors.SourceInterceptor,
+        Utility.Interceptors.ClearLocalHeadersInterceptor,
       ]),
     ),
 
@@ -70,7 +86,7 @@ bootstrapApplication(AppComponent, {
         }
       }),
 
-      NgxsModule.forRoot([], {
+      NgxsModule.forRoot([IdentityState], {
         developmentMode: !environment.production
       }),
 

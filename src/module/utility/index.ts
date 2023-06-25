@@ -4,7 +4,7 @@ import {Module} from "@utility/module";
 
 export const Utility = {
   BooleanState,
-  Interceptors: _Interceptors.Interceptors,
+  Interceptors: _Interceptors,
 }
 
 export default Module;

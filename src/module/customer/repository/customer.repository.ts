@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {CustomerFirebaseAdapter} from '@customer/adapter/customer.firebase.adapter';
+import {CustomerApiAdapter} from "@customer/adapter/customer.api.adapter";
 
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerRepository extends CustomerFirebaseAdapter {
+export class CustomerRepository extends CustomerApiAdapter {
 
 }

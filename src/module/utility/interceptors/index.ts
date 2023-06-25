@@ -1,11 +1,9 @@
-import * as _ApprovalInterceptor from './approval.interceptor';
-import * as _ErrorInterceptor from './error.interceptor';
-import * as _LoadingInterceptor from './loading.interceptor';
-import * as _NotificationInterceptor from './notification.interceptor';
-
-export const Interceptors = {
-  Approval: _ApprovalInterceptor.ApprovalInterceptor,
-  Error: _ErrorInterceptor.ErrorInterceptor,
-  Loading: _LoadingInterceptor.LoadingInterceptor,
-  Notification: _NotificationInterceptor.NotificationInterceptor,
-}
+export {ApprovalInterceptor} from './approval.interceptor';
+export {ErrorInterceptor} from './error.interceptor';
+export {LoadingInterceptor} from './loading.interceptor';
+export {NotificationInterceptor} from './notification.interceptor';
+export {SourceInterceptor} from './source.interceptor';
+export {ParamsReplaceInterceptor} from './params.replace.interceptor';
+export {PrepareLocalHeadersInterceptor} from './prepare-local-headers.interceptor';
+export {AccessTokenInterceptor} from './access.token.interceptor';
+export {ClearLocalHeadersInterceptor} from './clear-local-headers.interceptor';

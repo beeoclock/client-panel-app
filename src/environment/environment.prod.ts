@@ -2,6 +2,18 @@ export const environment = {
   // firebase: {}, // TODO init this data of central panel which will help administrators to open their panels.
   production: true,
   emulator: false,
+  proxy: false,
+  apiUrls: {
+    panel: 'panel',
+    identity: 'identity',
+  },
+  endpoint: {
+    config: {
+      replace: false,
+      loading: false,
+      defaultErrorHandler: true,
+    }
+  },
   config: {
     language: 'en',
     modal: {
