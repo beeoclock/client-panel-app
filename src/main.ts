@@ -16,6 +16,9 @@ import {IonicModule} from "@ionic/angular";
 import {Utility} from "@utility/index";
 import {initRuntimeEnvironment} from "@src/runtime.environment";
 import {IdentityState} from "@identity/state/identity/identity.state";
+import {AppState} from "@utility/state/app/app.state";
+import {CacheState} from "@utility/state/cache/cache.state";
+import {NgxIndexedDBModule} from "ngx-indexed-db";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -60,6 +63,7 @@ bootstrapApplication(AppComponent, {
     ),
 
     importProvidersFrom(
+      NgxIndexedDBModule.forRoot(environment.config.database),
       IonicModule.forRoot({
         mode: 'ios',
         animated: false
@@ -86,7 +90,7 @@ bootstrapApplication(AppComponent, {
         }
       }),
 
-      NgxsModule.forRoot([IdentityState], {
+      NgxsModule.forRoot([IdentityState, AppState, CacheState], {
         developmentMode: !environment.production
       }),
 

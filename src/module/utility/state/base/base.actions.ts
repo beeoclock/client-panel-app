@@ -1,4 +1,4 @@
-import {IPagination_QueryParams} from "@utility/domain/pagination";
+import {ITableState} from "@utility/domain/table.state";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace BaseActions {
@@ -46,20 +46,11 @@ export namespace BaseActions {
     }
   }
 
-  export abstract class UpdateQueryParamsAtNavigator {
+  export abstract class UpdateTableState<ITEM> {
     public static readonly type: string = '[TODO] Not Implemented Yet!';
 
     constructor(
-      public payload: string[] = [],
-    ) {
-    }
-  }
-
-  export abstract class UpdatePaginationFromQueryParams {
-    public static readonly type: string = '[TODO] Not Implemented Yet!';
-
-    constructor(
-      public payload: IPagination_QueryParams
+      public payload: ITableState<ITEM>
     ) {
     }
   }

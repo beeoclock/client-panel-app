@@ -5,7 +5,6 @@ import {Router} from "@angular/router";
 import {EmployeeRepository} from "@employee/repository/employee.repository";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {EmployeeActions} from "@employee/state/employee/employee.actions";
-import {Observable} from "rxjs";
 
 export type IEmployeeState = IBaseState<Employee.IEmployee>;
 
@@ -23,7 +22,7 @@ export class EmployeeState extends BaseState<Employee.IEmployee> {
     super(
       EmployeeActions,
       {
-        lists: 'employee.cache.lists',
+        tableStates: 'employee.cache.tableStates',
         items: 'employee.cache.items'
       }
     );
@@ -39,14 +38,9 @@ export class EmployeeState extends BaseState<Employee.IEmployee> {
     await super.UpdateFilters(ctx, action);
   }
 
-  @Action(EmployeeActions.UpdateQueryParamsAtNavigator)
-  public override async UpdateQueryParamsAtNavigator(ctx: StateContext<IEmployeeState>, action: EmployeeActions.UpdateQueryParamsAtNavigator): Promise<void> {
-    await super.UpdateQueryParamsAtNavigator(ctx, action);
-  }
-
-  @Action(EmployeeActions.UpdatePaginationFromQueryParams)
-  public override UpdatePaginationFromQueryParams(ctx: StateContext<IEmployeeState>, action: EmployeeActions.UpdatePaginationFromQueryParams): Observable<any> {
-    return super.UpdatePaginationFromQueryParams(ctx, action);
+  @Action(EmployeeActions.UpdateTableState)
+  public override async UpdateTableState(ctx: StateContext<IEmployeeState>, action: EmployeeActions.UpdateTableState): Promise<void> {
+    return super.UpdateTableState(ctx, action);
   }
 
   @Action(EmployeeActions.GetItem)
@@ -108,28 +102,18 @@ export class EmployeeState extends BaseState<Employee.IEmployee> {
   // Selectors
 
   @Selector()
-  public static list(state: IEmployeeState) {
-    return state.list;
-  }
-
-  @Selector()
   public static itemData(state: IEmployeeState) {
     return state.item.data;
   }
 
   @Selector()
-  public static listItems(state: IEmployeeState) {
-    return state.list.items;
+  public static tableStateItems(state: IEmployeeState) {
+    return state.tableState.items;
   }
 
   @Selector()
-  public static listLoading(state: IEmployeeState) {
-    return state.list.loading;
-  }
-
-  @Selector()
-  public static listPagination(state: IEmployeeState) {
-    return state.list.pagination;
+  public static tableState(state: IEmployeeState) {
+    return state.tableState;
   }
 
 }

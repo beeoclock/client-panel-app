@@ -5,7 +5,6 @@ import {Router} from "@angular/router";
 import {EventRepository} from "@event/repository/event.repository";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {EventActions} from "@event/state/event/event.actions";
-import {Observable} from "rxjs";
 
 export type IEventState = IBaseState<Event.IEvent>;
 
@@ -23,7 +22,7 @@ export class EventState extends BaseState<Event.IEvent> {
     super(
       EventActions,
       {
-        lists: 'event.cache.lists',
+        tableStates: 'event.cache.tableStates',
         items: 'event.cache.items'
       }
     );
@@ -39,14 +38,9 @@ export class EventState extends BaseState<Event.IEvent> {
     await super.UpdateFilters(ctx, action);
   }
 
-  @Action(EventActions.UpdateQueryParamsAtNavigator)
-  public override async UpdateQueryParamsAtNavigator(ctx: StateContext<IEventState>, action: EventActions.UpdateQueryParamsAtNavigator): Promise<void> {
-    await super.UpdateQueryParamsAtNavigator(ctx, action);
-  }
-
-  @Action(EventActions.UpdatePaginationFromQueryParams)
-  public override UpdatePaginationFromQueryParams(ctx: StateContext<IEventState>, action: EventActions.UpdatePaginationFromQueryParams): Observable<any> {
-    return super.UpdatePaginationFromQueryParams(ctx, action);
+  @Action(EventActions.UpdateTableState)
+  public override async UpdateTableState(ctx: StateContext<IEventState>, action: EventActions.UpdateTableState): Promise<void> {
+    return super.UpdateTableState(ctx, action);
   }
 
   @Action(EventActions.GetItem)
@@ -90,28 +84,18 @@ export class EventState extends BaseState<Event.IEvent> {
   // Selectors
 
   @Selector()
-  public static list(state: IEventState) {
-    return state.list;
-  }
-
-  @Selector()
   public static itemData(state: IEventState) {
     return state.item.data;
   }
 
   @Selector()
-  public static listItems(state: IEventState) {
-    return state.list.items;
+  public static tableStateItems(state: IEventState) {
+    return state.tableState.items;
   }
 
   @Selector()
-  public static listLoading(state: IEventState) {
-    return state.list.loading;
-  }
-
-  @Selector()
-  public static listPagination(state: IEventState) {
-    return state.list.pagination;
+  public static tableState(state: IEventState) {
+    return state.tableState;
   }
 
 }

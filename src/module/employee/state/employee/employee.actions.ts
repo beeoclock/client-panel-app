@@ -1,4 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
+import {IEmployee} from "@employee/domain";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace EmployeeActions {
@@ -25,12 +26,8 @@ export namespace EmployeeActions {
     public static override readonly type = '[Employee State] Update Filters';
   }
 
-  export class UpdateQueryParamsAtNavigator extends BaseActions.UpdateQueryParamsAtNavigator {
-    public static override readonly type = '[Employee State] Update QueryParams At Navigator';
-  }
-
-  export class UpdatePaginationFromQueryParams extends BaseActions.UpdatePaginationFromQueryParams {
-    public static override readonly type = '[Employee State] Update Pagination from QueryParams';
+  export class UpdateTableState extends BaseActions.UpdateTableState<IEmployee> {
+    public static override readonly type = '[Employee State] Update Table State';
   }
 
 }

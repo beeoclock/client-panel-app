@@ -1,4 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
+import {ICustomer} from "@customer/domain";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace CustomerActions {
@@ -25,12 +26,8 @@ export namespace CustomerActions {
     public static override readonly type = '[Customer State] Update Filters';
   }
 
-  export class UpdateQueryParamsAtNavigator extends BaseActions.UpdateQueryParamsAtNavigator {
-    public static override readonly type = '[Customer State] Update QueryParams At Navigator';
-  }
-
-  export class UpdatePaginationFromQueryParams extends BaseActions.UpdatePaginationFromQueryParams {
-    public static override readonly type = '[Customer State] Update Pagination from QueryParams';
+  export class UpdateTableState extends BaseActions.UpdateTableState<ICustomer> {
+    public static override readonly type = '[Customer State] Update Table State';
   }
 
 }

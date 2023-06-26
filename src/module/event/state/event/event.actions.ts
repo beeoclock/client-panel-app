@@ -1,4 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
+import {IEvent} from "@event/domain";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace EventActions {
@@ -25,12 +26,8 @@ export namespace EventActions {
     public static override readonly type = '[Event State] Update Filters';
   }
 
-  export class UpdateQueryParamsAtNavigator extends BaseActions.UpdateQueryParamsAtNavigator {
-    public static override readonly type = '[Event State] Update QueryParams At Navigator';
-  }
-
-  export class UpdatePaginationFromQueryParams extends BaseActions.UpdatePaginationFromQueryParams {
-    public static override readonly type = '[Event State] Update Pagination from QueryParams';
+  export class UpdateTableState extends BaseActions.UpdateTableState<IEvent> {
+    public static override readonly type = '[Event State] Update Table State';
   }
 
 }

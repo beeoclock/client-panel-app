@@ -1,30 +1,51 @@
-import {Component, inject, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {is} from "thiis";
+import {AfterViewInit, Component, ElementRef, inject, OnInit} from "@angular/core";
 import {Store} from "@ngxs/store";
+import {firstValueFrom} from "rxjs";
 
 @Component({
   selector: 'utility-list-page',
   template: ``
 })
-export abstract class ListPage implements OnInit {
+export abstract class ListPage implements OnInit, AfterViewInit {
   public readonly repository: any;
-  public readonly activatedRoute = inject(ActivatedRoute);
   public readonly store = inject(Store);
+  public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
   public readonly actions!: {
-    UpdatePaginationFromQueryParams: any;
-    UpdateQueryParamsAtNavigator: any;
     DeleteItem: any;
+    GetList: any;
+    UpdateTableState: any;
   };
 
-  public ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe((params) => {
-      if (is.object.not.empty(params)) {
-        // this.store.dispatch(new this.actions.UpdatePaginationFromQueryParams(params));
-      } else {
-        // this.store.dispatch(new this.actions.UpdateQueryParamsAtNavigator());
-      }
+  public ngAfterViewInit(): void {
+    this.elementRef.nativeElement.querySelectorAll('th[data-orderBy]').forEach((foundElement) => {
+      foundElement.classList.add('cursor-pointer');
+      foundElement.addEventListener('click', ($event) => {
+        if ($event.target) {
+          const target = $event.target as HTMLTableCellElement;
+          this.updateOrderBy(target);
+        }
+      })
     });
+  }
+
+  public updateOrderBy(target: HTMLTableCellElement): void {
+    const orderBy = target.getAttribute('data-orderBy');
+    if (!orderBy) {
+      const parent = target.parentElement as HTMLTableCellElement;
+      if (parent) {
+        this.updateOrderBy(parent);
+      }
+    } else {
+      firstValueFrom(this.store.dispatch(new this.actions.UpdateTableState({
+        orderBy
+      }))).then(() => {
+        this.store.dispatch(new this.actions.GetList());
+      });
+    }
+  }
+
+  public ngOnInit(): void {
+    this.store.dispatch(new this.actions.GetList());
   }
 
   public delete(id: string): void {

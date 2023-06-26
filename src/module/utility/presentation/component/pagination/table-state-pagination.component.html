@@ -1,0 +1,84 @@
+<div
+  class="flex items-center justify-between border-t border-beeColor-200 bg-white dark:bg-beeDarkColor-800 px-4 py-3 sm:px-6">
+  <div class="flex flex-1 justify-between sm:hidden">
+    <button
+      (click)="prevPage()"
+      class="relative inline-flex items-center rounded-md border border-beeColor-300 bg-white px-4 py-2 text-sm font-medium text-beeColor-700 hover:bg-beeColor-100">
+      Previous
+    </button>
+    <button
+      (click)="nextPage()"
+      class="relative ml-3 inline-flex items-center rounded-md border border-beeColor-300 bg-white px-4 py-2 text-sm font-medium text-beeColor-700 hover:bg-beeColor-100">
+      Next
+    </button>
+  </div>
+  <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+    <div>
+      <p class="text-sm text-beeColor-700">
+
+        Total: {{ tableState.total }}
+        <!--        Showing-->
+        <!--        <span class="font-medium">1</span>-->
+        <!--        to-->
+        <!--        <span class="font-medium">10</span>-->
+        <!--        of-->
+        <!--        <span class="font-medium">97</span>-->
+        <!--        results-->
+      </p>
+    </div>
+    <div>
+      <p class="text-sm text-beeColor-700">
+        Last update: {{ getRelativeTime(tableState.lastUpdate) }}
+      </p>
+    </div>
+    <div>
+      <nav *ngIf="tableState.total > 1" class="isolate inline-flex -space-x-px rounded-md shadow-sm"
+           aria-label="Pagination">
+        <a
+          [class.disabled]="1 === tableState.page"
+          [routerLink]="[]"
+          [queryParams]="{page: tableState.page - 1}"
+          queryParamsHandling="merge"
+          class="relative inline-flex items-center rounded-l-md px-2 py-2 text-beeColor-400 ring-1 ring-inset ring-beeColor-300 hover:bg-beeColor-100 focus:z-20 focus:outline-offset-0">
+          <span class="sr-only">Previous</span>
+          <i class="bi bi-arrow-left"></i>
+        </a>
+<!--        <a-->
+<!--          *ngFor="let page of tableState.pages"-->
+<!--          [class.disabled]="isNaN(page)"-->
+<!--          [class.bg-beeColor-100]="pagination.page === page"-->
+<!--          [class.dark:bg-beeDarkColor-700]="pagination.page === page"-->
+<!--          [routerLink]="[]"-->
+<!--          [queryParams]="{page}"-->
+<!--          queryParamsHandling="merge"-->
+<!--          class="-->
+<!--             relative-->
+<!--             inline-flex-->
+<!--             items-center-->
+<!--             px-4-->
+<!--             py-2-->
+<!--             text-sm-->
+<!--             font-semibold-->
+<!--             text-beeColor-900-->
+<!--             dark:text-white-->
+<!--             ring-1-->
+<!--             ring-inset-->
+<!--             ring-beeColor-300-->
+<!--             hover:bg-beeColor-100-->
+<!--             focus:z-20-->
+<!--             focus:outline-offset-0">-->
+<!--          {{ isNaN(page) ? '...' : page }}-->
+<!--        </a>-->
+        <a
+          [class.disabled]="tableState.maxPage === tableState.page"
+          [routerLink]="[]"
+          [queryParams]="{page: tableState.page + 1}"
+          queryParamsHandling="merge"
+          class="relative inline-flex items-center rounded-r-md px-2 py-2 text-beeColor-400 ring-1 ring-inset ring-beeColor-300 hover:bg-beeColor-100 focus:z-20 focus:outline-offset-0">
+          <span class="sr-only">Next</span>
+          <i class="bi bi-arrow-right"></i>
+        </a>
+      </nav>
+    </div>
+  </div>
+</div>

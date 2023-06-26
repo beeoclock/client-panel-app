@@ -18,10 +18,13 @@ import {ActionComponent} from "@utility/presentation/component/table/column/acti
 import {TranslateModule} from "@ngx-translate/core";
 import {Select} from "@ngxs/store";
 import {Observable} from "rxjs";
-import {Pagination} from "@utility/domain";
 import {ICustomer} from "@customer/domain";
 import {EmployeeActions} from "@employee/state/employee/employee.actions";
 import {EmployeeState} from "@employee/state/employee/employee.state";
+import {ITableState} from "@utility/domain/table.state";
+import {
+  TableStatePaginationComponent
+} from "@utility/presentation/component/pagination/table-state-pagination.component";
 
 @Component({
   selector: 'employee-list-page',
@@ -46,7 +49,8 @@ import {EmployeeState} from "@employee/state/employee/employee.state";
     LoaderComponent,
     ActionComponent,
     TranslateModule,
-    AsyncPipe
+    AsyncPipe,
+    TableStatePaginationComponent
   ],
   standalone: true
 })
@@ -54,13 +58,10 @@ export default class Index extends ListPage {
 
   public override readonly actions = EmployeeActions;
 
-  @Select(EmployeeState.listLoading)
-  public readonly loading$!: Observable<boolean>;
+  @Select(EmployeeState.tableState)
+  public readonly tableState$!: Observable<ITableState<ICustomer>>;
 
-  @Select(EmployeeState.listPagination)
-  public readonly pagination$!: Observable<Pagination<ICustomer>>;
-
-  @Select(EmployeeState.listItems)
+  @Select(EmployeeState.tableStateItems)
   public readonly items$!: Observable<ICustomer[]>;
 
 }

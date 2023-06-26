@@ -4,7 +4,6 @@ import {Router} from "@angular/router";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import * as Customer from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
-import {Observable} from "rxjs";
 import {CustomerRepository} from "@customer/repository/customer.repository";
 
 export type ICustomerState = IBaseState<Customer.ICustomer>;
@@ -23,7 +22,7 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
     super(
       CustomerActions,
       {
-        lists: 'customer.cache.lists',
+        tableStates: 'customer.cache.tableStates',
         items: 'customer.cache.items'
       }
     );
@@ -39,14 +38,9 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
     await super.UpdateFilters(ctx, action);
   }
 
-  @Action(CustomerActions.UpdateQueryParamsAtNavigator)
-  public override async UpdateQueryParamsAtNavigator(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateQueryParamsAtNavigator): Promise<void> {
-    await super.UpdateQueryParamsAtNavigator(ctx, action);
-  }
-
-  @Action(CustomerActions.UpdatePaginationFromQueryParams)
-  public override UpdatePaginationFromQueryParams(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdatePaginationFromQueryParams): Observable<any> {
-    return super.UpdatePaginationFromQueryParams(ctx, action);
+  @Action(CustomerActions.UpdateTableState)
+  public override async UpdateTableState(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateTableState): Promise<void> {
+    return super.UpdateTableState(ctx, action);
   }
 
   @Action(CustomerActions.GetItem)
@@ -64,6 +58,7 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
     await super.getList(ctx, (queryFilters: any, filters: any) => {
 
       const {search} = filters;
+      console.log(search);
 
       if (search) {
         queryFilters['$or'] = [
@@ -107,28 +102,18 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
   // Selectors
 
   @Selector()
-  public static list(state: ICustomerState) {
-    return state.list;
-  }
-
-  @Selector()
   public static itemData(state: ICustomerState) {
     return state.item.data;
   }
 
   @Selector()
-  public static listItems(state: ICustomerState) {
-    return state.list.items;
+  public static tableStateItems(state: ICustomerState) {
+    return state.tableState.items;
   }
 
   @Selector()
-  public static listLoading(state: ICustomerState) {
-    return state.list.loading;
-  }
-
-  @Selector()
-  public static listPagination(state: ICustomerState) {
-    return state.list.pagination;
+  public static tableState(state: ICustomerState) {
+    return state.tableState;
   }
 
 }

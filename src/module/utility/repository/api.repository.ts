@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {NotImplementedYetError} from "@utility/domain/error";
+import {TableState_BackendFormat} from "@utility/domain/table.state";
 
 @Injectable({
   providedIn: 'root'
@@ -20,13 +21,7 @@ export class ApiRepository<ITEM> {
     throw new NotImplementedYetError();
   }
 
-  public list(
-    pageSize: number,
-    page: number,
-    orderBy: string,
-    orderDir: string,
-    filters: {}
-  ): any {
+  public list(params: TableState_BackendFormat): any {
     throw new NotImplementedYetError();
   }
 

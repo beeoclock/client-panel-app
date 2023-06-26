@@ -4,28 +4,45 @@ import {NavbarComponent} from '@utility/presentation/component/navbar/navbar.com
 import {FooterComponent} from '@utility/presentation/component/footer/footer.component';
 import {RouterOutlet} from '@angular/router';
 import {StreamToastComponent} from '@utility/presentation/component/toast/stream.toast.component';
-import {DOCUMENT} from "@angular/common";
+import {AsyncPipe, DOCUMENT, NgIf} from "@angular/common";
 import {ModalComponent} from "@utility/presentation/component/modal/modal.component";
 import {
   PageLoadingProgressBarComponent
 } from "@utility/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
+import {Select} from "@ngxs/store";
+import {IdentityState} from "@identity/state/identity/identity.state";
+import {Observable} from "rxjs";
+import {IdTokenResult} from "@angular/fire/auth";
 
 @Component({
   selector: 'utility-wrapper-panel-component',
   standalone: true,
   template: `
+    <ng-container *ngIf="token$ | async">
 
-    <utility-navbar-component></utility-navbar-component>
-    <utility-sidebar-component></utility-sidebar-component>
+      <utility-navbar-component></utility-navbar-component>
+      <utility-sidebar-component></utility-sidebar-component>
 
-    <div class="pt-16 sm:ml-64">
-      <utility-page-loading-progress-bar></utility-page-loading-progress-bar>
-      <router-outlet></router-outlet>
-    </div>
-    <utility-stream-toast-component></utility-stream-toast-component>
+      <div class="pt-16 sm:ml-64">
+        <utility-page-loading-progress-bar></utility-page-loading-progress-bar>
+        <router-outlet></router-outlet>
+      </div>
+      <utility-stream-toast-component></utility-stream-toast-component>
+
+    </ng-container>
 
   `,
-  imports: [SidebarComponent, NavbarComponent, FooterComponent, RouterOutlet, StreamToastComponent, ModalComponent, PageLoadingProgressBarComponent],
+  imports: [
+    SidebarComponent,
+    NavbarComponent,
+    FooterComponent,
+    RouterOutlet,
+    StreamToastComponent,
+    ModalComponent,
+    PageLoadingProgressBarComponent,
+    NgIf,
+    AsyncPipe
+  ],
   encapsulation: ViewEncapsulation.None
 })
 export default class WrapperPanelComponent implements AfterViewInit {
@@ -33,6 +50,9 @@ export default class WrapperPanelComponent implements AfterViewInit {
   private readonly document = inject(DOCUMENT);
   private checkerTimer: undefined | NodeJS.Timeout;
   private isUserOnWebSite = true;
+
+  @Select(IdentityState.token)
+  public readonly token$!: Observable<IdTokenResult | undefined>;
 
   constructor() {
     this.initNotificationChecker();

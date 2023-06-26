@@ -3,6 +3,7 @@ import {is} from 'thiis';
 import {OrderByEnum} from '@utility/domain/enum';
 import {getPaginationItems} from "@utility/domain/pagination.items";
 import hash_sum from "hash-sum";
+import {getMaxPage} from "@utility/domain/max-page";
 
 export interface IPagination_Configuration {
   checkPageSizeBeforeSet: boolean;
@@ -227,8 +228,7 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
    */
   public updateModel(updateLastUpdate = true): void {
 
-    const newMaxPage: number = Math.ceil(this.totalSize / this.pageSize);
-    this.setMaxPage(newMaxPage > this.minPage ? newMaxPage : 1);
+    this.setMaxPage(getMaxPage(this.totalSize, this.pageSize));
     this.pages = getPaginationItems(this.page, this.maxPage, 5);
 
     // Generate new hash_sum
