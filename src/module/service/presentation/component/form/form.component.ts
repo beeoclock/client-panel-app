@@ -190,21 +190,21 @@ export class FormComponent implements AfterViewInit {
       this.form.disable();
       this.form.markAsPending();
       this.repository.save(this.form.value as IService)
-        .then(({data}) => {
+        // .then(({data}) => {
 
-          this.router.navigate(['../', 'details', data.id], {
-            relativeTo: this.activatedRoute
-          });
+          // this.router.navigate(['../', 'details', data.id], {
+          //   relativeTo: this.activatedRoute
+          // });
           // this.form.enable();
           // this.form.updateValueAndValidity();
           // if (!this.form.value._id) {
           //   this.form.reset();
           // }
-        })
-        .catch((error) => {
-          this.form.enable();
-          this.form.updateValueAndValidity();
-        });
+        // })
+        // .catch((error) => {
+        //   this.form.enable();
+        //   this.form.updateValueAndValidity();
+        // });
     }
   }
 

@@ -13,14 +13,6 @@ export interface IBaseState<ITEM> {
   };
   tableState: ITableState<ITEM>;
   lastTableHashSum: undefined | string;
-  // cache: {
-  //   items: {
-  //     [key: string]: {
-  //       data: ITEM | undefined;
-  //       downloadedAt: Date;
-  //     }
-  //   };
-  // }
 }
 
 export function baseDefaults<T>(): IBaseState<T> {
@@ -132,8 +124,7 @@ export abstract class BaseState<ITEM = any> {
    */
   public async GetItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.GetItem): Promise<void> {
 
-    let state = ctx.getState();
-
+    const state = ctx.getState();
 
     const {_id} = (state.item?.data ?? {}) as { _id: string };
 
@@ -267,15 +258,15 @@ export abstract class BaseState<ITEM = any> {
       )
     ) as any;
 
-    const customerCacheTableStates = cache[this.cacheKeys.tableStates];
+    const cacheTableStates = cache[this.cacheKeys.tableStates];
 
     // Check if in local cache exist data of current pagination has
     if (
-      state.tableState.hashSum &&
-      Reflect.has(customerCacheTableStates, state.tableState.hashSum)
+      state.tableState.hashSum && cacheTableStates &&
+      Reflect.has(cacheTableStates, state.tableState.hashSum)
     ) {
 
-      const prevListState = customerCacheTableStates[state.tableState.hashSum];
+      const prevListState = cacheTableStates[state.tableState.hashSum];
 
       ctx.patchState({
         ...state,
@@ -319,7 +310,7 @@ export abstract class BaseState<ITEM = any> {
           strategy: 'indexedDB',
           key: this.cacheKeys.tableStates,
           value: JSON.stringify({
-            ...customerCacheTableStates,
+            ...cacheTableStates,
             [state.tableState.hashSum]: state.tableState
           })
         }));
