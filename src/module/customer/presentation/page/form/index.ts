@@ -70,7 +70,10 @@ export default class Index implements OnInit {
     if (this.form.valid) {
       this.form.disable();
       this.form.markAsPending();
-      this.repository.save(this.form.value as ICustomer)
+      // clear all data from IndexDB for the key: customer.cache.tableStates
+      this.repository.save(this.form.value as ICustomer).then((data) => {
+        console.log(data);
+      })
         // .then(({data}) => {
         //
         //   this.router.navigate(['../', 'details', data.id], {

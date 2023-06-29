@@ -3,8 +3,9 @@ import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
 
 export enum customerEndpointEnum {
-  paged = '/api/v1/customer',
+  paged = '/api/v1/customer/paged',
   item = '/api/v1/customer/{id}',
+  create = '/api/v1/customer',
 }
 
 export const customerEndpoint: EndpointCollectionType = {
@@ -22,6 +23,14 @@ export const customerEndpoint: EndpointCollectionType = {
       method: RequestMethodEnum.POST,
       source: SourceNetworkEnum.panel,
       replace: true,
+      header: {
+        authorization: true,
+      }
+    },
+    [customerEndpointEnum.create]: {
+      path: customerEndpointEnum.create,
+      method: RequestMethodEnum.POST,
+      source: SourceNetworkEnum.panel,
       header: {
         authorization: true,
       }

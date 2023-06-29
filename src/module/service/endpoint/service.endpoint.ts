@@ -3,7 +3,7 @@ import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
 
 export enum serviceEndpointEnum {
-  paged = '/api/v1/service',
+  paged = '/api/v1/service/paged',
   item = '/api/v1/service/{id}',
 }
 

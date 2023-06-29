@@ -48,4 +48,8 @@ export class CustomerApiAdapter extends ApiRepository<Customer.ICustomer> {
     });
   }
 
+  public override save(value: Customer.ICustomer): Promise<string> {
+    return firstValueFrom(this.httpClient.post<string>(customerEndpointEnum.create, value));
+  }
+
 }
