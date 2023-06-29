@@ -44,6 +44,11 @@ export class ServiceState extends BaseState<IService> {
     return super.UpdateTableState(ctx, action);
   }
 
+  @Action(ServiceActions.SaveItem)
+  public override async saveItem(ctx: StateContext<IServiceState>, action: ServiceActions.SaveItem): Promise<void> {
+    await super.saveItem(ctx, action);
+  }
+
   @Action(ServiceActions.GetItem)
   public override async GetItem(ctx: StateContext<IServiceState>, action: ServiceActions.GetItem): Promise<void> {
     await super.GetItem(ctx, action);

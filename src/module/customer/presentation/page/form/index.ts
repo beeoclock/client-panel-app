@@ -9,7 +9,6 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
 
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
-import {CustomerRepository} from '@customer/repository/customer.repository';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {ICustomer} from "@customer/domain";
 import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
@@ -50,8 +49,7 @@ export default class Index implements OnInit {
 
   private readonly store = inject(Store);
   private readonly router = inject(Router);
-  private readonly repository = inject(CustomerRepository);
-  private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  private readonly activatedRoute = inject(ActivatedRoute);
 
   public readonly form = new CustomerForm();
 
@@ -81,12 +79,13 @@ export default class Index implements OnInit {
       this.form.markAsPending();
       await firstValueFrom(this.store.dispatch(new CustomerActions.SaveItem(this.form.value as ICustomer)));
       const item = await firstValueFrom(this.itemData$);
-      await this.router.navigate([this.baseUrl, 'details', item?._id], {
-        relativeTo: this.activatedRoute
-      });
-
-      //     this.form.enable();
-      //     this.form.updateValueAndValidity();
+      if (item) {
+        await this.router.navigate([this.baseUrl, 'details', item?._id], {
+          relativeTo: this.activatedRoute
+        });
+      }
+      this.form.enable();
+      this.form.updateValueAndValidity();
 
     }
   }

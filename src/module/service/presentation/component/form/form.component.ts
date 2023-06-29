@@ -1,10 +1,14 @@
-import {AfterViewInit, Component, ElementRef, inject, QueryList, ViewChildren} from "@angular/core";
+import {AfterViewInit, Component, ElementRef, inject, OnInit, QueryList, ViewChildren} from "@angular/core";
 import {ServiceForm} from "@service/form/service.form";
-import {IService} from "@service/domain";
 import {ServiceRepository} from "@service/repository/service.repository";
 import {ActivatedRoute, Router} from "@angular/router";
 import {StepWrapperComponent} from "@service/presentation/component/form/step-wrapper.component";
 import {NgForOf} from "@angular/common";
+import {Select, Store} from "@ngxs/store";
+import {filter, firstValueFrom, Observable} from "rxjs";
+import {IService} from "@service/domain";
+import {ServiceState} from "@service/state/service/service.state";
+import {ServiceActions} from "@service/state/service/service.actions";
 
 @Component({
   selector: 'service-form-component',
@@ -69,9 +73,14 @@ import {NgForOf} from "@angular/common";
     </service-form-step-wrapper-component>
   `
 })
-export class FormComponent implements AfterViewInit {
+export class FormComponent implements AfterViewInit, OnInit {
 
-  public url = ['../'];
+
+  // TODO move functions to store effects/actions
+
+  public readonly baseUrl = '/service';
+  public readonly cancelUrl = [this.baseUrl];
+  private readonly store = inject(Store);
 
   public readonly idStepPrefix = 'service-form-steps-bar-section-';
 
@@ -88,20 +97,22 @@ export class FormComponent implements AfterViewInit {
   public activeSectionRef: undefined | StepWrapperComponent;
   public activeSectionIndex = 0;
 
-  constructor() {
-    this.activatedRoute.params.subscribe(({id}) => {
-      if (id) {
-        this.form.disable();
-        this.form.markAsPending();
-        this.url = ['../../', 'details', id];
-        this.repository.item(id).then(({data}) => {
-          if (data) {
-            this.form.patchValue(data);
-          }
+  @Select(ServiceState.itemData)
+  public itemData$!: Observable<IService | undefined>;
+
+  public ngOnInit(): void {
+    this.detectItem();
+  }
+
+  public detectItem(): void {
+    firstValueFrom(this.activatedRoute.params.pipe(filter(({id}) => id?.length))).then(() => {
+      firstValueFrom(this.itemData$).then((result) => {
+        if (result) {
+          this.cancelUrl.push('details', result._id);
+          this.form.patchValue(result);
           this.form.updateValueAndValidity();
-          this.form.enable();
-        });
-      }
+        }
+      });
     });
   }
 
@@ -129,7 +140,7 @@ export class FormComponent implements AfterViewInit {
 
       if (foundHTMLElement) {
 
-        foundHTMLElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        foundHTMLElement.scrollIntoView({behavior: "smooth", block: "start"});
 
       }
 
@@ -189,22 +200,15 @@ export class FormComponent implements AfterViewInit {
     if (this.form.valid) {
       this.form.disable();
       this.form.markAsPending();
-      this.repository.save(this.form.value as IService)
-        // .then(({data}) => {
-
-          // this.router.navigate(['../', 'details', data.id], {
-          //   relativeTo: this.activatedRoute
-          // });
-          // this.form.enable();
-          // this.form.updateValueAndValidity();
-          // if (!this.form.value._id) {
-          //   this.form.reset();
-          // }
-        // })
-        // .catch((error) => {
-        //   this.form.enable();
-        //   this.form.updateValueAndValidity();
-        // });
+      await firstValueFrom(this.store.dispatch(new ServiceActions.SaveItem(this.form.value as IService)));
+      const item = await firstValueFrom(this.itemData$);
+      if (item) {
+        await this.router.navigate([this.baseUrl, 'details', item?._id], {
+          relativeTo: this.activatedRoute
+        });
+      }
+      this.form.enable();
+      this.form.updateValueAndValidity();
     }
   }
 

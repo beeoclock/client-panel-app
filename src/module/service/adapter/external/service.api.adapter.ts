@@ -13,6 +13,10 @@ export class ServiceApiAdapter extends ApiRepository<Service.IService> {
 
   private readonly httpClient = inject(HttpClient);
 
+  /**
+   *
+   * @param params
+   */
   public override list(params: TableState_BackendFormat): Promise<{
     data: {
       items: Service.IService[];
@@ -32,6 +36,10 @@ export class ServiceApiAdapter extends ApiRepository<Service.IService> {
     });
   }
 
+  /**
+   *
+   * @param id
+   */
   public override item(id: string): Promise<{
     data: Service.IService
   }> {
@@ -46,6 +54,24 @@ export class ServiceApiAdapter extends ApiRepository<Service.IService> {
         data
       };
     });
+  }
+
+  /**
+   *
+   * @param value
+   */
+  public override save(value: Service.IService): Promise<Service.IService> {
+    if (value?._id?.length) {
+      return firstValueFrom(this.httpClient.put<Service.IService>(serviceEndpointEnum.update, value, {
+        headers: {
+          replace: JSON.stringify({
+            id: value._id
+          })
+        }
+      }));
+    } else {
+      return firstValueFrom(this.httpClient.post<Service.IService>(serviceEndpointEnum.create, value));
+    }
   }
 
 }
