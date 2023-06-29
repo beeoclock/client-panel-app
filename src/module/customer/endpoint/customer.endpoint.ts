@@ -5,6 +5,7 @@ import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
 export enum customerEndpointEnum {
   paged = '/api/v1/customer/paged',
   item = '/api/v1/customer/{id}',
+  update = '/api/v1/customer/{id}',
   create = '/api/v1/customer',
 }
 
@@ -35,6 +36,17 @@ export const customerEndpoint: EndpointCollectionType = {
         authorization: true,
       }
     }
+  },
+  PUT: {
+    [customerEndpointEnum.update]: {
+      path: customerEndpointEnum.update,
+      method: RequestMethodEnum.PUT,
+      source: SourceNetworkEnum.panel,
+      replace: true,
+      header: {
+        authorization: true,
+      }
+    },
   },
 }
 

@@ -42,7 +42,7 @@ export class CacheState {
   ): Promise<void> {
     let result = undefined;
     if (payload.strategy === 'indexedDB') {
-      const data: {key: string; value: string;} | null = await firstValueFrom(this.ngxIndexedDBService.getByKey('cache', payload.key));
+      const data: { key: string; value: string; } | null = await firstValueFrom(this.ngxIndexedDBService.getByKey('cache', payload.key));
       if (data) {
         result = data.value;
       }
@@ -64,6 +64,9 @@ export class CacheState {
     if (payload.strategy === 'indexedDB') {
 
       await firstValueFrom(this.ngxIndexedDBService.delete('cache', payload.key));
+      ctx.patchState({
+        [payload.key]: []
+      });
 
     } else {
       payload.strategy.removeItem(payload.key)

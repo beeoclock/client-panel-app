@@ -194,6 +194,44 @@ export abstract class BaseState<ITEM = any> {
    * @param ctx
    * @param payload
    */
+  public async saveItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.SaveItem<ITEM>): Promise<void> {
+
+    ctx.dispatch(new AppActions.PageLoading(true));
+
+    // TODO Implement: Error case
+    const data = await this.repository.save(payload);
+
+    // Clear all history from cache
+    // Clear cache of item
+    await firstValueFrom(ctx.dispatch(new CacheActions.Remove({
+      strategy: 'indexedDB',
+      key: this.cacheKeys.items,
+    })));
+    // Clear cache of table
+    await firstValueFrom(ctx.dispatch(new CacheActions.Remove({
+      strategy: 'indexedDB',
+      key: this.cacheKeys.tableStates,
+    })));
+
+    // Set new/updated item to store state and clear table
+    ctx.patchState({
+      item: {
+        data,
+        downloadedAt: new Date(),
+      },
+      tableState: new TableState<ITEM>().toCache(),
+      lastTableHashSum: undefined
+    });
+
+    ctx.dispatch(new AppActions.PageLoading(false));
+
+  }
+
+  /**
+   *
+   * @param ctx
+   * @param payload
+   */
   public deleteItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.DeleteItem): void {
 
     ctx.dispatch(new AppActions.PageLoading(true));

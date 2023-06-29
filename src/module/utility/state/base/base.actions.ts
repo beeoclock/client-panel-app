@@ -33,6 +33,15 @@ export namespace BaseActions {
     }
   }
 
+  export abstract class SaveItem<ITEM> {
+    public static readonly type: string = '[TODO] Not Implemented Yet!';
+
+    constructor(
+      public payload: ITEM,
+    ) {
+    }
+  }
+
   // Updates of state
 
   export abstract class UpdateFilters {

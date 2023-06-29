@@ -20,6 +20,10 @@ export namespace CustomerActions {
     public static override readonly type = '[Customer API] Get Item';
   }
 
+  export class SaveItem extends BaseActions.SaveItem<ICustomer> {
+    public static override readonly type = '[Customer API] Save Item';
+  }
+
   // Updates of state
 
   export class UpdateFilters extends BaseActions.UpdateFilters {

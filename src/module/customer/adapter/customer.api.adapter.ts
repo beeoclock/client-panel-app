@@ -1,5 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import * as Customer from '@customer/domain';
+import {ICustomer} from '@customer/domain';
 import {ApiRepository} from "@utility/repository/api.repository";
 import {HttpClient} from "@angular/common/http";
 import {customerEndpointEnum} from "@customer/endpoint/customer.endpoint";
@@ -48,8 +49,18 @@ export class CustomerApiAdapter extends ApiRepository<Customer.ICustomer> {
     });
   }
 
-  public override save(value: Customer.ICustomer): Promise<string> {
-    return firstValueFrom(this.httpClient.post<string>(customerEndpointEnum.create, value));
+  public override save(value: Customer.ICustomer): Promise<ICustomer> {
+    if (value?._id?.length) {
+      return firstValueFrom(this.httpClient.put<ICustomer>(customerEndpointEnum.update, value, {
+        headers: {
+          replace: JSON.stringify({
+            id: value._id
+          })
+        }
+      }));
+    } else {
+      return firstValueFrom(this.httpClient.post<ICustomer>(customerEndpointEnum.create, value));
+    }
   }
 
 }

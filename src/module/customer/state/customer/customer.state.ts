@@ -48,6 +48,11 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
     await super.GetItem(ctx, action);
   }
 
+  @Action(CustomerActions.SaveItem)
+  public override async saveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.SaveItem): Promise<void> {
+    await super.saveItem(ctx, action);
+  }
+
   @Action(CustomerActions.DeleteItem)
   public override deleteItem(ctx: StateContext<ICustomerState>, action: CustomerActions.DeleteItem): void {
     super.deleteItem(ctx, action);
