@@ -321,6 +321,7 @@ export abstract class BaseState<ITEM = any> {
       filterProcessing?.(filters, state.tableState.filters);
 
       const newTableState = TableState.fromCache<ITEM>(state.tableState);
+      newTableState.filters = filters;
 
       const {data} = await this.repository.list(newTableState.toBackendFormat());
 

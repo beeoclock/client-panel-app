@@ -63,7 +63,6 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
     await super.getList(ctx, (queryFilters: any, filters: any) => {
 
       const {search} = filters;
-      console.log(search);
 
       if (search) {
         queryFilters['$or'] = [
