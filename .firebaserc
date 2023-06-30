@@ -1,17 +1,12 @@
 {
-  "projects": {},
+  "projects": {
+    "default": "panel-beeoclock"
+  },
   "targets": {
-    "beeoclock-cloud-00000000000000": {
+    "panel-beeoclock": {
       "hosting": {
-        "panel-beeoclock-cloud-00000000000000": [
-          "panel-beeoclock-cloud-00000000000000"
-        ]
-      }
-    },
-    "beeoclock-cloud-00000000000001": {
-      "hosting": {
-        "panel-beeoclock-cloud-00000000000001": [
-          "panel-beeoclock-cloud-00000000000001"
+        "panel-beeoclock": [
+          "panel-beeoclock"
         ]
       }
     }

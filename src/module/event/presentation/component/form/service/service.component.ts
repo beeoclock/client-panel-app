@@ -4,7 +4,7 @@ import {IDurationVersion, ILanguageVersion, IPrice, IService} from "@service/dom
 import {FormControl} from "@angular/forms";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {ButtonComponent} from "@utility/presentation/component/button/button.component";
-import {IEmployee} from "@employee/domain";
+import {IMember} from "@member/domain";
 
 @Component({
   selector: 'event-form-service-component',
@@ -55,42 +55,42 @@ import {IEmployee} from "@employee/domain";
 
       </div>
 
-      <p class="mt-3"><strong>Select employee</strong></p>
+      <p class="mt-3"><strong>Select member</strong></p>
 
-      <div *ngFor="let permanentEmployee of control.value.permanentEmployees; let index = index;"
+      <div *ngFor="let permanentMember of control.value.permanentMembers; let index = index;"
            class="list-group mb-2">
 
         <div
-          (click)="selectPermanentEmployee(permanentEmployee)"
+          (click)="selectPermanentMember(permanentMember)"
           class="flex items-center pl-4 border border-beeColor-200 rounded dark:border-beeDarkColor-700 cursor-pointer">
 
           <input
-            id="permanent-employee-#{{ index }}"
+            id="permanent-member-#{{ index }}"
             type="radio"
-            [checked]="selectedPermanentEmployee && permanentEmployee._id === selectedPermanentEmployee._id"
-            name="permanent-employee"
+            [checked]="selectedPermanentMember && permanentMember._id === selectedPermanentMember._id"
+            name="permanent-member"
             class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeDarkColor-800 focus:ring-2 dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 cursor-pointer">
 
           <label
-            for="permanent-employee-#{{ index }}"
+            for="permanent-member-#{{ index }}"
             class="w-full py-4 ml-2 text-sm font-medium text-beeColor-900 dark:text-beeDarkColor-300 cursor-pointer">
 
             <p class="mb-1">
 
               <i class="bi bi-person"></i>
-              {{ permanentEmployee.firstName }} {{ permanentEmployee.lastName }}
+              {{ permanentMember.firstName }} {{ permanentMember.lastName }}
 
             </p>
 
             <small>
 
-              {{ permanentEmployee.email }}
+              {{ permanentMember.email }}
 
             </small>
 
             <small>
 
-              {{ permanentEmployee.phone }}
+              {{ permanentMember.phone }}
 
             </small>
 
@@ -178,7 +178,7 @@ export class ServiceComponent {
   public selectedPrice: undefined | IPrice;
   public selectedLanguageVersion: undefined | ILanguageVersion;
   public selectedDurationVersion: undefined | IDurationVersion;
-  public selectedPermanentEmployee: undefined | IEmployee;
+  public selectedPermanentMember: undefined | IMember;
   public readonly control: FormControl<IService> = new FormControl();
 
   public selectedService: undefined | IService;
@@ -201,8 +201,8 @@ export class ServiceComponent {
     this.selectedDurationVersion = durationVersion;
   }
 
-  public selectPermanentEmployee(permanentEmployee: IEmployee): void {
-    this.selectedPermanentEmployee = permanentEmployee;
+  public selectPermanentMember(permanentMember: IMember): void {
+    this.selectedPermanentMember = permanentMember;
   }
 
   public selectPrice(price: IPrice): void {
@@ -226,7 +226,7 @@ export class ServiceComponent {
     this.selectedDurationVersion = service.durationVersions[0];
     this.selectedPrice = service.durationVersions[0].prices[0];
     this.selectedLanguageVersion = service.languageVersions[0];
-    this.selectedPermanentEmployee = service.permanentEmployees[0];
+    this.selectedPermanentMember = service.permanentMembers[0];
   }
 
   public select(): void {
@@ -240,8 +240,8 @@ export class ServiceComponent {
     this.selectedService.languageVersions = this.selectedService.languageVersions.filter((languageVersion) => {
       return this.selectedLanguageVersion && languageVersion.language === this.selectedLanguageVersion.language;
     });
-    this.selectedService.permanentEmployees = this.selectedService?.permanentEmployees.filter((permanentEmployee) => {
-      return this.selectedPermanentEmployee && permanentEmployee._id === this.selectedPermanentEmployee._id;
+    this.selectedService.permanentMembers = this.selectedService?.permanentMembers.filter((permanentMember) => {
+      return this.selectedPermanentMember && permanentMember._id === this.selectedPermanentMember._id;
     });
     this.emitter.emit(this.selectedService);
   }
@@ -250,7 +250,7 @@ export class ServiceComponent {
     this.selectedPrice = undefined;
     this.selectedLanguageVersion = undefined;
     this.selectedDurationVersion = undefined;
-    this.selectedPermanentEmployee = undefined;
+    this.selectedPermanentMember = undefined;
   }
 
 }

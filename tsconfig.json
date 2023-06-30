@@ -62,14 +62,14 @@
       "@service/*": [
         "./src/module/service/*"
       ],
-      "@employee/*": [
-        "./src/module/employee/*"
-      ],
       "@user/*": [
         "./src/module/user/*"
       ],
       "@utility/*": [
         "./src/module/utility/*"
+      ],
+      "@member/*": [
+        "./src/module/member/*"
       ]
     }
   },

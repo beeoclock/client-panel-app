@@ -6,11 +6,11 @@ export interface ITableState<ITEM> {
 
   orderBy: string;
   orderDir: string;
-  filters: {
+  filters: Partial<{
     search: undefined | string;
     active: ActiveEnum;
     [key: string]: unknown;
-  };
+  }>;
   page: number;
   pageSize: number;
 

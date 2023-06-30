@@ -22,8 +22,8 @@ export const routes: Routes = [
         loadChildren: () => import('@utility/index')
       },
       {
-        path: 'employee',
-        loadChildren: () => import('@employee/index')
+        path: 'member',
+        loadChildren: () => import('@member/index')
       },
       {
         path: 'user',

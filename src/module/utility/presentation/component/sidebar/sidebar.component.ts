@@ -55,8 +55,8 @@ export class SidebarComponent implements AfterViewInit {
       }
     },
     {
-      url: '/employee',
-      translateKey: 'sidebar.employees',
+      url: '/member',
+      translateKey: 'sidebar.members',
       icon: 'bi bi-people',
       routerLinkActiveOptions: {
         paths: "subset",

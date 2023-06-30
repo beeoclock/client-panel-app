@@ -69,7 +69,7 @@ import {ServiceActions} from "@service/state/service/service.actions";
     </service-form-step-wrapper-component>
     <service-form-step-wrapper-component [form]="form" section="schedules">
     </service-form-step-wrapper-component>
-    <service-form-step-wrapper-component [form]="form" section="employees">
+    <service-form-step-wrapper-component [form]="form" section="members">
     </service-form-step-wrapper-component>
   `
 })

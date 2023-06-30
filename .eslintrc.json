@@ -32,6 +32,7 @@
             "type": "element",
             "prefix": [
               "storybook",
+              "member",
               "app",
               "identity",
               "utility",
@@ -40,7 +41,6 @@
               "customer",
               "service",
               "user",
-              "employee",
               "specialist"
             ],
             "style": "kebab-case"

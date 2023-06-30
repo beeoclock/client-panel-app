@@ -26,13 +26,13 @@
     "contact": "Contact",
     "active": "Active",
     "languages": "Languages",
-    "employees": "Employees",
+    "members": "Members",
     "soon": "Soon",
     "signOut": "Sign out"
   },
   "sidebar": {
     "dashboard": "Dashboard",
-    "employees": "Employees",
+    "members": "Members",
     "customers": "Customers",
     "services": "Services",
     "events": "Events",
@@ -68,10 +68,10 @@
       "create": "Add customer"
     }
   },
-  "employee": {
-    "title": "Employee",
+  "member": {
+    "title": "Member",
     "button": {
-      "create": "Add employee"
+      "create": "Add member"
     }
   },
   "event": {

@@ -3,8 +3,8 @@ import {NgIf, NgSwitch, NgSwitchCase} from "@angular/common";
 import {ServicesFormComponent} from "@service/presentation/component/form/service/services.form.component";
 import {DurationsFormComponent} from "@service/presentation/component/form/duration/durations.form.component";
 import {SchedulesFormComponent} from "@service/presentation/component/form/schedule/schedules.form.component";
-import {EmployeesFormComponent} from "@service/presentation/component/form/employees/employees.form.component";
 import {ServiceForm} from "@service/form/service.form";
+import {MembersFormComponent} from "@service/presentation/component/form/members/members.form.component";
 
 @Component({
   selector: 'service-form-step-wrapper-component',
@@ -15,8 +15,9 @@ import {ServiceForm} from "@service/form/service.form";
     ServicesFormComponent,
     DurationsFormComponent,
     SchedulesFormComponent,
-    EmployeesFormComponent,
-    NgIf
+    MembersFormComponent,
+    NgIf,
+    MembersFormComponent
   ],
   template: `
 
@@ -40,10 +41,10 @@ import {ServiceForm} from "@service/form/service.form";
         [schedulesForm]="form.controls.schedules">
       </service-schedules-form-component>
 
-      <service-employees-form-component
-        *ngSwitchCase="'employees'"
-        [control]="form.controls.permanentEmployees">
-      </service-employees-form-component>
+      <service-members-form-component
+        *ngSwitchCase="'members'"
+        [control]="form.controls.permanentMembers">
+      </service-members-form-component>
 
     </ng-container>
 
@@ -52,7 +53,7 @@ import {ServiceForm} from "@service/form/service.form";
 export class StepWrapperComponent {
 
   @Input()
-  public section: 'services' | 'durations' | 'schedules' | 'employees' = 'services';
+  public section: 'services' | 'durations' | 'schedules' | 'members' = 'services';
 
   @Input()
   public form!: ServiceForm;
@@ -77,9 +78,9 @@ export class StepWrapperComponent {
         title: 'Schedules',
         description: 'Set schedule versions of service'
       },
-      employees: {
-        title: 'Employees',
-        description: 'Set permanent employees of service'
+      members: {
+        title: 'Members',
+        description: 'Set permanent members of service'
       },
     }[this.section];
   }
