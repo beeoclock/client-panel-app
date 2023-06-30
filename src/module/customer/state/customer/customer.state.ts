@@ -58,11 +58,16 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
     super.deleteItem(ctx, action);
   }
 
+  @Action(CustomerActions.ArchiveItem)
+  public override archiveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.ArchiveItem): void {
+    super.archiveItem(ctx, action);
+  }
+
   @Action(CustomerActions.GetList)
   public override async getList(ctx: StateContext<ICustomerState>): Promise<void> {
     await super.getList(ctx, (queryFilters: any, filters: any) => {
 
-      const {search} = filters;
+      const {search, ...rest} = filters;
 
       if (search) {
         queryFilters['$or'] = [
@@ -98,6 +103,14 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
           },
         ];
       }
+
+      Object.keys(rest).forEach((key) => {
+        queryFilters['$and'] = [
+          {
+            [key]: filters[key]
+          }
+        ]
+      });
 
     });
 

@@ -5,6 +5,7 @@ import {CacheActions} from "@utility/state/cache/cache.actions";
 import {ITableState, TableState} from "@utility/domain/table.state";
 import {firstValueFrom} from "rxjs";
 import {ICacheState} from "@utility/state/cache/cache.state";
+import {ActiveEnum} from "@utility/domain/enum";
 
 export interface IBaseState<ITEM> {
   item: {
@@ -236,14 +237,13 @@ export abstract class BaseState<ITEM = any> {
 
     ctx.dispatch(new AppActions.PageLoading(true));
 
-    const {id, refreshList, goToTheList} = payload;
-    this.repository.remove(id).then((result: any) => {
+    this.repository.remove(payload).then((result: any) => {
       if (result) {
 
         const state = ctx.getState();
         const {_id} = (state.item?.data ?? {}) as { _id: string };
 
-        if (_id === id) {
+        if (_id === payload) {
 
           ctx.patchState({
             item: {
@@ -257,13 +257,43 @@ export abstract class BaseState<ITEM = any> {
           // TODO delete from cache
 
         }
+      }
+    });
 
-        if (goToTheList) {
-          this.router.navigate(['/', 'employee']);
+    ctx.dispatch(new AppActions.PageLoading(false));
+  }
+
+  /**
+   *
+   * @param ctx
+   * @param payload
+   */
+  public archiveItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.ArchiveItem): void {
+
+    ctx.dispatch(new AppActions.PageLoading(true));
+
+    this.repository.archive(payload).then((result: any) => {
+      if (result) {
+
+        const state = ctx.getState();
+        const {_id} = (state.item?.data ?? {}) as { _id: string };
+
+        if (_id === payload) {
+
+          ctx.patchState({
+            item: {
+              data: {
+                ...state.item.data,
+                active: ActiveEnum.NO
+              } as any,
+              downloadedAt: new Date(),
+            }
+          });
+
         } else {
-          if (refreshList ?? true) {
-            ctx.dispatch(new this.actions.GetList());
-          }
+
+          // TODO delete from cache
+
         }
       }
     });

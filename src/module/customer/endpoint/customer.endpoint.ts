@@ -6,6 +6,8 @@ export enum customerEndpointEnum {
   paged = '/api/v1/customer/paged',
   item = '/api/v1/customer/{id}',
   update = '/api/v1/customer/{id}',
+  delete = '/api/v1/customer/{id}',
+  archive = '/api/v1/customer/{id}/archive',
   create = '/api/v1/customer',
 }
 
@@ -41,6 +43,28 @@ export const customerEndpoint: EndpointCollectionType = {
     [customerEndpointEnum.update]: {
       path: customerEndpointEnum.update,
       method: RequestMethodEnum.PUT,
+      source: SourceNetworkEnum.panel,
+      replace: true,
+      header: {
+        authorization: true,
+      }
+    },
+  },
+  PATCH: {
+    [customerEndpointEnum.archive]: {
+      path: customerEndpointEnum.archive,
+      method: RequestMethodEnum.PATCH,
+      source: SourceNetworkEnum.panel,
+      replace: true,
+      header: {
+        authorization: true,
+      }
+    },
+  },
+  DELETE: {
+    [customerEndpointEnum.delete]: {
+      path: customerEndpointEnum.delete,
+      method: RequestMethodEnum.DELETE,
       source: SourceNetworkEnum.panel,
       replace: true,
       header: {

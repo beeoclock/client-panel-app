@@ -1,4 +1,5 @@
 import {ITableState} from "@utility/domain/table.state";
+import {ActiveEnum} from "@utility/domain/enum";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace BaseActions {
@@ -15,11 +16,16 @@ export namespace BaseActions {
     public static readonly type: string = '[TODO] Not Implemented Yet!';
 
     constructor(
-      public payload: {
-        id: string;
-        refreshList?: boolean;
-        goToTheList?: boolean;
-      },
+      public payload: string,
+    ) {
+    }
+  }
+
+  export abstract class ArchiveItem {
+    public static readonly type: string = '[TODO] Not Implemented Yet!';
+
+    constructor(
+      public payload: string,
     ) {
     }
   }
@@ -48,9 +54,11 @@ export namespace BaseActions {
     public static readonly type: string = '[TODO] Not Implemented Yet!';
 
     constructor(
-      public payload: {
+      public payload: Partial<{
         search: string | undefined;
-      },
+        active: ActiveEnum;
+        [key: string]: any
+      }>,
     ) {
     }
   }

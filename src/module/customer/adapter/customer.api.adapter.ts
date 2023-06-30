@@ -14,6 +14,10 @@ export class CustomerApiAdapter extends ApiRepository<Customer.ICustomer> {
 
   private readonly httpClient = inject(HttpClient);
 
+  /**
+   * GET PAGED LIST BY FILTERS AND PARAMS
+   * @param params
+   */
   public override list(params: TableState_BackendFormat): Promise<{
     data: {
       items: Customer.ICustomer[];
@@ -33,6 +37,10 @@ export class CustomerApiAdapter extends ApiRepository<Customer.ICustomer> {
     });
   }
 
+  /**
+   * GET ITEM BY ID
+   * @param id
+   */
   public override item(id: string): Promise<{
     data: Customer.ICustomer
   }> {
@@ -49,6 +57,10 @@ export class CustomerApiAdapter extends ApiRepository<Customer.ICustomer> {
     });
   }
 
+  /**
+   * SAVE NEW ITEM OR UPDATE ITEM BY ID
+   * @param value
+   */
   public override save(value: Customer.ICustomer): Promise<ICustomer> {
     if (value?._id?.length) {
       return firstValueFrom(this.httpClient.put<ICustomer>(customerEndpointEnum.update, value, {
@@ -61,6 +73,38 @@ export class CustomerApiAdapter extends ApiRepository<Customer.ICustomer> {
     } else {
       return firstValueFrom(this.httpClient.post<ICustomer>(customerEndpointEnum.create, value));
     }
+  }
+
+  /**
+   * ARCHIVE ITEM BY ID
+   * @param id
+   */
+  public async archive(id: string): Promise<void> {
+    await firstValueFrom(this.httpClient.patch(customerEndpointEnum.archive, null, {
+      headers: {
+        replace: JSON.stringify({
+          id
+        })
+      }
+    }))
+  }
+
+  /**
+   * DELETE ITEM BY ID
+   * @param id
+   */
+  public override async remove(id: string): Promise<{
+    deletedCount: number
+  }> {
+    return await firstValueFrom(this.httpClient.delete<{
+      deletedCount: number
+    }>(customerEndpointEnum.delete, {
+      headers: {
+        replace: JSON.stringify({
+          id
+        })
+      }
+    }))
   }
 
 }

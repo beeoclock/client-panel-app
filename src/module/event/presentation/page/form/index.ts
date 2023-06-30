@@ -153,7 +153,6 @@ export default class Index {
       this.form.markAsPending();
       this.repository.save(value as IEvent)
         .then(({data}) => {
-          console.log(data);
 
           this.router.navigate(['../', 'details', data.id], {
             relativeTo: this.activatedRoute

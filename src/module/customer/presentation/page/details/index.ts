@@ -138,10 +138,7 @@ export default class Index implements OnInit {
   }
 
   public delete(id: string): void {
-    this.store.dispatch(new CustomerActions.DeleteItem({
-      id,
-      goToTheList: true
-    }));
+    this.store.dispatch(new CustomerActions.DeleteItem(id));
   }
 
 }

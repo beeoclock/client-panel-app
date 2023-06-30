@@ -4,6 +4,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {IService} from "@service/domain";
 import {ServiceAdapterEventModule} from "@service/adapter/module/service.adapter.event.module";
+import {ActiveEnum} from "@utility/domain/enum";
 
 @Component({
   selector: 'event-services-form-component',
@@ -63,7 +64,8 @@ export class ServicesFormComponent implements AfterViewInit {
         orderBy: 'createdAt',
         orderDir: 'asc',
         filters: {
-          search: ''
+          search: '',
+          active: ActiveEnum.YES
         }
       })
       .then((result) => {

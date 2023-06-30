@@ -1,4 +1,5 @@
 import hash_sum from "hash-sum";
+import {ActiveEnum} from "@utility/domain/enum";
 
 export interface ITableState<ITEM> {
   hashSum: string;
@@ -7,6 +8,7 @@ export interface ITableState<ITEM> {
   orderDir: string;
   filters: {
     search: undefined | string;
+    active: ActiveEnum;
     [key: string]: unknown;
   };
   page: number;
@@ -22,7 +24,7 @@ export type TableState_BackendFormat = Pick<ITableState<any>, 'orderDir' | 'orde
 
 export class TableState<ITEM> implements ITableState<ITEM> {
 
-  #filters = {search: undefined};
+  #filters = {search: undefined, active: ActiveEnum.YES};
   #maxPage = 1;
   #orderBy = 'createdAt';
   #orderDir = 'asc';

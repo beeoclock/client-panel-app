@@ -16,6 +16,10 @@ export namespace EmployeeActions {
     public static override readonly type = '[Employee API] Delete Item';
   }
 
+  export class ArchiveItem extends BaseActions.ArchiveItem {
+    public static override readonly type = '[Employee API] Archive Item';
+  }
+
   export class GetItem extends BaseActions.GetItem {
     public static override readonly type = '[Employee API] Get Item';
   }

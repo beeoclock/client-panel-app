@@ -31,7 +31,6 @@ export class LanguageInputComponent {
   constructor() {
     this.control.setValue(this.translateService.currentLang);
     this.control.valueChanges.subscribe((languageCode) => {
-      console.log(languageCode);
       this.translateService.use(languageCode);
     });
   }

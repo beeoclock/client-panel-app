@@ -125,10 +125,7 @@ export default class Index {
   public readonly store = inject(Store);
 
   public delete(id: string): void {
-    this.store.dispatch(new EmployeeActions.DeleteItem({
-      id,
-      goToTheList: true
-    }));
+    this.store.dispatch(new EmployeeActions.DeleteItem(id));
   }
 
 }

@@ -28,7 +28,7 @@ export class FilterComponent {
     this.form.valueChanges.pipe(
       debounceTime(500),
     ).subscribe(async (value) => {
-      await firstValueFrom(this.store.dispatch(new CustomerActions.UpdateFilters(<{ search: string }>value)));
+      await firstValueFrom(this.store.dispatch(new CustomerActions.UpdateFilters(value)));
       await firstValueFrom(this.store.dispatch(new CustomerActions.GetList()));
     });
   }

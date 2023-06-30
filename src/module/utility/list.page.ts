@@ -12,6 +12,7 @@ export abstract class ListPage implements OnInit, AfterViewInit {
   public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
   public readonly actions!: {
     DeleteItem: any;
+    ArchiveItem: any;
     GetList: any;
     UpdateTableState: any;
   };
@@ -50,6 +51,12 @@ export abstract class ListPage implements OnInit, AfterViewInit {
 
   public delete(id: string): void {
     this.store.dispatch(new this.actions.DeleteItem({
+      id
+    }));
+  }
+
+  public archive(id: string): void {
+    this.store.dispatch(new this.actions.ArchiveItem({
       id
     }));
   }

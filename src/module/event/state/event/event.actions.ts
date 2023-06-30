@@ -16,6 +16,10 @@ export namespace EventActions {
     public static override readonly type = '[Event API] Delete Item';
   }
 
+  export class ArchiveItem extends BaseActions.ArchiveItem {
+    public static override readonly type = '[Event API] Archive Item';
+  }
+
   export class GetItem extends BaseActions.GetItem {
     public static override readonly type = '[Event API] Get Item';
   }
