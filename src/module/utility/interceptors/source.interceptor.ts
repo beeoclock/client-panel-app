@@ -17,13 +17,9 @@ export const SourceInterceptor: HttpInterceptorFn = (request, next) => {
 
     const {source} = Endpoint.endpointMap[request.method as RequestMethodEnum].get(path) ?? {};
 
-    console.log(source, path);
-
     if (source) {
 
       const url = `${RuntimeEnvironment.apiUrls[source]}${request.url}`;
-
-      console.log(url);
 
       request = request.clone({
         url

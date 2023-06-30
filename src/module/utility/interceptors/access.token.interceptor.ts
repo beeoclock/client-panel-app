@@ -19,13 +19,12 @@ export const AccessTokenInterceptor: HttpInterceptorFn = (request: HttpRequest<u
   if (header) {
 
     const {authorization} = header;
-    console.log(authorization);
+
     if (authorization) {
 
       const store = inject(Store);
 
       return store.select(IdentityState.token).pipe(exhaustMap((tokenState) => {
-        console.log(tokenState);
         const headers = request.headers.set('Authorization', `Bearer ${tokenState?.token}`);
         return next(request.clone({
           headers

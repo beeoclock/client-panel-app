@@ -135,7 +135,7 @@ export abstract class BaseState<ITEM = any> {
         ctx.dispatch(
           new CacheActions.Get({
             strategy: 'indexedDB',
-            key: this.cacheKeys.tableStates,
+            key: this.cacheKeys.items,
           })
         )
       ) as any;
@@ -169,7 +169,6 @@ export abstract class BaseState<ITEM = any> {
         };
 
         ctx.patchState({
-          ...state,
           item
         });
 
@@ -351,9 +350,11 @@ export abstract class BaseState<ITEM = any> {
       filterProcessing?.(filters, state.tableState.filters);
 
       const newTableState = TableState.fromCache<ITEM>(state.tableState);
-      newTableState.filters = filters;
 
-      const {data} = await this.repository.list(newTableState.toBackendFormat());
+      const {data} = await this.repository.list({
+        ...newTableState.toBackendFormat(),
+        filters
+      });
 
       // Update current state
       const {items, total} = data;
@@ -371,9 +372,6 @@ export abstract class BaseState<ITEM = any> {
 
       // Check if we have prev state, if true, update cache
       if (items.length && state.tableState.hashSum) {
-
-        // Update local cache
-        state = ctx.getState();
 
         ctx.dispatch(new CacheActions.Set({
           strategy: 'indexedDB',
