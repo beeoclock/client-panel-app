@@ -77,7 +77,7 @@ export default class Index implements OnInit {
     if (this.form.valid) {
       this.form.disable();
       this.form.markAsPending();
-      await firstValueFrom(this.store.dispatch(new CustomerActions.SaveItem(this.form.value as ICustomer)));
+      await firstValueFrom(this.store.dispatch(new CustomerActions.SaveItem(this.form.getRawValue() as ICustomer)));
       const item = await firstValueFrom(this.itemData$);
       if (item) {
         await this.router.navigate([this.baseUrl, 'details', item?._id], {

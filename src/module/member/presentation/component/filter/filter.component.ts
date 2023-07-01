@@ -3,7 +3,7 @@ import {FilterPanelComponent} from '@utility/presentation/component/panel/filter
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {debounceTime} from 'rxjs';
 import {Store} from "@ngxs/store";
-import {FilterForm} from "@customer/form/filter.form";
+import {FilterForm} from "@member/form/filter.form";
 import {MemberActions} from "@member/state/member/member.actions";
 
 @Component({

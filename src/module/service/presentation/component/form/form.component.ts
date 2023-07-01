@@ -200,7 +200,7 @@ export class FormComponent implements AfterViewInit, OnInit {
     if (this.form.valid) {
       this.form.disable();
       this.form.markAsPending();
-      await firstValueFrom(this.store.dispatch(new ServiceActions.SaveItem(this.form.value as IService)));
+      await firstValueFrom(this.store.dispatch(new ServiceActions.SaveItem(this.form.getRawValue() as IService)));
       const item = await firstValueFrom(this.itemData$);
       if (item) {
         await this.router.navigate([this.baseUrl, 'details', item?._id], {

@@ -13,11 +13,11 @@ import {HeaderCardComponent} from "@utility/presentation/component/card/header.c
 import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 import {TranslateModule} from "@ngx-translate/core";
 import {Select, Store} from "@ngxs/store";
-import {CustomerForm} from "@customer/form/customer.form";
-import {CustomerState} from "@customer/state/customer/customer.state";
+import {MemberForm} from "@member/form/member.form";
+import {MemberState} from "@member/state/member/member.state";
 import {filter, firstValueFrom, Observable} from "rxjs";
-import {ICustomer} from "@customer/domain";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {IMember} from "@member/domain";
+import {MemberActions} from "@member/state/member/member.actions";
 
 @Component({
   selector: 'member-form-page',
@@ -51,10 +51,10 @@ export default class Index implements OnInit {
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
 
-  public readonly form = new CustomerForm();
+  public readonly form = new MemberForm();
 
-  @Select(CustomerState.itemData)
-  public itemData$!: Observable<ICustomer | undefined>;
+  @Select(MemberState.itemData)
+  public itemData$!: Observable<IMember | undefined>;
 
   public ngOnInit(): void {
     this.detectItem();
@@ -77,7 +77,7 @@ export default class Index implements OnInit {
     if (this.form.valid) {
       this.form.disable();
       this.form.markAsPending();
-      await firstValueFrom(this.store.dispatch(new CustomerActions.SaveItem(this.form.value as ICustomer)));
+      await firstValueFrom(this.store.dispatch(new MemberActions.SaveItem(this.form.getRawValue() as IMember)));
       const item = await firstValueFrom(this.itemData$);
       if (item) {
         await this.router.navigate([this.baseUrl, 'details', item?._id], {

@@ -53,6 +53,11 @@ export class MemberState extends BaseState<Member.IMember> {
     super.deleteItem(ctx, action);
   }
 
+  @Action(MemberActions.SaveItem)
+  public override async saveItem(ctx: StateContext<IMemberState>, action: MemberActions.SaveItem): Promise<void> {
+    await super.saveItem(ctx, action);
+  }
+
   @Action(MemberActions.GetList)
   public override async getList(ctx: StateContext<IMemberState>): Promise<void> {
     await super.getList(ctx, (queryFilters: any, filters: any) => {

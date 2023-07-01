@@ -20,11 +20,11 @@ import {Select} from "@ngxs/store";
 import {Observable} from "rxjs";
 import {EventActions} from "@event/state/event/event.actions";
 import {IEvent} from "@event/domain";
-import {ServiceState} from "@service/state/service/service.state";
 import {ITableState} from "@utility/domain/table.state";
 import {
   TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
+import {EventState} from "@event/state/event/event.state";
 
 @Component({
   selector: 'event-list-page',
@@ -58,6 +58,6 @@ export default class Index extends ListPage {
 
   public override readonly actions = EventActions;
 
-  @Select(ServiceState.tableState)
+  @Select(EventState.tableState)
   public readonly tableState$!: Observable<ITableState<IEvent>>;
 }

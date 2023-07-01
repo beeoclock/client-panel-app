@@ -53,6 +53,11 @@ export class EventState extends BaseState<Event.IEvent> {
     super.deleteItem(ctx, action);
   }
 
+  @Action(EventActions.SaveItem)
+  public override async saveItem(ctx: StateContext<IEventState>, action: EventActions.SaveItem): Promise<void> {
+    await super.saveItem(ctx, action);
+  }
+
   @Action(EventActions.GetList)
   public override async getList(ctx: StateContext<IEventState>): Promise<void> {
     await super.getList(ctx, (queryFilters: any, filters: any) => {
