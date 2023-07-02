@@ -39,18 +39,11 @@ export class SettingsApiAdapter extends ApiRepository<Client.ISettings> {
 
   /**
    * GET ITEM BY ID
-   * @param id
    */
-  public override item(id: string): Promise<{
+  public override item(): Promise<{
     data: Client.ISettings
   }> {
-    return firstValueFrom(this.httpClient.post<Client.ISettings>(clientEndpointEnum.item, null, {
-      headers: {
-        replace: JSON.stringify({
-          id
-        })
-      }
-    })).then((data) => {
+    return firstValueFrom(this.httpClient.post<Client.ISettings>(clientEndpointEnum.item, null)).then((data) => {
       return {
         data
       };
@@ -63,13 +56,7 @@ export class SettingsApiAdapter extends ApiRepository<Client.ISettings> {
    */
   public override save(value: Client.ISettings): Promise<ISettings> {
     if (value?._id?.length) {
-      return firstValueFrom(this.httpClient.put<ISettings>(clientEndpointEnum.update, value, {
-        headers: {
-          replace: JSON.stringify({
-            id: value._id
-          })
-        }
-      }));
+      return firstValueFrom(this.httpClient.put<ISettings>(clientEndpointEnum.update, value));
     } else {
       return firstValueFrom(this.httpClient.post<ISettings>(clientEndpointEnum.create, value));
     }
@@ -77,34 +64,20 @@ export class SettingsApiAdapter extends ApiRepository<Client.ISettings> {
 
   /**
    * ARCHIVE ITEM BY ID
-   * @param id
    */
-  public async archive(id: string): Promise<void> {
-    await firstValueFrom(this.httpClient.patch(clientEndpointEnum.archive, null, {
-      headers: {
-        replace: JSON.stringify({
-          id
-        })
-      }
-    }))
+  public async archive(): Promise<void> {
+    await firstValueFrom(this.httpClient.patch(clientEndpointEnum.archive, null))
   }
 
   /**
    * DELETE ITEM BY ID
-   * @param id
    */
-  public override async remove(id: string): Promise<{
+  public override async remove(): Promise<{
     deletedCount: number
   }> {
     return await firstValueFrom(this.httpClient.delete<{
       deletedCount: number
-    }>(clientEndpointEnum.delete, {
-      headers: {
-        replace: JSON.stringify({
-          id
-        })
-      }
-    }))
+    }>(clientEndpointEnum.delete))
   }
 
 }

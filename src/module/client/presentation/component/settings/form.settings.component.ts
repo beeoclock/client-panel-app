@@ -63,7 +63,7 @@ export class FormSettingsComponent {
 
   constructor() {
     // Init data
-    this.repository.item('settings').then(({data}) => {
+    this.repository.item().then(({data}) => {
       if (data) {
         this.form.patchValue(data);
       }

@@ -4,10 +4,10 @@ import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
 
 export enum clientEndpointEnum {
   paged = '/api/v1/client/paged',
-  item = '/api/v1/client/{id}',
-  update = '/api/v1/client/{id}',
-  delete = '/api/v1/client/{id}',
-  archive = '/api/v1/client/{id}/archive',
+  item = '/api/v1/client/selected-client',
+  update = '/api/v1/client/selected-client',
+  delete = '/api/v1/client/selected-client',
+  archive = '/api/v1/client/selected-item/archive',
   create = '/api/v1/client',
 }
 
