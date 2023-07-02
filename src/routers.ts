@@ -34,8 +34,8 @@ export const routes: Routes = [
         loadChildren: () => import('@event/index')
       },
       {
-        path: 'company',
-        loadChildren: () => import('@company/index')
+        path: 'client',
+        loadChildren: () => import('@module/client/index')
       },
       {
         path: 'customer',

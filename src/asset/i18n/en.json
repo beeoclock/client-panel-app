@@ -47,15 +47,15 @@
     "calendar": {
       "title": "Calendar"
     },
-    "select-company": {
-      "title": "Select company",
+    "select-client": {
+      "title": "Select client",
       "form": {
         "button": {
           "submit": "Select"
         }
       },
       "button": {
-        "create-new-company": "Create a new company"
+        "create-new-client": "Create a new client"
       }
     }
   },
@@ -77,7 +77,7 @@
   "event": {
     "title": "Event"
   },
-  "company": {
+  "client": {
     "settings": {
       "title": "Settings",
       "form": {
@@ -141,7 +141,7 @@
           },
           "description": {
             "label": "Description",
-            "placeholder": "Type description of company"
+            "placeholder": "Type description of client"
           },
           "active": {
             "label": "Active",

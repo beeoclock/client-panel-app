@@ -96,7 +96,7 @@ export class SidebarComponent implements AfterViewInit {
       items: [
         {
           translateKey: 'sidebar.profile',
-          url: '/company/profile',
+          url: '/client/profile',
           icon: 'bi bi-person',
           routerLinkActiveOptions: {
             exact: true
@@ -104,7 +104,7 @@ export class SidebarComponent implements AfterViewInit {
         },
         {
           translateKey: 'sidebar.settings',
-          url: '/company/settings',
+          url: '/client/settings',
           icon: 'bi bi-gear',
           routerLinkActiveOptions: {
             exact: true

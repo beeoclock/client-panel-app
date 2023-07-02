@@ -33,11 +33,11 @@
       "@module/(.*)": "<rootDir>/src/module/$1",
       "@utility/(.*)": "<rootDir>/src/module/utility/$1",
       "@identity/(.*)": "<rootDir>/src/module/identity/$1",
-      "@company/(.*)": "<rootDir>/src/module/company/$1",
+      "@client/(.*)": "<rootDir>/src/module/client/$1",
       "@customer/(.*)": "<rootDir>/src/module/customer/$1",
       "@event/(.*)": "<rootDir>/src/module/event/$1",
       "@service/(.*)": "<rootDir>/src/module/service/$1",
-      "@specialist/(.*)": "<rootDir>/src/module/specialist/$1",
+      "@member/(.*)": "<rootDir>/src/module/member/$1",
       "@user/(.*)": "<rootDir>/src/module/user/$1"
     }
   },

@@ -47,8 +47,8 @@
       "@module/*": [
         "./src/module/*"
       ],
-      "@company/*": [
-        "./src/module/company/*"
+      "@client/*": [
+        "./src/module/client/*"
       ],
       "@customer/*": [
         "./src/module/customer/*"
