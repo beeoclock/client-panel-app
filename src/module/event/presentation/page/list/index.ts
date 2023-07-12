@@ -18,9 +18,12 @@ import {ActionComponent} from "@utility/presentation/component/table/column/acti
 import {TranslateModule} from "@ngx-translate/core";
 import {Select} from "@ngxs/store";
 import {Observable} from "rxjs";
-import {Pagination} from "@utility/domain";
 import {EventActions} from "@event/state/event/event.actions";
 import {IEvent} from "@event/domain";
+import {ITableState} from "@utility/domain/table.state";
+import {
+  TableStatePaginationComponent
+} from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {EventState} from "@event/state/event/event.state";
 
 @Component({
@@ -46,7 +49,8 @@ import {EventState} from "@event/state/event/event.state";
     SortIndicatorComponent,
     LoaderComponent,
     ActionComponent,
-    TranslateModule
+    TranslateModule,
+    TableStatePaginationComponent
   ],
   standalone: true
 })
@@ -54,12 +58,6 @@ export default class Index extends ListPage {
 
   public override readonly actions = EventActions;
 
-  @Select(EventState.listLoading)
-  public readonly loading$!: Observable<boolean>;
-
-  @Select(EventState.listPagination)
-  public readonly pagination$!: Observable<Pagination<IEvent>>;
-
-  @Select(EventState.listItems)
-  public readonly items$!: Observable<IEvent[]>;
+  @Select(EventState.tableState)
+  public readonly tableState$!: Observable<ITableState<IEvent>>;
 }

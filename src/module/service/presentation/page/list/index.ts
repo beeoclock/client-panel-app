@@ -20,9 +20,12 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {Select} from "@ngxs/store";
 import {Observable} from "rxjs";
-import {Pagination} from "@utility/domain";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {ServiceState} from "@service/state/service/service.state";
+import {ITableState} from "@utility/domain/table.state";
+import {
+  TableStatePaginationComponent
+} from "@utility/presentation/component/pagination/table-state-pagination.component";
 
 @Component({
   selector: 'service-list-page',
@@ -47,7 +50,8 @@ import {ServiceState} from "@service/state/service/service.state";
     SortIndicatorComponent,
     LoaderComponent,
     ActionComponent,
-    TranslateModule
+    TranslateModule,
+    TableStatePaginationComponent
   ],
   standalone: true
 })
@@ -55,15 +59,8 @@ export default class Index extends ListPage {
 
   public override readonly actions = ServiceActions;
 
-  @Select(ServiceState.listLoading)
-  public readonly loading$!: Observable<boolean>;
-
-  @Select(ServiceState.listPagination)
-  public readonly pagination$!: Observable<Pagination<IService>>;
-
-  @Select(ServiceState.listItems)
-  public readonly items$!: Observable<IService[]>;
-
+  @Select(ServiceState.tableState)
+  public readonly tableState$!: Observable<ITableState<IService>>;
   public readonly translateService = inject(TranslateService);
 
   public get currentLanguageCode(): LanguageCodeEnum {

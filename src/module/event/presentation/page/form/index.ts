@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -8,7 +8,6 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {EventForm} from '@event/form/event.form';
-import {EventRepository} from '@event/repository/event.repository';
 import {AttendeesComponent} from '@event/presentation/component/form/attendees/attendees.component';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {IEvent} from "@event/domain";
@@ -28,6 +27,10 @@ import {
 import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 import {TranslateModule} from "@ngx-translate/core";
 import {IonicModule} from "@ionic/angular";
+import {filter, firstValueFrom, Observable} from "rxjs";
+import {Select, Store} from "@ngxs/store";
+import {EventState} from "@event/state/event/event.state";
+import {EventActions} from "@event/state/event/event.actions";
 
 @Component({
   selector: 'event-form-page',
@@ -58,39 +61,39 @@ import {IonicModule} from "@ionic/angular";
   ],
   standalone: true
 })
-export default class Index {
+export default class Index implements OnInit {
 
-  public url = ['../'];
+  // TODO move functions to store effects/actions
 
+  public readonly baseUrl = '/event';
+  public readonly cancelUrl = [this.baseUrl];
+
+  private readonly store = inject(Store);
   public readonly activatedRoute = inject(ActivatedRoute);
   public readonly router = inject(Router);
 
   public readonly form = new EventForm();
-  private readonly repository = inject(EventRepository);
   private readonly modalService = inject(ModalService);
+
+  @Select(EventState.itemData)
+  public itemData$!: Observable<IEvent | undefined>;
 
   public duration = 0;
 
   @HostBinding()
   public readonly class = 'p-4 block';
 
-  constructor() {
-    this.activatedRoute.params.subscribe(({id}) => {
-      if (id) {
-        this.form.disable();
-        this.form.markAsPending();
-        this.url = ['../../', 'details', id];
-        this.repository.item(id).then(({data}) => {
-          if (data) {
-            this.form.patchValue(data);
-          }
-          this.form.updateValueAndValidity();
-          this.form.enable();
-        });
-      }
+  public ngOnInit(): void {
+
+    this.detectItem();
+
+    this.form.valueChanges.subscribe((value) => {
+      console.log(value);
+      this.calculateDuration();
     });
 
     this.form.controls.start.valueChanges.subscribe((value: string) => {
+      console.log(value);
       if (value) {
         const newValue = new Date(value);
         // TODO update end time
@@ -104,14 +107,26 @@ export default class Index {
       }
     });
 
-    this.form.controls.services.valueChanges.subscribe(() => {
-      this.calculateDuration();
-    });
+    // this.form.controls.services.valueChanges.subscribe(() => {
+    //   this.calculateDuration();
+    // });
+    //
+    // this.form.controls.servicesAreProvidedInParallel.valueChanges.subscribe(() => {
+    //   this.calculateDuration();
+    // });
+  }
 
-    this.form.controls.servicesAreProvidedInParallel.valueChanges.subscribe(() => {
-      this.calculateDuration();
+  public detectItem(): void {
+    firstValueFrom(this.activatedRoute.params.pipe(filter(({id}) => id?.length))).then(() => {
+      firstValueFrom(this.itemData$).then((result) => {
+        if (result?._id) {
+          this.cancelUrl.push('details', result._id);
+          console.log(result);
+          this.form.patchValue(result);
+          this.form.updateValueAndValidity();
+        }
+      });
     });
-
   }
 
   private calculateFinish(): void {
@@ -130,41 +145,39 @@ export default class Index {
     const value = this.form.controls.servicesAreProvidedInParallel.value;
 
     this.duration = 0;
-    this.form.controls.services.value.forEach((service) => {
-      if (value) {
-        if (service.durationVersions[0].duration > this.duration) {
-          this.duration = service.durationVersions[0].duration;
+    console.log(this.form.controls.services.value);
+    if (this.form.controls.services.value) {
+      this.form.controls.services.value.forEach((service) => {
+        if (value) {
+          if (service.durationVersions[0].duration > this.duration) {
+            this.duration = service.durationVersions[0].duration;
+          }
+        } else {
+          this.duration += service.durationVersions[0].duration;
         }
-      } else {
-        this.duration += service.durationVersions[0].duration;
-      }
-    });
+      });
+    }
 
     this.calculateFinish();
 
   }
 
   public async save(): Promise<void> {
-
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      const value = structuredClone(this.form.value);
       this.form.disable();
       this.form.markAsPending();
-      this.repository.save(value as IEvent)
-        .then(({data}) => {
-          console.log(data);
-
-          this.router.navigate(['../', 'details', data.id], {
-            relativeTo: this.activatedRoute
-          });
-          // this.form.enable();
-          // this.form.updateValueAndValidity();
-        })
-        .catch(() => {
-          this.form.enable();
-          this.form.updateValueAndValidity();
+      console.log(this.form.getRawValue());
+      await firstValueFrom(this.store.dispatch(new EventActions.SaveItem(this.form.getRawValue() as IEvent)));
+      const item = await firstValueFrom(this.itemData$);
+      if (item) {
+        await this.router.navigate([this.baseUrl, 'details', item?._id], {
+          relativeTo: this.activatedRoute
         });
+      }
+      this.form.enable();
+      this.form.updateValueAndValidity();
+
     }
   }
 

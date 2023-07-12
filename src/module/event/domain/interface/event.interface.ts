@@ -10,6 +10,18 @@ export interface IEvent {
   createdAt?: string;
   updatedAt?: string;
   timeZone?: string;
+
+
+  /**
+   * TODO
+   * object: string;
+   * email: string;
+   * isOptional: IsOptionalEnum;
+   * isOrganizer: IsOrganizerEnum;
+   * responseStatus: ResponseStatusEnum;
+   * customer: Customer;
+   * active: ActiveEnum;
+   */
   attendees?: {
     email?: string;
   }[];

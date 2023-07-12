@@ -1,6 +1,5 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
-import {Router, RouterOutlet} from '@angular/router';
-import {Auth} from '@angular/fire/auth';
+import {Component, ViewEncapsulation} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
 import {StreamToastComponent} from '@utility/presentation/component/toast/stream.toast.component';
 
 @Component({
@@ -16,17 +15,6 @@ import {StreamToastComponent} from '@utility/presentation/component/toast/stream
   encapsulation: ViewEncapsulation.None
 })
 export default class WrapperIdentityComponent {
-
-  private readonly router = inject(Router);
-  private readonly auth = inject(Auth);
-
-  constructor() {
-    this.auth.onAuthStateChanged((user) => {
-      if (user) {
-        this.router.navigate(['/', 'dashboard']);
-      }
-    });
-  }
 
 }
 

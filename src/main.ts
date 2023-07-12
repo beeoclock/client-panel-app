@@ -9,11 +9,16 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading} from '@angular/router';
 import {routes} from '@src/routers';
-import {connectFunctionsEmulator, getFunctions, provideFunctions} from '@angular/fire/functions';
 import {browserLocalPersistence} from "@firebase/auth";
 import {NgxsModule} from "@ngxs/store";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {IonicModule} from "@ionic/angular";
+import {Utility} from "@utility/index";
+import {initRuntimeEnvironment} from "@src/runtime.environment";
+import {IdentityState} from "@identity/state/identity/identity.state";
+import {AppState} from "@utility/state/app/app.state";
+import {CacheState} from "@utility/state/cache/cache.state";
+import {NgxIndexedDBModule} from "ngx-indexed-db";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -23,6 +28,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 if (environment.production) {
   enableProdMode();
 }
+
+initRuntimeEnvironment();
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -41,10 +48,22 @@ bootstrapApplication(AppComponent, {
         // Utility.Interceptors.Loading,
         // Utility.Interceptors.Notification,
         // Utility.Interceptors.Error,
+
+
+        Utility.Interceptors.AccessTokenInterceptor,
+        Utility.Interceptors.PrepareLocalHeadersInterceptor,
+        Utility.Interceptors.ParamsReplaceInterceptor,
+        Utility.Interceptors.ApprovalInterceptor,
+        Utility.Interceptors.LoadingInterceptor,
+        Utility.Interceptors.NotificationInterceptor,
+        Utility.Interceptors.ErrorInterceptor,
+        Utility.Interceptors.SourceInterceptor,
+        Utility.Interceptors.ClearLocalHeadersInterceptor,
       ]),
     ),
 
     importProvidersFrom(
+      NgxIndexedDBModule.forRoot(environment.config.database),
       IonicModule.forRoot({
         mode: 'ios',
         animated: false
@@ -61,13 +80,6 @@ bootstrapApplication(AppComponent, {
         }
         return auth;
       }),
-      provideFunctions(() => {
-        const functions = getFunctions();
-        if (environment.firebase.emulator.all || environment.firebase.emulator.functions) {
-          connectFunctionsEmulator(functions, 'localhost', 5001);
-        }
-        return functions;
-      }),
       TranslateModule.forRoot({
         useDefaultLang: true,
         defaultLanguage: environment.config.language,
@@ -78,7 +90,7 @@ bootstrapApplication(AppComponent, {
         }
       }),
 
-      NgxsModule.forRoot([], {
+      NgxsModule.forRoot([IdentityState, AppState, CacheState], {
         developmentMode: !environment.production
       }),
 

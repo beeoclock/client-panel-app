@@ -1,10 +1,9 @@
 import {Routes} from '@angular/router';
 import WrapperPanelComponent from '@utility/presentation/component/wrapper-panel/wrapper-panel.component';
 import WrapperIdentityComponent from '@utility/presentation/component/wrapper-identity/wrapper-identity.component';
-import {AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
+import {AuthGuard, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['identity']);
-const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['dashboard']);
 
 export const routes: Routes = [
   {
@@ -23,8 +22,8 @@ export const routes: Routes = [
         loadChildren: () => import('@utility/index')
       },
       {
-        path: 'employee',
-        loadChildren: () => import('@employee/index')
+        path: 'member',
+        loadChildren: () => import('@member/index')
       },
       {
         path: 'user',
@@ -35,8 +34,8 @@ export const routes: Routes = [
         loadChildren: () => import('@event/index')
       },
       {
-        path: 'company',
-        loadChildren: () => import('@company/index')
+        path: 'client',
+        loadChildren: () => import('@module/client/index')
       },
       {
         path: 'customer',
@@ -51,12 +50,10 @@ export const routes: Routes = [
   {
     path: 'identity',
     component: WrapperIdentityComponent,
-    canActivate: [AuthGuard],
-    data: {authGuardPipe: redirectLoggedInToSendEmail},
     children: [
       {
         path: '',
-        loadChildren: () => import('@identity/presentation')
+        loadChildren: () => import('@identity/index')
       },
     ]
   },

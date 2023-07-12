@@ -6,7 +6,7 @@ export namespace CacheActions {
 
     constructor(
       public payload: {
-        strategy: Storage;
+        strategy: 'indexedDB' | Storage;
         key: string;
         value: string;
       },
@@ -14,27 +14,24 @@ export namespace CacheActions {
     }
   }
 
-  /**
-   * TODO
-   */
-  // export class Get {
-  //   public static readonly type = '[Cache State] Get';
-  //
-  //   constructor(
-  //     public payload: {
-  //       strategy: Storage;
-  //       key: string;
-  //     },
-  //   ) {
-  //   }
-  // }
+  export class Get {
+    public static readonly type = '[Cache State] Get';
+
+    constructor(
+      public payload: {
+        strategy: 'indexedDB' | Storage;
+        key: string;
+      },
+    ) {
+    }
+  }
 
   export class Remove {
     public static readonly type = '[Cache State] Remove';
 
     constructor(
       public payload: {
-        strategy: Storage;
+        strategy: 'indexedDB' | Storage;
         key: string;
       },
     ) {

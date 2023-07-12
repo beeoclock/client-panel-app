@@ -3,7 +3,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {EmailComponent} from '@identity/presentation/component/email.component/email.component';
 import {PasswordComponent} from '@identity/presentation/component/password.component/password.component';
 import LoginForm from '@identity/form/login.form';
@@ -12,6 +12,8 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
 import {Auth, signInWithEmailAndPassword} from "@angular/fire/auth";
 import {FirebaseError} from "@angular/fire/app";
 import {Notification, WarningNotification} from "@utility/domain/notification";
+import {Store} from "@ngxs/store";
+import {IdentityActions} from "@identity/state/identity/identity.actions";
 
 @Component({
   selector: 'identity-sign-in-component',
@@ -178,7 +180,9 @@ export class SignInComponent {
   public class = 'col-md-7 d-flex flex-center';
 
   public readonly form = new LoginForm();
+  private readonly router = inject(Router);
   private readonly auth = inject(Auth);
+  private readonly store = inject(Store);
 
   public signIn(): void {
 
@@ -192,6 +196,10 @@ export class SignInComponent {
       if (email && password) {
 
         signInWithEmailAndPassword(this.auth, email, password)
+          .then(() => {
+            this.store.dispatch(new IdentityActions.InitToken());
+            this.router.navigate(['/', 'corridor'])
+          })
           .catch((result: FirebaseError) => {
             this.form.enable();
             this.form.updateValueAndValidity();

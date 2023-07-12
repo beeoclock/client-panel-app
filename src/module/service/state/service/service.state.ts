@@ -6,7 +6,6 @@ import {Router} from "@angular/router";
 import {ServiceRepository} from "@service/repository/service.repository";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {ServiceActions} from "@service/state/service/service.actions";
-import {Observable} from "rxjs";
 
 export type IServiceState = IBaseState<Service.IService>
 
@@ -24,7 +23,7 @@ export class ServiceState extends BaseState<IService> {
     super(
       ServiceActions,
       {
-        lists: 'service.cache.lists',
+        tableStates: 'service.cache.tableStates',
         items: 'service.cache.items'
       }
     );
@@ -40,14 +39,14 @@ export class ServiceState extends BaseState<IService> {
     await super.UpdateFilters(ctx, action);
   }
 
-  @Action(ServiceActions.UpdateQueryParamsAtNavigator)
-  public override async UpdateQueryParamsAtNavigator(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateQueryParamsAtNavigator): Promise<void> {
-    await super.UpdateQueryParamsAtNavigator(ctx, action);
+  @Action(ServiceActions.UpdateTableState)
+  public override async UpdateTableState(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateTableState): Promise<void> {
+    return super.UpdateTableState(ctx, action);
   }
 
-  @Action(ServiceActions.UpdatePaginationFromQueryParams)
-  public override UpdatePaginationFromQueryParams(ctx: StateContext<IServiceState>, action: ServiceActions.UpdatePaginationFromQueryParams): Observable<any> {
-    return super.UpdatePaginationFromQueryParams(ctx, action);
+  @Action(ServiceActions.SaveItem)
+  public override async saveItem(ctx: StateContext<IServiceState>, action: ServiceActions.SaveItem): Promise<void> {
+    await super.saveItem(ctx, action);
   }
 
   @Action(ServiceActions.GetItem)
@@ -98,28 +97,18 @@ export class ServiceState extends BaseState<IService> {
   // Selectors
 
   @Selector()
-  public static list(state: IServiceState) {
-    return state.list;
-  }
-
-  @Selector()
   public static itemData(state: IServiceState) {
     return state.item.data;
   }
 
   @Selector()
-  public static listItems(state: IServiceState) {
-    return state.list.items;
+  public static tableStateItems(state: IServiceState) {
+    return state.tableState.items;
   }
 
   @Selector()
-  public static listLoading(state: IServiceState) {
-    return state.list.loading;
-  }
-
-  @Selector()
-  public static listPagination(state: IServiceState) {
-    return state.list.pagination;
+  public static tableState(state: IServiceState) {
+    return state.tableState;
   }
 
 }

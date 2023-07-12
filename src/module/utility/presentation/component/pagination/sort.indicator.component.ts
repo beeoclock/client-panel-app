@@ -1,5 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {NgIf} from "@angular/common";
+import {ITableState} from "@utility/domain/table.state";
 
 @Component({
   selector: 'utility-sort-indicator',
@@ -9,15 +10,15 @@ import {NgIf} from "@angular/common";
   ],
   template: `
     <i class="bi"
-       *ngIf="show"
-       [class.bi-sort-alpha-down]="asc"
-       [class.bi-sort-alpha-up]="!asc"></i>
+       *ngIf="tableState.orderBy === orderBy"
+       [class.bi-sort-alpha-down]="tableState.orderDir === 'asc'"
+       [class.bi-sort-alpha-up]="tableState.orderDir === 'desc'"></i>
   `
 })
 export class SortIndicatorComponent {
   @Input()
-  public show = false;
+  public tableState!: ITableState<any>;
 
   @Input()
-  public asc = false;
+  public orderBy!: string;
 }

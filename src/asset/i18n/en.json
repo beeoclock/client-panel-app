@@ -26,13 +26,13 @@
     "contact": "Contact",
     "active": "Active",
     "languages": "Languages",
-    "employees": "Employees",
+    "members": "Members",
     "soon": "Soon",
     "signOut": "Sign out"
   },
   "sidebar": {
     "dashboard": "Dashboard",
-    "employees": "Employees",
+    "members": "Members",
     "customers": "Customers",
     "services": "Services",
     "events": "Events",
@@ -47,15 +47,15 @@
     "calendar": {
       "title": "Calendar"
     },
-    "select-company": {
-      "title": "Select company",
+    "select-client": {
+      "title": "Select client",
       "form": {
         "button": {
           "submit": "Select"
         }
       },
       "button": {
-        "create-new-company": "Create a new company"
+        "create-new-client": "Create a new client"
       }
     }
   },
@@ -68,16 +68,16 @@
       "create": "Add customer"
     }
   },
-  "employee": {
-    "title": "Employee",
+  "member": {
+    "title": "Member",
     "button": {
-      "create": "Add employee"
+      "create": "Add member"
     }
   },
   "event": {
     "title": "Event"
   },
-  "company": {
+  "client": {
     "settings": {
       "title": "Settings",
       "form": {
@@ -141,7 +141,7 @@
           },
           "description": {
             "label": "Description",
-            "placeholder": "Type description of company"
+            "placeholder": "Type description of client"
           },
           "active": {
             "label": "Active",

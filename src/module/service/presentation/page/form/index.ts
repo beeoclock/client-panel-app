@@ -4,7 +4,7 @@ import {BackLinkComponent} from "@utility/presentation/component/link/back.link.
 import {NgIf} from "@angular/common";
 
 @Component({
-  selector: 'employee-form-page',
+  selector: 'member-form-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
   standalone: true,

@@ -80,22 +80,22 @@ import {ServiceActions} from "@service/state/service/service.actions";
           <div
             class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4  mt-4">
             <h4>
-              Permanent employees
+              Permanent members
             </h4>
 
-            <ul *ngFor="let permanentEmployee of service.permanentEmployees" class="list-group">
+            <ul *ngFor="let permanentMember of service.permanentMembers" class="list-group">
               <li class="list-group-item d-flex flex-column" aria-current="true">
                 <div class="d-flex w-100 justify-content-between">
                 </div>
                 <p class="mb-1">
                   <i class="bi bi-person"></i>
-                  {{ permanentEmployee.firstName }} {{ permanentEmployee.lastName }}
+                  {{ permanentMember.firstName }} {{ permanentMember.lastName }}
                 </p>
                 <small>
-                  {{ permanentEmployee.email }}
+                  {{ permanentMember.email }}
                 </small>
                 <small>
-                  {{ permanentEmployee.phone }}
+                  {{ permanentMember.phone }}
                 </small>
               </li>
             </ul>
@@ -297,10 +297,7 @@ export default class Index {
   public readonly store = inject(Store);
 
   public delete(id: string): void {
-    this.store.dispatch(new ServiceActions.DeleteItem({
-      id,
-      goToTheList: true
-    }));
+    this.store.dispatch(new ServiceActions.DeleteItem(id));
   }
 
   public languageVersions(languageVersion: any): ILanguageVersion[] {

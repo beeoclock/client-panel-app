@@ -1,4 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
+import {IEvent} from "@event/domain";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace EventActions {
@@ -15,8 +16,16 @@ export namespace EventActions {
     public static override readonly type = '[Event API] Delete Item';
   }
 
+  export class ArchiveItem extends BaseActions.ArchiveItem {
+    public static override readonly type = '[Event API] Archive Item';
+  }
+
   export class GetItem extends BaseActions.GetItem {
     public static override readonly type = '[Event API] Get Item';
+  }
+
+  export class SaveItem extends BaseActions.SaveItem<IEvent> {
+    public static override readonly type = '[Event API] Save Item';
   }
 
   // Updates of state
@@ -25,12 +34,8 @@ export namespace EventActions {
     public static override readonly type = '[Event State] Update Filters';
   }
 
-  export class UpdateQueryParamsAtNavigator extends BaseActions.UpdateQueryParamsAtNavigator {
-    public static override readonly type = '[Event State] Update QueryParams At Navigator';
-  }
-
-  export class UpdatePaginationFromQueryParams extends BaseActions.UpdatePaginationFromQueryParams {
-    public static override readonly type = '[Event State] Update Pagination from QueryParams';
+  export class UpdateTableState extends BaseActions.UpdateTableState<IEvent> {
+    public static override readonly type = '[Event State] Update Table State';
   }
 
 }

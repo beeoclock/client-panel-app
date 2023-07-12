@@ -1,4 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
+import {IService} from "@service/domain";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace ServiceActions {
@@ -15,8 +16,16 @@ export namespace ServiceActions {
     public static override readonly type = '[Service API] Delete Item';
   }
 
+  export class ArchiveItem extends BaseActions.ArchiveItem {
+    public static override readonly type = '[Service API] Archive Item';
+  }
+
   export class GetItem extends BaseActions.GetItem {
     public static override readonly type = '[Service API] Get Item';
+  }
+
+  export class SaveItem extends BaseActions.SaveItem<IService> {
+    public static override readonly type = '[Service API] Save Item';
   }
 
   // Updates of state
@@ -25,12 +34,8 @@ export namespace ServiceActions {
     public static override readonly type = '[Service State] Update Filters';
   }
 
-  export class UpdateQueryParamsAtNavigator extends BaseActions.UpdateQueryParamsAtNavigator {
-    public static override readonly type = '[Service State] Update QueryParams At Navigator';
-  }
-
-  export class UpdatePaginationFromQueryParams extends BaseActions.UpdatePaginationFromQueryParams {
-    public static override readonly type = '[Service State] Update Pagination from QueryParams';
+  export class UpdateTableState extends BaseActions.UpdateTableState<IService> {
+    public static override readonly type = '[Service State] Update Table State';
   }
 
 }

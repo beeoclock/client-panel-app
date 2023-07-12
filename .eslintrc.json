@@ -32,15 +32,15 @@
             "type": "element",
             "prefix": [
               "storybook",
+              "member",
               "app",
               "identity",
               "utility",
               "event",
-              "company",
+              "client",
               "customer",
               "service",
               "user",
-              "employee",
               "specialist"
             ],
             "style": "kebab-case"

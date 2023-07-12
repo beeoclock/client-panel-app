@@ -47,8 +47,8 @@
       "@module/*": [
         "./src/module/*"
       ],
-      "@company/*": [
-        "./src/module/company/*"
+      "@client/*": [
+        "./src/module/client/*"
       ],
       "@customer/*": [
         "./src/module/customer/*"
@@ -62,14 +62,14 @@
       "@service/*": [
         "./src/module/service/*"
       ],
-      "@employee/*": [
-        "./src/module/employee/*"
-      ],
       "@user/*": [
         "./src/module/user/*"
       ],
       "@utility/*": [
         "./src/module/utility/*"
+      ],
+      "@member/*": [
+        "./src/module/member/*"
       ]
     }
   },

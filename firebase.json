@@ -1,38 +1,17 @@
 {
-  "hosting": [
-    {
-      "target": "panel-beeoclock-cloud-00000000000000",
-      "public": "dist",
-      "ignore": [
-        "**/firebase/**",
-        "**/.*",
-        "**/node_modules/**"
-      ],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    {
-      "target": "panel-beeoclock-cloud-00000000000001",
-      "public": "dist",
-      "ignore": [
-        "**/firebase/**",
-        "**/.*",
-        "**/node_modules/**"
-      ],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    }
-  ],
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
+  "hosting": {
+    "site": "panel-beeoclock",
+    "public": "dist/client-app",
+    "ignore": [
+      "**/firebase/**",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
   }
 }

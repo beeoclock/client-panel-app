@@ -9,15 +9,15 @@ import {ButtonComponent} from '@utility/presentation/component/button/button.com
 
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
-import {CustomerRepository} from '@customer/repository/customer.repository';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {ICustomer} from "@customer/domain";
 import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
 import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 import {TranslateModule} from "@ngx-translate/core";
 import {CustomerState} from "@customer/state/customer/customer.state";
-import {Observable} from "rxjs";
-import {Select} from "@ngxs/store";
+import {filter, firstValueFrom, Observable} from "rxjs";
+import {Select, Store} from "@ngxs/store";
+import {CustomerActions} from "@customer/state/customer/customer.actions";
 
 @Component({
   selector: 'customer-form-page',
@@ -44,11 +44,12 @@ export default class Index implements OnInit {
 
   // TODO move functions to store effects/actions
 
-  public url = ['../'];
+  public readonly baseUrl = '/customer';
+  public readonly cancelUrl = [this.baseUrl];
 
+  private readonly store = inject(Store);
   private readonly router = inject(Router);
-  private readonly repository = inject(CustomerRepository);
-  private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  private readonly activatedRoute = inject(ActivatedRoute);
 
   public readonly form = new CustomerForm();
 
@@ -56,12 +57,18 @@ export default class Index implements OnInit {
   public itemData$!: Observable<ICustomer | undefined>;
 
   public ngOnInit(): void {
-    this.itemData$.subscribe((result) => {
-      if (result) {
-        this.url = ['../../', 'details', result._id];
-        this.form.patchValue(result);
-        this.form.updateValueAndValidity();
-      }
+    this.detectItem();
+  }
+
+  public detectItem(): void {
+    firstValueFrom(this.activatedRoute.params.pipe(filter(({id}) => id?.length))).then(() => {
+      firstValueFrom(this.itemData$).then((result) => {
+        if (result) {
+          this.cancelUrl.push('details', result._id);
+          this.form.patchValue(result);
+          this.form.updateValueAndValidity();
+        }
+      });
     });
   }
 
@@ -70,22 +77,16 @@ export default class Index implements OnInit {
     if (this.form.valid) {
       this.form.disable();
       this.form.markAsPending();
-      this.repository.save(this.form.value as ICustomer)
-        .then(({data}) => {
-
-          this.router.navigate(['../', 'details', data.id], {
-            relativeTo: this.activatedRoute
-          });
-          // this.form.enable();
-          // this.form.updateValueAndValidity();
-          // if (!this.form.value._id) {
-          //   this.form.reset();
-          // }
-        })
-        .catch(() => {
-          this.form.enable();
-          this.form.updateValueAndValidity();
+      await firstValueFrom(this.store.dispatch(new CustomerActions.SaveItem(this.form.getRawValue() as ICustomer)));
+      const item = await firstValueFrom(this.itemData$);
+      if (item) {
+        await this.router.navigate([this.baseUrl, 'details', item?._id], {
+          relativeTo: this.activatedRoute
         });
+      }
+      this.form.enable();
+      this.form.updateValueAndValidity();
+
     }
   }
 }

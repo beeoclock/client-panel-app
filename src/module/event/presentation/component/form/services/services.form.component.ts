@@ -2,8 +2,9 @@ import {AfterViewInit, Component, inject, Input} from '@angular/core';
 import {JsonPipe, NgForOf, NgIf} from '@angular/common';
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {ServiceRepository} from "@service/repository/service.repository";
 import {IService} from "@service/domain";
+import {ServiceAdapterEventModule} from "@service/adapter/module/service.adapter.event.module";
+import {ActiveEnum} from "@utility/domain/enum";
 
 @Component({
   selector: 'event-services-form-component',
@@ -33,7 +34,8 @@ import {IService} from "@service/domain";
           <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
         </ng-template>
         <ng-option *ngFor="let item of items" [value]="item">
-          <p *ngFor="let languageVersion of item.languageVersions; let index = index" [class.fw-bold]="index === 0" class="m-0 p-0">
+          <p *ngFor="let languageVersion of item.languageVersions; let index = index" [class.fw-bold]="index === 0"
+             class="m-0 p-0">
             {{languageVersion.title}}
           </p>
         </ng-option>
@@ -49,14 +51,23 @@ export class ServicesFormComponent implements AfterViewInit {
   @Input()
   public multiple = false;
 
-  public readonly serviceRepository = inject(ServiceRepository);
+  public readonly serviceRepository = inject(ServiceAdapterEventModule);
 
   public items: IService[] = [];
 
   public ngAfterViewInit(): void {
     this.control.markAsPending();
     this.serviceRepository
-      .list(10, 1, 'createdAt', 'asc', {})
+      .list({
+        pageSize: 10,
+        page: 1,
+        orderBy: 'createdAt',
+        orderDir: 'asc',
+        filters: {
+          search: '',
+          active: ActiveEnum.YES
+        }
+      })
       .then((result) => {
         if (this.control.value) {
           this.control.setValue(result.data.items.find((({_id}) => _id === this.control.value._id)), {

@@ -20,8 +20,11 @@ import {Select} from "@ngxs/store";
 import {CustomerState} from "@customer/state/customer/customer.state";
 import {Observable} from "rxjs";
 import {ICustomer} from "@customer/domain";
-import {Pagination} from "@utility/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {ITableState} from "@utility/domain/table.state";
+import {
+  TableStatePaginationComponent
+} from "@utility/presentation/component/pagination/table-state-pagination.component";
 
 @Component({
   selector: 'customer-list-page',
@@ -47,6 +50,7 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
     ActionComponent,
     TranslateModule,
     AsyncPipe,
+    TableStatePaginationComponent,
   ],
   standalone: true
 })
@@ -54,13 +58,7 @@ export default class Index extends ListPage {
 
   public override readonly actions = CustomerActions;
 
-  @Select(CustomerState.listLoading)
-  public readonly loading$!: Observable<boolean>;
-
-  @Select(CustomerState.listPagination)
-  public readonly pagination$!: Observable<Pagination<ICustomer>>;
-
-  @Select(CustomerState.listItems)
-  public readonly items$!: Observable<ICustomer[]>;
+  @Select(CustomerState.tableState)
+  public readonly tableState$!: Observable<ITableState<ICustomer>>;
 
 }
