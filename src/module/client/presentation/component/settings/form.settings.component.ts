@@ -31,9 +31,22 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
     <utility-loader *ngIf="loadingData.isOn; else ContentTemplate"></utility-loader>
     <ng-template #ContentTemplate>
       <form [formGroup]="form">
+        <img class="w-40 h-40 object-cover mb-2" [src]="form.controls.logo.value" alt="">
         <div class="pb-4">
-          <label for="first-name">Name</label>
-          <input class="rounded border px-3 py-2 w-full" id="first-name" formControlName="name">
+          <label for="logo">Logo</label>
+          <input type="file" class="rounded border px-3 py-2 w-full" id="logo" (change)="handleLogoInput($event)">
+        </div>
+        <div class="pb-4">
+          <label for="name">Name</label>
+          <input type="text" class="rounded border px-3 py-2 w-full" id="name" formControlName="name">
+        </div>
+        <div class="pb-4">
+          <label for="slogan">Slogan</label>
+          <input type="text" class="rounded border px-3 py-2 w-full" id="slogan" formControlName="slogan">
+        </div>
+        <div class="pb-4">
+          <label for="address">Address</label>
+          <input type="text" class="rounded border px-3 py-2 w-full" id="address" formControlName="address">
         </div>
         <div class="pb-4">
           <input class="me-2"
@@ -76,4 +89,8 @@ export class FormSettingsComponent {
     await this.repository.save(this.form.value as ISettings);
   }
 
+  public async handleLogoInput($event: Event): Promise<void> {
+    const target = $event.target as HTMLInputElement;
+    await this.form.setLogo(target);
+  }
 }
