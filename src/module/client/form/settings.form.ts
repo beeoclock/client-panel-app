@@ -1,6 +1,8 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActiveEnum} from '@utility/domain/enum/active.enum';
 import {file2base64} from "@utility/domain/const/file2base64";
+import {SocialNetworksForm} from "@client/form/social-network.form";
+
 
 export interface ISettingsForm {
   _id: FormControl<string>;
@@ -12,6 +14,8 @@ export interface ISettingsForm {
   address: FormControl<string>;
   description: FormControl<string>;
   active: FormControl<ActiveEnum>;
+
+  socialNetworkLinks: SocialNetworksForm;
 
   [key: string]: AbstractControl<any, any>;
 }
@@ -27,8 +31,10 @@ export class SettingsForm extends FormGroup<ISettingsForm> {
       name: new FormControl(),
       slogan: new FormControl(),
       address: new FormControl(),
+      startingPrice: new FormControl(),
       description: new FormControl(),
       active: new FormControl(),
+      socialNetworkLinks: new SocialNetworksForm(),
     });
 
     this.initValidators();
