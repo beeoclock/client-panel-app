@@ -35,8 +35,10 @@ export default class Index implements OnInit {
     this.store.dispatch(new AppActions.PageLoading(false));
 
     this.token$.subscribe((token) => {
+      console.log(token);
       if (token) {
         const claims: BeeoclockParsedToken = token.claims as BeeoclockParsedToken;
+        console.log(claims.clientId);
         if (claims.clientId) {
           this.router.navigate(['/', 'dashboard']);
         }

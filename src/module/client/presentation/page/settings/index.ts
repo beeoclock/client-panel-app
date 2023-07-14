@@ -7,6 +7,7 @@ import {Auth} from "@angular/fire/auth";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {LanguageInputComponent} from "@module/client/presentation/component/settings/language-input.component";
 import {TranslateModule} from "@ngx-translate/core";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'client-settings-page',
@@ -26,6 +27,7 @@ import {TranslateModule} from "@ngx-translate/core";
 export default class Index {
 
   private readonly auth = inject(Auth);
+  private readonly router = inject(Router);
 
   public readonly darkModeControl = new FormControl(false);
 
@@ -50,7 +52,7 @@ export default class Index {
   public logout(): void {
     this.auth.signOut()
       .then(() => {
-
+        this.router.navigate(['/'])
       })
       .catch((error) => {
         console.log(error);

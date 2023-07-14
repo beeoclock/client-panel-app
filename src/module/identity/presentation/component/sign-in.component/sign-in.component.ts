@@ -14,6 +14,7 @@ import {FirebaseError} from "@angular/fire/app";
 import {Notification, WarningNotification} from "@utility/domain/notification";
 import {Store} from "@ngxs/store";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
+import {firstValueFrom} from "rxjs";
 
 @Component({
   selector: 'identity-sign-in-component',
@@ -196,9 +197,9 @@ export class SignInComponent {
       if (email && password) {
 
         signInWithEmailAndPassword(this.auth, email, password)
-          .then(() => {
-            this.store.dispatch(new IdentityActions.InitToken());
-            this.router.navigate(['/', 'corridor'])
+          .then(async () => {
+            await firstValueFrom(this.store.dispatch(new IdentityActions.InitToken()));
+            await this.router.navigate(['/', 'identity', 'corridor']);
           })
           .catch((result: FirebaseError) => {
             this.form.enable();
