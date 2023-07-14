@@ -23,7 +23,7 @@ import {IdTokenResult} from "@angular/fire/auth";
       <utility-navbar-component></utility-navbar-component>
       <utility-sidebar-component></utility-sidebar-component>
 
-      <div class="pt-16 sm:ml-64">
+      <div class="sm:ml-64 overflow-y-auto h-screen content-container">
         <utility-page-loading-progress-bar></utility-page-loading-progress-bar>
         <router-outlet></router-outlet>
       </div>

@@ -58,6 +58,10 @@ export const routes: Routes = [
     ]
   },
   {
+    path: '404',
+    loadComponent: () => import('@utility/presentation/page/404')
+  },
+  {
     path: '**',
     redirectTo: '/',
   }

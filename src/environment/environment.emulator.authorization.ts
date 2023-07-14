@@ -3,8 +3,8 @@ export const environment = {
   emulator: true,
   proxy: false,
   apiUrls: {
-    panel: 'panel',
-    identity: 'identity',
+    panel: 'api.panel',
+    identity: 'api.identity',
   },
   endpoint: {
     config: {

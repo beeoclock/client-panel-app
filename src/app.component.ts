@@ -8,11 +8,12 @@ import {AppState} from "@utility/state/app/app.state";
 import {DOCUMENT} from "@angular/common";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {Auth} from "@angular/fire/auth";
+import {IonicModule} from "@ionic/angular";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, TranslateModule],
+  imports: [RouterModule, TranslateModule, IonicModule],
   template: `
     <router-outlet></router-outlet>
   `,
