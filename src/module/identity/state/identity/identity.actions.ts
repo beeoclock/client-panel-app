@@ -9,4 +9,8 @@ export namespace IdentityActions {
     public static readonly type = '[Identity State] Clear Token';
   }
 
+  export class GetClients {
+    public static readonly type = '[Identity API] Get Client';
+  }
+
 }

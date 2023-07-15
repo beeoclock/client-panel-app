@@ -3,6 +3,9 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {Auth, IdTokenResult} from "@angular/fire/auth";
 import {ParsedToken} from "@firebase/auth";
+import {MemberApiAdapter} from "@identity/adapter/external/api/member.api.adapter";
+import {firstValueFrom} from "rxjs";
+import {IMember} from "@identity/domain/interface/i.member";
 
 export interface BeeoclockParsedToken extends ParsedToken {
   clientId?: string;
@@ -16,18 +19,21 @@ export interface BeeoclockIdTokenResult extends IdTokenResult {
 
 interface IIdentityState {
   token: BeeoclockIdTokenResult | undefined;
+  clients: IMember[];
 }
 
 @State<IIdentityState>({
   name: 'identity',
   defaults: {
-    token: undefined
+    token: undefined,
+    clients: []
   }
 })
 @Injectable()
 export class IdentityState {
 
   private readonly auth = inject(Auth);
+  public readonly memberApiAdapter = inject(MemberApiAdapter);
 
   // Selectors
 
@@ -49,6 +55,11 @@ export class IdentityState {
   @Selector()
   public static userId(state: IIdentityState) {
     return state.token?.claims?.userId;
+  }
+
+  @Selector()
+  public static clients(state: IIdentityState) {
+    return state.clients;
   }
 
   // Effects
@@ -83,6 +94,16 @@ export class IdentityState {
     ctx.patchState({
       token: undefined
     });
+  }
+
+  @Action(IdentityActions.GetClients)
+  public async getClients(ctx: StateContext<IIdentityState>): Promise<void> {
+
+    const result = await firstValueFrom(this.memberApiAdapter.postRelated$());
+    ctx.patchState({
+      clients: result.items
+    })
+
   }
 
 }

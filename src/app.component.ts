@@ -30,6 +30,7 @@ export class AppComponent implements AfterViewInit {
 
     // Firebase Authorization
     this.auth.onAuthStateChanged((user) => {
+      console.log(user);
       if (user) {
         this.store.dispatch(new IdentityActions.InitToken());
       }

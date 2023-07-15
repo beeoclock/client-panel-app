@@ -1,1 +1,13 @@
-Corridor
+<ul class="max-w-xs flex flex-col">
+  <li class="font-bold inline-flex items-center gap-x-3.5 py-3 px-4 bg-white border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-gray-800 dark:border-gray-700 dark:text-white">
+    Select Business
+  </li>
+  <li *ngFor="let member of members$ | async" (click)="select(member)" class="cursor-pointer hover:bg-gray-100 inline-flex items-center gap-x-3.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-gray-800 dark:border-gray-700 dark:text-white">
+    <i class="bi bi-buildings"></i>
+    {{ member.client.name }}
+  </li>
+  <li (click)="gotToCreateBusinessPage()" class="cursor-pointer hover:bg-gray-100 inline-flex items-center gap-x-3.5 py-3 px-4 text-sm font-medium bg-white border text-blue-600 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:text-blue-600 dark:border-gray-700 dark:text-white">
+    <i class="bi bi-plus-lg"></i>
+    Create new Business
+  </li>
+</ul>

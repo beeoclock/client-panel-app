@@ -1,13 +1,16 @@
 import {Route} from '@angular/router';
-import {AuthGuard, redirectLoggedInTo} from "@angular/fire/auth-guard";
+import {AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from "@angular/fire/auth-guard";
 
-const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['identity/corridor']);
+const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 
 export const routers = [
   {
     path: '',
     canActivate: [AuthGuard],
-    data: {authGuardPipe: redirectLoggedInToSendEmail},
+    data: {
+      authGuardPipe: redirectLoggedInToSendEmail
+    },
     children: [
       {
         path: '',
@@ -34,5 +37,13 @@ export const routers = [
   {
     path: 'corridor',
     loadComponent: () => import('./page/corridor')
+  },
+  {
+    path: 'create-business',
+    canActivate: [AuthGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin
+    },
+    loadComponent: () => import('./page/create-business')
   },
 ] as Route[];
