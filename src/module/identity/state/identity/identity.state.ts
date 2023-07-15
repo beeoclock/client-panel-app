@@ -2,9 +2,20 @@ import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {Auth, IdTokenResult} from "@angular/fire/auth";
+import {ParsedToken} from "@firebase/auth";
+
+export interface BeeoclockParsedToken extends ParsedToken {
+  clientId?: string;
+  accountId?: string;
+  userId?: string;
+}
+
+export interface BeeoclockIdTokenResult extends IdTokenResult {
+  claims: BeeoclockParsedToken
+}
 
 interface IIdentityState {
-  token: IdTokenResult | undefined;
+  token: BeeoclockIdTokenResult | undefined;
 }
 
 @State<IIdentityState>({
@@ -23,6 +34,21 @@ export class IdentityState {
   @Selector()
   public static token(state: IIdentityState) {
     return state.token;
+  }
+
+  @Selector()
+  public static clientId(state: IIdentityState) {
+    return state.token?.claims?.clientId;
+  }
+
+  @Selector()
+  public static accountId(state: IIdentityState) {
+    return state.token?.claims?.accountId;
+  }
+
+  @Selector()
+  public static userId(state: IIdentityState) {
+    return state.token?.claims?.userId;
   }
 
   // Effects
