@@ -2,8 +2,12 @@ import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {memberEndpointEnum} from "@identity/endpoint/member.endpoint";
+import {IList} from "@utility/domain/interface/i.endpoint/i.list";
+import {IMember} from "@identity/domain/interface/i.member";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MemberApiAdapter {
 
   public readonly http = inject(HttpClient);
@@ -22,6 +26,15 @@ export class MemberApiAdapter {
    */
   public getMembers$(): Observable<unknown> {
     return this.http.get(memberEndpointEnum.getMembers);
+  }
+
+  public postRelated$() {
+    return this.http.post<IList<IMember>>(memberEndpointEnum.postRelated, {
+      orderBy: 'createdAt',
+      orderDir: 'asc',
+      page: 1,
+      pageSize: 20
+    });
   }
 
 }

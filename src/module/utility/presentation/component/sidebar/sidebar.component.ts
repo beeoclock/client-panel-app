@@ -110,6 +110,14 @@ export class SidebarComponent implements AfterViewInit {
             exact: true
           }
         },
+        {
+          translateKey: 'sidebar.switch-business-client',
+          url: '/identity/corridor',
+          icon: 'bi bi-gear',
+          routerLinkActiveOptions: {
+            exact: true
+          }
+        },
       ]
     }
   ];

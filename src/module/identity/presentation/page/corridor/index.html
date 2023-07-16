@@ -1,1 +1,35 @@
-Corridor
+<ul class="max-w-xs flex flex-col mb-2">
+  <li (click)="logout()" class="cursor-pointer text-red-500 hover:underline inline-flex items-center gap-x-3.5 py-3 px-4 text-sm font-medium text -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:text-red-600 dark:text-white">
+    <span class="text-xl">
+      <i class="bi bi-box-arrow-left"></i>
+    </span>
+    Logout
+  </li>
+</ul>
+<ul class="max-w-xs flex flex-col">
+  <li class="font-bold inline-flex items-center gap-x-3.5 py-3 px-4 bg-white border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-gray-800 dark:border-gray-700 dark:text-white">
+    Select Business
+  </li>
+  <li *ngFor="let member of members$ | async" (click)="select(member)" class="cursor-pointer hover:bg-gray-100 inline-flex items-center gap-x-3.5 py-3 px-4 text-sm bg-white border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-gray-800 dark:border-gray-700 dark:text-white">
+      <span class="text-3xl">
+        <i class="bi bi-buildings"></i>
+      </span>
+    <span class="flex flex-col truncate">
+        <span class="font-bold">
+          {{ member.client.name }}
+        </span>
+        <span *ngIf="member.client?.slogan?.length" class="font-normal truncate">
+          {{ member.client.slogan }}
+        </span>
+      </span>
+  </li>
+  <li *ngIf="loaderOn" class="font-bold inline-flex items-center gap-x-3.5 py-3 bg-white border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-gray-800 dark:border-gray-700 dark:text-white">
+    <utility-loader></utility-loader>
+  </li>
+  <li (click)="gotToCreateBusinessPage()" class="cursor-pointer hover:bg-gray-100 inline-flex items-center gap-x-3.5 py-3 px-4 text-sm font-medium bg-white border text-blue-600 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:text-blue-600 dark:border-gray-700 dark:text-white">
+    <span class="text-3xl">
+      <i class="bi bi-plus-lg"></i>
+    </span>
+    Create new Business
+  </li>
+</ul>

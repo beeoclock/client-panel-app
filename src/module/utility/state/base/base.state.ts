@@ -1,4 +1,4 @@
-import {StateContext} from "@ngxs/store";
+import {StateContext, Store} from "@ngxs/store";
 import {BaseActions} from "@utility/state/base/base.actions";
 import {AppActions} from "@utility/state/app/app.actions";
 import {CacheActions} from "@utility/state/cache/cache.actions";
@@ -6,6 +6,7 @@ import {ITableState, TableState} from "@utility/domain/table.state";
 import {firstValueFrom} from "rxjs";
 import {ICacheState} from "@utility/state/cache/cache.state";
 import {ActiveEnum} from "@utility/domain/enum";
+import {inject} from "@angular/core";
 
 export interface IBaseState<ITEM> {
   item: {
@@ -27,6 +28,39 @@ export function baseDefaults<T>(): IBaseState<T> {
   };
 }
 
+export function buildCacheKey(...keys: string[]): string {
+  return keys.join('.');
+}
+
+export function getKeyWithClientId(store: Store, ...keys: string[]): string {
+
+  const {identity} = store.snapshot();
+
+  if (!identity) {
+    throw new Error('Store Snapshot: identity is absent!');
+  }
+
+  const {token} = identity;
+
+  if (!token) {
+    throw new Error('Store Snapshot: token is absent!');
+  }
+
+  const {claims} = token;
+
+  if (!claims) {
+    throw new Error('Store Snapshot: claims is absent!');
+  }
+
+  const {clientId} = claims;
+
+  if (!clientId) {
+    throw new Error('Store Snapshot: clientId is absent!');
+  }
+
+  return buildCacheKey(clientId, ...keys);
+}
+
 export abstract class BaseState<ITEM = any> {
 
   protected constructor(
@@ -43,6 +77,7 @@ export abstract class BaseState<ITEM = any> {
 
   public readonly router!: any;
   public readonly repository!: any;
+  public readonly store = inject(Store);
 
   /**
    * Init default from cache
@@ -53,14 +88,16 @@ export abstract class BaseState<ITEM = any> {
     ctx: StateContext<IBaseState<ITEM>>
   ): Promise<void> {
 
+    console.log(getKeyWithClientId(this.store, this.cacheKeys.tableStates));
+
     ctx.dispatch(new CacheActions.Get({
       strategy: 'indexedDB',
-      key: this.cacheKeys.tableStates,
+      key: getKeyWithClientId(this.store, this.cacheKeys.tableStates),
     }));
 
     ctx.dispatch(new CacheActions.Get({
       strategy: 'indexedDB',
-      key: this.cacheKeys.items,
+      key: getKeyWithClientId(this.store, this.cacheKeys.items),
     }));
 
   }
@@ -131,18 +168,13 @@ export abstract class BaseState<ITEM = any> {
 
     if (_id !== payload) {
 
-      const {cache}: { cache: ICacheState } = await firstValueFrom(
-        ctx.dispatch(
-          new CacheActions.Get({
-            strategy: 'indexedDB',
-            key: this.cacheKeys.items,
-          })
-        )
-      ) as any;
+      const {cache}: { cache: ICacheState } = this.store.snapshot();
 
       let itemFromCache = undefined;
 
-      const customerCacheItems = cache[this.cacheKeys.items];
+      const cacheItemsKey = getKeyWithClientId(this.store, this.cacheKeys.items);
+
+      const customerCacheItems = cache[cacheItemsKey];
 
       if (customerCacheItems) {
 
@@ -174,7 +206,7 @@ export abstract class BaseState<ITEM = any> {
 
         ctx.dispatch(new CacheActions.Set({
           strategy: 'indexedDB',
-          key: this.cacheKeys.items,
+          key: cacheItemsKey,
           value: JSON.stringify({
             ...customerCacheItems,
             [payload]: item
@@ -201,16 +233,19 @@ export abstract class BaseState<ITEM = any> {
     // TODO Implement: Error case
     const data = await this.repository.save(payload);
 
+    const cacheTableStatesKey = getKeyWithClientId(this.store, this.cacheKeys.tableStates);
+    const cacheItemsKey = getKeyWithClientId(this.store, this.cacheKeys.items);
+
     // Clear all history from cache
     // Clear cache of item
     await firstValueFrom(ctx.dispatch(new CacheActions.Remove({
       strategy: 'indexedDB',
-      key: this.cacheKeys.items,
+      key: cacheItemsKey,
     })));
     // Clear cache of table
     await firstValueFrom(ctx.dispatch(new CacheActions.Remove({
       strategy: 'indexedDB',
-      key: this.cacheKeys.tableStates,
+      key: cacheTableStatesKey,
     })));
 
     // Set new/updated item to store state and clear table
@@ -316,16 +351,10 @@ export abstract class BaseState<ITEM = any> {
       }
     }
 
-    const {cache}: { cache: ICacheState } = await firstValueFrom(
-      ctx.dispatch(
-        new CacheActions.Get({
-          strategy: 'indexedDB',
-          key: this.cacheKeys.tableStates,
-        })
-      )
-    ) as any;
+    const {cache}: { cache: ICacheState } = this.store.snapshot();
+    const cacheTableStatesKey = getKeyWithClientId(this.store, this.cacheKeys.tableStates);
 
-    const cacheTableStates = cache[this.cacheKeys.tableStates];
+    const cacheTableStates = cache[cacheTableStatesKey];
 
     // Check if in local cache exist data of current pagination has
     if (
@@ -375,7 +404,7 @@ export abstract class BaseState<ITEM = any> {
 
         ctx.dispatch(new CacheActions.Set({
           strategy: 'indexedDB',
-          key: this.cacheKeys.tableStates,
+          key: cacheTableStatesKey,
           value: JSON.stringify({
             ...cacheTableStates,
             [state.tableState.hashSum]: state.tableState

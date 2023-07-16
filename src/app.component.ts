@@ -6,8 +6,6 @@ import {LanguageCodeEnum} from '@utility/domain/enum';
 import {Store} from "@ngxs/store";
 import {AppState} from "@utility/state/app/app.state";
 import {DOCUMENT} from "@angular/common";
-import {IdentityActions} from "@identity/state/identity/identity.actions";
-import {Auth} from "@angular/fire/auth";
 import {IonicModule} from "@ionic/angular";
 
 @Component({
@@ -23,17 +21,9 @@ export class AppComponent implements AfterViewInit {
 
   private readonly translateService = inject(TranslateService);
   private readonly store = inject(Store);
-  private readonly auth = inject(Auth);
   private readonly document = inject(DOCUMENT);
 
   constructor() {
-
-    // Firebase Authorization
-    this.auth.onAuthStateChanged((user) => {
-      if (user) {
-        this.store.dispatch(new IdentityActions.InitToken());
-      }
-    });
 
     // I18n
     const browserLanguage = this.translateService.getBrowserLang();

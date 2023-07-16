@@ -27,7 +27,6 @@ import {IdTokenResult} from "@angular/fire/auth";
         <utility-page-loading-progress-bar></utility-page-loading-progress-bar>
         <router-outlet></router-outlet>
       </div>
-      <utility-stream-toast-component></utility-stream-toast-component>
 
     </ng-container>
 

@@ -2,6 +2,7 @@ import {Routes} from '@angular/router';
 import WrapperPanelComponent from '@utility/presentation/component/wrapper-panel/wrapper-panel.component';
 import WrapperIdentityComponent from '@utility/presentation/component/wrapper-identity/wrapper-identity.component';
 import {AuthGuard, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
+import {clientIdResolver} from "@utility/resolver/client-id.resolver";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['identity']);
 
@@ -10,7 +11,13 @@ export const routes: Routes = [
     path: '',
     component: WrapperPanelComponent,
     canActivate: [AuthGuard],
-    data: {authGuardPipe: redirectUnauthorizedToLogin},
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin
+    },
+    resolve: {
+      clientId: clientIdResolver,
+    },
+    runGuardsAndResolvers: 'always',
     children: [
       {
         path: '',

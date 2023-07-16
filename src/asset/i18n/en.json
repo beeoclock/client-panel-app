@@ -41,7 +41,8 @@
     "addEvent": "Add event",
     "private": "Private",
     "profile": "Profile",
-    "settings": "Settings"
+    "settings": "Settings",
+    "switch-business-client": "Change context"
   },
   "page": {
     "calendar": {

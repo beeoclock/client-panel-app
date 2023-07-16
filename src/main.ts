@@ -33,6 +33,16 @@ initRuntimeEnvironment();
 
 bootstrapApplication(AppComponent, {
   providers: [
+    importProvidersFrom(
+      NgxsModule.forRoot([IdentityState, AppState, CacheState], {
+        developmentMode: !environment.production
+      }),
+
+      NgxsReduxDevtoolsPluginModule.forRoot({
+        disabled: environment.production
+      }),
+    ),
+
     provideRouter(
       routes,
       withInMemoryScrolling({
@@ -88,14 +98,6 @@ bootstrapApplication(AppComponent, {
           useFactory: HttpLoaderFactory,
           deps: [HttpClient]
         }
-      }),
-
-      NgxsModule.forRoot([IdentityState, AppState, CacheState], {
-        developmentMode: !environment.production
-      }),
-
-      NgxsReduxDevtoolsPluginModule.forRoot({
-        disabled: environment.production
       }),
     ),
   ]
