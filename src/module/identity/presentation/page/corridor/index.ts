@@ -4,12 +4,13 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {SignInComponent} from '@identity/presentation/component/sign-in.component/sign-in.component';
 import {Select, Store} from '@ngxs/store';
 import {IdentityState} from "@identity/state/identity/identity.state";
-import {firstValueFrom, Observable} from "rxjs";
+import {filter, firstValueFrom, Observable, tap} from "rxjs";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {IMember} from "@identity/domain/interface/i.member";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {IdentityApiAdapter} from "@identity/adapter/external/api/identity.api.adapter";
 import {Auth} from "@angular/fire/auth";
+import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 
 @Component({
   selector: 'identity-corridor-page',
@@ -21,7 +22,8 @@ import {Auth} from "@angular/fire/auth";
     SignInComponent,
     NgForOf,
     AsyncPipe,
-    NgIf
+    NgIf,
+    LoaderComponent
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -33,13 +35,22 @@ export default class Index {
   public readonly identityApiAdapter = inject(IdentityApiAdapter);
 
   @Select(IdentityState.clients)
-  public readonly members$!: Observable<IMember[]>;
+  public readonly clients$!: Observable<IMember[]>;
+
+  public readonly members$ = this.clients$.pipe(
+    filter((result) => Array.isArray(result)),
+    tap(() => {
+      this.loaderOn = false;
+    })
+  )
 
   @Select(IdentityState.clientId)
   public readonly clientId$!: Observable<string | undefined>;
 
   @HostBinding()
   public readonly class = 'w-96 p-8 dark:border-beeDarkColor-700 rounded dark:bg-beeDarkColor-800';
+
+  public loaderOn = true;
 
   constructor() {
 
@@ -58,8 +69,6 @@ export default class Index {
   }
 
   public async select(member: IMember): Promise<void> {
-    console.log(member);
-    console.log(member.client._id);
     // Switch business client by server side
     await firstValueFrom(
       this.identityApiAdapter.patchSwitchBusinessClient$({
@@ -69,14 +78,22 @@ export default class Index {
     // Refresh token and receive new claims
     await firstValueFrom(this.store.dispatch(new IdentityActions.InitToken()));
     const clientId = await firstValueFrom(this.clientId$);
-
-    console.log(clientId);
+    console.log(clientId, member);
 
     if (clientId === member.client._id) {
-      console.log('SUCCESS');
       await this.router.navigate(['/', 'dashboard']);
     }
 
+  }
+
+  public logout(): void {
+    this.auth.signOut()
+      .then(() => {
+        this.router.navigate(['/'])
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
 }

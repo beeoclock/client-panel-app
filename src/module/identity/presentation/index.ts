@@ -1,5 +1,6 @@
 import {Route} from '@angular/router';
 import {AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from "@angular/fire/auth-guard";
+import {clientIdResolver} from "@utility/resolver/client-id.resolver";
 
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
@@ -36,6 +37,9 @@ export const routers = [
   },
   {
     path: 'corridor',
+    resolve: {
+      clientId: clientIdResolver,
+    },
     loadComponent: () => import('./page/corridor')
   },
   {

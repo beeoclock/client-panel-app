@@ -69,11 +69,6 @@ export class IdentityState {
     // Get data from state
     const state = ctx.getState();
 
-    // check if store have had the token!
-    if (state.token) {
-      return;
-    }
-
     // Check if user is not authorized!
     if (!this.auth.currentUser) {
       return;
@@ -98,7 +93,6 @@ export class IdentityState {
 
   @Action(IdentityActions.GetClients)
   public async getClients(ctx: StateContext<IIdentityState>): Promise<void> {
-
     const result = await firstValueFrom(this.memberApiAdapter.postRelated$());
     ctx.patchState({
       clients: result.items
