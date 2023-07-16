@@ -6,6 +6,7 @@ export enum identityEndpointEnum {
   postCreateUser = '/api/v1/provider/create-user',
   postCreateUserAndBusinessClient = '/api/v1/provider/create-user-and-business-client',
   postCreateBusinessClient = '/api/v1/provider/create-business-client',
+  patchSwitchBusinessClient = '/api/v1/provider/switch-business-client',
 }
 
 export const identityEndpoint: EndpointCollectionType = {
@@ -23,6 +24,16 @@ export const identityEndpoint: EndpointCollectionType = {
     [identityEndpointEnum.postCreateBusinessClient]: {
       path: identityEndpointEnum.postCreateBusinessClient,
       method: RequestMethodEnum.POST,
+      source: SourceNetworkEnum.identity,
+      header: {
+        authorization: true
+      }
+    }
+  },
+  PATCH: {
+    [identityEndpointEnum.patchSwitchBusinessClient]: {
+      path: identityEndpointEnum.patchSwitchBusinessClient,
+      method: RequestMethodEnum.PATCH,
       source: SourceNetworkEnum.identity,
       header: {
         authorization: true
