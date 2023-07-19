@@ -17,6 +17,7 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {MemberActions} from "@member/state/member/member.actions";
 import {EventActions} from "@event/state/event/event.actions";
+import {CacheActions} from "@utility/state/cache/cache.actions";
 
 @Component({
   selector: 'utility-wrapper-panel-component',
@@ -98,7 +99,8 @@ export default class WrapperPanelComponent implements AfterViewInit, OnDestroy {
     this.store.dispatch(new ServiceActions.Init());
     this.store.dispatch(new MemberActions.Init());
     this.store.dispatch(new EventActions.Init());
-    // TODO clear cache state
+
+    this.store.dispatch(new CacheActions.Init());
   }
 }
 

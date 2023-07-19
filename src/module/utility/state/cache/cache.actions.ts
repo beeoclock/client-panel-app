@@ -1,6 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace CacheActions {
 
+  export class Init {
+    public static readonly type = '[Cache State] Init';
+  }
+
   export class Set {
     public static readonly type = '[Cache State] Set';
 
