@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, inject, OnDestroy, ViewEncapsulation} from '@angular/core';
 import {SidebarComponent} from '@utility/presentation/component/sidebar/sidebar.component';
 import {NavbarComponent} from '@utility/presentation/component/navbar/navbar.component';
 import {FooterComponent} from '@utility/presentation/component/footer/footer.component';
@@ -9,10 +9,14 @@ import {ModalComponent} from "@utility/presentation/component/modal/modal.compon
 import {
   PageLoadingProgressBarComponent
 } from "@utility/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
-import {Select} from "@ngxs/store";
+import {Select, Store} from "@ngxs/store";
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {Observable} from "rxjs";
 import {IdTokenResult} from "@angular/fire/auth";
+import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {ServiceActions} from "@service/state/service/service.actions";
+import {MemberActions} from "@member/state/member/member.actions";
+import {EventActions} from "@event/state/event/event.actions";
 
 @Component({
   selector: 'utility-wrapper-panel-component',
@@ -44,11 +48,12 @@ import {IdTokenResult} from "@angular/fire/auth";
   ],
   encapsulation: ViewEncapsulation.None
 })
-export default class WrapperPanelComponent implements AfterViewInit {
+export default class WrapperPanelComponent implements AfterViewInit, OnDestroy {
 
   private readonly document = inject(DOCUMENT);
   private checkerTimer: undefined | NodeJS.Timeout;
   private isUserOnWebSite = true;
+  public readonly store = inject(Store);
 
   @Select(IdentityState.token)
   public readonly token$!: Observable<IdTokenResult | undefined>;
@@ -86,6 +91,14 @@ export default class WrapperPanelComponent implements AfterViewInit {
     this.document.onvisibilitychange = () => {
       this.isUserOnWebSite = !this.document.hidden;
     };
+  }
+
+  public ngOnDestroy(): void {
+    this.store.dispatch(new CustomerActions.Init());
+    this.store.dispatch(new ServiceActions.Init());
+    this.store.dispatch(new MemberActions.Init());
+    this.store.dispatch(new EventActions.Init());
+    // TODO clear cache state
   }
 }
 

@@ -29,6 +29,11 @@ export class ServiceState extends BaseState<IService> {
     );
   }
 
+  @Action(ServiceActions.Init)
+  public override async init(ctx: StateContext<IServiceState>): Promise<void> {
+    await super.init(ctx);
+  }
+
   @Action(ServiceActions.InitDefaultsFromCache)
   public override async InitDefaultsFromCache(ctx: StateContext<IServiceState>): Promise<void> {
     await super.InitDefaultsFromCache(ctx);

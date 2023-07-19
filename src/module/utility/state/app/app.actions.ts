@@ -10,4 +10,13 @@ export namespace AppActions {
     }
   }
 
+  export class ClearStates {
+    public static readonly type = '[App State] Page Loading';
+
+    constructor(
+      public payload: boolean,
+    ) {
+    }
+  }
+
 }

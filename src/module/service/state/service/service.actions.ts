@@ -4,6 +4,10 @@ import {IService} from "@service/domain";
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace ServiceActions {
 
+  export class Init extends BaseActions.Init {
+    public static override readonly type = '[Service State] Init';
+  }
+
   export class InitDefaultsFromCache extends BaseActions.InitDefaultsFromCache {
     public static override readonly type = '[Service API] Init Defaults From Cache';
   }

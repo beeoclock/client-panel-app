@@ -4,6 +4,10 @@ import {ActiveEnum} from "@utility/domain/enum";
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace BaseActions {
 
+  export abstract class Init {
+    public static readonly type: string = '[TODO] Not Implemented Yet!';
+  }
+
   export abstract class GetList {
     public static readonly type: string = '[TODO] Not Implemented Yet!';
   }

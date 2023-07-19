@@ -28,6 +28,11 @@ export class EventState extends BaseState<Event.IEvent> {
     );
   }
 
+  @Action(EventActions.Init)
+  public override async init(ctx: StateContext<IEventState>): Promise<void> {
+    await super.init(ctx);
+  }
+
   @Action(EventActions.InitDefaultsFromCache)
   public override async InitDefaultsFromCache(ctx: StateContext<IEventState>): Promise<void> {
     await super.InitDefaultsFromCache(ctx);

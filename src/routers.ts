@@ -17,7 +17,6 @@ export const routes: Routes = [
     resolve: {
       clientId: clientIdResolver,
     },
-    runGuardsAndResolvers: 'always',
     children: [
       {
         path: '',

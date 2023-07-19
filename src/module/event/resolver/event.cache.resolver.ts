@@ -1,22 +1,17 @@
 import {inject} from "@angular/core";
 import {ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot} from "@angular/router";
 import {Store} from "@ngxs/store";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {catchError, EMPTY, map} from "rxjs";
 import {IAppState} from "@utility/state/app/app.state";
+import {EventActions} from "@event/state/event/event.actions";
 
 
-export const customerDetailsResolver: ResolveFn<boolean> = (
+export const eventCacheResolver: ResolveFn<boolean> = (
   route: ActivatedRouteSnapshot,
   _state: RouterStateSnapshot
 ) => {
 
   const store = inject(Store); // NGXS
-  const id = route.paramMap.get('id');
-
-  if (!id) {
-    return EMPTY;
-  }
 
   const {app}: { app: IAppState } = store.snapshot();
 
@@ -24,7 +19,7 @@ export const customerDetailsResolver: ResolveFn<boolean> = (
     return EMPTY;
   }
 
-  return store.dispatch(new CustomerActions.GetItem(id))
+  return store.dispatch(new EventActions.InitDefaultsFromCache())
     .pipe(
       map(() => true),
       catchError(() => EMPTY)

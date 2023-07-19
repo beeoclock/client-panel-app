@@ -4,8 +4,12 @@ import {ICustomer} from "@customer/domain";
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace CustomerActions {
 
+  export class Init extends BaseActions.Init {
+    public static override readonly type = '[Customer State] Init';
+  }
+
   export class InitDefaultsFromCache extends BaseActions.InitDefaultsFromCache {
-    public static override readonly type = '[Customer API] Init Defaults From Cache';
+    public static override readonly type = '[Customer Cache] Init Defaults From Cache';
   }
 
   export class GetList extends BaseActions.GetList {

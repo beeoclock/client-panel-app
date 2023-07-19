@@ -28,6 +28,11 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
     );
   }
 
+  @Action(CustomerActions.Init)
+  public override async init(ctx: StateContext<ICustomerState>): Promise<void> {
+    await super.init(ctx);
+  }
+
   @Action(CustomerActions.InitDefaultsFromCache)
   public override async InitDefaultsFromCache(ctx: StateContext<ICustomerState>): Promise<void> {
     await super.InitDefaultsFromCache(ctx);

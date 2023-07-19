@@ -1,36 +1,47 @@
 import {Routes} from "@angular/router";
 import {customerDetailsResolver} from "@customer/resolver/customer.details.resolver";
+import {CustomerWrapperComponent} from "@customer/presentation/component/wrapper/customer.wrapper.component";
+import {customerCacheResolver} from "@customer/resolver/customer.cache.resolver";
 
 export const routers = [
   {
     path: '',
-    loadComponent: () => import('./page/list')
-  },
-  {
-    path: 'details',
-    children: [
-      {
-        path: ':id',
-        resolve: {
-          item: customerDetailsResolver
-        },
-        loadComponent: () => import('./page/details')
-      }
-    ]
-  },
-  {
-    path: 'form',
+    component: CustomerWrapperComponent,
+    resolve: {
+      cacheLoaded: customerCacheResolver
+    },
     children: [
       {
         path: '',
-        loadComponent: () => import('./page/form'),
+        loadComponent: () => import('./page/list')
       },
       {
-        path: ':id',
-        resolve: {
-          item: customerDetailsResolver
-        },
-        loadComponent: () => import('./page/form'),
+        path: 'details',
+        children: [
+          {
+            path: ':id',
+            resolve: {
+              itemLoaded: customerDetailsResolver
+            },
+            loadComponent: () => import('./page/details')
+          }
+        ]
+      },
+      {
+        path: 'form',
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./page/form'),
+          },
+          {
+            path: ':id',
+            resolve: {
+              itemLoaded: customerDetailsResolver
+            },
+            loadComponent: () => import('./page/form'),
+          }
+        ]
       }
     ]
   }
