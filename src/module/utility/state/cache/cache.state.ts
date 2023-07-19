@@ -17,6 +17,13 @@ export class CacheState {
 
   private readonly ngxIndexedDBService = inject(NgxIndexedDBService);
 
+  @Action(CacheActions.Init)
+  public async init(
+    ctx: StateContext<ICacheState>,
+  ): Promise<void> {
+    ctx.setState({});
+  }
+
   @Action(CacheActions.Set)
   public async set(
     ctx: StateContext<ICacheState>,

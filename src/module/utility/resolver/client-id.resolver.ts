@@ -16,17 +16,12 @@ export const clientIdResolver: ResolveFn<string | undefined> = (
   const auth = inject(Auth);
   const router = inject(Router);
 
-  console.log('clientIdResolver: 1');
-
   // Firebase Authorization
   const auth$ = from(new Promise<User | null>((resolve) => {
     auth.onAuthStateChanged(async (user) => {
 
-      console.log('clientIdResolver: 2');
       await firstValueFrom(store.dispatch(new IdentityActions.InitToken()));
 
-
-      console.log('clientIdResolver: 3');
       resolve(user);
     })
   }));
@@ -36,7 +31,6 @@ export const clientIdResolver: ResolveFn<string | undefined> = (
       return store.select(IdentityState.clientId).pipe(
         switchMap((clientId) => {
 
-          console.log('clientIdResolver: 4');
           if (clientId) {
             return of(clientId);
           }

@@ -19,14 +19,14 @@ export interface BeeoclockIdTokenResult extends IdTokenResult {
 
 interface IIdentityState {
   token: BeeoclockIdTokenResult | undefined;
-  clients: IMember[];
+  clients: IMember[] | undefined;
 }
 
 @State<IIdentityState>({
   name: 'identity',
   defaults: {
     token: undefined,
-    clients: []
+    clients: undefined
   }
 })
 @Injectable()

@@ -4,6 +4,10 @@ import {IMember} from "@member/domain";
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace MemberActions {
 
+  export class Init extends BaseActions.Init {
+    public static override readonly type = '[Member State] Init';
+  }
+
   export class InitDefaultsFromCache extends BaseActions.InitDefaultsFromCache {
     public static override readonly type = '[Member API] Init Defaults From Cache';
   }

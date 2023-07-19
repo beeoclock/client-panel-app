@@ -28,6 +28,11 @@ export class MemberState extends BaseState<Member.IMember> {
     );
   }
 
+  @Action(MemberActions.Init)
+  public override async init(ctx: StateContext<IMemberState>): Promise<void> {
+    await super.init(ctx);
+  }
+
   @Action(MemberActions.InitDefaultsFromCache)
   public override async InitDefaultsFromCache(ctx: StateContext<IMemberState>): Promise<void> {
     await super.InitDefaultsFromCache(ctx);

@@ -84,21 +84,38 @@ export abstract class BaseState<ITEM = any> {
    * @param ctx
    * @constructor
    */
+  public async init(
+    ctx: StateContext<IBaseState<ITEM>>
+  ): Promise<void> {
+
+    ctx.setState(baseDefaults());
+
+  }
+
+  /**
+   * Init default from cache
+   * @param ctx
+   * @constructor
+   */
   public async InitDefaultsFromCache(
     ctx: StateContext<IBaseState<ITEM>>
   ): Promise<void> {
 
+    console.log('InitDefaultsFromCache: START');
+
     console.log(getKeyWithClientId(this.store, this.cacheKeys.tableStates));
 
-    ctx.dispatch(new CacheActions.Get({
+    await firstValueFrom(ctx.dispatch(new CacheActions.Get({
       strategy: 'indexedDB',
       key: getKeyWithClientId(this.store, this.cacheKeys.tableStates),
-    }));
+    })));
 
-    ctx.dispatch(new CacheActions.Get({
+    await firstValueFrom(ctx.dispatch(new CacheActions.Get({
       strategy: 'indexedDB',
       key: getKeyWithClientId(this.store, this.cacheKeys.items),
-    }));
+    })));
+
+    console.log('InitDefaultsFromCache: finish');
 
   }
 

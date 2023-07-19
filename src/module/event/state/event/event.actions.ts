@@ -4,8 +4,12 @@ import {IEvent} from "@event/domain";
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace EventActions {
 
+  export class Init extends BaseActions.Init {
+    public static override readonly type = '[Event State] Init';
+  }
+
   export class InitDefaultsFromCache extends BaseActions.InitDefaultsFromCache {
-    public static override readonly type = '[Event API] Init Defaults From Cache';
+    public static override readonly type = '[Event Cache] Init Defaults From Cache';
   }
 
   export class GetList extends BaseActions.GetList {

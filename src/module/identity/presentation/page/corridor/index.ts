@@ -39,7 +39,7 @@ export default class Index {
 
   public readonly members$ = this.clients$.pipe(
     filter((result) => Array.isArray(result)),
-    tap(() => {
+    tap((rest) => {
       this.loaderOn = false;
     })
   )
