@@ -28,6 +28,8 @@
     "languages": "Languages",
     "members": "Members",
     "soon": "Soon",
+    "role": "Role",
+    "permission": "Permission",
     "signOut": "Sign out"
   },
   "sidebar": {

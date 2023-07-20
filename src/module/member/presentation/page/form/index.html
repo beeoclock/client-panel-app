@@ -7,34 +7,7 @@
 
       <form [formGroup]="form" class="mt-4">
         <div class="bg-white border rounded-lg p-4">
-
-          <strong>{{ 'general.information' | translate }}</strong>
-
-          <div class="flex flex-col mt-4">
-            <label for="member-form-firstName">{{ 'general.firstName' | translate }}</label>
-            <input
-              invalidTooltip
-              hasError
-              class="border rounded bg-white px-2 py-1"
-              placeholder="Write first name of member"
-              id="member-form-firstName"
-              formControlName="firstName">
-          </div>
-          <div class="flex flex-col mt-4">
-            <label for="member-form-lastName">{{ 'general.lastName' | translate }}</label>
-            <input
-              invalidTooltip
-              hasError
-              class="border rounded bg-white px-2 py-1"
-              placeholder="Write last name of member"
-              id="member-form-lastName"
-              formControlName="lastName">
-          </div>
-        </div>
-        <div class="bg-white border rounded-lg p-4 mt-4">
-          <strong>{{ 'general.contact' | translate }}</strong>
-
-          <div class="flex flex-col mt-4">
+          <div class="flex flex-col">
             <label for="member-form-email">{{ 'general.email' | translate }}</label>
             <input
               invalidTooltip
@@ -44,17 +17,19 @@
               id="member-form-email"
               formControlName="email">
           </div>
-          <div class="flex flex-col mt-4">
-            <label for="member-form-phone">{{ 'general.phone' | translate }}</label>
-            <input
-              hasError
-              invalidTooltip
-              class="border rounded bg-white px-2 py-1"
-              placeholder="Write phone of member"
-              id="member-form-phone"
-              formControlName="phone">
-          </div>
         </div>
+<!--        <div class="bg-white border rounded-lg p-4 mt-4">-->
+<!--          <strong>{{ 'general.role' | translate }}</strong>-->
+<!--          <div>-->
+<!--            {{ 'general.soon' | translate }}-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="bg-white border rounded-lg p-4 mt-4">-->
+<!--          <strong>{{ 'general.permission' | translate }}</strong>-->
+<!--          <div>-->
+<!--            {{ 'general.soon' | translate }}-->
+<!--          </div>-->
+<!--        </div>-->
         <div class="mt-4">
           <button
             class="px-4 py-2 bg-blue-600 rounded-lg text-white w-full hover:bg-blue-700 cursor-pointer transition"
