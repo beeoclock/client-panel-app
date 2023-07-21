@@ -3,6 +3,10 @@ import {SearchComponent} from '@utility/presentation/component/search/search.com
 import {NotificationComponent} from '@utility/presentation/component/notification/notification.component';
 import {RouterLink} from '@angular/router';
 import {DOCUMENT} from "@angular/common";
+import {IdentityState} from "@identity/state/identity/identity.state";
+import {Store} from "@ngxs/store";
+import {firstValueFrom} from "rxjs";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   standalone: true,
@@ -12,13 +16,22 @@ import {DOCUMENT} from "@angular/common";
   imports: [
     SearchComponent,
     NotificationComponent,
-    RouterLink
+    RouterLink,
+    TranslateModule
   ]
 })
 export class NavbarComponent {
   public readonly document = inject(DOCUMENT);
+  public readonly store = inject(Store);
 
   public toggleSidebar(): void {
     this.document.getElementById('main-sidebar')?.classList?.toggle('translate-x-0')
+  }
+
+  public async goToPublicPage(): Promise<void> {
+
+    const clientId = await firstValueFrom(this.store.select(IdentityState.clientId));
+    window.open(`https://beeoclock.com/${clientId}`, '_blank');
+
   }
 }

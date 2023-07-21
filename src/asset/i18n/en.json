@@ -30,7 +30,8 @@
     "soon": "Soon",
     "role": "Role",
     "permission": "Permission",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "publicPage": "Public page"
   },
   "sidebar": {
     "dashboard": "Dashboard",

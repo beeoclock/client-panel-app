@@ -4,6 +4,7 @@ import {IsActiveMatchOptions, RouterLink, RouterLinkActive} from '@angular/route
 import {NgForOf, NgIf} from '@angular/common';
 import {Auth} from "@angular/fire/auth";
 import {TranslateModule} from "@ngx-translate/core";
+import {Store} from "@ngxs/store";
 
 interface IMenuItem {
   url?: string;
@@ -33,6 +34,7 @@ interface IMenuItem {
 export class SidebarComponent implements AfterViewInit {
 
   public readonly auth = inject(Auth);
+  public readonly store = inject(Store);
 
   public readonly menu: IMenuItem[] = [
     {
