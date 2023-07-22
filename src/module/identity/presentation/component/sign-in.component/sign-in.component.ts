@@ -10,7 +10,6 @@ import LoginForm from '@identity/form/login.form';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {Auth, signInWithEmailAndPassword} from "@angular/fire/auth";
-import {FirebaseError} from "@angular/fire/app";
 import {Notification, WarningNotification} from "@utility/domain/notification";
 import {Store} from "@ngxs/store";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
@@ -99,7 +98,8 @@ import {firstValueFrom} from "rxjs";
           <label for="password"
                  class="block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">Password</label>
           <div class="text-sm">
-            <a href="#" class="font-semibold text-blue-600 dark:text-black hover:text-blue-500">Forgot
+            <a routerLink="/identity/reset-password"
+               class="font-semibold text-blue-600 dark:text-black hover:text-blue-500">Forgot
               password?</a>
           </div>
         </div>
@@ -185,7 +185,7 @@ export class SignInComponent {
   private readonly auth = inject(Auth);
   private readonly store = inject(Store);
 
-  public signIn(): void {
+  public async signIn(): Promise<void> {
 
     this.form.markAllAsTouched();
 
@@ -196,18 +196,23 @@ export class SignInComponent {
       const {email, password} = this.form.value;
       if (email && password) {
 
-        signInWithEmailAndPassword(this.auth, email, password)
-          .then(async () => {
-            await firstValueFrom(this.store.dispatch(new IdentityActions.InitToken()));
-            await this.router.navigate(['/', 'identity', 'corridor']);
-          })
-          .catch((result: FirebaseError) => {
-            this.form.enable();
-            this.form.updateValueAndValidity();
-            WarningNotification.push({
-              message: result.message,
-            });
+        try {
+
+          const {user} = await signInWithEmailAndPassword(this.auth, email, password);
+          console.log(user)
+          const token = await user.getIdTokenResult();
+          console.log(token);
+          await firstValueFrom(this.store.dispatch(new IdentityActions.Token(token)));
+          await this.router.navigate(['/', 'identity', 'corridor']);
+
+        } catch (error) {
+
+          this.form.enable();
+          this.form.updateValueAndValidity();
+          WarningNotification.push({
+            message: (error as any)?.message,
           });
+        }
 
       } else {
         this.form.enable();

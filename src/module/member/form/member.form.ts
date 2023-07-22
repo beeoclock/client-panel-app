@@ -33,7 +33,7 @@ export class MemberForm extends FormGroup<IMemberForm> {
     }
 
     return form;
-    
+
   }
 
 }

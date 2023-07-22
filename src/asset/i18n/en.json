@@ -1,7 +1,8 @@
 {
   "form": {
     "validation": {
-      "required": "Required field"
+      "required": "Required field",
+      "email": "Invalid E-mail format"
     }
   },
   "general": {
@@ -158,6 +159,21 @@
   "identity": {
     "logout": {
       "button": "Logout"
+    },
+    "create-business": {
+      "form": {
+        "inputs": {
+          "name": {
+            "label": "Name"
+          },
+          "address": {
+            "label": "Address"
+          },
+          "slogan": {
+            "label": "Slogan"
+          }
+        }
+      }
     },
     "reset-password": {
       "form": {
