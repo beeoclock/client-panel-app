@@ -247,33 +247,37 @@ export abstract class BaseState<ITEM = any> {
 
     ctx.dispatch(new AppActions.PageLoading(true));
 
-    // TODO Implement: Error case
-    const data = await this.repository.save(payload);
+    try {
+      // TODO Implement: Error case
+      const data = await this.repository.save(payload);
 
-    const cacheTableStatesKey = getKeyWithClientId(this.store, this.cacheKeys.tableStates);
-    const cacheItemsKey = getKeyWithClientId(this.store, this.cacheKeys.items);
+      const cacheTableStatesKey = getKeyWithClientId(this.store, this.cacheKeys.tableStates);
+      const cacheItemsKey = getKeyWithClientId(this.store, this.cacheKeys.items);
 
-    // Clear all history from cache
-    // Clear cache of item
-    await firstValueFrom(ctx.dispatch(new CacheActions.Remove({
-      strategy: 'indexedDB',
-      key: cacheItemsKey,
-    })));
-    // Clear cache of table
-    await firstValueFrom(ctx.dispatch(new CacheActions.Remove({
-      strategy: 'indexedDB',
-      key: cacheTableStatesKey,
-    })));
+      // Clear all history from cache
+      // Clear cache of item
+      await firstValueFrom(ctx.dispatch(new CacheActions.Remove({
+        strategy: 'indexedDB',
+        key: cacheItemsKey,
+      })));
+      // Clear cache of table
+      await firstValueFrom(ctx.dispatch(new CacheActions.Remove({
+        strategy: 'indexedDB',
+        key: cacheTableStatesKey,
+      })));
 
-    // Set new/updated item to store state and clear table
-    ctx.patchState({
-      item: {
-        data,
-        downloadedAt: new Date(),
-      },
-      tableState: new TableState<ITEM>().toCache(),
-      lastTableHashSum: undefined
-    });
+      // Set new/updated item to store state and clear table
+      ctx.patchState({
+        item: {
+          data,
+          downloadedAt: new Date(),
+        },
+        tableState: new TableState<ITEM>().toCache(),
+        lastTableHashSum: undefined
+      });
+    } catch (e) {
+      console.error('Error Response: ', e);
+    }
 
     ctx.dispatch(new AppActions.PageLoading(false));
 

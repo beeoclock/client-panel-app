@@ -93,6 +93,11 @@ export class InvalidTooltipDirective implements AfterViewInit {
   // Add invalid custom tooltip in DOM
   public buildInvalidCustomTooltip(): void {
 
+    // Check if tooltip is existed
+    if (this.invalidCustomTooltip) {
+      return;
+    }
+
     // Check if element has parent element to set relative position
     if (!this.elementRef.nativeElement.parentElement) {
       return;
@@ -129,7 +134,7 @@ export class InvalidTooltipDirective implements AfterViewInit {
       this.basePathOfTranslate + getFirstKey(this.control.errors)
     );
 
-    this.elementRef.nativeElement.parentElement.appendChild(this.invalidCustomTooltip);
+    this.elementRef.nativeElement.parentElement.appendChild(this.invalidCustomTooltip)
 
   }
 

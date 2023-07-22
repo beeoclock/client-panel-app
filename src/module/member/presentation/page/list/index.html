@@ -40,6 +40,14 @@
         ></utility-sort-indicator>
       </th>
       <th scope="col" class="px-6 py-3"
+          data-orderBy="phone">
+        {{ 'general.phone' | translate }}
+        <utility-sort-indicator
+          orderBy="phone"
+          [tableState]="tableState"
+        ></utility-sort-indicator>
+      </th>
+      <th scope="col" class="px-6 py-3"
           data-orderBy="createdAt">
         {{ 'general.createdAt' | translate }}
         <utility-sort-indicator

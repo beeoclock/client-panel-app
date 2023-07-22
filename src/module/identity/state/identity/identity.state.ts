@@ -1,7 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
-import {Auth, IdTokenResult} from "@angular/fire/auth";
+import {Auth, IdTokenResult, Unsubscribe} from "@angular/fire/auth";
 import {ParsedToken} from "@firebase/auth";
 import {firstValueFrom} from "rxjs";
 import {IMember} from "@identity/domain/interface/i.member";
@@ -64,23 +64,47 @@ export class IdentityState {
 
   // Effects
 
+  @Action(IdentityActions.Token)
+  public async token(ctx: StateContext<IIdentityState>, {payload}: IdentityActions.Token): Promise<void> {
+    console.log(payload);
+    ctx.patchState({
+      token: payload
+    });
+  }
+
   @Action(IdentityActions.InitToken)
   public async initToken(ctx: StateContext<IIdentityState>): Promise<void> {
-    // Get data from state
-    const state = ctx.getState();
 
+
+    console.log(this.auth.currentUser);
     // Check if user is not authorized!
     if (!this.auth.currentUser) {
-      return;
+
+      let unsubscribeAuthState: Unsubscribe | undefined = undefined;
+      const awaitOfAuthState = new Promise((resolve) => {
+        unsubscribeAuthState = this.auth.onAuthStateChanged((result) => {
+          if (result) {
+            resolve(result)
+          }
+        });
+      });
+
+      await awaitOfAuthState;
+      if (unsubscribeAuthState) {
+        (unsubscribeAuthState as Unsubscribe)();
+      }
     }
 
-    // Get token
-    const token = await this.auth.currentUser.getIdTokenResult(true);
+    if (this.auth.currentUser) {
 
-    // update state
-    ctx.patchState({
-      token
-    });
+      // Get token
+      const token = await this.auth.currentUser.getIdTokenResult(true);
+      console.log(token);
+
+      // update state
+      ctx.dispatch(new IdentityActions.Token(token));
+
+    }
   }
 
   @Action(IdentityActions.ClearToken)
