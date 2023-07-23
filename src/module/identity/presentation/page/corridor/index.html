@@ -6,15 +6,17 @@
     Logout
   </li>
 </ul>
-<ul class="max-w-xs flex flex-col">
+<ul class="max-w-xs flex flex-col mb-3">
   <li class="font-bold inline-flex items-center gap-x-3.5 py-3 px-4 bg-white border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-gray-800 dark:border-gray-700 dark:text-white">
     Select Business
   </li>
-  <li *ngFor="let member of members$ | async" (click)="select(member)" class="cursor-pointer hover:bg-gray-100 inline-flex items-center gap-x-3.5 py-3 px-4 text-sm bg-white border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-gray-800 dark:border-gray-700 dark:text-white">
+  <div class="overflow-y-auto max-h-96 flex flex-col">
+
+    <li *ngFor="let member of members$ | async" (click)="select(member)" class="cursor-pointer hover:bg-gray-100 inline-flex items-center gap-x-3.5 py-3 px-4 text-sm bg-white border text-gray-800 -mt-px dark:bg-gray-800 dark:border-gray-700 dark:text-white">
       <span class="text-3xl">
         <i class="bi bi-buildings"></i>
       </span>
-    <span class="flex flex-col truncate">
+      <span class="flex flex-col truncate">
         <span class="font-bold">
           {{ member.client.name }}
         </span>
@@ -22,7 +24,8 @@
           {{ member.client.slogan }}
         </span>
       </span>
-  </li>
+    </li>
+  </div>
   <li *ngIf="loaderOn" class="font-bold inline-flex items-center gap-x-3.5 py-3 bg-white border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-gray-800 dark:border-gray-700 dark:text-white">
     <utility-loader></utility-loader>
   </li>
