@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
+import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import BusinessClientForm from "@identity/form/business-client.form";
@@ -25,8 +25,9 @@ export default class Index {
 
   public readonly form = new BusinessClientForm();
 
-  @HostBinding()
-  public readonly class = 'w-96 p-8 border dark:border-beeDarkColor-700 bg-white rounded dark:bg-beeDarkColor-800';
+  public async goToBack(): Promise<void> {
+    await this.router.navigate(['/', 'identity', 'corridor']);
+  }
 
   public async save(): Promise<void> {
     this.form.markAllAsTouched();
