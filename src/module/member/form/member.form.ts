@@ -26,7 +26,7 @@ export class MemberForm extends FormGroup<IMemberForm> {
 
     const form = new MemberForm();
 
-    form.setValue(initValue);
+    form.patchValue(initValue);
 
     if ('email' in initValue) {
       form.controls.email.disable();

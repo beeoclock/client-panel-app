@@ -1,6 +1,5 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {StreamToastComponent} from '@utility/presentation/component/toast/stream.toast.component';
 import {AsyncPipe, NgIf} from "@angular/common";
 
 @Component({
@@ -11,7 +10,7 @@ import {AsyncPipe, NgIf} from "@angular/common";
       <router-outlet></router-outlet>
     </div>
   `,
-  imports: [RouterOutlet, StreamToastComponent, NgIf, AsyncPipe],
+  imports: [RouterOutlet, NgIf, AsyncPipe],
   encapsulation: ViewEncapsulation.None
 })
 export default class WrapperIdentityComponent {

@@ -18,26 +18,28 @@ import {CustomerState} from "@customer/state/customer/customer.state";
 import {filter, firstValueFrom, Observable} from "rxjs";
 import {Select, Store} from "@ngxs/store";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 
 @Component({
   selector: 'customer-form-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    CardComponent,
-    BodyCardComponent,
-    ReactiveFormsModule,
-    InputDirective,
-    TextareaDirective,
-    ButtonComponent,
+    imports: [
+        CardComponent,
+        BodyCardComponent,
+        ReactiveFormsModule,
+        InputDirective,
+        TextareaDirective,
+        ButtonComponent,
 
-    HasErrorDirective,
-    RouterLink,
-    BackLinkComponent,
-    HeaderCardComponent,
-    InvalidTooltipDirective,
-    TranslateModule
-  ],
+        HasErrorDirective,
+        RouterLink,
+        BackLinkComponent,
+        HeaderCardComponent,
+        InvalidTooltipDirective,
+        TranslateModule,
+        FormInputComponent
+    ],
   standalone: true
 })
 export default class Index implements OnInit {

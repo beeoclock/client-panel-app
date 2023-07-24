@@ -18,6 +18,7 @@ import {MemberState} from "@member/state/member/member.state";
 import {filter, firstValueFrom, Observable} from "rxjs";
 import {IMember} from "@member/domain";
 import {MemberActions} from "@member/state/member/member.actions";
+import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 
 @Component({
   selector: 'member-form-page',
@@ -36,7 +37,8 @@ import {MemberActions} from "@member/state/member/member.actions";
     BackLinkComponent,
     HeaderCardComponent,
     InvalidTooltipDirective,
-    TranslateModule
+    TranslateModule,
+    FormInputComponent
   ],
   standalone: true
 })
@@ -51,7 +53,7 @@ export default class Index implements OnInit {
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
 
-  public readonly form = new MemberForm();
+  public form = new MemberForm();
 
   @Select(MemberState.itemData)
   public itemData$!: Observable<IMember | undefined>;
@@ -65,7 +67,7 @@ export default class Index implements OnInit {
       firstValueFrom(this.itemData$).then((result) => {
         if (result) {
           this.cancelUrl.push('details', result._id);
-          this.form.patchValue(result);
+          this.form = MemberForm.create(result);
           this.form.updateValueAndValidity();
         }
       });

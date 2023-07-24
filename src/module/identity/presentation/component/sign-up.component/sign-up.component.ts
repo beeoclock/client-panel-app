@@ -110,7 +110,14 @@ export class SignUpComponent {
           header: 'Sign up',
           message: 'Success',
           color: 'success',
-          position: 'top'
+          position: 'top',
+          duration: 10_000,
+          buttons: [
+            {
+              text: 'Dismiss',
+              role: 'cancel',
+            },
+          ],
         });
         await toast.present();
         await this.router.navigate(['/', 'identity']);

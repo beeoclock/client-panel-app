@@ -8,7 +8,6 @@ import LoginForm from '@identity/form/login.form';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {Auth, signInWithEmailAndPassword} from "@angular/fire/auth";
-import {Notification, WarningNotification} from "@utility/domain/notification";
 import {Store} from "@ngxs/store";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {firstValueFrom} from "rxjs";
@@ -108,37 +107,27 @@ export class SignInComponent {
         try {
 
           const {user} = await signInWithEmailAndPassword(this.auth, email, password);
-          console.log(user)
           const token = await user.getIdTokenResult();
-          console.log(token);
           await firstValueFrom(this.store.dispatch(new IdentityActions.Token(token)));
           await this.router.navigate(['/', 'identity', 'corridor']);
 
         } catch (error) {
-
-          this.form.enable();
-          this.form.updateValueAndValidity();
-          WarningNotification.push({
-            message: (error as any)?.message,
-          });
+          this.enableAndUpdateForm();
         }
 
       } else {
-        this.form.enable();
-        this.form.updateValueAndValidity();
-        Notification.push({
-          message: 'E-mail or password is wrong!'
-        });
+        this.enableAndUpdateForm();
       }
 
     } else {
-      this.form.enable();
-      this.form.updateValueAndValidity();
-      Notification.push({
-        message: 'Form is not valid!'
-      });
+      this.enableAndUpdateForm();
     }
 
+  }
+
+  private enableAndUpdateForm(): void {
+    this.form.enable();
+    this.form.updateValueAndValidity();
   }
 
 }

@@ -1,0 +1,7 @@
+export enum DelayEnum {
+  SECOND = 1_000,
+  TWO_SECONDS = 2_000,
+  THREE_SECONDS = 3_000,
+  FOUR_SECONDS = 4_000,
+  FIVE_SECONDS = 5_000,
+}
