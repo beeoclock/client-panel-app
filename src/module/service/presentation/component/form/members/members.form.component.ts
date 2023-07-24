@@ -46,7 +46,7 @@ import {ModalMembersFormComponent} from "@service/presentation/component/form/me
           [multiple]="multiple"
           [formControl]="control">
           <ng-template ng-label-tmp let-item="item" let-clear="clear">
-            <span>{{item.firstName}} {{item.lastName}}</span>
+            <span>{{ getLabel(item) }}</span>
             <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
           </ng-template>
           <ng-template ng-header-tmp>
@@ -62,7 +62,7 @@ import {ModalMembersFormComponent} from "@service/presentation/component/form/me
 
           </ng-template>
           <ng-option *ngFor="let item of items" [value]="item">
-            {{item.firstName}} {{item.lastName}}
+            {{ getLabel(item) }}
           </ng-option>
         </ng-select>
       </div>
@@ -110,5 +110,12 @@ export class MembersFormComponent implements AfterViewInit {
 
   public scrollToEnd($event: any) {
     console.log($event);
+  }
+
+  public getLabel(item: IMember): string {
+    if (item.firstName && item.lastName) {
+      return `(${item.firstName} ${item.lastName}) ${item.email}`
+    }
+    return item.email;
   }
 }
