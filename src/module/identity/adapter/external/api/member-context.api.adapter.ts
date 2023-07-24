@@ -20,4 +20,18 @@ export class MemberContextApiAdapter {
     });
   }
 
+  /**
+   *
+   * @param id
+   */
+  public deleteBusinessClient(id: string) {
+    return this.http.delete(memberContextEndpointEnum.deleteBusinessClientById, {
+      headers: {
+        replace: JSON.stringify({
+          id
+        })
+      }
+    });
+  }
+
 }
