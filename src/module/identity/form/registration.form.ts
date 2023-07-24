@@ -14,9 +14,9 @@ interface IRegistrationForm {
 export default class RegistrationForm extends FormGroup<IRegistrationForm> {
   constructor() {
     super({
-      email: new FormControl(null, [Validators.required]),
-      password: new FormControl(null, [Validators.required]),
-      passwordConfirm: new FormControl(null, [Validators.required]),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
+      passwordConfirm: new FormControl(null, [Validators.required, Validators.minLength(6)]),
     });
     this.initValue();
   }

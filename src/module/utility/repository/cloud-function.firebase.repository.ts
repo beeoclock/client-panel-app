@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {Functions, httpsCallable, HttpsCallableResult} from "@angular/fire/functions";
-import {Notification} from "@utility/domain/notification";
+import {Notification} from "@utility/domain/delay.enum";
 import {NotImplementedYetError} from "@utility/domain/error";
 
 @Injectable({

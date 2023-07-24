@@ -21,23 +21,13 @@ import {IMember} from "@member/domain";
     <utility-back-link-component url="../../"></utility-back-link-component>
     <ng-container *ngIf="item$ | async as member; else LoadingTemplate">
       <div
-        class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
+        class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 sm:p-6 xl:p-8 mt-4">
         <div class="lg:flex lg:items-center lg:justify-between">
           <div class="min-w-0 flex-1">
             <h2
               class="text-2xl font-bold leading-7 text-beeColor-900 dark:text-beeDarkColor-200 sm:truncate sm:text-3xl sm:tracking-tight">
-              {{ member.firstName }}&nbsp;{{ member.lastName }}
+              {{ member.email }}
             </h2>
-            <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
-              <div class="mt-2 flex items-center text-sm text-beeColor-500">
-                <i class="bi bi-at"></i>
-                {{ member.email || 'No data' }}
-              </div>
-              <div class="mt-2 flex items-center text-sm text-beeColor-500">
-                <i class="bi bi-phone"></i>
-                {{ member.phone || 'No data' }}
-              </div>
-            </div>
           </div>
           <div class="mt-5 flex lg:ml-4 lg:mt-0">
             <span class="hidden sm:block">

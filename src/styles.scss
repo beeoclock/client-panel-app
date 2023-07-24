@@ -35,7 +35,7 @@
 //@import "~@ionic/angular/css/display.css";
 // IONIC FINISH
 
-label.form-label[required]:after {
+label[required]:after {
   content:" *";
   color: red;
 }

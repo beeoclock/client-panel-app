@@ -4,135 +4,43 @@ import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
 import {Router, RouterLink} from '@angular/router';
-import {EmailComponent} from '@identity/presentation/component/email.component/email.component';
-import {PasswordComponent} from '@identity/presentation/component/password.component/password.component';
 import LoginForm from '@identity/form/login.form';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {Auth, signInWithEmailAndPassword} from "@angular/fire/auth";
-import {Notification, WarningNotification} from "@utility/domain/notification";
 import {Store} from "@ngxs/store";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {firstValueFrom} from "rxjs";
+import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
+import {FormInputPasswordComponent} from "@utility/presentation/component/input/form.input.password.component";
 
 @Component({
   selector: 'identity-sign-in-component',
   encapsulation: ViewEncapsulation.None,
   template: `
-    <!--    <div class="p-4 p-md-5 flex-grow-1">-->
-    <!--      <div class="row flex-between-center">-->
-    <!--        <div class="col-auto text-center w-100">-->
-    <!--          <h3>{{ 'identity.sign-in.form.label' | translate }}</h3>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--      <form [formGroup]="form" novalidate>-->
 
-    <!--        <identity-email-component-->
-    <!--          id="identity-sign_in-form-input-email"-->
-    <!--          label="identity.sign-in.form.inputs.email.label"-->
-    <!--          placeholder="identity.sign-in.form.inputs.email.placeholder"-->
-    <!--          [control]="form.controls.email">-->
-    <!--        </identity-email-component>-->
+    <form [formGroup]="form" class="flex flex-col gap-4" action="#" method="POST">
 
-    <!--        <identity-password-component-->
-    <!--          id="identity-sign_in-form-input-password"-->
-    <!--          label="identity.sign-in.form.inputs.password.label"-->
-    <!--          placeholder="identity.sign-in.form.inputs.password.placeholder"-->
-    <!--          [control]="form.controls.password">-->
-    <!--        </identity-password-component>-->
+      <form-input
+        id="email"
+        type="email"
+        autocomplete="email"
+        placeholder="firstname.lastname@example.com"
+        [control]="form.controls.email"
+        [label]="'identity.sign-in.form.inputs.email.label' | translate">
+      </form-input>
 
-    <!--        <div class="row flex-between-center">-->
-    <!--          <div class="my-3 d-grid">-->
-    <!--            <button-->
-    <!--              beeoclock-->
-    <!--              (click)="signIn()"-->
-    <!--              [disabled]="form.pending"-->
-    <!--              [showLoader]="form.pending">-->
-    <!--              {{ 'identity.sign-in.form.button.submit' | translate }}-->
-    <!--            </button>-->
-    <!--          </div>-->
-    <!--          <div class="col-auto w-100 text-center">-->
-    <!--            <a class="fs&#45;&#45;1" routerLink="forgot-password" translate="identity.sign-in.form.button.forgot-password">-->
-    <!--            </a>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </form>-->
-    <!--    </div>-->
-
-    <form [formGroup]="form" class="space-y-6" action="#" method="POST">
-      <div>
-        <label for="email" class="block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">Email
-          address</label>
-        <div class="mt-2">
-          <input
-            required
-            id="email"
-            name="email"
-            type="email"
-            formControlName="email"
-            autocomplete="email"
-            class="
-                px-3
-                block
-                w-full
-                rounded-md
-                border-0
-                py-1.5
-                text-beeColor-900
-                dark:text-beeDarkColor-100
-                shadow-sm
-                dark:bg-beeDarkColor-700
-                ring-1
-                ring-inset
-                ring-beeColor-300
-                placeholder:text-beeColor-400
-                focus:ring-2
-                focus:ring-inset
-                focus:ring-stone-800
-                sm:text-sm sm:leading-6">
-        </div>
-      </div>
-
-      <div>
-        <div class="flex items-center justify-between">
-          <label for="password"
-                 class="block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">Password</label>
-          <div class="text-sm">
-            <a routerLink="/identity/reset-password"
-               class="font-semibold text-blue-600 dark:text-black hover:text-blue-500">Forgot
-              password?</a>
-          </div>
-        </div>
-        <div class="mt-2">
-          <input
-            required
-            id="password"
-            name="password"
-            type="password"
-            formControlName="password"
-            autocomplete="current-password"
-            class="
-                px-3
-                block
-                w-full
-                rounded-md
-                border-0
-                dark:bg-beeDarkColor-700
-                py-1.5
-                text-beeColor-900
-                dark:text-beeDarkColor-100
-                shadow-sm
-                ring-1
-                ring-inset
-                ring-beeColor-300
-                placeholder:text-beeColor-400
-                focus:ring-2
-                focus:ring-inset
-                focus:ring-stone-800
-                sm:text-sm
-                sm:leading-6">
-        </div>
-      </div>
+      <form-input-password
+        id="password"
+        autocomplete="password"
+        [control]="form.controls.password"
+        placeholder="password"
+        [label]="'identity.sign-in.form.inputs.password.label' | translate">
+        <a label-end routerLink="/identity/reset-password"
+           class="font-semibold text-blue-600 dark:text-black hover:text-blue-500">
+          Forgot password?
+        </a>
+      </form-input-password>
 
       <div>
         <button
@@ -170,9 +78,9 @@ import {firstValueFrom} from "rxjs";
     TranslateModule,
     FirstKeyNameModule,
     RouterLink,
-    EmailComponent,
-    PasswordComponent,
-    ButtonComponent
+    ButtonComponent,
+    FormInputComponent,
+    FormInputPasswordComponent
   ]
 })
 export class SignInComponent {
@@ -199,37 +107,27 @@ export class SignInComponent {
         try {
 
           const {user} = await signInWithEmailAndPassword(this.auth, email, password);
-          console.log(user)
           const token = await user.getIdTokenResult();
-          console.log(token);
           await firstValueFrom(this.store.dispatch(new IdentityActions.Token(token)));
           await this.router.navigate(['/', 'identity', 'corridor']);
 
         } catch (error) {
-
-          this.form.enable();
-          this.form.updateValueAndValidity();
-          WarningNotification.push({
-            message: (error as any)?.message,
-          });
+          this.enableAndUpdateForm();
         }
 
       } else {
-        this.form.enable();
-        this.form.updateValueAndValidity();
-        Notification.push({
-          message: 'E-mail or password is wrong!'
-        });
+        this.enableAndUpdateForm();
       }
 
     } else {
-      this.form.enable();
-      this.form.updateValueAndValidity();
-      Notification.push({
-        message: 'Form is not valid!'
-      });
+      this.enableAndUpdateForm();
     }
 
+  }
+
+  private enableAndUpdateForm(): void {
+    this.form.enable();
+    this.form.updateValueAndValidity();
   }
 
 }

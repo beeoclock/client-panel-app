@@ -3,7 +3,6 @@ import {SidebarComponent} from '@utility/presentation/component/sidebar/sidebar.
 import {NavbarComponent} from '@utility/presentation/component/navbar/navbar.component';
 import {FooterComponent} from '@utility/presentation/component/footer/footer.component';
 import {RouterOutlet} from '@angular/router';
-import {StreamToastComponent} from '@utility/presentation/component/toast/stream.toast.component';
 import {AsyncPipe, DOCUMENT, NgIf} from "@angular/common";
 import {ModalComponent} from "@utility/presentation/component/modal/modal.component";
 import {
@@ -41,7 +40,6 @@ import {CacheActions} from "@utility/state/cache/cache.actions";
     NavbarComponent,
     FooterComponent,
     RouterOutlet,
-    StreamToastComponent,
     ModalComponent,
     PageLoadingProgressBarComponent,
     NgIf,

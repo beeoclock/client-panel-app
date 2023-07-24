@@ -1,12 +1,6 @@
-<ul class="max-w-xs flex flex-col mb-2">
-  <li (click)="goToBack()" class="cursor-pointer hover:underline inline-flex items-center gap-x-3.5 py-3 px-4 text-sm font-medium text -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:text-red-600 dark:text-white">
-    <span class="text-xl">
-      <i class="bi bi-arrow-left"></i>
-    </span>
-    Back
-  </li>
-</ul>
-<div class="w-96 p-8 border dark:border-beeDarkColor-700 bg-white rounded dark:bg-beeDarkColor-800">
+
+<utility-back-link-component></utility-back-link-component>
+<div class="mt-4 w-96 p-8 border dark:border-beeDarkColor-700 bg-white rounded dark:bg-beeDarkColor-800">
   <form [formGroup]="form" class="space-y-6" action="#" method="POST">
 
     <div>
