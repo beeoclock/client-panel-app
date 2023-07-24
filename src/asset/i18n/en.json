@@ -2,7 +2,8 @@
   "form": {
     "validation": {
       "required": "Required field",
-      "email": "Invalid E-mail format"
+      "email": "Invalid E-mail format",
+      "minlength": "Minimum length is {{requiredLength}}"
     }
   },
   "general": {

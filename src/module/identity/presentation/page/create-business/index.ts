@@ -6,6 +6,7 @@ import {IdentityApiAdapter} from "@identity/adapter/external/api/identity.api.ad
 import {firstValueFrom} from "rxjs";
 import {ToastController} from "@ionic/angular";
 import {Router} from "@angular/router";
+import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 
 @Component({
   selector: 'identity-create-business-page',
@@ -13,7 +14,8 @@ import {Router} from "@angular/router";
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    BackLinkComponent
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -24,10 +26,6 @@ export default class Index {
   private readonly router = inject(Router);
 
   public readonly form = new BusinessClientForm();
-
-  public async goToBack(): Promise<void> {
-    await this.router.navigate(['/', 'identity', 'corridor']);
-  }
 
   public async save(): Promise<void> {
     this.form.markAllAsTouched();

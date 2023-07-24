@@ -4,8 +4,6 @@ import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
 import {Router, RouterLink} from '@angular/router';
-import {EmailComponent} from '@identity/presentation/component/email.component/email.component';
-import {PasswordComponent} from '@identity/presentation/component/password.component/password.component';
 import {ButtonComponent} from '@utility/presentation/component/button/button.component';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {Auth, sendPasswordResetEmail} from "@angular/fire/auth";
@@ -16,7 +14,6 @@ import ResetPasswordForm from "@identity/form/reset-password.form";
   selector: 'identity-reset-password-component',
   encapsulation: ViewEncapsulation.None,
   template: `
-
     <form [formGroup]="form" class="space-y-6" action="#" method="POST">
       <div>
         <label for="email" class="block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">Email
@@ -88,8 +85,6 @@ import ResetPasswordForm from "@identity/form/reset-password.form";
     TranslateModule,
     FirstKeyNameModule,
     RouterLink,
-    EmailComponent,
-    PasswordComponent,
     ButtonComponent
   ]
 })
