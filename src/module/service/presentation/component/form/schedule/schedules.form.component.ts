@@ -21,7 +21,7 @@ import {FooterCardComponent} from "@utility/presentation/component/card/footer.c
     NgIf,
   ],
   template: `
-    <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4 mt-4">
+    <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 mt-4">
 
       <div
         *ngFor="let scheduleForm of schedulesForm.controls; let index = index"

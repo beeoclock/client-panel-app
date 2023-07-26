@@ -31,6 +31,11 @@ import {filter, firstValueFrom, Observable} from "rxjs";
 import {Select, Store} from "@ngxs/store";
 import {EventState} from "@event/state/event/event.state";
 import {EventActions} from "@event/state/event/event.actions";
+import {Duration} from "luxon";
+import {ConvertTime} from "@utility/domain/convert.time";
+import humanizeDuration from "humanize-duration";
+import {IMember} from "@member/domain";
+import calculateDuration = ConvertTime.calculateDuration;
 
 @Component({
   selector: 'event-form-page',
@@ -78,22 +83,32 @@ export default class Index implements OnInit {
   @Select(EventState.itemData)
   public itemData$!: Observable<IEvent | undefined>;
 
-  public duration = 0;
+  public duration = '';
+  public durationInMilliseconds = 0;
 
   @HostBinding()
   public readonly class = 'p-4 block';
+
+  public getPermanentMembers(permanentMembers: IMember[]): string {
+    const firstMember = permanentMembers[0];
+    if (firstMember) {
+      if (firstMember.firstName && firstMember.lastName) {
+        return `${firstMember.firstName} ${firstMember.lastName}`;
+      }
+      return firstMember.email;
+    }
+    return '';
+  }
 
   public ngOnInit(): void {
 
     this.detectItem();
 
-    this.form.valueChanges.subscribe((value) => {
-      console.log(value);
+    this.form.valueChanges.subscribe(() => {
       this.calculateDuration();
     });
 
     this.form.controls.start.valueChanges.subscribe((value: string) => {
-      console.log(value);
       if (value) {
         const newValue = new Date(value);
         // TODO update end time
@@ -132,7 +147,7 @@ export default class Index implements OnInit {
   private calculateFinish(): void {
 
     const start = new Date(this.form.controls.start.value);
-    start.setMinutes(start.getMinutes() + this.duration);
+    start.setSeconds(start.getSeconds() + (this.durationInMilliseconds / 1000));
     this.form.controls.end.patchValue(start.toISOString(), {
       onlySelf: true,
       emitEvent: false,
@@ -142,21 +157,25 @@ export default class Index implements OnInit {
 
   private calculateDuration(): void {
 
-    const value = this.form.controls.servicesAreProvidedInParallel.value;
+    const servicesAreProvidedInParallel = this.form.controls.servicesAreProvidedInParallel.value;
 
-    this.duration = 0;
-    console.log(this.form.controls.services.value);
-    if (this.form.controls.services.value) {
-      this.form.controls.services.value.forEach((service) => {
-        if (value) {
+    if (this.form.controls.services.value?.length) {
+      if (servicesAreProvidedInParallel) {
+        const collection = this.form.controls.services.value.map(
+          ({durationVersions}) => calculateDuration(...durationVersions.map(
+            ({duration}) => Duration.fromISOTime(duration))
+          ));
+        this.durationInMilliseconds = calculateDuration(...collection).as('milliseconds');
+      } else {
+        this.form.controls.services.value.forEach((service) => {
           if (service.durationVersions[0].duration > this.duration) {
-            this.duration = service.durationVersions[0].duration;
+            this.durationInMilliseconds = Duration.fromISOTime(service.durationVersions[0].duration).as('milliseconds');
           }
-        } else {
-          this.duration += service.durationVersions[0].duration;
-        }
-      });
+        });
+      }
     }
+
+    this.duration = humanizeDuration(this.durationInMilliseconds);
 
     this.calculateFinish();
 
@@ -167,7 +186,6 @@ export default class Index implements OnInit {
     if (this.form.valid) {
       this.form.disable();
       this.form.markAsPending();
-      console.log(this.form.getRawValue());
       await firstValueFrom(this.store.dispatch(new EventActions.SaveItem(this.form.getRawValue() as IEvent)));
       const item = await firstValueFrom(this.itemData$);
       if (item) {

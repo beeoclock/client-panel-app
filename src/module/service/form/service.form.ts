@@ -4,6 +4,11 @@ import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
 import {WeekDaysEnum, WORK_WEEK} from '@utility/domain/enum/days-of-week.enum';
 import {IMember} from "@member/domain";
 
+export const MINUTE_15 = 900; // In seconds
+export const MINUTE_45 = 2700; // In seconds
+
+export const STR_MINUTE_15 = '00:15:00'; // In seconds
+export const STR_MINUTE_45 = '00:45:00'; // In seconds
 
 export interface ILanguageVersionForm {
   title: FormControl<string>;
@@ -64,8 +69,8 @@ export class PriceForm extends FormGroup<IPriceForm> {
 }
 
 export interface IDurationVersionForm {
-  break: FormControl<number>;
-  duration: FormControl<number>;
+  break: FormControl<string>;
+  duration: FormControl<string>;
   prices: PricesForm;
 
   [key: string]: AbstractControl<any, any>;
@@ -82,9 +87,10 @@ export class DurationVersionForm extends FormGroup<IDurationVersionForm> {
   }
 
   public initValue(): void {
-    this.controls.break.setValue(15);
-    this.controls.duration.setValue(45);
+    this.controls.break.setValue(STR_MINUTE_15);
+    this.controls.duration.setValue(STR_MINUTE_45);
   }
+
 }
 
 export class PricesForm extends FormArray<PriceForm> {

@@ -19,6 +19,7 @@ import {IdentityState} from "@identity/state/identity/identity.state";
 import {AppState} from "@utility/state/app/app.state";
 import {CacheState} from "@utility/state/cache/cache.state";
 import {NgxIndexedDBModule} from "ngx-indexed-db";
+import {provideEnvironmentNgxMask} from "ngx-mask";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -33,6 +34,7 @@ initRuntimeEnvironment();
 
 bootstrapApplication(AppComponent, {
   providers: [
+    provideEnvironmentNgxMask(),
     importProvidersFrom(
       NgxsModule.forRoot([IdentityState, AppState, CacheState], {
         developmentMode: !environment.production

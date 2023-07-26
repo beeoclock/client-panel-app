@@ -16,6 +16,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {Select, Store} from "@ngxs/store";
 import {ServiceState} from "@service/state/service/service.state";
 import {ServiceActions} from "@service/state/service/service.actions";
+import {NgxMaskPipe} from "ngx-mask";
 
 @Component({
   selector: 'service-detail-page',
@@ -156,11 +157,11 @@ import {ServiceActions} from "@service/state/service/service.actions";
             <ul *ngFor="let durationVersion of service.durationVersions" class="list-group">
               <li class="list-group-item">
                 <strong>Duration:</strong>
-                <p class="m-0">{{ durationVersion.duration }} minute</p>
+                <p class="m-0">{{ durationVersion.duration }}</p>
               </li>
               <li class="list-group-item">
                 <strong>Brake:</strong>
-                <p class="m-0">{{ durationVersion.break }} minute</p>
+                <p class="m-0">{{ durationVersion.break }}</p>
               </li>
               <li class="list-group-item">
                 <strong>Prices:</strong>
@@ -280,7 +281,8 @@ import {ServiceActions} from "@service/state/service/service.actions";
     LanguagePipe,
     WeekDayPipe,
     LoaderComponent,
-    TranslateModule
+    TranslateModule,
+    NgxMaskPipe
   ],
   standalone: true
 })

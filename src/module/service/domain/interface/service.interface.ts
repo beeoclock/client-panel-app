@@ -36,8 +36,8 @@ export interface IPrice {
 }
 
 export interface IDurationVersion {
-  break: number;
-  duration: number;
+  break: string;
+  duration: string;
   prices: IPrice[];
 }
 
