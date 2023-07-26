@@ -27,7 +27,7 @@ import {PriceFormComponent} from "@service/presentation/component/form/price/pri
 
     <div
       *ngFor="let control of form.controls; let index = index"
-      class="border border-beeColor-200 rounded-lg dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 dark:text-white mt-4">
+      class="border border-beeColor-200 rounded-2xl dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 dark:text-white mt-4">
       <div
         class="
           justify-between
@@ -38,7 +38,7 @@ import {PriceFormComponent} from "@service/presentation/component/form/price/pri
           bg-beeColor-100
           border-b
           border-beeColor-200
-          rounded-t-lg
+          rounded-t-2xl
           cursor-pointer
           dark:bg-beeDarkColor-800
           dark:border-beeDarkColor-600">

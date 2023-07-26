@@ -10,10 +10,8 @@ import {IsRequiredDirective} from '@utility/directives/is-required/is-required';
 import {
   LanguageServiceFormComponent
 } from '@service/presentation/component/form/service/language.service.form.component';
-import {TitleServiceFormComponent} from '@service/presentation/component/form/service/title.service.form.component';
-import {
-  DescriptionServiceFormComponent
-} from '@service/presentation/component/form/service/description.service.form.component';
+import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'service-service-form-component',
@@ -23,28 +21,36 @@ import {
     ReactiveFormsModule,
     InputDirective,
     HasErrorDirective,
-
     TextareaDirective,
     NgSelectModule,
     IsRequiredDirective,
     LanguageServiceFormComponent,
-    TitleServiceFormComponent,
-    DescriptionServiceFormComponent,
+    FormInputComponent,
+    TranslateModule,
   ],
   template: `
-    <form [formGroup]="form">
+    <form [formGroup]="form" class="flex flex-col gap-3">
 
       <service-language-service-form-component
         [control]="form.controls.language">
       </service-language-service-form-component>
 
-      <service-title-service-form-component
-        [control]="form.controls.title">
-      </service-title-service-form-component>
+      <form-input
+        id="service-form-title"
+        autocomplete="service.title"
+        placeholder="Write title of service"
+        [control]="form.controls.title"
+        [label]="'general.title' | translate">
+      </form-input>
 
-      <service-description-service-form-component
-        [control]="form.controls.description">
-      </service-description-service-form-component>
+      <form-input
+        id="service-form-description"
+        autocomplete="service.description"
+        placeholder="Write description of service"
+        [control]="form.controls.description"
+        [label]="'general.description' | translate">
+      </form-input>
+
     </form>
   `
 })

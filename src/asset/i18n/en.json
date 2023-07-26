@@ -16,6 +16,8 @@
     "description": "Description",
     "title": "Title",
     "name": "Name",
+    "break": "Break",
+    "duration": "Duration",
     "createdAt": "Created at",
     "updatedAt": "Updated at",
     "action": "Action",

@@ -11,6 +11,8 @@ import {
   DurationDurationFormComponent
 } from '@service/presentation/component/form/duration/duration.duration.form.component';
 import {PricesFormComponent} from "@service/presentation/component/form/price/prices.form.component";
+import {FormInputComponent} from "@utility/presentation/component/input/form-mask-input.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'service-duration-form-component',
@@ -26,17 +28,23 @@ import {PricesFormComponent} from "@service/presentation/component/form/price/pr
     PricesFormComponent,
     BreakDurationFormComponent,
     DurationDurationFormComponent,
+    FormInputComponent,
+    TranslateModule,
   ],
   template: `
-    <form [formGroup]="form">
+    <form [formGroup]="form" class="flex flex-col gap-3">
 
-      <service-break-duration-form-component
+      <form-mask-input
+        mask="00:00:00"
+        [label]="'general.break' | translate"
         [control]="form.controls.break">
-      </service-break-duration-form-component>
+      </form-mask-input>
 
-      <service-duration-duration-form-component
+      <form-mask-input
+        mask="00:00:00"
+        [label]="'general.duration' | translate"
         [control]="form.controls.duration">
-      </service-duration-duration-form-component>
+      </form-mask-input>
 
       <service-prices-form-component
         [form]="form.controls.prices">
