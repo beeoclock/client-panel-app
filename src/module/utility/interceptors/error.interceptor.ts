@@ -17,7 +17,6 @@ export const ErrorInterceptor: HttpInterceptorFn = (request, next) => {
   return next(request).pipe(
     catchError((response: HttpErrorResponse) => {
       const {error} = response;
-      console.log('error', error);
 
       toastController.create({
         header: error?.error ?? 'Error',

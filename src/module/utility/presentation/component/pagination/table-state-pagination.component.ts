@@ -1,13 +1,13 @@
-import {Component, Input, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChange, ViewEncapsulation} from '@angular/core';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ReactiveFormsModule} from "@angular/forms";
 import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ITableState} from "@utility/domain/table.state";
-
-// TODO move the coe to single file
-const SECONDS_MILLISECOND = 1_000;
-const DAY_MILLISECONDS = SECONDS_MILLISECOND * 60 * 60 * 24;
+import humanizeDuration from "humanize-duration";
+import {DateTime} from "luxon";
+import {getPaginationItems} from "@utility/domain/pagination.items";
+import {environment} from "@environment/environment";
 
 @Component({
   selector: 'utility-table-state-pagination-component',
@@ -22,10 +22,22 @@ const DAY_MILLISECONDS = SECONDS_MILLISECOND * 60 * 60 * 24;
   ],
   encapsulation: ViewEncapsulation.None
 })
-export class TableStatePaginationComponent {
+export class TableStatePaginationComponent implements OnChanges {
 
   @Input()
   public tableState!: ITableState<any>;
+
+  @Output()
+  public readonly pageSize = new EventEmitter();
+
+  @Output()
+  public readonly page = new EventEmitter();
+
+  @Output()
+  public readonly cache = new EventEmitter();
+
+  public lastUpdate: undefined | string;
+  public pages: number[] = [];
 
   /**
    *
@@ -35,27 +47,33 @@ export class TableStatePaginationComponent {
     return isNaN(page);
   }
 
-  /**
-   * TODO move the function to single file
-   * @param dateString
-   * @param unit
-   */
-  public getRelativeTime(dateString: string, unit = 'seconds'): string {
-    const rtf = new Intl.RelativeTimeFormat('en', {
-      numeric: 'auto',
-    });
-    const daysDifference = Math.round(
-      (new Date().getTime() - (new Date(dateString)).getTime()) / (unit === 'seconds' ? SECONDS_MILLISECOND : DAY_MILLISECONDS),
-    );
-
-    return rtf.format(daysDifference, 'seconds');
+  public ngOnChanges(changes: { tableState: SimpleChange }): void {
+    if (changes.tableState) {
+      this.lastUpdate = humanizeDuration(DateTime.now().diff(DateTime.fromISO(this.tableState.lastUpdate)).as('milliseconds'), {
+        round: true
+      });
+      this.pages = getPaginationItems(this.tableState.page, this.tableState.maxPage, environment.config.pagination.maxLength);
+    }
   }
 
-  prevPage() {
-
+  public refreshCache(): void {
+    this.cache.emit(true);
   }
 
-  nextPage() {
-
+  public nextPage(): void {
+    this.changePage(this.tableState.page + 1);
   }
+
+  public prevPage(): void {
+    this.changePage(this.tableState.page - 1);
+  }
+
+  public changePage(page: number): void {
+    this.page.emit(page);
+  }
+
+  public changePageSize(pageSize: number): void {
+    this.pageSize.emit(pageSize);
+  }
+
 }

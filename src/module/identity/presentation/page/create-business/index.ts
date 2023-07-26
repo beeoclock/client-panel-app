@@ -40,7 +40,6 @@ export default class Index {
         await toast.present();
         await this.router.navigate(['/', 'identity', 'corridor']);
       });
-      console.log(clientId);
     }
   }
 

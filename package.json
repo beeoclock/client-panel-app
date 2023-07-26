@@ -72,6 +72,7 @@
     "hash-sum": "^2.0.0",
     "humanize-duration": "^3.29.0",
     "luxon": "^3.3.0",
+    "ng-event-bus": "^5.2.0",
     "ngx-indexed-db": "^16.0.0",
     "ngx-mask": "^15.1.5",
     "rxjs": "~7.5.0",

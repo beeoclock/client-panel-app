@@ -7,11 +7,13 @@ import {Store} from "@ngxs/store";
 import {AppState} from "@utility/state/app/app.state";
 import {DOCUMENT} from "@angular/common";
 import {IonicModule} from "@ionic/angular";
+import {NgEventBus} from 'ng-event-bus';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterModule, TranslateModule, IonicModule],
+  providers: [NgEventBus],
   template: `
     <router-outlet></router-outlet>
   `,

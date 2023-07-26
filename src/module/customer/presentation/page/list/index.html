@@ -70,7 +70,7 @@
       </th>
     </tr>
     </thead>
-    <tbody>
+    <tbody class="overflow-y-scroll max-h-72">
     <tr
       class="bg-white border-b dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 hover:bg-beeColor-100 dark:hover:bg-beeColor-300"
       *ngFor="let item of tableState.items">
@@ -105,5 +105,5 @@
 
     </tbody>
   </table>
-  <utility-table-state-pagination-component [tableState]="tableState"></utility-table-state-pagination-component>
+  <utility-table-state-pagination-component (page)="pageChange($event)" [tableState]="tableState"></utility-table-state-pagination-component>
 </div>

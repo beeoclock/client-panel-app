@@ -7,7 +7,9 @@ import {firstValueFrom} from "rxjs";
   template: ``
 })
 export abstract class ListPage implements OnInit, AfterViewInit {
+
   public readonly repository: any;
+
   public readonly store = inject(Store);
   public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
   public readonly actions!: {
@@ -18,15 +20,7 @@ export abstract class ListPage implements OnInit, AfterViewInit {
   };
 
   public ngAfterViewInit(): void {
-    this.elementRef.nativeElement.querySelectorAll('th[data-orderBy]').forEach((foundElement) => {
-      foundElement.classList.add('cursor-pointer');
-      foundElement.addEventListener('click', ($event) => {
-        if ($event.target) {
-          const target = $event.target as HTMLTableCellElement;
-          this.updateOrderBy(target);
-        }
-      })
-    });
+    this.initOrderByAndOrderDirHandler();
   }
 
   public updateOrderBy(target: HTMLTableCellElement): void {
@@ -61,4 +55,25 @@ export abstract class ListPage implements OnInit, AfterViewInit {
     }));
   }
 
+  public pageChange($event: number): void {
+    firstValueFrom(this.store.dispatch(new this.actions.UpdateTableState({
+      page: $event
+    }))).then(() => {
+      this.store.dispatch(new this.actions.GetList());
+    });
+  }
+
+  private initOrderByAndOrderDirHandler(): void {
+
+    // orderBy and orderDir
+    this.elementRef.nativeElement.querySelectorAll('th[data-orderBy]').forEach((foundElement) => {
+      foundElement.classList.add('cursor-pointer');
+      foundElement.addEventListener('click', ($event) => {
+        if ($event.target) {
+          const target = $event.target as HTMLTableCellElement;
+          this.updateOrderBy(target);
+        }
+      })
+    });
+  }
 }

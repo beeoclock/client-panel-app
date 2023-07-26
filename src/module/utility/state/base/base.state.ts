@@ -7,6 +7,7 @@ import {firstValueFrom} from "rxjs";
 import {ICacheState} from "@utility/state/cache/cache.state";
 import {ActiveEnum} from "@utility/domain/enum";
 import {inject} from "@angular/core";
+import {getMaxPage} from "@utility/domain/max-page";
 
 export interface IBaseState<ITEM> {
   item: {
@@ -101,10 +102,6 @@ export abstract class BaseState<ITEM = any> {
     ctx: StateContext<IBaseState<ITEM>>
   ): Promise<void> {
 
-    console.log('InitDefaultsFromCache: START');
-
-    console.log(getKeyWithClientId(this.store, this.cacheKeys.tableStates));
-
     await firstValueFrom(ctx.dispatch(new CacheActions.Get({
       strategy: 'indexedDB',
       key: getKeyWithClientId(this.store, this.cacheKeys.tableStates),
@@ -114,8 +111,6 @@ export abstract class BaseState<ITEM = any> {
       strategy: 'indexedDB',
       key: getKeyWithClientId(this.store, this.cacheKeys.items),
     })));
-
-    console.log('InitDefaultsFromCache: finish');
 
   }
 
@@ -411,6 +406,7 @@ export abstract class BaseState<ITEM = any> {
 
       newTableState.total = total;
       newTableState.items = items;
+      newTableState.maxPage = getMaxPage(newTableState.total, newTableState.pageSize);
 
       ctx.patchState({
         ...state,

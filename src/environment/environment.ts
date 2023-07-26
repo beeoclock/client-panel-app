@@ -33,6 +33,9 @@ export const environment = {
           { name: 'value', keypath: 'value', options: { unique: false } }
         ]
       }]
+    },
+    pagination: {
+      maxLength: 5
     }
   },
   firebase: {

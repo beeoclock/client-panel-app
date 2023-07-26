@@ -58,12 +58,12 @@ import {FooterCardComponent} from "@utility/presentation/component/card/footer.c
         </div>
       </div>
 
-      <hr *ngIf="showAddMore" class="my-4">
+<!--      <hr *ngIf="showAddMore" class="my-4">-->
 
-      <button class="border rounded px-4 py-2" *ngIf="showAddMore" (click)="pushNewLanguageVersionForm($event)">
-        <i class="bi bi-plus-lg me-2"></i>
-        Add new language version
-      </button>
+<!--      <button class="border rounded px-4 py-2" *ngIf="showAddMore" (click)="pushNewLanguageVersionForm($event)">-->
+<!--        <i class="bi bi-plus-lg me-2"></i>-->
+<!--        Add new language version-->
+<!--      </button>-->
     </div>
   `
 })

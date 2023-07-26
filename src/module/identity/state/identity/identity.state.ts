@@ -66,7 +66,6 @@ export class IdentityState {
 
   @Action(IdentityActions.Token)
   public async token(ctx: StateContext<IIdentityState>, {payload}: IdentityActions.Token): Promise<void> {
-    console.log(payload);
     ctx.patchState({
       token: payload
     });
@@ -75,8 +74,6 @@ export class IdentityState {
   @Action(IdentityActions.InitToken)
   public async initToken(ctx: StateContext<IIdentityState>): Promise<void> {
 
-
-    console.log(this.auth.currentUser);
     // Check if user is not authorized!
     if (!this.auth.currentUser) {
 
@@ -99,7 +96,6 @@ export class IdentityState {
 
       // Get token
       const token = await this.auth.currentUser.getIdTokenResult(true);
-      console.log(token);
 
       // update state
       ctx.dispatch(new IdentityActions.Token(token));

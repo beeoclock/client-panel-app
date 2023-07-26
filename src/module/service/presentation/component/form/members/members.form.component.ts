@@ -92,7 +92,6 @@ export class MembersFormComponent implements AfterViewInit {
         filters: {}
       })
       .then((result) => {
-        console.log(result);
         this.items = result.data.items;
         this.control.updateValueAndValidity();
       });
