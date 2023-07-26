@@ -23,11 +23,12 @@ import {FooterCardComponent} from "@utility/presentation/component/card/footer.c
   template: `
     <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 mt-4">
 
-      <div
-        *ngFor="let scheduleForm of schedulesForm.controls; let index = index"
-        class="border border-beeColor-200 rounded-lg dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 dark:text-white">
+      <div class="flex flex-col gap-3">
         <div
-          class="
+          *ngFor="let scheduleForm of schedulesForm.controls; let index = index"
+          class="border border-beeColor-200 rounded-lg dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 dark:text-white">
+          <div
+            class="
           justify-between
           flex
           w-full
@@ -40,15 +41,16 @@ import {FooterCardComponent} from "@utility/presentation/component/card/footer.c
           cursor-pointer
           dark:bg-beeDarkColor-800
           dark:border-beeDarkColor-600">
-          Schedule version #{{ index + 1 }}
-          <button class="text-red-500" (click)="schedulesForm.remove(index)" *ngIf="index > 0">
-            <i class="bi bi-trash"></i>
-          </button>
-        </div>
-        <div class="p-4">
-          <service-schedule-form-component
-            [form]="scheduleForm">
-          </service-schedule-form-component>
+            Schedule version #{{ index + 1 }}
+            <button class="text-red-500" (click)="schedulesForm.remove(index)" *ngIf="index > 0">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+          <div class="p-4">
+            <service-schedule-form-component
+              [form]="scheduleForm">
+            </service-schedule-form-component>
+          </div>
         </div>
       </div>
 

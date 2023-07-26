@@ -92,5 +92,5 @@
 
     </tbody>
   </table>
-  <utility-table-state-pagination-component [tableState]="tableState"></utility-table-state-pagination-component>
+  <utility-table-state-pagination-component (page)="pageChange($event)" [tableState]="tableState"></utility-table-state-pagination-component>
 </div>

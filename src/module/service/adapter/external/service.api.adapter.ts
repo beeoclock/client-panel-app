@@ -62,7 +62,6 @@ export class ServiceApiAdapter extends ApiRepository<Service.IService> {
    */
   public override save(value: Service.IService): Promise<Service.IService> {
     if (value?._id?.length) {
-      console.log(JSON.stringify(value));
       return firstValueFrom(this.httpClient.put<Service.IService>(serviceEndpointEnum.update, value, {
         headers: {
           replace: JSON.stringify({

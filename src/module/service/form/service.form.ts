@@ -47,7 +47,7 @@ export class LanguageVersionForm extends FormGroup<ILanguageVersionForm> {
 export interface IPriceForm {
   price: FormControl<number>;
   currency: FormControl<CurrencyCodeEnum>;
-  preferredLanguages: FormControl<LanguageCodeEnum[]>;
+  // preferredLanguages: FormControl<LanguageCodeEnum[]>;
 
   [key: string]: AbstractControl<any, any>;
 }
@@ -57,13 +57,13 @@ export class PriceForm extends FormGroup<IPriceForm> {
     super({
       price: new FormControl(),
       currency: new FormControl(),
-      preferredLanguages: new FormControl(),
+      // preferredLanguages: new FormControl(),
     });
     this.initValue();
   }
 
   public initValue(): void {
-    this.controls.preferredLanguages.setValue([LanguageCodeEnum.en]);
+    // this.controls.preferredLanguages.setValue([LanguageCodeEnum.en]);
     this.controls.currency.setValue(CurrencyCodeEnum.USD);
   }
 }
