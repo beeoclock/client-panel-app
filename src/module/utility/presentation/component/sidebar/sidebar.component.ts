@@ -1,5 +1,4 @@
-import {AfterViewInit, Component, inject, ViewEncapsulation} from '@angular/core';
-import {handleNavbarVerticalCollapsed} from '@src/script/navbar-vertical';
+import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {IsActiveMatchOptions, RouterLink, RouterLinkActive} from '@angular/router';
 import {NgForOf, NgIf} from '@angular/common';
 import {Auth} from "@angular/fire/auth";
@@ -31,7 +30,7 @@ interface IMenuItem {
     TranslateModule
   ],
 })
-export class SidebarComponent implements AfterViewInit {
+export class SidebarComponent {
 
   public readonly auth = inject(Auth);
   public readonly store = inject(Store);
@@ -123,10 +122,4 @@ export class SidebarComponent implements AfterViewInit {
       ]
     }
   ];
-
-  public ngAfterViewInit(): void {
-
-    handleNavbarVerticalCollapsed();
-
-  }
 }

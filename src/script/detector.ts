@@ -2,23 +2,21 @@
 /*                                  Detector                                  */
 /* -------------------------------------------------------------------------- */
 
-import {utils} from '@src/script/utls';
 import {is} from 'thiis';
 
-export const detectorInit = () => {
-  const html: HTMLElement = document.querySelector('html') as any;
+export const detectorInit = (html: HTMLElement) => {
 
-  is.opera() && utils.addClass(html, 'opera');
-  is.mobile() && utils.addClass(html, 'mobile');
-  is.firefox() && utils.addClass(html, 'firefox');
-  is.safari() && utils.addClass(html, 'safari');
-  is.ios() && utils.addClass(html, 'ios');
-  is.iphone() && utils.addClass(html, 'iphone');
-  is.ipad() && utils.addClass(html, 'ipad');
-  is.ie() && utils.addClass(html, 'ie');
-  is.edge() && utils.addClass(html, 'edge');
-  is.chrome() && utils.addClass(html, 'chrome');
-  is.mac() && utils.addClass(html, 'osx');
-  is.windows() && utils.addClass(html, 'windows');
+  is.opera() && html.classList.add('opera');
+  is.mobile() && html.classList.add('mobile');
+  is.firefox() && html.classList.add('firefox');
+  is.safari() && html.classList.add('safari');
+  is.ios() && html.classList.add('ios');
+  is.iphone() && html.classList.add('iphone');
+  is.ipad() && html.classList.add('ipad');
+  is.ie() && html.classList.add('ie');
+  is.edge() && html.classList.add('edge');
+  is.chrome() && html.classList.add('chrome');
+  is.mac() && html.classList.add('osx');
+  is.windows() && html.classList.add('windows');
 };
 
