@@ -6,7 +6,7 @@
     "changeOrigin": true,
     "ws": true,
     "pathRewrite": {
-      "^/api.panel": ""
+      "^/local.panel": ""
     }
   },
   "/local.identity/*": {
@@ -16,7 +16,7 @@
     "changeOrigin": true,
     "ws": true,
     "pathRewrite": {
-      "^/api.identity": ""
+      "^/local.identity": ""
     }
   },
   "/api.panel/*": {

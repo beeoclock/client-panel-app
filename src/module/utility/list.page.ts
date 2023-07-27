@@ -17,6 +17,7 @@ export abstract class ListPage implements OnInit, AfterViewInit {
     ArchiveItem: any;
     GetList: any;
     UpdateTableState: any;
+    ClearTableCacheAndGetList: any;
   };
 
   public ngAfterViewInit(): void {
@@ -53,6 +54,10 @@ export abstract class ListPage implements OnInit, AfterViewInit {
     this.store.dispatch(new this.actions.ArchiveItem({
       id
     }));
+  }
+
+  public clearTableCache(): void {
+    this.store.dispatch(new this.actions.ClearTableCacheAndGetList());
   }
 
   public pageChange($event: number): void {

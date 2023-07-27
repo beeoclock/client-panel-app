@@ -31,10 +31,18 @@ export class CacheState {
   ): Promise<boolean> {
     if (payload.strategy === 'indexedDB') {
 
-      await firstValueFrom(this.ngxIndexedDBService.update('cache', {
-        key: payload.key,
-        value: payload.value,
-      }));
+      try {
+        await firstValueFrom(this.ngxIndexedDBService.update('cache', {
+          key: payload.key,
+          value: payload.value,
+        }));
+
+        ctx.patchState({
+          [payload.key]: JSON.parse(payload.value)
+        });
+      } catch (e) {
+        console.error(e);
+      }
 
     } else {
       payload.strategy.setItem(payload.key, payload.value);
@@ -70,10 +78,15 @@ export class CacheState {
   ): Promise<boolean> {
     if (payload.strategy === 'indexedDB') {
 
-      await firstValueFrom(this.ngxIndexedDBService.delete('cache', payload.key));
-      ctx.patchState({
-        [payload.key]: []
-      });
+      try {
+
+        await firstValueFrom(this.ngxIndexedDBService.delete('cache', payload.key));
+        ctx.patchState({
+          [payload.key]: []
+        });
+      } catch (e) {
+        console.error(e);
+      }
 
     } else {
       payload.strategy.removeItem(payload.key)

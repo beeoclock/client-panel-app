@@ -37,29 +37,23 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 
   constructor() {
     this.initHashSum();
+    this.updateLastUpdate();
   }
 
   public set filters(value: any) { // TODO interface
     this.#filters = value;
     this.initHashSum();
+    this.updateLastUpdate();
   }
 
   public get filters(): any { // TODO interface
     return this.#filters;
   }
 
-  public set maxPage(value: number) {
-    this.#maxPage = value;
-    this.initHashSum();
-  }
-
-  public get maxPage(): number {
-    return this.#maxPage;
-  }
-
   public set orderBy(value: string) {
     this.#orderBy = value;
     this.initHashSum();
+    this.updateLastUpdate();
   }
 
   public get orderBy(): string {
@@ -69,6 +63,7 @@ export class TableState<ITEM> implements ITableState<ITEM> {
   public set orderDir(value: string) {
     this.#orderDir = value;
     this.initHashSum();
+    this.updateLastUpdate();
   }
 
   public get orderDir(): string {
@@ -77,7 +72,7 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 
   public set page(value: number) {
     this.#page = value;
-    this.initHashSum();
+    this.updateLastUpdate();
   }
 
   public get page(): number {
@@ -86,7 +81,7 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 
   public set pageSize(value: number) {
     this.#pageSize = value;
-    this.initHashSum();
+    this.updateLastUpdate();
   }
 
   public get pageSize(): number {
@@ -95,7 +90,7 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 
   public set items(value: ITEM[]) {
     this.#items = value;
-    this.initHashSum();
+    this.updateLastUpdate();
   }
 
   public get items(): ITEM[] {
@@ -104,11 +99,20 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 
   public set total(value: number) {
     this.#total = value;
-    this.initHashSum();
+    this.updateLastUpdate();
   }
 
   public get total(): number {
     return this.#total;
+  }
+
+  public set maxPage(value: number) {
+    this.#maxPage = value;
+    this.updateLastUpdate();
+  }
+
+  public get maxPage(): number {
+    return this.#maxPage;
   }
 
   //
@@ -130,16 +134,16 @@ export class TableState<ITEM> implements ITableState<ITEM> {
   }
 
   public initHashSum(): string {
-    this.#lastUpdate = (new Date()).toISOString();
     this.#hashSum = hash_sum({
       filters: this.filters,
-      maxPage: this.maxPage,
       orderBy: this.orderBy,
       orderDir: this.orderDir,
-      page: this.page,
-      pageSize: this.pageSize,
     });
     return this.hashSum;
+  }
+
+  public updateLastUpdate(): void {
+    this.#lastUpdate = (new Date()).toISOString();
   }
 
   public toBackendFormat(): TableState_BackendFormat {

@@ -16,6 +16,22 @@ export namespace BaseActions {
     public static readonly type: string = '[TODO] Not Implemented Yet!';
   }
 
+  export abstract class ClearTableCache {
+    public static readonly type: string = '[TODO] Not Implemented Yet!';
+  }
+
+  export abstract class ClearItemCache {
+    public static readonly type: string = '[TODO] Not Implemented Yet!';
+  }
+
+  export abstract class ClearTableCacheAndGetList {
+    public static readonly type: string = '[TODO] Not Implemented Yet!';
+  }
+
+  export abstract class ClearItemCacheAndGetItem {
+    public static readonly type: string = '[TODO] Not Implemented Yet!';
+  }
+
   export abstract class DeleteItem {
     public static readonly type: string = '[TODO] Not Implemented Yet!';
 

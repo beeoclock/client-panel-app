@@ -39,6 +39,26 @@ export class ServiceState extends BaseState<IService> {
     await super.InitDefaultsFromCache(ctx);
   }
 
+  @Action(ServiceActions.ClearTableCache)
+  public override async ClearTableCache(ctx: StateContext<IServiceState>): Promise<void> {
+    await super.ClearTableCache(ctx);
+  }
+
+  @Action(ServiceActions.ClearItemCache)
+  public override async ClearItemCache(ctx: StateContext<IServiceState>): Promise<void> {
+    await super.ClearItemCache(ctx);
+  }
+
+  @Action(ServiceActions.ClearTableCacheAndGetList)
+  public override async ClearTableCacheAndGetList(ctx: StateContext<IServiceState>): Promise<void> {
+    await super.ClearTableCacheAndGetList(ctx);
+  }
+
+  @Action(ServiceActions.ClearItemCacheAndGetItem)
+  public override async ClearItemCacheAndGetItem(ctx: StateContext<IServiceState>): Promise<void> {
+    await super.ClearItemCacheAndGetItem(ctx);
+  }
+
   @Action(ServiceActions.UpdateFilters)
   public override async UpdateFilters(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateFilters): Promise<void> {
     await super.UpdateFilters(ctx, action);
