@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:local": "ng serve --configuration local",
     "start:emulator": "ng serve --configuration emulator",
     "start:emulator:authorization": "ng serve --configuration emulator-authorization",
     "start:external": "ng serve --host 0.0.0.0 --disable-host-check",

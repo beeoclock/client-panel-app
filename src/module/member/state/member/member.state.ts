@@ -38,6 +38,26 @@ export class MemberState extends BaseState<Member.IMember> {
     await super.InitDefaultsFromCache(ctx);
   }
 
+  @Action(MemberActions.ClearTableCache)
+  public override async ClearTableCache(ctx: StateContext<IMemberState>): Promise<void> {
+    await super.ClearTableCache(ctx);
+  }
+
+  @Action(MemberActions.ClearItemCache)
+  public override async ClearItemCache(ctx: StateContext<IMemberState>): Promise<void> {
+    await super.ClearItemCache(ctx);
+  }
+
+  @Action(MemberActions.ClearTableCacheAndGetList)
+  public override async ClearTableCacheAndGetList(ctx: StateContext<IMemberState>): Promise<void> {
+    await super.ClearTableCacheAndGetList(ctx);
+  }
+
+  @Action(MemberActions.ClearItemCacheAndGetItem)
+  public override async ClearItemCacheAndGetItem(ctx: StateContext<IMemberState>): Promise<void> {
+    await super.ClearItemCacheAndGetItem(ctx);
+  }
+
   @Action(MemberActions.UpdateFilters)
   public override async UpdateFilters(ctx: StateContext<IMemberState>, action: MemberActions.UpdateFilters): Promise<void> {
     await super.UpdateFilters(ctx, action);

@@ -1,6 +1,26 @@
 {
-  "/api.panel/*": {
+  "/local.panel/*": {
     "target": "http://localhost:3000",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "ws": true,
+    "pathRewrite": {
+      "^/local.panel": ""
+    }
+  },
+  "/local.identity/*": {
+    "target": "http://localhost:4000",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "ws": true,
+    "pathRewrite": {
+      "^/local.identity": ""
+    }
+  },
+  "/api.panel/*": {
+    "target": "https://api.dev.beeoclock.com/panel",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
@@ -10,7 +30,7 @@
     }
   },
   "/api.identity/*": {
-    "target": "http://localhost:4000",
+    "target": "https://api.dev.beeoclock.com/identity",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,

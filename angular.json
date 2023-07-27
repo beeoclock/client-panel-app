@@ -63,6 +63,21 @@
               "sourceMap": true,
               "namedChunks": true
             },
+            "local": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environment/environment.ts",
+                  "with": "src/environment/environment.local.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "emulator": {
               "buildOptimizer": false,
               "optimization": false,
@@ -107,6 +122,9 @@
             },
             "emulator": {
               "browserTarget": "client-panel-app:build:emulator"
+            },
+            "local": {
+              "browserTarget": "client-panel-app:build:local"
             },
             "emulator-authorization": {
               "browserTarget": "client-panel-app:build:emulator-authorization"

@@ -12,6 +12,22 @@ export namespace EventActions {
     public static override readonly type = '[Event Cache] Init Defaults From Cache';
   }
 
+  export class ClearTableCache extends BaseActions.ClearTableCache {
+    public static override readonly type = '[Event Cache] Clear Table Cache';
+  }
+
+  export class ClearItemCache extends BaseActions.ClearItemCache {
+    public static override readonly type = '[Event Cache] Clear Item Cache';
+  }
+
+  export class ClearTableCacheAndGetList extends BaseActions.ClearTableCacheAndGetList {
+    public static override readonly type = '[Event Cache & API] Clear Table Cache And Get List';
+  }
+
+  export class ClearItemCacheAndGetItem extends BaseActions.ClearItemCacheAndGetItem {
+    public static override readonly type = '[Event Cache & API] Clear Item Cache And Get Item';
+  }
+
   export class GetList extends BaseActions.GetList {
     public static override readonly type = '[Event API] Get List';
   }

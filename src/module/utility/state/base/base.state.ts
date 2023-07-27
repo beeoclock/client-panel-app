@@ -115,6 +115,82 @@ export abstract class BaseState<ITEM = any> {
   }
 
   /**
+   * Init default from cache
+   * @param ctx
+   * @constructor
+   */
+  public async ClearTableCache(
+    ctx: StateContext<IBaseState<ITEM>>
+  ): Promise<void> {
+
+    const cacheTableStatesKey = getKeyWithClientId(this.store, this.cacheKeys.tableStates);
+
+    // Clear cache of table
+    await firstValueFrom(ctx.dispatch(new CacheActions.Remove({
+      strategy: 'indexedDB',
+      key: cacheTableStatesKey,
+    })));
+
+  }
+
+  /**
+   * Init default from cache
+   * @param ctx
+   * @constructor
+   */
+  public async ClearTableCacheAndGetList(
+    ctx: StateContext<IBaseState<ITEM>>
+  ): Promise<void> {
+
+    await this.ClearTableCache(ctx);
+    ctx.patchState({
+      lastTableHashSum: undefined,
+    });
+    await this.getList(ctx);
+
+  }
+
+  /**
+   * Init default from cache
+   * @param ctx
+   * @constructor
+   */
+  public async ClearItemCache(
+    ctx: StateContext<IBaseState<ITEM>>
+  ): Promise<void> {
+
+    const cacheItemsKey = getKeyWithClientId(this.store, this.cacheKeys.items);
+
+    // Clear all history from cache
+    // Clear cache of item
+    await firstValueFrom(ctx.dispatch(new CacheActions.Remove({
+      strategy: 'indexedDB',
+      key: cacheItemsKey,
+    })));
+
+  }
+
+  /**
+   * Init default from cache
+   * @param ctx
+   * @constructor
+   */
+  public async ClearItemCacheAndGetItem(
+    ctx: StateContext<IBaseState<ITEM>>
+  ): Promise<void> {
+
+    const {id} = ctx.getState().item.data as any;
+    if (id) {
+      await this.ClearItemCache(ctx);
+      ctx.patchState({
+        item: undefined,
+      });
+      await this.GetItem(ctx, id);
+    }
+
+  }
+
+  /**
    *
    * @param ctx
    * @param payload
@@ -246,20 +322,8 @@ export abstract class BaseState<ITEM = any> {
       // TODO Implement: Error case
       const data = await this.repository.save(payload);
 
-      const cacheTableStatesKey = getKeyWithClientId(this.store, this.cacheKeys.tableStates);
-      const cacheItemsKey = getKeyWithClientId(this.store, this.cacheKeys.items);
-
-      // Clear all history from cache
-      // Clear cache of item
-      await firstValueFrom(ctx.dispatch(new CacheActions.Remove({
-        strategy: 'indexedDB',
-        key: cacheItemsKey,
-      })));
-      // Clear cache of table
-      await firstValueFrom(ctx.dispatch(new CacheActions.Remove({
-        strategy: 'indexedDB',
-        key: cacheTableStatesKey,
-      })));
+      await this.ClearItemCache(ctx);
+      await this.ClearTableCache(ctx);
 
       // Set new/updated item to store state and clear table
       ctx.patchState({
@@ -419,14 +483,16 @@ export abstract class BaseState<ITEM = any> {
       // Check if we have prev state, if true, update cache
       if (items.length && state.tableState.hashSum) {
 
-        ctx.dispatch(new CacheActions.Set({
+        const newCacheValue = {
+          ...cacheTableStates,
+          [state.tableState.hashSum]: state.tableState
+        };
+
+        await firstValueFrom(ctx.dispatch(new CacheActions.Set({
           strategy: 'indexedDB',
           key: cacheTableStatesKey,
-          value: JSON.stringify({
-            ...cacheTableStates,
-            [state.tableState.hashSum]: state.tableState
-          })
-        }));
+          value: JSON.stringify(newCacheValue)
+        })));
 
       }
 

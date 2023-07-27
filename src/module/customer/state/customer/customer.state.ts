@@ -38,6 +38,26 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
     await super.InitDefaultsFromCache(ctx);
   }
 
+  @Action(CustomerActions.ClearTableCache)
+  public override async ClearTableCache(ctx: StateContext<ICustomerState>): Promise<void> {
+    await super.ClearTableCache(ctx);
+  }
+
+  @Action(CustomerActions.ClearItemCache)
+  public override async ClearItemCache(ctx: StateContext<ICustomerState>): Promise<void> {
+    await super.ClearItemCache(ctx);
+  }
+
+  @Action(CustomerActions.ClearTableCacheAndGetList)
+  public override async ClearTableCacheAndGetList(ctx: StateContext<ICustomerState>): Promise<void> {
+    await super.ClearTableCacheAndGetList(ctx);
+  }
+
+  @Action(CustomerActions.ClearItemCacheAndGetItem)
+  public override async ClearItemCacheAndGetItem(ctx: StateContext<ICustomerState>): Promise<void> {
+    await super.ClearItemCacheAndGetItem(ctx);
+  }
+
   @Action(CustomerActions.UpdateFilters)
   public override async UpdateFilters(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateFilters): Promise<void> {
     await super.UpdateFilters(ctx, action);

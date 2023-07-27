@@ -34,7 +34,7 @@ export class TableStatePaginationComponent implements OnChanges {
   public readonly page = new EventEmitter();
 
   @Output()
-  public readonly cache = new EventEmitter();
+  public readonly clearCache = new EventEmitter<void>();
 
   public lastUpdate: undefined | string;
   public pages: number[] = [];
@@ -56,8 +56,8 @@ export class TableStatePaginationComponent implements OnChanges {
     }
   }
 
-  public refreshCache(): void {
-    this.cache.emit(true);
+  public clearTableCache(): void {
+    this.clearCache.emit();
   }
 
   public nextPage(): void {

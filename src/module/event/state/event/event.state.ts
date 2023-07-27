@@ -38,6 +38,26 @@ export class EventState extends BaseState<Event.IEvent> {
     await super.InitDefaultsFromCache(ctx);
   }
 
+  @Action(EventActions.ClearTableCache)
+  public override async ClearTableCache(ctx: StateContext<IEventState>): Promise<void> {
+    await super.ClearTableCache(ctx);
+  }
+
+  @Action(EventActions.ClearItemCache)
+  public override async ClearItemCache(ctx: StateContext<IEventState>): Promise<void> {
+    await super.ClearItemCache(ctx);
+  }
+
+  @Action(EventActions.ClearTableCacheAndGetList)
+  public override async ClearTableCacheAndGetList(ctx: StateContext<IEventState>): Promise<void> {
+    await super.ClearTableCacheAndGetList(ctx);
+  }
+
+  @Action(EventActions.ClearItemCacheAndGetItem)
+  public override async ClearItemCacheAndGetItem(ctx: StateContext<IEventState>): Promise<void> {
+    await super.ClearItemCacheAndGetItem(ctx);
+  }
+
   @Action(EventActions.UpdateFilters)
   public override async UpdateFilters(ctx: StateContext<IEventState>, action: EventActions.UpdateFilters): Promise<void> {
     await super.UpdateFilters(ctx, action);

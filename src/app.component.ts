@@ -37,7 +37,10 @@ export class AppComponent implements AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
-    detectorInit();
+    const html = this.document.querySelector('html');
+    if (html) {
+      detectorInit(html);
+    }
 
     if (localStorage.getItem('theme') === 'dark') {
       this.document.documentElement.classList.add('dark');
