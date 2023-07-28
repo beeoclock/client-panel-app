@@ -9,7 +9,6 @@ import listPlugin from '@fullcalendar/list';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {HeaderCardComponent} from '@utility/presentation/component/card/header.card.component';
-import {EventRepository} from "@event/repository/event.repository";
 import {IEvent} from "@event/domain";
 
 @Component({
@@ -29,7 +28,6 @@ import {IEvent} from "@event/domain";
 })
 export default class Index {
 
-  public readonly repository = inject(EventRepository);
   private readonly changeDetector = inject(ChangeDetectorRef);
 
   public events: IEvent[] = [];
@@ -58,10 +56,10 @@ export default class Index {
     eventsSet: this.handleEvents.bind(this),
     datesSet: (event) => {
       const {startStr, endStr} = event;
-      this.repository.calendar(startStr, endStr).then((result: any) => {
-        this.events = result.data.items;
-        this.calendarOptions.events = this.events;
-      });
+      // this.repository.calendar(startStr, endStr).then((result: any) => {
+      //   this.events = result.data.items;
+      //   this.calendarOptions.events = this.events;
+      // });
     },
     // events: (a) => {
     //   console.log(a);

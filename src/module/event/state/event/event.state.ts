@@ -1,10 +1,14 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import * as Event from "@event/domain";
-import {Router} from "@angular/router";
-import {EventRepository} from "@event/repository/event.repository";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {EventActions} from "@event/state/event/event.actions";
+import {ArchiveEventApiAdapter} from "@event/adapter/external/api/archive.event.api.adapter";
+import {CreateEventApiAdapter} from "@event/adapter/external/api/create.event.api.adapter";
+import {UpdateEventApiAdapter} from "@event/adapter/external/api/update.event.api.adapter";
+import {ItemEventApiAdapter} from "@event/adapter/external/api/item.event.api.adapter";
+import {ListEventApiAdapter} from "@event/adapter/external/api/list.event.api.adapter";
+import {RemoveEventApiAdapter} from "@event/adapter/external/api/remove.event.api.adapter";
 
 export type IEventState = IBaseState<Event.IEvent>;
 
@@ -15,8 +19,21 @@ export type IEventState = IBaseState<Event.IEvent>;
 @Injectable()
 export class EventState extends BaseState<Event.IEvent> {
 
-  public override readonly router = inject(Router);
-  public override readonly repository = inject(EventRepository);
+  private readonly archiveEventApiAdapter = inject(ArchiveEventApiAdapter);
+  private readonly createEventApiAdapter = inject(CreateEventApiAdapter);
+  private readonly updateEventApiAdapter = inject(UpdateEventApiAdapter);
+  private readonly itemEventApiAdapter = inject(ItemEventApiAdapter);
+  private readonly removeEventApiAdapter = inject(RemoveEventApiAdapter);
+  private readonly listEventApiAdapter = inject(ListEventApiAdapter);
+
+  public override readonly repository = {
+    item: this.itemEventApiAdapter.executeAsync,
+    update: this.updateEventApiAdapter.executeAsync,
+    create: this.createEventApiAdapter.executeAsync,
+    remove: this.removeEventApiAdapter.executeAsync,
+    archive: this.archiveEventApiAdapter.executeAsync,
+    list: this.listEventApiAdapter.executeAsync,
+  };
 
   constructor() {
     super(
@@ -78,9 +95,14 @@ export class EventState extends BaseState<Event.IEvent> {
     super.deleteItem(ctx, action);
   }
 
-  @Action(EventActions.SaveItem)
-  public override async saveItem(ctx: StateContext<IEventState>, action: EventActions.SaveItem): Promise<void> {
-    await super.saveItem(ctx, action);
+  @Action(EventActions.CreateItem)
+  public override async createItem(ctx: StateContext<IEventState>, action: EventActions.CreateItem): Promise<void> {
+    await super.createItem(ctx, action);
+  }
+
+  @Action(EventActions.UpdateItem)
+  public override async updateItem(ctx: StateContext<IEventState>, action: EventActions.UpdateItem): Promise<void> {
+    await super.updateItem(ctx, action);
   }
 
   @Action(EventActions.GetList)

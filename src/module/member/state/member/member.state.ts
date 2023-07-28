@@ -1,10 +1,14 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import * as Member from "@member/domain";
-import {Router} from "@angular/router";
-import {MemberRepository} from "@member/repository/member.repository";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {MemberActions} from "@member/state/member/member.actions";
+import {ArchiveMemberApiAdapter} from "@member/adapter/external/api/archive.member.api.adapter";
+import {CreateMemberApiAdapter} from "@member/adapter/external/api/create.member.api.adapter";
+import {UpdateMemberApiAdapter} from "@member/adapter/external/api/update.member.api.adapter";
+import {ItemMemberApiAdapter} from "@member/adapter/external/api/item.member.api.adapter";
+import {RemoveMemberApiAdapter} from "@member/adapter/external/api/remove.member.api.adapter";
+import {ListMemberApiAdapter} from "@member/adapter/external/api/list.member.api.adapter";
 
 export type IMemberState = IBaseState<Member.IMember>;
 
@@ -15,8 +19,21 @@ export type IMemberState = IBaseState<Member.IMember>;
 @Injectable()
 export class MemberState extends BaseState<Member.IMember> {
 
-  public override readonly router = inject(Router);
-  public override readonly repository = inject(MemberRepository);
+  private readonly archiveMemberApiAdapter = inject(ArchiveMemberApiAdapter);
+  private readonly createMemberApiAdapter = inject(CreateMemberApiAdapter);
+  private readonly updateMemberApiAdapter = inject(UpdateMemberApiAdapter);
+  private readonly itemMemberApiAdapter = inject(ItemMemberApiAdapter);
+  private readonly removeMemberApiAdapter = inject(RemoveMemberApiAdapter);
+  private readonly listMemberApiAdapter = inject(ListMemberApiAdapter);
+
+  public override readonly repository = {
+    item: this.itemMemberApiAdapter.executeAsync,
+    update: this.updateMemberApiAdapter.executeAsync,
+    create: this.createMemberApiAdapter.executeAsync,
+    remove: this.removeMemberApiAdapter.executeAsync,
+    archive: this.archiveMemberApiAdapter.executeAsync,
+    list: this.listMemberApiAdapter.executeAsync,
+  };
 
   constructor() {
     super(
@@ -78,9 +95,14 @@ export class MemberState extends BaseState<Member.IMember> {
     super.deleteItem(ctx, action);
   }
 
-  @Action(MemberActions.SaveItem)
-  public override async saveItem(ctx: StateContext<IMemberState>, action: MemberActions.SaveItem): Promise<void> {
-    await super.saveItem(ctx, action);
+  @Action(MemberActions.CreateItem)
+  public override async createItem(ctx: StateContext<IMemberState>, action: MemberActions.CreateItem): Promise<void> {
+    await super.createItem(ctx, action);
+  }
+
+  @Action(MemberActions.UpdateItem)
+  public override async updateItem(ctx: StateContext<IMemberState>, action: MemberActions.UpdateItem): Promise<void> {
+    await super.updateItem(ctx, action);
   }
 
   @Action(MemberActions.GetList)

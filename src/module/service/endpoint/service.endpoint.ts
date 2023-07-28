@@ -1,12 +1,15 @@
 import {Endpoint, EndpointCollectionType} from "@utility/domain/endpoint";
 import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
+import {eventEndpointEnum} from "@event/endpoint/event.endpoint";
 
 export enum serviceEndpointEnum {
   paged = '/api/v1/service/paged',
   item = '/api/v1/service/{id}',
   update = '/api/v1/service/{id}',
   create = '/api/v1/service',
+  archive = '/api/v1/service/{id}/archive',
+  delete = '/api/v1/event/{id}',
 }
 
 export const serviceEndpoint: EndpointCollectionType = {
@@ -37,6 +40,17 @@ export const serviceEndpoint: EndpointCollectionType = {
       }
     }
   },
+  PATCH: {
+    [serviceEndpointEnum.archive]: {
+      path: serviceEndpointEnum.archive,
+      method: RequestMethodEnum.PATCH,
+      source: SourceNetworkEnum.panel,
+      replace: true,
+      header: {
+        authorization: true,
+      }
+    },
+  },
   PUT: {
     [serviceEndpointEnum.update]: {
       path: serviceEndpointEnum.update,
@@ -47,7 +61,18 @@ export const serviceEndpoint: EndpointCollectionType = {
         authorization: true,
       }
     }
-  }
+  },
+  DELETE: {
+    [eventEndpointEnum.delete]: {
+      path: eventEndpointEnum.delete,
+      method: RequestMethodEnum.DELETE,
+      source: SourceNetworkEnum.panel,
+      replace: true,
+      header: {
+        authorization: true,
+      }
+    },
+  },
 }
 
 

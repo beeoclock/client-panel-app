@@ -35,35 +35,37 @@ import {Duration} from "luxon";
 import {ConvertTime} from "@utility/domain/convert.time";
 import humanizeDuration from "humanize-duration";
 import {IMember} from "@member/domain";
+import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import calculateDuration = ConvertTime.calculateDuration;
 
 @Component({
   selector: 'event-form-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    CardComponent,
-    BodyCardComponent,
-    ReactiveFormsModule,
-    InputDirective,
-    TextareaDirective,
-    ButtonComponent,
-    HasErrorDirective,
-    RouterLink,
-    BackLinkComponent,
-    FormsModule,
-    AttendeesComponent,
-    HeaderCardComponent,
-    ServicesFormComponent,
-    NgSelectModule,
-    NgForOf,
-    LanguagePipe,
-    NgIf,
-    DatePipe,
-    InvalidTooltipDirective,
-    TranslateModule,
-    IonicModule,
-  ],
+    imports: [
+        CardComponent,
+        BodyCardComponent,
+        ReactiveFormsModule,
+        InputDirective,
+        TextareaDirective,
+        ButtonComponent,
+        HasErrorDirective,
+        RouterLink,
+        BackLinkComponent,
+        FormsModule,
+        AttendeesComponent,
+        HeaderCardComponent,
+        ServicesFormComponent,
+        NgSelectModule,
+        NgForOf,
+        LanguagePipe,
+        NgIf,
+        DatePipe,
+        InvalidTooltipDirective,
+        TranslateModule,
+        IonicModule,
+        FormInputComponent,
+    ],
   standalone: true
 })
 export default class Index implements OnInit {
@@ -71,6 +73,7 @@ export default class Index implements OnInit {
   // TODO move functions to store effects/actions
 
   public readonly baseUrl = '/event';
+  public isEditMode = false;
   public readonly cancelUrl = [this.baseUrl];
 
   private readonly store = inject(Store);
@@ -137,6 +140,7 @@ export default class Index implements OnInit {
         if (result?._id) {
           this.cancelUrl.push('details', result._id);
           console.log(result);
+          this.isEditMode = true;
           this.form.patchValue(result);
           this.form.updateValueAndValidity();
         }
@@ -186,7 +190,11 @@ export default class Index implements OnInit {
     if (this.form.valid) {
       this.form.disable();
       this.form.markAsPending();
-      await firstValueFrom(this.store.dispatch(new EventActions.SaveItem(this.form.getRawValue() as IEvent)));
+      if (this.isEditMode) {
+        await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(this.form.getRawValue() as IEvent)));
+      } else {
+        await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(this.form.getRawValue() as IEvent)));
+      }
       const item = await firstValueFrom(this.itemData$);
       if (item) {
         await this.router.navigate([this.baseUrl, 'details', item?._id], {

@@ -1,5 +1,4 @@
-import {Component, inject} from '@angular/core';
-import {EventRepository} from "@event/repository/event.repository";
+import {Component} from '@angular/core';
 import {IEvent} from "@event/domain";
 import {NgIf} from "@angular/common";
 
@@ -28,7 +27,6 @@ import {NgIf} from "@angular/common";
 })
 export class EventShortDetailsComponent {
 
-  public readonly repository = inject(EventRepository);
   public event: undefined | IEvent;
 
 }

@@ -77,7 +77,14 @@ export abstract class BaseState<ITEM = any> {
   }
 
   public readonly router!: any;
-  public readonly repository!: any;
+  public readonly repository!: {
+    item: (...args: unknown[]) => any;
+    create: (...args: unknown[]) => any;
+    update: (...args: unknown[]) => any;
+    remove: (...args: unknown[]) => any;
+    archive: (...args: unknown[]) => any;
+    list: (...args: unknown[]) => any;
+  };
   public readonly store = inject(Store);
 
   /**
@@ -314,13 +321,46 @@ export abstract class BaseState<ITEM = any> {
    * @param ctx
    * @param payload
    */
-  public async saveItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.SaveItem<ITEM>): Promise<void> {
+  public async createItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.CreateItem<ITEM>): Promise<void> {
 
     ctx.dispatch(new AppActions.PageLoading(true));
 
     try {
       // TODO Implement: Error case
-      const data = await this.repository.save(payload);
+      const data = await this.repository.create(payload);
+
+      await this.ClearItemCache(ctx);
+      await this.ClearTableCache(ctx);
+
+      // Set new/updated item to store state and clear table
+      ctx.patchState({
+        item: {
+          data,
+          downloadedAt: new Date(),
+        },
+        tableState: new TableState<ITEM>().toCache(),
+        lastTableHashSum: undefined
+      });
+    } catch (e) {
+      console.error('Error Response: ', e);
+    }
+
+    ctx.dispatch(new AppActions.PageLoading(false));
+
+  }
+
+  /**
+   *
+   * @param ctx
+   * @param payload
+   */
+  public async updateItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateItem<ITEM>): Promise<void> {
+
+    ctx.dispatch(new AppActions.PageLoading(true));
+
+    try {
+      // TODO Implement: Error case
+      const data = await this.repository.update(payload);
 
       await this.ClearItemCache(ctx);
       await this.ClearTableCache(ctx);

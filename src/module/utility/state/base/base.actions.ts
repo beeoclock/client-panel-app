@@ -59,7 +59,16 @@ export namespace BaseActions {
     }
   }
 
-  export abstract class SaveItem<ITEM> {
+  export abstract class CreateItem<ITEM> {
+    public static readonly type: string = '[TODO] Not Implemented Yet!';
+
+    constructor(
+      public payload: ITEM,
+    ) {
+    }
+  }
+
+  export abstract class UpdateItem<ITEM> {
     public static readonly type: string = '[TODO] Not Implemented Yet!';
 
     constructor(

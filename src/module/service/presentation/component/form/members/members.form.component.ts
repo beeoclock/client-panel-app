@@ -1,8 +1,7 @@
-import {AfterViewInit, Component, inject, Input} from '@angular/core';
+import {AfterViewInit, Component, Input} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {MemberRepository} from "@member/repository/member.repository";
 import {IMember} from "@member/domain";
 import {BodyCardComponent} from "@utility/presentation/component/card/body.card.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
@@ -77,24 +76,22 @@ export class MembersFormComponent implements AfterViewInit {
   @Input()
   public multiple = true;
 
-  public readonly memberRepository = inject(MemberRepository);
-
   public items: IMember[] = [];
 
   public ngAfterViewInit(): void {
     this.control.markAsPending();
-    this.memberRepository
-      .list({
-        pageSize: 10,
-        page: 1,
-        orderBy: 'createdAt',
-        orderDir: 'asc',
-        filters: {}
-      })
-      .then((result) => {
-        this.items = result.data.items;
-        this.control.updateValueAndValidity();
-      });
+    // this.memberRepository
+    //   .list({
+    //     pageSize: 10,
+    //     page: 1,
+    //     orderBy: 'createdAt',
+    //     orderDir: 'asc',
+    //     filters: {}
+    //   })
+    //   .then((result) => {
+    //     this.items = result.data.items;
+    //     this.control.updateValueAndValidity();
+    //   });
 
   }
 

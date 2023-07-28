@@ -74,10 +74,10 @@
         {{ item?.attendees?.length }}
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-        {{ item.start | date: 'hh:mm dd-MM-yyyy' }}
+        {{ (item.start ? (item.start | date:'hh:mm dd-MM-yyyy') : null) ?? 'Invalid Time' }}
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-        {{ item.end | date: 'hh:mm dd-MM-yyyy' }}
+        {{ (item.end ? (item.end | date:'hh:mm dd-MM-yyyy') : null) ?? 'Invalid Time' }}
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
         {{ item.createdAt | date: 'hh:mm dd-MM-yyyy' }}
