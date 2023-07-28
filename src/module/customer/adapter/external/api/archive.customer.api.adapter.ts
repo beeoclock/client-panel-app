@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {eventEndpointEnum} from "@event/endpoint/event.endpoint";
+import {customerEndpointEnum} from "@customer/endpoint/customer.endpoint";
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "thiis";
@@ -13,9 +13,9 @@ export class ArchiveCustomerApiAdapter extends BaseApiAdapter<unknown> {
    * ARCHIVE ITEM BY ID
    * @param id
    */
-  @TypeGuard([is.string])
-  public override execute$(id: string) {
-    return this.httpClient.patch(eventEndpointEnum.archive, null, {
+  @TypeGuard([is.object.not.empty])
+  public override execute$({id}: { id: string }) {
+    return this.httpClient.patch(customerEndpointEnum.archive, null, {
       headers: {
         replace: JSON.stringify({
           id

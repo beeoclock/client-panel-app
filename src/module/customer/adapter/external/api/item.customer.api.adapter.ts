@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {eventEndpointEnum} from "@event/endpoint/event.endpoint";
+import {customerEndpointEnum} from "@customer/endpoint/customer.endpoint";
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import * as Customer from "@customer/domain";
 
@@ -14,7 +14,7 @@ export class ItemCustomerApiAdapter extends BaseApiAdapter<Customer.ICustomer> {
    * @param id
    */
   public override execute$(id: string) {
-    return this.httpClient.post<Customer.ICustomer>(eventEndpointEnum.item, null, {
+    return this.httpClient.post<Customer.ICustomer>(customerEndpointEnum.item, null, {
       headers: {
         replace: JSON.stringify({
           id

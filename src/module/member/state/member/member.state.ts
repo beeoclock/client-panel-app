@@ -19,21 +19,12 @@ export type IMemberState = IBaseState<Member.IMember>;
 @Injectable()
 export class MemberState extends BaseState<Member.IMember> {
 
-  private readonly archiveMemberApiAdapter = inject(ArchiveMemberApiAdapter);
-  private readonly createMemberApiAdapter = inject(CreateMemberApiAdapter);
-  private readonly updateMemberApiAdapter = inject(UpdateMemberApiAdapter);
-  private readonly itemMemberApiAdapter = inject(ItemMemberApiAdapter);
-  private readonly removeMemberApiAdapter = inject(RemoveMemberApiAdapter);
-  private readonly listMemberApiAdapter = inject(ListMemberApiAdapter);
-
-  public override readonly repository = {
-    item: this.itemMemberApiAdapter.executeAsync,
-    update: this.updateMemberApiAdapter.executeAsync,
-    create: this.createMemberApiAdapter.executeAsync,
-    remove: this.removeMemberApiAdapter.executeAsync,
-    archive: this.archiveMemberApiAdapter.executeAsync,
-    list: this.listMemberApiAdapter.executeAsync,
-  };
+  protected override readonly archive = inject(ArchiveMemberApiAdapter);
+  protected override readonly create = inject(CreateMemberApiAdapter);
+  protected override readonly update = inject(UpdateMemberApiAdapter);
+  protected override readonly item = inject(ItemMemberApiAdapter);
+  protected override readonly remove = inject(RemoveMemberApiAdapter);
+  protected override readonly list = inject(ListMemberApiAdapter);
 
   constructor() {
     super(

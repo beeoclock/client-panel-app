@@ -20,21 +20,12 @@ export type IServiceState = IBaseState<Service.IService>
 @Injectable()
 export class ServiceState extends BaseState<IService> {
 
-  private readonly archiveServiceApiAdapter = inject(ArchiveServiceApiAdapter);
-  private readonly createServiceApiAdapter = inject(CreateServiceApiAdapter);
-  private readonly updateServiceApiAdapter = inject(UpdateServiceApiAdapter);
-  private readonly itemServiceApiAdapter = inject(ItemServiceApiAdapter);
-  private readonly removeServiceApiAdapter = inject(RemoveServiceApiAdapter);
-  private readonly listServiceApiAdapter = inject(ListServiceApiAdapter);
-
-  public override readonly repository = {
-    item: this.itemServiceApiAdapter.executeAsync,
-    update: this.updateServiceApiAdapter.executeAsync,
-    create: this.createServiceApiAdapter.executeAsync,
-    remove: this.removeServiceApiAdapter.executeAsync,
-    archive: this.archiveServiceApiAdapter.executeAsync,
-    list: this.listServiceApiAdapter.executeAsync,
-  };
+  protected override readonly archive = inject(ArchiveServiceApiAdapter);
+  protected override readonly create = inject(CreateServiceApiAdapter);
+  protected override readonly update = inject(UpdateServiceApiAdapter);
+  protected override readonly item = inject(ItemServiceApiAdapter);
+  protected override readonly remove = inject(RemoveServiceApiAdapter);
+  protected override readonly list = inject(ListServiceApiAdapter);
 
   constructor() {
     super(

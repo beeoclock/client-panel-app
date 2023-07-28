@@ -19,21 +19,12 @@ export type IEventState = IBaseState<Event.IEvent>;
 @Injectable()
 export class EventState extends BaseState<Event.IEvent> {
 
-  private readonly archiveEventApiAdapter = inject(ArchiveEventApiAdapter);
-  private readonly createEventApiAdapter = inject(CreateEventApiAdapter);
-  private readonly updateEventApiAdapter = inject(UpdateEventApiAdapter);
-  private readonly itemEventApiAdapter = inject(ItemEventApiAdapter);
-  private readonly removeEventApiAdapter = inject(RemoveEventApiAdapter);
-  private readonly listEventApiAdapter = inject(ListEventApiAdapter);
-
-  public override readonly repository = {
-    item: this.itemEventApiAdapter.executeAsync,
-    update: this.updateEventApiAdapter.executeAsync,
-    create: this.createEventApiAdapter.executeAsync,
-    remove: this.removeEventApiAdapter.executeAsync,
-    archive: this.archiveEventApiAdapter.executeAsync,
-    list: this.listEventApiAdapter.executeAsync,
-  };
+  protected override readonly archive = inject(ArchiveEventApiAdapter);
+  protected override readonly create = inject(CreateEventApiAdapter);
+  protected override readonly update = inject(UpdateEventApiAdapter);
+  protected override readonly item = inject(ItemEventApiAdapter);
+  protected override readonly remove = inject(RemoveEventApiAdapter);
+  protected override readonly list = inject(ListEventApiAdapter);
 
   constructor() {
     super(

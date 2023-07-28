@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {eventEndpointEnum} from "@event/endpoint/event.endpoint";
+import {customerEndpointEnum} from "@customer/endpoint/customer.endpoint";
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "thiis";
@@ -16,7 +16,7 @@ export class CreateCustomerApiAdapter extends BaseApiAdapter<Customer.ICustomer>
    */
   @TypeGuard([is.object.not.empty])
   public override execute$(value: Customer.ICustomer) {
-    return this.httpClient.post<Customer.ICustomer>(eventEndpointEnum.create, value);
+    return this.httpClient.post<Customer.ICustomer>(customerEndpointEnum.create, value);
   }
 
 }

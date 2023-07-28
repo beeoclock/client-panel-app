@@ -48,12 +48,15 @@ export abstract class ListPage implements OnInit, AfterViewInit {
     this.store.dispatch(new this.actions.DeleteItem({
       id
     }));
+    this.clearTableCache();
   }
 
-  public archive(id: string): void {
-    this.store.dispatch(new this.actions.ArchiveItem({
-      id
-    }));
+  public async archive(id: string): Promise<void> {
+    await firstValueFrom(this.store.dispatch(
+      new this.actions.ArchiveItem({
+        id
+      })));
+    this.clearTableCache();
   }
 
   public clearTableCache(): void {

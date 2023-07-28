@@ -19,21 +19,12 @@ export type ICustomerState = IBaseState<Customer.ICustomer>;
 @Injectable()
 export class CustomerState extends BaseState<Customer.ICustomer> {
 
-  private readonly archiveCustomerApiAdapter = inject(ArchiveCustomerApiAdapter);
-  private readonly createCustomerApiAdapter = inject(CreateCustomerApiAdapter);
-  private readonly updateCustomerApiAdapter = inject(UpdateCustomerApiAdapter);
-  private readonly itemCustomerApiAdapter = inject(ItemCustomerApiAdapter);
-  private readonly removeCustomerApiAdapter = inject(RemoveCustomerApiAdapter);
-  private readonly listCustomerApiAdapter = inject(ListCustomerApiAdapter);
-
-  public override readonly repository = {
-    item: this.itemCustomerApiAdapter.executeAsync,
-    update: this.updateCustomerApiAdapter.executeAsync,
-    create: this.createCustomerApiAdapter.executeAsync,
-    remove: this.removeCustomerApiAdapter.executeAsync,
-    archive: this.archiveCustomerApiAdapter.executeAsync,
-    list: this.listCustomerApiAdapter.executeAsync,
-  };
+  protected override readonly archive = inject(ArchiveCustomerApiAdapter);
+  protected override readonly create = inject(CreateCustomerApiAdapter);
+  protected override readonly update = inject(UpdateCustomerApiAdapter);
+  protected override readonly item = inject(ItemCustomerApiAdapter);
+  protected override readonly remove = inject(RemoveCustomerApiAdapter);
+  protected override readonly list = inject(ListCustomerApiAdapter);
 
   constructor() {
     super(
@@ -101,13 +92,13 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
   }
 
   @Action(CustomerActions.DeleteItem)
-  public override deleteItem(ctx: StateContext<ICustomerState>, action: CustomerActions.DeleteItem): void {
+  public override deleteItem(ctx: StateContext<ICustomerState>, action: CustomerActions.DeleteItem) {
     super.deleteItem(ctx, action);
   }
 
   @Action(CustomerActions.ArchiveItem)
-  public override archiveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.ArchiveItem): void {
-    super.archiveItem(ctx, action);
+  public override async archiveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.ArchiveItem) {
+    await super.archiveItem(ctx, action);
   }
 
   @Action(CustomerActions.GetList)
