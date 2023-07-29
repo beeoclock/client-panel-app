@@ -21,146 +21,6 @@ import {is} from "thiis";
     TranslateModule
   ],
   template: `
-    <!--<utility-back-link-component [url]="cancelUrl"></utility-back-link-component>-->
-
-    <!--<form [formGroup]="form">-->
-
-    <!--  <div class="grid grid-cols-12 gap-4">-->
-
-    <!--    <div class="col-span-12 lg:col-span-8">-->
-
-    <!--      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4">-->
-
-    <!--        <div class="form-check mb-4">-->
-    <!--          <input class="form-check-input" formControlName="servicesAreProvidedInParallel" type="checkbox" [value]="true" id="servicesAreProvidedInParallel">-->
-    <!--          <label class="form-check-label" for="servicesAreProvidedInParallel">-->
-    <!--            Services are provided in parallel-->
-    <!--          </label>-->
-    <!--        </div>-->
-
-    <!--        <div-->
-    <!--          *ngFor="let service of form.controls.services.value; let index = index;"-->
-    <!--          class="border border-beeColor-200 rounded-lg dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 dark:text-white">-->
-    <!--          <div-->
-    <!--            class="-->
-    <!--              justify-between-->
-    <!--              flex-->
-    <!--              w-full-->
-    <!--              px-4-->
-    <!--              py-2-->
-    <!--              bg-beeColor-100-->
-    <!--              border-b-->
-    <!--              border-beeColor-200-->
-    <!--              rounded-t-lg-->
-    <!--              cursor-pointer-->
-    <!--              dark:bg-beeDarkColor-800-->
-    <!--              dark:border-beeDarkColor-600">-->
-    <!--            Service #{{ index + 1 }}-->
-    <!--            <button class="text-red-500" (click)="removeServiceFromSelectedList(index)">-->
-    <!--              <i class="bi bi-trash"></i>-->
-    <!--            </button>-->
-    <!--          </div>-->
-    <!--          <ul class="text-sm font-medium text-beeColor-900 bg-white rounded-lg dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 dark:text-white">-->
-    <!--            <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600">-->
-    <!--              {{ service.languageVersions[0].language | language }}-->
-    <!--            </li>-->
-    <!--            <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600">-->
-    <!--              {{ service.languageVersions[0].title }}-->
-    <!--            </li>-->
-    <!--            <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600">-->
-    <!--              <i class="bi bi-person"></i>-->
-    <!--              {{ getPermanentMembers(service.permanentMembers) }}-->
-    <!--            </li>-->
-    <!--            <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600">-->
-    <!--              Duration: {{ service.durationVersions[0].duration }}-->
-    <!--            </li>-->
-    <!--            <li class="w-full px-4 py-2 border-b border-beeColor-200 dark:border-beeDarkColor-600">-->
-    <!--              Price: {{ service.durationVersions[0].prices[0].price }} {{ service.durationVersions[0].prices[0].currency }}-->
-    <!--            </li>-->
-    <!--            <li class="w-full px-4 py-2 dark:border-beeDarkColor-600 text-orange-500 cursor-pointer hover:bg-orange-100" (click)="editServiceFromSelectedList(service)">-->
-    <!--              Edit-->
-    <!--            </li>-->
-    <!--          </ul>-->
-    <!--        </div>-->
-
-    <!--        <div class="mt-4">-->
-    <!--          <button-->
-    <!--            class="px-4 py-2 border rounded w-full hover:bg-beeColor-100"-->
-    <!--            [disabled]="form.disabled"-->
-    <!--            (click)="openServiceModal()">-->
-    <!--            <i class="bi bi-plus-lg me-2"></i>-->
-    <!--            Add service-->
-    <!--          </button>-->
-    <!--        </div>-->
-
-    <!--      </div>-->
-    <!--      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4">-->
-
-    <!--        <div class="relative">-->
-    <!--          <label for="event-form-start">Start</label>-->
-    <!--          <ion-datetime-button datetime="event-form-start"></ion-datetime-button>-->
-
-    <!--          <ion-modal [keepContentsMounted]="true">-->
-    <!--            <ng-template>-->
-    <!--              <ion-datetime formControlName="start" id="event-form-start"></ion-datetime>-->
-    <!--            </ng-template>-->
-    <!--          </ion-modal>-->
-    <!--        </div>-->
-    <!--        In future add feature to chose slots-->
-    <!--        <div class="mt-3">-->
-    <!--          Duration:-->
-    <!--          <ng-container *ngIf="!duration.length">-->
-    <!--            <small class="text-warning">Select services to calculate duration of event</small>-->
-    <!--          </ng-container>-->
-    <!--          <ng-container *ngIf="duration.length">-->
-    <!--            {{ duration }}-->
-    <!--          </ng-container>-->
-    <!--        </div>-->
-    <!--        <div class="mt-3">-->
-    <!--          Finish at:-->
-    <!--          {{ form.controls.end.value | date: 'full' }}-->
-    <!--        </div>-->
-    <!--        <div class="mt-3">-->
-    <!--          <label for="event-form-description">Description</label>-->
-    <!--          <textarea-->
-    <!--            class="px-3 py-2 border rounded w-full"-->
-    <!--            hasError-->
-    <!--            invalidTooltip-->
-    <!--            placeholder="Write some description of event"-->
-    <!--            id="event-form-description"-->
-    <!--            formControlName="description"></textarea>-->
-    <!--        </div>-->
-
-    <!--      </div>-->
-
-    <!--    </div>-->
-
-    <!--    <div class="col-span-12 lg:col-span-4">-->
-
-    <!--      <div-->
-    <!--        class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4">-->
-
-    <!--        Attendees-->
-
-    <!--        <event-attendees-component [form]="form.controls.attendees"></event-attendees-component>-->
-
-    <!--      </div>-->
-
-    <!--    </div>-->
-
-    <!--  </div>-->
-
-    <!--  <div class="mt-4">-->
-
-    <!--    <button-->
-    <!--      class="bg-blue-600 text-white rounded px-4 py-2 w-full"-->
-    <!--      [disabled]="form.disabled"-->
-    <!--      (click)="save()">-->
-    <!--      {{ 'general.save' | translate }}-->
-    <!--    </button>-->
-
-    <!--  </div>-->
-    <!--</form>-->
 
     <div class="flex flex-col gap-4">
 
@@ -202,6 +62,22 @@ import {is} from "thiis";
             </span>
             <span class="text-sm">
               {{ selectedService.durationVersions[0].duration }}
+            </span>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="pt-1">
+            <div class="w-[70px] flex justify-end">
+              <div class="w-[44px] h-[44px] bg-gray-300 rounded-2xl"></div>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-bold">
+              Specialist
+            </span>
+            <span class="text-sm text-gray-500">
+              {{ getPermanentMembers(selectedService.permanentMembers) }}
             </span>
           </div>
         </div>
