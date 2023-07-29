@@ -36,10 +36,17 @@ export default class Index {
     if (this.form.valid) {
       const clientId = await firstValueFrom(this.identityApiAdapter.postCreateBusinessClient$(this.form.getRawValue())).then(async () => {
         const toast = await this.toastController.create({
-          header: 'Sign up',
-          message: 'Success',
+          header: 'Business client',
+          message: 'You successfully create new business client!',
           color: 'success',
-          position: 'top'
+          position: 'top',
+          duration: 10_000,
+          buttons: [
+            {
+              text: 'Dismiss',
+              role: 'cancel',
+            },
+          ],
         });
         await toast.present();
         await this.router.navigate(['/', 'identity', 'corridor']);

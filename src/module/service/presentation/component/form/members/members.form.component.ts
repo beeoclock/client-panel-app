@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input} from '@angular/core';
+import {AfterViewInit, Component, inject, Input} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
@@ -8,6 +8,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
 import {FooterCardComponent} from "@utility/presentation/component/card/footer.card.component";
 import {ModalMembersFormComponent} from "@service/presentation/component/form/members/modal.employees.form.component";
+import {ListMemberApiAdapter} from "@member/adapter/external/api/list.member.api.adapter";
 
 @Component({
   selector: 'service-members-form-component',
@@ -78,20 +79,23 @@ export class MembersFormComponent implements AfterViewInit {
 
   public items: IMember[] = [];
 
+  // TODO create external adapter (in event module) for the module (service)
+  private readonly listMemberApiAdapter = inject(ListMemberApiAdapter);
+
   public ngAfterViewInit(): void {
     this.control.markAsPending();
-    // this.memberRepository
-    //   .list({
-    //     pageSize: 10,
-    //     page: 1,
-    //     orderBy: 'createdAt',
-    //     orderDir: 'asc',
-    //     filters: {}
-    //   })
-    //   .then((result) => {
-    //     this.items = result.data.items;
-    //     this.control.updateValueAndValidity();
-    //   });
+    this.listMemberApiAdapter
+      .executeAsync({
+        pageSize: 10,
+        page: 1,
+        orderBy: 'createdAt',
+        orderDir: 'asc',
+        filters: {}
+      })
+      .then((result) => {
+        this.items = result.items;
+        this.control.updateValueAndValidity();
+      });
 
   }
 
