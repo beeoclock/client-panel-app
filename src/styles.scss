@@ -35,6 +35,10 @@
 //@import "~@ionic/angular/css/display.css";
 // IONIC FINISH
 
+button[disabled]{
+  pointer-events: none;
+}
+
 label[required]:after {
   content:" *";
   color: red;

@@ -40,8 +40,17 @@ import {Dropdown, DropdownInterface, DropdownOptions} from "flowbite";
         <i class="bi bi-three-dots-vertical"></i>
       </ng-container>
       <ng-template #DefaultTemplate>
-        {{ buttonLabel }}
-        <i class="bi bi-chevron-down -mr-1 ml-1.5 h-5 w-5"></i>
+
+        <ng-container *ngIf="customButtonContent">
+          <ng-content select="[button]"></ng-content>
+        </ng-container>
+
+        <ng-container *ngIf="!customButtonContent">
+          {{ buttonLabel }}
+          <i class="bi bi-chevron-down -mr-1 ml-1.5 h-5 w-5"></i>
+
+        </ng-container>
+
       </ng-template>
     </button>
 
@@ -49,7 +58,7 @@ import {Dropdown, DropdownInterface, DropdownOptions} from "flowbite";
     <div
       #dropdownMenu
       class="z-10 hidden bg-white divide-y divide-beeColor-100 rounded-lg shadow w-44 dark:bg-beeDarkColor-700">
-      <ul class="py-2 text-sm text-beeColor-700 dark:text-beeDarkColor-200" aria-labelledby="dropdownDefaultButton">
+      <ul [class]="menuClassList" aria-labelledby="dropdownDefaultButton">
         <ng-content select="[content]"></ng-content>
       </ul>
     </div>
@@ -68,7 +77,13 @@ export class DropdownComponent implements AfterViewInit {
   public buttonLabel = 'More';
 
   @Input()
+  public customButtonContent = false;
+
+  @Input()
   public threeDot = false;
+
+  @Input()
+  public menuClassList = 'py-2 text-sm text-beeColor-700 dark:text-beeDarkColor-200';
 
   @Input()
   @HostBinding()

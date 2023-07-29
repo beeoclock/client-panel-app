@@ -8,6 +8,8 @@ import {ICacheState} from "@utility/state/cache/cache.state";
 import {ActiveEnum} from "@utility/domain/enum";
 import {inject} from "@angular/core";
 import {getMaxPage} from "@utility/domain/max-page";
+import {Router} from "@angular/router";
+import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 
 export interface IBaseState<ITEM> {
   item: {
@@ -76,9 +78,18 @@ export abstract class BaseState<ITEM = any> {
   ) {
   }
 
-  public readonly router!: any;
-  public readonly repository!: any;
-  public readonly store = inject(Store);
+  protected readonly router = inject(Router);
+  protected readonly store = inject(Store);
+
+  protected readonly item!: BaseApiAdapter<ITEM>;
+  protected readonly create!: BaseApiAdapter<ITEM>;
+  protected readonly update!: BaseApiAdapter<ITEM>;
+  protected readonly remove!: BaseApiAdapter<unknown>;
+  protected readonly archive!: BaseApiAdapter<unknown>;
+  protected readonly list!: BaseApiAdapter<{
+    items: ITEM[];
+    totalSize: number;
+  }>;
 
   /**
    * Init default from cache
@@ -281,7 +292,7 @@ export abstract class BaseState<ITEM = any> {
 
         ctx.dispatch(new AppActions.PageLoading(true));
 
-        const {data} = await this.repository.item(payload);
+        const data = await this.item.executeAsync(payload);
 
         const item = {
           data,
@@ -314,13 +325,46 @@ export abstract class BaseState<ITEM = any> {
    * @param ctx
    * @param payload
    */
-  public async saveItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.SaveItem<ITEM>): Promise<void> {
+  public async createItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.CreateItem<ITEM>): Promise<void> {
 
     ctx.dispatch(new AppActions.PageLoading(true));
 
     try {
       // TODO Implement: Error case
-      const data = await this.repository.save(payload);
+      const data = await this.create.executeAsync(payload);
+
+      await this.ClearItemCache(ctx);
+      await this.ClearTableCache(ctx);
+
+      // Set new/updated item to store state and clear table
+      ctx.patchState({
+        item: {
+          data,
+          downloadedAt: new Date(),
+        },
+        tableState: new TableState<ITEM>().toCache(),
+        lastTableHashSum: undefined
+      });
+    } catch (e) {
+      console.error('Error Response: ', e);
+    }
+
+    ctx.dispatch(new AppActions.PageLoading(false));
+
+  }
+
+  /**
+   *
+   * @param ctx
+   * @param payload
+   */
+  public async updateItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateItem<ITEM>): Promise<void> {
+
+    ctx.dispatch(new AppActions.PageLoading(true));
+
+    try {
+      // TODO Implement: Error case
+      const data = await this.update.executeAsync(payload);
 
       await this.ClearItemCache(ctx);
       await this.ClearTableCache(ctx);
@@ -351,7 +395,7 @@ export abstract class BaseState<ITEM = any> {
 
     ctx.dispatch(new AppActions.PageLoading(true));
 
-    this.repository.remove(payload).then((result: any) => {
+    this.remove.executeAsync(payload).then((result: any) => {
       if (result) {
 
         const state = ctx.getState();
@@ -382,35 +426,39 @@ export abstract class BaseState<ITEM = any> {
    * @param ctx
    * @param payload
    */
-  public archiveItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.ArchiveItem): void {
+  public async archiveItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.ArchiveItem): Promise<void> {
 
     ctx.dispatch(new AppActions.PageLoading(true));
 
-    this.repository.archive(payload).then((result: any) => {
-      if (result) {
+    try {
+      console.log('before')
+      await this.archive.executeAsync(payload);
+      console.log('after')
 
-        const state = ctx.getState();
-        const {_id} = (state.item?.data ?? {}) as { _id: string };
+      const state = ctx.getState();
+      const {_id} = (state.item?.data ?? {}) as { _id: string };
 
-        if (_id === payload) {
+      if (_id === payload) {
 
-          ctx.patchState({
-            item: {
-              data: {
-                ...state.item.data,
-                active: ActiveEnum.NO
-              } as any,
-              downloadedAt: new Date(),
-            }
-          });
+        ctx.patchState({
+          item: {
+            data: {
+              ...state.item.data,
+              active: ActiveEnum.NO
+            } as any,
+            downloadedAt: new Date(),
+          }
+        });
 
-        } else {
+      } else {
 
-          // TODO delete from cache
+        // TODO delete from cache
 
-        }
       }
-    });
+
+    } catch (e) {
+      console.error(e);
+    }
 
     ctx.dispatch(new AppActions.PageLoading(false));
   }
@@ -460,15 +508,15 @@ export abstract class BaseState<ITEM = any> {
 
       const newTableState = TableState.fromCache<ITEM>(state.tableState);
 
-      const {data} = await this.repository.list({
+      const data = await this.list.executeAsync({
         ...newTableState.toBackendFormat(),
         filters
       });
 
       // Update current state
-      const {items, total} = data;
+      const {items, totalSize} = data;
 
-      newTableState.total = total;
+      newTableState.total = totalSize;
       newTableState.items = items;
       newTableState.maxPage = getMaxPage(newTableState.total, newTableState.pageSize);
 

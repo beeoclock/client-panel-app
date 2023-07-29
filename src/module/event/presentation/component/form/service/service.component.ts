@@ -5,6 +5,7 @@ import {FormControl} from "@angular/forms";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {ButtonComponent} from "@utility/presentation/component/button/button.component";
 import {IMember} from "@member/domain";
+import {SelectServiceComponent} from "@event/presentation/component/form/service/select-service.component";
 
 @Component({
   selector: 'event-form-service-component',
@@ -15,16 +16,19 @@ import {IMember} from "@member/domain";
     NgIf,
     NgForOf,
     NgClass,
-    ButtonComponent
+    ButtonComponent,
+    SelectServiceComponent
   ],
   template: `
-    <event-services-form-component [control]="control"></event-services-form-component>
+
+    <event-select-service-form-component [control]="control"></event-select-service-form-component>
 
     <ng-container *ngIf="control.value">
 
       <p class="mt-3"><strong>Select language version of service</strong></p>
 
-      <div *ngFor="let languageVersion of control.value.languageVersions; let index = index;" class="list-group mb-2">
+      <div *ngFor="let languageVersion of control.value.languageVersions; let index = index;"
+           class="list-group mb-2">
 
         <div
           (click)="selectLanguage(languageVersion)"
@@ -102,7 +106,8 @@ import {IMember} from "@member/domain";
 
       <p class="mt-3"><strong>Select duration</strong></p>
 
-      <div *ngFor="let durationVersion of control.value.durationVersions; let index = index;" class="list-group mb-2">
+      <div *ngFor="let durationVersion of control.value.durationVersions; let index = index;"
+           class="list-group mb-2">
 
         <div
           (click)="selectDuration(durationVersion)"

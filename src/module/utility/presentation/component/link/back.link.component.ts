@@ -1,5 +1,6 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'utility-back-link-component',
@@ -17,11 +18,12 @@ import {RouterLink} from '@angular/router';
         rounded
         text-center w-24">
       <i class="bi bi-arrow-left me-2"></i>
-      back
+      {{ 'general.back' | translate }}
     </a>
   `,
   imports: [
-    RouterLink
+    RouterLink,
+    TranslateModule
   ],
   encapsulation: ViewEncapsulation.None
 })

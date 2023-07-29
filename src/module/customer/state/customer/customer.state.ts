@@ -1,10 +1,14 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
-import {Router} from "@angular/router";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import * as Customer from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
-import {CustomerRepository} from "@customer/repository/customer.repository";
+import {ArchiveCustomerApiAdapter} from "@customer/adapter/external/api/archive.customer.api.adapter";
+import {CreateCustomerApiAdapter} from "@customer/adapter/external/api/create.customer.api.adapter";
+import {UpdateCustomerApiAdapter} from "@customer/adapter/external/api/update.customer.api.adapter";
+import {ItemCustomerApiAdapter} from "@customer/adapter/external/api/item.customer.api.adapter";
+import {RemoveCustomerApiAdapter} from "@customer/adapter/external/api/remove.customer.api.adapter";
+import {ListCustomerApiAdapter} from "@customer/adapter/external/api/list.customer.api.adapter";
 
 export type ICustomerState = IBaseState<Customer.ICustomer>;
 
@@ -15,8 +19,12 @@ export type ICustomerState = IBaseState<Customer.ICustomer>;
 @Injectable()
 export class CustomerState extends BaseState<Customer.ICustomer> {
 
-  public override readonly router = inject(Router);
-  public override readonly repository = inject(CustomerRepository);
+  protected override readonly archive = inject(ArchiveCustomerApiAdapter);
+  protected override readonly create = inject(CreateCustomerApiAdapter);
+  protected override readonly update = inject(UpdateCustomerApiAdapter);
+  protected override readonly item = inject(ItemCustomerApiAdapter);
+  protected override readonly remove = inject(RemoveCustomerApiAdapter);
+  protected override readonly list = inject(ListCustomerApiAdapter);
 
   constructor() {
     super(
@@ -73,19 +81,24 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
     await super.GetItem(ctx, action);
   }
 
-  @Action(CustomerActions.SaveItem)
-  public override async saveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.SaveItem): Promise<void> {
-    await super.saveItem(ctx, action);
+  @Action(CustomerActions.CreateItem)
+  public override async createItem(ctx: StateContext<ICustomerState>, action: CustomerActions.CreateItem): Promise<void> {
+    await super.createItem(ctx, action);
+  }
+
+  @Action(CustomerActions.UpdateItem)
+  public override async updateItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateItem): Promise<void> {
+    await super.updateItem(ctx, action);
   }
 
   @Action(CustomerActions.DeleteItem)
-  public override deleteItem(ctx: StateContext<ICustomerState>, action: CustomerActions.DeleteItem): void {
+  public override deleteItem(ctx: StateContext<ICustomerState>, action: CustomerActions.DeleteItem) {
     super.deleteItem(ctx, action);
   }
 
   @Action(CustomerActions.ArchiveItem)
-  public override archiveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.ArchiveItem): void {
-    super.archiveItem(ctx, action);
+  public override async archiveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.ArchiveItem) {
+    await super.archiveItem(ctx, action);
   }
 
   @Action(CustomerActions.GetList)

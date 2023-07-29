@@ -1,14 +1,10 @@
-<ul class="max-w-xs flex flex-col mb-2">
-  <li (click)="logout()" class="cursor-pointer text-red-500 hover:underline inline-flex items-center gap-x-3.5 py-3 px-4 text-sm font-medium text -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:text-red-600 dark:text-white">
-    <span class="text-xl">
-      <i class="bi bi-box-arrow-left"></i>
-    </span>
-    Logout
-  </li>
-</ul>
-<ul class="max-w-xs flex flex-col mb-3">
+<div class="flex justify-between">
+  <utility-logout-component></utility-logout-component>
+  <utility-change-language-component></utility-change-language-component>
+</div>
+<ul class="max-w-xs flex flex-col mt-4">
   <li class="font-bold inline-flex items-center gap-x-3.5 py-3 px-4 bg-white border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-gray-800 dark:border-gray-700 dark:text-white">
-    Select Business
+    {{ 'identity.corridor.selectBusiness' | translate }}
   </li>
   <div class="overflow-y-auto max-h-96 flex flex-col">
 
@@ -33,6 +29,6 @@
     <span class="text-3xl">
       <i class="bi bi-plus-lg"></i>
     </span>
-    Create new Business
+    {{ 'identity.corridor.addBusiness' | translate }}
   </li>
 </ul>

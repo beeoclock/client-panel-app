@@ -2,13 +2,13 @@ import {AfterViewInit, Component, inject, Input} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {MemberRepository} from "@member/repository/member.repository";
 import {IMember} from "@member/domain";
 import {BodyCardComponent} from "@utility/presentation/component/card/body.card.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
 import {FooterCardComponent} from "@utility/presentation/component/card/footer.card.component";
 import {ModalMembersFormComponent} from "@service/presentation/component/form/members/modal.employees.form.component";
+import {ListMemberApiAdapter} from "@member/adapter/external/api/list.member.api.adapter";
 
 @Component({
   selector: 'service-members-form-component',
@@ -77,14 +77,15 @@ export class MembersFormComponent implements AfterViewInit {
   @Input()
   public multiple = true;
 
-  public readonly memberRepository = inject(MemberRepository);
-
   public items: IMember[] = [];
+
+  // TODO create external adapter (in event module) for the module (service)
+  private readonly listMemberApiAdapter = inject(ListMemberApiAdapter);
 
   public ngAfterViewInit(): void {
     this.control.markAsPending();
-    this.memberRepository
-      .list({
+    this.listMemberApiAdapter
+      .executeAsync({
         pageSize: 10,
         page: 1,
         orderBy: 'createdAt',
@@ -92,7 +93,7 @@ export class MembersFormComponent implements AfterViewInit {
         filters: {}
       })
       .then((result) => {
-        this.items = result.data.items;
+        this.items = result.items;
         this.control.updateValueAndValidity();
       });
 

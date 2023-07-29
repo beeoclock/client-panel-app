@@ -1,0 +1,302 @@
+{
+  "form": {
+    "validation": {
+      "required": "Обов'язкове поле",
+      "email": "Неправильний формат E-mail",
+      "minlength": "Мінімальна довжина - {{requiredLength}}"
+    }
+  },
+  "general": {
+    "today": "Сьогодні",
+    "tomorrow": "Завтра",
+    "dateAndTime": "Дата та час",
+    "logout": "Вихід",
+    "back": "Назад",
+    "clients": "Клієнти",
+    "services": "Послуги",
+    "phone": "Телефон",
+    "fullName": "Повне ім'я",
+    "firstName": "Ім'я",
+    "lastName": "Прізвище",
+    "email": "E-mail",
+    "note": "Примітка",
+    "description": "Опис",
+    "title": "Назва",
+    "name": "Ім'я",
+    "break": "Перерва",
+    "duration": "Тривалість",
+    "createdAt": "Створено",
+    "updatedAt": "Оновлено",
+    "action": "Дія",
+    "delete": "Видалити",
+    "update": "Оновити",
+    "save": "Зберегти",
+    "edit": "Редагувати",
+    "information": "Інформація",
+    "additional": "Додатково",
+    "contact": "Контакт",
+    "active": "Активний",
+    "languages": "Мови",
+    "members": "Учасники",
+    "soon": "Незабаром",
+    "role": "Роль",
+    "permission": "Дозвіл",
+    "signOut": "Вийти",
+    "publicPage": "Публічна сторінка"
+  },
+  "sidebar": {
+    "dashboard": "Панель керування",
+    "members": "Учасники",
+    "customers": "Клієнти",
+    "services": "Послуги",
+    "events": "Події",
+    "calendar": "Календар",
+    "table": "Таблиця",
+    "addEvent": "Додати подію",
+    "private": "Приватне",
+    "profile": "Профіль",
+    "settings": "Налаштування",
+    "switch-business-client": "Змінити контекст"
+  },
+  "page": {
+    "calendar": {
+      "title": "Календар"
+    },
+    "select-client": {
+      "title": "Виберіть клієнта",
+      "form": {
+        "button": {
+          "submit": "Вибрати"
+        }
+      },
+      "button": {
+        "create-new-client": "Створити нового клієнта"
+      }
+    }
+  },
+  "service": {
+    "title": "Послуга"
+  },
+  "customer": {
+    "title": "Клієнт",
+    "button": {
+      "create": "Додати клієнта"
+    }
+  },
+  "member": {
+    "title": "Учасник",
+    "button": {
+      "create": "Додати учасника"
+    }
+  },
+  "event": {
+    "title": "Подія",
+    "form": {
+      "section": {
+        "attendant": {
+          "button": {
+            "add": "Додати учасника"
+          }
+        },
+        "service": {
+          "modal": {
+            "title": "Вибір послуги"
+          },
+          "button": {
+            "add": "Додати послугу"
+          }
+        }
+      }
+    }
+  },
+  "client": {
+    "settings": {
+      "title": "Налаштування",
+      "form": {
+        "inputs": {
+          "darkMode": {
+            "label": "Темний режим"
+          }
+        }
+      },
+      "defaultData": {
+        "event": {
+          "title": "Загальні дані події",
+          "form": {
+            "inputs": {
+              "language": {
+                "label": "Мова події за замовчуванням"
+              },
+              "service": {
+                "label": "Послуга події за замовчуванням (основна послуга)"
+              }
+            }
+          }
+        },
+        "service": {
+          "title": "Загальні дані послуги",
+          "form": {
+            "inputs": {
+              "duration": {
+                "label": "Тривалість послуги за замовчуванням"
+              },
+              "language": {
+                "label": "Мова послуги за замовчуванням"
+              },
+              "workDays": {
+                "label": "Робочі дні послуги за замовчуванням"
+              },
+              "break": {
+                "label": "Перерва послуги за замовчуванням"
+              },
+              "startWork": {
+                "label": "Початок роботи за замовчуванням"
+              },
+              "endWork": {
+                "label": "Кінець роботи за замовчуванням"
+              },
+              "price": {
+                "label": "Ціна послуги за замовчуванням"
+              }
+            }
+          }
+        }
+      }
+    },
+    "profile": {
+      "title": "Профіль",
+      "form": {
+        "inputs": {
+          "name": {
+            "label": "Ім'я",
+            "placeholder": "Введіть назву компанії або особисте ім'я"
+          },
+          "description": {
+            "label": "Опис",
+            "placeholder": "Введіть опис клієнта"
+          },
+          "active": {
+            "label": "Активний",
+            "placeholder": "Увімкніть, якщо хочете бути активним"
+          }
+        }
+      }
+    }
+  },
+  "identity": {
+    "corridor": {
+      "addBusiness": "Створити новий бізнес",
+      "selectBusiness": "Вибери бізнес контекст"
+    },
+    "create-business": {
+      "form": {
+        "inputs": {
+          "name": {
+            "label": "Назва"
+          },
+          "address": {
+            "label": "Адреса"
+          },
+          "slogan": {
+            "label": "Слоган"
+          }
+        }
+      }
+    },
+    "reset-password": {
+      "form": {
+        "label": "Скидання пароля",
+        "inputs": {
+          "password": {
+            "label": "Пароль",
+            "placeholder": "Введіть пароль"
+          }
+        },
+        "button": {
+          "submit": "Змінити пароль",
+          "sign-in": "Увійти"
+        }
+      }
+    },
+    "forgot-password": {
+      "form": {
+        "label": "Забули пароль",
+        "inputs": {
+          "email": {
+            "label": "E-mail",
+            "placeholder": "Введіть E-mail"
+          }
+        },
+        "button": {
+          "submit": "Надіслати",
+          "sign-in": "Увійти"
+        }
+      }
+    },
+    "sign-in": {
+      "form": {
+        "label": "Увійти",
+        "inputs": {
+          "email": {
+            "label": "E-mail",
+            "placeholder": "ім'я.прізвище@beeoclock.com"
+          },
+          "password": {
+            "label": "Пароль",
+            "placeholder": "Введіть пароль"
+          }
+        },
+        "button": {
+          "forgot-password": "Забули пароль",
+          "submit": "Увійти",
+          "sign-up": "Реєстрація"
+        }
+      }
+    },
+    "sign-up": {
+      "form": {
+        "label": "Реєстрація",
+        "inputs": {
+          "display-name": {
+            "label": "Як вас звати",
+            "placeholder": "наприклад, назва компанії або особисте ім'я"
+          },
+          "email": {
+            "label": "E-mail",
+            "placeholder": "Введіть текст"
+          },
+          "password": {
+            "label": "Пароль",
+            "placeholder": "Введіть пароль"
+          },
+          "password-confirm": {
+            "label": "Підтвердження пароля",
+            "placeholder": "Введіть підтвердження пароля"
+          },
+          "timezone": {
+            "inputs": {
+              "offset": {
+                "label": "Підтвердження пароля",
+                "placeholder": "Введіть підтвердження пароля"
+              }
+            }
+          }
+        },
+        "button": {
+          "sign-in": "Увійти",
+          "submit": "Реєстрація"
+        }
+      }
+    }
+  },
+  "http": {
+    "response": {
+      "status": {
+        "504": {
+          "title": "Помилка сервера",
+          "content": "Перевірте інтернет або спробуйте пізніше."
+        }
+      }
+    }
+  }
+}

@@ -7,6 +7,8 @@ import {firstValueFrom} from "rxjs";
 import {ToastController} from "@ionic/angular";
 import {Router} from "@angular/router";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
+import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
+import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 
 @Component({
   selector: 'identity-create-business-page',
@@ -15,7 +17,9 @@ import {BackLinkComponent} from "@utility/presentation/component/link/back.link.
   imports: [
     ReactiveFormsModule,
     TranslateModule,
-    BackLinkComponent
+    BackLinkComponent,
+    FormInputComponent,
+    ChangeLanguageComponent
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -32,10 +36,17 @@ export default class Index {
     if (this.form.valid) {
       const clientId = await firstValueFrom(this.identityApiAdapter.postCreateBusinessClient$(this.form.getRawValue())).then(async () => {
         const toast = await this.toastController.create({
-          header: 'Sign up',
-          message: 'Success',
+          header: 'Business client',
+          message: 'You successfully create new business client!',
           color: 'success',
-          position: 'top'
+          position: 'top',
+          duration: 10_000,
+          buttons: [
+            {
+              text: 'Dismiss',
+              role: 'cancel',
+            },
+          ],
         });
         await toast.present();
         await this.router.navigate(['/', 'identity', 'corridor']);

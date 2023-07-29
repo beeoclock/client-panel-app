@@ -2,9 +2,13 @@ import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import * as Service from "@service/domain";
 import {IService} from "@service/domain";
-import {Router} from "@angular/router";
-import {ServiceRepository} from "@service/repository/service.repository";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
+import {ArchiveServiceApiAdapter} from "@service/adapter/external/api/archive.service.api.adapter";
+import {CreateServiceApiAdapter} from "@service/adapter/external/api/create.service.api.adapter";
+import {UpdateServiceApiAdapter} from "@service/adapter/external/api/update.service.api.adapter";
+import {ItemServiceApiAdapter} from "@service/adapter/external/api/item.service.api.adapter";
+import {RemoveServiceApiAdapter} from "@service/adapter/external/api/remove.service.api.adapter";
+import {ListServiceApiAdapter} from "@service/adapter/external/api/list.service.api.adapter";
 import {ServiceActions} from "@service/state/service/service.actions";
 
 export type IServiceState = IBaseState<Service.IService>
@@ -16,8 +20,12 @@ export type IServiceState = IBaseState<Service.IService>
 @Injectable()
 export class ServiceState extends BaseState<IService> {
 
-  public override readonly router = inject(Router);
-  public override readonly repository = inject(ServiceRepository);
+  protected override readonly archive = inject(ArchiveServiceApiAdapter);
+  protected override readonly create = inject(CreateServiceApiAdapter);
+  protected override readonly update = inject(UpdateServiceApiAdapter);
+  protected override readonly item = inject(ItemServiceApiAdapter);
+  protected override readonly remove = inject(RemoveServiceApiAdapter);
+  protected override readonly list = inject(ListServiceApiAdapter);
 
   constructor() {
     super(
@@ -69,9 +77,14 @@ export class ServiceState extends BaseState<IService> {
     return super.UpdateTableState(ctx, action);
   }
 
-  @Action(ServiceActions.SaveItem)
-  public override async saveItem(ctx: StateContext<IServiceState>, action: ServiceActions.SaveItem): Promise<void> {
-    await super.saveItem(ctx, action);
+  @Action(ServiceActions.CreateItem)
+  public override async createItem(ctx: StateContext<IServiceState>, action: ServiceActions.CreateItem): Promise<void> {
+    await super.createItem(ctx, action);
+  }
+
+  @Action(ServiceActions.UpdateItem)
+  public override async updateItem(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateItem): Promise<void> {
+    await super.updateItem(ctx, action);
   }
 
   @Action(ServiceActions.GetItem)

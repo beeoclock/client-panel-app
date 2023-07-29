@@ -44,8 +44,12 @@ export namespace EventActions {
     public static override readonly type = '[Event API] Get Item';
   }
 
-  export class SaveItem extends BaseActions.SaveItem<IEvent> {
-    public static override readonly type = '[Event API] Save Item';
+  export class CreateItem extends BaseActions.CreateItem<IEvent> {
+    public static override readonly type = '[Event API] Create Item';
+  }
+
+  export class UpdateItem extends BaseActions.UpdateItem<IEvent> {
+    public static override readonly type = '[Event API] Update Item';
   }
 
   // Updates of state

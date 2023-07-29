@@ -44,8 +44,12 @@ export namespace MemberActions {
     public static override readonly type = '[Member API] Get Item';
   }
 
-  export class SaveItem extends BaseActions.SaveItem<IMember> {
-    public static override readonly type = '[Member API] Save Item';
+  export class CreateItem extends BaseActions.CreateItem<IMember> {
+    public static override readonly type = '[Member API] Create Item';
+  }
+
+  export class UpdateItem extends BaseActions.UpdateItem<IMember> {
+    public static override readonly type = '[Member API] Update Item';
   }
 
   // Updates of state

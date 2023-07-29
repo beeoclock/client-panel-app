@@ -44,8 +44,12 @@ export namespace ServiceActions {
     public static override readonly type = '[Service API] Get Item';
   }
 
-  export class SaveItem extends BaseActions.SaveItem<IService> {
-    public static override readonly type = '[Service API] Save Item';
+  export class CreateItem extends BaseActions.CreateItem<IService> {
+    public static override readonly type = '[Service API] Create Item';
+  }
+
+  export class UpdateItem extends BaseActions.UpdateItem<IService> {
+    public static override readonly type = '[Service API] Update Item';
   }
 
   // Updates of state

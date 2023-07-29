@@ -11,6 +11,9 @@ import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {IdentityApiAdapter} from "@identity/adapter/external/api/identity.api.adapter";
 import {Auth} from "@angular/fire/auth";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
+import {TranslateModule} from "@ngx-translate/core";
+import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
+import {LogoutComponent} from "@utility/presentation/component/logout/logout.component";
 
 @Component({
   selector: 'identity-corridor-page',
@@ -23,7 +26,10 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
     NgForOf,
     AsyncPipe,
     NgIf,
-    LoaderComponent
+    LoaderComponent,
+    TranslateModule,
+    ChangeLanguageComponent,
+    LogoutComponent
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -84,16 +90,6 @@ export default class Index {
       await this.router.navigate(['/', 'dashboard']);
     }
 
-  }
-
-  public logout(): void {
-    this.auth.signOut()
-      .then(() => {
-        this.router.navigate(['/'])
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }
 
 }

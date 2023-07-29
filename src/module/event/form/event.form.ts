@@ -4,6 +4,9 @@ import {IService} from "@service/domain";
 
 export interface IAttendantForm {
   email: FormControl<string>;
+  phone: FormControl<string>;
+  firstName: FormControl<string>;
+  lastName: FormControl<string>;
 
   [key: string]: AbstractControl<any, any>;
 }
@@ -73,6 +76,9 @@ export class AttendantForm extends FormGroup<IAttendantForm> {
   constructor() {
     super({
       email: new FormControl(),
+      phone: new FormControl(),
+      firstName: new FormControl(),
+      lastName: new FormControl(),
     });
     this.initValidators();
   }

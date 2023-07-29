@@ -29,11 +29,20 @@ export class AppComponent implements AfterViewInit {
 
     // I18n
     const browserLanguage = this.translateService.getBrowserLang();
-    if (browserLanguage && browserLanguage in LanguageCodeEnum) {
-      this.translateService.use(browserLanguage);
+    const selectedLanguageCode = localStorage.getItem('language');
+    if (selectedLanguageCode) {
+      this.translateService.use(selectedLanguageCode);
     } else {
-      this.translateService.use(this.translateService.getDefaultLang());
+      if (browserLanguage && browserLanguage in LanguageCodeEnum) {
+        this.translateService.use(browserLanguage);
+      } else {
+        this.translateService.use(this.translateService.getDefaultLang());
+      }
     }
+
+    this.translateService.onLangChange.subscribe((language) => {
+      localStorage.setItem('language', language.lang);
+    });
   }
 
   public ngAfterViewInit(): void {

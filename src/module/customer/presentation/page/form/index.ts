@@ -57,6 +57,7 @@ export default class Index implements OnInit {
 
   @Select(CustomerState.itemData)
   public itemData$!: Observable<ICustomer | undefined>;
+  private isEditMode = false;
 
   public ngOnInit(): void {
     this.detectItem();
@@ -66,6 +67,7 @@ export default class Index implements OnInit {
     firstValueFrom(this.activatedRoute.params.pipe(filter(({id}) => id?.length))).then(() => {
       firstValueFrom(this.itemData$).then((result) => {
         if (result) {
+          this.isEditMode = true;
           this.cancelUrl.push('details', result._id);
           this.form.patchValue(result);
           this.form.updateValueAndValidity();
@@ -79,7 +81,11 @@ export default class Index implements OnInit {
     if (this.form.valid) {
       this.form.disable();
       this.form.markAsPending();
-      await firstValueFrom(this.store.dispatch(new CustomerActions.SaveItem(this.form.getRawValue() as ICustomer)));
+      if (this.isEditMode) {
+        await firstValueFrom(this.store.dispatch(new CustomerActions.UpdateItem(this.form.getRawValue() as ICustomer)));
+      } else {
+        await firstValueFrom(this.store.dispatch(new CustomerActions.CreateItem(this.form.getRawValue() as ICustomer)));
+      }
       const item = await firstValueFrom(this.itemData$);
       if (item) {
         await this.router.navigate([this.baseUrl, 'details', item?._id], {

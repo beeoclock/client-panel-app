@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, ElementRef, inject, OnInit, QueryList, ViewChildren} from "@angular/core";
 import {ServiceForm} from "@service/form/service.form";
-import {ServiceRepository} from "@service/repository/service.repository";
 import {ActivatedRoute, Router} from "@angular/router";
 import {StepWrapperComponent} from "@service/presentation/component/form/step-wrapper.component";
 import {NgForOf} from "@angular/common";
@@ -85,7 +84,6 @@ export class FormComponent implements AfterViewInit, OnInit {
   public readonly idStepPrefix = 'service-form-steps-bar-section-';
 
   public readonly router = inject(Router);
-  public readonly repository = inject(ServiceRepository);
   public readonly activatedRoute = inject(ActivatedRoute);
   public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 
@@ -99,6 +97,7 @@ export class FormComponent implements AfterViewInit, OnInit {
 
   @Select(ServiceState.itemData)
   public itemData$!: Observable<IService | undefined>;
+  private isEditMode = false;
 
   public ngOnInit(): void {
     this.detectItem();
@@ -108,6 +107,7 @@ export class FormComponent implements AfterViewInit, OnInit {
     firstValueFrom(this.activatedRoute.params.pipe(filter(({id}) => id?.length))).then(() => {
       firstValueFrom(this.itemData$).then((result) => {
         if (result) {
+          this.isEditMode = true;
           this.cancelUrl.push('details', result._id);
           this.form.patchValue(result);
           this.form.updateValueAndValidity();
@@ -200,7 +200,11 @@ export class FormComponent implements AfterViewInit, OnInit {
     if (this.form.valid) {
       this.form.disable();
       this.form.markAsPending();
-      await firstValueFrom(this.store.dispatch(new ServiceActions.SaveItem(this.form.getRawValue() as IService)));
+      if (this.isEditMode) {
+        await firstValueFrom(this.store.dispatch(new ServiceActions.UpdateItem(this.form.getRawValue() as IService)));
+      } else {
+        await firstValueFrom(this.store.dispatch(new ServiceActions.CreateItem(this.form.getRawValue() as IService)));
+      }
       const item = await firstValueFrom(this.itemData$);
       if (item) {
         await this.router.navigate([this.baseUrl, 'details', item?._id], {
