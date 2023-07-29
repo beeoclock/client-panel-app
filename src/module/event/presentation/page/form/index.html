@@ -6,7 +6,7 @@
 
 <!--    <div class="col-span-12 lg:col-span-8">-->
 
-<!--      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4 mt-4">-->
+<!--      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4">-->
 
 <!--        <div class="form-check mb-4">-->
 <!--          <input class="form-check-input" formControlName="servicesAreProvidedInParallel" type="checkbox" [value]="true" id="servicesAreProvidedInParallel">-->
@@ -17,7 +17,7 @@
 
 <!--        <div-->
 <!--          *ngFor="let service of form.controls.services.value; let index = index;"-->
-<!--          class="border border-beeColor-200 rounded-lg dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 dark:text-white mt-4">-->
+<!--          class="border border-beeColor-200 rounded-lg dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 dark:text-white">-->
 <!--          <div-->
 <!--            class="-->
 <!--              justify-between-->
@@ -71,7 +71,7 @@
 <!--        </div>-->
 
 <!--      </div>-->
-<!--      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4 mt-4">-->
+<!--      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4">-->
 
 <!--        <div class="relative">-->
 <!--          <label for="event-form-start">Start</label>-->
@@ -115,7 +115,7 @@
 <!--    <div class="col-span-12 lg:col-span-4">-->
 
 <!--      <div-->
-<!--        class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4 mt-4">-->
+<!--        class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4">-->
 
 <!--        Attendees-->
 
@@ -144,7 +144,17 @@
 
   <div class="col-span-12 lg:col-start-4 lg:col-span-6">
 
-    <form [formGroup]="form">
+    <form [formGroup]="form" class="flex flex-col gap-4">
+      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-4">
+
+        <event-attendees-component [form]="form.controls.attendees"></event-attendees-component>
+
+      </div>
+      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-4">
+
+        <event-services-form-component [control]="form.controls.services"></event-services-form-component>
+
+      </div>
       <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-4">
 
         <strong>{{ 'general.information' | translate }}</strong>
@@ -167,7 +177,7 @@
 
       </div>
 
-      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 mt-4 flex flex-col gap-4">
+      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-4">
         <strong>{{ 'general.contact' | translate }}</strong>
 
         <form-input
@@ -189,10 +199,10 @@
         </form-input>
 
       </div>
-      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 mt-4">
+      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4">
         <strong>{{ 'general.additional' | translate }}</strong>
 
-        <div class="flex flex-col mt-4">
+        <div class="flex flex-col">
           <label for="customer-form-note">{{ 'general.note' | translate }}</label>
           <textarea
             invalidTooltip

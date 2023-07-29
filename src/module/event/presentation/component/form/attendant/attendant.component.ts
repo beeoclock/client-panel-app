@@ -6,6 +6,8 @@ import {NgIf} from '@angular/common';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {IsRequiredDirective} from '@utility/directives/is-required/is-required';
 import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
+import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'event-attendant-component',
@@ -16,65 +18,50 @@ import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/inval
     NgIf,
     HasErrorDirective,
     IsRequiredDirective,
-    InvalidTooltipDirective
+    InvalidTooltipDirective,
+    FormInputComponent,
+    TranslateModule
   ],
   template: `
-    <form [formGroup]="form" class="mb-4">
-      <label [for]="prefix + index">E-mail</label>
-      <div class="flex">
-        <input
-          [id]="prefix + index"
-          hasError
-          invalidTooltip
-          isRequired
+    <form [formGroup]="form" class="">
+      <div class="grid grid-cols-2 gap-4">
+
+        <form-input
+          id="email"
           type="email"
-          formControlName="email"
-          placeholder="E-mail"
-          aria-label="E-mail"
-          [class.rounded-none]="showRemoveButton"
-          [class.rounded-l]="showRemoveButton"
-          [class.rounded]="!showRemoveButton"
-          class="
-            bg-beeColor-50
-            border
-            text-beeColor-900
-            focus:ring-blue-500
-            focus:border-blue-500
-            block
-            flex-1
-            min-w-0
-            w-full
-            text-sm
-            border-beeColor-300
-            px-3
-            py-2
-            dark:bg-beeDarkColor-700
-            dark:border-beeDarkColor-600
-            dark:placeholder-beeDarkColor-400
-            dark:text-white
-            dark:focus:ring-blue-500
-            dark:focus:border-blue-500">
-        <button
-          *ngIf="showRemoveButton"
-          (click)="removeEvent.emit()"
-          class="
-            text-red-500
-            inline-flex
-            items-center
-            px-3
-            text-sm
-            text-beeColor-900
-            bg-beeColor-200
-            border
-            border-l-0
-            border-beeColor-300
-            rounded-r
-            hover:bg-red-100
-            dark:bg-beeDarkColor-600
-            dark:text-beeDarkColor-400
-            dark:border-beeDarkColor-600">
-          <i class="bi bi-trash"></i>
-        </button>
+          autocomplete="email"
+          placeholder="firstname.lastname@example.com"
+          [control]="form.controls.email"
+          [label]="'general.email' | translate">
+        </form-input>
+
+        <form-input
+          id="phone"
+          type="phone"
+          autocomplete="phone"
+          placeholder="+000000000000"
+          [control]="form.controls.phone"
+          [label]="'general.phone' | translate">
+        </form-input>
+
+        <form-input
+          id="firstName"
+          type="firstName"
+          autocomplete="firstName"
+          placeholder="First name"
+          [control]="form.controls.firstName"
+          [label]="'general.firstName' | translate">
+        </form-input>
+
+        <form-input
+          id="lastName"
+          type="lastName"
+          autocomplete="lastName"
+          placeholder="Last name"
+          [control]="form.controls.lastName"
+          [label]="'general.lastName' | translate">
+        </form-input>
+
       </div>
     </form>
   `
@@ -85,7 +72,7 @@ export class AttendantComponent {
   public form!: AttendantForm;
 
   @Input()
-  public showRemoveButton = false;
+  public showRemoveButton = true;
 
   @Input()
   public index = 0;

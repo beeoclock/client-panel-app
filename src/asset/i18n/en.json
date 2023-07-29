@@ -7,6 +7,10 @@
     }
   },
   "general": {
+    "logout": "Logout",
+    "back": "Back",
+    "clients": "Clients",
+    "services": "Services",
     "phone": "Phone",
     "fullName": "Full name",
     "firstName": "First name",
@@ -83,7 +87,16 @@
     }
   },
   "event": {
-    "title": "Event"
+    "title": "Event",
+    "form": {
+      "section": {
+        "attendant": {
+          "button": {
+            "add": "Add attendant"
+          }
+        }
+      }
+    }
   },
   "client": {
     "settings": {
@@ -160,8 +173,9 @@
     }
   },
   "identity": {
-    "logout": {
-      "button": "Logout"
+    "corridor": {
+      "addBusiness": "Create new Business",
+      "selectBusiness": "Select Business context"
     },
     "create-business": {
       "form": {

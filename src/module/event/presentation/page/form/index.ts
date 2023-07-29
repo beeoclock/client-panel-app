@@ -16,14 +16,6 @@ import {ServicesFormComponent} from "@event/presentation/component/form/services
 import {NgSelectModule} from "@ng-select/ng-select";
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {LanguagePipe} from "@utility/pipes/language.pipe";
-import {IService} from "@service/domain";
-import {ModalService} from "@utility/presentation/component/modal/modal.service";
-import {ServiceComponent} from "@event/presentation/component/form/service/service.component";
-import {
-  ModalButtonInterface,
-  ModalButtonRoleEnum,
-  ModalComponent
-} from '@src/module/utility/presentation/component/modal/modal.component';
 import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 import {TranslateModule} from "@ngx-translate/core";
 import {IonicModule} from "@ionic/angular";
@@ -34,7 +26,6 @@ import {EventActions} from "@event/state/event/event.actions";
 import {Duration} from "luxon";
 import {ConvertTime} from "@utility/domain/convert.time";
 import humanizeDuration from "humanize-duration";
-import {IMember} from "@member/domain";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import calculateDuration = ConvertTime.calculateDuration;
 
@@ -42,30 +33,30 @@ import calculateDuration = ConvertTime.calculateDuration;
   selector: 'event-form-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-    imports: [
-        CardComponent,
-        BodyCardComponent,
-        ReactiveFormsModule,
-        InputDirective,
-        TextareaDirective,
-        ButtonComponent,
-        HasErrorDirective,
-        RouterLink,
-        BackLinkComponent,
-        FormsModule,
-        AttendeesComponent,
-        HeaderCardComponent,
-        ServicesFormComponent,
-        NgSelectModule,
-        NgForOf,
-        LanguagePipe,
-        NgIf,
-        DatePipe,
-        InvalidTooltipDirective,
-        TranslateModule,
-        IonicModule,
-        FormInputComponent,
-    ],
+  imports: [
+    CardComponent,
+    BodyCardComponent,
+    ReactiveFormsModule,
+    InputDirective,
+    TextareaDirective,
+    ButtonComponent,
+    HasErrorDirective,
+    RouterLink,
+    BackLinkComponent,
+    FormsModule,
+    AttendeesComponent,
+    HeaderCardComponent,
+    ServicesFormComponent,
+    NgSelectModule,
+    NgForOf,
+    LanguagePipe,
+    NgIf,
+    DatePipe,
+    InvalidTooltipDirective,
+    TranslateModule,
+    IonicModule,
+    FormInputComponent,
+  ],
   standalone: true
 })
 export default class Index implements OnInit {
@@ -81,7 +72,6 @@ export default class Index implements OnInit {
   public readonly router = inject(Router);
 
   public readonly form = new EventForm();
-  private readonly modalService = inject(ModalService);
 
   @Select(EventState.itemData)
   public itemData$!: Observable<IEvent | undefined>;
@@ -91,17 +81,6 @@ export default class Index implements OnInit {
 
   @HostBinding()
   public readonly class = 'p-4 block';
-
-  public getPermanentMembers(permanentMembers: IMember[]): string {
-    const firstMember = permanentMembers[0];
-    if (firstMember) {
-      if (firstMember.firstName && firstMember.lastName) {
-        return `${firstMember.firstName} ${firstMember.lastName}`;
-      }
-      return firstMember.email;
-    }
-    return '';
-  }
 
   public ngOnInit(): void {
 
@@ -205,64 +184,6 @@ export default class Index implements OnInit {
       this.form.updateValueAndValidity();
 
     }
-  }
-
-  public openServiceModal(service?: undefined | IService): void {
-
-    const buttons: ModalButtonInterface[] = [
-      {
-        text: 'Cancel',
-        classList: ModalComponent.buttons[ModalButtonRoleEnum.cancel].classList,
-        role: ModalButtonRoleEnum.cancel,
-        callback: (modal: ModalComponent) => {
-          // options?.buttons?.cancel?.callback?.();
-          modal.closeModal();
-        }
-      },
-      {
-        text: 'Confirm',
-        classList: ModalComponent.buttons[ModalButtonRoleEnum.accept].classList,
-        role: ModalButtonRoleEnum.accept,
-        enabledDebounceClick: true,
-        callback: (modal: ModalComponent) => {
-          // options?.buttons?.confirm?.callback?.();
-          // modal.closeModal();
-          const serviceComponent = modal.componentChildRefList[0].instance as unknown as ServiceComponent;
-          serviceComponent.select();
-        }
-      }
-    ];
-
-    this.modalService.create([{
-      component: ServiceComponent,
-      data: {}
-    }], {
-      buttons,
-      fixHeight: false,
-      title: 'Add new service'
-    }).then((modal) => {
-      const serviceComponent = modal.instance.componentChildRefList[0].instance as unknown as ServiceComponent;
-      if (service) {
-        serviceComponent.setSelectedService(service);
-      }
-      serviceComponent.emitter.subscribe((event: IService) => {
-        if (service) {
-          this.form.controls.services.patchValue([...(this.form.controls.services.value ?? []).filter(({_id}) => _id !== service._id), event])
-        } else {
-          this.form.controls.services.patchValue([...(this.form.controls.services.value ?? []), event])
-        }
-        modal.instance.closeModal();
-      });
-      return modal;
-    });
-  }
-
-  public removeServiceFromSelectedList(deleteIndex: number): void {
-    this.form.controls.services.patchValue(this.form.controls.services.value.filter(((_, index) => index !== deleteIndex)));
-  }
-
-  public editServiceFromSelectedList(service: IService): void {
-    this.openServiceModal(service);
   }
 
 }

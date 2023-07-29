@@ -1,0 +1,291 @@
+{
+  "form": {
+    "validation": {
+      "required": "Wymagane pole",
+      "email": "Nieprawidłowy format adresu e-mail",
+      "minlength": "Minimalna długość to {{requiredLength}}"
+    }
+  },
+  "general": {
+    "logout": "Wyloguj się",
+    "back": "Wstecz",
+    "clients": "Klienci",
+    "services": "Usługi",
+    "phone": "Telefon",
+    "fullName": "Pełne imię i nazwisko",
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "email": "E-mail",
+    "note": "Uwagi",
+    "description": "Opis",
+    "title": "Tytuł",
+    "name": "Nazwa",
+    "break": "Przerwa",
+    "duration": "Czas trwania",
+    "createdAt": "Utworzono",
+    "updatedAt": "Zaktualizowano",
+    "action": "Akcja",
+    "delete": "Usuń",
+    "update": "Zaktualizowano",
+    "save": "Zapisz",
+    "edit": "Edytuj",
+    "information": "Informacje",
+    "additional": "Dodatkowe",
+    "contact": "Kontakt",
+    "active": "Aktywny",
+    "languages": "Języki",
+    "members": "Członkowie",
+    "soon": "Wkrótce",
+    "role": "Rola",
+    "permission": "Uprawnienie",
+    "signOut": "Wyloguj się",
+    "publicPage": "Strona publiczna"
+  },
+  "sidebar": {
+    "dashboard": "Panel główny",
+    "members": "Członkowie",
+    "customers": "Klienci",
+    "services": "Usługi",
+    "events": "Wydarzenia",
+    "calendar": "Kalendarz",
+    "table": "Tabela",
+    "addEvent": "Dodaj wydarzenie",
+    "private": "Prywatne",
+    "profile": "Profil",
+    "settings": "Ustawienia",
+    "switch-business-client": "Zmień kontekst"
+  },
+  "page": {
+    "calendar": {
+      "title": "Kalendarz"
+    },
+    "select-client": {
+      "title": "Wybierz klienta",
+      "form": {
+        "button": {
+          "submit": "Wybierz"
+        }
+      },
+      "button": {
+        "create-new-client": "Utwórz nowego klienta"
+      }
+    }
+  },
+  "service": {
+    "title": "Usługa"
+  },
+  "customer": {
+    "title": "Klient",
+    "button": {
+      "create": "Dodaj klienta"
+    }
+  },
+  "member": {
+    "title": "Członek",
+    "button": {
+      "create": "Dodaj członka"
+    }
+  },
+  "event": {
+    "title": "Wydarzenie",
+    "form": {
+      "section": {
+        "attendant": {
+          "button": {
+            "add": "Dodaj uczestnika"
+          }
+        }
+      }
+    }
+  },
+  "client": {
+    "settings": {
+      "title": "Ustawienia",
+      "form": {
+        "inputs": {
+          "darkMode": {
+            "label": "Tryb ciemny"
+          }
+        }
+      },
+      "defaultData": {
+        "event": {
+          "title": "Domyślne dane wydarzenia",
+          "form": {
+            "inputs": {
+              "language": {
+                "label": "Domyślny język wydarzenia"
+              },
+              "service": {
+                "label": "Domyślna usługa wydarzenia (najważniejsza usługa)"
+              }
+            }
+          }
+        },
+        "service": {
+          "title": "Domyślne dane usługi",
+          "form": {
+            "inputs": {
+              "duration": {
+                "label": "Domyślny czas trwania usługi"
+              },
+              "language": {
+                "label": "Domyślny język usługi"
+              },
+              "workDays": {
+                "label": "Domyślne dni pracy usługi"
+              },
+              "break": {
+                "label": "Domyślna przerwa usługi"
+              },
+              "startWork": {
+                "label": "Godzina rozpoczęcia pracy usługi"
+              },
+              "endWork": {
+                "label": "Godzina zakończenia pracy usługi"
+              },
+              "price": {
+                "label": "Domyślna cena usługi"
+              }
+            }
+          }
+        }
+      }
+    },
+    "profile": {
+      "title": "Profil",
+      "form": {
+        "inputs": {
+          "name": {
+            "label": "Nazwa",
+            "placeholder": "Wpisz nazwę firmy lub imię i nazwisko"
+          },
+          "description": {
+            "label": "Opis",
+            "placeholder": "Wpisz opis klienta"
+          },
+          "active": {
+            "label": "Aktywny",
+            "placeholder": "Włącz, jeśli chcesz być aktywny"
+          }
+        }
+      }
+    }
+  },
+  "identity": {
+    "corridor": {
+      "addBusiness": "Utwórz nowy biznes",
+      "selectBusiness": "Wybierz kontekst biznesu"
+    },
+    "create-business": {
+      "form": {
+        "inputs": {
+          "name": {
+            "label": "Nazwa"
+          },
+          "address": {
+            "label": "Adres"
+          },
+          "slogan": {
+            "label": "Slogan"
+          }
+        }
+      }
+    },
+    "reset-password": {
+      "form": {
+        "label": "Resetuj hasło",
+        "inputs": {
+          "password": {
+            "label": "Hasło",
+            "placeholder": "Wpisz hasło"
+          }
+        },
+        "button": {
+          "submit": "Zmień hasło",
+          "sign-in": "Zaloguj się"
+        }
+      }
+    },
+    "forgot-password": {
+      "form": {
+        "label": "Zapomniałeś hasła",
+        "inputs": {
+          "email": {
+            "label": "E-mail",
+            "placeholder": "Wpisz adres e-mail"
+          }
+        },
+        "button": {
+          "submit": "Wyślij",
+          "sign-in": "Zaloguj się"
+        }
+      }
+    },
+    "sign-in": {
+      "form": {
+        "label": "Logowanie",
+        "inputs": {
+          "email": {
+            "label": "E-mail",
+            "placeholder": "imię.nazwisko@beeoclock.com"
+          },
+          "password": {
+            "label": "Hasło",
+            "placeholder": "Wprowadź hasło"
+          }
+        },
+        "button": {
+          "forgot-password": "Zapomniałeś hasła",
+          "submit": "Zaloguj się",
+          "sign-up": "Rejestracja"
+        }
+      }
+    },
+    "sign-up": {
+      "form": {
+        "label": "Rejestracja",
+        "inputs": {
+          "display-name": {
+            "label": "Jak powinien się z Tobą kontaktować",
+            "placeholder": "np. Nazwa firmy, imię i nazwisko"
+          },
+          "email": {
+            "label": "E-mail",
+            "placeholder": "Wprowadź adres e-mail"
+          },
+          "password": {
+            "label": "Hasło",
+            "placeholder": "Wprowadź hasło"
+          },
+          "password-confirm": {
+            "label": "Potwierdzenie hasła",
+            "placeholder": "Wprowadź potwierdzenie hasła"
+          },
+          "timezone": {
+            "inputs": {
+              "offset": {
+                "label": "Strefa czasowa",
+                "placeholder": "Wprowadź strefę czasową"
+              }
+            }
+          }
+        },
+        "button": {
+          "sign-in": "Logowanie",
+          "submit": "Rejestracja"
+        }
+      }
+    }
+  },
+  "http": {
+    "response": {
+      "status": {
+        "504": {
+          "title": "Błąd serwera",
+          "content": "Sprawdź połączenie internetowe lub spróbuj ponownie później."
+        }
+      }
+    }
+  }
+}
