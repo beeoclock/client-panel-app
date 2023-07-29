@@ -7,6 +7,8 @@
     }
   },
   "general": {
+    "today": "Сьогодні",
+    "tomorrow": "Завтра",
     "dateAndTime": "Дата та час",
     "logout": "Вихід",
     "back": "Назад",

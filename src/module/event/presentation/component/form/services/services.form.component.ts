@@ -38,7 +38,7 @@ import {is} from "thiis";
             </button>
 
             <button (click)="removeServiceFromSelectedList(index)"
-                    class="text-red-600 hover:bg-red-100 px-2 py-1 rounded-2xl">
+                    class="text-gray-600 hover:text-red-600 hover:bg-red-100 px-2 py-1 rounded-2xl">
               <i class="bi bi-trash"></i>
             </button>
           </div>

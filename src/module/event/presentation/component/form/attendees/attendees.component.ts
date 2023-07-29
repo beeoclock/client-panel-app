@@ -22,7 +22,7 @@ import {TranslateModule} from "@ngx-translate/core";
 
         <div class="flex justify-between">
           <span class="text-gray-400">Client #{{ index + 1 }}</span>
-          <button (click)="form.remove(index)" class="text-red-600 hover:bg-red-100 px-2 py-1 rounded-2xl">
+          <button (click)="form.remove(index)" class="text-gray-600 hover:text-red-600 hover:bg-red-100 px-2 py-1 rounded-2xl">
             <i class="bi bi-trash"></i>
           </button>
         </div>

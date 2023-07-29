@@ -7,6 +7,8 @@
     }
   },
   "general": {
+    "today": "Dziś",
+    "tomorrow": "Jutro",
     "dateAndTime": "Data i czas",
     "logout": "Wyloguj się",
     "back": "Wstecz",

@@ -84,7 +84,7 @@ export default class Index implements OnInit {
   public durationInMilliseconds = 0;
 
   @HostBinding()
-  public readonly class = 'p-4 block';
+  public readonly class = 'md:p-4 block';
 
   public ngOnInit(): void {
 
@@ -170,6 +170,7 @@ export default class Index implements OnInit {
 
   public async save(): Promise<void> {
     this.form.markAllAsTouched();
+    console.log(this.form);
     if (this.form.valid) {
       this.form.disable();
       this.form.markAsPending();

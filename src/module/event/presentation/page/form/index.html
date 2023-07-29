@@ -1,4 +1,4 @@
-<div class="p-4 pb-48 grid grid-cols-12">
+<div class="md:p-4 pb-48 grid grid-cols-12">
 
   <utility-back-link-component [url]="cancelUrl"></utility-back-link-component>
 
@@ -23,7 +23,7 @@
       <div
         class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-4">
 
-        <event-select-time-slot-form-component></event-select-time-slot-form-component>
+        <event-select-time-slot-form-component [control]="form.controls.start"></event-select-time-slot-form-component>
 
       </div>
 
