@@ -28,9 +28,7 @@ import {ConvertTime} from "@utility/domain/convert.time";
 import humanizeDuration from "humanize-duration";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {NoteComponent} from "@event/presentation/component/form/note/note.component";
-import {
-  SelectDateAndTimeFormComponent
-} from "@event/presentation/component/form/select-date-and-time/select-date-and-time.form.component";
+import {SelectTimeSlotComponent} from "@event/presentation/component/form/select-time-slot/select-time-slot.component";
 import calculateDuration = ConvertTime.calculateDuration;
 
 @Component({
@@ -61,7 +59,7 @@ import calculateDuration = ConvertTime.calculateDuration;
     IonicModule,
     FormInputComponent,
     NoteComponent,
-    SelectDateAndTimeFormComponent,
+    SelectTimeSlotComponent,
   ],
   standalone: true
 })

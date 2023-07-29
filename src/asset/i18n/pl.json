@@ -7,6 +7,7 @@
     }
   },
   "general": {
+    "dateAndTime": "Data i czas",
     "logout": "Wyloguj się",
     "back": "Wstecz",
     "clients": "Klienci",
