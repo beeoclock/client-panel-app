@@ -94,6 +94,14 @@
           "button": {
             "add": "Dodaj uczestnika"
           }
+        },
+        "service": {
+          "modal": {
+            "title": "Wybierz usługę"
+          },
+          "button": {
+            "add": "Dodaj usługę"
+          }
         }
       }
     }

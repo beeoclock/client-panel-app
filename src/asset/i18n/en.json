@@ -94,6 +94,14 @@
           "button": {
             "add": "Add attendant"
           }
+        },
+        "service": {
+          "modal": {
+            "title": "Select service"
+          },
+          "button": {
+            "add": "Add service"
+          }
         }
       }
     }

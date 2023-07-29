@@ -27,6 +27,10 @@ import {Duration} from "luxon";
 import {ConvertTime} from "@utility/domain/convert.time";
 import humanizeDuration from "humanize-duration";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
+import {NoteComponent} from "@event/presentation/component/form/note/note.component";
+import {
+  SelectDateAndTimeFormComponent
+} from "@event/presentation/component/form/select-date-and-time/select-date-and-time.form.component";
 import calculateDuration = ConvertTime.calculateDuration;
 
 @Component({
@@ -56,6 +60,8 @@ import calculateDuration = ConvertTime.calculateDuration;
     TranslateModule,
     IonicModule,
     FormInputComponent,
+    NoteComponent,
+    SelectDateAndTimeFormComponent,
   ],
   standalone: true
 })
@@ -169,6 +175,9 @@ export default class Index implements OnInit {
     if (this.form.valid) {
       this.form.disable();
       this.form.markAsPending();
+
+      // TODO check if customers/attends is exist in db (just check if selected customer has _id field if exist is in db if not then need to make request to create the new customer)
+
       if (this.isEditMode) {
         await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(this.form.getRawValue() as IEvent)));
       } else {
