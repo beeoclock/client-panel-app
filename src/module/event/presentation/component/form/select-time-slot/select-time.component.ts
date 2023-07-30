@@ -4,6 +4,11 @@ import {DateTime, Settings} from "luxon";
 import {TranslateService} from "@ngx-translate/core";
 import {NgClass, NgForOf} from "@angular/common";
 
+export interface ITimeSlot {
+  isPast: boolean;
+  datetime: DateTime;
+}
+
 @Component({
   selector: 'event-select-time-slot-time-form-component',
   standalone: true,
@@ -41,7 +46,7 @@ export class SelectTimeComponent implements OnInit {
 
   public selectedDateTime = DateTime.now();
 
-  public timeSlotList: { isPast: boolean; datetime: DateTime; }[] = [];
+  public timeSlotList: ITimeSlot[] = [];
   public amountOfDaySlotsInContainer = 6;
 
   @ViewChild('timeSlotsContainer')
@@ -51,32 +56,31 @@ export class SelectTimeComponent implements OnInit {
   public readonly translateService = inject(TranslateService);
 
   public ngOnInit(): void {
-
     Settings.defaultLocale = this.translateService.currentLang;
 
     this.selectedDateTime = this.localDateTimeControl.value.set({
       hour: 7,
       minute: 0,
       second: 0,
+      millisecond: 0,
     });
 
     // Prepare datetime list
-    this.prepareDatetimeList(this.selectedDateTime);
+    this.generateTimeSlots(this.selectedDateTime);
 
     this.localDateTimeControl.valueChanges.subscribe((value) => {
       if (value.hasSame(this.selectedDateTime, 'day')) {
-        this.prepareDatetimeList(this.selectedDateTime);
+        this.generateTimeSlots(this.selectedDateTime);
       } else {
-        this.prepareDatetimeList(value.set({
+        this.generateTimeSlots(value.set({
           hour: 7
         }));
       }
     });
-
   }
 
   public prevSlotPack(): void {
-    this.prepareDatetimeList(this.timeSlotList[0].datetime.minus({
+    this.generateTimeSlots(this.timeSlotList[0].datetime.minus({
       hours: 1
     }));
 
@@ -85,14 +89,26 @@ export class SelectTimeComponent implements OnInit {
   public nextSlotPack(): void {
     const item = this.timeSlotList.at(-1);
     if (item) {
-      this.prepareDatetimeList(item.datetime.plus({
+      this.generateTimeSlots(item.datetime.plus({
         minute: 10
       }));
     }
 
   }
 
-  private prepareDatetimeList(sourceDatetime: DateTime): void {
+  public generateTimeSlot(sourceDatetime: DateTime, time: number): ITimeSlot {
+    // TODO performance
+    const datetime = sourceDatetime.plus({
+      minutes: 10 * time
+    });
+
+    return {
+      isPast: datetime.startOf('minute').toMillis() < DateTime.now().startOf('minute').toMillis(),
+      datetime
+    };
+  }
+
+  public generateTimeSlots(sourceDatetime: DateTime): void {
     this.timeSlotList = [];
     sourceDatetime = sourceDatetime.setLocale(this.translateService.currentLang);
     sourceDatetime = sourceDatetime.set({
@@ -100,22 +116,11 @@ export class SelectTimeComponent implements OnInit {
       second: 0,
     });
     for (let time = 0; time < this.amountOfDaySlotsInContainer; time++) {
-      const datetime = sourceDatetime.plus({
-        minute: 10 * time
-      });
-      // TODO performance
-      this.timeSlotList.push({
-        isPast: (datetime.startOf('minute').toISODate() as string) < (DateTime.now().startOf('minute').toISODate() as string),
-        datetime
-      });
+      this.timeSlotList.push(this.generateTimeSlot(sourceDatetime, time));
     }
     this.changeDetectorRef.detectChanges();
   }
 
-  /**
-   *
-   * @param isSelected
-   */
   public getClassList(isSelected: boolean): string[] {
     if (isSelected) {
       return ['bg-blue-100', 'text-blue-600', 'border-blue-200'];
@@ -123,19 +128,11 @@ export class SelectTimeComponent implements OnInit {
     return ['hover:bg-gray-100', 'hover:text-black'];
   }
 
-  /**
-   *
-   * @param datetime
-   */
   public selectDateItem(datetime: DateTime): void {
     this.selectedDateTime = datetime;
     this.control.patchValue(datetime.toISO() as string);
   }
 
-  /**
-   *
-   * @param datetime
-   */
   public isSelected(datetime: DateTime): boolean {
     return datetime.hasSame(this.selectedDateTime, 'minute');
   }
