@@ -6,18 +6,20 @@ import {CardComponent} from '@utility/presentation/component/card/card.component
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
-import {ButtonComponent} from '@utility/presentation/component/button/button.component';
+import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {Select, Store} from "@ngxs/store";
 import {EventState} from "@event/state/event/event.state";
 import {EventActions} from "@event/state/event/event.actions";
 import {IEvent} from "@event/domain";
+import {TranslateModule} from "@ngx-translate/core";
+import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
 
 @Component({
   selector: 'event-detail-page',
   template: `
-    <utility-back-link-component url="../../"></utility-back-link-component>
+    <utility-back-link-component></utility-back-link-component>
     <ng-container *ngIf="item$ | async as event; else LoadingTemplate">
       <div
         class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
@@ -36,50 +38,26 @@ import {IEvent} from "@event/domain";
           </div>
           <div class="mt-5 flex lg:ml-4 lg:mt-0">
             <span class="hidden sm:block">
-              <a type="button"
-                 [routerLink]="['../../', 'form', event._id]"
-                 class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-beeColor-900 shadow-sm ring-1 ring-inset ring-beeColor-300 hover:bg-beeColor-50">
-                <i class="bi bi-pencil me-2"></i>
-                Edit
-              </a>
+              <edit-link-component></edit-link-component>
             </span>
 
             <span class="ml-3 hidden sm:block">
-              <button type="button"
-                      (click)="delete(event._id!)"
-                      class="
-                      inline-flex
-                      items-center
-                      rounded-md
-                      bg-white
-                      px-3
-                      py-2
-                      text-sm
-                      font-semibold
-                      text-red-500
-                      shadow-sm
-                      ring-1
-                      ring-inset
-                      ring-beeColor-300
-                      hover:bg-beeColor-50">
-                <i class="bi bi-trash me-2"></i>
-                Delete
-              </button>
+              <delete-button (event)="delete(event._id!)"></delete-button>
             </span>
 
             <utility-dropdown [smHidden]="true">
               <ng-container content>
-                <a [routerLink]="['../../', 'form', event._id]" class="block px-4 py-2 text-sm text-beeColor-700"
+                <a routerLink="form" class="block px-4 py-2 text-sm text-beeColor-700"
                    role="menuitem" tabindex="-1"
                    id="mobile-menu-item-0">
                   <i class="bi bi-pencil me-2"></i>
-                  Edit
+                  {{ 'general.edit' | translate }}
                 </a>
                 <button (click)="delete(event._id!)" class="block px-4 py-2 text-sm text-red-500"
                         role="menuitem" tabindex="-1"
                         id="mobile-menu-item-1">
                   <i class="bi bi-trash me-2"></i>
-                  Delete
+                  {{ 'general.delete' | translate }}
                 </button>
               </ng-container>
             </utility-dropdown>
@@ -109,12 +87,14 @@ import {IEvent} from "@event/domain";
     BackLinkComponent,
     BodyCardComponent,
     BackLinkComponent,
-    ButtonComponent,
+    DeleteButtonComponent,
     RouterLink,
     NgForOf,
     DropdownComponent,
     LoaderComponent,
-    DatePipe
+    DatePipe,
+    TranslateModule,
+    EditLinkComponent
   ],
   standalone: true
 })

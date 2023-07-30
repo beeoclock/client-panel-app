@@ -1,5 +1,5 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
-import {ButtonComponent} from '@utility/presentation/component/button/button.component';
+import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {
   DeleteBusinessClientClientAdapter
 } from "@identity/adapter/external/module/delete-business-client.client.adapter";
@@ -14,7 +14,7 @@ import {Router} from "@angular/router";
   standalone: true,
   encapsulation: ViewEncapsulation.None,
   imports: [
-    ButtonComponent
+    DeleteButtonComponent
   ],
   template: `
     <div class="

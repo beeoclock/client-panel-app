@@ -3,7 +3,7 @@ import {ServicesFormComponent} from "@event/presentation/component/form/services
 import {IDurationVersion, ILanguageVersion, IPrice, IService} from "@service/domain";
 import {FormControl} from "@angular/forms";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
-import {ButtonComponent} from "@utility/presentation/component/button/button.component";
+import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
 import {IMember} from "@member/domain";
 import {SelectServiceComponent} from "@event/presentation/component/form/service/select-service.component";
 
@@ -16,7 +16,7 @@ import {SelectServiceComponent} from "@event/presentation/component/form/service
     NgIf,
     NgForOf,
     NgClass,
-    ButtonComponent,
+    DeleteButtonComponent,
     SelectServiceComponent
   ],
   template: `

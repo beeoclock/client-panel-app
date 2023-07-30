@@ -28,6 +28,7 @@
     "createdAt": "Utworzono",
     "updatedAt": "Zaktualizowano",
     "action": "Akcja",
+    "details": "Szczegóły",
     "delete": "Usuń",
     "update": "Zaktualizowano",
     "save": "Zapisz",

@@ -9,7 +9,7 @@ import {HasErrorDirective} from '@utility/directives/has-error/has-error.directi
 import {IsRequiredDirective} from '@utility/directives/is-required/is-required';
 import {
   LanguageServiceFormComponent
-} from '@service/presentation/component/form/service/language.service.form.component';
+} from '@service/presentation/component/form/v1/service/language.service.form.component';
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {TranslateModule} from "@ngx-translate/core";
 

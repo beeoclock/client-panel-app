@@ -4,7 +4,7 @@ import {BodyCardComponent} from '@utility/presentation/component/card/body.card.
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InputDirective} from '@utility/directives/input/input.directive';
 import {TextareaDirective} from '@utility/directives/textarea/textarea.directive';
-import {ButtonComponent} from '@utility/presentation/component/button/button.component';
+import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {EventForm} from '@event/form/event.form';
@@ -41,7 +41,7 @@ import calculateDuration = ConvertTime.calculateDuration;
     ReactiveFormsModule,
     InputDirective,
     TextareaDirective,
-    ButtonComponent,
+    DeleteButtonComponent,
     HasErrorDirective,
     RouterLink,
     BackLinkComponent,
@@ -67,9 +67,7 @@ export default class Index implements OnInit {
 
   // TODO move functions to store effects/actions
 
-  public readonly baseUrl = '/event';
   public isEditMode = false;
-  public readonly cancelUrl = [this.baseUrl];
 
   private readonly store = inject(Store);
   public readonly activatedRoute = inject(ActivatedRoute);
@@ -121,7 +119,6 @@ export default class Index implements OnInit {
     firstValueFrom(this.activatedRoute.params.pipe(filter(({id}) => id?.length))).then(() => {
       firstValueFrom(this.itemData$).then((result) => {
         if (result?._id) {
-          this.cancelUrl.push('details', result._id);
           console.log(result);
           this.isEditMode = true;
           this.form.patchValue(result);
@@ -174,20 +171,22 @@ export default class Index implements OnInit {
     if (this.form.valid) {
       this.form.disable();
       this.form.markAsPending();
-
-      // TODO check if customers/attends is exist in db (just check if selected customer has _id field if exist is in db if not then need to make request to create the new customer)
-
+      const redirectUri = ['../'];
       if (this.isEditMode) {
         await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(this.form.getRawValue() as IEvent)));
       } else {
         await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(this.form.getRawValue() as IEvent)));
+        const item = await firstValueFrom(this.itemData$);
+        if (item && item._id) {
+          redirectUri.push(item._id);
+        }
       }
-      const item = await firstValueFrom(this.itemData$);
-      if (item) {
-        await this.router.navigate([this.baseUrl, 'details', item?._id], {
-          relativeTo: this.activatedRoute
-        });
-      }
+      await this.router.navigate(redirectUri, {
+        relativeTo: this.activatedRoute
+      });
+
+      // TODO check if customers/attends is exist in db (just check if selected customer has _id field if exist is in db if not then need to make request to create the new customer)
+
       this.form.enable();
       this.form.updateValueAndValidity();
 

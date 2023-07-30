@@ -4,7 +4,7 @@ import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
 import {Router, RouterLink} from '@angular/router';
-import {ButtonComponent} from '@utility/presentation/component/button/button.component';
+import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {Auth, sendPasswordResetEmail} from "@angular/fire/auth";
 import ResetPasswordForm from "@identity/form/reset-password.form";
@@ -61,7 +61,7 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
     TranslateModule,
     FirstKeyNameModule,
     RouterLink,
-    ButtonComponent,
+    DeleteButtonComponent,
     FormInputComponent
   ]
 })

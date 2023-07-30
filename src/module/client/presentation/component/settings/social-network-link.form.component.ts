@@ -1,7 +1,7 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {InputDirective} from '@utility/directives/input/input.directive';
 import {TextareaDirective} from '@utility/directives/textarea/textarea.directive';
-import {ButtonComponent} from '@utility/presentation/component/button/button.component';
+import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {NgForOf, NgIf} from '@angular/common';
@@ -20,7 +20,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
     TextareaDirective,
     InputDirective,
     TextareaDirective,
-    ButtonComponent,
+    DeleteButtonComponent,
     ReactiveFormsModule,
     SpinnerComponent,
     NgIf,

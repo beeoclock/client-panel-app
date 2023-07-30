@@ -7,7 +7,7 @@ import {BodyCardComponent} from '@utility/presentation/component/card/body.card.
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {ILanguageVersion, IService} from '@service/domain';
-import {ButtonComponent} from '@utility/presentation/component/button/button.component';
+import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {LanguagePipe} from "@utility/pipes/language.pipe";
 import {WeekDayPipe} from "@utility/pipes/week-day.pipe";
@@ -17,11 +17,12 @@ import {Select, Store} from "@ngxs/store";
 import {ServiceState} from "@service/state/service/service.state";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {NgxMaskPipe} from "ngx-mask";
+import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
 
 @Component({
   selector: 'service-detail-page',
   template: `
-    <utility-back-link-component url="../../"></utility-back-link-component>
+    <utility-back-link-component url="../"></utility-back-link-component>
     <ng-container *ngIf="item$ | async as service; else LoadingTemplate">
       <div class="grid grid-cols-12 gap-4">
         <div class="col-span-12 lg:col-span-8">
@@ -29,50 +30,26 @@ import {NgxMaskPipe} from "ngx-mask";
             class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4  mt-4">
             <div class="flex">
                 <span class="hidden sm:block">
-                  <a type="button"
-                     [routerLink]="['../../', 'form', service._id]"
-                     class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-beeColor-900 shadow-sm ring-1 ring-inset ring-beeColor-300 hover:bg-beeColor-50">
-                    <i class="bi bi-pencil me-2"></i>
-                    Edit
-                  </a>
+                  <edit-link-component></edit-link-component>
                 </span>
 
               <span class="ml-3 hidden sm:block">
-                  <button type="button"
-                          (click)="delete(service._id)"
-                          class="
-                          inline-flex
-                          items-center
-                          rounded-md
-                          bg-white
-                          px-3
-                          py-2
-                          text-sm
-                          font-semibold
-                          text-red-500
-                          shadow-sm
-                          ring-1
-                          ring-inset
-                          ring-beeColor-300
-                          hover:bg-beeColor-50">
-                    <i class="bi bi-trash me-2"></i>
-                    Delete
-                  </button>
+                  <delete-button (event)="delete(service._id)"></delete-button>
                 </span>
 
               <utility-dropdown [smHidden]="true">
                 <ng-container content>
-                  <a [routerLink]="['../../', 'form', service._id]" class="block px-4 py-2 text-sm text-beeColor-700"
+                  <a routerLink="form" class="block px-4 py-2 text-sm text-beeColor-700"
                      role="menuitem" tabindex="-1"
                      id="mobile-menu-item-0">
                     <i class="bi bi-pencil me-2"></i>
-                    Edit
+                    {{ 'general.edit' | translate }}
                   </a>
                   <button (click)="delete(service._id)" class="block px-4 py-2 text-sm text-red-500"
                           role="menuitem" tabindex="-1"
                           id="mobile-menu-item-1">
                     <i class="bi bi-trash me-2"></i>
-                    Delete
+                    {{ 'general.delete' | translate }}
                   </button>
                 </ng-container>
               </utility-dropdown>
@@ -274,7 +251,7 @@ import {NgxMaskPipe} from "ngx-mask";
     BackLinkComponent,
     BodyCardComponent,
     BackLinkComponent,
-    ButtonComponent,
+    DeleteButtonComponent,
     RouterLink,
     NgForOf,
     DropdownComponent,
@@ -282,7 +259,8 @@ import {NgxMaskPipe} from "ngx-mask";
     WeekDayPipe,
     LoaderComponent,
     TranslateModule,
-    NgxMaskPipe
+    NgxMaskPipe,
+    EditLinkComponent
   ],
   standalone: true
 })

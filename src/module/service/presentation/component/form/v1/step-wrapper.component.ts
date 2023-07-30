@@ -1,10 +1,10 @@
 import {Component, Input} from "@angular/core";
 import {NgIf, NgSwitch, NgSwitchCase} from "@angular/common";
-import {ServicesFormComponent} from "@service/presentation/component/form/service/services.form.component";
-import {DurationsFormComponent} from "@service/presentation/component/form/duration/durations.form.component";
-import {SchedulesFormComponent} from "@service/presentation/component/form/schedule/schedules.form.component";
+import {ServicesFormComponent} from "@service/presentation/component/form/v1/service/services.form.component";
+import {DurationsFormComponent} from "@service/presentation/component/form/v1/duration/durations.form.component";
+import {SchedulesFormComponent} from "@service/presentation/component/form/v1/schedule/schedules.form.component";
 import {ServiceForm} from "@service/form/service.form";
-import {MembersFormComponent} from "@service/presentation/component/form/members/members.form.component";
+import {MembersFormComponent} from "@service/presentation/component/form/v1/members/members.form.component";
 
 @Component({
   selector: 'service-form-step-wrapper-component',

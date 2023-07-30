@@ -1,5 +1,5 @@
 import {Component, HostBinding, ViewChild, ViewEncapsulation} from '@angular/core';
-import {FormComponent} from "@service/presentation/component/form/form.component";
+import {FormComponent} from "@service/presentation/component/form/v1/form.component";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {NgIf} from "@angular/common";
 

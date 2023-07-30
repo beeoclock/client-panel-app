@@ -1,9 +1,9 @@
 import {LanguageVersionsForm} from '@service/form/service.form';
 import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
-import {ServiceFormComponent} from '@service/presentation/component/form/service/service.form.component';
+import {ServiceFormComponent} from '@service/presentation/component/form/v1/service/service.form.component';
 import {LANGUAGES} from '@utility/domain/enum';
-import {ScheduleFormComponent} from "@service/presentation/component/form/schedule/schedule.form.component";
+import {ScheduleFormComponent} from "@service/presentation/component/form/v1/schedule/schedule.form.component";
 import {BodyCardComponent} from "@utility/presentation/component/card/body.card.component";
 import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";

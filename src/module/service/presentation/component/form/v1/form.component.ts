@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, inject, OnInit, QueryList, ViewChildren} from "@angular/core";
 import {ServiceForm} from "@service/form/service.form";
 import {ActivatedRoute, Router} from "@angular/router";
-import {StepWrapperComponent} from "@service/presentation/component/form/step-wrapper.component";
+import {StepWrapperComponent} from "@service/presentation/component/form/v1/step-wrapper.component";
 import {NgForOf} from "@angular/common";
 import {Select, Store} from "@ngxs/store";
 import {filter, firstValueFrom, Observable} from "rxjs";
@@ -76,9 +76,6 @@ export class FormComponent implements AfterViewInit, OnInit {
 
 
   // TODO move functions to store effects/actions
-
-  public readonly baseUrl = '/service';
-  public readonly cancelUrl = [this.baseUrl];
   private readonly store = inject(Store);
 
   public readonly idStepPrefix = 'service-form-steps-bar-section-';
@@ -108,7 +105,6 @@ export class FormComponent implements AfterViewInit, OnInit {
       firstValueFrom(this.itemData$).then((result) => {
         if (result) {
           this.isEditMode = true;
-          this.cancelUrl.push('details', result._id);
           this.form.patchValue(result);
           this.form.updateValueAndValidity();
         }
@@ -149,49 +145,33 @@ export class FormComponent implements AfterViewInit, OnInit {
   }
 
   public get activeSectionIsLast(): boolean {
-
     return (this.stepWrapperComponents.length - 1) === this.activeSectionIndex;
-
   }
 
   public get activeSectionIsNotLast(): boolean {
-
     return !this.activeSectionIsLast;
-
   }
 
   public get activeSectionIsFirst(): boolean {
-
     return 0 === this.activeSectionIndex;
-
   }
 
   public get activeSectionIsNotFirst(): boolean {
-
     return !this.activeSectionIsFirst;
-
   }
 
   public activeNextSection(): void {
-
     if (this.activeSectionIsNotLast) {
-
       this.activeSectionIndex++;
       this.detectActiveSection();
-
     }
-
   }
 
   public activePrevSection(): void {
-
     if (this.activeSectionIsNotFirst) {
-
       this.activeSectionIndex--;
       this.detectActiveSection();
-
     }
-
   }
 
   public async save(): Promise<void> {
@@ -200,17 +180,19 @@ export class FormComponent implements AfterViewInit, OnInit {
     if (this.form.valid) {
       this.form.disable();
       this.form.markAsPending();
+      const redirectUri = ['../'];
       if (this.isEditMode) {
         await firstValueFrom(this.store.dispatch(new ServiceActions.UpdateItem(this.form.getRawValue() as IService)));
       } else {
         await firstValueFrom(this.store.dispatch(new ServiceActions.CreateItem(this.form.getRawValue() as IService)));
+        const item = await firstValueFrom(this.itemData$);
+        if (item && item._id) {
+          redirectUri.push(item._id);
+        }
       }
-      const item = await firstValueFrom(this.itemData$);
-      if (item) {
-        await this.router.navigate([this.baseUrl, 'details', item?._id], {
-          relativeTo: this.activatedRoute
-        });
-      }
+      await this.router.navigate(redirectUri, {
+        relativeTo: this.activatedRoute
+      });
       this.form.enable();
       this.form.updateValueAndValidity();
     }

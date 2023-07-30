@@ -5,7 +5,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
 import {Router, RouterLink} from '@angular/router';
 import RegistrationForm from '@identity/form/registration.form';
-import {ButtonComponent} from '@utility/presentation/component/button/button.component';
+import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {IdentityApiAdapter} from "@identity/adapter/external/api/identity.api.adapter";
 import {firstValueFrom} from "rxjs";
@@ -84,7 +84,7 @@ import {FormInputPasswordComponent} from "@utility/presentation/component/input/
     TranslateModule,
     FirstKeyNameModule,
     RouterLink,
-    ButtonComponent,
+    DeleteButtonComponent,
     InvalidTooltipDirective,
     IsRequiredDirective,
     FormInputComponent,

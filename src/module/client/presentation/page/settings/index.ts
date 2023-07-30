@@ -2,7 +2,7 @@ import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
 import {DangerZoneComponent} from '@module/client/presentation/component/danger-zone/danger-zone.component';
 import {ChangePasswordComponent} from '@module/client/presentation/component/change-password/change-password.component';
 import {FormSettingsComponent} from '@module/client/presentation/component/settings/form.settings.component';
-import {ButtonComponent} from "@utility/presentation/component/button/button.component";
+import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
 import {Auth} from "@angular/fire/auth";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {LanguageInputComponent} from "@module/client/presentation/component/settings/language-input.component";
@@ -17,7 +17,7 @@ import {Router} from "@angular/router";
     DangerZoneComponent,
     ChangePasswordComponent,
     FormSettingsComponent,
-    ButtonComponent,
+    DeleteButtonComponent,
     ReactiveFormsModule,
     LanguageInputComponent,
     TranslateModule

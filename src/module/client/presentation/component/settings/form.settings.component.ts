@@ -1,7 +1,7 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {InputDirective} from '@utility/directives/input/input.directive';
 import {TextareaDirective} from '@utility/directives/textarea/textarea.directive';
-import {ButtonComponent} from '@utility/presentation/component/button/button.component';
+import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {SettingsForm} from '@module/client/form/settings.form';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
@@ -24,7 +24,7 @@ import {
     TextareaDirective,
     InputDirective,
     TextareaDirective,
-    ButtonComponent,
+    DeleteButtonComponent,
     ReactiveFormsModule,
     SpinnerComponent,
     NgIf,

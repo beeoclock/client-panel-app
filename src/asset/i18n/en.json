@@ -28,6 +28,7 @@
     "createdAt": "Created at",
     "updatedAt": "Updated at",
     "action": "Action",
+    "details": "Details",
     "delete": "Delete",
     "update": "Updated",
     "save": "Save",

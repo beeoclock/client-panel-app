@@ -7,7 +7,9 @@ import {BodyCardComponent} from "@utility/presentation/component/card/body.card.
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
 import {FooterCardComponent} from "@utility/presentation/component/card/footer.card.component";
-import {ModalMembersFormComponent} from "@service/presentation/component/form/members/modal.employees.form.component";
+import {
+  ModalMembersFormComponent
+} from "@service/presentation/component/form/v1/members/modal.employees.form.component";
 import {ListMemberApiAdapter} from "@member/adapter/external/api/list.member.api.adapter";
 
 @Component({

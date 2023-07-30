@@ -80,7 +80,7 @@
         </div>
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-        <a [routerLink]="['details', item._id]">
+        <a [routerLink]="item._id">
           {{ item.firstName }} {{ item.lastName }}
         </a>
       </td>
@@ -103,5 +103,6 @@
 
     </tbody>
   </table>
-  <utility-table-state-pagination-component (clearCache)="clearTableCache()" (page)="pageChange($event)" [tableState]="tableState"></utility-table-state-pagination-component>
+  <utility-table-state-pagination-component (clearCache)="clearTableCache()" (page)="pageChange($event)"
+                                            [tableState]="tableState"></utility-table-state-pagination-component>
 </div>
