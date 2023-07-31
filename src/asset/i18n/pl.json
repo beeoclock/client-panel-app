@@ -81,7 +81,23 @@
     }
   },
   "service": {
-    "title": "Usługa"
+    "title": "Usługa",
+    "form": {
+      "v2": {
+        "section": {
+          "presentation": {
+            "motivate": "Możesz nadać swoim usługom nieco więcej osobowości i pomóc innym rozpoznać Twoją pracę, przesyłając \n obraz (obraz, zdjęcie lub inną ikonę graficzną Twojej usługi)."
+          },
+          "prices": {
+            "button": {
+              "add": {
+                "label": "Dodaj cenę"
+              }
+            }
+          }
+        }
+      }
+    }
   },
   "customer": {
     "title": "Klient",

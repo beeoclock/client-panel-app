@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {file2base64} from "@utility/domain/file2base64";
 import {TranslateModule} from "@ngx-translate/core";
@@ -29,16 +29,22 @@ import {FormControl} from "@angular/forms";
     TranslateModule
   ]
 })
-export class ServiceFormImageComponent {
+export class ServiceFormImageComponent implements OnInit {
 
   @ViewChild('fileInput')
   public readonly fileInput!: ElementRef<HTMLInputElement>;
 
   @Input()
-  public readonly control = new FormControl();
+  public control = new FormControl();
 
   previewImage: string | null = null;
   uploadedFileName: string | null = null;
+
+  public ngOnInit(): void {
+    this.control.valueChanges.subscribe((value: string) => {
+      this.previewImage = value;
+    });
+  }
 
   public async onFileSelected(event: Event): Promise<void> {
 
@@ -48,7 +54,6 @@ export class ServiceFormImageComponent {
     const base64 = await file2base64(file);
     this.previewImage = base64;
 
-    console.log(base64);
     this.control.patchValue(base64);
 
   }

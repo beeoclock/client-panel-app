@@ -29,7 +29,7 @@ import {LanguageVersionForm} from "@service/form/service.form";
         [placeholder]="'Write here description of service' | translate">
       </form-textarea-component>
 
-      <service-form-tags-component></service-form-tags-component>
+<!--      <service-form-tags-component></service-form-tags-component>-->
 
     </div>
   `,

@@ -33,9 +33,9 @@ import {DurationVersionsForm} from "@service/form/service.form";
 
       </div>
 
-      <button class="w-full text-blue-600 rounded px-4 py-2 hover:bg-blue-100">
+      <button (click)="durationVersions.pushNewOne()" class="w-full text-blue-600 rounded px-4 py-2 hover:bg-blue-100">
         <i class="bi bi-plus-lg"></i>
-        {{ 'event.form.section.attendant.button.add' | translate }}
+        {{ 'service.form.v2.section.prices.button.add.label' | translate }}
       </button>
 
     </div>
