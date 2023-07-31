@@ -3,13 +3,39 @@ import {FormControl} from "@angular/forms";
 import {DateTime, Settings} from "luxon";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
+import {Reactive} from "@utility/cdk/reactive";
 
+// TODO Move
 function hasScrollbar(element: HTMLElement) {
   if (!element) return false;
   return (
     element.scrollWidth > element.clientWidth ||
     element.scrollHeight > element.clientHeight
   );
+}
+
+// TODO Move
+interface IDayItem {
+  isPast: boolean;
+  isToday: boolean;
+  isTomorrow: boolean;
+  datetime: DateTime;
+}
+
+// TODO Move
+// Helper function to generate a list of day items
+export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsInContainer: number) {
+  const dayItemList = [];
+  for (let day = 0; day < amountOfDaySlotsInContainer; day++) {
+    const datetime = sourceDatetime.plus({day});
+    dayItemList.push({
+      isPast: datetime.startOf('day') < DateTime.now().startOf('day'),
+      isToday: datetime.hasSame(DateTime.now(), 'day'),
+      isTomorrow: datetime.hasSame(DateTime.now().plus({day: 1}), 'day'),
+      datetime,
+    });
+  }
+  return dayItemList;
 }
 
 @Component({
@@ -23,39 +49,57 @@ function hasScrollbar(element: HTMLElement) {
   ],
   template: `
     <div class="flex flex-col gap-3">
+      <!-- Day Slots Title -->
       <div class="flex items-center justify-center gap-3">
-        <span class="text-2xl font-medium">
-        {{ daySlotsTitle }}
-      </span>
+        <span class="text-2xl font-medium">{{ daySlotsTitle }}</span>
       </div>
-      <div class="flex items-center justify-between gap-1">
-        <button (click)="prevPackOfDates()" class="px-3 py-2 hover:bg-gray-300 cursor-pointer rounded-2xl">
-          <i class="bi bi-chevron-left"></i>
-        </button>
-        <div #daySlotsContainer class="flex gap-1 overflow-x-auto w-full justify-center items-center">
-          <div *ngFor="let dayItem of dayItemList" class="relative pb-0.5 pt-1">
-            <span *ngIf="dayItem.isToday" class="w-[10px] h-[10px] rounded-full absolute left-[25px] -top-0" [class.bg-blue-200]="isSelected(dayItem.datetime)" [class.bg-gray-300]="!isSelected(dayItem.datetime)"></span>
+
+      <!-- Day Slots Container -->
+      <div #daySlotsContainer class="flex gap-1 overflow-x-auto w-full justify-center items-center">
+        <ng-container *ngFor="let dayItem of dayItemList">
+          <div class="relative pb-0.5 pt-1">
+            <span
+              *ngIf="dayItem.isToday"
+              class="w-[10px] h-[10px] rounded-full absolute left-[25px] -top-0"
+              [ngClass]="{
+                'bg-blue-200': isSelected(dayItem.datetime),
+                'bg-gray-300': !isSelected(dayItem.datetime)
+                }">
+            </span>
 
             <button
               (click)="selectDateItem(dayItem.datetime)"
               [ngClass]="getClassList(isSelected(dayItem.datetime))"
               [disabled]="dayItem.isPast"
-              [class.opacity-50]="dayItem.isPast"
               class="min-w-[60px] max-w-[60px] min-h-[60px] max-h-[60px] leading-tight flex flex-col items-center justify-center ring-1 ring-inset rounded-xl p-3">
               <span class="font-bold">{{ dayItem.datetime.day }}</span>
               <span>{{ dayItem.datetime.weekdayShort }}</span>
             </button>
-            <span *ngIf="hasSelectedTimeSlot(dayItem.datetime)" class="w-[30px] h-[6px] rounded-full absolute left-[15px] -bottom-0" [class.bg-blue-200]="isSelected(dayItem.datetime)" [class.bg-gray-300]="!isSelected(dayItem.datetime)"></span>
+
+            <span
+              *ngIf="hasSelectedTimeSlot(dayItem.datetime)"
+              class="w-[30px] h-[6px] rounded-full absolute left-[15px] -bottom-0"
+              [ngClass]="{ 'bg-blue-200': isSelected(dayItem.datetime), 'bg-gray-300': !isSelected(dayItem.datetime) }"
+            ></span>
           </div>
-        </div>
+        </ng-container>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="flex items-center justify-between gap-1">
+        <button (click)="prevPackOfDates()" class="px-3 py-2 hover:bg-gray-300 cursor-pointer rounded-2xl">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+
         <button (click)="nextPackOfDates()" class="px-3 py-2 hover:bg-gray-300 cursor-pointer rounded-2xl">
           <i class="bi bi-chevron-right"></i>
         </button>
       </div>
     </div>
+
   `
 })
-export class SelectDateComponent implements OnInit, AfterViewInit {
+export class SelectDateComponent extends Reactive implements OnInit, AfterViewInit {
 
   @Input()
   public control!: FormControl<string>;
@@ -66,7 +110,7 @@ export class SelectDateComponent implements OnInit, AfterViewInit {
   public selectedDateTime = DateTime.now();
   public today = DateTime.now();
 
-  public dayItemList: { isPast: boolean; isToday: boolean; isTomorrow: boolean; datetime: DateTime; }[] = [];
+  public dayItemList: IDayItem[] = [];
   public amountOfDaySlotsInContainer = 0;
 
   @ViewChild('daySlotsContainer')
@@ -81,41 +125,39 @@ export class SelectDateComponent implements OnInit, AfterViewInit {
 
     Settings.defaultLocale = this.translateService.currentLang;
 
-    this.control.valueChanges.subscribe((value) => {
+    this.control.valueChanges.pipe(this.takeUntil()).subscribe(() => {
       this.changeDetectorRef.detectChanges();
     });
 
   }
 
   public ngAfterViewInit(): void {
+    this.detectAmountOfDaySlots();
+    this.prepareDatetimeList(this.today);
+  }
 
+  public detectAmountOfDaySlots(): void {
     // TODO use code in console.log to detect how many day slots can be represent in present view!
-    console.log(hasScrollbar(this.daySlotsContainer.nativeElement));
+    // console.log(hasScrollbar(this.daySlotsContainer.nativeElement));
 
     // Detect amount of day slots
     this.amountOfDaySlotsInContainer = Math.floor(this.daySlotsContainer.nativeElement.clientWidth / (60 + 6));
-
-    // Prepare datetime list
-    this.prepareDatetimeList(this.today);
-
   }
 
   public prevPackOfDates(): void {
-    this.prepareDatetimeList(this.dayItemList[0].datetime.minus({
+    const [firstDayItem] = this.dayItemList;
+    const {datetime} = firstDayItem;
+    this.prepareDatetimeList(datetime.minus({
       day: this.amountOfDaySlotsInContainer
     }));
   }
 
   public nextPackOfDates(): void {
-    const item = this.dayItemList.at(-1);
-    if (item) {
-      this.prepareDatetimeList(item.datetime.plus({
-        day: 1
-      }));
-    }
+    const lastItem = this.dayItemList[this.dayItemList.length - 1];
+    this.prepareDatetimeList(lastItem.datetime.plus({day: 1}));
   }
 
-  public prepareDaySlotsTitle(sourceDatetime: DateTime): void {
+  public prepareDaySlotsTitle(sourceDatetime: DateTime): string {
     const nextLocalDateTime = sourceDatetime.plus({
       day: this.amountOfDaySlotsInContainer
     });
@@ -127,26 +169,22 @@ export class SelectDateComponent implements OnInit, AfterViewInit {
         text += ` ${sourceDatetime.toFormat('yyyy')} - ${nextLocalDateTime.toFormat('LLLL yyyy')}`;
       }
     }
-    this.daySlotsTitle = text;
+    return text;
   }
 
-  private prepareDatetimeList(sourceDatetime: DateTime): void {
-    this.dayItemList = [];
+  public prepareDatetimeList(sourceDatetime: DateTime): void {
     sourceDatetime = sourceDatetime.setLocale(this.translateService.currentLang);
-    for (let day = 0; day < this.amountOfDaySlotsInContainer; day++) {
-      const datetime = sourceDatetime.plus({
-        day
-      });
-      // TODO performance
-      this.dayItemList.push({
-        isPast: (datetime.startOf('day').toISODate() as string) < (DateTime.now().startOf('day').toISODate() as string),
-        isToday: datetime.hasSame(this.today, 'day'),
-        isTomorrow: datetime.hasSame(this.today.plus({day: 1}), 'day'),
-        datetime
-      });
-    }
-    this.prepareDaySlotsTitle(sourceDatetime);
-    this.changeDetectorRef.detectChanges()
+    this.dayItemList = generateDayItemList(sourceDatetime, this.amountOfDaySlotsInContainer);
+    this.daySlotsTitle = this.prepareDaySlotsTitle(sourceDatetime);
+    this.changeDetectorRef.detectChanges();
+  }
+
+  private createDayItem(datetime: DateTime): IDayItem {
+    // TODO performance
+    const isPast = datetime.startOf('day') < DateTime.now().startOf('day');
+    const isToday = datetime.hasSame(this.today, 'day');
+    const isTomorrow = datetime.hasSame(this.today.plus({day: 1}), 'day');
+    return {isPast, isToday, isTomorrow, datetime};
   }
 
   /**

@@ -7,6 +7,11 @@
     }
   },
   "general": {
+    "chooseImage": "Choose image",
+    "selectSpecialist": "Select specialist",
+    "image": "Image",
+    "specialists": "Specialists",
+    "prices": "Prices",
     "today": "Today",
     "tomorrow": "Tomorrow",
     "dateAndTime": "Date and time",
@@ -28,6 +33,7 @@
     "createdAt": "Created at",
     "updatedAt": "Updated at",
     "action": "Action",
+    "details": "Details",
     "delete": "Delete",
     "update": "Updated",
     "save": "Save",
@@ -75,7 +81,23 @@
     }
   },
   "service": {
-    "title": "Service"
+    "title": "Service",
+    "form": {
+      "v2": {
+        "section": {
+          "presentation": {
+            "motivate": "You can inject a little more personality into your services and help people recognize your work by uploading a \n image (an image, photo or other graphic icon of your service)."
+          },
+          "prices": {
+            "button": {
+              "add": {
+                "label": "Add price"
+              }
+            }
+          }
+        }
+      }
+    }
   },
   "customer": {
     "title": "Customer",

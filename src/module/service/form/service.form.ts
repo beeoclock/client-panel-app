@@ -3,6 +3,7 @@ import {ActiveEnum, LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
 import {WeekDaysEnum, WORK_WEEK} from '@utility/domain/enum/days-of-week.enum';
 import {IMember} from "@member/domain";
+import {IDurationVersion} from "@service/domain";
 
 export const MINUTE_15 = 900; // In seconds
 export const MINUTE_45 = 2700; // In seconds
@@ -47,6 +48,7 @@ export class LanguageVersionForm extends FormGroup<ILanguageVersionForm> {
 export interface IPriceForm {
   price: FormControl<number>;
   currency: FormControl<CurrencyCodeEnum>;
+
   // preferredLanguages: FormControl<LanguageCodeEnum[]>;
 
   [key: string]: AbstractControl<any, any>;
@@ -169,6 +171,20 @@ export class ScheduleForm extends FormGroup<IScheduleForm> {
   }
 }
 
+export interface IPresentationForm {
+  main: FormControl<string>;
+
+  [key: string]: AbstractControl<any, any>;
+}
+
+export class PresentationForm extends FormGroup<IPresentationForm> {
+  constructor() {
+    super({
+      main: new FormControl(),
+    });
+  }
+}
+
 export class LanguageVersionsForm extends FormArray<LanguageVersionForm> {
   constructor() {
     super([new LanguageVersionForm()]);
@@ -189,6 +205,18 @@ export class DurationVersionsForm extends FormArray<DurationVersionForm> {
     this.controls.splice(index, 1);
   }
 
+  public removeControls(): void {
+    this.controls = [];
+  }
+
+  public pushNewOne(initialValue?: undefined | IDurationVersion): void {
+    const newOne = new DurationVersionForm();
+    if (initialValue) {
+      newOne.patchValue(initialValue);
+    }
+    this.controls.push(newOne);
+  }
+
 }
 
 export class SchedulesForm extends FormArray<ScheduleForm> {
@@ -203,6 +231,7 @@ export class SchedulesForm extends FormArray<ScheduleForm> {
 }
 
 export interface IServiceForm {
+  presentation: PresentationForm;
   schedules: SchedulesForm;
   configuration: ConfigurationForm;
   prepaymentPolicy: PrepaymentPolicyForm;
@@ -220,6 +249,7 @@ export interface IServiceForm {
 export class ServiceForm extends FormGroup<IServiceForm> {
   constructor() {
     super({
+      presentation: new PresentationForm(),
       schedules: new SchedulesForm(),
       configuration: new ConfigurationForm(),
       prepaymentPolicy: new PrepaymentPolicyForm(),
@@ -243,10 +273,6 @@ export class ServiceForm extends FormGroup<IServiceForm> {
 
   public pushNewScheduleForm(): void {
     this.controls.schedules.push(new ScheduleForm());
-  }
-
-  public pushNewDurationVersionForm(): void {
-    this.controls.durationVersions.push(new DurationVersionForm());
   }
 
   public pushNewLanguageVersionForm(): void {

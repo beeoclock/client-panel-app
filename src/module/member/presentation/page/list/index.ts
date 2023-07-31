@@ -3,7 +3,7 @@ import {ExampleTableComponent} from '@utility/presentation/component/table/examp
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {RouterLink} from '@angular/router';
-import {ButtonComponent} from '@utility/presentation/component/button/button.component';
+import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {TableComponent} from '@utility/presentation/component/table/table.component';
 import {HeaderTableComponent} from '@utility/presentation/component/table/header.table.component';
 import {BodyTableComponent} from '@utility/presentation/component/table/body.table.component';
@@ -35,7 +35,7 @@ import {FilterComponent} from "@member/presentation/component/filter/filter.comp
     CardComponent,
     BodyCardComponent,
     RouterLink,
-    ButtonComponent,
+    DeleteButtonComponent,
     TableComponent,
     HeaderTableComponent,
     BodyTableComponent,

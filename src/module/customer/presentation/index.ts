@@ -16,33 +16,25 @@ export const routers = [
         loadComponent: () => import('./page/list')
       },
       {
-        path: 'details',
-        children: [
-          {
-            path: ':id',
-            resolve: {
-              itemLoaded: customerDetailsResolver
-            },
-            loadComponent: () => import('./page/details')
-          }
-        ]
+        path: 'form',
+        loadComponent: () => import('./page/form'),
       },
       {
-        path: 'form',
+        path: ':id',
+        resolve: {
+          item: customerDetailsResolver
+        },
         children: [
           {
             path: '',
-            loadComponent: () => import('./page/form'),
+            loadComponent: () => import('./page/details')
           },
           {
-            path: ':id',
-            resolve: {
-              itemLoaded: customerDetailsResolver
-            },
+            path: 'form',
             loadComponent: () => import('./page/form'),
           }
         ]
-      }
+      },
     ]
   }
 ] as Routes;

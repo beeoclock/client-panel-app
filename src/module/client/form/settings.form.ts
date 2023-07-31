@@ -1,7 +1,8 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActiveEnum} from '@utility/domain/enum/active.enum';
-import {file2base64} from "@utility/domain/const/file2base64";
+import {file2base64} from "@utility/domain/file2base64";
 import {SocialNetworksForm} from "@client/form/social-network.form";
+import {extractFile} from "@utility/domain/extract-file";
 
 
 export interface ISettingsForm {
@@ -64,7 +65,7 @@ export class SettingsForm extends FormGroup<ISettingsForm> {
   }
 
   public async setLogo(target: HTMLInputElement): Promise<void> {
-    const base64 = await file2base64(target);
+    const base64 = await file2base64(extractFile(target));
     this.controls.logo.patchValue(base64);
   }
 }

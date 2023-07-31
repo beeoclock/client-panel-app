@@ -82,7 +82,7 @@
         </div>
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-        <a [routerLink]="['details', item._id]">
+        <a [routerLink]="item._id">
           {{ item.firstName }} {{ item.lastName }}
         </a>
       </td>
@@ -99,11 +99,13 @@
         {{ item.updatedAt | date: 'hh:mm dd-MM-yyyy' }}
       </td>
       <td class="px-6 py-2 text-center text-beeColor-700 dark:text-beeDarkColor-100">
-        <utility-table-column-action [id]="item._id" [active]="item.active" (delete)="delete($event)" (archive)="archive($event)"></utility-table-column-action>
+        <utility-table-column-action [id]="item._id" [active]="item.active" (delete)="delete($event)"
+                                     (archive)="archive($event)"></utility-table-column-action>
       </td>
     </tr>
 
     </tbody>
   </table>
-  <utility-table-state-pagination-component (clearCache)="clearTableCache()" (page)="pageChange($event)" [tableState]="tableState"></utility-table-state-pagination-component>
+  <utility-table-state-pagination-component (clearCache)="clearTableCache()" (page)="pageChange($event)"
+                                            [tableState]="tableState"></utility-table-state-pagination-component>
 </div>

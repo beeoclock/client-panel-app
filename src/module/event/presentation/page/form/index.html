@@ -1,6 +1,6 @@
 <div class="md:p-4 pb-48 grid grid-cols-12">
 
-  <utility-back-link-component [url]="cancelUrl"></utility-back-link-component>
+  <utility-back-link-component></utility-back-link-component>
 
   <div class="col-span-12 lg:col-start-4 lg:col-span-6">
 
@@ -28,7 +28,7 @@
       </div>
 
       <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4">
-        <event-note-form-component [control]="form.controls.description"></event-note-form-component>
+        <form-textarea-component [label]="'general.note' | translate" id="event-form-note-input" placeholder="Write here your note of event" [control]="form.controls.description"></form-textarea-component>
       </div>
 
       <div class="mt-4">

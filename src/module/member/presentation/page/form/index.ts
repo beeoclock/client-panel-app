@@ -4,7 +4,7 @@ import {BodyCardComponent} from '@utility/presentation/component/card/body.card.
 import {ReactiveFormsModule} from '@angular/forms';
 import {InputDirective} from '@utility/directives/input/input.directive';
 import {TextareaDirective} from '@utility/directives/textarea/textarea.directive';
-import {ButtonComponent} from '@utility/presentation/component/button/button.component';
+import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
@@ -30,7 +30,7 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
     ReactiveFormsModule,
     InputDirective,
     TextareaDirective,
-    ButtonComponent,
+    DeleteButtonComponent,
 
     HasErrorDirective,
     RouterLink,
@@ -45,9 +45,6 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 export default class Index implements OnInit {
 
   // TODO move functions to store effects/actions
-
-  public readonly baseUrl = '/member';
-  public readonly cancelUrl = [this.baseUrl];
 
   private readonly store = inject(Store);
   private readonly router = inject(Router);
@@ -68,7 +65,6 @@ export default class Index implements OnInit {
       firstValueFrom(this.itemData$).then((result) => {
         if (result) {
           this.isEditMode = true;
-          this.cancelUrl.push('details', result._id);
           this.form = MemberForm.create(result);
           this.form.updateValueAndValidity();
         }
@@ -81,17 +77,19 @@ export default class Index implements OnInit {
     if (this.form.valid) {
       this.form.disable();
       this.form.markAsPending();
+      const redirectUri = ['../'];
       if (this.isEditMode) {
         await firstValueFrom(this.store.dispatch(new MemberActions.UpdateItem(this.form.getRawValue() as IMember)));
       } else {
         await firstValueFrom(this.store.dispatch(new MemberActions.CreateItem(this.form.getRawValue() as IMember)));
+        const item = await firstValueFrom(this.itemData$);
+        if (item && item._id) {
+          redirectUri.push(item._id);
+        }
       }
-      const item = await firstValueFrom(this.itemData$);
-      if (item) {
-        await this.router.navigate([this.baseUrl, 'details', item?._id], {
-          relativeTo: this.activatedRoute
-        });
-      }
+      await this.router.navigate(redirectUri, {
+        relativeTo: this.activatedRoute
+      });
       this.form.enable();
       this.form.updateValueAndValidity();
 
