@@ -5,7 +5,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 
 @Component({
-  selector: 'event-note-form-component',
+  selector: 'form-textarea-component',
   standalone: true,
   imports: [
     NgForOf,
@@ -14,22 +14,34 @@ import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/inval
     ReactiveFormsModule
   ],
   template: `
-    <strong>{{ 'general.note' | translate }}</strong>
+    <label [for]="id" class="block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">{{ label }}</label>
 
     <div class="flex flex-col">
       <textarea
         invalidTooltip
         class="border rounded bg-white px-2 py-1"
-        rows="4"
-        placeholder="Write some notes of customer"
-        id="event-form-note"
+        [rows]="rows"
+        [placeholder]="placeholder"
+        [id]="id"
         [formControl]="control"></textarea>
     </div>
   `
 })
-export class NoteComponent {
+export class FormTextareaComponent {
 
   @Input()
   public control!: FormControl<string>;
+
+  @Input()
+  public label = 'Label';
+
+  @Input()
+  public placeholder = '';
+
+  @Input()
+  public id = '';
+
+  @Input()
+  public rows = 4;
 
 }

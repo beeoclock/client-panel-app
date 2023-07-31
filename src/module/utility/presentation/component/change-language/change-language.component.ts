@@ -27,7 +27,7 @@ import {TranslateService} from "@ngx-translate/core";
       #dropdownButton
       class="
         text-beeColor-800
-        hover:bg-beeColor-300
+        hover:bg-beeColor-200
         focus:ring-4
         focus:outline-none
         focus:ring-beeColor-400
@@ -44,9 +44,9 @@ import {TranslateService} from "@ngx-translate/core";
         dark:focus:ring-blue-800"
       type="button">
       <i class="bi bi-translate"></i>
-      <span class="ms-2">
-        {{ selectedLanguageLabel }}
-      </span>
+<!--      <span class="ms-2">-->
+<!--        {{ selectedLanguageLabel }}-->
+<!--      </span>-->
     </button>
 
     <!-- Dropdown menu -->

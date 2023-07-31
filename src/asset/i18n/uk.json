@@ -7,6 +7,11 @@
     }
   },
   "general": {
+    "chooseImage": "Вибери файл",
+    "selectSpecialist": "Виберіть спеціаліста",
+    "image": "Зображення",
+    "specialists": "Спеціалісти",
+    "prices": "Ціни",
     "today": "Сьогодні",
     "tomorrow": "Завтра",
     "dateAndTime": "Дата та час",

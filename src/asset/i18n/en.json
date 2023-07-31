@@ -7,6 +7,11 @@
     }
   },
   "general": {
+    "chooseImage": "Choose image",
+    "selectSpecialist": "Select specialist",
+    "image": "Image",
+    "specialists": "Specialists",
+    "prices": "Prices",
     "today": "Today",
     "tomorrow": "Tomorrow",
     "dateAndTime": "Date and time",

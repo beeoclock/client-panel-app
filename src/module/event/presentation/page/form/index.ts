@@ -27,8 +27,8 @@ import {Duration} from "luxon";
 import {ConvertTime} from "@utility/domain/convert.time";
 import humanizeDuration from "humanize-duration";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {NoteComponent} from "@event/presentation/component/form/note/note.component";
 import {SelectTimeSlotComponent} from "@event/presentation/component/form/select-time-slot/select-time-slot.component";
+import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import calculateDuration = ConvertTime.calculateDuration;
 
 @Component({
@@ -58,8 +58,8 @@ import calculateDuration = ConvertTime.calculateDuration;
     TranslateModule,
     IonicModule,
     FormInputComponent,
-    NoteComponent,
     SelectTimeSlotComponent,
+    FormTextareaComponent,
   ],
   standalone: true
 })
@@ -105,14 +105,6 @@ export default class Index implements OnInit {
         this.calculateFinish();
       }
     });
-
-    // this.form.controls.services.valueChanges.subscribe(() => {
-    //   this.calculateDuration();
-    // });
-    //
-    // this.form.controls.servicesAreProvidedInParallel.valueChanges.subscribe(() => {
-    //   this.calculateDuration();
-    // });
   }
 
   public detectItem(): void {

@@ -11,7 +11,7 @@ import {Auth} from "@angular/fire/auth";
       (click)="logout()"
       class="
         text-red-600
-        hover:bg-red-300
+        hover:bg-red-100
         focus:ring-4
         focus:outline-none
         focus:ring-red-400

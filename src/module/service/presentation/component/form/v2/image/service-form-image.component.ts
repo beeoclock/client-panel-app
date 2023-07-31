@@ -1,0 +1,56 @@
+import {Component, ElementRef, Input, ViewChild} from '@angular/core';
+import {NgIf} from "@angular/common";
+import {file2base64} from "@utility/domain/file2base64";
+import {TranslateModule} from "@ngx-translate/core";
+import {extractFile} from "@utility/domain/extract-file";
+import {FormControl} from "@angular/forms";
+
+@Component({
+  selector: 'service-form-image-component',
+  standalone: true,
+  template: `
+    <div class="flex">
+      <div class="min-w-[128px] max-w-[128px] min-h-[128px] max-h-[128px] rounded-2xl bg-gray-400">
+        <img *ngIf="previewImage" [src]="previewImage" class="object-cover rounded-2xl w-full h-full" alt="Uploaded Image"/>
+      </div>
+      <div class="flex flex-col ml-2">
+        <div>
+          <input type="file" #fileInput hidden (change)="onFileSelected($event)" accept="image/*"/>
+          <button class="border border-gray-200 hover:bg-gray-100 rounded-2xl px-4 py-2 cursor-pointer" (click)="fileInput.click()">{{ 'general.chooseImage' | translate }}</button>
+        </div>
+        <div class="py-2">
+          {{ uploadedFileName }}
+        </div>
+      </div>
+    </div>
+  `,
+  imports: [
+    NgIf,
+    TranslateModule
+  ]
+})
+export class ServiceFormImageComponent {
+
+  @ViewChild('fileInput')
+  public readonly fileInput!: ElementRef<HTMLInputElement>;
+
+  @Input()
+  public readonly control = new FormControl();
+
+  previewImage: string | null = null;
+  uploadedFileName: string | null = null;
+
+  public async onFileSelected(event: Event): Promise<void> {
+
+    const fileInput = event.target as HTMLInputElement;
+    const file = extractFile(fileInput);
+    this.uploadedFileName = file.name;
+    const base64 = await file2base64(file);
+    this.previewImage = base64;
+
+    console.log(base64);
+    this.control.patchValue(base64);
+
+  }
+
+}
