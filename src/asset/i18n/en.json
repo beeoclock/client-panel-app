@@ -7,6 +7,9 @@
     }
   },
   "general": {
+    "placeholder": {
+      "description": "Type description"
+    },
     "chooseImage": "Choose image",
     "selectSpecialist": "Select specialist",
     "image": "Image",

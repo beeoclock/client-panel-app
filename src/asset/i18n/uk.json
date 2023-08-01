@@ -7,6 +7,9 @@
     }
   },
   "general": {
+    "placeholder": {
+      "description": "Напишіть детальніше інформацію"
+    },
     "chooseImage": "Вибери файл",
     "selectSpecialist": "Виберіть спеціаліста",
     "image": "Зображення",
