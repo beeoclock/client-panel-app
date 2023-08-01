@@ -1,4 +1,4 @@
-import {Component, Input, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, Input, ViewChild, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {TranslateModule} from "@ngx-translate/core";
 
@@ -7,6 +7,7 @@ import {TranslateModule} from "@ngx-translate/core";
   standalone: true,
   template: `
     <a [routerLink]="url"
+       #link
        class="
         text-black
         dark:text-white
@@ -30,4 +31,7 @@ import {TranslateModule} from "@ngx-translate/core";
 export class BackLinkComponent {
   @Input()
   public url: string | string[] = ['../'];
+
+  @ViewChild('link')
+  public link!: ElementRef<HTMLElement>;
 }

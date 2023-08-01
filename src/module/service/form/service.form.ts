@@ -4,6 +4,7 @@ import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
 import {WeekDaysEnum, WORK_WEEK} from '@utility/domain/enum/days-of-week.enum';
 import {IMember} from "@member/domain";
 import {IDurationVersion} from "@service/domain";
+import {is} from "thiis";
 
 export const MINUTE_15 = 900; // In seconds
 export const MINUTE_45 = 2700; // In seconds
@@ -221,7 +222,7 @@ export class DurationVersionsForm extends FormArray<DurationVersionForm> {
 
 export class SchedulesForm extends FormArray<ScheduleForm> {
   constructor() {
-    super([new ScheduleForm()]);
+    super([]);
   }
 
   public remove(index: number): void {
@@ -262,6 +263,7 @@ export class ServiceForm extends FormGroup<IServiceForm> {
       updatedAt: new FormControl(),
     });
     this.initValue();
+    this.initHandler();
   }
 
   public initValue(): void {
@@ -269,6 +271,20 @@ export class ServiceForm extends FormGroup<IServiceForm> {
     this.controls.active.setValue(ActiveEnum.YES);
     this.controls.createdAt.setValue(new Date().toISOString());
     this.controls.updatedAt.setValue(new Date().toISOString());
+  }
+
+  public initHandler(): void {
+    this.controls.active.valueChanges.subscribe((value: ActiveEnum | boolean) => {
+      if (is.boolean(value)) {
+        this.controls.active.setValue(
+          value ? ActiveEnum.YES : ActiveEnum.NO,
+          {
+            emitEvent: false,
+            onlySelf: true
+          }
+        );
+      }
+    });
   }
 
   public pushNewScheduleForm(): void {
