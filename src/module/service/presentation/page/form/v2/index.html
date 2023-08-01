@@ -10,18 +10,21 @@
 
       <service-form-details-block-component [form]="form.controls.languageVersions.at(0)"></service-form-details-block-component>
 
-      <service-form-specialists-block-component [specialistListControl]="form.controls.permanentMembers"></service-form-specialists-block-component>
+      <div>
 
-      <service-form-prices-block-component [durationVersions]="form.controls.durationVersions"></service-form-prices-block-component>
+        <!-- HTML of the component is temporary hidden, but we need to call the component because the component has code to add default specialist from member list -->
+        <service-form-specialists-block-component [specialistListControl]="form.controls.permanentMembers"></service-form-specialists-block-component>
 
-      <div class="mt-4">
-        <button
-          class="px-4 py-2 bg-blue-600 rounded-lg text-white w-full hover:bg-blue-700 cursor-pointer transition"
-          [disabled]="form.disabled"
-          (click)="save()">
-          {{ 'general.save' | translate }}
-        </button>
+        <service-form-prices-block-component [durationVersions]="form.controls.durationVersions"></service-form-prices-block-component>
+
       </div>
+
+      <button
+        class="px-4 py-2 bg-blue-600 rounded-lg text-white w-full hover:bg-blue-700 cursor-pointer transition"
+        [disabled]="form.disabled"
+        (click)="save()">
+        {{ 'general.save' | translate }}
+      </button>
 
     </form>
 
