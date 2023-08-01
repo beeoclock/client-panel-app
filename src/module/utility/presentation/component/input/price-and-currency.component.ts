@@ -5,14 +5,14 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 import {HasErrorDirective} from "@utility/directives/has-error/has-error.directive";
 import {NgxMaskDirective} from "ngx-mask";
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {LanguageCurrency} from "@utility/domain/const/c.language-currency";
 
 @Component({
   selector: 'price-and-currency-component',
   standalone: true,
   template: `
-    <label [for]="prefix + 'price'">Price</label>
+    <label [for]="prefix + 'price'">{{ 'general.price' | translate }}</label>
     <div class="flex">
       <input
         [id]="prefix + 'price'"
@@ -76,7 +76,8 @@ import {LanguageCurrency} from "@utility/domain/const/c.language-currency";
     ReactiveFormsModule,
     InvalidTooltipDirective,
     HasErrorDirective,
-    NgxMaskDirective
+    NgxMaskDirective,
+    TranslateModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

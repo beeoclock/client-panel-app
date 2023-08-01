@@ -12,6 +12,7 @@
     "image": "Obraz",
     "specialists": "Specjaliści",
     "prices": "Ceny",
+    "price": "Cena",
     "today": "Dziś",
     "tomorrow": "Jutro",
     "dateAndTime": "Data i czas",
@@ -48,7 +49,8 @@
     "role": "Rola",
     "permission": "Uprawnienie",
     "signOut": "Wyloguj się",
-    "publicPage": "Strona publiczna"
+    "publicPage": "Strona publiczna",
+    "priceTimeFormatPrompt": "godziny:minuty"
   },
   "sidebar": {
     "dashboard": "Panel główny",

@@ -12,6 +12,7 @@
     "image": "Зображення",
     "specialists": "Спеціалісти",
     "prices": "Ціни",
+    "price": "Ціна",
     "today": "Сьогодні",
     "tomorrow": "Завтра",
     "dateAndTime": "Дата та час",
@@ -48,7 +49,8 @@
     "role": "Роль",
     "permission": "Дозвіл",
     "signOut": "Вийти",
-    "publicPage": "Публічна сторінка"
+    "publicPage": "Публічна сторінка",
+    "priceTimeFormatPrompt": "години:хвилини"
   },
   "sidebar": {
     "dashboard": "Панель керування",
