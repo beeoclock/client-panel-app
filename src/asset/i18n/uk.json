@@ -8,7 +8,8 @@
   },
   "general": {
     "placeholder": {
-      "description": "Напишіть детальніше інформацію"
+      "description": "Напишіть детальніше інформацію",
+      "search": "Пошук"
     },
     "chooseImage": "Вибери файл",
     "selectSpecialist": "Виберіть спеціаліста",

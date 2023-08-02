@@ -8,7 +8,8 @@
   },
   "general": {
     "placeholder": {
-      "description": "Wprowadź szczegóły"
+      "description": "Wprowadź szczegóły",
+      "search": "Szukaj"
     },
     "chooseImage": "Wybierz plik",
     "selectSpecialist": "Wybierz specjalistę",

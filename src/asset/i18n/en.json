@@ -8,7 +8,8 @@
   },
   "general": {
     "placeholder": {
-      "description": "Type description"
+      "description": "Type description",
+      "search": "Search"
     },
     "chooseImage": "Choose image",
     "selectSpecialist": "Select specialist",
