@@ -4,12 +4,12 @@
     <button
       (click)="prevPage()"
       class="relative inline-flex items-center rounded-md border border-beeColor-300 bg-white px-4 py-2 text-sm font-medium text-beeColor-700 hover:bg-beeColor-100">
-      Previous
+      {{ 'general.previous' | translate }}
     </button>
     <button
       (click)="nextPage()"
       class="relative ml-3 inline-flex items-center rounded-md border border-beeColor-300 bg-white px-4 py-2 text-sm font-medium text-beeColor-700 hover:bg-beeColor-100">
-      Next
+      {{ 'general.next' | translate }}
     </button>
   </div>
   <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
