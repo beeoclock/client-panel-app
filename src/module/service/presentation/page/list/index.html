@@ -29,9 +29,9 @@
           [tableState]="tableState"
         ></utility-sort-indicator>
       </th>
-      <th scope="col" class="px-6 py-3">
-        {{ 'general.languages' | translate }}
-      </th>
+<!--      <th scope="col" class="px-6 py-3">-->
+<!--        {{ 'general.languages' | translate }}-->
+<!--      </th>-->
       <th scope="col" class="px-6 py-3">
         {{ 'general.members' | translate }}
       </th>
@@ -77,9 +77,9 @@
           {{ getFirstLanguageVersion(item.languageVersions).title }}
         </a>
       </td>
-      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-        {{ getLanguageCodes(item.languageVersions) }}
-      </td>
+<!--      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">-->
+<!--        {{ getLanguageCodes(item.languageVersions) }}-->
+<!--      </td>-->
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
         <i class="bi bi-person"></i>
         {{ item?.permanentMembers?.length ?? 0 }}
