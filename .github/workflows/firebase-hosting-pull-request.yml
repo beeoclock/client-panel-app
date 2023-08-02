@@ -13,6 +13,5 @@ jobs:
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEE_O_CLOCK }}'
-          channelId: live
           target: panel-beeoclock
           projectId: bee-o-clock
