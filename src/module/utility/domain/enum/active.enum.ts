@@ -1,4 +1,4 @@
 export enum ActiveEnum {
-  NO,
+  NO = 0,
   YES
 }

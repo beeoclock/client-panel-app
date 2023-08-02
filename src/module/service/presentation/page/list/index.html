@@ -85,10 +85,8 @@
         {{ item?.permanentMembers?.length ?? 0 }}
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-        <span
-          [class.text-danger]="!item.active"
-          [class.text-success]="item.active">
-          {{ item.active ? 'active' : 'Inactive' }}
+        <span active-style [active]="item.active">
+          {{ (item.active ? 'general.active' : 'general.inactive') | translate }}
         </span>
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">

@@ -4,9 +4,7 @@ import {CardComponent} from '@utility/presentation/component/card/card.component
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {InputDirective} from '@utility/directives/input/input.directive';
-import {TextareaDirective} from '@utility/directives/textarea/textarea.directive';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
-
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
@@ -29,9 +27,7 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
     BodyCardComponent,
     ReactiveFormsModule,
     InputDirective,
-    TextareaDirective,
     DeleteButtonComponent,
-
     HasErrorDirective,
     RouterLink,
     BackLinkComponent,
