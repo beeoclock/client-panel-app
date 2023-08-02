@@ -19,12 +19,13 @@ import {PriceForm} from "@service/form/service.form";
         <input-badge-component
           mask="00:00"
           [control]="durationControl"
-          [placeholder]="'Format 00:00' | translate"
-          [label]="'Duration' | translate"
-          [badge]="'hours:minute' | translate">
+          placeholder="00:00"
+          [label]="'general.duration' | translate"
+          [badge]="'general.priceTimeFormatPrompt' | translate">
         </input-badge-component>
-        <price-and-currency-component [priceControl]="priceForm.controls.price"
-                                      [currencyControl]="priceForm.controls.currency"></price-and-currency-component>
+        <price-and-currency-component
+          [priceControl]="priceForm.controls.price"
+          [currencyControl]="priceForm.controls.currency"></price-and-currency-component>
       </div>
       <!--      <service-form-prices-specialists-component [label]="'Specialists' | translate"></service-form-prices-specialists-component>-->
     </div>
