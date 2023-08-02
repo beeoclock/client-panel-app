@@ -27,7 +27,7 @@ import {TranslateModule} from "@ngx-translate/core";
         </li>
         <li>
           <a
-            routerLink="form"
+            [routerLink]="[id, 'form']"
             class="text-start block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeColor-600 dark:hover:text-white">
             <i class="bi bi-pencil"></i>
             {{ 'general.edit' | translate }}

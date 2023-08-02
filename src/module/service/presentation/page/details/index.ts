@@ -1,7 +1,7 @@
-import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, inject, ViewChild, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
-import {Observable} from 'rxjs';
+import {firstValueFrom, Observable} from 'rxjs';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
@@ -22,7 +22,7 @@ import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.
 @Component({
   selector: 'service-detail-page',
   template: `
-    <utility-back-link-component url="../"></utility-back-link-component>
+    <utility-back-link-component #backLink></utility-back-link-component>
     <ng-container *ngIf="item$ | async as service; else LoadingTemplate">
       <div class="grid grid-cols-12 gap-4">
         <div class="col-span-12 lg:col-span-8">
@@ -34,7 +34,7 @@ import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.
                 </span>
 
               <span class="ml-3 hidden sm:block">
-                  <delete-button (event)="delete(service._id)"></delete-button>
+                  <delete-button (event)="delete(service)"></delete-button>
                 </span>
 
               <utility-dropdown [smHidden]="true">
@@ -45,7 +45,7 @@ import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.
                     <i class="bi bi-pencil me-2"></i>
                     {{ 'general.edit' | translate }}
                   </a>
-                  <button (click)="delete(service._id)" class="block px-4 py-2 text-sm text-red-500"
+                  <button (click)="delete(service)" class="block px-4 py-2 text-sm text-red-500"
                           role="menuitem" tabindex="-1"
                           id="mobile-menu-item-1">
                     <i class="bi bi-trash me-2"></i>
@@ -276,8 +276,17 @@ export default class Index {
 
   public readonly store = inject(Store);
 
-  public delete(id: string): void {
-    this.store.dispatch(new ServiceActions.DeleteItem(id));
+
+  @ViewChild(BackLinkComponent)
+  public backLink!: BackLinkComponent;
+
+  public async delete(service: IService): Promise<void> {
+    const {_id: id, active} = service;
+    if (active) {
+      return alert('You can\'t delete active service');
+    }
+    await firstValueFrom(this.store.dispatch(new ServiceActions.DeleteItem(id)));
+    this.backLink.link.nativeElement.click();
   }
 
   public languageVersions(languageVersion: any): ILanguageVersion[] {

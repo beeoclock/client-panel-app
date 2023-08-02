@@ -15,6 +15,7 @@ import {NgxMaskDirective} from "ngx-mask";
         [formControl]="control"
         [placeholder]="placeholder"
         [mask]="mask"
+        [dropSpecialCharacters]="false"
         type="text"
         hasError
         invalidTooltip

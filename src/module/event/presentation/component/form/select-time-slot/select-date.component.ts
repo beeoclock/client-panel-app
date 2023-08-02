@@ -54,10 +54,16 @@ export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsIn
         <span class="text-2xl font-medium">{{ daySlotsTitle }}</span>
       </div>
 
-      <!-- Day Slots Container -->
-      <div #daySlotsContainer class="flex gap-1 overflow-x-auto w-full justify-center items-center">
-        <ng-container *ngFor="let dayItem of dayItemList">
-          <div class="relative pb-0.5 pt-1">
+      <!-- Navigation Buttons -->
+      <div class="flex items-center justify-between gap-1">
+        <button (click)="prevPackOfDates()" class="px-3 py-2 hover:bg-gray-300 cursor-pointer rounded-2xl">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+
+        <!-- Day Slots Container -->
+        <div #daySlotsContainer class="flex gap-1 overflow-x-auto w-full justify-center items-center">
+          <ng-container *ngFor="let dayItem of dayItemList">
+            <div class="relative pb-0.5 pt-1">
             <span
               *ngIf="dayItem.isToday"
               class="w-[10px] h-[10px] rounded-full absolute left-[25px] -top-0"
@@ -67,29 +73,23 @@ export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsIn
                 }">
             </span>
 
-            <button
-              (click)="selectDateItem(dayItem.datetime)"
-              [ngClass]="getClassList(isSelected(dayItem.datetime))"
-              [disabled]="dayItem.isPast"
-              class="min-w-[60px] max-w-[60px] min-h-[60px] max-h-[60px] leading-tight flex flex-col items-center justify-center ring-1 ring-inset rounded-xl p-3">
-              <span class="font-bold">{{ dayItem.datetime.day }}</span>
-              <span>{{ dayItem.datetime.weekdayShort }}</span>
-            </button>
+              <button
+                (click)="selectDateItem(dayItem.datetime)"
+                [ngClass]="getClassList(isSelected(dayItem.datetime))"
+                [disabled]="dayItem.isPast"
+                class="min-w-[60px] max-w-[60px] min-h-[60px] max-h-[60px] leading-tight flex flex-col items-center justify-center ring-1 ring-inset rounded-xl p-3">
+                <span class="font-bold">{{ dayItem.datetime.day }}</span>
+                <span>{{ dayItem.datetime.weekdayShort }}</span>
+              </button>
 
-            <span
-              *ngIf="hasSelectedTimeSlot(dayItem.datetime)"
-              class="w-[30px] h-[6px] rounded-full absolute left-[15px] -bottom-0"
-              [ngClass]="{ 'bg-blue-200': isSelected(dayItem.datetime), 'bg-gray-300': !isSelected(dayItem.datetime) }"
-            ></span>
-          </div>
-        </ng-container>
-      </div>
-
-      <!-- Navigation Buttons -->
-      <div class="flex items-center justify-between gap-1">
-        <button (click)="prevPackOfDates()" class="px-3 py-2 hover:bg-gray-300 cursor-pointer rounded-2xl">
-          <i class="bi bi-chevron-left"></i>
-        </button>
+              <span
+                *ngIf="hasSelectedTimeSlot(dayItem.datetime)"
+                class="w-[30px] h-[6px] rounded-full absolute left-[15px] -bottom-0"
+                [ngClass]="{ 'bg-blue-200': isSelected(dayItem.datetime), 'bg-gray-300': !isSelected(dayItem.datetime) }"
+              ></span>
+            </div>
+          </ng-container>
+        </div>
 
         <button (click)="nextPackOfDates()" class="px-3 py-2 hover:bg-gray-300 cursor-pointer rounded-2xl">
           <i class="bi bi-chevron-right"></i>
@@ -141,7 +141,7 @@ export class SelectDateComponent extends Reactive implements OnInit, AfterViewIn
     // console.log(hasScrollbar(this.daySlotsContainer.nativeElement));
 
     // Detect amount of day slots
-    this.amountOfDaySlotsInContainer = Math.floor(this.daySlotsContainer.nativeElement.clientWidth / (60 + 6));
+    this.amountOfDaySlotsInContainer = Math.floor(this.daySlotsContainer.nativeElement.clientWidth / (60 + 4));
   }
 
   public prevPackOfDates(): void {
@@ -159,7 +159,7 @@ export class SelectDateComponent extends Reactive implements OnInit, AfterViewIn
 
   public prepareDaySlotsTitle(sourceDatetime: DateTime): string {
     const nextLocalDateTime = sourceDatetime.plus({
-      day: this.amountOfDaySlotsInContainer
+      day: this.amountOfDaySlotsInContainer - 1
     });
     let text = sourceDatetime.toFormat('LLLL');
     if (!nextLocalDateTime.hasSame(sourceDatetime, 'month')) {

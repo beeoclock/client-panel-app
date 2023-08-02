@@ -7,11 +7,15 @@
     }
   },
   "general": {
+    "placeholder": {
+      "description": "Type description"
+    },
     "chooseImage": "Choose image",
     "selectSpecialist": "Select specialist",
     "image": "Image",
     "specialists": "Specialists",
     "prices": "Prices",
+    "price": "Price",
     "today": "Today",
     "tomorrow": "Tomorrow",
     "dateAndTime": "Date and time",
@@ -48,7 +52,8 @@
     "role": "Role",
     "permission": "Permission",
     "signOut": "Sign out",
-    "publicPage": "Public page"
+    "publicPage": "Public page",
+    "priceTimeFormatPrompt": "hours:minutes"
   },
   "sidebar": {
     "dashboard": "Dashboard",

@@ -391,32 +391,31 @@ export abstract class BaseState<ITEM = any> {
    * @param ctx
    * @param payload
    */
-  public deleteItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.DeleteItem): void {
+  public async deleteItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.DeleteItem): Promise<void> {
 
     ctx.dispatch(new AppActions.PageLoading(true));
 
-    this.remove.executeAsync(payload).then((result: any) => {
-      if (result) {
+    const result = await this.remove.executeAsync(payload);
+    if (result) {
 
-        const state = ctx.getState();
-        const {_id} = (state.item?.data ?? {}) as { _id: string };
+      const state = ctx.getState();
+      const {_id} = (state.item?.data ?? {}) as { _id: string };
 
-        if (_id === payload) {
+      if (_id === payload) {
 
-          ctx.patchState({
-            item: {
-              data: undefined,
-              downloadedAt: new Date(),
-            }
-          });
+        ctx.patchState({
+          item: {
+            data: undefined,
+            downloadedAt: new Date(),
+          }
+        });
 
-        } else {
+      } else {
 
-          // TODO delete from cache
+        // TODO delete from cache
 
-        }
       }
-    });
+    }
 
     ctx.dispatch(new AppActions.PageLoading(false));
   }

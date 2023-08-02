@@ -93,8 +93,8 @@ export class ServiceState extends BaseState<IService> {
   }
 
   @Action(ServiceActions.DeleteItem)
-  public override deleteItem(ctx: StateContext<IServiceState>, action: ServiceActions.DeleteItem): void {
-    super.deleteItem(ctx, action);
+  public override async deleteItem(ctx: StateContext<IServiceState>, action: ServiceActions.DeleteItem) {
+    await super.deleteItem(ctx, action);
   }
 
   @Action(ServiceActions.GetList)

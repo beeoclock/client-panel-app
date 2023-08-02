@@ -14,29 +14,29 @@ import {DurationVersionsForm} from "@service/form/service.form";
   template: `
     <div
       class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-3">
-      <span class="text-2xl font-bold text-gray-500">{{ 'general.prices' | translate }}</span>
+      <span class="text-2xl font-bold text-gray-500">{{ 'general.price' | translate }}</span>
 
       <div *ngFor="let durationVersion of durationVersions.controls; let index = index">
 
-        <div class="flex justify-between">
-          <span class="text-gray-400">Price version #{{ index + 1 }}</span>
-          <button class="text-gray-600 hover:text-red-600 hover:bg-red-100 px-2 py-1 rounded-2xl">
-            <i class="bi bi-trash"></i>
-          </button>
-        </div>
+<!--        <div class="flex justify-between">-->
+<!--          <span class="text-gray-400">Price version #{{ index + 1 }}</span>-->
+<!--          <button class="text-gray-600 hover:text-red-600 hover:bg-red-100 px-2 py-1 rounded-2xl">-->
+<!--            <i class="bi bi-trash"></i>-->
+<!--          </button>-->
+<!--        </div>-->
 
         <service-form-price-block-component
           [priceForm]="durationVersion.controls.prices.at(0)"
           [durationControl]="durationVersion.controls.duration"></service-form-price-block-component>
 
-        <hr class="mt-4">
+<!--        <hr class="mt-4">-->
 
       </div>
 
-      <button (click)="durationVersions.pushNewOne()" class="w-full text-blue-600 rounded px-4 py-2 hover:bg-blue-100">
-        <i class="bi bi-plus-lg"></i>
-        {{ 'service.form.v2.section.prices.button.add.label' | translate }}
-      </button>
+<!--      <button (click)="durationVersions.pushNewOne()" class="w-full text-blue-600 rounded px-4 py-2 hover:bg-blue-100">-->
+<!--        <i class="bi bi-plus-lg"></i>-->
+<!--        {{ 'service.form.v2.section.prices.button.add.label' | translate }}-->
+<!--      </button>-->
 
     </div>
   `,

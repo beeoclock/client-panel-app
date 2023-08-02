@@ -82,8 +82,8 @@ export class MemberState extends BaseState<Member.IMember> {
   }
 
   @Action(MemberActions.DeleteItem)
-  public override deleteItem(ctx: StateContext<IMemberState>, action: MemberActions.DeleteItem): void {
-    super.deleteItem(ctx, action);
+  public override async deleteItem(ctx: StateContext<IMemberState>, action: MemberActions.DeleteItem) {
+    await super.deleteItem(ctx, action);
   }
 
   @Action(MemberActions.CreateItem)

@@ -92,8 +92,8 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
   }
 
   @Action(CustomerActions.DeleteItem)
-  public override deleteItem(ctx: StateContext<ICustomerState>, action: CustomerActions.DeleteItem) {
-    super.deleteItem(ctx, action);
+  public override async deleteItem(ctx: StateContext<ICustomerState>, action: CustomerActions.DeleteItem) {
+    await super.deleteItem(ctx, action);
   }
 
   @Action(CustomerActions.ArchiveItem)

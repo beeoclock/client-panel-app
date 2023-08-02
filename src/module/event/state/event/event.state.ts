@@ -82,8 +82,8 @@ export class EventState extends BaseState<Event.IEvent> {
   }
 
   @Action(EventActions.DeleteItem)
-  public override deleteItem(ctx: StateContext<IEventState>, action: EventActions.DeleteItem): void {
-    super.deleteItem(ctx, action);
+  public override async deleteItem(ctx: StateContext<IEventState>, action: EventActions.DeleteItem) {
+    await super.deleteItem(ctx, action);
   }
 
   @Action(EventActions.CreateItem)

@@ -26,7 +26,7 @@ import {LanguageVersionForm} from "@service/form/service.form";
       <form-textarea-component
         [control]="form.controls.description"
         [label]="'general.description' | translate"
-        [placeholder]="'Write here description of service' | translate">
+        [placeholder]="'general.placeholder.description' | translate">
       </form-textarea-component>
 
 <!--      <service-form-tags-component></service-form-tags-component>-->
