@@ -8,6 +8,7 @@ import humanizeDuration from "humanize-duration";
 import {DateTime} from "luxon";
 import {getPaginationItems} from "@utility/domain/pagination.items";
 import {environment} from "@environment/environment";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'utility-table-state-pagination-component',
@@ -19,6 +20,7 @@ import {environment} from "@environment/environment";
     ReactiveFormsModule,
     NgIf,
     RouterLink,
+    TranslateModule,
   ],
   encapsulation: ViewEncapsulation.None
 })
