@@ -109,7 +109,6 @@ export default class Index implements OnInit {
     firstValueFrom(this.activatedRoute.params.pipe(filter(({id}) => id?.length))).then(() => {
       firstValueFrom(this.itemData$).then((result) => {
         if (result?._id) {
-          console.log(result);
           this.isEditMode = true;
           this.form.patchValue(result);
           this.form.updateValueAndValidity();
@@ -157,7 +156,6 @@ export default class Index implements OnInit {
 
   public async save(): Promise<void> {
     this.form.markAllAsTouched();
-    console.log(this.form);
     if (this.form.valid) {
       this.form.disable();
       this.form.markAsPending();

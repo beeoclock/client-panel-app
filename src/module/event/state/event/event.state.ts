@@ -67,13 +67,13 @@ export class EventState extends BaseState<Event.IEvent> {
   }
 
   @Action(EventActions.UpdateFilters)
-  public override async UpdateFilters(ctx: StateContext<IEventState>, action: EventActions.UpdateFilters): Promise<void> {
-    await super.UpdateFilters(ctx, action);
+  public override UpdateFilters(ctx: StateContext<IEventState>, action: EventActions.UpdateFilters) {
+    super.UpdateFilters(ctx, action);
   }
 
   @Action(EventActions.UpdateTableState)
-  public override async UpdateTableState(ctx: StateContext<IEventState>, action: EventActions.UpdateTableState): Promise<void> {
-    return super.UpdateTableState(ctx, action);
+  public override  UpdateTableState(ctx: StateContext<IEventState>, action: EventActions.UpdateTableState) {
+    super.UpdateTableState(ctx, action);
   }
 
   @Action(EventActions.GetItem)

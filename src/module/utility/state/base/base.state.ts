@@ -207,11 +207,11 @@ export abstract class BaseState<ITEM = any> {
    * @param payload
    * @constructor
    */
-  public async UpdateFilters(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateFilters): Promise<void> {
+  public UpdateFilters(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateFilters) {
 
     const state = ctx.getState();
 
-    await this.UpdateTableState(ctx, {
+    this.UpdateTableState(ctx, {
       payload: {
         ...state.tableState,
         filters: {
@@ -229,7 +229,7 @@ export abstract class BaseState<ITEM = any> {
    * @param payload
    * @constructor
    */
-  public async UpdateTableState(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateTableState<ITEM>): Promise<void> {
+  public UpdateTableState(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateTableState<ITEM>) {
 
     const state = ctx.getState();
 
@@ -239,11 +239,9 @@ export abstract class BaseState<ITEM = any> {
       }
     }
 
-    const newTableState = TableState.fromCache(state.tableState);
-    Object.keys(payload).forEach((key) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      newTableState[key] = payload[key];
+    const newTableState = TableState.fromCache({
+      ...state.tableState,
+      ...payload
     });
 
     ctx.patchState({
@@ -430,9 +428,7 @@ export abstract class BaseState<ITEM = any> {
     ctx.dispatch(new AppActions.PageLoading(true));
 
     try {
-      console.log('before')
       await this.archive.executeAsync(payload);
-      console.log('after')
 
       const state = ctx.getState();
       const {_id} = (state.item?.data ?? {}) as { _id: string };

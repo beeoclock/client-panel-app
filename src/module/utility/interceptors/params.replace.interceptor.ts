@@ -20,8 +20,6 @@ export const ParamsReplaceInterceptor: HttpInterceptorFn = (request, next) => {
 
     const {replace} = Endpoint.endpointMap[request.method as RequestMethodEnum].get(path) ?? {};
 
-    console.log(path, request.method, Endpoint.endpointMap, Endpoint.endpointMap[request.method as RequestMethodEnum]);
-
     if (replace ?? environment?.endpoint?.config?.replace) {
 
       const replaceJSON = request.headers.get('replace');
