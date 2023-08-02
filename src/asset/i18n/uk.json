@@ -8,10 +8,17 @@
   },
   "general": {
     "placeholder": {
-      "description": "Напишіть детальніше інформацію"
+      "description": "Напишіть детальніше інформацію",
+      "search": "Пошук"
     },
     "chooseImage": "Вибери файл",
     "selectSpecialist": "Виберіть спеціаліста",
+    "menu": "Меню",
+    "total": "Всього",
+    "next": "Далі",
+    "previous": "Назад",
+    "lastUpdate": "Останнє оновлення",
+    "clearCache": "Очистити кеш",
     "image": "Зображення",
     "specialists": "Спеціалісти",
     "prices": "Ціни",
@@ -45,7 +52,8 @@
     "information": "Інформація",
     "additional": "Додатково",
     "contact": "Контакт",
-    "active": "Активний",
+    "active": "Активна",
+    "inactive": "Неактивна",
     "languages": "Мови",
     "members": "Учасники",
     "soon": "Незабаром",

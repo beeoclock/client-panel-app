@@ -67,13 +67,13 @@ export class MemberState extends BaseState<Member.IMember> {
   }
 
   @Action(MemberActions.UpdateFilters)
-  public override async UpdateFilters(ctx: StateContext<IMemberState>, action: MemberActions.UpdateFilters): Promise<void> {
-    await super.UpdateFilters(ctx, action);
+  public override UpdateFilters(ctx: StateContext<IMemberState>, action: MemberActions.UpdateFilters) {
+    super.UpdateFilters(ctx, action);
   }
 
   @Action(MemberActions.UpdateTableState)
-  public override async UpdateTableState(ctx: StateContext<IMemberState>, action: MemberActions.UpdateTableState): Promise<void> {
-    return super.UpdateTableState(ctx, action);
+  public override UpdateTableState(ctx: StateContext<IMemberState>, action: MemberActions.UpdateTableState) {
+    super.UpdateTableState(ctx, action);
   }
 
   @Action(MemberActions.GetItem)

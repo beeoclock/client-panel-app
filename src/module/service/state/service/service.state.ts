@@ -68,13 +68,13 @@ export class ServiceState extends BaseState<IService> {
   }
 
   @Action(ServiceActions.UpdateFilters)
-  public override async UpdateFilters(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateFilters): Promise<void> {
-    await super.UpdateFilters(ctx, action);
+  public override UpdateFilters(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateFilters) {
+    super.UpdateFilters(ctx, action);
   }
 
   @Action(ServiceActions.UpdateTableState)
-  public override async UpdateTableState(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateTableState): Promise<void> {
-    return super.UpdateTableState(ctx, action);
+  public override UpdateTableState(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateTableState) {
+    super.UpdateTableState(ctx, action);
   }
 
   @Action(ServiceActions.CreateItem)
@@ -102,7 +102,6 @@ export class ServiceState extends BaseState<IService> {
     await super.getList(ctx, (queryFilters: any, filters: any) => {
 
       const {search} = filters;
-
       if (search) {
         queryFilters['$or'] = [
           {

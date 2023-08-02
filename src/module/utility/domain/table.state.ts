@@ -135,9 +135,9 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 
   public initHashSum(): string {
     this.#hashSum = hash_sum({
-      filters: this.filters,
-      orderBy: this.orderBy,
-      orderDir: this.orderDir,
+      filters: this.#filters,
+      orderBy: this.#orderBy,
+      orderDir: this.#orderDir,
     });
     return this.hashSum;
   }
@@ -172,13 +172,16 @@ export class TableState<ITEM> implements ITableState<ITEM> {
   }
 
   public static fromCache<ITEM>(json: ITableState<ITEM>): TableState<ITEM> {
+
     const tableState = new TableState<ITEM>();
-    Object.keys(json).forEach((key: string) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      tableState[key] = json[key];
-    });
-    return tableState;
+
+    const newObject = Object.assign(tableState, json);
+
+    newObject.initHashSum();
+    newObject.updateLastUpdate();
+
+    return newObject;
+
   }
 
 }

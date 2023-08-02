@@ -1,6 +1,6 @@
 <div class="flex justify-between p-4">
   <service-filter-component></service-filter-component>
-  <utility-dropdown buttonLabel="Menu">
+  <utility-dropdown [buttonLabel]="'general.menu' | translate">
     <ng-container content>
       <a
         routerLink="form"
@@ -23,18 +23,18 @@
         </div>
       </th>
       <th scope="col" class="px-6 py-3" data-orderBy="languageVersions.title">
-        {{ 'general.fullName' | translate }}
+        {{ 'general.name' | translate }}
         <utility-sort-indicator
           orderBy="languageVersions.title"
           [tableState]="tableState"
         ></utility-sort-indicator>
       </th>
-      <th scope="col" class="px-6 py-3">
-        {{ 'general.languages' | translate }}
-      </th>
-      <th scope="col" class="px-6 py-3">
-        {{ 'general.members' | translate }}
-      </th>
+<!--      <th scope="col" class="px-6 py-3">-->
+<!--        {{ 'general.languages' | translate }}-->
+<!--      </th>-->
+<!--      <th scope="col" class="px-6 py-3">-->
+<!--        {{ 'general.members' | translate }}-->
+<!--      </th>-->
       <th scope="col" class="px-6 py-3" data-orderBy="active">
         {{ 'general.active' | translate }}
         <utility-sort-indicator
@@ -77,18 +77,16 @@
           {{ getFirstLanguageVersion(item.languageVersions).title }}
         </a>
       </td>
+<!--      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">-->
+<!--        {{ getLanguageCodes(item.languageVersions) }}-->
+<!--      </td>-->
+<!--      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">-->
+<!--        <i class="bi bi-person"></i>-->
+<!--        {{ item?.permanentMembers?.length ?? 0 }}-->
+<!--      </td>-->
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-        {{ getLanguageCodes(item.languageVersions) }}
-      </td>
-      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-        <i class="bi bi-person"></i>
-        {{ item?.permanentMembers?.length ?? 0 }}
-      </td>
-      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-        <span
-          [class.text-danger]="!item.active"
-          [class.text-success]="item.active">
-          {{ item.active ? 'active' : 'Inactive' }}
+        <span active-style [active]="item.active">
+          {{ (item.active ? 'general.active' : 'general.inactive') | translate }}
         </span>
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
