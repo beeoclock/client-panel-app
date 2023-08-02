@@ -7,6 +7,9 @@
     }
   },
   "general": {
+    "placeholder": {
+      "description": "Wprowadź szczegóły"
+    },
     "chooseImage": "Wybierz plik",
     "selectSpecialist": "Wybierz specjalistę",
     "image": "Obraz",
