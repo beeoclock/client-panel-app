@@ -17,50 +17,50 @@ import {IMember} from "@member/domain";
   selector: 'service-form-specialists-block-component',
   standalone: true,
   template: `
-    <div
-      class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-3">
-      <span class="text-2xl font-bold text-gray-500">{{ 'general.specialists' | translate }}</span>
+<!--    <div-->
+<!--      class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-3">-->
+<!--      <span class="text-2xl font-bold text-gray-500">{{ 'general.specialists' | translate }}</span>-->
 
-      <div *ngFor="let member of specialistListControl.value; let index = index">
+<!--      <div *ngFor="let member of specialistListControl.value; let index = index">-->
 
 
-        <div class="grid grid-cols-16 gap-3">
-          <div class="col-span-3">
-            <div class="w-[100px] h-[100px] rounded-full bg-gray-300">
+<!--        <div class="grid grid-cols-16 gap-3">-->
+<!--          <div class="col-span-3">-->
+<!--            <div class="w-[100px] h-[100px] rounded-full bg-gray-300">-->
 
-            </div>
-          </div>
-          <div class="col-span-9 flex items-center">
-            <div class="flex flex-col">
-              <div>
-                {{ member.firstName }} {{ member.lastName }}
-              </div>
-              <div>
-                {{ member.email }}
-              </div>
-              <div></div>
-              <div></div>
-            </div>
-          </div>
-          <div class="col-span-4 flex items-start justify-end">
-            <button (click)="removeMemberFromSelectedList(member)"
-                    class="text-gray-600 hover:text-red-600 hover:bg-red-100 px-2 py-1 rounded-2xl">
-              <i class="bi bi-trash"></i>
-            </button>
-          </div>
-        </div>
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="col-span-9 flex items-center">-->
+<!--            <div class="flex flex-col">-->
+<!--              <div>-->
+<!--                {{ member.firstName }} {{ member.lastName }}-->
+<!--              </div>-->
+<!--              <div>-->
+<!--                {{ member.email }}-->
+<!--              </div>-->
+<!--              <div></div>-->
+<!--              <div></div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="col-span-4 flex items-start justify-end">-->
+<!--            <button (click)="removeMemberFromSelectedList(member)"-->
+<!--                    class="text-gray-600 hover:text-red-600 hover:bg-red-100 px-2 py-1 rounded-2xl">-->
+<!--              <i class="bi bi-trash"></i>-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </div>-->
 
-        <hr class="mt-4">
+<!--        <hr class="mt-4">-->
 
-      </div>
+<!--      </div>-->
 
-      <button (click)="openModalToSelectSpecialist()"
-              class="w-full text-blue-600 rounded px-4 py-2 hover:bg-blue-100 flex items-center justify-center gap-3">
-        <i class="bi bi-list-check"></i>
-        {{ 'general.selectSpecialist' | translate }}
-      </button>
+<!--      <button (click)="openModalToSelectSpecialist()"-->
+<!--              class="w-full text-blue-600 rounded px-4 py-2 hover:bg-blue-100 flex items-center justify-center gap-3">-->
+<!--        <i class="bi bi-list-check"></i>-->
+<!--        {{ 'general.selectSpecialist' | translate }}-->
+<!--      </button>-->
 
-    </div>
+<!--    </div>-->
   `,
   imports: [
     NgIf,
