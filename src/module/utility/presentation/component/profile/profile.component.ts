@@ -1,53 +1,132 @@
-import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, inject, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Auth} from '@angular/fire/auth';
-import {Dropdown} from "bootstrap";
+import {Dropdown, DropdownOptions} from "flowbite";
+import {Router, RouterLink} from "@angular/router";
+import {TranslateModule} from "@ngx-translate/core";
+import {Select} from "@ngxs/store";
+import {BeeoclockIdTokenResult, IdentityState} from "@identity/state/identity/identity.state";
+import {AsyncPipe, JsonPipe} from "@angular/common";
+import {Observable} from "rxjs";
 
 
 @Component({
   selector: 'utility-profile-component',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
+  imports: [
+    RouterLink,
+    TranslateModule,
+    JsonPipe,
+    AsyncPipe
+  ],
   template: `
-    <a class="nav-link pe-0 ps-2"
-       data-bs-toggle="dropdown" id="navbarDropdownUser" role="button">
-      <div class="avatar avatar-xl">
-        <img alt="" class="rounded-circle" src="asset/img/logo.png"/>
 
+    <button
+      #dropdownProfileAvatarButton
+      id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName"
+      class="flex items-center text-sm font-medium rounded-full hover:text-blue-600 dark:hover:text-blue-500 focus:ring-4 focus:ring-beeColor-600 dark:focus:ring-gray-700 dark:text-white"
+      type="button">
+      <span class="sr-only">Open user menu</span>
+      <div class="w-8 h-8 rounded-full bg-beeColor-200 text-2xl text-beeColor-700">
+        <i class="bi bi-person-circle"></i>
       </div>
-    </a>
-    <div aria-labelledby="navbarDropdownUser"
-         class="dropdown-menu dropdown-caret dropdown-caret dropdown-menu-end py-0">
-      <div class="bg-white dark__bg-1000 rounded-2 py-2">
+      <!--      <img class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo">-->
+    </button>
 
-        <a class="dropdown-item" href="#!">Set status</a>
-        <a class="dropdown-item" href="/">Profile &amp; account</a>
-        <a class="dropdown-item" href="#!">Feedback</a>
-
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="/">Settings</a>
-        <button class="dropdown-item" (click)="signOut()">Logout</button>
+    <!-- Dropdown menu -->
+    <div
+      #dropdownProfileAvatarMenu
+      id="dropdownAvatarName"
+      class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-48 dark:bg-gray-700 dark:divide-gray-600">
+      <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+        <div class="font-medium">
+          {{ (token$ | async)?.claims?.name }}
+        </div>
+        <div class="truncate">{{ (token$ | async)?.claims?.email }}</div>
+      </div>
+      <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+          aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+        <li>
+          <a routerLink="/client/profile"
+             (click)="hideDropdown()"
+             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+            {{ 'sidebar.profile' | translate }}
+          </a>
+        </li>
+        <li>
+          <a routerLink="/client/settings"
+             (click)="hideDropdown()"
+             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+            {{ 'sidebar.settings' | translate }}
+          </a>
+        </li>
+        <li>
+          <a routerLink="/identity/corridor"
+             (click)="hideDropdown()"
+             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+            {{ 'sidebar.switch-business-client' | translate }}
+          </a>
+        </li>
+      </ul>
+      <div class="py-2">
+        <button
+          (click)="signOut()"
+          class="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+          {{ 'general.logout' | translate }}
+        </button>
       </div>
     </div>
+
   `
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements AfterViewInit {
 
   private readonly auth = inject(Auth);
+  private readonly router = inject(Router);
+
+  @Select(IdentityState.token)
+  public token$!: Observable<BeeoclockIdTokenResult>;
+
   public dropdown: Dropdown | undefined;
 
-  public ngOnInit(): void {
+  @ViewChild('dropdownProfileAvatarButton')
+  public dropdownProfileAvatarButton!: ElementRef<HTMLButtonElement>;
 
-    this.dropdown = new Dropdown('utility-profile-component > #navbarDropdownUser', {
+  @ViewChild('dropdownProfileAvatarMenu')
+  public dropdownProfileAvatarMenu!: ElementRef<HTMLDivElement>;
 
-    });
+  public ngAfterViewInit(): void {
+
+    // options with default values
+    const options: DropdownOptions = {
+      placement: 'bottom-start',
+      triggerType: 'click',
+    };
+
+    /*
+    * targetEl: required
+    * triggerEl: required
+    * options: optional
+    */
+    this.dropdown = new Dropdown(
+      this.dropdownProfileAvatarMenu.nativeElement,
+      this.dropdownProfileAvatarButton.nativeElement,
+      options
+    );
 
   }
 
+  public hideDropdown(): void {
+    this.dropdown?.hide();
+  }
+
   public signOut(): void {
+    this.hideDropdown();
     // TODO ask if user really want to sign out!
     this.auth.signOut()
       .then(() => {
         console.log('Sign out!');
+        this.router.navigate(['/']);
 
       })
       .catch((error) => {

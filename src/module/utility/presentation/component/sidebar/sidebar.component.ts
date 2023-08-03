@@ -4,6 +4,8 @@ import {NgForOf, NgIf} from '@angular/common';
 import {Auth} from "@angular/fire/auth";
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
+import {firstValueFrom} from "rxjs";
+import {IdentityState} from "@identity/state/identity/identity.state";
 
 interface IMenuItem {
   url?: string;
@@ -88,38 +90,47 @@ export class SidebarComponent {
       },
       url: '/event',
     },
-    {
-      icon: 'bi bi-person',
-      translateKey: 'sidebar.private',
-      routerLinkActiveOptions: {
-        exact: true
-      },
-      items: [
-        {
-          translateKey: 'sidebar.profile',
-          url: '/client/profile',
-          icon: 'bi bi-person',
-          routerLinkActiveOptions: {
-            exact: true
-          }
-        },
-        {
-          translateKey: 'sidebar.settings',
-          url: '/client/settings',
-          icon: 'bi bi-gear',
-          routerLinkActiveOptions: {
-            exact: true
-          }
-        },
-        {
-          translateKey: 'sidebar.switch-business-client',
-          url: '/identity/corridor',
-          icon: 'bi bi-gear',
-          routerLinkActiveOptions: {
-            exact: true
-          }
-        },
-      ]
-    }
+    // {
+    //   icon: 'bi bi-person',
+    //   translateKey: 'sidebar.private',
+    //   routerLinkActiveOptions: {
+    //     exact: true
+    //   },
+    //   items: [
+    //     {
+    //       translateKey: 'sidebar.profile',
+    //       url: '/client/profile',
+    //       icon: 'bi bi-person',
+    //       routerLinkActiveOptions: {
+    //         exact: true
+    //       }
+    //     },
+    //     {
+    //       translateKey: 'sidebar.settings',
+    //       url: '/client/settings',
+    //       icon: 'bi bi-gear',
+    //       routerLinkActiveOptions: {
+    //         exact: true
+    //       }
+    //     },
+    //     {
+    //       translateKey: 'sidebar.switch-business-client',
+    //       url: '/identity/corridor',
+    //       icon: 'bi bi-gear',
+    //       routerLinkActiveOptions: {
+    //         exact: true
+    //       }
+    //     },
+    //   ]
+    // }
   ];
+
+  public async goToPublicPage(): Promise<void> {
+
+    const clientId = await firstValueFrom(this.store.select(IdentityState.clientId));
+    const link = `https://beeoclock.com/${clientId}`;
+    console.log('Go to:', link);
+    window.open(link, '_blank');
+
+  }
 }
