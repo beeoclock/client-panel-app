@@ -6,6 +6,11 @@
       "minlength": "Minimum length is {{requiredLength}}"
     }
   },
+  "keyword": {
+    "capitalize": {
+      "add-service": "Add service"
+    }
+  },
   "general": {
     "placeholder": {
       "description": "Type description",
