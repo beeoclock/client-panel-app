@@ -6,6 +6,11 @@
       "minlength": "Minimalna długość to {{requiredLength}}"
     }
   },
+  "keyword": {
+    "capitalize": {
+      "add-event": "Dodaj wydarzenie"
+    }
+  },
   "general": {
     "placeholder": {
       "description": "Wprowadź szczegóły",

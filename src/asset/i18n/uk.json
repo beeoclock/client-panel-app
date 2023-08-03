@@ -6,6 +6,11 @@
       "minlength": "Мінімальна довжина - {{requiredLength}}"
     }
   },
+  "keyword": {
+    "capitalize": {
+      "add-event": "Додати подію"
+    }
+  },
   "general": {
     "placeholder": {
       "description": "Напишіть детальніше інформацію",

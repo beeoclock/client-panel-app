@@ -6,6 +6,11 @@
       "minlength": "Minimum length is {{requiredLength}}"
     }
   },
+  "keyword": {
+    "capitalize": {
+      "add-event": "Add event"
+    }
+  },
   "general": {
     "placeholder": {
       "description": "Type description",
