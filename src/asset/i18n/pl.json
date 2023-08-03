@@ -134,6 +134,13 @@
     "title": "Wydarzenie",
     "form": {
       "section": {
+        "additional": {
+          "input": {
+            "note": {
+              "placeholder": "Tutaj możesz wprowadzić dodatkowe informacje o wydarzeniu"
+            }
+          }
+        },
         "attendant": {
           "button": {
             "add": "Dodaj uczestnika",

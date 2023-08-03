@@ -134,6 +134,13 @@
     "title": "Event",
     "form": {
       "section": {
+        "additional": {
+          "input": {
+            "note": {
+              "placeholder": "Here you can enter additional information about the event"
+            }
+          }
+        },
         "attendant": {
           "button": {
             "add": "Add attendant",

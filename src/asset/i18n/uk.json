@@ -134,6 +134,13 @@
     "title": "Подія",
     "form": {
       "section": {
+        "additional": {
+          "input": {
+            "note": {
+              "placeholder": "Тут Ви можете ввести додаткову інформацію про подію"
+            }
+          }
+        },
         "attendant": {
           "button": {
             "add": "Додати учасника",
