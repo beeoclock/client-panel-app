@@ -55,17 +55,17 @@ export class SidebarComponent {
         fragment: "ignored",
       }
     },
-    {
-      url: '/member',
-      translateKey: 'sidebar.members',
-      icon: 'bi bi-people',
-      routerLinkActiveOptions: {
-        paths: "subset",
-        matrixParams: "ignored",
-        queryParams: "ignored",
-        fragment: "ignored",
-      }
-    },
+    // {
+    //   url: '/member',
+    //   translateKey: 'sidebar.members',
+    //   icon: 'bi bi-people',
+    //   routerLinkActiveOptions: {
+    //     paths: "subset",
+    //     matrixParams: "ignored",
+    //     queryParams: "ignored",
+    //     fragment: "ignored",
+    //   }
+    // },
     {
       url: '/service',
       translateKey: 'sidebar.services',
