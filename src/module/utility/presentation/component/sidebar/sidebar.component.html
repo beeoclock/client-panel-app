@@ -18,7 +18,7 @@
         dark:border-beeDarkColor-700"
        aria-label="Sidebar">
 
-  <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-beeDarkColor-800">
+  <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-beeDarkColor-800 flex flex-col justify-between">
 
     <ul class="space-y-2 font-medium">
 
@@ -126,6 +126,18 @@
 
       </li>
 
+    </ul>
+
+
+    <ul>
+      <li>
+        <button
+          (click)="goToPublicPage()"
+          class="w-full border border-blue-600 rounded-2xl bg-blue-100 px-3 py-1 text-blue-600 me-2 flex items-center justify-between gap-2">
+          {{ 'general.publicPage' | translate }}
+          <i class="bi bi-box-arrow-up-right"></i>
+        </button>
+      </li>
     </ul>
 
   </div>

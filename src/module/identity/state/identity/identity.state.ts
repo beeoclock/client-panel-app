@@ -11,6 +11,9 @@ export interface BeeoclockParsedToken extends ParsedToken {
   clientId?: string;
   accountId?: string;
   userId?: string;
+
+  name?: string;
+  email?: string;
 }
 
 export interface BeeoclockIdTokenResult extends IdTokenResult {
