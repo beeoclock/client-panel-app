@@ -48,7 +48,7 @@ import {TranslateModule} from "@ngx-translate/core";
           id="firstName"
           type="firstName"
           autocomplete="firstName"
-          placeholder="First name"
+          [placeholder]="'general.firstName' | translate"
           [control]="form.controls.firstName"
           [label]="'general.firstName' | translate">
         </form-input>
@@ -57,7 +57,7 @@ import {TranslateModule} from "@ngx-translate/core";
           id="lastName"
           type="lastName"
           autocomplete="lastName"
-          placeholder="Last name"
+          [placeholder]="'general.lastName' | translate"
           [control]="form.controls.lastName"
           [label]="'general.lastName' | translate">
         </form-input>

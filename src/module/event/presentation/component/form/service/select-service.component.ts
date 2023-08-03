@@ -64,7 +64,6 @@ export class SelectServiceComponent implements AfterViewInit {
         orderBy: 'createdAt',
         orderDir: 'asc',
         filters: {
-          search: '',
           active: ActiveEnum.YES
         }
       })

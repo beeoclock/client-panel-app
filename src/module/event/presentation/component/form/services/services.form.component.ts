@@ -24,7 +24,13 @@ import {is} from "thiis";
 
     <div class="flex flex-col gap-4">
 
-      <strong class="text-2xl">{{ 'general.services' | translate }}</strong>
+      <div class="flex justify-between">
+        <strong class="text-2xl">{{ 'general.services' | translate }}</strong>
+        <button (click)="openServiceModal()" class="text-sm text-blue-600 rounded-2xl px-2 py-1 hover:bg-blue-100">
+          <i class="bi bi-plus-lg"></i>
+          {{ 'event.form.section.service.button.add' | translate }}
+        </button>
+      </div>
 
       <div *ngFor="let selectedService of control.value; let index = index" class="flex flex-col gap-3">
 
@@ -44,11 +50,11 @@ import {is} from "thiis";
           </div>
         </div>
 
-        <div class="flex gap-4">
-          <div class="pt-1">
+        <div class="grid grid-cols-12 gap-4">
+          <div class="col-span-2 pt-1">
             <div class="w-[70px] h-[70px] bg-gray-300 rounded-2xl"></div>
           </div>
-          <div class="flex flex-col">
+          <div class="col-span-8 flex flex-col">
             <span class="font-bold">
               {{ selectedService.languageVersions[0].title }}
             </span>
@@ -56,7 +62,7 @@ import {is} from "thiis";
               {{ selectedService.languageVersions[0].description }}
             </span>
           </div>
-          <div class="flex flex-col">
+          <div class="col-span-2 flex flex-col">
             <span class="font-bold">
               {{ selectedService.durationVersions[0].prices[0].price }} {{ selectedService.durationVersions[0].prices[0].currency }}
             </span>
@@ -66,13 +72,13 @@ import {is} from "thiis";
           </div>
         </div>
 
-        <div class="flex gap-4">
-          <div class="pt-1">
+        <div class="grid grid-cols-12 gap-4">
+          <div class="col-span-2 pt-1">
             <div class="w-[70px] flex justify-end">
               <div class="w-[44px] h-[44px] bg-gray-300 rounded-2xl"></div>
             </div>
           </div>
-          <div class="flex flex-col">
+          <div class="col-span-10 flex flex-col">
             <span class="font-bold">
               Specialist
             </span>
@@ -86,10 +92,10 @@ import {is} from "thiis";
 
       </div>
 
-      <button (click)="openServiceModal()" class="w-full text-blue-600 rounded px-4 py-2 hover:bg-blue-100">
-        <i class="bi bi-plus-lg"></i>
-        {{ 'event.form.section.service.button.add' | translate }}
-      </button>
+<!--      <button (click)="openServiceModal()" class="w-full text-blue-600 rounded px-4 py-2 hover:bg-blue-100">-->
+<!--        <i class="bi bi-plus-lg"></i>-->
+<!--        {{ 'event.form.section.service.button.add' | translate }}-->
+<!--      </button>-->
     </div>
   `
 })

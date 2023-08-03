@@ -8,7 +8,8 @@
   },
   "keyword": {
     "capitalize": {
-      "add-event": "Додати подію"
+      "add-event": "Додати подію",
+      "customer": "Клієнт"
     }
   },
   "general": {
@@ -135,7 +136,13 @@
       "section": {
         "attendant": {
           "button": {
-            "add": "Додати учасника"
+            "add": "Додати учасника",
+            "togglePresentationOfNewAttendant": "Цього клієнта немає в списку (новий клієнт)"
+          },
+          "input": {
+            "selectCustomer": {
+              "placeholder": "Виберіть клієнта"
+            }
           }
         },
         "service": {

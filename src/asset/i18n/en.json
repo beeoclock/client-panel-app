@@ -8,7 +8,8 @@
   },
   "keyword": {
     "capitalize": {
-      "add-event": "Add event"
+      "add-event": "Add event",
+      "customer": "Customer"
     }
   },
   "general": {
@@ -135,7 +136,13 @@
       "section": {
         "attendant": {
           "button": {
-            "add": "Add attendant"
+            "add": "Add attendant",
+            "togglePresentationOfNewAttendant": "This client is not listed (new client)"
+          },
+          "input": {
+            "selectCustomer": {
+              "placeholder": "Select customer"
+            }
           }
         },
         "service": {

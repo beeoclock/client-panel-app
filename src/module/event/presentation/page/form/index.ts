@@ -160,10 +160,11 @@ export default class Index implements OnInit {
       this.form.disable();
       this.form.markAsPending();
       const redirectUri = ['../'];
+      const value = this.form.getRawValue() as IEvent;
       if (this.isEditMode) {
-        await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(this.form.getRawValue() as IEvent)));
+        await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(value)));
       } else {
-        await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(this.form.getRawValue() as IEvent)));
+        await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(value)));
         const item = await firstValueFrom(this.itemData$);
         if (item && item._id) {
           redirectUri.push(item._id);

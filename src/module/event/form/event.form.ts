@@ -84,6 +84,6 @@ export class AttendantForm extends FormGroup<IAttendantForm> {
   }
 
   public initValidators(): void {
-    this.controls.email.setValidators([Validators.required, Validators.email]);
+    this.controls.email.setValidators([Validators.email]);
   }
 }
