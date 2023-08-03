@@ -22,7 +22,7 @@ import {CustomerAttendantComponent} from "@event/presentation/component/form/att
 
       <div class="flex justify-between">
         <strong class="text-2xl">{{ 'general.clients' | translate }}</strong>
-        <button (click)="form.pushNewAttendant()" class="text-sm text-blue-600 rounded-2xl px-2 py-1 hover:bg-blue-100">
+        <button (click)="form.pushNewOne()" class="text-sm text-blue-600 rounded-2xl px-2 py-1 hover:bg-blue-100">
           <i class="bi bi-plus-lg"></i>
           {{ 'event.form.section.attendant.button.add' | translate }}
         </button>
@@ -82,8 +82,6 @@ export class AttendeesComponent {
   }
 
   public remove(index: number): void {
-    console.log(index);
-    console.log(this.presentationStatePerIndex);
     this.presentationStatePerIndex.splice(index, 1);
     this.form.remove(index);
   }

@@ -9,7 +9,12 @@
   "keyword": {
     "capitalize": {
       "add-event": "Додати подію",
-      "customer": "Клієнт"
+      "customer": "Клієнт",
+      "confirm": "Підтвердити",
+      "cancel": "Скасувати",
+      "specialist": "Спеціаліст",
+      "select": "Виберіть",
+      "selected": "Обрано"
     }
   },
   "general": {
@@ -156,8 +161,14 @@
           "modal": {
             "title": "Вибір послуги"
           },
+          "input": {
+            "selectService": {
+              "placeholder": "Виберіть послугу"
+            }
+          },
           "button": {
-            "add": "Додати послугу"
+            "add": "Додати послугу",
+            "select": "Вибрати послугу"
           }
         }
       }

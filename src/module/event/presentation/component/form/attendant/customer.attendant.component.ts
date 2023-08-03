@@ -127,9 +127,10 @@ export class CustomerAttendantComponent implements OnInit {
   public ngOnInit(): void {
     this.initTableState();
 
+    this.localControl.patchValue(this.control.value as ICustomer);
+
     this.localControl.valueChanges.subscribe((value) => {
       if (value) {
-        console.log(value);
         this.control.patchValue(value);
       }
     });
@@ -141,7 +142,7 @@ export class CustomerAttendantComponent implements OnInit {
   }
 
   public getInitials(item: ICustomer): string {
-    return initials(item.firstName, item.lastName);
+    return initials(item.firstName ?? '', item.lastName ?? '');
   }
 
   public changeValue() {

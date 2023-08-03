@@ -1,8 +1,10 @@
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {IService} from "@service/domain";
+import {ICustomer} from "@customer/domain";
 
 
 export interface IAttendantForm {
+  _id: FormControl<string>;
   email: FormControl<string>;
   phone: FormControl<string>;
   firstName: FormControl<string>;
@@ -48,6 +50,7 @@ export class EventForm extends FormGroup<IEventForm> {
   }
 
   public initValue(): void {
+    this.controls.services.patchValue([]);
     this.controls.servicesAreProvidedInParallel.patchValue(false);
     this.controls.end.patchValue(new Date().toISOString());
     this.controls.start.patchValue(new Date().toISOString());
@@ -62,8 +65,12 @@ export class AttendeesForm extends FormArray<AttendantForm> {
     super([new AttendantForm()]);
   }
 
-  public pushNewAttendant(): void {
-    this.controls.push(new AttendantForm());
+  public pushNewOne(initialValue?: ICustomer | undefined): void {
+    const control = new AttendantForm();
+    if (initialValue) {
+      control.patchValue(initialValue);
+    }
+    this.controls.push(control);
   }
 
   public remove(index: number): void {
@@ -75,6 +82,7 @@ export class AttendeesForm extends FormArray<AttendantForm> {
 export class AttendantForm extends FormGroup<IAttendantForm> {
   constructor() {
     super({
+      _id: new FormControl(),
       email: new FormControl(),
       phone: new FormControl(),
       firstName: new FormControl(),

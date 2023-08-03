@@ -9,7 +9,12 @@
   "keyword": {
     "capitalize": {
       "add-event": "Add event",
-      "customer": "Customer"
+      "customer": "Customer",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "specialist": "Specialist",
+      "select": "Select",
+      "selected": "Selected"
     }
   },
   "general": {
@@ -156,8 +161,14 @@
           "modal": {
             "title": "Select service"
           },
+          "input": {
+            "selectService": {
+              "placeholder": "Select service"
+            }
+          },
           "button": {
-            "add": "Add service"
+            "add": "Add service",
+            "select": "Select service"
           }
         }
       }

@@ -1,4 +1,5 @@
 import {IService} from "@service/domain";
+import {ICustomer} from "@customer/domain";
 
 export interface IEvent {
   _id?: string;
@@ -22,7 +23,5 @@ export interface IEvent {
    * customer: Customer;
    * active: ActiveEnum;
    */
-  attendees?: {
-    email?: string;
-  }[];
+  attendees?: ICustomer[];
 }

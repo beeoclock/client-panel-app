@@ -10,6 +10,11 @@
     "capitalize": {
       "add-event": "Dodaj wydarzenie",
       "customer": "Klient",
+      "confirm": "Potwierdź",
+      "cancel": "Anuluj",
+      "specialist": "Specjalista",
+      "select": "Wybierz",
+      "selected": "Wybrano"
     }
   },
   "general": {
@@ -154,10 +159,16 @@
         },
         "service": {
           "modal": {
-            "title": "Wybierz usługę"
+            "title": "Wybór usługi"
+          },
+          "input": {
+            "selectService": {
+              "placeholder": "Wybierz usługę"
+            }
           },
           "button": {
-            "add": "Dodaj usługę"
+            "add": "Dodaj usługę",
+            "select": "Wybierz usługę"
           }
         }
       }

@@ -74,7 +74,7 @@ export type modalSizeType = 'modal-sm' | '' | 'modal-lg' | 'modal-xl';
           </div>
 
           <!-- Modal body -->
-          <div #contentRef class="p-6 space-y-6 overflow-y-auto h-96">
+          <div #contentRef class="p-6 space-y-6 overflow-y-auto max-h-[calc(100vh-16rem)]">
             <ng-content></ng-content>
           </div>
 

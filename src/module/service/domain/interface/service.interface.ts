@@ -41,6 +41,14 @@ export interface IDurationVersion {
   prices: IPrice[];
 }
 
+export interface IPresentation {
+  createdAt: string;
+  main: string;
+  object: 'Service.Presentation';
+  updatedAt: string;
+  _id: string;
+}
+
 export interface IService {
   active: ActiveEnum;
   configuration: IConfiguration;
@@ -49,6 +57,7 @@ export interface IService {
   languageVersions: ILanguageVersion[];
   durationVersions: IDurationVersion[];
   permanentMembers: IMember[];
+  presentation: IPresentation;
   createdAt: string;
   updatedAt: string;
   _id: string;

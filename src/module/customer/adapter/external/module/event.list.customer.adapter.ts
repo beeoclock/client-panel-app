@@ -27,6 +27,10 @@ export class EventListCustomerAdapter {
    */
   public async getPageAsync(): Promise<void> {
 
+    if (this.loading$.isOn) {
+      return;
+    }
+
     this.loading$.switchOn();
 
     try {
