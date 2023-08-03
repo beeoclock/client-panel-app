@@ -6,6 +6,11 @@
       "minlength": "Minimalna długość to {{requiredLength}}"
     }
   },
+  "keyword": {
+    "capitalize": {
+      "add-service": "Dodaj usługę"
+    }
+  },
   "general": {
     "placeholder": {
       "description": "Wprowadź szczegóły",

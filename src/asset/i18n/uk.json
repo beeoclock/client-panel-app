@@ -6,6 +6,11 @@
       "minlength": "Мінімальна довжина - {{requiredLength}}"
     }
   },
+  "keyword": {
+    "capitalize": {
+      "add-service": "Додати послугу"
+    }
+  },
   "general": {
     "placeholder": {
       "description": "Напишіть детальніше інформацію",
