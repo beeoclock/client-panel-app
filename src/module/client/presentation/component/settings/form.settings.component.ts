@@ -1,6 +1,5 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {InputDirective} from '@utility/directives/input/input.directive';
-import {TextareaDirective} from '@utility/directives/textarea/textarea.directive';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {SettingsForm} from '@module/client/form/settings.form';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -13,6 +12,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 import {
   SocialNetworkLinkFormComponent
 } from "@client/presentation/component/settings/social-network-link.form.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'client-form-settings-component',
@@ -21,16 +21,15 @@ import {
   imports: [
     InputDirective,
     InputDirective,
-    TextareaDirective,
     InputDirective,
-    TextareaDirective,
     DeleteButtonComponent,
     ReactiveFormsModule,
     SpinnerComponent,
     NgIf,
     LoaderComponent,
     NgForOf,
-    SocialNetworkLinkFormComponent
+    SocialNetworkLinkFormComponent,
+    TranslateModule
   ],
   template: `
     <utility-loader *ngIf="loadingData.isOn; else ContentTemplate"></utility-loader>
@@ -63,7 +62,7 @@ import {
                  role="switch"
                  id="active"
                  formControlName="active">
-          <label for="active">Active</label>
+          <label for="active">{{ 'general.active' | translate }}</label>
         </div>
         <div class="pb-4">
           <label for="description">Description</label>

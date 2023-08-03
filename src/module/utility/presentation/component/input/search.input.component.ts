@@ -1,5 +1,6 @@
-import {Component, Input} from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'utility-search-input-component',
@@ -16,7 +17,9 @@ export class SearchInputComponent {
   @Input()
   public control: FormControl = new FormControl();
 
+  public readonly translateService = inject(TranslateService);
+
   @Input()
-  public placeholder = 'Write text';
+  public placeholder = this.translateService.instant('general.placeholder.search');
 
 }

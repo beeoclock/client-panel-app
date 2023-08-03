@@ -1,6 +1,5 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {InputDirective} from '@utility/directives/input/input.directive';
-import {TextareaDirective} from '@utility/directives/textarea/textarea.directive';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
@@ -16,10 +15,6 @@ import {NgSelectModule} from "@ng-select/ng-select";
   encapsulation: ViewEncapsulation.None,
   imports: [
     InputDirective,
-    InputDirective,
-    TextareaDirective,
-    InputDirective,
-    TextareaDirective,
     DeleteButtonComponent,
     ReactiveFormsModule,
     SpinnerComponent,

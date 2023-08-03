@@ -1,4 +1,13 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChange, ViewEncapsulation} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChange,
+  ViewEncapsulation
+} from '@angular/core';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ReactiveFormsModule} from "@angular/forms";
 import {NgForOf, NgIf} from "@angular/common";
@@ -8,6 +17,7 @@ import humanizeDuration from "humanize-duration";
 import {DateTime} from "luxon";
 import {getPaginationItems} from "@utility/domain/pagination.items";
 import {environment} from "@environment/environment";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'utility-table-state-pagination-component',
@@ -19,6 +29,7 @@ import {environment} from "@environment/environment";
     ReactiveFormsModule,
     NgIf,
     RouterLink,
+    TranslateModule,
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -39,6 +50,8 @@ export class TableStatePaginationComponent implements OnChanges {
   public lastUpdate: undefined | string;
   public pages: number[] = [];
 
+  public readonly translateService = inject(TranslateService);
+
   /**
    *
    * @param page
@@ -49,9 +62,13 @@ export class TableStatePaginationComponent implements OnChanges {
 
   public ngOnChanges(changes: { tableState: SimpleChange }): void {
     if (changes.tableState) {
-      this.lastUpdate = humanizeDuration(DateTime.now().diff(DateTime.fromISO(this.tableState.lastUpdate)).as('milliseconds'), {
-        round: true
-      });
+      this.lastUpdate = humanizeDuration(
+        DateTime.now().diff(DateTime.fromISO(this.tableState.lastUpdate)).as('milliseconds'),
+        {
+          round: true,
+          language: this.translateService.currentLang,
+        }
+      );
       this.pages = getPaginationItems(this.tableState.page, this.tableState.maxPage, environment.config.pagination.maxLength);
     }
   }

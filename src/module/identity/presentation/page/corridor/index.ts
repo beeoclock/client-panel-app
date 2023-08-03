@@ -84,7 +84,6 @@ export default class Index {
     // Refresh token and receive new claims
     await firstValueFrom(this.store.dispatch(new IdentityActions.InitToken()));
     const clientId = await firstValueFrom(this.clientId$);
-    console.log(clientId, member);
 
     if (clientId === member.client._id) {
       await this.router.navigate(['/', 'dashboard']);

@@ -3,7 +3,6 @@ import {CardComponent} from '@utility/presentation/component/card/card.component
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InputDirective} from '@utility/directives/input/input.directive';
-import {TextareaDirective} from '@utility/directives/textarea/textarea.directive';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
@@ -40,7 +39,6 @@ import calculateDuration = ConvertTime.calculateDuration;
     BodyCardComponent,
     ReactiveFormsModule,
     InputDirective,
-    TextareaDirective,
     DeleteButtonComponent,
     HasErrorDirective,
     RouterLink,
@@ -111,7 +109,6 @@ export default class Index implements OnInit {
     firstValueFrom(this.activatedRoute.params.pipe(filter(({id}) => id?.length))).then(() => {
       firstValueFrom(this.itemData$).then((result) => {
         if (result?._id) {
-          console.log(result);
           this.isEditMode = true;
           this.form.patchValue(result);
           this.form.updateValueAndValidity();
@@ -159,7 +156,6 @@ export default class Index implements OnInit {
 
   public async save(): Promise<void> {
     this.form.markAllAsTouched();
-    console.log(this.form);
     if (this.form.valid) {
       this.form.disable();
       this.form.markAsPending();

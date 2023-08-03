@@ -4,19 +4,19 @@
     <button
       (click)="prevPage()"
       class="relative inline-flex items-center rounded-md border border-beeColor-300 bg-white px-4 py-2 text-sm font-medium text-beeColor-700 hover:bg-beeColor-100">
-      Previous
+      {{ 'general.previous' | translate }}
     </button>
     <button
       (click)="nextPage()"
       class="relative ml-3 inline-flex items-center rounded-md border border-beeColor-300 bg-white px-4 py-2 text-sm font-medium text-beeColor-700 hover:bg-beeColor-100">
-      Next
+      {{ 'general.next' | translate }}
     </button>
   </div>
   <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
     <div>
       <p class="text-sm text-beeColor-700">
 
-        Total: {{ tableState.total }}
+        {{ 'general.total' | translate }}: {{ tableState.total }}
         <!--        Showing-->
         <!--        <span class="font-medium">1</span>-->
         <!--        to-->
@@ -28,8 +28,10 @@
     </div>
     <div>
       <p class="text-sm text-beeColor-700">
-        Last update: {{ lastUpdate }}
-        (<button (click)="clearTableCache()" class="text-blue-600 text-xs hover:underline">Refresh cache</button>)
+        {{ 'general.lastUpdate' | translate }}: {{ lastUpdate }}
+        (<button (click)="clearTableCache()" class="text-blue-600 text-xs hover:underline">
+          {{ 'general.clearCache' | translate }}
+      </button>)
       </p>
     </div>
     <div>

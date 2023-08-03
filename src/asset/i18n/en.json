@@ -8,10 +8,17 @@
   },
   "general": {
     "placeholder": {
-      "description": "Type description"
+      "description": "Type description",
+      "search": "Search"
     },
     "chooseImage": "Choose image",
     "selectSpecialist": "Select specialist",
+    "menu": "Menu",
+    "total": "Total",
+    "next": "Next",
+    "previous": "Previous",
+    "lastUpdate": "Last update",
+    "clearCache": "Refresh cache",
     "image": "Image",
     "specialists": "Specialists",
     "prices": "Prices",
@@ -46,6 +53,7 @@
     "additional": "Additional",
     "contact": "Contact",
     "active": "Active",
+    "inactive": "Inactive",
     "languages": "Languages",
     "members": "Members",
     "soon": "Soon",

@@ -67,13 +67,13 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
   }
 
   @Action(CustomerActions.UpdateFilters)
-  public override async UpdateFilters(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateFilters): Promise<void> {
-    await super.UpdateFilters(ctx, action);
+  public override UpdateFilters(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateFilters) {
+    super.UpdateFilters(ctx, action);
   }
 
   @Action(CustomerActions.UpdateTableState)
-  public override async UpdateTableState(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateTableState): Promise<void> {
-    return super.UpdateTableState(ctx, action);
+  public override UpdateTableState(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateTableState) {
+    super.UpdateTableState(ctx, action);
   }
 
   @Action(CustomerActions.GetItem)

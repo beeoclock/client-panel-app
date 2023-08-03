@@ -7,7 +7,7 @@ import {TableComponent} from '@utility/presentation/component/table/table.compon
 import {HeaderTableComponent} from '@utility/presentation/component/table/header.table.component';
 import {BodyTableComponent} from '@utility/presentation/component/table/body.table.component';
 import {PaginationComponent} from '@utility/presentation/component/pagination/pagination.component';
-import {AsyncPipe, DatePipe, NgForOf, NgIf} from '@angular/common';
+import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {FilterComponent} from '@service/presentation/component/filter/filter.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
@@ -26,6 +26,8 @@ import {ITableState} from "@utility/domain/table.state";
 import {
   TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
+import {ActiveStyleDirective} from "@utility/directives/active-style/active-style.directive";
+
 
 @Component({
   selector: 'service-list-page',
@@ -51,7 +53,9 @@ import {
     LoaderComponent,
     ActionComponent,
     TranslateModule,
-    TableStatePaginationComponent
+    TableStatePaginationComponent,
+    NgClass,
+    ActiveStyleDirective
   ],
   standalone: true
 })

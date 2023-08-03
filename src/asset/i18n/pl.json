@@ -8,10 +8,17 @@
   },
   "general": {
     "placeholder": {
-      "description": "Wprowadź szczegóły"
+      "description": "Wprowadź szczegóły",
+      "search": "Szukaj"
     },
     "chooseImage": "Wybierz plik",
     "selectSpecialist": "Wybierz specjalistę",
+    "menu": "Menu",
+    "total": "Razem",
+    "next": "Dalej",
+    "previous": "Wstecz",
+    "lastUpdate": "Ostatnia aktualizacja",
+    "clearCache": "Wyczyść Cache",
     "image": "Obraz",
     "specialists": "Specjaliści",
     "prices": "Ceny",
@@ -46,6 +53,7 @@
     "additional": "Dodatkowe",
     "contact": "Kontakt",
     "active": "Aktywny",
+    "inactive": "Nieaktywny",
     "languages": "Języki",
     "members": "Członkowie",
     "soon": "Wkrótce",
