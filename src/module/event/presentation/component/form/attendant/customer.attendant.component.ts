@@ -12,8 +12,8 @@ import {
 import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.list.customer.adapter";
 import {ICustomer} from "@customer/domain";
 import {initials} from "@utility/domain/initials";
-import {AttendantForm} from "@event/form/event.form";
 import {TranslateModule} from "@ngx-translate/core";
+import {CustomerForm} from "@customer/form";
 
 @Component({
   selector: 'event-customer-attendant-component',
@@ -104,7 +104,7 @@ import {TranslateModule} from "@ngx-translate/core";
 export class CustomerAttendantComponent implements OnInit {
 
   @Input()
-  public control: AttendantForm = new AttendantForm();
+  public control = new CustomerForm();
 
   @ViewChild('customerSelectComponent')
   public customerSelectComponent!: NgSelectComponent
@@ -125,9 +125,12 @@ export class CustomerAttendantComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.initTableState();
 
-    this.localControl.patchValue(this.control.value as ICustomer);
+    this.initTableState().then(() => {
+
+      this.localControl.patchValue(this.control.value as ICustomer);
+
+    });
 
     this.localControl.valueChanges.subscribe((value) => {
       if (value) {

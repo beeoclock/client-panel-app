@@ -1,17 +1,7 @@
-import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {IService} from "@service/domain";
-import {ICustomer} from "@customer/domain";
+import {AttendeesForm} from "@event/form/attendant.form";
 
-
-export interface IAttendantForm {
-  _id: FormControl<string>;
-  email: FormControl<string>;
-  phone: FormControl<string>;
-  firstName: FormControl<string>;
-  lastName: FormControl<string>;
-
-  [key: string]: AbstractControl<any, any>;
-}
 
 export interface IEventForm {
   _id: FormControl<string>;
@@ -57,41 +47,4 @@ export class EventForm extends FormGroup<IEventForm> {
     this.controls.timeZone.patchValue(Intl.DateTimeFormat().resolvedOptions().timeZone);
   }
 
-}
-
-export class AttendeesForm extends FormArray<AttendantForm> {
-
-  constructor() {
-    super([new AttendantForm()]);
-  }
-
-  public pushNewOne(initialValue?: ICustomer | undefined): void {
-    const control = new AttendantForm();
-    if (initialValue) {
-      control.patchValue(initialValue);
-    }
-    this.controls.push(control);
-  }
-
-  public remove(index: number): void {
-    this.controls.splice(index, 1);
-  }
-
-}
-
-export class AttendantForm extends FormGroup<IAttendantForm> {
-  constructor() {
-    super({
-      _id: new FormControl(),
-      email: new FormControl(),
-      phone: new FormControl(),
-      firstName: new FormControl(),
-      lastName: new FormControl(),
-    });
-    this.initValidators();
-  }
-
-  public initValidators(): void {
-    this.controls.email.setValidators([Validators.email]);
-  }
 }

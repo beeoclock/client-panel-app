@@ -1,14 +1,15 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {AttendantComponent} from '@event/presentation/component/form/attendant/attendant.component';
 import {NgForOf, NgIf} from '@angular/common';
-import {AttendantForm, AttendeesForm} from '@event/form/event.form';
 import {TranslateModule} from "@ngx-translate/core";
 import {CustomerAttendantComponent} from "@event/presentation/component/form/attendant/customer.attendant.component";
+import {AttendantForm, AttendeesForm} from "@event/form/attendant.form";
+import {IsNewCustomerEnum} from "@utility/domain/enum";
 
 @Component({
   selector: 'event-attendees-component',
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     AttendeesComponent,
     AttendantComponent,
@@ -41,20 +42,20 @@ import {CustomerAttendantComponent} from "@event/presentation/component/form/att
           </button>
         </div>
 
-        <ng-container *ngIf="showForm(index); else selectTemplate">
+        <ng-container *ngIf="isNew(control); else selectTemplate">
 
           <event-attendant-component
-            [index]="index"
-            [form]="control">
+            [form]="control.controls.customer">
           </event-attendant-component>
 
         </ng-container>
         <ng-template #selectTemplate>
 
-          <event-customer-attendant-component [control]="control"></event-customer-attendant-component>
+          <event-customer-attendant-component
+            [control]="control.controls.customer"></event-customer-attendant-component>
 
-          <ng-container *ngIf="attendantIsEmpty(control)">
-            <button (click)="togglePresentationState(index)" class="text-blue-600 text-sm">
+          <ng-container *ngIf="control.controls.customer.isEmpty()">
+            <button (click)="control.toggleIsNewCustomer()" class="text-blue-600 text-sm">
               {{ 'event.form.section.attendant.button.togglePresentationOfNewAttendant' | translate }}
             </button>
           </ng-container>
@@ -71,23 +72,12 @@ export class AttendeesComponent {
   @Input()
   public form!: AttendeesForm;
 
-  public readonly presentationStatePerIndex: boolean[] = [];
-
-  public togglePresentationState(index: number): void {
-    this.presentationStatePerIndex[index] = true;
-  }
-
-  public showForm(index: number): boolean {
-    return this.presentationStatePerIndex[index] ?? false;
-  }
-
   public remove(index: number): void {
-    this.presentationStatePerIndex.splice(index, 1);
     this.form.remove(index);
   }
 
-  public attendantIsEmpty(control: AttendantForm): boolean {
-    const {firstName, lastName, phone, email} = control.value;
-    return firstName === null && lastName === null && phone === null && email === null
+  public isNew(control: AttendantForm): boolean {
+    return control.controls.isNewCustomer.value === IsNewCustomerEnum.YES && control.controls.customer.controls._id.value === null;
   }
+
 }

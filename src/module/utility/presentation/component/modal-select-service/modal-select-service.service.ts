@@ -20,7 +20,6 @@ export class ModalSelectServiceService extends Reactive {
   private readonly modalService = inject(ModalService);
   private readonly translateService = inject(TranslateService);
 
-
   public async openServiceModal(params: {
     multiSelect?: boolean;
     selectedServiceList?: IService[];

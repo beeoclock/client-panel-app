@@ -3,6 +3,7 @@ import {LanguageCodeEnum} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
 import {WeekDaysEnum} from '@utility/domain/enum/days-of-week.enum';
 import {IMember} from "@member/domain";
+import {Interface} from '@utility/domain';
 
 export interface IConfiguration {
   earliestDateTime?: string;
@@ -41,15 +42,13 @@ export interface IDurationVersion {
   prices: IPrice[];
 }
 
-export interface IPresentation {
-  createdAt: string;
+export interface IPresentation extends Interface.IBaseEntity {
   main: string;
   object: 'Service.Presentation';
-  updatedAt: string;
-  _id: string;
 }
 
-export interface IService {
+export interface IService extends Interface.IBaseEntity {
+  object: 'Service';
   active: ActiveEnum;
   configuration: IConfiguration;
   prepaymentPolicy: IPrepaymentPolicy;
@@ -58,7 +57,4 @@ export interface IService {
   durationVersions: IDurationVersion[];
   permanentMembers: IMember[];
   presentation: IPresentation;
-  createdAt: string;
-  updatedAt: string;
-  _id: string;
 }

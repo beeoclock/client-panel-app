@@ -104,6 +104,7 @@ export default class Index implements OnInit {
   }
 
   public async save(): Promise<void> {
+    this.form.updateValueAndValidity();
     this.form.markAllAsTouched();
     if (this.form.valid) {
       this.form.disable();
