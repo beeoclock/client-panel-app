@@ -71,7 +71,7 @@ export class ModalSelectServiceService extends Reactive {
         const component = modal.instance.componentChildRefList[0].instance as unknown as ModalSelectServiceComponent;
         const acceptButton = modal.instance.getButton(ModalButtonRoleEnum.accept);
         if (acceptButton) {
-          component.serviceAdapterEventModule.loading$.state$.pipe(this.takeUntil()).subscribe((loading) => {
+          component.modalSelectServiceListAdapter.loading$.state$.pipe(this.takeUntil()).subscribe((loading) => {
             acceptButton.disabled = loading;
           });
         }
