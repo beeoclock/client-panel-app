@@ -7,7 +7,7 @@ import * as Service from "@service/domain";
 @Injectable({
   providedIn: 'root'
 })
-export class ServiceAdapterEventModule {
+export class ModalSelectServiceListAdapter {
 
   public readonly listServiceApiAdapter = inject(ListServiceApiAdapter);
   public readonly tableState = new TableState<Service.IService>();

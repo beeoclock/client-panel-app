@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit, V
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {ServiceAdapterEventModule} from "@service/adapter/external/module/service.adapter.event.module";
+import {ModalSelectServiceListAdapter} from "@service/adapter/external/component/modal-select-service.list.adapter";
 import {IService} from "@service/domain";
 import humanizeDuration from "humanize-duration";
 import {Duration} from "luxon";
@@ -23,7 +23,7 @@ import {IMember} from "@member/domain";
   template: `
     <div class="flex flex-col gap-4">
 
-      <ng-container *ngFor="let item of serviceAdapterEventModule.tableState.items; let index = index">
+      <ng-container *ngFor="let item of modalSelectServiceListAdapter.tableState.items; let index = index">
 
         <hr class="my-2" *ngIf="index > 0">
 
@@ -87,12 +87,12 @@ import {IMember} from "@member/domain";
       </ng-container>
 
     </div>
-    <utility-loader *ngIf="serviceAdapterEventModule.loading$.isOn"></utility-loader>
+    <utility-loader *ngIf="modalSelectServiceListAdapter.loading$.isOn"></utility-loader>
   `
 })
 export class ModalSelectServiceComponent implements OnInit {
 
-  public readonly serviceAdapterEventModule = inject(ServiceAdapterEventModule);
+  public readonly modalSelectServiceListAdapter = inject(ModalSelectServiceListAdapter);
   public readonly changeDetectorRef = inject(ChangeDetectorRef);
   public readonly translateService = inject(TranslateService);
 
@@ -138,11 +138,11 @@ export class ModalSelectServiceComponent implements OnInit {
   }
 
   private async initTableState() {
-    if (this.serviceAdapterEventModule.tableState.items.length) {
+    if (this.modalSelectServiceListAdapter.tableState.items.length) {
       return;
     }
-    this.serviceAdapterEventModule.resetTableState();
-    await this.serviceAdapterEventModule.getPageAsync();
+    this.modalSelectServiceListAdapter.resetTableState();
+    await this.modalSelectServiceListAdapter.getPageAsync();
     this.changeDetectorRef.detectChanges();
   }
 

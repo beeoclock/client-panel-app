@@ -11,7 +11,7 @@ import {
   ModalSelectServiceService
 } from "@utility/presentation/component/modal-select-service/modal-select-service.service";
 import {IService} from "@service/domain";
-import {ServiceAdapterEventModule} from "@service/adapter/external/module/service.adapter.event.module";
+import {ModalSelectServiceListAdapter} from "@service/adapter/external/component/modal-select-service.list.adapter";
 import {IMember} from "@member/domain";
 
 @Component({
@@ -113,7 +113,7 @@ import {IMember} from "@member/domain";
 export class ServicesComponent implements OnInit {
 
   public readonly modalSelectServiceService = inject(ModalSelectServiceService);
-  public readonly serviceAdapterEventModule = inject(ServiceAdapterEventModule);
+  public readonly modalSelectServiceListAdapter = inject(ModalSelectServiceListAdapter);
   private readonly translateService = inject(TranslateService);
 
   @Input()
@@ -140,12 +140,12 @@ export class ServicesComponent implements OnInit {
 
     if (!this.serviceListControl.value.length) {
 
-      this.serviceAdapterEventModule.resetTableState();
-      await this.serviceAdapterEventModule.getPageAsync();
+      this.modalSelectServiceListAdapter.resetTableState();
+      await this.modalSelectServiceListAdapter.getPageAsync();
 
-      if (this.serviceAdapterEventModule.tableState.total === 1) {
+      if (this.modalSelectServiceListAdapter.tableState.total === 1) {
 
-        this.serviceListControl.patchValue([this.serviceAdapterEventModule.tableState.items[0]]);
+        this.serviceListControl.patchValue([this.modalSelectServiceListAdapter.tableState.items[0]]);
 
       }
 
