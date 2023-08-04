@@ -125,7 +125,9 @@ export class SelectDateComponent extends Reactive implements OnInit, AfterViewIn
 
     Settings.defaultLocale = this.translateService.currentLang;
 
-    this.control.valueChanges.pipe(this.takeUntil()).subscribe(() => {
+    this.control.valueChanges.pipe(this.takeUntil()).subscribe((VALUE) => {
+      this.selectedDateTime = DateTime.fromISO(VALUE);
+      this.localDateTimeControl.patchValue(this.selectedDateTime);
       this.changeDetectorRef.detectChanges();
     });
 
@@ -177,14 +179,6 @@ export class SelectDateComponent extends Reactive implements OnInit, AfterViewIn
     this.dayItemList = generateDayItemList(sourceDatetime, this.amountOfDaySlotsInContainer);
     this.daySlotsTitle = this.prepareDaySlotsTitle(sourceDatetime);
     this.changeDetectorRef.detectChanges();
-  }
-
-  private createDayItem(datetime: DateTime): IDayItem {
-    // TODO performance
-    const isPast = datetime.startOf('day') < DateTime.now().startOf('day');
-    const isToday = datetime.hasSame(this.today, 'day');
-    const isTomorrow = datetime.hasSame(this.today.plus({day: 1}), 'day');
-    return {isPast, isToday, isTomorrow, datetime};
   }
 
   /**
