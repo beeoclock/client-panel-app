@@ -181,7 +181,9 @@
     "keyword": {
       "capitalize": {
         "start": "Booking Start",
-        "end": "Estimated End"
+        "end": "Estimated End",
+        "service": "Service",
+        "status": "Status"
       }
     }
   },
