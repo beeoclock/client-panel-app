@@ -182,7 +182,8 @@
       "capitalize": {
         "start": "Rozpoczęcie rezerwacji",
         "end": "Szacowany koniec",
-        "status": "Status",
+        "service": "Usługa",
+        "status": "Status"
       }
     }
   },

@@ -25,6 +25,9 @@
       <th scope="col" class="px-6 py-3">
         {{ 'keyword.capitalize.attendees' | translate }}
       </th>
+      <th scope="col" class="px-6 py-3">
+        {{ 'event.keyword.capitalize.service' | translate }}
+      </th>
       <th scope="col" class="px-6 py-3" data-orderBy="start">
         {{ 'event.keyword.capitalize.start' | translate }}
         <utility-sort-indicator
@@ -79,6 +82,9 @@
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
         <i class="bi bi-person"></i>
         {{ item?.attendees?.length }}
+      </td>
+      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+        {{ item?.services?.[0]?.languageVersions?.[0]?.title }}
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
         {{ (item.start ? (item.start | date:'hh:mm dd-MM-yyyy') : null) ?? 'Invalid Time' }}

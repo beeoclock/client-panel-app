@@ -182,6 +182,7 @@
       "capitalize": {
         "start": "Booking Start",
         "end": "Estimated End",
+        "service": "Service",
         "status": "Status"
       }
     }
