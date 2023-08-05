@@ -8,6 +8,7 @@
   },
   "keyword": {
     "capitalize": {
+      "writePrice": "Write price",
       "add-event": "Add event",
       "customer": "Customer",
       "confirm": "Confirm",

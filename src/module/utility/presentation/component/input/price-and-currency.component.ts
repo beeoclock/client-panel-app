@@ -21,7 +21,7 @@ import {LanguageCurrency} from "@utility/domain/const/c.language-currency";
         type="text"
         hasError
         invalidTooltip
-        placeholder="Write price"
+        [placeholder]="'keyword.capitalize.writePrice' | translate"
         class="
           rounded-none
           rounded-l
