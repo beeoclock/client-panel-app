@@ -8,6 +8,13 @@
   },
   "keyword": {
     "capitalize": {
+      "add-event": "Додати подію",
+      "customer": "Клієнт",
+      "confirm": "Підтвердити",
+      "cancel": "Скасувати",
+      "specialist": "Спеціаліст",
+      "select": "Вибрати",
+      "selected": "Обрано",
       "add-service": "Додати послугу"
     }
   },
@@ -133,17 +140,36 @@
     "title": "Подія",
     "form": {
       "section": {
+        "additional": {
+          "input": {
+            "note": {
+              "placeholder": "Тут Ви можете ввести додаткову інформацію про подію"
+            }
+          }
+        },
         "attendant": {
           "button": {
-            "add": "Додати учасника"
+            "add": "Додати учасника",
+            "togglePresentationOfNewAttendant": "Цього клієнта немає в списку (новий клієнт)"
+          },
+          "input": {
+            "selectCustomer": {
+              "placeholder": "Виберіть клієнта"
+            }
           }
         },
         "service": {
           "modal": {
             "title": "Вибір послуги"
           },
+          "input": {
+            "selectService": {
+              "placeholder": "Виберіть послугу"
+            }
+          },
           "button": {
-            "add": "Додати послугу"
+            "add": "Додати послугу",
+            "select": "Вибрати послугу"
           }
         }
       }

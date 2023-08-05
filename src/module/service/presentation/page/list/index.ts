@@ -28,7 +28,6 @@ import {
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {ActiveStyleDirective} from "@utility/directives/active-style/active-style.directive";
 
-
 @Component({
   selector: 'service-list-page',
   templateUrl: 'index.html',

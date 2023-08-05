@@ -16,7 +16,7 @@
       <div
         class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-4">
 
-        <event-services-form-component [control]="form.controls.services"></event-services-form-component>
+        <event-service-component [serviceListControl]="form.controls.services"></event-service-component>
 
       </div>
 
@@ -28,7 +28,11 @@
       </div>
 
       <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4">
-        <form-textarea-component [label]="'general.note' | translate" id="event-form-note-input" placeholder="Write here your note of event" [control]="form.controls.description"></form-textarea-component>
+        <form-textarea-component
+          id="event-form-public-note-input"
+          [label]="'general.note' | translate"
+          [placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
+          [control]="form.controls.description"></form-textarea-component>
       </div>
 
       <div class="mt-4">

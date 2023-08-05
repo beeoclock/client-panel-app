@@ -11,7 +11,6 @@ import {AttendeesComponent} from '@event/presentation/component/form/attendees/a
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {IEvent} from "@event/domain";
 import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
-import {ServicesFormComponent} from "@event/presentation/component/form/services/services.form.component";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {LanguagePipe} from "@utility/pipes/language.pipe";
@@ -22,13 +21,11 @@ import {filter, firstValueFrom, Observable} from "rxjs";
 import {Select, Store} from "@ngxs/store";
 import {EventState} from "@event/state/event/event.state";
 import {EventActions} from "@event/state/event/event.actions";
-import {Duration} from "luxon";
-import {ConvertTime} from "@utility/domain/convert.time";
-import humanizeDuration from "humanize-duration";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {SelectTimeSlotComponent} from "@event/presentation/component/form/select-time-slot/select-time-slot.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
-import calculateDuration = ConvertTime.calculateDuration;
+import {ServicesComponent} from "@event/presentation/component/form/services/services.component";
+
 
 @Component({
   selector: 'event-form-page',
@@ -46,7 +43,6 @@ import calculateDuration = ConvertTime.calculateDuration;
     FormsModule,
     AttendeesComponent,
     HeaderCardComponent,
-    ServicesFormComponent,
     NgSelectModule,
     NgForOf,
     LanguagePipe,
@@ -58,6 +54,8 @@ import calculateDuration = ConvertTime.calculateDuration;
     FormInputComponent,
     SelectTimeSlotComponent,
     FormTextareaComponent,
+    AttendeesComponent,
+    ServicesComponent,
   ],
   standalone: true
 })
@@ -76,8 +74,6 @@ export default class Index implements OnInit {
   @Select(EventState.itemData)
   public itemData$!: Observable<IEvent | undefined>;
 
-  public duration = '';
-  public durationInMilliseconds = 0;
 
   @HostBinding()
   public readonly class = 'md:p-4 block';
@@ -86,89 +82,74 @@ export default class Index implements OnInit {
 
     this.detectItem();
 
-    this.form.valueChanges.subscribe(() => {
-      this.calculateDuration();
-    });
-
-    this.form.controls.start.valueChanges.subscribe((value: string) => {
-      if (value) {
-        const newValue = new Date(value);
-        // TODO update end time
-        this.form.controls.start.patchValue(newValue.toISOString(), {
-          onlySelf: false,
-          emitEvent: false,
-          emitModelToViewChange: false,
-          emitViewToModelChange: false,
-        });
-        this.calculateFinish();
-      }
-    });
   }
 
   public detectItem(): void {
+
     firstValueFrom(this.activatedRoute.params.pipe(filter(({id}) => id?.length))).then(() => {
+
       firstValueFrom(this.itemData$).then((result) => {
+
         if (result?._id) {
+
           this.isEditMode = true;
-          this.form.patchValue(result);
-          this.form.updateValueAndValidity();
-        }
-      });
-    });
-  }
+          const {attendees, ...rest} = result;
+          this.form.patchValue(rest);
 
-  private calculateFinish(): void {
+          if (attendees?.length) {
 
-    const start = new Date(this.form.controls.start.value);
-    start.setSeconds(start.getSeconds() + (this.durationInMilliseconds / 1000));
-    this.form.controls.end.patchValue(start.toISOString(), {
-      onlySelf: true,
-      emitEvent: false,
-    });
+            this.form.controls.attendees.remove(0);
 
-  }
+            attendees.forEach((attendee) => {
 
-  private calculateDuration(): void {
+              console.log(attendee);
+              const control = this.form.controls.attendees.pushNewOne(attendee);
+              control.disable();
+              console.log(this.form.controls.attendees);
 
-    const servicesAreProvidedInParallel = this.form.controls.servicesAreProvidedInParallel.value;
+            });
 
-    if (this.form.controls.services.value?.length) {
-      if (servicesAreProvidedInParallel) {
-        const collection = this.form.controls.services.value.map(
-          ({durationVersions}) => calculateDuration(...durationVersions.map(
-            ({duration}) => Duration.fromISOTime(duration))
-          ));
-        this.durationInMilliseconds = calculateDuration(...collection).as('milliseconds');
-      } else {
-        this.form.controls.services.value.forEach((service) => {
-          if (service.durationVersions[0].duration > this.duration) {
-            this.durationInMilliseconds = Duration.fromISOTime(service.durationVersions[0].duration).as('milliseconds');
           }
-        });
-      }
-    }
 
-    this.duration = humanizeDuration(this.durationInMilliseconds);
+          this.form.updateValueAndValidity();
 
-    this.calculateFinish();
+        }
+
+      });
+
+    });
 
   }
 
   public async save(): Promise<void> {
+
+    this.form.updateValueAndValidity();
     this.form.markAllAsTouched();
+
     if (this.form.valid) {
+
       this.form.disable();
       this.form.markAsPending();
       const redirectUri = ['../'];
+      const value = this.form.getRawValue() as IEvent;
+
       if (this.isEditMode) {
-        await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(this.form.getRawValue() as IEvent)));
+
+        await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(value)));
+
       } else {
-        await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(this.form.getRawValue() as IEvent)));
+
+        await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(value)));
         const item = await firstValueFrom(this.itemData$);
+
         if (item && item._id) {
+
           redirectUri.push(item._id);
+
         }
+
       }
+
       await this.router.navigate(redirectUri, {
         relativeTo: this.activatedRoute
       });
