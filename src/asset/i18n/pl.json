@@ -16,6 +16,9 @@
       "specialist": "Specjalista",
       "select": "Wybierz",
       "selected": "Wybrano",
+      "attendees": "Uczestnicy",
+      "start": "Początek",
+      "end": "Koniec",
       "add-service": "Dodaj usługę"
     }
   },
@@ -173,6 +176,12 @@
             "select": "Wybierz usługę"
           }
         }
+      }
+    },
+    "keyword": {
+      "capitalize": {
+        "start": "Rozpoczęcie rezerwacji",
+        "end": "Szacowany koniec"
       }
     }
   },

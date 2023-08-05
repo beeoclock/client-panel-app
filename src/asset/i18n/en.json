@@ -16,6 +16,9 @@
       "specialist": "Specialist",
       "select": "Select",
       "selected": "Selected",
+      "attendees": "Attendees",
+      "start": "Start",
+      "end": "End",
       "add-service": "Add service"
     }
   },
@@ -173,6 +176,12 @@
             "select": "Select service"
           }
         }
+      }
+    },
+    "keyword": {
+      "capitalize": {
+        "start": "Booking Start",
+        "end": "Estimated End"
       }
     }
   },

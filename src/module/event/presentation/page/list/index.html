@@ -23,17 +23,17 @@
         </div>
       </th>
       <th scope="col" class="px-6 py-3">
-        Attendees
+        {{ 'keyword.capitalize.attendees' | translate }}
       </th>
       <th scope="col" class="px-6 py-3" data-orderBy="start">
-        Start
+        {{ 'event.keyword.capitalize.start' | translate }}
         <utility-sort-indicator
           orderBy="start"
           [tableState]="tableState"
         ></utility-sort-indicator>
       </th>
       <th scope="col" class="px-6 py-3" data-orderBy="end">
-        End
+        {{ 'event.keyword.capitalize.end' | translate }}
         <utility-sort-indicator
           orderBy="end"
           [tableState]="tableState"
