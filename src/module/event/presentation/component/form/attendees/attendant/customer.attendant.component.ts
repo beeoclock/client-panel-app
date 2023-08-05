@@ -33,6 +33,24 @@ import {CustomerForm} from "@customer/form";
   ],
   template: `
 
+<!--  USE COMMENTED CODE IN attendees.component.ts  -->
+    <!--        <ng-container *ngIf="isNew(attendant); else selectTemplate">-->
+
+    <!--        </ng-container>-->
+    <!--        <ng-template #selectTemplate>-->
+
+    <!--          <event-customer-attendant-component-->
+    <!--            [customerForm]="attendant.controls.customer">-->
+    <!--          </event-customer-attendant-component>-->
+
+    <!--          <ng-container *ngIf="attendant.controls.customer.isEmpty()">-->
+    <!--            <button (click)="attendant.toggleIsNewCustomer()" class="text-blue-600 text-sm">-->
+    <!--              {{ 'event.form.section.attendant.button.togglePresentationOfNewAttendant' | translate }}-->
+    <!--            </button>-->
+    <!--          </ng-container>-->
+
+    <!--        </ng-template>-->
+
     <ng-select
       #customerSelectComponent
       [class.invisible]="localControl.value"
@@ -44,7 +62,7 @@ import {CustomerForm} from "@customer/form";
       [clearable]="false"
       [hideSelected]="true"
       [loading]="listCustomerAdapter.loading$.isOn"
-      [disabled]="control.disabled"
+      [disabled]="customerForm.disabled"
       [formControl]="localControl">
       <ng-template ng-label-tmp let-item="item" let-clear="clear">
         <span class="text-beeColor-400">
@@ -104,7 +122,7 @@ import {CustomerForm} from "@customer/form";
 export class CustomerAttendantComponent implements OnInit {
 
   @Input()
-  public control = new CustomerForm();
+  public customerForm!: CustomerForm;
 
   @ViewChild('customerSelectComponent')
   public customerSelectComponent!: NgSelectComponent
@@ -126,15 +144,23 @@ export class CustomerAttendantComponent implements OnInit {
 
   public ngOnInit(): void {
 
+    this.customerForm.valueChanges.subscribe((value) => {
+      console.log(value);
+    });
+
     this.initTableState().then(() => {
 
-      this.localControl.patchValue(this.control.value as ICustomer);
+      if (this.customerForm.isNotEmpty()) {
+
+        this.localControl.patchValue(this.customerForm.value as ICustomer);
+
+      }
 
     });
 
     this.localControl.valueChanges.subscribe((value) => {
       if (value) {
-        this.control.patchValue(value);
+        this.customerForm.patchValue(value);
       }
     });
 

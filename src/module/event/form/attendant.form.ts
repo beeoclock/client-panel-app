@@ -27,18 +27,27 @@ export class AttendantForm extends FormGroup<IAttendantForm> {
   }
 
   public toggleIsNewCustomer(): void {
+
     if (this.controls.isNewCustomer.value === IsNewCustomerEnum.YES) {
+
       this.controls.isNewCustomer.patchValue(IsNewCustomerEnum.NO);
+
     } else {
+
       this.controls.isNewCustomer.patchValue(IsNewCustomerEnum.YES);
+
     }
+
   }
 
   public initValue(): void {
-    this.controls.isNewCustomer.patchValue(IsNewCustomerEnum.NO);
+
+    this.controls.isNewCustomer.patchValue(IsNewCustomerEnum.YES);
     this.controls.isOrganizer.patchValue(IsOrganizerEnum.NO);
     this.controls.isOptional.patchValue(IsOptionalEnum.NO);
+
   }
+
 }
 
 
@@ -49,14 +58,21 @@ export class AttendeesForm extends FormArray<AttendantForm> {
     super([new AttendantForm()]);
   }
 
-  public pushNewOne(initialValue?: IAttendee | undefined): void {
+  public pushNewOne(initialValue?: IAttendee | undefined): AttendantForm {
+
     const control = new AttendantForm();
+
     if (initialValue) {
+
       control.patchValue(initialValue);
-      // control.controls.customer.patchValue(initialValue.customer);
+
     }
+
     this.controls.push(control);
     this.updateValueAndValidity();
+
+    return control;
+
   }
 
   public remove(index: number): void {

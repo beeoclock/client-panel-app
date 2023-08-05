@@ -85,41 +85,71 @@ export default class Index implements OnInit {
   }
 
   public detectItem(): void {
+
     firstValueFrom(this.activatedRoute.params.pipe(filter(({id}) => id?.length))).then(() => {
+
       firstValueFrom(this.itemData$).then((result) => {
+
         if (result?._id) {
+
           this.isEditMode = true;
           const {attendees, ...rest} = result;
           this.form.patchValue(rest);
+
           if (attendees?.length) {
+
             this.form.controls.attendees.remove(0);
+
             attendees.forEach((attendee) => {
-              this.form.controls.attendees.pushNewOne(attendee);
+
+              console.log(attendee);
+              const control = this.form.controls.attendees.pushNewOne(attendee);
+              control.disable();
+              console.log(this.form.controls.attendees);
+
             });
+
           }
+
           this.form.updateValueAndValidity();
+
         }
+
       });
+
     });
+
   }
 
   public async save(): Promise<void> {
+
     this.form.updateValueAndValidity();
     this.form.markAllAsTouched();
+
     if (this.form.valid) {
+
       this.form.disable();
       this.form.markAsPending();
       const redirectUri = ['../'];
       const value = this.form.getRawValue() as IEvent;
+
       if (this.isEditMode) {
+
         await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(value)));
+
       } else {
+
         await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(value)));
         const item = await firstValueFrom(this.itemData$);
+
         if (item && item._id) {
+
           redirectUri.push(item._id);
+
         }
+
       }
+
       await this.router.navigate(redirectUri, {
         relativeTo: this.activatedRoute
       });

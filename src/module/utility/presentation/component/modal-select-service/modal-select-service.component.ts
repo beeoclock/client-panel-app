@@ -6,7 +6,6 @@ import {ModalSelectServiceListAdapter} from "@service/adapter/external/component
 import {IService} from "@service/domain";
 import humanizeDuration from "humanize-duration";
 import {Duration} from "luxon";
-import {IMember} from "@member/domain";
 
 @Component({
   selector: 'utility-modal-select-service-component',
@@ -32,10 +31,11 @@ import {IMember} from "@member/domain";
           <div class="grid grid-cols-12 gap-4">
             <div class="col-span-2 pt-1">
               <ng-container *ngIf="item?.presentation?.main?.length; else DefaultServiceImageTemplate">
-                <img [src]="item.presentation.main" class="w-[70px] h-[70px] rounded-2xl object-cover" alt="Image of service">
+                <img [src]="item.presentation.main" class="w-[90px] h-[90px] rounded-2xl object-cover"
+                     alt="Image of service">
               </ng-container>
               <ng-template #DefaultServiceImageTemplate>
-                <div class="w-[70px] h-[70px] bg-gray-300 rounded-2xl"></div>
+                <div class="w-[90px] h-[90px] bg-gray-300 rounded-2xl"></div>
               </ng-template>
             </div>
             <div class="col-span-8 flex flex-col gap-2">
@@ -48,37 +48,30 @@ import {IMember} from "@member/domain";
               </span>
               </div>
             </div>
-            <div class="col-span-2">
-              <button *ngIf="isSelected(item)" (click)="deselect(item)"
-                      class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">{{ 'keyword.capitalize.selected' | translate }}</button>
-              <button *ngIf="isNotSelected(item)" (click)="select(item)"
-                      class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">{{ 'keyword.capitalize.select' | translate }}</button>
-            </div>
-          </div>
+            <div class="col-span-2 flex flex-col gap-3">
 
-          <div class="grid grid-cols-12 gap-4">
-            <div class="col-span-2 pt-1">
-              <div class="w-[70px] flex justify-end">
-                <div class="w-[44px] h-[44px] bg-gray-300 rounded-2xl"></div>
+              <button
+                *ngIf="isSelected(item)"
+                (click)="deselect(item)"
+                class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
+                {{ 'keyword.capitalize.selected' | translate }}
+              </button>
+              <button
+                *ngIf="isNotSelected(item)"
+                (click)="select(item)"
+                class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">
+                {{ 'keyword.capitalize.select' | translate }}
+              </button>
+
+
+              <div class="flex flex-col items-center">
+                <span class="text-end text-sm">
+                {{ item.durationVersions[0].prices[0].price | currency: item.durationVersions[0].prices[0].currency: 'symbol-narrow' }}
+              </span>
+                <span class="text-end text-sm">
+                {{ formatDuration(item.durationVersions[0].duration) }}
+              </span>
               </div>
-            </div>
-            <div class="col-span-5 flex flex-col">
-            <span class="font-bold">
-              {{ 'keyword.capitalize.specialist' | translate }}
-            </span>
-              <span class="text-sm text-gray-500">
-              {{ getPermanentMembers(item.permanentMembers) }}
-            </span>
-            </div>
-            <div class="col-span-3 flex flex-col gap-1">
-            <span class="text-end text-sm">
-              {{ item.durationVersions[0].prices[0].price | currency: item.durationVersions[0].prices[0].currency: 'symbol-narrow' }}
-            </span>
-              <span class="text-end text-sm">
-              {{ formatDuration(item.durationVersions[0].duration) }}
-            </span>
-            </div>
-            <div class="col-span-2 flex flex-col">
             </div>
           </div>
 
@@ -148,17 +141,6 @@ export class ModalSelectServiceComponent implements OnInit {
 
   public formatDuration(duration: string): string {
     return humanizeDuration(Duration.fromISOTime(duration).as('milliseconds'), {language: this.translateService.currentLang});
-  }
-
-  public getPermanentMembers(permanentMembers: IMember[]): string {
-    const firstMember = permanentMembers[0];
-    if (firstMember) {
-      if (firstMember.firstName && firstMember.lastName) {
-        return `${firstMember.firstName} ${firstMember.lastName}`;
-      }
-      return firstMember.email;
-    }
-    return '';
   }
 
 }
