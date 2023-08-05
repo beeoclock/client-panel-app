@@ -21,7 +21,7 @@
   },
   "general": {
     "placeholder": {
-      "description": "Напишіть детальніше інформацію",
+      "description": "Напиши додаткову інформацію",
       "search": "Пошук"
     },
     "chooseImage": "Вибери файл",
