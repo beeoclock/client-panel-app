@@ -9,44 +9,45 @@
 
         <strong>{{ 'general.information' | translate }}</strong>
 
-        <form-input
-          id="customer-form-firstName"
-          autocomplete="firstName"
-          placeholder="Write first name of customer"
-          [control]="form.controls.firstName"
-          [label]="'general.firstName' | translate">
-        </form-input>
+        <div class="grid grid-cols-2 gap-4">
 
-        <form-input
-          id="customer-form-lastName"
-          autocomplete="lastName"
-          placeholder="Write last name of customer"
-          [control]="form.controls.lastName"
-          [label]="'general.lastName' | translate">
-        </form-input>
+          <form-input
+            id="customer-form-firstName"
+            type="firstName"
+            autocomplete="firstName"
+            [placeholder]="'general.firstName' | translate"
+            [control]="form.controls.firstName"
+            [label]="'general.firstName' | translate">
+          </form-input>
 
-      </div>
+          <form-input
+            id="customer-form-lastName"
+            type="lastName"
+            autocomplete="lastName"
+            [placeholder]="'general.lastName' | translate"
+            [control]="form.controls.lastName"
+            [label]="'general.lastName' | translate">
+          </form-input>
 
-      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 mt-4 flex flex-col gap-4">
-        <strong>{{ 'general.contact' | translate }}</strong>
+          <form-input
+            id="customer-form-email"
+            type="email"
+            autocomplete="email"
+            placeholder="firstname.lastname@example.com"
+            [control]="form.controls.email"
+            [label]="'general.email' | translate">
+          </form-input>
 
-        <form-input
-          id="customer-form-email"
-          type="email"
-          autocomplete="email"
-          placeholder="firstname.lastname@example.com"
-          [control]="form.controls.email"
-          [label]="'general.email' | translate">
-        </form-input>
+          <form-input
+            id="customer-form-phone"
+            type="phone"
+            autocomplete="phone"
+            placeholder="+000000000000"
+            [control]="form.controls.phone"
+            [label]="'general.phone' | translate">
+          </form-input>
 
-        <form-input
-          id="customer-form-phone"
-          type="phone"
-          autocomplete="phone"
-          placeholder="+0000000000"
-          [control]="form.controls.phone"
-          [label]="'general.phone' | translate">
-        </form-input>
+        </div>
 
       </div>
       <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 mt-4">

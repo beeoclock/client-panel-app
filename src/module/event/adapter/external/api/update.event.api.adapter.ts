@@ -16,7 +16,7 @@ export class UpdateEventApiAdapter extends BaseApiAdapter<Event.IEvent> {
    */
   @TypeGuard([is.object.not.empty])
   public override execute$(value: Event.IEvent) {
-    return this.httpClient.put(eventEndpointEnum.update, value, {
+    return this.httpClient.put<Event.IEvent>(eventEndpointEnum.update, value, {
       headers: {
         replace: JSON.stringify({
           id: value._id

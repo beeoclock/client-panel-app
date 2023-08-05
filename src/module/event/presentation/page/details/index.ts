@@ -68,7 +68,7 @@ import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.
         <ul class="list-group">
           <li *ngFor="let attendant of event.attendees" class="list-group-item">
             <strong>E-mail:</strong>
-            <p class="m-0">{{ attendant.email }}</p>
+            <p class="m-0">{{ attendant.customer.email }}</p>
           </li>
         </ul>
       </div>

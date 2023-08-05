@@ -6,9 +6,25 @@
       "minlength": "Мінімальна довжина - {{requiredLength}}"
     }
   },
+  "keyword": {
+    "capitalize": {
+      "writePrice": "Ввести ціну",
+      "add-event": "Додати подію",
+      "customer": "Клієнт",
+      "confirm": "Підтвердити",
+      "cancel": "Скасувати",
+      "specialist": "Спеціаліст",
+      "select": "Вибрати",
+      "selected": "Обрано",
+      "attendees": "Учасники",
+      "start": "Початок",
+      "end": "Кінець",
+      "add-service": "Додати послугу"
+    }
+  },
   "general": {
     "placeholder": {
-      "description": "Напишіть детальніше інформацію",
+      "description": "Напиши додаткову інформацію",
       "search": "Пошук"
     },
     "chooseImage": "Вибери файл",
@@ -128,19 +144,46 @@
     "title": "Подія",
     "form": {
       "section": {
+        "additional": {
+          "input": {
+            "note": {
+              "placeholder": "Тут Ви можете ввести додаткову інформацію про подію"
+            }
+          }
+        },
         "attendant": {
           "button": {
-            "add": "Додати учасника"
+            "add": "Додати учасника",
+            "togglePresentationOfNewAttendant": "Цього клієнта немає в списку (новий клієнт)"
+          },
+          "input": {
+            "selectCustomer": {
+              "placeholder": "Виберіть клієнта"
+            }
           }
         },
         "service": {
           "modal": {
             "title": "Вибір послуги"
           },
+          "input": {
+            "selectService": {
+              "placeholder": "Виберіть послугу"
+            }
+          },
           "button": {
-            "add": "Додати послугу"
+            "add": "Додати послугу",
+            "select": "Вибрати послугу"
           }
         }
+      }
+    },
+    "keyword": {
+      "capitalize": {
+        "start": "Заплановано на",
+        "end": "Планується завершити",
+        "service": "Послуга",
+        "status": "Статус"
       }
     }
   },

@@ -15,8 +15,9 @@ import {TranslateModule} from "@ngx-translate/core";
         dark:hover:bg-beeColor-700
         flex items-center
         justify-center
-        p-2
-        rounded
+        px-4
+        py-2
+        rounded-2xl
         text-center w-24">
       <i class="bi bi-arrow-left me-2"></i>
       {{ 'general.back' | translate }}

@@ -6,7 +6,7 @@
         routerLink="form"
         class="block px-4 py-2 text-sm text-beeColor-700" role="menuitem" tabindex="-1">
         <i class="bi bi-plus-lg"></i>
-        Add event
+        {{ 'keyword.capitalize.add-event' | translate }}
       </a>
     </ng-container>
   </utility-dropdown>
@@ -23,19 +23,29 @@
         </div>
       </th>
       <th scope="col" class="px-6 py-3">
-        Attendees
+        {{ 'keyword.capitalize.attendees' | translate }}
+      </th>
+      <th scope="col" class="px-6 py-3">
+        {{ 'event.keyword.capitalize.service' | translate }}
       </th>
       <th scope="col" class="px-6 py-3" data-orderBy="start">
-        Start
+        {{ 'event.keyword.capitalize.start' | translate }}
         <utility-sort-indicator
           orderBy="start"
           [tableState]="tableState"
         ></utility-sort-indicator>
       </th>
       <th scope="col" class="px-6 py-3" data-orderBy="end">
-        End
+        {{ 'event.keyword.capitalize.end' | translate }}
         <utility-sort-indicator
           orderBy="end"
+          [tableState]="tableState"
+        ></utility-sort-indicator>
+      </th>
+      <th scope="col" class="px-6 py-3" data-orderBy="status">
+        {{ 'event.keyword.capitalize.status' | translate }}
+        <utility-sort-indicator
+          orderBy="status"
           [tableState]="tableState"
         ></utility-sort-indicator>
       </th>
@@ -74,10 +84,16 @@
         {{ item?.attendees?.length }}
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+        {{ item?.services?.[0]?.languageVersions?.[0]?.title }}
+      </td>
+      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
         {{ (item.start ? (item.start | date:'hh:mm dd-MM-yyyy') : null) ?? 'Invalid Time' }}
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
         {{ (item.end ? (item.end | date:'hh:mm dd-MM-yyyy') : null) ?? 'Invalid Time' }}
+      </td>
+      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+        {{ item.status }}
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
         {{ item.createdAt | date: 'hh:mm dd-MM-yyyy' }}

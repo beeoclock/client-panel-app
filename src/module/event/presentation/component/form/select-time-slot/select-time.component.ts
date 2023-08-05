@@ -3,6 +3,7 @@ import {FormControl} from "@angular/forms";
 import {DateTime, Settings} from "luxon";
 import {TranslateService} from "@ngx-translate/core";
 import {NgClass, NgForOf} from "@angular/common";
+import {Reactive} from "@utility/cdk/reactive";
 
 export interface ITimeSlot {
   isPast: boolean;
@@ -36,7 +37,7 @@ export interface ITimeSlot {
     </div>
   `
 })
-export class SelectTimeComponent implements OnInit {
+export class SelectTimeComponent extends Reactive implements OnInit {
 
   @Input()
   public control!: FormControl<string>;
@@ -63,6 +64,12 @@ export class SelectTimeComponent implements OnInit {
       minute: 0,
       second: 0,
       millisecond: 0,
+    });
+
+    this.control.valueChanges.pipe(this.takeUntil()).subscribe((VALUE) => {
+      this.selectedDateTime = DateTime.fromISO(VALUE);
+      this.localDateTimeControl.patchValue(this.selectedDateTime);
+      this.changeDetectorRef.detectChanges();
     });
 
     // Prepare datetime list

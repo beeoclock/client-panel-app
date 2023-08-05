@@ -6,6 +6,22 @@
       "minlength": "Minimalna długość to {{requiredLength}}"
     }
   },
+  "keyword": {
+    "capitalize": {
+      "writePrice": "Wpisz cenę",
+      "add-event": "Dodaj wydarzenie",
+      "customer": "Klient",
+      "confirm": "Potwierdź",
+      "cancel": "Anuluj",
+      "specialist": "Specjalista",
+      "select": "Wybierz",
+      "selected": "Wybrano",
+      "attendees": "Uczestnicy",
+      "start": "Początek",
+      "end": "Koniec",
+      "add-service": "Dodaj usługę"
+    }
+  },
   "general": {
     "placeholder": {
       "description": "Wprowadź szczegóły",
@@ -128,19 +144,46 @@
     "title": "Wydarzenie",
     "form": {
       "section": {
+        "additional": {
+          "input": {
+            "note": {
+              "placeholder": "Tutaj możesz wprowadzić dodatkowe informacje o wydarzeniu"
+            }
+          }
+        },
         "attendant": {
           "button": {
-            "add": "Dodaj uczestnika"
+            "add": "Dodaj uczestnika",
+            "togglePresentationOfNewAttendant": "Tego klienta nie ma na liście (nowy klient)"
+          },
+          "input": {
+            "selectCustomer": {
+              "placeholder": "Wybierz klienta"
+            }
           }
         },
         "service": {
           "modal": {
-            "title": "Wybierz usługę"
+            "title": "Wybór usługi"
+          },
+          "input": {
+            "selectService": {
+              "placeholder": "Wybierz usługę"
+            }
           },
           "button": {
-            "add": "Dodaj usługę"
+            "add": "Dodaj usługę",
+            "select": "Wybierz usługę"
           }
         }
+      }
+    },
+    "keyword": {
+      "capitalize": {
+        "start": "Rozpoczęcie rezerwacji",
+        "end": "Szacowany koniec",
+        "service": "Usługa",
+        "status": "Status"
       }
     }
   },
