@@ -9,6 +9,13 @@
   "keyword": {
     "capitalize": {
       "writePrice": "Write price",
+      "add-event": "Add event",
+      "customer": "Customer",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "specialist": "Specialist",
+      "select": "Select",
+      "selected": "Selected",
       "add-service": "Add service"
     }
   },
@@ -134,17 +141,36 @@
     "title": "Event",
     "form": {
       "section": {
+        "additional": {
+          "input": {
+            "note": {
+              "placeholder": "Here you can enter additional information about the event"
+            }
+          }
+        },
         "attendant": {
           "button": {
-            "add": "Add attendant"
+            "add": "Add attendant",
+            "togglePresentationOfNewAttendant": "This client is not listed (new client)"
+          },
+          "input": {
+            "selectCustomer": {
+              "placeholder": "Select customer"
+            }
           }
         },
         "service": {
           "modal": {
             "title": "Select service"
           },
+          "input": {
+            "selectService": {
+              "placeholder": "Select service"
+            }
+          },
           "button": {
-            "add": "Add service"
+            "add": "Add service",
+            "select": "Select service"
           }
         }
       }

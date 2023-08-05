@@ -269,8 +269,6 @@ export class ServiceForm extends FormGroup<IServiceForm> {
   public initValue(): void {
     this.controls.permanentMembers.setValue([]);
     this.controls.active.setValue(ActiveEnum.YES);
-    this.controls.createdAt.setValue(new Date().toISOString());
-    this.controls.updatedAt.setValue(new Date().toISOString());
   }
 
   public initHandler(): void {

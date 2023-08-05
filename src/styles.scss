@@ -35,7 +35,11 @@
 //@import "~@ionic/angular/css/display.css";
 // IONIC FINISH
 
-button[disabled]{
+input[disabled] {
+  cursor: not-allowed;
+}
+
+button[disabled] {
   pointer-events: none;
   cursor: not-allowed;
   opacity: .5;

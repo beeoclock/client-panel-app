@@ -16,7 +16,7 @@ export class CreateEventApiAdapter extends BaseApiAdapter<Event.IEvent> {
    */
   @TypeGuard([is.object.not.empty])
   public override execute$(value: Event.IEvent) {
-    return this.httpClient.post(eventEndpointEnum.create, value);
+    return this.httpClient.post<Event.IEvent>(eventEndpointEnum.create, value);
   }
 
 }

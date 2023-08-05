@@ -9,6 +9,13 @@
   "keyword": {
     "capitalize": {
       "writePrice": "Wpisz cenę",
+      "add-event": "Dodaj wydarzenie",
+      "customer": "Klient",
+      "confirm": "Potwierdź",
+      "cancel": "Anuluj",
+      "specialist": "Specjalista",
+      "select": "Wybierz",
+      "selected": "Wybrano",
       "add-service": "Dodaj usługę"
     }
   },
@@ -134,17 +141,36 @@
     "title": "Wydarzenie",
     "form": {
       "section": {
+        "additional": {
+          "input": {
+            "note": {
+              "placeholder": "Tutaj możesz wprowadzić dodatkowe informacje o wydarzeniu"
+            }
+          }
+        },
         "attendant": {
           "button": {
-            "add": "Dodaj uczestnika"
+            "add": "Dodaj uczestnika",
+            "togglePresentationOfNewAttendant": "Tego klienta nie ma na liście (nowy klient)"
+          },
+          "input": {
+            "selectCustomer": {
+              "placeholder": "Wybierz klienta"
+            }
           }
         },
         "service": {
           "modal": {
-            "title": "Wybierz usługę"
+            "title": "Wybór usługi"
+          },
+          "input": {
+            "selectService": {
+              "placeholder": "Wybierz usługę"
+            }
           },
           "button": {
-            "add": "Dodaj usługę"
+            "add": "Dodaj usługę",
+            "select": "Wybierz usługę"
           }
         }
       }
