@@ -8,6 +8,7 @@
   },
   "keyword": {
     "capitalize": {
+      "writePrice": "Напишіть ціну",
       "add-service": "Додати послугу"
     }
   },

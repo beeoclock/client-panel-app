@@ -8,6 +8,7 @@
   },
   "keyword": {
     "capitalize": {
+      "writePrice": "Write price",
       "add-service": "Add service"
     }
   },
