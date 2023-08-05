@@ -181,7 +181,8 @@
     "keyword": {
       "capitalize": {
         "start": "Rozpoczęcie rezerwacji",
-        "end": "Szacowany koniec"
+        "end": "Szacowany koniec",
+        "status": "Status",
       }
     }
   },

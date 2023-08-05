@@ -39,6 +39,13 @@
           [tableState]="tableState"
         ></utility-sort-indicator>
       </th>
+      <th scope="col" class="px-6 py-3" data-orderBy="status">
+        {{ 'event.keyword.capitalize.status' | translate }}
+        <utility-sort-indicator
+          orderBy="status"
+          [tableState]="tableState"
+        ></utility-sort-indicator>
+      </th>
       <th scope="col" class="px-6 py-3" data-orderBy="createdAt">
         {{ 'general.createdAt' | translate }}
         <utility-sort-indicator
@@ -78,6 +85,9 @@
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
         {{ (item.end ? (item.end | date:'hh:mm dd-MM-yyyy') : null) ?? 'Invalid Time' }}
+      </td>
+      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+        {{ item.status }}
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
         {{ item.createdAt | date: 'hh:mm dd-MM-yyyy' }}
