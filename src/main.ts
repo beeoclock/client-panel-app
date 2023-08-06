@@ -20,6 +20,8 @@ import {AppState} from "@utility/state/app/app.state";
 import {CacheState} from "@utility/state/cache/cache.state";
 import {NgxIndexedDBModule} from "ngx-indexed-db";
 import {provideEnvironmentNgxMask} from "ngx-mask";
+// import '@angular/common/locales/global/pl';
+// import '@angular/common/locales/global/uk';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -34,7 +36,14 @@ initRuntimeEnvironment();
 
 bootstrapApplication(AppComponent, {
   providers: [
+
+    // {
+    //   provide: LOCALE_ID,
+    //   useValue: 'uk'
+    // },
+
     provideEnvironmentNgxMask(),
+
     importProvidersFrom(
       NgxsModule.forRoot([IdentityState, AppState, CacheState], {
         developmentMode: !environment.production
@@ -64,8 +73,8 @@ bootstrapApplication(AppComponent, {
 
         Utility.Interceptors.AccessTokenInterceptor,
         Utility.Interceptors.PrepareLocalHeadersInterceptor,
-        Utility.Interceptors.ParamsReplaceInterceptor,
         Utility.Interceptors.ApprovalInterceptor,
+        Utility.Interceptors.ParamsReplaceInterceptor,
         Utility.Interceptors.LoadingInterceptor,
         Utility.Interceptors.NotificationInterceptor,
         Utility.Interceptors.ErrorInterceptor,

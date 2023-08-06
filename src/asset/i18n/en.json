@@ -19,6 +19,9 @@
       "attendees": "Attendees",
       "start": "Start",
       "end": "End",
+      "service": "Service",
+      "createdAt": "Created at",
+      "updatedAt": "Updated at",
       "add-service": "Add service"
     }
   },
@@ -57,8 +60,6 @@
     "name": "Name",
     "break": "Break",
     "duration": "Duration",
-    "createdAt": "Created at",
-    "updatedAt": "Updated at",
     "action": "Action",
     "details": "Details",
     "delete": "Delete",
@@ -373,6 +374,16 @@
         "504": {
           "title": "Server Error",
           "content": "Check internet or try again later."
+        }
+      }
+    },
+    "DELETE": {
+      "/api/v1/service/{id}": {
+        "before": {
+          "accept": {
+            "header": "Deleting a service",
+            "message": "Are you sure you want to remove the service?"
+          }
         }
       }
     }

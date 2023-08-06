@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, inject, LOCALE_ID, ViewEncapsulation} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {detectorInit} from '@src/script/detector';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
@@ -24,8 +24,30 @@ export class AppComponent implements AfterViewInit {
   private readonly translateService = inject(TranslateService);
   private readonly store = inject(Store);
   private readonly document = inject(DOCUMENT);
+  private readonly localId = inject(LOCALE_ID);
 
   constructor() {
+
+    // const locationInitialized: Promise<any> = injector.get(LOCATION_INITIALIZED, Promise.resolve(null));
+    // locationInitialized.then(() => {
+    //
+    //   let languageCode: string = LocalStorageTool.get(LocalStorageConst.COMMON.LANGUAGE_CODE, false);
+    //
+    //   translateService.addLangs(Object.values(LanguageCodeEnum));
+    //   if (is.null.or.undefined(languageCode)) {
+    //     languageCode = LanguageCodeEnum.pl; // TODO add default language to env.js
+    //     LocalStorageTool.set(LocalStorageConst.COMMON.LANGUAGE_CODE, languageCode, false);
+    //   }
+    //   translateService.setDefaultLang(LanguageCodeEnum.pl);
+    //   translateService.use(languageCode);
+    //   translateService.onLangChange.subscribe((result: DefaultLangChangeEvent) => {
+    //     LocalStorageTool.set(LocalStorageConst.COMMON.LANGUAGE_CODE, result.lang);
+    //   });
+    // });
+
+    // const LOCALE = navigator.languages
+    //   ? navigator.languages[0]
+    //   : (navigator.language || (navigator as any).userLanguage);
 
     // I18n
     const browserLanguage = this.translateService.getBrowserLang();

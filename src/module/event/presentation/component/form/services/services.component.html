@@ -1,61 +1,56 @@
-
 <div class="flex flex-col gap-4">
   <strong class="text-2xl">{{ 'general.services' | translate }}</strong>
 
-  <ng-container *ngIf="serviceListControl.value.length; else ButtonToChooseService">
+  <ng-container *ngFor="let service of serviceListControl.value; let index = index">
 
-    <ng-container *ngFor="let service of serviceListControl.value; let index = index">
 
-      <div class="flex flex-col gap-3">
+    <div class="grid grid-cols-12 gap-4">
 
-        <div class="grid grid-cols-12 gap-4">
-
-          <div class="col-span-2 pt-1">
-            <ng-container *ngIf="service?.presentation?.main?.length; else DefaultServiceImageTemplate">
-              <img [src]="service.presentation.main" class="w-[70px] h-[70px] rounded-2xl object-cover"
-                   alt="Image of service">
-            </ng-container>
-            <ng-template #DefaultServiceImageTemplate>
-              <div class="w-[70px] h-[70px] bg-gray-300 rounded-2xl"></div>
-            </ng-template>
+      <div class="col-span-3">
+        <div class="min-w-[128px] max-w-[128px] min-h-[128px] max-h-[128px] rounded-2xl bg-gray-400">
+          <img *ngIf="service.presentation.main" [src]="service.presentation.main"
+               class="object-cover rounded-2xl min-w-[128px] max-w-[128px] min-h-[128px] max-h-[128px]" alt="Uploaded Image"/>
+        </div>
+      </div>
+      <div class="col-span-9">
+        <div class="flex flex-col gap-2">
+          <div class="text-xl w-full truncate font-bold text-gray-500">
+            {{ service.languageVersions[0].title }}
           </div>
+          <div class="grid grid-cols-12 gap-4">
 
-          <div class="col-span-8 flex flex-col gap-2">
-            <div class="flex flex-col gap-2">
-                  <span class="font-bold">
-                    {{ service.languageVersions[0].title }}
-                  </span>
-              <ng-container *ngTemplateOutlet="ButtonToChooseService"></ng-container>
+            <div class="col-span-9">
+
+              <div class="text-gray-500">{{ service.languageVersions[0].description }}</div>
+
+            </div>
+
+            <div class="col-span-3">
+
+              <div class="flex flex-col gap-1">
+
+                <div class="text-end font-bold">
+                  {{ service.durationVersions[0].prices[0].price | currency: service.durationVersions[0].prices[0].currency: 'symbol-narrow' }}
+                </div>
+                <div class="text-end">
+                  {{ formatDuration(service.durationVersions[0].duration) }}
+                </div>
+
+              </div>
+
             </div>
           </div>
-
-          <div class="col-span-2 flex flex-col gap-1">
-                <span class="text-end ">
-                  {{ service.durationVersions[0].prices[0].price | currency: service.durationVersions[0].prices[0].currency: 'symbol-narrow' }}
-                </span>
-            <span class="text-end ">
-                  {{ formatDuration(service.durationVersions[0].duration) }}
-                </span>
-          </div>
-
         </div>
-
-        <span class=" text-gray-500">
-              {{ service.languageVersions[0].description }}
-            </span>
-
       </div>
 
-    </ng-container>
+    </div>
 
   </ng-container>
 
-  <ng-template #ButtonToChooseService>
-
-    <div class="block">
-      <button
-        (click)="openModalToSelectService()"
-        class="
+  <div class="block">
+    <button
+      (click)="openModalToSelectService()"
+      class="
             text-blue-600
             rounded-2xl
             px-4
@@ -66,11 +61,9 @@
             justify-start
             gap-3
           ">
-        <i class="bi bi-list-check"></i>
-        {{ 'event.form.section.service.button.select' | translate }}
-      </button>
-    </div>
-
-  </ng-template>
+      <i class="bi bi-list-check"></i>
+      {{ 'event.form.section.service.button.select' | translate }}
+    </button>
+  </div>
 
 </div>

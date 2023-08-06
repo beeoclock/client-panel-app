@@ -25,33 +25,35 @@ import {
   TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {EventState} from "@event/state/event/event.state";
+import {DynamicDatePipe} from "@utility/pipes/dynamic-date.pipe";
 
 @Component({
   selector: 'event-list-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    ExampleTableComponent,
-    CardComponent,
-    BodyCardComponent,
-    RouterLink,
-    DeleteButtonComponent,
-    TableComponent,
-    HeaderTableComponent,
-    BodyTableComponent,
-    PaginationComponent,
-    NgForOf,
-    DatePipe,
-    AsyncPipe,
-    FilterComponent,
-    DropdownComponent,
-    NgIf,
-    SortIndicatorComponent,
-    LoaderComponent,
-    ActionComponent,
-    TranslateModule,
-    TableStatePaginationComponent
-  ],
+    imports: [
+        ExampleTableComponent,
+        CardComponent,
+        BodyCardComponent,
+        RouterLink,
+        DeleteButtonComponent,
+        TableComponent,
+        HeaderTableComponent,
+        BodyTableComponent,
+        PaginationComponent,
+        NgForOf,
+        DatePipe,
+        AsyncPipe,
+        FilterComponent,
+        DropdownComponent,
+        NgIf,
+        SortIndicatorComponent,
+        LoaderComponent,
+        ActionComponent,
+        TranslateModule,
+        TableStatePaginationComponent,
+        DynamicDatePipe
+    ],
   standalone: true
 })
 export default class Index extends ListPage {

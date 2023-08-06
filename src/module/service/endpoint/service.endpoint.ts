@@ -18,6 +18,9 @@ export const serviceEndpoint: EndpointCollectionType = {
       method: RequestMethodEnum.DELETE,
       source: SourceNetworkEnum.panel,
       replace: true,
+      before: {
+        accept: true,
+      },
       header: {
         authorization: true,
       }

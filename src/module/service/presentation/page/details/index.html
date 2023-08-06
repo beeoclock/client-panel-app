@@ -1,0 +1,123 @@
+<div class="pb-48 grid grid-cols-12 gap-4">
+
+  <div class="col-span-12 lg:col-span-2">
+
+    <utility-back-link-component></utility-back-link-component>
+
+  </div>
+
+  <ng-container *ngIf="item$ | async as service">
+
+    <div class="col-span-12 lg:col-start-4 lg:col-span-6">
+
+      <div
+        class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-3">
+
+        <div class="flex justify-between items-center">
+
+          <div class="text-2xl font-bold text-gray-500">{{ 'general.details' | translate }}</div>
+          <div active-style [active]="service.active">
+            {{ (service.active ? 'general.active' : 'general.inactive') | translate }}
+          </div>
+
+        </div>
+
+        <div class="grid grid-cols-12 gap-4">
+
+          <div class="col-span-12 md:col-span-3">
+            <div class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-gray-400">
+              <img *ngIf="service.presentation.main" [src]="service.presentation.main"
+                   class="object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
+                   alt="Uploaded Image"/>
+            </div>
+          </div>
+          <div class="col-span-12 md:col-span-9">
+            <div class="flex flex-col gap-2">
+              <div class="text-xl font-bold text-gray-500">{{ service.languageVersions[0].title }}</div>
+              <div class="grid grid-cols-12 gap-4">
+
+                <div class="col-span-12 md:col-span-9">
+
+                  <div class="text-gray-500">{{ service.languageVersions[0].description }}</div>
+
+                </div>
+
+                <div class="col-span-12 md:col-span-3">
+
+                  <div class="flex flex-col gap-1">
+
+                    <div class="text-end font-bold">
+                      {{ service.durationVersions[0].prices[0].price | currency: service.durationVersions[0].prices[0].currency: 'symbol-narrow' }}
+                    </div>
+                    <div class="text-end">
+                      {{ formatDuration(service.durationVersions[0].duration) }}
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 mt-4">
+
+        <div class="flex justify-between flex-col md:flex-row gap-4">
+
+          <delete-button [buttonWidthFull]="true" (event)="delete(service)"></delete-button>
+          <edit-link-component [buttonWidthFull]="true"></edit-link-component>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-span-12 lg:col-span-3 text-end text-beeColor-400">
+
+      <div class="flex flex-col gap-4">
+
+        <div class="flex flex-col">
+
+          <div>
+            {{ 'keyword.capitalize.service' | translate }}:
+          </div>
+          <div>
+            {{ service._id }}
+          </div>
+
+        </div>
+
+        <div class="flex flex-col">
+
+          <div>
+            {{ 'keyword.capitalize.createdAt' | translate }}:
+          </div>
+          <div>
+            {{ service.createdAt | dynamicDate }}
+          </div>
+
+        </div>
+
+        <div class="flex flex-col">
+
+          <div>
+            {{ 'keyword.capitalize.updatedAt' | translate }}:
+          </div>
+          <div>
+            {{ service.updatedAt | dynamicDate }}
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </ng-container>
+
+</div>
