@@ -19,6 +19,9 @@
       "attendees": "Uczestnicy",
       "start": "Początek",
       "end": "Koniec",
+      "service": "Usługa",
+      "createdAt": "Utworzono",
+      "updatedAt": "Zaktualizowano",
       "add-service": "Dodaj usługę"
     }
   },
@@ -57,8 +60,6 @@
     "name": "Nazwa",
     "break": "Przerwa",
     "duration": "Czas trwania",
-    "createdAt": "Utworzono",
-    "updatedAt": "Zaktualizowano",
     "action": "Akcja",
     "details": "Szczegóły",
     "delete": "Usuń",
@@ -373,6 +374,16 @@
         "504": {
           "title": "Błąd serwera",
           "content": "Sprawdź połączenie internetowe lub spróbuj ponownie później."
+        }
+      }
+    },
+    "DELETE": {
+      "/api/v1/service/{id}": {
+        "before": {
+          "accept": {
+            "header": "Usuwanie usługi",
+            "message": "Czy na pewno chcesz usunąć usługę?"
+          }
         }
       }
     }

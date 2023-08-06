@@ -25,33 +25,35 @@ import {ITableState} from "@utility/domain/table.state";
 import {
   TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
+import {DynamicDatePipe} from "@utility/pipes/dynamic-date.pipe";
 
 @Component({
   selector: 'customer-list-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    ExampleTableComponent,
-    CardComponent,
-    BodyCardComponent,
-    RouterLink,
-    DeleteButtonComponent,
-    TableComponent,
-    HeaderTableComponent,
-    BodyTableComponent,
-    PaginationComponent,
-    NgForOf,
-    FilterComponent,
-    DropdownComponent,
-    DatePipe,
-    NgIf,
-    SortIndicatorComponent,
-    LoaderComponent,
-    ActionComponent,
-    TranslateModule,
-    AsyncPipe,
-    TableStatePaginationComponent,
-  ],
+    imports: [
+        ExampleTableComponent,
+        CardComponent,
+        BodyCardComponent,
+        RouterLink,
+        DeleteButtonComponent,
+        TableComponent,
+        HeaderTableComponent,
+        BodyTableComponent,
+        PaginationComponent,
+        NgForOf,
+        FilterComponent,
+        DropdownComponent,
+        DatePipe,
+        NgIf,
+        SortIndicatorComponent,
+        LoaderComponent,
+        ActionComponent,
+        TranslateModule,
+        AsyncPipe,
+        TableStatePaginationComponent,
+        DynamicDatePipe,
+    ],
   standalone: true
 })
 export default class Index extends ListPage {

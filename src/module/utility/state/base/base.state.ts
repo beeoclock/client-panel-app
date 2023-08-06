@@ -391,9 +391,10 @@ export abstract class BaseState<ITEM = any> {
    */
   public async deleteItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.DeleteItem): Promise<void> {
 
-    ctx.dispatch(new AppActions.PageLoading(true));
+    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
 
     const result = await this.remove.executeAsync(payload);
+
     if (result) {
 
       const state = ctx.getState();
@@ -413,9 +414,11 @@ export abstract class BaseState<ITEM = any> {
         // TODO delete from cache
 
       }
+
     }
 
-    ctx.dispatch(new AppActions.PageLoading(false));
+    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
+
   }
 
   /**

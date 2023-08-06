@@ -11,7 +11,7 @@ import {FormControl} from "@angular/forms";
   template: `
     <div class="flex">
       <div class="min-w-[128px] max-w-[128px] min-h-[128px] max-h-[128px] rounded-2xl bg-gray-400">
-        <img *ngIf="previewImage" [src]="previewImage" class="object-cover rounded-2xl w-full h-full" alt="Uploaded Image"/>
+        <img *ngIf="previewImage" [src]="previewImage" class="object-cover rounded-2xl min-w-[128px] max-w-[128px] min-h-[128px] max-h-[128px]" alt="Uploaded Image"/>
       </div>
       <div class="flex flex-col ml-2">
         <div>

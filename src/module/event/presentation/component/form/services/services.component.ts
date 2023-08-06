@@ -12,7 +12,6 @@ import {
 } from "@utility/presentation/component/modal-select-service/modal-select-service.service";
 import {IService} from "@service/domain";
 import {ModalSelectServiceListAdapter} from "@service/adapter/external/component/modal-select-service.list.adapter";
-import {IMember} from "@member/domain";
 
 @Component({
   selector: 'event-service-component',
@@ -98,15 +97,5 @@ export class ServicesComponent implements OnInit {
     return humanizeDuration(Duration.fromISOTime(duration).as('milliseconds'), {language: this.translateService.currentLang});
   }
 
-  public getPermanentMembers(permanentMembers: IMember[]): string {
-    const firstMember = permanentMembers[0];
-    if (firstMember) {
-      if (firstMember.firstName && firstMember.lastName) {
-        return `${firstMember.firstName} ${firstMember.lastName}`;
-      }
-      return firstMember.email;
-    }
-    return '';
-  }
 
 }

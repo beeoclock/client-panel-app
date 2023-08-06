@@ -49,7 +49,7 @@
       </th>
       <th scope="col" class="px-6 py-3"
           data-orderBy="createdAt">
-        {{ 'general.createdAt' | translate }}
+        {{ 'keyword.capitalize.createdAt' | translate }}
         <utility-sort-indicator
           orderBy="createdAt"
           [tableState]="tableState"
@@ -57,7 +57,7 @@
       </th>
       <th scope="col" class="px-6 py-3"
           data-orderBy="updatedAt">
-        {{ 'general.updatedAt' | translate }}
+        {{ 'keyword.capitalize.updatedAt' | translate }}
         <utility-sort-indicator
           orderBy="updatedAt"
           [tableState]="tableState"
@@ -91,10 +91,10 @@
         {{ item.phone }}
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-        {{ item.createdAt | date: 'hh:mm dd-MM-yyyy' }}
+        {{ item.createdAt | dynamicDate }}
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-        {{ item.updatedAt | date: 'hh:mm dd-MM-yyyy' }}
+        {{ item.updatedAt | dynamicDate }}
       </td>
       <td class="px-6 py-2 text-center text-beeColor-700 dark:text-beeDarkColor-100">
         <utility-table-column-action [id]="item._id" (delete)="delete($event)"></utility-table-column-action>

@@ -3,6 +3,7 @@ import {serviceEndpointEnum} from "@service/endpoint/service.endpoint";
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "thiis";
+import {tap} from 'rxjs';
 
 type ResponseType = {
   deletedCount: number
@@ -25,7 +26,7 @@ export class RemoveServiceApiAdapter extends BaseApiAdapter<ResponseType> {
           id
         })
       }
-    });
+    }).pipe(tap((response) => console.log(response)));
   }
 
 }
