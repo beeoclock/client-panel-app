@@ -14,7 +14,7 @@ import {DurationVersionsForm} from "@service/form/service.form";
   template: `
     <div
       class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-3">
-      <span class="text-2xl font-bold text-gray-500">{{ 'general.price' | translate }}</span>
+      <span class="text-2xl font-bold text-gray-500">{{ 'keyword.capitalize.price' | translate }}</span>
 
       <div *ngFor="let durationVersion of durationVersions.controls; let index = index">
 

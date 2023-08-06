@@ -22,6 +22,8 @@
       "service": "Service",
       "createdAt": "Created at",
       "updatedAt": "Updated at",
+      "duration": "Duration",
+      "price": "Price",
       "add-service": "Add service"
     }
   },
@@ -41,7 +43,6 @@
     "image": "Image",
     "specialists": "Specialists",
     "prices": "Prices",
-    "price": "Price",
     "today": "Today",
     "tomorrow": "Tomorrow",
     "dateAndTime": "Date and time",
@@ -59,7 +60,6 @@
     "title": "Title",
     "name": "Name",
     "break": "Break",
-    "duration": "Duration",
     "action": "Action",
     "details": "Details",
     "delete": "Delete",

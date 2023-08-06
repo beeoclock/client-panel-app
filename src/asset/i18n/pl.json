@@ -22,6 +22,8 @@
       "service": "Usługa",
       "createdAt": "Utworzono",
       "updatedAt": "Zaktualizowano",
+      "duration": "Czas trwania",
+      "price": "Cena",
       "add-service": "Dodaj usługę"
     }
   },
@@ -41,7 +43,6 @@
     "image": "Obraz",
     "specialists": "Specjaliści",
     "prices": "Ceny",
-    "price": "Cena",
     "today": "Dziś",
     "tomorrow": "Jutro",
     "dateAndTime": "Data i czas",
@@ -59,7 +60,6 @@
     "title": "Tytuł",
     "name": "Nazwa",
     "break": "Przerwa",
-    "duration": "Czas trwania",
     "action": "Akcja",
     "details": "Szczegóły",
     "delete": "Usuń",

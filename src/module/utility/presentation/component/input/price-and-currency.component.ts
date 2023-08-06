@@ -12,7 +12,7 @@ import {LanguageCurrency} from "@utility/domain/const/c.language-currency";
   selector: 'price-and-currency-component',
   standalone: true,
   template: `
-    <label [for]="prefix + 'price'">{{ 'general.price' | translate }}</label>
+    <label [for]="prefix + 'price'">{{ 'keyword.capitalize.price' | translate }}</label>
     <div class="flex">
       <input
         [id]="prefix + 'price'"

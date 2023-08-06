@@ -20,7 +20,7 @@ import {PriceForm} from "@service/form/service.form";
           mask="00:00"
           [control]="durationControl"
           placeholder="00:00"
-          [label]="'general.duration' | translate"
+          [label]="'keyword.capitalize.duration' | translate"
           [badge]="'general.priceTimeFormatPrompt' | translate">
         </input-badge-component>
         <price-and-currency-component
