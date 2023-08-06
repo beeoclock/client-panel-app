@@ -22,6 +22,8 @@
       "service": "Послуга",
       "createdAt": "Створено",
       "updatedAt": "Оновлено",
+      "duration": "Тривалість",
+      "price": "Ціна",
       "add-service": "Додати послугу"
     }
   },
@@ -41,7 +43,6 @@
     "image": "Зображення",
     "specialists": "Спеціалісти",
     "prices": "Ціни",
-    "price": "Ціна",
     "today": "Сьогодні",
     "tomorrow": "Завтра",
     "dateAndTime": "Дата та час",
@@ -59,7 +60,6 @@
     "title": "Назва",
     "name": "Ім'я",
     "break": "Перерва",
-    "duration": "Тривалість",
     "action": "Дія",
     "delete": "Видалити",
     "details": "Деталі",

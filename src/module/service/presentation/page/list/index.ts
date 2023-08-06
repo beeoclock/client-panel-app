@@ -6,7 +6,6 @@ import {DeleteButtonComponent} from '@utility/presentation/component/button/dele
 import {TableComponent} from '@utility/presentation/component/table/table.component';
 import {HeaderTableComponent} from '@utility/presentation/component/table/header.table.component';
 import {BodyTableComponent} from '@utility/presentation/component/table/body.table.component';
-import {PaginationComponent} from '@utility/presentation/component/pagination/pagination.component';
 import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {FilterComponent} from '@service/presentation/component/filter/filter.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
@@ -41,7 +40,6 @@ import {DynamicDatePipe} from "@utility/pipes/dynamic-date.pipe";
         TableComponent,
         HeaderTableComponent,
         BodyTableComponent,
-        PaginationComponent,
         NgForOf,
         DatePipe,
         FilterComponent,

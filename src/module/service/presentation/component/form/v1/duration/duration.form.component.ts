@@ -44,7 +44,7 @@ import {TranslateModule} from "@ngx-translate/core";
 
       <form-mask-input
         mask="00:00:00"
-        [label]="'general.duration' | translate"
+        [label]="'keyword.capitalize.duration' | translate"
         [control]="form.controls.duration">
       </form-mask-input>
 
