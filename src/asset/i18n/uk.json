@@ -184,7 +184,7 @@
     "keyword": {
       "status": {
         "requested": "Запит",
-        "canceled": "Скасовано",
+        "canceled": "Скасована",
         "done": "Виконано",
         "booked": "Заброньовано"
       },
