@@ -119,7 +119,7 @@ export default class Index implements OnInit {
 
       this.form.disable();
       this.form.markAsPending();
-      const redirectUri = ['/', 'event'];
+      const redirectUri = ['../'];
       const value = this.form.getRawValue() as IEvent;
 
       if (this.isEditMode) {
@@ -127,6 +127,10 @@ export default class Index implements OnInit {
         await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(value)));
 
       } else {
+
+        // Reset redirect uri
+        redirectUri.length = 0;
+        redirectUri.push('/', 'event');
 
         await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(value)));
         const item = await firstValueFrom(this.itemData$);
