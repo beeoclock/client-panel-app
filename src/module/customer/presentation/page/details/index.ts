@@ -68,7 +68,7 @@ import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.
           </div>
         </div>
         <hr class="my-6">
-        <strong>{{ 'general.note' | translate }}</strong>
+        <strong>{{ 'keyword.capitalize.note' | translate }}</strong>
         <p>
           {{ customer.note || 'No data' }}
         </p>

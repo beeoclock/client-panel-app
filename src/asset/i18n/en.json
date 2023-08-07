@@ -24,6 +24,9 @@
       "updatedAt": "Updated at",
       "duration": "Duration",
       "price": "Price",
+      "dateAndTime": "Date and time",
+      "note": "Note",
+      "unknown": "Unknown",
       "add-service": "Add service"
     }
   },
@@ -55,7 +58,6 @@
     "firstName": "First name",
     "lastName": "Last name",
     "email": "E-mail",
-    "note": "Note",
     "description": "Description",
     "title": "Title",
     "name": "Name",
@@ -180,6 +182,12 @@
       }
     },
     "keyword": {
+      "status": {
+        "requested": "Requested",
+        "canceled": "Canceled",
+        "done": "Done",
+        "booked": "Booked"
+      },
       "capitalize": {
         "start": "Booking Start",
         "end": "Estimated End",

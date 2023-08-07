@@ -24,6 +24,9 @@
       "updatedAt": "Оновлено",
       "duration": "Тривалість",
       "price": "Ціна",
+      "dateAndTime": "Дата та час",
+      "note": "Примітка",
+      "unknown": "Невідомо",
       "add-service": "Додати послугу"
     }
   },
@@ -55,7 +58,6 @@
     "firstName": "Ім'я",
     "lastName": "Прізвище",
     "email": "E-mail",
-    "note": "Примітка",
     "description": "Опис",
     "title": "Назва",
     "name": "Ім'я",
@@ -180,6 +182,12 @@
       }
     },
     "keyword": {
+      "status": {
+        "requested": "Запит",
+        "canceled": "Скасовано",
+        "done": "Виконано",
+        "booked": "Заброньовано"
+      },
       "capitalize": {
         "start": "Заплановано на",
         "end": "Планується завершити",

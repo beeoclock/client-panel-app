@@ -1,0 +1,182 @@
+<div class="pb-48 grid grid-cols-12 gap-4">
+
+  <div class="col-span-12 lg:col-span-2">
+
+    <utility-back-link-component></utility-back-link-component>
+
+  </div>
+
+  <ng-container *ngIf="item$ | async as event">
+
+    <div class="col-span-12 lg:col-start-4 lg:col-span-6">
+
+      <div
+        class="
+          bg-white
+          dark:bg-beeDarkColor-800
+          dark:border
+          dark:border-beeDarkColor-700
+          shadow
+          rounded-2xl
+          p-4
+          flex
+          flex-col
+          gap-8
+        ">
+
+        <div class="flex justify-between items-center">
+
+          <div class="text-2xl font-bold text-beeColor-500">{{ 'general.details' | translate }}</div>
+          <div event-status-style [status]="event.status"></div>
+
+        </div>
+
+        <div class="flex flex-col gap-3">
+
+          <div class="font-bold text-beeColor-400">{{ 'general.clients' | translate }}:</div>
+
+          <div class="grid grid-cols-12 gap-4" *ngFor="let attendant of event.attendees; let index = index;">
+            <div class="col-span-1 text-beeColor-400">
+              #{{ index + 1 }}
+            </div>
+            <div class="col-span-3">
+              {{ attendant.customer.firstName }} {{ attendant.customer.lastName }}
+            </div>
+            <div class="col-span-5">
+              {{ attendant.customer.email }}
+            </div>
+            <div class="col-span-3">
+              {{ attendant.customer.phone }}
+            </div>
+          </div>
+
+        </div>
+
+        <div>
+
+          <div class="font-bold text-beeColor-400 mb-2">{{ 'keyword.capitalize.service' | translate }}:</div>
+
+          <div class="grid grid-cols-12 gap-4">
+
+            <div class="col-span-12 md:col-span-3">
+              <div
+                class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-beeColor-400">
+                <img *ngIf="event.services?.[0]?.presentation?.main" [src]="event.services?.[0]?.presentation?.main"
+                     class="object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
+                     alt="Uploaded Image"/>
+              </div>
+            </div>
+            <div class="col-span-12 md:col-span-9">
+              <div class="flex flex-col gap-2">
+                <div
+                  class="text-xl font-bold text-beeColor-600">{{ event.services?.[0]?.languageVersions?.[0]?.title }}</div>
+                <div class="grid grid-cols-12 gap-4">
+
+                  <div class="col-span-12 md:col-span-9">
+
+                    <div class="text-beeColor-500">{{ event.services?.[0]?.languageVersions?.[0]?.description }}</div>
+
+                  </div>
+
+                  <div class="col-span-12 md:col-span-3">
+
+                    <div class="flex flex-col gap-1">
+
+                      <div class="text-end font-bold">
+                        {{ event.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price | currency: event.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow' }}
+                      </div>
+                      <div class="text-end">
+                        {{ formatDuration(event.services?.[0]?.durationVersions?.[0]?.duration ?? '') }}
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="flex flex-col gap-3">
+
+          <div class="font-bold text-beeColor-400">{{ 'keyword.capitalize.dateAndTime' | translate }}:</div>
+
+          <div>
+            {{ event.start ?? '' | dynamicDate: 'medium' }}
+          </div>
+
+        </div>
+
+        <div class="flex flex-col gap-3">
+
+          <div class="font-bold text-beeColor-400">{{ 'keyword.capitalize.note' | translate }}:</div>
+
+          <div>
+            {{ event.description }}
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 mt-4">
+
+        <div class="flex justify-between flex-col md:flex-row gap-4">
+
+          <delete-button [buttonWidthFull]="true" (event)="delete(event)"></delete-button>
+          <edit-link-component [buttonWidthFull]="true"></edit-link-component>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-span-12 lg:col-span-3 text-end text-beeColor-400">
+
+      <div class="flex flex-col gap-4">
+
+        <div class="flex flex-col">
+
+          <div>
+            {{ 'keyword.capitalize.service' | translate }}:
+          </div>
+          <div>
+            {{ event._id }}
+          </div>
+
+        </div>
+
+        <div class="flex flex-col">
+
+          <div>
+            {{ 'keyword.capitalize.createdAt' | translate }}:
+          </div>
+          <div>
+            {{ event.createdAt | dynamicDate }}
+          </div>
+
+        </div>
+
+        <div class="flex flex-col">
+
+          <div>
+            {{ 'keyword.capitalize.updatedAt' | translate }}:
+          </div>
+          <div>
+            {{ event.updatedAt | dynamicDate }}
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </ng-container>
+
+</div>

@@ -24,6 +24,9 @@
       "updatedAt": "Zaktualizowano",
       "duration": "Czas trwania",
       "price": "Cena",
+      "dateAndTime": "Data i czas",
+      "note": "Notatka",
+      "unknown": "Nieznany",
       "add-service": "Dodaj usługę"
     }
   },
@@ -55,7 +58,6 @@
     "firstName": "Imię",
     "lastName": "Nazwisko",
     "email": "E-mail",
-    "note": "Uwagi",
     "description": "Opis",
     "title": "Tytuł",
     "name": "Nazwa",
@@ -180,6 +182,12 @@
       }
     },
     "keyword": {
+      "status": {
+        "requested": "Wniosek",
+        "canceled": "Anulowane",
+        "done": "Zakończone",
+        "booked": "Zarezerwowane"
+      },
       "capitalize": {
         "start": "Rozpoczęcie rezerwacji",
         "end": "Szacowany koniec",
