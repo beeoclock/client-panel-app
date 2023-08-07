@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {AsyncPipe, CurrencyPipe, DatePipe, NgForOf, NgIf, NgTemplateOutlet} from '@angular/common';
 import {firstValueFrom, Observable} from 'rxjs';
@@ -51,7 +51,7 @@ import {StatusEnum} from "@event/domain/enum/status.enum";
   ],
   standalone: true
 })
-export default class Index implements OnInit {
+export default class Index {
 
   // TODO add base index of details with store and delete method
 
@@ -63,12 +63,6 @@ export default class Index implements OnInit {
 
   public readonly store = inject(Store);
   public readonly translateService = inject(TranslateService);
-
-  public ngOnInit(): void {
-    this.item$.subscribe((data) => {
-      console.log(data);
-    });
-  }
 
   public delete(event: IEvent): void {
     this.store.dispatch(new EventActions.DeleteItem(event._id));
@@ -87,7 +81,6 @@ export default class Index implements OnInit {
 
   public async changeStatusOnCancelled(event: IEvent): Promise<void> {
     await firstValueFrom(this.store.dispatch(new EventActions.CancelledStatus(event)));
-    console.log('Cancled');
     await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
   }
 
@@ -110,10 +103,6 @@ export default class Index implements OnInit {
 
   public isCancelled(status: StatusEnum): boolean {
     return status === StatusEnum.cancelled;
-  }
-
-  public repeat(event: IEvent): void {
-    console.log(event);
   }
 
 }

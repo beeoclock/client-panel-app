@@ -34,6 +34,13 @@ export const routers = [
           {
             path: 'form',
             loadComponent: () => import('./page/form'),
+          },
+          {
+            path: 'repeat',
+            data: {
+              repeat: true
+            },
+            loadComponent: () => import('./page/form'),
           }
         ]
       },

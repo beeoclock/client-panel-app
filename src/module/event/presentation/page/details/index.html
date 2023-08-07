@@ -232,7 +232,7 @@
           </ng-template>
 
           <ng-template #ButtonToRepeatEvent>
-            <button (click)="repeat(event)" class="
+            <a routerLink="repeat" class="
               w-full
               flex
               items-center
@@ -251,7 +251,7 @@
               hover:bg-blue-100">
               <i class="bi bi-arrow-repeat"></i>
               {{ 'event.keyword.capitalize.repeat' | translate }}
-            </button>
+            </a>
           </ng-template>
 
         </div>
