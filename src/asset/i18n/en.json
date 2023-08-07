@@ -27,6 +27,8 @@
       "dateAndTime": "Date and time",
       "note": "Note",
       "unknown": "Unknown",
+      "approve": "Approve",
+      "done": "Done",
       "add-service": "Add service"
     }
   },
@@ -184,7 +186,7 @@
     "keyword": {
       "status": {
         "requested": "Requested",
-        "canceled": "Canceled",
+        "cancelled": "Canceled",
         "done": "Done",
         "booked": "Booked"
       },
@@ -192,7 +194,8 @@
         "start": "Booking Start",
         "end": "Estimated End",
         "service": "Service",
-        "status": "Status"
+        "status": "Status",
+        "repeat": "Repeat"
       }
     }
   },

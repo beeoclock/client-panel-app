@@ -27,6 +27,8 @@
       "dateAndTime": "Data i czas",
       "note": "Notatka",
       "unknown": "Nieznany",
+      "approve": "Zatwierdź",
+      "done": "Gotowe",
       "add-service": "Dodaj usługę"
     }
   },
@@ -184,7 +186,7 @@
     "keyword": {
       "status": {
         "requested": "Wniosek",
-        "canceled": "Anulowane",
+        "cancelled": "Anulowane",
         "done": "Zakończone",
         "booked": "Zarezerwowane"
       },
@@ -192,7 +194,8 @@
         "start": "Rozpoczęcie rezerwacji",
         "end": "Szacowany koniec",
         "service": "Usługa",
-        "status": "Status"
+        "status": "Status",
+        "repeat": "Powtarzanie"
       }
     }
   },
