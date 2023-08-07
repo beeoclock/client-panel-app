@@ -1,5 +1,6 @@
 export enum StatusEnum {
-  confirmed = 'confirmed',
-  tentative = 'tentative',
+  requested = 'requested',
   cancelled = 'cancelled',
+  booked = 'booked',
+  done = 'done',
 }

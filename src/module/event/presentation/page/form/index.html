@@ -1,6 +1,10 @@
-<div class="md:p-4 pb-48 grid grid-cols-12">
+<div class="pb-48 grid grid-cols-12">
 
-  <utility-back-link-component></utility-back-link-component>
+  <div class="col-span-12 lg:col-span-2">
+
+    <utility-back-link-component></utility-back-link-component>
+
+  </div>
 
   <div class="col-span-12 lg:col-start-4 lg:col-span-6">
 
@@ -30,7 +34,7 @@
       <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4">
         <form-textarea-component
           id="event-form-public-note-input"
-          [label]="'general.note' | translate"
+          [label]="'keyword.capitalize.note' | translate"
           [placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
           [control]="form.controls.description"></form-textarea-component>
       </div>

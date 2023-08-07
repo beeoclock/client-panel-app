@@ -1,7 +1,7 @@
 import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
-import {AsyncPipe, DatePipe, NgForOf, NgIf} from '@angular/common';
-import {Observable} from 'rxjs';
+import {AsyncPipe, CurrencyPipe, DatePipe, NgForOf, NgIf, NgTemplateOutlet} from '@angular/common';
+import {firstValueFrom, Observable} from 'rxjs';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
@@ -13,70 +13,18 @@ import {Select, Store} from "@ngxs/store";
 import {EventState} from "@event/state/event/event.state";
 import {EventActions} from "@event/state/event/event.actions";
 import {IEvent} from "@event/domain";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
+import {DynamicDatePipe} from "@utility/pipes/dynamic-date.pipe";
+import {ActiveStyleDirective} from "@utility/directives/active-style/active-style.directive";
+import humanizeDuration from "humanize-duration";
+import {Duration} from "luxon";
+import {EventStatusStyleDirective} from "@event/directive/event-status-style/event-status-style.directive";
+import {StatusEnum} from "@event/domain/enum/status.enum";
 
 @Component({
   selector: 'event-detail-page',
-  template: `
-    <utility-back-link-component></utility-back-link-component>
-    <ng-container *ngIf="item$ | async as event; else LoadingTemplate">
-      <div
-        class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
-        <div class="lg:flex lg:items-center lg:justify-between">
-          <div class="min-w-0 flex-1">
-            <h2
-              class="text-2xl font-bold leading-7 text-beeColor-900 dark:text-beeDarkColor-200 sm:truncate sm:text-3xl sm:tracking-tight">
-              {{ event.start | date }} - {{ event.end | date }}
-            </h2>
-            <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
-              <div class="mt-2 flex items-center text-sm text-beeColor-500">
-                <i class="bi bi-egg me-2"></i>
-                {{ event.createdAt | date }}
-              </div>
-            </div>
-          </div>
-          <div class="mt-5 flex lg:ml-4 lg:mt-0">
-            <span class="hidden sm:block">
-              <edit-link-component></edit-link-component>
-            </span>
-
-            <span class="ml-3 hidden sm:block">
-              <delete-button (event)="delete(event._id!)"></delete-button>
-            </span>
-
-            <utility-dropdown [smHidden]="true">
-              <ng-container content>
-                <a routerLink="form" class="block px-4 py-2 text-sm text-beeColor-700"
-                   role="menuitem" tabindex="-1"
-                   id="mobile-menu-item-0">
-                  <i class="bi bi-pencil me-2"></i>
-                  {{ 'general.edit' | translate }}
-                </a>
-                <button (click)="delete(event._id!)" class="block px-4 py-2 text-sm text-red-500"
-                        role="menuitem" tabindex="-1"
-                        id="mobile-menu-item-1">
-                  <i class="bi bi-trash me-2"></i>
-                  {{ 'general.delete' | translate }}
-                </button>
-              </ng-container>
-            </utility-dropdown>
-          </div>
-        </div>
-        <hr class="my-6">
-        <h5>Attendees</h5>
-        <ul class="list-group">
-          <li *ngFor="let attendant of event.attendees" class="list-group-item">
-            <strong>E-mail:</strong>
-            <p class="m-0">{{ attendant.customer.email }}</p>
-          </li>
-        </ul>
-      </div>
-    </ng-container>
-    <ng-template #LoadingTemplate>
-      <utility-loader></utility-loader>
-    </ng-template>
-  `,
+  templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
   imports: [
     CardComponent,
@@ -94,7 +42,12 @@ import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.
     LoaderComponent,
     DatePipe,
     TranslateModule,
-    EditLinkComponent
+    EditLinkComponent,
+    DynamicDatePipe,
+    ActiveStyleDirective,
+    CurrencyPipe,
+    EventStatusStyleDirective,
+    NgTemplateOutlet
   ],
   standalone: true
 })
@@ -109,9 +62,47 @@ export default class Index {
   public readonly class = 'p-4 block';
 
   public readonly store = inject(Store);
+  public readonly translateService = inject(TranslateService);
 
-  public delete(id: string): void {
-    this.store.dispatch(new EventActions.DeleteItem(id));
+  public delete(event: IEvent): void {
+    this.store.dispatch(new EventActions.DeleteItem(event._id));
+  }
+
+  public formatDuration(duration: string): string {
+
+    return humanizeDuration(Duration.fromISOTime(duration).as('milliseconds'), {language: this.translateService.currentLang});
+
+  }
+
+  public async changeStatusOnBooked(event: IEvent): Promise<void> {
+    await firstValueFrom(this.store.dispatch(new EventActions.BookedStatus(event)));
+    await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
+  }
+
+  public async changeStatusOnCancelled(event: IEvent): Promise<void> {
+    await firstValueFrom(this.store.dispatch(new EventActions.CancelledStatus(event)));
+    await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
+  }
+
+  public async changeStatusOnDone(event: IEvent): Promise<void> {
+    await firstValueFrom(this.store.dispatch(new EventActions.DoneStatus(event)));
+    await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
+  }
+
+  public isRequested(status: StatusEnum): boolean {
+    return status === StatusEnum.requested;
+  }
+
+  public isBooked(status: StatusEnum): boolean {
+    return status === StatusEnum.booked;
+  }
+
+  public isDone(status: StatusEnum): boolean {
+    return status === StatusEnum.done;
+  }
+
+  public isCancelled(status: StatusEnum): boolean {
+    return status === StatusEnum.cancelled;
   }
 
 }

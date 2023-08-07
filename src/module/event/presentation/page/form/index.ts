@@ -1,27 +1,16 @@
 import {Component, HostBinding, inject, OnInit, ViewEncapsulation} from '@angular/core';
-import {CardComponent} from '@utility/presentation/component/card/card.component';
-import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {InputDirective} from '@utility/directives/input/input.directive';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {EventForm} from '@event/form/event.form';
 import {AttendeesComponent} from '@event/presentation/component/form/attendees/attendees.component';
-import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {IEvent} from "@event/domain";
-import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
-import {NgSelectModule} from "@ng-select/ng-select";
-import {DatePipe, NgForOf, NgIf} from "@angular/common";
-import {LanguagePipe} from "@utility/pipes/language.pipe";
-import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 import {TranslateModule} from "@ngx-translate/core";
-import {IonicModule} from "@ionic/angular";
 import {filter, firstValueFrom, Observable} from "rxjs";
 import {Select, Store} from "@ngxs/store";
 import {EventState} from "@event/state/event/event.state";
 import {EventActions} from "@event/state/event/event.actions";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {SelectTimeSlotComponent} from "@event/presentation/component/form/select-time-slot/select-time-slot.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {ServicesComponent} from "@event/presentation/component/form/services/services.component";
@@ -32,26 +21,11 @@ import {ServicesComponent} from "@event/presentation/component/form/services/ser
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
   imports: [
-    CardComponent,
-    BodyCardComponent,
     ReactiveFormsModule,
-    InputDirective,
     DeleteButtonComponent,
-    HasErrorDirective,
-    RouterLink,
     BackLinkComponent,
     FormsModule,
-    AttendeesComponent,
-    HeaderCardComponent,
-    NgSelectModule,
-    NgForOf,
-    LanguagePipe,
-    NgIf,
-    DatePipe,
-    InvalidTooltipDirective,
     TranslateModule,
-    IonicModule,
-    FormInputComponent,
     SelectTimeSlotComponent,
     FormTextareaComponent,
     AttendeesComponent,
@@ -88,13 +62,30 @@ export default class Index implements OnInit {
 
     firstValueFrom(this.activatedRoute.params.pipe(filter(({id}) => id?.length))).then(() => {
 
-      firstValueFrom(this.itemData$).then((result) => {
+      firstValueFrom(this.itemData$).then(async (result) => {
 
         if (result?._id) {
 
-          this.isEditMode = true;
           const {attendees, ...rest} = result;
-          this.form.patchValue(rest);
+
+          const dataFromRoute: {
+            cacheLoaded: boolean;
+            repeat: boolean;
+            item: any; // This is all ngnx store
+          } = this.activatedRoute.snapshot.data as any;
+
+          if (dataFromRoute?.repeat) {
+
+            const {start, end, status, _id, ...initialValue} = rest;
+
+            this.form.patchValue(initialValue);
+
+          } else {
+
+            this.isEditMode = true;
+            this.form.patchValue(rest);
+
+          }
 
           if (attendees?.length) {
 
@@ -102,10 +93,8 @@ export default class Index implements OnInit {
 
             attendees.forEach((attendee) => {
 
-              console.log(attendee);
               const control = this.form.controls.attendees.pushNewOne(attendee);
               control.disable();
-              console.log(this.form.controls.attendees);
 
             });
 
@@ -138,6 +127,10 @@ export default class Index implements OnInit {
         await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(value)));
 
       } else {
+
+        // Reset redirect uri
+        redirectUri.length = 0;
+        redirectUri.push('/', 'event');
 
         await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(value)));
         const item = await firstValueFrom(this.itemData$);

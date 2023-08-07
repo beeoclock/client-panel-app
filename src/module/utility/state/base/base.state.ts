@@ -261,58 +261,54 @@ export abstract class BaseState<ITEM = any> {
 
     const state = ctx.getState();
 
-    const {_id} = (state.item?.data ?? {}) as { _id: string };
+    const {cache}: { cache: ICacheState } = this.store.snapshot();
 
-    if (_id !== payload) {
+    let itemFromCache = undefined;
 
-      const {cache}: { cache: ICacheState } = this.store.snapshot();
+    const cacheItemsKey = getKeyWithClientId(this.store, this.cacheKeys.items);
 
-      let itemFromCache = undefined;
+    const customerCacheItems = cache[cacheItemsKey];
 
-      const cacheItemsKey = getKeyWithClientId(this.store, this.cacheKeys.items);
+    console.log(customerCacheItems);
 
-      const customerCacheItems = cache[cacheItemsKey];
+    if (customerCacheItems) {
 
-      if (customerCacheItems) {
+      itemFromCache = customerCacheItems[payload];
 
-        itemFromCache = customerCacheItems[payload];
+    }
 
-      }
+    if (itemFromCache) {
 
-      if (itemFromCache) {
+      ctx.patchState({
+        ...state,
+        item: itemFromCache
+      });
 
-        ctx.patchState({
-          ...state,
-          item: itemFromCache
-        });
+    } else {
 
-      } else {
+      ctx.dispatch(new AppActions.PageLoading(true));
 
-        ctx.dispatch(new AppActions.PageLoading(true));
+      const data = await this.item.executeAsync(payload);
 
-        const data = await this.item.executeAsync(payload);
+      const item = {
+        data,
+        downloadedAt: new Date(),
+      };
 
-        const item = {
-          data,
-          downloadedAt: new Date(),
-        };
+      ctx.patchState({
+        item
+      });
 
-        ctx.patchState({
-          item
-        });
+      ctx.dispatch(new CacheActions.Set({
+        strategy: 'indexedDB',
+        key: cacheItemsKey,
+        value: JSON.stringify({
+          ...customerCacheItems,
+          [payload]: item
+        })
+      }));
 
-        ctx.dispatch(new CacheActions.Set({
-          strategy: 'indexedDB',
-          key: cacheItemsKey,
-          value: JSON.stringify({
-            ...customerCacheItems,
-            [payload]: item
-          })
-        }));
-
-        ctx.dispatch(new AppActions.PageLoading(false));
-
-      }
+      ctx.dispatch(new AppActions.PageLoading(false));
 
     }
 

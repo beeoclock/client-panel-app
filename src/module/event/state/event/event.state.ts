@@ -9,6 +9,12 @@ import {UpdateEventApiAdapter} from "@event/adapter/external/api/update.event.ap
 import {ItemEventApiAdapter} from "@event/adapter/external/api/item.event.api.adapter";
 import {ListEventApiAdapter} from "@event/adapter/external/api/list.event.api.adapter";
 import {RemoveEventApiAdapter} from "@event/adapter/external/api/remove.event.api.adapter";
+import {DoneStatusEventApiAdapter} from "@event/adapter/external/api/done.status.event.api.adapter";
+import {RequestedStatusEventApiAdapter} from "@event/adapter/external/api/requested.status.event.api.adapter";
+import {CancelledStatusEventApiAdapter} from "@event/adapter/external/api/cancelled.status.event.api.adapter";
+import {BookedStatusEventApiAdapter} from "@event/adapter/external/api/booked.status.event.api.adapter";
+import {firstValueFrom} from "rxjs";
+import {AppActions} from "@utility/state/app/app.actions";
 
 export type IEventState = IBaseState<Event.IEvent>;
 
@@ -25,6 +31,12 @@ export class EventState extends BaseState<Event.IEvent> {
   protected override readonly item = inject(ItemEventApiAdapter);
   protected override readonly remove = inject(RemoveEventApiAdapter);
   protected override readonly list = inject(ListEventApiAdapter);
+
+  // Change status
+  protected readonly doneStatusEventApiAdapter = inject(DoneStatusEventApiAdapter);
+  protected readonly requestedStatusEventApiAdapter = inject(RequestedStatusEventApiAdapter);
+  protected readonly cancelledStatusEventApiAdapter = inject(CancelledStatusEventApiAdapter);
+  protected readonly bookedStatusEventApiAdapter = inject(BookedStatusEventApiAdapter);
 
   constructor() {
     super(
@@ -122,6 +134,53 @@ export class EventState extends BaseState<Event.IEvent> {
 
     });
 
+  }
+
+  // Statuses
+
+
+  @Action(EventActions.DoneStatus)
+  public async coneStatus(ctx: StateContext<IEventState>, {payload}: EventActions.DoneStatus): Promise<void> {
+    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
+    await this.doneStatusEventApiAdapter.executeAsync(payload._id);
+
+    await firstValueFrom(ctx.dispatch(new EventActions.ClearTableCache()));
+    await firstValueFrom(ctx.dispatch(new EventActions.ClearItemCache()));
+
+    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
+  }
+
+  @Action(EventActions.BookedStatus)
+  public async cookedStatus(ctx: StateContext<IEventState>, {payload}: EventActions.BookedStatus): Promise<void> {
+    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
+    await this.bookedStatusEventApiAdapter.executeAsync(payload._id);
+
+    await firstValueFrom(ctx.dispatch(new EventActions.ClearTableCache()));
+    await firstValueFrom(ctx.dispatch(new EventActions.ClearItemCache()));
+
+    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
+  }
+
+  @Action(EventActions.RequestedStatus)
+  public async requestedStatus(ctx: StateContext<IEventState>, {payload}: EventActions.RequestedStatus): Promise<void> {
+    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
+    await this.requestedStatusEventApiAdapter.executeAsync(payload._id);
+
+    await firstValueFrom(ctx.dispatch(new EventActions.ClearTableCache()));
+    await firstValueFrom(ctx.dispatch(new EventActions.ClearItemCache()));
+
+    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
+  }
+
+  @Action(EventActions.CancelledStatus)
+  public async cancelledStatus(ctx: StateContext<IEventState>, {payload}: EventActions.CancelledStatus): Promise<void> {
+    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
+    await this.cancelledStatusEventApiAdapter.executeAsync(payload._id);
+
+    await firstValueFrom(ctx.dispatch(new EventActions.ClearTableCache()));
+    await firstValueFrom(ctx.dispatch(new EventActions.ClearItemCache()));
+
+    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
   }
 
   // Selectors

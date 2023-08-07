@@ -22,7 +22,7 @@ export interface IEvent extends Interface.IBaseEntity {
   start?: string;
   end?: string;
   timeZone?: string;
-  status?: StatusEnum;
+  status: StatusEnum;
 
   attendees?: IAttendee[];
 }
