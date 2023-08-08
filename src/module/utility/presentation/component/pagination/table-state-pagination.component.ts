@@ -1,4 +1,6 @@
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   inject,
@@ -18,11 +20,13 @@ import {DateTime} from "luxon";
 import {getPaginationItems} from "@utility/domain/pagination.items";
 import {environment} from "@environment/environment";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {ONE_MINUTE, ONE_SECOND} from "@utility/domain/const/c.time";
 
 @Component({
   selector: 'utility-table-state-pagination-component',
   standalone: true,
   templateUrl: 'table-state-pagination.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     NgSelectModule,
     NgForOf,
@@ -52,6 +56,9 @@ export class TableStatePaginationComponent implements OnChanges {
 
   public readonly translateService = inject(TranslateService);
 
+  public readonly changeDetectorRef = inject(ChangeDetectorRef);
+  private timerOfLastUpdate: NodeJS.Timeout | undefined;
+
   /**
    *
    * @param page
@@ -62,13 +69,7 @@ export class TableStatePaginationComponent implements OnChanges {
 
   public ngOnChanges(changes: { tableState: SimpleChange }): void {
     if (changes.tableState) {
-      this.lastUpdate = humanizeDuration(
-        DateTime.now().diff(DateTime.fromISO(this.tableState.lastUpdate)).as('milliseconds'),
-        {
-          round: true,
-          language: this.translateService.currentLang,
-        }
-      );
+      this.initTimerOfLastUpdate();
       this.pages = getPaginationItems(this.tableState.page, this.tableState.maxPage, environment.config.pagination.maxLength);
     }
   }
@@ -91,6 +92,37 @@ export class TableStatePaginationComponent implements OnChanges {
 
   public changePageSize(pageSize: number): void {
     this.pageSize.emit(pageSize);
+  }
+
+  private initTimerOfLastUpdate() {
+
+    const ms = this.updateLastUpdate();
+    this.changeDetectorRef.detectChanges();
+
+    if (this.timerOfLastUpdate) {
+      clearInterval(this.timerOfLastUpdate);
+    }
+
+    this.timerOfLastUpdate = setTimeout(() => {
+      this.initTimerOfLastUpdate();
+    }, ms);
+
+  }
+
+  private updateLastUpdate(): number {
+
+    const ms = DateTime.now().diff(DateTime.fromISO(this.tableState.lastUpdate)).as('milliseconds');
+
+    this.lastUpdate = humanizeDuration(
+      ms,
+      {
+        round: true,
+        language: this.translateService.currentLang,
+      }
+    );
+
+    return ms > ONE_MINUTE ? ONE_MINUTE : ONE_SECOND;
+
   }
 
 }

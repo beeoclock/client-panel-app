@@ -22,6 +22,13 @@
       "service": "Service",
       "createdAt": "Created at",
       "updatedAt": "Updated at",
+      "duration": "Duration",
+      "price": "Price",
+      "dateAndTime": "Date and time",
+      "note": "Note",
+      "unknown": "Unknown",
+      "approve": "Approve",
+      "done": "Done",
       "add-service": "Add service"
     }
   },
@@ -41,7 +48,6 @@
     "image": "Image",
     "specialists": "Specialists",
     "prices": "Prices",
-    "price": "Price",
     "today": "Today",
     "tomorrow": "Tomorrow",
     "dateAndTime": "Date and time",
@@ -54,12 +60,10 @@
     "firstName": "First name",
     "lastName": "Last name",
     "email": "E-mail",
-    "note": "Note",
     "description": "Description",
     "title": "Title",
     "name": "Name",
     "break": "Break",
-    "duration": "Duration",
     "action": "Action",
     "details": "Details",
     "delete": "Delete",
@@ -180,11 +184,18 @@
       }
     },
     "keyword": {
+      "status": {
+        "requested": "Requested",
+        "cancelled": "Canceled",
+        "done": "Done",
+        "booked": "Booked"
+      },
       "capitalize": {
         "start": "Booking Start",
         "end": "Estimated End",
         "service": "Service",
-        "status": "Status"
+        "status": "Status",
+        "repeat": "Repeat"
       }
     }
   },

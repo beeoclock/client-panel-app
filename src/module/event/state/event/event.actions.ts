@@ -62,4 +62,42 @@ export namespace EventActions {
     public static override readonly type = '[Event State] Update Table State';
   }
 
+  // Statuses
+
+  export class DoneStatus {
+    public static readonly type = '[Event API] Done Status';
+
+    constructor(
+      public payload: IEvent,
+    ) {
+    }
+  }
+
+  export class RequestedStatus {
+    public static readonly type = '[Event API] Requested Status';
+
+    constructor(
+      public payload: IEvent,
+    ) {
+    }
+  }
+
+  export class CancelledStatus {
+    public static readonly type = '[Event API] Cancelled Status';
+
+    constructor(
+      public payload: IEvent,
+    ) {
+    }
+  }
+
+  export class BookedStatus {
+    public static readonly type = '[Event API] Booked Success';
+
+    constructor(
+      public payload: IEvent,
+    ) {
+    }
+  }
+
 }

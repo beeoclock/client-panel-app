@@ -1,5 +1,4 @@
 import {Component, ViewEncapsulation} from '@angular/core';
-import {ExampleTableComponent} from '@utility/presentation/component/table/example.table.component';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {RouterLink} from '@angular/router';
@@ -7,7 +6,6 @@ import {DeleteButtonComponent} from '@utility/presentation/component/button/dele
 import {TableComponent} from '@utility/presentation/component/table/table.component';
 import {HeaderTableComponent} from '@utility/presentation/component/table/header.table.component';
 import {BodyTableComponent} from '@utility/presentation/component/table/body.table.component';
-import {PaginationComponent} from '@utility/presentation/component/pagination/pagination.component';
 import {AsyncPipe, DatePipe, NgForOf, NgIf} from '@angular/common';
 import {ListPage} from "@utility/list.page";
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
@@ -32,7 +30,6 @@ import {DynamicDatePipe} from "@utility/pipes/dynamic-date.pipe";
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
     imports: [
-        ExampleTableComponent,
         CardComponent,
         BodyCardComponent,
         RouterLink,
@@ -40,7 +37,6 @@ import {DynamicDatePipe} from "@utility/pipes/dynamic-date.pipe";
         TableComponent,
         HeaderTableComponent,
         BodyTableComponent,
-        PaginationComponent,
         NgForOf,
         DatePipe,
         FilterComponent,

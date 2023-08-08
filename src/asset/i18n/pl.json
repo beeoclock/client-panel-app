@@ -22,6 +22,13 @@
       "service": "Usługa",
       "createdAt": "Utworzono",
       "updatedAt": "Zaktualizowano",
+      "duration": "Czas trwania",
+      "price": "Cena",
+      "dateAndTime": "Data i czas",
+      "note": "Notatka",
+      "unknown": "Nieznany",
+      "approve": "Zatwierdź",
+      "done": "Gotowe",
       "add-service": "Dodaj usługę"
     }
   },
@@ -41,7 +48,6 @@
     "image": "Obraz",
     "specialists": "Specjaliści",
     "prices": "Ceny",
-    "price": "Cena",
     "today": "Dziś",
     "tomorrow": "Jutro",
     "dateAndTime": "Data i czas",
@@ -54,12 +60,10 @@
     "firstName": "Imię",
     "lastName": "Nazwisko",
     "email": "E-mail",
-    "note": "Uwagi",
     "description": "Opis",
     "title": "Tytuł",
     "name": "Nazwa",
     "break": "Przerwa",
-    "duration": "Czas trwania",
     "action": "Akcja",
     "details": "Szczegóły",
     "delete": "Usuń",
@@ -180,11 +184,18 @@
       }
     },
     "keyword": {
+      "status": {
+        "requested": "Wniosek",
+        "cancelled": "Anulowane",
+        "done": "Zakończone",
+        "booked": "Zarezerwowane"
+      },
       "capitalize": {
         "start": "Rozpoczęcie rezerwacji",
         "end": "Szacowany koniec",
         "service": "Usługa",
-        "status": "Status"
+        "status": "Status",
+        "repeat": "Powtarzanie"
       }
     }
   },
