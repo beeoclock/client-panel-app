@@ -1,6 +1,4 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
-import {CardComponent} from '@utility/presentation/component/card/card.component';
-import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {RouterLink} from '@angular/router';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {TableComponent} from '@utility/presentation/component/table/table.component';
@@ -31,28 +29,26 @@ import {ActiveStyleDirective} from "@utility/directives/active-style/active-styl
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        CardComponent,
-        BodyCardComponent,
-        RouterLink,
-        DeleteButtonComponent,
-        TableComponent,
-        HeaderTableComponent,
-        BodyTableComponent,
-        NgForOf,
-        FilterComponent,
-        DropdownComponent,
-        DatePipe,
-        NgIf,
-        SortIndicatorComponent,
-        LoaderComponent,
-        ActionComponent,
-        TranslateModule,
-        AsyncPipe,
-        TableStatePaginationComponent,
-        DynamicDatePipe,
-        ActiveStyleDirective,
-    ],
+  imports: [
+    RouterLink,
+    DeleteButtonComponent,
+    TableComponent,
+    HeaderTableComponent,
+    BodyTableComponent,
+    NgForOf,
+    FilterComponent,
+    DropdownComponent,
+    DatePipe,
+    NgIf,
+    SortIndicatorComponent,
+    LoaderComponent,
+    ActionComponent,
+    TranslateModule,
+    AsyncPipe,
+    TableStatePaginationComponent,
+    DynamicDatePipe,
+    ActiveStyleDirective,
+  ],
   standalone: true
 })
 export default class Index extends ListPage {

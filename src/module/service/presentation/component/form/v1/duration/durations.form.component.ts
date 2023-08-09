@@ -2,10 +2,6 @@ import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angula
 import {DurationFormComponent} from '@service/presentation/component/form/v1/duration/duration.form.component';
 import {DurationVersionsForm} from '@service/form/service.form';
 import {NgForOf, NgIf} from '@angular/common';
-import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
-import {BodyCardComponent} from "@utility/presentation/component/card/body.card.component";
-import {FooterCardComponent} from "@utility/presentation/component/card/footer.card.component";
 
 @Component({
   selector: 'service-durations-form-component',
@@ -14,10 +10,6 @@ import {FooterCardComponent} from "@utility/presentation/component/card/footer.c
   imports: [
     DurationFormComponent,
     NgForOf,
-    CardComponent,
-    HeaderCardComponent,
-    BodyCardComponent,
-    FooterCardComponent,
     NgIf
   ],
   template: `

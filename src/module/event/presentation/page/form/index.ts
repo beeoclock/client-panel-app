@@ -14,23 +14,25 @@ import {EventActions} from "@event/state/event/event.actions";
 import {SelectTimeSlotComponent} from "@event/presentation/component/form/select-time-slot/select-time-slot.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {ServicesComponent} from "@event/presentation/component/form/services/services.component";
+import {CardComponent} from "@utility/presentation/component/card/card.component";
 
 
 @Component({
   selector: 'event-form-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    ReactiveFormsModule,
-    DeleteButtonComponent,
-    BackLinkComponent,
-    FormsModule,
-    TranslateModule,
-    SelectTimeSlotComponent,
-    FormTextareaComponent,
-    AttendeesComponent,
-    ServicesComponent,
-  ],
+    imports: [
+        ReactiveFormsModule,
+        DeleteButtonComponent,
+        BackLinkComponent,
+        FormsModule,
+        TranslateModule,
+        SelectTimeSlotComponent,
+        FormTextareaComponent,
+        AttendeesComponent,
+        ServicesComponent,
+        CardComponent,
+    ],
   standalone: true
 })
 export default class Index implements OnInit {

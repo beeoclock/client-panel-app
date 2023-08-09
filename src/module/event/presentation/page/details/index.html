@@ -8,21 +8,9 @@
 
   <ng-container *ngIf="item$ | async as event">
 
-    <div class="col-span-12 lg:col-start-4 lg:col-span-6">
+    <div class="col-span-12 lg:col-start-4 lg:col-span-6 flex flex-col gap-4">
 
-      <div
-        class="
-          bg-white
-          dark:bg-beeDarkColor-800
-          dark:border
-          dark:border-beeDarkColor-700
-          shadow
-          rounded-2xl
-          p-4
-          flex
-          flex-col
-          gap-8
-        ">
+      <card gap="8">
 
         <div class="flex justify-between items-center">
 
@@ -120,10 +108,9 @@
 
         </div>
 
-      </div>
+      </card>
 
-      <div
-        class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 mt-4">
+      <card>
 
         <div class="flex justify-between flex-col md:flex-row gap-4">
 
@@ -255,8 +242,7 @@
           </ng-template>
 
         </div>
-
-      </div>
+      </card>
 
     </div>
 

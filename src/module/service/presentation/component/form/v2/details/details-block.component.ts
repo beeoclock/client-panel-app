@@ -5,13 +5,13 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {TagsComponent} from "@service/presentation/component/form/v2/details/tags.component";
 import {LanguageVersionForm} from "@service/form/service.form";
+import {CardComponent} from "@utility/presentation/component/card/card.component";
 
 @Component({
   selector: 'service-form-details-block-component',
   standalone: true,
   template: `
-    <div
-      class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-3">
+    <card>
       <span class="text-2xl font-bold text-beeColor-500">{{ 'general.details' | translate }}</span>
 
       <form-input
@@ -31,7 +31,7 @@ import {LanguageVersionForm} from "@service/form/service.form";
 
 <!--      <service-form-tags-component></service-form-tags-component>-->
 
-    </div>
+    </card>
   `,
   imports: [
     NgIf,
@@ -39,6 +39,7 @@ import {LanguageVersionForm} from "@service/form/service.form";
     FormInputComponent,
     FormTextareaComponent,
     TagsComponent,
+    CardComponent,
   ]
 })
 export class DetailsBlockComponent {

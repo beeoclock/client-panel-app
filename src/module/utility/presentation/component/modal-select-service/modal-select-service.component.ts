@@ -24,12 +24,12 @@ import {Duration} from "luxon";
 
       <ng-container *ngFor="let item of modalSelectServiceListAdapter.tableState.items; let index = index">
 
-        <hr class="my-2" *ngIf="index > 0">
+        <hr class="my-2 dark:border-beeDarkColor-700" *ngIf="index > 0">
 
-        <div class="flex flex-col gap-3">
+        <div class="flex flex-col gap-3 dark:text-white">
 
-          <div class="grid grid-cols-12 gap-4">
-            <div class="col-span-2 pt-1">
+          <div class="grid grid-cols-16 gap-4">
+            <div class="col-span-3 pt-1">
               <ng-container *ngIf="item?.presentation?.main?.length; else DefaultServiceImageTemplate">
                 <img [src]="item.presentation.main" class="w-[90px] h-[90px] rounded-2xl object-cover"
                      alt="Image of service">
@@ -38,7 +38,7 @@ import {Duration} from "luxon";
                 <div class="w-[90px] h-[90px] bg-beeColor-300 rounded-2xl"></div>
               </ng-template>
             </div>
-            <div class="col-span-8 flex flex-col gap-2">
+            <div class="col-span-10 flex flex-col gap-2">
               <div class="flex flex-col gap-2">
               <span class="font-bold">
                 {{ item.languageVersions[0].title }}
@@ -48,18 +48,20 @@ import {Duration} from "luxon";
               </span>
               </div>
             </div>
-            <div class="col-span-2 flex flex-col gap-3">
+            <div class="col-span-3 flex flex-col gap-3">
 
               <button
                 *ngIf="isSelected(item)"
                 (click)="deselect(item)"
-                class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
+                class="text-sm flex justify-between gap-2 w-full border border-green-200 bg-green-50 text-green-600 dark:bg-green-900/50 dark:border-green-900 px-2.5 py-1 rounded-2xl">
+                <i class="bi bi-check-circle"></i>
                 {{ 'keyword.capitalize.selected' | translate }}
               </button>
               <button
                 *ngIf="isNotSelected(item)"
                 (click)="select(item)"
-                class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">
+                class="text-sm flex justify-between gap-2 w-full border border-blue-200 bg-blue-50 text-blue-600 dark:text-blue-300 dark:bg-blue-900/50 dark:border-blue-900 px-2.5 py-1 rounded-2xl">
+                <i class="bi bi-circle"></i>
                 {{ 'keyword.capitalize.select' | translate }}
               </button>
 

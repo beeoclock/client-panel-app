@@ -2,8 +2,6 @@ import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {AsyncPipe, NgIf} from '@angular/common';
 import {Observable} from 'rxjs';
-import {CardComponent} from '@utility/presentation/component/card/card.component';
-import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
@@ -55,13 +53,10 @@ import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.
   `,
   encapsulation: ViewEncapsulation.None,
   imports: [
-    CardComponent,
-    BodyCardComponent,
     NgIf,
     AsyncPipe,
     SpinnerComponent,
     BackLinkComponent,
-    BodyCardComponent,
     BackLinkComponent,
     DeleteButtonComponent,
     RouterLink,

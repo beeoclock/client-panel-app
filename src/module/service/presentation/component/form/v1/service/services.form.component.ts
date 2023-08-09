@@ -4,10 +4,6 @@ import {NgForOf, NgIf} from '@angular/common';
 import {ServiceFormComponent} from '@service/presentation/component/form/v1/service/service.form.component';
 import {LANGUAGES} from '@utility/domain/enum';
 import {ScheduleFormComponent} from "@service/presentation/component/form/v1/schedule/schedule.form.component";
-import {BodyCardComponent} from "@utility/presentation/component/card/body.card.component";
-import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {FooterCardComponent} from "@utility/presentation/component/card/footer.card.component";
 
 @Component({
   selector: 'service-services-form-component',
@@ -18,10 +14,6 @@ import {FooterCardComponent} from "@utility/presentation/component/card/footer.c
     ScheduleFormComponent,
     ServiceFormComponent,
     NgIf,
-    BodyCardComponent,
-    HeaderCardComponent,
-    CardComponent,
-    FooterCardComponent
   ],
   template: `
 
@@ -58,12 +50,12 @@ import {FooterCardComponent} from "@utility/presentation/component/card/footer.c
         </div>
       </div>
 
-<!--      <hr *ngIf="showAddMore" class="my-4">-->
+      <!--      <hr *ngIf="showAddMore" class="my-4">-->
 
-<!--      <button class="border rounded px-4 py-2" *ngIf="showAddMore" (click)="pushNewLanguageVersionForm($event)">-->
-<!--        <i class="bi bi-plus-lg me-2"></i>-->
-<!--        Add new language version-->
-<!--      </button>-->
+      <!--      <button class="border rounded px-4 py-2" *ngIf="showAddMore" (click)="pushNewLanguageVersionForm($event)">-->
+      <!--        <i class="bi bi-plus-lg me-2"></i>-->
+      <!--        Add new language version-->
+      <!--      </button>-->
     </div>
   `
 })

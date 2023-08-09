@@ -7,13 +7,13 @@ import {TagsComponent} from "@service/presentation/component/form/v2/details/tag
 import {SpecialistsComponent} from "@service/presentation/component/form/v2/prices/specialists.component";
 import {PriceBlockComponent} from "@service/presentation/component/form/v2/prices/price-block.component";
 import {DurationVersionsForm} from "@service/form/service.form";
+import {CardComponent} from "@utility/presentation/component/card/card.component";
 
 @Component({
   selector: 'service-form-prices-block-component',
   standalone: true,
   template: `
-    <div
-      class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-3">
+    <card>
       <span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.price' | translate }}</span>
 
       <div *ngFor="let durationVersion of durationVersions.controls; let index = index">
@@ -38,7 +38,7 @@ import {DurationVersionsForm} from "@service/form/service.form";
 <!--        {{ 'service.form.v2.section.prices.button.add.label' | translate }}-->
 <!--      </button>-->
 
-    </div>
+    </card>
   `,
   imports: [
     NgIf,
@@ -49,6 +49,7 @@ import {DurationVersionsForm} from "@service/form/service.form";
     SpecialistsComponent,
     PriceBlockComponent,
     NgForOf,
+    CardComponent,
   ]
 })
 export class PricesBlockComponent {

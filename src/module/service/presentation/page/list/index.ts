@@ -1,6 +1,4 @@
 import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
-import {CardComponent} from '@utility/presentation/component/card/card.component';
-import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {RouterLink} from '@angular/router';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {TableComponent} from '@utility/presentation/component/table/table.component';
@@ -33,30 +31,28 @@ import {DynamicDatePipe} from "@utility/pipes/dynamic-date.pipe";
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        CardComponent,
-        BodyCardComponent,
-        RouterLink,
-        DeleteButtonComponent,
-        TableComponent,
-        HeaderTableComponent,
-        BodyTableComponent,
-        NgForOf,
-        DatePipe,
-        FilterComponent,
-        AsyncPipe,
-        NgIf,
-        SpinnerComponent,
-        DropdownComponent,
-        SortIndicatorComponent,
-        LoaderComponent,
-        ActionComponent,
-        TranslateModule,
-        TableStatePaginationComponent,
-        NgClass,
-        ActiveStyleDirective,
-        DynamicDatePipe
-    ],
+  imports: [
+    RouterLink,
+    DeleteButtonComponent,
+    TableComponent,
+    HeaderTableComponent,
+    BodyTableComponent,
+    NgForOf,
+    DatePipe,
+    FilterComponent,
+    AsyncPipe,
+    NgIf,
+    SpinnerComponent,
+    DropdownComponent,
+    SortIndicatorComponent,
+    LoaderComponent,
+    ActionComponent,
+    TranslateModule,
+    TableStatePaginationComponent,
+    NgClass,
+    ActiveStyleDirective,
+    DynamicDatePipe
+  ],
   standalone: true
 })
 export default class Index extends ListPage {

@@ -2,10 +2,6 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Input, On
 import {NgForOf, NgIf} from '@angular/common';
 import {NgSelectComponent, NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {BodyCardComponent} from "@utility/presentation/component/card/body.card.component";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
-import {FooterCardComponent} from "@utility/presentation/component/card/footer.card.component";
 import {
   ModalMembersFormComponent
 } from "@service/presentation/component/form/v1/members/modal.employees.form.component";
@@ -24,16 +20,12 @@ import {CustomerForm} from "@customer/form";
     NgSelectModule,
     ReactiveFormsModule,
     NgIf,
-    BodyCardComponent,
-    CardComponent,
-    HeaderCardComponent,
-    FooterCardComponent,
     ModalMembersFormComponent,
     TranslateModule
   ],
   template: `
 
-<!--  USE COMMENTED CODE IN attendees.component.ts  -->
+    <!--  USE COMMENTED CODE IN attendees.component.ts  -->
     <!--        <ng-container *ngIf="isNew(attendant); else selectTemplate">-->
 
     <!--        </ng-container>-->
