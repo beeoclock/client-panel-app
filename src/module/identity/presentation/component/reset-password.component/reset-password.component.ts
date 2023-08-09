@@ -22,7 +22,7 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
         autocomplete="email"
         placeholder="firstname.lastname@example.com"
         [control]="form.controls.email"
-        [label]="'general.email' | translate">
+        [label]="'keyword.capitalize.email' | translate">
       </form-input>
 
       <div>

@@ -23,7 +23,7 @@ import {TranslateModule} from "@ngx-translate/core";
 
       <div class="grid grid-cols-16 gap-3">
         <div class="col-span-3">
-          <div class="w-[100px] h-[100px] rounded-full bg-gray-300">
+          <div class="w-[100px] h-[100px] rounded-full bg-beeColor-300">
 
           </div>
         </div>

@@ -4,7 +4,6 @@ import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
 import {WeekDaysEnum, WORK_WEEK} from '@utility/domain/enum/days-of-week.enum';
 import {IMember} from "@member/domain";
 import {IDurationVersion} from "@service/domain";
-import {is} from "thiis";
 
 export const MINUTE_15 = 900; // In seconds
 export const MINUTE_45 = 2700; // In seconds
@@ -263,26 +262,11 @@ export class ServiceForm extends FormGroup<IServiceForm> {
       updatedAt: new FormControl(),
     });
     this.initValue();
-    this.initHandler();
   }
 
   public initValue(): void {
     this.controls.permanentMembers.setValue([]);
     this.controls.active.setValue(ActiveEnum.YES);
-  }
-
-  public initHandler(): void {
-    this.controls.active.valueChanges.subscribe((value: ActiveEnum | boolean) => {
-      if (is.boolean(value)) {
-        this.controls.active.setValue(
-          value ? ActiveEnum.YES : ActiveEnum.NO,
-          {
-            emitEvent: false,
-            onlySelf: true
-          }
-        );
-      }
-    });
   }
 
   public pushNewScheduleForm(): void {

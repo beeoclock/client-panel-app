@@ -33,22 +33,22 @@ import {TranslateModule} from "@ngx-translate/core";
             {{ 'general.edit' | translate }}
           </a>
         </li>
-        <li *ngIf="active === activeEnum.NO">
-          <button
-            (click)="delete.emit(id)"
-            class="text-start block w-full px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeColor-600 dark:hover:text-white">
-            <i class="bi bi-trash"></i>
-            {{ 'general.delete' | translate }}
-          </button>
-        </li>
-        <li *ngIf="active === activeEnum.YES">
-          <button
-            (click)="archive.emit(id)"
-            class="text-start block w-full px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeColor-600 dark:hover:text-white">
-            <i class="bi bi-archive"></i>
-            Archive
-          </button>
-        </li>
+<!--        <li *ngIf="active === activeEnum.NO">-->
+<!--          <button-->
+<!--            (click)="delete.emit(id)"-->
+<!--            class="text-start block w-full px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeColor-600 dark:hover:text-white">-->
+<!--            <i class="bi bi-trash"></i>-->
+<!--            {{ 'general.delete' | translate }}-->
+<!--          </button>-->
+<!--        </li>-->
+<!--        <li *ngIf="active === activeEnum.YES">-->
+<!--          <button-->
+<!--            (click)="archive.emit(id)"-->
+<!--            class="text-start block w-full px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeColor-600 dark:hover:text-white">-->
+<!--            <i class="bi bi-archive"></i>-->
+<!--            Archive-->
+<!--          </button>-->
+<!--        </li>-->
       </ng-container>
     </utility-dropdown>
   `
