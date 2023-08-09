@@ -39,7 +39,7 @@ import {SpinnerComponent} from "@utility/presentation/component/spinner/spinner.
            [class.bg-white]="bg"
            [class.hover:bg-beeColor-100]="bg"
            [class.dark:bg-beeDarkColor-800]="bg"
-           [class.dark:hover:bg-beeColor-700]="bg"
+           [class.dark:hover:bg-beeDarkColor-700]="bg"
            [class.border]="border"
            [class.border-beeColor-200]="border"
            [class.dark:border-beeDarkColor-600]="border"

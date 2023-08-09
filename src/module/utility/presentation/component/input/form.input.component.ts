@@ -30,15 +30,17 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
           px-3
           block
           w-full
-          rounded-md
+          rounded-xl
           py-1.5
           text-beeColor-900
           dark:text-beeDarkColor-100
-          dark:bg-beeDarkColor-700
+          dark:bg-beeDarkColor-900
+          outline-0
           border
           border-beeColor-300
+          dark:border-beeColor-700
           placeholder:text-beeColor-400
-          focus:border-stone-800
+          focus:ring-2
           sm:text-sm sm:leading-6">
     </div>
   `
