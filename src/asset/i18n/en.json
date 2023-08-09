@@ -94,8 +94,8 @@
     "table": "Table",
     "addEvent": "Add event",
     "private": "Private",
-    "profile": "Profile",
     "settings": "Settings",
+    "businessProfile": "Business profile",
     "switch-business-client": "Change context"
   },
   "page": {

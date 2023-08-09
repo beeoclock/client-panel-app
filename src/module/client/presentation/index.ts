@@ -2,8 +2,8 @@ import {Routes} from "@angular/router";
 
 export const routers = [
   {
-    path: 'profile',
-    loadComponent: () => import('./page/profile')
+    path: 'business-profile',
+    loadComponent: () => import('./page/business-profile')
   },
   {
     path: 'settings',

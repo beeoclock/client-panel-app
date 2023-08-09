@@ -94,8 +94,8 @@
     "table": "Таблиця",
     "addEvent": "Додати подію",
     "private": "Приватне",
-    "profile": "Профіль",
     "settings": "Налаштування",
+    "businessProfile": "Профіль компанії",
     "switch-business-client": "Змінити контекст"
   },
   "page": {
