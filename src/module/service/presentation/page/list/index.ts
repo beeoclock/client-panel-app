@@ -10,7 +10,7 @@ import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {FilterComponent} from '@service/presentation/component/filter/filter.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
+import {LanguageCodeEnum} from '@utility/domain/enum';
 import {ILanguageVersion, IService} from '@service/domain';
 import {ListPage} from "@utility/list.page";
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
@@ -74,10 +74,6 @@ export default class Index extends ListPage {
   public getFirstLanguageVersion(languageVersions: ILanguageVersion[] = []): ILanguageVersion {
     const firstOption = languageVersions.find(({language}) => language === this.currentLanguageCode);
     return firstOption ?? languageVersions[0];
-  }
-
-  public getLanguageCodes(languageVersions: ILanguageVersion[] = []): string {
-    return languageVersions.map(({language}) => LANGUAGES.find(({code}) => code === language)?.name ?? '').join(', ');
   }
 
 }
