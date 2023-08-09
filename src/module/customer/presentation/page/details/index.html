@@ -1,0 +1,116 @@
+<div class="pb-48 grid grid-cols-12 gap-4">
+
+  <div class="col-span-12 lg:col-span-2">
+
+    <utility-back-link-component></utility-back-link-component>
+
+  </div>
+
+  <ng-container *ngIf="item$ | async as customer">
+
+    <div class="col-span-12 lg:col-start-4 lg:col-span-6">
+
+      <div
+        class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-8">
+
+        <div class="flex justify-between items-center">
+
+          <div class="text-2xl font-bold text-beeColor-500">
+            {{ customer.firstName }}&nbsp;{{ customer.lastName }}
+          </div>
+          <div active-style [active]="customer.active">
+          </div>
+
+        </div>
+
+        <div class="flex flex-col gap-2">
+
+          <div class="font-bold text-beeColor-400">{{ 'keyword.capitalize.email' | translate }}:</div>
+
+          <div>
+            {{ customer.email }}
+          </div>
+
+        </div>
+
+
+        <div class="flex flex-col gap-2">
+
+          <div class="font-bold text-beeColor-400">{{ 'keyword.capitalize.phone' | translate }}:</div>
+
+          <div>
+            {{ customer.phone }}
+          </div>
+
+        </div>
+
+
+        <div class="flex flex-col gap-2">
+
+          <div class="font-bold text-beeColor-400">{{ 'keyword.capitalize.note' | translate }}:</div>
+
+          <div>
+            {{ customer.note }}
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 mt-4">
+
+        <div class="flex justify-between flex-col md:flex-row gap-4">
+
+          <delete-button [buttonWidthFull]="true" (event)="delete(customer)"></delete-button>
+          <edit-link-component [buttonWidthFull]="true"></edit-link-component>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-span-12 lg:col-span-3 text-end text-beeColor-400">
+
+      <div class="flex flex-col gap-4">
+
+        <div class="flex flex-col">
+
+          <div>
+            {{ 'keyword.capitalize.customer' | translate }}:
+          </div>
+          <div>
+            {{ customer._id }}
+          </div>
+
+        </div>
+
+        <div class="flex flex-col">
+
+          <div>
+            {{ 'keyword.capitalize.createdAt' | translate }}:
+          </div>
+          <div>
+            {{ customer.createdAt | dynamicDate }}
+          </div>
+
+        </div>
+
+        <div class="flex flex-col">
+
+          <div>
+            {{ 'keyword.capitalize.updatedAt' | translate }}:
+          </div>
+          <div>
+            {{ customer.updatedAt | dynamicDate }}
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </ng-container>
+
+</div>

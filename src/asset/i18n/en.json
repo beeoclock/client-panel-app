@@ -29,6 +29,10 @@
       "unknown": "Unknown",
       "approve": "Approve",
       "done": "Done",
+      "email": "E-mail",
+      "phone": "Phone",
+      "active": "Active",
+      "inactive": "Inactive",
       "add-service": "Add service"
     }
   },
@@ -55,11 +59,9 @@
     "back": "Back",
     "clients": "Clients",
     "services": "Services",
-    "phone": "Phone",
     "fullName": "Full name",
     "firstName": "First name",
     "lastName": "Last name",
-    "email": "E-mail",
     "description": "Description",
     "title": "Title",
     "name": "Name",
@@ -73,8 +75,6 @@
     "information": "Information",
     "additional": "Additional",
     "contact": "Contact",
-    "active": "Active",
-    "inactive": "Inactive",
     "languages": "Languages",
     "members": "Members",
     "soon": "Soon",
@@ -116,6 +116,12 @@
   },
   "service": {
     "title": "Service",
+    "keyword": {
+      "capitalize": {
+        "active": "Active",
+        "inactive": "Inactive"
+      }
+    },
     "form": {
       "v2": {
         "section": {
@@ -394,6 +400,14 @@
           "accept": {
             "header": "Deleting a service",
             "message": "Are you sure you want to remove the service?"
+          }
+        }
+      },
+      "/api/v1/customer/{id}": {
+        "before": {
+          "accept": {
+            "header": "Deleting a customer",
+            "message": "Are you sure you want to remove the customer?"
           }
         }
       }

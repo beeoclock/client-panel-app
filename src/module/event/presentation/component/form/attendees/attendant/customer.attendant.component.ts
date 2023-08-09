@@ -82,7 +82,7 @@ import {CustomerForm} from "@customer/form";
             <span class="font-bold">
               {{ item.firstName }} {{ item.lastName }}
             </span>
-            <span class="text-sm text-gray-500">
+            <span class="text-sm text-beeColor-500">
             {{ item.email }}
           </span>
           </div>
@@ -104,12 +104,12 @@ import {CustomerForm} from "@customer/form";
             <span class="font-bold">
               {{ localControl.value.firstName }} {{ localControl.value.lastName }}
             </span>
-          <span class="text-sm text-gray-500">
+          <span class="text-sm text-beeColor-500">
             {{ localControl.value.email }}
           </span>
         </div>
         <div class="col-span-1 flex flex-col justify-center">
-          <button (click)="changeValue()" class="text-gray-600 hover:bg-gray-100 px-2 py-1 rounded-2xl">
+          <button (click)="changeValue()" class="text-beeColor-600 hover:bg-beeColor-100 px-2 py-1 rounded-2xl">
             <i class="bi bi-pencil"></i>
           </button>
         </div>

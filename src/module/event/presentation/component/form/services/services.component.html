@@ -7,21 +7,21 @@
     <div class="grid grid-cols-12 gap-4">
 
       <div class="col-span-3">
-        <div class="min-w-[128px] max-w-[128px] min-h-[128px] max-h-[128px] rounded-2xl bg-gray-400">
+        <div class="min-w-[128px] max-w-[128px] min-h-[128px] max-h-[128px] rounded-2xl bg-beeColor-400">
           <img *ngIf="service.presentation.main" [src]="service.presentation.main"
                class="object-cover rounded-2xl min-w-[128px] max-w-[128px] min-h-[128px] max-h-[128px]" alt="Uploaded Image"/>
         </div>
       </div>
       <div class="col-span-9">
         <div class="flex flex-col gap-2">
-          <div class="text-xl w-full truncate font-bold text-gray-500">
+          <div class="text-xl w-full truncate font-bold text-beeColor-500">
             {{ service.languageVersions[0].title }}
           </div>
           <div class="grid grid-cols-12 gap-4">
 
             <div class="col-span-9">
 
-              <div class="text-gray-500">{{ service.languageVersions[0].description }}</div>
+              <div class="text-beeColor-500">{{ service.languageVersions[0].description }}</div>
 
             </div>
 

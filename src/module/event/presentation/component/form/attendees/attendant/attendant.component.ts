@@ -45,7 +45,7 @@ import {CustomerForm} from "@customer/form";
         autocomplete="email"
         placeholder="firstname.lastname@example.com"
         [control]="form.controls.email"
-        [label]="'general.email' | translate">
+        [label]="'keyword.capitalize.email' | translate">
       </form-input>
 
       <form-input
@@ -53,7 +53,7 @@ import {CustomerForm} from "@customer/form";
         autocomplete="phone"
         placeholder="+000000000000"
         [control]="form.controls.phone"
-        [label]="'general.phone' | translate">
+        [label]="'keyword.capitalize.phone' | translate">
       </form-input>
 
     </form>

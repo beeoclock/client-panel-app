@@ -36,7 +36,7 @@
 <!--        {{ 'general.members' | translate }}-->
 <!--      </th>-->
       <th scope="col" class="px-6 py-3" data-orderBy="active">
-        {{ 'general.active' | translate }}
+        {{ 'keyword.capitalize.active' | translate }}
         <utility-sort-indicator
           orderBy="active"
           [tableState]="tableState"
@@ -85,9 +85,8 @@
 <!--        {{ item?.permanentMembers?.length ?? 0 }}-->
 <!--      </td>-->
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-        <span active-style [active]="item.active">
-          {{ (item.active ? 'general.active' : 'general.inactive') | translate }}
-        </span>
+        <div active-style [activeText]="'service.keyword.capitalize.active' | translate" [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="item.active">
+        </div>
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
         {{ item.createdAt | dynamicDate }}

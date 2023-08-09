@@ -56,7 +56,7 @@ export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsIn
 
       <!-- Navigation Buttons -->
       <div class="flex items-center justify-between gap-1">
-        <button (click)="prevPackOfDates()" class="px-3 py-2 hover:bg-gray-300 cursor-pointer rounded-2xl">
+        <button (click)="prevPackOfDates()" class="px-3 py-2 hover:bg-beeColor-300 cursor-pointer rounded-2xl">
           <i class="bi bi-chevron-left"></i>
         </button>
 
@@ -69,7 +69,7 @@ export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsIn
               class="w-[10px] h-[10px] rounded-full absolute left-[25px] -top-0"
               [ngClass]="{
                 'bg-blue-200': isSelected(dayItem.datetime),
-                'bg-gray-300': !isSelected(dayItem.datetime)
+                'bg-beeColor-300': !isSelected(dayItem.datetime)
                 }">
             </span>
 
@@ -85,13 +85,13 @@ export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsIn
               <span
                 *ngIf="hasSelectedTimeSlot(dayItem.datetime)"
                 class="w-[30px] h-[6px] rounded-full absolute left-[15px] -bottom-0"
-                [ngClass]="{ 'bg-blue-200': isSelected(dayItem.datetime), 'bg-gray-300': !isSelected(dayItem.datetime) }"
+                [ngClass]="{ 'bg-blue-200': isSelected(dayItem.datetime), 'bg-beeColor-300': !isSelected(dayItem.datetime) }"
               ></span>
             </div>
           </ng-container>
         </div>
 
-        <button (click)="nextPackOfDates()" class="px-3 py-2 hover:bg-gray-300 cursor-pointer rounded-2xl">
+        <button (click)="nextPackOfDates()" class="px-3 py-2 hover:bg-beeColor-300 cursor-pointer rounded-2xl">
           <i class="bi bi-chevron-right"></i>
         </button>
       </div>
@@ -210,6 +210,6 @@ export class SelectDateComponent extends Reactive implements OnInit, AfterViewIn
     if (isSelected) {
       return ['bg-blue-100', 'text-blue-600', 'ring-blue-200'];
     }
-    return ['text-gray-500', 'hover:bg-gray-100', 'hover:text-black', 'ring-gray-300'];
+    return ['text-beeColor-500', 'hover:bg-beeColor-100', 'hover:text-black', 'ring-beeColor-300'];
   }
 }
