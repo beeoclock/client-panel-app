@@ -19,14 +19,14 @@ import {IMember} from "@member/domain";
   template: `
 <!--    <div-->
 <!--      class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-3">-->
-<!--      <span class="text-2xl font-bold text-gray-500">{{ 'general.specialists' | translate }}</span>-->
+<!--      <span class="text-2xl font-bold text-beeColor-500">{{ 'general.specialists' | translate }}</span>-->
 
 <!--      <div *ngFor="let member of specialistListControl.value; let index = index">-->
 
 
 <!--        <div class="grid grid-cols-16 gap-3">-->
 <!--          <div class="col-span-3">-->
-<!--            <div class="w-[100px] h-[100px] rounded-full bg-gray-300">-->
+<!--            <div class="w-[100px] h-[100px] rounded-full bg-beeColor-300">-->
 
 <!--            </div>-->
 <!--          </div>-->
@@ -44,7 +44,7 @@ import {IMember} from "@member/domain";
 <!--          </div>-->
 <!--          <div class="col-span-4 flex items-start justify-end">-->
 <!--            <button (click)="removeMemberFromSelectedList(member)"-->
-<!--                    class="text-gray-600 hover:text-red-600 hover:bg-red-100 px-2 py-1 rounded-2xl">-->
+<!--                    class="text-beeColor-600 hover:text-red-600 hover:bg-red-100 px-2 py-1 rounded-2xl">-->
 <!--              <i class="bi bi-trash"></i>-->
 <!--            </button>-->
 <!--          </div>-->

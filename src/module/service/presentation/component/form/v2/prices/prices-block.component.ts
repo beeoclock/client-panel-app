@@ -14,13 +14,13 @@ import {DurationVersionsForm} from "@service/form/service.form";
   template: `
     <div
       class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-3">
-      <span class="text-2xl font-bold text-gray-500">{{ 'keyword.capitalize.price' | translate }}</span>
+      <span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.price' | translate }}</span>
 
       <div *ngFor="let durationVersion of durationVersions.controls; let index = index">
 
 <!--        <div class="flex justify-between">-->
-<!--          <span class="text-gray-400">Price version #{{ index + 1 }}</span>-->
-<!--          <button class="text-gray-600 hover:text-red-600 hover:bg-red-100 px-2 py-1 rounded-2xl">-->
+<!--          <span class="text-beeColor-400">Price version #{{ index + 1 }}</span>-->
+<!--          <button class="text-beeColor-600 hover:text-red-600 hover:bg-red-100 px-2 py-1 rounded-2xl">-->
 <!--            <i class="bi bi-trash"></i>-->
 <!--          </button>-->
 <!--        </div>-->

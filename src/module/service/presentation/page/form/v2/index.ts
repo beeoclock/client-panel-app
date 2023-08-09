@@ -16,9 +16,7 @@ import {IService} from "@service/domain";
 import {Select, Store} from "@ngxs/store";
 import {ServiceState} from "@service/state/service/service.state";
 import {ActivatedRoute, Router} from "@angular/router";
-import {
-  SwitchActiveBlockComponent
-} from "@service/presentation/component/form/v2/switch-active/switch-active-block.component";
+import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
 
 @Component({
   selector: 'service-form-v2-page-component',
