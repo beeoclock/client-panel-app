@@ -49,6 +49,9 @@
           [tableState]="tableState"
         ></utility-sort-indicator>
       </th>
+      <th scope="col" class="px-6 py-3">
+        {{ 'keyword.capitalize.note' | translate }}
+      </th>
       <th scope="col" class="px-6 py-3"
           data-orderBy="createdAt">
         {{ 'keyword.capitalize.createdAt' | translate }}
@@ -91,6 +94,9 @@
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
         {{ item.phone }}
+      </td>
+      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+        {{ item.note }}
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
         {{ item.createdAt | dynamicDate }}
