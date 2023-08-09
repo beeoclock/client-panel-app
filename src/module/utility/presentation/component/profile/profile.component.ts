@@ -24,7 +24,7 @@ import {Observable} from "rxjs";
     <button
       #dropdownProfileAvatarButton
       id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName"
-      class="flex items-center text-sm font-medium rounded-full hover:text-blue-600 dark:hover:text-blue-500 focus:ring-4 focus:ring-beeColor-600 dark:focus:ring-beeColor-700 dark:text-white"
+      class="flex items-center text-sm font-medium rounded-full hover:text-blue-600 dark:hover:text-blue-500 focus:ring-4 focus:ring-beeColor-600 dark:focus:ring-beeDarkColor-700 dark:text-white"
       type="button">
       <span class="sr-only">Open user menu</span>
       <div class="w-8 h-8 rounded-full bg-beeColor-200 text-2xl text-beeColor-700">
@@ -37,33 +37,33 @@ import {Observable} from "rxjs";
     <div
       #dropdownProfileAvatarMenu
       id="dropdownAvatarName"
-      class="z-10 hidden bg-white divide-y divide-beeColor-100 rounded-lg shadow w-48 dark:bg-beeColor-700 dark:divide-beeColor-600">
+      class="z-10 hidden bg-white divide-y divide-beeColor-100 rounded-lg shadow w-48 dark:bg-beeDarkColor-700 dark:divide-beeDarkColor-600">
       <div class="px-4 py-3 text-sm text-beeColor-900 dark:text-white">
         <div class="font-medium">
           {{ (token$ | async)?.claims?.name }}
         </div>
         <div class="truncate">{{ (token$ | async)?.claims?.email }}</div>
       </div>
-      <ul class="py-2 text-sm text-beeColor-700 dark:text-beeColor-200"
+      <ul class="py-2 text-sm text-beeColor-700 dark:text-beeDarkColor-200"
           aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
         <li>
           <a routerLink="/client/profile"
              (click)="hideDropdown()"
-             class="block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeColor-600 dark:hover:text-white">
+             class="block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
             {{ 'sidebar.profile' | translate }}
           </a>
         </li>
         <li>
           <a routerLink="/client/settings"
              (click)="hideDropdown()"
-             class="block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeColor-600 dark:hover:text-white">
+             class="block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
             {{ 'sidebar.settings' | translate }}
           </a>
         </li>
         <li>
           <a routerLink="/identity/corridor"
              (click)="hideDropdown()"
-             class="block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeColor-600 dark:hover:text-white">
+             class="block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
             {{ 'sidebar.switch-business-client' | translate }}
           </a>
         </li>
@@ -71,7 +71,7 @@ import {Observable} from "rxjs";
       <div class="py-2">
         <button
           (click)="signOut()"
-          class="block w-full text-start px-4 py-2 text-sm text-beeColor-700 hover:bg-beeColor-100 dark:hover:bg-beeColor-600 dark:text-beeColor-200 dark:hover:text-white">
+          class="block w-full text-start px-4 py-2 text-sm text-beeColor-700 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:text-beeDarkColor-200 dark:hover:text-white">
           {{ 'general.logout' | translate }}
         </button>
       </div>

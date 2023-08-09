@@ -19,6 +19,7 @@ import {Dropdown, DropdownInterface, DropdownOptions} from "flowbite";
       #dropdownButton
       class="
         text-beeColor-800
+        dark:text-beeDarkColor-100
         bg-beeColor-200
         hover:bg-beeColor-300
         focus:ring-4
@@ -32,9 +33,9 @@ import {Dropdown, DropdownInterface, DropdownOptions} from "flowbite";
         text-center
         inline-flex
         items-center
-        dark:bg-blue-600
-        dark:hover:bg-blue-700
-        dark:focus:ring-blue-800"
+        dark:bg-beeDarkColor-600
+        dark:hover:bg-beeDarkColor-700
+        dark:focus:ring-beeDarkColor-800"
       type="button">
       <ng-container *ngIf="threeDot; else DefaultTemplate">
         <i class="bi bi-three-dots-vertical"></i>

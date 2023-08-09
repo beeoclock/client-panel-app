@@ -12,8 +12,8 @@ import {LanguageCurrency} from "@utility/domain/const/c.language-currency";
   selector: 'price-and-currency-component',
   standalone: true,
   template: `
-    <label [for]="prefix + 'price'">{{ 'keyword.capitalize.price' | translate }}</label>
-    <div class="flex">
+    <label class="dark:text-beeDarkColor-300" [for]="prefix + 'price'">{{ 'keyword.capitalize.price' | translate }}</label>
+    <div class="flex mt-2">
       <input
         [id]="prefix + 'price'"
         [formControl]="priceControl"

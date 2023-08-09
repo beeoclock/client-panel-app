@@ -47,7 +47,7 @@ import {NgIf} from "@angular/common";
           border
           border-beeColor-300
           placeholder:text-beeColor-400
-          focus:border-stone-800
+          focus:border-beeColor-800
           sm:text-sm sm:leading-6">
       <button
         (click)="callback()"
