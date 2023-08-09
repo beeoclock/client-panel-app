@@ -9,7 +9,7 @@ import {TranslateService} from "@ngx-translate/core";
     ReactiveFormsModule
   ],
   template: `
-    <input type="text" [formControl]="control" class="rounded px-3 py-2 border" [placeholder]="placeholder">
+    <input type="text" [formControl]="control" class="rounded-xl px-3 py-2 border dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 dark:text-white outline-0 focus:ring-2" [placeholder]="placeholder">
   `
 })
 export class SearchInputComponent {

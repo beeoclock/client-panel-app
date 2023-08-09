@@ -18,6 +18,7 @@ import {Select, Store} from "@ngxs/store";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
+import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 
 @Component({
   selector: 'customer-form-page',
@@ -36,7 +37,8 @@ import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch
         InvalidTooltipDirective,
         TranslateModule,
         FormInputComponent,
-        SwitchActiveBlockComponent
+        SwitchActiveBlockComponent,
+        FormTextareaComponent
     ],
   standalone: true
 })

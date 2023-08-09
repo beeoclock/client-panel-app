@@ -12,7 +12,7 @@ import {TranslateModule} from "@ngx-translate/core";
         text-black
         dark:text-white
         hover:bg-beeColor-300
-        dark:hover:bg-beeColor-700
+        dark:hover:bg-beeDarkColor-700
         flex items-center
         justify-center
         px-4

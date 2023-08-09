@@ -8,8 +8,8 @@ import {NgxMaskDirective} from "ngx-mask";
   selector: 'input-badge-component',
   standalone: true,
   template: `
-    <label [for]="id">{{ label }}</label>
-    <div class="flex">
+    <label class="dark:text-beeDarkColor-300" [for]="id">{{ label }}</label>
+    <div class="flex mt-2">
       <input
         [id]="id"
         [formControl]="control"

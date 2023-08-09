@@ -5,7 +5,7 @@
       <li>
         <a
           routerLink="form"
-          class="block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeColor-600 dark:hover:text-white">
+          class="block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
           <i class="bi bi-plus-lg"></i>
           {{ 'customer.button.create' | translate }}
         </a>
@@ -16,12 +16,12 @@
 
 <div *ngIf="tableState$ | async as tableState" class="relative overflow-x-auto">
   <table class="w-full text-sm text-left text-beeColor-500 dark:text-beeDarkColor-400">
-    <thead class="text-xs text-beeColor-700 uppercase border-b dark:bg-beeDarkColor-700 dark:text-beeDarkColor-400">
+    <thead class="text-xs text-beeColor-700 uppercase border-b border-beeColor-300 dark:border-beeDarkColor-700 dark:bg-beeDarkColor-800 dark:text-beeDarkColor-400">
     <tr>
       <th scope="col" class="p-4">
         <div class="flex items-center">
           <input id="checkbox-all" type="checkbox"
-                 class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeColor-800 dark:focus:ring-offset-beeColor-800 focus:ring-2 dark:bg-beeDarkColor-700 dark:border-beeDarkColor-300">
+                 class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeDarkColor-800 dark:focus:ring-offset-beeDarkColor-800 focus:ring-2 dark:bg-beeDarkColor-700 dark:border-beeDarkColor-300">
           <label for="checkbox-all" class="sr-only">checkbox</label>
         </div>
       </th>
@@ -82,12 +82,12 @@
     </thead>
     <tbody class="overflow-y-scroll max-h-72">
     <tr
-      class="bg-white border-b dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 hover:bg-beeColor-100 dark:hover:bg-beeColor-300"
+      class="bg-white border-b dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-900"
       *ngFor="let item of tableState.items">
       <td class="w-4 py-2 px-4">
         <div class="flex items-center">
           <input id="checkbox-table-1" type="checkbox"
-                 class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeColor-800 dark:focus:ring-offset-beeColor-800 focus:ring-2 dark:bg-beeDarkColor-700 dark:border-beeDarkColor-300">
+                 class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeDarkColor-800 dark:focus:ring-offset-beeDarkColor-800 focus:ring-2 dark:bg-beeDarkColor-700 dark:border-beeDarkColor-300">
           <label for="checkbox-table-1" class="sr-only">checkbox</label>
         </div>
       </td>

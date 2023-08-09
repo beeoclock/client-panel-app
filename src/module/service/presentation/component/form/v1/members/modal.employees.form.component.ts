@@ -24,7 +24,7 @@ import {ModalComponent} from "@utility/presentation/component/modal/modal.compon
           (click)="modalRef.closeModal()"
           data-modal-hide="defaultModal"
           type="button"
-          class="text-beeColor-500 bg-white hover:bg-beeColor-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-beeColor-200 text-sm font-medium px-5 py-2.5 hover:text-beeColor-900 focus:z-10 dark:bg-beeDarkColor-700 dark:text-beeDarkColor-300 dark:border-beeDarkColor-500 dark:hover:text-white dark:hover:bg-beeColor-600 dark:focus:ring-beeDarkColor-600">
+          class="text-beeColor-500 bg-white hover:bg-beeColor-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-beeColor-200 text-sm font-medium px-5 py-2.5 hover:text-beeColor-900 focus:z-10 dark:bg-beeDarkColor-700 dark:text-beeDarkColor-300 dark:border-beeDarkColor-500 dark:hover:text-white dark:hover:bg-beeDarkColor-600 dark:focus:ring-beeDarkColor-600">
           Decline
         </button>
       </div>

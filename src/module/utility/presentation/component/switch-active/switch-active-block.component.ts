@@ -17,7 +17,7 @@ import {is} from "thiis";
 
       <label class="relative inline-flex items-center justify-between cursor-pointer">
         <span
-          class="mr-3 text-sm font-medium text-beeColor-900 dark:text-beeColor-300">
+          class="mr-3 text-sm font-medium text-beeColor-900 dark:text-beeDarkColor-300">
           {{ activeText ?? ('keyword.capitalize.active' | translate) }}
         </span>
         <input type="checkbox" [formControl]="control" class="sr-only peer">
@@ -31,7 +31,7 @@ import {is} from "thiis";
           dark:peer-focus:ring-blue-800
           rounded-full
           peer
-          dark:bg-beeColor-700
+          dark:bg-beeDarkColor-700
           peer-checked:after:translate-x-full
           peer-checked:after:border-white
           after:content-['']
@@ -45,7 +45,7 @@ import {is} from "thiis";
           after:h-5
           after:w-5
           after:transition-all
-          dark:border-beeColor-600
+          dark:border-beeDarkColor-600
           peer-checked:bg-blue-600">
         </div>
       </label>

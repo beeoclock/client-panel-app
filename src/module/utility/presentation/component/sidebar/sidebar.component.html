@@ -43,7 +43,7 @@
               group
               hover:bg-beeColor-100
               dark:text-white
-              dark:hover:bg-beeColor-700">
+              dark:hover:bg-beeDarkColor-700">
 
             <i
               class="
@@ -89,7 +89,7 @@
                   group
                   hover:bg-beeColor-100
                   dark:text-white
-                  dark:hover:bg-beeColor-700">
+                  dark:hover:bg-beeDarkColor-700">
                 {{ subItem.translateKey | translate }}
               </a>
             </li>
@@ -112,7 +112,7 @@
               rounded-lg
               dark:text-white
               hover:bg-beeColor-100
-              dark:hover:bg-beeColor-700">
+              dark:hover:bg-beeDarkColor-700">
 
             <i
               class="w-6 h-6 ms-2 text-beeColor-500 transition duration-75 dark:text-beeDarkColor-400 group-hover:text-beeColor-900 dark:group-hover:text-white"
@@ -133,7 +133,7 @@
       <li>
         <button
           (click)="goToPublicPage()"
-          class="w-full border border-blue-600 rounded-2xl bg-blue-100 px-3 py-1 text-blue-600 me-2 flex items-center justify-between gap-2">
+          class="w-full border border-blue-600 rounded-2xl bg-blue-100 dark:bg-blue-500/50 px-3 py-1 text-blue-600 dark:text-blue-200 me-2 flex items-center justify-between gap-2">
           {{ 'general.publicPage' | translate }}
           <i class="bi bi-box-arrow-up-right"></i>
         </button>

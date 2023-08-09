@@ -66,7 +66,7 @@ import {TranslateModule} from "@ngx-translate/core";
         </div>
         <div class="pb-4">
           <label for="description">Description</label>
-          <textarea class="rounded border px-3 py-2 w-full"
+          <textarea class="focus:ring-2 outline-0 rounded border px-3 py-2 w-full"
                     id="description"
                     formControlName="description">
           </textarea>
