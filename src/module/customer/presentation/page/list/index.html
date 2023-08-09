@@ -49,8 +49,11 @@
           [tableState]="tableState"
         ></utility-sort-indicator>
       </th>
+      <th scope="col" class="px-6 py-3">
+        {{ 'keyword.capitalize.note' | translate }}
+      </th>
       <th scope="col" class="px-6 py-3" data-orderBy="active">
-        {{ 'general.active' | translate }}
+        {{ 'keyword.capitalize.active' | translate }}
         <utility-sort-indicator
           orderBy="active"
           [tableState]="tableState"
@@ -98,6 +101,9 @@
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
         {{ item.phone }}
+      </td>
+      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+        {{ item.note }}
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
         <div active-style [active]="item.active">
