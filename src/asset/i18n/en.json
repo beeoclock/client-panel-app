@@ -402,6 +402,14 @@
             "message": "Are you sure you want to remove the service?"
           }
         }
+      },
+      "/api/v1/customer/{id}": {
+        "before": {
+          "accept": {
+            "header": "Deleting a customer",
+            "message": "Are you sure you want to remove the customer?"
+          }
+        }
       }
     }
   }

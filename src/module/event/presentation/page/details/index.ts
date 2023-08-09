@@ -64,14 +64,8 @@ export default class Index {
   public readonly store = inject(Store);
   public readonly translateService = inject(TranslateService);
 
-  public delete(event: IEvent): void {
-    this.store.dispatch(new EventActions.DeleteItem(event._id));
-  }
-
   public formatDuration(duration: string): string {
-
     return humanizeDuration(Duration.fromISOTime(duration).as('milliseconds'), {language: this.translateService.currentLang});
-
   }
 
   public async changeStatusOnBooked(event: IEvent): Promise<void> {

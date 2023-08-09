@@ -402,6 +402,14 @@
             "message": "Czy na pewno chcesz usunąć usługę?"
           }
         }
+      },
+      "/api/v1/customer/{id}": {
+        "before": {
+          "accept": {
+            "header": "Usuwanie klienta",
+            "message": "Czy na pewno chcesz usunąć klienta?"
+          }
+        }
       }
     }
   }

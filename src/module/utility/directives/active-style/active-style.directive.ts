@@ -44,7 +44,7 @@ export class ActiveStyleDirective implements OnInit, OnChanges {
 
       case ActiveEnum.NO:
         this.elementRef.nativeElement.classList.add('bg-red-500', 'border-red-500', 'dark:bg-red-900', 'dark:text-red-400', 'dark:border-red-800');
-        text = this.inactiveText ?? this.translateService.instant('general.inactive');
+        text = this.inactiveText ?? this.translateService.instant('keyword.capitalize.inactive');
         break;
 
       case ActiveEnum.YES:

@@ -1,7 +1,7 @@
-import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, inject, ViewChild, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {AsyncPipe, NgIf} from '@angular/common';
-import {Observable} from 'rxjs';
+import {firstValueFrom, Observable} from 'rxjs';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
@@ -52,10 +52,24 @@ export default class Index {
   @HostBinding()
   public readonly class = 'p-4 block';
 
+  @ViewChild(BackLinkComponent)
+  public backLink!: BackLinkComponent;
+
   public readonly store = inject(Store);
 
-  public delete(customer: ICustomer): void {
-    this.store.dispatch(new CustomerActions.DeleteItem(customer._id));
+  public async delete(customer: ICustomer) {
+
+    const {active} = customer;
+
+    if (active) {
+
+      return alert('You can\'t delete active customer');
+
+    }
+
+    await firstValueFrom(this.store.dispatch(new CustomerActions.DeleteItem(customer._id)));
+    this.backLink.link.nativeElement.click();
+
   }
 
 }
