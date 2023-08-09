@@ -79,18 +79,18 @@ export class EventState extends BaseState<Event.IEvent> {
   }
 
   @Action(EventActions.UpdateFilters)
-  public override UpdateFilters(ctx: StateContext<IEventState>, action: EventActions.UpdateFilters) {
-    super.UpdateFilters(ctx, action);
+  public override updateFilters(ctx: StateContext<IEventState>, action: EventActions.UpdateFilters) {
+    super.updateFilters(ctx, action);
   }
 
   @Action(EventActions.UpdateTableState)
-  public override  UpdateTableState(ctx: StateContext<IEventState>, action: EventActions.UpdateTableState) {
-    super.UpdateTableState(ctx, action);
+  public override  updateTableState(ctx: StateContext<IEventState>, action: EventActions.UpdateTableState) {
+    super.updateTableState(ctx, action);
   }
 
   @Action(EventActions.GetItem)
-  public override async GetItem(ctx: StateContext<IEventState>, action: EventActions.GetItem): Promise<void> {
-    await super.GetItem(ctx, action);
+  public override async getItem(ctx: StateContext<IEventState>, action: EventActions.GetItem): Promise<void> {
+    await super.getItem(ctx, action);
   }
 
   @Action(EventActions.DeleteItem)

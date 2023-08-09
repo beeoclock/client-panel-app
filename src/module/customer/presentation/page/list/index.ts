@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
 import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {RouterLink} from '@angular/router';
@@ -30,6 +30,7 @@ import {ActiveStyleDirective} from "@utility/directives/active-style/active-styl
   selector: 'customer-list-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
         CardComponent,
         BodyCardComponent,

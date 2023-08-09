@@ -72,6 +72,7 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 
   public set page(value: number) {
     this.#page = value;
+    this.initHashSum();
     this.updateLastUpdate();
   }
 
@@ -81,6 +82,7 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 
   public set pageSize(value: number) {
     this.#pageSize = value;
+    this.initHashSum();
     this.updateLastUpdate();
   }
 
@@ -138,6 +140,8 @@ export class TableState<ITEM> implements ITableState<ITEM> {
       filters: this.#filters,
       orderBy: this.#orderBy,
       orderDir: this.#orderDir,
+      page: this.#page,
+      pageSize: this.#pageSize,
     });
     return this.hashSum;
   }
