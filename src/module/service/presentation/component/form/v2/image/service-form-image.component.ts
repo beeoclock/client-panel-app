@@ -10,13 +10,13 @@ import {FormControl} from "@angular/forms";
   standalone: true,
   template: `
     <div class="flex">
-      <div class="min-w-[128px] max-w-[128px] min-h-[128px] max-h-[128px] rounded-2xl bg-gray-400">
+      <div class="min-w-[128px] max-w-[128px] min-h-[128px] max-h-[128px] rounded-2xl bg-beeColor-400">
         <img *ngIf="previewImage" [src]="previewImage" class="object-cover rounded-2xl min-w-[128px] max-w-[128px] min-h-[128px] max-h-[128px]" alt="Uploaded Image"/>
       </div>
       <div class="flex flex-col ml-2">
         <div>
           <input type="file" #fileInput hidden (change)="onFileSelected($event)" accept="image/*"/>
-          <button class="border border-gray-200 hover:bg-gray-100 rounded-2xl px-4 py-2 cursor-pointer" (click)="fileInput.click()">{{ 'general.chooseImage' | translate }}</button>
+          <button class="border border-beeColor-200 hover:bg-beeColor-100 rounded-2xl px-4 py-2 cursor-pointer" (click)="fileInput.click()">{{ 'general.chooseImage' | translate }}</button>
         </div>
         <div class="py-2">
           {{ uploadedFileName }}

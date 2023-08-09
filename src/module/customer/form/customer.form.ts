@@ -1,5 +1,6 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {is} from 'thiis';
+import {ActiveEnum} from "@utility/domain/enum";
 
 export interface ICustomerForm {
   _id: FormControl<string>;
@@ -9,6 +10,8 @@ export interface ICustomerForm {
   note: FormControl<string>;
   email: FormControl<string>;
   phone: FormControl<string>;
+
+  active: FormControl<ActiveEnum>;
 
   [key: string]: AbstractControl<any, any>;
 }
@@ -24,6 +27,8 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
       note: new FormControl(),
       email: new FormControl(),
       phone: new FormControl(),
+
+      active: new FormControl(),
     });
     this.initValidation();
   }

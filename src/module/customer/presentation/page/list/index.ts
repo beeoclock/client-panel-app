@@ -24,6 +24,7 @@ import {
   TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {DynamicDatePipe} from "@utility/pipes/dynamic-date.pipe";
+import {ActiveStyleDirective} from "@utility/directives/active-style/active-style.directive";
 
 @Component({
   selector: 'customer-list-page',
@@ -49,6 +50,7 @@ import {DynamicDatePipe} from "@utility/pipes/dynamic-date.pipe";
         AsyncPipe,
         TableStatePaginationComponent,
         DynamicDatePipe,
+        ActiveStyleDirective,
     ],
   standalone: true
 })

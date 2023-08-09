@@ -35,7 +35,7 @@
       </th>
       <th scope="col" class="px-6 py-3"
           data-orderBy="email">
-        {{ 'general.email' | translate }}
+        {{ 'keyword.capitalize.email' | translate }}
         <utility-sort-indicator
           orderBy="email"
           [tableState]="tableState"
@@ -43,9 +43,16 @@
       </th>
       <th scope="col" class="px-6 py-3"
           data-orderBy="phone">
-        {{ 'general.phone' | translate }}
+        {{ 'keyword.capitalize.phone' | translate }}
         <utility-sort-indicator
           orderBy="phone"
+          [tableState]="tableState"
+        ></utility-sort-indicator>
+      </th>
+      <th scope="col" class="px-6 py-3" data-orderBy="active">
+        {{ 'general.active' | translate }}
+        <utility-sort-indicator
+          orderBy="active"
           [tableState]="tableState"
         ></utility-sort-indicator>
       </th>
@@ -91,6 +98,10 @@
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
         {{ item.phone }}
+      </td>
+      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+        <div active-style [active]="item.active">
+        </div>
       </td>
       <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
         {{ item.createdAt | dynamicDate }}

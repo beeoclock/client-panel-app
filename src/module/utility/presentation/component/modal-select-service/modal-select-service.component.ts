@@ -35,7 +35,7 @@ import {Duration} from "luxon";
                      alt="Image of service">
               </ng-container>
               <ng-template #DefaultServiceImageTemplate>
-                <div class="w-[90px] h-[90px] bg-gray-300 rounded-2xl"></div>
+                <div class="w-[90px] h-[90px] bg-beeColor-300 rounded-2xl"></div>
               </ng-template>
             </div>
             <div class="col-span-8 flex flex-col gap-2">
@@ -43,7 +43,7 @@ import {Duration} from "luxon";
               <span class="font-bold">
                 {{ item.languageVersions[0].title }}
               </span>
-                <span class="text-sm text-gray-500">
+                <span class="text-sm text-beeColor-500">
                 {{ item.languageVersions[0].description }}
               </span>
               </div>

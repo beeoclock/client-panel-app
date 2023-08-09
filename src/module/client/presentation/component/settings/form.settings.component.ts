@@ -62,7 +62,7 @@ import {TranslateModule} from "@ngx-translate/core";
                  role="switch"
                  id="active"
                  formControlName="active">
-          <label for="active">{{ 'general.active' | translate }}</label>
+          <label for="active">{{ 'keyword.capitalize.active' | translate }}</label>
         </div>
         <div class="pb-4">
           <label for="description">Description</label>

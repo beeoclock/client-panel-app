@@ -29,6 +29,10 @@
       "unknown": "Nieznany",
       "approve": "Zatwierdź",
       "done": "Gotowe",
+      "email": "E-mail",
+      "phone": "Telefon",
+      "active": "Aktywny",
+      "inactive": "Nieaktywny",
       "add-service": "Dodaj usługę"
     }
   },
@@ -55,11 +59,9 @@
     "back": "Wstecz",
     "clients": "Klienci",
     "services": "Usługi",
-    "phone": "Telefon",
     "fullName": "Pełne imię i nazwisko",
     "firstName": "Imię",
     "lastName": "Nazwisko",
-    "email": "E-mail",
     "description": "Opis",
     "title": "Tytuł",
     "name": "Nazwa",
@@ -73,8 +75,6 @@
     "information": "Informacje",
     "additional": "Dodatkowe",
     "contact": "Kontakt",
-    "active": "Aktywny",
-    "inactive": "Nieaktywny",
     "languages": "Języki",
     "members": "Członkowie",
     "soon": "Wkrótce",
@@ -116,6 +116,12 @@
   },
   "service": {
     "title": "Usługa",
+    "keyword": {
+      "capitalize": {
+        "active": "Aktywna",
+        "inactive": "Nieaktywna"
+      }
+    },
     "form": {
       "v2": {
         "section": {

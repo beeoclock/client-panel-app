@@ -29,6 +29,10 @@
       "unknown": "Невідомо",
       "approve": "Прийняти",
       "done": "Готово",
+      "email": "Електронна скринька",
+      "phone": "Телефон",
+      "active": "Активний",
+      "inactive": "Неактивний",
       "add-service": "Додати послугу"
     }
   },
@@ -55,11 +59,9 @@
     "back": "Назад",
     "clients": "Клієнти",
     "services": "Послуги",
-    "phone": "Телефон",
     "fullName": "Повне ім'я",
     "firstName": "Ім'я",
     "lastName": "Прізвище",
-    "email": "E-mail",
     "description": "Опис",
     "title": "Назва",
     "name": "Ім'я",
@@ -73,8 +75,6 @@
     "information": "Інформація",
     "additional": "Додатково",
     "contact": "Контакт",
-    "active": "Активна",
-    "inactive": "Неактивна",
     "languages": "Мови",
     "members": "Учасники",
     "soon": "Незабаром",
@@ -116,6 +116,12 @@
   },
   "service": {
     "title": "Послуга",
+    "keyword": {
+      "capitalize": {
+        "active": "Активна",
+        "inactive": "Неактивна"
+      }
+    },
     "form": {
       "v2": {
         "section": {

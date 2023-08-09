@@ -163,10 +163,10 @@ describe('SelectDateComponent', () => {
 
   it('should get class list for unselected date item', () => {
     expect(component.getClassList(false)).toEqual([
-      'text-gray-500',
-      'hover:bg-gray-100',
+      'text-beeColor-500',
+      'hover:bg-beeColor-100',
       'hover:text-black',
-      'ring-gray-300',
+      'ring-beeColor-300',
     ]);
   });
 });
