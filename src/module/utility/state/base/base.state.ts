@@ -196,7 +196,7 @@ export abstract class BaseState<ITEM = any> {
       ctx.patchState({
         item: undefined,
       });
-      await this.GetItem(ctx, id);
+      await this.getItem(ctx, id);
     }
 
   }
@@ -207,11 +207,11 @@ export abstract class BaseState<ITEM = any> {
    * @param payload
    * @constructor
    */
-  public UpdateFilters(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateFilters) {
+  public updateFilters(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateFilters) {
 
     const state = ctx.getState();
 
-    this.UpdateTableState(ctx, {
+    this.updateTableState(ctx, {
       payload: {
         ...state.tableState,
         filters: {
@@ -229,7 +229,7 @@ export abstract class BaseState<ITEM = any> {
    * @param payload
    * @constructor
    */
-  public UpdateTableState(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateTableState<ITEM>) {
+  public updateTableState(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateTableState<ITEM>) {
 
     const state = ctx.getState();
 
@@ -257,7 +257,7 @@ export abstract class BaseState<ITEM = any> {
    * @param payload
    * @constructor
    */
-  public async GetItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.GetItem): Promise<void> {
+  public async getItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.GetItem): Promise<void> {
 
     const state = ctx.getState();
 
@@ -466,6 +466,8 @@ export abstract class BaseState<ITEM = any> {
 
     let state = ctx.getState();
 
+    console.log(state.tableState.hashSum , state.lastTableHashSum)
+
     // Check if hasSun is not null or undefined or 0
     if (state.tableState.hashSum && state.lastTableHashSum) {
       if (state.tableState.hashSum === state.lastTableHashSum) {
@@ -477,6 +479,9 @@ export abstract class BaseState<ITEM = any> {
     const cacheTableStatesKey = getKeyWithClientId(this.store, this.cacheKeys.tableStates);
 
     const cacheTableStates = cache[cacheTableStatesKey];
+
+    console.log(state.tableState.hashSum , cacheTableStates ,
+      Reflect.has(cacheTableStates, state.tableState.hashSum));
 
     // Check if in local cache exist data of current pagination has
     if (

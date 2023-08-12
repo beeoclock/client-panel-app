@@ -2,10 +2,6 @@ import {SchedulesForm} from '@service/form/service.form';
 import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {ScheduleFormComponent} from "@service/presentation/component/form/v1/schedule/schedule.form.component";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
-import {BodyCardComponent} from "@utility/presentation/component/card/body.card.component";
-import {FooterCardComponent} from "@utility/presentation/component/card/footer.card.component";
 
 @Component({
   selector: 'service-schedules-form-component',
@@ -14,10 +10,6 @@ import {FooterCardComponent} from "@utility/presentation/component/card/footer.c
   imports: [
     NgForOf,
     ScheduleFormComponent,
-    CardComponent,
-    HeaderCardComponent,
-    BodyCardComponent,
-    FooterCardComponent,
     NgIf,
   ],
   template: `

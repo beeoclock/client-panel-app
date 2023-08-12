@@ -10,34 +10,26 @@
 
     <form [formGroup]="form" class="flex flex-col gap-4">
 
-      <div
-        class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-4">
-
+      <card>
         <event-attendees-component [form]="form.controls.attendees"></event-attendees-component>
+      </card>
 
-      </div>
-
-      <div
-        class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-4">
-
+      <card>
         <event-service-component [serviceListControl]="form.controls.services"></event-service-component>
+      </card>
 
-      </div>
-
-      <div
-        class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-4">
-
+      <card>
         <event-select-time-slot-form-component [control]="form.controls.start"></event-select-time-slot-form-component>
+      </card>
 
-      </div>
-
-      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4">
+      <card>
         <form-textarea-component
           id="event-form-public-note-input"
           [label]="'keyword.capitalize.note' | translate"
           [placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
-          [control]="form.controls.description"></form-textarea-component>
-      </div>
+          [control]="form.controls.description">
+        </form-textarea-component>
+      </card>
 
       <div class="mt-4">
         <button

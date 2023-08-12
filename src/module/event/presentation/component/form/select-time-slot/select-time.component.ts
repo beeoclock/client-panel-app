@@ -19,7 +19,7 @@ export interface ITimeSlot {
   ],
   template: `
     <div class="flex items-center justify-between gap-1">
-      <button (click)="prevSlotPack()" class="px-3 py-2 hover:bg-beeColor-300 cursor-pointer rounded-2xl">
+      <button (click)="prevSlotPack()" class="px-3 py-2 hover:bg-beeColor-300 dark:hover:bg-beeDarkColor-800 cursor-pointer rounded-2xl dark:text-white">
         <i class="bi bi-chevron-left"></i>
       </button>
       <div #timeSlotsContainer class="grid grid-cols-3 md:grid-cols-6 gap-1 w-full">
@@ -27,11 +27,11 @@ export interface ITimeSlot {
           *ngFor="let timeSlot of timeSlotList"
           (click)="selectDateItem(timeSlot.datetime)"
           [ngClass]="getClassList(isSelected(timeSlot.datetime))"
-          class="min-w-[72px] max-w-[72px] flex flex-col items-center justify-center border rounded-xl px-3 py-2">
+          class="min-w-[72px] max-w-[72px] flex flex-col items-center justify-center border rounded-md px-3 py-2">
           <span>{{ timeSlot.datetime.toFormat('HH:mm') }}</span>
         </button>
       </div>
-      <button (click)="nextSlotPack()" class="px-3 py-2 hover:bg-beeColor-300 cursor-pointer rounded-2xl">
+      <button (click)="nextSlotPack()" class="px-3 py-2 hover:bg-beeColor-300 dark:hover:bg-beeDarkColor-800 cursor-pointer rounded-2xl dark:text-white">
         <i class="bi bi-chevron-right"></i>
       </button>
     </div>
@@ -132,7 +132,7 @@ export class SelectTimeComponent extends Reactive implements OnInit {
     if (isSelected) {
       return ['bg-blue-100', 'text-blue-600', 'border-blue-200'];
     }
-    return ['hover:bg-beeColor-100', 'hover:text-black'];
+    return ['hover:bg-beeColor-100', 'hover:text-black', 'dark:text-beeColor-500'];
   }
 
   public selectDateItem(datetime: DateTime): void {

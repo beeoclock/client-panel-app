@@ -1,13 +1,10 @@
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
-import {CardComponent} from '@utility/presentation/component/card/card.component';
-import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {InputDirective} from '@utility/directives/input/input.directive';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
-import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
 import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 import {TranslateModule} from "@ngx-translate/core";
 import {Select, Store} from "@ngxs/store";
@@ -23,15 +20,12 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
   imports: [
-    CardComponent,
-    BodyCardComponent,
     ReactiveFormsModule,
     InputDirective,
     DeleteButtonComponent,
     HasErrorDirective,
     RouterLink,
     BackLinkComponent,
-    HeaderCardComponent,
     InvalidTooltipDirective,
     TranslateModule,
     FormInputComponent
