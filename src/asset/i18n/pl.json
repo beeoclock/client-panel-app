@@ -279,19 +279,25 @@
           "motivate": "Możesz nadać swojemu profilowi nieco więcej osobowości i pomóc innym rozpoznać Twoją pracę, przesyłając \n obraz (obraz, zdjęcie lub inną grafikę) jako obraz w tle Twojego profilu.",
           "fileover": "Umieść swoje pliki tutaj"
         },
-        "inputs": {
-          "name": {
-            "label": "Nazwa",
-            "placeholder": "Wpisz nazwę firmy lub imię i nazwisko"
-          },
-          "description": {
-            "label": "Opis",
-            "placeholder": "Wpisz opis klienta"
-          },
-          "active": {
-            "label": "Aktywny",
-            "placeholder": "Włącz, jeśli chcesz być aktywny"
-          }
+        "logo": {
+          "title": "Logo",
+          "formats": "Obsługiwane formaty: SVG, PNG, JPG lub GIF",
+          "motivate": "Możesz nadać profilowi swojej firmy nieco więcej osobowości i pomóc innym rozpoznać Cię, przesyłając logo (obraz, zdjęcie lub inną ikonę graficzną przedstawiającą „ty”).",
+          "fileover": "Umieść swoje pliki tutaj"
+        }
+      },
+      "inputs": {
+        "name": {
+          "label": "Nazwa",
+          "placeholder": "Wpisz nazwę firmy lub imię i nazwisko"
+        },
+        "description": {
+          "label": "Opis",
+          "placeholder": "Wpisz opis klienta"
+        },
+        "active": {
+          "label": "Aktywny",
+          "placeholder": "Włącz, jeśli chcesz być aktywny"
         }
       }
     }

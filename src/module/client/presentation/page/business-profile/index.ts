@@ -4,8 +4,11 @@ import {SettingsForm} from "@client/form/settings.form";
 import {TranslateModule} from "@ngx-translate/core";
 import {
   CoverImageBusinessProfileComponent
-} from "@client/presentation/component/business-profile/logo/cover-image.business-profile.component";
+} from "@client/presentation/component/business-profile/cover-image/cover-image.business-profile.component";
 import {FormSettingsComponent} from "@client/presentation/component/business-profile/form.settings.component";
+import {
+  LogoBusinessProfileComponent
+} from "@client/presentation/component/business-profile/logo/logo.business-profile.component";
 
 @Component({
   selector: 'client-settings-page',
@@ -15,7 +18,8 @@ import {FormSettingsComponent} from "@client/presentation/component/business-pro
     FormSettingsComponent,
     ReactiveFormsModule,
     TranslateModule,
-    CoverImageBusinessProfileComponent
+    CoverImageBusinessProfileComponent,
+    LogoBusinessProfileComponent
   ],
   standalone: true
 })

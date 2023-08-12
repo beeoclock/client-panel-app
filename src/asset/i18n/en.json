@@ -279,6 +279,12 @@
             "title": "Cover image",
             "motivate": "You can inject a little more personality into your profile and help people recognize your work by uploading a \n image (an image, photo or other graphic icon of your business).",
             "fileover": "Put your files here"
+          },
+          "logo": {
+            "title": "Logo",
+            "formats": "Allowed types: SVG, PNG, JPG or GIF",
+            "motivate": "You can inject a little more personality into your business profile and help people recognize you by uploading a logo (an image, photo or other graphic icon of \"you\").",
+            "fileover": "Put your files here"
           }
         },
         "inputs": {
