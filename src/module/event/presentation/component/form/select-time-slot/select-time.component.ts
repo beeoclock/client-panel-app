@@ -27,7 +27,7 @@ export interface ITimeSlot {
           *ngFor="let timeSlot of timeSlotList"
           (click)="selectDateItem(timeSlot.datetime)"
           [ngClass]="getClassList(isSelected(timeSlot.datetime))"
-          class="min-w-[72px] max-w-[72px] flex flex-col items-center justify-center border rounded-xl px-3 py-2">
+          class="min-w-[72px] max-w-[72px] flex flex-col items-center justify-center border rounded-md px-3 py-2">
           <span>{{ timeSlot.datetime.toFormat('HH:mm') }}</span>
         </button>
       </div>

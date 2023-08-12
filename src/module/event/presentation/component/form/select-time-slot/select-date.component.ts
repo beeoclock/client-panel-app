@@ -77,7 +77,7 @@ export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsIn
                 (click)="selectDateItem(dayItem.datetime)"
                 [ngClass]="getClassList(isSelected(dayItem.datetime))"
                 [disabled]="dayItem.isPast"
-                class="min-w-[60px] max-w-[60px] min-h-[60px] max-h-[60px] leading-tight flex flex-col items-center justify-center ring-1 ring-inset rounded-xl p-3">
+                class="min-w-[60px] max-w-[60px] min-h-[60px] max-h-[60px] leading-tight flex flex-col items-center justify-center ring-1 ring-inset rounded-md p-3">
                 <span class="font-bold">{{ dayItem.datetime.day }}</span>
                 <span>{{ dayItem.datetime.weekdayShort }}</span>
               </button>
