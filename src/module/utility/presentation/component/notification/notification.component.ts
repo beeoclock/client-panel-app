@@ -23,8 +23,8 @@ import {RouterLink} from "@angular/router";
         focus:ring-2
         focus:ring-beeColor-200
         dark:text-beeDarkColor-400
-        dark:hover:bg-beeColor-700
-        dark:focus:ring-beeColor-600"
+        dark:hover:bg-beeDarkColor-700
+        dark:focus:ring-beeDarkColor-600"
       id="navbarDropdownNotification"
       role="button">
       <i class="bi bi-bell-fill h4"></i>

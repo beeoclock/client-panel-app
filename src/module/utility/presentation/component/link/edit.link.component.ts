@@ -14,7 +14,24 @@ import {RouterLink} from "@angular/router";
        routerLink="form"
        [class.w-full]="buttonWidthFull"
        class="
-        flex items-center justify-center rounded-2xl bg-white px-3 py-2 text-sm font-semibold text-beeColor-900 shadow-sm ring-1 ring-inset ring-beeColor-300 hover:bg-beeColor-50">
+        flex
+        items-center
+        justify-center
+        rounded-2xl
+        bg-white
+        hover:bg-beeColor-50
+        dark:bg-beeDarkColor-800
+        dark:hover:bg-beeDarkColor-600
+        px-4
+        py-2
+        text-sm
+        font-semibold
+        text-beeColor-900
+        dark:text-beeColor-200
+        shadow-sm
+        ring-1
+        ring-inset
+        ring-beeColor-300">
       <i class="bi bi-pencil me-2"></i>
       {{ 'general.edit' | translate }}
     </a>

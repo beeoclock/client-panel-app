@@ -2,8 +2,6 @@ import {ChangeDetectionStrategy, Component, HostBinding, inject, ViewChild, View
 import {RouterLink} from '@angular/router';
 import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from '@angular/common';
 import {firstValueFrom, Observable} from 'rxjs';
-import {CardComponent} from '@utility/presentation/component/card/card.component';
-import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {IService} from '@service/domain';
@@ -29,13 +27,10 @@ import {DynamicDatePipe} from "@utility/pipes/dynamic-date.pipe";
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [
-    CardComponent,
-    BodyCardComponent,
     NgIf,
     AsyncPipe,
     SpinnerComponent,
     BackLinkComponent,
-    BodyCardComponent,
     BackLinkComponent,
     DeleteButtonComponent,
     RouterLink,

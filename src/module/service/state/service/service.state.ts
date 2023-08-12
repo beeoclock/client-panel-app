@@ -68,13 +68,13 @@ export class ServiceState extends BaseState<IService> {
   }
 
   @Action(ServiceActions.UpdateFilters)
-  public override UpdateFilters(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateFilters) {
-    super.UpdateFilters(ctx, action);
+  public override updateFilters(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateFilters) {
+    super.updateFilters(ctx, action);
   }
 
   @Action(ServiceActions.UpdateTableState)
-  public override UpdateTableState(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateTableState) {
-    super.UpdateTableState(ctx, action);
+  public override updateTableState(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateTableState) {
+    super.updateTableState(ctx, action);
   }
 
   @Action(ServiceActions.CreateItem)
@@ -88,8 +88,8 @@ export class ServiceState extends BaseState<IService> {
   }
 
   @Action(ServiceActions.GetItem)
-  public override async GetItem(ctx: StateContext<IServiceState>, action: ServiceActions.GetItem): Promise<void> {
-    await super.GetItem(ctx, action);
+  public override async getItem(ctx: StateContext<IServiceState>, action: ServiceActions.GetItem): Promise<void> {
+    await super.getItem(ctx, action);
   }
 
   @Action(ServiceActions.DeleteItem)

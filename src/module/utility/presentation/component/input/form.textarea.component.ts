@@ -19,7 +19,7 @@ import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/inval
     <div class="flex flex-col">
       <textarea
         invalidTooltip
-        class="border rounded bg-white px-2 py-1"
+        class="mt-2 focus:ring-2 outline-0 border rounded-md bg-white px-4 py-3 dark:bg-beeDarkColor-900 dark:border-beeDarkColor-700 dark:text-white"
         [rows]="rows"
         [placeholder]="placeholder"
         [id]="id"

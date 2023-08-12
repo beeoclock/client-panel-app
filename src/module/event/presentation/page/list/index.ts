@@ -1,6 +1,4 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
-import {CardComponent} from '@utility/presentation/component/card/card.component';
-import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
+import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {TableComponent} from '@utility/presentation/component/table/table.component';
@@ -32,9 +30,8 @@ import {EventStatusStyleDirective} from "@event/directive/event-status-style/eve
   selector: 'event-list-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CardComponent,
-    BodyCardComponent,
     RouterLink,
     DeleteButtonComponent,
     TableComponent,

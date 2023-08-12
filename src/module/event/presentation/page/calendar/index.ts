@@ -7,8 +7,6 @@ import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import {CardComponent} from '@utility/presentation/component/card/card.component';
-import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
-import {HeaderCardComponent} from '@utility/presentation/component/card/header.card.component';
 import {IEvent} from "@event/domain";
 
 @Component({
@@ -22,8 +20,6 @@ import {IEvent} from "@event/domain";
     NgForOf,
     NgIf,
     CardComponent,
-    BodyCardComponent,
-    HeaderCardComponent
   ]
 })
 export default class Index {

@@ -11,15 +11,15 @@ import {NgIf} from "@angular/common";
   template: `
     <ul class="list-group" *ngIf="event">
       <li class="list-group-item">
-        <strong>Start:</strong>
+        <strong class="dark:text-white">Start:</strong>
         <p class="m-0">{{ event.start }}</p>
       </li>
       <li class="list-group-item">
-        <strong>End:</strong>
+        <strong class="dark:text-white">End:</strong>
         <p class="m-0">{{ event.end }}</p>
       </li>
       <li class="list-group-item">
-        <strong>Description:</strong>
+        <strong class="dark:text-white">Description:</strong>
         <p class="m-0">{{ event.description }}</p>
       </li>
     </ul>

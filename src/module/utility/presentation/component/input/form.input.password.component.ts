@@ -45,7 +45,7 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
           border-r-0
           border-beeColor-300
           placeholder:text-beeColor-400
-          focus:border-stone-800
+          focus:border-beeColor-800
           sm:text-sm sm:leading-6">
       <button
         (click)="passwordInput.type = passwordInput.type === 'text' ? 'password' : 'text'"

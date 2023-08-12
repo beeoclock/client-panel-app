@@ -14,11 +14,11 @@
         border-r
         border-beeColor-200
         sm:translate-x-0
-        dark:bg-beeDarkColor-800
-        dark:border-beeDarkColor-700"
+        dark:bg-beeDarkColor-900
+        dark:border-beeDarkColor-800"
        aria-label="Sidebar">
 
-  <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-beeDarkColor-800 flex flex-col justify-between">
+  <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-beeDarkColor-900 flex flex-col justify-between">
 
     <ul class="space-y-2 font-medium">
 
@@ -43,7 +43,7 @@
               group
               hover:bg-beeColor-100
               dark:text-white
-              dark:hover:bg-beeColor-700">
+              dark:hover:bg-beeDarkColor-800">
 
             <i
               class="
@@ -75,7 +75,7 @@
                 [attr.target]="item.target"
                 [class.disabled]="item.disabled ?? false"
                 [routerLinkActiveOptions]="subItem.routerLinkActiveOptions"
-                [routerLinkActive]="['bg-beeColor-100', 'dark:bg-beeDarkColor-700']"
+                [routerLinkActive]="['bg-beeColor-100', 'dark:bg-beeDarkColor-800']"
                 class="
                   flex
                   items-center
@@ -89,7 +89,7 @@
                   group
                   hover:bg-beeColor-100
                   dark:text-white
-                  dark:hover:bg-beeColor-700">
+                  dark:hover:bg-beeDarkColor-800">
                 {{ subItem.translateKey | translate }}
               </a>
             </li>
@@ -103,7 +103,7 @@
             [attr.target]="item.target"
             [class.disabled]="item.disabled ?? false"
             [routerLinkActiveOptions]="item.routerLinkActiveOptions"
-            [routerLinkActive]="['bg-beeColor-100', 'dark:bg-beeDarkColor-700']"
+            [routerLinkActive]="['bg-beeColor-100', 'dark:bg-beeDarkColor-800']"
             class="
               flex
               items-center
@@ -112,7 +112,7 @@
               rounded-lg
               dark:text-white
               hover:bg-beeColor-100
-              dark:hover:bg-beeColor-700">
+              dark:hover:bg-beeDarkColor-800">
 
             <i
               class="w-6 h-6 ms-2 text-beeColor-500 transition duration-75 dark:text-beeDarkColor-400 group-hover:text-beeColor-900 dark:group-hover:text-white"
@@ -133,7 +133,7 @@
       <li>
         <button
           (click)="goToPublicPage()"
-          class="w-full border border-blue-600 rounded-2xl bg-blue-100 px-3 py-1 text-blue-600 me-2 flex items-center justify-between gap-2">
+          class="w-full border border-blue-600 rounded-2xl bg-blue-100 dark:bg-blue-500/50 px-3 py-1 text-blue-600 dark:text-blue-200 me-2 flex items-center justify-between gap-2">
           {{ 'general.publicPage' | translate }}
           <i class="bi bi-box-arrow-up-right"></i>
         </button>

@@ -48,7 +48,7 @@ export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsIn
     TranslateModule
   ],
   template: `
-    <div class="flex flex-col gap-3">
+    <div class="flex flex-col gap-3 dark:text-white">
       <!-- Day Slots Title -->
       <div class="flex items-center justify-center gap-3">
         <span class="text-2xl font-medium">{{ daySlotsTitle }}</span>
@@ -56,7 +56,7 @@ export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsIn
 
       <!-- Navigation Buttons -->
       <div class="flex items-center justify-between gap-1">
-        <button (click)="prevPackOfDates()" class="px-3 py-2 hover:bg-beeColor-300 cursor-pointer rounded-2xl">
+        <button (click)="prevPackOfDates()" class="px-3 py-2 hover:bg-beeColor-300 dark:hover:bg-beeDarkColor-800 cursor-pointer rounded-2xl">
           <i class="bi bi-chevron-left"></i>
         </button>
 
@@ -77,7 +77,7 @@ export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsIn
                 (click)="selectDateItem(dayItem.datetime)"
                 [ngClass]="getClassList(isSelected(dayItem.datetime))"
                 [disabled]="dayItem.isPast"
-                class="min-w-[60px] max-w-[60px] min-h-[60px] max-h-[60px] leading-tight flex flex-col items-center justify-center ring-1 ring-inset rounded-xl p-3">
+                class="min-w-[60px] max-w-[60px] min-h-[60px] max-h-[60px] leading-tight flex flex-col items-center justify-center ring-1 ring-inset rounded-md p-3">
                 <span class="font-bold">{{ dayItem.datetime.day }}</span>
                 <span>{{ dayItem.datetime.weekdayShort }}</span>
               </button>
@@ -91,7 +91,7 @@ export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsIn
           </ng-container>
         </div>
 
-        <button (click)="nextPackOfDates()" class="px-3 py-2 hover:bg-beeColor-300 cursor-pointer rounded-2xl">
+        <button (click)="nextPackOfDates()" class="px-3 py-2 hover:bg-beeColor-300 dark:hover:bg-beeDarkColor-800 cursor-pointer rounded-2xl">
           <i class="bi bi-chevron-right"></i>
         </button>
       </div>

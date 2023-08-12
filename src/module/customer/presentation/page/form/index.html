@@ -5,9 +5,9 @@
   <div class="col-span-12 lg:col-start-4 lg:col-span-6">
 
     <form [formGroup]="form" class="flex flex-col gap-4">
-      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-4">
+      <card>
 
-        <strong>{{ 'general.information' | translate }}</strong>
+        <strong class="dark:text-white">{{ 'general.information' | translate }}</strong>
 
         <div class="grid grid-cols-2 gap-4">
 
@@ -49,24 +49,22 @@
 
         </div>
 
-      </div>
+      </card>
 
       <utility-form-switch-active-block-component [control]="form.controls.active"></utility-form-switch-active-block-component>
 
-      <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4">
-        <strong>{{ 'general.additional' | translate }}</strong>
+      <card>
+        <strong class="dark:text-white">{{ 'general.additional' | translate }}</strong>
 
         <div class="flex flex-col mt-4">
-          <label for="customer-form-note">{{ 'keyword.capitalize.note' | translate }}</label>
-          <textarea
-            invalidTooltip
-            class="border rounded bg-white px-2 py-1"
-            rows="4"
-            placeholder="Write some notes of customer"
-            id="customer-form-note"
-            formControlName="note"></textarea>
+          <form-textarea-component
+            id="customer-form-public-note-input"
+            [label]="'keyword.capitalize.note' | translate"
+            [placeholder]="'customer.form.input.note.placeholder' | translate"
+            [control]="form.controls.note">
+          </form-textarea-component>
         </div>
-      </div>
+      </card>
       <button
         class="px-4 py-2 bg-blue-600 rounded-lg text-white w-full hover:bg-blue-700 cursor-pointer transition"
         [disabled]="form.disabled"

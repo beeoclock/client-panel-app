@@ -19,7 +19,7 @@ import {DatePipe} from "@angular/common";
 
     <div class="flex flex-col gap-8 mb-4">
 
-      <strong class="text-2xl">{{ 'general.dateAndTime' | translate }}</strong>
+      <strong class="text-2xl dark:text-white">{{ 'general.dateAndTime' | translate }}</strong>
 
       <event-select-time-slot-date-form-component
         [control]="control"

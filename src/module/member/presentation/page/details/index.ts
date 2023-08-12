@@ -2,8 +2,6 @@ import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {AsyncPipe, NgIf} from '@angular/common';
 import {Observable} from 'rxjs';
-import {CardComponent} from '@utility/presentation/component/card/card.component';
-import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
@@ -41,18 +39,8 @@ import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.
 
             <utility-dropdown [smHidden]="true">
               <ng-container content>
-                <a routerLink="form" class="block px-4 py-2 text-sm text-beeColor-700"
-                   role="menuitem" tabindex="-1"
-                   id="mobile-menu-item-0">
-                  <i class="bi bi-pencil me-2"></i>
-                  {{ 'general.edit' | translate }}
-                </a>
-                <button (click)="delete(member._id)" class="block px-4 py-2 text-sm text-red-500"
-                        role="menuitem" tabindex="-1"
-                        id="mobile-menu-item-1">
-                  <i class="bi bi-trash me-2"></i>
-                  {{ 'general.delete' | translate }}
-                </button>
+                <edit-link-component></edit-link-component>
+                <delete-button (event)="delete(member._id)"></delete-button>
               </ng-container>
             </utility-dropdown>
           </div>
@@ -65,13 +53,10 @@ import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.
   `,
   encapsulation: ViewEncapsulation.None,
   imports: [
-    CardComponent,
-    BodyCardComponent,
     NgIf,
     AsyncPipe,
     SpinnerComponent,
     BackLinkComponent,
-    BodyCardComponent,
     BackLinkComponent,
     DeleteButtonComponent,
     RouterLink,

@@ -1,7 +1,5 @@
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {CustomerForm} from '@customer/form/customer.form';
-import {CardComponent} from '@utility/presentation/component/card/card.component';
-import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {InputDirective} from '@utility/directives/input/input.directive';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
@@ -9,7 +7,6 @@ import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {ICustomer} from "@customer/domain";
-import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
 import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 import {TranslateModule} from "@ngx-translate/core";
 import {CustomerState} from "@customer/state/customer/customer.state";
@@ -18,26 +15,27 @@ import {Select, Store} from "@ngxs/store";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
+import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
+import {CardComponent} from "@utility/presentation/component/card/card.component";
 
 @Component({
   selector: 'customer-form-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-    imports: [
-        CardComponent,
-        BodyCardComponent,
-        ReactiveFormsModule,
-        InputDirective,
-        DeleteButtonComponent,
-        HasErrorDirective,
-        RouterLink,
-        BackLinkComponent,
-        HeaderCardComponent,
-        InvalidTooltipDirective,
-        TranslateModule,
-        FormInputComponent,
-        SwitchActiveBlockComponent
-    ],
+  imports: [
+    ReactiveFormsModule,
+    InputDirective,
+    DeleteButtonComponent,
+    HasErrorDirective,
+    RouterLink,
+    BackLinkComponent,
+    InvalidTooltipDirective,
+    TranslateModule,
+    FormInputComponent,
+    SwitchActiveBlockComponent,
+    FormTextareaComponent,
+    CardComponent
+  ],
   standalone: true
 })
 export default class Index implements OnInit {
