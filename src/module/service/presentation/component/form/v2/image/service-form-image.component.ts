@@ -48,13 +48,19 @@ export class ServiceFormImageComponent implements OnInit {
 
   public async onFileSelected(event: Event): Promise<void> {
 
-    const fileInput = event.target as HTMLInputElement;
-    const file = extractFile(fileInput);
-    this.uploadedFileName = file.name;
-    const base64 = await file2base64(file);
-    this.previewImage = base64;
+    try {
 
-    this.control.patchValue(base64);
+      const fileInput = event.target as HTMLInputElement;
+      const file = extractFile(fileInput);
+      this.uploadedFileName = file.name;
+      const base64 = await file2base64(file);
+      this.previewImage = base64;
+
+      this.control.patchValue(base64);
+
+    } catch (e) {
+      console.error(e);
+    }
 
   }
 

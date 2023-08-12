@@ -33,7 +33,12 @@
       "phone": "Telefon",
       "active": "Aktywny",
       "inactive": "Nieaktywny",
+      "clickToUpload": "Kliknij, aby przesłać",
       "add-service": "Dodaj usługę"
+    },
+    "lowercase": {
+      "or": "lub",
+      "dragAndDrop": "przeciągnij i upuść plik"
     }
   },
   "general": {
@@ -215,60 +220,65 @@
   "client": {
     "settings": {
       "title": "Ustawienia",
-      "form": {
-        "inputs": {
-          "darkMode": {
-            "label": "Tryb ciemny"
+      "inputs": {
+        "darkMode": {
+          "label": "Tryb ciemny"
+        }
+      }
+    },
+    "defaultData": {
+      "event": {
+        "title": "Domyślne dane wydarzenia",
+        "form": {
+          "inputs": {
+            "language": {
+              "label": "Domyślny język wydarzenia"
+            },
+            "service": {
+              "label": "Domyślna usługa wydarzenia (najważniejsza usługa)"
+            }
           }
         }
       },
-      "defaultData": {
-        "event": {
-          "title": "Domyślne dane wydarzenia",
-          "form": {
-            "inputs": {
-              "language": {
-                "label": "Domyślny język wydarzenia"
-              },
-              "service": {
-                "label": "Domyślna usługa wydarzenia (najważniejsza usługa)"
-              }
-            }
-          }
-        },
-        "service": {
-          "title": "Domyślne dane usługi",
-          "form": {
-            "inputs": {
-              "duration": {
-                "label": "Domyślny czas trwania usługi"
-              },
-              "language": {
-                "label": "Domyślny język usługi"
-              },
-              "workDays": {
-                "label": "Domyślne dni pracy usługi"
-              },
-              "break": {
-                "label": "Domyślna przerwa usługi"
-              },
-              "startWork": {
-                "label": "Godzina rozpoczęcia pracy usługi"
-              },
-              "endWork": {
-                "label": "Godzina zakończenia pracy usługi"
-              },
-              "price": {
-                "label": "Domyślna cena usługi"
-              }
+      "service": {
+        "title": "Domyślne dane usługi",
+        "form": {
+          "inputs": {
+            "duration": {
+              "label": "Domyślny czas trwania usługi"
+            },
+            "language": {
+              "label": "Domyślny język usługi"
+            },
+            "workDays": {
+              "label": "Domyślne dni pracy usługi"
+            },
+            "break": {
+              "label": "Domyślna przerwa usługi"
+            },
+            "startWork": {
+              "label": "Godzina rozpoczęcia pracy usługi"
+            },
+            "endWork": {
+              "label": "Godzina zakończenia pracy usługi"
+            },
+            "price": {
+              "label": "Domyślna cena usługi"
             }
           }
         }
       }
-    },
-    "profile": {
-      "title": "Profil",
-      "form": {
+    }
+  },
+  "profile": {
+    "title": "Profil",
+    "form": {
+      "section": {
+        "coverImage": {
+          "title": "Obraz w tle",
+          "motivate": "Możesz nadać swojemu profilowi nieco więcej osobowości i pomóc innym rozpoznać Twoją pracę, przesyłając \n obraz (obraz, zdjęcie lub inną grafikę) jako obraz w tle Twojego profilu.",
+          "fileover": "Umieść swoje pliki tutaj"
+        },
         "inputs": {
           "name": {
             "label": "Nazwa",

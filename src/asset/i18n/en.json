@@ -33,7 +33,12 @@
       "phone": "Phone",
       "active": "Active",
       "inactive": "Inactive",
+      "clickToUpload": "Click to upload",
       "add-service": "Add service"
+    },
+    "lowercase": {
+      "or": "or",
+      "dragAndDrop": "drag and drop"
     }
   },
   "general": {
@@ -269,6 +274,13 @@
     "profile": {
       "title": "Profile",
       "form": {
+        "section": {
+          "coverImage": {
+            "title": "Cover image",
+            "motivate": "You can inject a little more personality into your profile and help people recognize your work by uploading a \n image (an image, photo or other graphic icon of your business).",
+            "fileover": "Put your files here"
+          }
+        },
         "inputs": {
           "name": {
             "label": "Name",
