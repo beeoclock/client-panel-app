@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, inject, OnInit} from "@angular/core";
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, inject, OnInit} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
 
@@ -12,6 +12,7 @@ export abstract class ListPage implements OnInit, AfterViewInit {
 
   public readonly store = inject(Store);
   public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
+  public readonly changeDetectorRef = inject(ChangeDetectorRef);
   public readonly actions!: {
     DeleteItem: any;
     ArchiveItem: any;

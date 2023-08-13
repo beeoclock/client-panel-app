@@ -71,6 +71,7 @@ export class TableStatePaginationComponent implements OnChanges {
     if (changes.tableState) {
       this.initTimerOfLastUpdate();
       this.pages = getPaginationItems(this.tableState.page, this.tableState.maxPage, environment.config.pagination.maxLength);
+      this.changeDetectorRef.detectChanges();
     }
   }
 

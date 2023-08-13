@@ -3,10 +3,6 @@ import {NgForOf, NgIf} from '@angular/common';
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {IMember} from "@member/domain";
-import {BodyCardComponent} from "@utility/presentation/component/card/body.card.component";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {HeaderCardComponent} from "@utility/presentation/component/card/header.card.component";
-import {FooterCardComponent} from "@utility/presentation/component/card/footer.card.component";
 import {
   ModalMembersFormComponent
 } from "@service/presentation/component/form/v1/members/modal.employees.form.component";
@@ -20,10 +16,6 @@ import {ListMemberApiAdapter} from "@member/adapter/external/api/list.member.api
     NgSelectModule,
     ReactiveFormsModule,
     NgIf,
-    BodyCardComponent,
-    CardComponent,
-    HeaderCardComponent,
-    FooterCardComponent,
     ModalMembersFormComponent
   ],
   template: `

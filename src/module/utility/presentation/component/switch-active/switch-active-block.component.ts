@@ -7,13 +7,13 @@ import {FormTextareaComponent} from "@utility/presentation/component/input/form.
 import {NgSelectModule} from "@ng-select/ng-select";
 import {ActiveEnum} from "@utility/domain/enum";
 import {is} from "thiis";
+import {CardComponent} from "@utility/presentation/component/card/card.component";
 
 @Component({
   selector: 'utility-form-switch-active-block-component',
   standalone: true,
   template: `
-    <div
-      class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-3">
+    <card>
 
       <label class="relative inline-flex items-center justify-between cursor-pointer">
         <span
@@ -50,7 +50,7 @@ import {is} from "thiis";
         </div>
       </label>
 
-    </div>
+    </card>
   `,
   imports: [
     NgIf,
@@ -60,6 +60,7 @@ import {is} from "thiis";
     NgSelectModule,
     ReactiveFormsModule,
     NgForOf,
+    CardComponent,
   ]
 })
 export class SwitchActiveBlockComponent implements OnInit, OnChanges {

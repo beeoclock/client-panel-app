@@ -14,7 +14,7 @@
   </utility-dropdown>
 </div>
 
-<div *ngIf="tableState$ | async as tableState" class="relative overflow-x-auto">
+<ng-container *ngIf="tableState$ | async as tableState">
   <table class="w-full text-sm text-left text-beeColor-500 dark:text-beeDarkColor-400">
     <thead class="text-xs text-beeColor-700 uppercase border-b border-beeColor-300 dark:border-beeDarkColor-700 dark:bg-beeDarkColor-800 dark:text-beeDarkColor-400">
     <tr>
@@ -125,4 +125,4 @@
   </table>
   <utility-table-state-pagination-component (clearCache)="clearTableCache()" (page)="pageChange($event)"
                                             [tableState]="tableState"></utility-table-state-pagination-component>
-</div>
+</ng-container>

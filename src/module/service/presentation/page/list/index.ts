@@ -1,6 +1,4 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
-import {CardComponent} from '@utility/presentation/component/card/card.component';
-import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
+import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {TableComponent} from '@utility/presentation/component/table/table.component';
@@ -10,7 +8,7 @@ import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {FilterComponent} from '@service/presentation/component/filter/filter.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
+import {LanguageCodeEnum} from '@utility/domain/enum';
 import {ILanguageVersion, IService} from '@service/domain';
 import {ListPage} from "@utility/list.page";
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
@@ -32,30 +30,29 @@ import {DynamicDatePipe} from "@utility/pipes/dynamic-date.pipe";
   selector: 'service-list-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-    imports: [
-        CardComponent,
-        BodyCardComponent,
-        RouterLink,
-        DeleteButtonComponent,
-        TableComponent,
-        HeaderTableComponent,
-        BodyTableComponent,
-        NgForOf,
-        DatePipe,
-        FilterComponent,
-        AsyncPipe,
-        NgIf,
-        SpinnerComponent,
-        DropdownComponent,
-        SortIndicatorComponent,
-        LoaderComponent,
-        ActionComponent,
-        TranslateModule,
-        TableStatePaginationComponent,
-        NgClass,
-        ActiveStyleDirective,
-        DynamicDatePipe
-    ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    RouterLink,
+    DeleteButtonComponent,
+    TableComponent,
+    HeaderTableComponent,
+    BodyTableComponent,
+    NgForOf,
+    DatePipe,
+    FilterComponent,
+    AsyncPipe,
+    NgIf,
+    SpinnerComponent,
+    DropdownComponent,
+    SortIndicatorComponent,
+    LoaderComponent,
+    ActionComponent,
+    TranslateModule,
+    TableStatePaginationComponent,
+    NgClass,
+    ActiveStyleDirective,
+    DynamicDatePipe
+  ],
   standalone: true
 })
 export default class Index extends ListPage {
@@ -73,10 +70,6 @@ export default class Index extends ListPage {
   public getFirstLanguageVersion(languageVersions: ILanguageVersion[] = []): ILanguageVersion {
     const firstOption = languageVersions.find(({language}) => language === this.currentLanguageCode);
     return firstOption ?? languageVersions[0];
-  }
-
-  public getLanguageCodes(languageVersions: ILanguageVersion[] = []): string {
-    return languageVersions.map(({language}) => LANGUAGES.find(({code}) => code === language)?.name ?? '').join(', ');
   }
 
 }

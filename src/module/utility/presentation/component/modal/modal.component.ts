@@ -56,7 +56,7 @@ export type modalSizeType = 'modal-sm' | '' | 'modal-lg' | 'modal-xl';
       <div class="relative w-full max-w-2xl max-h-full">
 
         <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-beeDarkColor-700">
+        <div class="relative bg-white rounded-lg shadow dark:bg-beeDarkColor-800">
 
           <!-- Modal header -->
           <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-beeDarkColor-600">

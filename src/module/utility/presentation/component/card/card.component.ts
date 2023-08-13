@@ -1,22 +1,22 @@
-import {Component, HostBinding, ViewEncapsulation} from '@angular/core';
-import {HeaderCardComponent} from '@utility/presentation/component/card/header.card.component';
-import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
-import {NgIf} from '@angular/common';
+import {Component, Input, ViewEncapsulation} from '@angular/core';
+import {NgClass, NgIf} from '@angular/common';
 
 @Component({
-  selector: 'utility-card-component',
+  selector: 'card',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [
-    HeaderCardComponent,
-    BodyCardComponent,
-    NgIf
+    NgIf,
+    NgClass
   ],
   template: `
-    <ng-content></ng-content>
+    <div
+      class="bg-white dark:text-white dark:bg-beeDarkColor-800/50 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col" [ngClass]="['gap-' + gap]">
+      <ng-content></ng-content>
+    </div>
   `
 })
 export class CardComponent {
-  @HostBinding()
-  public readonly class = ['card', 'rounded'];
+  @Input()
+  public gap: '4' | '1' | '2' | '3' | '8' = '4';
 }

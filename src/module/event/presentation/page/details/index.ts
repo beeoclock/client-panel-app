@@ -2,8 +2,6 @@ import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {AsyncPipe, CurrencyPipe, DatePipe, NgForOf, NgIf, NgTemplateOutlet} from '@angular/common';
 import {firstValueFrom, Observable} from 'rxjs';
-import {CardComponent} from '@utility/presentation/component/card/card.component';
-import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
@@ -21,19 +19,17 @@ import humanizeDuration from "humanize-duration";
 import {Duration} from "luxon";
 import {EventStatusStyleDirective} from "@event/directive/event-status-style/event-status-style.directive";
 import {StatusEnum} from "@event/domain/enum/status.enum";
+import {CardComponent} from "@utility/presentation/component/card/card.component";
 
 @Component({
   selector: 'event-detail-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
   imports: [
-    CardComponent,
-    BodyCardComponent,
     NgIf,
     AsyncPipe,
     SpinnerComponent,
     BackLinkComponent,
-    BodyCardComponent,
     BackLinkComponent,
     DeleteButtonComponent,
     RouterLink,
@@ -47,7 +43,8 @@ import {StatusEnum} from "@event/domain/enum/status.enum";
     ActiveStyleDirective,
     CurrencyPipe,
     EventStatusStyleDirective,
-    NgTemplateOutlet
+    NgTemplateOutlet,
+    CardComponent
   ],
   standalone: true
 })

@@ -2,8 +2,6 @@ import {Component, HostBinding, inject, ViewChild, ViewEncapsulation} from '@ang
 import {RouterLink} from '@angular/router';
 import {AsyncPipe, NgIf} from '@angular/common';
 import {firstValueFrom, Observable} from 'rxjs';
-import {CardComponent} from '@utility/presentation/component/card/card.component';
-import {BodyCardComponent} from '@utility/presentation/component/card/body.card.component';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {ICustomer} from '@customer/domain';
@@ -23,13 +21,10 @@ import {DynamicDatePipe} from "@utility/pipes/dynamic-date.pipe";
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
   imports: [
-    CardComponent,
-    BodyCardComponent,
     NgIf,
     AsyncPipe,
     SpinnerComponent,
     BackLinkComponent,
-    BodyCardComponent,
     BackLinkComponent,
     DeleteButtonComponent,
     RouterLink,
