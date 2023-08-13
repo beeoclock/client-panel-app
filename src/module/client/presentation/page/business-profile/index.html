@@ -2,13 +2,48 @@
 
   <div class="col-span-12 lg:col-start-4 lg:col-span-6 flex flex-col gap-4">
 
-    <client-cover-image-business-profile-component [control]="form.controls.banner"></client-cover-image-business-profile-component>
-
-    <client-logo-business-profile-component [control]="form.controls.logo"></client-logo-business-profile-component>
-
     <utility-form-switch-active-block-component [control]="form.controls.active"></utility-form-switch-active-block-component>
-
+    <client-cover-image-business-profile-component [control]="form.controls.banner"></client-cover-image-business-profile-component>
+    <client-logo-business-profile-component [control]="form.controls.logo"></client-logo-business-profile-component>
     <client-business-profile-form-component [form]="form"></client-business-profile-form-component>
+    <card>
+      <div class="flex flex-col gap-4">
+        <div
+          *ngFor="let socialNetworkLink of form.controls.socialNetworkLinks.controls; let index = index"
+          class="border border-beeColor-200 rounded-lg dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 dark:text-white">
+          <div
+            class="
+          justify-between
+          flex
+          w-full
+          px-4
+          py-2
+          bg-beeColor-100
+          border-b
+          border-beeColor-200
+          rounded-t-lg
+          cursor-pointer
+          dark:bg-beeDarkColor-800
+          dark:border-beeDarkColor-600">
+            Social Network Link #{{ index + 1 }}
+            <button class="text-red-500" (click)="form.controls.socialNetworkLinks.remove(index)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+          <div class="p-4">
+            <client-form-social-network-link-form-component [form]="socialNetworkLink">
+            </client-form-social-network-link-form-component>
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-4">
+
+      <button class="border rounded px-4 py-2" (click)="form.controls.socialNetworkLinks.pushNewOne()">
+        <i class="bi bi-plus-lg me-2"></i>
+        Add new social network link
+      </button>
+    </card>
 
     <button
       class="px-4 py-2 bg-blue-600 rounded-lg text-white w-full hover:bg-blue-700 cursor-pointer transition"

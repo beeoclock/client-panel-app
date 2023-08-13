@@ -16,6 +16,11 @@ import * as Client from "@client/domain";
 import {IClient} from "@client/domain";
 import {UpdateClientApiAdapter} from "@client/adapter/external/api/update.client.api.adapter";
 import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
+import {
+  SocialNetworkLinkFormComponent
+} from "@client/presentation/component/settings/social-network-link.form.component";
+import {NgForOf} from "@angular/common";
+import {CardComponent} from "@utility/presentation/component/card/card.component";
 
 @Component({
   selector: 'client-settings-page',
@@ -27,7 +32,10 @@ import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch
     TranslateModule,
     CoverImageBusinessProfileComponent,
     LogoBusinessProfileComponent,
-    SwitchActiveBlockComponent
+    SwitchActiveBlockComponent,
+    SocialNetworkLinkFormComponent,
+    NgForOf,
+    CardComponent
   ],
   standalone: true
 })

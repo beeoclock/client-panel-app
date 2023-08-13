@@ -9,6 +9,7 @@ import {AddressesForm} from "@client/form/address.form";
 import {SchedulesForm} from "@utility/form/schdeule.form";
 import {ContactsForm} from "@client/form/contact.form";
 import {GalleryForm} from "@client/form/gallery.form";
+import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
 
 
 export interface IBusinessProfile {
@@ -17,7 +18,7 @@ export interface IBusinessProfile {
 
   logo: FormControl<string>;
   name: FormControl<string>;
-  slogan: FormControl<string>;
+  businessCategory: FormControl<BusinessCategoryEnum>;
   feature: FormControl<string>;
   description: FormControl<string>;
   createdAt: FormControl<string>;
@@ -47,7 +48,7 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
 
       logo: new FormControl(),
       name: new FormControl(),
-      slogan: new FormControl(),
+      businessCategory: new FormControl(),
       feature: new FormControl(),
       description: new FormControl(),
       active: new FormControl(),

@@ -1,4 +1,12 @@
 {
+  "businessCategory": {
+    "BeautySalon":  "Beauty salon",
+    "Barbershop": "Barbershop",
+    "Hairdresser":  "Hairdresser",
+    "OnlineConsultation": "Online consultation",
+    "OnlineTeaching":  "Online teaching",
+    "Dentistry": "Dentistry"
+  },
   "form": {
     "validation": {
       "required": "Required field",
@@ -36,6 +44,7 @@
       "slogan": "Slogan",
       "address": "Address",
       "feature": "Feature",
+      "businessCategory": "Business category",
       "clickToUpload": "Click to upload",
       "add-service": "Add service"
     },

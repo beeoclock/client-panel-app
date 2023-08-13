@@ -1,4 +1,12 @@
 {
+  "businessCategory": {
+    "BeautySalon":  "Салон краси",
+    "Barbershop": "Barbershop",
+    "Hairdresser":  "Перукарня",
+    "OnlineConsultation": "Онлайн консультація",
+    "OnlineTeaching":  "Онлайн навчання",
+    "Dentistry": "Стоматологія"
+  },
   "form": {
     "validation": {
       "required": "Обов'язкове поле",
@@ -36,6 +44,7 @@
       "slogan": "Гасло",
       "address": "Адреса",
       "feature": "Особливість",
+      "businessCategory": "Категорія бізнесу",
       "clickToUpload": "Натисніть, щоб завантажити",
       "add-service": "Додати послугу"
     },

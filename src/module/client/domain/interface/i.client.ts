@@ -7,6 +7,7 @@ import {IContact} from "@client/domain/interface/i.contact";
 import {ISchedule} from "@utility/domain/interface/i.schedule";
 import {IAddress} from "@client/domain/interface/i.address";
 import {IBookingSettings} from "@client/domain/interface/i.booking-settings";
+import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
 
 
 export interface IClient extends IBaseEntity {
@@ -15,7 +16,7 @@ export interface IClient extends IBaseEntity {
   name: string;
   logo: string;
   feature: string;
-  slogan: string;
+  businessCategory: BusinessCategoryEnum;
   socialNetworkLinks: ISocialNetworkLink[];
 
   banner: string;
