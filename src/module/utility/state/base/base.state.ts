@@ -269,7 +269,6 @@ export abstract class BaseState<ITEM = any> {
 
     const customerCacheItems = cache[cacheItemsKey];
 
-    console.log(customerCacheItems);
 
     if (customerCacheItems) {
 

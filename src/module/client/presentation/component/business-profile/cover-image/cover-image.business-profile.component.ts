@@ -34,8 +34,17 @@ export class CoverImageBusinessProfileComponent implements OnInit {
   public readonly toggleInfo = new BooleanState(true);
 
   public ngOnInit(): void {
+    this.updatePreviewImage(this.control.value);
+    this.initHandlerToUpdatePreviewImage();
+  }
+
+  public updatePreviewImage(value: string): void {
+    this.previewImage = value;
+  }
+
+  public initHandlerToUpdatePreviewImage(): void {
     this.control.valueChanges.subscribe((value: string) => {
-      this.previewImage = value;
+      this.updatePreviewImage(value);
     });
   }
 
