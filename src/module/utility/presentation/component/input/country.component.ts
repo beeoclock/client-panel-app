@@ -5,18 +5,20 @@ import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/inval
 import {HasErrorDirective} from "@utility/directives/has-error/has-error.directive";
 import {NgxMaskDirective} from "ngx-mask";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
+import {CountryEnum} from "@utility/domain/enum/country.enum";
 
 @Component({
-  selector: 'business-category-select-component',
+  selector: 'country-select-component',
   standalone: true,
   template: `
-    <label class="dark:text-beeDarkColor-300" [for]="id">{{ 'keyword.capitalize.businessCategory' | translate }}</label>
+    <label class="dark:text-beeDarkColor-300" [for]="id">
+      {{ 'keyword.capitalize.country' | translate }}
+    </label>
     <div class="mt-2">
       <ng-select
         bindLabel="name"
         bindValue="code"
-        [items]="businessCategoryList"
+        [items]="countryList"
         [clearable]="false"
         [id]="id"
         [formControl]="control">
@@ -44,10 +46,10 @@ export class PriceAndCurrencyComponent {
 
   public readonly translateService = inject(TranslateService);
 
-  public readonly businessCategoryList = Object.values(BusinessCategoryEnum).map((businessCategory) => {
+  public readonly countryList = Object.keys(CountryEnum).map((countryCode) => {
     return {
-      name: this.translateService.instant(`businessCategory.${businessCategory}`),
-      code: businessCategory
+      name: this.translateService.instant(`country.${countryCode}`),
+      code: countryCode
     };
   });
 

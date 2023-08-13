@@ -1,4 +1,7 @@
 {
+  "country": {
+    "UA": "Україна"
+  },
   "businessCategory": {
     "BeautySalon":  "Салон краси",
     "Barbershop": "Barbershop",
@@ -44,6 +47,12 @@
       "slogan": "Гасло",
       "address": "Адреса",
       "feature": "Особливість",
+      "businessName": "Назва бізнесу",
+      "country": "Країна",
+      "city": "Населений пункт",
+      "zipCode": "Поштовий індекс",
+      "streetAddressLineOne": "Адреса 1",
+      "streetAddressLineTwo": "Адреса 2",
       "businessCategory": "Категорія бізнесу",
       "clickToUpload": "Натисніть, щоб завантажити",
       "add-service": "Додати послугу"
@@ -297,20 +306,44 @@
             "formats": "Підтримувані формати: PNG, JPG, JPEG, GIF",
             "motivate": "Ти можеш надати своєму бізнес-профілю трохи більше особистості і допомогти людям тебе розпізнати, завантаживши логотип (зображення, фото чи іншу графічну піктограму, що тебе представляє)",
             "fileover": "Покладіть свої файли тут"
+          },
+          "address": {
+            "title": "Адреса",
+            "input": {
+              "streetAddressLineOne": {
+                "placeholder": "Назва вулиці, алеї чи бульвару"
+              },
+              "streetAddressLineTwo": {
+                "placeholder": "Номер будинку, офісу або студії"
+              },
+              "zipCode": {
+                "placeholder": "Напиши тут свій поштовий індекс"
+              },
+              "city": {
+                "placeholder": "Напиши назву населеного пункту"
+              },
+              "country": {
+                "placeholder": "Вибери країну"
+              }
+            }
           }
         },
         "inputs": {
           "name": {
-            "label": "Ім'я",
+            "label": "Назва бізнесу",
             "placeholder": "Введіть назву компанії або особисте ім'я"
           },
           "description": {
-            "label": "Опис",
-            "placeholder": "Введіть опис клієнта"
+            "label": "Опис компанії",
+            "placeholder": "Коротко опиши свій бізнес"
           },
           "active": {
             "label": "Активний",
             "placeholder": "Увімкніть, якщо хочете бути активним"
+          },
+          "feature": {
+            "label": "Особливість",
+            "placeholder": "Коротка фраза, що зацікавить потенційного клієнта"
           }
         }
       }

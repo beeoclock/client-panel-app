@@ -46,7 +46,7 @@ export class AddressForm extends FormGroup<IAddressForm> {
 
 export class AddressesForm extends FormArray<AddressForm> {
   constructor() {
-    super([]);
+    super([new AddressForm()]);
   }
 
   public remove(index: number): void {

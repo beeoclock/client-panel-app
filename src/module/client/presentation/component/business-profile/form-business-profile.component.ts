@@ -39,13 +39,15 @@ import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/b
   template: `
     <card>
 
+      <strong class="dark:text-white">{{ 'client.profile.title' | translate }}</strong>
+
       <form-input
         id="business-profile-form-name-input"
         type="text"
         autocomplete="name"
-        [placeholder]="'general.name' | translate"
+        [placeholder]="'client.profile.form.inputs.name.placeholder' | translate"
         [control]="form.controls.name"
-        [label]="'general.name' | translate">
+        [label]="'client.profile.form.inputs.name.label' | translate">
       </form-input>
 
       <form-textarea-component
@@ -55,18 +57,18 @@ import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/b
         [control]="form.controls.description">
       </form-textarea-component>
 
-      <business-category-component
+      <business-category-select-component
         id="business-profile-form-businessCategory-input"
         [control]="form.controls.businessCategory">
-      </business-category-component>
+      </business-category-select-component>
 
       <form-input
         id="business-profile-form-feature"
         type="text"
         autocomplete="feature"
-        [placeholder]="'keyword.capitalize.feature' | translate"
+        [placeholder]="'client.profile.form.inputs.description.placeholder' | translate"
         [control]="form.controls.feature"
-        [label]="'keyword.capitalize.feature' | translate">
+        [label]="'client.profile.form.inputs.feature.label' | translate">
       </form-input>
 
     </card>

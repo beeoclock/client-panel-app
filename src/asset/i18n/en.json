@@ -1,4 +1,7 @@
 {
+  "country": {
+    "UA": "Ukraine"
+  },
   "businessCategory": {
     "BeautySalon":  "Beauty salon",
     "Barbershop": "Barbershop",
@@ -44,6 +47,12 @@
       "slogan": "Slogan",
       "address": "Address",
       "feature": "Feature",
+      "businessName": "Business name",
+      "country": "Country",
+      "city": "City",
+      "zipCode": "Zip code",
+      "streetAddressLineOne": "Address 1",
+      "streetAddressLineTwo": "Address 2",
       "businessCategory": "Business category",
       "clickToUpload": "Click to upload",
       "add-service": "Add service"
@@ -297,20 +306,44 @@
             "formats": "Allowed types: SVG, PNG, JPG or GIF",
             "motivate": "You can inject a little more personality into your business profile and help people recognize you by uploading a logo (an image, photo or other graphic icon of \"you\").",
             "fileover": "Put your files here"
+          },
+          "address": {
+            "title": "Address",
+            "input": {
+              "streetAddressLineOne": {
+                "placeholder": "Street, avn., boulevard, etc. name"
+              },
+              "streetAddressLineTwo": {
+                "placeholder": "Office, house, etc. number"
+              },
+              "zipCode": {
+                "placeholder": "Your zip-code"
+              },
+              "city": {
+                "placeholder": "Your city"
+              },
+              "country": {
+                "placeholder": "Your country"
+              }
+            }
           }
         },
         "inputs": {
           "name": {
-            "label": "Name",
+            "label": "Business name",
             "placeholder": "Type Company or Personal name"
           },
           "description": {
-            "label": "Description",
-            "placeholder": "Type description of client"
+            "label": "Business description",
+            "placeholder": "Shortly describe what you do"
           },
           "active": {
             "label": "Active",
             "placeholder": "Switch on if you want to be active"
+          },
+          "feature": {
+            "label": "Feature",
+            "placeholder": "Enter catching phrase"
           }
         }
       }

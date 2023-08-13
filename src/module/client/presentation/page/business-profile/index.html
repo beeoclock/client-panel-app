@@ -2,10 +2,21 @@
 
   <div class="col-span-12 lg:col-start-4 lg:col-span-6 flex flex-col gap-4">
 
-    <utility-form-switch-active-block-component [control]="form.controls.active"></utility-form-switch-active-block-component>
-    <client-cover-image-business-profile-component [control]="form.controls.banner"></client-cover-image-business-profile-component>
-    <client-logo-business-profile-component [control]="form.controls.logo"></client-logo-business-profile-component>
     <client-business-profile-form-component [form]="form"></client-business-profile-form-component>
+
+    <utility-form-switch-active-block-component
+      [control]="form.controls.active">
+    </utility-form-switch-active-block-component>
+
+    <client-address-business-profile-component
+      [form]="form.controls.addresses.controls[0]">
+    </client-address-business-profile-component>
+
+    <client-cover-image-business-profile-component
+      [control]="form.controls.banner">
+    </client-cover-image-business-profile-component>
+
+    <client-logo-business-profile-component [control]="form.controls.logo"></client-logo-business-profile-component>
     <card>
       <div class="flex flex-col gap-4">
         <div

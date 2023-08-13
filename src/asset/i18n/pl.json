@@ -1,4 +1,7 @@
 {
+  "country": {
+    "UA": "Ukraina"
+  },
   "businessCategory": {
     "BeautySalon":  "Salon urody",
     "Barbershop": "Barbershop",
@@ -44,6 +47,12 @@
       "slogan": "Slogan",
       "address": "Adres",
       "feature": "Funkcja",
+      "businessName": "Nazwa firmy",
+      "country": "Kraj",
+      "city": "Miasto",
+      "zipCode": "Kod pocztowy",
+      "streetAddressLineOne": "Adres 1",
+      "streetAddressLineTwo": "Adres 2",
       "businessCategory": "Kategoria biznesowa",
       "clickToUpload": "Kliknij, aby przesłać",
       "add-service": "Dodaj usługę"
@@ -296,20 +305,44 @@
           "formats": "Obsługiwane formaty: SVG, PNG, JPG lub GIF",
           "motivate": "Możesz nadać profilowi swojej firmy nieco więcej osobowości i pomóc innym rozpoznać Cię, przesyłając logo (obraz, zdjęcie lub inną ikonę graficzną przedstawiającą „ty”).",
           "fileover": "Umieść swoje pliki tutaj"
+        },
+        "address": {
+          "title": "Adres",
+          "input": {
+            "streetAddressLineOne": {
+              "placeholder": "Nazwa ulicy, alei, bulwaru itp"
+            },
+            "streetAddressLineTwo": {
+              "placeholder": "Numer biura, domu itp"
+            },
+            "zipCode": {
+              "placeholder": "Kod pocztowy"
+            },
+            "city": {
+              "placeholder": "Miasto"
+            },
+            "country": {
+              "placeholder": "Kraj"
+            }
+          }
         }
       },
       "inputs": {
         "name": {
-          "label": "Nazwa",
-          "placeholder": "Wpisz nazwę firmy lub imię i nazwisko"
+          "label": "Nazwa firmy",
+          "placeholder": "Wpisz nazwę firmy lub nazwisko"
         },
         "description": {
-          "label": "Opis",
-          "placeholder": "Wpisz opis klienta"
+          "label": "Opis firmy",
+          "placeholder": "Krótko opisz czym się zajmujesz"
         },
         "active": {
           "label": "Aktywny",
           "placeholder": "Włącz, jeśli chcesz być aktywny"
+        },
+        "feature": {
+          "label": "Funkcja",
+          "placeholder": "Wpisz chwytliwą frazę"
         }
       }
     }

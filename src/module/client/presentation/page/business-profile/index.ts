@@ -21,6 +21,9 @@ import {
 } from "@client/presentation/component/settings/social-network-link.form.component";
 import {NgForOf} from "@angular/common";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {
+  AddressBusinessProfileComponent
+} from "@client/presentation/component/business-profile/address/address.business-profile.component";
 
 @Component({
   selector: 'client-settings-page',
@@ -35,7 +38,8 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
     SwitchActiveBlockComponent,
     SocialNetworkLinkFormComponent,
     NgForOf,
-    CardComponent
+    CardComponent,
+    AddressBusinessProfileComponent
   ],
   standalone: true
 })
@@ -61,7 +65,11 @@ export default class Index {
 
   // Save data
   public async save(): Promise<void> {
-    await this.updateClientApiAdapter.executeAsync(this.form.getRawValue() as IClient);
+    this.form.markAllAsTouched();
+    console.log(this.form.controls);
+    if (this.form.valid) {
+      await this.updateClientApiAdapter.executeAsync(this.form.getRawValue() as IClient);
+    }
   }
 
 }
