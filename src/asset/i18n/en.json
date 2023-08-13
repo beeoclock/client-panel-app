@@ -33,6 +33,9 @@
       "phone": "Phone",
       "active": "Active",
       "inactive": "Inactive",
+      "slogan": "Slogan",
+      "address": "Address",
+      "feature": "Feature",
       "clickToUpload": "Click to upload",
       "add-service": "Add service"
     },

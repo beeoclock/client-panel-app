@@ -33,6 +33,9 @@
       "phone": "Telefon",
       "active": "Aktywny",
       "inactive": "Nieaktywny",
+      "slogan": "Slogan",
+      "address": "Adres",
+      "feature": "Funkcja",
       "clickToUpload": "Kliknij, aby przesłać",
       "add-service": "Dodaj usługę"
     },

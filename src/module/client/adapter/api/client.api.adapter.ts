@@ -5,7 +5,6 @@ import {ApiRepository} from "@utility/repository/api.repository";
 import {HttpClient} from "@angular/common/http";
 import {clientEndpointEnum} from "@client/endpoint/client.endpoint";
 import {firstValueFrom} from "rxjs";
-import {TableState_BackendFormat} from "@utility/domain/table.state";
 
 @Injectable({
   providedIn: 'root'
@@ -13,29 +12,6 @@ import {TableState_BackendFormat} from "@utility/domain/table.state";
 export class ClientApiAdapter extends ApiRepository<Client.IClient> {
 
   private readonly httpClient = inject(HttpClient);
-
-  /**
-   * GET PAGED LIST BY FILTERS AND PARAMS
-   * @param params
-   */
-  public override list(params: TableState_BackendFormat): Promise<{
-    data: {
-      items: Client.IClient[];
-      total: number;
-    }
-  }> {
-    return firstValueFrom(this.httpClient.post<{
-      items: Client.IClient[];
-      totalSize: number;
-    }>(clientEndpointEnum.paged, params)).then(({totalSize, items}) => {
-      return {
-        data: {
-          items,
-          total: totalSize
-        }
-      };
-    });
-  }
 
   /**
    * GET ITEM BY ID
@@ -62,17 +38,13 @@ export class ClientApiAdapter extends ApiRepository<Client.IClient> {
    * @param value
    */
   public override save(value: Client.IClient): Promise<IClient> {
-    if (value?._id?.length) {
-      return firstValueFrom(this.httpClient.put<IClient>(clientEndpointEnum.update, value, {
-        headers: {
-          replace: JSON.stringify({
-            id: value._id
-          })
-        }
-      }));
-    } else {
-      return firstValueFrom(this.httpClient.post<IClient>(clientEndpointEnum.create, value));
-    }
+    return firstValueFrom(this.httpClient.put<IClient>(clientEndpointEnum.update, value, {
+      headers: {
+        replace: JSON.stringify({
+          id: value._id
+        })
+      }
+    }));
   }
 
   /**

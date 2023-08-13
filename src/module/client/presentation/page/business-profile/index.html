@@ -1,29 +1,21 @@
 <div class="md:p-4 pb-48 grid grid-cols-12">
 
-  <div class="col-span-12 lg:col-start-4 lg:col-span-6">
+  <div class="col-span-12 lg:col-start-4 lg:col-span-6 flex flex-col gap-4">
 
-    <form [formGroup]="form" class="flex flex-col gap-4">
+    <client-cover-image-business-profile-component></client-cover-image-business-profile-component>
 
-      <client-cover-image-business-profile-component></client-cover-image-business-profile-component>
+    <client-logo-business-profile-component [control]="form.controls.logo"></client-logo-business-profile-component>
 
-      <client-logo-business-profile-component></client-logo-business-profile-component>
+    <utility-form-switch-active-block-component [control]="form.controls.active"></utility-form-switch-active-block-component>
 
-      <div
-        class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-4">
+    <client-business-profile-form-component [form]="form"></client-business-profile-form-component>
 
-        <client-form-settings-component></client-form-settings-component>
-
-      </div>
-
-      <div class="mt-4">
-        <button
-          class="px-4 py-2 bg-blue-600 rounded-lg text-white w-full hover:bg-blue-700 cursor-pointer transition"
-          [disabled]="form.disabled">
-          {{ 'general.save' | translate }}
-        </button>
-      </div>
-
-    </form>
+    <button
+      class="px-4 py-2 bg-blue-600 rounded-lg text-white w-full hover:bg-blue-700 cursor-pointer transition"
+      (click)="save()"
+      [disabled]="form.disabled">
+      {{ 'general.save' | translate }}
+    </button>
 
   </div>
 

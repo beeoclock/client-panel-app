@@ -1,8 +1,12 @@
 import {Routes} from "@angular/router";
+import {clientDetailsResolver} from "@client/resolver/client.details.resolver";
 
 export const routers = [
   {
     path: 'business-profile',
+    resolve: {
+      item: clientDetailsResolver
+    },
     loadComponent: () => import('./page/business-profile')
   },
   {
