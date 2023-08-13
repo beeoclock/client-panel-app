@@ -306,6 +306,10 @@
           "motivate": "Możesz nadać profilowi swojej firmy nieco więcej osobowości i pomóc innym rozpoznać Cię, przesyłając logo (obraz, zdjęcie lub inną ikonę graficzną przedstawiającą „ty”).",
           "fileover": "Umieść swoje pliki tutaj"
         },
+        "gallery": {
+          "title": "Galeria",
+          "comment": "Prześlij obrazy przedstawiające Twoją pracę z najlepszej strony. Obrazy muszą mieć 1800 pikseli szerokości i 900 pikseli wysokości oraz muszą być w formacie JPEG lub PNG. Możesz przesłać maksymalnie 6 obrazów."
+        },
         "address": {
           "title": "Adres",
           "input": {

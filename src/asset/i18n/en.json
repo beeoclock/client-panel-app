@@ -307,6 +307,10 @@
             "motivate": "You can inject a little more personality into your business profile and help people recognize you by uploading a logo (an image, photo or other graphic icon of \"you\").",
             "fileover": "Put your files here"
           },
+          "gallery": {
+            "title": "Gallery",
+            "comment": "Upload images that demonstrate your work from the best side. Images must be 1800px wide by 900px high and in JPEG or PNG format. You may upload up to 6 images."
+          },
           "address": {
             "title": "Address",
             "input": {

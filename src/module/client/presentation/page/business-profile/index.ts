@@ -24,6 +24,9 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {
   AddressBusinessProfileComponent
 } from "@client/presentation/component/business-profile/address/address.business-profile.component";
+import {
+  GalleryBusinessProfileComponent
+} from "@client/presentation/component/business-profile/gallery/gallery.business-profile.component";
 
 @Component({
   selector: 'client-settings-page',
@@ -39,7 +42,8 @@ import {
     SocialNetworkLinkFormComponent,
     NgForOf,
     CardComponent,
-    AddressBusinessProfileComponent
+    AddressBusinessProfileComponent,
+    GalleryBusinessProfileComponent
   ],
   standalone: true
 })
