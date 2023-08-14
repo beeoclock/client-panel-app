@@ -11,7 +11,7 @@ import {CountryEnum} from "@utility/domain/enum/country.enum";
   selector: 'country-select-component',
   standalone: true,
   template: `
-    <label class="dark:text-beeDarkColor-300" [for]="id">
+    <label class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white" [for]="id">
       {{ 'keyword.capitalize.country' | translate }}
     </label>
     <div class="mt-2">

@@ -15,7 +15,7 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
   template: `
 
     <div class="flex items-center justify-between">
-      <label [for]="id" class="block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
+      <label [for]="id" class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
         {{ label }}
       </label>
       <div class="text-sm">

@@ -14,7 +14,7 @@ import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/inval
     ReactiveFormsModule
   ],
   template: `
-    <label [for]="id" class="block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">{{ label }}</label>
+    <label [for]="id" class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">{{ label }}</label>
 
     <div class="flex flex-col">
       <textarea

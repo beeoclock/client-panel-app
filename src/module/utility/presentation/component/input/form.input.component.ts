@@ -13,7 +13,7 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
     ReactiveFormsModule,
   ],
   template: `
-    <label [for]="id" class="block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
+    <label [for]="id" class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
       {{ label }}
     </label>
     <div class="mt-2">

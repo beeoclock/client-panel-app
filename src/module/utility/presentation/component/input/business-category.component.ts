@@ -11,7 +11,7 @@ import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum"
   selector: 'business-category-select-component',
   standalone: true,
   template: `
-    <label class="dark:text-beeDarkColor-300" [for]="id">{{ 'keyword.capitalize.businessCategory' | translate }}</label>
+    <label class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white" [for]="id">{{ 'keyword.capitalize.businessCategory' | translate }}</label>
     <div class="mt-2">
       <ng-select
         bindLabel="name"
