@@ -10,6 +10,16 @@
     "OnlineTeaching":  "Онлайн навчання",
     "Dentistry": "Стоматологія"
   },
+  "facility": {
+    "capitalize": {
+      "INTERNET": "Інтернет (Wi-Fi)",
+      "FREE_PARKING": "Безкоштовне паркування",
+      "ACCEPTING_PETS": "Можна з домашніми улюбленцями",
+      "ACCEPTING_CARD_PAYMENT": "Приймаємо оплату карткою",
+      "ACCEPTING_CHILDREN": "Пристосовано для дітей",
+      "ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Умови для людей з фізичними обмеженнями"
+    }
+  },
   "form": {
     "validation": {
       "required": "Обов'язкове поле",
@@ -19,6 +29,7 @@
   },
   "keyword": {
     "capitalize": {
+      "facilities": "Зручності",
       "writePrice": "Ввести ціну",
       "add-event": "Додати подію",
       "customer": "Клієнт",

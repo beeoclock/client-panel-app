@@ -31,6 +31,9 @@ import {
 import {
   BusinessProfileSocialMediaComponent
 } from "@client/presentation/component/business-profile/social-media/social-media.componen";
+import {
+  FacilitiesBusinessProfileComponent
+} from "@client/presentation/component/business-profile/facilities/facilities.business-profile.component";
 
 @Component({
   selector: 'client-settings-page',
@@ -49,7 +52,8 @@ import {
     GalleryBusinessProfileComponent,
     SchedulesFormComponent,
     BusinessProfileContactPhoneComponent,
-    BusinessProfileSocialMediaComponent
+    BusinessProfileSocialMediaComponent,
+    FacilitiesBusinessProfileComponent
   ],
   standalone: true
 })

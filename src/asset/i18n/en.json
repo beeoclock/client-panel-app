@@ -10,6 +10,16 @@
     "OnlineTeaching":  "Online teaching",
     "Dentistry": "Dentistry"
   },
+  "facility": {
+    "capitalize": {
+      "INTERNET": "Internet (Wi-Fi)",
+      "FREE_PARKING": "Free Parking",
+      "ACCEPTING_PETS": "Pets allowed",
+      "ACCEPTING_CARD_PAYMENT": "Accepting credit cards",
+      "ACCEPTING_CHILDREN": "Child-friendly",
+      "ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Accommodations for people with disabilities"
+    }
+  },
   "form": {
     "validation": {
       "required": "Required field",
@@ -19,6 +29,7 @@
   },
   "keyword": {
     "capitalize": {
+      "facilities": "Facilities",
       "writePrice": "Write price",
       "add-event": "Add event",
       "customer": "Customer",

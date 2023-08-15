@@ -10,6 +10,16 @@
     "OnlineTeaching":  "Nauczanie online",
     "Dentistry": "Dentystyka"
   },
+  "facility": {
+    "capitalize": {
+      "INTERNET": "Internet (Wi-Fi)",
+      "FREE_PARKING": "Darmowy parking",
+      "ACCEPTING_PETS": "Zwierzęta dozwolone",
+      "ACCEPTING_CARD_PAYMENT": "Akceptujemy płatności kartą",
+      "ACCEPTING_CHILDREN": "Przyjazne dzieciom",
+      "ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Zakwaterowanie dla osób z niepełnosprawnością"
+    }
+  },
   "form": {
     "validation": {
       "required": "Wymagane pole",
@@ -19,6 +29,7 @@
   },
   "keyword": {
     "capitalize": {
+      "facilities": "Udogodnienia",
       "writePrice": "Wpisz cenę",
       "add-event": "Dodaj wydarzenie",
       "customer": "Klient",
