@@ -3,9 +3,10 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 import {HasErrorDirective} from "@utility/directives/has-error/has-error.directive";
 import {NgxMaskDirective} from "ngx-mask";
+import {NgClass} from "@angular/common";
 
 @Component({
-  selector: 'form-badge-input',
+  selector: 'form-icon-input',
   standalone: true,
   template: `
     <label class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white" [for]="id">{{ label }}</label>
@@ -33,7 +34,7 @@ import {NgxMaskDirective} from "ngx-mask";
           text-sm
           border-beeColor-300
           py-2
-          px-3
+          px-2
           dark:bg-beeDarkColor-700
           dark:border-beeDarkColor-600
           dark:placeholder-beeDarkColor-400
@@ -45,7 +46,7 @@ import {NgxMaskDirective} from "ngx-mask";
           inline-flex
           items-center
           text-sm
-          px-3
+          px-1
           text-beeColor-500
           bg-beeColor-100
           border
@@ -55,7 +56,7 @@ import {NgxMaskDirective} from "ngx-mask";
           dark:bg-beeDarkColor-600
           dark:text-beeDarkColor-400
           dark:border-beeDarkColor-600">
-            {{ badge }}
+        <i class="bi" [ngClass]="icon"></i>
         </span>
     </div>
   `,
@@ -64,11 +65,12 @@ import {NgxMaskDirective} from "ngx-mask";
     ReactiveFormsModule,
     InvalidTooltipDirective,
     HasErrorDirective,
-    NgxMaskDirective
+    NgxMaskDirective,
+    NgClass
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InputBadgeComponent {
+export class InputIconComponent {
 
   @Input()
   public placeholder: string = '';
@@ -83,7 +85,7 @@ export class InputBadgeComponent {
   public id: string = '';
 
   @Input()
-  public badge: string = '';
+  public icon: string = '';
 
   @Input()
   public control = new FormControl();

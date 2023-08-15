@@ -16,13 +16,13 @@ import {PriceForm} from "@service/form/service.form";
   template: `
     <div class="flex flex-col gap-3">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <input-badge-component
+        <form-badge-input
           mask="00:00"
           [control]="durationControl"
           placeholder="00:00"
           [label]="'keyword.capitalize.duration' | translate"
           [badge]="'general.priceTimeFormatPrompt' | translate">
-        </input-badge-component>
+        </form-badge-input>
         <price-and-currency-component
           [priceControl]="priceForm.controls.price"
           [currencyControl]="priceForm.controls.currency">

@@ -16,17 +16,16 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
     <label [for]="id" class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
       {{ label }}
     </label>
-    <div class="mt-2">
-      <input
-        isRequired
-        invalidTooltip
-        [disabled]="disabled"
-        [formControl]="control"
-        [placeholder]="placeholder"
-        [id]="id"
-        [type]="type"
-        [autocomplete]="autocomplete"
-        class="
+    <input
+      isRequired
+      invalidTooltip
+      [disabled]="disabled"
+      [formControl]="control"
+      [placeholder]="placeholder"
+      [id]="id"
+      [type]="type"
+      [autocomplete]="autocomplete"
+      class="
           px-3
           block
           w-full
@@ -42,7 +41,6 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
           placeholder:text-beeColor-400
           focus:ring-2
           sm:text-sm sm:leading-6">
-    </div>
   `
 })
 export class FormInputComponent {

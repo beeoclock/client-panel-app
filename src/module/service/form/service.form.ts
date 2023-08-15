@@ -3,7 +3,7 @@ import {ActiveEnum, LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
 import {IMember} from "@member/domain";
 import {IDurationVersion} from "@service/domain";
-import {ScheduleForm, SchedulesForm} from "@utility/form/schdeule.form";
+import {SchedulesForm} from "@utility/form/schdeule.form";
 
 export const MINUTE_15 = 900; // In seconds
 export const MINUTE_45 = 2700; // In seconds
@@ -232,10 +232,6 @@ export class ServiceForm extends FormGroup<IServiceForm> {
   public initValue(): void {
     this.controls.permanentMembers.setValue([]);
     this.controls.active.setValue(ActiveEnum.YES);
-  }
-
-  public pushNewScheduleForm(): void {
-    this.controls.schedules.push(new ScheduleForm());
   }
 
   public pushNewLanguageVersionForm(): void {

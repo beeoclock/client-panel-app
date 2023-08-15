@@ -1,6 +1,5 @@
 import {Component, Input} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {NgForOf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 
@@ -8,18 +7,18 @@ import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/inval
   selector: 'form-textarea-component',
   standalone: true,
   imports: [
-    NgForOf,
     TranslateModule,
     InvalidTooltipDirective,
     ReactiveFormsModule
   ],
   template: `
-    <label [for]="id" class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">{{ label }}</label>
+    <label [for]="id"
+           class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">{{ label }}</label>
 
     <div class="flex flex-col">
       <textarea
         invalidTooltip
-        class="mt-2 focus:ring-2 outline-0 border rounded-md bg-white px-4 py-3 dark:bg-beeDarkColor-900 dark:border-beeDarkColor-700 dark:text-white"
+        class="focus:ring-2 outline-0 border border-beeColor-300 rounded-md bg-white px-4 py-3 dark:bg-beeDarkColor-900 dark:border-beeDarkColor-700 dark:text-white"
         [rows]="rows"
         [placeholder]="placeholder"
         [id]="id"

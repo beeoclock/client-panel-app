@@ -18,19 +18,18 @@ import {NgxMaskDirective} from "ngx-mask";
     <label [for]="id" class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
       {{ label }}
     </label>
-    <div class="mt-2">
-      <input
-        isRequired
-        invalidTooltip
-        [mask]="mask"
-        [dropSpecialCharacters]="dropSpecialCharacters"
-        [disabled]="disabled"
-        [formControl]="localControl"
-        [placeholder]="placeholder"
-        [id]="id"
-        [type]="type"
-        [autocomplete]="autocomplete"
-        class="
+    <input
+      isRequired
+      invalidTooltip
+      [mask]="mask"
+      [dropSpecialCharacters]="dropSpecialCharacters"
+      [disabled]="disabled"
+      [formControl]="localControl"
+      [placeholder]="placeholder"
+      [id]="id"
+      [type]="type"
+      [autocomplete]="autocomplete"
+      class="
           px-3
           block
           w-full
@@ -44,7 +43,6 @@ import {NgxMaskDirective} from "ngx-mask";
           placeholder:text-beeColor-400
           focus:border-beeColor-800
           sm:text-sm sm:leading-6">
-    </div>
   `
 })
 export class FormInputComponent implements OnInit {
