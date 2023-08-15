@@ -1,4 +1,5 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
+import {EarliestBookingEnum} from "@utility/domain/enum/earliest-booking.enum";
 
 export interface IBookingSettingsForm {
 
@@ -27,6 +28,7 @@ export class BookingSettingsForm extends FormGroup<IBookingSettingsForm> {
 
   private initValue(): void {
     this.controls.object.setValue('BookingSettings');
+    this.controls.earliestBooking.setValue(EarliestBookingEnum.TWO_WEEKS);
   }
 
   private initValidators(): void {

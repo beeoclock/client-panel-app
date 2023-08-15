@@ -2,6 +2,16 @@
   "country": {
     "UA": "Ukraine"
   },
+  "earliestBooking": {
+    "NO_LIMIT": "No limit",
+    "TWO_WEEKS": "This week and next week",
+    "THREE_WEEKS": "3 Weeks",
+    "FOUR_WEEKS": "4 Weeks",
+    "FIVE_WEEKS": "5 Weeks",
+    "SIX_WEEKS": "6 Weeks",
+    "SEVEN_WEEKS": "7 Weeks",
+    "EIGHT_WEEKS": "8 Weeks"
+  },
   "businessCategory": {
     "BeautySalon":  "Beauty salon",
     "Barbershop": "Barbershop",
@@ -73,7 +83,9 @@
       "streetAddressLineTwo": "Address 2",
       "businessCategory": "Business category",
       "clickToUpload": "Click to upload",
-      "add-service": "Add service"
+      "add-service": "Add service",
+      "bookingSettings": "Booking settings",
+      "earliestBooking": "Earliest booking"
     },
     "lowercase": {
       "or": "or",

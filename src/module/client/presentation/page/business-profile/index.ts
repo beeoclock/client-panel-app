@@ -34,27 +34,31 @@ import {
 import {
   FacilitiesBusinessProfileComponent
 } from "@client/presentation/component/business-profile/facilities/facilities.business-profile.component";
+import {
+  BookingSettingsBusinessProfileComponent
+} from "@client/presentation/component/business-profile/booking-settings/booking-settings.business-profile.component";
 
 @Component({
   selector: 'client-settings-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    FormBusinessProfileComponent,
-    ReactiveFormsModule,
-    TranslateModule,
-    CoverImageBusinessProfileComponent,
-    LogoBusinessProfileComponent,
-    SwitchActiveBlockComponent,
-    NgForOf,
-    CardComponent,
-    AddressBusinessProfileComponent,
-    GalleryBusinessProfileComponent,
-    SchedulesFormComponent,
-    BusinessProfileContactPhoneComponent,
-    BusinessProfileSocialMediaComponent,
-    FacilitiesBusinessProfileComponent
-  ],
+    imports: [
+        FormBusinessProfileComponent,
+        ReactiveFormsModule,
+        TranslateModule,
+        CoverImageBusinessProfileComponent,
+        LogoBusinessProfileComponent,
+        SwitchActiveBlockComponent,
+        NgForOf,
+        CardComponent,
+        AddressBusinessProfileComponent,
+        GalleryBusinessProfileComponent,
+        SchedulesFormComponent,
+        BusinessProfileContactPhoneComponent,
+        BusinessProfileSocialMediaComponent,
+        FacilitiesBusinessProfileComponent,
+        BookingSettingsBusinessProfileComponent
+    ],
   standalone: true
 })
 export default class Index {

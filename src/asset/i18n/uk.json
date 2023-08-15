@@ -2,6 +2,16 @@
   "country": {
     "UA": "Україна"
   },
+  "earliestBooking": {
+    "NO_LIMIT": "Без обмежень",
+    "TWO_WEEKS": "Цього тижня та наступного тижня",
+    "THREE_WEEKS": "3 тижні",
+    "FOUR_WEEKS": "4 тижні",
+    "FIVE_WEEKS": "5 тижнів",
+    "SIX_WEEKS": "6 тижнів",
+    "SEVEN_WEEKS": "7 тижнів",
+    "EIGHT_WEEKS": "8 тижнів"
+  },
   "businessCategory": {
     "BeautySalon":  "Салон краси",
     "Barbershop": "Barbershop",
@@ -73,7 +83,9 @@
       "streetAddressLineTwo": "Адреса 2",
       "businessCategory": "Категорія бізнесу",
       "clickToUpload": "Натисніть, щоб завантажити",
-      "add-service": "Додати послугу"
+      "add-service": "Додати послугу",
+      "bookingSettings": "Налаштування бронювання",
+      "earliestBooking": "Найближче бронювання"
     },
     "lowercase": {
       "or": "або",
