@@ -3,5 +3,5 @@ import {CellCountryPrefixEnum} from "@utility/domain/enum/cell-country-prefix.en
 export interface IContact {
   object: 'Contact';
   countryCode: CellCountryPrefixEnum;
-  phoneNumber: number;
+  phoneNumber: string;
 }

@@ -16,9 +16,6 @@ import * as Client from "@client/domain";
 import {IClient} from "@client/domain";
 import {UpdateClientApiAdapter} from "@client/adapter/external/api/update.client.api.adapter";
 import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
-import {
-  SocialNetworkLinkFormComponent
-} from "@client/presentation/component/settings/social-network-link.form.component";
 import {NgForOf} from "@angular/common";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {
@@ -28,6 +25,9 @@ import {
   GalleryBusinessProfileComponent
 } from "@client/presentation/component/business-profile/gallery/gallery.business-profile.component";
 import {SchedulesFormComponent} from "@utility/presentation/component/schedule/schedules.form.component";
+import {
+  BusinessProfileContactPhoneComponent
+} from "@client/presentation/component/business-profile/contact-phone/contact-phone.componen";
 import {
   BusinessProfileSocialMediaComponent
 } from "@client/presentation/component/business-profile/social-media/social-media.componen";
@@ -43,12 +43,12 @@ import {
     CoverImageBusinessProfileComponent,
     LogoBusinessProfileComponent,
     SwitchActiveBlockComponent,
-    SocialNetworkLinkFormComponent,
     NgForOf,
     CardComponent,
     AddressBusinessProfileComponent,
     GalleryBusinessProfileComponent,
     SchedulesFormComponent,
+    BusinessProfileContactPhoneComponent,
     BusinessProfileSocialMediaComponent
   ],
   standalone: true
@@ -63,7 +63,7 @@ export default class Index {
     // Init data
     const item: Client.IClient = this.store.snapshot().client.item;
 
-    const {socialNetworkLinks, schedules, ...data} = item;
+    const {socialNetworkLinks, schedules, contacts, ...data} = item;
     this.form.patchValue(data);
 
     if (socialNetworkLinks?.length) {
@@ -75,6 +75,12 @@ export default class Index {
     if (schedules?.length) {
       schedules.forEach((schedule) => {
         this.form.controls.schedules.pushNewOne(schedule);
+      });
+    }
+
+    if (contacts?.length) {
+      contacts.forEach((contact) => {
+        this.form.controls.contacts.pushNewOne(contact);
       });
     }
 

@@ -6,9 +6,6 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {NgForOf, NgIf} from '@angular/common';
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
-import {
-  SocialNetworkLinkFormComponent
-} from "@client/presentation/component/settings/social-network-link.form.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
@@ -29,7 +26,6 @@ import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/b
     NgIf,
     LoaderComponent,
     NgForOf,
-    SocialNetworkLinkFormComponent,
     TranslateModule,
     CardComponent,
     FormInputComponent,

@@ -1,3 +1,5 @@
+import {is} from "thiis";
+
 export enum CellCountryPrefixEnum {
   UK = 44,
   USA = 1,
@@ -215,3 +217,14 @@ export enum CellCountryPrefixEnum {
   Zambia = 260,
   Zimbabwe = 263,
 }
+
+
+export const CELL_COUNTRY_PREFIX_OBJECT_LIST = Object.values(CellCountryPrefixEnum)
+  .filter(code => is.number(code))
+  .map(code => {
+    return {
+      id: code,
+      label: `+${code} - ${CellCountryPrefixEnum[code as keyof typeof CellCountryPrefixEnum]}`,
+      shortLabel: `+${code}`,
+    };
+  });

@@ -6,7 +6,7 @@ export interface IContactForm {
 
   object: FormControl<'Contact'>;
   countryCode: FormControl<CellCountryPrefixEnum>;
-  phoneNumber: FormControl<number>;
+  phoneNumber: FormControl<string>;
 
   [key: string]: AbstractControl<any, any>;
 }
@@ -27,6 +27,7 @@ export class ContactForm extends FormGroup<IContactForm> {
 
   private initValue(): void {
     this.controls.object.setValue('Contact');
+    this.controls.countryCode.setValue(CellCountryPrefixEnum.Ukraine);
   }
 
   private initValidators(): void {
