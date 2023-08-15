@@ -28,25 +28,29 @@ import {
   GalleryBusinessProfileComponent
 } from "@client/presentation/component/business-profile/gallery/gallery.business-profile.component";
 import {SchedulesFormComponent} from "@utility/presentation/component/schedule/schedules.form.component";
+import {
+  BusinessProfileSocialMediaComponent
+} from "@client/presentation/component/business-profile/social-media/social-media.componen";
 
 @Component({
   selector: 'client-settings-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-    imports: [
-        FormBusinessProfileComponent,
-        ReactiveFormsModule,
-        TranslateModule,
-        CoverImageBusinessProfileComponent,
-        LogoBusinessProfileComponent,
-        SwitchActiveBlockComponent,
-        SocialNetworkLinkFormComponent,
-        NgForOf,
-        CardComponent,
-        AddressBusinessProfileComponent,
-        GalleryBusinessProfileComponent,
-        SchedulesFormComponent
-    ],
+  imports: [
+    FormBusinessProfileComponent,
+    ReactiveFormsModule,
+    TranslateModule,
+    CoverImageBusinessProfileComponent,
+    LogoBusinessProfileComponent,
+    SwitchActiveBlockComponent,
+    SocialNetworkLinkFormComponent,
+    NgForOf,
+    CardComponent,
+    AddressBusinessProfileComponent,
+    GalleryBusinessProfileComponent,
+    SchedulesFormComponent,
+    BusinessProfileSocialMediaComponent
+  ],
   standalone: true
 })
 export default class Index {
@@ -61,11 +65,13 @@ export default class Index {
 
     const {socialNetworkLinks, schedules, ...data} = item;
     this.form.patchValue(data);
+
     if (socialNetworkLinks?.length) {
       socialNetworkLinks.forEach((socialNetworkLink) => {
         this.form.controls.socialNetworkLinks.pushNewOne(socialNetworkLink);
       });
     }
+
     if (schedules?.length) {
       schedules.forEach((schedule) => {
         this.form.controls.schedules.pushNewOne(schedule);
