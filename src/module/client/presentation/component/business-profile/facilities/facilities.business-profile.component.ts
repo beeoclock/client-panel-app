@@ -25,11 +25,10 @@ export class FacilitiesBusinessProfileComponent {
   public control = new FormControl();
 
   public readonly facilities: {
-    id: string;
+    id: FacilityEnum;
     label: string;
     icon: string;
   }[];
-
 
   constructor() {
 
@@ -45,11 +44,23 @@ export class FacilitiesBusinessProfileComponent {
     this.facilities = Object.values(FacilityEnum)
       .map(facility => {
         return {
-          id: facility,
+          id: FacilityEnum[facility],
           label: facility,
           icon: facilityIconMap[facility],
         };
       });
   }
 
+  public isSelected(facility: FacilityEnum): boolean {
+    return !!this.control.value?.includes(facility);
+  }
+
+  public toggleSelect(id: FacilityEnum): void {
+    const value = this.control.value || [];
+    if (value.includes(id)) {
+      this.control.setValue(value.filter((v: FacilityEnum) => v !== id));
+    } else {
+      this.control.setValue([...value, id]);
+    }
+  }
 }
