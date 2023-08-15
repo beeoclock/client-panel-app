@@ -2,6 +2,7 @@ import {Component, Input, ViewEncapsulation} from "@angular/core";
 import {IsRequiredDirective} from "@utility/directives/is-required/is-required";
 import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'form-input',
@@ -11,14 +12,16 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
     IsRequiredDirective,
     InvalidTooltipDirective,
     ReactiveFormsModule,
+    NgIf,
   ],
   template: `
-    <label [for]="id" class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
+    <label *ngIf="showLabel" [for]="id" class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
       {{ label }}
     </label>
     <input
       isRequired
       invalidTooltip
+      [isRequiredEnabled]="showLabel"
       [disabled]="disabled"
       [formControl]="control"
       [placeholder]="placeholder"
@@ -47,6 +50,9 @@ export class FormInputComponent {
 
   @Input()
   public label = 'todo';
+
+  @Input()
+  public showLabel = true;
 
   @Input()
   public id = 'utility-base-input';

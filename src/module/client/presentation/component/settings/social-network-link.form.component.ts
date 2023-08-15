@@ -1,44 +1,41 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
-import {InputDirective} from '@utility/directives/input/input.directive';
-import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
-import {NgForOf, NgIf} from '@angular/common';
-import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {SocialNetworkForm} from "@client/form/social-network.form";
 import {SOCIAL_NETWORKS} from "@utility/domain/enum/social-network.enum";
 import {NgSelectModule} from "@ng-select/ng-select";
+import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'client-form-social-network-link-form-component',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
   imports: [
-    InputDirective,
-    DeleteButtonComponent,
     ReactiveFormsModule,
-    SpinnerComponent,
-    NgIf,
-    LoaderComponent,
-    NgForOf,
-    NgSelectModule
+    NgSelectModule,
+    FormInputComponent,
+    TranslateModule
   ],
   template: `
-    <form [formGroup]="form" class="flex gap-4 justify-between">
+    <div class="flex gap-4 justify-between">
       <div class="w-40">
-        <label for="type">Social Network</label>
         <ng-select
           id="type"
-          formControlName="type"
+          [formControl]="form.controls.type"
           [items]="socialNetworks"
           [clearable]="false">
         </ng-select>
       </div>
       <div class="w-full">
-        <label for="link">Link</label>
-        <input type="text" placeholder="https://example.com" class="rounded border px-3 py-2 w-full" id="link" formControlName="link">
+        <form-input
+          id="business-profile-form-social-media-link-input"
+          autocomplete="socialMedia.link"
+          placeholder="https://example.com"
+          [control]="form.controls.link"
+          [showLabel]="false">
+        </form-input>
       </div>
-    </form>
+    </div>
   `
 })
 export class SocialNetworkLinkFormComponent {
