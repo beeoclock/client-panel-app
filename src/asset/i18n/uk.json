@@ -26,6 +26,23 @@
     "THREE_DAYS": "3 дні",
     "ONE_WEEK": "7 днів"
   },
+  "approvalTime": {
+    "FIVE_MINUTES": "5 хвилин",
+    "TEN_MINUTES": "10 хвилин",
+    "FIFTEEN_MINUTES": "15 хвилин",
+    "TWENTY_MINUTES": "20 хвилин",
+    "THIRTY_MINUTES": "30 хвилин",
+    "FORTY_FIVE_MINUTES": "45 хвилин",
+    "ONE_HOUR": "1 година",
+    "TWO_HOURS": "2 години",
+    "THREE_HOURS": "3 години",
+    "FOUR_HOURS": "4 години",
+    "FIVE_HOURS": "5 годин",
+    "SIX_HOURS": "6 годин",
+    "SEVEN_HOURS": "7 годин",
+    "EIGHT_HOURS": "8 годин",
+    "ONE_DAY": "1 день"
+  },
   "businessCategory": {
     "BeautySalon":  "Салон краси",
     "Barbershop": "Barbershop",
@@ -100,7 +117,8 @@
       "add-service": "Додати послугу",
       "bookingSettings": "Налаштування бронювання",
       "earliestBooking": "Найближче бронювання",
-      "latestBooking": "Останнє бронювання"
+      "latestBooking": "Останнє бронювання",
+      "approvalTime": "Час підтвердження"
     },
     "lowercase": {
       "or": "або",

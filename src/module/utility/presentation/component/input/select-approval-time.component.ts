@@ -2,18 +2,18 @@ import {ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation} fr
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {LatestBookingEnum} from "@utility/domain/enum/latest-booking.enum";
+import {ApprovalTimeEnum} from "@utility/domain/enum/approval-time.enum";
 
 @Component({
-  selector: 'select-latest-booking-component',
+  selector: 'select-approval-time-component',
   standalone: true,
   template: `
     <label class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white"
-           [for]="id">{{ 'keyword.capitalize.latestBooking' | translate }}</label>
+           [for]="id">{{ 'keyword.capitalize.approvalTime' | translate }}</label>
     <ng-select
       bindLabel="name"
       bindValue="seconds"
-      [items]="latestBookingList"
+      [items]="approvalTimeList"
       [clearable]="false"
       [id]="id"
       [formControl]="control">
@@ -27,7 +27,7 @@ import {LatestBookingEnum} from "@utility/domain/enum/latest-booking.enum";
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectLatestBookingComponent {
+export class SelectApprovalTimeComponent {
 
   @Input()
   public id: string = '';
@@ -37,12 +37,12 @@ export class SelectLatestBookingComponent {
 
   public readonly translateService = inject(TranslateService);
 
-  public readonly latestBookingList = Object.values(LatestBookingEnum)
-    .filter((latestBookingName) => typeof latestBookingName === 'string')
-    .map((latestBookingName) => {
+  public readonly approvalTimeList = Object.values(ApprovalTimeEnum)
+    .filter((approvalTimeName) => typeof approvalTimeName === 'string')
+    .map((approvalTimeName) => {
       return {
-        name: this.translateService.instant(`latestBooking.${latestBookingName}`),
-        seconds: LatestBookingEnum[latestBookingName as keyof typeof LatestBookingEnum]
+        name: this.translateService.instant(`approvalTime.${approvalTimeName}`),
+        seconds: ApprovalTimeEnum[approvalTimeName as keyof typeof ApprovalTimeEnum]
       };
     });
 

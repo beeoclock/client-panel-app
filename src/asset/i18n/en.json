@@ -26,6 +26,23 @@
     "THREE_DAYS": "3 days",
     "ONE_WEEK": "7 days"
   },
+  "approvalTime": {
+    "FIVE_MINUTES": "5 minutes",
+    "TEN_MINUTES": "10 minutes",
+    "FIFTEEN_MINUTES": "15 minutes",
+    "TWENTY_MINUTES": "20 minutes",
+    "THIRTY_MINUTES": "30 minutes",
+    "FORTY_FIVE_MINUTES": "45 minutes",
+    "ONE_HOUR": "1 hour",
+    "TWO_HOURS": "2 hours",
+    "THREE_HOURS": "3 hours",
+    "FOUR_HOURS": "4 hours",
+    "FIVE_HOURS": "5 hours",
+    "SIX_HOURS": "6 hours",
+    "SEVEN_HOURS": "7 hours",
+    "EIGHT_HOURS": "8 hours",
+    "ONE_DAY": "1 day"
+  },
   "businessCategory": {
     "BeautySalon":  "Beauty salon",
     "Barbershop": "Barbershop",
@@ -100,7 +117,8 @@
       "add-service": "Add service",
       "bookingSettings": "Booking settings",
       "earliestBooking": "Earliest booking",
-      "latestBooking": "Latest booking"
+      "latestBooking": "Latest booking",
+      "approvalTime": "Approval time"
     },
     "lowercase": {
       "or": "or",

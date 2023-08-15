@@ -1,13 +1,14 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {EarliestBookingEnum} from "@utility/domain/enum/earliest-booking.enum";
 import {LatestBookingEnum} from "@utility/domain/enum/latest-booking.enum";
+import {ApprovalTimeEnum} from "@utility/domain/enum/approval-time.enum";
 
 export interface IBookingSettingsForm {
 
   object: FormControl<'BookingSettings'>;
-  approvalTime: FormControl<number>;
-  latestBooking: FormControl<number>;
-  earliestBooking: FormControl<number>;
+  approvalTime: FormControl<ApprovalTimeEnum>;
+  latestBooking: FormControl<LatestBookingEnum>;
+  earliestBooking: FormControl<EarliestBookingEnum>;
 
   [key: string]: AbstractControl<any, any>;
 }
@@ -31,6 +32,7 @@ export class BookingSettingsForm extends FormGroup<IBookingSettingsForm> {
     this.controls.object.setValue('BookingSettings');
     this.controls.earliestBooking.setValue(EarliestBookingEnum.TWO_WEEKS);
     this.controls.latestBooking.setValue(LatestBookingEnum.ONE_DAY);
+    this.controls.approvalTime.setValue(ApprovalTimeEnum.ONE_HOUR);
   }
 
   private initValidators(): void {

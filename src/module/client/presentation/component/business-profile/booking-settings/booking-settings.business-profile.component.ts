@@ -4,6 +4,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {TranslateModule} from "@ngx-translate/core";
 import {SelectEarliestBookingComponent} from "@utility/presentation/component/input/select-earliest-booking.component";
 import {SelectLatestBookingComponent} from "@utility/presentation/component/input/select-latest-booking.component";
+import {SelectApprovalTimeComponent} from "@utility/presentation/component/input/select-approval-time.component";
 
 @Component({
   selector: 'client-business-profile-booking-settings-component',
@@ -13,7 +14,8 @@ import {SelectLatestBookingComponent} from "@utility/presentation/component/inpu
     CardComponent,
     TranslateModule,
     SelectEarliestBookingComponent,
-    SelectLatestBookingComponent
+    SelectLatestBookingComponent,
+    SelectApprovalTimeComponent
   ],
   template: `
     <card>
@@ -29,6 +31,10 @@ import {SelectLatestBookingComponent} from "@utility/presentation/component/inpu
       <select-latest-booking-component
         [control]="form.controls.latestBooking">
       </select-latest-booking-component>
+
+      <select-approval-time-component
+        [control]="form.controls.approvalTime">
+      </select-approval-time-component>
 
     </card>
   `
