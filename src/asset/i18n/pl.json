@@ -12,6 +12,20 @@
     "SEVEN_WEEKS": "7 tygodni",
     "EIGHT_WEEKS": "8 tygodni"
   },
+  "latestBooking": {
+    "NO_LIMIT": "Bez ograniczeń",
+    "MINUTE_15": "15 minut",
+    "MINUTE_30": "30 minut",
+    "ONE_HOUR": "1 godzina",
+    "TWO_HOURS": "2 godziny",
+    "THREE_HOURS": "3 godziny",
+    "FOUR_HOURS": "4 godziny",
+    "FIVE_HOURS": "5 godzin",
+    "SIX_HOURS": "6 godzin",
+    "ONE_DAY": "1 dzień",
+    "THREE_DAYS": "3 dni",
+    "ONE_WEEK": "7 dni"
+  },
   "businessCategory": {
     "BeautySalon":  "Salon urody",
     "Barbershop": "Barbershop",
@@ -85,7 +99,8 @@
       "clickToUpload": "Kliknij, aby przesłać",
       "add-service": "Dodaj usługę",
       "bookingSettings": "Ustawienia rezerwacji",
-      "earliestBooking": "Najwcześniejsza rezerwacja"
+      "earliestBooking": "Najwcześniejsza rezerwacja",
+      "latestBooking": "Najpóźniejsza rezerwacja"
     },
     "lowercase": {
       "or": "lub",
