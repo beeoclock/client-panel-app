@@ -46,7 +46,7 @@ import {NgClass} from "@angular/common";
           inline-flex
           items-center
           text-sm
-          px-1
+          px-3
           text-beeColor-500
           bg-beeColor-100
           border

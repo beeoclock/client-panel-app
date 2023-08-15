@@ -26,14 +26,15 @@ import {TranslateModule} from "@ngx-translate/core";
       <div class="flex flex-col gap-8">
         <div
           *ngFor="let scheduleForm of schedulesForm.controls; let index = index"
-          class="flex items-center gap-2">
+          class="grid grid-cols-12 gap-2">
 
-          <schedule-form-component
-            [form]="scheduleForm">
-          </schedule-form-component>
-          <div>
-            <div class="py-1">&nbsp;</div>
-            <button class="text-beeColor-600 hover:text-red-600 hover:bg-red-100 px-2 py-1 rounded-2xl"
+          <div class="col-span-11">
+            <schedule-form-component
+              [form]="scheduleForm">
+            </schedule-form-component>
+          </div>
+          <div class="col-span-1 flex items-center">
+            <button class="text-beeColor-600 hover:text-red-600 hover:bg-red-100 px-3 py-2 rounded-full mt-8"
                     (click)="schedulesForm.remove(index)">
               <i class="bi bi-trash"></i>
             </button>

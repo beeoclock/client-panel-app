@@ -21,7 +21,7 @@ import {WORK_WEEK} from "@utility/domain/enum";
     <div class="grid grid-cols-7 gap-2">
       <div *ngFor="let day of weekDayList" class="flex items-center justify-center">
         <button
-          class="rounded-xl border px-3 py-1.5 dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 dark:text-white"
+          class="rounded-xl border w-full text-center py-1.5 dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 dark:text-white"
           [ngClass]="selectedClass(isSelected(day.id))"
           [id]="'service-form-workDays-' + day.id"
           (click)="toggleSelect(day.id)">

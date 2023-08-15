@@ -15,15 +15,15 @@ import {TranslateModule} from "@ngx-translate/core";
   ],
   template: `
     <div class="grid grid-cols-6 gap-2 mt-2">
-      <div class="col-span-6 md:col-span-4">
+      <div class="col-span-6">
         <select-week-day-component [control]="form.controls.workDays"></select-week-day-component>
       </div>
-      <div class="col-span-6 md:col-span-2 flex gap-2">
-        <div class="flex flex-col">
+      <div class="col-span-6 flex gap-2">
+        <div class="w-full">
           <time-input-component [control]="form.controls.startTime" [label]="'keyword.capitalize.start' | translate">
           </time-input-component>
         </div>
-        <div class="flex flex-col">
+        <div class="w-full">
           <time-input-component [control]="form.controls.endTime" [label]="'keyword.capitalize.end' | translate">
           </time-input-component>
         </div>
