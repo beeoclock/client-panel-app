@@ -18,7 +18,7 @@ import {SelectApprovalTimeComponent} from "@utility/presentation/component/input
     SelectApprovalTimeComponent
   ],
   template: `
-    <card>
+    <card gap="8">
 
       <strong class="dark:text-white">
         {{ 'keyword.capitalize.bookingSettings' | translate }}

@@ -8,8 +8,12 @@ import {ApprovalTimeEnum} from "@utility/domain/enum/approval-time.enum";
   selector: 'select-approval-time-component',
   standalone: true,
   template: `
-    <label class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white"
-           [for]="id">{{ 'keyword.capitalize.approvalTime' | translate }}</label>
+    <label class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white" [for]="id">
+      {{ 'keyword.capitalize.approvalTime' | translate }}
+    </label>
+    <div class="text-sm text-beeColor-500">
+      {{ 'client.profile.form.section.bookingSettings.input.approvalTime.placeholder' | translate }}
+    </div>
     <ng-select
       bindLabel="name"
       bindValue="seconds"

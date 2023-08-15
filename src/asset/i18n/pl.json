@@ -44,11 +44,11 @@
     "ONE_DAY": "1 dzień"
   },
   "businessCategory": {
-    "BeautySalon":  "Salon urody",
+    "BeautySalon": "Salon urody",
     "Barbershop": "Barbershop",
-    "Hairdresser":  "Fryzjer",
+    "Hairdresser": "Fryzjer",
     "OnlineConsultation": "Konsultacje online",
-    "OnlineTeaching":  "Nauczanie online",
+    "OnlineTeaching": "Nauczanie online",
     "Dentistry": "Dentystyka"
   },
   "facility": {
@@ -352,64 +352,77 @@
           }
         }
       }
-    }
-  },
-  "profile": {
-    "title": "Profil",
-    "form": {
-      "section": {
-        "coverImage": {
-          "title": "Obraz w tle",
-          "motivate": "Możesz nadać swojemu profilowi nieco więcej osobowości i pomóc innym rozpoznać Twoją pracę, przesyłając \n obraz (obraz, zdjęcie lub inną grafikę) jako obraz w tle Twojego profilu.",
-          "fileover": "Umieść swoje pliki tutaj"
-        },
-        "logo": {
-          "title": "Logo",
-          "formats": "Obsługiwane formaty: SVG, PNG, JPG lub GIF",
-          "motivate": "Możesz nadać profilowi swojej firmy nieco więcej osobowości i pomóc innym rozpoznać Cię, przesyłając logo (obraz, zdjęcie lub inną ikonę graficzną przedstawiającą „ty”).",
-          "fileover": "Umieść swoje pliki tutaj"
-        },
-        "gallery": {
-          "title": "Galeria",
-          "comment": "Prześlij obrazy przedstawiające Twoją pracę z najlepszej strony. Obrazy muszą mieć 1800 pikseli szerokości i 900 pikseli wysokości oraz muszą być w formacie JPEG lub PNG. Możesz przesłać maksymalnie 6 obrazów."
-        },
-        "address": {
-          "title": "Adres",
-          "input": {
-            "streetAddressLineOne": {
-              "placeholder": "Nazwa ulicy, alei, bulwaru itp"
-            },
-            "streetAddressLineTwo": {
-              "placeholder": "Numer biura, domu itp"
-            },
-            "zipCode": {
-              "placeholder": "Kod pocztowy"
-            },
-            "city": {
-              "placeholder": "Miasto"
-            },
-            "country": {
-              "placeholder": "Kraj"
+    },
+    "profile": {
+      "title": "Profil",
+      "form": {
+        "section": {
+          "coverImage": {
+            "title": "Obraz w tle",
+            "motivate": "Możesz nadać swojemu profilowi nieco więcej osobowości i pomóc innym rozpoznać Twoją pracę, przesyłając \n obraz (obraz, zdjęcie lub inną grafikę) jako obraz w tle Twojego profilu.",
+            "fileover": "Umieść swoje pliki tutaj"
+          },
+          "logo": {
+            "title": "Logo",
+            "formats": "Obsługiwane formaty: SVG, PNG, JPG lub GIF",
+            "motivate": "Możesz nadać profilowi swojej firmy nieco więcej osobowości i pomóc innym rozpoznać Cię, przesyłając logo (obraz, zdjęcie lub inną ikonę graficzną przedstawiającą „ty”).",
+            "fileover": "Umieść swoje pliki tutaj"
+          },
+          "gallery": {
+            "title": "Galeria",
+            "comment": "Prześlij obrazy przedstawiające Twoją pracę z najlepszej strony. Obrazy muszą mieć 1800 pikseli szerokości i 900 pikseli wysokości oraz muszą być w formacie JPEG lub PNG. Możesz przesłać maksymalnie 6 obrazów."
+          },
+          "address": {
+            "title": "Adres",
+            "input": {
+              "streetAddressLineOne": {
+                "placeholder": "Nazwa ulicy, alei, bulwaru itp"
+              },
+              "streetAddressLineTwo": {
+                "placeholder": "Numer biura, domu itp"
+              },
+              "zipCode": {
+                "placeholder": "Kod pocztowy"
+              },
+              "city": {
+                "placeholder": "Miasto"
+              },
+              "country": {
+                "placeholder": "Kraj"
+              }
+            }
+          },
+          "bookingSettings": {
+            "input": {
+              "earliestBooking": {
+                "placeholder": "Ustaw ruchomy harmonogram tygodni, które ludzie mogą rezerwować w Twoim kalendarzu"
+              },
+              "latestBooking": {
+                "placeholder": "Minimalny czas przed możliwością rezerwacji usługi"
+              },
+              "approvalTime": {
+                "placeholder": "Czas, po którym niezatwierdzone wydarzenie zostanie anulowane"
+              }
             }
           }
-        }
-      },
-      "inputs": {
-        "name": {
-          "label": "Nazwa firmy",
-          "placeholder": "Wpisz nazwę firmy lub nazwisko"
         },
-        "description": {
-          "label": "Opis firmy",
-          "placeholder": "Krótko opisz czym się zajmujesz"
-        },
-        "active": {
-          "label": "Aktywny",
-          "placeholder": "Włącz, jeśli chcesz być aktywny"
-        },
-        "feature": {
-          "label": "Funkcja",
-          "placeholder": "Wpisz chwytliwą frazę"
+        "inputs": {
+          "name": {
+            "label": "Nazwa firmy",
+            "placeholder": "Wpisz nazwę firmy lub nazwisko"
+          },
+          "description": {
+            "label": "Opis firmy",
+            "placeholder": "Krótko opisz czym się zajmujesz"
+          },
+          "active": {
+            "label": "Aktywny",
+            "placeholder": "Włącz, jeśli chcesz być aktywny"
+          },
+          "feature": {
+            "label": "Funkcja",
+            "placeholder": "Wpisz chwytliwą frazę"
+          }
         }
       }
     }

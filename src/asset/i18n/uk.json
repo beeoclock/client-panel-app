@@ -44,11 +44,11 @@
     "ONE_DAY": "1 день"
   },
   "businessCategory": {
-    "BeautySalon":  "Салон краси",
+    "BeautySalon": "Салон краси",
     "Barbershop": "Barbershop",
-    "Hairdresser":  "Перукарня",
+    "Hairdresser": "Перукарня",
     "OnlineConsultation": "Онлайн консультація",
-    "OnlineTeaching":  "Онлайн навчання",
+    "OnlineTeaching": "Онлайн навчання",
     "Dentistry": "Стоматологія"
   },
   "facility": {
@@ -116,7 +116,7 @@
       "clickToUpload": "Натисніть, щоб завантажити",
       "add-service": "Додати послугу",
       "bookingSettings": "Налаштування бронювання",
-      "earliestBooking": "Найближче бронювання",
+      "earliestBooking": "Коли можна зарезервувати послугу",
       "latestBooking": "Останнє бронювання",
       "approvalTime": "Час підтвердження"
     },
@@ -391,6 +391,19 @@
               },
               "country": {
                 "placeholder": "Вибери країну"
+              }
+            }
+          },
+          "bookingSettings": {
+            "input": {
+              "earliestBooking": {
+                "placeholder": "Встанови період тижнів з плаваючим графіком, які люди можуть бронювати в твоєму календарі"
+              },
+              "latestBooking": {
+                "placeholder": "Мінімальний час перед можливістю забронювати послугу"
+              },
+              "approvalTime": {
+                "placeholder": "Час, після якого незатверджена подія буде скасована"
               }
             }
           }

@@ -393,6 +393,19 @@
                 "placeholder": "Your country"
               }
             }
+          },
+          "bookingSettings": {
+            "input": {
+              "earliestBooking": {
+                "placeholder": "Set of period of rolling weeks people can book in your calendar"
+              },
+              "latestBooking": {
+                "placeholder": "Minimum amount of time before a service can be booked"
+              },
+              "approvalTime": {
+                "placeholder": "Time after which the requested event will be canceled, if not approved"
+              }
+            }
           }
         },
         "inputs": {
