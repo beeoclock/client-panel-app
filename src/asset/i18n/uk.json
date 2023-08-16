@@ -4,16 +4,6 @@
   },
   "earliestBooking": {
     "NO_LIMIT": "Без обмежень",
-    "TWO_WEEKS": "Цього тижня та наступного тижня",
-    "THREE_WEEKS": "3 тижні",
-    "FOUR_WEEKS": "4 тижні",
-    "FIVE_WEEKS": "5 тижнів",
-    "SIX_WEEKS": "6 тижнів",
-    "SEVEN_WEEKS": "7 тижнів",
-    "EIGHT_WEEKS": "8 тижнів"
-  },
-  "latestBooking": {
-    "NO_LIMIT": "Без обмежень",
     "MINUTE_15": "15 хвилин",
     "MINUTE_30": "30 хвилин",
     "ONE_HOUR": "1 година",
@@ -25,6 +15,16 @@
     "ONE_DAY": "1 день",
     "THREE_DAYS": "3 дні",
     "ONE_WEEK": "7 днів"
+  },
+  "latestBooking": {
+    "NO_LIMIT": "Без обмежень",
+    "TWO_WEEKS": "Цього тижня та наступного тижня",
+    "THREE_WEEKS": "На протязі 3 тижнів",
+    "FOUR_WEEKS": "На протязі 4 тижнів",
+    "FIVE_WEEKS": "На протязі 5 тижнів",
+    "SIX_WEEKS": "На протязі 6 тижнів",
+    "SEVEN_WEEKS": "На протязі 7 тижнів",
+    "EIGHT_WEEKS": "На протязі 8 тижнів"
   },
   "approvalTime": {
     "FIVE_MINUTES": "5 хвилин",
@@ -102,8 +102,8 @@
       "businessName": "Назва бізнесу",
       "contactPhone": "Контактний телефон",
       "socialMedia": "Соціальні мережі",
-      "workingHours": "Години праці",
-      "addAvailableHours": "Додати години праці",
+      "workingHours": "Графік роботи",
+      "addAvailableHours": "Додати графік роботи",
       "addSocialMedia": "Додати соціальну мережу",
       "addContactPhone": "Додати номер телефону",
       "workdays": "Робочі дні",
@@ -116,9 +116,9 @@
       "clickToUpload": "Натисніть, щоб завантажити",
       "add-service": "Додати послугу",
       "bookingSettings": "Налаштування бронювання",
-      "earliestBooking": "Коли можна зарезервувати послугу",
+      "earliestBooking": "Найблищий час бронювання",
       "latestBooking": "Останнє бронювання",
-      "approvalTime": "Час підтвердження"
+      "approvalTime": "Час на підтвердження"
     },
     "lowercase": {
       "or": "або",
@@ -397,10 +397,10 @@
           "bookingSettings": {
             "input": {
               "earliestBooking": {
-                "placeholder": "Встанови період тижнів з плаваючим графіком, які люди можуть бронювати в твоєму календарі"
+                "placeholder": "Вказує на найкоротший доступний проміжок часу після якого можна здійснити бронювання послуги"
               },
               "latestBooking": {
-                "placeholder": "Мінімальний час перед можливістю забронювати послугу"
+                "placeholder": "Встанови період тижнів з плаваючим графіком, які люди можуть бронювати в твоєму календарі"
               },
               "approvalTime": {
                 "placeholder": "Час, після якого незатверджена подія буде скасована"

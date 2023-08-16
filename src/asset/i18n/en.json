@@ -2,17 +2,17 @@
   "country": {
     "UA": "Ukraine"
   },
-  "earliestBooking": {
+  "latestBooking": {
     "NO_LIMIT": "No limit",
     "TWO_WEEKS": "This week and next week",
-    "THREE_WEEKS": "3 Weeks",
-    "FOUR_WEEKS": "4 Weeks",
-    "FIVE_WEEKS": "5 Weeks",
-    "SIX_WEEKS": "6 Weeks",
-    "SEVEN_WEEKS": "7 Weeks",
-    "EIGHT_WEEKS": "8 Weeks"
+    "THREE_WEEKS": "Within 3 weeks",
+    "FOUR_WEEKS": "Within 4 weeks",
+    "FIVE_WEEKS": "Within 5 weeks",
+    "SIX_WEEKS": "Within 6 weeks",
+    "SEVEN_WEEKS": "Within 7 weeks",
+    "EIGHT_WEEKS": "Within 8 weeks"
   },
-  "latestBooking": {
+  "earliestBooking": {
     "NO_LIMIT": "No limit",
     "MINUTE_15": "15 minutes",
     "MINUTE_30": "30 minutes",
@@ -116,7 +116,7 @@
       "clickToUpload": "Click to upload",
       "add-service": "Add service",
       "bookingSettings": "Booking settings",
-      "earliestBooking": "Earliest booking",
+      "earliestBooking": "Earliest booking time",
       "latestBooking": "Latest booking",
       "approvalTime": "Approval time"
     },
@@ -397,10 +397,10 @@
           "bookingSettings": {
             "input": {
               "earliestBooking": {
-                "placeholder": "Set of period of rolling weeks people can book in your calendar"
+                "placeholder": "Indicates the shortest available time interval after which it is possible to make a service reservation"
               },
               "latestBooking": {
-                "placeholder": "Minimum amount of time before a service can be booked"
+                "placeholder": "Set of period of rolling weeks people can book in your calendar"
               },
               "approvalTime": {
                 "placeholder": "Time after which the requested event will be canceled, if not approved"

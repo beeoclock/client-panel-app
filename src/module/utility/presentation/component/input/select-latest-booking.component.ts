@@ -11,7 +11,7 @@ import {LatestBookingEnum} from "@utility/domain/enum/latest-booking.enum";
     <label class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white"
            [for]="id">{{ 'keyword.capitalize.latestBooking' | translate }}</label>
     <div class="text-sm text-beeColor-500">
-      {{ 'client.profile.form.section.bookingSettings.input.earliestBooking.placeholder' | translate }}
+      {{ 'client.profile.form.section.bookingSettings.input.latestBooking.placeholder' | translate }}
     </div>
     <ng-select
       bindLabel="name"

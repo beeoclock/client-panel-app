@@ -12,6 +12,10 @@
       [form]="form.controls.addresses.controls[0]">
     </client-address-business-profile-component>
 
+    <schedules-form-component
+      [schedulesForm]="form.controls.schedules">
+    </schedules-form-component>
+
     <client-cover-image-business-profile-component
       [control]="form.controls.banner">
     </client-cover-image-business-profile-component>
@@ -24,17 +28,13 @@
       [form]="form.controls.gallery">
     </client-gallery-business-profile-component>
 
-    <schedules-form-component
-      [schedulesForm]="form.controls.schedules">
-    </schedules-form-component>
+    <client-business-profile-contact-phone-component
+      [form]="form.controls.contacts">
+    </client-business-profile-contact-phone-component>
 
     <client-business-profile-social-media-component
       [form]="form.controls.socialNetworkLinks">
     </client-business-profile-social-media-component>
-
-    <client-business-profile-contact-phone-component
-      [form]="form.controls.contacts">
-    </client-business-profile-contact-phone-component>
 
     <facilities-business-profile-component
       [control]="form.controls.facilities">

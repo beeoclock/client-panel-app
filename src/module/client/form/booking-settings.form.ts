@@ -30,8 +30,8 @@ export class BookingSettingsForm extends FormGroup<IBookingSettingsForm> {
 
   private initValue(): void {
     this.controls.object.setValue('BookingSettings');
-    this.controls.earliestBooking.setValue(EarliestBookingEnum.TWO_WEEKS);
-    this.controls.latestBooking.setValue(LatestBookingEnum.ONE_DAY);
+    this.controls.earliestBooking.setValue(EarliestBookingEnum.ONE_DAY);
+    this.controls.latestBooking.setValue(LatestBookingEnum.TWO_WEEKS);
     this.controls.approvalTime.setValue(ApprovalTimeEnum.ONE_HOUR);
   }
 

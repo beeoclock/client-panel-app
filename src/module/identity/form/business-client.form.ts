@@ -2,9 +2,9 @@ import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/form
 
 
 interface IBusinessClientForm {
-  name: FormControl<string | null>;
-  address: FormControl<string | null>;
-  slogan: FormControl<string | null>;
+  name: FormControl<string>;
+  address: FormControl<string>;
+  description: FormControl<string>;
 
   [key: string]: AbstractControl<any, any>;
 }
@@ -12,9 +12,14 @@ interface IBusinessClientForm {
 export default class BusinessClientForm extends FormGroup<IBusinessClientForm> {
   constructor() {
     super({
-      name: new FormControl(null, [Validators.required]),
-      address: new FormControl(null),
-      slogan: new FormControl(null),
+      name: new FormControl(),
+      address: new FormControl(),
+      description: new FormControl(),
     });
+    this.initValidators();
+  }
+
+  public initValidators(): void {
+    this.controls.name.setValidators([Validators.required]);
   }
 }
