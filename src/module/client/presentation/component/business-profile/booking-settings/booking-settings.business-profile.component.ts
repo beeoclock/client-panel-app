@@ -24,17 +24,17 @@ import {SelectApprovalTimeComponent} from "@utility/presentation/component/input
         {{ 'keyword.capitalize.bookingSettings' | translate }}
       </strong>
 
-      <select-approval-time-component
-        [control]="form.controls.approvalTime">
-      </select-approval-time-component>
+      <select-latest-booking-component
+        [control]="form.controls.latestBooking">
+      </select-latest-booking-component>
 
       <select-earliest-booking-component
         [control]="form.controls.earliestBooking">
       </select-earliest-booking-component>
 
-      <select-latest-booking-component
-        [control]="form.controls.latestBooking">
-      </select-latest-booking-component>
+      <select-approval-time-component
+        [control]="form.controls.approvalTime">
+      </select-approval-time-component>
 
     </card>
   `

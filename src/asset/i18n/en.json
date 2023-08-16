@@ -3,7 +3,7 @@
     "UA": "Ukraine"
   },
   "latestBooking": {
-    "NO_LIMIT": "No limit",
+    "NO_LIMIT": "Any available time",
     "TWO_WEEKS": "This week and next week",
     "THREE_WEEKS": "Within 3 weeks",
     "FOUR_WEEKS": "Within 4 weeks",
@@ -13,18 +13,18 @@
     "EIGHT_WEEKS": "Within 8 weeks"
   },
   "earliestBooking": {
-    "NO_LIMIT": "No limit",
-    "MINUTE_15": "15 minutes",
-    "MINUTE_30": "30 minutes",
-    "ONE_HOUR": "1 hour",
-    "TWO_HOURS": "2 hours",
-    "THREE_HOURS": "3 hours",
-    "FOUR_HOURS": "4 hours",
-    "FIVE_HOURS": "5 hours",
-    "SIX_HOURS": "6 hours",
-    "ONE_DAY": "1 day",
-    "THREE_DAYS": "3 days",
-    "ONE_WEEK": "7 days"
+    "NO_LIMIT": "No earliest booking time",
+    "MINUTE_15": "In 15 minutes",
+    "MINUTE_30": "In 30 minutes",
+    "ONE_HOUR": "In 1 hour",
+    "TWO_HOURS": "In 2 hours",
+    "THREE_HOURS": "In 3 hours",
+    "FOUR_HOURS": "In 4 hours",
+    "FIVE_HOURS": "In 5 hours",
+    "SIX_HOURS": "In 6 hours",
+    "ONE_DAY": "In 1 day",
+    "THREE_DAYS": "In 3 days",
+    "ONE_WEEK": "In 1 week"
   },
   "approvalTime": {
     "FIVE_MINUTES": "5 minutes",
@@ -116,8 +116,8 @@
       "clickToUpload": "Click to upload",
       "add-service": "Add service",
       "bookingSettings": "Booking settings",
-      "earliestBooking": "Earliest booking",
-      "latestBooking": "Latest booking",
+      "earliestBooking": "Earliest booking time",
+      "latestBooking": "When an event can be booked",
       "approvalTime": "Approval time"
     },
     "lowercase": {
@@ -397,7 +397,7 @@
           "bookingSettings": {
             "input": {
               "earliestBooking": {
-                "placeholder": "Indicates the shortest available time interval after which it is possible to make a service reservation"
+                "placeholder": "That is the shortest time after which it is possible to book a service"
               },
               "latestBooking": {
                 "placeholder": "Set of period of rolling weeks people can book in your calendar"

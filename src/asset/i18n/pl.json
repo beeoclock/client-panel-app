@@ -4,21 +4,21 @@
   },
   "earliestBooking": {
     "NO_LIMIT": "Bez ograniczeń",
-    "MINUTE_15": "15 minut",
-    "MINUTE_30": "30 minut",
-    "ONE_HOUR": "1 godzina",
-    "TWO_HOURS": "2 godziny",
-    "THREE_HOURS": "3 godziny",
-    "FOUR_HOURS": "4 godziny",
-    "FIVE_HOURS": "5 godzin",
-    "SIX_HOURS": "6 godzin",
-    "ONE_DAY": "1 dzień",
-    "THREE_DAYS": "3 dni",
-    "ONE_WEEK": "7 dni"
+    "MINUTE_15": "za 15 minut",
+    "MINUTE_30": "za 30 minut",
+    "ONE_HOUR": "za 1 godzinę",
+    "TWO_HOURS": "za 2 godziny",
+    "THREE_HOURS": "za 3 godziny",
+    "FOUR_HOURS": "za 4 godziny",
+    "FIVE_HOURS": "za 5 godzin",
+    "SIX_HOURS": "za 6 godzin",
+    "ONE_DAY": "na następny dzień",
+    "THREE_DAYS": "za 3 dni",
+    "ONE_WEEK": "za 1 tydzień"
   },
   "latestBooking": {
     "NO_LIMIT": "Bez ograniczeń",
-    "TWO_WEEKS": "W tym tygodniu i w przyszłym tygodniu",
+    "TWO_WEEKS": "W tym i następnym tygodniu",
     "THREE_WEEKS": "W ciągu 3 tygodni",
     "FOUR_WEEKS": "W ciągu 4 tygodni",
     "FIVE_WEEKS": "W ciągu 5 tygodni",
@@ -395,13 +395,13 @@
           "bookingSettings": {
             "input": {
               "earliestBooking": {
-                "placeholder": "Wskazuje najkrótszy dostępny czas, po którym można zarezerwować usługę"
+                "placeholder": "Określa najkrótszy dostępny czas przed umożliwieniem rezerwacji usługi"
               },
               "latestBooking": {
-                "placeholder": "Ustaw ruchomy harmonogram tygodni, które ludzie mogą rezerwować w Twoim kalendarzu"
+                "placeholder": "Określa czas dostępności rezerwacji usługi"
               },
               "approvalTime": {
-                "placeholder": "Czas, po którym niezatwierdzone wydarzenie zostanie anulowane"
+                "placeholder": "Czas, po którym niezatwierdzona rezerwacja zostanie anulowana"
               }
             }
           }
