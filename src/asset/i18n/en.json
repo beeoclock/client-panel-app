@@ -1,4 +1,66 @@
 {
+  "country": {
+    "UA": "Ukraine"
+  },
+  "latestBooking": {
+    "NO_LIMIT": "Any available time",
+    "TWO_WEEKS": "This week and next week",
+    "THREE_WEEKS": "Within 3 weeks",
+    "FOUR_WEEKS": "Within 4 weeks",
+    "FIVE_WEEKS": "Within 5 weeks",
+    "SIX_WEEKS": "Within 6 weeks",
+    "SEVEN_WEEKS": "Within 7 weeks",
+    "EIGHT_WEEKS": "Within 8 weeks"
+  },
+  "earliestBooking": {
+    "NO_LIMIT": "No earliest booking time",
+    "MINUTE_15": "In 15 minutes",
+    "MINUTE_30": "In 30 minutes",
+    "ONE_HOUR": "In 1 hour",
+    "TWO_HOURS": "In 2 hours",
+    "THREE_HOURS": "In 3 hours",
+    "FOUR_HOURS": "In 4 hours",
+    "FIVE_HOURS": "In 5 hours",
+    "SIX_HOURS": "In 6 hours",
+    "ONE_DAY": "In 1 day",
+    "THREE_DAYS": "In 3 days",
+    "ONE_WEEK": "In 1 week"
+  },
+  "approvalTime": {
+    "FIVE_MINUTES": "5 minutes",
+    "TEN_MINUTES": "10 minutes",
+    "FIFTEEN_MINUTES": "15 minutes",
+    "TWENTY_MINUTES": "20 minutes",
+    "THIRTY_MINUTES": "30 minutes",
+    "FORTY_FIVE_MINUTES": "45 minutes",
+    "ONE_HOUR": "1 hour",
+    "TWO_HOURS": "2 hours",
+    "THREE_HOURS": "3 hours",
+    "FOUR_HOURS": "4 hours",
+    "FIVE_HOURS": "5 hours",
+    "SIX_HOURS": "6 hours",
+    "SEVEN_HOURS": "7 hours",
+    "EIGHT_HOURS": "8 hours",
+    "ONE_DAY": "1 day"
+  },
+  "businessCategory": {
+    "BeautySalon":  "Beauty salon",
+    "Barbershop": "Barbershop",
+    "Hairdresser":  "Hairdresser",
+    "OnlineConsultation": "Online consultation",
+    "OnlineTeaching":  "Online teaching",
+    "Dentistry": "Dentistry"
+  },
+  "facility": {
+    "capitalize": {
+      "INTERNET": "Internet (Wi-Fi)",
+      "FREE_PARKING": "Free Parking",
+      "ACCEPTING_PETS": "Pets allowed",
+      "ACCEPTING_CARD_PAYMENT": "Accepting credit cards",
+      "ACCEPTING_CHILDREN": "Child-friendly",
+      "ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Accommodations for people with disabilities"
+    }
+  },
   "form": {
     "validation": {
       "required": "Required field",
@@ -8,6 +70,7 @@
   },
   "keyword": {
     "capitalize": {
+      "facilities": "Facilities",
       "writePrice": "Write price",
       "add-event": "Add event",
       "customer": "Customer",
@@ -33,7 +96,33 @@
       "phone": "Phone",
       "active": "Active",
       "inactive": "Inactive",
-      "add-service": "Add service"
+      "slogan": "Slogan",
+      "address": "Address",
+      "feature": "Feature",
+      "contactPhone": "Contact phone",
+      "socialMedia": "Social media",
+      "businessName": "Business name",
+      "workingHours": "Working hours",
+      "addAvailableHours": "Add available hours",
+      "addSocialMedia": "Add social media",
+      "addContactPhone": "Add phone number",
+      "workdays": "Workdays",
+      "country": "Country",
+      "city": "City",
+      "zipCode": "Zip code",
+      "streetAddressLineOne": "Address 1",
+      "streetAddressLineTwo": "Address 2",
+      "businessCategory": "Business category",
+      "clickToUpload": "Click to upload",
+      "add-service": "Add service",
+      "bookingSettings": "Booking settings",
+      "earliestBooking": "Earliest booking time",
+      "latestBooking": "When an event can be booked",
+      "approvalTime": "Approval time"
+    },
+    "lowercase": {
+      "or": "or",
+      "dragAndDrop": "drag and drop"
     }
   },
   "general": {
@@ -94,8 +183,8 @@
     "table": "Table",
     "addEvent": "Add event",
     "private": "Private",
-    "profile": "Profile",
     "settings": "Settings",
+    "businessProfile": "Business profile",
     "switch-business-client": "Change context"
   },
   "page": {
@@ -269,18 +358,72 @@
     "profile": {
       "title": "Profile",
       "form": {
+        "section": {
+          "coverImage": {
+            "title": "Cover image",
+            "motivate": "You can inject a little more personality into your profile and help people recognize your work by uploading a \n image (an image, photo or other graphic icon of your business).",
+            "fileover": "Put your files here"
+          },
+          "logo": {
+            "title": "Logo",
+            "formats": "Allowed types: SVG, PNG, JPG or GIF",
+            "motivate": "You can inject a little more personality into your business profile and help people recognize you by uploading a logo (an image, photo or other graphic icon of \"you\").",
+            "fileover": "Put your files here"
+          },
+          "gallery": {
+            "title": "Gallery",
+            "comment": "Upload images that demonstrate your work from the best side. Images must be 1800px wide by 900px high and in JPEG or PNG format. You may upload up to 6 images."
+          },
+          "address": {
+            "title": "Address",
+            "input": {
+              "streetAddressLineOne": {
+                "placeholder": "Street, avn., boulevard, etc. name"
+              },
+              "streetAddressLineTwo": {
+                "placeholder": "Office, house, etc. number"
+              },
+              "zipCode": {
+                "placeholder": "Your zip-code"
+              },
+              "city": {
+                "placeholder": "Your city"
+              },
+              "country": {
+                "placeholder": "Your country"
+              }
+            }
+          },
+          "bookingSettings": {
+            "input": {
+              "earliestBooking": {
+                "placeholder": "That is the shortest time after which it is possible to book a service"
+              },
+              "latestBooking": {
+                "placeholder": "Set of period of rolling weeks people can book in your calendar"
+              },
+              "approvalTime": {
+                "placeholder": "Time after which the requested event will be canceled, if not approved"
+              }
+            }
+          }
+        },
         "inputs": {
           "name": {
-            "label": "Name",
+            "label": "Business name",
             "placeholder": "Type Company or Personal name"
           },
           "description": {
-            "label": "Description",
-            "placeholder": "Type description of client"
+            "label": "Business description",
+            "placeholder": "Shortly describe what you do"
           },
           "active": {
             "label": "Active",
             "placeholder": "Switch on if you want to be active"
+          },
+          "feature": {
+            "label": "Feature",
+            "placeholder": "Enter catching phrase"
           }
         }
       }

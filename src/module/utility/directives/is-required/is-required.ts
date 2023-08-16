@@ -35,17 +35,9 @@ export class IsRequiredDirective implements AfterViewInit {
 
       }
 
-      if (this.ngControl?.control) {
+      if (this.ngControl?.control?.validator?.(new FormControl())?.['required']) {
 
-        if (this.ngControl.control?.validator) {
-
-          if (this.ngControl.control.validator(new FormControl())?.['required']) {
-
-            this.initRequiredAsterisk();
-
-          }
-
-        }
+        this.initRequiredAsterisk();
 
       }
 

@@ -1,0 +1,57 @@
+<div class="md:p-4 pb-48 grid grid-cols-12">
+
+  <div class="col-span-12 lg:col-start-4 lg:col-span-6 flex flex-col gap-4">
+
+    <client-business-profile-form-component [form]="form"></client-business-profile-form-component>
+
+    <utility-form-switch-active-block-component
+      [control]="form.controls.active">
+    </utility-form-switch-active-block-component>
+
+    <client-address-business-profile-component
+      [form]="form.controls.addresses.controls[0]">
+    </client-address-business-profile-component>
+
+    <schedules-form-component
+      [schedulesForm]="form.controls.schedules">
+    </schedules-form-component>
+
+    <client-cover-image-business-profile-component
+      [control]="form.controls.banner">
+    </client-cover-image-business-profile-component>
+
+    <client-logo-business-profile-component
+      [control]="form.controls.logo">
+    </client-logo-business-profile-component>
+
+    <client-gallery-business-profile-component
+      [form]="form.controls.gallery">
+    </client-gallery-business-profile-component>
+
+    <client-business-profile-contact-phone-component
+      [form]="form.controls.contacts">
+    </client-business-profile-contact-phone-component>
+
+    <client-business-profile-social-media-component
+      [form]="form.controls.socialNetworkLinks">
+    </client-business-profile-social-media-component>
+
+    <facilities-business-profile-component
+      [control]="form.controls.facilities">
+    </facilities-business-profile-component>
+
+    <client-business-profile-booking-settings-component
+      [form]="form.controls.bookingSettings">
+    </client-business-profile-booking-settings-component>
+
+    <button
+      class="px-4 py-2 bg-blue-600 rounded-lg text-white w-full hover:bg-blue-700 cursor-pointer transition"
+      (click)="save()"
+      [disabled]="form.disabled">
+      {{ 'general.save' | translate }}
+    </button>
+
+  </div>
+
+</div>
+

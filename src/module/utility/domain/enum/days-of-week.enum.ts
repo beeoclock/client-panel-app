@@ -9,13 +9,13 @@ export enum DaysNameOfWeekEnum {
 }
 
 export enum WeekDaysEnum {
-  SUNDAY,
-  MONDAY,
+  MONDAY = 0,
   TUESDAY,
   WEDNESDAY,
   THURSDAY,
   FRIDAY,
   SATURDAY,
+  SUNDAY,
 }
 
 export const WORK_WEEK = [
@@ -26,7 +26,7 @@ export const WORK_WEEK = [
   WeekDaysEnum.FRIDAY
 ];
 
-export const WEEK = [
+export const WEEK_DAYS = [
   WeekDaysEnum.SUNDAY,
   WeekDaysEnum.MONDAY,
   WeekDaysEnum.TUESDAY,

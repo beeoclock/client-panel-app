@@ -21,18 +21,18 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
   selector: 'event-form-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-    imports: [
-        ReactiveFormsModule,
-        DeleteButtonComponent,
-        BackLinkComponent,
-        FormsModule,
-        TranslateModule,
-        SelectTimeSlotComponent,
-        FormTextareaComponent,
-        AttendeesComponent,
-        ServicesComponent,
-        CardComponent,
-    ],
+  imports: [
+    ReactiveFormsModule,
+    DeleteButtonComponent,
+    BackLinkComponent,
+    FormsModule,
+    TranslateModule,
+    SelectTimeSlotComponent,
+    FormTextareaComponent,
+    AttendeesComponent,
+    ServicesComponent,
+    CardComponent,
+  ],
   standalone: true
 })
 export default class Index implements OnInit {

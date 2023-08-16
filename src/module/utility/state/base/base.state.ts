@@ -269,7 +269,6 @@ export abstract class BaseState<ITEM = any> {
 
     const customerCacheItems = cache[cacheItemsKey];
 
-    console.log(customerCacheItems);
 
     if (customerCacheItems) {
 
@@ -464,13 +463,17 @@ export abstract class BaseState<ITEM = any> {
    */
   public async getList(ctx: StateContext<IBaseState<ITEM>>, filterProcessing?: <T = any, FILTERS = any>(queryFilters: T, filters: FILTERS) => void): Promise<void> {
 
-    let state = ctx.getState();
+    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
 
-    console.log(state.tableState.hashSum , state.lastTableHashSum)
+    let state = ctx.getState();
 
     // Check if hasSun is not null or undefined or 0
     if (state.tableState.hashSum && state.lastTableHashSum) {
       if (state.tableState.hashSum === state.lastTableHashSum) {
+
+        // Switch of page loader
+        await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
+
         return;
       }
     }
@@ -479,9 +482,6 @@ export abstract class BaseState<ITEM = any> {
     const cacheTableStatesKey = getKeyWithClientId(this.store, this.cacheKeys.tableStates);
 
     const cacheTableStates = cache[cacheTableStatesKey];
-
-    console.log(state.tableState.hashSum , cacheTableStates ,
-      Reflect.has(cacheTableStates, state.tableState.hashSum));
 
     // Check if in local cache exist data of current pagination has
     if (
@@ -498,8 +498,6 @@ export abstract class BaseState<ITEM = any> {
       });
 
     } else {
-
-      ctx.dispatch(new AppActions.PageLoading(true));
 
       const filters: any = {};
 
@@ -543,10 +541,10 @@ export abstract class BaseState<ITEM = any> {
 
       }
 
-      // Switch of page loader
-      ctx.dispatch(new AppActions.PageLoading(false));
-
     }
+
+    // Switch of page loader
+    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 
   }
 

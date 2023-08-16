@@ -5,11 +5,11 @@ import {HasErrorDirective} from "@utility/directives/has-error/has-error.directi
 import {NgxMaskDirective} from "ngx-mask";
 
 @Component({
-  selector: 'input-badge-component',
+  selector: 'form-badge-input',
   standalone: true,
   template: `
-    <label class="dark:text-beeDarkColor-300" [for]="id">{{ label }}</label>
-    <div class="flex mt-2">
+    <label class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white" [for]="id">{{ label }}</label>
+    <div class="flex">
       <input
         [id]="id"
         [formControl]="control"

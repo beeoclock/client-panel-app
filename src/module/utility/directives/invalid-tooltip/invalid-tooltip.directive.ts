@@ -89,6 +89,9 @@ export class InvalidTooltipDirective implements AfterViewInit {
 
     this.invalidCustomTooltip?.remove();
 
+    // Remove red border from input
+    this.elementRef.nativeElement.classList.remove('border-red-500');
+
   }
 
   // Add invalid custom tooltip in DOM
@@ -146,7 +149,10 @@ export class InvalidTooltipDirective implements AfterViewInit {
       this.control.errors?.[key] ?? undefined
     );
 
-    this.elementRef.nativeElement.parentElement.appendChild(this.invalidCustomTooltip)
+    this.elementRef.nativeElement.parentElement.appendChild(this.invalidCustomTooltip);
+
+    // Add border red to input
+    this.elementRef.nativeElement.classList.add('border-red-500');
 
   }
 

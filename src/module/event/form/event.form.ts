@@ -1,6 +1,7 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {IService} from "@service/domain";
 import {AttendeesForm} from "@event/form/attendant.form";
+import {extractSecondsFromTime} from "@utility/domain/time";
 
 
 export interface IEventForm {
@@ -31,6 +32,7 @@ export class EventForm extends FormGroup<IEventForm> {
     });
     this.initValidators();
     this.initValue();
+    this.initHandler();
   }
 
   public initValidators(): void {
@@ -45,6 +47,19 @@ export class EventForm extends FormGroup<IEventForm> {
     this.controls.end.patchValue(new Date().toISOString());
     this.controls.start.patchValue(new Date().toISOString());
     this.controls.timeZone.patchValue(Intl.DateTimeFormat().resolvedOptions().timeZone);
+  }
+
+  public initHandler(): void {
+    this.controls.start.valueChanges.subscribe((value) => {
+      if (this.controls.services.value.length) {
+        const service = this.controls.services.value[0];
+        const durationVersion = service.durationVersions[0];
+        const durationInSeconds = extractSecondsFromTime(durationVersion.duration);
+        const end = new Date(value);
+        end.setSeconds(Number(new Date(value).getSeconds() + durationInSeconds));
+        this.controls.end.patchValue(end.toISOString());
+      }
+    });
   }
 
 }

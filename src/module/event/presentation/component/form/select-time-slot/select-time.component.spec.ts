@@ -78,7 +78,7 @@ describe('SelectTimeComponent', () => {
     const datetimeToSelect = DateTime.fromISO('2023-07-15T12:34:56');
     component.selectDateItem(datetimeToSelect);
     expect(component.selectedDateTime.toISO()).toBe(datetimeToSelect.toISO());
-    expect(component.control.value).toBe(datetimeToSelect.toISO());
+    expect(component.control.value).toBe(datetimeToSelect.toUTC().toISO());
   });
 
   it('should check if a time slot is selected', () => {

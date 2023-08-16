@@ -1,4 +1,66 @@
 {
+  "country": {
+    "UA": "Ukraina"
+  },
+  "earliestBooking": {
+    "NO_LIMIT": "Bez ograniczeń",
+    "MINUTE_15": "za 15 minut",
+    "MINUTE_30": "za 30 minut",
+    "ONE_HOUR": "za 1 godzinę",
+    "TWO_HOURS": "za 2 godziny",
+    "THREE_HOURS": "za 3 godziny",
+    "FOUR_HOURS": "za 4 godziny",
+    "FIVE_HOURS": "za 5 godzin",
+    "SIX_HOURS": "za 6 godzin",
+    "ONE_DAY": "na następny dzień",
+    "THREE_DAYS": "za 3 dni",
+    "ONE_WEEK": "za 1 tydzień"
+  },
+  "latestBooking": {
+    "NO_LIMIT": "Bez ograniczeń",
+    "TWO_WEEKS": "W tym i następnym tygodniu",
+    "THREE_WEEKS": "W ciągu 3 tygodni",
+    "FOUR_WEEKS": "W ciągu 4 tygodni",
+    "FIVE_WEEKS": "W ciągu 5 tygodni",
+    "SIX_WEEKS": "W ciągu 6 tygodni",
+    "SEVEN_WEEKS": "W ciągu 7 tygodni",
+    "EIGHT_WEEKS": "W ciągu 8 tygodni"
+  },
+  "approvalTime": {
+    "FIVE_MINUTES": "5 minut",
+    "TEN_MINUTES": "10 minut",
+    "FIFTEEN_MINUTES": "15 minut",
+    "TWENTY_MINUTES": "20 minut",
+    "THIRTY_MINUTES": "30 minut",
+    "FORTY_FIVE_MINUTES": "45 minut",
+    "ONE_HOUR": "1 godzina",
+    "TWO_HOURS": "2 godziny",
+    "THREE_HOURS": "3 godziny",
+    "FOUR_HOURS": "4 godziny",
+    "FIVE_HOURS": "5 godzin",
+    "SIX_HOURS": "6 godzin",
+    "SEVEN_HOURS": "7 godzin",
+    "EIGHT_HOURS": "8 godzin",
+    "ONE_DAY": "1 dzień"
+  },
+  "businessCategory": {
+    "BeautySalon": "Salon urody",
+    "Barbershop": "Barbershop",
+    "Hairdresser": "Fryzjer",
+    "OnlineConsultation": "Konsultacje online",
+    "OnlineTeaching": "Nauczanie online",
+    "Dentistry": "Dentystyka"
+  },
+  "facility": {
+    "capitalize": {
+      "INTERNET": "Internet (Wi-Fi)",
+      "FREE_PARKING": "Darmowy parking",
+      "ACCEPTING_PETS": "Zwierzęta dozwolone",
+      "ACCEPTING_CARD_PAYMENT": "Akceptujemy płatności kartą",
+      "ACCEPTING_CHILDREN": "Przyjazne dzieciom",
+      "ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Zakwaterowanie dla osób z niepełnosprawnością"
+    }
+  },
   "form": {
     "validation": {
       "required": "Wymagane pole",
@@ -8,6 +70,7 @@
   },
   "keyword": {
     "capitalize": {
+      "facilities": "Udogodnienia",
       "writePrice": "Wpisz cenę",
       "add-event": "Dodaj wydarzenie",
       "customer": "Klient",
@@ -33,7 +96,33 @@
       "phone": "Telefon",
       "active": "Aktywny",
       "inactive": "Nieaktywny",
-      "add-service": "Dodaj usługę"
+      "slogan": "Slogan",
+      "address": "Adres",
+      "feature": "Funkcja",
+      "businessName": "Nazwa firmy",
+      "contactPhone": "Telefon kontaktowy",
+      "socialMedia": "Media społecznościowe",
+      "workingHours": "Godziny pracy",
+      "addAvailableHours": "Dodaj dostępne godziny",
+      "addSocialMedia": "Dodaj media społecznościowe",
+      "addContactPhone": "Dodaj telefon kontaktowy",
+      "workdays": "Dni pracy",
+      "country": "Kraj",
+      "city": "Miasto",
+      "zipCode": "Kod pocztowy",
+      "streetAddressLineOne": "Adres 1",
+      "streetAddressLineTwo": "Adres 2",
+      "businessCategory": "Kategoria biznesowa",
+      "clickToUpload": "Kliknij, aby przesłać",
+      "add-service": "Dodaj usługę",
+      "bookingSettings": "Ustawienia rezerwacji",
+      "earliestBooking": "Najbliższy termin rezerwacji",
+      "latestBooking": "Najpóźniejszy termin rezerwacji",
+      "approvalTime": "Czas zatwierdzania"
+    },
+    "lowercase": {
+      "or": "lub",
+      "dragAndDrop": "przeciągnij i upuść plik"
     }
   },
   "general": {
@@ -94,8 +183,8 @@
     "table": "Tabela",
     "addEvent": "Dodaj wydarzenie",
     "private": "Prywatne",
-    "profile": "Profil",
     "settings": "Ustawienia",
+    "businessProfile": "Profil biznesowy",
     "switch-business-client": "Zmień kontekst"
   },
   "page": {
@@ -215,52 +304,50 @@
   "client": {
     "settings": {
       "title": "Ustawienia",
-      "form": {
-        "inputs": {
-          "darkMode": {
-            "label": "Tryb ciemny"
+      "inputs": {
+        "darkMode": {
+          "label": "Tryb ciemny"
+        }
+      }
+    },
+    "defaultData": {
+      "event": {
+        "title": "Domyślne dane wydarzenia",
+        "form": {
+          "inputs": {
+            "language": {
+              "label": "Domyślny język wydarzenia"
+            },
+            "service": {
+              "label": "Domyślna usługa wydarzenia (najważniejsza usługa)"
+            }
           }
         }
       },
-      "defaultData": {
-        "event": {
-          "title": "Domyślne dane wydarzenia",
-          "form": {
-            "inputs": {
-              "language": {
-                "label": "Domyślny język wydarzenia"
-              },
-              "service": {
-                "label": "Domyślna usługa wydarzenia (najważniejsza usługa)"
-              }
-            }
-          }
-        },
-        "service": {
-          "title": "Domyślne dane usługi",
-          "form": {
-            "inputs": {
-              "duration": {
-                "label": "Domyślny czas trwania usługi"
-              },
-              "language": {
-                "label": "Domyślny język usługi"
-              },
-              "workDays": {
-                "label": "Domyślne dni pracy usługi"
-              },
-              "break": {
-                "label": "Domyślna przerwa usługi"
-              },
-              "startWork": {
-                "label": "Godzina rozpoczęcia pracy usługi"
-              },
-              "endWork": {
-                "label": "Godzina zakończenia pracy usługi"
-              },
-              "price": {
-                "label": "Domyślna cena usługi"
-              }
+      "service": {
+        "title": "Domyślne dane usługi",
+        "form": {
+          "inputs": {
+            "duration": {
+              "label": "Domyślny czas trwania usługi"
+            },
+            "language": {
+              "label": "Domyślny język usługi"
+            },
+            "workDays": {
+              "label": "Domyślne dni pracy usługi"
+            },
+            "break": {
+              "label": "Domyślna przerwa usługi"
+            },
+            "startWork": {
+              "label": "Godzina rozpoczęcia pracy usługi"
+            },
+            "endWork": {
+              "label": "Godzina zakończenia pracy usługi"
+            },
+            "price": {
+              "label": "Domyślna cena usługi"
             }
           }
         }
@@ -269,18 +356,72 @@
     "profile": {
       "title": "Profil",
       "form": {
+        "section": {
+          "coverImage": {
+            "title": "Obraz w tle",
+            "motivate": "Możesz nadać swojemu profilowi nieco więcej osobowości i pomóc innym rozpoznać Twoją pracę, przesyłając \n obraz (obraz, zdjęcie lub inną grafikę) jako obraz w tle Twojego profilu.",
+            "fileover": "Umieść swoje pliki tutaj"
+          },
+          "logo": {
+            "title": "Logo",
+            "formats": "Obsługiwane formaty: SVG, PNG, JPG lub GIF",
+            "motivate": "Możesz nadać profilowi swojej firmy nieco więcej osobowości i pomóc innym rozpoznać Cię, przesyłając logo (obraz, zdjęcie lub inną ikonę graficzną przedstawiającą „ty”).",
+            "fileover": "Umieść swoje pliki tutaj"
+          },
+          "gallery": {
+            "title": "Galeria",
+            "comment": "Prześlij obrazy przedstawiające Twoją pracę z najlepszej strony. Obrazy muszą mieć 1800 pikseli szerokości i 900 pikseli wysokości oraz muszą być w formacie JPEG lub PNG. Możesz przesłać maksymalnie 6 obrazów."
+          },
+          "address": {
+            "title": "Adres",
+            "input": {
+              "streetAddressLineOne": {
+                "placeholder": "Nazwa ulicy, alei, bulwaru itp"
+              },
+              "streetAddressLineTwo": {
+                "placeholder": "Numer biura, domu itp"
+              },
+              "zipCode": {
+                "placeholder": "Kod pocztowy"
+              },
+              "city": {
+                "placeholder": "Miasto"
+              },
+              "country": {
+                "placeholder": "Kraj"
+              }
+            }
+          },
+          "bookingSettings": {
+            "input": {
+              "earliestBooking": {
+                "placeholder": "Określa najkrótszy dostępny czas przed umożliwieniem rezerwacji usługi"
+              },
+              "latestBooking": {
+                "placeholder": "Określa czas dostępności rezerwacji usługi"
+              },
+              "approvalTime": {
+                "placeholder": "Czas, po którym niezatwierdzona rezerwacja zostanie anulowana"
+              }
+            }
+          }
+        },
         "inputs": {
           "name": {
-            "label": "Nazwa",
-            "placeholder": "Wpisz nazwę firmy lub imię i nazwisko"
+            "label": "Nazwa firmy",
+            "placeholder": "Wpisz nazwę firmy lub nazwisko"
           },
           "description": {
-            "label": "Opis",
-            "placeholder": "Wpisz opis klienta"
+            "label": "Opis firmy",
+            "placeholder": "Krótko opisz czym się zajmujesz"
           },
           "active": {
             "label": "Aktywny",
             "placeholder": "Włącz, jeśli chcesz być aktywny"
+          },
+          "feature": {
+            "label": "Funkcja",
+            "placeholder": "Wpisz chwytliwą frazę"
           }
         }
       }
