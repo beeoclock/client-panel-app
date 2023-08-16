@@ -47,13 +47,6 @@ import {Observable} from "rxjs";
       <ul class="py-2 text-sm text-beeColor-700 dark:text-beeDarkColor-200"
           aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
         <li>
-          <a routerLink="/client/business-profile"
-             (click)="hideDropdown()"
-             class="block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-            {{ 'sidebar.profile' | translate }}
-          </a>
-        </li>
-        <li>
           <a routerLink="/client/settings"
              (click)="hideDropdown()"
              class="block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
