@@ -37,6 +37,7 @@ import {
 import {
   BookingSettingsBusinessProfileComponent
 } from "@client/presentation/component/business-profile/booking-settings/booking-settings.business-profile.component";
+import {AppActions} from "@utility/state/app/app.actions";
 
 @Component({
   selector: 'client-settings-page',
@@ -97,9 +98,13 @@ export default class Index {
   // Save data
   public async save(): Promise<void> {
     this.form.markAllAsTouched();
-    console.log(this.form);
     if (this.form.valid) {
-      await this.updateClientApiAdapter.executeAsync(this.form.getRawValue() as IClient);
+      this.store.dispatch(new AppActions.PageLoading(true));
+      const value = this.form.getRawValue() as IClient;
+      this.form.disable();
+      await this.updateClientApiAdapter.executeAsync(value);
+      this.store.dispatch(new AppActions.PageLoading(false));
+      this.form.enable();
     }
   }
 
