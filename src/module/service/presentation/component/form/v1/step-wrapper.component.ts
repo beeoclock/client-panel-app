@@ -35,11 +35,11 @@ import {MembersFormComponent} from "@service/presentation/component/form/v1/memb
         [durationVersionsForm]="form.controls.durationVersions">
       </service-durations-form-component>
 
-      <service-schedules-form-component
+      <schedules-form-component
         *ngSwitchCase="'schedules'"
         (handlePushNewScheduleForm)="form.pushNewScheduleForm()"
         [schedulesForm]="form.controls.schedules">
-      </service-schedules-form-component>
+      </schedules-form-component>
 
       <service-members-form-component
         *ngSwitchCase="'members'"

@@ -15,14 +15,9 @@ export class EventStatusStyleDirective implements OnInit, OnChanges {
   private readonly translateService = inject(TranslateService);
 
   public ngOnChanges(changes: SimpleChanges & {status: SimpleChanges}) {
-    console.log(changes);
-
     if (changes.status) {
-
       this.initStatus();
-
     }
-
   }
 
   public ngOnInit(): void {

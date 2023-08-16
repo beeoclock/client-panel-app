@@ -9,18 +9,20 @@ import {Router} from "@angular/router";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
+import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 
 @Component({
   selector: 'identity-create-business-page',
   templateUrl: 'index.html',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    TranslateModule,
-    BackLinkComponent,
-    FormInputComponent,
-    ChangeLanguageComponent
-  ],
+    imports: [
+        ReactiveFormsModule,
+        TranslateModule,
+        BackLinkComponent,
+        FormInputComponent,
+        ChangeLanguageComponent,
+        FormTextareaComponent
+    ],
   encapsulation: ViewEncapsulation.None
 })
 export default class Index {

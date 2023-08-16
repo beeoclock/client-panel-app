@@ -1,9 +1,9 @@
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActiveEnum, LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
-import {WeekDaysEnum, WORK_WEEK} from '@utility/domain/enum/days-of-week.enum';
 import {IMember} from "@member/domain";
 import {IDurationVersion} from "@service/domain";
+import {SchedulesForm} from "@utility/form/schdeule.form";
 
 export const MINUTE_15 = 900; // In seconds
 export const MINUTE_45 = 2700; // In seconds
@@ -146,30 +146,6 @@ export class PrepaymentPolicyForm extends FormGroup<IPrepaymentPolicyForm> {
   }
 }
 
-export interface IScheduleForm {
-  workDays: FormControl<WeekDaysEnum[]>;
-  startTime: FormControl<string>;
-  endTime: FormControl<string>;
-
-  [key: string]: AbstractControl<any, any>;
-}
-
-export class ScheduleForm extends FormGroup<IScheduleForm> {
-  constructor() {
-    super({
-      workDays: new FormControl(),
-      startTime: new FormControl(),
-      endTime: new FormControl(),
-    });
-    this.initValue();
-  }
-
-  public initValue(): void {
-    this.controls.workDays.setValue(WORK_WEEK);
-    this.controls.startTime.setValue('08:00');
-    this.controls.endTime.setValue('18:00');
-  }
-}
 
 export interface IPresentationForm {
   main: FormControl<string>;
@@ -219,17 +195,6 @@ export class DurationVersionsForm extends FormArray<DurationVersionForm> {
 
 }
 
-export class SchedulesForm extends FormArray<ScheduleForm> {
-  constructor() {
-    super([]);
-  }
-
-  public remove(index: number): void {
-    this.controls.splice(index, 1);
-  }
-
-}
-
 export interface IServiceForm {
   presentation: PresentationForm;
   schedules: SchedulesForm;
@@ -267,10 +232,6 @@ export class ServiceForm extends FormGroup<IServiceForm> {
   public initValue(): void {
     this.controls.permanentMembers.setValue([]);
     this.controls.active.setValue(ActiveEnum.YES);
-  }
-
-  public pushNewScheduleForm(): void {
-    this.controls.schedules.push(new ScheduleForm());
   }
 
   public pushNewLanguageVersionForm(): void {

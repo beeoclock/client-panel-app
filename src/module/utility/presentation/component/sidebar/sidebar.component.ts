@@ -47,6 +47,17 @@ export class SidebarComponent {
       }
     },
     {
+      url: '/client/business-profile',
+      translateKey: 'sidebar.businessProfile',
+      icon: 'bi bi-buildings',
+      routerLinkActiveOptions: {
+        paths: "subset",
+        matrixParams: "ignored",
+        queryParams: "ignored",
+        fragment: "ignored",
+      }
+    },
+    {
       url: '/customer',
       translateKey: 'sidebar.customers',
       icon: 'bi bi-person-vcard',

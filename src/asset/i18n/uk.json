@@ -1,4 +1,66 @@
 {
+  "country": {
+    "UA": "Україна"
+  },
+  "earliestBooking": {
+    "NO_LIMIT": "Без обмежень",
+    "MINUTE_15": "через 15 хвилин",
+    "MINUTE_30": "через 30 хвилин",
+    "ONE_HOUR": "через 1 годину",
+    "TWO_HOURS": "через 2 години",
+    "THREE_HOURS": "через 3 години",
+    "FOUR_HOURS": "через 4 години",
+    "FIVE_HOURS": "через 5 годин",
+    "SIX_HOURS": "через 6 годин",
+    "ONE_DAY": "на наступний день",
+    "THREE_DAYS": "через 3 дні",
+    "ONE_WEEK": "через 1 тиждень"
+  },
+  "latestBooking": {
+    "NO_LIMIT": "Без обмежень",
+    "TWO_WEEKS": "Цього і наступного тижня",
+    "THREE_WEEKS": "Впродовж 3 тижнів",
+    "FOUR_WEEKS": "Впродовж 4 тижнів",
+    "FIVE_WEEKS": "Впродовж 5 тижнів",
+    "SIX_WEEKS": "Впродовж 6 тижнів",
+    "SEVEN_WEEKS": "Впродовж 7 тижнів",
+    "EIGHT_WEEKS": "Впродовж 8 тижнів"
+  },
+  "approvalTime": {
+    "FIVE_MINUTES": "5 хвилин",
+    "TEN_MINUTES": "10 хвилин",
+    "FIFTEEN_MINUTES": "15 хвилин",
+    "TWENTY_MINUTES": "20 хвилин",
+    "THIRTY_MINUTES": "30 хвилин",
+    "FORTY_FIVE_MINUTES": "45 хвилин",
+    "ONE_HOUR": "1 година",
+    "TWO_HOURS": "2 години",
+    "THREE_HOURS": "3 години",
+    "FOUR_HOURS": "4 години",
+    "FIVE_HOURS": "5 годин",
+    "SIX_HOURS": "6 годин",
+    "SEVEN_HOURS": "7 годин",
+    "EIGHT_HOURS": "8 годин",
+    "ONE_DAY": "1 день"
+  },
+  "businessCategory": {
+    "BeautySalon": "Салон краси",
+    "Barbershop": "Barbershop",
+    "Hairdresser": "Перукарня",
+    "OnlineConsultation": "Онлайн консультація",
+    "OnlineTeaching": "Онлайн навчання",
+    "Dentistry": "Стоматологія"
+  },
+  "facility": {
+    "capitalize": {
+      "INTERNET": "Інтернет (Wi-Fi)",
+      "FREE_PARKING": "Безкоштовне паркування",
+      "ACCEPTING_PETS": "Можна з домашніми улюбленцями",
+      "ACCEPTING_CARD_PAYMENT": "Приймаємо оплату карткою",
+      "ACCEPTING_CHILDREN": "Пристосовано для дітей",
+      "ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Умови для людей з фізичними обмеженнями"
+    }
+  },
   "form": {
     "validation": {
       "required": "Обов'язкове поле",
@@ -8,6 +70,7 @@
   },
   "keyword": {
     "capitalize": {
+      "facilities": "Зручності",
       "writePrice": "Ввести ціну",
       "add-event": "Додати подію",
       "customer": "Клієнт",
@@ -33,7 +96,33 @@
       "phone": "Телефон",
       "active": "Активний",
       "inactive": "Неактивний",
-      "add-service": "Додати послугу"
+      "slogan": "Гасло",
+      "address": "Адреса",
+      "feature": "Особливість",
+      "businessName": "Назва бізнесу",
+      "contactPhone": "Контактний телефон",
+      "socialMedia": "Соціальні мережі",
+      "workingHours": "Графік роботи",
+      "addAvailableHours": "Додати графік роботи",
+      "addSocialMedia": "Додати соціальну мережу",
+      "addContactPhone": "Додати номер телефону",
+      "workdays": "Робочі дні",
+      "country": "Країна",
+      "city": "Населений пункт",
+      "zipCode": "Поштовий індекс",
+      "streetAddressLineOne": "Адреса 1",
+      "streetAddressLineTwo": "Адреса 2",
+      "businessCategory": "Категорія бізнесу",
+      "clickToUpload": "Натисніть, щоб завантажити",
+      "add-service": "Додати послугу",
+      "bookingSettings": "Налаштування бронювання",
+      "earliestBooking": "Найближче бронювання можливе",
+      "latestBooking": "На коли можна зарезервувати послугу",
+      "approvalTime": "Час на підтвердження"
+    },
+    "lowercase": {
+      "or": "або",
+      "dragAndDrop": "перетягніть і випустіть файл"
     }
   },
   "general": {
@@ -94,8 +183,8 @@
     "table": "Таблиця",
     "addEvent": "Додати подію",
     "private": "Приватне",
-    "profile": "Профіль",
     "settings": "Налаштування",
+    "businessProfile": "Профіль компанії",
     "switch-business-client": "Змінити контекст"
   },
   "page": {
@@ -269,18 +358,72 @@
     "profile": {
       "title": "Профіль",
       "form": {
+        "section": {
+          "coverImage": {
+            "title": "Банер",
+            "motivate": "Ти можеш надати своєму профілю трохи більше індивідуальності та допомогти іншим розпізнати тебе, завантаживши зображення (фотографію чи інший графічний дизайн).",
+            "fileover": "Покладіть свої файли тут"
+          },
+          "logo": {
+            "title": "Логотип",
+            "formats": "Підтримувані формати: PNG, JPG, JPEG, GIF",
+            "motivate": "Ти можеш надати своєму бізнес-профілю трохи більше особистості і допомогти людям тебе розпізнати, завантаживши логотип (зображення, фото чи іншу графічну піктограму, що тебе представляє)",
+            "fileover": "Покладіть свої файли тут"
+          },
+          "gallery": {
+            "title": "Галерея",
+            "comment": "Завантажуй зображення, що демонструють твою роботу з найкращого боку. Зображення 1800 на 900 пікселів підходять найкраще для даного портфоліо, підтримувані формати JPEG та PNG. Ти можеш завантажити до 6 зображень."
+          },
+          "address": {
+            "title": "Адреса",
+            "input": {
+              "streetAddressLineOne": {
+                "placeholder": "Назва вулиці, алеї чи бульвару"
+              },
+              "streetAddressLineTwo": {
+                "placeholder": "Номер будинку, офісу або студії"
+              },
+              "zipCode": {
+                "placeholder": "Напиши тут свій поштовий індекс"
+              },
+              "city": {
+                "placeholder": "Напиши назву населеного пункту"
+              },
+              "country": {
+                "placeholder": "Вибери країну"
+              }
+            }
+          },
+          "bookingSettings": {
+            "input": {
+              "earliestBooking": {
+                "placeholder": "Вказує на найкоротший проміжок часу, після якого можна здійснити бронювання послуги"
+              },
+              "latestBooking": {
+                "placeholder": "Зазнач час впродовж якого можна бронювати твої послуги"
+              },
+              "approvalTime": {
+                "placeholder": "Час, після якого незатверджена подія буде скасована"
+              }
+            }
+          }
+        },
         "inputs": {
           "name": {
-            "label": "Ім'я",
+            "label": "Назва бізнесу",
             "placeholder": "Введіть назву компанії або особисте ім'я"
           },
           "description": {
-            "label": "Опис",
-            "placeholder": "Введіть опис клієнта"
+            "label": "Опис компанії",
+            "placeholder": "Коротко опиши свій бізнес"
           },
           "active": {
             "label": "Активний",
             "placeholder": "Увімкніть, якщо хочете бути активним"
+          },
+          "feature": {
+            "label": "Особливість",
+            "placeholder": "Коротка фраза, що зацікавить потенційного клієнта"
           }
         }
       }

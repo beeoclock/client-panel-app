@@ -7,9 +7,8 @@
 
     <form-input
       id="create-business-form-input-name"
-      type="name"
-      autocomplete="name"
-      placeholder="First name"
+      autocomplete="business.client.name"
+      [placeholder]="'general.title' | translate"
       [control]="form.controls.name"
       [label]="'identity.create-business.form.inputs.name.label' | translate">
     </form-input>
@@ -18,19 +17,17 @@
       id="create-business-form-input-address"
       type="address"
       autocomplete="address"
-      placeholder="Address of your business"
+      [placeholder]="'keyword.capitalize.address' | translate"
       [control]="form.controls.address"
       [label]="'identity.create-business.form.inputs.address.label' | translate">
     </form-input>
 
-    <form-input
+    <form-textarea-component
       id="create-business-form-input-slogan"
-      type="slogan"
-      autocomplete="slogan"
-      placeholder="Slogan of your business"
-      [control]="form.controls.slogan"
-      [label]="'identity.create-business.form.inputs.slogan.label' | translate">
-    </form-input>
+      [placeholder]="'general.description' | translate"
+      [control]="form.controls.description"
+      [label]="'general.description' | translate">
+    </form-textarea-component>
 
     <div>
       <button
@@ -55,7 +52,7 @@
             focus-visible:outline-2
             focus-visible:outline-offset-2
             focus-visible:outline-blue-600">
-        Create a new Business
+        {{ 'general.save' | translate }}
       </button>
     </div>
   </form>

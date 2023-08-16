@@ -1,9 +1,9 @@
 import {ActiveEnum} from '@utility/domain/enum/active.enum';
 import {LanguageCodeEnum} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
-import {WeekDaysEnum} from '@utility/domain/enum/days-of-week.enum';
 import {IMember} from "@member/domain";
 import {Interface} from '@utility/domain';
+import {ISchedule} from "@utility/domain/interface/i.schedule";
 
 export interface IConfiguration {
   earliestDateTime?: string;
@@ -15,12 +15,6 @@ export interface IPrepaymentPolicy {
   isPercentage?: boolean;
   value?: string;
   minimalCancelTime?: string;
-}
-
-export interface ISchedule {
-  workDays?: WeekDaysEnum[];
-  startTime?: string;
-  endTime?: string;
 }
 
 export interface ILanguageVersion {
