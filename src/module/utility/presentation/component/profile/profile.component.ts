@@ -55,6 +55,7 @@ import {Observable} from "rxjs";
         </li>
         <li>
           <a routerLink="/identity/corridor"
+             [queryParams]="{force: true}"
              (click)="hideDropdown()"
              class="block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
             {{ 'sidebar.switch-business-client' | translate }}

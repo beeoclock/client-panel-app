@@ -1,4 +1,4 @@
-import {AfterViewInit, Directive, ElementRef, inject, Input, Optional} from '@angular/core';
+import {Directive, DoCheck, ElementRef, inject, Input, Optional} from '@angular/core';
 import {AbstractControl, NgControl} from '@angular/forms';
 import {is} from "thiis";
 import {TranslateService} from "@ngx-translate/core";
@@ -8,7 +8,7 @@ import {getFirstKey} from "@utility/domain";
   selector: '[invalidTooltip]',
   standalone: true
 })
-export class InvalidTooltipDirective implements AfterViewInit {
+export class InvalidTooltipDirective implements DoCheck {
 
   @Input()
   public needTouched = true;
@@ -26,43 +26,9 @@ export class InvalidTooltipDirective implements AfterViewInit {
   private readonly translateService = inject(TranslateService);
   private reason: string | undefined;
 
-  public ngAfterViewInit(): void {
-    this.control = this.ngControl?.control;
-    if (this.control) {
-
-      const callback: () => void = () => {
-
-        this.detection();
-
-      };
-
-      this.control.statusChanges.subscribe(() => {
-
-        callback();
-
-      });
-
-      this.control.valueChanges.subscribe(() => {
-
-        callback();
-
-      });
-
-      this.control.markAsTouched = function (opts: { onlySelf?: boolean } = {}) {
-
-        const self = this as unknown as { touched: boolean, _parent: { markAsTouched: (arg: unknown) => void } };
-
-        self.touched = true;
-
-        if (self._parent && !opts.onlySelf) {
-          self._parent.markAsTouched(opts);
-        }
-
-        callback();
-
-      };
-
-    }
+  public ngDoCheck(): void {
+    this.control = this.ngControl?.control; // Get the associated control
+    this.detection(); // Call the function to mark invalid elements
   }
 
   // Detect if control has error, if it true that add
