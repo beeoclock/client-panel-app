@@ -1,5 +1,5 @@
-import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
+import {Component, HostBinding, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SignInComponent} from '@identity/presentation/component/sign-in.component/sign-in.component';
 import {Select, Store} from '@ngxs/store';
@@ -9,11 +9,11 @@ import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {IMember} from "@identity/domain/interface/i.member";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {IdentityApiAdapter} from "@identity/adapter/external/api/identity.api.adapter";
-import {Auth} from "@angular/fire/auth";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {LogoutComponent} from "@utility/presentation/component/logout/logout.component";
+import {BooleanState} from "@utility/domain";
 
 @Component({
   selector: 'identity-corridor-page',
@@ -33,20 +33,20 @@ import {LogoutComponent} from "@utility/presentation/component/logout/logout.com
   ],
   encapsulation: ViewEncapsulation.None
 })
-export default class Index {
+export default class Index implements OnInit {
 
-  public readonly store = inject(Store);
-  public readonly router = inject(Router);
-  public readonly auth = inject(Auth);
-  public readonly identityApiAdapter = inject(IdentityApiAdapter);
+  private readonly store = inject(Store);
+  private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly identityApiAdapter = inject(IdentityApiAdapter);
 
   @Select(IdentityState.clients)
   public readonly clients$!: Observable<IMember[]>;
 
   public readonly members$ = this.clients$.pipe(
     filter((result) => Array.isArray(result)),
-    tap((rest) => {
-      this.loaderOn = false;
+    tap(() => {
+      this.loader.switchOff();
     })
   )
 
@@ -56,7 +56,7 @@ export default class Index {
   @HostBinding()
   public readonly class = 'w-96 p-8 dark:border-beeDarkColor-700 rounded dark:bg-beeDarkColor-800';
 
-  public loaderOn = true;
+  public readonly loader = new BooleanState(true);
 
   constructor() {
 
@@ -67,6 +67,17 @@ export default class Index {
     // TODO check if localStorage has information about selected user's business client
 
     // TODO As user have selected business client to redirect the user to dashboard with selected business client
+
+  }
+
+  public ngOnInit(): void {
+
+    this.clientId$.pipe(
+      filter((result) => !!result),
+      filter(() => !('force' in this.activatedRoute.snapshot.queryParams))
+    ).subscribe(() => {
+      this.router.navigate(['/', 'dashboard']);
+    });
 
   }
 

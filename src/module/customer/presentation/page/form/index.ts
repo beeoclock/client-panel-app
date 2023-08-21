@@ -1,7 +1,6 @@
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {CustomerForm} from '@customer/form/customer.form';
 import {ReactiveFormsModule} from '@angular/forms';
-import {InputDirective} from '@utility/directives/input/input.directive';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
@@ -24,7 +23,6 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
   encapsulation: ViewEncapsulation.None,
   imports: [
     ReactiveFormsModule,
-    InputDirective,
     DeleteButtonComponent,
     HasErrorDirective,
     RouterLink,

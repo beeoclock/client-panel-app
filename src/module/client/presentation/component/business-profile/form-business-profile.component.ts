@@ -1,5 +1,4 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
-import {InputDirective} from '@utility/directives/input/input.directive';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {BusinessProfileForm} from '@client/form/business-profile.form';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -17,9 +16,6 @@ import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/b
   standalone: true,
   encapsulation: ViewEncapsulation.None,
   imports: [
-    InputDirective,
-    InputDirective,
-    InputDirective,
     DeleteButtonComponent,
     ReactiveFormsModule,
     SpinnerComponent,
