@@ -101,7 +101,7 @@ export class IdentityState {
       const token = await this.auth.currentUser.getIdTokenResult(true);
 
       // update state
-      ctx.dispatch(new IdentityActions.Token(token));
+      await firstValueFrom(ctx.dispatch(new IdentityActions.Token(token)));
 
     }
   }
