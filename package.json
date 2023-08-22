@@ -79,6 +79,7 @@
     "rxjs": "~7.5.0",
     "thiis": "^1.0.1",
     "tslib": "^2.3.0",
+    "typescript-debounce-decorator": "^0.0.18",
     "uuid": "^9.0.0",
     "zone.js": "~0.12.0"
   },

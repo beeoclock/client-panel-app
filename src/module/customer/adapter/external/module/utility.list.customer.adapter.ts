@@ -8,7 +8,7 @@ import {convertFilters} from "@customer/utils";
 @Injectable({
   providedIn: 'root'
 })
-export class EventListCustomerAdapter {
+export class UtilityListCustomerAdapter {
 
   public readonly listCustomerApiAdapter = inject(ListCustomerApiAdapter);
   public readonly tableState = new TableState<Customer.ICustomer>();
@@ -21,6 +21,8 @@ export class EventListCustomerAdapter {
     this.tableState.items = [];
 
   }
+
+  // TODO add method to stop request
 
   /**
    * GET PAGE
@@ -37,6 +39,7 @@ export class EventListCustomerAdapter {
     try {
 
       const filters: any = {};
+      console.log(this.tableState.filters);
       convertFilters(filters, this.tableState.filters);
 
       const data = await this.listCustomerApiAdapter.executeAsync({

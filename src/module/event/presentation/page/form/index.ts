@@ -15,6 +15,7 @@ import {SelectTimeSlotComponent} from "@event/presentation/component/form/select
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {ServicesComponent} from "@event/presentation/component/form/services/services.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {environment} from "@environment/environment";
 
 
 @Component({
@@ -154,6 +155,10 @@ export default class Index implements OnInit {
       this.form.enable();
       this.form.updateValueAndValidity();
 
+    } else {
+      if (!environment.production) {
+        console.log(this.form, this.form.getRawValue());
+      }
     }
   }
 

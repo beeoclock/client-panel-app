@@ -24,9 +24,17 @@ export class AttendantForm extends FormGroup<IAttendantForm> {
       customer: new CustomerForm()
     });
     this.initValue();
+    this.initCustomerIdHandler();
   }
 
-  public toggleIsNewCustomer(): void {
+  public toggleIsNewCustomer(force: IsNewCustomerEnum | undefined = undefined): void {
+
+    if (force !== undefined) {
+
+        this.controls.isNewCustomer.patchValue(force);
+        return;
+
+    }
 
     if (this.controls.isNewCustomer.value === IsNewCustomerEnum.YES) {
 
@@ -46,6 +54,14 @@ export class AttendantForm extends FormGroup<IAttendantForm> {
     this.controls.isOrganizer.patchValue(IsOrganizerEnum.NO);
     this.controls.isOptional.patchValue(IsOptionalEnum.NO);
 
+  }
+
+  private initCustomerIdHandler(): void {
+    this.controls.customer.valueChanges.subscribe(({_id}) => {
+      if (_id) {
+        this.toggleIsNewCustomer(IsNewCustomerEnum.NO);
+      }
+    });
   }
 
 }
