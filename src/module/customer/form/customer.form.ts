@@ -33,6 +33,14 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
     this.initValidation();
   }
 
+  public isNew(): boolean {
+    return !this.controls._id.value;
+  }
+
+  public isNotNew(): boolean {
+    return !this.isNew();
+  }
+
   public isEmpty(): boolean {
     return Object.values(this.controls).every((control: AbstractControl) => {
       return control.value === null;

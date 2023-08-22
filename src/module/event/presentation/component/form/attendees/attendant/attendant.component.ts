@@ -8,6 +8,7 @@ import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/inval
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {CustomerForm} from "@customer/form";
+import {CustomerAutocompleteDirective} from "@utility/directives/customer-autocomplete/customer-autocomplete.directive";
 
 @Component({
   selector: 'event-attendant-component',
@@ -19,22 +20,23 @@ import {CustomerForm} from "@customer/form";
     IsRequiredDirective,
     InvalidTooltipDirective,
     FormInputComponent,
-    TranslateModule
+    TranslateModule,
+    CustomerAutocompleteDirective
   ],
   template: `
     <form [formGroup]="form" class="grid grid-cols-2 gap-4">
 
       <form-input
-        type="firstName"
-        autocomplete="firstName"
+        type="text"
+        customerAutocomplete
         [placeholder]="'general.firstName' | translate"
         [control]="form.controls.firstName"
         [label]="'general.firstName' | translate">
       </form-input>
 
       <form-input
-        type="lastName"
-        autocomplete="lastName"
+        type="text"
+        customerAutocomplete
         [placeholder]="'general.lastName' | translate"
         [control]="form.controls.lastName"
         [label]="'general.lastName' | translate">
@@ -42,7 +44,7 @@ import {CustomerForm} from "@customer/form";
 
       <form-input
         type="email"
-        autocomplete="email"
+        customerAutocomplete
         placeholder="firstname.lastname@example.com"
         [control]="form.controls.email"
         [label]="'keyword.capitalize.email' | translate">
@@ -50,7 +52,7 @@ import {CustomerForm} from "@customer/form";
 
       <form-input
         type="phone"
-        autocomplete="phone"
+        customerAutocomplete
         placeholder="+000000000000"
         [control]="form.controls.phone"
         [label]="'keyword.capitalize.phone' | translate">

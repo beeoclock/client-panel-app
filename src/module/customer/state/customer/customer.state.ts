@@ -9,6 +9,7 @@ import {UpdateCustomerApiAdapter} from "@customer/adapter/external/api/update.cu
 import {ItemCustomerApiAdapter} from "@customer/adapter/external/api/item.customer.api.adapter";
 import {RemoveCustomerApiAdapter} from "@customer/adapter/external/api/remove.customer.api.adapter";
 import {ListCustomerApiAdapter} from "@customer/adapter/external/api/list.customer.api.adapter";
+import {convertFilters} from "@customer/utils";
 
 export type ICustomerState = IBaseState<Customer.ICustomer>;
 
@@ -105,50 +106,7 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
   public override async getList(ctx: StateContext<ICustomerState>): Promise<void> {
     await super.getList(ctx, (queryFilters: any, filters: any) => {
 
-      const {search, ...rest} = filters;
-
-      if (search) {
-        queryFilters['$or'] = [
-          {
-            firstName: {
-              $regex: search ?? '',
-              $options: "i"
-            }
-          },
-          {
-            lastName: {
-              $regex: search ?? '',
-              $options: "i"
-            }
-          },
-          {
-            email: {
-              $regex: search ?? '',
-              $options: "i"
-            }
-          },
-          {
-            phone: {
-              $regex: search ?? '',
-              $options: "i"
-            }
-          },
-          {
-            note: {
-              $regex: search ?? '',
-              $options: "i"
-            }
-          },
-        ];
-      }
-
-      Object.keys(rest).forEach((key) => {
-        queryFilters['$and'] = [
-          {
-            [key]: filters[key]
-          }
-        ]
-      });
+      convertFilters(queryFilters, filters);
 
     });
 

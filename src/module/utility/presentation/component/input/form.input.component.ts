@@ -1,4 +1,4 @@
-import {Component, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@angular/core";
 import {IsRequiredDirective} from "@utility/directives/is-required/is-required";
 import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
@@ -8,6 +8,7 @@ import {NgIf} from "@angular/common";
   selector: 'form-input',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     IsRequiredDirective,
     InvalidTooltipDirective,
@@ -22,7 +23,7 @@ import {NgIf} from "@angular/common";
       isRequired
       invalidTooltip
       [isRequiredEnabled]="showLabel"
-      [disabled]="disabled"
+      [class.disabled]="disabled"
       [formControl]="control"
       [placeholder]="placeholder"
       [id]="id"

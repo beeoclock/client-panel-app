@@ -43,23 +43,23 @@ import {AppActions} from "@utility/state/app/app.actions";
   selector: 'client-settings-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-    imports: [
-        FormBusinessProfileComponent,
-        ReactiveFormsModule,
-        TranslateModule,
-        CoverImageBusinessProfileComponent,
-        LogoBusinessProfileComponent,
-        SwitchActiveBlockComponent,
-        NgForOf,
-        CardComponent,
-        AddressBusinessProfileComponent,
-        GalleryBusinessProfileComponent,
-        SchedulesFormComponent,
-        BusinessProfileContactPhoneComponent,
-        BusinessProfileSocialMediaComponent,
-        FacilitiesBusinessProfileComponent,
-        BookingSettingsBusinessProfileComponent
-    ],
+  imports: [
+    FormBusinessProfileComponent,
+    ReactiveFormsModule,
+    TranslateModule,
+    CoverImageBusinessProfileComponent,
+    LogoBusinessProfileComponent,
+    SwitchActiveBlockComponent,
+    NgForOf,
+    CardComponent,
+    AddressBusinessProfileComponent,
+    GalleryBusinessProfileComponent,
+    SchedulesFormComponent,
+    BusinessProfileContactPhoneComponent,
+    BusinessProfileSocialMediaComponent,
+    FacilitiesBusinessProfileComponent,
+    BookingSettingsBusinessProfileComponent
+  ],
   standalone: true
 })
 export default class Index {

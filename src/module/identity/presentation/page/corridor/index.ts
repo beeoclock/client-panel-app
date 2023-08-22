@@ -4,7 +4,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {SignInComponent} from '@identity/presentation/component/sign-in.component/sign-in.component';
 import {Select, Store} from '@ngxs/store';
 import {IdentityState} from "@identity/state/identity/identity.state";
-import {filter, firstValueFrom, Observable, tap} from "rxjs";
+import {filter, from, Observable, switchMap, tap} from "rxjs";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {IMember} from "@identity/domain/interface/i.member";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
@@ -14,6 +14,8 @@ import {TranslateModule} from "@ngx-translate/core";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {LogoutComponent} from "@utility/presentation/component/logout/logout.component";
 import {BooleanState} from "@utility/domain";
+import {AppActions} from "@utility/state/app/app.actions";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
   selector: 'identity-corridor-page',
@@ -33,7 +35,7 @@ import {BooleanState} from "@utility/domain";
   ],
   encapsulation: ViewEncapsulation.None
 })
-export default class Index implements OnInit {
+export default class Index extends Reactive implements OnInit {
 
   private readonly store = inject(Store);
   private readonly router = inject(Router);
@@ -41,64 +43,64 @@ export default class Index implements OnInit {
   private readonly identityApiAdapter = inject(IdentityApiAdapter);
 
   @Select(IdentityState.clients)
-  public readonly clients$!: Observable<IMember[]>;
+  private readonly clients$!: Observable<IMember[]>;
+
+  @Select(IdentityState.clientId)
+  private readonly clientId$!: Observable<string | undefined>;
 
   public readonly members$ = this.clients$.pipe(
-    filter((result) => Array.isArray(result)),
+    filter(Array.isArray),
     tap(() => {
       this.loader.switchOff();
     })
-  )
-
-  @Select(IdentityState.clientId)
-  public readonly clientId$!: Observable<string | undefined>;
+  );
 
   @HostBinding()
   public readonly class = 'w-96 p-8 dark:border-beeDarkColor-700 rounded dark:bg-beeDarkColor-800';
 
   public readonly loader = new BooleanState(true);
-
-  constructor() {
-
-    this.store.dispatch(new IdentityActions.GetClients());
-
-    // TODO get information about user's business clients
-    // TODO check if localStorage has information about user's business clients
-    // TODO check if localStorage has information about selected user's business client
-
-    // TODO As user have selected business client to redirect the user to dashboard with selected business client
-
-  }
+  public readonly disabled = new BooleanState(false);
 
   public ngOnInit(): void {
 
+    this.store.dispatch(new IdentityActions.GetClients());
+
     this.clientId$.pipe(
       filter((result) => !!result),
-      filter(() => !('force' in this.activatedRoute.snapshot.queryParams))
-    ).subscribe(() => {
-      this.router.navigate(['/', 'dashboard']);
-    });
+      filter(() => !('force' in this.activatedRoute.snapshot.queryParams)),
+      switchMap(() => from(this.gotToDashboardPage()))
+    ).subscribe();
 
   }
 
-  public async gotToCreateBusinessPage(): Promise<void> {
-    await this.router.navigate(['/', 'identity', 'create-business']);
+  public async gotToCreateBusinessPage(): Promise<boolean> {
+    return this.router.navigate(['/', 'identity', 'create-business']);
+  }
+
+  public async gotToDashboardPage(): Promise<boolean> {
+    return this.router.navigate(['/', 'dashboard']);
   }
 
   public async select(member: IMember): Promise<void> {
-    // Switch business client by server side
-    await firstValueFrom(
-      this.identityApiAdapter.patchSwitchBusinessClient$({
-        clientId: member.client._id
-      })
-    );
-    // Refresh token and receive new claims
-    await firstValueFrom(this.store.dispatch(new IdentityActions.InitToken()));
-    const clientId = await firstValueFrom(this.clientId$);
+    this.disabled.switchOn();
 
-    if (clientId === member.client._id) {
-      await this.router.navigate(['/', 'dashboard']);
-    }
+    this.store.dispatch(new AppActions.PageLoading(true)).pipe(
+      // Switch business client by server side
+      switchMap(() => this.identityApiAdapter.patchSwitchBusinessClient$({
+        clientId: member.client._id
+      })),
+      // Refresh token and receive new claims
+      tap(() => this.store.dispatch(new IdentityActions.InitToken())),
+      switchMap(() => this.clientId$),
+      filter((clientId) => clientId === member.client._id),
+      tap(() => this.store.dispatch(new AppActions.PageLoading(false))),
+      switchMap(() => from(this.gotToDashboardPage())),
+      this.takeUntil(),
+    ).subscribe({
+      error: () => {
+        this.disabled.switchOff();
+      }
+    });
 
   }
 
