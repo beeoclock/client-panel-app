@@ -39,7 +39,6 @@ export class UtilityListCustomerAdapter {
     try {
 
       const filters: any = {};
-      console.log(this.tableState.filters);
       convertFilters(filters, this.tableState.filters);
 
       const data = await this.listCustomerApiAdapter.executeAsync({
@@ -47,11 +46,18 @@ export class UtilityListCustomerAdapter {
         filters
       });
 
-      // Increment page
-      this.tableState.page += 1;
+      if (data.items.length === this.tableState.pageSize || this.tableState.page > 1) {
+        // Increment page
+        this.tableState.page += 1;
 
-      // Add items to tableState
-      this.tableState.items = ([] as Customer.ICustomer[]).concat(this.tableState.items, data.items);
+        // Add items to tableState
+        this.tableState.items = ([] as Customer.ICustomer[]).concat(this.tableState.items, data.items);
+      } else {
+
+        // Add items to tableState
+        this.tableState.items = data.items;
+      }
+
       this.tableState.total = data.totalSize;
 
     } catch (e) {

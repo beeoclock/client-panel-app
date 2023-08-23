@@ -29,21 +29,37 @@ export class CustomerAutocompleteDirective implements DoCheck {
   private readonly ngControl: NgControl | null = inject(NgControl);
   private readonly elementRef: ElementRef<HTMLInputElement> = inject(ElementRef);
 
+  private previousControlValue = '';
+
   private HTMLUlList: HTMLUListElement | null = null;
   private HTMLDivElement: HTMLDivElement | null = null;
-  private HTMLLoader: HTMLLIElement | null = null;
+  private HTMLLoader: HTMLDivElement | null = null;
 
   public ngDoCheck(): void {
+
+    // Check if value is empty
+    if (!this.controlValue.length) {
+      this.hideDropdown();
+      return;
+    }
+
     if (
       this.elementRef.nativeElement.contains(this.document.activeElement) ||
       this.elementRef.nativeElement.isEqualNode(this.document.activeElement)
     ) {
-      this.showList();
+
+      if (this.previousControlValue === this.controlValue) {
+        return;
+      }
+      this.previousControlValue = this.controlValue;
+
+      this.showDropdown();
       this.showLoader();
+      this.hideHTMLUlList();
       this.updateCustomerList();
     } else {
       if (this.document.activeElement?.tagName === 'INPUT') {
-        this.hideList();
+        this.hideDropdown();
       }
     }
   }
@@ -51,10 +67,7 @@ export class CustomerAutocompleteDirective implements DoCheck {
   @debounce(ONE_SECOND)
   public updateCustomerList(): void {
 
-    // Check if value is empty
-    if (!this.controlValue.length) {
-      return;
-    }
+    this.clearHTMLUlList();
 
     // Update filter
     this.utilityListCustomerAdapter.tableState.filters = {
@@ -65,8 +78,8 @@ export class CustomerAutocompleteDirective implements DoCheck {
     // Do request to server and update list
     this.utilityListCustomerAdapter.getPageAsync().then(() => {
       this.hideLoader();
+      this.showHTMLUlList();
       if (this.utilityListCustomerAdapter.tableState.total) {
-        this.clearHTMLUlList();
         this.utilityListCustomerAdapter.tableState.items.forEach((customer) => {
           this.addCustomerToHTMLUlList(customer);
         });
@@ -81,16 +94,16 @@ export class CustomerAutocompleteDirective implements DoCheck {
     li.innerHTML = `
       <div class="flex gap-2">
         <div class="rounded-full flex justify-center items-center h-11 w-11 text-white bg-beeColor-400 font-bold">
-           ${customer.firstName[0].toUpperCase()}${customer.lastName[0].toUpperCase()}
+           ${customer?.firstName?.[0]?.toUpperCase() ?? ''}${customer?.lastName?.[0]?.toUpperCase() ?? ''}
         </div>
         <div class="flex flex-col">
-          <div>${customer.firstName ?? ''} ${customer.lastName ?? ''}</div>
-          <div class="text-beeColor-500 text-sm">${customer.email ?? ''}</div>
+          <div>${customer?.firstName ?? ''} ${customer?.lastName ?? ''}</div>
+          <div class="text-beeColor-500 text-sm">${customer?.email ?? ''}</div>
         </div>
       </div>
     `;
     li.addEventListener('click', () => {
-      this.hideList();
+      this.hideDropdown();
       this.formControl?.parent?.patchValue(customer as any);
       this.formControl?.parent?.disable();
     });
@@ -106,14 +119,18 @@ export class CustomerAutocompleteDirective implements DoCheck {
     return this.formControl?.value || '';
   }
 
-  private showList(): void {
+  private showDropdown(): void {
+
+    // Clear list
+    this.clearHTMLUlList();
+
     if (!this.HTMLDivElement) {
       this.initList();
     }
     this.HTMLDivElement?.classList?.remove('hidden');
   }
 
-  private hideList(): void {
+  private hideDropdown(): void {
     this.HTMLDivElement?.classList?.add('hidden');
   }
 
@@ -137,10 +154,10 @@ export class CustomerAutocompleteDirective implements DoCheck {
 
   private initLoader(): void {
     // LOADER
-    this.HTMLLoader = this.document.createElement('li');
+    this.HTMLLoader = this.document.createElement('div');
     this.HTMLLoader.classList.add('hidden', 'my-2', 'px-3');
     this.HTMLLoader.innerText = 'Loading...';
-    this.HTMLUlList?.appendChild(this.HTMLLoader);
+    this.HTMLDivElement?.appendChild(this.HTMLLoader);
   }
 
   private clearHTMLUlList(): void {
@@ -148,7 +165,20 @@ export class CustomerAutocompleteDirective implements DoCheck {
       return;
     }
     this.HTMLUlList.innerHTML = '';
-    this.initLoader();
+  }
+
+  private hideHTMLUlList(): void {
+    if (!this.HTMLUlList || this.HTMLUlList.classList.contains('hidden')) {
+      return;
+    }
+    this.HTMLUlList.classList.add('hidden');
+  }
+
+  private showHTMLUlList(): void {
+    if (!this.HTMLUlList || !this.HTMLUlList.classList.contains('hidden')) {
+      return;
+    }
+    this.HTMLUlList.classList.remove('hidden');
   }
 
   private hideLoader(): void {

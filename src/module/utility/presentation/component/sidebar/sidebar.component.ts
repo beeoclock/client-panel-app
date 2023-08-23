@@ -140,7 +140,6 @@ export class SidebarComponent {
 
     const clientId = await firstValueFrom(this.store.select(IdentityState.clientId));
     const link = `https://beeoclock.com/${clientId}`;
-    console.log('Go to:', link);
     window.open(link, '_blank');
 
   }

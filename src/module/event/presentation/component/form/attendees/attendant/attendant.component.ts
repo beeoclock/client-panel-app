@@ -29,6 +29,7 @@ import {CustomerAutocompleteDirective} from "@utility/directives/customer-autoco
       <form-input
         type="text"
         customerAutocomplete
+        autocomplete="off"
         [placeholder]="'general.firstName' | translate"
         [control]="form.controls.firstName"
         [label]="'general.firstName' | translate">
@@ -37,6 +38,7 @@ import {CustomerAutocompleteDirective} from "@utility/directives/customer-autoco
       <form-input
         type="text"
         customerAutocomplete
+        autocomplete="off"
         [placeholder]="'general.lastName' | translate"
         [control]="form.controls.lastName"
         [label]="'general.lastName' | translate">
@@ -45,6 +47,7 @@ import {CustomerAutocompleteDirective} from "@utility/directives/customer-autoco
       <form-input
         type="email"
         customerAutocomplete
+        autocomplete="off"
         placeholder="firstname.lastname@example.com"
         [control]="form.controls.email"
         [label]="'keyword.capitalize.email' | translate">
@@ -53,6 +56,7 @@ import {CustomerAutocompleteDirective} from "@utility/directives/customer-autoco
       <form-input
         type="phone"
         customerAutocomplete
+        autocomplete="off"
         placeholder="+000000000000"
         [control]="form.controls.phone"
         [label]="'keyword.capitalize.phone' | translate">
