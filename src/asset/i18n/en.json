@@ -70,6 +70,7 @@
   },
   "keyword": {
     "capitalize": {
+      "account": "Account",
       "facilities": "Facilities",
       "writePrice": "Write price",
       "add-event": "Add event",

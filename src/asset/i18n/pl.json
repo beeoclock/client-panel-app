@@ -70,6 +70,7 @@
   },
   "keyword": {
     "capitalize": {
+      "account": "Konto",
       "facilities": "Udogodnienia",
       "writePrice": "Wpisz cenę",
       "add-event": "Dodaj wydarzenie",

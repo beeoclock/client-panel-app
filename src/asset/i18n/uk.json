@@ -70,6 +70,7 @@
   },
   "keyword": {
     "capitalize": {
+      "account": "Профіль",
       "facilities": "Зручності",
       "writePrice": "Ввести ціну",
       "add-event": "Додати подію",
