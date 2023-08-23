@@ -2,6 +2,10 @@
   "country": {
     "UA": "Ukraine"
   },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  },
   "latestBooking": {
     "NO_LIMIT": "Any available time",
     "TWO_WEEKS": "This week and next week",
@@ -94,6 +98,7 @@
   },
   "keyword": {
     "capitalize": {
+      "language": "Language",
       "fullName": "Full name",
       "save": "Save",
       "close": "Close",

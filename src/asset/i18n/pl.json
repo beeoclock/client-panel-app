@@ -2,6 +2,10 @@
   "country": {
     "UA": "Ukraina"
   },
+  "theme": {
+    "light": "Jasny",
+    "dark": "Ciemny"
+  },
   "earliestBooking": {
     "NO_LIMIT": "Bez ograniczeń",
     "MINUTE_15": "za 15 minut",
@@ -94,6 +98,7 @@
   },
   "keyword": {
     "capitalize": {
+      "language": "Język",
       "fullName": "Pełne imię i nazwisko",
       "save": "Zapisz",
       "close": "Zamknij",

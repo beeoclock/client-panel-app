@@ -3,7 +3,7 @@ import {DangerZoneComponent} from '@module/client/presentation/component/danger-
 import {ChangePasswordComponent} from '@module/client/presentation/component/change-password/change-password.component';
 import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
 import {Auth} from "@angular/fire/auth";
-import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {ReactiveFormsModule} from "@angular/forms";
 import {LanguageInputComponent} from "@module/client/presentation/component/settings/language-input.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {Router} from "@angular/router";
@@ -31,25 +31,8 @@ export default class Index {
   private readonly auth = inject(Auth);
   private readonly router = inject(Router);
 
-  public readonly darkModeControl = new FormControl(false);
-
   @HostBinding()
   public readonly class = 'p-4 block';
-
-  constructor() {
-    const value = (localStorage.getItem('theme') ?? 'light') === 'dark';
-    this.darkModeControl.setValue(value);
-    this.darkModeControl.valueChanges.subscribe((controlValue) => {
-      const newValue = controlValue ? 'dark' : 'light';
-      document.documentElement.setAttribute("data-bs-theme", newValue);
-      if (controlValue) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-      localStorage.setItem('theme', newValue);
-    });
-  }
 
   public logout(): void {
     this.auth.signOut()

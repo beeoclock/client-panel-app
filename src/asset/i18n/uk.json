@@ -2,6 +2,10 @@
   "country": {
     "UA": "Україна"
   },
+  "theme": {
+    "light": "Світла",
+    "dark": "Темна"
+  },
   "earliestBooking": {
     "NO_LIMIT": "Без обмежень",
     "MINUTE_15": "через 15 хвилин",
@@ -94,6 +98,8 @@
   },
   "keyword": {
     "capitalize": {
+      "language": "Мова",
+      "theme": "Тема",
       "fullName": "Повне ім'я",
       "save": "Зберегти",
       "close": "Закрити",
