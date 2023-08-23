@@ -141,25 +141,21 @@
 
     </div>
 
+    <div
+      class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-800 shadow rounded-lg p-4">
+
+      <!--      <client-change-password-component></client-change-password-component>-->
+
+      <!--          <p class="fs--1">Perhaps you just want to add new account?</p>-->
+      <!--          <p class="fs--1">If yes: click "Add new account" or "Switch to another account"</p>-->
+      <div class="mb-2">
+        <strong class="dark:text-white">{{ 'keyword.capitalize.signOut' | translate }}</strong>
+      </div>
+      <button class="w-full px-4 py-2 rounded border border-red-500 text-red-500 hover:bg-red-100" (click)="logout()">Logout</button>
+
+    </div>
+    <client-danger-zone-component></client-danger-zone-component>
+
   </div>
-
-<!--  <div class="col-span-12 lg:col-span-4 flex flex-col gap-4 dark:text-white">-->
-
-<!--    <div-->
-<!--      class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-800 shadow rounded-lg p-4">-->
-
-<!--&lt;!&ndash;      <client-change-password-component></client-change-password-component>&ndash;&gt;-->
-
-<!--      &lt;!&ndash;          <p class="fs&#45;&#45;1">Perhaps you just want to add new account?</p>&ndash;&gt;-->
-<!--      &lt;!&ndash;          <p class="fs&#45;&#45;1">If yes: click "Add new account" or "Switch to another account"</p>&ndash;&gt;-->
-<!--      <div class="mb-2">-->
-<!--        <strong class="dark:text-white">{{ 'general.signOut' | translate }}</strong>-->
-<!--      </div>-->
-<!--      <button class="w-full px-4 py-2 rounded border border-red-500 text-red-500 hover:bg-red-100" (click)="logout()">Logout</button>-->
-
-<!--    </div>-->
-<!--    <client-danger-zone-component></client-danger-zone-component>-->
-
-<!--  </div>-->
 
 </div>

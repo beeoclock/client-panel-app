@@ -72,6 +72,10 @@
     "capitalize": {
       "account": "Профіль",
       "general": "Загальне",
+      "send": "Відправити",
+      "signOut": "Вийти",
+      "signIn": "Увійти",
+      "signUp": "Зареєструватися",
       "facilities": "Зручності",
       "writePrice": "Ввести ціну",
       "add-event": "Додати подію",
@@ -171,7 +175,6 @@
     "soon": "Незабаром",
     "role": "Роль",
     "permission": "Дозвіл",
-    "signOut": "Вийти",
     "publicPage": "Публічна сторінка",
     "priceTimeFormatPrompt": "години:хвилини"
   },
@@ -468,7 +471,7 @@
     },
     "forgot-password": {
       "form": {
-        "label": "Забули пароль",
+        "label": "Відновлення паролю",
         "inputs": {
           "email": {
             "label": "E-mail",
@@ -482,6 +485,13 @@
       }
     },
     "sign-in": {
+      "hint": {
+        "notAMember": "Не зареєстровані?",
+        "signInToYourAccount": "Увійдіть в свій обліковий запис"
+      },
+      "link": {
+        "forgotPassword": "Забули пароль?"
+      },
       "form": {
         "label": "Увійти",
         "inputs": {
@@ -502,6 +512,9 @@
       }
     },
     "sign-up": {
+      "hint": {
+        "youHaveAnAccount": "Вже зареєстровані?"
+      },
       "form": {
         "label": "Реєстрація",
         "inputs": {

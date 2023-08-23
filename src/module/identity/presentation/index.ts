@@ -22,10 +22,6 @@ export const routers = [
         loadComponent: () => import('./page/sign-up')
       },
       {
-        path: 'reset-password',
-        loadComponent: () => import('./page/reset-password')
-      },
-      {
         path: 'forgot-password',
         loadComponent: () => import('./page/forgot-password')
       },

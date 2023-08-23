@@ -72,6 +72,10 @@
     "capitalize": {
       "account": "Account",
       "general": "General",
+      "send": "Send",
+      "signOut": "Sign out",
+      "signIn": "Sign in",
+      "signUp": "Sign up",
       "facilities": "Facilities",
       "writePrice": "Write price",
       "add-event": "Add event",
@@ -171,7 +175,6 @@
     "soon": "Soon",
     "role": "Role",
     "permission": "Permission",
-    "signOut": "Sign out",
     "publicPage": "Public page",
     "priceTimeFormatPrompt": "hours:minutes"
   },
@@ -468,7 +471,7 @@
     },
     "forgot-password": {
       "form": {
-        "label": "Forgot password",
+        "label": "Password recovery",
         "inputs": {
           "email": {
             "label": "E-mail",
@@ -482,6 +485,13 @@
       }
     },
     "sign-in": {
+      "hint": {
+        "notAMember": "Not a member yet?",
+        "signInToYourAccount": "Sign in to your account"
+      },
+      "link": {
+        "forgotPassword": "Forgot password?"
+      },
       "form": {
         "label": "Login",
         "inputs": {
@@ -502,6 +512,9 @@
       }
     },
     "sign-up": {
+      "hint": {
+        "youHaveAnAccount": "You have an account?"
+      },
       "form": {
         "label": "Registration",
         "inputs": {

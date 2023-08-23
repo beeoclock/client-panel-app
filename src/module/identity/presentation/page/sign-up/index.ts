@@ -1,9 +1,11 @@
-import {Component, HostBinding, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {RouterLink} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
 import {NgIf} from '@angular/common';
 import {SignUpComponent} from '@identity/presentation/component/sign-up.component/sign-up.component';
+import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 
 @Component({
   selector: 'identity-sign-up-page',
@@ -14,13 +16,11 @@ import {SignUpComponent} from '@identity/presentation/component/sign-up.componen
     RouterLink,
     TranslateModule,
     NgIf,
-    SignUpComponent
+    SignUpComponent,
+    CardComponent,
+    ChangeLanguageComponent
   ],
   encapsulation: ViewEncapsulation.None
 })
 export default class Index {
-
-  @HostBinding()
-  public readonly class = 'w-96 p-8 border dark:border-beeDarkColor-700 bg-white rounded-2xl dark:bg-beeDarkColor-800';
-
 }
