@@ -83,6 +83,13 @@
   "change-phone-number": {
     "modal": {
       "title": "Zmiana numeru telefonu"
+    },
+    "form": {
+      "input": {
+        "phoneNumber": {
+          "placeholder": "Twój numer telefonu"
+        }
+      }
     }
   },
   "keyword": {

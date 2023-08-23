@@ -27,7 +27,7 @@ import {ChangePhoneNumberForm} from "@client/form/change-phone-number.form";
         id="client-form-phoneNumber"
         type="text"
         autocomplete="phoneNumber"
-        [placeholder]="'keyword.capitalize.phone' | translate"
+        [placeholder]="'change-phone-number.form.input.phoneNumber.placeholder' | translate"
         [control]="form.controls.phoneNumber"
         [label]="'keyword.capitalize.phone' | translate">
       </form-input>
