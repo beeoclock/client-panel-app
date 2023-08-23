@@ -7,19 +7,21 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {LanguageInputComponent} from "@module/client/presentation/component/settings/language-input.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {Router} from "@angular/router";
+import {AccountSettingsComponent} from "@client/presentation/component/settings/account/account.settings.component";
 
 @Component({
   selector: 'client-settings-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    DangerZoneComponent,
-    ChangePasswordComponent,
-    DeleteButtonComponent,
-    ReactiveFormsModule,
-    LanguageInputComponent,
-    TranslateModule
-  ],
+    imports: [
+        DangerZoneComponent,
+        ChangePasswordComponent,
+        DeleteButtonComponent,
+        ReactiveFormsModule,
+        LanguageInputComponent,
+        TranslateModule,
+        AccountSettingsComponent
+    ],
   standalone: true
 })
 export default class Index {
