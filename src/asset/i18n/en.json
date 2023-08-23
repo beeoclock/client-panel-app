@@ -68,8 +68,23 @@
       "minlength": "Minimum length is {{requiredLength}}"
     }
   },
+  "change-name": {
+    "modal": {
+      "title": "Change name"
+    }
+  },
+  "change-phone-number": {
+    "modal": {
+      "title": "Change phone number"
+    }
+  },
   "keyword": {
     "capitalize": {
+      "save": "Save",
+      "close": "Close",
+      "dismiss": "Dismiss",
+      "yes": "Yes",
+      "no": "No",
       "account": "Account",
       "general": "General",
       "send": "Send",
@@ -165,7 +180,6 @@
     "details": "Details",
     "delete": "Delete",
     "update": "Updated",
-    "save": "Save",
     "edit": "Edit",
     "information": "Information",
     "additional": "Additional",

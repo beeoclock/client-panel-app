@@ -58,7 +58,7 @@ export default class Index {
             duration: 10_000,
             buttons: [
               {
-                text: 'Dismiss',
+                text: this.translateService.instant('keyword.capitalize.close'),
                 role: 'cancel',
               },
             ],

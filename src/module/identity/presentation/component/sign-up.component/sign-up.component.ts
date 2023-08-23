@@ -1,7 +1,7 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
 import {Router, RouterLink} from '@angular/router';
 import RegistrationForm from '@identity/form/registration.form';
@@ -95,6 +95,7 @@ export class SignUpComponent {
   public readonly identityApiAdapter = inject(IdentityApiAdapter);
 
   public readonly form = new RegistrationForm();
+  private readonly translateService = inject(TranslateService);
   private readonly toastController = inject(ToastController);
   private readonly router = inject(Router);
 
@@ -114,7 +115,7 @@ export class SignUpComponent {
           duration: 10_000,
           buttons: [
             {
-              text: 'Dismiss',
+              text: this.translateService.instant('keyword.capitalize.close'),
               role: 'cancel',
             },
           ],

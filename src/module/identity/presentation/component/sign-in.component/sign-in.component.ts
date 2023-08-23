@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
+import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
@@ -84,9 +84,6 @@ import {FormInputPasswordComponent} from "@utility/presentation/component/input/
   ]
 })
 export class SignInComponent {
-
-  @HostBinding()
-  public class = 'col-md-7 d-flex flex-center';
 
   public readonly form = new LoginForm();
   private readonly router = inject(Router);

@@ -68,8 +68,23 @@
       "minlength": "Minimalna długość to {{requiredLength}}"
     }
   },
+  "change-name": {
+    "modal": {
+      "title": "Zmiana imienia"
+    }
+  },
+  "change-phone-number": {
+    "modal": {
+      "title": "Zmiana numeru telefonu"
+    }
+  },
   "keyword": {
     "capitalize": {
+      "save": "Zapisz",
+      "close": "Zamknij",
+      "dismiss": "Odrzuć",
+      "yes": "Tak",
+      "no": "Nie",
       "account": "Konto",
       "general": "Ogólne",
       "send": "Wyślij",
@@ -165,7 +180,6 @@
     "details": "Szczegóły",
     "delete": "Usuń",
     "update": "Zaktualizowano",
-    "save": "Zapisz",
     "edit": "Edytuj",
     "information": "Informacje",
     "additional": "Dodatkowe",

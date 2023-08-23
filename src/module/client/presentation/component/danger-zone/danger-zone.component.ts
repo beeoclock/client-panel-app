@@ -8,6 +8,7 @@ import {Store} from "@ngxs/store";
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {firstValueFrom} from "rxjs";
 import {Router} from "@angular/router";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'client-danger-zone-component',
@@ -50,6 +51,7 @@ import {Router} from "@angular/router";
 })
 export class DangerZoneComponent {
 
+  private readonly translateService = inject(TranslateService);
   private readonly alertController = inject(AlertController);
   private readonly store = inject(Store);
   private readonly router = inject(Router);
@@ -62,7 +64,7 @@ export class DangerZoneComponent {
       message: 'Are you sure that you want to delete the business client, then all data will be deleted and it will not be possible to restore them, and all users who had access to this business client will also lose access, if you only want to leave this business client, click on the "Exit this business client" button.',
       buttons: [
         {
-          text: 'Yes',
+          text: this.translateService.instant('keyword.capitalize.yes'),
           role: 'confirm',
           handler: async () => {
             const clientId = await firstValueFrom(this.store.select(IdentityState.clientId));
@@ -85,7 +87,7 @@ export class DangerZoneComponent {
           },
         },
         {
-          text: 'No',
+          text: this.translateService.instant('keyword.capitalize.no'),
           role: 'cancel',
           handler: () => {
           },

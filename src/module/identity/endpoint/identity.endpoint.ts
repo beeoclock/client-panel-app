@@ -7,6 +7,9 @@ export enum identityEndpointEnum {
   postCreateUserAndBusinessClient = '/api/v1/provider/create-user-and-business-client',
   postCreateBusinessClient = '/api/v1/provider/create-business-client',
   patchSwitchBusinessClient = '/api/v1/provider/switch-business-client',
+
+  patchChangeName = '/api/v1/provider/name',
+  patchChangePhoneNumber = '/api/v1/provider/phone-number',
 }
 
 export const identityEndpoint: EndpointCollectionType = {
@@ -33,6 +36,22 @@ export const identityEndpoint: EndpointCollectionType = {
   PATCH: {
     [identityEndpointEnum.patchSwitchBusinessClient]: {
       path: identityEndpointEnum.patchSwitchBusinessClient,
+      method: RequestMethodEnum.PATCH,
+      source: SourceNetworkEnum.identity,
+      header: {
+        authorization: true
+      }
+    },
+    [identityEndpointEnum.patchChangeName]: {
+      path: identityEndpointEnum.patchChangeName,
+      method: RequestMethodEnum.PATCH,
+      source: SourceNetworkEnum.identity,
+      header: {
+        authorization: true
+      }
+    },
+    [identityEndpointEnum.patchChangePhoneNumber]: {
+      path: identityEndpointEnum.patchChangePhoneNumber,
       method: RequestMethodEnum.PATCH,
       source: SourceNetworkEnum.identity,
       header: {

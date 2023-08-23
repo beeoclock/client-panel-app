@@ -68,8 +68,23 @@
       "minlength": "Мінімальна довжина - {{requiredLength}}"
     }
   },
+  "change-name": {
+    "modal": {
+      "title": "Зміна імені"
+    }
+  },
+  "change-phone-number": {
+    "modal": {
+      "title": "Зміна номеру телефону"
+    }
+  },
   "keyword": {
     "capitalize": {
+      "save": "Зберегти",
+      "close": "Закрити",
+      "dismiss": "Відхилити",
+      "yes": "Так",
+      "no": "Ні",
       "account": "Профіль",
       "general": "Загальне",
       "send": "Відправити",
@@ -165,7 +180,6 @@
     "delete": "Видалити",
     "details": "Деталі",
     "update": "Оновити",
-    "save": "Зберегти",
     "edit": "Редагувати",
     "information": "Інформація",
     "additional": "Додатково",

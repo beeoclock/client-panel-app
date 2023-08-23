@@ -24,7 +24,7 @@ export const ErrorInterceptor: HttpInterceptorFn = (request, next) => {
         duration: 10_000,
         buttons: [
           {
-            text: 'Dismiss',
+            text: 'Close',
             role: 'cancel',
           },
         ],

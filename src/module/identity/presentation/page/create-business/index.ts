@@ -1,6 +1,6 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import BusinessClientForm from "@identity/form/business-client.form";
 import {IdentityApiAdapter} from "@identity/adapter/external/api/identity.api.adapter";
 import {firstValueFrom} from "rxjs";
@@ -27,6 +27,7 @@ import {FormTextareaComponent} from "@utility/presentation/component/input/form.
 })
 export default class Index {
 
+  public readonly translateService = inject(TranslateService);
   public readonly identityApiAdapter = inject(IdentityApiAdapter);
   private readonly toastController = inject(ToastController);
   private readonly router = inject(Router);
@@ -45,7 +46,7 @@ export default class Index {
           duration: 10_000,
           buttons: [
             {
-              text: 'Dismiss',
+              text: this.translateService.instant('keyword.capitalize.close'),
               role: 'cancel',
             },
           ],
