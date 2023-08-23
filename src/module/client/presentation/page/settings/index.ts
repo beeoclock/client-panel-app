@@ -8,20 +8,22 @@ import {LanguageInputComponent} from "@module/client/presentation/component/sett
 import {TranslateModule} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {AccountSettingsComponent} from "@client/presentation/component/settings/account/account.settings.component";
+import {GeneralSettingsComponent} from "@client/presentation/component/settings/general/general.settings.component";
 
 @Component({
   selector: 'client-settings-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-    imports: [
-        DangerZoneComponent,
-        ChangePasswordComponent,
-        DeleteButtonComponent,
-        ReactiveFormsModule,
-        LanguageInputComponent,
-        TranslateModule,
-        AccountSettingsComponent
-    ],
+  imports: [
+    DangerZoneComponent,
+    ChangePasswordComponent,
+    DeleteButtonComponent,
+    ReactiveFormsModule,
+    LanguageInputComponent,
+    TranslateModule,
+    AccountSettingsComponent,
+    GeneralSettingsComponent
+  ],
   standalone: true
 })
 export default class Index {

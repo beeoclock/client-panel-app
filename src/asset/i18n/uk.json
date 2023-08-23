@@ -71,6 +71,7 @@
   "keyword": {
     "capitalize": {
       "account": "Профіль",
+      "general": "Загальне",
       "facilities": "Зручності",
       "writePrice": "Ввести ціну",
       "add-event": "Додати подію",

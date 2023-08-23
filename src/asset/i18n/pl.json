@@ -71,6 +71,7 @@
   "keyword": {
     "capitalize": {
       "account": "Konto",
+      "general": "Ogólne",
       "facilities": "Udogodnienia",
       "writePrice": "Wpisz cenę",
       "add-event": "Dodaj wydarzenie",
