@@ -44,6 +44,16 @@ import {
         </button>
       </div>
 
+      <div class="flex justify-between items-center">
+        <div class="flex flex-col gap-1">
+          <div class="text-beeColor-400">{{ 'keyword.capitalize.email' | translate }}:</div>
+          {{ accountEmail$ | async }}
+        </div>
+        <button disabled class="rounded-full px-2 py-1 hover:bg-beeColor-200 transition">
+          <i class="bi bi-pencil"></i>
+        </button>
+      </div>
+
     </card>
   `
 })
@@ -51,6 +61,12 @@ export class AccountSettingsComponent {
 
   private readonly modalChangeNameService = inject(ModalChangeNameService);
   private readonly modalChangePhoneNumberService = inject(ModalChangePhoneNumberService);
+
+  @Select(IdentityState.accountEmail)
+  accountEmail$!: Observable<unknown>;
+
+  @Select(IdentityState.accountEmailIsVerified)
+  accountEmailIsVerified$!: Observable<unknown>;
 
   @Select(IdentityState.accountName)
   accountName$!: Observable<unknown>;

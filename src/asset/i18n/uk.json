@@ -71,6 +71,13 @@
   "change-name": {
     "modal": {
       "title": "Зміна імені"
+    },
+    "form": {
+      "input": {
+        "name": {
+          "placeholder": "Твоє повне ім'я"
+        }
+      }
     }
   },
   "change-phone-number": {
@@ -80,6 +87,7 @@
   },
   "keyword": {
     "capitalize": {
+      "fullName": "Повне ім'я",
       "save": "Зберегти",
       "close": "Закрити",
       "dismiss": "Відхилити",
@@ -169,7 +177,6 @@
     "back": "Назад",
     "clients": "Клієнти",
     "services": "Послуги",
-    "fullName": "Повне ім'я",
     "firstName": "Ім'я",
     "lastName": "Прізвище",
     "description": "Опис",

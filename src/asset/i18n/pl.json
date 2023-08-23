@@ -71,6 +71,13 @@
   "change-name": {
     "modal": {
       "title": "Zmiana imienia"
+    },
+    "form": {
+      "input": {
+        "name": {
+          "placeholder": "Twoje pełne imię i nazwisko"
+        }
+      }
     }
   },
   "change-phone-number": {
@@ -80,6 +87,7 @@
   },
   "keyword": {
     "capitalize": {
+      "fullName": "Pełne imię i nazwisko",
       "save": "Zapisz",
       "close": "Zamknij",
       "dismiss": "Odrzuć",
@@ -169,7 +177,6 @@
     "back": "Wstecz",
     "clients": "Klienci",
     "services": "Usługi",
-    "fullName": "Pełne imię i nazwisko",
     "firstName": "Imię",
     "lastName": "Nazwisko",
     "description": "Opis",

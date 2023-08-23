@@ -71,6 +71,13 @@
   "change-name": {
     "modal": {
       "title": "Change name"
+    },
+    "form": {
+      "input": {
+        "name": {
+          "placeholder": "Your full name"
+        }
+      }
     }
   },
   "change-phone-number": {
@@ -80,6 +87,7 @@
   },
   "keyword": {
     "capitalize": {
+      "fullName": "Full name",
       "save": "Save",
       "close": "Close",
       "dismiss": "Dismiss",
@@ -169,7 +177,6 @@
     "back": "Back",
     "clients": "Clients",
     "services": "Services",
-    "fullName": "Full name",
     "firstName": "First name",
     "lastName": "Last name",
     "description": "Description",
