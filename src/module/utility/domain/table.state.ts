@@ -24,7 +24,7 @@ export type TableState_BackendFormat = Pick<ITableState<any>, 'orderDir' | 'orde
 
 export class TableState<ITEM> implements ITableState<ITEM> {
 
-  #filters = {search: undefined, active: ActiveEnum.YES};
+  #filters = {};
   #maxPage = 1;
   #orderBy = 'createdAt';
   #orderDir = 'asc';

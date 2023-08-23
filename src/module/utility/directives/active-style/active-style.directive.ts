@@ -52,6 +52,10 @@ export class ActiveStyleDirective implements OnInit, OnChanges {
         text = this.activeText ?? this.translateService.instant('keyword.capitalize.active');
         break;
 
+      default:
+        this.elementRef.nativeElement.classList.add('bg-beeColor-500', 'border-beeColor-500', 'dark:bg-beeColor-900', 'dark:text-beeColor-400', 'dark:border-beeColor-800');
+        text = this.activeText ?? this.translateService.instant('keyword.capitalize.unknown');
+
     }
 
     this.elementRef.nativeElement.innerText = text;

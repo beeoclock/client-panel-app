@@ -30,6 +30,7 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
 
       active: new FormControl(),
     });
+    this.initValue();
     this.initValidation();
   }
 
@@ -49,6 +50,10 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
 
   public isNotEmpty(): boolean {
     return !this.isEmpty();
+  }
+
+  private initValue(): void {
+    this.controls.active.setValue(ActiveEnum.YES);
   }
 
   public initValidation(): void {

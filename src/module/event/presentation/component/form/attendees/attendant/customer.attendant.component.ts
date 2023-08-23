@@ -136,10 +136,6 @@ export class CustomerAttendantComponent implements OnInit {
 
   public ngOnInit(): void {
 
-    this.customerForm.valueChanges.subscribe((value) => {
-      console.log(value);
-    });
-
     this.initTableState().then(() => {
 
       if (this.customerForm.isNotEmpty()) {
