@@ -10,7 +10,7 @@ import {
   standalone: true,
   template: `
     <utility-page-loading-progress-bar></utility-page-loading-progress-bar>
-    <div class="flex h-screen flex-col items-center justify-center px-6 py-12 lg:px-8">
+    <div class="flex h-screen flex-col items-center justify-center px-6 py-12 lg:px-8 ">
       <router-outlet></router-outlet>
     </div>
   `,

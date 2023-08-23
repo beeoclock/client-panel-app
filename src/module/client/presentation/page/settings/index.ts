@@ -7,6 +7,8 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {LanguageInputComponent} from "@module/client/presentation/component/settings/language-input.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {Router} from "@angular/router";
+import {AccountSettingsComponent} from "@client/presentation/component/settings/account/account.settings.component";
+import {GeneralSettingsComponent} from "@client/presentation/component/settings/general/general.settings.component";
 
 @Component({
   selector: 'client-settings-page',
@@ -18,7 +20,9 @@ import {Router} from "@angular/router";
     DeleteButtonComponent,
     ReactiveFormsModule,
     LanguageInputComponent,
-    TranslateModule
+    TranslateModule,
+    AccountSettingsComponent,
+    GeneralSettingsComponent
   ],
   standalone: true
 })

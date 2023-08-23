@@ -36,9 +36,9 @@ import {FormInputPasswordComponent} from "@utility/presentation/component/input/
         [control]="form.controls.password"
         placeholder="password"
         [label]="'identity.sign-in.form.inputs.password.label' | translate">
-        <a label-end routerLink="/identity/reset-password"
+        <a label-end routerLink="/identity/forgot-password"
            class="font-semibold text-blue-600 dark:text-black hover:text-blue-500">
-          Forgot password?
+          {{ 'identity.sign-in.link.forgotPassword' | translate }}
         </a>
       </form-input-password>
 
@@ -65,7 +65,7 @@ import {FormInputPasswordComponent} from "@utility/presentation/component/input/
             focus-visible:outline-2
             focus-visible:outline-offset-2
             focus-visible:outline-blue-600">
-          Sign in
+          {{ 'keyword.capitalize.signIn' | translate }}
         </button>
       </div>
     </form>

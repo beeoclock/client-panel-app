@@ -15,7 +15,9 @@
 
         <div class="flex justify-between items-center">
 
-          <div class="text-2xl font-bold text-beeColor-500">{{ 'general.details' | translate }}</div>
+          <div class="text-2xl font-bold text-beeColor-500">
+            {{ service.languageVersions[0].title }}
+          </div>
           <div active-style [activeText]="'service.keyword.capitalize.active' | translate" [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="service.active">
           </div>
 
@@ -32,7 +34,6 @@
           </div>
           <div class="col-span-12 md:col-span-9">
             <div class="flex flex-col gap-2">
-              <div class="text-xl font-bold text-beeColor-500">{{ service.languageVersions[0].title }}</div>
               <div class="grid grid-cols-12 gap-4">
 
                 <div class="col-span-12 md:col-span-9">
@@ -76,7 +77,7 @@
 
     </div>
 
-    <div class="col-span-12 xl:col-span-3 text-end text-beeColor-400">
+    <div class="col-span-12 xl:col-span-2 text-end text-beeColor-400 text-sm">
 
       <div class="flex flex-col gap-4">
 

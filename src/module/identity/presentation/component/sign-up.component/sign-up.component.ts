@@ -71,7 +71,7 @@ import {FormInputPasswordComponent} from "@utility/presentation/component/input/
             focus-visible:outline-2
             focus-visible:outline-offset-2
             focus-visible:outline-blue-600">
-          Sign up
+          {{ 'keyword.capitalize.signUp' | translate }}
         </button>
       </div>
     </form>

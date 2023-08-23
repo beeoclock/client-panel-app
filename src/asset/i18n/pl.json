@@ -70,6 +70,12 @@
   },
   "keyword": {
     "capitalize": {
+      "account": "Konto",
+      "general": "Ogólne",
+      "send": "Wyślij",
+      "signOut": "Wyloguj się",
+      "signIn": "Zaloguj się",
+      "signUp": "Zarejestruj się",
       "facilities": "Udogodnienia",
       "writePrice": "Wpisz cenę",
       "add-event": "Dodaj wydarzenie",
@@ -169,7 +175,6 @@
     "soon": "Wkrótce",
     "role": "Rola",
     "permission": "Uprawnienie",
-    "signOut": "Wyloguj się",
     "publicPage": "Strona publiczna",
     "priceTimeFormatPrompt": "godziny:minuty"
   },
@@ -464,7 +469,7 @@
     },
     "forgot-password": {
       "form": {
-        "label": "Zapomniałeś hasła",
+        "label": "Odzyskiwanie hasła",
         "inputs": {
           "email": {
             "label": "E-mail",
@@ -478,6 +483,13 @@
       }
     },
     "sign-in": {
+      "hint": {
+        "notAMember": "Nie masz jeszcze konta?",
+        "signInToYourAccount": "Zaloguj się do swojego konta"
+      },
+      "link": {
+        "forgotPassword": "Zapomniałeś/łaś hasła?"
+      },
       "form": {
         "label": "Logowanie",
         "inputs": {
@@ -498,6 +510,9 @@
       }
     },
     "sign-up": {
+      "hint": {
+        "youHaveAnAccount": "Masz już konto?"
+      },
       "form": {
         "label": "Rejestracja",
         "inputs": {
