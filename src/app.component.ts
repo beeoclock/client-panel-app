@@ -11,6 +11,7 @@ import {LanguageService} from "@utility/cdk/language.service";
 import {filter} from "rxjs";
 import {is} from "thiis";
 import {SplashScreenService} from "@utility/cdk/splash-screen.service";
+import {ThemeService} from "@utility/cdk/theme.service";
 
 @Component({
   selector: 'app-root',
@@ -26,11 +27,13 @@ export class AppComponent implements AfterViewInit {
 
   private readonly store = inject(Store);
   private readonly languageService = inject(LanguageService);
+  private readonly themeService = inject(ThemeService);
   private readonly splashScreenService = inject(SplashScreenService);
   private readonly document = inject(DOCUMENT);
 
   constructor() {
     this.languageService.initialize();
+    this.themeService.initialize();
   }
 
   public ngAfterViewInit(): void {
