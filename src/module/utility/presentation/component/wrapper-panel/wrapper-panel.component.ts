@@ -17,6 +17,7 @@ import {ServiceActions} from "@service/state/service/service.actions";
 import {MemberActions} from "@member/state/member/member.actions";
 import {EventActions} from "@event/state/event/event.actions";
 import {CacheActions} from "@utility/state/cache/cache.actions";
+import {MAIN_CONTAINER_ID} from "@src/token";
 
 @Component({
   selector: 'utility-wrapper-panel-component',
@@ -27,7 +28,7 @@ import {CacheActions} from "@utility/state/cache/cache.actions";
       <utility-navbar-component></utility-navbar-component>
       <utility-sidebar-component></utility-sidebar-component>
 
-      <div class="sm:ml-64 overflow-y-auto h-screen content-container">
+      <div [id]="mainContainerId" class="content-container h-screen overflow-y-auto sm:ml-64 transition-all">
         <utility-page-loading-progress-bar></utility-page-loading-progress-bar>
         <router-outlet></router-outlet>
       </div>
@@ -49,6 +50,7 @@ import {CacheActions} from "@utility/state/cache/cache.actions";
 })
 export default class WrapperPanelComponent implements AfterViewInit, OnDestroy {
 
+  public readonly mainContainerId = inject(MAIN_CONTAINER_ID);
   private readonly document = inject(DOCUMENT);
   private checkerTimer: undefined | NodeJS.Timeout;
   private isUserOnWebSite = true;

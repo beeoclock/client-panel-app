@@ -1,11 +1,12 @@
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
-import {ActivationStart, IsActiveMatchOptions, Router, RouterLink, RouterLinkActive} from '@angular/router';
+import {IsActiveMatchOptions, RouterLink, RouterLinkActive} from '@angular/router';
 import {NgForOf, NgIf} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
-import {filter, firstValueFrom} from "rxjs";
+import {firstValueFrom} from "rxjs";
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {SidebarService} from "@utility/presentation/component/sidebar/sidebar.service";
+import {SIDEBAR_ID} from "@src/token";
 
 interface IMenuItem {
   url?: string;
@@ -34,7 +35,7 @@ interface IMenuItem {
 })
 export class SidebarComponent implements OnInit {
 
-  public readonly router = inject(Router);
+  public readonly sidebarId = inject(SIDEBAR_ID);
   private readonly store = inject(Store);
   private readonly sidebarService = inject(SidebarService);
 
@@ -138,11 +139,7 @@ export class SidebarComponent implements OnInit {
   ];
 
   public ngOnInit(): void {
-    this.router.events.pipe(
-      filter((event) => event instanceof ActivationStart)
-    ).subscribe(() => {
-      this.sidebarService.toggleSidebar(false);
-    });
+    this.sidebarService.initialize();
   }
 
   public async goToPublicPage(): Promise<void> {
