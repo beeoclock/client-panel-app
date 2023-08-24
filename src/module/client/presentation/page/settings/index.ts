@@ -9,6 +9,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {AccountSettingsComponent} from "@client/presentation/component/settings/account/account.settings.component";
 import {GeneralSettingsComponent} from "@client/presentation/component/settings/general/general.settings.component";
+import {EventSettingsComponent} from "@client/presentation/component/settings/event/event.settings.component";
 
 @Component({
   selector: 'client-settings-page',
@@ -22,7 +23,8 @@ import {GeneralSettingsComponent} from "@client/presentation/component/settings/
     LanguageInputComponent,
     TranslateModule,
     AccountSettingsComponent,
-    GeneralSettingsComponent
+    GeneralSettingsComponent,
+    EventSettingsComponent
   ],
   standalone: true
 })

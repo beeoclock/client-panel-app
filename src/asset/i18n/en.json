@@ -98,6 +98,7 @@
   },
   "keyword": {
     "capitalize": {
+      "events": "Events",
       "language": "Language",
       "fullName": "Full name",
       "save": "Save",
@@ -159,7 +160,8 @@
       "bookingSettings": "Booking settings",
       "earliestBooking": "Earliest booking time",
       "latestBooking": "When an event can be booked",
-      "approvalTime": "Approval time"
+      "approvalTime": "Approval time",
+      "comingSoon": "Coming soon..."
     },
     "lowercase": {
       "or": "or",

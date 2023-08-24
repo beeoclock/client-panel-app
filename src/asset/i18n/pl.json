@@ -98,6 +98,7 @@
   },
   "keyword": {
     "capitalize": {
+      "events": "Wydarzenia",
       "language": "Język",
       "fullName": "Pełne imię i nazwisko",
       "save": "Zapisz",
@@ -159,7 +160,8 @@
       "bookingSettings": "Ustawienia rezerwacji",
       "earliestBooking": "Najbliższy termin rezerwacji",
       "latestBooking": "Najpóźniejszy termin rezerwacji",
-      "approvalTime": "Czas zatwierdzania"
+      "approvalTime": "Czas zatwierdzania",
+      "comingSoon": "Już wkrótce..."
     },
     "lowercase": {
       "or": "lub",
@@ -342,50 +344,52 @@
   "client": {
     "settings": {
       "title": "Ustawienia",
-      "inputs": {
-        "darkMode": {
-          "label": "Tryb ciemny"
-        }
-      }
-    },
-    "defaultData": {
-      "event": {
-        "title": "Domyślne dane wydarzenia",
-        "form": {
-          "inputs": {
-            "language": {
-              "label": "Domyślny język wydarzenia"
-            },
-            "service": {
-              "label": "Domyślna usługa wydarzenia (najważniejsza usługa)"
-            }
+      "form": {
+        "inputs": {
+          "darkMode": {
+            "label": "Tryb ciemny"
           }
         }
       },
-      "service": {
-        "title": "Domyślne dane usługi",
-        "form": {
-          "inputs": {
-            "duration": {
-              "label": "Domyślny czas trwania usługi"
-            },
-            "language": {
-              "label": "Domyślny język usługi"
-            },
-            "workDays": {
-              "label": "Domyślne dni pracy usługi"
-            },
-            "break": {
-              "label": "Domyślna przerwa usługi"
-            },
-            "startWork": {
-              "label": "Godzina rozpoczęcia pracy usługi"
-            },
-            "endWork": {
-              "label": "Godzina zakończenia pracy usługi"
-            },
-            "price": {
-              "label": "Domyślna cena usługi"
+      "defaultData": {
+        "event": {
+          "title": "Dane ogólne wydarzenia",
+          "form": {
+            "inputs": {
+              "language": {
+                "label": "Domyślny język wydarzenia"
+              },
+              "service": {
+                "label": "Predefiniowana usługa (pierwsza na liście)"
+              }
+            }
+          }
+        },
+        "service": {
+          "title": "Dane ogólne usługi",
+          "form": {
+            "inputs": {
+              "duration": {
+                "label": "Domyślny czas trwania usługi"
+              },
+              "language": {
+                "label": "Domyślny język usługi"
+              },
+              "workDays": {
+                "label": "Domyślne dni robocze usługi"
+              },
+              "break": {
+                "label": "Domyślna przerwa w usłudze"
+              },
+              "startWork": {
+                "label": "Domyślny początek pracy"
+              },
+              "endWork": {
+                "label": "Domyślny koniec pracy"
+              },
+              "price": {
+                "label": "Domyślna cena usługi"
+              }
             }
           }
         }
