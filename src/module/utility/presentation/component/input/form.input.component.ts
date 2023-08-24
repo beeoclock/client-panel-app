@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@angular/core";
-import {IsRequiredDirective} from "@utility/directives/is-required/is-required";
-import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
+import {IsRequiredDirective} from "@utility/presentation/directives/is-required/is-required";
+import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 
 @Component({
   selector: 'form-input',

@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {ServiceFormImageComponent} from "@service/presentation/component/form/v2/image/service-form-image.component";
-import {PresentationForm} from "@service/form/service.form";
+import {PresentationForm} from "@service/presentation/form/service.form";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 
 @Component({

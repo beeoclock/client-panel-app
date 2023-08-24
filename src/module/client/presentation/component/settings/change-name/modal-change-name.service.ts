@@ -11,7 +11,7 @@ import {
 } from "@utility/presentation/component/modal-select-specialist/modal-select-specialist.component";
 import {Reactive} from "@utility/cdk/reactive";
 import {Auth} from "@angular/fire/auth";
-import {ChangeNameForm} from "@client/form/change-name.form";
+import {ChangeNameForm} from "@client/presentation/form/change-name.form";
 import {ChangeNameComponent} from "@client/presentation/component/settings/change-name/change-name.component";
 import {Store} from "@ngxs/store";
 import {IdentityActions} from "@identity/state/identity/identity.actions";

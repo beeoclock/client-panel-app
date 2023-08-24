@@ -1,4 +1,4 @@
-import {LanguageVersionsForm} from '@service/form/service.form';
+import {LanguageVersionsForm} from '@service/presentation/form/service.form';
 import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {ServiceFormComponent} from '@service/presentation/component/form/v1/service/service.form.component';

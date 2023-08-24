@@ -5,7 +5,7 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {ToastController} from "@ionic/angular";
 import {ChangePhoneNumberClientAdapter} from "@identity/adapter/external/module/change-phone-number.client.adapter";
-import {ChangePhoneNumberForm} from "@client/form/change-phone-number.form";
+import {ChangePhoneNumberForm} from "@client/presentation/form/change-phone-number.form";
 
 @Component({
   selector: 'client-change-phone-number-component',

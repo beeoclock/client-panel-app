@@ -5,7 +5,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {
   CustomerAttendantComponent
 } from "@event/presentation/component/form/attendees/attendant/customer.attendant.component";
-import {AttendeesForm} from "@event/form/attendant.form";
+import {AttendeesForm} from "@event/presentation/form/attendant.form";
 
 @Component({
   selector: 'event-attendees-component',

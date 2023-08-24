@@ -1,5 +1,5 @@
 import {Component, Input, ViewEncapsulation} from "@angular/core";
-import {SocialNetworksForm} from "@client/form/social-network.form";
+import {SocialNetworksForm} from "@client/presentation/form/social-network.form";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgForOf} from "@angular/common";
 import {CardComponent} from "@utility/presentation/component/card/card.component";

@@ -13,7 +13,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {Auth} from "@angular/fire/auth";
 import {Store} from "@ngxs/store";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
-import {ChangePhoneNumberForm} from "@client/form/change-phone-number.form";
+import {ChangePhoneNumberForm} from "@client/presentation/form/change-phone-number.form";
 import {
   ChangePhoneNumberComponent
 } from "@client/presentation/component/settings/change-phone-number/change-phone-number.component";

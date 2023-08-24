@@ -21,10 +21,10 @@ import {
   TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {EventState} from "@event/state/event/event.state";
-import {DynamicDatePipe} from "@utility/pipes/dynamic-date.pipe";
+import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
 import humanizeDuration from "humanize-duration";
 import {Duration} from "luxon";
-import {EventStatusStyleDirective} from "@event/directive/event-status-style/event-status-style.directive";
+import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 
 @Component({
   selector: 'event-list-page',

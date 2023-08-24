@@ -2,7 +2,7 @@ import {Component, Input, ViewEncapsulation} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgForOf} from "@angular/common";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {ContactsForm} from "@client/form/contact.form";
+import {ContactsForm} from "@client/presentation/form/contact.form";
 import {
   ContactPhoneFormComponent
 } from "@client/presentation/component/business-profile/contact-phone/contact-phone.form.component";

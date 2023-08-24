@@ -1,11 +1,11 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
-import {DurationVersionForm} from '@service/form/service.form';
+import {DurationVersionForm} from '@service/presentation/form/service.form';
 
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ReactiveFormsModule} from '@angular/forms';
-import {InputDirective} from '@utility/directives/input/input.directive';
+import {InputDirective} from '@utility/presentation/directives/input/input.directive';
 import {NgForOf} from '@angular/common';
-import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
+import {HasErrorDirective} from '@utility/presentation/directives/has-error/has-error.directive';
 import {
   BreakDurationFormComponent
 } from '@service/presentation/component/form/v1/duration/break.duration.form.component';

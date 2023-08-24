@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
-import {HasErrorDirective} from "@utility/directives/has-error/has-error.directive";
 import {NgxMaskDirective} from "ngx-mask";
 import {NgClass} from "@angular/common";
+import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
+import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-error.directive";
 
 @Component({
   selector: 'form-icon-input',

@@ -1,9 +1,9 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
-import {SchedulesForm} from "@utility/form/schdeule.form";
 import {ScheduleFormComponent} from "@utility/presentation/component/schedule/schedule.form.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
+import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
 
 @Component({
   selector: 'schedules-form-component',

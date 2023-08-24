@@ -1,10 +1,10 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
-import {LanguageVersionForm} from '@service/form/service.form';
+import {LanguageVersionForm} from '@service/presentation/form/service.form';
 import {ReactiveFormsModule} from '@angular/forms';
-import {InputDirective} from '@utility/directives/input/input.directive';
+import {InputDirective} from '@utility/presentation/directives/input/input.directive';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
-import {IsRequiredDirective} from '@utility/directives/is-required/is-required';
+import {HasErrorDirective} from '@utility/presentation/directives/has-error/has-error.directive';
+import {IsRequiredDirective} from '@utility/presentation/directives/is-required/is-required';
 import {
   LanguageServiceFormComponent
 } from '@service/presentation/component/form/v1/service/language.service.form.component';

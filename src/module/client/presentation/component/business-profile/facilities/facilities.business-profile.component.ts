@@ -4,7 +4,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {TranslateModule} from "@ngx-translate/core";
 import {FacilityEnum} from "@utility/domain/enum/facility.enum";
 import {NgForOf, NgIf} from "@angular/common";
-import {SafePipe} from "@utility/pipes/safe.pipe";
+import {SafePipe} from "@utility/presentation/pipes/safe.pipe";
 
 @Component({
   selector: 'facilities-business-profile-component',

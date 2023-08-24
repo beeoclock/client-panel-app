@@ -7,8 +7,6 @@ import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.
 import {IService} from '@service/domain';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
-import {LanguagePipe} from "@utility/pipes/language.pipe";
-import {WeekDayPipe} from "@utility/pipes/week-day.pipe";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Select, Store} from "@ngxs/store";
@@ -16,10 +14,12 @@ import {ServiceState} from "@service/state/service/service.state";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {NgxMaskPipe} from "ngx-mask";
 import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
-import {ActiveStyleDirective} from "@utility/directives/active-style/active-style.directive";
 import humanizeDuration from "humanize-duration";
 import {Duration} from "luxon";
-import {DynamicDatePipe} from "@utility/pipes/dynamic-date.pipe";
+import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
+import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
+import {LanguagePipe} from "@utility/presentation/pipes/language.pipe";
+import {WeekDayPipe} from "@utility/presentation/pipes/week-day.pipe";
 
 @Component({
   selector: 'service-detail-page',

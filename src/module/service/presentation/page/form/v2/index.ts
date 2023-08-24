@@ -9,7 +9,7 @@ import {PricesBlockComponent} from "@service/presentation/component/form/v2/pric
 import {
   SpecialistsBlockComponent
 } from "@service/presentation/component/form/v2/specialists/specialists-block.component";
-import {ServiceForm} from "@service/form/service.form";
+import {ServiceForm} from "@service/presentation/form/service.form";
 import {filter, firstValueFrom, Observable} from "rxjs";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {IService} from "@service/domain";

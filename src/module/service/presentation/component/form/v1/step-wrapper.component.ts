@@ -3,7 +3,7 @@ import {NgIf, NgSwitch, NgSwitchCase} from "@angular/common";
 import {ServicesFormComponent} from "@service/presentation/component/form/v1/service/services.form.component";
 import {DurationsFormComponent} from "@service/presentation/component/form/v1/duration/durations.form.component";
 import {SchedulesFormComponent} from "@service/presentation/component/form/v1/schedule/schedules.form.component";
-import {ServiceForm} from "@service/form/service.form";
+import {ServiceForm} from "@service/presentation/form/service.form";
 import {MembersFormComponent} from "@service/presentation/component/form/v1/members/members.form.component";
 
 @Component({

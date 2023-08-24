@@ -14,9 +14,9 @@ import {is} from "thiis";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {Subject, take} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
-import {DebounceClickDirective} from "@utility/directives/debounce/debounce.directive";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {TranslateService} from "@ngx-translate/core";
+import {DebounceClickDirective} from "@utility/presentation/directives/debounce/debounce.directive";
 
 export enum ModalButtonRoleEnum {
   'cancel',

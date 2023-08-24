@@ -8,7 +8,7 @@ import {TagsComponent} from "@service/presentation/component/form/v2/details/tag
 import {SpecialistsComponent} from "@service/presentation/component/form/v2/prices/specialists.component";
 import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/price-and-currency.component";
 import {InputBadgeComponent} from "@utility/presentation/component/input/input-badge.component";
-import {PriceForm} from "@service/form/service.form";
+import {PriceForm} from "@service/presentation/form/service.form";
 
 @Component({
   selector: 'service-form-price-block-component',

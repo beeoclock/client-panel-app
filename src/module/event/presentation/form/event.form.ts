@@ -1,6 +1,6 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {IService} from "@service/domain";
-import {AttendeesForm} from "@event/form/attendant.form";
+import {AttendeesForm} from "@event/presentation/form/attendant.form";
 import {extractSecondsFromTime} from "@utility/domain/time";
 
 

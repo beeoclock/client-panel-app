@@ -1,6 +1,6 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
-import {BusinessProfileForm} from "@client/form/business-profile.form";
+import {BusinessProfileForm} from "@client/presentation/form/business-profile.form";
 import {TranslateModule} from "@ngx-translate/core";
 import {
   CoverImageBusinessProfileComponent

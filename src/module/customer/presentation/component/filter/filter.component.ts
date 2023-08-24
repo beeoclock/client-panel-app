@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {FilterPanelComponent} from '@utility/presentation/component/panel/filter.panel.component';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {debounceTime, firstValueFrom} from "rxjs";
-import {FilterForm} from "@customer/form/filter.form";
+import {FilterForm} from "@customer/presentation/form/filter.form";
 import {Store} from "@ngxs/store";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 

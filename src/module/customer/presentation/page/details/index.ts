@@ -13,8 +13,8 @@ import {CustomerState} from "@customer/state/customer/customer.state";
 import {Select, Store} from "@ngxs/store";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
-import {ActiveStyleDirective} from "@utility/directives/active-style/active-style.directive";
-import {DynamicDatePipe} from "@utility/pipes/dynamic-date.pipe";
+import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
+import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
 
 @Component({
   selector: 'customer-detail-page',

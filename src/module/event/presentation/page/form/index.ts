@@ -3,7 +3,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
-import {EventForm} from '@event/form/event.form';
+import {EventForm} from '@event/presentation/form/event.form';
 import {AttendeesComponent} from '@event/presentation/component/form/attendees/attendees.component';
 import {IEvent} from "@event/domain";
 import {TranslateModule} from "@ngx-translate/core";

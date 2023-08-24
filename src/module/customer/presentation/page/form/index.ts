@@ -1,12 +1,9 @@
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
-import {CustomerForm} from '@customer/form/customer.form';
 import {ReactiveFormsModule} from '@angular/forms';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
-import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
 import {ICustomer} from "@customer/domain";
-import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
 import {TranslateModule} from "@ngx-translate/core";
 import {CustomerState} from "@customer/state/customer/customer.state";
 import {filter, firstValueFrom, Observable} from "rxjs";
@@ -16,6 +13,9 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-error.directive";
+import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
+import {CustomerForm} from "@customer/presentation/form";
 
 @Component({
   selector: 'customer-form-page',
