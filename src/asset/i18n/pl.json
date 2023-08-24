@@ -72,6 +72,14 @@
       "minlength": "Minimalna długość to {{requiredLength}}"
     }
   },
+  "sign-out": {
+    "title": "Wyloguj się",
+    "button": {
+      "sign-out": {
+        "label": "Wyloguj się teraz"
+      }
+    }
+  },
   "danger-zone": {
     "title": "Strefa zagrożenia",
     "hint": {
@@ -109,6 +117,7 @@
   },
   "keyword": {
     "capitalize": {
+      "services": "Usługi",
       "events": "Wydarzenia",
       "language": "Język",
       "fullName": "Pełne imię i nazwisko",

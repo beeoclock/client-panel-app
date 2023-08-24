@@ -72,6 +72,14 @@
       "minlength": "Minimum length is {{requiredLength}}"
     }
   },
+  "sign-out": {
+    "title": "Sign out",
+    "button": {
+      "sign-out": {
+        "label": "Sign out now"
+      }
+    }
+  },
   "danger-zone": {
     "title": "Danger zone",
     "hint": {
@@ -109,6 +117,7 @@
   },
   "keyword": {
     "capitalize": {
+      "services": "Services",
       "events": "Events",
       "language": "Language",
       "fullName": "Full name",
