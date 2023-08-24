@@ -20,32 +20,34 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {LanguagePipe} from "@utility/presentation/pipes/language.pipe";
 import {WeekDayPipe} from "@utility/presentation/pipes/week-day.pipe";
+import {CardComponent} from "@utility/presentation/component/card/card.component";
 
 @Component({
   selector: 'service-detail-page',
   templateUrl: './index.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    NgIf,
-    AsyncPipe,
-    SpinnerComponent,
-    BackLinkComponent,
-    BackLinkComponent,
-    DeleteButtonComponent,
-    RouterLink,
-    NgForOf,
-    DropdownComponent,
-    LanguagePipe,
-    WeekDayPipe,
-    LoaderComponent,
-    TranslateModule,
-    NgxMaskPipe,
-    EditLinkComponent,
-    ActiveStyleDirective,
-    CurrencyPipe,
-    DynamicDatePipe,
-  ],
+    imports: [
+        NgIf,
+        AsyncPipe,
+        SpinnerComponent,
+        BackLinkComponent,
+        BackLinkComponent,
+        DeleteButtonComponent,
+        RouterLink,
+        NgForOf,
+        DropdownComponent,
+        LanguagePipe,
+        WeekDayPipe,
+        LoaderComponent,
+        TranslateModule,
+        NgxMaskPipe,
+        EditLinkComponent,
+        ActiveStyleDirective,
+        CurrencyPipe,
+        DynamicDatePipe,
+        CardComponent,
+    ],
   standalone: true
 })
 export default class Index {

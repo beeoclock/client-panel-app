@@ -72,6 +72,17 @@
       "minlength": "Minimum length is {{requiredLength}}"
     }
   },
+  "danger-zone": {
+    "title": "Danger zone",
+    "hint": {
+      "message": "Delete business account. After deleting the business account, there is no going back. Please consider this action carefully."
+    },
+    "button": {
+      "delete": {
+        "label": "Delete business account"
+      }
+    }
+  },
   "change-name": {
     "modal": {
       "title": "Change name"

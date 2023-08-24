@@ -72,6 +72,17 @@
       "minlength": "Minimalna długość to {{requiredLength}}"
     }
   },
+  "danger-zone": {
+    "title": "Strefa zagrożenia",
+    "hint": {
+      "message": "Usunięcie konta firmowego. Po usunięciu konta firmowego nie ma już odwrotu. Proszę dokładnie rozważyć to działanie."
+    },
+    "button": {
+      "delete": {
+        "label": "Usuń konto firmowe"
+      }
+    }
+  },
   "change-name": {
     "modal": {
       "title": "Zmiana imienia"

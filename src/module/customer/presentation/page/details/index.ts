@@ -15,26 +15,28 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
+import {CardComponent} from "@utility/presentation/component/card/card.component";
 
 @Component({
   selector: 'customer-detail-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    NgIf,
-    AsyncPipe,
-    SpinnerComponent,
-    BackLinkComponent,
-    BackLinkComponent,
-    DeleteButtonComponent,
-    RouterLink,
-    DropdownComponent,
-    LoaderComponent,
-    TranslateModule,
-    EditLinkComponent,
-    ActiveStyleDirective,
-    DynamicDatePipe
-  ],
+    imports: [
+        NgIf,
+        AsyncPipe,
+        SpinnerComponent,
+        BackLinkComponent,
+        BackLinkComponent,
+        DeleteButtonComponent,
+        RouterLink,
+        DropdownComponent,
+        LoaderComponent,
+        TranslateModule,
+        EditLinkComponent,
+        ActiveStyleDirective,
+        DynamicDatePipe,
+        CardComponent
+    ],
   standalone: true
 })
 export default class Index {
