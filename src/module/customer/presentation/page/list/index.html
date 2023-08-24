@@ -82,6 +82,7 @@
     </thead>
     <tbody class="overflow-y-scroll max-h-72">
     <tr
+      (click)="goToDetail(item._id)"
       class="bg-white border-b dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-900"
       *ngFor="let item of tableState.items">
       <td class="w-4 py-2 px-4">
