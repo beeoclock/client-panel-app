@@ -28,8 +28,8 @@ export class LogoBusinessProfileComponent implements OnInit {
   @Input()
   public control = new FormControl();
 
-  previewImage: string | null = null;
-  uploadedFileName: string | null = null;
+  public previewImage: string | null = null;
+  public uploadedFileName: string | null = null;
 
   public readonly toggleInfo = new BooleanState(true);
 
