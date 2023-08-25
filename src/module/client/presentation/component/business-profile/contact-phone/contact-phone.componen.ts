@@ -6,6 +6,7 @@ import {ContactsForm} from "@client/presentation/form/contact.form";
 import {
   ContactPhoneFormComponent
 } from "@client/presentation/component/business-profile/contact-phone/contact-phone.form.component";
+import {FormButtonWithIconComponent} from "@utility/presentation/component/button/form-button-with-icon.component";
 
 @Component({
   selector: 'client-business-profile-contact-phone-component',
@@ -33,17 +34,16 @@ import {
         </div>
       </div>
 
-      <button class="border rounded px-4 py-2" (click)="form.pushNewOne()">
-        <i class="bi bi-plus-lg me-2"></i>
-        {{ 'keyword.capitalize.addContactPhone' | translate }}
-      </button>
+      <form-button-with-icon (click)="form.pushNewOne()" [label]="'keyword.capitalize.addContactPhone' | translate">
+      </form-button-with-icon>
     </card>
   `,
   imports: [
     TranslateModule,
     NgForOf,
     CardComponent,
-    ContactPhoneFormComponent
+    ContactPhoneFormComponent,
+    FormButtonWithIconComponent
   ]
 })
 export class BusinessProfileContactPhoneComponent {

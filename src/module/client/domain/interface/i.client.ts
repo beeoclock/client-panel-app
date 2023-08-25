@@ -4,7 +4,7 @@ import {IBaseEntity} from "@utility/domain/interface";
 import {FacilityEnum} from "@utility/domain/enum/facility.enum";
 import {IGallery} from "@client/domain/interface/i.gallery";
 import {IContact} from "@client/domain/interface/i.contact";
-import {ISchedule} from "@utility/domain/interface/i.schedule";
+import {RISchedule} from "@utility/domain/interface/RISchedule";
 import {IAddress} from "@client/domain/interface/i.address";
 import {IBookingSettings} from "@client/domain/interface/i.booking-settings";
 import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
@@ -22,7 +22,7 @@ export interface IClient extends IBaseEntity {
   banner: string;
   bookingSettings: IBookingSettings;
   addresses: IAddress[];
-  schedules: ISchedule[];
+  schedules: RISchedule[];
   contacts: IContact[];
   gallery: IGallery;
   description: string;

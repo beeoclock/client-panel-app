@@ -3,7 +3,7 @@ import {LanguageCodeEnum} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
 import {IMember} from "@member/domain";
 import {Interface} from '@utility/domain';
-import {ISchedule} from "@utility/domain/interface/i.schedule";
+import {RISchedule} from "@utility/domain/interface/RISchedule";
 
 export interface IConfiguration {
   earliestDateTime?: string;
@@ -46,7 +46,7 @@ export interface IService extends Interface.IBaseEntity {
   active: ActiveEnum;
   configuration: IConfiguration;
   prepaymentPolicy: IPrepaymentPolicy;
-  schedules: ISchedule[];
+  schedules: RISchedule[];
   languageVersions: ILanguageVersion[];
   durationVersions: IDurationVersion[];
   permanentMembers: IMember[];

@@ -1,6 +1,6 @@
 import {AbstractControl, FormArray, FormControl, FormGroup} from "@angular/forms";
 import {WeekDaysEnum, WORK_WEEK} from "@utility/domain/enum";
-import {ISchedule} from "@utility/domain/interface/i.schedule";
+import {ISchedule, RISchedule} from "@utility/domain/interface/RISchedule";
 
 export interface IScheduleForm {
   workDays: FormControl<WeekDaysEnum[]>;
@@ -11,32 +11,42 @@ export interface IScheduleForm {
 }
 
 export class ScheduleForm extends FormGroup<IScheduleForm> {
-  constructor() {
+  constructor(initialValue?: ISchedule) {
     super({
       workDays: new FormControl(),
       startTime: new FormControl(),
       endTime: new FormControl(),
     });
-    this.initValue();
+    this.initValue(initialValue);
   }
 
-  public initValue(): void {
-    this.controls.workDays.setValue(WORK_WEEK);
+  public initValue(initialValue?: ISchedule): void {
     this.controls.startTime.setValue('08:00');
     this.controls.endTime.setValue('18:00');
+    if (initialValue) {
+      Object.keys(initialValue).forEach(key => {
+        if (this.contains(key)) {
+          this.controls[key].setValue((initialValue as any)[key]);
+        }
+      });
+    }
   }
 }
 
 export class SchedulesForm extends FormArray<ScheduleForm> {
   constructor() {
-    super([]);
+    super([
+      new ScheduleForm({
+        workDays: WORK_WEEK,
+      })
+    ]);
   }
 
   public remove(index: number): void {
     this.controls.splice(index, 1);
   }
 
-  public pushNewOne(initialValue?: ISchedule): void {
+  public pushNewOne(initialValue?: RISchedule): void {
     const control = new ScheduleForm();
     if (initialValue) {
       const {workDays, startTime, endTime} = initialValue;

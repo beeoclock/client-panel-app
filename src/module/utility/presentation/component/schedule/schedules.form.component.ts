@@ -4,6 +4,7 @@ import {ScheduleFormComponent} from "@utility/presentation/component/schedule/sc
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
+import {FormButtonWithIconComponent} from "@utility/presentation/component/button/form-button-with-icon.component";
 
 @Component({
   selector: 'schedules-form-component',
@@ -15,6 +16,7 @@ import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
     ScheduleFormComponent,
     CardComponent,
     TranslateModule,
+    FormButtonWithIconComponent,
   ],
   template: `
     <card>
@@ -33,7 +35,7 @@ import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
               [form]="scheduleForm">
             </schedule-form-component>
           </div>
-          <div class="col-span-1 flex items-center">
+          <div class="col-span-1">
             <button class="text-beeColor-600 hover:text-red-600 hover:bg-red-100 px-3 py-2 rounded-full mt-8"
                     (click)="schedulesForm.remove(index)">
               <i class="bi bi-trash"></i>
@@ -43,10 +45,9 @@ import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
         </div>
       </div>
 
-      <button class="border rounded px-4 py-2" (click)="pushNewScheduleForm($event)">
-        <i class="bi bi-plus-lg me-2"></i>
-        {{ 'keyword.capitalize.addAvailableHours' | translate }}
-      </button>
+      <form-button-with-icon (click)="schedulesForm.pushNewOne()" [label]="'keyword.capitalize.addAvailableHours' | translate">
+      </form-button-with-icon>
+
     </card>
   `
 })
@@ -54,9 +55,5 @@ export class SchedulesFormComponent {
 
   @Input()
   public schedulesForm = new SchedulesForm();
-
-  public pushNewScheduleForm($event: Event): void {
-    this.schedulesForm.pushNewOne();
-  }
 
 }

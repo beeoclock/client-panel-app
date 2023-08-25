@@ -76,18 +76,21 @@ export default class Index {
     this.form.patchValue(data);
 
     if (socialNetworkLinks?.length) {
+      this.form.controls.socialNetworkLinks.clear();
       socialNetworkLinks.forEach((socialNetworkLink) => {
         this.form.controls.socialNetworkLinks.pushNewOne(socialNetworkLink);
       });
     }
 
     if (schedules?.length) {
+      this.form.controls.schedules.clear();
       schedules.forEach((schedule) => {
         this.form.controls.schedules.pushNewOne(schedule);
       });
     }
 
     if (contacts?.length) {
+      this.form.controls.contacts.clear();
       contacts.forEach((contact) => {
         this.form.controls.contacts.pushNewOne(contact);
       });
