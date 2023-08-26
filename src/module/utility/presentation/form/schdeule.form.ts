@@ -1,6 +1,6 @@
 import {AbstractControl, FormArray, FormControl, FormGroup} from "@angular/forms";
 import {WeekDaysEnum, WORK_WEEK} from "@utility/domain/enum";
-import {ISchedule, RISchedule} from "@utility/domain/interface/RISchedule";
+import {ISchedule} from "@utility/domain/interface/i.schedule";
 
 export interface IScheduleForm {
   workDays: FormControl<WeekDaysEnum[]>;
@@ -46,7 +46,7 @@ export class SchedulesForm extends FormArray<ScheduleForm> {
     this.controls.splice(index, 1);
   }
 
-  public pushNewOne(initialValue?: RISchedule): void {
+  public pushNewOne(initialValue?: ISchedule): void {
     const control = new ScheduleForm();
     if (initialValue) {
       const {workDays, startTime, endTime} = initialValue;
