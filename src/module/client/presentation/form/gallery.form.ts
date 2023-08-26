@@ -1,4 +1,4 @@
-import {AbstractControl, FormArray, FormControl, FormGroup} from "@angular/forms";
+import {AbstractControl, FormArray, FormControl, FormGroup, ɵFormGroupRawValue, ɵTypedOrUntyped} from "@angular/forms";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs";
 
@@ -33,6 +33,14 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 
   public get limitNotExceeded(): boolean {
     return !this.limitExceeded;
+  }
+
+  public override getRawValue(): ɵTypedOrUntyped<IGalleryForm, ɵFormGroupRawValue<IGalleryForm>, any> {
+    const data = super.getRawValue();
+    return {
+      object: data.object,
+      images: data.images.filter((image: string) => image?.length),
+    };
   }
 
   // Set initial value for the 'object' control
