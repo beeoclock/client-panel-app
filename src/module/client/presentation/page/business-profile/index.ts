@@ -38,6 +38,7 @@ import {
   BookingSettingsBusinessProfileComponent
 } from "@client/presentation/component/business-profile/booking-settings/booking-settings.business-profile.component";
 import {AppActions} from "@utility/state/app/app.actions";
+import {RISchedule} from "@utility/domain/interface/i.schedule";
 
 @Component({
   selector: 'client-settings-page',
@@ -85,7 +86,7 @@ export default class Index {
     if (schedules?.length) {
       this.form.controls.schedules.clear();
       schedules.forEach((schedule) => {
-        this.form.controls.schedules.pushNewOne(schedule);
+        this.form.controls.schedules.pushNewOne(schedule as RISchedule);
       });
     }
 

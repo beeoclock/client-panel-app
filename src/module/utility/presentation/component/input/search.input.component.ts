@@ -20,6 +20,6 @@ export class SearchInputComponent {
   public readonly translateService = inject(TranslateService);
 
   @Input()
-  public placeholder = this.translateService.instant('general.placeholder.search');
+  public placeholder = this.translateService.instant('keyword.capitalize.placeholder.search');
 
 }

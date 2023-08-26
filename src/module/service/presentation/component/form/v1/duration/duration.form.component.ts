@@ -3,7 +3,6 @@ import {DurationVersionForm} from '@service/presentation/form/service.form';
 
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ReactiveFormsModule} from '@angular/forms';
-import {InputDirective} from '@utility/presentation/directives/input/input.directive';
 import {NgForOf} from '@angular/common';
 import {HasErrorDirective} from '@utility/presentation/directives/has-error/has-error.directive';
 import {
@@ -24,7 +23,6 @@ import {TranslateModule} from "@ngx-translate/core";
 
     NgSelectModule,
     ReactiveFormsModule,
-    InputDirective,
     HasErrorDirective,
     NgForOf,
     PricesFormComponent,
@@ -38,7 +36,7 @@ import {TranslateModule} from "@ngx-translate/core";
 
       <form-mask-input
         mask="00:00:00"
-        [label]="'general.break' | translate"
+        [label]="'keyword.capitalize.break' | translate"
         [control]="form.controls.break">
       </form-mask-input>
 

@@ -20,7 +20,7 @@ import {TranslateModule} from "@ngx-translate/core";
         rounded-2xl
         text-center w-24">
       <i class="bi bi-arrow-left me-2"></i>
-      {{ 'general.back' | translate }}
+      {{ 'keyword.capitalize.back' | translate }}
     </a>
   `,
   imports: [

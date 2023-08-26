@@ -33,7 +33,7 @@ import {TranslateModule} from "@ngx-translate/core";
         dark:ring-red-700
         hover:dark:ring-red-700">
       <i class="bi bi-trash me-2"></i>
-      {{ 'general.delete' | translate }}
+      {{ 'keyword.capitalize.delete' | translate }}
     </button>
   `,
   imports: [

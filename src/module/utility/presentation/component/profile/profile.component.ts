@@ -66,7 +66,7 @@ import {Observable} from "rxjs";
         <button
           (click)="signOut()"
           class="block w-full text-start px-4 py-2 text-sm text-beeColor-700 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:text-beeDarkColor-200 dark:hover:text-white">
-          {{ 'general.logout' | translate }}
+          {{ 'keyword.capitalize.logout' | translate }}
         </button>
       </div>
     </div>

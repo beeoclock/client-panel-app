@@ -12,21 +12,21 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
   standalone: true,
   template: `
     <card>
-      <span class="text-2xl font-bold text-beeColor-500">{{ 'general.details' | translate }}</span>
+      <span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.details' | translate }}</span>
 
       <form-input
         id="service-title"
         type="text"
         autocomplete="service.title"
-        [placeholder]="'general.title' | translate"
+        [placeholder]="'keyword.capitalize.Title' | translate"
         [control]="form.controls.title"
-        [label]="'general.title' | translate">
+        [label]="'keyword.capitalize.Title' | translate">
       </form-input>
 
       <form-textarea-component
         [control]="form.controls.description"
-        [label]="'general.description' | translate"
-        [placeholder]="'general.placeholder.description' | translate">
+        [label]="'keyword.capitalize.description' | translate"
+        [placeholder]="'keyword.capitalize.placeholder.description' | translate">
       </form-textarea-component>
 
 <!--      <service-form-tags-component></service-form-tags-component>-->

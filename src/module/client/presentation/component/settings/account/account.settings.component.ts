@@ -26,7 +26,7 @@ import {
 
       <div class="flex justify-between items-center">
         <div class="flex flex-col gap-1">
-          <div class="text-beeColor-400">{{ 'general.name' | translate }}:</div>
+          <div class="text-beeColor-400">{{ 'keyword.capitalize.name' | translate }}:</div>
           {{ accountName$ | async }}
         </div>
         <button (click)="editAccountName()" class="rounded-full px-2 py-1 hover:bg-beeColor-200 transition">

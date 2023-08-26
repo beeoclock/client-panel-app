@@ -10,7 +10,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
   standalone: true,
   template: `
     <card>
-      <span class="text-2xl font-bold text-beeColor-500">{{ 'general.image' | translate }}</span>
+      <span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.image' | translate }}</span>
       <service-form-image-component [control]="form.controls.main"></service-form-image-component>
       <p class="text-beeColor-500">
         {{ 'service.form.v2.section.presentation.motivate' | translate }}

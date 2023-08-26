@@ -10,4 +10,4 @@ export interface ISchedule {
   _id?: string;
 }
 
-export type ISchedule = Required<ISchedule>;
+export type RISchedule = Required<ISchedule>;

@@ -32,18 +32,18 @@ import {
         type="text"
         customerAutocomplete
         autocomplete="off"
-        [placeholder]="'general.firstName' | translate"
+        [placeholder]="'keyword.capitalize.firstName' | translate"
         [control]="form.controls.firstName"
-        [label]="'general.firstName' | translate">
+        [label]="'keyword.capitalize.firstName' | translate">
       </form-input>
 
       <form-input
         type="text"
         customerAutocomplete
         autocomplete="off"
-        [placeholder]="'general.lastName' | translate"
+        [placeholder]="'keyword.capitalize.lastName' | translate"
         [control]="form.controls.lastName"
-        [label]="'general.lastName' | translate">
+        [label]="'keyword.capitalize.lastName' | translate">
       </form-input>
 
       <form-input
