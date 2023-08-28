@@ -1,6 +1,6 @@
 <div class="md:p-4 pb-48 grid grid-cols-12 gap-4">
 
-  <div class="col-span-12 xl:col-span-2">
+  <div class="col-span-12 xl:col-span-2 2xl:col-span-3">
 
     <utility-back-link-component></utility-back-link-component>
 
@@ -11,7 +11,7 @@
     <form [formGroup]="form" class="flex flex-col gap-4">
       <card>
 
-        <strong class="dark:text-white">{{ 'general.information' | translate }}</strong>
+        <strong class="dark:text-white">{{ 'keyword.capitalize.information' | translate }}</strong>
 
         <div class="grid grid-cols-2 gap-4">
 
@@ -19,18 +19,18 @@
             id="customer-form-firstName"
             type="firstName"
             autocomplete="firstName"
-            [placeholder]="'general.firstName' | translate"
+            [placeholder]="'keyword.capitalize.firstName' | translate"
             [control]="form.controls.firstName"
-            [label]="'general.firstName' | translate">
+            [label]="'keyword.capitalize.firstName' | translate">
           </form-input>
 
           <form-input
             id="customer-form-lastName"
             type="lastName"
             autocomplete="lastName"
-            [placeholder]="'general.lastName' | translate"
+            [placeholder]="'keyword.capitalize.lastName' | translate"
             [control]="form.controls.lastName"
-            [label]="'general.lastName' | translate">
+            [label]="'keyword.capitalize.lastName' | translate">
           </form-input>
 
           <form-input
@@ -58,7 +58,7 @@
       <utility-form-switch-active-block-component [control]="form.controls.active"></utility-form-switch-active-block-component>
 
       <card>
-        <strong class="dark:text-white">{{ 'general.additional' | translate }}</strong>
+        <strong class="dark:text-white">{{ 'keyword.capitalize.additional' | translate }}</strong>
 
         <div class="flex flex-col mt-4">
           <form-textarea-component
@@ -70,10 +70,11 @@
         </div>
       </card>
       <button
-        class="px-4 py-2 bg-blue-600 rounded-lg text-white w-full hover:bg-blue-700 cursor-pointer transition"
+        primary
+        [isLoading]="form.pending"
         [disabled]="form.disabled"
         (click)="save()">
-        {{ 'general.save' | translate }}
+        {{ 'keyword.capitalize.save' | translate }}
       </button>
     </form>
   </div>

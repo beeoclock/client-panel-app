@@ -1,6 +1,6 @@
 <div class="flex justify-between p-4">
   <service-filter-component></service-filter-component>
-  <utility-dropdown [buttonLabel]="'general.menu' | translate">
+  <utility-dropdown [buttonLabel]="'keyword.capitalize.menu' | translate">
     <ng-container content>
       <a
         routerLink="form"
@@ -23,17 +23,17 @@
         </div>
       </th>
       <th scope="col" class="px-6 py-3" data-orderBy="languageVersions.title">
-        {{ 'general.title' | translate }}
+        {{ 'keyword.capitalize.Title' | translate }}
         <utility-sort-indicator
           orderBy="languageVersions.title"
           [tableState]="tableState"
         ></utility-sort-indicator>
       </th>
 <!--      <th scope="col" class="px-6 py-3">-->
-<!--        {{ 'general.languages' | translate }}-->
+<!--        {{ 'keyword.capitalize.languages' | translate }}-->
 <!--      </th>-->
 <!--      <th scope="col" class="px-6 py-3">-->
-<!--        {{ 'general.members' | translate }}-->
+<!--        {{ 'keyword.capitalize.members' | translate }}-->
 <!--      </th>-->
       <th scope="col" class="px-6 py-3" data-orderBy="active">
         {{ 'keyword.capitalize.active' | translate }}
@@ -57,12 +57,13 @@
         ></utility-sort-indicator>
       </th>
       <th scope="col" class="px-6 py-3">
-        {{ 'general.action' | translate }}
+        {{ 'keyword.capitalize.action' | translate }}
       </th>
     </tr>
     </thead>
     <tbody>
     <tr
+      (click)="goToDetail(item._id)"
       class="bg-white border-b dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-900"
       *ngFor="let item of tableState.items">
       <td class="w-4 px-4 py-2">

@@ -13,11 +13,11 @@ import {EventActions} from "@event/state/event/event.actions";
 import {IEvent} from "@event/domain";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
-import {DynamicDatePipe} from "@utility/pipes/dynamic-date.pipe";
-import {ActiveStyleDirective} from "@utility/directives/active-style/active-style.directive";
+import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
+import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import humanizeDuration from "humanize-duration";
 import {Duration} from "luxon";
-import {EventStatusStyleDirective} from "@event/directive/event-status-style/event-status-style.directive";
+import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {StatusEnum} from "@event/domain/enum/status.enum";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 

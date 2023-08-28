@@ -12,8 +12,11 @@ export interface BeeoclockParsedToken extends ParsedToken {
   accountId?: string;
   userId?: string;
 
+  phone_number?: string;
   name?: string;
   email?: string;
+  email_verified?: boolean;
+  role?: string[];
 }
 
 export interface BeeoclockIdTokenResult extends IdTokenResult {
@@ -39,6 +42,31 @@ export class IdentityState {
   public readonly memberContextApiAdapter = inject(MemberContextApiAdapter);
 
   // Selectors
+
+  @Selector()
+  public static accountEmailIsVerified(state: IIdentityState) {
+    return state.token?.claims?.email_verified;
+  }
+
+  @Selector()
+  public static accountEmail(state: IIdentityState) {
+    return state.token?.claims?.email;
+  }
+
+  @Selector()
+  public static accountName(state: IIdentityState) {
+    return state.token?.claims?.name;
+  }
+
+  @Selector()
+  public static accountRole(state: IIdentityState) {
+    return state.token?.claims?.role;
+  }
+
+  @Selector()
+  public static accountPhoneNumber(state: IIdentityState) {
+    return state.token?.claims?.phone_number;
+  }
 
   @Selector()
   public static token(state: IIdentityState) {

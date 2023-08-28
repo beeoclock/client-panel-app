@@ -1,4 +1,4 @@
-import {AbstractControl, FormArray, FormControl, FormGroup} from "@angular/forms";
+import {AbstractControl, FormArray, FormControl, FormGroup, ɵFormGroupRawValue, ɵTypedOrUntyped} from "@angular/forms";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs";
 
@@ -35,6 +35,14 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
     return !this.limitExceeded;
   }
 
+  public override getRawValue(): ɵTypedOrUntyped<IGalleryForm, ɵFormGroupRawValue<IGalleryForm>, any> {
+    const data = super.getRawValue();
+    return {
+      object: data.object,
+      images: data.images.filter((image: string) => image?.length),
+    };
+  }
+
   // Set initial value for the 'object' control
   private initValue(): void {
     this.controls.object.setValue('Gallery');
@@ -54,8 +62,6 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
       // Subscribe to changes in the last image control
       lastImageControl.valueChanges.pipe(takeUntil(this.takeUntilLastImage$)).subscribe((value) => {
 
-        console.log('lastImageControl: ', value);
-
         if (value?.length) {
           // If the value is not empty, add a new image control to the form array
           this.controls.images.push(new FormControl());
@@ -67,9 +73,7 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 
     } else {
 
-      this.controls.images.statusChanges.pipe(takeUntil(this.takeUntilLastImage$)).subscribe((value) => {
-
-        console.log('images: ', value);
+      this.controls.images.statusChanges.pipe(takeUntil(this.takeUntilLastImage$)).subscribe(() => {
 
         if (this.limitNotExceeded) {
           // If the value is less than the limit, add a new image control to the form array
@@ -88,7 +92,6 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
   public removeImage(index: number): void {
 
     this.controls.images.controls.splice(index, 1);
-    this.controls.images.markAsPending();
 
   }
 

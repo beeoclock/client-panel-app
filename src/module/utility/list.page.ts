@@ -1,6 +1,8 @@
 import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, inject, OnInit} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
+import {DoubleClick} from "@utility/domain/decorator/double-click";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'utility-list-page',
@@ -10,6 +12,8 @@ export abstract class ListPage implements OnInit, AfterViewInit {
 
   public readonly repository: any;
 
+  public readonly router = inject(Router);
+  public readonly activatedRoute = inject(ActivatedRoute);
   public readonly store = inject(Store);
   public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
   public readonly changeDetectorRef = inject(ChangeDetectorRef);
@@ -23,6 +27,13 @@ export abstract class ListPage implements OnInit, AfterViewInit {
 
   public ngAfterViewInit(): void {
     this.initOrderByAndOrderDirHandler();
+  }
+
+  @DoubleClick
+  public goToDetail(id: string): void {
+    this.router.navigate([id], {
+      relativeTo: this.activatedRoute
+    });
   }
 
   public updateOrderBy(target: HTMLTableCellElement): void {

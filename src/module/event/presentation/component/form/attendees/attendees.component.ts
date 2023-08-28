@@ -2,10 +2,7 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Input, On
 import {AttendantComponent} from '@event/presentation/component/form/attendees/attendant/attendant.component';
 import {NgForOf, NgIf} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
-import {
-  CustomerAttendantComponent
-} from "@event/presentation/component/form/attendees/attendant/customer.attendant.component";
-import {AttendeesForm} from "@event/form/attendant.form";
+import {AttendeesForm} from "@event/presentation/form/attendant.form";
 
 @Component({
   selector: 'event-attendees-component',
@@ -17,7 +14,6 @@ import {AttendeesForm} from "@event/form/attendant.form";
     AttendantComponent,
     NgForOf,
     TranslateModule,
-    CustomerAttendantComponent,
     NgIf
   ],
 })

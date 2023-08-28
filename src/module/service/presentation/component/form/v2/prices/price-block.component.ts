@@ -8,7 +8,7 @@ import {TagsComponent} from "@service/presentation/component/form/v2/details/tag
 import {SpecialistsComponent} from "@service/presentation/component/form/v2/prices/specialists.component";
 import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/price-and-currency.component";
 import {InputBadgeComponent} from "@utility/presentation/component/input/input-badge.component";
-import {PriceForm} from "@service/form/service.form";
+import {PriceForm} from "@service/presentation/form/service.form";
 
 @Component({
   selector: 'service-form-price-block-component',
@@ -21,7 +21,7 @@ import {PriceForm} from "@service/form/service.form";
           [control]="durationControl"
           placeholder="00:00"
           [label]="'keyword.capitalize.duration' | translate"
-          [badge]="'general.priceTimeFormatPrompt' | translate">
+          [badge]="'keyword.capitalize.priceTimeFormatPrompt' | translate">
         </form-badge-input>
         <price-and-currency-component
           [priceControl]="priceForm.controls.price"

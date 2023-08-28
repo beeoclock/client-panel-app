@@ -2,6 +2,10 @@
   "country": {
     "UA": "Ukraine"
   },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  },
   "latestBooking": {
     "NO_LIMIT": "Any available time",
     "TWO_WEEKS": "This week and next week",
@@ -68,8 +72,63 @@
       "minlength": "Minimum length is {{requiredLength}}"
     }
   },
+  "sign-out": {
+    "title": "Sign out",
+    "button": {
+      "sign-out": {
+        "label": "Sign out now"
+      }
+    }
+  },
+  "danger-zone": {
+    "title": "Danger zone",
+    "hint": {
+      "message": "Delete business account. After deleting the business account, there is no going back. Please consider this action carefully."
+    },
+    "button": {
+      "delete": {
+        "label": "Delete business account"
+      }
+    }
+  },
+  "change-name": {
+    "modal": {
+      "title": "Change name"
+    },
+    "form": {
+      "input": {
+        "name": {
+          "placeholder": "Your full name"
+        }
+      }
+    }
+  },
+  "change-phone-number": {
+    "modal": {
+      "title": "Change phone number"
+    },
+    "form": {
+      "input": {
+        "phoneNumber": {
+          "placeholder": "Your phone number"
+        }
+      }
+    }
+  },
   "keyword": {
     "capitalize": {
+      "create": "Create",
+      "processing": "Processing",
+      "chooseImage": "Choose image",
+      "services": "Services",
+      "events": "Events",
+      "language": "Language",
+      "fullName": "Full name",
+      "save": "Save",
+      "close": "Close",
+      "dismiss": "Dismiss",
+      "yes": "Yes",
+      "no": "No",
       "account": "Account",
       "general": "General",
       "send": "Send",
@@ -124,59 +183,53 @@
       "bookingSettings": "Booking settings",
       "earliestBooking": "Earliest booking time",
       "latestBooking": "When an event can be booked",
-      "approvalTime": "Approval time"
+      "approvalTime": "Approval time",
+      "comingSoon": "Coming soon...",
+      "selectSpecialist": "Select specialist",
+      "menu": "Menu",
+      "total": "Total",
+      "next": "Next",
+      "previous": "Previous",
+      "lastUpdate": "Last update",
+      "clearCache": "Refresh cache",
+      "image": "Image",
+      "specialists": "Specialists",
+      "prices": "Prices",
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "logout": "Logout",
+      "back": "Back",
+      "clients": "Clients",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "description": "Description",
+      "title": "Title",
+      "name": "Name",
+      "break": "Break",
+      "action": "Action",
+      "details": "Details",
+      "delete": "Delete",
+      "update": "Updated",
+      "edit": "Edit",
+      "information": "Information",
+      "additional": "Additional",
+      "contact": "Contact",
+      "languages": "Languages",
+      "members": "Members",
+      "soon": "Soon",
+      "role": "Role",
+      "permission": "Permission",
+      "publicPage": "Public page",
+      "priceTimeFormatPrompt": "hours:minutes",
+      "placeholder": {
+        "description": "Type description",
+        "search": "Search"
+      }
     },
     "lowercase": {
       "or": "or",
       "dragAndDrop": "drag and drop"
     }
-  },
-  "general": {
-    "placeholder": {
-      "description": "Type description",
-      "search": "Search"
-    },
-    "chooseImage": "Choose image",
-    "selectSpecialist": "Select specialist",
-    "menu": "Menu",
-    "total": "Total",
-    "next": "Next",
-    "previous": "Previous",
-    "lastUpdate": "Last update",
-    "clearCache": "Refresh cache",
-    "image": "Image",
-    "specialists": "Specialists",
-    "prices": "Prices",
-    "today": "Today",
-    "tomorrow": "Tomorrow",
-    "dateAndTime": "Date and time",
-    "logout": "Logout",
-    "back": "Back",
-    "clients": "Clients",
-    "services": "Services",
-    "fullName": "Full name",
-    "firstName": "First name",
-    "lastName": "Last name",
-    "description": "Description",
-    "title": "Title",
-    "name": "Name",
-    "break": "Break",
-    "action": "Action",
-    "details": "Details",
-    "delete": "Delete",
-    "update": "Updated",
-    "save": "Save",
-    "edit": "Edit",
-    "information": "Information",
-    "additional": "Additional",
-    "contact": "Contact",
-    "languages": "Languages",
-    "members": "Members",
-    "soon": "Soon",
-    "role": "Role",
-    "permission": "Permission",
-    "publicPage": "Public page",
-    "priceTimeFormatPrompt": "hours:minutes"
   },
   "sidebar": {
     "dashboard": "Dashboard",

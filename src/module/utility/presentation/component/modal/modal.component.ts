@@ -14,8 +14,9 @@ import {is} from "thiis";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {Subject, take} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
-import {DebounceClickDirective} from "@utility/directives/debounce/debounce.directive";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {DebounceClickDirective} from "@utility/presentation/directives/debounce/debounce.directive";
 
 export enum ModalButtonRoleEnum {
   'cancel',
@@ -33,8 +34,6 @@ export interface ModalButtonInterface {
   callback?: (modal: ModalComponent, instanceList: any[]) => void;
 }
 
-export type modalSizeType = 'modal-sm' | '' | 'modal-lg' | 'modal-xl';
-
 @Component({
   selector: 'utility-modal',
   standalone: true,
@@ -43,7 +42,8 @@ export type modalSizeType = 'modal-sm' | '' | 'modal-lg' | 'modal-xl';
     NgForOf,
     NgClass,
     DebounceClickDirective,
-    LoaderComponent
+    LoaderComponent,
+    TranslateModule
   ],
   template: `
     <div
@@ -92,9 +92,17 @@ export type modalSizeType = 'modal-sm' | '' | 'modal-lg' | 'modal-xl';
               [enabledDebounceClick]="button?.enabledDebounceClick ?? true"
               (debounceClick)="buttonAction($event, button)">
 
-              <ng-container *ngIf="button?.loading; else DefaultTemplate">
-                <utility-loader></utility-loader>
-              </ng-container>
+              <div
+                class="inline-flex items-center font-semibold leading-6 text-sm text-white transition ease-in-out duration-150 cursor-not-allowed"
+                *ngIf="button?.loading; else DefaultTemplate">
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                     viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                {{ 'keyword.capitalize.processing' | translate }}...
+              </div>
 
               <ng-template #DefaultTemplate>
                 {{ button?.text }}
@@ -113,14 +121,8 @@ export type modalSizeType = 'modal-sm' | '' | 'modal-lg' | 'modal-xl';
 })
 export class ModalComponent extends Reactive implements AfterViewInit {
 
-  public static buttons = {
-    [ModalButtonRoleEnum.accept]: {
-      classList: ['text-white', 'bg-blue-700', 'hover:bg-blue-800', 'focus:ring-4', 'focus:outline-none', 'focus:ring-blue-300', 'font-medium', 'rounded-lg', 'text-sm', 'px-5', 'py-2.5', 'text-center', 'dark:bg-blue-600', 'dark:hover:bg-blue-700', 'dark:focus:ring-blue-800']
-    },
-    [ModalButtonRoleEnum.cancel]: {
-      classList: ['text-beeColor-500', 'bg-white', 'hover:bg-beeColor-100', 'focus:ring-4', 'focus:outline-none', 'focus:ring-blue-300', 'rounded-lg', 'border', 'border-beeColor-200', 'text-sm', 'font-medium', 'px-5', 'py-2.5', 'hover:text-beeColor-900', 'focus:z-10', 'dark:bg-beeDarkColor-700', 'dark:text-beeDarkColor-300', 'dark:border-beeDarkColor-500', 'dark:hover:text-white', 'dark:hover:bg-beeDarkColor-600', 'dark:focus:ring-beeDarkColor-600']
-    }
-  };
+  @Input()
+  public id = 'modal-default-id';
 
   @ViewChild('contentRef')
   public contentRef: ElementRef<HTMLElement> | undefined;
@@ -128,16 +130,18 @@ export class ModalComponent extends Reactive implements AfterViewInit {
   @ViewChild('btnCloseRef')
   public btnCloseRef: ElementRef<HTMLButtonElement> | undefined;
 
+  private readonly translateService = inject(TranslateService);
+
+  public static buttons = {
+    [ModalButtonRoleEnum.accept]: {
+      classList: ['text-white', 'bg-blue-700', 'hover:bg-blue-800', 'focus:ring-4', 'focus:outline-none', 'focus:ring-blue-300', 'font-medium', 'rounded-lg', 'text-sm', 'px-5', 'py-2.5', 'text-center', 'dark:bg-blue-600', 'dark:hover:bg-blue-700', 'dark:focus:ring-blue-800', 'flex']
+    },
+    [ModalButtonRoleEnum.cancel]: {
+      classList: ['text-beeColor-500', 'bg-white', 'hover:bg-beeColor-100', 'focus:ring-4', 'focus:outline-none', 'focus:ring-blue-300', 'rounded-lg', 'border', 'border-beeColor-200', 'text-sm', 'font-medium', 'px-5', 'py-2.5', 'hover:text-beeColor-900', 'focus:z-10', 'dark:bg-beeDarkColor-700', 'dark:text-beeDarkColor-300', 'dark:border-beeDarkColor-500', 'dark:hover:text-white', 'dark:hover:bg-beeDarkColor-600', 'dark:focus:ring-beeDarkColor-600']
+    }
+  };
+
   public titleClasses: string[] = ['text-xl', 'font-semibold', 'text-beeColor-900', 'dark:text-white'];
-
-  public modalSize: modalSizeType = '';
-
-  // public showBody: boolean = true;
-  //
-  // public fixHeight: boolean = true;
-
-  @Input()
-  public id = 'modal-default-id';
 
   public readonly idPrefix: string = `${this.id}_buttons_`;
 
@@ -155,7 +159,7 @@ export class ModalComponent extends Reactive implements AfterViewInit {
 
   public buttons: ModalButtonInterface[] = [
     {
-      text: 'Cancel',
+      text: this.translateService.instant('keyword.capitalize.cancel'),
       role: ModalButtonRoleEnum.cancel,
       value: false,
       disabled: false,
@@ -163,7 +167,7 @@ export class ModalComponent extends Reactive implements AfterViewInit {
       classList: ModalComponent.buttons[ModalButtonRoleEnum.cancel].classList,
     },
     {
-      text: 'Continue',
+      text: this.translateService.instant('keyword.capitalize.confirm'),
       role: ModalButtonRoleEnum.accept,
       value: true,
       disabled: false,
@@ -183,9 +187,6 @@ export class ModalComponent extends Reactive implements AfterViewInit {
 
   @Input()
   public buttonLabel = 'Open modal';
-
-  // @ViewChild('buttonRef')
-  // public buttonRef: ElementRef<HTMLButtonElement> | undefined;
 
   @ViewChild('modalRef')
   public modalRef: ElementRef<HTMLDivElement> | undefined;
@@ -255,8 +256,6 @@ export class ModalComponent extends Reactive implements AfterViewInit {
 
     }
 
-    // this.#modal = new Modal(this.modalRef.nativeElement, this.modalOptions);
-
     this.closeModal$.pipe(take(1), this.takeUntil()).subscribe(() => {
 
       this.#modal?.hide();
@@ -270,7 +269,6 @@ export class ModalComponent extends Reactive implements AfterViewInit {
       }, 500);
 
     });
-    this.initHandleOnCloseModal();
 
   }
 
@@ -284,19 +282,6 @@ export class ModalComponent extends Reactive implements AfterViewInit {
         resolve();
       }, 500);
     });
-
-  }
-
-  private initHandleOnCloseModal(): void {
-
-    if (this.#modal) {
-
-      // TODO
-      // this.#modal['_element'].addEventListener('hidden.bs.modal', () => {
-      //   this.closeModal$.next();
-      // });
-
-    }
 
   }
 

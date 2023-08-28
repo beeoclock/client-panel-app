@@ -2,11 +2,11 @@ import {Component, Input, ViewEncapsulation} from "@angular/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgForOf, NgIf} from "@angular/common";
-import {DragAndDropDirective} from "@utility/directives/drag-and-drop/drag-and-drop.directive";
+import {DragAndDropDirective} from "@utility/presentation/directives/drag-and-drop/drag-and-drop.directive";
 import {
   ImageGalleryBusinessProfileComponent
 } from "@client/presentation/component/business-profile/gallery/image.gallery.business-profile.component";
-import {GalleryForm} from "@client/form/gallery.form";
+import {GalleryForm} from "@client/presentation/form/gallery.form";
 import {BooleanState} from "@utility/domain";
 
 @Component({

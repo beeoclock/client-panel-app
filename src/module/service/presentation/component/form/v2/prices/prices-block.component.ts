@@ -6,7 +6,7 @@ import {FormTextareaComponent} from "@utility/presentation/component/input/form.
 import {TagsComponent} from "@service/presentation/component/form/v2/details/tags.component";
 import {SpecialistsComponent} from "@service/presentation/component/form/v2/prices/specialists.component";
 import {PriceBlockComponent} from "@service/presentation/component/form/v2/prices/price-block.component";
-import {DurationVersionsForm} from "@service/form/service.form";
+import {DurationVersionsForm} from "@service/presentation/form/service.form";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 
 @Component({

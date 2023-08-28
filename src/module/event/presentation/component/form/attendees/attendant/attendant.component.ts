@@ -2,13 +2,15 @@ import {Component, Input} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 
 import {NgIf} from '@angular/common';
-import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
-import {IsRequiredDirective} from '@utility/directives/is-required/is-required';
-import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
+import {HasErrorDirective} from '@utility/presentation/directives/has-error/has-error.directive';
+import {IsRequiredDirective} from '@utility/presentation/directives/is-required/is-required';
+import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {CustomerForm} from "@customer/form";
-import {CustomerAutocompleteDirective} from "@utility/directives/customer-autocomplete/customer-autocomplete.directive";
+import {CustomerForm} from "@customer/presentation/form";
+import {
+  CustomerAutocompleteDirective
+} from "@utility/presentation/directives/customer-autocomplete/customer-autocomplete.directive";
 
 @Component({
   selector: 'event-attendant-component',
@@ -30,18 +32,18 @@ import {CustomerAutocompleteDirective} from "@utility/directives/customer-autoco
         type="text"
         customerAutocomplete
         autocomplete="off"
-        [placeholder]="'general.firstName' | translate"
+        [placeholder]="'keyword.capitalize.firstName' | translate"
         [control]="form.controls.firstName"
-        [label]="'general.firstName' | translate">
+        [label]="'keyword.capitalize.firstName' | translate">
       </form-input>
 
       <form-input
         type="text"
         customerAutocomplete
         autocomplete="off"
-        [placeholder]="'general.lastName' | translate"
+        [placeholder]="'keyword.capitalize.lastName' | translate"
         [control]="form.controls.lastName"
-        [label]="'general.lastName' | translate">
+        [label]="'keyword.capitalize.lastName' | translate">
       </form-input>
 
       <form-input

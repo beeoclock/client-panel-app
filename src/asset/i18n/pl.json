@@ -2,6 +2,10 @@
   "country": {
     "UA": "Ukraina"
   },
+  "theme": {
+    "light": "Jasny",
+    "dark": "Ciemny"
+  },
   "earliestBooking": {
     "NO_LIMIT": "Bez ograniczeń",
     "MINUTE_15": "za 15 minut",
@@ -68,8 +72,63 @@
       "minlength": "Minimalna długość to {{requiredLength}}"
     }
   },
+  "sign-out": {
+    "title": "Wyloguj się",
+    "button": {
+      "sign-out": {
+        "label": "Wyloguj się teraz"
+      }
+    }
+  },
+  "danger-zone": {
+    "title": "Strefa zagrożenia",
+    "hint": {
+      "message": "Usunięcie konta firmowego. Po usunięciu konta firmowego nie ma już odwrotu. Proszę dokładnie rozważyć to działanie."
+    },
+    "button": {
+      "delete": {
+        "label": "Usuń konto firmowe"
+      }
+    }
+  },
+  "change-name": {
+    "modal": {
+      "title": "Zmiana imienia"
+    },
+    "form": {
+      "input": {
+        "name": {
+          "placeholder": "Twoje pełne imię i nazwisko"
+        }
+      }
+    }
+  },
+  "change-phone-number": {
+    "modal": {
+      "title": "Zmiana numeru telefonu"
+    },
+    "form": {
+      "input": {
+        "phoneNumber": {
+          "placeholder": "Twój numer telefonu"
+        }
+      }
+    }
+  },
   "keyword": {
     "capitalize": {
+      "create": "Utwórz",
+      "processing": "Przetwarzanie",
+      "chooseImage": "Wybierz plik",
+      "services": "Usługi",
+      "events": "Wydarzenia",
+      "language": "Język",
+      "fullName": "Pełne imię i nazwisko",
+      "save": "Zapisz",
+      "close": "Zamknij",
+      "dismiss": "Odrzuć",
+      "yes": "Tak",
+      "no": "Nie",
       "account": "Konto",
       "general": "Ogólne",
       "send": "Wyślij",
@@ -124,59 +183,53 @@
       "bookingSettings": "Ustawienia rezerwacji",
       "earliestBooking": "Najbliższy termin rezerwacji",
       "latestBooking": "Najpóźniejszy termin rezerwacji",
-      "approvalTime": "Czas zatwierdzania"
+      "approvalTime": "Czas zatwierdzania",
+      "comingSoon": "Już wkrótce...",
+      "selectSpecialist": "Wybierz specjalistę",
+      "menu": "Menu",
+      "total": "Razem",
+      "next": "Dalej",
+      "previous": "Wstecz",
+      "lastUpdate": "Ostatnia aktualizacja",
+      "clearCache": "Wyczyść Cache",
+      "image": "Obraz",
+      "specialists": "Specjaliści",
+      "prices": "Ceny",
+      "today": "Dziś",
+      "tomorrow": "Jutro",
+      "logout": "Wyloguj się",
+      "back": "Wstecz",
+      "clients": "Klienci",
+      "firstName": "Imię",
+      "lastName": "Nazwisko",
+      "description": "Opis",
+      "title": "Tytuł",
+      "name": "Nazwa",
+      "break": "Przerwa",
+      "action": "Akcja",
+      "details": "Szczegóły",
+      "delete": "Usuń",
+      "update": "Zaktualizowano",
+      "edit": "Edytuj",
+      "information": "Informacje",
+      "additional": "Dodatkowe",
+      "contact": "Kontakt",
+      "languages": "Języki",
+      "members": "Członkowie",
+      "soon": "Wkrótce",
+      "role": "Rola",
+      "permission": "Uprawnienie",
+      "publicPage": "Strona publiczna",
+      "priceTimeFormatPrompt": "godziny:minuty",
+      "placeholder": {
+        "description": "Wprowadź szczegóły",
+        "search": "Szukaj"
+      }
     },
     "lowercase": {
       "or": "lub",
       "dragAndDrop": "przeciągnij i upuść plik"
     }
-  },
-  "general": {
-    "placeholder": {
-      "description": "Wprowadź szczegóły",
-      "search": "Szukaj"
-    },
-    "chooseImage": "Wybierz plik",
-    "selectSpecialist": "Wybierz specjalistę",
-    "menu": "Menu",
-    "total": "Razem",
-    "next": "Dalej",
-    "previous": "Wstecz",
-    "lastUpdate": "Ostatnia aktualizacja",
-    "clearCache": "Wyczyść Cache",
-    "image": "Obraz",
-    "specialists": "Specjaliści",
-    "prices": "Ceny",
-    "today": "Dziś",
-    "tomorrow": "Jutro",
-    "dateAndTime": "Data i czas",
-    "logout": "Wyloguj się",
-    "back": "Wstecz",
-    "clients": "Klienci",
-    "services": "Usługi",
-    "fullName": "Pełne imię i nazwisko",
-    "firstName": "Imię",
-    "lastName": "Nazwisko",
-    "description": "Opis",
-    "title": "Tytuł",
-    "name": "Nazwa",
-    "break": "Przerwa",
-    "action": "Akcja",
-    "details": "Szczegóły",
-    "delete": "Usuń",
-    "update": "Zaktualizowano",
-    "save": "Zapisz",
-    "edit": "Edytuj",
-    "information": "Informacje",
-    "additional": "Dodatkowe",
-    "contact": "Kontakt",
-    "languages": "Języki",
-    "members": "Członkowie",
-    "soon": "Wkrótce",
-    "role": "Rola",
-    "permission": "Uprawnienie",
-    "publicPage": "Strona publiczna",
-    "priceTimeFormatPrompt": "godziny:minuty"
   },
   "sidebar": {
     "dashboard": "Panel główny",
@@ -309,50 +362,52 @@
   "client": {
     "settings": {
       "title": "Ustawienia",
-      "inputs": {
-        "darkMode": {
-          "label": "Tryb ciemny"
-        }
-      }
-    },
-    "defaultData": {
-      "event": {
-        "title": "Domyślne dane wydarzenia",
-        "form": {
-          "inputs": {
-            "language": {
-              "label": "Domyślny język wydarzenia"
-            },
-            "service": {
-              "label": "Domyślna usługa wydarzenia (najważniejsza usługa)"
-            }
+      "form": {
+        "inputs": {
+          "darkMode": {
+            "label": "Tryb ciemny"
           }
         }
       },
-      "service": {
-        "title": "Domyślne dane usługi",
-        "form": {
-          "inputs": {
-            "duration": {
-              "label": "Domyślny czas trwania usługi"
-            },
-            "language": {
-              "label": "Domyślny język usługi"
-            },
-            "workDays": {
-              "label": "Domyślne dni pracy usługi"
-            },
-            "break": {
-              "label": "Domyślna przerwa usługi"
-            },
-            "startWork": {
-              "label": "Godzina rozpoczęcia pracy usługi"
-            },
-            "endWork": {
-              "label": "Godzina zakończenia pracy usługi"
-            },
-            "price": {
-              "label": "Domyślna cena usługi"
+      "defaultData": {
+        "event": {
+          "title": "Dane ogólne wydarzenia",
+          "form": {
+            "inputs": {
+              "language": {
+                "label": "Domyślny język wydarzenia"
+              },
+              "service": {
+                "label": "Predefiniowana usługa (pierwsza na liście)"
+              }
+            }
+          }
+        },
+        "service": {
+          "title": "Dane ogólne usługi",
+          "form": {
+            "inputs": {
+              "duration": {
+                "label": "Domyślny czas trwania usługi"
+              },
+              "language": {
+                "label": "Domyślny język usługi"
+              },
+              "workDays": {
+                "label": "Domyślne dni robocze usługi"
+              },
+              "break": {
+                "label": "Domyślna przerwa w usłudze"
+              },
+              "startWork": {
+                "label": "Domyślny początek pracy"
+              },
+              "endWork": {
+                "label": "Domyślny koniec pracy"
+              },
+              "price": {
+                "label": "Domyślna cena usługi"
+              }
             }
           }
         }

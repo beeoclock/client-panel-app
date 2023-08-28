@@ -22,7 +22,7 @@ import {TranslateModule} from "@ngx-translate/core";
             [routerLink]="id"
             class="text-start block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
             <i class="bi bi-eye"></i>
-            {{ 'general.details' | translate }}
+            {{ 'keyword.capitalize.details' | translate }}
           </a>
         </li>
         <li>
@@ -30,7 +30,7 @@ import {TranslateModule} from "@ngx-translate/core";
             [routerLink]="[id, 'form']"
             class="text-start block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
             <i class="bi bi-pencil"></i>
-            {{ 'general.edit' | translate }}
+            {{ 'keyword.capitalize.edit' | translate }}
           </a>
         </li>
 <!--        <li *ngIf="active === activeEnum.NO">-->
@@ -38,7 +38,7 @@ import {TranslateModule} from "@ngx-translate/core";
 <!--            (click)="delete.emit(id)"-->
 <!--            class="text-start block w-full px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">-->
 <!--            <i class="bi bi-trash"></i>-->
-<!--            {{ 'general.delete' | translate }}-->
+<!--            {{ 'keyword.capitalize.delete' | translate }}-->
 <!--          </button>-->
 <!--        </li>-->
 <!--        <li *ngIf="active === activeEnum.YES">-->

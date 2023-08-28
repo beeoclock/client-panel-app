@@ -1,5 +1,5 @@
 import {Routes} from "@angular/router";
-import {clientDetailsResolver} from "@client/resolver/client.details.resolver";
+import {clientDetailsResolver} from "@client/presentation/resolver/client.details.resolver";
 
 export const routers = [
   {

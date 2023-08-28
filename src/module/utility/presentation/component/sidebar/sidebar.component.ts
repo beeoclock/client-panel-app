@@ -1,11 +1,12 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {IsActiveMatchOptions, RouterLink, RouterLinkActive} from '@angular/router';
 import {NgForOf, NgIf} from '@angular/common';
-import {Auth} from "@angular/fire/auth";
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
 import {IdentityState} from "@identity/state/identity/identity.state";
+import {SidebarService} from "@utility/presentation/component/sidebar/sidebar.service";
+import {SIDEBAR_ID} from "@src/token";
 
 interface IMenuItem {
   url?: string;
@@ -32,10 +33,11 @@ interface IMenuItem {
     TranslateModule
   ],
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
 
-  public readonly auth = inject(Auth);
-  public readonly store = inject(Store);
+  public readonly sidebarId = inject(SIDEBAR_ID);
+  private readonly store = inject(Store);
+  private readonly sidebarService = inject(SidebarService);
 
   public readonly menu: IMenuItem[] = [
     {
@@ -135,6 +137,10 @@ export class SidebarComponent {
     //   ]
     // }
   ];
+
+  public ngOnInit(): void {
+    this.sidebarService.initialize();
+  }
 
   public async goToPublicPage(): Promise<void> {
 

@@ -1,14 +1,14 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActiveEnum} from '@utility/domain/enum/active.enum';
 import {file2base64} from "@utility/domain/file2base64";
-import {SocialNetworksForm} from "@client/form/social-network.form";
+import {SocialNetworksForm} from "@client/presentation/form/social-network.form";
 import {extractFile} from "@utility/domain/extract-file";
 import {FacilityEnum} from "@utility/domain/enum/facility.enum";
-import {BookingSettingsForm} from "@client/form/booking-settings.form";
-import {AddressesForm} from "@client/form/address.form";
-import {SchedulesForm} from "@utility/form/schdeule.form";
-import {ContactsForm} from "@client/form/contact.form";
-import {GalleryForm} from "@client/form/gallery.form";
+import {BookingSettingsForm} from "@client/presentation/form/booking-settings.form";
+import {AddressesForm} from "@client/presentation/form/address.form";
+import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
+import {ContactsForm} from "@client/presentation/form/contact.form";
+import {GalleryForm} from "@client/presentation/form/gallery.form";
 import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
 
 

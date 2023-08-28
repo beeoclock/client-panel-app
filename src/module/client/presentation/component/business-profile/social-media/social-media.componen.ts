@@ -1,11 +1,12 @@
 import {Component, Input, ViewEncapsulation} from "@angular/core";
-import {SocialNetworksForm} from "@client/form/social-network.form";
+import {SocialNetworksForm} from "@client/presentation/form/social-network.form";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgForOf} from "@angular/common";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {
   SocialNetworkLinkFormComponent
 } from "@client/presentation/component/business-profile/social-media/social-network-link.form.component";
+import {FormButtonWithIconComponent} from "@utility/presentation/component/button/form-button-with-icon.component";
 
 @Component({
   selector: 'client-business-profile-social-media-component',
@@ -33,10 +34,8 @@ import {
         </div>
       </div>
 
-      <button class="border rounded px-4 py-2" (click)="form.pushNewOne()">
-        <i class="bi bi-plus-lg me-2"></i>
-        {{ 'keyword.capitalize.addSocialMedia' | translate }}
-      </button>
+      <form-button-with-icon (click)="form.pushNewOne()" [label]="'keyword.capitalize.addSocialMedia' | translate">
+      </form-button-with-icon>
     </card>
   `,
   imports: [
@@ -44,7 +43,8 @@ import {
     NgForOf,
     SocialNetworkLinkFormComponent,
     CardComponent,
-    SocialNetworkLinkFormComponent
+    SocialNetworkLinkFormComponent,
+    FormButtonWithIconComponent
   ]
 })
 export class BusinessProfileSocialMediaComponent {

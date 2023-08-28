@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
 import {DurationFormComponent} from '@service/presentation/component/form/v1/duration/duration.form.component';
-import {DurationVersionsForm} from '@service/form/service.form';
+import {DurationVersionsForm} from '@service/presentation/form/service.form';
 import {NgForOf, NgIf} from '@angular/common';
 
 @Component({

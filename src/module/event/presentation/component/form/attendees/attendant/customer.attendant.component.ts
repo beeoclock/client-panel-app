@@ -9,7 +9,7 @@ import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.
 import {ICustomer} from "@customer/domain";
 import {initials} from "@utility/domain/initials";
 import {TranslateModule} from "@ngx-translate/core";
-import {CustomerForm} from "@customer/form";
+import {CustomerForm} from "@customer/presentation/form";
 
 @Component({
   selector: 'event-customer-attendant-component',

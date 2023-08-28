@@ -1,6 +1,6 @@
 import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
 import {GettingStartedComponent} from '@utility/presentation/component/getting-started/getting-started.component';
-import ResetPasswordForm from "@identity/form/reset-password.form";
+import ResetPasswordForm from "@identity/presentation/form/reset-password.form";
 import {Router} from "@angular/router";
 import {Auth, sendPasswordResetEmail} from "@angular/fire/auth";
 import {ReactiveFormsModule} from "@angular/forms";
@@ -58,7 +58,7 @@ export default class Index {
             duration: 10_000,
             buttons: [
               {
-                text: 'Dismiss',
+                text: this.translateService.instant('keyword.capitalize.close'),
                 role: 'cancel',
               },
             ],

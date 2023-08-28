@@ -1,6 +1,6 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {SocialNetworkForm} from "@client/form/social-network.form";
+import {SocialNetworkForm} from "@client/presentation/form/social-network.form";
 import {SOCIAL_NETWORKS} from "@utility/domain/enum/social-network.enum";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";

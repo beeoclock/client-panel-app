@@ -1,12 +1,12 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
-import {PriceForm} from '@service/form/service.form';
+import {PriceForm} from '@service/presentation/form/service.form';
 
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ReactiveFormsModule} from '@angular/forms';
-import {InputDirective} from '@utility/directives/input/input.directive';
+import {InputDirective} from '@utility/presentation/directives/input/input.directive';
 import {NgForOf, NgIf} from '@angular/common';
-import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
-import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
+import {HasErrorDirective} from '@utility/presentation/directives/has-error/has-error.directive';
+import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/price-and-currency.component";
 import {LanguageCodeEnum} from "@utility/domain/enum";
 

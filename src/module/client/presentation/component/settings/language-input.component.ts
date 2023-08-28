@@ -1,6 +1,6 @@
 import {Component, inject} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {LANGUAGES} from "@utility/domain/enum";
 import {NgSelectModule} from "@ng-select/ng-select";
 
@@ -9,11 +9,15 @@ import {NgSelectModule} from "@ng-select/ng-select";
   standalone: true,
   imports: [
     NgSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   template: `
+    <label class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
+      {{ 'keyword.capitalize.language' | translate }}
+    </label>
     <ng-select
-      id="service-form-language"
+      id="client-settings-form-language"
       bindLabel="name"
       bindValue="code"
       [items]="languages"

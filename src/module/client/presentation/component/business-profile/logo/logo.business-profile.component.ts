@@ -6,7 +6,7 @@ import {extractFile} from "@utility/domain/extract-file";
 import {file2base64} from "@utility/domain/file2base64";
 import {NgIf} from "@angular/common";
 import {BooleanState} from "@utility/domain";
-import {DragAndDropDirective} from "@utility/directives/drag-and-drop/drag-and-drop.directive";
+import {DragAndDropDirective} from "@utility/presentation/directives/drag-and-drop/drag-and-drop.directive";
 
 @Component({
   selector: 'client-logo-business-profile-component',
@@ -28,8 +28,8 @@ export class LogoBusinessProfileComponent implements OnInit {
   @Input()
   public control = new FormControl();
 
-  previewImage: string | null = null;
-  uploadedFileName: string | null = null;
+  public previewImage: string | null = null;
+  public uploadedFileName: string | null = null;
 
   public readonly toggleInfo = new BooleanState(true);
 

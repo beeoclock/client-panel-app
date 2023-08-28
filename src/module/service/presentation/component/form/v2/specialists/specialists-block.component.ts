@@ -19,7 +19,7 @@ import {IMember} from "@member/domain";
   template: `
 <!--    <div-->
 <!--      class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 flex flex-col gap-3">-->
-<!--      <span class="text-2xl font-bold text-beeColor-500">{{ 'general.specialists' | translate }}</span>-->
+<!--      <span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.specialists' | translate }}</span>-->
 
 <!--      <div *ngFor="let member of specialistListControl.value; let index = index">-->
 
@@ -57,7 +57,7 @@ import {IMember} from "@member/domain";
 <!--      <button (click)="openModalToSelectSpecialist()"-->
 <!--              class="w-full text-blue-600 rounded px-4 py-2 hover:bg-blue-100 flex items-center justify-center gap-3">-->
 <!--        <i class="bi bi-list-check"></i>-->
-<!--        {{ 'general.selectSpecialist' | translate }}-->
+<!--        {{ 'keyword.capitalize.selectSpecialist' | translate }}-->
 <!--      </button>-->
 
 <!--    </div>-->

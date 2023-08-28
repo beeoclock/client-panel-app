@@ -1,6 +1,6 @@
 <div class="md:p-4 pb-48 grid grid-cols-12 gap-4">
 
-  <div class="col-span-12 xl:col-span-2">
+  <div class="col-span-12 xl:col-span-2 2xl:col-span-3">
     <utility-back-link-component></utility-back-link-component>
   </div>
 
@@ -10,24 +10,30 @@
 
       <service-form-image-block-component [form]="form.controls.presentation"></service-form-image-block-component>
 
-      <utility-form-switch-active-block-component [activeText]="'service.keyword.capitalize.active' | translate" [control]="form.controls.active"></utility-form-switch-active-block-component>
+      <utility-form-switch-active-block-component
+        [activeText]="'service.keyword.capitalize.active' | translate"
+        [control]="form.controls.active"></utility-form-switch-active-block-component>
 
-      <service-form-details-block-component [form]="form.controls.languageVersions.at(0)"></service-form-details-block-component>
+      <service-form-details-block-component
+        [form]="form.controls.languageVersions.at(0)"></service-form-details-block-component>
 
       <div>
 
         <!-- HTML of the component is temporary hidden, but we need to call the component because the component has code to add default specialist from member list -->
-        <service-form-specialists-block-component [specialistListControl]="form.controls.permanentMembers"></service-form-specialists-block-component>
+        <service-form-specialists-block-component
+          [specialistListControl]="form.controls.permanentMembers"></service-form-specialists-block-component>
 
-        <service-form-prices-block-component [durationVersions]="form.controls.durationVersions"></service-form-prices-block-component>
+        <service-form-prices-block-component
+          [durationVersions]="form.controls.durationVersions"></service-form-prices-block-component>
 
       </div>
 
       <button
-        class="px-4 py-2 bg-blue-600 rounded-lg text-white w-full hover:bg-blue-700 cursor-pointer transition"
+        primary
+        [isLoading]="form.pending"
         [disabled]="form.disabled"
         (click)="save()">
-        {{ 'general.save' | translate }}
+        {{ 'keyword.capitalize.save' | translate }}
       </button>
 
     </form>

@@ -2,6 +2,10 @@
   "country": {
     "UA": "Україна"
   },
+  "theme": {
+    "light": "Світла",
+    "dark": "Темна"
+  },
   "earliestBooking": {
     "NO_LIMIT": "Без обмежень",
     "MINUTE_15": "через 15 хвилин",
@@ -68,8 +72,64 @@
       "minlength": "Мінімальна довжина - {{requiredLength}}"
     }
   },
+  "sign-out": {
+    "title": "Вихід з системи",
+    "button": {
+      "sign-out": {
+        "label": "Вийти з системи"
+      }
+    }
+  },
+  "danger-zone": {
+    "title": "Небезпечна зона",
+    "hint": {
+      "message": "Видалити бізнес-аккаунт. Після цього відновлення буде неможливим. Будь ласка, ретельно обдумай цей крок."
+    },
+    "button": {
+      "delete": {
+        "label": "Видалити бізнес-аккаунт"
+      }
+    }
+  },
+  "change-name": {
+    "modal": {
+      "title": "Зміна імені"
+    },
+    "form": {
+      "input": {
+        "name": {
+          "placeholder": "Твоє повне ім'я"
+        }
+      }
+    }
+  },
+  "change-phone-number": {
+    "modal": {
+      "title": "Зміна номеру телефону"
+    },
+    "form": {
+      "input": {
+        "phoneNumber": {
+          "placeholder": "Твій номер телефону"
+        }
+      }
+    }
+  },
   "keyword": {
     "capitalize": {
+      "create": "Створити",
+      "processing": "Обробка",
+      "chooseImage": "Вибери файл",
+      "services": "Послуги",
+      "events": "Події",
+      "language": "Мова",
+      "theme": "Тема",
+      "fullName": "Повне ім'я",
+      "save": "Зберегти",
+      "close": "Закрити",
+      "dismiss": "Відхилити",
+      "yes": "Так",
+      "no": "Ні",
       "account": "Профіль",
       "general": "Загальне",
       "send": "Відправити",
@@ -124,59 +184,53 @@
       "bookingSettings": "Налаштування бронювання",
       "earliestBooking": "Найближче бронювання можливе",
       "latestBooking": "На коли можна зарезервувати послугу",
-      "approvalTime": "Час на підтвердження"
+      "approvalTime": "Час на підтвердження",
+      "comingSoon": "Невдовзі з'явиться...",
+      "selectSpecialist": "Виберіть спеціаліста",
+      "menu": "Меню",
+      "total": "Всього",
+      "next": "Далі",
+      "previous": "Назад",
+      "lastUpdate": "Останнє оновлення",
+      "clearCache": "Очистити кеш",
+      "image": "Зображення",
+      "specialists": "Спеціалісти",
+      "prices": "Ціни",
+      "today": "Сьогодні",
+      "tomorrow": "Завтра",
+      "logout": "Вихід",
+      "back": "Назад",
+      "clients": "Клієнти",
+      "firstName": "Ім'я",
+      "lastName": "Прізвище",
+      "description": "Опис",
+      "title": "Назва",
+      "name": "Ім'я",
+      "break": "Перерва",
+      "action": "Дія",
+      "delete": "Видалити",
+      "details": "Деталі",
+      "update": "Оновити",
+      "edit": "Редагувати",
+      "information": "Інформація",
+      "additional": "Додатково",
+      "contact": "Контакт",
+      "languages": "Мови",
+      "members": "Учасники",
+      "soon": "Незабаром",
+      "role": "Роль",
+      "permission": "Дозвіл",
+      "publicPage": "Публічна сторінка",
+      "priceTimeFormatPrompt": "години:хвилини",
+      "placeholder": {
+        "description": "Напиши додаткову інформацію",
+        "search": "Пошук"
+      }
     },
     "lowercase": {
       "or": "або",
       "dragAndDrop": "перетягніть і випустіть файл"
     }
-  },
-  "general": {
-    "placeholder": {
-      "description": "Напиши додаткову інформацію",
-      "search": "Пошук"
-    },
-    "chooseImage": "Вибери файл",
-    "selectSpecialist": "Виберіть спеціаліста",
-    "menu": "Меню",
-    "total": "Всього",
-    "next": "Далі",
-    "previous": "Назад",
-    "lastUpdate": "Останнє оновлення",
-    "clearCache": "Очистити кеш",
-    "image": "Зображення",
-    "specialists": "Спеціалісти",
-    "prices": "Ціни",
-    "today": "Сьогодні",
-    "tomorrow": "Завтра",
-    "dateAndTime": "Дата та час",
-    "logout": "Вихід",
-    "back": "Назад",
-    "clients": "Клієнти",
-    "services": "Послуги",
-    "fullName": "Повне ім'я",
-    "firstName": "Ім'я",
-    "lastName": "Прізвище",
-    "description": "Опис",
-    "title": "Назва",
-    "name": "Ім'я",
-    "break": "Перерва",
-    "action": "Дія",
-    "delete": "Видалити",
-    "details": "Деталі",
-    "update": "Оновити",
-    "save": "Зберегти",
-    "edit": "Редагувати",
-    "information": "Інформація",
-    "additional": "Додатково",
-    "contact": "Контакт",
-    "languages": "Мови",
-    "members": "Учасники",
-    "soon": "Незабаром",
-    "role": "Роль",
-    "permission": "Дозвіл",
-    "publicPage": "Публічна сторінка",
-    "priceTimeFormatPrompt": "години:хвилини"
   },
   "sidebar": {
     "dashboard": "Панель керування",
@@ -325,7 +379,7 @@
                 "label": "Мова події за замовчуванням"
               },
               "service": {
-                "label": "Послуга події за замовчуванням (основна послуга)"
+                "label": "Попередньо визначена послуга (перша у списку)"
               }
             }
           }
@@ -335,10 +389,10 @@
           "form": {
             "inputs": {
               "duration": {
-                "label": "Тривалість послуги за замовчуванням"
+                "label": "Тривалість послуги по-замовчуванню"
               },
               "language": {
-                "label": "Мова послуги за замовчуванням"
+                "label": "Мова послуги по-замовчуванню"
               },
               "workDays": {
                 "label": "Робочі дні послуги за замовчуванням"
@@ -353,7 +407,7 @@
                 "label": "Кінець роботи за замовчуванням"
               },
               "price": {
-                "label": "Ціна послуги за замовчуванням"
+                "label": "Превстановлена ціна послуги"
               }
             }
           }
