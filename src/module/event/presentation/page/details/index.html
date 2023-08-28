@@ -1,6 +1,6 @@
 <div class="pb-48 grid grid-cols-12 gap-4">
 
-  <div class="col-span-12 xl:col-span-2">
+  <div class="col-span-12 xl:col-span-2 2xl:col-span-3">
 
     <utility-back-link-component></utility-back-link-component>
 
@@ -14,7 +14,7 @@
 
         <div class="flex justify-between items-center">
 
-          <div class="text-2xl font-bold text-beeColor-500">{{ 'general.details' | translate }}</div>
+          <div class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.details' | translate }}</div>
           <div event-status-style [status]="event.status"></div>
 
         </div>
@@ -69,7 +69,7 @@
 
         <div class="flex flex-col gap-3">
 
-          <div class="font-bold text-beeColor-400">{{ 'general.clients' | translate }}:</div>
+          <div class="font-bold text-beeColor-400">{{ 'keyword.capitalize.clients' | translate }}:</div>
 
           <div class="grid grid-cols-12 gap-4" *ngFor="let attendant of event.attendees; let index = index;">
             <div class="col-span-1 text-beeColor-400">
@@ -246,7 +246,7 @@
 
     </div>
 
-    <div class="col-span-12 xl:col-span-2 text-end text-beeColor-400 text-sm">
+    <div class="col-span-12 xl:col-span-2 2xl:col-span-3 text-end text-beeColor-400 text-sm">
 
       <div class="flex flex-col gap-4">
 

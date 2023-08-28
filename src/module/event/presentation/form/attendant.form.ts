@@ -1,6 +1,6 @@
 import {AbstractControl, FormArray, FormControl, FormGroup} from "@angular/forms";
 import {IAttendee} from "@event/domain";
-import {CustomerForm} from "@customer/form";
+import {CustomerForm} from "@customer/presentation/form";
 import {IsNewCustomerEnum, IsOptionalEnum, IsOrganizerEnum} from "@utility/domain/enum";
 
 

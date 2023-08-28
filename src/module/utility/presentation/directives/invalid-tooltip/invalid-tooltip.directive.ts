@@ -28,6 +28,7 @@ export class InvalidTooltipDirective implements DoCheck {
 
   public ngDoCheck(): void {
     this.control = this.ngControl?.control; // Get the associated control
+    console.log(this);
     this.detection(); // Call the function to mark invalid elements
   }
 
@@ -63,8 +64,8 @@ export class InvalidTooltipDirective implements DoCheck {
   // Add invalid custom tooltip in DOM
   public buildInvalidCustomTooltip(): void {
 
-    // Check if control is exist
-    if (!this.control) {
+    // Check if control is exist and if it is untouched
+    if (!this.control || this.control.root.untouched) {
       return;
     }
 

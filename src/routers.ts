@@ -2,7 +2,7 @@ import {Routes} from '@angular/router';
 import WrapperPanelComponent from '@utility/presentation/component/wrapper-panel/wrapper-panel.component';
 import WrapperIdentityComponent from '@utility/presentation/component/wrapper-identity/wrapper-identity.component';
 import {AuthGuard, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
-import {clientIdResolver} from "@utility/resolver/client-id.resolver";
+import {clientIdResolver} from "@utility/presentation/resolver/client-id.resolver";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['identity']);
 

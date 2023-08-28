@@ -1,6 +1,6 @@
 <div class="pb-48 grid grid-cols-12 gap-4">
 
-  <div class="col-span-12 xl:col-span-2">
+  <div class="col-span-12 xl:col-span-2 2xl:col-span-3">
 
     <utility-back-link-component></utility-back-link-component>
 
@@ -33,10 +33,11 @@
 
       <div class="mt-4">
         <button
-          class="px-4 py-2 bg-blue-600 rounded-lg text-white w-full hover:bg-blue-700 cursor-pointer transition"
+          primary
+          [isLoading]="form.pending"
           [disabled]="form.disabled"
           (click)="save()">
-          {{ 'general.save' | translate }}
+          {{ 'keyword.capitalize.save' | translate }}
         </button>
       </div>
 

@@ -1,6 +1,6 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
-import {BusinessProfileForm} from "@client/form/business-profile.form";
+import {BusinessProfileForm} from "@client/presentation/form/business-profile.form";
 import {TranslateModule} from "@ngx-translate/core";
 import {
   CoverImageBusinessProfileComponent
@@ -38,6 +38,7 @@ import {
   BookingSettingsBusinessProfileComponent
 } from "@client/presentation/component/business-profile/booking-settings/booking-settings.business-profile.component";
 import {AppActions} from "@utility/state/app/app.actions";
+import {RISchedule} from "@utility/domain/interface/i.schedule";
 
 @Component({
   selector: 'client-settings-page',
@@ -76,18 +77,21 @@ export default class Index {
     this.form.patchValue(data);
 
     if (socialNetworkLinks?.length) {
+      this.form.controls.socialNetworkLinks.clear();
       socialNetworkLinks.forEach((socialNetworkLink) => {
         this.form.controls.socialNetworkLinks.pushNewOne(socialNetworkLink);
       });
     }
 
     if (schedules?.length) {
+      this.form.controls.schedules.clear();
       schedules.forEach((schedule) => {
-        this.form.controls.schedules.pushNewOne(schedule);
+        this.form.controls.schedules.pushNewOne(schedule as RISchedule);
       });
     }
 
     if (contacts?.length) {
+      this.form.controls.contacts.clear();
       contacts.forEach((contact) => {
         this.form.controls.contacts.pushNewOne(contact);
       });

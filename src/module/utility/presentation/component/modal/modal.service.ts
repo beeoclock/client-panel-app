@@ -1,10 +1,10 @@
 import {ComponentRef, Injectable, Type} from '@angular/core';
 import {TypeGuard} from '@p4ck493/ts-type-guard';
 import {ModalButtonInterface, ModalComponent} from './modal.component';
-import {InjectionComponentService} from "@utility/injection-component/injection-component.service";
 import {is} from "thiis";
 import {environment} from "@environment/environment";
 import {v4} from "uuid";
+import {InjectionComponentService} from "@utility/presentation/injection-component/injection-component.service";
 
 export type storeOfModalsType = Record<string, ComponentRef<ModalComponent>>;
 

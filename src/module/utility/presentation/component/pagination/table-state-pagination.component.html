@@ -4,19 +4,19 @@
     <button
       (click)="prevPage()"
       class="relative inline-flex items-center rounded-md border border-beeColor-300 bg-white px-4 py-2 text-sm font-medium text-beeColor-700 hover:bg-beeColor-100">
-      {{ 'general.previous' | translate }}
+      {{ 'keyword.capitalize.previous' | translate }}
     </button>
     <button
       (click)="nextPage()"
       class="relative ml-3 inline-flex items-center rounded-md border border-beeColor-300 bg-white px-4 py-2 text-sm font-medium text-beeColor-700 hover:bg-beeColor-100">
-      {{ 'general.next' | translate }}
+      {{ 'keyword.capitalize.next' | translate }}
     </button>
   </div>
   <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
     <div>
       <p class="text-sm text-beeColor-700 dark:text-beeDarkColor-400">
 
-        {{ 'general.total' | translate }}: {{ tableState.total }}
+        {{ 'keyword.capitalize.total' | translate }}: {{ tableState.total }}
         <!--        Showing-->
         <!--        <span class="font-medium">1</span>-->
         <!--        to-->
@@ -28,10 +28,10 @@
     </div>
     <div>
       <p class="text-sm text-beeColor-700 dark:text-beeDarkColor-400">
-        {{ 'general.lastUpdate' | translate }}: {{ lastUpdate }}
+        {{ 'keyword.capitalize.lastUpdate' | translate }}: {{ lastUpdate }}
         (
         <button (click)="clearTableCache()" class="text-blue-600 dark:text-blue-400 text-xs hover:underline">
-          {{ 'general.clearCache' | translate }}
+          {{ 'keyword.capitalize.clearCache' | translate }}
         </button>
         )
       </p>
@@ -60,7 +60,7 @@
             dark:hover:bg-beeDarkColor-600
             focus:z-20
             focus:outline-offset-0">
-          <span class="sr-only">{{ 'general.previous' | translate }}</span>
+          <span class="sr-only">{{ 'keyword.capitalize.previous' | translate }}</span>
           <i class="bi bi-arrow-left"></i>
         </a>
         <a
@@ -112,7 +112,7 @@
             dark:hover:bg-beeDarkColor-600
             focus:z-20
             focus:outline-offset-0">
-          <span class="sr-only">{{ 'general.next' | translate }}</span>
+          <span class="sr-only">{{ 'keyword.capitalize.next' | translate }}</span>
           <i class="bi bi-arrow-right"></i>
         </a>
       </nav>

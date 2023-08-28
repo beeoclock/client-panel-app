@@ -30,7 +30,7 @@ export class ModalSelectSpecialistService extends Reactive {
     return new Promise((resolve, reject) => {
       const buttons: ModalButtonInterface[] = [
         {
-          text: 'Cancel',
+          text: this.translateService.instant('keyword.capitalize.cancel'),
           classList: ModalComponent.buttons[ModalButtonRoleEnum.cancel].classList,
           role: ModalButtonRoleEnum.cancel,
           callback: (modal: ModalComponent) => {
@@ -39,7 +39,7 @@ export class ModalSelectSpecialistService extends Reactive {
           }
         },
         {
-          text: 'Confirm',
+          text: this.translateService.instant('keyword.capitalize.confirm'),
           classList: ModalComponent.buttons[ModalButtonRoleEnum.accept].classList,
           role: ModalButtonRoleEnum.accept,
           enabledDebounceClick: true,

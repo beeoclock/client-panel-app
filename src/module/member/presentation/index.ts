@@ -1,6 +1,6 @@
 import {Routes} from "@angular/router";
-import {memberCacheResolver} from "@member/resolver/member.cache.resolver";
-import {memberDetailsResolver} from "@member/resolver/member.details.resolver";
+import {memberCacheResolver} from "@member/presentation/resolver/member.cache.resolver";
+import {memberDetailsResolver} from "@member/presentation/resolver/member.details.resolver";
 
 export const routers = [
   {

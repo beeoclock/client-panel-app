@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, inject, OnInit, QueryList, ViewChildren} from "@angular/core";
-import {ServiceForm} from "@service/form/service.form";
+import {ServiceForm} from "@service/presentation/form/service.form";
 import {ActivatedRoute, Router} from "@angular/router";
 import {StepWrapperComponent} from "@service/presentation/component/form/v1/step-wrapper.component";
 import {NgForOf} from "@angular/common";

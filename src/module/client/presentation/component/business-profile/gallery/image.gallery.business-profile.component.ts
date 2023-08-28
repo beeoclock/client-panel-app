@@ -5,7 +5,7 @@ import {FormControl} from "@angular/forms";
 import {extractFile} from "@utility/domain/extract-file";
 import {file2base64} from "@utility/domain/file2base64";
 import {NgIf} from "@angular/common";
-import {DragAndDropDirective} from "@utility/directives/drag-and-drop/drag-and-drop.directive";
+import {DragAndDropDirective} from "@utility/presentation/directives/drag-and-drop/drag-and-drop.directive";
 
 @Component({
   selector: 'client-image-gallery-business-profile-component',
@@ -22,7 +22,7 @@ import {DragAndDropDirective} from "@utility/directives/drag-and-drop/drag-and-d
     <div #labelOfDragAndDropZone dragAndDrop (fileDropped)="onFilesDropped($event)"
          class="flex items-center justify-center w-full z-50">
       <label [for]="'image-gallery-business-profile-dropzone-file-' + index"
-             class="flex flex-col items-center justify-center w-full relative h-64 border-2 border-beeColor-300 border-dashed rounded-xl cursor-pointer bg-beeColor-50 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-800 dark:bg-beeColor-700 dark:border-beeDarkColor-600 dark:hover:border-beeDarkColor-500 dark:hover:bg-beeDarkColor-600">
+             class="text-center flex flex-col items-center justify-center w-full relative h-64 border-2 border-beeColor-300 border-dashed rounded-xl cursor-pointer bg-beeColor-50 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-800 dark:bg-beeColor-700 dark:border-beeDarkColor-600 dark:hover:border-beeDarkColor-500 dark:hover:bg-beeDarkColor-600">
         <img *ngIf="previewImage" [src]="previewImage"
              class="absolute top-0 left-0 object-cover z-10 rounded-xl w-full h-full" alt="Uploaded Image"/>
         <ng-container *ngIf="showPlaceholder">
@@ -47,8 +47,8 @@ import {DragAndDropDirective} from "@utility/directives/drag-and-drop/drag-and-d
             </div>
           </ng-container>
           <ng-container *ngIf="isNotEmptyControl">
-            <button (click)="remove.emit()" class="transition-all hover:shadow-2xl hover:bg-beeColor-600 hover:text-beeColor-50 absolute right-4 top-4 px-6 py-5 text-xl bg-white z-10 rounded-full">
-              <i class="bi bi-trash"></i>
+            <button (click)="remove.emit()" class="transition-all hover:shadow-2xl hover:bg-beeColor-600 hover:text-beeColor-50 absolute right-2 top-2 px-4 py-3 bg-white/50 text-xl z-10 rounded-full">
+              <i class="bi bi-trash3"></i>
             </button>
           </ng-container>
         </ng-container>

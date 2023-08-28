@@ -29,7 +29,7 @@ import {Auth} from "@angular/fire/auth";
         <span class="me-2">
           <i class="bi bi-box-arrow-left"></i>
         </span>
-      {{ 'general.logout' | translate }}
+      {{ 'keyword.capitalize.logout' | translate }}
     </button>
   `,
   imports: [

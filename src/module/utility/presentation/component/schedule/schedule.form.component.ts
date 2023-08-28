@@ -1,8 +1,8 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
-import {ScheduleForm} from "@utility/form/schdeule.form";
 import {SelectWeekDayComponent} from "@utility/presentation/component/input/select-week-day.component";
 import {TimeInputComponent} from "@utility/presentation/component/input/time.input.component";
 import {TranslateModule} from "@ngx-translate/core";
+import {ScheduleForm} from "@utility/presentation/form/schdeule.form";
 
 @Component({
   selector: 'schedule-form-component',

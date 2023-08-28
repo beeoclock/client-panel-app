@@ -3,7 +3,7 @@ import {ActiveEnum, LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
 import {IMember} from "@member/domain";
 import {IDurationVersion} from "@service/domain";
-import {SchedulesForm} from "@utility/form/schdeule.form";
+import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
 
 export const MINUTE_15 = 900; // In seconds
 export const MINUTE_45 = 2700; // In seconds

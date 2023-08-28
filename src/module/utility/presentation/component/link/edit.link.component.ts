@@ -33,7 +33,7 @@ import {RouterLink} from "@angular/router";
         ring-inset
         ring-beeColor-300">
       <i class="bi bi-pencil me-2"></i>
-      {{ 'general.edit' | translate }}
+      {{ 'keyword.capitalize.edit' | translate }}
     </a>
 
   `,

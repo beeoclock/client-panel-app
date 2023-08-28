@@ -1,22 +1,24 @@
-import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
-import {FirstKeyNameModule} from '@utility/pipes/first-key-name/first-key-name.module';
+import {FirstKeyNameModule} from '@utility/presentation/pipes/first-key-name/first-key-name.module';
 import {Router, RouterLink} from '@angular/router';
-import LoginForm from '@identity/form/login.form';
+import LoginForm from '@identity/presentation/form/login.form';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
-import {HasErrorDirective} from '@utility/directives/has-error/has-error.directive';
+import {HasErrorDirective} from '@utility/presentation/directives/has-error/has-error.directive';
 import {Auth, signInWithEmailAndPassword} from "@angular/fire/auth";
 import {Store} from "@ngxs/store";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {firstValueFrom} from "rxjs";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormInputPasswordComponent} from "@utility/presentation/component/input/form.input.password.component";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 
 @Component({
   selector: 'identity-sign-in-component',
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <form [formGroup]="form" class="flex flex-col gap-4" action="#" method="POST">
@@ -43,28 +45,7 @@ import {FormInputPasswordComponent} from "@utility/presentation/component/input/
       </form-input-password>
 
       <div>
-        <button
-          (click)="signIn()"
-          type="submit"
-          class="
-            flex
-            w-full
-            justify-center
-            rounded-md
-            bg-blue-600
-            dark:bg-black
-            px-3
-            py-1.5
-            text-sm
-            font-semibold
-            leading-6
-            text-white
-            shadow-sm
-            hover:bg-blue-500
-            focus-visible:outline
-            focus-visible:outline-2
-            focus-visible:outline-offset-2
-            focus-visible:outline-blue-600">
+        <button (click)="signIn()" type="submit" primary [isLoading]="form.pending">
           {{ 'keyword.capitalize.signIn' | translate }}
         </button>
       </div>
@@ -80,13 +61,11 @@ import {FormInputPasswordComponent} from "@utility/presentation/component/input/
     RouterLink,
     DeleteButtonComponent,
     FormInputComponent,
-    FormInputPasswordComponent
+    FormInputPasswordComponent,
+    PrimaryButtonDirective
   ]
 })
 export class SignInComponent {
-
-  @HostBinding()
-  public class = 'col-md-7 d-flex flex-center';
 
   public readonly form = new LoginForm();
   private readonly router = inject(Router);

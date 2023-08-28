@@ -3,7 +3,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {ContactForm} from "@client/form/contact.form";
+import {ContactForm} from "@client/presentation/form/contact.form";
 import {CELL_COUNTRY_PREFIX_OBJECT_LIST} from "@utility/domain/enum/cell-country-prefix.enum";
 
 @Component({

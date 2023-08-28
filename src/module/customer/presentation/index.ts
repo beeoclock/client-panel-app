@@ -1,7 +1,7 @@
 import {Routes} from "@angular/router";
-import {customerDetailsResolver} from "@customer/resolver/customer.details.resolver";
+import {customerDetailsResolver} from "@customer/presentation/resolver/customer.details.resolver";
 import {CustomerWrapperComponent} from "@customer/presentation/component/wrapper/customer.wrapper.component";
-import {customerCacheResolver} from "@customer/resolver/customer.cache.resolver";
+import {customerCacheResolver} from "@customer/presentation/resolver/customer.cache.resolver";
 
 export const routers = [
   {

@@ -16,7 +16,7 @@ import {FormControl} from "@angular/forms";
       <div class="flex flex-col ml-2">
         <div>
           <input type="file" #fileInput hidden (change)="onFileSelected($event)" accept="image/*"/>
-          <button class="border border-beeColor-200 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-700 dark:text-white rounded-2xl px-4 py-2 cursor-pointer" (click)="fileInput.click()">{{ 'general.chooseImage' | translate }}</button>
+          <button class="border border-beeColor-200 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-700 dark:text-white rounded-2xl px-4 py-2 cursor-pointer" (click)="fileInput.click()">{{ 'keyword.capitalize.chooseImage' | translate }}</button>
         </div>
         <div class="py-2">
           {{ uploadedFileName }}

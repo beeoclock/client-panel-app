@@ -1,6 +1,6 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
-import {BusinessProfileForm} from '@client/form/business-profile.form';
+import {BusinessProfileForm} from '@client/presentation/form/business-profile.form';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {NgForOf, NgIf} from '@angular/common';

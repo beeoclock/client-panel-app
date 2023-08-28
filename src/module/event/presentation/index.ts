@@ -1,6 +1,6 @@
 import {Routes} from "@angular/router";
-import {eventDetailsResolver} from "@event/resolver/event.details.resolver";
-import {eventCacheResolver} from "@event/resolver/event.cache.resolver";
+import {eventDetailsResolver} from "@event/presentation/resolver/event.details.resolver";
+import {eventCacheResolver} from "@event/presentation/resolver/event.cache.resolver";
 
 export const routers = [
   {

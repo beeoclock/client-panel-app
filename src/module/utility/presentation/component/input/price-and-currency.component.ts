@@ -2,11 +2,11 @@ import {ChangeDetectionStrategy, Component, inject, Input, OnInit, ViewEncapsula
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {InvalidTooltipDirective} from "@utility/directives/invalid-tooltip/invalid-tooltip.directive";
-import {HasErrorDirective} from "@utility/directives/has-error/has-error.directive";
 import {NgxMaskDirective} from "ngx-mask";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {LanguageCurrency} from "@utility/domain/const/c.language-currency";
+import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
+import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-error.directive";
 
 @Component({
   selector: 'price-and-currency-component',

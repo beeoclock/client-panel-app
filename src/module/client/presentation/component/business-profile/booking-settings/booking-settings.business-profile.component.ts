@@ -1,5 +1,5 @@
 import {Component, Input, ViewEncapsulation} from "@angular/core";
-import {BookingSettingsForm} from "@client/form/booking-settings.form";
+import {BookingSettingsForm} from "@client/presentation/form/booking-settings.form";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {SelectEarliestBookingComponent} from "@utility/presentation/component/input/select-earliest-booking.component";

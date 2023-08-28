@@ -21,8 +21,8 @@ import {ITableState} from "@utility/domain/table.state";
 import {
   TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
-import {DynamicDatePipe} from "@utility/pipes/dynamic-date.pipe";
-import {ActiveStyleDirective} from "@utility/directives/active-style/active-style.directive";
+import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
+import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 
 @Component({
   selector: 'customer-list-page',
