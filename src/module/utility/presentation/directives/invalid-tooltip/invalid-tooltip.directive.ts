@@ -63,8 +63,8 @@ export class InvalidTooltipDirective implements DoCheck {
   // Add invalid custom tooltip in DOM
   public buildInvalidCustomTooltip(): void {
 
-    // Check if control is exist
-    if (!this.control) {
+    // Check if control is exist and if it is untouched
+    if (!this.control || this.control.root.untouched) {
       return;
     }
 

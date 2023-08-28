@@ -8,7 +8,7 @@
     <form-input
       id="create-business-form-input-name"
       autocomplete="business.client.name"
-      [placeholder]="'keyword.capitalize.Title' | translate"
+      [placeholder]="'keyword.capitalize.title' | translate"
       [control]="form.controls.name"
       [label]="'identity.create-business.form.inputs.name.label' | translate">
     </form-input>
@@ -30,28 +30,7 @@
     </form-textarea-component>
 
     <div>
-      <button
-        (click)="save()"
-        type="submit"
-        class="
-            flex
-            w-full
-            justify-center
-            rounded-md
-            bg-blue-600
-            dark:bg-black
-            px-3
-            py-1.5
-            text-sm
-            font-semibold
-            leading-6
-            text-white
-            shadow-sm
-            hover:bg-blue-500
-            focus-visible:outline
-            focus-visible:outline-2
-            focus-visible:outline-offset-2
-            focus-visible:outline-blue-600">
+      <button primary [isLoading]="form.pending" (click)="save()" type="submit">
         {{ 'keyword.capitalize.save' | translate }}
       </button>
     </div>

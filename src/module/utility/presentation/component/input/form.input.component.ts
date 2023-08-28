@@ -3,6 +3,8 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {IsRequiredDirective} from "@utility/presentation/directives/is-required/is-required";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
+import {DefaultInputDirective} from "@utility/presentation/directives/input/default.input.directive";
+import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({
   selector: 'form-input',
@@ -14,37 +16,24 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
     InvalidTooltipDirective,
     ReactiveFormsModule,
     NgIf,
+    DefaultInputDirective,
+    DefaultLabelDirective,
   ],
   template: `
-    <label *ngIf="showLabel" [for]="id" class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
+    <label default *ngIf="showLabel" [for]="id">
       {{ label }}
     </label>
     <input
       isRequired
       invalidTooltip
+      default
       [isRequiredEnabled]="showLabel"
       [class.disabled]="disabled"
       [formControl]="control"
       [placeholder]="placeholder"
       [id]="id"
       [type]="type"
-      [autocomplete]="autocomplete"
-      class="
-          px-3
-          block
-          w-full
-          rounded-md
-          py-1.5
-          text-beeColor-900
-          dark:text-beeDarkColor-100
-          dark:bg-beeDarkColor-900
-          outline-0
-          border
-          border-beeColor-300
-          dark:border-beeColor-700
-          placeholder:text-beeColor-400
-          focus:ring-2
-          sm:text-sm sm:leading-6">
+      [autocomplete]="autocomplete">
   `
 })
 export class FormInputComponent {

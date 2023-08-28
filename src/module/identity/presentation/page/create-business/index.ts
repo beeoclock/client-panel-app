@@ -10,19 +10,21 @@ import {BackLinkComponent} from "@utility/presentation/component/link/back.link.
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 
 @Component({
   selector: 'identity-create-business-page',
   templateUrl: 'index.html',
   standalone: true,
-    imports: [
-        ReactiveFormsModule,
-        TranslateModule,
-        BackLinkComponent,
-        FormInputComponent,
-        ChangeLanguageComponent,
-        FormTextareaComponent
-    ],
+  imports: [
+    ReactiveFormsModule,
+    TranslateModule,
+    BackLinkComponent,
+    FormInputComponent,
+    ChangeLanguageComponent,
+    FormTextareaComponent,
+    PrimaryButtonDirective
+  ],
   encapsulation: ViewEncapsulation.None
 })
 export default class Index {
@@ -37,23 +39,26 @@ export default class Index {
   public async save(): Promise<void> {
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      const clientId = await firstValueFrom(this.identityApiAdapter.postCreateBusinessClient$(this.form.getRawValue())).then(async () => {
-        const toast = await this.toastController.create({
-          header: 'Business client',
-          message: 'You successfully create new business client!',
-          color: 'success',
-          position: 'top',
-          duration: 10_000,
-          buttons: [
-            {
-              text: this.translateService.instant('keyword.capitalize.close'),
-              role: 'cancel',
-            },
-          ],
-        });
-        await toast.present();
-        await this.router.navigate(['/', 'identity', 'corridor']);
+      this.form.disable();
+      this.form.markAsPending();
+      await firstValueFrom(this.identityApiAdapter.postCreateBusinessClient$(this.form.getRawValue()));
+      this.form.enable();
+      this.form.updateValueAndValidity();
+      const toast = await this.toastController.create({
+        header: 'Business client',
+        message: 'You successfully create new business client!',
+        color: 'success',
+        position: 'top',
+        duration: 10_000,
+        buttons: [
+          {
+            text: this.translateService.instant('keyword.capitalize.close'),
+            role: 'cancel',
+          },
+        ],
       });
+      await toast.present();
+      await this.router.navigate(['/', 'identity', 'corridor']);
     }
   }
 
