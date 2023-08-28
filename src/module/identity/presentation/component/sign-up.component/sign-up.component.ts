@@ -14,6 +14,7 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 import {IsRequiredDirective} from "@utility/presentation/directives/is-required/is-required";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormInputPasswordComponent} from "@utility/presentation/component/input/form.input.password.component";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 
 @Component({
   selector: 'identity-sign-up-component',
@@ -49,28 +50,7 @@ import {FormInputPasswordComponent} from "@utility/presentation/component/input/
       </form-input-password>
 
       <div>
-        <button
-          (click)="signUp()"
-          type="submit"
-          class="
-            flex
-            w-full
-            justify-center
-            rounded-md
-            bg-blue-600
-            dark:bg-black
-            px-3
-            py-1.5
-            text-sm
-            font-semibold
-            leading-6
-            text-white
-            shadow-sm
-            hover:bg-blue-500
-            focus-visible:outline
-            focus-visible:outline-2
-            focus-visible:outline-offset-2
-            focus-visible:outline-blue-600">
+        <button (click)="signUp()" type="submit" primary [isLoading]="form.pending">
           {{ 'keyword.capitalize.signUp' | translate }}
         </button>
       </div>
@@ -89,6 +69,7 @@ import {FormInputPasswordComponent} from "@utility/presentation/component/input/
     IsRequiredDirective,
     FormInputComponent,
     FormInputPasswordComponent,
+    PrimaryButtonDirective,
   ]
 })
 export class SignUpComponent {
@@ -104,25 +85,28 @@ export class SignUpComponent {
     if (this.form.valid) {
       this.form.disable();
       this.form.markAsPending();
-      await firstValueFrom(this.identityApiAdapter.postCreateUser$(this.form.getRawValue())).then(async () => {
-        this.form.enable();
-        this.form.updateValueAndValidity();
-        const toast = await this.toastController.create({
-          header: 'Sign up',
-          message: 'Success',
-          color: 'success',
-          position: 'top',
-          duration: 10_000,
-          buttons: [
-            {
-              text: this.translateService.instant('keyword.capitalize.close'),
-              role: 'cancel',
-            },
-          ],
+      await firstValueFrom(this.identityApiAdapter.postCreateUser$(this.form.getRawValue()))
+        .then(async () => {
+          const toast = await this.toastController.create({
+            header: 'Sign up',
+            message: 'Success',
+            color: 'success',
+            position: 'top',
+            duration: 10_000,
+            buttons: [
+              {
+                text: this.translateService.instant('keyword.capitalize.close'),
+                role: 'cancel',
+              },
+            ],
+          });
+          await toast.present();
+          await this.router.navigate(['/', 'identity']);
+        })
+        .finally(() => {
+          this.form.enable();
+          this.form.updateValueAndValidity();
         });
-        await toast.present();
-        await this.router.navigate(['/', 'identity']);
-      });
     } else {
       this.form.enable();
       this.form.updateValueAndValidity();

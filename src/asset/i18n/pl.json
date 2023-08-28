@@ -117,6 +117,7 @@
   },
   "keyword": {
     "capitalize": {
+      "processing": "Przetwarzanie",
       "chooseImage": "Wybierz plik",
       "services": "Usługi",
       "events": "Wydarzenia",

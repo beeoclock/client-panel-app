@@ -117,6 +117,7 @@
   },
   "keyword": {
     "capitalize": {
+      "processing": "Обробка",
       "chooseImage": "Вибери файл",
       "services": "Послуги",
       "events": "Події",

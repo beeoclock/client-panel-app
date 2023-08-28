@@ -13,6 +13,7 @@ import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {firstValueFrom} from "rxjs";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormInputPasswordComponent} from "@utility/presentation/component/input/form.input.password.component";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 
 @Component({
   selector: 'identity-sign-in-component',
@@ -43,28 +44,7 @@ import {FormInputPasswordComponent} from "@utility/presentation/component/input/
       </form-input-password>
 
       <div>
-        <button
-          (click)="signIn()"
-          type="submit"
-          class="
-            flex
-            w-full
-            justify-center
-            rounded-md
-            bg-blue-600
-            dark:bg-black
-            px-3
-            py-1.5
-            text-sm
-            font-semibold
-            leading-6
-            text-white
-            shadow-sm
-            hover:bg-blue-500
-            focus-visible:outline
-            focus-visible:outline-2
-            focus-visible:outline-offset-2
-            focus-visible:outline-blue-600">
+        <button (click)="signIn()" type="submit" primary [isLoading]="form.pending">
           {{ 'keyword.capitalize.signIn' | translate }}
         </button>
       </div>
@@ -80,7 +60,8 @@ import {FormInputPasswordComponent} from "@utility/presentation/component/input/
     RouterLink,
     DeleteButtonComponent,
     FormInputComponent,
-    FormInputPasswordComponent
+    FormInputPasswordComponent,
+    PrimaryButtonDirective
   ]
 })
 export class SignInComponent {
