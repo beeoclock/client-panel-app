@@ -1,9 +1,10 @@
 <div class="flex justify-between">
-  <utility-back-link-component></utility-back-link-component>
+  <utility-logout-component *ngIf="firstCompany$ | async"></utility-logout-component>
+  <utility-back-link-component [url]="['../', 'corridor']" [queryParams]="{force: true}" *ngIf="notFirstCompany$ | async"></utility-back-link-component>
   <utility-change-language-component></utility-change-language-component>
 </div>
 <div class="mt-4 w-96 p-8 border dark:border-beeDarkColor-700 bg-white rounded-2xl dark:bg-beeDarkColor-800">
-  <form [formGroup]="form" class="flex flex-col gap-4" action="#" method="POST">
+  <form [formGroup]="form" class="flex flex-col gap-4">
 
     <form-input
       id="create-business-form-input-name"
@@ -31,7 +32,7 @@
 
     <div>
       <button primary [isLoading]="form.pending" (click)="save()" type="submit">
-        {{ 'keyword.capitalize.save' | translate }}
+        {{ 'keyword.capitalize.create' | translate }}
       </button>
     </div>
   </form>

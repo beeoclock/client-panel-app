@@ -52,7 +52,9 @@ export default class Index extends Reactive implements OnInit {
     filter(Array.isArray),
     tap((result) => {
       if (result.length === 0) {
-        this.gotToCreateBusinessPage();
+        this.gotToCreateBusinessPage({
+          firstCompany: true
+        });
       }
       this.loader.switchOff();
     })
@@ -76,8 +78,10 @@ export default class Index extends Reactive implements OnInit {
 
   }
 
-  public async gotToCreateBusinessPage(): Promise<boolean> {
-    return this.router.navigate(['/', 'identity', 'create-business']);
+  public async gotToCreateBusinessPage(queryParams = {}): Promise<boolean> {
+    return this.router.navigate(['/', 'identity', 'create-business'], {
+      queryParams
+    });
   }
 
   public async gotToDashboardPage(): Promise<boolean> {

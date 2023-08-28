@@ -1,19 +1,21 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, inject, Input} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
+import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({
   selector: 'form-textarea-component',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     TranslateModule,
     InvalidTooltipDirective,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DefaultLabelDirective
   ],
   template: `
-    <label [for]="id"
-           class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">{{ label }}</label>
+    <label [for]="id" default>{{ label }}</label>
 
     <div class="flex flex-col">
       <textarea
@@ -26,7 +28,7 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
     </div>
   `
 })
-export class FormTextareaComponent {
+export class FormTextareaComponent implements DoCheck {
 
   @Input()
   public control!: FormControl<string>;
@@ -42,5 +44,11 @@ export class FormTextareaComponent {
 
   @Input()
   public rows = 4;
+
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+
+  public ngDoCheck(): void {
+    this.changeDetectorRef.detectChanges();
+  }
 
 }

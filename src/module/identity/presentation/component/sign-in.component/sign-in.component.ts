@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
@@ -18,6 +18,7 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 @Component({
   selector: 'identity-sign-in-component',
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <form [formGroup]="form" class="flex flex-col gap-4" action="#" method="POST">

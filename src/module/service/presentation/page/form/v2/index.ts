@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {NgIf} from "@angular/common";
 import {ImageBlockComponent} from "@service/presentation/component/form/v2/image/image-block.component";
@@ -17,11 +17,13 @@ import {Select, Store} from "@ngxs/store";
 import {ServiceState} from "@service/state/service/service.state";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 
 @Component({
   selector: 'service-form-v2-page-component',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     BackLinkComponent,
@@ -33,6 +35,7 @@ import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch
     PricesBlockComponent,
     SpecialistsBlockComponent,
     SwitchActiveBlockComponent,
+    PrimaryButtonDirective,
   ]
 })
 export default class Index implements OnInit {

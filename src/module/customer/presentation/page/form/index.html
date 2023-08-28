@@ -70,7 +70,8 @@
         </div>
       </card>
       <button
-        class="px-4 py-2 bg-blue-600 rounded-lg text-white w-full hover:bg-blue-700 cursor-pointer transition"
+        primary
+        [isLoading]="form.pending"
         [disabled]="form.disabled"
         (click)="save()">
         {{ 'keyword.capitalize.save' | translate }}

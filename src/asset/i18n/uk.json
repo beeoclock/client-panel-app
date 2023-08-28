@@ -117,6 +117,7 @@
   },
   "keyword": {
     "capitalize": {
+      "create": "Створити",
       "processing": "Обробка",
       "chooseImage": "Вибери файл",
       "services": "Послуги",

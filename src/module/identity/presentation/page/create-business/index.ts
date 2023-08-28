@@ -1,20 +1,23 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import BusinessClientForm from "@identity/presentation/form/business-client.form";
 import {IdentityApiAdapter} from "@identity/adapter/external/api/identity.api.adapter";
-import {firstValueFrom} from "rxjs";
+import {firstValueFrom, map} from "rxjs";
 import {ToastController} from "@ionic/angular";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {LogoutComponent} from "@utility/presentation/component/logout/logout.component";
+import {AsyncPipe, NgIf} from "@angular/common";
 
 @Component({
   selector: 'identity-create-business-page',
   templateUrl: 'index.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -23,7 +26,10 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
     FormInputComponent,
     ChangeLanguageComponent,
     FormTextareaComponent,
-    PrimaryButtonDirective
+    PrimaryButtonDirective,
+    LogoutComponent,
+    NgIf,
+    AsyncPipe
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -33,6 +39,15 @@ export default class Index {
   public readonly identityApiAdapter = inject(IdentityApiAdapter);
   private readonly toastController = inject(ToastController);
   private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
+
+  public readonly firstCompany$ = this.activatedRoute.queryParams.pipe(
+    map(({firstCompany}) => !!firstCompany)
+  );
+
+  public readonly notFirstCompany$ = this.firstCompany$.pipe(
+    map((firstCompany) => !firstCompany)
+  );
 
   public readonly form = new BusinessClientForm();
 

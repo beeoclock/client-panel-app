@@ -16,24 +16,26 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-error.directive";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {CustomerForm} from "@customer/presentation/form";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 
 @Component({
   selector: 'customer-form-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    ReactiveFormsModule,
-    DeleteButtonComponent,
-    HasErrorDirective,
-    RouterLink,
-    BackLinkComponent,
-    InvalidTooltipDirective,
-    TranslateModule,
-    FormInputComponent,
-    SwitchActiveBlockComponent,
-    FormTextareaComponent,
-    CardComponent
-  ],
+    imports: [
+        ReactiveFormsModule,
+        DeleteButtonComponent,
+        HasErrorDirective,
+        RouterLink,
+        BackLinkComponent,
+        InvalidTooltipDirective,
+        TranslateModule,
+        FormInputComponent,
+        SwitchActiveBlockComponent,
+        FormTextareaComponent,
+        CardComponent,
+        PrimaryButtonDirective
+    ],
   standalone: true
 })
 export default class Index implements OnInit {

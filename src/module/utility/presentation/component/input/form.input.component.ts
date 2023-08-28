@@ -1,4 +1,12 @@
-import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  DoCheck,
+  inject,
+  Input,
+  ViewEncapsulation
+} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {IsRequiredDirective} from "@utility/presentation/directives/is-required/is-required";
@@ -36,7 +44,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
       [autocomplete]="autocomplete">
   `
 })
-export class FormInputComponent {
+export class FormInputComponent implements DoCheck {
 
   @Input()
   public label = 'todo';
@@ -61,6 +69,12 @@ export class FormInputComponent {
 
   @Input()
   public control!: FormControl;
+
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+
+  public ngDoCheck(): void {
+    this.changeDetectorRef.detectChanges();
+  }
 
 
 }

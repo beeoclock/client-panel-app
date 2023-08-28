@@ -16,24 +16,26 @@ import {FormTextareaComponent} from "@utility/presentation/component/input/form.
 import {ServicesComponent} from "@event/presentation/component/form/services/services.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {environment} from "@environment/environment";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 
 
 @Component({
   selector: 'event-form-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    ReactiveFormsModule,
-    DeleteButtonComponent,
-    BackLinkComponent,
-    FormsModule,
-    TranslateModule,
-    SelectTimeSlotComponent,
-    FormTextareaComponent,
-    AttendeesComponent,
-    ServicesComponent,
-    CardComponent,
-  ],
+    imports: [
+        ReactiveFormsModule,
+        DeleteButtonComponent,
+        BackLinkComponent,
+        FormsModule,
+        TranslateModule,
+        SelectTimeSlotComponent,
+        FormTextareaComponent,
+        AttendeesComponent,
+        ServicesComponent,
+        CardComponent,
+        PrimaryButtonDirective,
+    ],
   standalone: true
 })
 export default class Index implements OnInit {

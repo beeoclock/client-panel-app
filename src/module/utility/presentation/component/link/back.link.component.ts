@@ -1,14 +1,16 @@
-import {Component, ElementRef, Input, ViewChild, ViewEncapsulation} from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {Component, ElementRef, inject, Input, ViewChild, ViewEncapsulation} from '@angular/core';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'utility-back-link-component',
   standalone: true,
   template: `
-    <a [routerLink]="url"
-       #link
-       class="
+    <a
+      [routerLink]="url"
+      [queryParams]="queryParams"
+      #link
+      class="
         text-black
         dark:text-white
         hover:bg-beeColor-300
@@ -30,9 +32,16 @@ import {TranslateModule} from "@ngx-translate/core";
   encapsulation: ViewEncapsulation.None
 })
 export class BackLinkComponent {
+
+  private readonly activatedRoute = inject(ActivatedRoute);
+
   @Input()
-  public url: string | string[] = ['../'];
+  public queryParams = {};
+
+  @Input()
+  public url: string | string[] = this.activatedRoute.snapshot.queryParams['returnUrl'] ?? ['../'];
 
   @ViewChild('link')
   public link!: ElementRef<HTMLElement>;
+
 }

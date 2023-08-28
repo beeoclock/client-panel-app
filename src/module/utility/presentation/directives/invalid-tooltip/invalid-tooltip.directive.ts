@@ -28,6 +28,7 @@ export class InvalidTooltipDirective implements DoCheck {
 
   public ngDoCheck(): void {
     this.control = this.ngControl?.control; // Get the associated control
+    console.log(this);
     this.detection(); // Call the function to mark invalid elements
   }
 
