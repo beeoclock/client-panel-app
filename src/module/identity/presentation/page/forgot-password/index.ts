@@ -2,7 +2,6 @@ import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
 import {GettingStartedComponent} from '@utility/presentation/component/getting-started/getting-started.component';
 import ResetPasswordForm from "@identity/presentation/form/reset-password.form";
 import {Router} from "@angular/router";
-import {Auth, sendPasswordResetEmail} from "@angular/fire/auth";
 import {ReactiveFormsModule} from "@angular/forms";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
@@ -10,6 +9,8 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {ToastController} from "@ionic/angular";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {ForgotPasswordApiAdapter} from "@identity/adapter/external/api/forgot-password.api.adapter";
 
 @Component({
   selector: 'identity-forgot-password-page',
@@ -22,7 +23,8 @@ import {ToastController} from "@ionic/angular";
     BackLinkComponent,
     TranslateModule,
     CardComponent,
-    ChangeLanguageComponent
+    ChangeLanguageComponent,
+    PrimaryButtonDirective
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -32,10 +34,10 @@ export default class Index {
   public class = 'col-md-7 d-flex flex-center';
 
   public readonly form = new ResetPasswordForm();
+  private readonly forgotPasswordApiAdapter = inject(ForgotPasswordApiAdapter);
   private readonly router = inject(Router);
   private readonly translateService = inject(TranslateService);
   private readonly toastController = inject(ToastController);
-  private readonly auth = inject(Auth);
 
   public signIn(): void {
 
@@ -49,7 +51,9 @@ export default class Index {
 
       if (email) {
 
-        sendPasswordResetEmail(this.auth, email).then(() => {
+        this.forgotPasswordApiAdapter.executeAsync({
+          email
+        }).then(() => {
           this.toastController.create({
             header: this.translateService.instant('identity.forgot-password.form.label'),
             message: 'Success',
@@ -62,10 +66,13 @@ export default class Index {
                 role: 'cancel',
               },
             ],
-          }).then((toast)=> {
+          }).then((toast) => {
             toast.present();
           });
           this.router.navigate(['/', 'identity']);
+        }).finally(() => {
+          this.form.enable();
+          this.form.updateValueAndValidity();
         });
 
       }
