@@ -12,6 +12,7 @@ import {
 } from "@utility/presentation/component/modal-select-service/modal-select-service.service";
 import {IService} from "@service/domain";
 import {ModalSelectServiceListAdapter} from "@service/adapter/external/component/modal-select-service.list.adapter";
+import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
 
 @Component({
   selector: 'event-service-component',
@@ -27,16 +28,19 @@ import {ModalSelectServiceListAdapter} from "@service/adapter/external/component
     NgForOf,
     CurrencyPipe,
     NgTemplateOutlet,
+    LinkButtonDirective,
   ]
 })
 export class ServicesComponent implements OnInit {
 
-  public readonly modalSelectServiceService = inject(ModalSelectServiceService);
-  public readonly modalSelectServiceListAdapter = inject(ModalSelectServiceListAdapter);
-  private readonly translateService = inject(TranslateService);
-
   @Input()
   public serviceListControl: FormControl<IService[]> = new FormControl([] as any);
+
+  private readonly modalSelectServiceService = inject(ModalSelectServiceService);
+  private readonly modalSelectServiceListAdapter = inject(ModalSelectServiceListAdapter);
+  private readonly translateService = inject(TranslateService);
+
+  public readonly loading$ = this.modalSelectServiceListAdapter.loading$;
 
   public ngOnInit(): void {
 

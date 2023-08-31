@@ -49,19 +49,7 @@
   </ng-container>
 
   <div class="block">
-    <button
-      (click)="openModalToSelectService()"
-      class="
-        text-blue-600
-        rounded-2xl
-        px-4
-        py-2
-        hover:bg-blue-100
-        dark:hover:bg-beeDarkColor-800
-        flex
-        items-center
-        justify-start
-        gap-3">
+    <button [isLoading]="loading$.isOn" link (click)="openModalToSelectService()">
       <i class="bi bi-list-check"></i>
       {{ 'event.form.section.service.button.select' | translate }}
     </button>

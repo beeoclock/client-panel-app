@@ -39,28 +39,30 @@ import {
 } from "@client/presentation/component/business-profile/booking-settings/booking-settings.business-profile.component";
 import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 
 @Component({
   selector: 'client-settings-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    FormBusinessProfileComponent,
-    ReactiveFormsModule,
-    TranslateModule,
-    CoverImageBusinessProfileComponent,
-    LogoBusinessProfileComponent,
-    SwitchActiveBlockComponent,
-    NgForOf,
-    CardComponent,
-    AddressBusinessProfileComponent,
-    GalleryBusinessProfileComponent,
-    SchedulesFormComponent,
-    BusinessProfileContactPhoneComponent,
-    BusinessProfileSocialMediaComponent,
-    FacilitiesBusinessProfileComponent,
-    BookingSettingsBusinessProfileComponent
-  ],
+    imports: [
+        FormBusinessProfileComponent,
+        ReactiveFormsModule,
+        TranslateModule,
+        CoverImageBusinessProfileComponent,
+        LogoBusinessProfileComponent,
+        SwitchActiveBlockComponent,
+        NgForOf,
+        CardComponent,
+        AddressBusinessProfileComponent,
+        GalleryBusinessProfileComponent,
+        SchedulesFormComponent,
+        BusinessProfileContactPhoneComponent,
+        BusinessProfileSocialMediaComponent,
+        FacilitiesBusinessProfileComponent,
+        BookingSettingsBusinessProfileComponent,
+        PrimaryButtonDirective
+    ],
   standalone: true
 })
 export default class Index {

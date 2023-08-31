@@ -15,7 +15,10 @@
         <div class="flex justify-between items-center">
 
           <div class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.details' | translate }}</div>
-          <div event-status-style [status]="event.status"></div>
+<!--          <div *ngIf="isNotPreview" event-status-style [status]="event.status"></div>-->
+<!--          <div *ngIf="isPreview" class="px-2 py-1 flex items-center justify-center h-6 text-xs rounded-full border text-white uppercase bg-blue-500 border-blue-500 dark:bg-blue-900 dark:text-blue-400 dark:border-blue-800">-->
+<!--            {{ 'keyword.capitalize.preview' | translate }}-->
+<!--          </div>-->
 
         </div>
 
