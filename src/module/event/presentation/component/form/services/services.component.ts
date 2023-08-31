@@ -12,7 +12,7 @@ import {
 } from "@utility/presentation/component/modal-select-service/modal-select-service.service";
 import {IService} from "@service/domain";
 import {ModalSelectServiceListAdapter} from "@service/adapter/external/component/modal-select-service.list.adapter";
-import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
+import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 
 @Component({
   selector: 'event-service-component',
@@ -28,7 +28,7 @@ import {LinkButtonDirective} from "@utility/presentation/directives/button/link.
     NgForOf,
     CurrencyPipe,
     NgTemplateOutlet,
-    LinkButtonDirective,
+    PrimaryLinkButtonDirective,
   ]
 })
 export class ServicesComponent implements OnInit {
