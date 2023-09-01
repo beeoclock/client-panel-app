@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import BusinessClientForm from "@identity/presentation/form/business-client.form";
@@ -40,6 +40,7 @@ export default class Index {
   private readonly toastController = inject(ToastController);
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
   public readonly firstCompany$ = this.activatedRoute.queryParams.pipe(
     map(({firstCompany}) => !!firstCompany)
@@ -56,24 +57,35 @@ export default class Index {
     if (this.form.valid) {
       this.form.disable();
       this.form.markAsPending();
-      await firstValueFrom(this.identityApiAdapter.postCreateBusinessClient$(this.form.getRawValue()));
+      try {
+        await firstValueFrom(this.identityApiAdapter.postCreateBusinessClient$(this.form.getRawValue()));
+        const toast = await this.toastController.create({
+          header: 'Business client',
+          message: 'You successfully create new business client!',
+          color: 'success',
+          position: 'top',
+          duration: 10_000,
+          buttons: [
+            {
+              text: this.translateService.instant('keyword.capitalize.close'),
+              role: 'cancel',
+            },
+          ],
+        });
+        await toast.present();
+        const {firstCompany} = this.activatedRoute.snapshot.queryParams;
+        await this.router.navigate(['/', 'identity', 'corridor'], {
+          queryParams: {
+            force: true,
+            firstCompany
+          }
+        });
+      } catch (e) {
+
+      }
       this.form.enable();
       this.form.updateValueAndValidity();
-      const toast = await this.toastController.create({
-        header: 'Business client',
-        message: 'You successfully create new business client!',
-        color: 'success',
-        position: 'top',
-        duration: 10_000,
-        buttons: [
-          {
-            text: this.translateService.instant('keyword.capitalize.close'),
-            role: 'cancel',
-          },
-        ],
-      });
-      await toast.present();
-      await this.router.navigate(['/', 'identity', 'corridor']);
+      this.changeDetectorRef.detectChanges();
     }
   }
 

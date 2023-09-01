@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/presentation/pipes/first-key-name/first-key-name.module';
 import {Router, RouterLink} from '@angular/router';
 import LoginForm from '@identity/presentation/form/login.form';
@@ -14,6 +14,7 @@ import {firstValueFrom} from "rxjs";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormInputPasswordComponent} from "@utility/presentation/component/input/form.input.password.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {ToastController} from "@ionic/angular";
 
 @Component({
   selector: 'identity-sign-in-component',
@@ -70,6 +71,9 @@ export class SignInComponent {
   public readonly form = new LoginForm();
   private readonly router = inject(Router);
   private readonly auth = inject(Auth);
+  private readonly toastController = inject(ToastController);
+  private readonly translateService = inject(TranslateService);
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
   private readonly store = inject(Store);
 
   public async signIn(): Promise<void> {
@@ -91,22 +95,36 @@ export class SignInComponent {
           await this.router.navigate(['/', 'identity', 'corridor']);
 
         } catch (error) {
-          this.enableAndUpdateForm();
+
+          const toast = await this.toastController.create({
+            header: 'Error',
+            message: 'Check your credentials',
+            color: 'danger',
+            position: 'top',
+            duration: 10_000,
+            buttons: [
+              {
+                text: this.translateService.instant('keyword.capitalize.close'),
+                role: 'cancel',
+              },
+            ],
+          });
+          await toast.present();
+
         }
 
-      } else {
-        this.enableAndUpdateForm();
       }
 
-    } else {
-      this.enableAndUpdateForm();
     }
+
+    this.enableAndUpdateForm();
 
   }
 
   private enableAndUpdateForm(): void {
     this.form.enable();
     this.form.updateValueAndValidity();
+    this.changeDetectorRef.detectChanges();
   }
 
 }
