@@ -11,6 +11,7 @@
     "start:external:emulator": "ng serve --host 0.0.0.0 --disable-host-check --configuration emulator",
     "start:external:emulator:authorization": "ng serve --host 0.0.0.0 --disable-host-check --configuration emulator-authorization",
     "build": "ng build",
+    "build:develop": "ng build --configuration develop",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
