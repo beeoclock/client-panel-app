@@ -18,9 +18,9 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
         id="service-title"
         type="text"
         autocomplete="service.title"
-        [placeholder]="'keyword.capitalize.Title' | translate"
+        [placeholder]="'keyword.capitalize.title' | translate"
         [control]="form.controls.title"
-        [label]="'keyword.capitalize.Title' | translate">
+        [label]="'keyword.capitalize.title' | translate">
       </form-input>
 
       <form-textarea-component

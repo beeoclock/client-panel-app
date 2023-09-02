@@ -3,6 +3,7 @@ import {AttendantComponent} from '@event/presentation/component/form/attendees/a
 import {NgForOf, NgIf} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {AttendeesForm} from "@event/presentation/form/attendant.form";
+import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 
 @Component({
   selector: 'event-attendees-component',
@@ -14,7 +15,8 @@ import {AttendeesForm} from "@event/presentation/form/attendant.form";
     AttendantComponent,
     NgForOf,
     TranslateModule,
-    NgIf
+    NgIf,
+    PrimaryLinkButtonDirective
   ],
 })
 export class AttendeesComponent implements OnInit {

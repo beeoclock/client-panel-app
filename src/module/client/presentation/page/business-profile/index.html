@@ -45,7 +45,8 @@
     </client-business-profile-booking-settings-component>
 
     <button
-      class="px-4 py-2 bg-blue-600 rounded-lg text-white w-full hover:bg-blue-700 cursor-pointer transition"
+      primary
+      [isLoading]="form.pending"
       (click)="save()"
       [disabled]="form.disabled">
       {{ 'keyword.capitalize.save' | translate }}

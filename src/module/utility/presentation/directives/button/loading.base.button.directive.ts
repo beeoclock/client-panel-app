@@ -1,4 +1,4 @@
-import {Directive, DoCheck, ElementRef, inject, Input, OnInit} from "@angular/core";
+import {AfterViewInit, Directive, DoCheck, ElementRef, inject, Input, OnInit} from "@angular/core";
 import {TranslateService} from "@ngx-translate/core";
 import {SpinnerSvg} from "@utility/domain/spinner.svg";
 import {BaseButtonDirective} from "@utility/presentation/directives/button/base.button.directive";
@@ -7,7 +7,7 @@ import {BaseButtonDirective} from "@utility/presentation/directives/button/base.
   selector: 'button[loadingBase]',
   standalone: true,
 })
-export class LoadingBaseButtonDirective extends BaseButtonDirective implements OnInit, DoCheck {
+export class LoadingBaseButtonDirective extends BaseButtonDirective implements OnInit, DoCheck, AfterViewInit {
 
   @Input()
   public isLoading = false;
@@ -16,6 +16,7 @@ export class LoadingBaseButtonDirective extends BaseButtonDirective implements O
   private readonly elementRef: ElementRef<HTMLButtonElement> = inject(ElementRef);
   private temporaryButtonHTML: string | undefined;
   private loadingHTML = '';
+  private initialized = false;
 
   public override ngOnInit(): void {
     super.ngOnInit();
@@ -23,6 +24,13 @@ export class LoadingBaseButtonDirective extends BaseButtonDirective implements O
   }
 
   public ngDoCheck(): void {
+    if (this.initialized) {
+      this.detectLoading();
+    }
+  }
+
+  public ngAfterViewInit() {
+    this.initialized = true;
     this.detectLoading();
   }
 
@@ -34,8 +42,10 @@ export class LoadingBaseButtonDirective extends BaseButtonDirective implements O
   private detectLoading(): void {
     this.elementRef.nativeElement.disabled = this.isLoading;
     if (this.isLoading) {
-      this.temporaryButtonHTML = this.elementRef.nativeElement.innerHTML;
-      this.elementRef.nativeElement.innerHTML = this.loadingHTML;
+      if (!this.temporaryButtonHTML) {
+        this.temporaryButtonHTML = this.elementRef.nativeElement.innerHTML;
+        this.elementRef.nativeElement.innerHTML = this.loadingHTML;
+      }
     } else {
       if (this.temporaryButtonHTML) {
         this.elementRef.nativeElement.innerHTML = this.temporaryButtonHTML ?? '';

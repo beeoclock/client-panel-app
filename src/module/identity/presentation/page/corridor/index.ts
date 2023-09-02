@@ -51,10 +51,18 @@ export default class Index extends Reactive implements OnInit {
   public readonly members$ = this.clients$.pipe(
     filter(Array.isArray),
     tap((result) => {
-      if (result.length === 0) {
-        this.gotToCreateBusinessPage({
-          firstCompany: true
-        });
+      if (!('force' in this.activatedRoute.snapshot.queryParams)) {
+        if (result.length === 0) {
+          this.gotToCreateBusinessPage({
+            firstCompany: true
+          });
+        }
+      } else {
+        if ('firstCompany' in this.activatedRoute.snapshot.queryParams) {
+          if (result.length) {
+            this.select(result[0]);
+          }
+        }
       }
       this.loader.switchOff();
     })

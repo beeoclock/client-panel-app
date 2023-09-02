@@ -1,6 +1,7 @@
-import {Component, ElementRef, inject, Input, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, HostBinding, inject, Input, ViewChild, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {TranslateModule} from "@ngx-translate/core";
+import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
 
 @Component({
   selector: 'utility-back-link-component',
@@ -9,25 +10,15 @@ import {TranslateModule} from "@ngx-translate/core";
     <a
       [routerLink]="url"
       [queryParams]="queryParams"
-      #link
-      class="
-        text-black
-        dark:text-white
-        hover:bg-beeColor-300
-        dark:hover:800/50
-        flex items-center
-        justify-center
-        px-4
-        py-2
-        rounded-2xl
-        text-center w-24">
+      #link link>
       <i class="bi bi-arrow-left me-2"></i>
       {{ 'keyword.capitalize.back' | translate }}
     </a>
   `,
   imports: [
     RouterLink,
-    TranslateModule
+    TranslateModule,
+    LinkButtonDirective
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -43,5 +34,8 @@ export class BackLinkComponent {
 
   @ViewChild('link')
   public link!: ElementRef<HTMLElement>;
+
+  @HostBinding()
+  public readonly class = 'flex';
 
 }

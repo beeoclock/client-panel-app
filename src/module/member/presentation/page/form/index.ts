@@ -13,21 +13,23 @@ import {filter, firstValueFrom, Observable} from "rxjs";
 import {IMember} from "@member/domain";
 import {MemberActions} from "@member/state/member/member.actions";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 
 @Component({
   selector: 'member-form-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    ReactiveFormsModule,
-    DeleteButtonComponent,
-    HasErrorDirective,
-    RouterLink,
-    BackLinkComponent,
-    InvalidTooltipDirective,
-    TranslateModule,
-    FormInputComponent
-  ],
+    imports: [
+        ReactiveFormsModule,
+        DeleteButtonComponent,
+        HasErrorDirective,
+        RouterLink,
+        BackLinkComponent,
+        InvalidTooltipDirective,
+        TranslateModule,
+        FormInputComponent,
+        PrimaryButtonDirective
+    ],
   standalone: true
 })
 export default class Index implements OnInit {

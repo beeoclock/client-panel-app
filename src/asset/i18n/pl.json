@@ -117,6 +117,7 @@
   },
   "keyword": {
     "capitalize": {
+      "preview": "Podgląd",
       "create": "Utwórz",
       "processing": "Przetwarzanie",
       "chooseImage": "Wybierz plik",

@@ -35,7 +35,12 @@ export class EventForm extends FormGroup<IEventForm> {
     this.initHandler();
   }
 
+  public restart(): void {
+    Object.assign(this, new EventForm());
+  }
+
   public initValidators(): void {
+    this.controls.services.setValidators([Validators.required]);
     this.controls.start.setValidators([Validators.required]);
     this.controls.end.setValidators([Validators.required]);
     this.controls.attendees.setValidators([Validators.minLength(1)]);

@@ -67,8 +67,12 @@ export class DangerZoneComponent {
             const clientId = await firstValueFrom(this.store.select(IdentityState.clientId));
             if (clientId) {
               try {
-                const result = await firstValueFrom(this.deleteBusinessClientClientAdapter.deleteBusinessClient(clientId));
-                await this.router.navigate(['/', 'identity', 'corridor']);
+                await firstValueFrom(this.deleteBusinessClientClientAdapter.deleteBusinessClient(clientId));
+                await this.router.navigate(['/', 'identity', 'corridor'], {
+                  queryParams: {
+                    force: true
+                  }
+                });
               } catch (e) {
                 const errorAlert = await this.alertController.create({
                   header: 'Delete Business Client',

@@ -30,7 +30,7 @@
         </form-input>
 
         <div>
-          <button (click)="signIn()" type="submit" primary>
+          <button [isLoading]="form.pending" (click)="signIn()" type="submit" primary>
             {{ 'keyword.capitalize.send' | translate }}
           </button>
         </div>

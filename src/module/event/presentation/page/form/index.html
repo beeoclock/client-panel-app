@@ -1,48 +1,83 @@
 <div class="pb-48 grid grid-cols-12 gap-4">
 
-  <div class="col-span-12 xl:col-span-2 2xl:col-span-3">
+  <ng-container *ngIf="preview.isOn">
 
-    <utility-back-link-component></utility-back-link-component>
+    <div class="col-span-12 xl:col-span-2 2xl:col-span-3">
 
-  </div>
+      <button link (click)="preview.switchOff()">
+        <i class="bi bi-arrow-left me-2"></i>
+        {{ 'keyword.capitalize.back' | translate }}
+      </button>
 
-  <div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
+    </div>
 
-    <form [formGroup]="form" class="flex flex-col gap-4">
+    <div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
 
-      <card>
-        <event-attendees-component [form]="form.controls.attendees"></event-attendees-component>
-      </card>
+    <card>
+      <event-general-details [isPreview]="preview.isOn" [event]="value"></event-general-details>
+    </card>
 
-      <card>
-        <event-service-component [serviceListControl]="form.controls.services"></event-service-component>
-      </card>
+    <div class="mt-4">
+      <button
+        primary
+        [isLoading]="form.pending"
+        [disabled]="form.disabled"
+        (click)="save()">
+        {{ 'keyword.capitalize.save' | translate }}
+      </button>
+    </div>
 
-      <card>
-        <event-select-time-slot-form-component [control]="form.controls.start"></event-select-time-slot-form-component>
-      </card>
+    </div>
 
-      <card>
-        <form-textarea-component
-          id="event-form-public-note-input"
-          [label]="'keyword.capitalize.note' | translate"
-          [placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
-          [control]="form.controls.description">
-        </form-textarea-component>
-      </card>
+  </ng-container>
 
-      <div class="mt-4">
-        <button
-          primary
-          [isLoading]="form.pending"
-          [disabled]="form.disabled"
-          (click)="save()">
-          {{ 'keyword.capitalize.save' | translate }}
-        </button>
-      </div>
+  <ng-container *ngIf="preview.isOff">
 
-    </form>
+    <div class="col-span-12 xl:col-span-2 2xl:col-span-3">
 
-  </div>
+      <utility-back-link-component></utility-back-link-component>
+
+    </div>
+
+    <div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
+
+      <form [formGroup]="form" class="flex flex-col gap-4">
+
+        <card>
+          <event-attendees-component [form]="form.controls.attendees"></event-attendees-component>
+        </card>
+
+        <card>
+          <event-service-component [serviceListControl]="form.controls.services"></event-service-component>
+        </card>
+
+        <card>
+          <event-select-time-slot-form-component [control]="form.controls.start"></event-select-time-slot-form-component>
+        </card>
+
+        <card>
+          <form-textarea-component
+            id="event-form-public-note-input"
+            [label]="'keyword.capitalize.note' | translate"
+            [placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
+            [control]="form.controls.description">
+          </form-textarea-component>
+        </card>
+
+        <div class="mt-4">
+          <button
+            primary
+            [isLoading]="form.pending"
+            [disabled]="form.disabled"
+            (click)="preview.switchOn()">
+            {{ 'keyword.capitalize.preview' | translate }}
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+
+  </ng-container>
 
 </div>
