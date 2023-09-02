@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "panel-dev-beeoclock"
+    "default": "panel-beeoclock"
   },
   "targets": {
     "panel-beeoclock": {
