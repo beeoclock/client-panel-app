@@ -4,8 +4,8 @@ export const environment = {
   emulator: false,
   proxy: false,
   apiUrls: {
-    panel: 'https://api.beeoclock.com/panel',
-    identity: 'https://api.beeoclock.com/identity',
+    panel: 'https://api.dev.beeoclock.com/panel',
+    identity: 'https://api.dev.beeoclock.com/identity',
   },
   endpoint: {
     config: {
