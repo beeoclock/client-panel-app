@@ -39,9 +39,10 @@ import {
 } from "@client/presentation/component/business-profile/booking-settings/booking-settings.business-profile.component";
 import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 
 @Component({
-  selector: 'client-settings-page',
+  selector: 'client-business-profile-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
   imports: [
@@ -59,7 +60,8 @@ import {RISchedule} from "@utility/domain/interface/i.schedule";
     BusinessProfileContactPhoneComponent,
     BusinessProfileSocialMediaComponent,
     FacilitiesBusinessProfileComponent,
-    BookingSettingsBusinessProfileComponent
+    BookingSettingsBusinessProfileComponent,
+    PrimaryButtonDirective
   ],
   standalone: true
 })

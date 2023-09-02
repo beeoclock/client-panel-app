@@ -1,7 +1,7 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 
 @Component({
-  selector: 'client-settings-page',
+  selector: 'client-notification-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
   imports: [],

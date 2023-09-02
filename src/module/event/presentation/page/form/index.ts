@@ -17,25 +17,32 @@ import {ServicesComponent} from "@event/presentation/component/form/services/ser
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {environment} from "@environment/environment";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {GeneralDetailsComponent} from "@event/presentation/component/details/general.details.component";
+import {BooleanState} from "@utility/domain";
+import {NgIf} from "@angular/common";
+import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
 
 
 @Component({
   selector: 'event-form-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
-    imports: [
-        ReactiveFormsModule,
-        DeleteButtonComponent,
-        BackLinkComponent,
-        FormsModule,
-        TranslateModule,
-        SelectTimeSlotComponent,
-        FormTextareaComponent,
-        AttendeesComponent,
-        ServicesComponent,
-        CardComponent,
-        PrimaryButtonDirective,
-    ],
+  imports: [
+    ReactiveFormsModule,
+    DeleteButtonComponent,
+    BackLinkComponent,
+    FormsModule,
+    TranslateModule,
+    SelectTimeSlotComponent,
+    FormTextareaComponent,
+    AttendeesComponent,
+    ServicesComponent,
+    CardComponent,
+    PrimaryButtonDirective,
+    GeneralDetailsComponent,
+    NgIf,
+    LinkButtonDirective,
+  ],
   standalone: true
 })
 export default class Index implements OnInit {
@@ -50,17 +57,20 @@ export default class Index implements OnInit {
 
   public readonly form = new EventForm();
 
+  public readonly preview = new BooleanState(false);
+
   @Select(EventState.itemData)
   public itemData$!: Observable<IEvent | undefined>;
-
 
   @HostBinding()
   public readonly class = 'md:p-4 block';
 
+  public get value(): IEvent {
+    return this.form.getRawValue() as IEvent;
+  }
+
   public ngOnInit(): void {
-
     this.detectItem();
-
   }
 
   public detectItem(): void {

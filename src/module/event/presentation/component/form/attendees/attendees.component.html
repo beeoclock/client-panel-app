@@ -32,20 +32,7 @@
 
   <div class="block">
 
-    <button
-      (click)="form.pushNewOne()"
-      class="
-          text-blue-600
-          rounded-2xl
-          px-4
-          py-2
-          hover:bg-blue-100
-          dark:hover:bg-beeDarkColor-800
-          flex
-          gap-3
-          items-center
-          justify-center
-        ">
+    <button primaryLink (click)="form.pushNewOne()">
       <i class="bi bi-plus-lg"></i>
       {{ 'event.form.section.attendant.button.add' | translate }}
     </button>
