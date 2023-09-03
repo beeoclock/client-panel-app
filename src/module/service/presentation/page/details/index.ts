@@ -21,33 +21,35 @@ import {ActiveStyleDirective} from "@utility/presentation/directives/active-styl
 import {LanguagePipe} from "@utility/presentation/pipes/language.pipe";
 import {WeekDayPipe} from "@utility/presentation/pipes/week-day.pipe";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {SrcByMediaIdDirective} from "@module/media/presentation/directive/src-by-media-id/src-by-media-id.directive";
 
 @Component({
   selector: 'service-detail-page',
   templateUrl: './index.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-    imports: [
-        NgIf,
-        AsyncPipe,
-        SpinnerComponent,
-        BackLinkComponent,
-        BackLinkComponent,
-        DeleteButtonComponent,
-        RouterLink,
-        NgForOf,
-        DropdownComponent,
-        LanguagePipe,
-        WeekDayPipe,
-        LoaderComponent,
-        TranslateModule,
-        NgxMaskPipe,
-        EditLinkComponent,
-        ActiveStyleDirective,
-        CurrencyPipe,
-        DynamicDatePipe,
-        CardComponent,
-    ],
+  imports: [
+    NgIf,
+    AsyncPipe,
+    SpinnerComponent,
+    BackLinkComponent,
+    BackLinkComponent,
+    DeleteButtonComponent,
+    RouterLink,
+    NgForOf,
+    DropdownComponent,
+    LanguagePipe,
+    WeekDayPipe,
+    LoaderComponent,
+    TranslateModule,
+    NgxMaskPipe,
+    EditLinkComponent,
+    ActiveStyleDirective,
+    CurrencyPipe,
+    DynamicDatePipe,
+    CardComponent,
+    SrcByMediaIdDirective,
+  ],
   standalone: true
 })
 export default class Index {
@@ -65,24 +67,16 @@ export default class Index {
   public backLink!: BackLinkComponent;
 
   public async delete(service: IService): Promise<void> {
-
     const {_id: id, active} = service;
-
     if (active) {
-
       return alert('You can\'t delete active service');
-
     }
-
     await firstValueFrom(this.store.dispatch(new ServiceActions.DeleteItem(id)));
     this.backLink.link.nativeElement.click();
-
   }
 
   public formatDuration(duration: string): string {
-
     return humanizeDuration(Duration.fromISOTime(duration).as('milliseconds'), {language: this.translateService.currentLang});
-
   }
 
 

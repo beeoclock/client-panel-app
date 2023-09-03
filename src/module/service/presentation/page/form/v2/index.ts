@@ -1,6 +1,14 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
-import {NgIf} from "@angular/common";
+import {AsyncPipe, NgIf} from "@angular/common";
 import {ImageBlockComponent} from "@service/presentation/component/form/v2/image/image-block.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
@@ -36,13 +44,18 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
     SpecialistsBlockComponent,
     SwitchActiveBlockComponent,
     PrimaryButtonDirective,
+    AsyncPipe,
   ]
 })
 export default class Index implements OnInit {
 
+  @ViewChild(ImageBlockComponent)
+  public readonly imageBlock!: ImageBlockComponent;
+
   public readonly form = new ServiceForm();
 
   public readonly store = inject(Store);
+  public readonly changeDetectorRef = inject(ChangeDetectorRef);
   public readonly activatedRoute = inject(ActivatedRoute);
   public readonly router = inject(Router);
 
@@ -71,6 +84,7 @@ export default class Index implements OnInit {
           });
 
           this.form.updateValueAndValidity();
+          this.changeDetectorRef.detectChanges();
         }
       });
     });
@@ -85,10 +99,12 @@ export default class Index implements OnInit {
       const redirectUri = ['../'];
       if (this.isEditMode) {
         await firstValueFrom(this.store.dispatch(new ServiceActions.UpdateItem(this.form.getRawValue() as IService)));
+        await this.imageBlock.save();
       } else {
         await firstValueFrom(this.store.dispatch(new ServiceActions.CreateItem(this.form.getRawValue() as IService)));
         const item = await firstValueFrom(this.itemData$);
         if (item && item._id) {
+          await this.imageBlock.save(item._id);
           redirectUri.push(item._id);
         }
       }

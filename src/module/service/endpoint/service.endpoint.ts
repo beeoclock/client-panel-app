@@ -9,9 +9,33 @@ export enum serviceEndpointEnum {
   create = '/api/v1/service',
   archive = '/api/v1/service/{id}/archive',
   delete = '/api/v1/service/{id}',
+
+  getBanners = '/api/v1/service-media/{id}/banners',
+  patchBanners = '/api/v1/service-media/{id}/banners',
+  deleteBanners = '/api/v1/service-media/{serviceId}/{id}',
 }
 
 export const serviceEndpoint: EndpointCollectionType = {
+  GET: {
+    [serviceEndpointEnum.getBanners]: {
+      path: serviceEndpointEnum.getBanners,
+      method: RequestMethodEnum.GET,
+      source: SourceNetworkEnum.panel,
+      replace: true,
+      header: {
+        authorization: true,
+      }
+    },
+    [serviceEndpointEnum.item]: {
+      path: serviceEndpointEnum.item,
+      method: RequestMethodEnum.GET,
+      source: SourceNetworkEnum.panel,
+      replace: true,
+      header: {
+        authorization: true,
+      }
+    }
+  },
   DELETE: {
     [serviceEndpointEnum.delete]: {
       path: serviceEndpointEnum.delete,
@@ -21,6 +45,15 @@ export const serviceEndpoint: EndpointCollectionType = {
       before: {
         accept: true,
       },
+      header: {
+        authorization: true,
+      }
+    },
+    [serviceEndpointEnum.deleteBanners]: {
+      path: serviceEndpointEnum.deleteBanners,
+      method: RequestMethodEnum.DELETE,
+      source: SourceNetworkEnum.panel,
+      replace: true,
       header: {
         authorization: true,
       }
@@ -42,20 +75,20 @@ export const serviceEndpoint: EndpointCollectionType = {
       header: {
         authorization: true
       }
-    },
-    [serviceEndpointEnum.item]: {
-      path: serviceEndpointEnum.item,
-      method: RequestMethodEnum.POST,
-      source: SourceNetworkEnum.panel,
-      replace: true,
-      header: {
-        authorization: true,
-      }
     }
   },
   PATCH: {
     [serviceEndpointEnum.archive]: {
       path: serviceEndpointEnum.archive,
+      method: RequestMethodEnum.PATCH,
+      source: SourceNetworkEnum.panel,
+      replace: true,
+      header: {
+        authorization: true,
+      }
+    },
+    [serviceEndpointEnum.patchBanners]: {
+      path: serviceEndpointEnum.patchBanners,
       method: RequestMethodEnum.PATCH,
       source: SourceNetworkEnum.panel,
       replace: true,

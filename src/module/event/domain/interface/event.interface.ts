@@ -1,10 +1,10 @@
 import {IService} from "@service/domain";
 import {ICustomer} from "@customer/domain";
 import {ActiveEnum, IsNewCustomerEnum, IsOptionalEnum, IsOrganizerEnum, ResponseStatusEnum} from "@utility/domain/enum";
-import {Interface} from "@utility/domain";
+import {RIBaseEntity} from "@utility/domain";
 import {StatusEnum} from "@event/domain/enum/status.enum";
 
-export interface IAttendee extends Interface.IBaseEntity {
+export interface IAttendee extends RIBaseEntity {
   object?: 'Event.Attendant';
   isOptional: IsOptionalEnum;
   isOrganizer: IsOrganizerEnum;
@@ -14,7 +14,7 @@ export interface IAttendee extends Interface.IBaseEntity {
   active: ActiveEnum;
 }
 
-export interface IEvent extends Interface.IBaseEntity {
+export interface IEvent extends RIBaseEntity {
   object: 'Event';
   servicesAreProvidedInParallel?: boolean;
   services?: IService[];

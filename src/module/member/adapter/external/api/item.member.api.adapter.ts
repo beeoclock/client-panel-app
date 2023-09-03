@@ -14,7 +14,7 @@ export class ItemMemberApiAdapter extends BaseApiAdapter<Member.IMember> {
    * @param id
    */
   public override execute$(id: string) {
-    return this.httpClient.post<Member.IMember>(memberEndpointEnum.item, null, {
+    return this.httpClient.get<Member.IMember>(memberEndpointEnum.item, {
       headers: {
         replace: JSON.stringify({
           id

@@ -1,4 +1,4 @@
-<div class="md:p-4 pb-48 grid grid-cols-12 gap-4">
+<div class="sm:p-4 pb-48 grid grid-cols-12 gap-4">
 
   <div class="col-span-12 xl:col-span-2 2xl:col-span-3">
     <utility-back-link-component></utility-back-link-component>
@@ -8,7 +8,8 @@
 
     <form [formGroup]="form" class="flex flex-col gap-4">
 
-      <service-form-image-block-component [form]="form.controls.presentation"></service-form-image-block-component>
+      <service-form-image-block-component [serviceId]="form.value._id"
+                                          [mediaId]="(itemData$ | async)?.presentation?.banners?.[0]"></service-form-image-block-component>
 
       <utility-form-switch-active-block-component
         [activeText]="'service.keyword.capitalize.active' | translate"

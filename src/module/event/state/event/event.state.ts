@@ -89,8 +89,8 @@ export class EventState extends BaseState<Event.IEvent> {
   }
 
   @Action(EventActions.GetItem)
-  public override async getItem(ctx: StateContext<IEventState>, action: EventActions.GetItem): Promise<void> {
-    await super.getItem(ctx, action);
+  public override async getItemFromCacheOrApi(ctx: StateContext<IEventState>, action: EventActions.GetItem): Promise<void> {
+    await super.getItemFromCacheOrApi(ctx, action);
   }
 
   @Action(EventActions.DeleteItem)

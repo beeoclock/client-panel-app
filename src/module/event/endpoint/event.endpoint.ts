@@ -16,6 +16,17 @@ export enum eventEndpointEnum {
 }
 
 export const eventEndpoint: EndpointCollectionType = {
+  GET: {
+    [eventEndpointEnum.item]: {
+      path: eventEndpointEnum.item,
+      method: RequestMethodEnum.GET,
+      source: SourceNetworkEnum.panel,
+      replace: true,
+      header: {
+        authorization: true,
+      }
+    },
+  },
   POST: {
     [eventEndpointEnum.paged]: {
       path: eventEndpointEnum.paged,
@@ -23,15 +34,6 @@ export const eventEndpoint: EndpointCollectionType = {
       source: SourceNetworkEnum.panel,
       header: {
         authorization: true
-      }
-    },
-    [eventEndpointEnum.item]: {
-      path: eventEndpointEnum.item,
-      method: RequestMethodEnum.POST,
-      source: SourceNetworkEnum.panel,
-      replace: true,
-      header: {
-        authorization: true,
       }
     },
     [eventEndpointEnum.create]: {

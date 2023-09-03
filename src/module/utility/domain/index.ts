@@ -3,4 +3,4 @@ export * as Enum from './enum';
 export {BooleanState} from './boolean.state';
 export {getFirstKey} from './first-key-name';
 export {Pagination} from './pagination';
-export * as Interface from './interface';
+export * from './interface';

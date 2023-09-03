@@ -12,6 +12,17 @@ export enum customerEndpointEnum {
 }
 
 export const customerEndpoint: EndpointCollectionType = {
+  GET: {
+    [customerEndpointEnum.item]: {
+      path: customerEndpointEnum.item,
+      method: RequestMethodEnum.GET,
+      source: SourceNetworkEnum.panel,
+      replace: true,
+      header: {
+        authorization: true,
+      }
+    },
+  },
   POST: {
     [customerEndpointEnum.paged]: {
       path: customerEndpointEnum.paged,
@@ -19,15 +30,6 @@ export const customerEndpoint: EndpointCollectionType = {
       source: SourceNetworkEnum.panel,
       header: {
         authorization: true
-      }
-    },
-    [customerEndpointEnum.item]: {
-      path: customerEndpointEnum.item,
-      method: RequestMethodEnum.POST,
-      source: SourceNetworkEnum.panel,
-      replace: true,
-      header: {
-        authorization: true,
       }
     },
     [customerEndpointEnum.create]: {

@@ -14,7 +14,7 @@ export class ItemServiceApiAdapter extends BaseApiAdapter<Service.IService> {
    * @param id
    */
   public override execute$(id: string) {
-    return this.httpClient.post<Service.IService>(serviceEndpointEnum.item, null, {
+    return this.httpClient.get<Service.IService>(serviceEndpointEnum.item, {
       headers: {
         replace: JSON.stringify({
           id

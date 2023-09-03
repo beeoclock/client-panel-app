@@ -77,8 +77,8 @@ export class MemberState extends BaseState<Member.IMember> {
   }
 
   @Action(MemberActions.GetItem)
-  public override async getItem(ctx: StateContext<IMemberState>, action: MemberActions.GetItem): Promise<void> {
-    await super.getItem(ctx, action);
+  public override async getItemFromCacheOrApi(ctx: StateContext<IMemberState>, action: MemberActions.GetItem): Promise<void> {
+    await super.getItemFromCacheOrApi(ctx, action);
   }
 
   @Action(MemberActions.DeleteItem)

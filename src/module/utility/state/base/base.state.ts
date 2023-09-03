@@ -11,11 +11,13 @@ import {getMaxPage} from "@utility/domain/max-page";
 import {Router} from "@angular/router";
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 
+export interface IBaseState_Item<ITEM> {
+  data: undefined | ITEM;
+  downloadedAt: Date;
+}
+
 export interface IBaseState<ITEM> {
-  item: {
-    data: undefined | ITEM;
-    downloadedAt: Date;
-  };
+  item: IBaseState_Item<ITEM>;
   tableState: ITableState<ITEM>;
   lastTableHashSum: undefined | string;
 }
@@ -196,7 +198,7 @@ export abstract class BaseState<ITEM = any> {
       ctx.patchState({
         item: undefined,
       });
-      await this.getItem(ctx, id);
+      await this.getItemFromCacheOrApi(ctx, id);
     }
 
   }
@@ -253,39 +255,73 @@ export abstract class BaseState<ITEM = any> {
 
   /**
    *
+   * @param cacheItemsKey
+   * @param ctx
+   * @param id
+   */
+  public getItemFromCache(
+    cacheItemsKey: string,
+    ctx: StateContext<IBaseState<ITEM>>,
+    id: string
+  ): IBaseState_Item<ITEM> | undefined {
+
+    const {cache}: { cache: ICacheState } = this.store.snapshot();
+
+    const customerCacheItems = cache[cacheItemsKey];
+
+    if (customerCacheItems) {
+
+      return customerCacheItems[id];
+
+    }
+
+    return undefined;
+
+  }
+
+  public saveToCache(
+    cacheItemsKey: string,
+    ctx: StateContext<IBaseState<ITEM>>,
+    item: IBaseState_Item<ITEM>,
+    payload: string,
+  ): void {
+
+    const {cache}: { cache: ICacheState } = this.store.snapshot();
+
+    const customerCacheItems = cache[cacheItemsKey];
+
+    ctx.dispatch(new CacheActions.Set({
+      strategy: 'indexedDB',
+      key: cacheItemsKey,
+      value: JSON.stringify({
+        ...customerCacheItems,
+        [payload]: item
+      })
+    }));
+
+  }
+
+  /**
+   *
    * @param ctx
    * @param payload
    * @constructor
    */
-  public async getItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.GetItem): Promise<void> {
+  public async getItemFromCacheOrApi(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.GetItem): Promise<void> {
 
-    const state = ctx.getState();
-
-    const {cache}: { cache: ICacheState } = this.store.snapshot();
-
-    let itemFromCache = undefined;
+    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
 
     const cacheItemsKey = getKeyWithClientId(this.store, this.cacheKeys.items);
 
-    const customerCacheItems = cache[cacheItemsKey];
-
-
-    if (customerCacheItems) {
-
-      itemFromCache = customerCacheItems[payload];
-
-    }
+    const itemFromCache = this.getItemFromCache(cacheItemsKey, ctx, payload);
 
     if (itemFromCache) {
 
       ctx.patchState({
-        ...state,
         item: itemFromCache
       });
 
     } else {
-
-      ctx.dispatch(new AppActions.PageLoading(true));
 
       const data = await this.item.executeAsync(payload);
 
@@ -298,18 +334,11 @@ export abstract class BaseState<ITEM = any> {
         item
       });
 
-      ctx.dispatch(new CacheActions.Set({
-        strategy: 'indexedDB',
-        key: cacheItemsKey,
-        value: JSON.stringify({
-          ...customerCacheItems,
-          [payload]: item
-        })
-      }));
-
-      ctx.dispatch(new AppActions.PageLoading(false));
+      this.saveToCache(cacheItemsKey, ctx, item, payload);
 
     }
+
+    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 
   }
 

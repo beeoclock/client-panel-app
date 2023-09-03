@@ -14,7 +14,7 @@ export class ItemEventApiAdapter extends BaseApiAdapter<Event.IEvent> {
    * @param id
    */
   public override execute$(id: string) {
-    return this.httpClient.post<Event.IEvent>(eventEndpointEnum.item, null, {
+    return this.httpClient.get<Event.IEvent>(eventEndpointEnum.item, {
       headers: {
         replace: JSON.stringify({
           id
