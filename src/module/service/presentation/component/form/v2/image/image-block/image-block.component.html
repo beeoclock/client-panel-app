@@ -1,0 +1,17 @@
+<card>
+
+	<div class="flex justify-between">
+		<span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.image' | translate }}</span>
+		<button class="text-beeColor-500 dark:text-beeColor-400 hover:text-beeColor-600 dark:hover:text-beeColor-500"
+						(click)="toggleInfo.toggle()">
+			<i class="bi" [class.bi-eye]="toggleInfo.isOff" [class.bi-eye-slash]="toggleInfo.isOn"></i>
+		</button>
+	</div>
+	<service-form-image-component
+		[showHit]="toggleInfo.isOn"
+		[control]="control"
+		[mediaId]="mediaId"></service-form-image-component>
+	<p class="text-beeColor-500">
+		{{ 'service.form.v2.section.presentation.motivate' | translate }}
+	</p>
+</card>

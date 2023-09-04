@@ -7,17 +7,19 @@ import {file2base64} from "@utility/domain/file2base64";
 import {NgIf} from "@angular/common";
 import {BooleanState} from "@utility/domain";
 import {DragAndDropDirective} from "@utility/presentation/directives/drag-and-drop/drag-and-drop.directive";
+import {PlaceholderImageComponent} from "@utility/presentation/component/image/placeholder.image.component";
 
 @Component({
   selector: 'client-cover-image-business-profile-component',
   templateUrl: 'cover-image.business-profile.component.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    CardComponent,
-    TranslateModule,
-    NgIf,
-    DragAndDropDirective
-  ],
+	imports: [
+		CardComponent,
+		TranslateModule,
+		NgIf,
+		DragAndDropDirective,
+		PlaceholderImageComponent
+	],
   standalone: true
 })
 export class CoverImageBusinessProfileComponent implements OnInit {

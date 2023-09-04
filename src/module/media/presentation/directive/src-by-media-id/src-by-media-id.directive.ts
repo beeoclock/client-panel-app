@@ -27,6 +27,10 @@ export class SrcByMediaIdDirective implements OnChanges {
 
   public initSkeleton(): void {
 
+    if (this.skeleton) {
+      return;
+    }
+
     const skeleton = document.createElement('div');
     skeleton.setAttribute('role', 'status');
     skeleton.classList.add('space-y-8', 'animate-pulse', 'md:space-y-0', 'md:space-x-8', 'md:flex', 'md:items-center', this.height);
@@ -52,16 +56,22 @@ export class SrcByMediaIdDirective implements OnChanges {
 
     this.initSkeleton();
 
-    if (this.srcByMediaIdService.cache.has(id)) {
+    this.srcByMediaIdService.get(id).then((value) => {
 
-      this.render(this.srcByMediaIdService.cache.get(id)!);
+      if (value) {
 
-    }
+        this.render(value);
 
-    this.itemMediaApiAdapter.execute$(id).subscribe((media) => {
+      } else {
 
-      this.render(media.media!);
-      this.srcByMediaIdService.cache.set(id, media.media!);
+        this.itemMediaApiAdapter.execute$(id).subscribe((media) => {
+
+          this.render(media.media!);
+          this.srcByMediaIdService.set(id, media.media!);
+
+        });
+
+      }
 
     });
 

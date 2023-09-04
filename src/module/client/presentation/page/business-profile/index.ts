@@ -3,13 +3,13 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {BusinessProfileForm} from "@client/presentation/form/business-profile.form";
 import {TranslateModule} from "@ngx-translate/core";
 import {
-  CoverImageBusinessProfileComponent
+	CoverImageBusinessProfileComponent
 } from "@client/presentation/component/business-profile/cover-image/cover-image.business-profile.component";
 import {
-  FormBusinessProfileComponent
+	FormBusinessProfileComponent
 } from "@client/presentation/component/business-profile/form-business-profile.component";
 import {
-  LogoBusinessProfileComponent
+	LogoBusinessProfileComponent
 } from "@client/presentation/component/business-profile/logo/logo.business-profile.component";
 import {Store} from "@ngxs/store";
 import * as Client from "@client/domain";
@@ -19,27 +19,27 @@ import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch
 import {NgForOf} from "@angular/common";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {
-  AddressBusinessProfileComponent
+	AddressBusinessProfileComponent
 } from "@client/presentation/component/business-profile/address/address.business-profile.component";
-import {
-  GalleryBusinessProfileComponent
-} from "@client/presentation/component/business-profile/gallery/gallery.business-profile.component";
 import {SchedulesFormComponent} from "@utility/presentation/component/schedule/schedules.form.component";
 import {
-  BusinessProfileContactPhoneComponent
+	BusinessProfileContactPhoneComponent
 } from "@client/presentation/component/business-profile/contact-phone/contact-phone.componen";
 import {
-  BusinessProfileSocialMediaComponent
+	BusinessProfileSocialMediaComponent
 } from "@client/presentation/component/business-profile/social-media/social-media.componen";
 import {
-  FacilitiesBusinessProfileComponent
+	FacilitiesBusinessProfileComponent
 } from "@client/presentation/component/business-profile/facilities/facilities.business-profile.component";
 import {
-  BookingSettingsBusinessProfileComponent
+	BookingSettingsBusinessProfileComponent
 } from "@client/presentation/component/business-profile/booking-settings/booking-settings.business-profile.component";
 import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {
+	GalleryBusinessProfileComponent
+} from "@client/presentation/component/business-profile/gallery/gallery.business-profile/gallery.business-profile.component";
 
 @Component({
   selector: 'client-business-profile-page',
