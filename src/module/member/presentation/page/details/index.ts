@@ -17,7 +17,7 @@ import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.
 @Component({
   selector: 'member-detail-page',
   template: `
-    <utility-back-link-component></utility-back-link-component>
+    <utility-back-link-component/>
     <ng-container *ngIf="item$ | async as member; else LoadingTemplate">
       <div
         class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 sm:p-6 xl:p-8 mt-4">
@@ -48,7 +48,7 @@ import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.
       </div>
     </ng-container>
     <ng-template #LoadingTemplate>
-      <utility-loader></utility-loader>
+      <utility-loader/>
     </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,

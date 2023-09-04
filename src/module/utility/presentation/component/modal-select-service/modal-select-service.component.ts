@@ -82,7 +82,7 @@ import {Duration} from "luxon";
       </ng-container>
 
     </div>
-    <utility-loader *ngIf="modalSelectServiceListAdapter.loading$.isOn"></utility-loader>
+    <utility-loader *ngIf="modalSelectServiceListAdapter.loading$.isOn"/>
   `
 })
 export class ModalSelectServiceComponent implements OnInit {

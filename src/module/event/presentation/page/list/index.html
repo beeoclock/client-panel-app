@@ -1,5 +1,5 @@
 <div class="flex justify-between p-4">
-  <event-filter-component></event-filter-component>
+  <event-filter-component/>
   <utility-dropdown [buttonLabel]="'keyword.capitalize.menu' | translate">
     <ng-container content>
       <a
@@ -39,35 +39,35 @@
         <utility-sort-indicator
           orderBy="start"
           [tableState]="tableState"
-        ></utility-sort-indicator>
+        />
       </th>
       <th scope="col" class="px-6 py-3" data-orderBy="end">
         {{ 'event.keyword.capitalize.end' | translate }}
         <utility-sort-indicator
           orderBy="end"
           [tableState]="tableState"
-        ></utility-sort-indicator>
+        />
       </th>
       <th scope="col" class="px-6 py-3" data-orderBy="status">
         {{ 'event.keyword.capitalize.status' | translate }}
         <utility-sort-indicator
           orderBy="status"
           [tableState]="tableState"
-        ></utility-sort-indicator>
+        />
       </th>
       <th scope="col" class="px-6 py-3" data-orderBy="createdAt">
         {{ 'keyword.capitalize.createdAt' | translate }}
         <utility-sort-indicator
           orderBy="createdAt"
           [tableState]="tableState"
-        ></utility-sort-indicator>
+        />
       </th>
       <th scope="col" class="px-6 py-3" data-orderBy="updatedAt">
         {{ 'keyword.capitalize.updatedAt' | translate }}
         <utility-sort-indicator
           orderBy="updatedAt"
           [tableState]="tableState"
-        ></utility-sort-indicator>
+        />
       </th>
       <th scope="col" class="px-6 py-3 text-center">
         {{ 'keyword.capitalize.action' | translate }}
@@ -115,11 +115,11 @@
         {{ item.updatedAt | dynamicDate }}
       </td>
       <td class="px-6 py-2 text-center text-beeColor-700 dark:text-beeDarkColor-100">
-        <utility-table-column-action [id]="item._id!" (delete)="delete($event)"></utility-table-column-action>
+        <utility-table-column-action [id]="item._id!" (delete)="delete($event)"/>
       </td>
     </tr>
 
     </tbody>
   </table>
-  <utility-table-state-pagination-component (clearCache)="clearTableCache()" (page)="pageChange($event)" [tableState]="tableState"></utility-table-state-pagination-component>
+  <utility-table-state-pagination-component (clearCache)="clearTableCache()" (page)="pageChange($event)" [tableState]="tableState"/>
 </ng-container>

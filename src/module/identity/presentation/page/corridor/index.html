@@ -1,6 +1,6 @@
 <div class="flex justify-between">
-  <utility-logout-component></utility-logout-component>
-  <utility-change-language-component></utility-change-language-component>
+  <utility-logout-component/>
+  <utility-change-language-component/>
 </div>
 <ul class="max-w-xs flex flex-col mt-4">
   <li
@@ -29,7 +29,7 @@
   </div>
   <li *ngIf="loader.isOn"
       class="font-bold inline-flex items-center gap-x-3.5 py-3 bg-white border text-beeColor-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 dark:text-white">
-    <utility-loader></utility-loader>
+    <utility-loader/>
   </li>
   <li
     (click)="gotToCreateBusinessPage()"

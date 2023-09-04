@@ -23,9 +23,9 @@ import {DatePipe} from "@angular/common";
 
       <event-select-time-slot-date-form-component
         [control]="control"
-        [localDateTimeControl]="localDateTimeControl"></event-select-time-slot-date-form-component>
+        [localDateTimeControl]="localDateTimeControl"/>
 
-      <event-select-time-slot-time-form-component [localDateTimeControl]="localDateTimeControl" [control]="control"></event-select-time-slot-time-form-component>
+      <event-select-time-slot-time-form-component [localDateTimeControl]="localDateTimeControl" [control]="control"/>
 
     </div>
 

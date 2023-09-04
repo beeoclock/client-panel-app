@@ -15,7 +15,7 @@ import {MemberActions} from "@member/state/member/member.actions";
   ],
   template: `
     <utility-filter-panel-component>
-      <utility-search-input-component [control]="form.controls.search"></utility-search-input-component>
+      <utility-search-input-component [control]="form.controls.search"/>
     </utility-filter-panel-component>
 
   `

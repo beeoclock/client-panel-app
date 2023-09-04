@@ -14,7 +14,7 @@
     <div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
 
     <card>
-      <event-general-details [isPreview]="preview.isOn" [event]="value"></event-general-details>
+      <event-general-details [isPreview]="preview.isOn" [event]="value"/>
     </card>
 
     <div class="mt-4">
@@ -35,7 +35,7 @@
 
     <div class="col-span-12 xl:col-span-2 2xl:col-span-3">
 
-      <utility-back-link-component></utility-back-link-component>
+      <utility-back-link-component/>
 
     </div>
 
@@ -44,15 +44,15 @@
       <form [formGroup]="form" class="flex flex-col gap-4">
 
         <card>
-          <event-attendees-component [form]="form.controls.attendees"></event-attendees-component>
+          <event-attendees-component [form]="form.controls.attendees"/>
         </card>
 
         <card>
-          <event-service-component [serviceListControl]="form.controls.services"></event-service-component>
+          <event-service-component [serviceListControl]="form.controls.services"/>
         </card>
 
         <card>
-          <event-select-time-slot-form-component [control]="form.controls.start"></event-select-time-slot-form-component>
+          <event-select-time-slot-form-component [control]="form.controls.start"/>
         </card>
 
         <card>
@@ -60,8 +60,7 @@
             id="event-form-public-note-input"
             [label]="'keyword.capitalize.note' | translate"
             [placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
-            [control]="form.controls.description">
-          </form-textarea-component>
+            [control]="form.controls.description"/>
         </card>
 
         <div class="mt-4">

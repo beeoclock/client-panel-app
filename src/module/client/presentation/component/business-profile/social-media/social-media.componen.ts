@@ -28,7 +28,7 @@ import {FormButtonWithIconComponent} from "@utility/presentation/component/butto
 
           <button class="text-beeColor-600 hover:text-red-600 hover:bg-red-100 px-3 py-2 rounded-full"
                   (click)="form.remove(index)">
-            <i class="bi bi-trash"></i>
+						<i class="bi bi-trash"></i>
           </button>
         </div>
       </div>
