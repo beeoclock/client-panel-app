@@ -8,7 +8,8 @@
 			class="absolute top-0 left-0 object-cover z-10 rounded-xl w-full h-full" alt="Uploaded Image"/>
 		<ng-container *ngIf="showHit">
 			<ng-container *ngIf="isEmptyControl">
-				<utility-placeholder-image-component [labelOfDragAndDropZone]="labelOfDragAndDropZone"></utility-placeholder-image-component>
+				<utility-placeholder-image-component
+					[labelOfDragAndDropZone]="labelOfDragAndDropZone" />
 			</ng-container>
 			<ng-container *ngIf="isNotEmptyControl">
 				<button (click)="remove.emit()"

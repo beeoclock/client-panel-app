@@ -11,8 +11,7 @@
       autocomplete="business.client.name"
       [placeholder]="'keyword.capitalize.title' | translate"
       [control]="form.controls.name"
-      [label]="'identity.create-business.form.inputs.name.label' | translate">
-    </form-input>
+      [label]="'identity.create-business.form.inputs.name.label' | translate"/>
 
     <form-input
       id="create-business-form-input-address"
@@ -20,15 +19,13 @@
       autocomplete="address"
       [placeholder]="'keyword.capitalize.address' | translate"
       [control]="form.controls.address"
-      [label]="'identity.create-business.form.inputs.address.label' | translate">
-    </form-input>
+      [label]="'identity.create-business.form.inputs.address.label' | translate"/>
 
     <form-textarea-component
       id="create-business-form-input-slogan"
       [placeholder]="'keyword.capitalize.description' | translate"
       [control]="form.controls.description"
-      [label]="'keyword.capitalize.description' | translate">
-    </form-textarea-component>
+      [label]="'keyword.capitalize.description' | translate"/>
 
     <div>
       <button primary [isLoading]="form.pending" (click)="save()" type="submit">

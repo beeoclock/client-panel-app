@@ -29,8 +29,7 @@ import {ChangePhoneNumberForm} from "@client/presentation/form/change-phone-numb
         autocomplete="phoneNumber"
         [placeholder]="'change-phone-number.form.input.phoneNumber.placeholder' | translate"
         [control]="form.controls.phoneNumber"
-        [label]="'keyword.capitalize.phone' | translate">
-      </form-input>
+        [label]="'keyword.capitalize.phone' | translate"/>
 
     </div>
 

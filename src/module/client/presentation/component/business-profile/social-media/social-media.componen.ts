@@ -4,7 +4,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {NgForOf} from "@angular/common";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {
-  SocialNetworkLinkFormComponent
+	SocialNetworkLinkFormComponent
 } from "@client/presentation/component/business-profile/social-media/social-network-link.form.component";
 import {FormButtonWithIconComponent} from "@utility/presentation/component/button/form-button-with-icon.component";
 
@@ -24,8 +24,7 @@ import {FormButtonWithIconComponent} from "@utility/presentation/component/butto
           *ngFor="let socialNetworkLink of form.controls; let index = index"
           class="flex gap-4">
 
-          <client-form-social-network-link-form-component class="w-full" [form]="socialNetworkLink">
-          </client-form-social-network-link-form-component>
+          <client-form-social-network-link-form-component class="w-full" [form]="socialNetworkLink"/>
 
           <button class="text-beeColor-600 hover:text-red-600 hover:bg-red-100 px-3 py-2 rounded-full"
                   (click)="form.remove(index)">
@@ -34,8 +33,7 @@ import {FormButtonWithIconComponent} from "@utility/presentation/component/butto
         </div>
       </div>
 
-      <form-button-with-icon (click)="form.pushNewOne()" [label]="'keyword.capitalize.addSocialMedia' | translate">
-      </form-button-with-icon>
+      <form-button-with-icon (click)="form.pushNewOne()" [label]="'keyword.capitalize.addSocialMedia' | translate"/>
     </card>
   `,
   imports: [

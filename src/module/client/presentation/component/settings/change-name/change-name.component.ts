@@ -29,8 +29,7 @@ import {ToastController} from "@ionic/angular";
         autocomplete="name"
         [placeholder]="'change-name.form.input.name.placeholder' | translate"
         [control]="form.controls.name"
-        [label]="'keyword.capitalize.fullName' | translate">
-      </form-input>
+        [label]="'keyword.capitalize.fullName' | translate"/>
 
     </div>
 

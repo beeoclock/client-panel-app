@@ -26,8 +26,7 @@
           autocomplete="email"
           placeholder="firstname.lastname@example.com"
           [control]="form.controls.email"
-          [label]="'keyword.capitalize.email' | translate">
-        </form-input>
+          [label]="'keyword.capitalize.email' | translate"/>
 
         <div>
           <button [isLoading]="form.pending" (click)="signIn()" type="submit" primary>

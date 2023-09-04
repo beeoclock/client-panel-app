@@ -32,8 +32,7 @@ import {TranslateModule} from "@ngx-translate/core";
           autocomplete="socialMedia.link"
           placeholder="https://example.com"
           [control]="form.controls.link"
-          [showLabel]="false">
-        </form-input>
+          [showLabel]="false"/>
       </div>
     </div>
   `

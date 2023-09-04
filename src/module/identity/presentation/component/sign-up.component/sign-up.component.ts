@@ -30,8 +30,7 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
         autocomplete="email"
         placeholder="firstname.lastname@example.com"
         [control]="form.controls.email"
-        [label]="'identity.sign-up.form.inputs.email.label' | translate">
-      </form-input>
+        [label]="'identity.sign-up.form.inputs.email.label' | translate"/>
 
       <form-input-password
         id="password"

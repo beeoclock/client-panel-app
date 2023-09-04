@@ -9,7 +9,7 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 import {TranslateModule} from "@ngx-translate/core";
 import {CustomerForm} from "@customer/presentation/form";
 import {
-  CustomerAutocompleteDirective
+	CustomerAutocompleteDirective
 } from "@utility/presentation/directives/customer-autocomplete/customer-autocomplete.directive";
 
 @Component({
@@ -34,8 +34,7 @@ import {
         autocomplete="off"
         [placeholder]="'keyword.capitalize.firstName' | translate"
         [control]="form.controls.firstName"
-        [label]="'keyword.capitalize.firstName' | translate">
-      </form-input>
+        [label]="'keyword.capitalize.firstName' | translate"/>
 
       <form-input
         type="text"
@@ -43,8 +42,7 @@ import {
         autocomplete="off"
         [placeholder]="'keyword.capitalize.lastName' | translate"
         [control]="form.controls.lastName"
-        [label]="'keyword.capitalize.lastName' | translate">
-      </form-input>
+        [label]="'keyword.capitalize.lastName' | translate"/>
 
       <form-input
         type="email"
@@ -52,8 +50,7 @@ import {
         autocomplete="off"
         placeholder="firstname.lastname@example.com"
         [control]="form.controls.email"
-        [label]="'keyword.capitalize.email' | translate">
-      </form-input>
+        [label]="'keyword.capitalize.email' | translate"/>
 
       <form-input
         type="phone"
@@ -61,8 +58,7 @@ import {
         autocomplete="off"
         placeholder="+000000000000"
         [control]="form.controls.phone"
-        [label]="'keyword.capitalize.phone' | translate">
-      </form-input>
+        [label]="'keyword.capitalize.phone' | translate"/>
 
     </form>
   `

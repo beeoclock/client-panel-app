@@ -39,20 +39,17 @@ import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/b
         autocomplete="name"
         [placeholder]="'client.profile.form.inputs.name.placeholder' | translate"
         [control]="form.controls.name"
-        [label]="'client.profile.form.inputs.name.label' | translate">
-      </form-input>
+        [label]="'client.profile.form.inputs.name.label' | translate"/>
 
       <form-textarea-component
         id="business-profile-form-description-input"
         [label]="'client.profile.form.inputs.description.label' | translate"
         [placeholder]="'client.profile.form.inputs.description.placeholder' | translate"
-        [control]="form.controls.description">
-      </form-textarea-component>
+        [control]="form.controls.description"/>
 
       <business-category-select-component
         id="business-profile-form-businessCategory-input"
-        [control]="form.controls.businessCategory">
-      </business-category-select-component>
+        [control]="form.controls.businessCategory"/>
 
       <form-input
         id="business-profile-form-feature"
@@ -60,8 +57,7 @@ import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/b
         autocomplete="feature"
         [placeholder]="'client.profile.form.inputs.description.placeholder' | translate"
         [control]="form.controls.feature"
-        [label]="'client.profile.form.inputs.feature.label' | translate">
-      </form-input>
+        [label]="'client.profile.form.inputs.feature.label' | translate"/>
 
     </card>
   `

@@ -8,8 +8,7 @@
 			class="absolute top-0 left-0 object-cover rounded-xl w-full h-full" alt="Uploaded Image"/>
 		<utility-placeholder-image-component
 			*ngIf="showHit"
-			[labelOfDragAndDropZone]="labelOfDragAndDropZone">
-		</utility-placeholder-image-component>
+			[labelOfDragAndDropZone]="labelOfDragAndDropZone"/>
 		<input id="dropzone-file" type="file" #fileInput class="hidden" (change)="onFileSelected($event)"
 					 accept="image/*"/>
 	</label>
