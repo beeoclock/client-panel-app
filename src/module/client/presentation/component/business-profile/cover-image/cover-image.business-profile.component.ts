@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {Component, inject, Input, ViewChild, ViewEncapsulation} from "@angular/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {FormControl} from "@angular/forms";
@@ -33,15 +33,22 @@ export class CoverImageBusinessProfileComponent {
 	@Input()
 	public control = new FormControl();
 
-	public readonly toggleInfo = new BooleanState(true);
-
 	@Input()
 	public mediaId: string | undefined;
+
+	@ViewChild(ImageCoverImageBusinessProfileComponent)
+	public imageCoverImageBusinessProfileComponent!: ImageCoverImageBusinessProfileComponent;
+
+	public readonly toggleInfo = new BooleanState(true);
 
 	public readonly srcByMediaIdService = inject(SrcByMediaIdService);
 	public readonly patchMediaBannersClientApiAdapter = inject(PatchMediaBannersClientApiAdapter);
 
 	public async save(): Promise<void> {
+
+		if (this.imageCoverImageBusinessProfileComponent.mediaIsChanged.isOff) {
+			return;
+		}
 
 		const body: {
 			media: string;
@@ -59,6 +66,8 @@ export class CoverImageBusinessProfileComponent {
 			// TODO: Add adapter for delete banner
 			await this.srcByMediaIdService.delete(this.mediaId);
 		}
+
+		this.imageCoverImageBusinessProfileComponent.mediaIsChanged.switchOff();
 
 	}
 

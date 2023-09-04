@@ -16,7 +16,8 @@
     <client-cover-image-business-profile-component
 			[mediaId]="(item$ | async)?.banners?.[0]"/>
 
-    <client-logo-business-profile-component/>
+    <client-logo-business-profile-component
+			[mediaId]="(item$ | async)?.logo"/>
 
     <client-gallery-business-profile-component/>
 

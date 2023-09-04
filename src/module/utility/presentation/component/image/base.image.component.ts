@@ -2,6 +2,7 @@ import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
 import {FormControl} from "@angular/forms";
 import {extractFile} from "@utility/domain/extract-file";
 import {file2base64} from "@utility/domain/file2base64";
+import {BooleanState} from "@utility/domain";
 
 @Component({
 	selector: 'utility-base-image-component',
@@ -25,6 +26,8 @@ export class BaseImageComponent implements OnInit {
 	@Input()
 	public mediaId: string | undefined;
 
+	public mediaIsChanged = new BooleanState(false);
+
 	public get isEmptyControl(): boolean {
 		return !this.control.value;
 	}
@@ -38,6 +41,7 @@ export class BaseImageComponent implements OnInit {
 			if (base64?.length) {
 				this.previewImage.nativeElement.src = base64;
 				this.previewImage.nativeElement.classList.remove('hidden');
+				this.mediaIsChanged.switchOn();
 			}
 		});
 	}

@@ -73,6 +73,9 @@ export default class Index implements OnInit {
 	@ViewChild(CoverImageBusinessProfileComponent)
 	public readonly coverImageBusinessProfileComponent!: CoverImageBusinessProfileComponent;
 
+	@ViewChild(LogoBusinessProfileComponent)
+	public readonly logoBusinessProfileComponent!: LogoBusinessProfileComponent;
+
 	public readonly form = new BusinessProfileForm();
 	public readonly store = inject(Store);
 	public readonly updateClientApiAdapter = inject(UpdateClientApiAdapter);
@@ -122,11 +125,14 @@ export default class Index implements OnInit {
 			const value = this.form.getRawValue() as IClient;
 			this.form.disable();
 
-			// Save cover image
-			await this.coverImageBusinessProfileComponent.save();
-
-			// Save data
-			await this.updateClientApiAdapter.executeAsync(value);
+			await Promise.all([
+				// Save cover image
+				this.coverImageBusinessProfileComponent.save(),
+				// Save logo
+				this.logoBusinessProfileComponent.save(),
+				// Save data
+				this.updateClientApiAdapter.executeAsync(value),
+			]);
 
 			this.store.dispatch(new AppActions.PageLoading(false));
 			this.form.enable();

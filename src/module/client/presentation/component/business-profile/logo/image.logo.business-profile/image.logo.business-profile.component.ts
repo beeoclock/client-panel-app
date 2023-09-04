@@ -38,6 +38,6 @@ import {NgIf} from "@angular/common";
 		</div>
 	`
 })
-export class ImageGalleryBusinessProfileComponent extends BaseImageComponent {
+export class ImageLogoBusinessProfileComponent extends BaseImageComponent {
 
 }
