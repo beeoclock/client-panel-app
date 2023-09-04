@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, Output, ViewEncapsulation} from "@angular/core";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgIf} from "@angular/common";
 import {DragAndDropDirective} from "@utility/presentation/directives/drag-and-drop/drag-and-drop.directive";
@@ -11,7 +10,6 @@ import {PlaceholderImageComponent} from "@utility/presentation/component/image/p
 	selector: 'client-image-gallery-business-profile-component',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		CardComponent,
 		TranslateModule,
 		NgIf,
 		DragAndDropDirective,

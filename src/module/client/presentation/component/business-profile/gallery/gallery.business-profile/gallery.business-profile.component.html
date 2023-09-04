@@ -14,6 +14,7 @@
 			*ngFor="let control of form.controls.images.controls; let index = index;"
 			(remove)="form.removeImage(index)"
 			[showHit]="toggleInfo.isOn"
+			[mediaId]="gallery[index]"
 			[index]="index"
 			[control]="control"/>
 	</div>

@@ -2,7 +2,6 @@ import {ActiveEnum} from "@utility/domain/enum";
 import {ISocialNetworkLink} from "@client/domain/interface/i.social-network-link";
 import {RIBaseEntity} from "@utility/domain/interface";
 import {FacilityEnum} from "@utility/domain/enum/facility.enum";
-import {IGallery} from "@client/domain/interface/i.gallery";
 import {IContact} from "@client/domain/interface/i.contact";
 import {ISchedule} from "@utility/domain/interface/i.schedule";
 import {IAddress} from "@client/domain/interface/i.address";
@@ -24,7 +23,8 @@ export interface IClient extends RIBaseEntity {
 	addresses: IAddress[];
 	schedules: ISchedule[];
 	contacts: IContact[];
-	gallery: IGallery;
+	// gallery: IGallery;
+	gallery: string[];
 	description: string;
 	facilities: FacilityEnum[];
 }

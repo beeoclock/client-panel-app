@@ -1,47 +1,48 @@
 <div class="sm:p-4 pb-48 grid grid-cols-12">
 
-  <div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4">
+	<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4">
 
-    <client-business-profile-form-component [form]="form"/>
+		<client-business-profile-form-component [form]="form"/>
 
-    <utility-form-switch-active-block-component
-      [control]="form.controls.active"/>
+		<utility-form-switch-active-block-component
+			[control]="form.controls.active"/>
 
-    <client-address-business-profile-component
-      [form]="form.controls.addresses.controls[0]"/>
+		<client-address-business-profile-component
+			[form]="form.controls.addresses.controls[0]"/>
 
-    <schedules-form-component
-      [schedulesForm]="form.controls.schedules"/>
+		<schedules-form-component
+			[schedulesForm]="form.controls.schedules"/>
 
-    <client-cover-image-business-profile-component
+		<client-cover-image-business-profile-component
 			[mediaId]="(item$ | async)?.banners?.[0]"/>
 
-    <client-logo-business-profile-component
+		<client-logo-business-profile-component
 			[mediaId]="(item$ | async)?.logo"/>
 
-    <client-gallery-business-profile-component/>
+		<client-gallery-business-profile-component
+			[gallery]="(item$ | async)?.gallery ?? []"/>
 
-    <client-business-profile-contact-phone-component
-      [form]="form.controls.contacts"/>
+		<client-business-profile-contact-phone-component
+			[form]="form.controls.contacts"/>
 
-    <client-business-profile-social-media-component
-      [form]="form.controls.socialNetworkLinks"/>
+		<client-business-profile-social-media-component
+			[form]="form.controls.socialNetworkLinks"/>
 
-    <facilities-business-profile-component
-      [control]="form.controls.facilities"/>
+		<facilities-business-profile-component
+			[control]="form.controls.facilities"/>
 
-    <client-business-profile-booking-settings-component
-      [form]="form.controls.bookingSettings"/>
+		<client-business-profile-booking-settings-component
+			[form]="form.controls.bookingSettings"/>
 
-    <button
-      primary
-      [isLoading]="form.pending"
-      (click)="save()"
-      [disabled]="form.disabled">
-      {{ 'keyword.capitalize.save' | translate }}
-    </button>
+		<button
+			primary
+			[isLoading]="form.pending"
+			(click)="save()"
+			[disabled]="form.disabled">
+			{{ 'keyword.capitalize.save' | translate }}
+		</button>
 
-  </div>
+	</div>
 
 </div>
 

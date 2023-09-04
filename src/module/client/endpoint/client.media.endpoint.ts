@@ -48,7 +48,7 @@ export const clientMediaEndpoint: EndpointCollectionType = {
 	},
 	PATCH: {
 		[clientMediaEndpointEnum.patchGallery]: {
-			path: clientMediaEndpointEnum.patchBanners,
+			path: clientMediaEndpointEnum.patchGallery,
 			method: RequestMethodEnum.PATCH,
 			source: SourceNetworkEnum.panel,
 			header: {

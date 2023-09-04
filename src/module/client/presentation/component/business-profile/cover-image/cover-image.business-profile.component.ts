@@ -13,6 +13,7 @@ import {SrcByMediaIdService} from "@module/media/presentation/directive/src-by-m
 import {
 	PatchMediaBannersClientApiAdapter
 } from "@client/adapter/external/api/media/banners/patch.media.banners.client.api.adapter";
+import {is} from "thiis";
 
 @Component({
 	selector: 'client-cover-image-business-profile-component',
@@ -57,15 +58,12 @@ export class CoverImageBusinessProfileComponent {
 			media: this.control.value,
 		};
 
-		if (this.mediaId) {
+		if (is.string(this.mediaId)) {
 			body._id = this.mediaId;
 		}
 
-		await this.patchMediaBannersClientApiAdapter.executeAsync(body);
-		if (this.mediaId) {
-			// TODO: Add adapter for delete banner
-			await this.srcByMediaIdService.delete(this.mediaId);
-		}
+		const {_id, media} = await this.patchMediaBannersClientApiAdapter.executeAsync(body);
+		await this.srcByMediaIdService.set(_id, media);
 
 		this.imageCoverImageBusinessProfileComponent.mediaIsChanged.switchOff();
 

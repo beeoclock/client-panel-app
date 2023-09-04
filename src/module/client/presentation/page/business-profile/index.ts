@@ -16,8 +16,7 @@ import * as Client from "@client/domain";
 import {IClient} from "@client/domain";
 import {UpdateClientApiAdapter} from "@client/adapter/external/api/update.client.api.adapter";
 import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
-import {AsyncPipe, NgForOf} from "@angular/common";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {AsyncPipe} from "@angular/common";
 import {
 	AddressBusinessProfileComponent
 } from "@client/presentation/component/business-profile/address/address.business-profile.component";
@@ -54,8 +53,6 @@ import {filter, Observable} from "rxjs";
 		CoverImageBusinessProfileComponent,
 		LogoBusinessProfileComponent,
 		SwitchActiveBlockComponent,
-		NgForOf,
-		CardComponent,
 		AddressBusinessProfileComponent,
 		GalleryBusinessProfileComponent,
 		SchedulesFormComponent,
@@ -75,6 +72,9 @@ export default class Index implements OnInit {
 
 	@ViewChild(LogoBusinessProfileComponent)
 	public readonly logoBusinessProfileComponent!: LogoBusinessProfileComponent;
+
+	@ViewChild(GalleryBusinessProfileComponent)
+	public readonly galleryBusinessProfileComponent!: GalleryBusinessProfileComponent;
 
 	public readonly form = new BusinessProfileForm();
 	public readonly store = inject(Store);
@@ -130,6 +130,8 @@ export default class Index implements OnInit {
 				this.coverImageBusinessProfileComponent.save(),
 				// Save logo
 				this.logoBusinessProfileComponent.save(),
+				// Save gallery
+				this.galleryBusinessProfileComponent.save(),
 				// Save data
 				this.updateClientApiAdapter.executeAsync(value),
 			]);

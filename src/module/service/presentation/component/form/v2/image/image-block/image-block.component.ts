@@ -1,4 +1,4 @@
-import {Component, inject, Input} from '@angular/core';
+import {Component, inject, Input, ViewChild} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
@@ -29,6 +29,9 @@ export class ImageBlockComponent {
 	@Input()
 	public mediaId: string | undefined;
 
+	@ViewChild(ServiceFormImageComponent)
+	public serviceFormImageComponent!: ServiceFormImageComponent;
+
 	public readonly toggleInfo = new BooleanState(true);
 
 	public readonly control = new FormControl();
@@ -37,6 +40,10 @@ export class ImageBlockComponent {
 	public readonly patchBannerServiceApiAdapter = inject(PatchBannerServiceApiAdapter);
 
 	public async save(serviceId?: string | undefined): Promise<void> {
+
+		if (this.serviceFormImageComponent.mediaIsChanged.isOff) {
+			return;
+		}
 
 		const body: {
 			media: string;
@@ -49,11 +56,8 @@ export class ImageBlockComponent {
 			body._id = this.mediaId;
 		}
 
-		await this.patchBannerServiceApiAdapter.executeAsync(serviceId ?? this.serviceId, body);
-		if (this.mediaId) {
-			// TODO: Add adapter for delete banner
-			await this.srcByMediaIdService.delete(this.mediaId);
-		}
+		const {_id, media} = await this.patchBannerServiceApiAdapter.executeAsync(serviceId ?? this.serviceId, body);
+		await this.srcByMediaIdService.set(_id, media);
 
 	}
 

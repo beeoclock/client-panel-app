@@ -41,7 +41,6 @@ export class BaseImageComponent implements OnInit {
 			if (base64?.length) {
 				this.previewImage.nativeElement.src = base64;
 				this.previewImage.nativeElement.classList.remove('hidden');
-				this.mediaIsChanged.switchOn();
 			}
 		});
 	}
@@ -82,6 +81,7 @@ export class BaseImageComponent implements OnInit {
 		try {
 
 			const base64 = await file2base64(file);
+			this.mediaIsChanged.switchOn();
 			this.control.patchValue(base64);
 
 		} catch (e) {

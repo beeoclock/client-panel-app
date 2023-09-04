@@ -55,11 +55,8 @@ export class LogoBusinessProfileComponent {
 			body._id = this.mediaId;
 		}
 
-		await this.patchMediaLogoClientApiAdapter.executeAsync(body);
-		if (this.mediaId) {
-			// TODO: Add adapter for delete banner
-			await this.srcByMediaIdService.delete(this.mediaId);
-		}
+		const {_id, media} = await this.patchMediaLogoClientApiAdapter.executeAsync(body);
+		await this.srcByMediaIdService.set(_id, media);
 
 		this.imageLogoBusinessProfileComponent.mediaIsChanged.switchOff();
 
