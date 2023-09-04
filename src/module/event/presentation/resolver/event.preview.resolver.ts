@@ -10,7 +10,6 @@ export const eventPreviewResolver: ResolveFn<IEvent | undefined> = (
 
   const formRepository = inject(FormRepository);
   const data = formRepository.form.getRawValue() as IEvent;
-  console.log(data, formRepository.form.invalid);
 
   if (!data || formRepository.form.invalid) {
     return undefined;

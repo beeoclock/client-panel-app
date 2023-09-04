@@ -12,9 +12,9 @@
 		<client-image-gallery-business-profile-component
 			class="col-span-2 md:col-span-1"
 			*ngFor="let control of form.controls.images.controls; let index = index;"
-			(remove)="form.removeImage(index)"
+			(remove)="removeImage(index)"
+			[mediaId]="getMediaId(index)"
 			[showHit]="toggleInfo.isOn"
-			[mediaId]="gallery[index]"
 			[index]="index"
 			[control]="control"/>
 	</div>

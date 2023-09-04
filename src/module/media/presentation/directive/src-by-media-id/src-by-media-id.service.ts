@@ -42,7 +42,7 @@ export class SrcByMediaIdService {
 
 		// Get from API
 
-		const {media} = await this.itemMediaApiAdapter.executeAsync(key);
+		const {media} = await this.itemMediaApiAdapter.executeAsync(key) ?? {};
 
 		if (media) {
 

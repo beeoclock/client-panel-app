@@ -11,7 +11,7 @@ import {
 } from "@angular/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {GalleryForm} from "@client/presentation/form/gallery.form";
 import {BooleanState} from "@utility/domain";
 import {
@@ -21,6 +21,9 @@ import {SrcByMediaIdService} from "@module/media/presentation/directive/src-by-m
 import {
 	PatchMediaGalleryClientApiAdapter
 } from "@client/adapter/external/api/media/gallery/patch.media.gallery.client.api.adapter";
+import {
+	DeleteMediaGalleryClientApiAdapter
+} from "@client/adapter/external/api/media/gallery/delete.media.gallery.client.api.adapter";
 
 @Component({
 	selector: 'client-gallery-business-profile-component',
@@ -29,7 +32,8 @@ import {
 		CardComponent,
 		TranslateModule,
 		ImageGalleryBusinessProfileComponent,
-		NgForOf
+		NgForOf,
+		NgIf
 	],
 	standalone: true,
 	templateUrl: 'gallery.business-profile.component.html'
@@ -49,6 +53,9 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 
 	public readonly srcByMediaIdService = inject(SrcByMediaIdService);
 	public readonly patchMediaGalleryClientApiAdapter = inject(PatchMediaGalleryClientApiAdapter);
+	public readonly deleteMediaGalleryClientApiAdapter = inject(DeleteMediaGalleryClientApiAdapter);
+
+	public readonly removedImages = new Set<string>();
 
 	public ngOnChanges(changes: SimpleChanges & { gallery: SimpleChange }): void {
 
@@ -74,14 +81,26 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 
 	public async save(): Promise<void> {
 
-		for (const indexStr in this.imageGalleryBusinessProfileComponents.toArray()) {
+		// TODO add service for the job and keep order/queue (first delete then add it is important)
+		for (const mediaId of this.removedImages.values()) {
 
-			const index = +indexStr;
+			// REMOVE IMAGE
+			await this.deleteMediaGalleryClientApiAdapter.executeAsync(mediaId);
+			await this.srcByMediaIdService.delete(mediaId);
+			this.gallery = this.gallery.filter((item) => item !== mediaId);
+			this.removedImages.delete(mediaId);
+
+		}
+
+		for (let index = 0; index < this.imageGalleryBusinessProfileComponents.toArray().length; index++) {
+
 			const item = this.imageGalleryBusinessProfileComponents.get(index);
 
 			if (!item) {
 				continue;
 			}
+
+			const mediaId = this.gallery[index];
 
 			if (item.mediaIsChanged.isOff) {
 				continue;
@@ -94,11 +113,13 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 				media: item.control.value,
 			};
 
-			if (this.gallery[index]) {
-				body._id = this.gallery[index];
+			if (mediaId) {
+				body._id = mediaId;
 			}
 
 			const {_id, media} = await this.patchMediaGalleryClientApiAdapter.executeAsync(body);
+			this.gallery = [...this.gallery];
+			this.gallery[index] = _id;
 			await this.srcByMediaIdService.set(_id, media);
 
 			item.mediaIsChanged.switchOff();
@@ -107,5 +128,15 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 
 	}
 
+	public removeImage(index: number): void {
+		if (this.gallery[index]) {
+			this.removedImages.add(this.gallery[index]);
+			this.gallery = this.gallery.filter((item, itemIndex) => itemIndex !== index);
+		}
+		this.form.removeImage(index);
+	}
 
+	public getMediaId(index: number): string | undefined {
+		return this.gallery[index];
+	}
 }
