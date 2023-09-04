@@ -1,14 +1,11 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActiveEnum} from '@utility/domain/enum/active.enum';
-import {file2base64} from "@utility/domain/file2base64";
 import {SocialNetworksForm} from "@client/presentation/form/social-network.form";
-import {extractFile} from "@utility/domain/extract-file";
 import {FacilityEnum} from "@utility/domain/enum/facility.enum";
 import {BookingSettingsForm} from "@client/presentation/form/booking-settings.form";
 import {AddressesForm} from "@client/presentation/form/address.form";
 import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
 import {ContactsForm} from "@client/presentation/form/contact.form";
-import {GalleryForm} from "@client/presentation/form/gallery.form";
 import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
 
 
@@ -16,7 +13,7 @@ export interface IBusinessProfile {
   _id: FormControl<string>;
   object: FormControl<'Client'>;
 
-  logo: FormControl<string>;
+  // logo: FormControl<string>;
   name: FormControl<string>;
   businessCategory: FormControl<BusinessCategoryEnum>;
   feature: FormControl<string>;
@@ -31,9 +28,9 @@ export interface IBusinessProfile {
   addresses: AddressesForm;
   schedules: SchedulesForm;
   contacts: ContactsForm;
-  gallery: GalleryForm;
+  // gallery: GalleryForm;
 
-  banner: FormControl<string>;
+  // banner: FormControl<string>;
   facilities: FormControl<FacilityEnum[]>;
 
   [key: string]: AbstractControl<any, any>;
@@ -46,7 +43,7 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
       _id: new FormControl(),
       object: new FormControl(),
 
-      logo: new FormControl(),
+      // logo: new FormControl(),
       name: new FormControl(),
       businessCategory: new FormControl(),
       feature: new FormControl(),
@@ -57,12 +54,12 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
       socialNetworkLinks: new SocialNetworksForm(),
 
       bookingSettings: new BookingSettingsForm(),
-      banner: new FormControl(),
+      // banner: new FormControl(),
       facilities: new FormControl(),
       addresses: new AddressesForm(),
       schedules: new SchedulesForm(),
       contacts: new ContactsForm(),
-      gallery: new GalleryForm(),
+      // gallery: new GalleryForm(),
     });
 
     this.initValidators();
@@ -91,8 +88,8 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
     this.controls.description.setValidators([Validators.maxLength(1000)]);
   }
 
-  public async setLogo(target: HTMLInputElement): Promise<void> {
-    const base64 = await file2base64(extractFile(target));
-    this.controls.logo.patchValue(base64);
-  }
+  // public async setLogo(target: HTMLInputElement): Promise<void> {
+  //   const base64 = await file2base64(extractFile(target));
+  //   this.controls.logo.patchValue(base64);
+  // }
 }

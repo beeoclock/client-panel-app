@@ -1,38 +1,43 @@
 import {inject, Injectable} from "@angular/core";
-import {Action, State, StateContext} from "@ngxs/store";
+import {Action, Selector, State, StateContext} from "@ngxs/store";
 import * as Client from "@client/domain";
 import {ClientActions} from "@client/state/client/client.actions";
 import {ItemClientApiAdapter} from "@client/adapter/external/api/item.client.api.adapter";
 import {AppActions} from "@utility/state/app/app.actions";
 
 interface IClientState {
-  item: Client.IClient | undefined;
+	item: Client.IClient | undefined;
 }
 
 @State<IClientState>({
-  name: 'client',
-  defaults: {
-    item: undefined
-  }
+	name: 'client',
+	defaults: {
+		item: undefined
+	}
 })
 @Injectable()
 export class ClientState {
 
-  public readonly itemClientApiAdapter = inject(ItemClientApiAdapter);
+	@Selector()
+	public static item(state: IClientState): Client.IClient | undefined {
+		return state.item;
+	}
 
-  @Action(ClientActions.GetItem)
-  public async getItem(ctx: StateContext<IClientState>): Promise<void> {
+	public readonly itemClientApiAdapter = inject(ItemClientApiAdapter);
 
-    ctx.dispatch(new AppActions.PageLoading(true));
+	@Action(ClientActions.GetItem)
+	public async getItem(ctx: StateContext<IClientState>): Promise<void> {
 
-    const item = await this.itemClientApiAdapter.executeAsync();
-    ctx.patchState({
-      item
-    })
+		ctx.dispatch(new AppActions.PageLoading(true));
 
-    ctx.dispatch(new AppActions.PageLoading(false));
+		const item = await this.itemClientApiAdapter.executeAsync();
+		ctx.patchState({
+			item
+		})
 
-  }
+		ctx.dispatch(new AppActions.PageLoading(false));
+
+	}
 
 
 }

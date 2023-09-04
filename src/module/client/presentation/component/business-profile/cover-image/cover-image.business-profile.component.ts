@@ -1,4 +1,4 @@
-import {Component, Input, ViewEncapsulation} from "@angular/core";
+import {Component, inject, Input, ViewEncapsulation} from "@angular/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {FormControl} from "@angular/forms";
@@ -9,6 +9,10 @@ import {PlaceholderImageComponent} from "@utility/presentation/component/image/p
 import {
 	ImageCoverImageBusinessProfileComponent
 } from "@client/presentation/component/business-profile/cover-image/image.cover-image.business-profile/image.cover-image.business-profile.component";
+import {SrcByMediaIdService} from "@module/media/presentation/directive/src-by-media-id/src-by-media-id.service";
+import {
+	PatchMediaBannersClientApiAdapter
+} from "@client/adapter/external/api/media/banners/patch.media.banners.client.api.adapter";
 
 @Component({
 	selector: 'client-cover-image-business-profile-component',
@@ -30,5 +34,32 @@ export class CoverImageBusinessProfileComponent {
 	public control = new FormControl();
 
 	public readonly toggleInfo = new BooleanState(true);
+
+	@Input()
+	public mediaId: string | undefined;
+
+	public readonly srcByMediaIdService = inject(SrcByMediaIdService);
+	public readonly patchMediaBannersClientApiAdapter = inject(PatchMediaBannersClientApiAdapter);
+
+	public async save(): Promise<void> {
+
+		const body: {
+			media: string;
+			_id?: string;
+		} = {
+			media: this.control.value,
+		};
+
+		if (this.mediaId) {
+			body._id = this.mediaId;
+		}
+
+		await this.patchMediaBannersClientApiAdapter.executeAsync(body);
+		if (this.mediaId) {
+			// TODO: Add adapter for delete banner
+			await this.srcByMediaIdService.delete(this.mediaId);
+		}
+
+	}
 
 }

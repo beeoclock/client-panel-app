@@ -11,20 +11,20 @@ import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum"
 
 
 export interface IClient extends RIBaseEntity {
-  object: 'Client';
-  active: ActiveEnum;
-  name: string;
-  logo: string;
-  feature: string;
-  businessCategory: BusinessCategoryEnum;
-  socialNetworkLinks: ISocialNetworkLink[];
+	object: 'Client';
+	active: ActiveEnum;
+	name: string;
+	logo: string;
+	feature: string;
+	businessCategory: BusinessCategoryEnum;
+	socialNetworkLinks: ISocialNetworkLink[];
 
-  banner: string;
-  bookingSettings: IBookingSettings;
-  addresses: IAddress[];
-  schedules: ISchedule[];
-  contacts: IContact[];
-  gallery: IGallery;
-  description: string;
-  facilities: FacilityEnum[];
+	banners: string[];
+	bookingSettings: IBookingSettings;
+	addresses: IAddress[];
+	schedules: ISchedule[];
+	contacts: IContact[];
+	gallery: IGallery;
+	description: string;
+	facilities: FacilityEnum[];
 }

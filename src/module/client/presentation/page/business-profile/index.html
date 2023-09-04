@@ -14,13 +14,11 @@
       [schedulesForm]="form.controls.schedules"/>
 
     <client-cover-image-business-profile-component
-      [control]="form.controls.banner"/>
+			[mediaId]="(item$ | async)?.banners?.[0]"/>
 
-    <client-logo-business-profile-component
-      [control]="form.controls.logo"/>
+    <client-logo-business-profile-component/>
 
-    <client-gallery-business-profile-component
-      [form]="form.controls.gallery"/>
+    <client-gallery-business-profile-component/>
 
     <client-business-profile-contact-phone-component
       [form]="form.controls.contacts"/>

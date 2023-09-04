@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import {BusinessProfileForm} from "@client/presentation/form/business-profile.form";
 import {TranslateModule} from "@ngx-translate/core";
@@ -11,12 +11,12 @@ import {
 import {
 	LogoBusinessProfileComponent
 } from "@client/presentation/component/business-profile/logo/logo.business-profile.component";
-import {Store} from "@ngxs/store";
+import {Select, Store} from "@ngxs/store";
 import * as Client from "@client/domain";
 import {IClient} from "@client/domain";
 import {UpdateClientApiAdapter} from "@client/adapter/external/api/update.client.api.adapter";
 import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
-import {NgForOf} from "@angular/common";
+import {AsyncPipe, NgForOf} from "@angular/common";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {
 	AddressBusinessProfileComponent
@@ -40,78 +40,97 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 import {
 	GalleryBusinessProfileComponent
 } from "@client/presentation/component/business-profile/gallery/gallery.business-profile/gallery.business-profile.component";
+import {ClientState} from "@client/state/client/client.state";
+import {filter, Observable} from "rxjs";
 
 @Component({
-  selector: 'client-business-profile-page',
-  templateUrl: 'index.html',
-  encapsulation: ViewEncapsulation.None,
-  imports: [
-    FormBusinessProfileComponent,
-    ReactiveFormsModule,
-    TranslateModule,
-    CoverImageBusinessProfileComponent,
-    LogoBusinessProfileComponent,
-    SwitchActiveBlockComponent,
-    NgForOf,
-    CardComponent,
-    AddressBusinessProfileComponent,
-    GalleryBusinessProfileComponent,
-    SchedulesFormComponent,
-    BusinessProfileContactPhoneComponent,
-    BusinessProfileSocialMediaComponent,
-    FacilitiesBusinessProfileComponent,
-    BookingSettingsBusinessProfileComponent,
-    PrimaryButtonDirective
-  ],
-  standalone: true
+	selector: 'client-business-profile-page',
+	templateUrl: 'index.html',
+	encapsulation: ViewEncapsulation.None,
+	imports: [
+		FormBusinessProfileComponent,
+		ReactiveFormsModule,
+		TranslateModule,
+		CoverImageBusinessProfileComponent,
+		LogoBusinessProfileComponent,
+		SwitchActiveBlockComponent,
+		NgForOf,
+		CardComponent,
+		AddressBusinessProfileComponent,
+		GalleryBusinessProfileComponent,
+		SchedulesFormComponent,
+		BusinessProfileContactPhoneComponent,
+		BusinessProfileSocialMediaComponent,
+		FacilitiesBusinessProfileComponent,
+		BookingSettingsBusinessProfileComponent,
+		PrimaryButtonDirective,
+		AsyncPipe
+	],
+	standalone: true
 })
-export default class Index {
+export default class Index implements OnInit {
 
-  public readonly form = new BusinessProfileForm();
-  public readonly store = inject(Store);
-  public readonly updateClientApiAdapter = inject(UpdateClientApiAdapter);
+	@ViewChild(CoverImageBusinessProfileComponent)
+	public readonly coverImageBusinessProfileComponent!: CoverImageBusinessProfileComponent;
 
-  constructor() {
-    // Init data
-    const item: Client.IClient = this.store.snapshot().client.item;
+	public readonly form = new BusinessProfileForm();
+	public readonly store = inject(Store);
+	public readonly updateClientApiAdapter = inject(UpdateClientApiAdapter);
 
-    const {socialNetworkLinks, schedules, contacts, ...data} = item;
-    this.form.patchValue(data);
+	@Select(ClientState.item)
+	public readonly item$!: Observable<Client.IClient>;
 
-    if (socialNetworkLinks?.length) {
-      this.form.controls.socialNetworkLinks.clear();
-      socialNetworkLinks.forEach((socialNetworkLink) => {
-        this.form.controls.socialNetworkLinks.pushNewOne(socialNetworkLink);
-      });
-    }
+	public ngOnInit(): void {
 
-    if (schedules?.length) {
-      this.form.controls.schedules.clear();
-      schedules.forEach((schedule) => {
-        this.form.controls.schedules.pushNewOne(schedule as RISchedule);
-      });
-    }
+		this.item$.pipe(
+			filter(Boolean)
+		).subscribe((item) => {
 
-    if (contacts?.length) {
-      this.form.controls.contacts.clear();
-      contacts.forEach((contact) => {
-        this.form.controls.contacts.pushNewOne(contact);
-      });
-    }
+			const {socialNetworkLinks, schedules, contacts, ...data} = item;
+			this.form.patchValue(data);
 
-  }
+			if (socialNetworkLinks?.length) {
+				this.form.controls.socialNetworkLinks.clear();
+				socialNetworkLinks.forEach((socialNetworkLink) => {
+					this.form.controls.socialNetworkLinks.pushNewOne(socialNetworkLink);
+				});
+			}
 
-  // Save data
-  public async save(): Promise<void> {
-    this.form.markAllAsTouched();
-    if (this.form.valid) {
-      this.store.dispatch(new AppActions.PageLoading(true));
-      const value = this.form.getRawValue() as IClient;
-      this.form.disable();
-      await this.updateClientApiAdapter.executeAsync(value);
-      this.store.dispatch(new AppActions.PageLoading(false));
-      this.form.enable();
-    }
-  }
+			if (schedules?.length) {
+				this.form.controls.schedules.clear();
+				schedules.forEach((schedule) => {
+					this.form.controls.schedules.pushNewOne(schedule as RISchedule);
+				});
+			}
+
+			if (contacts?.length) {
+				this.form.controls.contacts.clear();
+				contacts.forEach((contact) => {
+					this.form.controls.contacts.pushNewOne(contact);
+				});
+			}
+
+		});
+
+	}
+
+	// Save data
+	public async save(): Promise<void> {
+		this.form.markAllAsTouched();
+		if (this.form.valid) {
+			this.store.dispatch(new AppActions.PageLoading(true));
+			const value = this.form.getRawValue() as IClient;
+			this.form.disable();
+
+			// Save cover image
+			await this.coverImageBusinessProfileComponent.save();
+
+			// Save data
+			await this.updateClientApiAdapter.executeAsync(value);
+
+			this.store.dispatch(new AppActions.PageLoading(false));
+			this.form.enable();
+		}
+	}
 
 }

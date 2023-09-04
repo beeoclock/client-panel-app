@@ -55,7 +55,6 @@ export class ImageBlockComponent {
 			await this.srcByMediaIdService.delete(this.mediaId);
 		}
 
-
 	}
 
 }
