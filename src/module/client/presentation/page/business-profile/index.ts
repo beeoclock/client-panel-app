@@ -124,6 +124,7 @@ export default class Index implements OnInit {
 			this.store.dispatch(new AppActions.PageLoading(true));
 			const value = this.form.getRawValue() as IClient;
 			this.form.disable();
+			this.form.markAsPending();
 
 			await Promise.all([
 				// Save cover image
@@ -138,6 +139,7 @@ export default class Index implements OnInit {
 
 			this.store.dispatch(new AppActions.PageLoading(false));
 			this.form.enable();
+			this.form.updateValueAndValidity();
 		}
 	}
 
