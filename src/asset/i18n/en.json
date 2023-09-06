@@ -1,636 +1,637 @@
 {
-  "country": {
-    "UA": "Ukraine"
-  },
-  "theme": {
-    "light": "Light",
-    "dark": "Dark"
-  },
-  "latestBooking": {
-    "NO_LIMIT": "Any available time",
-    "TWO_WEEKS": "This week and next week",
-    "THREE_WEEKS": "Within 3 weeks",
-    "FOUR_WEEKS": "Within 4 weeks",
-    "FIVE_WEEKS": "Within 5 weeks",
-    "SIX_WEEKS": "Within 6 weeks",
-    "SEVEN_WEEKS": "Within 7 weeks",
-    "EIGHT_WEEKS": "Within 8 weeks"
-  },
-  "earliestBooking": {
-    "NO_LIMIT": "No earliest booking time",
-    "MINUTE_15": "In 15 minutes",
-    "MINUTE_30": "In 30 minutes",
-    "ONE_HOUR": "In 1 hour",
-    "TWO_HOURS": "In 2 hours",
-    "THREE_HOURS": "In 3 hours",
-    "FOUR_HOURS": "In 4 hours",
-    "FIVE_HOURS": "In 5 hours",
-    "SIX_HOURS": "In 6 hours",
-    "ONE_DAY": "In 1 day",
-    "THREE_DAYS": "In 3 days",
-    "ONE_WEEK": "In 1 week"
-  },
-  "approvalTime": {
-    "FIVE_MINUTES": "5 minutes",
-    "TEN_MINUTES": "10 minutes",
-    "FIFTEEN_MINUTES": "15 minutes",
-    "TWENTY_MINUTES": "20 minutes",
-    "THIRTY_MINUTES": "30 minutes",
-    "FORTY_FIVE_MINUTES": "45 minutes",
-    "ONE_HOUR": "1 hour",
-    "TWO_HOURS": "2 hours",
-    "THREE_HOURS": "3 hours",
-    "FOUR_HOURS": "4 hours",
-    "FIVE_HOURS": "5 hours",
-    "SIX_HOURS": "6 hours",
-    "SEVEN_HOURS": "7 hours",
-    "EIGHT_HOURS": "8 hours",
-    "ONE_DAY": "1 day"
-  },
-  "businessCategory": {
-    "BeautySalon":  "Beauty salon",
-    "Barbershop": "Barbershop",
-    "Hairdresser":  "Hairdresser",
-    "OnlineConsultation": "Online consultation",
-    "OnlineTeaching":  "Online teaching",
-    "Dentistry": "Dentistry"
-  },
-  "facility": {
-    "capitalize": {
-      "INTERNET": "Internet (Wi-Fi)",
-      "FREE_PARKING": "Free Parking",
-      "ACCEPTING_PETS": "Pets allowed",
-      "ACCEPTING_CARD_PAYMENT": "Accepting credit cards",
-      "ACCEPTING_CHILDREN": "Child-friendly",
-      "ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Accommodations for people with disabilities"
-    }
-  },
-  "form": {
-    "validation": {
-      "required": "Required field",
-      "email": "Invalid E-mail format",
-      "minlength": "Minimum length is {{requiredLength}}"
-    }
-  },
-  "sign-out": {
-    "title": "Sign out",
-    "button": {
-      "sign-out": {
-        "label": "Sign out now"
-      }
-    }
-  },
-  "danger-zone": {
-    "title": "Danger zone",
-    "hint": {
-      "message": "Delete business account. After deleting the business account, there is no going back. Please consider this action carefully."
-    },
-    "button": {
-      "delete": {
-        "label": "Delete business account"
-      }
-    }
-  },
-  "change-name": {
-    "modal": {
-      "title": "Change name"
-    },
-    "form": {
-      "input": {
-        "name": {
-          "placeholder": "Your full name"
-        }
-      }
-    }
-  },
-  "change-phone-number": {
-    "modal": {
-      "title": "Change phone number"
-    },
-    "form": {
-      "input": {
-        "phoneNumber": {
-          "placeholder": "Your phone number"
-        }
-      }
-    }
-  },
-  "keyword": {
-    "capitalize": {
-      "preview": "Preview",
-      "create": "Create",
-      "processing": "Processing",
-      "chooseImage": "Choose image",
-      "services": "Services",
-      "events": "Events",
-      "event": "Event",
-      "language": "Language",
-      "fullName": "Full name",
-      "save": "Save",
-      "close": "Close",
-      "dismiss": "Dismiss",
-      "yes": "Yes",
-      "no": "No",
-      "account": "Account",
-      "general": "General",
-      "send": "Send",
-      "signOut": "Sign out",
-      "signIn": "Sign in",
-      "signUp": "Sign up",
-      "facilities": "Facilities",
-      "writePrice": "Write price",
-      "add-event": "Add event",
-      "customer": "Customer",
-      "confirm": "Confirm",
-      "cancel": "Cancel",
-      "specialist": "Specialist",
-      "select": "Select",
-      "selected": "Selected",
-      "attendees": "Attendees",
-      "start": "Start",
-      "end": "End",
-      "service": "Service",
-      "createdAt": "Created at",
-      "updatedAt": "Updated at",
-      "duration": "Duration",
-      "price": "Price",
-      "dateAndTime": "Date and time",
-      "note": "Note",
-      "unknown": "Unknown",
-      "approve": "Approve",
-      "done": "Done",
-      "email": "E-mail",
-      "phone": "Phone",
-      "active": "Active",
-      "inactive": "Inactive",
-      "slogan": "Slogan",
-      "address": "Address",
-      "feature": "Feature",
-      "contactPhone": "Contact phone",
-      "socialMedia": "Social media",
-      "businessName": "Business name",
-      "workingHours": "Working hours",
-      "addAvailableHours": "Add available hours",
-      "addSocialMedia": "Add social media",
-      "addContactPhone": "Add phone number",
-      "workdays": "Workdays",
-      "country": "Country",
-      "city": "City",
-      "zipCode": "Zip code",
-      "streetAddressLineOne": "Address 1",
-      "streetAddressLineTwo": "Address 2",
-      "businessCategory": "Business category",
-      "clickToUpload": "Click to upload",
-      "add-service": "Add service",
-      "bookingSettings": "Booking settings",
-      "earliestBooking": "Earliest booking time",
-      "latestBooking": "When an event can be booked",
-      "approvalTime": "Approval time",
-      "comingSoon": "Coming soon...",
-      "selectSpecialist": "Select specialist",
-      "menu": "Menu",
-      "total": "Total",
-      "next": "Next",
-      "previous": "Previous",
-      "lastUpdate": "Last update",
-      "clearCache": "Refresh cache",
-      "image": "Image",
-      "specialists": "Specialists",
-      "prices": "Prices",
-      "today": "Today",
-      "tomorrow": "Tomorrow",
-      "logout": "Logout",
-      "back": "Back",
-      "clients": "Clients",
-      "firstName": "First name",
-      "lastName": "Last name",
-      "description": "Description",
-      "title": "Title",
-      "name": "Name",
-      "break": "Break",
-      "action": "Action",
-      "details": "Details",
-      "delete": "Delete",
-      "update": "Updated",
-      "edit": "Edit",
-      "information": "Information",
-      "additional": "Additional",
-      "contact": "Contact",
-      "languages": "Languages",
-      "members": "Members",
-      "soon": "Soon",
-      "role": "Role",
-      "permission": "Permission",
-      "publicPage": "Public page",
-      "priceTimeFormatPrompt": "hours:minutes",
-      "placeholder": {
-        "description": "Type description",
-        "search": "Search"
-      }
-    },
-    "lowercase": {
-      "or": "or",
-      "dragAndDrop": "drag and drop"
-    }
-  },
-  "sidebar": {
-    "dashboard": "Dashboard",
-    "members": "Members",
-    "customers": "Customers",
-    "services": "Services",
-    "events": "Events",
-    "calendar": "Calendar",
-    "table": "Table",
-    "addEvent": "Add event",
-    "private": "Private",
-    "settings": "Settings",
-    "businessProfile": "Business profile",
-    "switch-business-client": "Change context"
-  },
-  "page": {
-    "calendar": {
-      "title": "Calendar"
-    },
-    "select-client": {
-      "title": "Select client",
-      "form": {
-        "button": {
-          "submit": "Select"
-        }
-      },
-      "button": {
-        "create-new-client": "Create a new client"
-      }
-    }
-  },
-  "service": {
-    "title": "Service",
-    "keyword": {
-      "capitalize": {
-        "active": "Active",
-        "inactive": "Inactive"
-      }
-    },
-    "form": {
-      "v2": {
-        "section": {
-          "presentation": {
-            "motivate": "You can inject a little more personality into your services and help people recognize your work by uploading a \n image (an image, photo or other graphic icon of your service)."
-          },
-          "prices": {
-            "button": {
-              "add": {
-                "label": "Add price"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "customer": {
-    "title": "Customer",
-    "button": {
-      "create": "Add customer"
-    },
-    "form": {
-      "input": {
-        "note": {
-          "placeholder": "Here you can enter additional information about the customer"
-        }
-      }
-    }
-  },
-  "member": {
-    "title": "Member",
-    "button": {
-      "create": "Add member"
-    }
-  },
-  "event": {
-    "title": "Event",
-    "form": {
-      "section": {
-        "additional": {
-          "input": {
-            "note": {
-              "placeholder": "Here you can enter additional information about the event"
-            }
-          }
-        },
-        "attendant": {
-          "button": {
-            "add": "Add attendant",
-            "togglePresentationOfNewAttendant": "This client is not listed (new client)"
-          },
-          "input": {
-            "selectCustomer": {
-              "placeholder": "Select customer"
-            }
-          }
-        },
-        "service": {
-          "modal": {
-            "title": "Select service"
-          },
-          "input": {
-            "selectService": {
-              "placeholder": "Select service"
-            }
-          },
-          "button": {
-            "add": "Add service",
-            "select": "Select service"
-          }
-        }
-      }
-    },
-    "keyword": {
-      "status": {
-        "requested": "Requested",
-        "cancelled": "Canceled",
-        "done": "Done",
-        "booked": "Booked"
-      },
-      "capitalize": {
-        "start": "Booking Start",
-        "end": "Estimated End",
-        "service": "Service",
-        "status": "Status",
-        "repeat": "Repeat"
-      }
-    }
-  },
-  "client": {
-    "settings": {
-      "title": "Settings",
-      "form": {
-        "inputs": {
-          "darkMode": {
-            "label": "Dark mode"
-          }
-        }
-      },
-      "defaultData": {
-        "event": {
-          "title": "Default data of event",
-          "form": {
-            "inputs": {
-              "language": {
-                "label": "Default event language"
-              },
-              "service": {
-                "label": "Default event service (top service)"
-              }
-            }
-          }
-        },
-        "service": {
-          "title": "Default data of service",
-          "form": {
-            "inputs": {
-              "duration": {
-                "label": "Default service duration"
-              },
-              "language": {
-                "label": "Default service language"
-              },
-              "workDays": {
-                "label": "Default service work days"
-              },
-              "break": {
-                "label": "Default service break"
-              },
-              "startWork": {
-                "label": "Default service start to work"
-              },
-              "endWork": {
-                "label": "Default service end to work"
-              },
-              "price": {
-                "label": "Default service price"
-              }
-            }
-          }
-        }
-      }
-    },
-    "profile": {
-      "title": "Profile",
-      "form": {
-        "section": {
-          "coverImage": {
-            "title": "Cover image",
-            "motivate": "You can inject a little more personality into your profile and help people recognize your work by uploading a \n image (an image, photo or other graphic icon of your business).",
-            "fileover": "Put your files here"
-          },
-          "logo": {
-            "title": "Logo",
-            "formats": "Allowed types: SVG, PNG, JPG or GIF",
-            "motivate": "You can inject a little more personality into your business profile and help people recognize you by uploading a logo (an image, photo or other graphic icon of \"you\").",
-            "fileover": "Put your files here"
-          },
-          "gallery": {
-            "title": "Gallery",
-            "comment": "Upload images that demonstrate your work from the best side. Images must be 1800px wide by 900px high and in JPEG or PNG format. You may upload up to 6 images."
-          },
-          "address": {
-            "title": "Address",
-            "input": {
-              "streetAddressLineOne": {
-                "placeholder": "Street, avn., boulevard, etc. name"
-              },
-              "streetAddressLineTwo": {
-                "placeholder": "Office, house, etc. number"
-              },
-              "zipCode": {
-                "placeholder": "Your zip-code"
-              },
-              "city": {
-                "placeholder": "Your city"
-              },
-              "country": {
-                "placeholder": "Your country"
-              }
-            }
-          },
-          "bookingSettings": {
-            "input": {
-              "earliestBooking": {
-                "placeholder": "That is the shortest time after which it is possible to book a service"
-              },
-              "latestBooking": {
-                "placeholder": "Set of period of rolling weeks people can book in your calendar"
-              },
-              "approvalTime": {
-                "placeholder": "Time after which the requested event will be canceled, if not approved"
-              }
-            }
-          }
-        },
-        "inputs": {
-          "name": {
-            "label": "Business name",
-            "placeholder": "Type Company or Personal name"
-          },
-          "description": {
-            "label": "Business description",
-            "placeholder": "Shortly describe what you do"
-          },
-          "active": {
-            "label": "Active",
-            "placeholder": "Switch on if you want to be active"
-          },
-          "feature": {
-            "label": "Feature",
-            "placeholder": "Enter catching phrase"
-          }
-        }
-      }
-    }
-  },
-  "identity": {
-    "corridor": {
-      "addBusiness": "Create new Business",
-      "selectBusiness": "Select Business context"
-    },
-    "create-business": {
-      "form": {
-        "inputs": {
-          "name": {
-            "label": "Name"
-          },
-          "address": {
-            "label": "Address"
-          },
-          "slogan": {
-            "label": "Slogan"
-          }
-        }
-      }
-    },
-    "reset-password": {
-      "form": {
-        "label": "Reset password",
-        "inputs": {
-          "password": {
-            "label": "Password",
-            "placeholder": "Enter password"
-          }
-        },
-        "button": {
-          "submit": "Change password",
-          "sign-in": "Login"
-        }
-      }
-    },
-    "forgot-password": {
-      "form": {
-        "label": "Password recovery",
-        "inputs": {
-          "email": {
-            "label": "E-mail",
-            "placeholder": "Enter E-mail"
-          }
-        },
-        "button": {
-          "submit": "Send",
-          "sign-in": "Login"
-        }
-      }
-    },
-    "sign-in": {
-      "hint": {
-        "notAMember": "Not a member yet?",
-        "signInToYourAccount": "Sign in to your account"
-      },
-      "link": {
-        "forgotPassword": "Forgot password?"
-      },
-      "form": {
-        "label": "Login",
-        "inputs": {
-          "email": {
-            "label": "E-mail",
-            "placeholder": "name.surname@beeoclock.com"
-          },
-          "password": {
-            "label": "Password",
-            "placeholder": "Enter password"
-          }
-        },
-        "button": {
-          "forgot-password": "Forgot password",
-          "submit": "Login",
-          "sign-up": "Registration"
-        }
-      }
-    },
-    "sign-up": {
-      "hint": {
-        "youHaveAnAccount": "You have an account?"
-      },
-      "form": {
-        "label": "Registration",
-        "inputs": {
-          "display-name": {
-            "label": "How should everyone call you",
-            "placeholder": "e.g. Company name, Personal name"
-          },
-          "email": {
-            "label": "E-mail",
-            "placeholder": "Enter text"
-          },
-          "password": {
-            "label": "Password",
-            "placeholder": "Enter password"
-          },
-          "password-confirm": {
-            "label": "Password confirm",
-            "placeholder": "Enter password confirm"
-          },
-          "timezone": {
-            "inputs": {
-              "offset": {
-                "label": "Password confirm",
-                "placeholder": "Enter password confirm"
-              }
-            }
-          }
-        },
-        "button": {
-          "sign-in": "Login",
-          "submit": "Registration"
-        }
-      }
-    }
-  },
-  "http": {
-    "response": {
-      "status": {
-        "504": {
-          "title": "Server Error",
-          "content": "Check internet or try again later."
-        }
-      }
-    },
-    "DELETE": {
-      "/api/v1/service/{id}": {
-        "before": {
-          "accept": {
-            "header": "Deleting a service",
-            "message": "Are you sure you want to remove the service?"
-          }
-        }
-      },
-      "/api/v1/customer/{id}": {
-        "before": {
-          "accept": {
-            "header": "Deleting a customer",
-            "message": "Are you sure you want to remove the customer?"
-          }
-        }
-      }
-    }
-  }
+	"approvalTime": {
+		"EIGHT_HOURS": "8 hours",
+		"FIFTEEN_MINUTES": "15 minutes",
+		"FIVE_HOURS": "5 hours",
+		"FIVE_MINUTES": "5 minutes",
+		"FORTY_FIVE_MINUTES": "45 minutes",
+		"FOUR_HOURS": "4 hours",
+		"ONE_DAY": "1 day",
+		"ONE_HOUR": "1 hour",
+		"SEVEN_HOURS": "7 hours",
+		"SIX_HOURS": "6 hours",
+		"TEN_MINUTES": "10 minutes",
+		"THIRTY_MINUTES": "30 minutes",
+		"THREE_HOURS": "3 hours",
+		"TWENTY_MINUTES": "20 minutes",
+		"TWO_HOURS": "2 hours"
+	},
+	"businessCategory": {
+		"Barbershop": "Barbershop",
+		"BeautySalon": "Beauty salon",
+		"Dentistry": "Dentistry",
+		"Hairdresser": "Hairdresser",
+		"OnlineConsultation": "Online consultation",
+		"OnlineTeaching": "Online teaching"
+	},
+	"change-name": {
+		"form": {
+			"input": {
+				"name": {
+					"placeholder": "Your full name"
+				}
+			}
+		},
+		"modal": {
+			"title": "Change name"
+		}
+	},
+	"change-phone-number": {
+		"form": {
+			"input": {
+				"phoneNumber": {
+					"placeholder": "Your phone number"
+				}
+			}
+		},
+		"modal": {
+			"title": "Change phone number"
+		}
+	},
+	"client": {
+		"profile": {
+			"form": {
+				"inputs": {
+					"active": {
+						"label": "Active",
+						"placeholder": "Switch on if you want to be active"
+					},
+					"description": {
+						"label": "Business description",
+						"placeholder": "Shortly describe what you do"
+					},
+					"feature": {
+						"label": "Feature",
+						"placeholder": "Enter catching phrase"
+					},
+					"name": {
+						"label": "Business name",
+						"placeholder": "Type Company or Personal name"
+					}
+				},
+				"section": {
+					"address": {
+						"input": {
+							"city": {
+								"placeholder": "Your city"
+							},
+							"country": {
+								"placeholder": "Your country"
+							},
+							"streetAddressLineOne": {
+								"placeholder": "Street, avn., boulevard, etc. name"
+							},
+							"streetAddressLineTwo": {
+								"placeholder": "Office, house, etc. number"
+							},
+							"zipCode": {
+								"placeholder": "Your zip-code"
+							}
+						},
+						"title": "Address"
+					},
+					"bookingSettings": {
+						"input": {
+							"approvalTime": {
+								"placeholder": "Time after which the requested event will be canceled, if not approved"
+							},
+							"earliestBooking": {
+								"placeholder": "That is the shortest time after which it is possible to book a service"
+							},
+							"latestBooking": {
+								"placeholder": "Set of period of rolling weeks people can book in your calendar"
+							}
+						}
+					},
+					"coverImage": {
+						"fileover": "Put your files here",
+						"motivate": "You can inject a little more personality into your profile and help people recognize your work by uploading a \n image (an image, photo or other graphic icon of your business).",
+						"title": "Cover image"
+					},
+					"gallery": {
+						"comment": "Upload images that demonstrate your work from the best side. Images must be 1800px wide by 900px high and in JPEG or PNG format. You may upload up to 6 images.",
+						"title": "Gallery"
+					},
+					"logo": {
+						"fileover": "Put your files here",
+						"formats": "Allowed types: SVG, PNG, JPG or GIF",
+						"motivate": "You can inject a little more personality into your business profile and help people recognize you by uploading a logo (an image, photo or other graphic icon of \"you\").",
+						"title": "Logo"
+					}
+				}
+			},
+			"title": "Profile"
+		},
+		"settings": {
+			"defaultData": {
+				"event": {
+					"form": {
+						"inputs": {
+							"language": {
+								"label": "Default event language"
+							},
+							"service": {
+								"label": "Default event service (top service)"
+							}
+						}
+					},
+					"title": "Default data of event"
+				},
+				"service": {
+					"form": {
+						"inputs": {
+							"break": {
+								"label": "Default service break"
+							},
+							"duration": {
+								"label": "Default service duration"
+							},
+							"endWork": {
+								"label": "Default service end to work"
+							},
+							"language": {
+								"label": "Default service language"
+							},
+							"price": {
+								"label": "Default service price"
+							},
+							"startWork": {
+								"label": "Default service start to work"
+							},
+							"workDays": {
+								"label": "Default service work days"
+							}
+						}
+					},
+					"title": "Default data of service"
+				}
+			},
+			"form": {
+				"inputs": {
+					"darkMode": {
+						"label": "Dark mode"
+					}
+				}
+			},
+			"title": "Settings"
+		}
+	},
+	"country": {
+		"UA": "Ukraine"
+	},
+	"customer": {
+		"button": {
+			"create": "Add customer"
+		},
+		"form": {
+			"input": {
+				"note": {
+					"placeholder": "Here you can enter additional information about the customer"
+				}
+			}
+		},
+		"title": "Customer"
+	},
+	"danger-zone": {
+		"button": {
+			"delete": {
+				"label": "Delete business account"
+			}
+		},
+		"hint": {
+			"message": "Delete business account. After deleting the business account, there is no going back. Please consider this action carefully."
+		},
+		"title": "Danger zone"
+	},
+	"earliestBooking": {
+		"FIVE_HOURS": "In 5 hours",
+		"FOUR_HOURS": "In 4 hours",
+		"MINUTE_15": "In 15 minutes",
+		"MINUTE_30": "In 30 minutes",
+		"NO_LIMIT": "No earliest booking time",
+		"ONE_DAY": "In 1 day",
+		"ONE_HOUR": "In 1 hour",
+		"ONE_WEEK": "In 1 week",
+		"SIX_HOURS": "In 6 hours",
+		"THREE_DAYS": "In 3 days",
+		"THREE_HOURS": "In 3 hours",
+		"TWO_HOURS": "In 2 hours"
+	},
+	"event": {
+		"form": {
+			"section": {
+				"additional": {
+					"input": {
+						"note": {
+							"placeholder": "Here you can enter additional information about the event"
+						}
+					}
+				},
+				"attendant": {
+					"button": {
+						"add": "Add attendant",
+						"togglePresentationOfNewAttendant": "This client is not listed (new client)"
+					},
+					"input": {
+						"selectCustomer": {
+							"placeholder": "Select customer"
+						}
+					}
+				},
+				"service": {
+					"button": {
+						"add": "Add service",
+						"select": "Select service"
+					},
+					"input": {
+						"selectService": {
+							"placeholder": "Select service"
+						}
+					},
+					"modal": {
+						"title": "Select service"
+					}
+				}
+			}
+		},
+		"keyword": {
+			"capitalize": {
+				"end": "Estimated End",
+				"repeat": "Repeat",
+				"service": "Service",
+				"start": "Booking Start",
+				"status": "Status"
+			},
+			"status": {
+				"booked": "Booked",
+				"cancelled": "Canceled",
+				"done": "Done",
+				"requested": "Requested"
+			}
+		},
+		"title": "Event"
+	},
+	"facility": {
+		"capitalize": {
+			"ACCEPTING_CARD_PAYMENT": "Accepting credit cards",
+			"ACCEPTING_CHILDREN": "Child-friendly",
+			"ACCEPTING_PETS": "Pets allowed",
+			"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Accommodations for people with disabilities",
+			"FREE_PARKING": "Free Parking",
+			"INTERNET": "Internet (Wi-Fi)"
+		}
+	},
+	"form": {
+		"validation": {
+			"email": "Invalid E-mail format",
+			"minlength": "Minimum length is {{requiredLength}}",
+			"required": "Required field"
+		}
+	},
+	"http": {
+		"DELETE": {
+			"/api/v1/customer/{id}": {
+				"before": {
+					"accept": {
+						"header": "Deleting a customer",
+						"message": "Are you sure you want to remove the customer?"
+					}
+				}
+			},
+			"/api/v1/service/{id}": {
+				"before": {
+					"accept": {
+						"header": "Deleting a service",
+						"message": "Are you sure you want to remove the service?"
+					}
+				}
+			}
+		},
+		"response": {
+			"status": {
+				"504": {
+					"content": "Check internet or try again later.",
+					"title": "Server Error"
+				}
+			}
+		}
+	},
+	"identity": {
+		"corridor": {
+			"addBusiness": "Create new Business",
+			"selectBusiness": "Select Business context"
+		},
+		"create-business": {
+			"form": {
+				"inputs": {
+					"address": {
+						"label": "Address"
+					},
+					"name": {
+						"label": "Name"
+					},
+					"slogan": {
+						"label": "Slogan"
+					}
+				}
+			}
+		},
+		"forgot-password": {
+			"form": {
+				"button": {
+					"sign-in": "Login",
+					"submit": "Send"
+				},
+				"inputs": {
+					"email": {
+						"label": "E-mail",
+						"placeholder": "Enter E-mail"
+					}
+				},
+				"label": "Password recovery"
+			}
+		},
+		"reset-password": {
+			"form": {
+				"button": {
+					"sign-in": "Login",
+					"submit": "Change password"
+				},
+				"inputs": {
+					"password": {
+						"label": "Password",
+						"placeholder": "Enter password"
+					}
+				},
+				"label": "Reset password"
+			}
+		},
+		"sign-in": {
+			"form": {
+				"button": {
+					"forgot-password": "Forgot password",
+					"sign-up": "Registration",
+					"submit": "Login"
+				},
+				"inputs": {
+					"email": {
+						"label": "E-mail",
+						"placeholder": "name.surname@beeoclock.com"
+					},
+					"password": {
+						"label": "Password",
+						"placeholder": "Enter password"
+					}
+				},
+				"label": "Login"
+			},
+			"hint": {
+				"notAMember": "Not a member yet?",
+				"signInToYourAccount": "Sign in to your account"
+			},
+			"link": {
+				"forgotPassword": "Forgot password?"
+			}
+		},
+		"sign-up": {
+			"form": {
+				"button": {
+					"sign-in": "Login",
+					"submit": "Registration"
+				},
+				"inputs": {
+					"display-name": {
+						"label": "How should everyone call you",
+						"placeholder": "e.g. Company name, Personal name"
+					},
+					"email": {
+						"label": "E-mail",
+						"placeholder": "Enter text"
+					},
+					"password": {
+						"label": "Password",
+						"placeholder": "Enter password"
+					},
+					"password-confirm": {
+						"label": "Password confirm",
+						"placeholder": "Enter password confirm"
+					},
+					"timezone": {
+						"inputs": {
+							"offset": {
+								"label": "Password confirm",
+								"placeholder": "Enter password confirm"
+							}
+						}
+					}
+				},
+				"label": "Registration"
+			},
+			"hint": {
+				"youHaveAnAccount": "You have an account?"
+			}
+		}
+	},
+	"keyword": {
+		"capitalize": {
+			"account": "Account",
+			"action": "Action",
+			"active": "Active",
+			"add-event": "Add event",
+			"add-service": "Add service",
+			"addAvailableHours": "Add available hours",
+			"addContactPhone": "Add phone number",
+			"addSocialMedia": "Add social media",
+			"additional": "Additional",
+			"address": "Address",
+			"approvalTime": "Approval time",
+			"approve": "Approve",
+			"attendees": "Attendees",
+			"back": "Back",
+			"bookingSettings": "Booking settings",
+			"break": "Break",
+			"businessCategory": "Business category",
+			"businessName": "Business name",
+			"cancel": "Cancel",
+			"chooseImage": "Choose image",
+			"city": "City",
+			"clearCache": "Refresh cache",
+			"clickToUpload": "Click to upload",
+			"clients": "Clients",
+			"close": "Close",
+			"comingSoon": "Coming soon...",
+			"confirm": "Confirm",
+			"contact": "Contact",
+			"contactPhone": "Contact phone",
+			"country": "Country",
+			"create": "Create",
+			"createdAt": "Created at",
+			"customer": "Customer",
+			"dateAndTime": "Date and time",
+			"delete": "Delete",
+			"description": "Description",
+			"details": "Details",
+			"dismiss": "Dismiss",
+			"done": "Done",
+			"duration": "Duration",
+			"earliestBooking": "Earliest booking time",
+			"edit": "Edit",
+			"email": "E-mail",
+			"end": "End",
+			"event": "Event",
+			"events": "Events",
+			"facilities": "Facilities",
+			"feature": "Feature",
+			"firstName": "First name",
+			"fullName": "Full name",
+			"general": "General",
+			"image": "Image",
+			"inactive": "Inactive",
+			"information": "Information",
+			"language": "Language",
+			"languages": "Languages",
+			"lastName": "Last name",
+			"lastUpdate": "Last update",
+			"latestBooking": "When an event can be booked",
+			"logout": "Logout",
+			"members": "Members",
+			"menu": "Menu",
+			"name": "Name",
+			"next": "Next",
+			"no": "No",
+			"note": "Note",
+			"permission": "Permission",
+			"phone": "Phone",
+			"placeholder": {
+				"description": "Type description",
+				"search": "Search"
+			},
+			"preview": "Preview",
+			"previous": "Previous",
+			"price": "Price",
+			"priceTimeFormatPrompt": "hours:minutes",
+			"prices": "Prices",
+			"processing": "Processing",
+			"publicPage": "Public page",
+			"role": "Role",
+			"save": "Save",
+			"select": "Select",
+			"selectSpecialist": "Select specialist",
+			"selected": "Selected",
+			"send": "Send",
+			"service": "Service",
+			"services": "Services",
+			"signIn": "Sign in",
+			"signOut": "Sign out",
+			"signUp": "Sign up",
+			"slogan": "Slogan",
+			"socialMedia": "Social media",
+			"soon": "Soon",
+			"specialist": "Specialist",
+			"specialists": "Specialists",
+			"start": "Start",
+			"streetAddressLineOne": "Address 1",
+			"streetAddressLineTwo": "Address 2",
+			"theme": "Theme",
+			"title": "Title",
+			"today": "Today",
+			"tomorrow": "Tomorrow",
+			"total": "Total",
+			"unknown": "Unknown",
+			"update": "Updated",
+			"updatedAt": "Updated at",
+			"workdays": "Workdays",
+			"workingHours": "Working hours",
+			"writePrice": "Write price",
+			"yes": "Yes",
+			"zipCode": "Zip code"
+		},
+		"lowercase": {
+			"dragAndDrop": "drag and drop",
+			"or": "or"
+		}
+	},
+	"latestBooking": {
+		"EIGHT_WEEKS": "Within 8 weeks",
+		"FIVE_WEEKS": "Within 5 weeks",
+		"FOUR_WEEKS": "Within 4 weeks",
+		"NO_LIMIT": "Any available time",
+		"SEVEN_WEEKS": "Within 7 weeks",
+		"SIX_WEEKS": "Within 6 weeks",
+		"THREE_WEEKS": "Within 3 weeks",
+		"TWO_WEEKS": "This week and next week"
+	},
+	"member": {
+		"button": {
+			"create": "Add member"
+		},
+		"title": "Member"
+	},
+	"page": {
+		"calendar": {
+			"title": "Calendar"
+		},
+		"select-client": {
+			"button": {
+				"create-new-client": "Create a new client"
+			},
+			"form": {
+				"button": {
+					"submit": "Select"
+				}
+			},
+			"title": "Select client"
+		}
+	},
+	"service": {
+		"form": {
+			"v2": {
+				"section": {
+					"presentation": {
+						"motivate": "You can inject a little more personality into your services and help people recognize your work by uploading a \n image (an image, photo or other graphic icon of your service)."
+					},
+					"prices": {
+						"button": {
+							"add": {
+								"label": "Add price"
+							}
+						}
+					}
+				}
+			}
+		},
+		"keyword": {
+			"capitalize": {
+				"active": "Active",
+				"inactive": "Inactive"
+			}
+		},
+		"title": "Service"
+	},
+	"sidebar": {
+		"addEvent": "Add event",
+		"businessProfile": "Business profile",
+		"calendar": "Calendar",
+		"customers": "Customers",
+		"dashboard": "Dashboard",
+		"events": "Events",
+		"members": "Members",
+		"private": "Private",
+		"services": "Services",
+		"settings": "Settings",
+		"switch-business-client": "Change context",
+		"table": "Table"
+	},
+	"sign-out": {
+		"button": {
+			"sign-out": {
+				"label": "Sign out now"
+			}
+		},
+		"title": "Sign out"
+	},
+	"theme": {
+		"dark": "Dark",
+		"light": "Light"
+	}
 }
