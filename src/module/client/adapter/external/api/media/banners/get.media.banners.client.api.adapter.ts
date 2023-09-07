@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
-import {clientMediaEndpointEnum} from "@client/endpoint/client.media.endpoint";
+import {businessProfileMediaEndpointEnum} from "@client/endpoint/business-profile.media.endpoint";
 
 @Injectable({
 	providedIn: 'root'
@@ -8,7 +8,7 @@ import {clientMediaEndpointEnum} from "@client/endpoint/client.media.endpoint";
 export class GetMediaBannersClientApiAdapter extends BaseApiAdapter<unknown> {
 
 	public override execute$() {
-		return this.httpClient.get<unknown>(clientMediaEndpointEnum.getBanners);
+		return this.httpClient.get<unknown>(businessProfileMediaEndpointEnum.getBanners);
 	}
 
 }

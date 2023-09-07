@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
-import {clientMediaEndpointEnum} from "@client/endpoint/client.media.endpoint";
+import {businessProfileMediaEndpointEnum} from "@client/endpoint/business-profile.media.endpoint";
 import {RIMedia} from "@module/media/domain/interface/i.media";
 
 @Injectable({
@@ -13,7 +13,7 @@ export class PatchMediaBannersClientApiAdapter extends BaseApiAdapter<RIMedia> {
 	 * @param body
 	 */
 	public override execute$(body: {media: string; _id?: string;}) {
-		return this.httpClient.patch<RIMedia>(clientMediaEndpointEnum.patchBanners, body);
+		return this.httpClient.patch<RIMedia>(businessProfileMediaEndpointEnum.patchBanners, body);
 	}
 
 }

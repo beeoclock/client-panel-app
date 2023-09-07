@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
-import {clientMediaEndpointEnum} from "@client/endpoint/client.media.endpoint";
+import {businessProfileMediaEndpointEnum} from "@client/endpoint/business-profile.media.endpoint";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "thiis";
 
@@ -15,7 +15,7 @@ export class DeleteMediaBannersClientApiAdapter extends BaseApiAdapter<unknown> 
 	 */
 	@TypeGuard([is.string])
 	public override execute$(id: string) {
-		return this.httpClient.delete<unknown>(clientMediaEndpointEnum.deleteBanners, {
+		return this.httpClient.delete<unknown>(businessProfileMediaEndpointEnum.deleteBanners, {
 			headers: {
 				replace: JSON.stringify({
 					id

@@ -14,7 +14,6 @@ import {
 import {Select, Store} from "@ngxs/store";
 import * as Client from "@client/domain";
 import {IClient} from "@client/domain";
-import {UpdateClientApiAdapter} from "@client/adapter/external/api/update.client.api.adapter";
 import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
 import {AsyncPipe} from "@angular/common";
 import {
@@ -41,6 +40,9 @@ import {
 } from "@client/presentation/component/business-profile/gallery/gallery.business-profile/gallery.business-profile.component";
 import {ClientState} from "@client/state/client/client.state";
 import {filter, Observable} from "rxjs";
+import {
+	UpdateBusinessProfileApiAdapter
+} from "@client/adapter/external/api/buisness-profile/update.business-profile.api.adapter";
 
 @Component({
 	selector: 'client-business-profile-page',
@@ -78,7 +80,7 @@ export default class Index implements OnInit {
 
 	public readonly form = new BusinessProfileForm();
 	public readonly store = inject(Store);
-	public readonly updateClientApiAdapter = inject(UpdateClientApiAdapter);
+	public readonly updateBusinessProfileApiAdapter = inject(UpdateBusinessProfileApiAdapter);
 
 	@Select(ClientState.item)
 	public readonly item$!: Observable<Client.IClient>;
@@ -134,7 +136,7 @@ export default class Index implements OnInit {
 				// Save gallery
 				this.galleryBusinessProfileComponent.save(),
 				// Save data
-				this.updateClientApiAdapter.executeAsync(value),
+				this.updateBusinessProfileApiAdapter.executeAsync(value),
 			]);
 
 			this.store.dispatch(new AppActions.PageLoading(false));
