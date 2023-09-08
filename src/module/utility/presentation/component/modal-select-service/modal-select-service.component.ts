@@ -30,9 +30,9 @@ import {Duration} from "luxon";
 
           <div class="grid grid-cols-16 gap-4">
             <div class="col-span-3 pt-1">
-              <ng-container *ngIf="item?.presentation?.main?.length; else DefaultServiceImageTemplate">
-                <img [src]="item.presentation.main" class="w-[90px] h-[90px] rounded-2xl object-cover"
-                     alt="Image of service">
+              <ng-container *ngIf="item?.presentation?.banners?.length; else DefaultServiceImageTemplate">
+<!--                <img [src]="item.presentation.banners?.[0]?.media" class="w-[90px] h-[90px] rounded-2xl object-cover"-->
+<!--                     alt="Image of service">-->
               </ng-container>
               <ng-template #DefaultServiceImageTemplate>
                 <div class="w-[90px] h-[90px] bg-beeColor-300 rounded-2xl"></div>
@@ -82,7 +82,7 @@ import {Duration} from "luxon";
       </ng-container>
 
     </div>
-    <utility-loader *ngIf="modalSelectServiceListAdapter.loading$.isOn"></utility-loader>
+    <utility-loader *ngIf="modalSelectServiceListAdapter.loading$.isOn"/>
   `
 })
 export class ModalSelectServiceComponent implements OnInit {

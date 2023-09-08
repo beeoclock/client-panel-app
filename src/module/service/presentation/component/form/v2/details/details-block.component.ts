@@ -8,43 +8,41 @@ import {LanguageVersionForm} from "@service/presentation/form/service.form";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 
 @Component({
-  selector: 'service-form-details-block-component',
-  standalone: true,
-  template: `
-    <card>
-      <span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.details' | translate }}</span>
+	selector: 'service-form-details-block-component',
+	standalone: true,
+	template: `
+		<card>
+			<span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.details' | translate }}</span>
 
-      <form-input
-        id="service-title"
-        type="text"
-        autocomplete="service.title"
-        [placeholder]="'keyword.capitalize.title' | translate"
-        [control]="form.controls.title"
-        [label]="'keyword.capitalize.title' | translate">
-      </form-input>
+			<form-input
+				id="service-title"
+				type="text"
+				autocomplete="service.title"
+				[placeholder]="'keyword.capitalize.title' | translate"
+				[control]="form.controls.title"
+				[label]="'keyword.capitalize.title' | translate"/>
 
-      <form-textarea-component
-        [control]="form.controls.description"
-        [label]="'keyword.capitalize.description' | translate"
-        [placeholder]="'keyword.capitalize.placeholder.description' | translate">
-      </form-textarea-component>
+			<form-textarea-component
+				[control]="form.controls.description"
+				[label]="'keyword.capitalize.description' | translate"
+				[placeholder]="'keyword.capitalize.placeholder.description' | translate"/>
 
-<!--      <service-form-tags-component></service-form-tags-component>-->
+			<!--      <service-form-tags-component></service-form-tags-component>-->
 
-    </card>
-  `,
-  imports: [
-    NgIf,
-    TranslateModule,
-    FormInputComponent,
-    FormTextareaComponent,
-    TagsComponent,
-    CardComponent,
-  ]
+		</card>
+	`,
+	imports: [
+		NgIf,
+		TranslateModule,
+		FormInputComponent,
+		FormTextareaComponent,
+		TagsComponent,
+		CardComponent,
+	]
 })
 export class DetailsBlockComponent {
 
-  @Input()
-  public form = new LanguageVersionForm();
+	@Input()
+	public form = new LanguageVersionForm();
 
 }

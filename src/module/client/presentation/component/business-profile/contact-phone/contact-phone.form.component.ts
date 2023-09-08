@@ -18,7 +18,9 @@ import {CELL_COUNTRY_PREFIX_OBJECT_LIST} from "@utility/domain/enum/cell-country
   ],
   template: `
     <div class="flex gap-4 justify-between">
+
       <div class="w-40">
+
         <ng-select
           id="type"
           bindLabel="label"
@@ -30,16 +32,20 @@ import {CELL_COUNTRY_PREFIX_OBJECT_LIST} from "@utility/domain/enum/cell-country
             {{ item.shortLabel }}
           </ng-template>
         </ng-select>
+
       </div>
+
       <div class="w-full">
+
         <form-input
           id="business-profile-form-social-media-link-input"
           autocomplete="socialMedia.link"
           placeholder="000000000"
           [control]="form.controls.phoneNumber"
-          [showLabel]="false">
-        </form-input>
+          [showLabel]="false"/>
+
       </div>
+
     </div>
   `
 })

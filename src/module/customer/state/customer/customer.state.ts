@@ -78,8 +78,8 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
   }
 
   @Action(CustomerActions.GetItem)
-  public override async getItem(ctx: StateContext<ICustomerState>, action: CustomerActions.GetItem): Promise<void> {
-    await super.getItem(ctx, action);
+  public override async getItemFromCacheOrApi(ctx: StateContext<ICustomerState>, action: CustomerActions.GetItem): Promise<void> {
+    await super.getItemFromCacheOrApi(ctx, action);
   }
 
   @Action(CustomerActions.CreateItem)

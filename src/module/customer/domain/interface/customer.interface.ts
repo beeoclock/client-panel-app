@@ -1,6 +1,7 @@
-import {Enum, Interface} from "@utility/domain";
+import {Enum, RIBaseEntity} from "@src/module/utility/domain";
 
-export interface ICustomer extends Interface.IBaseEntity {
+
+export interface ICustomer extends RIBaseEntity {
   object?: 'Customer';
   active: Enum.ActiveEnum;
   firstName: string;

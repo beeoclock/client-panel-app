@@ -1,7 +1,7 @@
 <div class="flex flex-col gap-4">
   <div class="flex justify-between">
-    <utility-back-link-component></utility-back-link-component>
-    <utility-change-language-component></utility-change-language-component>
+    <utility-back-link-component/>
+    <utility-change-language-component/>
   </div>
   <card width="96" padding="8">
 
@@ -26,8 +26,7 @@
           autocomplete="email"
           placeholder="firstname.lastname@example.com"
           [control]="form.controls.email"
-          [label]="'keyword.capitalize.email' | translate">
-        </form-input>
+          [label]="'keyword.capitalize.email' | translate"/>
 
         <div>
           <button [isLoading]="form.pending" (click)="signIn()" type="submit" primary>

@@ -2,7 +2,7 @@
 
   <div class="col-span-12 xl:col-span-2 2xl:col-span-3">
 
-    <utility-back-link-component></utility-back-link-component>
+    <utility-back-link-component/>
 
   </div>
 
@@ -26,8 +26,8 @@
 
           <div class="col-span-12 md:col-span-3">
             <div class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-beeColor-400">
-              <img *ngIf="service.presentation.main" [src]="service.presentation.main"
-                   class="object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
+              <img *ngIf="service.presentation.banners[0]" [srcByMediaId]="service.presentation.banners[0]"
+                   class="hidden object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
                    alt="Uploaded Image"/>
             </div>
           </div>

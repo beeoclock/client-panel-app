@@ -6,7 +6,7 @@ import {RouterOutlet} from '@angular/router';
 import {AsyncPipe, DOCUMENT, NgIf} from "@angular/common";
 import {ModalComponent} from "@utility/presentation/component/modal/modal.component";
 import {
-  PageLoadingProgressBarComponent
+	PageLoadingProgressBarComponent
 } from "@utility/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
 import {Select, Store} from "@ngxs/store";
 import {IdentityState} from "@identity/state/identity/identity.state";
@@ -25,12 +25,12 @@ import {MAIN_CONTAINER_ID} from "@src/token";
   template: `
     <ng-container *ngIf="token$ | async">
 
-      <utility-navbar-component></utility-navbar-component>
-      <utility-sidebar-component></utility-sidebar-component>
+      <utility-navbar-component/>
+      <utility-sidebar-component/>
 
       <div [id]="mainContainerId" class="content-container h-screen overflow-y-auto sm:ml-64 transition-all">
-        <utility-page-loading-progress-bar></utility-page-loading-progress-bar>
-        <router-outlet></router-outlet>
+        <utility-page-loading-progress-bar/>
+        <router-outlet/>
       </div>
 
     </ng-container>

@@ -147,19 +147,19 @@ export class PrepaymentPolicyForm extends FormGroup<IPrepaymentPolicyForm> {
 }
 
 
-export interface IPresentationForm {
-  main: FormControl<string>;
-
-  [key: string]: AbstractControl<any, any>;
-}
-
-export class PresentationForm extends FormGroup<IPresentationForm> {
-  constructor() {
-    super({
-      main: new FormControl(),
-    });
-  }
-}
+// export interface IPresentationForm {
+//   main: FormControl<string>;
+//
+//   [key: string]: AbstractControl<any, any>;
+// }
+//
+// export class PresentationForm extends FormGroup<IPresentationForm> {
+//   constructor() {
+//     super({
+//       main: new FormControl(),
+//     });
+//   }
+// }
 
 export class LanguageVersionsForm extends FormArray<LanguageVersionForm> {
   constructor() {
@@ -196,7 +196,7 @@ export class DurationVersionsForm extends FormArray<DurationVersionForm> {
 }
 
 export interface IServiceForm {
-  presentation: PresentationForm;
+  // presentation: PresentationForm;
   schedules: SchedulesForm;
   configuration: ConfigurationForm;
   prepaymentPolicy: PrepaymentPolicyForm;
@@ -214,7 +214,7 @@ export interface IServiceForm {
 export class ServiceForm extends FormGroup<IServiceForm> {
   constructor() {
     super({
-      presentation: new PresentationForm(),
+      // presentation: new PresentationForm(),
       schedules: new SchedulesForm(),
       configuration: new ConfigurationForm(),
       prepaymentPolicy: new PrepaymentPolicyForm(),

@@ -4,23 +4,12 @@ import * as Client from "@client/domain";
 import {clientEndpointEnum} from "@client/endpoint/client.endpoint";
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class ItemClientApiAdapter extends BaseApiAdapter<Client.IClient> {
 
-
-  /**
-   * GET ITEM BY ID
-   * @param id
-   */
-  public override execute$(id: string) {
-    return this.httpClient.post<Client.IClient>(clientEndpointEnum.item, null, {
-      // headers: {
-      //   replace: JSON.stringify({
-      //     id
-      //   })
-      // }
-    });
-  }
+	public override execute$() {
+		return this.httpClient.get<Client.IClient>(clientEndpointEnum.item);
+	}
 
 }

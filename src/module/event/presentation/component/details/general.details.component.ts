@@ -40,9 +40,9 @@ import {EventStatusStyleDirective} from "@event/presentation/directive/event-sta
           <div class="col-span-12 md:col-span-3">
             <div
               class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-beeColor-400">
-              <img *ngIf="event.services?.[0]?.presentation?.main" [src]="event.services?.[0]?.presentation?.main"
-                   class="object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
-                   alt="Uploaded Image"/>
+<!--              <img *ngIf="event.services?.[0]?.presentation?.main" [src]="event.services?.[0]?.presentation?.main"-->
+<!--                   class="object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"-->
+<!--                   alt="Uploaded Image"/>-->
             </div>
           </div>
           <div class="col-span-12 md:col-span-9">

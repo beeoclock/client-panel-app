@@ -1,117 +1,148 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import {BusinessProfileForm} from "@client/presentation/form/business-profile.form";
 import {TranslateModule} from "@ngx-translate/core";
 import {
-  CoverImageBusinessProfileComponent
+	CoverImageBusinessProfileComponent
 } from "@client/presentation/component/business-profile/cover-image/cover-image.business-profile.component";
 import {
-  FormBusinessProfileComponent
+	FormBusinessProfileComponent
 } from "@client/presentation/component/business-profile/form-business-profile.component";
 import {
-  LogoBusinessProfileComponent
+	LogoBusinessProfileComponent
 } from "@client/presentation/component/business-profile/logo/logo.business-profile.component";
-import {Store} from "@ngxs/store";
+import {Select, Store} from "@ngxs/store";
 import * as Client from "@client/domain";
 import {IClient} from "@client/domain";
-import {UpdateClientApiAdapter} from "@client/adapter/external/api/update.client.api.adapter";
 import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
-import {NgForOf} from "@angular/common";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {AsyncPipe} from "@angular/common";
 import {
-  AddressBusinessProfileComponent
+	AddressBusinessProfileComponent
 } from "@client/presentation/component/business-profile/address/address.business-profile.component";
-import {
-  GalleryBusinessProfileComponent
-} from "@client/presentation/component/business-profile/gallery/gallery.business-profile.component";
 import {SchedulesFormComponent} from "@utility/presentation/component/schedule/schedules.form.component";
 import {
-  BusinessProfileContactPhoneComponent
+	BusinessProfileContactPhoneComponent
 } from "@client/presentation/component/business-profile/contact-phone/contact-phone.componen";
 import {
-  BusinessProfileSocialMediaComponent
+	BusinessProfileSocialMediaComponent
 } from "@client/presentation/component/business-profile/social-media/social-media.componen";
 import {
-  FacilitiesBusinessProfileComponent
+	FacilitiesBusinessProfileComponent
 } from "@client/presentation/component/business-profile/facilities/facilities.business-profile.component";
 import {
-  BookingSettingsBusinessProfileComponent
+	BookingSettingsBusinessProfileComponent
 } from "@client/presentation/component/business-profile/booking-settings/booking-settings.business-profile.component";
 import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {
+	GalleryBusinessProfileComponent
+} from "@client/presentation/component/business-profile/gallery/gallery.business-profile/gallery.business-profile.component";
+import {ClientState} from "@client/state/client/client.state";
+import {filter, Observable} from "rxjs";
+import {
+	UpdateBusinessProfileApiAdapter
+} from "@client/adapter/external/api/buisness-profile/update.business-profile.api.adapter";
 
 @Component({
-  selector: 'client-business-profile-page',
-  templateUrl: 'index.html',
-  encapsulation: ViewEncapsulation.None,
-  imports: [
-    FormBusinessProfileComponent,
-    ReactiveFormsModule,
-    TranslateModule,
-    CoverImageBusinessProfileComponent,
-    LogoBusinessProfileComponent,
-    SwitchActiveBlockComponent,
-    NgForOf,
-    CardComponent,
-    AddressBusinessProfileComponent,
-    GalleryBusinessProfileComponent,
-    SchedulesFormComponent,
-    BusinessProfileContactPhoneComponent,
-    BusinessProfileSocialMediaComponent,
-    FacilitiesBusinessProfileComponent,
-    BookingSettingsBusinessProfileComponent,
-    PrimaryButtonDirective
-  ],
-  standalone: true
+	selector: 'client-business-profile-page',
+	templateUrl: 'index.html',
+	encapsulation: ViewEncapsulation.None,
+	imports: [
+		FormBusinessProfileComponent,
+		ReactiveFormsModule,
+		TranslateModule,
+		CoverImageBusinessProfileComponent,
+		LogoBusinessProfileComponent,
+		SwitchActiveBlockComponent,
+		AddressBusinessProfileComponent,
+		GalleryBusinessProfileComponent,
+		SchedulesFormComponent,
+		BusinessProfileContactPhoneComponent,
+		BusinessProfileSocialMediaComponent,
+		FacilitiesBusinessProfileComponent,
+		BookingSettingsBusinessProfileComponent,
+		PrimaryButtonDirective,
+		AsyncPipe
+	],
+	standalone: true
 })
-export default class Index {
+export default class Index implements OnInit {
 
-  public readonly form = new BusinessProfileForm();
-  public readonly store = inject(Store);
-  public readonly updateClientApiAdapter = inject(UpdateClientApiAdapter);
+	@ViewChild(CoverImageBusinessProfileComponent)
+	public readonly coverImageBusinessProfileComponent!: CoverImageBusinessProfileComponent;
 
-  constructor() {
-    // Init data
-    const item: Client.IClient = this.store.snapshot().client.item;
+	@ViewChild(LogoBusinessProfileComponent)
+	public readonly logoBusinessProfileComponent!: LogoBusinessProfileComponent;
 
-    const {socialNetworkLinks, schedules, contacts, ...data} = item;
-    this.form.patchValue(data);
+	@ViewChild(GalleryBusinessProfileComponent)
+	public readonly galleryBusinessProfileComponent!: GalleryBusinessProfileComponent;
 
-    if (socialNetworkLinks?.length) {
-      this.form.controls.socialNetworkLinks.clear();
-      socialNetworkLinks.forEach((socialNetworkLink) => {
-        this.form.controls.socialNetworkLinks.pushNewOne(socialNetworkLink);
-      });
-    }
+	public readonly form = new BusinessProfileForm();
+	public readonly store = inject(Store);
+	public readonly updateBusinessProfileApiAdapter = inject(UpdateBusinessProfileApiAdapter);
 
-    if (schedules?.length) {
-      this.form.controls.schedules.clear();
-      schedules.forEach((schedule) => {
-        this.form.controls.schedules.pushNewOne(schedule as RISchedule);
-      });
-    }
+	@Select(ClientState.item)
+	public readonly item$!: Observable<Client.IClient>;
 
-    if (contacts?.length) {
-      this.form.controls.contacts.clear();
-      contacts.forEach((contact) => {
-        this.form.controls.contacts.pushNewOne(contact);
-      });
-    }
+	public ngOnInit(): void {
 
-  }
+		this.item$.pipe(
+			filter(Boolean)
+		).subscribe((item) => {
 
-  // Save data
-  public async save(): Promise<void> {
-    this.form.markAllAsTouched();
-    if (this.form.valid) {
-      this.store.dispatch(new AppActions.PageLoading(true));
-      const value = this.form.getRawValue() as IClient;
-      this.form.disable();
-      await this.updateClientApiAdapter.executeAsync(value);
-      this.store.dispatch(new AppActions.PageLoading(false));
-      this.form.enable();
-    }
-  }
+			const {socialNetworkLinks, schedules, contacts, ...data} = item;
+			this.form.patchValue(data);
+
+			if (socialNetworkLinks?.length) {
+				this.form.controls.socialNetworkLinks.clear();
+				socialNetworkLinks.forEach((socialNetworkLink) => {
+					this.form.controls.socialNetworkLinks.pushNewOne(socialNetworkLink);
+				});
+			}
+
+			if (schedules?.length) {
+				this.form.controls.schedules.clear();
+				schedules.forEach((schedule) => {
+					this.form.controls.schedules.pushNewOne(schedule as RISchedule);
+				});
+			}
+
+			if (contacts?.length) {
+				this.form.controls.contacts.clear();
+				contacts.forEach((contact) => {
+					this.form.controls.contacts.pushNewOne(contact);
+				});
+			}
+
+		});
+
+	}
+
+	// Save data
+	public async save(): Promise<void> {
+		this.form.markAllAsTouched();
+		if (this.form.valid) {
+			this.store.dispatch(new AppActions.PageLoading(true));
+			const value = this.form.getRawValue() as IClient;
+			this.form.disable();
+			this.form.markAsPending();
+
+			await Promise.all([
+				// Save cover image
+				this.coverImageBusinessProfileComponent.save(),
+				// Save logo
+				this.logoBusinessProfileComponent.save(),
+				// Save gallery
+				this.galleryBusinessProfileComponent.save(),
+				// Save data
+				this.updateBusinessProfileApiAdapter.executeAsync(value),
+			]);
+
+			this.store.dispatch(new AppActions.PageLoading(false));
+			this.form.enable();
+			this.form.updateValueAndValidity();
+		}
+	}
 
 }

@@ -15,7 +15,7 @@ import {EventActions} from "@event/state/event/event.actions";
   ],
   template: `
     <utility-filter-panel-component>
-      <utility-search-input-component [control]="form.controls.search"></utility-search-input-component>
+      <utility-search-input-component [control]="form.controls.search"/>
     </utility-filter-panel-component>
 
   `

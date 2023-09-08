@@ -30,8 +30,7 @@ import {ToastController} from "@ionic/angular";
         autocomplete="email"
         placeholder="firstname.lastname@example.com"
         [control]="form.controls.email"
-        [label]="'identity.sign-in.form.inputs.email.label' | translate">
-      </form-input>
+        [label]="'identity.sign-in.form.inputs.email.label' | translate"/>
 
       <form-input-password
         id="password"

@@ -17,7 +17,7 @@ import {TranslateModule} from "@ngx-translate/core";
       <div class="flex flex-col">
 
         <div>
-          {{ 'keyword.capitalize.service' | translate }}:
+          {{ 'keyword.capitalize.event' | translate }}:
         </div>
         <div>
           {{ event._id }}

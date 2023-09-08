@@ -1,8 +1,8 @@
-<div class="md:p-4 pb-48 grid grid-cols-12 gap-4">
+<div class="sm:p-4 pb-48 grid grid-cols-12 gap-4">
 
   <div class="col-span-12 xl:col-span-2 2xl:col-span-3">
 
-    <utility-back-link-component></utility-back-link-component>
+    <utility-back-link-component/>
 
   </div>
 
@@ -21,8 +21,7 @@
             autocomplete="firstName"
             [placeholder]="'keyword.capitalize.firstName' | translate"
             [control]="form.controls.firstName"
-            [label]="'keyword.capitalize.firstName' | translate">
-          </form-input>
+            [label]="'keyword.capitalize.firstName' | translate"/>
 
           <form-input
             id="customer-form-lastName"
@@ -30,8 +29,7 @@
             autocomplete="lastName"
             [placeholder]="'keyword.capitalize.lastName' | translate"
             [control]="form.controls.lastName"
-            [label]="'keyword.capitalize.lastName' | translate">
-          </form-input>
+            [label]="'keyword.capitalize.lastName' | translate"/>
 
           <form-input
             id="customer-form-email"
@@ -39,8 +37,7 @@
             autocomplete="email"
             placeholder="firstname.lastname@example.com"
             [control]="form.controls.email"
-            [label]="'keyword.capitalize.email' | translate">
-          </form-input>
+            [label]="'keyword.capitalize.email' | translate"/>
 
           <form-input
             id="customer-form-phone"
@@ -48,14 +45,13 @@
             autocomplete="phone"
             placeholder="+000000000000"
             [control]="form.controls.phone"
-            [label]="'keyword.capitalize.phone' | translate">
-          </form-input>
+            [label]="'keyword.capitalize.phone' | translate"/>
 
         </div>
 
       </card>
 
-      <utility-form-switch-active-block-component [control]="form.controls.active"></utility-form-switch-active-block-component>
+      <utility-form-switch-active-block-component [control]="form.controls.active"/>
 
       <card>
         <strong class="dark:text-white">{{ 'keyword.capitalize.additional' | translate }}</strong>
@@ -65,8 +61,7 @@
             id="customer-form-public-note-input"
             [label]="'keyword.capitalize.note' | translate"
             [placeholder]="'customer.form.input.note.placeholder' | translate"
-            [control]="form.controls.note">
-          </form-textarea-component>
+            [control]="form.controls.note"/>
         </div>
       </card>
       <button

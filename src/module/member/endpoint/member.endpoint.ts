@@ -12,6 +12,17 @@ export enum memberEndpointEnum {
 }
 
 export const memberEndpoint: EndpointCollectionType = {
+  GET: {
+    [memberEndpointEnum.item]: {
+      path: memberEndpointEnum.item,
+      method: RequestMethodEnum.GET,
+      source: SourceNetworkEnum.panel,
+      replace: true,
+      header: {
+        authorization: true,
+      }
+    },
+  },
   POST: {
     [memberEndpointEnum.paged]: {
       path: memberEndpointEnum.paged,
@@ -19,15 +30,6 @@ export const memberEndpoint: EndpointCollectionType = {
       source: SourceNetworkEnum.panel,
       header: {
         authorization: true
-      }
-    },
-    [memberEndpointEnum.item]: {
-      path: memberEndpointEnum.item,
-      method: RequestMethodEnum.POST,
-      source: SourceNetworkEnum.panel,
-      replace: true,
-      header: {
-        authorization: true,
       }
     },
     [memberEndpointEnum.create]: {

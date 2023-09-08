@@ -1,6 +1,6 @@
-import {Interface} from "@utility/domain";
+import {RIBaseEntity} from "@utility/domain";
 
-export interface IMember extends Interface.IBaseEntity {
+export interface IMember extends RIBaseEntity {
   object: 'Member';
   firstName: string;
   secondName: string;
@@ -8,3 +8,6 @@ export interface IMember extends Interface.IBaseEntity {
   email: string;
   phone: string;
 }
+
+export type RIMember = Required<IMember>;
+export type ListMember = RIMember[];

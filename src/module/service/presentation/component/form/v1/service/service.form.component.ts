@@ -5,7 +5,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {HasErrorDirective} from '@utility/presentation/directives/has-error/has-error.directive';
 import {IsRequiredDirective} from '@utility/presentation/directives/is-required/is-required';
 import {
-  LanguageServiceFormComponent
+	LanguageServiceFormComponent
 } from '@service/presentation/component/form/v1/service/language.service.form.component';
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {TranslateModule} from "@ngx-translate/core";
@@ -35,16 +35,14 @@ import {TranslateModule} from "@ngx-translate/core";
         autocomplete="service.title"
         placeholder="Write title of service"
         [control]="form.controls.title"
-        [label]="'keyword.capitalize.title' | translate">
-      </form-input>
+        [label]="'keyword.capitalize.title' | translate"/>
 
       <form-input
         id="service-form-description"
         autocomplete="service.description"
         placeholder="Write description of service"
         [control]="form.controls.description"
-        [label]="'keyword.capitalize.description' | translate">
-      </form-input>
+        [label]="'keyword.capitalize.description' | translate"/>
 
     </form>
   `

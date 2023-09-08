@@ -1,54 +1,27 @@
 <card>
 
-  <div class="flex justify-between">
-    <strong class="dark:text-white">{{ 'client.profile.form.section.logo.title' | translate }}</strong>
-    <button class="text-beeColor-500 dark:text-beeColor-400 hover:text-beeColor-600 dark:hover:text-beeColor-500"
-            (click)="toggleInfo.toggle()">
-      <i class="bi" [class.bi-eye]="toggleInfo.isOff" [class.bi-eye-slash]="toggleInfo.isOn"></i>
-    </button>
-  </div>
+	<div class="flex justify-between">
+		<strong class="dark:text-white">{{ 'client.profile.form.section.logo.title' | translate }}</strong>
+		<button class="text-beeColor-500 dark:text-beeColor-400 hover:text-beeColor-600 dark:hover:text-beeColor-500"
+						(click)="toggleInfo.toggle()">
+			<i class="bi" [class.bi-eye]="toggleInfo.isOff" [class.bi-eye-slash]="toggleInfo.isOn"></i>
+		</button>
+	</div>
 
-  <div class="flex gap-4">
+	<div class="flex gap-4">
 
-    <div #labelOfDragAndDropZone dragAndDrop (fileDropped)="onFilesDropped($event)"
-         class="flex items-center justify-center">
-      <label for="logo-business-profile-dropzone-file"
-             class="min-w-[128px] max-w-[128px] min-h-[128px] max-h-[128px] flex flex-col items-center justify-center w-full relative border-2 border-beeColor-300 border-dashed rounded-xl cursor-pointer bg-beeColor-50 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-800 dark:bg-beeColor-700 dark:border-beeDarkColor-600 dark:hover:border-beeDarkColor-500 dark:hover:bg-beeDarkColor-600">
-        <img *ngIf="previewImage" [src]="previewImage"
-             class="absolute top-0 left-0 object-cover rounded-xl w-full h-full" alt="Uploaded Image"/>
-        <div *ngIf="toggleInfo.isOn"
-             class="absolute flex flex-col items-center justify-center h-full w-full bg-beeColor-50/25 rounded-xl text-beeColor-900 text-center">
-          <svg class="w-8 h-8 mb-2 dark:text-beeColor-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-               fill="none" viewBox="0 0 20 16">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-          </svg>
-          <p *ngIf="labelOfDragAndDropZone.classList.contains('fileover')"
-             class="mb-2 text-xs dark:text-beeColor-400 font-bold">
-            {{ 'client.profile.form.section.logo.fileover' | translate }}
-          </p>
-          <ng-container *ngIf="!labelOfDragAndDropZone.classList.contains('fileover')">
-            <p class="text-xs dark:text-beeColor-400">
-                <span class="font-semibold">
-                  {{ 'keyword.capitalize.clickToUpload' | translate }}
-                </span>
-              {{ 'keyword.lowercase.or' | translate }} {{ 'keyword.lowercase.dragAndDrop' | translate }}
-            </p>
-          </ng-container>
-        </div>
-        <input id="logo-business-profile-dropzone-file" type="file" #fileInput class="hidden"
-               (change)="onFileSelected($event)"
-               accept="image/*"/>
-      </label>
-    </div>
+		<client-image-logo-business-profile-component
+			[mediaId]="mediaId"
+			[showHit]="toggleInfo.isOn"
+			[control]="control" />
 
-    <div>
+		<div>
 
-      <p class="dark:text-beeColor-400">{{ 'client.profile.form.section.logo.motivate' | translate }}</p>
-      <p class="dark:text-beeColor-400">{{ 'client.profile.form.section.logo.formats' | translate }}</p>
+			<p class="dark:text-beeColor-400">{{ 'client.profile.form.section.logo.motivate' | translate }}</p>
+			<p class="dark:text-beeColor-400">{{ 'client.profile.form.section.logo.formats' | translate }}</p>
 
-    </div>
+		</div>
 
-  </div>
+	</div>
 
 </card>

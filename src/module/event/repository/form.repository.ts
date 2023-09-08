@@ -51,7 +51,6 @@ export class FormRepository {
     this.form.enable();
     this.form.updateValueAndValidity();
 
-    console.log(attendees);
     if (attendees?.length) {
 
       this.prepareAttendees(attendees, disable);

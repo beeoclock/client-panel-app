@@ -10,10 +10,10 @@ export enum clientEndpointEnum {
 }
 
 export const clientEndpoint: EndpointCollectionType = {
-  POST: {
+  GET: {
     [clientEndpointEnum.item]: {
       path: clientEndpointEnum.item,
-      method: RequestMethodEnum.POST,
+      method: RequestMethodEnum.GET,
       source: SourceNetworkEnum.panel,
       replace: true,
       header: {

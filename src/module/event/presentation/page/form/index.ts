@@ -63,7 +63,7 @@ export default class Index implements OnInit {
   public itemData$!: Observable<IEvent | undefined>;
 
   @HostBinding()
-  public readonly class = 'md:p-4 block';
+  public readonly class = 'sm:p-4 block';
 
   public get value(): IEvent {
     return this.form.getRawValue() as IEvent;

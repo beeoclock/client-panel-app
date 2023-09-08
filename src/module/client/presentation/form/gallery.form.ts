@@ -62,11 +62,11 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
       // Subscribe to changes in the last image control
       lastImageControl.valueChanges.pipe(takeUntil(this.takeUntilLastImage$)).subscribe((value) => {
 
-        if (value?.length) {
+				if (value?.length) {
           // If the value is not empty, add a new image control to the form array
           this.controls.images.push(new FormControl());
 
-          // Initialize the handler for the newly added image control
+					// Initialize the handler for the newly added image control
           this.initHandlerForLastImage();
         }
       });
@@ -94,5 +94,13 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
     this.controls.images.controls.splice(index, 1);
 
   }
+
+	public pushImage(initialValue: string): void {
+
+		this.controls.images.push(new FormControl());
+		this.controls.images.at(-1).patchValue(initialValue);
+		this.initHandlerForLastImage();
+
+	}
 
 }

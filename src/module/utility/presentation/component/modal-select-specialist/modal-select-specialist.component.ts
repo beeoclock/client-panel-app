@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit, ViewEncapsulation} from "@angular/core";
 import {
-  ModalSelectSpecialistListAdapter
+	ModalSelectSpecialistListAdapter
 } from "@member/adapter/external/component/modal-select-specialist.list.adapter";
 import {NgForOf, NgIf} from "@angular/common";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
@@ -48,7 +48,7 @@ import {TranslateModule} from "@ngx-translate/core";
       </div>
 
     </ng-container>
-    <utility-loader *ngIf="modalSelectSpecialistListAdapter.loading$.isOn"></utility-loader>
+    <utility-loader *ngIf="modalSelectSpecialistListAdapter.loading$.isOn"/>
   `
 })
 export class ModalSelectSpecialistComponent implements OnInit {
