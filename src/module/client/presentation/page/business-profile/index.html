@@ -36,8 +36,9 @@
 
 		<button
 			primary
-			[isLoading]="form.pending"
 			(click)="save()"
+			[scrollToFirstError]="true"
+			[isLoading]="form.pending"
 			[disabled]="form.disabled">
 			{{ 'keyword.capitalize.save' | translate }}
 		</button>

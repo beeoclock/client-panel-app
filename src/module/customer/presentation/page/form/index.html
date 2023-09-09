@@ -68,6 +68,7 @@
         primary
         [isLoading]="form.pending"
         [disabled]="form.disabled"
+				[scrollToFirstError]="true"
         (click)="save()">
         {{ 'keyword.capitalize.save' | translate }}
       </button>
