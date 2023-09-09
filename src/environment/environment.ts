@@ -54,7 +54,10 @@ export const environment = {
       authorization: false,
       functions: false
     }
-  }
+  },
+	urls: {
+		publicPageOrigin: 'https://dev.beeoclock.com',
+	}
 };
 
 /*

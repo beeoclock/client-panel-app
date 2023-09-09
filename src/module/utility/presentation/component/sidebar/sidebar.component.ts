@@ -7,6 +7,7 @@ import {firstValueFrom} from "rxjs";
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {SidebarService} from "@utility/presentation/component/sidebar/sidebar.service";
 import {SIDEBAR_ID} from "@src/token";
+import {environment} from "@environment/environment";
 
 interface IMenuItem {
   url?: string;
@@ -145,7 +146,7 @@ export class SidebarComponent implements OnInit {
   public async goToPublicPage(): Promise<void> {
 
     const clientId = await firstValueFrom(this.store.select(IdentityState.clientId));
-    const link = `https://beeoclock.com/${clientId}`;
+    const link = `${environment.urls.publicPageOrigin}/${clientId}`;
     window.open(link, '_blank');
 
   }
