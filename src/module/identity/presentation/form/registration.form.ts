@@ -22,7 +22,7 @@ export default class RegistrationForm extends FormGroup<IRegistrationForm> {
   }
 
   private initValue(): void {
-    if (environment.firebase.emulator) {
+    if (environment.setDefaultValueToInputs) {
       this.controls.email.setValue('text@example.com');
       this.controls.password.setValue('testPassword');
       this.controls.passwordConfirm.setValue('testPassword');

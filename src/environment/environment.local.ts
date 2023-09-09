@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
+	develop: true,
   emulator: false,
   proxy: false,
+	setDefaultValueToInputs: true,
   apiUrls: {
     panel: 'local.panel',
     identity: 'local.identity',
