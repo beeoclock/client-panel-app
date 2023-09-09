@@ -1,6 +1,6 @@
 <div class="sm:p-4 pb-48 grid grid-cols-12">
 
-	<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4">
+	<form class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4">
 
 		<client-business-profile-form-component [form]="form"/>
 
@@ -37,13 +37,14 @@
 		<button
 			primary
 			(click)="save()"
+			type="button"
 			[scrollToFirstError]="true"
 			[isLoading]="form.pending"
 			[disabled]="form.disabled">
 			{{ 'keyword.capitalize.save' | translate }}
 		</button>
 
-	</div>
+	</form>
 
 </div>
 

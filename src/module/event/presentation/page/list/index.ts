@@ -1,8 +1,7 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
 import {ListPage} from "@utility/list.page";
 import {TranslateModule} from "@ngx-translate/core";
-import {Select} from "@ngxs/store";
-import {Observable} from "rxjs";
+import {Observable, tap} from "rxjs";
 import {EventActions} from "@event/state/event/event.actions";
 import {IEvent} from "@event/domain";
 import {ITableState} from "@utility/domain/table.state";
@@ -49,7 +48,14 @@ export default class Index extends ListPage {
 
 	public override readonly actions = EventActions;
 
-	@Select(EventState.tableState)
-	public readonly tableState$!: Observable<ITableState<IEvent>>;
+	public readonly tableState$: Observable<ITableState<IEvent>> = this.store.select(EventState.tableState)
+		.pipe(
+			tap((tableState) => {
+				if (this.someDataExist.isOff) {
+					this.someDataExist.toggle(tableState.total > 0);
+					this.changeDetectorRef.detectChanges();
+				}
+			})
+		);
 
 }

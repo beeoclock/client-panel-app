@@ -5,31 +5,42 @@ import {debounceTime, firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
 import {FilterForm} from "@event/presentation/form/filter.form";
 import {EventActions} from "@event/state/event/event.actions";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {RouterLink} from "@angular/router";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
-  selector: 'event-filter-component',
-  standalone: true,
-  imports: [
-    FilterPanelComponent,
-    SearchInputComponent
-  ],
-  template: `
-    <utility-filter-panel-component>
-      <utility-search-input-component [control]="form.controls.search"/>
-    </utility-filter-panel-component>
-
-  `
+	selector: 'event-filter-component',
+	standalone: true,
+	imports: [
+		FilterPanelComponent,
+		SearchInputComponent,
+		PrimaryButtonDirective,
+		RouterLink,
+		TranslateModule
+	],
+	template: `
+		<utility-filter-panel-component>
+			<utility-search-input-component start [control]="form.controls.search"/>
+			<ng-container end>
+				<button type="button" primary routerLink="form">
+					<i class="bi bi-plus-lg"></i>
+					{{ 'keyword.capitalize.add-event' | translate }}
+				</button>
+			</ng-container>
+		</utility-filter-panel-component>
+	`
 })
 export class FilterComponent {
-  public readonly store = inject(Store);
-  public readonly form = new FilterForm();
+	public readonly store = inject(Store);
+	public readonly form = new FilterForm();
 
-  constructor() {
-    this.form.valueChanges.pipe(
-      debounceTime(500),
-    ).subscribe(async (value) => {
-      await firstValueFrom(this.store.dispatch(new EventActions.UpdateFilters(<{ search: string }>value)));
-      await firstValueFrom(this.store.dispatch(new EventActions.GetList()));
-    });
-  }
+	constructor() {
+		this.form.valueChanges.pipe(
+			debounceTime(500),
+		).subscribe(async (value) => {
+			await firstValueFrom(this.store.dispatch(new EventActions.UpdateFilters(<{ search: string }>value)));
+			await firstValueFrom(this.store.dispatch(new EventActions.GetList()));
+		});
+	}
 }

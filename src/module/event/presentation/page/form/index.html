@@ -67,9 +67,10 @@
         <div class="mt-4">
           <button
             primary
+						[scrollToFirstError]="true"
             [isLoading]="form.pending"
             [disabled]="form.disabled"
-            (click)="preview.switchOn()">
+            (click)="goToPreview()">
             {{ 'keyword.capitalize.preview' | translate }}
           </button>
         </div>

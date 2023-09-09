@@ -123,7 +123,6 @@ export class InvalidTooltipDirective implements DoCheck {
     // Add border red to input
 		if (this.setRedBorderTo) {
 			const element = document.querySelector(this.setRedBorderTo);
-			console.log(element);
 			if (element) {
 				element.classList.add('!border-red-500');
 			}

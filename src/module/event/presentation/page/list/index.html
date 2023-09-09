@@ -1,20 +1,7 @@
 <ng-container *ngIf="initialized.isOn; else NotInitializedTemplate">
+	<event-filter-component *ngIf="someDataExist.isOn"/>
 	<ng-container *ngIf="tableState$ | async as tableState">
 		<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
-			<div class="flex justify-between p-4">
-				<event-filter-component/>
-				<utility-dropdown [buttonLabel]="'keyword.capitalize.menu' | translate">
-					<ng-container content>
-						<a
-							routerLink="form"
-							class="block px-4 py-2 text-sm text-beeColor-700 dark:text-beeDarkColor-300 hover:bg-beeColor-200 dark:hover:bg-beeDarkColor-600"
-							role="menuitem" tabindex="-1">
-							<i class="bi bi-plus-lg"></i>
-							{{ 'keyword.capitalize.add-event' | translate }}
-						</a>
-					</ng-container>
-				</utility-dropdown>
-			</div>
 			<event-table-list-component [tableState]="tableState"/>
 		</ng-container>
 		<ng-template #EmptyTemplate>

@@ -5,19 +5,30 @@ import {debounceTime, firstValueFrom} from 'rxjs';
 import {Store} from "@ngxs/store";
 import {FilterForm} from "@member/presentation/form/filter.form";
 import {MemberActions} from "@member/state/member/member.actions";
+import {TranslateModule} from "@ngx-translate/core";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'member-filter-component',
   standalone: true,
-  imports: [
-    FilterPanelComponent,
-    SearchInputComponent
-  ],
+	imports: [
+		FilterPanelComponent,
+		SearchInputComponent,
+		TranslateModule,
+		PrimaryButtonDirective,
+		RouterLink
+	],
   template: `
-    <utility-filter-panel-component>
-      <utility-search-input-component [control]="form.controls.search"/>
-    </utility-filter-panel-component>
-
+		<utility-filter-panel-component>
+			<utility-search-input-component start [control]="form.controls.search"/>
+			<ng-container end>
+				<button type="button" primary routerLink="form">
+					<i class="bi bi-plus-lg"></i>
+					{{ 'member.button.create' | translate }}
+				</button>
+			</ng-container>
+		</utility-filter-panel-component>
   `
 })
 export class FilterComponent {

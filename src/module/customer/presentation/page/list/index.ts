@@ -1,8 +1,7 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
 import {ListPage} from "@utility/list.page";
-import {Select} from "@ngxs/store";
 import {CustomerState} from "@customer/state/customer/customer.state";
-import {Observable} from "rxjs";
+import {Observable, tap} from "rxjs";
 import {ICustomer} from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ITableState} from "@utility/domain/table.state";
@@ -13,6 +12,7 @@ import {FilterComponent} from "@customer/presentation/component/filter/filter.co
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {RouterLink} from "@angular/router";
 import {AsyncPipe, NgIf} from "@angular/common";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 
 @Component({
 	selector: 'customer-list-page',
@@ -27,15 +27,22 @@ import {AsyncPipe, NgIf} from "@angular/common";
 		DropdownComponent,
 		RouterLink,
 		NgIf,
-		AsyncPipe
+		AsyncPipe,
+		PrimaryButtonDirective
 	],
 	standalone: true
 })
 export default class Index extends ListPage {
 
 	public override readonly actions = CustomerActions;
-
-	@Select(CustomerState.tableState)
-	public readonly tableState$!: Observable<ITableState<ICustomer>>;
+	public readonly tableState$: Observable<ITableState<ICustomer>> = this.store.select(CustomerState.tableState)
+		.pipe(
+			tap((tableState) => {
+				if (this.someDataExist.isOff) {
+					this.someDataExist.toggle(tableState.total > 0);
+					this.changeDetectorRef.detectChanges();
+				}
+			})
+		);
 
 }

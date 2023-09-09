@@ -13,6 +13,7 @@ export const enum ButtonColorEnum {
 export const baseButtonClassList = [
 	"transition-all",
 	"flex",
+	'gap-2',
 	"w-full",
 	"justify-center",
 	"rounded-2xl",
@@ -78,9 +79,9 @@ export class BaseButtonDirective implements OnInit {
 		// TODO move the code below to service
 		const {target} = $event;
 		if (target instanceof HTMLButtonElement) {
-			const {parentElement} = target;
-			if (parentElement) {
-				const invalidElement = parentElement.querySelector('.ng-invalid');
+			const {form} = target;
+			if (form) {
+				const invalidElement = form.querySelector('.ng-invalid');
 				if (invalidElement) {
 					invalidElement.scrollIntoView({
 						behavior: 'smooth',

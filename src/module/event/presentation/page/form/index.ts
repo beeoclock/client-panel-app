@@ -22,7 +22,6 @@ import {BooleanState} from "@utility/domain";
 import {NgIf} from "@angular/common";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
 
-
 @Component({
   selector: 'event-form-page',
   templateUrl: 'index.html',
@@ -173,5 +172,13 @@ export default class Index implements OnInit {
       }
     }
   }
+
+	public goToPreview(): void {
+		this.form.updateValueAndValidity();
+		this.form.markAllAsTouched();
+		if (this.form.valid) {
+			this.preview.switchOn();
+		}
+	}
 
 }

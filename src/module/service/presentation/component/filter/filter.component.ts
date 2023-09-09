@@ -5,19 +5,30 @@ import {debounceTime, firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
 import {FilterForm} from "@customer/presentation/form/filter.form";
 import {ServiceActions} from "@service/state/service/service.actions";
+import {TranslateModule} from "@ngx-translate/core";
+import {RouterLink} from "@angular/router";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 
 @Component({
   selector: 'service-filter-component',
   standalone: true,
-  imports: [
-    FilterPanelComponent,
-    SearchInputComponent
-  ],
+	imports: [
+		FilterPanelComponent,
+		SearchInputComponent,
+		TranslateModule,
+		RouterLink,
+		PrimaryButtonDirective
+	],
   template: `
-    <utility-filter-panel-component>
-      <utility-search-input-component [control]="form.controls.search"/>
-    </utility-filter-panel-component>
-
+		<utility-filter-panel-component>
+			<utility-search-input-component start [control]="form.controls.search"/>
+			<ng-container end>
+				<button type="button" primary routerLink="form">
+					<i class="bi bi-plus-lg"></i>
+					{{ 'keyword.capitalize.add-service' | translate }}
+				</button>
+			</ng-container>
+		</utility-filter-panel-component>
   `
 })
 export class FilterComponent {

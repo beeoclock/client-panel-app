@@ -14,8 +14,7 @@ import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdo
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
-import {Select} from "@ngxs/store";
-import {Observable} from "rxjs";
+import {Observable, tap} from "rxjs";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {ServiceState} from "@service/state/service/service.state";
 import {ITableState} from "@utility/domain/table.state";
@@ -62,7 +61,14 @@ export default class Index extends ListPage {
 
 	public override readonly actions = ServiceActions;
 
-	@Select(ServiceState.tableState)
-	public readonly tableState$!: Observable<ITableState<IService>>;
+	public readonly tableState$: Observable<ITableState<IService>> = this.store.select(ServiceState.tableState)
+		.pipe(
+			tap((tableState) => {
+				if (this.someDataExist.isOff) {
+					this.someDataExist.toggle(tableState.total > 0);
+					this.changeDetectorRef.detectChanges();
+				}
+			})
+		);
 
 }

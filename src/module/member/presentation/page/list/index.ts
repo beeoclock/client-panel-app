@@ -11,8 +11,7 @@ import {SortIndicatorComponent} from "@utility/presentation/component/pagination
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {Select} from "@ngxs/store";
-import {Observable} from "rxjs";
+import {Observable, tap} from "rxjs";
 import {IMember} from "@member/domain";
 import {MemberActions} from "@member/state/member/member.actions";
 import {MemberState} from "@member/state/member/member.state";
@@ -26,10 +25,10 @@ import {TableListComponent} from "@member/presentation/component/list/table/tabl
 import {StarterComponent} from "@utility/presentation/component/starter/starter.component";
 
 @Component({
-  selector: 'member-list-page',
-  templateUrl: 'index.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+	selector: 'member-list-page',
+	templateUrl: 'index.html',
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		RouterLink,
 		DeleteButtonComponent,
@@ -52,13 +51,20 @@ import {StarterComponent} from "@utility/presentation/component/starter/starter.
 		TableListComponent,
 		StarterComponent
 	],
-  standalone: true
+	standalone: true
 })
 export default class Index extends ListPage {
 
-  public override readonly actions = MemberActions;
+	public override readonly actions = MemberActions;
 
-  @Select(MemberState.tableState)
-  public readonly tableState$!: Observable<ITableState<IMember>>;
+	public readonly tableState$: Observable<ITableState<IMember>> = this.store.select(MemberState.tableState)
+		.pipe(
+			tap((tableState) => {
+				if (this.someDataExist.isOff) {
+					this.someDataExist.toggle(tableState.total > 0);
+					this.changeDetectorRef.detectChanges();
+				}
+			})
+		);
 
 }
