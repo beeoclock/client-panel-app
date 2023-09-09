@@ -20,7 +20,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
     <div class="flex flex-col">
       <textarea
         invalidTooltip
-        class="focus:ring-2 outline-0 sm:text-sm border border-beeColor-300 rounded-md bg-white px-3 py-1.5 dark:bg-beeDarkColor-900 dark:border-beeDarkColor-700 dark:text-white"
+        class="focus:ring-2 outline-0 border border-beeColor-300 rounded-md bg-white px-3 py-1.5 dark:bg-beeDarkColor-900 dark:border-beeDarkColor-700 dark:text-white"
         [rows]="rows"
         [placeholder]="placeholder"
         [id]="id"

@@ -50,7 +50,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
           border-beeColor-300
           placeholder:text-beeColor-400
           focus:border-beeColor-800
-          sm:text-sm sm:leading-6">
+          sm:leading-6">
       <button
         (click)="callback()"
         *ngIf="showButton"

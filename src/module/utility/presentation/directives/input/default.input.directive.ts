@@ -22,7 +22,6 @@ export class DefaultInputDirective {
     'dark:border-beeColor-700',
     'placeholder:text-beeColor-400',
     'focus:ring-2',
-    'sm:text-sm',
     'sm:leading-6'
   ];
 

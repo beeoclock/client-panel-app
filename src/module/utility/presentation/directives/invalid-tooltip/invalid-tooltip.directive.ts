@@ -16,6 +16,9 @@ export class InvalidTooltipDirective implements DoCheck {
   @Input()
   public basePathOfTranslate: string = 'form.validation.';
 
+  @Input()
+  public setRedBorderTo: string | undefined;
+
   public control: undefined | null | AbstractControl<any, any>;
 
   public invalidCustomTooltip: undefined | HTMLDivElement;
@@ -56,7 +59,7 @@ export class InvalidTooltipDirective implements DoCheck {
     this.invalidCustomTooltip?.remove();
 
     // Remove red border from input
-    this.elementRef.nativeElement.classList.remove('border-red-500');
+    this.elementRef.nativeElement.classList.remove('!border-red-500');
 
   }
 
@@ -118,7 +121,15 @@ export class InvalidTooltipDirective implements DoCheck {
     this.elementRef.nativeElement.parentElement.appendChild(this.invalidCustomTooltip);
 
     // Add border red to input
-    this.elementRef.nativeElement.classList.add('border-red-500');
+		if (this.setRedBorderTo) {
+			const element = document.querySelector(this.setRedBorderTo);
+			console.log(element);
+			if (element) {
+				element.classList.add('!border-red-500');
+			}
+		} else {
+			this.elementRef.nativeElement.classList.add('!border-red-500');
+		}
 
   }
 

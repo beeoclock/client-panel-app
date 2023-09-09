@@ -504,7 +504,8 @@
 			"phone": "Телефон",
 			"placeholder": {
 				"description": "Напиши додаткову інформацію",
-				"search": "Пошук"
+				"search": "Пошук",
+				"selectBusinessCategory": "Виберіть категорію бізнесу"
 			},
 			"preview": "Попередній перегляд",
 			"previous": "Назад",

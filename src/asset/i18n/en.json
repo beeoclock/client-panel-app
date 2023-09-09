@@ -504,7 +504,8 @@
 			"phone": "Phone",
 			"placeholder": {
 				"description": "Type description",
-				"search": "Search"
+				"search": "Search",
+				"selectBusinessCategory": "Select business category"
 			},
 			"preview": "Preview",
 			"previous": "Previous",

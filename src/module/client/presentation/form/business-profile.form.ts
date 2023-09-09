@@ -86,6 +86,7 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
   private initValidators(): void {
     this.controls.name.setValidators([Validators.minLength(1), Validators.required]);
     this.controls.description.setValidators([Validators.maxLength(1000)]);
+    this.controls.businessCategory.setValidators([Validators.required]);
   }
 
   // public async setLogo(target: HTMLInputElement): Promise<void> {
