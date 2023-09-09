@@ -1,9 +1,18 @@
-import {ChangeDetectionStrategy, Component, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	inject,
+	Input,
+	OnInit,
+	ViewEncapsulation
+} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {CountryEnum} from "@utility/domain/enum/country.enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
+import {CountryCodeEnum} from "@utility/domain/enum/country-code.enum";
 
 @Component({
 	selector: 'country-select-component',
@@ -39,6 +48,7 @@ export class PriceAndCurrencyComponent implements OnInit {
 	public control = new FormControl();
 
 	public readonly translateService = inject(TranslateService);
+	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 
 	private readonly countryTranslateMap: { [key in keyof typeof CountryEnum]: string };
 
@@ -61,7 +71,8 @@ export class PriceAndCurrencyComponent implements OnInit {
 
 		if (!this.control.value) {
 
-			this.control.patchValue(CountryEnum.UA);
+			this.control.patchValue(CountryCodeEnum.UA);
+			this.changeDetectorRef.detectChanges();
 
 		}
 

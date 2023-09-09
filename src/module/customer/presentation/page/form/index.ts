@@ -3,7 +3,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
-import {ICustomer} from "@customer/domain";
+import {ICustomer, RICustomer} from "@customer/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {CustomerState} from "@customer/state/customer/customer.state";
 import {filter, firstValueFrom, Observable} from "rxjs";
@@ -74,16 +74,16 @@ export default class Index implements OnInit {
 			this.form.disable();
 			this.form.markAsPending();
 			const redirectUri = ['../'];
+			const value = this.form.getRawValue() as RICustomer;
 			if (this.isEditMode) {
-				await firstValueFrom(this.store.dispatch(new CustomerActions.UpdateItem(this.form.getRawValue() as ICustomer)));
+				await firstValueFrom(this.store.dispatch(new CustomerActions.UpdateItem(value)));
 			} else {
-				await firstValueFrom(this.store.dispatch(new CustomerActions.CreateItem(this.form.getRawValue() as ICustomer)));
+				await firstValueFrom(this.store.dispatch(new CustomerActions.CreateItem(value)));
 				const item = await firstValueFrom(this.itemData$);
 				if (item) {
 					redirectUri.push(item._id);
 				}
 			}
-			console.log('redirectUri', redirectUri);
 			await this.router.navigate(redirectUri, {
 				relativeTo: this.activatedRoute
 			});
