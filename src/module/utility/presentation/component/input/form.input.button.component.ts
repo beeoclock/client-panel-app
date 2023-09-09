@@ -3,21 +3,23 @@ import {IsRequiredDirective} from "@utility/presentation/directives/is-required/
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
+import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({
   selector: 'form-input-button',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    IsRequiredDirective,
-    InvalidTooltipDirective,
-    ReactiveFormsModule,
-    NgIf,
-  ],
+	imports: [
+		IsRequiredDirective,
+		InvalidTooltipDirective,
+		ReactiveFormsModule,
+		NgIf,
+		DefaultLabelDirective,
+	],
   template: `
 
     <div class="flex items-center justify-between">
-      <label [for]="id" class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
+      <label [for]="id" default>
         {{ label }}
       </label>
       <div class="text-sm">

@@ -3,17 +3,19 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {LANGUAGES} from "@utility/domain/enum";
 import {NgSelectModule} from "@ng-select/ng-select";
+import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({
   selector: 'client-settings-language-input-component',
   standalone: true,
-  imports: [
-    NgSelectModule,
-    ReactiveFormsModule,
-    TranslateModule
-  ],
+	imports: [
+		NgSelectModule,
+		ReactiveFormsModule,
+		TranslateModule,
+		DefaultLabelDirective
+	],
   template: `
-    <label class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
+    <label default>
       {{ 'keyword.capitalize.language' | translate }}
     </label>
     <ng-select

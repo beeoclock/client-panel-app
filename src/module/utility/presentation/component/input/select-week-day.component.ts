@@ -4,18 +4,20 @@ import {NgClass, NgForOf} from "@angular/common";
 import {Info} from "luxon";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {WORK_WEEK} from "@utility/domain/enum";
+import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({
   selector: 'select-week-day-component',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [
-    NgForOf,
-    NgClass,
-    TranslateModule
-  ],
+	imports: [
+		NgForOf,
+		NgClass,
+		TranslateModule,
+		DefaultLabelDirective
+	],
   template: `
-    <label class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
+    <label default>
       {{ 'keyword.capitalize.workdays' | translate }}
     </label>
     <div class="grid grid-cols-7 gap-2">

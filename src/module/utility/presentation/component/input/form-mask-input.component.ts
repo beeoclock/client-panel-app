@@ -3,19 +3,21 @@ import {IsRequiredDirective} from "@utility/presentation/directives/is-required/
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {NgxMaskDirective} from "ngx-mask";
+import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({
   selector: 'form-mask-input',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    IsRequiredDirective,
-    InvalidTooltipDirective,
-    ReactiveFormsModule,
-    NgxMaskDirective,
-  ],
+	imports: [
+		IsRequiredDirective,
+		InvalidTooltipDirective,
+		ReactiveFormsModule,
+		NgxMaskDirective,
+		DefaultLabelDirective,
+	],
   template: `
-    <label [for]="id" class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
+    <label [for]="id" default>
       {{ label }}
     </label>
     <input

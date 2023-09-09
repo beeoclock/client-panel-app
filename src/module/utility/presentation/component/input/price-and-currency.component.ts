@@ -7,12 +7,13 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {LanguageCurrency} from "@utility/domain/const/c.language-currency";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-error.directive";
+import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({
   selector: 'price-and-currency-component',
   standalone: true,
   template: `
-    <label class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white" [for]="prefix + 'price'">{{ 'keyword.capitalize.price' | translate }}</label>
+    <label default [for]="prefix + 'price'">{{ 'keyword.capitalize.price' | translate }}</label>
     <div class="flex">
       <input
         [id]="prefix + 'price'"
@@ -71,14 +72,15 @@ import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-
     </div>
   `,
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    NgSelectModule,
-    ReactiveFormsModule,
-    InvalidTooltipDirective,
-    HasErrorDirective,
-    NgxMaskDirective,
-    TranslateModule
-  ],
+	imports: [
+		NgSelectModule,
+		ReactiveFormsModule,
+		InvalidTooltipDirective,
+		HasErrorDirective,
+		NgxMaskDirective,
+		TranslateModule,
+		DefaultLabelDirective
+	],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PriceAndCurrencyComponent implements OnInit {
