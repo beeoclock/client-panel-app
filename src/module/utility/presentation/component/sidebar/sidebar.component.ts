@@ -48,17 +48,17 @@ export class SidebarComponent implements OnInit {
         exact: true
       }
     },
-    {
-      url: '/client/business-profile',
-      translateKey: 'sidebar.businessProfile',
-      icon: 'bi bi-buildings',
-      routerLinkActiveOptions: {
-        paths: "subset",
-        matrixParams: "ignored",
-        queryParams: "ignored",
-        fragment: "ignored",
-      }
-    },
+		{
+			translateKey: 'sidebar.events',
+			icon: 'bi bi-calendar2-week',
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			},
+			url: '/event',
+		},
     {
       url: '/customer',
       translateKey: 'sidebar.customers',
@@ -92,17 +92,17 @@ export class SidebarComponent implements OnInit {
         fragment: "ignored",
       }
     },
-    {
-      translateKey: 'sidebar.events',
-      icon: 'bi bi-calendar2-week',
-      routerLinkActiveOptions: {
-        paths: "subset",
-        matrixParams: "ignored",
-        queryParams: "ignored",
-        fragment: "ignored",
-      },
-      url: '/event',
-    },
+		{
+			url: '/client/business-profile',
+			translateKey: 'sidebar.businessProfile',
+			icon: 'bi bi-buildings',
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		},
     // {
     //   icon: 'bi bi-person',
     //   translateKey: 'sidebar.private',
