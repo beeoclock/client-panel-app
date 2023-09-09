@@ -1,6 +1,6 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {ParsedToken} from '@angular/fire/auth';
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
@@ -26,5 +26,7 @@ export interface BeeoclockParsedToken extends ParsedToken {
 	]
 })
 export default class Index {
+	private readonly router = inject(Router);
 
+	public readonly returnUrl = this.router.url;
 }

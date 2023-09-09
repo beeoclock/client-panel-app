@@ -5,7 +5,7 @@
 				<div class="text-2xl sm:text-3xl leading-none font-bold text-beeColor-900 dark:text-beeColor-200">
 					{{ 'keyword.capitalize.event' | translate }}
 				</div>
-				<button primaryLink routerLink="/event/form">
+				<button primaryLink routerLink="/event/form" [queryParams]="{returnUrl}">
 					<i class="bi bi-plus-lg"></i>
 					{{ 'keyword.capitalize.add-event' | translate }}
 				</button>
@@ -16,7 +16,7 @@
 				<div class="text-2xl sm:text-3xl leading-none font-bold text-beeColor-900 dark:text-beeColor-200">
 					{{ 'keyword.capitalize.customer' | translate }}
 				</div>
-				<button primaryLink routerLink="/customer/form">>
+				<button primaryLink routerLink="/customer/form" [queryParams]="{returnUrl}">
 					<i class="bi bi-plus-lg"></i>
 					{{ 'customer.button.create' | translate }}
 				</button>
@@ -27,7 +27,7 @@
 				<div class="text-2xl sm:text-3xl leading-none font-bold text-beeColor-900 dark:text-beeColor-200">
 					{{ 'keyword.capitalize.services' | translate }}
 				</div>
-				<button primaryLink routerLink="/service/form">>
+				<button primaryLink routerLink="/service/form" [queryParams]="{returnUrl}">
 					<i class="bi bi-plus-lg"></i>
 					{{ 'keyword.capitalize.add-service' | translate }}
 				</button>
