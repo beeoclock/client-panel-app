@@ -2,6 +2,9 @@ import {Component, ViewEncapsulation} from '@angular/core';
 import {ParsedToken} from '@angular/fire/auth';
 import {RouterLink} from "@angular/router";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {TranslateModule} from "@ngx-translate/core";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 
 export interface BeeoclockParsedToken extends ParsedToken {
   role: string[];
@@ -14,10 +17,13 @@ export interface BeeoclockParsedToken extends ParsedToken {
   templateUrl: 'index.html',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
-    imports: [
-        RouterLink,
-        CardComponent
-    ]
+	imports: [
+		RouterLink,
+		CardComponent,
+		TranslateModule,
+		PrimaryButtonDirective,
+		PrimaryLinkButtonDirective
+	]
 })
 export default class Index {
 
