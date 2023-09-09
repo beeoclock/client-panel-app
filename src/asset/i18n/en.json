@@ -467,6 +467,7 @@
 			"create": "Create",
 			"createdAt": "Created at",
 			"customer": "Customer",
+			"customers": "customers",
 			"dateAndTime": "Date and time",
 			"delete": "Delete",
 			"description": "Description",
@@ -532,107 +533,107 @@
 			"specialists": "Specialists",
 			"start": "Start",
 			"streetAddressLineOne": "Address 1",
-			"streetAddressLineTwo": "Address 2",
-			"theme": "Theme",
-			"title": "Title",
-			"today": "Today",
-			"tomorrow": "Tomorrow",
-			"total": "Total",
-			"unknown": "Unknown",
-			"update": "Updated",
-			"updatedAt": "Updated at",
-			"workdays": "Workdays",
-			"workingHours": "Working hours",
-			"writePrice": "Write price",
-			"yes": "Yes",
-			"zipCode": "Zip code"
-		},
-		"lowercase": {
-			"dragAndDrop": "drag and drop",
-			"or": "or"
-		}
-	},
-	"latestBooking": {
-		"EIGHT_WEEKS": "Within 8 weeks",
-		"FIVE_WEEKS": "Within 5 weeks",
-		"FOUR_WEEKS": "Within 4 weeks",
-		"NO_LIMIT": "Any available time",
-		"SEVEN_WEEKS": "Within 7 weeks",
-		"SIX_WEEKS": "Within 6 weeks",
-		"THREE_WEEKS": "Within 3 weeks",
-		"TWO_WEEKS": "This week and next week"
-	},
-	"member": {
-		"button": {
-			"create": "Add member"
-		},
-		"title": "Member"
-	},
-	"page": {
-		"calendar": {
-			"title": "Calendar"
-		},
-		"select-client": {
-			"button": {
-				"create-new-client": "Create a new client"
-			},
-			"form": {
-				"button": {
-					"submit": "Select"
-				}
-			},
-			"title": "Select client"
-		}
-	},
-	"service": {
-		"form": {
-			"v2": {
-				"section": {
-					"presentation": {
-						"motivate": "You can inject a little more personality into your services and help people recognize your work by uploading a \n image (an image, photo or other graphic icon of your service)."
-					},
-					"prices": {
-						"button": {
-							"add": {
-								"label": "Add price"
-							}
-						}
-					}
-				}
-			}
-		},
-		"keyword": {
-			"capitalize": {
-				"active": "Active",
-				"inactive": "Inactive"
-			}
-		},
-		"title": "Service"
-	},
-	"sidebar": {
-		"addEvent": "Add event",
-		"businessProfile": "Business profile",
-		"calendar": "Calendar",
-		"customers": "Customers",
-		"dashboard": "Dashboard",
-		"events": "Events",
-		"members": "Members",
-		"private": "Private",
-		"services": "Services",
-		"settings": "Settings",
-		"switch-business-client": "Change context",
-		"table": "Table"
-	},
-	"sign-out": {
-		"button": {
-			"sign-out": {
-				"label": "Sign out now"
-			}
-		},
-		"title": "Sign out"
-	},
-	"theme": {
-		"dark": "Dark",
-		"light": "Light"
-	}
+      "streetAddressLineTwo": "Address 2",
+      "theme": "Theme",
+      "title": "Title",
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "total": "Total",
+      "unknown": "Unknown",
+      "update": "Updated",
+      "updatedAt": "Updated at",
+      "workdays": "Workdays",
+      "workingHours": "Working hours",
+      "writePrice": "Write price",
+      "yes": "Yes",
+      "zipCode": "Zip code"
+    },
+    "lowercase": {
+      "dragAndDrop": "drag and drop",
+      "or": "or"
+    }
+  },
+  "latestBooking": {
+    "EIGHT_WEEKS": "Within 8 weeks",
+    "FIVE_WEEKS": "Within 5 weeks",
+    "FOUR_WEEKS": "Within 4 weeks",
+    "NO_LIMIT": "Any available time",
+    "SEVEN_WEEKS": "Within 7 weeks",
+    "SIX_WEEKS": "Within 6 weeks",
+    "THREE_WEEKS": "Within 3 weeks",
+    "TWO_WEEKS": "This week and next week"
+  },
+  "member": {
+    "button": {
+      "create": "Add member"
+    },
+    "title": "Member"
+  },
+  "page": {
+    "calendar": {
+      "title": "Calendar"
+    },
+    "select-client": {
+      "button": {
+        "create-new-client": "Create a new client"
+      },
+      "form": {
+        "button": {
+          "submit": "Select"
+        }
+      },
+      "title": "Select client"
+    }
+  },
+  "service": {
+    "form": {
+      "v2": {
+        "section": {
+          "presentation": {
+            "motivate": "You can inject a little more personality into your services and help people recognize your work by uploading a \n image (an image, photo or other graphic icon of your service)."
+          },
+          "prices": {
+            "button": {
+              "add": {
+                "label": "Add price"
+              }
+            }
+          }
+        }
+      }
+    },
+    "keyword": {
+      "capitalize": {
+        "active": "Active",
+        "inactive": "Inactive"
+      }
+    },
+    "title": "Service"
+  },
+  "sidebar": {
+    "addEvent": "Add event",
+    "businessProfile": "Business profile",
+    "calendar": "Calendar",
+    "customers": "Customers",
+    "dashboard": "Dashboard",
+    "events": "Events",
+    "members": "Members",
+    "private": "Private",
+    "services": "Services",
+    "settings": "Settings",
+    "switch-business-client": "Change context",
+    "table": "Table"
+  },
+  "sign-out": {
+    "button": {
+      "sign-out": {
+        "label": "Sign out now"
+      }
+    },
+    "title": "Sign out"
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light"
+  }
 }

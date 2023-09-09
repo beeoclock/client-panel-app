@@ -1,129 +1,29 @@
-<div class="flex justify-between p-4">
-  <customer-filter-component/>
-  <utility-dropdown [buttonLabel]="'keyword.capitalize.menu' | translate">
-    <ng-container content>
-      <li>
-        <a
-          routerLink="form"
-          class="block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-          <i class="bi bi-plus-lg"></i>
-          {{ 'customer.button.create' | translate }}
-        </a>
-      </li>
-    </ng-container>
-  </utility-dropdown>
-</div>
-
-<ng-container *ngIf="tableState$ | async as tableState">
-  <table class="w-full text-sm text-left text-beeColor-500 dark:text-beeDarkColor-400">
-    <thead class="text-xs text-beeColor-700 uppercase border-b border-beeColor-300 dark:border-beeDarkColor-700 dark:bg-beeDarkColor-800 dark:text-beeDarkColor-400">
-    <tr>
-      <th scope="col" class="p-4">
-        <div class="flex items-center">
-          <input id="checkbox-all" type="checkbox"
-                 class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeDarkColor-800 dark:focus:ring-offset-beeDarkColor-800 focus:ring-2 dark:bg-beeDarkColor-700 dark:border-beeDarkColor-300">
-          <label for="checkbox-all" class="sr-only">checkbox</label>
-        </div>
-      </th>
-      <th scope="col" class="px-6 py-3"
-          data-orderBy="lastName">
-        {{ 'keyword.capitalize.fullName' | translate }}
-        <utility-sort-indicator
-          orderBy="lastName"
-          [tableState]="tableState"
-        />
-      </th>
-      <th scope="col" class="px-6 py-3"
-          data-orderBy="email">
-        {{ 'keyword.capitalize.email' | translate }}
-        <utility-sort-indicator
-          orderBy="email"
-          [tableState]="tableState"
-        />
-      </th>
-      <th scope="col" class="px-6 py-3"
-          data-orderBy="phone">
-        {{ 'keyword.capitalize.phone' | translate }}
-        <utility-sort-indicator
-          orderBy="phone"
-          [tableState]="tableState"
-        />
-      </th>
-      <th scope="col" class="px-6 py-3">
-        {{ 'keyword.capitalize.note' | translate }}
-      </th>
-      <th scope="col" class="px-6 py-3" data-orderBy="active">
-        {{ 'keyword.capitalize.active' | translate }}
-        <utility-sort-indicator
-          orderBy="active"
-          [tableState]="tableState"
-        />
-      </th>
-      <th scope="col" class="px-6 py-3"
-          data-orderBy="createdAt">
-        {{ 'keyword.capitalize.createdAt' | translate }}
-        <utility-sort-indicator
-          orderBy="createdAt"
-          [tableState]="tableState"
-        />
-      </th>
-      <th scope="col" class="px-6 py-3"
-          data-orderBy="updatedAt">
-        {{ 'keyword.capitalize.updatedAt' | translate }}
-        <utility-sort-indicator
-          orderBy="updatedAt"
-          [tableState]="tableState"
-        />
-      </th>
-      <th scope="col" class="px-6 py-3 text-center">
-        {{ 'keyword.capitalize.action' | translate }}
-      </th>
-    </tr>
-    </thead>
-    <tbody class="overflow-y-scroll max-h-72">
-    <tr
-      (click)="goToDetail(item._id)"
-      class="bg-white border-b dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-900"
-      *ngFor="let item of tableState.items">
-      <td class="w-4 py-2 px-4">
-        <div class="flex items-center">
-          <input id="checkbox-table-1" type="checkbox"
-                 class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeDarkColor-800 dark:focus:ring-offset-beeDarkColor-800 focus:ring-2 dark:bg-beeDarkColor-700 dark:border-beeDarkColor-300">
-          <label for="checkbox-table-1" class="sr-only">checkbox</label>
-        </div>
-      </td>
-      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-        <a [routerLink]="item._id">
-          {{ item.firstName }} {{ item.lastName }}
-        </a>
-      </td>
-      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-        <a href="mailto:{{ item.email }}">{{ item.email }}</a>
-      </td>
-      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-        {{ item.phone }}
-      </td>
-      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-        {{ item.note }}
-      </td>
-      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-        <div active-style [active]="item.active">
-        </div>
-      </td>
-      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-        {{ item.createdAt | dynamicDate }}
-      </td>
-      <td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-        {{ item.updatedAt | dynamicDate }}
-      </td>
-      <td class="px-6 py-2 text-center text-beeColor-700 dark:text-beeDarkColor-100">
-        <utility-table-column-action [id]="item._id" [active]="item.active" (delete)="delete($event)"
-                                     (archive)="archive($event)"/>
-      </td>
-    </tr>
-
-    </tbody>
-  </table>
-  <utility-table-state-pagination-component (clearCache)="clearTableCache()" (page)="pageChange($event)"
-                                            [tableState]="tableState"/>
+<ng-container *ngIf="initialized.isOn; else NotInitializedTemplate">
+	<ng-container *ngIf="tableState$ | async as tableState">
+		<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
+			<div class="flex justify-between p-4">
+				<customer-filter-component/>
+				<utility-dropdown [buttonLabel]="'keyword.capitalize.menu' | translate">
+					<ng-container content>
+						<li>
+							<a
+								routerLink="form"
+								class="block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
+								<i class="bi bi-plus-lg"></i>
+								{{ 'customer.button.create' | translate }}
+							</a>
+						</li>
+					</ng-container>
+				</utility-dropdown>
+			</div>
+			<customer-table-list-component [tableState]="tableState"/>
+		</ng-container>
+		<ng-template #EmptyTemplate>
+			<starter-component
+				[link]="['/', 'customer', 'form']"
+				[label]="'customer.button.create' | translate"/>
+		</ng-template>
+	</ng-container>
 </ng-container>
+<ng-template #NotInitializedTemplate>
+</ng-template>

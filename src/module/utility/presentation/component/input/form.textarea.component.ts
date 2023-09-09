@@ -3,23 +3,26 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
+import {IsRequiredDirective} from "@utility/presentation/directives/is-required/is-required";
 
 @Component({
   selector: 'form-textarea-component',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    TranslateModule,
-    InvalidTooltipDirective,
-    ReactiveFormsModule,
-    DefaultLabelDirective
-  ],
+	imports: [
+		TranslateModule,
+		InvalidTooltipDirective,
+		ReactiveFormsModule,
+		DefaultLabelDirective,
+		IsRequiredDirective
+	],
   template: `
     <label [for]="id" default>{{ label }}</label>
 
     <div class="flex flex-col">
       <textarea
         invalidTooltip
+        isRequired
         class="focus:ring-2 outline-0 border border-beeColor-300 rounded-md bg-white px-3 py-1.5 dark:bg-beeDarkColor-900 dark:border-beeDarkColor-700 dark:text-white"
         [rows]="rows"
         [placeholder]="placeholder"

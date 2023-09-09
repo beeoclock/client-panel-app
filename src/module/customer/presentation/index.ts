@@ -4,37 +4,40 @@ import {CustomerWrapperComponent} from "@customer/presentation/component/wrapper
 import {customerCacheResolver} from "@customer/presentation/resolver/customer.cache.resolver";
 
 export const routers = [
-  {
-    path: '',
-    component: CustomerWrapperComponent,
-    resolve: {
-      cacheLoaded: customerCacheResolver
-    },
-    children: [
-      {
-        path: '',
-        loadComponent: () => import('./page/list')
-      },
-      {
-        path: 'form',
-        loadComponent: () => import('./page/form'),
-      },
-      {
-        path: ':id',
-        resolve: {
-          item: customerDetailsResolver
-        },
-        children: [
-          {
-            path: '',
-            loadComponent: () => import('./page/details')
-          },
-          {
-            path: 'form',
-            loadComponent: () => import('./page/form'),
-          }
-        ]
-      },
-    ]
-  }
+	{
+		path: '',
+		component: CustomerWrapperComponent,
+		resolve: {
+			cacheLoaded: customerCacheResolver
+		},
+		children: [
+			{
+				path: '',
+				// resolve: {
+				// 	tableState: customerListResolver
+				// },
+				loadComponent: () => import('./page/list')
+			},
+			{
+				path: 'form',
+				loadComponent: () => import('./page/form'),
+			},
+			{
+				path: ':id',
+				resolve: {
+					item: customerDetailsResolver
+				},
+				children: [
+					{
+						path: '',
+						loadComponent: () => import('./page/details')
+					},
+					{
+						path: 'form',
+						loadComponent: () => import('./page/form'),
+					}
+				]
+			},
+		]
+	}
 ] as Routes;

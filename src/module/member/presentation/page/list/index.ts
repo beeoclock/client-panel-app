@@ -18,36 +18,40 @@ import {MemberActions} from "@member/state/member/member.actions";
 import {MemberState} from "@member/state/member/member.state";
 import {ITableState} from "@utility/domain/table.state";
 import {
-  TableStatePaginationComponent
+	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {FilterComponent} from "@member/presentation/component/filter/filter.component";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
+import {TableListComponent} from "@member/presentation/component/list/table/table.list.component";
+import {StarterComponent} from "@utility/presentation/component/starter/starter.component";
 
 @Component({
   selector: 'member-list-page',
   templateUrl: 'index.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    RouterLink,
-    DeleteButtonComponent,
-    TableComponent,
-    HeaderTableComponent,
-    BodyTableComponent,
-    NgForOf,
-    DatePipe,
-    FilterComponent,
-    DropdownComponent,
-    NgIf,
-    SortIndicatorComponent,
-    LoaderComponent,
-    ActionComponent,
-    TranslateModule,
-    AsyncPipe,
-    TableStatePaginationComponent,
-    FilterComponent,
-    DynamicDatePipe
-  ],
+	imports: [
+		RouterLink,
+		DeleteButtonComponent,
+		TableComponent,
+		HeaderTableComponent,
+		BodyTableComponent,
+		NgForOf,
+		DatePipe,
+		FilterComponent,
+		DropdownComponent,
+		NgIf,
+		SortIndicatorComponent,
+		LoaderComponent,
+		ActionComponent,
+		TranslateModule,
+		AsyncPipe,
+		TableStatePaginationComponent,
+		FilterComponent,
+		DynamicDatePipe,
+		TableListComponent,
+		StarterComponent
+	],
   standalone: true
 })
 export default class Index extends ListPage {
@@ -56,8 +60,5 @@ export default class Index extends ListPage {
 
   @Select(MemberState.tableState)
   public readonly tableState$!: Observable<ITableState<IMember>>;
-
-  @Select(MemberState.tableStateItems)
-  public readonly items$!: Observable<IMember[]>;
 
 }

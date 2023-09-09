@@ -1,99 +1,26 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, inject, OnInit} from "@angular/core";
+import {ChangeDetectorRef, Component, inject, OnInit} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
-import {DoubleClick} from "@utility/domain/decorator/double-click";
-import {ActivatedRoute, Router} from "@angular/router";
+import {BooleanState} from "@utility/domain";
 
 @Component({
-  selector: 'utility-list-page',
-  template: ``
+	selector: 'utility-list-page',
+	template: ``
 })
-export abstract class ListPage implements OnInit, AfterViewInit {
+export abstract class ListPage implements OnInit {
 
-  public readonly repository: any;
+	public readonly store = inject(Store);
+	public readonly changeDetectorRef = inject(ChangeDetectorRef);
+	public readonly actions!: {
+		GetList: any;
+	};
 
-  public readonly router = inject(Router);
-  public readonly activatedRoute = inject(ActivatedRoute);
-  public readonly store = inject(Store);
-  public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
-  public readonly changeDetectorRef = inject(ChangeDetectorRef);
-  public readonly actions!: {
-    DeleteItem: any;
-    ArchiveItem: any;
-    GetList: any;
-    UpdateTableState: any;
-    ClearTableCacheAndGetList: any;
-  };
+	public initialized = new BooleanState(false);
 
-  public ngAfterViewInit(): void {
-    this.initOrderByAndOrderDirHandler();
-  }
-
-  @DoubleClick
-  public goToDetail(id: string): void {
-    this.router.navigate([id], {
-      relativeTo: this.activatedRoute
-    });
-  }
-
-  public updateOrderBy(target: HTMLTableCellElement): void {
-    const orderBy = target.getAttribute('data-orderBy');
-    if (!orderBy) {
-      const parent = target.parentElement as HTMLTableCellElement;
-      if (parent) {
-        this.updateOrderBy(parent);
-      }
-    } else {
-      firstValueFrom(this.store.dispatch(new this.actions.UpdateTableState({
-        orderBy
-      }))).then(() => {
-        this.store.dispatch(new this.actions.GetList());
-      });
-    }
-  }
-
-  public ngOnInit(): void {
-    this.store.dispatch(new this.actions.GetList());
-  }
-
-  public delete(id: string): void {
-    this.store.dispatch(new this.actions.DeleteItem({
-      id
-    }));
-    this.clearTableCache();
-  }
-
-  public async archive(id: string): Promise<void> {
-    await firstValueFrom(this.store.dispatch(
-      new this.actions.ArchiveItem({
-        id
-      })));
-    this.clearTableCache();
-  }
-
-  public clearTableCache(): void {
-    this.store.dispatch(new this.actions.ClearTableCacheAndGetList());
-  }
-
-  public pageChange($event: number): void {
-    firstValueFrom(this.store.dispatch(new this.actions.UpdateTableState({
-      page: $event
-    }))).then(() => {
-      this.store.dispatch(new this.actions.GetList());
-    });
-  }
-
-  private initOrderByAndOrderDirHandler(): void {
-
-    // orderBy and orderDir
-    this.elementRef.nativeElement.querySelectorAll('th[data-orderBy]').forEach((foundElement) => {
-      foundElement.classList.add('cursor-pointer');
-      foundElement.addEventListener('click', ($event) => {
-        if ($event.target) {
-          const target = $event.target as HTMLTableCellElement;
-          this.updateOrderBy(target);
-        }
-      })
-    });
-  }
+	public ngOnInit(): void {
+		firstValueFrom(this.store.dispatch(new this.actions.GetList())).then(() => {
+			this.initialized.switchOn();
+			this.changeDetectorRef.detectChanges();
+		});
+	}
 }

@@ -1,5 +1,4 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {is} from 'thiis';
 import {ActiveEnum} from "@utility/domain/enum";
 
 export interface ICustomerForm {
@@ -58,18 +57,18 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
 
   public initValidation(): void {
 
-    this.controls.email.setValidators([Validators.email]);
+    this.controls.email.setValidators([Validators.email, Validators.required]);
 
-    this.addValidators((control: AbstractControl) => {
-      if (is.object(control.value)) {
-        if (Object.values(control.value).every(is.null)) {
-          return {
-            empty: true
-          }
-        }
-      }
-      return null;
-    });
+    // this.addValidators((control: AbstractControl) => {
+    //   if (is.object(control.value)) {
+    //     if (Object.values(control.value).every(is.null)) {
+    //       return {
+    //         empty: true
+    //       }
+    //     }
+    //   }
+    //   return null;
+    // });
 
   }
 }
