@@ -31,4 +31,11 @@ export class CalendarEventsComponent {
 		label: this.translateService.instant(`event.keyword.status.plural.${status}`)
 	}));
 	public readonly statusControl = new FormControl(EventStatusEnum.booked);
+	public readonly dateControl = new FormControl((new Date()).toJSON());
+	constructor() {
+		console.log(this.dateControl);
+		this.dateControl.valueChanges.subscribe((value) => {
+			console.log(value);
+		})
+	}
 }

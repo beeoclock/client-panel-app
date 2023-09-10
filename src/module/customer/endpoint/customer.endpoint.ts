@@ -22,16 +22,16 @@ export const customerEndpoint: EndpointCollectionType = {
         authorization: true,
       }
     },
+		[customerEndpointEnum.paged]: {
+			path: customerEndpointEnum.paged,
+			method: RequestMethodEnum.GET,
+			source: SourceNetworkEnum.panel,
+			header: {
+				authorization: true
+			}
+		},
   },
   POST: {
-    [customerEndpointEnum.paged]: {
-      path: customerEndpointEnum.paged,
-      method: RequestMethodEnum.POST,
-      source: SourceNetworkEnum.panel,
-      header: {
-        authorization: true
-      }
-    },
     [customerEndpointEnum.create]: {
       path: customerEndpointEnum.create,
       method: RequestMethodEnum.POST,

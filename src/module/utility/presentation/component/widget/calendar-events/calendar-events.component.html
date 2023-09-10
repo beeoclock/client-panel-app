@@ -1,5 +1,5 @@
 <div class="w-full rounded-2xl border dark:bg-neutral-800 bg-white h-[calc(100vh-4rem)] md:h-[calc(100vh-6rem)]">
-	<ion-datetime presentation="date" class="rounded-2xl" size="full" #datetime>
+	<ion-datetime [formControl]="dateControl" presentation="date" class="rounded-2xl" size="full" #datetime>
 		<ion-buttons slot="buttons">
 			<ion-button color="primary" (click)="datetime.reset()">
 				{{ 'keyword.capitalize.today' | translate }}

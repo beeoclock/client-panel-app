@@ -144,7 +144,7 @@ export class IdentityState {
 
   @Action(IdentityActions.GetClients)
   public async getClients(ctx: StateContext<IIdentityState>): Promise<void> {
-    const result = await firstValueFrom(this.memberContextApiAdapter.postRelated$());
+    const result = await firstValueFrom(this.memberContextApiAdapter.related$());
     ctx.patchState({
       clients: result.items
     })

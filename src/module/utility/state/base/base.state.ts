@@ -533,10 +533,8 @@ export abstract class BaseState<ITEM = any> {
 
 			const params = newTableState.toBackendFormat();
 
-			const data = await this.list.executeAsync(params);
-
-      // Update current state
-      const {items, totalSize} = data;
+			// Update current state
+			const {items, totalSize} = await this.list.executeAsync(params);
 
       newTableState.total = totalSize;
       newTableState.items = items;
