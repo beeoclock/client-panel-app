@@ -8,6 +8,7 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
+import {HALF_SECOND} from "@utility/domain/const/c.time";
 
 @Component({
 	selector: 'customer-filter-component',
@@ -37,9 +38,9 @@ export class FilterComponent {
 
 	constructor() {
 		this.form.valueChanges.pipe(
-			debounceTime(500),
+			debounceTime(HALF_SECOND),
 		).subscribe(async (value) => {
-			await firstValueFrom(this.store.dispatch(new CustomerActions.UpdateFilters(value)));
+			await firstValueFrom(this.store.dispatch(new CustomerActions.UpdateFilters(value as any)));
 			await firstValueFrom(this.store.dispatch(new CustomerActions.GetList()));
 		});
 	}

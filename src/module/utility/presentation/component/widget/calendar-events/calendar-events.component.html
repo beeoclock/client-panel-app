@@ -1,0 +1,78 @@
+<div class="w-full rounded-2xl border dark:bg-neutral-800 bg-white h-[calc(100vh-4rem)] md:h-[calc(100vh-6rem)]">
+	<ion-datetime presentation="date" class="rounded-2xl" size="full" #datetime>
+		<ion-buttons slot="buttons">
+			<ion-button color="primary" (click)="datetime.reset()">
+				{{ 'keyword.capitalize.today' | translate }}
+			</ion-button>
+			<ion-item lines="none" class="rounded-2xl">
+				<ion-select [formControl]="statusControl" class="!min-h-0" aria-label="Fruit" fill="solid" interface="popover"
+										placeholder="Select fruit">
+					<ion-select-option *ngFor="let status of eventStatusList" [value]="status.id">{{ status.label }}</ion-select-option>
+				</ion-select>
+			</ion-item>
+		</ion-buttons>
+	</ion-datetime>
+	<div
+		class="flex flex-col overflow-y-scroll border-t max-h-[calc(100vh-(26rem+57px))] md:max-h-[calc(100vh-(28rem+57px))]">
+		<div class="rounded-b-2xl p-4">
+			<p class="text-xs font-light leading-3 text-neutral-500 dark:text-neutral-300">9:00 AM</p>
+			<a tabindex="0"
+				 class="focus:outline-none text-lg font-medium leading-5 text-neutral-800 dark:text-neutral-100 mt-2">Zoom
+				call with design team</a>
+			<p class="text-sm pt-2 leading-4 leading-none text-neutral-600 dark:text-neutral-300">Discussion on UX sprint
+				and Wireframe review</p>
+		</div>
+		<div class="border-t p-4">
+			<p class="text-xs font-light leading-3 text-neutral-500 dark:text-neutral-300">10:00 AM</p>
+			<a tabindex="0"
+				 class="focus:outline-none text-lg font-medium leading-5 text-neutral-800 dark:text-neutral-100 mt-2">Orientation
+				session with new hires</a>
+		</div>
+		<div class="border-t p-4">
+			<p class="text-xs font-light leading-3 text-neutral-500 dark:text-neutral-300">9:00 AM</p>
+			<a tabindex="0"
+				 class="focus:outline-none text-lg font-medium leading-5 text-neutral-800 dark:text-neutral-100 mt-2">Zoom
+				call with design team</a>
+			<p class="text-sm pt-2 leading-4 leading-none text-neutral-600 dark:text-neutral-300">Discussion on UX sprint
+				and Wireframe review</p>
+		</div>
+		<div class="border-t p-4">
+			<p class="text-xs font-light leading-3 text-neutral-500 dark:text-neutral-300">9:00 AM</p>
+			<a tabindex="0"
+				 class="focus:outline-none text-lg font-medium leading-5 text-neutral-800 dark:text-neutral-100 mt-2">Zoom
+				call with design team</a>
+			<p class="text-sm pt-2 leading-4 leading-none text-neutral-600 dark:text-neutral-300">Discussion on UX sprint
+				and Wireframe review</p>
+		</div>
+		<div class="border-t p-4">
+			<p class="text-xs font-light leading-3 text-neutral-500 dark:text-neutral-300">9:00 AM</p>
+			<a tabindex="0"
+				 class="focus:outline-none text-lg font-medium leading-5 text-neutral-800 dark:text-neutral-100 mt-2">Zoom
+				call with design team</a>
+			<p class="text-sm pt-2 leading-4 leading-none text-neutral-600 dark:text-neutral-300">Discussion on UX sprint
+				and Wireframe review</p>
+		</div>
+		<div class="border-t p-4">
+			<p class="text-xs font-light leading-3 text-neutral-500 dark:text-neutral-300">9:00 AM</p>
+			<a tabindex="0"
+				 class="focus:outline-none text-lg font-medium leading-5 text-neutral-800 dark:text-neutral-100 mt-2">Zoom
+				call with design team</a>
+			<p class="text-sm pt-2 leading-4 leading-none text-neutral-600 dark:text-neutral-300">Discussion on UX sprint
+				and Wireframe review</p>
+		</div>
+		<div class="border-t p-4">
+			<p class="text-xs font-light leading-3 text-neutral-500 dark:text-neutral-300">9:00 AM</p>
+			<a tabindex="0"
+				 class="focus:outline-none text-lg font-medium leading-5 text-neutral-800 dark:text-neutral-100 mt-2">Zoom
+				call with design team</a>
+			<p class="text-sm pt-2 leading-4 leading-none text-neutral-600 dark:text-neutral-300">Discussion on UX sprint
+				and Wireframe review</p>
+		</div>
+	</div>
+
+	<button class="border-t p-4 w-full text-blue-500 hover:bg-blue-100 rounded-b-2xl transition-all"
+					routerLink="/event/form" [queryParams]="{returnUrl}">
+		<i class="bi bi-plus-lg"></i>
+		{{ 'keyword.capitalize.add-event' | translate }}
+	</button>
+</div>

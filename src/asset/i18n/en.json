@@ -263,10 +263,18 @@
 				"status": "Status"
 			},
 			"status": {
-				"booked": "Booked",
-				"cancelled": "Canceled",
-				"done": "Done",
-				"requested": "Requested"
+				"singular": {
+					"booked": "Booked",
+					"cancelled": "Canceled",
+					"done": "Done",
+					"requested": "Requested"
+				},
+				"plural": {
+					"booked": "Booked",
+					"cancelled": "Canceled",
+					"done": "Done",
+					"requested": "Requested"
+				}
 			}
 		},
 		"title": "Event"

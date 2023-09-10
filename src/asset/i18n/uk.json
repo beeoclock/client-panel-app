@@ -263,10 +263,18 @@
 				"status": "Статус"
 			},
 			"status": {
-				"booked": "Зарезервовано",
-				"cancelled": "Скасована",
-				"done": "Виконано",
-				"requested": "Запит"
+				"singular": {
+					"booked": "Зарезервовано",
+					"cancelled": "Скасована",
+					"done": "Виконано",
+					"requested": "Запит"
+				},
+				"plural": {
+					"booked": "Зарезервовані",
+					"cancelled": "Скасовані",
+					"done": "Виконані",
+					"requested": "На запиті"
+				}
 			}
 		},
 		"title": "Подія"

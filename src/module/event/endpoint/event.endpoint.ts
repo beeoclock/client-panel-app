@@ -26,16 +26,16 @@ export const eventEndpoint: EndpointCollectionType = {
         authorization: true,
       }
     },
+		[eventEndpointEnum.paged]: {
+			path: eventEndpointEnum.paged,
+			method: RequestMethodEnum.GET,
+			source: SourceNetworkEnum.panel,
+			header: {
+				authorization: true
+			}
+		},
   },
   POST: {
-    [eventEndpointEnum.paged]: {
-      path: eventEndpointEnum.paged,
-      method: RequestMethodEnum.POST,
-      source: SourceNetworkEnum.panel,
-      header: {
-        authorization: true
-      }
-    },
     [eventEndpointEnum.create]: {
       path: eventEndpointEnum.create,
       method: RequestMethodEnum.POST,

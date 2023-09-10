@@ -5,10 +5,10 @@ import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
 import {firstValueFrom} from "rxjs";
 import {EventActions} from "@event/state/event/event.actions";
-import {StatusEnum} from "@event/domain/enum/status.enum";
 import {Store} from "@ngxs/store";
 import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
 import {NgIf, NgTemplateOutlet} from "@angular/common";
+import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum";
 
 @Component({
   selector: 'event-buttons-details',
@@ -176,19 +176,19 @@ export class ButtonsDetailsComponent {
     await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
   }
 
-  public isRequested(status: StatusEnum): boolean {
-    return status === StatusEnum.requested;
+  public isRequested(status: EventStatusEnum): boolean {
+    return status === EventStatusEnum.requested;
   }
 
-  public isBooked(status: StatusEnum): boolean {
-    return status === StatusEnum.booked;
+  public isBooked(status: EventStatusEnum): boolean {
+    return status === EventStatusEnum.booked;
   }
 
-  public isDone(status: StatusEnum): boolean {
-    return status === StatusEnum.done;
+  public isDone(status: EventStatusEnum): boolean {
+    return status === EventStatusEnum.done;
   }
 
-  public isCancelled(status: StatusEnum): boolean {
-    return status === StatusEnum.cancelled;
+  public isCancelled(status: EventStatusEnum): boolean {
+    return status === EventStatusEnum.cancelled;
   }
 }

@@ -8,6 +8,7 @@ import {EventActions} from "@event/state/event/event.actions";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {RouterLink} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
+import {HALF_SECOND} from "@utility/domain/const/c.time";
 
 @Component({
 	selector: 'event-filter-component',
@@ -21,7 +22,7 @@ import {TranslateModule} from "@ngx-translate/core";
 	],
 	template: `
 		<utility-filter-panel-component>
-			<utility-search-input-component start [control]="form.controls.search"/>
+			<utility-search-input-component start [control]="form.controls.phrase"/>
 			<ng-container end>
 				<button type="button" primary routerLink="form">
 					<i class="bi bi-plus-lg"></i>
@@ -37,9 +38,9 @@ export class FilterComponent {
 
 	constructor() {
 		this.form.valueChanges.pipe(
-			debounceTime(500),
+			debounceTime(HALF_SECOND),
 		).subscribe(async (value) => {
-			await firstValueFrom(this.store.dispatch(new EventActions.UpdateFilters(<{ search: string }>value)));
+			await firstValueFrom(this.store.dispatch(new EventActions.UpdateFilters(value as any)));
 			await firstValueFrom(this.store.dispatch(new EventActions.GetList()));
 		});
 	}

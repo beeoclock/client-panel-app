@@ -263,10 +263,20 @@
 				"status": "Status"
 			},
 			"status": {
-				"booked": "Zarezerwowane",
-				"cancelled": "Anulowane",
-				"done": "Zakończone",
-				"requested": "Wniosek"
+				"status": {
+					"singular": {
+						"booked": "Zarezerwowane",
+						"cancelled": "Anulowane",
+						"done": "Zakończone",
+						"requested": "Wniosek"
+					},
+					"plural": {
+						"booked": "Zarezerwowane",
+						"cancelled": "Anulowane",
+						"done": "Zakończone",
+						"requested": "Wnioskowe"
+					}
+				}
 			}
 		},
 		"title": "Wydarzenie"

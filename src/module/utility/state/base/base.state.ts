@@ -212,8 +212,9 @@ export abstract class BaseState<ITEM = any> {
   public updateFilters(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateFilters) {
 
     const state = ctx.getState();
+		console.log(payload);
 
-    this.updateTableState(ctx, {
+		this.updateTableState(ctx, {
       payload: {
         ...state.tableState,
         filters: {
@@ -528,16 +529,11 @@ export abstract class BaseState<ITEM = any> {
 
     } else {
 
-      const filters: any = {};
+			const newTableState = TableState.fromCache<ITEM>(state.tableState);
 
-      filterProcessing?.(filters, state.tableState.filters);
+			const params = newTableState.toBackendFormat();
 
-      const newTableState = TableState.fromCache<ITEM>(state.tableState);
-
-      const data = await this.list.executeAsync({
-        ...newTableState.toBackendFormat(),
-        filters
-      });
+			const data = await this.list.executeAsync(params);
 
       // Update current state
       const {items, totalSize} = data;

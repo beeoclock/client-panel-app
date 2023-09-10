@@ -1,4 +1,4 @@
-export enum StatusEnum {
+export enum EventStatusEnum {
   requested = 'requested',
   cancelled = 'cancelled',
   booked = 'booked',
