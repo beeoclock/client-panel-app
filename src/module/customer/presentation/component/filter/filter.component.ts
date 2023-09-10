@@ -22,7 +22,7 @@ import {HALF_SECOND} from "@utility/domain/const/c.time";
 	],
 	template: `
 		<utility-filter-panel-component>
-			<utility-search-input-component start [control]="form.controls.search"/>
+			<utility-search-input-component start [control]="form.controls.phrase"/>
 			<ng-container end>
 				<button type="button" primary routerLink="form">
 					<i class="bi bi-plus-lg"></i>

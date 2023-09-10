@@ -3,7 +3,7 @@ import {FilterPanelComponent} from '@utility/presentation/component/panel/filter
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {debounceTime, firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
-import {FilterForm} from "@customer/presentation/form/filter.form";
+import {FilterForm} from "@service/presentation/form/filter.form";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
@@ -22,7 +22,7 @@ import {HALF_SECOND} from '@src/module/utility/domain/const/c.time';
 	],
   template: `
 		<utility-filter-panel-component>
-			<utility-search-input-component start [control]="form.controls.search"/>
+			<utility-search-input-component start [control]="form.controls.phrase"/>
 			<ng-container end>
 				<button type="button" primary routerLink="form">
 					<i class="bi bi-plus-lg"></i>

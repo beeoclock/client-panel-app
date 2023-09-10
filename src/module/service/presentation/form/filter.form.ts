@@ -2,7 +2,7 @@ import {AbstractControl, FormControl, FormGroup} from '@angular/forms';
 
 export interface IFilterForm {
 
-  search: FormControl<string>;
+	phrase: FormControl<string>;
 
   [key: string]: AbstractControl<any, any>;
 
@@ -11,7 +11,7 @@ export interface IFilterForm {
 export class FilterForm extends FormGroup<IFilterForm> {
   constructor() {
     super({
-      search: new FormControl()
+			phrase: new FormControl()
     });
   }
 }

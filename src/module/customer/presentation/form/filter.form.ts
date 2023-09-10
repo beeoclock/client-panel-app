@@ -3,7 +3,7 @@ import {ActiveEnum} from "@utility/domain/enum";
 
 export interface IFilterForm {
 
-  search: FormControl<string>;
+	phrase: FormControl<string>;
   active: FormControl<ActiveEnum>;
 
   [key: string]: AbstractControl<any, any>;
@@ -13,7 +13,7 @@ export interface IFilterForm {
 export class FilterForm extends FormGroup<IFilterForm> {
   constructor() {
     super({
-      search: new FormControl(),
+			phrase: new FormControl(),
       active: new FormControl(),
     });
     this.initValue();

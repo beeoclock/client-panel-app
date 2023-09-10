@@ -99,35 +99,7 @@ export class ServiceState extends BaseState<IService> {
 
   @Action(ServiceActions.GetList)
   public override async getList(ctx: StateContext<IServiceState>): Promise<void> {
-    await super.getList(ctx, (queryFilters: any, filters: any) => {
-
-      const {search} = filters;
-      if (search) {
-        queryFilters['$or'] = [
-          {
-            languageVersions: {
-              $elemMatch: {
-                "title": {
-                  $regex: search ?? '',
-                  $options: "i"
-                },
-              }
-            }
-          },
-          {
-            languageVersions: {
-              $elemMatch: {
-                "description": {
-                  $regex: search ?? '',
-                  $options: "i"
-                },
-              }
-            }
-          },
-        ];
-      }
-
-    });
+    await super.getList(ctx);
 
   }
 

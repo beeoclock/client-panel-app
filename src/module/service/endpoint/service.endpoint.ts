@@ -34,7 +34,15 @@ export const serviceEndpoint: EndpointCollectionType = {
       header: {
         authorization: true,
       }
-    }
+    },
+		[serviceEndpointEnum.paged]: {
+			path: serviceEndpointEnum.paged,
+			method: RequestMethodEnum.GET,
+			source: SourceNetworkEnum.panel,
+			header: {
+				authorization: true
+			}
+		},
   },
   DELETE: {
     [serviceEndpointEnum.delete]: {
@@ -60,14 +68,6 @@ export const serviceEndpoint: EndpointCollectionType = {
     },
   },
   POST: {
-    [serviceEndpointEnum.paged]: {
-      path: serviceEndpointEnum.paged,
-      method: RequestMethodEnum.POST,
-      source: SourceNetworkEnum.panel,
-      header: {
-        authorization: true
-      }
-    },
     [serviceEndpointEnum.create]: {
       path: serviceEndpointEnum.create,
       method: RequestMethodEnum.POST,
