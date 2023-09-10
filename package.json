@@ -7,6 +7,7 @@
     "start:local": "ng serve --configuration local",
     "start:emulator": "ng serve --configuration emulator",
     "start:emulator:authorization": "ng serve --configuration emulator-authorization",
+    "start:local:external": "ng serve --configuration local --host 0.0.0.0 --disable-host-check",
     "start:external": "ng serve --host 0.0.0.0 --disable-host-check",
     "start:external:emulator": "ng serve --host 0.0.0.0 --disable-host-check --configuration emulator",
     "start:external:emulator:authorization": "ng serve --host 0.0.0.0 --disable-host-check --configuration emulator-authorization",

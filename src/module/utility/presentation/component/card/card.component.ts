@@ -11,7 +11,7 @@ import {NgClass, NgIf} from '@angular/common';
   ],
   template: `
     <div
-      class="bg-white dark:text-white dark:bg-beeDarkColor-800/50 border  rounded-2xl flex flex-col"
+      class="bg-white dark:text-white dark:bg-beeDarkColor-800/50 border rounded-2xl flex flex-col"
       [ngClass]="['gap-' + gap, 'w-' + width, 'p-' + padding, borderColor, 'dark:' + darkBorderColor]">
       <ng-content></ng-content>
     </div>

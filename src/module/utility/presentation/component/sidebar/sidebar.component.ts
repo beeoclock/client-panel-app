@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, inject, ViewEncapsulation} from '@angular/core';
 import {IsActiveMatchOptions, RouterLink, RouterLinkActive} from '@angular/router';
 import {NgForOf, NgIf} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
@@ -34,7 +34,7 @@ interface IMenuItem {
     TranslateModule
   ],
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements AfterViewInit {
 
   public readonly sidebarId = inject(SIDEBAR_ID);
   private readonly store = inject(Store);
@@ -59,6 +59,32 @@ export class SidebarComponent implements OnInit {
 				fragment: "ignored",
 			},
 			url: '/event',
+			// items: [
+			// 	{
+			// 		translateKey: 'sidebar.events.list',
+			// 		url: '/client/profile',
+			// 		icon: 'bi bi-person',
+			// 		routerLinkActiveOptions: {
+			// 			exact: true
+			// 		}
+			// 	},
+			// 	{
+			// 		translateKey: 'sidebar.events.table',
+			// 		url: '/client/settings',
+			// 		icon: 'bi bi-gear',
+			// 		routerLinkActiveOptions: {
+			// 			exact: true
+			// 		}
+			// 	},
+			// 	{
+			// 		translateKey: 'sidebar.events.calendar',
+			// 		url: '/identity/corridor',
+			// 		icon: 'bi bi-gear',
+			// 		routerLinkActiveOptions: {
+			// 			exact: true
+			// 		}
+			// 	},
+			// ]
 		},
     {
       url: '/customer',
@@ -139,7 +165,7 @@ export class SidebarComponent implements OnInit {
     // }
   ];
 
-  public ngOnInit(): void {
+  public ngAfterViewInit(): void {
     this.sidebarService.initialize();
   }
 
