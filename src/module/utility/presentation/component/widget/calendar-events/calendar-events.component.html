@@ -1,6 +1,6 @@
 <div
 	class="w-full rounded-2xl border dark:bg-neutral-800 bg-white max-h-[calc(100vh-4rem)] md:max-h-[calc(100vh-6rem)]">
-	<ion-datetime [firstDayOfWeek]="1" [formControl]="form.controls.start" presentation="date" class="rounded-2xl"
+	<ion-datetime [firstDayOfWeek]="1" [formControl]="form.controls.start" mode="ios" presentation="date" class="rounded-2xl"
 								size="full">
 	</ion-datetime>
 	<div class="flex justify-end">
@@ -10,6 +10,7 @@
 		<ion-item lines="none" class="rounded-2xl">
 			<ion-select
 				[formControl]="form.controls.status"
+				[disabled]="loading.isOn"
 				class="!min-h-0"
 				fill="solid"
 				interface="popover">
@@ -31,8 +32,11 @@
 					[routerLink]="'/event/' + item._id"
 					[queryParams]="{returnUrl}"
 					class="p-4 hover:bg-beeColor-100 border-t first:border-0">
-					<div class="text-xs font-light leading-3 text-neutral-500 dark:text-neutral-300">
-						{{ item.start | dynamicDate: 'time' }}
+					<div class="flex items-center gap-3 justify-between">
+						<div class="text-xs font-light leading-3 text-neutral-500 dark:text-neutral-300">
+							{{ item.start | dynamicDate: 'hhMM' }}
+						</div>
+						<div event-status-style mode="text" [status]="item.status"></div>
 					</div>
 					<div class="text-lg font-medium leading-5 text-neutral-800 dark:text-neutral-100 mt-2">
 						{{ item?.services?.[0]?.languageVersions?.[0]?.title }}

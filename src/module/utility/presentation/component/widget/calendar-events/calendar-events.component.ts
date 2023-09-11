@@ -12,6 +12,7 @@ import {RIEvent} from "@event/domain";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
 import {BooleanState} from "@utility/domain";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
+import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 
 @Component({
 	selector: 'utility-widget-calendar-events',
@@ -29,7 +30,8 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 		PrimaryLinkButtonDirective,
 		DynamicDatePipe,
 		NgIf,
-		LoaderComponent
+		LoaderComponent,
+		EventStatusStyleDirective
 	]
 })
 export class CalendarEventsComponent extends Reactive implements AfterViewInit {
@@ -41,14 +43,20 @@ export class CalendarEventsComponent extends Reactive implements AfterViewInit {
 	private readonly router = inject(Router);
 	private readonly translateService = inject(TranslateService);
 	public readonly returnUrl = this.router.url;
-	public readonly eventStatusList = Object.keys(EventStatusEnum).map((status) => ({
-		id: status,
-		label: this.translateService.instant(`event.keyword.status.plural.${status}`)
-	}));
+	public readonly eventStatusList = [
+		{
+			id: null,
+			label: this.translateService.instant('event.keyword.status.all')
+		},
+		...Object.keys(EventStatusEnum).map((status) => ({
+			id: status,
+			label: this.translateService.instant(`event.keyword.status.plural.${status}`)
+		}))
+	];
 	public readonly todayStr = new Date().toLocaleDateString("sv");
 	public readonly form = new FormGroup({
-		start: new FormControl(),
-		end: new FormControl(),
+		start: new FormControl(this.todayStr),
+		end: new FormControl(this.todayStr),
 		status: new FormControl(EventStatusEnum.booked),
 		orderBy: new FormControl('start'),
 		orderDir: new FormControl('asc'),
@@ -61,6 +69,7 @@ export class CalendarEventsComponent extends Reactive implements AfterViewInit {
 		super();
 		this.form.valueChanges.subscribe((params) => {
 			this.loading.switchOn();
+			this.ionDatetime.disabled = this.loading.isOn;
 			const newStart = new Date(params.start as string);
 			newStart.setHours(0);
 			newStart.setMinutes(0);
@@ -69,9 +78,13 @@ export class CalendarEventsComponent extends Reactive implements AfterViewInit {
 
 			newStart.setDate(newStart.getDate() + 1);
 			params.end = newStart.toISOString();
+			if (!params.status) {
+				delete params.status;
+			}
 			this.calendarEventsListApiAdapter.executeAsync(params).then((data) => {
 				this.items = data.items;
 				this.loading.switchOff();
+				this.ionDatetime.disabled = this.loading.isOn;
 			});
 		});
 	}

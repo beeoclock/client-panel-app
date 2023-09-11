@@ -263,6 +263,7 @@
 				"status": "Статус"
 			},
 			"status": {
+				"all": "Всі",
 				"singular": {
 					"booked": "Зарезервовано",
 					"cancelled": "Скасована",

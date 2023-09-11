@@ -11,6 +11,9 @@ export class EventStatusStyleDirective implements OnInit, OnChanges {
 	@Input()
 	public status = EventStatusEnum.requested;
 
+	@Input()
+	public mode: 'text' | 'badge' = 'badge';
+
 	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 	private readonly translateService = inject(TranslateService);
 
@@ -30,23 +33,68 @@ export class EventStatusStyleDirective implements OnInit, OnChanges {
 
 		this.elementRef.nativeElement.className = '';
 
-		this.elementRef.nativeElement.classList.add('px-2', 'py-1', 'flex', 'items-center', 'justify-center', 'h-6', 'text-xs', 'rounded-full', 'border', 'text-white', 'uppercase');
+		this.elementRef.nativeElement.classList.add('px-2', 'py-1', 'flex', 'items-center', 'justify-center', 'h-6', 'text-xs', 'rounded-full', 'border', 'uppercase');
+		switch (this.mode) {
+			case "badge":
+				this.elementRef.nativeElement.classList.add('text-white');
+				break;
+		}
 
 		switch (this.status) {
 			case EventStatusEnum.cancelled:
-				this.elementRef.nativeElement.classList.add('bg-red-500', 'border-red-500', 'dark:bg-red-900', 'dark:text-red-400', 'dark:border-red-800');
+				this.elementRef.nativeElement.classList.add('dark:text-red-400');
+				switch (this.mode) {
+					case "badge":
+						this.elementRef.nativeElement.classList.add('bg-red-500', 'border-red-500', 'dark:bg-red-900', 'dark:border-red-800');
+						break;
+					case 'text':
+						this.elementRef.nativeElement.classList.add('text-red-400');
+						break;
+				}
 				break;
 			case EventStatusEnum.done:
-				this.elementRef.nativeElement.classList.add('bg-green-500', 'border-green-500', 'dark:bg-green-900', 'dark:text-green-400', 'dark:border-green-800');
+				this.elementRef.nativeElement.classList.add('dark:text-green-400');
+				switch (this.mode) {
+					case "badge":
+						this.elementRef.nativeElement.classList.add('bg-green-500', 'border-green-500', 'dark:bg-green-900', 'dark:border-green-800');
+						break;
+					case 'text':
+						this.elementRef.nativeElement.classList.add('text-green-400');
+						break;
+				}
 				break;
 			case EventStatusEnum.requested:
-				this.elementRef.nativeElement.classList.add('bg-orange-500', 'border-orange-500', 'dark:bg-orange-900', 'dark:text-orange-400', 'dark:border-orange-800');
+				this.elementRef.nativeElement.classList.add('dark:text-orange-400');
+				switch (this.mode) {
+					case "badge":
+						this.elementRef.nativeElement.classList.add('bg-orange-500', 'border-orange-500', 'dark:bg-orange-900', 'dark:border-orange-800');
+						break;
+					case 'text':
+						this.elementRef.nativeElement.classList.add('text-orange-400');
+						break;
+				}
 				break;
 			case EventStatusEnum.booked:
-				this.elementRef.nativeElement.classList.add('bg-blue-500', 'border-blue-500', 'dark:bg-blue-900', 'dark:text-blue-400', 'dark:border-blue-800');
+				this.elementRef.nativeElement.classList.add('dark:text-blue-400');
+				switch (this.mode) {
+					case "badge":
+						this.elementRef.nativeElement.classList.add('bg-blue-500', 'border-blue-500', 'dark:bg-blue-900', 'dark:border-blue-800');
+						break;
+					case 'text':
+						this.elementRef.nativeElement.classList.add('text-blue-400');
+						break;
+				}
 				break;
 			default:
-				this.elementRef.nativeElement.classList.add('bg-neutral-500', 'border-neutral-500', 'dark:bg-neutral-900', 'dark:text-neutral-400', 'dark:border-neutral-800');
+				this.elementRef.nativeElement.classList.add('dark:text-neutral-400');
+				switch (this.mode) {
+					case "badge":
+						this.elementRef.nativeElement.classList.add('bg-neutral-500', 'border-neutral-500', 'dark:bg-neutral-900', 'dark:border-neutral-800');
+						break;
+					case 'text':
+						this.elementRef.nativeElement.classList.add('text-neutral-400');
+						break;
+				}
 				break;
 
 		}

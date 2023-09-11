@@ -1,7 +1,7 @@
 import {inject, Pipe, PipeTransform} from "@angular/core";
 import {TranslateService} from "@ngx-translate/core";
 
-type Formats = 'short' | 'medium' | 'shortDate' | 'time';
+type Formats = 'short' | 'medium' | 'shortDate' | 'time' | 'hhMM';
 
 const predefinedFormats: Record<Formats, Intl.DateTimeFormatOptions> = {
   short: {
@@ -20,6 +20,10 @@ const predefinedFormats: Record<Formats, Intl.DateTimeFormatOptions> = {
   },
   time: {
     timeStyle: 'medium',
+    hourCycle: 'h24'
+  },
+  hhMM: {
+    timeStyle: 'short',
     hourCycle: 'h24'
   },
   shortDate: {
