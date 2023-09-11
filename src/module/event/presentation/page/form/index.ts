@@ -149,11 +149,11 @@ export default class Index implements OnInit {
         await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(value)));
         const item = await firstValueFrom(this.itemData$);
 
-        if (item && item._id) {
-
-          redirectUri.push(item._id);
-
-        }
+        // if (item && item._id) {
+				//
+        //   redirectUri.push(item._id);
+				//
+        // }
 
       }
 

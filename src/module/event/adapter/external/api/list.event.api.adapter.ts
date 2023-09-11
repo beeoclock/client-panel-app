@@ -9,7 +9,7 @@ import {TableState_BackendFormat} from "@utility/domain/table.state";
 @Injectable({
 	providedIn: 'root'
 })
-export class ListEventApiAdapter extends BaseApiAdapter<ResponseListType<Event.IEvent>> {
+export class ListEventApiAdapter extends BaseApiAdapter<ResponseListType<Event.RIEvent>> {
 
 
 	/**
@@ -18,7 +18,7 @@ export class ListEventApiAdapter extends BaseApiAdapter<ResponseListType<Event.I
 	 */
 	@TypeGuard([is.object.not.empty])
 	public override execute$(params: TableState_BackendFormat) {
-		return this.httpClient.get<ResponseListType<Event.IEvent>>(eventEndpointEnum.paged, {
+		return this.httpClient.get<ResponseListType<Event.RIEvent>>(eventEndpointEnum.paged, {
 			params: params as any,
 		});
 	}

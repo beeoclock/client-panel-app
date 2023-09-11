@@ -26,3 +26,5 @@ export interface IEvent extends RIBaseEntity {
 
 	attendees?: IAttendee[];
 }
+
+export type RIEvent = Required<IEvent>;

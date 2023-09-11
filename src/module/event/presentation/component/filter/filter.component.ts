@@ -40,6 +40,7 @@ export class FilterComponent {
 		this.form.valueChanges.pipe(
 			debounceTime(HALF_SECOND),
 		).subscribe(async (value) => {
+			console.log(value);
 			await firstValueFrom(this.store.dispatch(new EventActions.UpdateFilters(value as any)));
 			await firstValueFrom(this.store.dispatch(new EventActions.GetList()));
 		});
