@@ -17,6 +17,31 @@ export class EventStatusStyleDirective implements OnInit, OnChanges {
 	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 	private readonly translateService = inject(TranslateService);
 
+	private readonly classListByStatusAndMode: Record<EventStatusEnum, Record<'text' | 'badge' | 'base', string[]>> = {
+		[EventStatusEnum.cancelled]: {
+			base: ['dark:text-red-400'],
+			text: ['text-red-400', 'border-red-400'],
+			badge: ['bg-red-500', 'border-red-500', 'dark:bg-red-900', 'dark:border-red-800']
+		},
+		[EventStatusEnum.done]: {
+			base: ['dark:text-green-400'],
+			text: ['text-green-400', 'border-green-400'],
+			badge: ['bg-green-500', 'border-green-500', 'dark:bg-green-900', 'dark:border-green-800']
+		},
+		[EventStatusEnum.requested]: {
+			base: ['dark:text-orange-400'],
+			text: ['text-orange-400', 'border-orange-400'],
+			badge: ['bg-orange-500', 'border-orange-500', 'dark:bg-orange-900', 'dark:border-orange-800']
+		},
+		[EventStatusEnum.booked]: {
+			base: ['dark:text-blue-400'],
+			text: ['text-blue-400', 'border-blue-400'],
+			badge: ['bg-blue-500', 'border-blue-500', 'dark:bg-blue-900', 'dark:border-blue-800']
+		}
+	};
+
+	private readonly base = ['px-2', 'py-1', 'flex', 'items-center', 'justify-center', 'h-6', 'text-xs', 'rounded-full', 'border', 'uppercase'];
+
 	public ngOnChanges(changes: SimpleChanges & { status: SimpleChanges }) {
 		if (changes.status) {
 			this.initStatus();
@@ -33,71 +58,18 @@ export class EventStatusStyleDirective implements OnInit, OnChanges {
 
 		this.elementRef.nativeElement.className = '';
 
-		this.elementRef.nativeElement.classList.add('px-2', 'py-1', 'flex', 'items-center', 'justify-center', 'h-6', 'text-xs', 'rounded-full', 'border', 'uppercase');
+		this.elementRef.nativeElement.classList.add(...this.base);
+
 		switch (this.mode) {
 			case "badge":
 				this.elementRef.nativeElement.classList.add('text-white');
 				break;
 		}
 
-		switch (this.status) {
-			case EventStatusEnum.cancelled:
-				this.elementRef.nativeElement.classList.add('dark:text-red-400');
-				switch (this.mode) {
-					case "badge":
-						this.elementRef.nativeElement.classList.add('bg-red-500', 'border-red-500', 'dark:bg-red-900', 'dark:border-red-800');
-						break;
-					case 'text':
-						this.elementRef.nativeElement.classList.add('text-red-400');
-						break;
-				}
-				break;
-			case EventStatusEnum.done:
-				this.elementRef.nativeElement.classList.add('dark:text-green-400');
-				switch (this.mode) {
-					case "badge":
-						this.elementRef.nativeElement.classList.add('bg-green-500', 'border-green-500', 'dark:bg-green-900', 'dark:border-green-800');
-						break;
-					case 'text':
-						this.elementRef.nativeElement.classList.add('text-green-400');
-						break;
-				}
-				break;
-			case EventStatusEnum.requested:
-				this.elementRef.nativeElement.classList.add('dark:text-orange-400');
-				switch (this.mode) {
-					case "badge":
-						this.elementRef.nativeElement.classList.add('bg-orange-500', 'border-orange-500', 'dark:bg-orange-900', 'dark:border-orange-800');
-						break;
-					case 'text':
-						this.elementRef.nativeElement.classList.add('text-orange-400');
-						break;
-				}
-				break;
-			case EventStatusEnum.booked:
-				this.elementRef.nativeElement.classList.add('dark:text-blue-400');
-				switch (this.mode) {
-					case "badge":
-						this.elementRef.nativeElement.classList.add('bg-blue-500', 'border-blue-500', 'dark:bg-blue-900', 'dark:border-blue-800');
-						break;
-					case 'text':
-						this.elementRef.nativeElement.classList.add('text-blue-400');
-						break;
-				}
-				break;
-			default:
-				this.elementRef.nativeElement.classList.add('dark:text-neutral-400');
-				switch (this.mode) {
-					case "badge":
-						this.elementRef.nativeElement.classList.add('bg-neutral-500', 'border-neutral-500', 'dark:bg-neutral-900', 'dark:border-neutral-800');
-						break;
-					case 'text':
-						this.elementRef.nativeElement.classList.add('text-neutral-400');
-						break;
-				}
-				break;
-
-		}
+		this.elementRef.nativeElement.classList.add(
+			...this.classListByStatusAndMode[this.status].base,
+			...this.classListByStatusAndMode[this.status][this.mode]
+		);
 
 		const translateKey = `event.keyword.status.singular.${this.status}`;
 		const statusNameInLocal = this.translateService.instant(translateKey);
