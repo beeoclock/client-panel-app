@@ -1,4 +1,4 @@
-@import "/src/asset/scss/beeoclock-icons";
+@import "./asset/scss/beeoclock-icons";
 @import "bootstrap-icons";
 @import "@ng-select/ng-select/themes/default.theme.css";
 //@import "./asset/scss/theme.scss";
@@ -20,7 +20,7 @@
  */
 
 /* Core CSS required for Ionic components to work properly */
-@import "~@ionic/angular/css/core.css";
+@import "@ionic/angular/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
 //@import "~@ionic/angular/css/normalize.css";

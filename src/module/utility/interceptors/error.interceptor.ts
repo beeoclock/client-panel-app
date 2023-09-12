@@ -20,10 +20,14 @@ export const ErrorInterceptor: HttpInterceptorFn = (request, next) => {
   return next(request).pipe(
     catchError((response: HttpErrorResponse) => {
       const {error} = response;
-			const {statusCode} = error;
+			if (error) {
 
-			if (statusCode === HttpStatusEnum.Unauthorized) {
-				logoutService.logout();
+				const {statusCode} = error;
+
+				if (statusCode === HttpStatusEnum.Unauthorized) {
+					logoutService.logout();
+				}
+
 			}
 
 			toastController.create({
