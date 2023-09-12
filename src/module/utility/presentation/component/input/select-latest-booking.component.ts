@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation} from "@angular/core";
-import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {LatestBookingEnum} from "@utility/domain/enum/latest-booking.enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
+import {NgSelectModule} from "@ng-select/ng-select";
 
 @Component({
   selector: 'select-latest-booking-component',
@@ -25,10 +25,10 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
   `,
   encapsulation: ViewEncapsulation.None,
 	imports: [
-		NgSelectModule,
 		ReactiveFormsModule,
 		TranslateModule,
-		DefaultLabelDirective
+		DefaultLabelDirective,
+		NgSelectModule
 	],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

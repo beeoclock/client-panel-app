@@ -31,7 +31,6 @@
           {
             "type": "element",
             "prefix": [
-              "storybook",
               "member",
               "app",
               "identity",
