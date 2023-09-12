@@ -10,6 +10,7 @@ import {inject} from "@angular/core";
 import {getMaxPage} from "@utility/domain/max-page";
 import {Router} from "@angular/router";
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
+import {CACHE_TABLE_CLEAR_AFTER_MS} from "@src/token";
 
 export interface IBaseState_Item<ITEM> {
 	data: undefined | ITEM;
@@ -82,6 +83,7 @@ export abstract class BaseState<ITEM = any> {
 
 	protected readonly router = inject(Router);
 	protected readonly store = inject(Store);
+	protected readonly cacheTableClearAfterMs = inject(CACHE_TABLE_CLEAR_AFTER_MS);
 
 	protected readonly item!: BaseApiAdapter<ITEM>;
 	protected readonly create!: BaseApiAdapter<ITEM>;
@@ -212,7 +214,6 @@ export abstract class BaseState<ITEM = any> {
 	public updateFilters(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateFilters) {
 
 		const state = ctx.getState();
-		console.log(payload);
 
 		this.updateTableState(ctx, {
 			payload: {
@@ -489,9 +490,8 @@ export abstract class BaseState<ITEM = any> {
 	/**
 	 *
 	 * @param ctx
-	 * @param filterProcessing
 	 */
-	public async getList(ctx: StateContext<IBaseState<ITEM>>, filterProcessing?: <T = any, FILTERS = any>(queryFilters: T, filters: FILTERS) => void): Promise<void> {
+	public async getList(ctx: StateContext<IBaseState<ITEM>>): Promise<void> {
 
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
 
@@ -500,11 +500,15 @@ export abstract class BaseState<ITEM = any> {
 		// Check if hasSun is not null or undefined or 0
 		if (state.tableState.hashSum && state.lastTableHashSum) {
 			if (state.tableState.hashSum === state.lastTableHashSum) {
+				// Check if cache is not expired
+				if (this.cacheTableClearAfterMs > (new Date().getTime() - new Date(state.tableState.lastUpdate).getTime())) {
 
-				// Switch of page loader
-				await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
+					// Switch of page loader
+					await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 
-				return;
+					return;
+
+				}
 			}
 		}
 
@@ -513,13 +517,16 @@ export abstract class BaseState<ITEM = any> {
 
 		const cacheTableStates = cache[cacheTableStatesKey];
 
+		const prevListState: TableState<ITEM> = cacheTableStates[state.tableState.hashSum];
+
 		// Check if in local cache exist data of current pagination has
 		if (
-			state.tableState.hashSum && cacheTableStates &&
-			Reflect.has(cacheTableStates, state.tableState.hashSum)
+			state.tableState.hashSum &&
+			cacheTableStates &&
+			Reflect.has(cacheTableStates, state.tableState.hashSum) &&
+			// Check if cache is not expired
+			this.cacheTableClearAfterMs > (new Date().getTime() - new Date(prevListState.lastUpdate).getTime())
 		) {
-
-			const prevListState = cacheTableStates[state.tableState.hashSum];
 
 			ctx.patchState({
 				...state,

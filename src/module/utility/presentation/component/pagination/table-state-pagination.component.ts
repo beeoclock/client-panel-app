@@ -1,14 +1,14 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  inject,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChange,
-  ViewEncapsulation
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	EventEmitter,
+	inject,
+	Input,
+	OnChanges,
+	Output,
+	SimpleChange,
+	ViewEncapsulation
 } from '@angular/core';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ReactiveFormsModule} from "@angular/forms";
@@ -20,7 +20,8 @@ import {DateTime} from "luxon";
 import {getPaginationItems} from "@utility/domain/pagination.items";
 import {environment} from "@environment/environment";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {ONE_MINUTE, ONE_SECOND} from "@utility/domain/const/c.time";
+import {ONE_MINUTE} from "@utility/domain/const/c.time";
+import {BooleanState} from "@utility/domain";
 
 @Component({
   selector: 'utility-table-state-pagination-component',
@@ -58,6 +59,8 @@ export class TableStatePaginationComponent implements OnChanges {
 
   public readonly changeDetectorRef = inject(ChangeDetectorRef);
   private timerOfLastUpdate: NodeJS.Timeout | undefined;
+
+	public readonly showButtonToClearCache = new BooleanState(false);
 
   /**
    *
@@ -97,7 +100,7 @@ export class TableStatePaginationComponent implements OnChanges {
 
   private initTimerOfLastUpdate() {
 
-    const ms = this.updateLastUpdate();
+    this.updateLastUpdate();
     this.changeDetectorRef.detectChanges();
 
     if (this.timerOfLastUpdate) {
@@ -106,23 +109,28 @@ export class TableStatePaginationComponent implements OnChanges {
 
     this.timerOfLastUpdate = setTimeout(() => {
       this.initTimerOfLastUpdate();
-    }, ms);
+    }, ONE_MINUTE);
 
   }
 
-  private updateLastUpdate(): number {
+  private updateLastUpdate(): void {
 
     const ms = DateTime.now().diff(DateTime.fromISO(this.tableState.lastUpdate)).as('milliseconds');
+
+		if (ms > ONE_MINUTE) {
+			this.showButtonToClearCache.switchOn();
+		} else {
+			this.showButtonToClearCache.switchOff();
+		}
 
     this.lastUpdate = humanizeDuration(
       ms,
       {
         round: true,
+				units: ['m'],
         language: this.translateService.currentLang,
       }
     );
-
-    return ms > ONE_MINUTE ? ONE_MINUTE : ONE_SECOND;
 
   }
 

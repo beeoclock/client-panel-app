@@ -20,7 +20,8 @@ import {AppState} from "@utility/state/app/app.state";
 import {CacheState} from "@utility/state/cache/cache.state";
 import {NgxIndexedDBModule} from "ngx-indexed-db";
 import {provideEnvironmentNgxMask} from "ngx-mask";
-import {MAIN_CONTAINER_ID, SIDEBAR_ID} from "@src/token";
+import {CACHE_TABLE_CLEAR_AFTER_MS, MAIN_CONTAINER_ID, SIDEBAR_ID} from "@src/token";
+import {TEN_MINUTES} from "@utility/domain/const/c.time";
 // import '@angular/common/locales/global/pl';
 // import '@angular/common/locales/global/uk';
 
@@ -51,6 +52,11 @@ bootstrapApplication(AppComponent, {
     {
       provide: MAIN_CONTAINER_ID,
       useValue: 'main-container'
+    },
+
+    {
+      provide: CACHE_TABLE_CLEAR_AFTER_MS,
+      useValue: TEN_MINUTES
     },
 
     provideEnvironmentNgxMask(),

@@ -560,6 +560,7 @@
       "zipCode": "Kod pocztowy"
     },
     "lowercase": {
+			"ago": "temu",
       "dragAndDrop": "przeciągnij i upuść plik",
       "or": "lub"
     }

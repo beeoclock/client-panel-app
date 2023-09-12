@@ -26,15 +26,13 @@
         <!--        results-->
       </p>
     </div>
-    <div>
-      <p class="text-sm text-beeColor-700 dark:text-beeDarkColor-400">
-        {{ 'keyword.capitalize.lastUpdate' | translate }}: {{ lastUpdate }}
+    <div class="text-sm text-beeColor-700 dark:text-beeDarkColor-400" *ngIf="showButtonToClearCache.isOn">
+        {{ 'keyword.capitalize.lastUpdate' | translate }}: {{ lastUpdate }} {{ 'keyword.lowercase.ago' | translate }}
         (
         <button (click)="clearTableCache()" class="text-blue-600 dark:text-blue-400 text-xs hover:underline">
           {{ 'keyword.capitalize.clearCache' | translate }}
         </button>
         )
-      </p>
     </div>
     <div>
       <nav *ngIf="tableState.total > 1" class="isolate inline-flex -space-x-px rounded-md shadow-sm"
@@ -86,7 +84,6 @@
             dark:ring-beeDarkColor-600
             hover:bg-beeColor-100
             dark:hover:bg-beeDarkColor-600
-            focus:z-20
             focus:z-20
             focus:outline-offset-0">
           {{ isNaN(page) ? '...' : page }}

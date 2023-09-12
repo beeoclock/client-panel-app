@@ -558,6 +558,7 @@
       "zipCode": "Zip code"
     },
     "lowercase": {
+			"ago": "ago",
       "dragAndDrop": "drag and drop",
       "or": "or"
     }
