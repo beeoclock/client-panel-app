@@ -5,7 +5,7 @@ export namespace AppActions {
     public static readonly type = '[App State] Page Loading';
 
     constructor(
-      public payload: boolean,
+      public readonly payload: boolean,
     ) {
     }
   }
@@ -14,7 +14,7 @@ export namespace AppActions {
     public static readonly type = '[App State] Page Loading';
 
     constructor(
-      public payload: boolean,
+      public readonly payload: boolean,
     ) {
     }
   }

@@ -8,18 +8,7 @@
 <!--			{{ 'keyword.capitalize.today' | translate }}-->
 <!--		</button>-->
 		<ion-item lines="none" class="rounded-2xl">
-			<ion-select
-				[formControl]="form.controls.status"
-				[disabled]="loading.isOn"
-				class="!min-h-0"
-				fill="solid"
-				interface="popover">
-				<ion-select-option
-					*ngFor="let status of eventStatusList"
-					[value]="status.id">
-					{{ status.label }}
-				</ion-select-option>
-			</ion-select>
+			<ion-select-event-status [control]="form.controls.status"/>
 		</ion-item>
 	</div>
 	<div
@@ -51,7 +40,7 @@
 		</ng-template>
 		<ng-template #EmptyDataTemplate>
 			<div class="text-center p-4 text-beeColor-500">
-				На {{ (form?.controls?.start?.value ?? '') | dynamicDate: 'shortDate' }} немає подій
+				На {{ (form.controls.start.value ?? '') | dynamicDate: 'shortDate' }} немає подій
 			</div>
 		</ng-template>
 	</div>

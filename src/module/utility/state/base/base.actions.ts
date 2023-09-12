@@ -35,7 +35,7 @@ export namespace BaseActions {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 
 		constructor(
-			public payload: string,
+			public readonly payload: string,
 		) {
 		}
 	}
@@ -44,7 +44,7 @@ export namespace BaseActions {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 
 		constructor(
-			public payload: string,
+			public readonly payload: string,
 		) {
 		}
 	}
@@ -53,7 +53,7 @@ export namespace BaseActions {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 
 		constructor(
-			public payload: string,
+			public readonly payload: string,
 		) {
 		}
 	}
@@ -62,7 +62,7 @@ export namespace BaseActions {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 
 		constructor(
-			public payload: ITEM,
+			public readonly payload: ITEM,
 		) {
 		}
 	}
@@ -71,7 +71,7 @@ export namespace BaseActions {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 
 		constructor(
-			public payload: ITEM,
+			public readonly payload: ITEM,
 		) {
 		}
 	}
@@ -82,7 +82,7 @@ export namespace BaseActions {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 
 		constructor(
-			public payload: Pick<ITableState<any>, 'filters'>,
+			public readonly payload: Pick<ITableState<any>, 'filters'>,
 		) {
 		}
 	}
@@ -91,7 +91,7 @@ export namespace BaseActions {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 
 		constructor(
-			public payload: ITableState<ITEM>
+			public readonly payload: ITableState<ITEM>
 		) {
 		}
 	}

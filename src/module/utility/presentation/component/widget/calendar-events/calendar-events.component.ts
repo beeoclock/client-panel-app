@@ -13,6 +13,7 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
 import {BooleanState} from "@utility/domain";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
+import {SelectEarliestBookingComponent} from "@utility/presentation/component/input/ion-select-event-status.component";
 
 @Component({
 	selector: 'utility-widget-calendar-events',
@@ -31,7 +32,8 @@ import {EventStatusStyleDirective} from "@event/presentation/directive/event-sta
 		DynamicDatePipe,
 		NgIf,
 		LoaderComponent,
-		EventStatusStyleDirective
+		EventStatusStyleDirective,
+		SelectEarliestBookingComponent
 	]
 })
 export class CalendarEventsComponent extends Reactive implements AfterViewInit {
@@ -43,16 +45,6 @@ export class CalendarEventsComponent extends Reactive implements AfterViewInit {
 	private readonly router = inject(Router);
 	private readonly translateService = inject(TranslateService);
 	public readonly returnUrl = this.router.url;
-	public readonly eventStatusList = [
-		{
-			id: null,
-			label: this.translateService.instant('event.keyword.status.all')
-		},
-		...Object.keys(EventStatusEnum).map((status) => ({
-			id: status,
-			label: this.translateService.instant(`event.keyword.status.plural.${status}`)
-		}))
-	];
 	public readonly todayStr = new Date().toLocaleDateString("sv");
 	public readonly form = new FormGroup({
 		start: new FormControl(this.todayStr),
@@ -68,6 +60,10 @@ export class CalendarEventsComponent extends Reactive implements AfterViewInit {
 	constructor() {
 		super();
 		this.form.valueChanges.subscribe((params) => {
+			this.form.disable({
+				emitEvent: false,
+				onlySelf: true
+			});
 			this.loading.switchOn();
 			this.ionDatetime.disabled = this.loading.isOn;
 			const newStart = new Date(params.start as string);
@@ -84,6 +80,10 @@ export class CalendarEventsComponent extends Reactive implements AfterViewInit {
 			this.calendarEventsListApiAdapter.executeAsync(params).then((data) => {
 				this.items = data.items;
 				this.loading.switchOff();
+				this.form.enable({
+					emitEvent: false,
+					onlySelf: true
+				});
 				this.ionDatetime.disabled = this.loading.isOn;
 			});
 		});

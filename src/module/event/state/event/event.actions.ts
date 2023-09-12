@@ -68,7 +68,7 @@ export namespace EventActions {
     public static readonly type = '[Event API] Done Status';
 
     constructor(
-      public payload: IEvent,
+      public readonly payload: IEvent,
     ) {
     }
   }
@@ -77,7 +77,7 @@ export namespace EventActions {
     public static readonly type = '[Event API] Requested Status';
 
     constructor(
-      public payload: IEvent,
+      public readonly payload: IEvent,
     ) {
     }
   }
@@ -86,7 +86,7 @@ export namespace EventActions {
     public static readonly type = '[Event API] Cancelled Status';
 
     constructor(
-      public payload: IEvent,
+      public readonly payload: IEvent,
     ) {
     }
   }
@@ -95,7 +95,7 @@ export namespace EventActions {
     public static readonly type = '[Event API] Booked Success';
 
     constructor(
-      public payload: IEvent,
+      public readonly payload: IEvent,
     ) {
     }
   }
