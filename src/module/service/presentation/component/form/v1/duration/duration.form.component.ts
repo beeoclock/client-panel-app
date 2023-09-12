@@ -6,10 +6,10 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {NgForOf} from '@angular/common';
 import {HasErrorDirective} from '@utility/presentation/directives/has-error/has-error.directive';
 import {
-  BreakDurationFormComponent
+	BreakDurationFormComponent
 } from '@service/presentation/component/form/v1/duration/break.duration.form.component';
 import {
-  DurationDurationFormComponent
+	DurationDurationFormComponent
 } from '@service/presentation/component/form/v1/duration/duration.duration.form.component';
 import {PricesFormComponent} from "@service/presentation/component/form/v1/price/prices.form.component";
 import {FormInputComponent} from "@utility/presentation/component/input/form-mask-input.component";
@@ -47,8 +47,7 @@ import {TranslateModule} from "@ngx-translate/core";
       </form-mask-input>
 
       <service-prices-form-component
-        [form]="form.controls.prices">
-      </service-prices-form-component>
+        [form]="form.controls.prices"/>
 
     </form>
   `

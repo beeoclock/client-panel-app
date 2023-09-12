@@ -30,17 +30,17 @@ import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.
           </div>
           <div class="mt-5 flex lg:ml-4 lg:mt-0">
             <span class="hidden sm:block">
-              <edit-link-component></edit-link-component>
+              <edit-link-component/>
             </span>
 
             <span class="ml-3 hidden sm:block">
-              <delete-button (event)="delete(member._id)"></delete-button>
+              <bee-delete-button (event)="delete(member._id)"/>
             </span>
 
             <utility-dropdown [smHidden]="true">
               <ng-container content>
-                <edit-link-component></edit-link-component>
-                <delete-button (event)="delete(member._id)"></delete-button>
+                <edit-link-component/>
+                <bee-delete-button (event)="delete(member._id)"/>
               </ng-container>
             </utility-dropdown>
           </div>

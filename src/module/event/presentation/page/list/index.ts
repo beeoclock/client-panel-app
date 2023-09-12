@@ -35,12 +35,12 @@ import {TableListComponent} from "@event/presentation/component/list/table/table
 		FilterComponent,
 		DropdownComponent,
 		AsyncPipe,
-		NgIf,
 		RouterLink,
 		CurrencyPipe,
 		NgForOf,
 		StarterComponent,
-		TableListComponent
+		TableListComponent,
+		NgIf
 	],
 	standalone: true
 })

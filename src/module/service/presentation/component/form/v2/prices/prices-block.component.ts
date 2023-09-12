@@ -13,7 +13,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
   selector: 'service-form-prices-block-component',
   standalone: true,
   template: `
-    <card>
+    <bee-card>
       <span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.price' | translate }}</span>
 
       <div *ngFor="let durationVersion of durationVersions.controls; let index = index">
@@ -38,7 +38,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 <!--        {{ 'service.form.v2.section.prices.button.add.label' | translate }}-->
 <!--      </button>-->
 
-    </card>
+    </bee-card>
   `,
   imports: [
     NgIf,

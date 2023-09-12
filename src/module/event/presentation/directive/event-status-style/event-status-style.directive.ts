@@ -3,7 +3,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 
 @Directive({
-	selector: '[event-status-style]',
+	selector: '[eventStatusStyle]',
 	standalone: true,
 })
 export class EventStatusStyleDirective implements OnInit, OnChanges {

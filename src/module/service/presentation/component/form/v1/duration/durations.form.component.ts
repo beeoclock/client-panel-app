@@ -41,8 +41,7 @@ import {NgForOf, NgIf} from '@angular/common';
           <div class="p-4">
 
             <service-duration-form-component
-              [form]="durationVersionForm">
-            </service-duration-form-component>
+              [form]="durationVersionForm"/>
           </div>
         </div>
       </div>

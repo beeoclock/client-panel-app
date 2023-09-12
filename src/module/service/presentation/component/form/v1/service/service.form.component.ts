@@ -27,8 +27,7 @@ import {TranslateModule} from "@ngx-translate/core";
     <form [formGroup]="form" class="flex flex-col gap-3">
 
       <service-language-service-form-component
-        [control]="form.controls.language">
-      </service-language-service-form-component>
+        [control]="form.controls.language"/>
 
       <form-input
         id="service-form-title"

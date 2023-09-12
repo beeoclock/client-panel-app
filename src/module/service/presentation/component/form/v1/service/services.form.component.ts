@@ -3,7 +3,6 @@ import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angula
 import {NgForOf, NgIf} from '@angular/common';
 import {ServiceFormComponent} from '@service/presentation/component/form/v1/service/service.form.component';
 import {LANGUAGES} from '@utility/domain/enum';
-import {ScheduleFormComponent} from "@service/presentation/component/form/v1/schedule/schedule.form.component";
 
 @Component({
   selector: 'service-services-form-component',
@@ -11,7 +10,6 @@ import {ScheduleFormComponent} from "@service/presentation/component/form/v1/sch
   encapsulation: ViewEncapsulation.None,
   imports: [
     NgForOf,
-    ScheduleFormComponent,
     ServiceFormComponent,
     NgIf,
   ],
@@ -44,8 +42,7 @@ import {ScheduleFormComponent} from "@service/presentation/component/form/v1/sch
           </div>
           <div class="p-4">
             <service-service-form-component
-              [form]="languageVersionForm">
-            </service-service-form-component>
+              [form]="languageVersionForm"/>
           </div>
         </div>
       </div>

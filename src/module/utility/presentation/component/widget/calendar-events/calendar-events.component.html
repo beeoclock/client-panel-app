@@ -25,7 +25,7 @@
 						<div class="text-xs font-light leading-3 text-neutral-500 dark:text-neutral-300">
 							{{ item.start | dynamicDate: 'hhMM' }}
 						</div>
-						<div event-status-style mode="text" [status]="item.status"></div>
+						<div eventStatusStyle mode="text" [status]="item.status"></div>
 					</div>
 					<div class="text-lg font-medium leading-5 text-neutral-800 dark:text-neutral-100 mt-2">
 						{{ item?.services?.[0]?.languageVersions?.[0]?.title }}

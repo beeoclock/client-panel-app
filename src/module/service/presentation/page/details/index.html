@@ -10,7 +10,7 @@
 
     <div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 gap-4 flex flex-col">
 
-      <card>
+      <bee-card>
 
         <div class="flex justify-between items-center">
 
@@ -61,18 +61,18 @@
 
         </div>
 
-      </card>
+      </bee-card>
 
-      <card>
+      <bee-card>
 
         <div class="flex justify-between flex-col md:flex-row gap-4">
 
-          <delete-button [buttonWidthFull]="true" (event)="delete(service)"></delete-button>
-          <edit-link-component [buttonWidthFull]="true"></edit-link-component>
+          <bee-delete-button [buttonWidthFull]="true" (event)="delete(service)"/>
+          <edit-link-component [buttonWidthFull]="true"/>
 
         </div>
 
-      </card>
+      </bee-card>
 
     </div>
 

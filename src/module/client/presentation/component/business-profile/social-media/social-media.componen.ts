@@ -13,7 +13,7 @@ import {FormButtonWithIconComponent} from "@utility/presentation/component/butto
   standalone: true,
   encapsulation: ViewEncapsulation.None,
   template: `
-    <card>
+    <bee-card>
 
       <strong class="dark:text-white">
         {{ 'keyword.capitalize.socialMedia' | translate }}
@@ -33,8 +33,8 @@ import {FormButtonWithIconComponent} from "@utility/presentation/component/butto
         </div>
       </div>
 
-      <form-button-with-icon (click)="form.pushNewOne()" [label]="'keyword.capitalize.addSocialMedia' | translate"/>
-    </card>
+      <bee-form-button-with-icon (click)="form.pushNewOne()" [label]="'keyword.capitalize.addSocialMedia' | translate"/>
+    </bee-card>
   `,
   imports: [
     TranslateModule,

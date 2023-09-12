@@ -6,7 +6,7 @@ import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({
-  selector: 'form-badge-input',
+  selector: 'bee-form-badge-input',
   standalone: true,
   template: `
     <label default [for]="id">{{ label }}</label>
@@ -73,19 +73,19 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 export class InputBadgeComponent {
 
   @Input()
-  public placeholder: string = '';
+  public placeholder = '';
 
   @Input()
-  public label: string = '';
+  public label = '';
 
   @Input()
-  public mask: string = '';
+  public mask = '';
 
   @Input()
-  public id: string = '';
+  public id = '';
 
   @Input()
-  public badge: string = '';
+  public badge = '';
 
   @Input()
   public control = new FormControl();

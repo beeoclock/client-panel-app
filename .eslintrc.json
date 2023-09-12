@@ -33,6 +33,7 @@
             "prefix": [
               "member",
               "app",
+              "bee",
               "identity",
               "utility",
               "event",

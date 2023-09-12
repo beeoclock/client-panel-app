@@ -7,7 +7,7 @@ import {NgForOf, NgIf} from "@angular/common";
 import {SafePipe} from "@utility/presentation/pipes/safe.pipe";
 
 @Component({
-  selector: 'facilities-business-profile-component',
+  selector: 'client-facilities-business-profile-component',
   templateUrl: 'facilities.business-profile.component.html',
   encapsulation: ViewEncapsulation.None,
   imports: [

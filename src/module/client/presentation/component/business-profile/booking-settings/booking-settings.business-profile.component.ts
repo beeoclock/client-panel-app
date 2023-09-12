@@ -18,7 +18,7 @@ import {SelectApprovalTimeComponent} from "@utility/presentation/component/input
     SelectApprovalTimeComponent
   ],
   template: `
-    <card gap="8">
+    <bee-card gap="8">
 
       <strong class="dark:text-white">
         {{ 'keyword.capitalize.bookingSettings' | translate }}
@@ -36,7 +36,7 @@ import {SelectApprovalTimeComponent} from "@utility/presentation/component/input
         [control]="form.controls.approvalTime">
       </select-approval-time-component>
 
-    </card>
+    </bee-card>
   `
 })
 export class BookingSettingsBusinessProfileComponent {

@@ -3,7 +3,6 @@ import {PricesForm} from '@service/presentation/form/service.form';
 
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ReactiveFormsModule} from '@angular/forms';
-import {InputDirective} from '@utility/presentation/directives/input/input.directive';
 import {NgForOf, NgIf} from '@angular/common';
 import {HasErrorDirective} from '@utility/presentation/directives/has-error/has-error.directive';
 import {PriceFormComponent} from "@service/presentation/component/form/v1/price/price.form.component";
@@ -13,10 +12,8 @@ import {PriceFormComponent} from "@service/presentation/component/form/v1/price/
   standalone: true,
   encapsulation: ViewEncapsulation.None,
   imports: [
-
     NgSelectModule,
     ReactiveFormsModule,
-    InputDirective,
     HasErrorDirective,
     NgForOf,
     PriceFormComponent,
@@ -49,8 +46,7 @@ import {PriceFormComponent} from "@service/presentation/component/form/v1/price/
       </div>
       <div class="p-4">
         <service-price-form-component
-          [form]="control">
-        </service-price-form-component>
+          [form]="control"/>
       </div>
     </div>
 

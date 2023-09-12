@@ -8,7 +8,7 @@ import {IsRequiredDirective} from "@utility/presentation/directives/is-required/
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 
 @Component({
-	selector: 'business-category-select-component',
+	selector: 'bee-business-category-select-component',
 	standalone: true,
 	template: `
 		<label default [for]="id">{{ 'keyword.capitalize.businessCategory' | translate }}</label>
@@ -38,7 +38,7 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 export class PriceAndCurrencyComponent {
 
 	@Input()
-	public id: string = '';
+	public id = '';
 
 	@Input()
 	public control = new FormControl();

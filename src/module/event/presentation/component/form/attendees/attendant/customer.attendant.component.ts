@@ -3,7 +3,7 @@ import {NgForOf, NgIf} from '@angular/common';
 import {NgSelectComponent, NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {
-  ModalMembersFormComponent
+	ModalMembersFormComponent
 } from "@service/presentation/component/form/v1/members/modal.employees.form.component";
 import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.list.customer.adapter";
 import {ICustomer} from "@customer/domain";
@@ -158,8 +158,8 @@ export class CustomerAttendantComponent implements OnInit {
     console.log($event);
   }
 
-  public getInitials(item: ICustomer): string {
-    return initials(item.firstName ?? '', item.lastName ?? '');
+  public getInitials({firstName, lastName}: ICustomer): string {
+    return initials(firstName ?? '', lastName ?? '');
   }
 
   public changeValue() {

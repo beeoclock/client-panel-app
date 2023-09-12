@@ -9,7 +9,7 @@
   <div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
 
     <form [formGroup]="form" class="flex flex-col gap-4">
-      <card>
+      <bee-card>
 
         <strong class="dark:text-white">{{ 'keyword.capitalize.information' | translate }}</strong>
 
@@ -49,11 +49,11 @@
 
         </div>
 
-      </card>
+      </bee-card>
 
       <utility-form-switch-active-block-component [control]="form.controls.active"/>
 
-      <card>
+      <bee-card>
         <strong class="dark:text-white">{{ 'keyword.capitalize.additional' | translate }}</strong>
 
         <div class="flex flex-col mt-4">
@@ -63,7 +63,7 @@
             [placeholder]="'customer.form.input.note.placeholder' | translate"
             [control]="form.controls.note"/>
         </div>
-      </card>
+      </bee-card>
       <button
         primary
         [isLoading]="form.pending"

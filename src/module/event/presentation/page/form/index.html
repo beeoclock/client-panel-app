@@ -13,9 +13,9 @@
 
     <div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
 
-    <card>
+    <bee-card>
       <event-general-details [isPreview]="preview.isOn" [event]="value"/>
-    </card>
+    </bee-card>
 
     <div class="mt-4">
       <button
@@ -44,25 +44,25 @@
 
       <form [formGroup]="form" class="flex flex-col gap-4">
 
-        <card>
+        <bee-card>
           <event-attendees-component [form]="form.controls.attendees"/>
-        </card>
+        </bee-card>
 
-        <card>
+        <bee-card>
           <event-service-component [serviceListControl]="form.controls.services"/>
-        </card>
+        </bee-card>
 
-        <card>
+        <bee-card>
           <event-select-time-slot-form-component [control]="form.controls.start"/>
-        </card>
+        </bee-card>
 
-        <card>
+        <bee-card>
           <form-textarea-component
             id="event-form-public-note-input"
             [label]="'keyword.capitalize.note' | translate"
             [placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
             [control]="form.controls.description"/>
-        </card>
+        </bee-card>
 
         <div class="mt-4">
           <button

@@ -81,7 +81,7 @@ export default class Index {
           }
         });
       } catch (e) {
-
+				console.error(e)
       }
       this.form.enable();
       this.form.updateValueAndValidity();

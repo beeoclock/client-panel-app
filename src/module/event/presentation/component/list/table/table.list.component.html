@@ -84,7 +84,7 @@
 			{{ formatDuration(item?.services?.[0]?.durationVersions?.[0]?.duration ?? '') }}
 		</td>
 		<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-			{{ item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price | currency: item.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow'  }}
+			{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow'  }}
 		</td>
 		<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
 			{{ (item.start ? (item.start | dynamicDate) : null) ?? 'Invalid Time' }}
@@ -93,7 +93,7 @@
 			{{ (item.end ? (item.end | dynamicDate) : null) ?? 'Invalid Time' }}
 		</td>
 		<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-			<div event-status-style [status]="item.status"></div>
+			<div eventStatusStyle [status]="item.status"></div>
 		</td>
 		<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
 			{{ item.createdAt | dynamicDate }}

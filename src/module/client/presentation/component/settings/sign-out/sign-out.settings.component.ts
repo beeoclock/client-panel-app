@@ -20,7 +20,7 @@ import {Router} from "@angular/router";
     ThemeInputComponent
   ],
   template: `
-    <card>
+    <bee-card>
 
       <span class="text-2xl font-bold text-beeColor-500">{{ 'sign-out.title' | translate }}</span>
 
@@ -32,7 +32,7 @@ import {Router} from "@angular/router";
         </button>
       </div>
 
-    </card>
+    </bee-card>
   `
 })
 export class SignOutSettingsComponent {

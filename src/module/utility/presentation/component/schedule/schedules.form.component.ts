@@ -19,7 +19,7 @@ import {FormButtonWithIconComponent} from "@utility/presentation/component/butto
     FormButtonWithIconComponent,
   ],
   template: `
-    <card>
+    <bee-card>
 
       <strong class="dark:text-white">
         {{ 'keyword.capitalize.workingHours' | translate }}
@@ -31,9 +31,7 @@ import {FormButtonWithIconComponent} from "@utility/presentation/component/butto
           class="grid grid-cols-12 gap-2">
 
           <div class="col-span-11">
-            <schedule-form-component
-              [form]="scheduleForm">
-            </schedule-form-component>
+            <schedule-form-component [form]="scheduleForm"/>
           </div>
           <div class="col-span-1">
             <button class="text-beeColor-600 hover:text-red-600 hover:bg-red-100 px-3 py-2 rounded-full mt-8"
@@ -45,10 +43,9 @@ import {FormButtonWithIconComponent} from "@utility/presentation/component/butto
         </div>
       </div>
 
-      <form-button-with-icon (click)="schedulesForm.pushNewOne()" [label]="'keyword.capitalize.addAvailableHours' | translate">
-      </form-button-with-icon>
+      <bee-form-button-with-icon (click)="schedulesForm.pushNewOne()" [label]="'keyword.capitalize.addAvailableHours' | translate"/>
 
-    </card>
+    </bee-card>
   `
 })
 export class SchedulesFormComponent {

@@ -16,19 +16,16 @@ import {PriceForm} from "@service/presentation/form/service.form";
   template: `
     <div class="flex flex-col gap-3">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <form-badge-input
+        <bee-form-badge-input
           mask="00:00"
           [control]="durationControl"
           placeholder="00:00"
           [label]="'keyword.capitalize.duration' | translate"
-          [badge]="'keyword.capitalize.priceTimeFormatPrompt' | translate">
-        </form-badge-input>
+          [badge]="'keyword.capitalize.priceTimeFormatPrompt' | translate"/>
         <price-and-currency-component
           [priceControl]="priceForm.controls.price"
-          [currencyControl]="priceForm.controls.currency">
-        </price-and-currency-component>
+          [currencyControl]="priceForm.controls.currency"/>
       </div>
-      <!--      <service-form-prices-specialists-component [label]="'Specialists' | translate"></service-form-prices-specialists-component>-->
     </div>
   `,
   imports: [

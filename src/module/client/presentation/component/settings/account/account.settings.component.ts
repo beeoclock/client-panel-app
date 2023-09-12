@@ -7,7 +7,7 @@ import {Select} from "@ngxs/store";
 import {Observable} from "rxjs";
 import {AsyncPipe} from "@angular/common";
 import {
-  ModalChangePhoneNumberService
+	ModalChangePhoneNumberService
 } from "@client/presentation/component/settings/change-phone-number/modal-change-phone-number.service";
 
 @Component({
@@ -21,7 +21,7 @@ import {
     AsyncPipe
   ],
   template: `
-    <card>
+    <bee-card>
       <span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.account' | translate }}</span>
 
       <div class="flex justify-between items-center">
@@ -54,7 +54,7 @@ import {
         </button>
       </div>
 
-    </card>
+    </bee-card>
   `
 })
 export class AccountSettingsComponent {

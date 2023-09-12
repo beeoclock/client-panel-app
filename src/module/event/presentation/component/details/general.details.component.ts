@@ -23,7 +23,7 @@ import {EventStatusStyleDirective} from "@event/presentation/directive/event-sta
       <div class="flex justify-between items-center">
 
         <div class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.details' | translate }}</div>
-        <div *ngIf="isNotPreview" event-status-style [status]="event.status"></div>
+        <div *ngIf="isNotPreview" eventStatusStyle [status]="event.status"></div>
         <div *ngIf="isPreview"
              class="px-2 py-1 flex items-center justify-center h-6 text-xs rounded-full border text-white uppercase bg-blue-500 border-blue-500 dark:bg-blue-900 dark:text-blue-400 dark:border-blue-800">
           {{ 'keyword.capitalize.preview' | translate }}
@@ -62,7 +62,7 @@ import {EventStatusStyleDirective} from "@event/presentation/directive/event-sta
                   <div class="flex flex-col gap-1">
 
                     <div class="text-end font-bold">
-                      {{ event.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price | currency: event.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow' }}
+                      {{ (event.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: event.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow' }}
                     </div>
                     <div class="text-end">
                       {{ formatDuration(event.services?.[0]?.durationVersions?.[0]?.duration ?? '') }}
