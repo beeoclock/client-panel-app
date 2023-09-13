@@ -6,19 +6,21 @@ import {ModalSelectServiceListAdapter} from "@service/adapter/external/component
 import {IService} from "@service/domain";
 import humanizeDuration from "humanize-duration";
 import {Duration} from "luxon";
+import {SrcByMediaIdDirective} from "@module/media/presentation/directive/src-by-media-id/src-by-media-id.directive";
 
 @Component({
   selector: 'utility-modal-select-service-component',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    NgForOf,
-    LoaderComponent,
-    NgIf,
-    TranslateModule,
-    CurrencyPipe
-  ],
+	imports: [
+		NgForOf,
+		LoaderComponent,
+		NgIf,
+		TranslateModule,
+		CurrencyPipe,
+		SrcByMediaIdDirective
+	],
   template: `
     <div class="flex flex-col gap-4">
 
@@ -31,8 +33,8 @@ import {Duration} from "luxon";
           <div class="grid grid-cols-16 gap-4">
             <div class="col-span-3 pt-1">
               <ng-container *ngIf="item?.presentation?.banners?.length; else DefaultServiceImageTemplate">
-<!--                <img [src]="item.presentation.banners?.[0]?.media" class="w-[90px] h-[90px] rounded-2xl object-cover"-->
-<!--                     alt="Image of service">-->
+                <img [srcByMediaId]="item.presentation.banners?.[0]" class="w-[90px] h-[90px] rounded-2xl object-cover"
+                     alt="Image of service">
               </ng-container>
               <ng-template #DefaultServiceImageTemplate>
                 <div class="w-[90px] h-[90px] bg-beeColor-300 rounded-2xl"></div>

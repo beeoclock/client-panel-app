@@ -6,18 +6,20 @@ import humanizeDuration from "humanize-duration";
 import {Duration} from "luxon";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
+import {SrcByMediaIdDirective} from "@module/media/presentation/directive/src-by-media-id/src-by-media-id.directive";
 
 @Component({
   selector: 'event-general-details',
   standalone: true,
-  imports: [
-    DynamicDatePipe,
-    TranslateModule,
-    CurrencyPipe,
-    NgForOf,
-    NgIf,
-    EventStatusStyleDirective
-  ],
+	imports: [
+		DynamicDatePipe,
+		TranslateModule,
+		CurrencyPipe,
+		NgForOf,
+		NgIf,
+		EventStatusStyleDirective,
+		SrcByMediaIdDirective
+	],
   template: `
     <div class="flex flex-col gap-8">
       <div class="flex justify-between items-center">
@@ -40,9 +42,9 @@ import {EventStatusStyleDirective} from "@event/presentation/directive/event-sta
           <div class="col-span-12 md:col-span-3">
             <div
               class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-beeColor-400">
-<!--              <img *ngIf="event.services?.[0]?.presentation?.main" [src]="event.services?.[0]?.presentation?.main"-->
-<!--                   class="object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"-->
-<!--                   alt="Uploaded Image"/>-->
+              <img *ngIf="event.services?.[0]?.presentation?.banners?.[0]" [srcByMediaId]="event.services?.[0]?.presentation?.banners?.[0]"
+                   class="object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
+                   alt="Uploaded Image"/>
             </div>
           </div>
           <div class="col-span-12 md:col-span-9">

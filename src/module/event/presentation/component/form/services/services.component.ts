@@ -8,28 +8,30 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import humanizeDuration from "humanize-duration";
 import {Duration} from "luxon";
 import {
-  ModalSelectServiceService
+	ModalSelectServiceService
 } from "@utility/presentation/component/modal-select-service/modal-select-service.service";
 import {IService} from "@service/domain";
 import {ModalSelectServiceListAdapter} from "@service/adapter/external/component/modal-select-service.list.adapter";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
+import {SrcByMediaIdDirective} from "@module/media/presentation/directive/src-by-media-id/src-by-media-id.directive";
 
 @Component({
   selector: 'event-service-component',
   templateUrl: 'services.component.html',
   standalone: true,
-  imports: [
-    NgIf,
-    TranslateModule,
-    FormInputComponent,
-    FormTextareaComponent,
-    NgSelectModule,
-    ReactiveFormsModule,
-    NgForOf,
-    CurrencyPipe,
-    NgTemplateOutlet,
-    PrimaryLinkButtonDirective,
-  ]
+	imports: [
+		NgIf,
+		TranslateModule,
+		FormInputComponent,
+		FormTextareaComponent,
+		NgSelectModule,
+		ReactiveFormsModule,
+		NgForOf,
+		CurrencyPipe,
+		NgTemplateOutlet,
+		PrimaryLinkButtonDirective,
+		SrcByMediaIdDirective,
+	]
 })
 export class ServicesComponent implements OnInit {
 

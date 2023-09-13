@@ -3,6 +3,7 @@ import {TableState} from "@utility/domain/table.state";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {ListServiceApiAdapter} from "@service/adapter/external/api/list.service.api.adapter";
 import * as Service from "@service/domain";
+import {ActiveEnum} from "@utility/domain/enum";
 
 @Injectable({
 	providedIn: 'root'
@@ -10,7 +11,9 @@ import * as Service from "@service/domain";
 export class ModalSelectServiceListAdapter {
 
 	public readonly listServiceApiAdapter = inject(ListServiceApiAdapter);
-	public readonly tableState = new TableState<Service.IService>();
+	public readonly tableState = new TableState<Service.IService>().setFilters({
+		active: ActiveEnum.YES
+	});
 	public readonly loading$ = new BooleanStreamState(false);
 
 	public resetTableState(): void {
