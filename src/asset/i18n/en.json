@@ -316,6 +316,32 @@
 				}
 			}
 		},
+		"POST": {
+			"/api/v1/service": {
+				"after": {
+					"success": {
+						"header": "Service created",
+						"message": "Service was successfully created."
+					}
+				}
+			},
+			"/api/v1/customer": {
+				"after": {
+					"success": {
+						"header": "Customer created",
+						"message": "Customer was successfully created."
+					}
+				}
+			},
+			"/api/v1/event": {
+				"after": {
+					"success": {
+						"header": "Event created",
+						"message": "Event was successfully created."
+					}
+				}
+			}
+		},
 		"response": {
 			"status": {
 				"504": {

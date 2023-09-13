@@ -15,6 +15,16 @@ export interface EndpointInterface {
   before?: {
     accept?: boolean;
   };
+	after?: {
+		success?: {
+			notification?: {
+				execute?: (translateService: any) => {
+					title: string;
+					message: string;
+				};
+			};
+		}
+	}
   header?: {
     authorization?: boolean;
   };

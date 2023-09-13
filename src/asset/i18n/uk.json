@@ -316,6 +316,32 @@
 				}
 			}
 		},
+		"POST": {
+			"/api/v1/service": {
+				"after": {
+					"success": {
+						"header": "Послуга створена",
+						"message": "Послуга успішно створена."
+					}
+				}
+			},
+			"/api/v1/customer": {
+				"after": {
+					"success": {
+						"header": "Клієнт створений",
+						"message": "Клієнт успішно створений."
+					}
+				}
+			},
+			"/api/v1/event": {
+				"after": {
+					"success": {
+						"header": "Подія створена",
+						"message": "Подія успішно створена."
+					}
+				}
+			}
+		},
 		"response": {
 			"status": {
 				"504": {
@@ -561,97 +587,97 @@
 			"updatedAt": "Оновлено",
 			"workdays": "Робочі дні",
 			"workingHours": "Графік роботи",
-      "writePrice": "Ввести ціну",
-      "yes": "Так",
-      "zipCode": "Поштовий індекс"
-    },
-    "lowercase": {
+			"writePrice": "Ввести ціну",
+			"yes": "Так",
+			"zipCode": "Поштовий індекс"
+		},
+		"lowercase": {
 			"ago": "тому",
-      "dragAndDrop": "перетягніть і випустіть файл",
-      "or": "або"
-    }
-  },
-  "latestBooking": {
-    "EIGHT_WEEKS": "Впродовж 8 тижнів",
-    "FIVE_WEEKS": "Впродовж 5 тижнів",
-    "FOUR_WEEKS": "Впродовж 4 тижнів",
-    "NO_LIMIT": "Без обмежень",
-    "SEVEN_WEEKS": "Впродовж 7 тижнів",
-    "SIX_WEEKS": "Впродовж 6 тижнів",
-    "THREE_WEEKS": "Впродовж 3 тижнів",
-    "TWO_WEEKS": "Цього і наступного тижня"
-  },
-  "member": {
-    "button": {
-      "create": "Додати учасника"
-    },
-    "title": "Учасник"
-  },
-  "page": {
-    "calendar": {
-      "title": "Календар"
-    },
-    "select-client": {
-      "button": {
-        "create-new-client": "Створити нового клієнта"
-      },
-      "form": {
-        "button": {
-          "submit": "Вибрати"
-        }
-      },
-      "title": "Виберіть клієнта"
-    }
-  },
-  "service": {
-    "form": {
-      "v2": {
-        "section": {
-          "presentation": {
-            "motivate": "Ти можеш надати своїм послугам трохи більше індивідуальності та допомогти іншим розпізнати свою роботу, завантаживши зображення (фотографію чи інший графічний дизайн)."
-          },
-          "prices": {
-            "button": {
-              "add": {
-                "label": "Додати ціну"
-              }
-            }
-          }
-        }
-      }
-    },
-    "keyword": {
-      "capitalize": {
-        "active": "Активна",
-        "inactive": "Неактивна"
-      }
-    },
-    "title": "Послуга"
-  },
-  "sidebar": {
-    "addEvent": "Додати подію",
-    "businessProfile": "Профіль компанії",
-    "calendar": "Календар",
-    "customers": "Клієнти",
-    "dashboard": "Панель керування",
-    "events": "Події",
-    "members": "Учасники",
-    "private": "Приватне",
-    "services": "Послуги",
-    "settings": "Налаштування",
-    "switch-business-client": "Змінити контекст",
-    "table": "Таблиця"
-  },
-  "sign-out": {
-    "button": {
-      "sign-out": {
-        "label": "Вийти з системи"
-      }
-    },
-    "title": "Вихід з системи"
-  },
-  "theme": {
-    "dark": "Темна",
-    "light": "Світла"
-  }
+			"dragAndDrop": "перетягніть і випустіть файл",
+			"or": "або"
+		}
+	},
+	"latestBooking": {
+		"EIGHT_WEEKS": "Впродовж 8 тижнів",
+		"FIVE_WEEKS": "Впродовж 5 тижнів",
+		"FOUR_WEEKS": "Впродовж 4 тижнів",
+		"NO_LIMIT": "Без обмежень",
+		"SEVEN_WEEKS": "Впродовж 7 тижнів",
+		"SIX_WEEKS": "Впродовж 6 тижнів",
+		"THREE_WEEKS": "Впродовж 3 тижнів",
+		"TWO_WEEKS": "Цього і наступного тижня"
+	},
+	"member": {
+		"button": {
+			"create": "Додати учасника"
+		},
+		"title": "Учасник"
+	},
+	"page": {
+		"calendar": {
+			"title": "Календар"
+		},
+		"select-client": {
+			"button": {
+				"create-new-client": "Створити нового клієнта"
+			},
+			"form": {
+				"button": {
+					"submit": "Вибрати"
+				}
+			},
+			"title": "Виберіть клієнта"
+		}
+	},
+	"service": {
+		"form": {
+			"v2": {
+				"section": {
+					"presentation": {
+						"motivate": "Ти можеш надати своїм послугам трохи більше індивідуальності та допомогти іншим розпізнати свою роботу, завантаживши зображення (фотографію чи інший графічний дизайн)."
+					},
+					"prices": {
+						"button": {
+							"add": {
+								"label": "Додати ціну"
+							}
+						}
+					}
+				}
+			}
+		},
+		"keyword": {
+			"capitalize": {
+				"active": "Активна",
+				"inactive": "Неактивна"
+			}
+		},
+		"title": "Послуга"
+	},
+	"sidebar": {
+		"addEvent": "Додати подію",
+		"businessProfile": "Профіль компанії",
+		"calendar": "Календар",
+		"customers": "Клієнти",
+		"dashboard": "Панель керування",
+		"events": "Події",
+		"members": "Учасники",
+		"private": "Приватне",
+		"services": "Послуги",
+		"settings": "Налаштування",
+		"switch-business-client": "Змінити контекст",
+		"table": "Таблиця"
+	},
+	"sign-out": {
+		"button": {
+			"sign-out": {
+				"label": "Вийти з системи"
+			}
+		},
+		"title": "Вихід з системи"
+	},
+	"theme": {
+		"dark": "Темна",
+		"light": "Світла"
+	}
 }

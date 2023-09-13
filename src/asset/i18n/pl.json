@@ -318,6 +318,32 @@
 				}
 			}
 		},
+		"POST": {
+			"/api/v1/service": {
+				"after": {
+					"success": {
+						"header": "Utworzono usługę",
+						"message": "Usługa została utworzona."
+					}
+				}
+			},
+			"/api/v1/customer": {
+				"after": {
+					"success": {
+						"header": "Utworzono klienta",
+						"message": "Klient został utworzony."
+					}
+				}
+			},
+			"/api/v1/event": {
+				"after": {
+					"success": {
+						"header": "Utworzono wydarzenie",
+						"message": "Wydarzenie zostało utworzone."
+					}
+				}
+			}
+		},
 		"response": {
 			"status": {
 				"504": {
@@ -563,97 +589,97 @@
 			"updatedAt": "Zaktualizowano",
 			"workdays": "Dni pracy",
 			"workingHours": "Godziny pracy",
-      "writePrice": "Wpisz cenę",
-      "yes": "Tak",
-      "zipCode": "Kod pocztowy"
-    },
-    "lowercase": {
+			"writePrice": "Wpisz cenę",
+			"yes": "Tak",
+			"zipCode": "Kod pocztowy"
+		},
+		"lowercase": {
 			"ago": "temu",
-      "dragAndDrop": "przeciągnij i upuść plik",
-      "or": "lub"
-    }
-  },
-  "latestBooking": {
-    "EIGHT_WEEKS": "W ciągu 8 tygodni",
-    "FIVE_WEEKS": "W ciągu 5 tygodni",
-    "FOUR_WEEKS": "W ciągu 4 tygodni",
-    "NO_LIMIT": "Bez ograniczeń",
-    "SEVEN_WEEKS": "W ciągu 7 tygodni",
-    "SIX_WEEKS": "W ciągu 6 tygodni",
-    "THREE_WEEKS": "W ciągu 3 tygodni",
-    "TWO_WEEKS": "W tym i następnym tygodniu"
-  },
-  "member": {
-    "button": {
-      "create": "Dodaj członka"
-    },
-    "title": "Członek"
-  },
-  "page": {
-    "calendar": {
-      "title": "Kalendarz"
-    },
-    "select-client": {
-      "button": {
-        "create-new-client": "Utwórz nowego klienta"
-      },
-      "form": {
-        "button": {
-          "submit": "Wybierz"
-        }
-      },
-      "title": "Wybierz klienta"
-    }
-  },
-  "service": {
-    "form": {
-      "v2": {
-        "section": {
-          "presentation": {
-            "motivate": "Możesz nadać swoim usługom nieco więcej osobowości i pomóc innym rozpoznać Twoją pracę, przesyłając \n obraz (obraz, zdjęcie lub inną ikonę graficzną Twojej usługi)."
-          },
-          "prices": {
-            "button": {
-              "add": {
-                "label": "Dodaj cenę"
-              }
-            }
-          }
-        }
-      }
-    },
-    "keyword": {
-      "capitalize": {
-        "active": "Aktywna",
-        "inactive": "Nieaktywna"
-      }
-    },
-    "title": "Usługa"
-  },
-  "sidebar": {
-    "addEvent": "Dodaj wydarzenie",
-    "businessProfile": "Profil biznesowy",
-    "calendar": "Kalendarz",
-    "customers": "Klienci",
-    "dashboard": "Panel główny",
-    "events": "Wydarzenia",
-    "members": "Członkowie",
-    "private": "Prywatne",
-    "services": "Usługi",
-    "settings": "Ustawienia",
-    "switch-business-client": "Zmień kontekst",
-    "table": "Tabela"
-  },
-  "sign-out": {
-    "button": {
-      "sign-out": {
-        "label": "Wyloguj się teraz"
-      }
-    },
-    "title": "Wyloguj się"
-  },
-  "theme": {
-    "dark": "Ciemny",
-    "light": "Jasny"
-  }
+			"dragAndDrop": "przeciągnij i upuść plik",
+			"or": "lub"
+		}
+	},
+	"latestBooking": {
+		"EIGHT_WEEKS": "W ciągu 8 tygodni",
+		"FIVE_WEEKS": "W ciągu 5 tygodni",
+		"FOUR_WEEKS": "W ciągu 4 tygodni",
+		"NO_LIMIT": "Bez ograniczeń",
+		"SEVEN_WEEKS": "W ciągu 7 tygodni",
+		"SIX_WEEKS": "W ciągu 6 tygodni",
+		"THREE_WEEKS": "W ciągu 3 tygodni",
+		"TWO_WEEKS": "W tym i następnym tygodniu"
+	},
+	"member": {
+		"button": {
+			"create": "Dodaj członka"
+		},
+		"title": "Członek"
+	},
+	"page": {
+		"calendar": {
+			"title": "Kalendarz"
+		},
+		"select-client": {
+			"button": {
+				"create-new-client": "Utwórz nowego klienta"
+			},
+			"form": {
+				"button": {
+					"submit": "Wybierz"
+				}
+			},
+			"title": "Wybierz klienta"
+		}
+	},
+	"service": {
+		"form": {
+			"v2": {
+				"section": {
+					"presentation": {
+						"motivate": "Możesz nadać swoim usługom nieco więcej osobowości i pomóc innym rozpoznać Twoją pracę, przesyłając \n obraz (obraz, zdjęcie lub inną ikonę graficzną Twojej usługi)."
+					},
+					"prices": {
+						"button": {
+							"add": {
+								"label": "Dodaj cenę"
+							}
+						}
+					}
+				}
+			}
+		},
+		"keyword": {
+			"capitalize": {
+				"active": "Aktywna",
+				"inactive": "Nieaktywna"
+			}
+		},
+		"title": "Usługa"
+	},
+	"sidebar": {
+		"addEvent": "Dodaj wydarzenie",
+		"businessProfile": "Profil biznesowy",
+		"calendar": "Kalendarz",
+		"customers": "Klienci",
+		"dashboard": "Panel główny",
+		"events": "Wydarzenia",
+		"members": "Członkowie",
+		"private": "Prywatne",
+		"services": "Usługi",
+		"settings": "Ustawienia",
+		"switch-business-client": "Zmień kontekst",
+		"table": "Tabela"
+	},
+	"sign-out": {
+		"button": {
+			"sign-out": {
+				"label": "Wyloguj się teraz"
+			}
+		},
+		"title": "Wyloguj się"
+	},
+	"theme": {
+		"dark": "Ciemny",
+		"light": "Jasny"
+	}
 }

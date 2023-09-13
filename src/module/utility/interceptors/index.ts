@@ -1,6 +1,5 @@
 export {ApprovalInterceptor} from './approval.interceptor';
 export {ErrorInterceptor} from './error.interceptor';
-export {LoadingInterceptor} from './loading.interceptor';
 export {NotificationInterceptor} from './notification.interceptor';
 export {SourceInterceptor} from './source.interceptor';
 export {ParamsReplaceInterceptor} from './params.replace.interceptor';

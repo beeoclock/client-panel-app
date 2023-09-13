@@ -27,106 +27,105 @@ import {TEN_MINUTES} from "@utility/domain/const/c.time";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './asset/i18n/', '.json');
+	return new TranslateHttpLoader(http, './asset/i18n/', '.json');
 }
 
 if (environment.production) {
-  enableProdMode();
+	enableProdMode();
 }
 
 initRuntimeEnvironment();
 
 bootstrapApplication(AppComponent, {
-  providers: [
+	providers: [
 
-    // {
-    //   provide: LOCALE_ID,
-    //   useValue: 'uk'
-    // },
+		// {
+		//   provide: LOCALE_ID,
+		//   useValue: 'uk'
+		// },
 
-    {
-      provide: SIDEBAR_ID,
-      useValue: 'main-sidebar'
-    },
+		{
+			provide: SIDEBAR_ID,
+			useValue: 'main-sidebar'
+		},
 
-    {
-      provide: MAIN_CONTAINER_ID,
-      useValue: 'main-container'
-    },
+		{
+			provide: MAIN_CONTAINER_ID,
+			useValue: 'main-container'
+		},
 
-    {
-      provide: CACHE_TABLE_CLEAR_AFTER_MS,
-      useValue: TEN_MINUTES
-    },
+		{
+			provide: CACHE_TABLE_CLEAR_AFTER_MS,
+			useValue: TEN_MINUTES
+		},
 
-    provideEnvironmentNgxMask(),
+		provideEnvironmentNgxMask(),
 
-    importProvidersFrom(
-      NgxsModule.forRoot([IdentityState, AppState, CacheState], {
-        developmentMode: !environment.production
-      }),
+		importProvidersFrom(
+			NgxsModule.forRoot([IdentityState, AppState, CacheState], {
+				developmentMode: !environment.production
+			}),
 
-      NgxsReduxDevtoolsPluginModule.forRoot({
-        disabled: environment.production
-      }),
-    ),
+			NgxsReduxDevtoolsPluginModule.forRoot({
+				disabled: environment.production
+			}),
+		),
 
-    provideRouter(
-      routes,
-      withInMemoryScrolling({
-        scrollPositionRestoration: 'enabled'
-      }),
-      // TODO check if the strategy does not slow down first download
-      withPreloading(PreloadAllModules)
-    ),
+		provideRouter(
+			routes,
+			withInMemoryScrolling({
+				scrollPositionRestoration: 'enabled'
+			}),
+			// TODO check if the strategy does not slow down first download
+			withPreloading(PreloadAllModules)
+		),
 
-    provideHttpClient(
-      withInterceptors([
-        // Utility.Interceptors.Approval, // TODO find way how to handle firebase network!
-        // Utility.Interceptors.Loading,
-        // Utility.Interceptors.Notification,
-        // Utility.Interceptors.Error,
+		provideHttpClient(
+			withInterceptors([
+				// Utility.Interceptors.Approval, // TODO find way how to handle firebase network!
+				// Utility.Interceptors.Loading,
+				// Utility.Interceptors.Notification,
+				// Utility.Interceptors.Error,
 
 
-        Utility.Interceptors.AccessTokenInterceptor,
-        Utility.Interceptors.PrepareLocalHeadersInterceptor,
-        Utility.Interceptors.ApprovalInterceptor,
-        Utility.Interceptors.ParamsReplaceInterceptor,
-        Utility.Interceptors.LoadingInterceptor,
-        Utility.Interceptors.NotificationInterceptor,
-        Utility.Interceptors.ErrorInterceptor,
-        Utility.Interceptors.SourceInterceptor,
-        Utility.Interceptors.ClearLocalHeadersInterceptor,
-      ]),
-    ),
+				Utility.Interceptors.AccessTokenInterceptor,
+				Utility.Interceptors.PrepareLocalHeadersInterceptor,
+				Utility.Interceptors.ApprovalInterceptor,
+				Utility.Interceptors.ParamsReplaceInterceptor,
+				Utility.Interceptors.NotificationInterceptor,
+				Utility.Interceptors.ErrorInterceptor,
+				Utility.Interceptors.SourceInterceptor,
+				Utility.Interceptors.ClearLocalHeadersInterceptor,
+			]),
+		),
 
-    importProvidersFrom(
-      NgxIndexedDBModule.forRoot(environment.config.database),
-      IonicModule.forRoot({
-        mode: 'ios',
-        animated: false
-      }),
-      provideFirebaseApp(() => initializeApp(environment.firebase.options)),
-      provideAuth(() => {
-        const auth = getAuth();
-        auth.setPersistence(browserLocalPersistence)
-          .catch((error) => {
-            console.log(error);
-          });
-        if (environment.firebase.emulator.all || environment.firebase.emulator.authorization) {
-          connectAuthEmulator(auth, 'http://localhost:9099');
-        }
-        return auth;
-      }),
-      TranslateModule.forRoot({
-        useDefaultLang: true,
-        defaultLanguage: environment.config.language,
-        loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
-        }
-      }),
-    ),
-  ]
+		importProvidersFrom(
+			NgxIndexedDBModule.forRoot(environment.config.database),
+			IonicModule.forRoot({
+				mode: 'ios',
+				animated: false
+			}),
+			provideFirebaseApp(() => initializeApp(environment.firebase.options)),
+			provideAuth(() => {
+				const auth = getAuth();
+				auth.setPersistence(browserLocalPersistence)
+					.catch((error) => {
+						console.log(error);
+					});
+				if (environment.firebase.emulator.all || environment.firebase.emulator.authorization) {
+					connectAuthEmulator(auth, 'http://localhost:9099');
+				}
+				return auth;
+			}),
+			TranslateModule.forRoot({
+				useDefaultLang: true,
+				defaultLanguage: environment.config.language,
+				loader: {
+					provide: TranslateLoader,
+					useFactory: HttpLoaderFactory,
+					deps: [HttpClient]
+				}
+			}),
+		),
+	]
 }).catch(e => console.error(e));

@@ -1,6 +1,7 @@
 import {Endpoint, EndpointCollectionType} from "@utility/domain/endpoint";
 import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
+import {TranslateService} from "@ngx-translate/core";
 
 export enum eventEndpointEnum {
   paged = '/api/v1/event/paged',
@@ -42,7 +43,20 @@ export const eventEndpoint: EndpointCollectionType = {
       source: SourceNetworkEnum.panel,
       header: {
         authorization: true,
-      }
+      },
+			after: {
+				success: {
+					notification: {
+						execute: (translateService: TranslateService) => {
+							const {title, message} = translateService.instant('http.POST./api/v1/event.after.success');
+							return {
+								title,
+								message
+							}
+						}
+					}
+				}
+			}
     }
   },
   PUT: {
