@@ -8,14 +8,13 @@ import {
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateModule} from "@ngx-translate/core";
 import {ITableState} from "@utility/domain/table.state";
 import {TableComponent} from "@utility/table.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {EventActions} from "@event/state/event/event.actions";
 import {IEvent} from "@event/domain";
-import humanizeDuration from "humanize-duration";
-import {Duration} from "luxon";
+import {HumanizeDurationAdapter} from "@utility/adapter/humanize-duration.adapter";
 
 @Component({
 	selector: 'event-table-list-component',
@@ -42,12 +41,6 @@ export class TableListComponent extends TableComponent {
 	@Input()
 	public tableState!: ITableState<IEvent>;
 
-	public readonly translateService = inject(TranslateService);
-
-	public formatDuration(duration: string): string {
-
-		return humanizeDuration(Duration.fromISOTime(duration).as('milliseconds'), {language: this.translateService.currentLang});
-
-	}
+	public readonly humanizeDurationAdapter = inject(HumanizeDurationAdapter);
 
 }

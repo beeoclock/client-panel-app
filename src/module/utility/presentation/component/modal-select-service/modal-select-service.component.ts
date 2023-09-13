@@ -1,12 +1,11 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit, ViewEncapsulation} from "@angular/core";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateModule} from "@ngx-translate/core";
 import {ModalSelectServiceListAdapter} from "@service/adapter/external/component/modal-select-service.list.adapter";
 import {IService} from "@service/domain";
-import humanizeDuration from "humanize-duration";
-import {Duration} from "luxon";
 import {SrcByMediaIdDirective} from "@module/media/presentation/directive/src-by-media-id/src-by-media-id.directive";
+import {HumanizeDurationAdapter} from "@utility/adapter/humanize-duration.adapter";
 
 @Component({
   selector: 'utility-modal-select-service-component',
@@ -73,7 +72,7 @@ import {SrcByMediaIdDirective} from "@module/media/presentation/directive/src-by
                 {{ item.durationVersions[0].prices[0].price | currency: item.durationVersions[0].prices[0].currency: 'symbol-narrow' }}
               </span>
                 <span class="text-end text-sm">
-                {{ formatDuration(item.durationVersions[0].duration) }}
+                {{ humanizeDurationAdapter.formatDuration(item.durationVersions[0].duration) }}
               </span>
               </div>
             </div>
@@ -91,7 +90,7 @@ export class ModalSelectServiceComponent implements OnInit {
 
   public readonly modalSelectServiceListAdapter = inject(ModalSelectServiceListAdapter);
   public readonly changeDetectorRef = inject(ChangeDetectorRef);
-  public readonly translateService = inject(TranslateService);
+  public readonly humanizeDurationAdapter = inject(HumanizeDurationAdapter);
 
   public selectedServiceList: IService[] = [];
   public newSelectedServiceList: IService[] = [];
@@ -141,10 +140,6 @@ export class ModalSelectServiceComponent implements OnInit {
     this.modalSelectServiceListAdapter.resetTableState();
     await this.modalSelectServiceListAdapter.getPageAsync();
     this.changeDetectorRef.detectChanges();
-  }
-
-  public formatDuration(duration: string): string {
-    return humanizeDuration(Duration.fromISOTime(duration).as('milliseconds'), {language: this.translateService.currentLang});
   }
 
 }

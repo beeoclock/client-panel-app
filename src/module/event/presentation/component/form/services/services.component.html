@@ -34,7 +34,7 @@
                   {{ service.durationVersions[0].prices[0].price | currency: service.durationVersions[0].prices[0].currency: 'symbol-narrow' }}
                 </div>
                 <div class="text-end">
-                  {{ formatDuration(service.durationVersions[0].duration) }}
+                  {{ humanizeDurationAdapter.formatDuration(service.durationVersions[0].duration) }}
                 </div>
 
               </div>
