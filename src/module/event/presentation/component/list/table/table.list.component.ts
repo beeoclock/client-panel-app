@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {Component, Input, ViewEncapsulation} from "@angular/core";
 import {CurrencyPipe, NgForOf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
@@ -14,7 +14,7 @@ import {TableComponent} from "@utility/table.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {EventActions} from "@event/state/event/event.actions";
 import {IEvent} from "@event/domain";
-import {HumanizeDurationAdapter} from "@utility/adapter/humanize-duration.adapter";
+import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 
 @Component({
 	selector: 'event-table-list-component',
@@ -31,7 +31,8 @@ import {HumanizeDurationAdapter} from "@utility/adapter/humanize-duration.adapte
 		SortIndicatorComponent,
 		TranslateModule,
 		EventStatusStyleDirective,
-		CurrencyPipe
+		CurrencyPipe,
+		HumanizeDurationPipe
 	]
 })
 export class TableListComponent extends TableComponent {
@@ -40,7 +41,5 @@ export class TableListComponent extends TableComponent {
 
 	@Input()
 	public tableState!: ITableState<IEvent>;
-
-	public readonly humanizeDurationAdapter = inject(HumanizeDurationAdapter);
 
 }

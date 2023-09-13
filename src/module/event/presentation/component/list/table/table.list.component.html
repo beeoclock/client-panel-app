@@ -81,7 +81,7 @@
 			{{ item?.services?.[0]?.languageVersions?.[0]?.title }}
 		</td>
 		<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-			{{ humanizeDurationAdapter.formatDuration(item?.services?.[0]?.durationVersions?.[0]?.duration ?? '') }}
+			{{ item?.services?.[0]?.durationVersions?.[0]?.duration ?? '' | humanizeDuration }}
 		</td>
 		<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
 			{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow'  }}

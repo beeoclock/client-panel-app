@@ -12,7 +12,7 @@ import {IService} from "@service/domain";
 import {ModalSelectServiceListAdapter} from "@service/adapter/external/component/modal-select-service.list.adapter";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {SrcByMediaIdDirective} from "@module/media/presentation/directive/src-by-media-id/src-by-media-id.directive";
-import {HumanizeDurationAdapter} from "@utility/adapter/humanize-duration.adapter";
+import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 
 @Component({
 	selector: 'event-service-component',
@@ -30,6 +30,7 @@ import {HumanizeDurationAdapter} from "@utility/adapter/humanize-duration.adapte
 		NgTemplateOutlet,
 		PrimaryLinkButtonDirective,
 		SrcByMediaIdDirective,
+		HumanizeDurationPipe,
 	]
 })
 export class ServicesComponent implements OnInit {
@@ -39,7 +40,6 @@ export class ServicesComponent implements OnInit {
 
 	private readonly modalSelectServiceService = inject(ModalSelectServiceService);
 	private readonly modalSelectServiceListAdapter = inject(ModalSelectServiceListAdapter);
-	public readonly humanizeDurationAdapter = inject(HumanizeDurationAdapter);
 
 	public readonly loading$ = this.modalSelectServiceListAdapter.loading$;
 
@@ -97,6 +97,5 @@ export class ServicesComponent implements OnInit {
 		this.serviceListControl.patchValue(newSelectedSpecialistList);
 
 	}
-
 
 }

@@ -20,7 +20,7 @@ import {LanguagePipe} from "@utility/presentation/pipes/language.pipe";
 import {WeekDayPipe} from "@utility/presentation/pipes/week-day.pipe";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {SrcByMediaIdDirective} from "@module/media/presentation/directive/src-by-media-id/src-by-media-id.directive";
-import {HumanizeDurationAdapter} from "@utility/adapter/humanize-duration.adapter";
+import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 
 @Component({
 	selector: 'service-detail-page',
@@ -48,6 +48,7 @@ import {HumanizeDurationAdapter} from "@utility/adapter/humanize-duration.adapte
 		DynamicDatePipe,
 		CardComponent,
 		SrcByMediaIdDirective,
+		HumanizeDurationPipe,
 	],
 	standalone: true
 })
@@ -60,7 +61,6 @@ export default class Index {
 	public readonly class = 'p-4 block';
 
 	public readonly store = inject(Store);
-	public readonly humanizeDurationAdapter = inject(HumanizeDurationAdapter);
 
 	@ViewChild(BackLinkComponent)
 	public backLink!: BackLinkComponent;

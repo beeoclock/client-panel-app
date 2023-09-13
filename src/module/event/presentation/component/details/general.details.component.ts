@@ -1,11 +1,11 @@
-import {Component, inject, Input} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {IEvent} from "@event/domain";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {SrcByMediaIdDirective} from "@module/media/presentation/directive/src-by-media-id/src-by-media-id.directive";
-import {HumanizeDurationAdapter} from "@utility/adapter/humanize-duration.adapter";
+import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 
 @Component({
 	selector: 'event-general-details',
@@ -17,7 +17,8 @@ import {HumanizeDurationAdapter} from "@utility/adapter/humanize-duration.adapte
 		NgForOf,
 		NgIf,
 		EventStatusStyleDirective,
-		SrcByMediaIdDirective
+		SrcByMediaIdDirective,
+		HumanizeDurationPipe
 	],
 	template: `
 		<div class="flex flex-col gap-8">
@@ -69,7 +70,7 @@ import {HumanizeDurationAdapter} from "@utility/adapter/humanize-duration.adapte
 											{{ (event.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: event.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow' }}
 										</div>
 										<div class="text-end">
-											{{ humanizeDurationAdapter.formatDuration(event.services?.[0]?.durationVersions?.[0]?.duration ?? '') }}
+											{{ event.services?.[0]?.durationVersions?.[0]?.duration ?? '' | humanizeDuration }}
 										</div>
 
 									</div>
@@ -137,7 +138,5 @@ export class GeneralDetailsComponent {
 	public get isNotPreview(): boolean {
 		return !this.isPreview;
 	}
-
-	public readonly humanizeDurationAdapter = inject(HumanizeDurationAdapter);
 
 }
