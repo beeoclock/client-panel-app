@@ -9,12 +9,15 @@ import {UpdateCustomerApiAdapter} from "@customer/adapter/external/api/update.cu
 import {ItemCustomerApiAdapter} from "@customer/adapter/external/api/item.customer.api.adapter";
 import {RemoveCustomerApiAdapter} from "@customer/adapter/external/api/remove.customer.api.adapter";
 import {ListCustomerApiAdapter} from "@customer/adapter/external/api/list.customer.api.adapter";
+import {ActiveEnum} from "@utility/domain/enum";
 
 export type ICustomerState = IBaseState<Customer.ICustomer>;
 
 @State<ICustomerState>({
 	name: 'customer',
-	defaults: baseDefaults<Customer.ICustomer>()
+	defaults: baseDefaults<Customer.ICustomer>({
+		active: ActiveEnum.YES
+	})
 })
 @Injectable()
 export class CustomerState extends BaseState<Customer.ICustomer> {
@@ -122,6 +125,11 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 	@Selector()
 	public static tableState(state: ICustomerState) {
 		return state.tableState;
+	}
+
+	@Selector()
+	public static tableStateFilters(state: ICustomerState) {
+		return state.tableState.filters;
 	}
 
 }

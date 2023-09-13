@@ -35,12 +35,7 @@ export class ModalSelectSpecialistListAdapter {
 
     try {
 
-      const filters: any = {};
-
-      const data = await this.listMemberApiAdapter.executeAsync({
-        ...this.tableState.toBackendFormat(),
-        filters
-      });
+      const data = await this.listMemberApiAdapter.executeAsync(this.tableState.toBackendFormat());
 
       // Increment page
       this.tableState.page += 1;

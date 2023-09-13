@@ -444,6 +444,13 @@
 		}
 	},
 	"keyword": {
+		"status": {
+			"all": "Wszystkie",
+			"plural": {
+				"1": "Aktywni",
+				"0": "Nieaktywni"
+			}
+		},
 		"capitalize": {
 			"account": "Konto",
 			"action": "Akcja",
@@ -534,6 +541,7 @@
 			"send": "Wyślij",
 			"service": "Usługa",
 			"services": "Usługi",
+			"search": "Szukaj",
 			"signIn": "Zaloguj się",
 			"signOut": "Wyloguj się",
 			"signUp": "Zarejestruj się",

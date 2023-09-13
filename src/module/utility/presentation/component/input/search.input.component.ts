@@ -1,16 +1,19 @@
 import {Component, inject, Input} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 
 @Component({
 	selector: 'utility-search-input-component',
 	standalone: true,
 	imports: [
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		TranslateModule
 	],
 	template: `
-		<form class="flex items-center">
-			<label for="simple-search" class="sr-only">Search</label>
+		<div class="flex items-center">
+			<label for="simple-search" class="sr-only">
+				{{ 'keyword.capitalize.search' | translate }}
+			</label>
 			<div class="relative w-full">
 				<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
 					<svg
@@ -27,11 +30,11 @@ import {TranslateService} from "@ngx-translate/core";
 				<input
 					type="text"
 					id="simple-search"
-					[formControl]="control"
 					class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+					[formControl]="control"
 					[placeholder]="placeholder">
 			</div>
-		</form>
+		</div>
 	`
 })
 export class SearchInputComponent {

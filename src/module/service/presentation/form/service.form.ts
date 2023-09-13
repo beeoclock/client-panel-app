@@ -36,6 +36,7 @@ export class LanguageVersionForm extends FormGroup<ILanguageVersionForm> {
 
   public initValidators(): void {
     this.controls.title.setValidators([Validators.required]);
+    this.controls.description.setValidators([Validators.required]);
     this.controls.language.setValidators([Validators.required]);
   }
 

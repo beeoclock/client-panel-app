@@ -13,7 +13,9 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
 import {BooleanState} from "@utility/domain";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
-import {SelectEarliestBookingComponent} from "@utility/presentation/component/input/ion-select-event-status.component";
+import {
+	IonSelectEventStatusComponent
+} from "@utility/presentation/component/input/ion/ion-select-event-status.component";
 
 @Component({
 	selector: 'utility-widget-calendar-events',
@@ -33,7 +35,7 @@ import {SelectEarliestBookingComponent} from "@utility/presentation/component/in
 		NgIf,
 		LoaderComponent,
 		EventStatusStyleDirective,
-		SelectEarliestBookingComponent
+		IonSelectEventStatusComponent,
 	]
 })
 export class CalendarEventsComponent extends Reactive implements AfterViewInit {

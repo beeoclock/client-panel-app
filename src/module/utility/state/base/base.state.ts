@@ -23,13 +23,13 @@ export interface IBaseState<ITEM> {
 	lastTableHashSum: undefined | string;
 }
 
-export function baseDefaults<T>(): IBaseState<T> {
+export function baseDefaults<T>(filters = {}): IBaseState<T> {
 	return {
 		item: {
 			data: undefined,
 			downloadedAt: new Date(),
 		},
-		tableState: new TableState<T>().toCache(),
+		tableState: new TableState<T>().setFilters(filters).toCache(),
 		lastTableHashSum: undefined,
 	};
 }
@@ -218,10 +218,7 @@ export abstract class BaseState<ITEM = any> {
 		this.updateTableState(ctx, {
 			payload: {
 				...state.tableState,
-				filters: {
-					...state.tableState.filters,
-					...payload
-				}
+				filters: payload
 			}
 		});
 
@@ -517,7 +514,7 @@ export abstract class BaseState<ITEM = any> {
 
 		const cacheTableStates = cache[cacheTableStatesKey];
 
-		const prevListState: TableState<ITEM> = cacheTableStates[state.tableState.hashSum];
+		const prevListState: TableState<ITEM> = (cacheTableStates ?? {})[state.tableState.hashSum];
 
 		// Check if in local cache exist data of current pagination has
 		if (
@@ -536,39 +533,45 @@ export abstract class BaseState<ITEM = any> {
 
 		} else {
 
-			const newTableState = TableState.fromCache<ITEM>(state.tableState);
+			try {
 
-			const params = newTableState.toBackendFormat();
+				const newTableState = TableState.fromCache<ITEM>(state.tableState);
 
-			// Update current state
-			const {items, totalSize} = await this.list.executeAsync(params);
+				const params = newTableState.toBackendFormat();
 
-			newTableState.total = totalSize;
-			newTableState.items = items;
-			newTableState.maxPage = getMaxPage(newTableState.total, newTableState.pageSize);
+				// Update current state
+				const {items, totalSize} = await this.list.executeAsync(params);
 
-			ctx.patchState({
-				...state,
-				tableState: newTableState.toCache(),
-				lastTableHashSum: newTableState.hashSum
-			});
+				newTableState.total = totalSize;
+				newTableState.items = items;
+				newTableState.maxPage = getMaxPage(newTableState.total, newTableState.pageSize);
 
-			state = ctx.getState();
+				ctx.patchState({
+					...state,
+					tableState: newTableState.toCache(),
+					lastTableHashSum: newTableState.hashSum
+				});
 
-			// Check if we have prev state, if true, update cache
-			if (items.length && state.tableState.hashSum) {
+				state = ctx.getState();
 
-				const newCacheValue = {
-					...cacheTableStates,
-					[state.tableState.hashSum]: state.tableState
-				};
+				// Check if we have prev state, if true, update cache
+				if (items.length && state.tableState.hashSum) {
 
-				await firstValueFrom(ctx.dispatch(new CacheActions.Set({
-					strategy: 'indexedDB',
-					key: cacheTableStatesKey,
-					value: JSON.stringify(newCacheValue)
-				})));
+					const newCacheValue = {
+						...cacheTableStates,
+						[state.tableState.hashSum]: state.tableState
+					};
 
+					await firstValueFrom(ctx.dispatch(new CacheActions.Set({
+						strategy: 'indexedDB',
+						key: cacheTableStatesKey,
+						value: JSON.stringify(newCacheValue)
+					})));
+
+				}
+
+			} catch (e) {
+				console.error(e);
 			}
 
 		}

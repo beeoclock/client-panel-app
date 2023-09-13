@@ -40,8 +40,16 @@ export class FilterComponent {
     this.form.valueChanges.pipe(
       debounceTime(HALF_SECOND),
     ).subscribe(async (value) => {
+			this.form.disable({
+				emitEvent: false,
+				onlySelf: true
+			});
       await firstValueFrom(this.store.dispatch(new MemberActions.UpdateFilters(value as any)));
       await firstValueFrom(this.store.dispatch(new MemberActions.GetList()));
+			this.form.enable({
+				emitEvent: false,
+				onlySelf: true
+			});
     });
   }
 }

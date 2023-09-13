@@ -5,21 +5,20 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {IonicModule} from "@ionic/angular";
 import {NgForOf} from "@angular/common";
-import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
+import {ActiveEnum} from "@utility/domain/enum";
+import {is} from "thiis";
 
 @Component({
-	selector: 'ion-select-event-status',
+	selector: 'ion-select-active',
 	standalone: true,
 	template: `
 		<ion-select
 			[formControl]="control"
-			aria-label="test"
 			class="!min-h-0"
 			fill="solid"
 			interface="popover">
 			<ion-select-option
-				*ngFor="let status of eventStatusList"
-				aria-label="asd"
+				*ngFor="let status of statusList"
 				[value]="status.id">
 				{{ status.label }}
 			</ion-select-option>
@@ -36,10 +35,10 @@ import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectEarliestBookingComponent implements OnInit {
+export class IonSelectActiveComponent implements OnInit {
 
 	@Input()
-	public id: string = '';
+	public id = '';
 
 	@Input()
 	public control = new FormControl();
@@ -49,15 +48,15 @@ export class SelectEarliestBookingComponent implements OnInit {
 
 	private readonly translateService = inject(TranslateService);
 
-	public readonly eventStatusList = Object.keys(EventStatusEnum).map((status) => ({
-		id: status,
-		label: this.translateService.instant(`event.keyword.status.plural.${status}`)
-	}));
+	public readonly statusList: { id: null | number; label: string; }[] = Object.values(ActiveEnum)
+		.filter(is.number)
+		.map((status) => ({
+			id: status,
+			label: this.translateService.instant(`keyword.status.plural.${status}`)
+		}));
 
 	public ngOnInit(): void {
-
 		this.initAllOption();
-
 	}
 
 
@@ -65,9 +64,9 @@ export class SelectEarliestBookingComponent implements OnInit {
 		if (!this.addAllOption) {
 			return;
 		}
-		this.eventStatusList.unshift({
-			id: '',
-			label: this.translateService.instant('event.keyword.status.all')
+		this.statusList.unshift({
+			id: null,
+			label: this.translateService.instant('keyword.status.all')
 		});
 	}
 }

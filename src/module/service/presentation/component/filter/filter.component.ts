@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {FilterPanelComponent} from '@utility/presentation/component/panel/filter.panel.component';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
-import {debounceTime, firstValueFrom} from "rxjs";
+import {debounceTime, firstValueFrom, map} from "rxjs";
 import {Store} from "@ngxs/store";
 import {FilterForm} from "@service/presentation/form/filter.form";
 import {ServiceActions} from "@service/state/service/service.actions";
@@ -9,20 +9,26 @@ import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {HALF_SECOND} from '@src/module/utility/domain/const/c.time';
+import {IonSelectActiveComponent} from "@utility/presentation/component/input/ion/ion-select-active.component";
+import {clearObjectClone} from "@utility/domain/clear.object";
 
 @Component({
-  selector: 'service-filter-component',
-  standalone: true,
+	selector: 'service-filter-component',
+	standalone: true,
 	imports: [
 		FilterPanelComponent,
 		SearchInputComponent,
 		TranslateModule,
 		RouterLink,
-		PrimaryButtonDirective
+		PrimaryButtonDirective,
+		IonSelectActiveComponent
 	],
-  template: `
+	template: `
 		<utility-filter-panel-component>
-			<utility-search-input-component start [control]="form.controls.phrase"/>
+			<div class="flex items-center gap-3" start>
+				<utility-search-input-component [control]="form.controls.phrase"/>
+				<ion-select-active [control]="form.controls.active"/>
+			</div>
 			<ng-container end>
 				<button type="button" primary routerLink="form">
 					<i class="bi bi-plus-lg"></i>
@@ -30,18 +36,27 @@ import {HALF_SECOND} from '@src/module/utility/domain/const/c.time';
 				</button>
 			</ng-container>
 		</utility-filter-panel-component>
-  `
+	`
 })
 export class FilterComponent {
-  public readonly store = inject(Store);
-  public readonly form = new FilterForm();
+	public readonly store = inject(Store);
+	public readonly form = new FilterForm();
 
-  constructor() {
-    this.form.valueChanges.pipe(
-      debounceTime(HALF_SECOND),
-    ).subscribe(async (value) => {
-      await firstValueFrom(this.store.dispatch(new ServiceActions.UpdateFilters(value as any)));
-      await firstValueFrom(this.store.dispatch(new ServiceActions.GetList()));
-    });
-  }
+	constructor() {
+		this.form.valueChanges.pipe(
+			debounceTime(HALF_SECOND),
+			map(clearObjectClone)
+		).subscribe(async (value) => {
+			this.form.disable({
+				emitEvent: false,
+				onlySelf: true
+			});
+			await firstValueFrom(this.store.dispatch(new ServiceActions.UpdateFilters(value as any)));
+			await firstValueFrom(this.store.dispatch(new ServiceActions.GetList()));
+			this.form.enable({
+				emitEvent: false,
+				onlySelf: true
+			});
+		});
+	}
 }

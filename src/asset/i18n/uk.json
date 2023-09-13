@@ -442,6 +442,13 @@
 		}
 	},
 	"keyword": {
+		"status": {
+			"all": "Всі",
+			"plural": {
+				"1": "Активні",
+				"0": "Неактивні"
+			}
+		},
 		"capitalize": {
 			"account": "Профіль",
 			"action": "Дія",
@@ -531,6 +538,7 @@
 			"selected": "Обрано",
 			"send": "Відправити",
 			"service": "Послуга",
+			"search": "Пошук",
 			"services": "Послуги",
 			"signIn": "Увійти",
 			"signOut": "Вийти",

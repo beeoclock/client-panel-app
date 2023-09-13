@@ -51,6 +51,11 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 		return this.#filters;
 	}
 
+	public setFilters(value: any): this { // TODO interface
+		this.filters = value;
+		return this;
+	}
+
 	public set orderBy(value: string) {
 		this.#orderBy = value;
 		this.initHashSum();

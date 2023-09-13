@@ -10,12 +10,15 @@ import {ItemServiceApiAdapter} from "@service/adapter/external/api/item.service.
 import {RemoveServiceApiAdapter} from "@service/adapter/external/api/remove.service.api.adapter";
 import {ListServiceApiAdapter} from "@service/adapter/external/api/list.service.api.adapter";
 import {ServiceActions} from "@service/state/service/service.actions";
+import {ActiveEnum} from "@utility/domain/enum";
 
 export type IServiceState = IBaseState<Service.IService>
 
 @State<IServiceState>({
   name: 'service',
-  defaults: baseDefaults<Service.IService>()
+  defaults: baseDefaults<Service.IService>({
+		active: ActiveEnum.YES
+	})
 })
 @Injectable()
 export class ServiceState extends BaseState<IService> {
