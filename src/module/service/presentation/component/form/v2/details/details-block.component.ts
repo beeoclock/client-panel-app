@@ -15,7 +15,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 			<span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.details' | translate }}</span>
 
 			<form-input
-				id="service-title"
+				id="service-form-details-title-input"
 				type="text"
 				autocomplete="service.title"
 				[placeholder]="'keyword.capitalize.title' | translate"
@@ -23,6 +23,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 				[label]="'keyword.capitalize.title' | translate"/>
 
 			<form-textarea-component
+				id="service-form-details-description-input"
 				[control]="form.controls.description"
 				[label]="'keyword.capitalize.description' | translate"
 				[placeholder]="'keyword.capitalize.placeholder.description' | translate"/>

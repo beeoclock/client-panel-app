@@ -33,8 +33,11 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 					<div class="grid grid-cols-16 gap-4">
 						<div class="col-span-3 pt-1">
 							<ng-container *ngIf="item?.presentation?.banners?.length; else DefaultServiceImageTemplate">
-								<img [srcByMediaId]="item.presentation.banners?.[0]" class="w-[90px] h-[90px] rounded-2xl object-cover"
-										 alt="Image of service">
+								<img
+									[srcByMediaId]="item.presentation.banners?.[0]"
+									height="h-[90px]"
+									class="w-[90px] h-[90px] rounded-2xl object-cover"
+									alt="Image of service">
 							</ng-container>
 							<ng-template #DefaultServiceImageTemplate>
 								<div class="w-[90px] h-[90px] bg-beeColor-300 rounded-2xl"></div>
