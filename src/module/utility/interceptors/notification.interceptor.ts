@@ -1,11 +1,12 @@
-import {HttpInterceptorFn} from "@angular/common/http";
-import {inject} from "@angular/core";
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
+import {inject, Injectable, Injector} from "@angular/core";
 import {ToastController} from "@ionic/angular";
 import {Endpoint} from "@utility/domain/endpoint";
 import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {EndpointInterface} from "@utility/domain/interface/i.endpoint/i.endpoint-replace";
 import {TranslateService} from "@ngx-translate/core";
-import {tap} from "rxjs";
+import {Observable, tap} from "rxjs";
+import {NGXLogger} from "ngx-logger";
 
 
 /**
@@ -15,51 +16,64 @@ import {tap} from "rxjs";
  * @param request
  * @param next
  */
-export const NotificationInterceptor: HttpInterceptorFn = (request, next) => {
+@Injectable()
+export class NotificationInterceptor implements HttpInterceptor {
 
-	const endpoint = Endpoint.endpointMap[request.method as RequestMethodEnum].get(request.url) ?? {} as EndpointInterface;
-	const toastController = inject(ToastController);
-	const translateService = inject(TranslateService);
+	private readonly logger = inject(NGXLogger);
 
+	constructor(
+		private readonly injector: Injector,
+	) {
+		this.logger.info(NotificationInterceptor.name, 'constructor')
+	}
 
-	return next(request).pipe(
-		tap(() => {
+	public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-			if (endpoint) {
+		// log using translate service
+		return next.handle(request).pipe(
+			tap(() => {
 
-				const {after} = endpoint;
+				const endpoint = Endpoint.endpointMap[request.method as RequestMethodEnum].get(request.url) ?? {} as EndpointInterface;
 
-				if (after) {
+				if (endpoint) {
 
-					const {success} = after;
+					const {after} = endpoint;
 
-					if (success) {
+					if (after) {
 
-						const {notification} = success;
+						const {success} = after;
 
-						if (notification) {
+						if (success) {
 
-							const {execute} = notification;
+							const {notification} = success;
 
-							if (execute) {
+							if (notification) {
 
-								const {title: header, message} = execute(translateService);
+								const translateService = this.injector.get(TranslateService);
+								const toastController = this.injector.get(ToastController);
+								const {execute} = notification;
 
-								toastController.create({
-									header,
-									message,
-									duration: 10_000,
-									buttons: [
-										{
-											text: 'Close',
-											role: 'cancel',
-										},
-									],
-									position: 'top',
-									color: 'success',
-								}).then((toast) => {
-									toast.present().then();
-								});
+								if (execute) {
+
+									const {title: header, message} = execute(translateService);
+
+									toastController.create({
+										header,
+										message,
+										duration: 10_000,
+										buttons: [
+											{
+												text: 'Close',
+												role: 'cancel',
+											},
+										],
+										position: 'top',
+										color: 'success',
+									}).then((toast) => {
+										toast.present().then();
+									});
+
+								}
 
 							}
 
@@ -69,9 +83,7 @@ export const NotificationInterceptor: HttpInterceptorFn = (request, next) => {
 
 				}
 
-			}
-
-		})
-	);
-
+			})
+		);
+	}
 }

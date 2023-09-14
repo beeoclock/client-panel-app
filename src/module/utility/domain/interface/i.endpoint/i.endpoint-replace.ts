@@ -1,31 +1,32 @@
 import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
+import {TranslateService} from "@ngx-translate/core";
 
 export interface IEndpointReplace {
-  [key: string]: string | number | boolean;
+	[key: string]: string | number | boolean;
 }
 
 export interface EndpointInterface {
-  path: string;
-  method: RequestMethodEnum;
-  source: SourceNetworkEnum; // Server
-  loader?: boolean; // Default false, change it in environment
-  replace?: boolean; // Default false, change it in environment
-  defaultErrorHandler?: boolean; // Default true, change it in environment
-  before?: {
-    accept?: boolean;
-  };
+	path: string;
+	method: RequestMethodEnum;
+	source: SourceNetworkEnum; // Server
+	loader?: boolean; // Default false, change it in environment
+	replace?: boolean; // Default false, change it in environment
+	defaultErrorHandler?: boolean; // Default true, change it in environment
+	before?: {
+		accept?: boolean;
+	};
 	after?: {
 		success?: {
 			notification?: {
-				execute?: (translateService: any) => {
+				execute?: (translateService: TranslateService) => {
 					title: string;
 					message: string;
 				};
 			};
 		}
 	}
-  header?: {
-    authorization?: boolean;
-  };
+	header?: {
+		authorization?: boolean;
+	};
 }

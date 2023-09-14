@@ -33,7 +33,6 @@ import {ListMemberApiAdapter} from "@member/adapter/external/api/list.member.api
           class="cursor-pointer"
           placeholder="Select members"
           bindLabel="_id"
-          (scrollToEnd)="scrollToEnd($event)"
           [closeOnSelect]="false"
           [loading]="control.pending"
           [disabled]="control.pending"
@@ -100,10 +99,6 @@ export class MembersFormComponent implements AfterViewInit {
 
   public onClearAll() {
     this.control.patchValue([]);
-  }
-
-  public scrollToEnd($event: any) {
-    console.log($event);
   }
 
   public getLabel(item: IMember): string {

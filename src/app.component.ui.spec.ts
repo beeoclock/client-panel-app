@@ -22,7 +22,10 @@ class MockTranslateService {
 
   onLangChange = {
     subscribe: (...args: any) => {
-			console.log(args)
+			if (args) {
+				return;
+			}
+			return;
     }
   }
 

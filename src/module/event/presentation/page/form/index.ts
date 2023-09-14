@@ -21,6 +21,7 @@ import {GeneralDetailsComponent} from "@event/presentation/component/details/gen
 import {BooleanState} from "@utility/domain";
 import {NgIf} from "@angular/common";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
   selector: 'event-form-page',
@@ -53,6 +54,7 @@ export default class Index implements OnInit {
   private readonly store = inject(Store);
   public readonly activatedRoute = inject(ActivatedRoute);
   public readonly router = inject(Router);
+  public readonly logger = inject(NGXLogger);
 
   public readonly form = new EventForm();
 
@@ -147,13 +149,7 @@ export default class Index implements OnInit {
         redirectUri.push('/', 'event');
 
         await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(value)));
-        const item = await firstValueFrom(this.itemData$);
-
-        // if (item && item._id) {
-				//
-        //   redirectUri.push(item._id);
-				//
-        // }
+        await firstValueFrom(this.itemData$);
 
       }
 
@@ -168,7 +164,7 @@ export default class Index implements OnInit {
 
     } else {
       if (!environment.production) {
-        console.log(this.form, this.form.getRawValue());
+				this.logger.error('Event:form', this.form, this.form.getRawValue());
       }
     }
   }

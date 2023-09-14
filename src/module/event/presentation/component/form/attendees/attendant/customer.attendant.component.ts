@@ -25,31 +25,12 @@ import {CustomerForm} from "@customer/presentation/form";
   ],
   template: `
 
-    <!--  USE COMMENTED CODE IN attendees.component.ts  -->
-    <!--        <ng-container *ngIf="isNew(attendant); else selectTemplate">-->
-
-    <!--        </ng-container>-->
-    <!--        <ng-template #selectTemplate>-->
-
-    <!--          <event-customer-attendant-component-->
-    <!--            [customerForm]="attendant.controls.customer">-->
-    <!--          </event-customer-attendant-component>-->
-
-    <!--          <ng-container *ngIf="attendant.controls.customer.isEmpty()">-->
-    <!--            <button type="button" (click)="attendant.toggleIsNewCustomer()" class="text-blue-600 text-sm">-->
-    <!--              {{ 'event.form.section.attendant.button.togglePresentationOfNewAttendant' | translate }}-->
-    <!--            </button>-->
-    <!--          </ng-container>-->
-
-    <!--        </ng-template>-->
-
     <ng-select
       #customerSelectComponent
       [class.invisible]="localControl.value"
       [class.h-1]="localControl.value"
       class="cursor-pointer"
       [placeholder]="'event.form.section.attendant.input.selectCustomer.placeholder' | translate"
-      (scrollToEnd)="scrollToEnd($event)"
       [closeOnSelect]="true"
       [clearable]="false"
       [hideSelected]="true"
@@ -152,10 +133,6 @@ export class CustomerAttendantComponent implements OnInit {
       }
     });
 
-  }
-
-  public scrollToEnd($event: any) {
-    console.log($event);
   }
 
   public getInitials({firstName, lastName}: ICustomer): string {

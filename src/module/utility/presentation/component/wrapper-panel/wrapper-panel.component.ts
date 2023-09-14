@@ -18,6 +18,8 @@ import {MemberActions} from "@member/state/member/member.actions";
 import {EventActions} from "@event/state/event/event.actions";
 import {CacheActions} from "@utility/state/cache/cache.actions";
 import {MAIN_CONTAINER_ID} from "@src/token";
+import {NGXLogger} from "ngx-logger";
+import {ONE_MINUTE} from "@utility/domain/const/c.time";
 
 @Component({
   selector: 'utility-wrapper-panel-component',
@@ -54,7 +56,8 @@ export default class WrapperPanelComponent implements AfterViewInit, OnDestroy {
   private readonly document = inject(DOCUMENT);
   private checkerTimer: undefined | NodeJS.Timeout;
   private isUserOnWebSite = true;
-  public readonly store = inject(Store);
+	private readonly store = inject(Store);
+	private readonly logger = inject(NGXLogger);
 
   @Select(IdentityState.token)
   public readonly token$!: Observable<IdTokenResult | undefined>;
@@ -76,15 +79,13 @@ export default class WrapperPanelComponent implements AfterViewInit, OnDestroy {
     if (!this.checkerTimer) {
       this.checkerTimer = setTimeout(() => {
         if (this.isUserOnWebSite) {
-
-          console.log('TODO: IMPLEMENT REQUEST TO GET NOTIFICATION!')
-
+					this.logger.info(WrapperPanelComponent.name, 'initNotificationChecker', 'TODO: IMPLEMENT REQUEST TO GET NOTIFICATION!')
         }
 
         this.clearNotificationChecker();
         this.initNotificationChecker();
 
-      }, 60_000);
+      }, ONE_MINUTE);
     }
   }
 

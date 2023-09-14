@@ -6,6 +6,7 @@ import {LanguageInputComponent} from "@client/presentation/component/settings/la
 import {ThemeInputComponent} from "@client/presentation/component/settings/theme-input.component";
 import {Auth} from "@angular/fire/auth";
 import {Router} from "@angular/router";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
   selector: 'client-sign-out-settings-component',
@@ -39,7 +40,7 @@ export class SignOutSettingsComponent {
 
   private readonly auth = inject(Auth);
   private readonly router = inject(Router);
-
+	private readonly logger = inject(NGXLogger);
 
   public logout(): void {
     this.auth.signOut()
@@ -47,7 +48,7 @@ export class SignOutSettingsComponent {
         this.router.navigate(['/']).then();
       })
       .catch((error) => {
-        console.log(error);
+        this.logger.error(error);
       });
   }
 
