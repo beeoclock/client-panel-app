@@ -36,7 +36,7 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 								<img
 									[srcByMediaId]="item.presentation.banners[0]"
 									height="h-[90px]"
-									class="w-[90px] h-[90px] rounded-2xl object-cover"
+									class="hidden w-[90px] h-[90px] rounded-2xl object-cover"
 									alt="Image of service">
 							</ng-container>
 							<ng-template #DefaultServiceImageTemplate>

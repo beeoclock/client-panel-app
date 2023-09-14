@@ -21,7 +21,7 @@ export class SlotsEventApiAdapter extends BaseApiAdapter<string[]> {
 		eventDuration: number;
 		slotIntervalMinutes: number;
 	}) {
-		return this.httpClient.get<string[]>(eventEndpointEnum.paged, {
+		return this.httpClient.get<string[]>(eventEndpointEnum.slots, {
 			params,
 		});
 	}

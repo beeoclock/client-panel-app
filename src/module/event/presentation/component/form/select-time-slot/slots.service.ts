@@ -1,9 +1,19 @@
-import {Injectable} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
+import {SlotsEventApiAdapter} from "@event/adapter/external/api/slots.event.api.adapter";
 
 @Injectable()
 export class SlotsService {
-	// private readonly slotsEventApiAdapter = inject(SlotsEventApiAdapter);
+	private readonly slotsEventApiAdapter = inject(SlotsEventApiAdapter);
 	constructor() {
-		// console.log(SlotsService.name);
+		const start = new Date();
+		start.setHours(0, 0, 0, 0);
+		const end = new Date();
+		end.setHours(23, 59, 59, 999);
+		this.slotsEventApiAdapter.executeAsync({
+			start: start.toISOString(),
+			end: end.toISOString(),
+			eventDuration: 60,
+			slotIntervalMinutes: 10
+		});
 	}
 }

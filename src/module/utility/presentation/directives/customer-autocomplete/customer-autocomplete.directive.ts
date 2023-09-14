@@ -5,6 +5,7 @@ import {debounce} from "typescript-debounce-decorator";
 import {ONE_SECOND} from "@utility/domain/const/c.time";
 import {UtilityListCustomerAdapter} from "@customer/adapter/external/module/utility.list.customer.adapter";
 import {ICustomer} from "@customer/domain";
+import {ActiveEnum} from "@utility/domain/enum";
 
 @Directive({
   selector: '[customerAutocomplete]',
@@ -72,7 +73,8 @@ export class CustomerAutocompleteDirective implements DoCheck {
     // Update filter
     this.utilityListCustomerAdapter.tableState.filters = {
       ...this.utilityListCustomerAdapter.tableState.filters,
-      search: this.controlValue
+      search: this.controlValue,
+			active: ActiveEnum.YES
     };
 
     // Do request to server and update list
@@ -141,7 +143,7 @@ export class CustomerAutocompleteDirective implements DoCheck {
 
     // Container
     this.HTMLDivElement = this.document.createElement('div');
-    this.HTMLDivElement.classList.add('hidden', 'absolute', 'bg-white', 'block', 'dark:bg-gray-700', 'rounded-lg', 'shadow-lg', 'z-10');
+    this.HTMLDivElement.classList.add('hidden', 'absolute', 'bg-white', 'block', 'dark:bg-gray-700', 'rounded-lg', 'shadow-lg', 'z-40', 'max-h-72', 'overflow-y-auto');
     this.elementRef.nativeElement.appendChild(this.HTMLDivElement);
 
     // LIST

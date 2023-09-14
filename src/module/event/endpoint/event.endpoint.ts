@@ -5,6 +5,7 @@ import {TranslateService} from "@ngx-translate/core";
 
 export enum eventEndpointEnum {
   paged = '/api/v1/event/paged',
+	slots = '/api/v1/event/slots',
   item = '/api/v1/event/{id}',
   update = '/api/v1/event/{id}',
   delete = '/api/v1/event/{id}',
@@ -29,6 +30,14 @@ export const eventEndpoint: EndpointCollectionType = {
     },
 		[eventEndpointEnum.paged]: {
 			path: eventEndpointEnum.paged,
+			method: RequestMethodEnum.GET,
+			source: SourceNetworkEnum.panel,
+			header: {
+				authorization: true
+			}
+		},
+		[eventEndpointEnum.slots]: {
+			path: eventEndpointEnum.slots,
 			method: RequestMethodEnum.GET,
 			source: SourceNetworkEnum.panel,
 			header: {
