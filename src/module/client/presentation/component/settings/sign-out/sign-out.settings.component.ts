@@ -44,7 +44,7 @@ export class SignOutSettingsComponent {
   public logout(): void {
     this.auth.signOut()
       .then(() => {
-        this.router.navigate(['/'])
+        this.router.navigate(['/']).then();
       })
       .catch((error) => {
         console.log(error);

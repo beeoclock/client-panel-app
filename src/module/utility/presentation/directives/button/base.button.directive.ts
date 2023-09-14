@@ -66,7 +66,7 @@ export const classListByButtonStyleType = {
 export class BaseButtonDirective implements OnInit {
 
 	@Input()
-	public scrollToFirstError: boolean = false;
+	public scrollToFirstError = false;
 
 	@HostBinding('class')
 	public class: string[] = [];

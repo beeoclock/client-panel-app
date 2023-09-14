@@ -9,10 +9,10 @@ import {debounceTime} from 'rxjs/operators';
 export class DebounceClickDirective implements OnInit, OnDestroy {
 
   @Input()
-  public enabledDebounceClick: boolean = true;
+  public enabledDebounceClick = true;
 
   @Input()
-  public debounceTime: number = 250;
+  public debounceTime = 250;
 
   @Output()
   public debounceClick = new EventEmitter();

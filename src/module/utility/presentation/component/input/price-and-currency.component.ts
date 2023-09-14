@@ -86,7 +86,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 export class PriceAndCurrencyComponent implements OnInit {
 
   @Input()
-  public prefix: string = '';
+  public prefix = '';
 
   @Input()
   public currencyControl = new FormControl();

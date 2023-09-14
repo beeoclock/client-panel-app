@@ -59,7 +59,7 @@ export class ModalService {
       buttons?: ModalButtonInterface[];
       componentChildRefList?: ComponentRef<any>[];
     } = {},
-    id: string = `${environment.config.modal.prefix}${v4()}`,
+    id = `${environment.config.modal.prefix}${v4()}`,
   ): Promise<ComponentRef<ModalComponent>> {
     return new Promise<ComponentRef<ModalComponent>>((resolve) => {
 
@@ -141,7 +141,7 @@ export class ModalService {
    * @private
    */
   @TypeGuard([is.string.not.empty, is.boolean])
-  public closeModalById(id: string, force: boolean = true): void {
+  public closeModalById(id: string, force = true): void {
     if (force) {
       this.deleteModalFromScope(id);
     } else {

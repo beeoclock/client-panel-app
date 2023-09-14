@@ -75,19 +75,19 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 export class InputIconComponent {
 
   @Input()
-  public placeholder: string = '';
+  public placeholder = '';
 
   @Input()
-  public label: string = '';
+  public label = '';
 
   @Input()
-  public mask: string = '';
+  public mask = '';
 
   @Input()
-  public id: string = '';
+  public id = '';
 
   @Input()
-  public icon: string = '';
+  public icon = '';
 
   @Input()
   public control = new FormControl();

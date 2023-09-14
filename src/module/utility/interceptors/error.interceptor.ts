@@ -7,7 +7,7 @@ import {LogoutService} from "@utility/presentation/component/logout/logout.servi
 
 /**
  * TODO Handle any error on response
- * TODO Implement code which will serve any error in the system, perhaps some communicate of error will prepare in translate file, i.e. impero360.
+ * TODO Implement code which will serve any error in the system, perhaps some communicate of error will prepare in translate file, i.e. beeOClock.
  *
  * @param request
  * @param next
@@ -43,7 +43,7 @@ export const ErrorInterceptor: HttpInterceptorFn = (request, next) => {
         position: 'top',
         color: 'danger',
       }).then((toast) => {
-        toast.present();
+        toast.present().then();
       });
       return throwError(error);
     })

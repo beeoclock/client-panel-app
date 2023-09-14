@@ -42,7 +42,7 @@ import {CountryCodeEnum} from "@utility/domain/enum/country-code.enum";
 export class PriceAndCurrencyComponent implements OnInit {
 
 	@Input()
-	public id: string = '';
+	public id = '';
 
 	@Input()
 	public control = new FormControl();

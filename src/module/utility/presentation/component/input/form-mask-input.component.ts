@@ -62,13 +62,13 @@ export class FormInputComponent implements OnInit {
   public id = 'utility-base-input';
 
   @Input()
-  public type: string = 'text';
+  public type = 'text';
 
   @Input()
-  public placeholder: string = '';
+  public placeholder = '';
 
   @Input()
-  public autocomplete: string = '';
+  public autocomplete = '';
 
   @Input()
   public disabled = false;

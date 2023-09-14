@@ -14,7 +14,7 @@ export class InvalidTooltipDirective implements DoCheck {
   public needTouched = true;
 
   @Input()
-  public basePathOfTranslate: string = 'form.validation.';
+  public basePathOfTranslate = 'form.validation.';
 
   @Input()
   public setRedBorderTo: string | undefined;

@@ -58,7 +58,7 @@ export const NotificationInterceptor: HttpInterceptorFn = (request, next) => {
 									position: 'top',
 									color: 'success',
 								}).then((toast) => {
-									toast.present();
+									toast.present().then();
 								});
 
 							}
@@ -70,7 +70,7 @@ export const NotificationInterceptor: HttpInterceptorFn = (request, next) => {
 				}
 
 			}
-			
+
 		})
 	);
 

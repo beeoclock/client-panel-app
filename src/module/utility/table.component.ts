@@ -31,7 +31,7 @@ export abstract class TableComponent implements AfterViewInit {
 	public goToDetail(id: string): void {
 		this.router.navigate([id], {
 			relativeTo: this.activatedRoute
-		});
+		}).then();
 	}
 
 	public updateOrderBy(target: HTMLTableCellElement): void {

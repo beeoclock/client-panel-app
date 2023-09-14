@@ -59,7 +59,7 @@ export class ChangeNameComponent {
             },
           ],
         }).then((toast) => {
-          toast.present();
+          toast.present().then();
         });
         return result;
       })

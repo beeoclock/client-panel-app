@@ -35,7 +35,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 export class SelectEarliestBookingComponent {
 
   @Input()
-  public id: string = '';
+  public id = '';
 
   @Input()
   public control = new FormControl();

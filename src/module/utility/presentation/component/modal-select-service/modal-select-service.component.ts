@@ -103,7 +103,7 @@ export class ModalSelectServiceComponent implements OnInit {
 	public ngOnInit(): void {
 
 		this.newSelectedServiceList = [...(this.selectedServiceList ?? [])];
-		this.initTableState();
+		this.initTableState().then();
 
 	}
 

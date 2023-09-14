@@ -35,8 +35,9 @@ import {FormButtonWithIconComponent} from "@utility/presentation/component/butto
 				</div>
 			</div>
 
-			<bee-form-button-with-icon (click)="form.pushNewOne()"
-																 [label]="'keyword.capitalize.addContactPhone' | translate"/>
+			<bee-form-button-with-icon
+				(click)="form.pushNewOne()"
+				[label]="'keyword.capitalize.addContactPhone' | translate"/>
 		</bee-card>
 	`,
 	imports: [

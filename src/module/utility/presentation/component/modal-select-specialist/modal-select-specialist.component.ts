@@ -72,7 +72,7 @@ export class ModalSelectSpecialistComponent implements OnInit {
 	public ngOnInit(): void {
 
 		this.newSelectedSpecialistList = [...this.selectedSpecialistList];
-		this.initTableState();
+		this.initTableState().then();
 
 	}
 

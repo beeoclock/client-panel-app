@@ -24,6 +24,8 @@ export class FacilitiesBusinessProfileComponent {
   @Input()
   public control = new FormControl();
 
+	public readonly baseTranslationKey = 'enum.facility.capitalize.';
+
   public readonly facilities: {
     id: FacilityEnum;
     label: string;

@@ -28,10 +28,10 @@ enum ThemeEnum {
       [clearable]="false"
       [formControl]="control">
       <ng-template ng-label-tmp let-item="item" let-clear="clear">
-        {{ 'theme.' + item | translate }}
+        {{ baseTranslationKey + item | translate }}
       </ng-template>
       <ng-template ng-option-tmp let-item="item" let-clear="clear">
-        {{ 'theme.' + item | translate }}
+        {{ baseTranslationKey + item | translate }}
       </ng-template>
     </ng-select>
   `
@@ -42,6 +42,7 @@ export class ThemeInputComponent {
   public readonly translateService = inject(TranslateService);
 
   public readonly themes = Object.values(ThemeEnum);
+	public readonly baseTranslationKey = 'enum.theme.';
 
   constructor() {
     this.control.setValue(localStorage.getItem('theme') ?? 'light');

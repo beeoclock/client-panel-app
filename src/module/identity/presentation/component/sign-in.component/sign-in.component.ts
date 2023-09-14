@@ -108,7 +108,7 @@ export class SignInComponent {
               },
             ],
           });
-          await toast.present();
+          await toast.present().then();
 
         }
 

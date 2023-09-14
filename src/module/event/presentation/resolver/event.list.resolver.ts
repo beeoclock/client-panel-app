@@ -1,5 +1,5 @@
 import {inject} from "@angular/core";
-import {ActivatedRouteSnapshot, ResolveFn, Router, RouterStateSnapshot} from "@angular/router";
+import {ResolveFn, Router} from "@angular/router";
 import {Store} from "@ngxs/store";
 import {catchError, EMPTY, map, tap} from "rxjs";
 import {EventActions} from "@event/state/event/event.actions";
@@ -8,10 +8,7 @@ import {IAppState} from "@utility/state/app/app.state";
 import {IEventState} from "@event/state/event/event.state";
 import {ITableState} from "@utility/domain/table.state";
 
-export const eventListResolver: ResolveFn<ITableState<IEvent>> = (
-	route: ActivatedRouteSnapshot,
-	_state: RouterStateSnapshot
-) => {
+export const eventListResolver: ResolveFn<ITableState<IEvent>> = () => {
 
 	const store = inject(Store); // NGXS
 	const router = inject(Router);
@@ -28,7 +25,7 @@ export const eventListResolver: ResolveFn<ITableState<IEvent>> = (
 			map(({tableState}: IEventState) => tableState),
 			tap(({total}) => {
 				if (!total) {
-					router.navigate(['/', 'event', 'starter']);
+					router.navigate(['/', 'event', 'starter']).then();
 				}
 			}),
 			catchError(() => EMPTY)

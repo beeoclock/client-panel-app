@@ -1,12 +1,16 @@
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {applyActionCode, Auth} from '@angular/fire/auth';
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
-  selector: 'identity-confirm-email-page',
-  templateUrl: 'index.html',
-  standalone: true,
-  encapsulation: ViewEncapsulation.None
+	selector: 'identity-confirm-email-page',
+	templateUrl: 'index.html',
+	standalone: true,
+	imports: [
+		NgOptimizedImage
+	],
+	encapsulation: ViewEncapsulation.None
 })
 export default class Index implements OnInit {
 

@@ -1,11 +1,11 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  DoCheck,
-  inject,
-  Input,
-  ViewEncapsulation
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	DoCheck,
+	inject,
+	Input,
+	ViewEncapsulation
 } from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
@@ -56,13 +56,13 @@ export class FormInputComponent implements DoCheck {
   public id = 'utility-base-input';
 
   @Input()
-  public type: string = 'text';
+  public type = 'text';
 
   @Input()
-  public placeholder: string = '';
+  public placeholder = '';
 
   @Input()
-  public autocomplete: string = '';
+  public autocomplete = '';
 
   @Input()
   public disabled = false;

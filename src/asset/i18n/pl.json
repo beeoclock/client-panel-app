@@ -282,16 +282,6 @@
 		},
 		"title": "Wydarzenie"
 	},
-	"facility": {
-		"capitalize": {
-			"ACCEPTING_CARD_PAYMENT": "Akceptujemy płatności kartą",
-			"ACCEPTING_CHILDREN": "Przyjazne dzieciom",
-			"ACCEPTING_PETS": "Zwierzęta dozwolone",
-			"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Zakwaterowanie dla osób z niepełnosprawnością",
-			"FREE_PARKING": "Darmowy parking",
-			"INTERNET": "Internet (Wi-Fi)"
-		}
-	},
 	"form": {
 		"validation": {
 			"email": "Nieprawidłowy format adresu e-mail",
@@ -678,8 +668,20 @@
 		},
 		"title": "Wyloguj się"
 	},
-	"theme": {
-		"dark": "Ciemny",
-		"light": "Jasny"
+	"enum": {
+		"theme": {
+			"dark": "Ciemny",
+			"light": "Jasny"
+		},
+		"facility": {
+			"capitalize": {
+				"ACCEPTING_CARD_PAYMENT": "Akceptujemy płatności kartą",
+				"ACCEPTING_CHILDREN": "Przyjazne dzieciom",
+				"ACCEPTING_PETS": "Zwierzęta dozwolone",
+				"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Zakwaterowanie dla osób z niepełnosprawnością",
+				"FREE_PARKING": "Darmowy parking",
+				"INTERNET": "Internet (Wi-Fi)"
+			}
+		}
 	}
 }

@@ -280,16 +280,6 @@
 		},
 		"title": "Event"
 	},
-	"facility": {
-		"capitalize": {
-			"ACCEPTING_CARD_PAYMENT": "Accepting credit cards",
-			"ACCEPTING_CHILDREN": "Child-friendly",
-			"ACCEPTING_PETS": "Pets allowed",
-			"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Accommodations for people with disabilities",
-			"FREE_PARKING": "Free Parking",
-			"INTERNET": "Internet (Wi-Fi)"
-		}
-	},
 	"form": {
 		"validation": {
 			"email": "Invalid E-mail format",
@@ -676,8 +666,20 @@
 		},
 		"title": "Sign out"
 	},
-	"theme": {
-		"dark": "Dark",
-		"light": "Light"
+	"enum": {
+		"theme": {
+			"dark": "Dark",
+			"light": "Light"
+		},
+		"facility": {
+			"capitalize": {
+				"ACCEPTING_CARD_PAYMENT": "Accepting credit cards",
+				"ACCEPTING_CHILDREN": "Child-friendly",
+				"ACCEPTING_PETS": "Pets allowed",
+				"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Accommodations for people with disabilities",
+				"FREE_PARKING": "Free Parking",
+				"INTERNET": "Internet (Wi-Fi)"
+			}
+		}
 	}
 }

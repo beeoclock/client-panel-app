@@ -1,5 +1,5 @@
 import {inject} from "@angular/core";
-import {ActivatedRouteSnapshot, ResolveFn, Router, RouterStateSnapshot} from "@angular/router";
+import {ResolveFn, Router} from "@angular/router";
 import {Store} from "@ngxs/store";
 import {catchError, EMPTY, map, tap} from "rxjs";
 import {IAppState} from "@utility/state/app/app.state";
@@ -8,10 +8,7 @@ import {ICustomer} from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ICustomerState} from "@customer/state/customer/customer.state";
 
-export const customerListResolver: ResolveFn<ITableState<ICustomer>> = (
-	route: ActivatedRouteSnapshot,
-	_state: RouterStateSnapshot
-) => {
+export const customerListResolver: ResolveFn<ITableState<ICustomer>> = () => {
 
 	const store = inject(Store); // NGXS
 	const router = inject(Router);
@@ -28,7 +25,7 @@ export const customerListResolver: ResolveFn<ITableState<ICustomer>> = (
 			map(({tableState}: ICustomerState) => tableState),
 			tap(({total}) => {
 				if (!total) {
-					router.navigate(['/', 'customer', 'starter']);
+					router.navigate(['/', 'customer', 'starter']).then();
 				}
 			}),
 			catchError(() => EMPTY)

@@ -76,13 +76,13 @@ export class FormInputPasswordComponent {
   public id = 'utility-base-input';
 
   @Input()
-  public placeholder: string = '';
+  public placeholder = '';
 
   @Input()
-  public autocomplete: string = '';
+  public autocomplete = '';
 
   @Input()
-  public type: string = 'text';
+  public type = 'text';
 
   @Input()
   public callback!: (...args: unknown[]) => any;

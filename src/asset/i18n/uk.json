@@ -280,16 +280,6 @@
 		},
 		"title": "Подія"
 	},
-	"facility": {
-		"capitalize": {
-			"ACCEPTING_CARD_PAYMENT": "Приймаємо оплату карткою",
-			"ACCEPTING_CHILDREN": "Пристосовано для дітей",
-			"ACCEPTING_PETS": "Можна з домашніми улюбленцями",
-			"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Умови для людей з фізичними обмеженнями",
-			"FREE_PARKING": "Безкоштовне паркування",
-			"INTERNET": "Інтернет (Wi-Fi)"
-		}
-	},
 	"form": {
 		"validation": {
 			"email": "Неправильний формат E-mail",
@@ -676,8 +666,20 @@
 		},
 		"title": "Вихід з системи"
 	},
-	"theme": {
-		"dark": "Темна",
-		"light": "Світла"
+	"enum": {
+		"theme": {
+			"dark": "Темна",
+			"light": "Світла"
+		},
+		"facility": {
+			"capitalize": {
+				"ACCEPTING_CARD_PAYMENT": "Приймаємо оплату карткою",
+				"ACCEPTING_CHILDREN": "Пристосовано для дітей",
+				"ACCEPTING_PETS": "Можна з домашніми улюбленцями",
+				"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Умови для людей з фізичними обмеженнями",
+				"FREE_PARKING": "Безкоштовне паркування",
+				"INTERNET": "Інтернет (Wi-Fi)"
+			}
+		}
 	}
 }

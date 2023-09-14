@@ -75,11 +75,11 @@ export class AccountSettingsComponent {
   accountPhoneNumber$!: Observable<unknown>;
 
   public editAccountName(): void {
-    this.modalChangeNameService.openModal();
+    this.modalChangeNameService.openModal().then();
   }
 
   public editPhoneNumber(): void {
-    this.modalChangePhoneNumberService.openModal();
+    this.modalChangePhoneNumberService.openModal().then();
   }
 
 }

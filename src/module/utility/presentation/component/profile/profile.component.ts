@@ -120,7 +120,7 @@ export class ProfileComponent implements AfterViewInit {
     this.auth.signOut()
       .then(() => {
         console.log('Sign out!');
-        this.router.navigate(['/']);
+        this.router.navigate(['/']).then();
 
       })
       .catch((error) => {

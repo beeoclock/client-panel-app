@@ -12,8 +12,8 @@ import {
 
 @Component({
 	selector: 'service-form-image-block-component',
-	standalone: true,
 	templateUrl: `image-block.component.html`,
+	standalone: true,
 	imports: [
 		NgIf,
 		TranslateModule,

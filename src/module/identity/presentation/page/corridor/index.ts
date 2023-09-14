@@ -55,12 +55,12 @@ export default class Index extends Reactive implements OnInit {
         if (result.length === 0) {
           this.gotToCreateBusinessPage({
             firstCompany: true
-          });
+          }).then();
         }
       } else {
         if ('firstCompany' in this.activatedRoute.snapshot.queryParams) {
           if (result.length) {
-            this.select(result[0]);
+            this.select(result[0]).then();
           }
         }
       }

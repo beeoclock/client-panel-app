@@ -35,7 +35,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 export class SelectLatestBookingComponent {
 
   @Input()
-  public id: string = '';
+  public id = '';
 
   @Input()
   public control = new FormControl();

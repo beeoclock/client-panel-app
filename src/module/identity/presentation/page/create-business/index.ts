@@ -72,7 +72,7 @@ export default class Index {
             },
           ],
         });
-        await toast.present();
+        await toast.present().then();
         const {firstCompany} = this.activatedRoute.snapshot.queryParams;
         await this.router.navigate(['/', 'identity', 'corridor'], {
           queryParams: {
