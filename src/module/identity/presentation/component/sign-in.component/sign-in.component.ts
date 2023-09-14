@@ -45,7 +45,7 @@ import {ToastController} from "@ionic/angular";
       </form-input-password>
 
       <div>
-        <button (click)="signIn()" type="submit" primary [isLoading]="form.pending">
+        <button type="button" (click)="signIn()" type="submit" primary [isLoading]="form.pending">
           {{ 'keyword.capitalize.signIn' | translate }}
         </button>
       </div>

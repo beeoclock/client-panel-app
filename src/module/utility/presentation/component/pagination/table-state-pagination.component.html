@@ -29,7 +29,7 @@
     <div class="text-sm text-beeColor-700 dark:text-beeDarkColor-400" *ngIf="showButtonToClearCache.isOn">
         {{ 'keyword.capitalize.lastUpdate' | translate }}: {{ lastUpdate }} {{ 'keyword.lowercase.ago' | translate }}
         (
-        <button (click)="clearTableCache()" class="text-blue-600 dark:text-blue-400 text-xs hover:underline">
+        <button type="button" (click)="clearTableCache()" class="text-blue-600 dark:text-blue-400 text-xs hover:underline">
           {{ 'keyword.capitalize.clearCache' | translate }}
         </button>
         )

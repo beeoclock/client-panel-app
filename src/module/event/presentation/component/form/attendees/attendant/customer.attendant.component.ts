@@ -36,7 +36,7 @@ import {CustomerForm} from "@customer/presentation/form";
     <!--          </event-customer-attendant-component>-->
 
     <!--          <ng-container *ngIf="attendant.controls.customer.isEmpty()">-->
-    <!--            <button (click)="attendant.toggleIsNewCustomer()" class="text-blue-600 text-sm">-->
+    <!--            <button type="button" (click)="attendant.toggleIsNewCustomer()" class="text-blue-600 text-sm">-->
     <!--              {{ 'event.form.section.attendant.button.togglePresentationOfNewAttendant' | translate }}-->
     <!--            </button>-->
     <!--          </ng-container>-->
@@ -101,7 +101,7 @@ import {CustomerForm} from "@customer/presentation/form";
           </span>
         </div>
         <div class="col-span-1 flex flex-col justify-center">
-          <button (click)="changeValue()" class="text-beeColor-600 hover:bg-beeColor-100 px-2 py-1 rounded-2xl">
+          <button type="button" (click)="changeValue()" class="text-beeColor-600 hover:bg-beeColor-100 px-2 py-1 rounded-2xl">
             <i class="bi bi-pencil"></i>
           </button>
         </div>

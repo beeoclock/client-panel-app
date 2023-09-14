@@ -26,7 +26,7 @@ import {Router} from "@angular/router";
 
       <div>
 
-        <button class="w-auto px-4 py-2 rounded-2xl border border-red-500 text-red-500 hover:bg-red-100"
+        <button type="button" class="w-auto px-4 py-2 rounded-2xl border border-red-500 text-red-500 hover:bg-red-100"
                 (click)="logout()">
           {{ 'sign-out.button.sign-out.label' | translate }}
         </button>

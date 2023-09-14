@@ -29,7 +29,7 @@ import {
           <div class="text-beeColor-400">{{ 'keyword.capitalize.name' | translate }}:</div>
           {{ accountName$ | async }}
         </div>
-        <button (click)="editAccountName()" class="rounded-full px-2 py-1 hover:bg-beeColor-200 transition">
+        <button type="button" (click)="editAccountName()" class="rounded-full px-2 py-1 hover:bg-beeColor-200 transition">
           <i class="bi bi-pencil"></i>
         </button>
       </div>
@@ -39,7 +39,7 @@ import {
           <div class="text-beeColor-400">{{ 'keyword.capitalize.phone' | translate }}:</div>
           {{ accountPhoneNumber$ | async }}
         </div>
-        <button (click)="editPhoneNumber()" class="rounded-full px-2 py-1 hover:bg-beeColor-200 transition">
+        <button type="button" (click)="editPhoneNumber()" class="rounded-full px-2 py-1 hover:bg-beeColor-200 transition">
           <i class="bi bi-pencil"></i>
         </button>
       </div>
@@ -49,7 +49,7 @@ import {
           <div class="text-beeColor-400">{{ 'keyword.capitalize.email' | translate }}:</div>
           {{ accountEmail$ | async }}
         </div>
-        <button disabled class="rounded-full px-2 py-1 hover:bg-beeColor-200 transition">
+        <button type="button" disabled class="rounded-full px-2 py-1 hover:bg-beeColor-200 transition">
           <i class="bi bi-pencil"></i>
         </button>
       </div>

@@ -19,7 +19,7 @@ export interface ITimeSlot {
   ],
   template: `
     <div class="flex items-center justify-between gap-1">
-      <button (click)="prevSlotPack()"
+      <button type="button" (click)="prevSlotPack()"
               class="px-3 py-2 hover:bg-beeColor-300 dark:hover:bg-beeDarkColor-800 cursor-pointer rounded-2xl dark:text-white">
         <i class="bi bi-chevron-left"></i>
       </button>
@@ -32,7 +32,7 @@ export interface ITimeSlot {
           <span>{{ timeSlot.datetime.toFormat('HH:mm') }}</span>
         </button>
       </div>
-      <button (click)="nextSlotPack()"
+      <button type="button" (click)="nextSlotPack()"
               class="px-3 py-2 hover:bg-beeColor-300 dark:hover:bg-beeDarkColor-800 cursor-pointer rounded-2xl dark:text-white">
         <i class="bi bi-chevron-right"></i>
       </button>

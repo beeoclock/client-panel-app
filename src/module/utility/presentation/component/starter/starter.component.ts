@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@angular/core";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {RouterLink} from "@angular/router";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
 	selector: 'starter-component',
@@ -11,6 +12,7 @@ import {RouterLink} from "@angular/router";
 	imports: [
 		PrimaryButtonDirective,
 		RouterLink,
+		NgOptimizedImage,
 	]
 })
 export class StarterComponent {

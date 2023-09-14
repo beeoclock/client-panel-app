@@ -56,7 +56,7 @@ export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsIn
 
       <!-- Navigation Buttons -->
       <div class="flex items-center justify-between gap-1">
-        <button (click)="prevPackOfDates()" class="px-3 py-2 hover:bg-beeColor-300 dark:hover:bg-beeDarkColor-800 cursor-pointer rounded-2xl">
+        <button type="button" (click)="prevPackOfDates()" class="px-3 py-2 hover:bg-beeColor-300 dark:hover:bg-beeDarkColor-800 cursor-pointer rounded-2xl">
           <i class="bi bi-chevron-left"></i>
         </button>
 
@@ -91,7 +91,7 @@ export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsIn
           </ng-container>
         </div>
 
-        <button (click)="nextPackOfDates()" class="px-3 py-2 hover:bg-beeColor-300 dark:hover:bg-beeDarkColor-800 cursor-pointer rounded-2xl">
+        <button type="button" (click)="nextPackOfDates()" class="px-3 py-2 hover:bg-beeColor-300 dark:hover:bg-beeDarkColor-800 cursor-pointer rounded-2xl">
           <i class="bi bi-chevron-right"></i>
         </button>
       </div>

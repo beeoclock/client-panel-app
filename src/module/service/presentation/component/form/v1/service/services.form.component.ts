@@ -36,7 +36,7 @@ import {LANGUAGES} from '@utility/domain/enum';
           dark:bg-beeDarkColor-800
           dark:border-beeDarkColor-600">
             Language version #{{ index + 1 }}
-            <button class="text-red-500" (click)="form.remove(index)" *ngIf="index > 0">
+            <button type="button" class="text-red-500" (click)="form.remove(index)" *ngIf="index > 0">
               <i class="bi bi-trash"></i>
             </button>
           </div>
@@ -49,7 +49,7 @@ import {LANGUAGES} from '@utility/domain/enum';
 
       <!--      <hr *ngIf="showAddMore" class="my-4">-->
 
-      <!--      <button class="border rounded px-4 py-2" *ngIf="showAddMore" (click)="pushNewLanguageVersionForm($event)">-->
+      <!--      <button type="button" class="border rounded px-4 py-2" *ngIf="showAddMore" (click)="pushNewLanguageVersionForm($event)">-->
       <!--        <i class="bi bi-plus-lg me-2"></i>-->
       <!--        Add new language version-->
       <!--      </button>-->

@@ -34,8 +34,10 @@ import {FormButtonWithIconComponent} from "@utility/presentation/component/butto
             <schedule-form-component [form]="scheduleForm"/>
           </div>
           <div class="col-span-1">
-            <button class="text-beeColor-600 hover:text-red-600 hover:bg-red-100 px-3 py-2 rounded-full mt-8"
-                    (click)="schedulesForm.remove(index)">
+            <button
+							type="button"
+							class="text-beeColor-600 hover:text-red-600 hover:bg-red-100 px-3 py-2 rounded-full mt-8"
+							(click)="schedulesForm.remove(index)">
               <i class="bi bi-trash"></i>
             </button>
           </div>

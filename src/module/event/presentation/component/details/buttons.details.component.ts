@@ -57,7 +57,10 @@ import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum
       </ng-container>
 
       <ng-template #ButtonToCancelEvent>
-        <button (click)="changeStatusOnCancelled(event)" class="
+        <button
+					type="button"
+					(click)="changeStatusOnCancelled(event)"
+					class="
               w-full
               flex
               items-center
@@ -81,7 +84,10 @@ import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum
       </ng-template>
 
       <ng-template #ButtonToBookEvent>
-        <button (click)="changeStatusOnBooked(event)" class="
+        <button
+					type="button"
+					(click)="changeStatusOnBooked(event)"
+					class="
               w-full
               flex
               items-center
@@ -105,7 +111,10 @@ import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum
       </ng-template>
 
       <ng-template #ButtonToDoneEvent>
-        <button (click)="changeStatusOnDone(event)" class="
+        <button
+					type="button"
+					(click)="changeStatusOnDone(event)"
+					class="
               w-full
               flex
               items-center

@@ -6,10 +6,10 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {
-  ModalSelectSpecialistService
+	ModalSelectSpecialistService
 } from "@utility/presentation/component/modal-select-specialist/modal-select-specialist.service";
 import {
-  ModalSelectSpecialistListAdapter
+	ModalSelectSpecialistListAdapter
 } from "@member/adapter/external/component/modal-select-specialist.list.adapter";
 import {IMember} from "@member/domain";
 
@@ -43,7 +43,7 @@ import {IMember} from "@member/domain";
 <!--            </div>-->
 <!--          </div>-->
 <!--          <div class="col-span-4 flex items-start justify-end">-->
-<!--            <button (click)="removeMemberFromSelectedList(member)"-->
+<!--            <button type="button" (click)="removeMemberFromSelectedList(member)"-->
 <!--                    class="text-beeColor-600 hover:text-red-600 hover:bg-red-100 px-2 py-1 rounded-2xl">-->
 <!--              <i class="bi bi-trash"></i>-->
 <!--            </button>-->
@@ -54,7 +54,7 @@ import {IMember} from "@member/domain";
 
 <!--      </div>-->
 
-<!--      <button (click)="openModalToSelectSpecialist()"-->
+<!--      <button type="button" (click)="openModalToSelectSpecialist()"-->
 <!--              class="w-full text-blue-600 rounded px-4 py-2 hover:bg-blue-100 flex items-center justify-center gap-3">-->
 <!--        <i class="bi bi-list-check"></i>-->
 <!--        {{ 'keyword.capitalize.selectSpecialist' | translate }}-->

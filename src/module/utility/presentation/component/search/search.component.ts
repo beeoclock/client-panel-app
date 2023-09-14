@@ -14,7 +14,7 @@ import {Component, ViewEncapsulation} from "@angular/core";
       </form>
       <div class="btn-close-falcon-container position-absolute end-0 top-50 translate-middle shadow-none"
            data-bs-dismiss="search">
-        <button aria-label="Close" class="btn btn-link btn-close-falcon p-0"></button>
+        <button type="button" aria-label="Close" class="btn btn-link btn-close-falcon p-0"></button>
       </div>
       <div class="dropdown-menu border font-base start-0 mt-2 py-0 overflow-hidden w-100">
         <div class="scrollbar list py-3" style="max-height: 24rem;">

@@ -47,7 +47,7 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 								*ngIf="event.services?.[0]?.presentation?.banners?.[0]"
 								[srcByMediaId]="event.services?.[0]?.presentation?.banners?.[0]"
 								height="h-[128px]"
-								class="object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
+								class="hidden object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
 								alt="Uploaded Image"/>
 						</div>
 					</div>

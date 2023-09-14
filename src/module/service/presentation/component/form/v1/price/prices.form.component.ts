@@ -40,7 +40,7 @@ import {PriceFormComponent} from "@service/presentation/component/form/v1/price/
           dark:bg-beeDarkColor-800
           dark:border-beeDarkColor-600">
         Price #{{ index + 1 }}
-        <button class="text-red-500" (click)="form.remove(index)" *ngIf="index > 0">
+        <button type="button" class="text-red-500" (click)="form.remove(index)" *ngIf="index > 0">
           <i class="bi bi-trash"></i>
         </button>
       </div>
@@ -52,7 +52,7 @@ import {PriceFormComponent} from "@service/presentation/component/form/v1/price/
 
     <hr class="my-4">
 
-    <button class="border rounded px-4 py-2" (click)="form.pushNewPriceForm()">
+    <button type="button" class="border rounded px-4 py-2" (click)="form.pushNewPriceForm()">
       <i class="bi bi-plus-lg me-2"></i>
       Add new price
     </button>

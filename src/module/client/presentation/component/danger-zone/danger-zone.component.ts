@@ -37,7 +37,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
       </p>
 
       <div>
-        <button class="w-auto px-4 py-2 rounded-2xl border border-red-500 text-red-500 hover:bg-red-100"
+        <button type="button" class="w-auto px-4 py-2 rounded-2xl border border-red-500 text-red-500 hover:bg-red-100"
                 (click)="deleteBusinessClient()">
           {{ 'danger-zone.button.delete.label' | translate }}
         </button>
