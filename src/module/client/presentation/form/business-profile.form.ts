@@ -18,8 +18,6 @@ export interface IBusinessProfile {
   businessCategory: FormControl<BusinessCategoryEnum>;
   feature: FormControl<string>;
   description: FormControl<string>;
-  createdAt: FormControl<string>;
-  updatedAt: FormControl<string>;
   active: FormControl<ActiveEnum>;
 
   socialNetworkLinks: SocialNetworksForm;
@@ -49,8 +47,6 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
       feature: new FormControl(),
       description: new FormControl(),
       active: new FormControl(),
-      createdAt: new FormControl(),
-      updatedAt: new FormControl(),
       socialNetworkLinks: new SocialNetworksForm(),
 
       bookingSettings: new BookingSettingsForm(),

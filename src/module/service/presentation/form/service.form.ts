@@ -199,9 +199,7 @@ export class ServiceForm extends FormGroup<IServiceForm> {
 			durationVersions: new DurationVersionsForm(),
 			permanentMembers: new FormControl(),
 			active: new FormControl(),
-			_id: new FormControl(),
-			createdAt: new FormControl(),
-			updatedAt: new FormControl(),
+			_id: new FormControl()
 		});
 		this.initValue();
 	}
