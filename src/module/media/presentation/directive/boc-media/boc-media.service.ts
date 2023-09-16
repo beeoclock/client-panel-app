@@ -6,7 +6,7 @@ import {ItemMediaApiAdapter} from "@module/media/adapter/external/api/item.media
 @Injectable({
 	providedIn: 'root'
 })
-export class SrcByMediaIdService {
+export class BocMediaService {
 
 	private readonly ngxIndexedDBService = inject(NgxIndexedDBService);
 

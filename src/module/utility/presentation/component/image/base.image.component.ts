@@ -24,7 +24,7 @@ export class BaseImageComponent implements OnInit {
 	public showHit = true;
 
 	@Input()
-	public mediaId: string | undefined;
+	public mediaId = '';
 
 	public mediaIsChanged = new BooleanState(false);
 

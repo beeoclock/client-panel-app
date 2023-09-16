@@ -14,10 +14,10 @@
 			[schedulesForm]="form.controls.schedules"/>
 
 		<client-cover-image-business-profile-component
-			[mediaId]="(item$ | async)?.banners?.[0]"/>
+			[mediaId]="(item$ | async)?.banners?.[0] ?? ''"/>
 
 		<client-logo-business-profile-component
-			[mediaId]="(item$ | async)?.logo"/>
+			[mediaId]="(item$ | async)?.logo ?? ''"/>
 
 		<client-gallery-business-profile-component
 			[gallery]="(item$ | async)?.gallery ?? []"/>

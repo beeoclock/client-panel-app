@@ -9,7 +9,7 @@ import {PlaceholderImageComponent} from "@utility/presentation/component/image/p
 import {
 	ImageCoverImageBusinessProfileComponent
 } from "@client/presentation/component/business-profile/cover-image/image.cover-image.business-profile/image.cover-image.business-profile.component";
-import {SrcByMediaIdService} from "@module/media/presentation/directive/src-by-media-id/src-by-media-id.service";
+import {BocMediaService} from "@module/media/presentation/directive/boc-media/boc-media.service";
 import {
 	PatchMediaBannersClientApiAdapter
 } from "@client/adapter/external/api/media/banners/patch.media.banners.client.api.adapter";
@@ -35,14 +35,14 @@ export class CoverImageBusinessProfileComponent {
 	public control = new FormControl();
 
 	@Input()
-	public mediaId: string | undefined;
+	public mediaId = '';
 
 	@ViewChild(ImageCoverImageBusinessProfileComponent)
 	public imageCoverImageBusinessProfileComponent!: ImageCoverImageBusinessProfileComponent;
 
 	public readonly toggleInfo = new BooleanState(true);
 
-	public readonly srcByMediaIdService = inject(SrcByMediaIdService);
+	public readonly srcByMediaIdService = inject(BocMediaService);
 	public readonly patchMediaBannersClientApiAdapter = inject(PatchMediaBannersClientApiAdapter);
 
 	public async save(): Promise<void> {

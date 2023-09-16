@@ -4,7 +4,7 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
-import {SrcByMediaIdDirective} from "@module/media/presentation/directive/src-by-media-id/src-by-media-id.directive";
+import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/boc-media.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 
 @Component({
@@ -17,7 +17,7 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 		NgForOf,
 		NgIf,
 		EventStatusStyleDirective,
-		SrcByMediaIdDirective,
+		BocMediaDirective,
 		HumanizeDurationPipe
 	],
 	template: `
@@ -45,8 +45,10 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 							class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-beeColor-400">
 							<img
 								*ngIf="event.services?.[0]?.presentation?.banners?.[0]"
-								[srcByMediaId]="event.services?.[0]?.presentation?.banners?.[0]"
-								height="h-[128px]"
+								bocMedia
+								[src]="event.services?.[0]?.presentation?.banners?.[0] ?? ''"
+								twHeight="h-[128px]"
+								twWidth="h-[128px]"
 								class="hidden object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
 								alt="Uploaded Image"/>
 						</div>

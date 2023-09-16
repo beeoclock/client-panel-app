@@ -6,7 +6,7 @@ import {
 	ImageLogoBusinessProfileComponent
 } from "@client/presentation/component/business-profile/logo/image.logo.business-profile/image.logo.business-profile.component";
 import {FormControl} from "@angular/forms";
-import {SrcByMediaIdService} from "@module/media/presentation/directive/src-by-media-id/src-by-media-id.service";
+import {BocMediaService} from "@module/media/presentation/directive/boc-media/boc-media.service";
 import {
 	PatchMediaLogoClientApiAdapter
 } from "@client/adapter/external/api/media/logo/patch.media.logo.client.api.adapter";
@@ -28,14 +28,14 @@ export class LogoBusinessProfileComponent {
 	public control = new FormControl();
 
 	@Input()
-	public mediaId: string | undefined;
+	public mediaId = '';
 
 	@ViewChild(ImageLogoBusinessProfileComponent)
 	public imageLogoBusinessProfileComponent!: ImageLogoBusinessProfileComponent;
 
 	public readonly toggleInfo = new BooleanState(true);
 
-	public readonly srcByMediaIdService = inject(SrcByMediaIdService);
+	public readonly srcByMediaIdService = inject(BocMediaService);
 	public readonly patchMediaLogoClientApiAdapter = inject(PatchMediaLogoClientApiAdapter);
 
 	public async save(): Promise<void> {

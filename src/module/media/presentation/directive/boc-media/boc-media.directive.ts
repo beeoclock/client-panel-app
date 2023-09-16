@@ -1,34 +1,37 @@
 import {Directive, ElementRef, inject, Input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
-import {SrcByMediaIdService} from "@module/media/presentation/directive/src-by-media-id/src-by-media-id.service";
+import {BocMediaService} from "@module/media/presentation/directive/boc-media/boc-media.service";
 import {is} from "thiis";
 
 @Directive({
-	selector: 'img[srcByMediaId]',
+	selector: 'img[bocMedia]',
 	standalone: true,
 })
-export class SrcByMediaIdDirective implements OnChanges {
+export class BocMediaDirective implements OnChanges {
 
 	@Input()
-	public srcByMediaId: string | undefined;
+	public twHeight: string | 'h-64' = 'h-64';
 
 	@Input()
-	public height: string | 'h-64' = 'h-64';
+	public twWidth: string | 'w-64' = 'w-64';
 
-	private readonly srcByMediaIdService = inject(SrcByMediaIdService);
+	@Input({required: true})
+	public src!: string;
+
+	private readonly bocMediaService = inject(BocMediaService);
 	private readonly elementRef: ElementRef<HTMLImageElement> = inject(ElementRef);
 	public skeleton: HTMLDivElement | undefined;
 
-	public ngOnChanges(changes: SimpleChanges & { srcByMediaId: SimpleChange }) {
-		if (changes.srcByMediaId.currentValue !== changes.srcByMediaId.previousValue) {
-			this.initialize(changes.srcByMediaId.currentValue);
+	public ngOnChanges(changes: SimpleChanges & { src: SimpleChange }) {
+		if (changes.src.currentValue !== changes.src.previousValue) {
+			this.initialize(changes.src.currentValue);
 		}
 	}
 
-	public static initSkeleton(height: string): HTMLDivElement {
+	public static initSkeleton(height: string, width: string): HTMLDivElement {
 
 		const skeleton = document.createElement('div');
 		skeleton.setAttribute('role', 'status');
-		skeleton.classList.add('space-y-8', 'animate-pulse', 'md:space-y-0', 'md:space-x-8', 'md:flex', 'md:items-center', height);
+		skeleton.classList.add('space-y-8', 'animate-pulse', 'md:space-y-0', 'md:space-x-8', 'md:flex', 'md:items-center', height, width);
 		skeleton.innerHTML = `
       <div class="flex items-center justify-center w-full h-full bg-gray-300 rounded-2xl dark:bg-gray-700">
         <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
@@ -49,7 +52,7 @@ export class SrcByMediaIdDirective implements OnChanges {
 			return;
 		}
 
-		const skeleton = SrcByMediaIdDirective.initSkeleton(this.height);
+		const skeleton = BocMediaDirective.initSkeleton(this.twHeight, this.twWidth);
 
 		this.skeleton = this.elementRef?.nativeElement?.parentElement?.appendChild?.(skeleton);
 
@@ -68,7 +71,7 @@ export class SrcByMediaIdDirective implements OnChanges {
 
 		this.initSkeleton();
 
-		this.srcByMediaIdService.get(id).then((media) => {
+		this.bocMediaService.get(id).then((media) => {
 
 			if (media) {
 

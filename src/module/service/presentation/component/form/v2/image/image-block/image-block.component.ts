@@ -4,7 +4,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {FormControl} from "@angular/forms";
 import {PatchBannerServiceApiAdapter} from "@service/adapter/external/api/patch.banner.service.api.adapter";
-import {SrcByMediaIdService} from "@module/media/presentation/directive/src-by-media-id/src-by-media-id.service";
+import {BocMediaService} from "@module/media/presentation/directive/boc-media/boc-media.service";
 import {BooleanState} from "@utility/domain";
 import {
 	ServiceFormImageComponent
@@ -27,7 +27,7 @@ export class ImageBlockComponent {
 	public serviceId: string | undefined;
 
 	@Input()
-	public mediaId: string | undefined;
+	public mediaId = '';
 
 	@ViewChild(ServiceFormImageComponent)
 	public serviceFormImageComponent!: ServiceFormImageComponent;
@@ -36,7 +36,7 @@ export class ImageBlockComponent {
 
 	public readonly control = new FormControl();
 
-	public readonly srcByMediaIdService = inject(SrcByMediaIdService);
+	public readonly srcByMediaIdService = inject(BocMediaService);
 	public readonly patchBannerServiceApiAdapter = inject(PatchBannerServiceApiAdapter);
 
 	public async save(serviceId?: string | undefined): Promise<void> {

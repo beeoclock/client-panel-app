@@ -17,7 +17,7 @@ import {BooleanState} from "@utility/domain";
 import {
 	ImageGalleryBusinessProfileComponent
 } from "@client/presentation/component/business-profile/gallery/image.gallery.business-profile/image.gallery.business-profile.component";
-import {SrcByMediaIdService} from "@module/media/presentation/directive/src-by-media-id/src-by-media-id.service";
+import {BocMediaService} from "@module/media/presentation/directive/boc-media/boc-media.service";
 import {
 	PatchMediaGalleryClientApiAdapter
 } from "@client/adapter/external/api/media/gallery/patch.media.gallery.client.api.adapter";
@@ -51,7 +51,7 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 	@ViewChildren(ImageGalleryBusinessProfileComponent)
 	public imageGalleryBusinessProfileComponents!: QueryList<ImageGalleryBusinessProfileComponent>;
 
-	public readonly srcByMediaIdService = inject(SrcByMediaIdService);
+	public readonly srcByMediaIdService = inject(BocMediaService);
 	public readonly patchMediaGalleryClientApiAdapter = inject(PatchMediaGalleryClientApiAdapter);
 	public readonly deleteMediaGalleryClientApiAdapter = inject(DeleteMediaGalleryClientApiAdapter);
 
@@ -136,7 +136,7 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 		this.form.removeImage(index);
 	}
 
-	public getMediaId(index: number): string | undefined {
-		return this.gallery[index];
+	public getMediaId(index: number): string {
+		return this.gallery[index] ?? '';
 	}
 }

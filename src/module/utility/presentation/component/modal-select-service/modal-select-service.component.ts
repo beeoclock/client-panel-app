@@ -4,7 +4,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 import {TranslateModule} from "@ngx-translate/core";
 import {ModalSelectServiceListAdapter} from "@service/adapter/external/component/modal-select-service.list.adapter";
 import {IService} from "@service/domain";
-import {SrcByMediaIdDirective} from "@module/media/presentation/directive/src-by-media-id/src-by-media-id.directive";
+import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/boc-media.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 
 @Component({
@@ -18,7 +18,7 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 		NgIf,
 		TranslateModule,
 		CurrencyPipe,
-		SrcByMediaIdDirective,
+		BocMediaDirective,
 		HumanizeDurationPipe
 	],
 	template: `
@@ -34,8 +34,10 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 						<div class="col-span-3 pt-1">
 							<ng-container *ngIf="item?.presentation?.banners?.length; else DefaultServiceImageTemplate">
 								<img
-									[srcByMediaId]="item.presentation.banners[0]"
-									height="h-[90px]"
+									bocMedia
+									[src]="item.presentation.banners[0]"
+									twHeight="h-[90px]"
+									twWidth="w-[90px]"
 									class="hidden w-[90px] h-[90px] rounded-2xl object-cover"
 									alt="Image of service">
 							</ng-container>

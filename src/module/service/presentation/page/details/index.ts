@@ -19,7 +19,7 @@ import {ActiveStyleDirective} from "@utility/presentation/directives/active-styl
 import {LanguagePipe} from "@utility/presentation/pipes/language.pipe";
 import {WeekDayPipe} from "@utility/presentation/pipes/week-day.pipe";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {SrcByMediaIdDirective} from "@module/media/presentation/directive/src-by-media-id/src-by-media-id.directive";
+import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/boc-media.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 
 @Component({
@@ -47,7 +47,7 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 		CurrencyPipe,
 		DynamicDatePipe,
 		CardComponent,
-		SrcByMediaIdDirective,
+		BocMediaDirective,
 		HumanizeDurationPipe,
 	],
 	standalone: true
