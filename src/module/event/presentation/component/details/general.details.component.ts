@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {IEvent} from "@event/domain";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
+import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";

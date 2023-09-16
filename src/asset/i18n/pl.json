@@ -468,6 +468,7 @@
 			}
 		},
 		"capitalize": {
+			"thereArentAnyEvents": "Nie ma żadnych wydarzeń na {{ datetime }}",
 			"account": "Konto",
 			"action": "Akcja",
 			"active": "Aktywny",

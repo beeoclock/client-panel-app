@@ -22,7 +22,7 @@ import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
+import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TableListComponent} from "@service/presentation/component/list/table/table.list.component";
 import {StarterComponent} from "@utility/presentation/component/starter/starter.component";
 

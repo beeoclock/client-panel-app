@@ -14,7 +14,7 @@ import {Select, Store} from "@ngxs/store";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
+import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 
 @Component({

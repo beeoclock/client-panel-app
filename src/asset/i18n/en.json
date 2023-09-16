@@ -466,6 +466,7 @@
 			}
 		},
 		"capitalize": {
+			"thereArentAnyEvents": "There aren't any events on {{ datetime }}",
 			"account": "Account",
 			"action": "Action",
 			"active": "Active",

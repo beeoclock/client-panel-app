@@ -14,7 +14,7 @@ import {ServiceState} from "@service/state/service/service.state";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {NgxMaskPipe} from "ngx-mask";
 import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
+import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {LanguagePipe} from "@utility/presentation/pipes/language.pipe";
 import {WeekDayPipe} from "@utility/presentation/pipes/week-day.pipe";

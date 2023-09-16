@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {IEvent} from "@event/domain";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
+import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({

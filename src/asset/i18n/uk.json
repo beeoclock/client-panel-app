@@ -466,6 +466,7 @@
 			}
 		},
 		"capitalize": {
+			"thereArentAnyEvents": "Подій немає на {{ datetime }}",
 			"account": "Профіль",
 			"action": "Дія",
 			"active": "Активний",

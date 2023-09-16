@@ -1,6 +1,6 @@
 import {Component, inject, Input} from "@angular/core";
 import {IEvent} from "@event/domain";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
+import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
 import {firstValueFrom} from "rxjs";

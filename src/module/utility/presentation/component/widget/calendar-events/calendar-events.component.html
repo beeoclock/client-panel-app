@@ -40,7 +40,7 @@
 			</ng-template>
 			<ng-template [ngIf]="!items.length">
 				<div class="text-center p-4 text-beeColor-500">
-					На {{ (form.controls.start.value ?? '') | dynamicDate: 'shortDate' }} немає подій
+					{{ 'keyword.capitalize.thereArentAnyEvents' | translate: ({datetime: dynamicDate(form.controls.start.value)}) }}
 				</div>
 			</ng-template>
 		</ng-template>

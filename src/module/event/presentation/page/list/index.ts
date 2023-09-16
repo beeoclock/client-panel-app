@@ -6,7 +6,7 @@ import {EventActions} from "@event/state/event/event.actions";
 import {IEvent} from "@event/domain";
 import {ITableState} from "@utility/domain/table.state";
 import {EventState} from "@event/state/event/event.state";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
+import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {

@@ -9,13 +9,14 @@ import {CalendarEventsListApiAdapter} from "@event/adapter/external/widget/calen
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {Reactive} from "@utility/cdk/reactive";
 import {RIEvent} from "@event/domain";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
 import {BooleanState} from "@utility/domain";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {
 	IonSelectEventStatusComponent
 } from "@utility/presentation/component/input/ion/ion-select-event-status.component";
+import {DynamicDateHelper} from "@utility/presentation/pipes/dynamic-date/dynamic-date.helper";
+import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 
 @Component({
 	selector: 'utility-widget-calendar-events',
@@ -31,11 +32,11 @@ import {
 		ReactiveFormsModule,
 		FormsModule,
 		PrimaryLinkButtonDirective,
-		DynamicDatePipe,
 		NgIf,
 		LoaderComponent,
 		EventStatusStyleDirective,
 		IonSelectEventStatusComponent,
+		DynamicDatePipe,
 	]
 })
 export class CalendarEventsComponent extends Reactive implements AfterViewInit {
@@ -46,6 +47,7 @@ export class CalendarEventsComponent extends Reactive implements AfterViewInit {
 	private readonly calendarEventsListApiAdapter = inject(CalendarEventsListApiAdapter);
 	private readonly router = inject(Router);
 	private readonly translateService = inject(TranslateService);
+	private readonly dynamicDateHelper = inject(DynamicDateHelper);
 	public readonly returnUrl = this.router.url;
 	public readonly todayStr = new Date().toLocaleDateString("sv");
 	public readonly form = new FormGroup({
@@ -101,5 +103,9 @@ export class CalendarEventsComponent extends Reactive implements AfterViewInit {
 
 	public toDay(): void {
 		this.form.controls.start.setValue(this.todayStr);
+	}
+
+	public dynamicDate(value: string | null): string {
+		return this.dynamicDateHelper.transform(value ?? '', 'shortDate');
 	}
 }
