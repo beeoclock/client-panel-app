@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -24,150 +24,147 @@ import {LinkButtonDirective} from "@utility/presentation/directives/button/link.
 import {NGXLogger} from "ngx-logger";
 
 @Component({
-  selector: 'event-form-page',
-  templateUrl: 'index.html',
-  encapsulation: ViewEncapsulation.None,
-  imports: [
-    ReactiveFormsModule,
-    DeleteButtonComponent,
-    BackLinkComponent,
-    FormsModule,
-    TranslateModule,
-    SelectTimeSlotComponent,
-    FormTextareaComponent,
-    AttendeesComponent,
-    ServicesComponent,
-    CardComponent,
-    PrimaryButtonDirective,
-    GeneralDetailsComponent,
-    NgIf,
-    LinkButtonDirective,
-  ],
-  standalone: true
+	selector: 'event-form-page',
+	templateUrl: 'index.html',
+	encapsulation: ViewEncapsulation.None,
+	imports: [
+		ReactiveFormsModule,
+		DeleteButtonComponent,
+		BackLinkComponent,
+		FormsModule,
+		TranslateModule,
+		SelectTimeSlotComponent,
+		FormTextareaComponent,
+		AttendeesComponent,
+		ServicesComponent,
+		CardComponent,
+		PrimaryButtonDirective,
+		GeneralDetailsComponent,
+		NgIf,
+		LinkButtonDirective,
+	],
+	standalone: true
 })
 export default class Index implements OnInit {
 
-  // TODO move functions to store effects/actions
+	// TODO move functions to store effects/actions
 
-  public isEditMode = false;
+	public isEditMode = false;
 
-  private readonly store = inject(Store);
-  public readonly activatedRoute = inject(ActivatedRoute);
-  public readonly router = inject(Router);
-  public readonly logger = inject(NGXLogger);
+	private readonly store = inject(Store);
+	public readonly activatedRoute = inject(ActivatedRoute);
+	public readonly router = inject(Router);
+	public readonly logger = inject(NGXLogger);
 
-  public readonly form = new EventForm();
+	public readonly form = new EventForm();
 
-  public readonly preview = new BooleanState(false);
+	public readonly preview = new BooleanState(false);
 
-  @Select(EventState.itemData)
-  public itemData$!: Observable<IEvent | undefined>;
+	@Select(EventState.itemData)
+	public itemData$!: Observable<IEvent | undefined>;
 
-  @HostBinding()
-  public readonly class = 'sm:p-4 block';
+	public get value(): IEvent {
+		return this.form.getRawValue() as IEvent;
+	}
 
-  public get value(): IEvent {
-    return this.form.getRawValue() as IEvent;
-  }
+	public ngOnInit(): void {
+		this.detectItem();
+	}
 
-  public ngOnInit(): void {
-    this.detectItem();
-  }
+	public detectItem(): void {
 
-  public detectItem(): void {
+		firstValueFrom(this.activatedRoute.params.pipe(filter(({id}) => id?.length))).then(() => {
 
-    firstValueFrom(this.activatedRoute.params.pipe(filter(({id}) => id?.length))).then(() => {
+			firstValueFrom(this.itemData$).then(async (result) => {
 
-      firstValueFrom(this.itemData$).then(async (result) => {
+				if (result?._id) {
 
-        if (result?._id) {
+					const {attendees, ...rest} = result;
 
-          const {attendees, ...rest} = result;
+					const dataFromRoute: {
+						cacheLoaded: boolean;
+						repeat: boolean;
+						item: any; // This is all ngnx store
+					} = this.activatedRoute.snapshot.data as any;
 
-          const dataFromRoute: {
-            cacheLoaded: boolean;
-            repeat: boolean;
-            item: any; // This is all ngnx store
-          } = this.activatedRoute.snapshot.data as any;
+					if (dataFromRoute?.repeat) {
 
-          if (dataFromRoute?.repeat) {
+						const {start, end, status, _id, ...initialValue} = rest;
 
-            const {start, end, status, _id, ...initialValue} = rest;
+						this.form.patchValue(initialValue);
 
-            this.form.patchValue(initialValue);
+					} else {
 
-          } else {
+						this.isEditMode = true;
+						this.form.patchValue(rest);
 
-            this.isEditMode = true;
-            this.form.patchValue(rest);
+					}
 
-          }
+					if (attendees?.length) {
 
-          if (attendees?.length) {
+						this.form.controls.attendees.remove(0);
 
-            this.form.controls.attendees.remove(0);
+						attendees.forEach((attendee) => {
 
-            attendees.forEach((attendee) => {
+							const control = this.form.controls.attendees.pushNewOne(attendee);
+							control.disable();
 
-              const control = this.form.controls.attendees.pushNewOne(attendee);
-              control.disable();
+						});
 
-            });
+					}
 
-          }
+					this.form.updateValueAndValidity();
 
-          this.form.updateValueAndValidity();
+				}
 
-        }
+			});
 
-      });
+		});
 
-    });
+	}
 
-  }
+	public async save(): Promise<void> {
 
-  public async save(): Promise<void> {
+		this.form.updateValueAndValidity();
+		this.form.markAllAsTouched();
 
-    this.form.updateValueAndValidity();
-    this.form.markAllAsTouched();
+		if (this.form.valid) {
 
-    if (this.form.valid) {
+			this.form.disable();
+			this.form.markAsPending();
+			const redirectUri = ['../'];
+			const value = this.form.getRawValue() as IEvent;
 
-      this.form.disable();
-      this.form.markAsPending();
-      const redirectUri = ['../'];
-      const value = this.form.getRawValue() as IEvent;
+			if (this.isEditMode) {
 
-      if (this.isEditMode) {
+				await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(value)));
 
-        await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(value)));
+			} else {
 
-      } else {
+				// Reset redirect uri
+				redirectUri.length = 0;
+				redirectUri.push('/', 'event');
 
-        // Reset redirect uri
-        redirectUri.length = 0;
-        redirectUri.push('/', 'event');
+				await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(value)));
+				await firstValueFrom(this.itemData$);
 
-        await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(value)));
-        await firstValueFrom(this.itemData$);
+			}
 
-      }
+			await this.router.navigate(redirectUri, {
+				relativeTo: this.activatedRoute
+			});
 
-      await this.router.navigate(redirectUri, {
-        relativeTo: this.activatedRoute
-      });
+			// TODO check if customers/attends is exist in db (just check if selected customer has _id field if exist is in db if not then need to make request to create the new customer)
 
-      // TODO check if customers/attends is exist in db (just check if selected customer has _id field if exist is in db if not then need to make request to create the new customer)
+			this.form.enable();
+			this.form.updateValueAndValidity();
 
-      this.form.enable();
-      this.form.updateValueAndValidity();
-
-    } else {
-      if (!environment.production) {
+		} else {
+			if (!environment.production) {
 				this.logger.error('Event:form', this.form, this.form.getRawValue());
-      }
-    }
-  }
+			}
+		}
+	}
 
 	public goToPreview(): void {
 		this.form.updateValueAndValidity();
