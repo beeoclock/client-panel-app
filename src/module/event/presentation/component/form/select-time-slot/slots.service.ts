@@ -12,7 +12,7 @@ export class SlotsService {
 		this.slotsEventApiAdapter.executeAsync({
 			start: start.toISOString(),
 			end: end.toISOString(),
-			eventDuration: 60,
+			eventDurationMinutes: 60,
 			slotIntervalMinutes: 10
 		});
 	}

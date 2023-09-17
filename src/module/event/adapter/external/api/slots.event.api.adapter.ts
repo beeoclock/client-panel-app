@@ -18,7 +18,7 @@ export class SlotsEventApiAdapter extends BaseApiAdapter<string[]> {
 	public override execute$(params: {
 		start: string;
 		end: string;
-		eventDuration: number;
+		eventDurationMinutes: number;
 		slotIntervalMinutes: number;
 	}) {
 		return this.httpClient.get<string[]>(eventEndpointEnum.slots, {
