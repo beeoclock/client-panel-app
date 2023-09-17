@@ -4,7 +4,7 @@
 	<ng-container *ngFor="let service of serviceListControl.value; let index = index">
 
 
-		<div class="grid grid-cols-12 gap-4">
+		<div class="grid lg:grid-cols-12 gap-4">
 
 			<div class="col-span-3">
 				<div
@@ -21,18 +21,18 @@
 			</div>
 			<div class="col-span-9">
 				<div class="flex flex-col gap-2">
-					<div class="text-xl w-full truncate font-bold text-beeColor-500">
-						{{ service.languageVersions[0].title }}
-					</div>
-					<div class="grid grid-cols-12 gap-4">
+					<div class="grid lg:grid-cols-12 gap-4">
 
-						<div class="col-span-9">
+						<div class="lg:col-span-9">
 
-							<div class="text-beeColor-500">{{ service.languageVersions[0].description }}</div>
+							<div class="text-xl w-full lg:truncate font-bold text-beeColor-500">
+								{{ service.languageVersions[0].title }}
+							</div>
+							<div class="text-beeColor-500 hidden lg:block">{{ service.languageVersions[0].description }}</div>
 
 						</div>
 
-						<div class="col-span-3">
+						<div class="lg:col-span-3">
 
 							<div class="flex flex-col gap-1">
 
