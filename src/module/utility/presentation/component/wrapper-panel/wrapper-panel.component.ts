@@ -30,7 +30,7 @@ import {ONE_MINUTE} from "@utility/domain/const/c.time";
       <utility-navbar-component/>
       <utility-sidebar-component/>
 
-      <div [id]="mainContainerId" class="content-container h-screen overflow-y-auto sm:ml-64 transition-all">
+      <div [id]="mainContainerId" class="h-screen overflow-y-auto sm:ml-80 transition-all">
         <utility-page-loading-progress-bar/>
         <router-outlet/>
       </div>

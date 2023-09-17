@@ -1,6 +1,5 @@
 import {Directive, ElementRef, inject, Input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
 import {BocMediaService} from "@module/media/presentation/directive/boc-media/boc-media.service";
-import {is} from "thiis";
 
 @Directive({
 	selector: 'img[bocMedia]',
@@ -65,7 +64,7 @@ export class BocMediaDirective implements OnChanges {
 	 */
 	private initialize(id: string): void {
 
-		if (is.not.string(id)) {
+		if (typeof id !== 'string' || id.length === 0) {
 			return;
 		}
 

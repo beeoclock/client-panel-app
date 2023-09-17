@@ -1,23 +1,23 @@
 <aside [id]="sidebarId"
        class="
+       	z-30
         fixed
         top-0
-        left-0
-        z-30
         w-full
         sm:w-64
-        h-screen
-        pt-20
+        sm:h-screen
+        h-[calc(100%-4rem)]
         transition-transform
         -translate-x-full
         bg-white
         border-r
         border-beeColor-200
+        md:translate-x-16
         translate-x-0
         dark:bg-beeDarkColor-900
         dark:border-beeDarkColor-800">
 
-  <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-beeDarkColor-900 flex flex-col justify-between">
+  <div class="h-full px-3 py-4 overflow-y-auto bg-white dark:bg-beeDarkColor-900 flex flex-col justify-between">
 
     <ul class="space-y-2 font-medium">
 
