@@ -26,7 +26,7 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 
 			<ul class="grid w-full gap-6 md:grid-cols-1">
 				<li *ngFor="let item of modalSelectServiceListAdapter.tableState.items; let index = index">
-					<input type="radio" id="modal-select-service-{{ index }}" class="hidden peer" (change)="select(item)">
+					<input type="radio" id="modal-select-service-{{ index }}" [checked]="isSelected(item)" name="modalSelectService" class="hidden peer" (change)="select(item)">
 					<label for="modal-select-service-{{ index }}" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-2xl cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
 						<div class="flex gap-3 mr-3">
 							<div class="">
