@@ -5,7 +5,7 @@
 			<member-table-list-component [tableState]="tableState"/>
 		</ng-container>
 		<ng-template #EmptyTemplate>
-			<starter-component [link]="['/', 'member', 'form']" [label]="'member.button.create' | translate"/>
+			<not-found-table-data-component [label]="'keyword.capitalize.dataNotFound' | translate"/>
 		</ng-template>
 	</ng-container>
 </ng-container>

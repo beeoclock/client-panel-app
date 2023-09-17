@@ -13,23 +13,27 @@ import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdo
 import {RouterLink} from "@angular/router";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {
+	NotFoundTableDataComponent
+} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 
 @Component({
 	selector: 'customer-list-page',
 	templateUrl: 'index.html',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [
-		TableListComponent,
-		StarterComponent,
-		TranslateModule,
-		FilterComponent,
-		DropdownComponent,
-		RouterLink,
-		NgIf,
-		AsyncPipe,
-		PrimaryButtonDirective
-	],
+    imports: [
+        TableListComponent,
+        StarterComponent,
+        TranslateModule,
+        FilterComponent,
+        DropdownComponent,
+        RouterLink,
+        NgIf,
+        AsyncPipe,
+        PrimaryButtonDirective,
+        NotFoundTableDataComponent
+    ],
 	standalone: true
 })
 export default class Index extends ListPage {

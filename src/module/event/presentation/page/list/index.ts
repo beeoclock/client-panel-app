@@ -19,6 +19,9 @@ import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {StarterComponent} from "@utility/presentation/component/starter/starter.component";
 import {TableListComponent} from "@event/presentation/component/list/table/table.list.component";
+import {
+	NotFoundTableDataComponent
+} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 
 @Component({
 	selector: 'event-list-page',
@@ -40,7 +43,8 @@ import {TableListComponent} from "@event/presentation/component/list/table/table
 		NgForOf,
 		StarterComponent,
 		TableListComponent,
-		NgIf
+		NgIf,
+		NotFoundTableDataComponent
 	],
 	standalone: true
 })

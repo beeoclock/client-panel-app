@@ -468,6 +468,7 @@
 			}
 		},
 		"capitalize": {
+			"dataNotFound": "Nie znaleziono danych, spróbuj dodać",
 			"thereArentAnyEvents": "Nie ma żadnych wydarzeń na {{ datetime }}",
 			"account": "Konto",
 			"action": "Akcja",

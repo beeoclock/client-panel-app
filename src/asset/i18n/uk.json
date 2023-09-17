@@ -466,6 +466,7 @@
 			}
 		},
 		"capitalize": {
+			"dataNotFound": "Дані не знайдені, спробуй додати",
 			"thereArentAnyEvents": "Подій немає на {{ datetime }}",
 			"account": "Профіль",
 			"action": "Дія",

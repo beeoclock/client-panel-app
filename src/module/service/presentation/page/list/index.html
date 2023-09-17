@@ -5,7 +5,7 @@
 			<service-table-list-component [tableState]="tableState"/>
 		</ng-container>
 		<ng-template #EmptyTemplate>
-			<starter-component [link]="['/', 'service', 'form']" [label]="'keyword.capitalize.add-service' | translate"/>
+			<not-found-table-data-component [label]="'keyword.capitalize.dataNotFound' | translate"/>
 		</ng-template>
 	</ng-container>
 </ng-container>

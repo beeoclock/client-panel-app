@@ -3,7 +3,6 @@ import {RouterLink} from '@angular/router';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {TableComponent} from '@utility/presentation/component/table/table.component';
 import {HeaderTableComponent} from '@utility/presentation/component/table/header.table.component';
-import {BodyTableComponent} from '@utility/presentation/component/table/body.table.component';
 import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {FilterComponent} from '@service/presentation/component/filter/filter.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
@@ -25,6 +24,9 @@ import {ActiveStyleDirective} from "@utility/presentation/directives/active-styl
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TableListComponent} from "@service/presentation/component/list/table/table.list.component";
 import {StarterComponent} from "@utility/presentation/component/starter/starter.component";
+import {
+	NotFoundTableDataComponent
+} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 
 @Component({
 	selector: 'service-list-page',
@@ -36,7 +38,6 @@ import {StarterComponent} from "@utility/presentation/component/starter/starter.
 		DeleteButtonComponent,
 		TableComponent,
 		HeaderTableComponent,
-		BodyTableComponent,
 		NgForOf,
 		DatePipe,
 		FilterComponent,
@@ -53,7 +54,8 @@ import {StarterComponent} from "@utility/presentation/component/starter/starter.
 		ActiveStyleDirective,
 		DynamicDatePipe,
 		TableListComponent,
-		StarterComponent
+		StarterComponent,
+		NotFoundTableDataComponent
 	],
 	standalone: true
 })

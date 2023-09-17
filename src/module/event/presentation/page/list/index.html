@@ -1,11 +1,11 @@
 <ng-container *ngIf="initialized.isOn; else NotInitializedTemplate">
-	<event-filter-component *ngIf="someDataExist.isOn"/>
+	<event-filter-component/>
 	<ng-container *ngIf="tableState$ | async as tableState">
 		<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
 			<event-table-list-component [tableState]="tableState"/>
 		</ng-container>
 		<ng-template #EmptyTemplate>
-			<starter-component [link]="['/', 'event', 'form']" [label]="'keyword.capitalize.add-event' | translate"/>
+			<not-found-table-data-component [label]="'keyword.capitalize.dataNotFound' | translate"/>
 		</ng-template>
 	</ng-container>
 </ng-container>

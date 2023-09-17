@@ -3,7 +3,6 @@ import {RouterLink} from '@angular/router';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {TableComponent} from '@utility/presentation/component/table/table.component';
 import {HeaderTableComponent} from '@utility/presentation/component/table/header.table.component';
-import {BodyTableComponent} from '@utility/presentation/component/table/body.table.component';
 import {AsyncPipe, DatePipe, NgForOf, NgIf} from '@angular/common';
 import {ListPage} from "@utility/list.page";
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
@@ -23,6 +22,9 @@ import {FilterComponent} from "@member/presentation/component/filter/filter.comp
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TableListComponent} from "@member/presentation/component/list/table/table.list.component";
 import {StarterComponent} from "@utility/presentation/component/starter/starter.component";
+import {
+	NotFoundTableDataComponent
+} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 
 @Component({
 	selector: 'member-list-page',
@@ -34,7 +36,6 @@ import {StarterComponent} from "@utility/presentation/component/starter/starter.
 		DeleteButtonComponent,
 		TableComponent,
 		HeaderTableComponent,
-		BodyTableComponent,
 		NgForOf,
 		DatePipe,
 		FilterComponent,
@@ -49,7 +50,8 @@ import {StarterComponent} from "@utility/presentation/component/starter/starter.
 		FilterComponent,
 		DynamicDatePipe,
 		TableListComponent,
-		StarterComponent
+		StarterComponent,
+		NotFoundTableDataComponent
 	],
 	standalone: true
 })
