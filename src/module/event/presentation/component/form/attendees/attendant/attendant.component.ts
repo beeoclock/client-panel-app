@@ -26,7 +26,7 @@ import {
     CustomerAutocompleteDirective
   ],
   template: `
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid md:grid-cols-2 gap-4">
 
       <form-input
         type="text"
