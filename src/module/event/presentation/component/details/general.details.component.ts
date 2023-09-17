@@ -91,17 +91,17 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 
 				<div class="font-bold text-beeColor-400">{{ 'keyword.capitalize.clients' | translate }}:</div>
 
-				<div class="grid grid-cols-12 gap-4" *ngFor="let attendant of event.attendees; let index = index;">
-					<div class="col-span-1 text-beeColor-400">
+				<div class="grid grid-cols-1 md:grid-cols-12 gap-1 md:gap-4" *ngFor="let attendant of event.attendees; let index = index;">
+					<div class="md:col-span-1 text-beeColor-400">
 						#{{ index + 1 }}
 					</div>
-					<div class="col-span-3">
+					<div class="md:col-span-3">
 						{{ attendant.customer.firstName }} {{ attendant.customer.lastName }}
 					</div>
-					<div class="col-span-5">
+					<div class="md:col-span-5">
 						{{ attendant.customer.email }}
 					</div>
-					<div class="col-span-3">
+					<div class="md:col-span-3">
 						{{ attendant.customer.phone }}
 					</div>
 				</div>
