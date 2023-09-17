@@ -31,11 +31,14 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/asset"
+              "src/asset",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.scss"
-            ]
+            ],
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
             "production": {
