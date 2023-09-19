@@ -11,6 +11,7 @@ import {getMaxPage} from "@utility/domain/max-page";
 import {Router} from "@angular/router";
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {CACHE_TABLE_CLEAR_AFTER_MS} from "@src/token";
+import {NGXLogger} from "ngx-logger";
 
 export interface IBaseState_Item<ITEM> {
 	data: undefined | ITEM;
@@ -84,6 +85,7 @@ export abstract class BaseState<ITEM = any> {
 	protected readonly router = inject(Router);
 	protected readonly store = inject(Store);
 	protected readonly cacheTableClearAfterMs = inject(CACHE_TABLE_CLEAR_AFTER_MS);
+	protected readonly logger = inject(NGXLogger);
 
 	protected readonly item!: BaseApiAdapter<ITEM>;
 	protected readonly create!: BaseApiAdapter<ITEM>;
@@ -367,7 +369,7 @@ export abstract class BaseState<ITEM = any> {
 				lastTableHashSum: undefined
 			});
 		} catch (e) {
-			console.error('Error Response: ', e);
+			this.logger.error('Error Response: ', e)
 		}
 
 		ctx.dispatch(new AppActions.PageLoading(false));
@@ -400,7 +402,7 @@ export abstract class BaseState<ITEM = any> {
 				lastTableHashSum: undefined
 			});
 		} catch (e) {
-			console.error('Error Response: ', e);
+			this.logger.error(e);
 		}
 
 		ctx.dispatch(new AppActions.PageLoading(false));
@@ -478,7 +480,7 @@ export abstract class BaseState<ITEM = any> {
 			}
 
 		} catch (e) {
-			console.error(e);
+			this.logger.error(e);
 		}
 
 		ctx.dispatch(new AppActions.PageLoading(false));
@@ -571,7 +573,7 @@ export abstract class BaseState<ITEM = any> {
 				}
 
 			} catch (e) {
-				console.error(e);
+				this.logger.error(e);
 			}
 
 		}

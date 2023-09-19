@@ -4,12 +4,14 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {ListServiceApiAdapter} from "@service/adapter/external/api/list.service.api.adapter";
 import * as Service from "@service/domain";
 import {ActiveEnum} from "@utility/domain/enum";
+import {NGXLogger} from "ngx-logger";
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ModalSelectServiceListAdapter {
 
+	private readonly logger = inject(NGXLogger);
 	public readonly listServiceApiAdapter = inject(ListServiceApiAdapter);
 	public readonly tableState = new TableState<Service.IService>().setFilters({
 		active: ActiveEnum.YES
@@ -48,7 +50,7 @@ export class ModalSelectServiceListAdapter {
 			this.tableState.total = data.totalSize;
 
 		} catch (e) {
-			console.error(e);
+			this.logger.error(e);
 		}
 
 		this.loading$.switchOff();

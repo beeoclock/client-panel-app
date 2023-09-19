@@ -3,12 +3,14 @@ import {ListMemberApiAdapter} from "@member/adapter/external/api/list.member.api
 import {TableState} from "@utility/domain/table.state";
 import * as Member from "@member/domain";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
+import {NGXLogger} from "ngx-logger";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalSelectSpecialistListAdapter {
 
+  private readonly logger = inject(NGXLogger);
   public readonly listMemberApiAdapter = inject(ListMemberApiAdapter);
   public readonly tableState = new TableState<Member.IMember>();
   public readonly loading$ = new BooleanStreamState(false);
@@ -45,7 +47,7 @@ export class ModalSelectSpecialistListAdapter {
       this.tableState.total = data.totalSize;
 
     } catch (e) {
-      console.error(e);
+			this.logger.error(e);
     }
 
     this.loading$.switchOff();

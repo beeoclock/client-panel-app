@@ -102,7 +102,6 @@ export class SelectTimeComponent extends Reactive implements OnInit {
 
     this.localDateTimeControl.valueChanges.subscribe((value) => {
 			this.loader.switchOn();
-			console.log(this.loader.isOn);
 			this.prepareSlots(value).then(() => {
 				this.loader.switchOff();
 			});

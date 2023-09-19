@@ -13,6 +13,7 @@ import {FormTextareaComponent} from "@utility/presentation/component/input/form.
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {LogoutComponent} from "@utility/presentation/component/logout/logout.component";
 import {AsyncPipe, NgIf} from "@angular/common";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
   selector: 'identity-create-business-page',
@@ -35,6 +36,7 @@ import {AsyncPipe, NgIf} from "@angular/common";
 })
 export default class Index {
 
+	private readonly logger = inject(NGXLogger);
   public readonly translateService = inject(TranslateService);
   public readonly identityApiAdapter = inject(IdentityApiAdapter);
   private readonly toastController = inject(ToastController);
@@ -81,7 +83,7 @@ export default class Index {
           }
         });
       } catch (e) {
-				console.error(e)
+				this.logger.error(e);
       }
       this.form.enable();
       this.form.updateValueAndValidity();

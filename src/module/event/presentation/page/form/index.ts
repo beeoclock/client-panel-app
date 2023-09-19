@@ -54,7 +54,7 @@ export default class Index implements OnInit {
 	private readonly store = inject(Store);
 	public readonly activatedRoute = inject(ActivatedRoute);
 	public readonly router = inject(Router);
-	public readonly logger = inject(NGXLogger);
+	private readonly logger = inject(NGXLogger);
 
 	public readonly form = new EventForm();
 

@@ -3,12 +3,14 @@ import {TableState} from "@utility/domain/table.state";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {ListCustomerApiAdapter} from "@customer/adapter/external/api/list.customer.api.adapter";
 import * as Customer from "@customer/domain";
+import {NGXLogger} from "ngx-logger";
 
 @Injectable({
 	providedIn: 'root'
 })
 export class EventListCustomerAdapter {
 
+	private readonly logger = inject(NGXLogger);
 	public readonly listCustomerApiAdapter = inject(ListCustomerApiAdapter);
 	public readonly tableState = new TableState<Customer.ICustomer>();
 	public readonly loading$ = new BooleanStreamState(false);
@@ -45,7 +47,7 @@ export class EventListCustomerAdapter {
 			this.tableState.total = data.totalSize;
 
 		} catch (e) {
-			console.error(e);
+			this.logger.error(e);
 		}
 
 		this.loading$.switchOff();

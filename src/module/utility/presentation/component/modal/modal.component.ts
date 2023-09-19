@@ -17,6 +17,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {DebounceClickDirective} from "@utility/presentation/directives/debounce/debounce.directive";
+import {NGXLogger} from "ngx-logger";
 
 export enum ModalButtonRoleEnum {
   'cancel',
@@ -130,6 +131,7 @@ export class ModalComponent extends Reactive implements AfterViewInit {
   @ViewChild('btnCloseRef')
   public btnCloseRef: ElementRef<HTMLButtonElement> | undefined;
 
+  private readonly logger = inject(NGXLogger);
   private readonly translateService = inject(TranslateService);
 
   public static buttons = {
@@ -264,7 +266,7 @@ export class ModalComponent extends Reactive implements AfterViewInit {
           this.externalMethodOnCloseModalEvent?.(this.id);
           this.elementRef?.nativeElement?.remove();
         } catch (error) {
-          console.error(error);
+					this.logger.error(error);
         }
       }, 500);
 

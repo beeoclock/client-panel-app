@@ -7,6 +7,7 @@ import {Select} from "@ngxs/store";
 import {BeeoclockIdTokenResult, IdentityState} from "@identity/state/identity/identity.state";
 import {AsyncPipe, JsonPipe} from "@angular/common";
 import {Observable} from "rxjs";
+import {NGXLogger} from "ngx-logger";
 
 
 @Component({
@@ -77,6 +78,7 @@ export class ProfileComponent implements AfterViewInit {
 
   private readonly auth = inject(Auth);
   private readonly router = inject(Router);
+  private readonly logger = inject(NGXLogger);
 
   @Select(IdentityState.token)
   public token$!: Observable<BeeoclockIdTokenResult>;
@@ -122,7 +124,7 @@ export class ProfileComponent implements AfterViewInit {
         this.router.navigate(['/']).then();
       })
       .catch((error) => {
-        console.error(error);
+        this.logger.error(error);
       });
   }
 
