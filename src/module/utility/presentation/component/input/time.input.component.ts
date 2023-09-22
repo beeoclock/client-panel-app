@@ -36,17 +36,20 @@ export class TimeInputComponent implements OnInit {
   @Input()
   public valueAsNumber = true;
 
+  @Input()
+  public utc = true;
+
 	public ngOnInit(): void {
 
 		if (this.valueAsNumber) {
-			this.localControl.patchValue(secondsTo_hh_mm(this.control.value));
+			this.localControl.patchValue(secondsTo_hh_mm(this.control.value, this.utc));
 		} else {
 			this.localControl.patchValue(this.control.value);
 		}
 
 		this.localControl.valueChanges.subscribe((value) => {
 			if (this.valueAsNumber) {
-				this.control.patchValue(extractSecondsFrom_hh_mm_ss(value));
+				this.control.patchValue(extractSecondsFrom_hh_mm_ss(value, this.utc));
 			} else {
 				this.control.patchValue(value);
 			}

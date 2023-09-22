@@ -12,9 +12,14 @@ export const TWENTY_SECONDS = 20;
 export const HALF_HOUR_IN_SECONDS = 1_800;
 export const FIFTY_MINUTES_IN_SECONDS = 3_000;
 
-export function extract_hh_mm_ss_properties(value: number) {
+export function extract_hh_mm_ss_properties(value: number, fromUTC = false) {
 
-	const totalSeconds = value ?? 0;
+	let totalSeconds = value ?? 0;
+
+	if (fromUTC) {
+		const timeZoneOffsetInSeconds = new Date().getTimezoneOffset() * 60;
+		totalSeconds -= timeZoneOffsetInSeconds; // 3600 - (-120) = 3720
+	}
 
 	const hours = Math.floor(totalSeconds / ONE_HOUR_IN_SECONDS);
 	const minutes = Math.floor((totalSeconds % ONE_HOUR_IN_SECONDS) / ONE_MINUTE_IN_SECONDS);
@@ -28,26 +33,31 @@ export function extract_hh_mm_ss_properties(value: number) {
 
 }
 
-export function secondsTo_hh_mm(value: number): string {
+export function secondsTo_hh_mm(value: number, fromUTC = false): string {
 
-	const {formattedHours, formattedMinutes} = extract_hh_mm_ss_properties(value);
+	const {formattedHours, formattedMinutes} = extract_hh_mm_ss_properties(value, fromUTC);
 
 	return `${formattedHours}:${formattedMinutes}`;
 
 }
 
-export function secondsTo_hh_mm_ss(value: number): string {
+export function secondsTo_hh_mm_ss(value: number, fromUTC = false): string {
 
-	const {formattedHours, formattedMinutes, formattedSeconds} = extract_hh_mm_ss_properties(value);
+	const {formattedHours, formattedMinutes, formattedSeconds} = extract_hh_mm_ss_properties(value, fromUTC);
 
 	return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 
 }
 
-export function secondsTo_dd_hh_mm_ss(value: number): string {
+export function secondsTo_dd_hh_mm_ss(value: number, fromUTC = false): string {
 
 	let restValue = value;
 	let days = 0;
+
+	if (fromUTC) {
+		const timeZoneOffsetInSeconds = new Date().getTimezoneOffset() * 60;
+		restValue -= timeZoneOffsetInSeconds; // 3600 - (-120) = 3720
+	}
 
 	if (value >= ONE_DAY_IN_SECONDS) {
 
@@ -60,11 +70,15 @@ export function secondsTo_dd_hh_mm_ss(value: number): string {
 
 }
 
-export function extractSecondsFrom_hh_mm_ss(formattedTime: string): number {
+export function extractSecondsFrom_hh_mm_ss(formattedTime: string, toUTC = false): number {
 	try {
 		// TODO check if minutes and seconds are 00 if they have one digit then it is ten minutes or ten seconds (1:1:1 = 1 hour 10 minute 10 second)
 		const [hours, minutes, seconds] = formattedTime.split(':').map(Number);
-		const result = hours * ONE_HOUR_IN_SECONDS + (minutes ?? 0) * ONE_MINUTE_IN_SECONDS + (seconds ?? 0);
+		let result = hours * ONE_HOUR_IN_SECONDS + (minutes ?? 0) * ONE_MINUTE_IN_SECONDS + (seconds ?? 0);
+		if (toUTC) {
+			const timeZoneOffsetInSeconds = new Date().getTimezoneOffset() * 60;
+			result += timeZoneOffsetInSeconds; // 3600 + (-120) = 3480
+		}
 		return result;
 	} catch (e) {
 		return NaN;

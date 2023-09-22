@@ -22,8 +22,8 @@ export class ScheduleForm extends FormGroup<IScheduleForm> {
   }
 
   public initValue(initialValue?: ISchedule): void {
-    this.controls.startInSeconds.setValue(extractSecondsFrom_hh_mm_ss('08:00'));
-    this.controls.endInSeconds.setValue(extractSecondsFrom_hh_mm_ss('18:00'));
+    this.controls.startInSeconds.setValue(extractSecondsFrom_hh_mm_ss('08:00', true));
+    this.controls.endInSeconds.setValue(extractSecondsFrom_hh_mm_ss('18:00', true));
     if (initialValue) {
       Object.keys(initialValue).forEach(key => {
         if (this.contains(key)) {
