@@ -9,13 +9,13 @@ export enum DaysNameOfWeekEnum {
 }
 
 export enum WeekDaysEnum {
-  MONDAY = 0,
-  TUESDAY,
-  WEDNESDAY,
-  THURSDAY,
-  FRIDAY,
-  SATURDAY,
-  SUNDAY,
+	SUNDAY = 0,
+	MONDAY,
+	TUESDAY,
+	WEDNESDAY,
+	THURSDAY,
+	FRIDAY,
+	SATURDAY,
 }
 
 export const WORK_WEEK = [

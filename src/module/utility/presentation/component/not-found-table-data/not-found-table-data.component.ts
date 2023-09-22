@@ -9,9 +9,11 @@ import {NgOptimizedImage} from "@angular/common";
 	],
 	template: `
 		<div class="grid grid-cols-12 h-[calc(100%-118px)] md:h-[calc(100%-70px)]">
-			<div class="col-span-8 col-start-3 md:col-span-4 md:col-start-5 flex flex-col justify-center gap-4 text-center">
+			<div class="col-span-8 col-start-3 md:col-span-4 md:col-start-5 flex flex-col justify-center items-center gap-4 text-center">
 				<img ngSrc="/asset/img/starter.svg" alt="" height="327" width="355">
-				{{ label }}
+				<div class="text-beeColor-500">
+					{{ label }}
+				</div>
 			</div>
 		</div>
 	`
