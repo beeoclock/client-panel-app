@@ -8,6 +8,7 @@
     class="flex items-center justify-between border rounded-2xl border-beeColor-200 bg-white dark:bg-beeDarkColor-800 p-4">
     <div class="flex flex-1 justify-between">
       <button
+				type="button"
         *ngIf="formComponent.activeSectionIsNotFirst"
         (click)="formComponent.activePrevSection()"
         class="relative inline-flex items-center rounded-md border border-beeColor-300 bg-white px-4 py-2 text-sm font-medium text-beeColor-700 hover:bg-beeColor-100">
@@ -15,12 +16,14 @@
       </button>
       <div></div>
       <button
+				type="button"
         *ngIf="formComponent.activeSectionIsNotLast"
         (click)="formComponent.activeNextSection()"
         class="relative ml-3 inline-flex items-center rounded-md border border-beeColor-300 bg-white px-4 py-2 text-sm font-medium text-beeColor-700 hover:bg-beeColor-100">
         Next
       </button>
       <button
+				type="button"
         *ngIf="formComponent.activeSectionIsLast"
         class="bg-blue-600 text-white rounded px-4 py-2"
         [disabled]="formComponent.form.disabled"

@@ -10,6 +10,7 @@ import {TranslateModule} from "@ngx-translate/core";
   encapsulation: ViewEncapsulation.None,
   template: `
     <button
+			type="button"
       class="
           text-blue-600
           rounded-2xl

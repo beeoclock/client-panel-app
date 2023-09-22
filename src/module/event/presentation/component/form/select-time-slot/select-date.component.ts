@@ -65,6 +65,7 @@ export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsIn
             </span>
 
               <button
+								type="button"
                 (click)="selectDateItem(dayItem.datetime)"
                 [ngClass]="getClassList(isSelected(dayItem.datetime))"
                 [disabled]="dayItem.isPast"

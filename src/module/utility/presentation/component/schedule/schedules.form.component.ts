@@ -30,7 +30,7 @@ import {FormButtonWithIconComponent} from "@utility/presentation/component/butto
           *ngFor="let scheduleForm of schedulesForm.controls; let index = index"
           class="grid grid-cols-12 gap-2">
 
-          <div class="col-span-11">
+          <div class="col-span-10 md:col-span-11">
             <schedule-form-component [form]="scheduleForm"/>
           </div>
           <div class="col-span-1">

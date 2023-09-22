@@ -18,13 +18,11 @@ import {ScheduleForm} from "@utility/presentation/form/schdeule.form";
       <div class="col-span-6">
         <select-week-day-component [control]="form.controls.workDays"/>
       </div>
-      <div class="col-span-6 flex gap-2">
-        <div class="w-full">
-          <time-input-component [control]="form.controls.startInSeconds" [label]="'keyword.capitalize.start' | translate"/>
-        </div>
-        <div class="w-full">
-          <time-input-component [control]="form.controls.endInSeconds" [label]="'keyword.capitalize.end' | translate"/>
-        </div>
+      <div class="col-span-6 md:col-span-3">
+				<time-input-component [control]="form.controls.startInSeconds" [label]="'keyword.capitalize.start' | translate"/>
+      </div>
+      <div class="col-span-6 md:col-span-3">
+				<time-input-component [control]="form.controls.endInSeconds" [label]="'keyword.capitalize.end' | translate"/>
       </div>
     </div>
   `

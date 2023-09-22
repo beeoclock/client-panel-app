@@ -2,22 +2,33 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {InputIconComponent} from "@utility/presentation/component/input/input-icon.component";
 import {extractSecondsFrom_hh_mm_ss, secondsTo_hh_mm} from "@utility/domain/time";
+import {InputBadgeComponent} from "@utility/presentation/component/input/input-badge.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'time-input-component',
   standalone: true,
-  imports: [
-    InputIconComponent,
-  ],
+	imports: [
+		InputIconComponent,
+		InputBadgeComponent,
+		TranslateModule,
+	],
   template: `
-    <form-icon-input
-      [id]="id"
-      placeholder="00:00"
-      mask="00:00"
-      icon="bi-clock"
-      [control]="localControl"
-      [label]="label">
-    </form-icon-input>
+		<bee-form-badge-input
+			mask="00:00"
+			placeholder="00:00"
+			[control]="localControl"
+			[label]="label"
+			[id]="id"
+			[badge]="'keyword.capitalize.priceTimeFormatPrompt' | translate"/>
+
+<!--    <form-icon-input-->
+<!--      [id]="id"-->
+<!--      placeholder="00:00"-->
+<!--      mask="00:00"-->
+<!--      icon="bi-clock"-->
+<!--      [control]="localControl"-->
+<!--      [label]="label"/>-->
   `
 })
 export class TimeInputComponent implements OnInit {
