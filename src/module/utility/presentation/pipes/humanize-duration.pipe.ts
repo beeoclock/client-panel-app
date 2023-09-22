@@ -12,9 +12,15 @@ export class HumanizeDurationPipe implements PipeTransform {
 	/**
 	 * Author: Ivan Karbashevskyi
 	 * @param value
+	 * @param type
 	 */
-	public transform(value: string): string {
-		return this.humanizeDurationAdapter.formatDuration(value);
+	public transform(value: string | number, type: 'duration' | 'seconds' = 'seconds'): string {
+		switch (type) {
+			case 'duration':
+				return this.humanizeDurationAdapter.formatDuration(value as string);
+			case 'seconds':
+				return this.humanizeDurationAdapter.fromSeconds(value as number);
+		}
 	}
 
 }

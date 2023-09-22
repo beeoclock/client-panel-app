@@ -73,7 +73,7 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 											{{ (event.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: event.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow' }}
 										</div>
 										<div class="text-end">
-											{{ event.services?.[0]?.durationVersions?.[0]?.duration ?? '' | humanizeDuration }}
+											{{ event.services?.[0]?.durationVersions?.[0]?.durationInSeconds ?? 0 | humanizeDuration }}
 										</div>
 
 									</div>

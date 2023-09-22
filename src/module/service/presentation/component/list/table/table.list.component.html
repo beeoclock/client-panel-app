@@ -33,6 +33,12 @@
 					/>
 				</div>
 			</th>
+			<th scope="col" class="px-6 py-3">
+				{{ 'keyword.capitalize.price' | translate }}
+			</th>
+			<th scope="col" class="px-6 py-3">
+				{{ 'keyword.capitalize.duration' | translate }}
+			</th>
 			<th scope="col" class="px-6 py-3" data-orderBy="createdAt">
 				<div class="flex gap-3 items-center">
 					{{ 'keyword.capitalize.createdAt' | translate }}
@@ -82,6 +88,12 @@
 				<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
 						 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="item.active">
 				</div>
+			</td>
+			<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+				{{ item.durationVersions[0].prices[0].price | currency: item.durationVersions[0].prices[0].currency: 'symbol-narrow' }}
+			</td>
+			<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+				{{ item.durationVersions[0].durationInSeconds ?? 0 | humanizeDuration }}
 			</td>
 			<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
 				{{ item.createdAt | dynamicDate }}

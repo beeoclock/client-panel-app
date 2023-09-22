@@ -48,7 +48,7 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
                 {{ item.durationVersions[0].prices[0].price | currency: item.durationVersions[0].prices[0].currency: 'symbol-narrow' }}
               </span>
 							<span class="text-end text-sm whitespace-nowrap">
-                {{ item.durationVersions[0].duration | humanizeDuration }}
+                {{ item.durationVersions[0].durationInSeconds | humanizeDuration }}
               </span>
 						</div>
 					</label>
@@ -109,7 +109,7 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 <!--                {{ item.durationVersions[0].prices[0].price | currency: item.durationVersions[0].prices[0].currency: 'symbol-narrow' }}-->
 <!--              </span>-->
 <!--								<span class="text-end text-sm">-->
-<!--                {{ item.durationVersions[0].duration | humanizeDuration }}-->
+<!--                {{ item.durationVersions[0].durationInSeconds | humanizeDuration }}-->
 <!--              </span>-->
 <!--							</div>-->
 <!--						</div>-->
