@@ -13,7 +13,6 @@ export interface IBusinessProfile {
   _id: FormControl<string>;
   object: FormControl<'Client'>;
 
-  // logo: FormControl<string>;
   name: FormControl<string>;
   businessCategory: FormControl<BusinessCategoryEnum>;
   feature: FormControl<string>;
@@ -26,9 +25,6 @@ export interface IBusinessProfile {
   addresses: AddressesForm;
   schedules: SchedulesForm;
   contacts: ContactsForm;
-  // gallery: GalleryForm;
-
-  // banner: FormControl<string>;
   facilities: FormControl<FacilityEnum[]>;
 
   [key: string]: AbstractControl<any, any>;
@@ -40,8 +36,6 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
     super({
       _id: new FormControl(),
       object: new FormControl(),
-
-      // logo: new FormControl(),
       name: new FormControl(),
       businessCategory: new FormControl(),
       feature: new FormControl(),
@@ -50,12 +44,10 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
       socialNetworkLinks: new SocialNetworksForm(),
 
       bookingSettings: new BookingSettingsForm(),
-      // banner: new FormControl(),
       facilities: new FormControl(),
       addresses: new AddressesForm(),
       schedules: new SchedulesForm(),
       contacts: new ContactsForm(),
-      // gallery: new GalleryForm(),
     });
 
     this.initValidators();

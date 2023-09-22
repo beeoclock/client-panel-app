@@ -23,7 +23,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
         {{ label }}
       </label>
       <div class="text-sm">
-        <ng-content select="[label-end]"></ng-content>
+        <ng-content select="[label-end]"/>
       </div>
     </div>
     <div class="mt-2 flex">
@@ -61,7 +61,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
           border
           border-l-0
           border-beeColor-300">
-        <ng-content select="[button-icon]"></ng-content>
+        <ng-content select="[button-icon]"/>
       </button>
     </div>
 

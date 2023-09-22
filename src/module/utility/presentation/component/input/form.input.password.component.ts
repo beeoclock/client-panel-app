@@ -21,7 +21,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
         {{ label }}
       </label>
       <div class="text-sm">
-        <ng-content select="[label-end]"></ng-content>
+        <ng-content select="[label-end]"/>
       </div>
     </div>
     <div class="mt-2 flex">

@@ -76,7 +76,7 @@ export interface ModalButtonInterface {
 
           <!-- Modal body -->
           <div #contentRef class="p-6 space-y-6 overflow-y-auto h-[calc(100vh-10rem)] max-h-[calc(100vh-10rem)] md:h-auto md:max-h-[calc(100vh-16rem)]">
-            <ng-content></ng-content>
+            <ng-content/>
           </div>
 
           <!-- Modal footer -->

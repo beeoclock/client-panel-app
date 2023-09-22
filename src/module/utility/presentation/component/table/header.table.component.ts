@@ -9,7 +9,7 @@ import {CardComponent} from '@utility/presentation/component/card/card.component
   ],
   encapsulation: ViewEncapsulation.None,
   template: `
-    <ng-content></ng-content>
+    <ng-content/>
   `
 })
 export class HeaderTableComponent {

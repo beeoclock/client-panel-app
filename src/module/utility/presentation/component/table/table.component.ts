@@ -8,7 +8,7 @@ import {Component, ViewEncapsulation} from '@angular/core';
   template: `
     <div class="table-responsive scrollbar">
       <table class="table table-striped fs--1 mb-0 overflow-hidden rounded">
-        <ng-content></ng-content>
+        <ng-content/>
       </table>
     </div>
   `
