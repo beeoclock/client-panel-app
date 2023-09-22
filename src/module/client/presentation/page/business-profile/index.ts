@@ -125,7 +125,6 @@ export default class Index implements OnInit {
 		if (this.form.valid) {
 			this.store.dispatch(new AppActions.PageLoading(true));
 			const value = this.form.getRawValue() as IClient;
-			console.log(value);
 			this.form.disable();
 			this.form.markAsPending();
 
