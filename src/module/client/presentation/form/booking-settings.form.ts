@@ -6,7 +6,7 @@ import {ApprovalTimeEnum} from "@utility/domain/enum/approval-time.enum";
 export interface IBookingSettingsForm {
 
   object: FormControl<'BookingSettings'>;
-  approvalTime: FormControl<ApprovalTimeEnum>;
+	approvalTimeInSeconds: FormControl<ApprovalTimeEnum>;
   latestBooking: FormControl<LatestBookingEnum>;
   earliestBooking: FormControl<EarliestBookingEnum>;
 
@@ -18,7 +18,7 @@ export class BookingSettingsForm extends FormGroup<IBookingSettingsForm> {
   constructor() {
     super({
       object: new FormControl(),
-      approvalTime: new FormControl(),
+			approvalTimeInSeconds: new FormControl(),
       latestBooking: new FormControl(),
       earliestBooking: new FormControl(),
     });
@@ -32,11 +32,11 @@ export class BookingSettingsForm extends FormGroup<IBookingSettingsForm> {
     this.controls.object.setValue('BookingSettings');
     this.controls.earliestBooking.setValue(EarliestBookingEnum.ONE_DAY);
     this.controls.latestBooking.setValue(LatestBookingEnum.TWO_WEEKS);
-    this.controls.approvalTime.setValue(ApprovalTimeEnum.ONE_HOUR);
+    this.controls.approvalTimeInSeconds.setValue(ApprovalTimeEnum.ONE_HOUR);
   }
 
   private initValidators(): void {
-    this.controls.approvalTime.setValidators(Validators.required);
+    this.controls.approvalTimeInSeconds.setValidators(Validators.required);
     this.controls.latestBooking.setValidators(Validators.required);
     this.controls.earliestBooking.setValidators(Validators.required);
   }

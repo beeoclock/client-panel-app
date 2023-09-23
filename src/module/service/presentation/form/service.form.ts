@@ -1,10 +1,10 @@
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActiveEnum, LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
-import {IMember} from "@member/domain";
 import {IDurationVersion} from "@service/domain";
 import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
 import {extractSecondsFrom_hh_mm_ss, STR_MINUTE_45} from "@utility/domain/time";
+import {ISpecialist} from "@service/domain/interface/i.specialist";
 
 export interface ILanguageVersionForm {
 	title: FormControl<string>;
@@ -180,7 +180,7 @@ export interface IServiceForm {
 	languageVersions: LanguageVersionsForm;
 	durationVersions: DurationVersionsForm;
 	_id: FormControl<string>;
-	permanentMembers: FormControl<IMember[]>;
+	specialists: FormControl<ISpecialist[]>;
 	active: FormControl<ActiveEnum>;
 
 	[key: string]: AbstractControl<any, any>;
@@ -194,7 +194,7 @@ export class ServiceForm extends FormGroup<IServiceForm> {
 			prepaymentPolicy: new PrepaymentPolicyForm(),
 			languageVersions: new LanguageVersionsForm(),
 			durationVersions: new DurationVersionsForm(),
-			permanentMembers: new FormControl(),
+			specialists: new FormControl(),
 			active: new FormControl(),
 			_id: new FormControl()
 		});
@@ -202,7 +202,7 @@ export class ServiceForm extends FormGroup<IServiceForm> {
 	}
 
 	public initValue(): void {
-		this.controls.permanentMembers.setValue([]);
+		this.controls.specialists.setValue([]);
 		this.controls.active.setValue(ActiveEnum.YES);
 	}
 

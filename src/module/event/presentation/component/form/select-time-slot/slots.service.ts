@@ -31,8 +31,8 @@ export class SlotsService {
 		const slots = await this.slotsEventApiAdapter.executeAsync({
 			start,
 			end,
-			eventDurationSeconds: 60,
-			slotIntervalSeconds: 10
+			eventDurationInSeconds: 60,
+			slotIntervalInSeconds: 10
 		});
 
 		this.localTemporaryCache.set(key, slots);
