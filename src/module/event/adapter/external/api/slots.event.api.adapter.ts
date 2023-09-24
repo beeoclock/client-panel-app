@@ -4,10 +4,18 @@ import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "thiis";
 
+type PARAMS = {
+	start: string;
+	end: string;
+	eventDurationInSeconds: number;
+	slotIntervalInSeconds: number;
+	specialist: string;
+};
+
 @Injectable({
 	providedIn: 'root'
 })
-export class SlotsEventApiAdapter extends BaseApiAdapter<string[]> {
+export class SlotsEventApiAdapter extends BaseApiAdapter<string[], [PARAMS]> {
 
 
 	/**
@@ -15,13 +23,7 @@ export class SlotsEventApiAdapter extends BaseApiAdapter<string[]> {
 	 * @param params
 	 */
 	@TypeGuard([is.object.not.empty])
-	public override execute$(params: {
-		start: string;
-		end: string;
-		eventDurationInSeconds: number;
-		slotIntervalInSeconds: number;
-		// TODO add specialist property
-	}) {
+	public override execute$(params: PARAMS) {
 		return this.httpClient.get<string[]>(eventEndpointEnum.slots, {
 			params,
 		});

@@ -32,7 +32,9 @@ export class SlotsService {
 			start,
 			end,
 			eventDurationInSeconds: 60,
-			slotIntervalInSeconds: 10
+			slotIntervalInSeconds: 10,
+			specialist: undefined as any
+			// TODO add specialist
 		});
 
 		this.localTemporaryCache.set(key, slots);
