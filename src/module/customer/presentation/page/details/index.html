@@ -10,14 +10,14 @@
 
     <div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4">
 
-      <card>
+      <bee-card>
 
         <div class="flex justify-between items-center">
 
           <div class="text-2xl font-bold text-beeColor-500 dark:text-beeColor-100">
             {{ customer.firstName }}&nbsp;{{ customer.lastName }}
           </div>
-          <div active-style [active]="customer.active">
+          <div activeStyle [active]="customer.active">
           </div>
 
         </div>
@@ -54,18 +54,18 @@
 
         </div>
 
-      </card>
+      </bee-card>
 
-      <card>
+      <bee-card>
 
         <div class="flex justify-between flex-col md:flex-row gap-4">
 
-          <delete-button [buttonWidthFull]="true" (event)="delete(customer)"/>
+          <bee-delete-button [buttonWidthFull]="true" (event)="delete(customer)"/>
           <edit-link-component [buttonWidthFull]="true"/>
 
         </div>
 
-      </card>
+      </bee-card>
 
     </div>
 

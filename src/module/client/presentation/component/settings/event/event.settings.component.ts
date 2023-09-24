@@ -18,7 +18,7 @@ import {ThemeInputComponent} from "@client/presentation/component/settings/theme
     ThemeInputComponent
   ],
   template: `
-    <card>
+    <bee-card>
       <span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.events' | translate }}</span>
 
 
@@ -41,7 +41,7 @@ import {ThemeInputComponent} from "@client/presentation/component/settings/theme
         </div>
       </div>
 
-    </card>
+    </bee-card>
   `
 })
 export class EventSettingsComponent {

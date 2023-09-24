@@ -22,16 +22,16 @@ export const memberEndpoint: EndpointCollectionType = {
         authorization: true,
       }
     },
+		[memberEndpointEnum.paged]: {
+			path: memberEndpointEnum.paged,
+			method: RequestMethodEnum.GET,
+			source: SourceNetworkEnum.panel,
+			header: {
+				authorization: true
+			}
+		},
   },
   POST: {
-    [memberEndpointEnum.paged]: {
-      path: memberEndpointEnum.paged,
-      method: RequestMethodEnum.POST,
-      source: SourceNetworkEnum.panel,
-      header: {
-        authorization: true
-      }
-    },
     [memberEndpointEnum.create]: {
       path: memberEndpointEnum.create,
       method: RequestMethodEnum.POST,

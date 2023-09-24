@@ -99,7 +99,7 @@ export class SignUpComponent {
               },
             ],
           });
-          await toast.present();
+          await toast.present().then();
           await this.router.navigate(['/', 'identity']);
         })
         .finally(() => {

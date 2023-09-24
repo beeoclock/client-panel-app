@@ -7,26 +7,25 @@
     class="font-bold inline-flex items-center gap-x-3.5 py-3 px-4 bg-white border text-beeColor-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 dark:text-white">
     {{ 'identity.corridor.selectBusiness' | translate }}
   </li>
-  <div class="overflow-y-auto max-h-96 flex flex-col">
-
+  <ul class="overflow-y-auto max-h-96 flex flex-col">
     <li
       *ngFor="let member of members$ | async"
       (click)="select(member)"
       [class.disabled]="disabled.isOn"
       class="cursor-pointer hover:bg-beeColor-100 inline-flex items-center gap-x-3.5 py-3 px-4 text-sm bg-white border text-beeColor-800 -mt-px dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 dark:text-white">
-      <span class="text-3xl">
+      <div class="text-3xl">
         <i class="bi bi-buildings"></i>
-      </span>
-      <span class="flex flex-col truncate">
-        <span class="font-bold">
+      </div>
+      <div class="flex flex-col truncate">
+        <div class="font-bold">
           {{ member.client.name }}
-        </span>
-        <span *ngIf="member.client?.slogan?.length" class="font-normal truncate">
+        </div>
+        <div *ngIf="member.client?.slogan?.length" class="font-normal truncate">
           {{ member.client.slogan }}
-        </span>
-      </span>
+        </div>
+      </div>
     </li>
-  </div>
+  </ul>
   <li *ngIf="loader.isOn"
       class="font-bold inline-flex items-center gap-x-3.5 py-3 bg-white border text-beeColor-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 dark:text-white">
     <utility-loader/>

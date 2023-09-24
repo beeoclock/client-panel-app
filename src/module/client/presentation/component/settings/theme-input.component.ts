@@ -2,6 +2,7 @@ import {Component, inject} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NgSelectModule} from "@ng-select/ng-select";
+import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 enum ThemeEnum {
   light = 'light',
@@ -11,13 +12,14 @@ enum ThemeEnum {
 @Component({
   selector: 'client-settings-theme-input-component',
   standalone: true,
-  imports: [
-    NgSelectModule,
-    ReactiveFormsModule,
-    TranslateModule
-  ],
+	imports: [
+		NgSelectModule,
+		ReactiveFormsModule,
+		TranslateModule,
+		DefaultLabelDirective
+	],
   template: `
-    <label class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
+    <label default for="client-settings-form-theme">
       {{ 'keyword.capitalize.theme' | translate }}
     </label>
     <ng-select
@@ -26,10 +28,10 @@ enum ThemeEnum {
       [clearable]="false"
       [formControl]="control">
       <ng-template ng-label-tmp let-item="item" let-clear="clear">
-        {{ 'theme.' + item | translate }}
+        {{ baseTranslationKey + item | translate }}
       </ng-template>
       <ng-template ng-option-tmp let-item="item" let-clear="clear">
-        {{ 'theme.' + item | translate }}
+        {{ baseTranslationKey + item | translate }}
       </ng-template>
     </ng-select>
   `
@@ -40,6 +42,7 @@ export class ThemeInputComponent {
   public readonly translateService = inject(TranslateService);
 
   public readonly themes = Object.values(ThemeEnum);
+	public readonly baseTranslationKey = 'enum.theme.';
 
   constructor() {
     this.control.setValue(localStorage.getItem('theme') ?? 'light');

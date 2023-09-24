@@ -1,14 +1,15 @@
 import {ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation} from "@angular/core";
-import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {LatestBookingEnum} from "@utility/domain/enum/latest-booking.enum";
+import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
+import {NgSelectModule} from "@ng-select/ng-select";
 
 @Component({
   selector: 'select-latest-booking-component',
   standalone: true,
   template: `
-    <label class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white"
+    <label default
            [for]="id">{{ 'keyword.capitalize.latestBooking' | translate }}</label>
     <div class="text-sm text-beeColor-500">
       {{ 'client.profile.form.section.bookingSettings.input.latestBooking.placeholder' | translate }}
@@ -23,17 +24,18 @@ import {LatestBookingEnum} from "@utility/domain/enum/latest-booking.enum";
     </ng-select>
   `,
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    NgSelectModule,
-    ReactiveFormsModule,
-    TranslateModule
-  ],
+	imports: [
+		ReactiveFormsModule,
+		TranslateModule,
+		DefaultLabelDirective,
+		NgSelectModule
+	],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectLatestBookingComponent {
 
   @Input()
-  public id: string = '';
+  public id = '';
 
   @Input()
   public control = new FormControl();

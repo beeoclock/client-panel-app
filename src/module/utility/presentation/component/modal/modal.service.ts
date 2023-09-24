@@ -1,10 +1,11 @@
-import {ComponentRef, Injectable, Type} from '@angular/core';
+import {ComponentRef, inject, Injectable, Type} from '@angular/core';
 import {TypeGuard} from '@p4ck493/ts-type-guard';
 import {ModalButtonInterface, ModalComponent} from './modal.component';
 import {is} from "thiis";
 import {environment} from "@environment/environment";
 import {v4} from "uuid";
 import {InjectionComponentService} from "@utility/presentation/injection-component/injection-component.service";
+import {NGXLogger} from "ngx-logger";
 
 export type storeOfModalsType = Record<string, ComponentRef<ModalComponent>>;
 
@@ -15,10 +16,8 @@ export class ModalService {
 
   readonly #storeOfModals: storeOfModalsType = {};
 
-  constructor(
-    private readonly injectionComponentService: InjectionComponentService
-  ) {
-  }
+	private readonly injectionComponentService = inject(InjectionComponentService);
+	private readonly logger = inject(NGXLogger);
 
   public get storeOfModals(): storeOfModalsType {
     return this.#storeOfModals;
@@ -59,7 +58,7 @@ export class ModalService {
       buttons?: ModalButtonInterface[];
       componentChildRefList?: ComponentRef<any>[];
     } = {},
-    id: string = `${environment.config.modal.prefix}${v4()}`,
+    id = `${environment.config.modal.prefix}${v4()}`,
   ): Promise<ComponentRef<ModalComponent>> {
     return new Promise<ComponentRef<ModalComponent>>((resolve) => {
 
@@ -130,7 +129,7 @@ export class ModalService {
       }
       Reflect.deleteProperty(this.#storeOfModals, id);
     } catch (error) {
-      console.error(error);
+      this.logger.error(error);
     }
   }
 
@@ -141,7 +140,7 @@ export class ModalService {
    * @private
    */
   @TypeGuard([is.string.not.empty, is.boolean])
-  public closeModalById(id: string, force: boolean = true): void {
+  public closeModalById(id: string, force = true): void {
     if (force) {
       this.deleteModalFromScope(id);
     } else {

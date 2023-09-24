@@ -12,6 +12,7 @@
         <span class="text-beeColor-400">{{ 'keyword.capitalize.customer' | translate }} #{{ index + 1 }}</span>
 
         <button
+					type="button"
           [disabled]="form.controls.length === 1"
           (click)="remove(index)"
           class="text-beeColor-600 hover:text-red-600 hover:bg-red-100 px-2 py-1 rounded-2xl">
@@ -23,8 +24,7 @@
       </div>
 
       <event-attendant-component
-        [form]="attendant.controls.customer">
-      </event-attendant-component>
+        [form]="attendant.controls.customer"/>
 
     </div>
 
@@ -32,7 +32,7 @@
 
   <div class="block">
 
-    <button primaryLink (click)="form.pushNewOne()">
+    <button type="button" primaryLink (click)="form.pushNewOne()">
       <i class="bi bi-plus-lg"></i>
       {{ 'event.form.section.attendant.button.add' | translate }}
     </button>

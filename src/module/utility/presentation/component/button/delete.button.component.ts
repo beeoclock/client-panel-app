@@ -4,7 +4,7 @@ import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
-  selector: 'delete-button',
+  selector: 'bee-delete-button',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,

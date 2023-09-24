@@ -1,8 +1,9 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, inject, Input, OnInit, ViewChild} from "@angular/core";
 import {FormControl} from "@angular/forms";
 import {extractFile} from "@utility/domain/extract-file";
 import {file2base64} from "@utility/domain/file2base64";
 import {BooleanState} from "@utility/domain";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
 	selector: 'utility-base-image-component',
@@ -24,9 +25,11 @@ export class BaseImageComponent implements OnInit {
 	public showHit = true;
 
 	@Input()
-	public mediaId: string | undefined;
+	public mediaId = '';
 
 	public mediaIsChanged = new BooleanState(false);
+
+	private readonly logger = inject(NGXLogger);
 
 	public get isEmptyControl(): boolean {
 		return !this.control.value;
@@ -58,7 +61,7 @@ export class BaseImageComponent implements OnInit {
 			await this.workWithFiles([file])
 
 		} catch (e) {
-			console.error(e);
+			this.logger.error(e);
 		}
 
 	}
@@ -85,7 +88,7 @@ export class BaseImageComponent implements OnInit {
 			this.control.patchValue(base64);
 
 		} catch (e) {
-			console.error(e);
+			this.logger.error(e);
 		}
 
 	}

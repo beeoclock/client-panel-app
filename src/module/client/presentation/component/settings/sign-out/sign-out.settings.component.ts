@@ -6,6 +6,7 @@ import {LanguageInputComponent} from "@client/presentation/component/settings/la
 import {ThemeInputComponent} from "@client/presentation/component/settings/theme-input.component";
 import {Auth} from "@angular/fire/auth";
 import {Router} from "@angular/router";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
   selector: 'client-sign-out-settings-component',
@@ -20,34 +21,34 @@ import {Router} from "@angular/router";
     ThemeInputComponent
   ],
   template: `
-    <card>
+    <bee-card>
 
       <span class="text-2xl font-bold text-beeColor-500">{{ 'sign-out.title' | translate }}</span>
 
       <div>
 
-        <button class="w-auto px-4 py-2 rounded-2xl border border-red-500 text-red-500 hover:bg-red-100"
+        <button type="button" class="w-auto px-4 py-2 rounded-2xl border border-red-500 text-red-500 hover:bg-red-100"
                 (click)="logout()">
           {{ 'sign-out.button.sign-out.label' | translate }}
         </button>
       </div>
 
-    </card>
+    </bee-card>
   `
 })
 export class SignOutSettingsComponent {
 
   private readonly auth = inject(Auth);
   private readonly router = inject(Router);
-
+	private readonly logger = inject(NGXLogger);
 
   public logout(): void {
     this.auth.signOut()
       .then(() => {
-        this.router.navigate(['/'])
+        this.router.navigate(['/']).then();
       })
       .catch((error) => {
-        console.log(error);
+        this.logger.error(error);
       });
   }
 

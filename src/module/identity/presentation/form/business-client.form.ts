@@ -21,5 +21,7 @@ export default class BusinessClientForm extends FormGroup<IBusinessClientForm> {
 
   public initValidators(): void {
     this.controls.name.setValidators([Validators.required]);
+    this.controls.address.setValidators([Validators.required]);
+    this.controls.description.setValidators([Validators.required]);
   }
 }

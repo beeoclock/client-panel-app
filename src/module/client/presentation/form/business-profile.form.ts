@@ -13,13 +13,10 @@ export interface IBusinessProfile {
   _id: FormControl<string>;
   object: FormControl<'Client'>;
 
-  // logo: FormControl<string>;
   name: FormControl<string>;
   businessCategory: FormControl<BusinessCategoryEnum>;
   feature: FormControl<string>;
   description: FormControl<string>;
-  createdAt: FormControl<string>;
-  updatedAt: FormControl<string>;
   active: FormControl<ActiveEnum>;
 
   socialNetworkLinks: SocialNetworksForm;
@@ -28,9 +25,6 @@ export interface IBusinessProfile {
   addresses: AddressesForm;
   schedules: SchedulesForm;
   contacts: ContactsForm;
-  // gallery: GalleryForm;
-
-  // banner: FormControl<string>;
   facilities: FormControl<FacilityEnum[]>;
 
   [key: string]: AbstractControl<any, any>;
@@ -42,24 +36,18 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
     super({
       _id: new FormControl(),
       object: new FormControl(),
-
-      // logo: new FormControl(),
       name: new FormControl(),
       businessCategory: new FormControl(),
       feature: new FormControl(),
       description: new FormControl(),
       active: new FormControl(),
-      createdAt: new FormControl(),
-      updatedAt: new FormControl(),
       socialNetworkLinks: new SocialNetworksForm(),
 
       bookingSettings: new BookingSettingsForm(),
-      // banner: new FormControl(),
       facilities: new FormControl(),
       addresses: new AddressesForm(),
       schedules: new SchedulesForm(),
       contacts: new ContactsForm(),
-      // gallery: new GalleryForm(),
     });
 
     this.initValidators();
@@ -86,6 +74,7 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
   private initValidators(): void {
     this.controls.name.setValidators([Validators.minLength(1), Validators.required]);
     this.controls.description.setValidators([Validators.maxLength(1000)]);
+    this.controls.businessCategory.setValidators([Validators.required]);
   }
 
   // public async setLogo(target: HTMLInputElement): Promise<void> {

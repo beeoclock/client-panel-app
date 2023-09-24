@@ -25,17 +25,25 @@ export class SidebarService {
   constructor() {
     this.breakpointObserver.observe(['(max-width: 639px)'])
       .subscribe((state: BreakpointState) => {
-        this.autoCollapse = state.matches;
+				this.autoCollapse = state.matches;
         this.setMarginToMainContainer = !state.matches;
+				this.toggleSidebar(!this.autoCollapse);
       });
   }
 
   public toggleSidebar(force?: boolean): void {
     this.containersStatus.mainContainerId = force ?? !this.containersStatus.mainContainerId;
     this.containersStatus.sidebarId = force ?? !this.containersStatus.sidebarId;
-    this.document.getElementById(this.sidebarId)?.classList?.toggle('translate-x-0', this.containersStatus.mainContainerId);
+		this.document.getElementById(this.sidebarId)?.classList?.toggle('md:translate-x-16', this.containersStatus.mainContainerId);
+		this.document.getElementById(this.sidebarId)?.classList?.toggle('translate-x-0', this.containersStatus.mainContainerId);
     if (this.setMarginToMainContainer) {
-      this.document.getElementById(this.mainContainerId)?.classList?.toggle('sm:ml-64', this.containersStatus.sidebarId);
+			if (this.containersStatus.sidebarId) {
+				this.document.getElementById(this.mainContainerId)?.classList?.add('sm:ml-80');
+				this.document.getElementById(this.mainContainerId)?.classList?.remove('sm:ml-16');
+			} else {
+				this.document.getElementById(this.mainContainerId)?.classList?.remove('sm:ml-80');
+				this.document.getElementById(this.mainContainerId)?.classList?.add('sm:ml-16');
+			}
     }
   }
 
@@ -48,6 +56,10 @@ export class SidebarService {
         this.toggleSidebar(false);
       }
     });
+
+		if (this.autoCollapse) {
+			this.toggleSidebar(false);
+		}
 
   }
 

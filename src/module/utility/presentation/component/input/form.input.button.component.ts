@@ -3,25 +3,27 @@ import {IsRequiredDirective} from "@utility/presentation/directives/is-required/
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
+import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({
   selector: 'form-input-button',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    IsRequiredDirective,
-    InvalidTooltipDirective,
-    ReactiveFormsModule,
-    NgIf,
-  ],
+	imports: [
+		IsRequiredDirective,
+		InvalidTooltipDirective,
+		ReactiveFormsModule,
+		NgIf,
+		DefaultLabelDirective,
+	],
   template: `
 
     <div class="flex items-center justify-between">
-      <label [for]="id" class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
+      <label [for]="id" default>
         {{ label }}
       </label>
       <div class="text-sm">
-        <ng-content select="[label-end]"></ng-content>
+        <ng-content select="[label-end]"/>
       </div>
     </div>
     <div class="mt-2 flex">
@@ -48,7 +50,7 @@ import {NgIf} from "@angular/common";
           border-beeColor-300
           placeholder:text-beeColor-400
           focus:border-beeColor-800
-          sm:text-sm sm:leading-6">
+          sm:leading-6">
       <button
         (click)="callback()"
         *ngIf="showButton"
@@ -59,7 +61,7 @@ import {NgIf} from "@angular/common";
           border
           border-l-0
           border-beeColor-300">
-        <ng-content select="[button-icon]"></ng-content>
+        <ng-content select="[button-icon]"/>
       </button>
     </div>
 
@@ -74,13 +76,13 @@ export class FormInputPasswordComponent {
   public id = 'utility-base-input';
 
   @Input()
-  public placeholder: string = '';
+  public placeholder = '';
 
   @Input()
-  public autocomplete: string = '';
+  public autocomplete = '';
 
   @Input()
-  public type: string = 'text';
+  public type = 'text';
 
   @Input()
   public callback!: (...args: unknown[]) => any;

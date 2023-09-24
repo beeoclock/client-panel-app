@@ -3,12 +3,13 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {ApprovalTimeEnum} from "@utility/domain/enum/approval-time.enum";
+import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({
   selector: 'select-approval-time-component',
   standalone: true,
   template: `
-    <label class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white" [for]="id">
+    <label default [for]="id">
       {{ 'keyword.capitalize.approvalTime' | translate }}
     </label>
     <div class="text-sm text-beeColor-500">
@@ -24,17 +25,18 @@ import {ApprovalTimeEnum} from "@utility/domain/enum/approval-time.enum";
     </ng-select>
   `,
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    NgSelectModule,
-    ReactiveFormsModule,
-    TranslateModule
-  ],
+	imports: [
+		NgSelectModule,
+		ReactiveFormsModule,
+		TranslateModule,
+		DefaultLabelDirective
+	],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectApprovalTimeComponent {
 
   @Input()
-  public id: string = '';
+  public id = '';
 
   @Input()
   public control = new FormControl();

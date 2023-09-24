@@ -1,71 +1,73 @@
 {
-  "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
-  "overrides": [
-    {
-      "files": [
-        "*.ts"
-      ],
-      "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
-      ],
-      "rules": {
-        "@angular-eslint/directive-selector": [
-          "error",
-          {
-            "type": "attribute",
-            "prefix": [
-              "app",
-              ""
-            ],
-            "style": "camelCase"
-          }
-        ],
-        "@angular-eslint/component-selector": [
-          "error",
-          {
-            "type": "element",
-            "prefix": [
-              "storybook",
-              "member",
-              "app",
-              "identity",
-              "utility",
-              "event",
-              "client",
-              "customer",
-              "service",
-              "user",
-              "specialist"
-            ],
-            "style": "kebab-case"
-          }
-        ],
-        "@angular-eslint/component-class-suffix": [
-          "error",
-          {
-            "suffixes": [
-              "Index",
-              "Page",
-              "Component"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended"
-      ],
-      "rules": {}
-    }
-  ]
+	"root": true,
+	"ignorePatterns": [
+		"projects/**/*"
+	],
+	"overrides": [
+		{
+			"files": [
+				"*.ts"
+			],
+			"extends": [
+				"eslint:recommended",
+				"plugin:@typescript-eslint/recommended",
+				"plugin:@angular-eslint/recommended",
+				"plugin:@angular-eslint/template/process-inline-templates"
+			],
+			"rules": {
+				"@angular-eslint/directive-selector": [
+					"error",
+					{
+						"type": "attribute",
+						"prefix": [
+							"app",
+							"boc"
+						],
+						"style": "camelCase"
+					}
+				],
+				"@angular-eslint/component-selector": [
+					"error",
+					{
+						"type": "element",
+						"prefix": [
+							"ion",
+							"member",
+							"app",
+							"bee",
+							"identity",
+							"utility",
+							"event",
+							"client",
+							"customer",
+							"service",
+							"user",
+							"specialist"
+						],
+						"style": "kebab-case"
+					}
+				],
+				"@angular-eslint/component-class-suffix": [
+					"error",
+					{
+						"suffixes": [
+							"Index",
+							"Page",
+							"Component"
+						]
+					}
+				]
+			}
+		},
+		{
+			"files": [
+				"*.html"
+			],
+			"extends": [
+				"plugin:@angular-eslint/template/recommended",
+				"plugin:@angular-eslint/template/accessibility"
+			],
+			"rules": {}
+		}
+	]
 }

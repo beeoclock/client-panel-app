@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
+	develop: true,
   emulator: false,
   proxy: false,
+	setDefaultValueToInputs: true,
   apiUrls: {
     panel: 'local.panel',
     identity: 'local.identity',
@@ -52,7 +54,10 @@ export const environment = {
       authorization: false,
       functions: false
     }
-  }
+  },
+	urls: {
+		publicPageOrigin: 'https://dev.beeoclock.com',
+	}
 };
 
 /*

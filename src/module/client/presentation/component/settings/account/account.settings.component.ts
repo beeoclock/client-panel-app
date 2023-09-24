@@ -7,7 +7,7 @@ import {Select} from "@ngxs/store";
 import {Observable} from "rxjs";
 import {AsyncPipe} from "@angular/common";
 import {
-  ModalChangePhoneNumberService
+	ModalChangePhoneNumberService
 } from "@client/presentation/component/settings/change-phone-number/modal-change-phone-number.service";
 
 @Component({
@@ -21,7 +21,7 @@ import {
     AsyncPipe
   ],
   template: `
-    <card>
+    <bee-card>
       <span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.account' | translate }}</span>
 
       <div class="flex justify-between items-center">
@@ -29,7 +29,7 @@ import {
           <div class="text-beeColor-400">{{ 'keyword.capitalize.name' | translate }}:</div>
           {{ accountName$ | async }}
         </div>
-        <button (click)="editAccountName()" class="rounded-full px-2 py-1 hover:bg-beeColor-200 transition">
+        <button type="button" (click)="editAccountName()" class="rounded-full px-2 py-1 hover:bg-beeColor-200 transition">
           <i class="bi bi-pencil"></i>
         </button>
       </div>
@@ -39,7 +39,7 @@ import {
           <div class="text-beeColor-400">{{ 'keyword.capitalize.phone' | translate }}:</div>
           {{ accountPhoneNumber$ | async }}
         </div>
-        <button (click)="editPhoneNumber()" class="rounded-full px-2 py-1 hover:bg-beeColor-200 transition">
+        <button type="button" (click)="editPhoneNumber()" class="rounded-full px-2 py-1 hover:bg-beeColor-200 transition">
           <i class="bi bi-pencil"></i>
         </button>
       </div>
@@ -49,12 +49,12 @@ import {
           <div class="text-beeColor-400">{{ 'keyword.capitalize.email' | translate }}:</div>
           {{ accountEmail$ | async }}
         </div>
-        <button disabled class="rounded-full px-2 py-1 hover:bg-beeColor-200 transition">
+        <button type="button" disabled class="rounded-full px-2 py-1 hover:bg-beeColor-200 transition">
           <i class="bi bi-pencil"></i>
         </button>
       </div>
 
-    </card>
+    </bee-card>
   `
 })
 export class AccountSettingsComponent {
@@ -75,11 +75,11 @@ export class AccountSettingsComponent {
   accountPhoneNumber$!: Observable<unknown>;
 
   public editAccountName(): void {
-    this.modalChangeNameService.openModal();
+    this.modalChangeNameService.openModal().then();
   }
 
   public editPhoneNumber(): void {
-    this.modalChangePhoneNumberService.openModal();
+    this.modalChangePhoneNumberService.openModal().then();
   }
 
 }

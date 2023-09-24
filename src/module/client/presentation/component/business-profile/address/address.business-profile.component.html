@@ -1,10 +1,9 @@
-<card>
+<bee-card>
 
   <strong class="dark:text-white">{{ 'client.profile.form.section.address.title' | translate }}</strong>
 
   <country-select-component
-    [control]="form.controls.country">
-  </country-select-component>
+    [control]="form.controls.country"/>
 
   <form-input
     id="business-profile-form-address-city-input"
@@ -38,4 +37,4 @@
     [control]="form.controls.streetAddressLineTwo"
     [label]="'keyword.capitalize.streetAddressLineTwo' | translate"/>
 
-</card>
+</bee-card>

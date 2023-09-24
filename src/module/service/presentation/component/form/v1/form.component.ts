@@ -62,14 +62,10 @@ import {ServiceActions} from "@service/state/service/service.actions";
       </li>
     </ol>
 
-    <service-form-step-wrapper-component [form]="form" section="services">
-    </service-form-step-wrapper-component>
-    <service-form-step-wrapper-component [form]="form" section="durations">
-    </service-form-step-wrapper-component>
-    <service-form-step-wrapper-component [form]="form" section="schedules">
-    </service-form-step-wrapper-component>
-    <service-form-step-wrapper-component [form]="form" section="members">
-    </service-form-step-wrapper-component>
+    <service-form-step-wrapper-component [form]="form" section="services"/>
+    <service-form-step-wrapper-component [form]="form" section="durations"/>
+    <service-form-step-wrapper-component [form]="form" section="schedules"/>
+    <service-form-step-wrapper-component [form]="form" section="members"/>
   `
 })
 export class FormComponent implements AfterViewInit, OnInit {

@@ -13,7 +13,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
   selector: 'utility-form-switch-active-block-component',
   standalone: true,
   template: `
-    <card>
+    <bee-card>
 
       <label class="relative inline-flex items-center justify-between cursor-pointer">
         <span
@@ -50,7 +50,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
         </div>
       </label>
 
-    </card>
+    </bee-card>
   `,
   imports: [
     NgIf,

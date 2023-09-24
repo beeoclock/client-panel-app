@@ -2,7 +2,7 @@ import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {NgClass, NgIf} from '@angular/common';
 
 @Component({
-  selector: 'card',
+  selector: 'bee-card',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [
@@ -11,7 +11,7 @@ import {NgClass, NgIf} from '@angular/common';
   ],
   template: `
     <div
-      class="bg-white dark:text-white dark:bg-beeDarkColor-800/50 border  rounded-2xl flex flex-col"
+      class="bg-white dark:text-white dark:bg-beeDarkColor-800/50 border rounded-2xl flex flex-col"
       [ngClass]="['gap-' + gap, 'w-' + width, 'p-' + padding, borderColor, 'dark:' + darkBorderColor]">
       <ng-content></ng-content>
     </div>
@@ -28,9 +28,9 @@ export class CardComponent {
   public width: 'auto' | '96' | string = 'auto';
 
   @Input()
-  public borderColor: string = 'border-beeColor-200';
+  public borderColor = 'border-beeColor-200';
 
   @Input()
-  public darkBorderColor: string = 'border-beeDarkColor-700';
+  public darkBorderColor = 'border-beeDarkColor-700';
 
 }

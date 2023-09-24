@@ -7,23 +7,25 @@ import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "thiis";
 
 type ResponseType = {
-  items: Member.IMember[];
-  totalSize: number;
+	items: Member.IMember[];
+	totalSize: number;
 };
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class ListMemberApiAdapter extends BaseApiAdapter<ResponseType> {
 
 
-  /**
-   * GET PAGED LIST BY FILTERS AND PARAMS
-   * @param params
-   */
-  @TypeGuard([is.object.not.empty])
-  public override execute$(params: TableState_BackendFormat) {
-    return this.httpClient.post<ResponseType>(memberEndpointEnum.paged, params);
-  }
+	/**
+	 * GET PAGED LIST BY FILTERS AND PARAMS
+	 * @param params
+	 */
+	@TypeGuard([is.object.not.empty])
+	public override execute$(params: TableState_BackendFormat) {
+		return this.httpClient.get<ResponseType>(memberEndpointEnum.paged, {
+			params: params as any,
+		});
+	}
 
 }

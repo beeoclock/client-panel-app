@@ -3,7 +3,6 @@ import {PriceForm} from '@service/presentation/form/service.form';
 
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ReactiveFormsModule} from '@angular/forms';
-import {InputDirective} from '@utility/presentation/directives/input/input.directive';
 import {NgForOf, NgIf} from '@angular/common';
 import {HasErrorDirective} from '@utility/presentation/directives/has-error/has-error.directive';
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
@@ -18,7 +17,6 @@ import {LanguageCodeEnum} from "@utility/domain/enum";
 
     NgSelectModule,
     ReactiveFormsModule,
-    InputDirective,
     HasErrorDirective,
     NgForOf,
     NgIf,

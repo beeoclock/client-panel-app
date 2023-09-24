@@ -1,9 +1,11 @@
-<card>
+<bee-card>
 
 	<div class="flex justify-between">
 		<strong class="dark:text-white">{{ 'client.profile.form.section.coverImage.title' | translate }}</strong>
-		<button class="text-beeColor-500 dark:text-beeColor-400 hover:text-beeColor-600 dark:hover:text-beeColor-500"
-						(click)="toggleInfo.toggle()">
+		<button
+			type="button"
+			class="text-beeColor-500 dark:text-beeColor-400 hover:text-beeColor-600 dark:hover:text-beeColor-500"
+			(click)="toggleInfo.toggle()">
 			<i class="bi" [class.bi-eye]="toggleInfo.isOff" [class.bi-eye-slash]="toggleInfo.isOn"></i>
 		</button>
 	</div>
@@ -11,6 +13,6 @@
 	<client-image-cover-image-business-profile-component
 		[mediaId]="mediaId"
 		[control]="control"
-		[showHit]="toggleInfo.isOn" />
+		[showHit]="toggleInfo.isOn"/>
 
-</card>
+</bee-card>

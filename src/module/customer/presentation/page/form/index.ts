@@ -3,7 +3,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
-import {ICustomer} from "@customer/domain";
+import {ICustomer, RICustomer} from "@customer/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {CustomerState} from "@customer/state/customer/customer.state";
 import {filter, firstValueFrom, Observable} from "rxjs";
@@ -19,76 +19,77 @@ import {CustomerForm} from "@customer/presentation/form";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 
 @Component({
-  selector: 'customer-form-page',
-  templateUrl: 'index.html',
-  encapsulation: ViewEncapsulation.None,
-    imports: [
-        ReactiveFormsModule,
-        DeleteButtonComponent,
-        HasErrorDirective,
-        RouterLink,
-        BackLinkComponent,
-        InvalidTooltipDirective,
-        TranslateModule,
-        FormInputComponent,
-        SwitchActiveBlockComponent,
-        FormTextareaComponent,
-        CardComponent,
-        PrimaryButtonDirective
-    ],
-  standalone: true
+	selector: 'customer-form-page',
+	templateUrl: 'index.html',
+	encapsulation: ViewEncapsulation.None,
+	imports: [
+		ReactiveFormsModule,
+		DeleteButtonComponent,
+		HasErrorDirective,
+		RouterLink,
+		BackLinkComponent,
+		InvalidTooltipDirective,
+		TranslateModule,
+		FormInputComponent,
+		SwitchActiveBlockComponent,
+		FormTextareaComponent,
+		CardComponent,
+		PrimaryButtonDirective
+	],
+	standalone: true
 })
 export default class Index implements OnInit {
 
-  // TODO move functions to store effects/actions
+	// TODO move functions to store effects/actions
 
-  private readonly store = inject(Store);
-  private readonly router = inject(Router);
-  private readonly activatedRoute = inject(ActivatedRoute);
+	private readonly store = inject(Store);
+	private readonly router = inject(Router);
+	private readonly activatedRoute = inject(ActivatedRoute);
 
-  public readonly form = new CustomerForm();
+	public readonly form = new CustomerForm();
 
-  @Select(CustomerState.itemData)
-  public itemData$!: Observable<ICustomer | undefined>;
-  private isEditMode = false;
+	@Select(CustomerState.itemData)
+	public itemData$!: Observable<ICustomer | undefined>;
+	private isEditMode = false;
 
-  public ngOnInit(): void {
-    this.detectItem();
-  }
+	public ngOnInit(): void {
+		this.detectItem();
+	}
 
-  public detectItem(): void {
-    firstValueFrom(this.activatedRoute.params.pipe(filter(({id}) => id?.length))).then(() => {
-      firstValueFrom(this.itemData$).then((result) => {
-        if (result) {
-          this.isEditMode = true;
-          this.form.patchValue(result);
-          this.form.updateValueAndValidity();
-        }
-      });
-    });
-  }
+	public detectItem(): void {
+		firstValueFrom(this.activatedRoute.params.pipe(filter(({id}) => id?.length))).then(() => {
+			firstValueFrom(this.itemData$).then((result) => {
+				if (result) {
+					this.isEditMode = true;
+					this.form.patchValue(result);
+					this.form.updateValueAndValidity();
+				}
+			});
+		});
+	}
 
-  public async save(): Promise<void> {
-    this.form.markAllAsTouched();
-    if (this.form.valid) {
-      this.form.disable();
-      this.form.markAsPending();
-      const redirectUri = ['../'];
-      if (this.isEditMode) {
-        await firstValueFrom(this.store.dispatch(new CustomerActions.UpdateItem(this.form.getRawValue() as ICustomer)));
-      } else {
-        await firstValueFrom(this.store.dispatch(new CustomerActions.CreateItem(this.form.getRawValue() as ICustomer)));
-        const item = await firstValueFrom(this.itemData$);
-        if (item) {
-          redirectUri.push(item._id);
-        }
-      }
-      await this.router.navigate(redirectUri, {
-        relativeTo: this.activatedRoute
-      });
-      this.form.enable();
-      this.form.updateValueAndValidity();
+	public async save(): Promise<void> {
+		this.form.markAllAsTouched();
+		if (this.form.valid) {
+			this.form.disable();
+			this.form.markAsPending();
+			const redirectUri = ['../'];
+			const value = this.form.getRawValue() as RICustomer;
+			if (this.isEditMode) {
+				await firstValueFrom(this.store.dispatch(new CustomerActions.UpdateItem(value)));
+			} else {
+				await firstValueFrom(this.store.dispatch(new CustomerActions.CreateItem(value)));
+				const item = await firstValueFrom(this.itemData$);
+				if (item) {
+					redirectUri.push(item._id);
+				}
+			}
+			await this.router.navigate(redirectUri, {
+				relativeTo: this.activatedRoute
+			});
+			this.form.enable();
+			this.form.updateValueAndValidity();
 
-    }
-  }
+		}
+	}
 }

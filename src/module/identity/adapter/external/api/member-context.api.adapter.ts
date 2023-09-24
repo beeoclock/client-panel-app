@@ -11,12 +11,14 @@ export class MemberContextApiAdapter {
 
   private readonly http = inject(HttpClient);
 
-  public postRelated$() {
-    return this.http.post<IList<IMember>>(memberContextEndpointEnum.postRelated, {
-      orderBy: 'createdAt',
-      orderDir: 'asc',
-      page: 1,
-      pageSize: 20
+  public related$() {
+    return this.http.get<IList<IMember>>(memberContextEndpointEnum.related, {
+      params: {
+				orderBy: 'createdAt',
+				orderDir: 'asc',
+				page: 1,
+				pageSize: 20
+			}
     });
   }
 

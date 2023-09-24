@@ -6,15 +6,6 @@ import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {Reactive} from "@utility/cdk/reactive";
 
 // TODO Move
-function hasScrollbar(element: HTMLElement) {
-  if (!element) return false;
-  return (
-    element.scrollWidth > element.clientWidth ||
-    element.scrollHeight > element.clientHeight
-  );
-}
-
-// TODO Move
 interface IDayItem {
   isPast: boolean;
   isToday: boolean;
@@ -56,7 +47,7 @@ export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsIn
 
       <!-- Navigation Buttons -->
       <div class="flex items-center justify-between gap-1">
-        <button (click)="prevPackOfDates()" class="px-3 py-2 hover:bg-beeColor-300 dark:hover:bg-beeDarkColor-800 cursor-pointer rounded-2xl">
+        <button type="button" (click)="prevPackOfDates()" class="px-3 py-2 hover:bg-beeColor-300 dark:hover:bg-beeDarkColor-800 cursor-pointer rounded-2xl">
           <i class="bi bi-chevron-left"></i>
         </button>
 
@@ -74,6 +65,7 @@ export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsIn
             </span>
 
               <button
+								type="button"
                 (click)="selectDateItem(dayItem.datetime)"
                 [ngClass]="getClassList(isSelected(dayItem.datetime))"
                 [disabled]="dayItem.isPast"
@@ -91,7 +83,7 @@ export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsIn
           </ng-container>
         </div>
 
-        <button (click)="nextPackOfDates()" class="px-3 py-2 hover:bg-beeColor-300 dark:hover:bg-beeDarkColor-800 cursor-pointer rounded-2xl">
+        <button type="button" (click)="nextPackOfDates()" class="px-3 py-2 hover:bg-beeColor-300 dark:hover:bg-beeDarkColor-800 cursor-pointer rounded-2xl">
           <i class="bi bi-chevron-right"></i>
         </button>
       </div>
@@ -139,9 +131,6 @@ export class SelectDateComponent extends Reactive implements OnInit, AfterViewIn
   }
 
   public detectAmountOfDaySlots(): void {
-    // TODO use code in console.log to detect how many day slots can be represent in present view!
-    // console.log(hasScrollbar(this.daySlotsContainer.nativeElement));
-
     // Detect amount of day slots
     this.amountOfDaySlotsInContainer = Math.floor(this.daySlotsContainer.nativeElement.clientWidth / (60 + 4));
   }

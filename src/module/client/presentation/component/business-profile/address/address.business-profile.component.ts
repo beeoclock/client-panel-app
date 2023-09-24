@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {Component, Input, ViewEncapsulation} from "@angular/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgIf} from "@angular/common";
@@ -8,26 +8,22 @@ import {AddressForm} from "@client/presentation/form/address.form";
 import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/country.component";
 
 @Component({
-  selector: 'client-address-business-profile-component',
-  templateUrl: 'address.business-profile.component.html',
-  encapsulation: ViewEncapsulation.None,
-  imports: [
-    CardComponent,
-    TranslateModule,
-    NgIf,
-    DragAndDropDirective,
-    FormInputComponent,
-    PriceAndCurrencyComponent
-  ],
-  standalone: true
+	selector: 'client-address-business-profile-component',
+	templateUrl: 'address.business-profile.component.html',
+	encapsulation: ViewEncapsulation.None,
+	imports: [
+		CardComponent,
+		TranslateModule,
+		NgIf,
+		DragAndDropDirective,
+		FormInputComponent,
+		PriceAndCurrencyComponent
+	],
+	standalone: true
 })
-export class AddressBusinessProfileComponent implements OnInit {
+export class AddressBusinessProfileComponent {
 
-  @Input()
-  public form = new AddressForm();
-
-  public ngOnInit(): void {
-
-  }
+	@Input()
+	public form = new AddressForm();
 
 }

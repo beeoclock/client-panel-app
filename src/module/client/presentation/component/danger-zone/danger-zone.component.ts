@@ -1,7 +1,7 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {
-  DeleteBusinessClientClientAdapter
+	DeleteBusinessClientClientAdapter
 } from "@identity/adapter/external/module/delete-business-client.client.adapter";
 import {AlertController} from "@ionic/angular";
 import {Store} from "@ngxs/store";
@@ -21,7 +21,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
     TranslateModule
   ],
   template: `
-    <card borderColor="border-red-500" darkBorderColor="border-red-500">
+    <bee-card borderColor="border-red-500" darkBorderColor="border-red-500">
       <span class="text-2xl font-bold text-beeColor-500">{{ 'danger-zone.title' | translate }}</span>
 
       <!--      <h5 class="fs-0">Transfer Ownership</h5>-->
@@ -37,12 +37,12 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
       </p>
 
       <div>
-        <button class="w-auto px-4 py-2 rounded-2xl border border-red-500 text-red-500 hover:bg-red-100"
+        <button type="button" class="w-auto px-4 py-2 rounded-2xl border border-red-500 text-red-500 hover:bg-red-100"
                 (click)="deleteBusinessClient()">
           {{ 'danger-zone.button.delete.label' | translate }}
         </button>
       </div>
-    </card>
+    </bee-card>
   `
 })
 export class DangerZoneComponent {
@@ -90,8 +90,6 @@ export class DangerZoneComponent {
         {
           text: this.translateService.instant('keyword.capitalize.no'),
           role: 'cancel',
-          handler: () => {
-          },
         },
       ],
     });

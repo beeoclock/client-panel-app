@@ -19,185 +19,163 @@ import {AppActions} from "@utility/state/app/app.actions";
 export type IEventState = IBaseState<Event.IEvent>;
 
 @State<IEventState>({
-  name: 'event',
-  defaults: baseDefaults<Event.IEvent>()
+	name: 'event',
+	defaults: baseDefaults<Event.IEvent>()
 })
 @Injectable()
 export class EventState extends BaseState<Event.IEvent> {
 
-  protected override readonly archive = inject(ArchiveEventApiAdapter);
-  protected override readonly create = inject(CreateEventApiAdapter);
-  protected override readonly update = inject(UpdateEventApiAdapter);
-  protected override readonly item = inject(ItemEventApiAdapter);
-  protected override readonly remove = inject(RemoveEventApiAdapter);
-  protected override readonly list = inject(ListEventApiAdapter);
+	protected override readonly archive = inject(ArchiveEventApiAdapter);
+	protected override readonly create = inject(CreateEventApiAdapter);
+	protected override readonly update = inject(UpdateEventApiAdapter);
+	protected override readonly item = inject(ItemEventApiAdapter);
+	protected override readonly remove = inject(RemoveEventApiAdapter);
+	protected override readonly list = inject(ListEventApiAdapter);
 
-  // Change status
-  protected readonly doneStatusEventApiAdapter = inject(DoneStatusEventApiAdapter);
-  protected readonly requestedStatusEventApiAdapter = inject(RequestedStatusEventApiAdapter);
-  protected readonly cancelledStatusEventApiAdapter = inject(CancelledStatusEventApiAdapter);
-  protected readonly bookedStatusEventApiAdapter = inject(BookedStatusEventApiAdapter);
+	// Change status
+	protected readonly doneStatusEventApiAdapter = inject(DoneStatusEventApiAdapter);
+	protected readonly requestedStatusEventApiAdapter = inject(RequestedStatusEventApiAdapter);
+	protected readonly cancelledStatusEventApiAdapter = inject(CancelledStatusEventApiAdapter);
+	protected readonly bookedStatusEventApiAdapter = inject(BookedStatusEventApiAdapter);
 
-  constructor() {
-    super(
-      EventActions,
-      {
-        tableStates: 'event.cache.tableStates',
-        items: 'event.cache.items'
-      }
-    );
-  }
+	constructor() {
+		super(
+			EventActions,
+			{
+				tableStates: 'event.cache.tableStates',
+				items: 'event.cache.items'
+			}
+		);
+	}
 
-  @Action(EventActions.Init)
-  public override async init(ctx: StateContext<IEventState>): Promise<void> {
-    await super.init(ctx);
-  }
+	@Action(EventActions.Init)
+	public override async init(ctx: StateContext<IEventState>): Promise<void> {
+		await super.init(ctx);
+	}
 
-  @Action(EventActions.InitDefaultsFromCache)
-  public override async InitDefaultsFromCache(ctx: StateContext<IEventState>): Promise<void> {
-    await super.InitDefaultsFromCache(ctx);
-  }
+	@Action(EventActions.InitDefaultsFromCache)
+	public override async InitDefaultsFromCache(ctx: StateContext<IEventState>): Promise<void> {
+		await super.InitDefaultsFromCache(ctx);
+	}
 
-  @Action(EventActions.ClearTableCache)
-  public override async ClearTableCache(ctx: StateContext<IEventState>): Promise<void> {
-    await super.ClearTableCache(ctx);
-  }
+	@Action(EventActions.ClearTableCache)
+	public override async ClearTableCache(ctx: StateContext<IEventState>): Promise<void> {
+		await super.ClearTableCache(ctx);
+	}
 
-  @Action(EventActions.ClearItemCache)
-  public override async ClearItemCache(ctx: StateContext<IEventState>): Promise<void> {
-    await super.ClearItemCache(ctx);
-  }
+	@Action(EventActions.ClearItemCache)
+	public override async ClearItemCache(ctx: StateContext<IEventState>): Promise<void> {
+		await super.ClearItemCache(ctx);
+	}
 
-  @Action(EventActions.ClearTableCacheAndGetList)
-  public override async ClearTableCacheAndGetList(ctx: StateContext<IEventState>): Promise<void> {
-    await super.ClearTableCacheAndGetList(ctx);
-  }
+	@Action(EventActions.ClearTableCacheAndGetList)
+	public override async ClearTableCacheAndGetList(ctx: StateContext<IEventState>): Promise<void> {
+		await super.ClearTableCacheAndGetList(ctx);
+	}
 
-  @Action(EventActions.ClearItemCacheAndGetItem)
-  public override async ClearItemCacheAndGetItem(ctx: StateContext<IEventState>): Promise<void> {
-    await super.ClearItemCacheAndGetItem(ctx);
-  }
+	@Action(EventActions.ClearItemCacheAndGetItem)
+	public override async ClearItemCacheAndGetItem(ctx: StateContext<IEventState>): Promise<void> {
+		await super.ClearItemCacheAndGetItem(ctx);
+	}
 
-  @Action(EventActions.UpdateFilters)
-  public override updateFilters(ctx: StateContext<IEventState>, action: EventActions.UpdateFilters) {
-    super.updateFilters(ctx, action);
-  }
+	@Action(EventActions.UpdateFilters)
+	public override updateFilters(ctx: StateContext<IEventState>, action: EventActions.UpdateFilters) {
+		super.updateFilters(ctx, action);
+	}
 
-  @Action(EventActions.UpdateTableState)
-  public override  updateTableState(ctx: StateContext<IEventState>, action: EventActions.UpdateTableState) {
-    super.updateTableState(ctx, action);
-  }
+	@Action(EventActions.UpdateTableState)
+	public override updateTableState(ctx: StateContext<IEventState>, action: EventActions.UpdateTableState) {
+		super.updateTableState(ctx, action);
+	}
 
-  @Action(EventActions.GetItem)
-  public override async getItemFromCacheOrApi(ctx: StateContext<IEventState>, action: EventActions.GetItem): Promise<void> {
-    await super.getItemFromCacheOrApi(ctx, action);
-  }
+	@Action(EventActions.GetItem)
+	public override async getItemFromCacheOrApi(ctx: StateContext<IEventState>, action: EventActions.GetItem): Promise<void> {
+		await super.getItemFromCacheOrApi(ctx, action);
+	}
 
-  @Action(EventActions.DeleteItem)
-  public override async deleteItem(ctx: StateContext<IEventState>, action: EventActions.DeleteItem) {
-    await super.deleteItem(ctx, action);
-  }
+	@Action(EventActions.DeleteItem)
+	public override async deleteItem(ctx: StateContext<IEventState>, action: EventActions.DeleteItem) {
+		await super.deleteItem(ctx, action);
+	}
 
-  @Action(EventActions.CreateItem)
-  public override async createItem(ctx: StateContext<IEventState>, action: EventActions.CreateItem): Promise<void> {
-    await super.createItem(ctx, action);
-  }
+	@Action(EventActions.CreateItem)
+	public override async createItem(ctx: StateContext<IEventState>, action: EventActions.CreateItem): Promise<void> {
+		await super.createItem(ctx, action);
+	}
 
-  @Action(EventActions.UpdateItem)
-  public override async updateItem(ctx: StateContext<IEventState>, action: EventActions.UpdateItem): Promise<void> {
-    await super.updateItem(ctx, action);
-  }
+	@Action(EventActions.UpdateItem)
+	public override async updateItem(ctx: StateContext<IEventState>, action: EventActions.UpdateItem): Promise<void> {
+		await super.updateItem(ctx, action);
+	}
 
-  @Action(EventActions.GetList)
-  public override async getList(ctx: StateContext<IEventState>): Promise<void> {
-    await super.getList(ctx, (queryFilters: any, filters: any) => {
+	@Action(EventActions.GetList)
+	public override async getList(ctx: StateContext<IEventState>): Promise<void> {
+		await super.getList(ctx);
 
-      const {search} = filters;
+	}
 
-
-      if (search) {
-        queryFilters['$or'] = [
-          {
-            title: {
-              $regex: search ?? '',
-              $options: "i"
-            }
-          },
-          {
-            description: {
-              $regex: search ?? '',
-              $options: "i"
-            }
-          },
-        ];
-      }
-
-    });
-
-  }
-
-  // Statuses
+	// Statuses
 
 
-  @Action(EventActions.DoneStatus)
-  public async coneStatus(ctx: StateContext<IEventState>, {payload}: EventActions.DoneStatus): Promise<void> {
-    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
-    await this.doneStatusEventApiAdapter.executeAsync(payload._id);
+	@Action(EventActions.DoneStatus)
+	public async coneStatus(ctx: StateContext<IEventState>, {payload}: EventActions.DoneStatus): Promise<void> {
+		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
+		await this.doneStatusEventApiAdapter.executeAsync(payload._id);
 
-    await firstValueFrom(ctx.dispatch(new EventActions.ClearTableCache()));
-    await firstValueFrom(ctx.dispatch(new EventActions.ClearItemCache()));
+		await firstValueFrom(ctx.dispatch(new EventActions.ClearTableCache()));
+		await firstValueFrom(ctx.dispatch(new EventActions.ClearItemCache()));
 
-    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
-  }
+		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
+	}
 
-  @Action(EventActions.BookedStatus)
-  public async cookedStatus(ctx: StateContext<IEventState>, {payload}: EventActions.BookedStatus): Promise<void> {
-    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
-    await this.bookedStatusEventApiAdapter.executeAsync(payload._id);
+	@Action(EventActions.BookedStatus)
+	public async cookedStatus(ctx: StateContext<IEventState>, {payload}: EventActions.BookedStatus): Promise<void> {
+		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
+		await this.bookedStatusEventApiAdapter.executeAsync(payload._id);
 
-    await firstValueFrom(ctx.dispatch(new EventActions.ClearTableCache()));
-    await firstValueFrom(ctx.dispatch(new EventActions.ClearItemCache()));
+		await firstValueFrom(ctx.dispatch(new EventActions.ClearTableCache()));
+		await firstValueFrom(ctx.dispatch(new EventActions.ClearItemCache()));
 
-    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
-  }
+		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
+	}
 
-  @Action(EventActions.RequestedStatus)
-  public async requestedStatus(ctx: StateContext<IEventState>, {payload}: EventActions.RequestedStatus): Promise<void> {
-    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
-    await this.requestedStatusEventApiAdapter.executeAsync(payload._id);
+	@Action(EventActions.RequestedStatus)
+	public async requestedStatus(ctx: StateContext<IEventState>, {payload}: EventActions.RequestedStatus): Promise<void> {
+		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
+		await this.requestedStatusEventApiAdapter.executeAsync(payload._id);
 
-    await firstValueFrom(ctx.dispatch(new EventActions.ClearTableCache()));
-    await firstValueFrom(ctx.dispatch(new EventActions.ClearItemCache()));
+		await firstValueFrom(ctx.dispatch(new EventActions.ClearTableCache()));
+		await firstValueFrom(ctx.dispatch(new EventActions.ClearItemCache()));
 
-    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
-  }
+		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
+	}
 
-  @Action(EventActions.CancelledStatus)
-  public async cancelledStatus(ctx: StateContext<IEventState>, {payload}: EventActions.CancelledStatus): Promise<void> {
-    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
-    await this.cancelledStatusEventApiAdapter.executeAsync(payload._id);
+	@Action(EventActions.CancelledStatus)
+	public async cancelledStatus(ctx: StateContext<IEventState>, {payload}: EventActions.CancelledStatus): Promise<void> {
+		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
+		await this.cancelledStatusEventApiAdapter.executeAsync(payload._id);
 
-    await firstValueFrom(ctx.dispatch(new EventActions.ClearTableCache()));
-    await firstValueFrom(ctx.dispatch(new EventActions.ClearItemCache()));
+		await firstValueFrom(ctx.dispatch(new EventActions.ClearTableCache()));
+		await firstValueFrom(ctx.dispatch(new EventActions.ClearItemCache()));
 
-    await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
-  }
+		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
+	}
 
-  // Selectors
+	// Selectors
 
-  @Selector()
-  public static itemData(state: IEventState) {
-    return state.item.data;
-  }
+	@Selector()
+	public static itemData(state: IEventState) {
+		return state.item.data;
+	}
 
-  @Selector()
-  public static tableStateItems(state: IEventState) {
-    return state.tableState.items;
-  }
+	@Selector()
+	public static tableStateItems(state: IEventState) {
+		return state.tableState.items;
+	}
 
-  @Selector()
-  public static tableState(state: IEventState) {
-    return state.tableState;
-  }
+	@Selector()
+	public static tableState(state: IEventState) {
+		return state.tableState;
+	}
 
 }

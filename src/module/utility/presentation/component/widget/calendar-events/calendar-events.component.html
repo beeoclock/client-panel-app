@@ -1,0 +1,57 @@
+<div
+	class="w-full rounded-2xl border dark:bg-neutral-800 bg-white max-h-[calc(100vh-4rem)] md:max-h-[calc(100vh-6rem)]">
+	<ion-datetime [firstDayOfWeek]="1" [formControl]="form.controls.start" mode="ios" presentation="date"
+								class="rounded-2xl"
+								size="full">
+	</ion-datetime>
+	<div class="flex justify-end">
+		<!--		<button type="button" primaryLink (click)="toDay()">-->
+		<!--			{{ 'keyword.capitalize.today' | translate }}-->
+		<!--		</button>-->
+		<ion-item lines="none" class="rounded-2xl">
+			<ion-select-event-status [control]="form.controls.status"/>
+		</ion-item>
+	</div>
+	<div
+		class="flex flex-col overflow-y-scroll border-t max-h-[calc(100vh-(28.625rem+49px))] md:max-h-[calc(100vh-(30.625rem+49px))]">
+		<utility-loader *ngIf="loading.isOn"/>
+		<ng-template [ngIf]="loading.isOff">
+			<ng-template [ngIf]="items.length">
+				<a
+					*ngFor="let item of items"
+					[routerLink]="'/event/' + item._id"
+					[queryParams]="{returnUrl}"
+					class="p-4 hover:bg-beeColor-100 border-t first:border-0">
+					<div class="flex items-center gap-3 justify-between">
+						<div class="text-xs font-light leading-3 text-neutral-500 dark:text-neutral-300">
+							{{ item.start | dynamicDate: 'hhMM' }}
+						</div>
+						<div eventStatusStyle mode="text" [status]="item.status"></div>
+					</div>
+					<div class="text-lg font-medium leading-5 text-neutral-800 dark:text-neutral-100 mt-2">
+						{{ item?.services?.[0]?.languageVersions?.[0]?.title }}
+					</div>
+					<div class="text-sm pt-2 leading-none text-neutral-600 dark:text-neutral-300">
+						<div *ngFor="let attendant of item.attendees">
+							{{ attendant.customer.firstName }} {{ attendant.customer.lastName }}
+						</div>
+					</div>
+				</a>
+			</ng-template>
+			<ng-template [ngIf]="!items.length">
+				<div class="text-center p-4 text-beeColor-500">
+					{{ 'keyword.capitalize.thereArentAnyEvents' | translate: ({datetime: dynamicDate(form.controls.start.value)}) }}
+				</div>
+			</ng-template>
+		</ng-template>
+	</div>
+
+	<button
+		type="button"
+		class="border-t p-3 w-full text-blue-500 hover:bg-blue-100 rounded-b-2xl transition-all"
+		routerLink="/event/form"
+		[queryParams]="{returnUrl}">
+		<i class="bi bi-plus-lg"></i>
+		{{ 'keyword.capitalize.add-event' | translate }}
+	</button>
+</div>

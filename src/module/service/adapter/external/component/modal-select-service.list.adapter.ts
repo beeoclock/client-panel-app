@@ -3,57 +3,57 @@ import {TableState} from "@utility/domain/table.state";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {ListServiceApiAdapter} from "@service/adapter/external/api/list.service.api.adapter";
 import * as Service from "@service/domain";
+import {ActiveEnum} from "@utility/domain/enum";
+import {NGXLogger} from "ngx-logger";
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class ModalSelectServiceListAdapter {
 
-  public readonly listServiceApiAdapter = inject(ListServiceApiAdapter);
-  public readonly tableState = new TableState<Service.IService>();
-  public readonly loading$ = new BooleanStreamState(false);
+	private readonly logger = inject(NGXLogger);
+	public readonly listServiceApiAdapter = inject(ListServiceApiAdapter);
+	public readonly tableState = new TableState<Service.IService>().setFilters({
+		active: ActiveEnum.YES
+	});
+	public readonly loading$ = new BooleanStreamState(false);
 
-  public resetTableState(): void {
+	public resetTableState(): void {
 
-    this.tableState.page = 1;
-    this.tableState.total = 0;
-    this.tableState.items = [];
+		this.tableState.page = 1;
+		this.tableState.total = 0;
+		this.tableState.items = [];
 
-  }
+	}
 
-  /**
-   * GET PAGE
-   * Find data in tabelState
-   */
-  public async getPageAsync(): Promise<void> {
+	/**
+	 * GET PAGE
+	 * Find data in tabelState
+	 */
+	public async getPageAsync(): Promise<void> {
 
-    if (this.loading$.isOn) {
-      return;
-    }
+		if (this.loading$.isOn) {
+			return;
+		}
 
-    this.loading$.switchOn();
+		this.loading$.switchOn();
 
-    try {
+		try {
 
-      const filters: any = {};
+			const data = await this.listServiceApiAdapter.executeAsync(this.tableState.toBackendFormat());
 
-      const data = await this.listServiceApiAdapter.executeAsync({
-        ...this.tableState.toBackendFormat(),
-        filters
-      });
+			// Increment page
+			this.tableState.page += 1;
 
-      // Increment page
-      this.tableState.page += 1;
+			// Add items to tableState
+			this.tableState.items = ([] as Service.IService[]).concat(this.tableState.items, data.items);
+			this.tableState.total = data.totalSize;
 
-      // Add items to tableState
-      this.tableState.items = ([] as Service.IService[]).concat(this.tableState.items, data.items);
-      this.tableState.total = data.totalSize;
+		} catch (e) {
+			this.logger.error(e);
+		}
 
-    } catch (e) {
-      console.error(e);
-    }
+		this.loading$.switchOff();
 
-    this.loading$.switchOff();
-
-  }
+	}
 }

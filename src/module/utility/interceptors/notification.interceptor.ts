@@ -1,4 +1,12 @@
-import {HttpInterceptorFn} from "@angular/common/http";
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
+import {inject, Injectable, Injector} from "@angular/core";
+import {ToastController} from "@ionic/angular";
+import {Endpoint} from "@utility/domain/endpoint";
+import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
+import {EndpointInterface} from "@utility/domain/interface/i.endpoint/i.endpoint-replace";
+import {TranslateService} from "@ngx-translate/core";
+import {Observable, tap} from "rxjs";
+import {NGXLogger} from "ngx-logger";
 
 
 /**
@@ -8,8 +16,74 @@ import {HttpInterceptorFn} from "@angular/common/http";
  * @param request
  * @param next
  */
-export const NotificationInterceptor: HttpInterceptorFn = (request, next) => {
+@Injectable()
+export class NotificationInterceptor implements HttpInterceptor {
 
-  return next(request);
+	private readonly logger = inject(NGXLogger);
 
+	constructor(
+		private readonly injector: Injector,
+	) {
+		this.logger.info(NotificationInterceptor.name, 'constructor')
+	}
+
+	public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+		// log using translate service
+		return next.handle(request).pipe(
+			tap(() => {
+
+				const endpoint = Endpoint.endpointMap[request.method as RequestMethodEnum].get(request.url) ?? {} as EndpointInterface;
+
+				if (endpoint) {
+
+					const {after} = endpoint;
+
+					if (after) {
+
+						const {success} = after;
+
+						if (success) {
+
+							const {notification} = success;
+
+							if (notification) {
+
+								const translateService = this.injector.get(TranslateService);
+								const toastController = this.injector.get(ToastController);
+								const {execute} = notification;
+
+								if (execute) {
+
+									const {title: header, message} = execute(translateService);
+
+									toastController.create({
+										header,
+										message,
+										duration: 10_000,
+										buttons: [
+											{
+												text: 'Close',
+												role: 'cancel',
+											},
+										],
+										position: 'top',
+										color: 'success',
+									}).then((toast) => {
+										toast.present().then();
+									});
+
+								}
+
+							}
+
+						}
+
+					}
+
+				}
+
+			})
+		);
+	}
 }

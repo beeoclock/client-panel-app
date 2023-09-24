@@ -1,8 +1,8 @@
 import {IPrice} from "@service/domain";
 
 export interface IDurationVersion {
-  break: string;
-  duration: string;
+  breakInSeconds: number;
+  durationInSeconds: number;
   prices: IPrice[];
 }
 

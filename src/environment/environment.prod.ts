@@ -1,8 +1,9 @@
 export const environment = {
-  // firebase: {}, // TODO init this data of central panel which will help administrators to open their panels.
   production: true,
+	develop: false,
   emulator: false,
   proxy: false,
+	setDefaultValueToInputs: false,
   apiUrls: {
     panel: 'https://api.beeoclock.com/panel',
     identity: 'https://api.beeoclock.com/identity',
@@ -49,5 +50,8 @@ export const environment = {
       authorization: false,
       functions: false
     }
-  }
+  },
+	urls: {
+		publicPageOrigin: 'https://beeoclock.com',
+	}
 };

@@ -4,7 +4,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {IMember} from "@member/domain";
 import {
-  ModalMembersFormComponent
+	ModalMembersFormComponent
 } from "@service/presentation/component/form/v1/members/modal.employees.form.component";
 import {ListMemberApiAdapter} from "@member/adapter/external/api/list.member.api.adapter";
 
@@ -33,7 +33,6 @@ import {ListMemberApiAdapter} from "@member/adapter/external/api/list.member.api
           class="cursor-pointer"
           placeholder="Select members"
           bindLabel="_id"
-          (scrollToEnd)="scrollToEnd($event)"
           [closeOnSelect]="false"
           [loading]="control.pending"
           [disabled]="control.pending"
@@ -46,10 +45,10 @@ import {ListMemberApiAdapter} from "@member/adapter/external/api/list.member.api
           <ng-template ng-header-tmp>
 
             <div>
-              <button class="text-blue-600 mx-2"
+              <button type="button" class="text-blue-600 mx-2"
                       (click)="onSelectAll()">Select All
               </button>
-              <button class="text-blue-600 mx-2"
+              <button type="button" class="text-blue-600 mx-2"
                       (click)="onClearAll()">Clear All
               </button>
             </div>
@@ -100,10 +99,6 @@ export class MembersFormComponent implements AfterViewInit {
 
   public onClearAll() {
     this.control.patchValue([]);
-  }
-
-  public scrollToEnd($event: any) {
-    console.log($event);
   }
 
   public getLabel(item: IMember): string {

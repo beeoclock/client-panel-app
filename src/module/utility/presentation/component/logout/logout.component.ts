@@ -1,15 +1,15 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
+import {RouterLink} from '@angular/router';
 import {TranslateModule} from "@ngx-translate/core";
-import {Auth} from "@angular/fire/auth";
+import {LogoutService} from "@utility/presentation/component/logout/logout.service";
 
 @Component({
-  selector: 'utility-logout-component',
-  standalone: true,
-  template: `
-    <button
-      (click)="logout()"
-      class="
+	selector: 'utility-logout-component',
+	standalone: true,
+	template: `
+		<button
+			(click)="logout()"
+			class="
         text-red-600
         hover:bg-red-100
         focus:ring-4
@@ -29,26 +29,19 @@ import {Auth} from "@angular/fire/auth";
         <span class="me-2">
           <i class="bi bi-box-arrow-left"></i>
         </span>
-      {{ 'keyword.capitalize.logout' | translate }}
-    </button>
-  `,
-  imports: [
-    RouterLink,
-    TranslateModule
-  ],
-  encapsulation: ViewEncapsulation.None
+			{{ 'keyword.capitalize.logout' | translate }}
+		</button>
+	`,
+	imports: [
+		RouterLink,
+		TranslateModule
+	],
+	encapsulation: ViewEncapsulation.None
 })
 export class LogoutComponent {
-  public readonly router = inject(Router);
-  public readonly auth = inject(Auth);
+	public readonly logoutService = inject(LogoutService);
 
-  public logout(): void {
-    this.auth.signOut()
-      .then(() => {
-        this.router.navigate(['/'])
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+	public logout(): void {
+		this.logoutService.logout();
+	}
 }

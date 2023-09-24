@@ -9,6 +9,7 @@ import {SpecialistsComponent} from "@service/presentation/component/form/v2/pric
 import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/price-and-currency.component";
 import {InputBadgeComponent} from "@utility/presentation/component/input/input-badge.component";
 import {PriceForm} from "@service/presentation/form/service.form";
+import {TimeInputComponent} from "@utility/presentation/component/input/time.input.component";
 
 @Component({
   selector: 'service-form-price-block-component',
@@ -16,36 +17,32 @@ import {PriceForm} from "@service/presentation/form/service.form";
   template: `
     <div class="flex flex-col gap-3">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <form-badge-input
-          mask="00:00"
-          [control]="durationControl"
-          placeholder="00:00"
-          [label]="'keyword.capitalize.duration' | translate"
-          [badge]="'keyword.capitalize.priceTimeFormatPrompt' | translate">
-        </form-badge-input>
+				<time-input-component
+					[utc]="false"
+					[label]="'keyword.capitalize.duration' | translate"
+					[control]="durationInSecondsControl"/>
         <price-and-currency-component
           [priceControl]="priceForm.controls.price"
-          [currencyControl]="priceForm.controls.currency">
-        </price-and-currency-component>
+          [currencyControl]="priceForm.controls.currency"/>
       </div>
-      <!--      <service-form-prices-specialists-component [label]="'Specialists' | translate"></service-form-prices-specialists-component>-->
     </div>
   `,
-  imports: [
-    NgIf,
-    TranslateModule,
-    FormInputComponent,
-    FormTextareaComponent,
-    TagsComponent,
-    SpecialistsComponent,
-    PriceAndCurrencyComponent,
-    InputBadgeComponent,
-  ]
+	imports: [
+		NgIf,
+		TranslateModule,
+		FormInputComponent,
+		FormTextareaComponent,
+		TagsComponent,
+		SpecialistsComponent,
+		PriceAndCurrencyComponent,
+		InputBadgeComponent,
+		TimeInputComponent,
+	]
 })
 export class PriceBlockComponent {
 
   @Input()
-  public durationControl = new FormControl();
+  public durationInSecondsControl = new FormControl();
 
   @Input()
   public priceForm = new PriceForm();

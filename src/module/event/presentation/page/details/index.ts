@@ -12,7 +12,7 @@ import {EventState} from "@event/state/event/event.state";
 import {IEvent} from "@event/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
+import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {CardComponent} from "@utility/presentation/component/card/card.component";

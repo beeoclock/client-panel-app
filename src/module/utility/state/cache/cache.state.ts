@@ -3,6 +3,7 @@ import {Action, State, StateContext} from "@ngxs/store";
 import {CacheActions} from "@utility/state/cache/cache.actions";
 import {NgxIndexedDBService} from "ngx-indexed-db";
 import {firstValueFrom} from "rxjs";
+import {NGXLogger} from "ngx-logger";
 
 export interface ICacheState {
   [key: string]: any;
@@ -16,6 +17,7 @@ export interface ICacheState {
 export class CacheState {
 
   private readonly ngxIndexedDBService = inject(NgxIndexedDBService);
+  private readonly logger = inject(NGXLogger);
 
   @Action(CacheActions.Init)
   public async init(
@@ -41,7 +43,7 @@ export class CacheState {
           [payload.key]: JSON.parse(payload.value)
         });
       } catch (e) {
-        console.error(e);
+        this.logger.error(e);
       }
 
     } else {
@@ -85,7 +87,7 @@ export class CacheState {
           [payload.key]: []
         });
       } catch (e) {
-        console.error(e);
+				this.logger.error(e);
       }
 
     } else {

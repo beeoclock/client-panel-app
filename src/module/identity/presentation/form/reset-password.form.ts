@@ -17,7 +17,7 @@ export default class ResetPasswordForm extends FormGroup<IResetPassword> {
   }
 
   private initValue(): void {
-    if (environment.firebase.emulator) {
+    if (environment.setDefaultValueToInputs) {
       this.controls.email.setValue('test.test@example.com');
     }
   }

@@ -9,7 +9,7 @@ export namespace CacheActions {
     public static readonly type = '[Cache State] Set';
 
     constructor(
-      public payload: {
+      public readonly payload: {
         strategy: 'indexedDB' | Storage;
         key: string;
         value: string;
@@ -22,7 +22,7 @@ export namespace CacheActions {
     public static readonly type = '[Cache State] Get';
 
     constructor(
-      public payload: {
+      public readonly payload: {
         strategy: 'indexedDB' | Storage;
         key: string;
       },
@@ -34,7 +34,7 @@ export namespace CacheActions {
     public static readonly type = '[Cache State] Remove';
 
     constructor(
-      public payload: {
+      public readonly payload: {
         strategy: 'indexedDB' | Storage;
         key: string;
       },

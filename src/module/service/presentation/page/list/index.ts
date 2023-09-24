@@ -1,75 +1,76 @@
-import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {TableComponent} from '@utility/presentation/component/table/table.component';
 import {HeaderTableComponent} from '@utility/presentation/component/table/header.table.component';
-import {BodyTableComponent} from '@utility/presentation/component/table/body.table.component';
 import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {FilterComponent} from '@service/presentation/component/filter/filter.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {LanguageCodeEnum} from '@utility/domain/enum';
-import {ILanguageVersion, IService} from '@service/domain';
+import {TranslateModule} from '@ngx-translate/core';
+import {IService} from '@service/domain';
 import {ListPage} from "@utility/list.page";
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
-import {Select} from "@ngxs/store";
-import {Observable} from "rxjs";
+import {Observable, tap} from "rxjs";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {ServiceState} from "@service/state/service/service.state";
 import {ITableState} from "@utility/domain/table.state";
 import {
-  TableStatePaginationComponent
+	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
+import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
+import {TableListComponent} from "@service/presentation/component/list/table/table.list.component";
+import {StarterComponent} from "@utility/presentation/component/starter/starter.component";
+import {
+	NotFoundTableDataComponent
+} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 
 @Component({
-  selector: 'service-list-page',
-  templateUrl: 'index.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    RouterLink,
-    DeleteButtonComponent,
-    TableComponent,
-    HeaderTableComponent,
-    BodyTableComponent,
-    NgForOf,
-    DatePipe,
-    FilterComponent,
-    AsyncPipe,
-    NgIf,
-    SpinnerComponent,
-    DropdownComponent,
-    SortIndicatorComponent,
-    LoaderComponent,
-    ActionComponent,
-    TranslateModule,
-    TableStatePaginationComponent,
-    NgClass,
-    ActiveStyleDirective,
-    DynamicDatePipe
-  ],
-  standalone: true
+	selector: 'service-list-page',
+	templateUrl: 'index.html',
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [
+		RouterLink,
+		DeleteButtonComponent,
+		TableComponent,
+		HeaderTableComponent,
+		NgForOf,
+		DatePipe,
+		FilterComponent,
+		AsyncPipe,
+		NgIf,
+		SpinnerComponent,
+		DropdownComponent,
+		SortIndicatorComponent,
+		LoaderComponent,
+		ActionComponent,
+		TranslateModule,
+		TableStatePaginationComponent,
+		NgClass,
+		ActiveStyleDirective,
+		DynamicDatePipe,
+		TableListComponent,
+		StarterComponent,
+		NotFoundTableDataComponent
+	],
+	standalone: true
 })
 export default class Index extends ListPage {
 
-  public override readonly actions = ServiceActions;
+	public override readonly actions = ServiceActions;
 
-  @Select(ServiceState.tableState)
-  public readonly tableState$!: Observable<ITableState<IService>>;
-  public readonly translateService = inject(TranslateService);
-
-  public get currentLanguageCode(): LanguageCodeEnum {
-    return this.translateService.getDefaultLang() as LanguageCodeEnum;
-  }
-
-  public getFirstLanguageVersion(languageVersions: ILanguageVersion[] = []): ILanguageVersion {
-    const firstOption = languageVersions.find(({language}) => language === this.currentLanguageCode);
-    return firstOption ?? languageVersions[0];
-  }
+	public readonly tableState$: Observable<ITableState<IService>> = this.store.select(ServiceState.tableState)
+		.pipe(
+			tap((tableState) => {
+				if (this.someDataExist.isOff) {
+					this.someDataExist.toggle(tableState.total > 0);
+					this.changeDetectorRef.detectChanges();
+				}
+			})
+		);
 
 }

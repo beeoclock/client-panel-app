@@ -4,12 +4,13 @@ import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
-  selector: 'form-button-with-icon',
+  selector: 'bee-form-button-with-icon',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   template: `
     <button
+			type="button"
       class="
           text-blue-600
           rounded-2xl

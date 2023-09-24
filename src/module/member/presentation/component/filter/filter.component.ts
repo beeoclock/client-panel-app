@@ -5,19 +5,31 @@ import {debounceTime, firstValueFrom} from 'rxjs';
 import {Store} from "@ngxs/store";
 import {FilterForm} from "@member/presentation/form/filter.form";
 import {MemberActions} from "@member/state/member/member.actions";
+import {TranslateModule} from "@ngx-translate/core";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {RouterLink} from "@angular/router";
+import {HALF_SECOND} from "@utility/domain/const/c.time";
 
 @Component({
   selector: 'member-filter-component',
   standalone: true,
-  imports: [
-    FilterPanelComponent,
-    SearchInputComponent
-  ],
+	imports: [
+		FilterPanelComponent,
+		SearchInputComponent,
+		TranslateModule,
+		PrimaryButtonDirective,
+		RouterLink
+	],
   template: `
-    <utility-filter-panel-component>
-      <utility-search-input-component [control]="form.controls.search"/>
-    </utility-filter-panel-component>
-
+		<utility-filter-panel-component>
+			<utility-search-input-component start [control]="form.controls.search"/>
+			<ng-container end>
+				<button type="button" primary routerLink="form">
+					<i class="bi bi-plus-lg"></i>
+					{{ 'member.button.create' | translate }}
+				</button>
+			</ng-container>
+		</utility-filter-panel-component>
   `
 })
 export class FilterComponent {
@@ -26,10 +38,18 @@ export class FilterComponent {
 
   constructor() {
     this.form.valueChanges.pipe(
-      debounceTime(500),
+      debounceTime(HALF_SECOND),
     ).subscribe(async (value) => {
-      await firstValueFrom(this.store.dispatch(new MemberActions.UpdateFilters(<{ search: string }>value)));
+			this.form.disable({
+				emitEvent: false,
+				onlySelf: true
+			});
+      await firstValueFrom(this.store.dispatch(new MemberActions.UpdateFilters(value as any)));
       await firstValueFrom(this.store.dispatch(new MemberActions.GetList()));
+			this.form.enable({
+				emitEvent: false,
+				onlySelf: true
+			});
     });
   }
 }

@@ -1,4 +1,4 @@
-const colors = require('tailwindcss/colors')
+const colors = require('tailwindcss/colors');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -7,12 +7,11 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    colors: {
-      ...colors,
-      beeColor: colors.neutral,
-      beeDarkColor: colors.neutral,
-    },
     extend: {
+			colors: {
+				beeColor: colors.neutral,
+				beeDarkColor: colors.neutral,
+			},
       gridTemplateColumns: {
         // Simple 16 column grid
         '16': 'repeat(16, minmax(0, 1fr))',

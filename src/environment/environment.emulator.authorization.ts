@@ -1,7 +1,9 @@
 export const environment = {
   production: false,
+	develop: true,
   emulator: true,
   proxy: false,
+	setDefaultValueToInputs: true,
   apiUrls: {
     panel: 'api.panel',
     identity: 'api.identity',
@@ -48,5 +50,8 @@ export const environment = {
       authorization: true,
       functions: false
     }
-  }
+  },
+	urls: {
+		publicPageOrigin: 'https://dev.beeoclock.com',
+	}
 };

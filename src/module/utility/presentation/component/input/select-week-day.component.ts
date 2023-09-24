@@ -4,23 +4,26 @@ import {NgClass, NgForOf} from "@angular/common";
 import {Info} from "luxon";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {WORK_WEEK} from "@utility/domain/enum";
+import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({
   selector: 'select-week-day-component',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [
-    NgForOf,
-    NgClass,
-    TranslateModule
-  ],
+	imports: [
+		NgForOf,
+		NgClass,
+		TranslateModule,
+		DefaultLabelDirective
+	],
   template: `
-    <label class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
+    <label default>
       {{ 'keyword.capitalize.workdays' | translate }}
     </label>
-    <div class="grid grid-cols-7 gap-2">
+    <div class="grid grid-cols-4 md:grid-cols-7 gap-2">
       <div *ngFor="let day of weekDayList" class="flex items-center justify-center">
         <button
+					type="button"
           class="rounded-xl border w-full text-center py-1.5 dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 dark:text-white"
           [ngClass]="selectedClass(isSelected(day.id))"
           [id]="'service-form-workDays-' + day.id"

@@ -10,12 +10,15 @@ import {ItemServiceApiAdapter} from "@service/adapter/external/api/item.service.
 import {RemoveServiceApiAdapter} from "@service/adapter/external/api/remove.service.api.adapter";
 import {ListServiceApiAdapter} from "@service/adapter/external/api/list.service.api.adapter";
 import {ServiceActions} from "@service/state/service/service.actions";
+import {ActiveEnum} from "@utility/domain/enum";
 
 export type IServiceState = IBaseState<Service.IService>
 
 @State<IServiceState>({
   name: 'service',
-  defaults: baseDefaults<Service.IService>()
+  defaults: baseDefaults<Service.IService>({
+		active: ActiveEnum.YES
+	})
 })
 @Injectable()
 export class ServiceState extends BaseState<IService> {
@@ -99,35 +102,7 @@ export class ServiceState extends BaseState<IService> {
 
   @Action(ServiceActions.GetList)
   public override async getList(ctx: StateContext<IServiceState>): Promise<void> {
-    await super.getList(ctx, (queryFilters: any, filters: any) => {
-
-      const {search} = filters;
-      if (search) {
-        queryFilters['$or'] = [
-          {
-            languageVersions: {
-              $elemMatch: {
-                "title": {
-                  $regex: search ?? '',
-                  $options: "i"
-                },
-              }
-            }
-          },
-          {
-            languageVersions: {
-              $elemMatch: {
-                "description": {
-                  $regex: search ?? '',
-                  $options: "i"
-                },
-              }
-            }
-          },
-        ];
-      }
-
-    });
+    await super.getList(ctx);
 
   }
 

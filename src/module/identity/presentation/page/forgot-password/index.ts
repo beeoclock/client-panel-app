@@ -11,21 +11,23 @@ import {ChangeLanguageComponent} from "@utility/presentation/component/change-la
 import {ToastController} from "@ionic/angular";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {ForgotPasswordApiAdapter} from "@identity/adapter/external/api/forgot-password.api.adapter";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'identity-forgot-password-page',
   templateUrl: 'index.html',
   standalone: true,
-  imports: [
-    GettingStartedComponent,
-    ReactiveFormsModule,
-    FormInputComponent,
-    BackLinkComponent,
-    TranslateModule,
-    CardComponent,
-    ChangeLanguageComponent,
-    PrimaryButtonDirective
-  ],
+	imports: [
+		GettingStartedComponent,
+		ReactiveFormsModule,
+		FormInputComponent,
+		BackLinkComponent,
+		TranslateModule,
+		CardComponent,
+		ChangeLanguageComponent,
+		PrimaryButtonDirective,
+		NgOptimizedImage
+	],
   encapsulation: ViewEncapsulation.None
 })
 export default class Index {
@@ -67,9 +69,9 @@ export default class Index {
               },
             ],
           }).then((toast) => {
-            toast.present();
+            toast.present().then();
           });
-          this.router.navigate(['/', 'identity']);
+          this.router.navigate(['/', 'identity']).then();
         }).finally(() => {
           this.form.enable();
           this.form.updateValueAndValidity();

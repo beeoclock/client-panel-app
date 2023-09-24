@@ -18,25 +18,22 @@ import {SelectApprovalTimeComponent} from "@utility/presentation/component/input
     SelectApprovalTimeComponent
   ],
   template: `
-    <card gap="8">
+    <bee-card gap="8">
 
       <strong class="dark:text-white">
         {{ 'keyword.capitalize.bookingSettings' | translate }}
       </strong>
 
       <select-latest-booking-component
-        [control]="form.controls.latestBooking">
-      </select-latest-booking-component>
+        [control]="form.controls.latestBooking"/>
 
       <select-earliest-booking-component
-        [control]="form.controls.earliestBooking">
-      </select-earliest-booking-component>
+        [control]="form.controls.earliestBooking"/>
 
       <select-approval-time-component
-        [control]="form.controls.approvalTime">
-      </select-approval-time-component>
+        [control]="form.controls.approvalTimeInSeconds"/>
 
-    </card>
+    </bee-card>
   `
 })
 export class BookingSettingsBusinessProfileComponent {

@@ -3,7 +3,7 @@ import {NgForOf, NgIf} from '@angular/common';
 import {NgSelectComponent, NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {
-  ModalMembersFormComponent
+	ModalMembersFormComponent
 } from "@service/presentation/component/form/v1/members/modal.employees.form.component";
 import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.list.customer.adapter";
 import {ICustomer} from "@customer/domain";
@@ -25,31 +25,12 @@ import {CustomerForm} from "@customer/presentation/form";
   ],
   template: `
 
-    <!--  USE COMMENTED CODE IN attendees.component.ts  -->
-    <!--        <ng-container *ngIf="isNew(attendant); else selectTemplate">-->
-
-    <!--        </ng-container>-->
-    <!--        <ng-template #selectTemplate>-->
-
-    <!--          <event-customer-attendant-component-->
-    <!--            [customerForm]="attendant.controls.customer">-->
-    <!--          </event-customer-attendant-component>-->
-
-    <!--          <ng-container *ngIf="attendant.controls.customer.isEmpty()">-->
-    <!--            <button (click)="attendant.toggleIsNewCustomer()" class="text-blue-600 text-sm">-->
-    <!--              {{ 'event.form.section.attendant.button.togglePresentationOfNewAttendant' | translate }}-->
-    <!--            </button>-->
-    <!--          </ng-container>-->
-
-    <!--        </ng-template>-->
-
     <ng-select
       #customerSelectComponent
       [class.invisible]="localControl.value"
       [class.h-1]="localControl.value"
       class="cursor-pointer"
       [placeholder]="'event.form.section.attendant.input.selectCustomer.placeholder' | translate"
-      (scrollToEnd)="scrollToEnd($event)"
       [closeOnSelect]="true"
       [clearable]="false"
       [hideSelected]="true"
@@ -101,7 +82,7 @@ import {CustomerForm} from "@customer/presentation/form";
           </span>
         </div>
         <div class="col-span-1 flex flex-col justify-center">
-          <button (click)="changeValue()" class="text-beeColor-600 hover:bg-beeColor-100 px-2 py-1 rounded-2xl">
+          <button type="button" (click)="changeValue()" class="text-beeColor-600 hover:bg-beeColor-100 px-2 py-1 rounded-2xl">
             <i class="bi bi-pencil"></i>
           </button>
         </div>
@@ -154,12 +135,8 @@ export class CustomerAttendantComponent implements OnInit {
 
   }
 
-  public scrollToEnd($event: any) {
-    console.log($event);
-  }
-
-  public getInitials(item: ICustomer): string {
-    return initials(item.firstName ?? '', item.lastName ?? '');
+  public getInitials({firstName, lastName}: ICustomer): string {
+    return initials(firstName ?? '', lastName ?? '');
   }
 
   public changeValue() {

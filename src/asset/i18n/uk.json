@@ -263,23 +263,22 @@
 				"status": "Статус"
 			},
 			"status": {
-				"booked": "Зарезервовано",
-				"cancelled": "Скасована",
-				"done": "Виконано",
-				"requested": "Запит"
+				"all": "Всі",
+				"singular": {
+					"booked": "Зарезервовано",
+					"cancelled": "Скасована",
+					"done": "Виконано",
+					"requested": "Запит"
+				},
+				"plural": {
+					"booked": "Зарезервовані",
+					"cancelled": "Скасовані",
+					"done": "Виконані",
+					"requested": "На запиті"
+				}
 			}
 		},
 		"title": "Подія"
-	},
-	"facility": {
-		"capitalize": {
-			"ACCEPTING_CARD_PAYMENT": "Приймаємо оплату карткою",
-			"ACCEPTING_CHILDREN": "Пристосовано для дітей",
-			"ACCEPTING_PETS": "Можна з домашніми улюбленцями",
-			"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Умови для людей з фізичними обмеженнями",
-			"FREE_PARKING": "Безкоштовне паркування",
-			"INTERNET": "Інтернет (Wi-Fi)"
-		}
 	},
 	"form": {
 		"validation": {
@@ -303,6 +302,32 @@
 					"accept": {
 						"header": "Видалення послуги",
 						"message": "Впевнений, що хочеш видалити послугу?"
+					}
+				}
+			}
+		},
+		"POST": {
+			"/api/v1/service": {
+				"after": {
+					"success": {
+						"header": "Послуга створена",
+						"message": "Послуга успішно створена."
+					}
+				}
+			},
+			"/api/v1/customer": {
+				"after": {
+					"success": {
+						"header": "Клієнт створений",
+						"message": "Клієнт успішно створений."
+					}
+				}
+			},
+			"/api/v1/event": {
+				"after": {
+					"success": {
+						"header": "Подія створена",
+						"message": "Подія успішно створена."
 					}
 				}
 			}
@@ -433,7 +458,16 @@
 		}
 	},
 	"keyword": {
+		"status": {
+			"all": "Всі",
+			"plural": {
+				"1": "Активні",
+				"0": "Неактивні"
+			}
+		},
 		"capitalize": {
+			"dataNotFound": "Дані не знайдені, спробуй додати",
+			"thereArentAnyEvents": "Подій немає на {{ datetime }}",
 			"account": "Профіль",
 			"action": "Дія",
 			"active": "Активний",
@@ -467,6 +501,7 @@
 			"create": "Створити",
 			"createdAt": "Створено",
 			"customer": "Клієнт",
+			"customers": "Клієнти",
 			"dateAndTime": "Дата та час",
 			"delete": "Видалити",
 			"description": "Опис",
@@ -504,7 +539,8 @@
 			"phone": "Телефон",
 			"placeholder": {
 				"description": "Напиши додаткову інформацію",
-				"search": "Пошук"
+				"search": "Пошук",
+				"selectBusinessCategory": "Виберіть категорію бізнесу"
 			},
 			"preview": "Попередній перегляд",
 			"previous": "Назад",
@@ -520,6 +556,7 @@
 			"selected": "Обрано",
 			"send": "Відправити",
 			"service": "Послуга",
+			"search": "Пошук",
 			"services": "Послуги",
 			"signIn": "Увійти",
 			"signOut": "Вийти",
@@ -534,104 +571,117 @@
 			"streetAddressLineTwo": "Адреса 2",
 			"theme": "Тема",
 			"title": "Назва",
-      "today": "Сьогодні",
-      "tomorrow": "Завтра",
-      "total": "Всього",
-      "unknown": "Невідомо",
-      "update": "Оновити",
-      "updatedAt": "Оновлено",
-      "workdays": "Робочі дні",
-      "workingHours": "Графік роботи",
-      "writePrice": "Ввести ціну",
-      "yes": "Так",
-      "zipCode": "Поштовий індекс"
-    },
-    "lowercase": {
-      "dragAndDrop": "перетягніть і випустіть файл",
-      "or": "або"
-    }
-  },
-  "latestBooking": {
-    "EIGHT_WEEKS": "Впродовж 8 тижнів",
-    "FIVE_WEEKS": "Впродовж 5 тижнів",
-    "FOUR_WEEKS": "Впродовж 4 тижнів",
-    "NO_LIMIT": "Без обмежень",
-    "SEVEN_WEEKS": "Впродовж 7 тижнів",
-    "SIX_WEEKS": "Впродовж 6 тижнів",
-    "THREE_WEEKS": "Впродовж 3 тижнів",
-    "TWO_WEEKS": "Цього і наступного тижня"
-  },
-  "member": {
-    "button": {
-      "create": "Додати учасника"
-    },
-    "title": "Учасник"
-  },
-  "page": {
-    "calendar": {
-      "title": "Календар"
-    },
-    "select-client": {
-      "button": {
-        "create-new-client": "Створити нового клієнта"
-      },
-      "form": {
-        "button": {
-          "submit": "Вибрати"
-        }
-      },
-      "title": "Виберіть клієнта"
-    }
-  },
-  "service": {
-    "form": {
-      "v2": {
-        "section": {
-          "presentation": {
-            "motivate": "Ти можеш надати своїм послугам трохи більше індивідуальності та допомогти іншим розпізнати свою роботу, завантаживши зображення (фотографію чи інший графічний дизайн)."
-          },
-          "prices": {
-            "button": {
-              "add": {
-                "label": "Додати ціну"
-              }
-            }
-          }
-        }
-      }
-    },
-    "keyword": {
-      "capitalize": {
-        "active": "Активна",
-        "inactive": "Неактивна"
-      }
-    },
-    "title": "Послуга"
-  },
-  "sidebar": {
-    "addEvent": "Додати подію",
-    "businessProfile": "Профіль компанії",
-    "calendar": "Календар",
-    "customers": "Клієнти",
-    "dashboard": "Панель керування",
-    "events": "Події",
-    "members": "Учасники",
-    "private": "Приватне",
-    "services": "Послуги",
-    "settings": "Налаштування",
-    "switch-business-client": "Змінити контекст",
-    "table": "Таблиця"
-  },
-  "sign-out": {
-    "button": {
-      "sign-out": {
-        "label": "Вийти з системи"
-      }
-    },
-    "title": "Вихід з системи"
-  },
-  "theme": {
-    "dark": "Темна",
-    "light": "Світла"
-  }
+			"today": "Сьогодні",
+			"tomorrow": "Завтра",
+			"total": "Всього",
+			"unknown": "Невідомо",
+			"update": "Оновити",
+			"updatedAt": "Оновлено",
+			"workdays": "Робочі дні",
+			"workingHours": "Графік роботи",
+			"writePrice": "Ввести ціну",
+			"yes": "Так",
+			"zipCode": "Поштовий індекс"
+		},
+		"lowercase": {
+			"ago": "тому",
+			"dragAndDrop": "перетягніть і випустіть файл",
+			"or": "або"
+		}
+	},
+	"latestBooking": {
+		"EIGHT_WEEKS": "Впродовж 8 тижнів",
+		"FIVE_WEEKS": "Впродовж 5 тижнів",
+		"FOUR_WEEKS": "Впродовж 4 тижнів",
+		"NO_LIMIT": "Без обмежень",
+		"SEVEN_WEEKS": "Впродовж 7 тижнів",
+		"SIX_WEEKS": "Впродовж 6 тижнів",
+		"THREE_WEEKS": "Впродовж 3 тижнів",
+		"TWO_WEEKS": "Цього і наступного тижня"
+	},
+	"member": {
+		"button": {
+			"create": "Додати учасника"
+		},
+		"title": "Учасник"
+	},
+	"page": {
+		"calendar": {
+			"title": "Календар"
+		},
+		"select-client": {
+			"button": {
+				"create-new-client": "Створити нового клієнта"
+			},
+			"form": {
+				"button": {
+					"submit": "Вибрати"
+				}
+			},
+			"title": "Виберіть клієнта"
+		}
+	},
+	"service": {
+		"form": {
+			"v2": {
+				"section": {
+					"presentation": {
+						"motivate": "Ти можеш надати своїм послугам трохи більше індивідуальності та допомогти іншим розпізнати свою роботу, завантаживши зображення (фотографію чи інший графічний дизайн)."
+					},
+					"prices": {
+						"button": {
+							"add": {
+								"label": "Додати ціну"
+							}
+						}
+					}
+				}
+			}
+		},
+		"keyword": {
+			"capitalize": {
+				"active": "Активна",
+				"inactive": "Неактивна"
+			}
+		},
+		"title": "Послуга"
+	},
+	"sidebar": {
+		"addEvent": "Додати подію",
+		"businessProfile": "Профіль компанії",
+		"calendar": "Календар",
+		"customers": "Клієнти",
+		"dashboard": "Панель керування",
+		"events": "Події",
+		"members": "Учасники",
+		"private": "Приватне",
+		"services": "Послуги",
+		"settings": "Налаштування",
+		"switch-business-client": "Змінити контекст",
+		"table": "Таблиця"
+	},
+	"sign-out": {
+		"button": {
+			"sign-out": {
+				"label": "Вийти з системи"
+			}
+		},
+		"title": "Вихід з системи"
+	},
+	"enum": {
+		"theme": {
+			"dark": "Темна",
+			"light": "Світла"
+		},
+		"facility": {
+			"capitalize": {
+				"ACCEPTING_CARD_PAYMENT": "Приймаємо оплату карткою",
+				"ACCEPTING_CHILDREN": "Пристосовано для дітей",
+				"ACCEPTING_PETS": "Можна з домашніми улюбленцями",
+				"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Умови для людей з фізичними обмеженнями",
+				"FREE_PARKING": "Безкоштовне паркування",
+				"INTERNET": "Інтернет (Wi-Fi)"
+			}
+		}
+	}
 }

@@ -263,23 +263,24 @@
 				"status": "Status"
 			},
 			"status": {
-				"booked": "Zarezerwowane",
-				"cancelled": "Anulowane",
-				"done": "Zakończone",
-				"requested": "Wniosek"
+				"all": "Wszystkie",
+				"status": {
+					"singular": {
+						"booked": "Zarezerwowane",
+						"cancelled": "Anulowane",
+						"done": "Zakończone",
+						"requested": "Wniosek"
+					},
+					"plural": {
+						"booked": "Zarezerwowane",
+						"cancelled": "Anulowane",
+						"done": "Zakończone",
+						"requested": "Wnioskowe"
+					}
+				}
 			}
 		},
 		"title": "Wydarzenie"
-	},
-	"facility": {
-		"capitalize": {
-			"ACCEPTING_CARD_PAYMENT": "Akceptujemy płatności kartą",
-			"ACCEPTING_CHILDREN": "Przyjazne dzieciom",
-			"ACCEPTING_PETS": "Zwierzęta dozwolone",
-			"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Zakwaterowanie dla osób z niepełnosprawnością",
-			"FREE_PARKING": "Darmowy parking",
-			"INTERNET": "Internet (Wi-Fi)"
-		}
 	},
 	"form": {
 		"validation": {
@@ -303,6 +304,32 @@
 					"accept": {
 						"header": "Usuwanie usługi",
 						"message": "Czy na pewno chcesz usunąć usługę?"
+					}
+				}
+			}
+		},
+		"POST": {
+			"/api/v1/service": {
+				"after": {
+					"success": {
+						"header": "Utworzono usługę",
+						"message": "Usługa została utworzona."
+					}
+				}
+			},
+			"/api/v1/customer": {
+				"after": {
+					"success": {
+						"header": "Utworzono klienta",
+						"message": "Klient został utworzony."
+					}
+				}
+			},
+			"/api/v1/event": {
+				"after": {
+					"success": {
+						"header": "Utworzono wydarzenie",
+						"message": "Wydarzenie zostało utworzone."
 					}
 				}
 			}
@@ -433,7 +460,16 @@
 		}
 	},
 	"keyword": {
+		"status": {
+			"all": "Wszystkie",
+			"plural": {
+				"1": "Aktywni",
+				"0": "Nieaktywni"
+			}
+		},
 		"capitalize": {
+			"dataNotFound": "Nie znaleziono danych, spróbuj dodać",
+			"thereArentAnyEvents": "Nie ma żadnych wydarzeń na {{ datetime }}",
 			"account": "Konto",
 			"action": "Akcja",
 			"active": "Aktywny",
@@ -467,6 +503,7 @@
 			"create": "Utwórz",
 			"createdAt": "Utworzono",
 			"customer": "Klient",
+			"customers": "Klienty",
 			"dateAndTime": "Data i czas",
 			"delete": "Usuń",
 			"description": "Opis",
@@ -504,7 +541,8 @@
 			"phone": "Telefon",
 			"placeholder": {
 				"description": "Wprowadź szczegóły",
-				"search": "Szukaj"
+				"search": "Szukaj",
+				"selectBusinessCategory": "Wybierz kategorię biznesową"
 			},
 			"preview": "Podgląd",
 			"previous": "Wstecz",
@@ -521,6 +559,7 @@
 			"send": "Wyślij",
 			"service": "Usługa",
 			"services": "Usługi",
+			"search": "Szukaj",
 			"signIn": "Zaloguj się",
 			"signOut": "Wyloguj się",
 			"signUp": "Zarejestruj się",
@@ -533,105 +572,118 @@
 			"streetAddressLineOne": "Adres 1",
 			"streetAddressLineTwo": "Adres 2",
 			"theme": "Motyw",
-      "title": "Tytuł",
-      "today": "Dziś",
-      "tomorrow": "Jutro",
-      "total": "Razem",
-      "unknown": "Nieznany",
-      "update": "Zaktualizowano",
-      "updatedAt": "Zaktualizowano",
-      "workdays": "Dni pracy",
-      "workingHours": "Godziny pracy",
-      "writePrice": "Wpisz cenę",
-      "yes": "Tak",
-      "zipCode": "Kod pocztowy"
-    },
-    "lowercase": {
-      "dragAndDrop": "przeciągnij i upuść plik",
-      "or": "lub"
-    }
-  },
-  "latestBooking": {
-    "EIGHT_WEEKS": "W ciągu 8 tygodni",
-    "FIVE_WEEKS": "W ciągu 5 tygodni",
-    "FOUR_WEEKS": "W ciągu 4 tygodni",
-    "NO_LIMIT": "Bez ograniczeń",
-    "SEVEN_WEEKS": "W ciągu 7 tygodni",
-    "SIX_WEEKS": "W ciągu 6 tygodni",
-    "THREE_WEEKS": "W ciągu 3 tygodni",
-    "TWO_WEEKS": "W tym i następnym tygodniu"
-  },
-  "member": {
-    "button": {
-      "create": "Dodaj członka"
-    },
-    "title": "Członek"
-  },
-  "page": {
-    "calendar": {
-      "title": "Kalendarz"
-    },
-    "select-client": {
-      "button": {
-        "create-new-client": "Utwórz nowego klienta"
-      },
-      "form": {
-        "button": {
-          "submit": "Wybierz"
-        }
-      },
-      "title": "Wybierz klienta"
-    }
-  },
-  "service": {
-    "form": {
-      "v2": {
-        "section": {
-          "presentation": {
-            "motivate": "Możesz nadać swoim usługom nieco więcej osobowości i pomóc innym rozpoznać Twoją pracę, przesyłając \n obraz (obraz, zdjęcie lub inną ikonę graficzną Twojej usługi)."
-          },
-          "prices": {
-            "button": {
-              "add": {
-                "label": "Dodaj cenę"
-              }
-            }
-          }
-        }
-      }
-    },
-    "keyword": {
-      "capitalize": {
-        "active": "Aktywna",
-        "inactive": "Nieaktywna"
-      }
-    },
-    "title": "Usługa"
-  },
-  "sidebar": {
-    "addEvent": "Dodaj wydarzenie",
-    "businessProfile": "Profil biznesowy",
-    "calendar": "Kalendarz",
-    "customers": "Klienci",
-    "dashboard": "Panel główny",
-    "events": "Wydarzenia",
-    "members": "Członkowie",
-    "private": "Prywatne",
-    "services": "Usługi",
-    "settings": "Ustawienia",
-    "switch-business-client": "Zmień kontekst",
-    "table": "Tabela"
-  },
-  "sign-out": {
-    "button": {
-      "sign-out": {
-        "label": "Wyloguj się teraz"
-      }
-    },
-    "title": "Wyloguj się"
-  },
-  "theme": {
-    "dark": "Ciemny",
-    "light": "Jasny"
-  }
+			"title": "Tytuł",
+			"today": "Dziś",
+			"tomorrow": "Jutro",
+			"total": "Razem",
+			"unknown": "Nieznany",
+			"update": "Zaktualizowano",
+			"updatedAt": "Zaktualizowano",
+			"workdays": "Dni pracy",
+			"workingHours": "Godziny pracy",
+			"writePrice": "Wpisz cenę",
+			"yes": "Tak",
+			"zipCode": "Kod pocztowy"
+		},
+		"lowercase": {
+			"ago": "temu",
+			"dragAndDrop": "przeciągnij i upuść plik",
+			"or": "lub"
+		}
+	},
+	"latestBooking": {
+		"EIGHT_WEEKS": "W ciągu 8 tygodni",
+		"FIVE_WEEKS": "W ciągu 5 tygodni",
+		"FOUR_WEEKS": "W ciągu 4 tygodni",
+		"NO_LIMIT": "Bez ograniczeń",
+		"SEVEN_WEEKS": "W ciągu 7 tygodni",
+		"SIX_WEEKS": "W ciągu 6 tygodni",
+		"THREE_WEEKS": "W ciągu 3 tygodni",
+		"TWO_WEEKS": "W tym i następnym tygodniu"
+	},
+	"member": {
+		"button": {
+			"create": "Dodaj członka"
+		},
+		"title": "Członek"
+	},
+	"page": {
+		"calendar": {
+			"title": "Kalendarz"
+		},
+		"select-client": {
+			"button": {
+				"create-new-client": "Utwórz nowego klienta"
+			},
+			"form": {
+				"button": {
+					"submit": "Wybierz"
+				}
+			},
+			"title": "Wybierz klienta"
+		}
+	},
+	"service": {
+		"form": {
+			"v2": {
+				"section": {
+					"presentation": {
+						"motivate": "Możesz nadać swoim usługom nieco więcej osobowości i pomóc innym rozpoznać Twoją pracę, przesyłając \n obraz (obraz, zdjęcie lub inną ikonę graficzną Twojej usługi)."
+					},
+					"prices": {
+						"button": {
+							"add": {
+								"label": "Dodaj cenę"
+							}
+						}
+					}
+				}
+			}
+		},
+		"keyword": {
+			"capitalize": {
+				"active": "Aktywna",
+				"inactive": "Nieaktywna"
+			}
+		},
+		"title": "Usługa"
+	},
+	"sidebar": {
+		"addEvent": "Dodaj wydarzenie",
+		"businessProfile": "Profil biznesowy",
+		"calendar": "Kalendarz",
+		"customers": "Klienci",
+		"dashboard": "Panel główny",
+		"events": "Wydarzenia",
+		"members": "Członkowie",
+		"private": "Prywatne",
+		"services": "Usługi",
+		"settings": "Ustawienia",
+		"switch-business-client": "Zmień kontekst",
+		"table": "Tabela"
+	},
+	"sign-out": {
+		"button": {
+			"sign-out": {
+				"label": "Wyloguj się teraz"
+			}
+		},
+		"title": "Wyloguj się"
+	},
+	"enum": {
+		"theme": {
+			"dark": "Ciemny",
+			"light": "Jasny"
+		},
+		"facility": {
+			"capitalize": {
+				"ACCEPTING_CARD_PAYMENT": "Akceptujemy płatności kartą",
+				"ACCEPTING_CHILDREN": "Przyjazne dzieciom",
+				"ACCEPTING_PETS": "Zwierzęta dozwolone",
+				"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Zakwaterowanie dla osób z niepełnosprawnością",
+				"FREE_PARKING": "Darmowy parking",
+				"INTERNET": "Internet (Wi-Fi)"
+			}
+		}
+	}
 }

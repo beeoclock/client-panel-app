@@ -1,4 +1,4 @@
-<div class="sm:p-4 pb-48 grid grid-cols-12 gap-4">
+<div class="p-4 pb-48 grid grid-cols-12 gap-4">
 
   <div class="col-span-12 xl:col-span-2 2xl:col-span-3">
     <utility-back-link-component/>
@@ -8,8 +8,9 @@
 
     <form [formGroup]="form" class="flex flex-col gap-4">
 
-      <service-form-image-block-component [serviceId]="form.value._id"
-                                          [mediaId]="(itemData$ | async)?.presentation?.banners?.[0]"/>
+      <service-form-image-block-component
+				[serviceId]="form.value._id"
+				[mediaId]="(itemData$ | async)?.presentation?.banners?.[0] ?? ''"/>
 
       <utility-form-switch-active-block-component
         [activeText]="'service.keyword.capitalize.active' | translate"
@@ -22,7 +23,7 @@
 
         <!-- HTML of the component is temporary hidden, but we need to call the component because the component has code to add default specialist from member list -->
         <service-form-specialists-block-component
-          [specialistListControl]="form.controls.permanentMembers"/>
+          [specialistListControl]="form.controls.specialists"/>
 
         <service-form-prices-block-component
           [durationVersions]="form.controls.durationVersions"/>
@@ -30,9 +31,11 @@
       </div>
 
       <button
+				type="button"
         primary
         [isLoading]="form.pending"
         [disabled]="form.disabled"
+				[scrollToFirstError]="true"
         (click)="save()">
         {{ 'keyword.capitalize.save' | translate }}
       </button>

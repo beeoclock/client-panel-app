@@ -9,7 +9,7 @@ export class HasErrorDirective implements DoCheck {
 
   // Input properties with default values
   @Input()
-  public errorClass: string = 'is-invalid';
+  public errorClass = 'is-invalid';
 
   @Input()
   public needTouched = true;
@@ -18,10 +18,10 @@ export class HasErrorDirective implements DoCheck {
   public hasErrorEnabled = true;
 
   @Input()
-  public classForNgSelect: string = 'border-danger';
+  public classForNgSelect = 'border-danger';
 
   @Input()
-  public ngSelectQuerySelectorClass: string = 'ng-select-container';
+  public ngSelectQuerySelectorClass = 'ng-select-container';
 
   // Control property to bind the associated control
   @Input()

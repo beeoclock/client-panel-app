@@ -1,14 +1,14 @@
 import {Component, inject, Input} from "@angular/core";
 import {IEvent} from "@event/domain";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date.pipe";
+import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
 import {firstValueFrom} from "rxjs";
 import {EventActions} from "@event/state/event/event.actions";
-import {StatusEnum} from "@event/domain/enum/status.enum";
 import {Store} from "@ngxs/store";
 import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
 import {NgIf, NgTemplateOutlet} from "@angular/common";
+import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum";
 
 @Component({
   selector: 'event-buttons-details',
@@ -26,38 +26,41 @@ import {NgIf, NgTemplateOutlet} from "@angular/common";
 
       <ng-container *ngIf="isRequested(event.status)">
 
-        <ng-container *ngTemplateOutlet="ButtonToCancelEvent"></ng-container>
+        <ng-container *ngTemplateOutlet="ButtonToCancelEvent"/>
 
-        <edit-link-component class="w-full" [buttonWidthFull]="true"></edit-link-component>
+        <edit-link-component class="w-full" [buttonWidthFull]="true"/>
 
-        <ng-container *ngTemplateOutlet="ButtonToBookEvent"></ng-container>
+        <ng-container *ngTemplateOutlet="ButtonToBookEvent"/>
 
       </ng-container>
 
       <ng-container *ngIf="isBooked(event.status)">
 
-        <ng-container *ngTemplateOutlet="ButtonToCancelEvent"></ng-container>
+        <ng-container *ngTemplateOutlet="ButtonToCancelEvent"/>
 
-        <edit-link-component class="w-full" [buttonWidthFull]="true"></edit-link-component>
+        <edit-link-component class="w-full" [buttonWidthFull]="true"/>
 
-        <ng-container *ngTemplateOutlet="ButtonToDoneEvent"></ng-container>
+        <ng-container *ngTemplateOutlet="ButtonToDoneEvent"/>
 
       </ng-container>
 
       <ng-container *ngIf="isDone(event.status)">
 
-        <ng-container *ngTemplateOutlet="ButtonToRepeatEvent"></ng-container>
+        <ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>
 
       </ng-container>
 
       <ng-container *ngIf="isCancelled(event.status)">
 
-        <ng-container *ngTemplateOutlet="ButtonToRepeatEvent"></ng-container>
+        <ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>
 
       </ng-container>
 
       <ng-template #ButtonToCancelEvent>
-        <button (click)="changeStatusOnCancelled(event)" class="
+        <button
+					type="button"
+					(click)="changeStatusOnCancelled(event)"
+					class="
               w-full
               flex
               items-center
@@ -81,7 +84,10 @@ import {NgIf, NgTemplateOutlet} from "@angular/common";
       </ng-template>
 
       <ng-template #ButtonToBookEvent>
-        <button (click)="changeStatusOnBooked(event)" class="
+        <button
+					type="button"
+					(click)="changeStatusOnBooked(event)"
+					class="
               w-full
               flex
               items-center
@@ -105,7 +111,10 @@ import {NgIf, NgTemplateOutlet} from "@angular/common";
       </ng-template>
 
       <ng-template #ButtonToDoneEvent>
-        <button (click)="changeStatusOnDone(event)" class="
+        <button
+					type="button"
+					(click)="changeStatusOnDone(event)"
+					class="
               w-full
               flex
               items-center
@@ -176,19 +185,19 @@ export class ButtonsDetailsComponent {
     await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
   }
 
-  public isRequested(status: StatusEnum): boolean {
-    return status === StatusEnum.requested;
+  public isRequested(status: EventStatusEnum): boolean {
+    return status === EventStatusEnum.requested;
   }
 
-  public isBooked(status: StatusEnum): boolean {
-    return status === StatusEnum.booked;
+  public isBooked(status: EventStatusEnum): boolean {
+    return status === EventStatusEnum.booked;
   }
 
-  public isDone(status: StatusEnum): boolean {
-    return status === StatusEnum.done;
+  public isDone(status: EventStatusEnum): boolean {
+    return status === EventStatusEnum.done;
   }
 
-  public isCancelled(status: StatusEnum): boolean {
-    return status === StatusEnum.cancelled;
+  public isCancelled(status: EventStatusEnum): boolean {
+    return status === EventStatusEnum.cancelled;
   }
 }

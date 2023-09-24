@@ -29,7 +29,7 @@ import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/b
     PriceAndCurrencyComponent
   ],
   template: `
-    <card>
+    <bee-card>
 
       <strong class="dark:text-white">{{ 'client.profile.title' | translate }}</strong>
 
@@ -47,7 +47,7 @@ import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/b
         [placeholder]="'client.profile.form.inputs.description.placeholder' | translate"
         [control]="form.controls.description"/>
 
-      <business-category-select-component
+      <bee-business-category-select-component
         id="business-profile-form-businessCategory-input"
         [control]="form.controls.businessCategory"/>
 
@@ -59,7 +59,7 @@ import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/b
         [control]="form.controls.feature"
         [label]="'client.profile.form.inputs.feature.label' | translate"/>
 
-    </card>
+    </bee-card>
   `
 })
 export class FormBusinessProfileComponent {

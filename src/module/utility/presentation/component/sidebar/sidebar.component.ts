@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, inject, ViewEncapsulation} from '@angular/core';
 import {IsActiveMatchOptions, RouterLink, RouterLinkActive} from '@angular/router';
 import {NgForOf, NgIf} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
@@ -7,6 +7,7 @@ import {firstValueFrom} from "rxjs";
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {SidebarService} from "@utility/presentation/component/sidebar/sidebar.service";
 import {SIDEBAR_ID} from "@src/token";
+import {environment} from "@environment/environment";
 
 interface IMenuItem {
   url?: string;
@@ -33,7 +34,7 @@ interface IMenuItem {
     TranslateModule
   ],
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements AfterViewInit {
 
   public readonly sidebarId = inject(SIDEBAR_ID);
   private readonly store = inject(Store);
@@ -48,17 +49,43 @@ export class SidebarComponent implements OnInit {
         exact: true
       }
     },
-    {
-      url: '/client/business-profile',
-      translateKey: 'sidebar.businessProfile',
-      icon: 'bi bi-buildings',
-      routerLinkActiveOptions: {
-        paths: "subset",
-        matrixParams: "ignored",
-        queryParams: "ignored",
-        fragment: "ignored",
-      }
-    },
+		{
+			translateKey: 'sidebar.events',
+			icon: 'bi bi-calendar2-week',
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			},
+			url: '/event',
+			// items: [
+			// 	{
+			// 		translateKey: 'sidebar.events.list',
+			// 		url: '/client/profile',
+			// 		icon: 'bi bi-person',
+			// 		routerLinkActiveOptions: {
+			// 			exact: true
+			// 		}
+			// 	},
+			// 	{
+			// 		translateKey: 'sidebar.events.table',
+			// 		url: '/client/settings',
+			// 		icon: 'bi bi-gear',
+			// 		routerLinkActiveOptions: {
+			// 			exact: true
+			// 		}
+			// 	},
+			// 	{
+			// 		translateKey: 'sidebar.events.calendar',
+			// 		url: '/identity/corridor',
+			// 		icon: 'bi bi-gear',
+			// 		routerLinkActiveOptions: {
+			// 			exact: true
+			// 		}
+			// 	},
+			// ]
+		},
     {
       url: '/customer',
       translateKey: 'sidebar.customers',
@@ -92,17 +119,17 @@ export class SidebarComponent implements OnInit {
         fragment: "ignored",
       }
     },
-    {
-      translateKey: 'sidebar.events',
-      icon: 'bi bi-calendar2-week',
-      routerLinkActiveOptions: {
-        paths: "subset",
-        matrixParams: "ignored",
-        queryParams: "ignored",
-        fragment: "ignored",
-      },
-      url: '/event',
-    },
+		{
+			url: '/client/business-profile',
+			translateKey: 'sidebar.businessProfile',
+			icon: 'bi bi-buildings',
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		},
     // {
     //   icon: 'bi bi-person',
     //   translateKey: 'sidebar.private',
@@ -138,14 +165,14 @@ export class SidebarComponent implements OnInit {
     // }
   ];
 
-  public ngOnInit(): void {
+  public ngAfterViewInit(): void {
     this.sidebarService.initialize();
   }
 
   public async goToPublicPage(): Promise<void> {
 
     const clientId = await firstValueFrom(this.store.select(IdentityState.clientId));
-    const link = `https://beeoclock.com/${clientId}`;
+    const link = `${environment.urls.publicPageOrigin}/${clientId}`;
     window.open(link, '_blank');
 
   }

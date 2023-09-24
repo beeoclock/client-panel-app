@@ -34,22 +34,21 @@ import {NgForOf, NgIf} from '@angular/common';
           dark:bg-beeDarkColor-800
           dark:border-beeDarkColor-600">
             Duration version #{{ index + 1 }}
-            <button class="text-red-500" (click)="durationVersionsForm.remove(index)" *ngIf="index > 0">
+            <button type="button" class="text-red-500" (click)="durationVersionsForm.remove(index)" *ngIf="index > 0">
               <i class="bi bi-trash"></i>
             </button>
           </div>
           <div class="p-4">
 
             <service-duration-form-component
-              [form]="durationVersionForm">
-            </service-duration-form-component>
+              [form]="durationVersionForm"/>
           </div>
         </div>
       </div>
 
       <hr class="my-4">
 
-      <button class="border rounded px-4 py-2" (click)="pushNewDurationVersionFormForm($event)">
+      <button type="button" class="border rounded px-4 py-2" (click)="pushNewDurationVersionFormForm($event)">
         <i class="bi bi-plus-lg me-2"></i>
         Add new duration
       </button>

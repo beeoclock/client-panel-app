@@ -26,12 +26,13 @@ import {
     CustomerAutocompleteDirective
   ],
   template: `
-    <form [formGroup]="form" class="grid grid-cols-2 gap-4">
+    <div class="grid md:grid-cols-2 gap-4">
 
       <form-input
         type="text"
         customerAutocomplete
         autocomplete="off"
+				id="attendee-first-name"
         [placeholder]="'keyword.capitalize.firstName' | translate"
         [control]="form.controls.firstName"
         [label]="'keyword.capitalize.firstName' | translate"/>
@@ -40,6 +41,7 @@ import {
         type="text"
         customerAutocomplete
         autocomplete="off"
+				id="attendee-last-name"
         [placeholder]="'keyword.capitalize.lastName' | translate"
         [control]="form.controls.lastName"
         [label]="'keyword.capitalize.lastName' | translate"/>
@@ -49,6 +51,7 @@ import {
         customerAutocomplete
         autocomplete="off"
         placeholder="firstname.lastname@example.com"
+				id="attendee-email"
         [control]="form.controls.email"
         [label]="'keyword.capitalize.email' | translate"/>
 
@@ -57,10 +60,11 @@ import {
         customerAutocomplete
         autocomplete="off"
         placeholder="+000000000000"
+				id="attendee-phone"
         [control]="form.controls.phone"
         [label]="'keyword.capitalize.phone' | translate"/>
 
-    </form>
+    </div>
   `
 })
 export class AttendantComponent {

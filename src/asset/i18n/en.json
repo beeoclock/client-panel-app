@@ -263,23 +263,22 @@
 				"status": "Status"
 			},
 			"status": {
-				"booked": "Booked",
-				"cancelled": "Canceled",
-				"done": "Done",
-				"requested": "Requested"
+				"all": "All",
+				"singular": {
+					"booked": "Booked",
+					"cancelled": "Canceled",
+					"done": "Done",
+					"requested": "Requested"
+				},
+				"plural": {
+					"booked": "Booked",
+					"cancelled": "Canceled",
+					"done": "Done",
+					"requested": "Requested"
+				}
 			}
 		},
 		"title": "Event"
-	},
-	"facility": {
-		"capitalize": {
-			"ACCEPTING_CARD_PAYMENT": "Accepting credit cards",
-			"ACCEPTING_CHILDREN": "Child-friendly",
-			"ACCEPTING_PETS": "Pets allowed",
-			"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Accommodations for people with disabilities",
-			"FREE_PARKING": "Free Parking",
-			"INTERNET": "Internet (Wi-Fi)"
-		}
 	},
 	"form": {
 		"validation": {
@@ -303,6 +302,32 @@
 					"accept": {
 						"header": "Deleting a service",
 						"message": "Are you sure you want to remove the service?"
+					}
+				}
+			}
+		},
+		"POST": {
+			"/api/v1/service": {
+				"after": {
+					"success": {
+						"header": "Service created",
+						"message": "Service was successfully created."
+					}
+				}
+			},
+			"/api/v1/customer": {
+				"after": {
+					"success": {
+						"header": "Customer created",
+						"message": "Customer was successfully created."
+					}
+				}
+			},
+			"/api/v1/event": {
+				"after": {
+					"success": {
+						"header": "Event created",
+						"message": "Event was successfully created."
 					}
 				}
 			}
@@ -433,7 +458,16 @@
 		}
 	},
 	"keyword": {
+		"status": {
+			"all": "All",
+			"plural": {
+				"1": "Active",
+				"0": "Inactive"
+			}
+		},
 		"capitalize": {
+			"dataNotFound": "Data not found, try adding",
+			"thereArentAnyEvents": "There aren't any events on {{ datetime }}",
 			"account": "Account",
 			"action": "Action",
 			"active": "Active",
@@ -467,6 +501,7 @@
 			"create": "Create",
 			"createdAt": "Created at",
 			"customer": "Customer",
+			"customers": "customers",
 			"dateAndTime": "Date and time",
 			"delete": "Delete",
 			"description": "Description",
@@ -504,7 +539,8 @@
 			"phone": "Phone",
 			"placeholder": {
 				"description": "Type description",
-				"search": "Search"
+				"search": "Search",
+				"selectBusinessCategory": "Select business category"
 			},
 			"preview": "Preview",
 			"previous": "Previous",
@@ -521,6 +557,7 @@
 			"send": "Send",
 			"service": "Service",
 			"services": "Services",
+			"search": "search",
 			"signIn": "Sign in",
 			"signOut": "Sign out",
 			"signUp": "Sign up",
@@ -547,6 +584,7 @@
 			"zipCode": "Zip code"
 		},
 		"lowercase": {
+			"ago": "ago",
 			"dragAndDrop": "drag and drop",
 			"or": "or"
 		}
@@ -630,8 +668,20 @@
 		},
 		"title": "Sign out"
 	},
-	"theme": {
-		"dark": "Dark",
-		"light": "Light"
+	"enum": {
+		"theme": {
+			"dark": "Dark",
+			"light": "Light"
+		},
+		"facility": {
+			"capitalize": {
+				"ACCEPTING_CARD_PAYMENT": "Accepting credit cards",
+				"ACCEPTING_CHILDREN": "Child-friendly",
+				"ACCEPTING_PETS": "Pets allowed",
+				"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Accommodations for people with disabilities",
+				"FREE_PARKING": "Free Parking",
+				"INTERNET": "Internet (Wi-Fi)"
+			}
+		}
 	}
 }

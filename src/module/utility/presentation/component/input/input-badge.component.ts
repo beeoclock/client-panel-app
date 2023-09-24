@@ -3,12 +3,13 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {NgxMaskDirective} from "ngx-mask";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-error.directive";
+import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({
-  selector: 'form-badge-input',
+  selector: 'bee-form-badge-input',
   standalone: true,
   template: `
-    <label class="dark:text-beeDarkColor-300 block text-sm font-medium leading-6 text-beeColor-900 dark:text-white" [for]="id">{{ label }}</label>
+    <label default [for]="id">{{ label }}</label>
     <div class="flex">
       <input
         [id]="id"
@@ -60,30 +61,31 @@ import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-
     </div>
   `,
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    ReactiveFormsModule,
-    InvalidTooltipDirective,
-    HasErrorDirective,
-    NgxMaskDirective
-  ],
+	imports: [
+		ReactiveFormsModule,
+		InvalidTooltipDirective,
+		HasErrorDirective,
+		NgxMaskDirective,
+		DefaultLabelDirective
+	],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputBadgeComponent {
 
   @Input()
-  public placeholder: string = '';
+  public placeholder = '';
 
   @Input()
-  public label: string = '';
+  public label = '';
 
   @Input()
-  public mask: string = '';
+  public mask = '';
 
   @Input()
-  public id: string = '';
+  public id = '';
 
   @Input()
-  public badge: string = '';
+  public badge = '';
 
   @Input()
   public control = new FormControl();
