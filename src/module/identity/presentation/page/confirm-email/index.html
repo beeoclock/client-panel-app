@@ -6,6 +6,7 @@
 			</div>
       <div class="col-lg-6 ps-lg-4 my-5 text-center text-lg-start">
         <h3 class="text-primary">Confirm email page</h3>
+				<button *ngIf="isAuthorized$ | async" (click)="sendAgain()" type="button">Send again</button>
       </div>
     </div>
   </div>

@@ -25,11 +25,11 @@ export const routers = [
         path: 'forgot-password',
         loadComponent: () => import('./page/forgot-password')
       },
-      {
-        path: 'confirm-email',
-        loadComponent: () => import('./page/confirm-email')
-      },
     ]
+  },
+  {
+		path: 'confirm-email',
+		loadComponent: () => import('./page/confirm-email')
   },
   {
     path: 'corridor',
