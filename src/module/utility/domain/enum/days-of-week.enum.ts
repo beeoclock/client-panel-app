@@ -1,47 +1,48 @@
+// ISO: https://en.wikipedia.org/wiki/ISO_week_date
 export enum DaysNameOfWeekEnum {
-  sunday = 'sunday',
-  monday = 'monday',
-  tuesday = 'tuesday',
-  wednesday = 'wednesday',
-  thursday = 'thursday',
-  friday = 'friday',
-  saturday = 'saturday',
+	monday = 'monday',
+	tuesday = 'tuesday',
+	wednesday = 'wednesday',
+	thursday = 'thursday',
+	friday = 'friday',
+	saturday = 'saturday',
+	sunday = 'sunday',
 }
 
 export enum WeekDaysEnum {
-	SUNDAY = 0,
-	MONDAY,
-	TUESDAY,
-	WEDNESDAY,
-	THURSDAY,
-	FRIDAY,
-	SATURDAY,
+	MONDAY = 1,
+	TUESDAY = 2,
+	WEDNESDAY = 3,
+	THURSDAY = 4,
+	FRIDAY = 5,
+	SATURDAY= 6,
+	SUNDAY = 7,
 }
 
 export const WORK_WEEK = [
-  WeekDaysEnum.MONDAY,
-  WeekDaysEnum.TUESDAY,
-  WeekDaysEnum.WEDNESDAY,
-  WeekDaysEnum.THURSDAY,
-  WeekDaysEnum.FRIDAY
+	WeekDaysEnum.MONDAY,
+	WeekDaysEnum.TUESDAY,
+	WeekDaysEnum.WEDNESDAY,
+	WeekDaysEnum.THURSDAY,
+	WeekDaysEnum.FRIDAY
 ];
 
-export const WEEK_DAYS = [
-  WeekDaysEnum.SUNDAY,
-  WeekDaysEnum.MONDAY,
-  WeekDaysEnum.TUESDAY,
-  WeekDaysEnum.WEDNESDAY,
-  WeekDaysEnum.THURSDAY,
-  WeekDaysEnum.FRIDAY,
-  WeekDaysEnum.SATURDAY
+export const WEEK = [
+	WeekDaysEnum.MONDAY,
+	WeekDaysEnum.TUESDAY,
+	WeekDaysEnum.WEDNESDAY,
+	WeekDaysEnum.THURSDAY,
+	WeekDaysEnum.FRIDAY,
+	WeekDaysEnum.SATURDAY,
+	WeekDaysEnum.SUNDAY,
 ];
 
 export const WEEK_DAYS_NAME = [
-  DaysNameOfWeekEnum.sunday,
-  DaysNameOfWeekEnum.monday,
-  DaysNameOfWeekEnum.tuesday,
-  DaysNameOfWeekEnum.wednesday,
-  DaysNameOfWeekEnum.thursday,
-  DaysNameOfWeekEnum.friday,
-  DaysNameOfWeekEnum.saturday
+	DaysNameOfWeekEnum.monday,
+	DaysNameOfWeekEnum.tuesday,
+	DaysNameOfWeekEnum.wednesday,
+	DaysNameOfWeekEnum.thursday,
+	DaysNameOfWeekEnum.friday,
+	DaysNameOfWeekEnum.saturday,
+	DaysNameOfWeekEnum.sunday,
 ];

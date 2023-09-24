@@ -12,14 +12,14 @@ export type ResponseListType<ITEM> = {
 @Injectable({
 	providedIn: 'root'
 })
-export abstract class BaseApiAdapter<RESPONSE> {
+export abstract class BaseApiAdapter<RESPONSE, ARGUMENTS extends Array<unknown>> {
 
 	protected readonly httpClient = inject(HttpClient);
 
 	/**
 	 * Stream
 	 */
-	public execute$(...args: unknown[]): Observable<RESPONSE> {
+	public execute$(...args: ARGUMENTS): Observable<RESPONSE> {
 
 		throw new NotImplementedYetError();
 
@@ -29,7 +29,7 @@ export abstract class BaseApiAdapter<RESPONSE> {
 	 * Promise
 	 * @param args
 	 */
-	public executeAsync(...args: unknown[]): Promise<RESPONSE> {
+	public executeAsync(...args: ARGUMENTS): Promise<RESPONSE> {
 
 		const executing = this.execute$(...args);
 		return firstValueFrom(executing);

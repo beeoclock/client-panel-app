@@ -19,7 +19,7 @@ import {ThemeService} from "@utility/cdk/theme.service";
   imports: [RouterModule, TranslateModule, IonicModule],
   providers: [NgEventBus],
   template: `
-    <router-outlet></router-outlet>
+    <router-outlet/>
   `,
   encapsulation: ViewEncapsulation.None
 })
