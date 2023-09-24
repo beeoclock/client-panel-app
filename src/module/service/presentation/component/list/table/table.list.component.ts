@@ -1,5 +1,5 @@
 import {Component, inject, Input, ViewEncapsulation} from "@angular/core";
-import {NgForOf} from "@angular/common";
+import {CurrencyPipe, NgForOf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
@@ -15,6 +15,7 @@ import {EventStatusStyleDirective} from "@event/presentation/directive/event-sta
 import {ILanguageVersion, IService} from "@service/domain";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {LanguageCodeEnum} from "@utility/domain/enum";
+import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 
 @Component({
 	selector: 'service-table-list-component',
@@ -30,7 +31,9 @@ import {LanguageCodeEnum} from "@utility/domain/enum";
 		DynamicDatePipe,
 		SortIndicatorComponent,
 		TranslateModule,
-		EventStatusStyleDirective
+		EventStatusStyleDirective,
+		HumanizeDurationPipe,
+		CurrencyPipe
 	]
 })
 export class TableListComponent extends TableComponent {

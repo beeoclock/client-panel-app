@@ -26,33 +26,33 @@ import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum
 
       <ng-container *ngIf="isRequested(event.status)">
 
-        <ng-container *ngTemplateOutlet="ButtonToCancelEvent"></ng-container>
+        <ng-container *ngTemplateOutlet="ButtonToCancelEvent"/>
 
-        <edit-link-component class="w-full" [buttonWidthFull]="true"></edit-link-component>
+        <edit-link-component class="w-full" [buttonWidthFull]="true"/>
 
-        <ng-container *ngTemplateOutlet="ButtonToBookEvent"></ng-container>
+        <ng-container *ngTemplateOutlet="ButtonToBookEvent"/>
 
       </ng-container>
 
       <ng-container *ngIf="isBooked(event.status)">
 
-        <ng-container *ngTemplateOutlet="ButtonToCancelEvent"></ng-container>
+        <ng-container *ngTemplateOutlet="ButtonToCancelEvent"/>
 
-        <edit-link-component class="w-full" [buttonWidthFull]="true"></edit-link-component>
+        <edit-link-component class="w-full" [buttonWidthFull]="true"/>
 
-        <ng-container *ngTemplateOutlet="ButtonToDoneEvent"></ng-container>
+        <ng-container *ngTemplateOutlet="ButtonToDoneEvent"/>
 
       </ng-container>
 
       <ng-container *ngIf="isDone(event.status)">
 
-        <ng-container *ngTemplateOutlet="ButtonToRepeatEvent"></ng-container>
+        <ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>
 
       </ng-container>
 
       <ng-container *ngIf="isCancelled(event.status)">
 
-        <ng-container *ngTemplateOutlet="ButtonToRepeatEvent"></ng-container>
+        <ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>
 
       </ng-container>
 

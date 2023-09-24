@@ -27,7 +27,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 
         <service-form-price-block-component
           [priceForm]="durationVersion.controls.prices.at(0)"
-          [durationControl]="durationVersion.controls.duration"/>
+          [durationInSecondsControl]="durationVersion.controls.durationInSeconds"/>
 
 <!--        <hr class="mt-4">-->
 

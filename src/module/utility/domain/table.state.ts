@@ -28,7 +28,7 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 	#filters = {};
 	#maxPage = 1;
 	#orderBy = 'createdAt';
-	#orderDir = 'asc';
+	#orderDir = 'desc';
 	#page = 1;
 	#pageSize = 20;
 	#hashSum = '';

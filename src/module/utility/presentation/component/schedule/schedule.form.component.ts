@@ -16,17 +16,13 @@ import {ScheduleForm} from "@utility/presentation/form/schdeule.form";
   template: `
     <div class="grid grid-cols-6 gap-2 mt-2">
       <div class="col-span-6">
-        <select-week-day-component [control]="form.controls.workDays"></select-week-day-component>
+        <select-week-day-component [control]="form.controls.workDays"/>
       </div>
-      <div class="col-span-6 flex gap-2">
-        <div class="w-full">
-          <time-input-component [control]="form.controls.startTime" [label]="'keyword.capitalize.start' | translate">
-          </time-input-component>
-        </div>
-        <div class="w-full">
-          <time-input-component [control]="form.controls.endTime" [label]="'keyword.capitalize.end' | translate">
-          </time-input-component>
-        </div>
+      <div class="col-span-6 md:col-span-3">
+				<time-input-component [control]="form.controls.startInSeconds" [label]="'keyword.capitalize.start' | translate"/>
+      </div>
+      <div class="col-span-6 md:col-span-3">
+				<time-input-component [control]="form.controls.endInSeconds" [label]="'keyword.capitalize.end' | translate"/>
       </div>
     </div>
   `

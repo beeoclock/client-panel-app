@@ -39,7 +39,7 @@
 									{{ service.durationVersions[0].prices[0].price | currency: service.durationVersions[0].prices[0].currency: 'symbol-narrow' }}
 								</div>
 								<div class="text-end">
-									{{ service.durationVersions[0].duration | humanizeDuration }}
+									{{ service.durationVersions[0].durationInSeconds | humanizeDuration }}
 								</div>
 
 							</div>

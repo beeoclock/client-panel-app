@@ -4,7 +4,7 @@ import {EarliestBookingEnum} from "@utility/domain/enum/earliest-booking.enum";
 
 export interface IBookingSettings {
   object: 'BookingSettings';
-  approvalTime: ApprovalTimeEnum; // in seconds (Time after which the requested event will be canceled, if not approved)
+	approvalTimeInSeconds: ApprovalTimeEnum; // in seconds (Time after which the requested event will be canceled, if not approved)
   latestBooking: LatestBookingEnum; // in seconds (Minimum notice time)
   earliestBooking: EarliestBookingEnum; // in seconds (When an event can be booked)
 }

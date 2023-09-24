@@ -6,6 +6,8 @@ import {NgForOf, NgIf} from "@angular/common";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {IMember} from "@member/domain";
 import {TranslateModule} from "@ngx-translate/core";
+import {ISpecialist} from "@service/domain/interface/i.specialist";
+import {Service} from "@src/module/service/domain";
 
 @Component({
 	selector: 'utility-modal-select-specialist-component',
@@ -66,8 +68,8 @@ export class ModalSelectSpecialistComponent implements OnInit {
 	public readonly modalSelectSpecialistListAdapter = inject(ModalSelectSpecialistListAdapter);
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 
-	public selectedSpecialistList: IMember[] = [];
-	public newSelectedSpecialistList: IMember[] = [];
+	public selectedSpecialistList: ISpecialist[] = [];
+	public newSelectedSpecialistList: ISpecialist[] = [];
 
 	public ngOnInit(): void {
 
@@ -76,24 +78,24 @@ export class ModalSelectSpecialistComponent implements OnInit {
 
 	}
 
-	public async submit(): Promise<IMember[]> {
+	public async submit(): Promise<ISpecialist[]> {
 		return new Promise((resolve) => {
 			resolve(this.newSelectedSpecialistList);
 		});
 	}
 
 	public select(member: IMember): void {
-		this.newSelectedSpecialistList.push(member);
+		this.newSelectedSpecialistList.push(Service.memberToSpecialist(member));
 		this.changeDetectorRef.detectChanges();
 	}
 
 	public deselect(member: IMember): void {
-		this.newSelectedSpecialistList = this.newSelectedSpecialistList.filter((selectedMember: IMember) => selectedMember._id !== member._id);
+		this.newSelectedSpecialistList = this.newSelectedSpecialistList.filter((specialist: ISpecialist) => specialist?.member?._id !== member._id);
 		this.changeDetectorRef.detectChanges();
 	}
 
 	public isSelected(member: IMember): boolean {
-		return this.newSelectedSpecialistList.some((selectedMember: IMember) => selectedMember._id === member._id);
+		return this.newSelectedSpecialistList.some((specialist: ISpecialist) => specialist?.member?._id === member._id);
 	}
 
 	public isNotSelected(member: IMember): boolean {

@@ -2,8 +2,8 @@ import {WeekDaysEnum} from "@utility/domain/enum";
 
 export interface ISchedule {
   workDays?: WeekDaysEnum[];
-  startTime?: string;
-  endTime?: string;
+  startInSeconds?: number;
+  endInSeconds?: number;
   object?: 'Schedule';
   createdAt?: string;
   updatedAt?: string;

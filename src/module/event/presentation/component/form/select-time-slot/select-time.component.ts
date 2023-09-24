@@ -40,6 +40,7 @@ const DEFAULT_INTERVAL_IN_MINUTES = 10;
 				</button>
 				<div #timeSlotsContainer class="grid grid-cols-3 md:grid-cols-6 gap-1 w-full">
 					<button
+						type="button"
 						*ngFor="let timeSlot of timeSlotLists[currentIndexListOfSlots]"
 						(click)="selectDateItem(timeSlot.datetime)"
 						[ngClass]="getClassList(isSelected(timeSlot.datetime))"

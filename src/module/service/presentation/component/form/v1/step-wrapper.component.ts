@@ -38,7 +38,7 @@ import {SchedulesFormComponent} from "@utility/presentation/component/schedule/s
 
 			<service-members-form-component
 				*ngSwitchCase="'members'"
-				[control]="form.controls.permanentMembers"/>
+				[control]="form.controls.specialists"/>
 
 		</ng-container>
 

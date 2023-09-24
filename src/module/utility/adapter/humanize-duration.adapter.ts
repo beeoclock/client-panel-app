@@ -19,4 +19,13 @@ export class HumanizeDurationAdapter {
 		);
 	}
 
+	public fromSeconds(durationSeconds: number): string {
+		return humanizeDuration(
+			durationSeconds * 1000,
+			{
+				language: this.translateService.currentLang
+			}
+		);
+	}
+
 }

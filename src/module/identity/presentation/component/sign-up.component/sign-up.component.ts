@@ -49,7 +49,7 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
       </form-input-password>
 
       <div>
-        <button type="button" (click)="signUp()" type="submit" primary [isLoading]="form.pending">
+        <button (click)="signUp()" type="submit" primary [isLoading]="form.pending">
           {{ 'keyword.capitalize.signUp' | translate }}
         </button>
       </div>
