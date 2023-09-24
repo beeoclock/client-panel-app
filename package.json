@@ -16,8 +16,7 @@
 		"watch": "ng build --watch --configuration development",
 		"test": "jest",
 		"docs:json": "compodoc -p ./tsconfig.json -e json -d .",
-		"lint": "ng lint",
-		"#COMMENTED# postbuild": "node environments/postbuild.js"
+		"lint": "ng lint"
 	},
 	"jest": {
 		"preset": "jest-preset-angular",
