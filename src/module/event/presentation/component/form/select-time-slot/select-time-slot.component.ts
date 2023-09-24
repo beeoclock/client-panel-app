@@ -1,4 +1,4 @@
-import {Component, inject, Input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {SelectDateComponent} from "@event/presentation/component/form/select-time-slot/select-date.component";
@@ -29,7 +29,10 @@ import {SlotsService} from "@event/presentation/component/form/select-time-slot/
 				[control]="control"
 				[localDateTimeControl]="localDateTimeControl"/>
 
-			<event-select-time-slot-time-form-component [localDateTimeControl]="localDateTimeControl" [control]="control"/>
+			<event-select-time-slot-time-form-component
+				[specialist]="specialist"
+				[localDateTimeControl]="localDateTimeControl"
+				[control]="control"/>
 
 		</div>
 
@@ -40,7 +43,9 @@ export class SelectTimeSlotComponent {
 	@Input()
 	public control!: FormControl<string>;
 
-	private readonly slotsService = inject(SlotsService);
+	@Input()
+	public specialist!: string;
+
 	public readonly localDateTimeControl: FormControl<DateTime> = new FormControl(DateTime.now()) as FormControl<DateTime>;
 
 }

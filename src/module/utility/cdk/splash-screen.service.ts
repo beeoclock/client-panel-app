@@ -1,5 +1,5 @@
 import {inject, Injectable} from "@angular/core";
-import {HALF_SECOND} from "@utility/domain/const/c.time";
+import {MS_HALF_SECOND} from "@utility/domain/const/c.time";
 import {DOCUMENT} from "@angular/common";
 
 @Injectable({
@@ -21,7 +21,7 @@ export class SplashScreenService {
     setTimeout(() => {
       this.document.body.style.setProperty('--custom-opacity', '0');
       this.document.body.style.setProperty('--custom-visibility', 'hidden');
-    }, HALF_SECOND);
+    }, MS_HALF_SECOND);
 
   }
 

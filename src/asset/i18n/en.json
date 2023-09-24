@@ -1,4 +1,24 @@
 {
+	"weekday": {
+		"short": {
+			"friday": "Fri",
+			"monday": "Mon",
+			"saturday": "Sat",
+			"sunday": "Sun",
+			"thursday": "Thu",
+			"tuesday": "Tue",
+			"wednesday": "Wed"
+		},
+		"long": {
+			"friday": "Friday",
+			"monday": "Monday",
+			"saturday": "Saturday",
+			"sunday": "Sunday",
+			"thursday": "Thursday",
+			"tuesday": "Tuesday",
+			"wednesday": "Wednesday"
+		}
+	},
 	"approvalTime": {
 		"EIGHT_HOURS": "8 hours",
 		"FIFTEEN_MINUTES": "15 minutes",

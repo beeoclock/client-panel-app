@@ -1,5 +1,5 @@
 import {InjectionToken} from "@angular/core";
-import {TEN_MINUTES} from "@utility/domain/const/c.time";
+import {MS_TEN_MINUTES} from "@utility/domain/const/c.time";
 
 export const SIDEBAR_ID = new InjectionToken<string>('SIDEBAR_ID');
 export const MAIN_CONTAINER_ID = new InjectionToken<string>('MAIN_CONTAINER_ID');
@@ -17,6 +17,6 @@ export const tokens = [
 	},
 	{
 		provide: CACHE_TABLE_CLEAR_AFTER_MS,
-		useValue: TEN_MINUTES
+		useValue: MS_TEN_MINUTES
 	}
 ]

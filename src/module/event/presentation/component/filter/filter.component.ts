@@ -8,7 +8,7 @@ import {EventActions} from "@event/state/event/event.actions";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {RouterLink} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
-import {HALF_SECOND} from "@utility/domain/const/c.time";
+import {MS_HALF_SECOND} from "@utility/domain/const/c.time";
 import {clearObjectClone} from "@utility/domain/clear.object";
 import {
 	IonSelectEventStatusComponent
@@ -46,7 +46,7 @@ export class FilterComponent {
 
 	constructor() {
 		this.form.valueChanges.pipe(
-			debounceTime(HALF_SECOND),
+			debounceTime(MS_HALF_SECOND),
 			map(clearObjectClone)
 		).subscribe(async (value) => {
 			this.form.disable({

@@ -1,5 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {SlotsEventApiAdapter} from "@event/adapter/external/api/slots.event.api.adapter";
+import {SECONDS_ONE_HOUR, SECONDS_TEN_MINUTES} from "@utility/domain/const/c.time";
 
 @Injectable()
 export class SlotsService {
@@ -18,8 +19,10 @@ export class SlotsService {
 	 *
 	 * @param start - ISO string
 	 * @param end - ISO string
+	 * @param specialist
 	 */
-	public async initSlots(start: string, end: string) {
+	// public async initSlots(start: string, end: string, specialist: string) {
+	public async initSlots(start: string, end: string, specialist: string) {
 
 		const key = `${start}-${end}`;
 		if (this.localTemporaryCache.has(key)) {
@@ -31,10 +34,9 @@ export class SlotsService {
 		const slots = await this.slotsEventApiAdapter.executeAsync({
 			start,
 			end,
-			eventDurationInSeconds: 60,
-			slotIntervalInSeconds: 10,
-			specialist: undefined as any
-			// TODO add specialist
+			eventDurationInSeconds: SECONDS_ONE_HOUR,
+			slotIntervalInSeconds: SECONDS_TEN_MINUTES,
+			specialist
 		});
 
 		this.localTemporaryCache.set(key, slots);

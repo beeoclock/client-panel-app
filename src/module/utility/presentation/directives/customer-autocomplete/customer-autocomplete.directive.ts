@@ -2,7 +2,7 @@ import {Directive, DoCheck, ElementRef, Inject, inject, Input, Optional, SkipSel
 import {AbstractControl, NgControl} from '@angular/forms';
 import {DOCUMENT} from "@angular/common";
 import {debounce} from "typescript-debounce-decorator";
-import {ONE_SECOND} from "@utility/domain/const/c.time";
+import {MS_ONE_SECOND} from "@utility/domain/const/c.time";
 import {UtilityListCustomerAdapter} from "@customer/adapter/external/module/utility.list.customer.adapter";
 import {ICustomer} from "@customer/domain";
 import {ActiveEnum} from "@utility/domain/enum";
@@ -65,7 +65,7 @@ export class CustomerAutocompleteDirective implements DoCheck {
     }
   }
 
-  @debounce(ONE_SECOND)
+  @debounce(MS_ONE_SECOND)
   public updateCustomerList(): void {
 
     this.clearHTMLUlList();

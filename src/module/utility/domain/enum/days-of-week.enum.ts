@@ -46,3 +46,13 @@ export const WEEK_DAYS_NAME = [
 	DaysNameOfWeekEnum.saturday,
 	DaysNameOfWeekEnum.sunday,
 ];
+
+export const WEEK_DAYS_OBJECTS = [
+	{ id: WeekDaysEnum.MONDAY, name: DaysNameOfWeekEnum.monday },
+	{ id: WeekDaysEnum.TUESDAY, name: DaysNameOfWeekEnum.tuesday },
+	{ id: WeekDaysEnum.WEDNESDAY, name: DaysNameOfWeekEnum.wednesday },
+	{ id: WeekDaysEnum.THURSDAY, name: DaysNameOfWeekEnum.thursday },
+	{ id: WeekDaysEnum.FRIDAY, name: DaysNameOfWeekEnum.friday },
+	{ id: WeekDaysEnum.SATURDAY, name: DaysNameOfWeekEnum.saturday },
+	{ id: WeekDaysEnum.SUNDAY, name: DaysNameOfWeekEnum.sunday },
+]

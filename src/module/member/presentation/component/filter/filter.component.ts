@@ -8,7 +8,7 @@ import {MemberActions} from "@member/state/member/member.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {RouterLink} from "@angular/router";
-import {HALF_SECOND} from "@utility/domain/const/c.time";
+import {MS_HALF_SECOND} from "@utility/domain/const/c.time";
 
 @Component({
   selector: 'member-filter-component',
@@ -38,7 +38,7 @@ export class FilterComponent {
 
   constructor() {
     this.form.valueChanges.pipe(
-      debounceTime(HALF_SECOND),
+      debounceTime(MS_HALF_SECOND),
     ).subscribe(async (value) => {
 			this.form.disable({
 				emitEvent: false,

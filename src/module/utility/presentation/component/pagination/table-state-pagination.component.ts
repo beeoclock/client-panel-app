@@ -20,7 +20,7 @@ import {DateTime} from "luxon";
 import {getPaginationItems} from "@utility/domain/pagination.items";
 import {environment} from "@environment/environment";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {ONE_MINUTE} from "@utility/domain/const/c.time";
+import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
 import {BooleanState} from "@utility/domain";
 
 @Component({
@@ -109,7 +109,7 @@ export class TableStatePaginationComponent implements OnChanges {
 
     this.timerOfLastUpdate = setTimeout(() => {
       this.initTimerOfLastUpdate();
-    }, ONE_MINUTE);
+    }, MS_ONE_MINUTE);
 
   }
 
@@ -117,7 +117,7 @@ export class TableStatePaginationComponent implements OnChanges {
 
     const ms = DateTime.now().diff(DateTime.fromISO(this.tableState.lastUpdate)).as('milliseconds');
 
-		if (ms > ONE_MINUTE) {
+		if (ms > MS_ONE_MINUTE) {
 			this.showButtonToClearCache.switchOn();
 		} else {
 			this.showButtonToClearCache.switchOff();

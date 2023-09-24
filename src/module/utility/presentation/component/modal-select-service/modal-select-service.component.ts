@@ -32,7 +32,7 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 							<div class="">
 								<img
 									bocMedia
-									[src]="item.presentation.banners[0]"
+									[src]="item?.presentation?.banners?.[0] ?? ''"
 									twHeight="h-[90px]"
 									twWidth="w-[90px]"
 									class="hidden w-[90px] h-[90px] rounded-2xl object-cover"

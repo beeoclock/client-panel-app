@@ -8,7 +8,7 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
-import {HALF_SECOND} from "@utility/domain/const/c.time";
+import {MS_HALF_SECOND} from "@utility/domain/const/c.time";
 import {IonSelectActiveComponent} from "@utility/presentation/component/input/ion/ion-select-active.component";
 import {clearObjectClone} from "@utility/domain/clear.object";
 
@@ -44,7 +44,7 @@ export class FilterComponent {
 
 	constructor() {
 		this.form.valueChanges.pipe(
-			debounceTime(HALF_SECOND),
+			debounceTime(MS_HALF_SECOND),
 			map(clearObjectClone)
 		).subscribe(async (value) => {
 			this.form.disable({

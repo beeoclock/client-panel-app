@@ -60,6 +60,8 @@ export default class Index implements OnInit {
 
 	public readonly preview = new BooleanState(false);
 
+	public specialist = '';
+
 	@Select(EventState.itemData)
 	public itemData$!: Observable<IEvent | undefined>;
 
@@ -69,6 +71,14 @@ export default class Index implements OnInit {
 
 	public ngOnInit(): void {
 		this.detectItem();
+		this.form.controls.services.valueChanges.subscribe((value) => {
+			console.log(value);
+			if (typeof value[0].specialists[0].member === 'string') {
+				this.specialist = value[0].specialists[0].member;
+			} else {
+				this.specialist = value?.[0]?.specialists?.[0]?.member?._id ?? '';
+			}
+		});
 	}
 
 	public detectItem(): void {

@@ -1,4 +1,24 @@
 {
+	"weekday": {
+		"short": {
+			"friday": "Пт",
+			"monday": "Пн",
+			"saturday": "Сб",
+			"sunday": "Нд",
+			"thursday": "Чт",
+			"tuesday": "Вт",
+			"wednesday": "Ср"
+		},
+		"long": {
+			"friday": "П'ятниця",
+			"monday": "Понеділок",
+			"saturday": "Субота",
+			"sunday": "Неділя",
+			"thursday": "Четвер",
+			"tuesday": "Вівторок",
+			"wednesday": "Середа"
+		}
+	},
 	"approvalTime": {
 		"EIGHT_HOURS": "8 годин",
 		"FIFTEEN_MINUTES": "15 хвилин",
