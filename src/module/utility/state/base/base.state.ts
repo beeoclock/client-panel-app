@@ -87,15 +87,15 @@ export abstract class BaseState<ITEM = any> {
 	protected readonly cacheTableClearAfterMs = inject(CACHE_TABLE_CLEAR_AFTER_MS);
 	protected readonly logger = inject(NGXLogger);
 
-	protected readonly item!: BaseApiAdapter<ITEM>;
-	protected readonly create!: BaseApiAdapter<ITEM>;
-	protected readonly update!: BaseApiAdapter<ITEM>;
-	protected readonly remove!: BaseApiAdapter<unknown>;
-	protected readonly archive!: BaseApiAdapter<unknown>;
+	protected readonly item!: BaseApiAdapter<ITEM, unknown[]>;
+	protected readonly create!: BaseApiAdapter<ITEM, unknown[]>;
+	protected readonly update!: BaseApiAdapter<ITEM, unknown[]>;
+	protected readonly remove!: BaseApiAdapter<unknown, unknown[]>;
+	protected readonly archive!: BaseApiAdapter<unknown, unknown[]>;
 	protected readonly list!: BaseApiAdapter<{
 		items: ITEM[];
 		totalSize: number;
-	}>;
+	}, unknown[]>;
 
 	/**
 	 * Init default from cache

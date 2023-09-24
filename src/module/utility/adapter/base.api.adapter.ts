@@ -12,7 +12,7 @@ export type ResponseListType<ITEM> = {
 @Injectable({
 	providedIn: 'root'
 })
-export abstract class BaseApiAdapter<RESPONSE, ARGUMENTS extends Array<unknown>> {
+export abstract class BaseApiAdapter<RESPONSE, ARGUMENTS extends Array<unknown> = unknown[]> {
 
 	protected readonly httpClient = inject(HttpClient);
 
