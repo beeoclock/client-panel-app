@@ -1,24 +1,4 @@
 {
-	"weekday": {
-		"short": {
-			"friday": "Pt",
-			"monday": "Pn",
-			"saturday": "So",
-			"sunday": "Nd",
-			"thursday": "Cz",
-			"tuesday": "Wt",
-			"wednesday": "Śr"
-		},
-		"long": {
-			"friday": "Piątek",
-			"monday": "Poniedziałek",
-			"saturday": "Sobota",
-			"sunday": "Niedziela",
-			"thursday": "Czwartek",
-			"tuesday": "Wtorek",
-			"wednesday": "Środa"
-		}
-	},
 	"approvalTime": {
 		"EIGHT_HOURS": "8 godzin",
 		"FIFTEEN_MINUTES": "15 minut",
@@ -237,6 +217,22 @@
 		"THREE_HOURS": "za 3 godziny",
 		"TWO_HOURS": "za 2 godziny"
 	},
+	"enum": {
+		"facility": {
+			"capitalize": {
+				"ACCEPTING_CARD_PAYMENT": "Akceptujemy płatności kartą",
+				"ACCEPTING_CHILDREN": "Przyjazne dzieciom",
+				"ACCEPTING_PETS": "Zwierzęta dozwolone",
+				"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Zakwaterowanie dla osób z niepełnosprawnością",
+				"FREE_PARKING": "Darmowy parking",
+				"INTERNET": "Internet (Wi-Fi)"
+			}
+		},
+		"theme": {
+			"dark": "Ciemny",
+			"light": "Jasny"
+		}
+	},
 	"event": {
 		"form": {
 			"section": {
@@ -285,17 +281,17 @@
 			"status": {
 				"all": "Wszystkie",
 				"status": {
-					"singular": {
-						"booked": "Zarezerwowane",
-						"cancelled": "Anulowane",
-						"done": "Zakończone",
-						"requested": "Wniosek"
-					},
 					"plural": {
 						"booked": "Zarezerwowane",
 						"cancelled": "Anulowane",
 						"done": "Zakończone",
 						"requested": "Wnioskowe"
+					},
+					"singular": {
+						"booked": "Zarezerwowane",
+						"cancelled": "Anulowane",
+						"done": "Zakończone",
+						"requested": "Wniosek"
 					}
 				}
 			}
@@ -305,9 +301,9 @@
 	"form": {
 		"validation": {
 			"email": "Nieprawidłowy format adresu e-mail",
+			"mask": "Nieprawidłowy format, poprawny format to {{requiredMask}}",
 			"minlength": "Minimalna długość to {{requiredLength}}",
-			"required": "Wymagane pole",
-			"mask": "Nieprawidłowy format, poprawny format to {{requiredMask}}"
+			"required": "Wymagane pole"
 		}
 	},
 	"http": {
@@ -330,14 +326,6 @@
 			}
 		},
 		"POST": {
-			"/api/v1/service": {
-				"after": {
-					"success": {
-						"header": "Utworzono usługę",
-						"message": "Usługa została utworzona."
-					}
-				}
-			},
 			"/api/v1/customer": {
 				"after": {
 					"success": {
@@ -351,6 +339,14 @@
 					"success": {
 						"header": "Utworzono wydarzenie",
 						"message": "Wydarzenie zostało utworzone."
+					}
+				}
+			},
+			"/api/v1/service": {
+				"after": {
+					"success": {
+						"header": "Utworzono usługę",
+						"message": "Usługa została utworzona."
 					}
 				}
 			}
@@ -375,12 +371,25 @@
 					"address": {
 						"label": "Adres"
 					},
+					"businessName": {
+						"label": "Nazwa biznesu",
+						"placeholder": "Beauty Salon \"Bee O`clock\""
+					},
+					"businessOwnerFullName": {
+						"label": "Imię i nazwisko",
+						"placeholder": "Jan Kowalski"
+					},
 					"name": {
 						"label": "Nazwa"
 					},
 					"slogan": {
 						"label": "Slogan"
 					}
+				}
+			},
+			"section": {
+				"names": {
+					"title": "Wpisz swoje imię i nazwisko oraz nazwę swojej firmy"
 				}
 			}
 		},
@@ -442,6 +451,12 @@
 			}
 		},
 		"sign-up": {
+			"afterSuccess": {
+				"nextStep": "Następnym krokiem jest potwierdzenie adresu e-mail.",
+				"openMailService": "Przejść do serwisu e-mailingowego",
+				"weSentEmail": "Wysłaliśmy e-maila pod wskazany adres",
+				"youHaveSuccessfullyRegistered": "Gratulacje, udało Ci się zarejestrować!"
+			},
 			"form": {
 				"button": {
 					"sign-in": "Logowanie",
@@ -475,28 +490,13 @@
 				},
 				"label": "Rejestracja"
 			},
-			"afterSuccess": {
-				"youHaveSuccessfullyRegistered": "Gratulacje, udało Ci się zarejestrować!",
-				"nextStep": "Następnym krokiem jest potwierdzenie adresu e-mail.",
-				"weSentEmail": "Wysłaliśmy e-maila pod wskazany adres",
-				"openMailService": "Przejść do serwisu e-mailingowego"
-			},
 			"hint": {
 				"youHaveAnAccount": "Masz już konto?"
 			}
 		}
 	},
 	"keyword": {
-		"status": {
-			"all": "Wszystkie",
-			"plural": {
-				"1": "Aktywni",
-				"0": "Nieaktywni"
-			}
-		},
 		"capitalize": {
-			"dataNotFound": "Nie znaleziono danych, spróbuj dodać",
-			"thereArentAnyEvents": "Nie ma żadnych wydarzeń na {{ datetime }}",
 			"account": "Konto",
 			"action": "Akcja",
 			"active": "Aktywny",
@@ -531,6 +531,7 @@
 			"createdAt": "Utworzono",
 			"customer": "Klient",
 			"customers": "Klienty",
+			"dataNotFound": "Nie znaleziono danych, spróbuj dodać",
 			"dateAndTime": "Data i czas",
 			"delete": "Usuń",
 			"description": "Opis",
@@ -562,6 +563,7 @@
 			"menu": "Menu",
 			"name": "Nazwa",
 			"next": "Dalej",
+			"nextStep": "Dalej",
 			"no": "Nie",
 			"note": "Notatka",
 			"permission": "Uprawnienie",
@@ -580,13 +582,13 @@
 			"publicPage": "Strona publiczna",
 			"role": "Rola",
 			"save": "Zapisz",
+			"search": "Szukaj",
 			"select": "Wybierz",
 			"selectSpecialist": "Wybierz specjalistę",
 			"selected": "Wybrano",
 			"send": "Wyślij",
 			"service": "Usługa",
 			"services": "Usługi",
-			"search": "Szukaj",
 			"signIn": "Zaloguj się",
 			"signOut": "Wyloguj się",
 			"signUp": "Zarejestruj się",
@@ -599,6 +601,7 @@
 			"streetAddressLineOne": "Adres 1",
 			"streetAddressLineTwo": "Adres 2",
 			"theme": "Motyw",
+			"thereArentAnyEvents": "Nie ma żadnych wydarzeń na {{ datetime }}",
 			"title": "Tytuł",
 			"today": "Dziś",
 			"tomorrow": "Jutro",
@@ -616,6 +619,13 @@
 			"ago": "temu",
 			"dragAndDrop": "przeciągnij i upuść plik",
 			"or": "lub"
+		},
+		"status": {
+			"all": "Wszystkie",
+			"plural": {
+				"0": "Nieaktywni",
+				"1": "Aktywni"
+			}
 		}
 	},
 	"latestBooking": {
@@ -697,20 +707,24 @@
 		},
 		"title": "Wyloguj się"
 	},
-	"enum": {
-		"theme": {
-			"dark": "Ciemny",
-			"light": "Jasny"
+	"weekday": {
+		"long": {
+			"friday": "Piątek",
+			"monday": "Poniedziałek",
+			"saturday": "Sobota",
+			"sunday": "Niedziela",
+			"thursday": "Czwartek",
+			"tuesday": "Wtorek",
+			"wednesday": "Środa"
 		},
-		"facility": {
-			"capitalize": {
-				"ACCEPTING_CARD_PAYMENT": "Akceptujemy płatności kartą",
-				"ACCEPTING_CHILDREN": "Przyjazne dzieciom",
-				"ACCEPTING_PETS": "Zwierzęta dozwolone",
-				"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Zakwaterowanie dla osób z niepełnosprawnością",
-				"FREE_PARKING": "Darmowy parking",
-				"INTERNET": "Internet (Wi-Fi)"
-			}
+		"short": {
+			"friday": "Pt",
+			"monday": "Pn",
+			"saturday": "So",
+			"sunday": "Nd",
+			"thursday": "Cz",
+			"tuesday": "Wt",
+			"wednesday": "Śr"
 		}
 	}
 }

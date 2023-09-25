@@ -1,24 +1,4 @@
 {
-	"weekday": {
-		"short": {
-			"friday": "Fri",
-			"monday": "Mon",
-			"saturday": "Sat",
-			"sunday": "Sun",
-			"thursday": "Thu",
-			"tuesday": "Tue",
-			"wednesday": "Wed"
-		},
-		"long": {
-			"friday": "Friday",
-			"monday": "Monday",
-			"saturday": "Saturday",
-			"sunday": "Sunday",
-			"thursday": "Thursday",
-			"tuesday": "Tuesday",
-			"wednesday": "Wednesday"
-		}
-	},
 	"approvalTime": {
 		"EIGHT_HOURS": "8 hours",
 		"FIFTEEN_MINUTES": "15 minutes",
@@ -237,6 +217,22 @@
 		"THREE_HOURS": "In 3 hours",
 		"TWO_HOURS": "In 2 hours"
 	},
+	"enum": {
+		"facility": {
+			"capitalize": {
+				"ACCEPTING_CARD_PAYMENT": "Accepting credit cards",
+				"ACCEPTING_CHILDREN": "Child-friendly",
+				"ACCEPTING_PETS": "Pets allowed",
+				"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Accommodations for people with disabilities",
+				"FREE_PARKING": "Free Parking",
+				"INTERNET": "Internet (Wi-Fi)"
+			}
+		},
+		"theme": {
+			"dark": "Dark",
+			"light": "Light"
+		}
+	},
 	"event": {
 		"form": {
 			"section": {
@@ -284,13 +280,13 @@
 			},
 			"status": {
 				"all": "All",
-				"singular": {
+				"plural": {
 					"booked": "Booked",
 					"cancelled": "Canceled",
 					"done": "Done",
 					"requested": "Requested"
 				},
-				"plural": {
+				"singular": {
 					"booked": "Booked",
 					"cancelled": "Canceled",
 					"done": "Done",
@@ -303,9 +299,9 @@
 	"form": {
 		"validation": {
 			"email": "Invalid E-mail format",
+			"mask": "Invalid format, correct format is {{requiredMask}}",
 			"minlength": "Minimum length is {{requiredLength}}",
-			"required": "Required field",
-			"mask": "Invalid format, correct format is {{requiredMask}}"
+			"required": "Required field"
 		}
 	},
 	"http": {
@@ -328,14 +324,6 @@
 			}
 		},
 		"POST": {
-			"/api/v1/service": {
-				"after": {
-					"success": {
-						"header": "Service created",
-						"message": "Service was successfully created."
-					}
-				}
-			},
 			"/api/v1/customer": {
 				"after": {
 					"success": {
@@ -349,6 +337,14 @@
 					"success": {
 						"header": "Event created",
 						"message": "Event was successfully created."
+					}
+				}
+			},
+			"/api/v1/service": {
+				"after": {
+					"success": {
+						"header": "Service created",
+						"message": "Service was successfully created."
 					}
 				}
 			}
@@ -373,12 +369,25 @@
 					"address": {
 						"label": "Address"
 					},
+					"businessName": {
+						"label": "Business Name",
+						"placeholder": "Salon Urody \"Bee O`clock\""
+					},
+					"businessOwnerFullName": {
+						"label": "Your Name",
+						"placeholder": "Jonh Smith"
+					},
 					"name": {
 						"label": "Name"
 					},
 					"slogan": {
 						"label": "Slogan"
 					}
+				}
+			},
+			"section": {
+				"names": {
+					"title": "Enter Your Name and the Name of Your Business"
 				}
 			}
 		},
@@ -440,6 +449,12 @@
 			}
 		},
 		"sign-up": {
+			"afterSuccess": {
+				"nextStep": "The next step is to confirm your email.",
+				"openMailService": "Open the email service",
+				"weSentEmail": "We sent a letter to the address",
+				"youHaveSuccessfullyRegistered": "Congratulations, you have successfully registered!"
+			},
 			"form": {
 				"button": {
 					"sign-in": "Login",
@@ -473,28 +488,13 @@
 				},
 				"label": "Registration"
 			},
-			"afterSuccess": {
-				"youHaveSuccessfullyRegistered": "Congratulations, you have successfully registered!",
-				"nextStep": "The next step is to confirm your email.",
-				"weSentEmail": "We sent a letter to the address",
-				"openMailService": "Open the email service"
-			},
 			"hint": {
 				"youHaveAnAccount": "You have an account?"
 			}
 		}
 	},
 	"keyword": {
-		"status": {
-			"all": "All",
-			"plural": {
-				"1": "Active",
-				"0": "Inactive"
-			}
-		},
 		"capitalize": {
-			"dataNotFound": "Data not found, try adding",
-			"thereArentAnyEvents": "There aren't any events on {{ datetime }}",
 			"account": "Account",
 			"action": "Action",
 			"active": "Active",
@@ -529,6 +529,7 @@
 			"createdAt": "Created at",
 			"customer": "Customer",
 			"customers": "customers",
+			"dataNotFound": "Data not found, try adding",
 			"dateAndTime": "Date and time",
 			"delete": "Delete",
 			"description": "Description",
@@ -560,6 +561,7 @@
 			"menu": "Menu",
 			"name": "Name",
 			"next": "Next",
+			"nextStep": "Next step",
 			"no": "No",
 			"note": "Note",
 			"permission": "Permission",
@@ -578,13 +580,13 @@
 			"publicPage": "Public page",
 			"role": "Role",
 			"save": "Save",
+			"search": "search",
 			"select": "Select",
 			"selectSpecialist": "Select specialist",
 			"selected": "Selected",
 			"send": "Send",
 			"service": "Service",
 			"services": "Services",
-			"search": "search",
 			"signIn": "Sign in",
 			"signOut": "Sign out",
 			"signUp": "Sign up",
@@ -597,6 +599,7 @@
 			"streetAddressLineOne": "Address 1",
 			"streetAddressLineTwo": "Address 2",
 			"theme": "Theme",
+			"thereArentAnyEvents": "There aren't any events on {{ datetime }}",
 			"title": "Title",
 			"today": "Today",
 			"tomorrow": "Tomorrow",
@@ -614,6 +617,13 @@
 			"ago": "ago",
 			"dragAndDrop": "drag and drop",
 			"or": "or"
+		},
+		"status": {
+			"all": "All",
+			"plural": {
+				"0": "Inactive",
+				"1": "Active"
+			}
 		}
 	},
 	"latestBooking": {
@@ -695,20 +705,24 @@
 		},
 		"title": "Sign out"
 	},
-	"enum": {
-		"theme": {
-			"dark": "Dark",
-			"light": "Light"
+	"weekday": {
+		"long": {
+			"friday": "Friday",
+			"monday": "Monday",
+			"saturday": "Saturday",
+			"sunday": "Sunday",
+			"thursday": "Thursday",
+			"tuesday": "Tuesday",
+			"wednesday": "Wednesday"
 		},
-		"facility": {
-			"capitalize": {
-				"ACCEPTING_CARD_PAYMENT": "Accepting credit cards",
-				"ACCEPTING_CHILDREN": "Child-friendly",
-				"ACCEPTING_PETS": "Pets allowed",
-				"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Accommodations for people with disabilities",
-				"FREE_PARKING": "Free Parking",
-				"INTERNET": "Internet (Wi-Fi)"
-			}
+		"short": {
+			"friday": "Fri",
+			"monday": "Mon",
+			"saturday": "Sat",
+			"sunday": "Sun",
+			"thursday": "Thu",
+			"tuesday": "Tue",
+			"wednesday": "Wed"
 		}
 	}
 }

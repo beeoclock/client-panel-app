@@ -1,7 +1,7 @@
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActiveEnum, LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
-import {IDurationVersion} from "@service/domain";
+import {IDurationVersion, IService} from "@service/domain";
 import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
 import {extractSecondsFrom_hh_mm_ss, STR_MINUTE_45} from "@utility/domain/time";
 import {ISpecialist} from "@service/domain/interface/i.specialist";
@@ -187,7 +187,7 @@ export interface IServiceForm {
 }
 
 export class ServiceForm extends FormGroup<IServiceForm> {
-	constructor() {
+	constructor(initialValue?: IService) {
 		super({
 			schedules: new SchedulesForm(),
 			configuration: new ConfigurationForm(),
@@ -198,12 +198,19 @@ export class ServiceForm extends FormGroup<IServiceForm> {
 			active: new FormControl(),
 			_id: new FormControl()
 		});
-		this.initValue();
+		this.initValue(initialValue);
 	}
 
-	public initValue(): void {
+	public initValue(initialValue?: IService): void {
 		this.controls.specialists.setValue([]);
 		this.controls.active.setValue(ActiveEnum.YES);
+		if (initialValue) {
+			Object.keys(initialValue).forEach(key => {
+				if (this.contains(key)) {
+					this.controls[key].setValue((initialValue as any)[key]);
+				}
+			});
+		}
 	}
 
 	public pushNewLanguageVersionForm(): void {

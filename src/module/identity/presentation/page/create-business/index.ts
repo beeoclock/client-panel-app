@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import BusinessClientForm from "@identity/presentation/form/business-client.form";
+import CreateBusinessForm from "@identity/presentation/form/create-business.form";
 import {IdentityApiAdapter} from "@identity/adapter/external/api/identity.api.adapter";
 import {firstValueFrom, map} from "rxjs";
 import {ToastController} from "@ionic/angular";
@@ -52,7 +52,7 @@ export default class Index {
     map((firstCompany) => !firstCompany)
   );
 
-  public readonly form = new BusinessClientForm();
+  public readonly form = new CreateBusinessForm();
 
   public async save(): Promise<void> {
     this.form.markAllAsTouched();
