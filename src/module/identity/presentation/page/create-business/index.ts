@@ -41,8 +41,8 @@ export default class Index {
   public readonly identityApiAdapter = inject(IdentityApiAdapter);
   private readonly toastController = inject(ToastController);
   private readonly router = inject(Router);
-  private readonly activatedRoute = inject(ActivatedRoute);
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
+	private readonly activatedRoute = inject(ActivatedRoute);
 
   public readonly firstCompany$ = this.activatedRoute.queryParams.pipe(
     map(({firstCompany}) => !!firstCompany)

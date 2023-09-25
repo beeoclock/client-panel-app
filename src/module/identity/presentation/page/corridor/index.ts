@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SignInComponent} from '@identity/presentation/component/sign-in.component/sign-in.component';
@@ -67,9 +67,6 @@ export default class Index extends Reactive implements OnInit {
       this.loader.switchOff();
     })
   );
-
-  @HostBinding()
-  public readonly class = 'w-96 p-8 dark:border-beeDarkColor-700 rounded dark:bg-beeDarkColor-800';
 
   public readonly loader = new BooleanState(true);
   public readonly disabled = new BooleanState(false);
