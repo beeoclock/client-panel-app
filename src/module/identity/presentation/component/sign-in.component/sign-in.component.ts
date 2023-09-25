@@ -91,7 +91,11 @@ export class SignInComponent {
           const {user} = await signInWithEmailAndPassword(this.auth, email, password);
           const token = await user.getIdTokenResult();
           await firstValueFrom(this.store.dispatch(new IdentityActions.Token(token)));
-          await this.router.navigate(['/', 'identity', 'corridor']);
+					if (user.emailVerified) {
+						await this.router.navigate(['/', 'identity', 'corridor']);
+					} else {
+						await this.router.navigate(['/', 'identity', 'confirm-email']);
+					}
 
         } catch (error) {
 

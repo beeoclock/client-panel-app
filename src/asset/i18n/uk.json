@@ -304,7 +304,8 @@
 		"validation": {
 			"email": "Неправильний формат E-mail",
 			"minlength": "Мінімальна довжина - {{requiredLength}}",
-			"required": "Обов'язкове поле"
+			"required": "Обов'язкове поле",
+			"mask": "Неправильний формат, правильний формат - {{requiredMask}}"
 		}
 	},
 	"http": {

@@ -304,7 +304,8 @@
 		"validation": {
 			"email": "Invalid E-mail format",
 			"minlength": "Minimum length is {{requiredLength}}",
-			"required": "Required field"
+			"required": "Required field",
+			"mask": "Invalid format, correct format is {{requiredMask}}"
 		}
 	},
 	"http": {
