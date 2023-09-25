@@ -59,7 +59,7 @@
 
 				</form>
 
-				<button primary routerLink="../point-of-sale" [class.disabled]="!serviceProvideTypeControl.value">
+				<button primary [routerLink]="['../', nextStepPath]" [class.disabled]="!serviceProvideTypeControl.value">
 					{{ 'keyword.capitalize.nextStep' | translate }}
 				</button>
 
