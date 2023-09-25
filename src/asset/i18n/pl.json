@@ -23,12 +23,18 @@
 		"TWO_HOURS": "2 godziny"
 	},
 	"businessCategory": {
+		"BeautySalon":  "Salon kosmetyczny",
 		"Barbershop": "Barbershop",
-		"BeautySalon": "Salon urody",
-		"Dentistry": "Dentystyka",
-		"Hairdresser": "Fryzjer",
-		"OnlineConsultation": "Konsultacje online",
-		"OnlineTeaching": "Nauczanie online"
+		"Hairdresser":  "Fryzjer",
+		"PhysicalRehabilitation":  "Rehabilitacja fizyczna",
+		"Psychotherapy": "Psychoterapia",
+		"Dentistry":  "Stomatologia",
+		"Other": "Inne"
+	},
+	"serviceProvideType": {
+		"Online": "Online",
+		"Offline": "Offline",
+		"Mixed": "Różnie"
 	},
 	"change-name": {
 		"form": {

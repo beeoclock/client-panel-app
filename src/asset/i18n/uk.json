@@ -23,12 +23,18 @@
 		"TWO_HOURS": "2 години"
 	},
 	"businessCategory": {
-		"Barbershop": "Barbershop",
-		"BeautySalon": "Салон краси",
-		"Dentistry": "Стоматологія",
-		"Hairdresser": "Перукарня",
-		"OnlineConsultation": "Онлайн консультація",
-		"OnlineTeaching": "Онлайн навчання"
+		"BeautySalon":  "Салон краси",
+		"Barbershop": "Чоловіча перукарня",
+		"Hairdresser":  "Жіноча перукарня",
+		"PhysicalRehabilitation":  "Фізична реабілітація",
+		"Psychotherapy": "Психотерапія",
+		"Dentistry":  "Стоматологія",
+		"Other": "Інше"
+	},
+	"serviceProvideType": {
+		"Online": "Онлайн",
+		"Offline": "Офлайн",
+		"Mixed": "Змішаний"
 	},
 	"change-name": {
 		"form": {

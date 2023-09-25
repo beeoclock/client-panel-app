@@ -1,6 +1,6 @@
 <div class="h-screen bg-white p-4 overflow-y-auto">
 	<div class="flex justify-between">
-		<utility-back-link-component url="../names"/>
+		<utility-back-link-component url="../industry"/>
 		<utility-change-language-component/>
 	</div>
 	<div class="relative py-12 sm:py-16 lg:pt-20 xl:pb-0">
@@ -8,22 +8,22 @@
 			<div class="mx-auto max-w-3xl text-center">
 				<h1
 					class="mt-5 text-3xl font-light leading-tight text-gray-900 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight">
-					What is Your Industry?
+					Choose Your Service Approach
 				</h1>
 
 				<form class="py-8 md:py-16">
 
-					<ul class="grid w-full gap-6 md:grid-cols-4 overflow-y-auto max-h-[64vh]">
-						<li *ngFor="let industryWithIcon of industryListWithIcon">
+					<ul class="grid w-full gap-6 md:grid-cols-3 overflow-y-auto max-h-[64vh]">
+						<li *ngFor="let serviceProvideType of listWithIcon">
 							<input
 								type="radio"
-								name="businessIndustry"
+								name="serviceProvideType"
 								class="hidden peer"
-								[id]="'create-business-form-business-industry-' + industryWithIcon.label"
-								[value]="industryWithIcon.label"
-								[formControl]="businessIndustryControl" />
+								[id]="'create-business-form-business-serviceProvideType-' + serviceProvideType.label"
+								[value]="serviceProvideType.label"
+								[formControl]="serviceProvideTypeControl" />
 							<label
-								[for]="'create-business-form-business-industry-' + industryWithIcon.label"
+								[for]="'create-business-form-business-serviceProvideType-' + serviceProvideType.label"
 								class="
 									flex
 									flex-col
@@ -50,16 +50,16 @@
 									dark:hover:bg-gray-700
 									md:min-h-[200px]">
 								<div class="w-full text-4xl font-semibold">
-									<i [class]="industryWithIcon.icon"></i>
+									<i [class]="serviceProvideType.icon"></i>
 								</div>
-								<div class="w-full">{{ ('businessIndustry.' + industryWithIcon.label) | translate }}</div>
+								<div class="w-full">{{ ('serviceProvideType.' + serviceProvideType.label) | translate }}</div>
 							</label>
 						</li>
 					</ul>
 
 				</form>
 
-				<button primary [routerLink]="['../', nextStepPath]" [class.disabled]="invalid">
+				<button primary routerLink="../point-of-sale" [class.disabled]="!serviceProvideTypeControl.value">
 					{{ 'keyword.capitalize.nextStep' | translate }}
 				</button>
 

@@ -23,12 +23,18 @@
 		"TWO_HOURS": "2 hours"
 	},
 	"businessCategory": {
+		"BeautySalon":  "Beauty salon",
 		"Barbershop": "Barbershop",
-		"BeautySalon": "Beauty salon",
-		"Dentistry": "Dentistry",
-		"Hairdresser": "Hairdresser",
-		"OnlineConsultation": "Online consultation",
-		"OnlineTeaching": "Online teaching"
+		"Hairdresser":  "Hairdresser",
+		"PhysicalRehabilitation":  "Physical rehabilitation",
+		"Psychotherapy": "Psychotherapy",
+		"Dentistry":  "Dentistry",
+		"Other": "Other"
+	},
+	"serviceProvideType": {
+		"Online": "Online",
+		"Offline": "Offline",
+		"Mixed": "Mixed"
 	},
 	"change-name": {
 		"form": {

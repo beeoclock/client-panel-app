@@ -73,6 +73,14 @@ export const routers = [
 			{
 				path: 'services',
 				loadComponent: () => import('./page/create-business/services')
+			},
+			{
+				path: 'category',
+				loadComponent: () => import('./page/create-business/category')
+			},
+			{
+				path: 'service-provide-type',
+				loadComponent: () => import('./page/create-business/service-provide-type')
 			}
 		]
   },
