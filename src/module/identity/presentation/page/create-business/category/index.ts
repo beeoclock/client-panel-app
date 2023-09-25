@@ -32,8 +32,9 @@ import {BusinessCategory} from "@utility/domain/business-category";
 export default class Index {
 
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
+	public readonly businessIndustryControl = this.createBusinessQuery.getBusinessIndustryControl();
 	public readonly businessCategoryControl = this.createBusinessQuery.getBusinessCategoryControl();
-	public readonly listWithIcon = BusinessCategory.listWithIcon;
+	public readonly listWithIcon = BusinessCategory.listsByIndustry[this.businessIndustryControl.value];
 
 	public get valid(): boolean {
 		return this.businessCategoryControl.valid;
