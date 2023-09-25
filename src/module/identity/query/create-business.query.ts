@@ -16,6 +16,14 @@ export class CreateBusinessQuery {
 		return this.createBusinessFormRepository.form.controls.businessCategory;
 	}
 
+	public getBusinessIndustryControl() {
+		return this.createBusinessFormRepository.form.controls.businessIndustry;
+	}
+
+	public getServiceProvideTypeControl() {
+		return this.createBusinessFormRepository.form.controls.serviceProvideType;
+	}
+
 	public getBusinessOwnerFullNameControl() {
 		return this.createBusinessFormRepository.form.controls.businessOwnerFullName;
 	}

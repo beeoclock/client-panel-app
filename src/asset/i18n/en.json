@@ -1,4 +1,10 @@
 {
+	"businessIndustry": {
+		"Other": "Other",
+		"Healthcare":"Healthcare",
+		"BeautyIndustry": "Beauty industry",
+		"TeachingAndConsultation":"Teaching & consultation"
+	},
 	"approvalTime": {
 		"EIGHT_HOURS": "8 hours",
 		"FIFTEEN_MINUTES": "15 minutes",

@@ -2,6 +2,9 @@ import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/form
 import {AddressForm, GalleryForm} from "@client/presentation/form";
 import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
 import {ServicesForm} from "@service/presentation/form";
+import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
+import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
+import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
 
 
 interface IBusinessClientForm {
@@ -10,8 +13,9 @@ interface IBusinessClientForm {
 	gallery: GalleryForm;
 	services: ServicesForm;
 
-
-	businessCategory: FormControl<string>;
+	businessCategory: FormControl<BusinessCategoryEnum>;
+	serviceProvideType: FormControl<ServiceProvideTypeEnum>;
+	businessIndustry: FormControl<BusinessIndustryEnum>;
 	businessName: FormControl<string>;
 	businessOwnerFullName: FormControl<string>;
 
@@ -27,6 +31,8 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 			services: new ServicesForm(),
 
 			businessCategory: new FormControl(),
+			businessIndustry: new FormControl(),
+			serviceProvideType: new FormControl(),
 			businessName: new FormControl(),
 			businessOwnerFullName: new FormControl(),
 		});
@@ -34,14 +40,21 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 	}
 
 	public initValidators(): void {
-		this.controls.businessCategory.setValidators([
+
+		this.controls.businessIndustry.setValidators([
 			Validators.required
 		]);
+		this.controls.businessIndustry.updateValueAndValidity();
+
 		this.controls.businessName.setValidators([
 			Validators.required
 		]);
+		this.controls.businessIndustry.updateValueAndValidity();
+
 		this.controls.businessOwnerFullName.setValidators([
 			Validators.required
 		]);
+		this.controls.businessIndustry.updateValueAndValidity();
+
 	}
 }

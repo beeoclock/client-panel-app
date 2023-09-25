@@ -1,4 +1,4 @@
-<div class="h-screen bg-white p-4">
+<div class="h-screen bg-white p-4 overflow-y-auto">
 	<div class="flex justify-between">
 		<utility-back-link-component url="../names"/>
 		<utility-change-language-component/>
@@ -11,10 +11,56 @@
 					What is Your Industry?
 				</h1>
 
-				<form-input/>
+				<form class="py-8 md:py-16">
 
-				<button routerLink="../point-of-sale" primary>
-					Next step
+					<ul class="grid w-full gap-6 md:grid-cols-4 overflow-y-auto max-h-[64vh]">
+						<li *ngFor="let industryWithIcon of industryListWithIcon">
+							<input
+								type="radio"
+								name="businessIndustry"
+								class="hidden peer"
+								[id]="'create-business-form-business-industry-' + industryWithIcon.label"
+								[value]="industryWithIcon.label"
+								[formControl]="businessIndustryControl" />
+							<label
+								[for]="'create-business-form-business-industry-' + industryWithIcon.label"
+								class="
+									flex
+									flex-col
+									items-center
+									justify-center
+									gap-4
+									w-full
+									p-5
+									text-gray-500
+									bg-white
+									border
+									border-gray-200
+									rounded-lg
+									cursor-pointer
+									dark:hover:text-gray-300
+									dark:border-gray-700
+									dark:peer-checked:text-blue-500
+									peer-checked:border-blue-600
+									peer-checked:text-blue-600
+									hover:text-gray-600
+									hover:bg-gray-100
+									dark:text-gray-400
+									dark:bg-gray-800
+									dark:hover:bg-gray-700
+									md:min-h-[200px]">
+								<div class="w-full text-4xl font-semibold">
+									<i [class]="industryWithIcon.icon"></i>
+								</div>
+								<div class="w-full">{{ ('businessIndustry.' + industryWithIcon.label) | translate }}</div>
+							</label>
+						</li>
+					</ul>
+
+				</form>
+
+				<button primary routerLink="../point-of-sale" [class.disabled]="invalid">
+					{{ 'keyword.capitalize.nextStep' | translate }}
 				</button>
 
 			</div>

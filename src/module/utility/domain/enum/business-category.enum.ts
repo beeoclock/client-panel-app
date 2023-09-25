@@ -4,5 +4,11 @@ export enum BusinessCategoryEnum {
   Hairdresser = 'Hairdresser',
   OnlineConsultation = 'OnlineConsultation',
   OnlineTeaching = 'OnlineTeaching',
-  Dentistry = 'Dentistry',
+
+	Other = 'Other',
+
+	Dentistry = 'Dentistry',
+	PhysicalRehabilitation = 'PhysicalRehabilitation',
+	Psychotherapy = 'Psychotherapy',
+
 }

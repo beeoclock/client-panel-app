@@ -30,12 +30,12 @@ export default class Index {
 	public readonly businessNameControl = this.createBusinessQuery.getBusinessNameControl();
 	public readonly businessOwnerFullNameControl = this.createBusinessQuery.getBusinessOwnerFullNameControl();
 
-	public get isValid(): boolean {
+	public get valid(): boolean {
 		return this.businessNameControl.valid && this.businessOwnerFullNameControl.valid;
 	}
 
-	public get isInvalid(): boolean {
-		return !this.isValid;
+	public get invalid(): boolean {
+		return !this.valid;
 	}
 
 }

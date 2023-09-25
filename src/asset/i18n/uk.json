@@ -1,4 +1,10 @@
 {
+	"businessIndustry": {
+		"Other": "Інше",
+		"Healthcare":"Охорона здоров'я",
+		"BeautyIndustry": "Краса",
+		"TeachingAndConsultation":"Навчання та консультації"
+	},
 	"approvalTime": {
 		"EIGHT_HOURS": "8 годин",
 		"FIFTEEN_MINUTES": "15 хвилин",
