@@ -473,6 +473,12 @@
 				},
 				"label": "Реєстрація"
 			},
+			"afterSuccess": {
+				"youHaveSuccessfullyRegistered": "Вітаємо, ти успішно зареєструвався!",
+				"nextStep": "Наступним кроком є підтвердження електронної пошти.",
+				"weSentEmail": "Ми відправили листа на адресу",
+				"openMailService": "Перейти до поштового сервісу"
+			},
 			"hint": {
 				"youHaveAnAccount": "Вже зареєстровані?"
 			}

@@ -475,6 +475,12 @@
 				},
 				"label": "Rejestracja"
 			},
+			"afterSuccess": {
+				"youHaveSuccessfullyRegistered": "Gratulacje, udało Ci się zarejestrować!",
+				"nextStep": "Następnym krokiem jest potwierdzenie adresu e-mail.",
+				"weSentEmail": "Wysłaliśmy e-maila pod wskazany adres",
+				"openMailService": "Przejść do serwisu e-mailingowego"
+			},
 			"hint": {
 				"youHaveAnAccount": "Masz już konto?"
 			}

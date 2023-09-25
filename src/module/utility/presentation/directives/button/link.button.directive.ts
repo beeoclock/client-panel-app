@@ -3,7 +3,7 @@ import {ButtonColorEnum, ButtonTypeEnum} from "@utility/presentation/directives/
 import {LoadingBaseButtonDirective} from "@utility/presentation/directives/button/loading.base.button.directive";
 
 @Directive({
-  selector: '[link]',
+  selector: 'button[link]',
   standalone: true,
 })
 export class LinkButtonDirective extends LoadingBaseButtonDirective {

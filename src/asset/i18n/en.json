@@ -473,6 +473,12 @@
 				},
 				"label": "Registration"
 			},
+			"afterSuccess": {
+				"youHaveSuccessfullyRegistered": "Congratulations, you have successfully registered!",
+				"nextStep": "The next step is to confirm your email.",
+				"weSentEmail": "We sent a letter to the address",
+				"openMailService": "Open the email service"
+			},
 			"hint": {
 				"youHaveAnAccount": "You have an account?"
 			}
