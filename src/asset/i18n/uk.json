@@ -302,6 +302,7 @@
 	},
 	"form": {
 		"validation": {
+			"whitespace": "Видали всі пробіли",
 			"email": "Неправильний формат E-mail",
 			"minlength": "Мінімальна довжина - {{requiredLength}}",
 			"required": "Обов'язкове поле",

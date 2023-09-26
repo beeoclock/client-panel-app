@@ -141,22 +141,18 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 		}
 		if (start && end && this.specialist) {
 			await this.slotsService.initSlots(start, end, this.specialist);
-
-			const selectedDateTime = target.toUTC().toISO();
-			if (selectedDateTime) {
-				this.initTimeSlotLists(selectedDateTime);
-			}
+			this.initTimeSlotLists();
 		}
 	}
 
 	/**
 	 *
-	 * @param selectedDateTime - ISO string
 	 * @private
 	 */
-	private initTimeSlotLists(selectedDateTime: string): void {
+	private initTimeSlotLists(): void {
 
 		this.timeSlotLists.length = 0;
+		this.currentIndexListOfSlots = 0;
 
 		let localTemporaryList: ITimeSlot[] = [];
 
@@ -166,10 +162,6 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 				datetime: DateTime.fromISO(slot)
 			}))
 			.forEach((slot, index) => {
-
-				if (slot.datetime.toUTC().toISO() === selectedDateTime) {
-					this.currentIndexListOfSlots = this.timeSlotLists.length;
-				}
 
 				localTemporaryList.push(slot);
 
@@ -183,6 +175,7 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 		if (localTemporaryList.length) {
 			this.timeSlotLists.push(localTemporaryList);
 		}
+
 
 	}
 

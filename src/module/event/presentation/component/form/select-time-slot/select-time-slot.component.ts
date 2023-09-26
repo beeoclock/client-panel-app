@@ -6,6 +6,7 @@ import {SelectTimeComponent} from "@event/presentation/component/form/select-tim
 import {DateTime} from "luxon";
 import {DatePipe} from "@angular/common";
 import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
+import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 
 @Component({
 	selector: 'event-select-time-slot-form-component',
@@ -14,7 +15,8 @@ import {SlotsService} from "@event/presentation/component/form/select-time-slot/
 		TranslateModule,
 		SelectDateComponent,
 		SelectTimeComponent,
-		DatePipe
+		DatePipe,
+		InvalidTooltipComponent
 	],
 	providers: [
 		SlotsService
@@ -23,7 +25,10 @@ import {SlotsService} from "@event/presentation/component/form/select-time-slot/
 
 		<div class="flex flex-col gap-8 mb-4">
 
-			<strong class="text-2xl dark:text-white">{{ 'keyword.capitalize.dateAndTime' | translate }}</strong>
+			<div class="flex justify-between items-center">
+				<strong class="text-2xl dark:text-white">{{ 'keyword.capitalize.dateAndTime' | translate }}</strong>
+				<utility-invalid-message [hidden]="control.untouched" [control]="control" />
+			</div>
 
 			<event-select-time-slot-date-form-component
 				[control]="control"

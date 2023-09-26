@@ -302,6 +302,7 @@
 	},
 	"form": {
 		"validation": {
+			"whitespace": "Remove all spaces",
 			"email": "Invalid E-mail format",
 			"minlength": "Minimum length is {{requiredLength}}",
 			"required": "Required field",

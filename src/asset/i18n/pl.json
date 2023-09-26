@@ -304,6 +304,7 @@
 	},
 	"form": {
 		"validation": {
+			"whitespace": "Usuń wszystkie spacje",
 			"email": "Nieprawidłowy format adresu e-mail",
 			"minlength": "Minimalna długość to {{requiredLength}}",
 			"required": "Wymagane pole",
