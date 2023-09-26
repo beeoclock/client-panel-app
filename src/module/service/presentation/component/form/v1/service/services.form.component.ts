@@ -36,7 +36,7 @@ import {LANGUAGES} from '@utility/domain/enum';
           dark:bg-beeDarkColor-800
           dark:border-beeDarkColor-600">
             Language version #{{ index + 1 }}
-            <button type="button" class="text-red-500" (click)="form.remove(index)" *ngIf="index > 0">
+            <button type="button" class="text-red-500" (click)="form.removeAt(index)" *ngIf="index > 0">
               <i class="bi bi-trash"></i>
             </button>
           </div>

@@ -25,7 +25,7 @@ export class AttendeesComponent {
 
 	public remove(index: number): void {
 
-		this.form.remove(index);
+		this.form.removeAt(index);
 
 	}
 

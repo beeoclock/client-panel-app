@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import CreateBusinessForm from "@identity/presentation/form/create-business.form";
 import {BooleanState} from "@utility/domain";
 import {NGXLogger} from "ngx-logger";
+import {RISchedule} from "@utility/domain/interface/i.schedule";
 
 @Injectable({
 	providedIn: 'root'
@@ -15,19 +16,24 @@ export class CreateBusinessFormRepository {
 	constructor(
 		private readonly logger: NGXLogger
 	) {
-		this.initHandlers();
 		if (this.initializedValueFromStorage.isOff) {
 			this.initValueFromLocalStorage();
 		}
+		this.initHandlers();
 	}
 
 	public initValueFromLocalStorage(): void {
 		this.logger.debug('CreateBusinessFormRepository.initValueFromLocalStorage');
 		const value = localStorage.getItem(this.formLocalStorageKey);
 		if (value) {
-			const parsedValue = JSON.parse(value);
+			const parsedValue = JSON.parse(value) as { schedules: RISchedule[] };
 			this.logger.debug('CreateBusinessFormRepository.initValueFromLocalStorage', parsedValue);
-			this.form.patchValue(parsedValue);
+			const {schedules, ...restOfForm} = parsedValue;
+			this.form.patchValue(restOfForm);
+			this.form.controls.schedules.clear();
+			schedules.forEach((schedule) => {
+				this.form.controls.schedules.pushNewOne(schedule);
+			});
 		}
 		this.initializedValueFromStorage.switchOn();
 	}
@@ -43,8 +49,13 @@ export class CreateBusinessFormRepository {
 
 	private initFormValueHandler(): void {
 		this.form.valueChanges.subscribe((value) => {
-			localStorage.setItem(this.formLocalStorageKey, JSON.stringify(value));
+			this.logger.debug('CreateBusinessFormRepository.initFormValueHandler.form.valueChanges', value);
+			this.saveToStorage();
 		});
+	}
+
+	public saveToStorage(): void {
+		localStorage.setItem(this.formLocalStorageKey, JSON.stringify(this.form.getRawValue()));
 	}
 
 }

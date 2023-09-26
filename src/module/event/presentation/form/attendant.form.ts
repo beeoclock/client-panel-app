@@ -84,15 +84,11 @@ export class AttendeesForm extends FormArray<AttendantForm> {
 
     }
 
-    this.controls.push(control);
+    this.push(control);
     this.updateValueAndValidity();
 
     return control;
 
-  }
-
-  public remove(index: number): void {
-    this.controls.splice(index, 1);
   }
 
 }

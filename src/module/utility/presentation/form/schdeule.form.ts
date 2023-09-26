@@ -43,10 +43,6 @@ export class SchedulesForm extends FormArray<ScheduleForm> {
     ]);
   }
 
-  public remove(index: number): void {
-    this.controls.splice(index, 1);
-  }
-
   public pushNewOne(initialValue?: RISchedule): void {
     const control = new ScheduleForm();
     if (initialValue) {
@@ -55,7 +51,7 @@ export class SchedulesForm extends FormArray<ScheduleForm> {
 			startInSeconds && control.controls.startInSeconds.setValue(startInSeconds);
 			endInSeconds && control.controls.endInSeconds.setValue(endInSeconds);
     }
-    this.controls.push(control);
+    this.push(control);
   }
 
 }

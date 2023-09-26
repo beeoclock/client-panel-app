@@ -95,12 +95,9 @@ export class PricesForm extends FormArray<PriceForm> {
 	}
 
 	public pushNewPriceForm(): void {
-		this.controls.push(new PriceForm());
+		this.push(new PriceForm());
 	}
 
-	public remove(index: number): void {
-		this.controls.splice(index, 1);
-	}
 }
 
 export interface IConfigurationForm {
@@ -144,10 +141,6 @@ export class LanguageVersionsForm extends FormArray<LanguageVersionForm> {
 		super([new LanguageVersionForm()]);
 	}
 
-	public remove(index: number): void {
-		this.controls.splice(index, 1);
-	}
-
 }
 
 export class DurationVersionsForm extends FormArray<DurationVersionForm> {
@@ -155,20 +148,12 @@ export class DurationVersionsForm extends FormArray<DurationVersionForm> {
 		super([new DurationVersionForm()]);
 	}
 
-	public remove(index: number): void {
-		this.controls.splice(index, 1);
-	}
-
-	public removeControls(): void {
-		this.controls = [];
-	}
-
 	public pushNewOne(initialValue?: undefined | IDurationVersion): void {
 		const newOne = new DurationVersionForm();
 		if (initialValue) {
 			newOne.patchValue(initialValue);
 		}
-		this.controls.push(newOne);
+		this.push(newOne);
 	}
 
 }

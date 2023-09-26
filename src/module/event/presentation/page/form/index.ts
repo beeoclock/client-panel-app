@@ -112,7 +112,7 @@ export default class Index implements OnInit {
 
 					if (attendees?.length) {
 
-						this.form.controls.attendees.remove(0);
+						this.form.controls.attendees.removeAt(0);
 
 						attendees.forEach((attendee) => {
 

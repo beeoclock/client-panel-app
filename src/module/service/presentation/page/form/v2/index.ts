@@ -77,7 +77,7 @@ export default class Index implements OnInit {
 					this.form.patchValue(rest);
 
 					// Prevents from removing all controls from durationVersions
-					this.form.controls.durationVersions.removeControls();
+					this.form.controls.durationVersions.clear();
 					// Add new controls to durationVersions
 					durationVersions.forEach((durationVersion) => {
 						this.form.controls.durationVersions.pushNewOne(durationVersion);

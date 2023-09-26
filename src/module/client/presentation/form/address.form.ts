@@ -49,16 +49,12 @@ export class AddressesForm extends FormArray<AddressForm> {
     super([new AddressForm()]);
   }
 
-  public remove(index: number): void {
-    this.controls.splice(index, 1);
-  }
-
   public pushNewOne(initialValue?: IAddress): void {
     const control = new AddressForm();
     if (initialValue) {
       control.setValue(initialValue);
     }
-    this.controls.push(control);
+    this.push(control);
   }
 
 }

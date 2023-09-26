@@ -7,12 +7,8 @@ export class ServicesForm extends FormArray<ServiceForm> {
 		super([new ServiceForm()]);
 	}
 
-	public remove(index: number): void {
-		this.controls.splice(index, 1);
-	}
-
 	public pushNewOne(initialValue?: IService): void {
 		const control = new ServiceForm(initialValue);
-		this.controls.push(control);
+		this.push(control);
 	}
 }
