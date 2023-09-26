@@ -32,17 +32,22 @@ export class CreateBusinessFormRepository {
 			this.form.patchValue(restOfForm);
 
 			// Schedules
-			this.form.controls.schedules.clear();
-			schedules.forEach((schedule) => {
-				this.form.controls.schedules.pushNewOne(schedule);
-			});
+			if (schedules.length) {
+				this.form.controls.schedules.clear();
+				schedules.forEach((schedule) => {
+					this.form.controls.schedules.pushNewOne(schedule);
+				});
+			}
 
 			// Gallery
-			this.form.controls.gallery.controls.images.clear();
-			console.log(gallery);
-			gallery.images.forEach((image) => {
-				this.form.controls.gallery.pushImage(image);
-			});
+			if (gallery.images.length) {
+				this.form.controls.gallery.controls.images.clear();
+				console.log(gallery);
+				gallery.images.forEach((image) => {
+					this.form.controls.gallery.pushImage(image);
+				});
+			}
+
 		}
 		this.initializedValueFromStorage.switchOn();
 	}

@@ -56,12 +56,17 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 		if (this.limitNotExceeded) {
 
 			// Get the index and control of the last image
-			const lastImageIndex = this.controls.images.length - 1;
-			const lastImageControl = this.controls.images.controls[lastImageIndex];
+			const lastImageControl = this.controls.images.controls.at(-1);
+
+			// if (lastImageControl?.value?.length) {
+			// 	// If the value is not empty, add a new image control to the form array
+			// 	this.controls.images.push(new FormControl());
+			// 	this.initHandlerForLastImage();
+			// 	return;
+			// }
 
 			// Subscribe to changes in the last image control
-			lastImageControl.valueChanges.pipe(takeUntil(this.takeUntilLastImage$)).subscribe((value) => {
-
+			lastImageControl?.valueChanges.pipe(takeUntil(this.takeUntilLastImage$)).subscribe((value) => {
 				if (value?.length) {
 					// If the value is not empty, add a new image control to the form array
 					this.controls.images.push(new FormControl());
@@ -97,8 +102,16 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 
 	public pushImage(initialValue: string): void {
 
-		this.controls.images.push(new FormControl());
-		this.controls.images.at(-1).patchValue(initialValue);
+		const lastImageControl = this.controls.images.controls.at(-1);
+
+		if (!this.controls.images.length || lastImageControl?.value?.length) {
+			this.controls.images.push(new FormControl());
+			this.controls.images.at(-1).patchValue(initialValue);
+			this.controls.images.push(new FormControl());
+		} else {
+			this.controls.images.at(-1).patchValue(initialValue);
+		}
+
 		this.initHandlerForLastImage();
 
 	}
