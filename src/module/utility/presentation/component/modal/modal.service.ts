@@ -85,7 +85,8 @@ export class ModalService {
 
       // Set modal instance in to each component children if property exist.
       this.#storeOfModals[id].instance.componentChildRefList.forEach((component: ComponentRef<any>) => {
-        if (Reflect.has(component.instance, 'modalInstance')) {
+				console.log(component.instance);
+				if (Reflect.has(component.instance, 'modalInstance')) {
           component.instance.modalInstance = this.#storeOfModals[id].instance;
         }
       });
