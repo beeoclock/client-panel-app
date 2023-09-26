@@ -144,12 +144,12 @@ export class CustomerAutocompleteDirective implements DoCheck {
 
     // Container
     this.HTMLDivElement = this.document.createElement('div');
-    this.HTMLDivElement.classList.add('hidden', 'flex', 'flex-col', 'absolute', 'bg-white', 'block', 'dark:bg-gray-700', 'rounded-lg', 'shadow-lg', 'z-40', 'max-h-72');
+    this.HTMLDivElement.classList.add('hidden', 'flex', 'flex-col', 'absolute', 'bg-white', 'block', 'dark:bg-gray-700', 'rounded-lg', 'shadow-xl', 'z-40', 'max-h-72', 'w-full');
     this.elementRef.nativeElement.appendChild(this.HTMLDivElement);
 
     // Header
     this.HTMLHeaderDivElement = this.document.createElement('div');
-    this.HTMLHeaderDivElement.classList.add('border-b', 'flex', 'justify-between', 'px-3', 'py-2', 'w-full');
+    this.HTMLHeaderDivElement.classList.add('border-b', 'flex', 'justify-between', 'bg-beeColor-100', 'rounded-t-xl', 'px-3', 'py-2', 'w-full');
 		this.HTMLHeaderDivElement.appendChild(this.document.createElement('div'));
 		const buttonToHideDropdown = this.document.createElement('button');
 		buttonToHideDropdown.innerHTML = `<i class="bi bi-x-lg"></i>`;
