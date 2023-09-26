@@ -312,6 +312,7 @@
 	},
 	"form": {
 		"validation": {
+			"whitespace": "Usuń wszystkie spacje",
 			"email": "Nieprawidłowy format adresu e-mail",
 			"mask": "Nieprawidłowy format, poprawny format to {{requiredMask}}",
 			"minlength": "Minimalna długość to {{requiredLength}}",

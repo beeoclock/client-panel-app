@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component} from '@angular/core';
 import {FilterPanelComponent} from '@utility/presentation/component/panel/filter.panel.component';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {debounceTime, firstValueFrom, map} from "rxjs";
@@ -13,6 +13,8 @@ import {clearObjectClone} from "@utility/domain/clear.object";
 import {
 	IonSelectEventStatusComponent
 } from "@utility/presentation/component/input/ion/ion-select-event-status.component";
+import {Reactive} from "@utility/cdk/reactive";
+import {EventState} from "@event/state/event/event.state";
 
 @Component({
 	selector: 'event-filter-component',
@@ -40,11 +42,22 @@ import {
 		</utility-filter-panel-component>
 	`
 })
-export class FilterComponent {
-	public readonly store = inject(Store);
+export class FilterComponent extends Reactive {
 	public readonly form = new FilterForm();
 
-	constructor() {
+	constructor(
+		public readonly store: Store,
+	) {
+		super();
+		this.store.select(EventState.tableState)
+			.pipe(
+				this.takeUntil(),
+			)
+			.subscribe(({filters}) => {
+				Object.keys(filters).forEach((key) => {
+					this.form.controls[key].patchValue(filters[key]);
+				})
+			});
 		this.form.valueChanges.pipe(
 			debounceTime(MS_HALF_SECOND),
 			map(clearObjectClone)

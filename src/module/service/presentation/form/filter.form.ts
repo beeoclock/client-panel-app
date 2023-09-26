@@ -20,6 +20,5 @@ export class FilterForm extends FormGroup<IFilterForm> {
 	}
 
 	public initValue(): void {
-		this.controls.active.setValue(ActiveEnum.YES);
 	}
 }

@@ -310,6 +310,7 @@
 	},
 	"form": {
 		"validation": {
+			"whitespace": "Remove all spaces",
 			"email": "Invalid E-mail format",
 			"mask": "Invalid format, correct format is {{requiredMask}}",
 			"minlength": "Minimum length is {{requiredLength}}",
