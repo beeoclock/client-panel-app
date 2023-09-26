@@ -99,7 +99,6 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
   public readonly loader = new BooleanState(true);
 
 	public ngOnChanges(changes: SimpleChanges & {specialist: SimpleChange}) {
-		console.log(changes.specialist);
 		if (changes.specialist) {
 			this.prepareSlots(this.localDateTimeControl.value)
 		}

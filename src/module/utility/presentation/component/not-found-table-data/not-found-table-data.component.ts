@@ -1,11 +1,18 @@
 import {Component, Input} from "@angular/core";
-import {NgOptimizedImage} from "@angular/common";
+import {NgIf, NgOptimizedImage} from "@angular/common";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {RouterLink} from "@angular/router";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
 	selector: 'not-found-table-data-component',
 	standalone: true,
 	imports: [
-		NgOptimizedImage
+		NgOptimizedImage,
+		PrimaryButtonDirective,
+		RouterLink,
+		TranslateModule,
+		NgIf
 	],
 	template: `
 		<div class="grid grid-cols-12 h-[calc(100%-118px)] md:h-[calc(100%-70px)]">
@@ -14,6 +21,12 @@ import {NgOptimizedImage} from "@angular/common";
 				<div class="text-beeColor-500">
 					{{ label }}
 				</div>
+				<ng-template [ngIf]="showLinkToForm">
+					<button type="button" primary [routerLink]="linkToForm">
+						<i class="bi bi-plus-lg"></i>
+						{{ linkLabel }}
+					</button>
+				</ng-template>
 			</div>
 		</div>
 	`
@@ -22,5 +35,14 @@ export class NotFoundTableDataComponent {
 
 	@Input()
 	public label = 'Data not found, try adding';
+
+	@Input()
+	public showLinkToForm = false;
+
+	@Input()
+	public linkToForm = 'form';
+
+	@Input()
+	public linkLabel = 'TODO';
 
 }

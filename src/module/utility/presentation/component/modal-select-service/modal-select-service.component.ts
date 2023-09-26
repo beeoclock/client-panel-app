@@ -6,6 +6,10 @@ import {ModalSelectServiceListAdapter} from "@service/adapter/external/component
 import {IService} from "@service/domain";
 import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/boc-media.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {Router, RouterLink} from "@angular/router";
+import {ModalComponent} from "@utility/presentation/component/modal/modal.component";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
 	selector: 'utility-modal-select-service-component',
@@ -19,10 +23,20 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 		TranslateModule,
 		CurrencyPipe,
 		BocMediaDirective,
-		HumanizeDurationPipe
+		HumanizeDurationPipe,
+		PrimaryButtonDirective,
+		RouterLink
 	],
 	template: `
 		<div class="flex flex-col gap-4">
+
+			<ng-template [ngIf]="modalSelectServiceListAdapter.loading$.isOff && !modalSelectServiceListAdapter.tableState.items.length">
+				{{ 'keyword.capitalize.dataNotFound' | translate }}
+				<button type="button" primary (click)="goToServiceFormPage()">
+					<i class="bi bi-plus-lg"></i>
+					{{ 'keyword.capitalize.add-service' | translate }}
+				</button>
+			</ng-template>
 
 			<ul class="grid w-full gap-6 md:grid-cols-1">
 				<li *ngFor="let item of modalSelectServiceListAdapter.tableState.items; let index = index">
@@ -127,11 +141,14 @@ export class ModalSelectServiceComponent implements OnInit {
 
 	public readonly modalSelectServiceListAdapter = inject(ModalSelectServiceListAdapter);
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
+	public readonly router = inject(Router);
+	public readonly logger = inject(NGXLogger);
 
 	public selectedServiceList: IService[] = [];
 	public newSelectedServiceList: IService[] = [];
 
 	public multiple = true;
+	public modalInstance: ModalComponent | null = null;
 
 	public ngOnInit(): void {
 
@@ -178,4 +195,12 @@ export class ModalSelectServiceComponent implements OnInit {
 		this.changeDetectorRef.detectChanges();
 	}
 
+	public goToServiceFormPage() {
+		if (!this.modalInstance) {
+			this.logger.error('modalInstance is not defined');
+			return;
+		}
+		this.modalInstance.closeModal();
+		this.router.navigate(['/', 'service', 'form']).then();
+	}
 }

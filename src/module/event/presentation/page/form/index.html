@@ -53,7 +53,7 @@
           <event-service-component [serviceListControl]="form.controls.services"/>
         </bee-card>
 
-        <bee-card>
+        <bee-card *ngIf="specialist">
           <event-select-time-slot-form-component [control]="form.controls.start" [specialist]="specialist"/>
         </bee-card>
 
