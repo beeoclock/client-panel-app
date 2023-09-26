@@ -30,7 +30,6 @@ export default class Index implements OnInit {
 	private readonly sendConfirmEmailListApiAdapter = inject(SendConfirmEmailListApiAdapter);
 
 	public readonly isAuthorized$ = this.store.select((state) => {
-		console.log(state);
 		return state.identity.token !== undefined;
 	});
 
