@@ -26,13 +26,22 @@ export class CreateBusinessFormRepository {
 		this.logger.debug('CreateBusinessFormRepository.initValueFromLocalStorage');
 		const value = localStorage.getItem(this.formLocalStorageKey);
 		if (value) {
-			const parsedValue = JSON.parse(value) as { schedules: RISchedule[] };
+			const parsedValue = JSON.parse(value) as { schedules: RISchedule[], gallery: {object: string; images: string[]} };
 			this.logger.debug('CreateBusinessFormRepository.initValueFromLocalStorage', parsedValue);
-			const {schedules, ...restOfForm} = parsedValue;
+			const {schedules, gallery, ...restOfForm} = parsedValue;
 			this.form.patchValue(restOfForm);
+
+			// Schedules
 			this.form.controls.schedules.clear();
 			schedules.forEach((schedule) => {
 				this.form.controls.schedules.pushNewOne(schedule);
+			});
+
+			// Gallery
+			this.form.controls.gallery.controls.images.clear();
+			console.log(gallery);
+			gallery.images.forEach((image) => {
+				this.form.controls.gallery.pushImage(image);
 			});
 		}
 		this.initializedValueFromStorage.switchOn();

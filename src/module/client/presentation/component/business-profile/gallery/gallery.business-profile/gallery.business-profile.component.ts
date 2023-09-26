@@ -59,7 +59,7 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 
 	public ngOnChanges(changes: SimpleChanges & { gallery: SimpleChange }): void {
 
-		if (changes) {
+		if (changes?.gallery) {
 
 			if (changes.gallery.currentValue !== changes.gallery.previousValue) {
 
