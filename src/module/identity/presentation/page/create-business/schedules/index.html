@@ -1,4 +1,4 @@
-<div class="h-screen bg-white p-4">
+<div class="h-screen bg-white p-4 overflow-y-auto">
 	<div class="flex justify-between">
 		<utility-back-link-component [url]="['../', backPath]" />
 		<utility-change-language-component/>
@@ -10,10 +10,15 @@
 					Your Working Hours
 				</h1>
 
-				<form-input/>
+				<div class="py-8">
 
-				<button routerLink="../portfolio" primary>
-					Next step
+					<schedules-form-component
+						[schedulesForm]="schedulesForm"/>
+
+				</div>
+
+				<button routerLink="../portfolio" primary [class.disabled]="schedulesForm.invalid">
+					{{ 'keyword.capitalize.nextStep' | translate }}
 				</button>
 
 			</div>

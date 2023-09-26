@@ -1,4 +1,4 @@
-<div class="h-screen bg-white p-4">
+<div class="h-screen bg-white p-4 overflow-y-auto">
 	<div class="flex justify-between">
 		<utility-back-link-component url="../schedules" />
 		<utility-change-language-component/>
@@ -10,10 +10,15 @@
 					Your Portfolio
 				</h1>
 
-				<form-input/>
+				<div class="py-8">
 
-				<button routerLink="../services" primary>
-					Next step
+					<client-gallery-business-profile-component
+						[form]="galleryForm"/>
+
+				</div>
+
+				<button routerLink="../services" primary [class.disabled]="galleryForm.invalid">
+					{{ 'keyword.capitalize.nextStep' | translate }}
 				</button>
 
 			</div>

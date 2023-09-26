@@ -26,4 +26,7 @@ export class AddressBusinessProfileComponent {
 	@Input()
 	public form = new AddressForm();
 
+	@Input()
+	public hideInputList: ('country' | 'city' | 'zipCode' | 'addressLineOne' | 'addressLineTwo')[] = [];
+
 }

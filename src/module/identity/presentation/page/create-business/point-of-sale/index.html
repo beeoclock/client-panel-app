@@ -1,4 +1,4 @@
-<div class="h-screen bg-white p-4">
+<div class="h-screen bg-white p-4 overflow-y-auto">
 	<div class="flex justify-between">
 		<utility-back-link-component [url]="['../', backPath]" />
 		<utility-change-language-component/>
@@ -10,10 +10,14 @@
 					Where Can Customers Reach You?
 				</h1>
 
-				<form-input/>
+				<div class="py-16">
+					<client-address-business-profile-component
+						[hideInputList]="['country']"
+						[form]="addressForm" />
+				</div>
 
-				<button routerLink="../schedules" primary>
-					Next step
+				<button routerLink="../schedules" primary [class.disabled]="addressForm.invalid">
+					{{ 'keyword.capitalize.nextStep' | translate }}
 				</button>
 
 			</div>

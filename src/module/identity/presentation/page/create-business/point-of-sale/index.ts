@@ -14,6 +14,10 @@ import {BackLinkComponent} from "@utility/presentation/component/link/back.link.
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {CreateBusinessQuery} from "@identity/query/create-business.query";
 import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
+import {
+	AddressBusinessProfileComponent
+} from "@client/presentation/component/business-profile/address/address.business-profile.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
 	selector: 'identity-create-business-point-of-sale-page',
@@ -26,7 +30,9 @@ import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum"
 		FormInputComponent,
 		PrimaryButtonDirective,
 		BackLinkComponent,
-		ChangeLanguageComponent
+		ChangeLanguageComponent,
+		AddressBusinessProfileComponent,
+		TranslateModule
 	],
 	encapsulation: ViewEncapsulation.None
 })
@@ -34,6 +40,7 @@ export default class Index implements AfterViewInit {
 
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
+	public readonly addressForm = this.createBusinessQuery.getAddressForm();
 	public readonly businessIndustryControl = this.createBusinessQuery.getBusinessIndustryControl();
 
 	public backPath = 'category';
