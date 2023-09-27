@@ -7,6 +7,7 @@ import {BackLinkComponent} from "@utility/presentation/component/link/back.link.
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {CreateBusinessQuery} from "@identity/query/create-business.query";
 import {TranslateModule} from "@ngx-translate/core";
+import {CardComponent} from "@utility/presentation/component/card/card.component";
 
 @Component({
 	selector: 'identity-create-business-names-page',
@@ -20,7 +21,8 @@ import {TranslateModule} from "@ngx-translate/core";
 		PrimaryButtonDirective,
 		BackLinkComponent,
 		ChangeLanguageComponent,
-		TranslateModule
+		TranslateModule,
+		CardComponent
 	],
 	encapsulation: ViewEncapsulation.None
 })

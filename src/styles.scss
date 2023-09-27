@@ -119,3 +119,12 @@ label[required]:after {
 html {
   overflow: hidden;
 }
+
+identity-create-business-page::before {
+	content: " ";
+	position: absolute;
+	width: 100%;
+	height: 34vh;
+	background: #e3f2fd;
+	border-radius: 0 0 50% 50%;
+}

@@ -45,6 +45,7 @@ export const routers = [
     resolve: {
       clientId: tokenResolver,
     },
+		loadComponent: () => import('./page/create-business'),
 		children: [
 			{
 				path: '',

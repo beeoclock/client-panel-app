@@ -1,4 +1,3 @@
-<div class="h-screen bg-white p-4 overflow-y-auto">
 	<div class="flex justify-between">
 		<utility-back-link-component url="../" />
 		<utility-change-language-component/>
@@ -7,11 +6,11 @@
 		<div class="relative mx-auto max-w-xl px-4 sm:px-6 lg:px-8">
 			<div class="mx-auto max-w-3xl text-center">
 
-				<h1 class="mt-5 text-3xl font-bold leading-tight text-gray-900 sm:text-3xl sm:leading-tight lg:text-4xl lg:leading-tight">
+				<h1 class="mt-5 mb-8 text-3xl font-bold leading-tight text-gray-900 sm:text-3xl sm:leading-tight lg:text-4xl lg:leading-tight">
 					{{ 'identity.create-business.section.names.title' | translate }}
 				</h1>
 
-				<form class="py-16 flex flex-col gap-8">
+				<bee-card>
 
 					<form-input
 						id="create-business-form-input-businessName"
@@ -25,14 +24,12 @@
 						[placeholder]="'identity.create-business.form.inputs.businessOwnerFullName.placeholder' | translate"
 						[control]="businessOwnerFullNameControl" />
 
-				</form>
+				</bee-card>
 
-				<button primary routerLink="../industry" [class.disabled]="invalid">
+				<button class="mt-8" primary routerLink="../industry" [class.disabled]="invalid">
 					{{ 'keyword.capitalize.nextStep' | translate }}
 				</button>
 
 			</div>
 		</div>
 	</div>
-
-</div>

@@ -1,4 +1,3 @@
-<div class="h-screen bg-white p-4 overflow-y-auto">
 	<div class="flex justify-between">
 		<utility-logout-component *ngIf="firstCompany$ | async"/>
 		<utility-back-link-component [url]="['../', 'corridor']" [queryParams]="{force: true}" *ngIf="notFirstCompany$ | async"/>
@@ -35,5 +34,3 @@
 			</div>
 		</div>
 	</div>
-
-</div>
