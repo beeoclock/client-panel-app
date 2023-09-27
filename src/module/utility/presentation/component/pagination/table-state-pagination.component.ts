@@ -26,7 +26,7 @@ import {BooleanState} from "@utility/domain";
 @Component({
   selector: 'utility-table-state-pagination-component',
   standalone: true,
-  templateUrl: 'table-state-pagination.component.html',
+  templateUrl: './table-state-pagination.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     NgSelectModule,

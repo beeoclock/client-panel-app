@@ -19,7 +19,7 @@ import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
 	selector: 'identity-create-business-services-page',
-	templateUrl: 'index.html',
+	templateUrl: './index.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [

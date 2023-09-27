@@ -17,7 +17,7 @@ import {NGXLogger} from "ngx-logger";
 
 @Component({
   selector: 'identity-create-business-page',
-  templateUrl: 'index.html',
+  templateUrl: './index.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [

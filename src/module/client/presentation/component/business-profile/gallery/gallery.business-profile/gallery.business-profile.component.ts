@@ -36,7 +36,7 @@ import {
 		NgIf
 	],
 	standalone: true,
-	templateUrl: 'gallery.business-profile.component.html'
+	templateUrl: './gallery.business-profile.component.html'
 })
 export class GalleryBusinessProfileComponent implements OnChanges {
 

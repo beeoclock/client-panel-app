@@ -19,10 +19,10 @@ import {NgClass, NgIf} from '@angular/common';
 })
 export class CardComponent {
   @Input()
-  public gap: '4' | '1' | '2' | '3' | '8' = '4';
+  public gap: '0' | '4' | '1' | '2' | '3' | '8' = '4';
 
   @Input()
-  public padding: '4' | '1' | '2' | '3' | '8' = '4';
+  public padding: '0' | '4' | '1' | '2' | '3' | '8' = '4';
 
   @Input()
   public width: 'auto' | '96' | string = 'auto';

@@ -44,4 +44,9 @@ export class CreateBusinessQuery {
 		return this.createBusinessFormRepository.form.controls.schedules;
 	}
 
+	public save() {
+
+		console.log(this.createBusinessFormRepository.form.getRawValue());
+
+	}
 }

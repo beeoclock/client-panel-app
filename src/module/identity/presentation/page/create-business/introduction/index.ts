@@ -8,7 +8,7 @@ import {ChangeLanguageComponent} from "@utility/presentation/component/change-la
 
 @Component({
 	selector: 'identity-create-business-introduction-page',
-	templateUrl: 'index.html',
+	templateUrl: './index.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [

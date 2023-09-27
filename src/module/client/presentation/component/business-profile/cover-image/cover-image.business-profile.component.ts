@@ -17,7 +17,7 @@ import {is} from "thiis";
 
 @Component({
 	selector: 'client-cover-image-business-profile-component',
-	templateUrl: 'cover-image.business-profile.component.html',
+	templateUrl: './cover-image.business-profile.component.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		CardComponent,

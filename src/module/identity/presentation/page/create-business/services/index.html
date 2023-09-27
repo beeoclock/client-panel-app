@@ -12,12 +12,21 @@
 
 				<div class="py-6">
 
+					<bee-card padding="0" gap="0">
 
+						<service-item-component *ngFor="let service of serviceList" [item]="service" class="border-b"/>
+
+						<bee-form-button-with-icon
+							class="p-5"
+							(click)="openServiceFormModal()"
+							[label]="'keyword.capitalize.add-service' | translate"/>
+
+					</bee-card>
 
 				</div>
 
-				<button routerLink="../portfolio" primary>
-					{{ 'keyword.capitalize.nextStep' | translate }}
+				<button (click)="submit()" primary [class.disabled]="!serviceList.length">
+					{{ 'keyword.capitalize.create' | translate }}
 				</button>
 
 			</div>

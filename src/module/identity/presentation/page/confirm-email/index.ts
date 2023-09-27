@@ -11,7 +11,7 @@ import {firstValueFrom, Observable} from "rxjs";
 
 @Component({
 	selector: 'identity-confirm-email-page',
-	templateUrl: 'index.html',
+	templateUrl: './index.html',
 	standalone: true,
 	imports: [
 		NgOptimizedImage,

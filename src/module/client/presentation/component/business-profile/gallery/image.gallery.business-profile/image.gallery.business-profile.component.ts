@@ -17,7 +17,7 @@ import {PlaceholderImageComponent} from "@utility/presentation/component/image/p
 		PlaceholderImageComponent
 	],
 	standalone: true,
-	templateUrl: 'image.gallery.business-profile.component.html'
+	templateUrl: './image.gallery.business-profile.component.html'
 })
 export class ImageGalleryBusinessProfileComponent extends BaseImageComponent {
 

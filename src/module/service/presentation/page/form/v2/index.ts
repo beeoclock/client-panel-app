@@ -29,7 +29,7 @@ import {ImageBlockComponent} from "@service/presentation/component/form/v2/image
 
 @Component({
 	selector: 'service-form-v2-page-component',
-	templateUrl: 'index.html',
+	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,

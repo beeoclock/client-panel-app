@@ -24,7 +24,7 @@ interface IMenuItem {
 @Component({
   standalone: true,
   selector: 'utility-sidebar-component',
-  templateUrl: 'sidebar.component.html',
+  templateUrl: './sidebar.component.html',
   encapsulation: ViewEncapsulation.None,
   imports: [
     NgIf,

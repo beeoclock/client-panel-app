@@ -19,7 +19,7 @@ import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
   selector: 'identity-corridor-page',
-  templateUrl: 'index.html',
+  templateUrl: './index.html',
   standalone: true,
   imports: [
     RouterLink,

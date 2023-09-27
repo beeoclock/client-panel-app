@@ -28,7 +28,7 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 			addressForm: new AddressForm(),
 			schedules: new SchedulesForm(),
 			gallery: new GalleryForm(),
-			services: new ServicesForm(),
+			services: new ServicesForm([]),
 
 			businessCategory: new FormControl(),
 			businessIndustry: new FormControl(),

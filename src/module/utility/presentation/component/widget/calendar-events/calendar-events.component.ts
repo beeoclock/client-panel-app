@@ -19,7 +19,7 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 
 @Component({
 	selector: 'utility-widget-calendar-events',
-	templateUrl: 'calendar-events.component.html',
+	templateUrl: './calendar-events.component.html',
 	encapsulation: ViewEncapsulation.None,
 	// changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,

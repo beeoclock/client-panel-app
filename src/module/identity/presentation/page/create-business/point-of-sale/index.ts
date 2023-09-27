@@ -21,7 +21,7 @@ import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
 	selector: 'identity-create-business-point-of-sale-page',
-	templateUrl: 'index.html',
+	templateUrl: './index.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [

@@ -10,7 +10,7 @@ import {NgOptimizedImage} from "@angular/common";
 @Component({
   standalone: true,
   selector: 'utility-navbar-component',
-  templateUrl: 'navbar.component.html',
+  templateUrl: './navbar.component.html',
   encapsulation: ViewEncapsulation.None,
 	imports: [
 		SearchComponent,

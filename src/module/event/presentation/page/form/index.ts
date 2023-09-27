@@ -25,7 +25,7 @@ import {NGXLogger} from "ngx-logger";
 
 @Component({
 	selector: 'event-form-page',
-	templateUrl: 'index.html',
+	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		ReactiveFormsModule,

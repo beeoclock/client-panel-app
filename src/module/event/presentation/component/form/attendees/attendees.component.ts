@@ -7,7 +7,7 @@ import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/butto
 
 @Component({
 	selector: 'event-attendees-component',
-	templateUrl: 'attendees.component.html',
+	templateUrl: './attendees.component.html',
 	standalone: true,
 	imports: [
 		AttendeesComponent,

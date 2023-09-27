@@ -13,7 +13,7 @@ import {BusinessCategory} from "@utility/domain/business-category";
 
 @Component({
 	selector: 'identity-create-business-category-page',
-	templateUrl: 'index.html',
+	templateUrl: './index.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [

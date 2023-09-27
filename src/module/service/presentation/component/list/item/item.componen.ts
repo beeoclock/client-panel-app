@@ -19,7 +19,7 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 						class="hidden w-[90px] h-[90px] rounded-2xl object-cover"
 						alt="Image of service">
 				</div>
-				<div class="flex flex-col flex-1">
+				<div class="flex flex-col flex-1 text-start">
 					<div class="w-full text-lg font-semibold">{{ item.languageVersions[0].title }}</div>
 					<div class="w-full hidden lg:block">{{ item.languageVersions[0].description }}</div>
 				</div>

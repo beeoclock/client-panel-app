@@ -9,7 +9,7 @@ import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'identity-sign-in-page',
-  templateUrl: 'index.html',
+  templateUrl: './index.html',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [

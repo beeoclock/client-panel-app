@@ -46,7 +46,7 @@ import {
 
 @Component({
 	selector: 'client-business-profile-page',
-	templateUrl: 'index.html',
+	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		FormBusinessProfileComponent,

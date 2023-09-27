@@ -14,7 +14,7 @@ import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'identity-create-business-portfolio-page',
-	templateUrl: 'index.html',
+	templateUrl: './index.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
