@@ -5,6 +5,7 @@ import {BackLinkComponent} from "@utility/presentation/component/link/back.link.
 import {LogoutComponent} from "@utility/presentation/component/logout/logout.component";
 import {map} from "rxjs";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
 	selector: 'identity-create-business-introduction-page',
@@ -17,7 +18,8 @@ import {ChangeLanguageComponent} from "@utility/presentation/component/change-la
 		BackLinkComponent,
 		LogoutComponent,
 		NgIf,
-		ChangeLanguageComponent
+		ChangeLanguageComponent,
+		TranslateModule
 	],
 	encapsulation: ViewEncapsulation.None
 })

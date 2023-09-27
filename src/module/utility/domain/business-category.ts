@@ -26,10 +26,10 @@ export class BusinessCategory {
 			},
 		],
 		[BusinessIndustryEnum.Healthcare]: [
-			{
-				icon: BusinessCategoryIconEnum[BusinessCategoryEnum.Dentistry],
-				label: BusinessCategoryEnum.Dentistry,
-			},
+			// {
+			// 	icon: BusinessCategoryIconEnum[BusinessCategoryEnum.Dentistry],
+			// 	label: BusinessCategoryEnum.Dentistry,
+			// },
 			{
 				icon: BusinessCategoryIconEnum[BusinessCategoryEnum.PhysicalRehabilitation],
 				label: BusinessCategoryEnum.PhysicalRehabilitation,

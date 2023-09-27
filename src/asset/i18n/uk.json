@@ -1,10 +1,4 @@
 {
-	"businessIndustry": {
-		"Other": "Інше",
-		"Healthcare":"Охорона здоров'я",
-		"BeautyIndustry": "Краса",
-		"TeachingAndConsultation":"Навчання та консультації"
-	},
 	"approvalTime": {
 		"EIGHT_HOURS": "8 годин",
 		"FIFTEEN_MINUTES": "15 хвилин",
@@ -23,18 +17,19 @@
 		"TWO_HOURS": "2 години"
 	},
 	"businessCategory": {
-		"BeautySalon":  "Салон краси",
 		"Barbershop": "Барбершоп",
-		"Hairdresser":  "Жіноча перукарня",
-		"PhysicalRehabilitation":  "Фізична реабілітація",
-		"Psychotherapy": "Психотерапія",
-		"Dentistry":  "Стоматологія",
-		"Other": "Інше"
+		"BeautySalon": "Салон краси",
+		"Dentistry": "Стоматологія",
+		"Hairdresser": "Жіноча перукарня",
+		"Other": "Інше",
+		"PhysicalRehabilitation": "Фізична реабілітація",
+		"Psychotherapy": "Психотерапія"
 	},
-	"serviceProvideType": {
-		"Online": "Онлайн",
-		"Offline": "Офлайн",
-		"Mixed": "Змішаний"
+	"businessIndustry": {
+		"BeautyIndustry": "Краса",
+		"Healthcare": "Охорона здоров'я",
+		"Other": "Інше",
+		"TeachingAndConsultation": "Навчання та консультації"
 	},
 	"change-name": {
 		"form": {
@@ -310,11 +305,11 @@
 	},
 	"form": {
 		"validation": {
-			"whitespace": "Видали всі пробіли",
 			"email": "Неправильний формат E-mail",
 			"mask": "Неправильний формат, правильний формат - {{requiredMask}}",
 			"minlength": "Мінімальна довжина - {{requiredLength}}",
-			"required": "Обов'язкове поле"
+			"required": "Обов'язкове поле",
+			"whitespace": "Видали всі пробіли"
 		}
 	},
 	"http": {
@@ -399,8 +394,34 @@
 				}
 			},
 			"section": {
+				"category": {
+					"title": "Виберіть свою нішу"
+				},
+				"industry": {
+					"title": "Яка твоя галузь?"
+				},
+				"introduction": {
+					"button": "Почати",
+					"description": "Підвищте продуктивність свого бізнесу за допомогою комплексного рішення",
+					"welcome": "Ласкаво просимо до"
+				},
 				"names": {
 					"title": "Введіть своє ім'я та назву вашої компанії"
+				},
+				"pointOfSale": {
+					"title": "Куди клієнти можуть прийти?"
+				},
+				"portfolio": {
+					"title": "Твоє портфоліо"
+				},
+				"schedules": {
+					"title": "Твій робочий графік"
+				},
+				"serviceProvideType": {
+					"title": "Виберіть свій підхід до обслуговування"
+				},
+				"services": {
+					"title": "Які послуги надаєш?"
 				}
 			}
 		},
@@ -695,6 +716,11 @@
 			}
 		},
 		"title": "Послуга"
+	},
+	"serviceProvideType": {
+		"Mixed": "Змішаний",
+		"Offline": "Офлайн",
+		"Online": "Онлайн"
 	},
 	"sidebar": {
 		"addEvent": "Додати подію",

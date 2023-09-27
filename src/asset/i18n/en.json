@@ -1,10 +1,4 @@
 {
-	"businessIndustry": {
-		"Other": "Other",
-		"Healthcare":"Healthcare",
-		"BeautyIndustry": "Beauty industry",
-		"TeachingAndConsultation":"Teaching & consultation"
-	},
 	"approvalTime": {
 		"EIGHT_HOURS": "8 hours",
 		"FIFTEEN_MINUTES": "15 minutes",
@@ -23,18 +17,19 @@
 		"TWO_HOURS": "2 hours"
 	},
 	"businessCategory": {
-		"BeautySalon":  "Beauty salon",
 		"Barbershop": "Barbershop",
-		"Hairdresser":  "Hairdresser",
-		"PhysicalRehabilitation":  "Physical rehabilitation",
-		"Psychotherapy": "Psychotherapy",
-		"Dentistry":  "Dentistry",
-		"Other": "Other"
+		"BeautySalon": "Beauty salon",
+		"Dentistry": "Dentistry",
+		"Hairdresser": "Hairdresser",
+		"Other": "Other",
+		"PhysicalRehabilitation": "Physical rehabilitation",
+		"Psychotherapy": "Psychotherapy"
 	},
-	"serviceProvideType": {
-		"Online": "Online",
-		"Offline": "Offline",
-		"Mixed": "Mixed"
+	"businessIndustry": {
+		"BeautyIndustry": "Beauty industry",
+		"Healthcare": "Healthcare",
+		"Other": "Other",
+		"TeachingAndConsultation": "Teaching & consultation"
 	},
 	"change-name": {
 		"form": {
@@ -310,11 +305,11 @@
 	},
 	"form": {
 		"validation": {
-			"whitespace": "Remove all spaces",
 			"email": "Invalid E-mail format",
 			"mask": "Invalid format, correct format is {{requiredMask}}",
 			"minlength": "Minimum length is {{requiredLength}}",
-			"required": "Required field"
+			"required": "Required field",
+			"whitespace": "Remove all spaces"
 		}
 	},
 	"http": {
@@ -399,8 +394,34 @@
 				}
 			},
 			"section": {
+				"category": {
+					"title": "Choose Your Niche"
+				},
+				"industry": {
+					"title": "What is Your Industry?"
+				},
+				"introduction": {
+					"button": "Get Started",
+					"description": "Boost your business performance with an all-in-one solution",
+					"welcome": "Welcome to"
+				},
 				"names": {
 					"title": "Enter Your Name and the Name of Your Business"
+				},
+				"pointOfSale": {
+					"title": "Where Can Customers Reach You?"
+				},
+				"portfolio": {
+					"title": "Your Portfolio"
+				},
+				"schedules": {
+					"title": "Your Working Hours"
+				},
+				"serviceProvideType": {
+					"title": "Choose Your Service Approach"
+				},
+				"services": {
+					"title": "What Services you Provide?"
 				}
 			}
 		},
@@ -695,6 +716,11 @@
 			}
 		},
 		"title": "Service"
+	},
+	"serviceProvideType": {
+		"Mixed": "Mixed",
+		"Offline": "Offline",
+		"Online": "Online"
 	},
 	"sidebar": {
 		"addEvent": "Add event",

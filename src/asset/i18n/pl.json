@@ -1,10 +1,4 @@
 {
-	"businessIndustry": {
-		"Other": "Inne",
-		"Healthcare":"Opieka zdrowotna",
-		"BeautyIndustry": "Branża kosmetyczna",
-		"TeachingAndConsultation":"Nauczanie i konsultacje"
-	},
 	"approvalTime": {
 		"EIGHT_HOURS": "8 godzin",
 		"FIFTEEN_MINUTES": "15 minut",
@@ -23,18 +17,19 @@
 		"TWO_HOURS": "2 godziny"
 	},
 	"businessCategory": {
-		"BeautySalon":  "Salon kosmetyczny",
 		"Barbershop": "Barbershop",
-		"Hairdresser":  "Fryzjer",
-		"PhysicalRehabilitation":  "Rehabilitacja fizyczna",
-		"Psychotherapy": "Psychoterapia",
-		"Dentistry":  "Stomatologia",
-		"Other": "Inne"
+		"BeautySalon": "Salon kosmetyczny",
+		"Dentistry": "Stomatologia",
+		"Hairdresser": "Fryzjer",
+		"Other": "Inne",
+		"PhysicalRehabilitation": "Rehabilitacja fizyczna",
+		"Psychotherapy": "Psychoterapia"
 	},
-	"serviceProvideType": {
-		"Online": "Online",
-		"Offline": "Offline",
-		"Mixed": "Różnie"
+	"businessIndustry": {
+		"BeautyIndustry": "Branża kosmetyczna",
+		"Healthcare": "Opieka zdrowotna",
+		"Other": "Inne",
+		"TeachingAndConsultation": "Nauczanie i konsultacje"
 	},
 	"change-name": {
 		"form": {
@@ -312,11 +307,11 @@
 	},
 	"form": {
 		"validation": {
-			"whitespace": "Usuń wszystkie spacje",
 			"email": "Nieprawidłowy format adresu e-mail",
 			"mask": "Nieprawidłowy format, poprawny format to {{requiredMask}}",
 			"minlength": "Minimalna długość to {{requiredLength}}",
-			"required": "Wymagane pole"
+			"required": "Wymagane pole",
+			"whitespace": "Usuń wszystkie spacje"
 		}
 	},
 	"http": {
@@ -401,8 +396,34 @@
 				}
 			},
 			"section": {
+				"category": {
+					"title": "Wybierz swoją niszę"
+				},
+				"industry": {
+					"title": "Jaka jest Twoja branża?"
+				},
+				"introduction": {
+					"button": "Zacząć",
+					"description": "Zwiększ wydajność swojej firmy dzięki kompleksowemu rozwiązaniu",
+					"welcome": "Witamy w"
+				},
 				"names": {
 					"title": "Wpisz swoje imię i nazwisko oraz nazwę swojej firmy"
+				},
+				"pointOfSale": {
+					"title": "Gdzie klienci mogą do Ciebie dotrzeć?"
+				},
+				"portfolio": {
+					"title": "Portfolio"
+				},
+				"schedules": {
+					"title": "Twoje godziny pracy"
+				},
+				"serviceProvideType": {
+					"title": "Wybierz podejście do usługi"
+				},
+				"services": {
+					"title": "Jakie usługi świadczysz?"
 				}
 			}
 		},
@@ -697,6 +718,11 @@
 			}
 		},
 		"title": "Usługa"
+	},
+	"serviceProvideType": {
+		"Mixed": "Różnie",
+		"Offline": "Offline",
+		"Online": "Online"
 	},
 	"sidebar": {
 		"addEvent": "Dodaj wydarzenie",
