@@ -24,6 +24,7 @@ import {
 import {
 	DeleteMediaGalleryClientApiAdapter
 } from "@client/adapter/external/api/media/gallery/delete.media.gallery.client.api.adapter";
+import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 
 @Component({
 	selector: 'client-gallery-business-profile-component',
@@ -33,7 +34,8 @@ import {
 		TranslateModule,
 		ImageGalleryBusinessProfileComponent,
 		NgForOf,
-		NgIf
+		NgIf,
+		InvalidTooltipComponent
 	],
 	standalone: true,
 	templateUrl: './gallery.business-profile.component.html'

@@ -6,10 +6,10 @@ import {businessProfileEndpointEnum} from "@client/endpoint/business-profile.end
 @Injectable({
 	providedIn: 'root'
 })
-export class ItemBusinessProfileApiAdapter extends BaseApiAdapter<Client.IClient> {
+export class ItemBusinessProfileApiAdapter extends BaseApiAdapter<Client.RIClient> {
 
 	public override execute$() {
-		return this.httpClient.get<Client.IClient>(businessProfileEndpointEnum.item);
+		return this.httpClient.get<Client.RIClient>(businessProfileEndpointEnum.item);
 	}
 
 }

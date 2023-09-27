@@ -5,6 +5,7 @@ import {DragAndDropDirective} from "@utility/presentation/directives/drag-and-dr
 import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/boc-media.directive";
 import {BaseImageComponent} from "@utility/presentation/component/image/base.image.component";
 import {PlaceholderImageComponent} from "@utility/presentation/component/image/placeholder.image.component";
+import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 
 @Component({
 	selector: 'client-image-gallery-business-profile-component',
@@ -14,7 +15,8 @@ import {PlaceholderImageComponent} from "@utility/presentation/component/image/p
 		NgIf,
 		DragAndDropDirective,
 		BocMediaDirective,
-		PlaceholderImageComponent
+		PlaceholderImageComponent,
+		InvalidTooltipComponent
 	],
 	standalone: true,
 	templateUrl: './image.gallery.business-profile.component.html'

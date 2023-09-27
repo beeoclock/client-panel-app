@@ -2,6 +2,7 @@ import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {identityEndpointEnum} from "@identity/endpoint/identity.endpoint";
+import {IBusinessClient} from "@identity/domain/interface/i.business.client";
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,8 @@ export class IdentityApiAdapter {
    *
    * @param body
    */
-  public postCreateBusinessClient$(body: any): Observable<unknown> { // TODO interface
-    return this.http.post(identityEndpointEnum.postCreateBusinessClient, body);
+  public postCreateBusinessClient$(body: IBusinessClient) {
+    return this.http.post<{id: string}>(identityEndpointEnum.postCreateBusinessClient, body);
   }
 
   /**

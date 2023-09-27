@@ -12,17 +12,17 @@ import {NgClass, NgIf} from '@angular/common';
   template: `
     <div
       class="bg-white dark:text-white dark:bg-beeDarkColor-800/50 border rounded-2xl flex flex-col"
-      [ngClass]="['gap-' + gap, 'w-' + width, 'p-' + padding, borderColor, 'dark:' + darkBorderColor]">
+      [ngClass]="[gap, 'w-' + width, padding, borderColor, 'dark:' + darkBorderColor]">
       <ng-content></ng-content>
     </div>
   `
 })
 export class CardComponent {
   @Input()
-  public gap: '0' | '4' | '1' | '2' | '3' | '8' = '4';
+  public gap: 'gap-0' | 'gap-4' | 'gap-1' | 'gap-2' | 'gap-3' | 'gap-8' = 'gap-4';
 
   @Input()
-  public padding: '0' | '4' | '1' | '2' | '3' | '8' = '4';
+  public padding = 'p-4';
 
   @Input()
   public width: 'auto' | '96' | string = 'auto';

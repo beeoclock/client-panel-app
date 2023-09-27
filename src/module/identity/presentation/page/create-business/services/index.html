@@ -12,7 +12,7 @@
 
 			<div class="py-6">
 
-				<bee-card padding="0" gap="0">
+				<bee-card padding="p-0" gap="gap-0">
 
 					<service-item-component *ngFor="let service of serviceList" [item]="service" class="border-b"/>
 
@@ -25,7 +25,7 @@
 
 			</div>
 
-			<button (click)="submit()" primary [class.disabled]="!serviceList.length">
+			<button routerLink="../processing" primary [class.disabled]="!serviceList.length">
 				{{ 'keyword.capitalize.create' | translate }}
 			</button>
 

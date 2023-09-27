@@ -32,7 +32,7 @@ export class CreateBusinessFormRepository {
 				services: IService[],
 				gallery: {object: string; images: string[]}
 			};
-			console.log(parsedValue);
+
 			this.logger.debug('CreateBusinessFormRepository.initValueFromLocalStorage', parsedValue);
 			const {schedules, gallery, services, ...restOfForm} = parsedValue;
 			this.form.patchValue(restOfForm);

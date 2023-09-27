@@ -1,13 +1,12 @@
-import {ActiveEnum} from "@utility/domain/enum";
+import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
+import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
+import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
 
 export interface IBusinessClient {
 
-  _id: string;
-  logo: string;
-  slogan: string;
-  address: string;
-  name: string;
-  startingPrice: string;
-  active: ActiveEnum;
+	name: string;
+	serviceProvideType: ServiceProvideTypeEnum;
+	businessCategory: BusinessCategoryEnum;
+	businessIndustry: BusinessIndustryEnum;
 
 }

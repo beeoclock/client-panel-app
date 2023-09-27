@@ -55,10 +55,4 @@ export default class Index {
 		});
 	}
 
-	public submit() {
-
-		this.createBusinessQuery.save();
-
-	}
-
 }

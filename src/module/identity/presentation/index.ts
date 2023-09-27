@@ -82,6 +82,10 @@ export const routers = [
 			{
 				path: 'service-provide-type',
 				loadComponent: () => import('./page/create-business/service-provide-type')
+			},
+			{
+				path: 'processing',
+				loadComponent: () => import('./page/create-business/processing')
 			}
 		]
   },
