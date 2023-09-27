@@ -58,7 +58,6 @@ export default class Index implements OnInit {
 
 	public async sendAgain() {
 		const email = await firstValueFrom(this.accountEmail$);
-		// console.log(email);
 		this.sendConfirmEmailListApiAdapter.executeAsync({email}).then();
 	}
 

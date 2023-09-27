@@ -67,7 +67,6 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 
 			// Subscribe to changes in the last image control
 			lastImageControl?.valueChanges.pipe(takeUntil(this.takeUntilLastImage$)).subscribe((value) => {
-				console.log(value);
 				if (value?.length) {
 					// If the value is not empty, add a new image control to the form array
 					this.controls.images.push(new FormControl());

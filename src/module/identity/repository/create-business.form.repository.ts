@@ -42,7 +42,6 @@ export class CreateBusinessFormRepository {
 			// Gallery
 			if (gallery.images.length) {
 				this.form.controls.gallery.controls.images.clear();
-				console.log(gallery);
 				gallery.images.forEach((image) => {
 					this.form.controls.gallery.pushImage(image);
 				});
