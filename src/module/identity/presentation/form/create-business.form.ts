@@ -25,9 +25,9 @@ interface IBusinessClientForm {
 export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 	constructor() {
 		super({
-			addressForm: new AddressForm,
-			schedules: new SchedulesForm,
-			gallery: new GalleryForm,
+			addressForm: new AddressForm(),
+			schedules: new SchedulesForm(),
+			gallery: new GalleryForm(),
 			services: new ServicesForm(),
 
 			businessCategory: new FormControl(),

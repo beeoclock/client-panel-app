@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
@@ -10,6 +10,7 @@ import {
 	GalleryBusinessProfileComponent
 } from "@client/presentation/component/business-profile/gallery/gallery.business-profile/gallery.business-profile.component";
 import {CreateBusinessQuery} from "@identity/query/create-business.query";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'identity-create-business-portfolio-page',
@@ -28,9 +29,21 @@ import {CreateBusinessQuery} from "@identity/query/create-business.query";
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export default class Index {
+export default class Index extends Reactive implements AfterViewInit {
 
-	private readonly createBusinessQuery = inject(CreateBusinessQuery);
 	public readonly galleryForm = this.createBusinessQuery.getGalleryForm();
+
+	constructor(
+		private readonly createBusinessQuery: CreateBusinessQuery,
+		private readonly changeDetectorRef: ChangeDetectorRef,
+	) {
+		super();
+	}
+
+	public ngAfterViewInit(): void {
+		this.galleryForm.valueChanges.pipe(this.takeUntil()).subscribe(() => {
+			this.changeDetectorRef.detectChanges();
+		});
+	}
 
 }
