@@ -309,7 +309,8 @@
 			"mask": "Неправильний формат, правильний формат - {{requiredMask}}",
 			"minlength": "Мінімальна довжина - {{requiredLength}}",
 			"required": "Обов'язкове поле",
-			"whitespace": "Видали всі пробіли"
+			"whitespace": "Видали всі пробіли",
+			"imageSize": "Максимальний розмір зображення – {{max}}, поточний розмір – {{value}}"
 		}
 	},
 	"http": {
@@ -413,6 +414,9 @@
 				},
 				"portfolio": {
 					"title": "Твоє портфоліо"
+				},
+				"processing": {
+					"button": "Перейти на панель керування"
 				},
 				"schedules": {
 					"title": "Твій робочий графік"
@@ -545,8 +549,10 @@
 			"back": "Назад",
 			"bookingSettings": "Налаштування бронювання",
 			"break": "Перерва",
+			"business": "Бізнес",
 			"businessCategory": "Категорія бізнесу",
 			"businessName": "Назва бізнесу",
+			"businessProfile": "Профіль бізнесу",
 			"cancel": "Скасувати",
 			"chooseImage": "Вибери файл",
 			"city": "Населений пункт",
@@ -605,6 +611,7 @@
 				"search": "Пошук",
 				"selectBusinessCategory": "Виберіть категорію бізнесу"
 			},
+			"portfolio": "Портфоліо",
 			"preview": "Попередній перегляд",
 			"previous": "Назад",
 			"price": "Ціна",

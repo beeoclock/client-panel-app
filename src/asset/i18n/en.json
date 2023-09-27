@@ -309,7 +309,8 @@
 			"mask": "Invalid format, correct format is {{requiredMask}}",
 			"minlength": "Minimum length is {{requiredLength}}",
 			"required": "Required field",
-			"whitespace": "Remove all spaces"
+			"whitespace": "Remove all spaces",
+			"imageSize": "Maximum image size is {{max}}, current size is {{value}}"
 		}
 	},
 	"http": {
@@ -413,6 +414,9 @@
 				},
 				"portfolio": {
 					"title": "Your Portfolio"
+				},
+				"processing": {
+					"button": "Go to the dashboard"
 				},
 				"schedules": {
 					"title": "Your Working Hours"
@@ -545,8 +549,10 @@
 			"back": "Back",
 			"bookingSettings": "Booking settings",
 			"break": "Break",
+			"business": "Business",
 			"businessCategory": "Business category",
 			"businessName": "Business name",
+			"businessProfile": "Business profile",
 			"cancel": "Cancel",
 			"chooseImage": "Choose image",
 			"city": "City",
@@ -605,6 +611,7 @@
 				"search": "Search",
 				"selectBusinessCategory": "Select business category"
 			},
+			"portfolio": "Portfolio",
 			"preview": "Preview",
 			"previous": "Previous",
 			"price": "Price",
