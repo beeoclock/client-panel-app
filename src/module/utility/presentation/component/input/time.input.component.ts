@@ -15,7 +15,7 @@ import {TranslateModule} from "@ngx-translate/core";
 	],
   template: `
 		<bee-form-badge-input
-			mask="00:00"
+			mask="Hh:m0"
 			placeholder="00:00"
 			[control]="localControl"
 			[label]="label"
