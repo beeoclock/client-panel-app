@@ -50,7 +50,6 @@ export default class Index {
 
 	public openServiceFormModal() {
 		this.createBusinessModalService.openServiceFormModal().then((serviceForm) => {
-			console.log(serviceForm);
 			this.servicesForm.push(serviceForm);
 		});
 	}

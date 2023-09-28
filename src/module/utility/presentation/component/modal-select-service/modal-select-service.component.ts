@@ -46,6 +46,7 @@ import {ServiceItemComponent} from "@service/presentation/component/list/item/it
 					<label
 						for="modal-select-service-{{ index }}"
 						class="
+							w-full
 							inline-flex
 							cursor-pointer
 							rounded-2xl
