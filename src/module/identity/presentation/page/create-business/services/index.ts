@@ -16,6 +16,7 @@ import {ScheduleFormComponent} from "@utility/presentation/component/schedule/sc
 import {
 	CreateBusinessModalService
 } from "@service/presentation/component/form/modal/create-business/create-business.modal.service";
+import {ServiceForm} from "@service/presentation/form";
 
 
 @Component({
@@ -48,9 +49,20 @@ export default class Index {
 		return (this.servicesForm.value ?? []) as IService[];
 	}
 
-	public openServiceFormModal() {
-		this.createBusinessModalService.openServiceFormModal().then((serviceForm) => {
-			this.servicesForm.push(serviceForm);
+	public openServiceFormModal(index?: number | undefined) {
+		let serviceFormToEdit = undefined;
+		if (index !== undefined) {
+			serviceFormToEdit = new ServiceForm();
+			serviceFormToEdit.setValue(this.servicesForm.at(index).getRawValue());
+		}
+		this.createBusinessModalService.openServiceFormModal(
+			serviceFormToEdit
+		).then((newServiceForm) => {
+			if (index === undefined) {
+				this.servicesForm.push(newServiceForm);
+			} else {
+				this.servicesForm.at(index).setValue(newServiceForm.getRawValue());
+			}
 		});
 	}
 

@@ -22,15 +22,20 @@ export class CreateBusinessModalService {
 	private readonly modalService = inject(ModalService);
 	private readonly translateService = inject(TranslateService);
 
-	public async openServiceFormModal(): Promise<ServiceForm> {
+	public async openServiceFormModal(serviceForm?: ServiceForm): Promise<ServiceForm> {
 
 		const title = await this.translateService.instant('service.title');
+		const data: {form?: ServiceForm} = {};
+
+		if (serviceForm) {
+			data['form'] = serviceForm;
+		}
 
 		return new Promise((resolve, reject) => {
 
 			this.modalService.create([{
 				component: CreateBusinessComponent,
-				data: {}
+				data
 			}], {
 				buttons: this.buttons(resolve, reject),
 				fixHeight: false,
