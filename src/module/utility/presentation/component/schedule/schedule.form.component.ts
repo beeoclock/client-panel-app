@@ -14,7 +14,7 @@ import {ScheduleForm} from "@utility/presentation/form/schdeule.form";
     TranslateModule,
   ],
   template: `
-    <div class="grid grid-cols-6 gap-2 mt-2">
+    <div class="grid grid-cols-6 gap-2">
       <div class="col-span-6">
         <select-week-day-component [control]="form.controls.workDays"/>
       </div>

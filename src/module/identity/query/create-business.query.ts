@@ -44,9 +44,8 @@ export class CreateBusinessQuery {
 		return this.createBusinessFormRepository.form.controls.schedules;
 	}
 
-	public clear() {
-		this.createBusinessFormRepository.form.reset();
-		this.createBusinessFormRepository.clearLocalStorage();
+	public initForm(): void {
+		this.createBusinessFormRepository.initForm();
 	}
 
 }

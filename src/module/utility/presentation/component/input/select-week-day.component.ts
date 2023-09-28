@@ -19,7 +19,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
     <label default>
       {{ 'keyword.capitalize.workdays' | translate }}
     </label>
-    <div class="grid grid-cols-4 md:grid-cols-7 gap-2">
+    <div class="grid grid-cols-5 md:grid-cols-7 gap-2">
       <div *ngFor="let day of weekDayList" class="flex items-center justify-center">
         <button
 					type="button"

@@ -10,7 +10,7 @@ import {IService} from "@service/domain";
 })
 export class CreateBusinessFormRepository {
 
-	public readonly form = new CreateBusinessForm();
+	#form = new CreateBusinessForm();
 	public readonly formLocalStorageKey = 'create-business-form';
 	public readonly initializedValueFromStorage = new BooleanState(false);
 
@@ -21,6 +21,16 @@ export class CreateBusinessFormRepository {
 			this.initValueFromLocalStorage();
 		}
 		this.initHandlers();
+	}
+
+	public initForm(): void {
+		this.logger.debug('CreateBusinessFormRepository.initForm');
+		this.#form = new CreateBusinessForm();
+		this.clearLocalStorage();
+	}
+
+	public get form(): CreateBusinessForm {
+		return this.#form;
 	}
 
 	public initValueFromLocalStorage(): void {

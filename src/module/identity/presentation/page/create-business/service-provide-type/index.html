@@ -12,8 +12,19 @@
 
 				<form class="py-8 md:py-16">
 
-					<ul class="grid w-full gap-6 md:grid-cols-3 overflow-y-auto max-h-[64vh]">
-						<li *ngFor="let serviceProvideType of listWithIcon">
+					<ul class="grid w-full gap-6 grid-cols-2 md:grid-cols-3 overflow-y-auto max-h-[64vh]">
+						<li
+							*ngFor="let serviceProvideType of listWithIcon"
+							class="
+								bg-white
+								border
+								border-gray-200
+								rounded-lg
+								dark:border-gray-700
+								peer-checked:border-blue-600
+								hover:bg-gray-100
+								dark:bg-gray-800
+								dark:hover:bg-gray-700">
 							<input
 								type="radio"
 								name="serviceProvideType"
@@ -30,23 +41,15 @@
 									justify-center
 									gap-4
 									w-full
+									h-full
 									p-5
 									text-gray-500
-									bg-white
-									border
-									border-gray-200
-									rounded-lg
 									cursor-pointer
 									dark:hover:text-gray-300
-									dark:border-gray-700
 									dark:peer-checked:text-blue-500
-									peer-checked:border-blue-600
 									peer-checked:text-blue-600
 									hover:text-gray-600
-									hover:bg-gray-100
 									dark:text-gray-400
-									dark:bg-gray-800
-									dark:hover:bg-gray-700
 									md:min-h-[200px]">
 								<div class="w-full text-4xl font-semibold">
 									<i [class]="serviceProvideType.icon"></i>

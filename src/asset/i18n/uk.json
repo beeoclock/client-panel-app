@@ -80,7 +80,7 @@
 					"address": {
 						"input": {
 							"city": {
-								"placeholder": "Напиши назву населеного пункту"
+								"placeholder": "Назву населеного пункту"
 							},
 							"country": {
 								"placeholder": "Вибери країну"
@@ -92,7 +92,7 @@
 								"placeholder": "Номер будинку, офісу або студії"
 							},
 							"zipCode": {
-								"placeholder": "Напиши тут свій поштовий індекс"
+								"placeholder": "Напиши поштовий індекс"
 							}
 						},
 						"title": "Адреса"
