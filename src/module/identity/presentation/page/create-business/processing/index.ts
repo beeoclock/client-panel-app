@@ -16,7 +16,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 import {BooleanState} from "@utility/domain";
 import {IdentityApiAdapter} from "@identity/adapter/external/api/identity.api.adapter";
 import {firstValueFrom} from "rxjs";
-import {IBusinessClient} from "@identity/domain/interface/i.business.client";
+import {IBusinessClient} from "@identity/domain/interface/RIBusinessClient";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
@@ -153,12 +153,21 @@ export default class Index implements AfterViewInit {
 	private async stepCreateBusiness(): Promise<void> {
 		try {
 			this.logger.debug('stepCreateBusiness');
+			const serviceProvideType = this.createBusinessQuery.getServiceProvideTypeControl().value;
+			const businessCategory = this.createBusinessQuery.getBusinessCategoryControl().value;
 			const body: IBusinessClient = {
 				name: this.createBusinessQuery.getBusinessNameControl().value,
-				businessCategory: this.createBusinessQuery.getBusinessCategoryControl().value,
 				businessIndustry: this.createBusinessQuery.getBusinessIndustryControl().value,
-				serviceProvideType: this.createBusinessQuery.getServiceProvideTypeControl().value,
 			};
+
+			if (serviceProvideType) {
+				body.serviceProvideType = serviceProvideType;
+			}
+
+			if (businessCategory) {
+				body.businessCategory = businessCategory;
+			}
+
 			this.logger.debug('stepCreateBusiness:body', body);
 
 			const request$ = this.identityApiAdapter.postCreateBusinessClient$(body);
