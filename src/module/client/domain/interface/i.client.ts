@@ -7,26 +7,29 @@ import {ISchedule} from "@utility/domain/interface/i.schedule";
 import {IAddress} from "@client/domain/interface/i.address";
 import {IBookingSettings} from "@client/domain/interface/i.booking-settings";
 import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
-
+import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
+import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
 
 export interface RIClient extends RIBaseEntity {
-	object?: 'Client';
-	active?: ActiveEnum;
-	name?: string;
-	logo?: string;
-	feature?: string;
-	businessCategory?: BusinessCategoryEnum;
-	socialNetworkLinks?: ISocialNetworkLink[];
+	object: 'Client';
+	active: ActiveEnum;
+	name: string;
+	logo: string;
+	feature: string;
+	businessCategory: BusinessCategoryEnum;
+	businessIndustry: BusinessIndustryEnum;
+	serviceProfideType: ServiceProvideTypeEnum;
+	socialNetworkLinks: ISocialNetworkLink[];
 
-	banners?: string[];
-	bookingSettings?: IBookingSettings;
-	addresses?: IAddress[];
-	schedules?: ISchedule[];
-	contacts?: IContact[];
-	// gallery?: IGallery;
-	gallery?: string[];
-	description?: string;
-	facilities?: FacilityEnum[];
+	banners: string[];
+	bookingSettings: IBookingSettings;
+	addresses: IAddress[];
+	schedules: ISchedule[];
+	contacts: IContact[];
+	// gallery: IGallery;
+	gallery: string[];
+	description: string;
+	facilities: FacilityEnum[];
 }
 
 export type IClient = Partial<RIClient>;

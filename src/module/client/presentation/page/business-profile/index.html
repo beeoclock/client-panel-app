@@ -8,6 +8,7 @@
 			[control]="form.controls.active"/>
 
 		<client-address-business-profile-component
+			*ngIf="(item$ | async)?.serviceProfideType !== serviceProfideType.Online"
 			[form]="form.controls.addresses.controls[0]"/>
 
 		<schedules-form-component
@@ -29,6 +30,7 @@
 			[form]="form.controls.socialNetworkLinks"/>
 
 		<client-facilities-business-profile-component
+			*ngIf="(item$ | async)?.serviceProfideType !== serviceProfideType.Online"
 			[control]="form.controls.facilities"/>
 
 		<client-business-profile-booking-settings-component

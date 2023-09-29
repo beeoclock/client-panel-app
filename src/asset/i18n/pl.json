@@ -553,6 +553,8 @@
 			"break": "Przerwa",
 			"business": "Biznes",
 			"businessCategory": "Kategoria biznesowa",
+			"businessIndustry": "Branża biznesowa",
+			"serviceProvideType": "Typ świadczenia usług",
 			"businessName": "Nazwa firmy",
 			"businessProfile": "Profil biznesu",
 			"cancel": "Anuluj",
@@ -611,7 +613,9 @@
 			"placeholder": {
 				"description": "Wprowadź szczegóły",
 				"search": "Szukaj",
-				"selectBusinessCategory": "Wybierz kategorię biznesową"
+				"selectBusinessCategory": "Wybierz kategorię biznesową",
+				"selectBusinessIndustry": "Wybierz branżę biznesową",
+				"selectServiceProvideType": "Wybierz typ świadczenia usług"
 			},
 			"portfolio": "Portfolio",
 			"preview": "Podgląd",

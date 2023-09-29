@@ -551,6 +551,8 @@
 			"break": "Break",
 			"business": "Business",
 			"businessCategory": "Business category",
+			"businessIndustry": "Business industry",
+			"serviceProvideType": "Service provide type",
 			"businessName": "Business name",
 			"businessProfile": "Business profile",
 			"cancel": "Cancel",
@@ -609,7 +611,9 @@
 			"placeholder": {
 				"description": "Type description",
 				"search": "Search",
-				"selectBusinessCategory": "Select business category"
+				"selectBusinessCategory": "Select business category",
+				"selectBusinessIndustry": "Select business industry",
+				"selectServiceProvideType": "Select service provide type"
 			},
 			"portfolio": "Portfolio",
 			"preview": "Preview",

@@ -7,6 +7,8 @@ import {AddressesForm} from "@client/presentation/form/address.form";
 import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
 import {ContactsForm} from "@client/presentation/form/contact.form";
 import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
+import {BusinessIndustry} from "@utility/domain/business-industry";
+import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
 
 
 export interface IBusinessProfile {
@@ -15,6 +17,8 @@ export interface IBusinessProfile {
 
   name: FormControl<string>;
   businessCategory: FormControl<BusinessCategoryEnum>;
+	businessIndustry: FormControl<BusinessIndustry>;
+	serviceProvideType: FormControl<ServiceProvideTypeEnum>;
   feature: FormControl<string>;
   description: FormControl<string>;
   active: FormControl<ActiveEnum>;
@@ -38,6 +42,8 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
       object: new FormControl(),
       name: new FormControl(),
       businessCategory: new FormControl(),
+			businessIndustry: new FormControl(),
+			serviceProvideType: new FormControl(),
       feature: new FormControl(),
       description: new FormControl(),
       active: new FormControl(),

@@ -2,24 +2,24 @@ import {Component, inject, Input, ViewEncapsulation} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
+import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {IsRequiredDirective} from "@utility/presentation/directives/is-required/is-required";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 
 @Component({
-	selector: 'bee-business-category-select-component',
+	selector: 'bee-business-industry-select-component',
 	standalone: true,
 	template: `
-		<label default [for]="id">{{ 'keyword.capitalize.businessCategory' | translate }}</label>
+		<label default [for]="id">{{ 'keyword.capitalize.businessIndustry' | translate }}</label>
 		<ng-select
 			isRequired
 			invalidTooltip
 			setRedBorderTo=".ng-select-container"
 			bindLabel="name"
 			bindValue="code"
-			[placeholder]="'keyword.capitalize.placeholder.selectBusinessCategory' | translate"
-			[items]="businessCategoryList"
+			[placeholder]="'keyword.capitalize.placeholder.selectBusinessIndustry' | translate"
+			[items]="businessIndustryList"
 			[clearable]="false"
 			[id]="id"
 			[formControl]="control">
@@ -35,7 +35,7 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 		InvalidTooltipDirective
 	],
 })
-export class BusinessCategoryComponent {
+export class BusinessIndustryComponent {
 
 	@Input()
 	public id = '';
@@ -45,15 +45,15 @@ export class BusinessCategoryComponent {
 
 	public readonly translateService = inject(TranslateService);
 
-	public readonly businessCategoryList: { name: string, code: BusinessCategoryEnum }[] = [];
-	private readonly businessCategoryTranslateMap!: Record<BusinessCategoryEnum, string>;
+	public readonly businessIndustryList: { name: string, code: BusinessIndustryEnum }[] = [];
+	private readonly businessIndustryTranslateMap!: Record<BusinessIndustryEnum, string>;
 
 	constructor() {
-		this.businessCategoryTranslateMap = this.translateService.instant(`businessCategory`);
-		this.businessCategoryList = Object.values(BusinessCategoryEnum).map((businessCategory) => {
+		this.businessIndustryTranslateMap = this.translateService.instant(`businessIndustry`);
+		this.businessIndustryList = Object.values(BusinessIndustryEnum).map((businessIndustry) => {
 			return {
-				name: this.businessCategoryTranslateMap[businessCategory],
-				code: businessCategory
+				name: this.businessIndustryTranslateMap[businessIndustry],
+				code: businessIndustry
 			};
 		});
 	}

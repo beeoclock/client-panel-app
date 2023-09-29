@@ -551,6 +551,8 @@
 			"break": "Перерва",
 			"business": "Бізнес",
 			"businessCategory": "Категорія бізнесу",
+			"businessIndustry": "Галузь бізнесу",
+			"serviceProvideType": "Тип обслуговування",
 			"businessName": "Назва бізнесу",
 			"businessProfile": "Профіль бізнесу",
 			"cancel": "Скасувати",
@@ -609,7 +611,9 @@
 			"placeholder": {
 				"description": "Напиши додаткову інформацію",
 				"search": "Пошук",
-				"selectBusinessCategory": "Виберіть категорію бізнесу"
+				"selectBusinessCategory": "Виберіть категорію бізнесу",
+				"selectBusinessIndustry": "Виберіть галузь бізнесу",
+				"selectServiceProvideType": "Виберіть тип обслуговування"
 			},
 			"portfolio": "Портфоліо",
 			"preview": "Попередній перегляд",
