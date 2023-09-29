@@ -139,7 +139,7 @@ export default class Index implements AfterViewInit {
 				step.status = Status.Success;
 				isAllStepsFinishedWithSuccess = true;
 			} catch (e) {
-				console.log(e);
+				this.logger.error(e);
 				step.status = Status.Failed;
 				return;
 			}

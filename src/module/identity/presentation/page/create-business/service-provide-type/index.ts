@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
-import {RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {CreateBusinessQuery} from "@identity/query/create-business.query";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {ReactiveFormsModule} from "@angular/forms";
 import {ServiceProvideType} from "@utility/domain/service-provide-type";
@@ -27,12 +27,15 @@ import {Reactive} from "@utility/cdk/reactive";
 		ChangeLanguageComponent,
 		NgForOf,
 		TranslateModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		NgIf
 	],
 	encapsulation: ViewEncapsulation.None
 })
 export default class Index extends Reactive implements OnInit {
 
+	private readonly router = inject(Router);
+	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
 	public readonly serviceProvideTypeControl = this.createBusinessQuery.getServiceProvideTypeControl();
 	public readonly listWithIcon = ServiceProvideType.listWithIcon;
@@ -55,6 +58,10 @@ export default class Index extends Reactive implements OnInit {
 		this.updateNextStepPath(this.serviceProvideTypeControl.value);
 		this.serviceProvideTypeControl.valueChanges.pipe(this.takeUntil()).subscribe((value) => {
 			this.updateNextStepPath(value);
+			const commands = ['../', this.nextStepPath];
+			this.router.navigate(commands, {
+				relativeTo: this.activatedRoute
+			}).then();
 		});
 	}
 

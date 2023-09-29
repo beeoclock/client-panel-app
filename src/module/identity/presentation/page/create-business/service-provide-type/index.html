@@ -61,9 +61,12 @@
 
 				</form>
 
-				<button primary [routerLink]="['../', nextStepPath]" [class.disabled]="!serviceProvideTypeControl.value">
-					{{ 'keyword.capitalize.nextStep' | translate }}
-				</button>
+
+				<ng-template [ngIf]="!!serviceProvideTypeControl.value">
+					<button primary [routerLink]="['../', nextStepPath]" [class.disabled]="!serviceProvideTypeControl.value">
+						{{ 'keyword.capitalize.nextStep' | translate }}
+					</button>
+				</ng-template>
 
 			</div>
 		</div>

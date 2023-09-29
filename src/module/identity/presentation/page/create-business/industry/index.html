@@ -61,9 +61,11 @@
 
 				</form>
 
-				<button primary [routerLink]="['../', nextStepPath]" [class.disabled]="invalid">
-					{{ 'keyword.capitalize.nextStep' | translate }}
-				</button>
+				<ng-template [ngIf]="!!businessIndustryControl.value">
+					<button primary [routerLink]="['../', nextStepPath]" [class.disabled]="invalid">
+						{{ 'keyword.capitalize.nextStep' | translate }}
+					</button>
+				</ng-template>
 
 			</div>
 		</div>

@@ -55,7 +55,6 @@ export class CreateBusinessModalService {
 			this.confirmButton((modal: ModalComponent) => {
 				const component = modal.componentChildRefList[0].instance as unknown as CreateBusinessComponent;
 				component.submit().then((serviceForm: ServiceForm) => {
-					console.log(serviceForm);
 					modal.closeModal();
 					resolve(serviceForm);
 				});
