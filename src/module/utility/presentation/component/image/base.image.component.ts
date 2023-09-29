@@ -19,7 +19,7 @@ export class BaseImageComponent implements AfterViewInit {
 	public readonly previewImage!: ElementRef<HTMLImageElement>;
 
 	@Input()
-	public control = new FormControl();
+	public control!: FormControl;
 
 	@Input()
 	public showHit = true;

@@ -61,7 +61,9 @@ export default class Index implements OnInit {
 
 	@Select(ServiceState.itemData)
 	public itemData$!: Observable<IService | undefined>;
+
 	private isEditMode = false;
+	public mediaId = '';
 
 	public ngOnInit(): void {
 		this.detectItem();
@@ -72,6 +74,7 @@ export default class Index implements OnInit {
 			firstValueFrom(this.itemData$).then((result) => {
 				if (result) {
 					this.isEditMode = true;
+					this.mediaId = result?.presentation?.banners?.[0] ?? '';
 
 					const {durationVersions, ...rest} = result;
 					this.form.patchValue(rest);
