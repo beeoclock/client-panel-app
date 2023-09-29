@@ -18,7 +18,7 @@ import {SelectApprovalTimeComponent} from "@utility/presentation/component/input
     SelectApprovalTimeComponent
   ],
   template: `
-    <bee-card gap="8">
+    <bee-card gap="gap-8">
 
       <strong class="dark:text-white">
         {{ 'keyword.capitalize.bookingSettings' | translate }}

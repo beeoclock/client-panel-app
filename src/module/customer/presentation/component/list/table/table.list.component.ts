@@ -16,7 +16,7 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 
 @Component({
 	selector: 'customer-table-list-component',
-	templateUrl: 'table.list.component.html',
+	templateUrl: './table.list.component.html',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [

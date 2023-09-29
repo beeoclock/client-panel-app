@@ -40,7 +40,7 @@ import {PriceFormComponent} from "@service/presentation/component/form/v1/price/
           dark:bg-beeDarkColor-800
           dark:border-beeDarkColor-600">
         Price #{{ index + 1 }}
-        <button type="button" class="text-red-500" (click)="form.remove(index)" *ngIf="index > 0">
+        <button type="button" class="text-red-500" (click)="form.removeAt(index)" *ngIf="index > 0">
           <i class="bi bi-trash"></i>
         </button>
       </div>

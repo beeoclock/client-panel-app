@@ -8,7 +8,7 @@ import {businessProfileEndpointEnum} from "@client/endpoint/business-profile.end
 @Injectable({
 	providedIn: 'root'
 })
-export class UpdateBusinessProfileApiAdapter extends BaseApiAdapter<Client.IClient> {
+export class UpdateBusinessProfileApiAdapter extends BaseApiAdapter<Client.RIClient> {
 
 	/**
 	 * SAVE NEW ITEM OR UPDATE ITEM BY ID
@@ -16,7 +16,7 @@ export class UpdateBusinessProfileApiAdapter extends BaseApiAdapter<Client.IClie
 	 */
 	@TypeGuard([is.object.not.empty])
 	public override execute$(value: Client.IClient) {
-		return this.httpClient.put<Client.IClient>(businessProfileEndpointEnum.update, value);
+		return this.httpClient.put<Client.RIClient>(businessProfileEndpointEnum.update, value);
 	}
 
 }

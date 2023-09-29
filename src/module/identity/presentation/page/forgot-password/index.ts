@@ -15,7 +15,7 @@ import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'identity-forgot-password-page',
-  templateUrl: 'index.html',
+  templateUrl: './index.html',
   standalone: true,
 	imports: [
 		GettingStartedComponent,

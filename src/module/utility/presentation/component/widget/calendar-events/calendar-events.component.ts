@@ -2,7 +2,6 @@ import {AfterViewInit, Component, inject, ViewChild, ViewEncapsulation} from "@a
 import {Router, RouterLink} from "@angular/router";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IonDatetime, IonicModule} from "@ionic/angular";
-import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 import {NgForOf, NgIf} from "@angular/common";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CalendarEventsListApiAdapter} from "@event/adapter/external/widget/calendar-events.list.api.adapter";
@@ -20,7 +19,7 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 
 @Component({
 	selector: 'utility-widget-calendar-events',
-	templateUrl: 'calendar-events.component.html',
+	templateUrl: './calendar-events.component.html',
 	encapsulation: ViewEncapsulation.None,
 	// changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
@@ -53,7 +52,7 @@ export class CalendarEventsComponent extends Reactive implements AfterViewInit {
 	public readonly form = new FormGroup({
 		start: new FormControl(this.todayStr),
 		end: new FormControl(this.todayStr),
-		status: new FormControl(EventStatusEnum.booked),
+		status: new FormControl(''),
 		orderBy: new FormControl('start'),
 		orderDir: new FormControl('asc'),
 		pageSize: new FormControl(50)

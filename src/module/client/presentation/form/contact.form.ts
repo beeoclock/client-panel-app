@@ -42,16 +42,12 @@ export class ContactsForm extends FormArray<ContactForm> {
     super([]);
   }
 
-  public remove(index: number): void {
-    this.controls.splice(index, 1);
-  }
-
   public pushNewOne(initialValue?: IContact): void {
     const control = new ContactForm();
     if (initialValue) {
       control.setValue(initialValue);
     }
-    this.controls.push(control);
+    this.push(control);
   }
 
 }

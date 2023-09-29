@@ -13,7 +13,7 @@ import {
 } from "@client/presentation/component/business-profile/logo/logo.business-profile.component";
 import {Select, Store} from "@ngxs/store";
 import * as Client from "@client/domain";
-import {IClient} from "@client/domain";
+import {RIClient} from "@client/domain";
 import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
 import {AsyncPipe} from "@angular/common";
 import {
@@ -46,7 +46,7 @@ import {
 
 @Component({
 	selector: 'client-business-profile-page',
-	templateUrl: 'index.html',
+	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		FormBusinessProfileComponent,
@@ -83,7 +83,7 @@ export default class Index implements OnInit {
 	public readonly updateBusinessProfileApiAdapter = inject(UpdateBusinessProfileApiAdapter);
 
 	@Select(ClientState.item)
-	public readonly item$!: Observable<Client.IClient>;
+	public readonly item$!: Observable<Client.RIClient>;
 
 	public ngOnInit(): void {
 
@@ -124,7 +124,7 @@ export default class Index implements OnInit {
 		this.form.markAllAsTouched();
 		if (this.form.valid) {
 			this.store.dispatch(new AppActions.PageLoading(true));
-			const value = this.form.getRawValue() as IClient;
+			const value = this.form.getRawValue() as RIClient;
 			this.form.disable();
 			this.form.markAsPending();
 

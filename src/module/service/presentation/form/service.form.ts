@@ -1,7 +1,7 @@
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActiveEnum, LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
-import {IDurationVersion} from "@service/domain";
+import {IDurationVersion, IService} from "@service/domain";
 import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
 import {extractSecondsFrom_hh_mm_ss, STR_MINUTE_45} from "@utility/domain/time";
 import {ISpecialist} from "@service/domain/interface/i.specialist";
@@ -31,7 +31,7 @@ export class LanguageVersionForm extends FormGroup<ILanguageVersionForm> {
 
 	public initValidators(): void {
 		this.controls.title.setValidators([Validators.required]);
-		this.controls.description.setValidators([Validators.required]);
+		this.controls.description.setValidators([Validators.maxLength(10_000)]);
 		this.controls.language.setValidators([Validators.required]);
 	}
 
@@ -95,12 +95,9 @@ export class PricesForm extends FormArray<PriceForm> {
 	}
 
 	public pushNewPriceForm(): void {
-		this.controls.push(new PriceForm());
+		this.push(new PriceForm());
 	}
 
-	public remove(index: number): void {
-		this.controls.splice(index, 1);
-	}
 }
 
 export interface IConfigurationForm {
@@ -144,10 +141,6 @@ export class LanguageVersionsForm extends FormArray<LanguageVersionForm> {
 		super([new LanguageVersionForm()]);
 	}
 
-	public remove(index: number): void {
-		this.controls.splice(index, 1);
-	}
-
 }
 
 export class DurationVersionsForm extends FormArray<DurationVersionForm> {
@@ -155,20 +148,12 @@ export class DurationVersionsForm extends FormArray<DurationVersionForm> {
 		super([new DurationVersionForm()]);
 	}
 
-	public remove(index: number): void {
-		this.controls.splice(index, 1);
-	}
-
-	public removeControls(): void {
-		this.controls = [];
-	}
-
 	public pushNewOne(initialValue?: undefined | IDurationVersion): void {
 		const newOne = new DurationVersionForm();
 		if (initialValue) {
 			newOne.patchValue(initialValue);
 		}
-		this.controls.push(newOne);
+		this.push(newOne);
 	}
 
 }
@@ -187,7 +172,7 @@ export interface IServiceForm {
 }
 
 export class ServiceForm extends FormGroup<IServiceForm> {
-	constructor() {
+	constructor(initialValue?: IService) {
 		super({
 			schedules: new SchedulesForm(),
 			configuration: new ConfigurationForm(),
@@ -198,12 +183,19 @@ export class ServiceForm extends FormGroup<IServiceForm> {
 			active: new FormControl(),
 			_id: new FormControl()
 		});
-		this.initValue();
+		this.initValue(initialValue);
 	}
 
-	public initValue(): void {
+	public initValue(initialValue?: IService): void {
 		this.controls.specialists.setValue([]);
 		this.controls.active.setValue(ActiveEnum.YES);
+		if (initialValue) {
+			Object.keys(initialValue).forEach(key => {
+				if (this.contains(key)) {
+					this.controls[key].setValue((initialValue as any)[key]);
+				}
+			});
+		}
 	}
 
 	public pushNewLanguageVersionForm(): void {

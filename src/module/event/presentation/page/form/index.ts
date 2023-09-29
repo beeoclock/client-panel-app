@@ -25,7 +25,7 @@ import {NGXLogger} from "ngx-logger";
 
 @Component({
 	selector: 'event-form-page',
-	templateUrl: 'index.html',
+	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		ReactiveFormsModule,
@@ -72,7 +72,6 @@ export default class Index implements OnInit {
 	public ngOnInit(): void {
 		this.detectItem();
 		this.form.controls.services.valueChanges.subscribe((value) => {
-			console.log(value);
 			if (typeof value[0].specialists[0].member === 'string') {
 				this.specialist = value[0].specialists[0].member;
 			} else {
@@ -112,7 +111,7 @@ export default class Index implements OnInit {
 
 					if (attendees?.length) {
 
-						this.form.controls.attendees.remove(0);
+						this.form.controls.attendees.removeAt(0);
 
 						attendees.forEach((attendee) => {
 

@@ -1,6 +1,7 @@
 import {AbstractControl, FormArray, FormControl, FormGroup} from "@angular/forms";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs";
+import {ImageSizeValidation} from "@client/presentation/form/validation/image.size.validation";
 
 // Define the structure of the gallery form interface
 export interface IGalleryForm {
@@ -19,7 +20,7 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 	constructor() {
 		super({
 			object: new FormControl(),
-			images: new FormArray([new FormControl()]),
+			images: new FormArray([GalleryForm.getNewControlWithValidation()]),
 		});
 
 		// Initialize default values and handlers
@@ -56,15 +57,13 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 		if (this.limitNotExceeded) {
 
 			// Get the index and control of the last image
-			const lastImageIndex = this.controls.images.length - 1;
-			const lastImageControl = this.controls.images.controls[lastImageIndex];
+			const lastImageControl = this.controls.images.controls.at(-1);
 
 			// Subscribe to changes in the last image control
-			lastImageControl.valueChanges.pipe(takeUntil(this.takeUntilLastImage$)).subscribe((value) => {
-
+			lastImageControl?.valueChanges.pipe(takeUntil(this.takeUntilLastImage$)).subscribe((value) => {
 				if (value?.length) {
 					// If the value is not empty, add a new image control to the form array
-					this.controls.images.push(new FormControl());
+					this.controls.images.push(GalleryForm.getNewControlWithValidation());
 
 					// Initialize the handler for the newly added image control
 					this.initHandlerForLastImage();
@@ -77,7 +76,7 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 
 				if (this.limitNotExceeded) {
 					// If the value is less than the limit, add a new image control to the form array
-					this.controls.images.push(new FormControl());
+					this.controls.images.push(GalleryForm.getNewControlWithValidation());
 
 					// Initialize the handler for the newly added image control
 					this.initHandlerForLastImage();
@@ -91,16 +90,30 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 
 	public removeImage(index: number): void {
 
-		this.controls.images.controls.splice(index, 1);
+		this.controls.images.removeAt(index);
 
 	}
 
-	public pushImage(initialValue: string): void {
+	public pushImage(initialValue?: string): void {
 
-		this.controls.images.push(new FormControl());
-		this.controls.images.at(-1).patchValue(initialValue);
+		const lastImageControl = this.controls.images.controls.at(-1);
+
+		if (!this.controls.images.length || lastImageControl?.value?.length) {
+			this.controls.images.push(GalleryForm.getNewControlWithValidation());
+			initialValue && this.controls.images.at(-1).patchValue(initialValue);
+			this.controls.images.push(GalleryForm.getNewControlWithValidation());
+		} else {
+			initialValue && this.controls.images.at(-1).patchValue(initialValue);
+		}
+
 		this.initHandlerForLastImage();
 
+	}
+
+	public static getNewControlWithValidation(): FormControl<string> {
+		const control = new FormControl();
+		control.setValidators([ImageSizeValidation()]);
+		return control;
 	}
 
 }

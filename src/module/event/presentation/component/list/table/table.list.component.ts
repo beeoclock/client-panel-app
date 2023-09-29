@@ -18,7 +18,7 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 
 @Component({
 	selector: 'event-table-list-component',
-	templateUrl: 'table.list.component.html',
+	templateUrl: './table.list.component.html',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [

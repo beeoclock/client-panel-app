@@ -4,7 +4,7 @@ import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'utility-404-page',
-  templateUrl: 'index.html',
+  templateUrl: './index.html',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
 	imports: [

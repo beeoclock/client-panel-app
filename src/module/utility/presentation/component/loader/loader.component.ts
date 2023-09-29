@@ -12,10 +12,10 @@ import {SpinnerComponent} from "@utility/presentation/component/spinner/spinner.
     <button
       disabled
       type="button"
+			[class.mr-2]="mr2"
+			[class.px-5]="px5"
+			[class.py-2.5]="py2_5"
       class="
-        py-2.5
-        px-5
-        mr-2
         text-sm
         font-medium
         text-beeColor-900
@@ -58,4 +58,13 @@ export class LoaderComponent {
 
   @Input()
   public border = false;
+
+  @Input()
+  public mr2 = true;
+
+  @Input()
+  public px5 = true;
+
+  @Input()
+  public py2_5 = true;
 }

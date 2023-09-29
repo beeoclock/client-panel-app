@@ -11,7 +11,7 @@ import {firstValueFrom, Observable} from "rxjs";
 
 @Component({
 	selector: 'identity-confirm-email-page',
-	templateUrl: 'index.html',
+	templateUrl: './index.html',
 	standalone: true,
 	imports: [
 		NgOptimizedImage,
@@ -58,7 +58,6 @@ export default class Index implements OnInit {
 
 	public async sendAgain() {
 		const email = await firstValueFrom(this.accountEmail$);
-		// console.log(email);
 		this.sendConfirmEmailListApiAdapter.executeAsync({email}).then();
 	}
 

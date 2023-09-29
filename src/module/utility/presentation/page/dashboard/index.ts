@@ -10,7 +10,7 @@ import {
 
 @Component({
 	selector: 'utility-dashboard-page',
-	templateUrl: 'index.html',
+	templateUrl: './index.html',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [

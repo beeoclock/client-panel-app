@@ -15,6 +15,7 @@ import {FirstKeyNameModule} from "@utility/presentation/pipes/first-key-name/fir
 	standalone: true,
 })
 export class InvalidTooltipComponent {
+
 	@Input()
 	public control!: AbstractControl<unknown> | undefined;
 
@@ -26,5 +27,10 @@ export class InvalidTooltipComponent {
 
 	@Input()
 	@HostBinding('class')
-	public invalidClass = 'px-3 py-1 bg-red-500 text-white rounded-2xl';
+	public invalidClass = 'flex px-3 py-1 bg-red-500 text-white rounded-2xl';
+
+	@HostBinding('class.hidden')
+	public get hide(): boolean {
+		return !this.control?.errors;
+	}
 }

@@ -9,7 +9,7 @@ import {ChangeLanguageComponent} from "@utility/presentation/component/change-la
 
 @Component({
   selector: 'identity-sign-up-page',
-  templateUrl: 'index.html',
+  templateUrl: './index.html',
   standalone: true,
   imports: [
     ReactiveFormsModule,

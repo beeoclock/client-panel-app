@@ -6,10 +6,10 @@ import {clientEndpointEnum} from "@client/endpoint/client.endpoint";
 @Injectable({
 	providedIn: 'root'
 })
-export class ItemClientApiAdapter extends BaseApiAdapter<Client.IClient> {
+export class ItemClientApiAdapter extends BaseApiAdapter<Client.RIClient> {
 
 	public override execute$() {
-		return this.httpClient.get<Client.IClient>(clientEndpointEnum.item);
+		return this.httpClient.get<Client.RIClient>(clientEndpointEnum.item);
 	}
 
 }

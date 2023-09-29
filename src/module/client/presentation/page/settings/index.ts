@@ -13,7 +13,7 @@ import {ServiceSettingsComponent} from "@client/presentation/component/settings/
 
 @Component({
   selector: 'client-settings-page',
-  templateUrl: 'index.html',
+  templateUrl: './index.html',
   encapsulation: ViewEncapsulation.None,
   imports: [
     DangerZoneComponent,

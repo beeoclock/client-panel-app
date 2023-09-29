@@ -1,24 +1,4 @@
 {
-	"weekday": {
-		"short": {
-			"friday": "Fri",
-			"monday": "Mon",
-			"saturday": "Sat",
-			"sunday": "Sun",
-			"thursday": "Thu",
-			"tuesday": "Tue",
-			"wednesday": "Wed"
-		},
-		"long": {
-			"friday": "Friday",
-			"monday": "Monday",
-			"saturday": "Saturday",
-			"sunday": "Sunday",
-			"thursday": "Thursday",
-			"tuesday": "Tuesday",
-			"wednesday": "Wednesday"
-		}
-	},
 	"approvalTime": {
 		"EIGHT_HOURS": "8 hours",
 		"FIFTEEN_MINUTES": "15 minutes",
@@ -41,8 +21,15 @@
 		"BeautySalon": "Beauty salon",
 		"Dentistry": "Dentistry",
 		"Hairdresser": "Hairdresser",
-		"OnlineConsultation": "Online consultation",
-		"OnlineTeaching": "Online teaching"
+		"Other": "Other",
+		"PhysicalRehabilitation": "Physical rehabilitation",
+		"Psychotherapy": "Psychotherapy"
+	},
+	"businessIndustry": {
+		"BeautyIndustry": "Beauty industry",
+		"Healthcare": "Healthcare",
+		"Other": "Other",
+		"TeachingAndConsultation": "Teaching & consultation"
 	},
 	"change-name": {
 		"form": {
@@ -237,6 +224,22 @@
 		"THREE_HOURS": "In 3 hours",
 		"TWO_HOURS": "In 2 hours"
 	},
+	"enum": {
+		"facility": {
+			"capitalize": {
+				"ACCEPTING_CARD_PAYMENT": "Accepting credit cards",
+				"ACCEPTING_CHILDREN": "Child-friendly",
+				"ACCEPTING_PETS": "Pets allowed",
+				"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Accommodations for people with disabilities",
+				"FREE_PARKING": "Free Parking",
+				"INTERNET": "Internet (Wi-Fi)"
+			}
+		},
+		"theme": {
+			"dark": "Dark",
+			"light": "Light"
+		}
+	},
 	"event": {
 		"form": {
 			"section": {
@@ -284,13 +287,13 @@
 			},
 			"status": {
 				"all": "All",
-				"singular": {
+				"plural": {
 					"booked": "Booked",
 					"cancelled": "Canceled",
 					"done": "Done",
 					"requested": "Requested"
 				},
-				"plural": {
+				"singular": {
 					"booked": "Booked",
 					"cancelled": "Canceled",
 					"done": "Done",
@@ -302,11 +305,12 @@
 	},
 	"form": {
 		"validation": {
-			"whitespace": "Remove all spaces",
 			"email": "Invalid E-mail format",
+			"mask": "Invalid format, correct format is {{requiredMask}}",
 			"minlength": "Minimum length is {{requiredLength}}",
 			"required": "Required field",
-			"mask": "Invalid format, correct format is {{requiredMask}}"
+			"whitespace": "Remove all spaces",
+			"imageSize": "Maximum image size is {{max}}, current size is {{value}}"
 		}
 	},
 	"http": {
@@ -329,14 +333,6 @@
 			}
 		},
 		"POST": {
-			"/api/v1/service": {
-				"after": {
-					"success": {
-						"header": "Service created",
-						"message": "Service was successfully created."
-					}
-				}
-			},
 			"/api/v1/customer": {
 				"after": {
 					"success": {
@@ -350,6 +346,14 @@
 					"success": {
 						"header": "Event created",
 						"message": "Event was successfully created."
+					}
+				}
+			},
+			"/api/v1/service": {
+				"after": {
+					"success": {
+						"header": "Service created",
+						"message": "Service was successfully created."
 					}
 				}
 			}
@@ -374,12 +378,54 @@
 					"address": {
 						"label": "Address"
 					},
+					"businessName": {
+						"label": "Business Name",
+						"placeholder": "Salon Urody \"Bee O`clock\""
+					},
+					"businessOwnerFullName": {
+						"label": "Your Name",
+						"placeholder": "Jonh Smith"
+					},
 					"name": {
 						"label": "Name"
 					},
 					"slogan": {
 						"label": "Slogan"
 					}
+				}
+			},
+			"section": {
+				"category": {
+					"title": "Choose Your Niche"
+				},
+				"industry": {
+					"title": "What is Your Industry?"
+				},
+				"introduction": {
+					"button": "Get Started",
+					"description": "Boost your business performance with an all-in-one solution",
+					"welcome": "Welcome to"
+				},
+				"names": {
+					"title": "Enter Your Name and the Name of Your Business"
+				},
+				"pointOfSale": {
+					"title": "Where Can Customers Reach You?"
+				},
+				"portfolio": {
+					"title": "Your Portfolio"
+				},
+				"processing": {
+					"button": "Go to the dashboard"
+				},
+				"schedules": {
+					"title": "Your Working Hours"
+				},
+				"serviceProvideType": {
+					"title": "Choose Your Service Approach"
+				},
+				"services": {
+					"title": "What Services you Provide?"
 				}
 			}
 		},
@@ -441,6 +487,12 @@
 			}
 		},
 		"sign-up": {
+			"afterSuccess": {
+				"nextStep": "The next step is to confirm your email.",
+				"openMailService": "Open the email service",
+				"weSentEmail": "We sent a letter to the address",
+				"youHaveSuccessfullyRegistered": "Congratulations, you have successfully registered!"
+			},
 			"form": {
 				"button": {
 					"sign-in": "Login",
@@ -474,28 +526,13 @@
 				},
 				"label": "Registration"
 			},
-			"afterSuccess": {
-				"youHaveSuccessfullyRegistered": "Congratulations, you have successfully registered!",
-				"nextStep": "The next step is to confirm your email.",
-				"weSentEmail": "We sent a letter to the address",
-				"openMailService": "Open the email service"
-			},
 			"hint": {
 				"youHaveAnAccount": "You have an account?"
 			}
 		}
 	},
 	"keyword": {
-		"status": {
-			"all": "All",
-			"plural": {
-				"1": "Active",
-				"0": "Inactive"
-			}
-		},
 		"capitalize": {
-			"dataNotFound": "Data not found, try adding",
-			"thereArentAnyEvents": "There aren't any events on {{ datetime }}",
 			"account": "Account",
 			"action": "Action",
 			"active": "Active",
@@ -512,8 +549,10 @@
 			"back": "Back",
 			"bookingSettings": "Booking settings",
 			"break": "Break",
+			"business": "Business",
 			"businessCategory": "Business category",
 			"businessName": "Business name",
+			"businessProfile": "Business profile",
 			"cancel": "Cancel",
 			"chooseImage": "Choose image",
 			"city": "City",
@@ -530,6 +569,7 @@
 			"createdAt": "Created at",
 			"customer": "Customer",
 			"customers": "customers",
+			"dataNotFound": "Data not found, try adding",
 			"dateAndTime": "Date and time",
 			"delete": "Delete",
 			"description": "Description",
@@ -561,6 +601,7 @@
 			"menu": "Menu",
 			"name": "Name",
 			"next": "Next",
+			"nextStep": "Next step",
 			"no": "No",
 			"note": "Note",
 			"permission": "Permission",
@@ -570,6 +611,7 @@
 				"search": "Search",
 				"selectBusinessCategory": "Select business category"
 			},
+			"portfolio": "Portfolio",
 			"preview": "Preview",
 			"previous": "Previous",
 			"price": "Price",
@@ -579,13 +621,13 @@
 			"publicPage": "Public page",
 			"role": "Role",
 			"save": "Save",
+			"search": "search",
 			"select": "Select",
 			"selectSpecialist": "Select specialist",
 			"selected": "Selected",
 			"send": "Send",
 			"service": "Service",
 			"services": "Services",
-			"search": "search",
 			"signIn": "Sign in",
 			"signOut": "Sign out",
 			"signUp": "Sign up",
@@ -598,6 +640,7 @@
 			"streetAddressLineOne": "Address 1",
 			"streetAddressLineTwo": "Address 2",
 			"theme": "Theme",
+			"thereArentAnyEvents": "There aren't any events on {{ datetime }}",
 			"title": "Title",
 			"today": "Today",
 			"tomorrow": "Tomorrow",
@@ -615,6 +658,13 @@
 			"ago": "ago",
 			"dragAndDrop": "drag and drop",
 			"or": "or"
+		},
+		"status": {
+			"all": "All",
+			"plural": {
+				"0": "Inactive",
+				"1": "Active"
+			}
 		}
 	},
 	"latestBooking": {
@@ -674,6 +724,11 @@
 		},
 		"title": "Service"
 	},
+	"serviceProvideType": {
+		"Mixed": "Mixed",
+		"Offline": "Offline",
+		"Online": "Online"
+	},
 	"sidebar": {
 		"addEvent": "Add event",
 		"businessProfile": "Business profile",
@@ -696,20 +751,24 @@
 		},
 		"title": "Sign out"
 	},
-	"enum": {
-		"theme": {
-			"dark": "Dark",
-			"light": "Light"
+	"weekday": {
+		"long": {
+			"friday": "Friday",
+			"monday": "Monday",
+			"saturday": "Saturday",
+			"sunday": "Sunday",
+			"thursday": "Thursday",
+			"tuesday": "Tuesday",
+			"wednesday": "Wednesday"
 		},
-		"facility": {
-			"capitalize": {
-				"ACCEPTING_CARD_PAYMENT": "Accepting credit cards",
-				"ACCEPTING_CHILDREN": "Child-friendly",
-				"ACCEPTING_PETS": "Pets allowed",
-				"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Accommodations for people with disabilities",
-				"FREE_PARKING": "Free Parking",
-				"INTERNET": "Internet (Wi-Fi)"
-			}
+		"short": {
+			"friday": "Fri",
+			"monday": "Mon",
+			"saturday": "Sat",
+			"sunday": "Sun",
+			"thursday": "Thu",
+			"tuesday": "Tue",
+			"wednesday": "Wed"
 		}
 	}
 }
