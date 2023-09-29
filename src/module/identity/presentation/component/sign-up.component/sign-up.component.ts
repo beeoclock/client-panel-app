@@ -44,7 +44,7 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 				</div>
 
 				<a [href]="emailUrl.href" primaryLinkStyle class="justify-center">
-					{{ 'identity.sign-up.afterSuccess.openMailService' | translate }} <strong>{{ emailUrl.host }}</strong>&nbsp;<i class="bi bi-arrow-right"></i>
+					{{ 'identity.sign-up.afterSuccess.openMailService' | translate }}&nbsp;<strong>{{ emailUrl.host }}</strong>&nbsp;<i class="bi bi-arrow-right"></i>
 				</a>
 			</div>
 
