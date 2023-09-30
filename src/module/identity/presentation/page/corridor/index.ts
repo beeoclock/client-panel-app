@@ -76,6 +76,7 @@ export default class Index extends Reactive implements OnInit {
     this.store.dispatch(new IdentityActions.GetClients());
 
     this.clientId$.pipe(
+			this.takeUntil(),
       filter((result) => !!result),
       filter(() => !('force' in this.activatedRoute.snapshot.queryParams)),
       switchMap(() => from(this.gotToDashboardPage()))
