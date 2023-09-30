@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
-import {RouterLink} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
@@ -8,6 +8,8 @@ import {ChangeLanguageComponent} from "@utility/presentation/component/change-la
 import {CreateBusinessQuery} from "@identity/query/create-business.query";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {map, tap} from "rxjs";
+import {AsyncPipe, NgIf} from "@angular/common";
 
 @Component({
 	selector: 'identity-create-business-names-page',
@@ -22,11 +24,23 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 		BackLinkComponent,
 		ChangeLanguageComponent,
 		TranslateModule,
-		CardComponent
+		CardComponent,
+		NgIf,
+		AsyncPipe
 	],
 	encapsulation: ViewEncapsulation.None
 })
 export default class Index {
+	private readonly activatedRoute = inject(ActivatedRoute);
+
+	public readonly firstCompany$ = this.activatedRoute.queryParams.pipe(
+		map(({firstCompany}) => !!firstCompany),
+		tap((firstCompany) => {
+			if (!firstCompany) {
+				this.businessOwnerFullNameControl.clearValidators();
+			}
+		})
+	);
 
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
 	public readonly businessNameControl = this.createBusinessQuery.getBusinessNameControl();

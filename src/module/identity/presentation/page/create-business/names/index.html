@@ -19,6 +19,7 @@
 						[control]="businessNameControl" />
 
 					<form-input
+						*ngIf="firstCompany$ | async"
 						id="create-business-form-input-businessOwnerFullName"
 						[label]="'identity.create-business.form.inputs.businessOwnerFullName.label' | translate"
 						[placeholder]="'identity.create-business.form.inputs.businessOwnerFullName.placeholder' | translate"
