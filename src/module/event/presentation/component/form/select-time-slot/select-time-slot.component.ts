@@ -23,23 +23,23 @@ import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-m
 	],
 	template: `
 
-		<div class="flex flex-col gap-8 mb-4">
+      <div class="flex flex-col gap-8 mb-4">
 
-			<div class="flex justify-between items-center">
-				<strong class="text-2xl dark:text-white">{{ 'keyword.capitalize.dateAndTime' | translate }}</strong>
-				<utility-invalid-message [hidden]="control.untouched" [control]="control" />
-			</div>
+          <div class="flex justify-between items-center">
+              <strong class="text-2xl dark:text-white">{{ 'keyword.capitalize.dateAndTime' | translate }}</strong>
+              <utility-invalid-message [class.hidden]="control.untouched" [control]="control"/>
+          </div>
 
-			<event-select-time-slot-date-form-component
-				[control]="control"
-				[localDateTimeControl]="localDateTimeControl"/>
+          <event-select-time-slot-date-form-component
+                  [control]="control"
+                  [localDateTimeControl]="localDateTimeControl"/>
 
-			<event-select-time-slot-time-form-component
-				[specialist]="specialist"
-				[localDateTimeControl]="localDateTimeControl"
-				[control]="control"/>
+          <event-select-time-slot-time-form-component
+                  [specialist]="specialist"
+                  [localDateTimeControl]="localDateTimeControl"
+                  [control]="control"/>
 
-		</div>
+      </div>
 
 	`
 })
