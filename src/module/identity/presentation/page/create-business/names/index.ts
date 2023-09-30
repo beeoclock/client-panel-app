@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {RouterLink} from "@angular/router";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
@@ -8,8 +8,11 @@ import {ChangeLanguageComponent} from "@utility/presentation/component/change-la
 import {CreateBusinessQuery} from "@identity/query/create-business.query";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {map, tap} from "rxjs";
+import {filter, map, Observable, tap} from "rxjs";
 import {AsyncPipe, NgIf} from "@angular/common";
+import {Select} from "@ngxs/store";
+import {IdentityState} from "@identity/state/identity/identity.state";
+import {IMember} from "@identity/domain/interface/i.member";
 
 @Component({
 	selector: 'identity-create-business-names-page',
@@ -31,15 +34,21 @@ import {AsyncPipe, NgIf} from "@angular/common";
 	encapsulation: ViewEncapsulation.None
 })
 export default class Index {
-	private readonly activatedRoute = inject(ActivatedRoute);
 
-	public readonly firstCompany$ = this.activatedRoute.queryParams.pipe(
-		map(({firstCompany}) => !!firstCompany),
+	@Select(IdentityState.clients)
+	private readonly clients$!: Observable<IMember[]>;
+
+	public readonly members$ = this.clients$.pipe(
+		filter(Array.isArray),
+	);
+
+	public readonly firstCompany$ = this.members$.pipe(
+		map((members) => members.length === 0),
 		tap((firstCompany) => {
 			if (!firstCompany) {
 				this.businessOwnerFullNameControl.clearValidators();
 			}
-		})
+		}),
 	);
 
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);

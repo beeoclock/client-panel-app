@@ -7,7 +7,7 @@ export const environment = {
 	develop: true,
   emulator: false,
   proxy: false,
-	setDefaultValueToInputs: true,
+	setDefaultValueToInputs: false,
   apiUrls: {
     panel: 'api.panel',
     identity: 'api.identity',
