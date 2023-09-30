@@ -16,7 +16,7 @@ import {PricesBlockComponent} from "@service/presentation/component/form/v2/pric
 export class CreateBusinessComponent {
 	public readonly form = new ServiceForm();
 
-	public submit(): Promise<ServiceForm> {
+	public async submit(): Promise<ServiceForm> {
 		if (this.form.invalid) {
 			return Promise.reject();
 		}

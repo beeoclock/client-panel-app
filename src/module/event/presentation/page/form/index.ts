@@ -91,6 +91,7 @@ export default class Index implements OnInit {
 		}
 
 		const {member} = firstSpecialist;
+
 		if (typeof member === 'string') {
 			this.specialist = member;
 		} else {

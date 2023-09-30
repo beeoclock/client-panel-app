@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, inject, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
@@ -30,6 +30,10 @@ import {
 	PatchMediaGalleryClientApiAdapter
 } from "@client/adapter/external/api/media/gallery/patch.media.gallery.client.api.adapter";
 import {CreateServiceApiAdapter} from "@service/adapter/external/api/create.service.api.adapter";
+import {
+	ModalSelectSpecialistListAdapter
+} from "@member/adapter/external/component/modal-select-specialist.list.adapter";
+import {Service} from "@service/domain";
 
 const enum Status {
 	Success = 'success',
@@ -94,6 +98,7 @@ export default class Index implements AfterViewInit {
 		],
 	}
 
+	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly logger = inject(NGXLogger);
 	private readonly createServiceApiAdapter = inject(CreateServiceApiAdapter);
 	private readonly updateBusinessProfileApiAdapter = inject(UpdateBusinessProfileApiAdapter);
@@ -103,6 +108,7 @@ export default class Index implements AfterViewInit {
 	public readonly identityApiAdapter = inject(IdentityApiAdapter);
 	public readonly store = inject(Store);
 	public readonly allStepsFinishedWithSuccess = new BooleanState(false);
+	public readonly modalSelectSpecialistListAdapter = inject(ModalSelectSpecialistListAdapter);
 
 	public readonly steps = [
 		{
@@ -130,24 +136,42 @@ export default class Index implements AfterViewInit {
 
 	public async ngAfterViewInit(): Promise<void> {
 		let isAllStepsFinishedWithSuccess = true;
-		for (let i = 0; i < this.steps.length; i++) {
-			isAllStepsFinishedWithSuccess = false;
-			const step = this.steps[i];
-			step.status = Status.InProgress;
-			try {
-				await step.method();
-				step.status = Status.Success;
-				isAllStepsFinishedWithSuccess = true;
-			} catch (e) {
-				this.logger.error(e);
-				step.status = Status.Failed;
-				return;
+		try {
+
+			for (let i = 0; i < this.steps.length; i++) {
+				const step = this.steps[i];
+				try {
+					isAllStepsFinishedWithSuccess = false;
+
+					step.status = Status.InProgress;
+					this.changeDetectorRef.detectChanges();
+
+					await step.method();
+
+					step.status = Status.Success;
+
+					this.changeDetectorRef.detectChanges();
+					isAllStepsFinishedWithSuccess = true;
+
+				} catch (e) {
+
+					this.logger.error(e);
+					step.status = Status.Failed;
+					this.changeDetectorRef.detectChanges();
+					throw e;
+					return;
+
+				}
 			}
+			if (isAllStepsFinishedWithSuccess) {
+				this.allStepsFinishedWithSuccess.switchOn();
+				this.createBusinessQuery.initForm();
+			}
+
+		} catch (e) {
+			this.logger.error(e);
 		}
-		if (isAllStepsFinishedWithSuccess) {
-			this.allStepsFinishedWithSuccess.switchOn();
-			this.createBusinessQuery.initForm();
-		}
+		this.changeDetectorRef.detectChanges();
 	}
 
 	private async stepCreateBusiness(): Promise<void> {
@@ -218,9 +242,20 @@ export default class Index implements AfterViewInit {
 
 	private async stepAddServices(): Promise<void> {
 
-		const requestList$ = this.createBusinessQuery.getServicesForm().value?.map((service) => {
-			return this.createServiceApiAdapter.executeAsync(service);
-		});
+		if (!this.modalSelectSpecialistListAdapter.tableState.total) {
+
+			this.modalSelectSpecialistListAdapter.resetTableState();
+			await this.modalSelectSpecialistListAdapter.getPageAsync();
+
+		}
+
+		const specialist = this.modalSelectSpecialistListAdapter.tableState.items[0];
+
+		const requestList$ = this.createBusinessQuery.getServicesForm()
+			.value?.map((service) => {
+				service.specialists = [Service.memberToSpecialist(specialist)];
+				return this.createServiceApiAdapter.executeAsync(service);
+			});
 
 		if (!requestList$) {
 			return;

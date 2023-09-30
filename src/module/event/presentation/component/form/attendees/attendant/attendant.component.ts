@@ -66,7 +66,13 @@ import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-m
         [control]="form.controls.phone"
         [label]="'keyword.capitalize.phone' | translate"/>
 
-			<div class="col-span-2" [class.hidden]="form.controls.phone.untouched || form.controls.email.untouched">
+			<div
+				class="col-span-2"
+				[class.hidden]="
+					form.valid ||
+					form.controls.phone.untouched ||
+					form.controls.email.untouched
+				">
 				<utility-invalid-message class="flex justify-center" [control]="form"/>
 			</div>
 
