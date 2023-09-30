@@ -310,7 +310,8 @@
 			"minlength": "Minimum length is {{requiredLength}}",
 			"required": "Required field",
 			"whitespace": "Remove all spaces",
-			"imageSize": "Maximum image size is {{max}}, current size is {{value}}"
+			"imageSize": "Maximum image size is {{max}}, current size is {{value}}",
+			"emailOrPhoneRequired": "E-mail or phone number is required"
 		}
 	},
 	"http": {

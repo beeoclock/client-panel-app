@@ -1,6 +1,7 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActiveEnum} from "@utility/domain/enum";
 import {noWhitespaceValidator} from "@utility/validation/whitespace";
+import {emailOrPhoneRequiredValidator} from "@customer/presentation/form/validation/email-or-phone.validation";
 
 export interface ICustomerForm {
 	_id: FormControl<string>;
@@ -57,7 +58,9 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
 	}
 
 	public initValidation(): void {
-		this.controls.email.setValidators([Validators.email, Validators.required, noWhitespaceValidator()]);
+		this.controls.email.setValidators([Validators.email, noWhitespaceValidator()]);
 		this.controls.phone.setValidators([noWhitespaceValidator()]);
+
+		this.setValidators([emailOrPhoneRequiredValidator()]);
 	}
 }

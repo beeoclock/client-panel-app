@@ -312,7 +312,8 @@
 			"minlength": "Minimalna długość to {{requiredLength}}",
 			"required": "Wymagane pole",
 			"whitespace": "Usuń wszystkie spacje",
-			"imageSize": "Maksymalny rozmiar obrazu to {{max}}, bieżący rozmiar to {{value}}"
+			"imageSize": "Maksymalny rozmiar obrazu to {{max}}, bieżący rozmiar to {{value}}",
+			"emailOrPhoneRequired": "Wymagany jest numer telefonu lub adres e-mail"
 		}
 	},
 	"http": {
