@@ -1,11 +1,15 @@
 import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {RouterLink} from "@angular/router";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {LogoutComponent} from "@utility/presentation/component/logout/logout.component";
-import {map} from "rxjs";
+import {filter, map, Observable, tap} from "rxjs";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {TranslateModule} from "@ngx-translate/core";
+import {Select, Store} from "@ngxs/store";
+import {IdentityState} from "@identity/state/identity/identity.state";
+import {IMember} from "@identity/domain/interface/i.member";
+import {IdentityActions} from "@identity/state/identity/identity.actions";
 
 @Component({
 	selector: 'identity-create-business-introduction-page',
@@ -24,14 +28,27 @@ import {TranslateModule} from "@ngx-translate/core";
 	encapsulation: ViewEncapsulation.None
 })
 export default class Index {
-	private readonly activatedRoute = inject(ActivatedRoute);
 
-	public readonly firstCompany$ = this.activatedRoute.queryParams.pipe(
-		map(({firstCompany}) => !!firstCompany)
+	private readonly store = inject(Store);
+
+	@Select(IdentityState.clients)
+	private readonly clients$!: Observable<IMember[]>;
+
+	public readonly members$ = this.clients$.pipe(
+		tap((members) => {
+			if (!members) {
+				this.store.dispatch(new IdentityActions.GetClients());
+			}
+		}),
+		filter(Array.isArray),
+	);
+
+	public readonly firstCompany$ = this.members$.pipe(
+		map((members) => members.length === 0),
 	);
 
 	public readonly notFirstCompany$ = this.firstCompany$.pipe(
-		map((firstCompany) => !firstCompany)
+		map((firstCompany) => !firstCompany),
 	);
 
 
