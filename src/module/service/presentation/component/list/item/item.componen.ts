@@ -1,4 +1,4 @@
-import {Component, Input, ViewEncapsulation} from "@angular/core";
+import {Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
 import {IService} from "@service/domain";
 import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/boc-media.directive";
 import {CurrencyPipe} from "@angular/common";
@@ -7,8 +7,6 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 @Component({
 	selector: 'service-item-component',
 	template: `
-		<div
-			class="inline-flex items-center justify-between flex-col md:flex-row w-full p-5 text-gray-500 rounded-2xl dark:text-gray-400">
 			<div class="flex gap-3 mr-3">
 				<div class="">
 					<img
@@ -32,7 +30,6 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 					{{ item.durationVersions[0].durationInSeconds | humanizeDuration }}
 				</div>
 			</div>
-		</div>
 	`,
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
@@ -46,5 +43,8 @@ export class ServiceItemComponent {
 
 	@Input()
 	public item!: IService;
+
+	@HostBinding()
+	public class = ['inline-flex', 'items-center', 'justify-between', 'flex-col', 'md:flex-row', 'w-full', 'p-5', 'text-gray-500', 'rounded-2xl', 'dark:text-gray-400'];
 
 }
