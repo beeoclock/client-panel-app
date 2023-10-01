@@ -5,7 +5,7 @@
 		<client-business-profile-form-component [form]="form"/>
 
 		<utility-form-switch-active-block-component
-			[control]="form.controls.active"/>
+			[control]="form.controls.published"/>
 
 		<client-address-business-profile-component
 			*ngIf="(item$ | async)?.serviceProfideType !== serviceProfideType.Online"

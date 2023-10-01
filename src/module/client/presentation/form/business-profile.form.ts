@@ -21,7 +21,7 @@ export interface IBusinessProfile {
 	serviceProvideType: FormControl<ServiceProvideTypeEnum>;
   feature: FormControl<string>;
   description: FormControl<string>;
-  active: FormControl<ActiveEnum>;
+	published: FormControl<ActiveEnum>;
 
   socialNetworkLinks: SocialNetworksForm;
 
@@ -46,7 +46,7 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
 			serviceProvideType: new FormControl(),
       feature: new FormControl(),
       description: new FormControl(),
-      active: new FormControl(),
+			published: new FormControl(),
       socialNetworkLinks: new SocialNetworksForm(),
 
       bookingSettings: new BookingSettingsForm(),
@@ -63,9 +63,9 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
   }
 
   private initHandles(): void {
-    this.controls.active.valueChanges.subscribe((value) => {
+    this.controls.published.valueChanges.subscribe((value) => {
       if (typeof value === 'boolean') {
-        this.controls.active.patchValue(+value, {
+        this.controls.published.patchValue(+value, {
           emitEvent: false
         });
       }
@@ -74,7 +74,7 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
 
   private initValue(): void {
     this.controls.object.setValue('Client');
-    this.controls.active.setValue(ActiveEnum.NO);
+    this.controls.published.setValue(ActiveEnum.NO);
   }
 
   private initValidators(): void {

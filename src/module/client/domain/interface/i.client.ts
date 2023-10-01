@@ -12,7 +12,7 @@ import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum"
 
 export interface RIClient extends RIBaseEntity {
 	object: 'Client';
-	active: ActiveEnum;
+	published: ActiveEnum;
 	name: string;
 	logo: string;
 	feature: string;
