@@ -24,15 +24,15 @@ export enum ModalButtonRoleEnum {
   'accept',
 }
 
-export interface ModalButtonInterface {
-  text?: string;
-  role?: ModalButtonRoleEnum;
-  value?: any;
-  enabledDebounceClick?: boolean;
-  disabled?: boolean;
-  loading?: boolean;
-  classList?: string[];
-  callback?: (modal: ModalComponent, instanceList: any[]) => void;
+export interface ModalButtonInterface<COMPONENT_REF = unknown> {
+	text?: string;
+	role?: ModalButtonRoleEnum;
+	value?: unknown;
+	enabledDebounceClick?: boolean;
+	disabled?: boolean;
+	loading?: boolean;
+	classList?: string[];
+	callback?: (modal: ModalComponent<COMPONENT_REF>, instanceList: unknown[]) => void;
 }
 
 @Component({
@@ -120,7 +120,7 @@ export interface ModalButtonInterface {
     </div>
   `
 })
-export class ModalComponent extends Reactive implements AfterViewInit {
+export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements AfterViewInit {
 
   @Input()
   public id = 'modal-default-id';
