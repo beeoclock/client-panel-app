@@ -5,11 +5,11 @@
 
 		<div class="grid lg:grid-cols-12 gap-4">
 
-			<div class="col-span-3">
+			<div
+				*ngIf="service.presentation?.banners?.[0]" class="col-span-3">
 				<div
 					class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-beeColor-400">
 					<img
-						*ngIf="service.presentation?.banners?.[0]"
 						bocMedia
 						[src]="service.presentation.banners[0]"
 						twHeight="h-[128px]"
@@ -18,7 +18,7 @@
 						alt="Uploaded Image"/>
 				</div>
 			</div>
-			<div class="col-span-9">
+			<div class="col-span-12" [class.md:col-span-9]="service.presentation?.banners?.[0]" [class.md:col-span-12]="!service.presentation?.banners?.[0]">
 				<div class="flex flex-col gap-2">
 					<div class="grid lg:grid-cols-12 gap-4">
 
