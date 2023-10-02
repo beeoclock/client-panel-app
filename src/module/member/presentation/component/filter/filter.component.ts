@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component} from '@angular/core';
 import {FilterPanelComponent} from '@utility/presentation/component/panel/filter.panel.component';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {debounceTime, firstValueFrom} from 'rxjs';
@@ -8,11 +8,13 @@ import {MemberActions} from "@member/state/member/member.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {RouterLink} from "@angular/router";
-import {HALF_SECOND} from "@utility/domain/const/c.time";
+import {MS_HALF_SECOND} from "@utility/domain/const/c.time";
+import {Reactive} from "@utility/cdk/reactive";
+import {MemberState} from "@member/state/member/member.state";
 
 @Component({
-  selector: 'member-filter-component',
-  standalone: true,
+	selector: 'member-filter-component',
+	standalone: true,
 	imports: [
 		FilterPanelComponent,
 		SearchInputComponent,
@@ -20,7 +22,7 @@ import {HALF_SECOND} from "@utility/domain/const/c.time";
 		PrimaryButtonDirective,
 		RouterLink
 	],
-  template: `
+	template: `
 		<utility-filter-panel-component>
 			<utility-search-input-component start [control]="form.controls.search"/>
 			<ng-container end>
@@ -30,26 +32,37 @@ import {HALF_SECOND} from "@utility/domain/const/c.time";
 				</button>
 			</ng-container>
 		</utility-filter-panel-component>
-  `
+	`
 })
-export class FilterComponent {
-  public readonly store = inject(Store);
-  public readonly form = new FilterForm();
+export class FilterComponent extends Reactive {
+	public readonly form = new FilterForm();
 
-  constructor() {
-    this.form.valueChanges.pipe(
-      debounceTime(HALF_SECOND),
-    ).subscribe(async (value) => {
+	constructor(
+		public readonly store: Store,
+	) {
+		super();
+		this.store.select(MemberState.tableState)
+			.pipe(
+				this.takeUntil(),
+			)
+			.subscribe(({filters}) => {
+				Object.keys(filters).forEach((key) => {
+					this.form.controls[key].patchValue(filters[key]);
+				})
+			});
+		this.form.valueChanges.pipe(
+			debounceTime(MS_HALF_SECOND),
+		).subscribe(async (value) => {
 			this.form.disable({
 				emitEvent: false,
 				onlySelf: true
 			});
-      await firstValueFrom(this.store.dispatch(new MemberActions.UpdateFilters(value as any)));
-      await firstValueFrom(this.store.dispatch(new MemberActions.GetList()));
+			await firstValueFrom(this.store.dispatch(new MemberActions.UpdateFilters(value as any)));
+			await firstValueFrom(this.store.dispatch(new MemberActions.GetList()));
 			this.form.enable({
 				emitEvent: false,
 				onlySelf: true
 			});
-    });
-  }
+		});
+	}
 }

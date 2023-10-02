@@ -16,7 +16,7 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 
 @Component({
 	selector: 'event-service-component',
-	templateUrl: 'services.component.html',
+	templateUrl: './services.component.html',
 	standalone: true,
 	imports: [
 		NgIf,

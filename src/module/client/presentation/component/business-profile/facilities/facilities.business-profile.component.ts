@@ -8,7 +8,7 @@ import {SafePipe} from "@utility/presentation/pipes/safe.pipe";
 
 @Component({
   selector: 'client-facilities-business-profile-component',
-  templateUrl: 'facilities.business-profile.component.html',
+  templateUrl: './facilities.business-profile.component.html',
   encapsulation: ViewEncapsulation.None,
   imports: [
     CardComponent,

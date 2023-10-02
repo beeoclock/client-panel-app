@@ -5,7 +5,7 @@ import {NgOptimizedImage} from "@angular/common";
 
 @Component({
 	selector: 'starter-component',
-	templateUrl: 'starter.component.html',
+	templateUrl: './starter.component.html',
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,

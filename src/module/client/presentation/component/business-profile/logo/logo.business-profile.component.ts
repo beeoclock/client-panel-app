@@ -13,7 +13,7 @@ import {
 
 @Component({
 	selector: 'client-logo-business-profile-component',
-	templateUrl: 'logo.business-profile.component.html',
+	templateUrl: './logo.business-profile.component.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		CardComponent,

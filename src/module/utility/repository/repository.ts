@@ -10,10 +10,12 @@ export abstract class Repository {
     throw new Utility.Error.NotImplementedYetError();
   }
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
   public item(id: string) {
     throw new Utility.Error.NotImplementedYetError();
   }
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
   public save(value: unknown) {
     throw new Utility.Error.NotImplementedYetError();
   }

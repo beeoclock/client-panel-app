@@ -17,7 +17,7 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 
 @Component({
   selector: 'member-form-page',
-  templateUrl: 'index.html',
+  templateUrl: './index.html',
   encapsulation: ViewEncapsulation.None,
     imports: [
         ReactiveFormsModule,

@@ -1,6 +1,10 @@
-export const ONE_MINUTE = 60_000;
-export const SEVEN_MINUTE = 7 * ONE_MINUTE;
-export const TEN_MINUTES = 10 * ONE_MINUTE;
+export const MS_ONE_MINUTE = 60_000;
+export const MS_SEVEN_MINUTE = 7 * MS_ONE_MINUTE;
+export const MS_TEN_MINUTES = 10 * MS_ONE_MINUTE;
 
-export const ONE_SECOND = 1_000;
-export const HALF_SECOND = 500;
+export const MS_ONE_SECOND = 1_000;
+export const MS_HALF_SECOND = 500;
+
+export const SECONDS_ONE_MINUTE = 60;
+export const SECONDS_TEN_MINUTES = 10 * SECONDS_ONE_MINUTE;
+export const SECONDS_ONE_HOUR = 6 * SECONDS_TEN_MINUTES;

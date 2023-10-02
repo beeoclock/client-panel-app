@@ -3,7 +3,7 @@ export const environment = {
   develop: true,
   emulator: false,
   proxy: false,
-	setDefaultValueToInputs: true,
+	setDefaultValueToInputs: false,
   apiUrls: {
     panel: 'https://api.dev.beeoclock.com/panel',
     identity: 'https://api.dev.beeoclock.com/identity',

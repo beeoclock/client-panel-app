@@ -35,7 +35,7 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 		InvalidTooltipDirective
 	],
 })
-export class PriceAndCurrencyComponent {
+export class BusinessCategoryComponent {
 
 	@Input()
 	public id = '';

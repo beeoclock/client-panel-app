@@ -17,12 +17,19 @@
 		"TWO_HOURS": "2 години"
 	},
 	"businessCategory": {
-		"Barbershop": "Barbershop",
+		"Barbershop": "Барбершоп",
 		"BeautySalon": "Салон краси",
 		"Dentistry": "Стоматологія",
-		"Hairdresser": "Перукарня",
-		"OnlineConsultation": "Онлайн консультація",
-		"OnlineTeaching": "Онлайн навчання"
+		"Hairdresser": "Жіноча перукарня",
+		"Other": "Інше",
+		"PhysicalRehabilitation": "Фізична реабілітація",
+		"Psychotherapy": "Психотерапія"
+	},
+	"businessIndustry": {
+		"BeautyIndustry": "Краса",
+		"Healthcare": "Охорона здоров'я",
+		"Other": "Інше",
+		"TeachingAndConsultation": "Навчання та консультації"
 	},
 	"change-name": {
 		"form": {
@@ -73,7 +80,7 @@
 					"address": {
 						"input": {
 							"city": {
-								"placeholder": "Напиши назву населеного пункту"
+								"placeholder": "Назву населеного пункту"
 							},
 							"country": {
 								"placeholder": "Вибери країну"
@@ -85,7 +92,7 @@
 								"placeholder": "Номер будинку, офісу або студії"
 							},
 							"zipCode": {
-								"placeholder": "Напиши тут свій поштовий індекс"
+								"placeholder": "Напиши поштовий індекс"
 							}
 						},
 						"title": "Адреса"
@@ -217,6 +224,22 @@
 		"THREE_HOURS": "через 3 години",
 		"TWO_HOURS": "через 2 години"
 	},
+	"enum": {
+		"facility": {
+			"capitalize": {
+				"ACCEPTING_CARD_PAYMENT": "Приймаємо оплату карткою",
+				"ACCEPTING_CHILDREN": "Пристосовано для дітей",
+				"ACCEPTING_PETS": "Можна з домашніми улюбленцями",
+				"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Умови для людей з фізичними обмеженнями",
+				"FREE_PARKING": "Безкоштовне паркування",
+				"INTERNET": "Інтернет (Wi-Fi)"
+			}
+		},
+		"theme": {
+			"dark": "Темна",
+			"light": "Світла"
+		}
+	},
 	"event": {
 		"form": {
 			"section": {
@@ -264,17 +287,17 @@
 			},
 			"status": {
 				"all": "Всі",
-				"singular": {
-					"booked": "Зарезервовано",
-					"cancelled": "Скасована",
-					"done": "Виконано",
-					"requested": "Запит"
-				},
 				"plural": {
 					"booked": "Зарезервовані",
 					"cancelled": "Скасовані",
 					"done": "Виконані",
 					"requested": "На запиті"
+				},
+				"singular": {
+					"booked": "Зарезервовано",
+					"cancelled": "Скасована",
+					"done": "Виконано",
+					"requested": "Запит"
 				}
 			}
 		},
@@ -283,8 +306,12 @@
 	"form": {
 		"validation": {
 			"email": "Неправильний формат E-mail",
+			"mask": "Неправильний формат, правильний формат - {{requiredMask}}",
 			"minlength": "Мінімальна довжина - {{requiredLength}}",
-			"required": "Обов'язкове поле"
+			"required": "Обов'язкове поле",
+			"whitespace": "Видали всі пробіли",
+			"imageSize": "Максимальний розмір зображення – {{max}}, поточний розмір – {{value}}",
+			"emailOrPhoneRequired": "Введіть номер телефону або E-mail"
 		}
 	},
 	"http": {
@@ -307,14 +334,6 @@
 			}
 		},
 		"POST": {
-			"/api/v1/service": {
-				"after": {
-					"success": {
-						"header": "Послуга створена",
-						"message": "Послуга успішно створена."
-					}
-				}
-			},
 			"/api/v1/customer": {
 				"after": {
 					"success": {
@@ -328,6 +347,14 @@
 					"success": {
 						"header": "Подія створена",
 						"message": "Подія успішно створена."
+					}
+				}
+			},
+			"/api/v1/service": {
+				"after": {
+					"success": {
+						"header": "Послуга створена",
+						"message": "Послуга успішно створена."
 					}
 				}
 			}
@@ -352,12 +379,54 @@
 					"address": {
 						"label": "Адреса"
 					},
+					"businessName": {
+						"label": "Назва бізнесу",
+						"placeholder": "Салон вроди \"Bee O`clock\""
+					},
+					"businessOwnerFullName": {
+						"label": "Імʼя та прізвище",
+						"placeholder": "Іван Шевченко"
+					},
 					"name": {
 						"label": "Назва"
 					},
 					"slogan": {
 						"label": "Слоган"
 					}
+				}
+			},
+			"section": {
+				"category": {
+					"title": "Виберіть свою нішу"
+				},
+				"industry": {
+					"title": "Яка твоя галузь?"
+				},
+				"introduction": {
+					"button": "Почати",
+					"description": "Підвищте продуктивність свого бізнесу за допомогою комплексного рішення",
+					"welcome": "Ласкаво просимо до"
+				},
+				"names": {
+					"title": "Введіть своє ім'я та назву вашої компанії"
+				},
+				"pointOfSale": {
+					"title": "Куди клієнти можуть прийти?"
+				},
+				"portfolio": {
+					"title": "Твоє портфоліо"
+				},
+				"processing": {
+					"button": "Перейти на панель керування"
+				},
+				"schedules": {
+					"title": "Твій робочий графік"
+				},
+				"serviceProvideType": {
+					"title": "Виберіть свій підхід до обслуговування"
+				},
+				"services": {
+					"title": "Які послуги надаєш?"
 				}
 			}
 		},
@@ -419,6 +488,12 @@
 			}
 		},
 		"sign-up": {
+			"afterSuccess": {
+				"nextStep": "Наступним кроком є підтвердження електронної пошти.",
+				"openMailService": "Перейти до поштового сервісу",
+				"weSentEmail": "Ми відправили листа на адресу",
+				"youHaveSuccessfullyRegistered": "Вітаємо, ти успішно зареєструвався!"
+			},
 			"form": {
 				"button": {
 					"sign-in": "Увійти",
@@ -458,16 +533,7 @@
 		}
 	},
 	"keyword": {
-		"status": {
-			"all": "Всі",
-			"plural": {
-				"1": "Активні",
-				"0": "Неактивні"
-			}
-		},
 		"capitalize": {
-			"dataNotFound": "Дані не знайдені, спробуй додати",
-			"thereArentAnyEvents": "Подій немає на {{ datetime }}",
 			"account": "Профіль",
 			"action": "Дія",
 			"active": "Активний",
@@ -484,8 +550,12 @@
 			"back": "Назад",
 			"bookingSettings": "Налаштування бронювання",
 			"break": "Перерва",
+			"business": "Бізнес",
 			"businessCategory": "Категорія бізнесу",
+			"businessIndustry": "Галузь бізнесу",
+			"serviceProvideType": "Тип обслуговування",
 			"businessName": "Назва бізнесу",
+			"businessProfile": "Профіль бізнесу",
 			"cancel": "Скасувати",
 			"chooseImage": "Вибери файл",
 			"city": "Населений пункт",
@@ -502,6 +572,7 @@
 			"createdAt": "Створено",
 			"customer": "Клієнт",
 			"customers": "Клієнти",
+			"dataNotFound": "Дані не знайдені, спробуй додати",
 			"dateAndTime": "Дата та час",
 			"delete": "Видалити",
 			"description": "Опис",
@@ -533,6 +604,7 @@
 			"menu": "Меню",
 			"name": "Ім'я",
 			"next": "Далі",
+			"nextStep": "Наступний крок",
 			"no": "Ні",
 			"note": "Примітка",
 			"permission": "Дозвіл",
@@ -540,8 +612,11 @@
 			"placeholder": {
 				"description": "Напиши додаткову інформацію",
 				"search": "Пошук",
-				"selectBusinessCategory": "Виберіть категорію бізнесу"
+				"selectBusinessCategory": "Виберіть категорію бізнесу",
+				"selectBusinessIndustry": "Виберіть галузь бізнесу",
+				"selectServiceProvideType": "Виберіть тип обслуговування"
 			},
+			"portfolio": "Портфоліо",
 			"preview": "Попередній перегляд",
 			"previous": "Назад",
 			"price": "Ціна",
@@ -551,12 +626,12 @@
 			"publicPage": "Публічна сторінка",
 			"role": "Роль",
 			"save": "Зберегти",
+			"search": "Пошук",
 			"select": "Вибрати",
 			"selectSpecialist": "Виберіть спеціаліста",
 			"selected": "Обрано",
 			"send": "Відправити",
 			"service": "Послуга",
-			"search": "Пошук",
 			"services": "Послуги",
 			"signIn": "Увійти",
 			"signOut": "Вийти",
@@ -570,6 +645,7 @@
 			"streetAddressLineOne": "Адреса 1",
 			"streetAddressLineTwo": "Адреса 2",
 			"theme": "Тема",
+			"thereArentAnyEvents": "Подій немає на {{ datetime }}",
 			"title": "Назва",
 			"today": "Сьогодні",
 			"tomorrow": "Завтра",
@@ -587,6 +663,13 @@
 			"ago": "тому",
 			"dragAndDrop": "перетягніть і випустіть файл",
 			"or": "або"
+		},
+		"status": {
+			"all": "Всі",
+			"plural": {
+				"0": "Неактивні",
+				"1": "Активні"
+			}
 		}
 	},
 	"latestBooking": {
@@ -646,6 +729,11 @@
 		},
 		"title": "Послуга"
 	},
+	"serviceProvideType": {
+		"Mixed": "Змішаний",
+		"Offline": "Офлайн",
+		"Online": "Онлайн"
+	},
 	"sidebar": {
 		"addEvent": "Додати подію",
 		"businessProfile": "Профіль компанії",
@@ -668,20 +756,24 @@
 		},
 		"title": "Вихід з системи"
 	},
-	"enum": {
-		"theme": {
-			"dark": "Темна",
-			"light": "Світла"
+	"weekday": {
+		"long": {
+			"friday": "П'ятниця",
+			"monday": "Понеділок",
+			"saturday": "Субота",
+			"sunday": "Неділя",
+			"thursday": "Четвер",
+			"tuesday": "Вівторок",
+			"wednesday": "Середа"
 		},
-		"facility": {
-			"capitalize": {
-				"ACCEPTING_CARD_PAYMENT": "Приймаємо оплату карткою",
-				"ACCEPTING_CHILDREN": "Пристосовано для дітей",
-				"ACCEPTING_PETS": "Можна з домашніми улюбленцями",
-				"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Умови для людей з фізичними обмеженнями",
-				"FREE_PARKING": "Безкоштовне паркування",
-				"INTERNET": "Інтернет (Wi-Fi)"
-			}
+		"short": {
+			"friday": "Пт",
+			"monday": "Пн",
+			"saturday": "Сб",
+			"sunday": "Нд",
+			"thursday": "Чт",
+			"tuesday": "Вт",
+			"wednesday": "Ср"
 		}
 	}
 }

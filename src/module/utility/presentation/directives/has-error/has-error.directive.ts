@@ -61,7 +61,7 @@ export class HasErrorDirective implements DoCheck {
     }
 
     // Toggle visibility of invalid tooltip
-    const invalidTooltip: Element | null = parentElement?.querySelector?.('.invalid-tooltip');
+    const invalidTooltip: Element | null = parentElement?.querySelector?.('.invalid-message');
     if (invalidTooltip) {
       invalidTooltip.classList.toggle('d-none', !isInvalid);
     }

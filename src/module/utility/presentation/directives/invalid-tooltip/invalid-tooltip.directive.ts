@@ -39,6 +39,12 @@ export class InvalidTooltipDirective implements DoCheck {
   // if it false that we try to remove existing invalid custom tooltip
   public detection(): void {
 
+		if (this.needTouched) {
+			if (this.control?.untouched) {
+				return;
+			}
+		}
+
     const hasError = is.object.not.empty(this.control?.errors);
 
     if (hasError) {

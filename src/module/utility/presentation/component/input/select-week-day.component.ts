@@ -1,9 +1,8 @@
 import {Component, inject, Input, ViewEncapsulation} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {NgClass, NgForOf} from "@angular/common";
-import {Info} from "luxon";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {WORK_WEEK} from "@utility/domain/enum";
+import {WEEK_DAYS_OBJECTS, WORK_WEEK} from "@utility/domain/enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({
@@ -20,7 +19,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
     <label default>
       {{ 'keyword.capitalize.workdays' | translate }}
     </label>
-    <div class="grid grid-cols-4 md:grid-cols-7 gap-2">
+    <div class="grid grid-cols-5 md:grid-cols-7 gap-2">
       <div *ngFor="let day of weekDayList" class="flex items-center justify-center">
         <button
 					type="button"
@@ -41,13 +40,12 @@ export class SelectWeekDayComponent {
 
   public readonly translateService = inject(TranslateService);
 
-  public readonly weekDayList: { id: number; name: string; }[] = [];
-
-  constructor() {
-    this.weekDayList = Info.weekdays('short', {
-      locale: this.translateService.currentLang,
-    }).map((name, id) => ({id, name}));
-  }
+  public readonly weekDayList: { id: number; name: string; }[] = WEEK_DAYS_OBJECTS.map((weekDay) => {
+		return {
+			...weekDay,
+			name: this.translateService.instant(`weekday.short.${weekDay.name}`)
+		}
+	});
 
   public isSelected(id: number): boolean {
     return !!this.control.value?.includes?.(id);

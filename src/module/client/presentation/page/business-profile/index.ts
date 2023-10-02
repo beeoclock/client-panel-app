@@ -15,7 +15,7 @@ import {Select, Store} from "@ngxs/store";
 import * as Client from "@client/domain";
 import {IClient} from "@client/domain";
 import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
-import {AsyncPipe} from "@angular/common";
+import {AsyncPipe, NgIf} from "@angular/common";
 import {
 	AddressBusinessProfileComponent
 } from "@client/presentation/component/business-profile/address/address.business-profile.component";
@@ -43,10 +43,11 @@ import {filter, Observable} from "rxjs";
 import {
 	UpdateBusinessProfileApiAdapter
 } from "@client/adapter/external/api/buisness-profile/update.business-profile.api.adapter";
+import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
 
 @Component({
 	selector: 'client-business-profile-page',
-	templateUrl: 'index.html',
+	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		FormBusinessProfileComponent,
@@ -63,7 +64,8 @@ import {
 		FacilitiesBusinessProfileComponent,
 		BookingSettingsBusinessProfileComponent,
 		PrimaryButtonDirective,
-		AsyncPipe
+		AsyncPipe,
+		NgIf
 	],
 	standalone: true
 })
@@ -82,8 +84,10 @@ export default class Index implements OnInit {
 	public readonly store = inject(Store);
 	public readonly updateBusinessProfileApiAdapter = inject(UpdateBusinessProfileApiAdapter);
 
+	public readonly serviceProfideType = ServiceProvideTypeEnum;
+
 	@Select(ClientState.item)
-	public readonly item$!: Observable<Client.IClient>;
+	public readonly item$!: Observable<Client.RIClient>;
 
 	public ngOnInit(): void {
 
@@ -93,6 +97,10 @@ export default class Index implements OnInit {
 
 			const {socialNetworkLinks, schedules, contacts, ...data} = item;
 			this.form.patchValue(data);
+
+			this.form.controls.businessCategory.disable();
+			this.form.controls.businessIndustry.disable();
+			this.form.controls.serviceProvideType.disable();
 
 			if (socialNetworkLinks?.length) {
 				this.form.controls.socialNetworkLinks.clear();
@@ -124,7 +132,7 @@ export default class Index implements OnInit {
 		this.form.markAllAsTouched();
 		if (this.form.valid) {
 			this.store.dispatch(new AppActions.PageLoading(true));
-			const value = this.form.getRawValue() as IClient;
+			const value = this.form.getRawValue() as unknown as IClient;
 			this.form.disable();
 			this.form.markAsPending();
 

@@ -8,7 +8,7 @@ import {
 } from "@client/adapter/external/api/buisness-profile/item.business-profile.api.adapter";
 
 interface IClientState {
-	item: Client.IClient | undefined;
+	item: Client.RIClient | undefined;
 }
 
 @State<IClientState>({
@@ -21,7 +21,7 @@ interface IClientState {
 export class ClientState {
 
 	@Selector()
-	public static item(state: IClientState): Client.IClient | undefined {
+	public static item(state: IClientState): Client.RIClient | undefined {
 		return state.item;
 	}
 

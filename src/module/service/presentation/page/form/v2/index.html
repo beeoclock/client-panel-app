@@ -10,7 +10,7 @@
 
       <service-form-image-block-component
 				[serviceId]="form.value._id"
-				[mediaId]="(itemData$ | async)?.presentation?.banners?.[0] ?? ''"/>
+				[mediaId]="mediaId"/>
 
       <utility-form-switch-active-block-component
         [activeText]="'service.keyword.capitalize.active' | translate"
@@ -18,7 +18,6 @@
 
       <service-form-details-block-component
         [form]="form.controls.languageVersions.at(0)"/>
-
       <div>
 
         <!-- HTML of the component is temporary hidden, but we need to call the component because the component has code to add default specialist from member list -->

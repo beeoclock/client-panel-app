@@ -16,6 +16,7 @@ export class DefaultLabelDirective {
     'leading-6',
     'text-beeColor-900',
     'dark:text-white',
+		'text-start',
   ];
 
 }

@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SignInComponent} from '@identity/presentation/component/sign-in.component/sign-in.component';
@@ -19,7 +19,7 @@ import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
   selector: 'identity-corridor-page',
-  templateUrl: 'index.html',
+  templateUrl: './index.html',
   standalone: true,
   imports: [
     RouterLink,
@@ -68,9 +68,6 @@ export default class Index extends Reactive implements OnInit {
     })
   );
 
-  @HostBinding()
-  public readonly class = 'w-96 p-8 dark:border-beeDarkColor-700 rounded dark:bg-beeDarkColor-800';
-
   public readonly loader = new BooleanState(true);
   public readonly disabled = new BooleanState(false);
 
@@ -79,6 +76,7 @@ export default class Index extends Reactive implements OnInit {
     this.store.dispatch(new IdentityActions.GetClients());
 
     this.clientId$.pipe(
+			this.takeUntil(),
       filter((result) => !!result),
       filter(() => !('force' in this.activatedRoute.snapshot.queryParams)),
       switchMap(() => from(this.gotToDashboardPage()))

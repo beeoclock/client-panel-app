@@ -19,7 +19,7 @@ import {EventActions} from "@event/state/event/event.actions";
 import {CacheActions} from "@utility/state/cache/cache.actions";
 import {MAIN_CONTAINER_ID} from "@src/token";
 import {NGXLogger} from "ngx-logger";
-import {ONE_MINUTE} from "@utility/domain/const/c.time";
+import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
 
 @Component({
   selector: 'utility-wrapper-panel-component',
@@ -85,7 +85,7 @@ export default class WrapperPanelComponent implements AfterViewInit, OnDestroy {
         this.clearNotificationChecker();
         this.initNotificationChecker();
 
-      }, ONE_MINUTE);
+      }, MS_ONE_MINUTE);
     }
   }
 

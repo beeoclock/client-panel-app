@@ -1,0 +1,36 @@
+	<div class="flex justify-between">
+		<utility-back-link-component url="../" />
+		<utility-change-language-component/>
+	</div>
+	<div class="relative py-12 sm:py-16 lg:pt-20 xl:pb-0">
+		<div class="relative mx-auto max-w-xl px-4 sm:px-6 lg:px-8">
+			<div class="mx-auto max-w-3xl text-center">
+
+				<h1 class="mt-5 mb-8 text-3xl font-bold leading-tight text-gray-900 sm:text-3xl sm:leading-tight lg:text-4xl lg:leading-tight">
+					{{ 'identity.create-business.section.names.title' | translate }}
+				</h1>
+
+				<bee-card>
+
+					<form-input
+						id="create-business-form-input-businessName"
+						[label]="'identity.create-business.form.inputs.businessName.label' | translate"
+						[placeholder]="'identity.create-business.form.inputs.businessName.placeholder' | translate"
+						[control]="businessNameControl" />
+
+					<form-input
+						*ngIf="firstCompany$ | async"
+						id="create-business-form-input-businessOwnerFullName"
+						[label]="'identity.create-business.form.inputs.businessOwnerFullName.label' | translate"
+						[placeholder]="'identity.create-business.form.inputs.businessOwnerFullName.placeholder' | translate"
+						[control]="businessOwnerFullNameControl" />
+
+				</bee-card>
+
+				<button class="mt-8" primary routerLink="../industry" [class.disabled]="invalid">
+					{{ 'keyword.capitalize.nextStep' | translate }}
+				</button>
+
+			</div>
+		</div>
+	</div>

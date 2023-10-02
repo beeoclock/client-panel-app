@@ -11,20 +11,22 @@ import {CustomerForm} from "@customer/presentation/form";
 import {
 	CustomerAutocompleteDirective
 } from "@utility/presentation/directives/customer-autocomplete/customer-autocomplete.directive";
+import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 
 @Component({
   selector: 'event-attendant-component',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    NgIf,
-    HasErrorDirective,
-    IsRequiredDirective,
-    InvalidTooltipDirective,
-    FormInputComponent,
-    TranslateModule,
-    CustomerAutocompleteDirective
-  ],
+	imports: [
+		ReactiveFormsModule,
+		NgIf,
+		HasErrorDirective,
+		IsRequiredDirective,
+		InvalidTooltipDirective,
+		FormInputComponent,
+		TranslateModule,
+		CustomerAutocompleteDirective,
+		InvalidTooltipComponent
+	],
   template: `
     <div class="grid md:grid-cols-2 gap-4">
 
@@ -63,6 +65,16 @@ import {
 				id="attendee-phone"
         [control]="form.controls.phone"
         [label]="'keyword.capitalize.phone' | translate"/>
+
+			<div
+				class="col-span-2"
+				[class.hidden]="
+					form.valid ||
+					form.controls.phone.untouched ||
+					form.controls.email.untouched
+				">
+				<utility-invalid-message class="flex justify-center" [control]="form"/>
+			</div>
 
     </div>
   `

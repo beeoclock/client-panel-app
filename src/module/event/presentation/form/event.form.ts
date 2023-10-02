@@ -48,8 +48,8 @@ export class EventForm extends FormGroup<IEventForm> {
 	public initValue(): void {
 		this.controls.services.patchValue([]);
 		this.controls.servicesAreProvidedInParallel.patchValue(false);
-		this.controls.end.patchValue(new Date().toISOString());
-		this.controls.start.patchValue(new Date().toISOString());
+		// this.controls.end.patchValue(new Date().toISOString());
+		// this.controls.start.patchValue(new Date().toISOString());
 		this.controls.timeZone.patchValue(Intl.DateTimeFormat().resolvedOptions().timeZone);
 	}
 

@@ -29,7 +29,7 @@ import {ImageBlockComponent} from "@service/presentation/component/form/v2/image
 
 @Component({
 	selector: 'service-form-v2-page-component',
-	templateUrl: 'index.html',
+	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
@@ -61,7 +61,9 @@ export default class Index implements OnInit {
 
 	@Select(ServiceState.itemData)
 	public itemData$!: Observable<IService | undefined>;
+
 	private isEditMode = false;
+	public mediaId = '';
 
 	public ngOnInit(): void {
 		this.detectItem();
@@ -72,12 +74,13 @@ export default class Index implements OnInit {
 			firstValueFrom(this.itemData$).then((result) => {
 				if (result) {
 					this.isEditMode = true;
+					this.mediaId = result?.presentation?.banners?.[0] ?? '';
 
 					const {durationVersions, ...rest} = result;
 					this.form.patchValue(rest);
 
 					// Prevents from removing all controls from durationVersions
-					this.form.controls.durationVersions.removeControls();
+					this.form.controls.durationVersions.clear();
 					// Add new controls to durationVersions
 					durationVersions.forEach((durationVersion) => {
 						this.form.controls.durationVersions.pushNewOne(durationVersion);

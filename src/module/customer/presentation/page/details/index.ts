@@ -19,7 +19,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 
 @Component({
   selector: 'customer-detail-page',
-  templateUrl: 'index.html',
+  templateUrl: './index.html',
   encapsulation: ViewEncapsulation.None,
     imports: [
         NgIf,

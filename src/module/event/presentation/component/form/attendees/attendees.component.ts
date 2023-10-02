@@ -7,7 +7,7 @@ import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/butto
 
 @Component({
 	selector: 'event-attendees-component',
-	templateUrl: 'attendees.component.html',
+	templateUrl: './attendees.component.html',
 	standalone: true,
 	imports: [
 		AttendeesComponent,
@@ -25,7 +25,7 @@ export class AttendeesComponent {
 
 	public remove(index: number): void {
 
-		this.form.remove(index);
+		this.form.removeAt(index);
 
 	}
 

@@ -34,7 +34,7 @@ import {NgForOf, NgIf} from '@angular/common';
           dark:bg-beeDarkColor-800
           dark:border-beeDarkColor-600">
             Duration version #{{ index + 1 }}
-            <button type="button" class="text-red-500" (click)="durationVersionsForm.remove(index)" *ngIf="index > 0">
+            <button type="button" class="text-red-500" (click)="durationVersionsForm.removeAt(index)" *ngIf="index > 0">
               <i class="bi bi-trash"></i>
             </button>
           </div>

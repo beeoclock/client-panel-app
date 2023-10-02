@@ -1,5 +1,5 @@
 <div
-  class="flex items-center justify-between border-t border-beeColor-200 dark:border-beeDarkColor-800 bg-white dark:bg-beeDarkColor-800 px-4 py-3 sm:px-6">
+  class="flex items-center justify-between border-t border-beeColor-200 dark:border-beeDarkColor-800 bg-white dark:bg-beeDarkColor-800 px-4 py-3 sm:px-6 h-16">
   <div class="flex flex-1 justify-between sm:hidden">
     <button
       (click)="prevPage()"
@@ -37,7 +37,7 @@
     <div>
       <nav *ngIf="tableState.total > 1" class="isolate inline-flex -space-x-px rounded-md shadow-sm"
            aria-label="Pagination">
-        <a
+        <button
           [class.disabled]="1 === tableState.page"
           (click)="prevPage()"
           class="
@@ -60,8 +60,8 @@
             focus:outline-offset-0">
           <span class="sr-only">{{ 'keyword.capitalize.previous' | translate }}</span>
           <i class="bi bi-arrow-left"></i>
-        </a>
-        <a
+        </button>
+        <button
           *ngFor="let page of pages"
           [class.disabled]="isNaN(page)"
           [class.bg-beeColor-100]="tableState.page === page"
@@ -87,8 +87,8 @@
             focus:z-20
             focus:outline-offset-0">
           {{ isNaN(page) ? '...' : page }}
-        </a>
-        <a
+        </button>
+        <button
           [class.disabled]="tableState.maxPage === tableState.page"
           (click)="nextPage()"
           class="
@@ -111,7 +111,7 @@
             focus:outline-offset-0">
           <span class="sr-only">{{ 'keyword.capitalize.next' | translate }}</span>
           <i class="bi bi-arrow-right"></i>
-        </a>
+        </button>
       </nav>
     </div>
   </div>

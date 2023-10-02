@@ -7,6 +7,8 @@ import {AddressesForm} from "@client/presentation/form/address.form";
 import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
 import {ContactsForm} from "@client/presentation/form/contact.form";
 import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
+import {BusinessIndustry} from "@utility/domain/business-industry";
+import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
 
 
 export interface IBusinessProfile {
@@ -15,9 +17,11 @@ export interface IBusinessProfile {
 
   name: FormControl<string>;
   businessCategory: FormControl<BusinessCategoryEnum>;
+	businessIndustry: FormControl<BusinessIndustry>;
+	serviceProvideType: FormControl<ServiceProvideTypeEnum>;
   feature: FormControl<string>;
   description: FormControl<string>;
-  active: FormControl<ActiveEnum>;
+	published: FormControl<ActiveEnum>;
 
   socialNetworkLinks: SocialNetworksForm;
 
@@ -38,9 +42,11 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
       object: new FormControl(),
       name: new FormControl(),
       businessCategory: new FormControl(),
+			businessIndustry: new FormControl(),
+			serviceProvideType: new FormControl(),
       feature: new FormControl(),
       description: new FormControl(),
-      active: new FormControl(),
+			published: new FormControl(),
       socialNetworkLinks: new SocialNetworksForm(),
 
       bookingSettings: new BookingSettingsForm(),
@@ -57,9 +63,9 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
   }
 
   private initHandles(): void {
-    this.controls.active.valueChanges.subscribe((value) => {
+    this.controls.published.valueChanges.subscribe((value) => {
       if (typeof value === 'boolean') {
-        this.controls.active.patchValue(+value, {
+        this.controls.published.patchValue(+value, {
           emitEvent: false
         });
       }
@@ -68,7 +74,7 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
 
   private initValue(): void {
     this.controls.object.setValue('Client');
-    this.controls.active.setValue(ActiveEnum.NO);
+    this.controls.published.setValue(ActiveEnum.NO);
   }
 
   private initValidators(): void {

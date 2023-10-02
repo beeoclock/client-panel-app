@@ -53,8 +53,10 @@ bootstrapApplication(AppComponent, {
 		provideEnvironmentNgxMask(),
 		importProvidersFrom(
 			LoggerModule.forRoot({
-				level: NgxLoggerLevel.INFO,
-			}), NgxsModule.forRoot([IdentityState, AppState, CacheState], {
+				level: environment.production ? NgxLoggerLevel.OFF : NgxLoggerLevel.TRACE,
+				serverLogLevel: NgxLoggerLevel.OFF,
+			}),
+			NgxsModule.forRoot([IdentityState, AppState, CacheState], {
 				developmentMode: !environment.production
 			}),
 			NgxsReduxDevtoolsPluginModule.forRoot({

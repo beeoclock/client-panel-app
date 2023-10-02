@@ -9,7 +9,7 @@ import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/c
 
 @Component({
 	selector: 'client-address-business-profile-component',
-	templateUrl: 'address.business-profile.component.html',
+	templateUrl: './address.business-profile.component.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		CardComponent,
@@ -25,5 +25,8 @@ export class AddressBusinessProfileComponent {
 
 	@Input()
 	public form = new AddressForm();
+
+	@Input()
+	public hideInputList: ('country' | 'city' | 'zipCode' | 'addressLineOne' | 'addressLineTwo')[] = [];
 
 }

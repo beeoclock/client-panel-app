@@ -22,10 +22,11 @@ import {BooleanState} from "@utility/domain";
 import {NgIf} from "@angular/common";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
 import {NGXLogger} from "ngx-logger";
+import {IService} from "@service/domain";
 
 @Component({
 	selector: 'event-form-page',
-	templateUrl: 'index.html',
+	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		ReactiveFormsModule,
@@ -60,6 +61,8 @@ export default class Index implements OnInit {
 
 	public readonly preview = new BooleanState(false);
 
+	public specialist = '';
+
 	@Select(EventState.itemData)
 	public itemData$!: Observable<IEvent | undefined>;
 
@@ -69,6 +72,31 @@ export default class Index implements OnInit {
 
 	public ngOnInit(): void {
 		this.detectItem();
+		this.form.controls.services.valueChanges.subscribe((services) => {
+			this.setSpecialist(services);
+		});
+	}
+
+	private setSpecialist(services: IService[]): void {
+		const [firstService] = services;
+
+		if (!firstService) {
+			return;
+		}
+
+		const [firstSpecialist] = firstService?.specialists ?? [];
+
+		if (!firstSpecialist) {
+			return;
+		}
+
+		const {member} = firstSpecialist;
+
+		if (typeof member === 'string') {
+			this.specialist = member;
+		} else {
+			this.specialist = member?._id ?? '';
+		}
 	}
 
 	public detectItem(): void {
@@ -102,7 +130,7 @@ export default class Index implements OnInit {
 
 					if (attendees?.length) {
 
-						this.form.controls.attendees.remove(0);
+						this.form.controls.attendees.removeAt(0);
 
 						attendees.forEach((attendee) => {
 

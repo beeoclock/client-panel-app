@@ -17,10 +17,11 @@ import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {CustomerForm} from "@customer/presentation/form";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 
 @Component({
 	selector: 'customer-form-page',
-	templateUrl: 'index.html',
+	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		ReactiveFormsModule,
@@ -34,7 +35,8 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 		SwitchActiveBlockComponent,
 		FormTextareaComponent,
 		CardComponent,
-		PrimaryButtonDirective
+		PrimaryButtonDirective,
+		InvalidTooltipComponent,
 	],
 	standalone: true
 })

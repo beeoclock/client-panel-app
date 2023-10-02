@@ -17,7 +17,7 @@ import {IMember} from "@member/domain";
 
 @Component({
 	selector: 'member-table-list-component',
-	templateUrl: 'table.list.component.html',
+	templateUrl: './table.list.component.html',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [

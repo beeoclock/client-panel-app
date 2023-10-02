@@ -1,7 +1,17 @@
-import {Component, ElementRef, inject, Input, OnInit, ViewChild} from '@angular/core';
+import {
+	Component,
+	ElementRef,
+	inject,
+	Input,
+	OnChanges,
+	OnInit,
+	SimpleChange,
+	SimpleChanges,
+	ViewChild
+} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {DateTime, Settings} from "luxon";
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {Reactive} from "@utility/cdk/reactive";
 import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
@@ -23,7 +33,8 @@ const DEFAULT_INTERVAL_IN_MINUTES = 10;
 		NgForOf,
 		NgClass,
 		LoaderComponent,
-		NgIf
+		NgIf,
+		TranslateModule
 	],
   template: `
 		<div class="flex items-center justify-between gap-1">
@@ -38,7 +49,10 @@ const DEFAULT_INTERVAL_IN_MINUTES = 10;
 					class="px-3 py-2 hover:bg-beeColor-300 dark:hover:bg-beeDarkColor-800 cursor-pointer rounded-2xl dark:text-white">
 					<i class="bi bi-chevron-left"></i>
 				</button>
-				<div #timeSlotsContainer class="grid grid-cols-3 md:grid-cols-6 gap-1 w-full">
+				<ng-template [ngIf]="!timeSlotLists.length">
+					{{ 'keyword.capitalize.dataNotFound' | translate }}
+				</ng-template>
+				<div #timeSlotsContainer *ngIf="timeSlotLists.length" class="grid grid-cols-3 md:grid-cols-6 gap-1 w-full">
 					<button
 						type="button"
 						*ngFor="let timeSlot of timeSlotLists[currentIndexListOfSlots]"
@@ -59,10 +73,13 @@ const DEFAULT_INTERVAL_IN_MINUTES = 10;
 		</div>
 	`
 })
-export class SelectTimeComponent extends Reactive implements OnInit {
+export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 
   @Input()
   public control!: FormControl<string>;
+
+  @Input()
+  public specialist!: string;
 
   @Input()
   public localDateTimeControl!: FormControl<DateTime>;
@@ -81,7 +98,13 @@ export class SelectTimeComponent extends Reactive implements OnInit {
 
   public readonly loader = new BooleanState(true);
 
-  public ngOnInit(): void {
+	public ngOnChanges(changes: SimpleChanges & {specialist: SimpleChange}) {
+		if (changes.specialist) {
+			this.prepareSlots(this.localDateTimeControl.value)
+		}
+	}
+
+	public ngOnInit(): void {
     Settings.defaultLocale = this.translateService.currentLang;
 
     this.selectedDateTime = this.localDateTimeControl.value.set({
@@ -110,26 +133,26 @@ export class SelectTimeComponent extends Reactive implements OnInit {
   }
 
 	private async prepareSlots(target: DateTime): Promise<void> {
-		const start = target.startOf('day').toUTC().toISO();
+		let start = target.startOf('day').toUTC().toISO();
 		const end = target.endOf('day').toUTC().toISO();
-		if (start && end) {
-			await this.slotsService.initSlots(start, end);
-
-			const selectedDateTime = target.toUTC().toISO();
-			if (selectedDateTime) {
-				this.initTimeSlotLists(selectedDateTime);
-			}
+		const today = DateTime.now();
+		if (today.hasSame(target, 'day')) {
+			start = today.plus({minute: 10}).toUTC().toISO();
+		}
+		if (start && end && this.specialist) {
+			await this.slotsService.initSlots(start, end, this.specialist);
+			this.initTimeSlotLists();
 		}
 	}
 
 	/**
 	 *
-	 * @param selectedDateTime - ISO string
 	 * @private
 	 */
-	private initTimeSlotLists(selectedDateTime: string): void {
+	private initTimeSlotLists(): void {
 
 		this.timeSlotLists.length = 0;
+		this.currentIndexListOfSlots = 0;
 
 		let localTemporaryList: ITimeSlot[] = [];
 
@@ -140,10 +163,6 @@ export class SelectTimeComponent extends Reactive implements OnInit {
 			}))
 			.forEach((slot, index) => {
 
-				if (slot.datetime.toUTC().toISO() === selectedDateTime) {
-					this.currentIndexListOfSlots = this.timeSlotLists.length;
-				}
-
 				localTemporaryList.push(slot);
 
 				if (index !== 0 && !((index + 1) % this.amountOfDaySlotsInContainer)) {
@@ -153,14 +172,19 @@ export class SelectTimeComponent extends Reactive implements OnInit {
 
 			});
 
+		if (localTemporaryList.length) {
+			this.timeSlotLists.push(localTemporaryList);
+		}
+
+
 	}
 
 	public get isLastSlotPack(): boolean {
-		return this.currentIndexListOfSlots === (this.timeSlotLists.length - 1);
+		return this.timeSlotLists.length === 0 || this.currentIndexListOfSlots === (this.timeSlotLists.length - 1);
 	}
 
 	public get isFirstSlotPack(): boolean {
-		return this.currentIndexListOfSlots === 0;
+		return this.timeSlotLists.length === 0 || this.currentIndexListOfSlots === 0;
 	}
 
   public prevSlotPack(): void {

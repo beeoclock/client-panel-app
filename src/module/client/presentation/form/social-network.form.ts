@@ -36,16 +36,12 @@ export class SocialNetworksForm extends FormArray<SocialNetworkForm> {
     super([]);
   }
 
-  public remove(index: number): void {
-    this.controls.splice(index, 1);
-  }
-
   public pushNewOne(initialValue?: ISocialNetworkLink): void {
     const control = new SocialNetworkForm();
     if (initialValue) {
       control.setValue(initialValue);
     }
-    this.controls.push(control);
+    this.push(control);
   }
 
 }

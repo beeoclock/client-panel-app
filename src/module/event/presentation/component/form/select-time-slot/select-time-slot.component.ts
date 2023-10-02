@@ -1,4 +1,4 @@
-import {Component, inject, Input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {SelectDateComponent} from "@event/presentation/component/form/select-time-slot/select-date.component";
@@ -6,6 +6,7 @@ import {SelectTimeComponent} from "@event/presentation/component/form/select-tim
 import {DateTime} from "luxon";
 import {DatePipe} from "@angular/common";
 import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
+import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 
 @Component({
 	selector: 'event-select-time-slot-form-component',
@@ -14,24 +15,31 @@ import {SlotsService} from "@event/presentation/component/form/select-time-slot/
 		TranslateModule,
 		SelectDateComponent,
 		SelectTimeComponent,
-		DatePipe
+		DatePipe,
+		InvalidTooltipComponent
 	],
 	providers: [
 		SlotsService
 	],
 	template: `
 
-		<div class="flex flex-col gap-8 mb-4">
+      <div class="flex flex-col gap-8 mb-4">
 
-			<strong class="text-2xl dark:text-white">{{ 'keyword.capitalize.dateAndTime' | translate }}</strong>
+          <div class="flex justify-between items-center">
+              <strong class="text-2xl dark:text-white">{{ 'keyword.capitalize.dateAndTime' | translate }}</strong>
+              <utility-invalid-message [class.hidden]="control.untouched" [control]="control"/>
+          </div>
 
-			<event-select-time-slot-date-form-component
-				[control]="control"
-				[localDateTimeControl]="localDateTimeControl"/>
+          <event-select-time-slot-date-form-component
+                  [control]="control"
+                  [localDateTimeControl]="localDateTimeControl"/>
 
-			<event-select-time-slot-time-form-component [localDateTimeControl]="localDateTimeControl" [control]="control"/>
+          <event-select-time-slot-time-form-component
+                  [specialist]="specialist"
+                  [localDateTimeControl]="localDateTimeControl"
+                  [control]="control"/>
 
-		</div>
+      </div>
 
 	`
 })
@@ -40,7 +48,9 @@ export class SelectTimeSlotComponent {
 	@Input()
 	public control!: FormControl<string>;
 
-	private readonly slotsService = inject(SlotsService);
+	@Input()
+	public specialist!: string;
+
 	public readonly localDateTimeControl: FormControl<DateTime> = new FormControl(DateTime.now()) as FormControl<DateTime>;
 
 }

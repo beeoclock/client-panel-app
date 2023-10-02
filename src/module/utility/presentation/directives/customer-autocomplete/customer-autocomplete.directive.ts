@@ -2,7 +2,7 @@ import {Directive, DoCheck, ElementRef, Inject, inject, Input, Optional, SkipSel
 import {AbstractControl, NgControl} from '@angular/forms';
 import {DOCUMENT} from "@angular/common";
 import {debounce} from "typescript-debounce-decorator";
-import {ONE_SECOND} from "@utility/domain/const/c.time";
+import {MS_ONE_SECOND} from "@utility/domain/const/c.time";
 import {UtilityListCustomerAdapter} from "@customer/adapter/external/module/utility.list.customer.adapter";
 import {ICustomer} from "@customer/domain";
 import {ActiveEnum} from "@utility/domain/enum";
@@ -33,6 +33,7 @@ export class CustomerAutocompleteDirective implements DoCheck {
   private previousControlValue = '';
 
   private HTMLUlList: HTMLUListElement | null = null;
+  private HTMLHeaderDivElement: HTMLDivElement | null = null;
   private HTMLDivElement: HTMLDivElement | null = null;
   private HTMLLoader: HTMLDivElement | null = null;
 
@@ -65,7 +66,7 @@ export class CustomerAutocompleteDirective implements DoCheck {
     }
   }
 
-  @debounce(ONE_SECOND)
+  @debounce(MS_ONE_SECOND)
   public updateCustomerList(): void {
 
     this.clearHTMLUlList();
@@ -143,8 +144,20 @@ export class CustomerAutocompleteDirective implements DoCheck {
 
     // Container
     this.HTMLDivElement = this.document.createElement('div');
-    this.HTMLDivElement.classList.add('hidden', 'absolute', 'bg-white', 'block', 'dark:bg-gray-700', 'rounded-lg', 'shadow-lg', 'z-40', 'max-h-72', 'overflow-y-auto');
+    this.HTMLDivElement.classList.add('hidden', 'flex', 'flex-col', 'absolute', 'bg-white', 'block', 'dark:bg-gray-700', 'rounded-lg', 'shadow-xl', 'z-40', 'max-h-72', 'w-full');
     this.elementRef.nativeElement.appendChild(this.HTMLDivElement);
+
+    // Header
+    this.HTMLHeaderDivElement = this.document.createElement('div');
+    this.HTMLHeaderDivElement.classList.add('border-b', 'flex', 'justify-between', 'bg-beeColor-100', 'rounded-t-xl', 'px-3', 'py-2', 'w-full');
+		this.HTMLHeaderDivElement.appendChild(this.document.createElement('div'));
+		const buttonToHideDropdown = this.document.createElement('button');
+		buttonToHideDropdown.innerHTML = `<i class="bi bi-x-lg"></i>`;
+		buttonToHideDropdown.addEventListener('click', () => {
+			this.hideDropdown();
+		});
+		this.HTMLHeaderDivElement.appendChild(buttonToHideDropdown);
+		this.HTMLDivElement.appendChild(this.HTMLHeaderDivElement);
 
     // LIST
     this.HTMLUlList = this.document.createElement('ul');

@@ -1,4 +1,4 @@
-import {Component, ElementRef, inject, Input, OnInit, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, ElementRef, inject, Input, ViewChild} from "@angular/core";
 import {FormControl} from "@angular/forms";
 import {extractFile} from "@utility/domain/extract-file";
 import {file2base64} from "@utility/domain/file2base64";
@@ -10,7 +10,7 @@ import {NGXLogger} from "ngx-logger";
 	template: ``,
 	standalone: true
 })
-export class BaseImageComponent implements OnInit {
+export class BaseImageComponent implements AfterViewInit {
 
 	@ViewChild('fileInput')
 	public readonly fileInput!: ElementRef<HTMLInputElement>;
@@ -19,7 +19,7 @@ export class BaseImageComponent implements OnInit {
 	public readonly previewImage!: ElementRef<HTMLImageElement>;
 
 	@Input()
-	public control = new FormControl();
+	public control!: FormControl;
 
 	@Input()
 	public showHit = true;
@@ -39,13 +39,19 @@ export class BaseImageComponent implements OnInit {
 		return !this.isEmptyControl;
 	}
 
-	public ngOnInit(): void {
+	public ngAfterViewInit(): void {
+		this.updateSrc(this.control.value);
 		this.control.valueChanges.subscribe((base64: string | undefined) => {
-			if (base64?.length) {
-				this.previewImage.nativeElement.src = base64;
-				this.previewImage.nativeElement.classList.remove('hidden');
-			}
+			this.updateSrc(base64);
 		});
+	}
+
+	public updateSrc(base64: string | undefined): void {
+		if (!base64?.length) {
+			return;
+		}
+		this.previewImage.nativeElement.src = base64;
+		this.previewImage.nativeElement.classList.remove('hidden');
 	}
 
 	/**

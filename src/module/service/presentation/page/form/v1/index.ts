@@ -5,7 +5,7 @@ import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'member-form-page',
-  templateUrl: 'index.html',
+  templateUrl: './index.html',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [

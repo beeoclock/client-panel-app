@@ -22,7 +22,7 @@ import {GeneralDetailsComponent} from "@event/presentation/component/details/gen
 
 @Component({
   selector: 'event-detail-page',
-  templateUrl: 'index.html',
+  templateUrl: './index.html',
   encapsulation: ViewEncapsulation.None,
   imports: [
     NgIf,

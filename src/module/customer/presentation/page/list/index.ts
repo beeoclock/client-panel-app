@@ -19,7 +19,7 @@ import {
 
 @Component({
 	selector: 'customer-list-page',
-	templateUrl: 'index.html',
+	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
