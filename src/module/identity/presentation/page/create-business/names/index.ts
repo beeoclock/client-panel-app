@@ -10,9 +10,10 @@ import {TranslateModule} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {filter, map, Observable, tap} from "rxjs";
 import {AsyncPipe, NgIf} from "@angular/common";
-import {Select} from "@ngxs/store";
+import {Select, Store} from "@ngxs/store";
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {IMember} from "@identity/domain/interface/i.member";
+import {IdentityActions} from "@identity/state/identity/identity.actions";
 
 @Component({
 	selector: 'identity-create-business-names-page',
@@ -38,7 +39,14 @@ export default class Index {
 	@Select(IdentityState.clients)
 	private readonly clients$!: Observable<IMember[]>;
 
+	private readonly store = inject(Store);
+
 	public readonly members$ = this.clients$.pipe(
+		tap((members) => {
+			if (!members) {
+				this.store.dispatch(new IdentityActions.GetClients());
+			}
+		}),
 		filter(Array.isArray),
 	);
 
