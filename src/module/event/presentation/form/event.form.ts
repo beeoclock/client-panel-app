@@ -13,7 +13,7 @@ export interface IEventForm {
 	timeZone: FormControl<string>;
 	attendees: AttendeesForm;
 
-	[key: string]: AbstractControl<any, any>;
+	[key: string]: AbstractControl;
 }
 
 export class EventForm extends FormGroup<IEventForm> {

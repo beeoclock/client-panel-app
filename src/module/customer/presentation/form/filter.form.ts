@@ -6,7 +6,7 @@ export interface IFilterForm {
 	phrase: FormControl<string>;
 	active: FormControl<ActiveEnum | null>;
 
-	[key: string]: AbstractControl<any, any>;
+	[key: string]: AbstractControl;
 
 }
 

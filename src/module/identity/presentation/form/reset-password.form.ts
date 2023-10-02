@@ -4,7 +4,7 @@ import {environment} from "@environment/environment";
 interface IResetPassword {
   email: FormControl<string>;
 
-  [key: string]: AbstractControl<any, any>;
+  [key: string]: AbstractControl;
 }
 
 export default class ResetPasswordForm extends FormGroup<IResetPassword> {

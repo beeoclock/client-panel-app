@@ -4,7 +4,7 @@ export interface IChangePhoneNumberForm {
 
   phoneNumber: FormControl<string>;
 
-  [key: string]: AbstractControl<any, any>;
+  [key: string]: AbstractControl;
 }
 
 export class ChangePhoneNumberForm extends FormGroup<IChangePhoneNumberForm> {

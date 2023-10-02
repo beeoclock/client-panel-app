@@ -77,6 +77,16 @@ export default class Index implements OnInit {
 		});
 	}
 
+	public getEventDurationInSeconds(service: IService): number {
+		try {
+			const [durationVersion] = service.durationVersions;
+			const {durationInSeconds, breakInSeconds} = durationVersion;
+			return (durationInSeconds ?? 0) + (breakInSeconds ?? 0);
+		} catch (e) {
+			return 0;
+		}
+	}
+
 	private setSpecialist(services: IService[]): void {
 		const [firstService] = services;
 

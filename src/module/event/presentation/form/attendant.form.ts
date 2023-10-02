@@ -11,7 +11,7 @@ export interface IAttendantForm {
   isNewCustomer: FormControl<IsNewCustomerEnum>;
   customer: CustomerForm;
 
-  [key: string]: AbstractControl<any, any>;
+  [key: string]: AbstractControl;
 }
 
 export class AttendantForm extends FormGroup<IAttendantForm> {

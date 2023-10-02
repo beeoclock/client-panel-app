@@ -8,7 +8,7 @@ export interface ISocialNetworkForm {
   link: FormControl<string>;
   type: FormControl<SocialNetworkEnum>;
 
-  [key: string]: AbstractControl<any, any>;
+  [key: string]: AbstractControl;
 }
 
 export class SocialNetworkForm extends FormGroup<ISocialNetworkForm> {

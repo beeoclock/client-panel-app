@@ -8,7 +8,7 @@ export interface IGalleryForm {
 	object: FormControl<'Gallery'>;
 	images: FormArray<FormControl<string>>;
 
-	[key: string]: AbstractControl<any, any>;
+	[key: string]: AbstractControl;
 }
 
 export const GALLERY_IMAGES_LIMIT = 6;

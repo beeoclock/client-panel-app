@@ -14,7 +14,7 @@ export interface ICustomerForm {
 
 	active: FormControl<ActiveEnum>;
 
-	[key: string]: AbstractControl<any, any>;
+	[key: string]: AbstractControl;
 }
 
 export class CustomerForm extends FormGroup<ICustomerForm> {

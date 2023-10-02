@@ -11,7 +11,7 @@ export interface IAddressForm {
   streetAddressLineTwo: FormControl<string>;
   country: FormControl<CountryEnum>;
 
-  [key: string]: AbstractControl<any, any>;
+  [key: string]: AbstractControl;
 }
 
 export class AddressForm extends FormGroup<IAddressForm> {

@@ -20,9 +20,15 @@ export class SlotsService {
 	 * @param start - ISO string
 	 * @param end - ISO string
 	 * @param specialist
+	 * @param eventDurationInSeconds
 	 */
 	// public async initSlots(start: string, end: string, specialist: string) {
-	public async initSlots(start: string, end: string, specialist: string) {
+	public async initSlots(
+		start: string,
+		end: string,
+		specialist: string,
+		eventDurationInSeconds = SECONDS_ONE_HOUR,
+	) {
 
 		const key = `${start}-${end}`;
 		if (this.localTemporaryCache.has(key)) {
@@ -34,7 +40,7 @@ export class SlotsService {
 		const slots = await this.slotsEventApiAdapter.executeAsync({
 			start,
 			end,
-			eventDurationInSeconds: SECONDS_ONE_HOUR,
+			eventDurationInSeconds,
 			slotIntervalInSeconds: SECONDS_TEN_MINUTES,
 			specialist
 		});

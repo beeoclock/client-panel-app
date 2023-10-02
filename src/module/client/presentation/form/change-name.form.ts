@@ -4,7 +4,7 @@ export interface IChangeNameForm {
 
   name: FormControl<string>;
 
-  [key: string]: AbstractControl<any, any>;
+  [key: string]: AbstractControl;
 }
 
 export class ChangeNameForm extends FormGroup<IChangeNameForm> {

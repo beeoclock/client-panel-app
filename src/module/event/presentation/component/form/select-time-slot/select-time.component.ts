@@ -75,13 +75,16 @@ const DEFAULT_INTERVAL_IN_MINUTES = 10;
 })
 export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 
-  @Input()
+  @Input({required: true})
   public control!: FormControl<string>;
 
-  @Input()
+  @Input({required: true})
   public specialist!: string;
 
-  @Input()
+	@Input({required: true})
+	public eventDurationInSeconds!: number;
+
+  @Input({required: true})
   public localDateTimeControl!: FormControl<DateTime>;
 
   public selectedDateTime = DateTime.now();
@@ -133,14 +136,16 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
   }
 
 	private async prepareSlots(target: DateTime): Promise<void> {
+		const today = DateTime.now();
 		let start = target.startOf('day').toUTC().toISO();
 		const end = target.endOf('day').toUTC().toISO();
-		const today = DateTime.now();
 		if (today.hasSame(target, 'day')) {
-			start = today.plus({minute: 10}).toUTC().toISO();
+			const minutes = today.minute;
+			const roundedMinutes = (+Math.floor((minutes / 10)).toFixed(0)) * 10;
+			start = today.set({minute: roundedMinutes}).plus({minute: 10}).startOf('minute').toUTC().toISO();
 		}
 		if (start && end && this.specialist) {
-			await this.slotsService.initSlots(start, end, this.specialist);
+			await this.slotsService.initSlots(start, end, this.specialist, this.eventDurationInSeconds);
 			this.initTimeSlotLists();
 		}
 	}

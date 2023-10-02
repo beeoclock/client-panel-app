@@ -23,33 +23,37 @@ import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-m
 	],
 	template: `
 
-      <div class="flex flex-col gap-8 mb-4">
+		<div class="flex flex-col gap-8 mb-4">
 
-          <div class="flex justify-between items-center">
-              <strong class="text-2xl dark:text-white">{{ 'keyword.capitalize.dateAndTime' | translate }}</strong>
-              <utility-invalid-message [class.hidden]="control.untouched" [control]="control"/>
-          </div>
+			<div class="flex justify-between items-center">
+				<strong class="text-2xl dark:text-white">{{ 'keyword.capitalize.dateAndTime' | translate }}</strong>
+				<utility-invalid-message [class.hidden]="control.untouched" [control]="control"/>
+			</div>
 
-          <event-select-time-slot-date-form-component
-                  [control]="control"
-                  [localDateTimeControl]="localDateTimeControl"/>
+			<event-select-time-slot-date-form-component
+				[control]="control"
+				[localDateTimeControl]="localDateTimeControl"/>
 
-          <event-select-time-slot-time-form-component
-                  [specialist]="specialist"
-                  [localDateTimeControl]="localDateTimeControl"
-                  [control]="control"/>
+			<event-select-time-slot-time-form-component
+				[eventDurationInSeconds]="eventDurationInSeconds"
+				[specialist]="specialist"
+				[localDateTimeControl]="localDateTimeControl"
+				[control]="control"/>
 
-      </div>
+		</div>
 
 	`
 })
 export class SelectTimeSlotComponent {
 
-	@Input()
+	@Input({required: true})
 	public control!: FormControl<string>;
 
-	@Input()
+	@Input({required: true})
 	public specialist!: string;
+
+	@Input({required: true})
+	public eventDurationInSeconds!: number;
 
 	public readonly localDateTimeControl: FormControl<DateTime> = new FormControl(DateTime.now()) as FormControl<DateTime>;
 

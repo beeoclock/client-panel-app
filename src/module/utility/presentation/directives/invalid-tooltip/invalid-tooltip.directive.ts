@@ -19,7 +19,7 @@ export class InvalidTooltipDirective implements DoCheck {
   @Input()
   public setRedBorderTo: string | undefined;
 
-  public control: undefined | null | AbstractControl<any, any>;
+  public control: undefined | null | AbstractControl;
 
   public invalidCustomTooltip: undefined | HTMLDivElement;
 

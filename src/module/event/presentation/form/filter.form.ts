@@ -8,7 +8,7 @@ export interface IFilterForm {
 	// start: FormControl<string>;
 	// end: FormControl<string>;
 
-	[key: string]: AbstractControl<any, any>;
+	[key: string]: AbstractControl;
 
 }
 

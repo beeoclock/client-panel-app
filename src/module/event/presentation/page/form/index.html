@@ -54,7 +54,10 @@
         </bee-card>
 
         <bee-card *ngIf="specialist">
-          <event-select-time-slot-form-component [control]="form.controls.start" [specialist]="specialist"/>
+          <event-select-time-slot-form-component
+						[control]="form.controls.start"
+						[eventDurationInSeconds]="getEventDurationInSeconds(form.controls.services.value[0])"
+						[specialist]="specialist"/>
         </bee-card>
 
         <bee-card>
