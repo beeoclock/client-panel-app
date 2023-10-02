@@ -4,7 +4,7 @@ export interface IFilterForm {
 
   search: FormControl<string>;
 
-  [key: string]: AbstractControl<any, any>;
+  [key: string]: AbstractControl;
 
 }
 

@@ -5,7 +5,7 @@ interface ILoginForm {
   email: FormControl<string | null>;
   password: FormControl<string | null>;
 
-  [key: string]: AbstractControl<any, any>;
+  [key: string]: AbstractControl;
 }
 
 export default class LoginForm extends FormGroup<ILoginForm> {

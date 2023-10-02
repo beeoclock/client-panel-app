@@ -10,7 +10,7 @@ export interface IBookingSettingsForm {
   latestBooking: FormControl<LatestBookingEnum>;
   earliestBooking: FormControl<EarliestBookingEnum>;
 
-  [key: string]: AbstractControl<any, any>;
+  [key: string]: AbstractControl;
 }
 
 export class BookingSettingsForm extends FormGroup<IBookingSettingsForm> {

@@ -8,7 +8,7 @@ interface IRegistrationForm {
 
   passwordConfirm: FormControl<string | null>;
 
-  [key: string]: AbstractControl<any, any>;
+  [key: string]: AbstractControl;
 }
 
 export default class RegistrationForm extends FormGroup<IRegistrationForm> {

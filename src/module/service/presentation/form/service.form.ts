@@ -12,7 +12,7 @@ export interface ILanguageVersionForm {
 	language: FormControl<LanguageCodeEnum>;
 	active: FormControl<ActiveEnum>;
 
-	[key: string]: AbstractControl<any, any>;
+	[key: string]: AbstractControl;
 }
 
 export class LanguageVersionForm extends FormGroup<ILanguageVersionForm> {
@@ -45,7 +45,7 @@ export interface IPriceForm {
 	price: FormControl<number>;
 	currency: FormControl<CurrencyCodeEnum>;
 
-	[key: string]: AbstractControl<any, any>;
+	[key: string]: AbstractControl;
 }
 
 export class PriceForm extends FormGroup<IPriceForm> {
@@ -69,7 +69,7 @@ export interface IDurationVersionForm {
 	durationInSeconds: FormControl<number>;
 	prices: PricesForm;
 
-	[key: string]: AbstractControl<any, any>;
+	[key: string]: AbstractControl;
 }
 
 export class DurationVersionForm extends FormGroup<IDurationVersionForm> {
@@ -104,7 +104,7 @@ export interface IConfigurationForm {
 	earliestDateTime: FormControl<string>;
 	latestDateTime: FormControl<string>;
 
-	[key: string]: AbstractControl<any, any>;
+	[key: string]: AbstractControl;
 }
 
 export class ConfigurationForm extends FormGroup<IConfigurationForm> {
@@ -122,7 +122,7 @@ export interface IPrepaymentPolicyForm {
 	value: FormControl<string>;
 	minimalCancelTime: FormControl<string>;
 
-	[key: string]: AbstractControl<any, any>;
+	[key: string]: AbstractControl;
 }
 
 export class PrepaymentPolicyForm extends FormGroup<IPrepaymentPolicyForm> {
@@ -168,7 +168,7 @@ export interface IServiceForm {
 	specialists: FormControl<ISpecialist[]>;
 	active: FormControl<ActiveEnum>;
 
-	[key: string]: AbstractControl<any, any>;
+	[key: string]: AbstractControl;
 }
 
 export class ServiceForm extends FormGroup<IServiceForm> {

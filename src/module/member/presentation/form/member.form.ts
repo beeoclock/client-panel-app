@@ -6,7 +6,7 @@ export interface IMemberForm {
 
   // TODO role or/and permission
 
-  [key: string]: AbstractControl<any, any>;
+  [key: string]: AbstractControl;
 }
 
 export class MemberForm extends FormGroup<IMemberForm> {

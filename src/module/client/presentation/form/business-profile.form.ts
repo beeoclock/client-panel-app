@@ -31,7 +31,7 @@ export interface IBusinessProfile {
   contacts: ContactsForm;
   facilities: FormControl<FacilityEnum[]>;
 
-  [key: string]: AbstractControl<any, any>;
+  [key: string]: AbstractControl;
 }
 
 export class BusinessProfileForm extends FormGroup<IBusinessProfile> {

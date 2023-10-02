@@ -19,7 +19,7 @@ interface IBusinessClientForm {
 	businessName: FormControl<string>;
 	businessOwnerFullName: FormControl<string>;
 
-	[key: string]: AbstractControl<any, any>;
+	[key: string]: AbstractControl;
 }
 
 export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {

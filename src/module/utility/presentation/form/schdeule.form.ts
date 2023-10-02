@@ -8,7 +8,7 @@ export interface IScheduleForm {
   startInSeconds: FormControl<number>;
   endInSeconds: FormControl<number>;
 
-  [key: string]: AbstractControl<any, any>;
+  [key: string]: AbstractControl;
 }
 
 export class ScheduleForm extends FormGroup<IScheduleForm> {

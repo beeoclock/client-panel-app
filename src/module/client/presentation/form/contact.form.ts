@@ -8,7 +8,7 @@ export interface IContactForm {
   countryCode: FormControl<CellCountryPrefixEnum>;
   phoneNumber: FormControl<string>;
 
-  [key: string]: AbstractControl<any, any>;
+  [key: string]: AbstractControl;
 }
 
 export class ContactForm extends FormGroup<IContactForm> {
