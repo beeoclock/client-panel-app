@@ -40,11 +40,11 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 
 				<div class="grid grid-cols-12 gap-4">
 
-					<div class="col-span-12 md:col-span-3">
+					<div
+						*ngIf="event.services?.[0]?.presentation?.banners?.[0]" class="col-span-12 md:col-span-3">
 						<div
 							class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-beeColor-400">
 							<img
-								*ngIf="event.services?.[0]?.presentation?.banners?.[0]"
 								bocMedia
 								[src]="event.services?.[0]?.presentation?.banners?.[0] ?? ''"
 								twHeight="h-[128px]"
@@ -53,7 +53,7 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 								alt="Uploaded Image"/>
 						</div>
 					</div>
-					<div class="col-span-12 md:col-span-9">
+					<div class="col-span-12" [class.md:col-span-9]="event.services?.[0]?.presentation?.banners?.[0]" [class.md:col-span-12]="!event.services?.[0]?.presentation?.banners?.[0]">
 						<div class="flex flex-col gap-2">
 							<div
 								class="text-xl font-bold text-beeColor-600">{{ event.services?.[0]?.languageVersions?.[0]?.title }}</div>
