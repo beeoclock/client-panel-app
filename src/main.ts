@@ -29,6 +29,7 @@ import {provideEnvironmentNgxMask} from "ngx-mask";
 import {tokens} from "@src/token";
 import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
 import {provideServiceWorker} from '@angular/service-worker';
+import {LanguageCodeEnum} from "@utility/domain/enum";
 // import '@angular/common/locales/global/pl';
 // import '@angular/common/locales/global/uk';
 
@@ -82,7 +83,7 @@ bootstrapApplication(AppComponent, {
 			}),
 			TranslateModule.forRoot({
 				useDefaultLang: true,
-				defaultLanguage: environment.config.language,
+				defaultLanguage: LanguageCodeEnum.uk,
 				loader: {
 					provide: TranslateLoader,
 					useFactory: HttpLoaderFactory,
