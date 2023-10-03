@@ -23,7 +23,9 @@
 		"Hairdresser": "Hairdresser",
 		"Other": "Other",
 		"PhysicalRehabilitation": "Physical rehabilitation",
-		"Psychotherapy": "Psychotherapy"
+		"Psychotherapy": "Psychotherapy",
+		"Manicurist": "Manicurist",
+		"EyebrowStylist": "Eyebrow stylist"
 	},
 	"businessIndustry": {
 		"BeautyIndustry": "Beauty industry",

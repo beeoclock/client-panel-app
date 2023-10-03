@@ -1,7 +1,11 @@
 import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
 import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
 
-export const DefaultServicesByBusinessCategory = {
+export const DefaultServicesByBusinessCategory: {
+	[key in keyof typeof LanguageCodeEnum]?: {
+		[key in keyof typeof BusinessCategoryEnum]?: {title: string; durationInSeconds: number; price: number; currency: CurrencyCodeEnum}[]
+	}
+} = {
 	[LanguageCodeEnum.uk]: {
 		[BusinessCategoryEnum.Barbershop]: [
 			{

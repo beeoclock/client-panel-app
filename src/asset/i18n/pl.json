@@ -23,7 +23,9 @@
 		"Hairdresser": "Fryzjer",
 		"Other": "Inne",
 		"PhysicalRehabilitation": "Rehabilitacja fizyczna",
-		"Psychotherapy": "Psychoterapia"
+		"Psychotherapy": "Psychoterapia",
+		"Manicurist": "Manicurzysta/ka",
+		"EyebrowStylist": "Stylista brwi"
 	},
 	"businessIndustry": {
 		"BeautyIndustry": "Branża kosmetyczna",

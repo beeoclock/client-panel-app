@@ -23,7 +23,9 @@
 		"Hairdresser": "Жіноча перукарня",
 		"Other": "Інше",
 		"PhysicalRehabilitation": "Фізична реабілітація",
-		"Psychotherapy": "Психотерапія"
+		"Psychotherapy": "Психотерапія",
+		"Manicurist": "Майстер Манікюру",
+		"EyebrowStylist": "Бровист"
 	},
 	"businessIndustry": {
 		"BeautyIndustry": "Краса",
