@@ -4,6 +4,7 @@ import {InputIconComponent} from "@utility/presentation/component/input/input-ic
 import {extractSecondsFrom_hh_mm_ss, secondsTo_hh_mm} from "@utility/domain/time";
 import {InputBadgeComponent} from "@utility/presentation/component/input/input-badge.component";
 import {TranslateModule} from "@ngx-translate/core";
+import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 
 @Component({
   selector: 'time-input-component',
@@ -12,15 +13,24 @@ import {TranslateModule} from "@ngx-translate/core";
 		InputIconComponent,
 		InputBadgeComponent,
 		TranslateModule,
+		FormInputComponent,
 	],
   template: `
-		<bee-form-badge-input
-			mask="Hh:m0"
-			placeholder="00:00"
-			[control]="localControl"
-			[label]="label"
+
+		<form-input
 			[id]="id"
-			[badge]="'keyword.capitalize.priceTimeFormatPrompt' | translate"/>
+			[label]="label"
+			[control]="localControl"
+			placeholder="00:00"
+			type="time"/>
+
+<!--		<bee-form-badge-input-->
+<!--			mask="Hh:m0"-->
+<!--			placeholder="00:00"-->
+<!--			[control]="localControl"-->
+<!--			[label]="label"-->
+<!--			[id]="id"-->
+<!--			[badge]="'keyword.capitalize.openTimePicker' | translate"/>-->
 
 <!--    <form-icon-input-->
 <!--      [id]="id"-->

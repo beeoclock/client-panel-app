@@ -1,4 +1,12 @@
-import {AfterViewInit, ChangeDetectorRef, Component, inject, ViewEncapsulation} from '@angular/core';
+import {
+	AfterViewInit,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	inject,
+	ViewChild,
+	ViewEncapsulation
+} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
@@ -66,6 +74,9 @@ const enum Status {
 	encapsulation: ViewEncapsulation.None
 })
 export default class Index implements AfterViewInit {
+
+	@ViewChild('goToDashboardPage')
+	public goToDashboardPage!: ElementRef<HTMLButtonElement>;
 
 	public readonly classes = {
 		success: [
@@ -166,6 +177,9 @@ export default class Index implements AfterViewInit {
 			if (isAllStepsFinishedWithSuccess) {
 				this.allStepsFinishedWithSuccess.switchOn();
 				this.createBusinessQuery.initForm();
+				setTimeout(() => {
+					this.goToDashboardPage.nativeElement.click();
+				}, 2_000);
 			}
 
 		} catch (e) {

@@ -20,7 +20,6 @@ export const environment = {
     }
   },
   config: {
-    language: 'en',
     modal: {
       prefix: 'beeoclock_modal_'
     },

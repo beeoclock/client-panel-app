@@ -21,6 +21,14 @@ export class BusinessCategory {
 				label: BusinessCategoryEnum.Hairdresser,
 			},
 			{
+				icon: BusinessCategoryIconEnum[BusinessCategoryEnum.EyebrowStylist],
+				label: BusinessCategoryEnum.EyebrowStylist,
+			},
+			{
+				icon: BusinessCategoryIconEnum[BusinessCategoryEnum.Manicurist],
+				label: BusinessCategoryEnum.Manicurist,
+			},
+			{
 				icon: BusinessCategoryIconEnum[BusinessCategoryEnum.Other],
 				label: BusinessCategoryEnum.Other,
 			},
