@@ -10,10 +10,8 @@ export class ThemeService {
 
   public initialize(): void {
 
-    if (localStorage.getItem('theme') === 'dark') {
-      this.document.documentElement.classList.add('dark');
-      this.document.documentElement.setAttribute('data-bs-theme', 'dark');
-    }
+		const theme = localStorage.getItem('theme') || 'light';
+		this.document.documentElement.setAttribute('data-bs-theme', theme);
 
   }
 

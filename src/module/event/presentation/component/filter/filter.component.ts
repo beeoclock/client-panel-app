@@ -34,7 +34,7 @@ import {EventState} from "@event/state/event/event.state";
 				<ion-select-event-status [control]="form.controls.status"/>
 			</div>
 			<ng-container end>
-				<button type="button" primary routerLink="form">
+				<button type="button" class="btn btn-primary" routerLink="form">
 					<i class="bi bi-plus-lg"></i>
 					{{ 'keyword.capitalize.add-event' | translate }}
 				</button>

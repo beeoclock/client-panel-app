@@ -32,7 +32,7 @@ import {ServiceState} from "@service/state/service/service.state";
 				<ion-select-active [control]="form.controls.active"/>
 			</div>
 			<ng-container end>
-				<button type="button" primary routerLink="form">
+				<button type="button" class="btn btn-primary" routerLink="form">
 					<i class="bi bi-plus-lg"></i>
 					{{ 'keyword.capitalize.add-service' | translate }}
 				</button>

@@ -32,7 +32,7 @@ import {Reactive} from "@utility/cdk/reactive";
 				<ion-select-active [control]="form.controls.active"/>
 			</div>
 			<ng-container end>
-				<button type="button" primary routerLink="form">
+				<button type="button" class="btn btn-primary" routerLink="form">
 					<i class="bi bi-plus-lg"></i>
 					{{ 'customer.button.create' | translate }}
 				</button>

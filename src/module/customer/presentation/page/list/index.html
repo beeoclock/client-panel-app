@@ -1,3 +1,4 @@
+
 <ng-container *ngIf="initialized.isOn; else NotInitializedTemplate">
 	<customer-filter-component *ngIf="someDataExist.isOn"/>
 	<ng-container *ngIf="tableState$ | async as tableState">

@@ -26,7 +26,7 @@ import {MemberState} from "@member/state/member/member.state";
 		<utility-filter-panel-component>
 			<utility-search-input-component start [control]="form.controls.search"/>
 			<ng-container end>
-				<button type="button" primary routerLink="form">
+				<button type="button" class="btn btn-primary" routerLink="form">
 					<i class="bi bi-plus-lg"></i>
 					{{ 'member.button.create' | translate }}
 				</button>
