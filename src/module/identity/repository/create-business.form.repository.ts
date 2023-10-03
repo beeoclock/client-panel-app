@@ -4,6 +4,8 @@ import {BooleanState} from "@utility/domain";
 import {NGXLogger} from "ngx-logger";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {IService} from "@service/domain";
+import {TranslateService} from "@ngx-translate/core";
+import {LanguageCodeEnum} from "@utility/domain/enum";
 
 @Injectable({
 	providedIn: 'root'
@@ -15,8 +17,10 @@ export class CreateBusinessFormRepository {
 	public readonly initializedValueFromStorage = new BooleanState(false);
 
 	constructor(
-		private readonly logger: NGXLogger
+		private readonly logger: NGXLogger,
+		private readonly translateService: TranslateService,
 	) {
+		this.#form.currentLanguage = this.translateService.currentLang as LanguageCodeEnum;
 		if (this.initializedValueFromStorage.isOff) {
 			this.initValueFromLocalStorage();
 		}
@@ -26,6 +30,7 @@ export class CreateBusinessFormRepository {
 	public initForm(): void {
 		this.logger.debug('CreateBusinessFormRepository.initForm');
 		this.#form = new CreateBusinessForm();
+		this.#form.currentLanguage = this.translateService.currentLang as LanguageCodeEnum;
 		this.clearLocalStorage();
 	}
 
@@ -40,7 +45,7 @@ export class CreateBusinessFormRepository {
 			const parsedValue = JSON.parse(value) as {
 				schedules: RISchedule[],
 				services: IService[],
-				gallery: {object: string; images: string[]}
+				gallery: { object: string; images: string[] }
 			};
 
 			this.logger.debug('CreateBusinessFormRepository.initValueFromLocalStorage', parsedValue);

@@ -174,6 +174,7 @@ export default class Index implements AfterViewInit {
 
 				}
 			}
+
 			if (isAllStepsFinishedWithSuccess) {
 				this.allStepsFinishedWithSuccess.switchOn();
 				this.createBusinessQuery.initForm();
