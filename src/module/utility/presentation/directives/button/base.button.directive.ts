@@ -11,23 +11,24 @@ export const enum ButtonColorEnum {
 }
 
 export const baseButtonClassList = [
-	"transition-all",
-	"flex",
-	'gap-2',
-	"w-full",
-	"justify-center",
-	"rounded-2xl",
-	"dark:bg-black",
-	"px-3",
-	"py-1.5",
-	"text-sm",
-	"font-semibold",
-	"leading-6",
-	"text-white",
-	"shadow-sm",
-	"focus-visible:outline",
-	"focus-visible:outline-2",
-	"focus-visible:outline-offset-2"
+	"btn"
+	// "transition-all",
+	// "flex",
+	// 'gap-2',
+	// "w-full",
+	// "justify-center",
+	// "rounded-2xl",
+	// "dark:bg-black",
+	// "px-3",
+	// "py-1.5",
+	// "text-sm",
+	// "font-semibold",
+	// "leading-6",
+	// "text-white",
+	// "shadow-sm",
+	// "focus-visible:outline",
+	// "focus-visible:outline-2",
+	// "focus-visible:outline-offset-2"
 ];
 
 export const baseLinkClassList = [
@@ -43,7 +44,8 @@ export const baseLinkClassList = [
 export const classListByButtonStyleType = {
 	[ButtonTypeEnum.button]: {
 		[ButtonColorEnum.primary]: [
-			'bg-blue-600', 'hover:bg-blue-500', 'focus-visible:outline-blue-600'
+			// 'bg-blue-600', 'hover:bg-blue-500', 'focus-visible:outline-blue-600'
+			'btn-primary'
 		],
 		[ButtonColorEnum.default]: [
 			'bg-neutral-600', 'hover:bg-neutral-500', 'focus-visible:outline-neutral-600'

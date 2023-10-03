@@ -2,7 +2,7 @@ const colors = require('tailwindcss/colors');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // darkMode: 'class',
+  darkMode: 'class',
   content: [
     "./src/**/*.{html,ts}",
   ],
@@ -37,6 +37,7 @@ module.exports = {
   variants: {},
   plugins: [
 		require("daisyui"),
+		require('@tailwindcss/typography'),
 	],
 	// daisyUI config (optional - here are the default values)
 	daisyui: {

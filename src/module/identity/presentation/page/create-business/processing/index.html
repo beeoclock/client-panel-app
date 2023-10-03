@@ -8,6 +8,18 @@
 
 
 			<bee-card padding="py-16">
+				<ul class="steps steps-horizontal">
+					<li
+						*ngFor="let step of steps; let index = index"
+						[class.step-primary]="step.status === 'success'"
+						[class.step-warning]="step.status === 'inProgress'"
+						[class.step-danger]="step.status === 'failed'"
+						class="flex step">
+						{{ step.title }}
+						<span *ngIf="step.status === 'inProgress'" class="loading loading-spinner loading-xs"></span>
+					</li>
+				</ul>
+
 				<ol class="space-y-4 w-72 m-auto">
 					<li *ngFor="let step of steps; let index = index">
 						<div

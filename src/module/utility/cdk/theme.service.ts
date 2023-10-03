@@ -11,7 +11,8 @@ export class ThemeService {
   public initialize(): void {
 
 		const theme = localStorage.getItem('theme') || 'light';
-		this.document.documentElement.setAttribute('data-bs-theme', theme);
+		this.document.documentElement.setAttribute('data-theme', theme);
+		this.document.documentElement.classList.add(theme);
 
   }
 

@@ -22,7 +22,7 @@ import {TranslateModule} from "@ngx-translate/core";
 					{{ label }}
 				</div>
 				<ng-template [ngIf]="showLinkToForm">
-					<button type="button" primary [routerLink]="linkToForm">
+					<button type="button" class="btn btn-primary" [routerLink]="linkToForm">
 						<i class="bi bi-plus-lg"></i>
 						{{ linkLabel }}
 					</button>

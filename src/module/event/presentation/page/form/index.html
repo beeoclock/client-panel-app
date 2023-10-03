@@ -68,17 +68,15 @@
             [control]="form.controls.description"/>
         </bee-card>
 
-        <div class="mt-4">
-          <button
-						type="button"
-            primary
-						[scrollToFirstError]="true"
-            [isLoading]="form.pending"
-            [disabled]="form.disabled"
-            (click)="goToPreview()">
-            {{ 'keyword.capitalize.preview' | translate }}
-          </button>
-        </div>
+				<button
+					type="button"
+					primary
+					[scrollToFirstError]="true"
+					[isLoading]="form.pending"
+					[disabled]="form.disabled"
+					(click)="goToPreview()">
+					{{ 'keyword.capitalize.preview' | translate }}
+				</button>
 
       </form>
 

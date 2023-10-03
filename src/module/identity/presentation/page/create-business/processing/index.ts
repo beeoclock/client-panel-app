@@ -15,17 +15,11 @@ import {ScheduleFormComponent} from "@utility/presentation/component/schedule/sc
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {BooleanState} from "@utility/domain";
 import {IdentityApiAdapter} from "@identity/adapter/external/api/identity.api.adapter";
-import {firstValueFrom} from "rxjs";
-import {IBusinessClient} from "@identity/domain/interface/RIBusinessClient";
-import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
 import {
 	UpdateBusinessProfileApiAdapter
 } from "@client/adapter/external/api/buisness-profile/update.business-profile.api.adapter";
-import * as Client from "@client/domain";
-import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
-import {IAddress} from "@client/domain/interface/i.address";
 import {
 	PatchMediaGalleryClientApiAdapter
 } from "@client/adapter/external/api/media/gallery/patch.media.gallery.client.api.adapter";
@@ -33,7 +27,6 @@ import {CreateServiceApiAdapter} from "@service/adapter/external/api/create.serv
 import {
 	ModalSelectSpecialistListAdapter
 } from "@member/adapter/external/component/modal-select-specialist.list.adapter";
-import {Service} from "@service/domain";
 
 const enum Status {
 	Success = 'success',
@@ -175,93 +168,114 @@ export default class Index implements AfterViewInit {
 	}
 
 	private async stepCreateBusiness(): Promise<void> {
-		try {
-			this.logger.debug('stepCreateBusiness');
-			const serviceProvideType = this.createBusinessQuery.getServiceProvideTypeControl().value;
-			const businessCategory = this.createBusinessQuery.getBusinessCategoryControl().value;
-			const body: IBusinessClient = {
-				name: this.createBusinessQuery.getBusinessNameControl().value,
-				businessIndustry: this.createBusinessQuery.getBusinessIndustryControl().value,
-			};
-
-			if (serviceProvideType) {
-				body.serviceProvideType = serviceProvideType;
-			}
-
-			if (businessCategory) {
-				body.businessCategory = businessCategory;
-			}
-
-			this.logger.debug('stepCreateBusiness:body', body);
-
-			const request$ = this.identityApiAdapter.postCreateBusinessClient$(body);
-			const {id: clientId} = await firstValueFrom(request$);
-			this.logger.debug('stepCreateBusiness:clientId', clientId);
-
-			const requestToSwitchContext$ = this.identityApiAdapter.patchSwitchBusinessClient$({clientId});
-			await firstValueFrom(requestToSwitchContext$);
-			this.logger.debug('stepCreateBusiness:context switched');
-
-			// Refresh token and receive new claims
-			await firstValueFrom(this.store.dispatch(new IdentityActions.InitToken()));
-			this.logger.debug('stepCreateBusiness:done');
-		} catch (e) {
-			this.logger.error(e);
-			throw e;
-		}
+		return new Promise<void>((resolve) => {
+			setTimeout(() => {
+				resolve();
+			}, 5_000);
+		});
+		// try {
+		// 	this.logger.debug('stepCreateBusiness');
+		// 	const serviceProvideType = this.createBusinessQuery.getServiceProvideTypeControl().value;
+		// 	const businessCategory = this.createBusinessQuery.getBusinessCategoryControl().value;
+		// 	const body: IBusinessClient = {
+		// 		name: this.createBusinessQuery.getBusinessNameControl().value,
+		// 		businessIndustry: this.createBusinessQuery.getBusinessIndustryControl().value,
+		// 	};
+		//
+		// 	if (serviceProvideType) {
+		// 		body.serviceProvideType = serviceProvideType;
+		// 	}
+		//
+		// 	if (businessCategory) {
+		// 		body.businessCategory = businessCategory;
+		// 	}
+		//
+		// 	this.logger.debug('stepCreateBusiness:body', body);
+		//
+		// 	const request$ = this.identityApiAdapter.postCreateBusinessClient$(body);
+		// 	const {id: clientId} = await firstValueFrom(request$);
+		// 	this.logger.debug('stepCreateBusiness:clientId', clientId);
+		//
+		// 	const requestToSwitchContext$ = this.identityApiAdapter.patchSwitchBusinessClient$({clientId});
+		// 	await firstValueFrom(requestToSwitchContext$);
+		// 	this.logger.debug('stepCreateBusiness:context switched');
+		//
+		// 	// Refresh token and receive new claims
+		// 	await firstValueFrom(this.store.dispatch(new IdentityActions.InitToken()));
+		// 	this.logger.debug('stepCreateBusiness:done');
+		// } catch (e) {
+		// 	this.logger.error(e);
+		// 	throw e;
+		// }
 	}
 
 	private async stepAddBusinessProfile(): Promise<void> {
-		let body: Client.IClient = {
-			schedules: this.createBusinessQuery.getSchedulesForm().value,
-		}
-		if (this.createBusinessQuery.getServiceProvideTypeControl().value !== ServiceProvideTypeEnum.Online) {
-			body = {
-				...body,
-				addresses: [this.createBusinessQuery.getAddressForm().value as IAddress],
-			};
-		}
-		await this.updateBusinessProfileApiAdapter.executeAsync(body);
+		return new Promise<void>((resolve) => {
+			setTimeout(() => {
+				resolve();
+			}, 5_000);
+		});
+		// let body: Client.IClient = {
+		// 	schedules: this.createBusinessQuery.getSchedulesForm().value,
+		// }
+		// if (this.createBusinessQuery.getServiceProvideTypeControl().value !== ServiceProvideTypeEnum.Online) {
+		// 	body = {
+		// 		...body,
+		// 		addresses: [this.createBusinessQuery.getAddressForm().value as IAddress],
+		// 	};
+		// }
+		// await this.updateBusinessProfileApiAdapter.executeAsync(body);
 	}
 
 	private async stepAddGallery(): Promise<void> {
 
-		const requestList$ = this.createBusinessQuery.getGalleryForm().value.images
-			?.filter((media) => media?.length)
-			.map((media) => {
-				return this.patchMediaGalleryClientApiAdapter.executeAsync({media});
-			});
+		return new Promise<void>((resolve) => {
+			setTimeout(() => {
+				resolve();
+			}, 5_000);
+		});
 
-		if (!requestList$) {
-			return;
-		}
-
-		await Promise.all(requestList$);
+		// const requestList$ = this.createBusinessQuery.getGalleryForm().value.images
+		// 	?.filter((media) => media?.length)
+		// 	.map((media) => {
+		// 		return this.patchMediaGalleryClientApiAdapter.executeAsync({media});
+		// 	});
+		//
+		// if (!requestList$) {
+		// 	return;
+		// }
+		//
+		// await Promise.all(requestList$);
 
 	}
 
 	private async stepAddServices(): Promise<void> {
+		return new Promise<void>((resolve) => {
+			setTimeout(() => {
+				resolve();
+			}, 5_000);
+		});
 
-		if (!this.modalSelectSpecialistListAdapter.tableState.total) {
-
-			this.modalSelectSpecialistListAdapter.resetTableState();
-			await this.modalSelectSpecialistListAdapter.getPageAsync();
-
-		}
-
-		const specialist = this.modalSelectSpecialistListAdapter.tableState.items[0];
-
-		const requestList$ = this.createBusinessQuery.getServicesForm()
-			.value?.map((service) => {
-				service.specialists = [Service.memberToSpecialist(specialist)];
-				return this.createServiceApiAdapter.executeAsync(service);
-			});
-
-		if (!requestList$) {
-			return;
-		}
-
-		await Promise.all(requestList$);
+		// if (!this.modalSelectSpecialistListAdapter.tableState.total) {
+		//
+		// 	this.modalSelectSpecialistListAdapter.resetTableState();
+		// 	await this.modalSelectSpecialistListAdapter.getPageAsync();
+		//
+		// }
+		//
+		// const specialist = this.modalSelectSpecialistListAdapter.tableState.items[0];
+		//
+		// const requestList$ = this.createBusinessQuery.getServicesForm()
+		// 	.value?.map((service) => {
+		// 		service.specialists = [Service.memberToSpecialist(specialist)];
+		// 		return this.createServiceApiAdapter.executeAsync(service);
+		// 	});
+		//
+		// if (!requestList$) {
+		// 	return;
+		// }
+		//
+		// await Promise.all(requestList$);
 	}
 
 }
