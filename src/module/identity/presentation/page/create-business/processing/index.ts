@@ -179,7 +179,7 @@ export default class Index implements AfterViewInit {
 				this.createBusinessQuery.initForm();
 				setTimeout(() => {
 					this.goToDashboardPage.nativeElement.click();
-				}, 2_000);
+				}, 500);
 			}
 
 		} catch (e) {
