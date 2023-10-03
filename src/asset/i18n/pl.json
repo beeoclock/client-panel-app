@@ -308,12 +308,12 @@
 	"form": {
 		"validation": {
 			"email": "Nieprawidłowy format adresu e-mail",
+			"emailOrPhoneRequired": "Wymagany jest numer telefonu lub adres e-mail",
+			"imageSize": "Maksymalny rozmiar obrazu to {{max}}, bieżący rozmiar to {{value}}",
 			"mask": "Nieprawidłowy format, poprawny format to {{requiredMask}}",
 			"minlength": "Minimalna długość to {{requiredLength}}",
 			"required": "Wymagane pole",
-			"whitespace": "Usuń wszystkie spacje",
-			"imageSize": "Maksymalny rozmiar obrazu to {{max}}, bieżący rozmiar to {{value}}",
-			"emailOrPhoneRequired": "Wymagany jest numer telefonu lub adres e-mail"
+			"whitespace": "Usuń wszystkie spacje"
 		}
 	},
 	"http": {
@@ -371,6 +371,17 @@
 		}
 	},
 	"identity": {
+		"confirm-email": {
+			"hint": "Być może poprzedni e-mail już wygasł, możesz wysłać kolejny, aby potwierdzić e-mail",
+			"sendAgain": {
+				"hint": "Po kliknięciu wyślemy do Ciebie e-mail z linkiem umożliwiającym potwierdzenie adresu e-mail"
+			},
+			"sent": {
+				"hint": "Sprawdź swoją skrzynkę e-mail, czasami różne usługi pocztowe mogą nieprawidłowo zinterpretować nasz e-mail, zajrzyj także do spamu!",
+				"title": "E-mail wysłany pomyślnie"
+			},
+			"title": "Nie masz zweryfikowanego adresu e-mail"
+		},
 		"corridor": {
 			"addBusiness": "Utwórz nowy biznes",
 			"selectBusiness": "Wybierz kontekst biznesu"
@@ -555,7 +566,6 @@
 			"business": "Biznes",
 			"businessCategory": "Kategoria biznesowa",
 			"businessIndustry": "Branża biznesowa",
-			"serviceProvideType": "Typ świadczenia usług",
 			"businessName": "Nazwa firmy",
 			"businessProfile": "Profil biznesu",
 			"cancel": "Anuluj",
@@ -633,7 +643,9 @@
 			"selectSpecialist": "Wybierz specjalistę",
 			"selected": "Wybrano",
 			"send": "Wyślij",
+			"sendAgain": "Wyślij ponownie",
 			"service": "Usługa",
+			"serviceProvideType": "Typ świadczenia usług",
 			"services": "Usługi",
 			"signIn": "Zaloguj się",
 			"signOut": "Wyloguj się",

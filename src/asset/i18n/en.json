@@ -306,12 +306,12 @@
 	"form": {
 		"validation": {
 			"email": "Invalid E-mail format",
+			"emailOrPhoneRequired": "E-mail or phone number is required",
+			"imageSize": "Maximum image size is {{max}}, current size is {{value}}",
 			"mask": "Invalid format, correct format is {{requiredMask}}",
 			"minlength": "Minimum length is {{requiredLength}}",
 			"required": "Required field",
-			"whitespace": "Remove all spaces",
-			"imageSize": "Maximum image size is {{max}}, current size is {{value}}",
-			"emailOrPhoneRequired": "E-mail or phone number is required"
+			"whitespace": "Remove all spaces"
 		}
 	},
 	"http": {
@@ -369,6 +369,17 @@
 		}
 	},
 	"identity": {
+		"confirm-email": {
+			"hint": "Maybe the previous email has already expired, you can send another one to confirm the email",
+			"sendAgain": {
+				"hint": "After clicking, we will send you an email with a link to confirm your email address"
+			},
+			"sent": {
+				"hint": "Check your e-mail box, sometimes different mail services may not interpret our e-mail correctly, also look in spam!",
+				"title": "Email sent successfully"
+			},
+			"title": "You do not have a verified email address"
+		},
 		"corridor": {
 			"addBusiness": "Create new Business",
 			"selectBusiness": "Select Business context"
@@ -553,7 +564,6 @@
 			"business": "Business",
 			"businessCategory": "Business category",
 			"businessIndustry": "Business industry",
-			"serviceProvideType": "Service provide type",
 			"businessName": "Business name",
 			"businessProfile": "Business profile",
 			"cancel": "Cancel",
@@ -631,7 +641,9 @@
 			"selectSpecialist": "Select specialist",
 			"selected": "Selected",
 			"send": "Send",
+			"sendAgain": "Send again",
 			"service": "Service",
+			"serviceProvideType": "Service provide type",
 			"services": "Services",
 			"signIn": "Sign in",
 			"signOut": "Sign out",
