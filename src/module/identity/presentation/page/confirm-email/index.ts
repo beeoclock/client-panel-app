@@ -14,6 +14,8 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 import {Reactive} from "@utility/cdk/reactive";
 import {BooleanState} from "@utility/domain";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
+import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
+import {LogoutComponent} from "@utility/presentation/component/logout/logout.component";
 
 @Component({
 	selector: 'identity-confirm-email-page',
@@ -26,7 +28,9 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 		CardComponent,
 		TranslateModule,
 		PrimaryButtonDirective,
-		PrimaryLinkStyleDirective
+		PrimaryLinkStyleDirective,
+		ChangeLanguageComponent,
+		LogoutComponent
 	],
 	encapsulation: ViewEncapsulation.None
 })
