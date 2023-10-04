@@ -1,14 +1,21 @@
-<div class="flex flex-col gap-4">
-  <div class="flex justify-end">
-    <utility-change-language-component/>
-  </div>
-  <bee-card width="96" padding="p-8">
+<section class="bg-gray-50 dark:bg-gray-900">
+	<div class="flex flex-col gap-4 items-center justify-center md:px-6 py-8 mx-auto md:h-screen lg:py-0">
+		<div class="sm:max-w-md w-full flex justify-end">
+			<utility-change-language-component/>
+		</div>
+		<div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+			<div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+				<h1 class="flex flex-col items-center justify-center text-center gap-2 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+					<img class="mx-auto h-10 w-auto"
+							 ngSrc="/asset/img/logo.png"
+							 alt="Bee O`clock" height="278" width="278">
+					{{ 'identity.sign-up.form.label' | translate }}
+				</h1>
+				<form class="space-y-4 md:space-y-8" action="#">
+					<identity-sign-up-component/>
 
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-
-      <identity-sign-up-component/>
-
-    </div>
-
-  </bee-card>
-</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>

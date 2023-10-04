@@ -20,12 +20,12 @@
 		"Barbershop": "Barbershop",
 		"BeautySalon": "Salon kosmetyczny",
 		"Dentistry": "Stomatologia",
+		"EyebrowStylist": "Stylista brwi",
 		"Hairdresser": "Fryzjer",
+		"Manicurist": "Manicurzysta/ka",
 		"Other": "Inne",
 		"PhysicalRehabilitation": "Rehabilitacja fizyczna",
-		"Psychotherapy": "Psychoterapia",
-		"Manicurist": "Manicurzysta/ka",
-		"EyebrowStylist": "Stylista brwi"
+		"Psychotherapy": "Psychoterapia"
 	},
 	"businessIndustry": {
 		"BeautyIndustry": "Branża kosmetyczna",

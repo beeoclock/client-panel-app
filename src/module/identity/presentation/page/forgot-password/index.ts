@@ -12,22 +12,24 @@ import {ToastController} from "@ionic/angular";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {ForgotPasswordApiAdapter} from "@identity/adapter/external/api/forgot-password.api.adapter";
 import {NgOptimizedImage} from "@angular/common";
+import {SignUpComponent} from "@identity/presentation/component/sign-up.component/sign-up.component";
 
 @Component({
   selector: 'identity-forgot-password-page',
   templateUrl: './index.html',
   standalone: true,
-	imports: [
-		GettingStartedComponent,
-		ReactiveFormsModule,
-		FormInputComponent,
-		BackLinkComponent,
-		TranslateModule,
-		CardComponent,
-		ChangeLanguageComponent,
-		PrimaryButtonDirective,
-		NgOptimizedImage
-	],
+    imports: [
+        GettingStartedComponent,
+        ReactiveFormsModule,
+        FormInputComponent,
+        BackLinkComponent,
+        TranslateModule,
+        CardComponent,
+        ChangeLanguageComponent,
+        PrimaryButtonDirective,
+        NgOptimizedImage,
+        SignUpComponent
+    ],
   encapsulation: ViewEncapsulation.None
 })
 export default class Index {

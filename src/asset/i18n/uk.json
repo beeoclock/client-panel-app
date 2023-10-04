@@ -20,12 +20,12 @@
 		"Barbershop": "Барбершоп",
 		"BeautySalon": "Салон краси",
 		"Dentistry": "Стоматологія",
+		"EyebrowStylist": "Бровист",
 		"Hairdresser": "Жіноча перукарня",
+		"Manicurist": "Майстер Манікюру",
 		"Other": "Інше",
 		"PhysicalRehabilitation": "Фізична реабілітація",
-		"Psychotherapy": "Психотерапія",
-		"Manicurist": "Майстер Манікюру",
-		"EyebrowStylist": "Бровист"
+		"Psychotherapy": "Психотерапія"
 	},
 	"businessIndustry": {
 		"BeautyIndustry": "Краса",
@@ -519,7 +519,7 @@
 					},
 					"email": {
 						"label": "E-mail",
-						"placeholder": "Введіть текст"
+						"placeholder": "Електронна скринька"
 					},
 					"password": {
 						"label": "Пароль",

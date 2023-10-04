@@ -161,7 +161,11 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 
 		let localTemporaryList: ITimeSlot[] = [];
 
-		this.slotsService.getSlots()
+		const slots = this.slotsService.getSlots();
+
+		// TODO move to next day if no slots
+
+		slots
 			.map((slot) => ({
 				isPast: DateTime.fromISO(slot).startOf('minute').toMillis() < DateTime.now().startOf('minute').toMillis(),
 				datetime: DateTime.fromISO(slot)

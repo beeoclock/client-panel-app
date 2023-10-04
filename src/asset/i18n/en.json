@@ -20,12 +20,12 @@
 		"Barbershop": "Barbershop",
 		"BeautySalon": "Beauty salon",
 		"Dentistry": "Dentistry",
+		"EyebrowStylist": "Eyebrow stylist",
 		"Hairdresser": "Hairdresser",
+		"Manicurist": "Manicurist",
 		"Other": "Other",
 		"PhysicalRehabilitation": "Physical rehabilitation",
-		"Psychotherapy": "Psychotherapy",
-		"Manicurist": "Manicurist",
-		"EyebrowStylist": "Eyebrow stylist"
+		"Psychotherapy": "Psychotherapy"
 	},
 	"businessIndustry": {
 		"BeautyIndustry": "Beauty industry",
@@ -519,7 +519,7 @@
 					},
 					"email": {
 						"label": "E-mail",
-						"placeholder": "Enter text"
+						"placeholder": "Enter E-mail address"
 					},
 					"password": {
 						"label": "Password",
