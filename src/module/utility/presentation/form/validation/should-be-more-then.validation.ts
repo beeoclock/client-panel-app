@@ -9,8 +9,6 @@ export function ShouldBeMoreThenValidation(form: FormGroup, theControlName: stri
 			return null;
 		}
 
-		console.log(theValue, currentValue);
-
 		if (theValue < currentValue) {
 			return null;
 		}

@@ -62,9 +62,7 @@ export class TimeInputComponent implements OnInit {
 		// Errors
 		this.localControl.setErrors(this.control.errors);
 		this.control.statusChanges.subscribe(() => {
-			// console.log(this.control.errors);
 			this.localControl.setErrors(this.control.errors);
-			console.log(this.localControl.errors);
 		})
 
 	}

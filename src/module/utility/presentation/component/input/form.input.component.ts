@@ -73,7 +73,7 @@ export class FormInputComponent implements DoCheck {
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
   public ngDoCheck(): void {
-    this.changeDetectorRef.detectChanges();
+		this.changeDetectorRef.detectChanges();
   }
 
 
