@@ -313,7 +313,10 @@
 			"mask": "Неправильний формат, правильний формат - {{requiredMask}}",
 			"minlength": "Мінімальна довжина - {{requiredLength}}",
 			"required": "Обов'язкове поле",
-			"whitespace": "Видали всі пробіли"
+			"whitespace": "Видали всі пробіли",
+			"shouldBeMoreThen": {
+				"startInSeconds": "Час закінчення повинен бути більше початку"
+			}
 		}
 	},
 	"http": {

@@ -313,7 +313,10 @@
 			"mask": "Invalid format, correct format is {{requiredMask}}",
 			"minlength": "Minimum length is {{requiredLength}}",
 			"required": "Required field",
-			"whitespace": "Remove all spaces"
+			"whitespace": "Remove all spaces",
+			"shouldBeMoreThen": {
+				"startInSeconds": "The end time must be longer than the start time"
+			}
 		}
 	},
 	"http": {

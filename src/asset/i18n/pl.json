@@ -315,7 +315,10 @@
 			"mask": "Nieprawidłowy format, poprawny format to {{requiredMask}}",
 			"minlength": "Minimalna długość to {{requiredLength}}",
 			"required": "Wymagane pole",
-			"whitespace": "Usuń wszystkie spacje"
+			"whitespace": "Usuń wszystkie spacje",
+			"shouldBeMoreThen": {
+				"startInSeconds": "Czas zakończenia musi być dłuższy niż czas rozpoczęcia"
+			}
 		}
 	},
 	"http": {
