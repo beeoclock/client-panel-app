@@ -313,10 +313,10 @@
 			"mask": "Invalid format, correct format is {{requiredMask}}",
 			"minlength": "Minimum length is {{requiredLength}}",
 			"required": "Required field",
-			"whitespace": "Remove all spaces",
 			"shouldBeMoreThen": {
 				"startInSeconds": "The end time must be longer than the start time"
-			}
+			},
+			"whitespace": "Remove all spaces"
 		}
 	},
 	"http": {
@@ -761,6 +761,12 @@
 		"events": "Events",
 		"members": "Members",
 		"private": "Private",
+		"profile": {
+			"signOut": {
+				"header": "Logout",
+				"message": "Do you really want to leave?"
+			}
+		},
 		"services": "Services",
 		"settings": "Settings",
 		"switch-business-client": "Change context",

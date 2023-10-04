@@ -315,10 +315,10 @@
 			"mask": "Nieprawidłowy format, poprawny format to {{requiredMask}}",
 			"minlength": "Minimalna długość to {{requiredLength}}",
 			"required": "Wymagane pole",
-			"whitespace": "Usuń wszystkie spacje",
 			"shouldBeMoreThen": {
 				"startInSeconds": "Czas zakończenia musi być dłuższy niż czas rozpoczęcia"
-			}
+			},
+			"whitespace": "Usuń wszystkie spacje"
 		}
 	},
 	"http": {
@@ -763,6 +763,12 @@
 		"events": "Wydarzenia",
 		"members": "Członkowie",
 		"private": "Prywatne",
+		"profile": {
+			"signOut": {
+				"header": "Wylogowanie",
+				"message": "Czy naprawdę chcesz odejść?"
+			}
+		},
 		"services": "Usługi",
 		"settings": "Ustawienia",
 		"switch-business-client": "Zmień kontekst",
