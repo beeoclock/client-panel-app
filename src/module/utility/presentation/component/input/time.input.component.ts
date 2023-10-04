@@ -16,29 +16,12 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 		FormInputComponent,
 	],
   template: `
-
 		<form-input
 			[id]="id"
 			[label]="label"
 			[control]="localControl"
 			placeholder="00:00"
 			type="time"/>
-
-<!--		<bee-form-badge-input-->
-<!--			mask="Hh:m0"-->
-<!--			placeholder="00:00"-->
-<!--			[control]="localControl"-->
-<!--			[label]="label"-->
-<!--			[id]="id"-->
-<!--			[badge]="'keyword.capitalize.openTimePicker' | translate"/>-->
-
-<!--    <form-icon-input-->
-<!--      [id]="id"-->
-<!--      placeholder="00:00"-->
-<!--      mask="00:00"-->
-<!--      icon="bi-clock"-->
-<!--      [control]="localControl"-->
-<!--      [label]="label"/>-->
   `
 })
 export class TimeInputComponent implements OnInit {
@@ -46,7 +29,7 @@ export class TimeInputComponent implements OnInit {
 	@Input({required: true})
 	public control!: FormControl;
 
-  public localControl: FormControl = new FormControl();
+  public readonly localControl = new FormControl();
 
   @Input()
   public label = '';
@@ -82,7 +65,6 @@ export class TimeInputComponent implements OnInit {
 			// console.log(this.control.errors);
 			this.localControl.setErrors(this.control.errors);
 			console.log(this.localControl.errors);
-			this.changeDetectorRef.detectChanges();
 		})
 
 	}
