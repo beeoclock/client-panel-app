@@ -7,7 +7,6 @@ import {ArchiveEventApiAdapter} from "@event/adapter/external/api/archive.event.
 import {CreateEventApiAdapter} from "@event/adapter/external/api/create.event.api.adapter";
 import {UpdateEventApiAdapter} from "@event/adapter/external/api/update.event.api.adapter";
 import {ItemEventApiAdapter} from "@event/adapter/external/api/item.event.api.adapter";
-import {ListEventApiAdapter} from "@event/adapter/external/api/list.event.api.adapter";
 import {RemoveEventApiAdapter} from "@event/adapter/external/api/remove.event.api.adapter";
 import {DoneStatusEventApiAdapter} from "@event/adapter/external/api/done.status.event.api.adapter";
 import {RequestedStatusEventApiAdapter} from "@event/adapter/external/api/requested.status.event.api.adapter";
@@ -15,6 +14,7 @@ import {CancelledStatusEventApiAdapter} from "@event/adapter/external/api/cancel
 import {BookedStatusEventApiAdapter} from "@event/adapter/external/api/booked.status.event.api.adapter";
 import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
+import {ListMergedEventApiAdapter} from "@event/adapter/external/api/list.merged.event.api.adapter";
 
 export type IEventState = IBaseState<Event.IEvent>;
 
@@ -30,7 +30,7 @@ export class EventState extends BaseState<Event.IEvent> {
 	protected override readonly update = inject(UpdateEventApiAdapter);
 	protected override readonly item = inject(ItemEventApiAdapter);
 	protected override readonly remove = inject(RemoveEventApiAdapter);
-	protected override readonly list = inject(ListEventApiAdapter);
+	protected override readonly list = inject(ListMergedEventApiAdapter);
 
 	// Change status
 	protected readonly doneStatusEventApiAdapter = inject(DoneStatusEventApiAdapter);
