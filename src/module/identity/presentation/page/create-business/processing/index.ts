@@ -174,12 +174,13 @@ export default class Index implements AfterViewInit {
 
 				}
 			}
+
 			if (isAllStepsFinishedWithSuccess) {
 				this.allStepsFinishedWithSuccess.switchOn();
 				this.createBusinessQuery.initForm();
 				setTimeout(() => {
 					this.goToDashboardPage.nativeElement.click();
-				}, 2_000);
+				}, 500);
 			}
 
 		} catch (e) {
