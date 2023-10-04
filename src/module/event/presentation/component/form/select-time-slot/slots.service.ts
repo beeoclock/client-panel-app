@@ -1,18 +1,20 @@
 import {inject, Injectable} from "@angular/core";
 import {SlotsEventApiAdapter} from "@event/adapter/external/api/slots.event.api.adapter";
 import {SECONDS_ONE_HOUR, SECONDS_TEN_MINUTES} from "@utility/domain/const/c.time";
+import {NGXLogger} from "ngx-logger";
+import {BooleanState} from "@utility/domain";
 
 @Injectable()
 export class SlotsService {
 
+	private readonly logger = inject(NGXLogger);
 	private readonly slotsEventApiAdapter = inject(SlotsEventApiAdapter);
 	private readonly localTemporaryCache = new Map<string, string[]>();
 	private readonly slots: string[] = [];
+	public readonly inProgress = new BooleanState(false);
 
 	public getSlots(): string[] {
-
 		return structuredClone(this.slots);
-
 	}
 
 	/**
@@ -30,6 +32,10 @@ export class SlotsService {
 		eventDurationInSeconds = SECONDS_ONE_HOUR,
 	) {
 
+		this.logger.debug('initSlots', {start, end, specialist, eventDurationInSeconds})
+
+		this.inProgress.switchOn();
+
 		const key = `${start}-${end}`;
 		if (this.localTemporaryCache.has(key)) {
 			this.slots.length = 0;
@@ -37,17 +43,24 @@ export class SlotsService {
 			return;
 		}
 
-		const slots = await this.slotsEventApiAdapter.executeAsync({
-			start,
-			end,
-			eventDurationInSeconds,
-			slotIntervalInSeconds: SECONDS_TEN_MINUTES,
-			specialist
-		});
+		let slots: string[] = [];
 
-		this.localTemporaryCache.set(key, slots);
-		this.slots.length = 0;
-		this.slots.push(...slots);
+		try {
+			slots = await this.slotsEventApiAdapter.executeAsync({
+				start,
+				end,
+				eventDurationInSeconds,
+				slotIntervalInSeconds: SECONDS_TEN_MINUTES,
+				specialist
+			})
+		} catch (e) {
+			this.logger.error(e);
+		} finally {
+			this.localTemporaryCache.set(key, slots);
+			this.slots.length = 0;
+			this.slots.push(...slots);
+			this.inProgress.switchOff()
+		}
 
 	}
 
