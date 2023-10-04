@@ -2,62 +2,63 @@ import {Component, inject, Input} from "@angular/core";
 import {IEvent} from "@event/domain";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
-import {RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {firstValueFrom} from "rxjs";
 import {EventActions} from "@event/state/event/event.actions";
 import {Store} from "@ngxs/store";
 import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
 import {NgIf, NgTemplateOutlet} from "@angular/common";
 import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
-  selector: 'event-buttons-details',
-  standalone: true,
-  imports: [
-    DynamicDatePipe,
-    TranslateModule,
-    RouterLink,
-    EditLinkComponent,
-    NgIf,
-    NgTemplateOutlet
-  ],
-  template: `
-    <div class="flex justify-between flex-col md:flex-row gap-4">
+	selector: 'event-buttons-details',
+	standalone: true,
+	imports: [
+		DynamicDatePipe,
+		TranslateModule,
+		RouterLink,
+		EditLinkComponent,
+		NgIf,
+		NgTemplateOutlet
+	],
+	template: `
+		<div class="flex justify-between flex-col md:flex-row gap-4">
 
-      <ng-container *ngIf="isRequested(event.status)">
+			<ng-container *ngIf="isRequested(event.status)">
 
-        <ng-container *ngTemplateOutlet="ButtonToCancelEvent"/>
+				<ng-container *ngTemplateOutlet="ButtonToCancelEvent"/>
 
-        <edit-link-component class="w-full" [buttonWidthFull]="true"/>
+				<edit-link-component class="w-full" [buttonWidthFull]="true"/>
 
-        <ng-container *ngTemplateOutlet="ButtonToBookEvent"/>
+				<ng-container *ngTemplateOutlet="ButtonToBookEvent"/>
 
-      </ng-container>
+			</ng-container>
 
-      <ng-container *ngIf="isBooked(event.status)">
+			<ng-container *ngIf="isBooked(event.status)">
 
-        <ng-container *ngTemplateOutlet="ButtonToCancelEvent"/>
+				<ng-container *ngTemplateOutlet="ButtonToCancelEvent"/>
 
-        <edit-link-component class="w-full" [buttonWidthFull]="true"/>
+				<edit-link-component class="w-full" [buttonWidthFull]="true"/>
 
-        <ng-container *ngTemplateOutlet="ButtonToDoneEvent"/>
+				<ng-container *ngTemplateOutlet="ButtonToDoneEvent"/>
 
-      </ng-container>
+			</ng-container>
 
-      <ng-container *ngIf="isDone(event.status)">
+			<ng-container *ngIf="isDone(event.status)">
 
-        <ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>
+				<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>
 
-      </ng-container>
+			</ng-container>
 
-      <ng-container *ngIf="isCancelled(event.status)">
+			<ng-container *ngIf="isCancelled(event.status)">
 
-        <ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>
+				<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>
 
-      </ng-container>
+			</ng-container>
 
-      <ng-template #ButtonToCancelEvent>
-        <button
+			<ng-template #ButtonToCancelEvent>
+				<button
 					type="button"
 					(click)="changeStatusOnCancelled(event)"
 					class="
@@ -78,13 +79,13 @@ import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum
               ring-inset
               ring-red-300
               hover:bg-red-100">
-          <i class="bi bi-x-lg"></i>
-          {{ 'keyword.capitalize.cancel' | translate }}
-        </button>
-      </ng-template>
+					<i class="bi bi-x-lg"></i>
+					{{ 'keyword.capitalize.cancel' | translate }}
+				</button>
+			</ng-template>
 
-      <ng-template #ButtonToBookEvent>
-        <button
+			<ng-template #ButtonToBookEvent>
+				<button
 					type="button"
 					(click)="changeStatusOnBooked(event)"
 					class="
@@ -105,13 +106,13 @@ import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum
               ring-inset
               ring-blue-300
               hover:bg-blue-100">
-          <i class="bi bi-check-lg"></i>
-          {{ 'keyword.capitalize.approve' | translate }}
-        </button>
-      </ng-template>
+					<i class="bi bi-check-lg"></i>
+					{{ 'keyword.capitalize.approve' | translate }}
+				</button>
+			</ng-template>
 
-      <ng-template #ButtonToDoneEvent>
-        <button
+			<ng-template #ButtonToDoneEvent>
+				<button
 					type="button"
 					(click)="changeStatusOnDone(event)"
 					class="
@@ -132,13 +133,13 @@ import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum
               ring-inset
               ring-green-300
               hover:bg-green-100">
-          <i class="bi bi-check-lg"></i>
-          {{ 'keyword.capitalize.done' | translate }}
-        </button>
-      </ng-template>
+					<i class="bi bi-check-lg"></i>
+					{{ 'keyword.capitalize.done' | translate }}
+				</button>
+			</ng-template>
 
-      <ng-template #ButtonToRepeatEvent>
-        <a routerLink="repeat" class="
+			<ng-template #ButtonToRepeatEvent>
+				<a routerLink="repeat" class="
               w-full
               flex
               items-center
@@ -155,49 +156,66 @@ import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum
               ring-inset
               ring-blue-300
               hover:bg-blue-100">
-          <i class="bi bi-arrow-repeat"></i>
-          {{ 'event.keyword.capitalize.repeat' | translate }}
-        </a>
-      </ng-template>
+					<i class="bi bi-arrow-repeat"></i>
+					{{ 'event.keyword.capitalize.repeat' | translate }}
+				</a>
+			</ng-template>
 
-    </div>
-  `
+		</div>
+	`
 })
 export class ButtonsDetailsComponent {
 
-  @Input()
-  public event!: IEvent;
+	@Input()
+	public event!: IEvent;
 
-  public readonly store = inject(Store);
+	public readonly store = inject(Store);
+	public readonly logger = inject(NGXLogger);
+	public readonly router = inject(Router);
+	public readonly activatedRoute = inject(ActivatedRoute);
 
-  public async changeStatusOnBooked(event: IEvent): Promise<void> {
-    await firstValueFrom(this.store.dispatch(new EventActions.BookedStatus(event)));
-    await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
-  }
+	public async changeStatusOnBooked(event: IEvent): Promise<void> {
+		await firstValueFrom(this.store.dispatch(new EventActions.BookedStatus(event)));
+		await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
+		this.postStatusChange(EventStatusEnum.booked);
+		// TODO: Clear cache
+	}
 
-  public async changeStatusOnCancelled(event: IEvent): Promise<void> {
-    await firstValueFrom(this.store.dispatch(new EventActions.CancelledStatus(event)));
-    await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
-  }
+	public async changeStatusOnCancelled(event: IEvent): Promise<void> {
+		await firstValueFrom(this.store.dispatch(new EventActions.CancelledStatus(event)));
+		await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
+		this.postStatusChange(EventStatusEnum.cancelled);
+		// TODO: Clear cache
+	}
 
-  public async changeStatusOnDone(event: IEvent): Promise<void> {
-    await firstValueFrom(this.store.dispatch(new EventActions.DoneStatus(event)));
-    await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
-  }
+	public async changeStatusOnDone(event: IEvent): Promise<void> {
+		await firstValueFrom(this.store.dispatch(new EventActions.DoneStatus(event)));
+		await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
+		this.postStatusChange(EventStatusEnum.done);
+		// TODO: Clear cache
+	}
 
-  public isRequested(status: EventStatusEnum): boolean {
-    return status === EventStatusEnum.requested;
-  }
+	public isRequested(status: EventStatusEnum): boolean {
+		return status === EventStatusEnum.requested;
+	}
 
-  public isBooked(status: EventStatusEnum): boolean {
-    return status === EventStatusEnum.booked;
-  }
+	public isBooked(status: EventStatusEnum): boolean {
+		return status === EventStatusEnum.booked;
+	}
 
-  public isDone(status: EventStatusEnum): boolean {
-    return status === EventStatusEnum.done;
-  }
+	public isDone(status: EventStatusEnum): boolean {
+		return status === EventStatusEnum.done;
+	}
 
-  public isCancelled(status: EventStatusEnum): boolean {
-    return status === EventStatusEnum.cancelled;
-  }
+	public isCancelled(status: EventStatusEnum): boolean {
+		return status === EventStatusEnum.cancelled;
+	}
+
+	private postStatusChange(newStatus: EventStatusEnum): void {
+		this.logger.debug(`postStatusChange: ${newStatus}`);
+		const {action, from, redirectUri} = this.activatedRoute.snapshot.queryParams;
+		this.logger.debug(`action: ${action}, from: ${from}, redirectUri: ${redirectUri}`);
+		this.router.navigate([redirectUri ?? '/']).then()
+	}
+
 }
