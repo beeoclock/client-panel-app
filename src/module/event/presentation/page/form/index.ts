@@ -11,7 +11,6 @@ import {filter, firstValueFrom, Observable} from "rxjs";
 import {Select, Store} from "@ngxs/store";
 import {EventState} from "@event/state/event/event.state";
 import {EventActions} from "@event/state/event/event.actions";
-import {SelectTimeSlotComponent} from "@event/presentation/component/form/select-time-slot/select-time-slot.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {ServicesComponent} from "@event/presentation/component/form/services/services.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
@@ -23,6 +22,9 @@ import {NgIf} from "@angular/common";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
 import {NGXLogger} from "ngx-logger";
 import {IService} from "@service/domain";
+import {
+	SelectTimeSlotComponent
+} from "@event/presentation/component/form/select-time-slot/index/select-time-slot.component";
 
 @Component({
 	selector: 'event-form-page',
@@ -34,7 +36,6 @@ import {IService} from "@service/domain";
 		BackLinkComponent,
 		FormsModule,
 		TranslateModule,
-		SelectTimeSlotComponent,
 		FormTextareaComponent,
 		AttendeesComponent,
 		ServicesComponent,
@@ -43,6 +44,7 @@ import {IService} from "@service/domain";
 		GeneralDetailsComponent,
 		NgIf,
 		LinkButtonDirective,
+		SelectTimeSlotComponent,
 	],
 	standalone: true
 })

@@ -3,6 +3,7 @@ import {SlotsEventApiAdapter} from "@event/adapter/external/api/slots.event.api.
 import {SECONDS_ONE_HOUR, SECONDS_TEN_MINUTES} from "@utility/domain/const/c.time";
 import {NGXLogger} from "ngx-logger";
 import {BooleanState} from "@utility/domain";
+import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 
 @Injectable()
 export class SlotsService {
@@ -12,6 +13,8 @@ export class SlotsService {
 	private readonly localTemporaryCache = new Map<string, string[]>();
 	private readonly slots: string[] = [];
 	public readonly inProgress = new BooleanState(false);
+
+	public readonly loader = new BooleanStreamState(true);
 
 	public getSlots(): string[] {
 		return structuredClone(this.slots);
