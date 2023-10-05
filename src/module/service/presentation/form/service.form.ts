@@ -17,7 +17,7 @@ export interface ILanguageVersionForm {
 
 export class LanguageVersionForm extends FormGroup<ILanguageVersionForm> {
 	constructor(
-		public readonly language: LanguageCodeEnum = LanguageCodeEnum.en
+		public readonly language: LanguageCodeEnum = LanguageCodeEnum.uk
 	) {
 		super({
 			title: new FormControl(),
