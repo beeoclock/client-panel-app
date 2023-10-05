@@ -19,6 +19,8 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 import {NGXLogger} from "ngx-logger";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {ButtonArrowComponent} from "@event/presentation/component/form/select-time-slot/button.arrow.component";
+import {debounceTime, filter} from "rxjs";
+import {MS_QUARTER_SECOND} from "@utility/domain/const/c.time";
 
 export interface ITimeSlot {
 	isPast: boolean;
@@ -45,12 +47,6 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 
 	@Input({required: true})
 	public control!: FormControl<string>;
-
-	@Input({required: true})
-	public specialist!: string;
-
-	@Input({required: true})
-	public eventDurationInSeconds!: number;
 
 	@Input({required: true})
 	public localDateTimeControl!: FormControl<DateTime>;
@@ -81,48 +77,52 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 	public ngOnInit(): void {
 		Settings.defaultLocale = this.translateService.currentLang;
 
-		this.selectedDateTime = this.localDateTimeControl.value.set({
-			hour: 7,
-			minute: 0,
-			second: 0,
-			millisecond: 0,
-		});
-
-		this.control.valueChanges.pipe(this.takeUntil()).subscribe((iso) => {
+		this.control.valueChanges.pipe(
+			this.takeUntil(),
+			filter((value) => value !== this.selectedDateTime.toUTC().toISO()),
+			debounceTime(MS_QUARTER_SECOND),
+		).subscribe((iso) => {
 			this.selectedDateTime = DateTime.fromISO(iso);
 			this.localDateTimeControl.patchValue(this.selectedDateTime);
 		});
 
 		// Prepare datetime list
-		this.prepareSlots(this.selectedDateTime).then(() => {
-			this.loader.switchOff();
-		});
+		this.prepareSlots(this.selectedDateTime).then();
 
-		this.localDateTimeControl.valueChanges.pipe(this.takeUntil()).subscribe((dateTime) => {
+		this.localDateTimeControl.valueChanges.pipe(
+			this.takeUntil(),
+			filter((value) => value !== this.selectedDateTime),
+			debounceTime(MS_QUARTER_SECOND),
+		).subscribe(async (dateTime) => {
 			this.logger.debug('localDateTimeControl.valueChanges', dateTime.toISO());
-			this.loader.switchOn();
-			this.prepareSlots(dateTime).then(() => {
-				this.loader.switchOff();
-			});
+			await this.prepareSlots(dateTime);
 		});
 	}
 
 	private async prepareSlots(target: DateTime): Promise<void> {
+
+		this.loader.switchOn();
+
 		const today = DateTime.now();
 		let start = target.startOf('day').toUTC().toISO();
 		const end = target.endOf('day').toUTC().toISO();
+
 		if (today.hasSame(target, 'day')) {
+
 			const minutes = today.minute;
 			const roundedMinutes = (+Math.floor((minutes / 10)).toFixed(0)) * 10;
 			start = today.set({minute: roundedMinutes}).plus({minute: 10}).startOf('minute').toUTC().toISO();
+
 		}
-		if (start && end && this.specialist) {
-			if (this.slotsService.inProgress.isOn) {
-				return;
-			}
-			await this.slotsService.initSlots(start, end, this.specialist, this.eventDurationInSeconds);
+
+		if (start && end) {
+
+			await this.slotsService.initSlots(start, end);
 			this.initTimeSlotLists();
+
 		}
+
+		this.loader.switchOff();
 	}
 
 	/**
@@ -136,7 +136,7 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 
 		let localTemporaryList: ITimeSlot[] = [];
 
-		const slots = this.slotsService.getSlots();
+		const slots = this.slotsService.slots;
 
 		if (!slots.length) {
 			const nextDayISO = this.selectedDateTime.plus({day: 1}).toISO() ?? '';

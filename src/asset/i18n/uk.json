@@ -75,7 +75,7 @@
 					},
 					"name": {
 						"label": "Назва бізнесу",
-						"placeholder": "Введіть назву компанії або особисте ім'я"
+						"placeholder": "Введи назву компанії або особисте ім'я"
 					}
 				},
 				"section": {
@@ -308,7 +308,7 @@
 	"form": {
 		"validation": {
 			"email": "Неправильний формат E-mail",
-			"emailOrPhoneRequired": "Введіть номер телефону або E-mail",
+			"emailOrPhoneRequired": "Введи номер телефону або E-mail",
 			"imageSize": "Максимальний розмір зображення – {{max}}, поточний розмір – {{value}}",
 			"mask": "Неправильний формат, правильний формат - {{requiredMask}}",
 			"minlength": "Мінімальна довжина - {{requiredLength}}",
@@ -424,7 +424,7 @@
 					"welcome": "Ласкаво просимо до"
 				},
 				"names": {
-					"title": "Введіть своє ім'я та назву вашої компанії"
+					"title": "Введи своє ім'я та назву вашої компанії"
 				},
 				"pointOfSale": {
 					"title": "Куди клієнти можуть прийти?"
@@ -455,7 +455,7 @@
 				"inputs": {
 					"email": {
 						"label": "E-mail",
-						"placeholder": "Введіть E-mail"
+						"placeholder": "Введи E-mail"
 					}
 				},
 				"label": "Відновлення паролю"
@@ -470,7 +470,7 @@
 				"inputs": {
 					"password": {
 						"label": "Пароль",
-						"placeholder": "Введіть пароль"
+						"placeholder": "Введи пароль"
 					}
 				},
 				"label": "Скидання пароля"
@@ -490,14 +490,14 @@
 					},
 					"password": {
 						"label": "Пароль",
-						"placeholder": "Введіть пароль"
+						"placeholder": "Введи пароль"
 					}
 				},
 				"label": "Увійти"
 			},
 			"hint": {
 				"notAMember": "Не зареєстровані?",
-				"signInToYourAccount": "Увійдіть в свій обліковий запис"
+				"signInToYourAccount": "Увійди в свій обліковий запис"
 			},
 			"link": {
 				"forgotPassword": "Забули пароль?"
@@ -526,17 +526,17 @@
 					},
 					"password": {
 						"label": "Пароль",
-						"placeholder": "Введіть пароль"
+						"placeholder": "Введи пароль"
 					},
 					"password-confirm": {
 						"label": "Підтвердження пароля",
-						"placeholder": "Введіть підтвердження пароля"
+						"placeholder": "Введи підтвердження пароля"
 					},
 					"timezone": {
 						"inputs": {
 							"offset": {
 								"label": "Підтвердження пароля",
-								"placeholder": "Введіть підтвердження пароля"
+								"placeholder": "Введи підтвердження пароля"
 							}
 						}
 					}
