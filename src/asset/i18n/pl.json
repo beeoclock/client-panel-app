@@ -20,12 +20,12 @@
 		"Barbershop": "Barbershop",
 		"BeautySalon": "Salon kosmetyczny",
 		"Dentistry": "Stomatologia",
+		"EyebrowStylist": "Stylista brwi",
 		"Hairdresser": "Fryzjer",
+		"Manicurist": "Manicurzysta/ka",
 		"Other": "Inne",
 		"PhysicalRehabilitation": "Rehabilitacja fizyczna",
-		"Psychotherapy": "Psychoterapia",
-		"Manicurist": "Manicurzysta/ka",
-		"EyebrowStylist": "Stylista brwi"
+		"Psychotherapy": "Psychoterapia"
 	},
 	"businessIndustry": {
 		"BeautyIndustry": "Branża kosmetyczna",
@@ -315,6 +315,9 @@
 			"mask": "Nieprawidłowy format, poprawny format to {{requiredMask}}",
 			"minlength": "Minimalna długość to {{requiredLength}}",
 			"required": "Wymagane pole",
+			"shouldBeMoreThen": {
+				"startInSeconds": "Czas zakończenia musi być dłuższy niż czas rozpoczęcia"
+			},
 			"whitespace": "Usuń wszystkie spacje"
 		}
 	},
@@ -760,6 +763,12 @@
 		"events": "Wydarzenia",
 		"members": "Członkowie",
 		"private": "Prywatne",
+		"profile": {
+			"signOut": {
+				"header": "Wylogowanie",
+				"message": "Czy naprawdę chcesz odejść?"
+			}
+		},
 		"services": "Usługi",
 		"settings": "Ustawienia",
 		"switch-business-client": "Zmień kontekst",

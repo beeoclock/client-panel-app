@@ -17,6 +17,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
 import {BooleanState} from "@utility/domain";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
+import {NGXLogger} from "ngx-logger";
 
 export interface ITimeSlot {
   isPast: boolean;
@@ -96,6 +97,7 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
   @ViewChild('timeSlotsContainer')
   public timeSlotsContainer!: ElementRef<HTMLDivElement>;
 
+  public readonly logger = inject(NGXLogger);
   public readonly translateService = inject(TranslateService);
   public readonly slotsService = inject(SlotsService);
 
@@ -103,7 +105,7 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 
 	public ngOnChanges(changes: SimpleChanges & {specialist: SimpleChange}) {
 		if (changes.specialist) {
-			this.prepareSlots(this.localDateTimeControl.value)
+			this.prepareSlots(this.localDateTimeControl.value).then();
 		}
 	}
 
@@ -117,8 +119,8 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
       millisecond: 0,
     });
 
-    this.control.valueChanges.pipe(this.takeUntil()).subscribe((VALUE) => {
-      this.selectedDateTime = DateTime.fromISO(VALUE);
+    this.control.valueChanges.pipe(this.takeUntil()).subscribe((iso) => {
+      this.selectedDateTime = DateTime.fromISO(iso);
       this.localDateTimeControl.patchValue(this.selectedDateTime);
     });
 
@@ -127,9 +129,9 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 			this.loader.switchOff();
 		});
 
-    this.localDateTimeControl.valueChanges.subscribe((value) => {
+    this.localDateTimeControl.valueChanges.pipe(this.takeUntil()).subscribe((dateTime) => {
 			this.loader.switchOn();
-			this.prepareSlots(value).then(() => {
+			this.prepareSlots(dateTime).then(() => {
 				this.loader.switchOff();
 			});
     });
@@ -145,6 +147,9 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 			start = today.set({minute: roundedMinutes}).plus({minute: 10}).startOf('minute').toUTC().toISO();
 		}
 		if (start && end && this.specialist) {
+			if (this.slotsService.inProgress.isOn) {
+				return;
+			}
 			await this.slotsService.initSlots(start, end, this.specialist, this.eventDurationInSeconds);
 			this.initTimeSlotLists();
 		}
@@ -161,7 +166,16 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 
 		let localTemporaryList: ITimeSlot[] = [];
 
-		this.slotsService.getSlots()
+		const slots = this.slotsService.getSlots();
+
+		if (!slots.length) {
+			const nextDayISO = this.selectedDateTime.plus({day: 1}).toISO() ?? '';
+			this.logger.debug(`nextDayISO: ${nextDayISO}`);
+			this.control.patchValue(nextDayISO);
+			return;
+		}
+
+		slots
 			.map((slot) => ({
 				isPast: DateTime.fromISO(slot).startOf('minute').toMillis() < DateTime.now().startOf('minute').toMillis(),
 				datetime: DateTime.fromISO(slot)

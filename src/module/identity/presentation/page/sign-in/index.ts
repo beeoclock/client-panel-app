@@ -6,6 +6,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {TranslateModule} from "@ngx-translate/core";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {NgOptimizedImage} from "@angular/common";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 
 @Component({
   selector: 'identity-sign-in-page',
@@ -19,7 +20,8 @@ import {NgOptimizedImage} from "@angular/common";
 		CardComponent,
 		TranslateModule,
 		ChangeLanguageComponent,
-		NgOptimizedImage
+		NgOptimizedImage,
+		PrimaryButtonDirective
 	],
   encapsulation: ViewEncapsulation.None
 })

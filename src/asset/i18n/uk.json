@@ -20,12 +20,12 @@
 		"Barbershop": "Барбершоп",
 		"BeautySalon": "Салон краси",
 		"Dentistry": "Стоматологія",
+		"EyebrowStylist": "Бровист",
 		"Hairdresser": "Жіноча перукарня",
+		"Manicurist": "Майстер Манікюру",
 		"Other": "Інше",
 		"PhysicalRehabilitation": "Фізична реабілітація",
-		"Psychotherapy": "Психотерапія",
-		"Manicurist": "Майстер Манікюру",
-		"EyebrowStylist": "Бровист"
+		"Psychotherapy": "Психотерапія"
 	},
 	"businessIndustry": {
 		"BeautyIndustry": "Краса",
@@ -313,6 +313,9 @@
 			"mask": "Неправильний формат, правильний формат - {{requiredMask}}",
 			"minlength": "Мінімальна довжина - {{requiredLength}}",
 			"required": "Обов'язкове поле",
+			"shouldBeMoreThen": {
+				"startInSeconds": "Час закінчення повинен бути більше початку"
+			},
 			"whitespace": "Видали всі пробіли"
 		}
 	},
@@ -519,7 +522,7 @@
 					},
 					"email": {
 						"label": "E-mail",
-						"placeholder": "Введіть текст"
+						"placeholder": "Електронна скринька"
 					},
 					"password": {
 						"label": "Пароль",
@@ -758,6 +761,12 @@
 		"events": "Події",
 		"members": "Учасники",
 		"private": "Приватне",
+		"profile": {
+			"signOut": {
+				"header": "Вийти",
+				"message": "Дійсно бажаєш вийти ?"
+			}
+		},
 		"services": "Послуги",
 		"settings": "Налаштування",
 		"switch-business-client": "Змінити контекст",

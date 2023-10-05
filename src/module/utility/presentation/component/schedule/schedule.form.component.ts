@@ -29,7 +29,7 @@ import {ScheduleForm} from "@utility/presentation/form/schdeule.form";
 })
 export class ScheduleFormComponent {
 
-  @Input()
-  public form = new ScheduleForm();
+  @Input({required: true})
+  public form!: ScheduleForm;
 
 }

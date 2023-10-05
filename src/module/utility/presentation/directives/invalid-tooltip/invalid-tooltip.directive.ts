@@ -27,7 +27,7 @@ export class InvalidTooltipDirective implements DoCheck {
   private readonly ngControl = inject(NgControl);
   private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
   private readonly translateService = inject(TranslateService);
-  private reason: string | undefined;
+  private reason: string | null = null;
 
   public ngDoCheck(): void {
     this.control = this.ngControl?.control; // Get the associated control
@@ -64,6 +64,8 @@ export class InvalidTooltipDirective implements DoCheck {
 
     this.invalidCustomTooltip?.remove();
 
+		this.reason = null;
+
     // Remove red border from input
     this.elementRef.nativeElement.classList.remove('!border-red-500');
 
@@ -83,7 +85,7 @@ export class InvalidTooltipDirective implements DoCheck {
     // Check if tooltip is existed
     if (this.invalidCustomTooltip) {
       // Check reason, if the same then leave the function
-      if (this.reason === key) {
+			if (this.reason === key) {
         return;
       }
       this.invalidCustomTooltip?.remove();

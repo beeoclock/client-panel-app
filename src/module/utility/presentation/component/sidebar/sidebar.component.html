@@ -1,5 +1,5 @@
 <aside [id]="sidebarId"
-       class="
+			 class="
        	z-30
         fixed
         top-0
@@ -17,128 +17,12 @@
         dark:bg-beeDarkColor-900
         dark:border-beeDarkColor-800">
 
-  <div class="h-full px-3 py-4 overflow-y-auto bg-white dark:bg-beeDarkColor-900 flex flex-col justify-between">
+	<ng-container [ngSwitch]="sidebarService.currentContent">
 
-    <ul class="space-y-2 font-medium">
+		<utility-sidebar-menu-component *ngSwitchCase="sidebarService.sidebarContentEnum.MENU"/>
+		<utility-sidebar-profile-component *ngSwitchCase="sidebarService.sidebarContentEnum.PROFILE"/>
 
-      <li *ngFor="let item of menu">
+	</ng-container>
 
-        <ng-container *ngIf="item?.items?.length;">
-
-          <button
-            #buttonOfSubMenu
-            (click)="buttonOfSubMenu.toggleAttribute('data-close')"
-            data-close
-            type="button"
-            class="
-              flex
-              items-center
-              w-full
-              p-2
-              text-beeColor-900
-              transition
-              duration-75
-              rounded-lg
-              group
-              hover:bg-beeColor-100
-              dark:text-white
-              dark:hover:bg-beeDarkColor-800">
-
-            <i
-              class="
-                flex-shrink-0
-                w-6
-                h-6
-                ms-1
-                text-beeColor-500
-                transition
-                duration-75
-                group-hover:text-beeColor-900
-                dark:text-beeDarkColor-400
-                dark:group-hover:text-white"
-              [class]="item.icon"></i>
-
-            <span class="flex-1 ml-3 text-left whitespace-nowrap">
-              {{ item.translateKey | translate }}
-            </span>
-
-            <i class="bi bi-chevron-down me-1"></i>
-
-          </button>
-
-          <ul [class.hidden]="buttonOfSubMenu.hasAttribute('data-close')" class="py-2 space-y-2">
-            <li *ngFor="let subItem of item.items">
-              <a
-                (isActiveChange)="$event && buttonOfSubMenu.removeAttribute('data-close')"
-                [routerLink]="subItem.url"
-                [attr.target]="item.target"
-                [class.disabled]="item.disabled ?? false"
-                [routerLinkActiveOptions]="subItem.routerLinkActiveOptions"
-                [routerLinkActive]="['bg-beeColor-100', 'dark:bg-beeDarkColor-800']"
-                class="
-                  flex
-                  items-center
-                  w-full
-                  p-2
-                  text-beeColor-900
-                  transition
-                  duration-75
-                  rounded-lg
-                  pl-11
-                  group
-                  hover:bg-beeColor-100
-                  dark:text-white
-                  dark:hover:bg-beeDarkColor-800">
-                {{ subItem.translateKey | translate }}
-              </a>
-            </li>
-          </ul>
-        </ng-container>
-
-        <ng-container *ngIf="!item?.items">
-
-          <a
-            [routerLink]="item.url"
-            [attr.target]="item.target"
-            [class.disabled]="item.disabled ?? false"
-            [routerLinkActiveOptions]="item.routerLinkActiveOptions"
-            [routerLinkActive]="['bg-beeColor-100', 'dark:bg-beeDarkColor-800']"
-            class="
-              flex
-              items-center
-              p-2
-              text-beeColor-900
-              rounded-lg
-              dark:text-white
-              hover:bg-beeColor-100
-              dark:hover:bg-beeDarkColor-800">
-
-            <i
-              class="w-6 h-6 ms-2 text-beeColor-500 transition duration-75 dark:text-beeDarkColor-400 group-hover:text-beeColor-900 dark:group-hover:text-white"
-              [class]="item.icon"></i>
-
-            <span class="ml-3">{{ item.translateKey | translate }}</span>
-
-          </a>
-
-        </ng-container>
-
-      </li>
-
-    </ul>
-
-
-    <ul>
-      <li>
-        <button
-          (click)="goToPublicPage()"
-          class="w-full border border-blue-600 rounded-2xl bg-blue-100 dark:bg-blue-500/50 px-3 py-1 text-blue-600 dark:text-blue-200 me-2 flex items-center justify-between gap-2">
-          {{ 'keyword.capitalize.publicPage' | translate }}
-          <i class="bi bi-box-arrow-up-right"></i>
-        </button>
-      </li>
-    </ul>
-
-  </div>
 
 </aside>

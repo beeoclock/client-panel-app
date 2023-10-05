@@ -20,12 +20,12 @@
 		"Barbershop": "Barbershop",
 		"BeautySalon": "Beauty salon",
 		"Dentistry": "Dentistry",
+		"EyebrowStylist": "Eyebrow stylist",
 		"Hairdresser": "Hairdresser",
+		"Manicurist": "Manicurist",
 		"Other": "Other",
 		"PhysicalRehabilitation": "Physical rehabilitation",
-		"Psychotherapy": "Psychotherapy",
-		"Manicurist": "Manicurist",
-		"EyebrowStylist": "Eyebrow stylist"
+		"Psychotherapy": "Psychotherapy"
 	},
 	"businessIndustry": {
 		"BeautyIndustry": "Beauty industry",
@@ -313,6 +313,9 @@
 			"mask": "Invalid format, correct format is {{requiredMask}}",
 			"minlength": "Minimum length is {{requiredLength}}",
 			"required": "Required field",
+			"shouldBeMoreThen": {
+				"startInSeconds": "The end time must be longer than the start time"
+			},
 			"whitespace": "Remove all spaces"
 		}
 	},
@@ -519,7 +522,7 @@
 					},
 					"email": {
 						"label": "E-mail",
-						"placeholder": "Enter text"
+						"placeholder": "Enter E-mail address"
 					},
 					"password": {
 						"label": "Password",
@@ -758,6 +761,12 @@
 		"events": "Events",
 		"members": "Members",
 		"private": "Private",
+		"profile": {
+			"signOut": {
+				"header": "Logout",
+				"message": "Do you really want to leave?"
+			}
+		},
 		"services": "Services",
 		"settings": "Settings",
 		"switch-business-client": "Change context",

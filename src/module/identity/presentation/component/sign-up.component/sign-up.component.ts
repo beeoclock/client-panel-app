@@ -56,22 +56,22 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 				id="email"
 				type="email"
 				autocomplete="email"
-				placeholder="firstname.lastname@example.com"
+				[placeholder]="'identity.sign-up.form.inputs.email.placeholder' | translate"
 				[control]="form.controls.email"
 				[label]="'identity.sign-up.form.inputs.email.label' | translate"/>
 
 			<form-input-password
 				id="password"
 				autocomplete="password"
+				[placeholder]="'identity.sign-up.form.inputs.password.placeholder' | translate"
 				[control]="form.controls.password"
-				placeholder="password"
 				[label]="'identity.sign-up.form.inputs.password.label' | translate"/>
 
 			<form-input-password
 				id="passwordConfirm"
 				autocomplete="passwordConfirm"
+				[placeholder]="'identity.sign-up.form.inputs.password-confirm.placeholder' | translate"
 				[control]="form.controls.passwordConfirm"
-				placeholder="passwordConfirm"
 				[label]="'identity.sign-up.form.inputs.password-confirm.label' | translate"/>
 
 			<div>

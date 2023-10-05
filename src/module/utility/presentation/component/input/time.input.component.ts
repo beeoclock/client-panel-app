@@ -16,37 +16,20 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 		FormInputComponent,
 	],
   template: `
-
 		<form-input
 			[id]="id"
 			[label]="label"
 			[control]="localControl"
 			placeholder="00:00"
 			type="time"/>
-
-<!--		<bee-form-badge-input-->
-<!--			mask="Hh:m0"-->
-<!--			placeholder="00:00"-->
-<!--			[control]="localControl"-->
-<!--			[label]="label"-->
-<!--			[id]="id"-->
-<!--			[badge]="'keyword.capitalize.openTimePicker' | translate"/>-->
-
-<!--    <form-icon-input-->
-<!--      [id]="id"-->
-<!--      placeholder="00:00"-->
-<!--      mask="00:00"-->
-<!--      icon="bi-clock"-->
-<!--      [control]="localControl"-->
-<!--      [label]="label"/>-->
   `
 })
 export class TimeInputComponent implements OnInit {
 
-  @Input()
-  public control: FormControl = new FormControl();
+	@Input({required: true})
+	public control!: FormControl;
 
-  public localControl: FormControl = new FormControl();
+  public readonly localControl = new FormControl();
 
   @Input()
   public label = '';
@@ -62,12 +45,12 @@ export class TimeInputComponent implements OnInit {
 
 	public ngOnInit(): void {
 
+		// Values
 		if (this.valueAsNumber) {
 			this.localControl.patchValue(secondsTo_hh_mm(this.control.value, this.utc));
 		} else {
 			this.localControl.patchValue(this.control.value);
 		}
-
 		this.localControl.valueChanges.subscribe((value) => {
 			if (this.valueAsNumber) {
 				this.control.patchValue(extractSecondsFrom_hh_mm_ss(value, this.utc));
@@ -75,6 +58,12 @@ export class TimeInputComponent implements OnInit {
 				this.control.patchValue(value);
 			}
 		});
+
+		// Errors
+		this.localControl.setErrors(this.control.errors);
+		this.control.statusChanges.subscribe(() => {
+			this.localControl.setErrors(this.control.errors);
+		})
 
 	}
 
