@@ -90,6 +90,7 @@ export default class Index extends Reactive implements OnInit {
 
 			this.slotsService.setSpecialist(this.specialist);
 			this.slotsService.setEventDurationInSeconds(this.getEventDurationInSeconds(firstService));
+			this.slotsService.refillSlotsIfInitialized().then();
 
 		});
 	}

@@ -101,7 +101,7 @@ export class SlotsService {
 		this.#slots = await this.slotsEventApiAdapter.executeAsync(this.#getFreeSlotsDto);
 	}
 
-	private async refillSlotsIfInitialized() {
+	public async refillSlotsIfInitialized() {
 		if (this.initialized.isOn) {
 			this.updateGetFreeSlotsDtoWithLocalProperty();
 			this.loader.switchOn();
@@ -113,13 +113,11 @@ export class SlotsService {
 	public setSpecialist(specialist: string) {
 		this.logger.debug('setSpecialist', {specialist})
 		this.#specialist = specialist;
-		this.refillSlotsIfInitialized().then();
 	}
 
 	public setEventDurationInSeconds(eventDurationInSeconds: number) {
 		this.logger.debug('setEventDurationInSeconds', {eventDurationInSeconds})
 		this.#eventDurationInSeconds = eventDurationInSeconds;
-		this.refillSlotsIfInitialized().then();
 	}
 
 	public updateGetFreeSlotsDtoWithLocalProperty() {
