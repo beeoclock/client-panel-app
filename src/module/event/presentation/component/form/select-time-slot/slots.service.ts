@@ -4,6 +4,7 @@ import {SECONDS_ONE_HOUR, SECONDS_TEN_MINUTES} from "@utility/domain/const/c.tim
 import {NGXLogger} from "ngx-logger";
 import {BooleanState} from "@utility/domain";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
+import {SelectTimeComponent} from "@event/presentation/component/form/select-time-slot/time/select-time.component";
 
 @Injectable({
 	providedIn: 'root'
@@ -26,6 +27,8 @@ export class SlotsService {
 		end: string;
 		slotIntervalInSeconds: number
 	} | undefined;
+
+	public selectTimeComponent: SelectTimeComponent | undefined;
 
 	public get slots(): string[] {
 		return this.#slots;
@@ -99,6 +102,7 @@ export class SlotsService {
 			return;
 		}
 		this.#slots = await this.slotsEventApiAdapter.executeAsync(this.#getFreeSlotsDto);
+		this.selectTimeComponent?.initTimeSlotLists();
 	}
 
 	public async refillSlotsIfInitialized() {

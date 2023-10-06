@@ -77,6 +77,9 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 	public ngOnInit(): void {
 		Settings.defaultLocale = this.translateService.currentLang;
 
+		// Set component into slots.service
+		this.slotsService.selectTimeComponent = this;
+
 		this.control.valueChanges.pipe(
 			this.takeUntil(),
 			filter((value) => value !== this.selectedDateTime.toUTC().toISO()),
@@ -129,7 +132,7 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 	 *
 	 * @private
 	 */
-	private initTimeSlotLists(): void {
+	public initTimeSlotLists(): void {
 
 		this.timeSlotLists.length = 0;
 		this.currentIndexListOfSlots = 0;
