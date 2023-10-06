@@ -4,19 +4,25 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {TranslateModule} from "@ngx-translate/core";
 import {SelectEarliestBookingComponent} from "@utility/presentation/component/input/select-earliest-booking.component";
 import {SelectLatestBookingComponent} from "@utility/presentation/component/input/select-latest-booking.component";
-import {SelectApprovalTimeComponent} from "@utility/presentation/component/input/select-approval-time.component";
+import {
+	SelectAutoActionOnEventInSecondsComponent
+} from "@utility/presentation/component/input/select-auto-action-on-event-in-seconds.component";
+import {
+	SelectAutoActionTypeOnEventComponent
+} from "@utility/presentation/component/input/select-auto-action-type-on-event.component";
 
 @Component({
   selector: 'client-business-profile-booking-settings-component',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    CardComponent,
-    TranslateModule,
-    SelectEarliestBookingComponent,
-    SelectLatestBookingComponent,
-    SelectApprovalTimeComponent
-  ],
+	imports: [
+		CardComponent,
+		TranslateModule,
+		SelectEarliestBookingComponent,
+		SelectLatestBookingComponent,
+		SelectAutoActionOnEventInSecondsComponent,
+		SelectAutoActionTypeOnEventComponent
+	],
   template: `
     <bee-card gap="gap-8">
 
@@ -30,8 +36,11 @@ import {SelectApprovalTimeComponent} from "@utility/presentation/component/input
       <select-earliest-booking-component
         [control]="form.controls.earliestBooking"/>
 
-      <select-approval-time-component
-        [control]="form.controls.approvalTimeInSeconds"/>
+      <select-auto-action-on-event-in-seconds-component
+        [control]="form.controls.autoActionOnEventInSeconds"/>
+
+			<select-auto-action-type-on-event-component
+				[control]="form.controls.automaticApprovalType"/>
 
     </bee-card>
   `

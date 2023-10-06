@@ -1,4 +1,4 @@
-export enum ApprovalTimeEnum { // Value in seconds
+export enum AutoActionOnEventInSecondsEnum { // Value in seconds
   FIVE_MINUTES = 300,
   TEN_MINUTES = 600,
   FIFTEEN_MINUTES = 900,

@@ -1,5 +1,5 @@
 {
-	"approvalTime": {
+	"autoActionOnEventInSeconds": {
 		"EIGHT_HOURS": "8 годин",
 		"FIFTEEN_MINUTES": "15 хвилин",
 		"FIVE_HOURS": "5 годин",
@@ -15,6 +15,10 @@
 		"THREE_HOURS": "3 години",
 		"TWENTY_MINUTES": "20 хвилин",
 		"TWO_HOURS": "2 години"
+	},
+	"autoActionTypeOnEvent": {
+		"APPROVE": "Підтвердити",
+		"DENY": "Відхилити"
 	},
 	"businessCategory": {
 		"Barbershop": "Барбершоп",
@@ -101,8 +105,11 @@
 					},
 					"bookingSettings": {
 						"input": {
-							"approvalTime": {
-								"placeholder": "Час, після якого незатверджена подія буде скасована"
+							"autoActionOnEventInSeconds": {
+								"placeholder": "Обери час через який має запуститись обрана автоматична дія для новоствореної резервації/події"
+							},
+							"autoActionTypeOnEvent": {
+								"placeholder": "Вибери тип дії яка має відбуватись автоматично для новоствореної резервації/події"
 							},
 							"earliestBooking": {
 								"placeholder": "Вказує на найкоротший проміжок часу, після якого можна здійснити бронювання послуги"
@@ -560,9 +567,10 @@
 			"addSocialMedia": "Додати соціальну мережу",
 			"additional": "Додатково",
 			"address": "Адреса",
-			"approvalTime": "Час на підтвердження",
 			"approve": "Прийняти",
 			"attendees": "Учасники",
+			"autoActionOnEventInSeconds": "Час запуску автоматичної дії",
+			"autoActionTypeOnEvent": "Тид автоматичної дії",
 			"back": "Назад",
 			"bookingSettings": "Налаштування бронювання",
 			"break": "Перерва",
