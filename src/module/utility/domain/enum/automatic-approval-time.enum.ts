@@ -1,4 +1,4 @@
 export enum AutomaticApprovalTimeType {
-  APPROVE = 0,
-  DENY = 1
+  APPROVE = 'APPROVE',
+  DENY = 'DENY'
 }

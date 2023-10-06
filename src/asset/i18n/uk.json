@@ -104,6 +104,13 @@
 						"title": "Адреса"
 					},
 					"bookingSettings": {
+						"hint": {
+							"autoActionOnEvent": {
+								"after": "через",
+								"finish": "після створення.",
+								"start": "Новостворена подія/резервація буде автоматично"
+							}
+						},
 						"input": {
 							"autoActionOnEventInSeconds": {
 								"placeholder": "Обери час через який має запуститись обрана автоматична дія для новоствореної резервації/події"
@@ -570,7 +577,7 @@
 			"approve": "Прийняти",
 			"attendees": "Учасники",
 			"autoActionOnEventInSeconds": "Час запуску автоматичної дії",
-			"autoActionTypeOnEvent": "Тид автоматичної дії",
+			"autoActionTypeOnEvent": "Тип автоматичної дії",
 			"back": "Назад",
 			"bookingSettings": "Налаштування бронювання",
 			"break": "Перерва",

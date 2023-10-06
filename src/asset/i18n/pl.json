@@ -104,6 +104,13 @@
 						"title": "Adres"
 					},
 					"bookingSettings": {
+						"hint": {
+							"autoActionOnEvent": {
+								"after": "za",
+								"finish": "po stworzeniu.",
+								"start": "Nowo utworzone wydarzenie/rezerwacja zostanie automatycznie utworzone"
+							}
+						},
 						"input": {
 							"autoActionOnEventInSeconds": {
 								"placeholder": "Wybierz czas po jakim ma się rozpocząć wybrana akcja automatyczna dla nowo utworzonej rezerwacji/wydarzenia"

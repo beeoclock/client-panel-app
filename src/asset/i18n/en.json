@@ -104,6 +104,13 @@
 						"title": "Address"
 					},
 					"bookingSettings": {
+						"hint": {
+							"autoActionOnEvent": {
+								"after": "in",
+								"finish": "after creation.",
+								"start": "The newly created event/reservation will be automatically"
+							}
+						},
 						"input": {
 							"autoActionOnEventInSeconds": {
 								"placeholder": "Choose the time after which the selected automatic action should start for the newly created reservation/event"
