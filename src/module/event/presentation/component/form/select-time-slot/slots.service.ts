@@ -5,6 +5,7 @@ import {NGXLogger} from "ngx-logger";
 import {BooleanState} from "@utility/domain";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {SelectTimeComponent} from "@event/presentation/component/form/select-time-slot/time/select-time.component";
+import hash_sum from "hash-sum";
 
 @Injectable({
 	providedIn: 'root'
@@ -13,7 +14,7 @@ export class SlotsService {
 
 	private readonly logger = inject(NGXLogger);
 	private readonly slotsEventApiAdapter = inject(SlotsEventApiAdapter);
-	// private readonly localTemporaryCache = new Map<string, string[]>();
+	private readonly localTemporaryCache = new Map<string, string[]>();
 	#slots: string[] = [];
 
 	public readonly loader = new BooleanStreamState(false);
@@ -65,33 +66,29 @@ export class SlotsService {
 
 		this.logger.debug('initSlots', {start, end, specialist: this.specialist, eventDurationInSeconds: this.eventDurationInSeconds})
 
-		// this.inProgress.switchOn();
-		//
-		// const key = `${start}-${end}`;
-		// if (this.localTemporaryCache.has(key)) {
-		// 	this.slots.length = 0;
-		// 	this.slots.push(...(this.localTemporaryCache.get(key) ?? []));
-		// 	return;
-		// }
 
-		// let slots: string[] = [];
+		this.#getFreeSlotsDto = {
+			start,
+			end,
+			eventDurationInSeconds: this.eventDurationInSeconds,
+			slotIntervalInSeconds: SECONDS_TEN_MINUTES,
+			specialist: this.specialist,
+		};
+
+		const key = hash_sum(this.#getFreeSlotsDto);
+		this.logger.debug('initSlots.key:', {key})
 
 		try {
-			this.#getFreeSlotsDto = {
-				start,
-				end,
-				eventDurationInSeconds: this.eventDurationInSeconds,
-				slotIntervalInSeconds: SECONDS_TEN_MINUTES,
-				specialist: this.specialist,
-			};
+			if (this.localTemporaryCache.has(key)) {
+				this.#slots = (this.localTemporaryCache.get(key) ?? []);
+				return;
+			}
+
 			await this.fillSlots();
 		} catch (e) {
 			this.logger.error(e);
 		} finally {
-			// this.localTemporaryCache.set(key, slots);
-			// this.slots.length = 0;
-			// this.slots.push(...slots);
-			// this.inProgress.switchOff()
+			this.localTemporaryCache.set(key, this.#slots);
 		}
 
 	}

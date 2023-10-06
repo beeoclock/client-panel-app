@@ -141,12 +141,12 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 
 		const slots = this.slotsService.slots;
 
-		if (!slots.length) {
-			const nextDayISO = this.selectedDateTime.plus({day: 1}).toISO() ?? '';
-			this.logger.debug(`nextDayISO: ${nextDayISO}`);
-			this.control.patchValue(nextDayISO);
-			return;
-		}
+		// if (!slots.length) { // TODO fix this case
+		// 	const nextDayISO = this.selectedDateTime.plus({day: 1}).toISO() ?? '';
+		// 	this.logger.debug(`nextDayISO: ${nextDayISO}`);
+		// 	this.control.patchValue(nextDayISO);
+		// 	return;
+		// }
 
 		slots
 			.map((slot) => ({
