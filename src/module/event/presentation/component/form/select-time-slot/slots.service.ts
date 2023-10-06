@@ -103,6 +103,7 @@ export class SlotsService {
 
 	private async refillSlotsIfInitialized() {
 		if (this.initialized.isOn) {
+			this.updateGetFreeSlotsDtoWithLocalProperty();
 			this.loader.switchOn();
 			await this.fillSlots();
 			this.loader.switchOff();
@@ -119,5 +120,14 @@ export class SlotsService {
 		this.logger.debug('setEventDurationInSeconds', {eventDurationInSeconds})
 		this.#eventDurationInSeconds = eventDurationInSeconds;
 		this.refillSlotsIfInitialized().then();
+	}
+
+	public updateGetFreeSlotsDtoWithLocalProperty() {
+		if (this.#getFreeSlotsDto) {
+			this.#getFreeSlotsDto.eventDurationInSeconds = this.eventDurationInSeconds;
+			if (this.specialist) {
+				this.#getFreeSlotsDto.specialist = this.specialist;
+			}
+		}
 	}
 }
