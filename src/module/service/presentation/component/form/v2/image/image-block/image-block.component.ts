@@ -24,9 +24,6 @@ import {
 export class ImageBlockComponent {
 
 	@Input()
-	public serviceId: string | undefined;
-
-	@Input()
 	public mediaId = '';
 
 	@ViewChild(ServiceFormImageComponent)
@@ -39,7 +36,7 @@ export class ImageBlockComponent {
 	public readonly srcByMediaIdService = inject(BocMediaService);
 	public readonly patchBannerServiceApiAdapter = inject(PatchBannerServiceApiAdapter);
 
-	public async save(serviceId?: string | undefined): Promise<void> {
+	public async save(serviceId: string): Promise<void> {
 
 		if (this.serviceFormImageComponent.mediaIsChanged.isOff) {
 			return;
@@ -56,7 +53,7 @@ export class ImageBlockComponent {
 			body._id = this.mediaId;
 		}
 
-		const {_id, media} = await this.patchBannerServiceApiAdapter.executeAsync(serviceId ?? this.serviceId, body);
+		const {_id, media} = await this.patchBannerServiceApiAdapter.executeAsync(serviceId, body);
 		await this.srcByMediaIdService.set(_id, media);
 
 	}
