@@ -2,8 +2,11 @@ import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, inject, Input, 
 import {FormControl} from "@angular/forms";
 import {DateTime, Settings} from "luxon";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {NgClass, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {Reactive} from "@utility/cdk/reactive";
+import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
+import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
+import {ButtonArrowComponent} from "@event/presentation/component/form/select-time-slot/button.arrow.component";
 
 // TODO Move
 interface IDayItem {
@@ -31,65 +34,16 @@ export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsIn
 
 @Component({
   selector: 'event-select-time-slot-date-form-component',
-  standalone: true,
-  imports: [
-    NgForOf,
-    NgClass,
-    NgIf,
-    TranslateModule
-  ],
-  template: `
-    <div class="flex flex-col gap-3 dark:text-white">
-      <!-- Day Slots Title -->
-      <div class="flex items-center justify-center gap-3">
-        <span class="text-2xl font-medium">{{ daySlotsTitle }}</span>
-      </div>
-
-      <!-- Navigation Buttons -->
-      <div class="flex items-center justify-between gap-1">
-        <button type="button" (click)="prevPackOfDates()" class="px-3 py-2 hover:bg-beeColor-300 dark:hover:bg-beeDarkColor-800 cursor-pointer rounded-2xl">
-          <i class="bi bi-chevron-left"></i>
-        </button>
-
-        <!-- Day Slots Container -->
-        <div #daySlotsContainer class="flex gap-1 overflow-x-auto w-full justify-center items-center">
-          <ng-container *ngFor="let dayItem of dayItemList">
-            <div class="relative pb-0.5 pt-1">
-            <span
-              *ngIf="dayItem.isToday"
-              class="w-[10px] h-[10px] rounded-full absolute left-[25px] -top-0"
-              [ngClass]="{
-                'bg-blue-200': isSelected(dayItem.datetime),
-                'bg-beeColor-300': !isSelected(dayItem.datetime)
-                }">
-            </span>
-
-              <button
-								type="button"
-                (click)="selectDateItem(dayItem.datetime)"
-                [ngClass]="getClassList(isSelected(dayItem.datetime))"
-                [disabled]="dayItem.isPast"
-                class="min-w-[60px] max-w-[60px] min-h-[60px] max-h-[60px] leading-tight flex flex-col items-center justify-center ring-1 ring-inset rounded-md p-3">
-                <span class="font-bold">{{ dayItem.datetime.day }}</span>
-                <span>{{ dayItem.datetime.weekdayShort }}</span>
-              </button>
-
-              <span
-                *ngIf="hasSelectedTimeSlot(dayItem.datetime)"
-                class="w-[30px] h-[6px] rounded-full absolute left-[15px] -bottom-0"
-                [ngClass]="{ 'bg-blue-200': isSelected(dayItem.datetime), 'bg-beeColor-300': !isSelected(dayItem.datetime) }"
-              ></span>
-            </div>
-          </ng-container>
-        </div>
-
-        <button type="button" (click)="nextPackOfDates()" class="px-3 py-2 hover:bg-beeColor-300 dark:hover:bg-beeDarkColor-800 cursor-pointer rounded-2xl">
-          <i class="bi bi-chevron-right"></i>
-        </button>
-      </div>
-    </div>
-
-  `
+	templateUrl: './select-date.component.html',
+	standalone: true,
+	imports: [
+		NgForOf,
+		NgClass,
+		NgIf,
+		TranslateModule,
+		AsyncPipe,
+		ButtonArrowComponent
+	],
 })
 export class SelectDateComponent extends Reactive implements OnInit, AfterViewInit {
 
@@ -110,6 +64,11 @@ export class SelectDateComponent extends Reactive implements OnInit, AfterViewIn
 
   public readonly changeDetectorRef = inject(ChangeDetectorRef);
   public readonly translateService = inject(TranslateService);
+	public readonly slotsService = inject(SlotsService);
+
+	public get loader(): BooleanStreamState {
+		return this.slotsService.loader;
+	}
 
   public daySlotsTitle = '';
 

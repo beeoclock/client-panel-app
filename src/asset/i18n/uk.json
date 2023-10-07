@@ -1,5 +1,5 @@
 {
-	"approvalTime": {
+	"autoActionOnEventInSeconds": {
 		"EIGHT_HOURS": "8 годин",
 		"FIFTEEN_MINUTES": "15 хвилин",
 		"FIVE_HOURS": "5 годин",
@@ -15,6 +15,10 @@
 		"THREE_HOURS": "3 години",
 		"TWENTY_MINUTES": "20 хвилин",
 		"TWO_HOURS": "2 години"
+	},
+	"autoActionTypeOnEvent": {
+		"APPROVE": "Підтвердити",
+		"DENY": "Відхилити"
 	},
 	"businessCategory": {
 		"Barbershop": "Барбершоп",
@@ -75,7 +79,7 @@
 					},
 					"name": {
 						"label": "Назва бізнесу",
-						"placeholder": "Введіть назву компанії або особисте ім'я"
+						"placeholder": "Введи назву компанії або особисте ім'я"
 					}
 				},
 				"section": {
@@ -100,9 +104,19 @@
 						"title": "Адреса"
 					},
 					"bookingSettings": {
+						"hint": {
+							"autoActionOnEvent": {
+								"after": "через",
+								"finish": "після створення.",
+								"start": "Новостворена подія/резервація буде автоматично"
+							}
+						},
 						"input": {
-							"approvalTime": {
-								"placeholder": "Час, після якого незатверджена подія буде скасована"
+							"autoActionOnEventInSeconds": {
+								"placeholder": "Обери час через який має запуститись обрана автоматична дія для новоствореної резервації/події"
+							},
+							"autoActionTypeOnEvent": {
+								"placeholder": "Вибери тип дії яка має відбуватись автоматично для новоствореної резервації/події"
 							},
 							"earliestBooking": {
 								"placeholder": "Вказує на найкоротший проміжок часу, після якого можна здійснити бронювання послуги"
@@ -308,7 +322,7 @@
 	"form": {
 		"validation": {
 			"email": "Неправильний формат E-mail",
-			"emailOrPhoneRequired": "Введіть номер телефону або E-mail",
+			"emailOrPhoneRequired": "Введи номер телефону або E-mail",
 			"imageSize": "Максимальний розмір зображення – {{max}}, поточний розмір – {{value}}",
 			"mask": "Неправильний формат, правильний формат - {{requiredMask}}",
 			"minlength": "Мінімальна довжина - {{requiredLength}}",
@@ -424,7 +438,7 @@
 					"welcome": "Ласкаво просимо до"
 				},
 				"names": {
-					"title": "Введіть своє ім'я та назву вашої компанії"
+					"title": "Введи своє ім'я та назву вашої компанії"
 				},
 				"pointOfSale": {
 					"title": "Куди клієнти можуть прийти?"
@@ -455,7 +469,7 @@
 				"inputs": {
 					"email": {
 						"label": "E-mail",
-						"placeholder": "Введіть E-mail"
+						"placeholder": "Введи E-mail"
 					}
 				},
 				"label": "Відновлення паролю"
@@ -470,7 +484,7 @@
 				"inputs": {
 					"password": {
 						"label": "Пароль",
-						"placeholder": "Введіть пароль"
+						"placeholder": "Введи пароль"
 					}
 				},
 				"label": "Скидання пароля"
@@ -490,14 +504,14 @@
 					},
 					"password": {
 						"label": "Пароль",
-						"placeholder": "Введіть пароль"
+						"placeholder": "Введи пароль"
 					}
 				},
 				"label": "Увійти"
 			},
 			"hint": {
 				"notAMember": "Не зареєстровані?",
-				"signInToYourAccount": "Увійдіть в свій обліковий запис"
+				"signInToYourAccount": "Увійди в свій обліковий запис"
 			},
 			"link": {
 				"forgotPassword": "Забули пароль?"
@@ -526,17 +540,17 @@
 					},
 					"password": {
 						"label": "Пароль",
-						"placeholder": "Введіть пароль"
+						"placeholder": "Введи пароль"
 					},
 					"password-confirm": {
 						"label": "Підтвердження пароля",
-						"placeholder": "Введіть підтвердження пароля"
+						"placeholder": "Введи підтвердження пароля"
 					},
 					"timezone": {
 						"inputs": {
 							"offset": {
 								"label": "Підтвердження пароля",
-								"placeholder": "Введіть підтвердження пароля"
+								"placeholder": "Введи підтвердження пароля"
 							}
 						}
 					}
@@ -560,9 +574,10 @@
 			"addSocialMedia": "Додати соціальну мережу",
 			"additional": "Додатково",
 			"address": "Адреса",
-			"approvalTime": "Час на підтвердження",
 			"approve": "Прийняти",
 			"attendees": "Учасники",
+			"autoActionOnEventInSeconds": "Час запуску автоматичної дії",
+			"autoActionTypeOnEvent": "Тип автоматичної дії",
 			"back": "Назад",
 			"bookingSettings": "Налаштування бронювання",
 			"break": "Перерва",

@@ -1,5 +1,5 @@
 {
-	"approvalTime": {
+	"autoActionOnEventInSeconds": {
 		"EIGHT_HOURS": "8 godzin",
 		"FIFTEEN_MINUTES": "15 minut",
 		"FIVE_HOURS": "5 godzin",
@@ -15,6 +15,10 @@
 		"THREE_HOURS": "3 godziny",
 		"TWENTY_MINUTES": "20 minut",
 		"TWO_HOURS": "2 godziny"
+	},
+	"autoActionTypeOnEvent": {
+		"APPROVE": "Zatwierdź",
+		"DENY": "Odrzuć"
 	},
 	"businessCategory": {
 		"Barbershop": "Barbershop",
@@ -100,9 +104,19 @@
 						"title": "Adres"
 					},
 					"bookingSettings": {
+						"hint": {
+							"autoActionOnEvent": {
+								"after": "za",
+								"finish": "po stworzeniu.",
+								"start": "Nowo utworzone wydarzenie/rezerwacja zostanie automatycznie utworzone"
+							}
+						},
 						"input": {
-							"approvalTime": {
-								"placeholder": "Czas, po którym niezatwierdzona rezerwacja zostanie anulowana"
+							"autoActionOnEventInSeconds": {
+								"placeholder": "Wybierz czas po jakim ma się rozpocząć wybrana akcja automatyczna dla nowo utworzonej rezerwacji/wydarzenia"
+							},
+							"autoActionTypeOnEvent": {
+								"placeholder": "Wybierz typ akcji, która ma nastąpić automatycznie dla nowo utworzonej rezerwacji/wydarzenia"
 							},
 							"earliestBooking": {
 								"placeholder": "Określa najkrótszy dostępny czas przed umożliwieniem rezerwacji usługi"
@@ -562,9 +576,10 @@
 			"addSocialMedia": "Dodaj media społecznościowe",
 			"additional": "Dodatkowe",
 			"address": "Adres",
-			"approvalTime": "Czas zatwierdzania",
 			"approve": "Zatwierdź",
 			"attendees": "Uczestnicy",
+			"autoActionOnEventInSeconds": "Czas rozpoczęcia automatycznego działania",
+			"autoActionTypeOnEvent": "Rodzaj akcji automatycznej",
 			"back": "Wstecz",
 			"bookingSettings": "Ustawienia rezerwacji",
 			"break": "Przerwa",

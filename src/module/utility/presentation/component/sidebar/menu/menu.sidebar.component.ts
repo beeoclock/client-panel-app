@@ -6,7 +6,6 @@ import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {SidebarService} from "@utility/presentation/component/sidebar/sidebar.service";
-import {SIDEBAR_ID} from "@src/token";
 import {environment} from "@environment/environment";
 
 interface IMenuItem {
@@ -36,9 +35,12 @@ interface IMenuItem {
 })
 export class MenuSidebarComponent {
 
-	public readonly sidebarId = inject(SIDEBAR_ID);
 	private readonly store = inject(Store);
 	private readonly sidebarService = inject(SidebarService);
+
+	public detectAutoClose() {
+		this.sidebarService.detectAutoClose();
+	}
 
 	public readonly menu: IMenuItem[] = [
 		{

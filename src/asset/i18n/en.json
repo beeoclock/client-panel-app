@@ -1,5 +1,5 @@
 {
-	"approvalTime": {
+	"autoActionOnEventInSeconds": {
 		"EIGHT_HOURS": "8 hours",
 		"FIFTEEN_MINUTES": "15 minutes",
 		"FIVE_HOURS": "5 hours",
@@ -15,6 +15,10 @@
 		"THREE_HOURS": "3 hours",
 		"TWENTY_MINUTES": "20 minutes",
 		"TWO_HOURS": "2 hours"
+	},
+	"autoActionTypeOnEvent": {
+		"APPROVE": "Approve",
+		"DENY": "Deny"
 	},
 	"businessCategory": {
 		"Barbershop": "Barbershop",
@@ -100,9 +104,19 @@
 						"title": "Address"
 					},
 					"bookingSettings": {
+						"hint": {
+							"autoActionOnEvent": {
+								"after": "in",
+								"finish": "after creation.",
+								"start": "The newly created event/reservation will be automatically"
+							}
+						},
 						"input": {
-							"approvalTime": {
-								"placeholder": "Time after which the requested event will be canceled, if not approved"
+							"autoActionOnEventInSeconds": {
+								"placeholder": "Choose the time after which the selected automatic action should start for the newly created reservation/event"
+							},
+							"autoActionTypeOnEvent": {
+								"placeholder": "Select the type of action that should take place automatically for the newly created reservation/event"
 							},
 							"earliestBooking": {
 								"placeholder": "That is the shortest time after which it is possible to book a service"
@@ -560,9 +574,11 @@
 			"addSocialMedia": "Add social media",
 			"additional": "Additional",
 			"address": "Address",
-			"approvalTime": "Approval time",
+			"approvalType": "Approval type",
 			"approve": "Approve",
 			"attendees": "Attendees",
+			"autoActionOnEventInSeconds": "Automatic action start time",
+			"autoActionTypeOnEvent": "Type of automatic action",
 			"back": "Back",
 			"bookingSettings": "Booking settings",
 			"break": "Break",

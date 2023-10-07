@@ -70,14 +70,18 @@ export class SidebarService {
 		this.#currentContent = SidebarContentEnum.PROFILE;
 	}
 
+	public detectAutoClose(): void {
+		if (this.autoCollapse) {
+			this.toggleSidebar(false);
+		}
+	}
+
 	public initialize(): void {
 
 		this.router.events.pipe(
 			filter((event) => event instanceof ActivationStart)
 		).subscribe(() => {
-			if (this.autoCollapse) {
-				this.toggleSidebar(false);
-			}
+			this.detectAutoClose();
 		});
 
 		if (this.autoCollapse) {

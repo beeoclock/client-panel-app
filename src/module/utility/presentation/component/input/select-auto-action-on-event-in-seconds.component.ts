@@ -2,23 +2,23 @@ import {ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation} fr
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {ApprovalTimeEnum} from "@utility/domain/enum/approval-time.enum";
+import {AutoActionOnEventInSecondsEnum} from "@utility/domain/enum/auto-action-on-event-in-seconds.enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({
-  selector: 'select-approval-time-component',
+  selector: 'select-auto-action-on-event-in-seconds-component',
   standalone: true,
   template: `
     <label default [for]="id">
-      {{ 'keyword.capitalize.approvalTime' | translate }}
+      {{ 'keyword.capitalize.autoActionOnEventInSeconds' | translate }}
     </label>
     <div class="text-sm text-beeColor-500">
-      {{ 'client.profile.form.section.bookingSettings.input.approvalTime.placeholder' | translate }}
+      {{ 'client.profile.form.section.bookingSettings.input.autoActionOnEventInSeconds.placeholder' | translate }}
     </div>
     <ng-select
       bindLabel="name"
       bindValue="seconds"
-      [items]="approvalTimeList"
+      [items]="autoActionOnEventInSecondsList"
       [clearable]="false"
       [id]="id"
       [formControl]="control">
@@ -33,7 +33,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 	],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectApprovalTimeComponent {
+export class SelectAutoActionOnEventInSecondsComponent {
 
   @Input()
   public id = '';
@@ -43,12 +43,12 @@ export class SelectApprovalTimeComponent {
 
   public readonly translateService = inject(TranslateService);
 
-  public readonly approvalTimeList = Object.values(ApprovalTimeEnum)
-    .filter((approvalTimeName) => typeof approvalTimeName === 'string')
-    .map((approvalTimeName) => {
+  public readonly autoActionOnEventInSecondsList = Object.values(AutoActionOnEventInSecondsEnum)
+    .filter((autoActionOnEventInSecondsValue) => typeof autoActionOnEventInSecondsValue === 'string')
+    .map((autoActionOnEventInSecondsValue) => {
       return {
-        name: this.translateService.instant(`approvalTime.${approvalTimeName}`),
-        seconds: ApprovalTimeEnum[approvalTimeName as keyof typeof ApprovalTimeEnum]
+        name: this.translateService.instant(`autoActionOnEventInSeconds.${autoActionOnEventInSecondsValue}`),
+        seconds: AutoActionOnEventInSecondsEnum[autoActionOnEventInSecondsValue as keyof typeof autoActionOnEventInSecondsValue]
       };
     });
 

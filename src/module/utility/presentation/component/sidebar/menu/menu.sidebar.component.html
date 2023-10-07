@@ -52,6 +52,7 @@
 						<a
 							(isActiveChange)="$event && buttonOfSubMenu.removeAttribute('data-close')"
 							[routerLink]="subItem.url"
+							(click)="detectAutoClose()"
 							[attr.target]="item.target"
 							[class.disabled]="item.disabled ?? false"
 							[routerLinkActiveOptions]="subItem.routerLinkActiveOptions"
@@ -79,6 +80,7 @@
 			<ng-container *ngIf="!item?.items">
 
 				<a
+					(click)="detectAutoClose()"
 					[routerLink]="item.url"
 					[attr.target]="item.target"
 					[class.disabled]="item.disabled ?? false"

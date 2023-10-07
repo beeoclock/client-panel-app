@@ -11,7 +11,6 @@ import {filter, firstValueFrom, Observable} from "rxjs";
 import {Select, Store} from "@ngxs/store";
 import {EventState} from "@event/state/event/event.state";
 import {EventActions} from "@event/state/event/event.actions";
-import {SelectTimeSlotComponent} from "@event/presentation/component/form/select-time-slot/select-time-slot.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {ServicesComponent} from "@event/presentation/component/form/services/services.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
@@ -23,6 +22,11 @@ import {NgIf} from "@angular/common";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
 import {NGXLogger} from "ngx-logger";
 import {IService} from "@service/domain";
+import {
+	SelectTimeSlotComponent
+} from "@event/presentation/component/form/select-time-slot/index/select-time-slot.component";
+import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'event-form-page',
@@ -34,7 +38,6 @@ import {IService} from "@service/domain";
 		BackLinkComponent,
 		FormsModule,
 		TranslateModule,
-		SelectTimeSlotComponent,
 		FormTextareaComponent,
 		AttendeesComponent,
 		ServicesComponent,
@@ -43,10 +46,11 @@ import {IService} from "@service/domain";
 		GeneralDetailsComponent,
 		NgIf,
 		LinkButtonDirective,
+		SelectTimeSlotComponent,
 	],
 	standalone: true
 })
-export default class Index implements OnInit {
+export default class Index extends Reactive implements OnInit {
 
 	// TODO move functions to store effects/actions
 
@@ -54,6 +58,7 @@ export default class Index implements OnInit {
 
 	private readonly store = inject(Store);
 	public readonly activatedRoute = inject(ActivatedRoute);
+	public readonly slotsService = inject(SlotsService);
 	public readonly router = inject(Router);
 	private readonly logger = inject(NGXLogger);
 
@@ -70,10 +75,23 @@ export default class Index implements OnInit {
 		return this.form.getRawValue() as IEvent;
 	}
 
+	constructor() {
+		super();
+	}
+
 	public ngOnInit(): void {
 		this.detectItem();
-		this.form.controls.services.valueChanges.subscribe((services) => {
-			this.setSpecialist(services);
+		this.form.controls.services.valueChanges.pipe(
+			this.takeUntil(),
+			filter((services) => !!services?.length)
+		).subscribe(([firstService]) => {
+
+			this.setSpecialist(firstService);
+
+			this.slotsService.setSpecialist(this.specialist);
+			this.slotsService.setEventDurationInSeconds(this.getEventDurationInSeconds(firstService));
+			this.slotsService.refillSlotsIfInitialized().then();
+
 		});
 	}
 
@@ -87,14 +105,9 @@ export default class Index implements OnInit {
 		}
 	}
 
-	private setSpecialist(services: IService[]): void {
-		const [firstService] = services;
+	private setSpecialist(service: IService): void {
 
-		if (!firstService) {
-			return;
-		}
-
-		const [firstSpecialist] = firstService?.specialists ?? [];
+		const [firstSpecialist] = service?.specialists ?? [];
 
 		if (!firstSpecialist) {
 			return;
