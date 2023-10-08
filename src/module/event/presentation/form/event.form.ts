@@ -55,13 +55,14 @@ export class EventForm extends FormGroup<IEventForm> {
 
 	public initHandler(): void {
 		this.controls.start.valueChanges.subscribe((value) => {
-			if (this.controls.services.value.length) {
-				const service = this.controls.services.value[0];
-				const durationVersion = service.durationVersions[0];
-				const end = new Date(value);
-				end.setSeconds(Number(new Date(value).getSeconds() + durationVersion.durationInSeconds));
-				this.controls.end.patchValue(end.toISOString());
+			const [firstService] = this.controls.services.value;
+			if (!firstService) {
+				return;
 			}
+			const [firstDurationVersion] = firstService.durationVersions;
+			const end = new Date(value);
+			end.setSeconds(Number(new Date(value).getSeconds() + (firstDurationVersion.durationInSeconds ?? 0) + (firstDurationVersion.breakInSeconds ?? 0)));
+			this.controls.end.patchValue(end.toISOString());
 		});
 	}
 

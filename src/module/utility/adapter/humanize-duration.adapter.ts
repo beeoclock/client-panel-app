@@ -19,6 +19,15 @@ export class HumanizeDurationAdapter {
 		);
 	}
 
+	public formatISO(iso: string): string {
+		return humanizeDuration(
+			Duration.fromISO(iso).as('milliseconds'),
+			{
+				language: this.translateService.currentLang
+			}
+		);
+	}
+
 	public fromSeconds(durationSeconds: number): string {
 		return humanizeDuration(
 			durationSeconds * 1000,

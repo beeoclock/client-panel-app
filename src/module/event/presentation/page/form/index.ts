@@ -14,7 +14,6 @@ import {EventActions} from "@event/state/event/event.actions";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {ServicesComponent} from "@event/presentation/component/form/services/services.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {environment} from "@environment/environment";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {GeneralDetailsComponent} from "@event/presentation/component/details/general.details.component";
 import {BooleanState} from "@utility/domain";
@@ -140,7 +139,7 @@ export default class Index extends Reactive implements OnInit {
 
 					if (dataFromRoute?.repeat) {
 
-						const {start, end, status, _id, ...initialValue} = rest;
+						const {status, _id, ...initialValue} = rest;
 
 						this.form.patchValue(initialValue);
 
@@ -178,6 +177,7 @@ export default class Index extends Reactive implements OnInit {
 
 		this.form.updateValueAndValidity();
 		this.form.markAllAsTouched();
+		this.logger.debug(`Event:save:${this.form.status}`, this.form, this.form.getRawValue());
 
 		if (this.form.valid) {
 
@@ -210,16 +210,13 @@ export default class Index extends Reactive implements OnInit {
 			this.form.enable();
 			this.form.updateValueAndValidity();
 
-		} else {
-			if (!environment.production) {
-				this.logger.error('Event:form', this.form, this.form.getRawValue());
-			}
 		}
 	}
 
 	public goToPreview(): void {
 		this.form.updateValueAndValidity();
 		this.form.markAllAsTouched();
+		this.logger.debug(`Event:goToPreview:${this.form.status}`, this.form, this.form.getRawValue());
 		if (this.form.valid) {
 			this.preview.switchOn();
 		}

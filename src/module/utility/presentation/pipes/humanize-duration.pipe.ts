@@ -14,8 +14,10 @@ export class HumanizeDurationPipe implements PipeTransform {
 	 * @param value
 	 * @param type
 	 */
-	public transform(value: string | number, type: 'duration' | 'seconds' = 'seconds'): string {
+	public transform(value: string | number, type: 'duration' | 'iso' | 'seconds' = 'seconds'): string {
 		switch (type) {
+			case 'iso':
+				return this.humanizeDurationAdapter.formatISO(value as string);
 			case 'duration':
 				return this.humanizeDurationAdapter.formatDuration(value as string);
 			case 'seconds':

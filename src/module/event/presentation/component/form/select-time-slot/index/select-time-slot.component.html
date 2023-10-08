@@ -5,12 +5,22 @@
 		<utility-invalid-message [class.hidden]="control.untouched || control.valid" [control]="control"/>
 	</div>
 
-	<event-select-time-slot-date-form-component
-		[control]="control"
-		[localDateTimeControl]="localDateTimeControl"/>
+	<ng-container *ngIf="editable">
 
-	<event-select-time-slot-time-form-component
-		[localDateTimeControl]="localDateTimeControl"
-		[control]="control"/>
+		<event-select-time-slot-date-form-component
+			[control]="control"
+			[localDateTimeControl]="localDateTimeControl"/>
+
+		<event-select-time-slot-time-form-component
+			[localDateTimeControl]="localDateTimeControl"
+			[control]="control"/>
+
+	</ng-container>
+
+	<ng-container *ngIf="!editable">
+
+		{{ control.value | dynamicDate }}
+
+	</ng-container>
 
 </div>

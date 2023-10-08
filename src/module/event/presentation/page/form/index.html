@@ -55,6 +55,7 @@
 
         <bee-card *ngIf="specialist">
           <event-select-time-slot-form-component
+						[editable]="!isEditMode"
 						[control]="form.controls.start"/>
         </bee-card>
 
