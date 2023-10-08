@@ -9,9 +9,11 @@ import {IBookingSettings} from "@client/domain/interface/i.booking-settings";
 import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
 import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
 import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
+import {BusinessClientStatusEnum} from "@client/domain/enum/business-client-status.enum";
 
 export interface RIClient extends RIBaseEntity {
 	object: 'Client';
+	status: BusinessClientStatusEnum;
 	published: ActiveEnum;
 	name: string;
 	logo: string;
