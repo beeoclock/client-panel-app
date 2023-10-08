@@ -44,7 +44,8 @@ export const customerEndpoint: EndpointCollectionType = {
 				success: {
 					notification: {
 						execute: (translateService: TranslateService) => {
-							const {title, message} = translateService.instant('http.POST./api/v1/customer.after.success');
+							const key = `http.POST.${customerEndpointEnum.create}.after.success`;
+							const {title, message} = translateService.instant(key);
 							return {
 								title,
 								message

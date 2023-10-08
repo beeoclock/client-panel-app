@@ -44,29 +44,33 @@ import {
 	UpdateBusinessProfileApiAdapter
 } from "@client/adapter/external/api/buisness-profile/update.business-profile.api.adapter";
 import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
+import {DangerZoneComponent} from "@client/presentation/component/danger-zone/danger-zone.component";
+import {ServiceSettingsComponent} from "@client/presentation/component/settings/service/service.settings.component";
 
 @Component({
 	selector: 'client-business-profile-page',
 	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
-	imports: [
-		FormBusinessProfileComponent,
-		ReactiveFormsModule,
-		TranslateModule,
-		CoverImageBusinessProfileComponent,
-		LogoBusinessProfileComponent,
-		SwitchActiveBlockComponent,
-		AddressBusinessProfileComponent,
-		GalleryBusinessProfileComponent,
-		SchedulesFormComponent,
-		BusinessProfileContactPhoneComponent,
-		BusinessProfileSocialMediaComponent,
-		FacilitiesBusinessProfileComponent,
-		BookingSettingsBusinessProfileComponent,
-		PrimaryButtonDirective,
-		AsyncPipe,
-		NgIf
-	],
+    imports: [
+        FormBusinessProfileComponent,
+        ReactiveFormsModule,
+        TranslateModule,
+        CoverImageBusinessProfileComponent,
+        LogoBusinessProfileComponent,
+        SwitchActiveBlockComponent,
+        AddressBusinessProfileComponent,
+        GalleryBusinessProfileComponent,
+        SchedulesFormComponent,
+        BusinessProfileContactPhoneComponent,
+        BusinessProfileSocialMediaComponent,
+        FacilitiesBusinessProfileComponent,
+        BookingSettingsBusinessProfileComponent,
+        PrimaryButtonDirective,
+        AsyncPipe,
+        NgIf,
+        DangerZoneComponent,
+        ServiceSettingsComponent
+    ],
 	standalone: true
 })
 export default class Index implements OnInit {

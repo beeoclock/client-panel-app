@@ -1,4 +1,4 @@
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from "@angular/common/http";
 import {inject, Injectable, Injector} from "@angular/core";
 import {ToastController} from "@ionic/angular";
 import {Endpoint} from "@utility/domain/endpoint";
@@ -27,11 +27,15 @@ export class NotificationInterceptor implements HttpInterceptor {
 		this.logger.info(NotificationInterceptor.name, 'constructor')
 	}
 
-	public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+	public intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
 		// log using translate service
 		return next.handle(request).pipe(
-			tap(() => {
+			tap((httpEvent) => {
+
+				if (!(httpEvent instanceof HttpResponse)) {
+					return; // If it is request, then return
+				}
 
 				const endpoint = Endpoint.endpointMap[request.method as RequestMethodEnum].get(request.url) ?? {} as EndpointInterface;
 

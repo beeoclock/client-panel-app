@@ -215,7 +215,9 @@ export class ButtonsDetailsComponent {
 		this.logger.debug(`postStatusChange: ${newStatus}`);
 		const {action, from, redirectUri} = this.activatedRoute.snapshot.queryParams;
 		this.logger.debug(`action: ${action}, from: ${from}, redirectUri: ${redirectUri}`);
-		this.router.navigate([redirectUri ?? '/']).then()
+		if (redirectUri) {
+			this.router.navigate([redirectUri ?? '/']).then();
+		}
 	}
 
 }

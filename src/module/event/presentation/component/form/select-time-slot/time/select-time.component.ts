@@ -202,10 +202,7 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 
 	public selectDateItem(datetime: DateTime): void {
 		this.selectedDateTime = datetime;
-		this.control.patchValue(datetime.toUTC().toISO() as string, {
-			emitEvent: false,
-			onlySelf: true
-		});
+		this.control.patchValue(datetime.toUTC().toISO() as string);
 		this.localDateTimeControl.patchValue(datetime, {
 			emitEvent: false,
 			onlySelf: true

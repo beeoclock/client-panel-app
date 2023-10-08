@@ -1,4 +1,11 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, ViewEncapsulation} from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	HostListener,
+	inject,
+	ViewEncapsulation
+} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
@@ -15,6 +22,7 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 import {FormInputPasswordComponent} from "@utility/presentation/component/input/form.input.password.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {ToastController} from "@ionic/angular";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
 	selector: 'identity-sign-in-component',
@@ -87,6 +95,13 @@ export class SignInComponent {
 	private readonly translateService = inject(TranslateService);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly store = inject(Store);
+	private readonly logger = inject(NGXLogger);
+
+	@HostListener('window:keyup.enter', ['$event'])
+	public async onEnter(event: KeyboardEvent): Promise<void> {
+		this.logger.debug('onEnter', event);
+		await this.signIn();
+	}
 
 	public async signIn(): Promise<void> {
 

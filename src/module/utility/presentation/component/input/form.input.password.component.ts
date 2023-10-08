@@ -51,7 +51,8 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
           sm:leading-6">
       <button
         (click)="passwordInput.type = passwordInput.type === 'text' ? 'password' : 'text'"
-        class="
+				type="button"
+				class="
           px-3
           rounded-r-md
           hover:bg-beeColor-100

@@ -13,68 +13,72 @@ import {IsRequiredDirective} from "@utility/presentation/directives/is-required/
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {DefaultInputDirective} from "@utility/presentation/directives/input/default.input.directive";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
+import {FloatingLabelDirective} from "@utility/presentation/directives/label/floating.label.directive";
+import {FloatingInputDirective} from "@utility/presentation/directives/input/floating.input.directive";
 
 @Component({
-  selector: 'form-input',
-  standalone: true,
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    IsRequiredDirective,
-    InvalidTooltipDirective,
-    ReactiveFormsModule,
-    NgIf,
-    DefaultInputDirective,
-    DefaultLabelDirective,
-  ],
-  template: `
-    <label default *ngIf="showLabel" [for]="id">
-      {{ label }}
-    </label>
-    <input
-      isRequired
-      invalidTooltip
-      default
-      [isRequiredEnabled]="showLabel"
-      [class.disabled]="disabled"
-      [formControl]="control"
-      [placeholder]="placeholder"
-      [id]="id"
-      [type]="type"
-      [autocomplete]="autocomplete">
-  `
+	selector: 'form-input',
+	standalone: true,
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [
+		IsRequiredDirective,
+		InvalidTooltipDirective,
+		ReactiveFormsModule,
+		NgIf,
+		DefaultInputDirective,
+		DefaultLabelDirective,
+		FloatingLabelDirective,
+		FloatingInputDirective,
+	],
+	template: `
+		<label default *ngIf="showLabel" [for]="id">
+			{{ label }}
+		</label>
+		<input
+			isRequired
+			invalidTooltip
+			default
+			[isRequiredEnabled]="showLabel"
+			[class.disabled]="disabled"
+			[formControl]="control"
+			[placeholder]="placeholder"
+			[id]="id"
+			[type]="type"
+			[autocomplete]="autocomplete"/>
+	`
 })
 export class FormInputComponent implements DoCheck {
 
-  @Input()
-  public label = 'todo';
+	@Input()
+	public label = 'todo';
 
-  @Input()
-  public showLabel = true;
+	@Input()
+	public showLabel = true;
 
-  @Input()
-  public id = 'utility-base-input';
+	@Input()
+	public id = 'utility-base-input';
 
-  @Input()
-  public type = 'text';
+	@Input()
+	public type = 'text';
 
-  @Input()
-  public placeholder = '';
+	@Input()
+	public placeholder = '';
 
-  @Input()
-  public autocomplete = '';
+	@Input()
+	public autocomplete = '';
 
-  @Input()
-  public disabled = false;
+	@Input()
+	public disabled = false;
 
-  @Input()
-  public control!: FormControl;
+	@Input()
+	public control!: FormControl;
 
-  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
-  public ngDoCheck(): void {
+	public ngDoCheck(): void {
 		this.changeDetectorRef.detectChanges();
-  }
+	}
 
 
 }
