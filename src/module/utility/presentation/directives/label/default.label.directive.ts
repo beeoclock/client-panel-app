@@ -7,7 +7,7 @@ import {Directive, HostBinding} from "@angular/core";
 })
 export class DefaultLabelDirective {
 
-  @HostBinding('class')
+  @HostBinding()
   public class: string[] = [
     'dark:text-beeDarkColor-300',
     'block',
