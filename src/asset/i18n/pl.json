@@ -354,6 +354,40 @@
 				}
 			}
 		},
+		"PATCH": {
+			"/api/v1/event/{id}/booked": {
+				"after": {
+					"success": {
+						"header": "Wydarzenie zarezerwowane",
+						"message": "Wydarzenie zostało pomyślnie zarezerwowane"
+					}
+				}
+			},
+			"/api/v1/event/{id}/cancelled": {
+				"after": {
+					"success": {
+						"header": "Wydarzenie anulowane",
+						"message": "Event was successfully cancelled."
+					}
+				}
+			},
+			"/api/v1/event/{id}/done": {
+				"after": {
+					"success": {
+						"header": "Wydarzenie zakończone",
+						"message": "Wydarzenie zostało pomyślnie zakończone"
+					}
+				}
+			},
+			"/api/v1/event/{id}/requested": {
+				"after": {
+					"success": {
+						"header": "Wydarzenie zakończone",
+						"message": "Wydarzenie zostało pomyślnie zakończone"
+					}
+				}
+			}
+		},
 		"POST": {
 			"/api/v1/customer": {
 				"after": {
@@ -386,40 +420,6 @@
 					"success": {
 						"header": "Profil biznesowy",
 						"message": "Profil biznesowy został zaktualizowany."
-					}
-				}
-			}
-		},
-		"PATCH": {
-			"/api/v1/event/{id}/booked": {
-				"after": {
-					"success": {
-						"header": "Wydarzenie zarezerwowane",
-						"message": "Wydarzenie zostało pomyślnie zarezerwowane"
-					}
-				}
-			},
-			"/api/v1/event/{id}/cancelled": {
-				"after": {
-					"success": {
-						"header": "Wydarzenie anulowane",
-						"message": "Event was successfully cancelled."
-					}
-				}
-			},
-			"/api/v1/event/{id}/done": {
-				"after": {
-					"success": {
-						"header": "Wydarzenie zakończone",
-						"message": "Wydarzenie zostało pomyślnie zakończone"
-					}
-				}
-			},
-			"/api/v1/event/{id}/requested": {
-				"after": {
-					"success": {
-						"header": "Wydarzenie zakończone",
-						"message": "Wydarzenie zostało pomyślnie zakończone"
 					}
 				}
 			}
@@ -840,6 +840,10 @@
 			}
 		},
 		"title": "Wyloguj się"
+	},
+	"updateAvailable": {
+		"header": "Nowa wersja",
+		"message": "Dostępna jest nowa wersja aplikacji, czy chcesz zaktualizować?"
 	},
 	"weekday": {
 		"long": {

@@ -5,6 +5,7 @@ import {AlertController} from "@ionic/angular";
 import {ONE_HOUR_IN_SECONDS} from "@utility/domain/time";
 import {concat, first, interval} from "rxjs";
 import {is} from "thiis";
+import {TranslateService} from "@ngx-translate/core";
 
 @Injectable({
 	providedIn: 'root'
@@ -15,6 +16,7 @@ export class CheckForUpdatePwaService {
 	private readonly logger = inject(NGXLogger);
 	private readonly swUpdate = inject(SwUpdate);
 	private readonly applicationRef = inject(ApplicationRef);
+	private readonly translateService = inject(TranslateService);
 
 	public initialize(): void {
 		const isEnabled = this.swUpdate.isEnabled;
@@ -31,7 +33,23 @@ export class CheckForUpdatePwaService {
 			this.logger.debug('Current version is', event.current);
 			this.logger.debug('Available version is', event.available);
 
-			this.alertController.create({})
+			const header = this.translateService.instant('updateAvailable.header');
+			const message = this.translateService.instant('updateAvailable.message');
+
+			this.alertController.create({
+				header,
+				message,
+				buttons: [
+					{
+						text: this.translateService.instant('keyword.capitalize.no'),
+						role: 'cancel',
+					},
+					{
+						text: this.translateService.instant('keyword.capitalize.yes'),
+						role: 'confirm',
+					},
+				]
+			})
 				.then(async (alert) => {
 
 					await alert.present();
