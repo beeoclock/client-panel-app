@@ -380,6 +380,16 @@
 				}
 			}
 		},
+		"PUT": {
+			"/api/v1/business-profile": {
+				"after": {
+					"success": {
+						"header": "Profil biznesowy",
+						"message": "Profil biznesowy został zaktualizowany."
+					}
+				}
+			}
+		},
 		"response": {
 			"status": {
 				"504": {

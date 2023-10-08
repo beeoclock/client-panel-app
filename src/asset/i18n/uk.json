@@ -378,6 +378,16 @@
 				}
 			}
 		},
+		"PUT": {
+			"/api/v1/business-profile": {
+				"after": {
+					"success": {
+						"header": "Профіль бізнесу",
+						"message": "Профіль бізнесу успішно оновлено."
+					}
+				}
+			}
+		},
 		"response": {
 			"status": {
 				"504": {

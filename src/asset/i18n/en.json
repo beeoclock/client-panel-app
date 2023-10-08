@@ -378,6 +378,16 @@
 				}
 			}
 		},
+		"PUT": {
+			"/api/v1/business-profile": {
+				"after": {
+					"success": {
+						"header": "Business profile",
+						"message": "Business profile was successfully updated."
+					}
+				}
+			}
+		},
 		"response": {
 			"status": {
 				"504": {
