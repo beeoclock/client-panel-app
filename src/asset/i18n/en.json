@@ -388,6 +388,40 @@
 				}
 			}
 		},
+		"PATCH": {
+			"/api/v1/event/{id}/booked": {
+				"after": {
+					"success": {
+						"header": "Event booked",
+						"message": "Event was successfully booked."
+					}
+				}
+			},
+			"/api/v1/event/{id}/cancelled": {
+				"after": {
+					"success": {
+						"header": "Event cancelled",
+						"message": "Event was successfully cancelled."
+					}
+				}
+			},
+			"/api/v1/event/{id}/done": {
+				"after": {
+					"success": {
+						"header": "Event done",
+						"message": "Event was successfully done."
+					}
+				}
+			},
+			"/api/v1/event/{id}/requested": {
+				"after": {
+					"success": {
+						"header": "Event requested",
+						"message": "Event was successfully requested."
+					}
+				}
+			}
+		},
 		"response": {
 			"status": {
 				"504": {

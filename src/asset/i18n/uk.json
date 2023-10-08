@@ -388,10 +388,44 @@
 				}
 			}
 		},
+		"PATCH": {
+			"/api/v1/event/{id}/booked": {
+				"after": {
+					"success": {
+						"header": "Подія заброньована",
+						"message": "Подія успішно заброньована."
+					}
+				}
+			},
+			"/api/v1/event/{id}/cancelled": {
+				"after": {
+					"success": {
+						"header": "Подія скасована",
+						"message": "Подія успішно скасована."
+					}
+				}
+			},
+			"/api/v1/event/{id}/done": {
+				"after": {
+					"success": {
+						"header": "Подія виконана",
+						"message": "Подія успішно виконана."
+					}
+				}
+			},
+			"/api/v1/event/{id}/requested": {
+				"after": {
+					"success": {
+						"header": "Подія запитана",
+						"message": "Подія успішно запитана."
+					}
+				}
+			}
+		},
 		"response": {
 			"status": {
 				"504": {
-					"content": "Перевірте інтернет або спробуйте пізніше.",
+					"content": "Перевірте інтернет або спробуй пізніше.",
 					"title": "Помилка сервера"
 				}
 			}
