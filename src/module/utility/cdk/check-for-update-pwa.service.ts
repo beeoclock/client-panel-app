@@ -2,10 +2,10 @@ import {ApplicationRef, inject, Injectable} from "@angular/core";
 import {SwUpdate} from "@angular/service-worker";
 import {NGXLogger} from "ngx-logger";
 import {AlertController} from "@ionic/angular";
-import {ONE_HOUR_IN_SECONDS} from "@utility/domain/time";
 import {concat, first, interval} from "rxjs";
 import {is} from "thiis";
 import {TranslateService} from "@ngx-translate/core";
+import {SECONDS_TEN_MINUTES} from "@utility/domain/const/c.time";
 
 @Injectable({
 	providedIn: 'root'
@@ -23,7 +23,7 @@ export class CheckForUpdatePwaService {
 		this.logger.info(`Check for update is ${isEnabled ? 'enabled' : 'disabled'}`);
 		if (isEnabled) {
 			this.promptOnUpdateAvailable();
-			this.checkForUpdateAfterInterval(ONE_HOUR_IN_SECONDS);
+			this.checkForUpdateAfterInterval(SECONDS_TEN_MINUTES);
 		}
 	}
 
