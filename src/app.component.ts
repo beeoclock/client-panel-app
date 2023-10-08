@@ -12,6 +12,7 @@ import {filter} from "rxjs";
 import {is} from "thiis";
 import {SplashScreenService} from "@utility/cdk/splash-screen.service";
 import {ThemeService} from "@utility/cdk/theme.service";
+import {CheckForUpdatePwaService} from "@utility/cdk/check-for-update-pwa.service";
 
 @Component({
   selector: 'app-root',
@@ -29,11 +30,13 @@ export class AppComponent implements AfterViewInit {
   private readonly languageService = inject(LanguageService);
   private readonly themeService = inject(ThemeService);
   private readonly splashScreenService = inject(SplashScreenService);
+  private readonly checkForUpdatePwaService = inject(CheckForUpdatePwaService);
   private readonly document = inject(DOCUMENT);
 
   constructor() {
     this.languageService.initialize();
     this.themeService.initialize();
+		this.checkForUpdatePwaService.initialize();
   }
 
   public ngAfterViewInit(): void {

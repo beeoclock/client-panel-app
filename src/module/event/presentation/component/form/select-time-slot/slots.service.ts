@@ -1,11 +1,12 @@
 import {inject, Injectable} from "@angular/core";
 import {SlotsEventApiAdapter} from "@event/adapter/external/api/slots.event.api.adapter";
-import {SECONDS_ONE_HOUR, SECONDS_TEN_MINUTES} from "@utility/domain/const/c.time";
+import {SECONDS_TEN_MINUTES} from "@utility/domain/const/c.time";
 import {NGXLogger} from "ngx-logger";
 import {BooleanState} from "@utility/domain";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {SelectTimeComponent} from "@event/presentation/component/form/select-time-slot/time/select-time.component";
 import hash_sum from "hash-sum";
+import {ONE_HOUR_IN_SECONDS} from "@utility/domain/time";
 
 @Injectable({
 	providedIn: 'root'
@@ -20,7 +21,7 @@ export class SlotsService {
 	public readonly loader = new BooleanStreamState(false);
 	public readonly initialized = new BooleanState(false);
 	#specialist: string | undefined;
-	#eventDurationInSeconds = SECONDS_ONE_HOUR;
+	#eventDurationInSeconds = ONE_HOUR_IN_SECONDS;
 	#getFreeSlotsDto: {
 		specialist: string;
 		start: string;
@@ -55,7 +56,7 @@ export class SlotsService {
 	) {
 
 		if (this.initialized.isOff) {
-			this.logger.debug('Initialized: First time init');
+			this.logger.debug('Initialized: First time initialize');
 			this.initialized.switchOn();
 		}
 
