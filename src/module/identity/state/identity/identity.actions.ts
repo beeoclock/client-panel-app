@@ -24,4 +24,8 @@ export namespace IdentityActions {
     public static readonly type = '[Identity API] Get Client';
   }
 
+	export class RefreshTokenExecute {
+		public static readonly type = '[Identity API] RefreshTokenExecute';
+	}
+
 }
