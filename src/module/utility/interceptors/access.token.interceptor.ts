@@ -1,4 +1,4 @@
-import {HttpErrorResponse, HttpHandlerFn, HttpInterceptorFn, HttpRequest, HttpResponse} from "@angular/common/http";
+import {HttpErrorResponse, HttpHandlerFn, HttpInterceptorFn, HttpRequest} from "@angular/common/http";
 import {catchError, exhaustMap, filter, switchMap, take, throwError} from "rxjs";
 import {inject} from "@angular/core";
 import {Store} from "@ngxs/store";
@@ -6,6 +6,7 @@ import {IdentityState} from "@identity/state/identity/identity.state";
 import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {Endpoint} from "@utility/domain/endpoint";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
+import {HttpStatusEnum} from "@utility/domain/enum/http-status.enum";
 
 /**
  * Set Authorization header to every request that has at config header.authorization = true
@@ -14,17 +15,19 @@ import {IdentityActions} from "@identity/state/identity/identity.actions";
  * @param next
  */
 export const AccessTokenInterceptor: HttpInterceptorFn = (request: HttpRequest<unknown>, next: HttpHandlerFn) => {
+// Get path from headers, path was set at prepareLocalHeaders
+	const path = request.headers.get('path');
 
-	const {header} = Endpoint.endpointMap[request.method as RequestMethodEnum].get(request.url) ?? {};
+	if (path) {
+		const {header} = Endpoint.endpointMap[request.method as RequestMethodEnum].get(path) ?? {};
 
-	if (header?.authorization) {
+		if (header?.authorization) {
 
-		const store = inject(Store);
+			const store = inject(Store);
 
-		return setAuthorizationToken(request, next, store).pipe(
-			catchError((response: HttpResponse<unknown>) => {
-				if (response instanceof HttpErrorResponse) {
-					if (response.status === 401) {
+			return setAuthorizationToken(request, next, store).pipe(
+				catchError((response) => {
+					if (response instanceof  HttpErrorResponse && response.status === HttpStatusEnum.Unauthorized) {
 						return store.select(IdentityState.refreshTokenInProgress)
 							.pipe(
 								take(1),
@@ -38,12 +41,12 @@ export const AccessTokenInterceptor: HttpInterceptorFn = (request: HttpRequest<u
 								})
 							);
 					}
-				}
 
-				return throwError(() => response);
-			})
-		);
+					return throwError(() => response);
+				})
+			);
 
+		}
 	}
 
 	return next(request);
