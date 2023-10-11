@@ -42,4 +42,9 @@ export class TableListComponent extends TableComponent {
 	@Input()
 	public tableState!: ITableState<IEvent>;
 
+	constructor() {
+		super();
+		console.log('TableListComponent');
+	}
+
 }

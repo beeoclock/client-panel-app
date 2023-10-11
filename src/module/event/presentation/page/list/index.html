@@ -2,7 +2,8 @@
 	<event-filter-component *ngIf="someDataExist.isOn"/>
 	<ng-container *ngIf="tableState$ | async as tableState">
 		<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
-			<event-table-list-component [tableState]="tableState"/>
+			<event-card-list-component *ngIf="isMobile$ | async" [tableState]="tableState"/>
+			<event-table-list-component *ngIf="isNotMobile$ | async" [tableState]="tableState"/>
 		</ng-container>
 		<ng-template #EmptyTemplate>
 			<not-found-table-data-component
