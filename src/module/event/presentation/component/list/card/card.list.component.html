@@ -1,0 +1,145 @@
+<div class="block max-w-full overflow-x-auto h-[calc(100vh-246px)] md:h-[calc(100vh-135px)]">
+	<div class="flex flex-col gap-4 my-4">
+		<bee-card class="text-sm" *ngFor="let item of tableState.items">
+			<div class="flex justify-between items-center">
+				<div class="flex items-center gap-2">
+					<div eventStatusStyle mode="text" [status]="item.status"></div>
+					<div>
+						<i class="bi bi-person"></i>
+						{{ item?.attendees?.length }}
+					</div>
+				</div>
+				<utility-table-column-action [id]="item._id!" (delete)="delete($event)"/>
+			</div>
+			<div>
+				<div>
+					{{ 'event.keyword.capitalize.service' | translate }}
+				</div>
+				<div class="font-bold">
+					{{ item?.services?.[0]?.languageVersions?.[0]?.title }}
+				</div>
+			</div>
+			<div class="flex justify-between">
+				<div class="flex-1">
+					<div>
+						{{ 'keyword.capitalize.duration' | translate }}
+					</div>
+					<div class="font-bold">
+						{{ item?.services?.[0]?.durationVersions?.[0]?.durationInSeconds ?? 0 | humanizeDuration }}
+					</div>
+				</div>
+				<div class="flex-1">
+					<div>
+						{{ 'keyword.capitalize.price' | translate }}
+					</div>
+					<div class="font-bold">
+						{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow'  }}
+					</div>
+				</div>
+			</div>
+			<div class="flex justify-between">
+				<div class="flex-1">
+					<div>
+						{{ 'event.keyword.capitalize.start' | translate }}
+					</div>
+					<div class="font-bold">
+						{{ (item.start ? (item.start | dynamicDate) : null) ?? 'Invalid Time' }}
+					</div>
+				</div>
+				<div class="flex-1">
+					<div>
+						{{ 'event.keyword.capitalize.end' | translate }}
+					</div>
+					<div class="font-bold">
+						{{ (item.end ? (item.end | dynamicDate) : null) ?? 'Invalid Time' }}
+					</div>
+				</div>
+			</div>
+			<div class="flex justify-between text-neutral-500">
+				<div class="flex-1">
+					<div>
+						{{ 'keyword.capitalize.createdAt' | translate }}
+					</div>
+					<div class="font-bold">
+						{{ item.createdAt | dynamicDate }}
+					</div>
+				</div>
+				<div class="flex-1">
+					<div>
+						{{ 'keyword.capitalize.updatedAt' | translate }}
+					</div>
+					<div class="font-bold">
+						{{ item.updatedAt | dynamicDate }}
+					</div>
+				</div>
+			</div>
+		</bee-card>
+	</div>
+<!--	<table class="w-full text-sm text-left text-beeColor-500 dark:text-beeDarkColor-400">-->
+<!--		<thead-->
+<!--			class="text-xs text-beeColor-700 uppercase border-b border-beeColor-300 dark:border-beeDarkColor-700 dark:bg-beeDarkColor-800 dark:text-beeDarkColor-400">-->
+<!--		<tr>-->
+<!--			&lt;!&ndash;			<th scope="col" class="p-4">&ndash;&gt;-->
+<!--			&lt;!&ndash;				<div class="flex items-center">&ndash;&gt;-->
+<!--			&lt;!&ndash;					<input id="checkbox-all" type="checkbox"&ndash;&gt;-->
+<!--			&lt;!&ndash;								 class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeDarkColor-800 dark:focus:ring-offset-beeDarkColor-800 focus:ring-2 dark:bg-beeDarkColor-700 dark:border-beeDarkColor-300">&ndash;&gt;-->
+<!--			&lt;!&ndash;					<label for="checkbox-all" class="sr-only">checkbox</label>&ndash;&gt;-->
+<!--			&lt;!&ndash;				</div>&ndash;&gt;-->
+<!--			&lt;!&ndash;			</th>&ndash;&gt;-->
+<!--			<th scope="col" class="px-6 py-3">-->
+<!--				{{ 'keyword.capitalize.attendees' | translate }}-->
+<!--			</th>-->
+<!--			<th scope="col" class="px-6 py-3">-->
+<!--				{{ 'event.keyword.capitalize.service' | translate }}-->
+<!--			</th>-->
+<!--			<th scope="col" class="px-6 py-3">-->
+<!--			</th>-->
+<!--			<th scope="col" class="px-6 py-3">-->
+
+<!--			</th>-->
+<!--			<th scope="col" class="px-6 py-3" data-orderBy="start">-->
+<!--				<div class="flex gap-3 items-center">-->
+<!--					{{ 'event.keyword.capitalize.start' | translate }}-->
+<!--					<utility-sort-indicator-->
+<!--						orderBy="start"-->
+<!--						[tableState]="tableState"/>-->
+<!--				</div>-->
+<!--			</th>-->
+<!--			<th scope="col" class="px-6 py-3" data-orderBy="end">-->
+<!--				<div class="flex gap-3 items-center">-->
+<!--					{{ 'event.keyword.capitalize.end' | translate }}-->
+<!--					<utility-sort-indicator-->
+<!--						orderBy="end"-->
+<!--						[tableState]="tableState"/>-->
+<!--				</div>-->
+<!--			</th>-->
+<!--			<th scope="col" class="px-6 py-3" data-orderBy="status">-->
+<!--				<div class="flex gap-3 items-center">-->
+<!--				{{ 'event.keyword.capitalize.status' | translate }}-->
+<!--				<utility-sort-indicator-->
+<!--					orderBy="status"-->
+<!--					[tableState]="tableState"/>-->
+<!--				</div>-->
+<!--			</th>-->
+<!--			<th scope="col" class="px-6 py-3" data-orderBy="createdAt">-->
+<!--				<div class="flex gap-3 items-center">-->
+<!--				{{ 'keyword.capitalize.createdAt' | translate }}-->
+<!--				<utility-sort-indicator-->
+<!--					orderBy="createdAt"-->
+<!--					[tableState]="tableState"/>-->
+<!--				</div>-->
+<!--			</th>-->
+<!--			<th scope="col" class="px-6 py-3" data-orderBy="updatedAt">-->
+<!--				<div class="flex gap-3 items-center">-->
+<!--				{{ 'keyword.capitalize.updatedAt' | translate }}-->
+<!--				<utility-sort-indicator-->
+<!--					orderBy="updatedAt"-->
+<!--					[tableState]="tableState"/>-->
+<!--				</div>-->
+<!--			</th>-->
+<!--		</tr>-->
+<!--		</thead>-->
+<!--	</table>-->
+</div>
+<utility-table-state-pagination-component (clearCache)="clearTableCache()" (page)="pageChange($event)"
+																					[tableState]="tableState"/>
