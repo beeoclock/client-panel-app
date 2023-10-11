@@ -1,5 +1,5 @@
 import {Component, inject, Input, ViewEncapsulation} from "@angular/core";
-import {CurrencyPipe, NgForOf} from "@angular/common";
+import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
@@ -35,7 +35,8 @@ import {LanguageCodeEnum} from "@utility/domain/enum";
 		EventStatusStyleDirective,
 		CurrencyPipe,
 		HumanizeDurationPipe,
-		CardComponent
+		CardComponent,
+		NgIf
 	]
 })
 export class CardListComponent extends TableComponent {
