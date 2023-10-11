@@ -13,6 +13,7 @@ import {ModalSelectServiceListAdapter} from "@service/adapter/external/component
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/boc-media.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
+import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 
 @Component({
 	selector: 'event-service-component',
@@ -31,12 +32,16 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 		PrimaryLinkButtonDirective,
 		BocMediaDirective,
 		HumanizeDurationPipe,
+		InvalidTooltipComponent,
 	]
 })
 export class ServicesComponent implements OnInit {
 
-	@Input()
+	@Input({required: true})
 	public serviceListControl: FormControl<IService[]> = new FormControl([] as any);
+
+	@Input()
+	public editable = true;
 
 	private readonly modalSelectServiceService = inject(ModalSelectServiceService);
 	private readonly modalSelectServiceListAdapter = inject(ModalSelectServiceListAdapter);

@@ -31,7 +31,7 @@ import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
 import {provideServiceWorker} from '@angular/service-worker';
 import {LanguageCodeEnum} from "@utility/domain/enum";
 // import '@angular/common/locales/global/pl';
-// import '@angular/common/locales/global/uk';
+import '@angular/common/locales/global/uk';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
