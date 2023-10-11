@@ -46,10 +46,6 @@ initRuntimeEnvironment();
 
 bootstrapApplication(AppComponent, {
 	providers: [
-		// {
-		//   provide: LOCALE_ID,
-		//   useValue: 'uk'
-		// },
 		...tokens,
 		provideEnvironmentNgxMask(),
 		importProvidersFrom(
@@ -111,7 +107,6 @@ bootstrapApplication(AppComponent, {
 			withInMemoryScrolling({
 				scrollPositionRestoration: 'enabled'
 			}),
-			// TODO check if the strategy does not slow down first download
 			withPreloading(PreloadAllModules)
 		),
 		provideServiceWorker('ngsw-worker.js', {
