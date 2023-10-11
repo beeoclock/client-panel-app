@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, inject, OnInit} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
 import {BooleanState} from "@utility/domain";
+import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
 
 @Component({
 	selector: 'utility-list-page',
@@ -9,14 +10,23 @@ import {BooleanState} from "@utility/domain";
 })
 export abstract class ListPage implements OnInit {
 
-	public readonly store = inject(Store);
-	public readonly changeDetectorRef = inject(ChangeDetectorRef);
+	protected readonly store = inject(Store);
+	protected readonly changeDetectorRef = inject(ChangeDetectorRef);
+	protected readonly windowWidthSizeService = inject(WindowWidthSizeService);
 	public readonly actions!: {
 		GetList: any;
 	};
 	public readonly someDataExist = new BooleanState(false);
 
 	public initialized = new BooleanState(false);
+
+	public get isMobile$() {
+		return this.windowWidthSizeService.isMobile$;
+	}
+
+	public get isNotMobile$() {
+		return this.windowWidthSizeService.isNotMobile$;
+	}
 
 	public ngOnInit(): void {
 		firstValueFrom(this.store.dispatch(new this.actions.GetList())).then(() => {
