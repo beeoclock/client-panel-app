@@ -22,6 +22,7 @@ import {TableListComponent} from "@event/presentation/component/list/table/table
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
+import {CardListComponent} from "@event/presentation/component/list/card/card.list.component";
 
 @Component({
 	selector: 'event-list-page',
@@ -44,7 +45,8 @@ import {
 		StarterComponent,
 		TableListComponent,
 		NgIf,
-		NotFoundTableDataComponent
+		NotFoundTableDataComponent,
+		CardListComponent
 	],
 	standalone: true
 })

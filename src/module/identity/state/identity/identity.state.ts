@@ -6,149 +6,200 @@ import {ParsedToken} from "@firebase/auth";
 import {firstValueFrom} from "rxjs";
 import {IMember} from "@identity/domain/interface/i.member";
 import {MemberContextApiAdapter} from "@identity/adapter/external/api/member-context.api.adapter";
+import {setTimeoutTakeUntil$, setTimeoutTakeUntil$Type} from "@utility/domain/timer";
+import {NGXLogger} from "ngx-logger";
+import {secondsTo_hh_mm_ss, TWENTY_SECONDS} from "@utility/domain/time";
 
 export interface BeeoclockParsedToken extends ParsedToken {
-  clientId?: string;
-  accountId?: string;
-  userId?: string;
+	clientId?: string;
+	accountId?: string;
+	userId?: string;
 
-  phone_number?: string;
-  name?: string;
-  email?: string;
-  email_verified?: boolean;
-  role?: string[];
+	phone_number?: string;
+	name?: string;
+	email?: string;
+	email_verified?: boolean;
+	role?: string[];
 }
 
 export interface BeeoclockIdTokenResult extends IdTokenResult {
-  claims: BeeoclockParsedToken
+	claims: BeeoclockParsedToken
 }
 
 interface IIdentityState {
-  token: BeeoclockIdTokenResult | undefined;
-  clients: IMember[] | undefined;
+	token: BeeoclockIdTokenResult | undefined;
+	clients: IMember[] | undefined;
+	refreshTokenInProgress: boolean;
+
+	checkTokenExpirationInSeconds: number;
+	tokenExpirationInSeconds?: number;
 }
 
 @State<IIdentityState>({
-  name: 'identity',
-  defaults: {
-    token: undefined,
-    clients: undefined
-  }
+	name: 'identity',
+	defaults: {
+		token: undefined,
+		refreshTokenInProgress: false,
+		tokenExpirationInSeconds: undefined,
+		clients: undefined,
+		checkTokenExpirationInSeconds: TWENTY_SECONDS,
+	}
 })
 @Injectable()
 export class IdentityState {
 
-  private readonly auth = inject(Auth);
-  public readonly memberContextApiAdapter = inject(MemberContextApiAdapter);
+	private readonly auth = inject(Auth);
+	private readonly logger = inject(NGXLogger);
+	public readonly memberContextApiAdapter = inject(MemberContextApiAdapter);
+	private refreshTokenInterval: setTimeoutTakeUntil$Type | undefined;
 
-  // Selectors
+	// Selectors
 
-  @Selector()
-  public static accountEmailIsVerified(state: IIdentityState) {
-    return state.token?.claims?.email_verified;
-  }
+	@Selector()
+	public static refreshTokenInProgress(state: IIdentityState) {
+		return state.refreshTokenInProgress;
+	}
 
-  @Selector()
-  public static accountEmail(state: IIdentityState) {
-    return state.token?.claims?.email;
-  }
+	@Selector()
+	public static accountEmailIsVerified(state: IIdentityState) {
+		return state.token?.claims?.email_verified;
+	}
 
-  @Selector()
-  public static accountName(state: IIdentityState) {
-    return state.token?.claims?.name;
-  }
+	@Selector()
+	public static accountEmail(state: IIdentityState) {
+		return state.token?.claims?.email;
+	}
 
-  @Selector()
-  public static accountRole(state: IIdentityState) {
-    return state.token?.claims?.role;
-  }
+	@Selector()
+	public static accountName(state: IIdentityState) {
+		return state.token?.claims?.name;
+	}
 
-  @Selector()
-  public static accountPhoneNumber(state: IIdentityState) {
-    return state.token?.claims?.phone_number;
-  }
+	@Selector()
+	public static accountRole(state: IIdentityState) {
+		return state.token?.claims?.role;
+	}
 
-  @Selector()
-  public static token(state: IIdentityState) {
-    return state.token;
-  }
+	@Selector()
+	public static accountPhoneNumber(state: IIdentityState) {
+		return state.token?.claims?.phone_number;
+	}
 
-  @Selector()
-  public static clientId(state: IIdentityState) {
-    return state.token?.claims?.clientId;
-  }
+	@Selector()
+	public static token(state: IIdentityState) {
+		return state.token;
+	}
 
-  @Selector()
-  public static accountId(state: IIdentityState) {
-    return state.token?.claims?.accountId;
-  }
+	@Selector()
+	public static clientId(state: IIdentityState) {
+		return state.token?.claims?.clientId;
+	}
 
-  @Selector()
-  public static userId(state: IIdentityState) {
-    return state.token?.claims?.userId;
-  }
+	@Selector()
+	public static accountId(state: IIdentityState) {
+		return state.token?.claims?.accountId;
+	}
 
-  @Selector()
-  public static clients(state: IIdentityState) {
-    return state.clients;
-  }
+	@Selector()
+	public static userId(state: IIdentityState) {
+		return state.token?.claims?.userId;
+	}
 
-  // Effects
+	@Selector()
+	public static clients(state: IIdentityState) {
+		return state.clients;
+	}
 
-  @Action(IdentityActions.Token)
-  public async token(ctx: StateContext<IIdentityState>, {payload}: IdentityActions.Token): Promise<void> {
-    ctx.patchState({
-      token: payload
-    });
-  }
+	// Effects
 
-  @Action(IdentityActions.InitToken)
-  public async initToken(ctx: StateContext<IIdentityState>): Promise<void> {
+	@Action(IdentityActions.Token)
+	public async token(ctx: StateContext<IIdentityState>, {payload}: IdentityActions.Token): Promise<void> {
+		ctx.patchState({
+			token: payload
+		});
+	}
 
-    // Check if user is not authorized!
-    if (!this.auth.currentUser) {
+	@Action(IdentityActions.InitToken)
+	public async initToken(ctx: StateContext<IIdentityState>): Promise<void> {
 
-      let unsubscribeAuthState: Unsubscribe | undefined = undefined;
-      const awaitOfAuthState = new Promise((resolve) => {
-        unsubscribeAuthState = this.auth.onAuthStateChanged((result) => {
-          if (result) {
-            resolve(result)
-          }
-        });
-      });
+		// Check if user is not authorized!
+		if (!this.auth.currentUser) {
 
-      await awaitOfAuthState;
-      if (unsubscribeAuthState) {
-        (unsubscribeAuthState as Unsubscribe)();
-      }
-    }
+			let unsubscribeAuthState: Unsubscribe | undefined = undefined;
+			const awaitOfAuthState = new Promise((resolve) => {
+				unsubscribeAuthState = this.auth.onAuthStateChanged((result) => {
+					if (result) {
+						resolve(result)
+					}
+				});
+			});
 
-    if (this.auth.currentUser) {
+			await awaitOfAuthState;
+			if (unsubscribeAuthState) {
+				(unsubscribeAuthState as Unsubscribe)();
+			}
+		}
 
-      // Get token
-      const token = await this.auth.currentUser.getIdTokenResult(true);
+		if (this.auth.currentUser) {
 
-      // update state
-      await firstValueFrom(ctx.dispatch(new IdentityActions.Token(token)));
+			// Get token
+			const token = await this.auth.currentUser.getIdTokenResult(true);
 
-    }
-  }
+			// update state
+			await firstValueFrom(ctx.dispatch(new IdentityActions.Token(token)));
 
-  @Action(IdentityActions.ClearToken)
-  public async clearToken(ctx: StateContext<IIdentityState>): Promise<void> {
-    // update state
-    ctx.patchState({
-      token: undefined
-    });
-  }
+			// Init auto refresh token
+			this.resetRefreshTokenTimeout(ctx, +(token.claims.exp ?? '0'));
 
-  @Action(IdentityActions.GetClients)
-  public async getClients(ctx: StateContext<IIdentityState>): Promise<void> {
-    const result = await firstValueFrom(this.memberContextApiAdapter.related$());
-    ctx.patchState({
-      clients: result.items
-    })
+		}
+	}
 
-  }
+	@Action(IdentityActions.ClearToken)
+	public async clearToken(ctx: StateContext<IIdentityState>): Promise<void> {
+		// update state
+		ctx.patchState({
+			token: undefined
+		});
+	}
+
+	@Action(IdentityActions.GetClients)
+	public async getClients(ctx: StateContext<IIdentityState>): Promise<void> {
+		const result = await firstValueFrom(this.memberContextApiAdapter.related$());
+		ctx.patchState({
+			clients: result.items
+		})
+
+	}
+
+	@Action(IdentityActions.RefreshTokenExecute)
+	public async refreshTokenExecute(
+		ctx: StateContext<IIdentityState>,
+	) {
+		this.patchRefreshTokenInProgress(ctx, true);
+		await this.initToken(ctx);
+		this.patchRefreshTokenInProgress(ctx, false);
+	}
+
+	private resetRefreshTokenTimeout(
+		ctx: StateContext<IIdentityState>,
+		exp: number,
+	): void {
+		const {checkTokenExpirationInSeconds} = ctx.getState();
+		this.refreshTokenInterval?.destroyTimeout$?.next();
+		const timerMs = ((exp * 1000) - Date.now()) - (checkTokenExpirationInSeconds * 1000);
+		this.logger.debug('resetRefreshTokenTimeout', secondsTo_hh_mm_ss(timerMs / 1000));
+		this.refreshTokenInterval = setTimeoutTakeUntil$(() => {
+			ctx.dispatch(new IdentityActions.RefreshTokenExecute());
+		}, timerMs);
+	}
+
+	private patchRefreshTokenInProgress(
+		ctx: StateContext<IIdentityState>,
+		refreshTokenInProgress: boolean
+	): void {
+		ctx.patchState({
+			refreshTokenInProgress
+		});
+	}
 
 }

@@ -1,9 +1,9 @@
 import {inject, Injectable} from "@angular/core";
 import {DOCUMENT} from "@angular/common";
-import {BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
 import {ActivationStart, Router} from "@angular/router";
 import {filter} from "rxjs";
 import {MAIN_CONTAINER_ID, SIDEBAR_ID} from "@src/token";
+import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
 
 enum SidebarContentEnum {
 	MENU = 'MENU',
@@ -18,8 +18,8 @@ export class SidebarService {
 	public readonly sidebarId = inject(SIDEBAR_ID);
 	public readonly mainContainerId = inject(MAIN_CONTAINER_ID);
 	public readonly document = inject(DOCUMENT);
-	public readonly breakpointObserver = inject(BreakpointObserver);
 	public readonly router = inject(Router);
+	public readonly windowWidthSizeService = inject(WindowWidthSizeService);
 	public autoCollapse = true;
 	public setMarginToMainContainer = true;
 	public readonly containersStatus = {
@@ -38,10 +38,10 @@ export class SidebarService {
 	}
 
 	constructor() {
-		this.breakpointObserver.observe(['(max-width: 639px)'])
-			.subscribe((state: BreakpointState) => {
-				this.autoCollapse = state.matches;
-				this.setMarginToMainContainer = !state.matches;
+		this.windowWidthSizeService.isMobile$
+			.subscribe((isMobile) => {
+				this.autoCollapse = isMobile;
+				this.setMarginToMainContainer = !isMobile;
 				this.toggleSidebar(!this.autoCollapse);
 			});
 	}
@@ -90,7 +90,7 @@ export class SidebarService {
 
 	}
 
-	public toggleSidebarAndSwitch(contentEnum: SidebarContentEnum) : void{
+	public toggleSidebarAndSwitch(contentEnum: SidebarContentEnum): void {
 		if (contentEnum === this.currentContent) {
 			this.toggleSidebar();
 			return;

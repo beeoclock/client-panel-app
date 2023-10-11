@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
+  production: false,
   develop: true,
   emulator: false,
   proxy: false,

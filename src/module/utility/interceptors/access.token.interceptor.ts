@@ -1,10 +1,12 @@
-import {HttpHandlerFn, HttpInterceptorFn, HttpRequest} from "@angular/common/http";
-import {exhaustMap} from "rxjs";
+import {HttpErrorResponse, HttpHandlerFn, HttpInterceptorFn, HttpRequest} from "@angular/common/http";
+import {catchError, exhaustMap, filter, switchMap, take, throwError} from "rxjs";
 import {inject} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {Endpoint} from "@utility/domain/endpoint";
+import {IdentityActions} from "@identity/state/identity/identity.actions";
+import {HttpStatusEnum} from "@utility/domain/enum/http-status.enum";
 
 /**
  * Set Authorization header to every request that has at config header.authorization = true
@@ -13,28 +15,70 @@ import {Endpoint} from "@utility/domain/endpoint";
  * @param next
  */
 export const AccessTokenInterceptor: HttpInterceptorFn = (request: HttpRequest<unknown>, next: HttpHandlerFn) => {
+// Get path from headers, path was set at prepareLocalHeaders
+	const path = request.headers.get('path');
 
-  const {header} = Endpoint.endpointMap[request.method as RequestMethodEnum].get(request.url) ?? {};
+	if (path) {
+		const {header} = Endpoint.endpointMap[request.method as RequestMethodEnum].get(path) ?? {};
 
-  if (header) {
+		if (header?.authorization) {
 
-    const {authorization} = header;
+			const store = inject(Store);
 
-    if (authorization) {
+			return setAuthorizationToken(request, next, store).pipe(
+				catchError((response) => {
+					if (response instanceof  HttpErrorResponse && response.status === HttpStatusEnum.Unauthorized) {
+						return store.select(IdentityState.refreshTokenInProgress)
+							.pipe(
+								take(1),
+								switchMap((refreshTokenInProgress) => {
+									if (refreshTokenInProgress) {
+										return queue(next, request, store);
+									}
+									return store.dispatch(new IdentityActions.RefreshTokenExecute()).pipe(
+										switchMap(() => setAuthorizationToken(request, next, store)),
+									)
+								})
+							);
+					}
 
-      const store = inject(Store);
+					return throwError(() => response);
+				})
+			);
 
-      return store.select(IdentityState.token).pipe(exhaustMap((tokenState) => {
-        const headers = request.headers.set('Authorization', `Bearer ${tokenState?.token}`);
-        return next(request.clone({
-          headers
-        }));
-      }))
+		}
+	}
 
-    }
-
-  }
-
-  return next(request);
+	return next(request);
 
 }
+
+function setAuthorizationToken(request: HttpRequest<unknown>, next: HttpHandlerFn, store: Store) {
+	return store.select(IdentityState.token)
+		.pipe(
+			exhaustMap((tokenState) => {
+				const headers = request.headers.set('Authorization', `Bearer ${tokenState?.token}`);
+				return next(request.clone({
+						headers
+					})
+				);
+			})
+		);
+}
+
+
+/**
+ *
+ * @param next
+ * @param request
+ * @param store
+ * @private
+ */
+function queue(next: HttpHandlerFn, request: HttpRequest<unknown>, store: Store) {
+	return store.select(IdentityState.refreshTokenInProgress).pipe(
+		filter((refreshTokenInProgress) => !refreshTokenInProgress),
+		take(1),
+		switchMap(() => next(request)),
+	);
+}
+

@@ -8,4 +8,3 @@ export const MS_QUARTER_SECOND = 250;
 
 export const SECONDS_ONE_MINUTE = 60;
 export const SECONDS_TEN_MINUTES = 10 * SECONDS_ONE_MINUTE;
-export const SECONDS_ONE_HOUR = 6 * SECONDS_TEN_MINUTES;
