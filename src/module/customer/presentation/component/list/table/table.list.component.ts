@@ -10,9 +10,9 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {ITableState} from "@utility/domain/table.state";
-import {ICustomer} from "@customer/domain";
 import {TableComponent} from "@utility/table.component";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {ICustomer} from "@customer/domain";
 
 @Component({
 	selector: 'customer-table-list-component',

@@ -13,12 +13,13 @@ import {ITableState} from "@utility/domain/table.state";
 import {TableComponent} from "@utility/table.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {EventActions} from "@event/state/event/event.actions";
-import {IEvent} from "@event/domain";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
+import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {ICustomer} from "@customer/domain";
 
 @Component({
-	selector: 'event-table-list-component',
-	templateUrl: './table.list.component.html',
+	selector: 'customer-card-list-component',
+	templateUrl: './card.list.component.html',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
@@ -32,14 +33,15 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 		TranslateModule,
 		EventStatusStyleDirective,
 		CurrencyPipe,
-		HumanizeDurationPipe
+		HumanizeDurationPipe,
+		CardComponent
 	]
 })
-export class TableListComponent extends TableComponent {
+export class CardListComponent extends TableComponent {
 
 	public override readonly actions = EventActions;
 
 	@Input()
-	public tableState!: ITableState<IEvent>;
+	public tableState!: ITableState<ICustomer>;
 
 }

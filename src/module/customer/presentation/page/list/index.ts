@@ -5,7 +5,6 @@ import {Observable, tap} from "rxjs";
 import {ICustomer} from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ITableState} from "@utility/domain/table.state";
-import {TableListComponent} from "@customer/presentation/component/list/table/table.list.component";
 import {StarterComponent} from "@utility/presentation/component/starter/starter.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {FilterComponent} from "@customer/presentation/component/filter/filter.component";
@@ -16,24 +15,28 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
+import {TableListComponent} from "@customer/presentation/component/list/table/table.list.component";
+import {CardListComponent} from "@customer/presentation/component/list/card/card.list.component";
 
 @Component({
 	selector: 'customer-list-page',
 	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        TableListComponent,
-        StarterComponent,
-        TranslateModule,
-        FilterComponent,
-        DropdownComponent,
-        RouterLink,
-        NgIf,
-        AsyncPipe,
-        PrimaryButtonDirective,
-        NotFoundTableDataComponent
-    ],
+	imports: [
+		TableListComponent,
+		StarterComponent,
+		TranslateModule,
+		FilterComponent,
+		DropdownComponent,
+		RouterLink,
+		NgIf,
+		AsyncPipe,
+		PrimaryButtonDirective,
+		NotFoundTableDataComponent,
+		CardListComponent,
+		TableListComponent,
+	],
 	standalone: true
 })
 export default class Index extends ListPage {

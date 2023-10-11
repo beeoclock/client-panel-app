@@ -44,9 +44,4 @@ export class CardListComponent extends TableComponent {
 	@Input()
 	public tableState!: ITableState<IEvent>;
 
-	constructor() {
-		super();
-		console.log('CardListComponent');
-	}
-
 }
