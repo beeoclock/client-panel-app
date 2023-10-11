@@ -2,7 +2,8 @@
 	<service-filter-component *ngIf="someDataExist.isOn"/>
 	<ng-container *ngIf="tableState$ | async as tableState">
 		<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
-			<service-table-list-component [tableState]="tableState"/>
+			<service-card-list-component *ngIf="isMobile$ | async" [tableState]="tableState"/>
+			<service-table-list-component *ngIf="isNotMobile$ | async" [tableState]="tableState"/>
 		</ng-container>
 		<ng-template #EmptyTemplate>
 			<not-found-table-data-component

@@ -27,6 +27,7 @@ import {StarterComponent} from "@utility/presentation/component/starter/starter.
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
+import {CardListComponent} from "@service/presentation/component/list/card/card.list.component";
 
 @Component({
 	selector: 'service-list-page',
@@ -55,7 +56,9 @@ import {
 		DynamicDatePipe,
 		TableListComponent,
 		StarterComponent,
-		NotFoundTableDataComponent
+		NotFoundTableDataComponent,
+		CardListComponent,
+		TableListComponent
 	],
 	standalone: true
 })
