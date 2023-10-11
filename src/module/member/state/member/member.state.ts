@@ -10,14 +10,14 @@ import {ItemMemberApiAdapter} from "@member/adapter/external/api/item.member.api
 import {RemoveMemberApiAdapter} from "@member/adapter/external/api/remove.member.api.adapter";
 import {ListMemberApiAdapter} from "@member/adapter/external/api/list.member.api.adapter";
 
-export type IMemberState = IBaseState<Member.IMember>;
+export type IMemberState = IBaseState<Member.RIMember>;
 
 @State<IMemberState>({
 	name: 'member',
-	defaults: baseDefaults<Member.IMember>()
+	defaults: baseDefaults<Member.RIMember>()
 })
 @Injectable()
-export class MemberState extends BaseState<Member.IMember> {
+export class MemberState extends BaseState<Member.RIMember> {
 
 	protected override readonly archive = inject(ArchiveMemberApiAdapter);
 	protected override readonly create = inject(CreateMemberApiAdapter);

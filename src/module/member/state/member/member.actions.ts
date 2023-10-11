@@ -1,5 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IMember} from "@member/domain";
+import {RIMember} from "@member/domain";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace MemberActions {
@@ -44,11 +44,11 @@ export namespace MemberActions {
     public static override readonly type = '[Member API] Get Item';
   }
 
-  export class CreateItem extends BaseActions.CreateItem<IMember> {
+  export class CreateItem extends BaseActions.CreateItem<RIMember> {
     public static override readonly type = '[Member API] Create Item';
   }
 
-  export class UpdateItem extends BaseActions.UpdateItem<IMember> {
+  export class UpdateItem extends BaseActions.UpdateItem<RIMember> {
     public static override readonly type = '[Member API] Update Item';
   }
 
@@ -58,7 +58,7 @@ export namespace MemberActions {
     public static override readonly type = '[Member State] Update Filters';
   }
 
-  export class UpdateTableState extends BaseActions.UpdateTableState<IMember> {
+  export class UpdateTableState extends BaseActions.UpdateTableState<RIMember> {
     public static override readonly type = '[Member State] Update Table State';
   }
 

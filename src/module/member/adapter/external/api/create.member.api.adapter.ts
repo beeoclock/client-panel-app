@@ -8,15 +8,15 @@ import {is} from "thiis";
 @Injectable({
   providedIn: 'root'
 })
-export class CreateMemberApiAdapter extends BaseApiAdapter<Member.IMember> {
+export class CreateMemberApiAdapter extends BaseApiAdapter<Member.RIMember> {
 
   /**
    * SAVE NEW ITEM OR UPDATE ITEM BY ID
    * @param value
    */
   @TypeGuard([is.object.not.empty])
-  public override execute$(value: Member.IMember) {
-    return this.httpClient.post<Member.IMember>(memberEndpointEnum.create, value);
+  public override execute$(value: Member.RIMember) {
+    return this.httpClient.post<Member.RIMember>(memberEndpointEnum.create, value);
   }
 
 }

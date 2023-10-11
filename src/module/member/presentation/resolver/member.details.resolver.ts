@@ -4,9 +4,9 @@ import {Store} from "@ngxs/store";
 import {catchError, EMPTY} from "rxjs";
 import {IAppState} from "@utility/state/app/app.state";
 import {MemberActions} from "@member/state/member/member.actions";
-import {IMember} from "@member/domain";
+import {RIMember} from "@member/domain";
 
-export const memberDetailsResolver: ResolveFn<IMember> = (
+export const memberDetailsResolver: ResolveFn<RIMember> = (
   route: ActivatedRouteSnapshot,
   _state: RouterStateSnapshot
 ) => {

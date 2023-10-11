@@ -10,7 +10,7 @@ import {Select, Store} from "@ngxs/store";
 import {MemberForm} from "@member/presentation/form/member.form";
 import {MemberState} from "@member/state/member/member.state";
 import {filter, firstValueFrom, Observable} from "rxjs";
-import {IMember} from "@member/domain";
+import {RIMember} from "@member/domain";
 import {MemberActions} from "@member/state/member/member.actions";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
@@ -43,7 +43,7 @@ export default class Index implements OnInit {
   public form = new MemberForm();
 
   @Select(MemberState.itemData)
-  public itemData$!: Observable<IMember | undefined>;
+  public itemData$!: Observable<RIMember | undefined>;
   private isEditMode = false;
 
   public ngOnInit(): void {
@@ -69,9 +69,9 @@ export default class Index implements OnInit {
       this.form.markAsPending();
       const redirectUri = ['../'];
       if (this.isEditMode) {
-        await firstValueFrom(this.store.dispatch(new MemberActions.UpdateItem(this.form.getRawValue() as IMember)));
+        await firstValueFrom(this.store.dispatch(new MemberActions.UpdateItem(this.form.getRawValue() as RIMember)));
       } else {
-        await firstValueFrom(this.store.dispatch(new MemberActions.CreateItem(this.form.getRawValue() as IMember)));
+        await firstValueFrom(this.store.dispatch(new MemberActions.CreateItem(this.form.getRawValue() as RIMember)));
         const item = await firstValueFrom(this.itemData$);
         if (item && item._id) {
           redirectUri.push(item._id);

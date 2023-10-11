@@ -422,6 +422,30 @@
 						"message": "Profil biznesowy został zaktualizowany."
 					}
 				}
+			},
+			"/api/v1/customer/{id}": {
+				"after": {
+					"success": {
+						"header": "Klient zaktualizowany",
+						"message": "Klient został zaktualizowany."
+					}
+				}
+			},
+			"/api/v1/event/{id}": {
+				"after": {
+					"success": {
+						"header": "Wydarzenie zaktualizowane",
+						"message": "Wydarzenie zostało zaktualizowany."
+					}
+				}
+			},
+			"/api/v1/service/{id}": {
+				"after": {
+					"success": {
+						"header": "Usługa zaktualizowana",
+						"message": "Usługa została zaktualizowana."
+					}
+				}
 			}
 		},
 		"response": {

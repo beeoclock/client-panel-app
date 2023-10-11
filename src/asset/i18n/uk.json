@@ -420,6 +420,30 @@
 						"message": "Профіль бізнесу успішно оновлено."
 					}
 				}
+			},
+			"/api/v1/customer/{id}": {
+				"after": {
+					"success": {
+						"header": "Клієнт оновлений",
+						"message": "Клієнт успішно оновлений."
+					}
+				}
+			},
+			"/api/v1/event/{id}": {
+				"after": {
+					"success": {
+						"header": "Подія оновлена",
+						"message": "Подія успішно оновлена."
+					}
+				}
+			},
+			"/api/v1/service/{id}": {
+				"after": {
+					"success": {
+						"header": "Послуга оновлена",
+						"message": "Послуга успішно оновлена."
+					}
+				}
 			}
 		},
 		"response": {
