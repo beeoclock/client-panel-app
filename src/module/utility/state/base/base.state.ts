@@ -248,7 +248,6 @@ export abstract class BaseState<ITEM = any> {
 		});
 
 		ctx.patchState({
-			...state,
 			tableState: newTableState.toCache()
 		});
 
