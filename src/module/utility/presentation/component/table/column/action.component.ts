@@ -4,6 +4,7 @@ import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdo
 import {ActiveEnum} from "@utility/domain/enum";
 import {NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
+import {Placement} from "@popperjs/core/lib/enums";
 
 @Component({
   selector: 'utility-table-column-action',
@@ -15,7 +16,7 @@ import {TranslateModule} from "@ngx-translate/core";
     TranslateModule
   ],
   template: `
-    <utility-dropdown [threeDot]="true" [id]="'table-row-' + id">
+    <utility-dropdown [placement]="placement" [offsetDistance]="offsetDistance" [threeDot]="true" [id]="'table-row-' + id">
       <ng-container content>
         <li>
           <a
@@ -60,6 +61,12 @@ export class ActionComponent {
 
   @Input()
   public active!: ActiveEnum;
+
+  @Input()
+  public placement: Placement = 'auto';
+
+  @Input()
+  public offsetDistance = 26;
 
   @Output()
   public readonly delete = new EventEmitter<string>();

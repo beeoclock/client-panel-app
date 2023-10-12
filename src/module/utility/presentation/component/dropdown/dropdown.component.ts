@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ElementRef, HostBinding, Input, ViewChild, Vie
 import {CdkMenu, CdkMenuTrigger} from "@angular/cdk/menu";
 import {NgIf} from "@angular/common";
 import {Dropdown, DropdownInterface, DropdownOptions} from "flowbite";
+import {Placement} from "@popperjs/core/lib/enums";
 
 @Component({
   selector: 'utility-dropdown',
@@ -20,7 +21,8 @@ import {Dropdown, DropdownInterface, DropdownOptions} from "flowbite";
       class="
         text-beeColor-800
         dark:text-beeDarkColor-100
-        bg-beeColor-200
+        border-beeColor-200
+        border
         hover:bg-beeColor-300
         focus:ring-4
         focus:outline-none
@@ -75,6 +77,9 @@ export class DropdownComponent implements AfterViewInit {
   public dropdownMenu!: ElementRef<HTMLDivElement>;
 
   @Input()
+  public placement: Placement = 'bottom-start';
+
+  @Input()
   public buttonLabel = 'More';
 
   @Input()
@@ -82,6 +87,9 @@ export class DropdownComponent implements AfterViewInit {
 
   @Input()
   public threeDot = false;
+
+  @Input()
+  public offsetDistance = 0;
 
   @Input()
   public menuClassList = 'py-2 text-sm text-beeColor-700 dark:text-beeDarkColor-200';
@@ -105,8 +113,9 @@ export class DropdownComponent implements AfterViewInit {
 
     // options with default values
     const options: DropdownOptions = {
-      placement: 'bottom-start',
+      placement: this.placement,
       triggerType: 'click',
+			offsetDistance: this.offsetDistance,
     };
 
     /*
