@@ -36,15 +36,17 @@
 		<client-business-profile-booking-settings-component
 			[form]="form.controls.bookingSettings"/>
 
-		<button
-			primary
-			type="button"
-			(click)="save()"
-			[scrollToFirstError]="true"
-			[isLoading]="form.pending"
-			[disabled]="form.disabled">
-			{{ 'keyword.capitalize.save' | translate }}
-		</button>
+		<div class="block px-4 md:px-0">
+			<button
+				primary
+				type="button"
+				(click)="save()"
+				[scrollToFirstError]="true"
+				[isLoading]="form.pending"
+				[disabled]="form.disabled">
+				{{ 'keyword.capitalize.save' | translate }}
+			</button>
+		</div>
 
 	</form>
 
