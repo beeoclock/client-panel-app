@@ -29,7 +29,7 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 	],
 	template: `
 		<utility-default-panel-component>
-			<ion-select-event-status [control]="form.controls.status"/>
+			<ion-select-event-status class="px-4 py-2 border border-beeColor-200 rounded-2xl" [control]="form.controls.status"/>
 			<div class="flex-1">
 				<form class="flex items-center">
 					<label for="simple-search" class="sr-only">Search</label>
@@ -43,8 +43,8 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 				<button type="button" primary routerLink="form">
 					<i class="bi bi-plus-lg"></i>
 					<span class="hidden md:block">
-									{{ 'keyword.capitalize.add-event' | translate }}
-								</span>
+						{{ 'keyword.capitalize.add-event' | translate }}
+					</span>
 				</button>
 			</div>
 		</utility-default-panel-component>

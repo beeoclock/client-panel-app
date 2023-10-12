@@ -1,10 +1,7 @@
-<div class="pb-48 grid grid-cols-12 gap-4">
-
-  <div class="col-span-12 xl:col-span-2 2xl:col-span-3">
-
-    <utility-back-link-component/>
-
-  </div>
+<utility-default-panel-component>
+	<utility-back-button-component/>
+</utility-default-panel-component>
+<div class="pb-48 grid grid-cols-12 gap-4 pt-4">
 
   <ng-container *ngIf="item$ | async as customer">
 
@@ -67,46 +64,46 @@
 
       </bee-card>
 
-    </div>
+			<div class="text-start text-beeColor-400 text-sm px-4 lg:px-0">
 
-    <div class="col-span-12 xl:col-span-2 2xl:col-span-3 text-end text-beeColor-400 text-sm">
+				<div class="flex flex-col gap-4">
 
-      <div class="flex flex-col gap-4">
+					<div class="flex flex-col">
 
-        <div class="flex flex-col">
+						<div>
+							{{ 'keyword.capitalize.customer' | translate }}:
+						</div>
+						<div>
+							{{ customer._id }}
+						</div>
 
-          <div>
-            {{ 'keyword.capitalize.customer' | translate }}:
-          </div>
-          <div>
-            {{ customer._id }}
-          </div>
+					</div>
 
-        </div>
+					<div class="flex flex-col">
 
-        <div class="flex flex-col">
+						<div>
+							{{ 'keyword.capitalize.createdAt' | translate }}:
+						</div>
+						<div>
+							{{ customer.createdAt | dynamicDate }}
+						</div>
 
-          <div>
-            {{ 'keyword.capitalize.createdAt' | translate }}:
-          </div>
-          <div>
-            {{ customer.createdAt | dynamicDate }}
-          </div>
+					</div>
 
-        </div>
+					<div class="flex flex-col">
 
-        <div class="flex flex-col">
+						<div>
+							{{ 'keyword.capitalize.updatedAt' | translate }}:
+						</div>
+						<div>
+							{{ customer.updatedAt | dynamicDate }}
+						</div>
 
-          <div>
-            {{ 'keyword.capitalize.updatedAt' | translate }}:
-          </div>
-          <div>
-            {{ customer.updatedAt | dynamicDate }}
-          </div>
+					</div>
 
-        </div>
+				</div>
 
-      </div>
+			</div>
 
     </div>
 

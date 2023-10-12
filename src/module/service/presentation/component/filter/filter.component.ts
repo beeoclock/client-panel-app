@@ -12,6 +12,7 @@ import {BaseFilterComponent} from "@utility/base.filter.component";
 import {
 	IonSelectEventStatusComponent
 } from "@utility/presentation/component/input/ion/ion-select-event-status.component";
+import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 
 @Component({
 	selector: 'service-filter-component',
@@ -23,38 +24,31 @@ import {
 		RouterLink,
 		PrimaryButtonDirective,
 		IonSelectActiveComponent,
-		IonSelectEventStatusComponent
+		IonSelectEventStatusComponent,
+		DefaultPanelComponent
 	],
 	template: `
-		<section class="bg-gray-50 dark:bg-gray-900 flex items-center">
-			<div class="w-full">
-				<div
-					class="relative bg-white shadow-md dark:bg-gray-800 rounded-b-2xl p-4 flex flex-col md:flex-row-reverse md:items-center gap-4">
-					<div class="flex items-center justify-between gap-4 w-full">
-						<div class="flex-1">
-							<form class="flex items-center">
-								<label for="simple-search" class="sr-only">Search</label>
-								<div class="relative w-full">
-									<utility-search-input-component [control]="form.controls.phrase"/>
-								</div>
-							</form>
-						</div>
-						<div
-							class="md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-							<button type="button" primary routerLink="form">
-								<i class="bi bi-plus-lg"></i>
-								<span class="hidden md:block">
-									{{ 'keyword.capitalize.add-service' | translate }}
-								</span>
-							</button>
-						</div>
+
+		<utility-default-panel-component>
+			<ion-select-active class="px-4 py-2 border border-beeColor-200 rounded-2xl" [control]="form.controls.active"/>
+			<div class="flex-1">
+				<form class="flex items-center">
+					<label for="simple-search" class="sr-only">Search</label>
+					<div class="relative w-full">
+						<utility-search-input-component [control]="form.controls.phrase"/>
 					</div>
-					<div>
-						<ion-select-active [control]="form.controls.active"/>
-					</div>
-				</div>
+				</form>
 			</div>
-		</section>
+			<div
+				class="md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+				<button type="button" primary routerLink="form">
+					<i class="bi bi-plus-lg"></i>
+					<span class="hidden md:block">
+					{{ 'keyword.capitalize.add-service' | translate }}
+					</span>
+				</button>
+			</div>
+		</utility-default-panel-component>
 	`
 })
 export class FilterComponent extends BaseFilterComponent {
