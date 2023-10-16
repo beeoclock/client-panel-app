@@ -74,7 +74,7 @@ export const DefaultServicesByBusinessCategory: {
 		[BusinessCategoryEnum.Manicurist]: [
 			{
 				title: 'Манікюр',
-				durationInSeconds: 60 * 60,
+				durationInSeconds: 45 * 60,
 				price: 300,
 				currency: CurrencyCodeEnum.UAH,
 			},
@@ -82,6 +82,12 @@ export const DefaultServicesByBusinessCategory: {
 				title: 'Педикюр',
 				durationInSeconds: 60 * 60,
 				price: 400,
+				currency: CurrencyCodeEnum.UAH,
+			},
+			{
+				title: 'Нарощення нігтів',
+				durationInSeconds: 2 * 60 * 60,
+				price: 1000,
 				currency: CurrencyCodeEnum.UAH,
 			}
 		]
