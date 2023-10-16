@@ -12,67 +12,52 @@
 				<utility-table-column-action placement="bottom-start" [offsetDistance]="10" [id]="item._id!" (delete)="delete($event)"/>
 			</div>
 			<div>
-				<div>
-					{{ 'event.keyword.capitalize.service' | translate }}
+				<div *ngIf="sameYear(item.start)" class="flex justify-between">
+					<div>
+						{{ item.start | date: 'EEEE, dd MMMM' }}
+					</div>
+					<div>
+						{{ 'keyword.lowercase.at' | translate }} {{ item.start | date: 'hh:mm' }}
+					</div>
+				</div>
+				<div *ngIf="!sameYear(item.start)" class="flex justify-between">
+					<div>
+						{{ item.start | date: 'EEEE, dd MMMM, yyyy' }}
+					</div>
+					<div>
+						{{ 'keyword.lowercase.at' | translate }} {{ item.start | date: 'hh:mm' }}
+					</div>
 				</div>
 				<div class="font-bold">
 					{{ item?.services?.[0]?.languageVersions?.[0]?.title }}
 				</div>
-			</div>
-			<div class="flex justify-between">
-				<div class="flex-1">
+				<div class="flex justify-between">
 					<div>
-						{{ 'keyword.capitalize.duration' | translate }}
-					</div>
-					<div class="font-bold">
 						{{ item?.services?.[0]?.durationVersions?.[0]?.durationInSeconds ?? 0 | humanizeDuration }}
 					</div>
-				</div>
-				<div class="flex-1">
 					<div>
-						{{ 'keyword.capitalize.price' | translate }}
-					</div>
-					<div class="font-bold">
 						{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow'  }}
 					</div>
 				</div>
 			</div>
-			<div class="flex justify-between">
-				<div class="flex-1">
-					<div>
-						{{ 'event.keyword.capitalize.start' | translate }}
-					</div>
-					<div class="font-bold">
-						{{ (item.start ? (item.start | dynamicDate) : null) ?? 'Invalid Time' }}
-					</div>
-				</div>
-				<div class="flex-1">
-					<div>
-						{{ 'event.keyword.capitalize.end' | translate }}
-					</div>
-					<div class="font-bold">
-						{{ (item.end ? (item.end | dynamicDate) : null) ?? 'Invalid Time' }}
-					</div>
-				</div>
-			</div>
-			<div class="flex justify-between text-neutral-500">
-				<div class="flex-1">
-					<div>
-						{{ 'keyword.capitalize.createdAt' | translate }}
-					</div>
-					<div class="font-bold">
-						{{ item.createdAt | dynamicDate }}
-					</div>
-				</div>
-				<div class="flex-1">
-					<div>
-						{{ 'keyword.capitalize.updatedAt' | translate }}
-					</div>
-					<div class="font-bold">
-						{{ item.updatedAt | dynamicDate }}
-					</div>
-				</div>
-			</div>
+<!--			<div class="flex justify-between">-->
+<!--				<div class="flex-1">-->
+<!--					<div>-->
+<!--						{{ 'event.keyword.capitalize.start' | translate }}-->
+<!--					</div>-->
+<!--					<div class="font-bold">-->
+<!--						{{ (item.start ? (item.start | dynamicDate) : null) ?? 'Invalid Time' }}-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="flex-1">-->
+<!--					<div>-->
+<!--						{{ 'event.keyword.capitalize.end' | translate }}-->
+<!--					</div>-->
+<!--					<div class="font-bold">-->
+<!--						{{ (item.end ? (item.end | dynamicDate) : null) ?? 'Invalid Time' }}-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
 		</bee-card>
 	</div>
 	<utility-table-state-pagination-component
