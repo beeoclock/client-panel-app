@@ -53,10 +53,12 @@ export class SidebarService {
 		this.document.getElementById(this.sidebarId)?.classList?.toggle('translate-x-0', this.containersStatus.mainContainerId);
 		if (this.setMarginToMainContainer) {
 			if (this.containersStatus.sidebarId) {
-				this.document.getElementById(this.mainContainerId)?.classList?.add('sm:ml-80');
+				this.document.getElementById(this.mainContainerId)?.classList?.add('sm:ml-64');
+				this.document.getElementById(this.mainContainerId)?.classList?.add('md:ml-80');
 				this.document.getElementById(this.mainContainerId)?.classList?.remove('sm:ml-16');
 			} else {
-				this.document.getElementById(this.mainContainerId)?.classList?.remove('sm:ml-80');
+				this.document.getElementById(this.mainContainerId)?.classList?.remove('sm:ml-64');
+				this.document.getElementById(this.mainContainerId)?.classList?.remove('md:ml-80');
 				this.document.getElementById(this.mainContainerId)?.classList?.add('sm:ml-16');
 			}
 		}
