@@ -7,7 +7,7 @@ import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "thiis";
 
 type ResponseType = {
-	items: Member.IMember[];
+	items: Member.RIMember[];
 	totalSize: number;
 };
 

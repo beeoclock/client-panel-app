@@ -1,5 +1,5 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {IMember} from "@member/domain";
+import {RIMember} from "@member/domain";
 
 export interface IMemberForm {
   email: FormControl<string>;
@@ -22,7 +22,7 @@ export class MemberForm extends FormGroup<IMemberForm> {
     this.controls.email.setValidators([Validators.email, Validators.required]);
   }
 
-  public static create(initValue: IMember): MemberForm {
+  public static create(initValue: RIMember): MemberForm {
 
     const form = new MemberForm();
 

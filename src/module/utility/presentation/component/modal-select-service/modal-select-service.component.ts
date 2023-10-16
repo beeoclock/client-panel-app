@@ -8,7 +8,7 @@ import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {Router, RouterLink} from "@angular/router";
-import {ModalComponent} from "@utility/presentation/component/modal/modal.component";
+import {ModalButtonRoleEnum, ModalComponent} from "@utility/presentation/component/modal/modal.component";
 import {NGXLogger} from "ngx-logger";
 import {ServiceItemComponent} from "@service/presentation/component/list/item/item.componen";
 
@@ -96,6 +96,12 @@ export class ModalSelectServiceComponent implements OnInit {
 			}
 		}
 		this.newSelectedServiceList.push(service);
+
+		if (!this.modalInstance) {
+			this.logger.error('modalInstance is not defined');
+			return;
+		}
+		this.modalInstance.executeCallback(ModalButtonRoleEnum.accept);
 		this.changeDetectorRef.detectChanges();
 	}
 

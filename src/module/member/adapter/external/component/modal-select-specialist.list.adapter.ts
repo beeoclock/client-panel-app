@@ -12,7 +12,7 @@ export class ModalSelectSpecialistListAdapter {
 
   private readonly logger = inject(NGXLogger);
   public readonly listMemberApiAdapter = inject(ListMemberApiAdapter);
-  public readonly tableState = new TableState<Member.IMember>();
+  public readonly tableState = new TableState<Member.RIMember>();
   public readonly loading$ = new BooleanStreamState(false);
 
   public resetTableState(): void {
@@ -43,7 +43,7 @@ export class ModalSelectSpecialistListAdapter {
       this.tableState.page += 1;
 
       // Add items to tableState
-      this.tableState.items = ([] as Member.IMember[]).concat(this.tableState.items, data.items);
+      this.tableState.items = ([] as Member.RIMember[]).concat(this.tableState.items, data.items);
       this.tableState.total = data.totalSize;
 
     } catch (e) {

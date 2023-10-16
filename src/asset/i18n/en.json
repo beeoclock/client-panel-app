@@ -420,6 +420,30 @@
 						"message": "Business profile was successfully updated."
 					}
 				}
+			},
+			"/api/v1/customer/{id}": {
+				"after": {
+					"success": {
+						"header": "Customer updated",
+						"message": "Customer was successfully updated."
+					}
+				}
+			},
+			"/api/v1/event/{id}": {
+				"after": {
+					"success": {
+						"header": "Event updated",
+						"message": "Event was successfully updated."
+					}
+				}
+			},
+			"/api/v1/service/{id}": {
+				"after": {
+					"success": {
+						"header": "Service updated",
+						"message": "Service was successfully updated."
+					}
+				}
 			}
 		},
 		"response": {

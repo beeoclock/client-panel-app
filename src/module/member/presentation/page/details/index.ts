@@ -11,7 +11,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {Select, Store} from "@ngxs/store";
 import {MemberState} from "@member/state/member/member.state";
 import {MemberActions} from "@member/state/member/member.actions";
-import {IMember} from "@member/domain";
+import {RIMember} from "@member/domain";
 import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
 
 @Component({
@@ -70,7 +70,7 @@ import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.
 export default class Index {
 
   @Select(MemberState.itemData)
-  public readonly item$!: Observable<IMember>;
+  public readonly item$!: Observable<RIMember>;
 
   @HostBinding()
   public readonly class = 'p-4 block';

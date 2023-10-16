@@ -2,12 +2,11 @@
 	<div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState.items.length">
 		<bee-card class="text-sm" *ngFor="let item of tableState.items">
 			<div class="flex justify-between items-center">
-				<div class="flex items-center gap-2">
-					<div activeStyle [active]="item.active"></div>
-				</div>
+<!--				<div class="flex items-center gap-2">-->
+<!--					<div activeStyle [active]="item.active"></div>-->
+<!--				</div>-->
 				<utility-table-column-action
 					[id]="item._id"
-					[active]="item.active"
 					(delete)="delete($event)"
 					(archive)="archive($event)"/>
 			</div>

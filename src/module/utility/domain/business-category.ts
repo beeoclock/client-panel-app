@@ -9,24 +9,24 @@ export class BusinessCategory {
 	}[]} = {
 		[BusinessIndustryEnum.BeautyIndustry]: [
 			{
-				icon: BusinessCategoryIconEnum[BusinessCategoryEnum.Barbershop],
-				label: BusinessCategoryEnum.Barbershop,
-			},
-			{
-				icon: BusinessCategoryIconEnum[BusinessCategoryEnum.BeautySalon],
-				label: BusinessCategoryEnum.BeautySalon,
-			},
-			{
-				icon: BusinessCategoryIconEnum[BusinessCategoryEnum.Hairdresser],
-				label: BusinessCategoryEnum.Hairdresser,
-			},
-			{
 				icon: BusinessCategoryIconEnum[BusinessCategoryEnum.EyebrowStylist],
 				label: BusinessCategoryEnum.EyebrowStylist,
 			},
 			{
 				icon: BusinessCategoryIconEnum[BusinessCategoryEnum.Manicurist],
 				label: BusinessCategoryEnum.Manicurist,
+			},
+			{
+				icon: BusinessCategoryIconEnum[BusinessCategoryEnum.Hairdresser],
+				label: BusinessCategoryEnum.Hairdresser,
+			},
+			{
+				icon: BusinessCategoryIconEnum[BusinessCategoryEnum.Barbershop],
+				label: BusinessCategoryEnum.Barbershop,
+			},
+			{
+				icon: BusinessCategoryIconEnum[BusinessCategoryEnum.BeautySalon],
+				label: BusinessCategoryEnum.BeautySalon,
 			},
 			{
 				icon: BusinessCategoryIconEnum[BusinessCategoryEnum.Other],

@@ -31,7 +31,7 @@ import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
 import {provideServiceWorker} from '@angular/service-worker';
 import {LanguageCodeEnum} from "@utility/domain/enum";
 // import '@angular/common/locales/global/pl';
-// import '@angular/common/locales/global/uk';
+import '@angular/common/locales/global/uk';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -46,10 +46,6 @@ initRuntimeEnvironment();
 
 bootstrapApplication(AppComponent, {
 	providers: [
-		// {
-		//   provide: LOCALE_ID,
-		//   useValue: 'uk'
-		// },
 		...tokens,
 		provideEnvironmentNgxMask(),
 		importProvidersFrom(
@@ -111,7 +107,6 @@ bootstrapApplication(AppComponent, {
 			withInMemoryScrolling({
 				scrollPositionRestoration: 'enabled'
 			}),
-			// TODO check if the strategy does not slow down first download
 			withPreloading(PreloadAllModules)
 		),
 		provideServiceWorker('ngsw-worker.js', {

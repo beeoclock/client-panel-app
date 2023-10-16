@@ -11,7 +11,7 @@ import {
 import {
 	ModalSelectSpecialistListAdapter
 } from "@member/adapter/external/component/modal-select-specialist.list.adapter";
-import {IMember} from "@member/domain";
+import {RIMember} from "@member/domain";
 import {ISpecialist} from "@service/domain/interface/i.specialist";
 import {Service} from "@service/domain";
 
@@ -126,7 +126,7 @@ export class SpecialistsBlockComponent implements OnInit {
 
 	}
 
-	public removeMemberFromSelectedList(member: IMember): void {
+	public removeMemberFromSelectedList(member: RIMember): void {
 
 		const newSelectedSpecialistList = this.specialistListControl.value.filter((specialist) => specialist !== member._id);
 

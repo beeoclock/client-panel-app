@@ -7,7 +7,7 @@
 
     <div>
 
-      <div class="flex justify-between">
+      <div *ngIf="form.controls.length > 1" class="flex justify-between">
 
         <span class="text-beeColor-400">{{ 'keyword.capitalize.customer' | translate }} #{{ index + 1 }}</span>
 

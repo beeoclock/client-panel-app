@@ -67,7 +67,7 @@ import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-m
         [label]="'keyword.capitalize.phone' | translate"/>
 
 			<div
-				class="col-span-2"
+				class="md:col-span-2"
 				[class.hidden]="
 					form.valid ||
 					form.controls.phone.untouched ||

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostBinding, inject, ViewChild, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, ViewChild, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from '@angular/common';
 import {firstValueFrom, Observable} from 'rxjs';
@@ -21,6 +21,8 @@ import {WeekDayPipe} from "@utility/presentation/pipes/week-day.pipe";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/boc-media.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
+import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
+import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 
 @Component({
 	selector: 'service-detail-page',
@@ -49,6 +51,8 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 		CardComponent,
 		BocMediaDirective,
 		HumanizeDurationPipe,
+		BackButtonComponent,
+		DefaultPanelComponent,
 	],
 	standalone: true
 })
@@ -56,9 +60,6 @@ export default class Index {
 
 	@Select(ServiceState.itemData)
 	public readonly item$!: Observable<IService>;
-
-	@HostBinding()
-	public readonly class = 'p-4 block';
 
 	public readonly store = inject(Store);
 

@@ -1,6 +1,6 @@
-<div class="p-4 pb-48 grid grid-cols-12 gap-4">
+<div class="md:p-4 pb-48 grid grid-cols-12 gap-4">
 
-  <div class="col-span-12 xl:col-span-2 2xl:col-span-3">
+  <div class="col-span-12 xl:col-span-2 2xl:col-span-3 px-4 pt-4 md:p-0">
 
     <utility-back-link-component/>
 
@@ -68,15 +68,17 @@
             [control]="form.controls.note"/>
         </div>
       </bee-card>
-      <button
-				type="button"
-        primary
-        [isLoading]="form.pending"
-        [disabled]="form.disabled"
-				[scrollToFirstError]="true"
-        (click)="save()">
-        {{ 'keyword.capitalize.save' | translate }}
-      </button>
+      <div class="block p-4 md:p-0">
+				<button
+					type="button"
+					primary
+					[isLoading]="form.pending"
+					[disabled]="form.disabled"
+					[scrollToFirstError]="true"
+					(click)="save()">
+					{{ 'keyword.capitalize.save' | translate }}
+				</button>
+			</div>
     </form>
   </div>
 

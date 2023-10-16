@@ -1,5 +1,5 @@
 <div class="block max-w-full overflow-x-auto h-[calc(100vh-246px)] md:h-[calc(100vh-135px)]">
-	<table class="w-full text-sm text-left text-beeColor-500 dark:text-beeDarkColor-400">
+	<table class="border-separate border-spacing-0 w-full text-sm text-left text-beeColor-500 dark:text-beeDarkColor-400">
 		<thead
 			class="text-xs text-beeColor-700 uppercase border-b border-beeColor-300 dark:border-beeDarkColor-700 dark:bg-beeDarkColor-800 dark:text-beeDarkColor-400">
 		<tr>
@@ -10,7 +10,7 @@
 			<!--					<label for="checkbox-all" class="sr-only">checkbox</label>-->
 			<!--				</div>-->
 			<!--			</th>-->
-			<th scope="col" class="px-6 py-3"
+			<th scope="col" class="px-6 py-3 border-b border-beeColor-300"
 					data-orderBy="lastName">
 				<div class="flex gap-3 items-center">
 					{{ 'keyword.capitalize.fullName' | translate }}
@@ -19,7 +19,7 @@
 						[tableState]="tableState"/>
 				</div>
 			</th>
-			<th scope="col" class="px-6 py-3"
+			<th scope="col" class="px-6 py-3 border-b border-beeColor-300"
 					data-orderBy="email">
 				<div class="flex gap-3 items-center">
 					{{ 'keyword.capitalize.email' | translate }}
@@ -28,7 +28,7 @@
 						[tableState]="tableState"/>
 				</div>
 			</th>
-			<th scope="col" class="px-6 py-3"
+			<th scope="col" class="px-6 py-3 border-b border-beeColor-300"
 					data-orderBy="phone">
 				<div class="flex gap-3 items-center">
 					{{ 'keyword.capitalize.phone' | translate }}
@@ -37,10 +37,10 @@
 						[tableState]="tableState"/>
 				</div>
 			</th>
-			<th scope="col" class="px-6 py-3">
+			<th scope="col" class="px-6 py-3 border-b border-beeColor-300">
 				{{ 'keyword.capitalize.note' | translate }}
 			</th>
-			<th scope="col" class="px-6 py-3" data-orderBy="active">
+			<th scope="col" class="px-6 py-3 border-b border-beeColor-300" data-orderBy="active">
 				<div class="flex gap-3 items-center">
 					{{ 'keyword.capitalize.active' | translate }}
 					<utility-sort-indicator
@@ -48,7 +48,7 @@
 						[tableState]="tableState"/>
 				</div>
 			</th>
-			<th scope="col" class="px-6 py-3"
+			<th scope="col" class="px-6 py-3 border-b border-beeColor-300"
 					data-orderBy="createdAt">
 				<div class="flex gap-3 items-center">
 					{{ 'keyword.capitalize.createdAt' | translate }}
@@ -57,7 +57,7 @@
 						[tableState]="tableState"/>
 				</div>
 			</th>
-			<th scope="col" class="px-6 py-3"
+			<th scope="col" class="px-6 py-3 border-b border-beeColor-300"
 					data-orderBy="updatedAt">
 				<div class="flex gap-3 items-center">
 					{{ 'keyword.capitalize.updatedAt' | translate }}
@@ -66,7 +66,7 @@
 						[tableState]="tableState"/>
 				</div>
 			</th>
-			<th scope="col" class="px-6 py-3 text-center">
+			<th scope="col" class="border-l px-6 py-3 text-center sticky right-0 bg-beeColor-50 border-b border-beeColor-300">
 				{{ 'keyword.capitalize.action' | translate }}
 			</th>
 		</tr>
@@ -83,31 +83,31 @@
 			<!--					<label for="checkbox-table-1" class="sr-only">checkbox</label>-->
 			<!--				</div>-->
 			<!--			</td>-->
-			<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+			<td class="border-b border-beeColor-300 px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
 				<a [routerLink]="item._id">
 					{{ item.firstName }} {{ item.lastName }}
 				</a>
 			</td>
-			<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+			<td class="border-b border-beeColor-300 px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
 				<a href="mailto:{{ item.email }}">{{ item.email }}</a>
 			</td>
-			<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+			<td class="border-b border-beeColor-300 px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
 				{{ item.phone }}
 			</td>
-			<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+			<td class="border-b border-beeColor-300 px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
 				{{ item.note }}
 			</td>
-			<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+			<td class="border-b border-beeColor-300 px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
 				<div activeStyle [active]="item.active">
 				</div>
 			</td>
-			<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+			<td class="border-b border-beeColor-300 px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
 				{{ item.createdAt | dynamicDate }}
 			</td>
-			<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+			<td class="border-b border-beeColor-300 px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
 				{{ item.updatedAt | dynamicDate }}
 			</td>
-			<td class="px-6 py-2 text-center text-beeColor-700 dark:text-beeDarkColor-100">
+			<td class="border-b border-beeColor-300 border-l px-6 py-2 text-center text-beeColor-700 dark:text-beeDarkColor-100 sticky right-0 bg-white">
 				<utility-table-column-action
 					[id]="item._id"
 					[active]="item.active"

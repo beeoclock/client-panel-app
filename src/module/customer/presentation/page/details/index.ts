@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, inject, ViewChild, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {AsyncPipe, NgIf} from '@angular/common';
 import {firstValueFrom, Observable} from 'rxjs';
@@ -16,57 +16,58 @@ import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
+import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 
 @Component({
-  selector: 'customer-detail-page',
-  templateUrl: './index.html',
-  encapsulation: ViewEncapsulation.None,
-    imports: [
-        NgIf,
-        AsyncPipe,
-        SpinnerComponent,
-        BackLinkComponent,
-        BackLinkComponent,
-        DeleteButtonComponent,
-        RouterLink,
-        DropdownComponent,
-        LoaderComponent,
-        TranslateModule,
-        EditLinkComponent,
-        ActiveStyleDirective,
-        DynamicDatePipe,
-        CardComponent
-    ],
-  standalone: true
+	selector: 'customer-detail-page',
+	templateUrl: './index.html',
+	encapsulation: ViewEncapsulation.None,
+	imports: [
+		NgIf,
+		AsyncPipe,
+		SpinnerComponent,
+		BackLinkComponent,
+		BackLinkComponent,
+		DeleteButtonComponent,
+		RouterLink,
+		DropdownComponent,
+		LoaderComponent,
+		TranslateModule,
+		EditLinkComponent,
+		ActiveStyleDirective,
+		DynamicDatePipe,
+		CardComponent,
+		BackButtonComponent,
+		DefaultPanelComponent
+	],
+	standalone: true
 })
 export default class Index {
 
-  // TODO add base index of details with store and delete method
+	// TODO add base index of details with store and delete method
 
-  @Select(CustomerState.itemData)
-  public readonly item$!: Observable<ICustomer>;
+	@Select(CustomerState.itemData)
+	public readonly item$!: Observable<ICustomer>;
 
-  @HostBinding()
-  public readonly class = 'p-4 block';
+	@ViewChild(BackLinkComponent)
+	public backLink!: BackLinkComponent;
 
-  @ViewChild(BackLinkComponent)
-  public backLink!: BackLinkComponent;
+	public readonly store = inject(Store);
 
-  public readonly store = inject(Store);
+	public async delete(customer: ICustomer) {
 
-  public async delete(customer: ICustomer) {
+		const {active} = customer;
 
-    const {active} = customer;
+		if (active) {
 
-    if (active) {
+			return alert('You can\'t delete active customer');
 
-      return alert('You can\'t delete active customer');
+		}
 
-    }
+		await firstValueFrom(this.store.dispatch(new CustomerActions.DeleteItem(customer._id)));
+		this.backLink.link.nativeElement.click();
 
-    await firstValueFrom(this.store.dispatch(new CustomerActions.DeleteItem(customer._id)));
-    this.backLink.link.nativeElement.click();
-
-  }
+	}
 
 }

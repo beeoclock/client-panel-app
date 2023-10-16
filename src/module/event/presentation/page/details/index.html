@@ -1,29 +1,26 @@
-<div class="pb-48 grid grid-cols-12 gap-4">
+<utility-default-panel-component>
+	<utility-back-button-component/>
+</utility-default-panel-component>
+<div class="pb-48 grid grid-cols-12 gap-4 pt-4">
 
-  <div class="col-span-12 xl:col-span-2 2xl:col-span-3">
+	<ng-container *ngIf="item$ | async as event">
 
-    <utility-back-link-component/>
+		<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4">
 
-  </div>
+			<bee-card>
+				<event-general-details [event]="event"/>
+			</bee-card>
 
-  <ng-container *ngIf="item$ | async as event">
+			<bee-card>
+				<event-buttons-details [event]="event"/>
+			</bee-card>
 
-    <div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4">
+			<div class="text-start text-beeColor-400 text-sm px-4 lg:px-0">
+				<event-meta-details [event]="event"/>
+			</div>
 
-      <bee-card>
-        <event-general-details [event]="event"/>
-      </bee-card>
+		</div>
 
-      <bee-card>
-        <event-buttons-details [event]="event"/>
-      </bee-card>
-
-    </div>
-
-    <div class="col-span-12 xl:col-span-2 2xl:col-span-3 text-end text-beeColor-400 text-sm">
-      <event-meta-details [event]="event"/>
-    </div>
-
-  </ng-container>
+	</ng-container>
 
 </div>

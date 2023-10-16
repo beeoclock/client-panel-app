@@ -120,6 +120,20 @@ export const serviceEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+			},
+			after: {
+				success: {
+					notification: {
+						execute: (translateService: TranslateService) => {
+							const key = `http.PUT.${serviceEndpointEnum.update}.after.success`;
+							const {title, message} = translateService.instant(key);
+							return {
+								title,
+								message
+							}
+						}
+					}
+				}
 			}
 		}
 	},

@@ -2,7 +2,7 @@ import {AfterViewInit, Component, inject, Input} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {IMember} from "@member/domain";
+import {RIMember} from "@member/domain";
 import {
 	ModalMembersFormComponent
 } from "@service/presentation/component/form/v1/members/modal.employees.form.component";
@@ -70,7 +70,7 @@ export class MembersFormComponent implements AfterViewInit {
   @Input()
   public multiple = true;
 
-  public items: IMember[] = [];
+  public items: RIMember[] = [];
 
   // TODO create external adapter (in event module) for the module (service)
   private readonly listMemberApiAdapter = inject(ListMemberApiAdapter);
@@ -101,7 +101,7 @@ export class MembersFormComponent implements AfterViewInit {
     this.control.patchValue([]);
   }
 
-  public getLabel(item: IMember): string {
+  public getLabel(item: RIMember): string {
     if (item.firstName && item.lastName) {
       return `(${item.firstName} ${item.lastName}) ${item.email}`
     }

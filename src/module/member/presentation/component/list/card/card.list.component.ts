@@ -1,5 +1,5 @@
 import {Component, Input, ViewEncapsulation} from "@angular/core";
-import {NgForOf} from "@angular/common";
+import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
@@ -12,12 +12,14 @@ import {TranslateModule} from "@ngx-translate/core";
 import {ITableState} from "@utility/domain/table.state";
 import {TableComponent} from "@utility/table.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
+import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
+import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {RIMember} from "@member/domain";
 
 @Component({
-	selector: 'member-table-list-component',
-	templateUrl: './table.list.component.html',
+	selector: 'member-card-list-component',
+	templateUrl: './card.list.component.html',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
@@ -29,10 +31,14 @@ import {RIMember} from "@member/domain";
 		DynamicDatePipe,
 		SortIndicatorComponent,
 		TranslateModule,
-		EventStatusStyleDirective
+		EventStatusStyleDirective,
+		CurrencyPipe,
+		HumanizeDurationPipe,
+		CardComponent,
+		NgIf
 	]
 })
-export class TableListComponent extends TableComponent {
+export class CardListComponent extends TableComponent {
 
 	public override readonly actions = ServiceActions;
 

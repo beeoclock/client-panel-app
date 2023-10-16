@@ -4,7 +4,7 @@ import {
 } from "@member/adapter/external/component/modal-select-specialist.list.adapter";
 import {NgForOf, NgIf} from "@angular/common";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
-import {IMember} from "@member/domain";
+import {RIMember} from "@member/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {ISpecialist} from "@service/domain/interface/i.specialist";
 import {Service} from "@src/module/service/domain";
@@ -84,21 +84,21 @@ export class ModalSelectSpecialistComponent implements OnInit {
 		});
 	}
 
-	public select(member: IMember): void {
+	public select(member: RIMember): void {
 		this.newSelectedSpecialistList.push(Service.memberToSpecialist(member));
 		this.changeDetectorRef.detectChanges();
 	}
 
-	public deselect(member: IMember): void {
+	public deselect(member: RIMember): void {
 		this.newSelectedSpecialistList = this.newSelectedSpecialistList.filter((specialist: ISpecialist) => specialist?.member?._id !== member._id);
 		this.changeDetectorRef.detectChanges();
 	}
 
-	public isSelected(member: IMember): boolean {
+	public isSelected(member: RIMember): boolean {
 		return this.newSelectedSpecialistList.some((specialist: ISpecialist) => specialist?.member?._id === member._id);
 	}
 
-	public isNotSelected(member: IMember): boolean {
+	public isNotSelected(member: RIMember): boolean {
 		return !this.isSelected(member);
 	}
 

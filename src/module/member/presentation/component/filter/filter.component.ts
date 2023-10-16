@@ -8,6 +8,8 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 import {RouterLink} from "@angular/router";
 import {MemberState} from "@member/state/member/member.state";
 import {BaseFilterComponent} from "@utility/base.filter.component";
+import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
+import {IonSelectActiveComponent} from "@utility/presentation/component/input/ion/ion-select-active.component";
 
 @Component({
 	selector: 'member-filter-component',
@@ -17,18 +19,32 @@ import {BaseFilterComponent} from "@utility/base.filter.component";
 		SearchInputComponent,
 		TranslateModule,
 		PrimaryButtonDirective,
-		RouterLink
+		RouterLink,
+		DefaultPanelComponent,
+		IonSelectActiveComponent
 	],
 	template: `
-		<utility-filter-panel-component>
-			<utility-search-input-component start [control]="form.controls.search"/>
-			<ng-container end>
+
+		<utility-default-panel-component>
+<!--			<ion-select-active class="px-4 py-2 border border-beeColor-200 rounded-2xl" [control]="form.controls.active"/>-->
+			<div class="flex-1">
+				<form class="flex items-center">
+					<label for="simple-search" class="sr-only">Search</label>
+					<div class="relative w-full">
+<!--						<utility-search-input-component [control]="form.controls.phrase"/>-->
+					</div>
+				</form>
+			</div>
+			<div
+				class="md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
 				<button type="button" primary routerLink="form">
 					<i class="bi bi-plus-lg"></i>
+					<span class="hidden md:block">
 					{{ 'member.button.create' | translate }}
+					</span>
 				</button>
-			</ng-container>
-		</utility-filter-panel-component>
+			</div>
+		</utility-default-panel-component>
 	`
 })
 export class FilterComponent extends BaseFilterComponent {

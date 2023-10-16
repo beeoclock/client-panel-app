@@ -1,88 +1,90 @@
-<div class="p-4 pb-48 grid grid-cols-12 gap-4">
+<div class="md:p-4 pb-48 grid grid-cols-12 gap-4">
 
-  <ng-container *ngIf="preview.isOn">
+	<ng-container *ngIf="preview.isOn">
 
-    <div class="col-span-12 xl:col-span-2 2xl:col-span-3">
+		<div class="col-span-12 xl:col-span-2 2xl:col-span-3 pt-4 md:p-0">
 
-      <button type="button" link (click)="preview.switchOff()">
-        <i class="bi bi-arrow-left me-2"></i>
-        {{ 'keyword.capitalize.back' | translate }}
-      </button>
+			<button type="button" link (click)="preview.switchOff()">
+				<i class="bi bi-arrow-left me-2"></i>
+				{{ 'keyword.capitalize.back' | translate }}
+			</button>
 
-    </div>
+		</div>
 
-    <div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
+		<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
 
-    <bee-card>
-      <event-general-details [isPreview]="preview.isOn" [event]="value"/>
-    </bee-card>
+			<bee-card>
+				<event-general-details [isPreview]="preview.isOn" [event]="value"/>
+			</bee-card>
 
-    <div class="mt-4">
-      <button
-				type="button"
-        primary
-        [isLoading]="form.pending"
-        [disabled]="form.disabled"
-				[scrollToFirstError]="true"
-        (click)="save()">
-        {{ 'keyword.capitalize.save' | translate }}
-      </button>
-    </div>
+			<div class="block p-4 md:p-0">
+				<button
+					type="button"
+					primary
+					[isLoading]="form.pending"
+					[disabled]="form.disabled"
+					[scrollToFirstError]="true"
+					(click)="save()">
+					{{ 'keyword.capitalize.save' | translate }}
+				</button>
+			</div>
 
-    </div>
+		</div>
 
-  </ng-container>
+	</ng-container>
 
-  <ng-container *ngIf="preview.isOff">
+	<ng-container *ngIf="preview.isOff">
 
-    <div class="col-span-12 xl:col-span-2 2xl:col-span-3">
+		<div class="col-span-12 xl:col-span-2 2xl:col-span-3 px-4 pt-4 md:p-0">
 
-      <utility-back-link-component/>
+			<utility-back-link-component/>
 
-    </div>
+		</div>
 
-    <div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
+		<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
 
-      <form [formGroup]="form" class="flex flex-col gap-4">
+			<form [formGroup]="form" class="flex flex-col gap-4">
 
-        <bee-card>
-          <event-attendees-component [form]="form.controls.attendees"/>
-        </bee-card>
+				<bee-card>
+					<event-attendees-component [form]="form.controls.attendees"/>
+				</bee-card>
 
-        <bee-card>
-          <event-service-component [serviceListControl]="form.controls.services"/>
-        </bee-card>
+				<bee-card>
+					<event-service-component
+						[editable]="!isEditMode"
+						[serviceListControl]="form.controls.services"/>
+				</bee-card>
 
-        <bee-card *ngIf="specialist">
-          <event-select-time-slot-form-component
+				<bee-card *ngIf="specialist">
+					<event-select-time-slot-form-component
 						[editable]="!isEditMode"
 						[control]="form.controls.start"/>
-        </bee-card>
+				</bee-card>
 
-        <bee-card>
-          <form-textarea-component
-            id="event-form-public-note-input"
-            [label]="'keyword.capitalize.note' | translate"
-            [placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
-            [control]="form.controls.description"/>
-        </bee-card>
+				<bee-card>
+					<form-textarea-component
+						id="event-form-public-note-input"
+						[label]="'keyword.capitalize.note' | translate"
+						[placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
+						[control]="form.controls.description"/>
+				</bee-card>
 
-        <div class="mt-4">
-          <button
+				<div class="block p-4 md:p-0">
+					<button
 						type="button"
-            primary
+						primary
 						[scrollToFirstError]="true"
-            [isLoading]="form.pending"
-            [disabled]="form.disabled"
-            (click)="goToPreview()">
-            {{ 'keyword.capitalize.preview' | translate }}
-          </button>
-        </div>
+						[isLoading]="form.pending"
+						[disabled]="form.disabled"
+						(click)="goToPreview()">
+						{{ 'keyword.capitalize.preview' | translate }}
+					</button>
+				</div>
 
-      </form>
+			</form>
 
-    </div>
+		</div>
 
-  </ng-container>
+	</ng-container>
 
 </div>

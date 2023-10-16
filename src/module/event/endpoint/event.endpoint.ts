@@ -86,6 +86,20 @@ export const eventEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+			},
+			after: {
+				success: {
+					notification: {
+						execute: (translateService: TranslateService) => {
+							const key = `http.PUT.${eventEndpointEnum.update}.after.success`;
+							const {title, message} = translateService.instant(key);
+							return {
+								title,
+								message
+							}
+						}
+					}
+				}
 			}
 		},
 	},
