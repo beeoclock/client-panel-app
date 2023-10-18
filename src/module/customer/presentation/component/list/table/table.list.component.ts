@@ -1,5 +1,5 @@
 import {Component, Input, ViewEncapsulation} from "@angular/core";
-import {NgForOf} from "@angular/common";
+import {CurrencyPipe, NgForOf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
@@ -13,6 +13,12 @@ import {ITableState} from "@utility/domain/table.state";
 import {TableComponent} from "@utility/table.component";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ICustomer} from "@customer/domain";
+import {BodyTableFlexDirective} from "@utility/presentation/directives/talbe/flex/body.table.flex.directive";
+import {ColumnTableFlexDirective} from "@utility/presentation/directives/talbe/flex/column.table.flex.directive";
+import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
+import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
+import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex/row.table.flex.directive";
+import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
 
 @Component({
 	selector: 'customer-table-list-component',
@@ -27,7 +33,14 @@ import {ICustomer} from "@customer/domain";
 		TableStatePaginationComponent,
 		DynamicDatePipe,
 		SortIndicatorComponent,
-		TranslateModule
+		TranslateModule,
+		BodyTableFlexDirective,
+		ColumnTableFlexDirective,
+		CurrencyPipe,
+		EventStatusStyleDirective,
+		HumanizeDurationPipe,
+		RowTableFlexDirective,
+		TableTableFlexDirective
 	]
 })
 export class TableListComponent extends TableComponent {
@@ -36,5 +49,50 @@ export class TableListComponent extends TableComponent {
 
 	@Input()
 	public tableState!: ITableState<ICustomer>;
+
+	public readonly tableConfiguration = {
+		columns: {
+			lastName: {
+				style: {
+					minWidth: '250px',
+				},
+			},
+			email: {
+				style: {
+					minWidth: '250px',
+				},
+			},
+			phone: {
+				style: {
+					minWidth: '200px',
+				},
+			},
+			active: {
+				style: {
+					minWidth: '200px',
+				},
+			},
+			note: {
+				style: {
+					minWidth: '200px',
+				},
+			},
+			createdAt: {
+				style: {
+					minWidth: '250px',
+				},
+			},
+			updatedAt: {
+				style: {
+					minWidth: '250px',
+				},
+			},
+			action: {
+				style: {
+					minWidth: '80px',
+				},
+			},
+		},
+	};
 
 }
