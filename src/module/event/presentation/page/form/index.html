@@ -1,15 +1,14 @@
-<div class="md:p-4 pb-48 grid grid-cols-12 gap-4">
+<utility-default-panel-component>
+
+	<button *ngIf="preview.isOn" type="button" class="flex items-center justify-center rounded-2xl bg-white hover:bg-beeColor-50 dark:bg-beeDarkColor-800 dark:hover:bg-beeDarkColor-600 px-4 py-2 text-sm font-semibold text-beeColor-900 dark:text-beeColor-200 shadow-sm ring-1 ring-inset ring-beeColor-300 cursor-pointer" (click)="preview.switchOff()">
+		<i class="bi bi-arrow-left me-2"></i>
+		{{ 'keyword.capitalize.back' | translate }}
+	</button>
+	<utility-back-button-component *ngIf="preview.isOff"/>
+</utility-default-panel-component>
+<div class="pb-48 grid grid-cols-12 gap-4 pt-4">
 
 	<ng-container *ngIf="preview.isOn">
-
-		<div class="col-span-12 xl:col-span-2 2xl:col-span-3 pt-4 md:p-0">
-
-			<button type="button" link (click)="preview.switchOff()">
-				<i class="bi bi-arrow-left me-2"></i>
-				{{ 'keyword.capitalize.back' | translate }}
-			</button>
-
-		</div>
 
 		<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
 
@@ -17,7 +16,7 @@
 				<event-general-details [isPreview]="preview.isOn" [event]="value"/>
 			</bee-card>
 
-			<div class="block p-4 md:p-0">
+			<div class="block p-4 md:p-0 mt-4">
 				<button
 					type="button"
 					primary
@@ -34,12 +33,6 @@
 	</ng-container>
 
 	<ng-container *ngIf="preview.isOff">
-
-		<div class="col-span-12 xl:col-span-2 2xl:col-span-3 px-4 pt-4 md:p-0">
-
-			<utility-back-link-component/>
-
-		</div>
 
 		<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
 
