@@ -1,5 +1,5 @@
 import {Component, Input, ViewEncapsulation} from "@angular/core";
-import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
+import {CurrencyPipe, DatePipe, NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
@@ -22,21 +22,22 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 	templateUrl: './card.list.component.html',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
-    imports: [
-        NgForOf,
-        RouterLink,
-        ActiveStyleDirective,
-        ActionComponent,
-        TableStatePaginationComponent,
-        DynamicDatePipe,
-        SortIndicatorComponent,
-        TranslateModule,
-        EventStatusStyleDirective,
-        CurrencyPipe,
-        HumanizeDurationPipe,
-        CardComponent,
-        NgIf
-    ]
+	imports: [
+		NgForOf,
+		RouterLink,
+		ActiveStyleDirective,
+		ActionComponent,
+		TableStatePaginationComponent,
+		DynamicDatePipe,
+		SortIndicatorComponent,
+		TranslateModule,
+		EventStatusStyleDirective,
+		CurrencyPipe,
+		HumanizeDurationPipe,
+		CardComponent,
+		NgIf,
+		DatePipe
+	]
 })
 export class CardListComponent extends TableComponent {
 
@@ -45,4 +46,7 @@ export class CardListComponent extends TableComponent {
 	@Input()
 	public tableState!: ITableState<IEvent>;
 
+	public sameYear(start: string | undefined): boolean {
+		return start ? new Date(start).getFullYear() === new Date().getFullYear() : false;
+	}
 }

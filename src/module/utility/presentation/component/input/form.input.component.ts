@@ -39,6 +39,7 @@ import {FloatingInputDirective} from "@utility/presentation/directives/input/flo
 			isRequired
 			invalidTooltip
 			default
+			[step]="step"
 			[isRequiredEnabled]="showLabel"
 			[class.disabled]="disabled"
 			[formControl]="control"
@@ -70,6 +71,9 @@ export class FormInputComponent implements DoCheck {
 
 	@Input()
 	public disabled = false;
+
+	@Input()
+	public step = 60; // In seconds
 
 	@Input()
 	public control!: FormControl;
