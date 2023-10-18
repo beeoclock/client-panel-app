@@ -11,7 +11,8 @@ import {NgClass, NgIf} from '@angular/common';
   ],
   template: `
     <div
-      class="bg-white dark:text-white dark:bg-beeDarkColor-800/50 border rounded-2xl flex flex-col"
+      class="bg-white dark:text-white dark:bg-beeDarkColor-800/50 rounded-2xl flex flex-col"
+			[class.border]="useBorder"
       [ngClass]="[gap, 'w-' + width, padding, borderColor, 'dark:' + darkBorderColor]">
       <ng-content></ng-content>
     </div>
@@ -26,6 +27,9 @@ export class CardComponent {
 
   @Input()
   public width: 'auto' | '96' | string = 'auto';
+
+  @Input()
+  public useBorder = true;
 
   @Input()
   public borderColor = 'border-beeColor-200';

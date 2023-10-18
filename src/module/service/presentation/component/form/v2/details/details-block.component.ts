@@ -11,7 +11,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 	selector: 'service-form-details-block-component',
 	standalone: true,
 	template: `
-		<bee-card>
+		<bee-card [useBorder]="useCardBorder">
 			<span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.details' | translate }}</span>
 
 			<form-input
@@ -43,5 +43,8 @@ export class DetailsBlockComponent {
 
 	@Input()
 	public form = new LanguageVersionForm();
+
+	@Input()
+	public useCardBorder = true;
 
 }

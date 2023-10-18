@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from "@angular/router";
-import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
@@ -21,16 +20,15 @@ import {IdentityActions} from "@identity/state/identity/identity.actions";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
-		RouterLink,
-		PrimaryLinkButtonDirective,
+		CardComponent,
 		FormInputComponent,
-		PrimaryButtonDirective,
+		TranslateModule,
 		BackLinkComponent,
 		ChangeLanguageComponent,
-		TranslateModule,
-		CardComponent,
 		NgIf,
-		AsyncPipe
+		PrimaryButtonDirective,
+		RouterLink,
+		AsyncPipe,
 	],
 	encapsulation: ViewEncapsulation.None
 })
@@ -55,6 +53,7 @@ export default class Index {
 		tap((firstCompany) => {
 			if (!firstCompany) {
 				this.businessOwnerFullNameControl.clearValidators();
+				this.businessOwnerFullNameControl.updateValueAndValidity();
 			}
 		}),
 	);
@@ -70,5 +69,4 @@ export default class Index {
 	public get invalid(): boolean {
 		return !this.valid;
 	}
-
 }
