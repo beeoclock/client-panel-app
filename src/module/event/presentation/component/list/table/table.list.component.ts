@@ -15,6 +15,10 @@ import {EventStatusStyleDirective} from "@event/presentation/directive/event-sta
 import {EventActions} from "@event/state/event/event.actions";
 import {IEvent} from "@event/domain";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
+import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
+import {ColumnTableFlexDirective} from "@utility/presentation/directives/talbe/flex/column.table.flex.directive";
+import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex/row.table.flex.directive";
+import {BodyTableFlexDirective} from "@utility/presentation/directives/talbe/flex/body.table.flex.directive";
 
 @Component({
 	selector: 'event-table-list-component',
@@ -32,7 +36,11 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 		TranslateModule,
 		EventStatusStyleDirective,
 		CurrencyPipe,
-		HumanizeDurationPipe
+		HumanizeDurationPipe,
+		TableTableFlexDirective,
+		ColumnTableFlexDirective,
+		RowTableFlexDirective,
+		BodyTableFlexDirective
 	]
 })
 export class TableListComponent extends TableComponent {
@@ -41,5 +49,60 @@ export class TableListComponent extends TableComponent {
 
 	@Input()
 	public tableState!: ITableState<IEvent>;
+
+	public readonly tableConfiguration = {
+		columns: {
+			attendants: {
+				style: {
+					minWidth: '100px',
+				},
+			},
+			service: {
+				style: {
+					minWidth: '250px',
+				},
+			},
+			duration: {
+				style: {
+					minWidth: '120px',
+				},
+			},
+			price: {
+				style: {
+					minWidth: '100px',
+				},
+			},
+			start: {
+				style: {
+					minWidth: '200px',
+				},
+			},
+			end: {
+				style: {
+					minWidth: '200px',
+				},
+			},
+			status: {
+				style: {
+					minWidth: '150px',
+				},
+			},
+			createdAt: {
+				style: {
+					minWidth: '250px',
+				},
+			},
+			updatedAt: {
+				style: {
+					minWidth: '250px',
+				},
+			},
+			action: {
+				style: {
+					minWidth: '80px',
+				},
+			},
+		},
+	};
 
 }

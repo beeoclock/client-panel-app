@@ -18,26 +18,30 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 import {CustomerForm} from "@customer/presentation/form";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
+import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
+import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 
 @Component({
 	selector: 'customer-form-page',
 	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
-	imports: [
-		ReactiveFormsModule,
-		DeleteButtonComponent,
-		HasErrorDirective,
-		RouterLink,
-		BackLinkComponent,
-		InvalidTooltipDirective,
-		TranslateModule,
-		FormInputComponent,
-		SwitchActiveBlockComponent,
-		FormTextareaComponent,
-		CardComponent,
-		PrimaryButtonDirective,
-		InvalidTooltipComponent,
-	],
+    imports: [
+        ReactiveFormsModule,
+        DeleteButtonComponent,
+        HasErrorDirective,
+        RouterLink,
+        BackLinkComponent,
+        InvalidTooltipDirective,
+        TranslateModule,
+        FormInputComponent,
+        SwitchActiveBlockComponent,
+        FormTextareaComponent,
+        CardComponent,
+        PrimaryButtonDirective,
+        InvalidTooltipComponent,
+        BackButtonComponent,
+        DefaultPanelComponent,
+    ],
 	standalone: true
 })
 export default class Index implements OnInit {

@@ -16,6 +16,10 @@ import {ILanguageVersion, IService} from "@service/domain";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {LanguageCodeEnum} from "@utility/domain/enum";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
+import {BodyTableFlexDirective} from "@utility/presentation/directives/talbe/flex/body.table.flex.directive";
+import {ColumnTableFlexDirective} from "@utility/presentation/directives/talbe/flex/column.table.flex.directive";
+import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex/row.table.flex.directive";
+import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
 
 @Component({
 	selector: 'service-table-list-component',
@@ -33,7 +37,11 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 		TranslateModule,
 		EventStatusStyleDirective,
 		HumanizeDurationPipe,
-		CurrencyPipe
+		CurrencyPipe,
+		BodyTableFlexDirective,
+		ColumnTableFlexDirective,
+		RowTableFlexDirective,
+		TableTableFlexDirective
 	]
 })
 export class TableListComponent extends TableComponent {
@@ -51,6 +59,46 @@ export class TableListComponent extends TableComponent {
 	public getFirstLanguageVersion(languageVersions: ILanguageVersion[] = []): ILanguageVersion {
 		const firstOption = languageVersions.find(({language}) => language === this.currentLanguageCode);
 		return firstOption ?? languageVersions[0];
+	}
+
+	public readonly tableConfiguration = {
+		columns: {
+			title: {
+				style: {
+					minWidth: '350px',
+				},
+			},
+			active: {
+				style: {
+					minWidth: '100px',
+				},
+			},
+			price: {
+				style: {
+					minWidth: '100px',
+				},
+			},
+			duration: {
+				style: {
+					minWidth: '150px',
+				},
+			},
+			createdAt: {
+				style: {
+					minWidth: '200px',
+				},
+			},
+			updatedAt: {
+				style: {
+					minWidth: '200px',
+				},
+			},
+			action: {
+				style: {
+					minWidth: '80px',
+				},
+			},
+		},
 	}
 
 }

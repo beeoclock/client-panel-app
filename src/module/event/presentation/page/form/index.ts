@@ -26,27 +26,31 @@ import {
 } from "@event/presentation/component/form/select-time-slot/index/select-time-slot.component";
 import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
 import {Reactive} from "@utility/cdk/reactive";
+import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
+import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 
 @Component({
 	selector: 'event-form-page',
 	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
-	imports: [
-		ReactiveFormsModule,
-		DeleteButtonComponent,
-		BackLinkComponent,
-		FormsModule,
-		TranslateModule,
-		FormTextareaComponent,
-		AttendeesComponent,
-		ServicesComponent,
-		CardComponent,
-		PrimaryButtonDirective,
-		GeneralDetailsComponent,
-		NgIf,
-		LinkButtonDirective,
-		SelectTimeSlotComponent,
-	],
+    imports: [
+        ReactiveFormsModule,
+        DeleteButtonComponent,
+        BackLinkComponent,
+        FormsModule,
+        TranslateModule,
+        FormTextareaComponent,
+        AttendeesComponent,
+        ServicesComponent,
+        CardComponent,
+        PrimaryButtonDirective,
+        GeneralDetailsComponent,
+        NgIf,
+        LinkButtonDirective,
+        SelectTimeSlotComponent,
+        BackButtonComponent,
+        DefaultPanelComponent,
+    ],
 	standalone: true
 })
 export default class Index extends Reactive implements OnInit {

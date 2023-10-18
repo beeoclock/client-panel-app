@@ -80,7 +80,7 @@ export abstract class TableComponent implements AfterViewInit {
 	private initOrderByAndOrderDirHandler(): void {
 
 		// orderBy and orderDir
-		this.elementRef.nativeElement.querySelectorAll('th[data-orderBy]').forEach((foundElement) => {
+		this.elementRef.nativeElement.querySelectorAll('[data-orderBy]').forEach((foundElement) => {
 			foundElement.classList.add('cursor-pointer');
 			foundElement.addEventListener('click', ($event) => {
 				if ($event.target) {
