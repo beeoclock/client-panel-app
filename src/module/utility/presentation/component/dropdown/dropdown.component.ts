@@ -24,20 +24,19 @@ import {Placement} from "@popperjs/core/lib/enums";
         border-beeColor-200
         border
         hover:bg-beeColor-300
-        focus:ring-4
         focus:outline-none
-        focus:ring-beeColor-400
         font-medium
-        rounded-lg
+        rounded-2xl
         text-sm
-        px-4
-        py-2.5
+        px-3
+        py-2
         text-center
         inline-flex
         items-center
         dark:bg-beeDarkColor-600
-        dark:hover:bg-beeDarkColor-700
-        dark:focus:ring-beeDarkColor-800"
+        dark:hover:bg-beeDarkColor-700"
+			[class.rounded-r-none]="group === 'right'"
+			[class.rounded-l-none]="group === 'left'"
       type="button">
       <ng-container *ngIf="threeDot; else DefaultTemplate">
         <i class="bi bi-three-dots-vertical"></i>
@@ -60,7 +59,7 @@ import {Placement} from "@popperjs/core/lib/enums";
     <!-- Dropdown menu -->
     <div
       #dropdownMenu
-      class="z-10 hidden bg-white divide-y divide-beeColor-100 rounded-lg shadow w-44 dark:bg-beeDarkColor-700">
+      class="z-10 hidden bg-white divide-y divide-beeColor-100 rounded-lg shadow-xl w-44 dark:bg-beeDarkColor-700">
       <ul [class]="menuClassList" aria-labelledby="dropdownDefaultButton">
         <ng-content select="[content]"></ng-content>
       </ul>
@@ -87,6 +86,9 @@ export class DropdownComponent implements AfterViewInit {
 
   @Input()
   public threeDot = false;
+
+  @Input()
+  public group: false | 'left' | 'right' = false;
 
   @Input()
   public offsetDistance = 0;

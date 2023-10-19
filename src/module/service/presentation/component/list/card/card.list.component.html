@@ -3,7 +3,8 @@
 		<div class="flex justify-between items-center">
 			<div class="flex items-center gap-2">
 				<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
-						 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="item.active">
+						 [inactiveText]="'service.keyword.capitalize.inactive' | translate"
+						 [active]="item.active">
 				</div>
 			</div>
 			<utility-table-column-action [id]="item._id" (delete)="delete($event)"/>

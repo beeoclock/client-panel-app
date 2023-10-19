@@ -100,7 +100,7 @@ export class TableListComponent extends TableComponent {
 			},
 			action: {
 				style: {
-					minWidth: '80px',
+					minWidth: '66px',
 				},
 			},
 		},

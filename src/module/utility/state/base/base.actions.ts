@@ -9,6 +9,11 @@ export namespace BaseActions {
 
 	export abstract class GetList {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
+
+		constructor(
+			public readonly force = false,
+		) {
+		}
 	}
 
 	export abstract class InitDefaultsFromCache {

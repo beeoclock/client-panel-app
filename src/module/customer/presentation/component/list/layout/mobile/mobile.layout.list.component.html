@@ -1,5 +1,5 @@
 <div class="block max-w-full overflow-x-auto h-[calc(100vh-64px)] md:h-[calc(100vh-65px)]">
-	<event-filter-component *ngIf="someDataExist.isOn"/>
+	<customer-filter-component *ngIf="someDataExist.isOn"/>
 	<ng-container *ngIf="tableState">
 		<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
 			<customer-card-list-component [tableState]="tableState"/>

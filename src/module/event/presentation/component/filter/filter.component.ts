@@ -14,6 +14,7 @@ import {BaseFilterComponent} from "@utility/base.filter.component";
 import {IonSelectActiveComponent} from "@utility/presentation/component/input/ion/ion-select-active.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
+import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 
 @Component({
 	selector: 'event-filter-component',
@@ -29,13 +30,15 @@ import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
 		DefaultPanelComponent,
 		AsyncPipe,
 		NgIf,
-		NgTemplateOutlet
+		NgTemplateOutlet,
+		AutoRefreshComponent
 	],
 	template: `
 		<utility-default-panel-component>
 			<div *ngIf="isNotMobile$ | async" class="flex overflow-x-auto gap-4">
 				<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
 				<ng-container *ngTemplateOutlet="EventStatusSelect"></ng-container>
+				<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
 			</div>
 			<div *ngIf="isMobile$ | async" class="flex gap-4 justify-between w-full">
 				<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
@@ -47,6 +50,7 @@ import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
 		</utility-default-panel-component>
 		<div *ngIf="isMobile$ | async" class="flex overflow-x-auto gap-4 mt-4 px-4">
 			<ng-container *ngTemplateOutlet="EventStatusSelect"></ng-container>
+			<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
 		</div>
 
 		<ng-template #EventStatusSelect>
@@ -57,6 +61,10 @@ import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
 
 		<ng-template #SearchInput>
 			<utility-search-input-component [control]="form.controls.phrase"/>
+		</ng-template>
+
+		<ng-template #AutoRefresh>
+			<utility-auto-refresh-component/>
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>
@@ -70,10 +78,13 @@ import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
 	`
 })
 export class FilterComponent extends BaseFilterComponent {
-	public readonly form = new FilterForm();
+
+	public override readonly form = new FilterForm();
+	public override readonly actions = EventActions;
+	public override readonly state = EventState;
 
 	constructor() {
 		super();
-		super.initHandlers(EventState, EventActions, this.form);
+		super.initHandlers();
 	}
 }

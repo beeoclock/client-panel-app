@@ -1,4 +1,4 @@
-<event-filter-component *ngIf="someDataExist.isOn"/>
+<customer-filter-component *ngIf="someDataExist.isOn"/>
 <ng-container *ngIf="tableState">
 	<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
 		<customer-table-list-component [tableState]="tableState"/>

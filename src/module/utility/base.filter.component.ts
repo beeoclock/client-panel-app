@@ -4,7 +4,6 @@ import {Store} from "@ngxs/store";
 import {debounceTime, firstValueFrom, map} from "rxjs";
 import {MS_HALF_SECOND} from "@utility/domain/const/c.time";
 import {clearObjectClone} from "@utility/domain/clear.object";
-import {FormGroup} from "@angular/forms";
 import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
 
 @Component({
@@ -25,36 +24,44 @@ export abstract class BaseFilterComponent extends Reactive {
 	}
 
 	protected readonly store = inject(Store);
+	protected readonly form: any;
+	protected readonly actions: any;
+	protected readonly state: any;
 
-	initHandlers(state: any, actions: any, form: FormGroup) {
+	initHandlers() {
 
-		this.store.select(state.tableState)
+		this.store.select(this.state.tableState)
 			.pipe(
 				this.takeUntil(),
 			)
 			.subscribe(({filters}: any) => {
 				Object.keys(filters).forEach((key) => {
-					form.controls[key].patchValue(filters[key], {
+					this.form.controls[key].patchValue(filters[key], {
 						emitEvent: false,
 						onlySelf: true,
 					});
 				})
 			});
-		form.valueChanges.pipe(
+		this.form.valueChanges.pipe(
 			debounceTime(MS_HALF_SECOND),
 			map(clearObjectClone)
-		).subscribe(async (value) => {
-			form.disable({
+		).subscribe(async (value: any) => {
+			this.form.disable({
 				emitEvent: false,
 				onlySelf: true
 			});
-			await firstValueFrom(this.store.dispatch(new actions.UpdateFilters(value as any)));
-			await firstValueFrom(this.store.dispatch(new actions.GetList()));
-			form.enable({
+			await firstValueFrom(this.store.dispatch(new this.actions.UpdateFilters(value)));
+			await firstValueFrom(this.store.dispatch(new this.actions.GetList()));
+			this.form.enable({
 				emitEvent: false,
 				onlySelf: true
 			});
 		});
 
+	}
+
+	public forceRefresh() {
+		console.log('forceRefresh');
+		this.store.dispatch(new this.actions.GetList({force: true}))
 	}
 }

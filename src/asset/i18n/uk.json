@@ -20,6 +20,14 @@
 		"APPROVE": "Підтвердити",
 		"DENY": "Відхилити"
 	},
+	"autoRefresh": {
+		"hint": {
+			"selectTime": "Авто. оновлення"
+		},
+		"time": {
+			"off": "вимк."
+		}
+	},
 	"businessCategory": {
 		"Barbershop": "Барбершоп",
 		"BeautySalon": "Салон краси",
@@ -684,6 +692,7 @@
 			"end": "Кінець",
 			"event": "Подія",
 			"events": "Події",
+			"every": "Кожні",
 			"facilities": "Зручності",
 			"feature": "Особливість",
 			"firstName": "Ім'я",
@@ -765,7 +774,9 @@
 			"ago": "тому",
 			"at": "на",
 			"dragAndDrop": "перетягніть і випустіть файл",
-			"or": "або"
+			"min": "хв.",
+			"or": "або",
+			"sec": "сек."
 		},
 		"status": {
 			"all": "Всі",

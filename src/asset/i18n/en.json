@@ -20,6 +20,14 @@
 		"APPROVE": "Approve",
 		"DENY": "Deny"
 	},
+	"autoRefresh": {
+		"hint": {
+			"selectTime": "Auto. update"
+		},
+		"time": {
+			"off": "off"
+		}
+	},
 	"businessCategory": {
 		"Barbershop": "Barbershop",
 		"BeautySalon": "Beauty salon",
@@ -685,6 +693,7 @@
 			"end": "End",
 			"event": "Event",
 			"events": "Events",
+			"every": "Every",
 			"facilities": "Facilities",
 			"feature": "Feature",
 			"firstName": "First name",
@@ -766,7 +775,9 @@
 			"ago": "ago",
 			"at": "at",
 			"dragAndDrop": "drag and drop",
-			"or": "or"
+			"min": "min.",
+			"or": "or",
+			"sec": "sec."
 		},
 		"status": {
 			"all": "All",
