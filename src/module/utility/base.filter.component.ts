@@ -5,6 +5,7 @@ import {debounceTime, firstValueFrom, map} from "rxjs";
 import {MS_HALF_SECOND} from "@utility/domain/const/c.time";
 import {clearObjectClone} from "@utility/domain/clear.object";
 import {FormGroup} from "@angular/forms";
+import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
 
 @Component({
 	selector: 'utility-base-filter-component',
@@ -12,6 +13,16 @@ import {FormGroup} from "@angular/forms";
 	standalone: true,
 })
 export abstract class BaseFilterComponent extends Reactive {
+
+	private readonly windowWidthSizeService = inject(WindowWidthSizeService);
+
+	public get isMobile$() {
+		return this.windowWidthSizeService.isMobile$;
+	}
+
+	public get isNotMobile$() {
+		return this.windowWidthSizeService.isNotMobile$;
+	}
 
 	protected readonly store = inject(Store);
 

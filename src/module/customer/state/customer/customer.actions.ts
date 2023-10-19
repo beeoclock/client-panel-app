@@ -1,5 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {ICustomer} from "@customer/domain";
+import {ICustomer, RICustomer} from "@customer/domain";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace CustomerActions {
@@ -40,11 +40,11 @@ export namespace CustomerActions {
     public static override readonly type = '[Customer API] Get Item';
   }
 
-  export class CreateItem extends BaseActions.CreateItem<ICustomer> {
+  export class CreateItem extends BaseActions.CreateItem<RICustomer> {
     public static override readonly type = '[Customer API] Create Item';
   }
 
-  export class UpdateItem extends BaseActions.UpdateItem<ICustomer> {
+  export class UpdateItem extends BaseActions.UpdateItem<RICustomer> {
     public static override readonly type = '[Customer API] Update Item';
   }
 

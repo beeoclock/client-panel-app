@@ -23,6 +23,10 @@ import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {CardListComponent} from "@event/presentation/component/list/card/card.list.component";
+import {MobileLayoutListComponent} from "@event/presentation/component/list/layout/mobile/mobile.layout.list.component";
+import {
+	DesktopLayoutListComponent
+} from "@event/presentation/component/list/layout/desktop/desktop.layout.list.component";
 
 @Component({
 	selector: 'event-list-page',
@@ -46,7 +50,9 @@ import {CardListComponent} from "@event/presentation/component/list/card/card.li
 		TableListComponent,
 		NgIf,
 		NotFoundTableDataComponent,
-		CardListComponent
+		CardListComponent,
+		MobileLayoutListComponent,
+		DesktopLayoutListComponent
 	],
 	standalone: true
 })

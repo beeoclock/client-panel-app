@@ -1,68 +1,49 @@
-<div class="block max-w-full overflow-x-auto h-[calc(100vh-134px)] md:h-[calc(100vh-135px)]">
-	<div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState.items.length">
-		<bee-card class="text-sm" *ngFor="let item of tableState.items">
-			<div class="flex justify-between items-center">
-				<div class="flex items-center gap-2">
-					<div eventStatusStyle mode="text" [status]="item.status"></div>
-					<div>
-						<i class="bi bi-person"></i>
-						{{ item?.attendees?.length }}
-					</div>
-				</div>
-				<utility-table-column-action placement="bottom-start" [offsetDistance]="10" [id]="item._id!" (delete)="delete($event)"/>
-			</div>
-			<div>
-				<div *ngIf="sameYear(item.start)" class="flex justify-between">
-					<div>
-						{{ item.start | date: 'EEEE, dd MMMM' }}
-					</div>
-					<div>
-						{{ 'keyword.lowercase.at' | translate }} {{ item.start | date: 'hh:mm' }}
-					</div>
-				</div>
-				<div *ngIf="!sameYear(item.start)" class="flex justify-between">
-					<div>
-						{{ item.start | date: 'EEEE, dd MMMM, yyyy' }}
-					</div>
-					<div>
-						{{ 'keyword.lowercase.at' | translate }} {{ item.start | date: 'hh:mm' }}
-					</div>
-				</div>
-				<div class="font-bold">
-					{{ item?.services?.[0]?.languageVersions?.[0]?.title }}
-				</div>
-				<div class="flex justify-between">
-					<div>
-						{{ item?.services?.[0]?.durationVersions?.[0]?.durationInSeconds ?? 0 | humanizeDuration }}
-					</div>
-					<div>
-						{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow'  }}
-					</div>
+<div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState.items.length">
+	<bee-card class="text-sm" *ngFor="let item of tableState.items">
+		<div class="flex justify-between items-center">
+			<div class="flex items-center gap-2">
+				<div eventStatusStyle mode="text" [status]="item.status"></div>
+				<div>
+					<i class="bi bi-person"></i>
+					{{ item?.attendees?.length }}
 				</div>
 			</div>
-<!--			<div class="flex justify-between">-->
-<!--				<div class="flex-1">-->
-<!--					<div>-->
-<!--						{{ 'event.keyword.capitalize.start' | translate }}-->
-<!--					</div>-->
-<!--					<div class="font-bold">-->
-<!--						{{ (item.start ? (item.start | dynamicDate) : null) ?? 'Invalid Time' }}-->
-<!--					</div>-->
-<!--				</div>-->
-<!--				<div class="flex-1">-->
-<!--					<div>-->
-<!--						{{ 'event.keyword.capitalize.end' | translate }}-->
-<!--					</div>-->
-<!--					<div class="font-bold">-->
-<!--						{{ (item.end ? (item.end | dynamicDate) : null) ?? 'Invalid Time' }}-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</div>-->
-		</bee-card>
-	</div>
-	<utility-table-state-pagination-component
-		*ngIf="tableState.total > tableState.items.length"
-		(clearCache)="clearTableCache()"
-		(page)="pageChange($event)"
-		[tableState]="tableState"/>
+			<utility-table-column-action placement="bottom-start" [offsetDistance]="10" [id]="item._id!"
+																	 (delete)="delete($event)"/>
+		</div>
+		<div>
+			<div *ngIf="sameYear(item.start)" class="flex justify-between">
+				<div>
+					{{ item.start | date: 'EEEE, dd MMMM' }}
+				</div>
+				<div>
+					{{ 'keyword.lowercase.at' | translate }} {{ item.start | date: 'hh:mm' }}
+				</div>
+			</div>
+			<div *ngIf="!sameYear(item.start)" class="flex justify-between">
+				<div>
+					{{ item.start | date: 'EEEE, dd MMMM, yyyy' }}
+				</div>
+				<div>
+					{{ 'keyword.lowercase.at' | translate }} {{ item.start | date: 'hh:mm' }}
+				</div>
+			</div>
+			<div class="font-bold">
+				{{ item?.services?.[0]?.languageVersions?.[0]?.title }}
+			</div>
+			<div class="flex justify-between">
+				<div>
+					{{ item?.services?.[0]?.durationVersions?.[0]?.durationInSeconds ?? 0 | humanizeDuration }}
+				</div>
+				<div>
+					{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow'  }}
+				</div>
+			</div>
+		</div>
+	</bee-card>
 </div>
+<utility-table-state-pagination-component
+	*ngIf="tableState.total > tableState.items.length"
+	(clearCache)="clearTableCache()"
+	(page)="pageChange($event)"
+	[tableState]="tableState"/>

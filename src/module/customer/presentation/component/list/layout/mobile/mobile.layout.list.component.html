@@ -1,0 +1,14 @@
+<div class="block max-w-full overflow-x-auto h-[calc(100vh-64px)] md:h-[calc(100vh-65px)]">
+<event-filter-component *ngIf="someDataExist.isOn"/>
+<ng-container *ngIf="tableState">
+	<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
+		<customer-card-list-component [tableState]="tableState"/>
+	</ng-container>
+	<ng-template #EmptyTemplate>
+		<not-found-table-data-component
+			[showLinkToForm]="someDataExist.isOff"
+			[linkLabel]="'customer.button.create' | translate"
+			[label]="'keyword.capitalize.dataNotFound' | translate"/>
+	</ng-template>
+</ng-container>
+</div>

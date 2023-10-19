@@ -23,7 +23,7 @@ export class TableTableFlexDirective {
 		'overflow-scroll',
 		'flex',
 		'flex-col',
-		'h-[calc(100vh-246px)]',
+		'h-[calc(100vh-199px)]',
 		'md:h-[calc(100vh-135px)]'
 	];
 

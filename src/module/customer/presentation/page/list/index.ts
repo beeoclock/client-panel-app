@@ -17,6 +17,12 @@ import {
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TableListComponent} from "@customer/presentation/component/list/table/table.list.component";
 import {CardListComponent} from "@customer/presentation/component/list/card/card.list.component";
+import {
+	DesktopLayoutListComponent
+} from "@customer/presentation/component/list/layout/desktop/desktop.layout.list.component";
+import {
+	MobileLayoutListComponent
+} from "@customer/presentation/component/list/layout/mobile/mobile.layout.list.component";
 
 @Component({
 	selector: 'customer-list-page',
@@ -36,6 +42,10 @@ import {CardListComponent} from "@customer/presentation/component/list/card/card
 		NotFoundTableDataComponent,
 		CardListComponent,
 		TableListComponent,
+		DesktopLayoutListComponent,
+		MobileLayoutListComponent,
+		DesktopLayoutListComponent,
+		MobileLayoutListComponent,
 	],
 	standalone: true
 })
