@@ -65,7 +65,8 @@ export class TableListComponent extends TableComponent {
 		columns: {
 			title: {
 				style: {
-					minWidth: '350px',
+					minWidth: '400px',
+					flexGrow: 1,
 				},
 			},
 			active: {
@@ -95,7 +96,7 @@ export class TableListComponent extends TableComponent {
 			},
 			action: {
 				style: {
-					minWidth: '80px',
+					minWidth: '66px',
 				},
 			},
 		},

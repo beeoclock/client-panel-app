@@ -55,11 +55,11 @@ export class SidebarService {
 			if (this.containersStatus.sidebarId) {
 				this.document.getElementById(this.mainContainerId)?.classList?.add('sm:ml-64');
 				this.document.getElementById(this.mainContainerId)?.classList?.add('md:ml-80');
-				this.document.getElementById(this.mainContainerId)?.classList?.remove('sm:ml-16');
+				this.document.getElementById(this.mainContainerId)?.classList?.remove('md:ml-16');
 			} else {
 				this.document.getElementById(this.mainContainerId)?.classList?.remove('sm:ml-64');
 				this.document.getElementById(this.mainContainerId)?.classList?.remove('md:ml-80');
-				this.document.getElementById(this.mainContainerId)?.classList?.add('sm:ml-16');
+				this.document.getElementById(this.mainContainerId)?.classList?.add('md:ml-16');
 			}
 		}
 	}

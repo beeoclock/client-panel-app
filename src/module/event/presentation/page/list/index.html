@@ -1,17 +1,15 @@
 <ng-container *ngIf="initialized.isOn; else NotInitializedTemplate">
-	<event-filter-component *ngIf="someDataExist.isOn"/>
-	<ng-container *ngIf="tableState$ | async as tableState">
-		<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
-			<event-card-list-component *ngIf="isMobile$ | async" [tableState]="tableState"/>
-			<event-table-list-component *ngIf="isNotMobile$ | async" [tableState]="tableState"/>
-		</ng-container>
-		<ng-template #EmptyTemplate>
-			<not-found-table-data-component
-				[showLinkToForm]="someDataExist.isOff"
-				[linkLabel]="'keyword.capitalize.add-event' | translate"
-				[label]="'keyword.capitalize.dataNotFound' | translate"/>
-		</ng-template>
-	</ng-container>
+	<event-mobile-layout-list-component
+		[someDataExist]="someDataExist"
+		[tableState]="tableState$ | async"
+		*ngIf="isMobile$ | async"/>
+	<event-desktop-layout-list-component
+		[someDataExist]="someDataExist"
+		[tableState]="tableState$ | async"
+		*ngIf="isNotMobile$ | async"/>
 </ng-container>
 <ng-template #NotInitializedTemplate>
+	<div class="p-4">
+		{{ 'keyword.capitalize.initializing' | translate }}...
+	</div>
 </ng-template>

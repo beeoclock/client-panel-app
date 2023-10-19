@@ -1,0 +1,12 @@
+<event-filter-component *ngIf="someDataExist.isOn"/>
+<ng-container *ngIf="tableState">
+	<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
+		<event-table-list-component [tableState]="tableState"/>
+	</ng-container>
+	<ng-template #EmptyTemplate>
+		<not-found-table-data-component
+			[showLinkToForm]="someDataExist.isOff"
+			[linkLabel]="'keyword.capitalize.add-event' | translate"
+			[label]="'keyword.capitalize.dataNotFound' | translate"/>
+	</ng-template>
+</ng-container>

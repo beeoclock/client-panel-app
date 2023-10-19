@@ -1,63 +1,62 @@
-<div class="block max-w-full overflow-x-auto h-[calc(100vh-134px)] md:h-[calc(100vh-135px)]">
-	<div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState.items.length">
-		<bee-card class="text-sm" *ngFor="let item of tableState.items">
-			<div class="flex justify-between items-center">
-				<div class="flex items-center gap-2">
-					<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
-							 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="item.active">
-					</div>
+<div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState.items.length">
+	<bee-card class="text-sm" *ngFor="let item of tableState.items">
+		<div class="flex justify-between items-center">
+			<div class="flex items-center gap-2">
+				<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
+						 [inactiveText]="'service.keyword.capitalize.inactive' | translate"
+						 [active]="item.active">
 				</div>
-				<utility-table-column-action [id]="item._id" (delete)="delete($event)"/>
 			</div>
+			<utility-table-column-action [id]="item._id" (delete)="delete($event)"/>
+		</div>
+		<div>
 			<div>
+				{{ 'keyword.capitalize.title' | translate }}
+			</div>
+			<div class="font-bold">
+				{{ getFirstLanguageVersion(item.languageVersions).title }}
+			</div>
+		</div>
+		<div class="flex justify-between">
+			<div class="flex-1">
 				<div>
-					{{ 'keyword.capitalize.title' | translate }}
+					{{ 'keyword.capitalize.duration' | translate }}
 				</div>
 				<div class="font-bold">
-					{{ getFirstLanguageVersion(item.languageVersions).title }}
+					{{ item?.durationVersions?.[0]?.durationInSeconds ?? 0 | humanizeDuration }}
 				</div>
 			</div>
-			<div class="flex justify-between">
-				<div class="flex-1">
-					<div>
-						{{ 'keyword.capitalize.duration' | translate }}
-					</div>
-					<div class="font-bold">
-						{{ item?.durationVersions?.[0]?.durationInSeconds ?? 0 | humanizeDuration }}
-					</div>
+			<div class="flex-1">
+				<div>
+					{{ 'keyword.capitalize.price' | translate }}
 				</div>
-				<div class="flex-1">
-					<div>
-						{{ 'keyword.capitalize.price' | translate }}
-					</div>
-					<div class="font-bold">
-						{{ (item?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow'  }}
-					</div>
+				<div class="font-bold">
+					{{ (item?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow'  }}
 				</div>
 			</div>
-			<div class="flex justify-between text-neutral-500">
-				<div class="flex-1">
-					<div>
-						{{ 'keyword.capitalize.createdAt' | translate }}
-					</div>
-					<div class="font-bold">
-						{{ item.createdAt | dynamicDate }}
-					</div>
+		</div>
+		<div class="flex justify-between text-neutral-500">
+			<div class="flex-1">
+				<div>
+					{{ 'keyword.capitalize.createdAt' | translate }}
 				</div>
-				<div class="flex-1">
-					<div>
-						{{ 'keyword.capitalize.updatedAt' | translate }}
-					</div>
-					<div class="font-bold">
-						{{ item.updatedAt | dynamicDate }}
-					</div>
+				<div class="font-bold">
+					{{ item.createdAt | dynamicDate }}
 				</div>
 			</div>
-		</bee-card>
-	</div>
-	<utility-table-state-pagination-component
-		*ngIf="tableState.total > tableState.items.length"
-		(clearCache)="clearTableCache()"
-		(page)="pageChange($event)"
-		[tableState]="tableState"/>
+			<div class="flex-1">
+				<div>
+					{{ 'keyword.capitalize.updatedAt' | translate }}
+				</div>
+				<div class="font-bold">
+					{{ item.updatedAt | dynamicDate }}
+				</div>
+			</div>
+		</div>
+	</bee-card>
 </div>
+<utility-table-state-pagination-component
+	*ngIf="tableState.total > tableState.items.length"
+	(clearCache)="clearTableCache()"
+	(page)="pageChange($event)"
+	[tableState]="tableState"/>

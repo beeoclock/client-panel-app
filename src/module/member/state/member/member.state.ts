@@ -97,8 +97,8 @@ export class MemberState extends BaseState<Member.RIMember> {
 	}
 
 	@Action(MemberActions.GetList)
-	public override async getList(ctx: StateContext<IMemberState>): Promise<void> {
-		await super.getList(ctx);
+	public override async getList(ctx: StateContext<IMemberState>, action: MemberActions.GetList): Promise<void> {
+		await super.getList(ctx, action);
 
 	}
 

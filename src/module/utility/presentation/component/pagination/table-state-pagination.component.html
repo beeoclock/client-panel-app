@@ -26,14 +26,14 @@
         <!--        results-->
       </p>
     </div>
-    <div class="text-sm text-beeColor-700 dark:text-beeDarkColor-400" *ngIf="showButtonToClearCache.isOn">
-        {{ 'keyword.capitalize.lastUpdate' | translate }}: {{ lastUpdate }} {{ 'keyword.lowercase.ago' | translate }}
-        (
-        <button type="button" (click)="clearTableCache()" class="text-blue-600 dark:text-blue-400 text-xs hover:underline">
-          {{ 'keyword.capitalize.clearCache' | translate }}
-        </button>
-        )
-    </div>
+<!--    <div class="text-sm text-beeColor-700 dark:text-beeDarkColor-400" *ngIf="showButtonToClearCache.isOn">-->
+<!--        {{ 'keyword.capitalize.lastUpdate' | translate }}: {{ lastUpdate }} {{ 'keyword.lowercase.ago' | translate }}-->
+<!--        (-->
+<!--        <button type="button" (click)="clearTableCache()" class="text-blue-600 dark:text-blue-400 text-xs hover:underline">-->
+<!--          {{ 'keyword.capitalize.clearCache' | translate }}-->
+<!--        </button>-->
+<!--        )-->
+<!--    </div>-->
     <div>
       <nav *ngIf="tableState.total > 1" class="isolate inline-flex -space-x-px rounded-md shadow-sm"
            aria-label="Pagination">

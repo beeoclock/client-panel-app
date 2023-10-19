@@ -98,8 +98,8 @@ export class ServiceState extends BaseState<IService> {
 	}
 
 	@Action(ServiceActions.GetList)
-	public override async getList(ctx: StateContext<IServiceState>): Promise<void> {
-		await super.getList(ctx);
+	public override async getList(ctx: StateContext<IServiceState>, action: ServiceActions.GetList): Promise<void> {
+		await super.getList(ctx, action);
 
 	}
 

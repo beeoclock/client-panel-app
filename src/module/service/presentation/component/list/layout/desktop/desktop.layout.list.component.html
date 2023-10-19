@@ -1,0 +1,12 @@
+<service-filter-component *ngIf="someDataExist.isOn"/>
+<ng-container *ngIf="tableState">
+	<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
+		<service-table-list-component [tableState]="tableState"/>
+	</ng-container>
+	<ng-template #EmptyTemplate>
+		<not-found-table-data-component
+			[showLinkToForm]="someDataExist.isOff"
+			[linkLabel]="'keyword.capitalize.add-service' | translate"
+			[label]="'keyword.capitalize.dataNotFound' | translate"/>
+	</ng-template>
+</ng-container>

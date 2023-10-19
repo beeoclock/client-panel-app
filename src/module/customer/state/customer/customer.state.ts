@@ -102,8 +102,8 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 	}
 
 	@Action(CustomerActions.GetList)
-	public override async getList(ctx: StateContext<ICustomerState>): Promise<void> {
-		await super.getList(ctx);
+	public override async getList(ctx: StateContext<ICustomerState>, action: CustomerActions.GetList): Promise<void> {
+		await super.getList(ctx, action);
 
 	}
 

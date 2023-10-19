@@ -48,10 +48,13 @@ import {IonSelectActiveComponent} from "@utility/presentation/component/input/io
 	`
 })
 export class FilterComponent extends BaseFilterComponent {
-	public readonly form = new FilterForm();
+
+	public override readonly form = new FilterForm();
+	public override readonly actions = MemberActions;
+	public override readonly state = MemberState;
 
 	constructor() {
 		super();
-		super.initHandlers(MemberState, MemberActions, this.form);
+		super.initHandlers();
 	}
 }

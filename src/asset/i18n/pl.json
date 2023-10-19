@@ -20,6 +20,14 @@
 		"APPROVE": "Zatwierdź",
 		"DENY": "Odrzuć"
 	},
+	"autoRefresh": {
+		"hint": {
+			"selectTime": "Auto. odświeżanie"
+		},
+		"time": {
+			"off": "wył."
+		}
+	},
 	"businessCategory": {
 		"Barbershop": "Barbershop",
 		"BeautySalon": "Salon kosmetyczny",
@@ -686,6 +694,7 @@
 			"end": "Koniec",
 			"event": "Wydarzenie",
 			"events": "Wydarzenia",
+			"every": "Każdą",
 			"facilities": "Udogodnienia",
 			"feature": "Funkcja",
 			"firstName": "Imię",
@@ -694,6 +703,7 @@
 			"image": "Obraz",
 			"inactive": "Nieaktywny",
 			"information": "Informacje",
+			"initializing": "Inicializacja",
 			"language": "Język",
 			"languages": "Języki",
 			"lastName": "Nazwisko",
@@ -766,7 +776,9 @@
 			"ago": "temu",
 			"at": "o",
 			"dragAndDrop": "przeciągnij i upuść plik",
-			"or": "lub"
+			"min": "min.",
+			"or": "lub",
+			"sec": "sek."
 		},
 		"status": {
 			"all": "Wszystkie",

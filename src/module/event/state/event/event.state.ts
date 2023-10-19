@@ -109,8 +109,8 @@ export class EventState extends BaseState<Event.IEvent> {
 	}
 
 	@Action(EventActions.GetList)
-	public override async getList(ctx: StateContext<IEventState>): Promise<void> {
-		await super.getList(ctx);
+	public override async getList(ctx: StateContext<IEventState>, action: EventActions.GetList): Promise<void> {
+		await super.getList(ctx, action);
 
 	}
 

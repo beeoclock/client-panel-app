@@ -55,6 +55,7 @@ export class TableListComponent extends TableComponent {
 			attendants: {
 				style: {
 					minWidth: '100px',
+					flexGrow: 1,
 				},
 			},
 			service: {
@@ -99,7 +100,7 @@ export class TableListComponent extends TableComponent {
 			},
 			action: {
 				style: {
-					minWidth: '80px',
+					minWidth: '66px',
 				},
 			},
 		},
