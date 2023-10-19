@@ -50,7 +50,9 @@ import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
 		</div>
 
 		<ng-template #EventStatusSelect>
-			<ion-select-event-status class="px-4 py-2 border border-beeColor-200 rounded-2xl" [control]="form.controls.status"/>
+			<ion-select-event-status
+				class="px-4 py-2 border border-beeColor-200 rounded-2xl"
+				[control]="form.controls.status"/>
 		</ng-template>
 
 		<ng-template #SearchInput>

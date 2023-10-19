@@ -50,7 +50,9 @@ import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
 		</div>
 
 		<ng-template #CustomerActiveSelect>
-			<ion-select-active class="px-4 py-2 border border-beeColor-200 rounded-2xl" [control]="form.controls.active"/>
+			<ion-select-active
+				class="px-4 py-2 border border-beeColor-200 rounded-2xl"
+				[control]="form.controls.active"/>
 		</ng-template>
 
 		<ng-template #SearchInput>
