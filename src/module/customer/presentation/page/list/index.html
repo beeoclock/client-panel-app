@@ -9,5 +9,7 @@
 		*ngIf="isNotMobile$ | async"/>
 </ng-container>
 <ng-template #NotInitializedTemplate>
-	{{ 'keyword.capitalize.initializing' | translate }}...
+	<div class="p-4">
+		{{ 'keyword.capitalize.initializing' | translate }}...
+	</div>
 </ng-template>

@@ -55,6 +55,7 @@ export class TableListComponent extends TableComponent {
 			lastName: {
 				style: {
 					minWidth: '250px',
+					flexGrow: 1,
 				},
 			},
 			email: {
