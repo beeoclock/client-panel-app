@@ -61,7 +61,6 @@ export abstract class BaseFilterComponent extends Reactive {
 	}
 
 	public forceRefresh() {
-		console.log('forceRefresh');
 		this.store.dispatch(new this.actions.GetList({force: true}))
 	}
 }

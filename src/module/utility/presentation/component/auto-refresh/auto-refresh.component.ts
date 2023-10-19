@@ -10,6 +10,8 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IonicModule} from "@ionic/angular";
 import {Reactive} from "@utility/cdk/reactive";
 import {is} from "thiis";
+import {filter} from "rxjs";
+import {MS_ONE_SECOND} from "@utility/domain/const/c.time";
 
 @Component({
 	selector: 'utility-auto-refresh-component',
@@ -102,12 +104,8 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy {
 
 	constructor() {
 		super();
-		this.control.valueChanges.pipe(this.takeUntil()).subscribe((value) => {
-			if (is.number(value)) {
-				this.initTimer(value);
-			} else {
-				clearInterval(this.timer);
-			}
+		this.control.valueChanges.pipe(this.takeUntil(), filter(is.number)).subscribe((value) => {
+			this.initTimer(value);
 		});
 	}
 
@@ -116,10 +114,16 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy {
 			clearInterval(this.timer);
 		}
 
+		const timeout = seconds * MS_ONE_SECOND;
+
+		if (timeout <= MS_ONE_SECOND) {
+			return;
+		}
+
 		this.timer = setTimeout(() => {
 			this.emitter.emit();
 			this.initTimer(seconds);
-		}, seconds * 1000);
+		}, timeout);
 
 	}
 
