@@ -1,33 +1,18 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
-import {RouterLink} from '@angular/router';
-import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
-import {TableComponent} from '@utility/presentation/component/table/table.component';
-import {HeaderTableComponent} from '@utility/presentation/component/table/header.table.component';
-import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
-import {FilterComponent} from '@service/presentation/component/filter/filter.component';
-import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
+import {AsyncPipe, NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {IService} from '@service/domain';
 import {ListPage} from "@utility/list.page";
-import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
-import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
-import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
-import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {Observable, tap} from "rxjs";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {ServiceState} from "@service/state/service/service.state";
 import {ITableState} from "@utility/domain/table.state";
 import {
-	TableStatePaginationComponent
-} from "@utility/presentation/component/pagination/table-state-pagination.component";
-import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
-import {TableListComponent} from "@service/presentation/component/list/table/table.list.component";
-import {StarterComponent} from "@utility/presentation/component/starter/starter.component";
+	MobileLayoutListComponent
+} from "@service/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {
-	NotFoundTableDataComponent
-} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
-import {CardListComponent} from "@service/presentation/component/list/card/card.list.component";
+	DesktopLayoutListComponent
+} from "@service/presentation/component/list/layout/desktop/desktop.layout.list.component";
 
 @Component({
 	selector: 'service-list-page',
@@ -35,30 +20,11 @@ import {CardListComponent} from "@service/presentation/component/list/card/card.
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		RouterLink,
-		DeleteButtonComponent,
-		TableComponent,
-		HeaderTableComponent,
-		NgForOf,
-		DatePipe,
-		FilterComponent,
 		AsyncPipe,
 		NgIf,
-		SpinnerComponent,
-		DropdownComponent,
-		SortIndicatorComponent,
-		LoaderComponent,
-		ActionComponent,
 		TranslateModule,
-		TableStatePaginationComponent,
-		NgClass,
-		ActiveStyleDirective,
-		DynamicDatePipe,
-		TableListComponent,
-		StarterComponent,
-		NotFoundTableDataComponent,
-		CardListComponent,
-		TableListComponent
+		DesktopLayoutListComponent,
+		MobileLayoutListComponent,
 	],
 	standalone: true
 })
