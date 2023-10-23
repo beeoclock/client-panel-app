@@ -26,6 +26,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {ImageBlockComponent} from "@service/presentation/component/form/v2/image/image-block/image-block.component";
+import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
+import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 
 @Component({
 	selector: 'service-form-v2-page-component',
@@ -33,19 +35,21 @@ import {ImageBlockComponent} from "@service/presentation/component/form/v2/image
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
-	imports: [
-		BackLinkComponent,
-		NgIf,
-		ImageBlockComponent,
-		ReactiveFormsModule,
-		TranslateModule,
-		DetailsBlockComponent,
-		PricesBlockComponent,
-		SpecialistsBlockComponent,
-		SwitchActiveBlockComponent,
-		PrimaryButtonDirective,
-		AsyncPipe,
-	]
+    imports: [
+        BackLinkComponent,
+        NgIf,
+        ImageBlockComponent,
+        ReactiveFormsModule,
+        TranslateModule,
+        DetailsBlockComponent,
+        PricesBlockComponent,
+        SpecialistsBlockComponent,
+        SwitchActiveBlockComponent,
+        PrimaryButtonDirective,
+        AsyncPipe,
+        BackButtonComponent,
+        DefaultPanelComponent,
+    ]
 })
 export default class Index implements OnInit {
 
