@@ -775,8 +775,12 @@
 			"ago": "ago",
 			"at": "at",
 			"dragAndDrop": "drag and drop",
+			"duration": "duration",
 			"min": "min.",
 			"or": "or",
+			"own": {
+				"option": "own option"
+			},
 			"sec": "sec."
 		},
 		"status": {
@@ -784,6 +788,11 @@
 			"plural": {
 				"0": "Inactive",
 				"1": "Active"
+			}
+		},
+		"you": {
+			"capitalize": {
+				"select": "Select"
 			}
 		}
 	},

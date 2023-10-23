@@ -19,6 +19,7 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 		<form-input
 			[id]="id"
 			[label]="label"
+			[showLabel]="showLabel"
 			[control]="localControl"
 			placeholder="00:00"
 			type="time"/>
@@ -33,6 +34,9 @@ export class TimeInputComponent implements OnInit {
 
   @Input()
   public label = '';
+
+	@Input()
+	public showLabel = true;
 
   @Input()
   public id = '';

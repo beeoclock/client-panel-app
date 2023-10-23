@@ -2,7 +2,6 @@ import {Component, Input} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {FormControl} from "@angular/forms";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {TagsComponent} from "@service/presentation/component/form/v2/details/tags.component";
 import {SpecialistsComponent} from "@service/presentation/component/form/v2/prices/specialists.component";
@@ -12,21 +11,17 @@ import {PriceForm} from "@service/presentation/form/service.form";
 import {TimeInputComponent} from "@utility/presentation/component/input/time.input.component";
 
 @Component({
-  selector: 'service-form-price-block-component',
-  standalone: true,
-  template: `
-    <div class="flex flex-col gap-3">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-				<time-input-component
-					[utc]="false"
-					[label]="'keyword.capitalize.duration' | translate"
-					[control]="durationInSecondsControl"/>
-        <price-and-currency-component
-          [priceControl]="priceForm.controls.price"
-          [currencyControl]="priceForm.controls.currency"/>
-      </div>
-    </div>
-  `,
+	selector: 'service-form-price-block-component',
+	standalone: true,
+	template: `
+		<div class="flex flex-col gap-3">
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+				<price-and-currency-component
+					[priceControl]="priceForm.controls.price"
+					[currencyControl]="priceForm.controls.currency"/>
+			</div>
+		</div>
+	`,
 	imports: [
 		NgIf,
 		TranslateModule,
@@ -41,10 +36,7 @@ import {TimeInputComponent} from "@utility/presentation/component/input/time.inp
 })
 export class PriceBlockComponent {
 
-  @Input()
-  public durationInSecondsControl = new FormControl();
-
-  @Input()
-  public priceForm = new PriceForm();
+	@Input()
+	public priceForm = new PriceForm();
 
 }

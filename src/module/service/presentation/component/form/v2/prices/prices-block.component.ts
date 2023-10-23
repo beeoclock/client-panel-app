@@ -3,6 +3,7 @@ import {NgForOf} from "@angular/common";
 import {PriceBlockComponent} from "@service/presentation/component/form/v2/prices/price-block.component";
 import {DurationVersionsForm} from "@service/presentation/form/service.form";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {DurationBlockComponent} from "@service/presentation/component/form/v2/duration/duration-block.component";
 
 @Component({
 	selector: 'service-form-prices-block-component',
@@ -11,7 +12,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 		<bee-card [useBorder]="useCardBorder">
 			<!--      <span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.price' | translate }}</span>-->
 
-			<div *ngFor="let durationVersion of durationVersions.controls; let index = index">
+			<div class="flex flex-col gap-4" *ngFor="let durationVersion of durationVersions.controls; let index = index">
 
 				<!--        <div class="flex justify-between">-->
 				<!--          <span class="text-beeColor-400">Price version #{{ index + 1 }}</span>-->
@@ -20,9 +21,13 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 				<!--          </button>-->
 				<!--        </div>-->
 
-				<service-form-price-block-component
-					[priceForm]="durationVersion.controls.prices.at(0)"
+				<service-form-duration-block-component
 					[durationInSecondsControl]="durationVersion.controls.durationInSeconds"/>
+
+				<hr>
+
+				<service-form-price-block-component
+					[priceForm]="durationVersion.controls.prices.at(0)"/>
 
 				<!--        <hr class="mt-4">-->
 
@@ -39,6 +44,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 		PriceBlockComponent,
 		NgForOf,
 		CardComponent,
+		DurationBlockComponent,
 	]
 })
 export class PricesBlockComponent {

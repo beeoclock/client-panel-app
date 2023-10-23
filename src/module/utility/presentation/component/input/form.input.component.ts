@@ -52,7 +52,7 @@ import {FloatingInputDirective} from "@utility/presentation/directives/input/flo
 export class FormInputComponent implements DoCheck {
 
 	@Input()
-	public label = 'todo';
+	public label: string = 'todo';
 
 	@Input()
 	public showLabel = true;

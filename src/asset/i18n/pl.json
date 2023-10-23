@@ -776,8 +776,12 @@
 			"ago": "temu",
 			"at": "o",
 			"dragAndDrop": "przeciągnij i upuść plik",
+			"duration": "czas trwania",
 			"min": "min.",
 			"or": "lub",
+			"own": {
+				"option": "własna opcja"
+			},
 			"sec": "sek."
 		},
 		"status": {
@@ -785,6 +789,11 @@
 			"plural": {
 				"0": "Nieaktywni",
 				"1": "Aktywni"
+			}
+		},
+		"you": {
+			"capitalize": {
+				"select": "Wybierz"
 			}
 		}
 	},
