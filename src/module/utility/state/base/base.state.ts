@@ -167,11 +167,11 @@ export abstract class BaseState<ITEM = any> {
 	}
 
 	/**
-	 * Init default from cache
+	 * Delete items from cache
 	 * @param ctx
 	 * @constructor
 	 */
-	public async ClearItemCache(
+	public async ClearItemsCache(
 		ctx: StateContext<IBaseState<ITEM>>
 	): Promise<void> {
 
@@ -197,7 +197,7 @@ export abstract class BaseState<ITEM = any> {
 
 		const {id} = ctx.getState().item.data as any;
 		if (id) {
-			await this.ClearItemCache(ctx);
+			await this.ClearItemsCache(ctx);
 			ctx.patchState({
 				item: undefined,
 			});
@@ -351,10 +351,9 @@ export abstract class BaseState<ITEM = any> {
 		ctx.dispatch(new AppActions.PageLoading(true));
 
 		try {
-			// TODO Implement: Error case
 			const data = await this.create.executeAsync(payload);
 
-			await this.ClearItemCache(ctx);
+			await this.ClearItemsCache(ctx);
 			await this.ClearTableCache(ctx);
 
 			// Set new/updated item to store state and clear table
@@ -384,10 +383,9 @@ export abstract class BaseState<ITEM = any> {
 		ctx.dispatch(new AppActions.PageLoading(true));
 
 		try {
-			// TODO Implement: Error case
 			const data = await this.update.executeAsync(payload);
 
-			await this.ClearItemCache(ctx);
+			await this.ClearItemsCache(ctx);
 			await this.ClearTableCache(ctx);
 
 			// Set new/updated item to store state and clear table
@@ -434,7 +432,7 @@ export abstract class BaseState<ITEM = any> {
 
 			} else {
 
-				// TODO delete from cache
+				await this.ClearItemsCache(ctx);
 
 			}
 
@@ -473,7 +471,7 @@ export abstract class BaseState<ITEM = any> {
 
 			} else {
 
-				// TODO delete from cache
+				await this.ClearItemsCache(ctx);
 
 			}
 

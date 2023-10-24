@@ -51,8 +51,8 @@ export class MemberState extends BaseState<Member.RIMember> {
 	}
 
 	@Action(MemberActions.ClearItemCache)
-	public override async ClearItemCache(ctx: StateContext<IMemberState>): Promise<void> {
-		await super.ClearItemCache(ctx);
+	public override async ClearItemsCache(ctx: StateContext<IMemberState>): Promise<void> {
+		await super.ClearItemsCache(ctx);
 	}
 
 	@Action(MemberActions.ClearTableCacheAndGetList)

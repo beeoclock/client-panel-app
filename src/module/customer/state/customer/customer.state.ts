@@ -51,8 +51,8 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 	}
 
 	@Action(CustomerActions.ClearItemCache)
-	public override async ClearItemCache(ctx: StateContext<ICustomerState>): Promise<void> {
-		await super.ClearItemCache(ctx);
+	public override async ClearItemsCache(ctx: StateContext<ICustomerState>): Promise<void> {
+		await super.ClearItemsCache(ctx);
 	}
 
 	@Action(CustomerActions.ClearTableCacheAndGetList)

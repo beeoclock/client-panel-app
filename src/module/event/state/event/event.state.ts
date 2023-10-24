@@ -63,8 +63,8 @@ export class EventState extends BaseState<Event.IEvent> {
 	}
 
 	@Action(EventActions.ClearItemCache)
-	public override async ClearItemCache(ctx: StateContext<IEventState>): Promise<void> {
-		await super.ClearItemCache(ctx);
+	public override async ClearItemsCache(ctx: StateContext<IEventState>): Promise<void> {
+		await super.ClearItemsCache(ctx);
 	}
 
 	@Action(EventActions.ClearTableCacheAndGetList)
