@@ -28,6 +28,9 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 import {ImageBlockComponent} from "@service/presentation/component/form/v2/image/image-block/image-block.component";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
+import {
+	ButtonSaveContainerComponent
+} from "@utility/presentation/component/container/button-save/button-save.container.component";
 
 @Component({
 	selector: 'service-form-v2-page-component',
@@ -49,6 +52,7 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
         AsyncPipe,
         BackButtonComponent,
         DefaultPanelComponent,
+        ButtonSaveContainerComponent,
     ]
 })
 export default class Index implements OnInit {

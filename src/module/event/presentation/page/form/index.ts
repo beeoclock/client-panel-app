@@ -28,6 +28,9 @@ import {SlotsService} from "@event/presentation/component/form/select-time-slot/
 import {Reactive} from "@utility/cdk/reactive";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
+import {
+	ButtonSaveContainerComponent
+} from "@utility/presentation/component/container/button-save/button-save.container.component";
 
 @Component({
 	selector: 'event-form-page',
@@ -50,6 +53,7 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
         SelectTimeSlotComponent,
         BackButtonComponent,
         DefaultPanelComponent,
+        ButtonSaveContainerComponent,
     ],
 	standalone: true
 })

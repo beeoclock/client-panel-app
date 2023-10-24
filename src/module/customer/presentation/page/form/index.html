@@ -65,7 +65,7 @@
             [control]="form.controls.note"/>
         </div>
       </bee-card>
-      <div class="block p-4 md:p-0">
+			<utility-button-save-container-component>
 				<button
 					type="button"
 					primary
@@ -75,7 +75,7 @@
 					(click)="save()">
 					{{ 'keyword.capitalize.save' | translate }}
 				</button>
-			</div>
+			</utility-button-save-container-component>
     </form>
   </div>
 
