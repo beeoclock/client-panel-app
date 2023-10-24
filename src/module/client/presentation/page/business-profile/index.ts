@@ -46,31 +46,39 @@ import {
 import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
 import {DangerZoneComponent} from "@client/presentation/component/danger-zone/danger-zone.component";
 import {ServiceSettingsComponent} from "@client/presentation/component/settings/service/service.settings.component";
+import {
+	ButtonSaveContainerComponent
+} from "@utility/presentation/component/container/button-save/button-save.container.component";
+import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
+import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 
 @Component({
 	selector: 'client-business-profile-page',
 	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
-    imports: [
-        FormBusinessProfileComponent,
-        ReactiveFormsModule,
-        TranslateModule,
-        CoverImageBusinessProfileComponent,
-        LogoBusinessProfileComponent,
-        SwitchActiveBlockComponent,
-        AddressBusinessProfileComponent,
-        GalleryBusinessProfileComponent,
-        SchedulesFormComponent,
-        BusinessProfileContactPhoneComponent,
-        BusinessProfileSocialMediaComponent,
-        FacilitiesBusinessProfileComponent,
-        BookingSettingsBusinessProfileComponent,
-        PrimaryButtonDirective,
-        AsyncPipe,
-        NgIf,
-        DangerZoneComponent,
-        ServiceSettingsComponent
-    ],
+	imports: [
+		FormBusinessProfileComponent,
+		ReactiveFormsModule,
+		TranslateModule,
+		CoverImageBusinessProfileComponent,
+		LogoBusinessProfileComponent,
+		SwitchActiveBlockComponent,
+		AddressBusinessProfileComponent,
+		GalleryBusinessProfileComponent,
+		SchedulesFormComponent,
+		BusinessProfileContactPhoneComponent,
+		BusinessProfileSocialMediaComponent,
+		FacilitiesBusinessProfileComponent,
+		BookingSettingsBusinessProfileComponent,
+		PrimaryButtonDirective,
+		AsyncPipe,
+		NgIf,
+		DangerZoneComponent,
+		ServiceSettingsComponent,
+		ButtonSaveContainerComponent,
+		BackButtonComponent,
+		DefaultPanelComponent
+	],
 	standalone: true
 })
 export default class Index implements OnInit {

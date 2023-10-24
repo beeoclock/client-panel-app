@@ -37,6 +37,8 @@ export class CustomerAutocompleteDirective implements DoCheck {
   private HTMLDivElement: HTMLDivElement | null = null;
   private HTMLLoader: HTMLDivElement | null = null;
 
+	private shouldShowDropdown = false;
+
   public ngDoCheck(): void {
 
     // Check if value is empty
@@ -55,9 +57,11 @@ export class CustomerAutocompleteDirective implements DoCheck {
       }
       this.previousControlValue = this.controlValue;
 
-      this.showDropdown();
-      this.showLoader();
-      this.hideHTMLUlList();
+			if (this.shouldShowDropdown) {
+				this.showDropdown();
+				this.showLoader();
+				this.hideHTMLUlList();
+			}
       this.updateCustomerList();
     } else {
       if (this.document.activeElement?.tagName === 'INPUT') {
@@ -74,30 +78,43 @@ export class CustomerAutocompleteDirective implements DoCheck {
     // Update filter
     this.utilityListCustomerAdapter.tableState.filters = {
       ...this.utilityListCustomerAdapter.tableState.filters,
-      search: this.controlValue,
+      phrase: this.controlValue,
 			active: ActiveEnum.YES
     };
 
     // Do request to server and update list
     this.utilityListCustomerAdapter.getPageAsync().then(() => {
-      this.hideLoader();
-      this.showHTMLUlList();
+			if (this.shouldShowDropdown) {
+				this.hideLoader();
+				this.showHTMLUlList();
+			}
       if (this.utilityListCustomerAdapter.tableState.total) {
+				if (!this.shouldShowDropdown) {
+					this.shouldShowDropdown = true;
+					this.showDropdown();
+					this.hideLoader();
+					this.showHTMLUlList();
+				}
         this.utilityListCustomerAdapter.tableState.items.forEach((customer) => {
           this.addCustomerToHTMLUlList(customer);
         });
-      }
+      } else {
+				this.hideDropdown();
+			}
     });
   }
 
   private addCustomerToHTMLUlList(customer: ICustomer): void {
+
+		const hasInitials = customer?.firstName?.length && customer?.lastName?.length;
 
     const li = this.document.createElement('li');
     li.classList.add('my-2', 'px-3', 'py-2', 'cursor-pointer', 'hover:bg-gray-200', 'dark:hover:bg-gray-600', 'transition');
     li.innerHTML = `
       <div class="flex gap-2">
         <div class="rounded-full flex justify-center items-center h-11 w-11 text-white bg-beeColor-400 font-bold">
-           ${customer?.firstName?.[0]?.toUpperCase() ?? ''}${customer?.lastName?.[0]?.toUpperCase() ?? ''}
+           ${hasInitials ? customer?.firstName?.[0]?.toUpperCase() + ' ' + customer?.lastName?.[0]?.toUpperCase() : ''}
+           ${hasInitials ? '' : '<i class="bi bi-person"></i>'}
         </div>
         <div class="flex flex-col">
           <div>${customer?.firstName ?? ''} ${customer?.lastName ?? ''}</div>

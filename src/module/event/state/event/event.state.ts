@@ -40,7 +40,6 @@ export class EventState extends BaseState<Event.IEvent> {
 
 	constructor() {
 		super(
-			EventActions,
 			{
 				tableStates: 'event.cache.tableStates',
 				items: 'event.cache.items'
@@ -64,8 +63,8 @@ export class EventState extends BaseState<Event.IEvent> {
 	}
 
 	@Action(EventActions.ClearItemCache)
-	public override async ClearItemCache(ctx: StateContext<IEventState>): Promise<void> {
-		await super.ClearItemCache(ctx);
+	public override async ClearItemsCache(ctx: StateContext<IEventState>): Promise<void> {
+		await super.ClearItemsCache(ctx);
 	}
 
 	@Action(EventActions.ClearTableCacheAndGetList)

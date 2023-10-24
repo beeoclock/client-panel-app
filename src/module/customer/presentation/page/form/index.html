@@ -44,7 +44,7 @@
             [control]="form.controls.phone"
             [label]="'keyword.capitalize.phone' | translate"/>
 
-					<div class="col-span-2" [class.hidden]="form.controls.phone.untouched || form.controls.email.untouched">
+					<div class="md:col-span-2" [class.hidden]="form.controls.phone.untouched || form.controls.email.untouched">
 						<utility-invalid-message class="flex justify-center" [control]="form"/>
 					</div>
 
@@ -65,7 +65,7 @@
             [control]="form.controls.note"/>
         </div>
       </bee-card>
-      <div class="block p-4 md:p-0">
+			<utility-button-save-container-component>
 				<button
 					type="button"
 					primary
@@ -75,7 +75,7 @@
 					(click)="save()">
 					{{ 'keyword.capitalize.save' | translate }}
 				</button>
-			</div>
+			</utility-button-save-container-component>
     </form>
   </div>
 

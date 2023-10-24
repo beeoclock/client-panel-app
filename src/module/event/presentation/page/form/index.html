@@ -16,7 +16,7 @@
 				<event-general-details [isPreview]="preview.isOn" [event]="value"/>
 			</bee-card>
 
-			<div class="block p-4 md:p-0 mt-4">
+			<utility-button-save-container-component>
 				<button
 					type="button"
 					primary
@@ -26,7 +26,7 @@
 					(click)="save()">
 					{{ 'keyword.capitalize.save' | translate }}
 				</button>
-			</div>
+			</utility-button-save-container-component>
 
 		</div>
 
@@ -62,7 +62,7 @@
 						[control]="form.controls.description"/>
 				</bee-card>
 
-				<div class="block p-4 md:p-0">
+				<utility-button-save-container-component>
 					<button
 						type="button"
 						primary
@@ -72,7 +72,7 @@
 						(click)="goToPreview()">
 						{{ 'keyword.capitalize.preview' | translate }}
 					</button>
-				</div>
+				</utility-button-save-container-component>
 
 			</form>
 

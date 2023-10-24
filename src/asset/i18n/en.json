@@ -335,6 +335,7 @@
 			"mask": "Invalid format, correct format is {{requiredMask}}",
 			"minlength": "Minimum length is {{requiredLength}}",
 			"required": "Required field",
+			"atLeastOneFieldMustBeFilled": "At least one field must be filled",
 			"shouldBeMoreThen": {
 				"startInSeconds": "The end time must be longer than the start time"
 			},

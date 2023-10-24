@@ -28,6 +28,9 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 import {ImageBlockComponent} from "@service/presentation/component/form/v2/image/image-block/image-block.component";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
+import {
+	ButtonSaveContainerComponent
+} from "@utility/presentation/component/container/button-save/button-save.container.component";
 
 @Component({
 	selector: 'service-form-v2-page-component',
@@ -35,26 +38,30 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
-    imports: [
-        BackLinkComponent,
-        NgIf,
-        ImageBlockComponent,
-        ReactiveFormsModule,
-        TranslateModule,
-        DetailsBlockComponent,
-        PricesBlockComponent,
-        SpecialistsBlockComponent,
-        SwitchActiveBlockComponent,
-        PrimaryButtonDirective,
-        AsyncPipe,
-        BackButtonComponent,
-        DefaultPanelComponent,
-    ]
+	imports: [
+		BackLinkComponent,
+		NgIf,
+		ImageBlockComponent,
+		ReactiveFormsModule,
+		TranslateModule,
+		DetailsBlockComponent,
+		PricesBlockComponent,
+		SpecialistsBlockComponent,
+		SwitchActiveBlockComponent,
+		PrimaryButtonDirective,
+		AsyncPipe,
+		BackButtonComponent,
+		DefaultPanelComponent,
+		ButtonSaveContainerComponent,
+	]
 })
 export default class Index implements OnInit {
 
 	@ViewChild(ImageBlockComponent)
 	public readonly imageBlock!: ImageBlockComponent;
+
+	@ViewChild(BackButtonComponent)
+	public backButtonComponent!: BackButtonComponent;
 
 	public readonly form = new ServiceForm();
 
@@ -103,7 +110,6 @@ export default class Index implements OnInit {
 		if (this.form.valid) {
 			this.form.disable();
 			this.form.markAsPending();
-			const redirectUri = ['../'];
 			const value = this.form.getRawValue() as IService;
 			if (this.isEditMode) {
 				await firstValueFrom(this.store.dispatch(new ServiceActions.UpdateItem(value)));
@@ -113,12 +119,9 @@ export default class Index implements OnInit {
 				const item = await firstValueFrom(this.itemData$);
 				if (item && item._id) {
 					await this.imageBlock.save(item._id);
-					redirectUri.push(item._id);
 				}
 			}
-			await this.router.navigate(redirectUri, {
-				relativeTo: this.activatedRoute
-			});
+			await this.backButtonComponent.navigateToBack();
 			this.form.enable();
 			this.form.updateValueAndValidity();
 		}

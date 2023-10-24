@@ -1,7 +1,7 @@
-import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {ICustomer, RICustomer} from "@customer/domain";
 import {TranslateModule} from "@ngx-translate/core";
@@ -20,28 +20,32 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
+import {
+	ButtonSaveContainerComponent
+} from "@utility/presentation/component/container/button-save/button-save.container.component";
 
 @Component({
 	selector: 'customer-form-page',
 	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
-    imports: [
-        ReactiveFormsModule,
-        DeleteButtonComponent,
-        HasErrorDirective,
-        RouterLink,
-        BackLinkComponent,
-        InvalidTooltipDirective,
-        TranslateModule,
-        FormInputComponent,
-        SwitchActiveBlockComponent,
-        FormTextareaComponent,
-        CardComponent,
-        PrimaryButtonDirective,
-        InvalidTooltipComponent,
-        BackButtonComponent,
-        DefaultPanelComponent,
-    ],
+	imports: [
+		ReactiveFormsModule,
+		DeleteButtonComponent,
+		HasErrorDirective,
+		RouterLink,
+		BackLinkComponent,
+		InvalidTooltipDirective,
+		TranslateModule,
+		FormInputComponent,
+		SwitchActiveBlockComponent,
+		FormTextareaComponent,
+		CardComponent,
+		PrimaryButtonDirective,
+		InvalidTooltipComponent,
+		BackButtonComponent,
+		DefaultPanelComponent,
+		ButtonSaveContainerComponent,
+	],
 	standalone: true
 })
 export default class Index implements OnInit {
@@ -49,8 +53,10 @@ export default class Index implements OnInit {
 	// TODO move functions to store effects/actions
 
 	private readonly store = inject(Store);
-	private readonly router = inject(Router);
 	private readonly activatedRoute = inject(ActivatedRoute);
+
+	@ViewChild(BackButtonComponent)
+	public backButtonComponent!: BackButtonComponent;
 
 	public readonly form = new CustomerForm();
 
@@ -79,20 +85,13 @@ export default class Index implements OnInit {
 		if (this.form.valid) {
 			this.form.disable();
 			this.form.markAsPending();
-			const redirectUri = ['../'];
 			const value = this.form.getRawValue() as RICustomer;
 			if (this.isEditMode) {
 				await firstValueFrom(this.store.dispatch(new CustomerActions.UpdateItem(value)));
 			} else {
 				await firstValueFrom(this.store.dispatch(new CustomerActions.CreateItem(value)));
-				const item = await firstValueFrom(this.itemData$);
-				if (item) {
-					redirectUri.push(item._id);
-				}
 			}
-			await this.router.navigate(redirectUri, {
-				relativeTo: this.activatedRoute
-			});
+			await this.backButtonComponent.navigateToBack();
 			this.form.enable();
 			this.form.updateValueAndValidity();
 

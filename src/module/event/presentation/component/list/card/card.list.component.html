@@ -17,7 +17,7 @@
 					{{ item.start | date: 'EEEE, dd MMMM' }}
 				</div>
 				<div>
-					{{ 'keyword.lowercase.at' | translate }} {{ item.start | date: 'hh:mm' }}
+					{{ 'keyword.lowercase.at' | translate }} {{ item.start | date: 'HH:mm' }}
 				</div>
 			</div>
 			<div *ngIf="!sameYear(item.start)" class="flex justify-between">
@@ -25,7 +25,7 @@
 					{{ item.start | date: 'EEEE, dd MMMM, yyyy' }}
 				</div>
 				<div>
-					{{ 'keyword.lowercase.at' | translate }} {{ item.start | date: 'hh:mm' }}
+					{{ 'keyword.lowercase.at' | translate }} {{ item.start | date: 'HH:mm' }}
 				</div>
 			</div>
 			<div class="font-bold">

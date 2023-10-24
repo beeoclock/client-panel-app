@@ -29,7 +29,6 @@ export class ServiceState extends BaseState<IService> {
 
 	constructor() {
 		super(
-			ServiceActions,
 			{
 				tableStates: 'service.cache.tableStates',
 				items: 'service.cache.items'
@@ -53,8 +52,8 @@ export class ServiceState extends BaseState<IService> {
 	}
 
 	@Action(ServiceActions.ClearItemCache)
-	public override async ClearItemCache(ctx: StateContext<IServiceState>): Promise<void> {
-		await super.ClearItemCache(ctx);
+	public override async ClearItemsCache(ctx: StateContext<IServiceState>): Promise<void> {
+		await super.ClearItemsCache(ctx);
 	}
 
 	@Action(ServiceActions.ClearTableCacheAndGetList)

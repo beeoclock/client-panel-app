@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -28,29 +28,33 @@ import {SlotsService} from "@event/presentation/component/form/select-time-slot/
 import {Reactive} from "@utility/cdk/reactive";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
+import {
+	ButtonSaveContainerComponent
+} from "@utility/presentation/component/container/button-save/button-save.container.component";
 
 @Component({
 	selector: 'event-form-page',
 	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
-    imports: [
-        ReactiveFormsModule,
-        DeleteButtonComponent,
-        BackLinkComponent,
-        FormsModule,
-        TranslateModule,
-        FormTextareaComponent,
-        AttendeesComponent,
-        ServicesComponent,
-        CardComponent,
-        PrimaryButtonDirective,
-        GeneralDetailsComponent,
-        NgIf,
-        LinkButtonDirective,
-        SelectTimeSlotComponent,
-        BackButtonComponent,
-        DefaultPanelComponent,
-    ],
+	imports: [
+		ReactiveFormsModule,
+		DeleteButtonComponent,
+		BackLinkComponent,
+		FormsModule,
+		TranslateModule,
+		FormTextareaComponent,
+		AttendeesComponent,
+		ServicesComponent,
+		CardComponent,
+		PrimaryButtonDirective,
+		GeneralDetailsComponent,
+		NgIf,
+		LinkButtonDirective,
+		SelectTimeSlotComponent,
+		BackButtonComponent,
+		DefaultPanelComponent,
+		ButtonSaveContainerComponent,
+	],
 	standalone: true
 })
 export default class Index extends Reactive implements OnInit {
@@ -70,6 +74,9 @@ export default class Index extends Reactive implements OnInit {
 	public readonly preview = new BooleanState(false);
 
 	public specialist = '';
+
+	@ViewChild(BackButtonComponent)
+	public backButtonComponent!: BackButtonComponent;
 
 	@Select(EventState.itemData)
 	public itemData$!: Observable<IEvent | undefined>;
@@ -187,7 +194,6 @@ export default class Index extends Reactive implements OnInit {
 
 			this.form.disable();
 			this.form.markAsPending();
-			const redirectUri = ['../'];
 			const value = this.form.getRawValue() as IEvent;
 
 			if (this.isEditMode) {
@@ -196,18 +202,12 @@ export default class Index extends Reactive implements OnInit {
 
 			} else {
 
-				// Reset redirect uri
-				redirectUri.length = 0;
-				redirectUri.push('/', 'event');
-
 				await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(value)));
 				await firstValueFrom(this.itemData$);
 
 			}
 
-			await this.router.navigate(redirectUri, {
-				relativeTo: this.activatedRoute
-			});
+			await this.backButtonComponent.navigateToBack();
 
 			// TODO check if customers/attends is exist in db (just check if selected customer has _id field if exist is in db if not then need to make request to create the new customer)
 
