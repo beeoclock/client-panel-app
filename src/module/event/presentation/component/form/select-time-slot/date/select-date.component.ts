@@ -76,6 +76,10 @@ export class SelectDateComponent extends Reactive implements OnInit, AfterViewIn
 
     Settings.defaultLocale = this.translateService.currentLang;
 
+		if (this.control.value) {
+			this.selectedDateTime = DateTime.fromISO(this.control.value);
+		}
+
     this.control.valueChanges.pipe(this.takeUntil()).subscribe((VALUE) => {
       this.selectedDateTime = DateTime.fromISO(VALUE);
       this.localDateTimeControl.patchValue(this.selectedDateTime);

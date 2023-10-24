@@ -90,11 +90,14 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 		});
 
 		// Prepare datetime list
-		this.prepareSlots(this.selectedDateTime).then();
+		if (this.control.value) {
+			this.selectedDateTime = DateTime.fromISO(this.control.value);
+			this.prepareSlots(this.selectedDateTime).then();
+		}
 
 		this.localDateTimeControl.valueChanges.pipe(
 			this.takeUntil(),
-			filter((value) => value !== this.selectedDateTime),
+			filter((value) => value.toUTC().toISO() !== this.selectedDateTime.toUTC().toISO()),
 			debounceTime(MS_QUARTER_SECOND),
 		).subscribe(async (dateTime) => {
 			this.logger.debug('localDateTimeControl.valueChanges', dateTime.toISO());
@@ -103,6 +106,8 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 	}
 
 	private async prepareSlots(target: DateTime): Promise<void> {
+
+		this.logger.debug('prepareSlots', target.toISO());
 
 		this.loader.switchOn();
 
@@ -159,6 +164,10 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 
 				if (index !== 0 && !((index + 1) % this.amountOfDaySlotsInContainer)) {
 					this.timeSlotLists.push(localTemporaryList);
+					// Detect selected index
+					if (localTemporaryList.some((item) => item.datetime.hasSame(this.selectedDateTime, 'minute'))) {
+						this.currentIndexListOfSlots = this.timeSlotLists.length - 1;
+					}
 					localTemporaryList = [];
 				}
 
