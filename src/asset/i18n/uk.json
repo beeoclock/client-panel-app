@@ -334,6 +334,7 @@
 			"imageSize": "Максимальний розмір зображення – {{max}}, поточний розмір – {{value}}",
 			"mask": "Неправильний формат, правильний формат - {{requiredMask}}",
 			"minlength": "Мінімальна довжина - {{requiredLength}}",
+			"atLeastOneFieldMustBeFilled": "Хоча б одне поле має бути заповнене",
 			"required": "Обов'язкове поле",
 			"shouldBeMoreThen": {
 				"startInSeconds": "Час закінчення повинен бути більше початку"
