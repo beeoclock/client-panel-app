@@ -40,7 +40,6 @@ export class EventState extends BaseState<Event.IEvent> {
 
 	constructor() {
 		super(
-			EventActions,
 			{
 				tableStates: 'event.cache.tableStates',
 				items: 'event.cache.items'

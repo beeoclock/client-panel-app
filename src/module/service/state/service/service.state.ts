@@ -29,7 +29,6 @@ export class ServiceState extends BaseState<IService> {
 
 	constructor() {
 		super(
-			ServiceActions,
 			{
 				tableStates: 'service.cache.tableStates',
 				items: 'service.cache.items'

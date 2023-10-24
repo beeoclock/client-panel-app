@@ -71,7 +71,6 @@ export function getKeyWithClientId(store: Store, ...keys: string[]): string {
 export abstract class BaseState<ITEM = any> {
 
 	protected constructor(
-		public readonly actions: any,
 		public readonly cacheKeys: {
 			tableStates: string;
 			items: string;

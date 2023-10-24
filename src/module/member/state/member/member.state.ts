@@ -28,7 +28,6 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 	constructor() {
 		super(
-			MemberActions,
 			{
 				tableStates: 'member.cache.tableStates',
 				items: 'member.cache.items'
