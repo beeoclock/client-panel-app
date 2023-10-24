@@ -38,27 +38,30 @@ import {
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
-    imports: [
-        BackLinkComponent,
-        NgIf,
-        ImageBlockComponent,
-        ReactiveFormsModule,
-        TranslateModule,
-        DetailsBlockComponent,
-        PricesBlockComponent,
-        SpecialistsBlockComponent,
-        SwitchActiveBlockComponent,
-        PrimaryButtonDirective,
-        AsyncPipe,
-        BackButtonComponent,
-        DefaultPanelComponent,
-        ButtonSaveContainerComponent,
-    ]
+	imports: [
+		BackLinkComponent,
+		NgIf,
+		ImageBlockComponent,
+		ReactiveFormsModule,
+		TranslateModule,
+		DetailsBlockComponent,
+		PricesBlockComponent,
+		SpecialistsBlockComponent,
+		SwitchActiveBlockComponent,
+		PrimaryButtonDirective,
+		AsyncPipe,
+		BackButtonComponent,
+		DefaultPanelComponent,
+		ButtonSaveContainerComponent,
+	]
 })
 export default class Index implements OnInit {
 
 	@ViewChild(ImageBlockComponent)
 	public readonly imageBlock!: ImageBlockComponent;
+
+	@ViewChild(BackButtonComponent)
+	public backButtonComponent!: BackButtonComponent;
 
 	public readonly form = new ServiceForm();
 
@@ -107,7 +110,6 @@ export default class Index implements OnInit {
 		if (this.form.valid) {
 			this.form.disable();
 			this.form.markAsPending();
-			const redirectUri = ['../'];
 			const value = this.form.getRawValue() as IService;
 			if (this.isEditMode) {
 				await firstValueFrom(this.store.dispatch(new ServiceActions.UpdateItem(value)));
@@ -117,12 +119,9 @@ export default class Index implements OnInit {
 				const item = await firstValueFrom(this.itemData$);
 				if (item && item._id) {
 					await this.imageBlock.save(item._id);
-					redirectUri.push(item._id);
 				}
 			}
-			await this.router.navigate(redirectUri, {
-				relativeTo: this.activatedRoute
-			});
+			await this.backButtonComponent.navigateToBack();
 			this.form.enable();
 			this.form.updateValueAndValidity();
 		}

@@ -52,9 +52,9 @@ export class BackButtonComponent {
 			}
 			this.url = ['../'];
 		}
-		this.router.navigate(this.url, {
+		return this.router.navigate(this.url, {
 			queryParams: this.queryParams
-		}).then();
+		});
 	}
 
 }
