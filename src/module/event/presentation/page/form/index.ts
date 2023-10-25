@@ -5,7 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {EventForm} from '@event/presentation/form/event.form';
 import {AttendeesComponent} from '@event/presentation/component/form/attendees/attendees.component';
-import {IEvent} from "@event/domain";
+import {IEvent, MEvent, RMIEvent} from "@event/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {filter, firstValueFrom, Observable} from "rxjs";
 import {Select, Store} from "@ngxs/store";
@@ -79,10 +79,10 @@ export default class Index extends Reactive implements OnInit {
 	public backButtonComponent!: BackButtonComponent;
 
 	@Select(EventState.itemData)
-	public itemData$!: Observable<IEvent | undefined>;
+	public itemData$!: Observable<RMIEvent | undefined>;
 
-	public get value(): IEvent {
-		return this.form.getRawValue() as IEvent;
+	public get value(): RMIEvent {
+		return MEvent.create(this.form.getRawValue() as IEvent);
 	}
 
 	constructor() {

@@ -329,13 +329,13 @@
 	},
 	"form": {
 		"validation": {
+			"atLeastOneFieldMustBeFilled": "At least one field must be filled",
 			"email": "Invalid E-mail format",
 			"emailOrPhoneRequired": "E-mail or phone number is required",
 			"imageSize": "Maximum image size is {{max}}, current size is {{value}}",
 			"mask": "Invalid format, correct format is {{requiredMask}}",
 			"minlength": "Minimum length is {{requiredLength}}",
 			"required": "Required field",
-			"atLeastOneFieldMustBeFilled": "At least one field must be filled",
 			"shouldBeMoreThen": {
 				"startInSeconds": "The end time must be longer than the start time"
 			},
@@ -686,7 +686,7 @@
 			"description": "Description",
 			"details": "Details",
 			"dismiss": "Dismiss",
-			"done": "Done",
+			"done": "Event completed",
 			"duration": "Duration",
 			"earliestBooking": "Earliest booking time",
 			"edit": "Edit",

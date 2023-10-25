@@ -13,6 +13,7 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 import {ForgotPasswordApiAdapter} from "@identity/adapter/external/api/forgot-password.api.adapter";
 import {NgOptimizedImage} from "@angular/common";
 import {SignUpComponent} from "@identity/presentation/component/sign-up.component/sign-up.component";
+import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 
 @Component({
   selector: 'identity-forgot-password-page',
@@ -63,7 +64,7 @@ export default class Index {
             message: 'Success',
             color: 'success',
             position: 'top',
-            duration: 10_000,
+            duration: MS_THREE_SECONDS,
             buttons: [
               {
                 text: this.translateService.instant('keyword.capitalize.close'),

@@ -331,12 +331,12 @@
 	},
 	"form": {
 		"validation": {
+			"atLeastOneFieldMustBeFilled": "Co najmniej jedno pole musi być wypełnione",
 			"email": "Nieprawidłowy format adresu e-mail",
 			"emailOrPhoneRequired": "Wymagany jest numer telefonu lub adres e-mail",
 			"imageSize": "Maksymalny rozmiar obrazu to {{max}}, bieżący rozmiar to {{value}}",
 			"mask": "Nieprawidłowy format, poprawny format to {{requiredMask}}",
 			"minlength": "Minimalna długość to {{requiredLength}}",
-			"atLeastOneFieldMustBeFilled": "Co najmniej jedno pole musi być wypełnione",
 			"required": "Wymagane pole",
 			"shouldBeMoreThen": {
 				"startInSeconds": "Czas zakończenia musi być dłuższy niż czas rozpoczęcia"
@@ -687,7 +687,7 @@
 			"description": "Opis",
 			"details": "Szczegóły",
 			"dismiss": "Odrzuć",
-			"done": "Gotowe",
+			"done": "Wydarzenie zakończone",
 			"duration": "Czas trwania",
 			"earliestBooking": "Najbliższy termin rezerwacji",
 			"edit": "Edytuj",

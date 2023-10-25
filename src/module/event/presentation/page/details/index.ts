@@ -7,7 +7,7 @@ import {DeleteButtonComponent} from '@utility/presentation/component/button/dele
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {Select} from "@ngxs/store";
 import {EventState} from "@event/state/event/event.state";
-import {IEvent} from "@event/domain";
+import {RMIEvent} from "@event/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
@@ -48,6 +48,6 @@ export default class Index {
 	// TODO add base index of details with store and delete method
 
 	@Select(EventState.itemData)
-	public readonly item$!: Observable<IEvent>;
+	public readonly item$!: Observable<RMIEvent>;
 
 }

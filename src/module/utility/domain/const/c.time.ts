@@ -3,6 +3,8 @@ export const MS_SEVEN_MINUTE = 7 * MS_ONE_MINUTE;
 export const MS_TEN_MINUTES = 10 * MS_ONE_MINUTE;
 
 export const MS_ONE_SECOND = 1_000;
+export const MS_TWO_SECONDS = 2 * MS_ONE_SECOND;
+export const MS_THREE_SECONDS = 3 * MS_ONE_SECOND;
 export const MS_HALF_SECOND = 500;
 export const MS_QUARTER_SECOND = 250;
 

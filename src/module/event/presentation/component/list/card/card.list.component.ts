@@ -13,9 +13,17 @@ import {ITableState} from "@utility/domain/table.state";
 import {TableComponent} from "@utility/table.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {EventActions} from "@event/state/event/event.actions";
-import {IEvent} from "@event/domain";
+import {RMIEvent} from "@event/domain";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {ButtonsDetailsComponent} from "@event/presentation/component/details/buttons.details.component";
+import {
+	ChangeStatusOnBookedComponent
+} from "@event/presentation/component/change-status/change-status-on-booked.component";
+import {
+	ChangeStatusOnCancelledComponent
+} from "@event/presentation/component/change-status/change-status-on-cancelled.component";
+import {ChangeStatusOnDoneComponent} from "@event/presentation/component/change-status/change-status-on-done.component";
 
 @Component({
 	selector: 'event-card-list-component',
@@ -36,15 +44,19 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 		HumanizeDurationPipe,
 		CardComponent,
 		NgIf,
-		DatePipe
+		DatePipe,
+		ButtonsDetailsComponent,
+		ChangeStatusOnBookedComponent,
+		ChangeStatusOnCancelledComponent,
+		ChangeStatusOnDoneComponent
 	]
 })
 export class CardListComponent extends TableComponent {
 
 	public override readonly actions = EventActions;
 
-	@Input()
-	public tableState!: ITableState<IEvent>;
+	@Input({required: true})
+	public tableState!: ITableState<RMIEvent>;
 
 	public sameYear(start: string | undefined): boolean {
 		return start ? new Date(start).getFullYear() === new Date().getFullYear() : false;

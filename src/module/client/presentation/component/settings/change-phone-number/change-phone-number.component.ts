@@ -6,6 +6,7 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 import {ToastController} from "@ionic/angular";
 import {ChangePhoneNumberClientAdapter} from "@identity/adapter/external/module/change-phone-number.client.adapter";
 import {ChangePhoneNumberForm} from "@client/presentation/form/change-phone-number.form";
+import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 
 @Component({
   selector: 'client-change-phone-number-component',
@@ -51,7 +52,7 @@ export class ChangePhoneNumberComponent {
           message: 'Success',
           color: 'success',
           position: 'top',
-          duration: 10_000,
+          duration: MS_THREE_SECONDS,
           buttons: [
             {
               text: this.translateService.instant('keyword.capitalize.close'),
