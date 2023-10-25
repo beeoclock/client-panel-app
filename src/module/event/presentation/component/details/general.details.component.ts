@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {IEvent} from "@event/domain";
+import {RMIEvent} from "@event/domain";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
@@ -53,7 +53,8 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 								alt="Uploaded Image"/>
 						</div>
 					</div>
-					<div class="col-span-12" [class.md:col-span-9]="event.services?.[0]?.presentation?.banners?.[0]" [class.md:col-span-12]="!event.services?.[0]?.presentation?.banners?.[0]">
+					<div class="col-span-12" [class.md:col-span-9]="event.services?.[0]?.presentation?.banners?.[0]"
+							 [class.md:col-span-12]="!event.services?.[0]?.presentation?.banners?.[0]">
 						<div class="flex flex-col gap-2">
 							<div
 								class="text-xl font-bold text-beeColor-600">{{ event.services?.[0]?.languageVersions?.[0]?.title }}</div>
@@ -91,7 +92,8 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 
 				<div class="font-bold text-beeColor-400">{{ 'keyword.capitalize.clients' | translate }}:</div>
 
-				<div class="grid grid-cols-1 md:grid-cols-12 gap-1 md:gap-4" *ngFor="let attendant of event.attendees; let index = index;">
+				<div class="grid grid-cols-1 md:grid-cols-12 gap-1 md:gap-4"
+						 *ngFor="let attendant of event.attendees; let index = index;">
 					<div class="md:col-span-1 text-beeColor-400">
 						#{{ index + 1 }}
 					</div>
@@ -132,8 +134,8 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 })
 export class GeneralDetailsComponent {
 
-	@Input()
-	public event!: IEvent;
+	@Input({required: true})
+	public event!: RMIEvent;
 
 	@Input()
 	public isPreview = false;

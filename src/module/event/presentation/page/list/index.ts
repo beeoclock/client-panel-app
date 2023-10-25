@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
 import {ListPage} from "@utility/list.page";
 import {TranslateModule} from "@ngx-translate/core";
-import {Observable, tap} from "rxjs";
+import {map, Observable, tap} from "rxjs";
 import {EventActions} from "@event/state/event/event.actions";
-import {IEvent} from "@event/domain";
+import {MEvent, RMIEvent} from "@event/domain";
 import {ITableState} from "@utility/domain/table.state";
 import {EventState} from "@event/state/event/event.state";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
@@ -60,8 +60,14 @@ export default class Index extends ListPage {
 
 	public override readonly actions = EventActions;
 
-	public readonly tableState$: Observable<ITableState<IEvent>> = this.store.select(EventState.tableState)
+	public readonly tableState$: Observable<ITableState<RMIEvent>> = this.store.select(EventState.tableState)
 		.pipe(
+			map((tableState) => {
+				return {
+					...tableState,
+					items: tableState.items.map(MEvent.create),
+				}
+			}),
 			tap((tableState) => {
 				if (this.someDataExist.isOff) {
 					this.someDataExist.toggle(tableState.total > 0);

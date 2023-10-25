@@ -8,7 +8,7 @@ import {
 import {TranslateModule} from "@ngx-translate/core";
 import {BooleanState} from "@utility/domain";
 import {ITableState} from "@utility/domain/table.state";
-import {IEvent} from "@event/domain";
+import {RMIEvent} from "@event/domain";
 
 @Component({
 	selector: 'event-mobile-layout-list-component',
@@ -27,7 +27,7 @@ import {IEvent} from "@event/domain";
 export class MobileLayoutListComponent {
 
 	@Input({required: true})
-	public tableState!: ITableState<IEvent> | null;
+	public tableState!: ITableState<RMIEvent> | null;
 
 	@Input()
 	public someDataExist = new BooleanState(false);

@@ -1,15 +1,17 @@
-import {Component, inject, Input} from "@angular/core";
-import {IEvent} from "@event/domain";
+import {Component, Input} from "@angular/core";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {firstValueFrom} from "rxjs";
-import {EventActions} from "@event/state/event/event.actions";
-import {Store} from "@ngxs/store";
+import {RouterLink} from "@angular/router";
 import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
 import {NgIf, NgTemplateOutlet} from "@angular/common";
-import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum";
-import {NGXLogger} from "ngx-logger";
+import {
+	ChangeStatusOnBookedComponent
+} from "@event/presentation/component/change-status/change-status-on-booked.component";
+import {
+	ChangeStatusOnCancelledComponent
+} from "@event/presentation/component/change-status/change-status-on-cancelled.component";
+import {ChangeStatusOnDoneComponent} from "@event/presentation/component/change-status/change-status-on-done.component";
+import {RMIEvent} from "@event/domain";
 
 @Component({
 	selector: 'event-buttons-details',
@@ -20,12 +22,15 @@ import {NGXLogger} from "ngx-logger";
 		RouterLink,
 		EditLinkComponent,
 		NgIf,
-		NgTemplateOutlet
+		NgTemplateOutlet,
+		ChangeStatusOnBookedComponent,
+		ChangeStatusOnCancelledComponent,
+		ChangeStatusOnDoneComponent
 	],
 	template: `
 		<div class="flex justify-between flex-col md:flex-row gap-4">
 
-			<ng-container *ngIf="isRequested(event.status)">
+			<ng-container *ngIf="event.isRequested">
 
 				<ng-container *ngTemplateOutlet="ButtonToCancelEvent"/>
 
@@ -35,7 +40,7 @@ import {NGXLogger} from "ngx-logger";
 
 			</ng-container>
 
-			<ng-container *ngIf="isBooked(event.status)">
+			<ng-container *ngIf="event.isBooked">
 
 				<ng-container *ngTemplateOutlet="ButtonToCancelEvent"/>
 
@@ -45,97 +50,28 @@ import {NGXLogger} from "ngx-logger";
 
 			</ng-container>
 
-			<ng-container *ngIf="isDone(event.status)">
+			<ng-container *ngIf="event.isDone">
 
 				<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>
 
 			</ng-container>
 
-			<ng-container *ngIf="isCancelled(event.status)">
+			<ng-container *ngIf="event.isCancelled">
 
 				<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>
 
 			</ng-container>
 
 			<ng-template #ButtonToCancelEvent>
-				<button
-					type="button"
-					(click)="changeStatusOnCancelled(event)"
-					class="
-              w-full
-              flex
-              items-center
-              justify-center
-              gap-2
-              rounded-2xl
-              px-3
-              py-2
-              text-sm
-              font-semibold
-              text-red-700
-              bg-red-50
-              shadow-sm
-              ring-1
-              ring-inset
-              ring-red-300
-              hover:bg-red-100">
-					<i class="bi bi-x-lg"></i>
-					{{ 'keyword.capitalize.cancel' | translate }}
-				</button>
+				<event-change-status-on-cancelled-component [event]="event"/>
 			</ng-template>
 
 			<ng-template #ButtonToBookEvent>
-				<button
-					type="button"
-					(click)="changeStatusOnBooked(event)"
-					class="
-              w-full
-              flex
-              items-center
-              justify-center
-              gap-2
-              rounded-2xl
-              px-3
-              py-2
-              text-sm
-              font-semibold
-              text-blue-700
-              bg-blue-50
-              shadow-sm
-              ring-1
-              ring-inset
-              ring-blue-300
-              hover:bg-blue-100">
-					<i class="bi bi-check-lg"></i>
-					{{ 'keyword.capitalize.approve' | translate }}
-				</button>
+				<event-change-status-on-booked-component [event]="event"/>
 			</ng-template>
 
 			<ng-template #ButtonToDoneEvent>
-				<button
-					type="button"
-					(click)="changeStatusOnDone(event)"
-					class="
-              w-full
-              flex
-              items-center
-              justify-center
-              gap-2
-              rounded-2xl
-              px-3
-              py-2
-              text-sm
-              font-semibold
-              text-green-700
-              bg-green-50
-              shadow-sm
-              ring-1
-              ring-inset
-              ring-green-300
-              hover:bg-green-100">
-					<i class="bi bi-check-lg"></i>
-					{{ 'keyword.capitalize.done' | translate }}
-				</button>
+				<event-change-status-on-done-component [event]="event"/>
 			</ng-template>
 
 			<ng-template #ButtonToRepeatEvent>
@@ -166,58 +102,7 @@ import {NGXLogger} from "ngx-logger";
 })
 export class ButtonsDetailsComponent {
 
-	@Input()
-	public event!: IEvent;
-
-	public readonly store = inject(Store);
-	public readonly logger = inject(NGXLogger);
-	public readonly router = inject(Router);
-	public readonly activatedRoute = inject(ActivatedRoute);
-
-	public async changeStatusOnBooked(event: IEvent): Promise<void> {
-		await firstValueFrom(this.store.dispatch(new EventActions.BookedStatus(event)));
-		await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
-		this.postStatusChange(EventStatusEnum.booked);
-		// TODO: Clear cache
-	}
-
-	public async changeStatusOnCancelled(event: IEvent): Promise<void> {
-		await firstValueFrom(this.store.dispatch(new EventActions.CancelledStatus(event)));
-		await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
-		this.postStatusChange(EventStatusEnum.cancelled);
-		// TODO: Clear cache
-	}
-
-	public async changeStatusOnDone(event: IEvent): Promise<void> {
-		await firstValueFrom(this.store.dispatch(new EventActions.DoneStatus(event)));
-		await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
-		this.postStatusChange(EventStatusEnum.done);
-		// TODO: Clear cache
-	}
-
-	public isRequested(status: EventStatusEnum): boolean {
-		return status === EventStatusEnum.requested;
-	}
-
-	public isBooked(status: EventStatusEnum): boolean {
-		return status === EventStatusEnum.booked;
-	}
-
-	public isDone(status: EventStatusEnum): boolean {
-		return status === EventStatusEnum.done;
-	}
-
-	public isCancelled(status: EventStatusEnum): boolean {
-		return status === EventStatusEnum.cancelled;
-	}
-
-	private postStatusChange(newStatus: EventStatusEnum): void {
-		this.logger.debug(`postStatusChange: ${newStatus}`);
-		const {action, from, redirectUri} = this.activatedRoute.snapshot.queryParams;
-		this.logger.debug(`action: ${action}, from: ${from}, redirectUri: ${redirectUri}`);
-		if (redirectUri) {
-			this.router.navigate([redirectUri ?? '/']).then();
-		}
-	}
+	@Input({required: true})
+	public event!: RMIEvent;
 
 }

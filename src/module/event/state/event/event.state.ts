@@ -1,6 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import * as Event from "@event/domain";
+import {MEvent} from "@event/domain";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {EventActions} from "@event/state/event/event.actions";
 import {ArchiveEventApiAdapter} from "@event/adapter/external/api/archive.event.api.adapter";
@@ -164,7 +165,7 @@ export class EventState extends BaseState<Event.IEvent> {
 
 	@Selector()
 	public static itemData(state: IEventState) {
-		return state.item.data;
+		return MEvent.create(state.item.data);
 	}
 
 	@Selector()

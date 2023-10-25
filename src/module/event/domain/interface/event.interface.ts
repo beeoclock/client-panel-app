@@ -28,3 +28,12 @@ export interface IEvent extends RIBaseEntity {
 }
 
 export type RIEvent = Required<IEvent>;
+
+export interface MIEvent extends IEvent {
+	isRequested?: boolean;
+	isBooked?: boolean;
+	isDone?: boolean;
+	isCancelled?: boolean;
+}
+
+export type RMIEvent = Required<MIEvent>;

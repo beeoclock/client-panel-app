@@ -23,6 +23,7 @@ import {FormInputPasswordComponent} from "@utility/presentation/component/input/
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {ToastController} from "@ionic/angular";
 import {NGXLogger} from "ngx-logger";
+import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 
 @Component({
 	selector: 'identity-sign-in-component',
@@ -132,7 +133,7 @@ export class SignInComponent {
 						message: 'Check your credentials',
 						color: 'danger',
 						position: 'top',
-						duration: 10_000,
+						duration: MS_THREE_SECONDS,
 						buttons: [
 							{
 								text: this.translateService.instant('keyword.capitalize.close'),
