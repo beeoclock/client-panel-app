@@ -26,7 +26,7 @@ export class ModalService {
 	}
 
 	//TODO: the function "createCustomTitle()" should be removed in the future
-	@TypeGuard([is.string.not.empty])
+	@TypeGuard([is.string_not_empty])
 	public createCustomTitle(value: string): string {
 		return `<div class="subTitleBadge">
               <div class="subTitleWidth titleInline">
@@ -128,7 +128,7 @@ export class ModalService {
 	 * @param force
 	 * @private
 	 */
-	@TypeGuard([is.string.not.empty, is.boolean])
+	@TypeGuard([is.string_not_empty, is.boolean])
 	public closeModalById(id: string, force = true): void {
 		if (force) {
 			this.deleteModalFromScope(id);
@@ -142,11 +142,11 @@ export class ModalService {
 	 * @param id
 	 * @private
 	 */
-	@TypeGuard([is.string.not.empty])
+	@TypeGuard([is.string_not_empty])
 	private deleteModalFromScope(id: string): void {
 		try {
-			if (is.object.not.empty(this.#storeOfModals[id])) {
-				if (is.array.not.empty(this.#storeOfModals[id].instance?.componentChildRefList)) {
+			if (is.object_not_empty(this.#storeOfModals[id])) {
+				if (is.array_not_empty(this.#storeOfModals[id].instance?.componentChildRefList)) {
 					this.#storeOfModals[id].instance.componentChildRefList.forEach((componentRef: ComponentRef<unknown>) => {
 						componentRef.destroy();
 					});

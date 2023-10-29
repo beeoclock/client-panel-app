@@ -28,7 +28,7 @@ export const ParamsReplaceInterceptor: HttpInterceptorFn = (request, next) => {
 
         const replaceMap: Record<string, string> = JSON.parse(replaceJSON);
 
-        if (is.object.not.empty(replaceMap)) {
+        if (is.object_not_empty(replaceMap)) {
 
           const url: string = request.url;
 

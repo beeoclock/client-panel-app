@@ -14,7 +14,7 @@ export class UpdateCustomerApiAdapter extends BaseApiAdapter<Customer.ICustomer>
    * SAVE NEW ITEM OR UPDATE ITEM BY ID
    * @param value
    */
-  @TypeGuard([is.object.not.empty])
+  @TypeGuard([is.object_not_empty])
   public override execute$(value: Customer.ICustomer) {
     return this.httpClient.put<Customer.ICustomer>(customerEndpointEnum.update, value, {
       headers: {

@@ -14,7 +14,7 @@ export class UpdateBusinessProfileApiAdapter extends BaseApiAdapter<Client.RICli
 	 * SAVE NEW ITEM OR UPDATE ITEM BY ID
 	 * @param value
 	 */
-	@TypeGuard([is.object.not.empty])
+	@TypeGuard([is.object_not_empty])
 	public override execute$(value: Client.IClient) {
 		return this.httpClient.put<Client.RIClient>(businessProfileEndpointEnum.update, value);
 	}

@@ -35,7 +35,7 @@ export class BackButtonComponent {
 	public queryParams = {};
 
 	@Input()
-	public url: never | string[] = this.activatedRoute.snapshot.queryParams['returnUrl'] ?? [];
+	public url: never | string[] = [this.activatedRoute.snapshot.queryParams['returnUrl']] ?? [];
 
 	@ViewChild('link')
 	public link!: ElementRef<HTMLElement>;

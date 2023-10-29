@@ -96,7 +96,7 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
    *
    * @param data
    */
-  @TypeGuard([is.object.not.empty])
+  @TypeGuard([is.object_not_empty])
   public static fromObject<ITEM>(data: IPagination<ITEM>): Pagination<ITEM> {
     let model: Pagination<ITEM> = new Pagination<ITEM>();
     model = Object.assign(model, data);
@@ -109,7 +109,7 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
    * @param first
    * @param second
    */
-  @TypeGuard([is.object.not.empty])
+  @TypeGuard([is.object_not_empty])
   public static merge<ITEM>(first: IPagination<ITEM>, second: IPagination<ITEM>): Pagination<ITEM> {
     let model: Pagination<ITEM> = new Pagination<ITEM>();
     model = Object.assign(model, first);
@@ -122,7 +122,7 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
    *
    * @param obj
    */
-  @TypeGuard([is.object.not.empty])
+  @TypeGuard([is.object_not_empty])
   public updateFromObject(obj: IPagination<ITEM>): this {
     Object.assign(this, obj);
     this.updateModel(false);
@@ -285,7 +285,7 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
    * @param params
    */
   public fromQueryParams(params: IPagination_QueryParams): void {
-    if (is.object.not.empty(params)) {
+    if (is.object_not_empty(params)) {
       const newObject: any = {};
       if (params?.page) {
         newObject.page = +params?.page;

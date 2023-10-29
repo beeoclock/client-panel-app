@@ -22,7 +22,7 @@ export class SlotsEventApiAdapter extends BaseApiAdapter<string[], [PARAMS]> {
 	 * GET PAGED LIST BY FILTERS AND PARAMS
 	 * @param params
 	 */
-	@TypeGuard([is.object.not.empty])
+	@TypeGuard([is.object_not_empty])
 	public override execute$(params: PARAMS) {
 		return this.httpClient.get<string[]>(eventEndpointEnum.slots, {
 			params,

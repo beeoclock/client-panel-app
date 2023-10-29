@@ -70,7 +70,7 @@
 		"ngx-logger": "5.0.12",
 		"ngx-mask": "16.3.8",
 		"rxjs": "7.8.1",
-		"thiis": "1.0.2",
+		"thiis": "2.0.0",
 		"tslib": "2.6.2",
 		"typescript-debounce-decorator": "0.0.18",
 		"uuid": "9.0.1",

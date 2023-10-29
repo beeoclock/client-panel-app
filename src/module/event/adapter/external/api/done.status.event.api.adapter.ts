@@ -14,7 +14,7 @@ export class DoneStatusEventApiAdapter extends BaseApiAdapter<IEvent> {
    * ARCHIVE ITEM BY ID
    * @param id
    */
-  @TypeGuard([is.string.not.empty])
+  @TypeGuard([is.string_not_empty])
   public override execute$(id: string) {
     return this.httpClient.patch<IEvent>(eventEndpointEnum.done, null, {
       headers: {

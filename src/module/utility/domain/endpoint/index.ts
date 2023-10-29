@@ -20,21 +20,21 @@ export class Endpoint {
     WS: new Map
   };
 
-  @TypeGuard([is.not.empty])
+  @TypeGuard([is.not_empty])
   public static registerEndpointPackage(endpointPackage: Record<string, EndpointInterface>): void {
     Object.values(endpointPackage).forEach((endpoint: EndpointInterface) => {
       this.registerEndpoint(endpoint);
     });
   }
 
-  @TypeGuard([is.not.empty])
+  @TypeGuard([is.not_empty])
   public static registerEndpointCollection(endpointCollection: EndpointCollectionType): void {
     Object.values(endpointCollection).forEach((pack) => {
       this.registerEndpointPackage(pack);
     });
   }
 
-  @TypeGuard([is.not.empty])
+  @TypeGuard([is.not_empty])
   public static registerEndpoint(endpoint: EndpointInterface): void {
     this.endpointMap[endpoint.method].set(endpoint.path, endpoint);
   }

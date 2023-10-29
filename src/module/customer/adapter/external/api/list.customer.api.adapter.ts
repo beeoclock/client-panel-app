@@ -16,7 +16,7 @@ export class ListCustomerApiAdapter extends BaseApiAdapter<ResponseListType<Cust
    * GET PAGED LIST BY FILTERS AND PARAMS
    * @param params
    */
-  @TypeGuard([is.object.not.empty])
+  @TypeGuard([is.object_not_empty])
   public override execute$(params: TableState_BackendFormat) {
     return this.httpClient.get<ResponseListType<Customer.ICustomer>>(customerEndpointEnum.paged, {
 			params: params as any,
