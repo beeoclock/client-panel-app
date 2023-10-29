@@ -13,7 +13,7 @@ export class ArchiveEventApiAdapter extends BaseApiAdapter<unknown> {
    * ARCHIVE ITEM BY ID
    * @param id
    */
-  @TypeGuard([is.object.not.empty])
+  @TypeGuard([is.object_not_empty])
   public override execute$({id}: { id: string }) {
     return this.httpClient.patch(eventEndpointEnum.archive, null, {
       headers: {

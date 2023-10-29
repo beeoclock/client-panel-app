@@ -14,7 +14,7 @@ export class UpdateServiceApiAdapter extends BaseApiAdapter<Service.IService> {
    * SAVE NEW ITEM OR UPDATE ITEM BY ID
    * @param value
    */
-  @TypeGuard([is.object.not.empty])
+  @TypeGuard([is.object_not_empty])
   public override execute$(value: Service.IService) {
     return this.httpClient.put<Service.IService>(serviceEndpointEnum.update, value, {
       headers: {

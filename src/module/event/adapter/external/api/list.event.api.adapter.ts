@@ -16,7 +16,7 @@ export class ListEventApiAdapter extends BaseApiAdapter<ResponseListType<Event.R
 	 * GET PAGED LIST BY FILTERS AND PARAMS
 	 * @param params
 	 */
-	@TypeGuard([is.object.not.empty])
+	@TypeGuard([is.object_not_empty])
 	public override execute$(params: TableState_BackendFormat) {
 		return this.httpClient.get<ResponseListType<Event.RIEvent>>(eventEndpointEnum.paged, {
 			params: params as any,

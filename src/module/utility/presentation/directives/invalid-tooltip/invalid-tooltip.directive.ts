@@ -45,7 +45,7 @@ export class InvalidTooltipDirective implements DoCheck {
 			}
 		}
 
-    const hasError = is.object.not.empty(this.control?.errors);
+    const hasError = is.object_not_empty(this.control?.errors);
 
     if (hasError) {
 

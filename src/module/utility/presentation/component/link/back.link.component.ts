@@ -1,15 +1,15 @@
 import {Component, ElementRef, HostBinding, inject, Input, ViewChild, ViewEncapsulation} from '@angular/core';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {TranslateModule} from "@ngx-translate/core";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
+import {WINDOW} from "@utility/cdk/window.provider";
 
 @Component({
   selector: 'utility-back-link-component',
   standalone: true,
   template: `
     <a
-      [routerLink]="url"
-      [queryParams]="queryParams"
+      (click)="navigateToBack()"
       #link link>
       <i class="bi bi-arrow-left me-2"></i>
       {{ 'keyword.capitalize.back' | translate }}
@@ -30,12 +30,29 @@ export class BackLinkComponent {
   public queryParams = {};
 
   @Input()
-  public url: string | string[] = this.activatedRoute.snapshot.queryParams['returnUrl'] ?? ['../'];
+  public url: never | string[] = [this.activatedRoute.snapshot.queryParams['returnUrl']] ?? ['../'];
 
   @ViewChild('link')
   public link!: ElementRef<HTMLElement>;
 
   @HostBinding()
   public readonly class = 'flex';
+
+	private readonly router = inject(Router);
+
+	private readonly window = inject(WINDOW) as Window;
+
+	public navigateToBack() {
+		if (!this.url.length) {
+			if (this.window.history.length > 1) {
+				this.window.history.back();
+				return;
+			}
+			this.url = ['../'];
+		}
+		return this.router.navigate(this.url, {
+			queryParams: this.queryParams
+		});
+	}
 
 }

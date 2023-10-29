@@ -230,7 +230,7 @@ export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements
 	 * @param theRole
 	 * @private
 	 */
-	@TypeGuard([is.not.null.or.undefined])
+	@TypeGuard([is.not_null_or_undefined])
 	public executeCallback(theRole: ModalButtonRoleEnum): void {
 		this.getButton(theRole)?.callback?.(this, this.getInstanceList());
 	}
@@ -240,7 +240,7 @@ export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements
 	 * @private
 	 * @param theRole
 	 */
-	@TypeGuard([is.not.null.or.undefined])
+	@TypeGuard([is.not_null_or_undefined])
 	public getButton(theRole: ModalButtonRoleEnum): ModalButtonInterface | null {
 		return this.buttons?.find(({role}) => role === theRole) ?? null;
 	}
@@ -304,7 +304,7 @@ export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements
 	 * @param $event
 	 * @param button
 	 */
-	@TypeGuard([is.not.null.or.undefined])
+	@TypeGuard([is.not_null_or_undefined])
 	public buttonAction($event: MouseEvent, button: ModalButtonInterface): void {
 
 		if (button?.callback) {
