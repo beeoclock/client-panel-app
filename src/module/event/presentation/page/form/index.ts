@@ -103,6 +103,7 @@ export default class Index extends Reactive implements OnInit {
 			this.slotsService.refillSlotsIfInitialized().then();
 
 		});
+
 	}
 
 	public getEventDurationInSeconds(service: IService): number {
