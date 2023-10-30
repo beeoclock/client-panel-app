@@ -19,8 +19,9 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 import {NGXLogger} from "ngx-logger";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {ButtonArrowComponent} from "@event/presentation/component/form/select-time-slot/button.arrow.component";
-import {debounceTime, filter} from "rxjs";
+import {debounceTime} from "rxjs";
 import {MS_QUARTER_SECOND} from "@utility/domain/const/c.time";
+import {BooleanState} from "@utility/domain";
 
 export interface ITimeSlot {
 	isPast: boolean;
@@ -64,6 +65,8 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 	public readonly translateService = inject(TranslateService);
 	public readonly slotsService = inject(SlotsService);
 
+	private readonly firstAccessibleSlotIsInitialized = new BooleanState(false);
+
 	public get loader(): BooleanStreamState {
 		return this.slotsService.loader;
 	}
@@ -82,7 +85,6 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 
 		this.control.valueChanges.pipe(
 			this.takeUntil(),
-			filter((value) => value !== this.selectedDateTime.toUTC().toISO()),
 			debounceTime(MS_QUARTER_SECOND),
 		).subscribe((iso) => {
 			this.selectedDateTime = DateTime.fromISO(iso);
@@ -93,11 +95,12 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 		if (this.control.value) {
 			this.selectedDateTime = DateTime.fromISO(this.control.value);
 			this.prepareSlots(this.selectedDateTime).then();
+		} else {
+			this.prepareSlots(DateTime.now()).then();
 		}
 
 		this.localDateTimeControl.valueChanges.pipe(
 			this.takeUntil(),
-			filter((value) => value.toUTC().toISO() !== this.selectedDateTime.toUTC().toISO()),
 			debounceTime(MS_QUARTER_SECOND),
 		).subscribe(async (dateTime) => {
 			this.logger.debug('localDateTimeControl.valueChanges', dateTime.toISO());
@@ -111,17 +114,8 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 
 		this.loader.switchOn();
 
-		const today = DateTime.now();
-		let start = target.startOf('day').toUTC().toISO();
-		const end = target.endOf('day').toUTC().toISO();
-
-		if (today.hasSame(target, 'day')) {
-
-			const minutes = today.minute;
-			const roundedMinutes = (+Math.floor((minutes / 10)).toFixed(0)) * 10;
-			start = today.set({minute: roundedMinutes}).plus({minute: 10}).startOf('minute').toUTC().toISO();
-
-		}
+		const start = target.startOf('week').startOf('day').toUTC().toISO();
+		const end = target.endOf('week').endOf('day').toUTC().toISO();
 
 		if (start && end) {
 
@@ -144,14 +138,29 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 
 		let localTemporaryList: ITimeSlot[] = [];
 
-		const slots = this.slotsService.slots;
+		let startOfSelectedDate = this.localDateTimeControl.value.startOf('day');
+		const endOfSelectedDateISO = this.localDateTimeControl.value.endOf('day').toUTC().toISO() ?? '';
 
-		// if (!slots.length) { // TODO fix this case
-		// 	const nextDayISO = this.selectedDateTime.plus({day: 1}).toISO() ?? '';
-		// 	this.logger.debug(`nextDayISO: ${nextDayISO}`);
-		// 	this.control.patchValue(nextDayISO);
-		// 	return;
-		// }
+		const today = DateTime.now();
+		if (today.hasSame(startOfSelectedDate, 'day')) {
+
+			const minutes = today.minute;
+			const roundedMinutes = (+Math.floor((minutes / 10)).toFixed(0)) * 10;
+			startOfSelectedDate = today.set({minute: roundedMinutes}).plus({minute: 10}).startOf('minute');
+
+		}
+
+		const startOfSelectedDateISO = startOfSelectedDate.toUTC().toISO() ?? '';
+
+		const slots = this.slotsService.slots.filter((slot) => slot > startOfSelectedDateISO && slot < endOfSelectedDateISO);
+
+		if (!slots.length && this.firstAccessibleSlotIsInitialized.isOff) {
+			this.firstAccessibleSlotIsInitialized.switchOn();
+			const [firstSlot] = this.slotsService.slots;
+			this.logger.debug(`nextDayISO: ${firstSlot}`);
+			this.control.patchValue(firstSlot);
+			return;
+		}
 
 		slots
 			.map((slot) => ({
