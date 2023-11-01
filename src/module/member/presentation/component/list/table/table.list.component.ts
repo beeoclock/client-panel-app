@@ -32,7 +32,7 @@ import {RIMember} from "@member/domain";
 		EventStatusStyleDirective
 	]
 })
-export class TableListComponent extends TableComponent {
+export class TableListComponent extends TableComponent<RIMember> {
 
 	public override readonly actions = ServiceActions;
 

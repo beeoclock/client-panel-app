@@ -687,6 +687,7 @@
 			"details": "Details",
 			"dismiss": "Dismiss",
 			"done": "Event completed",
+			"downloadMore": "Download more",
 			"duration": "Duration",
 			"earliestBooking": "Earliest booking time",
 			"edit": "Edit",
@@ -818,6 +819,11 @@
 				}
 			},
 			"title": "Select client"
+		}
+	},
+	"pagination": {
+		"message": {
+			"allDataDownloaded": "All available data has been downloaded"
 		}
 	},
 	"service": {

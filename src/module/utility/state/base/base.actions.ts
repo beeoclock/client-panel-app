@@ -11,7 +11,13 @@ export namespace BaseActions {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 
 		constructor(
-			public readonly force = false,
+			public readonly payload: {
+				force: boolean;
+				resetPage: boolean;
+			} = {
+				force: false,
+				resetPage: false
+			},
 		) {
 		}
 	}

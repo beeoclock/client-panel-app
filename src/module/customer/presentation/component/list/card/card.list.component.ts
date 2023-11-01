@@ -38,7 +38,7 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 		NgIf
 	]
 })
-export class CardListComponent extends TableComponent {
+export class CardListComponent extends TableComponent<ICustomer> {
 
 	public override readonly actions = CustomerActions;
 

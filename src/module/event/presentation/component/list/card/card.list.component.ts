@@ -13,7 +13,7 @@ import {ITableState} from "@utility/domain/table.state";
 import {TableComponent} from "@utility/table.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {EventActions} from "@event/state/event/event.actions";
-import {RMIEvent} from "@event/domain";
+import {IEvent, RMIEvent} from "@event/domain";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {ButtonsDetailsComponent} from "@event/presentation/component/details/buttons.details.component";
@@ -51,7 +51,7 @@ import {ChangeStatusOnDoneComponent} from "@event/presentation/component/change-
 		ChangeStatusOnDoneComponent
 	]
 })
-export class CardListComponent extends TableComponent {
+export class CardListComponent extends TableComponent<IEvent> {
 
 	public override readonly actions = EventActions;
 

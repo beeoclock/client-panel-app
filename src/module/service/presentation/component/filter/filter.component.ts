@@ -38,7 +38,7 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 			<div *ngIf="isNotMobile$ | async" class="flex overflow-x-auto gap-4">
 				<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
 				<ng-container *ngTemplateOutlet="ServiceActiveSelect"></ng-container>
-				<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
+				<utility-auto-refresh-component (emitter)="forceRefresh()"/>
 			</div>
 			<div *ngIf="isMobile$ | async" class="flex gap-4 justify-between w-full">
 				<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
@@ -50,7 +50,7 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		</utility-default-panel-component>
 		<div *ngIf="isMobile$ | async" class="flex overflow-x-auto gap-4 mt-4 px-4">
 			<ng-container *ngTemplateOutlet="ServiceActiveSelect"></ng-container>
-			<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
+			<utility-auto-refresh-component (emitter)="forceRefresh(true)"/>
 		</div>
 
 		<ng-template #ServiceActiveSelect>
@@ -62,10 +62,6 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		<ng-template #SearchInput>
 			<utility-search-input-component
 				[control]="form.controls.phrase"/>
-		</ng-template>
-
-		<ng-template #AutoRefresh>
-			<utility-auto-refresh-component (emitter)="forceRefresh()"/>
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>

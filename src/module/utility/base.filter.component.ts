@@ -60,7 +60,7 @@ export abstract class BaseFilterComponent extends Reactive {
 
 	}
 
-	public forceRefresh() {
-		this.store.dispatch(new this.actions.GetList({force: true}))
+	public forceRefresh(resetPage = false) {
+		this.store.dispatch(new this.actions.GetList({force: true, resetPage}))
 	}
 }

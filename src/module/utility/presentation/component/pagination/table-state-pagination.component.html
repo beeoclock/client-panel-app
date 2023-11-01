@@ -1,18 +1,19 @@
+<div class="flex justify-center sm:hidden pb-4">
+	<div *ngIf="tableState.maxPage === tableState.page" class="text-beeColor-500">
+		{{ 'pagination.message.allDataDownloaded' | translate }}
+	</div>
+	<button
+		*ngIf="tableState.maxPage !== tableState.page"
+		(click)="nextPage()"
+		class="relative inline-flex items-center rounded-md border border-beeColor-300 bg-white px-4 py-2 text-sm font-medium text-beeColor-700 hover:bg-beeColor-100">
+		{{ 'keyword.capitalize.downloadMore' | translate }}
+	</button>
+</div>
+
 <div
-  class="flex items-center justify-between border-t border-beeColor-200 dark:border-beeDarkColor-800 bg-white dark:bg-beeDarkColor-800 px-4 py-3 sm:px-6 h-16">
-  <div class="flex flex-1 justify-between sm:hidden">
-    <button
-      (click)="prevPage()"
-      class="relative inline-flex items-center rounded-md border border-beeColor-300 bg-white px-4 py-2 text-sm font-medium text-beeColor-700 hover:bg-beeColor-100">
-      {{ 'keyword.capitalize.previous' | translate }}
-    </button>
-    <button
-      (click)="nextPage()"
-      class="relative ml-3 inline-flex items-center rounded-md border border-beeColor-300 bg-white px-4 py-2 text-sm font-medium text-beeColor-700 hover:bg-beeColor-100">
-      {{ 'keyword.capitalize.next' | translate }}
-    </button>
-  </div>
-  <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+  class="hidden sm:flex items-center justify-between border-t border-beeColor-200 dark:border-beeDarkColor-800 bg-white dark:bg-beeDarkColor-800 px-4 py-3 sm:px-6 h-16">
+
+  <div class="flex flex-1 items-center justify-between">
     <div>
       <p class="text-sm text-beeColor-700 dark:text-beeDarkColor-400">
 

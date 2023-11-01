@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {Component, inject, Input, OnChanges, SimpleChange, SimpleChanges, ViewEncapsulation} from "@angular/core";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
@@ -39,7 +39,7 @@ import {LanguageCodeEnum} from "@utility/domain/enum";
 		NgIf
 	]
 })
-export class CardListComponent extends TableComponent {
+export class CardListComponent extends TableComponent<IService> implements OnChanges {
 
 	public override readonly actions = ServiceActions;
 	public readonly translateService = inject(TranslateService);
@@ -48,8 +48,30 @@ export class CardListComponent extends TableComponent {
 		return this.translateService.getDefaultLang() as LanguageCodeEnum;
 	}
 
+	public list: IService[] = [];
+
 	@Input()
 	public tableState!: ITableState<IService>;
+
+	public ngOnChanges(changes: SimpleChanges & {tableState: SimpleChange}): void {
+		if (changes.tableState.firstChange) {
+			this.list = [...changes.tableState.currentValue.items];
+		} else {
+
+			if (changes.tableState.currentValue.page === changes.tableState.previousValue.page) {
+				this.list.length = this.list.length - changes.tableState.previousValue.items.length;
+				this.list = [...this.list, ...changes.tableState.currentValue.items];
+			} else {
+				if (changes.tableState.currentValue.page > 1) {
+					this.list = [...this.list, ...changes.tableState.currentValue.items];
+				} else {
+					this.list = [...changes.tableState.currentValue.items];
+				}
+			}
+
+		}
+
+	}
 
 	public getFirstLanguageVersion(languageVersions: ILanguageVersion[] = []): ILanguageVersion {
 		const firstOption = languageVersions.find(({language}) => language === this.currentLanguageCode);
