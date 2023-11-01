@@ -2,7 +2,7 @@ import {Component, ElementRef, HostBinding, inject, Input, ViewChild, ViewEncaps
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {TranslateModule} from "@ngx-translate/core";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
-import {WINDOW} from "@utility/cdk/window.provider";
+import {WINDOW, WINDOW_PROVIDERS} from "@utility/cdk/window.provider";
 
 @Component({
   selector: 'utility-back-link-component',
@@ -20,6 +20,9 @@ import {WINDOW} from "@utility/cdk/window.provider";
     TranslateModule,
     LinkButtonDirective
   ],
+	providers: [
+		WINDOW_PROVIDERS
+	],
   encapsulation: ViewEncapsulation.None
 })
 export class BackLinkComponent {
@@ -30,7 +33,7 @@ export class BackLinkComponent {
   public queryParams = {};
 
   @Input()
-  public url: never | string[] = [this.activatedRoute.snapshot.queryParams['returnUrl']] ?? ['../'];
+  public url: never | string[] = [];
 
   @ViewChild('link')
   public link!: ElementRef<HTMLElement>;
@@ -43,12 +46,17 @@ export class BackLinkComponent {
 	private readonly window = inject(WINDOW) as Window;
 
 	public navigateToBack() {
+		const {returnUrl} = this.activatedRoute.snapshot.queryParams;
 		if (!this.url.length) {
-			if (this.window.history.length > 1) {
-				this.window.history.back();
-				return;
+			if (returnUrl) {
+				this.url = [returnUrl];
+			} else {
+				if (this.window.history.length > 1) {
+					this.window.history.back();
+					return;
+				}
+				this.url = ['../'];
 			}
-			this.url = ['../'];
 		}
 		return this.router.navigate(this.url, {
 			queryParams: this.queryParams
