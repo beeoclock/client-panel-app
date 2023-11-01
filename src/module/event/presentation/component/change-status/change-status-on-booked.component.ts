@@ -57,7 +57,7 @@ export class ChangeStatusOnBookedComponent extends ChangeStatusBaseComponent {
 		await firstValueFrom(this.store.dispatch(new EventActions.BookedStatus(event)));
 		await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
 		this.postStatusChange(EventStatusEnum.booked);
-		this.store.dispatch(new EventActions.GetList(true));
+		this.store.dispatch(new EventActions.GetList({force: true, resetPage: false}));
 	}
 
 

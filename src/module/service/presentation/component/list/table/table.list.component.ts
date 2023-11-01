@@ -44,7 +44,7 @@ import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/fl
 		TableTableFlexDirective
 	]
 })
-export class TableListComponent extends TableComponent {
+export class TableListComponent extends TableComponent<IService> {
 
 	public override readonly actions = ServiceActions;
 

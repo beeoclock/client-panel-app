@@ -30,7 +30,6 @@ import {
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		TableListComponent,
 		StarterComponent,
 		TranslateModule,
 		FilterComponent,

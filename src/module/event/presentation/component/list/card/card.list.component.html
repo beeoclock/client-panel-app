@@ -48,7 +48,6 @@
 	</bee-card>
 </div>
 <utility-table-state-pagination-component
-	*ngIf="tableState.total > tableState.items.length"
 	(clearCache)="clearTableCache()"
 	(page)="pageChange($event)"
 	[tableState]="tableState"/>

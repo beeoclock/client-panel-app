@@ -688,6 +688,7 @@
 			"details": "Szczegóły",
 			"dismiss": "Odrzuć",
 			"done": "Wydarzenie zakończone",
+			"downloadMore": "Pobierz więcej",
 			"duration": "Czas trwania",
 			"earliestBooking": "Najbliższy termin rezerwacji",
 			"edit": "Edytuj",
@@ -819,6 +820,11 @@
 				}
 			},
 			"title": "Wybierz klienta"
+		}
+	},
+	"pagination": {
+		"message": {
+			"allDataDownloaded": "Wszystkie dostępne dane zostały pobrane"
 		}
 	},
 	"service": {

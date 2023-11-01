@@ -41,7 +41,7 @@ import {BooleanState} from "@utility/domain";
 export class TableStatePaginationComponent implements OnChanges {
 
   @Input()
-  public tableState!: ITableState<any>;
+  public tableState!: ITableState<unknown>;
 
   @Output()
   public readonly pageSize = new EventEmitter();

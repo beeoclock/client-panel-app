@@ -3,12 +3,13 @@ import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
 import {DoubleClick} from "@utility/domain/decorator/double-click";
 import {ActivatedRoute, Router} from "@angular/router";
+import {RIBaseEntity} from "@utility/domain";
 
 @Component({
 	selector: 'utility-table-component',
 	template: ``
 })
-export abstract class TableComponent implements AfterViewInit {
+export abstract class TableComponent<ITEM extends RIBaseEntity> implements AfterViewInit {
 
 	public readonly router = inject(Router);
 	public readonly activatedRoute = inject(ActivatedRoute);
@@ -25,6 +26,10 @@ export abstract class TableComponent implements AfterViewInit {
 
 	public ngAfterViewInit(): void {
 		this.initOrderByAndOrderDirHandler();
+	}
+
+	public trackById(index: number, item: ITEM): string {
+		return item._id;
 	}
 
 	@DoubleClick

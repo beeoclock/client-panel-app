@@ -38,7 +38,7 @@ import {RIMember} from "@member/domain";
 		NgIf
 	]
 })
-export class CardListComponent extends TableComponent {
+export class CardListComponent extends TableComponent<RIMember> {
 
 	public override readonly actions = ServiceActions;
 

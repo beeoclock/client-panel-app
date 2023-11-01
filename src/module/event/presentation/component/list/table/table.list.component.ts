@@ -43,7 +43,7 @@ import {BodyTableFlexDirective} from "@utility/presentation/directives/talbe/fle
 		BodyTableFlexDirective
 	]
 })
-export class TableListComponent extends TableComponent {
+export class TableListComponent extends TableComponent<IEvent> {
 
 	public override readonly actions = EventActions;
 
