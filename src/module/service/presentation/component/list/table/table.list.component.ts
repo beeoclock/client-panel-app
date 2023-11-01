@@ -71,7 +71,7 @@ export class TableListComponent extends TableComponent {
 			},
 			active: {
 				style: {
-					minWidth: '100px',
+					minWidth: '120px',
 				},
 			},
 			price: {
