@@ -16,23 +16,27 @@ import {LogoutComponent} from "@utility/presentation/component/logout/logout.com
 import {BooleanState} from "@utility/domain";
 import {AppActions} from "@utility/state/app/app.actions";
 import {Reactive} from "@utility/cdk/reactive";
+import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
+import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 
 @Component({
   selector: 'identity-corridor-page',
   templateUrl: './index.html',
   standalone: true,
-  imports: [
-    RouterLink,
-    ReactiveFormsModule,
-    SignInComponent,
-    NgForOf,
-    AsyncPipe,
-    NgIf,
-    LoaderComponent,
-    TranslateModule,
-    ChangeLanguageComponent,
-    LogoutComponent
-  ],
+	imports: [
+		RouterLink,
+		ReactiveFormsModule,
+		SignInComponent,
+		NgForOf,
+		AsyncPipe,
+		NgIf,
+		LoaderComponent,
+		TranslateModule,
+		ChangeLanguageComponent,
+		LogoutComponent,
+		BackButtonComponent,
+		BackLinkComponent
+	],
   encapsulation: ViewEncapsulation.None
 })
 export default class Index extends Reactive implements OnInit {
@@ -46,7 +50,7 @@ export default class Index extends Reactive implements OnInit {
   private readonly clients$!: Observable<IMember[]>;
 
   @Select(IdentityState.clientId)
-  private readonly clientId$!: Observable<string | undefined>;
+  public readonly clientId$!: Observable<string | undefined>;
 
   public readonly members$ = this.clients$.pipe(
     filter(Array.isArray),
@@ -70,6 +74,7 @@ export default class Index extends Reactive implements OnInit {
 
   public readonly loader = new BooleanState(true);
   public readonly disabled = new BooleanState(false);
+	public readonly pathToDashboard = ['/', 'dashboard'];
 
   public ngOnInit(): void {
 
@@ -91,7 +96,7 @@ export default class Index extends Reactive implements OnInit {
   }
 
   public async gotToDashboardPage(): Promise<boolean> {
-    return this.router.navigate(['/', 'dashboard']);
+    return this.router.navigate(this.pathToDashboard);
   }
 
   public async select(member: IMember): Promise<void> {

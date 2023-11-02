@@ -59,6 +59,7 @@ export class BackLinkComponent {
 			}
 		}
 		return this.router.navigate(this.url, {
+			relativeTo: this.activatedRoute,
 			queryParams: this.queryParams
 		});
 	}
