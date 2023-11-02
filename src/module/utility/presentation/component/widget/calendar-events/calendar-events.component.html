@@ -50,7 +50,7 @@
 		type="button"
 		class="border-t p-3 w-full text-blue-500 hover:bg-blue-100 rounded-b-2xl transition-all"
 		routerLink="/event/form"
-		[queryParams]="{returnUrl}">
+		[queryParams]="{returnUrl, start: form.controls.start.value}">
 		<i class="bi bi-plus-lg"></i>
 		{{ 'keyword.capitalize.add-event' | translate }}
 	</button>

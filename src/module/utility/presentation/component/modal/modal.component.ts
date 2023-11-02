@@ -77,7 +77,9 @@ export interface ModalButtonInterface<COMPONENT_REF = unknown> {
 					<!-- Modal body -->
 					<div
 						#contentRef
-						class="md:p-6 space-y-6 overflow-y-auto h-[calc(100vh-10rem)] max-h-[calc(100vh-10rem)] md:h-auto md:max-h-[calc(100vh-16rem)]">
+						[class.md:p-6]="contentPadding"
+						[class.space-y-6]="contentPadding"
+						class="overflow-y-auto h-[calc(100vh-10rem)] max-h-[calc(100vh-10rem)] md:h-auto md:max-h-[calc(100vh-16rem)]">
 						<ng-content/>
 					</div>
 
@@ -128,6 +130,9 @@ export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements
 
 	@Input()
 	public id = 'modal-default-id';
+
+	@Input()
+	public contentPadding = true;
 
 	@ViewChild('contentRef')
 	public contentRef: ElementRef<HTMLElement> | undefined;

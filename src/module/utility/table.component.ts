@@ -1,15 +1,35 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, inject} from "@angular/core";
+import {
+	AfterViewInit,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	inject,
+	Input,
+	Output
+} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
 import {DoubleClick} from "@utility/domain/decorator/double-click";
 import {ActivatedRoute, Router} from "@angular/router";
 import {RIBaseEntity} from "@utility/domain";
+import {ITableState} from "@utility/domain/table.state";
+import {debounce} from "typescript-debounce-decorator";
 
 @Component({
 	selector: 'utility-table-component',
 	template: ``
 })
 export abstract class TableComponent<ITEM extends RIBaseEntity> implements AfterViewInit {
+
+	@Input()
+	public goToDetailsOnSingleClick = true;
+
+	@Input({required: true})
+	public tableState!: ITableState<ITEM>;
+
+	@Output()
+	public readonly singleClickEmitter = new EventEmitter<ITEM>();
 
 	public readonly router = inject(Router);
 	public readonly activatedRoute = inject(ActivatedRoute);
@@ -23,20 +43,39 @@ export abstract class TableComponent<ITEM extends RIBaseEntity> implements After
 		UpdateTableState: any;
 		ClearTableCacheAndGetList: any;
 	};
+	public selectedIds: string[] = [];
 
 	public ngAfterViewInit(): void {
 		this.initOrderByAndOrderDirHandler();
+		this.initUserTapOnTheCardHandler();
+	}
+
+	private initUserTapOnTheCardHandler(): void {
+		this.singleClickEmitter.subscribe((item) => {
+			if (this.goToDetailsOnSingleClick) {
+				this.goToDetail(item._id);
+			}
+		});
 	}
 
 	public trackById(index: number, item: ITEM): string {
 		return item._id;
 	}
 
-	@DoubleClick
 	public goToDetail(id: string): void {
 		this.router.navigate([id], {
 			relativeTo: this.activatedRoute
 		}).then();
+	}
+
+	@debounce(300)
+	public singleClick(item: ITEM) {
+		this.singleClickEmitter.emit(item);
+	}
+
+	@DoubleClick
+	public doubleClick(id: string): void {
+		this.goToDetail(id);
 	}
 
 	public updateOrderBy(target: HTMLTableCellElement): void {

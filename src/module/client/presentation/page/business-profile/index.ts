@@ -51,34 +51,38 @@ import {
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
+import {EventSettingsComponent} from "@client/presentation/component/settings/event/event.settings.component";
+import {GeneralSettingsComponent} from "@client/presentation/component/settings/general/general.settings.component";
 
 @Component({
 	selector: 'client-business-profile-page',
 	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
-	imports: [
-		FormBusinessProfileComponent,
-		ReactiveFormsModule,
-		TranslateModule,
-		CoverImageBusinessProfileComponent,
-		LogoBusinessProfileComponent,
-		SwitchActiveBlockComponent,
-		AddressBusinessProfileComponent,
-		GalleryBusinessProfileComponent,
-		SchedulesFormComponent,
-		BusinessProfileContactPhoneComponent,
-		BusinessProfileSocialMediaComponent,
-		FacilitiesBusinessProfileComponent,
-		BookingSettingsBusinessProfileComponent,
-		PrimaryButtonDirective,
-		AsyncPipe,
-		NgIf,
-		DangerZoneComponent,
-		ServiceSettingsComponent,
-		ButtonSaveContainerComponent,
-		BackButtonComponent,
-		DefaultPanelComponent
-	],
+    imports: [
+        FormBusinessProfileComponent,
+        ReactiveFormsModule,
+        TranslateModule,
+        CoverImageBusinessProfileComponent,
+        LogoBusinessProfileComponent,
+        SwitchActiveBlockComponent,
+        AddressBusinessProfileComponent,
+        GalleryBusinessProfileComponent,
+        SchedulesFormComponent,
+        BusinessProfileContactPhoneComponent,
+        BusinessProfileSocialMediaComponent,
+        FacilitiesBusinessProfileComponent,
+        BookingSettingsBusinessProfileComponent,
+        PrimaryButtonDirective,
+        AsyncPipe,
+        NgIf,
+        DangerZoneComponent,
+        ServiceSettingsComponent,
+        ButtonSaveContainerComponent,
+        BackButtonComponent,
+        DefaultPanelComponent,
+        EventSettingsComponent,
+        GeneralSettingsComponent
+    ],
 	standalone: true
 })
 export default class Index implements OnInit {

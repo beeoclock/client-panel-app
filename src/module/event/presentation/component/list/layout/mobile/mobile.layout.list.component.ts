@@ -1,4 +1,4 @@
-import {Component, Input, ViewEncapsulation} from "@angular/core";
+import {Component, ViewEncapsulation} from "@angular/core";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {CardListComponent} from "@event/presentation/component/list/card/card.list.component";
 import {FilterComponent} from "@event/presentation/component/filter/filter.component";
@@ -6,9 +6,11 @@ import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {BooleanState} from "@utility/domain";
-import {ITableState} from "@utility/domain/table.state";
 import {RMIEvent} from "@event/domain";
+import {LayoutListComponent} from "@utility/layout.list.component";
+import {
+	AutoRefreshButtonComponent
+} from "@event/presentation/component/button/auto-refresh/auto-refresh.button.component";
 
 @Component({
 	selector: 'event-mobile-layout-list-component',
@@ -21,15 +23,10 @@ import {RMIEvent} from "@event/domain";
 		FilterComponent,
 		NgIf,
 		NotFoundTableDataComponent,
-		TranslateModule
+		TranslateModule,
+		AutoRefreshButtonComponent
 	]
 })
-export class MobileLayoutListComponent {
-
-	@Input({required: true})
-	public tableState!: ITableState<RMIEvent> | null;
-
-	@Input()
-	public someDataExist = new BooleanState(false);
+export class MobileLayoutListComponent extends LayoutListComponent<RMIEvent> {
 
 }

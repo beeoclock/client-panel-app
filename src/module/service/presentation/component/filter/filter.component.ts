@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {FilterPanelComponent} from '@utility/presentation/component/panel/filter.panel.component';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {FilterForm} from "@service/presentation/form/filter.form";
@@ -14,7 +14,9 @@ import {
 } from "@utility/presentation/component/input/ion/ion-select-event-status.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
-import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
+import {
+	AutoRefreshButtonComponent
+} from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
 
 @Component({
 	selector: 'service-filter-component',
@@ -31,14 +33,14 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		AsyncPipe,
 		NgIf,
 		NgTemplateOutlet,
-		AutoRefreshComponent
+		AutoRefreshButtonComponent
 	],
 	template: `
 		<utility-default-panel-component>
 			<div *ngIf="isNotMobile$ | async" class="flex overflow-x-auto gap-4">
 				<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
 				<ng-container *ngTemplateOutlet="ServiceActiveSelect"></ng-container>
-				<utility-auto-refresh-component (emitter)="forceRefresh()"/>
+				<service-auto-refresh-component/>
 			</div>
 			<div *ngIf="isMobile$ | async" class="flex gap-4 justify-between w-full">
 				<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
@@ -50,7 +52,7 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		</utility-default-panel-component>
 		<div *ngIf="isMobile$ | async" class="flex overflow-x-auto gap-4 mt-4 px-4">
 			<ng-container *ngTemplateOutlet="ServiceActiveSelect"></ng-container>
-			<utility-auto-refresh-component (emitter)="forceRefresh(true)"/>
+			<service-auto-refresh-component [resetPage]="true"/>
 		</div>
 
 		<ng-template #ServiceActiveSelect>
@@ -65,7 +67,7 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>
-			<button type="button" primary routerLink="form">
+			<button *ngIf="showButtonGoToForm" type="button" primary routerLink="form">
 				<i class="bi bi-plus-lg"></i>
 				<span class="hidden xl:block">
 					{{ 'keyword.capitalize.add-service' | translate }}
@@ -75,6 +77,9 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 	`
 })
 export class FilterComponent extends BaseFilterComponent {
+
+	@Input()
+	public showButtonGoToForm = true;
 
 	public override readonly form = new FilterForm();
 	public override readonly actions = ServiceActions;

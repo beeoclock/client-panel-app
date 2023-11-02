@@ -1,8 +1,8 @@
 <div class="h-screen">
 	<div class="max-w-xs h-screen m-auto flex flex-col align-items-center justify-center">
 
-		<div class="flex justify-between">
-			<utility-logout-component/>
+		<div class="flex justify-between items-center">
+			<utility-back-link-component [url]="(clientId$ | async) ? pathToDashboard : []" />
 			<utility-change-language-component/>
 		</div>
 		<ul class="flex flex-col mt-4">

@@ -56,6 +56,7 @@ export class ModalService {
 			title?: string;
 			id?: string;
 			fixHeight?: boolean;
+			contentPadding?: boolean;
 			showBody?: boolean;
 			buttonSectionClass?: string[];
 			contentHTML?: string;

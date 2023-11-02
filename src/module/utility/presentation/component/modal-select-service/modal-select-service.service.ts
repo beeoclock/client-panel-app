@@ -1,15 +1,15 @@
 import {inject, Injectable} from '@angular/core';
 import {
-  ModalButtonInterface,
-  ModalButtonRoleEnum,
-  ModalComponent
+	ModalButtonInterface,
+	ModalButtonRoleEnum,
+	ModalComponent
 } from "@utility/presentation/component/modal/modal.component";
 import {ModalService} from "@utility/presentation/component/modal/modal.service";
 import {TranslateService} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {IService} from "@service/domain";
 import {
-  ModalSelectServiceComponent
+	ModalSelectServiceComponent
 } from "@utility/presentation/component/modal-select-service/modal-select-service.component";
 
 type RESOLVE_TYPE = { (value: IService[] | PromiseLike<IService[]>): void; (arg0: IService[]): void; };
@@ -44,15 +44,16 @@ export class ModalSelectServiceService extends Reactive {
       }], {
         buttons: this.buttons(resolve, reject),
         fixHeight: false,
-        title
+        title,
+				contentPadding: false
       }).then((modal) => {
-        const component = modal.instance.componentChildRefList[0].instance as unknown as ModalSelectServiceComponent;
-        const acceptButton = modal.instance.getButton(ModalButtonRoleEnum.accept);
-        if (acceptButton) {
-          component.modalSelectServiceListAdapter.loading$.state$.pipe(this.takeUntil()).subscribe((loading) => {
-            acceptButton.disabled = loading;
-          });
-        }
+        // const component = modal.instance.componentChildRefList[0].instance as unknown as ModalSelectServiceComponent;
+        // const acceptButton = modal.instance.getButton(ModalButtonRoleEnum.accept);
+        // if (acceptButton) {
+        //   component.modalSelectServiceListAdapter.loading$.state$.pipe(this.takeUntil()).subscribe((loading) => {
+        //     acceptButton.disabled = loading;
+        //   });
+        // }
 
         return modal;
       });

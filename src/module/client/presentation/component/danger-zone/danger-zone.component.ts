@@ -21,7 +21,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
     TranslateModule
   ],
   template: `
-    <bee-card borderColor="border-red-500" darkBorderColor="border-red-500">
+    <bee-card borderColor="border-red-500" darkBorderColor="dark:border-red-500">
       <span class="text-2xl font-bold text-beeColor-500">{{ 'danger-zone.title' | translate }}</span>
 
       <!--      <h5 class="fs-0">Transfer Ownership</h5>-->

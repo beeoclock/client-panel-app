@@ -7,6 +7,8 @@
 		<not-found-table-data-component
 			[showLinkToForm]="someDataExist.isOff"
 			[linkLabel]="'keyword.capitalize.add-event' | translate"
-			[label]="'keyword.capitalize.dataNotFound' | translate"/>
+			[label]="'keyword.capitalize.dataNotFound' | translate">
+			<event-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
+		</not-found-table-data-component>
 	</ng-template>
 </ng-container>
