@@ -1,5 +1,5 @@
-import {Component, inject, Input, OnChanges, SimpleChange, SimpleChanges, ViewEncapsulation} from "@angular/core";
-import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
+import {Component, inject, OnChanges, SimpleChange, SimpleChanges, ViewEncapsulation} from "@angular/core";
+import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
@@ -9,7 +9,6 @@ import {
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {ITableState} from "@utility/domain/table.state";
 import {TableComponent} from "@utility/table.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
@@ -17,6 +16,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {ILanguageVersion, IService} from "@service/domain";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {LanguageCodeEnum} from "@utility/domain/enum";
+import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 
 @Component({
 	selector: 'service-card-list-component',
@@ -36,7 +36,8 @@ import {LanguageCodeEnum} from "@utility/domain/enum";
 		CurrencyPipe,
 		HumanizeDurationPipe,
 		CardComponent,
-		NgIf
+		NgIf,
+		AsyncPipe
 	]
 })
 export class CardListComponent extends TableComponent<IService> implements OnChanges {
@@ -48,12 +49,13 @@ export class CardListComponent extends TableComponent<IService> implements OnCha
 		return this.translateService.getDefaultLang() as LanguageCodeEnum;
 	}
 
+	public showAction = new BooleanStreamState(true);
+
+	public showSelectedStatus = new BooleanStreamState(false);
+
 	public list: IService[] = [];
 
-	@Input()
-	public tableState!: ITableState<IService>;
-
-	public ngOnChanges(changes: SimpleChanges & {tableState: SimpleChange}): void {
+	public ngOnChanges(changes: SimpleChanges & { tableState: SimpleChange }): void {
 		if (changes.tableState.firstChange) {
 			this.list = [...changes.tableState.currentValue.items];
 		} else {

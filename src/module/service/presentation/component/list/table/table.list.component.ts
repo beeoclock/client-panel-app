@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {Component, inject, ViewEncapsulation} from "@angular/core";
 import {CurrencyPipe, NgForOf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
@@ -9,7 +9,6 @@ import {
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {ITableState} from "@utility/domain/table.state";
 import {TableComponent} from "@utility/table.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {ILanguageVersion, IService} from "@service/domain";
@@ -48,8 +47,6 @@ export class TableListComponent extends TableComponent<IService> {
 
 	public override readonly actions = ServiceActions;
 
-	@Input()
-	public tableState!: ITableState<IService>;
 	public readonly translateService = inject(TranslateService);
 
 	public get currentLanguageCode(): LanguageCodeEnum {

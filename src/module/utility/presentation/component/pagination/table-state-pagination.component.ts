@@ -43,6 +43,9 @@ export class TableStatePaginationComponent implements OnChanges {
   @Input()
   public tableState!: ITableState<unknown>;
 
+  @Input()
+  public mobileMode = false;
+
   @Output()
   public readonly pageSize = new EventEmitter();
 

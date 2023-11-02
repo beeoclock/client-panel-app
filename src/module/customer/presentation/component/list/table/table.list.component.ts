@@ -1,4 +1,4 @@
-import {Component, Input, ViewEncapsulation} from "@angular/core";
+import {Component, ViewEncapsulation} from "@angular/core";
 import {CurrencyPipe, NgForOf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
@@ -9,7 +9,6 @@ import {
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {ITableState} from "@utility/domain/table.state";
 import {TableComponent} from "@utility/table.component";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ICustomer} from "@customer/domain";
@@ -46,9 +45,6 @@ import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/fl
 export class TableListComponent extends TableComponent<ICustomer> {
 
 	public override readonly actions = CustomerActions;
-
-	@Input()
-	public tableState!: ITableState<ICustomer>;
 
 	public readonly tableConfiguration = {
 		columns: {

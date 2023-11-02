@@ -56,7 +56,7 @@ import {
 	],
 	standalone: true
 })
-export default class Index extends ListPage {
+export default class Index extends ListPage<RMIEvent> {
 
 	public override readonly actions = EventActions;
 

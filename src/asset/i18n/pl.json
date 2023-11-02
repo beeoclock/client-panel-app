@@ -780,7 +780,8 @@
 			"dragAndDrop": "przeciągnij i upuść plik",
 			"min": "min.",
 			"or": "lub",
-			"sec": "sek."
+			"sec": "sek.",
+			"service": "usługa"
 		},
 		"status": {
 			"all": "Wszystkie",

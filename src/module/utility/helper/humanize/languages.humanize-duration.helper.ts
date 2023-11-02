@@ -1,0 +1,32 @@
+export const LanguagesHumanizeDurationHelper = {
+	short_en: {
+		y: () => "y",
+		mo: () => "mo",
+		w: () => "w",
+		d: () => "d",
+		h: () => "h",
+		m: () => "m",
+		s: () => "s",
+		ms: () => "ms",
+	},
+	short_uk: {
+		y: () => "р",
+		mo: () => "міс",
+		w: () => "тиж",
+		d: () => "д",
+		h: () => "год",
+		m: () => "хв",
+		s: () => "сек",
+		ms: () => "мілісек",
+	},
+	short_pl: {
+		y: () => "r",
+		mo: () => "m",
+		w: () => "tyg",
+		d: () => "dn",
+		h: () => "godz",
+		m: () => "min",
+		s: () => "sek",
+		ms: () => "ms",
+	},
+};

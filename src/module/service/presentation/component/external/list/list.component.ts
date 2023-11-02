@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, QueryList, ViewChildren, ViewEncapsulation} from '@angular/core';
 import {AsyncPipe, NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {IService} from '@service/domain';
@@ -15,8 +15,8 @@ import {
 } from "@service/presentation/component/list/layout/desktop/desktop.layout.list.component";
 
 @Component({
-	selector: 'service-list-page',
-	templateUrl: './index.html',
+	selector: 'service-external-list-component',
+	templateUrl: './list.component.html',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
@@ -28,7 +28,10 @@ import {
 	],
 	standalone: true
 })
-export default class Index extends ListPage<IService> {
+export class ServiceExternalListComponent extends ListPage<IService> {
+
+	@ViewChildren(MobileLayoutListComponent)
+	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
 
 	public override readonly actions = ServiceActions;
 

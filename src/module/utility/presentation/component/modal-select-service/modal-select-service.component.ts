@@ -1,8 +1,17 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit, ViewEncapsulation} from "@angular/core";
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	inject,
+	OnInit,
+	QueryList,
+	ViewChild,
+	ViewEncapsulation
+} from "@angular/core";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {ModalSelectServiceListAdapter} from "@service/adapter/external/component/modal-select-service.list.adapter";
 import {IService} from "@service/domain";
 import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/boc-media.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
@@ -11,6 +20,11 @@ import {Router, RouterLink} from "@angular/router";
 import {ModalButtonRoleEnum, ModalComponent} from "@utility/presentation/component/modal/modal.component";
 import {NGXLogger} from "ngx-logger";
 import {ServiceItemComponent} from "@service/presentation/component/list/item/item.componen";
+import {ServiceExternalListComponent} from "@service/presentation/component/external/list/list.component";
+import {firstValueFrom} from "rxjs";
+import {
+	MobileLayoutListComponent
+} from "@service/presentation/component/list/layout/mobile/mobile.layout.list.component";
 
 @Component({
 	selector: 'utility-modal-select-service-component',
@@ -27,45 +41,18 @@ import {ServiceItemComponent} from "@service/presentation/component/list/item/it
 		HumanizeDurationPipe,
 		PrimaryButtonDirective,
 		RouterLink,
-		ServiceItemComponent
+		ServiceItemComponent,
+		ServiceExternalListComponent
 	],
 	template: `
-		<div class="flex flex-col gap-4">
-
-			<ng-template [ngIf]="modalSelectServiceListAdapter.loading$.isOff && !modalSelectServiceListAdapter.tableState.items.length">
-				{{ 'keyword.capitalize.dataNotFound' | translate }}
-				<button type="button" primary (click)="goToServiceFormPage()">
-					<i class="bi bi-plus-lg"></i>
-					{{ 'keyword.capitalize.add-service' | translate }}
-				</button>
-			</ng-template>
-
-			<ul class="grid w-full gap-6 md:grid-cols-1">
-				<li *ngFor="let item of modalSelectServiceListAdapter.tableState.items; let index = index">
-					<input type="radio" id="modal-select-service-{{ index }}" [checked]="isSelected(item)" name="modalSelectService" class="hidden peer" (change)="select(item)">
-					<label
-						for="modal-select-service-{{ index }}"
-						class="
-							w-full
-							inline-flex
-							cursor-pointer
-							rounded-2xl
-							bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 peer-checked:bg-blue-50
-							border-4 border-gray-200 dark:border-gray-700 peer-checked:border-blue-200
-							dark:hover:text-gray-300 dark:peer-checked:text-blue-500 peer-checked:text-blue-600 hover:text-gray-600
-						">
-						<service-item-component [item]="item"/>
-					</label>
-				</li>
-			</ul>
-
-		</div>
-		<utility-loader *ngIf="modalSelectServiceListAdapter.loading$.isOn"/>
+		<service-external-list-component [mobileMode]="true"/>
 	`
 })
-export class ModalSelectServiceComponent implements OnInit {
+export class ModalSelectServiceComponent implements OnInit, AfterViewInit {
 
-	public readonly modalSelectServiceListAdapter = inject(ModalSelectServiceListAdapter);
+	@ViewChild(ServiceExternalListComponent)
+	public serviceExternalListComponent!: ServiceExternalListComponent;
+
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly router = inject(Router);
 	public readonly logger = inject(NGXLogger);
@@ -79,8 +66,28 @@ export class ModalSelectServiceComponent implements OnInit {
 	public ngOnInit(): void {
 
 		this.newSelectedServiceList = [...(this.selectedServiceList ?? [])];
-		this.initTableState().then();
 
+	}
+
+	public ngAfterViewInit() {
+		this.initializeCustomConfiguration().then();
+	}
+
+	private async initializeCustomConfiguration() {
+		const mobileLayoutListComponents = await firstValueFrom<QueryList<MobileLayoutListComponent>>(this.serviceExternalListComponent.mobileLayoutListComponents.changes);
+		const {first: mobileLayoutListComponent} = mobileLayoutListComponents;
+		const {first: cardListComponent} = mobileLayoutListComponent.cardListComponents;
+		cardListComponent.selectedIds = this.newSelectedServiceList.map((service) => service._id);
+		cardListComponent.showAction.switchOff();
+		cardListComponent.showSelectedStatus.switchOn();
+		cardListComponent.goToDetailsOnSingleClick = false;
+		cardListComponent.singleClickEmitter.subscribe((item) => {
+			if (this.isSelected(item)) {
+				this.deselect(item);
+			} else {
+				this.select(item);
+			}
+		});
 	}
 
 	public async submit(): Promise<IService[]> {
@@ -116,15 +123,6 @@ export class ModalSelectServiceComponent implements OnInit {
 
 	public isNotSelected(service: IService): boolean {
 		return !this.isSelected(service);
-	}
-
-	private async initTableState() {
-		if (this.modalSelectServiceListAdapter.tableState.items.length) {
-			return;
-		}
-		this.modalSelectServiceListAdapter.resetTableState();
-		await this.modalSelectServiceListAdapter.getPageAsync();
-		this.changeDetectorRef.detectChanges();
 	}
 
 	public goToServiceFormPage() {

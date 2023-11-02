@@ -779,7 +779,8 @@
 			"dragAndDrop": "drag and drop",
 			"min": "min.",
 			"or": "or",
-			"sec": "sec."
+			"sec": "sec.",
+			"service": "service"
 		},
 		"status": {
 			"all": "All",

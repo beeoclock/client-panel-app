@@ -1,5 +1,5 @@
 import {inject, Pipe, PipeTransform} from "@angular/core";
-import {HumanizeDurationAdapter} from "@utility/adapter/humanize-duration.adapter";
+import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
 
 @Pipe({
 	standalone: true,
@@ -7,7 +7,7 @@ import {HumanizeDurationAdapter} from "@utility/adapter/humanize-duration.adapte
 })
 export class HumanizeDurationPipe implements PipeTransform {
 
-	private readonly humanizeDurationAdapter = inject(HumanizeDurationAdapter);
+	private readonly humanizeDurationHelper = inject(HumanizeDurationHelper);
 
 	/**
 	 * Author: Ivan Karbashevskyi
@@ -17,11 +17,11 @@ export class HumanizeDurationPipe implements PipeTransform {
 	public transform(value: string | number, type: 'duration' | 'iso' | 'seconds' = 'seconds'): string {
 		switch (type) {
 			case 'iso':
-				return this.humanizeDurationAdapter.formatISO(value as string);
+				return this.humanizeDurationHelper.formatISO(value as string);
 			case 'duration':
-				return this.humanizeDurationAdapter.formatDuration(value as string);
+				return this.humanizeDurationHelper.formatDuration(value as string);
 			case 'seconds':
-				return this.humanizeDurationAdapter.fromSeconds(value as number);
+				return this.humanizeDurationHelper.fromSeconds(value as number);
 		}
 	}
 

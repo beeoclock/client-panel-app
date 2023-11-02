@@ -2,7 +2,9 @@
 	<bee-card class="text-sm" *ngFor="let item of tableState.items">
 		<div class="flex justify-between items-center">
 			<div class="flex items-center gap-2">
-				<div activeStyle [active]="item.active"></div>
+				<div [class.text-red-700]="!item.active" [class.text-green-700]="item.active">
+					{{ (item.active ? 'keyword.capitalize.active' : 'keyword.capitalize.inactive' ) | translate }}
+				</div>
 			</div>
 			<utility-table-column-action
 				[id]="item._id"
