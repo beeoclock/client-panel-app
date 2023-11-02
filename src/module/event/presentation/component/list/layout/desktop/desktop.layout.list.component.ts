@@ -9,6 +9,9 @@ import {TableListComponent} from "@event/presentation/component/list/table/table
 import {TranslateModule} from "@ngx-translate/core";
 import {RMIEvent} from "@event/domain";
 import {LayoutListComponent} from "@utility/layout.list.component";
+import {
+	AutoRefreshButtonComponent
+} from "@event/presentation/component/button/auto-refresh/auto-refresh.button.component";
 
 @Component({
 	selector: 'event-desktop-layout-list-component',
@@ -22,7 +25,8 @@ import {LayoutListComponent} from "@utility/layout.list.component";
 		NgIf,
 		NotFoundTableDataComponent,
 		TableListComponent,
-		TranslateModule
+		TranslateModule,
+		AutoRefreshButtonComponent
 	]
 })
 export class DesktopLayoutListComponent extends LayoutListComponent<RMIEvent> {

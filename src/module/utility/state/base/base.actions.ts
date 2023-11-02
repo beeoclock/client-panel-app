@@ -14,9 +14,11 @@ export namespace BaseActions {
 			public readonly payload: {
 				force: boolean;
 				resetPage: boolean;
+				resetParams: boolean;
 			} = {
 				force: false,
-				resetPage: false
+				resetPage: false,
+				resetParams: false,
 			},
 		) {
 		}

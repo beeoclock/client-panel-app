@@ -27,6 +27,7 @@ import {TranslateModule} from "@ngx-translate/core";
 						{{ linkLabel }}
 					</button>
 				</ng-template>
+				<ng-content/>
 			</div>
 		</div>
 	`

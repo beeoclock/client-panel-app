@@ -5,8 +5,11 @@
 	</ng-container>
 	<ng-template #EmptyTemplate>
 		<not-found-table-data-component
+			class="block h-full"
 			[showLinkToForm]="someDataExist.isOff"
 			[linkLabel]="'keyword.capitalize.add-service' | translate"
-			[label]="'keyword.capitalize.dataNotFound' | translate"/>
+			[label]="'keyword.capitalize.dataNotFound' | translate">
+			<service-auto-refresh-component *ngIf="someDataExist.isOff" [resetPage]="true" [resetParams]="true"/>
+		</not-found-table-data-component>
 	</ng-template>
 </ng-container>

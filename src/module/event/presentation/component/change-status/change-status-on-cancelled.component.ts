@@ -57,7 +57,7 @@ export class ChangeStatusOnCancelledComponent extends ChangeStatusBaseComponent 
 		await firstValueFrom(this.store.dispatch(new EventActions.CancelledStatus(event)));
 		await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
 		this.postStatusChange(EventStatusEnum.cancelled);
-		this.store.dispatch(new EventActions.GetList({force: true, resetPage: false}));
+		this.store.dispatch(new EventActions.GetList({force: true, resetPage: false, resetParams: false}));
 	}
 
 }

@@ -162,7 +162,7 @@ export abstract class BaseState<ITEM = any> {
 		ctx.patchState({
 			lastTableHashSum: undefined,
 		});
-		await this.getList(ctx, {payload: {force: true, resetPage: false}});
+		await this.getList(ctx, {payload: {force: true, resetPage: false, resetParams: false}});
 
 	}
 
@@ -488,7 +488,7 @@ export abstract class BaseState<ITEM = any> {
 	 * @param force
 	 * @param resetPage
 	 */
-	public async getList(ctx: StateContext<IBaseState<ITEM>>, {payload: {force, resetPage}}: BaseActions.GetList): Promise<void> {
+	public async getList(ctx: StateContext<IBaseState<ITEM>>, {payload: {force, resetPage, resetParams}}: BaseActions.GetList): Promise<void> {
 
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
 
@@ -546,6 +546,10 @@ export abstract class BaseState<ITEM = any> {
 
 			if (resetPage) {
 				newTableState.page = 1;
+			}
+
+			if (resetParams) {
+				newTableState.filters = {};
 			}
 
 			const params = newTableState.toBackendFormat();

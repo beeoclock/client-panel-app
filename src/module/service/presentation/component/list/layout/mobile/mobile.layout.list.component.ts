@@ -1,4 +1,4 @@
-import {Component, QueryList, ViewChildren, ViewEncapsulation} from "@angular/core";
+import {Component, Input, QueryList, ViewChildren, ViewEncapsulation} from "@angular/core";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {
 	NotFoundTableDataComponent
@@ -8,6 +8,9 @@ import {CardListComponent} from "@service/presentation/component/list/card/card.
 import {IService} from "@service/domain";
 import {FilterComponent} from "@service/presentation/component/filter/filter.component";
 import {LayoutListComponent} from "@utility/layout.list.component";
+import {
+	AutoRefreshButtonComponent
+} from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
 
 @Component({
 	selector: 'service-mobile-layout-list-component',
@@ -20,10 +23,14 @@ import {LayoutListComponent} from "@utility/layout.list.component";
 		NgIf,
 		NotFoundTableDataComponent,
 		TranslateModule,
-		FilterComponent
+		FilterComponent,
+		AutoRefreshButtonComponent
 	]
 })
 export class MobileLayoutListComponent extends LayoutListComponent<IService> {
+
+	@Input()
+	public showButtonGoToForm = true;
 
 	@ViewChildren(CardListComponent)
 	public cardListComponents!: QueryList<CardListComponent>;

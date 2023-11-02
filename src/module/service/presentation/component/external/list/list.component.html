@@ -1,5 +1,6 @@
 <ng-container *ngIf="initialized.isOn; else NotInitializedTemplate">
 	<service-mobile-layout-list-component
+		[showButtonGoToForm]="false"
 		[isPage]="false"
 		[someDataExist]="someDataExist"
 		[tableState]="tableState$ | async"

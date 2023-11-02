@@ -1,14 +1,17 @@
 <div class="block max-w-full" [class.overflow-x-auto]="isPage" [class.h-[calc(100vh-64px)]]="isPage" [class.md:h-[calc(100vh-65px)]]="isPage">
-	<service-filter-component *ngIf="someDataExist.isOn"/>
+	<service-filter-component [showButtonGoToForm]="showButtonGoToForm" *ngIf="someDataExist.isOn"/>
 	<ng-container *ngIf="tableState">
 		<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
 			<service-card-list-component [tableState]="tableState"/>
 		</ng-container>
 		<ng-template #EmptyTemplate>
 			<not-found-table-data-component
+				class="block h-full"
 				[showLinkToForm]="someDataExist.isOff"
 				[linkLabel]="'keyword.capitalize.add-service' | translate"
-				[label]="'keyword.capitalize.dataNotFound' | translate"/>
+				[label]="'keyword.capitalize.dataNotFound' | translate">
+				<service-auto-refresh-component *ngIf="someDataExist.isOff" [resetPage]="true" [resetParams]="true"/>
+			</not-found-table-data-component>
 		</ng-template>
 	</ng-container>
 </div>

@@ -8,6 +8,9 @@ import {TableListComponent} from "@customer/presentation/component/list/table/ta
 import {ICustomer} from "@customer/domain";
 import {FilterComponent} from "@customer/presentation/component/filter/filter.component";
 import {LayoutListComponent} from "@utility/layout.list.component";
+import {
+	AutoRefreshButtonComponent
+} from "@customer/presentation/component/button/auto-refresh/auto-refresh.button.component";
 
 @Component({
 	selector: 'customer-desktop-layout-list-component',
@@ -21,6 +24,7 @@ import {LayoutListComponent} from "@utility/layout.list.component";
 		NotFoundTableDataComponent,
 		TableListComponent,
 		TranslateModule,
+		AutoRefreshButtonComponent,
 	]
 })
 export class DesktopLayoutListComponent extends LayoutListComponent<ICustomer> {

@@ -8,6 +8,9 @@ import {
 import {TranslateModule} from "@ngx-translate/core";
 import {RMIEvent} from "@event/domain";
 import {LayoutListComponent} from "@utility/layout.list.component";
+import {
+	AutoRefreshButtonComponent
+} from "@event/presentation/component/button/auto-refresh/auto-refresh.button.component";
 
 @Component({
 	selector: 'event-mobile-layout-list-component',
@@ -20,7 +23,8 @@ import {LayoutListComponent} from "@utility/layout.list.component";
 		FilterComponent,
 		NgIf,
 		NotFoundTableDataComponent,
-		TranslateModule
+		TranslateModule,
+		AutoRefreshButtonComponent
 	]
 })
 export class MobileLayoutListComponent extends LayoutListComponent<RMIEvent> {
