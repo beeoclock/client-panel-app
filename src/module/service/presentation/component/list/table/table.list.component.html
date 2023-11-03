@@ -45,7 +45,7 @@
 	</div>
 	<!-- Column Cell	-->
 	<div tableBodyFlex>
-		<div tableRowFlex="body" (click)="goToDetail(item._id)" *ngFor="let item of tableState.items">
+		<div tableRowFlex="body" (click)="doubleClick(item._id)" *ngFor="let item of tableState.items">
 			<div tableColumnFlex="title">
 				<span class="truncate">
 					{{ getFirstLanguageVersion(item.languageVersions).title }}
