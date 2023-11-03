@@ -68,6 +68,7 @@
 					{{ item?.services?.[0]?.languageVersions?.[0]?.title }}
 				</span>
 			</div>
+<!--			TODO delete variable from tableColumnFlex-->
 			<div tableColumnFlex="duration" #durationColumn [value]="item?.services?.[0]?.durationVersions?.[0]?.durationInSeconds ?? 0 | humanizeDuration">
 				<span [title]="durationColumn['value']" class="truncate">
 					{{ durationColumn['value'] }}
