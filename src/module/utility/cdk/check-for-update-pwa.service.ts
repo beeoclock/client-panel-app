@@ -22,6 +22,7 @@ export class CheckForUpdatePwaService {
 		const isEnabled = this.swUpdate.isEnabled;
 		this.logger.info(`Check for update is ${isEnabled ? 'enabled' : 'disabled'}`);
 		if (isEnabled) {
+			this.swUpdate.checkForUpdate().then();
 			this.promptOnUpdateAvailable();
 			this.checkForUpdateAfterInterval(SECONDS_TEN_MINUTES);
 		}
