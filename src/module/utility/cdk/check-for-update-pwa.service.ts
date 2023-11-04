@@ -1,10 +1,8 @@
 import {ApplicationRef, inject, Injectable} from "@angular/core";
-import {SwUpdate} from "@angular/service-worker";
+import {SwUpdate, VersionReadyEvent} from "@angular/service-worker";
 import {NGXLogger} from "ngx-logger";
-import {AlertController} from "@ionic/angular";
 import {concat, first, interval} from "rxjs";
 import {is} from "thiis";
-import {TranslateService} from "@ngx-translate/core";
 import {SECONDS_TEN_MINUTES} from "@utility/domain/const/c.time";
 
 @Injectable({
@@ -12,11 +10,9 @@ import {SECONDS_TEN_MINUTES} from "@utility/domain/const/c.time";
 })
 export class CheckForUpdatePwaService {
 
-	private readonly alertController = inject(AlertController);
 	private readonly logger = inject(NGXLogger);
 	private readonly swUpdate = inject(SwUpdate);
 	private readonly applicationRef = inject(ApplicationRef);
-	private readonly translateService = inject(TranslateService);
 
 	public initialize(): void {
 		const isEnabled = this.swUpdate.isEnabled;
@@ -29,45 +25,64 @@ export class CheckForUpdatePwaService {
 	}
 
 	private promptOnUpdateAvailable() {
-		this.swUpdate.available.subscribe((event) => {
-			this.logger.debug('Current version is', event.current);
-			this.logger.debug('Available version is', event.available);
-
-			const header = this.translateService.instant('updateAvailable.header');
-			const message = this.translateService.instant('updateAvailable.message');
-
-			this.alertController.create({
-				header,
-				message,
-				buttons: [
-					{
-						text: this.translateService.instant('keyword.capitalize.no'),
-						role: 'cancel',
-					},
-					{
-						text: this.translateService.instant('keyword.capitalize.yes'),
-						role: 'confirm',
-					},
-				]
-			})
-				.then(async (alert) => {
-
-					await alert.present();
-
-					const result = await alert.onDidDismiss();
-
-					if (result.role === 'confirm') {
-						this.logger.debug('User continued with update', event.available);
-						window.location.reload();
-					} else {
-						this.logger.debug('User choose to skip update', event.available);
-					}
-				})
-				.catch((error) => {
-					this.logger.error(error);
-				});
+		this.swUpdate.versionUpdates.subscribe((event) => {
+			switch (event.type) {
+				case 'VERSION_DETECTED':
+					this.logger.debug('Update detected, starting download...');
+					break;
+				case 'VERSION_READY':
+					this.logger.debug('Update ready!');
+					this.presentUpdateAvailableAlert(event).then();
+					break;
+				default:
+					this.logger.debug('Update event', event);
+			}
 
 		});
+	}
+
+	private async presentUpdateAvailableAlert(event: VersionReadyEvent) {
+
+		this.logger.debug('Current version is', event.currentVersion);
+		this.logger.debug('Available version is', event.latestVersion);
+
+		window.location.reload();
+
+		// TODO uncomment this when we will put additional info about update
+
+		// const header = this.translateService.instant('updateAvailable.header');
+		// const message = this.translateService.instant('updateAvailable.message');
+		//
+		// this.alertController.create({
+		// 	header,
+		// 	message,
+		// 	buttons: [
+		// 		{
+		// 			text: this.translateService.instant('keyword.capitalize.no'),
+		// 			role: 'cancel',
+		// 		},
+		// 		{
+		// 			text: this.translateService.instant('keyword.capitalize.yes'),
+		// 			role: 'confirm',
+		// 		},
+		// 	]
+		// })
+		// 	.then(async (alert) => {
+		//
+		// 		await alert.present();
+		//
+		// 		const result = await alert.onDidDismiss();
+		//
+		// 		if (result.role === 'confirm') {
+		// 			this.logger.debug('User continued with update', event.latestVersion);
+		// 			window.location.reload();
+		// 		} else {
+		// 			this.logger.debug('User choose to skip update', event.latestVersion);
+		// 		}
+		// 	})
+		// 	.catch((error) => {
+		// 		this.logger.error(error);
+		// 	});
 	}
 
 	/**
