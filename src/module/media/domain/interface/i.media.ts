@@ -1,9 +1,8 @@
 import {MediaTypeEnum} from "@utility/domain/enum/media.type.enum";
 import {IBaseEntity} from "@utility/domain";
 
-export interface IMedia extends IBaseEntity {
+export interface IMedia extends IBaseEntity<'Media'> {
   mediaType?: MediaTypeEnum;
-  object?: 'Media';
   media?: string;
 }
 

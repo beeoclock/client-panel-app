@@ -9,7 +9,7 @@ import {TranslateService} from "@ngx-translate/core";
 export class ActiveStyleDirective implements OnInit, OnChanges {
 
 	@Input()
-	public active: ActiveEnum = ActiveEnum.YES;
+	public active: ActiveEnum = ActiveEnum.NO;
 
 	@Input()
 	public activeText: string | undefined;
