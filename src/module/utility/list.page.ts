@@ -1,14 +1,14 @@
 import {ChangeDetectorRef, Component, inject, Input, OnInit} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom, of} from "rxjs";
-import {BooleanState, RIBaseEntity} from "@utility/domain";
+import {BooleanState} from "@utility/domain";
 import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
 
 @Component({
 	selector: 'utility-list-page',
 	template: ``
 })
-export abstract class ListPage<ITEM extends RIBaseEntity> implements OnInit {
+export abstract class ListPage implements OnInit {
 
 	@Input()
 	public mobileMode = false;

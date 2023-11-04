@@ -20,7 +20,7 @@ import {debounce} from "typescript-debounce-decorator";
 	selector: 'utility-table-component',
 	template: ``
 })
-export abstract class TableComponent<ITEM extends RIBaseEntity> implements AfterViewInit {
+export abstract class TableComponent<ITEM extends RIBaseEntity<string>> implements AfterViewInit {
 
 	@Input()
 	public goToDetailsOnSingleClick = true;

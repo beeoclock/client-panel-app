@@ -1,9 +1,9 @@
 import {
 	ApplicationRef,
-	ComponentFactory,
 	ComponentFactoryResolver,
 	ComponentRef,
 	EmbeddedViewRef,
+	inject,
 	Injectable,
 	Injector,
 	NgModuleRef,
@@ -18,12 +18,9 @@ export class InjectionComponentService {
 
 	private _container: ComponentRef<unknown> | undefined;
 
-	constructor(
-		private readonly applicationRef: ApplicationRef,
-		private readonly componentFactoryResolver: ComponentFactoryResolver,
-		private readonly injector: Injector
-	) {
-	}
+	private readonly applicationRef = inject(ApplicationRef);
+	private readonly componentFactoryResolver = inject(ComponentFactoryResolver);
+	private readonly injector = inject(Injector);
 
 	/**
 	 * Gets the root view container to inject the component to.
@@ -173,7 +170,7 @@ export class InjectionComponentService {
 		rootSelectorOrNode?: string | unknown,
 		ngModule?: NgModuleRef<unknown>
 	): ComponentRef<T> {
-		const componentFactory: ComponentFactory<T> = this.componentFactoryResolver.resolveComponentFactory(componentClass);
+		const componentFactory = this.componentFactoryResolver.resolveComponentFactory<T>(componentClass);
 		return componentFactory.create(this.injector, projectableNodes, rootSelectorOrNode, ngModule);
 
 	}

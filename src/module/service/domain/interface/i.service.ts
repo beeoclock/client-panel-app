@@ -11,8 +11,7 @@ import {
 import {ISpecialist} from "@service/domain/interface/i.specialist";
 
 
-export interface IService extends RIBaseEntity {
-	object: 'Service';
+export interface IService extends RIBaseEntity<'Service'> {
 	active: ActiveEnum;
 	configuration: IConfiguration;
 	prepaymentPolicy: IPrepaymentPolicy;
