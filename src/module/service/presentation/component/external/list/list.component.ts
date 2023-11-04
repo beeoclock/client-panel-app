@@ -28,7 +28,7 @@ import {
 	],
 	standalone: true
 })
-export class ServiceExternalListComponent extends ListPage<IService> {
+export class ServiceExternalListComponent extends ListPage {
 
 	@ViewChildren(MobileLayoutListComponent)
 	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;

@@ -1,13 +1,13 @@
 import {RIBaseEntity} from "@utility/domain";
 
-export interface RIMember extends RIBaseEntity {
-	object: 'Member';
-	firstName: string;
-	secondName: string;
-	lastName: string;
+export interface IMember extends RIBaseEntity<'Member'> {
+	firstName?: string;
+	secondName?: string; // Deprecated
+	lastName?: string;
 	email: string;
-	phone: string;
+	phone?: string;
 }
 
+export type RIMember = Required<IMember>
 export type ListMember = RIMember[];
-export type IMember = Partial<RIMember>;
+export type PIMember = Partial<RIMember>;

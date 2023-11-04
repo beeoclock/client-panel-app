@@ -1,13 +1,13 @@
-import {ITableState} from "@utility/domain/table.state";
+import {ITableState, PITableState} from "@utility/domain/table.state";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace BaseActions {
 
-	export abstract class Init {
+	export class Init {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 	}
 
-	export abstract class GetList {
+	export class GetList {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 
 		constructor(
@@ -24,36 +24,27 @@ export namespace BaseActions {
 		}
 	}
 
-	export abstract class InitDefaultsFromCache {
+	export class InitDefaultsFromCache {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 	}
 
-	export abstract class ClearTableCache {
+	export class ClearTableCache {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 	}
 
-	export abstract class ClearItemCache {
+	export class ClearItemCache {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 	}
 
-	export abstract class ClearTableCacheAndGetList {
+	export class ClearTableCacheAndGetList {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 	}
 
-	export abstract class ClearItemCacheAndGetItem {
+	export class ClearItemCacheAndGetItem {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 	}
 
-	export abstract class DeleteItem {
-		public static readonly type: string = '[TODO] Not Implemented Yet!';
-
-		constructor(
-			public readonly payload: string,
-		) {
-		}
-	}
-
-	export abstract class ArchiveItem {
+	export class DeleteItem {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 
 		constructor(
@@ -62,7 +53,7 @@ export namespace BaseActions {
 		}
 	}
 
-	export abstract class GetItem {
+	export class ArchiveItem {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 
 		constructor(
@@ -71,7 +62,16 @@ export namespace BaseActions {
 		}
 	}
 
-	export abstract class CreateItem<ITEM> {
+	export class GetItem {
+		public static readonly type: string = '[TODO] Not Implemented Yet!';
+
+		constructor(
+			public readonly payload: string,
+		) {
+		}
+	}
+
+	export class CreateItem<ITEM> {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 
 		constructor(
@@ -80,7 +80,7 @@ export namespace BaseActions {
 		}
 	}
 
-	export abstract class UpdateItem<ITEM> {
+	export class UpdateItem<ITEM> {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 
 		constructor(
@@ -91,20 +91,20 @@ export namespace BaseActions {
 
 	// Updates of state
 
-	export abstract class UpdateFilters {
+	export class UpdateFilters {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 
 		constructor(
-			public readonly payload: Pick<ITableState<any>, 'filters'>,
+			public readonly payload: Pick<ITableState<unknown>, 'filters'>,
 		) {
 		}
 	}
 
-	export abstract class UpdateTableState<ITEM> {
+	export class UpdateTableState<ITEM> {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 
 		constructor(
-			public readonly payload: ITableState<ITEM>
+			public readonly payload: PITableState<ITEM>
 		) {
 		}
 	}

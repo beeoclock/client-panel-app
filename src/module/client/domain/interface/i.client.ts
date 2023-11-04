@@ -11,8 +11,7 @@ import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.
 import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
 import {BusinessClientStatusEnum} from "@client/domain/enum/business-client-status.enum";
 
-export interface RIClient extends RIBaseEntity {
-	object: 'Client';
+export interface RIClient extends RIBaseEntity<'Client'> {
 	status: BusinessClientStatusEnum;
 	published: ActiveEnum;
 	name: string;

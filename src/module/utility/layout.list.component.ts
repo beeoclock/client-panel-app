@@ -7,7 +7,7 @@ import {BooleanState, RIBaseEntity} from "@utility/domain";
 	selector: 'utility-layout-list-component',
 	template: ``
 })
-export abstract class LayoutListComponent<ITEM extends RIBaseEntity> {
+export abstract class LayoutListComponent<ITEM extends RIBaseEntity<string>> {
 
 	@ViewChild(TableComponent)
 	public tableComponent!: TableComponent<ITEM>;

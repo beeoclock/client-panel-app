@@ -14,7 +14,6 @@ import {
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {CardListComponent} from "@member/presentation/component/list/card/card.list.component";
 import {TableListComponent} from "@member/presentation/component/list/table/table.list.component";
-import {RMIEvent} from "@event/domain";
 
 @Component({
 	selector: 'member-list-page',
@@ -34,7 +33,7 @@ import {RMIEvent} from "@event/domain";
 	],
 	standalone: true
 })
-export default class Index extends ListPage<RMIEvent> {
+export default class Index extends ListPage {
 
 	public override readonly actions = MemberActions;
 

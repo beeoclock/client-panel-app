@@ -2,17 +2,17 @@ import {inject, Injectable} from "@angular/core";
 import {ModalService} from "@utility/presentation/component/modal/modal.service";
 import {TranslateService} from "@ngx-translate/core";
 import {
-	ModalButtonInterface,
-	ModalButtonRoleEnum,
-	ModalComponent
+    ModalButtonInterface,
+    ModalButtonRoleEnum,
+    ModalComponent
 } from "@utility/presentation/component/modal/modal.component";
 import {
-	CreateBusinessComponent
+    CreateBusinessComponent
 } from "@service/presentation/component/form/modal/create-business/create-business.component";
 import {ServiceForm} from "@service/presentation/form";
 
 type RESOLVE_TYPE = { (value: ServiceForm | PromiseLike<ServiceForm>): void; (arg0: ServiceForm): void; };
-type REJECT_TYPE = { (reason?: any): void; (arg0?: any): void; };
+type REJECT_TYPE = { (reason?: never): void; (arg0?: never): void; };
 
 @Injectable({
 	providedIn: 'root'

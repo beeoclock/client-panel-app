@@ -1,9 +1,8 @@
 /**
  *
  * @param file
- * @param index
  */
-export function file2base64(file: File, index = 0): Promise<string> {
+export function file2base64(file: File): Promise<string> {
   return new Promise((resolve) => {
     const reader = new FileReader();
     reader.onloadend = function () {

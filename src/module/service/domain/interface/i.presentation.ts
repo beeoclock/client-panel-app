@@ -1,6 +1,5 @@
 import {RIBaseEntity} from "@src/module/utility/domain";
 
-export interface IPresentation extends RIBaseEntity {
-  object: 'Service.Presentation';
-  banners: string[];
+export interface IPresentation extends RIBaseEntity<'Service.Presentation'> {
+  banners?: string[];
 }

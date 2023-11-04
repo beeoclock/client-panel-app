@@ -58,47 +58,48 @@
 	</div>
 	<!-- Column Cell	-->
 	<div tableBodyFlex>
-		<div tableRowFlex="body" (click)="goToDetail(item._id)" *ngFor="let item of tableState.items">
+		<div tableRowFlex="body" (click)="doubleClick(item._id)" *ngFor="let item of tableState.items">
 			<div tableColumnFlex="attendants">
 				<i class="bi bi-person"></i>
 				{{ item?.attendees?.length }}
 			</div>
 			<div tableColumnFlex="service">
-				<span class="truncate">
+				<span [title]="item?.services?.[0]?.languageVersions?.[0]?.title" class="truncate">
 					{{ item?.services?.[0]?.languageVersions?.[0]?.title }}
 				</span>
 			</div>
-			<div tableColumnFlex="duration">
-				<span class="truncate">
-					{{ item?.services?.[0]?.durationVersions?.[0]?.durationInSeconds ?? 0 | humanizeDuration }}
+<!--			TODO delete variable from tableColumnFlex-->
+			<div tableColumnFlex="duration" #durationColumn [attr.data-value]="item?.services?.[0]?.durationVersions?.[0]?.durationInSeconds ?? 0 | humanizeDuration">
+				<span [title]="durationColumn.getAttribute('data-value')" class="truncate">
+					{{ durationColumn.getAttribute('data-value') }}
 				</span>
 			</div>
-			<div tableColumnFlex="price">
-				<span class="truncate">
-					{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow'  }}
+			<div tableColumnFlex="price" #priceColumn [attr.data-value]="(item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow'">
+				<span [title]="priceColumn.getAttribute('data-value')" class="truncate">
+					{{ priceColumn.getAttribute('data-value') }}
 				</span>
 			</div>
-			<div tableColumnFlex="start">
-				<span class="truncate">
-					{{ (item.start ? (item.start | dynamicDate) : null) ?? 'Invalid Time' }}
+			<div tableColumnFlex="start" #startColumn [attr.data-value]="(item.start ? (item.start | dynamicDate) : null) ?? 'Invalid Time'">
+				<span [title]="startColumn.getAttribute('data-value')" class="truncate">
+					{{ startColumn.getAttribute('data-value') }}
 				</span>
 			</div>
-			<div tableColumnFlex="end">
-				<span class="truncate">
-					{{ (item.end ? (item.end | dynamicDate) : null) ?? 'Invalid Time' }}
+			<div tableColumnFlex="end" #endColumn [attr.data-value]="(item.end ? (item.end | dynamicDate) : null) ?? 'Invalid Time'">
+				<span [title]="endColumn.getAttribute('data-value')" class="truncate">
+					{{ endColumn.getAttribute('data-value') }}
 				</span>
 			</div>
 			<div tableColumnFlex="status">
 				<div eventStatusStyle mode="text" [status]="item.status"></div>
 			</div>
-			<div tableColumnFlex="createdAt">
-				<span class="truncate">
-					{{ item.createdAt | dynamicDate }}
+			<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
+				<span [title]="createdAtColumn.getAttribute('data-value')" class="truncate">
+					{{ createdAtColumn.getAttribute('data-value') }}
 				</span>
 			</div>
-			<div tableColumnFlex="updatedAt">
-				<span class="truncate">
-					{{ item.updatedAt | dynamicDate }}
+			<div tableColumnFlex="updatedAt" #updatedAtColumn [attr.data-value]="item.updatedAt | dynamicDate">
+				<span [title]="updatedAtColumn.getAttribute('data-value')" class="truncate">
+					{{ updatedAtColumn.getAttribute('data-value') }}
 				</span>
 			</div>
 			<div tableColumnFlex="action" class="border-l sticky right-0">

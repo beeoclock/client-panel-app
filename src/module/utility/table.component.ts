@@ -1,12 +1,12 @@
 import {
-	AfterViewInit,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	EventEmitter,
-	inject,
-	Input,
-	Output
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    inject,
+    Input,
+    Output
 } from "@angular/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
@@ -15,12 +15,13 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {RIBaseEntity} from "@utility/domain";
 import {ITableState} from "@utility/domain/table.state";
 import {debounce} from "typescript-debounce-decorator";
+import {BaseActions} from "@utility/state/base/base.actions";
 
 @Component({
 	selector: 'utility-table-component',
 	template: ``
 })
-export abstract class TableComponent<ITEM extends RIBaseEntity> implements AfterViewInit {
+export abstract class TableComponent<ITEM extends RIBaseEntity<string>> implements AfterViewInit {
 
 	@Input()
 	public goToDetailsOnSingleClick = true;
@@ -37,11 +38,11 @@ export abstract class TableComponent<ITEM extends RIBaseEntity> implements After
 	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly actions!: {
-		DeleteItem: any;
-		ArchiveItem: any;
-		GetList: any;
-		UpdateTableState: any;
-		ClearTableCacheAndGetList: any;
+		readonly GetList: typeof BaseActions.GetList;
+		readonly UpdateTableState: typeof BaseActions.UpdateTableState<ITEM>;
+		readonly DeleteItem: typeof BaseActions.DeleteItem;
+		readonly ArchiveItem: typeof BaseActions.ArchiveItem;
+		readonly ClearTableCacheAndGetList: typeof BaseActions.ClearTableCacheAndGetList;
 	};
 	public selectedIds: string[] = [];
 
@@ -95,17 +96,13 @@ export abstract class TableComponent<ITEM extends RIBaseEntity> implements After
 	}
 
 	public delete(id: string): void {
-		this.store.dispatch(new this.actions.DeleteItem({
-			id
-		}));
+		this.store.dispatch(new this.actions.DeleteItem(id));
 		this.clearTableCache();
 	}
 
 	public async archive(id: string): Promise<void> {
 		await firstValueFrom(this.store.dispatch(
-			new this.actions.ArchiveItem({
-				id
-			})));
+			new this.actions.ArchiveItem(id)));
 		this.clearTableCache();
 	}
 

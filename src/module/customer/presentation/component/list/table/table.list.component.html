@@ -57,24 +57,24 @@
 	</div>
 	<!-- Column Cell	-->
 	<div tableBodyFlex>
-		<div tableRowFlex="body" (click)="goToDetail(item._id)" *ngFor="let item of tableState.items">
+		<div tableRowFlex="body" (click)="doubleClick(item._id)" *ngFor="let item of tableState.items">
 			<div tableColumnFlex="lastName">
-				<span class="truncate">
+				<span [title]="item.lastName + ' ' + item.firstName" class="truncate">
 					{{ item.lastName }} {{ item.firstName }}
 				</span>
 			</div>
 			<div tableColumnFlex="email">
-				<span class="truncate">
+				<span [title]="item.email " class="truncate">
 					<a href="mailto:{{ item.email }}">{{ item.email }}</a>
 				</span>
 			</div>
 			<div tableColumnFlex="phone">
-				<span class="truncate">
+				<span [title]="item.phone" class="truncate">
 					{{ item.phone }}
 				</span>
 			</div>
 			<div tableColumnFlex="note">
-				<span class="truncate">
+				<span [title]="item.note" class="truncate">
 					{{ item.note }}
 				</span>
 			</div>
@@ -82,14 +82,14 @@
 				<div activeStyle [active]="item.active">
 				</div>
 			</div>
-			<div tableColumnFlex="createdAt">
-				<span class="truncate">
-					{{ item.createdAt | dynamicDate }}
+			<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
+				<span [title]="createdAtColumn.getAttribute('data-value')" class="truncate">
+					{{ createdAtColumn.getAttribute('data-value') }}
 				</span>
 			</div>
-			<div tableColumnFlex="updatedAt">
-				<span class="truncate">
-					{{ item.updatedAt | dynamicDate }}
+			<div tableColumnFlex="updatedAt" #updatedAtColumn [attr.data-value]="item.updatedAt | dynamicDate">
+				<span [title]="updatedAtColumn.getAttribute('data-value')" class="truncate">
+					{{ updatedAtColumn.getAttribute('data-value') }}
 				</span>
 			</div>
 			<div tableColumnFlex="action" class="border-l sticky right-0">

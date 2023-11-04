@@ -13,7 +13,7 @@ export class HumanizeDurationHelper {
 	private humanize = this.getHumanize();
 
 	constructor() {
-		this.translateService.onLangChange.subscribe((result) => {
+		this.translateService.onLangChange.subscribe(() => {
 			this.humanize = this.getHumanize();
 		});
 	}

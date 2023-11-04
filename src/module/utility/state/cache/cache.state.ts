@@ -5,8 +5,8 @@ import {NgxIndexedDBService} from "ngx-indexed-db";
 import {firstValueFrom} from "rxjs";
 import {NGXLogger} from "ngx-logger";
 
-export interface ICacheState {
-  [key: string]: any;
+export interface ICacheState<ITEM_TYPE = unknown> {
+  [key: string]: ITEM_TYPE;
 }
 
 @State<ICacheState>({

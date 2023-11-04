@@ -17,7 +17,7 @@ export class DebounceClickDirective implements OnInit, OnDestroy {
   @Output()
   public debounceClick = new EventEmitter();
 
-  private clicks: Subject<any> = new Subject();
+  private clicks = new Subject();
   private subscription: Subscription | undefined;
 
   public ngOnInit(): void {
@@ -36,7 +36,7 @@ export class DebounceClickDirective implements OnInit, OnDestroy {
    * @private
    */
   @HostListener('click', ['$event'])
-  private clickEvent(event: any): void {
+  private clickEvent(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
     if (this.enabledDebounceClick) {

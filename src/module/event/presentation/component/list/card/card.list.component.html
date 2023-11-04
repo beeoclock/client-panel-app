@@ -36,7 +36,7 @@
 					{{ item?.services?.[0]?.durationVersions?.[0]?.durationInSeconds ?? 0 | humanizeDuration }}
 				</div>
 				<div>
-					{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow'  }}
+					{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item.services[0].durationVersions[0].prices[0].currency: 'symbol-narrow'  }}
 				</div>
 			</div>
 			<div class="mt-4 flex gap-4 justify-between">

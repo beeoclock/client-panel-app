@@ -23,7 +23,7 @@ class MockTranslateService {
 	}
 
 	onLangChange = {
-		subscribe: (...args: any) => {
+		subscribe: (...args: unknown[]) => {
 			if (args) {
 				return;
 			}
@@ -31,7 +31,8 @@ class MockTranslateService {
 		}
 	}
 
-	// Mock the translate method used in the component
+	// Mock the translation method used in the component
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	translate(key: string): string {
 		// Return a mock translation based on the key (if needed)
 		return 'Translated Text';

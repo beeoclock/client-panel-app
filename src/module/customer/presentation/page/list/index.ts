@@ -48,7 +48,7 @@ import {
 	],
 	standalone: true
 })
-export default class Index extends ListPage<ICustomer> {
+export default class Index extends ListPage {
 
 	public override readonly actions = CustomerActions;
 	public readonly tableState$: Observable<ITableState<ICustomer>> = this.store.select(CustomerState.tableState)
