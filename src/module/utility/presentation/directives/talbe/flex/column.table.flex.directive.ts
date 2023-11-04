@@ -11,9 +11,6 @@ export class ColumnTableFlexDirective implements OnInit {
 	@Input()
 	public tableColumnFlex: string | undefined;
 
-	@Input()
-	public value: string | number = '';
-
 	constructor(
 		@Inject(forwardRef(() => TableTableFlexDirective))
 		private readonly table: TableTableFlexDirective,

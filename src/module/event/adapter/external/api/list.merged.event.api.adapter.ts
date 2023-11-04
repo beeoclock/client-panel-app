@@ -19,7 +19,7 @@ export class ListMergedEventApiAdapter extends BaseApiAdapter<ResponseListType<E
 	@TypeGuard([is.object_not_empty])
 	public override execute$(params: TableState_BackendFormat) {
 		return this.httpClient.get<ResponseListType<Event.RIEvent>>(eventEndpointEnum.mergedPaged, {
-			params: params as any,
+			params: params as never,
 		});
 	}
 

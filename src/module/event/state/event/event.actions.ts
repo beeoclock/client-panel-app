@@ -1,5 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IEvent} from "@event/domain";
+import {IEvent, RMIEvent} from "@event/domain";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace EventActions {
@@ -58,7 +58,7 @@ export namespace EventActions {
     public static override readonly type = '[Event State] Update Filters';
   }
 
-  export class UpdateTableState extends BaseActions.UpdateTableState<IEvent> {
+  export class UpdateTableState extends BaseActions.UpdateTableState<RMIEvent> {
     public static override readonly type = '[Event State] Update Table State';
   }
 

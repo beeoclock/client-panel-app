@@ -4,7 +4,7 @@ import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {
-	TableStatePaginationComponent
+    TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
@@ -13,8 +13,8 @@ import {TableComponent} from "@utility/table.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {ServiceActions} from "@service/state/service/service.actions";
-import {RIMember} from "@member/domain";
+import {IMember} from "@member/domain";
+import {MemberActions} from "@member/state/member/member.actions";
 
 @Component({
 	selector: 'member-card-list-component',
@@ -37,8 +37,8 @@ import {RIMember} from "@member/domain";
 		NgIf
 	]
 })
-export class CardListComponent extends TableComponent<RIMember> {
+export class CardListComponent extends TableComponent<IMember> {
 
-	public override readonly actions = ServiceActions;
+	public override readonly actions = MemberActions;
 
 }

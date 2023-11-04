@@ -19,7 +19,7 @@ export class ListCustomerApiAdapter extends BaseApiAdapter<ResponseListType<Cust
   @TypeGuard([is.object_not_empty])
   public override execute$(params: TableState_BackendFormat) {
     return this.httpClient.get<ResponseListType<Customer.ICustomer>>(customerEndpointEnum.paged, {
-			params: params as any,
+			params: params as never,
 		});
   }
 

@@ -1,5 +1,5 @@
 import {inject} from "@angular/core";
-import {ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot} from "@angular/router";
+import {ActivatedRouteSnapshot, ResolveFn} from "@angular/router";
 import {Store} from "@ngxs/store";
 import {catchError, EMPTY, map} from "rxjs";
 import {EventActions} from "@event/state/event/event.actions";
@@ -7,28 +7,27 @@ import {IEvent} from "@event/domain";
 import {IAppState} from "@utility/state/app/app.state";
 
 export const eventDetailsResolver: ResolveFn<IEvent> = (
-  route: ActivatedRouteSnapshot,
-  _state: RouterStateSnapshot
+	route: ActivatedRouteSnapshot,
 ) => {
 
-  const store = inject(Store); // NGXS
-  const id = route.paramMap.get('id');
+	const store = inject(Store); // NGXS
+	const id = route.paramMap.get('id');
 
-  if (!id) {
-    return EMPTY;
-  }
+	if (!id) {
+		return EMPTY;
+	}
 
-  const {app}: { app: IAppState } = store.snapshot();
+	const {app}: { app: IAppState } = store.snapshot();
 
-  if (app?.pageLoading) {
-    return EMPTY;
-  }
+	if (app?.pageLoading) {
+		return EMPTY;
+	}
 
-  return store.dispatch(new EventActions.GetItem(id))
-    .pipe(
-      map(({event}) => event),
-      map(({item}) => item),
-      map(({data}) => data),
-      catchError(() => EMPTY)
-    );
+	return store.dispatch(new EventActions.GetItem(id))
+		.pipe(
+			map(({event}) => event),
+			map(({item}) => item),
+			map(({data}) => data),
+			catchError(() => EMPTY)
+		);
 };

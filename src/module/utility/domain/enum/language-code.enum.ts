@@ -17,5 +17,5 @@ export const LANGUAGES: {
   return {
     code,
     name: LanguageRecord[code as keyof typeof LanguageCodeEnum]
-  } as any;
+  } as never;
 });

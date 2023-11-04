@@ -82,14 +82,14 @@
 				<div activeStyle [active]="item.active">
 				</div>
 			</div>
-			<div tableColumnFlex="createdAt">
-				<span [title]="item.createdAt | dynamicDate" class="truncate">
-					{{ item.createdAt | dynamicDate }}
+			<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
+				<span [title]="createdAtColumn.getAttribute('data-value')" class="truncate">
+					{{ createdAtColumn.getAttribute('data-value') }}
 				</span>
 			</div>
-			<div tableColumnFlex="updatedAt">
-				<span [title]="item.updatedAt | dynamicDate" class="truncate">
-					{{ item.updatedAt | dynamicDate }}
+			<div tableColumnFlex="updatedAt" #updatedAtColumn [attr.data-value]="item.updatedAt | dynamicDate">
+				<span [title]="updatedAtColumn.getAttribute('data-value')" class="truncate">
+					{{ updatedAtColumn.getAttribute('data-value') }}
 				</span>
 			</div>
 			<div tableColumnFlex="action" class="border-l sticky right-0">

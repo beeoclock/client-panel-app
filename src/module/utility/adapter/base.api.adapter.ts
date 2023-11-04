@@ -19,6 +19,7 @@ export abstract class BaseApiAdapter<RESPONSE, ARGUMENTS extends Array<unknown> 
 	/**
 	 * Stream
 	 */
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public execute$(...args: ARGUMENTS): Observable<RESPONSE> {
 
 		throw new NotImplementedYetError();

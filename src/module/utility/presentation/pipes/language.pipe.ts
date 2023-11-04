@@ -8,11 +8,10 @@ import {LanguageCodeEnum, LanguageRecord} from "@utility/domain/enum";
 export class LanguagePipe implements PipeTransform {
 
   /**
-   * Author: Ivan Karbashevskyi
-   * @param value
-   * @param args
-   */
-  public transform(value: undefined | keyof typeof LanguageCodeEnum, ...args: unknown[]): string {
+	 * Author: Ivan Karbashevskyi
+	 * @param value
+	 */
+  public transform(value: undefined | keyof typeof LanguageCodeEnum): string {
     if (value) {
       return LanguageRecord[value];
     }
