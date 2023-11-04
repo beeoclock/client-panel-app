@@ -19,7 +19,7 @@ export class ListServiceApiAdapter extends BaseApiAdapter<ResponseListType<Servi
 	@TypeGuard([is.object_not_empty])
 	public override execute$(params: TableState_BackendFormat) {
 		return this.httpClient.get<ResponseListType<Service.IService>>(serviceEndpointEnum.paged, {
-			params: params as any,
+			params: params as never,
 		});
 	}
 

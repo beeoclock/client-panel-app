@@ -30,7 +30,7 @@ export class ScheduleForm extends FormGroup<IScheduleForm> {
 		if (initialValue) {
 			Object.keys(initialValue).forEach(key => {
 				if (this.contains(key)) {
-					this.controls[key].setValue((initialValue as any)[key]);
+					this.controls[key].setValue((initialValue as never)[key]);
 				}
 			});
 		}

@@ -22,14 +22,14 @@ import {LinkButtonDirective} from "@utility/presentation/directives/button/link.
 import {NGXLogger} from "ngx-logger";
 import {IService} from "@service/domain";
 import {
-	SelectTimeSlotComponent
+    SelectTimeSlotComponent
 } from "@event/presentation/component/form/select-time-slot/index/select-time-slot.component";
 import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
 import {Reactive} from "@utility/cdk/reactive";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {
-	ButtonSaveContainerComponent
+    ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 
 @Component({
@@ -146,8 +146,8 @@ export default class Index extends Reactive implements OnInit {
 					const dataFromRoute: {
 						cacheLoaded: boolean;
 						repeat: boolean;
-						item: any; // This is all ngnx store
-					} = this.activatedRoute.snapshot.data as any;
+						item: never; // This is all ngnx store
+					} = this.activatedRoute.snapshot.data as never;
 
 					if (dataFromRoute?.repeat) {
 

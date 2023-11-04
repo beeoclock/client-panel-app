@@ -19,7 +19,7 @@ export class ListEventApiAdapter extends BaseApiAdapter<ResponseListType<Event.R
 	@TypeGuard([is.object_not_empty])
 	public override execute$(params: TableState_BackendFormat) {
 		return this.httpClient.get<ResponseListType<Event.RIEvent>>(eventEndpointEnum.paged, {
-			params: params as any,
+			params: params as never,
 		});
 	}
 

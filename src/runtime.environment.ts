@@ -17,7 +17,7 @@ export const RuntimeEnvironment: {
     [key in keyof typeof SourceNetworkEnum]: string | undefined;
   };
 } = {
-  window: (window || {}) as any,
+  window: (window || {}) as never,
   apiUrls: {
     panel: undefined,
     identity: undefined,

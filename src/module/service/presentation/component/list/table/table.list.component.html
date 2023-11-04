@@ -45,7 +45,7 @@
 	</div>
 	<!-- Column Cell	-->
 	<div tableBodyFlex>
-		<div tableRowFlex="body" (click)="goToDetail(item._id)" *ngFor="let item of tableState.items">
+		<div tableRowFlex="body" (click)="doubleClick(item._id)" *ngFor="let item of tableState.items">
 			<div tableColumnFlex="title">
 				<span class="truncate">
 					{{ getFirstLanguageVersion(item.languageVersions).title }}
@@ -63,17 +63,17 @@
 			</div>
 			<div tableColumnFlex="duration">
 				<span class="truncate">
-					{{ item.durationVersions[0].durationInSeconds ?? 0 | humanizeDuration }}
+					{{ item.durationVersions[0].durationInSeconds | humanizeDuration }}
 				</span>
 			</div>
-			<div tableColumnFlex="createdAt">
-				<span class="truncate">
-					{{ item.createdAt | dynamicDate }}
+			<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
+				<span [title]="createdAtColumn.getAttribute('data-value')" class="truncate">
+					{{ createdAtColumn.getAttribute('data-value') }}
 				</span>
 			</div>
-			<div tableColumnFlex="updatedAt">
-				<span class="truncate">
-					{{ item.updatedAt | dynamicDate }}
+			<div tableColumnFlex="updatedAt" #updatedAtColumn [attr.data-value]="item.updatedAt | dynamicDate">
+				<span [title]="updatedAtColumn.getAttribute('data-value')" class="truncate">
+					{{ updatedAtColumn.getAttribute('data-value') }}
 				</span>
 			</div>
 			<div tableColumnFlex="action" class="border-l sticky right-0">

@@ -24,7 +24,7 @@ export class ListMemberApiAdapter extends BaseApiAdapter<ResponseType> {
 	@TypeGuard([is.object_not_empty])
 	public override execute$(params: TableState_BackendFormat) {
 		return this.httpClient.get<ResponseType>(memberEndpointEnum.paged, {
-			params: params as any,
+			params: params as never,
 		});
 	}
 

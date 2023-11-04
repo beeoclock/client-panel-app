@@ -17,7 +17,7 @@ import {ITableState} from "@utility/domain/table.state";
 })
 export class SortIndicatorComponent {
   @Input()
-  public tableState!: ITableState<any>;
+  public tableState!: ITableState<unknown>;
 
   @Input()
   public orderBy!: string;

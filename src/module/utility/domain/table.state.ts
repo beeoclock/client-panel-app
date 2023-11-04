@@ -19,6 +19,8 @@ export interface ITableState<ITEM> {
 	lastUpdate: string;
 }
 
+export type PITableState<ITEM> = Partial<ITableState<ITEM>>;
+
 export type TableState_BackendFormat<ITEM = any> =
 	Pick<ITableState<ITEM>, 'orderDir' | 'orderBy' | 'pageSize' | 'page'>
 	& ITableState<ITEM>['filters'];
@@ -51,7 +53,7 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 		return this.#filters;
 	}
 
-	public setFilters(value: any): this { // TODO interface
+	public setFilters(value: unknown): this { // TODO interface
 		this.filters = value;
 		return this;
 	}

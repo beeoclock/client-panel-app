@@ -1,7 +1,7 @@
 import {Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
 import {IService} from "@service/domain";
 import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/boc-media.directive";
-import {CurrencyPipe} from "@angular/common";
+import {CurrencyPipe, NgIf} from "@angular/common";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 
 @Component({
@@ -10,8 +10,9 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 			<div class="flex gap-3 mr-3">
 				<div class="">
 					<img
+						*ngIf="item?.presentation?.banners?.[0] as banner"
 						bocMedia
-						[src]="item?.presentation?.banners?.[0] ?? ''"
+						[src]="banner"
 						twHeight="h-[90px]"
 						twWidth="w-[90px]"
 						class="hidden w-[90px] h-[90px] rounded-2xl object-cover"
@@ -36,7 +37,8 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 	imports: [
 		BocMediaDirective,
 		CurrencyPipe,
-		HumanizeDurationPipe
+		HumanizeDurationPipe,
+		NgIf
 	]
 })
 export class ServiceItemComponent {

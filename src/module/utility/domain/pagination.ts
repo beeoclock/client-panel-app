@@ -13,7 +13,7 @@ export interface IPagination_Configuration {
 
 export type OrderDirType = 'desc' | 'asc';
 
-export interface IPagination<ITEM> {
+export interface IPagination {
   page?: number;
   maxPage?: number;
   minPage?: number;
@@ -24,13 +24,13 @@ export interface IPagination<ITEM> {
   configuration?: IPagination_Configuration;
 }
 
-export type IPagination_QueryParams = Pick<IPagination<any>, 'orderDir' | 'orderBy' | 'pageSize' | 'page'>;
+export type IPagination_QueryParams = Pick<IPagination, 'orderDir' | 'orderBy' | 'pageSize' | 'page'>;
 export type RIPagination_QueryParams = Required<IPagination_QueryParams>;
 
 /**
  *
  */
-export class Pagination<ITEM> implements IPagination<ITEM> {
+export class Pagination implements IPagination {
 
   #hashSum: undefined | string;
   public pages: number[] = [];
@@ -97,8 +97,8 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
    * @param data
    */
   @TypeGuard([is.object_not_empty])
-  public static fromObject<ITEM>(data: IPagination<ITEM>): Pagination<ITEM> {
-    let model: Pagination<ITEM> = new Pagination<ITEM>();
+  public static fromObject(data: IPagination): Pagination {
+    let model: Pagination = new Pagination();
     model = Object.assign(model, data);
     model.updateModel(false);
     return model;
@@ -110,8 +110,8 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
    * @param second
    */
   @TypeGuard([is.object_not_empty])
-  public static merge<ITEM>(first: IPagination<ITEM>, second: IPagination<ITEM>): Pagination<ITEM> {
-    let model: Pagination<ITEM> = new Pagination<ITEM>();
+  public static merge(first: IPagination, second: IPagination): Pagination {
+    let model: Pagination = new Pagination();
     model = Object.assign(model, first);
     model = Object.assign(model, second);
     model.updateModel();
@@ -123,7 +123,7 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
    * @param obj
    */
   @TypeGuard([is.object_not_empty])
-  public updateFromObject(obj: IPagination<ITEM>): this {
+  public updateFromObject(obj: IPagination): this {
     Object.assign(this, obj);
     this.updateModel(false);
     return this;
@@ -266,7 +266,7 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
     return this.setPage(this.page - 1);
   }
 
-  public toObject(): IPagination<ITEM> {
+  public toObject(): IPagination {
     return Object.assign({}, this);
   }
 
@@ -286,7 +286,7 @@ export class Pagination<ITEM> implements IPagination<ITEM> {
    */
   public fromQueryParams(params: IPagination_QueryParams): void {
     if (is.object_not_empty(params)) {
-      const newObject: any = {};
+      const newObject: IPagination_QueryParams = {};
       if (params?.page) {
         newObject.page = +params?.page;
       }

@@ -13,7 +13,8 @@ class MockTranslateService {
 	// Add any additional methods or properties used by SelectDateComponent
 	// ...
 
-	// Mock the translate method used in the component
+	// Mock the translation method used in the component
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	translate(key: string): string {
 		// Return a mock translation based on the key (if needed)
 		return 'Translated Text';

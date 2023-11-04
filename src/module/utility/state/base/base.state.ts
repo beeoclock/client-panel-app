@@ -12,6 +12,7 @@ import {Router} from "@angular/router";
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {CACHE_TABLE_CLEAR_AFTER_MS} from "@src/token";
 import {NGXLogger} from "ngx-logger";
+import {RIBaseEntity} from "@utility/domain";
 
 export interface IBaseState_Item<ITEM> {
 	data: undefined | ITEM;
@@ -68,7 +69,7 @@ export function getKeyWithClientId(store: Store, ...keys: string[]): string {
 	return buildCacheKey(clientId, ...keys);
 }
 
-export abstract class BaseState<ITEM = any> {
+export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 
 	protected constructor(
 		public readonly cacheKeys: {
@@ -195,13 +196,13 @@ export abstract class BaseState<ITEM = any> {
 		ctx: StateContext<IBaseState<ITEM>>
 	): Promise<void> {
 
-		const {id} = ctx.getState().item.data as any;
-		if (id) {
+		const {_id} = ctx.getState().item.data ?? {};
+		if (_id) {
 			await this.ClearItemsCache(ctx);
 			ctx.patchState({
 				item: undefined,
 			});
-			await this.getItemFromCacheOrApi(ctx, id);
+			await this.getItemFromCacheOrApi(ctx, {payload: _id});
 		}
 
 	}
@@ -264,7 +265,7 @@ export abstract class BaseState<ITEM = any> {
 		id: string
 	): IBaseState_Item<ITEM> | undefined {
 
-		const {cache}: { cache: ICacheState } = this.store.snapshot();
+		const {cache}: { cache: ICacheState<Record<string, IBaseState_Item<ITEM>>> } = this.store.snapshot();
 
 		const customerCacheItems = cache[cacheItemsKey];
 
@@ -285,7 +286,7 @@ export abstract class BaseState<ITEM = any> {
 		payload: string,
 	): void {
 
-		const {cache}: { cache: ICacheState } = this.store.snapshot();
+		const {cache}: { cache: ICacheState<Record<string, IBaseState_Item<ITEM>>> } = this.store.snapshot();
 
 		const customerCacheItems = cache[cacheItemsKey];
 
@@ -464,7 +465,7 @@ export abstract class BaseState<ITEM = any> {
 						data: {
 							...state.item.data,
 							active: ActiveEnum.NO
-						} as any,
+						} as never,
 						downloadedAt: new Date(),
 					}
 				});
@@ -488,14 +489,20 @@ export abstract class BaseState<ITEM = any> {
 	 * @param force
 	 * @param resetPage
 	 */
-	public async getList(ctx: StateContext<IBaseState<ITEM>>, {payload: {force, resetPage, resetParams}}: BaseActions.GetList): Promise<void> {
+	public async getList(ctx: StateContext<IBaseState<ITEM>>, {
+		payload: {
+			force,
+			resetPage,
+			resetParams
+		}
+	}: BaseActions.GetList): Promise<void> {
 
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
 
 		let state = ctx.getState();
 		const cacheTableStatesKey = getKeyWithClientId(this.store, this.cacheKeys.tableStates);
 
-		const {cache}: { cache: ICacheState } = this.store.snapshot();
+		const {cache}: { cache: ICacheState<Record<string, TableState<ITEM>>> } = this.store.snapshot();
 
 		const cacheTableStates = cache[cacheTableStatesKey];
 
@@ -516,7 +523,7 @@ export abstract class BaseState<ITEM = any> {
 				}
 			}
 
-			const prevListState: TableState<ITEM> = (cacheTableStates ?? {})[state.tableState.hashSum];
+			const prevListState = (cacheTableStates ?? {})[state.tableState.hashSum];
 
 			// Check if in local cache exist data of current pagination has
 			if (

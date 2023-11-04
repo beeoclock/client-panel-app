@@ -1,10 +1,10 @@
 import {Route} from '@angular/router';
-import {AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from "@angular/fire/auth-guard";
+import {AuthGuard, redirectLoggedInTo} from "@angular/fire/auth-guard";
 import {tokenResolver} from "@utility/presentation/resolver/token.resolver";
 import WrapperIdentityComponent from "@utility/presentation/component/wrapper-identity/wrapper-identity.component";
 
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
+// const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 
 export const routers = [
   {
