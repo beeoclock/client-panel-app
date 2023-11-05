@@ -1,6 +1,8 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {IService} from "@service/domain";
 import {AttendeesForm} from "@event/presentation/form/attendant.form";
+import {filter} from "rxjs";
+import {is} from "thiis";
 
 
 export interface IEventForm {
@@ -54,7 +56,7 @@ export class EventForm extends FormGroup<IEventForm> {
 	}
 
 	public initHandler(): void {
-		this.controls.start.valueChanges.subscribe((value) => {
+		this.controls.start.valueChanges.pipe(filter(is.string)).subscribe((value) => {
 			const [firstService] = this.controls.services.value;
 			if (!firstService) {
 				return;

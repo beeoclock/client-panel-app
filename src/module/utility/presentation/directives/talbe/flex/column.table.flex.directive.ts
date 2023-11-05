@@ -32,9 +32,9 @@ export class ColumnTableFlexDirective implements OnInit {
 
 	public ngOnInit() {
 
-		switch (this.row.tableRowGrid) {
+		switch (this.row.tableRowFlex) {
 			case 'body':
-				this.class.push('bg-white', 'flex', 'items-center');
+				this.class.push('flex', 'items-center');
 				break;
 		}
 

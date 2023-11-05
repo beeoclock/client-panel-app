@@ -48,15 +48,15 @@ export class TableListComponent extends TableComponent<IEvent> {
 
 	public readonly tableConfiguration = {
 		columns: {
-			attendants: {
+			service: {
 				style: {
-					minWidth: '100px',
+					minWidth: '350px',
 					flexGrow: 1,
 				},
 			},
-			service: {
+			attendants: {
 				style: {
-					minWidth: '250px',
+					minWidth: '100px',
 				},
 			},
 			duration: {
@@ -66,7 +66,7 @@ export class TableListComponent extends TableComponent<IEvent> {
 			},
 			price: {
 				style: {
-					minWidth: '100px',
+					minWidth: '150px',
 				},
 			},
 			start: {
@@ -76,7 +76,7 @@ export class TableListComponent extends TableComponent<IEvent> {
 			},
 			end: {
 				style: {
-					minWidth: '200px',
+					minWidth: '220px',
 				},
 			},
 			status: {
