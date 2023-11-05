@@ -1,10 +1,10 @@
 <div [tableFlex]="tableConfiguration">
 	<div tableRowFlex="header">
-		<div tableColumnFlex="attendants">
-			{{ 'keyword.capitalize.attendees' | translate }}
-		</div>
 		<div tableColumnFlex="service">
 			{{ 'event.keyword.capitalize.service' | translate }}
+		</div>
+		<div tableColumnFlex="attendants">
+			{{ 'keyword.capitalize.attendees' | translate }}
 		</div>
 		<div tableColumnFlex="duration">
 			{{ 'keyword.capitalize.duration' | translate }}
@@ -59,14 +59,14 @@
 	<!-- Column Cell	-->
 	<div tableBodyFlex>
 		<div tableRowFlex="body" (click)="doubleClick(item._id)" *ngFor="let item of tableState.items">
-			<div tableColumnFlex="attendants">
-				<i class="bi bi-person"></i>
-				{{ item?.attendees?.length }}
-			</div>
 			<div tableColumnFlex="service">
 				<span [title]="item?.services?.[0]?.languageVersions?.[0]?.title" class="truncate">
 					{{ item?.services?.[0]?.languageVersions?.[0]?.title }}
 				</span>
+			</div>
+			<div tableColumnFlex="attendants">
+				<i class="bi bi-person"></i>
+				{{ item?.attendees?.length }}
 			</div>
 <!--			TODO delete variable from tableColumnFlex-->
 			<div tableColumnFlex="duration" #durationColumn [attr.data-value]="item?.services?.[0]?.durationVersions?.[0]?.durationInSeconds ?? 0 | humanizeDuration">
