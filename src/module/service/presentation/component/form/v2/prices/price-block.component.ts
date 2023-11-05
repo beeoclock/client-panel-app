@@ -10,23 +10,23 @@ import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/p
 import {InputBadgeComponent} from "@utility/presentation/component/input/input-badge.component";
 import {PriceForm} from "@service/presentation/form/service.form";
 import {TimeInputComponent} from "@utility/presentation/component/input/time.input.component";
+import {DurationSelectComponent} from "@utility/presentation/component/input/duration.select.component";
 
 @Component({
-  selector: 'service-form-price-block-component',
-  standalone: true,
-  template: `
-    <div class="flex flex-col gap-3">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-				<time-input-component
-					[utc]="false"
+	selector: 'service-form-price-block-component',
+	standalone: true,
+	template: `
+		<div class="flex flex-col gap-3">
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+				<bee-duration-select-component
 					[label]="'keyword.capitalize.duration' | translate"
 					[control]="durationInSecondsControl"/>
-        <price-and-currency-component
-          [priceControl]="priceForm.controls.price"
-          [currencyControl]="priceForm.controls.currency"/>
-      </div>
-    </div>
-  `,
+				<price-and-currency-component
+					[priceControl]="priceForm.controls.price"
+					[currencyControl]="priceForm.controls.currency"/>
+			</div>
+		</div>
+	`,
 	imports: [
 		NgIf,
 		TranslateModule,
@@ -37,14 +37,14 @@ import {TimeInputComponent} from "@utility/presentation/component/input/time.inp
 		PriceAndCurrencyComponent,
 		InputBadgeComponent,
 		TimeInputComponent,
+		DurationSelectComponent,
 	]
 })
 export class PriceBlockComponent {
 
-  @Input()
-  public durationInSecondsControl = new FormControl();
+	@Input()
+	public durationInSecondsControl = new FormControl();
 
-  @Input()
-  public priceForm = new PriceForm();
-
+	@Input()
+	public priceForm = new PriceForm();
 }
