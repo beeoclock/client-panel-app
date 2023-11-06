@@ -95,6 +95,7 @@ export class TableListComponent extends TableComponent<IEvent> {
 				},
 			},
 			action: {
+				classList: ['bg-white'],
 				style: {
 					minWidth: '66px',
 				},

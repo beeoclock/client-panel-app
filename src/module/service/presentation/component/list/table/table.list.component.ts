@@ -92,6 +92,7 @@ export class TableListComponent extends TableComponent<IService> {
 				},
 			},
 			action: {
+				classList: ['bg-white'],
 				style: {
 					minWidth: '66px',
 				},

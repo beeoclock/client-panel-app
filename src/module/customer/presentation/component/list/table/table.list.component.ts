@@ -56,7 +56,7 @@ export class TableListComponent extends TableComponent<ICustomer> {
 			},
 			email: {
 				style: {
-					minWidth: '250px',
+					minWidth: '350px',
 				},
 			},
 			phone: {
@@ -85,6 +85,7 @@ export class TableListComponent extends TableComponent<ICustomer> {
 				},
 			},
 			action: {
+				classList: ['bg-white'],
 				style: {
 					minWidth: '66px',
 				},

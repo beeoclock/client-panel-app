@@ -10,9 +10,10 @@ export class TableTableFlexDirective {
 	public tableFlex: undefined | {
 		columns: {
 			[key: string]: {
-				style: {
+				style?: {
 					[key: string]: string | number;
-				}
+				},
+				classList?: string[];
 			}
 		}
 	};
@@ -21,6 +22,7 @@ export class TableTableFlexDirective {
 	public class = [
 		'text-start',
 		'overflow-scroll',
+		'items-start',
 		'flex',
 		'flex-col',
 		'h-[calc(100vh-199px)]',
