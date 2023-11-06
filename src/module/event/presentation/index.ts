@@ -17,6 +17,10 @@ export const routers = [
 				loadComponent: () => import('./page/list')
 			},
 			{
+				path: 'calendar',
+				loadComponent: () => import('./page/calendar'),
+			},
+			{
 				path: 'form',
 				loadComponent: () => import('./page/form'),
 			},
