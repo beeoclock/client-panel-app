@@ -5,64 +5,33 @@
 
   <div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
 
-    <form [formGroup]="form" class="flex flex-col gap-4">
+    <form class="flex flex-col gap-4">
       <bee-card>
 
         <strong class="dark:text-white">{{ 'keyword.capitalize.information' | translate }}</strong>
 
         <div class="grid md:grid-cols-2 gap-4">
 
-          <form-input
-            id="customer-form-firstName"
-            type="firstName"
-            autocomplete="firstName"
-            [placeholder]="'keyword.capitalize.firstName' | translate"
-            [control]="form.controls.firstName"
-            [label]="'keyword.capitalize.firstName' | translate"/>
-
-          <form-input
-            id="customer-form-lastName"
-            type="lastName"
-            autocomplete="lastName"
-            [placeholder]="'keyword.capitalize.lastName' | translate"
-            [control]="form.controls.lastName"
-            [label]="'keyword.capitalize.lastName' | translate"/>
-
-          <form-input
-            id="customer-form-email"
-            type="email"
-            autocomplete="email"
-            placeholder="firstname.lastname@example.com"
-            [control]="form.controls.email"
-            [label]="'keyword.capitalize.email' | translate"/>
-
-          <form-input
-            id="customer-form-phone"
-            type="phone"
-            autocomplete="phone"
-            placeholder="+000000000000"
-            [control]="form.controls.phone"
-            [label]="'keyword.capitalize.phone' | translate"/>
-
-					<div class="md:col-span-2" [class.hidden]="form.controls.phone.untouched || form.controls.email.untouched">
-						<utility-invalid-message class="flex justify-center" [control]="form"/>
-					</div>
+					<ng-container
+						*ngFor="let component of form.componentList"
+						[ngComponentOutlet]="component.componentRef"
+						[ngComponentOutletInputs]="component.inputs"/>
 
         </div>
 
       </bee-card>
 
-      <utility-form-switch-active-block-component [control]="form.controls.active"/>
+			<ng-container
+				[ngComponentOutlet]="form.components.active.componentRef"
+				[ngComponentOutletInputs]="form.components.active.inputs"/>
 
       <bee-card>
         <strong class="dark:text-white">{{ 'keyword.capitalize.additional' | translate }}</strong>
 
         <div class="flex flex-col mt-4">
-          <form-textarea-component
-            id="customer-form-public-note-input"
-            [label]="'keyword.capitalize.note' | translate"
-            [placeholder]="'customer.form.input.note.placeholder' | translate"
-            [control]="form.controls.note"/>
+					<ng-container
+						[ngComponentOutlet]="form.components.note.componentRef"
+						[ngComponentOutletInputs]="form.components.note.inputs"/>
         </div>
       </bee-card>
 			<utility-button-save-container-component>
