@@ -42,7 +42,12 @@ export class ColumnTableFlexDirective implements OnInit {
 			const columns = this.table.tableFlex.columns;
 			const column = columns[this.tableColumnFlex as string];
 			if (column) {
-				Object.assign(this.element.nativeElement.style, column.style);
+				if (column.classList) {
+					this.class.push(...column.classList);
+				}
+				if (column.style) {
+					Object.assign(this.element.nativeElement.style, column.style);
+				}
 			}
 		}
 

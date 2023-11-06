@@ -4,34 +4,123 @@ import {noWhitespaceValidator} from "@utility/validation/whitespace";
 import {
 	atLeastOneFieldMustBeFilledValidator
 } from "@customer/presentation/form/validation/atLeastOneFieldMustBeFilled.validation";
+import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
+import {inject} from "@angular/core";
+import {TranslateService} from "@ngx-translate/core";
+import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
+import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
+
+export const enum CustomerFormFieldsEnum {
+	_id = '_id',
+
+	firstName = 'firstName',
+	lastName = 'lastName',
+	note = 'note',
+	email = 'email',
+	phone = 'phone',
+
+	active = 'active',
+}
 
 export interface ICustomerForm {
-	_id: FormControl<string>;
+	[CustomerFormFieldsEnum._id]: FormControl<string>;
 
-	firstName: FormControl<string>;
-	lastName: FormControl<string>;
-	note: FormControl<string>;
-	email: FormControl<string>;
-	phone: FormControl<string>;
+	[CustomerFormFieldsEnum.firstName]: FormControl<string>;
+	[CustomerFormFieldsEnum.lastName]: FormControl<string>;
+	[CustomerFormFieldsEnum.note]: FormControl<string>;
+	[CustomerFormFieldsEnum.email]: FormControl<string>;
+	[CustomerFormFieldsEnum.phone]: FormControl<string>;
 
-	active: FormControl<ActiveEnum>;
+	[CustomerFormFieldsEnum.active]: FormControl<ActiveEnum>;
 
-	[key: string]: AbstractControl;
 }
 
 export class CustomerForm extends FormGroup<ICustomerForm> {
 
+	private readonly translateService = inject(TranslateService);
+
+	public readonly components = {
+		[CustomerFormFieldsEnum.firstName]: {
+			componentRef: FormInputComponent,
+			inputs: {
+				id: 'customer-form-firstName',
+				type: 'string',
+				label: this.translateService.instant('keyword.capitalize.firstName'),
+				placeholder: this.translateService.instant('keyword.capitalize.firstName'),
+				autocomplete: CustomerFormFieldsEnum.firstName,
+				control: this.controls.firstName,
+			}
+		},
+		[CustomerFormFieldsEnum.lastName]: {
+			componentRef: FormInputComponent,
+			inputs: {
+				id: 'customer-form-lastName',
+				type: 'string',
+				label: this.translateService.instant('keyword.capitalize.lastName'),
+				placeholder: this.translateService.instant('keyword.capitalize.lastName'),
+				autocomplete: CustomerFormFieldsEnum.lastName,
+				control: this.controls.lastName,
+			}
+		},
+		[CustomerFormFieldsEnum.email]: {
+			componentRef: FormInputComponent,
+			inputs: {
+				id: 'customer-form-email',
+				type: 'email',
+				label: this.translateService.instant('keyword.capitalize.email'),
+				placeholder: 'firstname.lastname@example.com',
+				autocomplete: CustomerFormFieldsEnum.email,
+				control: this.controls.email,
+			}
+		},
+		[CustomerFormFieldsEnum.phone]: {
+			componentRef: FormInputComponent,
+			inputs: {
+				id: 'customer-form-phone',
+				type: 'phone',
+				label: this.translateService.instant('keyword.capitalize.phone'),
+				placeholder: '+000000000000',
+				autocomplete: CustomerFormFieldsEnum.phone,
+				control: this.controls.phone,
+			}
+		},
+		[CustomerFormFieldsEnum.note]: {
+			componentRef: FormTextareaComponent,
+			inputs: {
+				id: 'customer-form-note',
+				label: this.translateService.instant('keyword.capitalize.note'),
+				placeholder: this.translateService.instant('customer.form.input.note.placeholder'),
+				control: this.controls.note,
+			}
+		},
+		[CustomerFormFieldsEnum.active]: {
+			componentRef: SwitchActiveBlockComponent,
+			inputs: {
+				id: 'customer-form-active',
+				control: this.controls.active,
+			}
+		},
+	};
+
+	public readonly componentList = [
+		this.components[CustomerFormFieldsEnum.firstName],
+		this.components[CustomerFormFieldsEnum.lastName],
+		this.components[CustomerFormFieldsEnum.email],
+		this.components[CustomerFormFieldsEnum.phone],
+	];
+
 	constructor() {
 		super({
-			_id: new FormControl(),
+			[CustomerFormFieldsEnum._id]: new FormControl(),
 
-			firstName: new FormControl(),
-			lastName: new FormControl(),
-			note: new FormControl(),
-			email: new FormControl(),
-			phone: new FormControl(),
+			[CustomerFormFieldsEnum.firstName]: new FormControl(),
+			[CustomerFormFieldsEnum.lastName]: new FormControl(),
+			[CustomerFormFieldsEnum.email]: new FormControl(),
+			[CustomerFormFieldsEnum.phone]: new FormControl(),
 
-			active: new FormControl(),
+			[CustomerFormFieldsEnum.note]: new FormControl(),
+
+			[CustomerFormFieldsEnum.active]: new FormControl(),
 		});
 		this.initValue();
 		this.initValidation();

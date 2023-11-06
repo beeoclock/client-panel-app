@@ -13,15 +13,15 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
   selector: 'utility-form-switch-active-block-component',
   standalone: true,
   template: `
-    <bee-card>
+		<bee-card>
 
-      <label class="relative inline-flex items-center justify-between cursor-pointer">
+			<label class="relative inline-flex items-center justify-between cursor-pointer">
         <span
-          class="mr-3 text-sm font-medium text-beeColor-900 dark:text-beeDarkColor-300">
-          {{ activeText ?? ('keyword.capitalize.active' | translate) }}
+					class="mr-3 text-sm font-medium text-beeColor-900 dark:text-beeDarkColor-300">
+          {{ label ?? ('keyword.capitalize.active' | translate) }}
         </span>
-        <input type="checkbox" [formControl]="control" class="sr-only peer">
-        <div class="
+				<input [id]="id" type="checkbox" [formControl]="control" class="sr-only peer">
+				<div class="
           w-11
           h-6
           bg-beeColor-200
@@ -47,11 +47,11 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
           after:transition-all
           dark:border-beeDarkColor-600
           peer-checked:bg-blue-600">
-        </div>
-      </label>
+				</div>
+			</label>
 
-    </bee-card>
-  `,
+		</bee-card>
+	`,
   imports: [
     NgIf,
     TranslateModule,
@@ -66,7 +66,10 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 export class SwitchActiveBlockComponent implements OnInit, OnChanges {
 
   @Input()
-  public activeText: string | undefined;
+  public label: string | undefined;
+
+  @Input()
+  public id = '';
 
   @Input()
   public control = new FormControl(); // External control

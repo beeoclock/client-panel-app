@@ -23,6 +23,7 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
+import {KeyValuePipe, NgComponentOutlet, NgForOf} from "@angular/common";
 
 @Component({
 	selector: 'customer-form-page',
@@ -45,6 +46,9 @@ import {
 		BackButtonComponent,
 		DefaultPanelComponent,
 		ButtonSaveContainerComponent,
+		NgComponentOutlet,
+		NgForOf,
+		KeyValuePipe,
 	],
 	standalone: true
 })
