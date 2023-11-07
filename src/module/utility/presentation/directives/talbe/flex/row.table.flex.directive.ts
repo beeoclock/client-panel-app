@@ -12,6 +12,7 @@ export class RowTableFlexDirective implements AfterViewInit {
 	@HostBinding()
 	public class = [
 		'flex',
+		'bg-white',
 		'text-beeColor-700',
 		'dark:bg-beeDarkColor-800',
 		'dark:text-beeDarkColor-400',
