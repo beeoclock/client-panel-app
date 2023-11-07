@@ -45,10 +45,10 @@ export class DurationSelectComponent {
 	public label = '';
 
 	@Input()
-	public from = '00:00';
+	public from = '00:15';
 
 	@Input()
-	public to = '23:59';
+	public to = '10:00';
 
 	@Input()
 	public step = '00:15';
