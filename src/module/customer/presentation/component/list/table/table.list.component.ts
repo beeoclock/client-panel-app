@@ -18,6 +18,7 @@ import {EventStatusStyleDirective} from "@event/presentation/directive/event-sta
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex/row.table.flex.directive";
 import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
+import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 
 @Component({
 	selector: 'customer-table-list-component',
@@ -39,7 +40,8 @@ import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/fl
 		EventStatusStyleDirective,
 		HumanizeDurationPipe,
 		RowTableFlexDirective,
-		TableTableFlexDirective
+		TableTableFlexDirective,
+		NoDataPipe
 	]
 })
 export class TableListComponent extends TableComponent<ICustomer> {
@@ -48,15 +50,20 @@ export class TableListComponent extends TableComponent<ICustomer> {
 
 	public readonly tableConfiguration = {
 		columns: {
-			lastName: {
-				style: {
-					minWidth: '250px',
-					flexGrow: 1,
-				},
-			},
 			email: {
 				style: {
 					minWidth: '350px',
+					flexGrow: 1,
+				},
+			},
+			lastName: {
+				style: {
+					minWidth: '200px',
+				},
+			},
+			firstName: {
+				style: {
+					minWidth: '200px',
 				},
 			},
 			phone: {

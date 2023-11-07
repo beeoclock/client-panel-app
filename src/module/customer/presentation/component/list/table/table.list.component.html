@@ -1,13 +1,5 @@
 <div [tableFlex]="tableConfiguration">
 	<div tableRowFlex="header">
-		<div tableColumnFlex="lastName" data-orderBy="lastName">
-			<div class="flex gap-3 items-center">
-				{{ 'keyword.capitalize.fullName' | translate }}
-				<utility-sort-indicator
-					orderBy="lastName"
-					[tableState]="tableState"/>
-			</div>
-		</div>
 		<div tableColumnFlex="email" data-orderBy="email">
 			<div class="flex gap-3 items-center">
 				{{ 'keyword.capitalize.email' | translate }}
@@ -15,6 +7,17 @@
 					orderBy="email"
 					[tableState]="tableState"/>
 			</div>
+		</div>
+		<div tableColumnFlex="lastName" data-orderBy="lastName">
+			<div class="flex gap-3 items-center">
+				{{ 'keyword.capitalize.lastName' | translate }}
+				<utility-sort-indicator
+					orderBy="lastName"
+					[tableState]="tableState"/>
+			</div>
+		</div>
+		<div tableColumnFlex="firstName">
+			{{ 'keyword.capitalize.firstName' | translate }}
 		</div>
 		<div tableColumnFlex="phone" data-orderBy="phone">
 			<div class="flex gap-3 items-center">
@@ -58,24 +61,29 @@
 	<!-- Column Cell	-->
 	<div tableBodyFlex>
 		<div tableRowFlex="body" (click)="doubleClick(item._id)" *ngFor="let item of tableState.items">
-			<div tableColumnFlex="lastName">
-				<span [title]="item.lastName + ' ' + item.firstName" class="truncate">
-					{{ item.lastName }} {{ item.firstName }}
-				</span>
-			</div>
 			<div tableColumnFlex="email">
 				<span [title]="item.email " class="truncate">
-					<a href="mailto:{{ item.email }}">{{ item.email }}</a>
+					<a href="mailto:{{ item.email }}">{{ item.email | noData }}</a>
+				</span>
+			</div>
+			<div tableColumnFlex="lastName">
+				<span class="truncate">
+					{{ item.lastName | noData }}
+				</span>
+			</div>
+			<div tableColumnFlex="firstName">
+				<span class="truncate">
+					{{ item.firstName | noData }}
 				</span>
 			</div>
 			<div tableColumnFlex="phone">
 				<span [title]="item.phone" class="truncate">
-					{{ item.phone }}
+					{{ item.phone | noData }}
 				</span>
 			</div>
 			<div tableColumnFlex="note">
 				<span [title]="item.note" class="truncate">
-					{{ item.note }}
+					{{ item.note | noData }}
 				</span>
 			</div>
 			<div tableColumnFlex="active">

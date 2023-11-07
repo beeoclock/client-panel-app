@@ -56,9 +56,9 @@
 						 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="item.active">
 				</div>
 			</div>
-			<div tableColumnFlex="price">
+			<div tableColumnFlex="price" #priceColumn [attr.data-value]="item.durationVersions[0].prices[0].price | currency: item.durationVersions[0].prices[0].currency: 'symbol-narrow'">
 				<span class="truncate">
-					{{ item.durationVersions[0].prices[0].price | currency: item.durationVersions[0].prices[0].currency: 'symbol-narrow' }}
+					{{ priceColumn.getAttribute('data-value') | noData }}
 				</span>
 			</div>
 			<div tableColumnFlex="duration">
