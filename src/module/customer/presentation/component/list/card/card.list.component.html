@@ -17,8 +17,8 @@
 				<div>
 					{{ 'keyword.capitalize.fullName' | translate }}
 				</div>
-				<div class="font-bold">
-					{{ item.firstName ?? '-' }} {{ item.lastName ?? '-' }}
+				<div class="font-bold flex gap-2">
+					<div>{{ item.firstName | noData }}</div> <div>{{ item.lastName | noData }}</div>
 				</div>
 			</div>
 		</div>
@@ -28,7 +28,7 @@
 					{{ 'keyword.capitalize.email' | translate }}
 				</div>
 				<div class="font-bold">
-					{{ item.email ?? '-' }}
+					{{ item.email | noData }}
 				</div>
 			</div>
 		</div>
@@ -38,7 +38,7 @@
 					{{ 'keyword.capitalize.phone' | translate }}
 				</div>
 				<div class="font-bold">
-					{{ item.phone ?? '-' }}
+					{{ item.phone | noData }}
 				</div>
 			</div>
 		</div>
