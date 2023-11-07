@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {Component, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
@@ -7,6 +7,9 @@ import {IsRequiredDirective} from "@utility/presentation/directives/is-required/
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {generateTimeOptions} from "@src/script/generate-time-options";
 import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
+import {extractSecondsFrom_hh_mm_ss, secondsTo_hh_mm} from "@utility/domain/time";
+import {is} from "thiis";
+import {filter, map} from "rxjs";
 
 @Component({
 	selector: 'bee-duration-select-component',
@@ -20,10 +23,12 @@ import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration
 			placeholder="00:00"
 			bindLabel="label"
 			bindValue="value"
+			[addTagText]="'keyword.capitalize.addDuration' | translate"
+			[addTag]="addTag.bind(this)"
 			[items]="items"
 			[clearable]="false"
 			[id]="id"
-			[formControl]="control">
+			[formControl]="localControl">
 		</ng-select>
 	`,
 	encapsulation: ViewEncapsulation.None,
@@ -36,7 +41,7 @@ import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration
 		InvalidTooltipDirective
 	],
 })
-export class DurationSelectComponent {
+export class DurationSelectComponent implements OnInit {
 
 	@Input()
 	public id = '';
@@ -56,6 +61,8 @@ export class DurationSelectComponent {
 	@Input()
 	public control = new FormControl();
 
+	public localControl = new FormControl();
+
 	private readonly humanizeDurationHelper = inject(HumanizeDurationHelper);
 
 	public readonly items = generateTimeOptions({
@@ -68,4 +75,54 @@ export class DurationSelectComponent {
 		};
 	});
 
+	public addTag(tag: string) {
+		const result = extractSecondsFrom_hh_mm_ss(tag);
+		if (isNaN(result)) {
+			this.localControl.setErrors({durationFormatInvalid: true});
+			return;
+		}
+
+		this.items.push({
+			label: this.humanizeDurationHelper.fromSeconds(result),
+			value: result,
+		});
+
+		return secondsTo_hh_mm(result);
+	}
+
+	public ngOnInit(): void {
+		this.initLocalControlValue();
+		this.localControl.valueChanges.pipe(
+			map((value) => is.string(value) && extractSecondsFrom_hh_mm_ss(value)),
+			filter(is.number)
+		).subscribe((value) => {
+			this.control.patchValue(value, {
+				emitEvent: false,
+				onlySelf: true,
+			});
+		});
+		this.control.valueChanges.subscribe((value) => {
+			this.localControl.patchValue(value, {
+				emitEvent: false,
+				onlySelf: true,
+			});
+		});
+	}
+
+	private initLocalControlValue() {
+		const localControlValue = this.control.value;
+		if (localControlValue) {
+			const foundValue = this.items.some(({value}) => value === localControlValue);
+			if (!foundValue) {
+				this.items.push({
+					label: this.humanizeDurationHelper.fromSeconds(localControlValue),
+					value: localControlValue,
+				});
+			}
+		}
+
+		this
+			.localControl
+			.patchValue(localControlValue);
+	}
 }
