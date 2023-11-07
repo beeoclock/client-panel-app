@@ -19,6 +19,7 @@ import {BodyTableFlexDirective} from "@utility/presentation/directives/talbe/fle
 import {ColumnTableFlexDirective} from "@utility/presentation/directives/talbe/flex/column.table.flex.directive";
 import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex/row.table.flex.directive";
 import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
+import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 
 @Component({
 	selector: 'service-table-list-component',
@@ -40,7 +41,8 @@ import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/fl
 		BodyTableFlexDirective,
 		ColumnTableFlexDirective,
 		RowTableFlexDirective,
-		TableTableFlexDirective
+		TableTableFlexDirective,
+		NoDataPipe
 	]
 })
 export class TableListComponent extends TableComponent<IService> {

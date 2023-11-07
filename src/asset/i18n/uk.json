@@ -330,6 +330,7 @@
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "Хоча б одне поле має бути заповнене",
+			"durationFormatInvalid": "Правильний формат: години:хвилини (00:00)",
 			"email": "Неправильний формат E-mail",
 			"emailOrPhoneRequired": "Введи номер телефону або E-mail",
 			"imageSize": "Максимальний розмір зображення – {{max}}, поточний розмір – {{value}}",
@@ -648,6 +649,7 @@
 			"add-service": "Додати послугу",
 			"addAvailableHours": "Додати графік роботи",
 			"addContactPhone": "Додати номер телефону",
+			"addDuration": "Додати тривалість",
 			"addSocialMedia": "Додати соціальну мережу",
 			"additional": "Додатково",
 			"address": "Адреса",
@@ -777,6 +779,7 @@
 			"at": "на",
 			"dragAndDrop": "перетягніть і випустіть файл",
 			"min": "хв.",
+			"no-data": "немає даних",
 			"or": "або",
 			"sec": "сек.",
 			"service": "послуга"

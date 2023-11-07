@@ -330,6 +330,7 @@
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "At least one field must be filled",
+			"durationFormatInvalid": "Valid format is hours:minutes (00:00)",
 			"email": "Invalid E-mail format",
 			"emailOrPhoneRequired": "E-mail or phone number is required",
 			"imageSize": "Maximum image size is {{max}}, current size is {{value}}",
@@ -648,6 +649,7 @@
 			"add-service": "Add service",
 			"addAvailableHours": "Add available hours",
 			"addContactPhone": "Add phone number",
+			"addDuration": "Add duration",
 			"addSocialMedia": "Add social media",
 			"additional": "Additional",
 			"address": "Address",
@@ -778,6 +780,7 @@
 			"at": "at",
 			"dragAndDrop": "drag and drop",
 			"min": "min.",
+			"no-data": "no data",
 			"or": "or",
 			"sec": "sec.",
 			"service": "service"

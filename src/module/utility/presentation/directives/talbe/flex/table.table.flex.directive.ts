@@ -22,9 +22,7 @@ export class TableTableFlexDirective {
 	public class = [
 		'text-start',
 		'overflow-scroll',
-		'items-start',
-		'flex',
-		'flex-col',
+		'bg-white',
 		'h-[calc(100vh-199px)]',
 		'md:h-[calc(100vh-135px)]'
 	];

@@ -15,6 +15,7 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {ICustomer} from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 
 @Component({
 	selector: 'customer-card-list-component',
@@ -34,7 +35,8 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 		CurrencyPipe,
 		HumanizeDurationPipe,
 		CardComponent,
-		NgIf
+		NgIf,
+		NoDataPipe
 	]
 })
 export class CardListComponent extends TableComponent<ICustomer> {

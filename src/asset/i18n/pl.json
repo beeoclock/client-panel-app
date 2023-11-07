@@ -332,6 +332,7 @@
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "Co najmniej jedno pole musi być wypełnione",
+			"durationFormatInvalid": "Prawidłowy format to godziny:minuty (00:00)",
 			"email": "Nieprawidłowy format adresu e-mail",
 			"emailOrPhoneRequired": "Wymagany jest numer telefonu lub adres e-mail",
 			"imageSize": "Maksymalny rozmiar obrazu to {{max}}, bieżący rozmiar to {{value}}",
@@ -650,6 +651,7 @@
 			"add-service": "Dodaj usługę",
 			"addAvailableHours": "Dodaj dostępne godziny",
 			"addContactPhone": "Dodaj telefon kontaktowy",
+			"addDuration": "Dodaj czas trwania",
 			"addSocialMedia": "Dodaj media społecznościowe",
 			"additional": "Dodatkowe",
 			"address": "Adres",
@@ -779,6 +781,7 @@
 			"at": "o",
 			"dragAndDrop": "przeciągnij i upuść plik",
 			"min": "min.",
+			"no-data": "brak danych",
 			"or": "lub",
 			"sec": "sek.",
 			"service": "usługa"
