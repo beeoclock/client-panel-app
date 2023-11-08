@@ -98,9 +98,15 @@ export class DurationSelectComponent implements OnInit {
 	public ngOnInit(): void {
 		this.initLocalControlValue();
 		this.localControl.valueChanges.pipe(
-			map((value) => is.string(value) && extractSecondsFrom_hh_mm_ss(value)),
+			map((value) => {
+				if (is.string(value)) {
+					return extractSecondsFrom_hh_mm_ss(value);
+				}
+				return value;
+			}),
 			filter(is.number)
 		).subscribe((value) => {
+			console.log(value);
 			this.control.patchValue(value, {
 				emitEvent: false,
 				onlySelf: true,
