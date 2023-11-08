@@ -82,12 +82,17 @@ export class DurationSelectComponent implements OnInit {
 			return;
 		}
 
+		const label = this.humanizeDurationHelper.fromSeconds(result);
+
 		this.items.push({
-			label: this.humanizeDurationHelper.fromSeconds(result),
+			label,
 			value: result,
 		});
 
-		return secondsTo_hh_mm(result);
+		return {
+			label,
+			value: secondsTo_hh_mm(result),
+		};
 	}
 
 	public ngOnInit(): void {
