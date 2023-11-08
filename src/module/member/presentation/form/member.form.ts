@@ -1,39 +1,37 @@
-import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RIMember} from "@member/domain";
 
 export interface IMemberForm {
-  email: FormControl<string>;
+	email: FormControl<string>;
 
-  // TODO role or/and permission
-
-  [key: string]: AbstractControl;
+	// TODO role or/and permission
 }
 
 export class MemberForm extends FormGroup<IMemberForm> {
 
-  constructor() {
-    super({
-      email: new FormControl(),
-    });
-    this.initValidators();
-  }
+	constructor() {
+		super({
+			email: new FormControl(),
+		});
+		this.initValidators();
+	}
 
-  public initValidators(): void {
-    this.controls.email.setValidators([Validators.email, Validators.required]);
-  }
+	public initValidators(): void {
+		this.controls.email.setValidators([Validators.email, Validators.required]);
+	}
 
-  public static create(initValue: RIMember): MemberForm {
+	public static create(initValue: RIMember): MemberForm {
 
-    const form = new MemberForm();
+		const form = new MemberForm();
 
-    form.patchValue(initValue);
+		form.patchValue(initValue);
 
-    if ('email' in initValue) {
-      form.controls.email.disable();
-    }
+		if ('email' in initValue) {
+			form.controls.email.disable();
+		}
 
-    return form;
+		return form;
 
-  }
+	}
 
 }

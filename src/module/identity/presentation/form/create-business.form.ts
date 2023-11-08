@@ -1,4 +1,4 @@
-import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AddressForm, GalleryForm} from "@client/presentation/form";
 import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
 import {ServiceForm, ServicesForm} from "@service/presentation/form";
@@ -19,8 +19,6 @@ interface IBusinessClientForm {
 	businessIndustry: FormControl<BusinessIndustryEnum>;
 	businessName: FormControl<string>;
 	businessOwnerFullName: FormControl<string>;
-
-	[key: string]: AbstractControl;
 }
 
 export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {

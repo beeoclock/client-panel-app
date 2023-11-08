@@ -1,25 +1,22 @@
-import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 export interface IChangeNameForm {
-
-  name: FormControl<string>;
-
-  [key: string]: AbstractControl;
+	name: FormControl<string>;
 }
 
 export class ChangeNameForm extends FormGroup<IChangeNameForm> {
 
-  constructor() {
-    super({
-      name: new FormControl(),
-    });
+	constructor() {
+		super({
+			name: new FormControl(),
+		});
 
-    this.initValidators();
+		this.initValidators();
 
-  }
+	}
 
-  private initValidators(): void {
-    this.controls.name.setValidators(Validators.required);
-  }
+	private initValidators(): void {
+		this.controls.name.setValidators(Validators.required);
+	}
 
 }

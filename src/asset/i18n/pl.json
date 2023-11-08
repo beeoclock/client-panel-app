@@ -889,6 +889,13 @@
 		},
 		"title": "Wyloguj się"
 	},
+	"slotBuildingStrategy": {
+		"hint": "Wybierz przedział czasowy według jakiego mają być budowane dostępne sloty dla Twojego klienta lub wybierz format w jakim wybrane sloty będą budowane przez wybraną usługę",
+		"options": {
+			"accordingToAService": "Według serwisu"
+		},
+		"title": "Budowa przedziałów czasowych"
+	},
 	"updateAvailable": {
 		"header": "Nowa wersja",
 		"message": "Dostępna jest nowa wersja aplikacji, czy chcesz zaktualizować?"

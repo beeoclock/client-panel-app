@@ -1,6 +1,6 @@
 import {bootstrapApplication} from '@angular/platform-browser';
 import {AppComponent} from '@src/app.component';
-import {enableProdMode, importProvidersFrom, isDevMode, NgZone} from '@angular/core';
+import {enableProdMode, importProvidersFrom, isDevMode} from '@angular/core';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {environment} from '@src/environment/environment';
 import {connectAuthEmulator, getAuth, provideAuth} from '@angular/fire/auth';
@@ -46,14 +46,6 @@ initRuntimeEnvironment();
 
 bootstrapApplication(AppComponent, {
 	providers: [
-		{
-			provide: NgZone,
-			useValue: new NgZone({
-				shouldCoalesceEventChangeDetection: false,
-				shouldCoalesceRunChangeDetection: false,
-				enableLongStackTrace: false,
-			})
-		},
 		...tokens,
 		provideEnvironmentNgxMask(),
 		importProvidersFrom(

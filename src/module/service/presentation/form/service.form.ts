@@ -103,8 +103,6 @@ export class PricesForm extends FormArray<PriceForm> {
 export interface IConfigurationForm {
 	earliestDateTime: FormControl<string>;
 	latestDateTime: FormControl<string>;
-
-	[key: string]: AbstractControl;
 }
 
 export class ConfigurationForm extends FormGroup<IConfigurationForm> {
@@ -167,7 +165,6 @@ export interface IServiceForm {
 	_id: FormControl<string>;
 	specialists: FormControl<ISpecialist[]>;
 	active: FormControl<ActiveEnum>;
-
 	[key: string]: AbstractControl;
 }
 

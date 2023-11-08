@@ -1,4 +1,4 @@
-import {AbstractControl, FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 
 export interface IFilterForm {
@@ -7,8 +7,6 @@ export interface IFilterForm {
 	status: FormControl<EventStatusEnum | ''>;
 	// start: FormControl<string>;
 	// end: FormControl<string>;
-
-	[key: string]: AbstractControl;
 
 }
 

@@ -14,7 +14,6 @@ export interface IEventForm {
 	end: FormControl<string>;
 	timeZone: FormControl<string>;
 	attendees: AttendeesForm;
-
 	[key: string]: AbstractControl;
 }
 
