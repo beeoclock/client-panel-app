@@ -40,6 +40,8 @@ import {SlotSettingsForm} from "@client/presentation/form/slot-settings.form";
 })
 export class SelectSlotBuildingStrategyComponent implements OnInit {
 
+	// TODO: add opportunity to change slot interval in seconds via addTag method in ng-select
+
 	@Input()
 	public id = '';
 
