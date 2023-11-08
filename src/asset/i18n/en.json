@@ -888,6 +888,13 @@
 		},
 		"title": "Sign out"
 	},
+	"slotBuildingStrategy": {
+		"hint": "Choose the time interval according to which the available slots for your client should be built, or choose the format in which the available time slots will be built by the selected service",
+		"options": {
+			"accordingToAService": "According to a service"
+		},
+		"title": "Construction of time slots"
+	},
 	"updateAvailable": {
 		"header": "New version",
 		"message": "A new version of the app is available, would you like to update?"
