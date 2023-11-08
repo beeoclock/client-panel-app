@@ -5,8 +5,6 @@ import {
 	atLeastOneFieldMustBeFilledValidator
 } from "@customer/presentation/form/validation/atLeastOneFieldMustBeFilled.validation";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {inject} from "@angular/core";
-import {TranslateService} from "@ngx-translate/core";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
 
@@ -37,16 +35,14 @@ export interface ICustomerForm {
 
 export class CustomerForm extends FormGroup<ICustomerForm> {
 
-	private readonly translateService = inject(TranslateService);
-
 	public readonly components = {
 		[CustomerFormFieldsEnum.firstName]: {
 			componentRef: FormInputComponent,
 			inputs: {
 				id: 'customer-form-firstName',
 				type: 'string',
-				label: this.translateService.instant('keyword.capitalize.firstName'),
-				placeholder: this.translateService.instant('keyword.capitalize.firstName'),
+				labelTranslateKey: 'keyword.capitalize.firstName',
+				placeholderTranslateKey: 'keyword.capitalize.firstName',
 				autocomplete: CustomerFormFieldsEnum.firstName,
 				control: this.controls.firstName,
 			}
@@ -56,8 +52,8 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
 			inputs: {
 				id: 'customer-form-lastName',
 				type: 'string',
-				label: this.translateService.instant('keyword.capitalize.lastName'),
-				placeholder: this.translateService.instant('keyword.capitalize.lastName'),
+				labelTranslateKey: 'keyword.capitalize.lastName',
+				placeholderTranslateKey: 'keyword.capitalize.lastName',
 				autocomplete: CustomerFormFieldsEnum.lastName,
 				control: this.controls.lastName,
 			}
@@ -67,8 +63,8 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
 			inputs: {
 				id: 'customer-form-email',
 				type: 'email',
-				label: this.translateService.instant('keyword.capitalize.email'),
-				placeholder: 'firstname.lastname@example.com',
+				labelTranslateKey: 'keyword.capitalize.email',
+				placeholderTranslateKey: 'firstname.lastname@example.com',
 				autocomplete: CustomerFormFieldsEnum.email,
 				control: this.controls.email,
 			}
@@ -78,8 +74,8 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
 			inputs: {
 				id: 'customer-form-phone',
 				type: 'phone',
-				label: this.translateService.instant('keyword.capitalize.phone'),
-				placeholder: '+000000000000',
+				labelTranslateKey: 'keyword.capitalize.phone',
+				placeholderTranslateKey: '+000000000000',
 				autocomplete: CustomerFormFieldsEnum.phone,
 				control: this.controls.phone,
 			}
@@ -88,8 +84,8 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
 			componentRef: FormTextareaComponent,
 			inputs: {
 				id: 'customer-form-note',
-				label: this.translateService.instant('keyword.capitalize.note'),
-				placeholder: this.translateService.instant('customer.form.input.note.placeholder'),
+				labelTranslateKey: 'keyword.capitalize.note',
+				placeholderTranslateKey: 'customer.form.input.note.placeholder',
 				control: this.controls.note,
 			}
 		},

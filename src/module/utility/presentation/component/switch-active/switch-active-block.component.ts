@@ -18,7 +18,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 			<label class="relative inline-flex items-center justify-between cursor-pointer">
         <span
 					class="mr-3 text-sm font-medium text-beeColor-900 dark:text-beeDarkColor-300">
-          {{ label ?? ('keyword.capitalize.active' | translate) }}
+          {{ label ?? (labelTranslateKey | translate) }}
         </span>
 				<input [id]="id" type="checkbox" [formControl]="control" class="sr-only peer">
 				<div class="
@@ -65,8 +65,11 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 })
 export class SwitchActiveBlockComponent implements OnInit, OnChanges {
 
-  @Input()
-  public label: string | undefined;
+	@Input()
+	public label: unknown | string;
+
+	@Input()
+	public labelTranslateKey = 'keyword.capitalize.active';
 
   @Input()
   public id = '';

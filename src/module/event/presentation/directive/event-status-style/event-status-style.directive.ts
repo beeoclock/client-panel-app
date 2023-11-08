@@ -25,8 +25,8 @@ export class EventStatusStyleDirective implements OnInit, OnChanges {
 		},
 		[EventStatusEnum.done]: {
 			base: ['dark:text-green-400'],
-			text: ['text-green-400', 'border-green-400'],
-			badge: ['bg-green-500', 'border-green-500', 'dark:bg-green-900', 'dark:border-green-800']
+			text: ['text-green-600', 'border-green-600'],
+			badge: ['bg-green-600', 'border-green-600', 'dark:bg-green-900', 'dark:border-green-800']
 		},
 		[EventStatusEnum.requested]: {
 			base: ['dark:text-orange-400'],
