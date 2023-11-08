@@ -21,19 +21,43 @@
 					*ngFor="let item of items"
 					[routerLink]="'/event/' + item._id"
 					[queryParams]="{returnUrl}"
-					class="p-4 hover:bg-beeColor-100 border-t first:border-0">
-					<div class="flex items-center gap-3 justify-between">
-						<div class="text-xs font-light leading-3 text-neutral-500 dark:text-neutral-300">
-							{{ item.start | dynamicDate: 'hhMM' }}
+					class="py-3 hover:bg-beeColor-100 border-t first:border-0">
+					<div class=" flex gap-2">
+						<div class="flex flex-col justify-start items-center min-w-[100px] gap-2">
+							<div class="font-medium">
+								{{ item.start | date: 'HH:mm' }}
+							</div>
+							<div class="text-neutral-500">
+								{{ item?.services?.[0]?.durationVersions?.[0]?.durationInSeconds ?? 0 | humanizeDuration }}
+							</div>
+							<div class="font-medium">
+								{{ item.end | date: 'HH:mm' }}
+							</div>
 						</div>
-						<div eventStatusStyle mode="text" [status]="item.status"></div>
-					</div>
-					<div class="text-lg font-medium leading-5 text-neutral-800 dark:text-neutral-100 mt-2">
-						{{ item?.services?.[0]?.languageVersions?.[0]?.title }}
-					</div>
-					<div class="text-sm pt-2 leading-none text-neutral-600 dark:text-neutral-300">
-						<div *ngFor="let attendant of item.attendees">
-							{{ attendant.customer.firstName }} {{ attendant.customer.lastName }}
+						<div class="flex flex-col gap-1">
+							<div class="flex items-center gap-2">
+								<div eventStatusStyle mode="text" [status]="item.status"></div>
+								<div
+									class="bg-neutral-100 text-neutral-800 h-6 font-medium inline-flex gap-2 items-center px-2 py-0.5 rounded-2xl dark:bg-gray-700 dark:text-neutral-400 border border-neutral-400">
+									{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item.services[0].durationVersions[0].prices[0].currency: 'symbol-narrow'  }}
+								</div>
+								<div class="text-2xl text-neutral-500" *ngIf="item.description.length">
+									<i class="bi bi-chat-heart"></i>
+								</div>
+							</div>
+							<div
+								class="inline-flex gap-4 items-center">
+								<i class="bi bi-cart"></i>
+								{{ item?.services?.[0]?.languageVersions?.[0]?.title }}
+							</div>
+							<div
+								*ngFor="let attendant of item.attendees"
+								#attendantRef
+								[attr.data-value]="(attendant.customer.firstName ?? '') + ' ' + (attendant.customer.lastName ?? '')"
+								class="inline-flex gap-4 items-center">
+								<i class="bi bi-person"></i>
+								{{ (attendantRef?.getAttribute?.('data-value')?.length ?? 0) > 1 ? attendantRef.getAttribute('data-value') : (attendant?.customer?.email ?? attendant?.customer?.phone ?? '-') }}
+							</div>
 						</div>
 					</div>
 				</a>

@@ -2,7 +2,7 @@ import {AfterViewInit, Component, inject, ViewChild, ViewEncapsulation} from "@a
 import {Router, RouterLink} from "@angular/router";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IonDatetime, IonicModule} from "@ionic/angular";
-import {NgForOf, NgIf} from "@angular/common";
+import {CurrencyPipe, DatePipe, NgForOf, NgIf} from "@angular/common";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CalendarEventsListApiAdapter} from "@event/adapter/external/widget/calendar-events.list.api.adapter";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
@@ -16,6 +16,8 @@ import {
 } from "@utility/presentation/component/input/ion/ion-select-event-status.component";
 import {DynamicDateHelper} from "@utility/presentation/pipes/dynamic-date/dynamic-date.helper";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
+import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
+import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 
 @Component({
 	selector: 'utility-widget-calendar-events',
@@ -23,20 +25,24 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 	encapsulation: ViewEncapsulation.None,
 	// changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
-	imports: [
-		RouterLink,
-		TranslateModule,
-		IonicModule,
-		NgForOf,
-		ReactiveFormsModule,
-		FormsModule,
-		PrimaryLinkButtonDirective,
-		NgIf,
-		LoaderComponent,
-		EventStatusStyleDirective,
-		IonSelectEventStatusComponent,
-		DynamicDatePipe,
-	]
+    imports: [
+        RouterLink,
+        TranslateModule,
+        IonicModule,
+        NgForOf,
+        ReactiveFormsModule,
+        FormsModule,
+        PrimaryLinkButtonDirective,
+        NgIf,
+        LoaderComponent,
+        EventStatusStyleDirective,
+        IonSelectEventStatusComponent,
+        DynamicDatePipe,
+        ActionComponent,
+        CurrencyPipe,
+        DatePipe,
+        HumanizeDurationPipe,
+    ]
 })
 export class CalendarEventsComponent extends Reactive implements AfterViewInit {
 
@@ -90,6 +96,10 @@ export class CalendarEventsComponent extends Reactive implements AfterViewInit {
 				this.ionDatetime.disabled = this.loading.isOn;
 			});
 		});
+	}
+
+	public sameYear(start: string | undefined): boolean {
+		return start ? new Date(start).getFullYear() === new Date().getFullYear() : false;
 	}
 
 	public ngAfterViewInit() {
