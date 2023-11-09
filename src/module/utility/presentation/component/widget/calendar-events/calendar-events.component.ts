@@ -18,6 +18,7 @@ import {DynamicDateHelper} from "@utility/presentation/pipes/dynamic-date/dynami
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
+import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 
 @Component({
 	selector: 'utility-widget-calendar-events',
@@ -25,24 +26,25 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 	encapsulation: ViewEncapsulation.None,
 	// changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
-    imports: [
-        RouterLink,
-        TranslateModule,
-        IonicModule,
-        NgForOf,
-        ReactiveFormsModule,
-        FormsModule,
-        PrimaryLinkButtonDirective,
-        NgIf,
-        LoaderComponent,
-        EventStatusStyleDirective,
-        IonSelectEventStatusComponent,
-        DynamicDatePipe,
-        ActionComponent,
-        CurrencyPipe,
-        DatePipe,
-        HumanizeDurationPipe,
-    ]
+	imports: [
+		RouterLink,
+		TranslateModule,
+		IonicModule,
+		NgForOf,
+		ReactiveFormsModule,
+		FormsModule,
+		PrimaryLinkButtonDirective,
+		NgIf,
+		LoaderComponent,
+		EventStatusStyleDirective,
+		IonSelectEventStatusComponent,
+		DynamicDatePipe,
+		ActionComponent,
+		CurrencyPipe,
+		DatePipe,
+		HumanizeDurationPipe,
+		NoDataPipe,
+	]
 })
 export class CalendarEventsComponent extends Reactive implements AfterViewInit {
 
