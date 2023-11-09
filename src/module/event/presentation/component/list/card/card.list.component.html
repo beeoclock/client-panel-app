@@ -34,12 +34,12 @@
 		<div
 			class="inline-flex gap-4 items-center">
 			<i class="bi bi-cart"></i>
-			{{ item?.services?.[0]?.languageVersions?.[0]?.title }}
+			{{ item?.services?.[0]?.languageVersions?.[0]?.title | noData }}
 		</div>
 		<div
-			*ngFor="let attendant of item.attendees"
+			*ngFor="let attendant of (item?.attendees ?? [])"
 			#attendantRef
-			[attr.data-value]="(attendant.customer.firstName ?? '') + ' ' + (attendant.customer.lastName ?? '')"
+			[attr.data-value]="(attendant?.customer?.firstName ?? '') + ' ' + (attendant?.customer?.lastName ?? '')"
 			class="inline-flex gap-4 items-center">
 			<i class="bi bi-person"></i>
 			{{ (attendantRef?.getAttribute?.('data-value')?.length ?? 0) > 1 ? attendantRef.getAttribute('data-value') : (attendant?.customer?.email ?? attendant?.customer?.phone ?? '-') }}
