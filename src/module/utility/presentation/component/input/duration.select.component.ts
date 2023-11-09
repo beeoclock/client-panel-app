@@ -106,7 +106,6 @@ export class DurationSelectComponent implements OnInit {
 			}),
 			filter(is.number)
 		).subscribe((value) => {
-			console.log(value);
 			this.control.patchValue(value, {
 				emitEvent: false,
 				onlySelf: true,

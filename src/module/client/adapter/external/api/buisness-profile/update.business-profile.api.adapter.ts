@@ -1,14 +1,17 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import * as Client from '@client/domain';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "thiis";
 import {businessProfileEndpointEnum} from "@client/endpoint/business-profile.endpoint";
+import {WeekDayTimeZoneHelper} from "@utility/helper/week-day-time-zone.helper";
 
 @Injectable({
 	providedIn: 'root'
 })
 export class UpdateBusinessProfileApiAdapter extends BaseApiAdapter<Client.RIClient> {
+
+	private readonly weekDayTimeZoneHelper = inject(WeekDayTimeZoneHelper);
 
 	/**
 	 * SAVE NEW ITEM OR UPDATE ITEM BY ID
@@ -16,6 +19,7 @@ export class UpdateBusinessProfileApiAdapter extends BaseApiAdapter<Client.RICli
 	 */
 	@TypeGuard([is.object_not_empty])
 	public override execute$(value: Client.IClient) {
+		value = this.weekDayTimeZoneHelper.convertWeekDaysToUTC(value);
 		return this.httpClient.put<Client.RIClient>(businessProfileEndpointEnum.update, value);
 	}
 
