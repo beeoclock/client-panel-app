@@ -2,6 +2,8 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The settings of file replacements can be found in `angular.json`.
 
+import {constant} from "@environment/constant";
+
 export const environment = {
   production: false,
 	develop: true,
@@ -19,6 +21,7 @@ export const environment = {
       defaultErrorHandler: true,
     }
   },
+	constant,
   config: {
     modal: {
       prefix: 'beeoclock_modal_'

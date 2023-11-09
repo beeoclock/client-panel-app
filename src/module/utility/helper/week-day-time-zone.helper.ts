@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import * as Client from "@client/domain";
 import {DateTime} from "luxon";
+import {environment} from "@environment/environment";
 
 @Injectable({
 	providedIn: 'root',
@@ -37,7 +38,7 @@ export class WeekDayTimeZoneHelper {
 				return;
 			}
 
-			if (end < start) {
+			if (end > environment.constant.SECONDS.ONE_DAY) {
 				// Tomorrow
 				schedule.workDays = schedule.workDays?.map((day) => {
 					if (day === 7) {
@@ -80,7 +81,7 @@ export class WeekDayTimeZoneHelper {
 				return;
 			}
 
-			if (end < start) {
+			if (end > environment.constant.SECONDS.ONE_DAY) {
 				// Tomorrow
 				schedule.workDays = schedule.workDays?.map((day) => {
 					if (day === 1) {

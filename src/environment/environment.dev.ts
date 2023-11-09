@@ -1,3 +1,5 @@
+import {constant} from "@environment/constant";
+
 export const environment = {
   production: false,
   develop: true,
@@ -15,6 +17,7 @@ export const environment = {
       defaultErrorHandler: true,
     }
   },
+	constant,
   config: {
     modal: {
       prefix: 'beeoclock_modal_'
