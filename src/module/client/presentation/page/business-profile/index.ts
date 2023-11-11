@@ -53,6 +53,7 @@ import {BackButtonComponent} from "@utility/presentation/component/button/back.b
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {EventSettingsComponent} from "@client/presentation/component/settings/event/event.settings.component";
 import {GeneralSettingsComponent} from "@client/presentation/component/settings/general/general.settings.component";
+import {ClientActions} from "@client/state/client/client.actions";
 
 @Component({
 	selector: 'client-business-profile-page',
@@ -164,6 +165,7 @@ export default class Index implements OnInit {
 			]);
 
 			this.store.dispatch(new AppActions.PageLoading(false));
+			this.store.dispatch(new ClientActions.InitClient());
 			this.form.enable();
 			this.form.updateValueAndValidity();
 		}
