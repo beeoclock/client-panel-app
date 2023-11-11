@@ -114,8 +114,8 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 
 		this.loader.switchOn();
 
-		const start = target.startOf('week').startOf('day').toUTC().toISO();
-		const end = target.endOf('week').endOf('day').toUTC().toISO();
+		const start = target.startOf('day').toUTC().toISO();
+		const end = target.plus({day: 7}).endOf('day').toUTC().toISO();
 
 		if (start && end) {
 

@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {AfterContentInit, Component, inject, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -7,7 +7,7 @@ import {EventForm} from '@event/presentation/form/event.form';
 import {AttendeesComponent} from '@event/presentation/component/form/attendees/attendees.component';
 import {IEvent, MEvent, RMIEvent} from "@event/domain";
 import {TranslateModule} from "@ngx-translate/core";
-import {filter, firstValueFrom, Observable} from "rxjs";
+import {filter, firstValueFrom, map, Observable, tap} from "rxjs";
 import {Select, Store} from "@ngxs/store";
 import {EventState} from "@event/state/event/event.state";
 import {EventActions} from "@event/state/event/event.actions";
@@ -22,15 +22,16 @@ import {LinkButtonDirective} from "@utility/presentation/directives/button/link.
 import {NGXLogger} from "ngx-logger";
 import {IService} from "@service/domain";
 import {
-    SelectTimeSlotComponent
+	SelectTimeSlotComponent
 } from "@event/presentation/component/form/select-time-slot/index/select-time-slot.component";
 import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
 import {Reactive} from "@utility/cdk/reactive";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {
-    ButtonSaveContainerComponent
+	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
+import {is} from "thiis";
 
 @Component({
 	selector: 'event-form-page',
@@ -57,7 +58,7 @@ import {
 	],
 	standalone: true
 })
-export default class Index extends Reactive implements OnInit {
+export default class Index extends Reactive implements OnInit, AfterContentInit {
 
 	// TODO move functions to store effects/actions
 
@@ -74,6 +75,7 @@ export default class Index extends Reactive implements OnInit {
 	public readonly preview = new BooleanState(false);
 
 	public specialist = '';
+	public eventDurationInSeconds = 0;
 
 	@ViewChild(BackButtonComponent)
 	public backButtonComponent!: BackButtonComponent;
@@ -91,22 +93,42 @@ export default class Index extends Reactive implements OnInit {
 
 	public ngOnInit(): void {
 		this.detectItem();
+
 		this.form.controls.services.valueChanges.pipe(
 			this.takeUntil(),
-			filter((services) => !!services?.length)
-		).subscribe(([firstService]) => {
+			filter((services) => !!services?.length),
+			map(([firstService]) => firstService),
+			tap(this.setSpecialist.bind(this)),
+			tap(this.setEventDuration.bind(this)),
+		).subscribe(() => {
 
-			this.setSpecialist(firstService);
-
-			this.slotsService.setSpecialist(this.specialist);
-			this.slotsService.setEventDurationInSeconds(this.getEventDurationInSeconds(firstService));
-			this.slotsService.refillSlotsIfInitialized().then();
+			this.slotsService
+				.setSpecialist(this.specialist)
+				.setEventDurationInSeconds(this.eventDurationInSeconds)
+				.refillSlotsIfInitialized()
+				.then();
 
 		});
 
 	}
 
-	public getEventDurationInSeconds(service: IService): number {
+	public ngAfterContentInit(): void {
+
+		this.activatedRoute.data.subscribe((data) => {
+			// {cacheLoaded: boolean; customer: undefined | ICustomer; service: undefined | IService;}
+			const {customer, service} = data;
+			if (customer) {
+				this.form.controls.attendees.controls[0].controls.customer.patchValue(customer);
+				this.form.controls.attendees.controls[0].disable();
+			}
+			if (service) {
+				this.form.controls.services.patchValue([service]);
+			}
+		});
+
+	}
+
+	private getEventDurationInSeconds(service: IService): number {
 		try {
 			const [durationVersion] = service.durationVersions;
 			const {durationInSeconds, breakInSeconds} = durationVersion;
@@ -116,21 +138,29 @@ export default class Index extends Reactive implements OnInit {
 		}
 	}
 
-	private setSpecialist(service: IService): void {
+	private setEventDuration(service: IService): this {
+		this.eventDurationInSeconds = this.getEventDurationInSeconds(service);
+		return this;
+	}
+
+	private setSpecialist(service: IService): this {
 
 		const [firstSpecialist] = service?.specialists ?? [];
 
 		if (!firstSpecialist) {
-			return;
+			return this;
 		}
 
 		const {member} = firstSpecialist;
 
-		if (typeof member === 'string') {
+		if (is.string(member)) {
 			this.specialist = member;
 		} else {
 			this.specialist = member?._id ?? '';
 		}
+
+		return this;
+
 	}
 
 	public detectItem(): void {

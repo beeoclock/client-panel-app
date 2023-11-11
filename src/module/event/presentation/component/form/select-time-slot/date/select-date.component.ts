@@ -7,6 +7,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {ButtonArrowComponent} from "@event/presentation/component/form/select-time-slot/button.arrow.component";
+import {SelectDateService} from "@event/presentation/component/form/select-time-slot/date/select-date.service";
 
 // TODO Move
 interface IDayItem {
@@ -14,22 +15,6 @@ interface IDayItem {
   isToday: boolean;
   isTomorrow: boolean;
   datetime: DateTime;
-}
-
-// TODO Move
-// Helper function to generate a list of day items
-export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsInContainer: number) {
-  const dayItemList = [];
-  for (let day = 0; day < amountOfDaySlotsInContainer; day++) {
-    const datetime = sourceDatetime.plus({day});
-    dayItemList.push({
-      isPast: datetime.startOf('day') < DateTime.now().startOf('day'),
-      isToday: datetime.hasSame(DateTime.now(), 'day'),
-      isTomorrow: datetime.hasSame(DateTime.now().plus({day: 1}), 'day'),
-      datetime,
-    });
-  }
-  return dayItemList;
 }
 
 @Component({
@@ -44,6 +29,9 @@ export function generateDayItemList(sourceDatetime: DateTime, amountOfDaySlotsIn
 		AsyncPipe,
 		ButtonArrowComponent
 	],
+	providers: [
+		SelectDateService,
+	]
 })
 export class SelectDateComponent extends Reactive implements OnInit, AfterViewInit {
 
@@ -65,6 +53,7 @@ export class SelectDateComponent extends Reactive implements OnInit, AfterViewIn
   public readonly changeDetectorRef = inject(ChangeDetectorRef);
   public readonly translateService = inject(TranslateService);
 	public readonly slotsService = inject(SlotsService);
+	public readonly selectDateService = inject(SelectDateService);
 
 	public get loader(): BooleanStreamState {
 		return this.slotsService.loader;
@@ -128,7 +117,7 @@ export class SelectDateComponent extends Reactive implements OnInit, AfterViewIn
 
   public prepareDatetimeList(sourceDatetime: DateTime): void {
     sourceDatetime = sourceDatetime.setLocale(this.translateService.currentLang);
-    this.dayItemList = generateDayItemList(sourceDatetime, this.amountOfDaySlotsInContainer);
+    this.dayItemList = this.selectDateService.generateDayItemList(sourceDatetime, this.amountOfDaySlotsInContainer);
     this.daySlotsTitle = this.prepareDaySlotsTitle(sourceDatetime);
     this.changeDetectorRef.detectChanges();
   }
