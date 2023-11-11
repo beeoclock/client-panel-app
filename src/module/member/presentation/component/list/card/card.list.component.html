@@ -6,9 +6,7 @@
 <!--					<div activeStyle [active]="item.active"></div>-->
 <!--				</div>-->
 				<utility-table-column-action
-					[id]="item._id"
-					(delete)="delete($event)"
-					(archive)="archive($event)"/>
+					[id]="item._id"/>
 			</div>
 			<div class="flex justify-between">
 				<div class="flex-1">
@@ -61,7 +59,6 @@
 		</bee-card>
 	</div>
 	<utility-table-state-pagination-component
-		(clearCache)="clearTableCache()"
 		(page)="pageChange($event)"
 		[tableState]="tableState"/>
 </div>

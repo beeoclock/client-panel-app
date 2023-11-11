@@ -2,7 +2,6 @@ import {Component, inject, OnChanges, SimpleChange, SimpleChanges, ViewEncapsula
 import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
-import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
@@ -17,6 +16,7 @@ import {ILanguageVersion, IService} from "@service/domain";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {LanguageCodeEnum} from "@utility/domain/enum";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
+import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
 
 @Component({
 	selector: 'service-card-list-component',
@@ -27,7 +27,6 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 		NgForOf,
 		RouterLink,
 		ActiveStyleDirective,
-		ActionComponent,
 		TableStatePaginationComponent,
 		DynamicDatePipe,
 		SortIndicatorComponent,
@@ -37,7 +36,8 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 		HumanizeDurationPipe,
 		CardComponent,
 		NgIf,
-		AsyncPipe
+		AsyncPipe,
+		RowActionButtonComponent
 	]
 })
 export class CardListComponent extends TableComponent<IService> implements OnChanges {

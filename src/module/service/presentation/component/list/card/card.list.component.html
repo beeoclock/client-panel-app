@@ -17,7 +17,7 @@
 					{{ (item?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow'  }}
 				</div>
 			</div>
-			<utility-table-column-action *ngIf="showAction.state$ | async" [id]="item._id" (delete)="delete($event)"/>
+			<service-row-action-button-component *ngIf="showAction.state$ | async" [item]="item" [id]="item._id"/>
 			<div *ngIf="showSelectedStatus.state$ | async">
 				<div
 					*ngIf="selectedIds.includes(item._id)"
@@ -43,6 +43,5 @@
 </div>
 <utility-table-state-pagination-component
 	[mobileMode]="true"
-	(clearCache)="clearTableCache()"
 	(page)="pageChange($event)"
 	[tableState]="tableState"/>
