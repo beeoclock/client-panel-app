@@ -16,7 +16,7 @@ export const clientDetailsResolver: ResolveFn<boolean> = () => {
     return EMPTY;
   }
 
-  return store.dispatch(new ClientActions.GetItem())
+  return store.dispatch(new ClientActions.InitClient())
     .pipe(
       map(() => true),
       catchError(() => EMPTY)

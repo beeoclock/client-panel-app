@@ -27,7 +27,7 @@ export class ClientState {
 
 	public readonly itemBusinessProfileApiAdapter = inject(ItemBusinessProfileApiAdapter);
 
-	@Action(ClientActions.GetItem)
+	@Action(ClientActions.InitClient)
 	public async getItem(ctx: StateContext<IClientState>): Promise<void> {
 
 		ctx.dispatch(new AppActions.PageLoading(true));
