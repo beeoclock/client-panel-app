@@ -211,6 +211,8 @@ export class SlotsService {
 			};
 		});
 
+		const today = DateTime.now();
+
 		this.dayItemList.forEach((dayItem) => {
 
 			// #1 Find schedules for current day
@@ -282,6 +284,11 @@ export class SlotsService {
 			// #5 Find schedule pieces for current day
 			let loopStart = schedules[0].start;
 			const finish = schedules[schedules.length - 1].end;
+
+			// 5.1 Check if loopStart is in the past
+			if (loopStart < today) {
+				loopStart = today;
+			}
 
 			while (loopStart < finish) {
 
