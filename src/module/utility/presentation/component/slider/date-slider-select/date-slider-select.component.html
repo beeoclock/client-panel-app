@@ -21,27 +21,27 @@
                 }">
             </div>
             <div
-							*ngIf="dayItem.slots.length"
+							*ngIf="dayItem.slots.length || dayItem.events.length"
 							class="w-[20px] h-[20px] flex items-center justify-center text-sm rounded-full absolute -right-1 -top-0"
 							[ngClass]="{
                 'bg-blue-200 text-blue-600': isSelected(dayItem.datetime),
                 'bg-beeColor-300 text-beeColor-600': !isSelected(dayItem.datetime)
                 }">
-							{{ dayItem.slots.length }}
+							{{ dayItem.slots.length || dayItem.events.length }}
             </div>
 
 					<button
 						type="button"
 						(click)="selectDateItem(dayItem.datetime)"
 						[ngClass]="getClassList(isSelected(dayItem.datetime))"
-						[disabled]="dayItem.isPast || (loader.state$ | async)"
+						[disabled]="preventPastDates && (dayItem.isPast || (loader.state$ | async))"
 						class="min-w-[60px] max-w-[60px] min-h-[60px] max-h-[60px] leading-tight flex flex-col items-center justify-center ring-1 ring-inset rounded-md p-3">
 						<span class="font-bold">{{ dayItem.datetime.day }}</span>
 						<span>{{ dayItem.datetime.weekdayShort }}</span>
 					</button>
 
 					<div
-						*ngIf="hasSelectedTimeSlot(dayItem.datetime)"
+						*ngIf="controlsAreRequired && hasSelectedTimeSlot(dayItem.datetime)"
 						class="w-[30px] h-[6px] rounded-full absolute left-[15px] -bottom-0"
 						[ngClass]="{
 							'bg-blue-200': isSelected(dayItem.datetime),

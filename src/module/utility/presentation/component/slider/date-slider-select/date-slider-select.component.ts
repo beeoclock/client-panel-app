@@ -15,7 +15,6 @@ import {DateTime, Settings} from "luxon";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {AsyncPipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {Reactive} from "@utility/cdk/reactive";
-import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {ButtonArrowComponent} from "@event/presentation/component/form/select-time-slot/button.arrow.component";
 import {filter, Observable} from "rxjs";
@@ -44,11 +43,17 @@ import {
 })
 export class DateSliderSelectComponent extends Reactive implements OnInit, AfterViewInit {
 
-	@Input({required: true})
+	@Input()
 	public control!: FormControl<string>;
 
-	@Input({required: true})
+	@Input()
 	public localDateTimeControl!: FormControl<DateTime>;
+
+	@Input()
+	public controlsAreRequired = true;
+
+	@Input()
+	public preventPastDates = true;
 
 	@Input({required: true})
 	public dayItemList: IDayItem[] = [];
@@ -73,7 +78,6 @@ export class DateSliderSelectComponent extends Reactive implements OnInit, After
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly translateService = inject(TranslateService);
 	public readonly logger = inject(NGXLogger);
-	public readonly slotsService = inject(SlotsService);
 	public readonly selectDateService = inject(DateSliderSelectService);
 
 	public daySlotsTitle = '';
@@ -82,23 +86,27 @@ export class DateSliderSelectComponent extends Reactive implements OnInit, After
 
 		Settings.defaultLocale = this.translateService.currentLang;
 
-		if (this.control.value) {
-			this.selectedDateTime = DateTime.fromISO(this.control.value);
-		}
+		if (this.controlsAreRequired) {
 
-		this.control.valueChanges.pipe(this.takeUntil()).subscribe((VALUE) => {
-			this.selectedDateTime = DateTime.fromISO(VALUE);
-			this.localDateTimeControl.patchValue(this.selectedDateTime);
-			this.changeDetectorRef.detectChanges();
-		});
+			if (this.control.value) {
+				this.selectedDateTime = DateTime.fromISO(this.control.value);
+			}
 
-		if (this.firstSlot$) {
-			this.firstSlot$.pipe(
-				this.takeUntil(),
-				filter(is.object<{ start: DateTime; end: DateTime; }>),
-			).subscribe((firstSlot) => {
-				this.control.patchValue(firstSlot.start.toJSDate().toISOString());
-			})
+			this.control.valueChanges.pipe(this.takeUntil()).subscribe((VALUE) => {
+				this.selectedDateTime = DateTime.fromISO(VALUE);
+				this.localDateTimeControl.patchValue(this.selectedDateTime);
+				this.changeDetectorRef.detectChanges();
+			});
+
+			if (this.firstSlot$) {
+				this.firstSlot$.pipe(
+					this.takeUntil(),
+					filter(is.object<{ start: DateTime; end: DateTime; }>),
+				).subscribe((firstSlot) => {
+					this.control.patchValue(firstSlot.start.toJSDate().toISOString());
+				})
+			}
+
 		}
 
 	}
@@ -115,7 +123,7 @@ export class DateSliderSelectComponent extends Reactive implements OnInit, After
 
 	public prevPackOfDates(): void {
 		const [firstDayItem] = this.dayItemList;
-		if (firstDayItem.isToday) {
+		if (this.preventPastDates && firstDayItem.isToday) {
 			return;
 		}
 		const {datetime} = firstDayItem;
