@@ -106,7 +106,7 @@ export class SelectDateComponent extends Reactive implements OnInit, AfterViewIn
 
 	public nextPackOfDates(): void {
 		const lastItem = this.dayItemList[this.dayItemList.length - 1];
-		this.prepareDatetimeList(lastItem.datetime.plus({day: 1})).then();
+		this.prepareDatetimeList(lastItem.datetime.plus({day: 1}));
 	}
 
 	public prepareDaySlotsTitle(sourceDatetime: DateTime): string {
