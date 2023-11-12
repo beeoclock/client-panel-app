@@ -1,4 +1,15 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, inject, Input, OnInit, ViewChild} from '@angular/core';
+import {
+	AfterViewInit,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	inject,
+	Input,
+	OnInit,
+	Output,
+	ViewChild
+} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {DateTime, Settings} from "luxon";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -7,14 +18,17 @@ import {Reactive} from "@utility/cdk/reactive";
 import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {ButtonArrowComponent} from "@event/presentation/component/form/select-time-slot/button.arrow.component";
-import {SelectDateService} from "@event/presentation/component/form/select-time-slot/date/select-date.service";
-import {filter} from "rxjs";
+import {filter, Observable} from "rxjs";
 import {is} from "thiis";
 import {NGXLogger} from "ngx-logger";
+import {IDayItem} from "@utility/domain/interface/i.day-item";
+import {
+	DateSliderSelectService
+} from "@utility/presentation/component/slider/date-slider-select/date-slider-select.service";
 
 @Component({
-	selector: 'event-select-time-slot-date-form-component',
-	templateUrl: './select-date.component.html',
+	selector: 'utility-date-slider-select-component',
+	templateUrl: './date-slider-select.component.html',
 	standalone: true,
 	imports: [
 		NgForOf,
@@ -25,16 +39,28 @@ import {NGXLogger} from "ngx-logger";
 		ButtonArrowComponent
 	],
 	providers: [
-		SelectDateService,
+		DateSliderSelectService,
 	]
 })
-export class SelectDateComponent extends Reactive implements OnInit, AfterViewInit {
+export class DateSliderSelectComponent extends Reactive implements OnInit, AfterViewInit {
 
-	@Input()
+	@Input({required: true})
 	public control!: FormControl<string>;
 
-	@Input()
+	@Input({required: true})
 	public localDateTimeControl!: FormControl<DateTime>;
+
+	@Input({required: true})
+	public dayItemList: IDayItem[] = [];
+
+	@Input({required: true})
+	public loader!: BooleanStreamState;
+
+	@Input()
+	public firstSlot$: Observable<unknown> | undefined;
+
+	@Output()
+	public updateDayItemList = new EventEmitter<IDayItem[]>();
 
 	public selectedDateTime = DateTime.now();
 	public today = DateTime.now();
@@ -48,17 +74,9 @@ export class SelectDateComponent extends Reactive implements OnInit, AfterViewIn
 	public readonly translateService = inject(TranslateService);
 	public readonly logger = inject(NGXLogger);
 	public readonly slotsService = inject(SlotsService);
-	public readonly selectDateService = inject(SelectDateService);
-
-	public get loader(): BooleanStreamState {
-		return this.slotsService.loader;
-	}
+	public readonly selectDateService = inject(DateSliderSelectService);
 
 	public daySlotsTitle = '';
-
-	public get dayItemList() {
-		return this.slotsService.dayItemList;
-	}
 
 	public ngOnInit(): void {
 
@@ -74,12 +92,14 @@ export class SelectDateComponent extends Reactive implements OnInit, AfterViewIn
 			this.changeDetectorRef.detectChanges();
 		});
 
-		this.slotsService.firstSlot$.pipe(
-			this.takeUntil(),
-			filter(is.object<{start: DateTime; end: DateTime;}>),
-		).subscribe((firstSlot) => {
-			this.control.patchValue(firstSlot.start.toJSDate().toISOString());
-		});
+		if (this.firstSlot$) {
+			this.firstSlot$.pipe(
+				this.takeUntil(),
+				filter(is.object<{ start: DateTime; end: DateTime; }>),
+			).subscribe((firstSlot) => {
+				this.control.patchValue(firstSlot.start.toJSDate().toISOString());
+			})
+		}
 
 	}
 
@@ -90,7 +110,7 @@ export class SelectDateComponent extends Reactive implements OnInit, AfterViewIn
 
 	public detectAmountOfDaySlots(): void {
 		// Detect amount of day slots
-		this.amountOfDaySlotsInContainer = Math.floor(this.daySlotsContainer.nativeElement.clientWidth / (60 + 4));
+		this.amountOfDaySlotsInContainer = Math.floor(this.daySlotsContainer.nativeElement.clientWidth / (60 + 8));
 	}
 
 	public prevPackOfDates(): void {
@@ -129,9 +149,7 @@ export class SelectDateComponent extends Reactive implements OnInit, AfterViewIn
 		sourceDatetime = sourceDatetime.setLocale(this.translateService.currentLang);
 		this.daySlotsTitle = this.prepareDaySlotsTitle(sourceDatetime);
 		const dayItemList = this.selectDateService.generateDayItemList(sourceDatetime, this.amountOfDaySlotsInContainer);
-		await this.slotsService
-			.setDayItemList(dayItemList)
-			.initSlots();
+		this.updateDayItemList.emit(dayItemList);
 		this.changeDetectorRef.detectChanges();
 	}
 

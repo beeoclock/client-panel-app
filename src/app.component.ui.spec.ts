@@ -11,7 +11,7 @@ import {ServiceWorkerModule} from "@angular/service-worker";
 class MockTranslateService {
 	currentLang = 'en'; // Set the current language to a default value for testing
 
-	// Add any additional methods or properties used by SelectDateComponent
+	// Add any additional methods or properties used by DateSliderSelectComponent
 	// ...
 
 	getBrowserLang(): string {

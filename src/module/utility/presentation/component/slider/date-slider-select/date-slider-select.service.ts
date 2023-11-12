@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {DateTime} from "luxon";
 
 @Injectable()
-export class SelectDateService {
+export class DateSliderSelectService {
 
 	/**
 	 * Helper function to generate a list of day items
@@ -23,6 +23,7 @@ export class SelectDateService {
 				isTomorrow: datetime.hasSame(DateTime.now().plus({day: 1}), 'day'),
 				datetime,
 				slots: [],
+				events: [],
 			});
 
 		}

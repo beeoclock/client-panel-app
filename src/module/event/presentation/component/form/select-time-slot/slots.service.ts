@@ -8,14 +8,8 @@ import {RIBusySlot} from "@event/domain/interface/i.busy-slot";
 import {DateTime} from "luxon";
 import {SlotBuildingStrategyEnum} from "@client/domain/enum/slot-building-strategy.enum";
 import {BehaviorSubject} from "rxjs";
+import {IDayItem} from "@utility/domain/interface/i.day-item";
 
-interface IDayItem {
-	isPast: boolean;
-	isToday: boolean;
-	isTomorrow: boolean;
-	datetime: DateTime;
-	slots: { start: DateTime; end: DateTime }[];
-}
 
 @Injectable()
 export class SlotsService {
