@@ -95,6 +95,9 @@ export class SelectDateComponent extends Reactive implements OnInit, AfterViewIn
 
 	public prevPackOfDates(): void {
 		const [firstDayItem] = this.dayItemList;
+		if (firstDayItem.isToday) {
+			return;
+		}
 		const {datetime} = firstDayItem;
 		this.prepareDatetimeList(datetime.minus({
 			day: this.amountOfDaySlotsInContainer
