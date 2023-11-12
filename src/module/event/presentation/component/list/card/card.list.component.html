@@ -1,8 +1,7 @@
 <div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState.items.length">
-	<bee-card class="text-sm" gap="gap-2" *ngFor="let item of tableState.items; trackBy: trackById"
-						(click)="singleClick(item)">
-		<div class="flex justify-between items-center">
-			<div class="flex items-center gap-2">
+	<bee-card class="text-sm" gap="gap-2" *ngFor="let item of tableState.items; trackBy: trackById">
+		<div class="flex justify-between items-center gap-8">
+			<div class="flex items-center gap-2 w-full" (click)="singleClick(item)">
 				<div eventStatusStyle mode="text" [status]="item.status"></div>
 				<div
 					class="bg-neutral-100 text-neutral-800 font-medium inline-flex gap-2 items-center px-2 py-0.5 rounded-2xl dark:bg-gray-700 dark:text-neutral-400 border border-neutral-400">
@@ -12,6 +11,7 @@
 			<utility-table-column-action placement="bottom-start" [offsetDistance]="10" [id]="item._id!"/>
 		</div>
 		<div
+			(click)="singleClick(item)"
 			class="inline-flex gap-4 items-center">
 			<i class="bi bi-calendar-week"></i>
 			<div class="flex gap-4">
@@ -24,6 +24,7 @@
 			</div>
 		</div>
 		<div
+			(click)="singleClick(item)"
 			class="inline-flex gap-4 items-center">
 			<i class="bi bi-clock"></i>
 			<div class="inline-flex gap-2">
@@ -31,11 +32,13 @@
 			</div>
 		</div>
 		<div
+			(click)="singleClick(item)"
 			class="inline-flex gap-4 items-center">
 			<i class="bi bi-cart"></i>
 			{{ item?.services?.[0]?.languageVersions?.[0]?.title | noData }}
 		</div>
 		<div
+			(click)="singleClick(item)"
 			*ngFor="let attendant of (item?.attendees ?? [])"
 			#attendantRef
 			[attr.data-value]="(attendant?.customer?.firstName ?? '') + ' ' + (attendant?.customer?.lastName ?? '')"
@@ -43,7 +46,7 @@
 			<i class="bi bi-person"></i>
 			{{ (attendantRef?.getAttribute?.('data-value')?.length ?? 0) > 1 ? attendantRef.getAttribute('data-value') : (attendant?.customer?.email ?? attendant?.customer?.phone ?? '-') }}
 		</div>
-		<ng-container *ngIf="item?.description?.length">
+		<ng-container (click)="singleClick(item)" *ngIf="item?.description?.length">
 			<hr class="mt-2">
 			<div class="text-neutral-500 dark:text-neutral-400 py-2">
 				{{ item.description }}
