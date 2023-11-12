@@ -288,7 +288,16 @@ export class SlotsService {
 				const loopEnd = loopStart.plus({second: this.eventDurationInSeconds});
 
 				const busySlot = busySlotsInSchedules.find((busySlot) => {
-					return loopStart >= busySlot.start && loopEnd <= busySlot.end;
+					const inside = loopStart >= busySlot.start && loopEnd <= busySlot.end;
+					if (inside) {
+						return true;
+					}
+					const startIsInSchedule = loopStart >= busySlot.start && loopStart < busySlot.end;
+					if (startIsInSchedule) {
+						return true;
+					}
+					const endIsInSchedule = loopEnd > busySlot.start && loopEnd <= busySlot.end;
+					return endIsInSchedule
 				});
 
 				if (busySlot) {
@@ -296,6 +305,11 @@ export class SlotsService {
 					loopStart = busySlot.end;
 					continue;
 				} else {
+					// If loopEnd is more than finish, then set loopStart to finish
+					if (loopEnd > finish) {
+						loopStart = finish;
+						continue;
+					}
 					dayItem.slots.push({
 						start: loopStart,
 						end: loopEnd,
