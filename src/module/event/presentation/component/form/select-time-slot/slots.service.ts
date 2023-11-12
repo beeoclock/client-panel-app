@@ -177,6 +177,9 @@ export class SlotsService {
 	}
 
 	private async loadBusySlots(start: string, end: string) {
+
+		end = DateTime.fromISO(end).endOf('day').toJSDate().toISOString();
+
 		return this.busySlotsEventApiAdapter.executeAsync({
 			start,
 			end,
