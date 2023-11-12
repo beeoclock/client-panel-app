@@ -3,21 +3,19 @@
 		<utility-loader/>
 	</div>
 	<ng-template [ngIf]="loader.isOff">
-		<event-select-time-slot-button-arrow-component [left]="true" (click)="prevSlotPack()" [disabled]="isFirstSlotPack"/>
 
-		<ng-template [ngIf]="!timeSlotLists.length">
+		<ng-template [ngIf]="!slots.length">
 			{{ 'keyword.capitalize.dataNotFound' | translate }}
 		</ng-template>
-		<div #timeSlotsContainer *ngIf="timeSlotLists.length" class="grid grid-cols-3 md:grid-cols-6 gap-1 w-full">
+		<div #timeSlotsContainer *ngIf="slots.length" class="grid grid-cols-4 md:grid-cols-6 gap-2 w-full px-4">
 			<button
 				type="button"
-				*ngFor="let timeSlot of timeSlotLists[currentIndexListOfSlots]"
-				(click)="selectDateItem(timeSlot.datetime)"
-				[ngClass]="getClassList(isSelected(timeSlot.datetime))"
-				class="min-w-[72px] max-w-[72px] flex flex-col items-center justify-center border rounded-md px-3 py-2">
-				<span>{{ timeSlot.datetime.toFormat('HH:mm') }}</span>
+				*ngFor="let timeSlot of slots"
+				(click)="selectDateItem(timeSlot.start)"
+				[ngClass]="getClassList(isSelected(timeSlot.start))"
+				class="min-w-[72px] flex flex-col items-center justify-center border rounded-md px-3 py-2">
+				<span>{{ timeSlot.start.toFormat('HH:mm') }}</span>
 			</button>
 		</div>
-		<event-select-time-slot-button-arrow-component [right]="true" (click)="nextSlotPack()" [disabled]="isLastSlotPack"/>
 	</ng-template>
 </div>

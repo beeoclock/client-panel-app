@@ -1,6 +1,8 @@
 import {Routes} from "@angular/router";
 import {eventDetailsResolver} from "@event/presentation/resolver/event.details.resolver";
 import {eventCacheResolver} from "@event/presentation/resolver/event.cache.resolver";
+import {eventServiceResolver} from "@event/presentation/resolver/event.service.resolver";
+import {eventCustomerResolver} from "@event/presentation/resolver/event.customer.resolver";
 
 export const routers = [
 	{
@@ -18,6 +20,10 @@ export const routers = [
 			},
 			{
 				path: 'form',
+				resolve: {
+					service: eventServiceResolver,
+					customer: eventCustomerResolver,
+				},
 				loadComponent: () => import('./page/form'),
 			},
 			{

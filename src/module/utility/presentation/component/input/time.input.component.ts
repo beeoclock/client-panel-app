@@ -41,7 +41,7 @@ export class TimeInputComponent implements OnInit {
   public valueAsNumber = true;
 
   @Input()
-  public utc = true;
+  public utc = false;
 
 	public ngOnInit(): void {
 

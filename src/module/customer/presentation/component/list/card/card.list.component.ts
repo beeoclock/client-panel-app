@@ -2,7 +2,6 @@ import {Component, ViewEncapsulation} from "@angular/core";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
-import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
@@ -16,6 +15,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {ICustomer} from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
+import {RowActionButtonComponent} from "@customer/presentation/component/row-action-button/row-action-button.component";
 
 @Component({
 	selector: 'customer-card-list-component',
@@ -26,7 +26,6 @@ import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 		NgForOf,
 		RouterLink,
 		ActiveStyleDirective,
-		ActionComponent,
 		TableStatePaginationComponent,
 		DynamicDatePipe,
 		SortIndicatorComponent,
@@ -36,7 +35,8 @@ import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 		HumanizeDurationPipe,
 		CardComponent,
 		NgIf,
-		NoDataPipe
+		NoDataPipe,
+		RowActionButtonComponent
 	]
 })
 export class CardListComponent extends TableComponent<ICustomer> {

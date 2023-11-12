@@ -21,7 +21,7 @@ import {Placement} from "@popperjs/core/lib/enums";
         <li>
           <a
             [routerLink]="id"
-            class="text-start block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
+            class="flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
             <i class="bi bi-eye"></i>
             {{ 'keyword.capitalize.details' | translate }}
           </a>
@@ -29,11 +29,12 @@ import {Placement} from "@popperjs/core/lib/enums";
         <li>
           <a
             [routerLink]="[id, 'form']"
-            class="text-start block px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
+            class="flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
             <i class="bi bi-pencil"></i>
             {{ 'keyword.capitalize.edit' | translate }}
           </a>
         </li>
+				<ng-content/>
 <!--        <li *ngIf="active === activeEnum.NO">-->
 <!--          <button-->
 <!--            (click)="delete.emit(id)"-->

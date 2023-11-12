@@ -12,14 +12,14 @@
 		<div #daySlotsContainer class="flex gap-1 overflow-x-auto w-full justify-center items-center">
 			<ng-container *ngFor="let dayItem of dayItemList">
 				<div class="relative pb-0.5 pt-1">
-            <span
+            <div
 							*ngIf="dayItem.isToday"
 							class="w-[10px] h-[10px] rounded-full absolute left-[25px] -top-0"
 							[ngClass]="{
                 'bg-blue-200': isSelected(dayItem.datetime),
                 'bg-beeColor-300': !isSelected(dayItem.datetime)
                 }">
-            </span>
+            </div>
 
 					<button
 						type="button"
@@ -31,11 +31,14 @@
 						<span>{{ dayItem.datetime.weekdayShort }}</span>
 					</button>
 
-					<span
+					<div
 						*ngIf="hasSelectedTimeSlot(dayItem.datetime)"
 						class="w-[30px] h-[6px] rounded-full absolute left-[15px] -bottom-0"
-						[ngClass]="{ 'bg-blue-200': isSelected(dayItem.datetime), 'bg-beeColor-300': !isSelected(dayItem.datetime) }"
-					></span>
+						[ngClass]="{
+							'bg-blue-200': isSelected(dayItem.datetime),
+							'bg-beeColor-300': !isSelected(dayItem.datetime)
+						}"
+					></div>
 				</div>
 			</ng-container>
 		</div>

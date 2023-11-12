@@ -20,6 +20,7 @@ import {CacheActions} from "@utility/state/cache/cache.actions";
 import {MAIN_CONTAINER_ID} from "@src/token";
 import {NGXLogger} from "ngx-logger";
 import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
+import {ClientActions} from "@client/state/client/client.actions";
 
 @Component({
   selector: 'utility-wrapper-panel-component',
@@ -68,7 +69,12 @@ export default class WrapperPanelComponent implements AfterViewInit, OnDestroy {
 
   public ngAfterViewInit(): void {
     this.initDetectorIfUserHasActiveWebsite();
+		this.initClient();
   }
+
+	private initClient(): void {
+		this.store.dispatch(new ClientActions.InitClient());
+	}
 
   private clearNotificationChecker(): void {
     clearTimeout(this.checkerTimer);
