@@ -215,6 +215,8 @@ export class SlotsService {
 
 		this.dayItemList.forEach((dayItem) => {
 
+			this.logger.debug('calculateFreeSchedulePiecesPerDay: dayItem', dayItem.datetime.toJSDate().toISOString(), dayItem);
+
 			// #1 Find schedules for current day
 			let schedules = this.schedules
 				// #1.0 Filter schedules by work days
@@ -239,6 +241,8 @@ export class SlotsService {
 			if (!schedules.length) {
 				return;
 			}
+
+			this.logger.debug('calculateFreeSchedulePiecesPerDay: schedules', schedules);
 
 			const indexesOfBusySlotsWhichCoverSchedule: number[] = [];
 
@@ -282,59 +286,67 @@ export class SlotsService {
 			dayItem.slots.length = 0;
 
 			// #5 Find schedule pieces for current day
-			let loopStart = schedules[0].start;
-			const finish = schedules[schedules.length - 1].end;
+			schedules.forEach((schedule) => {
 
-			// 5.1 Check if loopStart is in the past
-			if (loopStart < today) {
-				loopStart = today;
-			}
+				let loopStart = schedule.start;
+				const finish = schedule.end;
 
-			while (loopStart < finish) {
+				// 5.1 Check if loopStart is in the past
+				if (loopStart < today) {
+					loopStart = today;
+				}
 
-				const loopEnd = loopStart.plus({second: this.eventDurationInSeconds});
+				while (loopStart < finish) {
 
-				const busySlot = busySlotsInSchedules.find((busySlot) => {
-					const inside = loopStart >= busySlot.start && loopEnd <= busySlot.end;
-					if (inside) {
-						return true;
-					}
-					const startIsInSchedule = loopStart >= busySlot.start && loopStart < busySlot.end;
-					if (startIsInSchedule) {
-						return true;
-					}
-					const endIsInSchedule = loopEnd > busySlot.start && loopEnd <= busySlot.end;
-					return endIsInSchedule
-				});
+					const loopEnd = loopStart.plus({second: this.eventDurationInSeconds});
 
-				if (busySlot) {
-					// Round loopStart to busySlot.end
-					loopStart = busySlot.end;
-					continue;
-				} else {
-					// If loopEnd is more than finish, then set loopStart to finish
-					if (loopEnd > finish) {
-						loopStart = finish;
-						continue;
-					}
-					dayItem.slots.push({
-						start: loopStart,
-						end: loopEnd,
+					this.logger.debug('calculateFreeSchedulePiecesPerDay: loopStart, loopEnd', loopStart, loopEnd);
+
+					const busySlot = busySlotsInSchedules.find((busySlot) => {
+						const inside = loopStart >= busySlot.start && loopEnd <= busySlot.end;
+						if (inside) {
+							return true;
+						}
+						const startIsInSchedule = loopStart >= busySlot.start && loopStart < busySlot.end;
+						if (startIsInSchedule) {
+							return true;
+						}
+						const endIsInSchedule = loopEnd > busySlot.start && loopEnd <= busySlot.end;
+						return endIsInSchedule
 					});
+
+					this.logger.debug('calculateFreeSchedulePiecesPerDay: busySlot', busySlot);
+
+					if (busySlot) {
+						// Round loopStart to busySlot.end
+						loopStart = busySlot.end;
+						continue;
+					} else {
+						// If loopEnd is more than finish, then set loopStart to finish
+						if (loopEnd > finish) {
+							loopStart = finish;
+							continue;
+						}
+						dayItem.slots.push({
+							start: loopStart,
+							end: loopEnd,
+						});
+					}
+
+					switch (this.slotBuildingStrategy) {
+						case SlotBuildingStrategyEnum.ByService:
+							loopStart = loopStart.plus({second: this.eventDurationInSeconds});
+							break;
+						case SlotBuildingStrategyEnum.ByInterval:
+							loopStart = loopStart.plus({second: this.slotIntervalInSeconds});
+							break;
+						default:
+							throw new Error(`Unknown slot building strategy: ${this.slotBuildingStrategy}`);
+					}
+
 				}
 
-				switch (this.slotBuildingStrategy) {
-					case SlotBuildingStrategyEnum.ByService:
-						loopStart = loopStart.plus({second: this.eventDurationInSeconds});
-						break;
-					case SlotBuildingStrategyEnum.ByInterval:
-						loopStart = loopStart.plus({second: this.slotIntervalInSeconds});
-						break;
-					default:
-						throw new Error(`Unknown slot building strategy: ${this.slotBuildingStrategy}`);
-				}
-
-			}
+			});
 
 		});
 
