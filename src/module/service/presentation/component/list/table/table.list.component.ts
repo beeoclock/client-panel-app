@@ -2,7 +2,6 @@ import {Component, inject, ViewEncapsulation} from "@angular/core";
 import {CurrencyPipe, NgForOf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
-import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
@@ -20,6 +19,7 @@ import {ColumnTableFlexDirective} from "@utility/presentation/directives/talbe/f
 import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex/row.table.flex.directive";
 import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
+import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
 
 @Component({
 	selector: 'service-table-list-component',
@@ -30,7 +30,6 @@ import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 		NgForOf,
 		RouterLink,
 		ActiveStyleDirective,
-		ActionComponent,
 		TableStatePaginationComponent,
 		DynamicDatePipe,
 		SortIndicatorComponent,
@@ -42,7 +41,8 @@ import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 		ColumnTableFlexDirective,
 		RowTableFlexDirective,
 		TableTableFlexDirective,
-		NoDataPipe
+		NoDataPipe,
+		RowActionButtonComponent
 	]
 })
 export class TableListComponent extends TableComponent<IService> {

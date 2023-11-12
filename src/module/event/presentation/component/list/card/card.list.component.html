@@ -9,8 +9,7 @@
 					{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item.services[0].durationVersions[0].prices[0].currency: 'symbol-narrow'  }}
 				</div>
 			</div>
-			<utility-table-column-action placement="bottom-start" [offsetDistance]="10" [id]="item._id!"
-																	 (delete)="delete($event)"/>
+			<utility-table-column-action placement="bottom-start" [offsetDistance]="10" [id]="item._id!"/>
 		</div>
 		<div
 			class="inline-flex gap-4 items-center">
@@ -58,6 +57,5 @@
 	</bee-card>
 </div>
 <utility-table-state-pagination-component
-	(clearCache)="clearTableCache()"
 	(page)="pageChange($event)"
 	[tableState]="tableState"/>

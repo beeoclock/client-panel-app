@@ -2,9 +2,11 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {DateTime} from 'luxon';
-import {generateDayItemList, SelectDateComponent} from './select-date.component';
+import {SelectDateComponent} from './select-date.component';
 import {LoggerTestingModule} from 'ngx-logger/testing';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {SelectDateService} from "@event/presentation/component/form/select-time-slot/date/select-date.service";
+import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
 
 // Create a mock TranslateService
 class MockTranslateService {
@@ -32,6 +34,8 @@ describe('SelectDateComponent', () => {
 			providers: [
 				// Provide the mock TranslateService
 				{provide: TranslateService, useClass: MockTranslateService},
+				SelectDateService,
+				SlotsService,
 			],
 		}).compileComponents();
 	});
@@ -44,7 +48,6 @@ describe('SelectDateComponent', () => {
 		const controlValue = '2023-07-15T12:00:00';
 		component.control = new FormControl(controlValue) as FormControl;
 
-		fixture.detectChanges();
 	});
 
 	it('should create', () => {
@@ -59,8 +62,14 @@ describe('SelectDateComponent', () => {
 	it('should detect the amount of day slots in container', () => {
 		const spyDetectAmountOfDaySlots = jest.spyOn(component, 'detectAmountOfDaySlots');
 
+		component['daySlotsContainer'] = {
+			nativeElement: {
+				clientWidth: 360,
+			},
+		} as any;
+
 		// Manually set clientWidth of the daySlotsContainer for testing purpose
-		Object.defineProperty(component.daySlotsContainer.nativeElement, 'clientWidth', {value: 360});
+		// Object.defineProperty(component.daySlotsContainer.nativeElement, 'clientWidth', {value: 360});
 
 		component.ngAfterViewInit();
 
@@ -91,7 +100,7 @@ describe('SelectDateComponent', () => {
 		component.amountOfDaySlotsInContainer = 7;
 
 		// Manually populate dayItemList with dummy data
-		component.dayItemList = generateDayItemList(sourceDatetime, component.amountOfDaySlotsInContainer);
+		component.slotsService.setDayItemList(component.selectDateService.generateDayItemList(sourceDatetime, component.amountOfDaySlotsInContainer));
 
 		// Use jest.spyOn instead of spyOn from Jasmine
 		const prepareDatetimeListSpy = jest.spyOn(component, 'prepareDatetimeList');
@@ -109,13 +118,13 @@ describe('SelectDateComponent', () => {
 		component.amountOfDaySlotsInContainer = 7;
 
 		// Manually populate dayItemList with dummy data starting from '2023-07-15'
-		component.dayItemList = generateDayItemList(sourceDatetime, component.amountOfDaySlotsInContainer);
+		component.slotsService.setDayItemList(component.selectDateService.generateDayItemList(sourceDatetime, component.amountOfDaySlotsInContainer));
 
 		// Use jest.spyOn instead of spyOn from Jasmine
-		const prepareDatetimeListSpy = jest.spyOn(component, 'prepareDatetimeList').mockImplementation(() => {
+		const prepareDatetimeListSpy = jest.spyOn(component, 'prepareDatetimeList').mockImplementation((): any => {
 			// Update dayItemList with the new data for the next pack of dates
 			const nextSourceDatetime = sourceDatetime.plus({day: component.amountOfDaySlotsInContainer});
-			component.dayItemList = generateDayItemList(nextSourceDatetime, component.amountOfDaySlotsInContainer);
+			component.slotsService.setDayItemList(component.selectDateService.generateDayItemList(nextSourceDatetime, component.amountOfDaySlotsInContainer));
 		});
 
 		component.nextPackOfDates();

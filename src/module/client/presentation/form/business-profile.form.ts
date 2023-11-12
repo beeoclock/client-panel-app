@@ -9,6 +9,8 @@ import {ContactsForm} from "@client/presentation/form/contact.form";
 import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
 import {BusinessIndustry} from "@utility/domain/business-industry";
 import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
+import {BusinessSettingsForm} from "@client/presentation/form/business-settings.form";
+import {is} from "thiis";
 
 
 export interface IBusinessProfile {
@@ -26,6 +28,7 @@ export interface IBusinessProfile {
 	socialNetworkLinks: SocialNetworksForm;
 
 	bookingSettings: BookingSettingsForm;
+	businessSettings: BusinessSettingsForm;
 	addresses: AddressesForm;
 	schedules: SchedulesForm;
 	contacts: ContactsForm;
@@ -48,6 +51,7 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
 			socialNetworkLinks: new SocialNetworksForm(),
 
 			bookingSettings: new BookingSettingsForm(),
+			businessSettings: new BusinessSettingsForm(),
 			facilities: new FormControl(),
 			addresses: new AddressesForm(),
 			schedules: new SchedulesForm(),
@@ -62,7 +66,7 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
 
 	private initHandles(): void {
 		this.controls.published.valueChanges.subscribe((value) => {
-			if (typeof value === 'boolean') {
+			if (is.boolean(value)) {
 				this.controls.published.patchValue(+value, {
 					emitEvent: false
 				});

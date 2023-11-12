@@ -6,11 +6,9 @@
 					{{ (item.active ? 'keyword.capitalize.active' : 'keyword.capitalize.inactive' ) | translate }}
 				</div>
 			</div>
-			<utility-table-column-action
-				[id]="item._id"
-				[active]="item.active"
-				(delete)="delete($event)"
-				(archive)="archive($event)"/>
+			<customer-row-action-button-component
+				[item]="item"
+				[id]="item._id"/>
 		</div>
 		<div class="flex justify-between">
 			<div class="flex-1">
@@ -45,6 +43,5 @@
 	</bee-card>
 </div>
 <utility-table-state-pagination-component
-	(clearCache)="clearTableCache()"
 	(page)="pageChange($event)"
 	[tableState]="tableState"/>

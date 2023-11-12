@@ -101,16 +101,13 @@
 				</span>
 			</div>
 			<div tableColumnFlex="action" class="border-l sticky right-0">
-				<utility-table-column-action
-					[id]="item._id"
-					[active]="item.active"
-					(delete)="delete($event)"
-					(archive)="archive($event)"/>
+				<customer-row-action-button-component
+					[item]="item"
+					[id]="item._id"/>
 			</div>
 		</div>
 	</div>
 </div>
 <utility-table-state-pagination-component
-	(clearCache)="clearTableCache()"
 	(page)="pageChange($event)"
 	[tableState]="tableState"/>

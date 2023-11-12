@@ -1,132 +1,337 @@
 import {inject, Injectable} from "@angular/core";
-import {SlotsEventApiAdapter} from "@event/adapter/external/api/slots.event.api.adapter";
 import {NGXLogger} from "ngx-logger";
-import {BooleanState} from "@utility/domain";
-import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {SelectTimeComponent} from "@event/presentation/component/form/select-time-slot/time/select-time.component";
-import hash_sum from "hash-sum";
-import {HALF_HOUR_IN_SECONDS, ONE_HOUR_IN_SECONDS} from "@utility/domain/time";
+import {BusySlotsEventApiAdapter} from "@event/adapter/external/api/busy-slots.event.api.adapter";
+import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
+import {RISchedule} from "@utility/domain/interface/i.schedule";
+import {RIBusySlot} from "@event/domain/interface/i.busy-slot";
+import {DateTime} from "luxon";
+import {SlotBuildingStrategyEnum} from "@client/domain/enum/slot-building-strategy.enum";
+import {BehaviorSubject} from "rxjs";
 
-@Injectable({
-	providedIn: 'root'
-})
+interface IDayItem {
+	isPast: boolean;
+	isToday: boolean;
+	isTomorrow: boolean;
+	datetime: DateTime;
+	slots: { start: DateTime; end: DateTime }[];
+}
+
+@Injectable()
 export class SlotsService {
 
 	private readonly logger = inject(NGXLogger);
-	private readonly slotsEventApiAdapter = inject(SlotsEventApiAdapter);
-	private readonly localTemporaryCache = new Map<string, string[]>();
-	#slots: string[] = [];
+	private readonly busySlotsEventApiAdapter = inject(BusySlotsEventApiAdapter);
 
+	public readonly slots: string[] = [];
+
+	public readonly initialized = new BooleanStreamState(false);
 	public readonly loader = new BooleanStreamState(false);
-	public readonly initialized = new BooleanState(false);
-	#specialist: string | undefined;
-	#eventDurationInSeconds = ONE_HOUR_IN_SECONDS;
-	#getFreeSlotsDto: {
-		specialist: string;
-		start: string;
-		eventDurationInSeconds: number;
-		end: string;
-		slotIntervalInSeconds: number
-	} | undefined;
 
+	private firstDayIso!: string;
+	private lastDayIso!: string;
+	private busySlots: RIBusySlot[] = [];
+	private schedules: RISchedule[] = [];
+	private specialist: string | undefined;
+	private eventDurationInSeconds = 0;
+	private slotBuildingStrategy: SlotBuildingStrategyEnum = SlotBuildingStrategyEnum.ByService;
+	private slotIntervalInSeconds = 0;
+
+	public dayItemList$: BehaviorSubject<IDayItem[]> = new BehaviorSubject<IDayItem[]>([]);
+	public firstSlot$ = new BehaviorSubject<{ start: DateTime; end: DateTime } | null>(null);
 	public selectTimeComponent: SelectTimeComponent | undefined;
 
-	public get slots(): string[] {
-		return this.#slots;
+	public get dayItemList(): IDayItem[] {
+		return this.dayItemList$.getValue();
 	}
 
-	public get specialist(): string | undefined {
-		return this.#specialist;
+	public get specialistExist(): boolean {
+		return Boolean(this.specialist);
 	}
 
-	public get eventDurationInSeconds(): number {
-		return this.#eventDurationInSeconds;
+	public getSlotsByDay(day: DateTime) {
+		const dayItem = this.dayItemList.find((dayItem) => {
+			return dayItem.datetime.hasSame(day, 'day');
+		});
+		return dayItem?.slots ?? [];
 	}
 
-	/**
-	 *
-	 * @param start - ISO string
-	 * @param end - ISO string
-	 */
-	// public async initSlots(start: string, end: string, specialist: string) {
-	public async initSlots(
-		start: string,
-		end: string,
-	) {
-
-		if (this.initialized.isOff) {
-			this.logger.debug('Initialized: First time initialize');
-			this.initialized.switchOn();
+	private getFirstSlot() {
+		for (const dayItem of this.dayItemList) {
+			const slot = dayItem.slots[0];
+			if (slot) {
+				return slot;
+			}
 		}
+		return null;
+	}
 
-		if (!this.specialist) {
-			this.logger.error('Specialist is not defined')
-			return;
-		}
+	public async initSlots() {
 
-		this.logger.debug('initSlots', {start, end, specialist: this.specialist, eventDurationInSeconds: this.eventDurationInSeconds})
-
-
-		this.#getFreeSlotsDto = {
-			start,
-			end,
-			eventDurationInSeconds: this.eventDurationInSeconds,
-			slotIntervalInSeconds: HALF_HOUR_IN_SECONDS,
-			specialist: this.specialist,
-		};
-
-		const key = hash_sum(this.#getFreeSlotsDto);
-		this.logger.debug('initSlots.key:', {key})
+		this.loader.switchOn();
 
 		try {
-			if (this.localTemporaryCache.has(key)) {
-				this.#slots = (this.localTemporaryCache.get(key) ?? []);
-				return;
+
+			// #1 Load busy slots
+			await this.loadBusySlots(this.firstDayIso, this.lastDayIso);
+
+			// #2 Calculate all free schedules pieces based on busy slots
+			this.calculateFreeSchedulePiecesPerDay();
+
+			if (this.initialized.isOff) {
+
+				this.logger.debug('Initialized: First time initialize, after service has been selected');
+
+				// #3 Set first slot
+				const firstSlot = this.getFirstSlot();
+				this.firstSlot$.next(firstSlot);
+
+				this.initialized.switchOn();
+
 			}
 
-			await this.fillSlots();
 		} catch (e) {
+
 			this.logger.error(e);
+
 		} finally {
-			this.localTemporaryCache.set(key, this.#slots);
+
+			setTimeout(() => {
+				this.loader.switchOff();
+			}, 250);
+
 		}
+
+		return this;
 
 	}
 
-	public async fillSlots() {
-		if (!this.#getFreeSlotsDto) {
-			this.logger.error('this.#getFreeSlotsDto is not defined');
-			return;
-		}
-		this.#slots = await this.slotsEventApiAdapter.executeAsync(this.#getFreeSlotsDto);
-		this.selectTimeComponent?.initTimeSlotLists();
-	}
+	public setSchedules(schedules: RISchedule[]) {
 
-	public async refillSlotsIfInitialized() {
-		if (this.initialized.isOn) {
-			this.updateGetFreeSlotsDtoWithLocalProperty();
-			this.loader.switchOn();
-			await this.fillSlots();
-			this.loader.switchOff();
-		}
+		this.logger.debug('setSchedules', {schedules})
+		this.schedules = schedules;
+		return this;
+
 	}
 
 	public setSpecialist(specialist: string) {
-		this.logger.debug('setSpecialist', {specialist})
-		this.#specialist = specialist;
+
+		this.logger.debug('setSpecialist', {specialist});
+		this.specialist = specialist;
+		return this;
+
 	}
 
 	public setEventDurationInSeconds(eventDurationInSeconds: number) {
+
 		this.logger.debug('setEventDurationInSeconds', {eventDurationInSeconds})
-		this.#eventDurationInSeconds = eventDurationInSeconds;
+		this.eventDurationInSeconds = eventDurationInSeconds;
+		return this;
+
 	}
 
-	public updateGetFreeSlotsDtoWithLocalProperty() {
-		if (this.#getFreeSlotsDto) {
-			this.#getFreeSlotsDto.eventDurationInSeconds = this.eventDurationInSeconds;
-			if (this.specialist) {
-				this.#getFreeSlotsDto.specialist = this.specialist;
-			}
+	public setBusySlots(busySlots: RIBusySlot[]) {
+
+		this.logger.debug('setBusySlots', {busySlots})
+		this.busySlots = busySlots;
+		return this;
+
+	}
+
+	public setFirstAndLastDayIso(firstDayIso: string, lastDayIso: string) {
+
+		this.logger.debug('setFirstAndLastDayIso', {firstDayIso, lastDayIso})
+		this.firstDayIso = firstDayIso;
+		this.lastDayIso = lastDayIso;
+		return this;
+
+	}
+
+	public setSlotBuildingStrategy(slotBuildingStrategy: SlotBuildingStrategyEnum) {
+
+		this.logger.debug('slotBuildingStrategy', {slotBuildingStrategy})
+		this.slotBuildingStrategy = slotBuildingStrategy;
+		return this;
+
+	}
+
+	public setSlotIntervalInSeconds(slotIntervalInSeconds: number) {
+
+		this.logger.debug('setSlotIntervalInSeconds', {slotIntervalInSeconds})
+		this.slotIntervalInSeconds = slotIntervalInSeconds;
+		return this;
+
+	}
+
+	public setDayItemList(dayItemList: IDayItem[]) {
+
+		this.logger.debug('setDayItemList', {dayItemList})
+		this.dayItemList$.next(dayItemList);
+
+
+		const [firstDayItem] = this.dayItemList;
+		const firstDayIso = firstDayItem.datetime.toUTC().toISO();
+		const lastDayItem = this.dayItemList.at(-1);
+		const lastDayIso = lastDayItem?.datetime.toUTC().toISO();
+
+		if (firstDayIso && lastDayIso) {
+			this.setFirstAndLastDayIso(firstDayIso, lastDayIso);
 		}
+
+		return this;
+
+	}
+
+	private async loadBusySlots(start: string, end: string) {
+		return this.busySlotsEventApiAdapter.executeAsync({
+			start,
+			end,
+			specialist: this.specialist,
+		}).then(this.setBusySlots.bind(this));
+	}
+
+	private calculateFreeSchedulePiecesPerDay() {
+
+		this.logger.debug('calculateFreeSchedulePiecesPerDay', {
+			schedules: this.schedules,
+			busySlots: this.busySlots,
+			dayItemList: this.dayItemList,
+		});
+
+		// #0 Check if schedules are defined
+		if (!this.schedules.length) {
+			this.logger.debug('calculateFreeSchedulePiecesPerDay: schedules is empty');
+			return;
+		}
+
+		const busySlotsInDateTime = this.busySlots.map((busySlot) => {
+			return {
+				start: DateTime.fromISO(busySlot.start),
+				end: DateTime.fromISO(busySlot.end),
+			};
+		});
+
+		this.dayItemList.forEach((dayItem) => {
+
+			// #1 Find schedules for current day
+			let schedules = this.schedules
+				// #1.0 Filter schedules by work days
+				.filter((schedule) => {
+					return schedule.workDays?.includes(dayItem.datetime.weekday) ?? false;
+				})
+				// #1.1 Filter schedules by event duration, schedule gaps should be more than event duration
+				.filter(({endInSeconds, startInSeconds}) => {
+					const scheduleDuration = endInSeconds - startInSeconds;
+					return scheduleDuration >= this.eventDurationInSeconds;
+				})
+				// #1.2 Sort schedules by start time
+				.sort((a, b) => {
+					return a.startInSeconds - b.startInSeconds;
+				})
+				// #1.3 Convert seconds to datetime
+				.map(({endInSeconds, startInSeconds}) => ({
+					start: dayItem.datetime.startOf('day').plus({second: startInSeconds}),
+					end: dayItem.datetime.startOf('day').plus({second: endInSeconds}),
+				}));
+
+			if (!schedules.length) {
+				return;
+			}
+
+			const indexesOfBusySlotsWhichCoverSchedule: number[] = [];
+
+			// #2 Find busy slots for current day
+			const busySlotsInSchedules = busySlotsInDateTime.filter((busySlot) => {
+				const startHasSameDay = dayItem.datetime.hasSame(busySlot.start, 'day');
+				const endHasSameDay = dayItem.datetime.hasSame(busySlot.end, 'day');
+				if (!startHasSameDay && !endHasSameDay) {
+					return;
+				}
+				const busySlotIsInSchedule = schedules.some((schedule, index) => {
+					const inside = busySlot.start >= schedule.start && busySlot.end <= schedule.end;
+					if (inside) {
+						return true;
+					}
+					const outside = busySlot.start <= schedule.start && busySlot.end >= schedule.end;
+					if (outside) {
+						indexesOfBusySlotsWhichCoverSchedule.push(index);
+						return true;
+					}
+					const startIsInSchedule = busySlot.start >= schedule.start && busySlot.start <= schedule.end;
+					if (startIsInSchedule) {
+						return true;
+					}
+					const endIsInSchedule = busySlot.end >= schedule.start && busySlot.end <= schedule.end;
+					return endIsInSchedule;
+				});
+				return busySlotIsInSchedule;
+			});
+
+			// #3 Check if there are busy slots which cover schedule
+			if (indexesOfBusySlotsWhichCoverSchedule.length) {
+				this.logger.debug('Found busy slots which cover schedule', indexesOfBusySlotsWhichCoverSchedule);
+				// Remove schedules which are covered by busy slots
+				schedules = schedules.filter((schedule, index) => {
+					return !indexesOfBusySlotsWhichCoverSchedule.includes(index);
+				});
+			}
+
+			// #4 Clear slots
+			dayItem.slots.length = 0;
+
+			// #5 Find schedule pieces for current day
+			let loopStart = schedules[0].start;
+			const finish = schedules[schedules.length - 1].end;
+
+			while (loopStart < finish) {
+
+				const loopEnd = loopStart.plus({second: this.eventDurationInSeconds});
+
+				const busySlot = busySlotsInSchedules.find((busySlot) => {
+					const inside = loopStart >= busySlot.start && loopEnd <= busySlot.end;
+					if (inside) {
+						return true;
+					}
+					const startIsInSchedule = loopStart >= busySlot.start && loopStart < busySlot.end;
+					if (startIsInSchedule) {
+						return true;
+					}
+					const endIsInSchedule = loopEnd > busySlot.start && loopEnd <= busySlot.end;
+					return endIsInSchedule
+				});
+
+				if (busySlot) {
+					// Round loopStart to busySlot.end
+					loopStart = busySlot.end;
+					continue;
+				} else {
+					// If loopEnd is more than finish, then set loopStart to finish
+					if (loopEnd > finish) {
+						loopStart = finish;
+						continue;
+					}
+					dayItem.slots.push({
+						start: loopStart,
+						end: loopEnd,
+					});
+				}
+
+				switch (this.slotBuildingStrategy) {
+					case SlotBuildingStrategyEnum.ByService:
+						loopStart = loopStart.plus({second: this.eventDurationInSeconds});
+						break;
+					case SlotBuildingStrategyEnum.ByInterval:
+						loopStart = loopStart.plus({second: this.slotIntervalInSeconds});
+						break;
+					default:
+						throw new Error(`Unknown slot building strategy: ${this.slotBuildingStrategy}`);
+				}
+
+			}
+
+		});
+
+		this.logger.debug('calculateFreeSchedulePiecesPerDay: dayItemList', this.dayItemList);
+
 	}
 }
