@@ -1,14 +1,13 @@
-import {AfterViewInit, Component, inject, ViewChild, ViewEncapsulation} from "@angular/core";
+import {Component, inject, ViewEncapsulation} from "@angular/core";
 import {Router, RouterLink} from "@angular/router";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {IonDatetime, IonicModule} from "@ionic/angular";
+import {TranslateModule} from "@ngx-translate/core";
+import {IonicModule} from "@ionic/angular";
 import {CurrencyPipe, DatePipe, NgForOf, NgIf} from "@angular/common";
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CalendarEventsListApiAdapter} from "@event/adapter/external/widget/calendar-events.list.api.adapter";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {Reactive} from "@utility/cdk/reactive";
 import {RIEvent} from "@event/domain";
-import {BooleanState} from "@utility/domain";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {
@@ -19,12 +18,17 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
+import {
+	DateSliderSelectComponent
+} from "@utility/presentation/component/slider/date-slider-select/date-slider-select.component";
+import {IDayItem} from "@utility/domain/interface/i.day-item";
+import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
+import {DateTime} from "luxon";
 
 @Component({
 	selector: 'utility-widget-calendar-events',
 	templateUrl: './calendar-events.component.html',
 	encapsulation: ViewEncapsulation.None,
-	// changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
 		RouterLink,
@@ -44,76 +48,56 @@ import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 		DatePipe,
 		HumanizeDurationPipe,
 		NoDataPipe,
+		DateSliderSelectComponent,
 	]
 })
-export class CalendarEventsComponent extends Reactive implements AfterViewInit {
-
-	@ViewChild(IonDatetime)
-	public readonly ionDatetime!: IonDatetime;
+export class CalendarEventsComponent extends Reactive {
 
 	private readonly calendarEventsListApiAdapter = inject(CalendarEventsListApiAdapter);
 	private readonly router = inject(Router);
-	private readonly translateService = inject(TranslateService);
 	private readonly dynamicDateHelper = inject(DynamicDateHelper);
 	public readonly returnUrl = this.router.url;
-	public readonly todayStr = new Date().toLocaleDateString("sv");
-	public readonly form = new FormGroup({
-		start: new FormControl(this.todayStr),
-		end: new FormControl(this.todayStr),
-		status: new FormControl(''),
-		orderBy: new FormControl('start'),
-		orderDir: new FormControl('asc'),
-		pageSize: new FormControl(50)
-	});
+	public readonly selectedDateControl = new FormControl(DateTime.now()) as FormControl<DateTime>;
 	public items: RIEvent[] = [];
-	public readonly loading = new BooleanState(false);
+
+	public dayItemList: IDayItem[] = [];
+	public readonly loader = new BooleanStreamState(false);
+
+	public updateDayItemList(dayItemList: IDayItem[]) {
+		this.loader.switchOn();
+		const firstDay = dayItemList[0];
+		const lastDay = dayItemList[dayItemList.length - 1];
+		this.calendarEventsListApiAdapter.executeAsync({
+			start: firstDay.datetime.startOf('day').toJSDate().toISOString(),
+			end: lastDay.datetime.endOf('day').toJSDate().toISOString(),
+			pageSize: 100,
+			orderBy: 'start',
+			orderDir: 'asc',
+		}).then((data) => {
+			data.items.forEach((item) => {
+				const start = DateTime.fromISO(item.start);
+				const dayItem = dayItemList.find((dayItem) => {
+					return dayItem.datetime.hasSame(start, 'day');
+				});
+				if (dayItem) {
+					dayItem.events.push(item);
+				}
+			});
+			this.dayItemList = dayItemList;
+			this.loader.switchOff();
+		});
+	}
 
 	constructor() {
 		super();
-		this.form.valueChanges.subscribe((params) => {
-			this.form.disable({
-				emitEvent: false,
-				onlySelf: true
+
+		this.selectedDateControl.valueChanges.subscribe((value) => {
+			// Get items from this.dayItemList
+			const dayItem = this.dayItemList.find((dayItem) => {
+				return dayItem.datetime.hasSame(value, 'day');
 			});
-			this.loading.switchOn();
-			this.ionDatetime.disabled = this.loading.isOn;
-			const newStart = new Date(params.start as string);
-			newStart.setHours(0);
-			newStart.setMinutes(0);
-			newStart.setSeconds(0);
-			params.start = newStart.toISOString();
-
-			newStart.setDate(newStart.getDate() + 1);
-			params.end = newStart.toISOString();
-			if (!params.status) {
-				delete params.status;
-			}
-			this.calendarEventsListApiAdapter.executeAsync(params).then((data) => {
-				this.items = data.items;
-				this.loading.switchOff();
-				this.form.enable({
-					emitEvent: false,
-					onlySelf: true
-				});
-				this.ionDatetime.disabled = this.loading.isOn;
-			});
+			this.items = (dayItem?.events ?? []) as RIEvent[];
 		});
-	}
-
-	public sameYear(start: string | undefined): boolean {
-		return start ? new Date(start).getFullYear() === new Date().getFullYear() : false;
-	}
-
-	public ngAfterViewInit() {
-		this.ionDatetime.locale = this.translateService.currentLang;
-		this.translateService.onLangChange.pipe(this.takeUntil()).subscribe((lang) => {
-			this.ionDatetime.locale = lang.lang;
-		});
-		this.toDay();
-	}
-
-	public toDay(): void {
-		this.form.controls.start.setValue(this.todayStr);
 	}
 
 	public dynamicDate(value: string | null): string {

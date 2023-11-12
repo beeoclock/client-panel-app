@@ -1,21 +1,27 @@
 <div
 	class="w-full rounded-2xl border dark:bg-neutral-800 bg-white max-h-[calc(100vh-4rem)] md:max-h-[calc(100vh-6rem)]">
-	<ion-datetime [firstDayOfWeek]="1" [formControl]="form.controls.start" mode="ios" presentation="date"
-								class="rounded-2xl"
-								size="full">
-	</ion-datetime>
+
+	<utility-date-slider-select-component
+		class="block m-4"
+		(updateDayItemList)="updateDayItemList($event)"
+		[dayItemList]="dayItemList"
+		[loader]="loader"
+		[localDateTimeControl]="selectedDateControl"
+		[preventPastDates]="false"
+		[controlsAreRequired]="false"/>
+
 	<div class="flex justify-end">
 		<!--		<button type="button" primaryLink (click)="toDay()">-->
 		<!--			{{ 'keyword.capitalize.today' | translate }}-->
 		<!--		</button>-->
-		<ion-item lines="none" class="rounded-2xl">
-			<ion-select-event-status [control]="form.controls.status"/>
-		</ion-item>
+<!--		<ion-item lines="none" class="rounded-2xl">-->
+<!--			<ion-select-event-status [control]="form.controls.status"/>-->
+<!--		</ion-item>-->
 	</div>
 	<div
 		class="flex flex-col overflow-y-scroll border-t max-h-[calc(100vh-(28.625rem+49px))] md:max-h-[calc(100vh-(30.625rem+49px))]">
-		<utility-loader *ngIf="loading.isOn"/>
-		<ng-template [ngIf]="loading.isOff">
+		<utility-loader *ngIf="loader.isOn"/>
+		<ng-template [ngIf]="loader.isOff">
 			<ng-template [ngIf]="items.length">
 				<a
 					*ngFor="let item of items"
@@ -23,14 +29,14 @@
 					[queryParams]="{returnUrl}"
 					class="py-3 hover:bg-beeColor-100 border-t first:border-0">
 					<div class=" flex gap-2">
-						<div class="flex flex-col justify-start items-center min-w-[100px] gap-2">
-							<div class="font-medium">
+						<div class="flex flex-col justify-start items-center min-w-[100px] gap-1">
+							<div class="font-bold text-xl">
 								{{ item.start | date: 'HH:mm' }}
 							</div>
-							<div class="text-neutral-500">
+							<div class="text-neutral-500 text-sm">
 								{{ item?.services?.[0]?.durationVersions?.[0]?.durationInSeconds ?? 0 | humanizeDuration }}
 							</div>
-							<div class="font-medium">
+							<div class="font-medium text-sm">
 								{{ item.end | date: 'HH:mm' }}
 							</div>
 						</div>
@@ -64,7 +70,7 @@
 			</ng-template>
 			<ng-template [ngIf]="!items.length">
 				<div class="text-center p-4 text-beeColor-500">
-					{{ 'keyword.capitalize.thereArentAnyEvents' | translate: ({datetime: dynamicDate(form.controls.start.value)}) }}
+					{{ 'keyword.capitalize.thereArentAnyEvents' | translate: ({datetime: dynamicDate(selectedDateControl.value.toJSDate().toISOString())}) }}
 				</div>
 			</ng-template>
 		</ng-template>
@@ -74,7 +80,7 @@
 		type="button"
 		class="border-t p-3 w-full text-blue-500 hover:bg-blue-100 rounded-b-2xl transition-all"
 		routerLink="/event/form"
-		[queryParams]="{returnUrl, start: form.controls.start.value}">
+		[queryParams]="{returnUrl, start: selectedDateControl.value}">
 		<i class="bi bi-plus-lg"></i>
 		{{ 'keyword.capitalize.add-event' | translate }}
 	</button>
