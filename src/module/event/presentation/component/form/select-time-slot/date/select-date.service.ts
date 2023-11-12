@@ -15,7 +15,7 @@ export class SelectDateService {
 
 		for (let day = 0; day < amountOfDaySlotsInContainer; day++) {
 
-			const datetime = sourceDatetime.plus({day});
+			const datetime = sourceDatetime.plus({day}).startOf('day');
 
 			dayItemList.push({
 				isPast: datetime.startOf('day') < DateTime.now().startOf('day'),
