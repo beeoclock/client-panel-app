@@ -48,7 +48,7 @@
 						[serviceListControl]="form.controls.services"/>
 				</bee-card>
 
-				<bee-card *ngIf="specialist">
+				<bee-card *ngIf="slotsService.specialistExist">
 					<event-select-time-slot-form-component
 						[editable]="!isEditMode"
 						[control]="form.controls.start"/>

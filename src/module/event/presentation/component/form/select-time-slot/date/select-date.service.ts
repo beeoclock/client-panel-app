@@ -22,6 +22,7 @@ export class SelectDateService {
 				isToday: datetime.hasSame(DateTime.now(), 'day'),
 				isTomorrow: datetime.hasSame(DateTime.now().plus({day: 1}), 'day'),
 				datetime,
+				slots: [],
 			});
 
 		}

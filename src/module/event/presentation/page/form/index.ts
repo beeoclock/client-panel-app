@@ -7,7 +7,7 @@ import {EventForm} from '@event/presentation/form/event.form';
 import {AttendeesComponent} from '@event/presentation/component/form/attendees/attendees.component';
 import {IEvent, MEvent, RMIEvent} from "@event/domain";
 import {TranslateModule} from "@ngx-translate/core";
-import {filter, firstValueFrom, map, Observable, tap} from "rxjs";
+import {combineLatest, filter, firstValueFrom, map, Observable, tap} from "rxjs";
 import {Select, Store} from "@ngxs/store";
 import {EventState} from "@event/state/event/event.state";
 import {EventActions} from "@event/state/event/event.actions";
@@ -32,6 +32,9 @@ import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {is} from "thiis";
+import {ClientState} from "@client/state/client/client.state";
+import {RIClient} from "@client/domain";
+import {RISchedule} from "@utility/domain/interface/i.schedule";
 
 @Component({
 	selector: 'event-form-page',
@@ -55,6 +58,9 @@ import {is} from "thiis";
 		BackButtonComponent,
 		DefaultPanelComponent,
 		ButtonSaveContainerComponent,
+	],
+	providers: [
+		SlotsService
 	],
 	standalone: true
 })
@@ -83,6 +89,9 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 	@Select(EventState.itemData)
 	public itemData$!: Observable<RMIEvent | undefined>;
 
+	@Select(ClientState.item)
+	public client$!: Observable<RIClient>;
+
 	public get value(): RMIEvent {
 		return MEvent.create(this.form.getRawValue() as IEvent);
 	}
@@ -94,27 +103,47 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 	public ngOnInit(): void {
 		this.detectItem();
 
-		this.form.controls.services.valueChanges.pipe(
-			this.takeUntil(),
-			filter((services) => !!services?.length),
-			map(([firstService]) => firstService),
-			tap(this.setSpecialist.bind(this)),
-			tap(this.setEventDuration.bind(this)),
-		).subscribe(() => {
+		const clientAndService$ = combineLatest(
+			[
+				this.client$.pipe(this.takeUntil(), filter(is.object)),
+				this.form.controls.services.valueChanges.pipe(
+					this.takeUntil(),
+					filter((services) => !!services?.length),
+					map(([firstService]) => firstService),
+					tap(this.setSpecialist.bind(this)),
+					tap(this.setEventDuration.bind(this)),
+				),
+			]
+		);
 
-			this.slotsService
-				.setSpecialist(this.specialist)
-				.setEventDurationInSeconds(this.eventDurationInSeconds)
-				.refillSlotsIfInitialized()
-				.then();
+		clientAndService$
+			.pipe(
+				this.takeUntil()
+			)
+			.subscribe(([client, services]) => {
+				this.logger.debug('clientAndService$', client, services, this.slotsService.initialized.isOn);
 
-		});
+				this.slotsService
+					.setSchedules((client?.schedules ?? []) as RISchedule[])
+					.setSpecialist(this.specialist)
+					.setEventDurationInSeconds(this.eventDurationInSeconds)
+					.setSlotBuildingStrategy(client.bookingSettings.slotSettings.slotBuildingStrategy)
+					.setSlotIntervalInSeconds(client.bookingSettings.slotSettings.slotIntervalInSeconds);
+
+				if (this.slotsService.initialized.isOn) {
+					this.slotsService.initialized.switchOff();
+					this.slotsService.initSlots().then();
+				}
+
+			});
 
 	}
 
 	public ngAfterContentInit(): void {
 
-		this.activatedRoute.data.subscribe((data) => {
+		this.activatedRoute.data.pipe(
+			this.takeUntil(),
+		).subscribe((data) => {
 			// {cacheLoaded: boolean; customer: undefined | ICustomer; service: undefined | IService;}
 			const {customer, service} = data;
 			if (customer) {
