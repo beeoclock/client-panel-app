@@ -7,7 +7,7 @@
 		<ng-template [ngIf]="!slots.length">
 			{{ 'keyword.capitalize.dataNotFound' | translate }}
 		</ng-template>
-		<div #timeSlotsContainer *ngIf="slots.length" class="grid grid-cols-4 md:grid-cols-6 gap-2 w-full px-4">
+		<div #timeSlotsContainer *ngIf="slots.length" class="grid grid-cols-4 md:grid-cols-6 gap-2 w-full">
 			<button
 				type="button"
 				*ngFor="let timeSlot of slots"
