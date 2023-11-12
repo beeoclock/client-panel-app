@@ -9,7 +9,7 @@
 		<event-select-time-slot-button-arrow-component [left]="true" (click)="prevPackOfDates()"/>
 
 		<!-- Day Slots Container -->
-		<div #daySlotsContainer class="flex gap-1 overflow-x-auto w-full justify-center items-center">
+		<div #daySlotsContainer class="flex gap-2 overflow-x-auto w-full justify-center items-center">
 			<ng-container *ngFor="let dayItem of dayItemList">
 				<div class="relative pb-0.5 pt-1">
             <div
@@ -19,6 +19,15 @@
                 'bg-blue-200': isSelected(dayItem.datetime),
                 'bg-beeColor-300': !isSelected(dayItem.datetime)
                 }">
+            </div>
+            <div
+							*ngIf="dayItem.slots.length"
+							class="w-[20px] h-[20px] flex items-center justify-center text-sm rounded-full absolute -right-1 -top-0"
+							[ngClass]="{
+                'bg-blue-200 text-blue-600': isSelected(dayItem.datetime),
+                'bg-beeColor-300 text-beeColor-600': !isSelected(dayItem.datetime)
+                }">
+							{{ dayItem.slots.length }}
             </div>
 
 					<button

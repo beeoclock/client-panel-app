@@ -9,7 +9,7 @@
 // class MockTranslateService {
 //   currentLang = 'en'; // Set the current language to a default value for testing
 //
-//   // Add any additional methods or properties used by SelectDateComponent
+//   // Add any additional methods or properties used by DateSliderSelectComponent
 //   // ...
 //
 //   // Mock the translate method used in the component

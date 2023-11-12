@@ -2,17 +2,18 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {DateTime} from 'luxon';
-import {SelectDateComponent} from './select-date.component';
+import {DateSliderSelectComponent} from './date-slider-select.component';
 import {LoggerTestingModule} from 'ngx-logger/testing';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {SelectDateService} from "@event/presentation/component/form/select-time-slot/date/select-date.service";
-import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
+import {
+	DateSliderSelectService
+} from "@utility/presentation/component/slider/date-slider-select/date-slider-select.service";
 
 // Create a mock TranslateService
 class MockTranslateService {
 	currentLang = 'en'; // Set the current language to a default value for testing
 
-	// Add any additional methods or properties used by SelectDateComponent
+	// Add any additional methods or properties used by DateSliderSelectComponent
 	// ...
 
 	// Mock the translation method used in the component
@@ -24,8 +25,8 @@ class MockTranslateService {
 }
 
 describe('SelectDateComponent', () => {
-	let component: SelectDateComponent;
-	let fixture: ComponentFixture<SelectDateComponent>;
+	let component: DateSliderSelectComponent;
+	let fixture: ComponentFixture<DateSliderSelectComponent>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
@@ -34,14 +35,13 @@ describe('SelectDateComponent', () => {
 			providers: [
 				// Provide the mock TranslateService
 				{provide: TranslateService, useClass: MockTranslateService},
-				SelectDateService,
-				SlotsService,
+				DateSliderSelectService,
 			],
 		}).compileComponents();
 	});
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(SelectDateComponent);
+		fixture = TestBed.createComponent(DateSliderSelectComponent);
 		component = fixture.componentInstance;
 
 		// Input control
