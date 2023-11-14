@@ -84,6 +84,9 @@ export class CalendarEventsComponent extends Reactive {
 				}
 			});
 			this.dayItemList = dayItemList;
+			if (this.selectedDateControl.value >= firstDay.datetime && this.selectedDateControl.value <= lastDay.datetime) {
+				this.updateItems(this.selectedDateControl.value);
+			}
 			this.loader.switchOff();
 		});
 	}
@@ -92,12 +95,16 @@ export class CalendarEventsComponent extends Reactive {
 		super();
 
 		this.selectedDateControl.valueChanges.subscribe((value) => {
-			// Get items from this.dayItemList
-			const dayItem = this.dayItemList.find((dayItem) => {
-				return dayItem.datetime.hasSame(value, 'day');
-			});
-			this.items = (dayItem?.events ?? []) as RIEvent[];
+			this.updateItems(value);
 		});
+	}
+
+	private updateItems(value: DateTime) {
+		// Get items from this.dayItemList
+		const dayItem = this.dayItemList.find((dayItem) => {
+			return dayItem.datetime.hasSame(value, 'day');
+		});
+		this.items = (dayItem?.events ?? []) as RIEvent[];
 	}
 
 	public dynamicDate(value: string | null): string {
