@@ -20,7 +20,7 @@ import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex
 import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
-import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
+import {DurationVersionHtmlHelper} from "@service/helper/duration-version.html.helper";
 
 @Component({
 	selector: 'service-table-list-component',
@@ -46,7 +46,8 @@ import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration
 		RowActionButtonComponent
 	],
 	providers: [
-		CurrencyPipe
+		CurrencyPipe,
+		DurationVersionHtmlHelper,
 	]
 })
 export class TableListComponent extends TableComponent<IService> {
@@ -54,8 +55,7 @@ export class TableListComponent extends TableComponent<IService> {
 	public override readonly actions = ServiceActions;
 
 	public readonly translateService = inject(TranslateService);
-	public readonly currencyPipe = inject(CurrencyPipe);
-	public readonly humanizeDurationHelper = inject(HumanizeDurationHelper);
+	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
 	public get currentLanguageCode(): LanguageCodeEnum {
 		return this.translateService.getDefaultLang() as LanguageCodeEnum;
@@ -106,28 +106,5 @@ export class TableListComponent extends TableComponent<IService> {
 				},
 			},
 		},
-	}
-
-	public getPriceValue(item: IService) : string {
-		const result: string[] = [];
-		item.durationVersions.forEach((durationVersion) => {
-			const price = this.currencyPipe.transform(durationVersion.prices[0].price, item.durationVersions[0].prices[0].currency, 'symbol-narrow');
-			if (price) {
-				result.push(price);
-			}
-		});
-		return result.join(' / ');
-	}
-
-	public getDurationValue(item: IService): string {
-		// item.durationVersions[0].durationInSeconds | humanizeDuration
-		const result: string[] = [];
-		item.durationVersions.forEach((durationVersion) => {
-			const duration = this.humanizeDurationHelper.fromSeconds(durationVersion.durationInSeconds);
-			if (duration) {
-				result.push(duration);
-			}
-		});
-		return result.join(' / ');
 	}
 }

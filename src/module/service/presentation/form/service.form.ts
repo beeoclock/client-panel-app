@@ -226,6 +226,7 @@ export class ServiceForm extends FormGroup<IServiceForm> {
 
 	public initHandlers(): void {
 		this.controls.configuration.controls.duration.controls.durationVersionType.valueChanges.subscribe((value) => {
+			console.log(value);
 			switch (value) {
 				case DurationVersionTypeEnum.RANGE:
 					if (this.controls.durationVersions.controls.length === 1) {

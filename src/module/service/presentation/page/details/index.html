@@ -47,15 +47,21 @@
 
 								<div class="col-span-12 md:col-span-6">
 
-									<div class="flex flex-col gap-1">
+									<div class="flex flex-col gap-2">
 
-										<div class="text-end font-bold">
-											{{ getPriceValue(service) }}
-										</div>
-										<div class="text-end">
-											{{ getDurationValue(service) }}
+										<div class="flex flex-col items-end">
+											<div class="font-bold">{{ 'keyword.capitalize.price' | translate }}</div>
+											<div class="flex flex-col items-end"
+													 [innerHTML]="durationVersionHtmlHelper.getPriceValue(service)">
+											</div>
 										</div>
 
+										<div class="flex flex-col items-end">
+											<div class="font-bold">{{ 'keyword.capitalize.duration' | translate }}</div>
+											<div class="flex flex-col items-end"
+													 [innerHTML]="durationVersionHtmlHelper.getDurationValue(service)">
+											</div>
+										</div>
 									</div>
 
 								</div>

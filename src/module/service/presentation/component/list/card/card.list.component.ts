@@ -17,7 +17,7 @@ import {ServiceActions} from "@service/state/service/service.actions";
 import {LanguageCodeEnum} from "@utility/domain/enum";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
-import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
+import {DurationVersionHtmlHelper} from "@service/helper/duration-version.html.helper";
 
 @Component({
 	selector: 'service-card-list-component',
@@ -39,12 +39,17 @@ import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-typ
 		NgIf,
 		AsyncPipe,
 		RowActionButtonComponent
-	]
+	],
+	providers: [
+		CurrencyPipe,
+		DurationVersionHtmlHelper,
+	],
 })
 export class CardListComponent extends TableComponent<IService> implements OnChanges {
 
 	public override readonly actions = ServiceActions;
 	public readonly translateService = inject(TranslateService);
+	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
 	public get currentLanguageCode(): LanguageCodeEnum {
 		return this.translateService.getDefaultLang() as LanguageCodeEnum;
@@ -79,10 +84,6 @@ export class CardListComponent extends TableComponent<IService> implements OnCha
 	public getFirstLanguageVersion(languageVersions: ILanguageVersion[] = []): ILanguageVersion {
 		const firstOption = languageVersions.find(({language}) => language === this.currentLanguageCode);
 		return firstOption ?? languageVersions[0];
-	}
-
-	public durationIsRangeMode(item: IService): boolean {
-		return item.configuration?.duration?.durationVersionType === DurationVersionTypeEnum.RANGE;
 	}
 
 }

@@ -9,6 +9,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {ActiveEnum} from "@utility/domain/enum";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 import {TranslateModule} from "@ngx-translate/core";
+import {filter, take} from "rxjs";
 
 @Component({
 	selector: 'service-form-prices-block-component',
@@ -81,19 +82,19 @@ export class PricesBlockComponent extends Reactive implements OnInit {
 	}
 
 	public ngOnInit() {
-		this.durationConfigurationForm.controls.durationVersionType.valueChanges.pipe(this.takeUntil()).subscribe((value) => {
-			if (value === DurationVersionTypeEnum.RANGE) {
-				this.switchToRangeModeControl.setValue(ActiveEnum.YES);
-			} else {
-				this.switchToRangeModeControl.setValue(ActiveEnum.NO);
-			}
+		this.durationConfigurationForm.controls.durationVersionType.valueChanges.pipe(
+			take(1),
+			filter((value) => value === DurationVersionTypeEnum.RANGE),
+			this.takeUntil()
+		).subscribe(() => {
+			this.switchToRangeModeControl.setValue(ActiveEnum.YES);
 		});
 		this.switchToRangeModeControl.valueChanges.pipe(this.takeUntil()).subscribe((value) => {
+			let newValue = DurationVersionTypeEnum.VARIABLE;
 			if (value) {
-				this.durationConfigurationForm.controls.durationVersionType.setValue(DurationVersionTypeEnum.RANGE);
-			} else {
-				this.durationConfigurationForm.controls.durationVersionType.setValue(DurationVersionTypeEnum.VARIABLE);
+				newValue = DurationVersionTypeEnum.RANGE;
 			}
+			this.durationConfigurationForm.controls.durationVersionType.setValue(newValue);
 		});
 	}
 
