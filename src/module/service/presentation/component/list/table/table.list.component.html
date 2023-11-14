@@ -56,14 +56,14 @@
 						 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="item.active">
 				</div>
 			</div>
-			<div tableColumnFlex="price" #priceColumn [attr.data-value]="item.durationVersions[0].prices[0].price | currency: item.durationVersions[0].prices[0].currency: 'symbol-narrow'">
-				<span class="truncate">
+			<div tableColumnFlex="price" #priceColumn [attr.data-value]="getPriceValue(item)">
+				<span [title]="priceColumn.getAttribute('data-value')" class="truncate">
 					{{ priceColumn.getAttribute('data-value') | noData }}
 				</span>
 			</div>
-			<div tableColumnFlex="duration">
-				<span class="truncate">
-					{{ item.durationVersions[0].durationInSeconds | humanizeDuration }}
+			<div tableColumnFlex="duration" #durationColumn [attr.data-value]="getDurationValue(item)">
+				<span [title]="durationColumn.getAttribute('data-value')" class="truncate">
+					{{ durationColumn.getAttribute('data-value') | noData }}
 				</span>
 			</div>
 			<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">

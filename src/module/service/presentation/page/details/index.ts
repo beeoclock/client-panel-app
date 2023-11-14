@@ -23,6 +23,7 @@ import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
+import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
 
 @Component({
 	selector: 'service-detail-page',
@@ -54,6 +55,9 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 		BackButtonComponent,
 		DefaultPanelComponent,
 	],
+	providers: [
+		CurrencyPipe,
+	],
 	standalone: true
 })
 export default class Index {
@@ -62,6 +66,8 @@ export default class Index {
 	public readonly item$!: Observable<IService>;
 
 	public readonly store = inject(Store);
+	public readonly currencyPipe = inject(CurrencyPipe);
+	public readonly humanizeDurationHelper = inject(HumanizeDurationHelper);
 
 	@ViewChild(BackLinkComponent)
 	public backLink!: BackLinkComponent;
@@ -73,6 +79,29 @@ export default class Index {
 		}
 		await firstValueFrom(this.store.dispatch(new ServiceActions.DeleteItem(id)));
 		this.backLink.link.nativeElement.click();
+	}
+
+	public getPriceValue(item: IService) : string {
+		const result: string[] = [];
+		item.durationVersions.forEach((durationVersion) => {
+			const price = this.currencyPipe.transform(durationVersion.prices[0].price, item.durationVersions[0].prices[0].currency, 'symbol-narrow');
+			if (price) {
+				result.push(price);
+			}
+		});
+		return result.join(' / ');
+	}
+
+	public getDurationValue(item: IService): string {
+		// item.durationVersions[0].durationInSeconds | humanizeDuration
+		const result: string[] = [];
+		item.durationVersions.forEach((durationVersion) => {
+			const duration = this.humanizeDurationHelper.fromSeconds(durationVersion.durationInSeconds);
+			if (duration) {
+				result.push(duration);
+			}
+		});
+		return result.join(' / ');
 	}
 
 

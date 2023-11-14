@@ -843,6 +843,17 @@
 							"add": {
 								"label": "Dodaj cenę"
 							}
+						},
+						"suffix": {
+							"range": {
+								"from": " (od)",
+								"to": " (do)"
+							}
+						},
+						"switch": {
+							"range": {
+								"title": "Tryb zasięgu (od - do)"
+							}
 						}
 					}
 				}

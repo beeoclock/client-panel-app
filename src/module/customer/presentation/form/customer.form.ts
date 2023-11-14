@@ -6,7 +6,9 @@ import {
 } from "@customer/presentation/form/validation/atLeastOneFieldMustBeFilled.validation";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
-import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
+import {
+	SwitchActiveBlockComponent
+} from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
 
 export const enum CustomerFormFieldsEnum {
 	_id = '_id',

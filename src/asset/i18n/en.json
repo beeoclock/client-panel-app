@@ -842,6 +842,17 @@
 							"add": {
 								"label": "Add price"
 							}
+						},
+						"suffix": {
+							"range": {
+								"from": " (from)",
+								"to": " (to)"
+							}
+						},
+						"switch": {
+							"range": {
+								"title": "Range mode (from - to)"
+							}
 						}
 					}
 				}

@@ -13,7 +13,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
   selector: 'price-and-currency-component',
   standalone: true,
   template: `
-    <label default [for]="prefix + 'price'">{{ 'keyword.capitalize.price' | translate }}</label>
+    <label default [for]="prefix + 'price'">{{ label }}</label>
     <div class="flex">
       <input
         [id]="prefix + 'price'"
@@ -87,6 +87,9 @@ export class PriceAndCurrencyComponent implements OnInit {
 
   @Input()
   public prefix = '';
+
+  @Input()
+  public label = '';
 
   @Input()
   public currencyControl = new FormControl();
