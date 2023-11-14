@@ -5,6 +5,7 @@ import {IDurationVersion, IService} from "@service/domain";
 import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
 import {extractSecondsFrom_hh_mm_ss, STR_MINUTE_45} from "@utility/domain/time";
 import {ISpecialist} from "@service/domain/interface/i.specialist";
+import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 
 export interface ILanguageVersionForm {
 	title: FormControl<string>;
@@ -100,16 +101,31 @@ export class PricesForm extends FormArray<PriceForm> {
 
 }
 
+export interface IDurationConfigurationForm {
+	durationVersionType: FormControl<DurationVersionTypeEnum>;
+}
+
+export class DurationConfigurationForm extends FormGroup<IDurationConfigurationForm> {
+	constructor() {
+		super({
+			durationVersionType: new FormControl(),
+		});
+		this.initValue();
+	}
+
+	public initValue(): void {
+		this.controls.durationVersionType.setValue(DurationVersionTypeEnum.VARIABLE);
+	}
+}
+
 export interface IConfigurationForm {
-	earliestDateTime: FormControl<string>;
-	latestDateTime: FormControl<string>;
+	duration: FormControl<DurationConfigurationForm>;
 }
 
 export class ConfigurationForm extends FormGroup<IConfigurationForm> {
 	constructor() {
 		super({
-			earliestDateTime: new FormControl(),
-			latestDateTime: new FormControl(),
+			duration: new FormControl(),
 		});
 	}
 }
@@ -165,6 +181,7 @@ export interface IServiceForm {
 	_id: FormControl<string>;
 	specialists: FormControl<ISpecialist[]>;
 	active: FormControl<ActiveEnum>;
+
 	[key: string]: AbstractControl;
 }
 
