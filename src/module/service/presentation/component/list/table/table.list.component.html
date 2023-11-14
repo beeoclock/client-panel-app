@@ -56,12 +56,12 @@
 						 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="item.active">
 				</div>
 			</div>
-			<div tableColumnFlex="price">
-				<span class="truncate" [innerHTML]="durationVersionHtmlHelper.getDurationValue(item)">
-				</span>
-			</div>
 			<div tableColumnFlex="duration">
 				<span class="truncate" [innerHTML]="durationVersionHtmlHelper.getPriceValue(item)">
+				</span>
+			</div>
+			<div tableColumnFlex="price">
+				<span class="truncate" [innerHTML]="durationVersionHtmlHelper.getDurationValue(item)">
 				</span>
 			</div>
 			<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
