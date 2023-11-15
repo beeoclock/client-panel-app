@@ -23,7 +23,7 @@ import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
-import {DurationVersionHtmlHelper} from "@service/helper/duration-version.html.helper";
+import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 
 @Component({
 	selector: 'service-detail-page',

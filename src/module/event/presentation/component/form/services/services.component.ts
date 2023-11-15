@@ -14,6 +14,7 @@ import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/butto
 import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/boc-media.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
+import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 
 @Component({
 	selector: 'event-service-component',
@@ -33,7 +34,11 @@ import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-m
 		BocMediaDirective,
 		HumanizeDurationPipe,
 		InvalidTooltipComponent,
-	]
+	],
+	providers: [
+		CurrencyPipe,
+		DurationVersionHtmlHelper,
+	],
 })
 export class ServicesComponent implements OnInit {
 
@@ -43,6 +48,7 @@ export class ServicesComponent implements OnInit {
 	@Input()
 	public editable = true;
 
+	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 	private readonly modalSelectServiceService = inject(ModalSelectServiceService);
 	private readonly modalSelectServiceListAdapter = inject(ModalSelectServiceListAdapter);
 

@@ -1,6 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {IService} from "@service/domain";
-import {DurationHelper} from "@service/helper/duration.helper";
+import {DurationHelper} from "@utility/helper/duration.helper";
 import {TranslateService} from "@ngx-translate/core";
 import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
 import {CurrencyPipe} from "@angular/common";
