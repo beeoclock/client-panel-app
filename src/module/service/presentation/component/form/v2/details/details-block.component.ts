@@ -12,7 +12,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 	standalone: true,
 	template: `
 		<bee-card [useBorder]="useCardBorder">
-			<span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.details' | translate }}</span>
+			<span *ngIf="showHeader" class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.details' | translate }}</span>
 
 			<form-input
 				id="service-form-details-title-input"
@@ -46,5 +46,8 @@ export class DetailsBlockComponent {
 
 	@Input()
 	public useCardBorder = true;
+
+	@Input()
+	public showHeader = false;
 
 }

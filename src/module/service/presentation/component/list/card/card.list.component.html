@@ -1,20 +1,18 @@
 <div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!list.length">
 	<bee-card class="text-sm cursor-pointer hover:bg-beeColor-50" *ngFor="let item of list; trackBy: trackById">
-		<div class="flex justify-between items-center">
+		<div class="flex justify-between items-start">
 			<div (click)="singleClick(item)" class="flex-1">
 				<div>
 					{{ 'keyword.capitalize.duration' | translate }}
 				</div>
-				<div class="font-bold">
-					{{ item?.durationVersions?.[0]?.durationInSeconds ?? 0 | humanizeDuration }}
+				<div class="flex flex-col" [innerHTML]="durationVersionHtmlHelper.getPriceValue(item)">
 				</div>
 			</div>
 			<div (click)="singleClick(item)" class="flex-1">
 				<div>
 					{{ 'keyword.capitalize.price' | translate }}
 				</div>
-				<div class="font-bold">
-					{{ (item?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow'  }}
+				<div class="flex flex-col" [innerHTML]="durationVersionHtmlHelper.getDurationValue(item)">
 				</div>
 			</div>
 			<service-row-action-button-component *ngIf="showAction.state$ | async" [item]="item" [id]="item._id"/>
@@ -35,7 +33,7 @@
 			<div [class.text-red-700]="!item.active" [class.text-green-700]="item.active">
 				{{ (item.active ? 'service.keyword.capitalize.active' : 'service.keyword.capitalize.inactive' ) | translate }}
 			</div>
-			<div class="font-bold">
+			<div class="">
 				{{ getFirstLanguageVersion(item.languageVersions).title }}
 			</div>
 		</div>

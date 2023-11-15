@@ -34,17 +34,24 @@
 
 						</div>
 
-						<div class="lg:col-span-3">
 
-							<div class="flex flex-col gap-1">
+						<div class="col-span-12 md:col-span-6 lg:col-span-3">
 
-								<div class="text-end font-bold">
-									{{ service.durationVersions[0].prices[0].price | currency: service.durationVersions[0].prices[0].currency: 'symbol-narrow' }}
+							<div class="flex flex-col gap-2">
+
+								<div class="flex flex-col items-end">
+									<div class="font-bold">{{ 'keyword.capitalize.price' | translate }}</div>
+									<div class="flex flex-col items-end"
+											 [innerHTML]="durationVersionHtmlHelper.getPriceValue(service)">
+									</div>
 								</div>
-								<div class="text-end">
-									{{ service.durationVersions[0].durationInSeconds | humanizeDuration }}
-								</div>
 
+								<div class="flex flex-col items-end">
+									<div class="font-bold">{{ 'keyword.capitalize.duration' | translate }}</div>
+									<div class="flex flex-col items-end"
+											 [innerHTML]="durationVersionHtmlHelper.getDurationValue(service)">
+									</div>
+								</div>
 							</div>
 
 						</div>

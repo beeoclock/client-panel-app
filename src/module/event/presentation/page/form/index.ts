@@ -159,9 +159,18 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 
 	private getEventDurationInSeconds(service: IService): number {
 		try {
-			const [durationVersion] = service.durationVersions;
-			const {durationInSeconds, breakInSeconds} = durationVersion;
-			return (durationInSeconds ?? 0) + (breakInSeconds ?? 0);
+			// Find the biggest duration version
+
+			const {durationVersions} = service;
+			const durationVersion = durationVersions.reduce((acc, curr) => {
+				if (curr.durationInSeconds > acc.durationInSeconds) {
+					return curr;
+				}
+				return acc;
+			}, durationVersions[0]);
+
+			return (durationVersion.durationInSeconds ?? 0) + (durationVersion.breakInSeconds ?? 0);
+
 		} catch (e) {
 			return 0;
 		}

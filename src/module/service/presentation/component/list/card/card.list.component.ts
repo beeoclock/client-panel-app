@@ -17,6 +17,7 @@ import {ServiceActions} from "@service/state/service/service.actions";
 import {LanguageCodeEnum} from "@utility/domain/enum";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
+import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 
 @Component({
 	selector: 'service-card-list-component',
@@ -38,12 +39,17 @@ import {RowActionButtonComponent} from "@service/presentation/component/row-acti
 		NgIf,
 		AsyncPipe,
 		RowActionButtonComponent
-	]
+	],
+	providers: [
+		CurrencyPipe,
+		DurationVersionHtmlHelper,
+	],
 })
 export class CardListComponent extends TableComponent<IService> implements OnChanges {
 
 	public override readonly actions = ServiceActions;
 	public readonly translateService = inject(TranslateService);
+	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
 	public get currentLanguageCode(): LanguageCodeEnum {
 		return this.translateService.getDefaultLang() as LanguageCodeEnum;

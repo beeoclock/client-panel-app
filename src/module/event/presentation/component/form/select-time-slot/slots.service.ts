@@ -212,7 +212,7 @@ export class SlotsService {
 
 		this.dayItemList.forEach((dayItem) => {
 
-			this.logger.debug('calculateFreeSchedulePiecesPerDay: dayItem', dayItem.datetime.toJSDate().toISOString(), dayItem);
+			this.logger.debug('calculateFreeSchedulePiecesPerDay: dayItem', dayItem.datetime.toISO(), dayItem);
 
 			// #1 Find schedules for current day
 			let schedules = this.schedules
@@ -283,7 +283,9 @@ export class SlotsService {
 			dayItem.slots.length = 0;
 
 			// #5 Find schedule pieces for current day
-			schedules.forEach((schedule) => {
+			schedules.forEach((schedule, index) => {
+
+				this.logger.debug(`\n\n SCHEDULE: #${index} \n\n`);
 
 				let loopStart = schedule.start;
 				const finish = schedule.end;
@@ -292,6 +294,8 @@ export class SlotsService {
 				if (loopStart < today) {
 					loopStart = today;
 				}
+
+				this.logger.debug('calculateFreeSchedulePiecesPerDay: loopStart, finish', loopStart, finish);
 
 				while (loopStart < finish) {
 

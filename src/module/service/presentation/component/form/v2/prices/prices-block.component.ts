@@ -1,8 +1,15 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NgForOf} from "@angular/common";
 import {PriceBlockComponent} from "@service/presentation/component/form/v2/prices/price-block.component";
-import {DurationVersionsForm} from "@service/presentation/form/service.form";
+import {DurationConfigurationForm, DurationVersionsForm} from "@service/presentation/form/service.form";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
+import {FormControl} from "@angular/forms";
+import {Reactive} from "@utility/cdk/reactive";
+import {ActiveEnum} from "@utility/domain/enum";
+import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
+import {TranslateModule} from "@ngx-translate/core";
+import {filter, take} from "rxjs";
 
 @Component({
 	selector: 'service-form-prices-block-component',
@@ -10,7 +17,9 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 	template: `
 		<bee-card [useBorder]="useCardBorder">
 			<!--      <span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.price' | translate }}</span>-->
-
+			<utility-switch-component
+				[control]="switchToRangeModeControl"
+				[labelTranslateKey]="'service.form.v2.section.prices.switch.range.title'"/>
 			<div *ngFor="let durationVersion of durationVersions.controls; let index = index">
 
 				<!--        <div class="flex justify-between">-->
@@ -21,6 +30,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 				<!--        </div>-->
 
 				<service-form-price-block-component
+					[suffix]="isRangeMode ? (getTranslateSuffixKey(index) | translate) : ''"
 					[priceForm]="durationVersion.controls.prices.at(0)"
 					[durationInSecondsControl]="durationVersion.controls.durationInSeconds"/>
 
@@ -39,14 +49,53 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 		PriceBlockComponent,
 		NgForOf,
 		CardComponent,
+		SwitchComponent,
+		TranslateModule,
 	]
 })
-export class PricesBlockComponent {
+export class PricesBlockComponent extends Reactive implements OnInit {
 
 	@Input()
 	public durationVersions = new DurationVersionsForm();
 
 	@Input()
+	public durationConfigurationForm = new DurationConfigurationForm();
+
+	@Input()
 	public useCardBorder = true;
+
+	public readonly switchToRangeModeControl = new FormControl(ActiveEnum.NO);
+
+	constructor() {
+		super();
+	}
+
+	public get isRangeMode(): boolean {
+		return this.durationConfigurationForm.controls.durationVersionType.value === DurationVersionTypeEnum.RANGE;
+	}
+
+	public getTranslateSuffixKey(index: number): string {
+		if (index === 0) {
+			return 'service.form.v2.section.prices.suffix.range.from';
+		}
+		return 'service.form.v2.section.prices.suffix.range.to';
+	}
+
+	public ngOnInit() {
+		this.durationConfigurationForm.controls.durationVersionType.valueChanges.pipe(
+			take(1),
+			filter((value) => value === DurationVersionTypeEnum.RANGE),
+			this.takeUntil()
+		).subscribe(() => {
+			this.switchToRangeModeControl.setValue(ActiveEnum.YES);
+		});
+		this.switchToRangeModeControl.valueChanges.pipe(this.takeUntil()).subscribe((value) => {
+			let newValue = DurationVersionTypeEnum.VARIABLE;
+			if (value) {
+				newValue = DurationVersionTypeEnum.RANGE;
+			}
+			this.durationConfigurationForm.controls.durationVersionType.setValue(newValue);
+		});
+	}
 
 }

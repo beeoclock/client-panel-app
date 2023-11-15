@@ -14,7 +14,6 @@ import {
 import {Select, Store} from "@ngxs/store";
 import * as Client from "@client/domain";
 import {IClient} from "@client/domain";
-import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {
 	AddressBusinessProfileComponent
@@ -54,36 +53,39 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 import {EventSettingsComponent} from "@client/presentation/component/settings/event/event.settings.component";
 import {GeneralSettingsComponent} from "@client/presentation/component/settings/general/general.settings.component";
 import {ClientActions} from "@client/state/client/client.actions";
+import {
+	SwitchActiveBlockComponent
+} from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
 
 @Component({
 	selector: 'client-business-profile-page',
 	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
-    imports: [
-        FormBusinessProfileComponent,
-        ReactiveFormsModule,
-        TranslateModule,
-        CoverImageBusinessProfileComponent,
-        LogoBusinessProfileComponent,
-        SwitchActiveBlockComponent,
-        AddressBusinessProfileComponent,
-        GalleryBusinessProfileComponent,
-        SchedulesFormComponent,
-        BusinessProfileContactPhoneComponent,
-        BusinessProfileSocialMediaComponent,
-        FacilitiesBusinessProfileComponent,
-        BookingSettingsBusinessProfileComponent,
-        PrimaryButtonDirective,
-        AsyncPipe,
-        NgIf,
-        DangerZoneComponent,
-        ServiceSettingsComponent,
-        ButtonSaveContainerComponent,
-        BackButtonComponent,
-        DefaultPanelComponent,
-        EventSettingsComponent,
-        GeneralSettingsComponent
-    ],
+	imports: [
+		FormBusinessProfileComponent,
+		ReactiveFormsModule,
+		TranslateModule,
+		CoverImageBusinessProfileComponent,
+		LogoBusinessProfileComponent,
+		SwitchActiveBlockComponent,
+		AddressBusinessProfileComponent,
+		GalleryBusinessProfileComponent,
+		SchedulesFormComponent,
+		BusinessProfileContactPhoneComponent,
+		BusinessProfileSocialMediaComponent,
+		FacilitiesBusinessProfileComponent,
+		BookingSettingsBusinessProfileComponent,
+		PrimaryButtonDirective,
+		AsyncPipe,
+		NgIf,
+		DangerZoneComponent,
+		ServiceSettingsComponent,
+		ButtonSaveContainerComponent,
+		BackButtonComponent,
+		DefaultPanelComponent,
+		EventSettingsComponent,
+		GeneralSettingsComponent
+	],
 	standalone: true
 })
 export default class Index implements OnInit {

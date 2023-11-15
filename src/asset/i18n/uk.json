@@ -700,6 +700,7 @@
 			"facilities": "Зручності",
 			"feature": "Особливість",
 			"firstName": "Ім'я",
+			"from": "Від",
 			"fullName": "Повне ім'я",
 			"general": "Загальне",
 			"image": "Зображення",
@@ -762,6 +763,7 @@
 			"theme": "Тема",
 			"thereArentAnyEvents": "Подій немає на {{ datetime }}",
 			"title": "Назва",
+			"to": "До",
 			"today": "Сьогодні",
 			"tomorrow": "Завтра",
 			"total": "Всього",
@@ -840,6 +842,17 @@
 						"button": {
 							"add": {
 								"label": "Додати ціну"
+							}
+						},
+						"suffix": {
+							"range": {
+								"from": " (від)",
+								"to": " (до)"
+							}
+						},
+						"switch": {
+							"range": {
+								"title": "Режим діапазонний (від - до)"
 							}
 						}
 					}

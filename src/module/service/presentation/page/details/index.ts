@@ -23,6 +23,7 @@ import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
+import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 
 @Component({
 	selector: 'service-detail-page',
@@ -54,6 +55,10 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 		BackButtonComponent,
 		DefaultPanelComponent,
 	],
+	providers: [
+		CurrencyPipe,
+		DurationVersionHtmlHelper,
+	],
 	standalone: true
 })
 export default class Index {
@@ -62,6 +67,7 @@ export default class Index {
 	public readonly item$!: Observable<IService>;
 
 	public readonly store = inject(Store);
+	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
 	@ViewChild(BackLinkComponent)
 	public backLink!: BackLinkComponent;

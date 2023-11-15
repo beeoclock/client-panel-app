@@ -15,6 +15,7 @@
 				[control]="form.controls.active"/>
 
 			<service-form-details-block-component
+				[showHeader]="true"
 				[form]="form.controls.languageVersions.at(0)"/>
 			<div>
 
@@ -23,6 +24,7 @@
 					[specialistListControl]="form.controls.specialists"/>
 
 				<service-form-prices-block-component
+					[durationConfigurationForm]="form.controls.configuration.controls.duration"
 					[durationVersions]="form.controls.durationVersions"/>
 
 			</div>

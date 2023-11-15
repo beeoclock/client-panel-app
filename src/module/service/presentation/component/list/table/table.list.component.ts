@@ -20,6 +20,7 @@ import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex
 import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
+import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 
 @Component({
 	selector: 'service-table-list-component',
@@ -43,6 +44,10 @@ import {RowActionButtonComponent} from "@service/presentation/component/row-acti
 		TableTableFlexDirective,
 		NoDataPipe,
 		RowActionButtonComponent
+	],
+	providers: [
+		CurrencyPipe,
+		DurationVersionHtmlHelper,
 	]
 })
 export class TableListComponent extends TableComponent<IService> {
@@ -50,6 +55,7 @@ export class TableListComponent extends TableComponent<IService> {
 	public override readonly actions = ServiceActions;
 
 	public readonly translateService = inject(TranslateService);
+	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
 	public get currentLanguageCode(): LanguageCodeEnum {
 		return this.translateService.getDefaultLang() as LanguageCodeEnum;
@@ -75,12 +81,12 @@ export class TableListComponent extends TableComponent<IService> {
 			},
 			price: {
 				style: {
-					minWidth: '150px',
+					minWidth: '300px',
 				},
 			},
 			duration: {
 				style: {
-					minWidth: '150px',
+					minWidth: '300px',
 				},
 			},
 			createdAt: {
@@ -101,5 +107,4 @@ export class TableListComponent extends TableComponent<IService> {
 			},
 		},
 	}
-
 }
