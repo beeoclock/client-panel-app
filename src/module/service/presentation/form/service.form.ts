@@ -2,7 +2,6 @@ import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@a
 import {ActiveEnum, LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
 import {IDurationVersion, IService} from "@service/domain";
-import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
 import {extractSecondsFrom_hh_mm_ss, STR_MINUTE_45} from "@utility/domain/time";
 import {ISpecialist} from "@service/domain/interface/i.specialist";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
@@ -177,7 +176,7 @@ export class DurationVersionsForm extends FormArray<DurationVersionForm> {
 }
 
 export interface IServiceForm {
-	schedules: SchedulesForm;
+	// schedules: SchedulesForm;
 	configuration: ConfigurationForm;
 	prepaymentPolicy: PrepaymentPolicyForm;
 	languageVersions: LanguageVersionsForm;
@@ -195,7 +194,7 @@ export interface IServiceForm {
 export class ServiceForm extends FormGroup<IServiceForm> {
 	constructor(initialValue?: IService) {
 		super({
-			schedules: new SchedulesForm(),
+			// schedules: new SchedulesForm(),
 			configuration: new ConfigurationForm(),
 			prepaymentPolicy: new PrepaymentPolicyForm(),
 			languageVersions: new LanguageVersionsForm(),
@@ -226,7 +225,6 @@ export class ServiceForm extends FormGroup<IServiceForm> {
 
 	public initHandlers(): void {
 		this.controls.configuration.controls.duration.controls.durationVersionType.valueChanges.subscribe((value) => {
-			console.log(value);
 			switch (value) {
 				case DurationVersionTypeEnum.RANGE:
 					if (this.controls.durationVersions.controls.length === 1) {

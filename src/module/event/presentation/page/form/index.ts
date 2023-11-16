@@ -1,4 +1,13 @@
-import {AfterContentInit, Component, inject, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {
+	AfterContentInit,
+	Component,
+	inject,
+	OnInit,
+	QueryList,
+	ViewChild,
+	ViewChildren,
+	ViewEncapsulation
+} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -86,6 +95,9 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 	@ViewChild(BackButtonComponent)
 	public backButtonComponent!: BackButtonComponent;
 
+	@ViewChildren(ServicesComponent)
+	public servicesComponent!: QueryList<ServicesComponent>;
+
 	@Select(EventState.itemData)
 	public itemData$!: Observable<RMIEvent | undefined>;
 
@@ -162,6 +174,7 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 			// Find the biggest duration version
 
 			const {durationVersions} = service;
+			this.logger.debug('getEventDurationInSeconds', durationVersions);
 			const durationVersion = durationVersions.reduce((acc, curr) => {
 				if (curr.durationInSeconds > acc.durationInSeconds) {
 					return curr;
@@ -287,12 +300,26 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 	}
 
 	public goToPreview(): void {
+
+		if (!this.checkIfServicesAreValid()){
+			this.logger.debug('Services are not valid');
+			return;
+		}
+
+		this.logger.debug('Services are valid');
+
 		this.form.updateValueAndValidity();
 		this.form.markAllAsTouched();
 		this.logger.debug(`Event:goToPreview:${this.form.status}`, this.form, this.form.getRawValue());
 		if (this.form.valid) {
 			this.preview.switchOn();
 		}
+	}
+
+	private checkIfServicesAreValid(): boolean {
+		return this.servicesComponent.toArray().every((serviceComponent) => {
+			return serviceComponent.checkValidationOfDurationVersionTypeRangeComponentList();
+		});
 	}
 
 }

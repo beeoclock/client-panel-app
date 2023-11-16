@@ -102,7 +102,7 @@ export class ModalSelectServiceComponent implements OnInit, AfterViewInit {
 				this.newSelectedServiceList.splice(0, 1);
 			}
 		}
-		this.newSelectedServiceList.push(service);
+		this.newSelectedServiceList.push({...service});
 
 		if (!this.modalInstance) {
 			this.logger.error('modalInstance is not defined');

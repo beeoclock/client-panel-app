@@ -10,6 +10,8 @@ import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration
 import {extractSecondsFrom_hh_mm_ss, secondsTo_hh_mm} from "@utility/domain/time";
 import {is} from "thiis";
 import {filter, map} from "rxjs";
+import {NGXLogger} from "ngx-logger";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'bee-duration-select-component',
@@ -41,7 +43,7 @@ import {filter, map} from "rxjs";
 		InvalidTooltipDirective
 	],
 })
-export class DurationSelectComponent implements OnInit {
+export class DurationSelectComponent extends Reactive implements OnInit {
 
 	@Input()
 	public id = '';
@@ -63,6 +65,7 @@ export class DurationSelectComponent implements OnInit {
 
 	public localControl = new FormControl();
 
+	private readonly logger = inject(NGXLogger);
 	private readonly humanizeDurationHelper = inject(HumanizeDurationHelper);
 
 	public readonly items = generateTimeOptions({
@@ -74,6 +77,10 @@ export class DurationSelectComponent implements OnInit {
 			value,
 		};
 	});
+
+	constructor() {
+		super();
+	}
 
 	public addTag(tag: string) {
 		const result = extractSecondsFrom_hh_mm_ss(tag);
@@ -106,17 +113,21 @@ export class DurationSelectComponent implements OnInit {
 			}),
 			filter(is.number)
 		).subscribe((value) => {
-			this.control.patchValue(value, {
-				emitEvent: false,
-				onlySelf: true,
-			});
+			this.logger.debug('DurationSelectComponent:localControl:valueChanges', value);
+			this.control.patchValue(value);
 		});
-		this.control.valueChanges.subscribe((value) => {
-			this.localControl.patchValue(value, {
-				emitEvent: false,
-				onlySelf: true,
+		this.control.valueChanges
+			.pipe(
+				this.takeUntil(),
+				filter((value) => secondsTo_hh_mm(value) !== this.localControl.value),
+			)
+			.subscribe((value) => {
+				this.logger.debug('DurationSelectComponent:control:valueChanges', value);
+				this.localControl.patchValue(value, {
+					emitEvent: false,
+					onlySelf: true,
+				});
 			});
-		});
 	}
 
 	private initLocalControlValue() {

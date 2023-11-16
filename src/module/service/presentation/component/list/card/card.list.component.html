@@ -3,14 +3,14 @@
 		<div class="flex justify-between items-start">
 			<div (click)="singleClick(item)" class="flex-1">
 				<div>
-					{{ 'keyword.capitalize.duration' | translate }}
+					{{ 'keyword.capitalize.price' | translate }}
 				</div>
 				<div class="flex flex-col" [innerHTML]="durationVersionHtmlHelper.getPriceValue(item)">
 				</div>
 			</div>
 			<div (click)="singleClick(item)" class="flex-1">
 				<div>
-					{{ 'keyword.capitalize.price' | translate }}
+					{{ 'keyword.capitalize.duration' | translate }}
 				</div>
 				<div class="flex flex-col" [innerHTML]="durationVersionHtmlHelper.getDurationValue(item)">
 				</div>

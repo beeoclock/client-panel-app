@@ -3,6 +3,7 @@ import {IService} from "@service/domain";
 import {AttendeesForm} from "@event/presentation/form/attendant.form";
 import {filter} from "rxjs";
 import {is} from "thiis";
+import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 
 
 export interface IEventForm {
@@ -60,9 +61,20 @@ export class EventForm extends FormGroup<IEventForm> {
 			if (!firstService) {
 				return;
 			}
-			const [firstDurationVersion] = firstService.durationVersions;
 			const end = new Date(value);
-			end.setSeconds(Number(new Date(value).getSeconds() + (firstDurationVersion.durationInSeconds ?? 0) + (firstDurationVersion.breakInSeconds ?? 0)));
+			let eventDurationInSeconds = 0;
+			switch (firstService.configuration.duration?.durationVersionType) {
+				case DurationVersionTypeEnum.RANGE:
+					const lastDurationVersion = firstService.durationVersions[firstService.durationVersions.length - 1];
+					eventDurationInSeconds = (lastDurationVersion.durationInSeconds ?? 0) + (lastDurationVersion.breakInSeconds ?? 0);
+					break;
+				case DurationVersionTypeEnum.VARIABLE:
+					// TODO add to form new control to detect which duration version is selected
+					const [firstDurationVersion] = firstService.durationVersions;
+					eventDurationInSeconds = (firstDurationVersion.durationInSeconds ?? 0) + (firstDurationVersion.breakInSeconds ?? 0);
+					break;
+			}
+			end.setSeconds(Number(new Date(value).getSeconds() + eventDurationInSeconds));
 			this.controls.end.patchValue(end.toISOString());
 		});
 	}

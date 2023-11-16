@@ -1,0 +1,48 @@
+<div class="flex flex-col gap-4">
+	<bee-card
+		*ngFor="let variant of variantList; let index = index;"
+		[flexCol]="false"
+		[class.border-green-600]="isSelected(index)"
+		class="hover:bg-beeColor-50 cursor-pointer md:items-center border-2"
+		(click)="selectVariant(index)">
+
+
+		<div class="flex-1 flex flex-col md:flex-row gap-4">
+			<bee-duration-select-component
+				class="flex-1"
+				[label]="'keyword.capitalize.duration' | translate"
+				[control]="variant.duration.control"/>
+
+			<price-and-currency-component
+				class="flex-1"
+				[label]="'keyword.capitalize.price' | translate"
+				[priceControl]="variant.price.control"
+				[currencyControl]="variant.currency.control"/>
+		</div>
+
+		<div [ngSwitch]="isSelected(index)">
+			<div class="py-0.5">&nbsp;</div>
+			<ng-container *ngSwitchCase="true">
+				<ng-container *ngTemplateOutlet="SelectedTemplate"></ng-container>
+			</ng-container>
+			<ng-container *ngSwitchCase="false">
+				<ng-container *ngTemplateOutlet="NotSelectedTemplate"></ng-container>
+			</ng-container>
+		</div>
+
+	</bee-card>
+</div>
+
+<ng-template #NotSelectedTemplate>
+	<div
+		class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">
+		<i class="bi bi-circle"></i>
+	</div>
+</ng-template>
+
+<ng-template #SelectedTemplate>
+	<div
+		class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
+		<i class="bi bi-check-circle"></i>
+	</div>
+</ng-template>

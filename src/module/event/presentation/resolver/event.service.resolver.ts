@@ -29,7 +29,8 @@ export const eventServiceResolver: ResolveFn<IService | undefined> = (
 					if (!service) {
 						return store.dispatch(new ServiceActions.GetItem(serviceId));
 					}
-					return of(service);
+					// Data from store is immutable, so we need to return a new object
+					return of({...service});
 				}
 				return itemServiceApiAdapter.execute$(serviceId);
 			}),
