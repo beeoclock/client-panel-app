@@ -721,6 +721,12 @@
 			"no": "Ні",
 			"note": "Примітка",
 			"openTimePicker": "Вибрати",
+			"ownOptionOfTime": "Власний варіант часу",
+			"periodOfDay": {
+				"AFTERNOON": "День",
+				"EVENING": "Вечір",
+				"MORNING": "Ранок"
+			},
 			"permission": "Дозвіл",
 			"phone": "Телефон",
 			"placeholder": {

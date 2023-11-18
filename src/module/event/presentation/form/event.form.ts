@@ -3,6 +3,7 @@ import {IService} from "@service/domain";
 import {AttendeesForm} from "@event/presentation/form/attendant.form";
 import {filter} from "rxjs";
 import {is} from "thiis";
+import {EventConfigurationForm} from "@event/presentation/form/configuration.form";
 
 
 export interface IEventForm {
@@ -14,6 +15,8 @@ export interface IEventForm {
 	end: FormControl<string>;
 	timeZone: FormControl<string>;
 	attendees: AttendeesForm;
+	configuration: EventConfigurationForm;
+
 	[key: string]: AbstractControl;
 }
 
@@ -29,6 +32,7 @@ export class EventForm extends FormGroup<IEventForm> {
 			services: new FormControl(),
 			timeZone: new FormControl(),
 			attendees: new AttendeesForm(),
+			configuration: new EventConfigurationForm(),
 		});
 		this.initValidators();
 		this.initValue();

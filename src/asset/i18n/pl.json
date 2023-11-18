@@ -723,6 +723,12 @@
 			"no": "Nie",
 			"note": "Notatka",
 			"openTimePicker": "Wybierz",
+			"ownOptionOfTime": "Własna opcja czasu",
+			"periodOfDay": {
+				"AFTERNOON": "Popołudnie",
+				"EVENING": "Wieczór",
+				"MORNING": "Poranek"
+			},
 			"permission": "Uprawnienie",
 			"phone": "Telefon",
 			"placeholder": {

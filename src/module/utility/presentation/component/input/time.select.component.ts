@@ -13,9 +13,10 @@ import {filter, map} from "rxjs";
 import {NGXLogger} from "ngx-logger";
 import {Reactive} from "@utility/cdk/reactive";
 import {NgIf} from "@angular/common";
+import {DateTime} from "luxon";
 
 @Component({
-	selector: 'bee-duration-select-component',
+	selector: 'bee-time-select-component',
 	standalone: true,
 	template: `
 		<label *ngIf="showLabel" default [for]="id">{{ label }}</label>
@@ -46,7 +47,7 @@ import {NgIf} from "@angular/common";
 		NgIf
 	],
 })
-export class DurationSelectComponent extends Reactive implements OnInit {
+export class TimeSelectComponent extends Reactive implements OnInit {
 
 	@Input()
 	public id = '';
@@ -58,13 +59,13 @@ export class DurationSelectComponent extends Reactive implements OnInit {
 	public showLabel = true;
 
 	@Input()
-	public from = '00:15';
+	public from = '00:00';
 
 	@Input()
-	public to = '10:00';
+	public to = '23:59';
 
 	@Input()
-	public step = '00:15';
+	public step = '00:01';
 
 	@Input()
 	public control = new FormControl();
@@ -79,7 +80,7 @@ export class DurationSelectComponent extends Reactive implements OnInit {
 		to: this.to,
 	}, this.step).map(({value}) => {
 		return {
-			label: this.humanizeDurationHelper.fromSeconds(value),
+			label: DateTime.fromSeconds(value, {zone: 'UTC'}).toFormat('HH:mm'),
 			value,
 		};
 	});

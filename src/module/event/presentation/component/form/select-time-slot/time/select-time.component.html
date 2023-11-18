@@ -1,21 +1,35 @@
-<div class="flex items-center justify-between gap-1">
+<div class="flex flex-col gap-4 align-center justify-between">
 	<div *ngIf="loader.isOn" class="flex justify-center w-full">
 		<utility-loader/>
 	</div>
 	<ng-template [ngIf]="loader.isOff">
 
-		<ng-template [ngIf]="!slots.length">
+		<ng-template [ngIf]="!groupedSlots.length">
 			{{ 'keyword.capitalize.dataNotFound' | translate }}
 		</ng-template>
-		<div #timeSlotsContainer *ngIf="slots.length" class="grid grid-cols-4 md:grid-cols-6 gap-2 w-full">
-			<button
-				type="button"
-				*ngFor="let timeSlot of slots"
-				(click)="selectDateItem(timeSlot.start)"
-				[ngClass]="getClassList(isSelected(timeSlot.start))"
-				class="min-w-[72px] flex flex-col items-center justify-center border rounded-md px-3 py-2">
-				<span>{{ timeSlot.start.toFormat('HH:mm') }}</span>
-			</button>
-		</div>
+		<ng-container *ngFor="let group of groupedSlots; let index = index;">
+			<div *ngIf="group.slots.length">
+				<div class="text-beeColor-500">{{ ('keyword.capitalize.periodOfDay.' + group.periodOfDay) | translate }}</div>
+				<div #timeSlotsContainer class="grid grid-cols-4 md:grid-cols-6 gap-2 w-full">
+					<ng-container *ngIf="group.slots.length">
+						<button
+							type="button"
+							*ngFor="let timeSlot of group.slots"
+							(click)="selectDateItem(timeSlot.start)"
+							[ngClass]="getClassList(isSelected(timeSlot.start))"
+							class="min-w-[72px] flex flex-col items-center justify-center border rounded-md px-3 py-2">
+							<span>{{ timeSlot.start.toFormat('HH:mm') }}</span>
+						</button>
+					</ng-container>
+				</div>
+			</div>
+		</ng-container>
+
+		<hr>
+
+		<time-input-component
+			[additionalClassList]="isSelected(convertToDateTime(ownOptionOfStartTimeControl.value)) ? 'bg-blue-100 text-blue-600 border-blue-200' : ''"
+			[label]="'keyword.capitalize.ownOptionOfTime' | translate"
+			[control]="ownOptionOfStartTimeControl"/>
 	</ng-template>
 </div>

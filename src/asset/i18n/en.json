@@ -722,6 +722,12 @@
 			"no": "No",
 			"note": "Note",
 			"openTimePicker": "Select",
+			"ownOptionOfTime": "Own time variant",
+			"periodOfDay": {
+				"AFTERNOON": "Afternoon",
+				"EVENING": "Evening",
+				"MORNING": "Morning"
+			},
 			"permission": "Permission",
 			"phone": "Phone",
 			"placeholder": {

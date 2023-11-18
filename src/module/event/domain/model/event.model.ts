@@ -1,4 +1,4 @@
-import {IAttendee, IEvent, RMIEvent} from "@event/domain";
+import {IAttendee, IEvent, IEventConfiguration, RMIEvent} from "@event/domain";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 import {IService} from "@service/domain";
 
@@ -16,6 +16,7 @@ export class MEvent implements RMIEvent {
 	public readonly description!: string;
 	public readonly attendees!: IAttendee[];
 	public readonly timeZone!: string;
+	public readonly configuration!: IEventConfiguration;
 
 	constructor(initialValue?: Partial<IEvent>) {
 		if (initialValue) {
