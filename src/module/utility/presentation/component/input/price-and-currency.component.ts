@@ -105,9 +105,9 @@ export class PriceAndCurrencyComponent implements OnInit {
   }));
 
   public ngOnInit(): void {
-
-    this.currencyControl.setValue(LanguageCurrency[this.translateService.currentLang as keyof typeof LanguageCurrency]);
-
+		if (!this.currencyControl.value) {
+			this.currencyControl.setValue(LanguageCurrency[this.translateService.currentLang as keyof typeof LanguageCurrency]);
+		}
   }
 
 }

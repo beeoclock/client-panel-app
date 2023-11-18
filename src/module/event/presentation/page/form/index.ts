@@ -105,6 +105,7 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 	public client$!: Observable<RIClient>;
 
 	public get value(): RMIEvent {
+		console.log('this.form.getRawValue()', this.form.getRawValue())
 		return MEvent.create(this.form.getRawValue() as IEvent);
 	}
 
@@ -246,12 +247,12 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 
 						const {status, _id, ...initialValue} = rest;
 
-						this.form.patchValue(initialValue);
+						this.form.patchValue(structuredClone(initialValue));
 
 					} else {
 
 						this.isEditMode = true;
-						this.form.patchValue(rest);
+						this.form.patchValue(structuredClone(rest));
 
 					}
 
