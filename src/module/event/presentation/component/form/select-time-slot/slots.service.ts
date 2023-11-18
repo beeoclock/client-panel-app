@@ -292,7 +292,25 @@ export class SlotsService {
 
 				// 5.1 Check if loopStart is in the past
 				if (loopStart < today) {
-					loopStart = today;
+
+					const minutes = today.minute;
+					let intervalInMinutes = 0;
+
+					switch (this.slotBuildingStrategy) {
+						case SlotBuildingStrategyEnum.ByService:
+							intervalInMinutes = this.eventDurationInSeconds / 60;
+							break;
+						case SlotBuildingStrategyEnum.ByInterval:
+							intervalInMinutes = this.slotIntervalInSeconds / 60;
+							break;
+					}
+
+					intervalInMinutes = (+Math.floor((minutes / intervalInMinutes)).toFixed(0) + 1) * intervalInMinutes;
+
+					loopStart = today.startOf('minute').set({
+						minute: intervalInMinutes,
+					});
+
 				}
 
 				this.logger.debug('calculateFreeSchedulePiecesPerDay: loopStart, finish', loopStart, finish);

@@ -105,7 +105,6 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 	public client$!: Observable<RIClient>;
 
 	public get value(): RMIEvent {
-		console.log('this.form.getRawValue()', this.form.getRawValue())
 		return MEvent.create(this.form.getRawValue() as IEvent);
 	}
 

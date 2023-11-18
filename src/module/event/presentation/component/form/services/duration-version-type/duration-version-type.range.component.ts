@@ -164,8 +164,6 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 			}
 		}
 
-		console.log(currency.control.value);
-
 		Object.defineProperties(this.service, {
 			durationVersions: {
 				value: [
