@@ -2,8 +2,9 @@
 	<bee-card
 		*ngFor="let variant of variantList; let index = index;"
 		[flexCol]="false"
-		[class.border-green-600]="isSelected(index)"
-		class="hover:bg-beeColor-50 cursor-pointer md:items-center border-2"
+		[useBorder]="false"
+		padding="p-0"
+		class="md:items-center"
 		(click)="selectVariant(index)">
 
 
@@ -20,7 +21,7 @@
 				[currencyControl]="variant.currency.control"/>
 		</div>
 
-		<div [ngSwitch]="isSelected(index)">
+		<div *ngIf="variantList.length > 1" [ngSwitch]="isSelected(index)">
 			<div class="py-0.5">&nbsp;</div>
 			<ng-container *ngSwitchCase="true">
 				<ng-container *ngTemplateOutlet="SelectedTemplate"></ng-container>

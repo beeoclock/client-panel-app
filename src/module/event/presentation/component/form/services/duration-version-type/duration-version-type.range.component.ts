@@ -85,33 +85,37 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 		this.variantList.length = 0;
 
 		// By forEach
-		this.service.durationVersions.forEach((durationVersion) => {
-			// Price
-			const price = durationVersion.prices[0].price || null;
-			const showOnlyValueOfPrice = price !== null;
+		// this.service.durationVersions.forEach((durationVersion) => {
+		// });
 
-			// Currency
-			const currency = durationVersion.prices[0].currency || null;
-			const showOnlyValueOfCurrency = currency !== null;
+		const lastDurationVersion = this.service.durationVersions[this.service.durationVersions.length - 1];
+		const durationVersion = lastDurationVersion;
 
-			// Duration
-			const duration = durationVersion.durationInSeconds;
-			const showOnlyValueOfDuration = duration !== null;
+		// Price
+		const price = durationVersion.prices[0].price || null;
+		const showOnlyValueOfPrice = price !== null;
 
-			this.variantList.push({
-				price: {
-					showOnlyValue: showOnlyValueOfPrice,
-					control: new FormControl(price),
-				},
-				currency: {
-					showOnlyValue: showOnlyValueOfCurrency,
-					control: new FormControl(currency),
-				},
-				duration: {
-					showOnlyValue: showOnlyValueOfDuration,
-					control: new FormControl(duration),
-				}
-			});
+		// Currency
+		const currency = durationVersion.prices[0].currency || null;
+		const showOnlyValueOfCurrency = currency !== null;
+
+		// Duration
+		const duration = durationVersion.durationInSeconds;
+		const showOnlyValueOfDuration = duration !== null;
+
+		this.variantList.push({
+			price: {
+				showOnlyValue: showOnlyValueOfPrice,
+				control: new FormControl(price),
+			},
+			currency: {
+				showOnlyValue: showOnlyValueOfCurrency,
+				control: new FormControl(currency),
+			},
+			duration: {
+				showOnlyValue: showOnlyValueOfDuration,
+				control: new FormControl(duration),
+			}
 		});
 
 		this.logger.debug('buildVariants', this.variantList);
@@ -165,16 +169,6 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 				// writable: true, // 👈️ uncomment this
 			},
 		});
-		// this.service.durationVersions.length = 0;
-		// this.service.durationVersions.push({
-		// 	breakInSeconds: 0,
-		// 	durationInSeconds: duration.control.value ?? 0,
-		// 	prices: [{
-		// 		price: price.control.value ?? 0,
-		// 		// TODO add default currency in environment and in business profile
-		// 		currency: (currency.control.value || CurrencyCodeEnum.UAH) as CurrencyCodeEnum,
-		// 	}]
-		// });
 
 		this.updateServiceListControl();
 		this.logger.debug('setToService:result', this.service);
@@ -209,7 +203,6 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 
 	private initHandlers(): void {
 		this.logger.debug('initHandlers', this.selectedVariant);
-		console.log(this.selectedVariant.duration.control);
 		this.handler = this.selectedVariant.duration.control.valueChanges
 			.pipe(
 				this.takeUntil(),

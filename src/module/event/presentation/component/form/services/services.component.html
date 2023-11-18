@@ -30,33 +30,12 @@
 				</div>
 			</div>
 			<event-duration-version-type-range
-				*ngIf="isDurationVersionTypeRange(service)"
 				[serviceListControl]="serviceListControl"
 				[index]="index"
 				[service]="service"/>
-			<div
-				*ngIf="!isDurationVersionTypeRange(service)"
-				class="flex">
-				<div class="flex-1">
-					<div>
-						{{ 'keyword.capitalize.duration' | translate }}
-					</div>
-					<div class="flex flex-col" [innerHTML]="durationVersionHtmlHelper.getPriceValue(service)">
-					</div>
-				</div>
-				<div class="flex-1">
-					<div>
-						{{ 'keyword.capitalize.price' | translate }}
-					</div>
-					<div class="flex flex-col" [innerHTML]="durationVersionHtmlHelper.getDurationValue(service)">
-					</div>
-				</div>
-			</div>
 		</bee-card>
 
 	</ng-container>
-
-	<hr>
 
 	<div class="block" *ngIf="editable">
 		<button type="button" [isLoading]="loading$.isOn" primaryLink (click)="openModalToSelectService()">
