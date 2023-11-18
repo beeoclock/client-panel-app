@@ -57,7 +57,6 @@ export class EventForm extends FormGroup<IEventForm> {
 	public initHandler(): void {
 		this.controls.start.valueChanges.pipe(filter(is.string)).subscribe((value) => {
 			const [firstService] = this.controls.services.value;
-			console.log(firstService);
 			if (!firstService) {
 				return;
 			}

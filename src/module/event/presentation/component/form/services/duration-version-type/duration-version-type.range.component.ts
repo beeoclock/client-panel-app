@@ -9,7 +9,7 @@ import {DurationSelectComponent} from "@utility/presentation/component/input/dur
 import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/price-and-currency.component";
 import {NGXLogger} from "ngx-logger";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
-import {Subscription} from "rxjs";
+import {merge, Subscription} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
@@ -155,7 +155,11 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 		// Check if duration version is already exists
 		if (this.service.durationVersions.length) {
 			const [firstDurationVersion] = this.service.durationVersions;
-			if (firstDurationVersion.durationInSeconds === duration.control.value) {
+			const durationIsSame = firstDurationVersion.durationInSeconds === duration.control.value;
+			const priceIsSame = firstDurationVersion.prices[0].price === price.control.value;
+			const currencyIsSame = firstDurationVersion.prices[0].currency === currency.control.value;
+			const allIsSame = durationIsSame && priceIsSame && currencyIsSame;
+			if (allIsSame) {
 				return;
 			}
 		}
@@ -211,7 +215,11 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 
 	private initHandlers(): void {
 		this.logger.debug('initHandlers', this.selectedVariant);
-		this.handler = this.selectedVariant.duration.control.valueChanges
+		this.handler = merge(
+			this.selectedVariant.duration.control.valueChanges,
+			this.selectedVariant.price.control.valueChanges,
+			this.selectedVariant.currency.control.valueChanges,
+		)
 			.pipe(
 				this.takeUntil(),
 			)

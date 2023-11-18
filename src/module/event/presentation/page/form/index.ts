@@ -122,6 +122,12 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 					this.takeUntil(),
 					filter((services) => !!services?.length),
 					map(([firstService]) => firstService),
+					filter((firstService) => {
+						// Allow only if specialist or duration is not the same
+						const newSpecialist = this.takeSpecialistFromService(firstService);
+						const durationInSeconds = this.getEventDurationInSeconds(firstService);
+						return this.specialist !== newSpecialist || this.eventDurationInSeconds !== durationInSeconds;
+					}),
 					tap(this.setSpecialist.bind(this)),
 					tap(this.setEventDuration.bind(this)),
 				),
@@ -194,21 +200,27 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 		return this;
 	}
 
-	private setSpecialist(service: IService): this {
+	private takeSpecialistFromService(service: IService): string {
 
 		const [firstSpecialist] = service?.specialists ?? [];
 
 		if (!firstSpecialist) {
-			return this;
+			return '';
 		}
 
 		const {member} = firstSpecialist;
 
 		if (is.string(member)) {
-			this.specialist = member;
-		} else {
-			this.specialist = member?._id ?? '';
+			return member;
 		}
+
+		return member?._id ?? '';
+
+	}
+
+	private setSpecialist(service: IService): this {
+
+		this.specialist = this.takeSpecialistFromService(service);
 
 		return this;
 
