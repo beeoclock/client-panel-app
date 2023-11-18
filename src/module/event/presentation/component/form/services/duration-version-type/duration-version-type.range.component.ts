@@ -152,6 +152,14 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 		// Delete all existing duration versions in service and push selected variant
 		const {duration, price, currency} = this.selectedVariant;
 
+		// Check if duration version is already exists
+		if (this.service.durationVersions.length) {
+			const [firstDurationVersion] = this.service.durationVersions;
+			if (firstDurationVersion.durationInSeconds === duration.control.value) {
+				return;
+			}
+		}
+
 		Object.defineProperties(this.service, {
 			durationVersions: {
 				value: [

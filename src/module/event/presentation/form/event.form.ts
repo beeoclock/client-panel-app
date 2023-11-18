@@ -3,7 +3,6 @@ import {IService} from "@service/domain";
 import {AttendeesForm} from "@event/presentation/form/attendant.form";
 import {filter} from "rxjs";
 import {is} from "thiis";
-import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 
 
 export interface IEventForm {
@@ -58,22 +57,14 @@ export class EventForm extends FormGroup<IEventForm> {
 	public initHandler(): void {
 		this.controls.start.valueChanges.pipe(filter(is.string)).subscribe((value) => {
 			const [firstService] = this.controls.services.value;
+			console.log(firstService);
 			if (!firstService) {
 				return;
 			}
 			const end = new Date(value);
-			let eventDurationInSeconds = 0;
-			switch (firstService.configuration.duration?.durationVersionType) {
-				case DurationVersionTypeEnum.RANGE:
-					const lastDurationVersion = firstService.durationVersions[firstService.durationVersions.length - 1];
-					eventDurationInSeconds = (lastDurationVersion.durationInSeconds ?? 0) + (lastDurationVersion.breakInSeconds ?? 0);
-					break;
-				case DurationVersionTypeEnum.VARIABLE:
-					// TODO add to form new control to detect which duration version is selected
-					const [firstDurationVersion] = firstService.durationVersions;
-					eventDurationInSeconds = (firstDurationVersion.durationInSeconds ?? 0) + (firstDurationVersion.breakInSeconds ?? 0);
-					break;
-			}
+			// TODO add to form new control to detect which duration version is selected
+			const [firstDurationVersion] = firstService.durationVersions;
+			const eventDurationInSeconds = (firstDurationVersion.durationInSeconds ?? 0) + (firstDurationVersion.breakInSeconds ?? 0);
 			end.setSeconds(Number(new Date(value).getSeconds() + eventDurationInSeconds));
 			this.controls.end.patchValue(end.toISOString());
 		});
