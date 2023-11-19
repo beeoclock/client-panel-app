@@ -37,6 +37,7 @@ import {TranslateModule} from "@ngx-translate/core";
 		<label default *ngIf="showLabel" [for]="id">
 			{{ label ?? (labelTranslateKey | translate) }}
 		</label>
+		<ng-content/>
 		<input
 			isRequired
 			invalidTooltip
@@ -45,6 +46,8 @@ import {TranslateModule} from "@ngx-translate/core";
 			[isRequiredEnabled]="showLabel"
 			[class.disabled]="disabled"
 			[formControl]="control"
+			[classList]="customClassList"
+			[additionalClassList]="additionalClassList"
 			[placeholder]="placeholder ?? (placeholderTranslateKey | translate)"
 			[id]="id"
 			[type]="type"
@@ -67,6 +70,12 @@ export class FormInputComponent implements DoCheck {
 
 	@Input()
 	public type = 'text';
+
+	@Input()
+	public customClassList: string = '';
+
+	@Input()
+	public additionalClassList: string = '';
 
 	@Input()
 	public placeholder = '';

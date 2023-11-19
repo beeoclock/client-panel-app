@@ -39,13 +39,16 @@ export class CardComponent implements OnChanges, OnInit {
 	public useBorder = true;
 
 	@Input()
+	public flexCol = true;
+
+	@Input()
 	public borderColor = 'border-beeColor-200';
 
 	@Input()
 	public darkBorderColor = 'dark:border-beeDarkColor-700';
 
 	@HostBinding('class')
-	public hostClass = 'bg-white dark:text-white dark:bg-beeDarkColor-800/50 rounded-2xl flex flex-col';
+	public hostClass = 'bg-white dark:text-white dark:bg-beeDarkColor-800/50 rounded-2xl flex';
 
 	private readonly elementRef = inject(ElementRef);
 
@@ -56,6 +59,7 @@ export class CardComponent implements OnChanges, OnInit {
 		useBorder: SimpleChange;
 		borderColor: SimpleChange;
 		darkBorderColor: SimpleChange;
+		flexCol: SimpleChange;
 	}): void {
 
 		if (changes.gap) {
@@ -83,6 +87,10 @@ export class CardComponent implements OnChanges, OnInit {
 			this.elementRef.nativeElement.classList.toggle('border', changes.useBorder.currentValue);
 		}
 
+		if (changes.flexCol) {
+			this.elementRef.nativeElement.classList.toggle('flex-col', changes.flexCol.currentValue);
+		}
+
 		if (changes.borderColor) {
 			const newClass = this.hostClass.replace(changes.borderColor.previousValue, changes.borderColor.currentValue);
 			if (this.hostClass === newClass) {
@@ -102,6 +110,7 @@ export class CardComponent implements OnChanges, OnInit {
 	public ngOnInit(): void {
 		this.hostClass += ` ${this.gap} ${this.padding} ${this.width} ${this.borderColor} ${this.darkBorderColor}`;
 		this.elementRef.nativeElement.classList.toggle('border', this.useBorder);
+		this.elementRef.nativeElement.classList.toggle('flex-col', this.flexCol);
 	}
 
 }

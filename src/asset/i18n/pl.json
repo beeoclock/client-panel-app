@@ -702,6 +702,7 @@
 			"facilities": "Udogodnienia",
 			"feature": "Funkcja",
 			"firstName": "Imię",
+			"from": "Od",
 			"fullName": "Pełne imię i nazwisko",
 			"general": "Ogólne",
 			"image": "Obraz",
@@ -722,6 +723,14 @@
 			"no": "Nie",
 			"note": "Notatka",
 			"openTimePicker": "Wybierz",
+			"ownOptionOfTime": "Godzina według Twojego życzenia",
+			"ownOptionOfTimeHint": "Wybierz tę opcję, jeśli chcesz samodzielnie określić czas wydarzenia, niezależnie od innych wydarzeń zaplanowanych na tę godzinę.",
+			"periodOfDay": {
+				"AFTERNOON": "Popołudnie",
+				"EVENING": "Wieczór",
+				"MORNING": "Poranek",
+				"NIGHT": "Noc"
+			},
 			"permission": "Uprawnienie",
 			"phone": "Telefon",
 			"placeholder": {
@@ -764,6 +773,7 @@
 			"theme": "Motyw",
 			"thereArentAnyEvents": "Nie ma żadnych wydarzeń na {{ datetime }}",
 			"title": "Tytuł",
+			"to": "Do",
 			"today": "Dziś",
 			"tomorrow": "Jutro",
 			"total": "Razem",
@@ -842,6 +852,17 @@
 						"button": {
 							"add": {
 								"label": "Dodaj cenę"
+							}
+						},
+						"suffix": {
+							"range": {
+								"from": " (od)",
+								"to": " (do)"
+							}
+						},
+						"switch": {
+							"range": {
+								"title": "Tryb zasięgu (od - do)"
 							}
 						}
 					}

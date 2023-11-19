@@ -700,6 +700,7 @@
 			"facilities": "Зручності",
 			"feature": "Особливість",
 			"firstName": "Ім'я",
+			"from": "Від",
 			"fullName": "Повне ім'я",
 			"general": "Загальне",
 			"image": "Зображення",
@@ -720,6 +721,14 @@
 			"no": "Ні",
 			"note": "Примітка",
 			"openTimePicker": "Вибрати",
+			"ownOptionOfTime": "Година за твоїм бажанням",
+			"ownOptionOfTimeHint": "Оберіть цю опцію, якщо хочеш визначити час події самостійно, незалежно від інших подій, запланованих на цей час.",
+			"periodOfDay": {
+				"AFTERNOON": "День",
+				"EVENING": "Вечір",
+				"MORNING": "Ранок",
+				"NIGHT": "Ніч"
+			},
 			"permission": "Дозвіл",
 			"phone": "Телефон",
 			"placeholder": {
@@ -762,6 +771,7 @@
 			"theme": "Тема",
 			"thereArentAnyEvents": "Подій немає на {{ datetime }}",
 			"title": "Назва",
+			"to": "До",
 			"today": "Сьогодні",
 			"tomorrow": "Завтра",
 			"total": "Всього",
@@ -840,6 +850,17 @@
 						"button": {
 							"add": {
 								"label": "Додати ціну"
+							}
+						},
+						"suffix": {
+							"range": {
+								"from": " (від)",
+								"to": " (до)"
+							}
+						},
+						"switch": {
+							"range": {
+								"title": "Режим діапазонний (від - до)"
 							}
 						}
 					}

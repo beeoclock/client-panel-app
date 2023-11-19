@@ -1,6 +1,10 @@
 <utility-default-panel-component>
 
-	<button *ngIf="preview.isOn" type="button" class="flex items-center justify-center rounded-2xl bg-white hover:bg-beeColor-50 dark:bg-beeDarkColor-800 dark:hover:bg-beeDarkColor-600 px-4 py-2 text-sm font-semibold text-beeColor-900 dark:text-beeColor-200 shadow-sm ring-1 ring-inset ring-beeColor-300 cursor-pointer" (click)="preview.switchOff()">
+	<button
+		*ngIf="preview.isOn"
+		type="button"
+		class="flex items-center justify-center rounded-2xl bg-white hover:bg-beeColor-50 dark:bg-beeDarkColor-800 dark:hover:bg-beeDarkColor-600 px-4 py-2 text-sm font-semibold text-beeColor-900 dark:text-beeColor-200 shadow-sm ring-1 ring-inset ring-beeColor-300 cursor-pointer"
+		(click)="preview.switchOff()">
 		<i class="bi bi-arrow-left me-2"></i>
 		{{ 'keyword.capitalize.back' | translate }}
 	</button>
@@ -8,76 +12,71 @@
 </utility-default-panel-component>
 <div class="pb-48 grid grid-cols-12 gap-4 pt-4">
 
-	<ng-container *ngIf="preview.isOn">
 
-		<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
+	<div *ngIf="preview.isOn" class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
+
+		<bee-card>
+			<event-general-details [isPreview]="preview.isOn" [event]="value"/>
+		</bee-card>
+
+		<utility-button-save-container-component>
+			<button
+				type="button"
+				primary
+				[isLoading]="form.pending"
+				[disabled]="form.disabled"
+				[scrollToFirstError]="true"
+				(click)="save()">
+				{{ 'keyword.capitalize.save' | translate }}
+			</button>
+		</utility-button-save-container-component>
+
+	</div>
+
+
+	<div [hidden]="preview.isOn" class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
+
+		<form [formGroup]="form" class="flex flex-col gap-4">
 
 			<bee-card>
-				<event-general-details [isPreview]="preview.isOn" [event]="value"/>
+				<event-attendees-component [form]="form.controls.attendees"/>
+			</bee-card>
+
+			<bee-card>
+				<event-service-component
+					[serviceListControl]="form.controls.services"/>
+			</bee-card>
+
+			<bee-card *ngIf="slotsService.specialistExist">
+				<event-select-time-slot-form-component
+					[editable]="!isEditMode"
+					[configurationForm]="form.controls.configuration"
+					[control]="form.controls.start"/>
+			</bee-card>
+
+			<bee-card>
+				<form-textarea-component
+					id="event-form-public-note-input"
+					[label]="'keyword.capitalize.note' | translate"
+					[placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
+					[control]="form.controls.description"/>
 			</bee-card>
 
 			<utility-button-save-container-component>
 				<button
 					type="button"
 					primary
+					[scrollToFirstError]="true"
 					[isLoading]="form.pending"
 					[disabled]="form.disabled"
-					[scrollToFirstError]="true"
-					(click)="save()">
-					{{ 'keyword.capitalize.save' | translate }}
+					(click)="goToPreview()">
+					{{ 'keyword.capitalize.preview' | translate }}
 				</button>
 			</utility-button-save-container-component>
 
-		</div>
+		</form>
 
-	</ng-container>
+	</div>
 
-	<ng-container *ngIf="preview.isOff">
-
-		<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
-
-			<form [formGroup]="form" class="flex flex-col gap-4">
-
-				<bee-card>
-					<event-attendees-component [form]="form.controls.attendees"/>
-				</bee-card>
-
-				<bee-card>
-					<event-service-component
-						[editable]="!isEditMode"
-						[serviceListControl]="form.controls.services"/>
-				</bee-card>
-
-				<bee-card *ngIf="slotsService.specialistExist">
-					<event-select-time-slot-form-component
-						[editable]="!isEditMode"
-						[control]="form.controls.start"/>
-				</bee-card>
-
-				<bee-card>
-					<form-textarea-component
-						id="event-form-public-note-input"
-						[label]="'keyword.capitalize.note' | translate"
-						[placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
-						[control]="form.controls.description"/>
-				</bee-card>
-
-				<utility-button-save-container-component>
-					<button
-						type="button"
-						primary
-						[scrollToFirstError]="true"
-						[isLoading]="form.pending"
-						[disabled]="form.disabled"
-						(click)="goToPreview()">
-						{{ 'keyword.capitalize.preview' | translate }}
-					</button>
-				</utility-button-save-container-component>
-
-			</form>
-
-		</div>
-
-	</ng-container>
 
 </div>

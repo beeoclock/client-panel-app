@@ -23,7 +23,6 @@ import {IService} from "@service/domain";
 import {Select, Store} from "@ngxs/store";
 import {ServiceState} from "@service/state/service/service.state";
 import {ActivatedRoute, Router} from "@angular/router";
-import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {ImageBlockComponent} from "@service/presentation/component/form/v2/image/image-block/image-block.component";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
@@ -31,6 +30,9 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
+import {
+	SwitchActiveBlockComponent
+} from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
 
 @Component({
 	selector: 'service-form-v2-page-component',

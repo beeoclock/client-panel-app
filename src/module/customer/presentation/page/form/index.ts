@@ -10,7 +10,6 @@ import {filter, firstValueFrom, Observable} from "rxjs";
 import {Select, Store} from "@ngxs/store";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-error.directive";
@@ -24,6 +23,9 @@ import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {KeyValuePipe, NgComponentOutlet, NgForOf} from "@angular/common";
+import {
+	SwitchActiveBlockComponent
+} from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
 
 @Component({
 	selector: 'customer-form-page',

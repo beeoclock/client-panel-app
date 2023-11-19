@@ -19,9 +19,10 @@ import {DurationSelectComponent} from "@utility/presentation/component/input/dur
 		<div class="flex flex-col gap-3">
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
 				<bee-duration-select-component
-					[label]="'keyword.capitalize.duration' | translate"
+					[label]="('keyword.capitalize.duration' | translate) + suffix"
 					[control]="durationInSecondsControl"/>
 				<price-and-currency-component
+					[label]="('keyword.capitalize.price' | translate) + suffix"
 					[priceControl]="priceForm.controls.price"
 					[currencyControl]="priceForm.controls.currency"/>
 			</div>
@@ -47,4 +48,7 @@ export class PriceBlockComponent {
 
 	@Input()
 	public priceForm = new PriceForm();
+
+	@Input()
+	public suffix = '';
 }

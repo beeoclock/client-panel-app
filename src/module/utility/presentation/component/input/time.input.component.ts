@@ -18,10 +18,14 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
   template: `
 		<form-input
 			[id]="id"
+			[showLabel]="showLabel"
 			[label]="label"
 			[control]="localControl"
+			[additionalClassList]="additionalClassList"
 			placeholder="00:00"
-			type="time"/>
+			type="time">
+			<ng-content/>
+		</form-input>
   `
 })
 export class TimeInputComponent implements OnInit {
@@ -38,7 +42,16 @@ export class TimeInputComponent implements OnInit {
   public id = '';
 
   @Input()
+  public customClassList: string = '';
+
+  @Input()
+  public additionalClassList: string = '';
+
+  @Input()
   public valueAsNumber = true;
+
+  @Input()
+  public showLabel = true;
 
   @Input()
   public utc = false;

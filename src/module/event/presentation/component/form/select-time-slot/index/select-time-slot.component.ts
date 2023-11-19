@@ -12,6 +12,7 @@ import {IDayItem} from "@utility/domain/interface/i.day-item";
 import {
 	DateSliderSelectComponent
 } from "@utility/presentation/component/slider/date-slider-select/date-slider-select.component";
+import {EventConfigurationForm} from "@event/presentation/form/configuration.form";
 
 @Component({
 	selector: 'event-select-time-slot-form-component',
@@ -32,6 +33,9 @@ export class SelectTimeSlotComponent {
 
 	@Input({required: true})
 	public control!: FormControl<string>;
+
+	@Input({required: true})
+	public configurationForm!: EventConfigurationForm;
 
 	@Input({required: true})
 	public editable = true;

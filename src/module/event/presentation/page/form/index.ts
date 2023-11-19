@@ -1,4 +1,13 @@
-import {AfterContentInit, Component, inject, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {
+	AfterContentInit,
+	Component,
+	inject,
+	OnInit,
+	QueryList,
+	ViewChild,
+	ViewChildren,
+	ViewEncapsulation
+} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -86,6 +95,9 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 	@ViewChild(BackButtonComponent)
 	public backButtonComponent!: BackButtonComponent;
 
+	@ViewChildren(ServicesComponent)
+	public servicesComponent!: QueryList<ServicesComponent>;
+
 	@Select(EventState.itemData)
 	public itemData$!: Observable<RMIEvent | undefined>;
 
@@ -110,6 +122,12 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 					this.takeUntil(),
 					filter((services) => !!services?.length),
 					map(([firstService]) => firstService),
+					filter((firstService) => {
+						// Allow only if specialist or duration is not the same
+						const newSpecialist = this.takeSpecialistFromService(firstService);
+						const durationInSeconds = this.getEventDurationInSeconds(firstService);
+						return this.specialist !== newSpecialist || this.eventDurationInSeconds !== durationInSeconds;
+					}),
 					tap(this.setSpecialist.bind(this)),
 					tap(this.setEventDuration.bind(this)),
 				),
@@ -159,9 +177,19 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 
 	private getEventDurationInSeconds(service: IService): number {
 		try {
-			const [durationVersion] = service.durationVersions;
-			const {durationInSeconds, breakInSeconds} = durationVersion;
-			return (durationInSeconds ?? 0) + (breakInSeconds ?? 0);
+			// Find the biggest duration version
+
+			const {durationVersions} = service;
+			this.logger.debug('getEventDurationInSeconds', durationVersions);
+			const durationVersion = durationVersions.reduce((acc, curr) => {
+				if (curr.durationInSeconds > acc.durationInSeconds) {
+					return curr;
+				}
+				return acc;
+			}, durationVersions[0]);
+
+			return (durationVersion.durationInSeconds ?? 0) + (durationVersion.breakInSeconds ?? 0);
+
 		} catch (e) {
 			return 0;
 		}
@@ -172,21 +200,27 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 		return this;
 	}
 
-	private setSpecialist(service: IService): this {
+	private takeSpecialistFromService(service: IService): string {
 
 		const [firstSpecialist] = service?.specialists ?? [];
 
 		if (!firstSpecialist) {
-			return this;
+			return '';
 		}
 
 		const {member} = firstSpecialist;
 
 		if (is.string(member)) {
-			this.specialist = member;
-		} else {
-			this.specialist = member?._id ?? '';
+			return member;
 		}
+
+		return member?._id ?? '';
+
+	}
+
+	private setSpecialist(service: IService): this {
+
+		this.specialist = this.takeSpecialistFromService(service);
 
 		return this;
 
@@ -212,12 +246,12 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 
 						const {status, _id, ...initialValue} = rest;
 
-						this.form.patchValue(initialValue);
+						this.form.patchValue(structuredClone(initialValue));
 
 					} else {
 
 						this.isEditMode = true;
-						this.form.patchValue(rest);
+						this.form.patchValue(structuredClone(rest));
 
 					}
 
@@ -278,12 +312,26 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 	}
 
 	public goToPreview(): void {
+
+		if (!this.checkIfServicesAreValid()){
+			this.logger.debug('Services are not valid');
+			return;
+		}
+
+		this.logger.debug('Services are valid');
+
 		this.form.updateValueAndValidity();
 		this.form.markAllAsTouched();
 		this.logger.debug(`Event:goToPreview:${this.form.status}`, this.form, this.form.getRawValue());
 		if (this.form.valid) {
 			this.preview.switchOn();
 		}
+	}
+
+	private checkIfServicesAreValid(): boolean {
+		return this.servicesComponent.toArray().every((serviceComponent) => {
+			return serviceComponent.checkValidationOfDurationVersionTypeRangeComponentList();
+		});
 	}
 
 }

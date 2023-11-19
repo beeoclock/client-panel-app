@@ -1,58 +1,39 @@
 <div class="flex flex-col gap-4">
 	<div class="flex justify-between items-center">
 		<strong class="text-2xl dark:text-white">{{ 'keyword.capitalize.services' | translate }}</strong>
-		<utility-invalid-message [class.hidden]="serviceListControl.untouched || serviceListControl.valid" [control]="serviceListControl"/>
+		<utility-invalid-message [class.hidden]="serviceListControl.untouched || serviceListControl.valid"
+														 [control]="serviceListControl"/>
 	</div>
 
 	<ng-container *ngFor="let service of serviceListControl.value; let index = index">
 
-		<div class="grid lg:grid-cols-12 gap-4">
-
-			<div
-				*ngIf="service.presentation?.banners?.[0] as banner" class="col-span-3">
+		<bee-card class="text-sm" [useBorder]="false" padding="p-0">
+			<div class="flex justify-between items-start gap-4">
 				<div
-					class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-beeColor-400">
+					*ngIf="service.presentation?.banners?.[0] as banner"
+					class="min-w-[128px] max-w-[128px] min-h-[128px] max-h-[128px] rounded-2xl bg-beeColor-400">
 					<img
 						bocMedia
 						[src]="banner"
 						twHeight="h-[128px]"
 						twWidth="w-[128px]"
-						class="hidden object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
+						class="hidden object-cover rounded-2xl min-w-[128px] max-w-[128px] min-h-[128px] max-h-[128px]"
 						alt="Uploaded Image"/>
 				</div>
-			</div>
-			<div class="col-span-12" [class.md:col-span-9]="service.presentation?.banners?.[0]" [class.md:col-span-12]="!service.presentation?.banners?.[0]">
-				<div class="flex flex-col gap-2">
-					<div class="grid lg:grid-cols-12 gap-4">
-
-						<div class="lg:col-span-9">
-
-							<div class="text-xl w-full lg:truncate font-bold text-beeColor-500">
-								{{ service.languageVersions[0].title }}
-							</div>
-							<div class="text-beeColor-500 hidden lg:block">{{ service.languageVersions[0].description }}</div>
-
-						</div>
-
-						<div class="lg:col-span-3">
-
-							<div class="flex flex-col gap-1">
-
-								<div class="text-end font-bold">
-									{{ service.durationVersions[0].prices[0].price | currency: service.durationVersions[0].prices[0].currency: 'symbol-narrow' }}
-								</div>
-								<div class="text-end">
-									{{ service.durationVersions[0].durationInSeconds | humanizeDuration }}
-								</div>
-
-							</div>
-
-						</div>
+				<div class="flex-1 flex flex-col gap-2">
+					<div class="font-bold">
+						{{ service.languageVersions[0].title }}
+					</div>
+					<div class="text-beeColor-500 hidden md:block">
+						{{ service.languageVersions[0].description }}
 					</div>
 				</div>
 			</div>
-
-		</div>
+			<event-duration-version-type-range
+				[serviceListControl]="serviceListControl"
+				[index]="index"
+				[service]="service"/>
+		</bee-card>
 
 	</ng-container>
 

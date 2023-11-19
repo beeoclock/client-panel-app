@@ -701,6 +701,7 @@
 			"facilities": "Facilities",
 			"feature": "Feature",
 			"firstName": "First name",
+			"from": "From",
 			"fullName": "Full name",
 			"general": "General",
 			"image": "Image",
@@ -721,6 +722,14 @@
 			"no": "No",
 			"note": "Note",
 			"openTimePicker": "Select",
+			"ownOptionOfTime": "Hour according to your wish",
+			"ownOptionOfTimeHint": "Choose this option if you want to determine the time of the event yourself, regardless of other events scheduled for that time.",
+			"periodOfDay": {
+				"AFTERNOON": "Afternoon",
+				"EVENING": "Evening",
+				"MORNING": "Morning",
+				"NIGHT": "Night"
+			},
 			"permission": "Permission",
 			"phone": "Phone",
 			"placeholder": {
@@ -763,6 +772,7 @@
 			"theme": "Theme",
 			"thereArentAnyEvents": "There aren't any events on {{ datetime }}",
 			"title": "Title",
+			"to": "To",
 			"today": "Today",
 			"tomorrow": "Tomorrow",
 			"total": "Total",
@@ -841,6 +851,17 @@
 						"button": {
 							"add": {
 								"label": "Add price"
+							}
+						},
+						"suffix": {
+							"range": {
+								"from": " (from)",
+								"to": " (to)"
+							}
+						},
+						"switch": {
+							"range": {
+								"title": "Range mode (from - to)"
 							}
 						}
 					}
