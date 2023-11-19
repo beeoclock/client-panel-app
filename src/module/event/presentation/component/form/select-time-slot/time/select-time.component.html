@@ -27,9 +27,17 @@
 
 		<hr>
 
-		<time-input-component
-			[additionalClassList]="isSelected(convertToDateTime(ownOptionOfStartTimeControl.value)) ? 'bg-blue-100 text-blue-600 border-blue-200' : ''"
-			[label]="'keyword.capitalize.ownOptionOfTime' | translate"
-			[control]="ownOptionOfStartTimeControl"/>
+		<div>
+			<time-input-component
+				[additionalClassList]="isSelected(convertToDateTime(ownOptionOfStartTimeControl.value)) ? 'bg-blue-100 text-blue-600 border-blue-200' : ''"
+				[label]="'keyword.capitalize.ownOptionOfTime' | translate"
+				[control]="ownOptionOfStartTimeControl">
+				<div class="text-beeColor-500 text-sm">
+					{{ 'keyword.capitalize.ownOptionOfTimeHint' | translate }}
+				</div>
+			</time-input-component>
+
+		</div>
+
 	</ng-template>
 </div>

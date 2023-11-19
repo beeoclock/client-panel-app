@@ -20,15 +20,17 @@ export interface ITimeSlot {
 }
 
 enum PeriodOfDayEnum {
+	NIGHT = 'NIGHT',
 	MORNING = 'MORNING',
 	AFTERNOON = 'AFTERNOON',
 	EVENING = 'EVENING',
 }
 
 enum IndexOfPeriodOfDayEnum {
-	MORNING = 0,
-	AFTERNOON = 1,
-	EVENING = 2,
+	NIGHT = 0,
+	MORNING = 1,
+	AFTERNOON = 2,
+	EVENING = 3,
 }
 
 @Component({
@@ -151,6 +153,9 @@ export class SelectTimeComponent extends Reactive implements OnInit {
 			periodOfDay: PeriodOfDayEnum;
 			slots: { start: DateTime; end: DateTime }[];
 		}[] = [{
+			periodOfDay: PeriodOfDayEnum.NIGHT,
+			slots: []
+		}, {
 			periodOfDay: PeriodOfDayEnum.MORNING,
 			slots: []
 		}, {
@@ -166,15 +171,18 @@ export class SelectTimeComponent extends Reactive implements OnInit {
 			groupedSlots[index].periodOfDay = periodOfDay;
 			groupedSlots[index].slots.push(slot);
 		});
+		console.log(groupedSlots);
 		return groupedSlots;
 	}
 
 	private getPeriodOfDay(start: DateTime) {
 		const hour = start.hour;
-		if (hour >= 6 && hour < 12) {
+		// 24 format
+		if (hour >= 0 && hour < 6) {
+			return PeriodOfDayEnum.NIGHT;
+		} else if (hour >= 6 && hour < 12) {
 			return PeriodOfDayEnum.MORNING;
-		}
-		if (hour >= 12 && hour < 18) {
+		} else if (hour >= 12 && hour < 18) {
 			return PeriodOfDayEnum.AFTERNOON;
 		}
 		return PeriodOfDayEnum.EVENING;
@@ -182,6 +190,8 @@ export class SelectTimeComponent extends Reactive implements OnInit {
 
 	private getIndexOfPeriodOfDay(periodOfDay: PeriodOfDayEnum) {
 		switch (periodOfDay) {
+			case PeriodOfDayEnum.NIGHT:
+				return IndexOfPeriodOfDayEnum.NIGHT;
 			case PeriodOfDayEnum.MORNING:
 				return IndexOfPeriodOfDayEnum.MORNING;
 			case PeriodOfDayEnum.AFTERNOON:

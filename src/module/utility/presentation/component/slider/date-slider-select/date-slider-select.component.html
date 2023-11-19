@@ -23,11 +23,14 @@
             <div
 							*ngIf="dayItem.slots.length || dayItem.events.length"
 							class="w-[20px] h-[20px] flex items-center justify-center text-sm rounded-full absolute -right-1 -top-0"
+							#daySlotCounterRef
 							[ngClass]="{
                 'bg-blue-200 text-blue-600': isSelected(dayItem.datetime),
                 'bg-beeColor-300 text-beeColor-600': !isSelected(dayItem.datetime)
                 }">
-							{{ dayItem.slots.length || dayItem.events.length }}
+							<ng-container *ngIf="(dayItem.slots.length || dayItem.events.length || 0) <= 9; else MoreThenNineTemplate">
+								{{ dayItem.slots.length || dayItem.events.length || 0 }}
+							</ng-container>
             </div>
 
 					<button
@@ -55,4 +58,6 @@
 		<event-select-time-slot-button-arrow-component [right]="true" (click)="nextPackOfDates()"/>
 	</div>
 </div>
-
+<ng-template #MoreThenNineTemplate>
+	9 <span class="text-xs">+</span>
+</ng-template>

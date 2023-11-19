@@ -723,11 +723,13 @@
 			"no": "Nie",
 			"note": "Notatka",
 			"openTimePicker": "Wybierz",
-			"ownOptionOfTime": "Własna opcja czasu",
+			"ownOptionOfTime": "Godzina według Twojego życzenia",
+			"ownOptionOfTimeHint": "Wybierz tę opcję, jeśli chcesz samodzielnie określić czas wydarzenia, niezależnie od innych wydarzeń zaplanowanych na tę godzinę.",
 			"periodOfDay": {
 				"AFTERNOON": "Popołudnie",
 				"EVENING": "Wieczór",
-				"MORNING": "Poranek"
+				"MORNING": "Poranek",
+				"NIGHT": "Noc"
 			},
 			"permission": "Uprawnienie",
 			"phone": "Telefon",

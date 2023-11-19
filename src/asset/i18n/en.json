@@ -722,11 +722,13 @@
 			"no": "No",
 			"note": "Note",
 			"openTimePicker": "Select",
-			"ownOptionOfTime": "Own time variant",
+			"ownOptionOfTime": "Hour according to your wish",
+			"ownOptionOfTimeHint": "Choose this option if you want to determine the time of the event yourself, regardless of other events scheduled for that time.",
 			"periodOfDay": {
 				"AFTERNOON": "Afternoon",
 				"EVENING": "Evening",
-				"MORNING": "Morning"
+				"MORNING": "Morning",
+				"NIGHT": "Night"
 			},
 			"permission": "Permission",
 			"phone": "Phone",

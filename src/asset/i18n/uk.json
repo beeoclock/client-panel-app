@@ -721,11 +721,13 @@
 			"no": "Ні",
 			"note": "Примітка",
 			"openTimePicker": "Вибрати",
-			"ownOptionOfTime": "Власний варіант часу",
+			"ownOptionOfTime": "Година за твоїм бажанням",
+			"ownOptionOfTimeHint": "Оберіть цю опцію, якщо хочеш визначити час події самостійно, незалежно від інших подій, запланованих на цей час.",
 			"periodOfDay": {
 				"AFTERNOON": "День",
 				"EVENING": "Вечір",
-				"MORNING": "Ранок"
+				"MORNING": "Ранок",
+				"NIGHT": "Ніч"
 			},
 			"permission": "Дозвіл",
 			"phone": "Телефон",

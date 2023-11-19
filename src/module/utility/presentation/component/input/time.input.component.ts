@@ -23,7 +23,9 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 			[control]="localControl"
 			[additionalClassList]="additionalClassList"
 			placeholder="00:00"
-			type="time"/>
+			type="time">
+			<ng-content/>
+		</form-input>
   `
 })
 export class TimeInputComponent implements OnInit {

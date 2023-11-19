@@ -37,6 +37,7 @@ import {TranslateModule} from "@ngx-translate/core";
 		<label default *ngIf="showLabel" [for]="id">
 			{{ label ?? (labelTranslateKey | translate) }}
 		</label>
+		<ng-content/>
 		<input
 			isRequired
 			invalidTooltip
