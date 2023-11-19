@@ -38,7 +38,7 @@ export class DurationVersionHtmlHelper {
 		return result.join(' / ');
 	}
 
-	public getPriceValue(item: IService) : string {
+	public getPriceValue(item: IService): string {
 		const {durationVersions} = item;
 		if (this.durationHelper.durationIsRangeMode(item)) {
 			const translateKeyFrom = 'keyword.capitalize.from';
@@ -46,18 +46,18 @@ export class DurationVersionHtmlHelper {
 			const translateKeyTo = 'keyword.capitalize.to';
 			const toLabel = this.translateService.instant(translateKeyTo);
 			const [fromDurationVersion, toDurationVersion] = durationVersions;
-			if (toDurationVersion.prices[0].price) {
-				const durationFrom = this.currencyPipe.transform(fromDurationVersion.prices[0].price, fromDurationVersion.prices[0].currency, 'symbol-narrow');
-				const durationTo = this.currencyPipe.transform(toDurationVersion.prices[0].price, toDurationVersion.prices[0].currency, 'symbol-narrow');
-				return `
-					<div class="flex gap-1"><div class="text-beeColor-500">${fromLabel}:</div> <div class="">${durationFrom}</div></div>
-					<div class="flex gap-1"><div class="text-beeColor-500">${toLabel}:</div> <div class="">${durationTo}</div></div>
-				`;
+			let priceForm = this.currencyPipe.transform(fromDurationVersion.prices[0].price, fromDurationVersion.prices[0].currency, 'symbol-narrow');
+			if (!priceForm) {
+				priceForm = '-';
 			}
-			const durationFrom = this.currencyPipe.transform(fromDurationVersion.prices[0].price, fromDurationVersion.prices[0].currency, 'symbol-narrow');
+			let priceTo = this.currencyPipe.transform(toDurationVersion.prices[0].price, toDurationVersion.prices[0].currency, 'symbol-narrow');
+			if (!priceTo) {
+				priceTo = '-';
+			}
 			return `
-				<div class="flex gap-1"><div class="text-beeColor-500">${fromLabel}:</div> <div class="">${durationFrom}</div></div>
-			`;
+					<div class="flex gap-1"><div class="text-beeColor-500">${fromLabel}:</div> <div class="">${priceForm}</div></div>
+					<div class="flex gap-1"><div class="text-beeColor-500">${toLabel}:</div> <div class="">${priceTo}</div></div>
+				`;
 		}
 		const result: string[] = [];
 		item.durationVersions.forEach((durationVersion) => {
