@@ -15,6 +15,7 @@ import {IonSelectActiveComponent} from "@utility/presentation/component/input/io
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
+import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 
 @Component({
 	selector: 'event-filter-component',
@@ -56,6 +57,8 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		<ng-template #EventStatusSelect>
 			<ion-select-event-status
 				class="px-4 py-2 border border-beeColor-200 rounded-2xl"
+				[ignoreStatusList]="ignoreStatusList"
+				[addAllOption]="false"
 				[control]="form.controls.status"/>
 		</ng-template>
 
@@ -82,6 +85,7 @@ export class FilterComponent extends BaseFilterComponent {
 	public override readonly form = new FilterForm();
 	public override readonly actions = EventActions;
 	public override readonly state = EventState;
+	public readonly ignoreStatusList = [EventStatusEnum.requested];
 
 	constructor() {
 		super();

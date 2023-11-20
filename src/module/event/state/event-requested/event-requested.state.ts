@@ -16,18 +16,15 @@ import {BookedStatusEventApiAdapter} from "@event/adapter/external/api/booked.st
 import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {ListMergedEventApiAdapter} from "@event/adapter/external/api/list.merged.event.api.adapter";
-import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 
 export type IEventState = IBaseState<Event.IEvent>;
 
 @State<IEventState>({
 	name: 'event',
-	defaults: baseDefaults<Event.IEvent>({
-		status: EventStatusEnum.booked,
-	})
+	defaults: baseDefaults<Event.IEvent>()
 })
 @Injectable()
-export class EventState extends BaseState<Event.IEvent> {
+export class EventRequestedState extends BaseState<Event.IEvent> {
 
 	protected override readonly archive = inject(ArchiveEventApiAdapter);
 	protected override readonly create = inject(CreateEventApiAdapter);

@@ -89,6 +89,7 @@
 					class="
               flex
               items-center
+              justify-between
               p-2
               text-beeColor-900
               rounded-lg
@@ -96,11 +97,17 @@
               hover:bg-beeColor-100
               dark:hover:bg-beeDarkColor-800">
 
-					<i
-						class="w-6 h-6 ms-2 text-beeColor-500 transition duration-75 dark:text-beeDarkColor-400 group-hover:text-beeColor-900 dark:group-hover:text-white"
-						[class]="item.icon"></i>
+					<div>
+						<i
+							class="w-6 h-6 ms-2 text-beeColor-500 transition duration-75 dark:text-beeDarkColor-400 group-hover:text-beeColor-900 dark:group-hover:text-white"
+							[class]="item.icon"></i>
 
-					<span class="ml-3">{{ item.translateKey | translate }}</span>
+						<span class="ml-3">{{ item.translateKey | translate }}</span>
+					</div>
+
+					<ng-container *ngIf="item?.badge">
+						<span class="ms-2 rounded-full h-[24px] w-[24px] flex items-center justify-center bg-blue-600 text-sm text-white">{{ item.badge }}</span>
+					</ng-container>
 
 				</a>
 

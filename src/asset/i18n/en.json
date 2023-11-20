@@ -315,12 +315,14 @@
 					"booked": "Booked",
 					"cancelled": "Canceled",
 					"done": "Done",
+					"rejected": "Rejected",
 					"requested": "Requested"
 				},
 				"singular": {
 					"booked": "Booked",
 					"cancelled": "Canceled",
 					"done": "Done",
+					"rejected": "Rejected",
 					"requested": "Requested"
 				}
 			}
@@ -896,6 +898,7 @@
 				"message": "Do you really want to leave?"
 			}
 		},
+		"requested": "Requests",
 		"services": "Services",
 		"settings": "Settings",
 		"switch-business-client": "Change context",

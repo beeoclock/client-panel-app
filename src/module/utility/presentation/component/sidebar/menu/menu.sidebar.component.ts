@@ -11,6 +11,7 @@ import {environment} from "@environment/environment";
 interface IMenuItem {
 	url?: string;
 	icon?: string;
+	badge?: string;
 	translateKey: string;
 	target?: '_blank';
 	disabled?: boolean;
@@ -60,7 +61,7 @@ export class MenuSidebarComponent {
 				queryParams: "ignored",
 				fragment: "ignored",
 			},
-			url: '/event',
+			url: '/event/list',
 			// items: [
 			// 	{
 			// 		translateKey: 'sidebar.events.list',
@@ -87,6 +88,18 @@ export class MenuSidebarComponent {
 			// 		}
 			// 	},
 			// ]
+		},
+		{
+			translateKey: 'sidebar.requested',
+			badge: '2',
+			icon: 'bi bi-calendar-plus',
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			},
+			url: '/event/requested',
 		},
 		{
 			url: '/customer',

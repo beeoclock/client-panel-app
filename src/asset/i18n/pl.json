@@ -311,6 +311,20 @@
 			},
 			"status": {
 				"all": "Wszystkie",
+				"plural": {
+					"booked": "Zarezerwowane",
+					"cancelled": "Odwołane",
+					"done": "Gotowe",
+					"rejected": "Odrzucone",
+					"requested": "Zażądane"
+				},
+				"singular": {
+					"booked": "Zarezerwowane",
+					"cancelled": "Odwołane",
+					"done": "Gotowe",
+					"rejected": "Odrzucono",
+					"requested": "Zażądane"
+				},
 				"status": {
 					"plural": {
 						"booked": "Zarezerwowane",
@@ -897,6 +911,7 @@
 				"message": "Czy naprawdę chcesz odejść?"
 			}
 		},
+		"requested": "Zażądane",
 		"services": "Usługi",
 		"settings": "Ustawienia",
 		"switch-business-client": "Zmień kontekst",

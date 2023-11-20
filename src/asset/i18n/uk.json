@@ -315,12 +315,14 @@
 					"booked": "Зарезервовані",
 					"cancelled": "Скасовані",
 					"done": "Виконані",
+					"rejected": "Відхилані",
 					"requested": "На запиті"
 				},
 				"singular": {
 					"booked": "Зарезервовано",
 					"cancelled": "Скасована",
 					"done": "Виконано",
+					"rejected": "Відхилено",
 					"requested": "Запит"
 				}
 			}
@@ -895,6 +897,7 @@
 				"message": "Дійсно бажаєш вийти ?"
 			}
 		},
+		"requested": "Запити",
 		"services": "Послуги",
 		"settings": "Налаштування",
 		"switch-business-client": "Змінити контекст",

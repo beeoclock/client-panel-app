@@ -29,7 +29,7 @@ import {
 } from "@event/presentation/component/list/layout/desktop/desktop.layout.list.component";
 
 @Component({
-	selector: 'event-list-page',
+	selector: 'event-requested-page',
 	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,

@@ -12,11 +12,15 @@ export const routers = [
 		},
 		children: [
 			{
-				path: '',
+				path: 'list',
 				// resolve: {
 				// 	tableState: eventListResolver
 				// },
 				loadComponent: () => import('./page/list')
+			},
+			{
+				path: 'requested',
+				loadComponent: () => import('./page/requested')
 			},
 			{
 				path: 'form',

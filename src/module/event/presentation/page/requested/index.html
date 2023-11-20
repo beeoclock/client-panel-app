@@ -1,0 +1,15 @@
+<ng-container *ngIf="initialized.isOn; else NotInitializedTemplate">
+	<event-mobile-layout-list-component
+		[someDataExist]="someDataExist"
+		[tableState]="tableState$ | async"
+		*ngIf="isMobile$ | async"/>
+	<event-desktop-layout-list-component
+		[someDataExist]="someDataExist"
+		[tableState]="tableState$ | async"
+		*ngIf="isNotMobile$ | async"/>
+</ng-container>
+<ng-template #NotInitializedTemplate>
+	<div class="p-4">
+		{{ 'keyword.capitalize.initializing' | translate }}...
+	</div>
+</ng-template>
