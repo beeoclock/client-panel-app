@@ -59,20 +59,28 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 	}
 
 	public setOrderBy(value: string) {
+		this.orderBy = value;
+		return this;
+	}
+
+	public set orderBy(value: string) {
 		this.#orderBy = value;
 		this.initHashSum();
 		this.updateLastUpdate();
-		return this;
 	}
 
 	public get orderBy(): string {
 		return this.#orderBy;
 	}
 
-	public setOrderDir(value: string) {
+	public set orderDir(value: string) {
 		this.#orderDir = value;
 		this.initHashSum();
 		this.updateLastUpdate();
+	}
+
+	public setOrderDir(value: string) {
+		this.orderDir = value;
 		return this;
 	}
 
@@ -81,10 +89,14 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 	}
 
 	public setPage(value: number) {
+		this.page = value;
+		return this;
+	}
+
+	public set page(value: number) {
 		this.#page = value;
 		this.initHashSum();
 		this.updateLastUpdate();
-		return this;
 	}
 
 	public get page(): number {
@@ -99,19 +111,27 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 	}
 
 	public setPageSize(value: number) {
+		this.pageSize = value;
+		return this;
+	}
+
+	public set pageSize(value: number) {
 		this.#pageSize = value;
 		this.initHashSum();
 		this.updateLastUpdate();
-		return this;
 	}
 
 	public get pageSize(): number {
 		return this.#pageSize;
 	}
 
-	public setItems(value: ITEM[]) {
+	public set items(value: ITEM[]) {
 		this.#items = value;
 		this.updateLastUpdate();
+	}
+
+	public setItems(value: ITEM[]) {
+		this.items = value;
 		return this;
 	}
 
@@ -119,9 +139,13 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 		return this.#items;
 	}
 
-	public setTotal(value: number) {
+	public set total(value: number) {
 		this.#total = value;
 		this.updateLastUpdate();
+	}
+
+	public setTotal(value: number) {
+		this.total = value;
 		return this;
 	}
 
@@ -129,9 +153,14 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 		return this.#total;
 	}
 
-	public setMaxPage(value: number) {
+	public set maxPage(value: number) {
 		this.#maxPage = value;
 		this.updateLastUpdate();
+	}
+
+	public setMaxPage(value: number) {
+		this.maxPage = value;
+		return this;
 	}
 
 	public get maxPage(): number {
@@ -141,8 +170,12 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 	//
 
 	public setLastUpdate(value: string) {
-		this.#lastUpdate = value;
+		this.lastUpdate = value;
 		return this;
+	}
+
+	public set lastUpdate(value: string) {
+		this.#lastUpdate = value;
 	}
 
 	public get lastUpdate(): string {
@@ -150,8 +183,12 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 	}
 
 	public setHashSum(value: string) {
-		this.#hashSum = value;
+		this.hashSum = value;
 		return this;
+	}
+
+	public set hashSum(value: string) {
+		this.#hashSum = value;
 	}
 
 	public get hashSum(): string {

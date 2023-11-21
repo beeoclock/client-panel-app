@@ -29,41 +29,16 @@ export class ServiceState extends BaseState<IService> {
 
 	constructor() {
 		super(
-			{
-				tableStates: 'service.cache.tableStates',
-				items: 'service.cache.items'
-			}
+			// {
+			// 	tableStates: 'service.cache.tableStates',
+			// 	items: 'service.cache.items'
+			// }
 		);
 	}
 
 	@Action(ServiceActions.Init)
 	public override async init(ctx: StateContext<IServiceState>): Promise<void> {
 		await super.init(ctx);
-	}
-
-	@Action(ServiceActions.InitDefaultsFromCache)
-	public override async InitDefaultsFromCache(ctx: StateContext<IServiceState>): Promise<void> {
-		await super.InitDefaultsFromCache(ctx);
-	}
-
-	@Action(ServiceActions.ClearTableCache)
-	public override async ClearTableCache(ctx: StateContext<IServiceState>): Promise<void> {
-		await super.ClearTableCache(ctx);
-	}
-
-	@Action(ServiceActions.ClearItemCache)
-	public override async ClearItemsCache(ctx: StateContext<IServiceState>): Promise<void> {
-		await super.ClearItemsCache(ctx);
-	}
-
-	@Action(ServiceActions.ClearTableCacheAndGetList)
-	public override async ClearTableCacheAndGetList(ctx: StateContext<IServiceState>): Promise<void> {
-		await super.ClearTableCacheAndGetList(ctx);
-	}
-
-	@Action(ServiceActions.ClearItemCacheAndGetItem)
-	public override async ClearItemCacheAndGetItem(ctx: StateContext<IServiceState>): Promise<void> {
-		await super.ClearItemCacheAndGetItem(ctx);
 	}
 
 	@Action(ServiceActions.UpdateFilters)

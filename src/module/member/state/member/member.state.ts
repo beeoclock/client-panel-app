@@ -28,41 +28,16 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 	constructor() {
 		super(
-			{
-				tableStates: 'member.cache.tableStates',
-				items: 'member.cache.items'
-			}
+			// {
+			// 	tableStates: 'member.cache.tableStates',
+			// 	items: 'member.cache.items'
+			// }
 		);
 	}
 
 	@Action(MemberActions.Init)
 	public override async init(ctx: StateContext<IMemberState>): Promise<void> {
 		await super.init(ctx);
-	}
-
-	@Action(MemberActions.InitDefaultsFromCache)
-	public override async InitDefaultsFromCache(ctx: StateContext<IMemberState>): Promise<void> {
-		await super.InitDefaultsFromCache(ctx);
-	}
-
-	@Action(MemberActions.ClearTableCache)
-	public override async ClearTableCache(ctx: StateContext<IMemberState>): Promise<void> {
-		await super.ClearTableCache(ctx);
-	}
-
-	@Action(MemberActions.ClearItemCache)
-	public override async ClearItemsCache(ctx: StateContext<IMemberState>): Promise<void> {
-		await super.ClearItemsCache(ctx);
-	}
-
-	@Action(MemberActions.ClearTableCacheAndGetList)
-	public override async ClearTableCacheAndGetList(ctx: StateContext<IMemberState>): Promise<void> {
-		await super.ClearTableCacheAndGetList(ctx);
-	}
-
-	@Action(MemberActions.ClearItemCacheAndGetItem)
-	public override async ClearItemCacheAndGetItem(ctx: StateContext<IMemberState>): Promise<void> {
-		await super.ClearItemCacheAndGetItem(ctx);
 	}
 
 	@Action(MemberActions.UpdateFilters)

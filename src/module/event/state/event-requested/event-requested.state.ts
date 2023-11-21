@@ -40,15 +40,14 @@ export class EventRequestedState extends BaseState<Event.IEvent> implements Ngxs
 
 	constructor() {
 		super(
-			{
-				tableStates: 'event.requested.cache.tableStates',
-				items: 'event.requested.cache.items'
-			}
+			// {
+			// 	tableStates: 'event.requested.cache.tableStates',
+			// 	items: 'event.requested.cache.items'
+			// }
 		);
 	}
 
 	public ngxsOnInit(ctx: StateContext<IEventRequestedState>) {
-		console.log(ctx);
 		ctx.dispatch(new EventRequestedActions.GetList());
 	}
 

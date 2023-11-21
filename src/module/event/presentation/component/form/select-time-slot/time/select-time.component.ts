@@ -171,7 +171,6 @@ export class SelectTimeComponent extends Reactive implements OnInit {
 			groupedSlots[index].periodOfDay = periodOfDay;
 			groupedSlots[index].slots.push(slot);
 		});
-		console.log(groupedSlots);
 		return groupedSlots;
 	}
 

@@ -28,10 +28,10 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 	constructor() {
 		super(
-			{
-				tableStates: 'customer.cache.tableStates',
-				items: 'customer.cache.items'
-			}
+			// {
+			// 	tableStates: 'customer.cache.tableStates',
+			// 	items: 'customer.cache.items'
+			// }
 		);
 	}
 
@@ -40,30 +40,30 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 		await super.init(ctx);
 	}
 
-	@Action(CustomerActions.InitDefaultsFromCache)
-	public override async InitDefaultsFromCache(ctx: StateContext<ICustomerState>): Promise<void> {
-		await super.InitDefaultsFromCache(ctx);
-	}
+	// @Action(CustomerActions.InitDefaultsFromCache)
+	// public override async InitDefaultsFromCache(ctx: StateContext<ICustomerState>): Promise<void> {
+	// 	await super.InitDefaultsFromCache(ctx);
+	// }
 
-	@Action(CustomerActions.ClearTableCache)
-	public override async ClearTableCache(ctx: StateContext<ICustomerState>): Promise<void> {
-		await super.ClearTableCache(ctx);
-	}
-
-	@Action(CustomerActions.ClearItemCache)
-	public override async ClearItemsCache(ctx: StateContext<ICustomerState>): Promise<void> {
-		await super.ClearItemsCache(ctx);
-	}
-
-	@Action(CustomerActions.ClearTableCacheAndGetList)
-	public override async ClearTableCacheAndGetList(ctx: StateContext<ICustomerState>): Promise<void> {
-		await super.ClearTableCacheAndGetList(ctx);
-	}
-
-	@Action(CustomerActions.ClearItemCacheAndGetItem)
-	public override async ClearItemCacheAndGetItem(ctx: StateContext<ICustomerState>): Promise<void> {
-		await super.ClearItemCacheAndGetItem(ctx);
-	}
+	// @Action(CustomerActions.ClearTableCache)
+	// public override async ClearTableCache(ctx: StateContext<ICustomerState>): Promise<void> {
+	// 	await super.ClearTableCache(ctx);
+	// }
+	//
+	// @Action(CustomerActions.ClearItemCache)
+	// public override async ClearItemsCache(ctx: StateContext<ICustomerState>): Promise<void> {
+	// 	await super.ClearItemsCache(ctx);
+	// }
+	//
+	// @Action(CustomerActions.ClearTableCacheAndGetList)
+	// public override async ClearTableCacheAndGetList(ctx: StateContext<ICustomerState>): Promise<void> {
+	// 	await super.ClearTableCacheAndGetList(ctx);
+	// }
+	//
+	// @Action(CustomerActions.ClearItemCacheAndGetItem)
+	// public override async ClearItemCacheAndGetItem(ctx: StateContext<ICustomerState>): Promise<void> {
+	// 	await super.ClearItemCacheAndGetItem(ctx);
+	// }
 
 	@Action(CustomerActions.UpdateFilters)
 	public override updateFilters(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateFilters) {

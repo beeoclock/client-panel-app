@@ -1,13 +1,12 @@
 import {Routes} from "@angular/router";
 import {serviceDetailsResolver} from "@service/presentation/resolver/service.details.resolver";
-import {serviceCacheResolver} from "@service/presentation/resolver/service.cache.resolver";
 
 export const routers = [
   {
     path: '',
-    resolve: {
-      cacheLoaded: serviceCacheResolver,
-    },
+    // resolve: {
+    //   cacheLoaded: serviceCacheResolver,
+    // },
     children: [
       {
         path: '',

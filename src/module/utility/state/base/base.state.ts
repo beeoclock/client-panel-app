@@ -71,16 +71,16 @@ export function getKeyWithClientId(store: Store, ...keys: string[]): string {
 
 export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 
-	protected constructor(
-		public readonly cacheKeys: {
-			tableStates: string;
-			items: string;
-		} = {
-			tableStates: 'TODO',
-			items: 'TODO',
-		},
-	) {
-	}
+	// protected constructor(
+	// 	public readonly cacheKeys: {
+	// 		tableStates: string;
+	// 		items: string;
+	// 	} = {
+	// 		tableStates: 'TODO',
+	// 		items: 'TODO',
+	// 	},
+	// ) {
+	// }
 
 	protected readonly router = inject(Router);
 	protected readonly store = inject(Store);
@@ -110,102 +110,102 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 
 	}
 
-	/**
-	 * Init default from cache
-	 * @param ctx
-	 * @constructor
-	 */
-	public async InitDefaultsFromCache(
-		ctx: StateContext<IBaseState<ITEM>>
-	): Promise<void> {
-
-		await firstValueFrom(ctx.dispatch(new CacheActions.Get({
-			strategy: 'indexedDB',
-			key: getKeyWithClientId(this.store, this.cacheKeys.tableStates),
-		})));
-
-		await firstValueFrom(ctx.dispatch(new CacheActions.Get({
-			strategy: 'indexedDB',
-			key: getKeyWithClientId(this.store, this.cacheKeys.items),
-		})));
-
-	}
-
-	/**
-	 * Init default from cache
-	 * @param ctx
-	 * @constructor
-	 */
-	public async ClearTableCache(
-		ctx: StateContext<IBaseState<ITEM>>
-	): Promise<void> {
-
-		const cacheTableStatesKey = getKeyWithClientId(this.store, this.cacheKeys.tableStates);
-
-		// Clear cache of table
-		await firstValueFrom(ctx.dispatch(new CacheActions.Remove({
-			strategy: 'indexedDB',
-			key: cacheTableStatesKey,
-		})));
-
-	}
-
-	/**
-	 * Init default from cache
-	 * @param ctx
-	 * @constructor
-	 */
-	public async ClearTableCacheAndGetList(
-		ctx: StateContext<IBaseState<ITEM>>
-	): Promise<void> {
-
-		await this.ClearTableCache(ctx);
-		ctx.patchState({
-			lastTableHashSum: undefined,
-		});
-		await this.getList(ctx, {payload: {force: true, resetPage: false, resetParams: false}});
-
-	}
-
-	/**
-	 * Delete items from cache
-	 * @param ctx
-	 * @constructor
-	 */
-	public async ClearItemsCache(
-		ctx: StateContext<IBaseState<ITEM>>
-	): Promise<void> {
-
-		const cacheItemsKey = getKeyWithClientId(this.store, this.cacheKeys.items);
-
-		// Clear all history from cache
-		// Clear cache of item
-		await firstValueFrom(ctx.dispatch(new CacheActions.Remove({
-			strategy: 'indexedDB',
-			key: cacheItemsKey,
-		})));
-
-	}
-
-	/**
-	 * Init default from cache
-	 * @param ctx
-	 * @constructor
-	 */
-	public async ClearItemCacheAndGetItem(
-		ctx: StateContext<IBaseState<ITEM>>
-	): Promise<void> {
-
-		const {_id} = ctx.getState().item.data ?? {};
-		if (_id) {
-			await this.ClearItemsCache(ctx);
-			ctx.patchState({
-				item: undefined,
-			});
-			await this.getItemFromCacheOrApi(ctx, {payload: _id});
-		}
-
-	}
+	// /**
+	//  * Init default from cache
+	//  * @param ctx
+	//  * @constructor
+	//  */
+	// public async InitDefaultsFromCache(
+	// 	ctx: StateContext<IBaseState<ITEM>>
+	// ): Promise<void> {
+	//
+	// 	await firstValueFrom(ctx.dispatch(new CacheActions.Get({
+	// 		strategy: 'indexedDB',
+	// 		key: getKeyWithClientId(this.store, this.cacheKeys.tableStates),
+	// 	})));
+	//
+	// 	await firstValueFrom(ctx.dispatch(new CacheActions.Get({
+	// 		strategy: 'indexedDB',
+	// 		key: getKeyWithClientId(this.store, this.cacheKeys.items),
+	// 	})));
+	//
+	// }
+	//
+	// /**
+	//  * Init default from cache
+	//  * @param ctx
+	//  * @constructor
+	//  */
+	// public async ClearTableCache(
+	// 	ctx: StateContext<IBaseState<ITEM>>
+	// ): Promise<void> {
+	//
+	// 	const cacheTableStatesKey = getKeyWithClientId(this.store, this.cacheKeys.tableStates);
+	//
+	// 	// Clear cache of table
+	// 	await firstValueFrom(ctx.dispatch(new CacheActions.Remove({
+	// 		strategy: 'indexedDB',
+	// 		key: cacheTableStatesKey,
+	// 	})));
+	//
+	// }
+	//
+	// /**
+	//  * Init default from cache
+	//  * @param ctx
+	//  * @constructor
+	//  */
+	// public async ClearTableCacheAndGetList(
+	// 	ctx: StateContext<IBaseState<ITEM>>
+	// ): Promise<void> {
+	//
+	// 	await this.ClearTableCache(ctx);
+	// 	ctx.patchState({
+	// 		lastTableHashSum: undefined,
+	// 	});
+	// 	await this.getList(ctx, {payload: {force: true, resetPage: false, resetParams: false}});
+	//
+	// }
+	//
+	// /**
+	//  * Delete items from cache
+	//  * @param ctx
+	//  * @constructor
+	//  */
+	// public async ClearItemsCache(
+	// 	ctx: StateContext<IBaseState<ITEM>>
+	// ): Promise<void> {
+	//
+	// 	const cacheItemsKey = getKeyWithClientId(this.store, this.cacheKeys.items);
+	//
+	// 	// Clear all history from cache
+	// 	// Clear cache of item
+	// 	await firstValueFrom(ctx.dispatch(new CacheActions.Remove({
+	// 		strategy: 'indexedDB',
+	// 		key: cacheItemsKey,
+	// 	})));
+	//
+	// }
+	//
+	// /**
+	//  * Init default from cache
+	//  * @param ctx
+	//  * @constructor
+	//  */
+	// public async ClearItemCacheAndGetItem(
+	// 	ctx: StateContext<IBaseState<ITEM>>
+	// ): Promise<void> {
+	//
+	// 	const {_id} = ctx.getState().item.data ?? {};
+	// 	if (_id) {
+	// 		await this.ClearItemsCache(ctx);
+	// 		ctx.patchState({
+	// 			item: undefined,
+	// 		});
+	// 		await this.getItemFromCacheOrApi(ctx, {payload: _id});
+	// 	}
+	//
+	// }
 
 	/**
 	 *
@@ -311,17 +311,17 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
 
-		const cacheItemsKey = getKeyWithClientId(this.store, this.cacheKeys.items);
+		// const cacheItemsKey = getKeyWithClientId(this.store, this.cacheKeys.items);
 
-		const itemFromCache = this.getItemFromCache(cacheItemsKey, ctx, payload);
+		// const itemFromCache = this.getItemFromCache(cacheItemsKey, ctx, payload);
 
-		if (itemFromCache) {
-
-			ctx.patchState({
-				item: itemFromCache
-			});
-
-		} else {
+		// if (itemFromCache) {
+		//
+		// 	ctx.patchState({
+		// 		item: itemFromCache
+		// 	});
+		//
+		// } else {
 
 			const data = await this.item.executeAsync(payload);
 
@@ -334,9 +334,9 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 				item
 			});
 
-			this.saveToCache(cacheItemsKey, ctx, item, payload);
+			// this.saveToCache(cacheItemsKey, ctx, item, payload);
 
-		}
+		// }
 
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 
@@ -354,8 +354,8 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 		try {
 			const data = await this.create.executeAsync(payload);
 
-			await this.ClearItemsCache(ctx);
-			await this.ClearTableCache(ctx);
+			// await this.ClearItemsCache(ctx);
+			// await this.ClearTableCache(ctx);
 
 			// Set new/updated item to store state and clear table
 			ctx.patchState({
@@ -386,8 +386,8 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 		try {
 			const data = await this.update.executeAsync(payload);
 
-			await this.ClearItemsCache(ctx);
-			await this.ClearTableCache(ctx);
+			// await this.ClearItemsCache(ctx);
+			// await this.ClearTableCache(ctx);
 
 			// Set new/updated item to store state and clear table
 			ctx.patchState({
@@ -419,10 +419,10 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 
 		if (result) {
 
-			const state = ctx.getState();
-			const {_id} = (state.item?.data ?? {}) as { _id: string };
-
-			if (_id === payload) {
+			// const state = ctx.getState();
+			// const {_id} = (state.item?.data ?? {}) as { _id: string };
+			//
+			// if (_id === payload) {
 
 				ctx.patchState({
 					item: {
@@ -431,11 +431,11 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 					}
 				});
 
-			} else {
-
-				await this.ClearItemsCache(ctx);
-
-			}
+			// } else {
+			//
+			// 	await this.ClearItemsCache(ctx);
+			//
+			// }
 
 		}
 
@@ -456,9 +456,9 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 			await this.archive.executeAsync(payload);
 
 			const state = ctx.getState();
-			const {_id} = (state.item?.data ?? {}) as { _id: string };
+			// const {_id} = (state.item?.data ?? {}) as { _id: string };
 
-			if (_id === payload) {
+			// if (_id === payload) {
 
 				ctx.patchState({
 					item: {
@@ -470,11 +470,11 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 					}
 				});
 
-			} else {
+			// } else {
 
-				await this.ClearItemsCache(ctx);
+				// await this.ClearItemsCache(ctx);
 
-			}
+			// }
 
 		} catch (e) {
 			this.logger.error(e);
@@ -491,7 +491,7 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 	 */
 	public async getList(ctx: StateContext<IBaseState<ITEM>>, {
 		payload: {
-			force,
+			// force,
 			resetPage,
 			resetParams
 		}
@@ -499,53 +499,53 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
 
-		let state = ctx.getState();
-		const cacheTableStatesKey = getKeyWithClientId(this.store, this.cacheKeys.tableStates);
-
-		const {cache}: { cache: ICacheState<Record<string, TableState<ITEM>>> } = this.store.snapshot();
-
-		const cacheTableStates = cache[cacheTableStatesKey];
-
-		if (!force) {
-
-			// Check if hasSun is not null or undefined or 0
-			if (state.tableState.hashSum && state.lastTableHashSum) {
-				if (state.tableState.hashSum === state.lastTableHashSum) {
-					// Check if cache is not expired
-					if (this.cacheTableClearAfterMs > (new Date().getTime() - new Date(state.tableState.lastUpdate).getTime())) {
-
-						// Switch of page loader
-						await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
-
-						return;
-
-					}
-				}
-			}
-
-			const prevListState = (cacheTableStates ?? {})[state.tableState.hashSum];
-
-			// Check if in local cache exist data of current pagination has
-			if (
-				state.tableState.hashSum &&
-				cacheTableStates &&
-				Reflect.has(cacheTableStates, state.tableState.hashSum) &&
-				// Check if cache is not expired
-				this.cacheTableClearAfterMs > (new Date().getTime() - new Date(prevListState.lastUpdate).getTime())
-			) {
-
-				ctx.patchState({
-					...state,
-					tableState: prevListState,
-					lastTableHashSum: prevListState.hashSum
-				});
-
-				// Switch of page loader
-				await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
-				return;
-
-			}
-		}
+		const state = ctx.getState();
+		// const cacheTableStatesKey = getKeyWithClientId(this.store, this.cacheKeys.tableStates);
+		//
+		// const {cache}: { cache: ICacheState<Record<string, TableState<ITEM>>> } = this.store.snapshot();
+		//
+		// const cacheTableStates = cache[cacheTableStatesKey];
+		//
+		// if (!force) {
+		//
+		// 	// Check if hasSun is not null or undefined or 0
+		// 	if (state.tableState.hashSum && state.lastTableHashSum) {
+		// 		if (state.tableState.hashSum === state.lastTableHashSum) {
+		// 			// Check if cache is not expired
+		// 			if (this.cacheTableClearAfterMs > (new Date().getTime() - new Date(state.tableState.lastUpdate).getTime())) {
+		//
+		// 				// Switch of page loader
+		// 				await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
+		//
+		// 				return;
+		//
+		// 			}
+		// 		}
+		// 	}
+		//
+		// 	const prevListState = (cacheTableStates ?? {})[state.tableState.hashSum];
+		//
+		// 	// Check if in local cache exist data of current pagination has
+		// 	if (
+		// 		state.tableState.hashSum &&
+		// 		cacheTableStates &&
+		// 		Reflect.has(cacheTableStates, state.tableState.hashSum) &&
+		// 		// Check if cache is not expired
+		// 		this.cacheTableClearAfterMs > (new Date().getTime() - new Date(prevListState.lastUpdate).getTime())
+		// 	) {
+		//
+		// 		ctx.patchState({
+		// 			...state,
+		// 			tableState: prevListState,
+		// 			lastTableHashSum: prevListState.hashSum
+		// 		});
+		//
+		// 		// Switch of page loader
+		// 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
+		// 		return;
+		//
+		// 	}
+		// }
 
 		try {
 
@@ -575,23 +575,23 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 				lastTableHashSum: newTableState.hashSum
 			});
 
-			state = ctx.getState();
+			// state = ctx.getState();
 
 			// Check if we have prev state, if true, update cache
-			if (items.length && state.tableState.hashSum) {
-
-				const newCacheValue = {
-					...cacheTableStates,
-					[state.tableState.hashSum]: state.tableState
-				};
-
-				await firstValueFrom(ctx.dispatch(new CacheActions.Set({
-					strategy: 'indexedDB',
-					key: cacheTableStatesKey,
-					value: JSON.stringify(newCacheValue)
-				})));
-
-			}
+			// if (items.length && state.tableState.hashSum) {
+			//
+			// 	const newCacheValue = {
+			// 		// ...cacheTableStates,
+			// 		[state.tableState.hashSum]: state.tableState
+			// 	};
+			//
+			// 	await firstValueFrom(ctx.dispatch(new CacheActions.Set({
+			// 		strategy: 'indexedDB',
+			// 		key: cacheTableStatesKey,
+			// 		value: JSON.stringify(newCacheValue)
+			// 	})));
+			//
+			// }
 
 		} catch (e) {
 			this.logger.error(e);
