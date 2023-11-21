@@ -16,14 +16,21 @@ import {RejectedStatusEventApiAdapter} from "@event/adapter/external/api/rejecte
 import {EventRequestedActions} from "./event-requested.actions";
 import {ListEventApiAdapter} from "../../adapter/external/api/list.event.api.adapter";
 import {EventBusTokenEnum} from "@src/event-bus-token.enum";
+import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 
 export type IEventRequestedState = IBaseState<Event.IEvent>;
 
+const defaults = baseDefaults<Event.IEvent>({
+	filters: {
+		status: EventStatusEnum.requested,
+	},
+	orderDir: OrderDirEnum.ASC,
+	orderBy: OrderByEnum.START,
+});
+
 @State<IEventRequestedState>({
 	name: 'eventRequested',
-	defaults: baseDefaults<Event.IEvent>({
-		status: EventStatusEnum.requested,
-	})
+	defaults
 })
 @Injectable()
 export class EventRequestedState extends BaseState<Event.IEvent> implements NgxsOnInit {
@@ -41,6 +48,7 @@ export class EventRequestedState extends BaseState<Event.IEvent> implements Ngxs
 
 	constructor() {
 		super(
+			defaults
 			// {
 			// 	tableStates: 'event.requested.cache.tableStates',
 			// 	items: 'event.requested.cache.items'

@@ -27,6 +27,9 @@ import {
 } from "@event/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {EventRequestedState} from "@event/state/event-requested/event-requested.state";
 import {EventRequestedActions} from "@event/state/event-requested/event-requested.actions";
+import {
+	ListOfCardCollectionByDateComponent
+} from "@event/presentation/component/requsted/list-of-card-collection-by-date/list-of-card-collection-by-date.component";
 
 @Component({
 	selector: 'event-requested-page',
@@ -52,7 +55,8 @@ import {EventRequestedActions} from "@event/state/event-requested/event-requeste
 		NotFoundTableDataComponent,
 		CardListComponent,
 		MobileLayoutListComponent,
-		DesktopLayoutListComponent
+		DesktopLayoutListComponent,
+		ListOfCardCollectionByDateComponent
 	],
 	standalone: true
 })

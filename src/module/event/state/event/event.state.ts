@@ -17,14 +17,21 @@ import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {ListMergedEventApiAdapter} from "@event/adapter/external/api/list.merged.event.api.adapter";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
+import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 
 export type IEventState = IBaseState<Event.IEvent>;
 
+const defaults = baseDefaults<Event.IEvent>({
+	filters: {
+		status: EventStatusEnum.booked,
+	},
+	orderBy: OrderByEnum.START,
+	orderDir: OrderDirEnum.ASC,
+});
+
 @State<IEventState>({
 	name: 'event',
-	defaults: baseDefaults<Event.IEvent>({
-		status: EventStatusEnum.booked,
-	})
+	defaults,
 })
 @Injectable()
 export class EventState extends BaseState<Event.IEvent> {
@@ -44,6 +51,7 @@ export class EventState extends BaseState<Event.IEvent> {
 
 	constructor() {
 		super(
+			defaults,
 			// {
 			// 	tableStates: 'event.cache.tableStates',
 			// 	items: 'event.cache.items'

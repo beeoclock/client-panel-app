@@ -192,13 +192,14 @@ export class MenuSidebarComponent implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		this.ngEventBus.on(EventBusTokenEnum.SIDE_BAR_EVENT_REQUESTED_BADGE).subscribe((event) => {
-			console.log(event)
-			const badge = event.data as string;
-			const menuItem = this.menu.find((item) => item.translateKey === 'sidebar.requested');
-			if (menuItem) {
-				menuItem.badge = badge;
-			}
-		});
+		this.ngEventBus
+			.on(EventBusTokenEnum.SIDE_BAR_EVENT_REQUESTED_BADGE)
+			.subscribe((event) => {
+				const badge = event.data as string;
+				const menuItem = this.menu.find((item) => item.translateKey === 'sidebar.requested');
+				if (menuItem) {
+					menuItem.badge = badge;
+				}
+			});
 	}
 }

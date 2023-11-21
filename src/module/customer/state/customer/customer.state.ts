@@ -9,12 +9,19 @@ import {UpdateCustomerApiAdapter} from "@customer/adapter/external/api/update.cu
 import {ItemCustomerApiAdapter} from "@customer/adapter/external/api/item.customer.api.adapter";
 import {RemoveCustomerApiAdapter} from "@customer/adapter/external/api/remove.customer.api.adapter";
 import {ListCustomerApiAdapter} from "@customer/adapter/external/api/list.customer.api.adapter";
+import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 
 export type ICustomerState = IBaseState<Customer.ICustomer>;
 
+const defaults = baseDefaults<Customer.ICustomer>({
+	filters: {},
+	orderBy: OrderByEnum.CREATED_AT,
+	orderDir: OrderDirEnum.DESC,
+});
+
 @State<ICustomerState>({
 	name: 'customer',
-	defaults: baseDefaults<Customer.ICustomer>()
+	defaults,
 })
 @Injectable()
 export class CustomerState extends BaseState<Customer.ICustomer> {
@@ -28,6 +35,7 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 	constructor() {
 		super(
+			defaults,
 			// {
 			// 	tableStates: 'customer.cache.tableStates',
 			// 	items: 'customer.cache.items'

@@ -5,7 +5,7 @@ import {CacheActions} from "@utility/state/cache/cache.actions";
 import {ITableState, TableState} from "@utility/domain/table.state";
 import {firstValueFrom} from "rxjs";
 import {ICacheState} from "@utility/state/cache/cache.state";
-import {ActiveEnum, OrderDirEnum} from "@utility/domain/enum";
+import {ActiveEnum, OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {inject} from "@angular/core";
 import {getMaxPage} from "@utility/domain/max-page";
 import {Router} from "@angular/router";
@@ -26,13 +26,13 @@ export interface IBaseState<ITEM> {
 	lastTableHashSum: undefined | string;
 }
 
-export function baseDefaults<T>(filters = {}): IBaseState<T> {
+export function baseDefaults<T>({filters, orderBy, orderDir}: {filters: {[key: string]: unknown;}; orderBy: OrderByEnum; orderDir: OrderDirEnum;}): IBaseState<T> {
 	return {
 		item: {
 			data: undefined,
 			downloadedAt: new Date(),
 		},
-		tableState: new TableState<T>().setFilters(filters).toCache(),
+		tableState: new TableState<T>().setFilters(filters).setOrderBy(orderBy).setOrderDir(orderDir).toCache(),
 		lastTableHashSum: undefined,
 	};
 }
@@ -89,6 +89,11 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 		totalSize: number;
 	}, unknown[]>;
 
+	protected constructor(
+		protected defaults: IBaseState<ITEM>,
+	) {
+	}
+
 	/**
 	 * Init default from cache
 	 * @param ctx
@@ -96,10 +101,8 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 	 */
 	public async init(
 		ctx: StateContext<IBaseState<ITEM>>
-	): Promise<void> {
-
-		ctx.setState(baseDefaults());
-
+	) {
+		ctx.setState(this.defaults);
 	}
 
 	// /**

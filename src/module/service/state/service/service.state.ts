@@ -10,12 +10,19 @@ import {ItemServiceApiAdapter} from "@service/adapter/external/api/item.service.
 import {RemoveServiceApiAdapter} from "@service/adapter/external/api/remove.service.api.adapter";
 import {ListServiceApiAdapter} from "@service/adapter/external/api/list.service.api.adapter";
 import {ServiceActions} from "@service/state/service/service.actions";
+import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 
 export type IServiceState = IBaseState<Service.IService>
 
+const defaults = baseDefaults<Service.IService>({
+	filters: {},
+	orderDir: OrderDirEnum.DESC,
+	orderBy: OrderByEnum.CREATED_AT,
+});
+
 @State<IServiceState>({
 	name: 'service',
-	defaults: baseDefaults<Service.IService>()
+	defaults
 })
 @Injectable()
 export class ServiceState extends BaseState<IService> {
@@ -29,6 +36,7 @@ export class ServiceState extends BaseState<IService> {
 
 	constructor() {
 		super(
+			defaults,
 			// {
 			// 	tableStates: 'service.cache.tableStates',
 			// 	items: 'service.cache.items'
