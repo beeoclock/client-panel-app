@@ -16,6 +16,7 @@ import {RIBaseEntity} from "@utility/domain";
 import {ITableState} from "@utility/domain/table.state";
 import {debounce} from "typescript-debounce-decorator";
 import {BaseActions} from "@utility/state/base/base.actions";
+import {OrderByEnum} from "./domain/enum";
 
 @Component({
 	selector: 'utility-table-component',
@@ -77,7 +78,7 @@ export abstract class TableComponent<ITEM extends RIBaseEntity<string>> implemen
 	}
 
 	public updateOrderBy(target: HTMLTableCellElement): void {
-		const orderBy = target.getAttribute('data-orderBy');
+		const orderBy = target.getAttribute('data-orderBy') as OrderByEnum | null;
 		if (!orderBy) {
 			const parent = target.parentElement as HTMLTableCellElement;
 			if (parent) {

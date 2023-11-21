@@ -5,7 +5,7 @@ import {CacheActions} from "@utility/state/cache/cache.actions";
 import {ITableState, TableState} from "@utility/domain/table.state";
 import {firstValueFrom} from "rxjs";
 import {ICacheState} from "@utility/state/cache/cache.state";
-import {ActiveEnum} from "@utility/domain/enum";
+import {ActiveEnum, OrderDirEnum} from "@utility/domain/enum";
 import {inject} from "@angular/core";
 import {getMaxPage} from "@utility/domain/max-page";
 import {Router} from "@angular/router";
@@ -238,7 +238,7 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 
 		if (Reflect.has(payload, 'orderBy') && Reflect.has(state.tableState, 'orderDir')) {
 			if (state.tableState.orderBy === payload.orderBy) {
-				payload['orderDir'] = state.tableState.orderDir === 'asc' ? 'desc' : 'asc';
+				payload['orderDir'] = state.tableState.orderDir === OrderDirEnum.ASC ? OrderDirEnum.DESC : OrderDirEnum.ASC;
 			}
 		}
 

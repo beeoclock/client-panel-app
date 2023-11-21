@@ -24,26 +24,6 @@ export namespace BaseActions {
 		}
 	}
 
-	// export class InitDefaultsFromCache {
-	// 	public static readonly type: string = '[TODO] Not Implemented Yet!';
-	// }
-	//
-	// export class ClearTableCache {
-	// 	public static readonly type: string = '[TODO] Not Implemented Yet!';
-	// }
-	//
-	// export class ClearItemCache {
-	// 	public static readonly type: string = '[TODO] Not Implemented Yet!';
-	// }
-	//
-	// export class ClearTableCacheAndGetList {
-	// 	public static readonly type: string = '[TODO] Not Implemented Yet!';
-	// }
-	//
-	// export class ClearItemCacheAndGetItem {
-	// 	public static readonly type: string = '[TODO] Not Implemented Yet!';
-	// }
-
 	export class DeleteItem {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 

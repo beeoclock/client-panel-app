@@ -1,10 +1,11 @@
 import hash_sum from "hash-sum";
+import {OrderByEnum, OrderDirEnum} from "./enum";
 
 export interface ITableState<ITEM> {
 	hashSum: string;
 
-	orderBy: string;
-	orderDir: string;
+	orderBy: OrderByEnum;
+	orderDir: OrderDirEnum;
 	filters: {
 		search?: string;
 		active?: string;
@@ -21,7 +22,7 @@ export interface ITableState<ITEM> {
 
 export type PITableState<ITEM> = Partial<ITableState<ITEM>>;
 
-export type TableState_BackendFormat<ITEM = any> =
+export type TableState_BackendFormat<ITEM = unknown> =
 	Pick<ITableState<ITEM>, 'orderDir' | 'orderBy' | 'pageSize' | 'page'>
 	& ITableState<ITEM>['filters'];
 
@@ -29,8 +30,8 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 
 	#filters = {};
 	#maxPage = 1;
-	#orderBy = 'createdAt';
-	#orderDir = 'desc';
+	#orderBy = OrderByEnum.CREATED_AT;
+	#orderDir = OrderDirEnum.DESC;
 	#page = 1;
 	#pageSize = 20;
 	#hashSum = '';
@@ -43,48 +44,48 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 		this.updateLastUpdate();
 	}
 
-	public set filters(value: {[key: string]: unknown}) { // TODO interface
+	public set filters(value: { [key: string]: unknown }) { // TODO interface
 		this.#filters = value;
 		this.initHashSum();
 		this.updateLastUpdate();
 	}
 
-	public get filters(): {[key: string]: unknown} { // TODO interface
+	public get filters(): { [key: string]: unknown } { // TODO interface
 		return this.#filters;
 	}
 
-	public setFilters(value: {[key: string]: unknown}): this { // TODO interface
+	public setFilters(value: { [key: string]: unknown }): this { // TODO interface
 		this.filters = value;
 		return this;
 	}
 
-	public setOrderBy(value: string) {
+	public setOrderBy(value: OrderByEnum) {
 		this.orderBy = value;
 		return this;
 	}
 
-	public set orderBy(value: string) {
+	public set orderBy(value: OrderByEnum) {
 		this.#orderBy = value;
 		this.initHashSum();
 		this.updateLastUpdate();
 	}
 
-	public get orderBy(): string {
+	public get orderBy(): OrderByEnum {
 		return this.#orderBy;
 	}
 
-	public set orderDir(value: string) {
+	public set orderDir(value: OrderDirEnum) {
 		this.#orderDir = value;
 		this.initHashSum();
 		this.updateLastUpdate();
 	}
 
-	public setOrderDir(value: string) {
+	public setOrderDir(value: OrderDirEnum) {
 		this.orderDir = value;
 		return this;
 	}
 
-	public get orderDir(): string {
+	public get orderDir(): OrderDirEnum {
 		return this.#orderDir;
 	}
 
