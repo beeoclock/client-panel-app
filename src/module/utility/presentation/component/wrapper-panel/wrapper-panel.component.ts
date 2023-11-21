@@ -21,6 +21,7 @@ import {MAIN_CONTAINER_ID} from "@src/token";
 import {NGXLogger} from "ngx-logger";
 import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
 import {ClientActions} from "@client/state/client/client.actions";
+import {EventRequestedActions} from "@event/state/event-requested/event-requested.actions";
 
 @Component({
   selector: 'utility-wrapper-panel-component',
@@ -106,6 +107,7 @@ export default class WrapperPanelComponent implements AfterViewInit, OnDestroy {
     this.store.dispatch(new ServiceActions.Init());
     this.store.dispatch(new MemberActions.Init());
     this.store.dispatch(new EventActions.Init());
+    this.store.dispatch(new EventRequestedActions.Init());
 
     this.store.dispatch(new CacheActions.Init());
   }

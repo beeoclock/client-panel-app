@@ -552,7 +552,7 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 			const newTableState = TableState.fromCache<ITEM>(state.tableState);
 
 			if (resetPage) {
-				newTableState.page = 1;
+				newTableState.setPage(1);
 			}
 
 			if (resetParams) {
@@ -564,9 +564,10 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 			// Update current state
 			const {items, totalSize} = await this.list.executeAsync(params);
 
-			newTableState.total = totalSize;
-			newTableState.items = items;
-			newTableState.maxPage = getMaxPage(newTableState.total, newTableState.pageSize);
+			newTableState
+				.setTotal(totalSize)
+				.setItems(items)
+				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
 
 			ctx.patchState({
 				...state,

@@ -121,7 +121,7 @@ export class EventState extends BaseState<Event.IEvent> {
 
 
 	@Action(EventActions.DoneStatus)
-	public async coneStatus(ctx: StateContext<IEventState>, {payload}: EventActions.DoneStatus): Promise<void> {
+	public async doneStatus(ctx: StateContext<IEventState>, {payload}: EventActions.DoneStatus): Promise<void> {
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
 		await this.doneStatusEventApiAdapter.executeAsync(payload._id);
 
@@ -132,7 +132,7 @@ export class EventState extends BaseState<Event.IEvent> {
 	}
 
 	@Action(EventActions.BookedStatus)
-	public async cookedStatus(ctx: StateContext<IEventState>, {payload}: EventActions.BookedStatus): Promise<void> {
+	public async bookedStatus(ctx: StateContext<IEventState>, {payload}: EventActions.BookedStatus): Promise<void> {
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
 		await this.bookedStatusEventApiAdapter.executeAsync(payload._id);
 

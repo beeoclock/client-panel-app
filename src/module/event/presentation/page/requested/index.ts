@@ -2,10 +2,8 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/co
 import {ListPage} from "@utility/list.page";
 import {TranslateModule} from "@ngx-translate/core";
 import {map, Observable, tap} from "rxjs";
-import {EventActions} from "@event/state/event/event.actions";
 import {MEvent, RMIEvent} from "@event/domain";
 import {ITableState} from "@utility/domain/table.state";
-import {EventState} from "@event/state/event/event.state";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
@@ -27,6 +25,8 @@ import {MobileLayoutListComponent} from "@event/presentation/component/list/layo
 import {
 	DesktopLayoutListComponent
 } from "@event/presentation/component/list/layout/desktop/desktop.layout.list.component";
+import {EventRequestedState} from "@event/state/event-requested/event-requested.state";
+import {EventRequestedActions} from "@event/state/event-requested/event-requested.actions";
 
 @Component({
 	selector: 'event-requested-page',
@@ -58,9 +58,9 @@ import {
 })
 export default class Index extends ListPage {
 
-	public override readonly actions = EventActions;
+	public override readonly actions = EventRequestedActions;
 
-	public readonly tableState$: Observable<ITableState<RMIEvent>> = this.store.select(EventState.tableState)
+	public readonly tableState$: Observable<ITableState<RMIEvent>> = this.store.select(EventRequestedState.tableState)
 		.pipe(
 			map((tableState) => ({
 				...tableState,
