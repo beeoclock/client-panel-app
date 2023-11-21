@@ -24,6 +24,8 @@ import {
 import {IDayItem} from "@utility/domain/interface/i.day-item";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {DateTime} from "luxon";
+import {OrderByEnum, OrderDirEnum} from "@src/module/utility/domain/enum";
+import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 
 @Component({
 	selector: 'utility-widget-calendar-events',
@@ -71,8 +73,9 @@ export class CalendarEventsComponent extends Reactive {
 			start: firstDay.datetime.startOf('day').toJSDate().toISOString(),
 			end: lastDay.datetime.endOf('day').toJSDate().toISOString(),
 			pageSize: 100,
-			orderBy: 'start',
-			orderDir: 'asc',
+			orderBy: OrderByEnum.START,
+			orderDir: OrderDirEnum.ASC,
+			status: EventStatusEnum.booked,
 		}).then((data) => {
 			data.items.forEach((item) => {
 				const start = DateTime.fromISO(item.start);
