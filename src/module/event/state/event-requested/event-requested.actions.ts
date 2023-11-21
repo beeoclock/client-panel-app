@@ -1,5 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IEvent, RMIEvent} from "@event/domain";
+import {IEvent, RIEvent, RMIEvent} from "@event/domain";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace EventRequestedActions {
@@ -16,7 +16,7 @@ export namespace EventRequestedActions {
     public static override readonly type = '[Event Requested API] Get Item';
   }
 
-  export class UpdateItem extends BaseActions.UpdateItem<IEvent> {
+  export class UpdateItem extends BaseActions.UpdateItem<RIEvent> {
     public static override readonly type = '[Event Requested API] Update Item';
   }
 
@@ -32,8 +32,8 @@ export namespace EventRequestedActions {
 
   // Statuses
 
-  export class CancelledStatus {
-    public static readonly type = '[Event Requested API] Cancelled Status';
+  export class RejectedStatus {
+    public static readonly type = '[Event Requested API] Rejected Status';
 
     constructor(
       public readonly payload: IEvent,

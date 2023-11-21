@@ -762,6 +762,7 @@
 			"prices": "Ceny",
 			"processing": "Przetwarzanie",
 			"publicPage": "Strona publiczna",
+			"reject": "Odrzucić",
 			"role": "Rola",
 			"save": "Zapisz",
 			"search": "Szukaj",
@@ -801,14 +802,20 @@
 			"zipCode": "Kod pocztowy"
 		},
 		"lowercase": {
+			"after": "za",
 			"ago": "temu",
 			"at": "o",
+			"days": "dni",
 			"dragAndDrop": "przeciągnij i upuść plik",
+			"in": "w",
 			"min": "min.",
 			"no-data": "brak danych",
 			"or": "lub",
 			"sec": "sek.",
-			"service": "usługa"
+			"service": "usługa",
+			"short": {
+				"days": "d"
+			}
 		},
 		"status": {
 			"all": "Wszystkie",

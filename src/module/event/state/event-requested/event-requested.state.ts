@@ -18,9 +18,9 @@ import {ListEventApiAdapter} from "../../adapter/external/api/list.event.api.ada
 import {EventBusTokenEnum} from "@src/event-bus-token.enum";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 
-export type IEventRequestedState = IBaseState<Event.IEvent>;
+export type IEventRequestedState = IBaseState<Event.RIEvent>;
 
-const defaults = baseDefaults<Event.IEvent>({
+const defaults = baseDefaults<Event.RIEvent>({
 	filters: {
 		status: EventStatusEnum.requested,
 	},
@@ -33,7 +33,7 @@ const defaults = baseDefaults<Event.IEvent>({
 	defaults
 })
 @Injectable()
-export class EventRequestedState extends BaseState<Event.IEvent> implements NgxsOnInit {
+export class EventRequestedState extends BaseState<Event.RIEvent> implements NgxsOnInit {
 
 	protected override readonly archive = inject(ArchiveEventApiAdapter);
 	protected override readonly create = inject(CreateEventApiAdapter);
@@ -104,8 +104,8 @@ export class EventRequestedState extends BaseState<Event.IEvent> implements Ngxs
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 	}
 
-	@Action(EventRequestedActions.CancelledStatus)
-	public async cancelledStatus(ctx: StateContext<IEventRequestedState>, {payload}: EventRequestedActions.CancelledStatus): Promise<void> {
+	@Action(EventRequestedActions.RejectedStatus)
+	public async rejectedStatus(ctx: StateContext<IEventRequestedState>, {payload}: EventRequestedActions.RejectedStatus): Promise<void> {
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
 		await this.rejectedStatusEventApiAdapter.executeAsync(payload._id);
 

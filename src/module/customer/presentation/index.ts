@@ -11,7 +11,7 @@ export const routers = [
 		// },
 		children: [
 			{
-				path: '',
+				path: 'list',
 				// resolve: {
 				// 	tableState: customerListResolver
 				// },

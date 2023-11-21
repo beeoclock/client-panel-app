@@ -9,7 +9,7 @@ export const routers = [
     // },
     children: [
       {
-        path: '',
+        path: 'list',
         loadComponent: () => import('./page/list')
       },
       {

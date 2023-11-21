@@ -12,7 +12,7 @@ import {ChangeStatusBaseComponent} from "@event/presentation/component/change-st
 import {EventRequestedActions} from "@event/state/event-requested/event-requested.actions";
 
 @Component({
-	selector: 'event-change-status-on-booked-component',
+	selector: 'event-change-status-on-rejected-component',
 	standalone: true,
 	imports: [
 		DynamicDatePipe,
@@ -25,7 +25,7 @@ import {EventRequestedActions} from "@event/state/event-requested/event-requeste
 	template: `
 		<button
 			type="button"
-			(click)="changeStatusOnBooked(event)"
+			(click)="changeStatusOnRejected(event)"
 			class="
 				w-full
 				flex
@@ -37,26 +37,26 @@ import {EventRequestedActions} from "@event/state/event-requested/event-requeste
 				py-2
 				text-sm
 				font-semibold
-				text-blue-700
-				bg-blue-50
+				text-red-700
+				bg-red-50
 				shadow-sm
 				ring-1
 				ring-inset
-				ring-blue-300
-				hover:bg-blue-100">
+				ring-red-300
+				hover:bg-red-100">
 			<i class="bi bi-check-lg"></i>
-			{{ 'keyword.capitalize.approve' | translate }}
+			{{ 'keyword.capitalize.reject' | translate }}
 		</button>
 	`
 })
-export class ChangeStatusOnBookedComponent extends ChangeStatusBaseComponent {
+export class ChangeStatusOnRejectedComponent extends ChangeStatusBaseComponent {
 
 	public readonly store = inject(Store);
 
-	public async changeStatusOnBooked(event: IEvent): Promise<void> {
-		await firstValueFrom(this.store.dispatch(new EventRequestedActions.BookedStatus(event)));
+	public async changeStatusOnRejected(event: IEvent): Promise<void> {
+		await firstValueFrom(this.store.dispatch(new EventRequestedActions.RejectedStatus(event)));
 		await firstValueFrom(this.store.dispatch(new EventRequestedActions.GetItem(event._id)));
-		this.postStatusChange(EventStatusEnum.booked);
+		this.postStatusChange(EventStatusEnum.rejected);
 		this.store.dispatch(new EventRequestedActions.GetList({force: true, resetPage: false, resetParams: false}));
 	}
 

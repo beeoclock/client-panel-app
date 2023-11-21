@@ -62,8 +62,11 @@ export abstract class TableComponent<ITEM extends RIBaseEntity<string>> implemen
 	}
 
 	public goToDetail(id: string): void {
-		this.router.navigate([id], {
-			relativeTo: this.activatedRoute
+		this.router.navigate(['../', id], {
+			relativeTo: this.activatedRoute,
+			queryParams: {
+				returnUrl: this.router.url
+			}
 		}).then();
 	}
 

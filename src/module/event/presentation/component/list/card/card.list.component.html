@@ -52,10 +52,9 @@
 				{{ item.description }}
 			</div>
 		</ng-container>
-		<div class="flex gap-4 justify-between" *ngIf="item.isBooked || item.isRequested">
-			<event-change-status-on-cancelled-component *ngIf="item.isBooked || item.isRequested" [event]="item"/>
-			<event-change-status-on-booked-component *ngIf="item.isRequested" [event]="item"/>
-			<event-change-status-on-done-component *ngIf="item.isBooked" [event]="item"/>
+		<div class="flex gap-4 justify-between" *ngIf="item.isBooked">
+			<event-change-status-on-cancelled-component [event]="item"/>
+			<event-change-status-on-done-component [event]="item"/>
 		</div>
 	</bee-card>
 </div>

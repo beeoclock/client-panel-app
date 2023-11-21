@@ -105,7 +105,7 @@ export class MenuSidebarComponent implements OnInit {
 			url: '/event/requested',
 		},
 		{
-			url: '/customer',
+			url: '/customer/list',
 			translateKey: 'sidebar.customers',
 			icon: 'bi bi-person-vcard',
 			routerLinkActiveOptions: {
@@ -116,7 +116,7 @@ export class MenuSidebarComponent implements OnInit {
 			}
 		},
 		// {
-		//   url: '/member',
+		//   url: '/member/list',
 		//   translateKey: 'sidebar.members',
 		//   icon: 'bi bi-people',
 		//   routerLinkActiveOptions: {
@@ -127,7 +127,7 @@ export class MenuSidebarComponent implements OnInit {
 		//   }
 		// },
 		{
-			url: '/service',
+			url: '/service/list',
 			translateKey: 'sidebar.services',
 			icon: 'bi bi-shop-window',
 			routerLinkActiveOptions: {

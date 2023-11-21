@@ -749,6 +749,7 @@
 			"prices": "Prices",
 			"processing": "Processing",
 			"publicPage": "Public page",
+			"reject": "Reject",
 			"role": "Role",
 			"save": "Save",
 			"search": "search",
@@ -788,14 +789,20 @@
 			"zipCode": "Zip code"
 		},
 		"lowercase": {
+			"after": "after",
 			"ago": "ago",
 			"at": "at",
+			"days": "days",
 			"dragAndDrop": "drag and drop",
+			"in": "in",
 			"min": "min.",
 			"no-data": "no data",
 			"or": "or",
 			"sec": "sec.",
-			"service": "service"
+			"service": "service",
+			"short": {
+				"days": "d"
+			}
 		},
 		"status": {
 			"all": "All",
