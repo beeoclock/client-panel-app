@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {IsActiveMatchOptions, RouterLink, RouterLinkActive} from '@angular/router';
 import {NgForOf, NgIf} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
@@ -7,6 +7,8 @@ import {firstValueFrom} from "rxjs";
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {SidebarService} from "@utility/presentation/component/sidebar/sidebar.service";
 import {environment} from "@environment/environment";
+import {EventBusTokenEnum} from "@src/event-bus-token.enum";
+import {NgEventBus} from "ng-event-bus";
 
 interface IMenuItem {
 	url?: string;
@@ -34,9 +36,10 @@ interface IMenuItem {
 		TranslateModule
 	],
 })
-export class MenuSidebarComponent {
+export class MenuSidebarComponent implements OnInit {
 
 	private readonly store = inject(Store);
+	private readonly ngEventBus = inject(NgEventBus);
 	private readonly sidebarService = inject(SidebarService);
 
 	public detectAutoClose() {
@@ -186,5 +189,16 @@ export class MenuSidebarComponent {
 		const link = `${environment.urls.publicPageOrigin}/${clientId}`;
 		window.open(link, '_blank');
 
+	}
+
+	public ngOnInit(): void {
+		this.ngEventBus.on(EventBusTokenEnum.SIDE_BAR_EVENT_REQUESTED_BADGE).subscribe((event) => {
+			console.log(event)
+			const badge = event.data as string;
+			const menuItem = this.menu.find((item) => item.translateKey === 'sidebar.requested');
+			if (menuItem) {
+				menuItem.badge = badge;
+			}
+		});
 	}
 }

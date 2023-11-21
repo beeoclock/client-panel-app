@@ -34,6 +34,7 @@ import {LanguageCodeEnum} from "@utility/domain/enum";
 import '@angular/common/locales/global/uk';
 import {ClientState} from "@client/state/client/client.state";
 import {EventRequestedState} from "@event/state/event-requested/event-requested.state";
+import {NgEventBus} from 'ng-event-bus';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -49,6 +50,7 @@ initRuntimeEnvironment();
 bootstrapApplication(AppComponent, {
 	providers: [
 		...tokens,
+		NgEventBus,
 		provideEnvironmentNgxMask(),
 		importProvidersFrom(
 			LoggerModule.forRoot({
@@ -87,7 +89,7 @@ bootstrapApplication(AppComponent, {
 					useFactory: HttpLoaderFactory,
 					deps: [HttpClient]
 				}
-			})
+			}),
 		),
 		{
 			provide: HTTP_INTERCEPTORS,

@@ -15,6 +15,7 @@ import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 import {RejectedStatusEventApiAdapter} from "@event/adapter/external/api/rejected.status.event.api.adapter";
 import {EventRequestedActions} from "./event-requested.actions";
 import {ListEventApiAdapter} from "../../adapter/external/api/list.event.api.adapter";
+import {EventBusTokenEnum} from "@src/event-bus-token.enum";
 
 export type IEventRequestedState = IBaseState<Event.IEvent>;
 
@@ -80,7 +81,9 @@ export class EventRequestedState extends BaseState<Event.IEvent> implements Ngxs
 	@Action(EventRequestedActions.GetList)
 	public override async getList(ctx: StateContext<IEventRequestedState>, action: EventRequestedActions.GetList): Promise<void> {
 		await super.getList(ctx, action);
-
+		const {tableState} = ctx.getState();
+		console.log(tableState);
+		this.ngEventBus.cast(EventBusTokenEnum.SIDE_BAR_EVENT_REQUESTED_BADGE, tableState.total);
 	}
 
 	// Statuses

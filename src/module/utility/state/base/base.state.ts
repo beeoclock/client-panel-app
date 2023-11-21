@@ -13,6 +13,7 @@ import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {CACHE_TABLE_CLEAR_AFTER_MS} from "@src/token";
 import {NGXLogger} from "ngx-logger";
 import {RIBaseEntity} from "@utility/domain";
+import {NgEventBus} from "ng-event-bus";
 
 export interface IBaseState_Item<ITEM> {
 	data: undefined | ITEM;
@@ -71,16 +72,7 @@ export function getKeyWithClientId(store: Store, ...keys: string[]): string {
 
 export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 
-	// protected constructor(
-	// 	public readonly cacheKeys: {
-	// 		tableStates: string;
-	// 		items: string;
-	// 	} = {
-	// 		tableStates: 'TODO',
-	// 		items: 'TODO',
-	// 	},
-	// ) {
-	// }
+	protected readonly ngEventBus = inject(NgEventBus);
 
 	protected readonly router = inject(Router);
 	protected readonly store = inject(Store);
