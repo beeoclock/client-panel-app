@@ -935,6 +935,20 @@
 		},
 		"title": "Construction of time slots"
 	},
+	"slotRetrievingStrategy": {
+		"hint": "This strategy controls the possibility of choosing time intervals for events that have not yet received confirmation from the specialist. Below you will see examples of the chosen strategy.",
+		"hists": {
+			"byOption": {
+				"IncludeRequested": "This option blocks the ability of clients to add new events to slots with already existing entries in status",
+				"OnlyBooked": "Wybrana opcja umożliwia klientom dodawanie nowych wydarzeń do już zajętych slotów za pośrednictwem strony publicznej, pod warunkiem, że żadne z nich nie otrzymało jeszcze statusu"
+			}
+		},
+		"options": {
+			"IncludeRequested": "Including requested events",
+			"OnlyBooked": "Only booked"
+		},
+		"title": "Strategy of proposed time intervals"
+	},
 	"updateAvailable": {
 		"header": "New version",
 		"message": "A new version of the app is available, would you like to update?"

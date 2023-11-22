@@ -948,6 +948,20 @@
 		},
 		"title": "Budowa przedziałów czasowych"
 	},
+	"slotRetrievingStrategy": {
+		"hint": "Strategia ta kontroluje możliwość wyboru przedziałów czasowych dla wydarzeń, które nie uzyskały jeszcze potwierdzenia od specjalisty. Poniżej zobaczysz przykłady wybranej strategii.",
+		"hists": {
+			"byOption": {
+				"IncludeRequested": "Ta opcja blokuje możliwość dodawania przez klientów nowych zdarzeń do przedziałów, w których status mają już istniejące wpisy",
+				"OnlyBooked": "The selected option allows customers to add new events to already occupied slots via the public page, provided that none of them have yet received status"
+			}
+		},
+		"options": {
+			"IncludeRequested": "Uwzględnij żądanie",
+			"OnlyBooked": "Tylko zarezerwowane"
+		},
+		"title": "Strategia proponowanych przedziałów czasowych"
+	},
 	"updateAvailable": {
 		"header": "Nowa wersja",
 		"message": "Dostępna jest nowa wersja aplikacji, czy chcesz zaktualizować?"
