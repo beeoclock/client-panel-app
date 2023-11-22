@@ -88,6 +88,9 @@
 					"name": {
 						"label": "Business name",
 						"placeholder": "Type Company or Personal name"
+					},
+					"published": {
+						"label": "Public access"
 					}
 				},
 				"section": {
@@ -893,6 +896,7 @@
 	"sidebar": {
 		"addEvent": "Add event",
 		"businessProfile": "Business profile",
+		"businessSettings": "Company settings",
 		"calendar": "Calendar",
 		"customers": "Customers",
 		"dashboard": "Dashboard",

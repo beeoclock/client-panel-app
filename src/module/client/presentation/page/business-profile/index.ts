@@ -1,39 +1,16 @@
 import {Component, inject, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {ReactiveFormsModule} from "@angular/forms";
 import {BusinessProfileForm} from "@client/presentation/form/business-profile.form";
-import {TranslateModule} from "@ngx-translate/core";
 import {
 	CoverImageBusinessProfileComponent
 } from "@client/presentation/component/business-profile/cover-image/cover-image.business-profile.component";
-import {
-	FormBusinessProfileComponent
-} from "@client/presentation/component/business-profile/form-business-profile.component";
 import {
 	LogoBusinessProfileComponent
 } from "@client/presentation/component/business-profile/logo/logo.business-profile.component";
 import {Select, Store} from "@ngxs/store";
 import * as Client from "@client/domain";
 import {IClient} from "@client/domain";
-import {AsyncPipe, NgIf} from "@angular/common";
-import {
-	AddressBusinessProfileComponent
-} from "@client/presentation/component/business-profile/address/address.business-profile.component";
-import {SchedulesFormComponent} from "@utility/presentation/component/schedule/schedules.form.component";
-import {
-	BusinessProfileContactPhoneComponent
-} from "@client/presentation/component/business-profile/contact-phone/contact-phone.componen";
-import {
-	BusinessProfileSocialMediaComponent
-} from "@client/presentation/component/business-profile/social-media/social-media.componen";
-import {
-	FacilitiesBusinessProfileComponent
-} from "@client/presentation/component/business-profile/facilities/facilities.business-profile.component";
-import {
-	BookingSettingsBusinessProfileComponent
-} from "@client/presentation/component/business-profile/booking-settings/booking-settings.business-profile.component";
 import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {
 	GalleryBusinessProfileComponent
 } from "@client/presentation/component/business-profile/gallery/gallery.business-profile/gallery.business-profile.component";
@@ -43,19 +20,34 @@ import {
 	UpdateBusinessProfileApiAdapter
 } from "@client/adapter/external/api/buisness-profile/update.business-profile.api.adapter";
 import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
-import {DangerZoneComponent} from "@client/presentation/component/danger-zone/danger-zone.component";
-import {ServiceSettingsComponent} from "@client/presentation/component/settings/service/service.settings.component";
+import {ClientActions} from "@client/state/client/client.actions";
 import {
-	ButtonSaveContainerComponent
-} from "@utility/presentation/component/container/button-save/button-save.container.component";
+	FormBusinessProfileComponent
+} from "@client/presentation/component/business-profile/form-business-profile.component";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
-import {EventSettingsComponent} from "@client/presentation/component/settings/event/event.settings.component";
-import {GeneralSettingsComponent} from "@client/presentation/component/settings/general/general.settings.component";
-import {ClientActions} from "@client/state/client/client.actions";
+import {
+	BusinessProfileContactPhoneComponent
+} from "@client/presentation/component/business-profile/contact-phone/contact-phone.componen";
+import {SchedulesFormComponent} from "@utility/presentation/component/schedule/schedules.form.component";
+import {
+	AddressBusinessProfileComponent
+} from "@client/presentation/component/business-profile/address/address.business-profile.component";
 import {
 	SwitchActiveBlockComponent
 } from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
+import {AsyncPipe, NgIf} from "@angular/common";
+import {
+	FacilitiesBusinessProfileComponent
+} from "@client/presentation/component/business-profile/facilities/facilities.business-profile.component";
+import {
+	BusinessProfileSocialMediaComponent
+} from "@client/presentation/component/business-profile/social-media/social-media.componen";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {
+	ButtonSaveContainerComponent
+} from "@utility/presentation/component/container/button-save/button-save.container.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
 	selector: 'client-business-profile-page',
@@ -63,28 +55,22 @@ import {
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		FormBusinessProfileComponent,
-		ReactiveFormsModule,
-		TranslateModule,
-		CoverImageBusinessProfileComponent,
-		LogoBusinessProfileComponent,
-		SwitchActiveBlockComponent,
-		AddressBusinessProfileComponent,
-		GalleryBusinessProfileComponent,
-		SchedulesFormComponent,
-		BusinessProfileContactPhoneComponent,
-		BusinessProfileSocialMediaComponent,
-		FacilitiesBusinessProfileComponent,
-		BookingSettingsBusinessProfileComponent,
-		PrimaryButtonDirective,
-		AsyncPipe,
-		NgIf,
-		DangerZoneComponent,
-		ServiceSettingsComponent,
-		ButtonSaveContainerComponent,
 		BackButtonComponent,
 		DefaultPanelComponent,
-		EventSettingsComponent,
-		GeneralSettingsComponent
+		BusinessProfileContactPhoneComponent,
+		GalleryBusinessProfileComponent,
+		CoverImageBusinessProfileComponent,
+		SchedulesFormComponent,
+		AddressBusinessProfileComponent,
+		SwitchActiveBlockComponent,
+		LogoBusinessProfileComponent,
+		AsyncPipe,
+		FacilitiesBusinessProfileComponent,
+		BusinessProfileSocialMediaComponent,
+		NgIf,
+		PrimaryButtonDirective,
+		ButtonSaveContainerComponent,
+		TranslateModule
 	],
 	standalone: true
 })

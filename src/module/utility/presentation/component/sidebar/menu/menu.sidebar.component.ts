@@ -148,6 +148,17 @@ export class MenuSidebarComponent implements OnInit {
 				fragment: "ignored",
 			}
 		},
+		{
+			url: '/client/business-settings',
+			translateKey: 'sidebar.businessSettings',
+			icon: 'bi bi-building-gear',
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		},
 		// {
 		//   icon: 'bi bi-person',
 		//   translateKey: 'sidebar.private',

@@ -88,6 +88,9 @@
 					"name": {
 						"label": "Nazwa firmy",
 						"placeholder": "Wpisz nazwę firmy lub nazwisko"
+					},
+					"published": {
+						"label": "Dostęp publiczny"
 					}
 				},
 				"section": {
@@ -906,6 +909,7 @@
 	"sidebar": {
 		"addEvent": "Dodaj wydarzenie",
 		"businessProfile": "Profil biznesowy",
+		"businessSettings": "Ustawienia firmy",
 		"calendar": "Kalendarz",
 		"customers": "Klienci",
 		"dashboard": "Panel główny",

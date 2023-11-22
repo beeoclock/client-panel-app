@@ -88,6 +88,9 @@
 					"name": {
 						"label": "Назва бізнесу",
 						"placeholder": "Введи назву компанії або особисте ім'я"
+					},
+					"published": {
+						"label": "Публічний доступ"
 					}
 				},
 				"section": {
@@ -892,6 +895,7 @@
 	"sidebar": {
 		"addEvent": "Додати подію",
 		"businessProfile": "Профіль компанії",
+		"businessSettings": "Налаштування компанії",
 		"calendar": "Календар",
 		"customers": "Клієнти",
 		"dashboard": "Панель керування",
