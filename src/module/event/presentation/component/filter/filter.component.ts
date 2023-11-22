@@ -71,7 +71,7 @@ import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>
-			<button type="button" primary routerLink="form">
+			<button type="button" primary routerLink="../form">
 				<i class="bi bi-plus-lg"></i>
 				<span class="hidden xl:block">
 						{{ 'keyword.capitalize.add-event' | translate }}
