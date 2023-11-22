@@ -9,12 +9,19 @@ import {UpdateCustomerApiAdapter} from "@customer/adapter/external/api/update.cu
 import {ItemCustomerApiAdapter} from "@customer/adapter/external/api/item.customer.api.adapter";
 import {RemoveCustomerApiAdapter} from "@customer/adapter/external/api/remove.customer.api.adapter";
 import {ListCustomerApiAdapter} from "@customer/adapter/external/api/list.customer.api.adapter";
+import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 
 export type ICustomerState = IBaseState<Customer.ICustomer>;
 
+const defaults = baseDefaults<Customer.ICustomer>({
+	filters: {},
+	orderBy: OrderByEnum.CREATED_AT,
+	orderDir: OrderDirEnum.DESC,
+});
+
 @State<ICustomerState>({
 	name: 'customer',
-	defaults: baseDefaults<Customer.ICustomer>()
+	defaults,
 })
 @Injectable()
 export class CustomerState extends BaseState<Customer.ICustomer> {
@@ -28,10 +35,11 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 	constructor() {
 		super(
-			{
-				tableStates: 'customer.cache.tableStates',
-				items: 'customer.cache.items'
-			}
+			defaults,
+			// {
+			// 	tableStates: 'customer.cache.tableStates',
+			// 	items: 'customer.cache.items'
+			// }
 		);
 	}
 
@@ -40,30 +48,30 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 		await super.init(ctx);
 	}
 
-	@Action(CustomerActions.InitDefaultsFromCache)
-	public override async InitDefaultsFromCache(ctx: StateContext<ICustomerState>): Promise<void> {
-		await super.InitDefaultsFromCache(ctx);
-	}
+	// @Action(CustomerActions.InitDefaultsFromCache)
+	// public override async InitDefaultsFromCache(ctx: StateContext<ICustomerState>): Promise<void> {
+	// 	await super.InitDefaultsFromCache(ctx);
+	// }
 
-	@Action(CustomerActions.ClearTableCache)
-	public override async ClearTableCache(ctx: StateContext<ICustomerState>): Promise<void> {
-		await super.ClearTableCache(ctx);
-	}
-
-	@Action(CustomerActions.ClearItemCache)
-	public override async ClearItemsCache(ctx: StateContext<ICustomerState>): Promise<void> {
-		await super.ClearItemsCache(ctx);
-	}
-
-	@Action(CustomerActions.ClearTableCacheAndGetList)
-	public override async ClearTableCacheAndGetList(ctx: StateContext<ICustomerState>): Promise<void> {
-		await super.ClearTableCacheAndGetList(ctx);
-	}
-
-	@Action(CustomerActions.ClearItemCacheAndGetItem)
-	public override async ClearItemCacheAndGetItem(ctx: StateContext<ICustomerState>): Promise<void> {
-		await super.ClearItemCacheAndGetItem(ctx);
-	}
+	// @Action(CustomerActions.ClearTableCache)
+	// public override async ClearTableCache(ctx: StateContext<ICustomerState>): Promise<void> {
+	// 	await super.ClearTableCache(ctx);
+	// }
+	//
+	// @Action(CustomerActions.ClearItemCache)
+	// public override async ClearItemsCache(ctx: StateContext<ICustomerState>): Promise<void> {
+	// 	await super.ClearItemsCache(ctx);
+	// }
+	//
+	// @Action(CustomerActions.ClearTableCacheAndGetList)
+	// public override async ClearTableCacheAndGetList(ctx: StateContext<ICustomerState>): Promise<void> {
+	// 	await super.ClearTableCacheAndGetList(ctx);
+	// }
+	//
+	// @Action(CustomerActions.ClearItemCacheAndGetItem)
+	// public override async ClearItemCacheAndGetItem(ctx: StateContext<ICustomerState>): Promise<void> {
+	// 	await super.ClearItemCacheAndGetItem(ctx);
+	// }
 
 	@Action(CustomerActions.UpdateFilters)
 	public override updateFilters(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateFilters) {

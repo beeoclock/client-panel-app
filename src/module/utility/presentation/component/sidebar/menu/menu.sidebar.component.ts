@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {IsActiveMatchOptions, RouterLink, RouterLinkActive} from '@angular/router';
 import {NgForOf, NgIf} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
@@ -7,10 +7,13 @@ import {firstValueFrom} from "rxjs";
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {SidebarService} from "@utility/presentation/component/sidebar/sidebar.service";
 import {environment} from "@environment/environment";
+import {EventBusTokenEnum} from "@src/event-bus-token.enum";
+import {NgEventBus} from "ng-event-bus";
 
 interface IMenuItem {
 	url?: string;
 	icon?: string;
+	badge?: string;
 	translateKey: string;
 	target?: '_blank';
 	disabled?: boolean;
@@ -33,9 +36,10 @@ interface IMenuItem {
 		TranslateModule
 	],
 })
-export class MenuSidebarComponent {
+export class MenuSidebarComponent implements OnInit {
 
 	private readonly store = inject(Store);
+	private readonly ngEventBus = inject(NgEventBus);
 	private readonly sidebarService = inject(SidebarService);
 
 	public detectAutoClose() {
@@ -60,7 +64,7 @@ export class MenuSidebarComponent {
 				queryParams: "ignored",
 				fragment: "ignored",
 			},
-			url: '/event',
+			url: '/event/list',
 			// items: [
 			// 	{
 			// 		translateKey: 'sidebar.events.list',
@@ -89,7 +93,19 @@ export class MenuSidebarComponent {
 			// ]
 		},
 		{
-			url: '/customer',
+			translateKey: 'sidebar.requested',
+			badge: '2',
+			icon: 'bi bi-calendar-plus',
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			},
+			url: '/event/requested',
+		},
+		{
+			url: '/customer/list',
 			translateKey: 'sidebar.customers',
 			icon: 'bi bi-person-vcard',
 			routerLinkActiveOptions: {
@@ -100,7 +116,7 @@ export class MenuSidebarComponent {
 			}
 		},
 		// {
-		//   url: '/member',
+		//   url: '/member/list',
 		//   translateKey: 'sidebar.members',
 		//   icon: 'bi bi-people',
 		//   routerLinkActiveOptions: {
@@ -111,7 +127,7 @@ export class MenuSidebarComponent {
 		//   }
 		// },
 		{
-			url: '/service',
+			url: '/service/list',
 			translateKey: 'sidebar.services',
 			icon: 'bi bi-shop-window',
 			routerLinkActiveOptions: {
@@ -125,6 +141,17 @@ export class MenuSidebarComponent {
 			url: '/client/business-profile',
 			translateKey: 'sidebar.businessProfile',
 			icon: 'bi bi-buildings',
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		},
+		{
+			url: '/client/business-settings',
+			translateKey: 'sidebar.businessSettings',
+			icon: 'bi bi-building-gear',
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",
@@ -173,5 +200,17 @@ export class MenuSidebarComponent {
 		const link = `${environment.urls.publicPageOrigin}/${clientId}`;
 		window.open(link, '_blank');
 
+	}
+
+	public ngOnInit(): void {
+		this.ngEventBus
+			.on(EventBusTokenEnum.SIDE_BAR_EVENT_REQUESTED_BADGE)
+			.subscribe((event) => {
+				const badge = event.data as string;
+				const menuItem = this.menu.find((item) => item.translateKey === 'sidebar.requested');
+				if (menuItem) {
+					menuItem.badge = badge;
+				}
+			});
 	}
 }

@@ -10,12 +10,19 @@ import {ItemServiceApiAdapter} from "@service/adapter/external/api/item.service.
 import {RemoveServiceApiAdapter} from "@service/adapter/external/api/remove.service.api.adapter";
 import {ListServiceApiAdapter} from "@service/adapter/external/api/list.service.api.adapter";
 import {ServiceActions} from "@service/state/service/service.actions";
+import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 
 export type IServiceState = IBaseState<Service.IService>
 
+const defaults = baseDefaults<Service.IService>({
+	filters: {},
+	orderDir: OrderDirEnum.DESC,
+	orderBy: OrderByEnum.CREATED_AT,
+});
+
 @State<IServiceState>({
 	name: 'service',
-	defaults: baseDefaults<Service.IService>()
+	defaults
 })
 @Injectable()
 export class ServiceState extends BaseState<IService> {
@@ -29,41 +36,17 @@ export class ServiceState extends BaseState<IService> {
 
 	constructor() {
 		super(
-			{
-				tableStates: 'service.cache.tableStates',
-				items: 'service.cache.items'
-			}
+			defaults,
+			// {
+			// 	tableStates: 'service.cache.tableStates',
+			// 	items: 'service.cache.items'
+			// }
 		);
 	}
 
 	@Action(ServiceActions.Init)
 	public override async init(ctx: StateContext<IServiceState>): Promise<void> {
 		await super.init(ctx);
-	}
-
-	@Action(ServiceActions.InitDefaultsFromCache)
-	public override async InitDefaultsFromCache(ctx: StateContext<IServiceState>): Promise<void> {
-		await super.InitDefaultsFromCache(ctx);
-	}
-
-	@Action(ServiceActions.ClearTableCache)
-	public override async ClearTableCache(ctx: StateContext<IServiceState>): Promise<void> {
-		await super.ClearTableCache(ctx);
-	}
-
-	@Action(ServiceActions.ClearItemCache)
-	public override async ClearItemsCache(ctx: StateContext<IServiceState>): Promise<void> {
-		await super.ClearItemsCache(ctx);
-	}
-
-	@Action(ServiceActions.ClearTableCacheAndGetList)
-	public override async ClearTableCacheAndGetList(ctx: StateContext<IServiceState>): Promise<void> {
-		await super.ClearTableCacheAndGetList(ctx);
-	}
-
-	@Action(ServiceActions.ClearItemCacheAndGetItem)
-	public override async ClearItemCacheAndGetItem(ctx: StateContext<IServiceState>): Promise<void> {
-		await super.ClearItemCacheAndGetItem(ctx);
 	}
 
 	@Action(ServiceActions.UpdateFilters)

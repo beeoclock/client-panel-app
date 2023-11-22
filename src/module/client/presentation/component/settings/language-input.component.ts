@@ -38,6 +38,8 @@ export class LanguageInputComponent {
     this.control.setValue(this.translateService.currentLang);
     this.control.valueChanges.subscribe((languageCode) => {
       this.translateService.use(languageCode);
+			// TODO: Delete reload when the language change will be fixed
+			window.location.reload();
     });
   }
 

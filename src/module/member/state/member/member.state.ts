@@ -9,12 +9,19 @@ import {UpdateMemberApiAdapter} from "@member/adapter/external/api/update.member
 import {ItemMemberApiAdapter} from "@member/adapter/external/api/item.member.api.adapter";
 import {RemoveMemberApiAdapter} from "@member/adapter/external/api/remove.member.api.adapter";
 import {ListMemberApiAdapter} from "@member/adapter/external/api/list.member.api.adapter";
+import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 
 export type IMemberState = IBaseState<Member.RIMember>;
 
+const defaults = baseDefaults<Member.RIMember>({
+	filters: {},
+	orderBy: OrderByEnum.CREATED_AT,
+	orderDir: OrderDirEnum.DESC,
+});
+
 @State<IMemberState>({
 	name: 'member',
-	defaults: baseDefaults<Member.RIMember>()
+	defaults,
 })
 @Injectable()
 export class MemberState extends BaseState<Member.RIMember> {
@@ -28,41 +35,17 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 	constructor() {
 		super(
-			{
-				tableStates: 'member.cache.tableStates',
-				items: 'member.cache.items'
-			}
+			defaults,
+			// {
+			// 	tableStates: 'member.cache.tableStates',
+			// 	items: 'member.cache.items'
+			// }
 		);
 	}
 
 	@Action(MemberActions.Init)
 	public override async init(ctx: StateContext<IMemberState>): Promise<void> {
 		await super.init(ctx);
-	}
-
-	@Action(MemberActions.InitDefaultsFromCache)
-	public override async InitDefaultsFromCache(ctx: StateContext<IMemberState>): Promise<void> {
-		await super.InitDefaultsFromCache(ctx);
-	}
-
-	@Action(MemberActions.ClearTableCache)
-	public override async ClearTableCache(ctx: StateContext<IMemberState>): Promise<void> {
-		await super.ClearTableCache(ctx);
-	}
-
-	@Action(MemberActions.ClearItemCache)
-	public override async ClearItemsCache(ctx: StateContext<IMemberState>): Promise<void> {
-		await super.ClearItemsCache(ctx);
-	}
-
-	@Action(MemberActions.ClearTableCacheAndGetList)
-	public override async ClearTableCacheAndGetList(ctx: StateContext<IMemberState>): Promise<void> {
-		await super.ClearTableCacheAndGetList(ctx);
-	}
-
-	@Action(MemberActions.ClearItemCacheAndGetItem)
-	public override async ClearItemCacheAndGetItem(ctx: StateContext<IMemberState>): Promise<void> {
-		await super.ClearItemCacheAndGetItem(ctx);
 	}
 
 	@Action(MemberActions.UpdateFilters)

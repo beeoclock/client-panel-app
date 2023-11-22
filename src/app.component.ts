@@ -14,11 +14,11 @@ import {CheckForUpdatePwaService} from "@utility/cdk/check-for-update-pwa.servic
 @Component({
 	selector: 'app-root',
 	standalone: true,
+	encapsulation: ViewEncapsulation.None,
 	imports: [RouterModule],
 	template: `
 		<router-outlet/>
 	`,
-	encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements AfterViewInit {
 

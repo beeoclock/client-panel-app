@@ -8,26 +8,6 @@ export namespace ServiceActions {
     public static override readonly type = '[Service State] Init';
   }
 
-  export class InitDefaultsFromCache extends BaseActions.InitDefaultsFromCache {
-    public static override readonly type = '[Service API] Init Defaults From Cache';
-  }
-
-  export class ClearTableCache extends BaseActions.ClearTableCache {
-    public static override readonly type = '[Service Cache] Clear Table Cache';
-  }
-
-  export class ClearItemCache extends BaseActions.ClearItemCache {
-    public static override readonly type = '[Service Cache] Clear Item Cache';
-  }
-
-  export class ClearTableCacheAndGetList extends BaseActions.ClearTableCacheAndGetList {
-    public static override readonly type = '[Service Cache & API] Clear Table Cache And Get List';
-  }
-
-  export class ClearItemCacheAndGetItem extends BaseActions.ClearItemCacheAndGetItem {
-    public static override readonly type = '[Service Cache & API] Clear Item Cache And Get Item';
-  }
-
   export class GetList extends BaseActions.GetList {
     public static override readonly type = '[Service API] Get List';
   }

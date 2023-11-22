@@ -1,22 +1,25 @@
 import {Routes} from "@angular/router";
 import {eventDetailsResolver} from "@event/presentation/resolver/event.details.resolver";
-import {eventCacheResolver} from "@event/presentation/resolver/event.cache.resolver";
 import {eventServiceResolver} from "@event/presentation/resolver/event.service.resolver";
 import {eventCustomerResolver} from "@event/presentation/resolver/event.customer.resolver";
 
 export const routers = [
 	{
 		path: '',
-		resolve: {
-			cacheLoaded: eventCacheResolver
-		},
+		// resolve: {
+		// 	cacheLoaded: eventCacheResolver
+		// },
 		children: [
 			{
-				path: '',
+				path: 'list',
 				// resolve: {
 				// 	tableState: eventListResolver
 				// },
 				loadComponent: () => import('./page/list')
+			},
+			{
+				path: 'requested',
+				loadComponent: () => import('./page/requested')
 			},
 			{
 				path: 'form',

@@ -88,6 +88,9 @@
 					"name": {
 						"label": "Nazwa firmy",
 						"placeholder": "Wpisz nazwę firmy lub nazwisko"
+					},
+					"published": {
+						"label": "Dostęp publiczny"
 					}
 				},
 				"section": {
@@ -311,6 +314,20 @@
 			},
 			"status": {
 				"all": "Wszystkie",
+				"plural": {
+					"booked": "Zarezerwowane",
+					"cancelled": "Odwołane",
+					"done": "Gotowe",
+					"rejected": "Odrzucone",
+					"requested": "Zażądane"
+				},
+				"singular": {
+					"booked": "Zarezerwowane",
+					"cancelled": "Odwołane",
+					"done": "Gotowe",
+					"rejected": "Odrzucono",
+					"requested": "Zażądane"
+				},
 				"status": {
 					"plural": {
 						"booked": "Zarezerwowane",
@@ -327,7 +344,11 @@
 				}
 			}
 		},
-		"title": "Wydarzenie"
+		"title": "Wydarzenie",
+		"warning": {
+			"durationAndPriceConflict": "Wybierz dostępny czas trwania, w przeciwnym razie najdłuższy zostanie wybrany automatycznie po akceptacji.",
+			"multipleEventAtSameTime": "Więcej niż jedno wydarzenie w tym czasie."
+		}
 	},
 	"form": {
 		"validation": {
@@ -748,6 +769,7 @@
 			"prices": "Ceny",
 			"processing": "Przetwarzanie",
 			"publicPage": "Strona publiczna",
+			"reject": "Odrzucić",
 			"role": "Rola",
 			"save": "Zapisz",
 			"search": "Szukaj",
@@ -780,6 +802,7 @@
 			"unknown": "Nieznany",
 			"update": "Zaktualizowano",
 			"updatedAt": "Zaktualizowano",
+			"warning": "Uwaga",
 			"workdays": "Dni pracy",
 			"workingHours": "Godziny pracy",
 			"writePrice": "Wpisz cenę",
@@ -787,14 +810,20 @@
 			"zipCode": "Kod pocztowy"
 		},
 		"lowercase": {
+			"after": "za",
 			"ago": "temu",
 			"at": "o",
+			"days": "dni",
 			"dragAndDrop": "przeciągnij i upuść plik",
+			"in": "w",
 			"min": "min.",
 			"no-data": "brak danych",
 			"or": "lub",
 			"sec": "sek.",
-			"service": "usługa"
+			"service": "usługa",
+			"short": {
+				"days": "d"
+			}
 		},
 		"status": {
 			"all": "Wszystkie",
@@ -885,6 +914,7 @@
 	"sidebar": {
 		"addEvent": "Dodaj wydarzenie",
 		"businessProfile": "Profil biznesowy",
+		"businessSettings": "Ustawienia firmy",
 		"calendar": "Kalendarz",
 		"customers": "Klienci",
 		"dashboard": "Panel główny",
@@ -897,6 +927,7 @@
 				"message": "Czy naprawdę chcesz odejść?"
 			}
 		},
+		"requested": "Zażądane",
 		"services": "Usługi",
 		"settings": "Ustawienia",
 		"switch-business-client": "Zmień kontekst",
@@ -916,6 +947,20 @@
 			"accordingToAService": "Według serwisu"
 		},
 		"title": "Budowa przedziałów czasowych"
+	},
+	"slotRetrievingStrategy": {
+		"hint": "Strategia ta kontroluje możliwość wyboru przedziałów czasowych dla wydarzeń, które nie uzyskały jeszcze potwierdzenia od specjalisty. Poniżej zobaczysz przykłady wybranej strategii.",
+		"hists": {
+			"byOption": {
+				"IncludeRequested": "Ta opcja blokuje możliwość dodawania przez klientów nowych zdarzeń do przedziałów, w których status mają już istniejące wpisy",
+				"OnlyBooked": "The selected option allows customers to add new events to already occupied slots via the public page, provided that none of them have yet received status"
+			}
+		},
+		"options": {
+			"IncludeRequested": "Uwzględnij żądanie",
+			"OnlyBooked": "Tylko zarezerwowane"
+		},
+		"title": "Strategia proponowanych przedziałów czasowych"
 	},
 	"updateAvailable": {
 		"header": "Nowa wersja",

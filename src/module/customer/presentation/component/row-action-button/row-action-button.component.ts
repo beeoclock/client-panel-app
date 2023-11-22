@@ -15,7 +15,7 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 		<utility-table-column-action [id]="id" (delete)="delete($event)">
 			<li>
 				<a
-					[routerLink]="['../', 'event', 'form']"
+					[routerLink]="['../../', 'event', 'form']"
 					[queryParams]="{customerId: item._id, returnUrl}"
 					class="flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
 					<i class="bi bi-calendar2-week"></i>
@@ -44,17 +44,17 @@ export class RowActionButtonComponent {
 
 	public delete(id: string): void {
 		this.store.dispatch(new CustomerActions.DeleteItem(id));
-		this.clearTableCache();
+		// this.clearTableCache();
 	}
 
 	public async archive(id: string): Promise<void> {
 		await firstValueFrom(this.store.dispatch(
 			new CustomerActions.ArchiveItem(id)));
-		this.clearTableCache();
+		// this.clearTableCache();
 	}
 
-	public clearTableCache(): void {
-		this.store.dispatch(new CustomerActions.ClearTableCacheAndGetList());
-	}
+	// public clearTableCache(): void {
+	// 	this.store.dispatch(new CustomerActions.ClearTableCacheAndGetList());
+	// }
 
 }

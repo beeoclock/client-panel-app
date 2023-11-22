@@ -17,9 +17,7 @@ export class UtilityListCustomerAdapter {
 
 	public resetTableState(): void {
 
-		this.tableState.page = 1;
-		this.tableState.total = 0;
-		this.tableState.items = [];
+		this.tableState.setPage(1).setTotal(0).setItems([]);
 
 	}
 
@@ -42,18 +40,14 @@ export class UtilityListCustomerAdapter {
 			const data = await this.listCustomerApiAdapter.executeAsync(this.tableState.toBackendFormat());
 
 			if (data.items.length === this.tableState.pageSize || this.tableState.page > 1) {
-				// Increment page
-				this.tableState.page += 1;
-
-				// Add items to tableState
-				this.tableState.items = ([] as Customer.ICustomer[]).concat(this.tableState.items, data.items);
+				this.tableState.nextPage().setItems(([] as Customer.ICustomer[]).concat(this.tableState.items, data.items))
 			} else {
 
 				// Add items to tableState
-				this.tableState.items = data.items;
+				this.tableState.setItems(data.items);
 			}
 
-			this.tableState.total = data.totalSize;
+			this.tableState.setTotal(data.totalSize);
 
 		} catch (e) {
 			this.logger.error(e);
