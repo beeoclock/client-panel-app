@@ -330,7 +330,11 @@
 				}
 			}
 		},
-		"title": "Подія"
+		"title": "Подія",
+		"warning": {
+			"durationAndPriceConflict": "Обери доступну тривалість або найдовша буде обрана автоматично після прийняття.",
+			"multipleEventAtSameTime": "Більше ніж одна подія на цей час."
+		}
 	},
 	"form": {
 		"validation": {
@@ -784,6 +788,7 @@
 			"unknown": "Невідомо",
 			"update": "Оновити",
 			"updatedAt": "Оновлено",
+			"warning": "Увага",
 			"workdays": "Робочі дні",
 			"workingHours": "Графік роботи",
 			"writePrice": "Ввести ціну",

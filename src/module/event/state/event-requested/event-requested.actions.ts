@@ -1,53 +1,54 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IEvent, RIEvent, RMIEvent} from "@event/domain";
+import {IEvent, RMIEvent} from "@event/domain";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace EventRequestedActions {
 
-  export class Init extends BaseActions.Init {
-    public static override readonly type = '[Event Requested State] Init';
-  }
+	export class Init extends BaseActions.Init {
+		public static override readonly type = '[Event Requested State] Init';
+	}
 
-  export class GetList extends BaseActions.GetList {
-    public static override readonly type = '[Event Requested API] Get List';
-  }
+	export class GetList extends BaseActions.GetList {
+		public static override readonly type = '[Event Requested API] Get List';
+	}
 
-  export class GetItem extends BaseActions.GetItem {
-    public static override readonly type = '[Event Requested API] Get Item';
-  }
+	// Updates of state
 
-  export class UpdateItem extends BaseActions.UpdateItem<RIEvent> {
-    public static override readonly type = '[Event Requested API] Update Item';
-  }
+	export class UpdateFilters extends BaseActions.UpdateFilters {
+		public static override readonly type = '[Event Requested State] Update Filters';
+	}
 
-  // Updates of state
+	export class UpdateTableState extends BaseActions.UpdateTableState<RMIEvent> {
+		public static override readonly type = '[Event Requested State] Update Table State';
+	}
 
-  export class UpdateFilters extends BaseActions.UpdateFilters {
-    public static override readonly type = '[Event Requested State] Update Filters';
-  }
+	// Statuses
 
-  export class UpdateTableState extends BaseActions.UpdateTableState<RMIEvent> {
-    public static override readonly type = '[Event Requested State] Update Table State';
-  }
+	export class SetAutomaticallyDuration {
+		public static readonly type = '[Event Requested API] Set Automatically Duration';
 
-  // Statuses
+		constructor(
+			public readonly payload: IEvent,
+		) {
+		}
+	}
 
-  export class RejectedStatus {
-    public static readonly type = '[Event Requested API] Rejected Status';
+	export class RejectedStatus {
+		public static readonly type = '[Event Requested API] Rejected Status';
 
-    constructor(
-      public readonly payload: IEvent,
-    ) {
-    }
-  }
+		constructor(
+			public readonly payload: IEvent,
+		) {
+		}
+	}
 
-  export class BookedStatus {
-    public static readonly type = '[Event Requested API] Booked Success';
+	export class BookedStatus {
+		public static readonly type = '[Event Requested API] Booked Success';
 
-    constructor(
-      public readonly payload: IEvent,
-    ) {
-    }
-  }
+		constructor(
+			public readonly payload: IEvent,
+		) {
+		}
+	}
 
 }

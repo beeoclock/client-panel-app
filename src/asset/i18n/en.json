@@ -330,7 +330,11 @@
 				}
 			}
 		},
-		"title": "Event"
+		"title": "Event",
+		"warning": {
+			"durationAndPriceConflict": "Choose an available duration or the longest will be selected automatically after acceptance.",
+			"multipleEventAtSameTime": "More than one event at this time."
+		}
 	},
 	"form": {
 		"validation": {
@@ -785,6 +789,7 @@
 			"unknown": "Unknown",
 			"update": "Updated",
 			"updatedAt": "Updated at",
+			"warning": "Warning",
 			"workdays": "Workdays",
 			"workingHours": "Working hours",
 			"writePrice": "Write price",

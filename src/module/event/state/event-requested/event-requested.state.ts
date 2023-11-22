@@ -3,11 +3,6 @@ import {Action, NgxsOnInit, Selector, State, StateContext} from "@ngxs/store";
 import * as Event from "@event/domain";
 import {MEvent} from "@event/domain";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
-import {ArchiveEventApiAdapter} from "@event/adapter/external/api/archive.event.api.adapter";
-import {CreateEventApiAdapter} from "@event/adapter/external/api/create.event.api.adapter";
-import {UpdateEventApiAdapter} from "@event/adapter/external/api/update.event.api.adapter";
-import {ItemEventApiAdapter} from "@event/adapter/external/api/item.event.api.adapter";
-import {RemoveEventApiAdapter} from "@event/adapter/external/api/remove.event.api.adapter";
 import {BookedStatusEventApiAdapter} from "@event/adapter/external/api/booked.status.event.api.adapter";
 import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
@@ -17,6 +12,8 @@ import {EventRequestedActions} from "./event-requested.actions";
 import {ListEventApiAdapter} from "../../adapter/external/api/list.event.api.adapter";
 import {EventBusTokenEnum} from "@src/event-bus-token.enum";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {UpdateEventApiAdapter} from "@event/adapter/external/api/update.event.api.adapter";
+import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 
 export type IEventRequestedState = IBaseState<Event.RIEvent>;
 
@@ -35,11 +32,7 @@ const defaults = baseDefaults<Event.RIEvent>({
 @Injectable()
 export class EventRequestedState extends BaseState<Event.RIEvent> implements NgxsOnInit {
 
-	protected override readonly archive = inject(ArchiveEventApiAdapter);
-	protected override readonly create = inject(CreateEventApiAdapter);
 	protected override readonly update = inject(UpdateEventApiAdapter);
-	protected override readonly item = inject(ItemEventApiAdapter);
-	protected override readonly remove = inject(RemoveEventApiAdapter);
 	protected override readonly list = inject(ListEventApiAdapter);
 
 	// Change status
@@ -76,25 +69,33 @@ export class EventRequestedState extends BaseState<Event.RIEvent> implements Ngx
 		super.updateTableState(ctx, action);
 	}
 
-	@Action(EventRequestedActions.GetItem)
-	public override async getItemFromCacheOrApi(ctx: StateContext<IEventRequestedState>, action: EventRequestedActions.GetItem): Promise<void> {
-		await super.getItemFromCacheOrApi(ctx, action);
-	}
-
-	@Action(EventRequestedActions.UpdateItem)
-	public override async updateItem(ctx: StateContext<IEventRequestedState>, action: EventRequestedActions.UpdateItem): Promise<void> {
-		await super.updateItem(ctx, action);
-	}
-
 	@Action(EventRequestedActions.GetList)
 	public override async getList(ctx: StateContext<IEventRequestedState>, action: EventRequestedActions.GetList): Promise<void> {
 		await super.getList(ctx, action);
 		const {tableState} = ctx.getState();
-		console.log(tableState);
 		this.ngEventBus.cast(EventBusTokenEnum.SIDE_BAR_EVENT_REQUESTED_BADGE, tableState.total);
 	}
 
 	// Statuses
+
+	@Action(EventRequestedActions.SetAutomaticallyDuration)
+	public async setAutomaticallyDuration(ctx: StateContext<IEventRequestedState>, {payload}: EventRequestedActions.SetAutomaticallyDuration): Promise<void> {
+		// Change all services in event which has more than one durationVersions, if will then select only one the longest
+		const event = structuredClone(payload);
+		event.services?.forEach((service) => {
+			const durationVersions = service.configuration.duration?.durationVersionType;
+			if (durationVersions === DurationVersionTypeEnum.RANGE) {
+				const foundLongestDurationVersion = service?.durationVersions?.reduce((prev, current) => {
+					return (prev.durationInSeconds > current.durationInSeconds) ? prev : current;
+				});
+				service.durationVersions = [foundLongestDurationVersion];
+				// Change configuration.duration.durationVersionType to SINGLE
+				delete service.configuration.duration;
+			}
+		});
+
+		await this.update.executeAsync(event);
+	}
 
 	@Action(EventRequestedActions.BookedStatus)
 	public async bookedStatus(ctx: StateContext<IEventRequestedState>, {payload}: EventRequestedActions.BookedStatus): Promise<void> {

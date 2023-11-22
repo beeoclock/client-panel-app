@@ -44,7 +44,7 @@ import {EventRequestedActions} from "@event/state/event-requested/event-requeste
 				ring-inset
 				ring-red-300
 				hover:bg-red-100">
-			<i class="bi bi-check-lg"></i>
+			<i class="bi bi-x-lg"></i>
 			{{ 'keyword.capitalize.reject' | translate }}
 		</button>
 	`
@@ -55,7 +55,6 @@ export class ChangeStatusOnRejectedComponent extends ChangeStatusBaseComponent {
 
 	public async changeStatusOnRejected(event: IEvent): Promise<void> {
 		await firstValueFrom(this.store.dispatch(new EventRequestedActions.RejectedStatus(event)));
-		await firstValueFrom(this.store.dispatch(new EventRequestedActions.GetItem(event._id)));
 		this.postStatusChange(EventStatusEnum.rejected);
 		this.store.dispatch(new EventRequestedActions.GetList({force: true, resetPage: false, resetParams: false}));
 	}

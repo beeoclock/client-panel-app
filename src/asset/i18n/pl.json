@@ -344,7 +344,11 @@
 				}
 			}
 		},
-		"title": "Wydarzenie"
+		"title": "Wydarzenie",
+		"warning": {
+			"durationAndPriceConflict": "Wybierz dostępny czas trwania, w przeciwnym razie najdłuższy zostanie wybrany automatycznie po akceptacji.",
+			"multipleEventAtSameTime": "Więcej niż jedno wydarzenie w tym czasie."
+		}
 	},
 	"form": {
 		"validation": {
@@ -798,6 +802,7 @@
 			"unknown": "Nieznany",
 			"update": "Zaktualizowano",
 			"updatedAt": "Zaktualizowano",
+			"warning": "Uwaga",
 			"workdays": "Dni pracy",
 			"workingHours": "Godziny pracy",
 			"writePrice": "Wpisz cenę",

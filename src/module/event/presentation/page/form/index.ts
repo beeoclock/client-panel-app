@@ -290,6 +290,11 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 			this.form.markAsPending();
 			const value = this.form.getRawValue() as IEvent;
 
+			// Delete each configuration of duration at service
+			value.services?.forEach((service) => {
+				delete service.configuration?.duration;
+			});
+
 			if (this.isEditMode) {
 
 				await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(value)));

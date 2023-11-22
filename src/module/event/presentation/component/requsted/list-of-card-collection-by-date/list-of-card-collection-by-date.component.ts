@@ -1,7 +1,7 @@
 import {Component, inject, ViewEncapsulation} from "@angular/core";
 import {EventRequestedState} from "@event/state/event-requested/event-requested.state";
 import {Store} from "@ngxs/store";
-import {RIEvent} from "@src/module/event/domain";
+import {MEvent, RIEvent} from "@src/module/event/domain";
 import {AsyncPipe, CurrencyPipe, DatePipe, KeyValuePipe, NgForOf, NgIf} from "@angular/common";
 import {map} from "rxjs";
 import {FirstKeyNameModule} from "@utility/presentation/pipes/first-key-name/first-key-name.module";
@@ -19,6 +19,7 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {
 	ChangeStatusOnRejectedComponent
 } from "@event/presentation/component/change-status/change-status-on-rejected.component";
+import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 
 @Component({
 	selector: 'event-list-of-card-collection-by-date-component',
@@ -41,12 +42,18 @@ import {
 		NoDataPipe,
 		TranslateModule,
 		ChangeStatusOnRejectedComponent,
-	]
+	],
+	providers: [
+		CurrencyPipe,
+		DurationVersionHtmlHelper,
+	],
 })
 export class ListOfCardCollectionByDateComponent {
 
 	private readonly store = inject(Store);
 	private readonly translateService = inject(TranslateService);
+
+	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
 	public readonly tableState$ = this.store.select(EventRequestedState.tableState);
 
@@ -74,8 +81,8 @@ export class ListOfCardCollectionByDateComponent {
 		}),
 	);
 
-	public toEventListType(list: unknown) {
-		return list as RIEvent[];
+	public toEventListType(list: unknown): MEvent[] {
+		return Array.isArray(list) ? list.map(MEvent.create) : [];
 	}
 
 	public getDayNameByDate(date: string) {
