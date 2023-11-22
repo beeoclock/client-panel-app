@@ -111,7 +111,9 @@ bootstrapApplication(AppComponent, {
 			withInMemoryScrolling({
 				scrollPositionRestoration: 'enabled'
 			}),
-			withPreloading(PreloadAllModules)
+			withPreloading(PreloadAllModules),
+			// withViewTransitions(), // TODO add when we will control which container should have animation
+			// withComponentInputBinding(), // TODO add when we will vision of how to use it
 		),
 		provideServiceWorker('ngsw-worker.js', {
 			enabled: !isDevMode(),
