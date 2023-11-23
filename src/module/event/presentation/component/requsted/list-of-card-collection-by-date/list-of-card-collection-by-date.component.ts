@@ -23,6 +23,7 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 import {
 	AttendeeCardComponent
 } from "@event/presentation/component/requsted/list-of-card-collection-by-date/attendee-card/attendee.card.component";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
 	selector: 'event-list-of-card-collection-by-date-component',
@@ -54,6 +55,8 @@ import {
 })
 export class ListOfCardCollectionByDateComponent {
 
+	private readonly router = inject(Router);
+	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly store = inject(Store);
 	private readonly translateService = inject(TranslateService);
 
@@ -121,8 +124,12 @@ export class ListOfCardCollectionByDateComponent {
 
 	@debounce(300)
 	public singleClick(item: RIEvent) {
-		console.log(item)
-		// this.singleClickEmitter.emit(item);
+		this.router.navigate(['../', item._id], {
+			relativeTo: this.activatedRoute,
+			queryParams: {
+				returnUrl: this.router.url
+			}
+		}).then();
 	}
 
 }

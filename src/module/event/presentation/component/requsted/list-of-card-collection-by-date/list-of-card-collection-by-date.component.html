@@ -38,7 +38,7 @@
 						<div *ngFor="let item of toEventListType(timeItem.value)">
 							<bee-card class="text-sm" gap="gap-2">
 								<div class="flex justify-between items-center gap-8">
-									<div class="flex items-center gap-2 w-full" (click)="singleClick(item)">
+									<div class="cursor-pointer flex items-center gap-2 w-full" (click)="singleClick(item)">
 										<div eventStatusStyle mode="text" [status]="item.status"></div>
 										<div
 											*ngIf="!item.someServiceHasRangeDurationVersion"
@@ -62,7 +62,7 @@
 										</div>
 									</div>
 									<div class="flex pt-1">
-										<div (click)="singleClick(item)" class="flex-1 flex items-center gap-4">
+										<div (click)="singleClick(item)" class="cursor-pointer flex-1 flex items-center gap-4">
 											<div class="text-beeColor-500">
 												<i class="bi bi-clock"></i>
 											</div>
@@ -70,7 +70,7 @@
 													 [innerHTML]="durationVersionHtmlHelper.getDurationValue(item.services[0])">
 											</div>
 										</div>
-										<div (click)="singleClick(item)" class="flex-1 flex items-center gap-4">
+										<div (click)="singleClick(item)" class="cursor-pointer flex-1 flex items-center gap-4">
 											<div class="text-beeColor-500">
 												<i class="bi bi-currency-dollar"></i>
 											</div>
@@ -82,7 +82,7 @@
 								<ng-template #SingleDurationTemplate>
 									<div
 										(click)="singleClick(item)"
-										class="inline-flex gap-4 items-center">
+										class="cursor-pointer inline-flex gap-4 items-center">
 										<i class="bi bi-clock text-beeColor-500"></i>
 										<div class="inline-flex gap-2">
 											{{ item.start | date: 'HH:mm' }} - {{ item.end | date: 'HH:mm' }}
@@ -94,12 +94,11 @@
 								</ng-template>
 								<div
 									(click)="singleClick(item)"
-									class="inline-flex gap-4 items-center">
+									class="cursor-pointer inline-flex gap-4 items-center">
 									<i class="bi bi-cart text-beeColor-500"></i>
 									{{ item?.services?.[0]?.languageVersions?.[0]?.title | noData }}
 								</div>
 								<event-attendee-card-component
-									(click)="singleClick(item)"
 									*ngFor="let attendee of (item?.attendees ?? [])"
 									[attendee]="attendee"/>
 								<ng-container (click)="singleClick(item)" *ngIf="item?.description?.length">
