@@ -85,7 +85,7 @@ export class FilterComponent extends BaseFilterComponent {
 	public override readonly form = new FilterForm();
 	public override readonly actions = EventActions;
 	public override readonly state = EventState;
-	public readonly ignoreStatusList = [EventStatusEnum.requested];
+	public readonly ignoreStatusList = [EventStatusEnum.requested, EventStatusEnum.rejected];
 
 	constructor() {
 		super();
