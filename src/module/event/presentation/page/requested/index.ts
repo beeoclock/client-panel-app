@@ -30,6 +30,7 @@ import {EventRequestedActions} from "@event/state/event-requested/event-requeste
 import {
 	ListOfCardCollectionByDateComponent
 } from "@event/presentation/component/requsted/list-of-card-collection-by-date/list-of-card-collection-by-date.component";
+import {IonicModule} from "@ionic/angular";
 
 @Component({
 	selector: 'event-requested-page',
@@ -56,7 +57,8 @@ import {
 		CardListComponent,
 		MobileLayoutListComponent,
 		DesktopLayoutListComponent,
-		ListOfCardCollectionByDateComponent
+		ListOfCardCollectionByDateComponent,
+		IonicModule
 	],
 	standalone: true
 })
@@ -77,5 +79,9 @@ export default class Index extends ListPage {
 				}
 			})
 		);
+
+	public handleRefresh($event: any) {
+		console.log($event)
+	}
 
 }

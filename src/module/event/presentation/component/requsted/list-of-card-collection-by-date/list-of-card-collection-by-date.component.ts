@@ -24,6 +24,7 @@ import {
 	AttendeeCardComponent
 } from "@event/presentation/component/requsted/list-of-card-collection-by-date/attendee-card/attendee.card.component";
 import {ActivatedRoute, Router} from "@angular/router";
+import {FilterComponent} from "@event/presentation/component/filter/requested-filter.component";
 
 @Component({
 	selector: 'event-list-of-card-collection-by-date-component',
@@ -47,6 +48,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 		TranslateModule,
 		ChangeStatusOnRejectedComponent,
 		AttendeeCardComponent,
+		FilterComponent,
 	],
 	providers: [
 		CurrencyPipe,
