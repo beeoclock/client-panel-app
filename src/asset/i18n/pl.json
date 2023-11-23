@@ -386,6 +386,14 @@
 			}
 		},
 		"PATCH": {
+			"/api/v1/event/{id}/rejected": {
+				"after": {
+					"success": {
+						"header": "Wydarzenie odrzucone",
+						"message": "Wydarzenie zostało pomyślnie odrzucone"
+					}
+				}
+			},
 			"/api/v1/event/{id}/booked": {
 				"after": {
 					"success": {

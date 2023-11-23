@@ -372,6 +372,14 @@
 			}
 		},
 		"PATCH": {
+			"/api/v1/event/{id}/rejected": {
+				"after": {
+					"success": {
+						"header": "Подія відхилена",
+						"message": "Подія успішно відхилена."
+					}
+				}
+			},
 			"/api/v1/event/{id}/booked": {
 				"after": {
 					"success": {

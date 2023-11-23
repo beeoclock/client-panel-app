@@ -372,6 +372,14 @@
 			}
 		},
 		"PATCH": {
+			"/api/v1/event/{id}/rejected": {
+				"after": {
+					"success": {
+						"header": "Event rejected",
+						"message": "Event was successfully rejected."
+					}
+				}
+			},
 			"/api/v1/event/{id}/booked": {
 				"after": {
 					"success": {
