@@ -102,7 +102,7 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 	public async init(
 		ctx: StateContext<IBaseState<ITEM>>
 	) {
-		ctx.setState(this.defaults);
+		ctx.setState(structuredClone(this.defaults));
 	}
 
 	// /**
@@ -358,7 +358,7 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 					data,
 					downloadedAt: new Date(),
 				},
-				tableState: new TableState<ITEM>().toCache(),
+				tableState: structuredClone(this.defaults).tableState,
 				lastTableHashSum: undefined
 			});
 		} catch (e) {
