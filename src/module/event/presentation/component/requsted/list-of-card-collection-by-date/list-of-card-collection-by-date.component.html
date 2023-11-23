@@ -41,6 +41,7 @@
 									<div class="flex items-center gap-2 w-full" (click)="singleClick(item)">
 										<div eventStatusStyle mode="text" [status]="item.status"></div>
 										<div
+											*ngIf="!item.someServiceHasRangeDurationVersion"
 											class="bg-neutral-100 text-neutral-800 font-medium inline-flex gap-2 items-center px-2 py-0.5 rounded-2xl dark:bg-gray-700 dark:text-neutral-400 border border-neutral-400">
 											{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item.services[0].durationVersions[0].prices[0].currency: 'symbol-narrow'  }}
 										</div>
@@ -97,15 +98,10 @@
 									<i class="bi bi-cart text-beeColor-500"></i>
 									{{ item?.services?.[0]?.languageVersions?.[0]?.title | noData }}
 								</div>
-								<div
+								<event-attendee-card-component
 									(click)="singleClick(item)"
-									*ngFor="let attendant of (item?.attendees ?? [])"
-									#attendantRef
-									[attr.data-value]="(attendant?.customer?.firstName ?? '') + ' ' + (attendant?.customer?.lastName ?? '')"
-									class="inline-flex gap-4 items-center">
-									<i class="bi bi-person text-beeColor-500"></i>
-									{{ (attendantRef?.getAttribute?.('data-value')?.length ?? 0) > 1 ? attendantRef.getAttribute('data-value') : (attendant?.customer?.email ?? attendant?.customer?.phone ?? '-') }}
-								</div>
+									*ngFor="let attendee of (item?.attendees ?? [])"
+									[attendee]="attendee"/>
 								<ng-container (click)="singleClick(item)" *ngIf="item?.description?.length">
 									<hr class="mt-2">
 									<div class="text-neutral-500 dark:text-neutral-400 py-2">

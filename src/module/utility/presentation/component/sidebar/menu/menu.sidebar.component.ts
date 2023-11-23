@@ -94,7 +94,6 @@ export class MenuSidebarComponent implements OnInit {
 		},
 		{
 			translateKey: 'sidebar.requested',
-			badge: '2',
 			icon: 'bi bi-calendar-plus',
 			routerLinkActiveOptions: {
 				paths: "subset",
@@ -203,6 +202,7 @@ export class MenuSidebarComponent implements OnInit {
 	}
 
 	public ngOnInit(): void {
+		// TODO change bus event on state (ngxs)
 		this.ngEventBus
 			.on(EventBusTokenEnum.SIDE_BAR_EVENT_REQUESTED_BADGE)
 			.subscribe((event) => {

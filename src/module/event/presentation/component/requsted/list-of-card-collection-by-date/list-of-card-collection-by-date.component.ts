@@ -20,6 +20,9 @@ import {
 	ChangeStatusOnRejectedComponent
 } from "@event/presentation/component/change-status/change-status-on-rejected.component";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
+import {
+	AttendeeCardComponent
+} from "@event/presentation/component/requsted/list-of-card-collection-by-date/attendee-card/attendee.card.component";
 
 @Component({
 	selector: 'event-list-of-card-collection-by-date-component',
@@ -42,6 +45,7 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 		NoDataPipe,
 		TranslateModule,
 		ChangeStatusOnRejectedComponent,
+		AttendeeCardComponent,
 	],
 	providers: [
 		CurrencyPipe,
