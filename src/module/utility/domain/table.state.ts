@@ -1,10 +1,11 @@
 import hash_sum from "hash-sum";
+import {OrderByEnum, OrderDirEnum} from "./enum";
 
 export interface ITableState<ITEM> {
 	hashSum: string;
 
-	orderBy: string;
-	orderDir: string;
+	orderBy: OrderByEnum;
+	orderDir: OrderDirEnum;
 	filters: {
 		search?: string;
 		active?: string;
@@ -21,7 +22,7 @@ export interface ITableState<ITEM> {
 
 export type PITableState<ITEM> = Partial<ITableState<ITEM>>;
 
-export type TableState_BackendFormat<ITEM = any> =
+export type TableState_BackendFormat<ITEM = unknown> =
 	Pick<ITableState<ITEM>, 'orderDir' | 'orderBy' | 'pageSize' | 'page'>
 	& ITableState<ITEM>['filters'];
 
@@ -29,8 +30,8 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 
 	#filters = {};
 	#maxPage = 1;
-	#orderBy = 'createdAt';
-	#orderDir = 'desc';
+	#orderBy = OrderByEnum.CREATED_AT;
+	#orderDir = OrderDirEnum.DESC;
 	#page = 1;
 	#pageSize = 20;
 	#hashSum = '';
@@ -43,39 +44,54 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 		this.updateLastUpdate();
 	}
 
-	public set filters(value: any) { // TODO interface
+	public set filters(value: { [key: string]: unknown }) { // TODO interface
 		this.#filters = value;
 		this.initHashSum();
 		this.updateLastUpdate();
 	}
 
-	public get filters(): any { // TODO interface
+	public get filters(): { [key: string]: unknown } { // TODO interface
 		return this.#filters;
 	}
 
-	public setFilters(value: unknown): this { // TODO interface
+	public setFilters(value: { [key: string]: unknown }): this { // TODO interface
 		this.filters = value;
 		return this;
 	}
 
-	public set orderBy(value: string) {
+	public setOrderBy(value: OrderByEnum) {
+		this.orderBy = value;
+		return this;
+	}
+
+	public set orderBy(value: OrderByEnum) {
 		this.#orderBy = value;
 		this.initHashSum();
 		this.updateLastUpdate();
 	}
 
-	public get orderBy(): string {
+	public get orderBy(): OrderByEnum {
 		return this.#orderBy;
 	}
 
-	public set orderDir(value: string) {
+	public set orderDir(value: OrderDirEnum) {
 		this.#orderDir = value;
 		this.initHashSum();
 		this.updateLastUpdate();
 	}
 
-	public get orderDir(): string {
+	public setOrderDir(value: OrderDirEnum) {
+		this.orderDir = value;
+		return this;
+	}
+
+	public get orderDir(): OrderDirEnum {
 		return this.#orderDir;
+	}
+
+	public setPage(value: number) {
+		this.page = value;
+		return this;
 	}
 
 	public set page(value: number) {
@@ -86,6 +102,18 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 
 	public get page(): number {
 		return this.#page;
+	}
+
+	public nextPage() {
+		this.#page += 1;
+		this.initHashSum();
+		this.updateLastUpdate();
+		return this;
+	}
+
+	public setPageSize(value: number) {
+		this.pageSize = value;
+		return this;
 	}
 
 	public set pageSize(value: number) {
@@ -103,6 +131,11 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 		this.updateLastUpdate();
 	}
 
+	public setItems(value: ITEM[]) {
+		this.items = value;
+		return this;
+	}
+
 	public get items(): ITEM[] {
 		return this.#items;
 	}
@@ -110,6 +143,11 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 	public set total(value: number) {
 		this.#total = value;
 		this.updateLastUpdate();
+	}
+
+	public setTotal(value: number) {
+		this.total = value;
+		return this;
 	}
 
 	public get total(): number {
@@ -121,11 +159,21 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 		this.updateLastUpdate();
 	}
 
+	public setMaxPage(value: number) {
+		this.maxPage = value;
+		return this;
+	}
+
 	public get maxPage(): number {
 		return this.#maxPage;
 	}
 
 	//
+
+	public setLastUpdate(value: string) {
+		this.lastUpdate = value;
+		return this;
+	}
 
 	public set lastUpdate(value: string) {
 		this.#lastUpdate = value;
@@ -133,6 +181,11 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 
 	public get lastUpdate(): string {
 		return this.#lastUpdate;
+	}
+
+	public setHashSum(value: string) {
+		this.hashSum = value;
+		return this;
 	}
 
 	public set hashSum(value: string) {

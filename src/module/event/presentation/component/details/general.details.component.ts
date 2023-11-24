@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, inject, Input} from "@angular/core";
 import {RMIEvent} from "@event/domain";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
@@ -6,6 +6,7 @@ import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/boc-media.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
+import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 
 @Component({
 	selector: 'event-general-details',
@@ -18,7 +19,11 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 		NgIf,
 		EventStatusStyleDirective,
 		BocMediaDirective,
-		HumanizeDurationPipe
+		HumanizeDurationPipe,
+	],
+	providers: [
+		CurrencyPipe,
+		DurationVersionHtmlHelper,
 	],
 	template: `
 		<div class="flex flex-col gap-8">
@@ -63,23 +68,34 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 								class="text-xl font-bold text-beeColor-600">{{ event.services[0].languageVersions[0].title }}</div>
 							<div class="grid grid-cols-12 gap-4">
 
-								<div class="col-span-12 md:col-span-9">
+								<div class="col-span-12 md:col-span-8">
 
 									<div class="text-beeColor-500">{{ event.services[0].languageVersions[0].description }}</div>
 
 								</div>
 
-								<div class="col-span-12 md:col-span-3">
+								<div class="col-span-12 md:col-span-4">
 
 									<div class="flex flex-col gap-1">
 
-										<div class="text-end font-bold">
-											{{ event.services[0].durationVersions[0].prices[0].price | currency: event.services[0].durationVersions[0].prices[0].currency: 'symbol-narrow' }}
+										<div class="flex-1 flex items-center gap-4">
+											<div class="text-beeColor-500">
+												<i class="bi bi-clock"></i>
+											</div>
+											<div
+												class="flex flex-col"
+												[innerHTML]="durationVersionHtmlHelper.getDurationValue(event.services[0])">
+											</div>
 										</div>
-										<div class="text-end">
-											{{ event.services[0].durationVersions[0].durationInSeconds | humanizeDuration }}
+										<div class="flex-1 flex items-center gap-4">
+											<div class="text-beeColor-500">
+												<i class="bi bi-currency-dollar"></i>
+											</div>
+											<div
+												class="flex flex-col"
+												[innerHTML]="durationVersionHtmlHelper.getPriceValue(event.services[0])">
+											</div>
 										</div>
-
 									</div>
 
 								</div>
@@ -143,6 +159,8 @@ export class GeneralDetailsComponent {
 
 	@Input()
 	public isPreview = false;
+
+	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
 	public get isNotPreview(): boolean {
 		return !this.isPreview;

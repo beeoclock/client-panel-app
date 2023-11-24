@@ -88,6 +88,9 @@
 					"name": {
 						"label": "Business name",
 						"placeholder": "Type Company or Personal name"
+					},
+					"published": {
+						"label": "Public access"
 					}
 				},
 				"section": {
@@ -315,17 +318,23 @@
 					"booked": "Booked",
 					"cancelled": "Canceled",
 					"done": "Done",
+					"rejected": "Rejected",
 					"requested": "Requested"
 				},
 				"singular": {
 					"booked": "Booked",
 					"cancelled": "Canceled",
 					"done": "Done",
+					"rejected": "Rejected",
 					"requested": "Requested"
 				}
 			}
 		},
-		"title": "Event"
+		"title": "Event",
+		"warning": {
+			"durationAndPriceConflict": "Choose an available duration or the longest will be selected automatically after acceptance.",
+			"multipleEventAtSameTime": "More than one event at this time."
+		}
 	},
 	"form": {
 		"validation": {
@@ -363,6 +372,14 @@
 			}
 		},
 		"PATCH": {
+			"/api/v1/event/{id}/rejected": {
+				"after": {
+					"success": {
+						"header": "Event rejected",
+						"message": "Event was successfully rejected."
+					}
+				}
+			},
 			"/api/v1/event/{id}/booked": {
 				"after": {
 					"success": {
@@ -747,6 +764,7 @@
 			"prices": "Prices",
 			"processing": "Processing",
 			"publicPage": "Public page",
+			"reject": "Reject",
 			"role": "Role",
 			"save": "Save",
 			"search": "search",
@@ -779,6 +797,7 @@
 			"unknown": "Unknown",
 			"update": "Updated",
 			"updatedAt": "Updated at",
+			"warning": "Warning",
 			"workdays": "Workdays",
 			"workingHours": "Working hours",
 			"writePrice": "Write price",
@@ -786,14 +805,20 @@
 			"zipCode": "Zip code"
 		},
 		"lowercase": {
+			"after": "after",
 			"ago": "ago",
 			"at": "at",
+			"days": "days",
 			"dragAndDrop": "drag and drop",
+			"in": "in",
 			"min": "min.",
 			"no-data": "no data",
 			"or": "or",
 			"sec": "sec.",
-			"service": "service"
+			"service": "service",
+			"short": {
+				"days": "d"
+			}
 		},
 		"status": {
 			"all": "All",
@@ -884,6 +909,7 @@
 	"sidebar": {
 		"addEvent": "Add event",
 		"businessProfile": "Business profile",
+		"businessSettings": "Company settings",
 		"calendar": "Calendar",
 		"customers": "Customers",
 		"dashboard": "Dashboard",
@@ -896,6 +922,7 @@
 				"message": "Do you really want to leave?"
 			}
 		},
+		"requested": "Requests",
 		"services": "Services",
 		"settings": "Settings",
 		"switch-business-client": "Change context",
@@ -915,6 +942,20 @@
 			"accordingToAService": "According to a service"
 		},
 		"title": "Construction of time slots"
+	},
+	"slotRetrievingStrategy": {
+		"hint": "This strategy controls the possibility of choosing time intervals for events that have not yet received confirmation from the specialist. Below you will see examples of the chosen strategy.",
+		"hists": {
+			"byOption": {
+				"IncludeRequested": "This option blocks the ability of clients to add new events to slots with already existing entries in status",
+				"OnlyBooked": "Wybrana opcja umożliwia klientom dodawanie nowych wydarzeń do już zajętych slotów za pośrednictwem strony publicznej, pod warunkiem, że żadne z nich nie otrzymało jeszcze statusu"
+			}
+		},
+		"options": {
+			"IncludeRequested": "Including requested events",
+			"OnlyBooked": "Only booked"
+		},
+		"title": "Strategy of proposed time intervals"
 	},
 	"updateAvailable": {
 		"header": "New version",

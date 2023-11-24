@@ -15,7 +15,7 @@ export class DurationVersionHtmlHelper {
 
 	public getDurationValue(item: IService): string {
 		const {durationVersions} = item;
-		if (this.durationHelper.durationIsRangeMode(item)) {
+		if (this.durationHelper.durationIsRangeMode(item) && durationVersions.length > 1) {
 			const translateKeyFrom = 'keyword.capitalize.from';
 			const fromLabel = this.translateService.instant(translateKeyFrom);
 			const translateKeyTo = 'keyword.capitalize.to';
@@ -40,7 +40,7 @@ export class DurationVersionHtmlHelper {
 
 	public getPriceValue(item: IService): string {
 		const {durationVersions} = item;
-		if (this.durationHelper.durationIsRangeMode(item)) {
+		if (this.durationHelper.durationIsRangeMode(item) && durationVersions.length > 1) {
 			const translateKeyFrom = 'keyword.capitalize.from';
 			const fromLabel = this.translateService.instant(translateKeyFrom);
 			const translateKeyTo = 'keyword.capitalize.to';

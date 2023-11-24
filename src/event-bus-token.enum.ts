@@ -1,0 +1,3 @@
+export const enum EventBusTokenEnum {
+	SIDE_BAR_EVENT_REQUESTED_BADGE = 'SIDE_BAR_EVENT_REQUESTED_BADGE',
+}

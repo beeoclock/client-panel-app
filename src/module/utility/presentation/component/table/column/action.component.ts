@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {RouterLink} from "@angular/router";
+import {Component, EventEmitter, inject, Input, Output} from "@angular/core";
+import {Router, RouterLink} from "@angular/router";
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {ActiveEnum} from "@utility/domain/enum";
 import {NgIf} from "@angular/common";
@@ -20,7 +20,8 @@ import {Placement} from "@popperjs/core/lib/enums";
       <ng-container content>
         <li>
           <a
-            [routerLink]="id"
+            [routerLink]="['../', id]"
+						[queryParams]="{returnUrl}"
             class="flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
             <i class="bi bi-eye"></i>
             {{ 'keyword.capitalize.details' | translate }}
@@ -28,7 +29,8 @@ import {Placement} from "@popperjs/core/lib/enums";
         </li>
         <li>
           <a
-            [routerLink]="[id, 'form']"
+            [routerLink]="['../', id, 'form']"
+						[queryParams]="{returnUrl}"
             class="flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
             <i class="bi bi-pencil"></i>
             {{ 'keyword.capitalize.edit' | translate }}
@@ -75,6 +77,8 @@ export class ActionComponent {
   @Output()
   public readonly archive = new EventEmitter<string>();
 
-  public readonly activeEnum = ActiveEnum;
+  private readonly router = inject(Router);
+
+	public readonly returnUrl = this.router.url;
 
 }

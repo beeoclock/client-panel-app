@@ -14,6 +14,9 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 import {
 	SelectSlotBuildingStrategyComponent
 } from "@utility/presentation/component/input/select-slot-building-strategy.component";
+import {
+	SelectSlotRetrievingStrategyComponent
+} from "@utility/presentation/component/input/select-slot-retrieving-strategy.component";
 
 @Component({
   selector: 'client-business-profile-booking-settings-component',
@@ -27,7 +30,8 @@ import {
 		SelectAutoActionOnEventInSecondsComponent,
 		SelectAutoActionTypeOnEventComponent,
 		HumanizeDurationPipe,
-		SelectSlotBuildingStrategyComponent
+		SelectSlotBuildingStrategyComponent,
+		SelectSlotRetrievingStrategyComponent
 	],
   template: `
     <bee-card gap="gap-8">
@@ -61,6 +65,10 @@ import {
 			<hr>
 
 			<select-slot-building-strategy-component [slotSettings]="form.controls.slotSettings"/>
+
+			<hr>
+
+			<select-slot-retrieving-strategy-component [slotSettings]="form.controls.slotSettings"/>
 
     </bee-card>
   `

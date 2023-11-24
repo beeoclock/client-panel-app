@@ -6,6 +6,10 @@ export const routers = [
 		loadComponent: () => import('./page/business-profile')
 	},
 	{
+		path: 'business-settings',
+		loadComponent: () => import('./page/business-settings')
+	},
+	{
 		path: 'settings',
 		loadComponent: () => import('./page/settings')
 	},

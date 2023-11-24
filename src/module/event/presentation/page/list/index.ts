@@ -62,12 +62,10 @@ export default class Index extends ListPage {
 
 	public readonly tableState$: Observable<ITableState<RMIEvent>> = this.store.select(EventState.tableState)
 		.pipe(
-			map((tableState) => {
-				return {
-					...tableState,
-					items: tableState.items.map(MEvent.create),
-				}
-			}),
+			map((tableState) => ({
+				...tableState,
+				items: tableState.items.map(MEvent.create),
+			})),
 			tap((tableState) => {
 				if (this.someDataExist.isOff) {
 					this.someDataExist.toggle(tableState.total > 0);

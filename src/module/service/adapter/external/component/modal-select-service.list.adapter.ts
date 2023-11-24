@@ -20,9 +20,7 @@ export class ModalSelectServiceListAdapter {
 
 	public resetTableState(): void {
 
-		this.tableState.page = 1;
-		this.tableState.total = 0;
-		this.tableState.items = [];
+		this.tableState.setPage(1).setTotal(0).setItems([]);
 
 	}
 
@@ -42,12 +40,10 @@ export class ModalSelectServiceListAdapter {
 
 			const data = await this.listServiceApiAdapter.executeAsync(this.tableState.toBackendFormat());
 
-			// Increment page
-			this.tableState.page += 1;
-
-			// Add items to tableState
-			this.tableState.items = ([] as Service.IService[]).concat(this.tableState.items, data.items);
-			this.tableState.total = data.totalSize;
+			this.tableState
+				.nextPage()
+				.setItems(([] as Service.IService[]).concat(this.tableState.items, data.items))
+				.setTotal(data.totalSize);
 
 		} catch (e) {
 			this.logger.error(e);

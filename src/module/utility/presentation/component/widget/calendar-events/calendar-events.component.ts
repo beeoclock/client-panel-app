@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation} from "@angular/core";
+import {Component, inject, OnInit, ViewEncapsulation} from "@angular/core";
 import {Router, RouterLink} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
 import {IonicModule} from "@ionic/angular";
@@ -24,6 +24,8 @@ import {
 import {IDayItem} from "@utility/domain/interface/i.day-item";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {DateTime} from "luxon";
+import {OrderByEnum, OrderDirEnum} from "@src/module/utility/domain/enum";
+import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 
 @Component({
 	selector: 'utility-widget-calendar-events',
@@ -51,7 +53,7 @@ import {DateTime} from "luxon";
 		DateSliderSelectComponent,
 	]
 })
-export class CalendarEventsComponent extends Reactive {
+export class CalendarEventsComponent extends Reactive implements OnInit {
 
 	private readonly calendarEventsListApiAdapter = inject(CalendarEventsListApiAdapter);
 	private readonly router = inject(Router);
@@ -61,7 +63,7 @@ export class CalendarEventsComponent extends Reactive {
 	public items: RIEvent[] = [];
 
 	public dayItemList: IDayItem[] = [];
-	public readonly loader = new BooleanStreamState(false);
+	public readonly loader = new BooleanStreamState(true);
 
 	public updateDayItemList(dayItemList: IDayItem[]) {
 		this.loader.switchOn();
@@ -71,8 +73,9 @@ export class CalendarEventsComponent extends Reactive {
 			start: firstDay.datetime.startOf('day').toJSDate().toISOString(),
 			end: lastDay.datetime.endOf('day').toJSDate().toISOString(),
 			pageSize: 100,
-			orderBy: 'start',
-			orderDir: 'asc',
+			orderBy: OrderByEnum.START,
+			orderDir: OrderDirEnum.ASC,
+			status: EventStatusEnum.booked,
 		}).then((data) => {
 			data.items.forEach((item) => {
 				const start = DateTime.fromISO(item.start);
@@ -93,7 +96,9 @@ export class CalendarEventsComponent extends Reactive {
 
 	constructor() {
 		super();
+	}
 
+	public ngOnInit(): void {
 		this.selectedDateControl.valueChanges.subscribe((value) => {
 			this.updateItems(value);
 		});
@@ -110,4 +115,5 @@ export class CalendarEventsComponent extends Reactive {
 	public dynamicDate(value: string | null): string {
 		return this.dynamicDateHelper.transform(value ?? '', 'shortDate');
 	}
+
 }

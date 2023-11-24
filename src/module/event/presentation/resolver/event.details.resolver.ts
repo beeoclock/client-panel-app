@@ -4,7 +4,6 @@ import {Store} from "@ngxs/store";
 import {catchError, EMPTY, map} from "rxjs";
 import {EventActions} from "@event/state/event/event.actions";
 import {IEvent} from "@event/domain";
-import {IAppState} from "@utility/state/app/app.state";
 
 export const eventDetailsResolver: ResolveFn<IEvent> = (
 	route: ActivatedRouteSnapshot,
@@ -14,12 +13,6 @@ export const eventDetailsResolver: ResolveFn<IEvent> = (
 	const id = route.paramMap.get('id');
 
 	if (!id) {
-		return EMPTY;
-	}
-
-	const {app}: { app: IAppState } = store.snapshot();
-
-	if (app?.pageLoading) {
 		return EMPTY;
 	}
 

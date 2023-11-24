@@ -8,6 +8,7 @@
 		<client-business-profile-form-component [form]="form"/>
 
 		<utility-form-switch-active-block-component
+			[label]="'client.profile.form.inputs.published.label' | translate"
 			[control]="form.controls.published"/>
 
 		<client-address-business-profile-component
@@ -36,9 +37,6 @@
 			*ngIf="(item$ | async)?.serviceProfideType !== serviceProfideType.Online"
 			[control]="form.controls.facilities"/>
 
-		<client-business-profile-booking-settings-component
-			[form]="form.controls.bookingSettings"/>
-
 		<utility-button-save-container-component>
 			<button
 				primary
@@ -52,14 +50,6 @@
 		</utility-button-save-container-component>
 
 	</form>
-
-	<hr class="col-span-12 mt-4">
-
-	<client-event-settings-component class="mt-4 col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6"/>
-
-	<client-service-settings-component class="mt-4 col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6"/>
-
-	<client-danger-zone-component class="mt-4 col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6"/>
 
 </div>
 

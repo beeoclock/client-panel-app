@@ -16,12 +16,22 @@ import {BookedStatusEventApiAdapter} from "@event/adapter/external/api/booked.st
 import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {ListMergedEventApiAdapter} from "@event/adapter/external/api/list.merged.event.api.adapter";
+import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
+import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 
 export type IEventState = IBaseState<Event.IEvent>;
 
+const defaults = baseDefaults<Event.IEvent>({
+	filters: {
+		status: EventStatusEnum.booked,
+	},
+	orderBy: OrderByEnum.START,
+	orderDir: OrderDirEnum.ASC,
+});
+
 @State<IEventState>({
 	name: 'event',
-	defaults: baseDefaults<Event.IEvent>()
+	defaults,
 })
 @Injectable()
 export class EventState extends BaseState<Event.IEvent> {
@@ -41,41 +51,17 @@ export class EventState extends BaseState<Event.IEvent> {
 
 	constructor() {
 		super(
-			{
-				tableStates: 'event.cache.tableStates',
-				items: 'event.cache.items'
-			}
+			defaults,
+			// {
+			// 	tableStates: 'event.cache.tableStates',
+			// 	items: 'event.cache.items'
+			// }
 		);
 	}
 
 	@Action(EventActions.Init)
 	public override async init(ctx: StateContext<IEventState>): Promise<void> {
 		await super.init(ctx);
-	}
-
-	@Action(EventActions.InitDefaultsFromCache)
-	public override async InitDefaultsFromCache(ctx: StateContext<IEventState>): Promise<void> {
-		await super.InitDefaultsFromCache(ctx);
-	}
-
-	@Action(EventActions.ClearTableCache)
-	public override async ClearTableCache(ctx: StateContext<IEventState>): Promise<void> {
-		await super.ClearTableCache(ctx);
-	}
-
-	@Action(EventActions.ClearItemCache)
-	public override async ClearItemsCache(ctx: StateContext<IEventState>): Promise<void> {
-		await super.ClearItemsCache(ctx);
-	}
-
-	@Action(EventActions.ClearTableCacheAndGetList)
-	public override async ClearTableCacheAndGetList(ctx: StateContext<IEventState>): Promise<void> {
-		await super.ClearTableCacheAndGetList(ctx);
-	}
-
-	@Action(EventActions.ClearItemCacheAndGetItem)
-	public override async ClearItemCacheAndGetItem(ctx: StateContext<IEventState>): Promise<void> {
-		await super.ClearItemCacheAndGetItem(ctx);
 	}
 
 	@Action(EventActions.UpdateFilters)
@@ -118,34 +104,12 @@ export class EventState extends BaseState<Event.IEvent> {
 
 
 	@Action(EventActions.DoneStatus)
-	public async coneStatus(ctx: StateContext<IEventState>, {payload}: EventActions.DoneStatus): Promise<void> {
+	public async doneStatus(ctx: StateContext<IEventState>, {payload}: EventActions.DoneStatus): Promise<void> {
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
 		await this.doneStatusEventApiAdapter.executeAsync(payload._id);
 
-		await firstValueFrom(ctx.dispatch(new EventActions.ClearTableCache()));
-		await firstValueFrom(ctx.dispatch(new EventActions.ClearItemCache()));
-
-		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
-	}
-
-	@Action(EventActions.BookedStatus)
-	public async cookedStatus(ctx: StateContext<IEventState>, {payload}: EventActions.BookedStatus): Promise<void> {
-		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
-		await this.bookedStatusEventApiAdapter.executeAsync(payload._id);
-
-		await firstValueFrom(ctx.dispatch(new EventActions.ClearTableCache()));
-		await firstValueFrom(ctx.dispatch(new EventActions.ClearItemCache()));
-
-		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
-	}
-
-	@Action(EventActions.RequestedStatus)
-	public async requestedStatus(ctx: StateContext<IEventState>, {payload}: EventActions.RequestedStatus): Promise<void> {
-		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
-		await this.requestedStatusEventApiAdapter.executeAsync(payload._id);
-
-		await firstValueFrom(ctx.dispatch(new EventActions.ClearTableCache()));
-		await firstValueFrom(ctx.dispatch(new EventActions.ClearItemCache()));
+		// await firstValueFrom(ctx.dispatch(new EventActions.ClearTableCache()));
+		// await firstValueFrom(ctx.dispatch(new EventActions.ClearItemCache()));
 
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 	}
@@ -155,8 +119,8 @@ export class EventState extends BaseState<Event.IEvent> {
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
 		await this.cancelledStatusEventApiAdapter.executeAsync(payload._id);
 
-		await firstValueFrom(ctx.dispatch(new EventActions.ClearTableCache()));
-		await firstValueFrom(ctx.dispatch(new EventActions.ClearItemCache()));
+		// await firstValueFrom(ctx.dispatch(new EventActions.ClearTableCache()));
+		// await firstValueFrom(ctx.dispatch(new EventActions.ClearItemCache()));
 
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 	}
