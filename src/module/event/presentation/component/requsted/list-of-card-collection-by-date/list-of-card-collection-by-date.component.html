@@ -71,10 +71,7 @@
 													 [innerHTML]="durationVersionHtmlHelper.getDurationValue(item.services[0])">
 											</div>
 										</div>
-										<div (click)="singleClick(item)" class="cursor-pointer flex-1 flex items-center gap-4">
-											<div class="text-beeColor-500">
-												<i class="bi bi-currency-dollar"></i>
-											</div>
+										<div (click)="singleClick(item)" class="cursor-pointer flex items-center gap-4">
 											<div class="flex flex-col" [innerHTML]="durationVersionHtmlHelper.getPriceValue(item.services[0])">
 											</div>
 										</div>
