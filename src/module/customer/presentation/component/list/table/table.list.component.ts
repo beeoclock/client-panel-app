@@ -92,9 +92,9 @@ export class TableListComponent extends TableComponent<ICustomer> {
 				},
 			},
 			action: {
-				classList: ['bg-white'],
+				classList: ['bg-white', 'justify-center'],
 				style: {
-					minWidth: '66px',
+					minWidth: '75px',
 				},
 			},
 		},

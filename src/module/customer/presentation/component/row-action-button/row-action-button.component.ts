@@ -44,17 +44,11 @@ export class RowActionButtonComponent {
 
 	public delete(id: string): void {
 		this.store.dispatch(new CustomerActions.DeleteItem(id));
-		// this.clearTableCache();
 	}
 
 	public async archive(id: string): Promise<void> {
 		await firstValueFrom(this.store.dispatch(
 			new CustomerActions.ArchiveItem(id)));
-		// this.clearTableCache();
 	}
-
-	// public clearTableCache(): void {
-	// 	this.store.dispatch(new CustomerActions.ClearTableCacheAndGetList());
-	// }
 
 }
