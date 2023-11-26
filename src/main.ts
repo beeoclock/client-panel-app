@@ -33,7 +33,6 @@ import {LanguageCodeEnum} from "@utility/domain/enum";
 // import '@angular/common/locales/global/pl';
 import '@angular/common/locales/global/uk';
 import {ClientState} from "@client/state/client/client.state";
-import {EventRequestedState} from "@event/state/event-requested/event-requested.state";
 import {NgEventBus} from 'ng-event-bus';
 
 // AoT requires an exported function for factories
@@ -57,7 +56,7 @@ bootstrapApplication(AppComponent, {
 				level: environment.production ? NgxLoggerLevel.OFF : NgxLoggerLevel.TRACE,
 				serverLogLevel: NgxLoggerLevel.OFF,
 			}),
-			NgxsModule.forRoot([IdentityState, AppState, CacheState, ClientState, EventRequestedState], {
+			NgxsModule.forRoot([IdentityState, AppState, CacheState, ClientState], {
 				developmentMode: !environment.production
 			}),
 			NgxsReduxDevtoolsPluginModule.forRoot({
