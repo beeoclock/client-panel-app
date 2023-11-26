@@ -37,7 +37,7 @@ import {IonSelectActiveComponent} from "@utility/presentation/component/input/io
 			</div>
 			<div
 				class="md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-				<button type="button" primary routerLink="form">
+				<button type="button" primary routerLink="../form">
 					<i class="bi bi-plus-lg"></i>
 					<span class="hidden md:block">
 					{{ 'member.button.create' | translate }}
