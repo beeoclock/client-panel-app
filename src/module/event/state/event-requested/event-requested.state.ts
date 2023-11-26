@@ -50,6 +50,7 @@ export class EventRequestedState extends BaseState<Event.RIEvent> implements Ngx
 	}
 
 	public ngxsOnInit(ctx: StateContext<IEventRequestedState>) {
+		console.log('ngxsOnInit');
 		ctx.dispatch(new EventRequestedActions.GetList());
 	}
 
