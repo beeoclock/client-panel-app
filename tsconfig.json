@@ -70,9 +70,6 @@
       ],
       "@member/*": [
         "./src/module/member/*"
-      ],
-      "@authorized/*": [
-        "./src/module/authorized/*"
       ]
     }
   },

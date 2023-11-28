@@ -1,5 +1,5 @@
 import {inject, Injectable} from "@angular/core";
-import {Action, NgxsOnInit, Selector, State, StateContext} from "@ngxs/store";
+import {Action, Selector, State, StateContext} from "@ngxs/store";
 import * as Event from "@event/domain";
 import {MEvent} from "@event/domain";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
@@ -30,7 +30,7 @@ const defaults = baseDefaults<Event.RIEvent>({
 	defaults
 })
 @Injectable()
-export class EventRequestedState extends BaseState<Event.RIEvent> implements NgxsOnInit {
+export class EventRequestedState extends BaseState<Event.RIEvent> {
 
 	protected override readonly update = inject(UpdateEventApiAdapter);
 	protected override readonly list = inject(ListEventApiAdapter);
@@ -47,11 +47,6 @@ export class EventRequestedState extends BaseState<Event.RIEvent> implements Ngx
 			// 	items: 'event.requested.cache.items'
 			// }
 		);
-	}
-
-	public ngxsOnInit(ctx: StateContext<IEventRequestedState>) {
-		console.log('ngxsOnInit');
-		ctx.dispatch(new EventRequestedActions.GetList());
 	}
 
 	@Action(EventRequestedActions.Init)

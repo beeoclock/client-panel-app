@@ -69,9 +69,14 @@ export default class WrapperPanelComponent implements AfterViewInit, OnDestroy {
   }
 
   public ngAfterViewInit(): void {
+		this.initEventRequested();
     this.initDetectorIfUserHasActiveWebsite();
 		this.initClient();
   }
+
+	private initEventRequested(): void {
+		this.store.dispatch(new EventRequestedActions.GetList());
+	}
 
 	private initClient(): void {
 		this.store.dispatch(new ClientActions.InitClient());
