@@ -37,9 +37,7 @@
       "@customer/(.*)": "<rootDir>/src/module/customer/$1",
       "@event/(.*)": "<rootDir>/src/module/event/$1",
       "@service/(.*)": "<rootDir>/src/module/service/$1",
-      "@member/(.*)": "<rootDir>/src/module/member/$1",
-      "@authorized/(.*)": "<rootDir>/src/module/authorized/$1",
-      "@user/(.*)": "<rootDir>/src/module/user/$1"
+      "@member/(.*)": "<rootDir>/src/module/member/$1"
     }
   },
   "private": true,
