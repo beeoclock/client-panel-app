@@ -16,7 +16,7 @@ export interface RIClient extends RIBaseEntity<'Client'> {
 	status: BusinessClientStatusEnum;
 	published: ActiveEnum;
 	name: string;
-	logo: string;
+	logo: RIMedia | null | undefined;
 	feature: string;
 	businessCategory: BusinessCategoryEnum;
 	businessIndustry: BusinessIndustryEnum;

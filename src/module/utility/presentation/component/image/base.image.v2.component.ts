@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, inject, Input, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, ElementRef, inject, Input, OnChanges, ViewChild} from "@angular/core";
 import {extractFile} from "@utility/domain/extract-file";
 import {file2base64} from "@utility/domain/file2base64";
 import {BooleanState} from "@utility/domain";
@@ -10,7 +10,7 @@ import {RIMedia} from "@module/media/domain/interface/i.media";
 	template: ``,
 	standalone: true
 })
-export class BaseImageV2Component implements AfterViewInit {
+export class BaseImageV2Component implements OnChanges, AfterViewInit {
 
 	@ViewChild('fileInput')
 	public readonly fileInput!: ElementRef<HTMLInputElement>;
@@ -19,7 +19,7 @@ export class BaseImageV2Component implements AfterViewInit {
 	public readonly previewImage!: ElementRef<HTMLImageElement>;
 
 	@Input()
-	public banner!: RIMedia;
+	public banner: RIMedia | null | undefined;
 
 	@Input()
 	public index = 0;
@@ -34,7 +34,16 @@ export class BaseImageV2Component implements AfterViewInit {
 	private readonly logger = inject(NGXLogger);
 
 	public ngAfterViewInit(): void {
-		this.updateSrc(this.banner.url);
+		if (this.banner) {
+			this.updateSrc(this.banner.url);
+		}
+	}
+
+	public ngOnChanges(): void {
+		// TODO check if is after view init
+		if (this.banner) {
+			this.updateSrc(this.banner.url);
+		}
 	}
 
 	public updateSrc(base64: string | undefined): void {

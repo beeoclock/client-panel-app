@@ -5,10 +5,14 @@ import {BooleanState} from "@utility/domain";
 import {
 	ImageLogoBusinessProfileComponent
 } from "@client/presentation/component/business-profile/logo/image.logo.business-profile/image.logo.business-profile.component";
-import {FormControl} from "@angular/forms";
 import {
 	PatchMediaLogoClientApiAdapter
 } from "@client/adapter/external/api/media/logo/patch.media.logo.client.api.adapter";
+import {
+	ImageCoverImageBusinessProfileComponent
+} from "@client/presentation/component/business-profile/cover-image/image.cover-image.business-profile/image.cover-image.business-profile.component";
+import {NgForOf, NgIf} from "@angular/common";
+import {RIMedia} from "@module/media/domain/interface/i.media";
 
 @Component({
 	selector: 'client-logo-business-profile-component',
@@ -18,16 +22,16 @@ import {
 		CardComponent,
 		TranslateModule,
 		ImageLogoBusinessProfileComponent,
+		ImageCoverImageBusinessProfileComponent,
+		NgForOf,
+		NgIf,
 	],
 	standalone: true
 })
 export class LogoBusinessProfileComponent {
 
 	@Input()
-	public control = new FormControl();
-
-	@Input()
-	public mediaId = '';
+	public logo: RIMedia | null | undefined;
 
 	@ViewChild(ImageLogoBusinessProfileComponent)
 	public imageLogoBusinessProfileComponent!: ImageLogoBusinessProfileComponent;
@@ -42,18 +46,13 @@ export class LogoBusinessProfileComponent {
 			return;
 		}
 
-		const body: {
-			media: string;
-			_id?: string;
-		} = {
-			media: this.control.value,
-		};
+		const formData = new FormData();
+		formData.append('file', this.imageLogoBusinessProfileComponent.selectedFile as Blob);
 
-		if (this.mediaId) {
-			body._id = this.mediaId;
+		if (this.imageLogoBusinessProfileComponent.banner) {
+			formData.append('_id', this.imageLogoBusinessProfileComponent.banner._id);
 		}
-
-		await this.patchMediaLogoClientApiAdapter.executeAsync(body);
+		await this.patchMediaLogoClientApiAdapter.executeAsync(formData);
 
 		this.imageLogoBusinessProfileComponent.mediaIsChanged.switchOff();
 

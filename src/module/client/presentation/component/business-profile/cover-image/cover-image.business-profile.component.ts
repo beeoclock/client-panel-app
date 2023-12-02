@@ -1,7 +1,6 @@
 import {Component, inject, Input, ViewChild, ViewEncapsulation} from "@angular/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {FormControl} from "@angular/forms";
 import {NgForOf, NgIf} from "@angular/common";
 import {BooleanState} from "@utility/domain";
 import {DragAndDropDirective} from "@utility/presentation/directives/drag-and-drop/drag-and-drop.directive";
@@ -32,9 +31,6 @@ import {RIMedia} from "@module/media/domain/interface/i.media";
 export class CoverImageBusinessProfileComponent {
 
 	@Input()
-	public control = new FormControl();
-
-	@Input()
 	public banners: RIMedia[] = [];
 
 	@ViewChild(ImageCoverImageBusinessProfileComponent)
@@ -48,8 +44,6 @@ export class CoverImageBusinessProfileComponent {
 		if (this.imageCoverImageBusinessProfileComponent.mediaIsChanged.isOff) {
 			return;
 		}
-
-		console.log(new Function('target', 'target === null')(null))
 
 		const formData = new FormData();
 		formData.append('file', this.imageCoverImageBusinessProfileComponent.selectedFile as Blob);
