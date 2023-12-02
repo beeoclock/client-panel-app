@@ -1,6 +1,5 @@
 import {Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
 import {IService} from "@service/domain";
-import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/boc-media.directive";
 import {CurrencyPipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 
@@ -33,7 +32,6 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
 	imports: [
-		BocMediaDirective,
 		CurrencyPipe,
 		HumanizeDurationPipe,
 		NgIf,

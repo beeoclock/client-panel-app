@@ -19,7 +19,6 @@ import {ActiveStyleDirective} from "@utility/presentation/directives/active-styl
 import {LanguagePipe} from "@utility/presentation/pipes/language.pipe";
 import {WeekDayPipe} from "@utility/presentation/pipes/week-day.pipe";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/boc-media.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
@@ -50,7 +49,6 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 		CurrencyPipe,
 		DynamicDatePipe,
 		CardComponent,
-		BocMediaDirective,
 		HumanizeDurationPipe,
 		BackButtonComponent,
 		DefaultPanelComponent,

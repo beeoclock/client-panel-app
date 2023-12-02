@@ -17,7 +17,6 @@ import {BooleanState} from "@utility/domain";
 import {
 	ImageGalleryBusinessProfileComponent
 } from "@client/presentation/component/business-profile/gallery/image.gallery.business-profile/image.gallery.business-profile.component";
-import {BocMediaService} from "@module/media/presentation/directive/boc-media/boc-media.service";
 import {
 	PatchMediaGalleryClientApiAdapter
 } from "@client/adapter/external/api/media/gallery/patch.media.gallery.client.api.adapter";
@@ -53,7 +52,6 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 	@ViewChildren(ImageGalleryBusinessProfileComponent)
 	public imageGalleryBusinessProfileComponents!: QueryList<ImageGalleryBusinessProfileComponent>;
 
-	public readonly srcByMediaIdService = inject(BocMediaService);
 	public readonly patchMediaGalleryClientApiAdapter = inject(PatchMediaGalleryClientApiAdapter);
 	public readonly deleteMediaGalleryClientApiAdapter = inject(DeleteMediaGalleryClientApiAdapter);
 
@@ -88,7 +86,6 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 
 			// REMOVE IMAGE
 			await this.deleteMediaGalleryClientApiAdapter.executeAsync(mediaId);
-			await this.srcByMediaIdService.delete(mediaId);
 			this.gallery = this.gallery.filter((item) => item !== mediaId);
 			this.removedImages.delete(mediaId);
 
@@ -119,10 +116,9 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 				body._id = mediaId;
 			}
 
-			const {_id, media} = await this.patchMediaGalleryClientApiAdapter.executeAsync(body);
+			const {_id} = await this.patchMediaGalleryClientApiAdapter.executeAsync(body);
 			this.gallery = [...this.gallery];
 			this.gallery[index] = _id;
-			await this.srcByMediaIdService.set(_id, media);
 
 			item.mediaIsChanged.switchOff();
 

@@ -51,8 +51,6 @@ export class ImageBlockComponent {
 				formData.append('_id', component.banner._id);
 			}
 
-			console.log(formData, component);
-
 			await this.patchBannerServiceApiAdapter.executeAsync(serviceId, formData);
 
 		}

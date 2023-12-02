@@ -1,8 +1,9 @@
 import {AbstractControl, FormControl, FormGroup} from "@angular/forms";
-import {BannerType, IPresentation} from "@service/domain";
+import {IPresentation} from "@service/domain";
+import {RIMedia} from "@module/media/domain/interface/i.media";
 
 export interface IServicePresentationForm {
-	banners: FormControl<BannerType[]>;
+	banners: FormControl<RIMedia[]>;
 
 	[key: string]: AbstractControl;
 }

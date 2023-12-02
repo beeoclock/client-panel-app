@@ -11,7 +11,6 @@ import {
 import {IService} from "@service/domain";
 import {ModalSelectServiceListAdapter} from "@service/adapter/external/component/modal-select-service.list.adapter";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/boc-media.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
@@ -37,7 +36,6 @@ import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-typ
 		CurrencyPipe,
 		NgTemplateOutlet,
 		PrimaryLinkButtonDirective,
-		BocMediaDirective,
 		HumanizeDurationPipe,
 		InvalidTooltipComponent,
 		DurationVersionTypeRangeComponent,

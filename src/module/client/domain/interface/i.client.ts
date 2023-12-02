@@ -10,6 +10,7 @@ import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum"
 import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
 import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
 import {BusinessClientStatusEnum} from "@client/domain/enum/business-client-status.enum";
+import {RIMedia} from "@module/media/domain/interface/i.media";
 
 export interface RIClient extends RIBaseEntity<'Client'> {
 	status: BusinessClientStatusEnum;
@@ -22,7 +23,7 @@ export interface RIClient extends RIBaseEntity<'Client'> {
 	serviceProfideType: ServiceProvideTypeEnum;
 	socialNetworkLinks: ISocialNetworkLink[];
 
-	banners: string[];
+	banners: RIMedia[];
 	bookingSettings: IBookingSettings;
 	addresses: IAddress[];
 	schedules: ISchedule[];

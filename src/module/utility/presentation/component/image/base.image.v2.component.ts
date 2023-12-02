@@ -3,7 +3,7 @@ import {extractFile} from "@utility/domain/extract-file";
 import {file2base64} from "@utility/domain/file2base64";
 import {BooleanState} from "@utility/domain";
 import {NGXLogger} from "ngx-logger";
-import {BannerType} from "@service/domain";
+import {RIMedia} from "@module/media/domain/interface/i.media";
 
 @Component({
 	selector: 'utility-base-image-component',
@@ -19,7 +19,7 @@ export class BaseImageV2Component implements AfterViewInit {
 	public readonly previewImage!: ElementRef<HTMLImageElement>;
 
 	@Input()
-	public banner!: BannerType;
+	public banner!: RIMedia;
 
 	@Input()
 	public index = 0;
@@ -41,6 +41,7 @@ export class BaseImageV2Component implements AfterViewInit {
 		if (!base64?.length) {
 			return;
 		}
+		console.log(this.previewImage);
 		this.previewImage.nativeElement.src = base64;
 		this.previewImage.nativeElement.classList.remove('hidden');
 	}

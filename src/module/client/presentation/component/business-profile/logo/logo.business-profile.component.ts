@@ -6,7 +6,6 @@ import {
 	ImageLogoBusinessProfileComponent
 } from "@client/presentation/component/business-profile/logo/image.logo.business-profile/image.logo.business-profile.component";
 import {FormControl} from "@angular/forms";
-import {BocMediaService} from "@module/media/presentation/directive/boc-media/boc-media.service";
 import {
 	PatchMediaLogoClientApiAdapter
 } from "@client/adapter/external/api/media/logo/patch.media.logo.client.api.adapter";
@@ -35,7 +34,6 @@ export class LogoBusinessProfileComponent {
 
 	public readonly toggleInfo = new BooleanState(true);
 
-	public readonly srcByMediaIdService = inject(BocMediaService);
 	public readonly patchMediaLogoClientApiAdapter = inject(PatchMediaLogoClientApiAdapter);
 
 	public async save(): Promise<void> {
@@ -55,8 +53,7 @@ export class LogoBusinessProfileComponent {
 			body._id = this.mediaId;
 		}
 
-		const {_id, media} = await this.patchMediaLogoClientApiAdapter.executeAsync(body);
-		await this.srcByMediaIdService.set(_id, media);
+		await this.patchMediaLogoClientApiAdapter.executeAsync(body);
 
 		this.imageLogoBusinessProfileComponent.mediaIsChanged.switchOff();
 

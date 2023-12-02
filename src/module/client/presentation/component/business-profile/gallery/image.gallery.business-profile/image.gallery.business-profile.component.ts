@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, Output, ViewEncapsulation} from "@angula
 import {TranslateModule} from "@ngx-translate/core";
 import {NgIf} from "@angular/common";
 import {DragAndDropDirective} from "@utility/presentation/directives/drag-and-drop/drag-and-drop.directive";
-import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/boc-media.directive";
 import {PlaceholderImageComponent} from "@utility/presentation/component/image/placeholder.image.component";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 import {BaseImageV1Component} from "@utility/presentation/component/image/base.image.v1.component";
@@ -14,7 +13,6 @@ import {BaseImageV1Component} from "@utility/presentation/component/image/base.i
 		TranslateModule,
 		NgIf,
 		DragAndDropDirective,
-		BocMediaDirective,
 		PlaceholderImageComponent,
 		InvalidTooltipComponent
 	],

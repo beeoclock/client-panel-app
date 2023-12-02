@@ -4,7 +4,6 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {TranslateModule} from "@ngx-translate/core";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
-import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/boc-media.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 
@@ -18,7 +17,6 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 		NgForOf,
 		NgIf,
 		EventStatusStyleDirective,
-		BocMediaDirective,
 		HumanizeDurationPipe,
 	],
 	providers: [
