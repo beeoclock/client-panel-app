@@ -10,14 +10,12 @@
 		<bee-card class="text-sm" [useBorder]="false" padding="p-0">
 			<div class="flex justify-between items-start gap-4">
 				<div
-					*ngIf="service.presentation?.banners?.[0] as banner"
+					*ngFor="let banner of service.presentation?.banners ?? []"
 					class="min-w-[128px] max-w-[128px] min-h-[128px] max-h-[128px] rounded-2xl bg-beeColor-400">
 					<img
-						bocMedia
-						[src]="banner"
-						twHeight="h-[128px]"
-						twWidth="w-[128px]"
-						class="hidden object-cover rounded-2xl min-w-[128px] max-w-[128px] min-h-[128px] max-h-[128px]"
+						*ngIf="banner"
+						[src]="banner.url"
+						class="object-cover rounded-2xl min-w-[128px] max-w-[128px] min-h-[128px] max-h-[128px]"
 						alt="Uploaded Image"/>
 				</div>
 				<div class="flex-1 flex flex-col gap-2">

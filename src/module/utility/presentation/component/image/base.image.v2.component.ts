@@ -1,16 +1,16 @@
 import {AfterViewInit, Component, ElementRef, inject, Input, ViewChild} from "@angular/core";
-import {FormControl} from "@angular/forms";
 import {extractFile} from "@utility/domain/extract-file";
 import {file2base64} from "@utility/domain/file2base64";
 import {BooleanState} from "@utility/domain";
 import {NGXLogger} from "ngx-logger";
+import {BannerType} from "@service/domain";
 
 @Component({
 	selector: 'utility-base-image-component',
 	template: ``,
 	standalone: true
 })
-export class BaseImageComponent implements AfterViewInit {
+export class BaseImageV2Component implements AfterViewInit {
 
 	@ViewChild('fileInput')
 	public readonly fileInput!: ElementRef<HTMLInputElement>;
@@ -19,31 +19,22 @@ export class BaseImageComponent implements AfterViewInit {
 	public readonly previewImage!: ElementRef<HTMLImageElement>;
 
 	@Input()
-	public control!: FormControl;
+	public banner!: BannerType;
+
+	@Input()
+	public index = 0;
 
 	@Input()
 	public showHit = true;
 
-	@Input()
-	public mediaId = '';
+	public selectedFile: File | undefined;
 
 	public mediaIsChanged = new BooleanState(false);
 
 	private readonly logger = inject(NGXLogger);
 
-	public get isEmptyControl(): boolean {
-		return !this.control.value;
-	}
-
-	public get isNotEmptyControl(): boolean {
-		return !this.isEmptyControl;
-	}
-
 	public ngAfterViewInit(): void {
-		this.updateSrc(this.control.value);
-		this.control.valueChanges.subscribe((base64: string | undefined) => {
-			this.updateSrc(base64);
-		});
+		this.updateSrc(this.banner.url);
 	}
 
 	public updateSrc(base64: string | undefined): void {
@@ -89,9 +80,10 @@ export class BaseImageComponent implements AfterViewInit {
 
 		try {
 
+			this.selectedFile = file;
 			const base64 = await file2base64(file);
 			this.mediaIsChanged.switchOn();
-			this.control.patchValue(base64);
+			this.updateSrc(base64)
 
 		} catch (e) {
 			this.logger.error(e);
