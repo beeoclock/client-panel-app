@@ -2,7 +2,7 @@ import {Component, ViewEncapsulation} from "@angular/core";
 import {PlaceholderImageComponent} from "@utility/presentation/component/image/placeholder.image.component";
 import {DragAndDropDirective} from "@utility/presentation/directives/drag-and-drop/drag-and-drop.directive";
 import {NgIf} from "@angular/common";
-import {BaseImageV2Component} from "@utility/presentation/component/image/base.image.v2.component";
+import {BaseImageComponent} from "@utility/presentation/component/image/base.image.component";
 
 @Component({
 	selector: 'client-image-logo-business-profile-component',
@@ -35,6 +35,6 @@ import {BaseImageV2Component} from "@utility/presentation/component/image/base.i
 		</div>
 	`
 })
-export class ImageLogoBusinessProfileComponent extends BaseImageV2Component {
+export class ImageLogoBusinessProfileComponent extends BaseImageComponent {
 
 }

@@ -10,7 +10,7 @@ import {RIMedia} from "@module/media/domain/interface/i.media";
 	template: ``,
 	standalone: true
 })
-export class BaseImageV2Component implements OnChanges, AfterViewInit {
+export class BaseImageComponent implements OnChanges, AfterViewInit {
 
 	@ViewChild('fileInput')
 	public readonly fileInput!: ElementRef<HTMLInputElement>;
@@ -31,7 +31,7 @@ export class BaseImageV2Component implements OnChanges, AfterViewInit {
 
 	public mediaIsChanged = new BooleanState(false);
 
-	private readonly logger = inject(NGXLogger);
+	protected readonly logger = inject(NGXLogger);
 
 	public ngAfterViewInit(): void {
 		if (this.banner) {
@@ -86,14 +86,14 @@ export class BaseImageV2Component implements OnChanges, AfterViewInit {
 	 * @param files - files to work with
 	 * @private
 	 */
-	private async workWithFiles([file]: File[]): Promise<void> {
+	protected async workWithFiles([file]: File[]): Promise<void> {
 
 		try {
 
 			this.selectedFile = file;
 			const base64 = await file2base64(file);
 			this.mediaIsChanged.switchOn();
-			this.updateSrc(base64)
+			this.updateSrc(base64);
 
 		} catch (e) {
 			this.logger.error(e);

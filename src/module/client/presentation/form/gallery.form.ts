@@ -92,7 +92,7 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 
 	}
 
-	public pushImage(initialValue?: string): void {
+	public pushImage(initialValue?: string): FormControl<string> {
 
 		const lastImageControl = this.controls.images.controls.at(-1);
 
@@ -105,6 +105,8 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 		}
 
 		this.initHandlerForLastImage();
+
+		return this.controls.images.at(-1);
 
 	}
 

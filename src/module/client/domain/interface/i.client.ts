@@ -29,7 +29,7 @@ export interface RIClient extends RIBaseEntity<'Client'> {
 	schedules: ISchedule[];
 	contacts: IContact[];
 	// gallery: IGallery;
-	gallery: string[];
+	gallery: RIMedia[];
 	description: string;
 	facilities: FacilityEnum[];
 }
