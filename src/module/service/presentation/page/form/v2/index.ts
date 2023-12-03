@@ -34,6 +34,7 @@ import {
 	SwitchActiveBlockComponent
 } from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
 import {ServicePresentationForm} from "@service/presentation/form/service.presentation.form";
+import {MediaTypeEnum} from "@utility/domain/enum/media.type.enum";
 
 @Component({
 	selector: 'service-form-v2-page-component',
@@ -67,7 +68,20 @@ export default class Index implements OnInit {
 	public backButtonComponent!: BackButtonComponent;
 
 	public readonly form = new ServiceForm();
-	public readonly presentationForm = new ServicePresentationForm();
+	public readonly presentationForm = new ServicePresentationForm({
+		_id: '',
+		createdAt: '',
+		updatedAt: '',
+		object: 'Service.Presentation',
+		banners: [{
+			object: 'Media',
+			mediaType: MediaTypeEnum.serviceBanner,
+			_id: '',
+			url: '',
+			createdAt: '',
+			updatedAt: '',
+		}]
+	});
 
 	public readonly store = inject(Store);
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
@@ -90,7 +104,7 @@ export default class Index implements OnInit {
 					this.isEditMode = true;
 
 					const {durationVersions, presentation, ...rest} = result;
-					
+
 					if (presentation) {
 						this.presentationForm.patchValue(presentation);
 					}
