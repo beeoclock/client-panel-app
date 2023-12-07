@@ -82,6 +82,7 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 			return;
 		}
 
+		console.log('businessCategory', businessCategory);
 		const servicesByBusinessCategory = servicesByLanguage[businessCategory];
 
 		if (!servicesByBusinessCategory) {
@@ -90,15 +91,30 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 
 		servicesByBusinessCategory.forEach(({
 																					title,
-																					durationInSeconds,
-																					price,
-																					currency
+																					durationVersions,
 																				}) => {
 			const form = new ServiceForm();
 			form.controls.languageVersions.at(0).controls.title.setValue(title);
-			form.controls.durationVersions.at(0).controls.durationInSeconds.setValue(durationInSeconds);
-			form.controls.durationVersions.at(0).controls.prices.at(0).controls.price.setValue(price);
-			form.controls.durationVersions.at(0).controls.prices.at(0).controls.currency.setValue(currency);
+
+			form.controls.durationVersions.clear();
+
+			durationVersions.forEach(({
+																	durationInSeconds,
+																	price,
+																	currency,
+																}) => {
+				form.controls.durationVersions.pushNewOne({
+					breakInSeconds: 0,
+					durationInSeconds,
+					prices: [
+						{
+							price,
+							currency,
+						}
+					]
+				});
+			});
+
 			this.controls.services.push(form);
 		});
 
