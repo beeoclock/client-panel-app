@@ -43,7 +43,7 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 		RowTableFlexDirective,
 		TableTableFlexDirective,
 		NoDataPipe,
-		RowActionButtonComponent
+		RowActionButtonComponent,
 	],
 	providers: [
 		CurrencyPipe,

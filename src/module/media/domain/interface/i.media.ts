@@ -3,7 +3,8 @@ import {IBaseEntity} from "@utility/domain";
 
 export interface IMedia extends IBaseEntity<'Media'> {
   mediaType?: MediaTypeEnum;
-  media?: string;
+	_id: string;
+	url: string;
 }
 
 export type RIMedia = Required<IMedia>;

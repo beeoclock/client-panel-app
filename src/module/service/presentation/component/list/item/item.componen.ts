@@ -3,20 +3,17 @@ import {IService} from "@service/domain";
 import {CurrencyPipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
-import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/boc-media.directive";
 
 @Component({
 	selector: 'service-item-component',
 	template: `
 		<div class="flex gap-3 mr-3">
-			<div class="">
+			<div
+				*ngFor="let banner of item.presentation?.banners ?? []">
 				<img
-					*ngIf="item?.presentation?.banners?.[0] as banner"
-					bocMedia
-					[src]="banner"
-					twHeight="h-[90px]"
-					twWidth="w-[90px]"
-					class="hidden w-[90px] h-[90px] rounded-2xl object-cover"
+					*ngIf="banner"
+					[src]="banner.url"
+					class="w-[90px] h-[90px] rounded-2xl object-cover"
 					alt="Image of service">
 			</div>
 			<div class="flex flex-col flex-1 text-center md:text-start">
@@ -37,8 +34,7 @@ import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/
 		HumanizeDurationPipe,
 		NgIf,
 		NgForOf,
-		NgOptimizedImage,
-		BocMediaDirective
+		NgOptimizedImage
 	],
 	providers: [
 		CurrencyPipe,

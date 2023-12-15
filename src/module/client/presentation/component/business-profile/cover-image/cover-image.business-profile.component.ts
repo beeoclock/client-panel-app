@@ -1,19 +1,17 @@
 import {Component, inject, Input, ViewChild, ViewEncapsulation} from "@angular/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {FormControl} from "@angular/forms";
-import {NgIf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {BooleanState} from "@utility/domain";
 import {DragAndDropDirective} from "@utility/presentation/directives/drag-and-drop/drag-and-drop.directive";
 import {PlaceholderImageComponent} from "@utility/presentation/component/image/placeholder.image.component";
 import {
 	ImageCoverImageBusinessProfileComponent
 } from "@client/presentation/component/business-profile/cover-image/image.cover-image.business-profile/image.cover-image.business-profile.component";
-import {BocMediaService} from "@module/media/presentation/directive/boc-media/boc-media.service";
 import {
 	PatchMediaBannersClientApiAdapter
 } from "@client/adapter/external/api/media/banners/patch.media.banners.client.api.adapter";
-import {is} from "thiis";
+import {RIMedia} from "@module/media/domain/interface/i.media";
 
 @Component({
 	selector: 'client-cover-image-business-profile-component',
@@ -25,24 +23,20 @@ import {is} from "thiis";
 		NgIf,
 		DragAndDropDirective,
 		PlaceholderImageComponent,
-		ImageCoverImageBusinessProfileComponent
+		ImageCoverImageBusinessProfileComponent,
+		NgForOf
 	],
 	standalone: true
 })
 export class CoverImageBusinessProfileComponent {
 
 	@Input()
-	public control = new FormControl();
-
-	@Input()
-	public mediaId = '';
+	public banners: RIMedia[] = [];
 
 	@ViewChild(ImageCoverImageBusinessProfileComponent)
 	public imageCoverImageBusinessProfileComponent!: ImageCoverImageBusinessProfileComponent;
 
 	public readonly toggleInfo = new BooleanState(true);
-
-	public readonly srcByMediaIdService = inject(BocMediaService);
 	public readonly patchMediaBannersClientApiAdapter = inject(PatchMediaBannersClientApiAdapter);
 
 	public async save(): Promise<void> {
@@ -51,19 +45,14 @@ export class CoverImageBusinessProfileComponent {
 			return;
 		}
 
-		const body: {
-			media: string;
-			_id?: string;
-		} = {
-			media: this.control.value,
-		};
+		const formData = new FormData();
+		formData.append('file', this.imageCoverImageBusinessProfileComponent.selectedFile as Blob);
 
-		if (is.string(this.mediaId)) {
-			body._id = this.mediaId;
+		if (this.imageCoverImageBusinessProfileComponent.banner) {
+			formData.append('_id', this.imageCoverImageBusinessProfileComponent.banner._id);
 		}
 
-		const {_id, media} = await this.patchMediaBannersClientApiAdapter.executeAsync(body);
-		await this.srcByMediaIdService.set(_id, media);
+		await this.patchMediaBannersClientApiAdapter.executeAsync(formData);
 
 		this.imageCoverImageBusinessProfileComponent.mediaIsChanged.switchOff();
 

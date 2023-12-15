@@ -1,5 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {TranslateService} from "@ngx-translate/core";
+import {is} from "thiis";
 
 export type Formats = 'short' | 'medium' | 'shortDate' | 'time' | 'hhMM';
 
@@ -40,6 +41,9 @@ export class DynamicDateHelper {
 	private readonly translateService = inject(TranslateService);
 
 	public transform(value: string, format: Formats = 'short') {
+		if (is.not_string(value)) {
+			return '';
+		}
 		return new Intl.DateTimeFormat(this.translateService.currentLang, predefinedFormats[format]).format(new Date(value));
 	}
 

@@ -15,7 +15,7 @@
 			class="col-span-2 md:col-span-1"
 			*ngFor="let control of form.controls.images.controls; let index = index;"
 			(remove)="removeImage(index)"
-			[mediaId]="getMediaId(index)"
+			[banner]="gallery[index]"
 			[showHit]="toggleInfo.isOn"
 			[index]="index"
 			[control]="control"/>

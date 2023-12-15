@@ -19,10 +19,10 @@
 			[schedulesForm]="form.controls.schedules"/>
 
 		<client-cover-image-business-profile-component
-			[mediaId]="(item$ | async)?.banners?.[0] ?? ''"/>
+			[banners]="(item$ | async)?.banners ?? []"/>
 
 		<client-logo-business-profile-component
-			[mediaId]="(item$ | async)?.logo ?? ''"/>
+			[logo]="(item$ | async)?.logo"/>
 
 		<client-gallery-business-profile-component
 			[gallery]="(item$ | async)?.gallery ?? []"/>

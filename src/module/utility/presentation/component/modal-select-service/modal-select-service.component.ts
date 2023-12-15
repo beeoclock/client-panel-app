@@ -13,7 +13,6 @@ import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {IService} from "@service/domain";
-import {BocMediaDirective} from "@module/media/presentation/directive/boc-media/boc-media.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {Router, RouterLink} from "@angular/router";
@@ -37,7 +36,6 @@ import {
 		NgIf,
 		TranslateModule,
 		CurrencyPipe,
-		BocMediaDirective,
 		HumanizeDurationPipe,
 		PrimaryButtonDirective,
 		RouterLink,
