@@ -1,53 +1,63 @@
 <div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState.items.length">
-	<bee-card class="text-sm" *ngFor="let item of tableState.items; trackBy: trackById" (click)="singleClick(item)">
-		<div class="flex justify-between items-center">
-			<div class="flex items-center gap-2">
+	<bee-card class="text-sm" gap="gap-2" *ngFor="let item of tableState.items; trackBy: trackById">
+		<div class="flex justify-between items-center gap-8">
+			<div class="flex items-center gap-2 w-full" (click)="singleClick(item)">
 				<div eventStatusStyle mode="text" [status]="item.status"></div>
-				<div>
-					<i class="bi bi-person"></i>
-					{{ item?.attendees?.length }}
-				</div>
-			</div>
-			<utility-table-column-action placement="bottom-start" [offsetDistance]="10" [id]="item._id!"
-																	 (delete)="delete($event)"/>
-		</div>
-		<div>
-			<div *ngIf="sameYear(item.start)" class="flex justify-between">
-				<div>
-					{{ item.start | date: 'EEEE, dd MMMM' }}
-				</div>
-				<div>
-					{{ 'keyword.lowercase.at' | translate }} {{ item.start | date: 'HH:mm' }}
-				</div>
-			</div>
-			<div *ngIf="!sameYear(item.start)" class="flex justify-between">
-				<div>
-					{{ item.start | date: 'EEEE, dd MMMM, yyyy' }}
-				</div>
-				<div>
-					{{ 'keyword.lowercase.at' | translate }} {{ item.start | date: 'HH:mm' }}
-				</div>
-			</div>
-			<div class="font-bold">
-				{{ item?.services?.[0]?.languageVersions?.[0]?.title }}
-			</div>
-			<div class="flex justify-between">
-				<div>
-					{{ item?.services?.[0]?.durationVersions?.[0]?.durationInSeconds ?? 0 | humanizeDuration }}
-				</div>
-				<div>
+				<div
+					class="bg-neutral-100 text-neutral-800 font-medium inline-flex gap-2 items-center px-2 py-0.5 rounded-2xl dark:bg-gray-700 dark:text-neutral-400 border border-neutral-400">
 					{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item.services[0].durationVersions[0].prices[0].currency: 'symbol-narrow'  }}
 				</div>
 			</div>
-			<div class="mt-4 flex gap-4 justify-between">
-				<event-change-status-on-cancelled-component *ngIf="item.isBooked || item.isRequested" [event]="item"/>
-				<event-change-status-on-booked-component *ngIf="item.isRequested" [event]="item"/>
-				<event-change-status-on-done-component *ngIf="item.isBooked" [event]="item"/>
+			<utility-table-column-action placement="bottom-start" [offsetDistance]="10" [id]="item._id!"/>
+		</div>
+		<div
+			(click)="singleClick(item)"
+			class="inline-flex gap-4 items-center">
+			<i class="bi bi-calendar-week"></i>
+			<div class="flex gap-4">
+				<div *ngIf="sameYear(item.start)" class="flex justify-between capitalize">
+					{{ item.start | date: 'EEEE, dd MMMM' }}
+				</div>
+				<div *ngIf="!sameYear(item.start)" class="flex justify-between capitalize">
+					{{ item.start | date: 'EEEE, dd MMMM, yyyy' }}
+				</div>
 			</div>
+		</div>
+		<div
+			(click)="singleClick(item)"
+			class="inline-flex gap-4 items-center">
+			<i class="bi bi-clock"></i>
+			<div class="inline-flex gap-2">
+				{{ item.start | date: 'HH:mm' }} - {{ item.end | date: 'HH:mm' }} <div class="text-neutral-500">({{ item?.services?.[0]?.durationVersions?.[0]?.durationInSeconds ?? 0 | humanizeDuration }})</div>
+			</div>
+		</div>
+		<div
+			(click)="singleClick(item)"
+			class="inline-flex gap-4 items-center">
+			<i class="bi bi-cart"></i>
+			{{ item?.services?.[0]?.languageVersions?.[0]?.title | noData }}
+		</div>
+		<div
+			(click)="singleClick(item)"
+			*ngFor="let attendant of (item?.attendees ?? [])"
+			#attendantRef
+			[attr.data-value]="(attendant?.customer?.firstName ?? '') + ' ' + (attendant?.customer?.lastName ?? '')"
+			class="inline-flex gap-4 items-center">
+			<i class="bi bi-person"></i>
+			{{ (attendantRef?.getAttribute?.('data-value')?.length ?? 0) > 1 ? attendantRef.getAttribute('data-value') : (attendant?.customer?.email ?? attendant?.customer?.phone ?? '-') }}
+		</div>
+		<ng-container (click)="singleClick(item)" *ngIf="item?.description?.length">
+			<hr class="mt-2">
+			<div class="text-neutral-500 dark:text-neutral-400 py-2">
+				{{ item.description }}
+			</div>
+		</ng-container>
+		<div class="flex gap-4 justify-between" *ngIf="item.isBooked">
+			<event-change-status-on-cancelled-component [event]="item"/>
+			<event-change-status-on-done-component [event]="item"/>
 		</div>
 	</bee-card>
 </div>
 <utility-table-state-pagination-component
-	(clearCache)="clearTableCache()"
 	(page)="pageChange($event)"
 	[tableState]="tableState"/>

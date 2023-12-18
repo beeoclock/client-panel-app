@@ -5,6 +5,7 @@ import {TranslateService} from "@ngx-translate/core";
 
 export enum eventEndpointEnum {
 	paged = '/api/v1/event/paged',
+	busySlots = '/api/v1/event/busy-slots',
 	mergedPaged = '/api/v1/event/merged-paged',
 	slots = '/api/v1/event/slots',
 	item = '/api/v1/event/{id}',
@@ -14,6 +15,7 @@ export enum eventEndpointEnum {
 	booked = '/api/v1/event/{id}/booked',
 	requested = '/api/v1/event/{id}/requested',
 	cancelled = '/api/v1/event/{id}/cancelled',
+	rejected = '/api/v1/event/{id}/rejected',
 	done = '/api/v1/event/{id}/done',
 	create = '/api/v1/event',
 }
@@ -22,6 +24,15 @@ export const eventEndpoint: EndpointCollectionType = {
 	GET: {
 		[eventEndpointEnum.item]: {
 			path: eventEndpointEnum.item,
+			method: RequestMethodEnum.GET,
+			source: SourceNetworkEnum.panel,
+			replace: true,
+			header: {
+				authorization: true,
+			}
+		},
+		[eventEndpointEnum.busySlots]: {
+			path: eventEndpointEnum.busySlots,
 			method: RequestMethodEnum.GET,
 			source: SourceNetworkEnum.panel,
 			replace: true,
@@ -172,6 +183,29 @@ export const eventEndpoint: EndpointCollectionType = {
 					notification: {
 						execute: (translateService: TranslateService) => {
 							const key = `http.PATCH.${eventEndpointEnum.cancelled}.after.success`;
+							const {title, message} = translateService.instant(key);
+							return {
+								title,
+								message
+							}
+						}
+					}
+				}
+			}
+		},
+		[eventEndpointEnum.rejected]: {
+			path: eventEndpointEnum.rejected,
+			method: RequestMethodEnum.PATCH,
+			source: SourceNetworkEnum.panel,
+			replace: true,
+			header: {
+				authorization: true,
+			},
+			after: {
+				success: {
+					notification: {
+						execute: (translateService: TranslateService) => {
+							const key = `http.PATCH.${eventEndpointEnum.rejected}.after.success`;
 							const {title, message} = translateService.instant(key);
 							return {
 								title,

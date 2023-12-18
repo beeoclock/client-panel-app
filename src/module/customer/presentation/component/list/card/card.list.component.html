@@ -1,24 +1,22 @@
 <div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState.items.length">
-	<bee-card class="text-sm" *ngFor="let item of tableState.items; trackBy: trackById" (click)="singleClick(item)">
-		<div class="flex justify-between items-center">
-			<div class="flex items-center gap-2">
+	<bee-card class="text-sm" *ngFor="let item of tableState.items; trackBy: trackById">
+		<div class="flex justify-between items-center gap-8">
+			<div (click)="singleClick(item)" class="flex items-center gap-2 w-full">
 				<div [class.text-red-700]="!item.active" [class.text-green-700]="item.active">
 					{{ (item.active ? 'keyword.capitalize.active' : 'keyword.capitalize.inactive' ) | translate }}
 				</div>
 			</div>
-			<utility-table-column-action
-				[id]="item._id"
-				[active]="item.active"
-				(delete)="delete($event)"
-				(archive)="archive($event)"/>
+			<customer-row-action-button-component
+				[item]="item"
+				[id]="item._id"/>
 		</div>
-		<div class="flex justify-between">
+		<div (click)="singleClick(item)" class="flex justify-between">
 			<div class="flex-1">
 				<div>
 					{{ 'keyword.capitalize.fullName' | translate }}
 				</div>
-				<div class="font-bold">
-					{{ item.firstName ?? '-' }} {{ item.lastName ?? '-' }}
+				<div class="font-bold flex gap-2">
+					<div>{{ item.firstName | noData }}</div> <div>{{ item.lastName | noData }}</div>
 				</div>
 			</div>
 		</div>
@@ -28,7 +26,7 @@
 					{{ 'keyword.capitalize.email' | translate }}
 				</div>
 				<div class="font-bold">
-					{{ item.email ?? '-' }}
+					{{ item.email | noData }}
 				</div>
 			</div>
 		</div>
@@ -38,13 +36,12 @@
 					{{ 'keyword.capitalize.phone' | translate }}
 				</div>
 				<div class="font-bold">
-					{{ item.phone ?? '-' }}
+					{{ item.phone | noData }}
 				</div>
 			</div>
 		</div>
 	</bee-card>
 </div>
 <utility-table-state-pagination-component
-	(clearCache)="clearTableCache()"
 	(page)="pageChange($event)"
 	[tableState]="tableState"/>

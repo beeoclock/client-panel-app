@@ -16,7 +16,7 @@ export class UpdateServiceApiAdapter extends BaseApiAdapter<Service.IService> {
    */
   @TypeGuard([is.object_not_empty])
   public override execute$(value: Service.IService) {
-    return this.httpClient.put<Service.IService>(serviceEndpointEnum.update, value, {
+		return this.httpClient.put<Service.IService>(serviceEndpointEnum.update, value, {
       headers: {
         replace: JSON.stringify({
           id: value._id

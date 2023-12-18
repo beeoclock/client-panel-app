@@ -8,13 +8,14 @@
 		<form [formGroup]="form" class="flex flex-col gap-4">
 
 			<service-form-image-block-component
-				[mediaId]="mediaId"/>
+				[presentationForm]="presentationForm"/>
 
 			<utility-form-switch-active-block-component
 				[label]="'service.keyword.capitalize.active' | translate"
 				[control]="form.controls.active"/>
 
 			<service-form-details-block-component
+				[showHeader]="true"
 				[form]="form.controls.languageVersions.at(0)"/>
 			<div>
 
@@ -23,6 +24,7 @@
 					[specialistListControl]="form.controls.specialists"/>
 
 				<service-form-prices-block-component
+					[durationConfigurationForm]="form.controls.configuration.controls.duration"
 					[durationVersions]="form.controls.durationVersions"/>
 
 			</div>

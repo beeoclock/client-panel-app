@@ -1,5 +1,5 @@
 import {inject, Injectable} from "@angular/core";
-import {Action, Selector, State, StateContext} from "@ngxs/store";
+import {Action, NgxsOnInit, Selector, State, StateContext} from "@ngxs/store";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {Auth, IdTokenResult, Unsubscribe} from "@angular/fire/auth";
 import {ParsedToken} from "@firebase/auth";
@@ -46,12 +46,16 @@ interface IIdentityState {
 	}
 })
 @Injectable()
-export class IdentityState {
+export class IdentityState implements NgxsOnInit {
 
 	private readonly auth = inject(Auth);
 	private readonly logger = inject(NGXLogger);
 	public readonly memberContextApiAdapter = inject(MemberContextApiAdapter);
 	private refreshTokenInterval: setTimeoutTakeUntil$Type | undefined;
+
+	public ngxsOnInit(ctx: StateContext<IIdentityState>) {
+		this.initToken(ctx).then();
+	}
 
 	// Selectors
 
@@ -146,7 +150,9 @@ export class IdentityState {
 			const token = await this.auth.currentUser.getIdTokenResult(true);
 
 			// update state
-			await firstValueFrom(ctx.dispatch(new IdentityActions.Token(token)));
+			ctx.patchState({
+				token,
+			});
 
 			// Init auto refresh token
 			this.resetRefreshTokenTimeout(ctx, +(token.claims.exp ?? '0'));

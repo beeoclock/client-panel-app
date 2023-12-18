@@ -32,6 +32,8 @@ import {provideServiceWorker} from '@angular/service-worker';
 import {LanguageCodeEnum} from "@utility/domain/enum";
 // import '@angular/common/locales/global/pl';
 import '@angular/common/locales/global/uk';
+import {ClientState} from "@client/state/client/client.state";
+import {NgEventBus} from 'ng-event-bus';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -47,13 +49,14 @@ initRuntimeEnvironment();
 bootstrapApplication(AppComponent, {
 	providers: [
 		...tokens,
+		NgEventBus,
 		provideEnvironmentNgxMask(),
 		importProvidersFrom(
 			LoggerModule.forRoot({
 				level: environment.production ? NgxLoggerLevel.OFF : NgxLoggerLevel.TRACE,
 				serverLogLevel: NgxLoggerLevel.OFF,
 			}),
-			NgxsModule.forRoot([IdentityState, AppState, CacheState], {
+			NgxsModule.forRoot([IdentityState, AppState, CacheState, ClientState], {
 				developmentMode: !environment.production
 			}),
 			NgxsReduxDevtoolsPluginModule.forRoot({
@@ -85,7 +88,7 @@ bootstrapApplication(AppComponent, {
 					useFactory: HttpLoaderFactory,
 					deps: [HttpClient]
 				}
-			})
+			}),
 		),
 		{
 			provide: HTTP_INTERCEPTORS,
@@ -107,7 +110,9 @@ bootstrapApplication(AppComponent, {
 			withInMemoryScrolling({
 				scrollPositionRestoration: 'enabled'
 			}),
-			withPreloading(PreloadAllModules)
+			withPreloading(PreloadAllModules),
+			// withViewTransitions(), // TODO add when we will control which container should have animation
+			// withComponentInputBinding(), // TODO add when we will vision of how to use it
 		),
 		provideServiceWorker('ngsw-worker.js', {
 			enabled: !isDevMode(),

@@ -2,9 +2,9 @@ import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@a
 import {ActiveEnum, LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
 import {IDurationVersion, IService} from "@service/domain";
-import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
 import {extractSecondsFrom_hh_mm_ss, STR_MINUTE_45} from "@utility/domain/time";
 import {ISpecialist} from "@service/domain/interface/i.specialist";
+import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 
 export interface ILanguageVersionForm {
 	title: FormControl<string>;
@@ -100,18 +100,35 @@ export class PricesForm extends FormArray<PriceForm> {
 
 }
 
-export interface IConfigurationForm {
-	earliestDateTime: FormControl<string>;
-	latestDateTime: FormControl<string>;
+export interface IDurationConfigurationForm {
+	object: FormControl<'DurationConfiguration'>;
+	durationVersionType: FormControl<DurationVersionTypeEnum>;
+}
 
-	[key: string]: AbstractControl;
+export class DurationConfigurationForm extends FormGroup<IDurationConfigurationForm> {
+	constructor() {
+		super({
+			object: new FormControl(),
+			durationVersionType: new FormControl(),
+		});
+		this.initValue();
+	}
+
+	public initValue(): void {
+		this.controls.object.setValue('DurationConfiguration');
+		this.controls.durationVersionType.setValue(DurationVersionTypeEnum.VARIABLE);
+	}
+
+}
+
+export interface IConfigurationForm {
+	duration: DurationConfigurationForm;
 }
 
 export class ConfigurationForm extends FormGroup<IConfigurationForm> {
 	constructor() {
 		super({
-			earliestDateTime: new FormControl(),
-			latestDateTime: new FormControl(),
+			duration: new DurationConfigurationForm(),
 		});
 	}
 }
@@ -159,7 +176,7 @@ export class DurationVersionsForm extends FormArray<DurationVersionForm> {
 }
 
 export interface IServiceForm {
-	schedules: SchedulesForm;
+	// schedules: SchedulesForm;
 	configuration: ConfigurationForm;
 	prepaymentPolicy: PrepaymentPolicyForm;
 	languageVersions: LanguageVersionsForm;
@@ -167,6 +184,9 @@ export interface IServiceForm {
 	_id: FormControl<string>;
 	specialists: FormControl<ISpecialist[]>;
 	active: FormControl<ActiveEnum>;
+	object: FormControl<'Service'>;
+	createdAt: FormControl<string>;
+	updatedAt: FormControl<string>;
 
 	[key: string]: AbstractControl;
 }
@@ -174,20 +194,25 @@ export interface IServiceForm {
 export class ServiceForm extends FormGroup<IServiceForm> {
 	constructor(initialValue?: IService) {
 		super({
-			schedules: new SchedulesForm(),
+			// schedules: new SchedulesForm(),
 			configuration: new ConfigurationForm(),
 			prepaymentPolicy: new PrepaymentPolicyForm(),
 			languageVersions: new LanguageVersionsForm(),
 			durationVersions: new DurationVersionsForm(),
 			specialists: new FormControl(),
 			active: new FormControl(),
-			_id: new FormControl()
+			_id: new FormControl(),
+			object: new FormControl(),
+			createdAt: new FormControl(),
+			updatedAt: new FormControl(),
 		});
 		this.initValue(initialValue);
+		this.initHandlers();
 	}
 
 	public initValue(initialValue?: IService): void {
 		this.controls.specialists.setValue([]);
+		this.controls.object.setValue('Service');
 		this.controls.active.setValue(ActiveEnum.YES);
 		if (initialValue) {
 			Object.keys(initialValue).forEach(key => {
@@ -196,6 +221,23 @@ export class ServiceForm extends FormGroup<IServiceForm> {
 				}
 			});
 		}
+	}
+
+	public initHandlers(): void {
+		this.controls.configuration.controls.duration.controls.durationVersionType.valueChanges.subscribe((value) => {
+			switch (value) {
+				case DurationVersionTypeEnum.RANGE:
+					if (this.controls.durationVersions.controls.length === 1) {
+						this.controls.durationVersions.pushNewOne();
+					}
+					break;
+				case DurationVersionTypeEnum.VARIABLE:
+					if (this.controls.durationVersions.controls.length > 1) {
+						this.controls.durationVersions.controls = this.controls.durationVersions.controls.slice(0, 1);
+					}
+					break;
+			}
+		});
 	}
 
 	public pushNewLanguageVersionForm(): void {

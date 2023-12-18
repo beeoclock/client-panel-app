@@ -28,8 +28,7 @@ import {LanguageCodeEnum} from "@utility/domain/enum";
       <price-and-currency-component
         [currencyControl]="form.controls.currency"
         [priceControl]="form.controls.price"
-        [prefix]="prefix">
-      </price-and-currency-component>
+        [prefix]="prefix"/>
 
       <!--      <div class="col-12 mt-2 position-relative">-->
       <!--        <label [for]="prefix + 'preferredLanguages'">Preferred languages</label>-->

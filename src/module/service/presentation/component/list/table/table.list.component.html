@@ -56,14 +56,12 @@
 						 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="item.active">
 				</div>
 			</div>
-			<div tableColumnFlex="price">
-				<span class="truncate">
-					{{ item.durationVersions[0].prices[0].price | currency: item.durationVersions[0].prices[0].currency: 'symbol-narrow' }}
+			<div tableColumnFlex="duration">
+				<span class="truncate" [innerHTML]="durationVersionHtmlHelper.getPriceValue(item)">
 				</span>
 			</div>
-			<div tableColumnFlex="duration">
-				<span class="truncate">
-					{{ item.durationVersions[0].durationInSeconds | humanizeDuration }}
+			<div tableColumnFlex="price">
+				<span class="truncate" [innerHTML]="durationVersionHtmlHelper.getDurationValue(item)">
 				</span>
 			</div>
 			<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
@@ -77,12 +75,11 @@
 				</span>
 			</div>
 			<div tableColumnFlex="action" class="border-l sticky right-0">
-				<utility-table-column-action [id]="item._id" (delete)="delete($event)"/>
+				<service-row-action-button-component [item]="item" [id]="item._id"/>
 			</div>
 		</div>
 	</div>
 </div>
 <utility-table-state-pagination-component
-	(clearCache)="clearTableCache()"
 	(page)="pageChange($event)"
 	[tableState]="tableState"/>

@@ -4,6 +4,10 @@ import {ActiveEnum, IsNewCustomerEnum, IsOptionalEnum, IsOrganizerEnum, Response
 import {RIBaseEntity} from "@utility/domain";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 
+export interface IEventConfiguration {
+	ignoreEventChecks: boolean; // Ignore checking if slot is busy
+}
+
 export interface IAttendee extends RIBaseEntity<'Event.Attendant'> {
 	isOptional: IsOptionalEnum;
 	isOrganizer: IsOrganizerEnum;
@@ -21,6 +25,7 @@ export interface IEvent extends RIBaseEntity<'Event'> {
 	end?: string;
 	timeZone?: string;
 	status: EventStatusEnum;
+	configuration?: IEventConfiguration;
 
 	attendees?: IAttendee[];
 }

@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "panel-dev-beeoclock",
+    "site": "panel-beeoclock",
     "public": "dist",
     "ignore": [
       "**/firebase/**",

@@ -3,92 +3,273 @@ import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
 
 export const DefaultServicesByBusinessCategory: {
 	[key in keyof typeof LanguageCodeEnum]?: {
-		[key in keyof typeof BusinessCategoryEnum]?: {title: string; durationInSeconds: number; price: number; currency: CurrencyCodeEnum}[]
+		[key in keyof typeof BusinessCategoryEnum]?: {
+			title: string;
+			durationVersions: { durationInSeconds: number; price: number | undefined; currency: CurrencyCodeEnum; }[]
+		}[]
 	}
 } = {
 	[LanguageCodeEnum.uk]: {
+		[BusinessCategoryEnum.EyebrowStylist]: [
+			{
+				title: 'Вії - Класика або кутики',
+				durationVersions: [
+					{
+						durationInSeconds: 60 * 60,
+						price: 500,
+						currency: CurrencyCodeEnum.UAH,
+					},
+					{
+						durationInSeconds: 120 * 60,
+						price: undefined,
+						currency: CurrencyCodeEnum.UAH,
+					},
+				]
+			},
+			{
+				title: 'Вії - 2-3D',
+				durationVersions: [
+					{
+						durationInSeconds: 120 * 60,
+						price: 600,
+						currency: CurrencyCodeEnum.UAH,
+					},
+				]
+			},
+			{
+				title: 'Вії - 4-5D',
+				durationVersions: [
+					{
+						durationInSeconds: 120 * 60,
+						price: 700,
+						currency: CurrencyCodeEnum.UAH,
+					},
+					{
+						durationInSeconds: 120 * 60 + 30 * 60,
+						price: undefined,
+						currency: CurrencyCodeEnum.UAH,
+					},
+				]
+			},
+			{
+				title: 'Вії - Мокрий ефект',
+				durationVersions: [
+					{
+						durationInSeconds: 120 * 60,
+						price: 600,
+						currency: CurrencyCodeEnum.UAH,
+					},
+				]
+			},
+			{
+				title: 'Вії - Аніме ефект (верхні та нижні вії)',
+				durationVersions: [
+					{
+						durationInSeconds: 120 * 60 + 30 * 60,
+						price: 700,
+						currency: CurrencyCodeEnum.UAH,
+					},
+				]
+			},
+			{
+				title: 'Вії - зняття нарощення (без подальшого нарощення)',
+				durationVersions: [
+					{
+						durationInSeconds: 30 * 60,
+						price: 100,
+						currency: CurrencyCodeEnum.UAH,
+					},
+				]
+			},
+			{
+				title: 'Ламінування вій - ботокс та фарбування входить у вартість',
+				durationVersions: [
+					{
+						durationInSeconds: 60 * 60,
+						price: 500,
+						currency: CurrencyCodeEnum.UAH,
+					},
+					{
+						durationInSeconds: (60 * 60) + (30 * 60),
+						price: undefined,
+						currency: CurrencyCodeEnum.UAH,
+					}
+				]
+			},
+			{
+				title: 'Корекція брів',
+				durationVersions: [
+					{
+						durationInSeconds: 30 * 60,
+						price: 100,
+						currency: CurrencyCodeEnum.UAH,
+					}
+				]
+			},
+			{
+				title: 'Довготривала укладка - фарбування та корекція входить у вартість',
+				durationVersions: [
+					{
+						durationInSeconds: 60 * 60,
+						price: 350,
+						currency: CurrencyCodeEnum.UAH,
+					}
+				]
+			},
+			{
+				title: '[КОМПЛЕКСИ] Ламінування брів та вій',
+				durationVersions: [
+					{
+						durationInSeconds: (60 * 60) + (30 * 60),
+						price: 700,
+						currency: CurrencyCodeEnum.UAH,
+					}
+				]
+			},
+
+			// {
+			// 	title: 'Корекція брів',
+			// 	durationVersions: [
+			// 		{
+			//
+			// 			durationInSeconds: 30 * 60,
+			// 			price: 150,
+			// 			currency: CurrencyCodeEnum.UAH,
+			// 		}
+			// 	]
+			// },
+			// {
+			// 	title: 'Корекція та фарбування брів',
+			// 	durationVersions: [
+			// 		{
+			// 			durationInSeconds: 60 * 60,
+			// 			price: 300,
+			// 			currency: CurrencyCodeEnum.UAH,
+			// 		}
+			// 	]
+			// },
+			// {
+			// 	title: 'Довготривала укладка брів (ламінування)',
+			// 	durationVersions: [
+			// 		{
+			// 			durationInSeconds: 60 * 60,
+			// 			price: 400,
+			// 			currency: CurrencyCodeEnum.UAH,
+			// 		}
+			// 	]
+			// }
+		],
 		[BusinessCategoryEnum.Barbershop]: [
 			{
 				title: 'Чоловічка стрижка',
-				durationInSeconds: 45 * 60,
-				price: 250,
-				currency: CurrencyCodeEnum.UAH,
+				durationVersions: [
+					{
+
+						durationInSeconds: 45 * 60,
+						price: 250,
+						currency: CurrencyCodeEnum.UAH,
+					}
+				]
 			},
 			{
 				title: 'Жіноча стрижка',
-				durationInSeconds: 60 * 60,
-				price: 450,
-				currency: CurrencyCodeEnum.UAH,
+				durationVersions: [
+					{
+
+						durationInSeconds: 60 * 60,
+						price: 450,
+						currency: CurrencyCodeEnum.UAH,
+					}
+				]
 			},
 			{
 				title: 'Стрижка чолки',
-				durationInSeconds: 30 * 60,
-				price: 100,
-				currency: CurrencyCodeEnum.UAH,
+				durationVersions: [
+					{
+
+						durationInSeconds: 30 * 60,
+						price: 100,
+						currency: CurrencyCodeEnum.UAH,
+					}
+				]
 			},
 			{
 				title: 'Стрижка та борода',
-				durationInSeconds: 60 * 60,
-				price: 500,
-				currency: CurrencyCodeEnum.UAH,
+				durationVersions: [
+					{
+
+						durationInSeconds: 60 * 60,
+						price: 500,
+						currency: CurrencyCodeEnum.UAH,
+					}
+				]
 			},
 			{
 				title: 'Оформлення бороди',
-				durationInSeconds: 30 * 60,
-				price: 200,
-				currency: CurrencyCodeEnum.UAH,
+				durationVersions: [
+					{
+
+						durationInSeconds: 30 * 60,
+						price: 200,
+						currency: CurrencyCodeEnum.UAH,
+					}
+				]
 			},
 			{
 				title: 'Фарбування однотонне',
-				durationInSeconds: 3 * 60 * 60,
-				price: 1000,
-				currency: CurrencyCodeEnum.UAH,
+				durationVersions: [
+					{
+
+						durationInSeconds: 3 * 60 * 60,
+						price: 1000,
+						currency: CurrencyCodeEnum.UAH,
+					}
+				]
 			},
 			{
 				title: 'Фарбування з висвітленням',
-				durationInSeconds: 6 * 60 * 60,
-				price: 3000,
-				currency: CurrencyCodeEnum.UAH,
-			}
-		],
-		[BusinessCategoryEnum.EyebrowStylist]: [
-			{
-				title: 'Корекція брів',
-				durationInSeconds: 30 * 60,
-				price: 150,
-				currency: CurrencyCodeEnum.UAH,
-			},
-			{
-				title: 'Корекція та фарбування брів',
-				durationInSeconds: 60 * 60,
-				price: 300,
-				currency: CurrencyCodeEnum.UAH,
-			},
-			{
-				title: 'Довготривала укладка брів (ламінування)',
-				durationInSeconds: 60 * 60,
-				price: 400,
-				currency: CurrencyCodeEnum.UAH,
+				durationVersions: [
+					{
+						durationInSeconds: 6 * 60 * 60,
+						price: 3000,
+						currency: CurrencyCodeEnum.UAH,
+					}
+				]
 			}
 		],
 		[BusinessCategoryEnum.Manicurist]: [
 			{
 				title: 'Манікюр',
-				durationInSeconds: 45 * 60,
-				price: 300,
-				currency: CurrencyCodeEnum.UAH,
+				durationVersions: [
+					{
+
+						durationInSeconds: 45 * 60,
+						price: 300,
+						currency: CurrencyCodeEnum.UAH,
+					}
+				]
 			},
 			{
 				title: 'Педикюр',
-				durationInSeconds: 60 * 60,
-				price: 400,
-				currency: CurrencyCodeEnum.UAH,
+				durationVersions: [
+					{
+
+						durationInSeconds: 60 * 60,
+						price: 400,
+						currency: CurrencyCodeEnum.UAH,
+					}
+				]
 			},
 			{
 				title: 'Нарощення нігтів',
-				durationInSeconds: 2 * 60 * 60,
-				price: 1000,
-				currency: CurrencyCodeEnum.UAH,
+				durationVersions: [
+					{
+
+						durationInSeconds: 2 * 60 * 60,
+						price: 1000,
+						currency: CurrencyCodeEnum.UAH,
+					}
+				]
 			}
 		]
 	}

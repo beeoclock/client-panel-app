@@ -8,8 +8,12 @@ import {businessProfileEndpointEnum} from "@client/endpoint/business-profile.end
 })
 export class ItemBusinessProfileApiAdapter extends BaseApiAdapter<Client.RIClient> {
 
+	// private readonly weekDayTimeZoneHelper = inject(WeekDayTimeZoneHelper);
+
 	public override execute$() {
-		return this.httpClient.get<Client.RIClient>(businessProfileEndpointEnum.item);
+		return this.httpClient.get<Client.RIClient>(businessProfileEndpointEnum.item).pipe(
+			// map((client) => this.weekDayTimeZoneHelper.convertWeekDaysFromUTC(client) as Client.RIClient)
+		);
 	}
 
 }

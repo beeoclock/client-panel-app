@@ -23,10 +23,15 @@ export class EventStatusStyleDirective implements OnInit, OnChanges {
 			text: ['text-red-400', 'border-red-400'],
 			badge: ['bg-red-500', 'border-red-500', 'dark:bg-red-900', 'dark:border-red-800']
 		},
+		[EventStatusEnum.rejected]: {
+			base: ['dark:text-red-400'],
+			text: ['text-red-400', 'border-red-400'],
+			badge: ['bg-red-500', 'border-red-500', 'dark:bg-red-900', 'dark:border-red-800']
+		},
 		[EventStatusEnum.done]: {
 			base: ['dark:text-green-400'],
-			text: ['text-green-400', 'border-green-400'],
-			badge: ['bg-green-500', 'border-green-500', 'dark:bg-green-900', 'dark:border-green-800']
+			text: ['text-green-600', 'border-green-600'],
+			badge: ['bg-green-600', 'border-green-600', 'dark:bg-green-900', 'dark:border-green-800']
 		},
 		[EventStatusEnum.requested]: {
 			base: ['dark:text-orange-400'],
@@ -37,7 +42,7 @@ export class EventStatusStyleDirective implements OnInit, OnChanges {
 			base: ['dark:text-blue-400'],
 			text: ['text-blue-400', 'border-blue-400'],
 			badge: ['bg-blue-500', 'border-blue-500', 'dark:bg-blue-900', 'dark:border-blue-800']
-		}
+		},
 	};
 
 	private readonly base = ['px-2', 'py-1', 'flex', 'items-center', 'justify-center', 'h-6', 'text-xs', 'rounded-full', 'border', 'uppercase'];

@@ -13,7 +13,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
   selector: 'price-and-currency-component',
   standalone: true,
   template: `
-    <label default [for]="prefix + 'price'">{{ 'keyword.capitalize.price' | translate }}</label>
+    <label default [for]="prefix + 'price'">{{ label }}</label>
     <div class="flex">
       <input
         [id]="prefix + 'price'"
@@ -89,6 +89,9 @@ export class PriceAndCurrencyComponent implements OnInit {
   public prefix = '';
 
   @Input()
+  public label = '';
+
+  @Input()
   public currencyControl = new FormControl();
 
   @Input()
@@ -102,9 +105,9 @@ export class PriceAndCurrencyComponent implements OnInit {
   }));
 
   public ngOnInit(): void {
-
-    this.currencyControl.setValue(LanguageCurrency[this.translateService.currentLang as keyof typeof LanguageCurrency]);
-
+		if (!this.currencyControl.value) {
+			this.currencyControl.setValue(LanguageCurrency[this.translateService.currentLang as keyof typeof LanguageCurrency]);
+		}
   }
 
 }

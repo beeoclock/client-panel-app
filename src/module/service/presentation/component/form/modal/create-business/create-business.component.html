@@ -1,4 +1,9 @@
 <div class="flex flex-col md:gap-6">
-	<service-form-details-block-component [useCardBorder]="false" [form]="form.controls.languageVersions.at(0)"/>
-	<service-form-prices-block-component [useCardBorder]="false" [durationVersions]="form.controls.durationVersions"/>
+	<service-form-details-block-component
+		[useCardBorder]="false"
+		[form]="form.controls.languageVersions.at(0)"/>
+	<service-form-prices-block-component
+		[useCardBorder]="false"
+		[durationConfigurationForm]="form.controls.configuration.controls.duration"
+		[durationVersions]="form.controls.durationVersions"/>
 </div>

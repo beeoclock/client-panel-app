@@ -1,4 +1,5 @@
 import {
+	ChangeDetectorRef,
 	Component,
 	inject,
 	Input,
@@ -17,7 +18,6 @@ import {BooleanState} from "@utility/domain";
 import {
 	ImageGalleryBusinessProfileComponent
 } from "@client/presentation/component/business-profile/gallery/image.gallery.business-profile/image.gallery.business-profile.component";
-import {BocMediaService} from "@module/media/presentation/directive/boc-media/boc-media.service";
 import {
 	PatchMediaGalleryClientApiAdapter
 } from "@client/adapter/external/api/media/gallery/patch.media.gallery.client.api.adapter";
@@ -25,6 +25,7 @@ import {
 	DeleteMediaGalleryClientApiAdapter
 } from "@client/adapter/external/api/media/gallery/delete.media.gallery.client.api.adapter";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
+import {RIMedia} from "@module/media/domain/interface/i.media";
 
 @Component({
 	selector: 'client-gallery-business-profile-component',
@@ -46,14 +47,14 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 	public form = new GalleryForm();
 
 	@Input()
-	public gallery: string[] = [];
+	public gallery: RIMedia[] = [];
 
 	public readonly toggleInfo = new BooleanState(true);
 
 	@ViewChildren(ImageGalleryBusinessProfileComponent)
 	public imageGalleryBusinessProfileComponents!: QueryList<ImageGalleryBusinessProfileComponent>;
 
-	public readonly srcByMediaIdService = inject(BocMediaService);
+	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly patchMediaGalleryClientApiAdapter = inject(PatchMediaGalleryClientApiAdapter);
 	public readonly deleteMediaGalleryClientApiAdapter = inject(DeleteMediaGalleryClientApiAdapter);
 
@@ -69,10 +70,22 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 					this.form = new GalleryForm();
 				}
 
-				changes.gallery.currentValue.forEach((mediaId: string, index: number) => {
+				this.gallery = changes.gallery.currentValue.filter((item: RIMedia | null) => item);
 
-					this.form.controls.images.controls[index].patchValue(mediaId);
+				this.gallery.forEach((media: RIMedia, index: number) => {
 
+					const control = this.form.controls.images.controls[index];
+					if (control) {
+						control.patchValue(media.url);
+					} else {
+						this.form.pushImage(media.url);
+					}
+
+				});
+
+				// TODO: Find way to delete the timeout
+				setTimeout(() => {
+					this.changeDetectorRef.detectChanges();
 				});
 
 			}
@@ -84,47 +97,39 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 	public async save(): Promise<void> {
 
 		// TODO add service for the job and keep order/queue (first delete then add it is important)
-		for (const mediaId of this.removedImages.values()) {
+		for (const _id of this.removedImages.values()) {
 
 			// REMOVE IMAGE
-			await this.deleteMediaGalleryClientApiAdapter.executeAsync(mediaId);
-			await this.srcByMediaIdService.delete(mediaId);
-			this.gallery = this.gallery.filter((item) => item !== mediaId);
-			this.removedImages.delete(mediaId);
+			await this.deleteMediaGalleryClientApiAdapter.executeAsync(_id);
+			this.gallery = this.gallery.filter((item) => item._id !== _id);
+			this.removedImages.delete(_id);
 
 		}
 
-		for (let index = 0; index < this.imageGalleryBusinessProfileComponents.toArray().length; index++) {
+		for (const component of this.imageGalleryBusinessProfileComponents.toArray()) {
 
-			const item = this.imageGalleryBusinessProfileComponents.get(index);
-
-			if (!item) {
+			if (!component) {
 				continue;
 			}
 
-			const mediaId = this.gallery[index];
-
-			if (item.mediaIsChanged.isOff) {
+			if (component.mediaIsChanged.isOff) {
 				continue;
 			}
 
-			const body: {
-				media: string;
-				_id?: string;
-			} = {
-				media: item.control.value,
-			};
-
-			if (mediaId) {
-				body._id = mediaId;
+			if (!component.selectedFile) {
+				continue;
 			}
 
-			const {_id, media} = await this.patchMediaGalleryClientApiAdapter.executeAsync(body);
-			this.gallery = [...this.gallery];
-			this.gallery[index] = _id;
-			await this.srcByMediaIdService.set(_id, media);
+			const formData = new FormData();
+			formData.append('file', component.selectedFile as Blob);
 
-			item.mediaIsChanged.switchOff();
+			if (component.banner) {
+				formData.append('_id', component.banner._id);
+			}
+
+			await this.patchMediaGalleryClientApiAdapter.executeAsync(formData);
+
+			component.mediaIsChanged.switchOff();
 
 		}
 
@@ -132,13 +137,9 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 
 	public removeImage(index: number): void {
 		if (this.gallery[index]) {
-			this.removedImages.add(this.gallery[index]);
+			this.removedImages.add(this.gallery[index]._id);
 			this.gallery = this.gallery.filter((item, itemIndex) => itemIndex !== index);
 		}
 		this.form.removeImage(index);
-	}
-
-	public getMediaId(index: number): string {
-		return this.gallery[index] ?? '';
 	}
 }

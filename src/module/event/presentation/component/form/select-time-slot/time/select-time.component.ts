@@ -1,14 +1,4 @@
-import {
-	Component,
-	ElementRef,
-	inject,
-	Input,
-	OnChanges,
-	OnInit,
-	SimpleChange,
-	SimpleChanges,
-	ViewChild
-} from '@angular/core';
+import {Component, ElementRef, inject, Input, OnInit, ViewChild} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {DateTime, Settings} from "luxon";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -21,15 +11,27 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {ButtonArrowComponent} from "@event/presentation/component/form/select-time-slot/button.arrow.component";
 import {debounceTime} from "rxjs";
 import {MS_QUARTER_SECOND} from "@utility/domain/const/c.time";
-import {BooleanState} from "@utility/domain";
+import {TimeInputComponent} from "@utility/presentation/component/input/time.input.component";
+import {EventConfigurationForm} from "@event/presentation/form/configuration.form";
 
 export interface ITimeSlot {
 	isPast: boolean;
 	datetime: DateTime;
 }
 
-const ONE_HOUR_IN_MINUTES = 60;
-const DEFAULT_INTERVAL_IN_MINUTES = 10;
+enum PeriodOfDayEnum {
+	NIGHT = 'NIGHT',
+	MORNING = 'MORNING',
+	AFTERNOON = 'AFTERNOON',
+	EVENING = 'EVENING',
+}
+
+enum IndexOfPeriodOfDayEnum {
+	NIGHT = 0,
+	MORNING = 1,
+	AFTERNOON = 2,
+	EVENING = 3,
+}
 
 @Component({
 	selector: 'event-select-time-slot-time-form-component',
@@ -41,22 +43,22 @@ const DEFAULT_INTERVAL_IN_MINUTES = 10;
 		LoaderComponent,
 		NgIf,
 		TranslateModule,
-		ButtonArrowComponent
+		ButtonArrowComponent,
+		TimeInputComponent,
 	],
 })
-export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
+export class SelectTimeComponent extends Reactive implements OnInit {
 
 	@Input({required: true})
 	public control!: FormControl<string>;
 
 	@Input({required: true})
+	public configurationForm!: EventConfigurationForm;
+
+	@Input({required: true})
 	public localDateTimeControl!: FormControl<DateTime>;
 
 	public selectedDateTime = DateTime.now();
-	public currentIndexListOfSlots = 0;
-
-	public readonly timeSlotLists: ITimeSlot[][] = [];
-	public readonly amountOfDaySlotsInContainer = ONE_HOUR_IN_MINUTES / DEFAULT_INTERVAL_IN_MINUTES;
 
 	@ViewChild('timeSlotsContainer')
 	public timeSlotsContainer!: ElementRef<HTMLDivElement>;
@@ -65,16 +67,15 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 	public readonly translateService = inject(TranslateService);
 	public readonly slotsService = inject(SlotsService);
 
-	private readonly firstAccessibleSlotIsInitialized = new BooleanState(false);
+	public readonly ownOptionOfStartTimeControl = new FormControl();
+
+	public groupedSlots: {
+		periodOfDay: PeriodOfDayEnum;
+		slots: { start: DateTime; end: DateTime }[];
+	}[] = [];
 
 	public get loader(): BooleanStreamState {
 		return this.slotsService.loader;
-	}
-
-	public ngOnChanges(changes: SimpleChanges & { specialist: SimpleChange }) {
-		if (changes.specialist) {
-			this.prepareSlots(this.localDateTimeControl.value).then();
-		}
 	}
 
 	public ngOnInit(): void {
@@ -89,126 +90,37 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 		).subscribe((iso) => {
 			this.selectedDateTime = DateTime.fromISO(iso);
 			this.localDateTimeControl.patchValue(this.selectedDateTime);
+			const slots = this.slotsService.getSlotsByDay(this.selectedDateTime);
+			this.groupedSlots = this.groupSlots(slots);
 		});
 
 		// Prepare datetime list
 		if (this.control.value) {
 			this.selectedDateTime = DateTime.fromISO(this.control.value);
-			this.prepareSlots(this.selectedDateTime).then();
-		} else {
-			this.prepareSlots(DateTime.now()).then();
+			this.localDateTimeControl.patchValue(this.selectedDateTime);
 		}
 
 		this.localDateTimeControl.valueChanges.pipe(
 			this.takeUntil(),
 			debounceTime(MS_QUARTER_SECOND),
-		).subscribe(async (dateTime) => {
+		).subscribe((dateTime) => {
 			this.logger.debug('localDateTimeControl.valueChanges', dateTime.toISO());
-			await this.prepareSlots(dateTime);
+			const slots = this.slotsService.getSlotsByDay(dateTime);
+			this.groupedSlots = this.groupSlots(slots);
+		});
+
+		this.ownOptionOfStartTimeControl.valueChanges.pipe(
+			this.takeUntil(),
+			debounceTime(MS_QUARTER_SECOND),
+		).subscribe((value) => {
+			if (value) {
+				this.selectDateItem(this.convertToDateTime(value), true);
+			}
 		});
 	}
 
-	private async prepareSlots(target: DateTime): Promise<void> {
-
-		this.logger.debug('prepareSlots', target.toISO());
-
-		this.loader.switchOn();
-
-		const start = target.startOf('week').startOf('day').toUTC().toISO();
-		const end = target.endOf('week').endOf('day').toUTC().toISO();
-
-		if (start && end) {
-
-			await this.slotsService.initSlots(start, end);
-			this.initTimeSlotLists();
-
-		}
-
-		this.loader.switchOff();
-	}
-
-	/**
-	 *
-	 * @private
-	 */
-	public initTimeSlotLists(): void {
-
-		this.timeSlotLists.length = 0;
-		this.currentIndexListOfSlots = 0;
-
-		let localTemporaryList: ITimeSlot[] = [];
-
-		let startOfSelectedDate = this.localDateTimeControl.value.startOf('day');
-		const endOfSelectedDateISO = this.localDateTimeControl.value.endOf('day').toUTC().toISO() ?? '';
-
-		const today = DateTime.now();
-		if (today.hasSame(startOfSelectedDate, 'day')) {
-
-			const minutes = today.minute;
-			const roundedMinutes = (+Math.floor((minutes / 10)).toFixed(0)) * 10;
-			startOfSelectedDate = today.set({minute: roundedMinutes}).plus({minute: 10}).startOf('minute');
-
-		}
-
-		const startOfSelectedDateISO = startOfSelectedDate.toUTC().toISO() ?? '';
-
-		const slots = this.slotsService.slots.filter((slot) => slot > startOfSelectedDateISO && slot < endOfSelectedDateISO);
-
-		if (!slots.length && this.firstAccessibleSlotIsInitialized.isOff) {
-			this.firstAccessibleSlotIsInitialized.switchOn();
-			const [firstSlot] = this.slotsService.slots;
-			this.logger.debug(`nextDayISO: ${firstSlot}`);
-			this.control.patchValue(firstSlot);
-			return;
-		}
-
-		slots
-			.map((slot) => ({
-				isPast: DateTime.fromISO(slot).startOf('minute').toMillis() < DateTime.now().startOf('minute').toMillis(),
-				datetime: DateTime.fromISO(slot)
-			}))
-			.forEach((slot, index) => {
-
-				localTemporaryList.push(slot);
-
-				if (index !== 0 && !((index + 1) % this.amountOfDaySlotsInContainer)) {
-					this.timeSlotLists.push(localTemporaryList);
-					// Detect selected index
-					if (localTemporaryList.some((item) => item.datetime.hasSame(this.selectedDateTime, 'minute'))) {
-						this.currentIndexListOfSlots = this.timeSlotLists.length - 1;
-					}
-					localTemporaryList = [];
-				}
-
-			});
-
-		if (localTemporaryList.length) {
-			this.timeSlotLists.push(localTemporaryList);
-		}
-
-
-	}
-
-	public get isLastSlotPack(): boolean {
-		return this.timeSlotLists.length === 0 || this.currentIndexListOfSlots === (this.timeSlotLists.length - 1);
-	}
-
-	public get isFirstSlotPack(): boolean {
-		return this.timeSlotLists.length === 0 || this.currentIndexListOfSlots === 0;
-	}
-
-	public prevSlotPack(): void {
-		if ((this.currentIndexListOfSlots - 1) === -1) {
-			return;
-		}
-		this.currentIndexListOfSlots = this.currentIndexListOfSlots - 1;
-	}
-
-	public nextSlotPack(): void {
-		if ((this.currentIndexListOfSlots + 1) === this.timeSlotLists.length) {
-			return;
-		}
-		this.currentIndexListOfSlots = this.currentIndexListOfSlots + 1;
+	public convertToDateTime(value: number): DateTime {
+		return this.localDateTimeControl.value.startOf('day').plus({seconds: value})
 	}
 
 	public getClassList(isSelected: boolean): string[] {
@@ -218,7 +130,12 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 		return ['hover:bg-beeColor-100', 'hover:text-black', 'dark:text-beeColor-500'];
 	}
 
-	public selectDateItem(datetime: DateTime): void {
+	public ignoreEventChecks(value: boolean): void {
+		this.configurationForm.controls.ignoreEventChecks.patchValue(value);
+	}
+
+	public selectDateItem(datetime: DateTime, ignoreEventChecks = false): void {
+		this.ignoreEventChecks(ignoreEventChecks);
 		this.selectedDateTime = datetime;
 		this.control.patchValue(datetime.toUTC().toISO() as string);
 		this.localDateTimeControl.patchValue(datetime, {
@@ -229,5 +146,57 @@ export class SelectTimeComponent extends Reactive implements OnInit, OnChanges {
 
 	public isSelected(datetime: DateTime): boolean {
 		return datetime.hasSame(this.selectedDateTime, 'minute');
+	}
+
+	private groupSlots(slots: { start: DateTime; end: DateTime }[]) {
+		const groupedSlots: {
+			periodOfDay: PeriodOfDayEnum;
+			slots: { start: DateTime; end: DateTime }[];
+		}[] = [{
+			periodOfDay: PeriodOfDayEnum.NIGHT,
+			slots: []
+		}, {
+			periodOfDay: PeriodOfDayEnum.MORNING,
+			slots: []
+		}, {
+			periodOfDay: PeriodOfDayEnum.AFTERNOON,
+			slots: []
+		}, {
+			periodOfDay: PeriodOfDayEnum.EVENING,
+			slots: []
+		}];
+		slots.forEach((slot) => {
+			const periodOfDay = this.getPeriodOfDay(slot.start);
+			const index = this.getIndexOfPeriodOfDay(periodOfDay);
+			groupedSlots[index].periodOfDay = periodOfDay;
+			groupedSlots[index].slots.push(slot);
+		});
+		return groupedSlots;
+	}
+
+	private getPeriodOfDay(start: DateTime) {
+		const hour = start.hour;
+		// 24 format
+		if (hour >= 0 && hour < 6) {
+			return PeriodOfDayEnum.NIGHT;
+		} else if (hour >= 6 && hour < 12) {
+			return PeriodOfDayEnum.MORNING;
+		} else if (hour >= 12 && hour < 18) {
+			return PeriodOfDayEnum.AFTERNOON;
+		}
+		return PeriodOfDayEnum.EVENING;
+	}
+
+	private getIndexOfPeriodOfDay(periodOfDay: PeriodOfDayEnum) {
+		switch (periodOfDay) {
+			case PeriodOfDayEnum.NIGHT:
+				return IndexOfPeriodOfDayEnum.NIGHT;
+			case PeriodOfDayEnum.MORNING:
+				return IndexOfPeriodOfDayEnum.MORNING;
+			case PeriodOfDayEnum.AFTERNOON:
+				return IndexOfPeriodOfDayEnum.AFTERNOON;
+			case PeriodOfDayEnum.EVENING:
+				return IndexOfPeriodOfDayEnum.EVENING;
+		}
 	}
 }

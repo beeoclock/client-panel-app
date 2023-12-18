@@ -4,7 +4,6 @@ import {applyActionCode, Auth} from '@angular/fire/auth';
 import {AsyncPipe, NgIf, NgOptimizedImage} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
 import {Select, Store} from "@ngxs/store";
-import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {SendConfirmEmailListApiAdapter} from "@identity/adapter/external/api/send-confirm-email-list.api.adapter";
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {filter, firstValueFrom, Observable} from "rxjs";
@@ -61,7 +60,6 @@ export default class Index extends Reactive implements OnInit {
 
 
 	public ngOnInit(): void {
-		this.store.dispatch(new IdentityActions.InitToken())
 		this.activatedRoute.queryParams.pipe(this.takeUntil()).subscribe((params: Params | {
 			mode?: string,
 			oobCode?: string,

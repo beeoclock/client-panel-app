@@ -1,6 +1,7 @@
-import {IAttendee, IEvent, RMIEvent} from "@event/domain";
+import {IAttendee, IEvent, IEventConfiguration, RMIEvent} from "@event/domain";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 import {IService} from "@service/domain";
+import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 
 export class MEvent implements RMIEvent {
 
@@ -16,6 +17,7 @@ export class MEvent implements RMIEvent {
 	public readonly description!: string;
 	public readonly attendees!: IAttendee[];
 	public readonly timeZone!: string;
+	public readonly configuration!: IEventConfiguration;
 
 	constructor(initialValue?: Partial<IEvent>) {
 		if (initialValue) {
@@ -37,6 +39,10 @@ export class MEvent implements RMIEvent {
 
 	public get isCancelled(): boolean {
 		return this.status === EventStatusEnum.cancelled;
+	}
+
+	public get someServiceHasRangeDurationVersion(): boolean {
+		return this.services.some((service) => service.configuration.duration?.durationVersionType === DurationVersionTypeEnum.RANGE);
 	}
 
 	public static create(initialValue?: Partial<IEvent>): MEvent {

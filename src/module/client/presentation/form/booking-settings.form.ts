@@ -1,8 +1,9 @@
-import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {EarliestBookingEnum} from "@utility/domain/enum/earliest-booking.enum";
 import {LatestBookingEnum} from "@utility/domain/enum/latest-booking.enum";
 import {AutoActionOnEventInSecondsEnum} from "@utility/domain/enum/auto-action-on-event-in-seconds.enum";
 import {AutomaticApprovalTimeType} from "@utility/domain/enum/automatic-approval-time.enum";
+import {SlotSettingsForm} from "@client/presentation/form/slot-settings.form";
 
 export interface IBookingSettingsForm {
 
@@ -11,8 +12,7 @@ export interface IBookingSettingsForm {
 	automaticApprovalType: FormControl<AutomaticApprovalTimeType>;
 	latestBooking: FormControl<LatestBookingEnum>;
 	earliestBooking: FormControl<EarliestBookingEnum>;
-
-	[key: string]: AbstractControl;
+	slotSettings: SlotSettingsForm;
 }
 
 export class BookingSettingsForm extends FormGroup<IBookingSettingsForm> {
@@ -24,6 +24,7 @@ export class BookingSettingsForm extends FormGroup<IBookingSettingsForm> {
 			automaticApprovalType: new FormControl(),
 			latestBooking: new FormControl(),
 			earliestBooking: new FormControl(),
+			slotSettings: new SlotSettingsForm(),
 		});
 
 		this.initValue();

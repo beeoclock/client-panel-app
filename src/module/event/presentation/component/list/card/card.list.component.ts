@@ -23,6 +23,7 @@ import {
 	ChangeStatusOnCancelledComponent
 } from "@event/presentation/component/change-status/change-status-on-cancelled.component";
 import {ChangeStatusOnDoneComponent} from "@event/presentation/component/change-status/change-status-on-done.component";
+import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 
 @Component({
 	selector: 'event-card-list-component',
@@ -47,7 +48,8 @@ import {ChangeStatusOnDoneComponent} from "@event/presentation/component/change-
 		ButtonsDetailsComponent,
 		ChangeStatusOnBookedComponent,
 		ChangeStatusOnCancelledComponent,
-		ChangeStatusOnDoneComponent
+		ChangeStatusOnDoneComponent,
+		NoDataPipe
 	]
 })
 export class CardListComponent extends TableComponent<RMIEvent> {

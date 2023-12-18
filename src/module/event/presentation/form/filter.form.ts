@@ -1,14 +1,12 @@
-import {AbstractControl, FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 
 export interface IFilterForm {
 
 	phrase: FormControl<string>;
-	status: FormControl<EventStatusEnum | ''>;
+	status: FormControl<EventStatusEnum>;
 	// start: FormControl<string>;
 	// end: FormControl<string>;
-
-	[key: string]: AbstractControl;
 
 }
 
@@ -24,7 +22,7 @@ export class FilterForm extends FormGroup<IFilterForm> {
 	}
 
 	public initValue(): void {
-		this.controls.status.setValue('');
+		this.controls.status.setValue(EventStatusEnum.booked);
 
 		// 	const start = new Date();
 		// 	start.setDate(start.getDate() - 7);

@@ -11,8 +11,8 @@
 	</div>
 
 	<client-image-cover-image-business-profile-component
-		[mediaId]="mediaId"
-		[control]="control"
+		*ngFor="let banner of banners"
+		[banner]="banner"
 		[showHit]="toggleInfo.isOn"/>
 
 </bee-card>

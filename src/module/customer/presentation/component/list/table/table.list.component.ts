@@ -2,7 +2,6 @@ import {Component, ViewEncapsulation} from "@angular/core";
 import {CurrencyPipe, NgForOf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
-import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
@@ -18,6 +17,8 @@ import {EventStatusStyleDirective} from "@event/presentation/directive/event-sta
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex/row.table.flex.directive";
 import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
+import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
+import {RowActionButtonComponent} from "@customer/presentation/component/row-action-button/row-action-button.component";
 
 @Component({
 	selector: 'customer-table-list-component',
@@ -28,7 +29,6 @@ import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/fl
 		NgForOf,
 		RouterLink,
 		ActiveStyleDirective,
-		ActionComponent,
 		TableStatePaginationComponent,
 		DynamicDatePipe,
 		SortIndicatorComponent,
@@ -39,7 +39,9 @@ import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/fl
 		EventStatusStyleDirective,
 		HumanizeDurationPipe,
 		RowTableFlexDirective,
-		TableTableFlexDirective
+		TableTableFlexDirective,
+		NoDataPipe,
+		RowActionButtonComponent
 	]
 })
 export class TableListComponent extends TableComponent<ICustomer> {
@@ -48,15 +50,20 @@ export class TableListComponent extends TableComponent<ICustomer> {
 
 	public readonly tableConfiguration = {
 		columns: {
-			lastName: {
-				style: {
-					minWidth: '250px',
-					flexGrow: 1,
-				},
-			},
 			email: {
 				style: {
 					minWidth: '350px',
+					flexGrow: 1,
+				},
+			},
+			lastName: {
+				style: {
+					minWidth: '200px',
+				},
+			},
+			firstName: {
+				style: {
+					minWidth: '200px',
 				},
 			},
 			phone: {
@@ -85,9 +92,9 @@ export class TableListComponent extends TableComponent<ICustomer> {
 				},
 			},
 			action: {
-				classList: ['bg-white'],
+				classList: ['bg-white', 'justify-center'],
 				style: {
-					minWidth: '66px',
+					minWidth: '75px',
 				},
 			},
 		},

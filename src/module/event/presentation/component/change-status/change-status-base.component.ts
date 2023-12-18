@@ -6,7 +6,7 @@ import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.
 import {NgIf, NgTemplateOutlet} from "@angular/common";
 import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum";
 import {NGXLogger} from "ngx-logger";
-import {RMIEvent} from "@event/domain";
+import {RIEvent, RMIEvent} from "@event/domain";
 
 @Component({
 	selector: 'event-change-status-base-component',
@@ -25,7 +25,7 @@ import {RMIEvent} from "@event/domain";
 export abstract class ChangeStatusBaseComponent {
 
 	@Input({required: true})
-	public event!: RMIEvent;
+	public event!: RMIEvent | RIEvent;
 
 	public readonly logger = inject(NGXLogger);
 	public readonly router = inject(Router);

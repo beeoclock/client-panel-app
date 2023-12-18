@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {Component, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
@@ -7,12 +7,18 @@ import {IsRequiredDirective} from "@utility/presentation/directives/is-required/
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {generateTimeOptions} from "@src/script/generate-time-options";
 import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
+import {extractSecondsFrom_hh_mm_ss, secondsTo_hh_mm} from "@utility/domain/time";
+import {is} from "thiis";
+import {filter, map} from "rxjs";
+import {NGXLogger} from "ngx-logger";
+import {Reactive} from "@utility/cdk/reactive";
+import {NgIf} from "@angular/common";
 
 @Component({
 	selector: 'bee-duration-select-component',
 	standalone: true,
 	template: `
-		<label default [for]="id">{{ label }}</label>
+		<label *ngIf="showLabel" default [for]="id">{{ label }}</label>
 		<ng-select
 			isRequired
 			invalidTooltip
@@ -20,10 +26,13 @@ import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration
 			placeholder="00:00"
 			bindLabel="label"
 			bindValue="value"
+			class="min-h-[42px]"
+			[addTagText]="'keyword.capitalize.addDuration' | translate"
+			[addTag]="addTag.bind(this)"
 			[items]="items"
 			[clearable]="false"
 			[id]="id"
-			[formControl]="control">
+			[formControl]="localControl">
 		</ng-select>
 	`,
 	encapsulation: ViewEncapsulation.None,
@@ -33,10 +42,11 @@ import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration
 		TranslateModule,
 		DefaultLabelDirective,
 		IsRequiredDirective,
-		InvalidTooltipDirective
+		InvalidTooltipDirective,
+		NgIf
 	],
 })
-export class DurationSelectComponent {
+export class DurationSelectComponent extends Reactive implements OnInit {
 
 	@Input()
 	public id = '';
@@ -45,10 +55,13 @@ export class DurationSelectComponent {
 	public label = '';
 
 	@Input()
-	public from = '00:00';
+	public showLabel = true;
 
 	@Input()
-	public to = '23:59';
+	public from = '00:15';
+
+	@Input()
+	public to = '10:00';
 
 	@Input()
 	public step = '00:15';
@@ -56,6 +69,9 @@ export class DurationSelectComponent {
 	@Input()
 	public control = new FormControl();
 
+	public localControl = new FormControl();
+
+	private readonly logger = inject(NGXLogger);
 	private readonly humanizeDurationHelper = inject(HumanizeDurationHelper);
 
 	public readonly items = generateTimeOptions({
@@ -68,4 +84,72 @@ export class DurationSelectComponent {
 		};
 	});
 
+	constructor() {
+		super();
+	}
+
+	public addTag(tag: string) {
+		const result = extractSecondsFrom_hh_mm_ss(tag);
+		if (isNaN(result)) {
+			this.localControl.setErrors({durationFormatInvalid: true});
+			return;
+		}
+
+		const label = this.humanizeDurationHelper.fromSeconds(result);
+
+		this.items.push({
+			label,
+			value: result,
+		});
+
+		return {
+			label,
+			value: secondsTo_hh_mm(result),
+		};
+	}
+
+	public ngOnInit(): void {
+		this.initLocalControlValue();
+		this.localControl.valueChanges.pipe(
+			map((value) => {
+				if (is.string(value)) {
+					return extractSecondsFrom_hh_mm_ss(value);
+				}
+				return value;
+			}),
+			filter(is.number)
+		).subscribe((value) => {
+			this.logger.debug('DurationSelectComponent:localControl:valueChanges', value);
+			this.control.patchValue(value);
+		});
+		this.control.valueChanges
+			.pipe(
+				this.takeUntil(),
+				filter((value) => secondsTo_hh_mm(value) !== this.localControl.value),
+			)
+			.subscribe((value) => {
+				this.logger.debug('DurationSelectComponent:control:valueChanges', value);
+				this.localControl.patchValue(value, {
+					emitEvent: false,
+					onlySelf: true,
+				});
+			});
+	}
+
+	private initLocalControlValue() {
+		const localControlValue = this.control.value;
+		if (localControlValue) {
+			const foundValue = this.items.some(({value}) => value === localControlValue);
+			if (!foundValue) {
+				this.items.push({
+					label: this.humanizeDurationHelper.fromSeconds(localControlValue),
+					value: localControlValue,
+				});
+			}
+		}
+
+		this
+			.localControl
+			.patchValue(localControlValue);
+	}
 }

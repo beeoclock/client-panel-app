@@ -23,7 +23,6 @@ import {IService} from "@service/domain";
 import {Select, Store} from "@ngxs/store";
 import {ServiceState} from "@service/state/service/service.state";
 import {ActivatedRoute, Router} from "@angular/router";
-import {SwitchActiveBlockComponent} from "@utility/presentation/component/switch-active/switch-active-block.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {ImageBlockComponent} from "@service/presentation/component/form/v2/image/image-block/image-block.component";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
@@ -31,6 +30,11 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
+import {
+	SwitchActiveBlockComponent
+} from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
+import {ServicePresentationForm} from "@service/presentation/form/service.presentation.form";
+import {MediaTypeEnum} from "@utility/domain/enum/media.type.enum";
 
 @Component({
 	selector: 'service-form-v2-page-component',
@@ -64,6 +68,20 @@ export default class Index implements OnInit {
 	public backButtonComponent!: BackButtonComponent;
 
 	public readonly form = new ServiceForm();
+	public readonly presentationForm = new ServicePresentationForm({
+		_id: '',
+		createdAt: '',
+		updatedAt: '',
+		object: 'Service.Presentation',
+		banners: [{
+			object: 'Media',
+			mediaType: MediaTypeEnum.serviceBanner,
+			_id: '',
+			url: '',
+			createdAt: '',
+			updatedAt: '',
+		}]
+	});
 
 	public readonly store = inject(Store);
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
@@ -74,7 +92,6 @@ export default class Index implements OnInit {
 	public itemData$!: Observable<IService | undefined>;
 
 	private isEditMode = false;
-	public mediaId = '';
 
 	public ngOnInit(): void {
 		this.detectItem();
@@ -85,9 +102,13 @@ export default class Index implements OnInit {
 			firstValueFrom(this.itemData$).then((result) => {
 				if (result) {
 					this.isEditMode = true;
-					this.mediaId = result?.presentation?.banners?.[0] ?? '';
 
-					const {durationVersions, ...rest} = result;
+					const {durationVersions, presentation, ...rest} = result;
+
+					if (presentation) {
+						this.presentationForm.patchValue(presentation);
+					}
+
 					this.form.patchValue(rest);
 
 					// Prevents from removing all controls from durationVersions

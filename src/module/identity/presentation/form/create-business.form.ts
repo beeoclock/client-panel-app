@@ -1,4 +1,4 @@
-import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AddressForm, GalleryForm} from "@client/presentation/form";
 import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
 import {ServiceForm, ServicesForm} from "@service/presentation/form";
@@ -19,8 +19,6 @@ interface IBusinessClientForm {
 	businessIndustry: FormControl<BusinessIndustryEnum>;
 	businessName: FormControl<string>;
 	businessOwnerFullName: FormControl<string>;
-
-	[key: string]: AbstractControl;
 }
 
 export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
@@ -84,6 +82,7 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 			return;
 		}
 
+		console.log('businessCategory', businessCategory);
 		const servicesByBusinessCategory = servicesByLanguage[businessCategory];
 
 		if (!servicesByBusinessCategory) {
@@ -92,15 +91,30 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 
 		servicesByBusinessCategory.forEach(({
 																					title,
-																					durationInSeconds,
-																					price,
-																					currency
+																					durationVersions,
 																				}) => {
 			const form = new ServiceForm();
 			form.controls.languageVersions.at(0).controls.title.setValue(title);
-			form.controls.durationVersions.at(0).controls.durationInSeconds.setValue(durationInSeconds);
-			form.controls.durationVersions.at(0).controls.prices.at(0).controls.price.setValue(price);
-			form.controls.durationVersions.at(0).controls.prices.at(0).controls.currency.setValue(currency);
+
+			form.controls.durationVersions.clear();
+
+			durationVersions.forEach(({
+																	durationInSeconds,
+																	price,
+																	currency,
+																}) => {
+				form.controls.durationVersions.pushNewOne({
+					breakInSeconds: 0,
+					durationInSeconds,
+					prices: [
+						{
+							price,
+							currency,
+						}
+					]
+				});
+			});
+
 			this.controls.services.push(form);
 		});
 

@@ -7,7 +7,6 @@ interface IRegistrationForm {
   password: FormControl<string | null>;
 
   passwordConfirm: FormControl<string | null>;
-
   [key: string]: AbstractControl;
 }
 

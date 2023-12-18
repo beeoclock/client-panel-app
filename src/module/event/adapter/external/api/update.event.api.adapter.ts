@@ -8,7 +8,7 @@ import {is} from "thiis";
 @Injectable({
   providedIn: 'root'
 })
-export class UpdateEventApiAdapter extends BaseApiAdapter<Event.IEvent> {
+export class UpdateEventApiAdapter extends BaseApiAdapter<Event.RIEvent> {
 
   /**
    * SAVE NEW ITEM OR UPDATE ITEM BY ID
@@ -16,7 +16,7 @@ export class UpdateEventApiAdapter extends BaseApiAdapter<Event.IEvent> {
    */
   @TypeGuard([is.object_not_empty])
   public override execute$(value: Event.IEvent) {
-    return this.httpClient.put<Event.IEvent>(eventEndpointEnum.update, value, {
+    return this.httpClient.put<Event.RIEvent>(eventEndpointEnum.update, value, {
       headers: {
         replace: JSON.stringify({
           id: value._id

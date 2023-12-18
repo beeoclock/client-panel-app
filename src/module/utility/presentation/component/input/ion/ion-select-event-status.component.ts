@@ -13,6 +13,7 @@ import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 	template: `
 		<ion-select
 			[formControl]="control"
+			[multiple]="multiple"
 			class="!min-h-0"
 			fill="solid"
 			interface="popover">
@@ -43,19 +44,34 @@ export class IonSelectEventStatusComponent implements OnInit {
 	public control = new FormControl();
 
 	@Input()
+	public ignoreStatusList: EventStatusEnum[] = [];
+
+	@Input()
+	public multiple = false;
+
+	@Input()
 	public addAllOption = true;
 
 	private readonly translateService = inject(TranslateService);
 
-	public readonly eventStatusList = Object.keys(EventStatusEnum).map((status) => ({
-		id: status,
-		label: this.translateService.instant(`event.keyword.status.plural.${status}`)
-	}));
+	public readonly eventStatusList: {id: string; label: string;}[] = [];
 
 	public ngOnInit(): void {
+		this.initEventStatusList();
 		this.initAllOption();
 	}
 
+	private initEventStatusList() {
+		Object.keys(EventStatusEnum)
+			.filter((status) => {
+				return !this.ignoreStatusList.includes(status as EventStatusEnum);
+			}).forEach((status) => {
+			this.eventStatusList.push({
+				id: status,
+				label: this.translateService.instant(`event.keyword.status.plural.${status}`)
+			});
+		});
+	}
 
 	private initAllOption() {
 		if (!this.addAllOption) {

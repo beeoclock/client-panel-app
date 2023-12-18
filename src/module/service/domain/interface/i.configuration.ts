@@ -1,5 +1,5 @@
+import {IDurationConfiguration} from "@service/domain/interface/i.duration-configuration";
 
 export interface IConfiguration {
-  earliestDateTime?: string;
-  latestDateTime?: string;
+  duration?: IDurationConfiguration;
 }

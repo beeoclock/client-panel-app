@@ -1,4 +1,4 @@
-import {AbstractControl, FormArray, FormControl, FormGroup} from "@angular/forms";
+import {FormArray, FormControl, FormGroup} from "@angular/forms";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs";
 import {ImageSizeValidation} from "@client/presentation/form/validation/image.size.validation";
@@ -7,8 +7,6 @@ import {ImageSizeValidation} from "@client/presentation/form/validation/image.si
 export interface IGalleryForm {
 	object: FormControl<'Gallery'>;
 	images: FormArray<FormControl<string>>;
-
-	[key: string]: AbstractControl;
 }
 
 export const GALLERY_IMAGES_LIMIT = 6;
@@ -94,7 +92,7 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 
 	}
 
-	public pushImage(initialValue?: string): void {
+	public pushImage(initialValue?: string): FormControl<string> {
 
 		const lastImageControl = this.controls.images.controls.at(-1);
 
@@ -107,6 +105,8 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 		}
 
 		this.initHandlerForLastImage();
+
+		return this.controls.images.at(-1);
 
 	}
 

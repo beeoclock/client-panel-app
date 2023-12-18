@@ -1,0 +1,11 @@
+<div class="inline-flex gap-4 items-center">
+	<i class="bi bi-person text-beeColor-500"></i>
+	<div class="flex flex-col">
+		@if (fullName) {
+		<span>{{ fullName }}</span>
+		}
+		@if (contact) {
+		<div [innerHTML]="contact"></div>
+		}
+	</div>
+</div>

@@ -15,6 +15,7 @@ import {DefaultInputDirective} from "@utility/presentation/directives/input/defa
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {FloatingLabelDirective} from "@utility/presentation/directives/label/floating.label.directive";
 import {FloatingInputDirective} from "@utility/presentation/directives/input/floating.input.directive";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
 	selector: 'form-input',
@@ -30,11 +31,13 @@ import {FloatingInputDirective} from "@utility/presentation/directives/input/flo
 		DefaultLabelDirective,
 		FloatingLabelDirective,
 		FloatingInputDirective,
+		TranslateModule,
 	],
 	template: `
 		<label default *ngIf="showLabel" [for]="id">
-			{{ label }}
+			{{ label ?? (labelTranslateKey | translate) }}
 		</label>
+		<ng-content/>
 		<input
 			isRequired
 			invalidTooltip
@@ -43,7 +46,9 @@ import {FloatingInputDirective} from "@utility/presentation/directives/input/flo
 			[isRequiredEnabled]="showLabel"
 			[class.disabled]="disabled"
 			[formControl]="control"
-			[placeholder]="placeholder"
+			[classList]="customClassList"
+			[additionalClassList]="additionalClassList"
+			[placeholder]="placeholder ?? (placeholderTranslateKey | translate)"
 			[id]="id"
 			[type]="type"
 			[autocomplete]="autocomplete"/>
@@ -52,7 +57,10 @@ import {FloatingInputDirective} from "@utility/presentation/directives/input/flo
 export class FormInputComponent implements DoCheck {
 
 	@Input()
-	public label = 'todo';
+	public label: unknown | string;
+
+	@Input()
+	public labelTranslateKey = '';
 
 	@Input()
 	public showLabel = true;
@@ -64,7 +72,16 @@ export class FormInputComponent implements DoCheck {
 	public type = 'text';
 
 	@Input()
+	public customClassList: string = '';
+
+	@Input()
+	public additionalClassList: string = '';
+
+	@Input()
 	public placeholder = '';
+
+	@Input()
+	public placeholderTranslateKey = '';
 
 	@Input()
 	public autocomplete = '';

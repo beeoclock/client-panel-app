@@ -11,6 +11,12 @@ import {
 	SelectAutoActionTypeOnEventComponent
 } from "@utility/presentation/component/input/select-auto-action-type-on-event.component";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
+import {
+	SelectSlotBuildingStrategyComponent
+} from "@utility/presentation/component/input/select-slot-building-strategy.component";
+import {
+	SelectSlotRetrievingStrategyComponent
+} from "@utility/presentation/component/input/select-slot-retrieving-strategy.component";
 
 @Component({
   selector: 'client-business-profile-booking-settings-component',
@@ -23,7 +29,9 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 		SelectLatestBookingComponent,
 		SelectAutoActionOnEventInSecondsComponent,
 		SelectAutoActionTypeOnEventComponent,
-		HumanizeDurationPipe
+		HumanizeDurationPipe,
+		SelectSlotBuildingStrategyComponent,
+		SelectSlotRetrievingStrategyComponent
 	],
   template: `
     <bee-card gap="gap-8">
@@ -53,6 +61,14 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 				<kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ form.controls.autoActionOnEventInSeconds.value | humanizeDuration }}</kbd>
 				{{ 'client.profile.form.section.bookingSettings.hint.autoActionOnEvent.finish' | translate }}
 			</div>
+
+			<hr>
+
+			<select-slot-building-strategy-component [slotSettings]="form.controls.slotSettings"/>
+
+			<hr>
+
+			<select-slot-retrieving-strategy-component [slotSettings]="form.controls.slotSettings"/>
 
     </bee-card>
   `

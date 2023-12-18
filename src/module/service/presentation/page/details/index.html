@@ -23,15 +23,13 @@
 				<div class="grid grid-cols-12 gap-4">
 
 					<div
-						*ngIf="service.presentation?.banners?.[0] as banner" class="col-span-12 md:col-span-3">
+						*ngFor="let banner of service.presentation?.banners ?? []" class="col-span-12 md:col-span-3">
 						<div
 							class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-beeColor-400">
 							<img
-								bocMedia
-								[src]="banner"
-								twHeight="h-[128px]"
-								twWidth="w-[128px]"
-								class="hidden object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
+								*ngIf="banner"
+								[src]="banner.url"
+								class="object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
 								alt="Uploaded Image"/>
 						</div>
 					</div>
@@ -39,23 +37,29 @@
 						<div class="flex flex-col gap-2">
 							<div class="grid grid-cols-12 gap-4">
 
-								<div class="col-span-12 md:col-span-9">
+								<div class="col-span-12 md:col-span-6">
 
 									<div class="text-beeColor-500">{{ service.languageVersions[0].description }}</div>
 
 								</div>
 
-								<div class="col-span-12 md:col-span-3">
+								<div class="col-span-12 md:col-span-6">
 
-									<div class="flex flex-col gap-1">
+									<div class="flex flex-col gap-2">
 
-										<div class="text-end font-bold">
-											{{ service.durationVersions[0].prices[0].price | currency: service.durationVersions[0].prices[0].currency: 'symbol-narrow' }}
+										<div class="flex flex-col items-end">
+											<div class="font-bold">{{ 'keyword.capitalize.price' | translate }}</div>
+											<div class="flex flex-col items-end"
+													 [innerHTML]="durationVersionHtmlHelper.getPriceValue(service)">
+											</div>
 										</div>
-										<div class="text-end">
-											{{ service.durationVersions[0].durationInSeconds | humanizeDuration }}
-										</div>
 
+										<div class="flex flex-col items-end">
+											<div class="font-bold">{{ 'keyword.capitalize.duration' | translate }}</div>
+											<div class="flex flex-col items-end"
+													 [innerHTML]="durationVersionHtmlHelper.getDurationValue(service)">
+											</div>
+										</div>
 									</div>
 
 								</div>

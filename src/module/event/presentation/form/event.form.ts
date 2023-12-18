@@ -3,6 +3,7 @@ import {IService} from "@service/domain";
 import {AttendeesForm} from "@event/presentation/form/attendant.form";
 import {filter} from "rxjs";
 import {is} from "thiis";
+import {EventConfigurationForm} from "@event/presentation/form/configuration.form";
 
 
 export interface IEventForm {
@@ -14,6 +15,7 @@ export interface IEventForm {
 	end: FormControl<string>;
 	timeZone: FormControl<string>;
 	attendees: AttendeesForm;
+	configuration: EventConfigurationForm;
 
 	[key: string]: AbstractControl;
 }
@@ -30,6 +32,7 @@ export class EventForm extends FormGroup<IEventForm> {
 			services: new FormControl(),
 			timeZone: new FormControl(),
 			attendees: new AttendeesForm(),
+			configuration: new EventConfigurationForm(),
 		});
 		this.initValidators();
 		this.initValue();
@@ -61,9 +64,11 @@ export class EventForm extends FormGroup<IEventForm> {
 			if (!firstService) {
 				return;
 			}
-			const [firstDurationVersion] = firstService.durationVersions;
 			const end = new Date(value);
-			end.setSeconds(Number(new Date(value).getSeconds() + (firstDurationVersion.durationInSeconds ?? 0) + (firstDurationVersion.breakInSeconds ?? 0)));
+			// TODO add to form new control to detect which duration version is selected
+			const [firstDurationVersion] = firstService.durationVersions;
+			const eventDurationInSeconds = (firstDurationVersion.durationInSeconds ?? 0) + (firstDurationVersion.breakInSeconds ?? 0);
+			end.setSeconds(Number(new Date(value).getSeconds() + eventDurationInSeconds));
 			this.controls.end.patchValue(end.toISOString());
 		});
 	}

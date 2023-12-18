@@ -10,6 +10,7 @@ import {LanguagesHumanizeDurationHelper} from "@utility/helper/humanize/language
 export class HumanizeDurationHelper {
 
 	private readonly translateService = inject(TranslateService);
+	private language = `short_${this.translateService.currentLang}`;
 	private humanize = this.getHumanize();
 
 	constructor() {
@@ -18,10 +19,18 @@ export class HumanizeDurationHelper {
 		});
 	}
 
+	/**
+	 * Please, use the method only for case when use provide the service in the component
+	 * E.g.: {provide: [HumanizeDurationHelper]}
+	 */
+	public useLongFormat(): void {
+		this.language = this.translateService.currentLang;
+		this.humanize = this.getHumanize();
+	}
+
 	private getHumanize() {
-		const language = `short_${this.translateService.currentLang}`;
 		return humanizeDuration.humanizer({
-			language,
+			language: this.language,
 			languages: LanguagesHumanizeDurationHelper,
 		});
 	}

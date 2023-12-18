@@ -10,12 +10,15 @@ import {businessProfileEndpointEnum} from "@client/endpoint/business-profile.end
 })
 export class UpdateBusinessProfileApiAdapter extends BaseApiAdapter<Client.RIClient> {
 
+	// private readonly weekDayTimeZoneHelper = inject(WeekDayTimeZoneHelper);
+
 	/**
 	 * SAVE NEW ITEM OR UPDATE ITEM BY ID
 	 * @param value
 	 */
 	@TypeGuard([is.object_not_empty])
 	public override execute$(value: Client.IClient) {
+		// value = this.weekDayTimeZoneHelper.convertWeekDaysToUTC(value);
 		return this.httpClient.put<Client.RIClient>(businessProfileEndpointEnum.update, value);
 	}
 

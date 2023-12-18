@@ -1,12 +1,12 @@
 import {
-    AfterViewInit,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    inject,
-    Input,
-    Output
+	AfterViewInit,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	inject,
+	Input,
+	Output
 } from "@angular/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
@@ -16,6 +16,7 @@ import {RIBaseEntity} from "@utility/domain";
 import {ITableState} from "@utility/domain/table.state";
 import {debounce} from "typescript-debounce-decorator";
 import {BaseActions} from "@utility/state/base/base.actions";
+import {OrderByEnum} from "./domain/enum";
 
 @Component({
 	selector: 'utility-table-component',
@@ -40,9 +41,6 @@ export abstract class TableComponent<ITEM extends RIBaseEntity<string>> implemen
 	public readonly actions!: {
 		readonly GetList: typeof BaseActions.GetList;
 		readonly UpdateTableState: typeof BaseActions.UpdateTableState<ITEM>;
-		readonly DeleteItem: typeof BaseActions.DeleteItem;
-		readonly ArchiveItem: typeof BaseActions.ArchiveItem;
-		readonly ClearTableCacheAndGetList: typeof BaseActions.ClearTableCacheAndGetList;
 	};
 	public selectedIds: string[] = [];
 
@@ -64,8 +62,11 @@ export abstract class TableComponent<ITEM extends RIBaseEntity<string>> implemen
 	}
 
 	public goToDetail(id: string): void {
-		this.router.navigate([id], {
-			relativeTo: this.activatedRoute
+		this.router.navigate(['../', id], {
+			relativeTo: this.activatedRoute,
+			queryParams: {
+				returnUrl: this.router.url
+			}
 		}).then();
 	}
 
@@ -80,7 +81,7 @@ export abstract class TableComponent<ITEM extends RIBaseEntity<string>> implemen
 	}
 
 	public updateOrderBy(target: HTMLTableCellElement): void {
-		const orderBy = target.getAttribute('data-orderBy');
+		const orderBy = target.getAttribute('data-orderBy') as OrderByEnum | null;
 		if (!orderBy) {
 			const parent = target.parentElement as HTMLTableCellElement;
 			if (parent) {
@@ -93,21 +94,6 @@ export abstract class TableComponent<ITEM extends RIBaseEntity<string>> implemen
 				this.store.dispatch(new this.actions.GetList());
 			});
 		}
-	}
-
-	public delete(id: string): void {
-		this.store.dispatch(new this.actions.DeleteItem(id));
-		this.clearTableCache();
-	}
-
-	public async archive(id: string): Promise<void> {
-		await firstValueFrom(this.store.dispatch(
-			new this.actions.ArchiveItem(id)));
-		this.clearTableCache();
-	}
-
-	public clearTableCache(): void {
-		this.store.dispatch(new this.actions.ClearTableCacheAndGetList());
 	}
 
 	public pageChange($event: number): void {

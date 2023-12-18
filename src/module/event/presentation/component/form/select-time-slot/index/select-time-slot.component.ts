@@ -1,13 +1,18 @@
-import {Component, Input} from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {DateTime} from "luxon";
 import {DatePipe, NgIf} from "@angular/common";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
-import {SelectDateComponent} from "@event/presentation/component/form/select-time-slot/date/select-date.component";
 import {SelectTimeComponent} from "@event/presentation/component/form/select-time-slot/time/select-time.component";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
+import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
+import {IDayItem} from "@utility/domain/interface/i.day-item";
+import {
+	DateSliderSelectComponent
+} from "@utility/presentation/component/slider/date-slider-select/date-slider-select.component";
+import {EventConfigurationForm} from "@event/presentation/form/configuration.form";
 
 @Component({
 	selector: 'event-select-time-slot-form-component',
@@ -17,11 +22,11 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 		TranslateModule,
 		DatePipe,
 		InvalidTooltipComponent,
-		SelectDateComponent,
 		SelectTimeComponent,
 		NgIf,
 		HumanizeDurationPipe,
-		DynamicDatePipe
+		DynamicDatePipe,
+		DateSliderSelectComponent,
 	]
 })
 export class SelectTimeSlotComponent {
@@ -30,8 +35,19 @@ export class SelectTimeSlotComponent {
 	public control!: FormControl<string>;
 
 	@Input({required: true})
+	public configurationForm!: EventConfigurationForm;
+
+	@Input({required: true})
 	public editable = true;
 
 	public readonly localDateTimeControl: FormControl<DateTime> = new FormControl(DateTime.now()) as FormControl<DateTime>;
+	public readonly slotsService = inject(SlotsService);
+
+	public updateDayItemList(dayItemList: IDayItem[]) {
+		this.slotsService
+			.setDayItemList(dayItemList)
+			.initSlots()
+			.then();
+	}
 
 }

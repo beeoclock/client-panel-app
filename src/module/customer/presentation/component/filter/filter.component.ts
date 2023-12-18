@@ -68,7 +68,7 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>
-			<button type="button" primary routerLink="form">
+			<button type="button" primary routerLink="../form">
 				<i class="bi bi-plus-lg"></i>
 				<span class="hidden xl:block">
 					{{ 'customer.button.create' | translate }}

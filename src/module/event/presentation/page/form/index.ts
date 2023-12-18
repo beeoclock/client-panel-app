@@ -1,4 +1,13 @@
-import {Component, inject, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {
+	AfterContentInit,
+	Component,
+	inject,
+	OnInit,
+	QueryList,
+	ViewChild,
+	ViewChildren,
+	ViewEncapsulation
+} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -7,7 +16,7 @@ import {EventForm} from '@event/presentation/form/event.form';
 import {AttendeesComponent} from '@event/presentation/component/form/attendees/attendees.component';
 import {IEvent, MEvent, RMIEvent} from "@event/domain";
 import {TranslateModule} from "@ngx-translate/core";
-import {filter, firstValueFrom, Observable} from "rxjs";
+import {combineLatest, filter, firstValueFrom, map, Observable, tap} from "rxjs";
 import {Select, Store} from "@ngxs/store";
 import {EventState} from "@event/state/event/event.state";
 import {EventActions} from "@event/state/event/event.actions";
@@ -22,15 +31,19 @@ import {LinkButtonDirective} from "@utility/presentation/directives/button/link.
 import {NGXLogger} from "ngx-logger";
 import {IService} from "@service/domain";
 import {
-    SelectTimeSlotComponent
+	SelectTimeSlotComponent
 } from "@event/presentation/component/form/select-time-slot/index/select-time-slot.component";
 import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
 import {Reactive} from "@utility/cdk/reactive";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {
-    ButtonSaveContainerComponent
+	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
+import {is} from "thiis";
+import {ClientState} from "@client/state/client/client.state";
+import {RIClient} from "@client/domain";
+import {RISchedule} from "@utility/domain/interface/i.schedule";
 
 @Component({
 	selector: 'event-form-page',
@@ -55,9 +68,12 @@ import {
 		DefaultPanelComponent,
 		ButtonSaveContainerComponent,
 	],
+	providers: [
+		SlotsService
+	],
 	standalone: true
 })
-export default class Index extends Reactive implements OnInit {
+export default class Index extends Reactive implements OnInit, AfterContentInit {
 
 	// TODO move functions to store effects/actions
 
@@ -74,12 +90,19 @@ export default class Index extends Reactive implements OnInit {
 	public readonly preview = new BooleanState(false);
 
 	public specialist = '';
+	public eventDurationInSeconds = 0;
 
 	@ViewChild(BackButtonComponent)
 	public backButtonComponent!: BackButtonComponent;
 
+	@ViewChildren(ServicesComponent)
+	public servicesComponent!: QueryList<ServicesComponent>;
+
 	@Select(EventState.itemData)
 	public itemData$!: Observable<RMIEvent | undefined>;
+
+	@Select(ClientState.item)
+	public client$!: Observable<RIClient>;
 
 	public get value(): RMIEvent {
 		return MEvent.create(this.form.getRawValue() as IEvent);
@@ -91,46 +114,116 @@ export default class Index extends Reactive implements OnInit {
 
 	public ngOnInit(): void {
 		this.detectItem();
-		this.form.controls.services.valueChanges.pipe(
+
+		const clientAndService$ = combineLatest(
+			[
+				this.client$.pipe(this.takeUntil(), filter(is.object)),
+				this.form.controls.services.valueChanges.pipe(
+					this.takeUntil(),
+					filter((services) => !!services?.length),
+					map(([firstService]) => firstService),
+					filter((firstService) => {
+						// Allow only if specialist or duration is not the same
+						const newSpecialist = this.takeSpecialistFromService(firstService);
+						const durationInSeconds = this.getEventDurationInSeconds(firstService);
+						return this.specialist !== newSpecialist || this.eventDurationInSeconds !== durationInSeconds;
+					}),
+					tap(this.setSpecialist.bind(this)),
+					tap(this.setEventDuration.bind(this)),
+				),
+			]
+		);
+
+		clientAndService$
+			.pipe(
+				this.takeUntil()
+			)
+			.subscribe(([client, services]) => {
+				this.logger.debug('clientAndService$', client, services, this.slotsService.initialized.isOn);
+
+				this.slotsService
+					.setSchedules((client?.schedules ?? []) as RISchedule[])
+					.setSpecialist(this.specialist)
+					.setEventDurationInSeconds(this.eventDurationInSeconds)
+					.setSlotBuildingStrategy(client.bookingSettings.slotSettings.slotBuildingStrategy)
+					.setSlotIntervalInSeconds(client.bookingSettings.slotSettings.slotIntervalInSeconds);
+
+				if (this.slotsService.initialized.isOn) {
+					this.slotsService.initialized.switchOff();
+					this.slotsService.initSlots().then();
+				}
+
+			});
+
+	}
+
+	public ngAfterContentInit(): void {
+
+		this.activatedRoute.data.pipe(
 			this.takeUntil(),
-			filter((services) => !!services?.length)
-		).subscribe(([firstService]) => {
-
-			this.setSpecialist(firstService);
-
-			this.slotsService.setSpecialist(this.specialist);
-			this.slotsService.setEventDurationInSeconds(this.getEventDurationInSeconds(firstService));
-			this.slotsService.refillSlotsIfInitialized().then();
-
+		).subscribe((data) => {
+			// {cacheLoaded: boolean; customer: undefined | ICustomer; service: undefined | IService;}
+			const {customer, service} = data;
+			if (customer) {
+				this.form.controls.attendees.controls[0].controls.customer.patchValue(customer);
+				this.form.controls.attendees.controls[0].disable();
+			}
+			if (service) {
+				this.form.controls.services.patchValue([service]);
+			}
 		});
 
 	}
 
-	public getEventDurationInSeconds(service: IService): number {
+	private getEventDurationInSeconds(service: IService): number {
 		try {
-			const [durationVersion] = service.durationVersions;
-			const {durationInSeconds, breakInSeconds} = durationVersion;
-			return (durationInSeconds ?? 0) + (breakInSeconds ?? 0);
+			// Find the biggest duration version
+
+			const {durationVersions} = service;
+			this.logger.debug('getEventDurationInSeconds', durationVersions);
+			const durationVersion = durationVersions.reduce((acc, curr) => {
+				if (curr.durationInSeconds > acc.durationInSeconds) {
+					return curr;
+				}
+				return acc;
+			}, durationVersions[0]);
+
+			return (durationVersion.durationInSeconds ?? 0) + (durationVersion.breakInSeconds ?? 0);
+
 		} catch (e) {
 			return 0;
 		}
 	}
 
-	private setSpecialist(service: IService): void {
+	private setEventDuration(service: IService): this {
+		this.eventDurationInSeconds = this.getEventDurationInSeconds(service);
+		return this;
+	}
+
+	private takeSpecialistFromService(service: IService): string {
 
 		const [firstSpecialist] = service?.specialists ?? [];
 
 		if (!firstSpecialist) {
-			return;
+			return '';
 		}
 
 		const {member} = firstSpecialist;
 
-		if (typeof member === 'string') {
-			this.specialist = member;
-		} else {
-			this.specialist = member?._id ?? '';
+		if (is.string(member)) {
+			return member;
 		}
+
+		return member?._id ?? '';
+
+	}
+
+	private setSpecialist(service: IService): this {
+
+		this.specialist = this.takeSpecialistFromService(service);
+
+		return this;
+
 	}
 
 	public detectItem(): void {
@@ -153,12 +246,12 @@ export default class Index extends Reactive implements OnInit {
 
 						const {status, _id, ...initialValue} = rest;
 
-						this.form.patchValue(initialValue);
+						this.form.patchValue(structuredClone(initialValue));
 
 					} else {
 
 						this.isEditMode = true;
-						this.form.patchValue(rest);
+						this.form.patchValue(structuredClone(rest));
 
 					}
 
@@ -197,6 +290,11 @@ export default class Index extends Reactive implements OnInit {
 			this.form.markAsPending();
 			const value = this.form.getRawValue() as IEvent;
 
+			// Delete each configuration of duration at service
+			value.services?.forEach((service) => {
+				delete service.configuration?.duration;
+			});
+
 			if (this.isEditMode) {
 
 				await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(value)));
@@ -219,12 +317,26 @@ export default class Index extends Reactive implements OnInit {
 	}
 
 	public goToPreview(): void {
+
+		if (!this.checkIfServicesAreValid()){
+			this.logger.debug('Services are not valid');
+			return;
+		}
+
+		this.logger.debug('Services are valid');
+
 		this.form.updateValueAndValidity();
 		this.form.markAllAsTouched();
 		this.logger.debug(`Event:goToPreview:${this.form.status}`, this.form, this.form.getRawValue());
 		if (this.form.valid) {
 			this.preview.switchOn();
 		}
+	}
+
+	private checkIfServicesAreValid(): boolean {
+		return this.servicesComponent.toArray().every((serviceComponent) => {
+			return serviceComponent.checkValidationOfDurationVersionTypeRangeComponentList();
+		});
 	}
 
 }

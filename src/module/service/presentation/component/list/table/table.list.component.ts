@@ -2,7 +2,6 @@ import {Component, inject, ViewEncapsulation} from "@angular/core";
 import {CurrencyPipe, NgForOf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
-import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
@@ -19,6 +18,9 @@ import {BodyTableFlexDirective} from "@utility/presentation/directives/talbe/fle
 import {ColumnTableFlexDirective} from "@utility/presentation/directives/talbe/flex/column.table.flex.directive";
 import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex/row.table.flex.directive";
 import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
+import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
+import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
+import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 
 @Component({
 	selector: 'service-table-list-component',
@@ -29,7 +31,6 @@ import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/fl
 		NgForOf,
 		RouterLink,
 		ActiveStyleDirective,
-		ActionComponent,
 		TableStatePaginationComponent,
 		DynamicDatePipe,
 		SortIndicatorComponent,
@@ -40,7 +41,13 @@ import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/fl
 		BodyTableFlexDirective,
 		ColumnTableFlexDirective,
 		RowTableFlexDirective,
-		TableTableFlexDirective
+		TableTableFlexDirective,
+		NoDataPipe,
+		RowActionButtonComponent,
+	],
+	providers: [
+		CurrencyPipe,
+		DurationVersionHtmlHelper,
 	]
 })
 export class TableListComponent extends TableComponent<IService> {
@@ -48,6 +55,7 @@ export class TableListComponent extends TableComponent<IService> {
 	public override readonly actions = ServiceActions;
 
 	public readonly translateService = inject(TranslateService);
+	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
 	public get currentLanguageCode(): LanguageCodeEnum {
 		return this.translateService.getDefaultLang() as LanguageCodeEnum;
@@ -73,12 +81,12 @@ export class TableListComponent extends TableComponent<IService> {
 			},
 			price: {
 				style: {
-					minWidth: '150px',
+					minWidth: '300px',
 				},
 			},
 			duration: {
 				style: {
-					minWidth: '150px',
+					minWidth: '300px',
 				},
 			},
 			createdAt: {
@@ -92,12 +100,11 @@ export class TableListComponent extends TableComponent<IService> {
 				},
 			},
 			action: {
-				classList: ['bg-white'],
+				classList: ['bg-white', 'justify-center'],
 				style: {
-					minWidth: '66px',
+					minWidth: '75px',
 				},
 			},
 		},
 	}
-
 }

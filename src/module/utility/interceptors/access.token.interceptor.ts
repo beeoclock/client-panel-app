@@ -7,6 +7,7 @@ import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {Endpoint} from "@utility/domain/endpoint";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {HttpStatusEnum} from "@utility/domain/enum/http-status.enum";
+import {is} from "thiis";
 
 /**
  * Set Authorization header to every request that has at config header.authorization = true
@@ -56,6 +57,7 @@ export const AccessTokenInterceptor: HttpInterceptorFn = (request: HttpRequest<u
 function setAuthorizationToken(request: HttpRequest<unknown>, next: HttpHandlerFn, store: Store) {
 	return store.select(IdentityState.token)
 		.pipe(
+			filter((token) => is.not_undefined(token)),
 			exhaustMap((tokenState) => {
 				const headers = request.headers.set('Authorization', `Bearer ${tokenState?.token}`);
 				return next(request.clone({
