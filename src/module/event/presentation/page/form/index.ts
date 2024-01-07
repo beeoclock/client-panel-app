@@ -139,7 +139,7 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 				this.takeUntil()
 			)
 			.subscribe(([client, services]) => {
-				this.logger.debug('clientAndService$', client, services, this.slotsService.initialized.isOn);
+				this.logger.debug('clientAndService$', client, services, this.slotsService.initialized.isTrue);
 
 				this.slotsService
 					.setSchedules((client?.schedules ?? []) as RISchedule[])
@@ -148,8 +148,8 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 					.setSlotBuildingStrategy(client.bookingSettings.slotSettings.slotBuildingStrategy)
 					.setSlotIntervalInSeconds(client.bookingSettings.slotSettings.slotIntervalInSeconds);
 
-				if (this.slotsService.initialized.isOn) {
-					this.slotsService.initialized.switchOff();
+				if (this.slotsService.initialized.isTrue) {
+					this.slotsService.initialized.doFalse();
 					this.slotsService.initSlots().then();
 				}
 

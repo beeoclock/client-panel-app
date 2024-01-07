@@ -21,47 +21,47 @@ import {Service} from "@src/module/service/domain";
 		TranslateModule
 	],
 	template: `
-		<ng-container *ngFor="let member of modalSelectSpecialistListAdapter.tableState.items">
+        <ng-container *ngFor="let member of modalSelectSpecialistListAdapter.tableState.items">
 
-			<div class="grid grid-cols-16 gap-3">
-				<div class="col-span-3">
-					<div class="w-[100px] h-[100px] rounded-full bg-beeColor-300">
+            <div class="grid grid-cols-16 gap-3">
+                <div class="col-span-3">
+                    <div class="w-[100px] h-[100px] rounded-full bg-beeColor-300">
 
-					</div>
-				</div>
-				<div class="col-span-9 flex items-center">
-					<div class="flex flex-col">
-						<div>
-							{{ member.firstName }} {{ member.lastName }}
-						</div>
-						<div>
-							{{ member.email }}
-						</div>
-						<div></div>
-						<div></div>
-					</div>
-				</div>
-				<div class="col-span-4 flex items-center">
-					<button
-						*ngIf="isSelected(member)"
-						(click)="deselect(member)"
-						type="button"
-						class="w-full border border-green-200 bg-green-50 px-4 py-2 rounded-2xl">
-						{{ 'keyword.capitalize.selected' | translate }}
-					</button>
-					<button
-						*ngIf="isNotSelected(member)"
-						(click)="select(member)"
-						type="button"
-						class="w-full border border-blue-200 bg-blue-50 px-4 py-2 rounded-2xl">
-						{{ 'keyword.capitalize.select' | translate }}
-					</button>
-				</div>
-			</div>
+                    </div>
+                </div>
+                <div class="col-span-9 flex items-center">
+                    <div class="flex flex-col">
+                        <div>
+                            {{ member.firstName }} {{ member.lastName }}
+                        </div>
+                        <div>
+                            {{ member.email }}
+                        </div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <div class="col-span-4 flex items-center">
+                    <button
+                            *ngIf="isSelected(member)"
+                            (click)="deselect(member)"
+                            type="button"
+                            class="w-full border border-green-200 bg-green-50 px-4 py-2 rounded-2xl">
+                        {{ 'keyword.capitalize.selected' | translate }}
+                    </button>
+                    <button
+                            *ngIf="isNotSelected(member)"
+                            (click)="select(member)"
+                            type="button"
+                            class="w-full border border-blue-200 bg-blue-50 px-4 py-2 rounded-2xl">
+                        {{ 'keyword.capitalize.select' | translate }}
+                    </button>
+                </div>
+            </div>
 
-		</ng-container>
-		<utility-loader *ngIf="modalSelectSpecialistListAdapter.loading$.isOn"/>
-	`
+        </ng-container>
+        <utility-loader *ngIf="modalSelectSpecialistListAdapter.loading$.isTrue"/>
+    `
 })
 export class ModalSelectSpecialistComponent implements OnInit {
 

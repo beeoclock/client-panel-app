@@ -1,6 +1,6 @@
 <div
 	class="relative w-full rounded-2xl border dark:bg-neutral-800 bg-white max-h-[calc(100vh-4rem)] md:max-h-[calc(100vh-6rem)]">
-	<utility-loader class="absolute top-0 left-0 rounded-2xl w-full py-2" *ngIf="loader.isOn" [disabled]="false" [showLabel]="false"/>
+	<utility-loader class="absolute top-0 left-0 rounded-2xl w-full py-2" *ngIf="loader.isTrue" [disabled]="false" [showLabel]="false"/>
 	<utility-date-slider-select-component
 		class="block m-4"
 		(updateDayItemList)="updateDayItemList($event)"
@@ -20,7 +20,7 @@
 	</div>
 	<div
 		class="flex flex-col overflow-y-scroll border-t max-h-[calc(100vh-(13rem+49px))] md:max-h-[calc(100vh-(30.625rem+49px))]">
-<!--		<ng-template [ngIf]="loader.isOff">-->
+<!--		<ng-template [ngIf]="loader.isFalse">-->
 			<ng-template [ngIf]="items.length">
 				<a
 					*ngFor="let item of items"
