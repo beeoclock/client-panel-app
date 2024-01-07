@@ -25,6 +25,8 @@ import {NGXLogger} from "ngx-logger";
 import {
 	CalendarDomManipulationService
 } from "@event/presentation/dom-manipulation-service/calendar.dom-manipulation-service";
+import {GetListCalendarAction} from "@event/state/calendar/actions/get-list.calendar.action";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
 	selector: 'event-calendar-page',
@@ -44,6 +46,7 @@ export default class Index implements OnInit, AfterViewInit {
 	private readonly calendarDomManipulationService = inject(CalendarDomManipulationService);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
+	private readonly translateService = inject(TranslateService);
 	private readonly document = inject(DOCUMENT);
 
 	// Hours
@@ -53,6 +56,7 @@ export default class Index implements OnInit, AfterViewInit {
 	private readonly dateRanges$ = this.store.select(CalendarQueries.dateRanges);
 	private readonly firstDate$ = this.store.select(CalendarQueries.firstDate);
 	private readonly lastDate$ = this.store.select(CalendarQueries.lastDate);
+	private readonly dataByType$ = this.store.select(CalendarQueries.dataByType);
 
 	// Dates
 	private readonly currentDate$ = this.store.select(CalendarQueries.currentDate);
@@ -86,6 +90,18 @@ export default class Index implements OnInit, AfterViewInit {
 	}[] = [];
 
 	public ngOnInit() {
+
+		this.store.dispatch(new GetListCalendarAction());
+
+		this.dataByType$.pipe().subscribe((dataByType) => {
+			// Get data from dataByType
+			this.calendarDomManipulationService.clearAll();
+			Object.values(dataByType).forEach((events) => {
+				events.forEach((event) => {
+					this.calendarDomManipulationService.pushData(event);
+				});
+			});
+		});
 
 		this.currentDate$.pipe(filter(() => this.initialized.isTrue)).subscribe((currentDate) => {
 			this.currentDate = currentDate;
@@ -132,10 +148,6 @@ export default class Index implements OnInit, AfterViewInit {
 		this.initRefToSelectedHour();
 		this.initCurrentCalendar();
 		this.initialized.doTrue();
-		this.calendarDomManipulationService
-			.initExampleData('02.01.2024-18')
-			.initExampleData('04.01.2024-8')
-			.initExampleData('06.01.2024-14');
 	}
 
 	/**
@@ -147,16 +159,21 @@ export default class Index implements OnInit, AfterViewInit {
 	 */
 	private fillUpPreferencesOfCalendars(fromDateTime: DateTime, toDateTime: DateTime, push = true) {
 
+		fromDateTime = fromDateTime.setLocale(this.translateService.currentLang);
+		toDateTime = toDateTime.setLocale(this.translateService.currentLang);
+
 		const preferences = {
 			from: fromDateTime.toJSDate(),
 			to: toDateTime.toJSDate(),
 			header: Interval
 				.fromDateTimes(fromDateTime, toDateTime)
 				.splitBy({day: 1})
-				.map((interval) => ({
-					content: interval.start?.toFormat('dd.MM (EEE)') ?? '',
-					id: interval.start?.toFormat('dd.MM.yyyy') ?? '',
-				})),
+				.map((interval) => {
+					return {
+						content: interval.start?.toFormat('dd.MM (EEE)') ?? '',
+						id: interval.start?.toFormat('dd.MM.yyyy') ?? '',
+					};
+				}),
 		};
 
 		if (push) {
@@ -202,7 +219,7 @@ export default class Index implements OnInit, AfterViewInit {
 	private initHandlerOnHorizontalScroll() {
 		const containerOfCalendarsNativeElement: HTMLElement = this.containerOfCalendarsRef.element.nativeElement;
 
-		containerOfCalendarsNativeElement.addEventListener('scroll', (event) => {
+		containerOfCalendarsNativeElement.addEventListener('scroll', () => {
 			if (!this.currentCalendarRef) {
 				return;
 			}

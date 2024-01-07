@@ -291,9 +291,13 @@ export default class Index extends Reactive implements OnInit, AfterContentInit 
 			const value = this.form.getRawValue() as IEvent;
 
 			// Delete each configuration of duration at service
-			value.services?.forEach((service) => {
-				delete service.configuration?.duration;
-			});
+			try {
+				value.services?.forEach((service) => {
+					delete service.configuration?.duration;
+				});
+			} catch (e) {
+				this.logger.error(e);
+			}
 
 			if (this.isEditMode) {
 

@@ -30,7 +30,7 @@ export class CellComponent implements OnChanges {
 	public idSuffix = '';
 
 	@HostBinding()
-	public class = 'clickMe test border-slate-100 dark:border-slate-200/5';
+	public class = 'clickMe test border-slate-100 dark:border-slate-200/5 h-[50px]';
 
 	@HostBinding()
 	public style = '';
@@ -40,12 +40,6 @@ export class CellComponent implements OnChanges {
 
 	public ngOnChanges(changes: SimpleChanges & { data: { currentValue: CellComponent['data'] } }) {
 		if (changes.data) {
-			// row-start-[{{ row }}] col-start-[{{ index + 1 }}]
-			this.style = `
-				grid-row-start: ${this.row};
-				grid-column-start: ${this.column};
-			`;
-
 			this.id =  `${this.data.id}-${this.idSuffix}`;
 		}
 	}

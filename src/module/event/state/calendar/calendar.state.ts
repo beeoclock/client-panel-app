@@ -1,6 +1,5 @@
-import {Injectable} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {Action, NgxsOnInit, State, StateContext} from "@ngxs/store";
-import {InitCalendarAction} from "@event/state/calendar/actions/init.calendar.action";
 import {DateTime} from "luxon";
 import {
 	DEFAULT_PRESENTATION_CALENDAR_TYPE,
@@ -8,9 +7,12 @@ import {
 } from "@event/domain/enum/presentation-calendar-type.enum";
 import {PushNextCalendarAction} from "@event/state/calendar/actions/push.next.calendar.action";
 import {PushPrevCalendarAction} from "@event/state/calendar/actions/push.prev.calendar.action";
+import {GetListCalendarAction} from "@event/state/calendar/actions/get-list.calendar.action";
+import {ListMergedEventApiAdapter} from "@event/adapter/external/api/list.merged.event.api.adapter";
+import {IEvent} from "@event/domain";
 
 export interface ICalendarState {
-	calendarDataByType: {[key: string]: {a: 1}[]}; // key - ISO, value - events
+	calendarDataByType: {[key: string]: IEvent[]}; // key - ISO, value - events
 	currentDate: Date;
 	presentationCalendarType: PresentationCalendarType;
 	dateRanges: {
@@ -34,6 +36,8 @@ export interface ICalendarState {
 })
 @Injectable()
 export class CalendarState implements NgxsOnInit {
+
+	private readonly listMergedEventApiAdapter = inject(ListMergedEventApiAdapter);
 
 	public ngxsOnInit(ctx: StateContext<ICalendarState>) {
 
@@ -68,9 +72,9 @@ export class CalendarState implements NgxsOnInit {
 
 	}
 
-	@Action(InitCalendarAction)
-	public async initAction(ctx: StateContext<ICalendarState>) {
-		await InitCalendarAction.execute(ctx);
+	@Action(GetListCalendarAction)
+	public async getListCalendarAction(ctx: StateContext<ICalendarState>) {
+		await GetListCalendarAction.execute(ctx, this.listMergedEventApiAdapter);
 	}
 
 	@Action(PushNextCalendarAction)

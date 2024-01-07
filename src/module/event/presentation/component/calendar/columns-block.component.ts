@@ -6,12 +6,12 @@ import {
 	inject,
 	Input,
 	OnChanges,
-	OnInit,
 	SimpleChanges
 } from "@angular/core";
 import {NgForOf, NgIf} from "@angular/common";
 import {DataBlockComponent} from "@event/presentation/component/calendar/data-block.component";
 import {CellComponent} from "@event/presentation/component/calendar/cell.component";
+import {DateTime} from "luxon";
 
 @Component({
 	selector: 'event-calendar-columns-block-component',
@@ -24,27 +24,28 @@ import {CellComponent} from "@event/presentation/component/calendar/cell.compone
 		CellComponent
 	],
 	template: `
-		<!-- Columns Header -->
 		<div
-			*ngFor="let header of preferences.header; let index = index"
-			class="bg-white row-start-[1] col-start-[{{ index + 1 }}] test sticky top-0 z-10 dark:bg-gradient-to-b dark:from-slate-600 dark:to-slate-700 border-slate-100 dark:border-black/10 bg-clip-padding text-slate-900 dark:text-slate-200 border-b text-sm font-medium py-2 text-center">
-			{{ header?.content }}
+			class="[&>*]:border-b [&>*]:border-neutral-200 [&>*]:border-r hover:[&>.clickMe]:!bg-blue-100 flex flex-col"
+			*ngFor="let header of preferences.header; let index = index">
+			<!-- Columns Header -->
+			<div
+				class="h-[50px] bg-white test sticky top-0 z-10 dark:bg-gradient-to-b dark:from-slate-600 dark:to-slate-700 border-slate-100 dark:border-black/10 bg-clip-padding text-slate-900 dark:text-slate-200 border-b text-sm font-medium py-2 text-center">
+				{{ header?.content }}
+			</div>
+			<!-- Columns Body -->
+			<ng-container *ngFor="let row of rows; let rowIndex = index">
+				<event-calendar-cell-component
+					[data]="header"
+					[idSuffix]="row"
+					[row]="rowIndex + 2"/>
+			</ng-container>
 		</div>
-		<!-- Columns Body -->
-		<ng-container *ngFor="let row of rows;">
-			<event-calendar-cell-component
-				*ngFor="let header of preferences.header; let column = index"
-				[data]="header"
-				[idSuffix]="'' + (row - 2)"
-				[row]="row"
-				[column]="column"/>
-		</ng-container>
 	`
 })
-export class ColumnsBlockComponent implements OnChanges, OnInit {
+export class ColumnsBlockComponent implements OnChanges {
 
 	@HostBinding()
-	public class = '[&>*]:border-b [&>*]:border-neutral-200 [&>*]:border-r hover:[&>.clickMe]:!bg-blue-100 grid';
+	public class = 'grid';
 
 	@HostBinding()
 	public style = '';
@@ -62,15 +63,13 @@ export class ColumnsBlockComponent implements OnChanges, OnInit {
 		}[];
 	};
 
-	// +2 because we already have rows in header
-	public readonly rows = Array.from({length: this.rowsAmount}, (_, index) => index + 2);
+	// Build hours slots
+	public readonly rows = Array.from({length: this.rowsAmount}, (_, index) => {
+		return DateTime.now().startOf('day').plus({hours: index}).toFormat('HH:mm');
+	});
 
 	// Using outside of template
 	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
-
-	public ngOnInit() {
-		this.style += ` grid-template-rows: repeat(${this.rowsAmount + 1}, 50px);`;
-	}
 
 	public ngOnChanges(changes: SimpleChanges & {preferences: {currentValue: ColumnsBlockComponent['preferences']} }): void {
 
@@ -79,8 +78,6 @@ export class ColumnsBlockComponent implements OnChanges, OnInit {
 		if (preferences.currentValue) {
 
 			const {header} = preferences.currentValue;
-
-			console.log('header', header);
 
 			if (header) {
 
