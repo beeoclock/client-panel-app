@@ -23,10 +23,14 @@ import {PushPrevCalendarAction} from "@event/state/calendar/actions/push.prev.ca
 import {PushNextCalendarAction} from "@event/state/calendar/actions/push.next.calendar.action";
 import {NGXLogger} from "ngx-logger";
 import {
-	CalendarDomManipulationService
-} from "@event/presentation/dom-manipulation-service/calendar.dom-manipulation-service";
+	DataCalendarDomManipulationService
+} from "@event/presentation/dom-manipulation-service/data.calendar.dom-manipulation-service";
 import {GetListCalendarAction} from "@event/state/calendar/actions/get-list.calendar.action";
 import {TranslateService} from "@ngx-translate/core";
+import {SpeedDialComponent} from "@event/presentation/component/calendar/speed-dial.component";
+import {
+	ScrollCalendarDomManipulationService
+} from "@event/presentation/dom-manipulation-service/scroll.calendar.dom-manipulation-service";
 
 @Component({
 	selector: 'event-calendar-page',
@@ -38,15 +42,17 @@ import {TranslateService} from "@ngx-translate/core";
 		HoursComponent,
 		ColumnsBlockComponent,
 		NgForOf,
+		SpeedDialComponent,
 	],
 	standalone: true
 })
 export default class Index implements OnInit, AfterViewInit {
 
-	private readonly calendarDomManipulationService = inject(CalendarDomManipulationService);
+	private readonly calendarDomManipulationService = inject(DataCalendarDomManipulationService);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
 	private readonly translateService = inject(TranslateService);
+	private readonly scrollCalendarDomManipulationService = inject(ScrollCalendarDomManipulationService);
 	private readonly document = inject(DOCUMENT);
 
 	// Hours
@@ -60,7 +66,7 @@ export default class Index implements OnInit, AfterViewInit {
 
 	// Dates
 	private readonly currentDate$ = this.store.select(CalendarQueries.currentDate);
-	private currentDate: Date = DateTime.local().startOf(DEFAULT_PRESENTATION_CALENDAR_TYPE).toJSDate();
+	public currentDate: Date = DateTime.local().startOf(DEFAULT_PRESENTATION_CALENDAR_TYPE).toJSDate();
 
 	// Ref to last, first and current calendars
 	private currentCalendarRef: ColumnsBlockComponent | null = null;
@@ -148,6 +154,9 @@ export default class Index implements OnInit, AfterViewInit {
 		this.initRefToSelectedHour();
 		this.initCurrentCalendar();
 		this.initialized.doTrue();
+		this.scrollCalendarDomManipulationService
+			.setContainerOfCalendarsRef(this.containerOfCalendarsRef)
+			.initDesktopMouseHandle();
 	}
 
 	/**

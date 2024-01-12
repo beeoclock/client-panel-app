@@ -7,7 +7,7 @@ import {DateTime, Interval} from "luxon";
 @Injectable({
 	providedIn: 'root'
 })
-export class CalendarDomManipulationService {
+export class DataCalendarDomManipulationService {
 
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly document = inject(DOCUMENT);
@@ -68,8 +68,8 @@ export class CalendarDomManipulationService {
 			</div>
 		`;
 
-		newDiv.addEventListener('click', (event) => {
-			console.log(event);
+		newDiv.addEventListener('click', () => {
+			this.openEventDetails(event);
 		});
 
 		const cell = this.document.getElementById(startDateTime.toFormat('dd.MM.yyyy-HH:00'));
@@ -84,6 +84,10 @@ export class CalendarDomManipulationService {
 		this.DOMElementCollection.push(newDiv);
 
 		return this;
+	}
+
+	private openEventDetails(event: IEvent) {
+		console.log(event);
 	}
 
 }

@@ -1,4 +1,4 @@
-<event-filter-component/>
+<!--<event-filter-component/>-->
 <div
 	#containerOfCalendars
 	[hidden]="initialized.isFalse"
@@ -6,16 +6,20 @@
 		bg-white
 		flex
 		overflow-auto
-		h-[calc(100vh-188px)]
-		md:h-[calc(100vh-72px)]
+		h-[calc(100vh-64px)]
+		md:h-full
 		relative
 	">
 
-	<event-calendar-hours-component #hoursComponent/>
+	<event-calendar-hours-component
+		[currentDate]="currentDate"
+		#hoursComponent/>
 	<event-calendar-columns-block-component
 		*ngFor="let preferences of preferencesOfCalendars"
 		[id]="preferences.from.toISOString()"
 		[preferences]="preferences"/>
+
+	<event-calendar-speed-dial-component/>
 
 </div>
 
