@@ -1,6 +1,7 @@
 import {StateContext} from "@ngxs/store";
 import {ICalendarState} from "@event/state/calendar/calendar.state";
 import {DateTime} from "luxon";
+import {GetListCalendarAction} from "@event/state/calendar/actions/get-list.calendar.action";
 
 export class PushNextCalendarAction {
 	public static readonly type = '[Calendar State] Push Next';
@@ -11,6 +12,11 @@ export class PushNextCalendarAction {
 		const pushDateTime = DateTime.fromJSDate(lastDate).plus({[presentationCalendarType]: 1});
 		const pushDate = pushDateTime.toJSDate();
 
+		const newData = {
+			from: pushDate,
+			to: pushDateTime.plus({[presentationCalendarType]: 1}).toJSDate(),
+		};
+
 		ctx.patchState({
 			calendarDataByType: {
 				...calendarDataByType,
@@ -18,13 +24,12 @@ export class PushNextCalendarAction {
 			},
 			dateRanges: [
 				...dateRanges,
-				{
-					from: pushDate,
-					to: pushDateTime.plus({[presentationCalendarType]: 1}).toJSDate(),
-				}
+				newData
 			],
 			lastDate: pushDate,
 		});
+
+		ctx.dispatch(new GetListCalendarAction(newData));
 
 	}
 

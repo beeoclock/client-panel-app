@@ -8,35 +8,36 @@ export class GetListCalendarAction {
 
 	public static async execute(
 		ctx: StateContext<ICalendarState>,
+		payload: GetListCalendarAction['payload'],
 		listMergedEventApiAdapter: ListMergedEventApiAdapter,
 	) {
 
-		const {calendarDataByType, dateRanges} = ctx.getState();
+		const {from, to} = payload;
+		const {calendarDataByType} = ctx.getState();
 
-		const requests = await Promise.all(
-			dateRanges.map(
-				async (dateRange) => {
-					const {items} = await listMergedEventApiAdapter.executeAsync({
-						orderBy: OrderByEnum.START,
-						orderDir: OrderDirEnum.ASC,
-						page: 1,
-						pageSize: 100,
-						start: dateRange.from.toISOString(),
-						end: dateRange.to.toISOString(),
-					});
-					return {
-						[dateRange.from.toISOString()]: items,
-					};
-				}
-			)
-		);
+		const {items} = await listMergedEventApiAdapter.executeAsync({
+			orderBy: OrderByEnum.START,
+			orderDir: OrderDirEnum.ASC,
+			page: 1,
+			pageSize: 100,
+			start: from.toISOString(),
+			end: to.toISOString(),
+		});
 
 		ctx.patchState({
 			calendarDataByType: {
 				...calendarDataByType,
-				...requests.reduce((acc, request) => ({...acc, ...request}), {}),
+				[from.toISOString()]: items,
 			},
 		});
+	}
+
+	constructor(
+		public readonly payload: {
+			from: Date;
+			to: Date;
+		},
+	) {
 	}
 
 }

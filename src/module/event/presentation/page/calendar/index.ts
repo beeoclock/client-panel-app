@@ -25,7 +25,6 @@ import {NGXLogger} from "ngx-logger";
 import {
 	DataCalendarDomManipulationService
 } from "@event/presentation/dom-manipulation-service/data.calendar.dom-manipulation-service";
-import {GetListCalendarAction} from "@event/state/calendar/actions/get-list.calendar.action";
 import {TranslateService} from "@ngx-translate/core";
 import {SpeedDialComponent} from "@event/presentation/component/calendar/speed-dial.component";
 import {
@@ -97,16 +96,15 @@ export default class Index implements OnInit, AfterViewInit {
 
 	public ngOnInit() {
 
-		this.store.dispatch(new GetListCalendarAction());
 
 		this.dataByType$.pipe().subscribe((dataByType) => {
 			// Get data from dataByType
 			this.calendarDomManipulationService.clearAll();
-			Object.values(dataByType).forEach((events) => {
-				events.forEach((event) => {
+			for (const [key, events] of Object.entries(dataByType)) {
+				for (const event of events) {
 					this.calendarDomManipulationService.pushData(event);
-				});
-			});
+				}
+			}
 		});
 
 		this.currentDate$.pipe(filter(() => this.initialized.isTrue)).subscribe((currentDate) => {
@@ -150,6 +148,7 @@ export default class Index implements OnInit, AfterViewInit {
 	}
 
 	ngAfterViewInit() {
+
 		this.initHandlers();
 		this.initRefToSelectedHour();
 		this.initCurrentCalendar();
@@ -157,6 +156,7 @@ export default class Index implements OnInit, AfterViewInit {
 		this.scrollCalendarDomManipulationService
 			.setContainerOfCalendarsRef(this.containerOfCalendarsRef)
 			.initDesktopMouseHandle();
+
 	}
 
 	/**
@@ -167,6 +167,8 @@ export default class Index implements OnInit, AfterViewInit {
 	 * @private
 	 */
 	private fillUpPreferencesOfCalendars(fromDateTime: DateTime, toDateTime: DateTime, push = true) {
+
+		this.ngxLogger.debug('fillUpPreferencesOfCalendars', fromDateTime, toDateTime);
 
 		fromDateTime = fromDateTime.setLocale(this.translateService.currentLang);
 		toDateTime = toDateTime.setLocale(this.translateService.currentLang);
@@ -192,6 +194,10 @@ export default class Index implements OnInit, AfterViewInit {
 			this.preferencesOfCalendars.unshift(preferences);
 			this.scrollToCorrectPosition(currentPosition);
 		}
+
+		console.log(this.preferencesOfCalendars[0]);
+		console.log(this.preferencesOfCalendars[1]);
+		console.log(this.preferencesOfCalendars[2]);
 
 	}
 

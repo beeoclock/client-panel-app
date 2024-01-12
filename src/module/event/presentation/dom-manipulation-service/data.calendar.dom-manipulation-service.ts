@@ -15,9 +15,9 @@ export class DataCalendarDomManipulationService {
 	private DOMElementCollection: HTMLDivElement[] = [];
 
 	public clearAll() {
-		this.DOMElementCollection.forEach((element) => {
-			element.remove();
-		});
+		for (let i = 0; i < this.DOMElementCollection.length; i++) {
+			this.DOMElementCollection[i].remove();
+		}
 		this.DOMElementCollection = [];
 	}
 
@@ -30,6 +30,8 @@ export class DataCalendarDomManipulationService {
 	 * @param event
 	 */
 	public pushData(event: IEvent) {
+
+		this.ngxLogger.debug('Push data', event);
 
 		// Calculate px for new div in px, 100% = 50px (height of hour) so 1 hour = 50px so we should calculate how many hours between start and end
 		// 1. Get start and end time
@@ -80,8 +82,10 @@ export class DataCalendarDomManipulationService {
 		// set relative position
 		cell.style.position = 'relative';
 		cell.appendChild(newDiv);
+		console.log(cell);
 
 		this.DOMElementCollection.push(newDiv);
+		console.log(this.DOMElementCollection)
 
 		return this;
 	}

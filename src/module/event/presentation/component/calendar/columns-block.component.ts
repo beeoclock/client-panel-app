@@ -1,13 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	ElementRef,
-	HostBinding,
-	inject,
-	Input,
-	OnChanges,
-	SimpleChanges
-} from "@angular/core";
+import {Component, ElementRef, HostBinding, inject, Input, OnChanges, SimpleChanges} from "@angular/core";
 import {NgForOf, NgIf} from "@angular/common";
 import {DataBlockComponent} from "@event/presentation/component/calendar/data-block.component";
 import {CellComponent} from "@event/presentation/component/calendar/cell.component";
@@ -15,7 +6,7 @@ import {DateTime} from "luxon";
 
 @Component({
 	selector: 'event-calendar-columns-block-component',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	// changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
 		NgForOf,
@@ -72,6 +63,8 @@ export class ColumnsBlockComponent implements OnChanges {
 	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 
 	public ngOnChanges(changes: SimpleChanges & {preferences: {currentValue: ColumnsBlockComponent['preferences']} }): void {
+
+		console.log('changes', changes)
 
 		const {preferences} = changes;
 

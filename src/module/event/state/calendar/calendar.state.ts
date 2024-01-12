@@ -46,6 +46,21 @@ export class CalendarState implements NgxsOnInit {
 		const prevDateTime = currentDateTime.minus({[presentationCalendarType]: 1});
 		const nextDateTime = currentDateTime.plus({[presentationCalendarType]: 1});
 
+		const firstData = {
+			from: prevDateTime.toJSDate(),
+			to: prevDateTime.plus({[presentationCalendarType]: 1}).toJSDate(),
+		};
+
+		const currentData = {
+			from: currentDateTime.toJSDate(),
+			to: currentDateTime.plus({[presentationCalendarType]: 1}).toJSDate(),
+		};
+
+		const lastData = {
+			from: nextDateTime.toJSDate(),
+			to: nextDateTime.plus({[presentationCalendarType]: 1}).toJSDate(),
+		};
+
 		ctx.patchState({
 			calendarDataByType: {
 				[prevDateTime.toJSDate().toISOString()]: [],
@@ -53,28 +68,23 @@ export class CalendarState implements NgxsOnInit {
 				[nextDateTime.toJSDate().toISOString()]: [],
 			},
 			dateRanges: [
-				{
-					from: prevDateTime.toJSDate(),
-					to: prevDateTime.plus({[presentationCalendarType]: 1}).toJSDate(),
-				},
-				{
-					from: currentDateTime.toJSDate(),
-					to: currentDateTime.plus({[presentationCalendarType]: 1}).toJSDate(),
-				},
-				{
-					from: nextDateTime.toJSDate(),
-					to: nextDateTime.plus({[presentationCalendarType]: 1}).toJSDate(),
-				},
+				firstData,
+				currentData,
+				lastData
 			],
 			firstDate: prevDateTime.toJSDate(),
 			lastDate: nextDateTime.toJSDate(),
 		});
 
+		ctx.dispatch(new GetListCalendarAction(firstData));
+		ctx.dispatch(new GetListCalendarAction(currentData));
+		ctx.dispatch(new GetListCalendarAction(lastData));
+
 	}
 
 	@Action(GetListCalendarAction)
-	public async getListCalendarAction(ctx: StateContext<ICalendarState>) {
-		await GetListCalendarAction.execute(ctx, this.listMergedEventApiAdapter);
+	public async getListCalendarAction(ctx: StateContext<ICalendarState>, action: GetListCalendarAction) {
+		await GetListCalendarAction.execute(ctx, action.payload, this.listMergedEventApiAdapter);
 	}
 
 	@Action(PushNextCalendarAction)
