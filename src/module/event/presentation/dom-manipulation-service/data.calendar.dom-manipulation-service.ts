@@ -12,13 +12,29 @@ export class DataCalendarDomManipulationService {
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly document = inject(DOCUMENT);
 
-	private DOMElementCollection: HTMLDivElement[] = [];
+	private DOMElementCollection: Map<string, HTMLDivElement> = new Map<string, HTMLDivElement>();
+
+	public DOMElementCollectionHas(id: string) {
+		return this.DOMElementCollection.has(id);
+	}
 
 	public clearAll() {
-		for (let i = 0; i < this.DOMElementCollection.length; i++) {
-			this.DOMElementCollection[i].remove();
+		this.ngxLogger.debug('Clear all');
+		this.DOMElementCollection.forEach((value, key) => {
+			value.remove();
+			this.DOMElementCollection.delete(key);
+		});
+		return this;
+	}
+
+	public clearById(id: string) {
+		this.ngxLogger.debug('Clear by id', id);
+		const element = this.DOMElementCollection.get(id);
+		if (element) {
+			element.remove();
+			this.DOMElementCollection.delete(id);
 		}
-		this.DOMElementCollection = [];
+		return this;
 	}
 
 	/**
@@ -38,21 +54,154 @@ export class DataCalendarDomManipulationService {
 		const startDateTime = DateTime.fromISO(event.start ?? '');
 		const endDateTime = DateTime.fromISO(event.end ?? '');
 		// 2. Calculate minutes between start and end
+		const hoursBetweenStartAndEnd = Interval.fromDateTimes(startDateTime, endDateTime).length('hours');
 		const minutesBetweenStartAndEnd = Interval.fromDateTimes(startDateTime, endDateTime).length('minutes');
 		// 3. Convert difference to px
-		const heightInPx = minutesBetweenStartAndEnd / 60 * 50;
+		const marginAndBorder = 6; // 6 px is margin and border
+		const heightInPx = (minutesBetweenStartAndEnd / 60 * 50) - marginAndBorder;
 
 		// Next we should detect top position of new div
 		const top = startDateTime.minute / 60 * 50;
 
+		const cell = this.document.getElementById(startDateTime.toFormat('dd.MM.yyyy-HH:00'));
+		if (!cell) {
+			return this;
+		}
+
+		const cellWidth = cell.clientWidth;
+		const futureChildrenAmount = cell.childElementCount + 1;
+		let divWidth = cellWidth;
+		let newDivLeft = 0;
+
+		// 4. Calculate with of div:
+		// 4.1. First of all we should check if the cell already has some div,
+
+		if (cell.childElementCount > 0) {
+
+			const fantomDivs = Array.from(cell.children).filter((node) => node instanceof HTMLDivElement && node.dataset.fantom);
+			const thereAreOnlyFantomDivs = cell.childElementCount === fantomDivs.length;
+
+			if (thereAreOnlyFantomDivs) {
+
+				// Check if fantom divs are full height
+				const thereSomeFantomDivsAreFullHeight = fantomDivs.some((node) => node.clientHeight === 50);
+				if (thereSomeFantomDivsAreFullHeight) {
+
+					divWidth = cellWidth / futureChildrenAmount;
+					newDivLeft = (futureChildrenAmount - 1) * divWidth;
+
+				}
+
+			} else {
+
+				divWidth = cellWidth / futureChildrenAmount;
+				newDivLeft = (futureChildrenAmount - 1) * divWidth;
+
+			}
+			// Change width of existing div
+			cell.childNodes.forEach((node) => {
+				if (node instanceof HTMLDivElement) {
+					node.style.maxWidth = divWidth + 'px';
+					if (node.dataset.eventId) {
+						const prevDOMElementEvent = this.DOMElementCollection.get(node.dataset.eventId);
+						if (prevDOMElementEvent) {
+							prevDOMElementEvent.style.maxWidth = divWidth + 'px';
+						}
+					}
+				}
+			});
+		}
+
+		// 4.2. Second we take height and check next cells to get information about existing divs;
+		// 4.2.1 Use hoursBetweenStartAndEnd to get amount of cells and check if endDateTime is in next cell
+		if (hoursBetweenStartAndEnd > 1) {
+
+			for (let hours = 1; hours < hoursBetweenStartAndEnd; hours++) {
+				const nextStartDateTime = startDateTime.plus({hours});
+				const nextCell = this.document.getElementById(nextStartDateTime.toFormat('dd.MM.yyyy-HH:00'));
+				if (!nextCell) {
+					continue;
+				}
+
+				const newDivWidth = nextCell.clientWidth / (nextCell.childElementCount + 1);
+
+				let fantomHeight = 50;
+				const fantomTop = 0;
+
+				// Check if next cell is last cell
+				if (nextStartDateTime.toFormat('dd.MM.yyyy-HH:00') === endDateTime.toFormat('dd.MM.yyyy-HH:00')) {
+					fantomHeight = (endDateTime.minute / 60) * 50;
+				}
+
+				if (nextCell.childElementCount > 0) {
+					// Change width of existing div
+					nextCell.childNodes.forEach((node) => {
+						if (node instanceof HTMLDivElement) {
+							node.style.maxWidth = newDivWidth + 'px';
+							node.style.left = nextCell.childElementCount * newDivWidth + 'px';
+						}
+					});
+				}
+
+				// Add fantom div to get width of next cell
+				const fantom = this.document.createElement("div");
+				// set absolute position
+				fantom.style.position = 'absolute';
+				fantom.style.width = divWidth + 'px';
+				fantom.style.height = fantomHeight + 'px';
+				fantom.style.top = fantomTop + 'px';
+				fantom.style.left = cell.childElementCount * divWidth + 'px';
+				fantom.dataset.fantom = 'true';
+				fantom.dataset.eventId = event._id;
+
+				nextCell.appendChild(fantom);
+			}
+		} else if (endDateTime.toFormat('dd.MM.yyyy-HH:00') !== startDateTime.toFormat('dd.MM.yyyy-HH:00')) {
+			// Check if endDateTime is in next cell
+			const nextCell = this.document.getElementById(endDateTime.toFormat('dd.MM.yyyy-HH:00'));
+
+			if (nextCell) {
+				const newDivWidth = nextCell.clientWidth / (nextCell.childElementCount + 1);
+
+				if (nextCell.childElementCount > 0) {
+					// Change width of existing div
+					nextCell.childNodes.forEach((node) => {
+						if (node instanceof HTMLDivElement) {
+							node.style.maxWidth = newDivWidth + 'px';
+							node.style.left = nextCell.childElementCount * newDivWidth + 'px';
+						}
+					});
+				}
+
+				const fantomHeight = (endDateTime.minute / 60) * 50;
+				const fantomTop = 0;
+
+				// Add fantom div to get width of next cell
+				const fantom = this.document.createElement("div");
+				// set absolute position
+				fantom.style.position = 'absolute';
+				fantom.style.width = divWidth + 'px';
+				fantom.style.height = fantomHeight + 'px';
+				fantom.style.top = fantomTop + 'px';
+				fantom.style.left = cell.childElementCount * divWidth + 'px';
+				fantom.dataset.fantom = 'true';
+				fantom.dataset.eventId = event._id;
+
+				nextCell.appendChild(fantom);
+			}
+		}
+
 		const newDiv = this.document.createElement("div");
+		newDiv.id = event._id;
+		newDiv.classList.add('z-10');
 		// set absolute position
 		newDiv.style.position = 'absolute';
-		newDiv.style.maxWidth = '100%';
+		newDiv.style.maxWidth = divWidth + 'px';
 		newDiv.style.top = top + 'px';
+		newDiv.style.left = newDivLeft + 'px';
 		// Show time start and finish also show customer name/phone/email and service name
 		newDiv.innerHTML = `
-			<div style="height: ${heightInPx}px" class="cursor-pointer hover:bg-blue-500 transition-all hover:text-white text-ellipsis overflow-hidden break-words bg-blue-400/20 h-100 border-slate-100 dark:border-slate-200/5 text-xs p-1 text-slate-400 dark:bg-slate-800">
+			<div style="height: ${heightInPx}px; margin: 2px; padding: 2px;" class="cursor-pointer hover:bg-blue-500 transition-all hover:text-white text-ellipsis overflow-hidden break-words bg-blue-400/20 h-100 rounded shadow border border-blue-200 text-xs text-slate-400 dark:bg-slate-800">
 				${startDateTime.toFormat('HH:mm')} - ${endDateTime.toFormat('HH:mm')},
 				${event.attendees?.map(({customer}) => {
 					if (customer?.firstName) {
@@ -74,18 +223,11 @@ export class DataCalendarDomManipulationService {
 			this.openEventDetails(event);
 		});
 
-		const cell = this.document.getElementById(startDateTime.toFormat('dd.MM.yyyy-HH:00'));
-		if (!cell) {
-			return this;
-		}
-
-		// set relative position
-		cell.style.position = 'relative';
 		cell.appendChild(newDiv);
-		console.log(cell);
 
-		this.DOMElementCollection.push(newDiv);
-		console.log(this.DOMElementCollection)
+		this.DOMElementCollection.set(newDiv.id, newDiv);
+
+		// TODO: Sort divs by height
 
 		return this;
 	}

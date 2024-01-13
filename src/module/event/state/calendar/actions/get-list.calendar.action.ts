@@ -13,7 +13,6 @@ export class GetListCalendarAction {
 	) {
 
 		const {from, to} = payload;
-		const {calendarDataByType} = ctx.getState();
 
 		const {items} = await listMergedEventApiAdapter.executeAsync({
 			orderBy: OrderByEnum.START,
@@ -23,6 +22,8 @@ export class GetListCalendarAction {
 			start: from.toISOString(),
 			end: to.toISOString(),
 		});
+
+		const {calendarDataByType} = ctx.getState();
 
 		ctx.patchState({
 			calendarDataByType: {

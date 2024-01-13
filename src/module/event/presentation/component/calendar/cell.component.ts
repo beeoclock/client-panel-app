@@ -30,7 +30,7 @@ export class CellComponent implements OnChanges {
 	public idSuffix = '';
 
 	@HostBinding()
-	public class = 'clickMe test border-slate-100 dark:border-slate-200/5 h-[50px]';
+	public class = 'clickMe test relative border-slate-100 dark:border-slate-200/5 h-[50px]';
 
 	@HostBinding()
 	public style = '';

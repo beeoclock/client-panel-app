@@ -30,6 +30,7 @@ import {SpeedDialComponent} from "@event/presentation/component/calendar/speed-d
 import {
 	ScrollCalendarDomManipulationService
 } from "@event/presentation/dom-manipulation-service/scroll.calendar.dom-manipulation-service";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'event-calendar-page',
@@ -45,7 +46,7 @@ import {
 	],
 	standalone: true
 })
-export default class Index implements OnInit, AfterViewInit {
+export default class Index extends Reactive implements OnInit, AfterViewInit {
 
 	private readonly calendarDomManipulationService = inject(DataCalendarDomManipulationService);
 	private readonly ngxLogger = inject(NGXLogger);
@@ -94,26 +95,31 @@ export default class Index implements OnInit, AfterViewInit {
 		}[];
 	}[] = [];
 
+	constructor() {
+		super();
+	}
+
 	public ngOnInit() {
 
-
-		this.dataByType$.pipe().subscribe((dataByType) => {
+		this.dataByType$.pipe(this.takeUntil()).subscribe((dataByType) => {
 			// Get data from dataByType
-			this.calendarDomManipulationService.clearAll();
-			for (const [key, events] of Object.entries(dataByType)) {
-				for (const event of events) {
-					this.calendarDomManipulationService.pushData(event);
-				}
-			}
+			Object.values(dataByType).forEach((events) => {
+				events.forEach((event) => {
+					if (!this.calendarDomManipulationService.DOMElementCollectionHas(event._id)) {
+						this.calendarDomManipulationService.pushData(event);
+					}
+				});
+			});
 		});
 
-		this.currentDate$.pipe(filter(() => this.initialized.isTrue)).subscribe((currentDate) => {
+		this.currentDate$.pipe(this.takeUntil(), filter(() => this.initialized.isTrue)).subscribe((currentDate) => {
 			this.currentDate = currentDate;
 			// TODO reset all calendars
 			this.initCurrentCalendar();
 		});
 
 		this.firstDate$.pipe(
+			this.takeUntil(),
 			filter(() => this.initialized.isTrue),
 			filter(() => this.isPushingPrevCalendar.isTrue),
 			withLatestFrom(this.presentationType$),
@@ -126,6 +132,7 @@ export default class Index implements OnInit, AfterViewInit {
 		});
 
 		this.lastDate$.pipe(
+			this.takeUntil(),
 			filter(() => this.initialized.isTrue),
 			filter(() => this.isPushingNextCalendar.isTrue),
 			withLatestFrom(this.presentationType$),
@@ -137,7 +144,7 @@ export default class Index implements OnInit, AfterViewInit {
 			this.isPushingNextCalendar.doFalse();
 		});
 
-		this.dateRanges$.pipe(take(1)).subscribe((dateRanges) => {
+		this.dateRanges$.pipe(this.takeUntil(), take(1)).subscribe((dateRanges) => {
 			this.ngxLogger.debug('dateRanges', dateRanges);
 			dateRanges.forEach(({from, to}) => {
 				const fromDateTime = DateTime.fromJSDate(from);
