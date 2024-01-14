@@ -1,5 +1,15 @@
-import {ChangeDetectionStrategy, Component, HostBinding, Input, OnChanges, SimpleChanges} from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	Component,
+	HostBinding,
+	HostListener,
+	inject,
+	Input,
+	OnChanges,
+	SimpleChanges
+} from "@angular/core";
 import {NgIf} from "@angular/common";
+import {EventFormModalService} from "@event/presentation/dom-manipulation-service/modal/event.form.modal.service";
 
 @Component({
 	selector: 'event-calendar-cell-component',
@@ -38,10 +48,20 @@ export class CellComponent implements OnChanges {
 	@HostBinding()
 	public id = '';
 
+	private readonly eventFormModalService = inject(EventFormModalService);
+
 	public ngOnChanges(changes: SimpleChanges & { data: { currentValue: CellComponent['data'] } }) {
 		if (changes.data) {
 			this.id =  `${this.data.id}-${this.idSuffix}`;
 		}
+	}
+
+	@HostListener('click', ['$event'])
+	public onClick(event: MouseEvent) {
+		console.log(event);
+		this.eventFormModalService.openModal();
+		event.preventDefault();
+		event.stopPropagation();
 	}
 
 }

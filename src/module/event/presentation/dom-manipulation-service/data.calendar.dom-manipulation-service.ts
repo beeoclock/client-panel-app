@@ -228,8 +228,10 @@ export class DataCalendarDomManipulationService {
 
 		newDiv.childNodes.forEach((node) => {
 			if (node instanceof HTMLDivElement) {
-				node.addEventListener('click', () => {
+				node.addEventListener('click', (mouseClickEvent) => {
 					this.openEventDetails(event);
+					mouseClickEvent.stopPropagation();
+					mouseClickEvent.preventDefault();
 				});
 
 				node.addEventListener('mouseenter', () => {
