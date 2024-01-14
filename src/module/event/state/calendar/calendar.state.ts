@@ -1,5 +1,5 @@
 import {inject, Injectable} from "@angular/core";
-import {Action, NgxsOnInit, State, StateContext} from "@ngxs/store";
+import {Action, State, StateContext} from "@ngxs/store";
 import {DateTime} from "luxon";
 import {
 	DEFAULT_PRESENTATION_CALENDAR_TYPE,
@@ -10,6 +10,7 @@ import {PushPrevCalendarAction} from "@event/state/calendar/actions/push.prev.ca
 import {GetListCalendarAction} from "@event/state/calendar/actions/get-list.calendar.action";
 import {ListMergedEventApiAdapter} from "@event/adapter/external/api/list.merged.event.api.adapter";
 import {IEvent} from "@event/domain";
+import {InitCalendarAction} from "@event/state/calendar/actions/init.calendar.action";
 
 export interface ICalendarState {
 	calendarDataByType: {[key: string]: IEvent[]}; // key - ISO, value - events
@@ -35,56 +36,18 @@ export interface ICalendarState {
 	},
 })
 @Injectable()
-export class CalendarState implements NgxsOnInit {
+export class CalendarState {
 
 	private readonly listMergedEventApiAdapter = inject(ListMergedEventApiAdapter);
-
-	public ngxsOnInit(ctx: StateContext<ICalendarState>) {
-
-		const {currentDate, presentationCalendarType} = ctx.getState();
-		const currentDateTime = DateTime.fromJSDate(currentDate);
-		const prevDateTime = currentDateTime.minus({[presentationCalendarType]: 1});
-		const nextDateTime = currentDateTime.plus({[presentationCalendarType]: 1});
-
-		const firstData = {
-			from: prevDateTime.toJSDate(),
-			to: prevDateTime.plus({[presentationCalendarType]: 1}).toJSDate(),
-		};
-
-		const currentData = {
-			from: currentDateTime.toJSDate(),
-			to: currentDateTime.plus({[presentationCalendarType]: 1}).toJSDate(),
-		};
-
-		const lastData = {
-			from: nextDateTime.toJSDate(),
-			to: nextDateTime.plus({[presentationCalendarType]: 1}).toJSDate(),
-		};
-
-		ctx.patchState({
-			calendarDataByType: {
-				[prevDateTime.toJSDate().toISOString()]: [],
-				[currentDate.toISOString()]: [],
-				[nextDateTime.toJSDate().toISOString()]: [],
-			},
-			dateRanges: [
-				firstData,
-				currentData,
-				lastData
-			],
-			firstDate: prevDateTime.toJSDate(),
-			lastDate: nextDateTime.toJSDate(),
-		});
-
-		ctx.dispatch(new GetListCalendarAction(firstData));
-		ctx.dispatch(new GetListCalendarAction(currentData));
-		ctx.dispatch(new GetListCalendarAction(lastData));
-
-	}
 
 	@Action(GetListCalendarAction)
 	public async getListCalendarAction(ctx: StateContext<ICalendarState>, action: GetListCalendarAction) {
 		await GetListCalendarAction.execute(ctx, action.payload, this.listMergedEventApiAdapter);
+	}
+
+	@Action(InitCalendarAction)
+	public async initCalendarAction(ctx: StateContext<ICalendarState>) {
+		await InitCalendarAction.execute(ctx);
 	}
 
 	@Action(PushNextCalendarAction)

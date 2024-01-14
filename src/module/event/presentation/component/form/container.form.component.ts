@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, inject, OnInit, QueryList, ViewChild, ViewChildren} from "@angular/core";
+import {AfterContentInit, Component, inject, Input, OnInit, QueryList, ViewChild, ViewChildren} from "@angular/core";
 import {AttendeesComponent} from "@event/presentation/component/form/attendees/attendees.component";
 import {
 	ButtonSaveContainerComponent
@@ -6,7 +6,7 @@ import {
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {GeneralDetailsComponent} from "@event/presentation/component/details/general.details.component";
-import {NgIf} from "@angular/common";
+import {DatePipe, NgIf} from "@angular/common";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {ReactiveFormsModule} from "@angular/forms";
 import {
@@ -31,6 +31,9 @@ import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {IService} from "@service/domain";
 import {EventActions} from "@event/state/event/event.actions";
 import {Reactive} from "@utility/cdk/reactive";
+import {TimeInputComponent} from "@utility/presentation/component/input/time.input.component";
+import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
+import {DefaultInputDirective} from "@utility/presentation/directives/input/default.input.directive";
 
 @Component({
 	selector: 'event-container-form-component',
@@ -46,7 +49,11 @@ import {Reactive} from "@utility/cdk/reactive";
 		ReactiveFormsModule,
 		SelectTimeSlotComponent,
 		ServicesComponent,
-		TranslateModule
+		TranslateModule,
+		TimeInputComponent,
+		FormInputComponent,
+		DefaultInputDirective,
+		DatePipe,
 	],
 	providers: [
 		SlotsService
@@ -88,9 +95,16 @@ import {Reactive} from "@utility/cdk/reactive";
 
 				<bee-card *ngIf="slotsService.specialistExist">
 					<event-select-time-slot-form-component
+						*ngIf="!forceStart"
 						[editable]="!isEditMode"
 						[configurationForm]="form.controls.configuration"
 						[control]="form.controls.start"/>
+
+					<input
+						type="datetime-local"
+						*ngIf="forceStart"
+						[value]="form.controls.start.value | date: 'yyyy-MM-ddTHH:mm'"
+						(change)="updateStartControlByDateTimeString($event)" />
 				</bee-card>
 
 				<bee-card>
@@ -149,8 +163,23 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 	@Select(ClientState.item)
 	public client$!: Observable<RIClient>;
 
+	@Input()
+	public forceStart: string | undefined;
+
 	public get value(): RMIEvent {
 		return MEvent.create(this.form.getRawValue() as IEvent);
+	}
+
+	public readonly callbacksAfterSave = [
+		() => {
+			this.backButtonComponent.navigateToBack();
+		},
+	];
+
+	public updateStartControlByDateTimeString(event: Event): void {
+		const {value} = event.target as HTMLInputElement;
+		const date = new Date(value);
+		this.form.controls.start.patchValue(date.toISOString());
 	}
 
 	constructor() {
@@ -355,7 +384,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 
 			}
 
-			await this.backButtonComponent.navigateToBack();
+			this.callbacksAfterSave.forEach((callback) => callback());
 
 			// TODO check if customers/attends is exist in db (just check if selected customer has _id field if exist is in db if not then need to make request to create the new customer)
 

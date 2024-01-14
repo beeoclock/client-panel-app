@@ -10,6 +10,7 @@ import {
 } from "@angular/core";
 import {NgIf} from "@angular/common";
 import {EventFormModalService} from "@event/presentation/dom-manipulation-service/modal/event.form.modal.service";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
 	selector: 'event-calendar-cell-component',
@@ -25,19 +26,13 @@ import {EventFormModalService} from "@event/presentation/dom-manipulation-servic
 export class CellComponent implements OnChanges {
 
 	@Input()
-	public data!: {
-		content?: string;
-		id?: string;
-	}
-
-	@Input()
-	public column: number = 0;
-
-	@Input()
-	public row: number = 0;
+	public baseId!: string;
 
 	@Input()
 	public idSuffix = '';
+
+	@Input()
+	public date = (new Date()).toISOString();
 
 	@HostBinding()
 	public class = 'clickMe test relative border-slate-100 dark:border-slate-200/5 h-[50px]';
@@ -48,18 +43,21 @@ export class CellComponent implements OnChanges {
 	@HostBinding()
 	public id = '';
 
+	private readonly ngxLogger = inject(NGXLogger);
 	private readonly eventFormModalService = inject(EventFormModalService);
 
-	public ngOnChanges(changes: SimpleChanges & { data: { currentValue: CellComponent['data'] } }) {
-		if (changes.data) {
-			this.id =  `${this.data.id}-${this.idSuffix}`;
+	public ngOnChanges(changes: SimpleChanges & { baseId: { currentValue: CellComponent['baseId'] } }) {
+		if (changes.baseId) {
+			this.id =  `${this.baseId}-${this.idSuffix}`;
 		}
 	}
 
 	@HostListener('click', ['$event'])
 	public onClick(event: MouseEvent) {
-		console.log(event);
-		this.eventFormModalService.openModal();
+		this.ngxLogger.debug('Click', event);
+		this.eventFormModalService.openModal({
+			date: this.date,
+		});
 		event.preventDefault();
 		event.stopPropagation();
 	}

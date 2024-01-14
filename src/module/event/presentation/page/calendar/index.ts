@@ -15,7 +15,7 @@ import {HoursComponent} from "@event/presentation/component/calendar/hours.compo
 import {ColumnsBlockComponent} from "@event/presentation/component/calendar/columns-block.component";
 import {Store} from "@ngxs/store";
 import {CalendarQueries} from "@event/state/calendar/calendar.queries";
-import {DateTime, Interval} from "luxon";
+import {DateTime} from "luxon";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {filter, take, withLatestFrom} from "rxjs";
 import {DEFAULT_PRESENTATION_CALENDAR_TYPE} from "@event/domain/enum/presentation-calendar-type.enum";
@@ -31,6 +31,7 @@ import {
 	ScrollCalendarDomManipulationService
 } from "@event/presentation/dom-manipulation-service/scroll.calendar.dom-manipulation-service";
 import {Reactive} from "@utility/cdk/reactive";
+import {InitCalendarAction} from "@event/state/calendar/actions/init.calendar.action";
 
 @Component({
 	selector: 'event-calendar-page',
@@ -89,10 +90,6 @@ export default class Index extends Reactive implements OnInit, AfterViewInit {
 	public readonly preferencesOfCalendars: {
 		from: Date;
 		to: Date;
-		header: {
-			content: string;
-			id: string;
-		}[];
 	}[] = [];
 
 	constructor() {
@@ -101,7 +98,10 @@ export default class Index extends Reactive implements OnInit, AfterViewInit {
 
 	public ngOnInit() {
 
+		this.store.dispatch(new InitCalendarAction());
+
 		this.dataByType$.pipe(this.takeUntil()).subscribe((dataByType) => {
+			this.ngxLogger.debug('dataByType', dataByType);
 			// Get data from dataByType
 			Object.values(dataByType).forEach((events) => {
 				events.forEach((event) => {
@@ -113,6 +113,7 @@ export default class Index extends Reactive implements OnInit, AfterViewInit {
 		});
 
 		this.currentDate$.pipe(this.takeUntil(), filter(() => this.initialized.isTrue)).subscribe((currentDate) => {
+			this.ngxLogger.debug('currentDate', currentDate);
 			this.currentDate = currentDate;
 			// TODO reset all calendars
 			this.initCurrentCalendar();
@@ -183,15 +184,6 @@ export default class Index extends Reactive implements OnInit, AfterViewInit {
 		const preferences = {
 			from: fromDateTime.toJSDate(),
 			to: toDateTime.toJSDate(),
-			header: Interval
-				.fromDateTimes(fromDateTime, toDateTime)
-				.splitBy({day: 1})
-				.map((interval) => {
-					return {
-						content: interval.start?.toFormat('dd.MM (EEE)') ?? '',
-						id: interval.start?.toFormat('dd.MM.yyyy') ?? '',
-					};
-				}),
 		};
 
 		if (push) {
