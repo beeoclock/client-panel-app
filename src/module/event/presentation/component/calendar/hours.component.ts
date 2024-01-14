@@ -31,7 +31,7 @@ export class HoursComponent {
 	public currentDate: Date = DateTime.local().startOf(DEFAULT_PRESENTATION_CALENDAR_TYPE).toJSDate();
 
 	@HostBinding()
-	public class = 'sticky z-50 left-0 [&>.test:nth-child(odd)]:bg-white [&>.test:nth-child(even)]:bg-neutral-50 [&>*]:border-b [&>*]:border-neutral-200 [&>*]:border-r hover:[&>.clickMe]:!bg-blue-100 flex flex-col';
+	public class = 'sticky z-20 left-0 [&>.test:nth-child(odd)]:bg-white [&>.test:nth-child(even)]:bg-neutral-50 [&>*]:border-b [&>*]:border-neutral-200 [&>*]:border-r hover:[&>.clickMe]:!bg-blue-100 flex flex-col';
 
 	public readonly hours = Array.from({length: 24}, (v, k) => DateTime.fromObject({hour: k}).toFormat('HH:mm'));
 

@@ -3,12 +3,14 @@ import {DOCUMENT} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
 import {IEvent} from "@event/domain";
 import {DateTime, Interval} from "luxon";
+import {EventDetailsModalService} from "@event/presentation/dom-manipulation-service/modal/event.details.modal.service";
 
 @Injectable({
 	providedIn: 'root'
 })
 export class DataCalendarDomManipulationService {
 
+	private readonly eventDetailsModalService = inject(EventDetailsModalService);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly document = inject(DOCUMENT);
 
@@ -193,6 +195,7 @@ export class DataCalendarDomManipulationService {
 
 		const newDiv = this.document.createElement("div");
 		newDiv.id = event._id;
+		newDiv.dataset.isEventData = 'true';
 		newDiv.classList.add('z-10');
 		// set absolute position
 		newDiv.style.position = 'absolute';
@@ -219,21 +222,45 @@ export class DataCalendarDomManipulationService {
 			</div>
 		`;
 
-		newDiv.addEventListener('click', () => {
-			this.openEventDetails(event);
-		});
-
 		cell.appendChild(newDiv);
 
 		this.DOMElementCollection.set(newDiv.id, newDiv);
+
+		newDiv.childNodes.forEach((node) => {
+			if (node instanceof HTMLDivElement) {
+				node.addEventListener('click', () => {
+					this.openEventDetails(event);
+				});
+
+				node.addEventListener('mouseenter', () => {
+					newDiv.classList.add('z-20');
+				});
+
+				node.addEventListener('mouseleave', () => {
+					newDiv.classList.remove('z-20');
+				});
+
+				// Only if clientHeight is less than scrollHeight
+				console.log(node.clientHeight, node.scrollHeight)
+				if (node.clientHeight < node.scrollHeight) {
+					node.addEventListener('mouseenter', () => {
+						node.style.height = 'auto';
+					});
+					node.addEventListener('mouseleave', () => {
+						node.style.height = heightInPx + 'px';
+					});
+				}
+			}
+		});
 
 		// TODO: Sort divs by height
 
 		return this;
 	}
 
-	private openEventDetails(event: IEvent) {
+	private async openEventDetails(event: IEvent) {
 		console.log(event);
+		await this.eventDetailsModalService.openModal(event._id);
 	}
 
 }
