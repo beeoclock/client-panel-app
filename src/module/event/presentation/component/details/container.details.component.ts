@@ -5,6 +5,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {GeneralDetailsComponent} from "@event/presentation/component/details/general.details.component";
 import {MetaDetailsComponent} from "@event/presentation/component/details/meta.details.component";
 import {RMIEvent} from "@event/domain";
+import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 
 @Component({
 	selector: 'event-container-details-component',
@@ -15,12 +16,13 @@ import {RMIEvent} from "@event/domain";
 		CardComponent,
 		GeneralDetailsComponent,
 		MetaDetailsComponent,
-		NgIf
+		NgIf,
+		LoaderComponent
 	],
 	template: `
 		<div class="pb-48 grid grid-cols-12 gap-4">
 
-			<ng-container *ngIf="event">
+			<ng-container *ngIf="event; else LoadingTemplate">
 
 				<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4">
 
@@ -39,6 +41,10 @@ import {RMIEvent} from "@event/domain";
 				</div>
 
 			</ng-container>
+
+			<ng-template #LoadingTemplate>
+				<utility-loader/>
+			</ng-template>
 
 		</div>
 	`

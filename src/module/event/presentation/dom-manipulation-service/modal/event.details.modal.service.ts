@@ -19,8 +19,6 @@ export class EventDetailsModalService extends Reactive {
 
 		// const title = await this.translateService.instant('change-name.modal.title');
 
-		const event = await this.itemEventApiAdapter.executeAsync(eventId);
-
 		// TODO check if event is null
 
 		return new Promise(() => {
@@ -28,14 +26,18 @@ export class EventDetailsModalService extends Reactive {
 
 			this.modalService.create([{
 				component: ContainerDetailsComponent,
-				data: {
-					event
-				}
+				data: {}
 			}], {
 				buttons,
 				fixHeight: false,
 				title: '',
 				contentPadding: false,
+			}).then((modal) => {
+				const eventDetailsContainerComponent = modal.instance.componentChildRefList[0];
+				return this.itemEventApiAdapter.executeAsync(eventId).then((eventData) => {
+					eventDetailsContainerComponent.setInput('event', eventData);
+					return modal;
+				});
 			});
 
 		});
