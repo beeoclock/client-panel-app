@@ -20,7 +20,7 @@ export class EventFormModalService extends Reactive {
 	public async openModal(data: {
 		date: string;
 		eventId?: string | undefined;
-	}): Promise<void> {
+	}, callback = () => {}): Promise<void> {
 
 		const {date, eventId} = data;
 
@@ -48,6 +48,7 @@ export class EventFormModalService extends Reactive {
 				eventFormContainerComponent.form.controls.start.patchValue(date);
 				eventFormContainerComponent.form.controls.configuration.controls.ignoreEventChecks.setValue(true);
 				eventFormContainerComponent.callbacksAfterSave[0] = () => {
+					callback();
 					modal.instance.closeModal();
 				};
 				return modal;

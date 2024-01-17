@@ -11,6 +11,8 @@ import {
 import {NgIf} from "@angular/common";
 import {EventFormModalService} from "@event/presentation/dom-manipulation-service/modal/event.form.modal.service";
 import {NGXLogger} from "ngx-logger";
+import {Store} from "@ngxs/store";
+import {RefreshCalendarAction} from "@event/state/calendar/actions/refresh.calendar.action";
 
 @Component({
 	selector: 'event-calendar-cell-component',
@@ -44,6 +46,7 @@ export class CellComponent implements OnChanges {
 	public id = '';
 
 	private readonly ngxLogger = inject(NGXLogger);
+	private readonly store = inject(Store);
 	private readonly eventFormModalService = inject(EventFormModalService);
 
 	public ngOnChanges(changes: SimpleChanges & { baseId: { currentValue: CellComponent['baseId'] } }) {
@@ -55,9 +58,13 @@ export class CellComponent implements OnChanges {
 	@HostListener('click', ['$event'])
 	public onClick(event: MouseEvent) {
 		this.ngxLogger.debug('Click', event);
+		const callback = () => {
+			this.ngxLogger.debug('Callback');
+			this.store.dispatch(new RefreshCalendarAction());
+		};
 		this.eventFormModalService.openModal({
 			date: this.date,
-		});
+		}, callback);
 		event.preventDefault();
 		event.stopPropagation();
 	}

@@ -11,6 +11,7 @@ import {GetListCalendarAction} from "@event/state/calendar/actions/get-list.cale
 import {ListMergedEventApiAdapter} from "@event/adapter/external/api/list.merged.event.api.adapter";
 import {IEvent} from "@event/domain";
 import {InitCalendarAction} from "@event/state/calendar/actions/init.calendar.action";
+import {RefreshCalendarAction} from "@event/state/calendar/actions/refresh.calendar.action";
 
 export interface ICalendarState {
 	calendarDataByType: {[key: string]: IEvent[]}; // key - ISO, value - events
@@ -58,6 +59,11 @@ export class CalendarState {
 	@Action(PushPrevCalendarAction)
 	public async pushPrevCalendarAction(ctx: StateContext<ICalendarState>) {
 		await PushPrevCalendarAction.execute(ctx);
+	}
+
+	@Action(RefreshCalendarAction)
+	public async refreshCalendarAction(ctx: StateContext<ICalendarState>) {
+		await RefreshCalendarAction.execute(ctx);
 	}
 
 }
