@@ -14,6 +14,8 @@ export class ScrollCalendarDomManipulationService {
 	private readonly document = inject(DOCUMENT);
 	private readonly windowWidthSizeService = inject(WindowWidthSizeService);
 
+	public readonly isScrolling = new BooleanState(false);
+
 	private containerOfCalendarsRef: ViewContainerRef | undefined;
 
 	public setContainerOfCalendarsRef(containerOfCalendarsRef: ViewContainerRef) {
@@ -39,20 +41,27 @@ export class ScrollCalendarDomManipulationService {
 
 		const container: HTMLDivElement = this.containerOfCalendarsRef.element.nativeElement;
 		container.addEventListener('mousedown', () => {
+			this.isScrolling.switchOff();
 			if (mouseDown.isOff) {
 				mouseDown.switchOn();
 			}
 		});
 		container.addEventListener('mousemove', (event) => {
+			this.isScrolling.switchOn();
 			if (mouseDown.isOn) {
 				// Write code which will be change scroll position of container on mouse move
 				container.scrollLeft -= event.movementX;
 				container.scrollTop -= event.movementY;
 			}
 		});
-		container.addEventListener('mouseup', () => {
+		container.addEventListener('mouseup', (event) => {
 			if (mouseDown.isOn) {
 				mouseDown.switchOff();
+			}
+			console.log(this.isScrolling.isOn)
+			if (this.isScrolling.isOn) {
+				event.preventDefault();
+				event.stopPropagation();
 			}
 		});
 

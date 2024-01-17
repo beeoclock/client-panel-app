@@ -13,6 +13,9 @@ import {EventFormModalService} from "@event/presentation/dom-manipulation-servic
 import {NGXLogger} from "ngx-logger";
 import {Store} from "@ngxs/store";
 import {RefreshCalendarAction} from "@event/state/calendar/actions/refresh.calendar.action";
+import {
+	ScrollCalendarDomManipulationService
+} from "@event/presentation/dom-manipulation-service/scroll.calendar.dom-manipulation-service";
 
 @Component({
 	selector: 'event-calendar-cell-component',
@@ -48,6 +51,7 @@ export class CellComponent implements OnChanges {
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
 	private readonly eventFormModalService = inject(EventFormModalService);
+	private readonly scrollCalendarDomManipulationService = inject(ScrollCalendarDomManipulationService);
 
 	public ngOnChanges(changes: SimpleChanges & { baseId: { currentValue: CellComponent['baseId'] } }) {
 		if (changes.baseId) {
@@ -57,6 +61,10 @@ export class CellComponent implements OnChanges {
 
 	@HostListener('click', ['$event'])
 	public onClick(event: MouseEvent) {
+		if (this.scrollCalendarDomManipulationService.isScrolling.isOn) {
+			this.ngxLogger.debug('It is not click, it is scrolling');
+			return;
+		}
 		this.ngxLogger.debug('Click', event);
 		const callback = () => {
 			this.ngxLogger.debug('Callback');
