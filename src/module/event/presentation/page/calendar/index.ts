@@ -45,6 +45,9 @@ import {InitCalendarAction} from "@event/state/calendar/actions/init.calendar.ac
 		NgForOf,
 		SpeedDialComponent,
 	],
+	providers: [
+		DataCalendarDomManipulationService
+	],
 	standalone: true
 })
 export default class Index extends Reactive implements OnInit, AfterViewInit {
@@ -193,10 +196,6 @@ export default class Index extends Reactive implements OnInit, AfterViewInit {
 			this.preferencesOfCalendars.unshift(preferences);
 			this.scrollToCorrectPosition(currentPosition);
 		}
-
-		console.log(this.preferencesOfCalendars[0]);
-		console.log(this.preferencesOfCalendars[1]);
-		console.log(this.preferencesOfCalendars[2]);
 
 	}
 

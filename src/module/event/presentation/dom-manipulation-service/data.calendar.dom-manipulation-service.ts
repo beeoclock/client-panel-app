@@ -5,9 +5,7 @@ import {IEvent} from "@event/domain";
 import {DateTime, Interval} from "luxon";
 import {EventDetailsModalService} from "@event/presentation/dom-manipulation-service/modal/event.details.modal.service";
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class DataCalendarDomManipulationService {
 
 	private readonly eventDetailsModalService = inject(EventDetailsModalService);
