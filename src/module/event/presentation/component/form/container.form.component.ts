@@ -177,6 +177,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 	];
 
 	public updateStartControlByDateTimeString(event: Event): void {
+		this.logger.debug('updateStartControlByDateTimeString', event);
 		const {value} = event.target as HTMLInputElement;
 		const date = new Date(value);
 		this.form.controls.start.patchValue(date.toISOString());

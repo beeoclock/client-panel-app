@@ -45,7 +45,7 @@ export class EventFormModalService extends Reactive {
 				const eventFormContainerComponentRef = modal.instance.componentChildRefList[0];
 				eventFormContainerComponentRef.setInput('forceStart', date);
 				const eventFormContainerComponent = eventFormContainerComponentRef.instance as ContainerFormComponent;
-				eventFormContainerComponent.form.controls.start.setValue(date);
+				eventFormContainerComponent.form.controls.start.patchValue(date);
 				eventFormContainerComponent.form.controls.configuration.controls.ignoreEventChecks.setValue(true);
 				eventFormContainerComponent.callbacksAfterSave[0] = () => {
 					modal.instance.closeModal();
