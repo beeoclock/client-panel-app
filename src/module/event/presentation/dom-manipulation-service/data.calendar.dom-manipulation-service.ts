@@ -241,7 +241,6 @@ export class DataCalendarDomManipulationService {
 				});
 
 				// Only if clientHeight is less than scrollHeight
-				console.log(node.clientHeight, node.scrollHeight)
 				if (node.clientHeight < node.scrollHeight) {
 					node.addEventListener('mouseenter', () => {
 						node.style.height = 'auto';
@@ -259,7 +258,6 @@ export class DataCalendarDomManipulationService {
 	}
 
 	private async openEventDetails(event: IEvent) {
-		console.log(event);
 		await this.eventDetailsModalService.openModal(event._id);
 	}
 

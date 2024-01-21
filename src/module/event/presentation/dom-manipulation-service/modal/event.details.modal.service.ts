@@ -5,6 +5,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {ItemEventApiAdapter} from "@event/adapter/external/api/item.event.api.adapter";
 import {ContainerDetailsComponent} from "@event/presentation/component/details/container.details.component";
+import {MEvent} from "@event/domain";
 
 @Injectable({
 	providedIn: 'root'
@@ -35,7 +36,7 @@ export class EventDetailsModalService extends Reactive {
 			}).then((modal) => {
 				const eventDetailsContainerComponent = modal.instance.componentChildRefList[0];
 				return this.itemEventApiAdapter.executeAsync(eventId).then((eventData) => {
-					eventDetailsContainerComponent.setInput('event', eventData);
+					eventDetailsContainerComponent.setInput('event', MEvent.create(eventData));
 					eventDetailsContainerComponent.setInput('useGrid', false);
 					return modal;
 				});
