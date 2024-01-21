@@ -58,7 +58,7 @@ export class SelectTimeComponent extends Reactive implements OnInit {
 	@Input({required: true})
 	public localDateTimeControl!: FormControl<DateTime>;
 
-	public selectedDateTime = DateTime.now();
+	public selectedDateTime: DateTime = DateTime.now();
 
 	@ViewChild('timeSlotsContainer')
 	public timeSlotsContainer!: ElementRef<HTMLDivElement>;

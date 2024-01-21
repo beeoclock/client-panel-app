@@ -67,8 +67,8 @@ export class DateSliderSelectComponent extends Reactive implements OnInit, After
 	@Output()
 	public updateDayItemList = new EventEmitter<IDayItem[]>();
 
-	public selectedDateTime = DateTime.now();
-	public today = DateTime.now();
+	public selectedDateTime: DateTime = DateTime.now();
+	public today: DateTime = DateTime.now();
 
 	public amountOfDaySlotsInContainer = 0;
 
