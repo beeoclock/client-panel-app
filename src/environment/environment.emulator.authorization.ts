@@ -45,7 +45,8 @@ export const environment = {
 			projectId: "beeoclock-develop",
 			storageBucket: "beeoclock-develop.appspot.com",
 			messagingSenderId: "957741407419",
-			appId: "1:957741407419:web:cfa84b1e0ac458dfaa5d9e"
+			appId: "1:957741407419:web:cfa84b1e0ac458dfaa5d9e",
+			vapidKey: "BHlprMakUwMYPx_Y5xSF8QeaiGOAiMPhdHKmaSTUbgWFdTEsD7Ov42yTEdQdLua4HexFD85gqO1jawbSR0Q-Jw0"
 		},
     emulator: {
       all: false,

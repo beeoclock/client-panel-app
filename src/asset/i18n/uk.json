@@ -372,14 +372,6 @@
 			}
 		},
 		"PATCH": {
-			"/api/v1/event/{id}/rejected": {
-				"after": {
-					"success": {
-						"header": "Подія відхилена",
-						"message": "Подія успішно відхилена."
-					}
-				}
-			},
 			"/api/v1/event/{id}/booked": {
 				"after": {
 					"success": {
@@ -401,6 +393,14 @@
 					"success": {
 						"header": "Подія виконана",
 						"message": "Подія успішно виконана."
+					}
+				}
+			},
+			"/api/v1/event/{id}/rejected": {
+				"after": {
+					"success": {
+						"header": "Подія відхилена",
+						"message": "Подія успішно відхилена."
 					}
 				}
 			},
@@ -737,6 +737,7 @@
 			"nextStep": "Наступний крок",
 			"no": "Ні",
 			"note": "Примітка",
+			"notification": "Повідомлення",
 			"openTimePicker": "Вибрати",
 			"ownOptionOfTime": "Година за твоїм бажанням",
 			"ownOptionOfTimeHint": "Оберіть цю опцію, якщо хочеш визначити час події самостійно, незалежно від інших подій, запланованих на цей час.",

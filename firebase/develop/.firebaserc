@@ -1,0 +1,22 @@
+{
+  "projects": {
+    "default": "panel-dev-beeoclock"
+  },
+  "targets": {
+    "panel-beeoclock": {
+      "hosting": {
+        "panel-beeoclock": [
+          "panel-beeoclock"
+        ]
+      }
+    },
+    "panel-dev-beeoclock": {
+      "hosting": {
+        "panel-dev-beeoclock": [
+          "panel-dev-beeoclock"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

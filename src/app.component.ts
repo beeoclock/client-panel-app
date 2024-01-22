@@ -10,12 +10,15 @@ import {is} from "thiis";
 import {SplashScreenService} from "@utility/cdk/splash-screen.service";
 import {ThemeService} from "@utility/cdk/theme.service";
 import {CheckForUpdatePwaService} from "@utility/cdk/check-for-update-pwa.service";
+import {NotificationManagerService} from "@utility/cdk/notification.manager.service";
 
 @Component({
 	selector: 'app-root',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
-	imports: [RouterModule],
+	imports: [
+		RouterModule,
+	],
 	template: `
 		<router-outlet/>
 	`,
@@ -28,6 +31,7 @@ export class AppComponent implements AfterViewInit {
 	private readonly splashScreenService = inject(SplashScreenService);
 	private readonly checkForUpdatePwaService = inject(CheckForUpdatePwaService);
 	private readonly document = inject(DOCUMENT);
+	private readonly notificationManagerService = inject(NotificationManagerService);
 
 	constructor() {
 		this.languageService.initialize();
@@ -36,6 +40,9 @@ export class AppComponent implements AfterViewInit {
 	}
 
 	public ngAfterViewInit(): void {
+
+		this.notificationManagerService.initialize().then();
+
 		const html = this.document.querySelector('html');
 		if (html) {
 			detectorInit(html);
