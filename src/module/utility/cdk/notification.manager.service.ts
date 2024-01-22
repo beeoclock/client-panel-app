@@ -81,7 +81,7 @@ export class NotificationManagerService {
 	 */
 	private async saveTokenAsync(token: string | null) {
 
-		this.ngxLogger.debug('[NOTIFICATION] Saving token to local storage.');
+		this.ngxLogger.debug('[NOTIFICATION] Saving token to local storage.', token);
 
 		if (token) {
 
@@ -109,7 +109,7 @@ export class NotificationManagerService {
 		const prevToken = await this.getTokenAsync();
 
 		if (prevToken === token) {
-			this.ngxLogger.debug('[NOTIFICATION] Token is the same as the previous one. Skipping.');
+			this.ngxLogger.debug('[NOTIFICATION] Token is the same as the previous one. Skipping.', token);
 			return false;
 		}
 
