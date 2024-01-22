@@ -32,7 +32,9 @@
             "assets": [
               "src/favicon.ico",
               "src/asset",
-              "src/manifest.webmanifest"
+              "src/manifest.webmanifest",
+              "src/firebase-messaging-sw.dev.js",
+              "src/firebase-messaging-sw.prod.js"
             ],
             "styles": [
               "src/styles.scss"

@@ -34,6 +34,7 @@ import {LanguageCodeEnum} from "@utility/domain/enum";
 import '@angular/common/locales/global/uk';
 import {ClientState} from "@client/state/client/client.state";
 import {NgEventBus} from 'ng-event-bus';
+import {getMessaging, provideMessaging} from "@angular/fire/messaging";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -69,6 +70,7 @@ bootstrapApplication(AppComponent, {
 			provideFirebaseApp(() =>
 				initializeApp(environment.firebase.options)
 			),
+			provideMessaging(() => getMessaging()),
 			provideAuth(() => {
 				const auth = getAuth();
 				auth.setPersistence(browserLocalPersistence)

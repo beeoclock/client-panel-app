@@ -10,6 +10,8 @@ export enum identityEndpointEnum {
   postResetPassword = '/api/v1/provider/reset-password',
   confirmEmail = '/api/v1/provider/confirm-email',
 
+  postRegisterDevice = '/api/v1/provider/register-device',
+
   patchChangeName = '/api/v1/provider/name',
   patchChangePhoneNumber = '/api/v1/provider/phone-number',
 }
@@ -41,6 +43,14 @@ export const identityEndpoint: EndpointCollectionType = {
     },
     [identityEndpointEnum.postCreateBusinessClient]: {
       path: identityEndpointEnum.postCreateBusinessClient,
+      method: RequestMethodEnum.POST,
+      source: SourceNetworkEnum.identity,
+      header: {
+        authorization: true
+      }
+    },
+    [identityEndpointEnum.postRegisterDevice]: {
+      path: identityEndpointEnum.postRegisterDevice,
       method: RequestMethodEnum.POST,
       source: SourceNetworkEnum.identity,
       header: {
