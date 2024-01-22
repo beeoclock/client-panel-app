@@ -19,4 +19,4 @@ jobs:
           channelId: live
           target: panel-beeoclock
           projectId: bee-o-clock
-          entrypoint: ./firebase/prod
+          entrypoint: ./firebase/production
