@@ -22,6 +22,10 @@ export const routers = [
 				loadComponent: () => import('./page/requested')
 			},
 			{
+				path: 'calendar',
+				loadComponent: () => import('./page/calendar'),
+			},
+			{
 				path: 'form',
 				resolve: {
 					service: eventServiceResolver,

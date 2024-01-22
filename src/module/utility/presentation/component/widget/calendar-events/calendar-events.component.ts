@@ -66,7 +66,7 @@ export class CalendarEventsComponent extends Reactive implements OnInit {
 	public readonly loader = new BooleanStreamState(true);
 
 	public updateDayItemList(dayItemList: IDayItem[]) {
-		this.loader.switchOn();
+		this.loader.doTrue();
 		const firstDay = dayItemList[0];
 		const lastDay = dayItemList[dayItemList.length - 1];
 		this.calendarEventsListApiAdapter.executeAsync({
@@ -90,7 +90,7 @@ export class CalendarEventsComponent extends Reactive implements OnInit {
 			if (this.selectedDateControl.value >= firstDay.datetime && this.selectedDateControl.value <= lastDay.datetime) {
 				this.updateItems(this.selectedDateControl.value);
 			}
-			this.loader.switchOff();
+			this.loader.doFalse();
 		});
 	}
 

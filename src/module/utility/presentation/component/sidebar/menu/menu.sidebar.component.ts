@@ -104,6 +104,17 @@ export class MenuSidebarComponent implements OnInit {
 			url: '/event/requested',
 		},
 		{
+			translateKey: 'sidebar.calendar',
+			icon: 'bi bi-calendar-week',
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			},
+			url: '/event/calendar',
+		},
+		{
 			url: '/customer/list',
 			translateKey: 'sidebar.customers',
 			icon: 'bi bi-person-vcard',

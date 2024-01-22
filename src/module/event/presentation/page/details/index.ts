@@ -17,6 +17,7 @@ import {GeneralDetailsComponent} from "@event/presentation/component/details/gen
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
+import {ContainerDetailsComponent} from "@event/presentation/component/details/container.details.component";
 
 @Component({
 	selector: 'event-detail-page',
@@ -40,6 +41,7 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 		PrimaryButtonDirective,
 		BackButtonComponent,
 		DefaultPanelComponent,
+		ContainerDetailsComponent,
 	],
 	standalone: true
 })

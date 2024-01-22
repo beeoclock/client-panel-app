@@ -10,23 +10,23 @@ export class BooleanStreamState {
   ) {
   }
 
-  public get isOn(): boolean {
+  public get isTrue(): boolean {
     return this.#state$.value;
   }
 
-  public get isOff(): boolean {
-    return !this.isOn;
+  public get isFalse(): boolean {
+    return !this.isTrue;
   }
 
   public toggle(force?: boolean): void {
-    this.#state$.next(force ?? !this.isOn);
+    this.#state$.next(force ?? !this.isTrue);
   }
 
-  public switchOn(): void {
+  public doTrue(): void {
     this.toggle(true);
   }
 
-  public switchOff(): void {
+  public doFalse(): void {
     this.toggle(false);
   }
 }

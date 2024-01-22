@@ -25,9 +25,10 @@ import {RMIEvent} from "@event/domain";
 		NgTemplateOutlet,
 		ChangeStatusOnBookedComponent,
 		ChangeStatusOnCancelledComponent,
-		ChangeStatusOnDoneComponent
+		ChangeStatusOnDoneComponent,
 	],
 	template: `
+
 		<div class="flex justify-between flex-col md:flex-row gap-4">
 
 			<ng-container *ngIf="event.isRequested">

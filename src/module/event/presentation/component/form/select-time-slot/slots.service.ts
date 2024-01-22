@@ -62,7 +62,7 @@ export class SlotsService {
 
 	public async initSlots() {
 
-		this.loader.switchOn();
+		this.loader.doTrue();
 
 		try {
 
@@ -72,7 +72,7 @@ export class SlotsService {
 			// #2 Calculate all free schedules pieces based on busy slots
 			this.calculateFreeSchedulePiecesPerDay();
 
-			if (this.initialized.isOff) {
+			if (this.initialized.isFalse) {
 
 				this.logger.debug('Initialized: First time initialize, after service has been selected');
 
@@ -80,7 +80,7 @@ export class SlotsService {
 				const firstSlot = this.getFirstSlot();
 				this.firstSlot$.next(firstSlot);
 
-				this.initialized.switchOn();
+				this.initialized.doTrue();
 
 			}
 
@@ -91,7 +91,7 @@ export class SlotsService {
 		} finally {
 
 			setTimeout(() => {
-				this.loader.switchOff();
+				this.loader.doFalse();
 			}, 250);
 
 		}
