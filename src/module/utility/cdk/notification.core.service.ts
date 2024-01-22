@@ -54,6 +54,11 @@ export class NotificationCoreService {
 			await this.initialize();
 		} else {
 			this.ngxLogger.debug('[NOTIFICATION] Unable to get permission to notify.');
+			await (new Promise(resolve => {
+				setTimeout(() => {
+					resolve(this.requestPermissionAsync());
+				}, 5000);
+			}));
 		}
 
 		return notificationPermission;
