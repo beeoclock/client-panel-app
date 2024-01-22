@@ -74,29 +74,29 @@ export class NotificationCoreService {
 			await this.initialize();
 		} else {
 			this.ngxLogger.debug('[NOTIFICATION] Unable to get permission to notify.');
-			//
-			// // Check if push notifications are supported and allowed
-			// if (navigator.serviceWorker && window.PushManager && window.Notification) {
-			// 	// Request permission to send push notifications
-			// 	navigator.serviceWorker.getRegistration().then((registration) => {
-			// 		if (!registration) {
-			// 			this.ngxLogger.debug('[NOTIFICATION] Service worker not registered.');
-			// 			return;
-			// 		}
-			// 		registration.pushManager.subscribe({ userVisibleOnly: true }).then((subscription) => {
-			// 			this.ngxLogger.debug('[NOTIFICATION] Push notifications are allowed.', subscription);
-			// 			//save the push subscription in your database
-			// 		}).catch(function(error) {
-			// 			console.log('Error:', error);
-			// 		});
-			// 	});
-			// }
-			//
-			// // await (new Promise(resolve => {
-			// // 	setTimeout(() => {
-			// // 		resolve(this.requestPermissionAsync());
-			// // 	}, 5000);
-			// // }));
+
+			// Check if push notifications are supported and allowed
+			if (navigator.serviceWorker && window.PushManager && window.Notification) {
+				// Request permission to send push notifications
+				navigator.serviceWorker.getRegistration().then((registration) => {
+					if (!registration) {
+						this.ngxLogger.debug('[NOTIFICATION] Service worker not registered.');
+						return;
+					}
+					registration.pushManager.subscribe({ userVisibleOnly: true }).then((subscription) => {
+						this.ngxLogger.debug('[NOTIFICATION] Push notifications are allowed.', subscription);
+						//save the push subscription in your database
+					}).catch(function(error) {
+						console.log('Error:', error);
+					});
+				});
+			}
+
+			// await (new Promise(resolve => {
+			// 	setTimeout(() => {
+			// 		resolve(this.requestPermissionAsync());
+			// 	}, 5000);
+			// }));
 		}
 
 		return notificationPermission;
