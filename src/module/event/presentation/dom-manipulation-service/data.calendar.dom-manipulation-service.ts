@@ -252,9 +252,30 @@ export class DataCalendarDomManipulationService {
 			}
 		});
 
-		// TODO: Sort divs by height
+		// this.sortChildrenByHeight(cell);
 
 		return this;
+	}
+
+	private sortChildrenByHeight(parentElement: HTMLElement): void {
+		// Get all child nodes
+		const childNodes = Array.from(parentElement.childNodes);
+
+		// Sort child nodes by height
+		const sortedNodes = childNodes.sort((a, b) => {
+			if (a instanceof HTMLElement && b instanceof HTMLElement) {
+				return a.clientHeight - b.clientHeight;
+			}
+			return 0;
+		});
+
+		// Remove all child nodes
+		while (parentElement.firstChild) {
+			parentElement.firstChild.remove();
+		}
+
+		// Append sorted nodes
+		sortedNodes.forEach(node => parentElement.appendChild(node));
 	}
 
 	private async openEventDetails(event: IEvent) {
