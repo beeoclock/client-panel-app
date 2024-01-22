@@ -1,7 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {NotificationCoreService} from "@utility/cdk/notification.core.service";
 import {is} from "thiis";
-import {filter} from "rxjs";
 import {RegisterDeviceApiAdapter} from "@identity/adapter/external/api/register-device.api.adapter";
 import {ProviderTypeEnum} from "@identity/domain/enum/provider-type.enum";
 import {NGXLogger} from "ngx-logger";
@@ -41,11 +40,15 @@ export class NotificationManagerService {
 
 		this.ngxLogger.debug('[NOTIFICATION] Initializing notification manager.');
 
-		await this.notificationService.requestPermissionAsync();
+		await this.tryToRestoreToken();
 
-		this.notificationService.token$.pipe(filter(is.string_not_empty<string>)).subscribe((token) => {
+		this.notificationService.token$.subscribe((token) => {
 
-			this.sendTokenToServerAsync(token).then();
+			if (is.string_not_empty<string>(token)) {
+
+				this.sendTokenToServerAsync(token).then();
+
+			}
 
 			this.saveTokenAsync(token).then();
 
@@ -53,15 +56,49 @@ export class NotificationManagerService {
 
 	}
 
+	public async tryToRestoreToken() {
+
+		this.ngxLogger.debug('[NOTIFICATION] Trying to restore token.');
+
+		const token = await this.getTokenAsync();
+
+		if (token) {
+
+			this.ngxLogger.debug('[NOTIFICATION] Token restored.', token);
+
+			this.notificationService.token$.next(token);
+
+		}
+
+	}
+
+	public async getTokenAsync() {
+
+		this.ngxLogger.debug('[NOTIFICATION] Getting token from local storage.');
+
+		return localStorage.getItem('fcmToken');
+
+	}
+
 	/**
 	 * saveTokenAsync is a method that saves the FCM token to local storage.
 	 * @param token - The FCM token to be saved.
 	 */
-	private async saveTokenAsync(token: string) {
+	private async saveTokenAsync(token: string | null) {
 
 		this.ngxLogger.debug('[NOTIFICATION] Saving token to local storage.');
 
-		localStorage.setItem('fcmToken', token);
+		if (token) {
+
+			localStorage.setItem('fcmToken', token);
+
+		} else {
+
+			localStorage.removeItem('fcmToken');
+
+		}
+
+		return true;
 
 	}
 
@@ -74,7 +111,12 @@ export class NotificationManagerService {
 
 		this.ngxLogger.debug('[NOTIFICATION] Sending token to server.');
 
-		const prevToken = localStorage.getItem('fcmToken');
+		const prevToken = await this.getTokenAsync();
+
+		if (prevToken === token) {
+			this.ngxLogger.debug('[NOTIFICATION] Token is the same as the previous one. Skipping.');
+			return false;
+		}
 
 		const body = {
 			providerType: ProviderTypeEnum.firebase,
@@ -85,6 +127,8 @@ export class NotificationManagerService {
 		this.ngxLogger.debug('[NOTIFICATION] Sending token to server.', body);
 
 		await this.registerDeviceApiAdapter.executeAsync(body);
+
+		return true;
 
 	}
 

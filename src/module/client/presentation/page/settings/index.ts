@@ -10,24 +10,28 @@ import {GeneralSettingsComponent} from "@client/presentation/component/settings/
 import {EventSettingsComponent} from "@client/presentation/component/settings/event/event.settings.component";
 import {SignOutSettingsComponent} from "@client/presentation/component/settings/sign-out/sign-out.settings.component";
 import {ServiceSettingsComponent} from "@client/presentation/component/settings/service/service.settings.component";
+import {
+	NotificationSettingsComponent
+} from "@client/presentation/component/settings/notification/notification.settings.component";
 
 @Component({
   selector: 'client-settings-page',
   templateUrl: './index.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    DangerZoneComponent,
-    ChangePasswordComponent,
-    DeleteButtonComponent,
-    ReactiveFormsModule,
-    LanguageInputComponent,
-    TranslateModule,
-    AccountSettingsComponent,
-    GeneralSettingsComponent,
-    EventSettingsComponent,
-    SignOutSettingsComponent,
-    ServiceSettingsComponent
-  ],
+	imports: [
+		DangerZoneComponent,
+		ChangePasswordComponent,
+		DeleteButtonComponent,
+		ReactiveFormsModule,
+		LanguageInputComponent,
+		TranslateModule,
+		AccountSettingsComponent,
+		GeneralSettingsComponent,
+		EventSettingsComponent,
+		SignOutSettingsComponent,
+		ServiceSettingsComponent,
+		NotificationSettingsComponent
+	],
   standalone: true
 })
 export default class Index {
