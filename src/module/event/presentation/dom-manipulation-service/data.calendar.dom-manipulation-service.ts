@@ -4,6 +4,7 @@ import {NGXLogger} from "ngx-logger";
 import {IEvent} from "@event/domain";
 import {DateTime, Interval} from "luxon";
 import {EventDetailsModalService} from "@event/presentation/dom-manipulation-service/modal/event.details.modal.service";
+import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 
 @Injectable()
 export class DataCalendarDomManipulationService {
@@ -16,6 +17,21 @@ export class DataCalendarDomManipulationService {
 
 	public DOMElementCollectionHas(id: string) {
 		return this.DOMElementCollection.has(id);
+	}
+
+	public pushDataOrFindAndReplaceIfTheyAreDifferent(event: IEvent) {
+		this.ngxLogger.debug('Push data or find and replace if they are different', event);
+		const element = this.DOMElementCollection.get(event._id);
+		if (element) {
+			// Check if status is different
+			if (element.dataset.status !== event.status) {
+				this.clearById(event._id);
+				this.pushData(event);
+			}
+		} else {
+			this.pushData(event);
+		}
+		return this;
 	}
 
 	public clearAll() {
@@ -194,15 +210,35 @@ export class DataCalendarDomManipulationService {
 		const newDiv = this.document.createElement("div");
 		newDiv.id = event._id;
 		newDiv.dataset.isEventData = 'true';
+		newDiv.dataset.status = event.status;
 		newDiv.classList.add('z-10');
 		// set absolute position
 		newDiv.style.position = 'absolute';
 		newDiv.style.maxWidth = divWidth + 'px';
 		newDiv.style.top = top + 'px';
 		newDiv.style.left = newDivLeft + 'px';
+
+		// Choose color by status
+		const classList = [];
+		switch (event.status) {
+			case EventStatusEnum.rejected:
+			case EventStatusEnum.cancelled:
+				classList.push('bg-red-400', 'border-red-400', 'hover:bg-red-500');
+				break;
+			case EventStatusEnum.requested:
+				classList.push('bg-orange-400', 'border-orange-500', 'hover:bg-orange-500');
+				break;
+			case EventStatusEnum.booked:
+				classList.push('bg-blue-400', 'border-blue-400', 'hover:bg-blue-500');
+				break;
+			case EventStatusEnum.done:
+				classList.push('bg-green-400', 'border-green-400', 'hover:bg-green-500');
+				break;
+		}
+
 		// Show time start and finish also show customer name/phone/email and service name
 		newDiv.innerHTML = `
-			<div style="height: ${heightInPx}px; margin: 2px; padding: 2px;" class="cursor-pointer hover:bg-blue-500 transition-all hover:text-white text-ellipsis overflow-hidden break-words bg-blue-400/20 h-100 rounded shadow border border-blue-200 text-xs text-slate-400 dark:bg-slate-800">
+			<div style="height: ${heightInPx}px; margin: 2px; padding: 2px;" class="${classList.join(' ')} text-white cursor-pointer transition-all hover:text-white text-ellipsis overflow-hidden break-words h-100 rounded shadow border text-xs">
 				${startDateTime.toFormat('HH:mm')} - ${endDateTime.toFormat('HH:mm')},
 				${event.attendees?.map(({customer}) => {
 					if (customer?.firstName) {

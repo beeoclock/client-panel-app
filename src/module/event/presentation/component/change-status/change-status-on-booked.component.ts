@@ -10,6 +10,7 @@ import {NgIf, NgTemplateOutlet} from "@angular/common";
 import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum";
 import {ChangeStatusBaseComponent} from "@event/presentation/component/change-status/change-status-base.component";
 import {EventRequestedActions} from "@event/state/event-requested/event-requested.actions";
+import {RefreshCalendarAction} from "@event/state/calendar/actions/refresh.calendar.action";
 
 @Component({
 	selector: 'event-change-status-on-booked-component',
@@ -61,6 +62,7 @@ export class ChangeStatusOnBookedComponent extends ChangeStatusBaseComponent {
 		})));
 		this.postStatusChange(EventStatusEnum.booked);
 		this.store.dispatch(new EventRequestedActions.GetList({force: true, resetPage: false, resetParams: false}));
+		this.store.dispatch(new RefreshCalendarAction());
 	}
 
 

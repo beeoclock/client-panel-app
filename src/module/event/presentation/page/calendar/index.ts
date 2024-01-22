@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, inject, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {FilterComponent} from "@event/presentation/component/filter/filter.component";
 import {DOCUMENT, NgForOf, NgIf} from "@angular/common";
 import {HoursComponent} from "@event/presentation/component/calendar/hours.component";
@@ -45,7 +45,7 @@ import {ContainerCalendarComponent} from "@event/presentation/component/calendar
 			[hidden]="initialized.isFalse"/>
 	`
 })
-export default class Index extends Reactive implements OnInit, AfterViewInit {
+export default class Index extends Reactive implements OnInit, AfterViewInit, OnDestroy {
 
 	private readonly calendarDomManipulationService = inject(DataCalendarDomManipulationService);
 	private readonly ngxLogger = inject(NGXLogger);
@@ -82,8 +82,12 @@ export default class Index extends Reactive implements OnInit, AfterViewInit {
 		super();
 	}
 
-	public ngOnInit() {
+	public override ngOnDestroy() {
+		super.ngOnDestroy();
+		this.store.dispatch(new InitCalendarAction());
+	}
 
+	public ngOnInit() {
 		this.store.dispatch(new InitCalendarAction());
 
 		this.dataByType$.pipe(this.takeUntil()).subscribe((dataByType) => {
@@ -91,9 +95,7 @@ export default class Index extends Reactive implements OnInit, AfterViewInit {
 			// Get data from dataByType
 			Object.values(dataByType).forEach((events) => {
 				events.forEach((event) => {
-					if (!this.calendarDomManipulationService.DOMElementCollectionHas(event._id)) {
-						this.calendarDomManipulationService.pushData(event);
-					}
+					this.calendarDomManipulationService.pushDataOrFindAndReplaceIfTheyAreDifferent(event);
 				});
 			});
 		});
