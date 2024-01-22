@@ -1,14 +1,4 @@
-import {
-	AfterViewInit,
-	Component,
-	inject,
-	OnInit,
-	QueryList,
-	ViewChild,
-	ViewChildren,
-	ViewContainerRef,
-	ViewEncapsulation
-} from '@angular/core';
+import {AfterViewInit, Component, inject, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {FilterComponent} from "@event/presentation/component/filter/filter.component";
 import {DOCUMENT, NgForOf, NgIf} from "@angular/common";
 import {HoursComponent} from "@event/presentation/component/calendar/hours.component";
@@ -27,15 +17,12 @@ import {
 } from "@event/presentation/dom-manipulation-service/data.calendar.dom-manipulation-service";
 import {TranslateService} from "@ngx-translate/core";
 import {SpeedDialComponent} from "@event/presentation/component/calendar/speed-dial.component";
-import {
-	ScrollCalendarDomManipulationService
-} from "@event/presentation/dom-manipulation-service/scroll.calendar.dom-manipulation-service";
 import {Reactive} from "@utility/cdk/reactive";
 import {InitCalendarAction} from "@event/state/calendar/actions/init.calendar.action";
+import {ContainerCalendarComponent} from "@event/presentation/component/calendar/container.calendar.component";
 
 @Component({
 	selector: 'event-calendar-page',
-	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		FilterComponent,
@@ -44,11 +31,19 @@ import {InitCalendarAction} from "@event/state/calendar/actions/init.calendar.ac
 		ColumnsBlockComponent,
 		NgForOf,
 		SpeedDialComponent,
+		ContainerCalendarComponent,
 	],
 	providers: [
 		DataCalendarDomManipulationService
 	],
-	standalone: true
+	standalone: true,
+	template: `
+		<!--<event-filter-component/>-->
+		<event-calendar-container-component
+			[currentDate]="currentDate"
+			[preferencesOfCalendars]="preferencesOfCalendars"
+			[hidden]="initialized.isFalse"/>
+	`
 })
 export default class Index extends Reactive implements OnInit, AfterViewInit {
 
@@ -56,7 +51,6 @@ export default class Index extends Reactive implements OnInit, AfterViewInit {
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
 	private readonly translateService = inject(TranslateService);
-	private readonly scrollCalendarDomManipulationService = inject(ScrollCalendarDomManipulationService);
 	private readonly document = inject(DOCUMENT);
 
 	// Hours
@@ -72,19 +66,8 @@ export default class Index extends Reactive implements OnInit, AfterViewInit {
 	private readonly currentDate$ = this.store.select(CalendarQueries.currentDate);
 	public currentDate: Date = DateTime.local().startOf(DEFAULT_PRESENTATION_CALENDAR_TYPE).toJSDate();
 
-	// Ref to last, first and current calendars
-	private currentCalendarRef: ColumnsBlockComponent | null = null;
-
-	@ViewChildren(ColumnsBlockComponent)
-	private calendarsRef!: QueryList<ColumnsBlockComponent>;
-
-	@ViewChild('hoursComponent', {read: ViewContainerRef})
-	private hoursComponentRef!: ViewContainerRef;
-
-	@ViewChild('containerOfCalendars', {read: ViewContainerRef})
-	private containerOfCalendarsRef!: ViewContainerRef;
-
-	private selectedHourRef: HTMLElement | null = null;
+	@ViewChild(ContainerCalendarComponent)
+	private containerOfCalendarsRef!: ContainerCalendarComponent;
 
 	public readonly initialized = new BooleanStreamState(false);
 	public readonly isPushingNextCalendar = new BooleanStreamState(false);
@@ -119,7 +102,7 @@ export default class Index extends Reactive implements OnInit, AfterViewInit {
 			this.ngxLogger.debug('currentDate', currentDate);
 			this.currentDate = currentDate;
 			// TODO reset all calendars
-			this.initCurrentCalendar();
+			this.containerOfCalendarsRef.initCurrentCalendar();
 		});
 
 		this.firstDate$.pipe(
@@ -161,12 +144,8 @@ export default class Index extends Reactive implements OnInit, AfterViewInit {
 	ngAfterViewInit() {
 
 		this.initHandlers();
-		this.initRefToSelectedHour();
-		this.initCurrentCalendar();
+		this.containerOfCalendarsRef.initCurrentCalendar();
 		this.initialized.doTrue();
-		this.scrollCalendarDomManipulationService
-			.setContainerOfCalendarsRef(this.containerOfCalendarsRef)
-			.initDesktopMouseHandle();
 
 	}
 
@@ -192,29 +171,11 @@ export default class Index extends Reactive implements OnInit, AfterViewInit {
 		if (push) {
 			this.preferencesOfCalendars.push(preferences);
 		} else {
-			const currentPosition = this.containerOfCalendarsRef.element.nativeElement.scrollLeft;
+			const currentPosition = this.containerOfCalendarsRef.elementRef.nativeElement.scrollLeft;
 			this.preferencesOfCalendars.unshift(preferences);
-			this.scrollToCorrectPosition(currentPosition);
+			this.containerOfCalendarsRef.scrollToCorrectPosition(currentPosition);
 		}
 
-	}
-
-	/**
-	 * @description Scroll to correct position
-	 * @param prevScrollPosition - previous scroll position
-	 * @private
-	 */
-	private scrollToCorrectPosition(prevScrollPosition: number) {
-
-		if (!this.currentCalendarRef) {
-			return;
-		}
-
-		// Scroll to prevScrollPosition + width of calendar
-		const containerHTML = this.containerOfCalendarsRef.element.nativeElement as HTMLElement;
-		containerHTML.scrollTo({
-			left: prevScrollPosition + this.currentCalendarRef.elementRef.nativeElement.scrollWidth,
-		});
 	}
 
 	/**
@@ -222,89 +183,21 @@ export default class Index extends Reactive implements OnInit, AfterViewInit {
 	 * @private
 	 */
 	private initHandlers() {
-		this.initHandlerOnHorizontalScroll();
-	}
-
-	/**
-	 * @description Init handler on horizontal scroll
-	 * @private
-	 */
-	private initHandlerOnHorizontalScroll() {
-		const containerOfCalendarsNativeElement: HTMLElement = this.containerOfCalendarsRef.element.nativeElement;
-
-		containerOfCalendarsNativeElement.addEventListener('scroll', () => {
-			if (!this.currentCalendarRef) {
-				return;
+		const prevCallback = () => {
+			// Add prev calendar
+			if (this.isPushingPrevCalendar.isFalse) {
+				this.isPushingPrevCalendar.doTrue();
+				this.store.dispatch(new PushPrevCalendarAction());
 			}
-
-			const currentCalendarNativeElement: HTMLElement = this.currentCalendarRef.elementRef.nativeElement;
-			const firstHalfOfCalendarPosition = currentCalendarNativeElement.scrollWidth / 2;
-			const lastHalfOfCalendarPosition = containerOfCalendarsNativeElement.scrollWidth - firstHalfOfCalendarPosition;
-
-			if (containerOfCalendarsNativeElement.scrollLeft <= firstHalfOfCalendarPosition) {
-				// Add prev calendar
-				if (this.isPushingPrevCalendar.isFalse) {
-					this.isPushingPrevCalendar.doTrue();
-					this.store.dispatch(new PushPrevCalendarAction());
-				}
+		};
+		const nextCallback = () => {
+			// Add next calendar
+			if (this.isPushingNextCalendar.isFalse) {
+				this.isPushingNextCalendar.doTrue();
+				this.store.dispatch(new PushNextCalendarAction());
 			}
-
-			if ((containerOfCalendarsNativeElement.scrollLeft + currentCalendarNativeElement.scrollWidth) >= lastHalfOfCalendarPosition) {
-				// Add next calendar
-				if (this.isPushingNextCalendar.isFalse) {
-					this.isPushingNextCalendar.doTrue();
-					this.store.dispatch(new PushNextCalendarAction());
-				}
-			}
-
-		});
-	}
-
-	/**
-	 * @description Init ref to selected hour
-	 * @private
-	 */
-	private initRefToSelectedHour() {
-		const elementId = `hours-column-${this.selectedHour}`;
-		const selectedHourRef = this.document.getElementById(elementId);
-
-		if (!selectedHourRef) {
-			return;
 		}
-
-		this.selectedHourRef = selectedHourRef;
-	}
-
-	/**
-	 * @description Init current calendar
-	 * @private
-	 */
-	private initCurrentCalendar() {
-		const currentCalendarRef = this.calendarsRef.find((calendarRef) => {
-			return calendarRef.preferences.from.toISOString() === this.currentDate.toISOString();
-		});
-		if (currentCalendarRef) {
-			this.currentCalendarRef = currentCalendarRef;
-		}
-		this.scrollToCurrentCalendar();
-	}
-
-	/**
-	 * @description Scroll to current calendar
-	 * @private
-	 */
-	private scrollToCurrentCalendar() {
-		if (!this.currentCalendarRef) {
-			return;
-		}
-
-		const hoursComponentNativeElement: HTMLElement = this.hoursComponentRef.element.nativeElement;
-		const left = this.currentCalendarRef.elementRef.nativeElement.offsetLeft - hoursComponentNativeElement.offsetWidth;
-		const top = (this.selectedHourRef?.offsetTop ?? 0) - (this.selectedHourRef?.offsetHeight ?? 0);
-		this.containerOfCalendarsRef.element.nativeElement.scrollTo({
-			left,
-			top,
-		});
+		this.containerOfCalendarsRef.initHandlerOnHorizontalScroll(prevCallback, nextCallback);
 	}
 
 }

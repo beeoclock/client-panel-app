@@ -1,9 +1,10 @@
-import {inject, Injectable, ViewContainerRef} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {DOCUMENT} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
 import {firstValueFrom} from "rxjs";
 import {BooleanState} from "@utility/domain";
 import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
+import {ContainerCalendarComponent} from "@event/presentation/component/calendar/container.calendar.component";
 
 @Injectable({
 	providedIn: 'root'
@@ -16,9 +17,9 @@ export class ScrollCalendarDomManipulationService {
 
 	public readonly isScrolling = new BooleanState(false);
 
-	private containerOfCalendarsRef: ViewContainerRef | undefined;
+	private containerOfCalendarsRef: ContainerCalendarComponent | undefined;
 
-	public setContainerOfCalendarsRef(containerOfCalendarsRef: ViewContainerRef) {
+	public setContainerOfCalendarsRef(containerOfCalendarsRef: ContainerCalendarComponent) {
 		this.containerOfCalendarsRef = containerOfCalendarsRef;
 		return this;
 	}
@@ -39,7 +40,7 @@ export class ScrollCalendarDomManipulationService {
 
 		const mouseDown = new BooleanState(false);
 
-		const container: HTMLDivElement = this.containerOfCalendarsRef.element.nativeElement;
+		const container: HTMLDivElement = this.containerOfCalendarsRef.elementRef.nativeElement;
 		container.addEventListener('mousedown', () => {
 			this.isScrolling.switchOff();
 			if (mouseDown.isOff) {

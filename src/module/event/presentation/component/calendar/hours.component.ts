@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostBinding, Input} from "@angular/core";
+import {ChangeDetectionStrategy, Component, ElementRef, HostBinding, inject, Input} from "@angular/core";
 import {NgForOf} from "@angular/common";
 import {DateTime} from "luxon";
 import {DEFAULT_PRESENTATION_CALENDAR_TYPE} from "@event/domain/enum/presentation-calendar-type.enum";
@@ -34,5 +34,7 @@ export class HoursComponent {
 	public class = 'sticky z-20 left-0 [&>.test:nth-child(odd)]:bg-white [&>.test:nth-child(even)]:bg-neutral-50 [&>*]:border-b [&>*]:border-neutral-200 [&>*]:border-r hover:[&>.clickMe]:!bg-blue-100 flex flex-col';
 
 	public readonly hours = Array.from({length: 24}, (v, k) => DateTime.fromObject({hour: k}).toFormat('HH:mm'));
+
+	public readonly elementRef = inject(ElementRef);
 
 }
