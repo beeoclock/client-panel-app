@@ -2,7 +2,10 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase Hosting on PR
-'on': pull_request
+'on':
+  pull_request:
+    branches:
+      - main
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
@@ -15,3 +18,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEE_O_CLOCK }}'
           target: panel-beeoclock
           projectId: bee-o-clock
+          entrypoint: ./firebase/prod
