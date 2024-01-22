@@ -1,6 +1,5 @@
 import {inject, Injectable} from "@angular/core";
 import {NotificationCoreService} from "@utility/cdk/notification.core.service";
-import {is} from "thiis";
 import {RegisterDeviceApiAdapter} from "@identity/adapter/external/api/register-device.api.adapter";
 import {ProviderTypeEnum} from "@identity/domain/enum/provider-type.enum";
 import {NGXLogger} from "ngx-logger";
@@ -44,11 +43,7 @@ export class NotificationManagerService {
 
 		this.notificationService.token$.subscribe((token) => {
 
-			if (is.string_not_empty<string>(token)) {
-
-				this.sendTokenToServerAsync(token).then();
-
-			}
+			this.sendTokenToServerAsync(token).then();
 
 			this.saveTokenAsync(token).then();
 
@@ -107,7 +102,7 @@ export class NotificationManagerService {
 	 * It also sends the previous token, if any.
 	 * @param token - The FCM token to be sent.
 	 */
-	private async sendTokenToServerAsync(token: string) {
+	private async sendTokenToServerAsync(token: string | null) {
 
 		this.ngxLogger.debug('[NOTIFICATION] Sending token to server.');
 
