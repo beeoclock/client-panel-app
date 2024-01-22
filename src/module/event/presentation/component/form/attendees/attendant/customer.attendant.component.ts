@@ -25,70 +25,71 @@ import {CustomerForm} from "@customer/presentation/form";
   ],
   template: `
 
-    <ng-select
-      #customerSelectComponent
-      [class.invisible]="localControl.value"
-      [class.h-1]="localControl.value"
-      class="cursor-pointer"
-      [placeholder]="'event.form.section.attendant.input.selectCustomer.placeholder' | translate"
-      [closeOnSelect]="true"
-      [clearable]="false"
-      [hideSelected]="true"
-      [loading]="listCustomerAdapter.loading$.isOn"
-      [disabled]="customerForm.disabled"
-      [formControl]="localControl">
-      <ng-template ng-label-tmp let-item="item" let-clear="clear">
+      <ng-select
+              #customerSelectComponent
+              [class.invisible]="localControl.value"
+              [class.h-1]="localControl.value"
+              class="cursor-pointer"
+              [placeholder]="'event.form.section.attendant.input.selectCustomer.placeholder' | translate"
+              [closeOnSelect]="true"
+              [clearable]="false"
+              [hideSelected]="true"
+              [loading]="listCustomerAdapter.loading$.isTrue"
+              [disabled]="customerForm.disabled"
+              [formControl]="localControl">
+          <ng-template ng-label-tmp let-item="item" let-clear="clear">
         <span class="text-beeColor-400">
           {{ 'event.form.section.attendant.input.selectCustomer.placeholder' | translate }}
         </span>
-      </ng-template>
-      <ng-option *ngFor="let item of listCustomerAdapter.tableState.items" [value]="item">
+          </ng-template>
+          <ng-option *ngFor="let item of listCustomerAdapter.tableState.items" [value]="item">
 
-        <div class="grid grid-cols-12 gap-4">
-          <div class="col-span-2 pt-1">
-            <div
-              class="bg-beeColor-300 flex h-[70px] items-center justify-center rounded-2xl text-3xl text-beeColor-500 w-[70px]">
-              {{ getInitials(item) }}
-            </div>
-          </div>
-          <div class="col-span-8 flex flex-col">
+              <div class="grid grid-cols-12 gap-4">
+                  <div class="col-span-2 pt-1">
+                      <div
+                              class="bg-beeColor-300 flex h-[70px] items-center justify-center rounded-2xl text-3xl text-beeColor-500 w-[70px]">
+                          {{ getInitials(item) }}
+                      </div>
+                  </div>
+                  <div class="col-span-8 flex flex-col">
             <span class="font-bold">
               {{ item.firstName }} {{ item.lastName }}
             </span>
-            <span class="text-sm text-beeColor-500">
+                      <span class="text-sm text-beeColor-500">
             {{ item.email }}
           </span>
-          </div>
-        </div>
+                  </div>
+              </div>
 
-      </ng-option>
-    </ng-select>
+          </ng-option>
+      </ng-select>
 
-    <ng-container *ngIf="localControl.value">
+      <ng-container *ngIf="localControl.value">
 
-      <div class="grid grid-cols-12 gap-4">
-        <div class="col-span-2 pt-1">
-          <div
-            class="bg-beeColor-300 flex h-[70px] items-center justify-center rounded-2xl text-3xl text-beeColor-500 w-[70px]">
-            {{ getInitials(localControl.value) }}
-          </div>
-        </div>
-        <div class="col-span-9 flex flex-col">
+          <div class="grid grid-cols-12 gap-4">
+              <div class="col-span-2 pt-1">
+                  <div
+                          class="bg-beeColor-300 flex h-[70px] items-center justify-center rounded-2xl text-3xl text-beeColor-500 w-[70px]">
+                      {{ getInitials(localControl.value) }}
+                  </div>
+              </div>
+              <div class="col-span-9 flex flex-col">
             <span class="font-bold">
               {{ localControl.value.firstName }} {{ localControl.value.lastName }}
             </span>
-          <span class="text-sm text-beeColor-500">
+                  <span class="text-sm text-beeColor-500">
             {{ localControl.value.email }}
           </span>
-        </div>
-        <div class="col-span-1 flex flex-col justify-center">
-          <button type="button" (click)="changeValue()" class="text-beeColor-600 hover:bg-beeColor-100 px-2 py-1 rounded-2xl">
-            <i class="bi bi-pencil"></i>
-          </button>
-        </div>
-      </div>
+              </div>
+              <div class="col-span-1 flex flex-col justify-center">
+                  <button type="button" (click)="changeValue()"
+                          class="text-beeColor-600 hover:bg-beeColor-100 px-2 py-1 rounded-2xl">
+                      <i class="bi bi-pencil"></i>
+                  </button>
+              </div>
+          </div>
 
-    </ng-container>
+      </ng-container>
 
   `
 })

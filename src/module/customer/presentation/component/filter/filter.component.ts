@@ -48,7 +48,7 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
 			</div>
 		</utility-default-panel-component>
-		<div *ngIf="isMobile$ | async" class="flex overflow-x-auto gap-4 mt-4 px-4">
+		<div *ngIf="isMobile$ | async" class="flex overflow-x-auto gap-2 my-2 px-2">
 			<ng-container *ngTemplateOutlet="CustomerActiveSelect"></ng-container>
 			<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
 		</div>

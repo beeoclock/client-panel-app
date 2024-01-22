@@ -76,8 +76,8 @@ export class ModalSelectServiceComponent implements OnInit, AfterViewInit {
 		const {first: mobileLayoutListComponent} = mobileLayoutListComponents;
 		const {first: cardListComponent} = mobileLayoutListComponent.cardListComponents;
 		cardListComponent.selectedIds = this.newSelectedServiceList.map((service) => service._id);
-		cardListComponent.showAction.switchOff();
-		cardListComponent.showSelectedStatus.switchOn();
+		cardListComponent.showAction.doFalse();
+		cardListComponent.showSelectedStatus.doTrue();
 		cardListComponent.goToDetailsOnSingleClick = false;
 		cardListComponent.singleClickEmitter.subscribe((item) => {
 			if (this.isSelected(item)) {

@@ -10,6 +10,7 @@ import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.
 import {NgIf, NgTemplateOutlet} from "@angular/common";
 import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum";
 import {ChangeStatusBaseComponent} from "@event/presentation/component/change-status/change-status-base.component";
+import {RefreshCalendarAction} from "@event/state/calendar/actions/refresh.calendar.action";
 
 @Component({
 	selector: 'event-change-status-on-done-component',
@@ -58,6 +59,7 @@ export class ChangeStatusOnDoneComponent extends ChangeStatusBaseComponent {
 		await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
 		this.postStatusChange(EventStatusEnum.done);
 		this.store.dispatch(new EventActions.GetList({force: true, resetPage: false, resetParams: false}));
+		this.store.dispatch(new RefreshCalendarAction());
 	}
 
 }

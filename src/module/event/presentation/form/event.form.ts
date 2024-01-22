@@ -1,8 +1,6 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {IService} from "@service/domain";
 import {AttendeesForm} from "@event/presentation/form/attendant.form";
-import {filter} from "rxjs";
-import {is} from "thiis";
 import {EventConfigurationForm} from "@event/presentation/form/configuration.form";
 
 
@@ -59,17 +57,21 @@ export class EventForm extends FormGroup<IEventForm> {
 	}
 
 	public initHandler(): void {
-		this.controls.start.valueChanges.pipe(filter(is.string)).subscribe((value) => {
-			const [firstService] = this.controls.services.value;
-			if (!firstService) {
+		this.valueChanges.subscribe((value) => {
+			const {services, start} = value;
+			const [firstService] = services ?? [];
+			if (!firstService || !start) {
 				return;
 			}
-			const end = new Date(value);
+			const end = new Date(start);
 			// TODO add to form new control to detect which duration version is selected
 			const [firstDurationVersion] = firstService.durationVersions;
 			const eventDurationInSeconds = (firstDurationVersion.durationInSeconds ?? 0) + (firstDurationVersion.breakInSeconds ?? 0);
-			end.setSeconds(Number(new Date(value).getSeconds() + eventDurationInSeconds));
-			this.controls.end.patchValue(end.toISOString());
+			end.setSeconds(Number(new Date(start).getSeconds() + eventDurationInSeconds));
+			this.controls.end.patchValue(end.toISOString(), {
+				emitEvent: false,
+				onlySelf: true,
+			});
 		});
 	}
 
