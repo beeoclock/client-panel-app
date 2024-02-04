@@ -2,6 +2,7 @@ import {HttpInterceptorFn} from "@angular/common/http";
 import {Endpoint} from "@utility/domain/endpoint";
 import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {RuntimeEnvironment} from "@src/runtime.environment";
+import {TokensHttpContext} from "@src/tokens.http-context";
 
 /**
  *
@@ -10,25 +11,25 @@ import {RuntimeEnvironment} from "@src/runtime.environment";
  */
 export const SourceInterceptor: HttpInterceptorFn = (request, next) => {
 
-  // Get path from headers, path was set at prepareLocalHeaders
-  const path = request.headers.get('path');
+	// Get path from headers, path was set at prepareLocalHeaders
+	const path = request.context.get(TokensHttpContext.PATH);
 
-  if (path) {
+	if (path) {
 
-    const {source} = Endpoint.endpointMap[request.method as RequestMethodEnum].get(path) ?? {};
+		const {source} = Endpoint.endpointMap[request.method as RequestMethodEnum].get(path) ?? {};
 
-    if (source) {
+		if (source) {
 
-      const url = `${RuntimeEnvironment.apiUrls[source]}${request.url}`;
+			const url = `${RuntimeEnvironment.apiUrls[source]}${request.url}`;
 
-      request = request.clone({
-        url
-      });
+			request = request.clone({
+				url
+			});
 
-    }
+		}
 
-  }
+	}
 
-  return next(request);
+	return next(request);
 
 }

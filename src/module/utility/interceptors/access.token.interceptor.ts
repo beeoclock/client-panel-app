@@ -8,6 +8,7 @@ import {Endpoint} from "@utility/domain/endpoint";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {HttpStatusEnum} from "@utility/domain/enum/http-status.enum";
 import {is} from "thiis";
+import {TokensHttpContext} from "@src/tokens.http-context";
 
 /**
  * Set Authorization header to every request that has at config header.authorization = true
@@ -17,7 +18,7 @@ import {is} from "thiis";
  */
 export const AccessTokenInterceptor: HttpInterceptorFn = (request: HttpRequest<unknown>, next: HttpHandlerFn) => {
 // Get path from headers, path was set at prepareLocalHeaders
-	const path = request.headers.get('path');
+	const path = request.context.get(TokensHttpContext.PATH)
 
 	if (path) {
 		const {header} = Endpoint.endpointMap[request.method as RequestMethodEnum].get(path) ?? {};

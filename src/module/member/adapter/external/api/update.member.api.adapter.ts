@@ -4,6 +4,8 @@ import {memberEndpointEnum} from "@member/endpoint/member.endpoint";
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "thiis";
+import {HttpContext} from "@angular/common/http";
+import {TokensHttpContext} from "@src/tokens.http-context";
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +19,9 @@ export class UpdateMemberApiAdapter extends BaseApiAdapter<Member.RIMember> {
   @TypeGuard([is.object_not_empty])
   public override execute$(value: Member.RIMember) {
     return this.httpClient.put<Member.RIMember>(memberEndpointEnum.update, value, {
-      headers: {
-        replace: JSON.stringify({
-          id: value._id
-        })
-      }
+			context: new HttpContext().set(TokensHttpContext.REPLACE, {
+				id: value._id,
+			}),
     });
   }
 

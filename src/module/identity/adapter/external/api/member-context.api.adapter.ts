@@ -1,8 +1,9 @@
 import {inject, Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpContext} from "@angular/common/http";
 import {IList} from "@utility/domain/interface/i.endpoint/i.list";
 import {IMember} from "@identity/domain/interface/i.member";
 import {memberContextEndpointEnum} from "@identity/endpoint/member-context.endpoint";
+import {TokensHttpContext} from "@src/tokens.http-context";
 
 @Injectable({
   providedIn: 'root'
@@ -28,11 +29,9 @@ export class MemberContextApiAdapter {
    */
   public deleteBusinessClient(id: string) {
     return this.http.delete(memberContextEndpointEnum.deleteBusinessClientById, {
-      headers: {
-        replace: JSON.stringify({
-          id
-        })
-      }
+			context: new HttpContext().set(TokensHttpContext.REPLACE, {
+				id
+			}),
     });
   }
 

@@ -99,13 +99,12 @@ bootstrapApplication(AppComponent, {
 		},
 		provideHttpClient(withInterceptorsFromDi(), withInterceptors([
 			// Utility.Interceptors.Loading,
-			Utility.Interceptors.PrepareLocalHeadersInterceptor,
+			Utility.Interceptors.PrepareHttpContextInterceptor,
 			Utility.Interceptors.ApprovalInterceptor, // TODO find way how to handle firebase network!
 			Utility.Interceptors.ParamsReplaceInterceptor,
 			Utility.Interceptors.ErrorInterceptor,
 			Utility.Interceptors.SourceInterceptor,
 			Utility.Interceptors.AccessTokenInterceptor,
-			Utility.Interceptors.ClearLocalHeadersInterceptor,
 		])),
 		provideRouter(
 			routes,
