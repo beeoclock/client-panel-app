@@ -27,7 +27,10 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 
 	constructor() {
 		super({
-			addressForm: new AddressForm(),
+			addressForm: new AddressForm({
+				initValidation: false,
+				initValue: true,
+			}),
 			schedules: new SchedulesForm(),
 			gallery: new GalleryForm(),
 			services: new ServicesForm([]),
