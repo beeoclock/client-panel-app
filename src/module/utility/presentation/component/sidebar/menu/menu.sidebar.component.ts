@@ -48,16 +48,24 @@ export class MenuSidebarComponent implements OnInit {
 
 	public readonly menu: IMenuItem[] = [
 		{
-			url: '/dashboard',
+			url: '/event/calendar-with-specialists',
 			translateKey: 'sidebar.dashboard',
-			icon: 'bi bi-pie-chart',
+			icon: 'bi bi-calendar2-event',
 			routerLinkActiveOptions: {
 				exact: true
 			}
 		},
+		// {
+		// 	url: '/dashboard',
+		// 	translateKey: 'sidebar.dashboard',
+		// 	icon: 'bi bi-pie-chart',
+		// 	routerLinkActiveOptions: {
+		// 		exact: true
+		// 	}
+		// },
 		{
 			translateKey: 'sidebar.events',
-			icon: 'bi bi-calendar2-week',
+			icon: 'bi bi-table',
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",
@@ -125,17 +133,17 @@ export class MenuSidebarComponent implements OnInit {
 				fragment: "ignored",
 			}
 		},
-		// {
-		//   url: '/member/list',
-		//   translateKey: 'sidebar.members',
-		//   icon: 'bi bi-people',
-		//   routerLinkActiveOptions: {
-		//     paths: "subset",
-		//     matrixParams: "ignored",
-		//     queryParams: "ignored",
-		//     fragment: "ignored",
-		//   }
-		// },
+		{
+			url: '/member/list',
+			translateKey: 'sidebar.members',
+			icon: 'bi bi-people',
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		},
 		{
 			url: '/service/list',
 			translateKey: 'sidebar.services',
