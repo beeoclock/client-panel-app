@@ -14,7 +14,6 @@ export const businessProfileEndpoint: EndpointCollectionType = {
 			path: businessProfileEndpointEnum.item,
 			method: RequestMethodEnum.GET,
 			source: SourceNetworkEnum.panel,
-			replace: true,
 			header: {
 				authorization: true,
 			}

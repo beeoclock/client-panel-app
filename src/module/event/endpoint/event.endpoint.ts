@@ -35,7 +35,6 @@ export const eventEndpoint: EndpointCollectionType = {
 			path: eventEndpointEnum.busySlots,
 			method: RequestMethodEnum.GET,
 			source: SourceNetworkEnum.panel,
-			replace: true,
 			header: {
 				authorization: true,
 			}
