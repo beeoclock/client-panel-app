@@ -18,14 +18,14 @@
 		<schedules-form-component
 			[schedulesForm]="form.controls.schedules"/>
 
-		<client-cover-image-business-profile-component
-			[banners]="(item$ | async)?.banners ?? []"/>
+<!--		<client-cover-image-business-profile-component-->
+<!--			[banners]="(item$ | async)?.banners ?? []"/>-->
 
 		<client-logo-business-profile-component
 			[logo]="(item$ | async)?.logo"/>
 
-		<client-gallery-business-profile-component
-			[gallery]="(item$ | async)?.gallery ?? []"/>
+<!--		<client-gallery-business-profile-component-->
+<!--			[gallery]="(item$ | async)?.gallery ?? []"/>-->
 
 		<client-business-profile-contact-phone-component
 			[form]="form.controls.contacts"/>
@@ -33,9 +33,9 @@
 		<client-business-profile-social-media-component
 			[form]="form.controls.socialNetworkLinks"/>
 
-		<client-facilities-business-profile-component
-			*ngIf="(item$ | async)?.serviceProfideType !== serviceProfideType.Online"
-			[control]="form.controls.facilities"/>
+<!--		<client-facilities-business-profile-component-->
+<!--			*ngIf="(item$ | async)?.serviceProfideType !== serviceProfideType.Online"-->
+<!--			[control]="form.controls.facilities"/>-->
 
 		<utility-button-save-container-component>
 			<button

@@ -211,7 +211,8 @@
 		}
 	},
 	"country": {
-		"UA": "Ukraine"
+		"UA": "Ukraine",
+		"DK": "Danmark"
 	},
 	"customer": {
 		"button": {
