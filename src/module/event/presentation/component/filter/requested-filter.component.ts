@@ -16,7 +16,7 @@ import {EventRequestedActions} from "@event/state/event-requested/event-requeste
 		AutoRefreshComponent
 	],
 	template: `
-		<utility-default-panel-component [roundedBottom]="false">
+		<utility-default-panel-component>
 			<div class="flex overflow-x-auto gap-4">
 				<utility-search-input-component [control]="form.controls.phrase"/>
 				<utility-auto-refresh-component (emitter)="forceRefresh()"/>

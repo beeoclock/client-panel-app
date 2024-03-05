@@ -32,7 +32,7 @@ import {EventRequestedActions} from "@event/state/event-requested/event-requeste
       <utility-navbar-component/>
       <utility-sidebar-component/>
 
-      <div [id]="mainContainerId" class="h-screen overflow-y-auto sm:ml-64 md:ml-80 transition-all">
+      <div [id]="mainContainerId" class="h-dvh overflow-y-auto sm:ml-64 md:ml-80 transition-all">
         <utility-page-loading-progress-bar/>
         <router-outlet/>
       </div>
