@@ -30,11 +30,11 @@ export class ModalSelectServiceListAdapter {
 	 */
 	public async getPageAsync(): Promise<void> {
 
-		if (this.loading$.isOn) {
+		if (this.loading$.isTrue) {
 			return;
 		}
 
-		this.loading$.switchOn();
+		this.loading$.doTrue();
 
 		try {
 
@@ -49,7 +49,7 @@ export class ModalSelectServiceListAdapter {
 			this.logger.error(e);
 		}
 
-		this.loading$.switchOff();
+		this.loading$.doFalse();
 
 	}
 }

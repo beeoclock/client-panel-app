@@ -386,14 +386,6 @@
 			}
 		},
 		"PATCH": {
-			"/api/v1/event/{id}/rejected": {
-				"after": {
-					"success": {
-						"header": "Wydarzenie odrzucone",
-						"message": "Wydarzenie zostało pomyślnie odrzucone"
-					}
-				}
-			},
 			"/api/v1/event/{id}/booked": {
 				"after": {
 					"success": {
@@ -415,6 +407,14 @@
 					"success": {
 						"header": "Wydarzenie zakończone",
 						"message": "Wydarzenie zostało pomyślnie zakończone"
+					}
+				}
+			},
+			"/api/v1/event/{id}/rejected": {
+				"after": {
+					"success": {
+						"header": "Wydarzenie odrzucone",
+						"message": "Wydarzenie zostało pomyślnie odrzucone"
 					}
 				}
 			},
@@ -751,6 +751,7 @@
 			"nextStep": "Dalej",
 			"no": "Nie",
 			"note": "Notatka",
+			"notification": "Powiadomienia",
 			"openTimePicker": "Wybierz",
 			"ownOptionOfTime": "Godzina według Twojego życzenia",
 			"ownOptionOfTimeHint": "Wybierz tę opcję, jeśli chcesz samodzielnie określić czas wydarzenia, niezależnie od innych wydarzeń zaplanowanych na tę godzinę.",

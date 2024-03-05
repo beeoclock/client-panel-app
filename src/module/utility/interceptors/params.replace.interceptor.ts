@@ -1,10 +1,11 @@
-import {HttpHeaders, HttpInterceptorFn} from '@angular/common/http';
+import {HttpInterceptorFn} from '@angular/common/http';
 import {Endpoint} from "@utility/domain/endpoint";
 import {environment} from "@environment/environment";
 import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {REPLACE_MAP_REGEX} from "@utility/domain/const/c.api";
 import {IEndpointReplace} from "@utility/domain/interface/i.endpoint/i.endpoint-replace";
 import {is} from "thiis";
+import {TokensHttpContext} from '@src/tokens.http-context';
 
 /**
  *
@@ -13,46 +14,37 @@ import {is} from "thiis";
  */
 export const ParamsReplaceInterceptor: HttpInterceptorFn = (request, next) => {
 
-  // Get path from headers, path was set at prepareLocalHeaders
-  const path = request.headers.get('path');
+	// Get path from headers, path was set at prepareLocalHeaders
+	const path = request.context.get(TokensHttpContext.PATH);
 
-  if (path) {
+	if (path) {
 
-    const {replace} = Endpoint.endpointMap[request.method as RequestMethodEnum].get(path) ?? {};
+		const {replace} = Endpoint.endpointMap[request.method as RequestMethodEnum].get(path) ?? {};
 
-    if (replace ?? environment?.endpoint?.config?.replace) {
+		if (replace ?? environment?.endpoint?.config?.replace) {
 
-      const replaceJSON = request.headers.get('replace');
+			const replaceMap = request.context.get(TokensHttpContext.REPLACE);
 
-      if (is.string(replaceJSON) && replaceJSON.length) {
+			if (is.object_not_empty(replaceMap)) {
 
-        const replaceMap: Record<string, string> = JSON.parse(replaceJSON);
+				const url: string = request.url;
 
-        if (is.object_not_empty(replaceMap)) {
+				request = request.clone({
+					url: replaceMatchItemInUrl(url, replaceMap),
+				});
 
-          const url: string = request.url;
+			} else {
 
-          const headers: HttpHeaders = request.headers.delete('replace').set('endpointPath', request.url);
+				throw new Error('In your params: replace field is empty object. ' +
+					'You can omit the step, for it just set boolean value "false" at replace flag in you endpoint declaration.');
 
-          request = request.clone({
-            url: replaceMatchItemInUrl(url, replaceMap),
-            headers
-          });
+			}
 
-        } else {
+		}
 
-          throw new Error('In your params: replace field is empty object. ' +
-            'You can omit the step, for it just set boolean value "false" at replace flag in you endpoint declaration.');
+	}
 
-        }
-
-      }
-
-    }
-
-  }
-
-  return next(request);
+	return next(request);
 
 }
 

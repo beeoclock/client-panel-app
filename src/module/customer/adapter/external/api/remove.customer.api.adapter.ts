@@ -3,6 +3,8 @@ import {customerEndpointEnum} from "@customer/endpoint/customer.endpoint";
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "thiis";
+import {HttpContext} from '@angular/common/http';
+import {TokensHttpContext} from '@src/tokens.http-context';
 
 type ResponseType = {
   deletedCount: number
@@ -20,11 +22,9 @@ export class RemoveCustomerApiAdapter extends BaseApiAdapter<ResponseType> {
   @TypeGuard([is.string])
   public override execute$(id: string) {
     return this.httpClient.delete<ResponseType>(customerEndpointEnum.delete, {
-      headers: {
-        replace: JSON.stringify({
-          id
-        })
-      }
+			context: new HttpContext().set(TokensHttpContext.REPLACE, {
+				id
+			}),
     });
   }
 

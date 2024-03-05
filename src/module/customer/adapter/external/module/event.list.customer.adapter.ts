@@ -30,11 +30,11 @@ export class EventListCustomerAdapter {
 	 */
 	public async getPageAsync(): Promise<void> {
 
-		if (this.loading$.isOn) {
+		if (this.loading$.isTrue) {
 			return;
 		}
 
-		this.loading$.switchOn();
+		this.loading$.doTrue();
 
 		try {
 
@@ -49,7 +49,7 @@ export class EventListCustomerAdapter {
 			this.logger.error(e);
 		}
 
-		this.loading$.switchOff();
+		this.loading$.doFalse();
 
 	}
 

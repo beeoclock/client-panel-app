@@ -1,4 +1,5 @@
 import {HttpInterceptorFn} from "@angular/common/http";
+import {TokensHttpContext} from "@src/tokens.http-context";
 
 /**
  * TODO Check which paths at endpoint configuration have loading property set to "true", and show global loader for those endpoints.
@@ -6,10 +7,10 @@ import {HttpInterceptorFn} from "@angular/common/http";
  * @param request
  * @param next
  */
-export const ClearLocalHeadersInterceptor: HttpInterceptorFn = (request, next) => {
+export const PrepareHttpContextInterceptor: HttpInterceptorFn = (request, next) => {
 
   request = request.clone({
-    headers: request.headers.delete('path'),
+		context: request.context.set(TokensHttpContext.PATH, request.url)
   });
 
   return next(request);

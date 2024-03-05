@@ -3,6 +3,8 @@ import {customerEndpointEnum} from "@customer/endpoint/customer.endpoint";
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "thiis";
+import {HttpContext} from "@angular/common/http";
+import {TokensHttpContext} from "@src/tokens.http-context";
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +18,9 @@ export class ArchiveCustomerApiAdapter extends BaseApiAdapter<unknown> {
   @TypeGuard([is.object_not_empty])
   public override execute$({id}: { id: string }) {
     return this.httpClient.patch(customerEndpointEnum.archive, null, {
-      headers: {
-        replace: JSON.stringify({
-          id
-        })
-      }
+			context: new HttpContext().set(TokensHttpContext.REPLACE, {
+				id
+			}),
     });
   }
 
