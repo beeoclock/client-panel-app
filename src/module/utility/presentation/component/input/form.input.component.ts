@@ -3,6 +3,7 @@ import {
 	ChangeDetectorRef,
 	Component,
 	DoCheck,
+	HostBinding,
 	inject,
 	Input,
 	ViewEncapsulation
@@ -96,6 +97,9 @@ export class FormInputComponent implements DoCheck {
 	public control!: FormControl;
 
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
+
+	@HostBinding()
+	public class = 'block';
 
 	public ngDoCheck(): void {
 		this.changeDetectorRef.detectChanges();

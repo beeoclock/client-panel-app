@@ -2,7 +2,10 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RIMember} from "@member/domain";
 
 export interface IMemberForm {
+	_id: FormControl<string>;
 	email: FormControl<string>;
+	firstName: FormControl<string>;
+	lastName: FormControl<string>;
 
 	// TODO role or/and permission
 }
@@ -11,7 +14,10 @@ export class MemberForm extends FormGroup<IMemberForm> {
 
 	constructor() {
 		super({
+			_id: new FormControl(),
 			email: new FormControl(),
+			firstName: new FormControl(),
+			lastName: new FormControl(),
 		});
 		this.initValidators();
 	}
