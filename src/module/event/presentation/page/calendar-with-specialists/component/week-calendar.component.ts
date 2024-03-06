@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, ViewChild, ViewEncapsulation} from "@angular/core";
-import {NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
+import {DatePipe, NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
 
 @Component({
 	selector: 'event-week-calendar-component',
@@ -9,20 +9,38 @@ import {NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
 		NgForOf,
 		NgStyle,
 		NgClass,
-		NgIf
+		NgIf,
+		DatePipe
 	],
 	standalone: true
 })
 export class WeekCalendarComponent implements AfterViewInit {
 
+	/**
+	 * TODO: List
+	 * - [ ] Add event to the calendar
+	 * - [ ] Remove event from the calendar
+	 * - [ ] Edit event from the calendar
+	 * - [ ] Add event to the calendar by floating button
+	 * - [ ] Display members in the calendar like a column
+	 * - [ ] Display event details by clicking on the event
+	 * - [ ] Date picker to select the date (left, right, select)
+	 * - [ ] Add filter button to filter the events
+	 * - [ ] Add filter control: by status
+	 * - [ ] Detect startTimeToDisplay and endTimeToDisplay by schedules of company
+	 */
+
 	@ViewChild('container')
 	public container!: ElementRef;
 
-	@ViewChild('containerOfData')
-	public containerOfData!: ElementRef;
+	@ViewChild('frame')
+	public frame!: ElementRef;
 
-	public readonly startTimeToDisplay = 0;
-	public readonly endTimeToDisplay = 24;
+	public currentDate = new Date();
+	public selectedDate = new Date();
+
+	public readonly startTimeToDisplay = 8;
+	public readonly endTimeToDisplay = 18;
 
 	public readonly columnsAmount = 8;
 	public readonly columns = Array.from({length: this.columnsAmount}, (_, i) => i)
@@ -32,11 +50,12 @@ export class WeekCalendarComponent implements AfterViewInit {
 	public readonly slotInMinutes = 30;
 	public readonly stepPerHour = this.oneHoursInMinutes / this.slotInMinutes;
 	public readonly heightInPx = 60 / this.stepPerHour;
+	public readonly headerHeightInPx = 50;
 	public readonly hours = Array.from({length: this.hoursMode}, (_, i) => i).filter((i) => i >= this.startTimeToDisplay && i <= this.endTimeToDisplay);
 	public readonly rows = Array.from({length: this.hoursMode * this.stepPerHour + 1}, (_, i) => i)
-		.filter((i) => i >= (this.startTimeToDisplay * this.stepPerHour) && i <= ((this.endTimeToDisplay * this.stepPerHour) + (this.stepPerHour - 1)));
+		.filter((i) => i >= (this.startTimeToDisplay * this.stepPerHour) && i <= ((this.endTimeToDisplay * this.stepPerHour) + (this.stepPerHour)));
 
-	public readonly events: {
+	public events: {
 		cards: {
 			startTime: number;
 			durationInMinutes: number;
@@ -51,13 +70,20 @@ export class WeekCalendarComponent implements AfterViewInit {
 	public ngAfterViewInit() {
 		if (this.container) {
 			const container = this.container.nativeElement as HTMLElement;
-			container.style.gridTemplateRows = `50px repeat(${this.rows.length}, ${this.heightInPx}px)`;
+			container.style.gridTemplateRows = `${this.headerHeightInPx}px repeat(${this.rows.length}, ${this.heightInPx}px)`;
 		}
-		if (this.containerOfData) {
-			const containerOfData = this.containerOfData.nativeElement as HTMLElement;
-			containerOfData.style.gridTemplateRows = `50px repeat(${this.rows.length}, ${this.heightInPx}px)`;
+		if (this.frame) {
+			const frame = this.frame.nativeElement as HTMLElement;
+			frame.style.gridTemplateRows = `${this.headerHeightInPx}px repeat(${this.rows.length}, ${this.heightInPx}px)`;
 		}
 		this.initEvents();
+		this.initInterval();
+	}
+
+	public initInterval() {
+		const interval = setInterval(() => {
+			this.currentDate = new Date();
+		}, 1000);
 	}
 
 	public initEvents() {
@@ -104,6 +130,11 @@ export class WeekCalendarComponent implements AfterViewInit {
 					column: 4
 				}
 			]
+		});
+		this.events = this.events.filter((event) => {
+			return event.cards.every((card) => {
+				return card.startTime >= this.startTimeToDisplay && card.startTime <= this.endTimeToDisplay;
+			});
 		});
 	}
 
