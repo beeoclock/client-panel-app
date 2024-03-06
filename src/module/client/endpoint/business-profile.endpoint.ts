@@ -24,7 +24,6 @@ export const businessProfileEndpoint: EndpointCollectionType = {
 			path: businessProfileEndpointEnum.update,
 			method: RequestMethodEnum.PUT,
 			source: SourceNetworkEnum.panel,
-			replace: true,
 			header: {
 				authorization: true,
 			},

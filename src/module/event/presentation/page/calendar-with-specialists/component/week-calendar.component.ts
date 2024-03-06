@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, ViewChild, ViewEncapsulation} from "@angular/core";
+import {AfterViewInit, Component, ElementRef, Input, ViewChild, ViewEncapsulation} from "@angular/core";
 import {DatePipe, NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
 import {TimeLineComponent} from "@event/presentation/page/calendar-with-specialists/component/time-line.component";
 
@@ -29,7 +29,7 @@ export class WeekCalendarComponent implements AfterViewInit {
 	 * - [ ] Date picker to select the date (left, right, select)
 	 * - [ ] Add filter button to filter the events
 	 * - [ ] Add filter control: by status
-	 * - [ ] Detect startTimeToDisplay and endTimeToDisplay by schedules of company
+	 * - [x] Detect startTimeToDisplay and endTimeToDisplay by schedules of company
 	 */
 
 	@ViewChild('container')
@@ -41,11 +41,14 @@ export class WeekCalendarComponent implements AfterViewInit {
 	public currentDate = new Date();
 	public selectedDate = new Date();
 
-	public readonly startTimeToDisplay = 8;
-	public readonly endTimeToDisplay = 23;
+	@Input()
+	public startTimeToDisplay!: number; // e.g. 8 (It means: 08:00)
+
+	@Input()
+	public endTimeToDisplay!: number; // e.g. 20 (It means: 20:00)
 
 	public readonly columnsAmount = 8;
-	public readonly columns = Array.from({length: this.columnsAmount}, (_, i) => i)
+	public columns: number[] = [];
 
 	public readonly hoursMode = 24;
 	public readonly oneHoursInMinutes = 60; // Don't change this value
@@ -53,8 +56,8 @@ export class WeekCalendarComponent implements AfterViewInit {
 	public readonly stepPerHour = this.oneHoursInMinutes / this.slotInMinutes;
 	public readonly heightInPx = 60 / this.stepPerHour;
 	public readonly headerHeightInPx = 50;
-	public readonly hours = Array.from({length: this.hoursMode}, (_, i) => i).filter((i) => i >= this.startTimeToDisplay && i <= this.endTimeToDisplay);
-	public readonly rows = Array.from({length: ((this.endTimeToDisplay - this.startTimeToDisplay) * this.stepPerHour) + 2}, (_, i) => i);
+	public hours: number[] = [];
+	public rows: number[] = [];
 
 	public events: {
 		cards: {
@@ -69,6 +72,11 @@ export class WeekCalendarComponent implements AfterViewInit {
 	public readonly columnHeader = ['Hours', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 	public ngAfterViewInit() {
+
+		this.columns = Array.from({length: this.columnsAmount}, (_, i) => i);
+		this.hours = Array.from({length: this.hoursMode}, (_, i) => i).filter((i) => i >= this.startTimeToDisplay && i <= this.endTimeToDisplay);
+		this.rows = Array.from({length: ((this.endTimeToDisplay - this.startTimeToDisplay) * this.stepPerHour) + 2}, (_, i) => i);
+
 		if (this.container) {
 			const container = this.container.nativeElement as HTMLElement;
 			container.style.gridTemplateRows = `${this.headerHeightInPx}px repeat(${this.rows.length}, ${this.heightInPx}px)`;

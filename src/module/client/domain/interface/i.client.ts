@@ -3,7 +3,7 @@ import {ISocialNetworkLink} from "@client/domain/interface/i.social-network-link
 import {RIBaseEntity} from "@utility/domain/interface";
 import {FacilityEnum} from "@utility/domain/enum/facility.enum";
 import {IContact} from "@client/domain/interface/i.contact";
-import {ISchedule} from "@utility/domain/interface/i.schedule";
+import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {IAddress} from "@client/domain/interface/i.address";
 import {IBookingSettings} from "@client/domain/interface/i.booking-settings";
 import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
@@ -26,7 +26,7 @@ export interface RIClient extends RIBaseEntity<'Client'> {
 	banners: RIMedia[];
 	bookingSettings: IBookingSettings;
 	addresses: IAddress[];
-	schedules: ISchedule[];
+	schedules: RISchedule[];
 	contacts: IContact[];
 	// gallery: IGallery;
 	gallery: RIMedia[];
@@ -34,4 +34,7 @@ export interface RIClient extends RIBaseEntity<'Client'> {
 	facilities: FacilityEnum[];
 }
 
-export type IClient = Partial<RIClient>;
+export type IClient = DeepPartial<RIClient>;
+type DeepPartial<T> = T extends object ? {
+	[P in keyof T]?: DeepPartial<T[P]>;
+} : T;
