@@ -39,8 +39,8 @@ export class WeekCalendarComponent implements AfterViewInit {
 	public currentDate = new Date();
 	public selectedDate = new Date();
 
-	public readonly startTimeToDisplay = 8;
-	public readonly endTimeToDisplay = 18;
+	public readonly startTimeToDisplay = 0;
+	public readonly endTimeToDisplay = 23;
 
 	public readonly columnsAmount = 8;
 	public readonly columns = Array.from({length: this.columnsAmount}, (_, i) => i)
@@ -52,8 +52,7 @@ export class WeekCalendarComponent implements AfterViewInit {
 	public readonly heightInPx = 60 / this.stepPerHour;
 	public readonly headerHeightInPx = 50;
 	public readonly hours = Array.from({length: this.hoursMode}, (_, i) => i).filter((i) => i >= this.startTimeToDisplay && i <= this.endTimeToDisplay);
-	public readonly rows = Array.from({length: this.hoursMode * this.stepPerHour + 1}, (_, i) => i)
-		.filter((i) => i >= (this.startTimeToDisplay * this.stepPerHour) && i <= ((this.endTimeToDisplay * this.stepPerHour) + (this.stepPerHour)));
+	public readonly rows = Array.from({length: ((this.endTimeToDisplay - this.startTimeToDisplay) * this.stepPerHour) + 2}, (_, i) => i);
 
 	public events: {
 		cards: {

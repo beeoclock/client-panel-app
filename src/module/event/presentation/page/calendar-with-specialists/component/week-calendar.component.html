@@ -5,11 +5,13 @@
 
 	<div #frame class="grid grid-cols-[70px,repeat(7,minmax(100px,200px))] absolute top-0 left-0 h-full w-full">
 
+		<!-- Under header and it is like first line of the container -->
+		<div class="row-start-1 col-span-8"></div>
+
 		<!-- Calendar frame -->
 		<ng-container *ngFor="let row of rows; let rowIndex = index;">
 			<ng-container *ngFor="let column of columns; let columnIndex = index;">
 				<div
-					*ngIf="columnIndex > 0"
 					class="row-start-[{{ rowIndex + 2 }}] col-start-[{{ columnIndex + 1 }}] border-slate-100 dark:border-slate-200/5 border-b border-r">
 				</div>
 			</ng-container>
