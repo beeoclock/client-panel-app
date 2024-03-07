@@ -1,23 +1,5 @@
-<div class="h-[50px] flex gap-4 px-2">
-	<div class="flex items-center">
-		<div class="relative flex rounded-md bg-white shadow-sm items-stretch">
-			<button type="button" class="flex h-9  items-center justify-center rounded-l-md border-y border-l border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pr-0 hover:bg-gray-50">
-				<span class="sr-only">Previous month</span>
-				<svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-					<path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
-				</svg>
-			</button>
-			<button type="button" class="border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative">
-				Today
-			</button>
-			<button type="button" class="flex h-9 items-center justify-center rounded-r-md border-y border-r border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pl-0 hover:bg-gray-50">
-				<span class="sr-only">Next month</span>
-				<svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-					<path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-				</svg>
-			</button>
-		</div>
-	</div>
+<div class="h-[50px] flex gap-4 px-2 items-center">
+	<event-date-control-calendar-with-specialists-component/>
 </div>
 <div #container class="bg-white grid relative h-[calc(100vh-114px)] md:h-[calc(100vh-50px)] overflow-auto">
 
@@ -73,7 +55,7 @@
 			[heightInPx]="heightInPx"
 			[headerHeightInPx]="headerHeightInPx"
 			[startTimeToDisplay]="startTimeToDisplay"
-			*ngIf="currentDate.toLocaleDateString() === selectedDate.toLocaleDateString() && currentDate.getHours() >= startTimeToDisplay && currentDate.getHours() <= endTimeToDisplay"/>
+			*ngIf="selectedDateIsToday && selectedDate.hour >= startTimeToDisplay && selectedDate.hour <= endTimeToDisplay"/>
 
 	</div>
 

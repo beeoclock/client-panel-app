@@ -11,6 +11,12 @@ import * as Member from "@member/domain";
 import {
 	ScrollCalendarDomManipulationService
 } from "@event/presentation/dom-manipulation-service/scroll.calendar.dom-manipulation-service";
+import {
+	DateControlCalendarWithSpecialistsComponent
+} from "@event/presentation/page/calendar-with-specialists/component/date-control/date-control.calendar-with-specialists.component";
+import {
+	DateControlCalendarWithSpecialistsService
+} from "@event/presentation/page/calendar-with-specialists/component/date-control/date-control.calendar-with-specialists.service";
 
 @Component({
 	selector: 'event-compose-calendar-with-specialists-component',
@@ -26,7 +32,8 @@ import {
 		NgIf,
 		DatePipe,
 		TimeLineComponent,
-		HeaderCalendarComponent
+		HeaderCalendarComponent,
+		DateControlCalendarWithSpecialistsComponent
 	],
 	standalone: true
 })
@@ -54,9 +61,7 @@ export class ComposeCalendarWithSpecialistsComponent implements AfterViewInit {
 
 	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
 	private readonly scrollCalendarDomManipulationService = inject(ScrollCalendarDomManipulationService);
-
-	public readonly currentDate = new Date();
-	public selectedDate = new Date();
+	private readonly dateControlCalendarWithSpecialistsService = inject(DateControlCalendarWithSpecialistsService);
 
 	public columns: number[] = [];
 
@@ -93,6 +98,12 @@ export class ComposeCalendarWithSpecialistsComponent implements AfterViewInit {
 	readonly startTimeToDisplay = this.composeCalendarWithSpecialistsService.startTimeToDisplay;
 	readonly endTimeToDisplay = this.composeCalendarWithSpecialistsService.endTimeToDisplay;
 	readonly members = this.composeCalendarWithSpecialistsService.members;
+	get selectedDateIsToday() {
+		return this.dateControlCalendarWithSpecialistsService.selectedDateIsToday;
+	}
+	get selectedDate() {
+		return this.dateControlCalendarWithSpecialistsService.selectedDate;
+	}
 
 	public ngAfterViewInit() {
 
