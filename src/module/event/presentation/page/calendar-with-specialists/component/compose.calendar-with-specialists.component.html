@@ -1,69 +1,11 @@
 <div class="h-[50px] flex gap-4 px-2 items-center">
 	<event-date-control-calendar-with-specialists-component/>
 </div>
-<div #container class="bg-white grid relative h-[calc(100vh-114px)] md:h-[calc(100vh-50px)] overflow-auto">
-
-	<!-- Calendar contents -->
-	<ng-container
-		*ngFor="let event of events;">
-		<div
-			*ngFor="let card of event.cards;"
-			[ngStyle]="{
-				'grid-row-start': card.startTime > 0 ? ((card.startTime - startTimeToDisplay) * stepPerHour) + 2 : 2,
-				'grid-row-end': (card.startTime > 0 ? (((card.startTime - startTimeToDisplay) * stepPerHour) + 2) : 2) + (card.durationInMinutes / slotInMinutes),
-				'grid-column-start': card.column
-			}"
-			[ngClass]="{
-				'transition-all': true,
-				'hover:cursor-pointer hover:bg-blue-500': true
-			}"
-			class="z-10 bg-blue-400/20 dark:bg-sky-600/50 border border-blue-700/10 dark:border-sky-500 rounded-lg m-1 p-1 flex flex-col">
-			<span class="text-xs text-blue-600 dark:text-sky-100">{{ card.startTime }}</span>
-			<span class="text-xs font-medium text-blue-600 dark:text-sky-100">{{ event.title }}</span>
-		</div>
-	</ng-container>
-
-	<!--	 Hours	-->
-	<div
-		*ngFor="let hour of hours; let index = index;"
-		[ngStyle]="{
-			'grid-row-start': index > 0 ? ((index * stepPerHour) + 2) : 2,
-			'grid-row-end': index > 0 ? ((index * stepPerHour) + 2) + stepPerHour : 2 + stepPerHour,
-		}"
-		class="z-10 col-start-[1] border-slate-100 dark:border-slate-200/5 border-r border-b text-xs p-1.5 text-right text-slate-400 uppercase sticky left-0 bg-white dark:bg-slate-800 font-medium">
-		{{hour}}:00
-	</div>
-
-	<div #frame class="grid absolute top-0 left-0 h-full">
-
-		<!-- Under header and it is like first line of the container -->
-		<div class="row-start-1 col-span-8"></div>
-
-		<!-- Calendar frame -->
-		<ng-container *ngFor="let row of rows; let rowIndex = index;">
-			<ng-container *ngFor="let column of columnHeaderList; let columnIndex = index;">
-				<div
-					[ngClass]="{
-						'border-b': row.isFirstOrLastRowOfHour,
-					}"
-					class="row-start-[{{ rowIndex + 2 }}] col-start-[{{ columnIndex + 1 }}] border-slate-100 dark:border-slate-200/5 border-r">
-				</div>
-			</ng-container>
-		</ng-container>
-
-		<event-time-line-component
-			[heightInPx]="heightInPx"
-			[headerHeightInPx]="headerHeightInPx"
-			[startTimeToDisplay]="startTimeToDisplay"
-			*ngIf="selectedDateIsToday && selectedDate.hour >= startTimeToDisplay && selectedDate.hour <= endTimeToDisplay"/>
-
-	</div>
-
-	<!-- Calendar header -->
-	<div
-		*ngFor="let columnHeader of columnHeaderList; let columnIndex = index;"
-		class="row-start-[1] col-start-[{{ columnIndex + 1 }}] sticky top-0 z-20 bg-white dark:bg-gradient-to-b dark:from-slate-600 dark:to-slate-700 border-slate-100 dark:border-black/10 border-b">
-		<event-header-calendar-component [member]="columnHeader.member"/>
-	</div>
-
-</div>
+<event-container-calendar-with-specialists-component
+	[hoursMode]="hoursMode"
+	[oneHoursInMinutes]="oneHoursInMinutes"
+	[slotInMinutes]="slotInMinutes"
+	[stepPerHour]="stepPerHour"
+	[heightInPx]="heightInPx"
+	[heightPerSlotInPx]="heightPerSlotInPx"
+	[headerHeightInPx]="headerHeightInPx"/>
