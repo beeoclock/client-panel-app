@@ -8,11 +8,17 @@ import {
 	ComposeCalendarWithSpecialistsService
 } from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 import * as Member from "@member/domain";
+import {
+	ScrollCalendarDomManipulationService
+} from "@event/presentation/dom-manipulation-service/scroll.calendar.dom-manipulation-service";
 
 @Component({
 	selector: 'event-compose-calendar-with-specialists-component',
 	templateUrl: './compose.calendar-with-specialists.component.html',
 	encapsulation: ViewEncapsulation.None,
+	providers: [
+		ScrollCalendarDomManipulationService
+	],
 	imports: [
 		NgForOf,
 		NgStyle,
@@ -47,6 +53,7 @@ export class ComposeCalendarWithSpecialistsComponent implements AfterViewInit {
 	public frame!: ElementRef;
 
 	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
+	private readonly scrollCalendarDomManipulationService = inject(ScrollCalendarDomManipulationService);
 
 	public readonly currentDate = new Date();
 	public selectedDate = new Date();
@@ -106,15 +113,26 @@ export class ComposeCalendarWithSpecialistsComponent implements AfterViewInit {
 		const gridTemplateColumns = `70px repeat(${this.columnHeaderList.length - 1}, minmax(100px,200px))`;
 
 		if (this.container) {
+
 			const container = this.container.nativeElement as HTMLElement;
 			container.style.gridTemplateRows = `${this.headerHeightInPx}px repeat(${this.rows.length}, ${this.heightPerSlotInPx}px)`;
 			container.style.gridTemplateColumns = gridTemplateColumns;
+
+			this.scrollCalendarDomManipulationService.setNativeElement(container as HTMLDivElement).initDesktopMouseHandle().then();
 		}
 
 		if (this.frame) {
 			const frame = this.frame.nativeElement as HTMLElement;
 			frame.style.gridTemplateRows = `${this.headerHeightInPx}px repeat(${this.rows.length}, ${this.heightPerSlotInPx}px)`;
 			frame.style.gridTemplateColumns = gridTemplateColumns;
+
+			frame.addEventListener('click', (event) => {
+				if (this.scrollCalendarDomManipulationService.isScrolling.isOn) {
+					return;
+				}
+				console.log(event)
+			});
+
 		}
 		this.initEvents();
 	}

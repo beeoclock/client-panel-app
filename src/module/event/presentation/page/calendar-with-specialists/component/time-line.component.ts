@@ -1,4 +1,13 @@
-import {Component, HostBinding, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {
+	AfterViewInit,
+	Component,
+	ElementRef,
+	HostBinding,
+	inject,
+	Input,
+	OnInit,
+	ViewEncapsulation
+} from "@angular/core";
 import {DatePipe, NgIf, NgStyle} from "@angular/common";
 
 @Component({
@@ -22,7 +31,7 @@ import {DatePipe, NgIf, NgStyle} from "@angular/common";
 		<div class="border-t border-red-400/50 w-full h-1"></div>
 	`
 })
-export class TimeLineComponent implements OnInit {
+export class TimeLineComponent implements OnInit, AfterViewInit {
 
 	@Input()
 	public currentDate = new Date();
@@ -42,6 +51,8 @@ export class TimeLineComponent implements OnInit {
 	@HostBinding()
 	public style = '';
 
+	private readonly elementRef = inject(ElementRef);
+
 	public ngOnInit() {
 
 		this.initInterval();
@@ -50,6 +61,12 @@ export class TimeLineComponent implements OnInit {
 		const top = this.headerHeightInPx + ((hours + minutesInHours) * this.heightInPx);
 		this.style += ` top: ${top}px;`;
 
+	}
+
+	public ngAfterViewInit() {
+		setTimeout(() => {
+			this.elementRef.nativeElement.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'start'});
+		}, 0);
 	}
 
 	public initInterval() {
