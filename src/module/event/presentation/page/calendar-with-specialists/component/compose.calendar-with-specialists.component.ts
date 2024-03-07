@@ -54,7 +54,7 @@ export class ComposeCalendarWithSpecialistsComponent {
 	 * - [ ] Add event to the calendar by floating button
 	 * - [X] Display members in the calendar like a column
 	 * - [ ] Display event details by clicking on the event
-	 * - [ ] Date picker to select the date (left, right, select)
+	 * - [X] Date picker to select the date (left, right, select)
 	 * - [ ] Add filter button to filter the events
 	 * - [ ] Add filter control: by status
 	 * - [X] Detect startTimeToDisplay and endTimeToDisplay by schedules of company
