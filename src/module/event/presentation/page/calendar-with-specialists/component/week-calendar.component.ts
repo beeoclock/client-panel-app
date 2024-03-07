@@ -80,10 +80,13 @@ export class WeekCalendarComponent implements AfterViewInit {
 		if (this.container) {
 			const container = this.container.nativeElement as HTMLElement;
 			container.style.gridTemplateRows = `${this.headerHeightInPx}px repeat(${this.rows.length}, ${this.heightInPx}px)`;
+			// grid-cols-[70px,repeat(7,minmax(100px,200px))]
+			container.style.gridTemplateColumns = `70px repeat(${this.columnsAmount - 1}, minmax(100px,200px))`;
 		}
 		if (this.frame) {
 			const frame = this.frame.nativeElement as HTMLElement;
 			frame.style.gridTemplateRows = `${this.headerHeightInPx}px repeat(${this.rows.length}, ${this.heightInPx}px)`;
+			frame.style.gridTemplateColumns = `70px repeat(${this.columnsAmount - 1}, minmax(100px,200px))`;
 		}
 		this.initEvents();
 	}

@@ -11,6 +11,7 @@ import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.
 import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
 import {BusinessClientStatusEnum} from "@client/domain/enum/business-client-status.enum";
 import {RIMedia} from "@module/media/domain/interface/i.media";
+import {DeepPartial} from "@utility/base.type";
 
 export interface RIClient extends RIBaseEntity<'Client'> {
 	status: BusinessClientStatusEnum;
@@ -35,6 +36,3 @@ export interface RIClient extends RIBaseEntity<'Client'> {
 }
 
 export type IClient = DeepPartial<RIClient>;
-type DeepPartial<T> = T extends object ? {
-	[P in keyof T]?: DeepPartial<T[P]>;
-} : T;
