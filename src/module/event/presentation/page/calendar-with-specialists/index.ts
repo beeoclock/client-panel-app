@@ -1,20 +1,18 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 import {
-	ContainerWeekCalendarComponent
-} from "@event/presentation/page/calendar-with-specialists/component/container.week-calendar.component";
+	MembersContainerWeekCalendarComponent
+} from "@event/presentation/page/calendar-with-specialists/component/members.container.week-calendar.component";
 
 @Component({
 	selector: 'event-calendar-with-specialists-page',
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
 	imports: [
-		ContainerWeekCalendarComponent
+		MembersContainerWeekCalendarComponent
 	],
 	template: `
-		<container-week-calendar-component/>
+		<event-members-container-week-calendar-component/>
 	`
 })
 export default class Index {
-
-
 }
