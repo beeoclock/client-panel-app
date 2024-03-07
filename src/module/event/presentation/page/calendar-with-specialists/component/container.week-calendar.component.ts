@@ -16,7 +16,7 @@ import {AsyncPipe, NgIf} from "@angular/common";
 		<ng-container *ngIf="startTimeToDisplay$ | async as startTimeToDisplay">
 			<ng-container *ngIf="endTimeToDisplay$ | async as endTimeToDisplay">
 				<event-week-calendar-component
-					[startTimeToDisplay]="startTimeToDisplay"
+					[startTimeToDisplay]="0"
 					[endTimeToDisplay]="endTimeToDisplay"/>
 			</ng-container>
 		</ng-container>
@@ -45,8 +45,6 @@ export class ContainerWeekCalendarComponent {
 				return earliest.startInSeconds < schedule.startInSeconds ? earliest : schedule;
 			}, item.schedules[0]);
 
-			console.log(earliestSchedule)
-
 			return earliestSchedule.startInSeconds / 3600;
 		})
 	);
@@ -57,8 +55,6 @@ export class ContainerWeekCalendarComponent {
 			const latestSchedule = item.schedules.reduce((latest, schedule) => {
 				return latest.endInSeconds > schedule.endInSeconds ? latest : schedule;
 			}, item.schedules[0]);
-
-			console.log(latestSchedule)
 
 			return latestSchedule.endInSeconds / 3600;
 		})

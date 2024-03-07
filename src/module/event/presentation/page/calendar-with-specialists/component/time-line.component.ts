@@ -20,7 +20,6 @@ import {DatePipe, NgIf, NgStyle} from "@angular/common";
 <!--		</div>-->
 		<!-- Line -->
 		<div class="border-t border-red-400/50 w-full h-1"></div>
-
 	`
 })
 export class TimeLineComponent implements OnInit {
@@ -35,7 +34,7 @@ export class TimeLineComponent implements OnInit {
 	public headerHeightInPx!: number;
 
 	@Input()
-	public oneHoursInMinutes!: number;
+	public heightInPx!: number;
 
 	@HostBinding()
 	public class = 'absolute top-0 left-0 w-full flex items-start transition-all';
@@ -46,7 +45,10 @@ export class TimeLineComponent implements OnInit {
 	public ngOnInit() {
 
 		this.initInterval();
-		this.style += ` top: ${this.headerHeightInPx + (((this.currentDate.getHours() - this.startTimeToDisplay) + (this.currentDate.getMinutes() / 60)) * this.oneHoursInMinutes)}px;`;
+		const hours = this.currentDate.getHours() - this.startTimeToDisplay;
+		const minutesInHours = this.currentDate.getMinutes() / 60;
+		const top = this.headerHeightInPx + ((hours + minutesInHours) * this.heightInPx);
+		this.style += ` top: ${top}px;`;
 
 	}
 

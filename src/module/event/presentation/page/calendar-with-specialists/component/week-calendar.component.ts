@@ -52,12 +52,15 @@ export class WeekCalendarComponent implements AfterViewInit {
 
 	public readonly hoursMode = 24;
 	public readonly oneHoursInMinutes = 60; // Don't change this value
-	public readonly slotInMinutes = 30;
+	public readonly slotInMinutes = 15;
 	public readonly stepPerHour = this.oneHoursInMinutes / this.slotInMinutes;
-	public readonly heightInPx = 60 / this.stepPerHour;
+	public readonly heightInPx = 120;
+	public readonly heightPerSlotInPx = 120 / this.stepPerHour;
 	public readonly headerHeightInPx = 50;
 	public hours: number[] = [];
-	public rows: number[] = [];
+	public rows: {
+		isFirstOrLastRowOfHour: boolean;
+	}[] = [];
 
 	public events: {
 		cards: {
@@ -75,17 +78,23 @@ export class WeekCalendarComponent implements AfterViewInit {
 
 		this.columns = Array.from({length: this.columnsAmount}, (_, i) => i);
 		this.hours = Array.from({length: this.hoursMode}, (_, i) => i).filter((i) => i >= this.startTimeToDisplay && i <= this.endTimeToDisplay);
-		this.rows = Array.from({length: ((this.endTimeToDisplay - this.startTimeToDisplay) * this.stepPerHour) + 2}, (_, i) => i);
+		this.rows = Array.from({length: ((this.endTimeToDisplay - this.startTimeToDisplay) * this.stepPerHour) + this.stepPerHour}, (_, i) => {
+			const isFirstOrLastRowOfHour = i === 0 ? false : (i + 1) % this.stepPerHour === 0;
+			return {
+				isFirstOrLastRowOfHour,
+			}
+		});
+
+		console.log('this.rows: ', this.rows);
 
 		if (this.container) {
 			const container = this.container.nativeElement as HTMLElement;
-			container.style.gridTemplateRows = `${this.headerHeightInPx}px repeat(${this.rows.length}, ${this.heightInPx}px)`;
-			// grid-cols-[70px,repeat(7,minmax(100px,200px))]
+			container.style.gridTemplateRows = `${this.headerHeightInPx}px repeat(${this.rows.length}, ${this.heightPerSlotInPx}px)`;
 			container.style.gridTemplateColumns = `70px repeat(${this.columnsAmount - 1}, minmax(100px,200px))`;
 		}
 		if (this.frame) {
 			const frame = this.frame.nativeElement as HTMLElement;
-			frame.style.gridTemplateRows = `${this.headerHeightInPx}px repeat(${this.rows.length}, ${this.heightInPx}px)`;
+			frame.style.gridTemplateRows = `${this.headerHeightInPx}px repeat(${this.rows.length}, ${this.heightPerSlotInPx}px)`;
 			frame.style.gridTemplateColumns = `70px repeat(${this.columnsAmount - 1}, minmax(100px,200px))`;
 		}
 		this.initEvents();
