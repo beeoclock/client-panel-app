@@ -40,12 +40,12 @@ export class EventCardComponent {
 
 	@HostBinding('style.grid-row-start')
 	public get gridRowStart() {
-		return this.card.startTime > 0 ? ((this.card.startTime - this.startTimeToDisplay) * this.stepPerHour) + 2 : 2;
+		return this.card.startTime > 0 ? ((this.card.startTime - this.startTimeToDisplay) * this.stepPerHour) + 1 : 1;
 	}
 
 	@HostBinding('style.grid-row-end')
 	public get gridRowEnd() {
-		return (this.card.startTime > 0 ? (((this.card.startTime - this.startTimeToDisplay) * this.stepPerHour) + 2) : 2) + (this.card.durationInMinutes / this.slotInMinutes);
+		return (this.card.startTime > 0 ? (((this.card.startTime - this.startTimeToDisplay) * this.stepPerHour) + 1) : 1) + (this.card.durationInMinutes / this.slotInMinutes);
 	}
 
 	@HostBinding('style.grid-column-start')

@@ -11,7 +11,7 @@ import {
 } from "@event/presentation/dom-manipulation-service/scroll.calendar.dom-manipulation-service";
 
 @Component({
-	selector: 'event-background-frame-component',
+	selector: 'event-slot-frame-component',
 	template: `
 
 		<!-- Under header and it is like first line of the container -->
@@ -19,12 +19,14 @@ import {
 
 		<!-- Calendar frame -->
 		<ng-container *ngFor="let row of rows; let rowIndex = index;">
-			<event-cell-component
-				*ngFor="let column of columnHeaderList; let columnIndex = index;"
-				[row]="row"
-				[column]="column"
-				[rowIndex]="rowIndex"
-				[columnIndex]="columnIndex"/>
+			<ng-container *ngFor="let column of columnHeaderList; let columnIndex = index;">
+				<event-cell-component
+					*ngIf="columnIndex !== 0"
+					[row]="row"
+					[column]="column"
+					[rowIndex]="rowIndex"
+					[columnIndex]="columnIndex"/>
+			</ng-container>
 		</ng-container>
 
 		<event-time-line-component
@@ -43,7 +45,7 @@ import {
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class BackgroundFrameComponent {
+export class SlotFrameComponent {
 
 	private readonly scrollCalendarDomManipulationService = inject(ScrollCalendarDomManipulationService);
 
@@ -92,7 +94,7 @@ export class BackgroundFrameComponent {
 		if (this.scrollCalendarDomManipulationService.isScrolling.isOn) {
 			return;
 		}
-		console.log('BackgroundFrameComponent.onClick', event);
+		console.log('SlotFrameComponent.onClick', event);
 	}
 
 	private readonly dateControlCalendarWithSpecialistsService = inject(DateControlCalendarWithSpecialistsService);

@@ -5,6 +5,7 @@ import {
 	HostBinding,
 	inject,
 	Input,
+	OnInit,
 	ViewChild,
 	ViewEncapsulation
 } from "@angular/core";
@@ -31,12 +32,14 @@ import {
 } from "@event/presentation/page/calendar-with-specialists/component/hour-cell/hour-cell.component";
 import {CellComponent} from "@event/presentation/page/calendar-with-specialists/component/cell/cell.component";
 import {
-	BackgroundFrameComponent
-} from "@event/presentation/page/calendar-with-specialists/component/container/background-frame.component";
+	SlotFrameComponent
+} from "@event/presentation/page/calendar-with-specialists/component/container/slot-frame.component";
+import {
+	DataFrameComponent
+} from "@event/presentation/page/calendar-with-specialists/component/container/data-frame.component";
 
 @Component({
 	selector: 'event-container-calendar-with-specialists-component',
-	templateUrl: './container.calendar-with-specialists.component.html',
 	encapsulation: ViewEncapsulation.None,
 	providers: [
 		ScrollCalendarDomManipulationService
@@ -53,11 +56,46 @@ import {
 		EventCardComponent,
 		HourCellComponent,
 		CellComponent,
-		BackgroundFrameComponent
+		SlotFrameComponent,
+		DataFrameComponent
 	],
-	standalone: true
+	standalone: true,
+	template: `
+
+		<event-slot-frame-component
+			[rows]="rows"
+			[columnHeaderList]="columnHeaderList"
+			[heightInPx]="heightInPx"
+			[heightPerSlotInPx]="heightPerSlotInPx"
+			[headerHeightInPx]="headerHeightInPx"
+			[endTimeToDisplay]="endTimeToDisplay"
+			[startTimeToDisplay]="startTimeToDisplay"/>
+
+		<event-data-frame-component
+			[slotInMinutes]="slotInMinutes"
+			[stepPerHour]="stepPerHour"
+			[rows]="rows"
+			[columnHeaderList]="columnHeaderList"
+			[heightInPx]="heightInPx"
+			[heightPerSlotInPx]="heightPerSlotInPx"
+			[headerHeightInPx]="headerHeightInPx"
+			[endTimeToDisplay]="endTimeToDisplay"
+			[startTimeToDisplay]="startTimeToDisplay"/>
+
+		<event-hour-cell-component
+			*ngFor="let hour of hours; let index = index;"
+			[stepPerHour]="stepPerHour"
+			[index]="index"
+			[hour]="hour"/>
+
+		<event-header-calendar-component
+			*ngFor="let columnHeader of columnHeaderList; let columnIndex = index;"
+			[columnIndex]="columnIndex"
+			[member]="columnHeader.member"/>
+
+	`
 })
-export class ContainerCalendarWithSpecialistsComponent implements AfterViewInit {
+export class ContainerCalendarWithSpecialistsComponent implements AfterViewInit, OnInit {
 
 	@ViewChild('frame')
 	public frame!: ElementRef;
@@ -101,16 +139,6 @@ export class ContainerCalendarWithSpecialistsComponent implements AfterViewInit 
 		isFirstOrLastRowOfHour: boolean;
 	}[] = [];
 
-	public events: {
-		cards: {
-			startTime: number;
-			durationInMinutes: number;
-			column: number;
-		}[];
-		title: string;
-		description: string;
-	}[] = [];
-
 	public readonly columnHeaderList: {
 		member: Member.RIMember | null;
 	}[] = [
@@ -133,15 +161,18 @@ export class ContainerCalendarWithSpecialistsComponent implements AfterViewInit 
 		return `${this.headerHeightInPx}px repeat(${this.rows.length}, ${this.heightPerSlotInPx}px)`;
 	}
 
-	public ngAfterViewInit() {
-
-		this.scrollCalendarDomManipulationService.setNativeElement(this.elementRef.nativeElement as HTMLDivElement).initDesktopMouseHandle().then();
+	public ngOnInit() {
 
 		this.columnHeaderList.push(...this.members.map((member) => {
 			return {
 				member,
 			};
 		}));
+	}
+
+	public ngAfterViewInit() {
+
+		this.scrollCalendarDomManipulationService.setNativeElement(this.elementRef.nativeElement as HTMLDivElement).initDesktopMouseHandle().then();
 
 		this.hours = Array.from({length: this.hoursMode}, (_, i) => i).filter((i) => i >= this.startTimeToDisplay && i <= this.endTimeToDisplay);
 		this.rows = Array.from({length: ((this.endTimeToDisplay - this.startTimeToDisplay) * this.stepPerHour) + this.stepPerHour}, (_, i) => {
@@ -151,119 +182,6 @@ export class ContainerCalendarWithSpecialistsComponent implements AfterViewInit 
 			}
 		});
 
-		this.initEvents();
-	}
-
-	public initEvents() {
-		this.events.push({
-			title: 'Event 1',
-			description: 'Description 1',
-			cards: [
-				{
-					startTime: 8, // 14:00
-					durationInMinutes: 1.5 * 60, // 1.5 hours
-					column: 2
-				}
-			]
-		});
-		this.events.push({
-			title: 'Event 2',
-			description: 'Description 2',
-			cards: [
-				{
-					startTime: 10, // 16:00
-					durationInMinutes: 1 * 60, // 1 hour
-					column: 3
-				}
-			]
-		});
-		this.events.push({
-			title: 'Event 3',
-			description: 'Description 3',
-			cards: [
-				{
-					startTime: 12, // 18:00
-					durationInMinutes: 2 * 60, // 2 hours,
-					column: 4
-				}
-			]
-		});
-		this.events.push({
-			title: 'Event 4',
-			description: 'Description 4',
-			cards: [
-				{
-					startTime: 14, // 20:00
-					durationInMinutes: 1 * 60, // 1 hour,
-					column: 4
-				}
-			]
-		});
-		this.events.push({
-			title: 'Event 5',
-			description: 'Description 5',
-			cards: [
-				{
-					startTime: 16, // 22:00
-					durationInMinutes: 1 * 60, // 1 hour,
-					column: 5
-				}
-			]
-		});
-		this.events.push({
-			title: 'Event 6',
-			description: 'Description 6',
-			cards: [
-				{
-					startTime: 18, // 00:00
-					durationInMinutes: 1 * 60, // 1 hour,
-					column: 6
-				}
-			]
-		});
-		this.events.push({
-			title: 'Event 7',
-			description: 'Description 7',
-			cards: [
-				{
-					startTime: 20, // 02:00
-					durationInMinutes: 1 * 60, // 1 hour,
-					column: 7
-				}
-			]
-		});
-		this.events.push({
-			title: 'Event 8',
-			description: 'Description 8',
-			cards: [
-				{
-					startTime: 16, // 04:00
-					durationInMinutes: 1 * 60, // 1 hour,
-					column: 8
-				}
-			]
-		});
-		this.events.push({
-			title: 'Event 9',
-			description: 'Description 8',
-			cards: [
-				{
-					startTime: 22, // 04:00
-					durationInMinutes: 1 * 60, // 1 hour,
-					column: 8
-				}
-			]
-		});
-		this.events = this.events.filter((event) => {
-			// Filter events by available columns
-			return event.cards.every((card) => {
-				return card.column < this.columnHeaderList.length;
-			});
-		}).filter((event) => {
-			return event.cards.every((card) => {
-				return card.startTime >= this.startTimeToDisplay && card.startTime <= this.endTimeToDisplay;
-			});
-		});
 	}
 
 }

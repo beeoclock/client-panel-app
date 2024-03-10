@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {DateTime} from "luxon";
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
 	providedIn: 'root'
@@ -8,14 +9,18 @@ export class DateControlCalendarWithSpecialistsService {
 
 	public readonly currentDate = DateTime.now();
 
-	public selectedDate = DateTime.now();
+	public readonly selectedDate$ = new BehaviorSubject(this.currentDate);
+
+	public get selectedDate() {
+		return this.selectedDate$.value;
+	}
 
 	public nextDate() {
-		this.selectedDate = this.selectedDate.plus({days: 1});
+		this.selectedDate$.next(this.selectedDate.plus({days: 1}))
 	}
 
 	public prevDate() {
-		this.selectedDate = this.selectedDate.minus({days: 1});
+		this.selectedDate$.next(this.selectedDate.minus({days: 1}))
 	}
 
 	public get selectedDateIsToday() {

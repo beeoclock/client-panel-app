@@ -4,7 +4,7 @@ import * as Member from "@member/domain";
 @Component({
 	selector: 'event-cell-component',
 	template: `
-		<div class="opacity-0 hover:opacity-100 transition-all flex items-center h-full px-2 cursor-pointer bg-neutral-200 active:bg-blue-700 active:text-white">
+		<div class="opacity-0 hover:opacity-100 transition-all flex items-center h-full px-2 cursor-pointer bg-neutral-100 active:bg-blue-400 active:text-white text-neutral-500">
 			+ Dodaj
 		</div>
 	`,
