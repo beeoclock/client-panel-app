@@ -3,7 +3,11 @@ import * as Member from "@member/domain";
 
 @Component({
 	selector: 'event-cell-component',
-	template: ``,
+	template: `
+		<div class="opacity-0 hover:opacity-100 transition-all flex items-center h-full px-2 cursor-pointer bg-neutral-200 active:bg-blue-700 active:text-white">
+			+ Dodaj
+		</div>
+	`,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None
 })
