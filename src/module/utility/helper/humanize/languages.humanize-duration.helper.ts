@@ -17,7 +17,7 @@ export const LanguagesHumanizeDurationHelper = {
 		h: () => "год",
 		m: () => "хв",
 		s: () => "сек",
-		ms: () => "мілісек",
+		ms: () => "мсек",
 	},
 	short_pl: {
 		y: () => "r",
@@ -27,6 +27,16 @@ export const LanguagesHumanizeDurationHelper = {
 		h: () => "godz",
 		m: () => "min",
 		s: () => "sek",
+		ms: () => "ms",
+	},
+	short_da: {
+		y: () => "år",
+		mo: () => "mdr",
+		w: () => "uge",
+		d: () => "d",
+		h: () => "t",
+		m: () => "m",
+		s: () => "s",
 		ms: () => "ms",
 	},
 };
