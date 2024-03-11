@@ -14,6 +14,8 @@ import {RIMember} from "@member/domain";
 import {MemberActions} from "@member/state/member/member.actions";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
+import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 
 @Component({
   selector: 'member-form-page',
@@ -28,7 +30,9 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
         InvalidTooltipDirective,
         TranslateModule,
         FormInputComponent,
-        PrimaryButtonDirective
+        PrimaryButtonDirective,
+        BackButtonComponent,
+        DefaultPanelComponent
     ],
   standalone: true
 })

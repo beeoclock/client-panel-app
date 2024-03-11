@@ -1,6 +1,8 @@
+<utility-default-panel-component>
+	<utility-back-button-component/>
+</utility-default-panel-component>
 <div class="p-4 pb-48 grid grid-cols-12">
 
-	<utility-back-link-component/>
 	<div
 		class="col-span-12 lg:col-start-4 lg:col-span-6 bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl">
 
@@ -18,7 +20,7 @@
 				id="member-form-firstName"
 				type="text"
 				autocomplete="firstName"
-				placeholder="First name"
+				[placeholder]="'keyword.capitalize.firstName' | translate"
 				[control]="form.controls.firstName"
 				[label]="'keyword.capitalize.firstName' | translate"/>
 
@@ -26,7 +28,7 @@
 				id="member-form-lastName"
 				type="text"
 				autocomplete="lastName"
-				placeholder="Last name"
+				[placeholder]="'keyword.capitalize.lastName' | translate"
 				[control]="form.controls.lastName"
 				[label]="'keyword.capitalize.lastName' | translate"/>
 

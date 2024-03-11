@@ -93,6 +93,7 @@ export class ModalSelectServiceService extends Reactive {
       classList: ModalComponent.buttons[ModalButtonRoleEnum.accept].classList,
       role: ModalButtonRoleEnum.accept,
       enabledDebounceClick: true,
+			visible: false,
       callback
     };
   }

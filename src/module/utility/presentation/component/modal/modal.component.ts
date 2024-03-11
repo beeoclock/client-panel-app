@@ -30,6 +30,7 @@ export interface ModalButtonInterface<COMPONENT_REF = unknown> {
 	value?: unknown;
 	enabledDebounceClick?: boolean;
 	disabled?: boolean;
+	visible?: boolean;
 	loading?: boolean;
 	classList?: string[];
 	callback?: (modal: ModalComponent<COMPONENT_REF>, instanceList: unknown[]) => void;
@@ -90,7 +91,7 @@ export interface ModalButtonInterface<COMPONENT_REF = unknown> {
 
 						<button
 							type="button"
-							*ngFor="let button of buttons"
+							*ngFor="let button of visibleButtons"
 							[id]="idPrefix + button.role"
 							[ngClass]="button.classList"
 							[disabled]="button?.disabled"
@@ -186,6 +187,10 @@ export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements
 			classList: ModalComponent.buttons[ModalButtonRoleEnum.accept].classList
 		}
 	];
+
+	public get visibleButtons(): ModalButtonInterface[] {
+		return this.buttons?.filter((button) => button.visible ?? true) ?? [];
+	}
 
 	public componentChildRefList: ComponentRef<any>[] = [];
 
