@@ -16,7 +16,6 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {MemberActions} from "@member/state/member/member.actions";
 import {EventActions} from "@event/state/event/event.actions";
-import {CacheActions} from "@utility/state/cache/cache.actions";
 import {MAIN_CONTAINER_ID} from "@src/token";
 import {NGXLogger} from "ngx-logger";
 import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
@@ -113,8 +112,6 @@ export default class WrapperPanelComponent implements AfterViewInit, OnDestroy {
     this.store.dispatch(new MemberActions.Init());
     this.store.dispatch(new EventActions.Init());
     this.store.dispatch(new EventRequestedActions.Init());
-
-    this.store.dispatch(new CacheActions.Init());
   }
 }
 

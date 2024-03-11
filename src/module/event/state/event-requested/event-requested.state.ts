@@ -42,10 +42,6 @@ export class EventRequestedState extends BaseState<Event.RIEvent> {
 	constructor() {
 		super(
 			defaults
-			// {
-			// 	tableStates: 'event.requested.cache.tableStates',
-			// 	items: 'event.requested.cache.items'
-			// }
 		);
 	}
 

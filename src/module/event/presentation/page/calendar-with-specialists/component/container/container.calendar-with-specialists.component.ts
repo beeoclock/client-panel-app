@@ -62,7 +62,9 @@ import {
 	standalone: true,
 	template: `
 
-		<event-slot-frame-component
+		<event-data-frame-component
+			[slotInMinutes]="slotInMinutes"
+			[stepPerHour]="stepPerHour"
 			[rows]="rows"
 			[columnHeaderList]="columnHeaderList"
 			[heightInPx]="heightInPx"
@@ -71,9 +73,7 @@ import {
 			[endTimeToDisplay]="endTimeToDisplay"
 			[startTimeToDisplay]="startTimeToDisplay"/>
 
-		<event-data-frame-component
-			[slotInMinutes]="slotInMinutes"
-			[stepPerHour]="stepPerHour"
+		<event-slot-frame-component
 			[rows]="rows"
 			[columnHeaderList]="columnHeaderList"
 			[heightInPx]="heightInPx"

@@ -5,7 +5,12 @@ import {BackButtonComponent} from "@utility/presentation/component/button/back.b
 
 @Component({
 	selector: 'event-form-page',
-	templateUrl: './index.html',
+	template: `
+		<utility-default-panel-component>
+			<utility-back-button-component/>
+		</utility-default-panel-component>
+		<event-container-form-component/>
+	`,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		ContainerFormComponent,

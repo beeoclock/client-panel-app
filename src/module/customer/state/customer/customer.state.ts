@@ -36,10 +36,6 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 	constructor() {
 		super(
 			defaults,
-			// {
-			// 	tableStates: 'customer.cache.tableStates',
-			// 	items: 'customer.cache.items'
-			// }
 		);
 	}
 

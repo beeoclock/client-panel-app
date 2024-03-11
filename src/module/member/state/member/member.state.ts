@@ -1,5 +1,5 @@
 import {inject, Injectable} from "@angular/core";
-import {Action, Selector, State, StateContext} from "@ngxs/store";
+import {Action, NgxsOnInit, Selector, State, StateContext} from "@ngxs/store";
 import * as Member from "@member/domain";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {MemberActions} from "@member/state/member/member.actions";
@@ -24,7 +24,7 @@ const defaults = baseDefaults<Member.RIMember>({
 	defaults,
 })
 @Injectable()
-export class MemberState extends BaseState<Member.RIMember> {
+export class MemberState extends BaseState<Member.RIMember> implements NgxsOnInit {
 
 	protected override readonly archive = inject(ArchiveMemberApiAdapter);
 	protected override readonly create = inject(CreateMemberApiAdapter);
@@ -36,11 +36,11 @@ export class MemberState extends BaseState<Member.RIMember> {
 	constructor() {
 		super(
 			defaults,
-			// {
-			// 	tableStates: 'member.cache.tableStates',
-			// 	items: 'member.cache.items'
-			// }
 		);
+	}
+
+	public ngxsOnInit(ctx: StateContext<IMemberState>): void {
+		ctx.dispatch(new MemberActions.GetList());
 	}
 
 	@Action(MemberActions.Init)
@@ -81,7 +81,6 @@ export class MemberState extends BaseState<Member.RIMember> {
 	@Action(MemberActions.GetList)
 	public override async getList(ctx: StateContext<IMemberState>, action: MemberActions.GetList): Promise<void> {
 		await super.getList(ctx, action);
-
 	}
 
 	// Selectors

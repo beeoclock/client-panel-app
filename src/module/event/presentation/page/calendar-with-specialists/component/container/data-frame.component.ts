@@ -9,10 +9,10 @@ import {
 import {
 	EventCardComponent
 } from "@event/presentation/page/calendar-with-specialists/component/event-card/event-card.component";
-import {ListEventApiAdapter} from "@event/adapter/external/api/list.event.api.adapter";
 import {TableState_BackendFormat} from "@utility/domain/table.state";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {DateTime} from "luxon";
+import {ListMergedEventApiAdapter} from "@event/adapter/external/api/list.merged.event.api.adapter";
 
 @Component({
 	selector: 'event-data-frame-component',
@@ -109,7 +109,7 @@ export class DataFrameComponent implements AfterViewInit {
 	}[] = [];
 
 	private readonly dateControlCalendarWithSpecialistsService = inject(DateControlCalendarWithSpecialistsService);
-	private readonly listEventApiAdapter = inject(ListEventApiAdapter);
+	private readonly listMergedEventApiAdapter = inject(ListMergedEventApiAdapter);
 
 	public ngAfterViewInit() {
 
@@ -124,7 +124,7 @@ export class DataFrameComponent implements AfterViewInit {
 				orderDir: OrderDirEnum.DESC,
 			};
 
-			this.listEventApiAdapter.execute$(params).subscribe((result) => {
+			this.listMergedEventApiAdapter.execute$(params).subscribe((result) => {
 				console.log(result);
 
 				this.events = [];
