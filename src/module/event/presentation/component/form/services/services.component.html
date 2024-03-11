@@ -1,6 +1,6 @@
 <div class="flex flex-col gap-4">
 	<div class="flex justify-between items-center">
-		<strong class="text-2xl dark:text-white">{{ 'keyword.capitalize.services' | translate }}</strong>
+		<strong class="text-2xl dark:text-white">{{ 'keyword.capitalize.service' | translate }}</strong>
 		<utility-invalid-message [class.hidden]="serviceListControl.untouched || serviceListControl.valid"
 														 [control]="serviceListControl"/>
 	</div>
@@ -31,6 +31,12 @@
 				[serviceListControl]="serviceListControl"
 				[index]="index"
 				[service]="service"/>
+
+			<event-service-specialist-component
+				*ngFor="let specialist of service.specialists"
+				[serviceListControl]="serviceListControl"
+				[index]="index"
+				[specialist]="specialist"/>
 		</bee-card>
 
 	</ng-container>

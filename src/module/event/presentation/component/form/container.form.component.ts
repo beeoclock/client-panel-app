@@ -34,6 +34,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {TimeInputComponent} from "@utility/presentation/component/input/time.input.component";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {DefaultInputDirective} from "@utility/presentation/directives/input/default.input.directive";
+import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 
 @Component({
 	selector: 'event-container-form-component',
@@ -54,11 +55,16 @@ import {DefaultInputDirective} from "@utility/presentation/directives/input/defa
 		FormInputComponent,
 		DefaultInputDirective,
 		DatePipe,
+		DefaultPanelComponent,
+		BackButtonComponent,
 	],
 	providers: [
 		SlotsService
 	],
 	template: `
+		<utility-default-panel-component>
+			<utility-back-button-component/>
+		</utility-default-panel-component>
 		<div *ngIf="preview.isOn" class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
 
 			<bee-card>
@@ -366,12 +372,21 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 			const value = this.form.getRawValue() as IEvent;
 
 			// Delete each configuration of duration at service
-			try {
-				value.services?.forEach((service) => {
-					delete service.configuration?.duration;
-				});
-			} catch (e) {
-				this.logger.error(e);
+			if (value.services?.length) {
+				try {
+					value.services.map((service) => {
+						// delete service.configuration?.duration;
+						return {
+							...service,
+							configuration: {
+								...service.configuration,
+								duration: undefined,
+							},
+						};
+					});
+				} catch (e) {
+					this.logger.error(e);
+				}
 			}
 
 			if (this.isEditMode) {

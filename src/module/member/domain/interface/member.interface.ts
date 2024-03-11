@@ -5,6 +5,7 @@ export interface IMember extends RIBaseEntity<'Member'> {
 	secondName?: string; // Deprecated
 	lastName?: string;
 	email: string;
+	avatar?: string;
 	phone?: string;
 }
 

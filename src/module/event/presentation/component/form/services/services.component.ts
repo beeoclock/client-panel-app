@@ -20,6 +20,9 @@ import {
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
+import {
+	SpecialistServiceComponent
+} from "@event/presentation/component/form/services/specialist/specialist.service.component";
 
 @Component({
 	selector: 'event-service-component',
@@ -42,6 +45,7 @@ import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-typ
 		AsyncPipe,
 		CardComponent,
 		RowActionButtonComponent,
+		SpecialistServiceComponent,
 	],
 	providers: [
 		CurrencyPipe,
