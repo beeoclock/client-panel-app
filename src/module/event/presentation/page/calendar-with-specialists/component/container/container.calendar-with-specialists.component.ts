@@ -22,12 +22,6 @@ import {
 	ScrollCalendarDomManipulationService
 } from "@event/presentation/dom-manipulation-service/scroll.calendar.dom-manipulation-service";
 import {
-	DateControlCalendarWithSpecialistsComponent
-} from "@event/presentation/page/calendar-with-specialists/component/date-control/date-control.calendar-with-specialists.component";
-import {
-	EventCardComponent
-} from "@event/presentation/page/calendar-with-specialists/component/event-card/event-card.component";
-import {
 	HourCellComponent
 } from "@event/presentation/page/calendar-with-specialists/component/hour-cell/hour-cell.component";
 import {CellComponent} from "@event/presentation/page/calendar-with-specialists/component/cell/cell.component";
@@ -52,8 +46,6 @@ import {
 		DatePipe,
 		TimeLineComponent,
 		HeaderCalendarComponent,
-		DateControlCalendarWithSpecialistsComponent,
-		EventCardComponent,
 		HourCellComponent,
 		CellComponent,
 		SlotFrameComponent,

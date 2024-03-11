@@ -1,23 +1,23 @@
 import {Component, inject, ViewEncapsulation} from "@angular/core";
-import {
-	DateControlCalendarWithSpecialistsService
-} from "@event/presentation/page/calendar-with-specialists/component/date-control/date-control.calendar-with-specialists.service";
 import {NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
+import {
+	DateControlCalendarWithSpecialistsService
+} from "@event/presentation/page/calendar-with-specialists/component/filter/date-control/date-control.calendar-with-specialists.service";
 
 @Component({
 	selector: 'event-date-control-calendar-with-specialists-component',
 	template: `
-		<div class="relative flex rounded-md bg-white shadow-sm items-stretch">
+		<div class="relative flex rounded-2xl bg-white shadow-sm items-stretch">
 
 			<button
 				(click)="prevDate()"
 				type="button"
-				class="flex h-9 items-center justify-center rounded-l-md border-y border-l border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pr-0 hover:bg-gray-50">
+				class="flex h-9 items-center justify-center rounded-l-2xl border-y border-l border-beeColor-300 text-beeColor-400 hover:text-beeColor-500 focus:relative w-9 pr-0 hover:bg-beeColor-50">
 				<i class="bi bi-chevron-left"></i>
 			</button>
 
-			<div class="border-y border-gray-300 px-3.5 text-gray-900 flex flex-col justify-center items-center">
+			<div class="border-y border-beeColor-300 px-3.5 text-beeColor-900 flex flex-col justify-center items-center">
 
 				<span *ngIf="selectedDateIsToday || selectedDateIsTomorrow" class="text-xs font-semibold">
 					{{ (selectedDateIsToday ? 'keyword.capitalize.today' : selectedDateIsTomorrow ? 'keyword.capitalize.tomorrow' : '') | translate }}
@@ -32,7 +32,7 @@ import {TranslateModule} from "@ngx-translate/core";
 			<button
 				(click)="nextDate()"
 				type="button"
-				class="flex h-9 items-center justify-center rounded-r-md border-y border-r border-gray-300 text-gray-400 hover:text-gray-500 focus:relative w-9 pl-0 hover:bg-gray-50">
+				class="flex h-9 items-center justify-center rounded-r-2xl border-y border-r border-beeColor-300 text-beeColor-400 hover:text-beeColor-500 focus:relative w-9 pl-0 hover:bg-beeColor-50">
 				<i class="bi bi-chevron-right"></i>
 			</button>
 

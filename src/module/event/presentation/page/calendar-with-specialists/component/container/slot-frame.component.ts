@@ -4,11 +4,11 @@ import {NgForOf, NgIf} from "@angular/common";
 import {TimeLineComponent} from "@event/presentation/page/calendar-with-specialists/component/time-line.component";
 import * as Member from "@member/domain";
 import {
-	DateControlCalendarWithSpecialistsService
-} from "@event/presentation/page/calendar-with-specialists/component/date-control/date-control.calendar-with-specialists.service";
-import {
 	ScrollCalendarDomManipulationService
 } from "@event/presentation/dom-manipulation-service/scroll.calendar.dom-manipulation-service";
+import {
+	DateControlCalendarWithSpecialistsService
+} from "@event/presentation/page/calendar-with-specialists/component/filter/date-control/date-control.calendar-with-specialists.service";
 
 @Component({
 	selector: 'event-slot-frame-component',
@@ -99,11 +99,11 @@ export class SlotFrameComponent {
 
 	private readonly dateControlCalendarWithSpecialistsService = inject(DateControlCalendarWithSpecialistsService);
 
-	get selectedDateIsToday() {
+	public get selectedDateIsToday() {
 		return this.dateControlCalendarWithSpecialistsService.selectedDateIsToday;
 	}
 
-	get selectedDate() {
+	public get selectedDate() {
 		return this.dateControlCalendarWithSpecialistsService.selectedDate;
 	}
 

@@ -1,24 +1,20 @@
-import {AfterViewInit, Component, HostBinding, inject, Input, ViewEncapsulation} from "@angular/core";
+import {Component, HostBinding, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
 import {CellComponent} from "@event/presentation/page/calendar-with-specialists/component/cell/cell.component";
-import {NgForOf, NgIf, NgStyle} from "@angular/common";
+import {AsyncPipe, NgForOf, NgIf, NgStyle} from "@angular/common";
 import {TimeLineComponent} from "@event/presentation/page/calendar-with-specialists/component/time-line.component";
 import * as Member from "@member/domain";
-import {
-	DateControlCalendarWithSpecialistsService
-} from "@event/presentation/page/calendar-with-specialists/component/date-control/date-control.calendar-with-specialists.service";
+import {DateTime} from "luxon";
+import {FilterService} from "@event/presentation/page/calendar-with-specialists/component/filter/filter.service";
+import {map, Observable} from "rxjs";
 import {
 	EventCardComponent
 } from "@event/presentation/page/calendar-with-specialists/component/event-card/event-card.component";
-import {TableState_BackendFormat} from "@utility/domain/table.state";
-import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
-import {DateTime} from "luxon";
-import {ListMergedEventApiAdapter} from "@event/adapter/external/api/list.merged.event.api.adapter";
 
 @Component({
 	selector: 'event-data-frame-component',
 	template: `
 
-		<ng-container *ngFor="let event of events;">
+		<ng-container *ngFor="let event of (events$ | async) ?? [];">
 			<event-card-component
 				*ngFor="let card of event.cards;"
 				[card]="card"
@@ -35,12 +31,13 @@ import {ListMergedEventApiAdapter} from "@event/adapter/external/api/list.merged
 		NgForOf,
 		NgIf,
 		TimeLineComponent,
-		EventCardComponent,
-		NgStyle
+		NgStyle,
+		AsyncPipe,
+		EventCardComponent
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class DataFrameComponent implements AfterViewInit {
+export class DataFrameComponent implements OnInit {
 
 	@Input()
 	public rows!: {
@@ -98,7 +95,9 @@ export class DataFrameComponent implements AfterViewInit {
 		return `70px`;
 	}
 
-	public events: {
+	private readonly filterService = inject(FilterService);
+
+	public readonly events$: Observable<{
 		cards: {
 			startTime: number;
 			durationInMinutes: number;
@@ -106,54 +105,33 @@ export class DataFrameComponent implements AfterViewInit {
 		}[];
 		title: string;
 		description: string;
-	}[] = [];
-
-	private readonly dateControlCalendarWithSpecialistsService = inject(DateControlCalendarWithSpecialistsService);
-	private readonly listMergedEventApiAdapter = inject(ListMergedEventApiAdapter);
-
-	public ngAfterViewInit() {
-
-		this.dateControlCalendarWithSpecialistsService.selectedDate$.subscribe((selectedDate) => {
-
-			const params: TableState_BackendFormat = {
-				start: selectedDate.startOf('day').toJSDate().toISOString(),
-				end: selectedDate.endOf('day').toJSDate().toISOString(),
-				page: 1,
-				pageSize: 1000,
-				orderBy: OrderByEnum.CREATED_AT,
-				orderDir: OrderDirEnum.DESC,
-			};
-
-			this.listMergedEventApiAdapter.execute$(params).subscribe((result) => {
-				console.log(result);
-
-				this.events = [];
-
-				result.items.forEach((item) => {
-					this.events.push({
-						title: item.services[0].languageVersions[0].title,
-						description: item.description,
-						cards: [
-							{
-								startTime: DateTime.fromISO(item.start).toLocal().hour,
-								durationInMinutes: item.services[0].durationVersions[0].durationInSeconds / 60,
-								column: this.columnHeaderList.findIndex((column) => {
-									return column.member?._id === item?.services?.[0]?.specialists?.[0]?.member?._id;
-								}),
-							}
-						]
-					});
+	}[]> = this.filterService.events$.pipe(
+		map((events) => {
+			return events.map((item) => {
+				return {
+					title: item.services[0].languageVersions[0].title,
+					description: item.description,
+					cards: [
+						{
+							startTime: DateTime.fromISO(item.start).toLocal().hour,
+							durationInMinutes: item.services[0].durationVersions[0].durationInSeconds / 60,
+							column: this.columnHeaderList.findIndex((column) => {
+								return column.member?._id === item?.services?.[0]?.specialists?.[0]?.member?._id;
+							}),
+						}
+					]
+				};
+			}).filter((event) => {
+				return event.cards.every((card) => {
+					return card.startTime >= this.startTimeToDisplay && card.startTime <= this.endTimeToDisplay;
 				});
-
-				this.events = this.events.filter((event) => {
-					return event.cards.every((card) => {
-						return card.startTime >= this.startTimeToDisplay && card.startTime <= this.endTimeToDisplay;
-					});
-				});
-
 			});
+		})
+	);
 
-		});
+	public ngOnInit() {
+
+		this.filterService.initHandler();
 
 	}
 
