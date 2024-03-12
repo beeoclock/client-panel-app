@@ -4,7 +4,6 @@ import {
 	ElementRef,
 	HostBinding,
 	inject,
-	Input,
 	OnInit,
 	ViewChild,
 	ViewEncapsulation
@@ -55,28 +54,15 @@ import {
 	template: `
 
 		<event-data-frame-component
-			[slotInMinutes]="slotInMinutes"
-			[stepPerHour]="stepPerHour"
 			[rows]="rows"
-			[columnHeaderList]="columnHeaderList"
-			[heightInPx]="heightInPx"
-			[heightPerSlotInPx]="heightPerSlotInPx"
-			[headerHeightInPx]="headerHeightInPx"
-			[endTimeToDisplay]="endTimeToDisplay"
-			[startTimeToDisplay]="startTimeToDisplay"/>
+			[columnHeaderList]="columnHeaderList"/>
 
 		<event-slot-frame-component
 			[rows]="rows"
-			[columnHeaderList]="columnHeaderList"
-			[heightInPx]="heightInPx"
-			[heightPerSlotInPx]="heightPerSlotInPx"
-			[headerHeightInPx]="headerHeightInPx"
-			[endTimeToDisplay]="endTimeToDisplay"
-			[startTimeToDisplay]="startTimeToDisplay"/>
+			[columnHeaderList]="columnHeaderList"/>
 
 		<event-hour-cell-component
 			*ngFor="let hour of hours; let index = index;"
-			[stepPerHour]="stepPerHour"
 			[index]="index"
 			[hour]="hour"/>
 
@@ -104,26 +90,13 @@ export class ContainerCalendarWithSpecialistsComponent implements AfterViewInit,
 
 	public columns: number[] = [];
 
-	@Input()
-	public hoursMode!: number;
+	public readonly hoursMode = this.composeCalendarWithSpecialistsService.hoursMode;
 
-	@Input()
-	public oneHoursInMinutes!: number; // Don't change this value
+	public readonly stepPerHour = this.composeCalendarWithSpecialistsService.stepPerHour;
 
-	@Input()
-	public slotInMinutes!: number;
+	public readonly heightPerSlotInPx = this.composeCalendarWithSpecialistsService.heightPerSlotInPx;
 
-	@Input()
-	public stepPerHour!: number;
-
-	@Input()
-	public heightInPx!: number;
-
-	@Input()
-	public heightPerSlotInPx!: number;
-
-	@Input()
-	public headerHeightInPx!: number;
+	public readonly headerHeightInPx = this.composeCalendarWithSpecialistsService.headerHeightInPx;
 
 
 	public hours: number[] = [];
@@ -139,9 +112,9 @@ export class ContainerCalendarWithSpecialistsComponent implements AfterViewInit,
 		},
 	];
 
-	readonly startTimeToDisplay = this.composeCalendarWithSpecialistsService.startTimeToDisplay;
-	readonly endTimeToDisplay = this.composeCalendarWithSpecialistsService.endTimeToDisplay;
-	readonly members = this.composeCalendarWithSpecialistsService.members;
+	public readonly startTimeToDisplay = this.composeCalendarWithSpecialistsService.startTimeToDisplay;
+	public readonly endTimeToDisplay = this.composeCalendarWithSpecialistsService.endTimeToDisplay;
+	public readonly members = this.composeCalendarWithSpecialistsService.members;
 
 	@HostBinding('style.grid-template-columns')
 	public get gridTemplateColumns() {

@@ -46,28 +46,6 @@ import {FilterService} from "@event/presentation/page/calendar-with-specialists/
 })
 export class ComposeCalendarWithSpecialistsComponent {
 
-	/**
-	 * TODO: List
-	 * - [ ] Add event to the calendar
-	 * - [ ] Remove event from the calendar
-	 * - [ ] Edit event from the calendar
-	 * - [ ] Add event to the calendar by floating button
-	 * - [X] Display members in the calendar like a column
-	 * - [ ] Display event details by clicking on the event
-	 * - [X] Date picker to select the date (left, right, select)
-	 * - [ ] Add filter button to filter the events
-	 * - [ ] Add filter control: by status
-	 * - [X] Detect startTimeToDisplay and endTimeToDisplay by schedules of company
-	 */
-
-	public readonly hoursMode = 24;
-	public readonly oneHoursInMinutes = 60; // Don't change this value
-	public readonly slotInMinutes = 15;
-	public readonly stepPerHour = this.oneHoursInMinutes / this.slotInMinutes;
-	public readonly heightInPx = 120;
-	public readonly heightPerSlotInPx = 120 / this.stepPerHour;
-	public readonly headerHeightInPx = 50;
-
 	private readonly filterService = inject(FilterService);
 	public readonly loading$ = this.filterService.loader.state$;
 

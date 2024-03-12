@@ -1,4 +1,7 @@
-import {Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
+import {Component, HostBinding, inject, Input, ViewEncapsulation} from "@angular/core";
+import {
+	ComposeCalendarWithSpecialistsService
+} from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 
 @Component({
 	selector: 'event-hour-cell-component',
@@ -8,14 +11,15 @@ import {Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
 })
 export class HourCellComponent {
 
+	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
+
 	@Input()
 	public hour!: number;
 
 	@Input()
 	public index!: number;
 
-	@Input()
-	public stepPerHour!: number;
+	public readonly stepPerHour = this.composeCalendarWithSpecialistsService.stepPerHour;
 
 	@HostBinding('style.grid-row-start')
 	public get gridRowStart() {

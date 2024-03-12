@@ -2,11 +2,4 @@
 	<event-date-control-calendar-with-specialists-component/>
 	<utility-auto-refresh-component (emitter)="forceRefresh()" [isLoading]="(loading$ | async) ?? false"/>
 </div>
-<event-container-calendar-with-specialists-component
-	[hoursMode]="hoursMode"
-	[oneHoursInMinutes]="oneHoursInMinutes"
-	[slotInMinutes]="slotInMinutes"
-	[stepPerHour]="stepPerHour"
-	[heightInPx]="heightInPx"
-	[heightPerSlotInPx]="heightPerSlotInPx"
-	[headerHeightInPx]="headerHeightInPx"/>
+<event-container-calendar-with-specialists-component />

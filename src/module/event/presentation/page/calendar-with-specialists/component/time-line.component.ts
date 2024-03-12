@@ -9,6 +9,9 @@ import {
 	ViewEncapsulation
 } from "@angular/core";
 import {DatePipe, NgIf, NgStyle} from "@angular/common";
+import {
+	ComposeCalendarWithSpecialistsService
+} from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 
 @Component({
 	selector: 'event-time-line-component',
@@ -36,22 +39,20 @@ export class TimeLineComponent implements OnInit, AfterViewInit {
 	@Input()
 	public currentDate = new Date();
 
-	@Input()
-	public startTimeToDisplay!: number;
-
-	@Input()
-	public headerHeightInPx!: number;
-
-	@Input()
-	public heightInPx!: number;
-
 	@HostBinding()
 	public class = 'absolute top-0 left-0 w-full flex items-start transition-all';
 
 	@HostBinding()
 	public style = '';
 
+	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
 	private readonly elementRef = inject(ElementRef);
+
+	public readonly startTimeToDisplay = this.composeCalendarWithSpecialistsService.startTimeToDisplay;
+
+	public readonly headerHeightInPx = this.composeCalendarWithSpecialistsService.headerHeightInPx;
+
+	public readonly heightInPx = this.composeCalendarWithSpecialistsService.heightInPx;
 
 	public ngOnInit() {
 

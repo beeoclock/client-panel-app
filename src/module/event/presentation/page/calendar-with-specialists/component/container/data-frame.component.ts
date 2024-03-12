@@ -9,6 +9,9 @@ import {map, Observable} from "rxjs";
 import {
 	EventCardComponent
 } from "@event/presentation/page/calendar-with-specialists/component/event-card/event-card.component";
+import {
+	ComposeCalendarWithSpecialistsService
+} from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 
 @Component({
 	selector: 'event-data-frame-component',
@@ -18,10 +21,7 @@ import {
 			<event-card-component
 				*ngFor="let card of event.cards;"
 				[card]="card"
-				[event]="event"
-				[slotInMinutes]="slotInMinutes"
-				[stepPerHour]="stepPerHour"
-				[startTimeToDisplay]="startTimeToDisplay"/>
+				[event]="event"/>
 		</ng-container>
 
 	`,
@@ -49,27 +49,6 @@ export class DataFrameComponent implements OnInit {
 		member: Member.RIMember | null;
 	}[];
 
-	@Input()
-	public stepPerHour!: number;
-
-	@Input()
-	public slotInMinutes!: number;
-
-	@Input()
-	public heightInPx!: number;
-
-	@Input()
-	public heightPerSlotInPx!: number;
-
-	@Input()
-	public headerHeightInPx!: number;
-
-	@Input()
-	public startTimeToDisplay!: number;
-
-	@Input()
-	public endTimeToDisplay!: number;
-
 	@HostBinding()
 	public get class() {
 		return 'grid absolute top-0 left-0 h-full';
@@ -95,7 +74,16 @@ export class DataFrameComponent implements OnInit {
 		return `70px`;
 	}
 
+	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
 	private readonly filterService = inject(FilterService);
+
+	public readonly heightPerSlotInPx = this.composeCalendarWithSpecialistsService.heightPerSlotInPx;
+
+	public readonly headerHeightInPx = this.composeCalendarWithSpecialistsService.headerHeightInPx;
+
+	public readonly startTimeToDisplay = this.composeCalendarWithSpecialistsService.startTimeToDisplay;
+
+	public readonly endTimeToDisplay = this.composeCalendarWithSpecialistsService.endTimeToDisplay;
 
 	public readonly events$: Observable<{
 		cards: {

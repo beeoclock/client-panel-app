@@ -40,7 +40,6 @@ export class MembersContainerWeekCalendarComponent {
 	public readonly item$ = this.store.select(MemberState.tableState).pipe(
 		filter(is.object_not_empty<ITableState<Member.RIMember>>),
 		tap((tableState) => {
-			console.log(tableState);
 			if (tableState.total === 0) {
 				this.store.dispatch(new MemberActions.GetList());
 			}

@@ -9,6 +9,9 @@ import {
 import {
 	DateControlCalendarWithSpecialistsService
 } from "@event/presentation/page/calendar-with-specialists/component/filter/date-control/date-control.calendar-with-specialists.service";
+import {
+	ComposeCalendarWithSpecialistsService
+} from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 
 @Component({
 	selector: 'event-slot-frame-component',
@@ -30,9 +33,6 @@ import {
 		</ng-container>
 
 		<event-time-line-component
-			[heightInPx]="heightInPx"
-			[headerHeightInPx]="headerHeightInPx"
-			[startTimeToDisplay]="startTimeToDisplay"
 			*ngIf="selectedDateIsToday && selectedDate.hour >= startTimeToDisplay && selectedDate.hour <= endTimeToDisplay"/>
 
 	`,
@@ -47,6 +47,7 @@ import {
 })
 export class SlotFrameComponent {
 
+	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
 	private readonly scrollCalendarDomManipulationService = inject(ScrollCalendarDomManipulationService);
 
 	@Input()
@@ -59,20 +60,13 @@ export class SlotFrameComponent {
 		member: Member.RIMember | null;
 	}[];
 
-	@Input()
-	public heightInPx!: number;
+	public readonly heightPerSlotInPx = this.composeCalendarWithSpecialistsService.heightPerSlotInPx;
 
-	@Input()
-	public heightPerSlotInPx!: number;
+	public readonly headerHeightInPx = this.composeCalendarWithSpecialistsService.headerHeightInPx;
 
-	@Input()
-	public headerHeightInPx!: number;
+	public readonly startTimeToDisplay = this.composeCalendarWithSpecialistsService.startTimeToDisplay;
 
-	@Input()
-	public startTimeToDisplay!: number;
-
-	@Input()
-	public endTimeToDisplay!: number;
+	public readonly endTimeToDisplay = this.composeCalendarWithSpecialistsService.endTimeToDisplay;
 
 	@HostBinding()
 	public get class() {

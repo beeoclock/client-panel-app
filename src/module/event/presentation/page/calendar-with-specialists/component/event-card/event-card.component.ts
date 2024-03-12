@@ -1,4 +1,7 @@
-import {Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
+import {Component, HostBinding, inject, Input, ViewEncapsulation} from "@angular/core";
+import {
+	ComposeCalendarWithSpecialistsService
+} from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 
 @Component({
 	selector: 'event-card-component',
@@ -10,6 +13,8 @@ import {Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
 	encapsulation: ViewEncapsulation.None
 })
 export class EventCardComponent {
+
+	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
 
 	@Input()
 	public event!: {
@@ -29,14 +34,11 @@ export class EventCardComponent {
 		column: number;
 	};
 
-	@Input()
-	public slotInMinutes!: number;
+	public readonly slotInMinutes = this.composeCalendarWithSpecialistsService.slotInMinutes;
 
-	@Input()
-	public startTimeToDisplay!: number;
+	public readonly startTimeToDisplay = this.composeCalendarWithSpecialistsService.startTimeToDisplay;
 
-	@Input()
-	public stepPerHour!: number;
+	public readonly stepPerHour = this.composeCalendarWithSpecialistsService.stepPerHour;
 
 	@HostBinding('style.grid-row-start')
 	public get gridRowStart() {
