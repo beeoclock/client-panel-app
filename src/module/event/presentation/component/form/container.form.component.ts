@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, inject, Input, OnInit, QueryList, ViewChild, ViewChildren} from "@angular/core";
+import {AfterContentInit, Component, inject, Input, OnInit, QueryList, ViewChildren} from "@angular/core";
 import {AttendeesComponent} from "@event/presentation/component/form/attendees/attendees.component";
 import {
 	ButtonSaveContainerComponent
@@ -62,9 +62,6 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 		SlotsService
 	],
 	template: `
-		<utility-default-panel-component>
-			<utility-back-button-component/>
-		</utility-default-panel-component>
 		<div *ngIf="preview.isOn" class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
 
 			<bee-card>
@@ -157,7 +154,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 	public specialist = '';
 	public eventDurationInSeconds = 0;
 
-	@ViewChild(BackButtonComponent)
+	@Input()
 	public backButtonComponent!: BackButtonComponent;
 
 	@ViewChildren(ServicesComponent)
