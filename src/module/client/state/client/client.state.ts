@@ -28,15 +28,12 @@ export class ClientState {
 
 	@Selector()
 	public static earliestScheduleAndLatestSchedule(state: IClientState): {
-		earliestSchedule: RISchedule | null,
-		latestSchedule: RISchedule | null
-	} {
+		earliestSchedule: RISchedule,
+		latestSchedule: RISchedule,
+	} | null {
 
 		if (!state.item) {
-			return {
-				earliestSchedule: null,
-				latestSchedule: null,
-			};
+			return null;
 		}
 
 		const item = state.item;
