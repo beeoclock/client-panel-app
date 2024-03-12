@@ -38,39 +38,6 @@ export function baseDefaults<T>({filters, orderBy, orderDir}: {
 	};
 }
 
-export function buildCacheKey(...keys: string[]): string {
-	return keys.join('.');
-}
-
-export function getKeyWithClientId(store: Store, ...keys: string[]): string {
-
-	const {identity} = store.snapshot();
-
-	if (!identity) {
-		throw new Error('Store Snapshot: identity is absent!');
-	}
-
-	const {token} = identity;
-
-	if (!token) {
-		throw new Error('Store Snapshot: token is absent!');
-	}
-
-	const {claims} = token;
-
-	if (!claims) {
-		throw new Error('Store Snapshot: claims is absent!');
-	}
-
-	const {clientId} = claims;
-
-	if (!clientId) {
-		throw new Error('Store Snapshot: clientId is absent!');
-	}
-
-	return buildCacheKey(clientId, ...keys);
-}
-
 export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 
 	protected readonly ngEventBus = inject(NgEventBus);
