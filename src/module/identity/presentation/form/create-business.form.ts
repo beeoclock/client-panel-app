@@ -85,7 +85,6 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 			return;
 		}
 
-		console.log('businessCategory', businessCategory);
 		const servicesByBusinessCategory = servicesByLanguage[businessCategory];
 
 		if (!servicesByBusinessCategory) {

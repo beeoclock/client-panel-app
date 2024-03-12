@@ -10,11 +10,8 @@ export const clientIdResolver: ResolveFn<string | undefined> = () => {
 	const store = inject(Store);
 	const router = inject(Router);
 
-	console.log(router.url);
-
 	return store.select(IdentityState.clientId).pipe(
 		exhaustMap((clientId) => {
-			console.log(clientId)
 			if (clientId) {
 				return of(clientId);
 			}

@@ -66,7 +66,7 @@ export class TimeLineComponent implements OnInit, AfterViewInit {
 
 	public ngAfterViewInit() {
 		setTimeout(() => {
-			this.elementRef.nativeElement.scrollIntoView({behavior: 'smooth'});
+			this.elementRef.nativeElement.scrollIntoView({behavior: 'smooth', block: 'center'});
 		}, 0);
 	}
 

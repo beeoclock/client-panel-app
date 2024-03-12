@@ -74,8 +74,6 @@ export class ColumnsBlockComponent implements OnChanges {
 
 	public ngOnChanges(changes: SimpleChanges & {preferences: {currentValue: ColumnsBlockComponent['preferences']} }): void {
 
-		console.log('changes', changes)
-
 		const {preferences} = changes;
 
 		if (preferences.currentValue) {

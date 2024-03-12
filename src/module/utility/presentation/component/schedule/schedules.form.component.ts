@@ -54,6 +54,6 @@ import {FormButtonWithIconComponent} from "@utility/presentation/component/butto
 export class SchedulesFormComponent {
 
 	@Input()
-	public schedulesForm = new SchedulesForm();
+	public schedulesForm!: SchedulesForm;
 
 }
