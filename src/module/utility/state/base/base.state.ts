@@ -157,7 +157,7 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 	 * @param payload
 	 * @constructor
 	 */
-	public async getItemFromCacheOrApi(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.GetItem): Promise<void> {
+	public async getItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.GetItem): Promise<void> {
 
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
 

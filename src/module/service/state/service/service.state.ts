@@ -66,8 +66,8 @@ export class ServiceState extends BaseState<IService> {
 	}
 
 	@Action(ServiceActions.GetItem)
-	public override async getItemFromCacheOrApi(ctx: StateContext<IServiceState>, action: ServiceActions.GetItem): Promise<void> {
-		await super.getItemFromCacheOrApi(ctx, action);
+	public override async getItem(ctx: StateContext<IServiceState>, action: ServiceActions.GetItem): Promise<void> {
+		await super.getItem(ctx, action);
 	}
 
 	@Action(ServiceActions.DeleteItem)
