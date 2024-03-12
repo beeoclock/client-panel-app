@@ -981,5 +981,9 @@
 			"tuesday": "Вт",
 			"wednesday": "Ср"
 		}
+	},
+	"role": {
+		"ADMIN": "Адміністратор",
+		"SPECIALIST": "Спеціаліст"
 	}
 }

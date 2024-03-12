@@ -24,6 +24,10 @@ export const routers = [
         loadComponent: () => import('./page/sign-up')
       },
       {
+        path: 'confirm-invitation',
+        loadComponent: () => import('./page/confirm-invitation')
+      },
+      {
         path: 'forgot-password',
         loadComponent: () => import('./page/forgot-password')
       },

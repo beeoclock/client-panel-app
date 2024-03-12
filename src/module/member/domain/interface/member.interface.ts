@@ -1,4 +1,5 @@
 import {RIBaseEntity} from "@utility/domain";
+import {RoleEnum} from "@utility/domain/enum/role.enum";
 
 export interface IMember extends RIBaseEntity<'Member'> {
 	firstName?: string;
@@ -6,6 +7,7 @@ export interface IMember extends RIBaseEntity<'Member'> {
 	lastName?: string;
 	email: string;
 	avatar?: string;
+	role?: RoleEnum;
 	phone?: string;
 }
 

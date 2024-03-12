@@ -31,7 +31,7 @@ import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-m
     <div class="grid md:grid-cols-2 gap-4">
 
       <form-input
-        type="text"
+        inputType="text"
         customerAutocomplete
         autocomplete="off"
 				id="attendee-first-name"
@@ -40,7 +40,7 @@ import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-m
         [label]="'keyword.capitalize.firstName' | translate"/>
 
       <form-input
-        type="text"
+        inputType="text"
         customerAutocomplete
         autocomplete="off"
 				id="attendee-last-name"
@@ -49,7 +49,7 @@ import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-m
         [label]="'keyword.capitalize.lastName' | translate"/>
 
       <form-input
-        type="email"
+        inputType="email"
         customerAutocomplete
         autocomplete="off"
         placeholder="firstname.lastname@example.com"
@@ -58,7 +58,7 @@ import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-m
         [label]="'keyword.capitalize.email' | translate"/>
 
       <form-input
-        type="phone"
+        inputType="phone"
         customerAutocomplete
         autocomplete="off"
         placeholder="+000000000000"

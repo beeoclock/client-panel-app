@@ -33,7 +33,7 @@ import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 		<div class="flex flex-col gap-6">
 			<form-input
 				id="email"
-				type="email"
+				inputType="email"
 				autocomplete="email"
 				placeholder="firstname.lastname@example.com"
 				[control]="form.controls.email"

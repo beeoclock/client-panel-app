@@ -39,7 +39,7 @@ import {ServiceProvideTypeComponent} from "@utility/presentation/component/input
 
 			<form-input
 				id="business-profile-form-name-input"
-				type="text"
+				inputType="text"
 				autocomplete="name"
 				[placeholder]="'client.profile.form.inputs.name.placeholder' | translate"
 				[control]="form.controls.name"

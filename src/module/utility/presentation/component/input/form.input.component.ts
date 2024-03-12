@@ -51,7 +51,7 @@ import {TranslateModule} from "@ngx-translate/core";
 			[additionalClassList]="additionalClassList"
 			[placeholder]="placeholder ?? (placeholderTranslateKey | translate)"
 			[id]="id"
-			[type]="type"
+			[type]="inputType"
 			[autocomplete]="autocomplete"/>
 	`
 })
@@ -70,7 +70,7 @@ export class FormInputComponent implements DoCheck {
 	public id = 'utility-base-input';
 
 	@Input()
-	public type = 'text';
+	public inputType = 'text';
 
 	@Input()
 	public customClassList: string = '';

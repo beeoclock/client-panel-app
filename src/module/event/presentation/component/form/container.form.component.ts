@@ -105,6 +105,7 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 
 					<input
 						type="datetime-local"
+						class="border-none p-0"
 						*ngIf="forceStart"
 						[value]="form.controls.start.value | date: 'yyyy-MM-ddTHH:mm'"
 						(change)="updateStartControlByDateTimeString($event)"/>

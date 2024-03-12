@@ -982,5 +982,9 @@
 			"tuesday": "Tir",
 			"wednesday": "Ons"
 		}
+	},
+	"role": {
+		"ADMIN": "Administrator",
+		"SPECIALIST": "Specialist"
 	}
 }

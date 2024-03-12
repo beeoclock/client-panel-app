@@ -54,7 +54,7 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 
 			<form-input
 				id="email"
-				type="email"
+				inputType="email"
 				autocomplete="email"
 				[placeholder]="'identity.sign-up.form.inputs.email.placeholder' | translate"
 				[control]="form.controls.email"

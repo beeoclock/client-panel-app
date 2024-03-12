@@ -26,7 +26,7 @@ import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 
       <form-input
         id="client-form-phoneNumber"
-        type="text"
+        inputType="text"
         autocomplete="phoneNumber"
         [placeholder]="'change-phone-number.form.input.phoneNumber.placeholder' | translate"
         [control]="form.controls.phoneNumber"

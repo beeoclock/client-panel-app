@@ -16,7 +16,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 
 			<form-input
 				id="service-form-details-title-input"
-				type="text"
+				inputType="text"
 				autocomplete="service.title"
 				[placeholder]="'keyword.capitalize.title' | translate"
 				[control]="form.controls.title"

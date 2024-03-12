@@ -38,6 +38,15 @@
 				</div>
 			</th>
 			<th scope="col" class="px-6 py-3"
+					data-orderBy="role">
+				<div class="flex gap-3 items-center">
+					{{ 'keyword.capitalize.role' | translate }}
+					<utility-sort-indicator
+						orderBy="role"
+						[tableState]="tableState"/>
+				</div>
+			</th>
+			<th scope="col" class="px-6 py-3"
 					data-orderBy="createdAt">
 				<div class="flex gap-3 items-center">
 					{{ 'keyword.capitalize.createdAt' | translate }}
@@ -81,6 +90,9 @@
 			</td>
 			<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
 				{{ item.phone }}
+			</td>
+			<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
+				{{ 'role.' + item.role | translate }}
 			</td>
 			<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
 				{{ item.createdAt | dynamicDate }}

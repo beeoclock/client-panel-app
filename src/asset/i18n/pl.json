@@ -995,5 +995,9 @@
 			"tuesday": "Wt",
 			"wednesday": "Śr"
 		}
+	},
+	"role": {
+		"ADMIN": "Administrator",
+		"SPECIALIST": "Specjalista"
 	}
 }
