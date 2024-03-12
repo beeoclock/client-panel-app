@@ -1,5 +1,11 @@
-import {Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
+import {Component, HostBinding, HostListener, inject, Input, ViewEncapsulation} from "@angular/core";
 import * as Member from "@member/domain";
+import {FilterService} from "@event/presentation/page/calendar-with-specialists/component/filter/filter.service";
+import {NGXLogger} from "ngx-logger";
+import {EventFormModalService} from "@event/presentation/dom-manipulation-service/modal/event.form.modal.service";
+import {
+	ScrollCalendarDomManipulationService
+} from "@event/presentation/dom-manipulation-service/scroll.calendar.dom-manipulation-service";
 
 @Component({
 	selector: 'event-cell-component',
@@ -22,6 +28,7 @@ export class CellComponent {
 	@Input()
 	public row!: {
 		isFirstOrLastRowOfHour: boolean;
+		datetimeISO: string;
 	};
 
 	@Input()
@@ -31,12 +38,12 @@ export class CellComponent {
 
 	@HostBinding('style.grid-row-start')
 	public get gridRowStart() {
-		return this.rowIndex + 2;
+		return this.rowIndex + 1;
 	}
 
 	@HostBinding('style.grid-column-start')
 	public get gridColumnStart() {
-		return this.columnIndex + 1;
+		return this.columnIndex;
 	}
 
 	@HostBinding()
@@ -48,5 +55,28 @@ export class CellComponent {
 	public get borderB() {
 		return this.row.isFirstOrLastRowOfHour;
 	}
+
+	@HostListener('click', ['$event'])
+	public onClick(event: MouseEvent) {
+		if (this.scrollCalendarDomManipulationService.isScrolling.isOn) {
+			return;
+		}
+		const callback = () => {
+			this.ngxLogger.debug('Callback');
+			this.filterService.forceRefresh();
+		};
+		this.eventFormModalService.openModal({
+			datetimeISO: this.row.datetimeISO,
+			member: this.column.member,
+		}, callback);
+		console.log('SlotFrameComponent.onClick', this);
+		event.preventDefault();
+		event.stopPropagation();
+	}
+
+	private readonly filterService = inject(FilterService);
+	private readonly ngxLogger = inject(NGXLogger);
+	private readonly eventFormModalService = inject(EventFormModalService);
+	private readonly scrollCalendarDomManipulationService = inject(ScrollCalendarDomManipulationService);
 
 }

@@ -110,7 +110,7 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 						type="datetime-local"
 						*ngIf="forceStart"
 						[value]="form.controls.start.value | date: 'yyyy-MM-ddTHH:mm'"
-						(change)="updateStartControlByDateTimeString($event)" />
+						(change)="updateStartControlByDateTimeString($event)"/>
 				</bee-card>
 
 				<bee-card>
@@ -412,7 +412,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 
 	public goToPreview(): void {
 
-		if (!this.checkIfServicesAreValid()){
+		if (!this.checkIfServicesAreValid()) {
 			this.logger.debug('Services are not valid');
 			return;
 		}

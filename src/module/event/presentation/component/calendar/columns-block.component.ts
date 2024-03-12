@@ -37,7 +37,7 @@ import {DateTime, Interval} from "luxon";
 			<ng-container *ngFor="let hour of getHours(day); trackBy: hourIdentify">
 				<event-calendar-cell-component
 					[baseId]="day.toFormat('dd.MM.yyyy')"
-					[date]="hour.toJSDate().toISOString()"
+					[datetimeISO]="hour.toJSDate().toISOString()"
 					[idSuffix]="hour.toFormat('HH:mm')"/>
 			</ng-container>
 		</div>

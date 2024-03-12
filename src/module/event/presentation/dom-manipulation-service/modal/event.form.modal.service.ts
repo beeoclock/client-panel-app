@@ -6,6 +6,10 @@ import {Reactive} from "@utility/cdk/reactive";
 import {ItemEventApiAdapter} from "@event/adapter/external/api/item.event.api.adapter";
 import {ContainerFormComponent} from "@event/presentation/component/form/container.form.component";
 import {NGXLogger} from "ngx-logger";
+import * as Member from "@member/domain";
+import {filter, take} from "rxjs";
+import {is} from "thiis";
+import {IService} from "@service/domain";
 
 @Injectable({
 	providedIn: 'root'
@@ -18,13 +22,14 @@ export class EventFormModalService extends Reactive {
 	private readonly itemEventApiAdapter = inject(ItemEventApiAdapter);
 
 	public async openModal(data: {
-		date: string;
+		datetimeISO: string;
+		member?: Member.RIMember | null;
 		eventId?: string | undefined;
 	}, callback = () => {}): Promise<void> {
 
-		const {date, eventId} = data;
+		const {datetimeISO, eventId, member} = data;
 
-		this.ngxLogger.debug('Open modal', date, eventId);
+		this.ngxLogger.debug('Open modal', datetimeISO, eventId);
 
 		// const title = await this.translateService.instant('change-name.modal.title');
 
@@ -43,14 +48,31 @@ export class EventFormModalService extends Reactive {
 				contentPadding: false,
 			}).then((modal) => {
 				const eventFormContainerComponentRef = modal.instance.componentChildRefList[0];
-				eventFormContainerComponentRef.setInput('forceStart', date);
+				eventFormContainerComponentRef.setInput('forceStart', datetimeISO);
 				const eventFormContainerComponent = eventFormContainerComponentRef.instance as ContainerFormComponent;
-				eventFormContainerComponent.form.controls.start.patchValue(date);
+				eventFormContainerComponent.form.controls.start.patchValue(datetimeISO);
 				eventFormContainerComponent.form.controls.configuration.controls.ignoreEventChecks.setValue(true);
 				eventFormContainerComponent.callbacksAfterSave[0] = () => {
 					callback();
 					modal.instance.closeModal();
 				};
+
+				if (member) {
+					eventFormContainerComponent.form.controls.services.valueChanges.pipe(filter(is.array_not_empty<IService[]>), take(1)).subscribe((services) => {
+						eventFormContainerComponent.form.controls.services.patchValue(services.map((service) => {
+							return {
+								...service,
+								specialists: service.specialists.map((specialist) => {
+									return {
+										...specialist,
+										member
+									}
+								}),
+							};
+						}));
+					});
+				}
+
 				return modal;
 			});
 
