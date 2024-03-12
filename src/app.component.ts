@@ -11,6 +11,7 @@ import {SplashScreenService} from "@utility/cdk/splash-screen.service";
 import {ThemeService} from "@utility/cdk/theme.service";
 import {CheckForUpdatePwaService} from "@utility/cdk/check-for-update-pwa.service";
 import {NotificationManagerService} from "@utility/cdk/notification.manager.service";
+import {AppActions} from "@utility/state/app/app.actions";
 
 @Component({
 	selector: 'app-root',
@@ -55,6 +56,8 @@ export class AppComponent implements AfterViewInit {
 			.subscribe(() => {
 				this.splashScreenService.hide();
 			});
+
+		this.store.dispatch(new AppActions.PageLoading(false));
 
 	}
 
