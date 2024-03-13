@@ -211,12 +211,15 @@
 		}
 	},
 	"country": {
-		"UA": "Ukraine",
-		"DK": "Danmark"
+		"DK": "Danmark",
+		"UA": "Ukraine"
 	},
 	"customer": {
 		"button": {
 			"create": "Tilføj kunde"
+		},
+		"details": {
+			"title": "Kundeoplysninger"
 		},
 		"form": {
 			"input": {
@@ -787,6 +790,7 @@
 			"specialist": "Specialist",
 			"specialists": "Specialister",
 			"start": "Start",
+			"status": "Status",
 			"streetAddressLineOne": "Adresse 1",
 			"streetAddressLineTwo": "Adresse 2",
 			"theme": "Tema",
@@ -811,6 +815,7 @@
 			"ago": "siden",
 			"at": "kl",
 			"days": "dage",
+			"details": "detaljer",
 			"dragAndDrop": "træk og slip",
 			"in": "i",
 			"min": "min.",
@@ -844,6 +849,9 @@
 		"button": {
 			"create": "Tilføj medlem"
 		},
+		"details": {
+			"title": "Oplysninger om en medarbejder"
+		},
 		"title": "Medlem"
 	},
 	"page": {
@@ -866,6 +874,10 @@
 		"message": {
 			"allDataDownloaded": "Alle tilgængelige data er downloadet"
 		}
+	},
+	"role": {
+		"ADMIN": "Administrator",
+		"SPECIALIST": "Specialist"
 	},
 	"service": {
 		"form": {
@@ -982,9 +994,5 @@
 			"tuesday": "Tir",
 			"wednesday": "Ons"
 		}
-	},
-	"role": {
-		"ADMIN": "Administrator",
-		"SPECIALIST": "Specialist"
 	}
 }

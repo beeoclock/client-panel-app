@@ -211,12 +211,15 @@
 		}
 	},
 	"country": {
-		"UA": "Ukraine",
-		"DK": "Denmark"
+		"DK": "Denmark",
+		"UA": "Ukraine"
 	},
 	"customer": {
 		"button": {
 			"create": "Add customer"
+		},
+		"details": {
+			"title": "Customer details"
 		},
 		"form": {
 			"input": {
@@ -787,6 +790,7 @@
 			"specialist": "Specialist",
 			"specialists": "Specialists",
 			"start": "Start",
+			"status": "Status",
 			"streetAddressLineOne": "Address 1",
 			"streetAddressLineTwo": "Address 2",
 			"theme": "Theme",
@@ -811,6 +815,7 @@
 			"ago": "ago",
 			"at": "at",
 			"days": "days",
+			"details": "details",
 			"dragAndDrop": "drag and drop",
 			"in": "in",
 			"min": "min.",
@@ -844,6 +849,9 @@
 		"button": {
 			"create": "Add member"
 		},
+		"details": {
+			"title": "Information about a member of staff"
+		},
 		"title": "Member"
 	},
 	"page": {
@@ -866,6 +874,10 @@
 		"message": {
 			"allDataDownloaded": "All available data has been downloaded"
 		}
+	},
+	"role": {
+		"ADMIN": "Admin",
+		"SPECIALIST": "Specialist"
 	},
 	"service": {
 		"form": {
@@ -982,9 +994,5 @@
 			"tuesday": "Tue",
 			"wednesday": "Wed"
 		}
-	},
-	"role": {
-		"ADMIN": "Admin",
-		"SPECIALIST": "Specialist"
 	}
 }

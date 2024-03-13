@@ -211,12 +211,15 @@
 		}
 	},
 	"country": {
-		"UA": "Україна",
-		"DK": "Данія"
+		"DK": "Данія",
+		"UA": "Україна"
 	},
 	"customer": {
 		"button": {
 			"create": "Додати клієнта"
+		},
+		"details": {
+			"title": "Інформація про клієнта"
 		},
 		"form": {
 			"input": {
@@ -786,6 +789,7 @@
 			"specialist": "Спеціаліст",
 			"specialists": "Спеціалісти",
 			"start": "Початок",
+			"status": "Статус",
 			"streetAddressLineOne": "Адреса 1",
 			"streetAddressLineTwo": "Адреса 2",
 			"theme": "Тема",
@@ -810,6 +814,7 @@
 			"ago": "тому",
 			"at": "на",
 			"days": "дні",
+			"details": "деталі",
 			"dragAndDrop": "перетягніть і випустіть файл",
 			"in": "в",
 			"min": "хв.",
@@ -843,6 +848,9 @@
 		"button": {
 			"create": "Додати учасника"
 		},
+		"details": {
+			"title": "Інформація про члена команди"
+		},
 		"title": "Учасник"
 	},
 	"page": {
@@ -865,6 +873,10 @@
 		"message": {
 			"allDataDownloaded": "Завантажено усі дані які були доступні"
 		}
+	},
+	"role": {
+		"ADMIN": "Адміністратор",
+		"SPECIALIST": "Спеціаліст"
 	},
 	"service": {
 		"form": {
@@ -981,9 +993,5 @@
 			"tuesday": "Вт",
 			"wednesday": "Ср"
 		}
-	},
-	"role": {
-		"ADMIN": "Адміністратор",
-		"SPECIALIST": "Спеціаліст"
 	}
 }

@@ -112,7 +112,6 @@ export class InputBadgeComponent {
 
 	public open(modal: IonModal) {
 		modal.present();
-
 	}
 
 }
