@@ -1,4 +1,4 @@
-import {Component, inject} from "@angular/core";
+import {Component, HostBinding, HostListener, inject} from "@angular/core";
 import {IEvent} from "@event/domain";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
@@ -24,35 +24,39 @@ import {RefreshCalendarAction} from "@event/state/calendar/actions/refresh.calen
 		NgTemplateOutlet
 	],
 	template: `
-		<button
-			type="button"
-			(click)="changeStatusOnDone(event)"
-			class="
-				w-full
-				flex
-				items-center
-				justify-center
-				gap-2
-				rounded-2xl
-				px-3
-				py-2
-				text-sm
-				font-semibold
-				text-green-700
-				bg-green-50
-				shadow-sm
-				ring-1
-				ring-inset
-				ring-green-300
-				hover:bg-green-100">
-			<i class="bi bi-check-lg"></i>
-			{{ 'keyword.capitalize.done' | translate }}
-		</button>
+		<i class="bi bi-check-lg"></i>
+		{{ 'keyword.capitalize.done' | translate }}
 	`
 })
 export class ChangeStatusOnDoneComponent extends ChangeStatusBaseComponent {
 
 	public readonly store = inject(Store);
+
+	@HostBinding()
+	public class = `
+		w-full
+		flex
+		items-center
+		justify-center
+		gap-2
+		rounded-2xl
+		px-3
+		py-2
+		text-sm
+		font-semibold
+		text-green-700
+		bg-green-50
+		shadow-sm
+		ring-1
+		ring-inset
+		ring-green-300
+		hover:bg-green-100
+	`;
+
+	@HostListener('click')
+	public onClick(): void {
+		this.changeStatusOnDone(this.event).then();
+	}
 
 	public async changeStatusOnDone(event: IEvent): Promise<void> {
 		await firstValueFrom(this.store.dispatch(new EventActions.DoneStatus(event)));

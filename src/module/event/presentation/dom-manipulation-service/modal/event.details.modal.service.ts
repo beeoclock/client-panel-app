@@ -37,7 +37,6 @@ export class EventDetailsModalService extends Reactive {
 				const eventDetailsContainerComponent = modal.instance.componentChildRefList[0];
 				return this.itemEventApiAdapter.executeAsync(eventId).then((eventData) => {
 					eventDetailsContainerComponent.setInput('event', MEvent.create(eventData));
-					eventDetailsContainerComponent.setInput('useGrid', false);
 					return modal;
 				});
 			});

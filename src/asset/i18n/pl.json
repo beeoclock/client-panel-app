@@ -6,6 +6,7 @@
 	},
 	"keyword": {
 		"capitalize": {
+			"noData": "Brak danych",
 			"status": "Status"
 		}
 	},
