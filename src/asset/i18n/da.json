@@ -880,6 +880,9 @@
 		"SPECIALIST": "Specialist"
 	},
 	"service": {
+		"details": {
+			"title": "Information om tjenesten"
+		},
 		"form": {
 			"v2": {
 				"section": {

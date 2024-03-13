@@ -13,5 +13,10 @@
 		"details": {
 			"title": "Informacje o pracowniku"
 		}
+	},
+	"service": {
+		"details": {
+			"title": "Informacje o usłudze"
+		}
 	}
 }

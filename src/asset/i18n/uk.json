@@ -879,6 +879,9 @@
 		"SPECIALIST": "Спеціаліст"
 	},
 	"service": {
+		"details": {
+			"title": "Інформація про послугу"
+		},
 		"form": {
 			"v2": {
 				"section": {
@@ -927,7 +930,7 @@
 		"customers": "Клієнти",
 		"dashboard": "Панель керування",
 		"events": "Події",
-		"members": "Учасники",
+		"members": "Команда",
 		"private": "Приватне",
 		"profile": {
 			"signOut": {
