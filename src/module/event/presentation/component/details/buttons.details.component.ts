@@ -74,7 +74,7 @@ import {RMIEvent} from "@event/domain";
 			</ng-template>
 
 			<ng-template #ButtonToRepeatEvent>
-				<a routerLink="repeat" class="
+				<a [routerLink]="'/event/' + event._id + '/repeat'" class="
               w-full
               flex
               items-center

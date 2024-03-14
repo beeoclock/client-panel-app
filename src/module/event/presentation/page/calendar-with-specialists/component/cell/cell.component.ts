@@ -12,16 +12,20 @@ import {
 import {
 	DateControlCalendarWithSpecialistsService
 } from "@event/presentation/page/calendar-with-specialists/component/filter/date-control/date-control.calendar-with-specialists.service";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
 	selector: 'event-cell-component',
 	template: `
 		<div
 			class="opacity-0 hover:opacity-100 transition-all flex items-center h-full px-2 cursor-pointer bg-neutral-100 active:bg-blue-400 active:text-white text-neutral-500">
-			+ Dodaj
+			+ {{ 'keyword.capitalize.add-event' | translate }}
 		</div>
 	`,
 	standalone: true,
+	imports: [
+		TranslateModule
+	],
 	encapsulation: ViewEncapsulation.None
 })
 export class CellComponent {

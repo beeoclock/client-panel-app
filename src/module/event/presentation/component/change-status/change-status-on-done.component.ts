@@ -11,6 +11,7 @@ import {NgIf, NgTemplateOutlet} from "@angular/common";
 import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum";
 import {ChangeStatusBaseComponent} from "@event/presentation/component/change-status/change-status-base.component";
 import {RefreshCalendarAction} from "@event/state/calendar/actions/refresh.calendar.action";
+import {FilterService} from "@event/presentation/page/calendar-with-specialists/component/filter/filter.service";
 
 @Component({
 	selector: 'event-change-status-on-done-component',
@@ -31,6 +32,7 @@ import {RefreshCalendarAction} from "@event/state/calendar/actions/refresh.calen
 export class ChangeStatusOnDoneComponent extends ChangeStatusBaseComponent {
 
 	public readonly store = inject(Store);
+	public readonly filterService = inject(FilterService);
 
 	@HostBinding()
 	public class = `
@@ -64,6 +66,7 @@ export class ChangeStatusOnDoneComponent extends ChangeStatusBaseComponent {
 		this.postStatusChange(EventStatusEnum.done);
 		this.store.dispatch(new EventActions.GetList({force: true, resetPage: false, resetParams: false}));
 		this.store.dispatch(new RefreshCalendarAction());
+		this.filterService.forceRefresh(); // Dashboard
 	}
 
 }

@@ -35,6 +35,7 @@ export class EventDetailsModalService extends Reactive {
 				contentPadding: false,
 			}).then((modal) => {
 				const eventDetailsContainerComponent = modal.instance.componentChildRefList[0];
+				const component = eventDetailsContainerComponent.instance as ContainerDetailsComponent;
 				return this.itemEventApiAdapter.executeAsync(eventId).then((eventData) => {
 					eventDetailsContainerComponent.setInput('event', MEvent.create(eventData));
 					return modal;
