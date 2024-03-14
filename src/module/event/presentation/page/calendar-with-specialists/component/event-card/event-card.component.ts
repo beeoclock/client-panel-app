@@ -5,17 +5,20 @@ import {
 import {EventDetailsModalService} from "@event/presentation/dom-manipulation-service/modal/event.details.modal.service";
 import {IEvent, RIEvent} from "@event/domain";
 import {DatePipe} from "@angular/common";
+import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 
 @Component({
 	selector: 'event-card-component',
 	template: `
-		<span class="text-xs text-blue-600 dark:text-sky-100">
+		<div class="flex flex-wrap gap-1">
+			<span class="text-xs dark:text-sky-100">
 			{{ event.data.start | date: 'HH:mm' }} - {{ event.data.end | date: 'HH:mm' }}
 		</span>
-		<span class="text-xs font-medium text-blue-600 dark:text-sky-100">
+			<span class="text-xs font-bold dark:text-sky-100">
 			{{ getAttendeesInformation() }}
 		</span>
-		<span class="text-xs font-medium text-blue-600 dark:text-sky-100">
+		</div>
+		<span class="text-xs font-medium line-clamp-2">
 			{{ event.data.services[0].languageVersions[0].title }}
 		</span>
 	`,
@@ -73,7 +76,30 @@ export class EventCardComponent {
 
 	@HostBinding('class')
 	public get class() {
-		return 'transition-all hover:cursor-pointer hover:bg-blue-500 z-10 bg-blue-400/20 dark:bg-sky-600/50 border border-blue-700/10 dark:border-sky-500 rounded-lg m-1 p-1 flex flex-col';
+
+
+		// Choose color by status
+		const classList = [
+			'transition-all hover:cursor-pointer z-10 border rounded-lg m-1 p-1 flex flex-col text-white',
+		];
+
+		switch (this.event.data.status) {
+			case EventStatusEnum.rejected:
+			case EventStatusEnum.cancelled:
+				classList.push('bg-red-400', 'border-red-400', 'hover:bg-red-500');
+				break;
+			case EventStatusEnum.requested:
+				classList.push('bg-orange-400', 'border-orange-500', 'hover:bg-orange-500');
+				break;
+			case EventStatusEnum.booked:
+				classList.push('bg-blue-400', 'border-blue-400', 'hover:bg-blue-500');
+				break;
+			case EventStatusEnum.done:
+				classList.push('bg-green-500', 'border-green-500', 'hover:bg-green-600');
+				break;
+		}
+
+		return classList.join(' ');
 	}
 
 	public getAttendeesInformation() {
