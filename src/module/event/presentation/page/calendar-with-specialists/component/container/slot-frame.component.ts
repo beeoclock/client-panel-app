@@ -46,7 +46,6 @@ export class SlotFrameComponent {
 	@Input()
 	public rows!: {
 		isFirstOrLastRowOfHour: boolean;
-		datetimeISO: string;
 	}[];
 
 	@Input()

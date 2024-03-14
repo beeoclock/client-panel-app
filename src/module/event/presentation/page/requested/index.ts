@@ -80,8 +80,4 @@ export default class Index extends ListPage {
 			})
 		);
 
-	public handleRefresh($event: any) {
-		console.log($event)
-	}
-
 }

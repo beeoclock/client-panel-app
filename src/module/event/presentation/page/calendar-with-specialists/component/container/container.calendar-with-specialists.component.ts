@@ -30,9 +30,6 @@ import {
 import {
 	DataFrameComponent
 } from "@event/presentation/page/calendar-with-specialists/component/container/data-frame.component";
-import {
-	DateControlCalendarWithSpecialistsService
-} from "@event/presentation/page/calendar-with-specialists/component/filter/date-control/date-control.calendar-with-specialists.service";
 
 @Component({
 	selector: 'event-container-calendar-with-specialists-component',
@@ -86,7 +83,7 @@ export class ContainerCalendarWithSpecialistsComponent implements AfterViewInit,
 		return 'bg-white grid relative h-[calc(100vh-114px)] md:h-[calc(100vh-50px)] overflow-auto';
 	}
 
-	private readonly dateControlCalendarWithSpecialistsService = inject(DateControlCalendarWithSpecialistsService);
+
 	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
 	private readonly scrollCalendarDomManipulationService = inject(ScrollCalendarDomManipulationService);
 
@@ -96,15 +93,17 @@ export class ContainerCalendarWithSpecialistsComponent implements AfterViewInit,
 
 	public readonly hoursMode = this.composeCalendarWithSpecialistsService.hoursMode;
 	public readonly stepPerHour = this.composeCalendarWithSpecialistsService.stepPerHour;
-	public readonly slotInMinutes = this.composeCalendarWithSpecialistsService.slotInMinutes;
 	public readonly heightPerSlotInPx = this.composeCalendarWithSpecialistsService.heightPerSlotInPx;
 	public readonly headerHeightInPx = this.composeCalendarWithSpecialistsService.headerHeightInPx;
+
+	public readonly startTimeToDisplay = this.composeCalendarWithSpecialistsService.startTimeToDisplay;
+	public readonly endTimeToDisplay = this.composeCalendarWithSpecialistsService.endTimeToDisplay;
+	public readonly members = this.composeCalendarWithSpecialistsService.members;
 
 
 	public hours: number[] = [];
 	public rows: {
 		isFirstOrLastRowOfHour: boolean;
-		datetimeISO: string;
 	}[] = [];
 
 	public readonly columnHeaderList: {
@@ -114,10 +113,6 @@ export class ContainerCalendarWithSpecialistsComponent implements AfterViewInit,
 			member: null,
 		},
 	];
-
-	public readonly startTimeToDisplay = this.composeCalendarWithSpecialistsService.startTimeToDisplay;
-	public readonly endTimeToDisplay = this.composeCalendarWithSpecialistsService.endTimeToDisplay;
-	public readonly members = this.composeCalendarWithSpecialistsService.members;
 
 	@HostBinding('style.grid-template-columns')
 	public get gridTemplateColumns() {
@@ -145,10 +140,9 @@ export class ContainerCalendarWithSpecialistsComponent implements AfterViewInit,
 		this.hours = Array.from({length: this.hoursMode}, (_, i) => i).filter((i) => i >= this.startTimeToDisplay && i <= this.endTimeToDisplay);
 		this.rows = Array.from({length: ((this.endTimeToDisplay - this.startTimeToDisplay) * this.stepPerHour) + this.stepPerHour}, (_, i) => {
 			const isFirstOrLastRowOfHour = i === 0 ? false : (i + 1) % this.stepPerHour === 0;
-			const datetimeISO = this.dateControlCalendarWithSpecialistsService.selectedDate.startOf('day').plus({hours: this.startTimeToDisplay, minutes: i * this.slotInMinutes}).toJSDate().toISOString();
+
 			return {
 				isFirstOrLastRowOfHour,
-				datetimeISO,
 			}
 		});
 
