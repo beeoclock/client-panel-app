@@ -12,18 +12,17 @@ import {
 import {
 	ComposeCalendarWithSpecialistsService
 } from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
+import {RIEvent} from "@event/domain";
 
 @Component({
 	selector: 'event-data-frame-component',
 	template: `
-
 		<ng-container *ngFor="let event of (events$ | async) ?? [];">
 			<event-card-component
 				*ngFor="let card of event.cards;"
 				[card]="card"
 				[event]="event"/>
 		</ng-container>
-
 	`,
 	standalone: true,
 	imports: [
@@ -78,11 +77,8 @@ export class DataFrameComponent implements OnInit {
 	private readonly filterService = inject(FilterService);
 
 	public readonly heightPerSlotInPx = this.composeCalendarWithSpecialistsService.heightPerSlotInPx;
-
 	public readonly headerHeightInPx = this.composeCalendarWithSpecialistsService.headerHeightInPx;
-
 	public readonly startTimeToDisplay = this.composeCalendarWithSpecialistsService.startTimeToDisplay;
-
 	public readonly endTimeToDisplay = this.composeCalendarWithSpecialistsService.endTimeToDisplay;
 
 	public readonly events$: Observable<{
@@ -91,14 +87,12 @@ export class DataFrameComponent implements OnInit {
 			durationInMinutes: number;
 			column: number;
 		}[];
-		title: string;
-		description: string;
+		data: RIEvent;
 	}[]> = this.filterService.events$.pipe(
 		map((events) => {
 			return events.map((item) => {
 				return {
-					title: item.services[0].languageVersions[0].title,
-					description: item.description,
+					data: item,
 					cards: [
 						{
 							startTime: DateTime.fromISO(item.start).toLocal().hour,
