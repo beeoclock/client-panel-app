@@ -284,12 +284,18 @@
 				"attendant": {
 					"button": {
 						"add": "Add attendant",
+						"select": "Select customer",
 						"togglePresentationOfNewAttendant": "This client is not listed (new client)"
 					},
 					"input": {
 						"selectCustomer": {
 							"placeholder": "Select customer"
 						}
+					}
+				},
+				"customer": {
+					"modal": {
+						"title": "Customer choice"
 					}
 				},
 				"service": {

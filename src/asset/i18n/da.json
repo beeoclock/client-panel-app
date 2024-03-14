@@ -284,12 +284,18 @@
 				"attendant": {
 					"button": {
 						"add": "Tilføj deltager",
+						"select": "Vælg en tjeneste",
 						"togglePresentationOfNewAttendant": "Denne klient er ikke opført (ny klient)"
 					},
 					"input": {
 						"selectCustomer": {
 							"placeholder": "Vælg kunde"
 						}
+					}
+				},
+				"customer": {
+					"modal": {
+						"title": "Kundens valg"
 					}
 				},
 				"service": {

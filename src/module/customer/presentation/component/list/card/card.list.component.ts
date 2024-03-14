@@ -1,5 +1,5 @@
 import {Component, ViewEncapsulation} from "@angular/core";
-import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {
@@ -16,6 +16,7 @@ import {ICustomer} from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@customer/presentation/component/row-action-button/row-action-button.component";
+import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 
 @Component({
 	selector: 'customer-card-list-component',
@@ -36,11 +37,16 @@ import {RowActionButtonComponent} from "@customer/presentation/component/row-act
 		CardComponent,
 		NgIf,
 		NoDataPipe,
-		RowActionButtonComponent
+		RowActionButtonComponent,
+		AsyncPipe
 	]
 })
 export class CardListComponent extends TableComponent<ICustomer> {
 
 	public override readonly actions = CustomerActions;
+
+	public showAction = new BooleanStreamState(true);
+
+	public showSelectedStatus = new BooleanStreamState(false);
 
 }

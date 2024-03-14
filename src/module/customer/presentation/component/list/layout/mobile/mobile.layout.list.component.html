@@ -1,5 +1,7 @@
-<div class="block max-w-full overflow-x-auto h-[calc(100vh-64px)] md:h-[calc(100vh-65px)]">
-	<customer-filter-component *ngIf="someDataExist.isOn"/>
+<div class="block max-w-full" [ngClass]="{
+'overflow-x-auto h-[calc(100vh-64px)] md:h-[calc(100vh-65px)]': isPage
+}">
+	<customer-filter-component [showButtonGoToForm]="showButtonGoToForm" *ngIf="someDataExist.isOn"/>
 	<ng-container *ngIf="tableState">
 		<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
 			<customer-card-list-component [tableState]="tableState"/>

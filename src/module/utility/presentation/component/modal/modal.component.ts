@@ -78,9 +78,12 @@ export interface ModalButtonInterface<COMPONENT_REF = unknown> {
 					<!-- Modal body -->
 					<div
 						#contentRef
-						[class.md:p-6]="contentPadding"
-						[class.space-y-6]="contentPadding"
-						class="overflow-y-auto h-[calc(100vh-10rem)] max-h-[calc(100vh-10rem)] md:h-auto md:max-h-[calc(100vh-16rem)]">
+						[ngClass]="{
+						'md:p-6 space-y-6': contentPadding,
+						'h-[calc(100vh-70px)] max-h-[calc(100vh-70px)]': (!buttons?.length || visibleButtons.length === 0),
+						'h-[calc(100vh-10rem)] max-h-[calc(100vh-10rem)]': !(!buttons?.length || visibleButtons.length === 0),
+						}"
+						class="overflow-y-auto md:h-auto md:max-h-[calc(100vh-16rem)]">
 						<ng-content/>
 					</div>
 

@@ -1,42 +1,30 @@
-
 <strong class="text-2xl dark:text-white">{{ 'keyword.capitalize.clients' | translate }}</strong>
 
-<div class="flex flex-col gap-8 mt-4">
+<div class="flex flex-col gap-4 mt-4">
 
-  <div class="flex flex-col gap-3" *ngFor="let attendant of form.controls; let index = index">
+	<div class="flex flex-col gap-3">
 
-    <div>
+		<event-attendant-component
+			*ngFor="let attendant of form.controls; let index = index"
+			(removeEmitter)="remove(index)"
+			[index]="index"
+			[enableRemove]="form.controls.length > 1 || form.controls[0].controls.customer.disabled"
+			[form]="attendant.controls.customer"/>
 
-      <div *ngIf="form.controls.length > 1" class="flex justify-between">
+	</div>
 
-        <span class="text-beeColor-400">{{ 'keyword.capitalize.customer' | translate }} #{{ index + 1 }}</span>
+	<div class="block">
 
-        <button
-					type="button"
-          [disabled]="form.controls.length === 1"
-          (click)="remove(index)"
-          class="text-beeColor-600 hover:text-red-600 hover:bg-red-100 px-2 py-1 rounded-2xl">
+		<!--    <button type="button" primaryLink (click)="form.pushNewOne()">-->
+		<!--      <i class="bi bi-plus-lg"></i>-->
+		<!--      {{ 'event.form.section.attendant.button.add' | translate }}-->
+		<!--    </button>-->
 
-          <i class="bi bi-trash"></i>
+		<button type="button" primaryLink (click)="selectCustomer()">
+			<i class="bi bi-list-check"></i>
+			{{ 'event.form.section.attendant.button.select' | translate }}
+		</button>
 
-        </button>
-
-      </div>
-
-      <event-attendant-component
-        [form]="attendant.controls.customer"/>
-
-    </div>
-
-  </div>
-
-  <div class="block">
-
-    <button type="button" primaryLink (click)="form.pushNewOne()">
-      <i class="bi bi-plus-lg"></i>
-      {{ 'event.form.section.attendant.button.add' | translate }}
-    </button>
-
-  </div>
+	</div>
 
 </div>

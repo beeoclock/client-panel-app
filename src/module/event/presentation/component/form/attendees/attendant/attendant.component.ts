@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 
 import {NgIf} from '@angular/common';
@@ -12,10 +12,11 @@ import {
 	CustomerAutocompleteDirective
 } from "@utility/presentation/directives/customer-autocomplete/customer-autocomplete.directive";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
+import {ICustomer} from "@customer/domain";
 
 @Component({
-  selector: 'event-attendant-component',
-  standalone: true,
+	selector: 'event-attendant-component',
+	standalone: true,
 	imports: [
 		ReactiveFormsModule,
 		NgIf,
@@ -27,61 +28,99 @@ import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-m
 		CustomerAutocompleteDirective,
 		InvalidTooltipComponent
 	],
-  template: `
-    <div class="grid md:grid-cols-2 gap-4">
+	template: `
 
-      <form-input
-        inputType="text"
-        customerAutocomplete
-        autocomplete="off"
-				id="attendee-first-name"
-        [placeholder]="'keyword.capitalize.firstName' | translate"
-        [control]="form.controls.firstName"
-        [label]="'keyword.capitalize.firstName' | translate"/>
+		<div class="flex justify-between items-center pb-2">
+			<span class="text-beeColor-400">{{ 'keyword.capitalize.customer' | translate }} #{{ index + 1 }}</span>
 
-      <form-input
-        inputType="text"
-        customerAutocomplete
-        autocomplete="off"
-				id="attendee-last-name"
-        [placeholder]="'keyword.capitalize.lastName' | translate"
-        [control]="form.controls.lastName"
-        [label]="'keyword.capitalize.lastName' | translate"/>
+			<button
+				*ngIf="enableRemove"
+				(click)="removeEmitter.emit()"
+				type="button"
+				class="text-beeColor-600 hover:text-red-600 hover:bg-red-100 px-2 py-1 rounded-2xl">
+				<i class="bi bi-trash"></i>
+			</button>
+		</div>
 
-      <form-input
-        inputType="email"
-        customerAutocomplete
-        autocomplete="off"
-        placeholder="firstname.lastname@example.com"
-				id="attendee-email"
-        [control]="form.controls.email"
-        [label]="'keyword.capitalize.email' | translate"/>
+		<ng-container *ngIf="form.disabled; else FromTemplate">
 
-      <form-input
-        inputType="phone"
-        customerAutocomplete
-        autocomplete="off"
-        placeholder="+000000000000"
-				id="attendee-phone"
-        [control]="form.controls.phone"
-        [label]="'keyword.capitalize.phone' | translate"/>
+			<div class="rounded-md border border-gray-200 grid grid-cols-1 py-4 pl-4 pr-5 text-sm leading-6">
+				<div>{{ customer.firstName }} {{ customer.lastName }} </div>
+				<div>{{ customer.email }}</div>
+				<div>{{ customer.phone }}</div>
+			</div>
 
-			<div
-				class="md:col-span-2"
-				[class.hidden]="
+		</ng-container>
+
+		<ng-template #FromTemplate>
+			<div class="grid md:grid-cols-2 gap-4">
+
+				<form-input
+					inputType="text"
+					customerAutocomplete
+					autocomplete="off"
+					id="attendee-first-name"
+					[placeholder]="'keyword.capitalize.firstName' | translate"
+					[control]="form.controls.firstName"
+					[label]="'keyword.capitalize.firstName' | translate"/>
+
+				<form-input
+					inputType="text"
+					customerAutocomplete
+					autocomplete="off"
+					id="attendee-last-name"
+					[placeholder]="'keyword.capitalize.lastName' | translate"
+					[control]="form.controls.lastName"
+					[label]="'keyword.capitalize.lastName' | translate"/>
+
+				<form-input
+					inputType="email"
+					customerAutocomplete
+					autocomplete="off"
+					placeholder="firstname.lastname@example.com"
+					id="attendee-email"
+					[control]="form.controls.email"
+					[label]="'keyword.capitalize.email' | translate"/>
+
+				<form-input
+					inputType="phone"
+					customerAutocomplete
+					autocomplete="off"
+					placeholder="+000000000000"
+					id="attendee-phone"
+					[control]="form.controls.phone"
+					[label]="'keyword.capitalize.phone' | translate"/>
+
+				<div
+					class="md:col-span-2"
+					[class.hidden]="
 					form.valid ||
 					form.controls.phone.untouched ||
 					form.controls.email.untouched
 				">
-				<utility-invalid-message class="flex justify-center" [control]="form"/>
-			</div>
+					<utility-invalid-message class="flex justify-center" [control]="form"/>
+				</div>
 
-    </div>
-  `
+			</div>
+		</ng-template>
+	`
 })
 export class AttendantComponent {
 
-  @Input()
-  public form!: CustomerForm;
+	@Input()
+	public form!: CustomerForm;
+
+	@Input()
+	public index = 0;
+
+	@Input()
+	public enableRemove = false;
+
+	@Output()
+	public readonly removeEmitter = new EventEmitter<number>();
+
+	public get customer(): ICustomer {
+		return this.form.value as ICustomer;
+	}
 
 }

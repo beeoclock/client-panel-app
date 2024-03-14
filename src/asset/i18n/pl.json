@@ -4,6 +4,27 @@
 			"title": "Dane klienta"
 		}
 	},
+	"event": {
+		"form": {
+			"section": {
+				"attendant": {
+					"button": {
+						"select": "Wybierz usługę"
+					}
+				},
+				"customer": {
+					"modal": {
+						"title": "Wybór klienta"
+					}
+				},
+				"service": {
+					"modal": {
+						"title": "Wybór usług"
+					}
+				}
+			}
+		}
+	},
 	"keyword": {
 		"capitalize": {
 			"noData": "Brak danych",

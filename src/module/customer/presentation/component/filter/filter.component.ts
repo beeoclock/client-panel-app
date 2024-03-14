@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {FilterPanelComponent} from '@utility/presentation/component/panel/filter.panel.component';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {FilterForm} from "@customer/presentation/form/filter.form";
@@ -68,7 +68,7 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>
-			<button type="button" primary routerLink="../form">
+			<button *ngIf="showButtonGoToForm" type="button" primary routerLink="../form">
 				<i class="bi bi-plus-lg"></i>
 				<span class="hidden xl:block">
 					{{ 'customer.button.create' | translate }}
@@ -78,6 +78,9 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 	`
 })
 export class FilterComponent extends BaseFilterComponent {
+
+	@Input()
+	public showButtonGoToForm = true;
 
 	public override readonly form = new FilterForm();
 	public override readonly actions = CustomerActions;

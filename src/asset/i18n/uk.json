@@ -284,12 +284,18 @@
 				"attendant": {
 					"button": {
 						"add": "Додати учасника",
+						"select": "Вибрати клієнта",
 						"togglePresentationOfNewAttendant": "Цього клієнта немає в списку (новий клієнт)"
 					},
 					"input": {
 						"selectCustomer": {
 							"placeholder": "Виберіть клієнта"
 						}
+					}
+				},
+				"customer": {
+					"modal": {
+						"title": "Вибір клієнтів"
 					}
 				},
 				"service": {
