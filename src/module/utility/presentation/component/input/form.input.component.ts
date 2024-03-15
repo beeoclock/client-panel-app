@@ -79,7 +79,7 @@ export class FormInputComponent implements DoCheck {
 	public additionalClassList: string = '';
 
 	@Input()
-	public placeholder = '';
+	public placeholder: string | null = null;
 
 	@Input()
 	public placeholderTranslateKey = '';

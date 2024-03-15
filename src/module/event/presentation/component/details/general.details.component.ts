@@ -97,9 +97,9 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center gap-2">
 						<div
 							class="rounded-full bg-beeColor-400 min-h-8 min-w-8 flex justify-center items-center font-bold text-white">
-							{{ (event?.services?.[0]?.specialists?.[0]?.member?.firstName ?? '')[0] }}{{ (event?.services?.[0]?.specialists?.[0]?.member?.firstName ?? '')[0] }}
+							{{ firstName[0] }}{{ lastName[0] }}
 						</div>
-						{{ event?.services?.[0]?.specialists?.[0]?.member?.firstName ?? '' }} {{ event?.services?.[0]?.specialists?.[0]?.member?.lastName ?? '' }}
+						{{ firstName }} {{ lastName }}
 					</dd>
 				</div>
 				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
@@ -117,10 +117,10 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 					<dd
 						class="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0"
 						[ngClass]="{
-							'text-beeColor-500 italic': !event.description?.length,
-							'text-gray-700': event.description?.length
+							'text-beeColor-500 italic': !thereIsDescription,
+							'text-gray-700': thereIsDescription
 						}">
-						{{ event.description?.length ? event.description : ('keyword.capitalize.noData' | translate) }}
+						{{ thereIsDescription ? event.description : ('keyword.capitalize.noData' | translate) }}
 					</dd>
 				</div>
 			</dl>
@@ -143,6 +143,18 @@ export class GeneralDetailsComponent {
 
 	public get isNotPreview(): boolean {
 		return !this.isPreview;
+	}
+
+	public get firstName(): string {
+		return this.event?.services?.[0]?.specialists?.[0]?.member?.firstName ?? '';
+	}
+
+	public get lastName(): string {
+		return this.event?.services?.[0]?.specialists?.[0]?.member?.lastName ?? '';
+	}
+
+	public get thereIsDescription(): boolean {
+		return !!this.event?.description?.length;
 	}
 
 }
