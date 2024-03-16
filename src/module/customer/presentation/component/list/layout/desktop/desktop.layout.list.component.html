@@ -7,6 +7,7 @@
 		<not-found-table-data-component
 			class="block h-full"
 			linkToForm="../form"
+			[showLinkToForm]="someDataExist.isOff"
 			[linkLabel]="'customer.button.create' | translate"
 			[label]="'keyword.capitalize.dataNotFound' | translate">
 			<customer-auto-refresh-component *ngIf="someDataExist.isOff" [resetPage]="true" [resetParams]="true"/>
