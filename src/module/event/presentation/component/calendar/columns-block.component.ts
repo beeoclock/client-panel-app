@@ -30,8 +30,10 @@ import {DateTime, Interval} from "luxon";
 			*ngFor="let day of days; trackBy: dayIdentify">
 			<!-- Columns Header -->
 			<div
-				class="h-[50px] bg-white test sticky top-0 z-10 dark:bg-gradient-to-b dark:from-slate-600 dark:to-slate-700 border-slate-100 dark:border-black/10 bg-clip-padding text-slate-900 dark:text-slate-200 border-b text-sm font-medium py-2 text-center">
-				{{ day.toFormat('dd.MM (EEE)') }}
+				class="h-[50px] bg-white test sticky top-0 z-10 dark:bg-gradient-to-b dark:from-slate-600 dark:to-slate-700 border-slate-100 dark:border-black/10 bg-clip-padding text-slate-900 dark:text-slate-200 border-b text-sm font-medium flex flex-col items-center justify-center">
+				<span *ngFor="let calendarHeaderInformation of day.toFormat('dd.MM EEE').split(' ')">
+					{{ calendarHeaderInformation }}
+				</span>
 			</div>
 			<!-- Columns Body -->
 			<ng-container *ngFor="let hour of getHours(day); trackBy: hourIdentify">
