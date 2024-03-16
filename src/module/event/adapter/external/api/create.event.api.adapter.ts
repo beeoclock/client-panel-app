@@ -8,7 +8,7 @@ import {is} from "thiis";
 @Injectable({
   providedIn: 'root'
 })
-export class CreateEventApiAdapter extends BaseApiAdapter<Event.RIEvent> {
+export class CreateEventApiAdapter extends BaseApiAdapter<Event.RIEvent, [Event.IEvent]> {
 
   /**
    * SAVE NEW ITEM OR UPDATE ITEM BY ID

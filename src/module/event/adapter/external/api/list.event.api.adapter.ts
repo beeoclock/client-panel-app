@@ -9,7 +9,7 @@ import {TableState_BackendFormat} from "@utility/domain/table.state";
 @Injectable({
 	providedIn: 'root'
 })
-export class ListEventApiAdapter extends BaseApiAdapter<ResponseListType<Event.RIEvent>> {
+export class ListEventApiAdapter extends BaseApiAdapter<ResponseListType<Event.RIEvent>, [TableState_BackendFormat]> {
 
 
 	/**

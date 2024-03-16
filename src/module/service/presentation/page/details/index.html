@@ -1,122 +1,121 @@
 <utility-default-panel-component>
 	<utility-back-button-component/>
 </utility-default-panel-component>
-<div class="pb-48 grid grid-cols-12 gap-4 pt-4">
 
-	<ng-container *ngIf="item$ | async as service">
+<ng-container *ngIf="item$ | async as service">
+	<div class="bg-white">
+		<div class="p-4">
+			<h3 class="text-base font-semibold leading-7 text-gray-900">
+				{{ 'service.details.title' | translate }}
+			</h3>
+			<!--			<p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p>-->
+		</div>
+		<div class="border-t border-gray-100">
+			<dl class="divide-y divide-gray-100">
 
-		<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 gap-4 flex flex-col">
-
-			<bee-card>
-
-				<div class="flex justify-between items-center">
-
-					<div class="text-2xl font-bold text-beeColor-500">
-						{{ service.languageVersions[0].title }}
-					</div>
-					<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
-							 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="service.active">
-					</div>
-
-				</div>
-
-				<div class="grid grid-cols-12 gap-4">
-
+				<div *ngIf="(service.presentation?.banners ?? []).length > 0" class="px-4 py-6 sm:gap-4 flex flex-wrap">
 					<div
-						*ngFor="let banner of service.presentation?.banners ?? []" class="col-span-12 md:col-span-3">
-						<div
-							class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-beeColor-400">
-							<img
-								*ngIf="banner"
-								[src]="banner.url"
-								class="object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
-								alt="Uploaded Image"/>
-						</div>
+						*ngFor="let banner of service.presentation?.banners"
+						class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-beeColor-400">
+						<img
+							*ngIf="banner"
+							[src]="banner.url"
+							class="object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
+							alt="Uploaded Image"/>
 					</div>
-					<div class="col-span-12" [class.md:col-span-9]="service.presentation?.banners?.[0]" [class.md:col-span-12]="!service.presentation?.banners?.[0]">
-						<div class="flex flex-col gap-2">
-							<div class="grid grid-cols-12 gap-4">
-
-								<div class="col-span-12 md:col-span-6">
-
-									<div class="text-beeColor-500">{{ service.languageVersions[0].description }}</div>
-
-								</div>
-
-								<div class="col-span-12 md:col-span-6">
-
-									<div class="flex flex-col gap-2">
-
-										<div class="flex flex-col items-end">
-											<div class="font-bold">{{ 'keyword.capitalize.price' | translate }}</div>
-											<div class="flex flex-col items-end"
-													 [innerHTML]="durationVersionHtmlHelper.getPriceValue(service)">
-											</div>
-										</div>
-
-										<div class="flex flex-col items-end">
-											<div class="font-bold">{{ 'keyword.capitalize.duration' | translate }}</div>
-											<div class="flex flex-col items-end"
-													 [innerHTML]="durationVersionHtmlHelper.getDurationValue(service)">
-											</div>
-										</div>
-									</div>
-
-								</div>
-							</div>
+				</div>
+				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+					<dt class="text-sm font-medium leading-6 text-gray-900">
+						{{ 'keyword.capitalize.title' | translate }}
+					</dt>
+					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+						{{ service.languageVersions[0].title }}
+					</dd>
+				</div>
+				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+					<dt class="text-sm font-medium leading-6 text-gray-900">
+						{{ 'keyword.capitalize.description' | translate }}
+					</dt>
+					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+						{{ service.languageVersions[0].description }}
+					</dd>
+				</div>
+				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+					<dt class="text-sm font-medium leading-6 text-gray-900">
+						{{ 'keyword.capitalize.status' | translate }}
+					</dt>
+					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
+						<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
+								 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="service.active">
 						</div>
+					</dd>
+				</div>
+				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+					<dt class="text-sm font-medium leading-6 text-gray-900">
+						{{ 'keyword.capitalize.price' | translate }}
+					</dt>
+					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
+						<div class="flex flex-col items-start"
+								 [innerHTML]="durationVersionHtmlHelper.getPriceValue(service)">
+						</div>
+					</dd>
+				</div>
+				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+					<dt class="text-sm font-medium leading-6 text-gray-900">
+						{{ 'keyword.capitalize.duration' | translate }}
+					</dt>
+					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
+						<div class="flex flex-col items-start"
+								 [innerHTML]="durationVersionHtmlHelper.getDurationValue(service)">
+						</div>
+					</dd>
+				</div>
+			</dl>
+		</div>
+	</div>
+
+	<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4 mb-[100px]">
+
+		<div class="flex justify-between flex-col md:flex-row gap-4 bg-white p-4 border-y">
+
+			<bee-delete-button [buttonWidthFull]="true" (event)="delete(service)"/>
+			<edit-link-component [buttonWidthFull]="true"/>
+
+		</div>
+
+		<div class="text-start text-beeColor-400 text-sm px-4">
+
+			<div class="flex flex-col gap-4">
+
+				<div class="flex flex-col">
+
+					<div>
+						#
+					</div>
+					<div>
+						{{ service._id }}
 					</div>
 
 				</div>
 
-			</bee-card>
+				<div class="flex flex-col">
 
-			<bee-card>
-
-				<div class="flex justify-between flex-col md:flex-row gap-4">
-
-					<bee-delete-button [buttonWidthFull]="true" (event)="delete(service)"/>
-					<edit-link-component [buttonWidthFull]="true"/>
+					<div>
+						{{ 'keyword.capitalize.createdAt' | translate }}:
+					</div>
+					<div>
+						{{ service.createdAt | dynamicDate }}
+					</div>
 
 				</div>
 
-			</bee-card>
+				<div class="flex flex-col">
 
-			<div class="text-start text-beeColor-400 text-sm px-4 lg:px-0">
-
-				<div class="flex flex-col gap-4">
-
-					<div class="flex flex-col">
-
-						<div>
-							{{ 'keyword.capitalize.service' | translate }}:
-						</div>
-						<div>
-							{{ service._id }}
-						</div>
-
+					<div>
+						{{ 'keyword.capitalize.updatedAt' | translate }}:
 					</div>
-
-					<div class="flex flex-col">
-
-						<div>
-							{{ 'keyword.capitalize.createdAt' | translate }}:
-						</div>
-						<div>
-							{{ service.createdAt | dynamicDate }}
-						</div>
-
-					</div>
-
-					<div class="flex flex-col">
-
-						<div>
-							{{ 'keyword.capitalize.updatedAt' | translate }}:
-						</div>
-						<div>
-							{{ service.updatedAt | dynamicDate }}
-						</div>
-
+					<div>
+						{{ service.updatedAt | dynamicDate }}
 					</div>
 
 				</div>
@@ -125,6 +124,5 @@
 
 		</div>
 
-	</ng-container>
-
-</div>
+	</div>
+</ng-container>

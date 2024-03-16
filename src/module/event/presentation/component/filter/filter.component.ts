@@ -56,7 +56,7 @@ import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 
 		<ng-template #EventStatusSelect>
 			<ion-select-event-status
-				class="px-4 py-2 border border-beeColor-200 rounded-2xl"
+				class="px-4 py-2 border border-beeColor-300 shadow-sm rounded-2xl"
 				[ignoreStatusList]="ignoreStatusList"
 				[addAllOption]="false"
 				[control]="form.controls.status"/>

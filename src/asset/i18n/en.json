@@ -137,6 +137,18 @@
 							}
 						}
 					},
+					"businessSettings": {
+						"select": {
+							"availableLanguages": {
+								"hint": "Choose the languages in which you do business, maybe you do business not only for locals but also for tourists. This choice will determine the available list of languages for emails",
+								"label": "Languages in which you do business"
+							},
+							"emailLanguage": {
+								"hint": "Select the language in which you want to receive emails, the available options depend on the languages you do business in",
+								"label": "The language of emails"
+							}
+						}
+					},
 					"coverImage": {
 						"fileover": "Put your files here",
 						"motivate": "You can inject a little more personality into your profile and help people recognize your work by uploading a \n image (an image, photo or other graphic icon of your business).",
@@ -211,11 +223,15 @@
 		}
 	},
 	"country": {
+		"DK": "Denmark",
 		"UA": "Ukraine"
 	},
 	"customer": {
 		"button": {
 			"create": "Add customer"
+		},
+		"details": {
+			"title": "Customer details"
 		},
 		"form": {
 			"input": {
@@ -280,12 +296,18 @@
 				"attendant": {
 					"button": {
 						"add": "Add attendant",
+						"select": "Select customer",
 						"togglePresentationOfNewAttendant": "This client is not listed (new client)"
 					},
 					"input": {
 						"selectCustomer": {
 							"placeholder": "Select customer"
 						}
+					}
+				},
+				"customer": {
+					"modal": {
+						"title": "Customer choice"
 					}
 				},
 				"service": {
@@ -335,6 +357,10 @@
 			"durationAndPriceConflict": "Choose an available duration or the longest will be selected automatically after acceptance.",
 			"multipleEventAtSameTime": "More than one event at this time."
 		}
+	},
+	"example": {
+		"firstName": "John",
+		"lastName": "Smith"
 	},
 	"form": {
 		"validation": {
@@ -494,6 +520,14 @@
 			},
 			"title": "You do not have a verified email address"
 		},
+		"confirm-invitation": {
+			"form": {
+				"description": "This is the last step to joining the organization to which you have been invited"
+			}
+		},
+		"confirmInvitation": {
+			"success": "Congratulations, you can now log in"
+		},
 		"corridor": {
 			"addBusiness": "Create new Business",
 			"selectBusiness": "Select Business context"
@@ -507,10 +541,6 @@
 					"businessName": {
 						"label": "Business Name",
 						"placeholder": "Salon Urody \"Bee O`clock\""
-					},
-					"businessOwnerFullName": {
-						"label": "Your Name",
-						"placeholder": "Jonh Smith"
 					},
 					"name": {
 						"label": "Name"
@@ -737,6 +767,7 @@
 			"next": "Next",
 			"nextStep": "Next step",
 			"no": "No",
+			"noData": "No data",
 			"note": "Note",
 			"notification": "Notification",
 			"openTimePicker": "Select",
@@ -786,8 +817,10 @@
 			"specialist": "Specialist",
 			"specialists": "Specialists",
 			"start": "Start",
+			"status": "Status",
 			"streetAddressLineOne": "Address 1",
 			"streetAddressLineTwo": "Address 2",
+			"successfully": "Successfully",
 			"theme": "Theme",
 			"thereArentAnyEvents": "There aren't any events on {{ datetime }}",
 			"title": "Title",
@@ -810,6 +843,7 @@
 			"ago": "ago",
 			"at": "at",
 			"days": "days",
+			"details": "details",
 			"dragAndDrop": "drag and drop",
 			"in": "in",
 			"min": "min.",
@@ -843,6 +877,9 @@
 		"button": {
 			"create": "Add member"
 		},
+		"details": {
+			"title": "Information about a member of staff"
+		},
 		"title": "Member"
 	},
 	"page": {
@@ -866,7 +903,14 @@
 			"allDataDownloaded": "All available data has been downloaded"
 		}
 	},
+	"role": {
+		"ADMIN": "Admin",
+		"SPECIALIST": "Specialist"
+	},
 	"service": {
+		"details": {
+			"title": "Information about the service"
+		},
 		"form": {
 			"v2": {
 				"section": {

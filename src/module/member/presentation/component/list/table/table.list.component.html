@@ -1,100 +1,78 @@
-<div class="block max-w-full overflow-x-auto h-[calc(100vh-246px)] md:h-[calc(100vh-135px)]">
-	<table class="w-full text-sm text-left text-beeColor-500 dark:text-beeDarkColor-400">
-		<thead
-			class="text-xs text-beeColor-700 uppercase border-b border-beeColor-300 dark:border-beeDarkColor-700 dark:bg-beeDarkColor-800 dark:text-beeDarkColor-400">
-		<tr>
-			<th scope="col" class="p-4">
-				<div class="flex items-center">
-					<input id="checkbox-all" type="checkbox"
-								 class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeDarkColor-800 dark:focus:ring-offset-beeDarkColor-800 focus:ring-2 dark:bg-beeDarkColor-700 dark:border-beeDarkColor-300">
-					<label for="checkbox-all" class="sr-only">checkbox</label>
-				</div>
-			</th>
-			<th scope="col" class="px-6 py-3"
-					data-orderBy="lastName">
-				<div class="flex gap-3 items-center">
-					{{ 'keyword.capitalize.fullName' | translate }}
-					<utility-sort-indicator
-						orderBy="lastName"
-						[tableState]="tableState"/>
-				</div>
-			</th>
-			<th scope="col" class="px-6 py-3"
-					data-orderBy="email">
-				<div class="flex gap-3 items-center">
-					{{ 'keyword.capitalize.email' | translate }}
-					<utility-sort-indicator
-						orderBy="email"
-						[tableState]="tableState"/>
-				</div>
-			</th>
-			<th scope="col" class="px-6 py-3"
-					data-orderBy="phone">
-				<div class="flex gap-3 items-center">
-					{{ 'keyword.capitalize.phone' | translate }}
-					<utility-sort-indicator
-						orderBy="phone"
-						[tableState]="tableState"/>
-				</div>
-			</th>
-			<th scope="col" class="px-6 py-3"
-					data-orderBy="createdAt">
-				<div class="flex gap-3 items-center">
-					{{ 'keyword.capitalize.createdAt' | translate }}
-					<utility-sort-indicator
-						orderBy="createdAt"
-						[tableState]="tableState"/>
-				</div>
-			</th>
-			<th scope="col" class="px-6 py-3"
-					data-orderBy="updatedAt">
-				<div class="flex gap-3 items-center">
-					{{ 'keyword.capitalize.updatedAt' | translate }}
-					<utility-sort-indicator
-						orderBy="updatedAt"
-						[tableState]="tableState"/>
-				</div>
-			</th>
-			<th scope="col" class="px-6 py-3 text-center">
-				{{ 'keyword.capitalize.action' | translate }}
-			</th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr
-			class="bg-white border-b dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-900"
-			*ngFor="let item of tableState.items">
-			<td class="w-4 py-2 px-4">
-				<div class="flex items-center">
-					<input id="checkbox-table-1" type="checkbox"
-								 class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeDarkColor-800 dark:focus:ring-offset-beeDarkColor-800 focus:ring-2 dark:bg-beeDarkColor-700 dark:border-beeDarkColor-300">
-					<label for="checkbox-table-1" class="sr-only">checkbox</label>
-				</div>
-			</td>
-			<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-				<a [routerLink]="item._id">
+<div [tableFlex]="tableConfiguration">
+	<div tableRowFlex="header">
+		<div tableColumnFlex="lastName" data-orderBy="lastName">
+			<div class="flex gap-3 items-center">
+				{{ 'keyword.capitalize.title' | translate }}
+				<utility-sort-indicator
+					orderBy="lastName"
+					[tableState]="tableState"/>
+			</div>
+		</div>
+		<div tableColumnFlex="email">
+			{{ 'keyword.capitalize.email' | translate }}
+		</div>
+		<div tableColumnFlex="phone">
+			{{ 'keyword.capitalize.phone' | translate }}
+		</div>
+		<div tableColumnFlex="role">
+			{{ 'keyword.capitalize.role' | translate }}
+		</div>
+		<div tableColumnFlex="createdAt" data-orderBy="createdAt">
+			<div class="flex gap-3 items-center">
+				{{ 'keyword.capitalize.createdAt' | translate }}
+				<utility-sort-indicator
+					orderBy="createdAt"
+					[tableState]="tableState"/>
+			</div>
+		</div>
+		<div tableColumnFlex="updatedAt" data-orderBy="updatedAt">
+			<div class="flex gap-3 items-center">
+				{{ 'keyword.capitalize.updatedAt' | translate }}
+				<utility-sort-indicator
+					orderBy="updatedAt"
+					[tableState]="tableState"/>
+			</div>
+		</div>
+		<div tableColumnFlex="action" class="border-l sticky right-0">
+			{{ 'keyword.capitalize.action' | translate }}
+		</div>
+	</div>
+	<!-- Column Cell	-->
+	<div tableBodyFlex>
+		<div tableRowFlex="body" (click)="doubleClick(item._id)" *ngFor="let item of tableState.items">
+			<div tableColumnFlex="lastName">
+				<span class="truncate">
 					{{ item.firstName }} {{ item.lastName }}
-				</a>
-			</td>
-			<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-				<a href="mailto:{{ item.email }}">{{ item.email }}</a>
-			</td>
-			<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-				{{ item.phone }}
-			</td>
-			<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-				{{ item.createdAt | dynamicDate }}
-			</td>
-			<td class="px-6 py-2 text-beeColor-700 dark:text-beeDarkColor-100">
-				{{ item.updatedAt | dynamicDate }}
-			</td>
-			<td class="px-6 py-2 text-center text-beeColor-700 dark:text-beeDarkColor-100">
-				<utility-table-column-action [id]="item._id"/>
-			</td>
-		</tr>
-
-		</tbody>
-	</table>
+				</span>
+			</div>
+			<div tableColumnFlex="email">
+				<a [title]="item.email"  class="truncate" href="mailto:{{ item.email }}">{{ item.email }}</a>
+			</div>
+			<div tableColumnFlex="phone" #phoneColumn [attr.data-value]="item.phone">
+				<span [title]="phoneColumn.getAttribute('data-value')" class="truncate">
+					{{ phoneColumn.getAttribute('data-value') }}
+				</span>
+			</div>
+			<div tableColumnFlex="role" #roleColumn [attr.data-value]="'role.' + item.role | translate">
+				<span [title]="roleColumn.getAttribute('data-value')" class="truncate">
+					{{ roleColumn.getAttribute('data-value') }}
+				</span>
+			</div>
+			<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
+				<span [title]="createdAtColumn.getAttribute('data-value')" class="truncate">
+					{{ createdAtColumn.getAttribute('data-value') }}
+				</span>
+			</div>
+			<div tableColumnFlex="updatedAt" #updatedAtColumn [attr.data-value]="item.updatedAt | dynamicDate">
+				<span [title]="updatedAtColumn.getAttribute('data-value')" class="truncate">
+					{{ updatedAtColumn.getAttribute('data-value') }}
+				</span>
+			</div>
+			<div tableColumnFlex="action" class="border-l sticky right-0">
+				<member-row-action-button-component [item]="item" [id]="item._id"/>
+			</div>
+		</div>
+	</div>
 </div>
 <utility-table-state-pagination-component
 	(page)="pageChange($event)"

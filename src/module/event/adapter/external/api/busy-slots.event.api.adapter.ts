@@ -5,10 +5,12 @@ import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "thiis";
 import {RIBusySlot} from "@event/domain/interface/i.busy-slot";
 
+type TParams = { start: string; end: string; specialist: string | undefined; };
+
 @Injectable({
 	providedIn: 'root'
 })
-export class BusySlotsEventApiAdapter extends BaseApiAdapter<RIBusySlot[]> {
+export class BusySlotsEventApiAdapter extends BaseApiAdapter<RIBusySlot[], [TParams]> {
 
 
 	/**
@@ -16,7 +18,7 @@ export class BusySlotsEventApiAdapter extends BaseApiAdapter<RIBusySlot[]> {
 	 * @param params
 	 */
 	@TypeGuard([is.object_not_empty])
-	public override execute$(params: { start: string; end: string; specialist: string; }) {
+	public override execute$(params: TParams) {
 		return this.httpClient.get<RIBusySlot[]>(eventEndpointEnum.busySlots, {
 			params: params as never,
 		});

@@ -6,6 +6,7 @@ import {AppActions} from "@utility/state/app/app.actions";
 import {
 	ItemBusinessProfileApiAdapter
 } from "@client/adapter/external/api/buisness-profile/item.business-profile.api.adapter";
+import {RISchedule} from "@utility/domain/interface/i.schedule";
 
 interface IClientState {
 	item: Client.RIClient | undefined;
@@ -23,6 +24,34 @@ export class ClientState {
 	@Selector()
 	public static item(state: IClientState): Client.RIClient | undefined {
 		return state.item;
+	}
+
+	@Selector()
+	public static earliestScheduleAndLatestSchedule(state: IClientState): {
+		earliestSchedule: RISchedule,
+		latestSchedule: RISchedule,
+	} | null {
+
+		if (!state.item) {
+			return null;
+		}
+
+		const item = state.item;
+
+		// Find earliest schedule and latest schedule
+		const {earliestSchedule, latestSchedule} = item.schedules
+			.reduce(({earliestSchedule, latestSchedule}, schedule) => {
+				return {
+					earliestSchedule: earliestSchedule.startInSeconds < schedule.startInSeconds ? earliestSchedule : schedule,
+					latestSchedule: latestSchedule.endInSeconds > schedule.endInSeconds ? latestSchedule : schedule
+				};
+			}, {earliestSchedule: item.schedules[0], latestSchedule: item.schedules[0]});
+
+		return {
+			earliestSchedule,
+			latestSchedule
+		};
+
 	}
 
 	public readonly itemBusinessProfileApiAdapter = inject(ItemBusinessProfileApiAdapter);

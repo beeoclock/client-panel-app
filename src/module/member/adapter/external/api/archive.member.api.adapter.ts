@@ -6,17 +6,19 @@ import {is} from "thiis";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
 
+type TBody = { id: string };
+
 @Injectable({
   providedIn: 'root'
 })
-export class ArchiveMemberApiAdapter extends BaseApiAdapter<unknown> {
+export class ArchiveMemberApiAdapter extends BaseApiAdapter<unknown, [TBody]> {
 
   /**
    * ARCHIVE ITEM BY ID
    * @param id
    */
   @TypeGuard([is.object_not_empty])
-  public override execute$({id}: { id: string }) {
+  public override execute$({id}: TBody) {
     return this.httpClient.patch(memberEndpointEnum.archive, null, {
 			context: new HttpContext().set(TokensHttpContext.REPLACE, {
 				id

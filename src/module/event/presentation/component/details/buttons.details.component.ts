@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, HostBinding, Input} from "@angular/core";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
@@ -28,8 +28,6 @@ import {RMIEvent} from "@event/domain";
 		ChangeStatusOnDoneComponent,
 	],
 	template: `
-
-		<div class="flex justify-between flex-col md:flex-row gap-4">
 
 			<ng-container *ngIf="event.isRequested">
 
@@ -76,7 +74,7 @@ import {RMIEvent} from "@event/domain";
 			</ng-template>
 
 			<ng-template #ButtonToRepeatEvent>
-				<a routerLink="repeat" class="
+				<a [routerLink]="'/event/' + event._id + '/repeat'" class="
               w-full
               flex
               items-center
@@ -97,13 +95,14 @@ import {RMIEvent} from "@event/domain";
 					{{ 'event.keyword.capitalize.repeat' | translate }}
 				</a>
 			</ng-template>
-
-		</div>
 	`
 })
 export class ButtonsDetailsComponent {
 
 	@Input({required: true})
 	public event!: RMIEvent;
+
+	@HostBinding()
+	public class = 'flex justify-between flex-col md:flex-row gap-4 bg-white p-4 border-y';
 
 }

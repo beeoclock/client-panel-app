@@ -21,6 +21,9 @@ import {NGXLogger} from "ngx-logger";
 	selector: 'event-calendar-container-component',
 	// changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
+	providers: [
+		ScrollCalendarDomManipulationService
+	],
 	imports: [
 		ColumnsBlockComponent,
 		HoursComponent,
@@ -71,7 +74,7 @@ export class ContainerCalendarComponent implements AfterViewInit {
 	public ngAfterViewInit() {
 
 		this.scrollCalendarDomManipulationService
-			.setContainerOfCalendarsRef(this)
+			.setNativeElement(this.elementRef.nativeElement)
 			.initDesktopMouseHandle();
 
 	}

@@ -12,12 +12,12 @@ import {TranslateModule} from "@ngx-translate/core";
 	],
 	template: `
 
-		<div class="flex flex-col gap-4">
+		<div class="flex flex-col gap-4 text-beeColor-400 p-4">
 
 			<div class="flex flex-col">
 
 				<div>
-					{{ 'keyword.capitalize.event' | translate }}:
+					#
 				</div>
 				<div>
 					{{ event._id }}

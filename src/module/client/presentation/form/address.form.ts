@@ -14,9 +14,15 @@ export interface IAddressForm {
 
 export class AddressForm extends FormGroup<IAddressForm> {
 
-	constructor() {
+	constructor(config: {
+		initValidation: boolean;
+	} = {
+		initValidation: true,
+	}) {
 		super({
-			object: new FormControl(),
+			object: new FormControl('Address', {
+				nonNullable: true,
+			}),
 			country: new FormControl(),
 			city: new FormControl(),
 			zipCode: new FormControl(),
@@ -24,13 +30,10 @@ export class AddressForm extends FormGroup<IAddressForm> {
 			streetAddressLineTwo: new FormControl(),
 		});
 
-		this.initValue();
-		this.initValidators();
+		const {initValidation} = config;
 
-	}
+		initValidation && this.initValidators();
 
-	private initValue(): void {
-		this.controls.object.setValue('Address');
 	}
 
 	private initValidators(): void {

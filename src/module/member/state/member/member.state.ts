@@ -9,12 +9,14 @@ import {UpdateMemberApiAdapter} from "@member/adapter/external/api/update.member
 import {ItemMemberApiAdapter} from "@member/adapter/external/api/item.member.api.adapter";
 import {RemoveMemberApiAdapter} from "@member/adapter/external/api/remove.member.api.adapter";
 import {ListMemberApiAdapter} from "@member/adapter/external/api/list.member.api.adapter";
-import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {ActiveEnum, OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 
 export type IMemberState = IBaseState<Member.RIMember>;
 
 const defaults = baseDefaults<Member.RIMember>({
-	filters: {},
+	filters: {
+		active: ActiveEnum.YES
+	},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
 });
@@ -36,10 +38,6 @@ export class MemberState extends BaseState<Member.RIMember> {
 	constructor() {
 		super(
 			defaults,
-			// {
-			// 	tableStates: 'member.cache.tableStates',
-			// 	items: 'member.cache.items'
-			// }
 		);
 	}
 
@@ -59,8 +57,8 @@ export class MemberState extends BaseState<Member.RIMember> {
 	}
 
 	@Action(MemberActions.GetItem)
-	public override async getItemFromCacheOrApi(ctx: StateContext<IMemberState>, action: MemberActions.GetItem): Promise<void> {
-		await super.getItemFromCacheOrApi(ctx, action);
+	public override async getItem(ctx: StateContext<IMemberState>, action: MemberActions.GetItem): Promise<void> {
+		await super.getItem(ctx, action);
 	}
 
 	@Action(MemberActions.DeleteItem)
@@ -81,7 +79,6 @@ export class MemberState extends BaseState<Member.RIMember> {
 	@Action(MemberActions.GetList)
 	public override async getList(ctx: StateContext<IMemberState>, action: MemberActions.GetList): Promise<void> {
 		await super.getList(ctx, action);
-
 	}
 
 	// Selectors

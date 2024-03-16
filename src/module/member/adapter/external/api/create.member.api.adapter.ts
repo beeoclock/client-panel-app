@@ -8,7 +8,7 @@ import {is} from "thiis";
 @Injectable({
   providedIn: 'root'
 })
-export class CreateMemberApiAdapter extends BaseApiAdapter<Member.RIMember> {
+export class CreateMemberApiAdapter extends BaseApiAdapter<Member.RIMember, [Member.RIMember]> {
 
   /**
    * SAVE NEW ITEM OR UPDATE ITEM BY ID

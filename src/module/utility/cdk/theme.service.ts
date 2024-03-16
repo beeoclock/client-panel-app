@@ -1,8 +1,9 @@
 import {inject, Injectable} from "@angular/core";
 import {DOCUMENT} from "@angular/common";
-import {BehaviorSubject, map} from "rxjs";
+import {map} from "rxjs";
+import {THEME} from "@src/token";
 
-enum ThemeEnum {
+export enum ThemeEnum {
 	light = 'light',
 	dark = 'dark'
 }
@@ -15,20 +16,25 @@ type ThemeType = 'dark' | 'light';
 export class ThemeService {
 
 	private readonly document = inject(DOCUMENT);
-	readonly #theme$ = new BehaviorSubject((localStorage.getItem('theme') || 'light') as ThemeType);
+	public readonly THEME = inject(THEME);
 
-	public readonly isDark$ = this.#theme$.pipe(
+	constructor() {
+		const theme = localStorage.getItem('theme') as ThemeEnum;
+		if (theme) {
+			this.THEME.next(theme);
+		}
+	}
+
+	public readonly isDark$ = this.THEME.pipe(
 		map((theme: string) => theme === 'dark')
 	);
 
-	public readonly isLight$ = this.#theme$.pipe(
+	public readonly isLight$ = this.THEME.pipe(
 		map((theme: string) => theme === 'light')
 	);
 
-	public readonly theme$ = this.#theme$.asObservable();
-
 	public get theme(): ThemeType {
-		return this.#theme$.getValue();
+		return this.THEME.getValue();
 	}
 
 	public readonly themes = [ThemeEnum.light, ThemeEnum.dark];
@@ -45,20 +51,20 @@ export class ThemeService {
 		this.initHandler();
 	}
 
-	public toggleTheme(theme: ThemeType): void {
-		this.#theme$.next(theme);
+	public toggleTheme(theme: ThemeEnum): void {
+		this.THEME.next(theme);
 	}
 
 	private initHandler(): void {
-		this.#theme$.subscribe(this.setTheme.bind(this));
+		this.THEME.subscribe(this.setTheme.bind(this));
 	}
 
-	private setTheme(theme: string): void {
+	private setTheme(theme: ThemeEnum): void {
 		localStorage.setItem('theme', theme);
 		if (theme === ThemeEnum.dark) {
-			document.documentElement.classList.add('dark');
+			this.document.documentElement.classList.add(ThemeEnum.dark);
 		} else {
-			document.documentElement.classList.remove('dark');
+			this.document.documentElement.classList.remove(ThemeEnum.dark);
 		}
 	}
 

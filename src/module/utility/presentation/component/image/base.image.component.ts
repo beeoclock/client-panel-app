@@ -47,10 +47,9 @@ export class BaseImageComponent implements OnChanges, AfterViewInit {
 	}
 
 	public updateSrc(base64: string | undefined): void {
-		if (!base64?.length) {
+		if (!base64?.length || !this.previewImage) {
 			return;
 		}
-		console.log(this.previewImage);
 		this.previewImage.nativeElement.src = base64;
 		this.previewImage.nativeElement.classList.remove('hidden');
 	}

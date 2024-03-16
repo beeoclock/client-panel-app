@@ -26,6 +26,10 @@ export const routers = [
 				loadComponent: () => import('./page/calendar'),
 			},
 			{
+				path: 'calendar-with-specialists',
+				loadComponent: () => import('./page/calendar-with-specialists'),
+			},
+			{
 				path: 'form',
 				resolve: {
 					service: eventServiceResolver,

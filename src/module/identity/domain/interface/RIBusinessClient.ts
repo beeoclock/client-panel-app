@@ -8,6 +8,10 @@ export interface RIBusinessClient {
 	serviceProvideType: ServiceProvideTypeEnum;
 	businessCategory: BusinessCategoryEnum;
 	businessIndustry: BusinessIndustryEnum;
+	businessOwner?: {
+		firstName?: string;
+		lastName?: string;
+	};
 
 }
 

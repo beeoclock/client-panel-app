@@ -24,6 +24,9 @@ import {EventSettingsComponent} from "@client/presentation/component/settings/ev
 import {TranslateModule} from "@ngx-translate/core";
 import {ServiceSettingsComponent} from "@client/presentation/component/settings/service/service.settings.component";
 import {DangerZoneComponent} from "@client/presentation/component/danger-zone/danger-zone.component";
+import {
+	ContainerBusinessSettingsComponent
+} from "@client/presentation/component/business-settings/container.business-settings.component";
 
 @Component({
 	selector: 'client-business-settings-page',
@@ -38,7 +41,8 @@ import {DangerZoneComponent} from "@client/presentation/component/danger-zone/da
 		EventSettingsComponent,
 		TranslateModule,
 		ServiceSettingsComponent,
-		DangerZoneComponent
+		DangerZoneComponent,
+		ContainerBusinessSettingsComponent
 	],
 	standalone: true
 })

@@ -36,7 +36,7 @@ export enum CurrencyCodeEnum {
   // CVE = 'CVE',
   // CZK = 'CZK',
   // DJF = 'DJF',
-  // DKK = 'DKK',
+  DKK = 'DKK',
   // DOP = 'DOP',
   // DZD = 'DZD',
   // EGP = 'EGP',

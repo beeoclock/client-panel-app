@@ -1,4 +1,6 @@
-<div class="block max-w-full" [class.overflow-x-auto]="isPage" [class.h-[calc(100vh-64px)]]="isPage" [class.md:h-[calc(100vh-65px)]]="isPage">
+<div class="block max-w-full" [ngClass]="{
+'overflow-x-auto h-[calc(100vh-64px)] md:h-[calc(100vh-65px)]': isPage
+}">
 	<service-filter-component [showButtonGoToForm]="showButtonGoToForm" *ngIf="someDataExist.isOn"/>
 	<ng-container *ngIf="tableState">
 		<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">

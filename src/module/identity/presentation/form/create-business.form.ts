@@ -8,6 +8,27 @@ import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum"
 import {LanguageCodeEnum} from "@utility/domain/enum";
 import {DefaultServicesByBusinessCategory} from "@utility/domain/const/c.default-services-by-business-category";
 
+interface IBusinessOwnerForm {
+	firstName: FormControl<string>;
+	lastName: FormControl<string>;
+}
+
+export class BusinessOwnerForm extends FormGroup<IBusinessOwnerForm> {
+	constructor() {
+		super({
+			firstName: new FormControl(),
+			lastName: new FormControl()
+		});
+		this.initValidation();
+	}
+
+	private initValidation(): void {
+		this.controls.firstName.setValidators([Validators.required]);
+		this.controls.lastName.setValidators([Validators.required]);
+	}
+
+}
+
 interface IBusinessClientForm {
 	addressForm: AddressForm;
 	schedules: SchedulesForm;
@@ -18,16 +39,18 @@ interface IBusinessClientForm {
 	serviceProvideType: FormControl<ServiceProvideTypeEnum>;
 	businessIndustry: FormControl<BusinessIndustryEnum>;
 	businessName: FormControl<string>;
-	businessOwnerFullName: FormControl<string>;
+	businessOwner: BusinessOwnerForm;
 }
 
 export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 
-	public currentLanguage = LanguageCodeEnum.uk;
+	public currentLanguage = LanguageCodeEnum.en;
 
 	constructor() {
 		super({
-			addressForm: new AddressForm(),
+			addressForm: new AddressForm({
+				initValidation: false,
+			}),
 			schedules: new SchedulesForm(),
 			gallery: new GalleryForm(),
 			services: new ServicesForm([]),
@@ -36,7 +59,7 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 			businessIndustry: new FormControl(),
 			serviceProvideType: new FormControl(),
 			businessName: new FormControl(),
-			businessOwnerFullName: new FormControl(),
+			businessOwner: new BusinessOwnerForm(),
 		});
 		this.initValidators();
 		this.initHandlers();
@@ -54,9 +77,6 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 		]);
 		this.controls.businessIndustry.updateValueAndValidity();
 
-		this.controls.businessOwnerFullName.setValidators([
-			Validators.required
-		]);
 		this.controls.businessIndustry.updateValueAndValidity();
 
 	}
@@ -82,7 +102,6 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 			return;
 		}
 
-		console.log('businessCategory', businessCategory);
 		const servicesByBusinessCategory = servicesByLanguage[businessCategory];
 
 		if (!servicesByBusinessCategory) {

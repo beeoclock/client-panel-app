@@ -60,7 +60,7 @@ export enum CountryCodeEnum {
   // CW = 'CW',
   // CY = 'CY',
   // CZ = 'CZ',
-  // DK = 'DK',
+  DK = 'DK',
   // DJ = 'DJ',
   // DM = 'DM',
   // DO = 'DO',

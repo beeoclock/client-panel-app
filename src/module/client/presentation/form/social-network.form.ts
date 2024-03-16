@@ -13,7 +13,9 @@ export class SocialNetworkForm extends FormGroup<ISocialNetworkForm> {
 
 	constructor() {
 		super({
-			object: new FormControl(),
+			object: new FormControl('SocialNetworkLink', {
+				nonNullable: true,
+			}),
 			link: new FormControl(),
 			type: new FormControl(),
 		});
@@ -23,7 +25,6 @@ export class SocialNetworkForm extends FormGroup<ISocialNetworkForm> {
 	}
 
 	private initValue(): void {
-		this.controls.object.setValue('SocialNetworkLink');
 		this.controls.type.setValue(SocialNetworkEnum.INSTAGRAM);
 	}
 
@@ -37,7 +38,7 @@ export class SocialNetworksForm extends FormArray<SocialNetworkForm> {
 	public pushNewOne(initialValue?: ISocialNetworkLink): void {
 		const control = new SocialNetworkForm();
 		if (initialValue) {
-			control.setValue(initialValue);
+			control.patchValue(initialValue);
 		}
 		this.push(control);
 	}

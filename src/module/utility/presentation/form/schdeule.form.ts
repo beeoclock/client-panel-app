@@ -3,6 +3,7 @@ import {WeekDaysEnum, WORK_WEEK} from "@utility/domain/enum";
 import {ISchedule, RISchedule} from "@utility/domain/interface/i.schedule";
 import {extractSecondsFrom_hh_mm_ss} from "@utility/domain/time";
 import {ShouldBeMoreThenValidation} from "@utility/presentation/form/validation/should-be-more-then.validation";
+import {is} from "thiis";
 
 export interface IScheduleForm {
 	workDays: FormControl<WeekDaysEnum[]>;
@@ -65,8 +66,8 @@ export class SchedulesForm extends FormArray<ScheduleForm> {
 		if (initialValue) {
 			const {workDays, startInSeconds, endInSeconds} = initialValue;
 			workDays && control.controls.workDays.setValue(workDays);
-			startInSeconds && control.controls.startInSeconds.setValue(startInSeconds);
-			endInSeconds && control.controls.endInSeconds.setValue(endInSeconds);
+			is.number(startInSeconds) && control.controls.startInSeconds.setValue(startInSeconds);
+			is.number(endInSeconds) && control.controls.endInSeconds.setValue(endInSeconds);
 		}
 		this.push(control);
 	}

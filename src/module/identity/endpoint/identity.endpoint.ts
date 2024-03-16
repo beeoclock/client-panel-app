@@ -9,8 +9,8 @@ export enum identityEndpointEnum {
   patchSwitchBusinessClient = '/api/v1/provider/switch-business-client',
   postResetPassword = '/api/v1/provider/reset-password',
   confirmEmail = '/api/v1/provider/confirm-email',
-
-  postRegisterDevice = '/api/v1/provider/register-device',
+	confirmInvitation = '/api/v1/provider/confirm-invitation',
+	postRegisterDevice = '/api/v1/provider/register-device',
 
   patchChangeName = '/api/v1/provider/name',
   patchChangePhoneNumber = '/api/v1/provider/phone-number',
@@ -18,6 +18,11 @@ export enum identityEndpointEnum {
 
 export const identityEndpoint: EndpointCollectionType = {
   POST: {
+    [identityEndpointEnum.confirmInvitation]: {
+      path: identityEndpointEnum.confirmInvitation,
+      method: RequestMethodEnum.POST,
+      source: SourceNetworkEnum.identity
+    },
     [identityEndpointEnum.postResetPassword]: {
       path: identityEndpointEnum.postResetPassword,
       method: RequestMethodEnum.POST,

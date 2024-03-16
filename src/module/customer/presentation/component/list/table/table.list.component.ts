@@ -63,7 +63,7 @@ export class TableListComponent extends TableComponent<ICustomer> {
 			},
 			firstName: {
 				style: {
-					minWidth: '200px',
+					minWidth: '120px',
 				},
 			},
 			phone: {

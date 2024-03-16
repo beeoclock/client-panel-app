@@ -180,11 +180,15 @@ export class SlotsService {
 
 		end = DateTime.fromISO(end).endOf('day').toJSDate().toISOString();
 
-		return this.busySlotsEventApiAdapter.executeAsync({
+		const params = {
 			start,
 			end,
 			specialist: this.specialist,
-		}).then(this.setBusySlots.bind(this));
+		};
+
+		this.logger.debug('loadBusySlots', {params});
+
+		return this.busySlotsEventApiAdapter.executeAsync(params).then(this.setBusySlots.bind(this));
 	}
 
 	private calculateFreeSchedulePiecesPerDay() {

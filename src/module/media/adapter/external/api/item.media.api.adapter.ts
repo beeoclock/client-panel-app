@@ -8,7 +8,7 @@ import {TokensHttpContext} from "@src/tokens.http-context";
 @Injectable({
   providedIn: 'root'
 })
-export class ItemMediaApiAdapter extends BaseApiAdapter<IMedia> {
+export class ItemMediaApiAdapter extends BaseApiAdapter<IMedia, [string]> {
 
 
   /**

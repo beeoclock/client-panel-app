@@ -76,14 +76,14 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export default class Index implements OnInit {
 
-	@ViewChild(CoverImageBusinessProfileComponent)
-	public readonly coverImageBusinessProfileComponent!: CoverImageBusinessProfileComponent;
+	// @ViewChild(CoverImageBusinessProfileComponent)
+	// public readonly coverImageBusinessProfileComponent!: CoverImageBusinessProfileComponent;
 
 	@ViewChild(LogoBusinessProfileComponent)
 	public readonly logoBusinessProfileComponent!: LogoBusinessProfileComponent;
 
-	@ViewChild(GalleryBusinessProfileComponent)
-	public readonly galleryBusinessProfileComponent!: GalleryBusinessProfileComponent;
+	// @ViewChild(GalleryBusinessProfileComponent)
+	// public readonly galleryBusinessProfileComponent!: GalleryBusinessProfileComponent;
 
 	public readonly form = new BusinessProfileForm();
 	public readonly store = inject(Store);
@@ -143,11 +143,11 @@ export default class Index implements OnInit {
 
 			await Promise.all([
 				// Save cover image
-				this.coverImageBusinessProfileComponent.save(),
+				// this.coverImageBusinessProfileComponent.save(),
 				// Save logo
 				this.logoBusinessProfileComponent.save(),
 				// Save gallery
-				this.galleryBusinessProfileComponent.save(),
+				// this.galleryBusinessProfileComponent.save(),
 				// Save data
 				this.updateBusinessProfileApiAdapter.executeAsync(value),
 			]);

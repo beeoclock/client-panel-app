@@ -52,18 +52,19 @@ export default class Index {
 		map((members) => members.length === 0),
 		tap((firstCompany) => {
 			if (!firstCompany) {
-				this.businessOwnerFullNameControl.clearValidators();
-				this.businessOwnerFullNameControl.updateValueAndValidity();
+				this.businessOwnerForm.disable();
+				this.businessOwnerForm.updateValueAndValidity();
 			}
 		}),
 	);
 
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
 	public readonly businessNameControl = this.createBusinessQuery.getBusinessNameControl();
-	public readonly businessOwnerFullNameControl = this.createBusinessQuery.getBusinessOwnerFullNameControl();
+	public readonly businessOwnerForm = this.createBusinessQuery.getBusinessOwnerForm();
 
 	public get valid(): boolean {
-		return this.businessNameControl.valid && this.businessOwnerFullNameControl.valid;
+		const ifBusinessOwnerEnableUseStatusOfValidation = (this.businessOwnerForm.disabled ? true : this.businessOwnerForm.valid);
+		return this.businessNameControl.valid && ifBusinessOwnerEnableUseStatusOfValidation;
 	}
 
 	public get invalid(): boolean {

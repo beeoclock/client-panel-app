@@ -20,10 +20,17 @@
 
 					<form-input
 						*ngIf="firstCompany$ | async"
-						id="create-business-form-input-businessOwnerFullName"
-						[label]="'identity.create-business.form.inputs.businessOwnerFullName.label' | translate"
-						[placeholder]="'identity.create-business.form.inputs.businessOwnerFullName.placeholder' | translate"
-						[control]="businessOwnerFullNameControl" />
+						id="create-business-form-input-businessOwner-firstName"
+						[label]="'keyword.capitalize.firstName' | translate"
+						[placeholder]="'example.firstName' | translate"
+						[control]="businessOwnerForm.controls.firstName" />
+
+					<form-input
+						*ngIf="firstCompany$ | async"
+						id="create-business-form-input-businessOwner-lastName"
+						[label]="'keyword.capitalize.lastName' | translate"
+						[placeholder]="'example.lastName' | translate"
+						[control]="businessOwnerForm.controls.lastName" />
 
 				</bee-card>
 

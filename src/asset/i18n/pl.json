@@ -137,6 +137,18 @@
 							}
 						}
 					},
+					"businessSettings": {
+						"select": {
+							"availableLanguages": {
+								"hint": "Wybierz języki, w których prowadzisz działalność, być może prowadzisz działalność nie tylko dla mieszkańców, ale także dla turystów. Wybór ten określi dostępną listę języków dla wiadomości e-mail",
+								"label": "Języki, w których prowadzisz działalność"
+							},
+							"emailLanguage": {
+								"hint": "Wybierz język, w którym chcesz otrzymywać wiadomości e-mail, dostępne opcje zależą od języków, w których prowadzisz działalność.",
+								"label": "Język wiadomości e-mail"
+							}
+						}
+					},
 					"coverImage": {
 						"fileover": "Umieść swoje pliki tutaj",
 						"motivate": "Możesz nadać swojemu profilowi nieco więcej osobowości i pomóc innym rozpoznać Twoją pracę, przesyłając \n obraz (obraz, zdjęcie lub inną grafikę) jako obraz w tle Twojego profilu.",
@@ -211,11 +223,15 @@
 		}
 	},
 	"country": {
+		"DK": "Dania",
 		"UA": "Ukraina"
 	},
 	"customer": {
 		"button": {
 			"create": "Dodaj klienta"
+		},
+		"details": {
+			"title": "Dane klienta"
 		},
 		"form": {
 			"input": {
@@ -280,12 +296,18 @@
 				"attendant": {
 					"button": {
 						"add": "Dodaj uczestnika",
+						"select": "Wybierz klienta",
 						"togglePresentationOfNewAttendant": "Tego klienta nie ma na liście (nowy klient)"
 					},
 					"input": {
 						"selectCustomer": {
 							"placeholder": "Wybierz klienta"
 						}
+					}
+				},
+				"customer": {
+					"modal": {
+						"title": "Wybór klienta"
 					}
 				},
 				"service": {
@@ -299,7 +321,7 @@
 						}
 					},
 					"modal": {
-						"title": "Wybór usługi"
+						"title": "Wybór usług"
 					}
 				}
 			}
@@ -327,20 +349,6 @@
 					"done": "Gotowe",
 					"rejected": "Odrzucono",
 					"requested": "Zażądane"
-				},
-				"status": {
-					"plural": {
-						"booked": "Zarezerwowane",
-						"cancelled": "Anulowane",
-						"done": "Zakończone",
-						"requested": "Wnioskowe"
-					},
-					"singular": {
-						"booked": "Zarezerwowane",
-						"cancelled": "Anulowane",
-						"done": "Zakończone",
-						"requested": "Wniosek"
-					}
 				}
 			}
 		},
@@ -349,6 +357,10 @@
 			"durationAndPriceConflict": "Wybierz dostępny czas trwania, w przeciwnym razie najdłuższy zostanie wybrany automatycznie po akceptacji.",
 			"multipleEventAtSameTime": "Więcej niż jedno wydarzenie w tym czasie."
 		}
+	},
+	"example": {
+		"firstName": "Jan",
+		"lastName": "Kowalski"
 	},
 	"form": {
 		"validation": {
@@ -508,6 +520,14 @@
 			},
 			"title": "Nie masz zweryfikowanego adresu e-mail"
 		},
+		"confirm-invitation": {
+			"form": {
+				"description": "Jest to ostatni krok do dołączenia do organizacji, do której zostałeś zaproszony."
+			}
+		},
+		"confirmInvitation": {
+			"success": "Gratulacje, teraz możesz zalogować się"
+		},
 		"corridor": {
 			"addBusiness": "Utwórz nowy biznes",
 			"selectBusiness": "Wybierz kontekst biznesu"
@@ -521,10 +541,6 @@
 					"businessName": {
 						"label": "Nazwa biznesu",
 						"placeholder": "Beauty Salon \"Bee O`clock\""
-					},
-					"businessOwnerFullName": {
-						"label": "Imię i nazwisko",
-						"placeholder": "Jan Kowalski"
 					},
 					"name": {
 						"label": "Nazwa"
@@ -684,6 +700,7 @@
 			"addSocialMedia": "Dodaj media społecznościowe",
 			"additional": "Dodatkowe",
 			"address": "Adres",
+			"approvalType": "Typ homologacji",
 			"approve": "Zatwierdź",
 			"attendees": "Uczestnicy",
 			"autoActionOnEventInSeconds": "Czas rozpoczęcia automatycznego działania",
@@ -750,6 +767,7 @@
 			"next": "Dalej",
 			"nextStep": "Dalej",
 			"no": "Nie",
+			"noData": "Brak danych",
 			"note": "Notatka",
 			"notification": "Powiadomienia",
 			"openTimePicker": "Wybierz",
@@ -799,8 +817,10 @@
 			"specialist": "Specjalista",
 			"specialists": "Specjaliści",
 			"start": "Początek",
+			"status": "Status",
 			"streetAddressLineOne": "Adres 1",
 			"streetAddressLineTwo": "Adres 2",
+			"successfully": "Pomyślnie",
 			"theme": "Motyw",
 			"thereArentAnyEvents": "Nie ma żadnych wydarzeń na {{ datetime }}",
 			"title": "Tytuł",
@@ -823,6 +843,7 @@
 			"ago": "temu",
 			"at": "o",
 			"days": "dni",
+			"details": "szczegóły",
 			"dragAndDrop": "przeciągnij i upuść plik",
 			"in": "w",
 			"min": "min.",
@@ -856,6 +877,9 @@
 		"button": {
 			"create": "Dodaj członka"
 		},
+		"details": {
+			"title": "Informacje o pracowniku"
+		},
 		"title": "Członek"
 	},
 	"page": {
@@ -879,7 +903,14 @@
 			"allDataDownloaded": "Wszystkie dostępne dane zostały pobrane"
 		}
 	},
+	"role": {
+		"ADMIN": "Administrator",
+		"SPECIALIST": "Specjalista"
+	},
 	"service": {
+		"details": {
+			"title": "Informacje o usłudze"
+		},
 		"form": {
 			"v2": {
 				"section": {

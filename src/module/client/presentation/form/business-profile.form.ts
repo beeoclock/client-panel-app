@@ -40,7 +40,9 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
 	constructor() {
 		super({
 			_id: new FormControl(),
-			object: new FormControl(),
+			object: new FormControl('Client', {
+				nonNullable: true,
+			}),
 			name: new FormControl(),
 			businessCategory: new FormControl(),
 			businessIndustry: new FormControl(),
@@ -75,7 +77,6 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
 	}
 
 	private initValue(): void {
-		this.controls.object.setValue('Client');
 		this.controls.published.setValue(ActiveEnum.NO);
 	}
 

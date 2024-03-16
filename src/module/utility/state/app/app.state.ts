@@ -16,7 +16,7 @@ export interface IAppState {
 export class AppState {
 
   @Action(AppActions.PageLoading)
-  public async UpdateFilters(ctx: StateContext<IAppState>, {payload}: AppActions.PageLoading): Promise<void> {
+  public pageLoading(ctx: StateContext<IAppState>, {payload}: AppActions.PageLoading) {
 
     ctx.patchState({
       pageLoading: payload

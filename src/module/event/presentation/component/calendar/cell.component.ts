@@ -37,7 +37,7 @@ export class CellComponent implements OnChanges {
 	public idSuffix = '';
 
 	@Input()
-	public date = (new Date()).toISOString();
+	public datetimeISO = (new Date()).toISOString();
 
 	@HostBinding()
 	public class = 'clickMe test relative border-slate-100 dark:border-slate-200/5 h-[50px]';
@@ -71,7 +71,7 @@ export class CellComponent implements OnChanges {
 			this.store.dispatch(new RefreshCalendarAction());
 		};
 		this.eventFormModalService.openModal({
-			date: this.date,
+			datetimeISO: this.datetimeISO,
 		}, callback);
 		event.preventDefault();
 		event.stopPropagation();

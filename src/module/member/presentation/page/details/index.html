@@ -1,0 +1,94 @@
+<utility-default-panel-component>
+	<utility-back-button-component/>
+</utility-default-panel-component>
+
+<ng-container *ngIf="item$ | async as member">
+	<div class="bg-white">
+		<div class="p-4">
+			<h3 class="text-base font-semibold leading-7 text-gray-900">
+				{{ 'member.details.title' | translate }}
+			</h3>
+			<!--			<p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p>-->
+		</div>
+		<div class="border-t border-gray-100">
+			<dl class="divide-y divide-gray-100">
+				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+					<dt class="text-sm font-medium leading-6 text-gray-900">
+						{{ 'keyword.capitalize.fullName' | translate }}
+					</dt>
+					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+						{{ member.firstName }}&nbsp;{{ member.secondName }}&nbsp;{{ member.lastName }}
+					</dd>
+				</div>
+				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+					<dt class="text-sm font-medium leading-6 text-gray-900">
+						{{ 'keyword.capitalize.email' | translate }}
+					</dt>
+					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+						{{ member.email }}
+					</dd>
+				</div>
+				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+					<dt class="text-sm font-medium leading-6 text-gray-900">
+						{{ 'keyword.capitalize.phone' | translate }}
+					</dt>
+					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+						{{ member.phone }}
+					</dd>
+				</div>
+			</dl>
+		</div>
+	</div>
+
+	<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4 mb-[100px]">
+
+		<div class="flex justify-between flex-col md:flex-row gap-4 bg-white p-4 border-y">
+
+			<bee-delete-button [buttonWidthFull]="true" (event)="delete(member._id)"/>
+			<edit-link-component [buttonWidthFull]="true"/>
+
+		</div>
+
+		<div class="text-start text-beeColor-400 text-sm px-4">
+
+			<div class="flex flex-col gap-4">
+
+				<div class="flex flex-col">
+
+					<div>
+						#
+					</div>
+					<div>
+						{{ member._id }}
+					</div>
+
+				</div>
+
+				<div class="flex flex-col">
+
+					<div>
+						{{ 'keyword.capitalize.createdAt' | translate }}:
+					</div>
+					<div>
+						{{ member.createdAt | dynamicDate }}
+					</div>
+
+				</div>
+
+				<div class="flex flex-col">
+
+					<div>
+						{{ 'keyword.capitalize.updatedAt' | translate }}:
+					</div>
+					<div>
+						{{ member.updatedAt | dynamicDate }}
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+</ng-container>

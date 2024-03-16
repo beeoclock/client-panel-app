@@ -8,7 +8,7 @@ import * as Customer from "@customer/domain";
 @Injectable({
   providedIn: 'root'
 })
-export class CreateCustomerApiAdapter extends BaseApiAdapter<Customer.ICustomer> {
+export class CreateCustomerApiAdapter extends BaseApiAdapter<Customer.ICustomer, [Customer.ICustomer]> {
 
   /**
    * SAVE NEW ITEM OR UPDATE ITEM BY ID

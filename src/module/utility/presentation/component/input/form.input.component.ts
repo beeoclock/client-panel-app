@@ -3,6 +3,7 @@ import {
 	ChangeDetectorRef,
 	Component,
 	DoCheck,
+	HostBinding,
 	inject,
 	Input,
 	ViewEncapsulation
@@ -44,13 +45,12 @@ import {TranslateModule} from "@ngx-translate/core";
 			default
 			[step]="step"
 			[isRequiredEnabled]="showLabel"
-			[class.disabled]="disabled"
 			[formControl]="control"
 			[classList]="customClassList"
 			[additionalClassList]="additionalClassList"
 			[placeholder]="placeholder ?? (placeholderTranslateKey | translate)"
 			[id]="id"
-			[type]="type"
+			[type]="inputType"
 			[autocomplete]="autocomplete"/>
 	`
 })
@@ -69,7 +69,7 @@ export class FormInputComponent implements DoCheck {
 	public id = 'utility-base-input';
 
 	@Input()
-	public type = 'text';
+	public inputType = 'text';
 
 	@Input()
 	public customClassList: string = '';
@@ -78,7 +78,7 @@ export class FormInputComponent implements DoCheck {
 	public additionalClassList: string = '';
 
 	@Input()
-	public placeholder = '';
+	public placeholder: string | null = null;
 
 	@Input()
 	public placeholderTranslateKey = '';
@@ -87,15 +87,15 @@ export class FormInputComponent implements DoCheck {
 	public autocomplete = '';
 
 	@Input()
-	public disabled = false;
-
-	@Input()
 	public step = 60; // In seconds
 
 	@Input()
 	public control!: FormControl;
 
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
+
+	@HostBinding()
+	public class = 'block';
 
 	public ngDoCheck(): void {
 		this.changeDetectorRef.detectChanges();

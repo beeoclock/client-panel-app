@@ -60,7 +60,7 @@ export enum CountryEnum {
   // CW = 'Curaçao',
   // CY = 'Cyprus',
   // CZ = 'CzechRepublic',
-  // DK = 'Denmark',
+  DK = 'Denmark',
   // DJ = 'Djibouti',
   // DM = 'Dominica',
   // DO = 'Dominican Republic',

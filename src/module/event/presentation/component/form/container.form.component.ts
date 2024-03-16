@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, inject, Input, OnInit, QueryList, ViewChild, ViewChildren} from "@angular/core";
+import {AfterContentInit, Component, inject, Input, OnInit, QueryList, ViewChildren} from "@angular/core";
 import {AttendeesComponent} from "@event/presentation/component/form/attendees/attendees.component";
 import {
 	ButtonSaveContainerComponent
@@ -34,6 +34,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {TimeInputComponent} from "@utility/presentation/component/input/time.input.component";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {DefaultInputDirective} from "@utility/presentation/directives/input/default.input.directive";
+import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 
 @Component({
 	selector: 'event-container-form-component',
@@ -54,6 +55,8 @@ import {DefaultInputDirective} from "@utility/presentation/directives/input/defa
 		FormInputComponent,
 		DefaultInputDirective,
 		DatePipe,
+		DefaultPanelComponent,
+		BackButtonComponent,
 	],
 	providers: [
 		SlotsService
@@ -61,9 +64,7 @@ import {DefaultInputDirective} from "@utility/presentation/directives/input/defa
 	template: `
 		<div *ngIf="preview.isOn" class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
 
-			<bee-card>
-				<event-general-details [isPreview]="preview.isOn" [event]="value"/>
-			</bee-card>
+			<event-general-details [isPreview]="preview.isOn" [event]="value"/>
 
 			<utility-button-save-container-component>
 				<button
@@ -80,7 +81,7 @@ import {DefaultInputDirective} from "@utility/presentation/directives/input/defa
 		</div>
 
 
-		<div [hidden]="preview.isOn" class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
+		<div [hidden]="preview.isOn" class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 lg:p-4">
 
 			<form [formGroup]="form" class="flex flex-col gap-4">
 
@@ -102,9 +103,10 @@ import {DefaultInputDirective} from "@utility/presentation/directives/input/defa
 
 					<input
 						type="datetime-local"
+						class="border-none p-0"
 						*ngIf="forceStart"
 						[value]="form.controls.start.value | date: 'yyyy-MM-ddTHH:mm'"
-						(change)="updateStartControlByDateTimeString($event)" />
+						(change)="updateStartControlByDateTimeString($event)"/>
 				</bee-card>
 
 				<bee-card>
@@ -151,7 +153,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 	public specialist = '';
 	public eventDurationInSeconds = 0;
 
-	@ViewChild(BackButtonComponent)
+	@Input()
 	public backButtonComponent!: BackButtonComponent;
 
 	@ViewChildren(ServicesComponent)
@@ -366,12 +368,21 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 			const value = this.form.getRawValue() as IEvent;
 
 			// Delete each configuration of duration at service
-			try {
-				value.services?.forEach((service) => {
-					delete service.configuration?.duration;
-				});
-			} catch (e) {
-				this.logger.error(e);
+			if (value.services?.length) {
+				try {
+					value.services.map((service) => {
+						// delete service.configuration?.duration;
+						return {
+							...service,
+							configuration: {
+								...service.configuration,
+								duration: undefined,
+							},
+						};
+					});
+				} catch (e) {
+					this.logger.error(e);
+				}
 			}
 
 			if (this.isEditMode) {
@@ -397,7 +408,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 
 	public goToPreview(): void {
 
-		if (!this.checkIfServicesAreValid()){
+		if (!this.checkIfServicesAreValid()) {
 			this.logger.debug('Services are not valid');
 			return;
 		}

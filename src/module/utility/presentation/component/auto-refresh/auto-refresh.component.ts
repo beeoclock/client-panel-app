@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, OnDestroy, Output, ViewEncapsulation} from "@angular/core";
+import {Component, EventEmitter, inject, Input, OnDestroy, Output, ViewEncapsulation} from "@angular/core";
 import {NgForOf, NgIf} from "@angular/common";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
@@ -24,7 +24,7 @@ import {MS_ONE_SECOND} from "@utility/domain/const/c.time";
 				<ion-select
 					[formControl]="control"
 					labelPlacement="start"
-					class="px-4 py-2 border border-beeColor-200 rounded-2xl rounded-r-none !min-h-0"
+					class="px-4 py-2 border border-beeColor-300 shadow-sm rounded-2xl rounded-r-none !min-h-0"
 					fill="solid"
 					interface="popover">
 					<ion-select-option [disabled]="true">
@@ -40,11 +40,8 @@ import {MS_ONE_SECOND} from "@utility/domain/const/c.time";
 					(click)="emitter.emit()"
 					type="submit"
 					link
-					class="rounded-l-none border border-l-0
-					p-2
-					h-full
-					text-sm">
-					<i class="bi bi-arrow-clockwise"></i>
+					class="rounded-l-none border border-l-0 p-2 h-full text-sm border-beeColor-300 shadow-sm">
+					<i [class.animate-spin]="isLoading" class="bi bi-arrow-clockwise"></i>
 				</button>
 			</div>
 		</form>
@@ -65,6 +62,9 @@ import {MS_ONE_SECOND} from "@utility/domain/const/c.time";
 	]
 })
 export class AutoRefreshComponent extends Reactive implements OnDestroy {
+
+	@Input()
+	public isLoading = false;
 
 	@Output()
 	public readonly emitter: EventEmitter<void> = new EventEmitter<void>();

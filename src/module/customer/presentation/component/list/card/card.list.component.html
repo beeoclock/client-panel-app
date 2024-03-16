@@ -1,22 +1,36 @@
 <div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState.items.length">
 	<bee-card class="text-sm" *ngFor="let item of tableState.items; trackBy: trackById">
 		<div class="flex justify-between items-center gap-8">
-			<div (click)="singleClick(item)" class="flex items-center gap-2 w-full">
-				<div [class.text-red-700]="!item.active" [class.text-green-700]="item.active">
-					{{ (item.active ? 'keyword.capitalize.active' : 'keyword.capitalize.inactive' ) | translate }}
+
+			<div (click)="singleClick(item)" class="flex justify-between">
+				<div class="flex-1">
+					<div>
+						{{ 'keyword.capitalize.fullName' | translate }}
+					</div>
+					<div class="font-bold flex gap-2">
+						<div>{{ item.firstName | noData }}</div> <div>{{ item.lastName | noData }}</div>
+					</div>
 				</div>
 			</div>
+<!--			<div (click)="singleClick(item)" class="flex items-center gap-2 w-full">-->
+<!--				<div [class.text-red-700]="!item.active" [class.text-green-700]="item.active">-->
+<!--					{{ (item.active ? 'keyword.capitalize.active' : 'keyword.capitalize.inactive' ) | translate }}-->
+<!--				</div>-->
+<!--			</div>-->
 			<customer-row-action-button-component
+				*ngIf="showAction.state$ | async"
 				[item]="item"
 				[id]="item._id"/>
-		</div>
-		<div (click)="singleClick(item)" class="flex justify-between">
-			<div class="flex-1">
-				<div>
-					{{ 'keyword.capitalize.fullName' | translate }}
+			<div (click)="singleClick(item)" *ngIf="showSelectedStatus.state$ | async">
+				<div
+					*ngIf="selectedIds.includes(item._id)"
+					class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
+					{{ 'keyword.capitalize.selected' | translate }}
 				</div>
-				<div class="font-bold flex gap-2">
-					<div>{{ item.firstName | noData }}</div> <div>{{ item.lastName | noData }}</div>
+				<div
+					*ngIf="!selectedIds.includes(item._id)"
+					class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">
+					{{ 'keyword.capitalize.select' | translate }}
 				</div>
 			</div>
 		</div>
@@ -43,5 +57,6 @@
 	</bee-card>
 </div>
 <utility-table-state-pagination-component
+	[mobileMode]="true"
 	(page)="pageChange($event)"
 	[tableState]="tableState"/>

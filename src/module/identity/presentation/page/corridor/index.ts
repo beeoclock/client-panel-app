@@ -74,7 +74,7 @@ export default class Index extends Reactive implements OnInit {
 
   public readonly loader = new BooleanState(true);
   public readonly disabled = new BooleanState(false);
-	public readonly pathToDashboard = ['/', 'dashboard'];
+	public readonly pathToMainAuthorizedPage = ['/', 'event', 'calendar-with-specialists'];
 
   public ngOnInit(): void {
 
@@ -84,7 +84,7 @@ export default class Index extends Reactive implements OnInit {
 			this.takeUntil(),
       filter((result) => !!result),
       filter(() => !('force' in this.activatedRoute.snapshot.queryParams)),
-      switchMap(() => from(this.gotToDashboardPage()))
+      switchMap(() => from(this.gotToMainAuthorizedPage()))
     ).subscribe();
 
   }
@@ -95,8 +95,8 @@ export default class Index extends Reactive implements OnInit {
     });
   }
 
-  public async gotToDashboardPage(): Promise<boolean> {
-    return this.router.navigate(this.pathToDashboard);
+  public async gotToMainAuthorizedPage(): Promise<boolean> {
+    return this.router.navigate(this.pathToMainAuthorizedPage);
   }
 
   public async select(member: IMember): Promise<void> {
@@ -112,7 +112,7 @@ export default class Index extends Reactive implements OnInit {
       switchMap(() => this.clientId$),
       filter((clientId) => clientId === member.client._id),
       tap(() => this.store.dispatch(new AppActions.PageLoading(false))),
-      switchMap(() => from(this.gotToDashboardPage())),
+      switchMap(() => from(this.gotToMainAuthorizedPage())),
       this.takeUntil(),
     ).subscribe({
       error: () => {

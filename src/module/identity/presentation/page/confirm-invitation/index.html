@@ -1,0 +1,42 @@
+<section class="bg-gray-50 dark:bg-gray-900">
+	<div class="flex flex-col gap-4 items-center justify-center md:px-6 py-8 mx-auto md:h-screen lg:py-0">
+		<div class="sm:max-w-md w-full flex justify-end">
+			<utility-change-language-component/>
+		</div>
+		<div
+			class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+			<div class="p-6 sm:p-8">
+				<h1
+					class="flex items-center justify-start text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+					{{ form.controls.businessName.getRawValue() }}
+				</h1>
+				<p class="mb-6 mt-1 text-sm leading-6 text-gray-600">
+					{{ 'identity.confirm-invitation.form.description' | translate }}
+				</p>
+				<form class="space-y-4 md:space-y-8 " action="#">
+					<div class="flex flex-col gap-6">
+						<form-input
+							id="email"
+							inputType="email"
+							autocomplete="email"
+							[control]="form.controls.email"
+							[placeholder]="'identity.sign-up.form.inputs.email.placeholder' | translate"
+							[label]="'identity.sign-up.form.inputs.email.label' | translate"/>
+
+						<form-input-password
+							id="password"
+							autocomplete="password"
+							[control]="form.controls.password"
+							[placeholder]="'identity.sign-up.form.inputs.password.placeholder' | translate"
+							[label]="'identity.sign-up.form.inputs.password.label' | translate"/>
+
+					</div>
+
+					<button (click)="submit()" type="button" primary [isLoading]="form.pending">
+						{{ 'keyword.capitalize.send' | translate }}
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>

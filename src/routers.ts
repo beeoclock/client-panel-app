@@ -30,7 +30,7 @@ export const routes: Routes = [
 			},
 			{
 				path: 'dashboard',
-				loadChildren: () => import('@utility/index')
+				loadChildren: () => import('@event/index')
 			},
 			{
 				path: 'member',

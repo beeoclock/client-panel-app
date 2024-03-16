@@ -13,7 +13,7 @@ type ResponseType = {
 @Injectable({
   providedIn: 'root'
 })
-export class RemoveEventApiAdapter extends BaseApiAdapter<ResponseType> {
+export class RemoveEventApiAdapter extends BaseApiAdapter<ResponseType, [string]> {
 
   /**
    * DELETE ITEM BY ID

@@ -26,7 +26,7 @@ export interface ICalendarState {
 }
 
 @State<ICalendarState>({
-	name: 'calendar',
+	name: 'calendarOfEvents',
 	defaults: {
 		calendarDataByType: {}, // key - week number, value - events
 		currentDate: DateTime.local().startOf(DEFAULT_PRESENTATION_CALENDAR_TYPE).toJSDate(),

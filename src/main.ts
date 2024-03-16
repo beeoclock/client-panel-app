@@ -23,7 +23,6 @@ import {Utility} from "@utility/index";
 import {initRuntimeEnvironment} from "@src/runtime.environment";
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {AppState} from "@utility/state/app/app.state";
-import {CacheState} from "@utility/state/cache/cache.state";
 import {NgxIndexedDBModule} from "ngx-indexed-db";
 import {provideEnvironmentNgxMask} from "ngx-mask";
 import {tokens} from "@src/token";
@@ -35,6 +34,7 @@ import '@angular/common/locales/global/uk';
 import {ClientState} from "@client/state/client/client.state";
 import {NgEventBus} from 'ng-event-bus';
 import {getMessaging, provideMessaging} from "@angular/fire/messaging";
+import {MemberState} from "@member/state/member/member.state";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -47,6 +47,15 @@ if (environment.production) {
 
 initRuntimeEnvironment();
 
+const ngxsProviders = [
+	NgxsModule.forRoot([IdentityState, AppState, ClientState, MemberState], {
+		developmentMode: !environment.production
+	}),
+	NgxsReduxDevtoolsPluginModule.forRoot({
+		disabled: environment.production
+	}),
+];
+
 bootstrapApplication(AppComponent, {
 	providers: [
 		...tokens,
@@ -57,13 +66,9 @@ bootstrapApplication(AppComponent, {
 				level: environment.production ? NgxLoggerLevel.OFF : NgxLoggerLevel.TRACE,
 				serverLogLevel: NgxLoggerLevel.OFF,
 			}),
-			NgxsModule.forRoot([IdentityState, AppState, CacheState, ClientState], {
-				developmentMode: !environment.production
-			}),
-			NgxsReduxDevtoolsPluginModule.forRoot({
-				disabled: environment.production
-			}),
-			NgxIndexedDBModule.forRoot(environment.config.database), IonicModule.forRoot({
+			...ngxsProviders,
+			NgxIndexedDBModule.forRoot(environment.config.database),
+			IonicModule.forRoot({
 				mode: 'ios',
 				animated: false
 			}),
@@ -84,7 +89,7 @@ bootstrapApplication(AppComponent, {
 			}),
 			TranslateModule.forRoot({
 				useDefaultLang: true,
-				defaultLanguage: LanguageCodeEnum.uk,
+				defaultLanguage: LanguageCodeEnum.en,
 				loader: {
 					provide: TranslateLoader,
 					useFactory: HttpLoaderFactory,

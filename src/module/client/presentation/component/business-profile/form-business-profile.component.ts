@@ -39,17 +39,17 @@ import {ServiceProvideTypeComponent} from "@utility/presentation/component/input
 
 			<form-input
 				id="business-profile-form-name-input"
-				type="text"
+				inputType="text"
 				autocomplete="name"
 				[placeholder]="'client.profile.form.inputs.name.placeholder' | translate"
 				[control]="form.controls.name"
 				[label]="'client.profile.form.inputs.name.label' | translate"/>
 
-			<form-textarea-component
-				id="business-profile-form-description-input"
-				[label]="'client.profile.form.inputs.description.label' | translate"
-				[placeholder]="'client.profile.form.inputs.description.placeholder' | translate"
-				[control]="form.controls.description"/>
+<!--			<form-textarea-component-->
+<!--				id="business-profile-form-description-input"-->
+<!--				[label]="'client.profile.form.inputs.description.label' | translate"-->
+<!--				[placeholder]="'client.profile.form.inputs.description.placeholder' | translate"-->
+<!--				[control]="form.controls.description"/>-->
 
 			<bee-business-category-select-component
 				id="business-profile-form-businessCategory-input"

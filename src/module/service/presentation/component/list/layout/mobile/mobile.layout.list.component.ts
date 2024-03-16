@@ -1,5 +1,5 @@
 import {Component, Input, QueryList, ViewChildren, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {AsyncPipe, NgClass, NgIf} from "@angular/common";
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
@@ -24,7 +24,8 @@ import {
 		NotFoundTableDataComponent,
 		TranslateModule,
 		FilterComponent,
-		AutoRefreshButtonComponent
+		AutoRefreshButtonComponent,
+		NgClass
 	]
 })
 export class MobileLayoutListComponent extends LayoutListComponent<IService> {

@@ -21,6 +21,6 @@ import {Component, Input} from '@angular/core';
 export class DefaultPanelComponent {
 
 	@Input()
-	public roundedBottom = true;
+	public roundedBottom = false;
 
 }

@@ -8,7 +8,7 @@ import {is} from "thiis";
 @Injectable({
   providedIn: 'root'
 })
-export class CreateServiceApiAdapter extends BaseApiAdapter<Service.IService> {
+export class CreateServiceApiAdapter extends BaseApiAdapter<Service.IService, [Service.IService]> {
 
   /**
    * SAVE NEW ITEM OR UPDATE ITEM BY ID
