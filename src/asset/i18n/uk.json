@@ -525,6 +525,9 @@
 				"description": "Це останній крок до вступу в організацію в яку тебе запросили"
 			}
 		},
+		"confirmInvitation": {
+			"success": "Вітаємо, тепер можете авторизуватись"
+		},
 		"corridor": {
 			"addBusiness": "Створити новий бізнес",
 			"selectBusiness": "Вибери бізнес контекст"
@@ -817,6 +820,7 @@
 			"status": "Статус",
 			"streetAddressLineOne": "Адреса 1",
 			"streetAddressLineTwo": "Адреса 2",
+			"successfully": "Успішно",
 			"theme": "Тема",
 			"thereArentAnyEvents": "Подій немає на {{ datetime }}",
 			"title": "Назва",

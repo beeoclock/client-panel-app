@@ -525,6 +525,9 @@
 				"description": "Dette er det sidste skridt til at blive medlem af den organisation, du er blevet inviteret til."
 			}
 		},
+		"confirmInvitation": {
+			"success": "Tillykke, du kan nu logge ind"
+		},
 		"corridor": {
 			"addBusiness": "Opret ny forretning",
 			"selectBusiness": "Vælg forretningskontekst"
@@ -817,6 +820,7 @@
 			"status": "Status",
 			"streetAddressLineOne": "Adresse 1",
 			"streetAddressLineTwo": "Adresse 2",
+			"successfully": "Med succes",
 			"theme": "Tema",
 			"thereArentAnyEvents": "Der er ingen begivenheder den {{ datetime }}",
 			"title": "Titel",

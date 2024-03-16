@@ -525,6 +525,9 @@
 				"description": "Jest to ostatni krok do dołączenia do organizacji, do której zostałeś zaproszony."
 			}
 		},
+		"confirmInvitation": {
+			"success": "Gratulacje, teraz możesz zalogować się"
+		},
 		"corridor": {
 			"addBusiness": "Utwórz nowy biznes",
 			"selectBusiness": "Wybierz kontekst biznesu"
@@ -817,6 +820,7 @@
 			"status": "Status",
 			"streetAddressLineOne": "Adres 1",
 			"streetAddressLineTwo": "Adres 2",
+			"successfully": "Pomyślnie",
 			"theme": "Motyw",
 			"thereArentAnyEvents": "Nie ma żadnych wydarzeń na {{ datetime }}",
 			"title": "Tytuł",
