@@ -10,6 +10,7 @@ import * as Member from "@member/domain";
 import {filter, take} from "rxjs";
 import {is} from "thiis";
 import {IService} from "@service/domain";
+import {ISpecialist} from '@src/module/service/domain/interface/i.specialist';
 
 @Injectable({
 	providedIn: 'root'
@@ -62,14 +63,13 @@ export class EventFormModalService extends Reactive {
 						eventFormContainerComponent.form.controls.services.patchValue(services.map((service) => {
 							return {
 								...service,
-								specialists: service.specialists.map((specialist) => {
-									return {
-										...specialist,
-										member
-									}
-								}),
+								specialists: [{
+									object: 'Specialist' as ISpecialist['object'],
+									member
+								}],
 							};
 						}));
+						console.log(eventFormContainerComponent.form.controls.services)
 					});
 				}
 

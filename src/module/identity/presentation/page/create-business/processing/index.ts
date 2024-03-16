@@ -41,7 +41,7 @@ import {CreateServiceApiAdapter} from "@service/adapter/external/api/create.serv
 import {
 	ModalSelectSpecialistListAdapter
 } from "@member/adapter/external/component/modal-select-specialist.list.adapter";
-import {IService, Service} from "@service/domain";
+import {IService} from "@service/domain";
 
 const enum Status {
 	Success = 'success',
@@ -271,11 +271,8 @@ export default class Index implements AfterViewInit {
 
 		}
 
-		const specialist = this.modalSelectSpecialistListAdapter.tableState.items[0];
-
 		const requestList$ = this.createBusinessQuery.getServicesForm()
 			.value?.map((service) => {
-				service.specialists = [Service.memberToSpecialist(specialist)];
 				return this.createServiceApiAdapter.executeAsync(service as IService);
 			});
 

@@ -79,6 +79,7 @@
 input[disabled] {
   pointer-events: none;
   cursor: not-allowed;
+	opacity: .5;
 }
 
 button[disabled] {
@@ -94,12 +95,6 @@ label[required]:after {
 
 .transform-origin-0-50 {
   transform-origin: 0 50%;
-}
-
-.disabled {
-  pointer-events: none;
-  cursor: not-allowed;
-  opacity: .5;
 }
 
 .ng-select {

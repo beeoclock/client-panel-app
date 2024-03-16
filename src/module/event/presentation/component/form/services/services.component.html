@@ -33,10 +33,9 @@
 				[service]="service"/>
 
 			<event-service-specialist-component
-				*ngFor="let specialist of service.specialists"
+				[forceSpecialists]="service.specialists"
 				[serviceListControl]="serviceListControl"
-				[index]="index"
-				[specialist]="specialist"/>
+				[index]="index"/>
 		</bee-card>
 
 	</ng-container>

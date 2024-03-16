@@ -7,7 +7,7 @@
 		class="flex flex-col items-center gap-1 p-2 rounded-2xl border-2 min-w-[100px] max-h-[100px] min-h-[100px]"
 		*ngFor="let member of (memberTableState$ | async)?.items ?? []"
 		(click)="changeMemberInSpecialist(member)"
-		[class.border-green-500]="member._id === specialist?.member?._id">
+		[class.border-green-500]="member._id === selectedSpecialist?.member?._id">
 
 		<img *ngIf="member?.avatar" class="min-w-[40px] min-h-[40px] max-w-[40px] max-h-[40px] rounded-full"
 				 src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=80">

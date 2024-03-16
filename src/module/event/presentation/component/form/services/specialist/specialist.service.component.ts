@@ -23,33 +23,38 @@ import {IService} from "@service/domain";
 })
 export class SpecialistServiceComponent {
 
-	@Input()
-	public specialist: ISpecialist | null = null;
-
 	@Input({required: true})
 	public serviceListControl!: FormControl<IService[]>;
 
 	@Input({required: true})
 	public index!: number;
 
+	@Input()
+	public forceSpecialists: ISpecialist[] = [];
+
 	@Select(MemberSelector.tableState)
 	public memberTableState$!: Observable<TableState<RIMember>>;
 
+	public get selectedSpecialist(): ISpecialist | undefined {
+		return this.serviceListControl.value[this.index].specialists[0];
+	}
+
 	public changeMemberInSpecialist(member: RIMember): void {
-		if (this.specialist) {
-			this.serviceListControl.setValue(this.serviceListControl.value.map((service, index) => {
-				if (this.index === index) {
-					return {
-						...service,
-						specialists: [{
-							...this.specialist,
-							member,
-						}]
-					};
-				}
-				return service;
-			}));
-		}
+		const services = this.serviceListControl.value.map((service, index) => {
+			if (this.index === index) {
+				return {
+					...service,
+					specialists: [{
+						object: 'Specialist' as ISpecialist['object'],
+						member
+					}],
+				};
+			}
+			return service;
+		});
+
+		this.serviceListControl.setValue(services);
+
 	}
 
 }

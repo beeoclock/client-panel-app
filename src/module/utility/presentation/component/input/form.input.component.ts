@@ -45,7 +45,6 @@ import {TranslateModule} from "@ngx-translate/core";
 			default
 			[step]="step"
 			[isRequiredEnabled]="showLabel"
-			[class.disabled]="disabled"
 			[formControl]="control"
 			[classList]="customClassList"
 			[additionalClassList]="additionalClassList"
@@ -86,9 +85,6 @@ export class FormInputComponent implements DoCheck {
 
 	@Input()
 	public autocomplete = '';
-
-	@Input()
-	public disabled = false;
 
 	@Input()
 	public step = 60; // In seconds
