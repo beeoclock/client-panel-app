@@ -530,10 +530,6 @@
 						"label": "Назва бізнесу",
 						"placeholder": "Салон вроди \"Bee O`clock\""
 					},
-					"businessOwnerFullName": {
-						"label": "Імʼя та прізвище",
-						"placeholder": "Іван Шевченко"
-					},
 					"name": {
 						"label": "Назва"
 					},
@@ -1016,5 +1012,9 @@
 			"tuesday": "Вт",
 			"wednesday": "Ср"
 		}
+	},
+	"example": {
+		"firstName": "Іван",
+		"lastName": "Шевченко"
 	}
 }

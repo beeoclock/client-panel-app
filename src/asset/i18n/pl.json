@@ -530,10 +530,6 @@
             "label": "Nazwa biznesu",
             "placeholder": "Beauty Salon \"Bee O`clock\""
           },
-          "businessOwnerFullName": {
-            "label": "Imię i nazwisko",
-            "placeholder": "Jan Kowalski"
-          },
           "name": {
             "label": "Nazwa"
           },
@@ -1016,5 +1012,9 @@
       "tuesday": "Wt",
       "wednesday": "Śr"
     }
-  }
+  },
+	"example": {
+		"firstName": "Jan",
+		"lastName": "Kowalski"
+	}
 }

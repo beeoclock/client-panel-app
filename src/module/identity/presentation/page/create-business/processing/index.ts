@@ -194,10 +194,15 @@ export default class Index implements AfterViewInit {
 			this.logger.debug('stepCreateBusiness');
 			const serviceProvideType = this.createBusinessQuery.getServiceProvideTypeControl().value;
 			const businessCategory = this.createBusinessQuery.getBusinessCategoryControl().value;
+			const businessOwner = this.createBusinessQuery.getBusinessOwnerForm().value;
 			const body: IBusinessClient = {
 				name: this.createBusinessQuery.getBusinessNameControl().value,
 				businessIndustry: this.createBusinessQuery.getBusinessIndustryControl().value,
 			};
+
+			if (businessOwner) {
+				body.businessOwner = businessOwner;
+			}
 
 			if (serviceProvideType) {
 				body.serviceProvideType = serviceProvideType;

@@ -24,8 +24,8 @@ export class CreateBusinessQuery {
 		return this.createBusinessFormRepository.form.controls.serviceProvideType;
 	}
 
-	public getBusinessOwnerFullNameControl() {
-		return this.createBusinessFormRepository.form.controls.businessOwnerFullName;
+	public getBusinessOwnerForm() {
+		return this.createBusinessFormRepository.form.controls.businessOwner;
 	}
 
 	public getAddressForm() {

@@ -530,10 +530,6 @@
 						"label": "Business Name",
 						"placeholder": "Salon Urody \"Bee O`clock\""
 					},
-					"businessOwnerFullName": {
-						"label": "Your Name",
-						"placeholder": "Jonh Smith"
-					},
 					"name": {
 						"label": "Name"
 					},
@@ -1016,5 +1012,9 @@
 			"tuesday": "Tue",
 			"wednesday": "Wed"
 		}
+	},
+	"example": {
+		"firstName": "John",
+		"lastName": "Smith"
 	}
 }
