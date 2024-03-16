@@ -1,5 +1,5 @@
 import {inject, Injectable} from "@angular/core";
-import {Action, NgxsOnInit, Selector, State, StateContext} from "@ngxs/store";
+import {Action, Selector, State, StateContext} from "@ngxs/store";
 import * as Member from "@member/domain";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {MemberActions} from "@member/state/member/member.actions";
@@ -24,7 +24,7 @@ const defaults = baseDefaults<Member.RIMember>({
 	defaults,
 })
 @Injectable()
-export class MemberState extends BaseState<Member.RIMember> implements NgxsOnInit {
+export class MemberState extends BaseState<Member.RIMember> {
 
 	protected override readonly archive = inject(ArchiveMemberApiAdapter);
 	protected override readonly create = inject(CreateMemberApiAdapter);
@@ -37,10 +37,6 @@ export class MemberState extends BaseState<Member.RIMember> implements NgxsOnIni
 		super(
 			defaults,
 		);
-	}
-
-	public ngxsOnInit(ctx: StateContext<IMemberState>): void {
-		ctx.dispatch(new MemberActions.GetList());
 	}
 
 	@Action(MemberActions.Init)
