@@ -520,6 +520,11 @@
 			},
 			"title": "Du har ikke en bekræftet e-mailadresse"
 		},
+		"confirm-invitation": {
+			"form": {
+				"description": "Dette er det sidste skridt til at blive medlem af den organisation, du er blevet inviteret til."
+			}
+		},
 		"corridor": {
 			"addBusiness": "Opret ny forretning",
 			"selectBusiness": "Vælg forretningskontekst"

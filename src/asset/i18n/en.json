@@ -520,6 +520,11 @@
 			},
 			"title": "You do not have a verified email address"
 		},
+		"confirm-invitation": {
+			"form": {
+				"description": "This is the last step to joining the organization to which you have been invited"
+			}
+		},
 		"corridor": {
 			"addBusiness": "Create new Business",
 			"selectBusiness": "Select Business context"

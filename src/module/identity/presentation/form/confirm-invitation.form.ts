@@ -6,7 +6,6 @@ interface IConfirmInvitationForm {
 	tenantId: FormControl<string>;
 	invitationCode: FormControl<string>;
 	password: FormControl<string>;
-	passwordConfirm: FormControl<string>;
 }
 
 export class ConfirmInvitationForm extends FormGroup<IConfirmInvitationForm> {
@@ -18,7 +17,6 @@ export class ConfirmInvitationForm extends FormGroup<IConfirmInvitationForm> {
 			invitationCode: new FormControl(),
 
 			password: new FormControl(),
-			passwordConfirm: new FormControl()
 		});
 		this.initValidation();
 	}
@@ -26,7 +24,7 @@ export class ConfirmInvitationForm extends FormGroup<IConfirmInvitationForm> {
 	private initValidation(): void {
 		this.controls.tenantId.setValidators([Validators.required]);
 		this.controls.invitationCode.setValidators([Validators.required]);
-		this.controls.password.setValidators([Validators.required]);
+		this.controls.password.setValidators([Validators.required, Validators.minLength(6)]);
 	}
 
 }

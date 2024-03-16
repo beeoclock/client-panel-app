@@ -3,7 +3,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {FirstKeyNameModule} from '@utility/presentation/pipes/first-key-name/first-key-name.module';
-import {Router, RouterLink} from '@angular/router';
+import {RouterLink} from '@angular/router';
 import RegistrationForm from '@identity/presentation/form/registration.form';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {HasErrorDirective} from '@utility/presentation/directives/has-error/has-error.directive';
@@ -67,13 +67,6 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 				[control]="form.controls.password"
 				[label]="'identity.sign-up.form.inputs.password.label' | translate"/>
 
-			<form-input-password
-				id="passwordConfirm"
-				autocomplete="passwordConfirm"
-				[placeholder]="'identity.sign-up.form.inputs.password-confirm.placeholder' | translate"
-				[control]="form.controls.passwordConfirm"
-				[label]="'identity.sign-up.form.inputs.password-confirm.label' | translate"/>
-
 			<div>
 				<button (click)="signUp()" type="submit" primary [isLoading]="form.pending">
 					{{ 'keyword.capitalize.signUp' | translate }}
@@ -106,7 +99,6 @@ export class SignUpComponent {
 	public readonly identityApiAdapter = inject(IdentityApiAdapter);
 
 	public readonly form = new RegistrationForm();
-	private readonly router = inject(Router);
 	public readonly signUpAfterSuccess = new BooleanState(false);
 	public emailUrl = new URL('https://beeoclock.com');
 

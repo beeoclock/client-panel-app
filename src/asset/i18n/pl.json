@@ -520,6 +520,11 @@
 			},
 			"title": "Nie masz zweryfikowanego adresu e-mail"
 		},
+		"confirm-invitation": {
+			"form": {
+				"description": "Jest to ostatni krok do dołączenia do organizacji, do której zostałeś zaproszony."
+			}
+		},
 		"corridor": {
 			"addBusiness": "Utwórz nowy biznes",
 			"selectBusiness": "Wybierz kontekst biznesu"
