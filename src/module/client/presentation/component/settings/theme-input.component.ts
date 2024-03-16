@@ -1,9 +1,12 @@
-import {Component, inject} from "@angular/core";
+import {Component, inject, OnInit} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateModule} from "@ngx-translate/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {ThemeService} from "@utility/cdk/theme.service";
+import {
+	ThemeBusinessPanelFrontendSettingsAccountApiAdapter
+} from "@module/account/adapter/external/api/theme.business-panel.frontend-settings.account.api.adapter";
 
 @Component({
 	selector: 'client-settings-theme-input-component',
@@ -32,20 +35,23 @@ import {ThemeService} from "@utility/cdk/theme.service";
 		</ng-select>
 	`
 })
-export class ThemeInputComponent {
+export class ThemeInputComponent implements OnInit {
 
 	public readonly control = new FormControl();
-	public readonly translateService = inject(TranslateService);
 	public readonly themeService = inject(ThemeService);
+	public readonly themeBusinessPanelFrontendSettingsAccountApiAdapter = inject(ThemeBusinessPanelFrontendSettingsAccountApiAdapter);
 
 	public readonly themes = this.themeService.themes;
 	public readonly baseTranslationKey = 'enum.theme.';
 
-	constructor() {
+	public ngOnInit() {
+
 		this.control.setValue(this.themeService.theme);
 		this.control.valueChanges.subscribe((theme) => {
 			this.themeService.toggleTheme(theme);
+			this.themeBusinessPanelFrontendSettingsAccountApiAdapter.executeAsync(theme);
 		});
+
 	}
 
 }

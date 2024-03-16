@@ -8,7 +8,7 @@ import {businessProfileEndpointEnum} from "@client/endpoint/business-profile.end
 @Injectable({
 	providedIn: 'root'
 })
-export class UpdateBusinessProfileApiAdapter extends BaseApiAdapter<Client.RIClient> {
+export class UpdateBusinessProfileApiAdapter extends BaseApiAdapter<Client.RIClient, [Client.IClient]> {
 
 	// private readonly weekDayTimeZoneHelper = inject(WeekDayTimeZoneHelper);
 

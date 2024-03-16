@@ -10,7 +10,7 @@ import {TokensHttpContext} from "@src/tokens.http-context";
 @Injectable({
   providedIn: 'root'
 })
-export class UpdateServiceApiAdapter extends BaseApiAdapter<Service.IService> {
+export class UpdateServiceApiAdapter extends BaseApiAdapter<Service.IService, [Service.IService]> {
 
   /**
    * SAVE NEW ITEM OR UPDATE ITEM BY ID

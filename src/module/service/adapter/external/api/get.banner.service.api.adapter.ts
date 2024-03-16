@@ -8,7 +8,7 @@ import {TokensHttpContext} from "@src/tokens.http-context";
 @Injectable({
   providedIn: 'root'
 })
-export class GetBannerServiceApiAdapter extends BaseApiAdapter<IListMediaBanner> {
+export class GetBannerServiceApiAdapter extends BaseApiAdapter<IListMediaBanner, [string]> {
 
 
   /**

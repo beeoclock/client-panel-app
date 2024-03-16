@@ -8,7 +8,7 @@ import {clientEndpointEnum} from "@client/endpoint/client.endpoint";
 @Injectable({
 	providedIn: 'root'
 })
-export class UpdateClientApiAdapter extends BaseApiAdapter<Client.RIClient> {
+export class UpdateClientApiAdapter extends BaseApiAdapter<Client.RIClient, [Client.IClient]> {
 
 	/**
 	 * SAVE NEW ITEM OR UPDATE ITEM BY ID

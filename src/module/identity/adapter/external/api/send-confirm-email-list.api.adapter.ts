@@ -4,19 +4,21 @@ import {identityEndpointEnum} from "@identity/endpoint/identity.endpoint";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "thiis";
 
+type TBody = {
+	email: string
+};
+
 @Injectable({
   providedIn: 'root'
 })
-export class SendConfirmEmailListApiAdapter extends BaseApiAdapter<unknown> {
+export class SendConfirmEmailListApiAdapter extends BaseApiAdapter<unknown, [TBody]> {
 
   /**
    *
    * @param body
    */
 	@TypeGuard([is.object])
-  public override execute$(body: {
-    email: string
-  }) {
+  public override execute$(body: TBody) {
     return this.httpClient.post<unknown>(identityEndpointEnum.confirmEmail, body);
   }
 

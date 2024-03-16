@@ -9,7 +9,7 @@ import {is} from "thiis";
 @Injectable({
 	providedIn: 'root'
 })
-export class ListServiceApiAdapter extends BaseApiAdapter<ResponseListType<Service.IService>> {
+export class ListServiceApiAdapter extends BaseApiAdapter<ResponseListType<Service.IService>, [TableState_BackendFormat]> {
 
 
 	/**

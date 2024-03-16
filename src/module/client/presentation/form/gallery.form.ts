@@ -1,12 +1,12 @@
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs";
-import {ImageSizeValidation} from "@client/presentation/form/validation/image.size.validation";
+import {ImageSizeByFileValidation} from "@client/presentation/form/validation/imageSizeByBase64Validation";
 
 // Define the structure of the gallery form interface
 export interface IGalleryForm {
 	object: FormControl<'Gallery'>;
-	images: FormArray<FormControl<string>>;
+	images: FormArray<FormControl<File>>;
 }
 
 export const GALLERY_IMAGES_LIMIT = 6;
@@ -38,7 +38,7 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 		const data = super.getRawValue();
 		return {
 			object: data.object,
-			images: data.images.filter((image: string) => image?.length),
+			images: data.images.filter((image: File) => (image?.size ?? 0) > 0),
 		};
 	}
 
@@ -92,7 +92,7 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 
 	}
 
-	public pushImage(initialValue?: string): FormControl<string> {
+	public pushImage(initialValue?: File): FormControl<File> {
 
 		const lastImageControl = this.controls.images.controls.at(-1);
 
@@ -110,9 +110,9 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 
 	}
 
-	public static getNewControlWithValidation(): FormControl<string> {
+	public static getNewControlWithValidation(): FormControl<File> {
 		const control = new FormControl();
-		control.setValidators([ImageSizeValidation()]);
+		control.setValidators([ImageSizeByFileValidation()]);
 		return control;
 	}
 

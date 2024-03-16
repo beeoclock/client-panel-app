@@ -72,20 +72,10 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 
 				this.gallery = changes.gallery.currentValue.filter((item: RIMedia | null) => item);
 
-				this.gallery.forEach((media: RIMedia, index: number) => {
+				this.fillFormByGallery().then(() => {
 
-					const control = this.form.controls.images.controls[index];
-					if (control) {
-						control.patchValue(media.url);
-					} else {
-						this.form.pushImage(media.url);
-					}
-
-				});
-
-				// TODO: Find way to delete the timeout
-				setTimeout(() => {
 					this.changeDetectorRef.detectChanges();
+
 				});
 
 			}
@@ -141,5 +131,28 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 			this.gallery = this.gallery.filter((item, itemIndex) => itemIndex !== index);
 		}
 		this.form.removeImage(index);
+	}
+
+	private async fillFormByGallery() {
+		for (const media of this.gallery) {
+			const index: number = this.gallery.indexOf(media);
+
+			const mediaFile = await this.getFileByHttp(media);
+
+			const control = this.form.controls.images.controls[index];
+			if (control) {
+				control.patchValue(mediaFile);
+			} else {
+				this.form.pushImage(mediaFile);
+			}
+
+			this.changeDetectorRef.detectChanges();
+
+		}
+	}
+
+	private async getFileByHttp(media: RIMedia): Promise<File> {
+		const response = await fetch(media.url);
+		return new File([await response.blob()], media.url, {type: media.mediaType});
 	}
 }

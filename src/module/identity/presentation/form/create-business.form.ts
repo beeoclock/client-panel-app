@@ -23,7 +23,7 @@ interface IBusinessClientForm {
 
 export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 
-	public currentLanguage = LanguageCodeEnum.uk;
+	public currentLanguage = LanguageCodeEnum.en;
 
 	constructor() {
 		super({

@@ -8,7 +8,7 @@ import {TokensHttpContext} from "@src/tokens.http-context";
 @Injectable({
   providedIn: 'root'
 })
-export class ItemEventApiAdapter extends BaseApiAdapter<Event.RIEvent> {
+export class ItemEventApiAdapter extends BaseApiAdapter<Event.RIEvent, [string]> {
 
 
   /**

@@ -89,7 +89,7 @@ bootstrapApplication(AppComponent, {
 			}),
 			TranslateModule.forRoot({
 				useDefaultLang: true,
-				defaultLanguage: LanguageCodeEnum.uk,
+				defaultLanguage: LanguageCodeEnum.en,
 				loader: {
 					provide: TranslateLoader,
 					useFactory: HttpLoaderFactory,

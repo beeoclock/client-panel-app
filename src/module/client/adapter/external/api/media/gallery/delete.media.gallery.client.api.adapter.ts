@@ -9,7 +9,7 @@ import {TokensHttpContext} from "@src/tokens.http-context";
 @Injectable({
 	providedIn: 'root'
 })
-export class DeleteMediaGalleryClientApiAdapter extends BaseApiAdapter<unknown> {
+export class DeleteMediaGalleryClientApiAdapter extends BaseApiAdapter<unknown, [string]> {
 
 	@TypeGuard([is.string])
 	public override execute$(id: string) {

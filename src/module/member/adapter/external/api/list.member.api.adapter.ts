@@ -14,7 +14,7 @@ type ResponseType = {
 @Injectable({
 	providedIn: 'root'
 })
-export class ListMemberApiAdapter extends BaseApiAdapter<ResponseType> {
+export class ListMemberApiAdapter extends BaseApiAdapter<ResponseType, [TableState_BackendFormat]> {
 
 
 	/**

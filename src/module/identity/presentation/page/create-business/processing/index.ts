@@ -41,7 +41,7 @@ import {CreateServiceApiAdapter} from "@service/adapter/external/api/create.serv
 import {
 	ModalSelectSpecialistListAdapter
 } from "@member/adapter/external/component/modal-select-specialist.list.adapter";
-import {Service} from "@service/domain";
+import {IService, Service} from "@service/domain";
 
 const enum Status {
 	Success = 'success',
@@ -242,9 +242,11 @@ export default class Index implements AfterViewInit {
 	private async stepAddGallery(): Promise<void> {
 
 		const requestList$ = this.createBusinessQuery.getGalleryForm().value.images
-			?.filter((media) => media?.length)
+			?.filter((media) => (media?.size ?? 0) > 0)
 			.map((media) => {
-				return this.patchMediaGalleryClientApiAdapter.executeAsync({media});
+				const formData = new FormData();
+				formData.append('file', media);
+				return this.patchMediaGalleryClientApiAdapter.executeAsync(formData);
 			});
 
 		if (!requestList$) {
@@ -269,7 +271,7 @@ export default class Index implements AfterViewInit {
 		const requestList$ = this.createBusinessQuery.getServicesForm()
 			.value?.map((service) => {
 				service.specialists = [Service.memberToSpecialist(specialist)];
-				return this.createServiceApiAdapter.executeAsync(service);
+				return this.createServiceApiAdapter.executeAsync(service as IService);
 			});
 
 		if (!requestList$) {

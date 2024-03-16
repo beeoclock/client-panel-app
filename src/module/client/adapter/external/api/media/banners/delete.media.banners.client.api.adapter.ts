@@ -9,7 +9,7 @@ import {TokensHttpContext} from "@src/tokens.http-context";
 @Injectable({
 	providedIn: 'root'
 })
-export class DeleteMediaBannersClientApiAdapter extends BaseApiAdapter<unknown> {
+export class DeleteMediaBannersClientApiAdapter extends BaseApiAdapter<unknown, [string]> {
 
 	/**
 	 *

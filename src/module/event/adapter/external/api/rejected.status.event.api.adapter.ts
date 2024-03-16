@@ -10,7 +10,7 @@ import {TokensHttpContext} from "@src/tokens.http-context";
 @Injectable({
   providedIn: 'root'
 })
-export class RejectedStatusEventApiAdapter extends BaseApiAdapter<IEvent> {
+export class RejectedStatusEventApiAdapter extends BaseApiAdapter<IEvent, [string]> {
 
   /**
    * ARCHIVE ITEM BY ID

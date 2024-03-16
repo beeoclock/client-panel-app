@@ -6,7 +6,7 @@ import {IConfirmInvitation} from "@identity/domain/interface/i.confirm-invitatio
 @Injectable({
 	providedIn: 'root'
 })
-export class ConfirmInvitationApiAdapter extends BaseApiAdapter<unknown> {
+export class ConfirmInvitationApiAdapter extends BaseApiAdapter<unknown, [IConfirmInvitation]> {
 	override execute$(body: IConfirmInvitation) {
 		return this.httpClient.post(identityEndpointEnum.confirmInvitation, body);
 	}

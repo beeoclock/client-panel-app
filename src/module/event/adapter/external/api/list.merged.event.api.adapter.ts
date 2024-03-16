@@ -9,7 +9,7 @@ import {TableState_BackendFormat} from "@utility/domain/table.state";
 @Injectable({
 	providedIn: 'root'
 })
-export class ListMergedEventApiAdapter extends BaseApiAdapter<ResponseListType<Event.RIEvent>> {
+export class ListMergedEventApiAdapter<PARAMS = TableState_BackendFormat> extends BaseApiAdapter<ResponseListType<Event.RIEvent>, [PARAMS]> {
 
 
 	/**
@@ -17,7 +17,7 @@ export class ListMergedEventApiAdapter extends BaseApiAdapter<ResponseListType<E
 	 * @param params
 	 */
 	@TypeGuard([is.object_not_empty])
-	public override execute$(params: TableState_BackendFormat) {
+	public override execute$(params: PARAMS) {
 		return this.httpClient.get<ResponseListType<Event.RIEvent>>(eventEndpointEnum.mergedPaged, {
 			params: params as never,
 		});
