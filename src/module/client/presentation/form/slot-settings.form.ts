@@ -15,7 +15,9 @@ export class SlotSettingsForm extends FormGroup<ISlotSettingsForm> {
 
 	constructor() {
 		super({
-			object: new FormControl(),
+			object: new FormControl('SlotSettings', {
+				nonNullable: true,
+			}),
 			slotIntervalInSeconds: new FormControl(),
 			slotBuildingStrategy: new FormControl(),
 			slotRetrievingStrategy: new FormControl(),
@@ -27,7 +29,6 @@ export class SlotSettingsForm extends FormGroup<ISlotSettingsForm> {
 	}
 
 	private initValue(): void {
-		this.controls.object.setValue('SlotSettings');
 		this.controls.slotBuildingStrategy.setValue(SlotBuildingStrategyEnum.ByService);
 		this.controls.slotIntervalInSeconds.setValue(0);
 	}

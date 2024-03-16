@@ -17,12 +17,13 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 
 	constructor() {
 		super({
-			object: new FormControl(),
+			object: new FormControl('Gallery', {
+				nonNullable: true,
+			}),
 			images: new FormArray([GalleryForm.getNewControlWithValidation()]),
 		});
 
 		// Initialize default values and handlers
-		this.initValue();
 		this.initHandlerForLastImage();
 	}
 
@@ -40,11 +41,6 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 			object: data.object,
 			images: data.images.filter((image: File) => (image?.size ?? 0) > 0),
 		};
-	}
-
-	// Set initial value for the 'object' control
-	private initValue(): void {
-		this.controls.object.setValue('Gallery');
 	}
 
 	// Initialize the handler for the last image control

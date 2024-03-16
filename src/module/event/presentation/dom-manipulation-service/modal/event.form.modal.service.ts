@@ -69,7 +69,6 @@ export class EventFormModalService extends Reactive {
 								}],
 							};
 						}));
-						console.log(eventFormContainerComponent.form.controls.services)
 					});
 				}
 

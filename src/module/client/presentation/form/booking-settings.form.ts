@@ -19,7 +19,9 @@ export class BookingSettingsForm extends FormGroup<IBookingSettingsForm> {
 
 	constructor() {
 		super({
-			object: new FormControl(),
+			object: new FormControl('BookingSettings', {
+				nonNullable: true,
+			}),
 			autoActionOnEventInSeconds: new FormControl(),
 			automaticApprovalType: new FormControl(),
 			latestBooking: new FormControl(),
@@ -33,7 +35,6 @@ export class BookingSettingsForm extends FormGroup<IBookingSettingsForm> {
 	}
 
 	private initValue(): void {
-		this.controls.object.setValue('BookingSettings');
 		this.controls.earliestBooking.setValue(EarliestBookingEnum.ONE_DAY);
 		this.controls.latestBooking.setValue(LatestBookingEnum.TWO_WEEKS);
 		this.controls.autoActionOnEventInSeconds.setValue(AutoActionOnEventInSecondsEnum.ONE_HOUR);

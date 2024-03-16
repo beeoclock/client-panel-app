@@ -13,7 +13,9 @@ export class ContactForm extends FormGroup<IContactForm> {
 
 	constructor() {
 		super({
-			object: new FormControl(),
+			object: new FormControl('Contact', {
+				nonNullable: true,
+			}),
 			countryCode: new FormControl(),
 			phoneNumber: new FormControl(),
 		});
@@ -24,7 +26,6 @@ export class ContactForm extends FormGroup<IContactForm> {
 	}
 
 	private initValue(): void {
-		this.controls.object.setValue('Contact');
 		this.controls.countryCode.setValue(CellCountryPrefixEnum.Ukraine);
 	}
 
@@ -43,7 +44,7 @@ export class ContactsForm extends FormArray<ContactForm> {
 	public pushNewOne(initialValue?: IContact): void {
 		const control = new ContactForm();
 		if (initialValue) {
-			control.setValue(initialValue);
+			control.patchValue(initialValue);
 		}
 		this.push(control);
 	}

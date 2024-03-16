@@ -50,7 +50,6 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 		super({
 			addressForm: new AddressForm({
 				initValidation: false,
-				initValue: true,
 			}),
 			schedules: new SchedulesForm(),
 			gallery: new GalleryForm(),
