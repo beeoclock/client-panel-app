@@ -213,6 +213,9 @@
 				}
 			},
 			"form": {
+				"autoBookEvent": {
+					"label": "Allow a customer to book an event immediately with a confirmed status"
+				},
 				"inputs": {
 					"darkMode": {
 						"label": "Dark mode"

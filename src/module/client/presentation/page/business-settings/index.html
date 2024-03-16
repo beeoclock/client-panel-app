@@ -8,6 +8,8 @@
 		<client-business-profile-booking-settings-component
 			[form]="form.controls.bookingSettings"/>
 
+		<client-auto-book-event [control]="form.controls.bookingSettings.controls.autoBookEvent"/>
+
 		<client-container-business-settings-component
 			[businessSettings]="form.controls.businessSettings"/>
 

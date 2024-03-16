@@ -27,6 +27,9 @@ import {DangerZoneComponent} from "@client/presentation/component/danger-zone/da
 import {
 	ContainerBusinessSettingsComponent
 } from "@client/presentation/component/business-settings/container.business-settings.component";
+import {
+	AutoBookEventComponent
+} from "@client/presentation/component/business-settings/auto-book-event/auto-book-event.component";
 
 @Component({
 	selector: 'client-business-settings-page',
@@ -42,7 +45,8 @@ import {
 		TranslateModule,
 		ServiceSettingsComponent,
 		DangerZoneComponent,
-		ContainerBusinessSettingsComponent
+		ContainerBusinessSettingsComponent,
+		AutoBookEventComponent
 	],
 	standalone: true
 })
