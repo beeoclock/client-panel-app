@@ -9,4 +9,5 @@ export interface IBookingSettings {
 	latestBooking: LatestBookingEnum; // in seconds (Minimum notice time)
 	earliestBooking: EarliestBookingEnum; // in seconds (When an event can be booked)
 	slotSettings: ISlotSettings;
+	autoBookEvent?: boolean;
 }
