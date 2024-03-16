@@ -1,9 +1,11 @@
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {LanguageCodeEnum} from "@utility/domain/enum";
 
 export interface IBusinessSettingsForm {
-
 	object: FormControl<'BusinessSettings'>;
 	timeZone: FormControl<string>;
+	availableLanguages: FormControl<LanguageCodeEnum[]>;
+	emailLanguage: FormControl<LanguageCodeEnum>;
 	timeZoneOffsetInMinutes: FormControl<number>;
 }
 
@@ -11,24 +13,31 @@ export class BusinessSettingsForm extends FormGroup<IBusinessSettingsForm> {
 
 	constructor() {
 		super({
-			object: new FormControl(),
-			timeZone: new FormControl(),
-			timeZoneOffsetInMinutes: new FormControl(),
+			object: new FormControl('BusinessSettings', {
+				nonNullable: true,
+			}),
+			timeZone: new FormControl(Intl.DateTimeFormat().resolvedOptions().timeZone, {
+				nonNullable: true,
+			}),
+			availableLanguages: new FormControl([LanguageCodeEnum.en], {
+				nonNullable: true,
+			}),
+			emailLanguage: new FormControl(LanguageCodeEnum.en, {
+				nonNullable: true,
+			}),
+			timeZoneOffsetInMinutes: new FormControl(new Date().getTimezoneOffset(), {
+				nonNullable: true,
+			}),
 		});
 
-		this.initValue();
 		this.initValidators();
 
 	}
 
-	private initValue(): void {
-		this.controls.object.setValue('BusinessSettings');
-		this.controls.timeZone.patchValue(Intl.DateTimeFormat().resolvedOptions().timeZone);
-		this.controls.timeZoneOffsetInMinutes.setValue(new Date().getTimezoneOffset());
-	}
-
 	private initValidators(): void {
 		this.controls.timeZone.setValidators(Validators.required);
+		this.controls.availableLanguages.setValidators(Validators.required);
+		this.controls.emailLanguage.setValidators(Validators.required);
 		this.controls.timeZoneOffsetInMinutes.setValidators([
 			Validators.required,
 			Validators.min(-720),

@@ -9,7 +9,7 @@ import {ThemeEnum} from "@utility/cdk/theme.service";
 export class ThemeBusinessPanelFrontendSettingsAccountApiAdapter extends BaseApiAdapter<object, [ThemeEnum]> {
 
 	public override execute$(theme: ThemeEnum) {
-		return this.httpClient.patch(accountEndpointEnum.accountFrontendSettingsBusinessPanelTheme, {
+		return this.httpClient.put(accountEndpointEnum.accountFrontendSettingsBusinessPanelTheme, {
 			theme
 		});
 	}

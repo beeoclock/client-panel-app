@@ -1,4 +1,24 @@
 {
+	"client": {
+		"profile": {
+			"form": {
+				"section": {
+					"businessSettings": {
+						"select": {
+							"availableLanguages": {
+								"hint": "Wybierz języki, w których prowadzisz działalność, być może prowadzisz działalność nie tylko dla mieszkańców, ale także dla turystów. Wybór ten określi dostępną listę języków dla wiadomości e-mail",
+								"label": "Języki, w których prowadzisz działalność"
+							},
+							"emailLanguage": {
+								"hint": "Wybierz język, w którym chcesz otrzymywać wiadomości e-mail, dostępne opcje zależą od języków, w których prowadzisz działalność.",
+								"label": "Język wiadomości e-mail"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
 	"customer": {
 		"details": {
 			"title": "Dane klienta"

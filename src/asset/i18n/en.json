@@ -137,6 +137,18 @@
 							}
 						}
 					},
+					"businessSettings": {
+						"select": {
+							"availableLanguages": {
+								"hint": "Choose the languages in which you do business, maybe you do business not only for locals but also for tourists. This choice will determine the available list of languages for emails",
+								"label": "Languages in which you do business"
+							},
+							"emailLanguage": {
+								"hint": "Select the language in which you want to receive emails, the available options depend on the languages you do business in",
+								"label": "The language of emails"
+							}
+						}
+					},
 					"coverImage": {
 						"fileover": "Put your files here",
 						"motivate": "You can inject a little more personality into your profile and help people recognize your work by uploading a \n image (an image, photo or other graphic icon of your business).",
