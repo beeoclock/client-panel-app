@@ -358,6 +358,10 @@
 			"multipleEventAtSameTime": "Mere end en begivenhed på dette tidspunkt."
 		}
 	},
+	"example": {
+		"firstName": "John",
+		"lastName": "Smith"
+	},
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "Mindst et felt skal udfyldes",
@@ -1012,9 +1016,5 @@
 			"tuesday": "Tir",
 			"wednesday": "Ons"
 		}
-	},
-	"example": {
-		"firstName": "John",
-		"lastName": "Smith"
 	}
 }

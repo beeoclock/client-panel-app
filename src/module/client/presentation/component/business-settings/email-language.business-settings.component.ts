@@ -51,15 +51,20 @@ export class EmailLanguageBusinessSettingsComponent implements OnInit {
 	public languageList = LANGUAGES;
 
 	public ngOnInit() {
+		this.updateLanguageList(this.availableLanguagesControl.value);
 		this.availableLanguagesControl.valueChanges.subscribe((languageCodeList) => {
-			this.languageList = LANGUAGES.filter((language) => {
-				return languageCodeList.includes(language.code);
-			});
+			this.updateLanguageList(languageCodeList);
 
 			if (!languageCodeList.includes(this.control.value)) {
 				this.control.setValue(languageCodeList[0]);
 			}
 
+		});
+	}
+
+	public updateLanguageList(languageCodeList: LanguageCodeEnum[]) {
+		this.languageList = LANGUAGES.filter((language) => {
+			return languageCodeList.includes(language.code);
 		});
 	}
 

@@ -1,7 +1,7 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {AsyncPipe, NgIf} from '@angular/common';
-import {Observable} from 'rxjs';
+import {firstValueFrom, Observable} from 'rxjs';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
@@ -45,9 +45,12 @@ export default class Index {
   public readonly item$!: Observable<RIMember>;
 
   public readonly store = inject(Store);
+  public readonly router = inject(Router);
 
   public delete(id: string): void {
-    this.store.dispatch(new MemberActions.DeleteItem(id));
+    firstValueFrom(this.store.dispatch(new MemberActions.DeleteItem(id))).then(() => {
+			this.router.navigate(['/', 'member', 'list']);
+		});
   }
 
 }

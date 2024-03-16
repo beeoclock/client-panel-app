@@ -358,6 +358,10 @@
 			"multipleEventAtSameTime": "More than one event at this time."
 		}
 	},
+	"example": {
+		"firstName": "John",
+		"lastName": "Smith"
+	},
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "At least one field must be filled",
@@ -1012,9 +1016,5 @@
 			"tuesday": "Tue",
 			"wednesday": "Wed"
 		}
-	},
-	"example": {
-		"firstName": "John",
-		"lastName": "Smith"
 	}
 }

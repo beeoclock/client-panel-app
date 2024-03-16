@@ -9,12 +9,14 @@ import {UpdateMemberApiAdapter} from "@member/adapter/external/api/update.member
 import {ItemMemberApiAdapter} from "@member/adapter/external/api/item.member.api.adapter";
 import {RemoveMemberApiAdapter} from "@member/adapter/external/api/remove.member.api.adapter";
 import {ListMemberApiAdapter} from "@member/adapter/external/api/list.member.api.adapter";
-import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {ActiveEnum, OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 
 export type IMemberState = IBaseState<Member.RIMember>;
 
 const defaults = baseDefaults<Member.RIMember>({
-	filters: {},
+	filters: {
+		active: ActiveEnum.YES
+	},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
 });

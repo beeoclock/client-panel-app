@@ -358,6 +358,10 @@
 			"multipleEventAtSameTime": "Більше ніж одна подія на цей час."
 		}
 	},
+	"example": {
+		"firstName": "Іван",
+		"lastName": "Шевченко"
+	},
 	"form": {
 		"validation": {
 			"atLeastOneFieldMustBeFilled": "Хоча б одне поле має бути заповнене",
@@ -1012,9 +1016,5 @@
 			"tuesday": "Вт",
 			"wednesday": "Ср"
 		}
-	},
-	"example": {
-		"firstName": "Іван",
-		"lastName": "Шевченко"
 	}
 }
