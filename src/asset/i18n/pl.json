@@ -213,6 +213,9 @@
 				}
 			},
 			"form": {
+				"autoBookEvent": {
+					"label": "Umożliwienie klientowi natychmiastowej rezerwacji wydarzenia z potwierdzonym statusem"
+				},
 				"inputs": {
 					"darkMode": {
 						"label": "Tryb ciemny"

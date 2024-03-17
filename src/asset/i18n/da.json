@@ -213,6 +213,9 @@
 				}
 			},
 			"form": {
+				"autoBookEvent": {
+					"label": "Tillad en kunde at booke en begivenhed med det samme med en bekræftet status"
+				},
 				"inputs": {
 					"darkMode": {
 						"label": "Mørk tilstand"

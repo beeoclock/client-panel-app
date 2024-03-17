@@ -13,6 +13,7 @@ export interface IBookingSettingsForm {
 	latestBooking: FormControl<LatestBookingEnum>;
 	earliestBooking: FormControl<EarliestBookingEnum>;
 	slotSettings: SlotSettingsForm;
+	autoBookEvent: FormControl<boolean>;
 }
 
 export class BookingSettingsForm extends FormGroup<IBookingSettingsForm> {
@@ -26,6 +27,9 @@ export class BookingSettingsForm extends FormGroup<IBookingSettingsForm> {
 			automaticApprovalType: new FormControl(),
 			latestBooking: new FormControl(),
 			earliestBooking: new FormControl(),
+			autoBookEvent: new FormControl(false, {
+				nonNullable: true,
+			}),
 			slotSettings: new SlotSettingsForm(),
 		});
 
