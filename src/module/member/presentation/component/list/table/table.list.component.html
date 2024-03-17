@@ -11,9 +11,9 @@
 		<div tableColumnFlex="email">
 			{{ 'keyword.capitalize.email' | translate }}
 		</div>
-		<div tableColumnFlex="phone">
-			{{ 'keyword.capitalize.phone' | translate }}
-		</div>
+<!--		<div tableColumnFlex="phone">-->
+<!--			{{ 'keyword.capitalize.phone' | translate }}-->
+<!--		</div>-->
 		<div tableColumnFlex="role">
 			{{ 'keyword.capitalize.role' | translate }}
 		</div>
@@ -48,11 +48,11 @@
 			<div tableColumnFlex="email">
 				<a [title]="item.email"  class="truncate" href="mailto:{{ item.email }}">{{ item.email }}</a>
 			</div>
-			<div tableColumnFlex="phone" #phoneColumn [attr.data-value]="item.phone">
-				<span [title]="phoneColumn.getAttribute('data-value')" class="truncate">
-					{{ phoneColumn.getAttribute('data-value') }}
-				</span>
-			</div>
+<!--			<div tableColumnFlex="phone" #phoneColumn [attr.data-value]="item.phone">-->
+<!--				<span [title]="phoneColumn.getAttribute('data-value')" class="truncate">-->
+<!--					{{ phoneColumn.getAttribute('data-value') }}-->
+<!--				</span>-->
+<!--			</div>-->
 			<div tableColumnFlex="role" #roleColumn [attr.data-value]="'role.' + item.role | translate">
 				<span [title]="roleColumn.getAttribute('data-value')" class="truncate">
 					{{ roleColumn.getAttribute('data-value') }}
