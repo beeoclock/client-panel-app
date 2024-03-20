@@ -23,7 +23,6 @@ import {Utility} from "@utility/index";
 import {initRuntimeEnvironment} from "@src/runtime.environment";
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {AppState} from "@utility/state/app/app.state";
-import {NgxIndexedDBModule} from "ngx-indexed-db";
 import {provideEnvironmentNgxMask} from "ngx-mask";
 import {tokens} from "@src/token";
 import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
@@ -67,7 +66,6 @@ bootstrapApplication(AppComponent, {
 				serverLogLevel: NgxLoggerLevel.OFF,
 			}),
 			...ngxsProviders,
-			NgxIndexedDBModule.forRoot(environment.config.database),
 			IonicModule.forRoot({
 				mode: 'ios',
 				animated: false
