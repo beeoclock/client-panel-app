@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from "@angular/core";
 import {EventRequestedState} from "@event/state/event-requested/event-requested.state";
 import {Store} from "@ngxs/store";
 import {MEvent, RIEvent} from "@src/module/event/domain";
@@ -30,6 +30,7 @@ import {FilterComponent} from "@event/presentation/component/filter/requested-fi
 	selector: 'event-list-of-card-collection-by-date-component',
 	templateUrl: './list-of-card-collection-by-date.component.html',
 	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
 		NgForOf,
