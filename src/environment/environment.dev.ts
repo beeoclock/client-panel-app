@@ -22,18 +22,6 @@ export const environment = {
 		modal: {
 			prefix: 'beeoclock_modal_'
 		},
-		database: {
-			name: 'beeoclock',
-			version: 1,
-			objectStoresMeta: [{
-				store: 'cache',
-				storeConfig: {keyPath: 'key', autoIncrement: true},
-				storeSchema: [
-					{name: 'key', keypath: 'key', options: {unique: false}},
-					{name: 'value', keypath: 'value', options: {unique: false}}
-				]
-			}]
-		},
 		pagination: {
 			maxLength: 5
 		}
