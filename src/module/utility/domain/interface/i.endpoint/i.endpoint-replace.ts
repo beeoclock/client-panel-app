@@ -1,4 +1,3 @@
-import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
 import {TranslateService} from "@ngx-translate/core";
 
@@ -7,8 +6,6 @@ export interface IEndpointReplace {
 }
 
 export interface EndpointInterface {
-	path: string;
-	method: RequestMethodEnum;
 	source: SourceNetworkEnum; // Server
 	loader?: boolean; // Default false, change it in environment
 	replace?: boolean; // Default false, change it in environment

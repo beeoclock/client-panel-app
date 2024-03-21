@@ -1,5 +1,4 @@
 import {Endpoint, EndpointCollectionType} from "@utility/domain/endpoint";
-import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
 
 export enum clientEndpointEnum {
@@ -12,8 +11,6 @@ export enum clientEndpointEnum {
 export const clientEndpoint: EndpointCollectionType = {
   GET: {
     [clientEndpointEnum.item]: {
-      path: clientEndpointEnum.item,
-      method: RequestMethodEnum.GET,
       source: SourceNetworkEnum.panel,
       replace: true,
       header: {
@@ -23,8 +20,6 @@ export const clientEndpoint: EndpointCollectionType = {
   },
   PUT: {
     [clientEndpointEnum.update]: {
-      path: clientEndpointEnum.update,
-      method: RequestMethodEnum.PUT,
       source: SourceNetworkEnum.panel,
       replace: true,
       header: {
@@ -34,8 +29,6 @@ export const clientEndpoint: EndpointCollectionType = {
   },
   PATCH: {
     [clientEndpointEnum.archive]: {
-      path: clientEndpointEnum.archive,
-      method: RequestMethodEnum.PATCH,
       source: SourceNetworkEnum.panel,
       replace: true,
       header: {
@@ -45,8 +38,6 @@ export const clientEndpoint: EndpointCollectionType = {
   },
   DELETE: {
     [clientEndpointEnum.delete]: {
-      path: clientEndpointEnum.delete,
-      method: RequestMethodEnum.DELETE,
       source: SourceNetworkEnum.panel,
       replace: true,
       header: {

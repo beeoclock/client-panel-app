@@ -1,5 +1,4 @@
 import {Endpoint, EndpointCollectionType} from "@utility/domain/endpoint";
-import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
 
 export enum identityEndpointEnum {
@@ -19,44 +18,30 @@ export enum identityEndpointEnum {
 export const identityEndpoint: EndpointCollectionType = {
   POST: {
     [identityEndpointEnum.confirmInvitation]: {
-      path: identityEndpointEnum.confirmInvitation,
-      method: RequestMethodEnum.POST,
       source: SourceNetworkEnum.identity
     },
     [identityEndpointEnum.postResetPassword]: {
-      path: identityEndpointEnum.postResetPassword,
-      method: RequestMethodEnum.POST,
       source: SourceNetworkEnum.identity
     },
     [identityEndpointEnum.postCreateUser]: {
-      path: identityEndpointEnum.postCreateUser,
-      method: RequestMethodEnum.POST,
       source: SourceNetworkEnum.identity
     },
     [identityEndpointEnum.postCreateUserAndBusinessClient]: {
-      path: identityEndpointEnum.postCreateUserAndBusinessClient,
-      method: RequestMethodEnum.POST,
       source: SourceNetworkEnum.identity
     },
     [identityEndpointEnum.confirmEmail]: {
-      path: identityEndpointEnum.confirmEmail,
-      method: RequestMethodEnum.POST,
       source: SourceNetworkEnum.identity,
 			header: {
 				authorization: true
 			}
     },
     [identityEndpointEnum.postCreateBusinessClient]: {
-      path: identityEndpointEnum.postCreateBusinessClient,
-      method: RequestMethodEnum.POST,
       source: SourceNetworkEnum.identity,
       header: {
         authorization: true
       }
     },
     [identityEndpointEnum.postRegisterDevice]: {
-      path: identityEndpointEnum.postRegisterDevice,
-      method: RequestMethodEnum.POST,
       source: SourceNetworkEnum.identity,
       header: {
         authorization: true
@@ -65,24 +50,18 @@ export const identityEndpoint: EndpointCollectionType = {
   },
   PATCH: {
     [identityEndpointEnum.patchSwitchBusinessClient]: {
-      path: identityEndpointEnum.patchSwitchBusinessClient,
-      method: RequestMethodEnum.PATCH,
       source: SourceNetworkEnum.identity,
       header: {
         authorization: true
       }
     },
     [identityEndpointEnum.patchChangeName]: {
-      path: identityEndpointEnum.patchChangeName,
-      method: RequestMethodEnum.PATCH,
       source: SourceNetworkEnum.identity,
       header: {
         authorization: true
       }
     },
     [identityEndpointEnum.patchChangePhoneNumber]: {
-      path: identityEndpointEnum.patchChangePhoneNumber,
-      method: RequestMethodEnum.PATCH,
       source: SourceNetworkEnum.identity,
       header: {
         authorization: true

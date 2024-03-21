@@ -1,5 +1,4 @@
 import {Endpoint, EndpointCollectionType} from "@utility/domain/endpoint";
-import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
 
 export enum memberContextEndpointEnum {
@@ -10,8 +9,6 @@ export enum memberContextEndpointEnum {
 export const memberContextEndpoint: EndpointCollectionType = {
   GET: {
     [memberContextEndpointEnum.related]: {
-      path: memberContextEndpointEnum.related,
-      method: RequestMethodEnum.GET,
       source: SourceNetworkEnum.identity,
       header: {
         authorization: true
@@ -20,8 +17,6 @@ export const memberContextEndpoint: EndpointCollectionType = {
   },
   DELETE: {
     [memberContextEndpointEnum.deleteBusinessClientById]: {
-      path: memberContextEndpointEnum.deleteBusinessClientById,
-      method: RequestMethodEnum.DELETE,
       source: SourceNetworkEnum.identity,
       replace: true,
       header: {
