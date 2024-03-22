@@ -88,31 +88,11 @@ export class DataFrameComponent implements OnInit {
 			startTime: number;
 			durationInMinutes: number;
 			column: number;
-			neighbors: RIEvent[];
 		}[];
 		data: RIEvent;
 	}[]> = this.filterService.events$.pipe(
-		// Sort events by start time
-		map((events) => events.sort((a, b) => {
-				return a.start > b.start ? 1 : -1;
-			})
-		),
-		// Sort events by duration
-		// map((events) => events.sort((a, b) => {
-		// 		return a.services[0].durationVersions[0].durationInSeconds > b.services[0].durationVersions[0].durationInSeconds ? 1 : -1;
-		// 	})
-		// ),
 		map((events) => {
 			return events.map((item) => {
-				const neighbors = events.filter((event) => {
-					if (event._id === item._id) {
-						return false;
-					}
-					const startInTheSlot = event.start >= item.start && event.start < item.end;
-					const endInTheSlot = event.end > item.start && event.end <= item.end;
-					const eventCoverSlot = event.start <= item.start && event.end >= item.end;
-					return startInTheSlot || endInTheSlot || eventCoverSlot;
-				});
 				const column = this.columnHeaderList.findIndex((column) => {
 					return column.member?._id === item?.services?.[0]?.specialists?.[0]?.member?._id;
 				});
@@ -124,7 +104,6 @@ export class DataFrameComponent implements OnInit {
 							startTime: start.hour + (start.minute / 60),
 							durationInMinutes: item.services[0].durationVersions[0].durationInSeconds / 60,
 							column,
-							neighbors,
 						}
 					]
 				};
