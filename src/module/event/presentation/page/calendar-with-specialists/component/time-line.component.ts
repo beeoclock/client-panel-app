@@ -57,7 +57,7 @@ export class TimeLineComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	public readonly headerHeightInPx = this.composeCalendarWithSpecialistsService.headerHeightInPx;
 
-	public readonly heightInPx = this.composeCalendarWithSpecialistsService.heightInPx;
+	public readonly heightInPx = this.composeCalendarWithSpecialistsService.oneHourHeightInPx;
 
 	private interval: NodeJS.Timer | null = null;
 

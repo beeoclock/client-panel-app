@@ -1,4 +1,12 @@
-import {Component, HostBinding, HostListener, inject, Input, ViewEncapsulation} from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	Component,
+	HostBinding,
+	HostListener,
+	inject,
+	Input,
+	ViewEncapsulation
+} from "@angular/core";
 import {
 	ComposeCalendarWithSpecialistsService
 } from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
@@ -26,7 +34,8 @@ import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 	imports: [
 		DatePipe
 	],
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EventCardComponent {
 
@@ -45,6 +54,7 @@ export class EventCardComponent {
 		startTime: number;
 		durationInMinutes: number;
 		column: number;
+		neighbors: RIEvent[];
 	};
 
 	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
@@ -73,6 +83,32 @@ export class EventCardComponent {
 	public get gridColumnStart() {
 		return this.card.column;
 	}
+
+	// Use neighbors property to calculate width in percentage
+	// @HostBinding('style.width')
+	// public get width() {
+	// 	// Find each neighbor DOM element and bunch the width
+	// 	let widthOfNeighbors = 0;
+	// 	this.card.neighbors.forEach((neighbor) => {
+	// 		const neighborElement = document.getElementById(neighbor._id) as HTMLElement;
+	// 		widthOfNeighbors += neighborElement?.offsetWidth ?? 0;
+	// 	});
+	// 	console.log(widthOfNeighbors);
+	//
+	// 	// ${100 / (this.card.neighbors.length + 1)}%
+	//
+	// 	if (widthOfNeighbors === 0) {
+	// 		return `${100 / (this.card.neighbors.length + 1)}%`;
+	// 	}
+	//
+	// 	return `max(${100 / (this.card.neighbors.length + 1)}%, calc(100% - ${widthOfNeighbors}px))`;
+	// 	// return `calc(100% - ${widthOfNeighbors}px)`;
+	// }
+
+	// @HostBinding('style.margin-left')
+	// public get marginLeft() {
+	//
+	// }
 
 	@HostBinding('class')
 	public get class() {

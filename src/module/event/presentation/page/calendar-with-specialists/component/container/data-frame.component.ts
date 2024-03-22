@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
 import {CellComponent} from "@event/presentation/page/calendar-with-specialists/component/cell/cell.component";
 import {AsyncPipe, NgForOf, NgIf, NgStyle} from "@angular/common";
 import {TimeLineComponent} from "@event/presentation/page/calendar-with-specialists/component/time-line.component";
@@ -20,6 +20,7 @@ import {RIEvent} from "@event/domain";
 		<ng-container *ngFor="let event of (events$ | async) ?? [];">
 			<event-card-component
 				*ngFor="let card of event.cards;"
+				[id]="event.data._id"
 				[card]="card"
 				[event]="event"/>
 		</ng-container>
@@ -34,7 +35,8 @@ import {RIEvent} from "@event/domain";
 		AsyncPipe,
 		EventCardComponent
 	],
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DataFrameComponent implements OnInit {
 
@@ -86,20 +88,43 @@ export class DataFrameComponent implements OnInit {
 			startTime: number;
 			durationInMinutes: number;
 			column: number;
+			neighbors: RIEvent[];
 		}[];
 		data: RIEvent;
 	}[]> = this.filterService.events$.pipe(
+		// Sort events by start time
+		map((events) => events.sort((a, b) => {
+				return a.start > b.start ? 1 : -1;
+			})
+		),
+		// Sort events by duration
+		// map((events) => events.sort((a, b) => {
+		// 		return a.services[0].durationVersions[0].durationInSeconds > b.services[0].durationVersions[0].durationInSeconds ? 1 : -1;
+		// 	})
+		// ),
 		map((events) => {
 			return events.map((item) => {
+				const neighbors = events.filter((event) => {
+					if (event._id === item._id) {
+						return false;
+					}
+					const startInTheSlot = event.start >= item.start && event.start < item.end;
+					const endInTheSlot = event.end > item.start && event.end <= item.end;
+					const eventCoverSlot = event.start <= item.start && event.end >= item.end;
+					return startInTheSlot || endInTheSlot || eventCoverSlot;
+				});
+				const column = this.columnHeaderList.findIndex((column) => {
+					return column.member?._id === item?.services?.[0]?.specialists?.[0]?.member?._id;
+				});
+				const start = DateTime.fromISO(item.start).toLocal();
 				return {
 					data: item,
 					cards: [
 						{
-							startTime: DateTime.fromISO(item.start).toLocal().hour,
+							startTime: start.hour + (start.minute / 60),
 							durationInMinutes: item.services[0].durationVersions[0].durationInSeconds / 60,
-							column: this.columnHeaderList.findIndex((column) => {
-								return column.member?._id === item?.services?.[0]?.specialists?.[0]?.member?._id;
-							}),
+							column,
+							neighbors,
 						}
 					]
 				};
