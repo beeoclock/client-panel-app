@@ -1,5 +1,4 @@
 import {Endpoint, EndpointCollectionType} from "@utility/domain/endpoint";
-import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
 import {TranslateService} from "@ngx-translate/core";
 
@@ -23,8 +22,6 @@ export enum eventEndpointEnum {
 export const eventEndpoint: EndpointCollectionType = {
 	GET: {
 		[eventEndpointEnum.item]: {
-			path: eventEndpointEnum.item,
-			method: RequestMethodEnum.GET,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
@@ -32,32 +29,24 @@ export const eventEndpoint: EndpointCollectionType = {
 			}
 		},
 		[eventEndpointEnum.busySlots]: {
-			path: eventEndpointEnum.busySlots,
-			method: RequestMethodEnum.GET,
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
 			}
 		},
 		[eventEndpointEnum.paged]: {
-			path: eventEndpointEnum.paged,
-			method: RequestMethodEnum.GET,
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true
 			}
 		},
 		[eventEndpointEnum.mergedPaged]: {
-			path: eventEndpointEnum.mergedPaged,
-			method: RequestMethodEnum.GET,
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true
 			}
 		},
 		[eventEndpointEnum.slots]: {
-			path: eventEndpointEnum.slots,
-			method: RequestMethodEnum.GET,
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true
@@ -66,8 +55,6 @@ export const eventEndpoint: EndpointCollectionType = {
 	},
 	POST: {
 		[eventEndpointEnum.create]: {
-			path: eventEndpointEnum.create,
-			method: RequestMethodEnum.POST,
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
@@ -90,8 +77,6 @@ export const eventEndpoint: EndpointCollectionType = {
 	},
 	PUT: {
 		[eventEndpointEnum.update]: {
-			path: eventEndpointEnum.update,
-			method: RequestMethodEnum.PUT,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
@@ -115,8 +100,6 @@ export const eventEndpoint: EndpointCollectionType = {
 	},
 	PATCH: {
 		[eventEndpointEnum.archive]: {
-			path: eventEndpointEnum.archive,
-			method: RequestMethodEnum.PATCH,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
@@ -124,8 +107,6 @@ export const eventEndpoint: EndpointCollectionType = {
 			}
 		},
 		[eventEndpointEnum.booked]: {
-			path: eventEndpointEnum.booked,
-			method: RequestMethodEnum.PATCH,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
@@ -147,8 +128,6 @@ export const eventEndpoint: EndpointCollectionType = {
 			}
 		},
 		[eventEndpointEnum.requested]: {
-			path: eventEndpointEnum.requested,
-			method: RequestMethodEnum.PATCH,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
@@ -170,8 +149,6 @@ export const eventEndpoint: EndpointCollectionType = {
 			}
 		},
 		[eventEndpointEnum.cancelled]: {
-			path: eventEndpointEnum.cancelled,
-			method: RequestMethodEnum.PATCH,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
@@ -193,8 +170,6 @@ export const eventEndpoint: EndpointCollectionType = {
 			}
 		},
 		[eventEndpointEnum.rejected]: {
-			path: eventEndpointEnum.rejected,
-			method: RequestMethodEnum.PATCH,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
@@ -216,8 +191,6 @@ export const eventEndpoint: EndpointCollectionType = {
 			}
 		},
 		[eventEndpointEnum.done]: {
-			path: eventEndpointEnum.done,
-			method: RequestMethodEnum.PATCH,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
@@ -241,8 +214,6 @@ export const eventEndpoint: EndpointCollectionType = {
 	},
 	DELETE: {
 		[eventEndpointEnum.delete]: {
-			path: eventEndpointEnum.delete,
-			method: RequestMethodEnum.DELETE,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {

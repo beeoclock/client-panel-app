@@ -1,5 +1,4 @@
 import {Endpoint, EndpointCollectionType} from "@utility/domain/endpoint";
-import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
 
 export enum businessProfileMediaEndpointEnum {
@@ -22,24 +21,18 @@ export enum businessProfileMediaEndpointEnum {
 export const businessProfileMediaEndpoint: EndpointCollectionType = {
 	GET: {
 		[businessProfileMediaEndpointEnum.getGallery]: {
-			path: businessProfileMediaEndpointEnum.getGallery,
-			method: RequestMethodEnum.GET,
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
 			}
 		},
 		[businessProfileMediaEndpointEnum.getBanners]: {
-			path: businessProfileMediaEndpointEnum.getBanners,
-			method: RequestMethodEnum.GET,
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
 			}
 		},
 		[businessProfileMediaEndpointEnum.getLogo]: {
-			path: businessProfileMediaEndpointEnum.getLogo,
-			method: RequestMethodEnum.GET,
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
@@ -48,24 +41,18 @@ export const businessProfileMediaEndpoint: EndpointCollectionType = {
 	},
 	PATCH: {
 		[businessProfileMediaEndpointEnum.patchGallery]: {
-			path: businessProfileMediaEndpointEnum.patchGallery,
-			method: RequestMethodEnum.PATCH,
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
 			}
 		},
 		[businessProfileMediaEndpointEnum.patchBanners]: {
-			path: businessProfileMediaEndpointEnum.patchBanners,
-			method: RequestMethodEnum.PATCH,
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
 			}
 		},
 		[businessProfileMediaEndpointEnum.patchLogo]: {
-			path: businessProfileMediaEndpointEnum.patchLogo,
-			method: RequestMethodEnum.PATCH,
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
@@ -74,8 +61,6 @@ export const businessProfileMediaEndpoint: EndpointCollectionType = {
 	},
 	DELETE: {
 		[businessProfileMediaEndpointEnum.deleteGallery]: {
-			path: businessProfileMediaEndpointEnum.deleteGallery,
-			method: RequestMethodEnum.DELETE,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
@@ -83,8 +68,6 @@ export const businessProfileMediaEndpoint: EndpointCollectionType = {
 			}
 		},
 		[businessProfileMediaEndpointEnum.deleteBanners]: {
-			path: businessProfileMediaEndpointEnum.deleteBanners,
-			method: RequestMethodEnum.DELETE,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
@@ -92,8 +75,6 @@ export const businessProfileMediaEndpoint: EndpointCollectionType = {
 			}
 		},
 		[businessProfileMediaEndpointEnum.deleteLogo]: {
-			path: businessProfileMediaEndpointEnum.deleteLogo,
-			method: RequestMethodEnum.DELETE,
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,

@@ -1,5 +1,4 @@
 import {Endpoint, EndpointCollectionType} from "@utility/domain/endpoint";
-import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
 
 export enum memberEndpointEnum {
@@ -9,8 +8,6 @@ export enum memberEndpointEnum {
 export const memberEndpoint: EndpointCollectionType = {
   GET: {
     [memberEndpointEnum.getMembers]: {
-      path: memberEndpointEnum.getMembers,
-      method: RequestMethodEnum.GET,
       source: SourceNetworkEnum.panel
     }
   }

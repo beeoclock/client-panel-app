@@ -67,7 +67,7 @@ import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 			<!--			</div>-->
 
 			<div>
-				<button (click)="signIn()" type="button" primary [isLoading]="form.pending">
+				<button (click)="signIn()" type="button" id="identity--sign-in-form-primary-button" primary [isLoading]="form.pending">
 					{{ 'keyword.capitalize.signIn' | translate }}
 				</button>
 			</div>

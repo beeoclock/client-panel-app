@@ -1,5 +1,4 @@
 import {Endpoint, EndpointCollectionType} from "@utility/domain/endpoint";
-import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
 import {TranslateService} from "@ngx-translate/core";
 
@@ -12,8 +11,6 @@ export enum accountEndpointEnum {
 export const accountEndpoint: EndpointCollectionType = {
 	GET: {
 		[accountEndpointEnum.getFrontendSettings]: {
-			path: accountEndpointEnum.getFrontendSettings,
-			method: RequestMethodEnum.GET,
 			source: SourceNetworkEnum.identity,
 			header: {
 				authorization: true,
@@ -22,8 +19,6 @@ export const accountEndpoint: EndpointCollectionType = {
 	},
 	PUT: {
 		[accountEndpointEnum.accountFrontendSettingsBusinessPanelLanguage]: {
-			path: accountEndpointEnum.accountFrontendSettingsBusinessPanelLanguage,
-			method: RequestMethodEnum.PUT,
 			source: SourceNetworkEnum.identity,
 			header: {
 				authorization: true,
@@ -44,8 +39,6 @@ export const accountEndpoint: EndpointCollectionType = {
 			},
 		},
 		[accountEndpointEnum.accountFrontendSettingsBusinessPanelTheme]: {
-			path: accountEndpointEnum.accountFrontendSettingsBusinessPanelTheme,
-			method: RequestMethodEnum.PUT,
 			source: SourceNetworkEnum.identity,
 			header: {
 				authorization: true,

@@ -1,5 +1,4 @@
 import {Endpoint, EndpointCollectionType} from "@utility/domain/endpoint";
-import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
 import {TranslateService} from "@ngx-translate/core";
 
@@ -11,8 +10,6 @@ export enum businessProfileEndpointEnum {
 export const businessProfileEndpoint: EndpointCollectionType = {
 	GET: {
 		[businessProfileEndpointEnum.item]: {
-			path: businessProfileEndpointEnum.item,
-			method: RequestMethodEnum.GET,
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
@@ -21,8 +18,6 @@ export const businessProfileEndpoint: EndpointCollectionType = {
 	},
 	PUT: {
 		[businessProfileEndpointEnum.update]: {
-			path: businessProfileEndpointEnum.update,
-			method: RequestMethodEnum.PUT,
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,

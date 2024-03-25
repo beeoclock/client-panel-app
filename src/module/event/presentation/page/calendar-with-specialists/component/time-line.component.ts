@@ -1,10 +1,13 @@
 import {
 	AfterViewInit,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
 	Component,
 	ElementRef,
 	HostBinding,
 	inject,
 	Input,
+	OnDestroy,
 	OnInit,
 	ViewEncapsulation
 } from "@angular/core";
@@ -32,9 +35,10 @@ import {
 <!--		</div>-->
 		<!-- Line -->
 		<div class="border-t border-red-400/50 w-full h-1"></div>
-	`
+	`,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TimeLineComponent implements OnInit, AfterViewInit {
+export class TimeLineComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	@Input()
 	public currentDate = new Date();
@@ -47,20 +51,20 @@ export class TimeLineComponent implements OnInit, AfterViewInit {
 
 	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
 	private readonly elementRef = inject(ElementRef);
+	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
 	public readonly startTimeToDisplay = this.composeCalendarWithSpecialistsService.startTimeToDisplay;
 
 	public readonly headerHeightInPx = this.composeCalendarWithSpecialistsService.headerHeightInPx;
 
-	public readonly heightInPx = this.composeCalendarWithSpecialistsService.heightInPx;
+	public readonly heightInPx = this.composeCalendarWithSpecialistsService.oneHourHeightInPx;
+
+	private interval: NodeJS.Timer | null = null;
 
 	public ngOnInit() {
 
+		this.calculateTopPosition();
 		this.initInterval();
-		const hours = this.currentDate.getHours() - this.startTimeToDisplay;
-		const minutesInHours = this.currentDate.getMinutes() / 60;
-		const top = this.headerHeightInPx + ((hours + minutesInHours) * this.heightInPx);
-		this.style += ` top: ${top}px;`;
 
 	}
 
@@ -71,9 +75,26 @@ export class TimeLineComponent implements OnInit, AfterViewInit {
 	}
 
 	public initInterval() {
-		const interval = setInterval(() => {
+		this.interval = setInterval(() => {
 			this.currentDate = new Date();
+			this.calculateTopPosition();
+			this.changeDetectorRef.detectChanges();
 		}, 1000);
+	}
+
+	public ngOnDestroy() {
+		if (this.interval) {
+			clearInterval(this.interval);
+		}
+	}
+
+	public calculateTopPosition() {
+
+		const hours = this.currentDate.getHours() - this.startTimeToDisplay;
+		const minutesInHours = this.currentDate.getMinutes() / 60;
+		const top = this.headerHeightInPx + ((hours + minutesInHours) * this.heightInPx);
+		this.style += ` top: ${top}px;`;
+
 	}
 
 }

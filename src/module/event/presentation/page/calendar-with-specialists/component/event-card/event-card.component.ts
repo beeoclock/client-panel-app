@@ -1,4 +1,12 @@
-import {Component, HostBinding, HostListener, inject, Input, ViewEncapsulation} from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	Component,
+	HostBinding,
+	HostListener,
+	inject,
+	Input,
+	ViewEncapsulation
+} from "@angular/core";
 import {
 	ComposeCalendarWithSpecialistsService
 } from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
@@ -26,7 +34,8 @@ import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 	imports: [
 		DatePipe
 	],
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EventCardComponent {
 

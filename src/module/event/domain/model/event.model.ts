@@ -42,7 +42,7 @@ export class MEvent implements RMIEvent {
 	}
 
 	public get someServiceHasRangeDurationVersion(): boolean {
-		return this.services.some((service) => service.configuration.duration?.durationVersionType === DurationVersionTypeEnum.RANGE);
+		return this.services.some((service) => (service?.configuration?.duration?.durationVersionType ?? DurationVersionTypeEnum.VARIABLE) === DurationVersionTypeEnum.RANGE);
 	}
 
 	public static create(initialValue?: Partial<IEvent>): MEvent {

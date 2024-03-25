@@ -132,11 +132,11 @@ export default class Index implements AfterViewInit {
 			status: Status.InQueue,
 			method: this.stepAddBusinessProfile.bind(this),
 		},
-		{
-			title: this.translateService.instant('keyword.capitalize.portfolio'),
-			status: Status.InQueue,
-			method: this.stepAddGallery.bind(this),
-		},
+		// {
+		// 	title: this.translateService.instant('keyword.capitalize.portfolio'),
+		// 	status: Status.InQueue,
+		// 	method: this.stepAddGallery.bind(this),
+		// },
 		{
 			title: this.translateService.instant('keyword.capitalize.services'),
 			status: Status.InQueue,

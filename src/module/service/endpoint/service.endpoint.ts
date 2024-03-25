@@ -1,5 +1,4 @@
 import {Endpoint, EndpointCollectionType} from "@utility/domain/endpoint";
-import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
 import {TranslateService} from "@ngx-translate/core";
 
@@ -19,8 +18,6 @@ export enum serviceEndpointEnum {
 export const serviceEndpoint: EndpointCollectionType = {
 	GET: {
 		[serviceEndpointEnum.getBanners]: {
-			path: serviceEndpointEnum.getBanners,
-			method: RequestMethodEnum.GET,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
@@ -28,8 +25,6 @@ export const serviceEndpoint: EndpointCollectionType = {
 			}
 		},
 		[serviceEndpointEnum.item]: {
-			path: serviceEndpointEnum.item,
-			method: RequestMethodEnum.GET,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
@@ -37,8 +32,6 @@ export const serviceEndpoint: EndpointCollectionType = {
 			}
 		},
 		[serviceEndpointEnum.paged]: {
-			path: serviceEndpointEnum.paged,
-			method: RequestMethodEnum.GET,
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true
@@ -47,8 +40,6 @@ export const serviceEndpoint: EndpointCollectionType = {
 	},
 	DELETE: {
 		[serviceEndpointEnum.delete]: {
-			path: serviceEndpointEnum.delete,
-			method: RequestMethodEnum.DELETE,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			before: {
@@ -59,8 +50,6 @@ export const serviceEndpoint: EndpointCollectionType = {
 			}
 		},
 		[serviceEndpointEnum.deleteBanners]: {
-			path: serviceEndpointEnum.deleteBanners,
-			method: RequestMethodEnum.DELETE,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
@@ -70,8 +59,6 @@ export const serviceEndpoint: EndpointCollectionType = {
 	},
 	POST: {
 		[serviceEndpointEnum.create]: {
-			path: serviceEndpointEnum.create,
-			method: RequestMethodEnum.POST,
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true
@@ -94,8 +81,6 @@ export const serviceEndpoint: EndpointCollectionType = {
 	},
 	PATCH: {
 		[serviceEndpointEnum.archive]: {
-			path: serviceEndpointEnum.archive,
-			method: RequestMethodEnum.PATCH,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
@@ -103,8 +88,6 @@ export const serviceEndpoint: EndpointCollectionType = {
 			}
 		},
 		[serviceEndpointEnum.patchBanners]: {
-			path: serviceEndpointEnum.patchBanners,
-			method: RequestMethodEnum.PATCH,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
@@ -114,8 +97,6 @@ export const serviceEndpoint: EndpointCollectionType = {
 	},
 	PUT: {
 		[serviceEndpointEnum.update]: {
-			path: serviceEndpointEnum.update,
-			method: RequestMethodEnum.PUT,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {

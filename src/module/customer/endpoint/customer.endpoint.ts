@@ -1,5 +1,4 @@
 import {Endpoint, EndpointCollectionType} from "@utility/domain/endpoint";
-import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
 import {TranslateService} from "@ngx-translate/core";
 
@@ -15,8 +14,6 @@ export enum customerEndpointEnum {
 export const customerEndpoint: EndpointCollectionType = {
 	GET: {
 		[customerEndpointEnum.item]: {
-			path: customerEndpointEnum.item,
-			method: RequestMethodEnum.GET,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
@@ -24,8 +21,6 @@ export const customerEndpoint: EndpointCollectionType = {
 			}
 		},
 		[customerEndpointEnum.paged]: {
-			path: customerEndpointEnum.paged,
-			method: RequestMethodEnum.GET,
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true
@@ -34,8 +29,6 @@ export const customerEndpoint: EndpointCollectionType = {
 	},
 	POST: {
 		[customerEndpointEnum.create]: {
-			path: customerEndpointEnum.create,
-			method: RequestMethodEnum.POST,
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
@@ -58,8 +51,6 @@ export const customerEndpoint: EndpointCollectionType = {
 	},
 	PUT: {
 		[customerEndpointEnum.update]: {
-			path: customerEndpointEnum.update,
-			method: RequestMethodEnum.PUT,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
@@ -83,8 +74,6 @@ export const customerEndpoint: EndpointCollectionType = {
 	},
 	PATCH: {
 		[customerEndpointEnum.archive]: {
-			path: customerEndpointEnum.archive,
-			method: RequestMethodEnum.PATCH,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {
@@ -94,8 +83,6 @@ export const customerEndpoint: EndpointCollectionType = {
 	},
 	DELETE: {
 		[customerEndpointEnum.delete]: {
-			path: customerEndpointEnum.delete,
-			method: RequestMethodEnum.DELETE,
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			before: {

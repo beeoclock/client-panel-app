@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
 import {CellComponent} from "@event/presentation/page/calendar-with-specialists/component/cell/cell.component";
 import {AsyncPipe, NgForOf, NgIf, NgStyle} from "@angular/common";
 import {TimeLineComponent} from "@event/presentation/page/calendar-with-specialists/component/time-line.component";
@@ -20,6 +20,7 @@ import {RIEvent} from "@event/domain";
 		<ng-container *ngFor="let event of (events$ | async) ?? [];">
 			<event-card-component
 				*ngFor="let card of event.cards;"
+				[id]="event.data._id"
 				[card]="card"
 				[event]="event"/>
 		</ng-container>
@@ -34,7 +35,8 @@ import {RIEvent} from "@event/domain";
 		AsyncPipe,
 		EventCardComponent
 	],
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DataFrameComponent implements OnInit {
 
@@ -91,15 +93,17 @@ export class DataFrameComponent implements OnInit {
 	}[]> = this.filterService.events$.pipe(
 		map((events) => {
 			return events.map((item) => {
+				const column = this.columnHeaderList.findIndex((column) => {
+					return column.member?._id === item?.services?.[0]?.specialists?.[0]?.member?._id;
+				});
+				const start = DateTime.fromISO(item.start).toLocal();
 				return {
 					data: item,
 					cards: [
 						{
-							startTime: DateTime.fromISO(item.start).toLocal().hour,
+							startTime: start.hour + (start.minute / 60),
 							durationInMinutes: item.services[0].durationVersions[0].durationInSeconds / 60,
-							column: this.columnHeaderList.findIndex((column) => {
-								return column.member?._id === item?.services?.[0]?.specialists?.[0]?.member?._id;
-							}),
+							column,
 						}
 					]
 				};

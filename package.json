@@ -65,7 +65,6 @@
     "humanize-duration": "3.31.0",
     "luxon": "3.4.4",
     "ng-event-bus": "6.0.0",
-    "ngx-indexed-db": "16.0.0",
     "ngx-logger": "5.0.12",
     "ngx-mask": "17.0.4",
     "rxjs": "7.8.1",
