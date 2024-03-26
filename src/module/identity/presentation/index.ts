@@ -72,6 +72,10 @@ export const routers = [
 				loadComponent: () => import('./page/create-business/schedules')
 			},
 			{
+				path: 'languages',
+				loadComponent: () => import('./page/create-business/languages')
+			},
+			{
 				path: 'portfolio',
 				loadComponent: () => import('./page/create-business/portfolio')
 			},

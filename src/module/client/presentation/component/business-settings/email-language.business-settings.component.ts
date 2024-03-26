@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, HostBinding, Input, OnInit} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {LanguageCodeEnum, LANGUAGES} from "@utility/domain/enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
@@ -50,14 +50,13 @@ export class EmailLanguageBusinessSettingsComponent implements OnInit {
 
 	public languageList = LANGUAGES;
 
+	@HostBinding()
+	public class = 'flex flex-col text-start';
+
 	public ngOnInit() {
 		this.updateLanguageList(this.availableLanguagesControl.value);
 		this.availableLanguagesControl.valueChanges.subscribe((languageCodeList) => {
 			this.updateLanguageList(languageCodeList);
-
-			if (!languageCodeList.includes(this.control.value)) {
-				this.control.setValue(languageCodeList[0]);
-			}
 
 		});
 	}
@@ -66,6 +65,9 @@ export class EmailLanguageBusinessSettingsComponent implements OnInit {
 		this.languageList = LANGUAGES.filter((language) => {
 			return languageCodeList.includes(language.code);
 		});
+		if (!languageCodeList.includes(this.control.value)) {
+			this.control.setValue(languageCodeList[0]);
+		}
 	}
 
 }

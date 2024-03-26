@@ -13,7 +13,7 @@ import {AsyncPipe, NgIf} from "@angular/common";
 @Component({
 	selector: 'identity-create-business-page',
 	template: `
-		<div class="h-screen z-50 relative p-4 overflow-y-auto">
+		<div class="h-screen relative p-4 overflow-y-auto">
 			<router-outlet/>
 		</div>
 	`,

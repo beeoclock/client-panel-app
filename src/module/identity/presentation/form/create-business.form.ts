@@ -7,6 +7,7 @@ import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.
 import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
 import {ActiveEnum, LanguageCodeEnum} from "@utility/domain/enum";
 import {DefaultServicesByBusinessCategory} from "@utility/domain/const/c.default-services-by-business-category";
+import {BusinessSettingsForm} from "@client/presentation/form/business-settings.form";
 
 interface IBusinessOwnerForm {
 	firstName: FormControl<string>;
@@ -34,6 +35,7 @@ interface IBusinessClientForm {
 	schedules: SchedulesForm;
 	gallery: GalleryForm;
 	services: ServicesForm;
+	businessSettings: BusinessSettingsForm;
 
 	businessCategory: FormControl<BusinessCategoryEnum>;
 	serviceProvideType: FormControl<ServiceProvideTypeEnum>;
@@ -54,6 +56,7 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 			}),
 			schedules: new SchedulesForm(),
 			gallery: new GalleryForm(),
+			businessSettings: new BusinessSettingsForm(),
 			services: new ServicesForm([]),
 
 			businessCategory: new FormControl(),

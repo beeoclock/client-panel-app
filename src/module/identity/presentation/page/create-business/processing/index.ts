@@ -132,6 +132,11 @@ export default class Index implements AfterViewInit {
 			status: Status.InQueue,
 			method: this.stepAddBusinessProfile.bind(this),
 		},
+		{
+			title: this.translateService.instant('keyword.capitalize.businessSettings'),
+			status: Status.InQueue,
+			method: this.stepAddBusinessSettings.bind(this),
+		},
 		// {
 		// 	title: this.translateService.instant('keyword.capitalize.portfolio'),
 		// 	status: Status.InQueue,
@@ -234,12 +239,20 @@ export default class Index implements AfterViewInit {
 	private async stepAddBusinessProfile(): Promise<void> {
 		let body: Client.IClient = {
 			schedules: this.createBusinessQuery.getSchedulesForm().value,
+			published: this.createBusinessQuery.publishedControl().value
 		}
 		if (this.createBusinessQuery.getServiceProvideTypeControl().value !== ServiceProvideTypeEnum.Online) {
 			body = {
 				...body,
 				addresses: [this.createBusinessQuery.getAddressForm().value as IAddress],
 			};
+		}
+		await this.updateBusinessProfileApiAdapter.executeAsync(body);
+	}
+
+	private async stepAddBusinessSettings(): Promise<void> {
+		const body: Client.IClient = {
+			businessSettings: this.createBusinessQuery.getBusinessSettings().value,
 		}
 		await this.updateBusinessProfileApiAdapter.executeAsync(body);
 	}

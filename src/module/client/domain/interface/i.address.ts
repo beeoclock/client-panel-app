@@ -1,8 +1,8 @@
-import {CountryEnum} from "@utility/domain/enum/country.enum";
+import {CountryCodeEnum} from "@utility/domain/enum/country-code.enum";
 
 export interface IAddress {
   object: 'Address';
-  country: CountryEnum;
+  country: CountryCodeEnum;
   city: string;
   zipCode: string;
   streetAddressLineOne: string;

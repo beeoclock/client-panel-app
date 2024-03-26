@@ -34,7 +34,7 @@
 
 				</bee-card>
 
-				<button class="mt-8" primary routerLink="../industry" [class.disabled]="invalid">
+				<button class="mt-8 disabled:pointer-events-none" primary routerLink="../industry" [disabled]="invalid">
 					{{ 'keyword.capitalize.nextStep' | translate }}
 				</button>
 

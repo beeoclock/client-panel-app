@@ -3,6 +3,7 @@ import CreateBusinessForm from "@identity/presentation/form/create-business.form
 import {NGXLogger} from "ngx-logger";
 import {TranslateService} from "@ngx-translate/core";
 import {LanguageCodeEnum} from "@utility/domain/enum";
+import {LanguageCountry} from "@utility/domain/const/c.language-country";
 
 @Injectable({
 	providedIn: 'root'
@@ -28,6 +29,7 @@ export class CreateBusinessFormRepository {
 		this.logger.debug('CreateBusinessFormRepository.initForm');
 		this.#form = new CreateBusinessForm();
 		this.#form.currentLanguage = this.translateService.currentLang as LanguageCodeEnum;
+		this.#form.controls.businessSettings.controls.availableLanguages.setValue([this.#form.currentLanguage]);
 		// this.clearLocalStorage();
 	}
 
@@ -84,6 +86,17 @@ export class CreateBusinessFormRepository {
 	private initHandlers(): void {
 		this.logger.debug('CreateBusinessFormRepository.initHandlers');
 		this.initFormValueHandler();
+
+		this.#form.currentLanguage = this.translateService.currentLang as LanguageCodeEnum;
+		this.#form.controls.businessSettings.controls.availableLanguages.setValue([this.#form.currentLanguage]);
+		this.#form.controls.addressForm.controls.country.patchValue(LanguageCountry[this.#form.currentLanguage][0]);
+
+		this.translateService.onLangChange.subscribe((event) => {
+			this.#form.currentLanguage = event.lang as LanguageCodeEnum;
+			this.#form.controls.businessSettings.controls.availableLanguages.setValue([this.#form.currentLanguage]);
+			this.#form.controls.addressForm.controls.country.patchValue(LanguageCountry[this.#form.currentLanguage][0]);
+		});
+
 	}
 
 	private initFormValueHandler(): void {

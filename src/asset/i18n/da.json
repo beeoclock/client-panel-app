@@ -571,6 +571,9 @@
 					"description": "Forbedr din forretningsydelse med en alt-i-én-løsning",
 					"welcome": "Velkommen til"
 				},
+				"languages": {
+					"title": "Hvilke sprog driver du forretning på?"
+				},
 				"names": {
 					"title": "Indtast dit navn og din forretnings navn"
 				},
@@ -722,6 +725,7 @@
 			"businessIndustry": "Forretningsindustri",
 			"businessName": "Forretningsnavn",
 			"businessProfile": "Forretningsprofil",
+			"businessSettings": "Forretningsindstillinger",
 			"cancel": "Annuller",
 			"chooseImage": "Vælg billede",
 			"city": "By",

@@ -10,7 +10,7 @@ import {BaseButtonDirective} from "@utility/presentation/directives/button/base.
 export class LoadingBaseButtonDirective extends BaseButtonDirective implements OnInit, DoCheck, AfterViewInit {
 
   @Input()
-  public isLoading = false;
+  public isLoading: boolean | undefined = undefined;
 
   private readonly translateService = inject(TranslateService);
   private readonly elementRef: ElementRef<HTMLButtonElement> = inject(ElementRef);
@@ -40,6 +40,9 @@ export class LoadingBaseButtonDirective extends BaseButtonDirective implements O
   }
 
   private detectLoading(): void {
+		if (this.isLoading === undefined) {
+			return;
+		}
     this.elementRef.nativeElement.disabled = this.isLoading;
     if (this.isLoading) {
       if (!this.temporaryButtonHTML) {

@@ -571,6 +571,9 @@
 					"description": "Zwiększ wydajność swojej firmy dzięki kompleksowemu rozwiązaniu",
 					"welcome": "Witamy w"
 				},
+				"languages": {
+					"title": "W jakich językach prowadzisz działalność?"
+				},
 				"names": {
 					"title": "Wpisz swoje imię i nazwisko oraz nazwę swojej firmy"
 				},
@@ -722,6 +725,7 @@
 			"businessIndustry": "Branża biznesowa",
 			"businessName": "Nazwa firmy",
 			"businessProfile": "Profil biznesu",
+			"businessSettings": "Ustawienia biznesowe",
 			"cancel": "Anuluj",
 			"chooseImage": "Wybierz plik",
 			"city": "Miasto",

@@ -571,6 +571,9 @@
 					"description": "Boost your business performance with an all-in-one solution",
 					"welcome": "Welcome to"
 				},
+				"languages": {
+					"title": "What languages do you do business in?"
+				},
 				"names": {
 					"title": "Enter Your Name and the Name of Your Business"
 				},
@@ -722,6 +725,7 @@
 			"businessIndustry": "Business industry",
 			"businessName": "Business name",
 			"businessProfile": "Business profile",
+			"businessSettings": "Business settings",
 			"cancel": "Cancel",
 			"chooseImage": "Choose image",
 			"city": "City",

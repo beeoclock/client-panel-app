@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, HostBinding, Input} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {LanguageCodeEnum, LANGUAGES} from "@utility/domain/enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
@@ -48,5 +48,8 @@ export class AvailableLanguagesBusinessSettingsComponent {
 	public control!: FormControl<LanguageCodeEnum[]>;
 
 	public readonly languageList = LANGUAGES;
+
+	@HostBinding()
+	public class = 'flex flex-col text-start';
 
 }
