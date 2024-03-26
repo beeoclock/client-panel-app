@@ -24,7 +24,7 @@ import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/c
 export class AddressBusinessProfileComponent {
 
 	@Input()
-	public form = new AddressForm();
+	public form!: AddressForm;
 
 	@Input()
 	public hideInputList: ('country' | 'city' | 'zipCode' | 'addressLineOne' | 'addressLineTwo')[] = [];
