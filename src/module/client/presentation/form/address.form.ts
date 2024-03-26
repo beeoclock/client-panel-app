@@ -1,6 +1,6 @@
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
-import {CountryEnum} from "@utility/domain/enum/country.enum";
 import {IAddress} from "@client/domain/interface/i.address";
+import {CountryCodeEnum} from "@utility/domain/enum/country-code.enum";
 
 export interface IAddressForm {
 
@@ -9,7 +9,7 @@ export interface IAddressForm {
 	zipCode: FormControl<string>;
 	streetAddressLineOne: FormControl<string>;
 	streetAddressLineTwo: FormControl<string>;
-	country: FormControl<CountryEnum>;
+	country: FormControl<CountryCodeEnum>;
 }
 
 export class AddressForm extends FormGroup<IAddressForm> {

@@ -227,8 +227,8 @@
 	},
 	"country": {
 		"DK": "Danmark",
-		"UA": "Ukraine",
-		"PL": "Polen"
+		"PL": "Polen",
+		"UA": "Ukraine"
 	},
 	"customer": {
 		"button": {
@@ -526,7 +526,12 @@
 		},
 		"confirm-invitation": {
 			"form": {
-				"description": "Dette er det sidste skridt til at blive medlem af den organisation, du er blevet inviteret til."
+				"description": "Dette er det sidste skridt til at blive medlem af den organisation, du er blevet inviteret til.",
+				"inputs": {
+					"password": {
+						"label": "Opret en adgangskode til autorisation"
+					}
+				}
 			}
 		},
 		"confirmInvitation": {
@@ -565,6 +570,9 @@
 					"button": "Kom i gang",
 					"description": "Forbedr din forretningsydelse med en alt-i-én-løsning",
 					"welcome": "Velkommen til"
+				},
+				"languages": {
+					"title": "Hvilke sprog driver du forretning på?"
 				},
 				"names": {
 					"title": "Indtast dit navn og din forretnings navn"
@@ -717,6 +725,7 @@
 			"businessIndustry": "Forretningsindustri",
 			"businessName": "Forretningsnavn",
 			"businessProfile": "Forretningsprofil",
+			"businessSettings": "Forretningsindstillinger",
 			"cancel": "Annuller",
 			"chooseImage": "Vælg billede",
 			"city": "By",

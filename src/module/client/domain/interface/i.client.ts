@@ -1,4 +1,4 @@
-import {ActiveEnum} from "@utility/domain/enum";
+import {ActiveEnum, CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
 import {ISocialNetworkLink} from "@client/domain/interface/i.social-network-link";
 import {RIBaseEntity} from "@utility/domain/interface";
 import {FacilityEnum} from "@utility/domain/enum/facility.enum";
@@ -13,6 +13,16 @@ import {BusinessClientStatusEnum} from "@client/domain/enum/business-client-stat
 import {RIMedia} from "@module/media/domain/interface/i.media";
 import {DeepPartial} from "@utility/base.type";
 
+export interface IBusinessSettings {
+	timeZoneOffsetInMinutes?: number;
+	timeZone?: string;
+	currencies?: CurrencyCodeEnum[];
+	availableLanguages: LanguageCodeEnum[];
+	emailLanguage: LanguageCodeEnum;
+	createdAt?: string;
+	updatedAt?: string;
+}
+
 export interface RIClient extends RIBaseEntity<'Client'> {
 	status: BusinessClientStatusEnum;
 	published: ActiveEnum;
@@ -24,6 +34,7 @@ export interface RIClient extends RIBaseEntity<'Client'> {
 	serviceProfideType: ServiceProvideTypeEnum;
 	socialNetworkLinks: ISocialNetworkLink[];
 
+	businessSettings: IBusinessSettings;
 	banners: RIMedia[];
 	bookingSettings: IBookingSettings;
 	addresses: IAddress[];

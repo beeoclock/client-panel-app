@@ -1,13 +1,13 @@
 import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  HostBinding,
-  inject,
-  Input,
-  ViewChild,
-  ViewEncapsulation
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	HostBinding,
+	inject,
+	Input,
+	ViewChild,
+	ViewEncapsulation
 } from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
@@ -55,18 +55,18 @@ import {TranslateService} from "@ngx-translate/core";
       class="z-10 hidden bg-white divide-y divide-beeColor-100 rounded-lg shadow w-44 dark:bg-beeDarkColor-700">
 
       <form [formGroup]="form">
-        <ul class="p-3 space-y-1 text-sm text-beeColor-700 dark:text-beeDarkColor-200" aria-labelledby="dropdownDefaultButton">
-          <li *ngFor="let language of languages">
-            <div class="flex items-center p-2 rounded hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 cursor-pointer">
-              <input [id]="'language-' + language.code" type="radio" [value]="language.code" formControlName="language"
-                     class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeDarkColor-800 dark:focus:ring-offset-beeDarkColor-800 focus:ring-2 dark:bg-beeDarkColor-600 dark:border-beeDarkColor-500 cursor-pointer">
-              <label [for]="'language-' + language.code"
-                     class="w-full ml-2 text-sm font-medium text-beeColor-900 rounded dark:text-beeDarkColor-300 cursor-pointer">
-                {{ language.name }}
-              </label>
-            </div>
-          </li>
-        </ul>
+				<ul class="p-3 space-y-1 text-sm text-beeColor-700 dark:text-beeDarkColor-200"
+						aria-labelledby="dropdownDefaultButton">
+					<li *ngFor="let language of languages">
+						<label [for]="'language-' + language.code"
+									 class="flex items-center gap-3 p-2 rounded hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 cursor-pointer w-fulltext-sm font-medium text-beeColor-900 dark:text-beeDarkColor-300">
+							<input [id]="'language-' + language.code" type="radio" [value]="language.code"
+										 formControlName="language"
+										 class="w-4 h-4 text-blue-600 bg-beeColor-100 border-beeColor-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-beeDarkColor-800 dark:focus:ring-offset-beeDarkColor-800 focus:ring-2 dark:bg-beeDarkColor-600 dark:border-beeDarkColor-500 cursor-pointer">
+							{{ language.name }}
+						</label>
+					</li>
+				</ul>
       </form>
     </div>
 

@@ -10,9 +10,9 @@ import {
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {CountryEnum} from "@utility/domain/enum/country.enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {CountryCodeEnum} from "@utility/domain/enum/country-code.enum";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'country-select-component',
@@ -39,7 +39,7 @@ import {CountryCodeEnum} from "@utility/domain/enum/country-code.enum";
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PriceAndCurrencyComponent implements OnInit {
+export class PriceAndCurrencyComponent extends Reactive implements OnInit {
 
 	@Input()
 	public id = '';
@@ -50,24 +50,14 @@ export class PriceAndCurrencyComponent implements OnInit {
 	public readonly translateService = inject(TranslateService);
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 
-	private readonly countryTranslateMap: { [key in keyof typeof CountryEnum]: string };
-
-	public readonly countryList: { name: any; code: string; }[] = [];
-
-	constructor() {
-
-		this.countryTranslateMap = this.translateService.instant('country');
-
-		this.countryList = Object.keys(CountryEnum).map((countryCode) => {
-			return {
-				name: this.countryTranslateMap[countryCode as keyof typeof CountryEnum],
-				code: countryCode
-			};
-		})
-
-	}
+	public countryList: { name: string; code: string; }[] = [];
 
 	public ngOnInit(): void {
+
+		this.updateCountryList();
+		this.translateService.onLangChange.pipe(this.takeUntil()).subscribe(() => {
+			this.updateCountryList();
+		});
 
 		if (!this.control.value) {
 
@@ -76,6 +66,17 @@ export class PriceAndCurrencyComponent implements OnInit {
 
 		}
 
+	}
+
+	public updateCountryList(): void {
+		const countryTranslateMap = this.translateService.instant('country');
+
+		this.countryList = Object.keys(CountryCodeEnum).map((countryCode) => {
+			return {
+				name: countryTranslateMap[countryCode as keyof typeof CountryCodeEnum],
+				code: countryCode
+			};
+		});
 	}
 
 }

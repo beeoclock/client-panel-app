@@ -227,8 +227,8 @@
 	},
 	"country": {
 		"DK": "Denmark",
-		"UA": "Ukraine",
-		"PL": "Poland"
+		"PL": "Poland",
+		"UA": "Ukraine"
 	},
 	"customer": {
 		"button": {
@@ -526,7 +526,12 @@
 		},
 		"confirm-invitation": {
 			"form": {
-				"description": "This is the last step to joining the organization to which you have been invited"
+				"description": "This is the last step to joining the organization to which you have been invited",
+				"inputs": {
+					"password": {
+						"label": "Create a password for authorization"
+					}
+				}
 			}
 		},
 		"confirmInvitation": {
@@ -565,6 +570,9 @@
 					"button": "Get Started",
 					"description": "Boost your business performance with an all-in-one solution",
 					"welcome": "Welcome to"
+				},
+				"languages": {
+					"title": "What languages do you do business in?"
 				},
 				"names": {
 					"title": "Enter Your Name and the Name of Your Business"
@@ -717,6 +725,7 @@
 			"businessIndustry": "Business industry",
 			"businessName": "Business name",
 			"businessProfile": "Business profile",
+			"businessSettings": "Business settings",
 			"cancel": "Cancel",
 			"chooseImage": "Choose image",
 			"city": "City",

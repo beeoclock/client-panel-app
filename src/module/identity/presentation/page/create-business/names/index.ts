@@ -13,6 +13,7 @@ import {Select, Store} from "@ngxs/store";
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {IMember} from "@identity/domain/interface/i.member";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
+import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 
 @Component({
 	selector: 'identity-create-business-names-page',
@@ -29,6 +30,7 @@ import {IdentityActions} from "@identity/state/identity/identity.actions";
 		PrimaryButtonDirective,
 		RouterLink,
 		AsyncPipe,
+		PrimaryLinkButtonDirective,
 	],
 	encapsulation: ViewEncapsulation.None
 })

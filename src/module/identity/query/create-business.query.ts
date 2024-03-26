@@ -44,6 +44,14 @@ export class CreateBusinessQuery {
 		return this.createBusinessFormRepository.form.controls.schedules;
 	}
 
+	public getBusinessSettings() {
+		return this.createBusinessFormRepository.form.controls.businessSettings;
+	}
+
+	public publishedControl() {
+		return this.createBusinessFormRepository.form.controls.published;
+	}
+
 	public initForm(): void {
 		this.createBusinessFormRepository.initForm();
 	}
