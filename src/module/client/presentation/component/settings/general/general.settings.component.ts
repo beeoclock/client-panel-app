@@ -21,7 +21,7 @@ import {ThemeInputComponent} from "@client/presentation/component/settings/theme
 		<bee-card>
 			<span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.general' | translate }}</span>
 
-			<client-settings-theme-input-component/>
+<!--			<client-settings-theme-input-component/>-->
 
 			<client-settings-language-input-component/>
 
