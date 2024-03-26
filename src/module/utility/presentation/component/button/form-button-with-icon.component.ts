@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {TranslateModule} from "@ngx-translate/core";
@@ -9,23 +9,8 @@ import {TranslateModule} from "@ngx-translate/core";
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   template: `
-    <button
-			type="button"
-      class="
-          text-blue-600
-          rounded-2xl
-          px-4
-          py-2
-          hover:bg-blue-100
-          dark:hover:bg-beeDarkColor-800
-          flex
-          gap-3
-          items-center
-          justify-center
-        ">
       <i class="bi bi-plus-lg"></i>
       {{ label }}
-    </button>
   `,
   imports: [
     NgIf,
@@ -37,5 +22,22 @@ export class FormButtonWithIconComponent {
 
   @Input()
   public label = 'LABEL OF BUTTON';
+
+	@HostBinding('attr.type')
+	public type = 'button';
+
+	@HostBinding()
+	public class = `
+	cursor-pointer
+          text-blue-600
+          rounded-2xl
+          px-4
+          py-2
+          hover:bg-blue-100
+          dark:hover:bg-beeDarkColor-800
+          flex
+          gap-3
+          items-center
+          justify-center`;
 
 }

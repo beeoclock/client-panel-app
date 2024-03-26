@@ -6,8 +6,7 @@ import {
 import {
 	LogoBusinessProfileComponent
 } from "@client/presentation/component/business-profile/logo/logo.business-profile.component";
-import {Select, Store} from "@ngxs/store";
-import * as Client from "@client/domain";
+import {Store} from "@ngxs/store";
 import {IClient} from "@client/domain";
 import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
@@ -15,7 +14,7 @@ import {
 	GalleryBusinessProfileComponent
 } from "@client/presentation/component/business-profile/gallery/gallery.business-profile/gallery.business-profile.component";
 import {ClientState} from "@client/state/client/client.state";
-import {filter, Observable} from "rxjs";
+import {filter} from "rxjs";
 import {
 	UpdateBusinessProfileApiAdapter
 } from "@client/adapter/external/api/buisness-profile/update.business-profile.api.adapter";
@@ -48,6 +47,7 @@ import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {TranslateModule} from "@ngx-translate/core";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'client-business-profile-page',
@@ -74,7 +74,7 @@ import {TranslateModule} from "@ngx-translate/core";
 	],
 	standalone: true
 })
-export default class Index implements OnInit {
+export default class Index extends Reactive implements OnInit {
 
 	// @ViewChild(CoverImageBusinessProfileComponent)
 	// public readonly coverImageBusinessProfileComponent!: CoverImageBusinessProfileComponent;
@@ -91,14 +91,13 @@ export default class Index implements OnInit {
 
 	public readonly serviceProfideType = ServiceProvideTypeEnum;
 
-	@Select(ClientState.item)
-	public readonly item$!: Observable<Client.RIClient>;
+	public readonly item$ = this.store.select(ClientState.item).pipe(
+		filter(Boolean)
+	);
 
 	public ngOnInit(): void {
 
-		this.item$.pipe(
-			filter(Boolean)
-		).subscribe((item) => {
+		this.item$.pipe(this.takeUntil()).subscribe((item) => {
 
 			const {socialNetworkLinks, schedules, contacts, addresses, ...data} = item;
 			this.form.patchValue(data);
