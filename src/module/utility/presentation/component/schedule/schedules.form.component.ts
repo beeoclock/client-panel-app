@@ -44,9 +44,11 @@ import {FormButtonWithIconComponent} from "@utility/presentation/component/butto
 				</div>
 			</div>
 
-			<bee-form-button-with-icon
-				(click)="schedulesForm.pushNewOne()"
-				[label]="'keyword.capitalize.addAvailableHours' | translate"/>
+			<div class="flex">
+				<bee-form-button-with-icon
+					(click)="schedulesForm.pushNewOne()"
+					[label]="'keyword.capitalize.addAvailableHours' | translate"/>
+			</div>
 
 		</bee-card>
 	`

@@ -47,13 +47,15 @@ export class AddressForm extends FormGroup<IAddressForm> {
 
 export class AddressesForm extends FormArray<AddressForm> {
 	constructor() {
-		super([new AddressForm()]);
+		super([]);
 	}
 
-	public pushNewOne(initialValue?: IAddress): void {
-		const control = new AddressForm();
+	public pushNewOne(initialValue?: IAddress, config?: {
+		initValidation: boolean;
+	}): void {
+		const control = new AddressForm(config);
 		if (initialValue) {
-			control.setValue(initialValue);
+			control.patchValue(initialValue);
 		}
 		this.push(control);
 	}

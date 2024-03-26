@@ -5,7 +5,7 @@ import {ServiceForm, ServicesForm} from "@service/presentation/form";
 import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
 import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
 import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
-import {LanguageCodeEnum} from "@utility/domain/enum";
+import {ActiveEnum, LanguageCodeEnum} from "@utility/domain/enum";
 import {DefaultServicesByBusinessCategory} from "@utility/domain/const/c.default-services-by-business-category";
 
 interface IBusinessOwnerForm {
@@ -39,6 +39,7 @@ interface IBusinessClientForm {
 	serviceProvideType: FormControl<ServiceProvideTypeEnum>;
 	businessIndustry: FormControl<BusinessIndustryEnum>;
 	businessName: FormControl<string>;
+	published: FormControl<ActiveEnum>;
 	businessOwner: BusinessOwnerForm;
 }
 
@@ -59,6 +60,9 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 			businessIndustry: new FormControl(),
 			serviceProvideType: new FormControl(),
 			businessName: new FormControl(),
+			published: new FormControl(ActiveEnum.YES, {
+				nonNullable: true,
+			}),
 			businessOwner: new BusinessOwnerForm(),
 		});
 		this.initValidators();

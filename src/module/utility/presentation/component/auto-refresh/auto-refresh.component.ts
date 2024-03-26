@@ -69,7 +69,9 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy {
 	@Output()
 	public readonly emitter: EventEmitter<void> = new EventEmitter<void>();
 
-	public readonly control = new FormControl(0);
+	public readonly control = new FormControl(60, {
+		nonNullable: true,
+	});
 
 	private readonly translateService = inject(TranslateService);
 
@@ -104,6 +106,7 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy {
 
 	constructor() {
 		super();
+		this.initTimer(this.control.value);
 		this.control.valueChanges.pipe(this.takeUntil(), filter(is.number)).subscribe((value) => {
 			this.initTimer(value);
 		});
