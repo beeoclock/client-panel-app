@@ -227,8 +227,8 @@
 	},
 	"country": {
 		"DK": "Dania",
-		"UA": "Ukraina",
-		"PL": "Polska"
+		"PL": "Polska",
+		"UA": "Ukraina"
 	},
 	"customer": {
 		"button": {
@@ -526,7 +526,12 @@
 		},
 		"confirm-invitation": {
 			"form": {
-				"description": "Jest to ostatni krok do dołączenia do organizacji, do której zostałeś zaproszony."
+				"description": "Jest to ostatni krok do dołączenia do organizacji, do której zostałeś zaproszony.",
+				"inputs": {
+					"password": {
+						"label": "Utwórz hasło do autoryzacji"
+					}
+				}
 			}
 		},
 		"confirmInvitation": {
