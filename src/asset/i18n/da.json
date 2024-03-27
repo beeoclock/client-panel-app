@@ -918,7 +918,8 @@
 	},
 	"role": {
 		"ADMIN": "Administrator",
-		"SPECIALIST": "Specialist"
+		"SPECIALIST": "Specialist",
+		"OWNER": "Ejer"
 	},
 	"service": {
 		"details": {
