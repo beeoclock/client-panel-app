@@ -918,7 +918,8 @@
 	},
 	"role": {
 		"ADMIN": "Admin",
-		"SPECIALIST": "Specialist"
+		"SPECIALIST": "Specialist",
+		"OWNER": "Owner"
 	},
 	"service": {
 		"details": {

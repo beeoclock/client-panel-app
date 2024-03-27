@@ -1,11 +1,13 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RIMember} from "@member/domain";
+import {RoleEnum} from "@utility/domain/enum/role.enum";
 
 export interface IMemberForm {
 	_id: FormControl<string>;
 	email: FormControl<string>;
 	firstName: FormControl<string>;
 	lastName: FormControl<string>;
+	role: FormControl<RoleEnum>;
 
 	// TODO role or/and permission
 }
@@ -18,6 +20,9 @@ export class MemberForm extends FormGroup<IMemberForm> {
 			email: new FormControl(),
 			firstName: new FormControl(),
 			lastName: new FormControl(),
+			role: new FormControl(RoleEnum.SPECIALIST, {
+				nonNullable: true,
+			}),
 		});
 		this.initValidators();
 	}
