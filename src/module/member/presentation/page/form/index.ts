@@ -16,24 +16,26 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
+import {SelectRoleComponent} from "@member/presentation/component/form/select-role/select-role.component";
 
 @Component({
   selector: 'member-form-page',
   templateUrl: './index.html',
   encapsulation: ViewEncapsulation.None,
-    imports: [
-        ReactiveFormsModule,
-        DeleteButtonComponent,
-        HasErrorDirective,
-        RouterLink,
-        BackLinkComponent,
-        InvalidTooltipDirective,
-        TranslateModule,
-        FormInputComponent,
-        PrimaryButtonDirective,
-        BackButtonComponent,
-        DefaultPanelComponent
-    ],
+	imports: [
+		ReactiveFormsModule,
+		DeleteButtonComponent,
+		HasErrorDirective,
+		RouterLink,
+		BackLinkComponent,
+		InvalidTooltipDirective,
+		TranslateModule,
+		FormInputComponent,
+		PrimaryButtonDirective,
+		BackButtonComponent,
+		DefaultPanelComponent,
+		SelectRoleComponent
+	],
   standalone: true
 })
 export default class Index implements OnInit {
@@ -59,6 +61,7 @@ export default class Index implements OnInit {
       firstValueFrom(this.itemData$).then((result) => {
         if (result) {
           this.isEditMode = true;
+					console.log(result)
           this.form = MemberForm.create(result);
           this.form.updateValueAndValidity();
         }
