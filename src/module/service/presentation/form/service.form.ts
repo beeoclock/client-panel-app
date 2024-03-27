@@ -1,7 +1,7 @@
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActiveEnum, LanguageCodeEnum, LANGUAGES} from '@utility/domain/enum';
+import {ActiveEnum, LanguageCodeEnum} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
-import {IDurationVersion, IService} from "@service/domain";
+import {IDurationVersion, ILanguageVersion, IService} from "@service/domain";
 import {extractSecondsFrom_hh_mm_ss, STR_MINUTE_45} from "@utility/domain/time";
 import {ISpecialist} from "@service/domain/interface/i.specialist";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
@@ -155,7 +155,26 @@ export class PrepaymentPolicyForm extends FormGroup<IPrepaymentPolicyForm> {
 
 export class LanguageVersionsForm extends FormArray<LanguageVersionForm> {
 	constructor() {
-		super([new LanguageVersionForm()]);
+		super([]);
+	}
+
+	public pushNewOne(initialValue?: undefined | ILanguageVersion): void {
+		const newOne = new LanguageVersionForm();
+		if (initialValue) {
+			newOne.patchValue(initialValue);
+		}
+		this.push(newOne);
+	}
+
+	public addNewLanguageVersionControl(languageCode: LanguageCodeEnum): void {
+		const foundIndex = this.controls.findIndex((control) => control.controls.language.value === languageCode);
+		if (foundIndex !== -1) {
+			if (this.controls.length > 1) {
+				this.removeAt(foundIndex);
+			}
+			return;
+		}
+		this.controls.push(new LanguageVersionForm(languageCode));
 	}
 
 }
@@ -238,20 +257,6 @@ export class ServiceForm extends FormGroup<IServiceForm> {
 					break;
 			}
 		});
-	}
-
-	public pushNewLanguageVersionForm(): void {
-		for (const language of LANGUAGES) {
-			if (Object.values(this.controls.languageVersions.controls).map(({language}) => language).includes(language.code)) {
-				continue;
-			}
-			this.addNewLanguageVersionControl(language.code);
-			break;
-		}
-	}
-
-	public addNewLanguageVersionControl(languageCode: LanguageCodeEnum): void {
-		this.controls.languageVersions.push(new LanguageVersionForm(languageCode));
 	}
 
 }

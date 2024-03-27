@@ -17,7 +17,7 @@ import {
 	SpecialistsBlockComponent
 } from "@service/presentation/component/form/v2/specialists/specialists-block.component";
 import {ServiceForm} from "@service/presentation/form/service.form";
-import {filter, firstValueFrom, Observable} from "rxjs";
+import {filter, firstValueFrom, map, Observable} from "rxjs";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {IService} from "@service/domain";
 import {Select, Store} from "@ngxs/store";
@@ -35,6 +35,8 @@ import {
 } from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
 import {ServicePresentationForm} from "@service/presentation/form/service.presentation.form";
 import {MediaTypeEnum} from "@utility/domain/enum/media.type.enum";
+import {ServicesFormComponent} from "@service/presentation/component/form/v1/service/services.form.component";
+import {ClientState} from "@client/state/client/client.state";
 
 @Component({
 	selector: 'service-form-v2-page-component',
@@ -57,6 +59,7 @@ import {MediaTypeEnum} from "@utility/domain/enum/media.type.enum";
 		BackButtonComponent,
 		DefaultPanelComponent,
 		ButtonSaveContainerComponent,
+		ServicesFormComponent,
 	]
 })
 export default class Index implements OnInit {
@@ -91,6 +94,13 @@ export default class Index implements OnInit {
 	@Select(ServiceState.itemData)
 	public itemData$!: Observable<IService | undefined>;
 
+	public readonly availableLanguages$ = this.store.select(ClientState.availableLanguages);
+
+	public readonly businessHasMoreThanOneLanguage$ = this.availableLanguages$.pipe(
+		filter(Array.isArray),
+		map((languages) => languages.length > 1)
+	);
+
 	private isEditMode = false;
 
 	public ngOnInit(): void {
@@ -103,7 +113,7 @@ export default class Index implements OnInit {
 				if (result) {
 					this.isEditMode = true;
 
-					const {durationVersions, presentation, ...rest} = result;
+					const {durationVersions, languageVersions, presentation, ...rest} = result;
 
 					if (presentation) {
 						this.presentationForm.patchValue(presentation);
@@ -111,12 +121,27 @@ export default class Index implements OnInit {
 
 					this.form.patchValue(rest);
 
-					// Prevents from removing all controls from durationVersions
-					this.form.controls.durationVersions.clear();
-					// Add new controls to durationVersions
-					durationVersions.forEach((durationVersion) => {
-						this.form.controls.durationVersions.pushNewOne(durationVersion);
-					});
+					if (durationVersions) {
+
+						// Prevents from removing all controls from durationVersions
+						this.form.controls.durationVersions.clear();
+						// Add new controls to durationVersions
+						durationVersions.forEach((durationVersion) => {
+							this.form.controls.durationVersions.pushNewOne(durationVersion);
+						});
+
+					}
+
+					if (languageVersions) {
+
+						// Prevents from removing all controls from languageVersions
+						this.form.controls.languageVersions.clear();
+						// Add new controls to languageVersions
+						languageVersions.forEach((languageVersion) => {
+							this.form.controls.languageVersions.pushNewOne(languageVersion);
+						});
+
+					}
 
 					this.form.updateValueAndValidity();
 					this.changeDetectorRef.detectChanges();
@@ -128,6 +153,7 @@ export default class Index implements OnInit {
 	public async save(): Promise<void> {
 
 		this.form.markAllAsTouched();
+		this.form.updateValueAndValidity();
 		if (this.form.valid) {
 			this.form.disable();
 			this.form.markAsPending();
@@ -145,6 +171,8 @@ export default class Index implements OnInit {
 			await this.backButtonComponent.navigateToBack();
 			this.form.enable();
 			this.form.updateValueAndValidity();
+		} else {
+			console.error('Form is invalid', this.form);
 		}
 	}
 

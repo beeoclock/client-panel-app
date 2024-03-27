@@ -932,6 +932,10 @@
 		"form": {
 			"v2": {
 				"section": {
+					"availableLanguages": {
+						"hint": "You can create a service that will be available in multiple languages, to add another language, select one of the available languages",
+						"title": "Service languages"
+					},
 					"presentation": {
 						"motivate": "You can inject a little more personality into your services and help people recognize your work by uploading a \n image (an image, photo or other graphic icon of your service)."
 					},

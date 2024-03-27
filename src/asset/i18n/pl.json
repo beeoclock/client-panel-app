@@ -932,6 +932,10 @@
 		"form": {
 			"v2": {
 				"section": {
+					"availableLanguages": {
+						"hint": "Możesz stworzyć usługę, która będzie dostępna w kilku językach, aby dodać kolejny język wybierz spośród dostępnych",
+						"title": "Języki usługi"
+					},
 					"presentation": {
 						"motivate": "Możesz nadać swoim usługom nieco więcej osobowości i pomóc innym rozpoznać Twoją pracę, przesyłając \n obraz (obraz, zdjęcie lub inną ikonę graficzną Twojej usługi)."
 					},

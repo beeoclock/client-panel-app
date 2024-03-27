@@ -932,6 +932,10 @@
 		"form": {
 			"v2": {
 				"section": {
+					"availableLanguages": {
+						"hint": "Du kan oprette en tjeneste, der vil være tilgængelig på flere sprog, for at tilføje et andet sprog skal du vælge et af følgende",
+						"title": "Service-sprog"
+					},
 					"presentation": {
 						"motivate": "Du kan give dine tjenester lidt mere personlighed og hjælpe folk med at genkende dit arbejde ved at uploade et billede (et billede, foto eller anden grafisk ikon for din tjeneste)."
 					},

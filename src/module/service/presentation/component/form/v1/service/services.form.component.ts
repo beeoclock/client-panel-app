@@ -1,75 +1,121 @@
 import {LanguageVersionsForm} from '@service/presentation/form/service.form';
-import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
-import {NgForOf, NgIf} from '@angular/common';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {AsyncPipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {ServiceFormComponent} from '@service/presentation/component/form/v1/service/service.form.component';
-import {LANGUAGES} from '@utility/domain/enum';
+import {LanguageCodeEnum, LanguageRecord} from '@utility/domain/enum';
+import {Select} from "@ngxs/store";
+import {ClientState} from "@client/state/client/client.state";
+import {firstValueFrom, Observable} from "rxjs";
+import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {FormButtonWithIconComponent} from "@utility/presentation/component/button/form-button-with-icon.component";
+import {TranslateModule} from "@ngx-translate/core";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
-  selector: 'service-services-form-component',
-  standalone: true,
-  encapsulation: ViewEncapsulation.None,
-  imports: [
-    NgForOf,
-    ServiceFormComponent,
-    NgIf,
-  ],
-  template: `
+	selector: 'service-services-form-component',
+	standalone: true,
+	encapsulation: ViewEncapsulation.None,
+	imports: [
+		NgForOf,
+		ServiceFormComponent,
+		NgIf,
+		AsyncPipe,
+		PrimaryButtonDirective,
+		FormButtonWithIconComponent,
+		TranslateModule,
+		NgClass,
+	],
+	template: `
 
-    <div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl p-4 mt-4">
+		<div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl"
+				 id="accordion-open" data-accordion="open">
 
-      <div class="flex flex-col gap-3">
-        <div
-          *ngFor="let languageVersionForm of form.controls; let index = index"
-          class="border border-beeColor-200 rounded-lg dark:bg-beeDarkColor-700 dark:border-beeDarkColor-600 dark:text-white">
-          <div
-            class="
-          justify-between
-          flex
-          w-full
-          px-4
-          py-2
-          bg-beeColor-100
-          border-b
-          border-beeColor-200
-          rounded-t-lg
-          cursor-pointer
-          dark:bg-beeDarkColor-800
-          dark:border-beeDarkColor-600">
-            Language version #{{ index + 1 }}
-            <button type="button" class="text-red-500" (click)="form.removeAt(index)" *ngIf="index > 0">
-              <i class="bi bi-trash"></i>
-            </button>
-          </div>
-          <div class="p-4">
-            <service-service-form-component
-              [form]="languageVersionForm"/>
-          </div>
-        </div>
-      </div>
+			<div class="p-4 pb-0">
+				<h2 class="text-2xl font-bold text-beeColor-500">
+					{{ 'service.form.v2.section.availableLanguages.title' | translate }}
+				</h2>
+				<p class="text-neutral-500 mt-2">{{ 'service.form.v2.section.availableLanguages.hint' | translate }}</p>
+			</div>
 
-      <!--      <hr *ngIf="showAddMore" class="my-4">-->
+			<div class="p-4 flex flex-wrap gap-4">
+				<ng-container *ngFor="let availableLanguage of availableLanguages$ | async">
+					<button
+						(click)="pushNewLanguageVersionForm(availableLanguage)"
+						type="button"
+						[ngClass]="{
+							'bg-blue-500 text-white': isLanguageSelected(availableLanguage)
+						}"
+						class="rounded-xl border px-3 text-center py-1.5 dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 dark:text-white border-neutral-100 hover:bg-blue-300 active:bg-blue-500">
+						{{ getLanguageName(availableLanguage) }}
+					</button>
+				</ng-container>
+			</div>
 
-      <!--      <button type="button" class="border rounded px-4 py-2" *ngIf="showAddMore" (click)="pushNewLanguageVersionForm($event)">-->
-      <!--        <i class="bi bi-plus-lg me-2"></i>-->
-      <!--        Add new language version-->
-      <!--      </button>-->
-    </div>
-  `
+			<div class="border-t p-4 flex flex-col gap-4" *ngFor="let languageVersionForm of form.controls; let index = index">
+
+				<div class="flex justify-between">
+					<h2 class="text-2xl font-bold">
+						{{ getLanguageName(languageVersionForm.controls.language.value) }}
+					</h2>
+					<button type="button" class="text-red-500" (click)="removeLanguageVersion(index)"
+									*ngIf="form.controls.length > 1">
+						<i class="bi bi-trash"></i>
+					</button>
+				</div>
+				<service-service-form-component
+					[hiddenControls]="['language']"
+					[form]="languageVersionForm"/>
+			</div>
+
+		</div>
+
+	`
 })
-export class ServicesFormComponent {
+export class ServicesFormComponent extends Reactive implements OnInit {
 
-  @Input()
-  public form = new LanguageVersionsForm();
+	@Input()
+	public form = new LanguageVersionsForm();
 
-  @Output()
-  public readonly handlePushNewLanguageVersionForm: EventEmitter<Event> = new EventEmitter();
+	@Select(ClientState.availableLanguages)
+	public availableLanguages$!: Observable<LanguageCodeEnum[] | undefined>;
 
-  public pushNewLanguageVersionForm($event: Event): void {
-    this.handlePushNewLanguageVersionForm.emit($event);
-  }
+	public readonly showAddMore = new BooleanStreamState();
 
-  public get showAddMore(): boolean {
-    return this.form.length !== LANGUAGES.length;
-  }
+	public ngOnInit() {
+		this.availableLanguages$.pipe(this.takeUntil()).subscribe((availableLanguages) => {
+			if (this.form.length === 0 && availableLanguages) {
+				this.pushNewLanguageVersionForm(availableLanguages[0]);
+			}
+		});
+	}
+
+	public async updateShowAddMore(): Promise<void> {
+		const availableLanguages = await firstValueFrom(this.availableLanguages$);
+		if (!availableLanguages) {
+			this.showAddMore.doFalse();
+			return;
+		}
+		this.showAddMore.toggle(this.form.length < availableLanguages.length);
+	}
+
+	public pushNewLanguageVersionForm(languageCode: LanguageCodeEnum): void {
+		this.form.addNewLanguageVersionControl(languageCode);
+		this.updateShowAddMore();
+	}
+
+	public removeLanguageVersion(index: number): void {
+		this.form.removeAt(index);
+		this.updateShowAddMore();
+	}
+
+	public getLanguageName(language: LanguageCodeEnum): string {
+		return LanguageRecord[language];
+	}
+
+	public isLanguageSelected(language: LanguageCodeEnum): boolean {
+		return !!this.form.controls.find((control) => control.controls.language.value === language);
+	}
+
 
 }
