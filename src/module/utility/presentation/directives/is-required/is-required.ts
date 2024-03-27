@@ -11,6 +11,9 @@ export class IsRequiredDirective implements AfterViewInit {
   public isRequiredEnabled = true;
 
   @Input()
+  public labelForId: string | undefined;
+
+  @Input()
   public formArray: FormArray | null = null;
 
   constructor(
@@ -47,28 +50,39 @@ export class IsRequiredDirective implements AfterViewInit {
 
   private initRequiredAsterisk(): void {
 
+		if (this.labelForId) {
+			this.setLabelForId(this.labelForId);
+			return;
+		}
+
     const id: string | null = this.elementRef.nativeElement.getAttribute('id');
 
     if (id) {
 
-      const label: Element | null | undefined = this.elementRef?.nativeElement?.parentElement?.parentElement?.querySelector(`label[for="${id}"]`);
-
-      if (label) {
-
-        label.setAttribute('required', 'true');
-
-      } else {
-
-        throw new Error(`Not found label in parent scope, please add label and add attribute for label [for]="${id}".`);
-
-      }
+      this.setLabelForId(id);
 
     } else {
 
-      throw new Error('Not found id attribute in tag, please add id to tag.');
+      throw new Error(`Not found id attribute in tag, please add id to tag. ${id}`);
 
     }
 
   }
+
+	private setLabelForId(id: string): void {
+
+		const label: Element | null | undefined = this.elementRef?.nativeElement?.parentElement?.parentElement?.querySelector(`label[for="${id}"]`);
+
+		if (label) {
+
+			label.setAttribute('required', 'true');
+
+		} else {
+
+			throw new Error(`Not found label in parent scope, please add label and add attribute for label [for]="${id}".`);
+
+		}
+
+	}
 
 }

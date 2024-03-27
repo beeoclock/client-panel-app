@@ -143,6 +143,10 @@
 								"hint": "Wybierz języki, w których prowadzisz działalność, być może prowadzisz działalność nie tylko dla mieszkańców, ale także dla turystów. Wybór ten określi dostępną listę języków dla wiadomości e-mail",
 								"label": "Języki, w których prowadzisz działalność"
 							},
+							"currencies": {
+								"hint": "Wybierz waluty, w których możesz otrzymać płatność za świadczoną usługę, dzięki temu ustawieniu możesz wybrać konkretną walutę dla konkretnej usługi.",
+								"label": "Waluty"
+							},
 							"emailLanguage": {
 								"hint": "Wybierz język, w którym chcesz otrzymywać wiadomości e-mail, dostępne opcje zależą od języków, w których prowadzisz działalność.",
 								"label": "Język wiadomości e-mail"
@@ -918,8 +922,8 @@
 	},
 	"role": {
 		"ADMIN": "Administrator",
-		"SPECIALIST": "Specjalista",
-		"OWNER": "Właściciel"
+		"OWNER": "Właściciel",
+		"SPECIALIST": "Specjalista"
 	},
 	"service": {
 		"details": {

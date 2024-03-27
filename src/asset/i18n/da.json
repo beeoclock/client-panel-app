@@ -143,6 +143,10 @@
 								"hint": "Vælg de sprog, du driver forretning på, måske driver du ikke kun forretning for lokale, men også for turister. Dette valg vil bestemme den tilgængelige liste over sprog til e-mails",
 								"label": "Sprog, som du driver forretning på"
 							},
+							"currencies": {
+								"hint": "Vælg de valutaer, som du kan modtage betaling i for den leverede service, takket være denne indstilling kan du vælge en bestemt valuta for en bestemt service.",
+								"label": "Valutaer"
+							},
 							"emailLanguage": {
 								"hint": "Vælg det sprog, du vil modtage e-mails på, de tilgængelige muligheder afhænger af de sprog, du gør forretninger på",
 								"label": "Sproget i e-mails"
@@ -918,8 +922,8 @@
 	},
 	"role": {
 		"ADMIN": "Administrator",
-		"SPECIALIST": "Specialist",
-		"OWNER": "Ejer"
+		"OWNER": "Ejer",
+		"SPECIALIST": "Specialist"
 	},
 	"service": {
 		"details": {

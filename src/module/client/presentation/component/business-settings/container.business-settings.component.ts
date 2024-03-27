@@ -8,6 +8,9 @@ import {
 import {BusinessSettingsForm} from "@client/presentation/form/business-settings.form";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {NgIf} from "@angular/common";
+import {
+	CurrenciesBusinessSettingsComponent
+} from "@client/presentation/component/business-settings/currencies.business-settings.component";
 
 @Component({
 	selector: 'client-container-business-settings-component',
@@ -18,13 +21,16 @@ import {NgIf} from "@angular/common";
 			<client-email-language-business-settings-component
 				[availableLanguagesControl]="businessSettings.controls.availableLanguages"
 				[control]="businessSettings.controls.emailLanguage"/>
+			<client-currencies-business-settings-component
+				[control]="businessSettings.controls.currencies"/>
 		</bee-card>
 	`,
 	imports: [
 		AvailableLanguagesBusinessSettingsComponent,
 		EmailLanguageBusinessSettingsComponent,
 		CardComponent,
-		NgIf
+		NgIf,
+		CurrenciesBusinessSettingsComponent
 	],
 	standalone: true
 })

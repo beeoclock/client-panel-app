@@ -7,6 +7,7 @@ import {
 	ItemBusinessProfileApiAdapter
 } from "@client/adapter/external/api/buisness-profile/item.business-profile.api.adapter";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
+import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
 
 interface IClientState {
 	item: Client.RIClient | undefined;
@@ -24,6 +25,16 @@ export class ClientState {
 	@Selector()
 	public static item(state: IClientState): Client.RIClient | undefined {
 		return state.item;
+	}
+
+	@Selector()
+	public static availableLanguages(state: IClientState): LanguageCodeEnum[] | undefined {
+		return state.item?.businessSettings?.availableLanguages;
+	}
+
+	@Selector()
+	public static currencies(state: IClientState): CurrencyCodeEnum[] | undefined {
+		return state.item?.businessSettings?.currencies;
 	}
 
 	@Selector()

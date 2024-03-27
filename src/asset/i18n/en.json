@@ -143,6 +143,10 @@
 								"hint": "Choose the languages in which you do business, maybe you do business not only for locals but also for tourists. This choice will determine the available list of languages for emails",
 								"label": "Languages in which you do business"
 							},
+							"currencies": {
+								"hint": "Select the currencies in which you can receive payment for the service provided, thanks to this setting you can choose a specific currency for a specific service.",
+								"label": "Currencies"
+							},
 							"emailLanguage": {
 								"hint": "Select the language in which you want to receive emails, the available options depend on the languages you do business in",
 								"label": "The language of emails"
@@ -918,8 +922,8 @@
 	},
 	"role": {
 		"ADMIN": "Admin",
-		"SPECIALIST": "Specialist",
-		"OWNER": "Owner"
+		"OWNER": "Owner",
+		"SPECIALIST": "Specialist"
 	},
 	"service": {
 		"details": {

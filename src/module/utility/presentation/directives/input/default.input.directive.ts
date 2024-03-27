@@ -28,7 +28,8 @@ export class DefaultInputDirective implements OnInit, OnChanges {
 			'dark:border-beeColor-700',
 			'placeholder:text-beeColor-400',
 			'focus:ring-2',
-			'sm:leading-6'
+			'sm:leading-6',
+			'shadow-sm'
 		);
 
 	}
