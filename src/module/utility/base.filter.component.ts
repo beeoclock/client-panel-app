@@ -36,6 +36,9 @@ export abstract class BaseFilterComponent extends Reactive {
 			)
 			.subscribe(({filters}: any) => {
 				Object.keys(filters).forEach((key) => {
+					if (!this.form.controls[key]) {
+						return;
+					}
 					this.form.controls[key].patchValue(filters[key], {
 						emitEvent: false,
 						onlySelf: true,
