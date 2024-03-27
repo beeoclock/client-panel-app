@@ -135,6 +135,12 @@
 							"latestBooking": {
 								"placeholder": "Sæt periode med rullende uger, folk kan booke i din kalender"
 							}
+						},
+						"select": {
+							"mandatoryAttendeeProperties": {
+								"hint": "Vælg, hvilke felter der er obligatoriske på den offentlige side for dine kunder.",
+								"label": "Krævede felter"
+							}
 						}
 					},
 					"businessSettings": {
@@ -785,6 +791,7 @@
 			"nextStep": "Næste skridt",
 			"no": "Nej",
 			"noData": "Ingen data",
+			"notSpecified": "Ikke specificeret",
 			"note": "Note",
 			"notification": "Notifikation",
 			"openTimePicker": "Vælg",
@@ -889,6 +896,13 @@
 		"SIX_WEEKS": "Inden for 6 uger",
 		"THREE_WEEKS": "Inden for 3 uger",
 		"TWO_WEEKS": "Denne uge og næste uge"
+	},
+	"mandatoryAttendeeProperties": {
+		"options": {
+			"email": "E-mail",
+			"firstName": "Fornavn",
+			"phone": "Telefon"
+		}
 	},
 	"member": {
 		"button": {

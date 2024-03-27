@@ -135,6 +135,12 @@
 							"latestBooking": {
 								"placeholder": "Określa czas dostępności rezerwacji usługi"
 							}
+						},
+						"select": {
+							"mandatoryAttendeeProperties": {
+								"hint": "Wybierz, które pola są wymagane na stronie publicznej dla klientów.",
+								"label": "Wymagane pola"
+							}
 						}
 					},
 					"businessSettings": {
@@ -785,6 +791,7 @@
 			"nextStep": "Dalej",
 			"no": "Nie",
 			"noData": "Brak danych",
+			"notSpecified": "Nie określono",
 			"note": "Notatka",
 			"notification": "Powiadomienia",
 			"openTimePicker": "Wybierz",
@@ -889,6 +896,13 @@
 		"SIX_WEEKS": "W ciągu 6 tygodni",
 		"THREE_WEEKS": "W ciągu 3 tygodni",
 		"TWO_WEEKS": "W tym i następnym tygodniu"
+	},
+	"mandatoryAttendeeProperties": {
+		"options": {
+			"email": "E-mail",
+			"firstName": "Imię",
+			"phone": "Telefon"
+		}
 	},
 	"member": {
 		"button": {

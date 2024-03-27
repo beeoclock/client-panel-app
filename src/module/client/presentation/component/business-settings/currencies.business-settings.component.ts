@@ -14,9 +14,6 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 		<label default [for]="id">
 			{{ 'client.profile.form.section.businessSettings.select.currencies.label' | translate }}
 		</label>
-		<div class="text-sm text-beeColor-500">
-			{{ 'client.profile.form.section.businessSettings.select.currencies.hint' | translate }}
-		</div>
 		<ng-select
 			[labelForId]="id"
 			isRequired
@@ -28,6 +25,9 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 			[clearable]="false"
 			[formControl]="control">
 		</ng-select>
+		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
+			{{ 'client.profile.form.section.businessSettings.select.currencies.hint' | translate }}
+		</div>
 	`,
 	imports: [
 		DefaultLabelDirective,

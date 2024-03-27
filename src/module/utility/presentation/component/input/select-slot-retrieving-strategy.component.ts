@@ -15,9 +15,6 @@ import {NgIf} from "@angular/common";
 		<label default [for]="id">
 			{{ 'slotRetrievingStrategy.title' | translate }}
 		</label>
-		<div class="text-sm text-beeColor-500">
-			{{ 'slotRetrievingStrategy.hint' | translate }}
-		</div>
 		<ng-select
 			bindLabel="label"
 			bindValue="id"
@@ -25,6 +22,9 @@ import {NgIf} from "@angular/common";
 			[clearable]="false"
 			[id]="id"
 			[formControl]="slotSettings.controls.slotRetrievingStrategy"/>
+		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
+			{{ 'slotRetrievingStrategy.hint' | translate }}
+		</div>
 		<div class="mt-2">
 			<ng-container *ngIf="isIncludeRequested">
 				{{ 'slotRetrievingStrategy.hists.byOption.IncludeRequested' | translate }}

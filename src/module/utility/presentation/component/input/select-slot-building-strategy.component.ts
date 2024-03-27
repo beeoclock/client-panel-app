@@ -16,15 +16,15 @@ import {SlotSettingsForm} from "@client/presentation/form/slot-settings.form";
 		<label default [for]="id">
 			{{ 'slotBuildingStrategy.title' | translate }}
 		</label>
-		<div class="text-sm text-beeColor-500">
-			{{ 'slotBuildingStrategy.hint' | translate }}
-		</div>
 		<ng-select
 			bindValue="id"
 			[items]="options"
 			[clearable]="false"
 			[id]="id"
 			[formControl]="localControl"/>
+		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
+			{{ 'slotBuildingStrategy.hint' | translate }}
+		</div>
 	`,
 	encapsulation: ViewEncapsulation.None,
 	imports: [

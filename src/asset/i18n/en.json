@@ -135,6 +135,12 @@
 							"latestBooking": {
 								"placeholder": "Set of period of rolling weeks people can book in your calendar"
 							}
+						},
+						"select": {
+							"mandatoryAttendeeProperties": {
+								"hint": "Choose which fields should be required on the public page for your customers",
+								"label": "Required fields"
+							}
 						}
 					},
 					"businessSettings": {
@@ -785,6 +791,7 @@
 			"nextStep": "Next step",
 			"no": "No",
 			"noData": "No data",
+			"notSpecified": "Not specified",
 			"note": "Note",
 			"notification": "Notification",
 			"openTimePicker": "Select",
@@ -889,6 +896,13 @@
 		"SIX_WEEKS": "Within 6 weeks",
 		"THREE_WEEKS": "Within 3 weeks",
 		"TWO_WEEKS": "This week and next week"
+	},
+	"mandatoryAttendeeProperties": {
+		"options": {
+			"email": "E-mail",
+			"firstName": "First name",
+			"phone": "Phone"
+		}
 	},
 	"member": {
 		"button": {

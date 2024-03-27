@@ -14,6 +14,7 @@ export interface IBookingSettingsForm {
 	earliestBooking: FormControl<EarliestBookingEnum>;
 	slotSettings: SlotSettingsForm;
 	autoBookEvent: FormControl<boolean>;
+	mandatoryAttendeeProperties: FormControl<string[]>;
 }
 
 export class BookingSettingsForm extends FormGroup<IBookingSettingsForm> {
@@ -31,6 +32,9 @@ export class BookingSettingsForm extends FormGroup<IBookingSettingsForm> {
 				nonNullable: true,
 			}),
 			slotSettings: new SlotSettingsForm(),
+			mandatoryAttendeeProperties: new FormControl([], {
+				nonNullable: true,
+			}),
 		});
 
 		this.initValue();

@@ -135,6 +135,12 @@
 							"latestBooking": {
 								"placeholder": "Зазнач час впродовж якого можна бронювати твої послуги"
 							}
+						},
+						"select": {
+							"mandatoryAttendeeProperties": {
+								"hint": "Оберіть які поля мають бути обовʼязковими до заповнення на публічній сторінці для ваших клієнтів",
+								"label": "Обовʼязкові поля"
+							}
 						}
 					},
 					"businessSettings": {
@@ -785,6 +791,7 @@
 			"nextStep": "Наступний крок",
 			"no": "Ні",
 			"noData": "Немає даних",
+			"notSpecified": "Не вказано",
 			"note": "Примітка",
 			"notification": "Повідомлення",
 			"openTimePicker": "Вибрати",
@@ -889,6 +896,13 @@
 		"SIX_WEEKS": "Впродовж 6 тижнів",
 		"THREE_WEEKS": "Впродовж 3 тижнів",
 		"TWO_WEEKS": "Цього і наступного тижня"
+	},
+	"mandatoryAttendeeProperties": {
+		"options": {
+			"email": "Електронна пошта",
+			"firstName": "Ім'я",
+			"phone": "Телефон"
+		}
 	},
 	"member": {
 		"button": {
