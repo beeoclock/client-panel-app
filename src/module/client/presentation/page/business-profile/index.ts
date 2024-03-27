@@ -134,6 +134,10 @@ export default class Index extends Reactive implements OnInit {
 						initValidation: false,
 					});
 				});
+			} else {
+				this.form.controls.addresses.pushNewOne(undefined, {
+					initValidation: false,
+				});
 			}
 
 		});
