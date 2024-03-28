@@ -48,6 +48,7 @@ import {
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
+import {is} from "thiis";
 
 @Component({
 	selector: 'client-business-profile-page',
@@ -134,6 +135,10 @@ export default class Index extends Reactive implements OnInit {
 						initValidation: false,
 					});
 				});
+			} else {
+				this.form.controls.addresses.pushNewOne(undefined, {
+					initValidation: false,
+				});
 			}
 
 		});
@@ -146,6 +151,7 @@ export default class Index extends Reactive implements OnInit {
 		if (this.form.valid) {
 			this.store.dispatch(new AppActions.PageLoading(true));
 			const value = this.form.getRawValue() as unknown as IClient;
+			this.checkUsername(value);
 			this.form.disable();
 			this.form.markAsPending();
 
@@ -164,6 +170,12 @@ export default class Index extends Reactive implements OnInit {
 			this.store.dispatch(new ClientActions.InitClient());
 			this.form.enable();
 			this.form.updateValueAndValidity();
+		}
+	}
+
+	private checkUsername(value: IClient): void {
+		if (is.string_empty(value.username)) {
+			value.username = null;
 		}
 	}
 

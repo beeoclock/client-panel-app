@@ -5,29 +5,32 @@
 
 	<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
 
-		<form [formGroup]="form" class="flex flex-col gap-4">
+		<form *ngIf="availableLanguages$ | async" class="flex flex-col gap-4">
 
 			<service-form-image-block-component
 				[presentationForm]="presentationForm"/>
 
+			<ng-container *ngIf="businessHasMoreThanOneLanguage$ | async; else SingleLanguageTemplate">
+
+				<service-services-form-component [form]="form.controls.languageVersions"/>
+
+			</ng-container>
+
+			<ng-template #SingleLanguageTemplate>
+
+				<service-form-details-block-component
+					[showHeader]="true"
+					[form]="form.controls.languageVersions.at(0)"/>
+
+			</ng-template>
+
+			<service-form-prices-block-component
+				[durationConfigurationForm]="form.controls.configuration.controls.duration"
+				[durationVersions]="form.controls.durationVersions"/>
+
 			<utility-form-switch-active-block-component
 				[label]="'service.keyword.capitalize.active' | translate"
 				[control]="form.controls.active"/>
-
-			<service-form-details-block-component
-				[showHeader]="true"
-				[form]="form.controls.languageVersions.at(0)"/>
-			<div>
-
-				<!-- HTML of the component is temporary hidden, but we need to call the component because the component has code to add default specialist from member list -->
-				<service-form-specialists-block-component
-					[specialistListControl]="form.controls.specialists"/>
-
-				<service-form-prices-block-component
-					[durationConfigurationForm]="form.controls.configuration.controls.duration"
-					[durationVersions]="form.controls.durationVersions"/>
-
-			</div>
 
 			<utility-button-save-container-component>
 				<button

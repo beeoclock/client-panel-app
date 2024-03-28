@@ -91,6 +91,10 @@
 					},
 					"published": {
 						"label": "Public access"
+					},
+					"username": {
+						"label": "Username",
+						"placeholder": "Bee.O_clock"
 					}
 				},
 				"section": {
@@ -101,6 +105,11 @@
 							},
 							"country": {
 								"placeholder": "Your country"
+							},
+							"customLink": {
+								"hint": "Specify the link where the user should be taken from the public page by clicking on the address, if you want to use the standard mode, leave this field blank",
+								"label": "Custom link",
+								"placeholder": "https://example.com"
 							},
 							"streetAddressLineOne": {
 								"placeholder": "Street, avn., boulevard, etc. name"
@@ -135,6 +144,12 @@
 							"latestBooking": {
 								"placeholder": "Set of period of rolling weeks people can book in your calendar"
 							}
+						},
+						"select": {
+							"mandatoryAttendeeProperties": {
+								"hint": "Choose which fields should be required on the public page for your customers",
+								"label": "Required fields"
+							}
 						}
 					},
 					"businessSettings": {
@@ -142,6 +157,10 @@
 							"availableLanguages": {
 								"hint": "Choose the languages in which you do business, maybe you do business not only for locals but also for tourists. This choice will determine the available list of languages for emails",
 								"label": "Languages in which you do business"
+							},
+							"currencies": {
+								"hint": "Select the currencies in which you can receive payment for the service provided, thanks to this setting you can choose a specific currency for a specific service.",
+								"label": "Currencies"
 							},
 							"emailLanguage": {
 								"hint": "Select the language in which you want to receive emails, the available options depend on the languages you do business in",
@@ -379,7 +398,8 @@
 			"shouldBeMoreThen": {
 				"startInSeconds": "The end time must be longer than the start time"
 			},
-			"whitespace": "Remove all spaces"
+			"whitespace": "Remove all spaces",
+			"pattern": "A username can contain only letters, numbers, an underscore (_), and a dot (.)"
 		}
 	},
 	"http": {
@@ -781,6 +801,7 @@
 			"nextStep": "Next step",
 			"no": "No",
 			"noData": "No data",
+			"notSpecified": "Not specified",
 			"note": "Note",
 			"notification": "Notification",
 			"openTimePicker": "Select",
@@ -886,6 +907,13 @@
 		"THREE_WEEKS": "Within 3 weeks",
 		"TWO_WEEKS": "This week and next week"
 	},
+	"mandatoryAttendeeProperties": {
+		"options": {
+			"email": "E-mail",
+			"firstName": "First name",
+			"phone": "Phone"
+		}
+	},
 	"member": {
 		"button": {
 			"create": "Add member"
@@ -918,8 +946,8 @@
 	},
 	"role": {
 		"ADMIN": "Admin",
-		"SPECIALIST": "Specialist",
-		"OWNER": "Owner"
+		"OWNER": "Owner",
+		"SPECIALIST": "Specialist"
 	},
 	"service": {
 		"details": {
@@ -928,6 +956,10 @@
 		"form": {
 			"v2": {
 				"section": {
+					"availableLanguages": {
+						"hint": "You can create a service that will be available in multiple languages, to add another language, select one of the available languages",
+						"title": "Service languages"
+					},
 					"presentation": {
 						"motivate": "You can inject a little more personality into your services and help people recognize your work by uploading a \n image (an image, photo or other graphic icon of your service)."
 					},

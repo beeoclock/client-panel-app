@@ -27,6 +27,6 @@ export class AddressBusinessProfileComponent {
 	public form!: AddressForm;
 
 	@Input()
-	public hideInputList: ('country' | 'city' | 'zipCode' | 'addressLineOne' | 'addressLineTwo')[] = [];
+	public hideInputList: ('country' | 'city' | 'zipCode' | 'addressLineOne' | 'addressLineTwo' | 'customLink')[] = [];
 
 }

@@ -91,6 +91,10 @@
 					},
 					"published": {
 						"label": "Offentlig adgang"
+					},
+					"username": {
+						"label": "Brugernavn",
+						"placeholder": "Bee.O_clock"
 					}
 				},
 				"section": {
@@ -101,6 +105,11 @@
 							},
 							"country": {
 								"placeholder": "Dit land"
+							},
+							"customLink": {
+								"hint": "Angiv det link, hvor brugeren skal føres fra den offentlige side ved at klikke på adressen, hvis du vil bruge standardtilstanden, skal du lade dette felt være tomt",
+								"label": "Brugerdefineret link",
+								"placeholder": "https://example.com"
 							},
 							"streetAddressLineOne": {
 								"placeholder": "Gadenavn, avenue, boulevard, osv."
@@ -135,6 +144,12 @@
 							"latestBooking": {
 								"placeholder": "Sæt periode med rullende uger, folk kan booke i din kalender"
 							}
+						},
+						"select": {
+							"mandatoryAttendeeProperties": {
+								"hint": "Vælg, hvilke felter der er obligatoriske på den offentlige side for dine kunder.",
+								"label": "Krævede felter"
+							}
 						}
 					},
 					"businessSettings": {
@@ -142,6 +157,10 @@
 							"availableLanguages": {
 								"hint": "Vælg de sprog, du driver forretning på, måske driver du ikke kun forretning for lokale, men også for turister. Dette valg vil bestemme den tilgængelige liste over sprog til e-mails",
 								"label": "Sprog, som du driver forretning på"
+							},
+							"currencies": {
+								"hint": "Vælg de valutaer, som du kan modtage betaling i for den leverede service, takket være denne indstilling kan du vælge en bestemt valuta for en bestemt service.",
+								"label": "Valutaer"
 							},
 							"emailLanguage": {
 								"hint": "Vælg det sprog, du vil modtage e-mails på, de tilgængelige muligheder afhænger af de sprog, du gør forretninger på",
@@ -379,7 +398,8 @@
 			"shouldBeMoreThen": {
 				"startInSeconds": "Sluttidspunktet skal være længere end starttidspunktet"
 			},
-			"whitespace": "Fjern alle mellemrum"
+			"whitespace": "Fjern alle mellemrum",
+			"username": "Brugernavnet kan kun indeholde bogstaver, tal, en understregning (_) og et punktum (.)."
 		}
 	},
 	"http": {
@@ -781,6 +801,7 @@
 			"nextStep": "Næste skridt",
 			"no": "Nej",
 			"noData": "Ingen data",
+			"notSpecified": "Ikke specificeret",
 			"note": "Note",
 			"notification": "Notifikation",
 			"openTimePicker": "Vælg",
@@ -886,6 +907,13 @@
 		"THREE_WEEKS": "Inden for 3 uger",
 		"TWO_WEEKS": "Denne uge og næste uge"
 	},
+	"mandatoryAttendeeProperties": {
+		"options": {
+			"email": "E-mail",
+			"firstName": "Fornavn",
+			"phone": "Telefon"
+		}
+	},
 	"member": {
 		"button": {
 			"create": "Tilføj medlem"
@@ -918,8 +946,8 @@
 	},
 	"role": {
 		"ADMIN": "Administrator",
-		"SPECIALIST": "Specialist",
-		"OWNER": "Ejer"
+		"OWNER": "Ejer",
+		"SPECIALIST": "Specialist"
 	},
 	"service": {
 		"details": {
@@ -928,6 +956,10 @@
 		"form": {
 			"v2": {
 				"section": {
+					"availableLanguages": {
+						"hint": "Du kan oprette en tjeneste, der vil være tilgængelig på flere sprog, for at tilføje et andet sprog skal du vælge et af følgende",
+						"title": "Service-sprog"
+					},
 					"presentation": {
 						"motivate": "Du kan give dine tjenester lidt mere personlighed og hjælpe folk med at genkende dit arbejde ved at uploade et billede (et billede, foto eller anden grafisk ikon for din tjeneste)."
 					},

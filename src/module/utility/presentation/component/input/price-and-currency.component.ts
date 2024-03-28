@@ -1,13 +1,16 @@
-import {ChangeDetectionStrategy, Component, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation} from "@angular/core";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {NgxMaskDirective} from "ngx-mask";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {LanguageCurrency} from "@utility/domain/const/c.language-currency";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-error.directive";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
+import {Store} from "@ngxs/store";
+import {ClientState} from "@client/state/client/client.state";
+import {map, tap} from "rxjs";
+import {AsyncPipe} from "@angular/common";
 
 @Component({
   selector: 'price-and-currency-component',
@@ -27,6 +30,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
           rounded-none
           rounded-l
           border
+          shadow-sm
           text-beeColor-900
           focus:ring-blue-500
           focus:border-blue-500
@@ -51,6 +55,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
           text-sm
           text-beeColor-900
           bg-beeColor-200
+          shadow-sm
           border
           border-l-0
           border-beeColor-300
@@ -63,7 +68,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
             class="border-0"
             bindLabel="name"
             bindValue="id"
-            [items]="currencyList"
+            [items]="currencyList$ | async"
             [clearable]="false"
             [id]="prefix + 'currency'"
             [formControl]="currencyControl">
@@ -79,11 +84,12 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 		HasErrorDirective,
 		NgxMaskDirective,
 		TranslateModule,
-		DefaultLabelDirective
+		DefaultLabelDirective,
+		AsyncPipe
 	],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PriceAndCurrencyComponent implements OnInit {
+export class PriceAndCurrencyComponent {
 
   @Input()
   public prefix = '';
@@ -98,15 +104,29 @@ export class PriceAndCurrencyComponent implements OnInit {
   public priceControl = new FormControl();
 
   public readonly translateService = inject(TranslateService);
+  private readonly store = inject(Store);
 
-  public readonly currencyList = Object.values(CurrencyCodeEnum).map((currency) => ({
-    id: currency,
-    name: currency
-  }));
+	public readonly currencyList$ = this.store.select(ClientState.currencies).pipe(
+		map((currencies) => {
+			if (!currencies) {
+				return Object.values(CurrencyCodeEnum);
+			}
+			return currencies;
+		}),
+		tap((currencies) => {
+			this.updateValue(currencies);
+		}),
+		map((currencies) => {
+			return currencies.map((currency) => ({
+				id: currency,
+				name: currency
+			}));
+		}),
+	);
 
-  public ngOnInit(): void {
+  private updateValue(currencies: CurrencyCodeEnum[]): void {
 		if (!this.currencyControl.value) {
-			this.currencyControl.setValue(LanguageCurrency[this.translateService.currentLang as keyof typeof LanguageCurrency]);
+			this.currencyControl.setValue(currencies[0]);
 		}
   }
 

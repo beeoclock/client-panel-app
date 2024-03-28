@@ -42,4 +42,16 @@
     [control]="form.controls.streetAddressLineTwo"
     [label]="'keyword.capitalize.streetAddressLineTwo' | translate"/>
 
+  <div>
+		<form-input
+			id="business-profile-form-address-customLink-input"
+			inputType="text"
+			autocomplete="address.customLink"
+			[hidden]="hideInputList.includes('customLink')"
+			[placeholder]="'client.profile.form.section.address.input.customLink.placeholder' | translate"
+			[control]="form.controls.customLink"
+			[label]="'client.profile.form.section.address.input.customLink.label' | translate"/>
+		<p class="italic leading-tight p-2 text-beeColor-500 text-sm">{{ 'client.profile.form.section.address.input.customLink.hint' | translate }}</p>
+	</div>
+
 </bee-card>

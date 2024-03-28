@@ -9,6 +9,7 @@ export interface IAddressForm {
 	zipCode: FormControl<string>;
 	streetAddressLineOne: FormControl<string>;
 	streetAddressLineTwo: FormControl<string>;
+	customLink: FormControl<string | null>;
 	country: FormControl<CountryCodeEnum>;
 }
 
@@ -28,6 +29,7 @@ export class AddressForm extends FormGroup<IAddressForm> {
 			zipCode: new FormControl(),
 			streetAddressLineOne: new FormControl(),
 			streetAddressLineTwo: new FormControl(),
+			customLink: new FormControl(),
 		});
 
 		const {initValidation} = config;

@@ -11,6 +11,7 @@ import {BusinessIndustry} from "@utility/domain/business-industry";
 import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
 import {BusinessSettingsForm} from "@client/presentation/form/business-settings.form";
 import {is} from "thiis";
+import {USERNAME_ANGULAR_VALIDATOR} from "@utility/validators";
 
 
 export interface IBusinessProfile {
@@ -18,6 +19,7 @@ export interface IBusinessProfile {
 	object: FormControl<'Client'>;
 
 	name: FormControl<string>;
+	username: FormControl<string | null>;
 	businessCategory: FormControl<BusinessCategoryEnum>;
 	businessIndustry: FormControl<BusinessIndustry>;
 	serviceProvideType: FormControl<ServiceProvideTypeEnum>;
@@ -44,6 +46,7 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
 				nonNullable: true,
 			}),
 			name: new FormControl(),
+			username: new FormControl(),
 			businessCategory: new FormControl(),
 			businessIndustry: new FormControl(),
 			serviceProvideType: new FormControl(),
@@ -84,6 +87,7 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
 		this.controls.name.setValidators([Validators.minLength(1), Validators.required]);
 		this.controls.description.setValidators([Validators.maxLength(1000)]);
 		this.controls.businessCategory.setValidators([Validators.required]);
+		this.controls.username.setValidators([USERNAME_ANGULAR_VALIDATOR()]);
 	}
 
 	// public async setLogo(target: HTMLInputElement): Promise<void> {

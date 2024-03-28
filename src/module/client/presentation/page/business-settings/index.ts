@@ -30,6 +30,9 @@ import {
 import {
 	AutoBookEventComponent
 } from "@client/presentation/component/business-settings/auto-book-event/auto-book-event.component";
+import {
+	ContainerBookingSettingsComponent
+} from "@client/presentation/component/booking-settings/container.booking-settings.component";
 
 @Component({
 	selector: 'client-business-settings-page',
@@ -46,7 +49,8 @@ import {
 		ServiceSettingsComponent,
 		DangerZoneComponent,
 		ContainerBusinessSettingsComponent,
-		AutoBookEventComponent
+		AutoBookEventComponent,
+		ContainerBookingSettingsComponent
 	],
 	standalone: true
 })

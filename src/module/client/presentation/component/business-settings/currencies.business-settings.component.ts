@@ -1,6 +1,6 @@
 import {Component, HostBinding, Input} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {LanguageCodeEnum, LANGUAGES} from "@utility/domain/enum";
+import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {TranslateModule} from "@ngx-translate/core";
@@ -9,26 +9,24 @@ import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 
 @Component({
-	selector: 'client-available-languages-business-settings-component',
+	selector: 'client-currencies-business-settings-component',
 	template: `
-		<label default for="client-business-settings-form-available-languages">
-			{{ 'client.profile.form.section.businessSettings.select.availableLanguages.label' | translate }}
+		<label default [for]="id">
+			{{ 'client.profile.form.section.businessSettings.select.currencies.label' | translate }}
 		</label>
 		<ng-select
-			labelForId="client-business-settings-form-available-languages"
-			bindLabel="name"
-			bindValue="code"
+			[labelForId]="id"
 			isRequired
 			hasError
 			invalidTooltip
 			[multiple]="true"
-			[items]="languageList"
+			[items]="currencyList"
 			[closeOnSelect]="false"
 			[clearable]="false"
 			[formControl]="control">
 		</ng-select>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
-			{{ 'client.profile.form.section.businessSettings.select.availableLanguages.hint' | translate }}
+			{{ 'client.profile.form.section.businessSettings.select.currencies.hint' | translate }}
 		</div>
 	`,
 	imports: [
@@ -42,12 +40,15 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 	],
 	standalone: true
 })
-export class AvailableLanguagesBusinessSettingsComponent {
+export class CurrenciesBusinessSettingsComponent {
 
-	@Input({ required: true })
-	public control!: FormControl<LanguageCodeEnum[]>;
+	@Input({required: true})
+	public control!: FormControl<CurrencyCodeEnum[]>;
 
-	public readonly languageList = LANGUAGES;
+	@Input()
+	public id = 'client-business-settings-form-currencies';
+
+	public readonly currencyList = Object.keys(CurrencyCodeEnum);
 
 	@HostBinding()
 	public class = 'flex flex-col text-start';

@@ -67,7 +67,7 @@ export class SelectWeekDayComponent {
 	public selectedClass(isSelected: boolean): Record<string, boolean> {
 		return {
 			'bg-blue-500 border-blue-600 text-white': isSelected,
-			'bg-beeColor-100 border-beeColor-200': !isSelected,
+			'border-beeColor-200': !isSelected,
 			'dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 dark:text-white': !isSelected,
 		};
 	}

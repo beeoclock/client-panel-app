@@ -11,9 +11,6 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
   template: `
     <label default
            [for]="id">{{ 'keyword.capitalize.earliestBooking' | translate }}</label>
-    <div class="text-sm text-beeColor-500">
-      {{ 'client.profile.form.section.bookingSettings.input.earliestBooking.placeholder' | translate }}
-    </div>
     <ng-select
       bindLabel="name"
       bindValue="seconds"
@@ -22,6 +19,9 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
       [id]="id"
       [formControl]="control">
     </ng-select>
+		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
+			{{ 'client.profile.form.section.bookingSettings.input.earliestBooking.placeholder' | translate }}
+		</div>
   `,
   encapsulation: ViewEncapsulation.None,
 	imports: [

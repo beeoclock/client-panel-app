@@ -79,6 +79,8 @@ export class InvalidTooltipDirective implements DoCheck {
       return;
     }
 
+		console.log(this.control.errors)
+
     // Get first key of errors from control errors object
     const key = getFirstKey(this.control.errors);
 

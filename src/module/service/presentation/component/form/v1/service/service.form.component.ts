@@ -9,47 +9,58 @@ import {
 } from '@service/presentation/component/form/v1/service/language.service.form.component';
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {TranslateModule} from "@ngx-translate/core";
+import {NgIf} from "@angular/common";
+import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 
 @Component({
-  selector: 'service-service-form-component',
-  standalone: true,
-  encapsulation: ViewEncapsulation.None,
-  imports: [
-    ReactiveFormsModule,
-    HasErrorDirective,
-    NgSelectModule,
-    IsRequiredDirective,
-    LanguageServiceFormComponent,
-    FormInputComponent,
-    TranslateModule,
-  ],
-  template: `
-    <form [formGroup]="form" class="flex flex-col gap-3">
+	selector: 'service-service-form-component',
+	standalone: true,
+	encapsulation: ViewEncapsulation.None,
+	imports: [
+		ReactiveFormsModule,
+		HasErrorDirective,
+		NgSelectModule,
+		IsRequiredDirective,
+		LanguageServiceFormComponent,
+		FormInputComponent,
+		TranslateModule,
+		NgIf,
+		FormTextareaComponent,
+	],
+	template: `
+		<form [formGroup]="form" class="flex flex-col gap-3">
 
-      <service-language-service-form-component
-        [control]="form.controls.language"/>
+			<service-language-service-form-component
+				*ngIf="!hiddenControls.includes('language')"
+				[control]="form.controls.language"/>
 
-      <form-input
-        id="service-form-title"
-        autocomplete="service.title"
-        placeholder="Write title of service"
-        [control]="form.controls.title"
-        [label]="'keyword.capitalize.title' | translate"/>
 
-      <form-input
-        id="service-form-description"
-        autocomplete="service.description"
-        placeholder="Write description of service"
-        [control]="form.controls.description"
-        [label]="'keyword.capitalize.description' | translate"/>
+			<form-input
+				*ngIf="!hiddenControls.includes('title')"
+				id="service-form-title"
+				inputType="text"
+				autocomplete="service.title"
+				[placeholder]="'keyword.capitalize.title' | translate"
+				[control]="form.controls.title"
+				[label]="'keyword.capitalize.title' | translate"/>
 
-    </form>
-  `
+			<form-textarea-component
+				*ngIf="!hiddenControls.includes('description')"
+				id="service-form-description"
+				[control]="form.controls.description"
+				[label]="'keyword.capitalize.description' | translate"
+				[placeholder]="'keyword.capitalize.placeholder.description' | translate"/>
+
+		</form>
+	`
 })
 export class ServiceFormComponent {
 
-  @Input()
-  public form = new LanguageVersionForm();
+	@Input()
+	public hiddenControls: ('description' | 'title' | 'language')[] = [];
+
+	@Input()
+	public form = new LanguageVersionForm();
 
 
 }

@@ -4,6 +4,7 @@ import {NGXLogger} from "ngx-logger";
 import {TranslateService} from "@ngx-translate/core";
 import {LanguageCodeEnum} from "@utility/domain/enum";
 import {LanguageCountry} from "@utility/domain/const/c.language-country";
+import {LanguageCurrency} from "@utility/domain/const/c.language-currency";
 
 @Injectable({
 	providedIn: 'root'
@@ -90,11 +91,13 @@ export class CreateBusinessFormRepository {
 		this.#form.currentLanguage = this.translateService.currentLang as LanguageCodeEnum;
 		this.#form.controls.businessSettings.controls.availableLanguages.setValue([this.#form.currentLanguage]);
 		this.#form.controls.addressForm.controls.country.patchValue(LanguageCountry[this.#form.currentLanguage][0]);
+		this.#form.controls.businessSettings.controls.currencies.patchValue([LanguageCurrency[this.#form.currentLanguage]]);
 
 		this.translateService.onLangChange.subscribe((event) => {
 			this.#form.currentLanguage = event.lang as LanguageCodeEnum;
 			this.#form.controls.businessSettings.controls.availableLanguages.setValue([this.#form.currentLanguage]);
 			this.#form.controls.addressForm.controls.country.patchValue(LanguageCountry[this.#form.currentLanguage][0]);
+			this.#form.controls.businessSettings.controls.currencies.patchValue([LanguageCurrency[this.#form.currentLanguage]]);
 		});
 
 	}
