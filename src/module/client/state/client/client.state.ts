@@ -38,7 +38,7 @@ export class ClientState {
 	}
 
 	@Selector()
-	public static username(state: IClientState): string | undefined {
+	public static username(state: IClientState): string | undefined | null {
 		return state.item?.username;
 	}
 

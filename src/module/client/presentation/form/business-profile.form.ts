@@ -19,7 +19,7 @@ export interface IBusinessProfile {
 	object: FormControl<'Client'>;
 
 	name: FormControl<string>;
-	username: FormControl<string>;
+	username: FormControl<string | null>;
 	businessCategory: FormControl<BusinessCategoryEnum>;
 	businessIndustry: FormControl<BusinessIndustry>;
 	serviceProvideType: FormControl<ServiceProvideTypeEnum>;
