@@ -7,4 +7,5 @@ export interface IAddress {
   zipCode: string;
   streetAddressLineOne: string;
   streetAddressLineTwo: string;
+  customLink?: string | null;
 }

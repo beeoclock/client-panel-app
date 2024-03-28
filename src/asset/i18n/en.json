@@ -102,6 +102,11 @@
 							"country": {
 								"placeholder": "Your country"
 							},
+							"customLink": {
+								"hint": "Specify the link where the user should be taken from the public page by clicking on the address, if you want to use the standard mode, leave this field blank",
+								"label": "Custom link",
+								"placeholder": "https://example.com"
+							},
 							"streetAddressLineOne": {
 								"placeholder": "Street, avn., boulevard, etc. name"
 							},

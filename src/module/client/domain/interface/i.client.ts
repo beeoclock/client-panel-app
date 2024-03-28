@@ -43,6 +43,7 @@ export interface RIClient extends RIBaseEntity<'Client'> {
 	// gallery: IGallery;
 	gallery: RIMedia[];
 	description: string;
+	username?: string;
 	facilities: FacilityEnum[];
 }
 

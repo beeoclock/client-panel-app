@@ -35,7 +35,7 @@ import {Reactive} from "@utility/cdk/reactive";
 				<h2 class="text-2xl font-bold text-beeColor-500">
 					{{ 'service.form.v2.section.availableLanguages.title' | translate }}
 				</h2>
-				<p class="text-neutral-500 mt-2">{{ 'service.form.v2.section.availableLanguages.hint' | translate }}</p>
+				<p class="italic leading-tight p-2 text-beeColor-500 text-sm">{{ 'service.form.v2.section.availableLanguages.hint' | translate }}</p>
 			</div>
 
 			<div class="p-4 flex flex-wrap gap-4">

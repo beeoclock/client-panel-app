@@ -102,6 +102,11 @@
 							"country": {
 								"placeholder": "Dit land"
 							},
+							"customLink": {
+								"hint": "Angiv det link, hvor brugeren skal føres fra den offentlige side ved at klikke på adressen, hvis du vil bruge standardtilstanden, skal du lade dette felt være tomt",
+								"label": "Brugerdefineret link",
+								"placeholder": "https://example.com"
+							},
 							"streetAddressLineOne": {
 								"placeholder": "Gadenavn, avenue, boulevard, osv."
 							},

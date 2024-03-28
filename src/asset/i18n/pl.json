@@ -102,6 +102,11 @@
 							"country": {
 								"placeholder": "Kraj"
 							},
+							"customLink": {
+								"hint": "Określ link, do którego użytkownik powinien zostać przeniesiony ze strony publicznej po kliknięciu adresu, jeśli chcesz użyć trybu standardowego, pozostaw to pole puste",
+								"label": "Łącze niestandardowe",
+								"placeholder": "https://example.com"
+							},
 							"streetAddressLineOne": {
 								"placeholder": "Nazwa ulicy, alei, bulwaru itp"
 							},
