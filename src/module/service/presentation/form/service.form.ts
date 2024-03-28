@@ -22,11 +22,14 @@ export class LanguageVersionForm extends FormGroup<ILanguageVersionForm> {
 		super({
 			title: new FormControl(),
 			description: new FormControl(),
-			language: new FormControl(),
-			active: new FormControl(),
+			language: new FormControl(language, {
+				nonNullable: true,
+			}),
+			active: new FormControl(ActiveEnum.YES, {
+				nonNullable: true,
+			}),
 		});
 		this.initValidators();
-		this.initValue();
 	}
 
 	public initValidators(): void {
@@ -35,17 +38,11 @@ export class LanguageVersionForm extends FormGroup<ILanguageVersionForm> {
 		this.controls.language.setValidators([Validators.required]);
 	}
 
-	public initValue(): void {
-		this.controls.language.setValue(this.language);
-		this.controls.active.setValue(ActiveEnum.YES);
-	}
 }
 
 export interface IPriceForm {
 	price: FormControl<number>;
 	currency: FormControl<CurrencyCodeEnum>;
-
-	[key: string]: AbstractControl;
 }
 
 export class PriceForm extends FormGroup<IPriceForm> {
@@ -68,8 +65,6 @@ export interface IDurationVersionForm {
 	breakInSeconds: FormControl<number>;
 	durationInSeconds: FormControl<number>;
 	prices: PricesForm;
-
-	[key: string]: AbstractControl;
 }
 
 export class DurationVersionForm extends FormGroup<IDurationVersionForm> {
@@ -138,8 +133,6 @@ export interface IPrepaymentPolicyForm {
 	isPercentage: FormControl<boolean>;
 	value: FormControl<string>;
 	minimalCancelTime: FormControl<string>;
-
-	[key: string]: AbstractControl;
 }
 
 export class PrepaymentPolicyForm extends FormGroup<IPrepaymentPolicyForm> {
@@ -174,7 +167,7 @@ export class LanguageVersionsForm extends FormArray<LanguageVersionForm> {
 			}
 			return;
 		}
-		this.controls.push(new LanguageVersionForm(languageCode));
+		this.push(new LanguageVersionForm(languageCode));
 	}
 
 }
@@ -218,10 +211,16 @@ export class ServiceForm extends FormGroup<IServiceForm> {
 			prepaymentPolicy: new PrepaymentPolicyForm(),
 			languageVersions: new LanguageVersionsForm(),
 			durationVersions: new DurationVersionsForm(),
-			specialists: new FormControl(),
-			active: new FormControl(),
+			specialists: new FormControl([], {
+				nonNullable: true,
+			}),
+			active: new FormControl(ActiveEnum.YES, {
+				nonNullable: true,
+			}),
 			_id: new FormControl(),
-			object: new FormControl(),
+			object: new FormControl('Service', {
+				nonNullable: true,
+			}),
 			createdAt: new FormControl(),
 			updatedAt: new FormControl(),
 		});
@@ -230,9 +229,6 @@ export class ServiceForm extends FormGroup<IServiceForm> {
 	}
 
 	public initValue(initialValue?: IService): void {
-		this.controls.specialists.setValue([]);
-		this.controls.object.setValue('Service');
-		this.controls.active.setValue(ActiveEnum.YES);
 		if (initialValue) {
 			Object.keys(initialValue).forEach(key => {
 				if (this.contains(key)) {

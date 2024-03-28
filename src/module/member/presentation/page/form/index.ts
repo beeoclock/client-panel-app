@@ -61,7 +61,6 @@ export default class Index implements OnInit {
       firstValueFrom(this.itemData$).then((result) => {
         if (result) {
           this.isEditMode = true;
-					console.log(result)
           this.form = MemberForm.create(result);
           this.form.updateValueAndValidity();
         }
