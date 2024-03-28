@@ -59,8 +59,8 @@ export class ServiceFormComponent {
 	@Input()
 	public hiddenControls: ('description' | 'title' | 'language')[] = [];
 
-	@Input()
-	public form = new LanguageVersionForm();
+	@Input({required: true})
+	public form!: LanguageVersionForm;
 
 
 }
