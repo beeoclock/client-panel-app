@@ -43,6 +43,9 @@
           "configurations": {
             "production": {
 							"assets": [
+								"src/favicon.ico",
+								"src/asset",
+								"src/manifest.webmanifest",
 								"src/firebase-messaging-sw.prod.js"
 							],
 							"budgets": [
@@ -67,6 +70,9 @@
             },
             "develop": {
 							"assets": [
+								"src/favicon.ico",
+								"src/asset",
+								"src/manifest.webmanifest",
 								"src/firebase-messaging-sw.dev.js"
 							],
 							"budgets": [
