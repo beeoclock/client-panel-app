@@ -32,9 +32,7 @@
             "assets": [
               "src/favicon.ico",
               "src/asset",
-              "src/manifest.webmanifest",
-              "src/firebase-messaging-sw.dev.js",
-              "src/firebase-messaging-sw.prod.js"
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.scss"
@@ -44,7 +42,10 @@
           },
           "configurations": {
             "production": {
-              "budgets": [
+							"assets": [
+								"src/firebase-messaging-sw.prod.js"
+							],
+							"budgets": [
                 {
                   "type": "initial",
                   "maximumWarning": "2mb",
@@ -65,7 +66,10 @@
               "outputHashing": "all"
             },
             "develop": {
-              "budgets": [
+							"assets": [
+								"src/firebase-messaging-sw.dev.js"
+							],
+							"budgets": [
                 {
                   "type": "initial",
                   "maximumWarning": "2mb",
