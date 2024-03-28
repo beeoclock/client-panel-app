@@ -91,6 +91,10 @@
 					},
 					"published": {
 						"label": "Public access"
+					},
+					"username": {
+						"label": "Username",
+						"placeholder": "Bee.O_clock"
 					}
 				},
 				"section": {
@@ -394,7 +398,8 @@
 			"shouldBeMoreThen": {
 				"startInSeconds": "The end time must be longer than the start time"
 			},
-			"whitespace": "Remove all spaces"
+			"whitespace": "Remove all spaces",
+			"pattern": "A username can contain only letters, numbers, an underscore (_), and a dot (.)"
 		}
 	},
 	"http": {

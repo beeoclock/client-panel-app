@@ -13,23 +13,24 @@ export class DefaultInputDirective implements OnInit, OnChanges {
 
 	public ngOnInit() {
 
+		// block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6
 		this.elementRef.nativeElement.classList.add(
-			'px-3',
 			'block',
 			'w-full',
 			'rounded-md',
+			'border-0',
 			'py-1.5',
-			'text-beeColor-900',
-			'dark:text-beeDarkColor-100',
-			'dark:bg-beeDarkColor-900',
-			'outline-0',
-			'border',
-			'border-beeColor-300',
-			'dark:border-beeColor-700',
-			'placeholder:text-beeColor-400',
+			'text-gray-900',
+			'shadow-sm',
+			'ring-1',
+			'ring-inset',
+			'ring-gray-300',
+			'placeholder:text-gray-400',
 			'focus:ring-2',
-			'sm:leading-6',
-			'shadow-sm'
+			'focus:ring-inset',
+			'focus:ring-indigo-600',
+			'sm:text-sm',
+			'sm:leading-6'
 		);
 
 	}

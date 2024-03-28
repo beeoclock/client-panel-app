@@ -12,6 +12,9 @@ import {FormTextareaComponent} from "@utility/presentation/component/input/form.
 import {BusinessCategoryComponent} from "@utility/presentation/component/input/business-category.component";
 import {BusinessIndustryComponent} from "@utility/presentation/component/input/business-industry.component";
 import {ServiceProvideTypeComponent} from "@utility/presentation/component/input/service-provide-type.component";
+import {
+	FormInputWithLeftHintComponent
+} from "@utility/presentation/component/input/form.input-with-left-hint.component";
 
 @Component({
 	selector: 'client-business-profile-form-component',
@@ -30,7 +33,8 @@ import {ServiceProvideTypeComponent} from "@utility/presentation/component/input
 		FormTextareaComponent,
 		BusinessCategoryComponent,
 		BusinessIndustryComponent,
-		ServiceProvideTypeComponent
+		ServiceProvideTypeComponent,
+		FormInputWithLeftHintComponent
 	],
 	template: `
 		<bee-card>
@@ -44,6 +48,13 @@ import {ServiceProvideTypeComponent} from "@utility/presentation/component/input
 				[placeholder]="'client.profile.form.inputs.name.placeholder' | translate"
 				[control]="form.controls.name"
 				[label]="'client.profile.form.inputs.name.label' | translate"/>
+
+			<form-input-with-left-hint
+				id="business-profile-form-username-input"
+				leftHint="https://beeoclock.com/"
+				[control]="form.controls.username"
+				[placeholder]="'client.profile.form.inputs.username.placeholder' | translate"
+				[label]="'client.profile.form.inputs.username.label' | translate"/>
 
 <!--			<form-textarea-component-->
 <!--				id="business-profile-form-description-input"-->

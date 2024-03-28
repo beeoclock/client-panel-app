@@ -91,6 +91,10 @@
 					},
 					"published": {
 						"label": "Dostęp publiczny"
+					},
+					"username": {
+						"label": "Nazwa użytkownika",
+						"placeholder": "Bee.O_clock"
 					}
 				},
 				"section": {
@@ -394,7 +398,8 @@
 			"shouldBeMoreThen": {
 				"startInSeconds": "Czas zakończenia musi być dłuższy niż czas rozpoczęcia"
 			},
-			"whitespace": "Usuń wszystkie spacje"
+			"whitespace": "Usuń wszystkie spacje",
+			"username": "Nazwa użytkownika może zawierać tylko litery, cyfry, podkreślenie (_) i kropkę (.)."
 		}
 	},
 	"http": {

@@ -38,6 +38,11 @@ export class ClientState {
 	}
 
 	@Selector()
+	public static username(state: IClientState): string | undefined {
+		return state.item?.username;
+	}
+
+	@Selector()
 	public static earliestScheduleAndLatestSchedule(state: IClientState): {
 		earliestSchedule: RISchedule,
 		latestSchedule: RISchedule,

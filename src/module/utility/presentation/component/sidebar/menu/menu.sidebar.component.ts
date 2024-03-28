@@ -55,8 +55,17 @@ export class MenuSidebarComponent implements OnInit {
 
 	public async goToPublicPage(): Promise<void> {
 
-		const clientId = await firstValueFrom(this.store.select(IdentityState.clientId));
-		const link = `${environment.urls.publicPageOrigin}/${clientId}`;
+		let path;
+
+		path = await firstValueFrom(this.store.select(ClientState.username));
+
+		if (!path) {
+
+			path = await firstValueFrom(this.store.select(IdentityState.clientId));
+
+		}
+
+		const link = `${environment.urls.publicPageOrigin}/${path}`;
 		window.open(link, '_blank');
 
 	}

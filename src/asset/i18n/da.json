@@ -91,6 +91,10 @@
 					},
 					"published": {
 						"label": "Offentlig adgang"
+					},
+					"username": {
+						"label": "Brugernavn",
+						"placeholder": "Bee.O_clock"
 					}
 				},
 				"section": {
@@ -394,7 +398,8 @@
 			"shouldBeMoreThen": {
 				"startInSeconds": "Sluttidspunktet skal være længere end starttidspunktet"
 			},
-			"whitespace": "Fjern alle mellemrum"
+			"whitespace": "Fjern alle mellemrum",
+			"username": "Brugernavnet kan kun indeholde bogstaver, tal, en understregning (_) og et punktum (.)."
 		}
 	},
 	"http": {
