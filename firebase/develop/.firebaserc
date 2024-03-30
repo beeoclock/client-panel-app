@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "panel-dev-beeoclock"
+    "default": "business-panel-dev-beeoclock"
   },
   "targets": {
     "panel-beeoclock": {
@@ -10,10 +10,10 @@
         ]
       }
     },
-    "panel-dev-beeoclock": {
+    "business-panel-dev-beeoclock": {
       "hosting": {
-        "panel-dev-beeoclock": [
-          "panel-dev-beeoclock"
+        "business-panel-dev-beeoclock": [
+          "business-panel-dev-beeoclock"
         ]
       }
     }

@@ -15,8 +15,8 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEE_O_CLOCK }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_DEVELOP_BEE_O_CLOCK }}'
           channelId: live
-          target: panel-dev-beeoclock
-          projectId: bee-o-clock
+          target: business-panel-dev-beeoclock
+          projectId: beeoclock-develop
           entrypoint: ./firebase/develop
