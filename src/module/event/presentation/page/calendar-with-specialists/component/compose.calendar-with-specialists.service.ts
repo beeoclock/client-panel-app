@@ -1,9 +1,7 @@
 import {Injectable} from "@angular/core";
 import * as Member from "@member/domain";
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class ComposeCalendarWithSpecialistsService {
 
 	public readonly hoursMode = 24;
