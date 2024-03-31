@@ -2,6 +2,8 @@ import {Component, ViewEncapsulation} from "@angular/core";
 import {ServiceForm} from "@service/presentation/form";
 import {DetailsBlockComponent} from "@service/presentation/component/form/v2/details/details-block.component";
 import {PricesBlockComponent} from "@service/presentation/component/form/v2/prices/prices-block.component";
+import {AsyncPipe, NgIf} from "@angular/common";
+import {ServicesFormComponent} from "@service/presentation/component/form/v1/service/services.form.component";
 
 @Component({
 	selector: 'service-create-business-component',
@@ -9,7 +11,10 @@ import {PricesBlockComponent} from "@service/presentation/component/form/v2/pric
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		DetailsBlockComponent,
-		PricesBlockComponent
+		PricesBlockComponent,
+		NgIf,
+		AsyncPipe,
+		ServicesFormComponent
 	],
 	standalone: true
 })

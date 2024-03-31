@@ -25,7 +25,6 @@ import {SchedulesFormComponent} from "@utility/presentation/component/schedule/s
 
 			<service-services-form-component
 				*ngSwitchCase="'services'"
-				(handlePushNewLanguageVersionForm)="form.pushNewLanguageVersionForm()"
 				[form]="form.controls.languageVersions"/>
 
 			<service-durations-form-component
@@ -33,8 +32,7 @@ import {SchedulesFormComponent} from "@utility/presentation/component/schedule/s
 				[durationVersionsForm]="form.controls.durationVersions"/>
 
 			<schedules-form-component
-				*ngSwitchCase="'schedules'"
-				[schedulesForm]="form.controls.schedules"/>
+				*ngSwitchCase="'schedules'"/>
 
 			<service-members-form-component
 				*ngSwitchCase="'members'"
