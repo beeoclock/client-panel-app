@@ -19,7 +19,7 @@ export class BaseImageComponent implements OnChanges, AfterViewInit {
 	public readonly previewImage!: ElementRef<HTMLImageElement>;
 
 	@Input()
-	public banner: RIMedia | null | undefined;
+	public banner: RIMedia | null | undefined | { url: string; _id: string; } = null;
 
 	@Input()
 	public index = 0;

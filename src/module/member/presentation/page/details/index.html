@@ -12,6 +12,14 @@
 		</div>
 		<div class="border-t border-gray-100">
 			<dl class="divide-y divide-gray-100">
+				<div *ngIf="member?.avatar?.url?.length" class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+					<dt class="text-sm font-medium leading-6 text-gray-900">
+						{{ 'keyword.capitalize.avatar' | translate }}
+					</dt>
+					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+						<img [src]="member?.avatar?.url" class="min-w-[192px] max-w-[192px] min-h-[192px] max-h-[192px] flex flex-col items-center justify-center w-full relative rounded-xl cursor-pointer bg-beeColor-50 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-800 dark:bg-beeColor-700 dark:border-beeDarkColor-600 dark:hover:border-beeDarkColor-500" alt="">
+					</dd>
+				</div>
 				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
 					<dt class="text-sm font-medium leading-6 text-gray-900">
 						{{ 'keyword.capitalize.fullName' | translate }}

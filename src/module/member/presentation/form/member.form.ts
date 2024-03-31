@@ -1,10 +1,12 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RIMember} from "@member/domain";
 import {RoleEnum} from "@utility/domain/enum/role.enum";
+import {RESPONSE_IMemberMedia} from "@member/domain/interface/i.member-media";
 
 export interface IMemberForm {
 	_id: FormControl<string>;
 	email: FormControl<string>;
+	avatar: FormControl<RESPONSE_IMemberMedia>;
 	firstName: FormControl<string>;
 	lastName: FormControl<string>;
 	role: FormControl<RoleEnum>;
@@ -18,6 +20,7 @@ export class MemberForm extends FormGroup<IMemberForm> {
 		super({
 			_id: new FormControl(),
 			email: new FormControl(),
+			avatar: new FormControl(),
 			firstName: new FormControl(),
 			lastName: new FormControl(),
 			role: new FormControl(RoleEnum.SPECIALIST, {
