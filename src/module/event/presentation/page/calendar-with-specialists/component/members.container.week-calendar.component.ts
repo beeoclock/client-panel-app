@@ -16,6 +16,7 @@ import {MemberActions} from "@member/state/member/member.actions";
 import {
 	ComposeCalendarWithSpecialistsService
 } from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'event-members-container-week-calendar-component',
@@ -32,12 +33,13 @@ import {
 		ScheduleContainerWeekCalendarComponent
 	]
 })
-export class MembersContainerWeekCalendarComponent {
+export class MembersContainerWeekCalendarComponent extends Reactive {
 
 	private readonly store = inject(Store);
 	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
 
 	public readonly item$ = this.store.select(MemberState.tableState).pipe(
+		this.takeUntil(),
 		filter(is.object_not_empty<ITableState<Member.RIMember>>),
 		tap((tableState) => {
 			if (tableState.total === 0) {
