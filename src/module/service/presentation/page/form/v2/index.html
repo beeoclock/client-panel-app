@@ -10,19 +10,7 @@
 			<service-form-image-block-component
 				[presentationForm]="presentationForm"/>
 
-			<ng-container *ngIf="businessHasMoreThanOneLanguage$ | async; else SingleLanguageTemplate">
-
-				<service-services-form-component [form]="form.controls.languageVersions"/>
-
-			</ng-container>
-
-			<ng-template #SingleLanguageTemplate>
-
-				<service-form-details-block-component
-					[showHeader]="true"
-					[form]="form.controls.languageVersions.at(0)"/>
-
-			</ng-template>
+			<service-services-form-component [form]="form.controls.languageVersions"/>
 
 			<service-form-prices-block-component
 				[durationConfigurationForm]="form.controls.configuration.controls.duration"

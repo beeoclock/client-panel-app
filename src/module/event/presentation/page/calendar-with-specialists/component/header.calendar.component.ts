@@ -9,8 +9,13 @@ import {NgIf} from "@angular/common";
 			<div
 				class="flex gap-2 items-center justify-start h-full px-2 text-slate-900 dark:text-slate-200 text-sm font-medium">
 				<div class="rounded-full bg-beeColor-400 min-h-8 min-w-8 flex justify-center items-center">
-					<div class="text-white text-xs font-bold">{{ getMemberFirstName[0] }}</div>
-					<div class="text-white text-xs font-bold">{{ getMemberLastName[0] }}</div>
+					<ng-container *ngIf="member?.avatar?.url; else InitialsTemplate">
+						<img [src]="member.avatar.url" class="min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 rounded-full" alt="">
+					</ng-container>
+					<ng-template #InitialsTemplate>
+						<div class="text-white text-xs font-bold">{{ getMemberFirstName[0] }}</div>
+						<div class="text-white text-xs font-bold">{{ getMemberLastName[0] }}</div>
+					</ng-template>
 				</div>
 				<div>{{ getMemberFirstName }} {{ getMemberLastName }}</div>
 			</div>

@@ -17,7 +17,7 @@ import {
 	SpecialistsBlockComponent
 } from "@service/presentation/component/form/v2/specialists/specialists-block.component";
 import {ServiceForm} from "@service/presentation/form/service.form";
-import {filter, firstValueFrom, map, Observable} from "rxjs";
+import {filter, firstValueFrom, Observable} from "rxjs";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {IService} from "@service/domain";
 import {Select, Store} from "@ngxs/store";
@@ -95,11 +95,6 @@ export default class Index implements OnInit {
 	public itemData$!: Observable<IService | undefined>;
 
 	public readonly availableLanguages$ = this.store.select(ClientState.availableLanguages);
-
-	public readonly businessHasMoreThanOneLanguage$ = this.availableLanguages$.pipe(
-		filter(Array.isArray),
-		map((languages) => languages.length > 1)
-	);
 
 	private isEditMode = false;
 

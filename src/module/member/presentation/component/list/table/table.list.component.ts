@@ -1,5 +1,5 @@
 import {Component, ViewEncapsulation} from "@angular/core";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
@@ -24,23 +24,24 @@ import {RowActionButtonComponent} from "@member/presentation/component/row-actio
 	templateUrl: './table.list.component.html',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
-	imports: [
-		NgForOf,
-		RouterLink,
-		ActiveStyleDirective,
-		ActionComponent,
-		TableStatePaginationComponent,
-		DynamicDatePipe,
-		SortIndicatorComponent,
-		TranslateModule,
-		EventStatusStyleDirective,
-		BodyTableFlexDirective,
-		ColumnTableFlexDirective,
-		RowActionButtonComponent,
-		RowTableFlexDirective,
-		TableTableFlexDirective,
-		RowActionButtonComponent
-	]
+    imports: [
+        NgForOf,
+        RouterLink,
+        ActiveStyleDirective,
+        ActionComponent,
+        TableStatePaginationComponent,
+        DynamicDatePipe,
+        SortIndicatorComponent,
+        TranslateModule,
+        EventStatusStyleDirective,
+        BodyTableFlexDirective,
+        ColumnTableFlexDirective,
+        RowActionButtonComponent,
+        RowTableFlexDirective,
+        TableTableFlexDirective,
+        RowActionButtonComponent,
+        NgIf
+    ]
 })
 export class TableListComponent extends TableComponent<RIMember> {
 

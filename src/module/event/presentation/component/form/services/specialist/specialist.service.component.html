@@ -9,8 +9,8 @@
 		(click)="changeMemberInSpecialist(member)"
 		[class.border-green-500]="member._id === selectedSpecialist?.member?._id">
 
-		<img *ngIf="member?.avatar" class="min-w-[40px] min-h-[40px] max-w-[40px] max-h-[40px] rounded-full"
-				 src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=80">
+		<img *ngIf="member?.avatar?.url?.length" class="min-w-[40px] min-h-[40px] max-w-[40px] max-h-[40px] rounded-full"
+				 [src]="member?.avatar?.url">
 		<ng-template [ngIf]="!member?.avatar">
 			<div class="min-w-[40px] min-h-[40px] max-w-[40px] max-h-[40px] rounded-full bg-neutral-200 flex items-center justify-center font-bold">
 				{{ member?.firstName?.charAt(0) }}{{ member?.lastName?.charAt(0) }}
