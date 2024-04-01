@@ -83,7 +83,7 @@ import {ICustomer} from "@customer/domain";
 					[label]="'keyword.capitalize.email' | translate"/>
 
 				<form-input
-					inputType="phone"
+					inputType="tel"
 					customerAutocomplete
 					autocomplete="off"
 					placeholder="+000000000000"
