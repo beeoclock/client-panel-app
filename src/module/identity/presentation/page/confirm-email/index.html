@@ -16,7 +16,7 @@
 				<div>
 					{{ 'identity.confirm-email.hint' | translate }}
 				</div>
-				<button (click)="sendAgain()" primary [isLoading]="emailSending.isOn" [class.disabled]="emailSending.isOn" type="button">
+				<button (click)="sendAgain()" id="identity-confirm-email-button-send-again" primary [isLoading]="emailSending.isOn" [class.disabled]="emailSending.isOn" type="button">
 					{{ 'keyword.capitalize.sendAgain' | translate }}
 				</button>
 				<div class="text-sm text-neutral-500">
