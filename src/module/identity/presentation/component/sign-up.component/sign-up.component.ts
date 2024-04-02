@@ -68,7 +68,7 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 				[label]="'identity.sign-up.form.inputs.password.label' | translate"/>
 
 			<div>
-				<button (click)="signUp()" type="submit" primary [isLoading]="form.pending">
+				<button (click)="signUp()" id="identity-sign-up-form-submit" type="submit" primary [isLoading]="form.pending">
 					{{ 'keyword.capitalize.signUp' | translate }}
 				</button>
 			</div>

@@ -7,7 +7,7 @@ import {RouterLink} from "@angular/router";
 	template: `
 		<p class="mt-6 text-center text-sm text-beeColor-500">
 			{{ 'identity.sign-up.hint.youHaveAnAccount' | translate }}
-			<a routerLink=".." class="font-semibold leading-6 text-blue-600 dark:text-black hover:text-blue-500">
+			<a routerLink=".." id="already-sign-in-link" class="font-semibold leading-6 text-blue-600 dark:text-black hover:text-blue-500">
 				{{ 'keyword.capitalize.signIn' | translate }}
 			</a>
 		</p>
