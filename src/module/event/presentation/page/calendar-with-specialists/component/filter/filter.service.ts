@@ -8,11 +8,10 @@ import {
 } from "@event/presentation/page/calendar-with-specialists/component/filter/date-control/date-control.calendar-with-specialists.service";
 import {BehaviorSubject} from "rxjs";
 import {RIEvent} from "@event/domain";
+import {Reactive} from "@utility/cdk/reactive";
 
-@Injectable({
-	providedIn: 'root'
-})
-export class FilterService {
+@Injectable()
+export class FilterService extends Reactive {
 
 	private readonly dateControlCalendarWithSpecialistsService = inject(DateControlCalendarWithSpecialistsService);
 	private readonly listMergedEventApiAdapter = inject(ListMergedEventApiAdapter);
@@ -23,7 +22,7 @@ export class FilterService {
 
 	public initHandler() {
 
-		this.dateControlCalendarWithSpecialistsService.selectedDate$.subscribe(() => {
+		this.dateControlCalendarWithSpecialistsService.selectedDate$.pipe(this.takeUntil()).subscribe(() => {
 
 			this.forceRefresh();
 

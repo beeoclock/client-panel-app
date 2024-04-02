@@ -11,6 +11,7 @@ import {
 } from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 import {is} from "thiis";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'event-schedule-container-week-calendar-component',
@@ -26,12 +27,13 @@ import {RISchedule} from "@utility/domain/interface/i.schedule";
 		AsyncPipe
 	]
 })
-export class ScheduleContainerWeekCalendarComponent {
+export class ScheduleContainerWeekCalendarComponent extends Reactive {
 
 	private readonly store = inject(Store);
 	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
 
 	public readonly item$ = this.store.select(ClientState.earliestScheduleAndLatestSchedule).pipe(
+		this.takeUntil(),
 		filter(is.not_null<{earliestSchedule: RISchedule; latestSchedule: RISchedule;}>),
 		tap(({earliestSchedule, latestSchedule}) => {
 

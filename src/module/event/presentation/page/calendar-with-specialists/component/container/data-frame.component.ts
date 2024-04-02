@@ -13,6 +13,7 @@ import {
 	ComposeCalendarWithSpecialistsService
 } from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 import {RIEvent} from "@event/domain";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'event-data-frame-component',
@@ -38,7 +39,7 @@ import {RIEvent} from "@event/domain";
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DataFrameComponent implements OnInit {
+export class DataFrameComponent extends Reactive implements OnInit {
 
 	@Input()
 	public rows!: {
@@ -91,6 +92,7 @@ export class DataFrameComponent implements OnInit {
 		}[];
 		data: RIEvent;
 	}[]> = this.filterService.events$.pipe(
+		this.takeUntil(),
 		map((events) => {
 			return events.map((item) => {
 				const column = this.columnHeaderList.findIndex((column) => {
