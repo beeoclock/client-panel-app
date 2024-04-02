@@ -25,6 +25,7 @@ import {TranslateService} from "@ngx-translate/core";
     <!--  Dropdown button  -->
     <button
       #dropdownButton
+			id="change-language-dropdown-button"
       class="
         text-beeColor-800
         hover:bg-beeColor-200
