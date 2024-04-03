@@ -9,7 +9,7 @@
 		(click)="changeMemberInSpecialist(member)"
 		[class.border-green-500]="member._id === selectedSpecialist?.member?._id">
 
-		<img *ngIf="member?.avatar?.url?.length" class="min-w-[40px] min-h-[40px] max-w-[40px] max-h-[40px] rounded-full"
+		<img *ngIf="member?.avatar?.url?.length" class="min-w-[40px] min-h-[40px] max-w-[40px] max-h-[40px] rounded-full object-cover"
 				 [src]="member?.avatar?.url">
 		<ng-template [ngIf]="!member?.avatar">
 			<div class="min-w-[40px] min-h-[40px] max-w-[40px] max-h-[40px] rounded-full bg-neutral-200 flex items-center justify-center font-bold">
