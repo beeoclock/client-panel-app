@@ -69,7 +69,7 @@ export default class Index implements OnInit {
 			filter(Boolean)
 		).subscribe((item) => {
 
-			const {socialNetworkLinks, schedules, contacts, ...data} = item;
+			const {socialNetworkLinks, schedules, contacts, addresses, ...data} = item;
 			this.form.patchValue(data);
 
 			this.form.controls.businessCategory.disable();
@@ -94,6 +94,19 @@ export default class Index implements OnInit {
 				this.form.controls.contacts.clear();
 				contacts.forEach((contact) => {
 					this.form.controls.contacts.pushNewOne(contact);
+				});
+			}
+
+			if (addresses?.length) {
+				this.form.controls.addresses.clear();
+				addresses.forEach((address) => {
+					this.form.controls.addresses.pushNewOne(address, {
+						initValidation: false,
+					});
+				});
+			} else {
+				this.form.controls.addresses.pushNewOne(undefined, {
+					initValidation: false,
 				});
 			}
 
