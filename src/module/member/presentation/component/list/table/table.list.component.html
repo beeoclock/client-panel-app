@@ -44,7 +44,7 @@
 
 				<div class="rounded-full bg-beeColor-400 min-h-8 min-w-8 flex justify-center items-center">
 					<ng-container *ngIf="item?.avatar?.url; else InitialsTemplate">
-						<img [src]="item.avatar.url" class="min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 rounded-full" alt="">
+						<img [src]="item.avatar.url" class="min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 rounded-full object-cover" alt="">
 					</ng-container>
 					<ng-template #InitialsTemplate>
 						<div class="text-white text-xs font-bold">{{ item?.firstName?.[0] ?? '' }}</div>
