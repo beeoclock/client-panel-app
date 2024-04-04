@@ -12,6 +12,15 @@ import {ThemeService} from "@utility/cdk/theme.service";
 import {CheckForUpdatePwaService} from "@utility/cdk/check-for-update-pwa.service";
 import {NotificationManagerService} from "@utility/cdk/notification.manager.service";
 import {AppActions} from "@utility/state/app/app.actions";
+import typia, {tags} from "typia";
+
+export const check = typia.createIs<IMember>();
+
+interface IMember {
+	id: string & tags.Format<"uuid">;
+	email: string & tags.Format<"email">;
+	age: number & tags.ExclusiveMinimum<19> & tags.Maximum<100>;
+}
 
 @Component({
 	selector: 'app-root',
@@ -38,6 +47,7 @@ export class AppComponent implements AfterViewInit {
 		this.languageService.initialize();
 		this.themeService.initialize();
 		this.checkForUpdatePwaService.initialize();
+		console.log(typia.random<IMember>());
 	}
 
 	public ngAfterViewInit(): void {
