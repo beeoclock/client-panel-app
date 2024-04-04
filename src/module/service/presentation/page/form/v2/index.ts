@@ -37,6 +37,8 @@ import {ServicePresentationForm} from "@service/presentation/form/service.presen
 import {MediaTypeEnum} from "@utility/domain/enum/media.type.enum";
 import {ServicesFormComponent} from "@service/presentation/component/form/v1/service/services.form.component";
 import {ClientState} from "@client/state/client/client.state";
+import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
+import {CardComponent} from "@utility/presentation/component/card/card.component";
 
 @Component({
 	selector: 'service-form-v2-page-component',
@@ -60,6 +62,8 @@ import {ClientState} from "@client/state/client/client.state";
 		DefaultPanelComponent,
 		ButtonSaveContainerComponent,
 		ServicesFormComponent,
+		FormInputComponent,
+		CardComponent,
 	]
 })
 export default class Index implements OnInit {
@@ -113,6 +117,8 @@ export default class Index implements OnInit {
 					if (presentation) {
 						this.presentationForm.patchValue(presentation);
 					}
+
+					console.log(rest)
 
 					this.form.patchValue(rest);
 
