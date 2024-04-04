@@ -5,6 +5,8 @@ import {IDurationVersion, ILanguageVersion, IService} from "@service/domain";
 import {extractSecondsFrom_hh_mm_ss, STR_MINUTE_45} from "@utility/domain/time";
 import {ISpecialist} from "@service/domain/interface/i.specialist";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
+import {filter} from "rxjs";
+import {is} from "thiis";
 
 export interface ILanguageVersionForm {
 	title: FormControl<string>;
@@ -199,6 +201,7 @@ export interface IServiceForm {
 	object: FormControl<'Service'>;
 	createdAt: FormControl<string>;
 	updatedAt: FormControl<string>;
+	order: FormControl<number | null>;
 
 	[key: string]: AbstractControl;
 }
@@ -222,6 +225,7 @@ export class ServiceForm extends FormGroup<IServiceForm> {
 				nonNullable: true,
 			}),
 			createdAt: new FormControl(),
+			order: new FormControl(),
 			updatedAt: new FormControl(),
 		});
 		this.initValue(initialValue);
@@ -252,6 +256,9 @@ export class ServiceForm extends FormGroup<IServiceForm> {
 					}
 					break;
 			}
+		});
+		this.controls.order.valueChanges.pipe(filter(is.string)).subscribe((value) => {
+			this.controls.order.setValue(+value);
 		});
 	}
 
