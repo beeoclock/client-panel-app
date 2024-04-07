@@ -7,6 +7,7 @@ export enum serviceEndpointEnum {
 	item = '/api/v1/service/{id}',
 	update = '/api/v1/service/{id}',
 	create = '/api/v1/service',
+	unarchive = '/api/v1/service/{id}/unarchive',
 	archive = '/api/v1/service/{id}/archive',
 	delete = '/api/v1/service/{id}',
 
@@ -81,6 +82,13 @@ export const serviceEndpoint: EndpointCollectionType = {
 	},
 	PATCH: {
 		[serviceEndpointEnum.archive]: {
+			source: SourceNetworkEnum.panel,
+			replace: true,
+			header: {
+				authorization: true,
+			}
+		},
+		[serviceEndpointEnum.unarchive]: {
 			source: SourceNetworkEnum.panel,
 			replace: true,
 			header: {

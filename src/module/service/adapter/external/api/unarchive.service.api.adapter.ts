@@ -9,15 +9,15 @@ import {TokensHttpContext} from "@src/tokens.http-context";
 @Injectable({
   providedIn: 'root'
 })
-export class ArchiveServiceApiAdapter extends BaseApiAdapter<unknown, [string]> {
+export class UnarchiveServiceApiAdapter extends BaseApiAdapter<unknown, [string]> {
 
   /**
    * ARCHIVE ITEM BY ID
    * @param id
    */
-	@TypeGuard([is.string_not_empty])
-	public override execute$(id: string) {
-    return this.httpClient.patch(serviceEndpointEnum.archive, null, {
+  @TypeGuard([is.string_not_empty])
+  public override execute$(id: string) {
+    return this.httpClient.patch(serviceEndpointEnum.unarchive, null, {
 			context: new HttpContext().set(TokensHttpContext.REPLACE, {
 				id
 			}),

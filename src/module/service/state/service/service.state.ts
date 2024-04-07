@@ -11,6 +11,7 @@ import {RemoveServiceApiAdapter} from "@service/adapter/external/api/remove.serv
 import {ListServiceApiAdapter} from "@service/adapter/external/api/list.service.api.adapter";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {UnarchiveServiceApiAdapter} from "@service/adapter/external/api/unarchive.service.api.adapter";
 
 export type IServiceState = IBaseState<Service.IService>
 
@@ -27,6 +28,7 @@ const defaults = baseDefaults<Service.IService>({
 @Injectable()
 export class ServiceState extends BaseState<IService> {
 
+	protected override readonly unarchive = inject(UnarchiveServiceApiAdapter);
 	protected override readonly archive = inject(ArchiveServiceApiAdapter);
 	protected override readonly create = inject(CreateServiceApiAdapter);
 	protected override readonly update = inject(UpdateServiceApiAdapter);
@@ -79,6 +81,16 @@ export class ServiceState extends BaseState<IService> {
 	public override async getList(ctx: StateContext<IServiceState>, action: ServiceActions.GetList): Promise<void> {
 		await super.getList(ctx, action);
 
+	}
+
+	@Action(ServiceActions.ArchiveItem)
+	public override async archiveItem(ctx: StateContext<IServiceState>, action: ServiceActions.ArchiveItem) {
+		await super.archiveItem(ctx, action);
+	}
+
+	@Action(ServiceActions.UnarchiveItem)
+	public override async unarchiveItem(ctx: StateContext<IServiceState>, action: ServiceActions.UnarchiveItem) {
+		await super.unarchiveItem(ctx, action);
 	}
 
 	// Selectors
