@@ -17,21 +17,21 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 		DefaultLabelDirective,
 	],
   template: `
-    <label [for]="id" default>
-      {{ label }}
-    </label>
-    <input
-      isRequired
-      invalidTooltip
-      [mask]="mask"
-      [dropSpecialCharacters]="dropSpecialCharacters"
-      [disabled]="disabled"
-      [formControl]="localControl"
-      [placeholder]="placeholder"
-      [id]="id"
-      [type]="type"
-      [autocomplete]="autocomplete"
-      class="
+		<label [for]="id" default>
+			{{ label }}
+		</label>
+		<input
+			isRequired
+			invalidTooltip
+			[mask]="mask"
+			[dropSpecialCharacters]="dropSpecialCharacters"
+			[disabled]="disabled"
+			[formControl]="localControl"
+			[placeholder]="placeholder"
+			[id]="id"
+			[type]="inputType"
+			[autocomplete]="autocomplete"
+			class="
           px-3
           block
           w-full
@@ -45,9 +45,9 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
           placeholder:text-beeColor-400
           focus:border-beeColor-800
           sm:leading-6">
-  `
+	`
 })
-export class FormInputComponent implements OnInit {
+export class FormMaskInputComponent implements OnInit {
 
   @Input()
   public mask = '';
@@ -62,7 +62,7 @@ export class FormInputComponent implements OnInit {
   public id = 'utility-base-input';
 
   @Input()
-  public type = 'text';
+  public inputType = 'text';
 
   @Input()
   public placeholder = '';

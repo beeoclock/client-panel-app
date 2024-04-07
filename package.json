@@ -61,6 +61,7 @@
     "@ngxs/store": "3.8.2",
     "@p4ck493/ts-type-guard": "1.0.3",
     "bootstrap-icons": "1.11.3",
+    "bson-objectid": "^2.0.4",
     "flowbite": "2.3.0",
     "hash-sum": "2.0.0",
     "humanize-duration": "3.31.0",

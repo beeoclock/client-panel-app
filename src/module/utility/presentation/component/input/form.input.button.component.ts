@@ -18,27 +18,27 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 	],
   template: `
 
-    <div class="flex items-center justify-between">
-      <label [for]="id" default>
-        {{ label }}
-      </label>
-      <div class="text-sm">
-        <ng-content select="[label-end]"/>
-      </div>
-    </div>
-    <div class="mt-2 flex">
-      <input
-        isRequired
-        invalidTooltip
-        [type]="type"
-        [disabled]="disabled"
-        [formControl]="control"
-        [placeholder]="placeholder"
-        [id]="id"
-        [autocomplete]="autocomplete"
-        [class.border-r-0]="showButton"
-        [class.rounded-r-0]="showButton"
-        class="
+		<div class="flex items-center justify-between">
+			<label [for]="id" default>
+				{{ label }}
+			</label>
+			<div class="text-sm">
+				<ng-content select="[label-end]"/>
+			</div>
+		</div>
+		<div class="mt-2 flex">
+			<input
+				isRequired
+				invalidTooltip
+				[type]="inputType"
+				[disabled]="disabled"
+				[formControl]="control"
+				[placeholder]="placeholder"
+				[id]="id"
+				[autocomplete]="autocomplete"
+				[class.border-r-0]="showButton"
+				[class.rounded-r-0]="showButton"
+				class="
           px-3
           w-full
           rounded-md
@@ -51,21 +51,21 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
           placeholder:text-beeColor-400
           focus:border-beeColor-800
           sm:leading-6">
-      <button
-        (click)="callback()"
-        *ngIf="showButton"
-        class="
+			<button
+				(click)="callback()"
+				*ngIf="showButton"
+				class="
           px-3
           rounded-r-md
           hover:bg-beeColor-100
           border
           border-l-0
           border-beeColor-300">
-        <ng-content select="[button-icon]"/>
-      </button>
-    </div>
+				<ng-content select="[button-icon]"/>
+			</button>
+		</div>
 
-  `
+	`
 })
 export class FormInputPasswordComponent {
 
@@ -82,7 +82,7 @@ export class FormInputPasswordComponent {
   public autocomplete = '';
 
   @Input()
-  public type = 'text';
+  public inputType = 'text';
 
   @Input()
   public callback!: (...args: unknown[]) => any;
