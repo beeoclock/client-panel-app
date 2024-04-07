@@ -17,6 +17,14 @@
 				/>
 			</div>
 		</div>
+		<div tableColumnFlex="order" data-orderBy="order">
+			<div class="flex gap-3 items-center">
+				{{ 'keyword.capitalize.order' | translate }}
+				<utility-sort-indicator
+					orderBy="order"
+					[tableState]="tableState"/>
+			</div>
+		</div>
 		<div tableColumnFlex="price">
 			{{ 'keyword.capitalize.price' | translate }}
 		</div>
@@ -55,6 +63,9 @@
 				<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
 						 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="item.active">
 				</div>
+			</div>
+			<div tableColumnFlex="order">
+				{{ item.order }}
 			</div>
 			<div tableColumnFlex="duration">
 				<span class="truncate" [innerHTML]="durationVersionHtmlHelper.getPriceValue(item)">

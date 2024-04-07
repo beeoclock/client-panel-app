@@ -20,4 +20,5 @@ export interface IService extends RIBaseEntity<'Service'> {
 	durationVersions: ListDurationVersion;
 	specialists: ISpecialist[];
 	presentation?: IPresentation;
+	order?: number | null;
 }

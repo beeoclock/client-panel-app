@@ -1,1076 +1,1082 @@
 {
-  "autoActionOnEventInSeconds": {
-    "EIGHT_HOURS": "8 годин",
-    "FIFTEEN_MINUTES": "15 хвилин",
-    "FIVE_HOURS": "5 годин",
-    "FIVE_MINUTES": "5 хвилин",
-    "FORTY_FIVE_MINUTES": "45 хвилин",
-    "FOUR_HOURS": "4 години",
-    "ONE_DAY": "1 день",
-    "ONE_HOUR": "1 година",
-    "SEVEN_HOURS": "7 годин",
-    "SIX_HOURS": "6 годин",
-    "TEN_MINUTES": "10 хвилин",
-    "THIRTY_MINUTES": "30 хвилин",
-    "THREE_HOURS": "3 години",
-    "TWENTY_MINUTES": "20 хвилин",
-    "TWO_HOURS": "2 години"
-  },
-  "autoActionTypeOnEvent": {
-    "APPROVE": "Підтвердити",
-    "DENY": "Відхилити"
-  },
-  "autoRefresh": {
-    "hint": {
-      "selectTime": "Авто. оновлення"
-    },
-    "time": {
-      "off": "вимк."
-    }
-  },
-  "businessCategory": {
-    "Barbershop": "Барбершоп",
-    "BeautySalon": "Салон краси",
-    "Dentistry": "Стоматологія",
-    "EyebrowStylist": "Бровист",
-    "Hairdresser": "Жіноча перукарня",
-    "Manicurist": "Майстер Манікюру",
-    "Other": "Інше",
-    "PhysicalRehabilitation": "Фізична реабілітація",
-    "Psychotherapy": "Психотерапія"
-  },
-  "businessIndustry": {
-    "BeautyIndustry": "Краса",
-    "Healthcare": "Охорона здоров'я",
-    "Other": "Інше",
-    "TeachingAndConsultation": "Навчання та консультації"
-  },
-  "change-name": {
-    "form": {
-      "input": {
-        "name": {
-          "placeholder": "Твоє повне ім'я"
-        }
-      }
-    },
-    "modal": {
-      "title": "Зміна імені"
-    }
-  },
-  "change-phone-number": {
-    "form": {
-      "input": {
-        "phoneNumber": {
-          "placeholder": "Твій номер телефону"
-        }
-      }
-    },
-    "modal": {
-      "title": "Зміна номеру телефону"
-    }
-  },
-  "client": {
-    "profile": {
-      "form": {
-        "inputs": {
-          "active": {
-            "label": "Активний",
-            "placeholder": "Увімкніть, якщо хочете бути активним"
-          },
-          "description": {
-            "label": "Опис компанії",
-            "placeholder": "Коротко опиши свій бізнес"
-          },
-          "feature": {
-            "label": "Особливість",
-            "placeholder": "Коротка фраза, що зацікавить потенційного клієнта"
-          },
-          "name": {
-            "label": "Назва бізнесу",
-            "placeholder": "Введи назву компанії або особисте ім'я"
-          },
-          "published": {
-            "label": "Публічний доступ"
-          },
-          "username": {
-            "label": "Ім'я користувача",
-            "placeholder": "Bee.O_clock"
-          }
-        },
-        "section": {
-          "address": {
-            "input": {
-              "city": {
-                "placeholder": "Назву населеного пункту"
-              },
-              "country": {
-                "placeholder": "Вибери країну"
-              },
-              "customLink": {
-                "hint": "Вкажи посилання куди має перенести користувача з публічної сторінки по натисканню на адресу, якщо хочеш скористатись стандартним режимом, то залиши це поле пустим",
-                "label": "Власне посилання",
-                "placeholder": "https://example.com"
-              },
-              "streetAddressLineOne": {
-                "placeholder": "Назва вулиці, алеї чи бульвару"
-              },
-              "streetAddressLineTwo": {
-                "placeholder": "Номер будинку, офісу або студії"
-              },
-              "zipCode": {
-                "placeholder": "Напиши поштовий індекс"
-              }
-            },
-            "title": "Адреса"
-          },
-          "bookingSettings": {
-            "hint": {
-              "autoActionOnEvent": {
-                "after": "через",
-                "finish": "після створення.",
-                "start": "Новостворена подія/резервація буде автоматично"
-              }
-            },
-            "input": {
-              "autoActionOnEventInSeconds": {
-                "placeholder": "Обери час через який має запуститись обрана автоматична дія для новоствореної резервації/події"
-              },
-              "autoActionTypeOnEvent": {
-                "placeholder": "Вибери тип дії яка має відбуватись автоматично для новоствореної резервації/події"
-              },
-              "earliestBooking": {
-                "placeholder": "Вказує на найкоротший проміжок часу, після якого можна здійснити бронювання послуги"
-              },
-              "latestBooking": {
-                "placeholder": "Зазнач час впродовж якого можна бронювати твої послуги"
-              }
-            },
-            "select": {
-              "mandatoryAttendeeProperties": {
-                "hint": "Оберіть які поля мають бути обовʼязковими до заповнення на публічній сторінці для ваших клієнтів",
-                "label": "Обовʼязкові поля"
-              }
-            }
-          },
-          "businessSettings": {
-            "select": {
-              "availableLanguages": {
-                "hint": "Обери мови в яких ведеш свій бізнес, можливо ти провадиш свій бізнес не лише для місцевих а ще для туристів. Від цього вибору буде залежити доступний список мов для електроних листів",
-                "label": "Мови в яких ведеш бізнес"
-              },
-              "currencies": {
-                "hint": "Обери валюти в яких можеш отримувати оплату за надану послугу, завдяки цьому налаштуванні зможеш обрати конкретну валюту для конкретної послуги.",
-                "label": "Валюти"
-              },
-              "emailLanguage": {
-                "hint": "Оберіть мову в якій хочете отримувати електронні листи, доступні опції залежать від того в яких мовах ведеш бізнес",
-                "label": "Мова електронних листів"
-              }
-            }
-          },
-          "coverImage": {
-            "fileover": "Покладіть свої файли тут",
-            "motivate": "Ти можеш надати своєму профілю трохи більше індивідуальності та допомогти іншим розпізнати тебе, завантаживши зображення (фотографію чи інший графічний дизайн).",
-            "title": "Банер"
-          },
-          "gallery": {
-            "comment": "Завантажуй зображення, що демонструють твою роботу з найкращого боку. Зображення 1800 на 900 пікселів підходять найкраще для даного портфоліо, підтримувані формати JPEG та PNG. Ти можеш завантажити до 6 зображень.",
-            "title": "Галерея"
-          },
-          "logo": {
-            "fileover": "Покладіть свої файли тут",
-            "formats": "Підтримувані формати: PNG, JPG, JPEG, GIF",
-            "motivate": "Ти можеш надати своєму бізнес-профілю трохи більше особистості і допомогти людям тебе розпізнати, завантаживши логотип (зображення, фото чи іншу графічну піктограму, що тебе представляє)",
-            "title": "Логотип"
-          }
-        }
-      },
-      "title": "Профіль"
-    },
-    "settings": {
-      "defaultData": {
-        "event": {
-          "form": {
-            "inputs": {
-              "language": {
-                "label": "Мова події за замовчуванням"
-              },
-              "service": {
-                "label": "Попередньо визначена послуга (перша у списку)"
-              }
-            }
-          },
-          "title": "Загальні дані події"
-        },
-        "service": {
-          "form": {
-            "inputs": {
-              "break": {
-                "label": "Перерва послуги за замовчуванням"
-              },
-              "duration": {
-                "label": "Тривалість послуги по-замовчуванню"
-              },
-              "endWork": {
-                "label": "Кінець роботи за замовчуванням"
-              },
-              "language": {
-                "label": "Мова послуги по-замовчуванню"
-              },
-              "price": {
-                "label": "Превстановлена ціна послуги"
-              },
-              "startWork": {
-                "label": "Початок роботи за замовчуванням"
-              },
-              "workDays": {
-                "label": "Робочі дні послуги за замовчуванням"
-              }
-            }
-          },
-          "title": "Загальні дані послуги"
-        }
-      },
-      "form": {
-        "autoBookEvent": {
-          "label": "Дозволити клієнту резервувати подію відразу з підтвердженим статусом"
-        },
-        "inputs": {
-          "darkMode": {
-            "label": "Темний режим"
-          }
-        }
-      },
-      "title": "Налаштування"
-    }
-  },
-  "country": {
-    "DK": "Данія",
-    "PL": "Польща",
-    "UA": "Україна"
-  },
-  "customer": {
-    "button": {
-      "create": "Додати клієнта"
-    },
-    "details": {
-      "title": "Інформація про клієнта"
-    },
-    "form": {
-      "input": {
-        "note": {
-          "placeholder": "Тут можеш ввести додаткову інформацію про клієнта"
-        }
-      }
-    },
-    "title": "Клієнт"
-  },
-  "danger-zone": {
-    "button": {
-      "delete": {
-        "label": "Видалити бізнес-аккаунт"
-      }
-    },
-    "hint": {
-      "message": "Видалити бізнес-аккаунт. Після цього відновлення буде неможливим. Будь ласка, ретельно обдумай цей крок."
-    },
-    "title": "Небезпечна зона"
-  },
-  "earliestBooking": {
-    "FIVE_HOURS": "через 5 годин",
-    "FOUR_HOURS": "через 4 години",
-    "MINUTE_15": "через 15 хвилин",
-    "MINUTE_30": "через 30 хвилин",
-    "NO_LIMIT": "Без обмежень",
-    "ONE_DAY": "на наступний день",
-    "ONE_HOUR": "через 1 годину",
-    "ONE_WEEK": "через 1 тиждень",
-    "SIX_HOURS": "через 6 годин",
-    "THREE_DAYS": "через 3 дні",
-    "THREE_HOURS": "через 3 години",
-    "TWO_HOURS": "через 2 години"
-  },
-  "enum": {
-    "facility": {
-      "capitalize": {
-        "ACCEPTING_CARD_PAYMENT": "Приймаємо оплату карткою",
-        "ACCEPTING_CHILDREN": "Пристосовано для дітей",
-        "ACCEPTING_PETS": "Можна з домашніми улюбленцями",
-        "ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Умови для людей з фізичними обмеженнями",
-        "FREE_PARKING": "Безкоштовне паркування",
-        "INTERNET": "Інтернет (Wi-Fi)"
-      }
-    },
-    "theme": {
-      "dark": "Темна",
-      "light": "Світла"
-    }
-  },
-  "event": {
-    "form": {
-      "section": {
-        "additional": {
-          "input": {
-            "note": {
-              "placeholder": "Тут можеш ввести додаткову інформацію про подію"
-            }
-          }
-        },
-        "attendant": {
-          "button": {
-            "add": "Додати учасника",
-            "select": "Вибрати клієнта",
-            "togglePresentationOfNewAttendant": "Цього клієнта немає в списку (новий клієнт)"
-          },
-          "input": {
-            "selectCustomer": {
-              "placeholder": "Виберіть клієнта"
-            }
-          }
-        },
-        "customer": {
-          "modal": {
-            "title": "Вибір клієнтів"
-          }
-        },
-        "service": {
-          "button": {
-            "add": "Додати послугу",
-            "select": "Вибрати послугу"
-          },
-          "input": {
-            "selectService": {
-              "placeholder": "Виберіть послугу"
-            }
-          },
-          "modal": {
-            "title": "Вибір послуги"
-          }
-        }
-      }
-    },
-    "keyword": {
-      "capitalize": {
-        "end": "Планується завершити",
-        "repeat": "Повторити",
-        "service": "Послуга",
-        "start": "Заплановано на",
-        "status": "Статус"
-      },
-      "status": {
-        "all": "Всі",
-        "plural": {
-          "booked": "Зарезервовані",
-          "cancelled": "Скасовані",
-          "done": "Виконані",
-          "rejected": "Відхилані",
-          "requested": "На запиті"
-        },
-        "singular": {
-          "booked": "Зарезервовано",
-          "cancelled": "Скасована",
-          "done": "Виконано",
-          "rejected": "Відхилено",
-          "requested": "Запит"
-        }
-      }
-    },
-    "title": "Подія",
-    "warning": {
-      "durationAndPriceConflict": "Обери доступну тривалість або найдовша буде обрана автоматично після прийняття.",
-      "multipleEventAtSameTime": "Більше ніж одна подія на цей час."
-    }
-  },
-  "example": {
-    "firstName": "Іван",
-    "lastName": "Шевченко"
-  },
-  "form": {
-    "validation": {
-      "atLeastOneFieldMustBeFilled": "Хоча б одне поле має бути заповнене",
-      "durationFormatInvalid": "Правильний формат: години:хвилини (00:00)",
-      "email": "Неправильний формат E-mail",
-      "emailOrPhoneRequired": "Введи номер телефону або E-mail",
-      "imageSize": "Максимальний розмір зображення – {{max}}, поточний розмір – {{value}}",
-      "mask": "Неправильний формат, правильний формат - {{requiredMask}}",
-      "minlength": "Мінімальна довжина - {{requiredLength}}",
-      "required": "Обов'язкове поле",
-      "shouldBeMoreThen": {
-        "startInSeconds": "Час закінчення повинен бути більше початку"
-      },
-      "username": "Ім'я користувача може містити тільки літери, цифри, знак підкреслення (_) та крапку (.)",
-      "whitespace": "Видали всі пробіли"
-    }
-  },
-  "http": {
-    "DELETE": {
-      "/api/v1/customer/{id}": {
-        "before": {
-          "accept": {
-            "header": "Видалення клієнта",
-            "message": "Впевнений, що хочеш видалити клієнта?"
-          }
-        }
-      },
-      "/api/v1/service/{id}": {
-        "before": {
-          "accept": {
-            "header": "Видалення послуги",
-            "message": "Впевнений, що хочеш видалити послугу?"
-          }
-        }
-      }
-    },
-    "PATCH": {
-      "/api/v1/event/{id}/booked": {
-        "after": {
-          "success": {
-            "header": "Подія заброньована",
-            "message": "Подія успішно заброньована."
-          }
-        }
-      },
-      "/api/v1/event/{id}/cancelled": {
-        "after": {
-          "success": {
-            "header": "Подія скасована",
-            "message": "Подія успішно скасована."
-          }
-        }
-      },
-      "/api/v1/event/{id}/done": {
-        "after": {
-          "success": {
-            "header": "Подія виконана",
-            "message": "Подія успішно виконана."
-          }
-        }
-      },
-      "/api/v1/event/{id}/rejected": {
-        "after": {
-          "success": {
-            "header": "Подія відхилена",
-            "message": "Подія успішно відхилена."
-          }
-        }
-      },
-      "/api/v1/event/{id}/requested": {
-        "after": {
-          "success": {
-            "header": "Подія запитана",
-            "message": "Подія успішно запитана."
-          }
-        }
-      }
-    },
-    "POST": {
-      "/api/v1/customer": {
-        "after": {
-          "success": {
-            "header": "Клієнт створений",
-            "message": "Клієнт успішно створений."
-          }
-        }
-      },
-      "/api/v1/event": {
-        "after": {
-          "success": {
-            "header": "Подія створена",
-            "message": "Подія успішно створена."
-          }
-        }
-      },
-      "/api/v1/service": {
-        "after": {
-          "success": {
-            "header": "Послуга створена",
-            "message": "Послуга успішно створена."
-          }
-        }
-      }
-    },
-    "PUT": {
-      "/api/v1/business-profile": {
-        "after": {
-          "success": {
-            "header": "Профіль бізнесу",
-            "message": "Профіль бізнесу успішно оновлено."
-          }
-        }
-      },
-      "/api/v1/customer/{id}": {
-        "after": {
-          "success": {
-            "header": "Клієнт оновлений",
-            "message": "Клієнт успішно оновлений."
-          }
-        }
-      },
-      "/api/v1/event/{id}": {
-        "after": {
-          "success": {
-            "header": "Подія оновлена",
-            "message": "Подія успішно оновлена."
-          }
-        }
-      },
-      "/api/v1/service/{id}": {
-        "after": {
-          "success": {
-            "header": "Послуга оновлена",
-            "message": "Послуга успішно оновлена."
-          }
-        }
-      }
-    },
-    "response": {
-      "status": {
-        "504": {
-          "content": "Перевірте інтернет або спробуй пізніше.",
-          "title": "Помилка сервера"
-        }
-      }
-    }
-  },
-  "identity": {
-    "confirm-email": {
-      "hint": "Можливо попередній емейл вже вигас, можеш відправити ще один щоб підтвердити електрону пошту",
-      "sendAgain": {
-        "hint": "Після натискання ми надішлемо тобі електронний лист з посиланням для підтвердження твого елеткроного адресу"
-      },
-      "sent": {
-        "hint": "Перевір електронну скриньку, інколи різні поштові сервіси можуть не правильно трактувати наш електронний лист, подивись також в спамі!",
-        "title": "Електронний лист успішно відправлений"
-      },
-      "title": "У тебе не підтверджений електронний адрес"
-    },
-    "confirm-invitation": {
-      "form": {
-        "description": "Це останній крок до вступу в організацію в яку тебе запросили",
-        "inputs": {
-          "password": {
-            "label": "Придумай пароль для авторизації"
-          }
-        }
-      }
-    },
-    "confirmInvitation": {
-      "success": "Вітаємо, тепер можете авторизуватись"
-    },
-    "corridor": {
-      "addBusiness": "Створити новий бізнес",
-      "selectBusiness": "Вибери бізнес контекст"
-    },
-    "create-business": {
-      "form": {
-        "inputs": {
-          "address": {
-            "label": "Адреса"
-          },
-          "businessName": {
-            "label": "Назва бізнесу",
-            "placeholder": "Салон вроди \"Bee O`clock\""
-          },
-          "name": {
-            "label": "Назва"
-          },
-          "slogan": {
-            "label": "Слоган"
-          }
-        }
-      },
-      "section": {
-        "category": {
-          "title": "Виберіть свою нішу"
-        },
-        "industry": {
-          "title": "Яка твоя галузь?"
-        },
-        "introduction": {
-          "button": "Почати",
-          "description": "Підвищ продуктивність свого бізнесу за допомогою комплексного рішення",
-          "welcome": "Ласкаво просимо до"
-        },
-        "languages": {
-          "title": "В яких мовах ведеш бізнес?"
-        },
-        "names": {
-          "title": "Введи своє ім'я та назву вашої компанії"
-        },
-        "pointOfSale": {
-          "title": "Куди клієнти можуть прийти?"
-        },
-        "portfolio": {
-          "title": "Твоє портфоліо"
-        },
-        "processing": {
-          "button": "Перейти на панель керування"
-        },
-        "schedules": {
-          "title": "Твій робочий графік"
-        },
-        "serviceProvideType": {
-          "title": "Виберіть свій підхід до обслуговування"
-        },
-        "services": {
-          "title": "Які послуги надаєш?"
-        }
-      }
-    },
-    "forgot-password": {
-      "form": {
-        "button": {
-          "sign-in": "Увійти",
-          "submit": "Надіслати"
-        },
-        "inputs": {
-          "email": {
-            "label": "E-mail",
-            "placeholder": "Введи E-mail"
-          }
-        },
-        "label": "Відновлення паролю"
-      }
-    },
-    "reset-password": {
-      "form": {
-        "button": {
-          "sign-in": "Увійти",
-          "submit": "Змінити пароль"
-        },
-        "inputs": {
-          "password": {
-            "label": "Пароль",
-            "placeholder": "Введи пароль"
-          }
-        },
-        "label": "Скидання пароля"
-      }
-    },
-    "sign-in": {
-      "form": {
-        "button": {
-          "forgot-password": "Забули пароль",
-          "sign-up": "Реєстрація",
-          "submit": "Увійти"
-        },
-        "inputs": {
-          "email": {
-            "label": "E-mail",
-            "placeholder": "ім'я.прізвище@beeoclock.com"
-          },
-          "password": {
-            "label": "Пароль",
-            "placeholder": "Введи пароль"
-          }
-        },
-        "label": "Увійти"
-      },
-      "hint": {
-        "notAMember": "Не зареєстровані?",
-        "signInToYourAccount": "Увійди в свій обліковий запис"
-      },
-      "link": {
-        "forgotPassword": "Забули пароль?"
-      }
-    },
-    "sign-up": {
-      "afterSuccess": {
-        "nextStep": "Наступним кроком є підтвердження електронної пошти.",
-        "openMailService": "Перейти до поштового сервісу",
-        "weSentEmail": "Ми відправили листа на адресу",
-        "youHaveSuccessfullyRegistered": "Вітаємо, ти успішно зареєструвався!"
-      },
-      "form": {
-        "button": {
-          "sign-in": "Увійти",
-          "submit": "Реєстрація"
-        },
-        "inputs": {
-          "display-name": {
-            "label": "Як вас звати",
-            "placeholder": "наприклад, назва компанії або особисте ім'я"
-          },
-          "email": {
-            "label": "E-mail",
-            "placeholder": "Електронна скринька"
-          },
-          "password": {
-            "label": "Пароль",
-            "placeholder": "Введи пароль"
-          },
-          "password-confirm": {
-            "label": "Підтвердження пароля",
-            "placeholder": "Введи підтвердження пароля"
-          },
-          "timezone": {
-            "inputs": {
-              "offset": {
-                "label": "Підтвердження пароля",
-                "placeholder": "Введи підтвердження пароля"
-              }
-            }
-          }
-        },
-        "label": "Реєстрація"
-      },
-      "hint": {
-        "youHaveAnAccount": "Вже зареєстровані?"
-      }
-    }
-  },
-  "keyword": {
-    "capitalize": {
-      "account": "Профіль",
-      "action": "Дія",
-      "active": "Активний",
-      "add-event": "Додати подію",
-      "add-service": "Додати послугу",
-      "addAvailableHours": "Додати графік роботи",
-      "addContactPhone": "Додати номер телефону",
-      "addDuration": "Додати тривалість",
-      "addSocialMedia": "Додати соціальну мережу",
-      "additional": "Додатково",
-      "address": "Адреса",
-      "approvalType": "Тип схвалення",
-      "approve": "Прийняти",
-      "attendees": "Учасники",
-      "autoActionOnEventInSeconds": "Час запуску автоматичної дії",
-      "autoActionTypeOnEvent": "Тип автоматичної дії",
-      "avatar": "Аватар",
-      "back": "Назад",
-      "bookingSettings": "Налаштування бронювання",
-      "break": "Перерва",
-      "business": "Бізнес",
-      "businessCategory": "Категорія бізнесу",
-      "businessIndustry": "Галузь бізнесу",
-      "businessName": "Назва бізнесу",
-      "businessProfile": "Профіль бізнесу",
-      "businessSettings": "Бізнес налаштування",
-      "cancel": "Скасувати",
-      "chooseImage": "Вибери файл",
-      "city": "Населений пункт",
-      "clearCache": "Очистити кеш",
-      "clickToUpload": "Натисніть, щоб завантажити",
-      "clients": "Клієнти",
-      "close": "Закрити",
-      "comingSoon": "Невдовзі з'явиться...",
-      "confirm": "Підтвердити",
-      "contact": "Контакт",
-      "contactPhone": "Контактний телефон",
-      "country": "Країна",
-      "create": "Створити",
-      "createdAt": "Створено",
-      "customer": "Клієнт",
-      "customers": "Клієнти",
-      "dataNotFound": "Дані не знайдені",
-      "dateAndTime": "Дата та час",
-      "delete": "Видалити",
-      "description": "Опис",
-      "details": "Деталі",
-      "dismiss": "Відхилити",
-      "done": "Подію завершено",
-      "downloadMore": "Завантажити ще",
-      "duration": "Тривалість",
-      "earliestBooking": "Найближче бронювання можливе",
-      "edit": "Редагувати",
-      "email": "Електронна скринька",
-      "end": "Кінець",
-      "event": "Подія",
-      "events": "Події",
-      "every": "Кожні",
-      "facilities": "Зручності",
-      "feature": "Особливість",
-      "firstName": "Ім'я",
-      "from": "Від",
-      "fullName": "Повне ім'я",
-      "general": "Загальне",
-      "image": "Зображення",
-      "inactive": "Неактивний",
-      "information": "Інформація",
-      "initializing": "Ініціалізування",
-      "language": "Мова",
-      "languages": "Мови",
-      "lastName": "Прізвище",
-      "lastUpdate": "Останнє оновлення",
-      "latestBooking": "На коли можна зарезервувати послугу",
-      "logout": "Вихід",
-      "members": "Учасники",
-      "menu": "Меню",
-      "name": "Ім'я",
-      "next": "Далі",
-      "nextStep": "Наступний крок",
-      "no": "Ні",
-      "noData": "Немає даних",
-      "notSpecified": "Не вказано",
-      "note": "Примітка",
-      "notification": "Повідомлення",
-      "openTimePicker": "Вибрати",
-      "ownOptionOfTime": "Година за твоїм бажанням",
-      "ownOptionOfTimeHint": "Оберіть цю опцію, якщо хочеш визначити час події самостійно, незалежно від інших подій, запланованих на цей час.",
-      "periodOfDay": {
-        "AFTERNOON": "День",
-        "EVENING": "Вечір",
-        "MORNING": "Ранок",
-        "NIGHT": "Ніч"
-      },
-      "permission": "Дозвіл",
-      "phone": "Телефон",
-      "placeholder": {
-        "description": "Напиши додаткову інформацію",
-        "search": "Пошук",
-        "selectBusinessCategory": "Виберіть категорію бізнесу",
-        "selectBusinessIndustry": "Виберіть галузь бізнесу",
-        "selectServiceProvideType": "Виберіть тип обслуговування"
-      },
-      "portfolio": "Портфоліо",
-      "preview": "Попередній перегляд",
-      "previous": "Назад",
-      "price": "Ціна",
-      "priceTimeFormatPrompt": "години:хвилини",
-      "prices": "Ціни",
-      "processing": "Обробка",
-      "publicPage": "Публічна сторінка",
-      "reject": "Відхилити",
-      "role": "Роль",
-      "save": "Зберегти",
-      "search": "Пошук",
-      "select": "Вибрати",
-      "selectSpecialist": "Виберіть спеціаліста",
-      "selected": "Обрано",
-      "send": "Відправити",
-      "sendAgain": "Відправити ще раз",
-      "service": "Послуга",
-      "serviceProvideType": "Тип обслуговування",
-      "services": "Послуги",
-      "signIn": "Увійти",
-      "signOut": "Вийти",
-      "signUp": "Зареєструватися",
-      "slogan": "Гасло",
-      "socialMedia": "Соціальні мережі",
-      "soon": "Незабаром",
-      "specialist": "Спеціаліст",
-      "specialists": "Спеціалісти",
-      "start": "Початок",
-      "status": "Статус",
-      "streetAddressLineOne": "Адреса 1",
-      "streetAddressLineTwo": "Адреса 2",
-      "successfully": "Успішно",
-      "theme": "Тема",
-      "thereArentAnyEvents": "Подій немає на {{ datetime }}",
-      "title": "Назва",
-      "to": "До",
-      "today": "Сьогодні",
-      "tomorrow": "Завтра",
-      "total": "Всього",
-      "unknown": "Невідомо",
-      "update": "Оновити",
-      "updatedAt": "Оновлено",
-      "warning": "Увага",
-      "workdays": "Робочі дні",
-      "workingHours": "Графік роботи",
-      "writePrice": "Ввести ціну",
-      "yes": "Так",
-      "zipCode": "Поштовий індекс"
-    },
-    "lowercase": {
-      "after": "через",
-      "ago": "тому",
-      "at": "на",
-      "days": "дні",
-      "details": "деталі",
-      "dragAndDrop": "перетягніть і випустіть файл",
-      "in": "в",
-      "min": "хв.",
-      "no-data": "немає даних",
-      "or": "або",
-      "sec": "сек.",
-      "service": "послуга",
-      "short": {
-        "days": "д"
-      }
-    },
-    "status": {
-      "all": "Всі",
-      "plural": {
-        "0": "Неактивні",
-        "1": "Активні"
-      }
-    }
-  },
-  "latestBooking": {
-    "EIGHT_WEEKS": "Впродовж 8 тижнів",
-    "FIVE_WEEKS": "Впродовж 5 тижнів",
-    "FOUR_WEEKS": "Впродовж 4 тижнів",
-    "NO_LIMIT": "Без обмежень",
-    "SEVEN_WEEKS": "Впродовж 7 тижнів",
-    "SIX_WEEKS": "Впродовж 6 тижнів",
-    "THREE_WEEKS": "Впродовж 3 тижнів",
-    "TWO_WEEKS": "Цього і наступного тижня"
-  },
-  "mandatoryAttendeeProperties": {
-    "options": {
-      "email": "Електронна пошта",
-      "firstName": "Ім'я",
-      "phone": "Телефон"
-    }
-  },
-  "member": {
-    "button": {
-      "create": "Додати учасника"
-    },
-    "details": {
-      "title": "Інформація про члена команди"
-    },
-    "title": "Учасник"
-  },
-  "page": {
-    "calendar": {
-      "title": "Календар"
-    },
-    "select-client": {
-      "button": {
-        "create-new-client": "Створити нового клієнта"
-      },
-      "form": {
-        "button": {
-          "submit": "Вибрати"
-        }
-      },
-      "title": "Виберіть клієнта"
-    }
-  },
-  "pagination": {
-    "message": {
-      "allDataDownloaded": "Завантажено усі дані які були доступні"
-    }
-  },
-  "role": {
-    "ADMIN": "Адміністратор",
-    "OWNER": "Власник",
-    "SPECIALIST": "Спеціаліст"
-  },
-  "service": {
-    "details": {
-      "title": "Інформація про послугу"
-    },
-    "form": {
-      "v2": {
-        "section": {
-          "availableLanguages": {
-            "hint": "Можеш створити послугу, яка буде доступна кількома мовами, щоб додати ще одну мову, виберіть одну з доступних",
-            "title": "Мови послуги"
-          },
-          "presentation": {
-            "motivate": "Ти можеш надати своїм послугам трохи більше індивідуальності та допомогти іншим розпізнати свою роботу, завантаживши зображення (фотографію чи інший графічний дизайн)."
-          },
-          "prices": {
-            "button": {
-              "add": {
-                "label": "Додати ціну"
-              }
-            },
-            "suffix": {
-              "range": {
-                "from": " (від)",
-                "to": " (до)"
-              }
-            },
-            "switch": {
-              "range": {
-                "title": "Режим діапазонний (від - до)"
-              }
-            }
-          }
-        }
-      }
-    },
-    "keyword": {
-      "capitalize": {
-        "active": "Активна",
-        "inactive": "Неактивна"
-      }
-    },
-    "title": "Послуга"
-  },
-  "serviceProvideType": {
-    "Mixed": "Змішаний",
-    "Offline": "Офлайн",
-    "Online": "Онлайн"
-  },
-  "sidebar": {
-    "addEvent": "Додати подію",
-    "businessProfile": "Профіль компанії",
-    "businessSettings": "Налаштування компанії",
-    "calendar": "Календар",
-    "customers": "Клієнти",
-    "dashboard": "Панель керування",
-    "events": "Події",
-    "members": "Команда",
-    "private": "Приватне",
-    "profile": {
-      "signOut": {
-        "header": "Вийти",
-        "message": "Дійсно бажаєш вийти ?"
-      }
-    },
-    "requested": "Запити",
-    "services": "Послуги",
-    "settings": "Налаштування",
-    "switch-business-client": "Змінити контекст",
-    "table": "Таблиця"
-  },
-  "sign-out": {
-    "button": {
-      "sign-out": {
-        "label": "Вийти з системи"
-      }
-    },
-    "title": "Вихід з системи"
-  },
-  "slotBuildingStrategy": {
-    "hint": "Оберіть часовий інтервал згідно якому мають будуватись доступні слоти для твого кліента, або обери формат який буде будувати доступні часові слоти відповідно обраною послугою",
-    "options": {
-      "accordingToAService": "Відповідно до послуги"
-    },
-    "title": "Будовання часових слотів"
-  },
-  "slotRetrievingStrategy": {
-    "hint": "Ця стратегія контролює можливість обирання часових інтервалів для подій, які ще не отримали підтвердження від спеціаліста. Нище побачиш приклади до обраної стратегії.",
-    "hists": {
-      "byOption": {
-        "IncludeRequested": "Ця опція блокує можливість клієнтів додавати нові події на слоти з уже існуючими записами, що перебувають у статусі",
-        "OnlyBooked": "Обрана опція надає можливість клієнтам додавати нові події на вже зайняті слоти через публічну сторінку, за умови, що жодна із них ще не отримала статус"
-      }
-    },
-    "options": {
-      "IncludeRequested": "Включаючи події на запиті",
-      "OnlyBooked": "Лише зарезервовані"
-    },
-    "title": "Стратегія запропонованих часових інтервалів"
-  },
-  "updateAvailable": {
-    "header": "Нова версія",
-    "message": "Доступна нова версія, чи оновити додаток?"
-  },
-  "weekday": {
-    "long": {
-      "friday": "П'ятниця",
-      "monday": "Понеділок",
-      "saturday": "Субота",
-      "sunday": "Неділя",
-      "thursday": "Четвер",
-      "tuesday": "Вівторок",
-      "wednesday": "Середа"
-    },
-    "short": {
-      "friday": "Пт",
-      "monday": "Пн",
-      "saturday": "Сб",
-      "sunday": "Нд",
-      "thursday": "Чт",
-      "tuesday": "Вт",
-      "wednesday": "Ср"
-    }
-  }
+	"autoActionOnEventInSeconds": {
+		"EIGHT_HOURS": "8 годин",
+		"FIFTEEN_MINUTES": "15 хвилин",
+		"FIVE_HOURS": "5 годин",
+		"FIVE_MINUTES": "5 хвилин",
+		"FORTY_FIVE_MINUTES": "45 хвилин",
+		"FOUR_HOURS": "4 години",
+		"ONE_DAY": "1 день",
+		"ONE_HOUR": "1 година",
+		"SEVEN_HOURS": "7 годин",
+		"SIX_HOURS": "6 годин",
+		"TEN_MINUTES": "10 хвилин",
+		"THIRTY_MINUTES": "30 хвилин",
+		"THREE_HOURS": "3 години",
+		"TWENTY_MINUTES": "20 хвилин",
+		"TWO_HOURS": "2 години"
+	},
+	"autoActionTypeOnEvent": {
+		"APPROVE": "Підтвердити",
+		"DENY": "Відхилити"
+	},
+	"autoRefresh": {
+		"hint": {
+			"selectTime": "Авто. оновлення"
+		},
+		"time": {
+			"off": "вимк."
+		}
+	},
+	"businessCategory": {
+		"Barbershop": "Барбершоп",
+		"BeautySalon": "Салон краси",
+		"Dentistry": "Стоматологія",
+		"EyebrowStylist": "Бровист",
+		"Hairdresser": "Жіноча перукарня",
+		"Manicurist": "Майстер Манікюру",
+		"Other": "Інше",
+		"PhysicalRehabilitation": "Фізична реабілітація",
+		"Psychotherapy": "Психотерапія"
+	},
+	"businessIndustry": {
+		"BeautyIndustry": "Краса",
+		"Healthcare": "Охорона здоров'я",
+		"Other": "Інше",
+		"TeachingAndConsultation": "Навчання та консультації"
+	},
+	"change-name": {
+		"form": {
+			"input": {
+				"name": {
+					"placeholder": "Твоє повне ім'я"
+				}
+			}
+		},
+		"modal": {
+			"title": "Зміна імені"
+		}
+	},
+	"change-phone-number": {
+		"form": {
+			"input": {
+				"phoneNumber": {
+					"placeholder": "Твій номер телефону"
+				}
+			}
+		},
+		"modal": {
+			"title": "Зміна номеру телефону"
+		}
+	},
+	"client": {
+		"profile": {
+			"form": {
+				"inputs": {
+					"active": {
+						"label": "Активний",
+						"placeholder": "Увімкніть, якщо хочете бути активним"
+					},
+					"description": {
+						"label": "Опис компанії",
+						"placeholder": "Коротко опиши свій бізнес"
+					},
+					"feature": {
+						"label": "Особливість",
+						"placeholder": "Коротка фраза, що зацікавить потенційного клієнта"
+					},
+					"name": {
+						"label": "Назва бізнесу",
+						"placeholder": "Введи назву компанії або особисте ім'я"
+					},
+					"published": {
+						"label": "Публічний доступ"
+					},
+					"username": {
+						"label": "Ім'я користувача",
+						"placeholder": "Bee.O_clock"
+					}
+				},
+				"section": {
+					"address": {
+						"input": {
+							"city": {
+								"placeholder": "Назву населеного пункту"
+							},
+							"country": {
+								"placeholder": "Вибери країну"
+							},
+							"customLink": {
+								"hint": "Вкажи посилання куди має перенести користувача з публічної сторінки по натисканню на адресу, якщо хочеш скористатись стандартним режимом, то залиши це поле пустим",
+								"label": "Власне посилання",
+								"placeholder": "https://example.com"
+							},
+							"streetAddressLineOne": {
+								"placeholder": "Назва вулиці, алеї чи бульвару"
+							},
+							"streetAddressLineTwo": {
+								"placeholder": "Номер будинку, офісу або студії"
+							},
+							"zipCode": {
+								"placeholder": "Напиши поштовий індекс"
+							}
+						},
+						"title": "Адреса"
+					},
+					"bookingSettings": {
+						"hint": {
+							"autoActionOnEvent": {
+								"after": "через",
+								"finish": "після створення.",
+								"start": "Новостворена подія/резервація буде автоматично"
+							}
+						},
+						"input": {
+							"autoActionOnEventInSeconds": {
+								"placeholder": "Обери час через який має запуститись обрана автоматична дія для новоствореної резервації/події"
+							},
+							"autoActionTypeOnEvent": {
+								"placeholder": "Вибери тип дії яка має відбуватись автоматично для новоствореної резервації/події"
+							},
+							"earliestBooking": {
+								"placeholder": "Вказує на найкоротший проміжок часу, після якого можна здійснити бронювання послуги"
+							},
+							"latestBooking": {
+								"placeholder": "Зазнач час впродовж якого можна бронювати твої послуги"
+							}
+						},
+						"select": {
+							"mandatoryAttendeeProperties": {
+								"hint": "Оберіть які поля мають бути обовʼязковими до заповнення на публічній сторінці для ваших клієнтів",
+								"label": "Обовʼязкові поля"
+							}
+						}
+					},
+					"businessSettings": {
+						"select": {
+							"availableLanguages": {
+								"hint": "Обери мови в яких ведеш свій бізнес, можливо ти провадиш свій бізнес не лише для місцевих а ще для туристів. Від цього вибору буде залежити доступний список мов для електроних листів",
+								"label": "Мови в яких ведеш бізнес"
+							},
+							"currencies": {
+								"hint": "Обери валюти в яких можеш отримувати оплату за надану послугу, завдяки цьому налаштуванні зможеш обрати конкретну валюту для конкретної послуги.",
+								"label": "Валюти"
+							},
+							"emailLanguage": {
+								"hint": "Оберіть мову в якій хочете отримувати електронні листи, доступні опції залежать від того в яких мовах ведеш бізнес",
+								"label": "Мова електронних листів"
+							}
+						}
+					},
+					"coverImage": {
+						"fileover": "Покладіть свої файли тут",
+						"motivate": "Ти можеш надати своєму профілю трохи більше індивідуальності та допомогти іншим розпізнати тебе, завантаживши зображення (фотографію чи інший графічний дизайн).",
+						"title": "Банер"
+					},
+					"gallery": {
+						"comment": "Завантажуй зображення, що демонструють твою роботу з найкращого боку. Зображення 1800 на 900 пікселів підходять найкраще для даного портфоліо, підтримувані формати JPEG та PNG. Ти можеш завантажити до 6 зображень.",
+						"title": "Галерея"
+					},
+					"logo": {
+						"fileover": "Покладіть свої файли тут",
+						"formats": "Підтримувані формати: PNG, JPG, JPEG, GIF",
+						"motivate": "Ти можеш надати своєму бізнес-профілю трохи більше особистості і допомогти людям тебе розпізнати, завантаживши логотип (зображення, фото чи іншу графічну піктограму, що тебе представляє)",
+						"title": "Логотип"
+					}
+				}
+			},
+			"title": "Профіль"
+		},
+		"settings": {
+			"defaultData": {
+				"event": {
+					"form": {
+						"inputs": {
+							"language": {
+								"label": "Мова події за замовчуванням"
+							},
+							"service": {
+								"label": "Попередньо визначена послуга (перша у списку)"
+							}
+						}
+					},
+					"title": "Загальні дані події"
+				},
+				"service": {
+					"form": {
+						"inputs": {
+							"break": {
+								"label": "Перерва послуги за замовчуванням"
+							},
+							"duration": {
+								"label": "Тривалість послуги по-замовчуванню"
+							},
+							"endWork": {
+								"label": "Кінець роботи за замовчуванням"
+							},
+							"language": {
+								"label": "Мова послуги по-замовчуванню"
+							},
+							"price": {
+								"label": "Превстановлена ціна послуги"
+							},
+							"startWork": {
+								"label": "Початок роботи за замовчуванням"
+							},
+							"workDays": {
+								"label": "Робочі дні послуги за замовчуванням"
+							}
+						}
+					},
+					"title": "Загальні дані послуги"
+				}
+			},
+			"form": {
+				"autoBookEvent": {
+					"label": "Дозволити клієнту резервувати подію відразу з підтвердженим статусом"
+				},
+				"inputs": {
+					"darkMode": {
+						"label": "Темний режим"
+					}
+				}
+			},
+			"title": "Налаштування"
+		}
+	},
+	"country": {
+		"DK": "Данія",
+		"PL": "Польща",
+		"UA": "Україна"
+	},
+	"customer": {
+		"button": {
+			"create": "Додати клієнта"
+		},
+		"details": {
+			"title": "Інформація про клієнта"
+		},
+		"form": {
+			"input": {
+				"note": {
+					"placeholder": "Тут можеш ввести додаткову інформацію про клієнта"
+				}
+			}
+		},
+		"title": "Клієнт"
+	},
+	"danger-zone": {
+		"button": {
+			"delete": {
+				"label": "Видалити бізнес-аккаунт"
+			}
+		},
+		"hint": {
+			"message": "Видалити бізнес-аккаунт. Після цього відновлення буде неможливим. Будь ласка, ретельно обдумай цей крок."
+		},
+		"title": "Небезпечна зона"
+	},
+	"earliestBooking": {
+		"FIVE_HOURS": "через 5 годин",
+		"FOUR_HOURS": "через 4 години",
+		"MINUTE_15": "через 15 хвилин",
+		"MINUTE_30": "через 30 хвилин",
+		"NO_LIMIT": "Без обмежень",
+		"ONE_DAY": "на наступний день",
+		"ONE_HOUR": "через 1 годину",
+		"ONE_WEEK": "через 1 тиждень",
+		"SIX_HOURS": "через 6 годин",
+		"THREE_DAYS": "через 3 дні",
+		"THREE_HOURS": "через 3 години",
+		"TWO_HOURS": "через 2 години"
+	},
+	"enum": {
+		"facility": {
+			"capitalize": {
+				"ACCEPTING_CARD_PAYMENT": "Приймаємо оплату карткою",
+				"ACCEPTING_CHILDREN": "Пристосовано для дітей",
+				"ACCEPTING_PETS": "Можна з домашніми улюбленцями",
+				"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Умови для людей з фізичними обмеженнями",
+				"FREE_PARKING": "Безкоштовне паркування",
+				"INTERNET": "Інтернет (Wi-Fi)"
+			}
+		},
+		"theme": {
+			"dark": "Темна",
+			"light": "Світла"
+		}
+	},
+	"event": {
+		"form": {
+			"section": {
+				"additional": {
+					"input": {
+						"note": {
+							"placeholder": "Тут можеш ввести додаткову інформацію про подію"
+						}
+					}
+				},
+				"attendant": {
+					"button": {
+						"add": "Додати учасника",
+						"select": "Вибрати клієнта",
+						"togglePresentationOfNewAttendant": "Цього клієнта немає в списку (новий клієнт)"
+					},
+					"input": {
+						"selectCustomer": {
+							"placeholder": "Виберіть клієнта"
+						}
+					}
+				},
+				"customer": {
+					"modal": {
+						"title": "Вибір клієнтів"
+					}
+				},
+				"service": {
+					"button": {
+						"add": "Додати послугу",
+						"select": "Вибрати послугу"
+					},
+					"input": {
+						"selectService": {
+							"placeholder": "Виберіть послугу"
+						}
+					},
+					"modal": {
+						"title": "Вибір послуги"
+					}
+				}
+			}
+		},
+		"keyword": {
+			"capitalize": {
+				"end": "Планується завершити",
+				"repeat": "Повторити",
+				"service": "Послуга",
+				"start": "Заплановано на",
+				"status": "Статус"
+			},
+			"status": {
+				"all": "Всі",
+				"plural": {
+					"booked": "Зарезервовані",
+					"cancelled": "Скасовані",
+					"done": "Виконані",
+					"rejected": "Відхилані",
+					"requested": "На запиті"
+				},
+				"singular": {
+					"booked": "Зарезервовано",
+					"cancelled": "Скасована",
+					"done": "Виконано",
+					"rejected": "Відхилено",
+					"requested": "Запит"
+				}
+			}
+		},
+		"title": "Подія",
+		"warning": {
+			"durationAndPriceConflict": "Обери доступну тривалість або найдовша буде обрана автоматично після прийняття.",
+			"multipleEventAtSameTime": "Більше ніж одна подія на цей час."
+		}
+	},
+	"example": {
+		"firstName": "Іван",
+		"lastName": "Шевченко"
+	},
+	"form": {
+		"validation": {
+			"atLeastOneFieldMustBeFilled": "Хоча б одне поле має бути заповнене",
+			"durationFormatInvalid": "Правильний формат: години:хвилини (00:00)",
+			"email": "Неправильний формат E-mail",
+			"emailOrPhoneRequired": "Введи номер телефону або E-mail",
+			"imageSize": "Максимальний розмір зображення – {{max}}, поточний розмір – {{value}}",
+			"mask": "Неправильний формат, правильний формат - {{requiredMask}}",
+			"minlength": "Мінімальна довжина - {{requiredLength}}",
+			"required": "Обов'язкове поле",
+			"shouldBeMoreThen": {
+				"startInSeconds": "Час закінчення повинен бути більше початку"
+			},
+			"username": "Ім'я користувача може містити тільки літери, цифри, знак підкреслення (_) та крапку (.)",
+			"whitespace": "Видали всі пробіли"
+		}
+	},
+	"http": {
+		"DELETE": {
+			"/api/v1/customer/{id}": {
+				"before": {
+					"accept": {
+						"header": "Видалення клієнта",
+						"message": "Впевнений, що хочеш видалити клієнта?"
+					}
+				}
+			},
+			"/api/v1/service/{id}": {
+				"before": {
+					"accept": {
+						"header": "Видалення послуги",
+						"message": "Впевнений, що хочеш видалити послугу?"
+					}
+				}
+			}
+		},
+		"PATCH": {
+			"/api/v1/event/{id}/booked": {
+				"after": {
+					"success": {
+						"header": "Подія заброньована",
+						"message": "Подія успішно заброньована."
+					}
+				}
+			},
+			"/api/v1/event/{id}/cancelled": {
+				"after": {
+					"success": {
+						"header": "Подія скасована",
+						"message": "Подія успішно скасована."
+					}
+				}
+			},
+			"/api/v1/event/{id}/done": {
+				"after": {
+					"success": {
+						"header": "Подія виконана",
+						"message": "Подія успішно виконана."
+					}
+				}
+			},
+			"/api/v1/event/{id}/rejected": {
+				"after": {
+					"success": {
+						"header": "Подія відхилена",
+						"message": "Подія успішно відхилена."
+					}
+				}
+			},
+			"/api/v1/event/{id}/requested": {
+				"after": {
+					"success": {
+						"header": "Подія запитана",
+						"message": "Подія успішно запитана."
+					}
+				}
+			}
+		},
+		"POST": {
+			"/api/v1/customer": {
+				"after": {
+					"success": {
+						"header": "Клієнт створений",
+						"message": "Клієнт успішно створений."
+					}
+				}
+			},
+			"/api/v1/event": {
+				"after": {
+					"success": {
+						"header": "Подія створена",
+						"message": "Подія успішно створена."
+					}
+				}
+			},
+			"/api/v1/service": {
+				"after": {
+					"success": {
+						"header": "Послуга створена",
+						"message": "Послуга успішно створена."
+					}
+				}
+			}
+		},
+		"PUT": {
+			"/api/v1/business-profile": {
+				"after": {
+					"success": {
+						"header": "Профіль бізнесу",
+						"message": "Профіль бізнесу успішно оновлено."
+					}
+				}
+			},
+			"/api/v1/customer/{id}": {
+				"after": {
+					"success": {
+						"header": "Клієнт оновлений",
+						"message": "Клієнт успішно оновлений."
+					}
+				}
+			},
+			"/api/v1/event/{id}": {
+				"after": {
+					"success": {
+						"header": "Подія оновлена",
+						"message": "Подія успішно оновлена."
+					}
+				}
+			},
+			"/api/v1/service/{id}": {
+				"after": {
+					"success": {
+						"header": "Послуга оновлена",
+						"message": "Послуга успішно оновлена."
+					}
+				}
+			}
+		},
+		"response": {
+			"status": {
+				"504": {
+					"content": "Перевірте інтернет або спробуй пізніше.",
+					"title": "Помилка сервера"
+				}
+			}
+		}
+	},
+	"identity": {
+		"confirm-email": {
+			"hint": "Можливо попередній емейл вже вигас, можеш відправити ще один щоб підтвердити електрону пошту",
+			"sendAgain": {
+				"hint": "Після натискання ми надішлемо тобі електронний лист з посиланням для підтвердження твого елеткроного адресу"
+			},
+			"sent": {
+				"hint": "Перевір електронну скриньку, інколи різні поштові сервіси можуть не правильно трактувати наш електронний лист, подивись також в спамі!",
+				"title": "Електронний лист успішно відправлений"
+			},
+			"title": "У тебе не підтверджений електронний адрес"
+		},
+		"confirm-invitation": {
+			"form": {
+				"description": "Це останній крок до вступу в організацію в яку тебе запросили",
+				"inputs": {
+					"password": {
+						"label": "Придумай пароль для авторизації"
+					}
+				}
+			}
+		},
+		"confirmInvitation": {
+			"success": "Вітаємо, тепер можете авторизуватись"
+		},
+		"corridor": {
+			"addBusiness": "Створити новий бізнес",
+			"selectBusiness": "Вибери бізнес контекст"
+		},
+		"create-business": {
+			"form": {
+				"inputs": {
+					"address": {
+						"label": "Адреса"
+					},
+					"businessName": {
+						"label": "Назва бізнесу",
+						"placeholder": "Салон вроди \"Bee O`clock\""
+					},
+					"name": {
+						"label": "Назва"
+					},
+					"slogan": {
+						"label": "Слоган"
+					}
+				}
+			},
+			"section": {
+				"category": {
+					"title": "Виберіть свою нішу"
+				},
+				"industry": {
+					"title": "Яка твоя галузь?"
+				},
+				"introduction": {
+					"button": "Почати",
+					"description": "Підвищ продуктивність свого бізнесу за допомогою комплексного рішення",
+					"welcome": "Ласкаво просимо до"
+				},
+				"languages": {
+					"title": "В яких мовах ведеш бізнес?"
+				},
+				"names": {
+					"title": "Введи своє ім'я та назву вашої компанії"
+				},
+				"pointOfSale": {
+					"title": "Куди клієнти можуть прийти?"
+				},
+				"portfolio": {
+					"title": "Твоє портфоліо"
+				},
+				"processing": {
+					"button": "Перейти на панель керування"
+				},
+				"schedules": {
+					"title": "Твій робочий графік"
+				},
+				"serviceProvideType": {
+					"title": "Виберіть свій підхід до обслуговування"
+				},
+				"services": {
+					"title": "Які послуги надаєш?"
+				}
+			}
+		},
+		"forgot-password": {
+			"form": {
+				"button": {
+					"sign-in": "Увійти",
+					"submit": "Надіслати"
+				},
+				"inputs": {
+					"email": {
+						"label": "E-mail",
+						"placeholder": "Введи E-mail"
+					}
+				},
+				"label": "Відновлення паролю"
+			}
+		},
+		"reset-password": {
+			"form": {
+				"button": {
+					"sign-in": "Увійти",
+					"submit": "Змінити пароль"
+				},
+				"inputs": {
+					"password": {
+						"label": "Пароль",
+						"placeholder": "Введи пароль"
+					}
+				},
+				"label": "Скидання пароля"
+			}
+		},
+		"sign-in": {
+			"form": {
+				"button": {
+					"forgot-password": "Забули пароль",
+					"sign-up": "Реєстрація",
+					"submit": "Увійти"
+				},
+				"inputs": {
+					"email": {
+						"label": "E-mail",
+						"placeholder": "ім'я.прізвище@beeoclock.com"
+					},
+					"password": {
+						"label": "Пароль",
+						"placeholder": "Введи пароль"
+					}
+				},
+				"label": "Увійти"
+			},
+			"hint": {
+				"notAMember": "Не зареєстровані?",
+				"signInToYourAccount": "Увійди в свій обліковий запис"
+			},
+			"link": {
+				"forgotPassword": "Забули пароль?"
+			}
+		},
+		"sign-up": {
+			"afterSuccess": {
+				"nextStep": "Наступним кроком є підтвердження електронної пошти.",
+				"openMailService": "Перейти до поштового сервісу",
+				"weSentEmail": "Ми відправили листа на адресу",
+				"youHaveSuccessfullyRegistered": "Вітаємо, ти успішно зареєструвався!"
+			},
+			"form": {
+				"button": {
+					"sign-in": "Увійти",
+					"submit": "Реєстрація"
+				},
+				"inputs": {
+					"display-name": {
+						"label": "Як вас звати",
+						"placeholder": "наприклад, назва компанії або особисте ім'я"
+					},
+					"email": {
+						"label": "E-mail",
+						"placeholder": "Електронна скринька"
+					},
+					"password": {
+						"label": "Пароль",
+						"placeholder": "Введи пароль"
+					},
+					"password-confirm": {
+						"label": "Підтвердження пароля",
+						"placeholder": "Введи підтвердження пароля"
+					},
+					"timezone": {
+						"inputs": {
+							"offset": {
+								"label": "Підтвердження пароля",
+								"placeholder": "Введи підтвердження пароля"
+							}
+						}
+					}
+				},
+				"label": "Реєстрація"
+			},
+			"hint": {
+				"youHaveAnAccount": "Вже зареєстровані?"
+			}
+		}
+	},
+	"keyword": {
+		"capitalize": {
+			"account": "Профіль",
+			"action": "Дія",
+			"active": "Активний",
+			"add-event": "Додати подію",
+			"add-service": "Додати послугу",
+			"addAvailableHours": "Додати графік роботи",
+			"addContactPhone": "Додати номер телефону",
+			"addDuration": "Додати тривалість",
+			"addSocialMedia": "Додати соціальну мережу",
+			"additional": "Додатково",
+			"address": "Адреса",
+			"approvalType": "Тип схвалення",
+			"approve": "Прийняти",
+			"attendees": "Учасники",
+			"autoActionOnEventInSeconds": "Час запуску автоматичної дії",
+			"autoActionTypeOnEvent": "Тип автоматичної дії",
+			"avatar": "Аватар",
+			"back": "Назад",
+			"bookingSettings": "Налаштування бронювання",
+			"break": "Перерва",
+			"business": "Бізнес",
+			"businessCategory": "Категорія бізнесу",
+			"businessIndustry": "Галузь бізнесу",
+			"businessName": "Назва бізнесу",
+			"businessProfile": "Профіль бізнесу",
+			"businessSettings": "Бізнес налаштування",
+			"cancel": "Скасувати",
+			"chooseImage": "Вибери файл",
+			"city": "Населений пункт",
+			"clearCache": "Очистити кеш",
+			"clickToUpload": "Натисніть, щоб завантажити",
+			"clients": "Клієнти",
+			"close": "Закрити",
+			"comingSoon": "Невдовзі з'явиться...",
+			"confirm": "Підтвердити",
+			"contact": "Контакт",
+			"contactPhone": "Контактний телефон",
+			"country": "Країна",
+			"create": "Створити",
+			"createdAt": "Створено",
+			"customer": "Клієнт",
+			"customers": "Клієнти",
+			"dataNotFound": "Дані не знайдені",
+			"dateAndTime": "Дата та час",
+			"delete": "Видалити",
+			"description": "Опис",
+			"details": "Деталі",
+			"dismiss": "Відхилити",
+			"done": "Подію завершено",
+			"downloadMore": "Завантажити ще",
+			"duration": "Тривалість",
+			"earliestBooking": "Найближче бронювання можливе",
+			"edit": "Редагувати",
+			"email": "Електронна скринька",
+			"end": "Кінець",
+			"event": "Подія",
+			"events": "Події",
+			"every": "Кожні",
+			"facilities": "Зручності",
+			"feature": "Особливість",
+			"firstName": "Ім'я",
+			"from": "Від",
+			"fullName": "Повне ім'я",
+			"general": "Загальне",
+			"image": "Зображення",
+			"inactive": "Неактивний",
+			"information": "Інформація",
+			"initializing": "Ініціалізування",
+			"language": "Мова",
+			"languages": "Мови",
+			"lastName": "Прізвище",
+			"lastUpdate": "Останнє оновлення",
+			"latestBooking": "На коли можна зарезервувати послугу",
+			"logout": "Вихід",
+			"members": "Учасники",
+			"menu": "Меню",
+			"name": "Ім'я",
+			"next": "Далі",
+			"nextStep": "Наступний крок",
+			"no": "Ні",
+			"noData": "Немає даних",
+			"notSpecified": "Не вказано",
+			"note": "Примітка",
+			"notification": "Повідомлення",
+			"openTimePicker": "Вибрати",
+			"order": "Послідовність",
+			"ownOptionOfTime": "Година за твоїм бажанням",
+			"ownOptionOfTimeHint": "Оберіть цю опцію, якщо хочеш визначити час події самостійно, незалежно від інших подій, запланованих на цей час.",
+			"periodOfDay": {
+				"AFTERNOON": "День",
+				"EVENING": "Вечір",
+				"MORNING": "Ранок",
+				"NIGHT": "Ніч"
+			},
+			"permission": "Дозвіл",
+			"phone": "Телефон",
+			"placeholder": {
+				"description": "Напиши додаткову інформацію",
+				"search": "Пошук",
+				"selectBusinessCategory": "Виберіть категорію бізнесу",
+				"selectBusinessIndustry": "Виберіть галузь бізнесу",
+				"selectServiceProvideType": "Виберіть тип обслуговування"
+			},
+			"portfolio": "Портфоліо",
+			"preview": "Попередній перегляд",
+			"previous": "Назад",
+			"price": "Ціна",
+			"priceTimeFormatPrompt": "години:хвилини",
+			"prices": "Ціни",
+			"processing": "Обробка",
+			"publicPage": "Публічна сторінка",
+			"reject": "Відхилити",
+			"role": "Роль",
+			"save": "Зберегти",
+			"search": "Пошук",
+			"select": "Вибрати",
+			"selectSpecialist": "Виберіть спеціаліста",
+			"selected": "Обрано",
+			"send": "Відправити",
+			"sendAgain": "Відправити ще раз",
+			"service": "Послуга",
+			"serviceProvideType": "Тип обслуговування",
+			"services": "Послуги",
+			"signIn": "Увійти",
+			"signOut": "Вийти",
+			"signUp": "Зареєструватися",
+			"slogan": "Гасло",
+			"socialMedia": "Соціальні мережі",
+			"soon": "Незабаром",
+			"specialist": "Спеціаліст",
+			"specialists": "Спеціалісти",
+			"start": "Початок",
+			"status": "Статус",
+			"streetAddressLineOne": "Адреса 1",
+			"streetAddressLineTwo": "Адреса 2",
+			"successfully": "Успішно",
+			"theme": "Тема",
+			"thereArentAnyEvents": "Подій немає на {{ datetime }}",
+			"title": "Назва",
+			"to": "До",
+			"today": "Сьогодні",
+			"tomorrow": "Завтра",
+			"total": "Всього",
+			"unknown": "Невідомо",
+			"update": "Оновити",
+			"updatedAt": "Оновлено",
+			"warning": "Увага",
+			"workdays": "Робочі дні",
+			"workingHours": "Графік роботи",
+			"writePrice": "Ввести ціну",
+			"yes": "Так",
+			"zipCode": "Поштовий індекс"
+		},
+		"lowercase": {
+			"after": "через",
+			"ago": "тому",
+			"at": "на",
+			"days": "дні",
+			"details": "деталі",
+			"dragAndDrop": "перетягніть і випустіть файл",
+			"in": "в",
+			"min": "хв.",
+			"no-data": "немає даних",
+			"or": "або",
+			"sec": "сек.",
+			"service": "послуга",
+			"short": {
+				"days": "д"
+			}
+		},
+		"status": {
+			"all": "Всі",
+			"plural": {
+				"0": "Неактивні",
+				"1": "Активні"
+			}
+		}
+	},
+	"latestBooking": {
+		"EIGHT_WEEKS": "Впродовж 8 тижнів",
+		"FIVE_WEEKS": "Впродовж 5 тижнів",
+		"FOUR_WEEKS": "Впродовж 4 тижнів",
+		"NO_LIMIT": "Без обмежень",
+		"SEVEN_WEEKS": "Впродовж 7 тижнів",
+		"SIX_WEEKS": "Впродовж 6 тижнів",
+		"THREE_WEEKS": "Впродовж 3 тижнів",
+		"TWO_WEEKS": "Цього і наступного тижня"
+	},
+	"mandatoryAttendeeProperties": {
+		"options": {
+			"email": "Електронна пошта",
+			"firstName": "Ім'я",
+			"phone": "Телефон"
+		}
+	},
+	"member": {
+		"button": {
+			"create": "Додати учасника"
+		},
+		"details": {
+			"title": "Інформація про члена команди"
+		},
+		"title": "Учасник"
+	},
+	"page": {
+		"calendar": {
+			"title": "Календар"
+		},
+		"select-client": {
+			"button": {
+				"create-new-client": "Створити нового клієнта"
+			},
+			"form": {
+				"button": {
+					"submit": "Вибрати"
+				}
+			},
+			"title": "Виберіть клієнта"
+		}
+	},
+	"pagination": {
+		"message": {
+			"allDataDownloaded": "Завантажено усі дані які були доступні"
+		}
+	},
+	"role": {
+		"ADMIN": "Адміністратор",
+		"OWNER": "Власник",
+		"SPECIALIST": "Спеціаліст"
+	},
+	"service": {
+		"details": {
+			"title": "Інформація про послугу"
+		},
+		"form": {
+			"order": {
+				"input": {
+					"placeholder": "Вкажи позицію цієї послуги в списну на публічній сторінці"
+				}
+			},
+			"v2": {
+				"section": {
+					"availableLanguages": {
+						"hint": "Можеш створити послугу, яка буде доступна кількома мовами, щоб додати ще одну мову, виберіть одну з доступних",
+						"title": "Мови послуги"
+					},
+					"presentation": {
+						"motivate": "Ти можеш надати своїм послугам трохи більше індивідуальності та допомогти іншим розпізнати свою роботу, завантаживши зображення (фотографію чи інший графічний дизайн)."
+					},
+					"prices": {
+						"button": {
+							"add": {
+								"label": "Додати ціну"
+							}
+						},
+						"suffix": {
+							"range": {
+								"from": " (від)",
+								"to": " (до)"
+							}
+						},
+						"switch": {
+							"range": {
+								"title": "Режим діапазонний (від - до)"
+							}
+						}
+					}
+				}
+			}
+		},
+		"keyword": {
+			"capitalize": {
+				"active": "Активна",
+				"inactive": "Неактивна"
+			}
+		},
+		"title": "Послуга"
+	},
+	"serviceProvideType": {
+		"Mixed": "Змішаний",
+		"Offline": "Офлайн",
+		"Online": "Онлайн"
+	},
+	"sidebar": {
+		"addEvent": "Додати подію",
+		"businessProfile": "Профіль компанії",
+		"businessSettings": "Налаштування компанії",
+		"calendar": "Календар",
+		"customers": "Клієнти",
+		"dashboard": "Панель керування",
+		"events": "Події",
+		"members": "Команда",
+		"private": "Приватне",
+		"profile": {
+			"signOut": {
+				"header": "Вийти",
+				"message": "Дійсно бажаєш вийти ?"
+			}
+		},
+		"requested": "Запити",
+		"services": "Послуги",
+		"settings": "Налаштування",
+		"switch-business-client": "Змінити контекст",
+		"table": "Таблиця"
+	},
+	"sign-out": {
+		"button": {
+			"sign-out": {
+				"label": "Вийти з системи"
+			}
+		},
+		"title": "Вихід з системи"
+	},
+	"slotBuildingStrategy": {
+		"hint": "Оберіть часовий інтервал згідно якому мають будуватись доступні слоти для твого кліента, або обери формат який буде будувати доступні часові слоти відповідно обраною послугою",
+		"options": {
+			"accordingToAService": "Відповідно до послуги"
+		},
+		"title": "Будовання часових слотів"
+	},
+	"slotRetrievingStrategy": {
+		"hint": "Ця стратегія контролює можливість обирання часових інтервалів для подій, які ще не отримали підтвердження від спеціаліста. Нище побачиш приклади до обраної стратегії.",
+		"hists": {
+			"byOption": {
+				"IncludeRequested": "Ця опція блокує можливість клієнтів додавати нові події на слоти з уже існуючими записами, що перебувають у статусі",
+				"OnlyBooked": "Обрана опція надає можливість клієнтам додавати нові події на вже зайняті слоти через публічну сторінку, за умови, що жодна із них ще не отримала статус"
+			}
+		},
+		"options": {
+			"IncludeRequested": "Включаючи події на запиті",
+			"OnlyBooked": "Лише зарезервовані"
+		},
+		"title": "Стратегія запропонованих часових інтервалів"
+	},
+	"updateAvailable": {
+		"header": "Нова версія",
+		"message": "Доступна нова версія, чи оновити додаток?"
+	},
+	"weekday": {
+		"long": {
+			"friday": "П'ятниця",
+			"monday": "Понеділок",
+			"saturday": "Субота",
+			"sunday": "Неділя",
+			"thursday": "Четвер",
+			"tuesday": "Вівторок",
+			"wednesday": "Середа"
+		},
+		"short": {
+			"friday": "Пт",
+			"monday": "Пн",
+			"saturday": "Сб",
+			"sunday": "Нд",
+			"thursday": "Чт",
+			"tuesday": "Вт",
+			"wednesday": "Ср"
+		}
+	}
 }

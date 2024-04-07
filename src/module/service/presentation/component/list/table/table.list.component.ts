@@ -84,6 +84,11 @@ export class TableListComponent extends TableComponent<IService> {
 					minWidth: '300px',
 				},
 			},
+			order: {
+				style: {
+					minWidth: '150px',
+				},
+			},
 			duration: {
 				style: {
 					minWidth: '300px',
