@@ -160,7 +160,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 	public servicesComponent!: QueryList<ServicesComponent>;
 
 	@Select(EventState.itemData)
-	public itemData$!: Observable<RMIEvent | undefined>;
+	public itemData$!: Observable<RMIEvent | undefined | null>;
 
 	@Select(ClientState.item)
 	public client$!: Observable<RIClient>;

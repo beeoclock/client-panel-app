@@ -1,5 +1,5 @@
 <div class="block max-w-full overflow-x-auto h-[calc(100vh-64px)] md:h-[calc(100vh-65px)]">
-	<event-filter-component *ngIf="someDataExist.isOn"/>
+	<event-filter-component/>
 	<ng-container *ngIf="tableState">
 		<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
 			<event-card-list-component [tableState]="tableState"/>
@@ -7,7 +7,7 @@
 		<ng-template #EmptyTemplate>
 			<not-found-table-data-component
 				linkToForm="../form"
-				[showLinkToForm]="someDataExist.isOff"
+				[showLinkToForm]="true"
 				[linkLabel]="'keyword.capitalize.add-event' | translate"
 				[label]="'keyword.capitalize.dataNotFound' | translate">
 				<event-auto-refresh-component [resetPage]="true" [resetParams]="true"/>

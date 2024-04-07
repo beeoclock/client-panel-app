@@ -19,7 +19,6 @@ export abstract class ListPage implements OnInit {
 	public readonly actions!: {
 		GetList: any;
 	};
-	public readonly someDataExist = new BooleanState(false);
 
 	public initialized = new BooleanState(false);
 

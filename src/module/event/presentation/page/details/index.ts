@@ -1,7 +1,7 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, ViewChild, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {AsyncPipe, NgForOf, NgIf, NgTemplateOutlet} from '@angular/common';
-import {Observable} from 'rxjs';
+import {Observable, tap} from 'rxjs';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
@@ -47,9 +47,18 @@ import {ContainerDetailsComponent} from "@event/presentation/component/details/c
 })
 export default class Index {
 
-	// TODO add base index of details with store and delete method
+	@ViewChild(BackButtonComponent)
+	private readonly backButton!: BackButtonComponent;
 
 	@Select(EventState.itemData)
-	public readonly item$!: Observable<RMIEvent>;
+	private readonly item$!: Observable<RMIEvent | null>;
+
+	public readonly event$ = this.item$.pipe(
+		tap((event) => {
+			if (!event) {
+				this.backButton.navigateToBack();
+			}
+		})
+	);
 
 }

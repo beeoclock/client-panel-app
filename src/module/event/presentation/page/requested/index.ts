@@ -73,10 +73,7 @@ export default class Index extends ListPage {
 				items: tableState.items.map(MEvent.create),
 			})),
 			tap((tableState) => {
-				if (this.someDataExist.isOff) {
-					this.someDataExist.toggle(tableState.total > 0);
-					this.changeDetectorRef.detectChanges();
-				}
+				this.changeDetectorRef.detectChanges();
 			})
 		);
 

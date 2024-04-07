@@ -1,4 +1,4 @@
-<service-filter-component *ngIf="someDataExist.isOn"/>
+<service-filter-component/>
 <ng-container *ngIf="tableState">
 	<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
 		<service-table-list-component [tableState]="tableState"/>
@@ -7,10 +7,10 @@
 		<not-found-table-data-component
 			class="block h-full"
 			linkToForm="../form"
-			[showLinkToForm]="someDataExist.isOff"
+			[showLinkToForm]="true"
 			[linkLabel]="'keyword.capitalize.add-service' | translate"
 			[label]="'keyword.capitalize.dataNotFound' | translate">
-			<service-auto-refresh-component *ngIf="someDataExist.isOff" [resetPage]="true" [resetParams]="true"/>
+			<service-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
 		</not-found-table-data-component>
 	</ng-template>
 </ng-container>

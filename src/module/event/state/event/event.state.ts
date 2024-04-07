@@ -125,6 +125,9 @@ export class EventState extends BaseState<Event.IEvent> {
 
 	@Selector()
 	public static itemData(state: IEventState) {
+		if (!state.item.data) {
+			return null;
+		}
 		return MEvent.create(state.item.data);
 	}
 

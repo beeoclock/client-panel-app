@@ -404,6 +404,14 @@
 	},
 	"http": {
 		"DELETE": {
+			"/api/v1/event/{id}": {
+				"before": {
+					"accept": {
+						"header": "Usuwanie wydarzenia",
+						"message": "Czy na pewno chcesz usunąć wydarzenie?"
+					}
+				}
+			},
 			"/api/v1/customer/{id}": {
 				"before": {
 					"accept": {

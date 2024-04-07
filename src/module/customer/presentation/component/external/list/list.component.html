@@ -2,11 +2,9 @@
 	<customer-mobile-layout-list-component
 		[showButtonGoToForm]="false"
 		[isPage]="false"
-		[someDataExist]="someDataExist"
 		[tableState]="tableState$ | async"
 		*ngIf="isMobile$ | async" />
 	<customer-desktop-layout-list-component
-		[someDataExist]="someDataExist"
 		[tableState]="tableState$ | async"
 		*ngIf="isNotMobile$ | async" />
 </ng-container>
@@ -15,3 +13,4 @@
 		{{ 'keyword.capitalize.initializing' | translate }}...
 	</div>
 </ng-template>
+

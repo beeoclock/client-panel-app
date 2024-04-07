@@ -44,7 +44,7 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 
 	protected readonly router = inject(Router);
 	protected readonly store = inject(Store);
-	protected readonly logger = inject(NGXLogger);
+	protected readonly ngxLogger = inject(NGXLogger);
 
 	protected readonly item!: BaseApiAdapter<ITEM, unknown[]>;
 	protected readonly create!: BaseApiAdapter<ITEM, unknown[]>;
@@ -165,7 +165,7 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 				lastTableHashSum: undefined
 			});
 		} catch (e) {
-			this.logger.error('Error Response: ', e)
+			this.ngxLogger.error('Error Response: ', e)
 		}
 
 		ctx.dispatch(new AppActions.PageLoading(false));
@@ -194,7 +194,7 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 				lastTableHashSum: undefined
 			});
 		} catch (e) {
-			this.logger.error(e);
+			this.ngxLogger.error(e);
 		}
 
 		ctx.dispatch(new AppActions.PageLoading(false));
@@ -210,10 +210,18 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
 
-		const result = await this.remove.executeAsync(payload);
+		const isOk = await this.remove.executeAsync(payload).then((result) => {
+			this.ngxLogger.debug('Delete result: ', result);
+			return true;
+		}).catch((error) => {
+			// Cancel action or there some error
+			this.ngxLogger.error(error);
+			return false;
+		});
 
-		if (result) {
+		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 
+		if (isOk) {
 
 			ctx.patchState({
 				item: {
@@ -222,10 +230,7 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 				}
 			});
 
-
 		}
-
-		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 
 	}
 
@@ -255,7 +260,7 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 
 
 		} catch (e) {
-			this.logger.error(e);
+			this.ngxLogger.error(e);
 		}
 
 		ctx.dispatch(new AppActions.PageLoading(false));
@@ -308,7 +313,7 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 			});
 
 		} catch (e) {
-			this.logger.error(e);
+			this.ngxLogger.error(e);
 		}
 
 		// Switch of page loader

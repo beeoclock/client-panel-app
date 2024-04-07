@@ -216,6 +216,9 @@ export const eventEndpoint: EndpointCollectionType = {
 		[eventEndpointEnum.delete]: {
 			source: SourceNetworkEnum.panel,
 			replace: true,
+			before: {
+				accept: true
+			},
 			header: {
 				authorization: true,
 			}

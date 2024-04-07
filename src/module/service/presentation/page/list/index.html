@@ -1,10 +1,8 @@
 <ng-container *ngIf="initialized.isOn; else NotInitializedTemplate">
 	<service-mobile-layout-list-component
-		[someDataExist]="someDataExist"
 		[tableState]="tableState$ | async"
 		*ngIf="isMobile$ | async" />
 	<service-desktop-layout-list-component
-		[someDataExist]="someDataExist"
 		[tableState]="tableState$ | async"
 		*ngIf="isNotMobile$ | async" />
 </ng-container>

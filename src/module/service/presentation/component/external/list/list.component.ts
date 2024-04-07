@@ -38,10 +38,7 @@ export class ServiceExternalListComponent extends ListPage {
 	public readonly tableState$: Observable<ITableState<IService>> = this.store.select(ServiceState.tableState)
 		.pipe(
 			tap((tableState) => {
-				if (this.someDataExist.isOff) {
-					this.someDataExist.toggle(tableState.total > 0);
-					this.changeDetectorRef.detectChanges();
-				}
+				this.changeDetectorRef.detectChanges();
 			})
 		);
 

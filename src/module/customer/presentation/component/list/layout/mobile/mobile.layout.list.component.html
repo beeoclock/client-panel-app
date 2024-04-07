@@ -1,7 +1,7 @@
 <div class="block max-w-full" [ngClass]="{
 'overflow-x-auto h-[calc(100vh-64px)] md:h-[calc(100vh-65px)]': isPage
 }">
-	<customer-filter-component [showButtonGoToForm]="showButtonGoToForm" *ngIf="someDataExist.isOn"/>
+	<customer-filter-component [showButtonGoToForm]="showButtonGoToForm"/>
 	<ng-container *ngIf="tableState">
 		<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
 			<customer-card-list-component [tableState]="tableState"/>
@@ -10,10 +10,10 @@
 			<not-found-table-data-component
 				class="block h-full"
 				linkToForm="../form"
-				[showLinkToForm]="someDataExist.isOff"
+				[showLinkToForm]="true"
 				[linkLabel]="'customer.button.create' | translate"
 				[label]="'keyword.capitalize.dataNotFound' | translate">
-				<customer-auto-refresh-component *ngIf="someDataExist.isOff" [resetPage]="true" [resetParams]="true"/>
+				<customer-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
 			</not-found-table-data-component>
 		</ng-template>
 	</ng-container>
