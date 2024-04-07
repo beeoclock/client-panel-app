@@ -1,4 +1,4 @@
 <utility-default-panel-component>
 	<utility-back-button-component/>
 </utility-default-panel-component>
-<event-container-details-component *ngIf="item$ | async as event" [event]="event"/>
+<event-container-details-component *ngIf="event$ | async as event" [event]="event"/>

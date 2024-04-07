@@ -2,14 +2,15 @@ import {inject, Injectable} from "@angular/core";
 import {ModalService} from "@utility/presentation/component/modal/modal.service";
 import {TranslateService} from "@ngx-translate/core";
 import {
-    ModalButtonInterface,
-    ModalButtonRoleEnum,
-    ModalComponent
+	ModalButtonInterface,
+	ModalButtonRoleEnum,
+	ModalComponent
 } from "@utility/presentation/component/modal/modal.component";
 import {
-    CreateBusinessComponent
+	CreateBusinessComponent
 } from "@service/presentation/component/form/modal/create-business/create-business.component";
 import {ServiceForm} from "@service/presentation/form";
+import {LanguageCodeEnum} from "@utility/domain/enum";
 
 type RESOLVE_TYPE = { (value: ServiceForm | PromiseLike<ServiceForm>): void; (arg0: ServiceForm): void; };
 type REJECT_TYPE = { (reason?: never): void; (arg0?: never): void; };
@@ -22,10 +23,15 @@ export class CreateBusinessModalService {
 	private readonly modalService = inject(ModalService);
 	private readonly translateService = inject(TranslateService);
 
-	public async openServiceFormModal(serviceForm?: ServiceForm): Promise<ServiceForm> {
+	public async openServiceFormModal(availableLanguages: LanguageCodeEnum[], serviceForm?: ServiceForm): Promise<ServiceForm> {
 
 		const title = await this.translateService.instant('service.title');
-		const data: {form?: ServiceForm} = {};
+		const data: {
+			form?: ServiceForm,
+			availableLanguages: LanguageCodeEnum[]
+		} = {
+			availableLanguages
+		};
 
 		if (serviceForm) {
 			data['form'] = serviceForm;

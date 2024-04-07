@@ -3,7 +3,7 @@ import {ServiceForm} from "@service/presentation/form";
 import {DetailsBlockComponent} from "@service/presentation/component/form/v2/details/details-block.component";
 import {PricesBlockComponent} from "@service/presentation/component/form/v2/prices/prices-block.component";
 import {AsyncPipe, NgIf} from "@angular/common";
-import {ServicesFormComponent} from "@service/presentation/component/form/v1/service/services.form.component";
+import {ServicesFormComponent} from "@service/presentation/component/form/v2/service/services.form.component";
 
 @Component({
 	selector: 'service-create-business-component',
@@ -14,12 +14,13 @@ import {ServicesFormComponent} from "@service/presentation/component/form/v1/ser
 		PricesBlockComponent,
 		NgIf,
 		AsyncPipe,
-		ServicesFormComponent
+		ServicesFormComponent,
 	],
 	standalone: true
 })
 export class CreateBusinessComponent {
 	public readonly form = new ServiceForm();
+	public readonly availableLanguages = [];
 
 	public async submit(): Promise<ServiceForm> {
 		if (this.form.invalid) {

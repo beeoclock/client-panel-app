@@ -1,17 +1,14 @@
 import {LanguageVersionsForm} from '@service/presentation/form/service.form';
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {AsyncPipe, NgClass, NgForOf, NgIf} from '@angular/common';
-import {ServiceFormComponent} from '@service/presentation/component/form/v1/service/service.form.component';
 import {LanguageCodeEnum, LanguageRecord} from '@utility/domain/enum';
-import {Select} from "@ngxs/store";
-import {ClientState} from "@client/state/client/client.state";
-import {filter, firstValueFrom, map, Observable} from "rxjs";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {FormButtonWithIconComponent} from "@utility/presentation/component/button/form-button-with-icon.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {DetailsBlockComponent} from "@service/presentation/component/form/v2/details/details-block.component";
+import {ServiceFormComponent} from "@service/presentation/component/form/v2/service/service.form.component";
 
 @Component({
 	selector: 'service-services-form-component',
@@ -19,7 +16,6 @@ import {DetailsBlockComponent} from "@service/presentation/component/form/v2/det
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		NgForOf,
-		ServiceFormComponent,
 		NgIf,
 		AsyncPipe,
 		PrimaryButtonDirective,
@@ -27,10 +23,11 @@ import {DetailsBlockComponent} from "@service/presentation/component/form/v2/det
 		TranslateModule,
 		NgClass,
 		DetailsBlockComponent,
+		ServiceFormComponent,
 	],
 	template: `
 
-		<ng-container *ngIf="businessHasMoreThanOneLanguage$ | async; else SingleLanguageTemplate">
+		<ng-container *ngIf="businessHasMoreThanOneLanguage; else SingleLanguageTemplate">
 
 
 			<div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl"
@@ -44,7 +41,7 @@ import {DetailsBlockComponent} from "@service/presentation/component/form/v2/det
 				</div>
 
 				<div class="p-4 flex flex-wrap gap-4">
-					<ng-container *ngFor="let availableLanguage of availableLanguages$ | async">
+					<ng-container *ngFor="let availableLanguage of availableLanguages">
 						<button
 							(click)="pushNewLanguageVersionForm(availableLanguage)"
 							type="button"
@@ -92,31 +89,29 @@ export class ServicesFormComponent extends Reactive implements OnInit {
 	@Input()
 	public form = new LanguageVersionsForm();
 
-	@Select(ClientState.availableLanguages)
-	public availableLanguages$!: Observable<LanguageCodeEnum[] | undefined>;
+	@Input()
+	public availableLanguages: LanguageCodeEnum[] = [];
 
-	public readonly businessHasMoreThanOneLanguage$ = this.availableLanguages$.pipe(
-		filter(Array.isArray),
-		map((languages) => languages.length > 1)
-	);
+	public get businessHasMoreThanOneLanguage() {
+		return this.availableLanguages.length > 0;
+	}
 
 	public readonly showAddMore = new BooleanStreamState();
 
 	public ngOnInit() {
-		this.availableLanguages$.pipe(this.takeUntil()).subscribe((availableLanguages) => {
-			if (this.form.length === 0 && availableLanguages) {
-				this.pushNewLanguageVersionForm(availableLanguages[0]);
-			}
-		});
+
+		if (this.form.length === 0 && this.availableLanguages.length) {
+			this.pushNewLanguageVersionForm(this.availableLanguages[0]);
+		}
+
 	}
 
 	public async updateShowAddMore(): Promise<void> {
-		const availableLanguages = await firstValueFrom(this.availableLanguages$);
-		if (!availableLanguages) {
+		if (!this.availableLanguages) {
 			this.showAddMore.doFalse();
 			return;
 		}
-		this.showAddMore.toggle(this.form.length < availableLanguages.length);
+		this.showAddMore.toggle(this.form.length < this.availableLanguages.length);
 	}
 
 	public pushNewLanguageVersionForm(languageCode: LanguageCodeEnum): void {

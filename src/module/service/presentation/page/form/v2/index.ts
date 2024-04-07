@@ -35,7 +35,7 @@ import {
 } from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
 import {ServicePresentationForm} from "@service/presentation/form/service.presentation.form";
 import {MediaTypeEnum} from "@utility/domain/enum/media.type.enum";
-import {ServicesFormComponent} from "@service/presentation/component/form/v1/service/services.form.component";
+import {ServicesFormComponent} from "@service/presentation/component/form/v2/service/services.form.component";
 import {ClientState} from "@client/state/client/client.state";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";

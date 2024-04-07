@@ -1,5 +1,5 @@
 <ng-container *ngIf="initialized.isOn; else NotInitializedTemplate">
-	<member-filter-component *ngIf="someDataExist.isOn"/>
+	<member-filter-component/>
 	<ng-container *ngIf="tableState$ | async as tableState">
 		<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
 			<member-card-list-component *ngIf="isMobile$ | async" [tableState]="tableState"/>

@@ -93,12 +93,6 @@ export class ServicesComponent implements OnInit {
 			this.modalSelectServiceListAdapter.resetTableState();
 			await this.modalSelectServiceListAdapter.getPageAsync();
 
-			if (this.modalSelectServiceListAdapter.tableState.total === 1) {
-
-				this.serviceListControl.patchValue([this.modalSelectServiceListAdapter.tableState.items[0]]);
-
-			}
-
 		}
 
 	}

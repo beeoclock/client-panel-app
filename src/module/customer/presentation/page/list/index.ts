@@ -54,10 +54,7 @@ export default class Index extends ListPage {
 	public readonly tableState$: Observable<ITableState<ICustomer>> = this.store.select(CustomerState.tableState)
 		.pipe(
 			tap((tableState) => {
-				if (this.someDataExist.isOff) {
-					this.someDataExist.toggle(tableState.total > 0);
-					this.changeDetectorRef.detectChanges();
-				}
+				this.changeDetectorRef.detectChanges();
 			})
 		);
 
