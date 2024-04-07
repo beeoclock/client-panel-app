@@ -10,5 +10,5 @@ import {Component, HostBinding, ViewEncapsulation} from "@angular/core";
 })
 export class ButtonSaveContainerComponent {
 	@HostBinding()
-	public class = 'block bg-white dark:text-white dark:bg-beeDarkColor-800/50 rounded-2xl z-40 w-full p-4 border sticky bottom-16';
+	public class = 'block bg-white dark:text-white dark:bg-beeDarkColor-800/50 rounded-2xl w-full p-4 border sticky bottom-16 md:bottom-0';
 }
