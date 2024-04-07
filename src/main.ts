@@ -28,12 +28,14 @@ import {tokens} from "@src/token";
 import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
 import {provideServiceWorker} from '@angular/service-worker';
 import {LanguageCodeEnum} from "@utility/domain/enum";
-// import '@angular/common/locales/global/pl';
-import '@angular/common/locales/global/uk';
 import {ClientState} from "@client/state/client/client.state";
 import {NgEventBus} from 'ng-event-bus';
 import {getMessaging, provideMessaging} from "@angular/fire/messaging";
 import {MemberState} from "@member/state/member/member.state";
+
+import '@angular/common/locales/global/da';
+import '@angular/common/locales/global/pl';
+import '@angular/common/locales/global/uk';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {

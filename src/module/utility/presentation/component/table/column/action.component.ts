@@ -37,22 +37,30 @@ import {Placement} from "@popperjs/core/lib/enums";
           </a>
         </li>
 				<ng-content/>
-<!--        <li *ngIf="active === activeEnum.NO">-->
-<!--          <button-->
-<!--            (click)="delete.emit(id)"-->
-<!--            class="text-start block w-full px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">-->
-<!--            <i class="bi bi-trash"></i>-->
-<!--            {{ 'keyword.capitalize.delete' | translate }}-->
-<!--          </button>-->
-<!--        </li>-->
-<!--        <li *ngIf="active === activeEnum.YES">-->
-<!--          <button-->
-<!--            (click)="archive.emit(id)"-->
-<!--            class="text-start block w-full px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">-->
-<!--            <i class="bi bi-archive"></i>-->
-<!--            Archive-->
-<!--          </button>-->
-<!--        </li>-->
+        <li>
+          <button
+            (click)="delete.emit(id)"
+						class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
+            <i class="bi bi-trash"></i>
+            {{ 'keyword.capitalize.delete' | translate }}
+          </button>
+        </li>
+        <li *ngIf="active === activeEnum.NO">
+          <button
+            (click)="activate.emit(id)"
+						class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
+            <i class="bi bi-toggle-on"></i>
+            {{ 'keyword.capitalize.activate' | translate }}
+          </button>
+        </li>
+        <li *ngIf="active === activeEnum.YES">
+          <button
+            (click)="deactivate.emit(id)"
+						class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
+            <i class="bi bi-toggle-off"></i>
+            {{ 'keyword.capitalize.deactivate' | translate }}
+          </button>
+        </li>
       </ng-container>
     </utility-dropdown>
   `
@@ -75,7 +83,12 @@ export class ActionComponent {
   public readonly delete = new EventEmitter<string>();
 
   @Output()
-  public readonly archive = new EventEmitter<string>();
+  public readonly activate = new EventEmitter<string>();
+
+  @Output()
+  public readonly deactivate = new EventEmitter<string>();
+
+	public readonly activeEnum = ActiveEnum;
 
   private readonly router = inject(Router);
 

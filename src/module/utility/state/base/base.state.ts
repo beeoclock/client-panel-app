@@ -51,6 +51,7 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 	protected readonly update!: BaseApiAdapter<ITEM, unknown[]>;
 	protected readonly remove!: BaseApiAdapter<unknown, unknown[]>;
 	protected readonly archive!: BaseApiAdapter<unknown, unknown[]>;
+	protected readonly unarchive!: BaseApiAdapter<unknown, unknown[]>;
 	protected readonly list!: BaseApiAdapter<{
 		items: ITEM[];
 		totalSize: number;
@@ -232,6 +233,13 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 
 		}
 
+		this.getList(ctx, {
+			payload: {
+				resetPage: false,
+				resetParams: false
+			}
+		});
+
 	}
 
 	/**
@@ -248,15 +256,70 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 
 			const state = ctx.getState();
 
-			ctx.patchState({
-				item: {
-					data: {
-						...state.item.data,
-						active: ActiveEnum.NO
-					} as never,
-					downloadedAt: new Date(),
-				}
-			});
+			console.log(state.item.data)
+
+			if (state.item.data) {
+				ctx.patchState({
+					item: {
+						data: {
+							...state.item.data,
+							active: ActiveEnum.NO
+						} as never,
+						downloadedAt: new Date(),
+					}
+				});
+			} else {
+
+				this.getList(ctx, {
+					payload: {
+						resetPage: false,
+						resetParams: false
+					}
+				});
+
+			}
+
+
+		} catch (e) {
+			this.ngxLogger.error(e);
+		}
+
+		ctx.dispatch(new AppActions.PageLoading(false));
+	}
+
+	/**
+	 *
+	 * @param ctx
+	 * @param payload
+	 */
+	public async unarchiveItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UnarchiveItem): Promise<void> {
+
+		ctx.dispatch(new AppActions.PageLoading(true));
+
+		try {
+			await this.unarchive.executeAsync(payload);
+
+			const state = ctx.getState();
+
+			if (state.item.data) {
+				ctx.patchState({
+					item: {
+						data: {
+							...state.item.data,
+							active: ActiveEnum.YES
+						} as never,
+						downloadedAt: new Date(),
+					}
+				});
+			} else {
+				// Update list
+				this.getList(ctx, {
+					payload: {
+						resetPage: false,
+						resetParams: false
+					}
+				});
+			}
 
 
 		} catch (e) {
@@ -274,7 +337,6 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 	 */
 	public async getList(ctx: StateContext<IBaseState<ITEM>>, {
 		payload: {
-			// force,
 			resetPage,
 			resetParams
 		}

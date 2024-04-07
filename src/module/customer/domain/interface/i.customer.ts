@@ -16,3 +16,4 @@ export interface ICustomer extends IBaseEntity<'Customer'> {
 
 export const isCustomer = typia.createIs<ICustomer>();
 export const validCustomer = typia.createValidate<ICustomer>();
+export const randomCustomer = typia.createRandom<ICustomer>();

@@ -12,7 +12,12 @@ import {IService} from "@service/domain";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<utility-table-column-action [id]="id" (delete)="delete($event)">
+		<utility-table-column-action
+			(activate)="activate()"
+			(deactivate)="deactivate()"
+			(delete)="delete()"
+			[id]="id"
+			[active]="item.active">
 			<li>
 				<a
 					[routerLink]="['../../', 'event', 'form']"
@@ -42,8 +47,23 @@ export class RowActionButtonComponent {
 	private readonly router = inject(Router);
 	public readonly returnUrl = this.router.url;
 
-	public delete(id: string): void {
-		this.store.dispatch(new ServiceActions.DeleteItem(id));
+	public delete(): void {
+		const {active} = this.item;
+
+		if (active) {
+
+			return alert('You can\'t delete active service');
+
+		}
+		this.store.dispatch(new ServiceActions.DeleteItem(this.item._id));
+	}
+
+	public activate(): void {
+		this.store.dispatch(new ServiceActions.UnarchiveItem(this.item._id));
+	}
+
+	public deactivate(): void {
+		this.store.dispatch(new ServiceActions.ArchiveItem(this.item._id));
 	}
 
 	public async archive(id: string): Promise<void> {

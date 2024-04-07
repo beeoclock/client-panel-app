@@ -20,6 +20,10 @@ export namespace ServiceActions {
     public static override readonly type = '[Service API] Archive Item';
   }
 
+  export class UnarchiveItem extends BaseActions.UnarchiveItem {
+    public static override readonly type = '[Service API] Unarchive Item';
+  }
+
   export class GetItem extends BaseActions.GetItem {
     public static override readonly type = '[Service API] Get Item';
   }

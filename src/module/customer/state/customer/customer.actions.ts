@@ -32,6 +32,10 @@ export namespace CustomerActions {
     public static override readonly type = '[Customer API] Archive Item';
   }
 
+  export class UnarchiveItem extends BaseActions.UnarchiveItem {
+    public static override readonly type = '[Customer API] Unarchive Item';
+  }
+
   // Updates of state
 
   export class UpdateFilters extends BaseActions.UpdateFilters {

@@ -59,7 +59,7 @@ export class ChangeStatusOnRejectedComponent extends ChangeStatusBaseComponent {
 	public async changeStatusOnRejected(event: IEvent): Promise<void> {
 		await firstValueFrom(this.store.dispatch(new EventRequestedActions.RejectedStatus(event)));
 		this.postStatusChange(EventStatusEnum.rejected);
-		this.store.dispatch(new EventRequestedActions.GetList({force: true, resetPage: false, resetParams: false}));
+		this.store.dispatch(new EventRequestedActions.GetList({resetPage: false, resetParams: false}));
 		this.store.dispatch(new RefreshCalendarAction());
 		this.filterService.forceRefresh(); // Dashboard
 	}

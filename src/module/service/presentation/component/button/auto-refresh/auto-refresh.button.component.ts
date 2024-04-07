@@ -26,7 +26,6 @@ export class AutoRefreshButtonComponent {
 
 	public forceRefresh() {
 		this.store.dispatch(new ServiceActions.GetList({
-			force: true,
 			resetPage: this.resetPage,
 			resetParams: this.resetParams,
 		}))
