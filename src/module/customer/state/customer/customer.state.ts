@@ -10,6 +10,7 @@ import {ItemCustomerApiAdapter} from "@customer/adapter/external/api/item.custom
 import {RemoveCustomerApiAdapter} from "@customer/adapter/external/api/remove.customer.api.adapter";
 import {ListCustomerApiAdapter} from "@customer/adapter/external/api/list.customer.api.adapter";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {UnarchiveCustomerApiAdapter} from "@customer/adapter/external/api/unarchive.customer.api.adapter";
 
 export type ICustomerState = IBaseState<Customer.ICustomer>;
 
@@ -27,6 +28,7 @@ const defaults = baseDefaults<Customer.ICustomer>({
 export class CustomerState extends BaseState<Customer.ICustomer> {
 
 	protected override readonly archive = inject(ArchiveCustomerApiAdapter);
+	protected override readonly unarchive = inject(UnarchiveCustomerApiAdapter);
 	protected override readonly create = inject(CreateCustomerApiAdapter);
 	protected override readonly update = inject(UpdateCustomerApiAdapter);
 	protected override readonly item = inject(ItemCustomerApiAdapter);
@@ -77,6 +79,11 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 	@Action(CustomerActions.ArchiveItem)
 	public override async archiveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.ArchiveItem) {
 		await super.archiveItem(ctx, action);
+	}
+
+	@Action(CustomerActions.UnarchiveItem)
+	public override async unarchiveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UnarchiveItem) {
+		await super.unarchiveItem(ctx, action);
 	}
 
 	@Action(CustomerActions.GetList)

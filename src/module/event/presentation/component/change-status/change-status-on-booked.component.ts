@@ -63,7 +63,7 @@ export class ChangeStatusOnBookedComponent extends ChangeStatusBaseComponent {
 			status: EventStatusEnum.booked,
 		})));
 		this.postStatusChange(EventStatusEnum.booked);
-		this.store.dispatch(new EventRequestedActions.GetList({force: true, resetPage: false, resetParams: false}));
+		this.store.dispatch(new EventRequestedActions.GetList({resetPage: false, resetParams: false}));
 		this.store.dispatch(new RefreshCalendarAction());
 		this.filterService.forceRefresh(); // Dashboard
 	}

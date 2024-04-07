@@ -9,7 +9,7 @@ import {TokensHttpContext} from "@src/tokens.http-context";
 @Injectable({
   providedIn: 'root'
 })
-export class ArchiveCustomerApiAdapter extends BaseApiAdapter<unknown, [string]> {
+export class UnarchiveCustomerApiAdapter extends BaseApiAdapter<unknown, [string]> {
 
   /**
    * ARCHIVE ITEM BY ID
@@ -17,7 +17,7 @@ export class ArchiveCustomerApiAdapter extends BaseApiAdapter<unknown, [string]>
    */
   @TypeGuard([is.string_not_empty])
   public override execute$(id: string) {
-    return this.httpClient.patch(customerEndpointEnum.archive, null, {
+    return this.httpClient.patch(customerEndpointEnum.unarchive, null, {
 			context: new HttpContext().set(TokensHttpContext.REPLACE, {
 				id
 			}),

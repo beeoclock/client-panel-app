@@ -64,7 +64,7 @@ export class ChangeStatusOnDoneComponent extends ChangeStatusBaseComponent {
 		await firstValueFrom(this.store.dispatch(new EventActions.DoneStatus(event)));
 		await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
 		this.postStatusChange(EventStatusEnum.done);
-		this.store.dispatch(new EventActions.GetList({force: true, resetPage: false, resetParams: false}));
+		this.store.dispatch(new EventActions.GetList({resetPage: false, resetParams: false}));
 		this.store.dispatch(new RefreshCalendarAction());
 		this.filterService.forceRefresh(); // Dashboard
 	}

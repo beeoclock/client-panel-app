@@ -12,11 +12,9 @@ export namespace BaseActions {
 
 		constructor(
 			public readonly payload: {
-				force: boolean;
 				resetPage: boolean;
 				resetParams: boolean;
 			} = {
-				force: false,
 				resetPage: false,
 				resetParams: false,
 			},
@@ -34,6 +32,15 @@ export namespace BaseActions {
 	}
 
 	export class ArchiveItem {
+		public static readonly type: string = '[TODO] Not Implemented Yet!';
+
+		constructor(
+			public readonly payload: string,
+		) {
+		}
+	}
+
+	export class UnarchiveItem {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 
 		constructor(
