@@ -6,6 +6,8 @@ import {REPLACE_MAP_REGEX} from "@utility/domain/const/c.regex";
 import {IEndpointReplace} from "@utility/domain/interface/i.endpoint/i.endpoint-replace";
 import {is} from "thiis";
 import {TokensHttpContext} from '@src/tokens.http-context';
+import {NGXLogger} from 'ngx-logger';
+import {inject} from "@angular/core";
 
 /**
  *
@@ -35,7 +37,8 @@ export const ParamsReplaceInterceptor: HttpInterceptorFn = (request, next) => {
 
 			} else {
 
-				console.error('replaceMap: ', replaceMap, 'path: ', path,);
+				const ngxLogger = inject(NGXLogger);
+				ngxLogger.error('replaceMap: ', replaceMap, 'path: ', path,);
 				throw new Error('In your params: replace field is empty object. ' +
 					'You can omit the step, for it just set boolean value "false" at replace flag in you endpoint declaration.');
 

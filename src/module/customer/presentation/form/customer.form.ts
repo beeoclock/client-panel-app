@@ -1,4 +1,4 @@
-import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, Validators} from '@angular/forms';
 import {ActiveEnum} from "@utility/domain/enum";
 import {noWhitespaceValidator} from "@utility/validation/whitespace";
 import {
@@ -9,9 +9,9 @@ import {FormTextareaComponent} from "@utility/presentation/component/input/form.
 import {
 	SwitchActiveBlockComponent
 } from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
+import {BaseEntityForm} from "@utility/base.form";
 
 export const enum CustomerFormFieldsEnum {
-	_id = '_id',
 
 	firstName = 'firstName',
 	lastName = 'lastName',
@@ -23,26 +23,25 @@ export const enum CustomerFormFieldsEnum {
 }
 
 export interface ICustomerForm {
-	[CustomerFormFieldsEnum._id]: FormControl<string>;
 
-	[CustomerFormFieldsEnum.firstName]: FormControl<string>;
-	[CustomerFormFieldsEnum.lastName]: FormControl<string>;
-	[CustomerFormFieldsEnum.note]: FormControl<string>;
-	[CustomerFormFieldsEnum.email]: FormControl<string>;
-	[CustomerFormFieldsEnum.phone]: FormControl<string>;
+	[CustomerFormFieldsEnum.firstName]: FormControl<string | null>;
+	[CustomerFormFieldsEnum.lastName]: FormControl<string | null>;
+	[CustomerFormFieldsEnum.note]: FormControl<string | null>;
+	[CustomerFormFieldsEnum.email]: FormControl<string | null>;
+	[CustomerFormFieldsEnum.phone]: FormControl<string | null>;
 
 	[CustomerFormFieldsEnum.active]: FormControl<ActiveEnum>;
 
 }
 
-export class CustomerForm extends FormGroup<ICustomerForm> {
+export class CustomerForm extends BaseEntityForm<ICustomerForm> {
 
 	public readonly components = {
 		[CustomerFormFieldsEnum.firstName]: {
 			componentRef: FormInputComponent,
 			inputs: {
 				id: 'customer-form-firstName',
-				type: 'string',
+				inputType: 'text',
 				labelTranslateKey: 'keyword.capitalize.firstName',
 				placeholderTranslateKey: 'keyword.capitalize.firstName',
 				autocomplete: CustomerFormFieldsEnum.firstName,
@@ -53,7 +52,7 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
 			componentRef: FormInputComponent,
 			inputs: {
 				id: 'customer-form-lastName',
-				type: 'string',
+				inputType: 'text',
 				labelTranslateKey: 'keyword.capitalize.lastName',
 				placeholderTranslateKey: 'keyword.capitalize.lastName',
 				autocomplete: CustomerFormFieldsEnum.lastName,
@@ -64,7 +63,7 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
 			componentRef: FormInputComponent,
 			inputs: {
 				id: 'customer-form-email',
-				type: 'email',
+				inputType: 'email',
 				labelTranslateKey: 'keyword.capitalize.email',
 				placeholderTranslateKey: 'firstname.lastname@example.com',
 				autocomplete: CustomerFormFieldsEnum.email,
@@ -75,7 +74,7 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
 			componentRef: FormInputComponent,
 			inputs: {
 				id: 'customer-form-phone',
-				type: 'phone',
+				inputType: 'tel',
 				labelTranslateKey: 'keyword.capitalize.phone',
 				placeholderTranslateKey: '+000000000000',
 				autocomplete: CustomerFormFieldsEnum.phone,
@@ -109,7 +108,6 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
 
 	constructor() {
 		super({
-			[CustomerFormFieldsEnum._id]: new FormControl(),
 
 			[CustomerFormFieldsEnum.firstName]: new FormControl(),
 			[CustomerFormFieldsEnum.lastName]: new FormControl(),
@@ -118,9 +116,10 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
 
 			[CustomerFormFieldsEnum.note]: new FormControl(),
 
-			[CustomerFormFieldsEnum.active]: new FormControl(),
+			[CustomerFormFieldsEnum.active]: new FormControl(ActiveEnum.YES, {
+				nonNullable: true,
+			}),
 		});
-		this.initValue();
 		this.initValidation();
 	}
 
@@ -142,14 +141,10 @@ export class CustomerForm extends FormGroup<ICustomerForm> {
 		return !this.isEmpty();
 	}
 
-	private initValue(): void {
-		this.controls.active.setValue(ActiveEnum.YES);
-	}
-
 	public initValidation(): void {
 		this.controls.email.setValidators([Validators.email, noWhitespaceValidator()]);
 		this.controls.phone.setValidators([noWhitespaceValidator()]);
 
-		this.addValidators(atLeastOneFieldMustBeFilledValidator(['_id', 'active', 'note']));
+		this.addValidators(atLeastOneFieldMustBeFilledValidator(['_id', 'active', 'note', 'object', 'createdAt', 'updatedAt']));
 	}
 }

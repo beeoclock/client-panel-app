@@ -87,7 +87,7 @@ export class NotificationCoreService {
 						this.ngxLogger.debug('[NOTIFICATION] Push notifications are allowed.', subscription);
 						//save the push subscription in your database
 					}).catch(function(error) {
-						console.log('Error:', error);
+						console.error('Error:', error);
 					});
 				});
 			}

@@ -39,6 +39,7 @@ import {ServicesFormComponent} from "@service/presentation/component/form/v1/ser
 import {ClientState} from "@client/state/client/client.state";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
 	selector: 'service-form-v2-page-component',
@@ -94,6 +95,7 @@ export default class Index implements OnInit {
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly activatedRoute = inject(ActivatedRoute);
 	public readonly router = inject(Router);
+	public readonly ngxLogger = inject(NGXLogger);
 
 	@Select(ServiceState.itemData)
 	public itemData$!: Observable<IService | undefined>;
@@ -117,8 +119,6 @@ export default class Index implements OnInit {
 					if (presentation) {
 						this.presentationForm.patchValue(presentation);
 					}
-
-					console.log(rest)
 
 					this.form.patchValue(rest);
 
@@ -173,7 +173,7 @@ export default class Index implements OnInit {
 			this.form.enable();
 			this.form.updateValueAndValidity();
 		} else {
-			console.error('Form is invalid', this.form);
+			this.ngxLogger.error('Form is invalid', this.form);
 		}
 	}
 

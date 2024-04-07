@@ -5,15 +5,15 @@ import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
 
 @Component({
-  selector: 'edit-link-component',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  template: `
-    <a type="button"
-       routerLink="form"
-       [class.w-full]="buttonWidthFull"
-       class="
+	selector: 'edit-link-component',
+	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	encapsulation: ViewEncapsulation.None,
+	template: `
+		<a
+			routerLink="form"
+			[class.w-full]="buttonWidthFull"
+			class="
         flex
         items-center
         justify-center
@@ -32,21 +32,21 @@ import {RouterLink} from "@angular/router";
         ring-1
         ring-inset
         ring-beeColor-300">
-      <i class="bi bi-pencil me-2"></i>
-      {{ 'keyword.capitalize.edit' | translate }}
-    </a>
+			<i class="bi bi-pencil me-2"></i>
+			{{ 'keyword.capitalize.edit' | translate }}
+		</a>
 
-  `,
-  imports: [
-    NgIf,
-    SpinnerComponent,
-    TranslateModule,
-    RouterLink
-  ]
+	`,
+	imports: [
+		NgIf,
+		SpinnerComponent,
+		TranslateModule,
+		RouterLink
+	]
 })
 export class EditLinkComponent {
 
-  @Input()
-  public buttonWidthFull = false;
+	@Input()
+	public buttonWidthFull = false;
 
 }
