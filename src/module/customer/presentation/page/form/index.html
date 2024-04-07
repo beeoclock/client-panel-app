@@ -19,6 +19,16 @@
 
         </div>
 
+				<div
+					class="md:col-span-2"
+					[class.hidden]="
+					form.valid ||
+					form.controls.phone.untouched ||
+					form.controls.email.untouched
+				">
+					<utility-invalid-message class="flex justify-center" [control]="form"/>
+				</div>
+
       </bee-card>
 
 			<ng-container

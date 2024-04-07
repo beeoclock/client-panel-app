@@ -81,7 +81,7 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 		</div>
 
 
-		<div [hidden]="preview.isOn" class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 lg:p-4">
+		<div [hidden]="preview.isOn" class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 lg:p-4 pb-16">
 
 			<form [formGroup]="form" class="flex flex-col gap-4">
 

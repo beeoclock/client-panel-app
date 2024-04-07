@@ -3,12 +3,11 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
-import {ICustomer, RICustomer} from "@customer/domain";
+import {ICustomer, validCustomer} from "@customer/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {CustomerState} from "@customer/state/customer/customer.state";
 import {filter, firstValueFrom, Observable} from "rxjs";
 import {Select, Store} from "@ngxs/store";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
@@ -26,6 +25,8 @@ import {KeyValuePipe, NgComponentOutlet, NgForOf} from "@angular/common";
 import {
 	SwitchActiveBlockComponent
 } from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
+import {NGXLogger} from "ngx-logger";
+import {CustomerActions} from "@customer/state/customer/customer.actions";
 
 @Component({
 	selector: 'customer-form-page',
@@ -60,6 +61,7 @@ export default class Index implements OnInit {
 
 	private readonly store = inject(Store);
 	private readonly activatedRoute = inject(ActivatedRoute);
+	private readonly ngxLogger = inject(NGXLogger);
 
 	@ViewChild(BackButtonComponent)
 	public backButtonComponent!: BackButtonComponent;
@@ -88,10 +90,15 @@ export default class Index implements OnInit {
 
 	public async save(): Promise<void> {
 		this.form.markAllAsTouched();
+		const value = this.form.getRawValue() as ICustomer;
+		const validStatus = validCustomer(value);
+		if (validStatus.errors.length) {
+			this.ngxLogger.error('Object is invalid', validStatus);
+			return;
+		}
 		if (this.form.valid) {
 			this.form.disable();
 			this.form.markAsPending();
-			const value = this.form.getRawValue() as RICustomer;
 			if (this.isEditMode) {
 				await firstValueFrom(this.store.dispatch(new CustomerActions.UpdateItem(value)));
 			} else {
@@ -101,6 +108,8 @@ export default class Index implements OnInit {
 			this.form.enable();
 			this.form.updateValueAndValidity();
 
+		} else {
+			this.ngxLogger.error('Form is invalid', this.form);
 		}
 	}
 }

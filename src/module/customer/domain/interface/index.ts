@@ -1,1 +1,1 @@
-export * from './customer.interface';
+export * from './i.customer';

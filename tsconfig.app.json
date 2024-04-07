@@ -3,8 +3,15 @@
   "compilerOptions": {
     "outDir": "./out-tsc/app",
     "types": [
-			"node",
-		]
+      "node"
+    ],
+    "plugins": [
+      {
+        "transform": "typia/lib/transform"
+      }
+    ],
+    "strictNullChecks": true,
+    "strict": true
   },
   "files": [
     "src/main.ts"
