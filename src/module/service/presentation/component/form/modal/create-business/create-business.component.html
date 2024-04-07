@@ -1,6 +1,9 @@
 <div class="flex flex-col md:gap-6">
 
-	<service-services-form-component [form]="form.controls.languageVersions"/>
+
+	<service-services-form-component
+		[availableLanguages]="availableLanguages"
+		[form]="form.controls.languageVersions"/>
 
 	<service-form-prices-block-component
 		[useCardBorder]="false"

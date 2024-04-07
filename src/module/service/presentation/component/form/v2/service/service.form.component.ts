@@ -6,7 +6,7 @@ import {HasErrorDirective} from '@utility/presentation/directives/has-error/has-
 import {IsRequiredDirective} from '@utility/presentation/directives/is-required/is-required';
 import {
 	LanguageServiceFormComponent
-} from '@service/presentation/component/form/v1/service/language.service.form.component';
+} from '@service/presentation/component/form/v2/service/language.service.form.component';
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgIf} from "@angular/common";

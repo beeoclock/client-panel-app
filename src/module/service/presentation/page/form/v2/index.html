@@ -10,7 +10,10 @@
 			<service-form-image-block-component
 				[presentationForm]="presentationForm"/>
 
-			<service-services-form-component [form]="form.controls.languageVersions"/>
+			<service-services-form-component
+				*ngIf="availableLanguages$ | async as availableLanguages"
+				[form]="form.controls.languageVersions"
+				[availableLanguages]="availableLanguages"/>
 
 			<service-form-prices-block-component
 				[durationConfigurationForm]="form.controls.configuration.controls.duration"

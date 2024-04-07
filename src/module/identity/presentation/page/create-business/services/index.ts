@@ -55,7 +55,9 @@ export default class Index {
 			serviceFormToEdit = new ServiceForm();
 			serviceFormToEdit.setValue(this.servicesForm.at(index).getRawValue());
 		}
+		const {availableLanguages} = this.createBusinessQuery.getBusinessSettings().value;
 		this.createBusinessModalService.openServiceFormModal(
+			availableLanguages ?? [],
 			serviceFormToEdit
 		).then((newServiceForm) => {
 			if (index === undefined) {
