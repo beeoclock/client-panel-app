@@ -1,9 +1,10 @@
 import {Component, inject, ViewEncapsulation} from "@angular/core";
-import {NgIf} from "@angular/common";
+import {AsyncPipe, NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
-import {
-	DateControlCalendarWithSpecialistsService
-} from "@event/presentation/page/calendar-with-specialists/component/filter/date-control/date-control.calendar-with-specialists.service";
+import {Store} from "@ngxs/store";
+import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
+import {combineLatest, map} from "rxjs";
+import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 
 @Component({
 	selector: 'event-date-control-calendar-with-specialists-component',
@@ -19,11 +20,11 @@ import {
 
 			<div class="border-y border-beeColor-300 px-3.5 text-beeColor-900 flex flex-col justify-center items-center">
 
-				<span *ngIf="selectedDateIsToday || selectedDateIsTomorrow" class="text-xs font-semibold">
-					{{ (selectedDateIsToday ? 'keyword.capitalize.today' : selectedDateIsTomorrow ? 'keyword.capitalize.tomorrow' : '') | translate }}
+				<span *ngIf="hint$ | async as translateKey" class="text-xs font-semibold">
+					{{ translateKey | translate }}
 				</span>
 
-				<span [class.text-xs]="selectedDateIsToday || selectedDateIsTomorrow">
+				<span [class.text-xs]="isTodayOrTomorrow$ | async" *ngIf="selectedDate$ | async as selectedDate">
 					{{ selectedDate.toFormat('yyyy-MM-dd') }}
 				</span>
 
@@ -41,32 +42,45 @@ import {
 	standalone: true,
 	imports: [
 		NgIf,
-		TranslateModule
+		TranslateModule,
+		AsyncPipe
 	],
 	encapsulation: ViewEncapsulation.None
 })
 export class DateControlCalendarWithSpecialistsComponent {
 
-	private readonly dateControlCalendarWithSpecialistsService = inject(DateControlCalendarWithSpecialistsService);
+	private readonly store = inject(Store);
 
-	public get selectedDate() {
-		return this.dateControlCalendarWithSpecialistsService.selectedDate;
-	}
+	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
+
+	public readonly isTodayOrTomorrowStreams$ = combineLatest([
+		this.store.select(CalendarWithSpecialistsQueries.isToday),
+		this.store.select(CalendarWithSpecialistsQueries.isTomorrow)
+	]);
+
+	public readonly isTodayOrTomorrow$ = this.isTodayOrTomorrowStreams$.pipe(
+		map(([isToday, isTomorrow]) => isToday || isTomorrow)
+	);
+
+	public readonly hint$ = this.isTodayOrTomorrowStreams$.pipe(
+		map(([isToday, isTomorrow]) => {
+			switch (true) {
+				case isToday:
+					return 'keyword.capitalize.today';
+				case isTomorrow:
+					return 'keyword.capitalize.tomorrow';
+				default:
+					return '';
+			}
+		})
+	);
 
 	public nextDate() {
-		this.dateControlCalendarWithSpecialistsService.nextDate();
+		this.store.dispatch(new CalendarWithSpecialistsAction.NextDate());
 	}
 
 	public prevDate() {
-		this.dateControlCalendarWithSpecialistsService.prevDate();
-	}
-
-	public get selectedDateIsToday() {
-		return this.dateControlCalendarWithSpecialistsService.selectedDateIsToday;
-	}
-
-	public get selectedDateIsTomorrow() {
-		return this.dateControlCalendarWithSpecialistsService.selectedDateIsTomorrow;
+		this.store.dispatch(new CalendarWithSpecialistsAction.PrevDate());
 	}
 
 }

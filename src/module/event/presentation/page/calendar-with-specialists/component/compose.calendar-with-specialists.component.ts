@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation} from "@angular/core";
+import {Component, inject, OnInit, ViewEncapsulation} from "@angular/core";
 import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
 import {TimeLineComponent} from "@event/presentation/page/calendar-with-specialists/component/time-line.component";
 import {
@@ -18,7 +18,13 @@ import {
 	DateControlCalendarWithSpecialistsComponent
 } from "@event/presentation/page/calendar-with-specialists/component/filter/date-control/date-control.calendar-with-specialists.component";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
-import {FilterService} from "@event/presentation/page/calendar-with-specialists/component/filter/filter.service";
+import {ActivatedRoute} from "@angular/router";
+import {Reactive} from "@src/module/utility/cdk/reactive";
+import {Store} from "@ngxs/store";
+import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
+import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
+import {filter} from "rxjs";
+import {is} from "thiis";
 
 @Component({
 	selector: 'event-compose-calendar-with-specialists-component',
@@ -44,13 +50,33 @@ import {FilterService} from "@event/presentation/page/calendar-with-specialists/
 	],
 	standalone: true
 })
-export class ComposeCalendarWithSpecialistsComponent {
+export class ComposeCalendarWithSpecialistsComponent extends Reactive implements OnInit {
 
-	private readonly filterService = inject(FilterService);
-	public readonly loading$ = this.filterService.loader.state$;
+	private readonly activatedRoute = inject(ActivatedRoute);
+	private readonly store = inject(Store);
 
-	public forceRefresh() {
-		this.filterService.forceRefresh();
+	public readonly loader$ = this.store.select(CalendarWithSpecialistsQueries.loader);
+	public readonly start$ = this.store.select(CalendarWithSpecialistsQueries.start);
+
+	public ngOnInit() {
+
+		this.activatedRoute.queryParams.pipe(this.takeUntil(), filter(is.object_not_empty<{
+			date: string;
+		}>)).subscribe((params) => {
+			const {date} = params;
+			if (date) {
+				this.store.dispatch(new CalendarWithSpecialistsAction.SetDate({
+					date
+				}));
+			}
+		});
+
+	}
+
+	public async forceRefresh() {
+
+		this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
+
 	}
 
 

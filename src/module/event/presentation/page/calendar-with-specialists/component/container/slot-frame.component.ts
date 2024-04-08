@@ -1,14 +1,14 @@
 import {Component, HostBinding, inject, Input, ViewEncapsulation} from "@angular/core";
 import {CellComponent} from "@event/presentation/page/calendar-with-specialists/component/cell/cell.component";
-import {NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {TimeLineComponent} from "@event/presentation/page/calendar-with-specialists/component/time-line.component";
 import * as Member from "@member/domain";
 import {
-	DateControlCalendarWithSpecialistsService
-} from "@event/presentation/page/calendar-with-specialists/component/filter/date-control/date-control.calendar-with-specialists.service";
-import {
 	ComposeCalendarWithSpecialistsService
 } from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
+import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
+import {async, combineLatest, map} from "rxjs";
+import {Store} from "@ngxs/store";
 
 @Component({
 	selector: 'event-slot-frame-component',
@@ -26,8 +26,10 @@ import {
 			</ng-container>
 		</ng-container>
 
-		<event-time-line-component
-			*ngIf="selectedDateIsToday && selectedDate.hour >= startTimeToDisplay && selectedDate.hour <= endTimeToDisplay"/>
+		<ng-container *ngIf="selectedDate$ | async as selectedDate">
+			<event-time-line-component
+				*ngIf="(isTodayOrTomorrow$ | async) && selectedDate.hour >= startTimeToDisplay && selectedDate.hour <= endTimeToDisplay"/>
+		</ng-container>
 
 	`,
 	standalone: true,
@@ -35,13 +37,27 @@ import {
 		CellComponent,
 		NgForOf,
 		NgIf,
-		TimeLineComponent
+		TimeLineComponent,
+		AsyncPipe
 	],
 	encapsulation: ViewEncapsulation.None
 })
 export class SlotFrameComponent {
 
 	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
+
+	private readonly store = inject(Store);
+
+	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
+
+	public readonly isTodayOrTomorrowStreams$ = combineLatest([
+		this.store.select(CalendarWithSpecialistsQueries.isToday),
+		this.store.select(CalendarWithSpecialistsQueries.isTomorrow)
+	]);
+
+	public readonly isTodayOrTomorrow$ = this.isTodayOrTomorrowStreams$.pipe(
+		map(([isToday, isTomorrow]) => isToday || isTomorrow)
+	);
 
 	@Input()
 	public rows!: {
@@ -86,14 +102,5 @@ export class SlotFrameComponent {
 		return `70px`;
 	}
 
-	private readonly dateControlCalendarWithSpecialistsService = inject(DateControlCalendarWithSpecialistsService);
-
-	public get selectedDateIsToday() {
-		return this.dateControlCalendarWithSpecialistsService.selectedDateIsToday;
-	}
-
-	public get selectedDate() {
-		return this.dateControlCalendarWithSpecialistsService.selectedDate;
-	}
-
+	protected readonly async = async;
 }

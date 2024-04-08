@@ -11,7 +11,7 @@ import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum
 import {ChangeStatusBaseComponent} from "@event/presentation/component/change-status/change-status-base.component";
 import {EventRequestedActions} from "@event/state/event-requested/event-requested.actions";
 import {RefreshCalendarAction} from "@event/state/calendar/actions/refresh.calendar.action";
-import {FilterService} from "@event/presentation/page/calendar-with-specialists/component/filter/filter.service";
+import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 
 @Component({
 	selector: 'event-change-status-on-booked-component',
@@ -54,7 +54,6 @@ import {FilterService} from "@event/presentation/page/calendar-with-specialists/
 export class ChangeStatusOnBookedComponent extends ChangeStatusBaseComponent {
 
 	public readonly store = inject(Store);
-	public readonly filterService = inject(FilterService);
 
 	public async changeStatusOnBooked(event: IEvent): Promise<void> {
 		await firstValueFrom(this.store.dispatch(new EventRequestedActions.BookedStatus(event)));
@@ -64,8 +63,8 @@ export class ChangeStatusOnBookedComponent extends ChangeStatusBaseComponent {
 		})));
 		this.postStatusChange(EventStatusEnum.booked);
 		this.store.dispatch(new EventRequestedActions.GetList({resetPage: false, resetParams: false}));
+		this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
 		this.store.dispatch(new RefreshCalendarAction());
-		this.filterService.forceRefresh(); // Dashboard
 	}
 
 
