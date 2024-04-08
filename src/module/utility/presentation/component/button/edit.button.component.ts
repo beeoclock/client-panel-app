@@ -1,19 +1,37 @@
-import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
 
 @Component({
-	selector: 'edit-link-component',
+	selector: 'edit-button-component',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<a
-			[routerLink]="link"
-			[class.w-full]="buttonWidthFull"
-			class="
+		<i class="bi bi-pencil me-2"></i>
+		{{ 'keyword.capitalize.edit' | translate }}
+	`,
+	imports: [
+		NgIf,
+		SpinnerComponent,
+		TranslateModule,
+		RouterLink
+	]
+})
+export class EditButtonComponent {
+
+	@Input()
+	public link: string | string[] = 'form';
+
+	@HostBinding('class.w-full')
+	@Input()
+	public buttonWidthFull = false;
+
+	@HostBinding()
+	public class = `
+	cursor-pointer
         flex
         items-center
         justify-center
@@ -31,25 +49,6 @@ import {RouterLink} from "@angular/router";
         shadow-sm
         ring-1
         ring-inset
-        ring-beeColor-300">
-			<i class="bi bi-pencil me-2"></i>
-			{{ 'keyword.capitalize.edit' | translate }}
-		</a>
-
-	`,
-	imports: [
-		NgIf,
-		SpinnerComponent,
-		TranslateModule,
-		RouterLink
-	]
-})
-export class EditLinkComponent {
-
-	@Input()
-	public link: string | string[] = 'form';
-
-	@Input()
-	public buttonWidthFull = false;
+        ring-beeColor-300`;
 
 }

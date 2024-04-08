@@ -103,4 +103,8 @@ export class TableListComponent extends TableComponent<IEvent> {
 		},
 	};
 
+	public delete(id: string): void {
+		this.store.dispatch(new EventActions.DeleteItem(id));
+	}
+
 }

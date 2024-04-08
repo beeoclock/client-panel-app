@@ -1,5 +1,5 @@
 <div class="h-[50px] flex gap-4 px-2 items-center bg-white border-b border-beeColor-200">
 	<event-date-control-calendar-with-specialists-component/>
-	<utility-auto-refresh-component (emitter)="forceRefresh()" [isLoading]="(loading$ | async) ?? false"/>
+	<utility-auto-refresh-component (emitter)="forceRefresh()" [isLoading]="(loader$ | async) ?? false"/>
 </div>
 <event-container-calendar-with-specialists-component />

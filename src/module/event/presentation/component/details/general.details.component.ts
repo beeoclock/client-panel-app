@@ -74,19 +74,21 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 					</dt>
 					<dd class="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
 						<ul role="list" class="divide-y divide-gray-100 rounded-md border border-gray-200">
-							<li
-								*ngFor="let attendant of event.attendees; let index = index;"
-								class="grid grid-cols-1 py-4 pl-4 pr-5 text-sm leading-6">
-								<div class="">
-									{{ attendant.customer.firstName }} {{ attendant.customer.lastName }}
-								</div>
-								<div class="">
-									{{ attendant.customer.email }}
-								</div>
-								<div class="">
-									{{ attendant.customer.phone }}
-								</div>
-							</li>
+							<ng-container *ngFor="let attendant of event.attendees; let index = index;">
+								<li
+									*ngIf="attendant.customer"
+									class="grid grid-cols-1 py-4 pl-4 pr-5 text-sm leading-6">
+									<div class="">
+										{{ attendant.customer.firstName }} {{ attendant.customer.lastName }}
+									</div>
+									<div class="">
+										{{ attendant.customer.email }}
+									</div>
+									<div class="">
+										{{ attendant.customer.phone }}
+									</div>
+								</li>
+							</ng-container>
 						</ul>
 					</dd>
 				</div>

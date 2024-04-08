@@ -1,6 +1,5 @@
 import {Component, HostBinding, HostListener, inject, Input, ViewEncapsulation} from "@angular/core";
 import * as Member from "@member/domain";
-import {FilterService} from "@event/presentation/page/calendar-with-specialists/component/filter/filter.service";
 import {NGXLogger} from "ngx-logger";
 import {EventFormModalService} from "@event/presentation/dom-manipulation-service/modal/event.form.modal.service";
 import {
@@ -9,10 +8,11 @@ import {
 import {
 	ComposeCalendarWithSpecialistsService
 } from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
-import {
-	DateControlCalendarWithSpecialistsService
-} from "@event/presentation/page/calendar-with-specialists/component/filter/date-control/date-control.calendar-with-specialists.service";
 import {TranslateModule} from "@ngx-translate/core";
+import {Store} from "@ngxs/store";
+import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
+import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
+import {firstValueFrom} from "rxjs";
 
 @Component({
 	selector: 'event-cell-component',
@@ -46,7 +46,9 @@ export class CellComponent {
 		member: Member.RIMember | null;
 	};
 
-	private readonly dateControlCalendarWithSpecialistsService = inject(DateControlCalendarWithSpecialistsService);
+	private readonly store = inject(Store);
+	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
+
 	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
 	private readonly slotInMinutes = this.composeCalendarWithSpecialistsService.slotInMinutes;
 	private readonly startTimeToDisplay = this.composeCalendarWithSpecialistsService.startTimeToDisplay;
@@ -79,29 +81,31 @@ export class CellComponent {
 
 		const callback = () => {
 			this.ngxLogger.debug('Callback');
-			this.filterService.forceRefresh();
+			this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
 		};
 
-		const datetimeISO = this.dateControlCalendarWithSpecialistsService
-			.selectedDate
-			.startOf('day')
-			.plus({
-				hours: this.startTimeToDisplay,
-				minutes: this.rowIndex * this.slotInMinutes
-			})
-			.toJSDate()
-			.toISOString();
+		firstValueFrom(this.selectedDate$).then((selectedDate) => {
 
-		this.eventFormModalService.openModal({
-			datetimeISO,
-			member: this.column.member,
-		}, callback).then();
+			const datetimeISO = selectedDate
+				.startOf('day')
+				.plus({
+					hours: this.startTimeToDisplay,
+					minutes: this.rowIndex * this.slotInMinutes
+				})
+				.toJSDate()
+				.toISOString();
+
+			this.eventFormModalService.openModal({
+				datetimeISO,
+				member: this.column.member,
+			}, callback).then();
+
+		});
 
 		event.preventDefault();
 		event.stopPropagation();
 	}
 
-	private readonly filterService = inject(FilterService);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly eventFormModalService = inject(EventFormModalService);
 	private readonly scrollCalendarDomManipulationService = inject(ScrollCalendarDomManipulationService);
