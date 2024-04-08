@@ -1,7 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {ModalButtonInterface} from "@utility/presentation/component/modal/modal.component";
 import {ModalService} from "@utility/presentation/component/modal/modal.service";
-import {TranslateService} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {ItemEventApiAdapter} from "@event/adapter/external/api/item.event.api.adapter";
 import {ContainerDetailsComponent} from "@event/presentation/component/details/container.details.component";
@@ -13,7 +12,6 @@ import {MEvent} from "@event/domain";
 export class EventDetailsModalService extends Reactive {
 
 	private readonly modalService = inject(ModalService);
-	private readonly translateService = inject(TranslateService);
 	private readonly itemEventApiAdapter = inject(ItemEventApiAdapter);
 
 	public async openModal(eventId: string): Promise<void> {
