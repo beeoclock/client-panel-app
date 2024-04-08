@@ -135,6 +135,7 @@ export class AttendantComponent {
 		if (parent) {
 			parent.toggleIsNewCustomer(IsNewCustomerEnum.NO);
 		}
+		this.form.disable();
 	}
 
 }
