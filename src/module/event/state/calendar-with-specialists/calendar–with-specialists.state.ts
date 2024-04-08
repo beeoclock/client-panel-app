@@ -52,13 +52,6 @@ export class CalendarWithSpecialistsState {
 
 		const {params} = ctx.getState();
 
-		this.router.navigate([], {
-			queryParams: {
-				date: params.start,
-			},
-			replaceUrl: true,
-		});
-
 		ctx.patchState({
 			loader: true,
 		});
@@ -98,6 +91,13 @@ export class CalendarWithSpecialistsState {
 			}
 		});
 
+		this.router.navigate([], {
+			queryParams: {
+				date: params.start,
+			},
+			replaceUrl: true,
+		});
+
 		ctx.dispatch(new CalendarWithSpecialistsAction.GetItems());
 
 	}
@@ -113,6 +113,13 @@ export class CalendarWithSpecialistsState {
 				start: DateTime.fromISO(params.start).minus({days: 1}).startOf('day').toJSDate().toISOString(),
 				end: DateTime.fromISO(params.end).minus({days: 1}).endOf('day').toJSDate().toISOString(),
 			}
+		});
+
+		this.router.navigate([], {
+			queryParams: {
+				date: params.start,
+			},
+			replaceUrl: true,
 		});
 
 		ctx.dispatch(new CalendarWithSpecialistsAction.GetItems());
@@ -137,6 +144,13 @@ export class CalendarWithSpecialistsState {
 				start: DateTime.fromISO(date).startOf('day').toJSDate().toISOString(),
 				end: DateTime.fromISO(date).endOf('day').toJSDate().toISOString(),
 			}
+		});
+
+		this.router.navigate([], {
+			queryParams: {
+				date: params.start,
+			},
+			replaceUrl: true,
 		});
 
 		ctx.dispatch(new CalendarWithSpecialistsAction.GetItems());
