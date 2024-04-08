@@ -3,7 +3,7 @@ import {IsActiveMatchOptions, RouterLink, RouterLinkActive} from '@angular/route
 import {NgForOf, NgIf} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
-import {firstValueFrom} from "rxjs";
+import {combineLatest, firstValueFrom} from "rxjs";
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {SidebarService} from "@utility/presentation/component/sidebar/sidebar.service";
 import {environment} from "@environment/environment";
@@ -11,6 +11,7 @@ import {EventBusTokenEnum} from "@src/event-bus-token.enum";
 import {NgEventBus} from "ng-event-bus";
 import {ClientState} from "@client/state/client/client.state";
 import {is} from "thiis";
+import {PermissionIdentitySelector} from "@identity/state/identity/permission.identity.selector";
 
 interface IMenuItem {
 	order: number;
@@ -81,6 +82,11 @@ export class MenuSidebarComponent implements OnInit {
 					menuItem.badge = badge;
 				}
 			});
+
+		combineLatest([
+			this.businessProfile$,
+			this.store.select(PermissionIdentitySelector.hasPermission('customer', 'r'))
+		]).subscribe(() => {
 
 		this.businessProfile$.subscribe((item) => {
 			this.initMenu();

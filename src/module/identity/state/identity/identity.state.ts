@@ -9,6 +9,8 @@ import {MemberContextApiAdapter} from "@identity/adapter/external/api/member-con
 import {setTimeoutTakeUntil$, setTimeoutTakeUntil$Type} from "@utility/domain/timer";
 import {NGXLogger} from "ngx-logger";
 import {secondsTo_hh_mm_ss, TWENTY_SECONDS} from "@utility/domain/time";
+import {IDetailedPermissions} from "@identity/domain/interface/i.member-permission";
+
 
 export interface BeeoclockParsedToken extends ParsedToken {
 	clientId?: string;
@@ -20,13 +22,19 @@ export interface BeeoclockParsedToken extends ParsedToken {
 	email?: string;
 	email_verified?: boolean;
 	role?: string[];
+
+	memberId?: string;
+	memberPermissions?: {
+		roleRef: string;
+		permissions: IDetailedPermissions | 'all';
+	};
 }
 
 export interface BeeoclockIdTokenResult extends IdTokenResult {
 	claims: BeeoclockParsedToken
 }
 
-interface IIdentityState {
+export interface IIdentityState {
 	token: BeeoclockIdTokenResult | undefined;
 	clients: IMember[] | undefined;
 	refreshTokenInProgress: boolean;
@@ -58,6 +66,11 @@ export class IdentityState implements NgxsOnInit {
 	}
 
 	// Selectors
+
+	@Selector()
+	public static memberId(state: IIdentityState) {
+		return state.token?.claims?.memberId;
+	}
 
 	@Selector()
 	public static refreshTokenInProgress(state: IIdentityState) {
