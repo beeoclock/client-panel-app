@@ -6,21 +6,33 @@ import {ListMergedEventApiAdapter} from "@event/adapter/external/api/list.merged
 import {
 	DateControlCalendarWithSpecialistsService
 } from "@event/presentation/page/calendar-with-specialists/component/filter/date-control/date-control.calendar-with-specialists.service";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, filter} from "rxjs";
 import {RIEvent} from "@event/domain";
 import {Reactive} from "@utility/cdk/reactive";
+import {ActivatedRoute, Router} from "@angular/router";
+import {is} from "thiis";
+import {DateTime} from "luxon";
 
 @Injectable()
 export class FilterService extends Reactive {
 
 	private readonly dateControlCalendarWithSpecialistsService = inject(DateControlCalendarWithSpecialistsService);
 	private readonly listMergedEventApiAdapter = inject(ListMergedEventApiAdapter);
+	private readonly activatedRoute = inject(ActivatedRoute);
+	private readonly router = inject(Router);
 
 	public readonly loader = new BooleanStreamState(false);
 
 	public readonly events$ = new BehaviorSubject<RIEvent[]>([]);
 
 	public initHandler() {
+
+		this.activatedRoute.queryParams.pipe(this.takeUntil(), filter(is.object_not_empty<{date: string;}>)).subscribe((params) => {
+			const {date} = params;
+			if (date) {
+				this.dateControlCalendarWithSpecialistsService.setDateTime(DateTime.fromISO(date));
+			}
+		});
 
 		this.dateControlCalendarWithSpecialistsService.selectedDate$.pipe(this.takeUntil()).subscribe(() => {
 
@@ -36,6 +48,13 @@ export class FilterService extends Reactive {
 		this.events$.next([]);
 
 		const selectedDate = this.dateControlCalendarWithSpecialistsService.selectedDate;
+
+		this.router.navigate([], {
+			queryParams: {
+				date: selectedDate.toUTC().toISO(),
+			},
+			replaceUrl: true,
+		});
 
 		const params: TableState_BackendFormat = {
 			start: selectedDate.startOf('day').toJSDate().toISOString(),

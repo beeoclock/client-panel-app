@@ -30,53 +30,53 @@ import {DeleteButtonComponent} from "@event/presentation/component/button/delete
 		DeleteButtonComponent,
 	],
 	template: `
-		<event-delete-button-component [event]="event"/>
+<!--		<event-delete-button-component [event]="event"/>-->
 
-		<ng-container *ngIf="event.isRequested">
+<!--		<ng-container *ngIf="event.isRequested">-->
 
-			<ng-container *ngTemplateOutlet="ButtonToCancelEvent"/>
+<!--			<ng-container *ngTemplateOutlet="ButtonToCancelEvent"/>-->
 
-			<edit-link-component class="w-full" [buttonWidthFull]="true"/>
+<!--			<edit-link-component class="w-full" [buttonWidthFull]="true"/>-->
 
-			<ng-container *ngTemplateOutlet="ButtonToBookEvent"/>
+<!--			<ng-container *ngTemplateOutlet="ButtonToBookEvent"/>-->
 
-		</ng-container>
+<!--		</ng-container>-->
 
-		<ng-container *ngIf="event.isBooked">
+<!--		<ng-container *ngIf="event.isBooked">-->
 
-			<ng-container *ngTemplateOutlet="ButtonToCancelEvent"/>
+<!--			<ng-container *ngTemplateOutlet="ButtonToCancelEvent"/>-->
 
-			<edit-link-component class="w-full" [buttonWidthFull]="true"/>
+<!--			<edit-link-component class="w-full" [link]="['/event', event._id, 'form']" [buttonWidthFull]="true"/>-->
 
-			<ng-container *ngTemplateOutlet="ButtonToDoneEvent"/>
+<!--			<ng-container *ngTemplateOutlet="ButtonToDoneEvent"/>-->
 
-		</ng-container>
+<!--		</ng-container>-->
 
-		<ng-container *ngIf="event.isDone">
+<!--		<ng-container *ngIf="event.isDone">-->
 
-			<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>
+<!--			<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>-->
 
-		</ng-container>
+<!--		</ng-container>-->
 
-		<ng-container *ngIf="event.isCancelled">
+<!--		<ng-container *ngIf="event.isCancelled">-->
 
-			<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>
+<!--			<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>-->
 
-		</ng-container>
+<!--		</ng-container>-->
 
-		<ng-template #ButtonToCancelEvent>
-			<event-change-status-on-cancelled-component [event]="event"/>
-		</ng-template>
+<!--		<ng-template #ButtonToCancelEvent>-->
+<!--			<event-change-status-on-cancelled-component [event]="event"/>-->
+<!--		</ng-template>-->
 
-		<ng-template #ButtonToBookEvent>
-			<event-change-status-on-booked-component [event]="event"/>
-		</ng-template>
+<!--		<ng-template #ButtonToBookEvent>-->
+<!--			<event-change-status-on-booked-component [event]="event"/>-->
+<!--		</ng-template>-->
 
-		<ng-template #ButtonToDoneEvent>
-			<event-change-status-on-done-component [event]="event"/>
-		</ng-template>
+<!--		<ng-template #ButtonToDoneEvent>-->
+<!--			<event-change-status-on-done-component [event]="event"/>-->
+<!--		</ng-template>-->
 
-		<ng-template #ButtonToRepeatEvent>
+<!--		<ng-template #ButtonToRepeatEvent>-->
 			<a [routerLink]="'/event/' + event._id + '/repeat'" class="
               w-full
               flex
@@ -97,7 +97,7 @@ import {DeleteButtonComponent} from "@event/presentation/component/button/delete
 				<i class="bi bi-arrow-repeat"></i>
 				{{ 'event.keyword.capitalize.repeat' | translate }}
 			</a>
-		</ng-template>
+<!--		</ng-template>-->
 	`
 })
 export class ButtonsDetailsComponent {

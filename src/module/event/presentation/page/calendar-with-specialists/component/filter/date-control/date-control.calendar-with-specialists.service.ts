@@ -23,6 +23,18 @@ export class DateControlCalendarWithSpecialistsService {
 		this.selectedDate$.next(this.selectedDate.minus({days: 1}))
 	}
 
+	public setDateTime(datetime: DateTime) {
+		if (!datetime.isValid) {
+			throw new Error('Invalid datetime');
+		}
+
+		if (this.selectedDate$.value.hasSame(datetime, 'day')) {
+			return;
+		}
+
+		this.selectedDate$.next(datetime);
+	}
+
 	public get selectedDateIsToday() {
 		return this.selectedDate.hasSame(this.currentDate, 'day');
 	}

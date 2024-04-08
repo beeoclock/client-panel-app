@@ -11,7 +11,7 @@ import {RouterLink} from "@angular/router";
 	encapsulation: ViewEncapsulation.None,
 	template: `
 		<a
-			routerLink="form"
+			[routerLink]="link"
 			[class.w-full]="buttonWidthFull"
 			class="
         flex
@@ -45,6 +45,9 @@ import {RouterLink} from "@angular/router";
 	]
 })
 export class EditLinkComponent {
+
+	@Input()
+	public link: string | string[] = 'form';
 
 	@Input()
 	public buttonWidthFull = false;
