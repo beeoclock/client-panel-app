@@ -1,4 +1,15 @@
-import {Directive, DoCheck, ElementRef, Inject, inject, Input, Optional, SkipSelf} from '@angular/core';
+import {
+	Directive,
+	DoCheck,
+	ElementRef,
+	EventEmitter,
+	Inject,
+	inject,
+	Input,
+	Optional,
+	Output,
+	SkipSelf
+} from '@angular/core';
 import {AbstractControl, NgControl} from '@angular/forms';
 import {DOCUMENT} from "@angular/common";
 import {debounce} from "typescript-debounce-decorator";
@@ -24,6 +35,9 @@ export class CustomerAutocompleteDirective implements DoCheck {
 
 	@Input()
 	public control: AbstractControl | undefined | null;
+
+	@Output()
+	public readonly customerSelected = new EventEmitter<ICustomer>();
 
 	private readonly document = inject(DOCUMENT);
 	private readonly utilityListCustomerAdapter = inject(UtilityListCustomerAdapter);
@@ -124,8 +138,7 @@ export class CustomerAutocompleteDirective implements DoCheck {
     `;
 		li.addEventListener('click', () => {
 			this.hideDropdown();
-			this.formControl?.parent?.patchValue(customer as never);
-			this.formControl?.parent?.disable();
+			this.customerSelected.emit(customer);
 		});
 		this.HTMLUlList?.appendChild(li);
 

@@ -16,13 +16,17 @@ export class AttendantForm extends FormGroup<IAttendantForm> {
 	constructor() {
 		super({
 			_id: new FormControl(),
-			isOptional: new FormControl(),
-			isOrganizer: new FormControl(),
-			isNewCustomer: new FormControl(),
+			isOptional: new FormControl(IsOptionalEnum.NO, {
+				nonNullable: true
+			}),
+			isOrganizer: new FormControl(IsOrganizerEnum.NO, {
+				nonNullable: true
+			}),
+			isNewCustomer: new FormControl(IsNewCustomerEnum.YES, {
+				nonNullable: true
+			}),
 			customer: new CustomerForm()
 		});
-		this.initValue();
-		this.initCustomerIdHandler();
 	}
 
 	public toggleIsNewCustomer(force: IsNewCustomerEnum | undefined = undefined): void {
@@ -44,22 +48,6 @@ export class AttendantForm extends FormGroup<IAttendantForm> {
 
 		}
 
-	}
-
-	public initValue(): void {
-
-		this.controls.isNewCustomer.patchValue(IsNewCustomerEnum.YES);
-		this.controls.isOrganizer.patchValue(IsOrganizerEnum.NO);
-		this.controls.isOptional.patchValue(IsOptionalEnum.NO);
-
-	}
-
-	private initCustomerIdHandler(): void {
-		this.controls.customer.valueChanges.subscribe(({_id}) => {
-			if (_id) {
-				this.toggleIsNewCustomer(IsNewCustomerEnum.NO);
-			}
-		});
 	}
 
 }
