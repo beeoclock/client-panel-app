@@ -65,6 +65,7 @@ export class ChangeStatusOnBookedComponent extends ChangeStatusBaseComponent {
 		this.store.dispatch(new EventRequestedActions.GetList({resetPage: false, resetParams: false}));
 		this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
 		this.store.dispatch(new RefreshCalendarAction());
+		this.statusChange.emit();
 	}
 
 

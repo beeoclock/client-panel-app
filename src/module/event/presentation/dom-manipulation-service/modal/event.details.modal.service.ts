@@ -1,5 +1,5 @@
-import {inject, Injectable} from '@angular/core';
-import {ModalButtonInterface} from "@utility/presentation/component/modal/modal.component";
+import {ComponentRef, inject, Injectable} from '@angular/core';
+import {ModalButtonInterface, ModalComponent} from "@utility/presentation/component/modal/modal.component";
 import {ModalService} from "@utility/presentation/component/modal/modal.service";
 import {Reactive} from "@utility/cdk/reactive";
 import {ItemEventApiAdapter} from "@event/adapter/external/api/item.event.api.adapter";
@@ -14,11 +14,13 @@ export class EventDetailsModalService extends Reactive {
 	private readonly modalService = inject(ModalService);
 	private readonly itemEventApiAdapter = inject(ItemEventApiAdapter);
 
+	public modal: ComponentRef<ModalComponent> | null = null;
+
 	public async openModal(eventId: string): Promise<void> {
 
-		// const title = await this.translateService.instant('change-name.modal.title');
-
-		// TODO check if event is null
+		if (this.modal) {
+			this.closeModal();
+		}
 
 		return new Promise(() => {
 			const buttons: ModalButtonInterface[] = [];
@@ -32,6 +34,7 @@ export class EventDetailsModalService extends Reactive {
 				title: '',
 				contentPadding: false,
 			}).then((modal) => {
+				this.modal = modal;
 				const eventDetailsContainerComponent = modal.instance.componentChildRefList[0];
 				const component = eventDetailsContainerComponent.instance as ContainerDetailsComponent;
 				return this.itemEventApiAdapter.executeAsync(eventId).then((eventData) => {
@@ -42,6 +45,11 @@ export class EventDetailsModalService extends Reactive {
 
 		});
 
+	}
+
+	public closeModal(): void {
+		this.modal?.instance?.closeModal();
+		this.modal = null;
 	}
 
 }

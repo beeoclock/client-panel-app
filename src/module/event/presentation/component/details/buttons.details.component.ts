@@ -1,8 +1,7 @@
-import {Component, HostBinding, Input} from "@angular/core";
+import {Component, HostBinding, inject, Input} from "@angular/core";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
-import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
 import {NgIf, NgTemplateOutlet} from "@angular/common";
 import {
 	ChangeStatusOnBookedComponent
@@ -13,6 +12,9 @@ import {
 import {ChangeStatusOnDoneComponent} from "@event/presentation/component/change-status/change-status-on-done.component";
 import {RMIEvent} from "@event/domain";
 import {DeleteButtonComponent} from "@event/presentation/component/button/delete-button/delete-button.component";
+import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
+import {EventFormModalService} from "@event/presentation/dom-manipulation-service/modal/event.form.modal.service";
+import {EventDetailsModalService} from "@event/presentation/dom-manipulation-service/modal/event.details.modal.service";
 
 @Component({
 	selector: 'event-buttons-details',
@@ -21,22 +23,22 @@ import {DeleteButtonComponent} from "@event/presentation/component/button/delete
 		DynamicDatePipe,
 		TranslateModule,
 		RouterLink,
-		EditLinkComponent,
 		NgIf,
 		NgTemplateOutlet,
 		ChangeStatusOnBookedComponent,
 		ChangeStatusOnCancelledComponent,
 		ChangeStatusOnDoneComponent,
 		DeleteButtonComponent,
+		EditButtonComponent,
 	],
 	template: `
-		<event-delete-button-component [event]="event"/>
+		<event-delete-button-component (deleteStatus)="closeModal()" [event]="event"/>
+
+		<edit-button-component (click)="editEvent()"/>
 
 		<ng-container *ngIf="event.isRequested">
 
 			<ng-container *ngTemplateOutlet="ButtonToCancelEvent"/>
-
-			<edit-link-component class="w-full" [buttonWidthFull]="true"/>
 
 			<ng-container *ngTemplateOutlet="ButtonToBookEvent"/>
 
@@ -45,8 +47,6 @@ import {DeleteButtonComponent} from "@event/presentation/component/button/delete
 		<ng-container *ngIf="event.isBooked">
 
 			<ng-container *ngTemplateOutlet="ButtonToCancelEvent"/>
-
-			<edit-link-component class="w-full" [link]="['/event', event._id, 'form']" [buttonWidthFull]="true"/>
 
 			<ng-container *ngTemplateOutlet="ButtonToDoneEvent"/>
 
@@ -65,19 +65,19 @@ import {DeleteButtonComponent} from "@event/presentation/component/button/delete
 		</ng-container>
 
 		<ng-template #ButtonToCancelEvent>
-			<event-change-status-on-cancelled-component [event]="event"/>
+			<event-change-status-on-cancelled-component (statusChange)="closeModal()" [event]="event"/>
 		</ng-template>
 
 		<ng-template #ButtonToBookEvent>
-			<event-change-status-on-booked-component [event]="event"/>
+			<event-change-status-on-booked-component (statusChange)="closeModal()" [event]="event"/>
 		</ng-template>
 
 		<ng-template #ButtonToDoneEvent>
-			<event-change-status-on-done-component [event]="event"/>
+			<event-change-status-on-done-component (statusChange)="closeModal()" [event]="event"/>
 		</ng-template>
 
 		<ng-template #ButtonToRepeatEvent>
-			<a [routerLink]="'/event/' + event._id + '/repeat'" class="
+			<a [routerLink]="'/event/' + event._id + '/repeat'" (click)="closeModal()" class="
               w-full
               flex
               items-center
@@ -107,5 +107,19 @@ export class ButtonsDetailsComponent {
 
 	@HostBinding()
 	public class = 'flex justify-between flex-col md:flex-row gap-4 bg-white p-4 border-y';
+
+	private readonly eventFormModalService = inject(EventFormModalService);
+	private readonly eventDetailsModalService = inject(EventDetailsModalService);
+
+	public editEvent() {
+		this.closeModal();
+		this.eventFormModalService.openModalToEdit({
+			event: this.event
+		});
+	}
+
+	public closeModal() {
+		this.eventDetailsModalService.closeModal();
+	}
 
 }
