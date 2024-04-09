@@ -50,7 +50,12 @@ export class CalendarWithSpecialistsState {
 	@Action(CalendarWithSpecialistsAction.GetItems)
 	public async getItems(ctx: StateContext<ICalendarWithSpecialist>) {
 
-		const {params} = ctx.getState();
+		const {params, loader} = ctx.getState();
+
+		if (loader) {
+			this.ngxLogger.warn('CalendarWithSpecialistsState.getItems', 'Loader is already active', params);
+			return;
+		}
 
 		ctx.patchState({
 			loader: true,
@@ -83,22 +88,9 @@ export class CalendarWithSpecialistsState {
 
 		const {params} = ctx.getState();
 
-		ctx.patchState({
-			params: {
-				...params,
-				start: DateTime.fromISO(params.start).plus({days: 1}).startOf('day').toJSDate().toISOString(),
-				end: DateTime.fromISO(params.end).plus({days: 1}).endOf('day').toJSDate().toISOString(),
-			}
-		});
-
-		this.router.navigate([], {
-			queryParams: {
-				date: params.start,
-			},
-			replaceUrl: true,
-		});
-
-		ctx.dispatch(new CalendarWithSpecialistsAction.GetItems());
+		ctx.dispatch(new CalendarWithSpecialistsAction.SetDate({
+			date: DateTime.fromISO(params.start).plus({days: 1}).startOf('day').toJSDate().toISOString()
+		}));
 
 	}
 
@@ -107,22 +99,9 @@ export class CalendarWithSpecialistsState {
 
 		const {params} = ctx.getState();
 
-		ctx.patchState({
-			params: {
-				...params,
-				start: DateTime.fromISO(params.start).minus({days: 1}).startOf('day').toJSDate().toISOString(),
-				end: DateTime.fromISO(params.end).minus({days: 1}).endOf('day').toJSDate().toISOString(),
-			}
-		});
-
-		this.router.navigate([], {
-			queryParams: {
-				date: params.start,
-			},
-			replaceUrl: true,
-		});
-
-		ctx.dispatch(new CalendarWithSpecialistsAction.GetItems());
+		ctx.dispatch(new CalendarWithSpecialistsAction.SetDate({
+			date: DateTime.fromISO(params.start).minus({days: 1}).startOf('day').toJSDate().toISOString()
+		}));
 
 	}
 
@@ -135,6 +114,7 @@ export class CalendarWithSpecialistsState {
 
 		// Check if it is a new date
 		if (DateTime.fromISO(date).hasSame(DateTime.fromISO(params.start), 'day')) {
+			this.ngxLogger.warn('CalendarWithSpecialistsState.setDate', 'Same date', date, params.start);
 			return;
 		}
 
