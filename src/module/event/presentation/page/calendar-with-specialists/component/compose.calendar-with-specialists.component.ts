@@ -23,8 +23,6 @@ import {Reactive} from "@src/module/utility/cdk/reactive";
 import {Store} from "@ngxs/store";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
-import {filter} from "rxjs";
-import {is} from "thiis";
 
 @Component({
 	selector: 'event-compose-calendar-with-specialists-component',
@@ -56,20 +54,10 @@ export class ComposeCalendarWithSpecialistsComponent extends Reactive implements
 	private readonly store = inject(Store);
 
 	public readonly loader$ = this.store.select(CalendarWithSpecialistsQueries.loader);
-	public readonly start$ = this.store.select(CalendarWithSpecialistsQueries.start);
 
 	public ngOnInit() {
 
-		this.activatedRoute.queryParams.pipe(this.takeUntil(), filter(is.object_not_empty<{
-			date: string;
-		}>)).subscribe((params) => {
-			const {date} = params;
-			if (date) {
-				this.store.dispatch(new CalendarWithSpecialistsAction.SetDate({
-					date
-				}));
-			}
-		});
+		this.detectDateInQueryParams();
 
 	}
 
@@ -77,6 +65,18 @@ export class ComposeCalendarWithSpecialistsComponent extends Reactive implements
 
 		this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
 
+	}
+
+	private detectDateInQueryParams() {
+		const {date} = this.activatedRoute.snapshot.queryParams;
+
+		if (!date) {
+			return;
+		}
+
+		this.store.dispatch(new CalendarWithSpecialistsAction.SetDate({
+			date
+		}));
 	}
 
 
