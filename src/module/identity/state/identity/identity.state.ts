@@ -147,7 +147,17 @@ export class IdentityState implements NgxsOnInit {
 		if (this.auth.currentUser) {
 
 			// Get token
-			const token = await this.auth.currentUser.getIdTokenResult(true);
+			const token = await this.auth.currentUser.getIdTokenResult(true)
+				.catch((error) => {
+					this.logger.error('initToken', error);
+					return undefined;
+				});
+
+			// If token is undefined, clear token
+			if (!token) {
+				ctx.dispatch(new IdentityActions.ClearToken());
+				return;
+			}
 
 			// update state
 			ctx.patchState({
