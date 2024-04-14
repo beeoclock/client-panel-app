@@ -152,6 +152,10 @@
 							"mandatoryAttendeeProperties": {
 								"hint": "Choose which fields should be required on the public page for your customers",
 								"label": "Required fields"
+							},
+							"timeZone": {
+								"hint": "Select the time zone where you do business, this field will determine the process to create free appointments for bookings and display your work schedule.",
+								"label": "Time zone"
 							}
 						}
 					},

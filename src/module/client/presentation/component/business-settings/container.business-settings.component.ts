@@ -11,6 +11,12 @@ import {NgIf} from "@angular/common";
 import {
 	CurrenciesBusinessSettingsComponent
 } from "@client/presentation/component/business-settings/currencies.business-settings.component";
+import {
+	MandatoryAttendeePropertiesComponent
+} from "@client/presentation/component/booking-settings/mandatory-attendee-properties/mandatory-attendee-properties.component";
+import {
+	TimeZoneBookingSettingsComponent
+} from "@client/presentation/component/business-settings/time-zone/time-zone.booking-settings.component";
 
 @Component({
 	selector: 'client-container-business-settings-component',
@@ -23,6 +29,8 @@ import {
 				[control]="businessSettings.controls.emailLanguage"/>
 			<client-currencies-business-settings-component
 				[control]="businessSettings.controls.currencies"/>
+			<client-booking-settings-time-zone-component
+				[control]="businessSettings.controls.timeZone"/>
 		</bee-card>
 	`,
 	imports: [
@@ -30,7 +38,9 @@ import {
 		EmailLanguageBusinessSettingsComponent,
 		CardComponent,
 		NgIf,
-		CurrenciesBusinessSettingsComponent
+		CurrenciesBusinessSettingsComponent,
+		MandatoryAttendeePropertiesComponent,
+		TimeZoneBookingSettingsComponent
 	],
 	standalone: true
 })

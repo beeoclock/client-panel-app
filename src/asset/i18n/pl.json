@@ -152,6 +152,10 @@
 							"mandatoryAttendeeProperties": {
 								"hint": "Wybierz, które pola są wymagane na stronie publicznej dla klientów.",
 								"label": "Wymagane pola"
+							},
+							"timeZone": {
+								"hint": "Wybierz strefę czasową, w której prowadzasz działalność gospodarczą, to pole określi sposób tworzenia wolnych terminów dla rezerwacji i wyświetlania harmonogramu pracy.",
+								"label": "Strefa czasowa"
 							}
 						}
 					},

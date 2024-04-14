@@ -152,6 +152,10 @@
 							"mandatoryAttendeeProperties": {
 								"hint": "Vælg, hvilke felter der er obligatoriske på den offentlige side for dine kunder.",
 								"label": "Krævede felter"
+							},
+							"timeZone": {
+								"hint": "Vælg den tidszone, du arbejder i. Dette felt afgør, hvordan du opretter gratis aftaler til bookinger og viser din arbejdsplan.",
+								"label": "Tidszone"
 							}
 						}
 					},
