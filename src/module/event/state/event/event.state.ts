@@ -18,6 +18,8 @@ import {AppActions} from "@utility/state/app/app.actions";
 import {ListMergedEventApiAdapter} from "@event/adapter/external/api/list.merged.event.api.adapter";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
+import {RefreshCalendarAction} from "@event/state/calendar/actions/refresh.calendar.action";
 
 export type IEventState = IBaseState<Event.IEvent>;
 
@@ -78,6 +80,9 @@ export class EventState extends BaseState<Event.IEvent> {
 	@Action(EventActions.DeleteItem)
 	public override async deleteItem(ctx: StateContext<IEventState>, action: EventActions.DeleteItem) {
 		await super.deleteItem(ctx, action);
+		ctx.dispatch(new EventActions.GetList({resetPage: false, resetParams: false}));
+		ctx.dispatch(new CalendarWithSpecialistsAction.GetItems());
+		ctx.dispatch(new RefreshCalendarAction());
 	}
 
 	@Action(EventActions.CreateItem)

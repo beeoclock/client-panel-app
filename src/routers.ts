@@ -5,6 +5,7 @@ import {importProvidersFrom} from "@angular/core";
 import {NgxsModule} from "@ngxs/store";
 import {EventRequestedState} from "@event/state/event-requested/event-requested.state";
 import WrapperPanelComponent from "@utility/presentation/component/wrapper-panel/wrapper-panel.component";
+import {CalendarWithSpecialistsState} from "@event/state/calendar-with-specialists/calendar–with-specialists.state";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['identity']);
 
@@ -30,6 +31,9 @@ export const routes: Routes = [
 			},
 			{
 				path: 'dashboard',
+				providers: [
+					importProvidersFrom(NgxsModule.forFeature([CalendarWithSpecialistsState])),
+				],
 				loadChildren: () => import('@event/index')
 			},
 			{

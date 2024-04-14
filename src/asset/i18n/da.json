@@ -93,6 +93,9 @@
 						"label": "Offentlig adgang"
 					},
 					"username": {
+						"hint": {
+							"under": "Bemærk, at alle ændringer, du foretager på dette område, kan påvirke forskellige målinger. Tag for eksempel SEO - ændringer her kan påvirke, hvor dit indhold vises i søgeresultaterne."
+						},
 						"label": "Brugernavn",
 						"placeholder": "Bee.O_clock"
 					}
@@ -149,6 +152,10 @@
 							"mandatoryAttendeeProperties": {
 								"hint": "Vælg, hvilke felter der er obligatoriske på den offentlige side for dine kunder.",
 								"label": "Krævede felter"
+							},
+							"timeZone": {
+								"hint": "Vælg den tidszone, du arbejder i. Dette felt afgør, hvordan du opretter gratis aftaler til bookinger og viser din arbejdsplan.",
+								"label": "Tidszone"
 							}
 						}
 					},

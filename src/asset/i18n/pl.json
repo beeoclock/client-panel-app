@@ -93,6 +93,9 @@
 						"label": "Dostęp publiczny"
 					},
 					"username": {
+						"hint": {
+							"under": "Należy pamiętać, że wszelkie zmiany wprowadzone w tym obszarze mogą mieć wpływ na różne wskaźniki. Weźmy na przykład SEO - zmiany w tym obszarze mogą wpłynąć na pozycję treści w wynikach wyszukiwania."
+						},
 						"label": "Nazwa użytkownika",
 						"placeholder": "Bee.O_clock"
 					}
@@ -149,6 +152,10 @@
 							"mandatoryAttendeeProperties": {
 								"hint": "Wybierz, które pola są wymagane na stronie publicznej dla klientów.",
 								"label": "Wymagane pola"
+							},
+							"timeZone": {
+								"hint": "Wybierz strefę czasową, w której prowadzasz działalność gospodarczą, to pole określi sposób tworzenia wolnych terminów dla rezerwacji i wyświetlania harmonogramu pracy.",
+								"label": "Strefa czasowa"
 							}
 						}
 					},

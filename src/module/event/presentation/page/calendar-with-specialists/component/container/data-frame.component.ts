@@ -1,10 +1,9 @@
-import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, ViewEncapsulation} from "@angular/core";
 import {CellComponent} from "@event/presentation/page/calendar-with-specialists/component/cell/cell.component";
 import {AsyncPipe, NgForOf, NgIf, NgStyle} from "@angular/common";
 import {TimeLineComponent} from "@event/presentation/page/calendar-with-specialists/component/time-line.component";
 import * as Member from "@member/domain";
 import {DateTime} from "luxon";
-import {FilterService} from "@event/presentation/page/calendar-with-specialists/component/filter/filter.service";
 import {map, Observable} from "rxjs";
 import {
 	EventCardComponent
@@ -14,6 +13,8 @@ import {
 } from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 import {RIEvent} from "@event/domain";
 import {Reactive} from "@utility/cdk/reactive";
+import {Store} from "@ngxs/store";
+import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
 
 @Component({
 	selector: 'event-data-frame-component',
@@ -39,7 +40,7 @@ import {Reactive} from "@utility/cdk/reactive";
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DataFrameComponent extends Reactive implements OnInit {
+export class DataFrameComponent extends Reactive {
 
 	@Input()
 	public rows!: {
@@ -77,7 +78,7 @@ export class DataFrameComponent extends Reactive implements OnInit {
 	}
 
 	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
-	private readonly filterService = inject(FilterService);
+	private readonly store = inject(Store);
 
 	public readonly heightPerSlotInPx = this.composeCalendarWithSpecialistsService.heightPerSlotInPx;
 	public readonly headerHeightInPx = this.composeCalendarWithSpecialistsService.headerHeightInPx;
@@ -91,10 +92,10 @@ export class DataFrameComponent extends Reactive implements OnInit {
 			column: number;
 		}[];
 		data: RIEvent;
-	}[]> = this.filterService.events$.pipe(
+	}[]> = this.store.select(CalendarWithSpecialistsQueries.data).pipe(
 		this.takeUntil(),
-		map((events) => {
-			return events.map((item) => {
+		map(({items}) => {
+			return items.map((item) => {
 				const column = this.columnHeaderList.findIndex((column) => {
 					return column.member?._id === item?.services?.[0]?.specialists?.[0]?.member?._id;
 				});
@@ -116,11 +117,5 @@ export class DataFrameComponent extends Reactive implements OnInit {
 			});
 		})
 	);
-
-	public ngOnInit() {
-
-		this.filterService.initHandler();
-
-	}
 
 }

@@ -36,6 +36,7 @@ import {MemberState} from "@member/state/member/member.state";
 import '@angular/common/locales/global/da';
 import '@angular/common/locales/global/pl';
 import '@angular/common/locales/global/uk';
+import {getAnalytics, provideAnalytics} from "@angular/fire/analytics";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -75,6 +76,7 @@ bootstrapApplication(AppComponent, {
 			provideFirebaseApp(() =>
 				initializeApp(environment.firebase.options)
 			),
+			provideAnalytics(() => getAnalytics()),
 			provideMessaging(() => getMessaging()),
 			provideAuth(() => {
 				const auth = getAuth();

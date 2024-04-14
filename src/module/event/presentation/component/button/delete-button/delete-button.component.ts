@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {Component, EventEmitter, inject, Input, Output, ViewEncapsulation} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
 import {IEvent} from "@event/domain";
 import {Store} from "@ngxs/store";
@@ -43,10 +43,14 @@ export class DeleteButtonComponent {
 	@Input()
 	public event!: IEvent;
 
+	@Output()
+	public readonly deleteStatus = new EventEmitter<void>();
+
 	private readonly store = inject(Store);
 
 	public submit() {
 		this.store.dispatch(new EventActions.DeleteItem(this.event._id));
+		this.deleteStatus.emit();
 	}
 
 }

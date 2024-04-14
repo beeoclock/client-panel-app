@@ -256,8 +256,6 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 
 			const state = ctx.getState();
 
-			console.log(state.item.data)
-
 			if (state.item.data) {
 				ctx.patchState({
 					item: {

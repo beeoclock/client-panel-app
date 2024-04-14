@@ -1,4 +1,4 @@
-import {Component, inject, Input} from "@angular/core";
+import {Component, EventEmitter, inject, Input, Output} from "@angular/core";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
@@ -26,6 +26,9 @@ export abstract class ChangeStatusBaseComponent {
 
 	@Input({required: true})
 	public event!: RMIEvent | RIEvent;
+
+	@Output()
+	public readonly statusChange = new EventEmitter<void>();
 
 	public readonly logger = inject(NGXLogger);
 	public readonly router = inject(Router);

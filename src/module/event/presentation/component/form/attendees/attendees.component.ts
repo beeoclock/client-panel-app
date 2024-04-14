@@ -7,6 +7,7 @@ import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/butto
 import {
 	ModalSelectCustomerService
 } from "@utility/presentation/component/modal-select-customer/modal-select-customer.service";
+import {IsNewCustomerEnum} from "@utility/domain/enum";
 
 @Component({
 	selector: 'event-attendees-component',
@@ -48,6 +49,7 @@ export class AttendeesComponent {
 			this.form.controls[0].patchValue({
 				customer: customers[0]
 			});
+			this.form.controls[0].toggleIsNewCustomer(IsNewCustomerEnum.NO);
 			this.form.controls[0].controls.customer.disable();
 
 		});

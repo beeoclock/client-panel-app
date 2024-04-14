@@ -160,7 +160,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 	public servicesComponent!: QueryList<ServicesComponent>;
 
 	@Select(EventState.itemData)
-	public itemData$!: Observable<RMIEvent | undefined | null>;
+	public itemData$!: Observable<IEvent | undefined | null>;
 
 	@Select(ClientState.item)
 	public client$!: Observable<RIClient>;
@@ -309,45 +309,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 
 			firstValueFrom(this.itemData$).then(async (result) => {
 
-				if (result?._id) {
-
-					const {attendees, ...rest} = result;
-
-					const dataFromRoute: {
-						cacheLoaded: boolean;
-						repeat: boolean;
-						item: never; // This is all ngnx store
-					} = this.activatedRoute.snapshot.data as never;
-
-					if (dataFromRoute?.repeat) {
-
-						const {status, _id, ...initialValue} = rest;
-
-						this.form.patchValue(structuredClone(initialValue));
-
-					} else {
-
-						this.isEditMode = true;
-						this.form.patchValue(structuredClone(rest));
-
-					}
-
-					if (attendees?.length) {
-
-						this.form.controls.attendees.removeAt(0);
-
-						attendees.forEach((attendee) => {
-
-							const control = this.form.controls.attendees.pushNewOne(attendee);
-							control.disable();
-
-						});
-
-					}
-
-					this.form.updateValueAndValidity();
-
-				}
+				this.fillForm(result);
 
 			});
 
@@ -427,6 +389,48 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 		return this.servicesComponent.toArray().every((serviceComponent) => {
 			return serviceComponent.checkValidationOfDurationVersionTypeRangeComponentList();
 		});
+	}
+
+	public fillForm(result: IEvent | undefined | null): void {
+		if (result?._id) {
+
+			const {attendees, ...rest} = result;
+
+			const dataFromRoute: {
+				cacheLoaded: boolean;
+				repeat: boolean;
+				item: never; // This is all ngnx store
+			} = this.activatedRoute.snapshot.data as never;
+
+			if (dataFromRoute?.repeat) {
+
+				const {status, _id, ...initialValue} = rest;
+
+				this.form.patchValue(structuredClone(initialValue));
+
+			} else {
+
+				this.isEditMode = true;
+				this.form.patchValue(structuredClone(rest));
+
+			}
+
+			if (attendees?.length) {
+
+				this.form.controls.attendees.removeAt(0);
+
+				attendees.forEach((attendee) => {
+
+					const control = this.form.controls.attendees.pushNewOne(attendee);
+					control.disable();
+
+				});
+
+			}
+
+			this.form.updateValueAndValidity();
+
+		}
 	}
 
 }

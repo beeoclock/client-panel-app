@@ -14,7 +14,6 @@ import {RIMedia} from "@module/media/domain/interface/i.media";
 import {DeepPartial} from "@utility/base.type";
 
 export interface IBusinessSettings {
-	timeZoneOffsetInMinutes?: number;
 	timeZone?: string;
 	currencies?: CurrencyCodeEnum[];
 	availableLanguages: LanguageCodeEnum[];

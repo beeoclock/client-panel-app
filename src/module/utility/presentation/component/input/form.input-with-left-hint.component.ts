@@ -40,28 +40,27 @@ import {TranslateModule} from "@ngx-translate/core";
 		</label>
 		<ng-content/>
 
-		<div class="mt-2">
-			<div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
+		<div
+			class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
 				<span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
 					{{ leftHint }}
 				</span>
-				<input
-					isRequired
-					invalidTooltip
-					class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-					[isRequiredEnabled]="showLabel"
-					[formControl]="control"
-					[placeholder]="placeholder ?? (placeholderTranslateKey | translate)"
-					[id]="id"
-					[type]="inputType"
-					[autocomplete]="autocomplete"/>
-			</div>
+			<input
+				isRequired
+				invalidTooltip
+				class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+				[isRequiredEnabled]="showLabel"
+				[formControl]="control"
+				[placeholder]="placeholder ?? (placeholderTranslateKey | translate)"
+				[id]="id"
+				[type]="inputType"
+				[autocomplete]="autocomplete"/>
 		</div>
 	`
 })
 export class FormInputWithLeftHintComponent implements DoCheck {
 
-	@Input({ required: true })
+	@Input({required: true})
 	public leftHint: unknown | string;
 
 	@Input()
@@ -88,7 +87,7 @@ export class FormInputWithLeftHintComponent implements DoCheck {
 	@Input()
 	public autocomplete = '';
 
-	@Input({ required: true})
+	@Input({required: true})
 	public control!: FormControl;
 
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
