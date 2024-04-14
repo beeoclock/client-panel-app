@@ -93,6 +93,9 @@
 						"label": "Public access"
 					},
 					"username": {
+						"hint": {
+							"under": "Please note that any changes you make in this area can affect various indicators. Take SEO, for example - changes here can affect where your content appears in search results."
+						},
 						"label": "Username",
 						"placeholder": "Bee.O_clock"
 					}
@@ -149,6 +152,10 @@
 							"mandatoryAttendeeProperties": {
 								"hint": "Choose which fields should be required on the public page for your customers",
 								"label": "Required fields"
+							},
+							"timeZone": {
+								"hint": "Select the time zone where you do business, this field will determine the process to create free appointments for bookings and display your work schedule.",
+								"label": "Time zone"
 							}
 						}
 					},

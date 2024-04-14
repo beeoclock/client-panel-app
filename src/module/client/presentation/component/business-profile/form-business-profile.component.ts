@@ -49,12 +49,17 @@ import {
 				[control]="form.controls.name"
 				[label]="'client.profile.form.inputs.name.label' | translate"/>
 
-			<form-input-with-left-hint
-				id="business-profile-form-username-input"
-				leftHint="https://beeoclock.com/"
-				[control]="form.controls.username"
-				[placeholder]="'client.profile.form.inputs.username.placeholder' | translate"
-				[label]="'client.profile.form.inputs.username.label' | translate"/>
+
+			<div>
+				<form-input-with-left-hint
+					id="business-profile-form-username-input"
+					leftHint="https://beeoclock.com/"
+					[control]="form.controls.username"
+					[placeholder]="'client.profile.form.inputs.username.placeholder' | translate"
+					[label]="'client.profile.form.inputs.username.label' | translate"/>
+				<p
+					class="italic leading-tight p-2 text-beeColor-500 text-sm">{{ 'client.profile.form.inputs.username.hint.under' | translate }}</p>
+			</div>
 
 <!--			<form-textarea-component-->
 <!--				id="business-profile-form-description-input"-->

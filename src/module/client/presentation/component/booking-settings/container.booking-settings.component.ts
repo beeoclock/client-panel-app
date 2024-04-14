@@ -1,9 +1,9 @@
 import {Component, Input, ViewEncapsulation} from "@angular/core";
 import {BookingSettingsForm} from "@client/presentation/form";
+import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {
 	MandatoryAttendeePropertiesComponent
-} from "@client/presentation/component/booking-settings/mandatory-attendee-properties.component";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
+} from "@client/presentation/component/booking-settings/mandatory-attendee-properties/mandatory-attendee-properties.component";
 
 @Component({
 	selector: 'client-booking-settings-container-component',
@@ -22,7 +22,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 })
 export class ContainerBookingSettingsComponent {
 
-	@Input({ required: true })
+	@Input({required: true})
 	public bookingSettings!: BookingSettingsForm;
 
 }
