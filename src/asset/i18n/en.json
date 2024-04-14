@@ -93,6 +93,9 @@
 						"label": "Public access"
 					},
 					"username": {
+						"hint": {
+							"under": "Please note that any changes you make in this area can affect various indicators. Take SEO, for example - changes here can affect where your content appears in search results."
+						},
 						"label": "Username",
 						"placeholder": "Bee.O_clock"
 					}

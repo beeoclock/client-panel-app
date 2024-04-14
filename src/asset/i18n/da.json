@@ -93,6 +93,9 @@
 						"label": "Offentlig adgang"
 					},
 					"username": {
+						"hint": {
+							"under": "Bemærk, at alle ændringer, du foretager på dette område, kan påvirke forskellige målinger. Tag for eksempel SEO - ændringer her kan påvirke, hvor dit indhold vises i søgeresultaterne."
+						},
 						"label": "Brugernavn",
 						"placeholder": "Bee.O_clock"
 					}
