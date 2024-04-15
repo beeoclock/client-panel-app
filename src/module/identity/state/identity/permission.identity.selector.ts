@@ -5,7 +5,7 @@ import {
 	IdentityState,
 	IIdentityState
 } from "@identity/state/identity/identity.state";
-import {IDetailedPermissions} from "@identity/domain/interface/i.member-permission";
+import {IDetailedPermissions, PermissionKeys} from "@identity/domain/interface/i.member-permission";
 import {MemberPermissionLevel} from "@identity/domain/enum/member-permission-level.enum";
 
 export class PermissionIdentitySelector {
@@ -32,7 +32,7 @@ export class PermissionIdentitySelector {
 	 * @param action
 	 * @param permissionLevels
 	 */
-	public static hasPermission(module: keyof IDetailedPermissions, action: keyof IDetailedPermissions, permissionLevels?: MemberPermissionLevel[]) {
+	public static hasPermission(module: keyof IDetailedPermissions, action: PermissionKeys, permissionLevels: MemberPermissionLevel[] = [MemberPermissionLevel.any, MemberPermissionLevel.my]) {
 		return createSelector([PermissionIdentitySelector.permissions], (permissions: IDetailedPermissions | 'all') => {
 			if (permissions === 'all') {
 				return true;
@@ -48,7 +48,13 @@ export class PermissionIdentitySelector {
 				return true;
 			}
 
-			return permissionLevels.includes(modulePermissions[action]);
+			const permission = modulePermissions[action];
+
+			if (!permission) {
+				return false;
+			}
+
+			return permissionLevels.includes(permission);
 		});
 	}
 
