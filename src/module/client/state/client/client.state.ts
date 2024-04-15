@@ -33,6 +33,11 @@ export class ClientState {
 	}
 
 	@Selector()
+	public static autoBookEvent(state: IClientState): boolean | undefined {
+		return state.item?.bookingSettings?.autoBookEvent;
+	}
+
+	@Selector()
 	public static currencies(state: IClientState): CurrencyCodeEnum[] | undefined {
 		return state.item?.businessSettings?.currencies;
 	}

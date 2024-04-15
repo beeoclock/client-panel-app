@@ -6,7 +6,7 @@ import {
 	IIdentityState
 } from "@identity/state/identity/identity.state";
 import {IDetailedPermissions, PermissionKeys} from "@identity/domain/interface/i.member-permission";
-import {MemberPermissionLevel} from "@identity/domain/enum/member-permission-level.enum";
+import {MemberPermissionLevel, PERMISSION_LEVEL_AT_LEAST_ONE} from "@identity/domain/enum/member-permission-level.enum";
 
 export class PermissionIdentitySelector {
 	static readonly state = createPropertySelectors<IIdentityState>(IdentityState);
@@ -32,7 +32,7 @@ export class PermissionIdentitySelector {
 	 * @param action
 	 * @param permissionLevels
 	 */
-	public static hasPermission(module: keyof IDetailedPermissions, action: PermissionKeys, permissionLevels: MemberPermissionLevel[] = [MemberPermissionLevel.any, MemberPermissionLevel.my]) {
+	public static hasPermission(module: keyof IDetailedPermissions, action: PermissionKeys, permissionLevels: MemberPermissionLevel[] = PERMISSION_LEVEL_AT_LEAST_ONE) {
 		return createSelector([PermissionIdentitySelector.permissions], (permissions: IDetailedPermissions | 'all') => {
 			if (permissions === 'all') {
 				return true;
