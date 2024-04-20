@@ -68,9 +68,13 @@ export class ServiceState extends BaseState<IService> {
 	@Action(ServiceActions.OpenDetailsById)
 	public async openDetailsById(ctx: StateContext<IServiceState>, action: ServiceActions.OpenDetailsById) {
 
-		const item = await this.item.executeAsync(action.payload);
-
 		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
+
+		this.pushBoxService.observe$.next({
+			component: ServiceDetails,
+		});
+
+		const item = await this.item.executeAsync(action.payload);
 
 		this.pushBoxService.observe$.next({
 			component: ServiceDetails,
@@ -81,6 +85,8 @@ export class ServiceState extends BaseState<IService> {
 
 	@Action(ServiceActions.OpenFormToEditById)
 	public async openFormToEditById(ctx: StateContext<IServiceState>, action: ServiceActions.OpenFormToEditById) {
+
+		await this.openForm(ctx, {});
 
 		const item = await this.item.executeAsync(action.payload);
 

@@ -64,19 +64,24 @@ export class MemberState extends BaseState<Member.RIMember> {
 	@Action(MemberActions.OpenDetailsById)
 	public async openDetailsById(ctx: StateContext<IMemberState>, action: MemberActions.OpenDetailsById) {
 
-		const item = await this.item.executeAsync(action.payload);
-
 		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
 
 		this.pushBoxService.observe$.next({
 			component: MemberDetailsContainerComponent,
-			inputs: {item},
+		});
+
+		const item = await this.item.executeAsync(action.payload);
+
+		this.pushBoxService.observe$.next({
+			component: MemberDetailsContainerComponent,
 		});
 
 	}
 
 	@Action(MemberActions.OpenFormToEditById)
 	public async openFormToEditById(ctx: StateContext<IMemberState>, action: MemberActions.OpenFormToEditById) {
+
+		await this.openForm(ctx, {});
 
 		const item = await this.item.executeAsync(action.payload);
 

@@ -81,9 +81,13 @@ export class EventState extends BaseState<Event.IEvent> {
 	@Action(EventActions.OpenDetailsById)
 	public async openDetailsById(ctx: StateContext<IEventState>, action: EventActions.OpenDetailsById) {
 
-		const event = await this.item.executeAsync(action.payload);
-
 		const {ContainerDetailsComponent} = await import("@event/presentation/component/details/container.details.component");
+
+		this.pushBoxService.observe$.next({
+			component: ContainerDetailsComponent,
+		});
+
+		const event = await this.item.executeAsync(action.payload);
 
 		this.pushBoxService.observe$.next({
 			component: ContainerDetailsComponent,
@@ -94,6 +98,8 @@ export class EventState extends BaseState<Event.IEvent> {
 
 	@Action(EventActions.OpenFormToEditById)
 	public async openFormToEditById(ctx: StateContext<IEventState>, action: EventActions.OpenFormToEditById) {
+
+		await this.openForm(ctx, {});
 
 		const event = await this.item.executeAsync(action.payload);
 
