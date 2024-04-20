@@ -9,7 +9,7 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 		<utility-default-panel-component>
 			<utility-back-button-component #BackButtonComponent/>
 		</utility-default-panel-component>
-		<event-container-form-component [backButtonComponent]="BackButtonComponent"/>
+		<event-container-form-component class="pb-48 grid grid-cols-12 gap-4" [backButtonComponent]="BackButtonComponent"/>
 	`,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
