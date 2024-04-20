@@ -20,6 +20,7 @@ import {DebounceClickDirective} from "@utility/presentation/directives/debounce/
 import {NGXLogger} from "ngx-logger";
 import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
 import {PushBoxWrapperComponent} from "@utility/presentation/component/push-box/push-box-wrapper.component";
+import {PushBoxContainerComponent} from "@utility/presentation/component/push-box/push-box.container.component";
 
 @Component({
 	selector: 'utility-push-box',
@@ -30,12 +31,13 @@ import {PushBoxWrapperComponent} from "@utility/presentation/component/push-box/
 		NgClass,
 		DebounceClickDirective,
 		LoaderComponent,
-		TranslateModule
+		TranslateModule,
+		PushBoxContainerComponent
 	],
 	template: `
-		<div #containerOfList class="sm:w-[375px] sm:min-w-[375px] sm:max-w-[375px] w-full bg-beeColor-50 lg:border-l-4">
+		<utility-push-box-container>
 			<ng-container #listOfComponents/>
-		</div>
+		</utility-push-box-container>
 	`
 })
 export class PushBoxComponent extends Reactive implements AfterViewInit {
@@ -48,9 +50,6 @@ export class PushBoxComponent extends Reactive implements AfterViewInit {
 
 	@HostBinding('class.hidden')
 	public hidden = true;
-
-	@ViewChild('containerOfList', {read: ElementRef, static: true})
-	public readonly containerOfList!: ElementRef<HTMLDivElement>;
 
 	@ViewChild('listOfComponents', {read: ViewContainerRef, static: true})
 	public readonly listOfComponents!: ViewContainerRef;
