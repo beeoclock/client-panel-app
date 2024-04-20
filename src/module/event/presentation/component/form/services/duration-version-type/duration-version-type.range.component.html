@@ -3,11 +3,11 @@
 		*ngFor="let variant of variantList; let index = index;"
 		[flexCol]="false"
 		padding="p-0"
-		class="md:items-center shadow-none"
+		class="shadow-none"
 		(click)="selectVariant(index)">
 
 
-		<div class="flex-1 flex flex-col md:flex-row gap-4">
+		<div class="flex-1 flex flex-col gap-4">
 			<bee-duration-select-component
 				class="flex-1"
 				[label]="'keyword.capitalize.duration' | translate"

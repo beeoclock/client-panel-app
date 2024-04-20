@@ -41,6 +41,68 @@ export class MemberState extends BaseState<Member.RIMember> {
 		);
 	}
 
+	// Application layer
+
+	@Action(MemberActions.CloseForm)
+	public async closeForm(ctx: StateContext<IMemberState>) {
+
+		const {MemberFormContainerComponent} = await import("@member/presentation/component/form/member-form-container/member-form-container.component");
+
+		this.pushBoxService.destroy$.next(MemberFormContainerComponent);
+
+	}
+
+	@Action(MemberActions.CloseDetails)
+	public async closeDetails(ctx: StateContext<IMemberState>) {
+
+		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
+
+		this.pushBoxService.destroy$.next(MemberDetailsContainerComponent);
+
+	}
+
+	@Action(MemberActions.OpenDetailsById)
+	public async openDetailsById(ctx: StateContext<IMemberState>, action: MemberActions.OpenDetailsById) {
+
+		const item = await this.item.executeAsync(action.payload);
+
+		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
+
+		this.pushBoxService.observe$.next({
+			component: MemberDetailsContainerComponent,
+			inputs: {item},
+		});
+
+	}
+
+	@Action(MemberActions.OpenFormToEditById)
+	public async openFormToEditById(ctx: StateContext<IMemberState>, action: MemberActions.OpenFormToEditById) {
+
+		const item = await this.item.executeAsync(action.payload);
+
+		await this.openForm(ctx, {
+			payload: {
+				item,
+				isEditMode: true
+			}
+		});
+
+	}
+
+	@Action(MemberActions.OpenForm)
+	public async openForm(ctx: StateContext<IMemberState>, {payload}: MemberActions.OpenForm): Promise<void> {
+
+		const {MemberFormContainerComponent} = await import("@member/presentation/component/form/member-form-container/member-form-container.component");
+
+		this.pushBoxService.observe$.next({
+			component: MemberFormContainerComponent,
+			inputs: payload,
+		});
+
+	}
+
+	// API
+
 	@Action(MemberActions.Init)
 	public override async init(ctx: StateContext<IMemberState>): Promise<void> {
 		await super.init(ctx);

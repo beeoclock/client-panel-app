@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {AsyncPipe, NgIf} from '@angular/common';
 import {ListPage} from "@utility/list.page";
@@ -19,7 +19,6 @@ import {TableListComponent} from "@member/presentation/component/list/table/tabl
 	selector: 'member-list-page',
 	templateUrl: './index.html',
 	encapsulation: ViewEncapsulation.None,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		RouterLink,
 		FilterComponent,

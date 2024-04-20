@@ -103,7 +103,7 @@
 				</span>
 			</div>
 			<div tableColumnFlex="action" class="border-l sticky right-0">
-				<utility-table-column-action (delete)="delete(item._id)" [id]="item._id"/>
+				<utility-table-column-action (delete)="delete(item._id)" (open)="open($event)" (edit)="edit($event)" [id]="item._id"/>
 			</div>
 		</div>
 	</div>

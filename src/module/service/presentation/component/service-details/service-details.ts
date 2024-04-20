@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, inject, ViewChild, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from '@angular/common';
-import {firstValueFrom, Observable} from 'rxjs';
+import {firstValueFrom} from 'rxjs';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {IService} from '@service/domain';
@@ -9,8 +9,7 @@ import {DeleteButtonComponent} from '@utility/presentation/component/button/dele
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {Select, Store} from "@ngxs/store";
-import {ServiceState} from "@service/state/service/service.state";
+import {Store} from "@ngxs/store";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {NgxMaskPipe} from "ngx-mask";
 import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
@@ -20,13 +19,12 @@ import {LanguagePipe} from "@utility/presentation/pipes/language.pipe";
 import {WeekDayPipe} from "@utility/presentation/pipes/week-day.pipe";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
-import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
-import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
+import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
 
 @Component({
 	selector: 'service-detail-page',
-	templateUrl: './index.html',
+	templateUrl: './service-details.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
@@ -50,8 +48,7 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 		DynamicDatePipe,
 		CardComponent,
 		HumanizeDurationPipe,
-		BackButtonComponent,
-		DefaultPanelComponent,
+		EditButtonComponent,
 	],
 	providers: [
 		CurrencyPipe,
@@ -59,16 +56,13 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 	],
 	standalone: true
 })
-export default class Index {
+export class ServiceDetails {
 
-	@Select(ServiceState.itemData)
-	public readonly item$!: Observable<IService>;
+	@Input()
+	public item: IService | null = null;
 
 	public readonly store = inject(Store);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
-
-	@ViewChild(BackLinkComponent)
-	public backLink!: BackLinkComponent;
 
 	public async delete(service: IService): Promise<void> {
 		const {_id: id, active} = service;
@@ -76,7 +70,11 @@ export default class Index {
 			return alert('You can\'t delete active service');
 		}
 		await firstValueFrom(this.store.dispatch(new ServiceActions.DeleteItem(id)));
-		this.backLink.link.nativeElement.click();
+	}
+
+	public edit(): void {
+		if (!this.item) return;
+		this.store.dispatch(new ServiceActions.OpenFormToEditById(this.item._id));
 	}
 
 

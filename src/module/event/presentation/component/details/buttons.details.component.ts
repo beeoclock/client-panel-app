@@ -13,8 +13,8 @@ import {ChangeStatusOnDoneComponent} from "@event/presentation/component/change-
 import {RMIEvent} from "@event/domain";
 import {DeleteButtonComponent} from "@event/presentation/component/button/delete-button/delete-button.component";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
-import {EventFormModalService} from "@event/presentation/dom-manipulation-service/modal/event.form.modal.service";
-import {EventDetailsModalService} from "@event/presentation/dom-manipulation-service/modal/event.details.modal.service";
+import {EventActions} from "@event/state/event/event.actions";
+import {Store} from "@ngxs/store";
 
 @Component({
 	selector: 'event-buttons-details',
@@ -32,7 +32,7 @@ import {EventDetailsModalService} from "@event/presentation/dom-manipulation-ser
 		EditButtonComponent,
 	],
 	template: `
-		<event-delete-button-component (deleteStatus)="closeModal()" [event]="event"/>
+		<event-delete-button-component [event]="event"/>
 
 		<edit-button-component (click)="editEvent()"/>
 
@@ -65,19 +65,19 @@ import {EventDetailsModalService} from "@event/presentation/dom-manipulation-ser
 		</ng-container>
 
 		<ng-template #ButtonToCancelEvent>
-			<event-change-status-on-cancelled-component (statusChange)="closeModal()" [event]="event"/>
+			<event-change-status-on-cancelled-component [event]="event"/>
 		</ng-template>
 
 		<ng-template #ButtonToBookEvent>
-			<event-change-status-on-booked-component (statusChange)="closeModal()" [event]="event"/>
+			<event-change-status-on-booked-component [event]="event"/>
 		</ng-template>
 
 		<ng-template #ButtonToDoneEvent>
-			<event-change-status-on-done-component (statusChange)="closeModal()" [event]="event"/>
+			<event-change-status-on-done-component [event]="event"/>
 		</ng-template>
 
 		<ng-template #ButtonToRepeatEvent>
-			<a [routerLink]="'/event/' + event._id + '/repeat'" (click)="closeModal()" class="
+			<a [routerLink]="'/event/' + event._id + '/repeat'" class="
               w-full
               flex
               items-center
@@ -106,20 +106,12 @@ export class ButtonsDetailsComponent {
 	public event!: RMIEvent;
 
 	@HostBinding()
-	public class = 'flex justify-between flex-col md:flex-row gap-4 bg-white p-4 border-y';
+	public class = 'flex justify-between flex-col gap-4 bg-white p-4 border-y';
 
-	private readonly eventFormModalService = inject(EventFormModalService);
-	private readonly eventDetailsModalService = inject(EventDetailsModalService);
+	private readonly store = inject(Store);
 
 	public editEvent() {
-		this.closeModal();
-		this.eventFormModalService.openModalToEdit({
-			event: this.event
-		});
-	}
-
-	public closeModal() {
-		this.eventDetailsModalService.closeModal();
+		this.store.dispatch(new EventActions.OpenFormToEditById(this.event._id));
 	}
 
 }

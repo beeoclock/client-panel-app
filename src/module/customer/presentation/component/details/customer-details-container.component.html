@@ -1,8 +1,4 @@
-<utility-default-panel-component>
-	<utility-back-button-component/>
-</utility-default-panel-component>
-
-<ng-container *ngIf="item$ | async as customer">
+<ng-container *ngIf="item as customer">
 	<div class="bg-white">
 		<div class="p-4">
 			<h3 class="text-base font-semibold leading-7 text-gray-900">
@@ -61,7 +57,7 @@
 		<div class="flex justify-between flex-col md:flex-row gap-4 bg-white p-4 border-y">
 
 			<bee-delete-button [buttonWidthFull]="true" (event)="delete(customer)"/>
-			<edit-link-component [buttonWidthFull]="true"/>
+			<edit-button-component [buttonWidthFull]="true" (click)="openForm()"/>
 
 		</div>
 

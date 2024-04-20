@@ -1,13 +1,11 @@
-import {Component, inject, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
-import {ActivatedRoute, RouterLink} from '@angular/router';
-import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
+import {RouterLink} from '@angular/router';
 import {ICustomer, validCustomer} from "@customer/domain";
 import {TranslateModule} from "@ngx-translate/core";
-import {CustomerState} from "@customer/state/customer/customer.state";
-import {filter, firstValueFrom, Observable} from "rxjs";
-import {Select, Store} from "@ngxs/store";
+import {firstValueFrom} from "rxjs";
+import {Store} from "@ngxs/store";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
@@ -16,8 +14,6 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 import {CustomerForm} from "@customer/presentation/form";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
-import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
-import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
@@ -30,14 +26,13 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 
 @Component({
 	selector: 'customer-form-page',
-	templateUrl: './index.html',
+	templateUrl: './customer-form-container.component.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		ReactiveFormsModule,
 		DeleteButtonComponent,
 		HasErrorDirective,
 		RouterLink,
-		BackLinkComponent,
 		InvalidTooltipDirective,
 		TranslateModule,
 		FormInputComponent,
@@ -46,8 +41,6 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 		CardComponent,
 		PrimaryButtonDirective,
 		InvalidTooltipComponent,
-		BackButtonComponent,
-		DefaultPanelComponent,
 		ButtonSaveContainerComponent,
 		NgComponentOutlet,
 		NgForOf,
@@ -55,21 +48,19 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 	],
 	standalone: true
 })
-export default class Index implements OnInit {
+export class CustomerFormContainerComponent implements OnInit {
 
 	// TODO move functions to store effects/actions
 
 	private readonly store = inject(Store);
-	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly ngxLogger = inject(NGXLogger);
-
-	@ViewChild(BackButtonComponent)
-	public backButtonComponent!: BackButtonComponent;
 
 	public readonly form = new CustomerForm();
 
-	@Select(CustomerState.itemData)
-	public itemData$!: Observable<ICustomer | undefined>;
+	@Input()
+	public item!: ICustomer | undefined;
+
+	@Input()
 	private isEditMode = false;
 
 	public ngOnInit(): void {
@@ -77,15 +68,11 @@ export default class Index implements OnInit {
 	}
 
 	public detectItem(): void {
-		firstValueFrom(this.activatedRoute.params.pipe(filter(({id}) => id?.length))).then(() => {
-			firstValueFrom(this.itemData$).then((result) => {
-				if (result) {
-					this.isEditMode = true;
-					this.form.patchValue(result);
-					this.form.updateValueAndValidity();
-				}
-			});
-		});
+		if (this.isEditMode && this.item) {
+			this.isEditMode = true;
+			this.form.patchValue(this.item);
+			this.form.updateValueAndValidity();
+		}
 	}
 
 	public async save(): Promise<void> {
@@ -104,7 +91,6 @@ export default class Index implements OnInit {
 			} else {
 				await firstValueFrom(this.store.dispatch(new CustomerActions.CreateItem(value)));
 			}
-			await this.backButtonComponent.navigateToBack();
 			this.form.enable();
 			this.form.updateValueAndValidity();
 

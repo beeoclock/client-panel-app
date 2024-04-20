@@ -4,6 +4,33 @@ import {RIMember} from "@member/domain";
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace MemberActions {
 
+	// Application layer
+
+	export class CloseDetails extends BaseActions.CloseDetails {
+		public static override readonly type = '[Member Application] Close Details';
+	}
+
+	export class CloseForm  extends BaseActions.CloseForm {
+		public static override readonly type = '[Member Application] Close Form';
+	}
+
+	export class OpenDetailsById extends BaseActions.OpenDetailsById {
+		public static override readonly type = '[Member Application] Open Details By Id';
+	}
+
+	export class OpenFormToEditById extends BaseActions.OpenFormToEditById {
+		public static override readonly type = '[Member Application] Open Form To Edit By Id';
+	}
+
+	export class OpenForm extends BaseActions.OpenForm<{
+		item?: RIMember;
+		isEditMode?: boolean;
+	}>{
+		public static override readonly type = '[Member Application] Open Form';
+	}
+
+	// API
+
   export class Init extends BaseActions.Init {
     public static override readonly type = '[Member State] Init';
   }

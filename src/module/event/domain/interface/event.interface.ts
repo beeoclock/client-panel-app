@@ -20,7 +20,7 @@ export interface IAttendee extends RIBaseEntity<'Event.Attendant'> {
 export interface IEvent extends RIBaseEntity<'Event'> {
 	servicesAreProvidedInParallel?: boolean;
 	services?: IService[];
-	description?: string;
+	note?: string;
 	start?: string;
 	end?: string;
 	timeZone?: string;

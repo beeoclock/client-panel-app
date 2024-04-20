@@ -89,4 +89,8 @@ export class TableListComponent extends TableComponent<RIMember> {
 		},
 	}
 
+	public override open(id: string) {
+		this.store.dispatch(new MemberActions.OpenDetailsById(id));
+	}
+
 }

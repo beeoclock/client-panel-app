@@ -16,6 +16,8 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 			(activate)="activate()"
 			(deactivate)="deactivate()"
 			(delete)="delete()"
+			(open)="open()"
+			(edit)="edit()"
 			[id]="id"
 			[active]="item.active">
 			<li>
@@ -69,6 +71,14 @@ export class RowActionButtonComponent {
 	public async archive(id: string): Promise<void> {
 		await firstValueFrom(this.store.dispatch(
 			new CustomerActions.ArchiveItem(id)));
+	}
+
+	public open(): void {
+		this.store.dispatch(new CustomerActions.OpenFormToEditById(this.item._id));
+	}
+
+	public edit(): void {
+		this.store.dispatch(new CustomerActions.OpenFormToEditById(this.item._id));
 	}
 
 }

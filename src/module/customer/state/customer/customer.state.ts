@@ -41,6 +41,68 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 		);
 	}
 
+	// Application layer
+
+	@Action(CustomerActions.CloseForm)
+	public async closeForm(ctx: StateContext<ICustomerState>) {
+
+		const {CustomerFormContainerComponent} = await import("@customer/presentation/component/form/customer-form-container.component");
+
+		this.pushBoxService.destroy$.next(CustomerFormContainerComponent);
+
+	}
+
+	@Action(CustomerActions.CloseDetails)
+	public async closeDetails(ctx: StateContext<ICustomerState>) {
+
+		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
+
+		this.pushBoxService.destroy$.next(CustomerDetailsContainerComponent);
+
+	}
+
+	@Action(CustomerActions.OpenDetailsById)
+	public async openDetailsById(ctx: StateContext<ICustomerState>, action: CustomerActions.OpenDetailsById) {
+
+		const item = await this.item.executeAsync(action.payload);
+
+		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
+
+		this.pushBoxService.observe$.next({
+			component: CustomerDetailsContainerComponent,
+			inputs: {item},
+		});
+
+	}
+
+	@Action(CustomerActions.OpenFormToEditById)
+	public async openFormToEditById(ctx: StateContext<ICustomerState>, action: CustomerActions.OpenFormToEditById) {
+
+		const item = await this.item.executeAsync(action.payload);
+
+		await this.openForm(ctx, {
+			payload: {
+				item,
+				isEditMode: true
+			}
+		});
+
+	}
+
+	@Action(CustomerActions.OpenForm)
+	public async openForm(ctx: StateContext<ICustomerState>, {payload}: CustomerActions.OpenForm): Promise<void> {
+
+		const {CustomerFormContainerComponent} = await import("@customer/presentation/component/form/customer-form-container.component");
+
+		this.pushBoxService.observe$.next({
+			component: CustomerFormContainerComponent,
+			inputs: payload,
+		});
+
+	}
+
+	// API
+
 	@Action(CustomerActions.Init)
 	public override async init(ctx: StateContext<ICustomerState>): Promise<void> {
 		await super.init(ctx);

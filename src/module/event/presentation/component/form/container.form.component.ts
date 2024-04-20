@@ -21,8 +21,7 @@ import {NGXLogger} from "ngx-logger";
 import {EventForm} from "@event/presentation/form/event.form";
 import {BooleanState} from "@utility/domain";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
-import {EventState} from "@event/state/event/event.state";
-import {combineLatest, filter, firstValueFrom, map, Observable, tap} from "rxjs";
+import {combineLatest, filter, firstValueFrom, map, Observable, take, tap} from "rxjs";
 import {IEvent, MEvent, RMIEvent} from "@event/domain";
 import {ClientState} from "@client/state/client/client.state";
 import {RIClient} from "@client/domain";
@@ -35,6 +34,8 @@ import {TimeInputComponent} from "@utility/presentation/component/input/time.inp
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {DefaultInputDirective} from "@utility/presentation/directives/input/default.input.directive";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
+import * as Member from '@member/domain';
+import {ISpecialist} from "@service/domain/interface/i.specialist";
 
 @Component({
 	selector: 'event-container-form-component',
@@ -81,7 +82,8 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 		</div>
 
 
-		<div [hidden]="preview.isOn" class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 lg:p-4 pb-16">
+		<div [hidden]="preview.isOn"
+				 class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 lg:p-4 pb-16">
 
 			<form [formGroup]="form" class="flex flex-col gap-4">
 
@@ -114,7 +116,7 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 						id="event-form-public-note-input"
 						[label]="'keyword.capitalize.note' | translate"
 						[placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
-						[control]="form.controls.description"/>
+						[control]="form.controls.note"/>
 				</bee-card>
 
 				<utility-button-save-container-component>
@@ -138,7 +140,24 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 
 	// TODO move functions to store effects/actions
 
+	@Input()
+	public event: RMIEvent | undefined;
+
+	@Input()
 	public isEditMode = false;
+
+	@Input()
+	public backButtonComponent!: BackButtonComponent;
+
+	@Input()
+	public forceStart: string | undefined;
+
+	@Input()
+	public member: Member.RIMember | undefined;
+
+	@Input()
+	public callback: () => void = () => {
+	};
 
 	private readonly store = inject(Store);
 	public readonly activatedRoute = inject(ActivatedRoute);
@@ -153,40 +172,21 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 	public specialist = '';
 	public eventDurationInSeconds = 0;
 
-	@Input()
-	public backButtonComponent!: BackButtonComponent;
-
 	@ViewChildren(ServicesComponent)
 	public servicesComponent!: QueryList<ServicesComponent>;
-
-	@Select(EventState.itemData)
-	public itemData$!: Observable<IEvent | undefined | null>;
 
 	@Select(ClientState.item)
 	public client$!: Observable<RIClient>;
 
-	@Input()
-	public forceStart: string | undefined;
-
 	public get value(): RMIEvent {
 		return MEvent.create(this.form.getRawValue() as IEvent);
 	}
-
-	public readonly callbacksAfterSave = [
-		() => {
-			this.backButtonComponent.navigateToBack();
-		},
-	];
 
 	public updateStartControlByDateTimeString(event: Event): void {
 		this.logger.debug('updateStartControlByDateTimeString', event);
 		const {value} = event.target as HTMLInputElement;
 		const date = new Date(value);
 		this.form.controls.start.patchValue(date.toISOString());
-	}
-
-	constructor() {
-		super();
 	}
 
 	public ngOnInit(): void {
@@ -231,6 +231,20 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 				}
 
 			});
+
+		if (this.member) {
+			this.form.controls.services.valueChanges.pipe(filter(is.array_not_empty<IService[]>), take(1)).subscribe((services) => {
+				this.form.controls.services.patchValue(services.map((service) => {
+					return {
+						...service,
+						specialists: [{
+							object: 'Specialist' as ISpecialist['object'],
+							member: this.member,
+						}],
+					};
+				}));
+			});
+		}
 
 	}
 
@@ -305,15 +319,11 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 
 	public detectItem(): void {
 
-		firstValueFrom(this.activatedRoute.params.pipe(filter(({id}) => id?.length))).then(() => {
+		if (this.isEditMode) {
 
-			firstValueFrom(this.itemData$).then(async (result) => {
+			this.fillForm(this.event);
 
-				this.fillForm(result);
-
-			});
-
-		});
+		}
 
 	}
 
@@ -354,13 +364,12 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 			} else {
 
 				await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(value)));
-				await firstValueFrom(this.itemData$);
 
 			}
 
-			this.callbacksAfterSave.forEach((callback) => callback());
-
 			// TODO check if customers/attends is exist in db (just check if selected customer has _id field if exist is in db if not then need to make request to create the new customer)
+
+			this.callback();
 
 			this.form.enable();
 			this.form.updateValueAndValidity();
@@ -410,7 +419,6 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 
 			} else {
 
-				this.isEditMode = true;
 				this.form.patchValue(structuredClone(rest));
 
 			}

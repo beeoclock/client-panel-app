@@ -8,7 +8,7 @@ export interface IEventForm {
 	_id: FormControl<string>;
 	servicesAreProvidedInParallel: FormControl<boolean>;
 	services: FormControl<IService[]>;
-	description: FormControl<string>;
+	note: FormControl<string>;
 	start: FormControl<string>;
 	end: FormControl<string>;
 	timeZone: FormControl<string>;
@@ -23,7 +23,7 @@ export class EventForm extends FormGroup<IEventForm> {
 	constructor() {
 		super({
 			_id: new FormControl(),
-			description: new FormControl(),
+			note: new FormControl(),
 			end: new FormControl(),
 			start: new FormControl(),
 			servicesAreProvidedInParallel: new FormControl(),

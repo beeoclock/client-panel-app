@@ -16,6 +16,8 @@ import {IService} from "@service/domain";
 			(activate)="activate()"
 			(deactivate)="deactivate()"
 			(delete)="delete()"
+			(open)="open($event)"
+			(edit)="edit($event)"
 			[id]="id"
 			[active]="item.active">
 			<li>
@@ -64,6 +66,14 @@ export class RowActionButtonComponent {
 
 	public deactivate(): void {
 		this.store.dispatch(new ServiceActions.ArchiveItem(this.item._id));
+	}
+
+	public open(id: string): void {
+		this.store.dispatch(new ServiceActions.OpenDetailsById(id));
+	}
+
+	public edit(id: string): void {
+		this.store.dispatch(new ServiceActions.OpenFormToEditById(id));
 	}
 
 	public async archive(id: string): Promise<void> {

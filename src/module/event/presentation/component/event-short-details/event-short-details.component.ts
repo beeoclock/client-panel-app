@@ -20,7 +20,7 @@ import {NgIf} from "@angular/common";
       </li>
       <li class="list-group-item">
         <strong class="dark:text-white">Description:</strong>
-        <p class="m-0">{{ event.description }}</p>
+        <p class="m-0">{{ event.note }}</p>
       </li>
     </ul>
   `

@@ -3,13 +3,14 @@ import {DOCUMENT} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
 import {IEvent} from "@event/domain";
 import {DateTime, Interval} from "luxon";
-import {EventDetailsModalService} from "@event/presentation/dom-manipulation-service/modal/event.details.modal.service";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
+import {Store} from "@ngxs/store";
+import {EventActions} from "@event/state/event/event.actions";
 
 @Injectable()
 export class DataCalendarDomManipulationService {
 
-	private readonly eventDetailsModalService = inject(EventDetailsModalService);
+	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly document = inject(DOCUMENT);
 
@@ -241,17 +242,17 @@ export class DataCalendarDomManipulationService {
 			<div style="height: ${heightInPx}px; margin: 2px; padding: 2px;" class="${classList.join(' ')} text-white cursor-pointer transition-all hover:text-white text-ellipsis overflow-hidden break-words h-100 rounded shadow border text-xs">
 				${startDateTime.toFormat('HH:mm')} - ${endDateTime.toFormat('HH:mm')},
 				${event.attendees?.map(({customer}) => {
-					if (customer?.firstName) {
-						return customer?.firstName;
-					}
-					if (customer?.phone) {
-						return customer?.phone;
-					}
-					if (customer?.email) {
-						return customer?.email;
-					}
-					return '';
-				}).join(', ')},
+			if (customer?.firstName) {
+				return customer?.firstName;
+			}
+			if (customer?.phone) {
+				return customer?.phone;
+			}
+			if (customer?.email) {
+				return customer?.email;
+			}
+			return '';
+		}).join(', ')},
 				${event.services?.map(({languageVersions: [firstLanguageVersion]}) => firstLanguageVersion.title)?.join(', ')}
 			</div>
 		`;
@@ -315,7 +316,7 @@ export class DataCalendarDomManipulationService {
 	}
 
 	private async openEventDetails(event: IEvent) {
-		await this.eventDetailsModalService.openModal(event._id);
+		this.store.dispatch(new EventActions.OpenDetailsById(event._id));
 	}
 
 }

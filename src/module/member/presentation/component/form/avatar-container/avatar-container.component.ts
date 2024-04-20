@@ -4,9 +4,9 @@ import {TranslateModule} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {FormControl} from "@angular/forms";
 import {BooleanState} from "@utility/domain";
-import {AvatarFormComponent} from "@member/presentation/page/form/component/avatar-form/avatar-form.component";
 import {PatchMemberMediaApiAdapter} from "@member/adapter/external/api/media/patch.member-media.api.adapter";
 import {RESPONSE_IMemberMedia} from "@member/domain/interface/i.member-media";
+import {AvatarFormComponent} from "@member/presentation/component/form/avatar-form/avatar-form.component";
 
 @Component({
 	selector: 'member-form-avatar-container-component',
