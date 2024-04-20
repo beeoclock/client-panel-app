@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, OnDestroy, Output, ViewEncapsulation} from "@angular/core";
+import {Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output, ViewEncapsulation} from "@angular/core";
 import {NgForOf, NgIf} from "@angular/common";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
@@ -12,6 +12,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {is} from "thiis";
 import {filter} from "rxjs";
 import {MS_ONE_SECOND} from "@utility/domain/const/c.time";
+import {AutoRefreshStorageService} from "@utility/presentation/component/auto-refresh/auto-refresh.storage.service";
 
 @Component({
 	selector: 'utility-auto-refresh-component',
@@ -61,7 +62,10 @@ import {MS_ONE_SECOND} from "@utility/domain/const/c.time";
 		ReactiveFormsModule
 	]
 })
-export class AutoRefreshComponent extends Reactive implements OnDestroy {
+export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit {
+
+	@Input()
+	public id = '@default';
 
 	@Input()
 	public isLoading = false;
@@ -74,6 +78,7 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy {
 	});
 
 	private readonly translateService = inject(TranslateService);
+	private readonly autoRefreshStorageService = inject(AutoRefreshStorageService);
 
 	public readonly options = [
 		{
@@ -104,12 +109,20 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy {
 
 	private timer: NodeJS.Timeout | undefined;
 
-	constructor() {
-		super();
-		this.initTimer(this.control.value);
+	public ngOnInit() {
+
 		this.control.valueChanges.pipe(this.takeUntil(), filter(is.number)).subscribe((value) => {
+			this.autoRefreshStorageService.set(this.id, value.toString());
 			this.initTimer(value);
 		});
+
+		const value = this.autoRefreshStorageService.get(this.id);
+		if (is.string(value)) {
+			this.control.setValue(Number(value));
+		} else {
+			this.initTimer(this.control.value);
+		}
+
 	}
 
 	public initTimer(seconds: number) {
