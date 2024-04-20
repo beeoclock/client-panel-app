@@ -61,24 +61,21 @@ export class CalendarWithSpecialistsState {
 			loader: true,
 		});
 
-		this.listMergedEventApiAdapter.execute$(params).subscribe({
-			next: (data) => {
+		this.listMergedEventApiAdapter.executeAsync(params).then((data) => {
 
-				ctx.patchState({
-					loader: false,
-					data,
-				})
+			ctx.patchState({
+				loader: false,
+				data,
+			})
 
-			},
-			error: (error) => {
+		}).catch((error) => {
 
-				this.ngxLogger.error('CalendarWithSpecialistsState.getItems', error);
+			this.ngxLogger.error('CalendarWithSpecialistsState.getItems', error);
 
-				ctx.patchState({
-					loader: false,
-				});
+			ctx.patchState({
+				loader: false,
+			});
 
-			}
 		});
 
 	}
@@ -115,6 +112,7 @@ export class CalendarWithSpecialistsState {
 		// Check if it is a new date
 		if (DateTime.fromISO(date).hasSame(DateTime.fromISO(params.start), 'day')) {
 			this.ngxLogger.warn('CalendarWithSpecialistsState.setDate', 'Same date', date, params.start);
+			ctx.dispatch(new CalendarWithSpecialistsAction.GetItems());
 			return;
 		}
 
@@ -126,9 +124,9 @@ export class CalendarWithSpecialistsState {
 			}
 		});
 
-		this.router.navigate([], {
+		await this.router.navigate([], {
 			queryParams: {
-				date: params.start,
+				date,
 			},
 			replaceUrl: true,
 		});

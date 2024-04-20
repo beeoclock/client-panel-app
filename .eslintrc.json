@@ -19,10 +19,7 @@
 					"error",
 					{
 						"type": "attribute",
-						"prefix": [
-							"app",
-							"boc"
-						],
+						"prefix": "app",
 						"style": "camelCase"
 					}
 				],
@@ -30,31 +27,8 @@
 					"error",
 					{
 						"type": "element",
-						"prefix": [
-							"ion",
-							"member",
-							"app",
-							"bee",
-							"identity",
-							"utility",
-							"event",
-							"client",
-							"customer",
-							"service",
-							"user",
-							"specialist"
-						],
+						"prefix": "app",
 						"style": "kebab-case"
-					}
-				],
-				"@angular-eslint/component-class-suffix": [
-					"error",
-					{
-						"suffixes": [
-							"Index",
-							"Page",
-							"Component"
-						]
 					}
 				]
 			}
