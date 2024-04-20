@@ -35,7 +35,6 @@ export class BusinessSettingsForm extends FormGroup<IBusinessSettingsForm> {
 	}
 
 	private initValidators(): void {
-		console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
 		this.controls.timeZone.setValidators(Validators.required);
 		this.controls.availableLanguages.setValidators([Validators.required, Validators.minLength(1)]);
 		this.controls.emailLanguage.setValidators([Validators.required]);

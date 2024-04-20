@@ -8,13 +8,8 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {CustomerForm} from "@customer/presentation/form";
-import {
-	CustomerAutocompleteDirective
-} from "@utility/presentation/directives/customer-autocomplete/customer-autocomplete.directive";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 import {ICustomer} from "@customer/domain";
-import {AttendantForm} from "@event/presentation/form/attendant.form";
-import {IsNewCustomerEnum} from "@utility/domain/enum";
 
 @Component({
 	selector: 'event-attendant-component',
@@ -27,7 +22,6 @@ import {IsNewCustomerEnum} from "@utility/domain/enum";
 		InvalidTooltipDirective,
 		FormInputComponent,
 		TranslateModule,
-		CustomerAutocompleteDirective,
 		InvalidTooltipComponent
 	],
 	template: `
@@ -59,41 +53,33 @@ import {IsNewCustomerEnum} from "@utility/domain/enum";
 
 				<form-input
 					inputType="text"
-					customerAutocomplete
 					autocomplete="off"
 					id="attendee-first-name"
-					(customerSelected)="customerSelected($event)"
 					[placeholder]="'keyword.capitalize.firstName' | translate"
 					[control]="form.controls.firstName"
 					[label]="'keyword.capitalize.firstName' | translate"/>
 
 				<form-input
 					inputType="text"
-					customerAutocomplete
 					autocomplete="off"
 					id="attendee-last-name"
-					(customerSelected)="customerSelected($event)"
 					[placeholder]="'keyword.capitalize.lastName' | translate"
 					[control]="form.controls.lastName"
 					[label]="'keyword.capitalize.lastName' | translate"/>
 
 				<form-input
 					inputType="email"
-					customerAutocomplete
 					autocomplete="off"
 					placeholder="firstname.lastname@example.com"
 					id="attendee-email"
-					(customerSelected)="customerSelected($event)"
 					[control]="form.controls.email"
 					[label]="'keyword.capitalize.email' | translate"/>
 
 				<form-input
 					inputType="tel"
-					customerAutocomplete
 					autocomplete="off"
 					placeholder="+000000000000"
 					id="attendee-phone"
-					(customerSelected)="customerSelected($event)"
 					[control]="form.controls.phone"
 					[label]="'keyword.capitalize.phone' | translate"/>
 
@@ -127,15 +113,6 @@ export class AttendantComponent {
 
 	public get customer(): ICustomer {
 		return this.form.value as ICustomer;
-	}
-
-	public customerSelected(customer: ICustomer): void {
-		this.form.patchValue(customer);
-		const parent = this.form.parent as AttendantForm | null;
-		if (parent) {
-			parent.toggleIsNewCustomer(IsNewCustomerEnum.NO);
-		}
-		this.form.disable();
 	}
 
 }

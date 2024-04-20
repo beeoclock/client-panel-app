@@ -71,6 +71,7 @@ export class ComposeCalendarWithSpecialistsComponent extends Reactive implements
 		const {date} = this.activatedRoute.snapshot.queryParams;
 
 		if (!date) {
+			this.forceRefresh().then();
 			return;
 		}
 
