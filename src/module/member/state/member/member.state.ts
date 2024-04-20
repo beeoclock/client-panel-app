@@ -74,6 +74,9 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 		this.pushBoxService.observe$.next({
 			component: MemberDetailsContainerComponent,
+			inputs: {
+				item
+			},
 		});
 
 	}
