@@ -36,19 +36,10 @@ export class CardComponent implements OnChanges, OnInit {
 	public width: 'auto' | '96' | string = 'auto';
 
 	@Input()
-	public useBorder = true;
-
-	@Input()
 	public flexCol = true;
 
-	@Input()
-	public borderColor = 'border-beeColor-200';
-
-	@Input()
-	public darkBorderColor = 'dark:border-beeDarkColor-700';
-
 	@HostBinding('class')
-	public hostClass = 'bg-white dark:text-white dark:bg-beeDarkColor-800/50 rounded-2xl flex';
+	public hostClass = 'bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl flex';
 
 	private readonly elementRef = inject(ElementRef);
 
@@ -56,9 +47,6 @@ export class CardComponent implements OnChanges, OnInit {
 		gap: SimpleChange;
 		padding: SimpleChange;
 		width: SimpleChange;
-		useBorder: SimpleChange;
-		borderColor: SimpleChange;
-		darkBorderColor: SimpleChange;
 		flexCol: SimpleChange;
 	}): void {
 
@@ -83,19 +71,8 @@ export class CardComponent implements OnChanges, OnInit {
 			}
 		}
 
-		if (changes.useBorder) {
-			this.elementRef.nativeElement.classList.toggle('border', changes.useBorder.currentValue);
-		}
-
 		if (changes.flexCol) {
 			this.elementRef.nativeElement.classList.toggle('flex-col', changes.flexCol.currentValue);
-		}
-
-		if (changes.borderColor) {
-			const newClass = this.hostClass.replace(changes.borderColor.previousValue, changes.borderColor.currentValue);
-			if (this.hostClass === newClass) {
-				this.hostClass += ` ${changes.borderColor.currentValue}`;
-			}
 		}
 
 		if (changes.darkBorderColor) {
@@ -108,8 +85,7 @@ export class CardComponent implements OnChanges, OnInit {
 	}
 
 	public ngOnInit(): void {
-		this.hostClass += ` ${this.gap} ${this.padding} ${this.width} ${this.borderColor} ${this.darkBorderColor}`;
-		this.elementRef.nativeElement.classList.toggle('border', this.useBorder);
+		this.hostClass += ` ${this.gap} ${this.padding} ${this.width}`;
 		this.elementRef.nativeElement.classList.toggle('flex-col', this.flexCol);
 	}
 
