@@ -58,7 +58,7 @@
 	</div>
 	<!-- Column Cell	-->
 	<div tableBodyFlex>
-		<div tableRowFlex="body" (click)="doubleClick(item._id)" *ngFor="let item of tableState.items">
+		<div tableRowFlex="body" (click)="doubleClick(item._id)" *ngFor="let item of tableState.items; trackBy: trackById">
 			<div tableColumnFlex="service">
 				<span [title]="item?.services?.[0]?.languageVersions?.[0]?.title" class="truncate">
 					{{ item?.services?.[0]?.languageVersions?.[0]?.title }}
