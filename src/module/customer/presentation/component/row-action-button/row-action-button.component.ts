@@ -74,7 +74,7 @@ export class RowActionButtonComponent {
 	}
 
 	public open(): void {
-		this.store.dispatch(new CustomerActions.OpenFormToEditById(this.item._id));
+		this.store.dispatch(new CustomerActions.OpenDetailsById(this.item._id));
 	}
 
 	public edit(): void {
