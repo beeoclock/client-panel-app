@@ -44,17 +44,14 @@ export class PushBoxComponent extends Reactive implements OnInit {
 	public id = 'push-box';
 
 	@HostBinding()
-	public class = 'absolute top-0 right-0 h-dvh z-50 w-full bg-black/50 flex justify-end lg:min-w-[375px] lg:max-w-[375px] lg:relative';
-
-	@HostBinding('class.hidden')
-	public hidden = true;
+	public class = 'hidden absolute top-0 right-0 h-dvh z-50 w-full bg-black/50 flex justify-end lg:min-w-[375px] lg:max-w-[375px] lg:relative';
 
 	@ViewChild('listOfComponents', {read: ViewContainerRef, static: true})
 	public readonly listOfComponents!: ViewContainerRef;
 
 	@HostListener('click', ['$event'])
 	public onClick(event: MouseEvent): void {
-		if (this.hidden) {
+		if (this.isHidden) {
 			return;
 		}
 		// Check if target is the host element
@@ -67,7 +64,7 @@ export class PushBoxComponent extends Reactive implements OnInit {
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly pushBoxService = inject(PushBoxService);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
-	private readonly elementRef = inject(ElementRef);
+	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 
 	public ngOnInit() {
 		this.pushBoxService.registerContainer(this);
@@ -77,14 +74,9 @@ export class PushBoxComponent extends Reactive implements OnInit {
 		const componentRef = this.pushBoxService.componentRefMap.get(componentType.name);
 		componentRef?.destroy();
 		this.pushBoxService.componentRefMap.delete(componentType.name);
-		this.changeDetectorRef.detectChanges();
-		this.showOrHideIfEmpty();
+		this.updateVisibility();
 
 		return !!componentRef;
-	}
-
-	public showOrHideIfEmpty(): void {
-		this.hidden = !this.pushBoxService.componentRefMap.size;
 	}
 
 	public removeLastComponent(): boolean {
@@ -115,8 +107,7 @@ export class PushBoxComponent extends Reactive implements OnInit {
 		});
 		pushBoxWrapperComponentRef.instance.renderComponent(component, componentInputs);
 		this.pushBoxService.componentRefMap.set(component.name, pushBoxWrapperComponentRef);
-		this.changeDetectorRef.detectChanges();
-		this.showOrHideIfEmpty();
+		this.updateVisibility();
 
 		return pushBoxWrapperComponentRef;
 
@@ -126,6 +117,17 @@ export class PushBoxComponent extends Reactive implements OnInit {
 	private handleOnEscapeKey(): void {
 		this.ngxLogger.debug('handleOnEscapeKey');
 		this.removeLastComponent();
+	}
+
+	private get isHidden(): boolean {
+		return this.elementRef.nativeElement.classList.contains('hidden');
+	}
+
+	private updateVisibility(hidden?: boolean): void {
+		const thereAreNoComponents = !this.pushBoxService.componentRefMap.size;
+		hidden = hidden ?? thereAreNoComponents;
+		this.elementRef.nativeElement.classList.toggle('hidden', hidden);
+		this.changeDetectorRef.detectChanges();
 	}
 
 
