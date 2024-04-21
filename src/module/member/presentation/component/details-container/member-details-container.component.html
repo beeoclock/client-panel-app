@@ -1,55 +1,49 @@
 <ng-container *ngIf="item as member">
 	<div class="bg-white">
-		<div class="p-4">
-			<h3 class="text-base font-semibold leading-7 text-gray-900">
-				{{ 'member.details.title' | translate }}
-			</h3>
-			<!--			<p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p>-->
-		</div>
-		<div class="border-t border-gray-100">
-			<dl class="divide-y divide-gray-100">
-				<div *ngIf="member?.avatar?.url?.length" class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
-					<dt class="text-sm font-medium leading-6 text-gray-900">
-						{{ 'keyword.capitalize.avatar' | translate }}
-					</dt>
-					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-						<img [src]="member?.avatar?.url" class="min-w-[192px] max-w-[192px] min-h-[192px] max-h-[192px] flex flex-col items-center justify-center w-full relative rounded-xl cursor-pointer bg-beeColor-50 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-800 dark:bg-beeColor-700 dark:border-beeDarkColor-600 dark:hover:border-beeDarkColor-500 object-cover" alt="">
-					</dd>
-				</div>
-				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
-					<dt class="text-sm font-medium leading-6 text-gray-900">
-						{{ 'keyword.capitalize.fullName' | translate }}
-					</dt>
-					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-						{{ member.firstName }}&nbsp;{{ member.secondName }}&nbsp;{{ member.lastName }}
-					</dd>
-				</div>
-				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
-					<dt class="text-sm font-medium leading-6 text-gray-900">
-						{{ 'keyword.capitalize.role' | translate }}
-					</dt>
-					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-						{{ 'role.' + member.role | translate }}
-					</dd>
-				</div>
-				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
-					<dt class="text-sm font-medium leading-6 text-gray-900">
-						{{ 'keyword.capitalize.email' | translate }}
-					</dt>
-					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-						{{ member.email }}
-					</dd>
-				</div>
-<!--				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">-->
-<!--					<dt class="text-sm font-medium leading-6 text-gray-900">-->
-<!--						{{ 'keyword.capitalize.phone' | translate }}-->
-<!--					</dt>-->
-<!--					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">-->
-<!--						{{ member.phone }}-->
-<!--					</dd>-->
-<!--				</div>-->
-			</dl>
-		</div>
+		<dl class="divide-y divide-gray-100">
+			<div *ngIf="member?.avatar?.url?.length" class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.avatar' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					<img [src]="member?.avatar?.url"
+							 class="min-w-[192px] max-w-[192px] min-h-[192px] max-h-[192px] flex flex-col items-center justify-center w-full relative rounded-xl cursor-pointer bg-beeColor-50 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-800 dark:bg-beeColor-700 dark:border-beeDarkColor-600 dark:hover:border-beeDarkColor-500 object-cover"
+							 alt="">
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.fullName' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ member.firstName }}&nbsp;{{ member.secondName }}&nbsp;{{ member.lastName }}
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.role' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ 'role.' + member.role | translate }}
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.email' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ member.email }}
+				</dd>
+			</div>
+			<!--				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">-->
+			<!--					<dt class="text-sm font-medium leading-6 text-gray-900">-->
+			<!--						{{ 'keyword.capitalize.phone' | translate }}-->
+			<!--					</dt>-->
+			<!--					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">-->
+			<!--						{{ member.phone }}-->
+			<!--					</dd>-->
+			<!--				</div>-->
+		</dl>
 	</div>
 
 	<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4 mb-[100px]">

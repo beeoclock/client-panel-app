@@ -8,24 +8,36 @@ import {
 	ViewContainerRef,
 	ViewEncapsulation
 } from "@angular/core";
+import {NgIf} from "@angular/common";
 
 @Component({
 	selector: 'utility-push-box-wrapper',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
+	imports: [
+		NgIf
+	],
 	template: `
-		<div class="flex justify-between p-2">
-			<span>{{ title }}</span>
+		<div class="flex justify-between p-1 border-b">
+			<div class="truncate font-bold p-2">{{ title }}</div>
 			<div class="flex gap-2">
-				<button type="button" class="hover:bg-beeColor-200 p-2 px-3 rounded-lg transition-all" (click)="destroySelf()" title="Close">
+				<button type="button" class="hover:bg-beeColor-200 p-2 px-3 rounded-lg transition-all" (click)="destroySelf()"
+								title="Close">
 					<i class="bi bi-x-lg"></i>
 				</button>
 			</div>
 		</div>
+		<div *ngIf="showLoading" role="status" class="animate-pulse bg-gray-300 dark:bg-gray-700 flex h-dvh items-center justify-center m-1 rounded-lg">
+			<span class="sr-only">Loading...</span>
+		</div>
+
 		<ng-container #renderContainer></ng-container>
 	`
 })
 export class PushBoxWrapperComponent {
+
+	@Input()
+	public showLoading = true;
 
 	@Input()
 	public title = 'Title';
@@ -44,6 +56,10 @@ export class PushBoxWrapperComponent {
 	public renderedComponentRef: ComponentRef<any> | undefined;
 
 	public renderComponent(component: Type<any>, inputs?: Record<string, any>) {
+
+		if (this.showLoading) {
+			return;
+		}
 
 		this.renderedComponent = component;
 

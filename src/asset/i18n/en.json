@@ -268,6 +268,10 @@
 				"note": {
 					"placeholder": "Here you can enter additional information about the customer"
 				}
+			},
+			"title": {
+				"create": "Adding a customer",
+				"edit": "Editing a customer"
 			}
 		},
 		"title": "Customer"
@@ -314,6 +318,9 @@
 		}
 	},
 	"event": {
+		"details": {
+			"title": "Detailed view of the event"
+		},
 		"form": {
 			"section": {
 				"additional": {
@@ -354,6 +361,10 @@
 						"title": "Select service"
 					}
 				}
+			},
+			"title": {
+				"create": "Adding a new event",
+				"edit": "Edition of the event"
 			}
 		},
 		"keyword": {
@@ -940,6 +951,12 @@
 		"details": {
 			"title": "Information about a member of staff"
 		},
+		"form": {
+			"title": {
+				"create": "Add a team member",
+				"edit": "Edit a team member"
+			}
+		},
 		"title": "Member"
 	},
 	"page": {
@@ -977,6 +994,10 @@
 				"input": {
 					"placeholder": "Specify the position of this service in the list on the public site"
 				}
+			},
+			"title": {
+				"create": "Adding a service",
+				"edit": "Editing a service"
 			},
 			"v2": {
 				"section": {

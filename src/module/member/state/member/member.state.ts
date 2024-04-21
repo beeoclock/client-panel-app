@@ -10,6 +10,7 @@ import {ItemMemberApiAdapter} from "@member/adapter/external/api/item.member.api
 import {RemoveMemberApiAdapter} from "@member/adapter/external/api/remove.member.api.adapter";
 import {ListMemberApiAdapter} from "@member/adapter/external/api/list.member.api.adapter";
 import {ActiveEnum, OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {TranslateService} from "@ngx-translate/core";
 
 export type IMemberState = IBaseState<Member.RIMember>;
 
@@ -34,6 +35,8 @@ export class MemberState extends BaseState<Member.RIMember> {
 	protected override readonly item = inject(ItemMemberApiAdapter);
 	protected override readonly remove = inject(RemoveMemberApiAdapter);
 	protected override readonly list = inject(ListMemberApiAdapter);
+
+	private readonly translateService = inject(TranslateService);
 
 	constructor() {
 		super(
@@ -64,15 +67,20 @@ export class MemberState extends BaseState<Member.RIMember> {
 	@Action(MemberActions.OpenDetailsById)
 	public async openDetailsById(ctx: StateContext<IMemberState>, action: MemberActions.OpenDetailsById) {
 
+		const title = await this.translateService.instant('member.details.title');
+
 		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
 
 		await this.pushBoxService.buildItAsync({
+			title,
+			showLoading: true,
 			component: MemberDetailsContainerComponent,
 		});
 
 		const item = await this.item.executeAsync(action.payload);
 
 		await this.pushBoxService.buildItAsync({
+			title,
 			component: MemberDetailsContainerComponent,
 			componentInputs: {
 				item
@@ -84,12 +92,20 @@ export class MemberState extends BaseState<Member.RIMember> {
 	@Action(MemberActions.OpenFormToEditById)
 	public async openFormToEditById(ctx: StateContext<IMemberState>, action: MemberActions.OpenFormToEditById) {
 
-		await this.openForm(ctx, {});
+		const title = this.translateService.instant('member.form.title.edit');
+
+		await this.openForm(ctx, {
+			payload: {
+				showLoading: true,
+				title
+			}
+		});
 
 		const item = await this.item.executeAsync(action.payload);
 
 		await this.openForm(ctx, {
 			payload: {
+				title,
 				item,
 				isEditMode: true
 			}
@@ -102,9 +118,13 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 		const {MemberFormContainerComponent} = await import("@member/presentation/component/form/member-form-container/member-form-container.component");
 
+		const {showLoading, title, ...componentInputs} = payload ?? {};
+
 		await this.pushBoxService.buildItAsync({
 			component: MemberFormContainerComponent,
-			componentInputs: payload,
+			componentInputs,
+			showLoading,
+			title: title ?? this.translateService.instant('member.form.title.create'),
 		});
 
 	}

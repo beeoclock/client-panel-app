@@ -63,7 +63,7 @@ import {ISpecialist} from "@service/domain/interface/i.specialist";
 		SlotsService
 	],
 	template: `
-		<div *ngIf="preview.isOn" class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6">
+		<div *ngIf="preview.isOn" class="col-span-12">
 
 			<event-general-details [isPreview]="preview.isOn" [event]="value"/>
 
@@ -83,7 +83,7 @@ import {ISpecialist} from "@service/domain/interface/i.specialist";
 
 
 		<div [hidden]="preview.isOn"
-				 class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 lg:p-4 pb-16">
+				 class="col-span-12 pb-16">
 
 			<form [formGroup]="form" class="flex flex-col gap-4">
 

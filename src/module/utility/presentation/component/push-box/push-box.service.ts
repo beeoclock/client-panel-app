@@ -8,6 +8,7 @@ export type PushBoxBuildItArgsType = {
 	component: Type<unknown>;
 	componentInputs?: Record<string, unknown>;
 	title?: string;
+	showLoading?: boolean;
 }
 
 @Injectable({

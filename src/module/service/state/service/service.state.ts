@@ -15,6 +15,7 @@ import {UnarchiveServiceApiAdapter} from "@service/adapter/external/api/unarchiv
 import {
 	ServiceContainerFormComponent
 } from "@service/presentation/component/form/service-container–form/service-container–form.component";
+import {TranslateService} from "@ngx-translate/core";
 
 export type IServiceState = IBaseState<Service.IService>
 
@@ -38,6 +39,8 @@ export class ServiceState extends BaseState<IService> {
 	protected override readonly item = inject(ItemServiceApiAdapter);
 	protected override readonly remove = inject(RemoveServiceApiAdapter);
 	protected override readonly list = inject(ListServiceApiAdapter);
+
+	private readonly translateService = inject(TranslateService);
 
 	constructor() {
 		super(
@@ -68,15 +71,20 @@ export class ServiceState extends BaseState<IService> {
 	@Action(ServiceActions.OpenDetailsById)
 	public async openDetailsById(ctx: StateContext<IServiceState>, action: ServiceActions.OpenDetailsById) {
 
+		const title = this.translateService.instant('service.details.title');
+
 		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
 
 		await this.pushBoxService.buildItAsync({
+			title,
+			showLoading: true,
 			component: ServiceDetails,
 		});
 
 		const item = await this.item.executeAsync(action.payload);
 
 		await this.pushBoxService.buildItAsync({
+			title,
 			component: ServiceDetails,
 			componentInputs: {item},
 		});
@@ -86,12 +94,20 @@ export class ServiceState extends BaseState<IService> {
 	@Action(ServiceActions.OpenFormToEditById)
 	public async openFormToEditById(ctx: StateContext<IServiceState>, action: ServiceActions.OpenFormToEditById) {
 
-		await this.openForm(ctx, {});
+		const title = this.translateService.instant('service.form.title.edit');
+
+		await this.openForm(ctx, {
+			payload: {
+				showLoading: true,
+				title
+			}
+		});
 
 		const item = await this.item.executeAsync(action.payload);
 
 		await this.openForm(ctx, {
 			payload: {
+				title,
 				isEditMode: true,
 				item,
 			}
@@ -104,9 +120,13 @@ export class ServiceState extends BaseState<IService> {
 
 		const {ServiceContainerFormComponent} = await import("@service/presentation/component/form/service-container–form/service-container–form.component");
 
+		const {showLoading, title, ...componentInputs} = payload ?? {};
+
 		await this.pushBoxService.buildItAsync({
 			component: ServiceContainerFormComponent,
-			componentInputs: payload,
+			componentInputs,
+			showLoading,
+			title: title ?? this.translateService.instant('service.form.title.create'),
 		});
 
 	}
