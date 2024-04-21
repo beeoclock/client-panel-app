@@ -139,11 +139,13 @@ export class MemberState extends BaseState<Member.RIMember> {
 	@Action(MemberActions.CreateItem)
 	public override async createItem(ctx: StateContext<IMemberState>, action: MemberActions.CreateItem): Promise<void> {
 		await super.createItem(ctx, action);
+		await this.closeForm(ctx);
 	}
 
 	@Action(MemberActions.UpdateItem)
 	public override async updateItem(ctx: StateContext<IMemberState>, action: MemberActions.UpdateItem): Promise<void> {
 		await super.updateItem(ctx, action);
+		await this.closeForm(ctx);
 	}
 
 	@Action(MemberActions.GetList)

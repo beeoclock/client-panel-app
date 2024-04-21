@@ -132,11 +132,13 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 	@Action(CustomerActions.CreateItem)
 	public override async createItem(ctx: StateContext<ICustomerState>, action: CustomerActions.CreateItem): Promise<void> {
 		await super.createItem(ctx, action);
+		await this.closeForm(ctx);
 	}
 
 	@Action(CustomerActions.UpdateItem)
 	public override async updateItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateItem): Promise<void> {
 		await super.updateItem(ctx, action);
+		await this.closeForm(ctx);
 	}
 
 	@Action(CustomerActions.DeleteItem)
