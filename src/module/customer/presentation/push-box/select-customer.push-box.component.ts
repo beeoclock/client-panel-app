@@ -3,8 +3,10 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
+	EventEmitter,
 	inject,
 	OnInit,
+	Output,
 	QueryList,
 	ViewChild,
 	ViewEncapsulation
@@ -14,8 +16,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 import {TranslateModule} from "@ngx-translate/core";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {Router, RouterLink} from "@angular/router";
-import {ModalButtonRoleEnum, ModalComponent} from "@utility/presentation/component/modal/modal.component";
+import {Router} from "@angular/router";
 import {NGXLogger} from "ngx-logger";
 import {firstValueFrom} from "rxjs";
 import {
@@ -25,7 +26,7 @@ import {CustomerExternalListComponent} from "@customer/presentation/component/ex
 import {ICustomer} from "@customer/domain";
 
 @Component({
-	selector: 'utility-modal-select-customer-component',
+	selector: 'customer-select-customer-push-box-component',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,14 +38,13 @@ import {ICustomer} from "@customer/domain";
 		CurrencyPipe,
 		HumanizeDurationPipe,
 		PrimaryButtonDirective,
-		RouterLink,
 		CustomerExternalListComponent
 	],
 	template: `
 		<customer-external-list-component [mobileMode]="true"/>
 	`
 })
-export class ModalSelectCustomerComponent implements OnInit, AfterViewInit {
+export class SelectCustomerPushBoxComponent implements OnInit, AfterViewInit {
 
 	@ViewChild(CustomerExternalListComponent)
 	public CustomerExternalListComponent!: CustomerExternalListComponent;
@@ -57,7 +57,9 @@ export class ModalSelectCustomerComponent implements OnInit, AfterViewInit {
 	public newSelectedServiceList: ICustomer[] = [];
 
 	public multiple = true;
-	public modalInstance: ModalComponent | null = null;
+
+	@Output()
+	public readonly selectedCustomerListener = new EventEmitter<void>();
 
 	public ngOnInit(): void {
 
@@ -100,11 +102,7 @@ export class ModalSelectCustomerComponent implements OnInit, AfterViewInit {
 		}
 		this.newSelectedServiceList.push({...service});
 
-		if (!this.modalInstance) {
-			this.logger.error('modalInstance is not defined');
-			return;
-		}
-		this.modalInstance.executeCallback(ModalButtonRoleEnum.accept);
+		this.selectedCustomerListener.emit();
 		this.changeDetectorRef.detectChanges();
 	}
 
@@ -119,14 +117,5 @@ export class ModalSelectCustomerComponent implements OnInit, AfterViewInit {
 
 	public isNotSelected(service: ICustomer): boolean {
 		return !this.isSelected(service);
-	}
-
-	public goToServiceFormPage() {
-		if (!this.modalInstance) {
-			this.logger.error('modalInstance is not defined');
-			return;
-		}
-		this.modalInstance.closeModal();
-		this.router.navigate(['/', 'service', 'form']).then();
 	}
 }
