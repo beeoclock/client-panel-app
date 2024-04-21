@@ -23,6 +23,8 @@ export namespace CustomerActions {
 	}
 
 	export class OpenForm extends BaseActions.OpenForm<{
+		title?: string;
+		showLoading?: boolean;
 		isEditMode?: boolean;
 		item?: ICustomer;
 	}> {

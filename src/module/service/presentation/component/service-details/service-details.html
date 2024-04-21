@@ -1,81 +1,73 @@
 <ng-container *ngIf="item as service">
 	<div class="bg-white">
-		<div class="p-4">
-			<h3 class="text-base font-semibold leading-7 text-gray-900">
-				{{ 'service.details.title' | translate }}
-			</h3>
-			<!--			<p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p>-->
-		</div>
-		<div class="border-t border-gray-100">
-			<dl class="divide-y divide-gray-100">
+		<dl class="divide-y divide-gray-100">
 
-				<div *ngIf="(service.presentation?.banners ?? []).length > 0" class="px-4 py-6 sm:gap-4 flex flex-wrap">
-					<div
-						*ngFor="let banner of service.presentation?.banners"
-						class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-beeColor-400">
-						<img
-							*ngIf="banner"
-							[src]="banner.url"
-							class="object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
-							alt="Uploaded Image"/>
+			<div *ngIf="(service.presentation?.banners ?? []).length > 0" class="px-4 py-6 sm:gap-4 flex flex-wrap">
+				<div
+					*ngFor="let banner of service.presentation?.banners"
+					class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-beeColor-400">
+					<img
+						*ngIf="banner"
+						[src]="banner.url"
+						class="object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
+						alt="Uploaded Image"/>
+				</div>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.title' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ service.languageVersions[0].title }}
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.description' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ service.languageVersions[0].description }}
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.order' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ service.order }}
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.status' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
+					<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
+							 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="service.active">
 					</div>
-				</div>
-				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
-					<dt class="text-sm font-medium leading-6 text-gray-900">
-						{{ 'keyword.capitalize.title' | translate }}
-					</dt>
-					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-						{{ service.languageVersions[0].title }}
-					</dd>
-				</div>
-				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
-					<dt class="text-sm font-medium leading-6 text-gray-900">
-						{{ 'keyword.capitalize.description' | translate }}
-					</dt>
-					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-						{{ service.languageVersions[0].description }}
-					</dd>
-				</div>
-				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
-					<dt class="text-sm font-medium leading-6 text-gray-900">
-						{{ 'keyword.capitalize.order' | translate }}
-					</dt>
-					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-						{{ service.order }}
-					</dd>
-				</div>
-				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
-					<dt class="text-sm font-medium leading-6 text-gray-900">
-						{{ 'keyword.capitalize.status' | translate }}
-					</dt>
-					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
-						<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
-								 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="service.active">
-						</div>
-					</dd>
-				</div>
-				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
-					<dt class="text-sm font-medium leading-6 text-gray-900">
-						{{ 'keyword.capitalize.price' | translate }}
-					</dt>
-					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
-						<div class="flex flex-col items-start"
-								 [innerHTML]="durationVersionHtmlHelper.getPriceValue(service)">
-						</div>
-					</dd>
-				</div>
-				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
-					<dt class="text-sm font-medium leading-6 text-gray-900">
-						{{ 'keyword.capitalize.duration' | translate }}
-					</dt>
-					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
-						<div class="flex flex-col items-start"
-								 [innerHTML]="durationVersionHtmlHelper.getDurationValue(service)">
-						</div>
-					</dd>
-				</div>
-			</dl>
-		</div>
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.price' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
+					<div class="flex flex-col items-start"
+							 [innerHTML]="durationVersionHtmlHelper.getPriceValue(service)">
+					</div>
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.duration' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
+					<div class="flex flex-col items-start"
+							 [innerHTML]="durationVersionHtmlHelper.getDurationValue(service)">
+					</div>
+				</dd>
+			</div>
+		</dl>
 	</div>
 
 	<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4 mb-[100px]">

@@ -24,6 +24,8 @@ export namespace ServiceActions {
 	}
 
 	export class OpenForm extends BaseActions.OpenForm<{
+		title?: string;
+		showLoading?: boolean;
 		isEditMode?: boolean;
 		item?: IService;
 	}>{

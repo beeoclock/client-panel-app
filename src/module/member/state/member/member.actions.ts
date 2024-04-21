@@ -23,6 +23,8 @@ export namespace MemberActions {
 	}
 
 	export class OpenForm extends BaseActions.OpenForm<{
+		title?: string;
+		showLoading?: boolean;
 		item?: RIMember;
 		isEditMode?: boolean;
 	}>{

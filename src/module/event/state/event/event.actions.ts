@@ -24,10 +24,12 @@ export namespace EventActions {
 	}
 
 	export class OpenForm extends BaseActions.OpenForm<{
+		title?: string;
 		event?: IEvent;
 		datetimeISO?: string;
 		callback?: () => void;
 		member?: Member.RIMember;
+		showLoading?: boolean;
 	}>{
 		public static override readonly type = '[Event Application] Open Form';
 	}

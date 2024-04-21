@@ -268,6 +268,10 @@
 				"note": {
 					"placeholder": "Tutaj możesz wprowadzić dodatkowe informacje o kliencie"
 				}
+			},
+			"title": {
+				"create": "Dodawanie klienta",
+				"edit": "Edytowanie klienta"
 			}
 		},
 		"title": "Klient"
@@ -314,6 +318,9 @@
 		}
 	},
 	"event": {
+		"details": {
+			"title": "Szczegółowy widok wydarzenia"
+		},
 		"form": {
 			"section": {
 				"additional": {
@@ -354,6 +361,10 @@
 						"title": "Wybór usług"
 					}
 				}
+			},
+			"title": {
+				"create": "Dodawanie nowego zdarzenia",
+				"edit": "Edycja wydarzenia"
 			}
 		},
 		"keyword": {
@@ -940,6 +951,12 @@
 		"details": {
 			"title": "Informacje o pracowniku"
 		},
+		"form": {
+			"title": {
+				"create": "Dodaj członka zespołu",
+				"edit": "Edycja członka zespołu"
+			}
+		},
 		"title": "Członek"
 	},
 	"page": {
@@ -977,6 +994,10 @@
 				"input": {
 					"placeholder": "Określ pozycję tej usługi na liście na stronie publicznej"
 				}
+			},
+			"title": {
+				"create": "Dodawanie usługi",
+				"edit": "Edytowanie usługi"
 			},
 			"v2": {
 				"section": {

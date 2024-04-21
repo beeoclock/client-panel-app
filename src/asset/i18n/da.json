@@ -268,6 +268,10 @@
 				"note": {
 					"placeholder": "Her kan du indtaste yderligere information om kunden"
 				}
+			},
+			"title": {
+				"create": "Tilføjelse af en kunde",
+				"edit": "Redigering af en kunde"
 			}
 		},
 		"title": "Kunde"
@@ -314,6 +318,9 @@
 		}
 	},
 	"event": {
+		"details": {
+			"title": "Detaljeret visning af begivenheden"
+		},
 		"form": {
 			"section": {
 				"additional": {
@@ -354,6 +361,10 @@
 						"title": "Vælg tjeneste"
 					}
 				}
+			},
+			"title": {
+				"create": "Tilføjelse af en ny begivenhed",
+				"edit": "Udgave af begivenheden"
 			}
 		},
 		"keyword": {
@@ -940,6 +951,12 @@
 		"details": {
 			"title": "Oplysninger om en medarbejder"
 		},
+		"form": {
+			"title": {
+				"create": "Tilføj et teammedlem",
+				"edit": "Rediger et teammedlem"
+			}
+		},
 		"title": "Medlem"
 	},
 	"page": {
@@ -977,6 +994,10 @@
 				"input": {
 					"placeholder": "Angiv placeringen af denne tjeneste på listen på den offentlige hjemmeside"
 				}
+			},
+			"title": {
+				"create": "Tilføjelse af en tjeneste",
+				"edit": "Redigering af en tjeneste"
 			},
 			"v2": {
 				"section": {

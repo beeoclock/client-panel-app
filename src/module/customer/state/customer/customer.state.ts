@@ -11,6 +11,7 @@ import {RemoveCustomerApiAdapter} from "@customer/adapter/external/api/remove.cu
 import {ListCustomerApiAdapter} from "@customer/adapter/external/api/list.customer.api.adapter";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {UnarchiveCustomerApiAdapter} from "@customer/adapter/external/api/unarchive.customer.api.adapter";
+import {TranslateService} from "@ngx-translate/core";
 
 export type ICustomerState = IBaseState<Customer.ICustomer>;
 
@@ -34,6 +35,8 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 	protected override readonly item = inject(ItemCustomerApiAdapter);
 	protected override readonly remove = inject(RemoveCustomerApiAdapter);
 	protected override readonly list = inject(ListCustomerApiAdapter);
+
+	private readonly translateService = inject(TranslateService);
 
 	constructor() {
 		super(
@@ -64,15 +67,20 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 	@Action(CustomerActions.OpenDetailsById)
 	public async openDetailsById(ctx: StateContext<ICustomerState>, action: CustomerActions.OpenDetailsById) {
 
+		const title = await this.translateService.instant('customer.details.title');
+
 		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
 
 		await this.pushBoxService.buildItAsync({
+			title,
+			showLoading: true,
 			component: CustomerDetailsContainerComponent,
 		});
 
 		const item = await this.item.executeAsync(action.payload);
 
 		await this.pushBoxService.buildItAsync({
+			title,
 			component: CustomerDetailsContainerComponent,
 			componentInputs: {item},
 		});
@@ -82,12 +90,20 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 	@Action(CustomerActions.OpenFormToEditById)
 	public async openFormToEditById(ctx: StateContext<ICustomerState>, action: CustomerActions.OpenFormToEditById) {
 
-		await this.openForm(ctx, {});
+		const title = await this.translateService.instant('customer.form.title.edit');
+
+		await this.openForm(ctx, {
+			payload: {
+				title,
+				showLoading: true,
+			}
+		});
 
 		const item = await this.item.executeAsync(action.payload);
 
 		await this.openForm(ctx, {
 			payload: {
+				title,
 				item,
 				isEditMode: true
 			}
@@ -100,9 +116,13 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 		const {CustomerFormContainerComponent} = await import("@customer/presentation/component/form/customer-form-container.component");
 
+		const {showLoading, title, ...componentInputs} = payload ?? {};
+
 		await this.pushBoxService.buildItAsync({
+			showLoading,
 			component: CustomerFormContainerComponent,
-			componentInputs: payload,
+			componentInputs,
+			title: title ?? this.translateService.instant('customer.form.title.create'),
 		});
 
 	}

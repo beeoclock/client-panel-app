@@ -89,7 +89,7 @@ export class PushBoxComponent extends Reactive implements OnInit {
 		return !!lastComponent;
 	}
 
-	public buildComponentAndRender({component, componentInputs, title}: PushBoxBuildItArgsType) {
+	public buildComponentAndRender({component, componentInputs, title, showLoading}: PushBoxBuildItArgsType) {
 
 		if (this.pushBoxService.componentRefMap.has(component.name)) {
 			this.ngxLogger.debug('PushBoxComponent.observe$ componentRefMap.has', component.name);
@@ -102,6 +102,7 @@ export class PushBoxComponent extends Reactive implements OnInit {
 			index: 0
 		});
 		pushBoxWrapperComponentRef.setInput('title', title);
+		pushBoxWrapperComponentRef.setInput('showLoading', showLoading ?? false);
 		pushBoxWrapperComponentRef.setInput('destroySelf', () => {
 			this.destroyComponent(component);
 		});

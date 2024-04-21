@@ -27,9 +27,6 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 	template: `
 
 		<div class="p-4 flex justify-between">
-			<h3 class="text-base font-semibold leading-7 text-gray-900">
-				{{ 'keyword.capitalize.details' | translate }}
-			</h3>
 			<div *ngIf="isNotPreview" eventStatusStyle [status]="event.status"></div>
 			<div
 				*ngIf="isPreview"
