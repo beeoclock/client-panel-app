@@ -49,7 +49,7 @@ import {ICustomer} from "@customer/domain";
 		</ng-container>
 
 		<ng-template #FromTemplate>
-			<div class="grid md:grid-cols-2 gap-4">
+			<div class="grid gap-4">
 
 				<form-input
 					inputType="text"

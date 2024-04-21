@@ -2,9 +2,6 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Input, On
 import {NgForOf, NgIf} from '@angular/common';
 import {NgSelectComponent, NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {
-	ModalMembersFormComponent
-} from "@service/presentation/component/form/v1/members/modal.employees.form.component";
 import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.list.customer.adapter";
 import {ICustomer} from "@customer/domain";
 import {initials} from "@utility/domain/initials";
@@ -20,7 +17,6 @@ import {CustomerForm} from "@customer/presentation/form";
 		NgSelectModule,
 		ReactiveFormsModule,
 		NgIf,
-		ModalMembersFormComponent,
 		TranslateModule
 	],
 	template: `

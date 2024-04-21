@@ -39,16 +39,16 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 		</div>
 		<div class="border-t border-gray-100">
 			<dl class="divide-y divide-gray-100">
-				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<div class="px-4 py-6">
 					<dt class="text-sm font-medium leading-6 text-gray-900">
 						{{ 'keyword.capitalize.service' | translate }}
 					</dt>
-					<dd class="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+					<dd class="mt-2 text-sm text-gray-900 ">
 						<ul role="list" class="divide-y divide-gray-100 rounded-md border border-gray-200">
 							<li class="flex">
 								<img
 									[src]="event.services[0].presentation?.banners?.[0]?.url ?? ''"
-									class="object-cover bg-beeColor-200 rounded-l-md w-14 md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
+									class="object-cover bg-beeColor-200 rounded-l-md w-14"
 									alt=""/>
 								<div class="flex flex-col justify-center text-sm leading-6 p-4">
 									<strong>{{ event.services[0].languageVersions[0].title }}</strong>
@@ -68,11 +68,11 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 						</ul>
 					</dd>
 				</div>
-				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<div class="px-4 py-6">
 					<dt class="text-sm font-medium leading-6 text-gray-900">
 						{{ 'keyword.capitalize.clients' | translate }}
 					</dt>
-					<dd class="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+					<dd class="mt-2 text-sm text-gray-900">
 						<ul role="list" class="divide-y divide-gray-100 rounded-md border border-gray-200">
 							<ng-container *ngFor="let attendant of event.attendees; let index = index;">
 								<li
@@ -92,11 +92,11 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 						</ul>
 					</dd>
 				</div>
-				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<div class="px-4 py-6">
 					<dt class="text-sm font-medium leading-6 text-gray-900">
 						{{ 'keyword.capitalize.specialist' | translate }}
 					</dt>
-					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center gap-2">
+					<dd class="mt-1 text-sm leading-6 text-gray-700 flex items-center gap-2">
 						<div
 							class="rounded-full bg-beeColor-400 min-h-8 min-w-8 flex justify-center items-center font-bold text-white">
 							{{ firstName[0] }}{{ lastName[0] }}
@@ -104,25 +104,25 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 						{{ firstName }} {{ lastName }}
 					</dd>
 				</div>
-				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<div class="px-4 py-6 ">
 					<dt class="text-sm font-medium leading-6 text-gray-900">
 						{{ 'keyword.capitalize.dateAndTime' | translate }}
 					</dt>
-					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					<dd class="mt-1 text-sm leading-6 text-gray-700">
 						{{ event.start | dynamicDate: 'medium' }}
 					</dd>
 				</div>
-				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<div class="px-4 py-6 ">
 					<dt class="text-sm font-medium leading-6 text-gray-900">
 						{{ 'keyword.capitalize.note' | translate }}
 					</dt>
 					<dd
-						class="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0"
+						class="mt-1 text-sm leading-6"
 						[ngClass]="{
 							'text-beeColor-500 italic': !thereIsDescription,
 							'text-gray-700': thereIsDescription
 						}">
-						{{ thereIsDescription ? event.description : ('keyword.capitalize.noData' | translate) }}
+						{{ thereIsDescription ? event.note : ('keyword.capitalize.noData' | translate) }}
 					</dd>
 				</div>
 			</dl>
@@ -156,7 +156,7 @@ export class GeneralDetailsComponent {
 	}
 
 	public get thereIsDescription(): boolean {
-		return !!this.event?.description?.length;
+		return !!this.event?.note?.length;
 	}
 
 }

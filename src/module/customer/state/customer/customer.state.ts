@@ -41,6 +41,74 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 		);
 	}
 
+	// Application layer
+
+	@Action(CustomerActions.CloseForm)
+	public async closeForm(ctx: StateContext<ICustomerState>) {
+
+		const {CustomerFormContainerComponent} = await import("@customer/presentation/component/form/customer-form-container.component");
+
+		this.pushBoxService.destroy$.next(CustomerFormContainerComponent);
+
+	}
+
+	@Action(CustomerActions.CloseDetails)
+	public async closeDetails(ctx: StateContext<ICustomerState>) {
+
+		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
+
+		this.pushBoxService.destroy$.next(CustomerDetailsContainerComponent);
+
+	}
+
+	@Action(CustomerActions.OpenDetailsById)
+	public async openDetailsById(ctx: StateContext<ICustomerState>, action: CustomerActions.OpenDetailsById) {
+
+		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
+
+		await this.pushBoxService.buildItAsync({
+			component: CustomerDetailsContainerComponent,
+		});
+
+		const item = await this.item.executeAsync(action.payload);
+
+		await this.pushBoxService.buildItAsync({
+			component: CustomerDetailsContainerComponent,
+			componentInputs: {item},
+		});
+
+	}
+
+	@Action(CustomerActions.OpenFormToEditById)
+	public async openFormToEditById(ctx: StateContext<ICustomerState>, action: CustomerActions.OpenFormToEditById) {
+
+		await this.openForm(ctx, {});
+
+		const item = await this.item.executeAsync(action.payload);
+
+		await this.openForm(ctx, {
+			payload: {
+				item,
+				isEditMode: true
+			}
+		});
+
+	}
+
+	@Action(CustomerActions.OpenForm)
+	public async openForm(ctx: StateContext<ICustomerState>, {payload}: CustomerActions.OpenForm): Promise<void> {
+
+		const {CustomerFormContainerComponent} = await import("@customer/presentation/component/form/customer-form-container.component");
+
+		await this.pushBoxService.buildItAsync({
+			component: CustomerFormContainerComponent,
+			componentInputs: payload,
+		});
+
+	}
+
+	// API
+
 	@Action(CustomerActions.Init)
 	public override async init(ctx: StateContext<ICustomerState>): Promise<void> {
 		await super.init(ctx);
@@ -64,11 +132,13 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 	@Action(CustomerActions.CreateItem)
 	public override async createItem(ctx: StateContext<ICustomerState>, action: CustomerActions.CreateItem): Promise<void> {
 		await super.createItem(ctx, action);
+		await this.closeForm(ctx);
 	}
 
 	@Action(CustomerActions.UpdateItem)
 	public override async updateItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateItem): Promise<void> {
 		await super.updateItem(ctx, action);
+		await this.closeForm(ctx);
 	}
 
 	@Action(CustomerActions.DeleteItem)

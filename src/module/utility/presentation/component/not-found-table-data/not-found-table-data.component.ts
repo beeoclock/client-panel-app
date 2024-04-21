@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {NgIf, NgOptimizedImage} from "@angular/common";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {RouterLink} from "@angular/router";
@@ -22,7 +22,7 @@ import {TranslateModule} from "@ngx-translate/core";
 					{{ label }}
 				</div>
 				<ng-template [ngIf]="showLinkToForm">
-					<button type="button" primary [routerLink]="linkToForm">
+					<button type="button" primary (click)="clickListener.emit($event)">
 						<i class="bi bi-plus-lg"></i>
 						{{ linkLabel }}
 					</button>
@@ -41,9 +41,9 @@ export class NotFoundTableDataComponent {
 	public showLinkToForm = false;
 
 	@Input()
-	public linkToForm = 'form';
-
-	@Input()
 	public linkLabel = 'TODO';
+
+	@Output()
+	public readonly clickListener = new EventEmitter<MouseEvent>();
 
 }

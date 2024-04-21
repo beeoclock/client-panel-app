@@ -5,7 +5,6 @@ import {FilterForm} from "@customer/presentation/form/filter.form";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {TranslateModule} from "@ngx-translate/core";
-import {RouterLink} from "@angular/router";
 import {IonSelectActiveComponent} from "@utility/presentation/component/input/ion/ion-select-active.component";
 import {CustomerState} from "@customer/state/customer/customer.state";
 import {BaseFilterComponent} from "@utility/base.filter.component";
@@ -24,7 +23,6 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		SearchInputComponent,
 		PrimaryButtonDirective,
 		TranslateModule,
-		RouterLink,
 		IonSelectActiveComponent,
 		DefaultPanelComponent,
 		IonSelectEventStatusComponent,
@@ -68,7 +66,7 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>
-			<button *ngIf="showButtonGoToForm" type="button" primary routerLink="../form">
+			<button *ngIf="showButtonGoToForm" type="button" primary (click)="openForm()">
 				<i class="bi bi-plus-lg"></i>
 				<span class="hidden xl:block">
 					{{ 'customer.button.create' | translate }}
@@ -89,5 +87,9 @@ export class FilterComponent extends BaseFilterComponent {
 	constructor() {
 		super();
 		super.initHandlers();
+	}
+
+	public openForm() {
+		this.store.dispatch(new CustomerActions.OpenForm());
 	}
 }

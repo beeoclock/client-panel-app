@@ -9,7 +9,7 @@
 	<ng-container *ngFor="let group of groupedSlots; let index = index;">
 		<div *ngIf="group.slots.length">
 			<div class="text-beeColor-500">{{ ('keyword.capitalize.periodOfDay.' + group.periodOfDay) | translate }}</div>
-			<div #timeSlotsContainer class="grid grid-cols-4 md:grid-cols-6 gap-2 w-full">
+			<div #timeSlotsContainer class="grid grid-cols-4 gap-2 w-full">
 				<ng-container *ngIf="group.slots.length">
 					<button
 						type="button"

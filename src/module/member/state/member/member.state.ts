@@ -41,6 +41,76 @@ export class MemberState extends BaseState<Member.RIMember> {
 		);
 	}
 
+	// Application layer
+
+	@Action(MemberActions.CloseForm)
+	public async closeForm(ctx: StateContext<IMemberState>) {
+
+		const {MemberFormContainerComponent} = await import("@member/presentation/component/form/member-form-container/member-form-container.component");
+
+		this.pushBoxService.destroy$.next(MemberFormContainerComponent);
+
+	}
+
+	@Action(MemberActions.CloseDetails)
+	public async closeDetails(ctx: StateContext<IMemberState>) {
+
+		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
+
+		this.pushBoxService.destroy$.next(MemberDetailsContainerComponent);
+
+	}
+
+	@Action(MemberActions.OpenDetailsById)
+	public async openDetailsById(ctx: StateContext<IMemberState>, action: MemberActions.OpenDetailsById) {
+
+		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
+
+		await this.pushBoxService.buildItAsync({
+			component: MemberDetailsContainerComponent,
+		});
+
+		const item = await this.item.executeAsync(action.payload);
+
+		await this.pushBoxService.buildItAsync({
+			component: MemberDetailsContainerComponent,
+			componentInputs: {
+				item
+			},
+		});
+
+	}
+
+	@Action(MemberActions.OpenFormToEditById)
+	public async openFormToEditById(ctx: StateContext<IMemberState>, action: MemberActions.OpenFormToEditById) {
+
+		await this.openForm(ctx, {});
+
+		const item = await this.item.executeAsync(action.payload);
+
+		await this.openForm(ctx, {
+			payload: {
+				item,
+				isEditMode: true
+			}
+		});
+
+	}
+
+	@Action(MemberActions.OpenForm)
+	public async openForm(ctx: StateContext<IMemberState>, {payload}: MemberActions.OpenForm): Promise<void> {
+
+		const {MemberFormContainerComponent} = await import("@member/presentation/component/form/member-form-container/member-form-container.component");
+
+		await this.pushBoxService.buildItAsync({
+			component: MemberFormContainerComponent,
+			componentInputs: payload,
+		});
+
+	}
+
+	// API
+
 	@Action(MemberActions.Init)
 	public override async init(ctx: StateContext<IMemberState>): Promise<void> {
 		await super.init(ctx);
@@ -69,11 +139,13 @@ export class MemberState extends BaseState<Member.RIMember> {
 	@Action(MemberActions.CreateItem)
 	public override async createItem(ctx: StateContext<IMemberState>, action: MemberActions.CreateItem): Promise<void> {
 		await super.createItem(ctx, action);
+		await this.closeForm(ctx);
 	}
 
 	@Action(MemberActions.UpdateItem)
 	public override async updateItem(ctx: StateContext<IMemberState>, action: MemberActions.UpdateItem): Promise<void> {
 		await super.updateItem(ctx, action);
+		await this.closeForm(ctx);
 	}
 
 	@Action(MemberActions.GetList)

@@ -118,7 +118,10 @@ export class DateSliderSelectComponent extends Reactive implements OnInit, After
 
 	public detectAmountOfDaySlots(): void {
 		// Detect amount of day slots
-		this.amountOfDaySlotsInContainer = Math.floor(this.daySlotsContainer.nativeElement.clientWidth / (60 + 8));
+		const {clientWidth} = this.daySlotsContainer.nativeElement;
+		const dayWidth = 60;
+		const dayMargin = 16;
+		this.amountOfDaySlotsInContainer = Math.floor(clientWidth / (dayWidth + dayMargin));
 	}
 
 	public prevPackOfDates(): void {

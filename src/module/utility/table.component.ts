@@ -52,22 +52,13 @@ export abstract class TableComponent<ITEM extends RIBaseEntity<string>> implemen
 	private initUserTapOnTheCardHandler(): void {
 		this.singleClickEmitter.subscribe((item) => {
 			if (this.goToDetailsOnSingleClick) {
-				this.goToDetail(item._id);
+				this.open(item._id);
 			}
 		});
 	}
 
 	public trackById(index: number, item: ITEM): string {
 		return item._id;
-	}
-
-	public goToDetail(id: string): void {
-		this.router.navigate(['../', id], {
-			relativeTo: this.activatedRoute,
-			queryParams: {
-				returnUrl: this.router.url
-			}
-		}).then();
 	}
 
 	@debounce(300)
@@ -77,7 +68,7 @@ export abstract class TableComponent<ITEM extends RIBaseEntity<string>> implemen
 
 	@DoubleClick
 	public doubleClick(id: string): void {
-		this.goToDetail(id);
+		this.open(id);
 	}
 
 	public updateOrderBy(target: HTMLTableCellElement): void {
@@ -102,6 +93,10 @@ export abstract class TableComponent<ITEM extends RIBaseEntity<string>> implemen
 		}))).then(() => {
 			this.store.dispatch(new this.actions.GetList());
 		});
+	}
+
+	public open(id: string): void {
+		throw new Error('Method not implemented.');
 	}
 
 	private initOrderByAndOrderDirHandler(): void {

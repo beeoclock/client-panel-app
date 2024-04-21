@@ -4,46 +4,73 @@ import {ICustomer} from "@customer/domain";
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace CustomerActions {
 
-  export class Init extends BaseActions.Init {
-    public static override readonly type = '[Customer State] Init';
-  }
+	// Application layer
 
-  export class GetList extends BaseActions.GetList {
-    public static override readonly type = '[Customer API] Get List';
-  }
+	export class CloseDetails extends BaseActions.CloseDetails {
+		public static override readonly type = '[Customer Application] Close Details';
+	}
 
-  export class DeleteItem extends BaseActions.DeleteItem {
-    public static override readonly type = '[Customer API] Delete Item';
-  }
+	export class CloseForm extends BaseActions.CloseForm {
+		public static override readonly type = '[Customer Application] Close Form';
+	}
 
-  export class GetItem extends BaseActions.GetItem {
-    public static override readonly type = '[Customer API] Get Item';
-  }
+	export class OpenDetailsById extends BaseActions.OpenDetailsById {
+		public static override readonly type = '[Customer Application] Open Details By Id';
+	}
 
-  export class CreateItem extends BaseActions.CreateItem<ICustomer> {
-    public static override readonly type = '[Customer API] Create Item';
-  }
+	export class OpenFormToEditById extends BaseActions.OpenFormToEditById {
+		public static override readonly type = '[Customer Application] Open Form To Edit By Id';
+	}
 
-  export class UpdateItem extends BaseActions.UpdateItem<ICustomer> {
-    public static override readonly type = '[Customer API] Update Item';
-  }
+	export class OpenForm extends BaseActions.OpenForm<{
+		isEditMode?: boolean;
+		item?: ICustomer;
+	}> {
+		public static override readonly type = '[Customer Application] Open Form';
+	}
 
-  export class ArchiveItem extends BaseActions.ArchiveItem {
-    public static override readonly type = '[Customer API] Archive Item';
-  }
+	// API
 
-  export class UnarchiveItem extends BaseActions.UnarchiveItem {
-    public static override readonly type = '[Customer API] Unarchive Item';
-  }
+	export class Init extends BaseActions.Init {
+		public static override readonly type = '[Customer State] Init';
+	}
 
-  // Updates of state
+	export class GetList extends BaseActions.GetList {
+		public static override readonly type = '[Customer API] Get List';
+	}
 
-  export class UpdateFilters extends BaseActions.UpdateFilters {
-    public static override readonly type = '[Customer State] Update Filters';
-  }
+	export class DeleteItem extends BaseActions.DeleteItem {
+		public static override readonly type = '[Customer API] Delete Item';
+	}
 
-  export class UpdateTableState extends BaseActions.UpdateTableState<ICustomer> {
-    public static override readonly type = '[Customer State] Update Table State';
-  }
+	export class GetItem extends BaseActions.GetItem {
+		public static override readonly type = '[Customer API] Get Item';
+	}
+
+	export class CreateItem extends BaseActions.CreateItem<ICustomer> {
+		public static override readonly type = '[Customer API] Create Item';
+	}
+
+	export class UpdateItem extends BaseActions.UpdateItem<ICustomer> {
+		public static override readonly type = '[Customer API] Update Item';
+	}
+
+	export class ArchiveItem extends BaseActions.ArchiveItem {
+		public static override readonly type = '[Customer API] Archive Item';
+	}
+
+	export class UnarchiveItem extends BaseActions.UnarchiveItem {
+		public static override readonly type = '[Customer API] Unarchive Item';
+	}
+
+	// Updates of state
+
+	export class UpdateFilters extends BaseActions.UpdateFilters {
+		public static override readonly type = '[Customer State] Update Filters';
+	}
+
+	export class UpdateTableState extends BaseActions.UpdateTableState<ICustomer> {
+		public static override readonly type = '[Customer State] Update Table State';
+	}
 
 }

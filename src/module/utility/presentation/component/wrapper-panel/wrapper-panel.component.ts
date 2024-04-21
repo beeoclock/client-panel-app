@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, OnDestroy, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, HostBinding, inject, OnDestroy, ViewEncapsulation} from '@angular/core';
 import {SidebarComponent} from '@utility/presentation/component/sidebar/sidebar.component';
 import {NavbarComponent} from '@utility/presentation/component/navbar/navbar.component';
 import {FooterComponent} from '@utility/presentation/component/footer/footer.component';
@@ -26,6 +26,7 @@ import {
 } from "@module/account/adapter/external/api/get.frontend-settings.account.api.adapter";
 import {ThemeService} from "@utility/cdk/theme.service";
 import {TranslateService} from "@ngx-translate/core";
+import {PushBoxComponent} from "@utility/presentation/component/push-box/push-box.component";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -36,12 +37,14 @@ import {TranslateService} from "@ngx-translate/core";
 			<utility-navbar-component/>
 			<utility-sidebar-component/>
 
-			<div [id]="mainContainerId" class="h-dvh overflow-y-auto sm:ml-64 md:ml-80 transition-all">
+			<div [id]="mainContainerId" class="w-full h-dvh overflow-y-auto sm:ml-64 md:ml-80 transition-all">
 				<utility-page-loading-progress-bar/>
 				<router-outlet/>
 			</div>
 
 		</ng-container>
+
+		<utility-push-box/>
 
 	`,
 	imports: [
@@ -52,17 +55,16 @@ import {TranslateService} from "@ngx-translate/core";
 		ModalComponent,
 		PageLoadingProgressBarComponent,
 		NgIf,
-		AsyncPipe
+		AsyncPipe,
+		PushBoxComponent
 	],
 	encapsulation: ViewEncapsulation.None
 })
 export default class WrapperPanelComponent implements AfterViewInit, OnDestroy {
 
 	public readonly mainContainerId = inject(MAIN_CONTAINER_ID);
-	public readonly getFrontendSettingsAccountApiAdapter = inject(GetFrontendSettingsAccountApiAdapter);
 	private readonly document = inject(DOCUMENT);
-	private checkerTimer: undefined | NodeJS.Timeout;
-	private isUserOnWebSite = true;
+	public readonly getFrontendSettingsAccountApiAdapter = inject(GetFrontendSettingsAccountApiAdapter);
 	private readonly store = inject(Store);
 	private readonly logger = inject(NGXLogger);
 	private readonly themeService = inject(ThemeService);
@@ -70,6 +72,12 @@ export default class WrapperPanelComponent implements AfterViewInit, OnDestroy {
 
 	@Select(IdentityState.token)
 	public readonly token$!: Observable<IdTokenResult | undefined>;
+
+	@HostBinding()
+	public class = 'flex';
+
+	private checkerTimer: undefined | NodeJS.Timeout;
+	private isUserOnWebSite = true;
 
 	constructor() {
 		this.initNotificationChecker();
