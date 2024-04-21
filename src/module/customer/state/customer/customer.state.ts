@@ -66,15 +66,15 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
 
-		this.pushBoxService.observe$.next({
+		await this.pushBoxService.buildItAsync({
 			component: CustomerDetailsContainerComponent,
 		});
 
 		const item = await this.item.executeAsync(action.payload);
 
-		this.pushBoxService.observe$.next({
+		await this.pushBoxService.buildItAsync({
 			component: CustomerDetailsContainerComponent,
-			inputs: {item},
+			componentInputs: {item},
 		});
 
 	}
@@ -100,9 +100,9 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 		const {CustomerFormContainerComponent} = await import("@customer/presentation/component/form/customer-form-container.component");
 
-		this.pushBoxService.observe$.next({
+		await this.pushBoxService.buildItAsync({
 			component: CustomerFormContainerComponent,
-			inputs: payload,
+			componentInputs: payload,
 		});
 
 	}

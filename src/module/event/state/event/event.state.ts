@@ -83,15 +83,15 @@ export class EventState extends BaseState<Event.IEvent> {
 
 		const {ContainerDetailsComponent} = await import("@event/presentation/component/details/container.details.component");
 
-		this.pushBoxService.observe$.next({
+		await this.pushBoxService.buildItAsync({
 			component: ContainerDetailsComponent,
 		});
 
 		const event = await this.item.executeAsync(action.payload);
 
-		this.pushBoxService.observe$.next({
+		await this.pushBoxService.buildItAsync({
 			component: ContainerDetailsComponent,
-			inputs: {event},
+			componentInputs: {event},
 		});
 
 	}
@@ -118,9 +118,9 @@ export class EventState extends BaseState<Event.IEvent> {
 
 		const {event, datetimeISO, callback, member} = payload ?? {};
 
-		this.pushBoxService.observe$.next({
+		await this.pushBoxService.buildItAsync({
 			component: ContainerFormComponent,
-			inputs: {
+			componentInputs: {
 				event,
 				forceStart: datetimeISO,
 				isEditMode: !!event,

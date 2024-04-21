@@ -66,15 +66,15 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
 
-		this.pushBoxService.observe$.next({
+		await this.pushBoxService.buildItAsync({
 			component: MemberDetailsContainerComponent,
 		});
 
 		const item = await this.item.executeAsync(action.payload);
 
-		this.pushBoxService.observe$.next({
+		await this.pushBoxService.buildItAsync({
 			component: MemberDetailsContainerComponent,
-			inputs: {
+			componentInputs: {
 				item
 			},
 		});
@@ -102,9 +102,9 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 		const {MemberFormContainerComponent} = await import("@member/presentation/component/form/member-form-container/member-form-container.component");
 
-		this.pushBoxService.observe$.next({
+		await this.pushBoxService.buildItAsync({
 			component: MemberFormContainerComponent,
-			inputs: payload,
+			componentInputs: payload,
 		});
 
 	}

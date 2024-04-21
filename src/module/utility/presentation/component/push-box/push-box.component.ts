@@ -1,24 +1,22 @@
 import {
-	AfterViewInit,
 	ChangeDetectorRef,
 	Component,
-	ComponentRef,
 	ElementRef,
 	HostBinding,
 	HostListener,
 	inject,
 	Input,
-	Type,
+	OnInit,
 	ViewChild,
 	ViewContainerRef
 } from "@angular/core";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {Reactive} from "@utility/cdk/reactive";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateModule} from "@ngx-translate/core";
 import {DebounceClickDirective} from "@utility/presentation/directives/debounce/debounce.directive";
 import {NGXLogger} from "ngx-logger";
-import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
+import {PushBoxBuildItArgsType, PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
 import {PushBoxWrapperComponent} from "@utility/presentation/component/push-box/push-box-wrapper.component";
 import {PushBoxContainerComponent} from "@utility/presentation/component/push-box/push-box.container.component";
 
@@ -40,7 +38,7 @@ import {PushBoxContainerComponent} from "@utility/presentation/component/push-bo
 		</utility-push-box-container>
 	`
 })
-export class PushBoxComponent extends Reactive implements AfterViewInit {
+export class PushBoxComponent extends Reactive implements OnInit {
 
 	@Input()
 	public id = 'push-box';
@@ -66,87 +64,62 @@ export class PushBoxComponent extends Reactive implements AfterViewInit {
 		}
 	}
 
-	public readonly componentRefMap = new Map<string, ComponentRef<PushBoxWrapperComponent>>();
-
 	private readonly ngxLogger = inject(NGXLogger);
-	private readonly translateService = inject(TranslateService);
 	private readonly pushBoxService = inject(PushBoxService);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly elementRef = inject(ElementRef);
 
-	public readonly buttons = [
-		{
-			text: this.translateService.instant('keyword.capitalize.cancel'),
-			value: false,
-			disabled: false,
-			enabledDebounceClick: false,
-		},
-		{
-			text: this.translateService.instant('keyword.capitalize.confirm'),
-			value: true,
-			disabled: false,
-			enabledDebounceClick: true,
-		}
-	];
-
-	public ngAfterViewInit(): void {
-
-		this.pushBoxService.observe$.subscribe(({component, inputs, title}) => {
-
-			if (this.componentRefMap.has(component.name)) {
-				this.ngxLogger.debug('PushBoxComponent.observe$ componentRefMap.has', component.name);
-				this.destroyComponent(component);
-			}
-
-			this.ngxLogger.debug('PushBoxComponent.observe$', component);
-
-			const componentRef = this.listOfComponents.createComponent(PushBoxWrapperComponent, {
-				index: 0
-			});
-			componentRef.setInput('title', title);
-			componentRef.setInput('destroySelf', () => {
-				this.destroyComponent(component);
-			});
-			componentRef.instance.renderComponent(component, inputs);
-			this.componentRefMap.set(component.name, componentRef);
-			this.changeDetectorRef.detectChanges();
-			this.showOrHideIfEmpty();
-
-		});
-
-		this.pushBoxService.destroy$.subscribe((componentType) => {
-
-			if (!this.componentRefMap.has(componentType.name)) {
-				this.ngxLogger.debug('PushBoxComponent.destroy$ !componentRefMap.has', componentType.name);
-				return;
-			}
-
-			this.ngxLogger.debug('PushBoxComponent.destroy$', componentType);
-
-			this.destroyComponent(componentType);
-
-		});
-
+	public ngOnInit() {
+		this.pushBoxService.registerContainer(this);
 	}
 
-	public destroyComponent(componentType: Type<unknown>): void {
-		const componentRef = this.componentRefMap.get(componentType.name);
+	public destroyComponent(componentType: PushBoxBuildItArgsType['component']): boolean {
+		const componentRef = this.pushBoxService.componentRefMap.get(componentType.name);
 		componentRef?.destroy();
-		this.componentRefMap.delete(componentType.name);
+		this.pushBoxService.componentRefMap.delete(componentType.name);
 		this.changeDetectorRef.detectChanges();
 		this.showOrHideIfEmpty();
+
+		return !!componentRef;
 	}
 
 	public showOrHideIfEmpty(): void {
-		this.hidden = !this.componentRefMap.size;
+		this.hidden = !this.pushBoxService.componentRefMap.size;
 	}
 
-	public removeLastComponent(): void {
-		const lastComponent = Array.from(this.componentRefMap.values()).pop();
+	public removeLastComponent(): boolean {
+		const lastComponent = Array.from(this.pushBoxService.componentRefMap.values()).pop();
 		if (!lastComponent || !lastComponent.instance.renderedComponent) {
-			return;
+			return false;
 		}
 		lastComponent && this.destroyComponent(lastComponent.instance.renderedComponent);
+
+		return !!lastComponent;
+	}
+
+	public buildComponentAndRender({component, componentInputs, title}: PushBoxBuildItArgsType) {
+
+		if (this.pushBoxService.componentRefMap.has(component.name)) {
+			this.ngxLogger.debug('PushBoxComponent.observe$ componentRefMap.has', component.name);
+			this.destroyComponent(component);
+		}
+
+		this.ngxLogger.debug('PushBoxComponent.observe$', component);
+
+		const pushBoxWrapperComponentRef = this.listOfComponents.createComponent(PushBoxWrapperComponent, {
+			index: 0
+		});
+		pushBoxWrapperComponentRef.setInput('title', title);
+		pushBoxWrapperComponentRef.setInput('destroySelf', () => {
+			this.destroyComponent(component);
+		});
+		pushBoxWrapperComponentRef.instance.renderComponent(component, componentInputs);
+		this.pushBoxService.componentRefMap.set(component.name, pushBoxWrapperComponentRef);
+		this.changeDetectorRef.detectChanges();
+		this.showOrHideIfEmpty();
+
+		return pushBoxWrapperComponentRef;
+
 	}
 
 	@HostListener('document:keydown.escape')

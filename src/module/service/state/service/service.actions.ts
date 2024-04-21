@@ -4,6 +4,7 @@ import {IService} from "@service/domain";
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace ServiceActions {
 
+
 	// Application layer
 
 	export class CloseDetails extends BaseActions.CloseDetails {

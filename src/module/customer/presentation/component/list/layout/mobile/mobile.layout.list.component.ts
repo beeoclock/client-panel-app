@@ -11,6 +11,7 @@ import {LayoutListComponent} from "@utility/layout.list.component";
 import {
 	AutoRefreshButtonComponent
 } from "@customer/presentation/component/button/auto-refresh/auto-refresh.button.component";
+import {CustomerActions} from "@customer/state/customer/customer.actions";
 
 @Component({
 	selector: 'customer-mobile-layout-list-component',
@@ -36,4 +37,9 @@ export class MobileLayoutListComponent extends LayoutListComponent<ICustomer> {
 	@ViewChildren(CardListComponent)
 	public cardListComponents!: QueryList<CardListComponent>;
 
+	public openForm(): void {
+		this.store.dispatch(new CustomerActions.OpenForm());
+	}
+
+	protected readonly open = open;
 }

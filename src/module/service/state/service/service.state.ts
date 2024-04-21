@@ -70,15 +70,15 @@ export class ServiceState extends BaseState<IService> {
 
 		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
 
-		this.pushBoxService.observe$.next({
+		await this.pushBoxService.buildItAsync({
 			component: ServiceDetails,
 		});
 
 		const item = await this.item.executeAsync(action.payload);
 
-		this.pushBoxService.observe$.next({
+		await this.pushBoxService.buildItAsync({
 			component: ServiceDetails,
-			inputs: {item},
+			componentInputs: {item},
 		});
 
 	}
@@ -104,9 +104,9 @@ export class ServiceState extends BaseState<IService> {
 
 		const {ServiceContainerFormComponent} = await import("@service/presentation/component/form/service-container–form/service-container–form.component");
 
-		this.pushBoxService.observe$.next({
+		await this.pushBoxService.buildItAsync({
 			component: ServiceContainerFormComponent,
-			inputs: payload,
+			componentInputs: payload,
 		});
 
 	}

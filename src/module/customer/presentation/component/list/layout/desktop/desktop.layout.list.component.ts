@@ -11,6 +11,7 @@ import {LayoutListComponent} from "@utility/layout.list.component";
 import {
 	AutoRefreshButtonComponent
 } from "@customer/presentation/component/button/auto-refresh/auto-refresh.button.component";
+import {CustomerActions} from "@customer/state/customer/customer.actions";
 
 @Component({
 	selector: 'customer-desktop-layout-list-component',
@@ -28,5 +29,9 @@ import {
 	]
 })
 export class DesktopLayoutListComponent extends LayoutListComponent<ICustomer> {
+
+	public openForm(): void {
+		this.store.dispatch(new CustomerActions.OpenForm());
+	}
 
 }

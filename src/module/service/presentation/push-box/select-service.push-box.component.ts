@@ -3,8 +3,10 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
+	EventEmitter,
 	inject,
 	OnInit,
+	Output,
 	QueryList,
 	ViewChild,
 	ViewEncapsulation
@@ -15,8 +17,6 @@ import {TranslateModule} from "@ngx-translate/core";
 import {IService} from "@service/domain";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {Router, RouterLink} from "@angular/router";
-import {ModalButtonRoleEnum, ModalComponent} from "@utility/presentation/component/modal/modal.component";
 import {NGXLogger} from "ngx-logger";
 import {ServiceItemComponent} from "@service/presentation/component/list/item/item.componen";
 import {ServiceExternalListComponent} from "@service/presentation/component/external/list/list.component";
@@ -38,7 +38,6 @@ import {
 		CurrencyPipe,
 		HumanizeDurationPipe,
 		PrimaryButtonDirective,
-		RouterLink,
 		ServiceItemComponent,
 		ServiceExternalListComponent
 	],
@@ -46,20 +45,21 @@ import {
 		<service-external-list-component [mobileMode]="true"/>
 	`
 })
-export class ModalSelectServiceComponent implements OnInit, AfterViewInit {
+export class SelectServicePushBoxComponent implements OnInit, AfterViewInit {
 
 	@ViewChild(ServiceExternalListComponent)
 	public serviceExternalListComponent!: ServiceExternalListComponent;
 
+	@Output()
+	public readonly selectedServicesListener = new EventEmitter<void>();
+
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
-	public readonly router = inject(Router);
 	public readonly logger = inject(NGXLogger);
 
 	public selectedServiceList: IService[] = [];
 	public newSelectedServiceList: IService[] = [];
 
 	public multiple = true;
-	public modalInstance: ModalComponent | null = null;
 
 	public ngOnInit(): void {
 
@@ -102,11 +102,7 @@ export class ModalSelectServiceComponent implements OnInit, AfterViewInit {
 		}
 		this.newSelectedServiceList.push({...service});
 
-		if (!this.modalInstance) {
-			this.logger.error('modalInstance is not defined');
-			return;
-		}
-		this.modalInstance.executeCallback(ModalButtonRoleEnum.accept);
+		this.selectedServicesListener.emit();
 		this.changeDetectorRef.detectChanges();
 	}
 
@@ -121,14 +117,5 @@ export class ModalSelectServiceComponent implements OnInit, AfterViewInit {
 
 	public isNotSelected(service: IService): boolean {
 		return !this.isSelected(service);
-	}
-
-	public goToServiceFormPage() {
-		if (!this.modalInstance) {
-			this.logger.error('modalInstance is not defined');
-			return;
-		}
-		this.modalInstance.closeModal();
-		this.router.navigate(['/', 'service', 'form']).then();
 	}
 }
