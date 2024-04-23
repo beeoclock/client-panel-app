@@ -8,7 +8,9 @@ export interface IEventConfigurationForm {
 export class EventConfigurationForm extends FormGroup<IEventConfigurationForm> {
 	constructor() {
 		super({
-			ignoreEventChecks: new FormControl(),
+			ignoreEventChecks: new FormControl(true, {
+				nonNullable: true,
+			}),
 		});
 	}
 
