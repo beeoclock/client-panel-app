@@ -1,4 +1,15 @@
-import {AfterContentInit, Component, inject, Input, OnInit, QueryList, ViewChildren} from "@angular/core";
+import {
+	AfterContentInit,
+	Component,
+	inject,
+	Input,
+	OnChanges,
+	OnInit,
+	QueryList,
+	SimpleChange,
+	SimpleChanges,
+	ViewChildren
+} from "@angular/core";
 import {AttendeesComponent} from "@event/presentation/component/form/attendees/attendees.component";
 import {
 	ButtonSaveContainerComponent
@@ -136,7 +147,7 @@ import {ISpecialist} from "@service/domain/interface/i.specialist";
 		</div>
 	`
 })
-export class ContainerFormComponent extends Reactive implements OnInit, AfterContentInit {
+export class ContainerFormComponent extends Reactive implements OnInit, AfterContentInit, OnChanges {
 
 	// TODO move functions to store effects/actions
 
@@ -187,6 +198,13 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 		const {value} = event.target as HTMLInputElement;
 		const date = new Date(value);
 		this.form.controls.start.patchValue(date.toISOString());
+	}
+
+	public ngOnChanges(changes: SimpleChanges & {forceStart: SimpleChange}): void {
+		const {forceStart} = changes;
+		if (forceStart.currentValue) {
+			this.form.controls.start.patchValue(forceStart.currentValue);
+		}
 	}
 
 	public ngOnInit(): void {
