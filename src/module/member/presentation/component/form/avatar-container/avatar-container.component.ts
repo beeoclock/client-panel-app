@@ -36,6 +36,10 @@ export class AvatarContainerComponent {
 
 		const component = this.avatarFormComponent;
 
+		if (!component.selectedFile) {
+			return;
+		}
+
 		const formData = new FormData();
 		formData.append('file', component.selectedFile as Blob);
 
