@@ -9,13 +9,13 @@ import {
 	SimpleChanges
 } from "@angular/core";
 import {NgIf} from "@angular/common";
-import {EventFormModalService} from "@event/presentation/dom-manipulation-service/modal/event.form.modal.service";
 import {NGXLogger} from "ngx-logger";
 import {Store} from "@ngxs/store";
 import {RefreshCalendarAction} from "@event/state/calendar/actions/refresh.calendar.action";
 import {
 	ScrollCalendarDomManipulationService
 } from "@event/presentation/dom-manipulation-service/scroll.calendar.dom-manipulation-service";
+import {EventActions} from "@event/state/event/event.actions";
 
 @Component({
 	selector: 'event-calendar-cell-component',
@@ -50,7 +50,6 @@ export class CellComponent implements OnChanges {
 
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
-	private readonly eventFormModalService = inject(EventFormModalService);
 	private readonly scrollCalendarDomManipulationService = inject(ScrollCalendarDomManipulationService);
 
 	public ngOnChanges(changes: SimpleChanges & { baseId: { currentValue: CellComponent['baseId'] } }) {
@@ -70,9 +69,10 @@ export class CellComponent implements OnChanges {
 			this.ngxLogger.debug('Callback');
 			this.store.dispatch(new RefreshCalendarAction());
 		};
-		this.eventFormModalService.openModal({
+		this.store.dispatch(new EventActions.OpenForm({
 			datetimeISO: this.datetimeISO,
-		}, callback);
+			callback,
+		}));
 		event.preventDefault();
 		event.stopPropagation();
 	}

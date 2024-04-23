@@ -3,6 +3,45 @@ import {ITableState, PITableState} from "@utility/domain/table.state";
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace BaseActions {
 
+	// Application layer
+
+	export class CloseDetails {
+		public static readonly type: string = '[Base Application] Close Details';
+	}
+
+	export class CloseForm {
+		public static readonly type: string = '[Base Application] Close Form';
+	}
+
+	export class OpenDetailsById {
+		public static readonly type: string = '[Base Application] Open Details By Id';
+
+		constructor(
+			public readonly payload: string,
+		) {
+		}
+	}
+
+	export class OpenFormToEditById {
+		public static readonly type: string = '[Base Application] Open Form To Edit By Id';
+
+		constructor(
+			public readonly payload: string,
+		) {
+		}
+	}
+
+	export class OpenForm<PAYLOAD> {
+		public static readonly type: string = '[Base Application] Open Form';
+
+		constructor(
+			public readonly payload?: PAYLOAD,
+		) {
+		}
+	}
+
+	// API
+
 	export class Init {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 	}

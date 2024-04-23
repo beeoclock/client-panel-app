@@ -11,6 +11,7 @@ import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {NGXLogger} from "ngx-logger";
 import {RIBaseEntity} from "@utility/domain";
 import {NgEventBus} from "ng-event-bus";
+import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
 
 export interface IBaseState_Item<ITEM> {
 	data: undefined | ITEM;
@@ -45,6 +46,7 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 	protected readonly router = inject(Router);
 	protected readonly store = inject(Store);
 	protected readonly ngxLogger = inject(NGXLogger);
+	protected readonly pushBoxService = inject(PushBoxService);
 
 	protected readonly item!: BaseApiAdapter<ITEM, unknown[]>;
 	protected readonly create!: BaseApiAdapter<ITEM, unknown[]>;
@@ -162,9 +164,15 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 					data,
 					downloadedAt: new Date(),
 				},
-				tableState: structuredClone(this.defaults).tableState,
-				lastTableHashSum: undefined
 			});
+
+			await this.getList(ctx, {
+				payload: {
+					resetPage: false,
+					resetParams: false
+				}
+			});
+
 		} catch (e) {
 			this.ngxLogger.error('Error Response: ', e)
 		}
@@ -190,9 +198,13 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 				item: {
 					data,
 					downloadedAt: new Date(),
-				},
-				tableState: new TableState<ITEM>().toCache(),
-				lastTableHashSum: undefined
+				}
+			});
+			await this.getList(ctx, {
+				payload: {
+					resetPage: false,
+					resetParams: false
+				}
 			});
 		} catch (e) {
 			this.ngxLogger.error(e);

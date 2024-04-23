@@ -7,7 +7,7 @@
 
 	<ng-container *ngFor="let service of serviceListControl.value; let index = index">
 
-		<bee-card class="text-sm" [useBorder]="false" padding="p-0">
+		<bee-card class="text-sm shadow-none" padding="p-0">
 			<div class="flex justify-between items-start gap-4">
 				<div
 					*ngFor="let banner of service.presentation?.banners ?? []"

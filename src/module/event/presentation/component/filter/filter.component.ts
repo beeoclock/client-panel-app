@@ -71,7 +71,7 @@ import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>
-			<button type="button" primary routerLink="../form">
+			<button type="button" primary (click)="openForm()">
 				<i class="bi bi-plus-lg"></i>
 				<span class="hidden xl:block">
 						{{ 'keyword.capitalize.add-event' | translate }}
@@ -91,4 +91,9 @@ export class FilterComponent extends BaseFilterComponent {
 		super();
 		super.initHandlers();
 	}
+
+	public openForm(): void {
+		this.store.dispatch(new EventActions.OpenForm());
+	}
+
 }

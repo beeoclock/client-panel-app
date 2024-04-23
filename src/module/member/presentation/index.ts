@@ -1,37 +1,13 @@
 import {Routes} from "@angular/router";
-import {memberDetailsResolver} from "@member/presentation/resolver/member.details.resolver";
 
 export const routers = [
-  {
-    path: '',
-    // resolve: {
-    //   cacheLoaded: memberCacheResolver,
-    // },
-    children: [
-      {
-        path: 'list',
-        loadComponent: () => import('./page/list')
-      },
-      {
-        path: 'form',
-        loadComponent: () => import('./page/form'),
-      },
-      {
-        path: ':id',
-        resolve: {
-          item: memberDetailsResolver
-        },
-        children: [
-          {
-            path: '',
-            loadComponent: () => import('./page/details')
-          },
-          {
-            path: 'form',
-            loadComponent: () => import('./page/form'),
-          }
-        ]
-      },
-    ]
-  },
+	{
+		path: '',
+		children: [
+			{
+				path: 'list',
+				loadComponent: () => import('./page/list')
+			},
+		]
+	},
 ] as Routes;

@@ -67,7 +67,7 @@ import {
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>
-			<button *ngIf="showButtonGoToForm" type="button" primary routerLink="../form">
+			<button *ngIf="showButtonGoToForm" type="button" primary (click)="openForm()">
 				<i class="bi bi-plus-lg"></i>
 				<span class="hidden xl:block">
 					{{ 'keyword.capitalize.add-service' | translate }}
@@ -88,5 +88,9 @@ export class FilterComponent extends BaseFilterComponent {
 	constructor() {
 		super();
 		super.initHandlers();
+	}
+
+	public openForm(): void {
+		this.store.dispatch(new ServiceActions.OpenForm());
 	}
 }

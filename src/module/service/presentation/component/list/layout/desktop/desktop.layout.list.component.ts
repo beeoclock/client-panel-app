@@ -12,6 +12,7 @@ import {LayoutListComponent} from "@utility/layout.list.component";
 import {
 	AutoRefreshButtonComponent
 } from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
+import {ServiceActions} from "@service/state/service/service.actions";
 
 @Component({
 	selector: 'service-desktop-layout-list-component',
@@ -31,4 +32,7 @@ import {
 })
 export class DesktopLayoutListComponent extends LayoutListComponent<IService> {
 
+	openForm() {
+		this.store.dispatch(new ServiceActions.OpenForm());
+	}
 }

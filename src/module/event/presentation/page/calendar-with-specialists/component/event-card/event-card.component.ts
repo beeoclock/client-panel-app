@@ -10,10 +10,11 @@ import {
 import {
 	ComposeCalendarWithSpecialistsService
 } from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
-import {EventDetailsModalService} from "@event/presentation/dom-manipulation-service/modal/event.details.modal.service";
 import {IEvent, RIEvent} from "@event/domain";
 import {DatePipe} from "@angular/common";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
+import {Store} from "@ngxs/store";
+import {EventActions} from "@event/state/event/event.actions";
 
 @Component({
 	selector: 'event-card-component',
@@ -57,7 +58,7 @@ export class EventCardComponent {
 	};
 
 	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
-	private readonly eventDetailsModalService = inject(EventDetailsModalService);
+	private readonly store = inject(Store);
 
 	public readonly slotInMinutes = this.composeCalendarWithSpecialistsService.slotInMinutes;
 	public readonly startTimeToDisplay = this.composeCalendarWithSpecialistsService.startTimeToDisplay;
@@ -127,7 +128,7 @@ export class EventCardComponent {
 	}
 
 	private async openEventDetails(event: IEvent) {
-		await this.eventDetailsModalService.openModal(event._id);
+		this.store.dispatch(new EventActions.OpenDetailsById(event._id));
 	}
 
 }

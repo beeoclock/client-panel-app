@@ -4,7 +4,7 @@ import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {
-    TableStatePaginationComponent
+	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
@@ -40,5 +40,13 @@ import {MemberActions} from "@member/state/member/member.actions";
 export class CardListComponent extends TableComponent<IMember> {
 
 	public override readonly actions = MemberActions;
+
+	public override open(id: string) {
+		this.store.dispatch(new MemberActions.OpenDetailsById(id));
+	}
+
+	public edit(id: string) {
+		this.store.dispatch(new MemberActions.OpenFormToEditById(id));
+	}
 
 }

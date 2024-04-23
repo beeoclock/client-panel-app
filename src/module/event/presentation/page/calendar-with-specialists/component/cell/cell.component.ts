@@ -1,7 +1,6 @@
 import {Component, HostBinding, HostListener, inject, Input, ViewEncapsulation} from "@angular/core";
 import * as Member from "@member/domain";
 import {NGXLogger} from "ngx-logger";
-import {EventFormModalService} from "@event/presentation/dom-manipulation-service/modal/event.form.modal.service";
 import {
 	ScrollCalendarDomManipulationService
 } from "@event/presentation/dom-manipulation-service/scroll.calendar.dom-manipulation-service";
@@ -13,6 +12,7 @@ import {Store} from "@ngxs/store";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {firstValueFrom} from "rxjs";
+import {EventActions} from "@event/state/event/event.actions";
 
 @Component({
 	selector: 'event-cell-component',
@@ -95,10 +95,13 @@ export class CellComponent {
 				.toJSDate()
 				.toISOString();
 
-			this.eventFormModalService.openModal({
-				datetimeISO,
-				member: this.column.member,
-			}, callback).then();
+			this.store.dispatch(
+				new EventActions.OpenForm({
+					datetimeISO,
+					member: this.column.member ?? undefined,
+					callback
+				})
+			);
 
 		});
 
@@ -107,7 +110,6 @@ export class CellComponent {
 	}
 
 	private readonly ngxLogger = inject(NGXLogger);
-	private readonly eventFormModalService = inject(EventFormModalService);
 	private readonly scrollCalendarDomManipulationService = inject(ScrollCalendarDomManipulationService);
 
 }

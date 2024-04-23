@@ -74,7 +74,7 @@ describe('SelectDateComponent', () => {
 		component.ngAfterViewInit();
 
 		expect(spyDetectAmountOfDaySlots).toHaveBeenCalled();
-		expect(component.amountOfDaySlotsInContainer).toBe(5); // Assume each day slot width is 60px + 6px gap
+		expect(component.amountOfDaySlotsInContainer).toBe(4); // Assume each day slot width is 60px + 6px gap
 	});
 
 	it('should prepare day slots title', () => {

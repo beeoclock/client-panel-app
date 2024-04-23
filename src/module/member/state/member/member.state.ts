@@ -10,6 +10,7 @@ import {ItemMemberApiAdapter} from "@member/adapter/external/api/item.member.api
 import {RemoveMemberApiAdapter} from "@member/adapter/external/api/remove.member.api.adapter";
 import {ListMemberApiAdapter} from "@member/adapter/external/api/list.member.api.adapter";
 import {ActiveEnum, OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {TranslateService} from "@ngx-translate/core";
 
 export type IMemberState = IBaseState<Member.RIMember>;
 
@@ -35,11 +36,100 @@ export class MemberState extends BaseState<Member.RIMember> {
 	protected override readonly remove = inject(RemoveMemberApiAdapter);
 	protected override readonly list = inject(ListMemberApiAdapter);
 
+	private readonly translateService = inject(TranslateService);
+
 	constructor() {
 		super(
 			defaults,
 		);
 	}
+
+	// Application layer
+
+	@Action(MemberActions.CloseForm)
+	public async closeForm(ctx: StateContext<IMemberState>) {
+
+		const {MemberFormContainerComponent} = await import("@member/presentation/component/form/member-form-container/member-form-container.component");
+
+		this.pushBoxService.destroy$.next(MemberFormContainerComponent);
+
+	}
+
+	@Action(MemberActions.CloseDetails)
+	public async closeDetails(ctx: StateContext<IMemberState>) {
+
+		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
+
+		this.pushBoxService.destroy$.next(MemberDetailsContainerComponent);
+
+	}
+
+	@Action(MemberActions.OpenDetailsById)
+	public async openDetailsById(ctx: StateContext<IMemberState>, action: MemberActions.OpenDetailsById) {
+
+		const title = await this.translateService.instant('member.details.title');
+
+		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
+
+		await this.pushBoxService.buildItAsync({
+			title,
+			showLoading: true,
+			component: MemberDetailsContainerComponent,
+		});
+
+		const item = await this.item.executeAsync(action.payload);
+
+		await this.pushBoxService.buildItAsync({
+			title,
+			component: MemberDetailsContainerComponent,
+			componentInputs: {
+				item
+			},
+		});
+
+	}
+
+	@Action(MemberActions.OpenFormToEditById)
+	public async openFormToEditById(ctx: StateContext<IMemberState>, action: MemberActions.OpenFormToEditById) {
+
+		const title = this.translateService.instant('member.form.title.edit');
+
+		await this.openForm(ctx, {
+			payload: {
+				showLoading: true,
+				title
+			}
+		});
+
+		const item = await this.item.executeAsync(action.payload);
+
+		await this.openForm(ctx, {
+			payload: {
+				title,
+				item,
+				isEditMode: true
+			}
+		});
+
+	}
+
+	@Action(MemberActions.OpenForm)
+	public async openForm(ctx: StateContext<IMemberState>, {payload}: MemberActions.OpenForm): Promise<void> {
+
+		const {MemberFormContainerComponent} = await import("@member/presentation/component/form/member-form-container/member-form-container.component");
+
+		const {showLoading, title, ...componentInputs} = payload ?? {};
+
+		await this.pushBoxService.buildItAsync({
+			component: MemberFormContainerComponent,
+			componentInputs,
+			showLoading,
+			title: title ?? this.translateService.instant('member.form.title.create'),
+		});
+
+	}
+
+	// API
 
 	@Action(MemberActions.Init)
 	public override async init(ctx: StateContext<IMemberState>): Promise<void> {
@@ -69,11 +159,13 @@ export class MemberState extends BaseState<Member.RIMember> {
 	@Action(MemberActions.CreateItem)
 	public override async createItem(ctx: StateContext<IMemberState>, action: MemberActions.CreateItem): Promise<void> {
 		await super.createItem(ctx, action);
+		await this.closeForm(ctx);
 	}
 
 	@Action(MemberActions.UpdateItem)
 	public override async updateItem(ctx: StateContext<IMemberState>, action: MemberActions.UpdateItem): Promise<void> {
 		await super.updateItem(ctx, action);
+		await this.closeForm(ctx);
 	}
 
 	@Action(MemberActions.GetList)

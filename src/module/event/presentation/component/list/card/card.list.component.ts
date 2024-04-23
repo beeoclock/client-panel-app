@@ -59,4 +59,9 @@ export class CardListComponent extends TableComponent<RMIEvent> {
 	public sameYear(start: string | undefined): boolean {
 		return start ? new Date(start).getFullYear() === new Date().getFullYear() : false;
 	}
+
+	public override open(id: string) {
+		this.store.dispatch(new EventActions.OpenDetailsById(id));
+	}
+
 }

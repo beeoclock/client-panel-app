@@ -5,9 +5,6 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {
-	ModalSelectServiceService
-} from "@utility/presentation/component/modal-select-service/modal-select-service.service";
 import {IService} from "@service/domain";
 import {ModalSelectServiceListAdapter} from "@service/adapter/external/component/modal-select-service.list.adapter";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
@@ -23,6 +20,8 @@ import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-typ
 import {
 	SpecialistServiceComponent
 } from "@event/presentation/component/form/services/specialist/specialist.service.component";
+import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'event-service-component',
@@ -52,7 +51,7 @@ import {
 		DurationVersionHtmlHelper,
 	],
 })
-export class ServicesComponent implements OnInit {
+export class ServicesComponent extends Reactive implements OnInit {
 
 	@Input({required: true})
 	public serviceListControl: FormControl<IService[]> = new FormControl([] as any);
@@ -64,7 +63,7 @@ export class ServicesComponent implements OnInit {
 	public durationVersionTypeRangeComponentList!: QueryList<DurationVersionTypeRangeComponent>;
 
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
-	private readonly modalSelectServiceService = inject(ModalSelectServiceService);
+	private readonly pushBoxService = inject(PushBoxService);
 	private readonly modalSelectServiceListAdapter = inject(ModalSelectServiceListAdapter);
 
 	public readonly loading$ = this.modalSelectServiceListAdapter.loading$;
@@ -97,16 +96,22 @@ export class ServicesComponent implements OnInit {
 
 	}
 
-	public openModalToSelectService(): void {
+	public async openModalToSelectService() {
 
-		this.modalSelectServiceService.openServiceModal({
-			multiSelect: false,
-			selectedServiceList: this.serviceListControl.value
-		}).then((newSelectedSpecialistList) => {
+		const {SelectServicePushBoxComponent} = await import("@service/presentation/push-box/select-service.push-box.component");
 
-			this.serviceListControl.patchValue(newSelectedSpecialistList);
-
+		const pushBoxWrapperComponentRef = await this.pushBoxService.buildItAsync({
+			component: SelectServicePushBoxComponent,
 		});
+
+		const {renderedComponentRef} = pushBoxWrapperComponentRef.instance;
+
+		if (renderedComponentRef?.instance instanceof SelectServicePushBoxComponent) {
+			renderedComponentRef.instance.selectedServicesListener.pipe(this.takeUntil()).subscribe(() => {
+				this.serviceListControl.patchValue(renderedComponentRef.instance.newSelectedServiceList);
+				this.pushBoxService.destroy$.next(SelectServicePushBoxComponent);
+			});
+		}
 
 	}
 

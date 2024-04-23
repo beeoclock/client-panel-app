@@ -39,7 +39,7 @@
 	</div>
 	<!-- Column Cell	-->
 	<div tableBodyFlex>
-		<div tableRowFlex="body" (click)="doubleClick(item._id)" *ngFor="let item of tableState.items">
+		<div tableRowFlex="body" (click)="doubleClick(item._id)" *ngFor="let item of tableState.items; trackBy: trackById">
 			<div tableColumnFlex="lastName" class="flex gap-2">
 
 				<div class="rounded-full bg-beeColor-400 min-h-8 min-w-8 flex justify-center items-center">

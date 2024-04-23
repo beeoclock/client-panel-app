@@ -11,6 +11,7 @@ import {LayoutListComponent} from "@utility/layout.list.component";
 import {
 	AutoRefreshButtonComponent
 } from "@event/presentation/component/button/auto-refresh/auto-refresh.button.component";
+import {EventActions} from "@event/state/event/event.actions";
 
 @Component({
 	selector: 'event-mobile-layout-list-component',
@@ -28,5 +29,11 @@ import {
 	]
 })
 export class MobileLayoutListComponent extends LayoutListComponent<RMIEvent> {
+
+	public openForm(): void {
+
+		this.store.dispatch(new EventActions.OpenForm());
+
+	}
 
 }

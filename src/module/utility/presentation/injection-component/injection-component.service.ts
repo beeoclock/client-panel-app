@@ -27,7 +27,7 @@ export class InjectionComponentService {
 	 *
 	 * @returns {ComponentRef<any>}
 	 *
-	 * @memberOf InjectionService
+	 * @memberOf InjectionComponentService
 	 */
 	public getRootViewContainer(): ComponentRef<unknown> {
 		if (this._container) {
@@ -50,7 +50,7 @@ export class InjectionComponentService {
 	 *
 	 * @param {any} container
 	 *
-	 * @memberOf InjectionService
+	 * @memberOf InjectionComponentService
 	 */
 	public setRootViewContainer(container: ComponentRef<unknown>): void {
 		this._container = container;
@@ -62,7 +62,7 @@ export class InjectionComponentService {
 	 * @param {ComponentRef<any>} componentRef
 	 * @returns {HTMLElement}
 	 *
-	 * @memberOf InjectionService
+	 * @memberOf InjectionComponentService
 	 */
 	public getComponentRootNode(componentRef: ComponentRef<unknown>): HTMLElement {
 		return (componentRef.hostView as EmbeddedViewRef<unknown>).rootNodes[0] as HTMLElement;
@@ -73,7 +73,7 @@ export class InjectionComponentService {
 	 *
 	 * @returns {HTMLElement}
 	 *
-	 * @memberOf InjectionService
+	 * @memberOf InjectionComponentService
 	 */
 	public getRootViewContainerNode(): HTMLElement {
 		return this.getComponentRootNode(this.getRootViewContainer());
@@ -86,7 +86,7 @@ export class InjectionComponentService {
 	 * @param {*} options
 	 * @returns {ComponentRef<any>}
 	 *
-	 * @memberOf InjectionService
+	 * @memberOf InjectionComponentService
 	 */
 	public projectComponentInputs(component: ComponentRef<unknown>, options: unknown): ComponentRef<unknown> {
 		if (options) {
@@ -113,7 +113,7 @@ export class InjectionComponentService {
 	 * @param location
 	 * @returns {ComponentRef<any>}
 	 *
-	 * @memberOf InjectionService
+	 * @memberOf InjectionComponentService
 	 */
 	public appendComponent<T>(
 		componentClass: Type<T>,

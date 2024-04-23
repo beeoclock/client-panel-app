@@ -15,7 +15,7 @@ import {filter, take} from "rxjs";
 	selector: 'service-form-prices-block-component',
 	standalone: true,
 	template: `
-		<bee-card [useBorder]="useCardBorder">
+		<bee-card>
 			<!--      <span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.price' | translate }}</span>-->
 			<utility-switch-component
 				[control]="switchToRangeModeControl"
@@ -61,14 +61,7 @@ export class PricesBlockComponent extends Reactive implements OnInit {
 	@Input()
 	public durationConfigurationForm = new DurationConfigurationForm();
 
-	@Input()
-	public useCardBorder = true;
-
 	public readonly switchToRangeModeControl = new FormControl(ActiveEnum.NO);
-
-	constructor() {
-		super();
-	}
 
 	public get isRangeMode(): boolean {
 		return this.durationConfigurationForm.controls.durationVersionType.value === DurationVersionTypeEnum.RANGE;

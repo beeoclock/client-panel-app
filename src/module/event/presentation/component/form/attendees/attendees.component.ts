@@ -4,10 +4,9 @@ import {NgForOf, NgIf} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {AttendeesForm} from "@event/presentation/form/attendant.form";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {
-	ModalSelectCustomerService
-} from "@utility/presentation/component/modal-select-customer/modal-select-customer.service";
 import {IsNewCustomerEnum} from "@utility/domain/enum";
+import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'event-attendees-component',
@@ -22,12 +21,12 @@ import {IsNewCustomerEnum} from "@utility/domain/enum";
 		PrimaryLinkButtonDirective
 	],
 })
-export class AttendeesComponent {
+export class AttendeesComponent extends Reactive {
 
 	@Input()
 	public form!: AttendeesForm;
 
-	private readonly modalSelectCustomerService = inject(ModalSelectCustomerService);
+	private readonly pushBoxService = inject(PushBoxService);
 
 	public remove(index: number): void {
 
@@ -39,20 +38,29 @@ export class AttendeesComponent {
 
 	}
 
-	public selectCustomer() {
+	public async selectCustomer() {
+		const {SelectCustomerPushBoxComponent} = await import("@customer/presentation/push-box/select-customer.push-box.component");
 
-		this.modalSelectCustomerService.openCustomerModal({
-			multiSelect: false,
-			selectedServiceList: []
-		}).then((customers) => {
-
-			this.form.controls[0].patchValue({
-				customer: customers[0]
-			});
-			this.form.controls[0].toggleIsNewCustomer(IsNewCustomerEnum.NO);
-			this.form.controls[0].controls.customer.disable();
-
+		const pushBoxWrapperComponentRef = await this.pushBoxService.buildItAsync({
+			component: SelectCustomerPushBoxComponent,
 		});
+
+		const {renderedComponentRef} = pushBoxWrapperComponentRef.instance;
+
+		if (renderedComponentRef?.instance instanceof SelectCustomerPushBoxComponent) {
+			renderedComponentRef.instance.selectedCustomerListener.pipe(this.takeUntil()).subscribe(() => {
+
+				const {newSelectedServiceList} = renderedComponentRef.instance;
+
+				this.form.controls[0].patchValue({
+					customer: newSelectedServiceList[0]
+				});
+				this.form.controls[0].toggleIsNewCustomer(IsNewCustomerEnum.NO);
+				this.form.controls[0].controls.customer.disable();
+
+				this.pushBoxService.destroy$.next(SelectCustomerPushBoxComponent);
+			});
+		}
 
 	}
 

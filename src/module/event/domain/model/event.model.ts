@@ -14,7 +14,7 @@ export class MEvent implements RMIEvent {
 	public readonly object!: 'Event';
 	public readonly servicesAreProvidedInParallel!: boolean;
 	public readonly services!: IService[];
-	public readonly description!: string;
+	public readonly note!: string;
 	public readonly attendees!: IAttendee[];
 	public readonly timeZone!: string;
 	public readonly configuration!: IEventConfiguration;

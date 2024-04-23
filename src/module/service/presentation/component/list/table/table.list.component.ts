@@ -112,4 +112,9 @@ export class TableListComponent extends TableComponent<IService> {
 			},
 		},
 	}
+
+	public override open(id: string) {
+		this.store.dispatch(new ServiceActions.OpenDetailsById(id));
+	}
+
 }

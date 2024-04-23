@@ -9,7 +9,7 @@
 		<ng-template #EmptyTemplate>
 			<not-found-table-data-component
 				class="block h-full"
-				linkToForm="../form"
+				(clickListener)="openForm()"
 				[showLinkToForm]="true"
 				[linkLabel]="'keyword.capitalize.add-service' | translate"
 				[label]="'keyword.capitalize.dataNotFound' | translate">

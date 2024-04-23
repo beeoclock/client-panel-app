@@ -77,7 +77,6 @@ import {ServiceFormComponent} from "@service/presentation/component/form/v2/serv
 		<ng-template #SingleLanguageTemplate>
 
 			<service-form-details-block-component
-				[useCardBorder]="false"
 				[form]="form.controls[0]"/>
 
 		</ng-template>

@@ -16,17 +16,19 @@ import {IService} from "@service/domain";
 			(activate)="activate()"
 			(deactivate)="deactivate()"
 			(delete)="delete()"
+			(open)="open($event)"
+			(edit)="edit($event)"
 			[id]="id"
 			[active]="item.active">
-			<li>
-				<a
-					[routerLink]="['../../', 'event', 'form']"
-					[queryParams]="{serviceId: item._id, returnUrl}"
-					class="flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-					<i class="bi bi-calendar2-week"></i>
-					{{ 'keyword.capitalize.add-event' | translate }}
-				</a>
-			</li>
+<!--			<li>-->
+<!--				<a-->
+<!--					[routerLink]="['../../', 'event', 'form']"-->
+<!--					[queryParams]="{serviceId: item._id, returnUrl}"-->
+<!--					class="flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">-->
+<!--					<i class="bi bi-calendar2-week"></i>-->
+<!--					{{ 'keyword.capitalize.add-event' | translate }}-->
+<!--				</a>-->
+<!--			</li>-->
 		</utility-table-column-action>
 	`,
 	imports: [
@@ -64,6 +66,14 @@ export class RowActionButtonComponent {
 
 	public deactivate(): void {
 		this.store.dispatch(new ServiceActions.ArchiveItem(this.item._id));
+	}
+
+	public open(id: string): void {
+		this.store.dispatch(new ServiceActions.OpenDetailsById(id));
+	}
+
+	public edit(id: string): void {
+		this.store.dispatch(new ServiceActions.OpenFormToEditById(id));
 	}
 
 	public async archive(id: string): Promise<void> {

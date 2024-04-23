@@ -46,10 +46,10 @@
 			<i class="bi bi-person"></i>
 			{{ (attendantRef?.getAttribute?.('data-value')?.length ?? 0) > 1 ? attendantRef.getAttribute('data-value') : (attendant?.customer?.email ?? attendant?.customer?.phone ?? '-') }}
 		</div>
-		<ng-container (click)="singleClick(item)" *ngIf="item?.description?.length">
+		<ng-container (click)="singleClick(item)" *ngIf="item?.note?.length">
 			<hr class="mt-2">
 			<div class="text-neutral-500 dark:text-neutral-400 py-2">
-				{{ item.description }}
+				{{ item.note }}
 			</div>
 		</ng-container>
 		<div class="flex gap-4 justify-between" *ngIf="item.isBooked">
