@@ -9,10 +9,12 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 import {NGXLogger} from "ngx-logger";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {ButtonArrowComponent} from "@event/presentation/component/form/select-time-slot/button.arrow.component";
-import {debounceTime} from "rxjs";
+import {debounceTime, filter} from "rxjs";
 import {MS_QUARTER_SECOND} from "@utility/domain/const/c.time";
 import {TimeInputComponent} from "@utility/presentation/component/input/time.input.component";
 import {EventConfigurationForm} from "@event/presentation/form/configuration.form";
+import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
+import {is} from "thiis";
 
 export interface ITimeSlot {
 	isPast: boolean;
@@ -45,6 +47,7 @@ enum IndexOfPeriodOfDayEnum {
 		TranslateModule,
 		ButtonArrowComponent,
 		TimeInputComponent,
+		DatetimeLocalInputComponent,
 	],
 })
 export class SelectTimeComponent extends Reactive implements OnInit {
@@ -56,7 +59,7 @@ export class SelectTimeComponent extends Reactive implements OnInit {
 	public configurationForm!: EventConfigurationForm;
 
 	@Input({required: true})
-	public localDateTimeControl!: FormControl<DateTime>;
+	public localDateTimeControl!: FormControl<DateTime | null>;
 
 	public selectedDateTime: DateTime = DateTime.now();
 
@@ -67,7 +70,7 @@ export class SelectTimeComponent extends Reactive implements OnInit {
 	public readonly translateService = inject(TranslateService);
 	public readonly slotsService = inject(SlotsService);
 
-	public readonly ownOptionOfStartTimeControl = new FormControl();
+	public readonly ownOptionOfStartTimeControl = new FormControl<string | null>(null);
 
 	public groupedSlots: {
 		periodOfDay: PeriodOfDayEnum;
@@ -102,6 +105,7 @@ export class SelectTimeComponent extends Reactive implements OnInit {
 
 		this.localDateTimeControl.valueChanges.pipe(
 			this.takeUntil(),
+			filter(is.not_null<DateTime>),
 			debounceTime(MS_QUARTER_SECOND),
 		).subscribe((dateTime) => {
 			this.logger.debug('localDateTimeControl.valueChanges', dateTime.toISO());
@@ -114,13 +118,16 @@ export class SelectTimeComponent extends Reactive implements OnInit {
 			debounceTime(MS_QUARTER_SECOND),
 		).subscribe((value) => {
 			if (value) {
-				this.selectDateItem(this.convertToDateTime(value), true);
+				const datetime = DateTime.fromISO(value);
+				this.selectedDateTime = datetime;
+				this.control.patchValue(datetime.toUTC().toISO() as string);
 			}
 		});
-	}
 
-	public convertToDateTime(value: number): DateTime {
-		return this.localDateTimeControl.value.startOf('day').plus({seconds: value})
+		if (this.control.value) {
+			this.ownOptionOfStartTimeControl.patchValue(this.control.value);
+		}
+
 	}
 
 	public getClassList(isSelected: boolean): string[] {

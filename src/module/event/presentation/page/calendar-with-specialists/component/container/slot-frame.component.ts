@@ -7,8 +7,10 @@ import {
 	ComposeCalendarWithSpecialistsService
 } from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
-import {async, combineLatest, map} from "rxjs";
+import {async, filter, map, startWith, switchMap} from "rxjs";
 import {Store} from "@ngxs/store";
+import {is} from "thiis";
+import {DateTime} from "luxon";
 
 @Component({
 	selector: 'event-slot-frame-component',
@@ -25,12 +27,7 @@ import {Store} from "@ngxs/store";
 					[columnIndex]="columnIndex"/>
 			</ng-container>
 		</ng-container>
-
-		<ng-container *ngIf="selectedDate$ | async as selectedDate">
-			<event-time-line-component
-				*ngIf="(isTodayOrTomorrow$ | async) && selectedDate.hour >= startTimeToDisplay && selectedDate.hour <= endTimeToDisplay"/>
-		</ng-container>
-
+		<event-time-line-component *ngIf="showTimeLine$ | async"/>
 	`,
 	standalone: true,
 	imports: [
@@ -44,21 +41,6 @@ import {Store} from "@ngxs/store";
 })
 export class SlotFrameComponent {
 
-	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
-
-	private readonly store = inject(Store);
-
-	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
-
-	public readonly isTodayOrTomorrowStreams$ = combineLatest([
-		this.store.select(CalendarWithSpecialistsQueries.isToday),
-		this.store.select(CalendarWithSpecialistsQueries.isTomorrow)
-	]);
-
-	public readonly isTodayOrTomorrow$ = this.isTodayOrTomorrowStreams$.pipe(
-		map(([isToday, isTomorrow]) => isToday || isTomorrow)
-	);
-
 	@Input()
 	public rows!: {
 		isFirstOrLastRowOfHour: boolean;
@@ -69,13 +51,40 @@ export class SlotFrameComponent {
 		member: Member.RIMember | null;
 	}[];
 
-	public readonly heightPerSlotInPx = this.composeCalendarWithSpecialistsService.heightPerSlotInPx;
+	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
 
-	public readonly headerHeightInPx = this.composeCalendarWithSpecialistsService.headerHeightInPx;
+	private readonly store = inject(Store);
+
+	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
 
 	public readonly startTimeToDisplay = this.composeCalendarWithSpecialistsService.startTimeToDisplay;
 
 	public readonly endTimeToDisplay = this.composeCalendarWithSpecialistsService.endTimeToDisplay;
+
+	public readonly showTimeLine$ = this.store.select(CalendarWithSpecialistsQueries.isToday).pipe(
+		startWith(false),
+		filter(is.true),
+		switchMap(() => this.selectedDate$),
+		map((selectedDate: DateTime) => {
+			// Detect if the current time is within the displayed time range
+			const now = DateTime.now();
+			return now >= selectedDate.set({
+				hour: this.startTimeToDisplay,
+				minute: 0,
+				second: 0,
+				millisecond: 0
+			}) && now <= selectedDate.set({
+				hour: this.endTimeToDisplay,
+				minute: 0,
+				second: 0,
+				millisecond: 0
+			});
+		})
+	);
+
+	public readonly heightPerSlotInPx = this.composeCalendarWithSpecialistsService.heightPerSlotInPx;
+
+	public readonly headerHeightInPx = this.composeCalendarWithSpecialistsService.headerHeightInPx;
 
 	@HostBinding()
 	public get class() {

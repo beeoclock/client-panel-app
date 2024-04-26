@@ -1,6 +1,6 @@
 import {Component, inject, ViewEncapsulation} from "@angular/core";
 import {AsyncPipe, NgIf} from "@angular/common";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {combineLatest, map} from "rxjs";
@@ -25,7 +25,7 @@ import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-speciali
 					{{ translateKey | translate }}
 				</span>
 
-				<span [class.text-xs]="isTodayOrTomorrow$ | async" *ngIf="selectedDate$ | async as selectedDate">
+				<span class="text-xs" *ngIf="selectedDate$ | async as selectedDate">
 					{{ selectedDate.toFormat('yyyy-MM-dd') }}
 				</span>
 
@@ -52,6 +52,7 @@ import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-speciali
 export class DateControlCalendarWithSpecialistsComponent {
 
 	private readonly store = inject(Store);
+	private readonly translateService = inject(TranslateService);
 
 	public readonly loader$ = this.store.select(CalendarWithSpecialistsQueries.loader);
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
@@ -65,15 +66,19 @@ export class DateControlCalendarWithSpecialistsComponent {
 		map(([isToday, isTomorrow]) => isToday || isTomorrow)
 	);
 
-	public readonly hint$ = this.isTodayOrTomorrowStreams$.pipe(
-		map(([isToday, isTomorrow]) => {
+	public readonly hint$ = combineLatest([
+		this.isTodayOrTomorrowStreams$,
+		this.selectedDate$
+	]).pipe(
+		map(({0: {0: isToday, 1: isTomorrow}, 1: selectedDate}) => {
 			switch (true) {
 				case isToday:
 					return 'keyword.capitalize.today';
 				case isTomorrow:
 					return 'keyword.capitalize.tomorrow';
 				default:
-					return '';
+					// return name of the day
+					return selectedDate.setLocale(this.translateService.currentLang).toFormat('cccc');
 			}
 		})
 	);

@@ -3,7 +3,11 @@
 		<utility-loader/>
 	</div>
 
-	<ng-template [ngIf]="!groupedSlots.length">
+	<div class="italic leading-tight text-sm p-2 text-beeColor-500" *ngIf="!localDateTimeControl.value">
+		{{ 'event.form.section.datetime.hint.selectDateToSelectTimeSlot' | translate }}
+	</div>
+
+	<ng-template [ngIf]="localDateTimeControl.value && !groupedSlots.length">
 		{{ 'keyword.capitalize.dataNotFound' | translate }}
 	</ng-template>
 	<ng-container *ngFor="let group of groupedSlots; let index = index;">
@@ -24,17 +28,21 @@
 		</div>
 	</ng-container>
 
-	<hr>
+	<div class="inline-flex items-center justify-center w-full">
+		<hr class="w-full h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
+		<span class="italic leading-tight text-sm absolute px-3 text-beeColor-400 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900">
+			{{ 'keyword.lowercase.or' | translate }}
+		</span>
+	</div>
 
 	<div>
-		<time-input-component
-			[additionalClassList]="isSelected(convertToDateTime(ownOptionOfStartTimeControl.value)) && configurationForm.controls.ignoreEventChecks.value ? 'bg-blue-100 text-blue-600 border-blue-200' : ''"
+<!--		[additionalClassList]="isSelected(ownOptionOfStartTimeControl.value) && configurationForm.controls.ignoreEventChecks.value ? 'bg-blue-100 text-blue-600 border-blue-200' : ''"-->
+		<datetime-local-input-component
 			[label]="'keyword.capitalize.ownOptionOfTime' | translate"
-			[control]="ownOptionOfStartTimeControl">
-			<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
-				{{ 'keyword.capitalize.ownOptionOfTimeHint' | translate }}
-			</div>
-		</time-input-component>
+			[control]="ownOptionOfStartTimeControl"/>
+		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
+			{{ 'keyword.capitalize.ownOptionOfTimeHint' | translate }}
+		</div>
 
 	</div>
 

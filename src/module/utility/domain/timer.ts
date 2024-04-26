@@ -1,11 +1,11 @@
-import {delay, of, Subject, takeUntil} from "rxjs";
+import {delay, of, Subject, takeUntil, tap} from "rxjs";
 
 /**
  *
  * @param timer
  */
 export const buildTimeOut$ = (timer: number) => {
-  return of(true).pipe(delay(timer));
+	return of(true).pipe(delay(timer));
 };
 
 /**
@@ -14,7 +14,7 @@ export const buildTimeOut$ = (timer: number) => {
  * @param timer
  */
 export const setTimeout$ = (cb: () => void, timer: number) => {
-  return buildTimeOut$(timer).subscribe(cb);
+	return buildTimeOut$(timer).pipe(tap(cb));
 };
 
 export type setTimeoutTakeUntil$Type = ReturnType<typeof setTimeoutTakeUntil$>;
@@ -25,7 +25,7 @@ export type setTimeoutTakeUntil$Type = ReturnType<typeof setTimeoutTakeUntil$>;
  * @param timer
  */
 export const setTimeoutTakeUntil$ = (cb: () => void, timer: number) => {
-  const destroyTimeout$ = new Subject<void>();
-  const timeout$ = buildTimeOut$(timer).pipe(takeUntil(destroyTimeout$)).subscribe(cb);
-  return {destroyTimeout$, timeout$};
+	const destroyTimeout$ = new Subject<void>();
+	const timeout$ = buildTimeOut$(timer).pipe(takeUntil(destroyTimeout$)).subscribe(cb);
+	return {destroyTimeout$, timeout$};
 };

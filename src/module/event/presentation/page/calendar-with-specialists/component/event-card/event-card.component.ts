@@ -11,7 +11,7 @@ import {
 	ComposeCalendarWithSpecialistsService
 } from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 import {IEvent, RIEvent} from "@event/domain";
-import {DatePipe} from "@angular/common";
+import {DatePipe, NgIf} from "@angular/common";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 import {Store} from "@ngxs/store";
 import {EventActions} from "@event/state/event/event.actions";
@@ -21,19 +21,23 @@ import {EventActions} from "@event/state/event/event.actions";
 	template: `
 		<div class="flex flex-wrap gap-1">
 			<span class="text-xs dark:text-sky-100">
-			{{ event.data.start | date: 'HH:mm' }} - {{ event.data.end | date: 'HH:mm' }}
-		</span>
+				{{ event.data.start | date: 'HH:mm' }} - {{ event.data.end | date: 'HH:mm' }}
+			</span>
 			<span class="text-xs font-bold dark:text-sky-100">
-			{{ getAttendeesInformation() }}
-		</span>
+				{{ getAttendeesInformation() }}
+			</span>
 		</div>
-		<span class="text-xs font-medium line-clamp-2">
+		<div class="text-xs font-medium">
 			{{ event.data.services[0].languageVersions[0].title }}
-		</span>
+		</div>
+		<div *ngIf="event.data.note" class="text-xs font-medium">
+			📓 {{ event.data.note }}
+		</div>
 	`,
 	standalone: true,
 	imports: [
-		DatePipe
+		DatePipe,
+		NgIf
 	],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
@@ -87,10 +91,9 @@ export class EventCardComponent {
 	@HostBinding('class')
 	public get class() {
 
-
 		// Choose color by status
 		const classList = [
-			'transition-all hover:cursor-pointer z-10 border rounded-lg m-1 p-1 flex flex-col text-white',
+			'transition-all hover:cursor-pointer z-10 border rounded-lg m-1 p-1 flex flex-col text-white overflow-hidden',
 		];
 
 		switch (this.event.data.status) {

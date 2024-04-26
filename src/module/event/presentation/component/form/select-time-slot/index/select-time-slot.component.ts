@@ -13,6 +13,7 @@ import {
 	DateSliderSelectComponent
 } from "@utility/presentation/component/slider/date-slider-select/date-slider-select.component";
 import {EventConfigurationForm} from "@event/presentation/form/configuration.form";
+import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
 
 @Component({
 	selector: 'event-select-time-slot-form-component',
@@ -27,6 +28,7 @@ import {EventConfigurationForm} from "@event/presentation/form/configuration.for
 		HumanizeDurationPipe,
 		DynamicDatePipe,
 		DateSliderSelectComponent,
+		DatetimeLocalInputComponent,
 	]
 })
 export class SelectTimeSlotComponent {
@@ -38,9 +40,9 @@ export class SelectTimeSlotComponent {
 	public configurationForm!: EventConfigurationForm;
 
 	@Input({required: true})
-	public editable = true;
+	public editable!: boolean;
 
-	public readonly localDateTimeControl: FormControl<DateTime> = new FormControl(DateTime.now()) as FormControl<DateTime>;
+	public readonly localDateTimeControl: FormControl<DateTime | null> = new FormControl(null);
 	public readonly slotsService = inject(SlotsService);
 
 	public updateDayItemList(dayItemList: IDayItem[]) {
