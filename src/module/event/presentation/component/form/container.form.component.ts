@@ -73,73 +73,7 @@ import {ISpecialist} from "@service/domain/interface/i.specialist";
 	providers: [
 		SlotsService
 	],
-	template: `
-		<div *ngIf="preview.isOn" class="col-span-12">
-
-			<event-general-details [isPreview]="preview.isOn" [event]="value"/>
-
-			<utility-button-save-container-component>
-				<button
-					type="button"
-					primary
-					[isLoading]="form.pending"
-					[disabled]="form.disabled"
-					[scrollToFirstError]="true"
-					(click)="save()">
-					{{ 'keyword.capitalize.save' | translate }}
-				</button>
-			</utility-button-save-container-component>
-
-		</div>
-
-
-		<div [hidden]="preview.isOn"
-				 class="col-span-12 pb-16">
-
-			<form [formGroup]="form" class="flex flex-col gap-4">
-
-				<bee-card>
-					<event-attendees-component [form]="form.controls.attendees"/>
-				</bee-card>
-
-				<bee-card>
-					<event-service-component
-						[serviceListControl]="form.controls.services"/>
-				</bee-card>
-
-				<bee-card *ngIf="slotsService.specialistExist">
-
-					<event-select-time-slot-form-component
-						[editable]="!isEditMode"
-						[configurationForm]="form.controls.configuration"
-						[control]="form.controls.start"/>
-
-				</bee-card>
-
-				<bee-card>
-					<form-textarea-component
-						id="event-form-public-note-input"
-						[label]="'keyword.capitalize.note' | translate"
-						[placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
-						[control]="form.controls.note"/>
-				</bee-card>
-
-				<utility-button-save-container-component>
-					<button
-						type="button"
-						primary
-						[scrollToFirstError]="true"
-						[isLoading]="form.pending"
-						[disabled]="form.disabled"
-						(click)="goToPreview()">
-						{{ 'keyword.capitalize.preview' | translate }}
-					</button>
-				</utility-button-save-container-component>
-
-			</form>
-
-		</div>
-	`
+	templateUrl: './container.form.component.html'
 })
 export class ContainerFormComponent extends Reactive implements OnInit, AfterContentInit, OnChanges {
 

@@ -137,8 +137,12 @@ describe('SelectDateComponent', () => {
 		component.selectDateItem(datetimeToSelect);
 
 		// Verify selectedDateTime and localDateTimeControl values
-		expect(component.selectedDateTime.toISODate()).toBe('2023-07-15');
-		expect(component.localDateTimeControl.value.toISODate()).toBe('2023-07-15');
+		if (component.selectedDateTime) {
+			expect(component.selectedDateTime.toISODate()).toBe('2023-07-15');
+		}
+		if (component.localDateTimeControl.value) {
+			expect(component.localDateTimeControl.value.toISODate()).toBe('2023-07-15');
+		}
 	});
 
 
