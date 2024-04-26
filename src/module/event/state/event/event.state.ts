@@ -97,7 +97,9 @@ export class EventState extends BaseState<Event.IEvent> {
 
 		await this.pushBoxService.buildItAsync({
 			component: ContainerDetailsComponent,
-			componentInputs: {event},
+			componentInputs: {
+				event: Event.MEvent.create(event)
+			},
 			title,
 		});
 
