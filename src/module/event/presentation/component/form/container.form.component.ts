@@ -375,6 +375,9 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 				}
 			}
 
+			// Trim note field
+			value.note = value.note?.trim();
+
 			if (this.isEditMode) {
 
 				await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(value)));

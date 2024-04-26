@@ -11,7 +11,7 @@ import {
 	ComposeCalendarWithSpecialistsService
 } from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 import {IEvent, RIEvent} from "@event/domain";
-import {DatePipe} from "@angular/common";
+import {DatePipe, NgIf} from "@angular/common";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 import {Store} from "@ngxs/store";
 import {EventActions} from "@event/state/event/event.actions";
@@ -30,10 +30,14 @@ import {EventActions} from "@event/state/event/event.actions";
 		<span class="text-xs font-medium line-clamp-2">
 			{{ event.data.services[0].languageVersions[0].title }}
 		</span>
+		<span *ngIf="event.data.note" class="text-xs font-medium line-clamp-2">
+			📓 {{ event.data.note }}
+		</span>
 	`,
 	standalone: true,
 	imports: [
-		DatePipe
+		DatePipe,
+		NgIf
 	],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
