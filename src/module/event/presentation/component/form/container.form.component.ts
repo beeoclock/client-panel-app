@@ -108,18 +108,12 @@ import {ISpecialist} from "@service/domain/interface/i.specialist";
 				</bee-card>
 
 				<bee-card *ngIf="slotsService.specialistExist">
+
 					<event-select-time-slot-form-component
-						*ngIf="!forceStart"
 						[editable]="!isEditMode"
 						[configurationForm]="form.controls.configuration"
 						[control]="form.controls.start"/>
 
-					<input
-						type="datetime-local"
-						class="border-none p-0"
-						*ngIf="forceStart"
-						[value]="form.controls.start.value | date: 'yyyy-MM-ddTHH:mm'"
-						(change)="updateStartControlByDateTimeString($event)"/>
 				</bee-card>
 
 				<bee-card>
@@ -167,8 +161,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 	public member: Member.RIMember | undefined;
 
 	@Input()
-	public callback: () => void = () => {
-	};
+	public callback: (() => void) | null = null;
 
 	private readonly store = inject(Store);
 	public readonly activatedRoute = inject(ActivatedRoute);
@@ -193,13 +186,6 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 		return MEvent.create(this.form.getRawValue() as IEvent);
 	}
 
-	public updateStartControlByDateTimeString(event: Event): void {
-		this.logger.debug('updateStartControlByDateTimeString', event);
-		const {value} = event.target as HTMLInputElement;
-		const date = new Date(value);
-		this.form.controls.start.patchValue(date.toISOString());
-	}
-
 	public ngOnChanges(changes: SimpleChanges & {forceStart: SimpleChange}): void {
 		const {forceStart} = changes;
 		if (forceStart.currentValue) {
@@ -208,15 +194,13 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 	}
 
 	public ngOnInit(): void {
-		this.detectItem();
 
 		const clientAndService$ = combineLatest(
 			[
-				this.client$.pipe(this.takeUntil(), filter(is.object)),
+				this.client$.pipe(filter(is.object)),
 				this.form.controls.services.valueChanges.pipe(
-					this.takeUntil(),
 					filter((services) => !!services?.length),
-					map(([firstService]) => firstService),
+					map(({0: firstService}) => firstService),
 					filter((firstService) => {
 						// Allow only if specialist or duration is not the same
 						const newSpecialist = this.takeSpecialistFromService(firstService);
@@ -233,7 +217,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 			.pipe(
 				this.takeUntil()
 			)
-			.subscribe(([client, services]) => {
+			.subscribe(({0: client, 1: services}) => {
 				this.logger.debug('clientAndService$', client, services, this.slotsService.initialized.isTrue);
 
 				this.slotsService
@@ -263,6 +247,8 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 				}));
 			});
 		}
+
+		this.detectItem();
 
 	}
 
@@ -390,7 +376,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 
 			// TODO check if customers/attends is exist in db (just check if selected customer has _id field if exist is in db if not then need to make request to create the new customer)
 
-			this.callback();
+			this.callback?.();
 
 			this.form.enable();
 			this.form.updateValueAndValidity();
@@ -426,6 +412,9 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 
 			const {attendees, ...rest} = result;
 
+			// Fill forceStart
+			this.forceStart = rest.start;
+
 			const dataFromRoute: {
 				cacheLoaded: boolean;
 				repeat: boolean;
@@ -458,6 +447,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 			}
 
 			this.form.updateValueAndValidity();
+			this.form.controls.configuration.controls.ignoreEventChecks.patchValue(true);
 
 		}
 	}

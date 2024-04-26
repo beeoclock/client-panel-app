@@ -347,6 +347,11 @@
 						"title": "Kundens valg"
 					}
 				},
+				"datetime": {
+					"hint": {
+						"selectDateToSelectTimeSlot": "Vælg en af de foreslåede datoer for at kunne vælge tidspunkt"
+					}
+				},
 				"service": {
 					"button": {
 						"add": "Tilføj tjeneste",

@@ -47,7 +47,7 @@ export class DateSliderSelectComponent extends Reactive implements OnInit, After
 	public control!: FormControl<string>;
 
 	@Input()
-	public localDateTimeControl!: FormControl<DateTime>;
+	public localDateTimeControl!: FormControl<DateTime | null>;
 
 	@Input()
 	public controlsAreRequired = true;
@@ -67,7 +67,7 @@ export class DateSliderSelectComponent extends Reactive implements OnInit, After
 	@Output()
 	public updateDayItemList = new EventEmitter<IDayItem[]>();
 
-	public selectedDateTime: DateTime = DateTime.now();
+	public selectedDateTime: DateTime | undefined = undefined;
 	public today: DateTime = DateTime.now();
 
 	public amountOfDaySlotsInContainer = 0;
@@ -178,6 +178,9 @@ export class DateSliderSelectComponent extends Reactive implements OnInit, After
 	 * @param datetime
 	 */
 	public isSelected(datetime: DateTime): boolean {
+		if (!this.selectedDateTime) {
+			return false;
+		}
 		return datetime.hasSame(this.selectedDateTime, 'day');
 	}
 

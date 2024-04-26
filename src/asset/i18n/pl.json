@@ -347,6 +347,11 @@
 						"title": "Wybór klienta"
 					}
 				},
+				"datetime": {
+					"hint": {
+						"selectDateToSelectTimeSlot": "Wybierz jedną z proponowanych dat, aby móc wybrać godzinę."
+					}
+				},
 				"service": {
 					"button": {
 						"add": "Dodaj usługę",
