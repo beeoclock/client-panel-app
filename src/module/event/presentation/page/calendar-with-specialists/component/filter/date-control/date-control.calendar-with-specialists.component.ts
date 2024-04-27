@@ -1,10 +1,11 @@
 import {Component, inject, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {AsyncPipe, DOCUMENT, NgIf} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {combineLatest, map} from "rxjs";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
+import {IonicModule, ModalController} from "@ionic/angular";
 
 @Component({
 	selector: 'event-date-control-calendar-with-specialists-component',
@@ -15,11 +16,22 @@ import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-speciali
 				(click)="prevDate()"
 				[disabled]="loader$ | async"
 				type="button"
-				class="flex h-9 items-center justify-center rounded-l-2xl border-y border-l border-beeColor-300 text-beeColor-400 hover:text-beeColor-500 focus:relative w-9 pr-0 hover:bg-beeColor-50">
+				class="flex h-9 items-center justify-center rounded-l-2xl border-y border-l border-beeColor-300 text-beeColor-400 hover:text-beeColor-500 focus:relative w-9 pr-0 hover:bg-beeColor-100">
 				<i class="bi bi-chevron-left"></i>
 			</button>
 
-			<div class="border-y border-beeColor-300 px-3.5 text-beeColor-900 flex flex-col justify-center items-center">
+			<ion-datetime-button id="hidden-ion-datetime-button" [hidden]="true" datetime="datetime"/>
+
+			<ion-modal [keepContentsMounted]="true">
+				<ng-template>
+					<ion-datetime id="datetime" presentation="date" (ionChange)="setDate($event)"/>
+				</ng-template>
+			</ion-modal>
+
+			<button (click)="openDateModal()"
+							[disabled]="loader$ | async"
+							id="open-modal"
+							class="border-y border-beeColor-300 px-3.5 text-beeColor-900 flex flex-col justify-center items-center cursor-pointer hover:bg-beeColor-100 transition-all">
 
 				<span *ngIf="hint$ | async as translateKey" class="text-xs font-semibold">
 					{{ translateKey | translate }}
@@ -29,13 +41,13 @@ import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-speciali
 					{{ selectedDate.toFormat('yyyy-MM-dd') }}
 				</span>
 
-			</div>
+			</button>
 
 			<button
 				(click)="nextDate()"
 				[disabled]="loader$ | async"
 				type="button"
-				class="flex h-9 items-center justify-center rounded-r-2xl border-y border-r border-beeColor-300 text-beeColor-400 hover:text-beeColor-500 focus:relative w-9 pl-0 hover:bg-beeColor-50">
+				class="flex h-9 items-center justify-center rounded-r-2xl border-y border-r border-beeColor-300 text-beeColor-400 hover:text-beeColor-500 focus:relative w-9 pl-0 hover:bg-beeColor-100">
 				<i class="bi bi-chevron-right"></i>
 			</button>
 
@@ -45,7 +57,8 @@ import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-speciali
 	imports: [
 		NgIf,
 		TranslateModule,
-		AsyncPipe
+		AsyncPipe,
+		IonicModule
 	],
 	encapsulation: ViewEncapsulation.None
 })
@@ -53,6 +66,8 @@ export class DateControlCalendarWithSpecialistsComponent {
 
 	private readonly store = inject(Store);
 	private readonly translateService = inject(TranslateService);
+	private readonly document = inject(DOCUMENT);
+	private readonly modalController = inject(ModalController);
 
 	public readonly loader$ = this.store.select(CalendarWithSpecialistsQueries.loader);
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
@@ -89,6 +104,36 @@ export class DateControlCalendarWithSpecialistsComponent {
 
 	public prevDate() {
 		this.store.dispatch(new CalendarWithSpecialistsAction.PrevDate());
+	}
+
+	public openDateModal() {
+		const button = this.document.getElementById('hidden-ion-datetime-button');
+		if (!button) {
+			return;
+		}
+		const {shadowRoot} = button;
+		if (!shadowRoot) {
+			return;
+		}
+		const {firstElementChild} = shadowRoot as unknown as {firstElementChild: HTMLButtonElement};
+		if (!firstElementChild) {
+			return;
+		}
+		firstElementChild.click()
+	}
+
+	public setDate(event: CustomEvent) {
+		const {detail: {value}} = event;
+		if (!value) {
+			return;
+		}
+		const date = new Date(value);
+		this.store.dispatch(new CalendarWithSpecialistsAction.SetDate({
+			date: date.toISOString()
+		}));
+		this.modalController.getTop().then((modal) => {
+			modal && modal.dismiss().then();
+		});
 	}
 
 }
