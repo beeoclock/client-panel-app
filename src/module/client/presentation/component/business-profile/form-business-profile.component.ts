@@ -49,7 +49,6 @@ import {
 				[control]="form.controls.name"
 				[label]="'client.profile.form.inputs.name.label' | translate"/>
 
-
 			<div>
 				<form-input-with-left-hint
 					id="business-profile-form-username-input"
