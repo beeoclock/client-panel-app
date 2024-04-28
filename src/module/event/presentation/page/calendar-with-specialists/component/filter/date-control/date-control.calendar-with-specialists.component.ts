@@ -24,7 +24,7 @@ import {IonicModule, ModalController} from "@ionic/angular";
 
 			<ion-modal [keepContentsMounted]="true">
 				<ng-template>
-					<ion-datetime id="datetime" presentation="date" (ionChange)="setDate($event)"/>
+					<ion-datetime [locale]="locale" id="datetime" presentation="date" (ionChange)="setDate($event)"/>
 				</ng-template>
 			</ion-modal>
 
@@ -97,6 +97,8 @@ export class DateControlCalendarWithSpecialistsComponent {
 			}
 		})
 	);
+
+	public readonly locale = this.translateService.currentLang;
 
 	public nextDate() {
 		this.store.dispatch(new CalendarWithSpecialistsAction.NextDate());
