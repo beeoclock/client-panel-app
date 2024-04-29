@@ -19,13 +19,11 @@ import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-special
 @Component({
 	selector: 'event-data-frame-component',
 	template: `
-		<ng-container *ngFor="let event of (events$ | async) ?? [];">
-			<event-card-component
-				*ngFor="let card of event.cards;"
-				[id]="event.data._id"
-				[card]="card"
-				[event]="event"/>
-		</ng-container>
+		<event-card-component
+			*ngFor="let event of (events$ | async) ?? []; trackBy: trackById"
+			[id]="event.data._id"
+			[card]="event.card"
+			[event]="event"/>
 	`,
 	standalone: true,
 	imports: [
@@ -86,11 +84,11 @@ export class DataFrameComponent extends Reactive {
 	public readonly endTimeToDisplay = this.composeCalendarWithSpecialistsService.endTimeToDisplay;
 
 	public readonly events$: Observable<{
-		cards: {
+		card: {
 			startTime: number;
 			durationInMinutes: number;
 			column: number;
-		}[];
+		};
 		data: RIEvent;
 	}[]> = this.store.select(CalendarWithSpecialistsQueries.data).pipe(
 		this.takeUntil(),
@@ -102,20 +100,20 @@ export class DataFrameComponent extends Reactive {
 				const start = DateTime.fromISO(item.start).toLocal();
 				return {
 					data: item,
-					cards: [
-						{
-							startTime: start.hour + (start.minute / 60),
-							durationInMinutes: item.services[0].durationVersions[0].durationInSeconds / 60,
-							column,
-						}
-					]
+					card: {
+						startTime: start.hour + (start.minute / 60),
+						durationInMinutes: item.services[0].durationVersions[0].durationInSeconds / 60,
+						column,
+					}
 				};
-			}).filter((event) => {
-				return event.cards.every((card) => {
-					return card.startTime >= this.startTimeToDisplay && card.startTime <= this.endTimeToDisplay;
-				});
+			}).filter(({card}) => {
+				return card.startTime >= this.startTimeToDisplay && card.startTime <= this.endTimeToDisplay;
 			});
 		})
 	);
+
+	public trackById(index: number, event: { data: RIEvent }) {
+		return event.data._id;
+	}
 
 }

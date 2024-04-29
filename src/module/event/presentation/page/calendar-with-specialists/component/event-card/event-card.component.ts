@@ -47,11 +47,11 @@ export class EventCardComponent {
 	@Input()
 	public event!: {
 		data: RIEvent;
-		cards: {
+		card: {
 			startTime: number;
 			durationInMinutes: number;
 			column: number;
-		}[];
+		};
 	};
 
 	@Input()

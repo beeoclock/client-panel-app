@@ -52,6 +52,7 @@ export class ChangeStatusOnDoneComponent extends ChangeStatusBaseComponent {
 		ring-inset
 		ring-green-300
 		hover:bg-green-100
+		cursor-pointer
 	`;
 
 	@HostListener('click')
