@@ -7,8 +7,16 @@ export namespace EventActions {
 
 	// Application layer
 
+	export class CloseDetails extends BaseActions.CloseDetails {
+		public static override readonly type = '[Event Application] Close Details';
+	}
+
 	export class CloseForm extends BaseActions.CloseForm {
 		public static override readonly type = '[Event Application] Close Form';
+	}
+
+	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<IEvent> {
+		public static override readonly type = '[Event Application] Update Opened Details';
 	}
 
 	export class OpenDetails extends BaseActions.OpenDetails<IEvent> {

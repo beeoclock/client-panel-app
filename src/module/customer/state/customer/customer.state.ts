@@ -46,12 +46,40 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 	// Application layer
 
+	@Action(CustomerActions.CloseDetails)
+	public async closeDetails(ctx: StateContext<ICustomerState>, action?: CustomerActions.CloseDetails) {
+
+		if (action?.payload) {
+			this.pushBoxService.destroy$.next(action?.payload);
+			return;
+		}
+
+		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
+
+		this.pushBoxService.destroyByComponentName$.next(CustomerDetailsContainerComponent.name);
+
+	}
+
 	@Action(CustomerActions.CloseForm)
 	public async closeForm(ctx: StateContext<ICustomerState>) {
 
 		const {CustomerFormContainerComponent} = await import("@customer/presentation/component/form/customer-form-container.component");
 
-		this.pushBoxService.destroy$.next(CustomerFormContainerComponent.name);
+		this.pushBoxService.destroyByComponentName$.next(CustomerFormContainerComponent.name);
+
+	}
+
+	@Action(CustomerActions.UpdateOpenedDetails)
+	public async updateOpenedDetails(ctx: StateContext<ICustomerState>, {payload}: CustomerActions.UpdateOpenedDetails) {
+
+		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
+
+		await this.pushBoxService.updatePushBoxComponentAsync({
+			id: payload._id,
+			useComponentNameAsPrefixOfId: true,
+			component: CustomerDetailsContainerComponent,
+			componentInputs: {item: payload},
+		});
 
 	}
 
@@ -102,7 +130,6 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 			payload: {
 				pushBoxInputs: {
 					title,
-					showLoading: true,
 					id: action.payload,
 				},
 				componentInputs: {
@@ -163,11 +190,14 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 	public override async updateItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateItem): Promise<void> {
 		await super.updateItem(ctx, action);
 		await this.closeForm(ctx);
+		const {data} = ctx.getState().item;
+		data && await this.updateOpenedDetails(ctx, {payload: data});
 	}
 
 	@Action(CustomerActions.DeleteItem)
 	public override async deleteItem(ctx: StateContext<ICustomerState>, action: CustomerActions.DeleteItem) {
 		await super.deleteItem(ctx, action);
+		await this.closeDetails(ctx, action);
 	}
 
 	@Action(CustomerActions.ArchiveItem)

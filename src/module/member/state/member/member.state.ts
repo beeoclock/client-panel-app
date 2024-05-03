@@ -46,6 +46,20 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 	// Application layer
 
+	@Action(MemberActions.CloseDetails)
+	public async closeDetails(ctx: StateContext<IMemberState>, action?: MemberActions.CloseDetails) {
+
+		if (action?.payload) {
+			this.pushBoxService.destroy$.next(action?.payload);
+			return;
+		}
+
+		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
+
+		this.pushBoxService.destroyByComponentName$.next(MemberDetailsContainerComponent.name);
+
+	}
+
 	@Action(MemberActions.CloseForm)
 	public async closeForm(ctx: StateContext<IMemberState>, action?: MemberActions.CloseForm) {
 
@@ -56,7 +70,23 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 		const {MemberFormContainerComponent} = await import("@member/presentation/component/form/member-form-container/member-form-container.component");
 
-		this.pushBoxService.destroy$.next(MemberFormContainerComponent.name);
+		this.pushBoxService.destroyByComponentName$.next(MemberFormContainerComponent.name);
+
+	}
+
+	@Action(MemberActions.UpdateOpenedDetails)
+	public async updateOpenedDetails(ctx: StateContext<IMemberState>, {payload}: MemberActions.UpdateOpenedDetails) {
+
+		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
+
+		await this.pushBoxService.updatePushBoxComponentAsync({
+			id: payload._id,
+			useComponentNameAsPrefixOfId: true,
+			component: MemberDetailsContainerComponent,
+			componentInputs: {
+				item: payload
+			},
+		});
 
 	}
 
@@ -109,7 +139,6 @@ export class MemberState extends BaseState<Member.RIMember> {
 			payload: {
 				pushBoxInputs: {
 					title,
-					showLoading: false,
 					id,
 				},
 				componentInputs: {
@@ -162,6 +191,7 @@ export class MemberState extends BaseState<Member.RIMember> {
 	@Action(MemberActions.DeleteItem)
 	public override async deleteItem(ctx: StateContext<IMemberState>, action: MemberActions.DeleteItem) {
 		await super.deleteItem(ctx, action);
+		await this.closeDetails(ctx, action);
 	}
 
 	@Action(MemberActions.CreateItem)
@@ -174,6 +204,8 @@ export class MemberState extends BaseState<Member.RIMember> {
 	public override async updateItem(ctx: StateContext<IMemberState>, action: MemberActions.UpdateItem): Promise<void> {
 		await super.updateItem(ctx, action);
 		await this.closeForm(ctx);
+		const {data} = ctx.getState().item;
+		data && await this.updateOpenedDetails(ctx, {payload: data});
 	}
 
 	@Action(MemberActions.GetList)

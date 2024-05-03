@@ -8,8 +8,17 @@ export namespace ServiceActions {
 	// Application layer
 
 
+	export class CloseDetails extends BaseActions.CloseDetails {
+		public static override readonly type = '[Service Application] Close Details';
+	}
+
+
 	export class CloseForm extends BaseActions.CloseForm {
 		public static override readonly type = '[Service Application] Close Form';
+	}
+
+	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<IService> {
+		public static override readonly type = '[Service Application] Update Opened Details';
 	}
 
 	export class OpenDetails extends BaseActions.OpenDetails<IService> {

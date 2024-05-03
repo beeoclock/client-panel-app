@@ -65,7 +65,9 @@ export class PushBoxService {
 
 			componentRefList.forEach((componentRef) => {
 				componentRef.instance.destroySelf();
-			})
+			});
+
+			this.componentRefMapByComponentName.delete(componentName);
 
 		});
 	}

@@ -6,8 +6,16 @@ export namespace MemberActions {
 
 	// Application layer
 
+	export class CloseDetails extends BaseActions.CloseDetails {
+		public static override readonly type = '[Member Application] Close Details';
+	}
+
 	export class CloseForm extends BaseActions.CloseForm {
 		public static override readonly type = '[Member Application] Close Form';
+	}
+
+	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<RIMember> {
+		public static override readonly type = '[Member Application] Update Opened Details';
 	}
 
 	export class OpenDetails extends BaseActions.OpenDetails<RIMember> {

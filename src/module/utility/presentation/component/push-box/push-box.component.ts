@@ -137,6 +137,10 @@ export class PushBoxComponent extends Reactive implements OnInit {
 		});
 		pushBoxWrapperComponentRef.instance.renderComponent(component, componentInputs);
 		this.pushBoxService.componentRefMapById.set(id, pushBoxWrapperComponentRef);
+		if (!this.pushBoxService.componentRefMapByComponentName.has(component.name)) {
+			this.pushBoxService.componentRefMapByComponentName.set(component.name, []);
+		}
+		this.pushBoxService.componentRefMapByComponentName.get(component.name)?.push(pushBoxWrapperComponentRef);
 		this.updateVisibility();
 
 		return pushBoxWrapperComponentRef;

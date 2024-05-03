@@ -7,6 +7,11 @@ export namespace BaseActions {
 
 	export class CloseDetails {
 		public static readonly type: string = '[Base Application] Close Details';
+
+		constructor(
+			public readonly payload?: string,
+		) {
+		}
 	}
 
 	export class CloseForm {
@@ -14,6 +19,15 @@ export namespace BaseActions {
 
 		constructor(
 			public readonly payload?: string,
+		) {
+		}
+	}
+
+	export class UpdateOpenedDetails<ITEM> {
+		public static readonly type: string = '[Base Application] Update Opened Details';
+
+		constructor(
+			public readonly payload: ITEM,
 		) {
 		}
 	}

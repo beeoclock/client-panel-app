@@ -58,6 +58,36 @@ export class EventState extends BaseState<Event.IEvent> {
 
 	// Application layer
 
+	@Action(EventActions.UpdateOpenedDetails)
+	public async updateOpenedDetails(ctx: StateContext<IEventState>, {payload}: EventActions.UpdateOpenedDetails) {
+
+		const {ContainerDetailsComponent} = await import("@event/presentation/component/details/container.details.component");
+
+		await this.pushBoxService.updatePushBoxComponentAsync({
+			id: payload._id,
+			useComponentNameAsPrefixOfId: true,
+			component: ContainerDetailsComponent,
+			componentInputs: {
+				event: Event.MEvent.create(payload)
+			},
+		});
+
+	}
+
+	@Action(EventActions.CloseDetails)
+	public async closeDetails(ctx: StateContext<IEventState>, action?: EventActions.CloseDetails) {
+
+		const {ContainerDetailsComponent} = await import("@event/presentation/component/details/container.details.component");
+
+		if (action?.payload) {
+			this.pushBoxService.destroy$.next(ContainerDetailsComponent.name + '_' + action?.payload);
+			return;
+		}
+
+		this.pushBoxService.destroyByComponentName$.next(ContainerDetailsComponent.name);
+
+	}
+
 	@Action(EventActions.CloseForm)
 	public async closeForm(ctx: StateContext<IEventState>, action?: EventActions.CloseForm) {
 
@@ -68,7 +98,7 @@ export class EventState extends BaseState<Event.IEvent> {
 
 		const {ContainerFormComponent} = await import("@event/presentation/component/form/container.form.component");
 
-		this.pushBoxService.destroy$.next(ContainerFormComponent.name);
+		this.pushBoxService.destroyByComponentName$.next(ContainerFormComponent.name);
 
 	}
 
@@ -140,8 +170,7 @@ export class EventState extends BaseState<Event.IEvent> {
 			payload: {
 				pushBoxInputs: {
 					id,
-					title,
-					showLoading: false
+					title
 				},
 				componentInputs: {
 					event
@@ -199,6 +228,7 @@ export class EventState extends BaseState<Event.IEvent> {
 		ctx.dispatch(new EventActions.GetList({resetPage: false, resetParams: false}));
 		ctx.dispatch(new CalendarWithSpecialistsAction.GetItems());
 		ctx.dispatch(new RefreshCalendarAction());
+		await this.closeDetails(ctx, action);
 		// Try to close details of event
 	}
 
@@ -213,10 +243,7 @@ export class EventState extends BaseState<Event.IEvent> {
 		await super.updateItem(ctx, action);
 		await this.closeForm(ctx);
 		const {item: {data}} = ctx.getState();
-		if (!data) {
-			return;
-		}
-		await this.openDetails(ctx, {payload: data});
+		data && await this.updateOpenedDetails(ctx, {payload: data});
 	}
 
 	@Action(EventActions.GetList)

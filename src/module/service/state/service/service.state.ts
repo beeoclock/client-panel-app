@@ -47,6 +47,20 @@ export class ServiceState extends BaseState<IService> {
 
 	// Application layer
 
+	@Action(ServiceActions.CloseDetails)
+	public async closeDetails(ctx: StateContext<IServiceState>, action?: ServiceActions.CloseDetails) {
+
+		if (action?.payload) {
+			this.pushBoxService.destroy$.next(action?.payload);
+			return;
+		}
+
+		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
+
+		this.pushBoxService.destroyByComponentName$.next(ServiceDetails.name);
+
+	}
+
 	@Action(ServiceActions.CloseForm)
 	public async closeForm(ctx: StateContext<IServiceState>, action?: ServiceActions.CloseForm) {
 
@@ -57,7 +71,21 @@ export class ServiceState extends BaseState<IService> {
 
 		const {ServiceContainerFormComponent} = await import("@service/presentation/component/form/service-container–form/service-container–form.component");
 
-		this.pushBoxService.destroy$.next(ServiceContainerFormComponent.name);
+		this.pushBoxService.destroyByComponentName$.next(ServiceContainerFormComponent.name);
+
+	}
+
+	@Action(ServiceActions.UpdateOpenedDetails)
+	public async updateOpenedDetails(ctx: StateContext<IServiceState>, {payload}: ServiceActions.UpdateOpenedDetails) {
+
+		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
+
+		await this.pushBoxService.updatePushBoxComponentAsync({
+			id: payload._id,
+			useComponentNameAsPrefixOfId: true,
+			component: ServiceDetails,
+			componentInputs: {item: payload},
+		});
 
 	}
 
@@ -109,7 +137,6 @@ export class ServiceState extends BaseState<IService> {
 				pushBoxInputs: {
 					id,
 					title,
-					showLoading: false
 				},
 				componentInputs: {
 					item,
@@ -166,6 +193,8 @@ export class ServiceState extends BaseState<IService> {
 		await this.closeForm(ctx, {
 			payload: action.payload._id
 		});
+		const {data} = ctx.getState().item;
+		data && await this.updateOpenedDetails(ctx, {payload: data});
 	}
 
 	@Action(ServiceActions.GetItem)
@@ -176,6 +205,7 @@ export class ServiceState extends BaseState<IService> {
 	@Action(ServiceActions.DeleteItem)
 	public override async deleteItem(ctx: StateContext<IServiceState>, action: ServiceActions.DeleteItem) {
 		await super.deleteItem(ctx, action);
+		await this.closeDetails(ctx, action);
 	}
 
 	@Action(ServiceActions.GetList)

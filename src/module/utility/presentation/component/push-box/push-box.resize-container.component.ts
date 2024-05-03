@@ -12,7 +12,7 @@ import {combineLatest} from "rxjs";
 export class PushBoxResizeContainerComponent extends Reactive implements OnInit {
 
 	@HostBinding()
-	public class = 'absolute left-0 top-0 bottom-0 w-1 bg-beeColor-200 transition-all hover:bg-blue-300 hover:shadow cursor-col-resize';
+	public class = 'absolute right-full top-0 bottom-0 w-1 bg-beeColor-200 transition-all hover:bg-blue-300 hover:shadow cursor-col-resize';
 
 	@HostBinding('class.hidden')
 	public isHidden = false;
