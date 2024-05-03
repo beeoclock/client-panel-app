@@ -49,12 +49,12 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 	@Action(CustomerActions.CloseDetails)
 	public async closeDetails(ctx: StateContext<ICustomerState>, action?: CustomerActions.CloseDetails) {
 
+		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
+
 		if (action?.payload) {
-			this.pushBoxService.destroy$.next(action?.payload);
+			this.pushBoxService.destroy$.next(CustomerDetailsContainerComponent.name + '_' + action?.payload);
 			return;
 		}
-
-		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
 
 		this.pushBoxService.destroyByComponentName$.next(CustomerDetailsContainerComponent.name);
 

@@ -50,12 +50,12 @@ export class ServiceState extends BaseState<IService> {
 	@Action(ServiceActions.CloseDetails)
 	public async closeDetails(ctx: StateContext<IServiceState>, action?: ServiceActions.CloseDetails) {
 
+		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
+
 		if (action?.payload) {
-			this.pushBoxService.destroy$.next(action?.payload);
+			this.pushBoxService.destroy$.next(ServiceDetails.name + '_' + action?.payload);
 			return;
 		}
-
-		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
 
 		this.pushBoxService.destroyByComponentName$.next(ServiceDetails.name);
 

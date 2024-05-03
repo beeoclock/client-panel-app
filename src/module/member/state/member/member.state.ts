@@ -49,12 +49,12 @@ export class MemberState extends BaseState<Member.RIMember> {
 	@Action(MemberActions.CloseDetails)
 	public async closeDetails(ctx: StateContext<IMemberState>, action?: MemberActions.CloseDetails) {
 
+		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
+
 		if (action?.payload) {
-			this.pushBoxService.destroy$.next(action?.payload);
+			this.pushBoxService.destroy$.next(MemberDetailsContainerComponent.name + '_' + action?.payload);
 			return;
 		}
-
-		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
 
 		this.pushBoxService.destroyByComponentName$.next(MemberDetailsContainerComponent.name);
 
