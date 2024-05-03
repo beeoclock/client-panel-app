@@ -51,36 +51,30 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 		const {CustomerFormContainerComponent} = await import("@customer/presentation/component/form/customer-form-container.component");
 
-		this.pushBoxService.destroy$.next(CustomerFormContainerComponent);
-
-	}
-
-	@Action(CustomerActions.CloseDetails)
-	public async closeDetails(ctx: StateContext<ICustomerState>) {
-
-		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
-
-		this.pushBoxService.destroy$.next(CustomerDetailsContainerComponent);
+		this.pushBoxService.destroy$.next(CustomerFormContainerComponent.name);
 
 	}
 
 	@Action(CustomerActions.OpenDetailsById)
-	public async openDetailsById(ctx: StateContext<ICustomerState>, action: CustomerActions.OpenDetailsById) {
+	public async openDetailsById(ctx: StateContext<ICustomerState>, {payload: id}: CustomerActions.OpenDetailsById) {
 
 		const title = await this.translateService.instant('customer.details.title');
 
 		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
 
 		await this.pushBoxService.buildItAsync({
+			id,
 			title,
 			showLoading: true,
+			useComponentNameAsPrefixOfId: true,
 			component: CustomerDetailsContainerComponent,
 		});
 
-		const item = await this.item.executeAsync(action.payload);
+		const item = await this.item.executeAsync(id);
 
-		await this.pushBoxService.buildItAsync({
-			title,
+		await this.pushBoxService.updatePushBoxComponentAsync({
+			id,
+			useComponentNameAsPrefixOfId: true,
 			component: CustomerDetailsContainerComponent,
 			componentInputs: {item},
 		});
@@ -94,8 +88,11 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 		await this.openForm(ctx, {
 			payload: {
-				title,
-				showLoading: true,
+				pushBoxInputs: {
+					title,
+					showLoading: true,
+					id: action.payload,
+				},
 			}
 		});
 
@@ -103,9 +100,15 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 		await this.openForm(ctx, {
 			payload: {
-				title,
-				item,
-				isEditMode: true
+				pushBoxInputs: {
+					title,
+					showLoading: true,
+					id: action.payload,
+				},
+				componentInputs: {
+					item,
+					isEditMode: true,
+				}
 			}
 		});
 
@@ -116,13 +119,14 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 		const {CustomerFormContainerComponent} = await import("@customer/presentation/component/form/customer-form-container.component");
 
-		const {showLoading, title, ...componentInputs} = payload ?? {};
+		const {componentInputs, pushBoxInputs} = payload ?? {};
 
 		await this.pushBoxService.buildItAsync({
-			showLoading,
+			id: CustomerFormContainerComponent.name,
+			title: this.translateService.instant('customer.form.title.create'),
+			...pushBoxInputs,
 			component: CustomerFormContainerComponent,
 			componentInputs,
-			title: title ?? this.translateService.instant('customer.form.title.create'),
 		});
 
 	}

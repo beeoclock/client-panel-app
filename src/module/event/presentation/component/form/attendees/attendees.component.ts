@@ -58,7 +58,7 @@ export class AttendeesComponent extends Reactive {
 				this.form.controls[0].toggleIsNewCustomer(IsNewCustomerEnum.NO);
 				this.form.controls[0].controls.customer.disable();
 
-				this.pushBoxService.destroy$.next(SelectCustomerPushBoxComponent);
+				this.pushBoxService.destroy$.next(SelectCustomerPushBoxComponent.name);
 			});
 		}
 

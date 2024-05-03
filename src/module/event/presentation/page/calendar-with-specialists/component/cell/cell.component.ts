@@ -97,9 +97,12 @@ export class CellComponent {
 
 			this.store.dispatch(
 				new EventActions.OpenForm({
-					datetimeISO,
-					member: this.column.member ?? undefined,
-					callback
+					componentInputs: {
+						datetimeISO,
+						member: this.column.member ?? undefined,
+						callback
+					}
+
 				})
 			);
 

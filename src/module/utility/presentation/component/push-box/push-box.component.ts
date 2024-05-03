@@ -19,6 +19,7 @@ import {NGXLogger} from "ngx-logger";
 import {PushBoxBuildItArgsType, PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
 import {PushBoxWrapperComponent} from "@utility/presentation/component/push-box/push-box-wrapper.component";
 import {PushBoxContainerComponent} from "@utility/presentation/component/push-box/push-box.container.component";
+import {uuid} from "typia/lib/utils/RandomGenerator/RandomGenerator";
 
 @Component({
 	selector: 'utility-push-box',
@@ -70,48 +71,111 @@ export class PushBoxComponent extends Reactive implements OnInit {
 		this.pushBoxService.registerContainer(this);
 	}
 
-	public destroyComponent(componentType: PushBoxBuildItArgsType['component']): boolean {
-		const componentRef = this.pushBoxService.componentRefMap.get(componentType.name);
+	public destroyComponent(id: string): boolean {
+		const componentRef = this.pushBoxService.componentRefMapById.get(id);
 		componentRef?.destroy();
-		this.pushBoxService.componentRefMap.delete(componentType.name);
+		this.pushBoxService.componentRefMapById.delete(id);
 		this.updateVisibility();
 
 		return !!componentRef;
 	}
 
 	public removeLastComponent(): boolean {
-		const lastComponent = Array.from(this.pushBoxService.componentRefMap.values()).pop();
+		const lastComponent = Array.from(this.pushBoxService.componentRefMapById.values()).pop();
 		if (!lastComponent || !lastComponent.instance.renderedComponent) {
 			return false;
 		}
-		lastComponent && this.destroyComponent(lastComponent.instance.renderedComponent);
+		lastComponent && this.destroyComponent(lastComponent.instance.id);
+
+		this.updateVisibility();
 
 		return !!lastComponent;
 	}
 
-	public buildComponentAndRender({component, componentInputs, title, showLoading}: PushBoxBuildItArgsType) {
+	public buildComponentAndRender(
+		{
+			component,
+			componentInputs,
+			title,
+			showLoading,
+			id,
+			useComponentNameAsPrefixOfId
+		}: PushBoxBuildItArgsType
+	) {
 
-		if (this.pushBoxService.componentRefMap.has(component.name)) {
-			this.ngxLogger.debug('PushBoxComponent.observe$ componentRefMap.has', component.name);
-			this.destroyComponent(component);
+		if (useComponentNameAsPrefixOfId) {
+
+			id = `${component.name}_${id ?? uuid()}`;
+
+		} else {
+
+			id = id ?? component.name;
+
+		}
+
+		if (this.pushBoxService.componentRefMapById.has(id)) {
+			const componentRef = this.updatePushBoxComponent({
+				id, componentInputs, showLoading,
+				useComponentNameAsPrefixOfId, component
+			})
+			return componentRef;
 		}
 
 		this.ngxLogger.debug('PushBoxComponent.observe$', component);
 
-		const pushBoxWrapperComponentRef = this.listOfComponents.createComponent(PushBoxWrapperComponent, {
-			index: 0
-		});
+		const pushBoxWrapperComponentRef = this.listOfComponents.createComponent(
+			PushBoxWrapperComponent,
+			{
+				index: 0 // Insert at the beginning
+			}
+		);
 		pushBoxWrapperComponentRef.setInput('title', title);
+		pushBoxWrapperComponentRef.setInput('id', id);
 		pushBoxWrapperComponentRef.setInput('showLoading', showLoading ?? false);
 		pushBoxWrapperComponentRef.setInput('destroySelf', () => {
-			this.destroyComponent(component);
+			this.destroyComponent(id);
 		});
 		pushBoxWrapperComponentRef.instance.renderComponent(component, componentInputs);
-		this.pushBoxService.componentRefMap.set(component.name, pushBoxWrapperComponentRef);
+		this.pushBoxService.componentRefMapById.set(id, pushBoxWrapperComponentRef);
 		this.updateVisibility();
 
 		return pushBoxWrapperComponentRef;
 
+	}
+
+	public updatePushBoxComponent(
+		{
+			id,
+			componentInputs,
+			showLoading,
+			useComponentNameAsPrefixOfId,
+			component
+		}: PushBoxBuildItArgsType
+	) {
+		if (useComponentNameAsPrefixOfId) {
+
+			id = `${component.name}_${id ?? uuid()}`;
+
+		} else {
+
+			id = id ?? component.name;
+
+		}
+
+		const componentRef = this.pushBoxService.componentRefMapById.get(id);
+		if (!componentRef) {
+			return;
+		}
+		const wasLoading = componentRef.instance.showLoading;
+		componentRef.setInput('showLoading', showLoading ?? false);
+		// If the component was loading and now is not loading, render the component
+		wasLoading && !showLoading && componentRef.instance.renderComponent(component, componentInputs)
+		// If the component was not loading and now component is not loading, update the inputs
+		!wasLoading && !showLoading && componentInputs && Object.entries(componentInputs).forEach(({0: key, 1: value}) => {
+			componentRef.instance.renderedComponentRef?.setInput(key, value);
+		});
+		this.updateVisibility();
+		return componentRef;
 	}
 
 	@HostListener('document:keydown.escape')
@@ -125,7 +189,7 @@ export class PushBoxComponent extends Reactive implements OnInit {
 	}
 
 	private updateVisibility(hidden?: boolean): void {
-		const thereAreNoComponents = !this.pushBoxService.componentRefMap.size;
+		const thereAreNoComponents = !this.pushBoxService.componentRefMapById.size;
 		hidden = hidden ?? thereAreNoComponents;
 		this.elementRef.nativeElement.classList.toggle('hidden', hidden);
 		this.changeDetectorRef.detectChanges();

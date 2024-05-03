@@ -109,7 +109,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 		if (renderedComponentRef?.instance instanceof SelectServicePushBoxComponent) {
 			renderedComponentRef.instance.selectedServicesListener.pipe(this.takeUntil()).subscribe(() => {
 				this.serviceListControl.patchValue(renderedComponentRef.instance.newSelectedServiceList);
-				this.pushBoxService.destroy$.next(SelectServicePushBoxComponent);
+				this.pushBoxService.destroy$.next(SelectServicePushBoxComponent.name);
 			});
 		}
 

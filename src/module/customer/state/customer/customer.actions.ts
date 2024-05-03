@@ -6,12 +6,12 @@ export namespace CustomerActions {
 
 	// Application layer
 
-	export class CloseDetails extends BaseActions.CloseDetails {
-		public static override readonly type = '[Customer Application] Close Details';
-	}
-
 	export class CloseForm extends BaseActions.CloseForm {
 		public static override readonly type = '[Customer Application] Close Form';
+	}
+
+	export class OpenDetails extends BaseActions.OpenDetails<ICustomer> {
+		public static override readonly type = '[Customer Application] Open Details';
 	}
 
 	export class OpenDetailsById extends BaseActions.OpenDetailsById {
@@ -23,8 +23,6 @@ export namespace CustomerActions {
 	}
 
 	export class OpenForm extends BaseActions.OpenForm<{
-		title?: string;
-		showLoading?: boolean;
 		isEditMode?: boolean;
 		item?: ICustomer;
 	}> {

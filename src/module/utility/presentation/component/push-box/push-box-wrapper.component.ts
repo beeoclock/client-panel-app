@@ -39,6 +39,10 @@ export class PushBoxWrapperComponent {
 	@Input()
 	public showLoading = true;
 
+	@HostBinding()
+	@Input({ required: true })
+	public id!: string;
+
 	@Input()
 	public title = 'Title';
 

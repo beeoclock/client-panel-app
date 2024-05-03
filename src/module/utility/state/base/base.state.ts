@@ -151,7 +151,7 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 	 * @param ctx
 	 * @param payload
 	 */
-	public async createItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.CreateItem<ITEM>): Promise<void> {
+	public async createItem(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.CreateItem<ITEM>) {
 
 		ctx.dispatch(new AppActions.PageLoading(true));
 

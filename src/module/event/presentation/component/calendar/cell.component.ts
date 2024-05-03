@@ -70,8 +70,10 @@ export class CellComponent implements OnChanges {
 			this.store.dispatch(new RefreshCalendarAction());
 		};
 		this.store.dispatch(new EventActions.OpenForm({
-			datetimeISO: this.datetimeISO,
-			callback,
+			componentInputs: {
+				datetimeISO: this.datetimeISO,
+				callback,
+			}
 		}));
 		event.preventDefault();
 		event.stopPropagation();
