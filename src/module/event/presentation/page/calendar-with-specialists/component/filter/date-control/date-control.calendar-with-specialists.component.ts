@@ -1,11 +1,13 @@
-import {Component, inject, ViewEncapsulation} from "@angular/core";
+import {Component, inject, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
 import {AsyncPipe, DOCUMENT, NgIf} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
-import {combineLatest, map} from "rxjs";
+import {combineLatest, map, tap} from "rxjs";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
-import {IonicModule, ModalController} from "@ionic/angular";
+import {IonDatetime, IonicModule, ModalController} from "@ionic/angular";
+import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {DateTime} from "luxon";
 
 @Component({
 	selector: 'event-date-control-calendar-with-specialists-component',
@@ -24,7 +26,7 @@ import {IonicModule, ModalController} from "@ionic/angular";
 
 			<ion-modal [keepContentsMounted]="true">
 				<ng-template>
-					<ion-datetime [locale]="locale" id="datetime" presentation="date" (ionChange)="setDate($event)"/>
+					<ion-datetime [firstDayOfWeek]="1" [locale]="locale" [max]="datetimeAttributes.max" id="datetime" presentation="date" [formControl]="dateControl"/>
 					<ion-list [inset]="true">
 						<ion-item [button]="true" (click)="setToday()" detail="false" color="light">
 							<ion-label class="text-center">
@@ -65,11 +67,23 @@ import {IonicModule, ModalController} from "@ionic/angular";
 		NgIf,
 		TranslateModule,
 		AsyncPipe,
-		IonicModule
+		IonicModule,
+		ReactiveFormsModule
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class DateControlCalendarWithSpecialistsComponent {
+export class DateControlCalendarWithSpecialistsComponent implements OnInit {
+
+	public readonly dateControl: FormControl<string> = new FormControl((new Date()).toISOString(), {
+		nonNullable: true
+	});
+
+	public readonly datetimeAttributes = {
+		max: DateTime.now().plus({years: 3}).toISODate() ?? ''
+	};
+
+	@ViewChild(IonDatetime)
+	public readonly ionDateTime!: IonDatetime;
 
 	private readonly store = inject(Store);
 	private readonly translateService = inject(TranslateService);
@@ -77,7 +91,17 @@ export class DateControlCalendarWithSpecialistsComponent {
 	private readonly modalController = inject(ModalController);
 
 	public readonly loader$ = this.store.select(CalendarWithSpecialistsQueries.loader);
-	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
+	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start).pipe(
+		tap((selectedDatetime) => {
+			if (!selectedDatetime) {
+				return;
+			}
+			if (this.dateControl.value === selectedDatetime.toJSDate().toISOString()) {
+				return;
+			}
+			this.dateControl.setValue(selectedDatetime.toISODate() ?? '', {emitEvent: false});
+		})
+	);
 
 	public readonly isTodayOrTomorrowStreams$ = combineLatest([
 		this.store.select(CalendarWithSpecialistsQueries.isToday),
@@ -107,6 +131,19 @@ export class DateControlCalendarWithSpecialistsComponent {
 
 	public readonly locale = this.translateService.currentLang;
 
+	public ngOnInit() {
+		this.dateControl.valueChanges.subscribe((date) => {
+
+			this.store.dispatch(new CalendarWithSpecialistsAction.SetDate({
+				date
+			}));
+			this.modalController.getTop().then((modal) => {
+				modal && modal.dismiss().then();
+			});
+
+		})
+	}
+
 	public nextDate() {
 		this.store.dispatch(new CalendarWithSpecialistsAction.NextDate());
 	}
@@ -128,29 +165,17 @@ export class DateControlCalendarWithSpecialistsComponent {
 		if (!firstElementChild) {
 			return;
 		}
-		firstElementChild.click()
+		firstElementChild.click();
+		console.log(this.ionDateTime);
 	}
 
-	public setDate(event: CustomEvent) {
-		const {detail: {value}} = event;
-		if (!value) {
-			return;
-		}
-		const date = new Date(value);
-		this.store.dispatch(new CalendarWithSpecialistsAction.SetDate({
-			date: date.toISOString()
-		}));
-		this.modalController.getTop().then((modal) => {
-			modal && modal.dismiss().then();
-		});
-	}
-
-	public setToday() {
-		this.setDate({
-			detail: {
-				value: new Date().toISOString()
-			}
-		} as CustomEvent);
+	public async setToday() {
+		const today = DateTime.now().toISODate() ?? this.dateControl.value;
+		await this.ionDateTime.reset();
+		console.log(this.ionDateTime);
+		setTimeout(() => {
+			this.dateControl.setValue(today);
+		}, 350)
 	}
 
 }
