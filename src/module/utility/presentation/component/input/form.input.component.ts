@@ -17,6 +17,9 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 import {FloatingLabelDirective} from "@utility/presentation/directives/label/floating.label.directive";
 import {FloatingInputDirective} from "@utility/presentation/directives/input/floating.input.directive";
 import {TranslateModule} from "@ngx-translate/core";
+import {
+	NullValueAccessorDirective
+} from "@utility/presentation/directives/null-value-accessor/null-value-accessor.directive";
 
 @Component({
 	selector: 'form-input',
@@ -33,6 +36,7 @@ import {TranslateModule} from "@ngx-translate/core";
 		FloatingLabelDirective,
 		FloatingInputDirective,
 		TranslateModule,
+		NullValueAccessorDirective,
 	],
 	template: `
 		<label default *ngIf="showLabel" [for]="id">
@@ -43,6 +47,7 @@ import {TranslateModule} from "@ngx-translate/core";
 			isRequired
 			invalidTooltip
 			default
+			emptyStringToNull
 			[step]="step"
 			[isRequiredEnabled]="showLabel"
 			[formControl]="control"

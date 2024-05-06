@@ -46,41 +46,70 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 	// Application layer
 
-	@Action(MemberActions.CloseForm)
-	public async closeForm(ctx: StateContext<IMemberState>) {
-
-		const {MemberFormContainerComponent} = await import("@member/presentation/component/form/member-form-container/member-form-container.component");
-
-		this.pushBoxService.destroy$.next(MemberFormContainerComponent);
-
-	}
-
 	@Action(MemberActions.CloseDetails)
-	public async closeDetails(ctx: StateContext<IMemberState>) {
+	public async closeDetails(ctx: StateContext<IMemberState>, action?: MemberActions.CloseDetails) {
 
 		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
 
-		this.pushBoxService.destroy$.next(MemberDetailsContainerComponent);
+		if (action?.payload) {
+			this.pushBoxService.destroy$.next(MemberDetailsContainerComponent.name + '_' + action?.payload);
+			return;
+		}
+
+		this.pushBoxService.destroyByComponentName$.next(MemberDetailsContainerComponent.name);
+
+	}
+
+	@Action(MemberActions.CloseForm)
+	public async closeForm(ctx: StateContext<IMemberState>, action?: MemberActions.CloseForm) {
+
+		if (action?.payload) {
+			this.pushBoxService.destroy$.next(action?.payload);
+			return;
+		}
+
+		const {MemberFormContainerComponent} = await import("@member/presentation/component/form/member-form-container/member-form-container.component");
+
+		this.pushBoxService.destroyByComponentName$.next(MemberFormContainerComponent.name);
+
+	}
+
+	@Action(MemberActions.UpdateOpenedDetails)
+	public async updateOpenedDetails(ctx: StateContext<IMemberState>, {payload}: MemberActions.UpdateOpenedDetails) {
+
+		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
+
+		await this.pushBoxService.updatePushBoxComponentAsync({
+			id: payload._id,
+			useComponentNameAsPrefixOfId: true,
+			component: MemberDetailsContainerComponent,
+			componentInputs: {
+				item: payload
+			},
+		});
 
 	}
 
 	@Action(MemberActions.OpenDetailsById)
-	public async openDetailsById(ctx: StateContext<IMemberState>, action: MemberActions.OpenDetailsById) {
+	public async openDetailsById(ctx: StateContext<IMemberState>, {payload: id}: MemberActions.OpenDetailsById) {
 
 		const title = await this.translateService.instant('member.details.title');
 
 		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
 
 		await this.pushBoxService.buildItAsync({
+			id,
 			title,
 			showLoading: true,
+			useComponentNameAsPrefixOfId: true,
 			component: MemberDetailsContainerComponent,
 		});
 
-		const item = await this.item.executeAsync(action.payload);
+		const item = await this.item.executeAsync(id);
 
-		await this.pushBoxService.buildItAsync({
-			title,
+		await this.pushBoxService.updatePushBoxComponentAsync({
+			id,
+			useComponentNameAsPrefixOfId: true,
 			component: MemberDetailsContainerComponent,
 			componentInputs: {
 				item
@@ -90,24 +119,32 @@ export class MemberState extends BaseState<Member.RIMember> {
 	}
 
 	@Action(MemberActions.OpenFormToEditById)
-	public async openFormToEditById(ctx: StateContext<IMemberState>, action: MemberActions.OpenFormToEditById) {
+	public async openFormToEditById(ctx: StateContext<IMemberState>, {payload: id}: MemberActions.OpenFormToEditById) {
 
 		const title = this.translateService.instant('member.form.title.edit');
 
 		await this.openForm(ctx, {
 			payload: {
-				showLoading: true,
-				title
+				pushBoxInputs: {
+					title,
+					showLoading: true,
+					id,
+				},
 			}
 		});
 
-		const item = await this.item.executeAsync(action.payload);
+		const item = await this.item.executeAsync(id);
 
 		await this.openForm(ctx, {
 			payload: {
-				title,
-				item,
-				isEditMode: true
+				pushBoxInputs: {
+					title,
+					id,
+				},
+				componentInputs: {
+					item,
+					isEditMode: true
+				}
 			}
 		});
 
@@ -118,13 +155,13 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 		const {MemberFormContainerComponent} = await import("@member/presentation/component/form/member-form-container/member-form-container.component");
 
-		const {showLoading, title, ...componentInputs} = payload ?? {};
+		const {componentInputs, pushBoxInputs} = payload ?? {};
 
 		await this.pushBoxService.buildItAsync({
+			title: this.translateService.instant('member.form.title.create'),
+			...pushBoxInputs,
 			component: MemberFormContainerComponent,
 			componentInputs,
-			showLoading,
-			title: title ?? this.translateService.instant('member.form.title.create'),
 		});
 
 	}
@@ -154,6 +191,7 @@ export class MemberState extends BaseState<Member.RIMember> {
 	@Action(MemberActions.DeleteItem)
 	public override async deleteItem(ctx: StateContext<IMemberState>, action: MemberActions.DeleteItem) {
 		await super.deleteItem(ctx, action);
+		await this.closeDetails(ctx, action);
 	}
 
 	@Action(MemberActions.CreateItem)
@@ -166,6 +204,8 @@ export class MemberState extends BaseState<Member.RIMember> {
 	public override async updateItem(ctx: StateContext<IMemberState>, action: MemberActions.UpdateItem): Promise<void> {
 		await super.updateItem(ctx, action);
 		await this.closeForm(ctx);
+		const {data} = ctx.getState().item;
+		data && await this.updateOpenedDetails(ctx, {payload: data});
 	}
 
 	@Action(MemberActions.GetList)

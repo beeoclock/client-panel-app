@@ -10,9 +10,7 @@ import {UpdateEventApiAdapter} from "@event/adapter/external/api/update.event.ap
 import {ItemEventApiAdapter} from "@event/adapter/external/api/item.event.api.adapter";
 import {RemoveEventApiAdapter} from "@event/adapter/external/api/remove.event.api.adapter";
 import {DoneStatusEventApiAdapter} from "@event/adapter/external/api/done.status.event.api.adapter";
-import {RequestedStatusEventApiAdapter} from "@event/adapter/external/api/requested.status.event.api.adapter";
 import {CancelledStatusEventApiAdapter} from "@event/adapter/external/api/cancelled.status.event.api.adapter";
-import {BookedStatusEventApiAdapter} from "@event/adapter/external/api/booked.status.event.api.adapter";
 import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {ListMergedEventApiAdapter} from "@event/adapter/external/api/list.merged.event.api.adapter";
@@ -49,9 +47,7 @@ export class EventState extends BaseState<Event.IEvent> {
 
 	// Change status
 	protected readonly doneStatusEventApiAdapter = inject(DoneStatusEventApiAdapter);
-	protected readonly requestedStatusEventApiAdapter = inject(RequestedStatusEventApiAdapter);
 	protected readonly cancelledStatusEventApiAdapter = inject(CancelledStatusEventApiAdapter);
-	protected readonly bookedStatusEventApiAdapter = inject(BookedStatusEventApiAdapter);
 	private readonly translateService = inject(TranslateService);
 
 	constructor() {
@@ -62,67 +58,123 @@ export class EventState extends BaseState<Event.IEvent> {
 
 	// Application layer
 
-	@Action(EventActions.CloseForm)
-	public async closeForm(ctx: StateContext<IEventState>) {
+	@Action(EventActions.UpdateOpenedDetails)
+	public async updateOpenedDetails(ctx: StateContext<IEventState>, {payload}: EventActions.UpdateOpenedDetails) {
 
-		const {ContainerFormComponent} = await import("@event/presentation/component/form/container.form.component");
+		const {ContainerDetailsComponent} = await import("@event/presentation/component/details/container.details.component");
 
-		this.pushBoxService.destroy$.next(ContainerFormComponent);
+		await this.pushBoxService.updatePushBoxComponentAsync({
+			id: payload._id,
+			useComponentNameAsPrefixOfId: true,
+			component: ContainerDetailsComponent,
+			componentInputs: {
+				event: Event.MEvent.create(payload)
+			},
+		});
 
 	}
 
 	@Action(EventActions.CloseDetails)
-	public async closeDetails(ctx: StateContext<IEventState>) {
+	public async closeDetails(ctx: StateContext<IEventState>, action?: EventActions.CloseDetails) {
 
 		const {ContainerDetailsComponent} = await import("@event/presentation/component/details/container.details.component");
 
-		this.pushBoxService.destroy$.next(ContainerDetailsComponent);
+		if (action?.payload) {
+			this.pushBoxService.destroy$.next(ContainerDetailsComponent.name + '_' + action?.payload);
+			return;
+		}
+
+		this.pushBoxService.destroyByComponentName$.next(ContainerDetailsComponent.name);
 
 	}
 
-	@Action(EventActions.OpenDetailsById)
-	public async openDetailsById(ctx: StateContext<IEventState>, action: EventActions.OpenDetailsById) {
+	@Action(EventActions.CloseForm)
+	public async closeForm(ctx: StateContext<IEventState>, action?: EventActions.CloseForm) {
+
+		if (action?.payload) {
+			this.pushBoxService.destroy$.next(action?.payload);
+			return;
+		}
+
+		const {ContainerFormComponent} = await import("@event/presentation/component/form/container.form.component");
+
+		this.pushBoxService.destroyByComponentName$.next(ContainerFormComponent.name);
+
+	}
+
+	@Action(EventActions.OpenDetails)
+	public async openDetails(ctx: StateContext<IEventState>, {payload: item}: EventActions.OpenDetails) {
 
 		const title = this.translateService.instant('event.details.title');
 
 		const {ContainerDetailsComponent} = await import("@event/presentation/component/details/container.details.component");
 
 		await this.pushBoxService.buildItAsync({
+			id: item._id,
+			title,
+			useComponentNameAsPrefixOfId: true,
+			component: ContainerDetailsComponent,
+			componentInputs: {
+				event: Event.MEvent.create(item)
+			},
+		});
+
+	}
+
+	@Action(EventActions.OpenDetailsById)
+	public async openDetailsById(ctx: StateContext<IEventState>, {payload: id}: EventActions.OpenDetailsById) {
+
+		const title = this.translateService.instant('event.details.title');
+
+		const {ContainerDetailsComponent} = await import("@event/presentation/component/details/container.details.component");
+
+		await this.pushBoxService.buildItAsync({
+			id,
+			useComponentNameAsPrefixOfId: true,
 			component: ContainerDetailsComponent,
 			showLoading: true,
 			title
 		});
 
-		const event = await this.item.executeAsync(action.payload);
+		const event = await this.item.executeAsync(id);
 
-		await this.pushBoxService.buildItAsync({
+		await this.pushBoxService.updatePushBoxComponentAsync({
+			id,
+			useComponentNameAsPrefixOfId: true,
 			component: ContainerDetailsComponent,
 			componentInputs: {
 				event: Event.MEvent.create(event)
 			},
-			title,
 		});
 
 	}
 
 	@Action(EventActions.OpenFormToEditById)
-	public async openFormToEditById(ctx: StateContext<IEventState>, action: EventActions.OpenFormToEditById) {
+	public async openFormToEditById(ctx: StateContext<IEventState>, {payload: id}: EventActions.OpenFormToEditById) {
 
 		const title = this.translateService.instant('event.form.title.edit');
 
 		await this.openForm(ctx, {
 			payload: {
-				title,
-				showLoading: true,
+				pushBoxInputs: {
+					id,
+					title,
+					showLoading: true,
+				}
 			}
 		});
 
-		const event = await this.item.executeAsync(action.payload);
+		const event = await this.item.executeAsync(id);
 
 		await this.openForm(ctx, {
 			payload: {
-				title,
-				event,
+				pushBoxInputs: {
+					id,
+					title
+				},
+				componentInputs: {
+					event
+				}
 			}
 		});
 
@@ -133,18 +185,16 @@ export class EventState extends BaseState<Event.IEvent> {
 
 		const {ContainerFormComponent} = await import("@event/presentation/component/form/container.form.component");
 
-		const {event, datetimeISO, callback, member, showLoading, title} = payload ?? {};
+		const {pushBoxInputs, componentInputs} = payload ?? {};
 
 		await this.pushBoxService.buildItAsync({
-			title: title ?? this.translateService.instant('event.form.title.create'),
-			showLoading,
+			title: this.translateService.instant('event.form.title.create'),
+			...pushBoxInputs,
 			component: ContainerFormComponent,
 			componentInputs: {
-				event,
-				forceStart: datetimeISO,
-				isEditMode: !!event,
-				callback,
-				member
+				...componentInputs,
+				forceStart: componentInputs?.datetimeISO,
+				isEditMode: !!componentInputs?.event,
 			},
 		});
 
@@ -178,6 +228,8 @@ export class EventState extends BaseState<Event.IEvent> {
 		ctx.dispatch(new EventActions.GetList({resetPage: false, resetParams: false}));
 		ctx.dispatch(new CalendarWithSpecialistsAction.GetItems());
 		ctx.dispatch(new RefreshCalendarAction());
+		await this.closeDetails(ctx, action);
+		// Try to close details of event
 	}
 
 	@Action(EventActions.CreateItem)
@@ -190,6 +242,8 @@ export class EventState extends BaseState<Event.IEvent> {
 	public override async updateItem(ctx: StateContext<IEventState>, action: EventActions.UpdateItem): Promise<void> {
 		await super.updateItem(ctx, action);
 		await this.closeForm(ctx);
+		const {item: {data}} = ctx.getState();
+		data && await this.updateOpenedDetails(ctx, {payload: data});
 	}
 
 	@Action(EventActions.GetList)

@@ -12,9 +12,6 @@ import {ListServiceApiAdapter} from "@service/adapter/external/api/list.service.
 import {ServiceActions} from "@service/state/service/service.actions";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {UnarchiveServiceApiAdapter} from "@service/adapter/external/api/unarchive.service.api.adapter";
-import {
-	ServiceContainerFormComponent
-} from "@service/presentation/component/form/service-container–form/service-container–form.component";
 import {TranslateService} from "@ngx-translate/core";
 
 export type IServiceState = IBaseState<Service.IService>
@@ -50,26 +47,50 @@ export class ServiceState extends BaseState<IService> {
 
 	// Application layer
 
-	@Action(ServiceActions.CloseForm)
-	public async closeForm(ctx: StateContext<IServiceState>) {
-
-		const {ServiceContainerFormComponent} = await import("@service/presentation/component/form/service-container–form/service-container–form.component");
-
-		this.pushBoxService.destroy$.next(ServiceContainerFormComponent);
-
-	}
-
 	@Action(ServiceActions.CloseDetails)
-	public async closeDetails(ctx: StateContext<IServiceState>) {
+	public async closeDetails(ctx: StateContext<IServiceState>, action?: ServiceActions.CloseDetails) {
 
 		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
 
-		this.pushBoxService.destroy$.next(ServiceDetails);
+		if (action?.payload) {
+			this.pushBoxService.destroy$.next(ServiceDetails.name + '_' + action?.payload);
+			return;
+		}
+
+		this.pushBoxService.destroyByComponentName$.next(ServiceDetails.name);
+
+	}
+
+	@Action(ServiceActions.CloseForm)
+	public async closeForm(ctx: StateContext<IServiceState>, action?: ServiceActions.CloseForm) {
+
+		if (action?.payload) {
+			this.pushBoxService.destroy$.next(action?.payload);
+			return;
+		}
+
+		const {ServiceContainerFormComponent} = await import("@service/presentation/component/form/service-container–form/service-container–form.component");
+
+		this.pushBoxService.destroyByComponentName$.next(ServiceContainerFormComponent.name);
+
+	}
+
+	@Action(ServiceActions.UpdateOpenedDetails)
+	public async updateOpenedDetails(ctx: StateContext<IServiceState>, {payload}: ServiceActions.UpdateOpenedDetails) {
+
+		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
+
+		await this.pushBoxService.updatePushBoxComponentAsync({
+			id: payload._id,
+			useComponentNameAsPrefixOfId: true,
+			component: ServiceDetails,
+			componentInputs: {item: payload},
+		});
 
 	}
 
 	@Action(ServiceActions.OpenDetailsById)
-	public async openDetailsById(ctx: StateContext<IServiceState>, action: ServiceActions.OpenDetailsById) {
+	public async openDetailsById(ctx: StateContext<IServiceState>, {payload: id}: ServiceActions.OpenDetailsById) {
 
 		const title = this.translateService.instant('service.details.title');
 
@@ -78,13 +99,16 @@ export class ServiceState extends BaseState<IService> {
 		await this.pushBoxService.buildItAsync({
 			title,
 			showLoading: true,
+			useComponentNameAsPrefixOfId: true,
+			id,
 			component: ServiceDetails,
 		});
 
-		const item = await this.item.executeAsync(action.payload);
+		const item = await this.item.executeAsync(id);
 
-		await this.pushBoxService.buildItAsync({
-			title,
+		await this.pushBoxService.updatePushBoxComponentAsync({
+			id,
+			useComponentNameAsPrefixOfId: true,
 			component: ServiceDetails,
 			componentInputs: {item},
 		});
@@ -92,24 +116,32 @@ export class ServiceState extends BaseState<IService> {
 	}
 
 	@Action(ServiceActions.OpenFormToEditById)
-	public async openFormToEditById(ctx: StateContext<IServiceState>, action: ServiceActions.OpenFormToEditById) {
+	public async openFormToEditById(ctx: StateContext<IServiceState>, {payload: id}: ServiceActions.OpenFormToEditById) {
 
 		const title = this.translateService.instant('service.form.title.edit');
 
 		await this.openForm(ctx, {
 			payload: {
-				showLoading: true,
-				title
+				pushBoxInputs: {
+					id,
+					showLoading: true,
+					title
+				}
 			}
 		});
 
-		const item = await this.item.executeAsync(action.payload);
+		const item = await this.item.executeAsync(id);
 
 		await this.openForm(ctx, {
 			payload: {
-				title,
-				isEditMode: true,
-				item,
+				pushBoxInputs: {
+					id,
+					title,
+				},
+				componentInputs: {
+					item,
+					isEditMode: true,
+				}
 			}
 		});
 
@@ -120,13 +152,14 @@ export class ServiceState extends BaseState<IService> {
 
 		const {ServiceContainerFormComponent} = await import("@service/presentation/component/form/service-container–form/service-container–form.component");
 
-		const {showLoading, title, ...componentInputs} = payload ?? {};
+		const {pushBoxInputs, componentInputs} = payload ?? {};
 
 		await this.pushBoxService.buildItAsync({
+			title: this.translateService.instant('service.form.title.create'),
+			id: ServiceContainerFormComponent.name,
+			...pushBoxInputs,
 			component: ServiceContainerFormComponent,
 			componentInputs,
-			showLoading,
-			title: title ?? this.translateService.instant('service.form.title.create'),
 		});
 
 	}
@@ -149,7 +182,7 @@ export class ServiceState extends BaseState<IService> {
 	}
 
 	@Action(ServiceActions.CreateItem)
-	public override async createItem(ctx: StateContext<IServiceState>, action: ServiceActions.CreateItem): Promise<void> {
+	public override async createItem(ctx: StateContext<IServiceState>, action: ServiceActions.CreateItem) {
 		await super.createItem(ctx, action);
 		await this.closeForm(ctx);
 	}
@@ -157,7 +190,11 @@ export class ServiceState extends BaseState<IService> {
 	@Action(ServiceActions.UpdateItem)
 	public override async updateItem(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateItem): Promise<void> {
 		await super.updateItem(ctx, action);
-		await this.closeForm(ctx);
+		await this.closeForm(ctx, {
+			payload: action.payload._id
+		});
+		const {data} = ctx.getState().item;
+		data && await this.updateOpenedDetails(ctx, {payload: data});
 	}
 
 	@Action(ServiceActions.GetItem)
@@ -168,6 +205,7 @@ export class ServiceState extends BaseState<IService> {
 	@Action(ServiceActions.DeleteItem)
 	public override async deleteItem(ctx: StateContext<IServiceState>, action: ServiceActions.DeleteItem) {
 		await super.deleteItem(ctx, action);
+		await this.closeDetails(ctx, action);
 	}
 
 	@Action(ServiceActions.GetList)

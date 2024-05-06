@@ -14,6 +14,14 @@ export namespace CustomerActions {
 		public static override readonly type = '[Customer Application] Close Form';
 	}
 
+	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<ICustomer> {
+		public static override readonly type = '[Customer Application] Update Opened Details';
+	}
+
+	export class OpenDetails extends BaseActions.OpenDetails<ICustomer> {
+		public static override readonly type = '[Customer Application] Open Details';
+	}
+
 	export class OpenDetailsById extends BaseActions.OpenDetailsById {
 		public static override readonly type = '[Customer Application] Open Details By Id';
 	}
@@ -23,8 +31,6 @@ export namespace CustomerActions {
 	}
 
 	export class OpenForm extends BaseActions.OpenForm<{
-		title?: string;
-		showLoading?: boolean;
 		isEditMode?: boolean;
 		item?: ICustomer;
 	}> {

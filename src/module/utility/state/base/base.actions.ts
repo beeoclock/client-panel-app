@@ -7,10 +7,38 @@ export namespace BaseActions {
 
 	export class CloseDetails {
 		public static readonly type: string = '[Base Application] Close Details';
+
+		constructor(
+			public readonly payload?: string,
+		) {
+		}
 	}
 
 	export class CloseForm {
 		public static readonly type: string = '[Base Application] Close Form';
+
+		constructor(
+			public readonly payload?: string,
+		) {
+		}
+	}
+
+	export class UpdateOpenedDetails<ITEM> {
+		public static readonly type: string = '[Base Application] Update Opened Details';
+
+		constructor(
+			public readonly payload: ITEM,
+		) {
+		}
+	}
+
+	export class OpenDetails<ITEM> {
+		public static readonly type: string = '[Base Application] Open Details';
+
+		constructor(
+			public readonly payload: ITEM,
+		) {
+		}
 	}
 
 	export class OpenDetailsById {
@@ -31,11 +59,18 @@ export namespace BaseActions {
 		}
 	}
 
-	export class OpenForm<PAYLOAD> {
+	export class OpenForm<COMPONENT_INPUTS, PUSH_BOX_INPUTS = {}> {
 		public static readonly type: string = '[Base Application] Open Form';
 
 		constructor(
-			public readonly payload?: PAYLOAD,
+			public readonly payload?: {
+				pushBoxInputs?: PUSH_BOX_INPUTS & {
+					id?: string;
+					title?: string;
+					showLoading?: boolean;
+				};
+				componentInputs?: COMPONENT_INPUTS;
+			},
 		) {
 		}
 	}
