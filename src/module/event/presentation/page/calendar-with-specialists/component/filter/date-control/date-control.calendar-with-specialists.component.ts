@@ -25,6 +25,13 @@ import {IonicModule, ModalController} from "@ionic/angular";
 			<ion-modal [keepContentsMounted]="true">
 				<ng-template>
 					<ion-datetime [locale]="locale" id="datetime" presentation="date" (ionChange)="setDate($event)"/>
+					<ion-list [inset]="true">
+						<ion-item [button]="true" (click)="setToday()" detail="false" color="light">
+							<ion-label class="text-center">
+								{{ 'keyword.capitalize.today' | translate }}
+							</ion-label>
+						</ion-item>
+					</ion-list>
 				</ng-template>
 			</ion-modal>
 
@@ -136,6 +143,14 @@ export class DateControlCalendarWithSpecialistsComponent {
 		this.modalController.getTop().then((modal) => {
 			modal && modal.dismiss().then();
 		});
+	}
+
+	public setToday() {
+		this.setDate({
+			detail: {
+				value: new Date().toISOString()
+			}
+		} as CustomEvent);
 	}
 
 }
