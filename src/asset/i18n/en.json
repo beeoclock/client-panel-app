@@ -910,6 +910,7 @@
 		"lowercase": {
 			"after": "after",
 			"ago": "ago",
+			"all": "all",
 			"at": "at",
 			"days": "days",
 			"details": "details",
@@ -957,6 +958,20 @@
 			"title": "Information about a member of staff"
 		},
 		"form": {
+			"assignments": {
+				"button": {
+					"hint": {
+						"all": "entire list",
+						"includeIsEmpty": "none"
+					},
+					"label": "Services provided by the specialist"
+				},
+				"service": {
+					"full": {
+						"label": "The specialist provides all available (active) services on the list"
+					}
+				}
+			},
 			"title": {
 				"create": "Add a team member",
 				"edit": "Edit a team member"

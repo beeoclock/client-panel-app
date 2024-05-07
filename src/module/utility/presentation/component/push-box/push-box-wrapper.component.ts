@@ -76,6 +76,10 @@ export class PushBoxWrapperComponent {
 			componentRef.setInput(key, value)
 		});
 
+		componentRef.changeDetectorRef.detectChanges();
+
+		return componentRef;
+
 	}
 
 }

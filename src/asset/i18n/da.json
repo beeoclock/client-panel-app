@@ -910,6 +910,7 @@
 		"lowercase": {
 			"after": "efter",
 			"ago": "siden",
+			"all": "alle",
 			"at": "kl",
 			"days": "dage",
 			"details": "detaljer",
@@ -957,6 +958,20 @@
 			"title": "Oplysninger om en medarbejder"
 		},
 		"form": {
+			"assignments": {
+				"button": {
+					"hint": {
+						"all": "hele listen",
+						"includeIsEmpty": "ingen"
+					},
+					"label": "Tjenester leveret af specialisten"
+				},
+				"service": {
+					"full": {
+						"label": "Specialisten leverer alle tilgængelige (aktive) tjenester på listen"
+					}
+				}
+			},
 			"title": {
 				"create": "Tilføj et teammedlem",
 				"edit": "Rediger et teammedlem"

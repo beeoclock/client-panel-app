@@ -910,6 +910,7 @@
 		"lowercase": {
 			"after": "za",
 			"ago": "temu",
+			"all": "wszystkie",
 			"at": "o",
 			"days": "dni",
 			"details": "szczegóły",
@@ -957,6 +958,20 @@
 			"title": "Informacje o pracowniku"
 		},
 		"form": {
+			"assignments": {
+				"button": {
+					"hint": {
+						"all": "całą listę",
+						"includeIsEmpty": "żadne"
+					},
+					"label": "Usługi świadczone przez specjalistę"
+				},
+				"service": {
+					"full": {
+						"label": "Specjalista świadczy wszystkie dostępne (aktywne) usługi z listy"
+					}
+				}
+			},
 			"title": {
 				"create": "Dodaj członka zespołu",
 				"edit": "Edycja członka zespołu"
