@@ -67,7 +67,12 @@ export class TableListComponent extends TableComponent<RIMember> {
 			},
 			role: {
 				style: {
-					minWidth: '300px',
+					minWidth: '150px',
+				},
+			},
+			active: {
+				style: {
+					minWidth: '150px',
 				},
 			},
 			createdAt: {

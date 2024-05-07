@@ -17,6 +17,14 @@
 		<div tableColumnFlex="role">
 			{{ 'keyword.capitalize.role' | translate }}
 		</div>
+		<div tableColumnFlex="active" data-orderBy="active">
+			<div class="flex gap-3 items-center">
+				{{ 'keyword.capitalize.status' | translate }}
+				<utility-sort-indicator
+					orderBy="active"
+					[tableState]="tableState"/>
+			</div>
+		</div>
 		<div tableColumnFlex="createdAt" data-orderBy="createdAt">
 			<div class="flex gap-3 items-center">
 				{{ 'keyword.capitalize.createdAt' | translate }}
@@ -67,6 +75,11 @@
 				<span [title]="roleColumn.getAttribute('data-value')" class="truncate">
 					{{ roleColumn.getAttribute('data-value') }}
 				</span>
+			</div>
+			<div tableColumnFlex="active">
+				<div activeStyle [activeText]="'keyword.capitalize.active' | translate"
+						 [inactiveText]="'keyword.capitalize.inactive' | translate" [active]="item.active">
+				</div>
 			</div>
 			<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
 				<span [title]="createdAtColumn.getAttribute('data-value')" class="truncate">
