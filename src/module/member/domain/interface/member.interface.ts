@@ -3,9 +3,16 @@ import {RoleEnum} from "@utility/domain/enum/role.enum";
 import {RESPONSE_IMemberMedia} from "@member/domain/interface/i.member-media";
 import {ActiveEnum} from "@src/module/utility/domain/enum";
 
-export interface IAssignedServices {
-	object: 'AssignedServices';
-	serviceId: string;
+export interface IAssignments {
+	// object: 'Assignments';
+	service: {
+		// "object": "string",
+		full: boolean;
+		include: {
+			// "object": "string",
+			serviceId: string;
+		}[];
+	}
 }
 
 export interface IMember extends RIBaseEntity<'Member'> {
@@ -17,7 +24,7 @@ export interface IMember extends RIBaseEntity<'Member'> {
 	avatar?: RESPONSE_IMemberMedia;
 	role?: RoleEnum;
 	phone?: string;
-	assignedServices?: IAssignedServices[];
+	assignments: IAssignments;
 }
 
 export type RIMember = Required<IMember>

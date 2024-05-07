@@ -25,7 +25,9 @@ export class MemberForm extends FormGroup<IMemberForm> {
 			avatar: new FormControl(),
 			firstName: new FormControl(),
 			lastName: new FormControl(),
-			active: new FormControl(),
+			active: new FormControl(ActiveEnum.YES, {
+				nonNullable: true,
+			}),
 			role: new FormControl(RoleEnum.SPECIALIST, {
 				nonNullable: true,
 			}),
