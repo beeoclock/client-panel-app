@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {NgIf} from "@angular/common";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {AssignmentsForm} from "@member/presentation/form/member.form";
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {Reactive} from "@utility/cdk/reactive";
@@ -25,6 +25,7 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 	@Input({required: true})
 	public form!: AssignmentsForm;
 
+	private readonly translateService = inject(TranslateService);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly pushBoxService = inject(PushBoxService);
 
@@ -49,10 +50,13 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 
 		const {SelectServicePushBoxComponent} = await import("@service/presentation/push-box/select-service.push-box.component");
 
+		const title = this.translateService.instant('member.form.assignments.service.select.title');
+
 		const pushBoxWrapperComponentRef = await this.pushBoxService.buildItAsync({
+			title,
 			component: SelectServicePushBoxComponent,
 			componentInputs: {
-				newSelectedServiceList: this.form.controls.service.controls.include.value.map(({serviceId}) => ({_id: serviceId}))
+				selectedServiceList: this.form.controls.service.controls.include.value.map(({serviceId}) => ({_id: serviceId}))
 			}
 		});
 

@@ -969,6 +969,9 @@
 				"service": {
 					"full": {
 						"label": "Specjalista świadczy wszystkie dostępne (aktywne) usługi z listy"
+					},
+					"select": {
+						"title": "Wybór usług"
 					}
 				}
 			},

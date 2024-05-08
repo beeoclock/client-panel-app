@@ -969,6 +969,9 @@
 				"service": {
 					"full": {
 						"label": "Specialisten leverer alle tilgængelige (aktive) tjenester på listen"
+					},
+					"select": {
+						"title": "Udvælgelse af tjenester"
 					}
 				}
 			},

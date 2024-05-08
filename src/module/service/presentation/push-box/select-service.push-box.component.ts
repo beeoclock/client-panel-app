@@ -5,6 +5,7 @@ import {
 	Component,
 	EventEmitter,
 	inject,
+	Input,
 	OnInit,
 	Output,
 	QueryList,
@@ -48,17 +49,20 @@ import {Reactive} from "@utility/cdk/reactive";
 })
 export class SelectServicePushBoxComponent extends Reactive implements OnInit, AfterViewInit {
 
-	@ViewChild(ServiceExternalListComponent)
-	public serviceExternalListComponent!: ServiceExternalListComponent;
+	@Input()
+	public selectedServiceList: IService[] = [];
+
+	@Input()
+	public newSelectedServiceList: IService[] = [];
 
 	@Output()
 	public readonly selectedServicesListener = new EventEmitter<void>();
 
+	@ViewChild(ServiceExternalListComponent)
+	public serviceExternalListComponent!: ServiceExternalListComponent;
+
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly logger = inject(NGXLogger);
-
-	public selectedServiceList: IService[] = [];
-	public newSelectedServiceList: IService[] = [];
 
 	public multiple = true;
 

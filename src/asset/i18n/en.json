@@ -969,6 +969,9 @@
 				"service": {
 					"full": {
 						"label": "The specialist provides all available (active) services on the list"
+					},
+					"select": {
+						"title": "Selection of services"
 					}
 				}
 			},
