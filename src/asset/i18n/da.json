@@ -318,6 +318,13 @@
 		}
 	},
 	"event": {
+		"action": {
+			"button": {
+				"done": {
+					"label": "Begivenhed gennemført"
+				}
+			}
+		},
 		"details": {
 			"title": "Detaljeret visning af begivenheden"
 		},
@@ -802,7 +809,7 @@
 			"description": "Beskrivelse",
 			"details": "Detaljer",
 			"dismiss": "Afvis",
-			"done": "Begivenhed gennemført",
+			"done": "Færdig",
 			"downloadMore": "Download mere",
 			"duration": "Varighed",
 			"earliestBooking": "Tidligste bookingtid",

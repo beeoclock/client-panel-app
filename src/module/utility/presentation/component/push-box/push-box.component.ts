@@ -98,6 +98,7 @@ export class PushBoxComponent extends Reactive implements OnInit {
 			componentInputs,
 			title,
 			showLoading,
+			button,
 			id,
 			useComponentNameAsPrefixOfId
 		}: PushBoxBuildItArgsType
@@ -115,7 +116,7 @@ export class PushBoxComponent extends Reactive implements OnInit {
 
 		if (this.pushBoxService.componentRefMapById.has(id)) {
 			const componentRef = this.updatePushBoxComponent({
-				id, componentInputs, showLoading,
+				id, componentInputs, showLoading, button,
 				useComponentNameAsPrefixOfId, component
 			})
 			return componentRef;
@@ -133,8 +134,15 @@ export class PushBoxComponent extends Reactive implements OnInit {
 		pushBoxWrapperComponentRef.setInput('id', id);
 		pushBoxWrapperComponentRef.setInput('showLoading', showLoading ?? false);
 		pushBoxWrapperComponentRef.setInput('destroySelf', () => {
+			// TODO: Add before destroy to
 			this.destroyComponent(id);
+			// TODO: Add after destroy to
 		});
+
+		if (button) {
+			pushBoxWrapperComponentRef.setInput('button', button);
+		}
+
 		pushBoxWrapperComponentRef.instance.renderComponent(component, componentInputs);
 		this.pushBoxService.componentRefMapById.set(id, pushBoxWrapperComponentRef);
 		if (!this.pushBoxService.componentRefMapByComponentName.has(component.name)) {

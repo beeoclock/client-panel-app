@@ -318,6 +318,13 @@
 		}
 	},
 	"event": {
+		"action": {
+			"button": {
+				"done": {
+					"label": "Event completed"
+				}
+			}
+		},
 		"details": {
 			"title": "Detailed view of the event"
 		},
@@ -802,7 +809,7 @@
 			"description": "Description",
 			"details": "Details",
 			"dismiss": "Dismiss",
-			"done": "Event completed",
+			"done": "Done",
 			"downloadMore": "Download more",
 			"duration": "Duration",
 			"earliestBooking": "Earliest booking time",

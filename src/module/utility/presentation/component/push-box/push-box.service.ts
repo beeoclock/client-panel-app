@@ -8,9 +8,19 @@ export type PushBoxBuildItArgsType = {
 	id?: string;
 	component: Type<unknown>;
 	componentInputs?: Record<string, unknown>;
+	useComponentNameAsPrefixOfId?: boolean; // Default false
+	//
 	title?: string;
 	showLoading?: boolean;
-	useComponentNameAsPrefixOfId?: boolean; // Default false
+	button?: {
+		close?: {
+			classList?: string[];
+			title?: string;
+			useDefaultIcon?: boolean;
+			text?: string;
+			callback?: () => void;
+		}
+	}
 }
 
 

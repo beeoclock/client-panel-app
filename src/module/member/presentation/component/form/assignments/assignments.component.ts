@@ -57,6 +57,12 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 			component: SelectServicePushBoxComponent,
 			componentInputs: {
 				selectedServiceList: this.form.controls.service.controls.include.value.map(({serviceId}) => ({_id: serviceId}))
+			},
+			button: {
+				close: {
+					text: this.translateService.instant('keyword.capitalize.done'),
+					classList: ['text-blue-500', 'capitalize', 'hover:text-blue-600', 'transition-all']
+				}
 			}
 		});
 

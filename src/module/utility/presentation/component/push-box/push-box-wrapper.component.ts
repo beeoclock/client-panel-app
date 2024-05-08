@@ -9,6 +9,7 @@ import {
 	ViewEncapsulation
 } from "@angular/core";
 import {NgIf} from "@angular/common";
+import {PushBoxBuildItArgsType} from "@utility/presentation/component/push-box/push-box.service";
 
 @Component({
 	selector: 'utility-push-box-wrapper',
@@ -21,13 +22,20 @@ import {NgIf} from "@angular/common";
 		<div class="flex justify-between p-1 border-b">
 			<div class="truncate font-bold p-2">{{ title }}</div>
 			<div class="flex gap-2">
-				<button type="button" class="hover:bg-beeColor-200 p-2 px-3 rounded-lg transition-all" (click)="destroySelf()"
-								title="Close">
-					<i class="bi bi-x-lg"></i>
+				<button
+					type="button"
+					class="hover:bg-beeColor-200 p-2 px-3 rounded-lg transition-all"
+					(click)="doDone()"
+					[title]="button?.close?.title ?? ''">
+					<span *ngIf="button?.close?.text" [class]="button?.close?.classList ?? ''">
+						{{ button?.close?.text }}
+					</span>
+					<i *ngIf="button?.close?.useDefaultIcon ?? false" class="bi bi-x-lg"></i>
 				</button>
 			</div>
 		</div>
-		<div *ngIf="showLoading" role="status" class="animate-pulse bg-gray-300 dark:bg-gray-700 flex h-dvh items-center justify-center m-1 rounded-lg">
+		<div *ngIf="showLoading" role="status"
+				 class="animate-pulse bg-gray-300 dark:bg-gray-700 flex h-dvh items-center justify-center m-1 rounded-lg">
 			<span class="sr-only">Loading...</span>
 		</div>
 
@@ -40,11 +48,19 @@ export class PushBoxWrapperComponent {
 	public showLoading = true;
 
 	@HostBinding()
-	@Input({ required: true })
+	@Input({required: true})
 	public id!: string;
 
 	@Input()
 	public title = 'Title';
+
+	@Input()
+	public button: PushBoxBuildItArgsType['button'] = {
+		close: {
+			title: 'Close',
+			useDefaultIcon: true
+		}
+	};
 
 	@Input()
 	public destroySelf = () => {
@@ -58,6 +74,10 @@ export class PushBoxWrapperComponent {
 
 	public renderedComponent: Type<any> | undefined;
 	public renderedComponentRef: ComponentRef<any> | undefined;
+
+	public doDone() {
+		this.destroySelf();
+	}
 
 	public renderComponent(component: Type<any>, inputs?: Record<string, any>) {
 
