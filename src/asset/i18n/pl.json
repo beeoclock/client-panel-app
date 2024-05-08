@@ -318,6 +318,13 @@
 		}
 	},
 	"event": {
+		"action": {
+			"button": {
+				"done": {
+					"label": "Wydarzenie zakończone"
+				}
+			}
+		},
 		"details": {
 			"title": "Szczegółowy widok wydarzenia"
 		},
@@ -802,7 +809,7 @@
 			"description": "Opis",
 			"details": "Szczegóły",
 			"dismiss": "Odrzuć",
-			"done": "Wydarzenie zakończone",
+			"done": "Gotowe",
 			"downloadMore": "Pobierz więcej",
 			"duration": "Czas trwania",
 			"earliestBooking": "Najbliższy termin rezerwacji",
@@ -910,6 +917,7 @@
 		"lowercase": {
 			"after": "za",
 			"ago": "temu",
+			"all": "wszystkie",
 			"at": "o",
 			"days": "dni",
 			"details": "szczegóły",
@@ -957,6 +965,23 @@
 			"title": "Informacje o pracowniku"
 		},
 		"form": {
+			"assignments": {
+				"button": {
+					"hint": {
+						"all": "całą listę",
+						"includeIsEmpty": "żadne"
+					},
+					"label": "Usługi świadczone przez specjalistę"
+				},
+				"service": {
+					"full": {
+						"label": "Specjalista świadczy wszystkie dostępne (aktywne) usługi z listy"
+					},
+					"select": {
+						"title": "Wybór usług"
+					}
+				}
+			},
 			"title": {
 				"create": "Dodaj członka zespołu",
 				"edit": "Edycja członka zespołu"

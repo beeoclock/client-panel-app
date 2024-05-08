@@ -4,6 +4,54 @@ import {RoleEnum} from "@utility/domain/enum/role.enum";
 import {RESPONSE_IMemberMedia} from "@member/domain/interface/i.member-media";
 import {ActiveEnum} from "@utility/domain/enum";
 
+export interface IAssignments_ServiceForm {
+	full: FormControl<boolean>;
+	include: FormControl<{
+		serviceId: string;
+	}[]>;
+}
+
+export class Assignments_ServiceForm extends FormGroup<IAssignments_ServiceForm> {
+	constructor() {
+		super({
+			full: new FormControl(true, {
+				nonNullable: true,
+			}),
+			include: new FormControl([], {
+				nonNullable: true,
+			}),
+		});
+	}
+
+	public get isFull(): boolean {
+		return this.controls.full.value;
+	}
+
+	public get isNotFull(): boolean {
+		return !this.isFull;
+	}
+
+	public get includeIsEmpty(): boolean {
+		return !this.controls.include.value.length;
+	}
+
+	public get includeIsNotEmpty(): boolean {
+		return !this.includeIsEmpty;
+	}
+}
+
+export interface IAssignmentsForm {
+	service: Assignments_ServiceForm;
+}
+
+export class AssignmentsForm extends FormGroup<IAssignmentsForm> {
+	constructor() {
+		super({
+			service: new Assignments_ServiceForm(),
+		});
+	}
+}
+
 export interface IMemberForm {
 	_id: FormControl<string>;
 	email: FormControl<string>;
@@ -12,6 +60,7 @@ export interface IMemberForm {
 	lastName: FormControl<string>;
 	role: FormControl<RoleEnum>;
 	active: FormControl<ActiveEnum>;
+	assignments: AssignmentsForm;
 
 	// TODO role or/and permission
 }
@@ -25,10 +74,13 @@ export class MemberForm extends FormGroup<IMemberForm> {
 			avatar: new FormControl(),
 			firstName: new FormControl(),
 			lastName: new FormControl(),
-			active: new FormControl(),
+			active: new FormControl(ActiveEnum.YES, {
+				nonNullable: true,
+			}),
 			role: new FormControl(RoleEnum.SPECIALIST, {
 				nonNullable: true,
 			}),
+			assignments: new AssignmentsForm(),
 		});
 		this.initValidators();
 	}

@@ -5,6 +5,7 @@ import {
 	Component,
 	EventEmitter,
 	inject,
+	Input,
 	OnInit,
 	Output,
 	QueryList,
@@ -24,6 +25,7 @@ import {firstValueFrom} from "rxjs";
 import {
 	MobileLayoutListComponent
 } from "@service/presentation/component/list/layout/mobile/mobile.layout.list.component";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'utility-modal-select-service-component',
@@ -45,19 +47,22 @@ import {
 		<service-external-list-component [mobileMode]="true"/>
 	`
 })
-export class SelectServicePushBoxComponent implements OnInit, AfterViewInit {
+export class SelectServicePushBoxComponent extends Reactive implements OnInit, AfterViewInit {
 
-	@ViewChild(ServiceExternalListComponent)
-	public serviceExternalListComponent!: ServiceExternalListComponent;
+	@Input()
+	public selectedServiceList: IService[] = [];
+
+	@Input()
+	public newSelectedServiceList: IService[] = [];
 
 	@Output()
 	public readonly selectedServicesListener = new EventEmitter<void>();
 
+	@ViewChild(ServiceExternalListComponent)
+	public serviceExternalListComponent!: ServiceExternalListComponent;
+
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly logger = inject(NGXLogger);
-
-	public selectedServiceList: IService[] = [];
-	public newSelectedServiceList: IService[] = [];
 
 	public multiple = true;
 
@@ -75,16 +80,18 @@ export class SelectServicePushBoxComponent implements OnInit, AfterViewInit {
 		const mobileLayoutListComponents = await firstValueFrom<QueryList<MobileLayoutListComponent>>(this.serviceExternalListComponent.mobileLayoutListComponents.changes);
 		const {first: mobileLayoutListComponent} = mobileLayoutListComponents;
 		const {first: cardListComponent} = mobileLayoutListComponent.cardListComponents;
-		cardListComponent.selectedIds = this.newSelectedServiceList.map((service) => service._id);
+		cardListComponent.selectedIds = this.newSelectedServiceList.map(({_id}) => _id);
 		cardListComponent.showAction.doFalse();
 		cardListComponent.showSelectedStatus.doTrue();
 		cardListComponent.goToDetailsOnSingleClick = false;
-		cardListComponent.singleClickEmitter.subscribe((item) => {
+		cardListComponent.singleClickEmitter.pipe(this.takeUntil()).subscribe((item) => {
 			if (this.isSelected(item)) {
 				this.deselect(item);
 			} else {
 				this.select(item);
 			}
+			cardListComponent.selectedIds = this.newSelectedServiceList.map(({_id}) => _id);
+			cardListComponent.changeDetectorRef.detectChanges();
 		});
 	}
 
@@ -107,12 +114,13 @@ export class SelectServicePushBoxComponent implements OnInit, AfterViewInit {
 	}
 
 	public deselect(service: IService): void {
-		this.newSelectedServiceList = this.newSelectedServiceList.filter((selectedMember: IService) => selectedMember._id !== service._id);
+		this.newSelectedServiceList = this.newSelectedServiceList.filter(({_id}) => _id !== service._id);
+		this.selectedServicesListener.emit();
 		this.changeDetectorRef.detectChanges();
 	}
 
 	public isSelected(service: IService): boolean {
-		return this.newSelectedServiceList.some((selectedMember: IService) => selectedMember._id === service._id);
+		return this.newSelectedServiceList.some(({_id}) => _id === service._id);
 	}
 
 	public isNotSelected(service: IService): boolean {

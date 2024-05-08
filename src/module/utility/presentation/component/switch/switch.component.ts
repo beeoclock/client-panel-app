@@ -1,7 +1,9 @@
 import {Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
+import {Reactive} from "@src/module/utility/cdk/reactive";
 import {ActiveEnum} from "@utility/domain/enum";
+import {filter} from "rxjs";
 import {is} from "thiis";
 
 @Component({
@@ -51,7 +53,7 @@ import {is} from "thiis";
 		TranslateModule,
 	]
 })
-export class SwitchComponent implements OnInit, OnChanges {
+export class SwitchComponent extends Reactive implements OnInit, OnChanges {
 
 	@Input()
 	public label: unknown | string;
@@ -73,7 +75,12 @@ export class SwitchComponent implements OnInit, OnChanges {
 
 			const control = changes.control.currentValue as FormControl;
 			this.localControl.setValue(control.value);
-			control.valueChanges.subscribe((value) => {
+			control.valueChanges.pipe(
+				this.takeUntil(),
+				filter((value) => {
+					return this.localControl.value !== value;
+				})
+			).subscribe((value) => {
 				this.localControl.setValue(value);
 			});
 
@@ -83,12 +90,13 @@ export class SwitchComponent implements OnInit, OnChanges {
 
 	public ngOnInit(): void {
 
-		this.localControl.valueChanges.subscribe((value: ActiveEnum | boolean) => {
-			if (is.boolean(value)) {
-				this.control.setValue(
-					value ? ActiveEnum.YES : ActiveEnum.NO,
-				);
-			}
+		this.localControl.valueChanges.pipe(
+			this.takeUntil(),
+			filter(is.boolean),
+		).subscribe((value) => {
+			this.control.setValue(
+				value ? ActiveEnum.YES : ActiveEnum.NO,
+			);
 		});
 
 	}
