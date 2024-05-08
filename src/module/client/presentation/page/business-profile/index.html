@@ -1,6 +1,6 @@
-<div class="pb-48 grid grid-cols-12 pt-4">
+<div class="pb-48 pt-4">
 
-	<form *ngIf="item$ | async" class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4">
+	<form *ngIf="item$ | async" class="flex flex-col gap-4 m-auto max-w-xl">
 
 		<client-business-profile-form-component [form]="form"/>
 

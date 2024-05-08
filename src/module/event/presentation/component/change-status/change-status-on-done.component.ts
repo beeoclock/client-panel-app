@@ -26,7 +26,7 @@ import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-speciali
 	],
 	template: `
 		<i class="bi bi-check-lg"></i>
-		{{ 'keyword.capitalize.done' | translate }}
+		{{ 'event.action.button.done.label' | translate }}
 	`
 })
 export class ChangeStatusOnDoneComponent extends ChangeStatusBaseComponent {

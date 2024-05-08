@@ -11,23 +11,29 @@ import {SelectRoleComponent} from "@member/presentation/component/form/select-ro
 import {
 	AvatarContainerComponent
 } from "@member/presentation/component/form/avatar-container/avatar-container.component";
+import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
+import {CommonModule} from "@angular/common";
+import {MemberFormAssignmentsComponent} from "@member/presentation/component/form/assignments/assignments.component";
 
 @Component({
 	selector: 'member-form-page',
 	templateUrl: './member-form-container.component.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
+		CommonModule,
 		AvatarContainerComponent,
 		PrimaryButtonDirective,
 		TranslateModule,
 		SelectRoleComponent,
 		FormInputComponent,
+		CardComponent,
+		SwitchComponent,
+		MemberFormAssignmentsComponent,
 	],
 	standalone: true
 })
 export class MemberFormContainerComponent implements OnInit {
-
-	// TODO move functions to store effects/actions
 
 	@ViewChild(AvatarContainerComponent)
 	public avatarContainerComponent!: AvatarContainerComponent;

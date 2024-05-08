@@ -318,6 +318,13 @@
 		}
 	},
 	"event": {
+		"action": {
+			"button": {
+				"done": {
+					"label": "Begivenhed gennemført"
+				}
+			}
+		},
 		"details": {
 			"title": "Detaljeret visning af begivenheden"
 		},
@@ -802,7 +809,7 @@
 			"description": "Beskrivelse",
 			"details": "Detaljer",
 			"dismiss": "Afvis",
-			"done": "Begivenhed gennemført",
+			"done": "Færdig",
 			"downloadMore": "Download mere",
 			"duration": "Varighed",
 			"earliestBooking": "Tidligste bookingtid",
@@ -910,6 +917,7 @@
 		"lowercase": {
 			"after": "efter",
 			"ago": "siden",
+			"all": "alle",
 			"at": "kl",
 			"days": "dage",
 			"details": "detaljer",
@@ -957,6 +965,23 @@
 			"title": "Oplysninger om en medarbejder"
 		},
 		"form": {
+			"assignments": {
+				"button": {
+					"hint": {
+						"all": "hele listen",
+						"includeIsEmpty": "ingen"
+					},
+					"label": "Tjenester leveret af specialisten"
+				},
+				"service": {
+					"full": {
+						"label": "Specialisten leverer alle tilgængelige (aktive) tjenester på listen"
+					},
+					"select": {
+						"title": "Udvælgelse af tjenester"
+					}
+				}
+			},
 			"title": {
 				"create": "Tilføj et teammedlem",
 				"edit": "Rediger et teammedlem"
