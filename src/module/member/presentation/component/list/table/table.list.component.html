@@ -17,6 +17,9 @@
 		<div tableColumnFlex="role">
 			{{ 'keyword.capitalize.role' | translate }}
 		</div>
+		<div tableColumnFlex="assignmentsService">
+			{{ 'keyword.capitalize.services' | translate }}
+		</div>
 		<div tableColumnFlex="active" data-orderBy="active">
 			<div class="flex gap-3 items-center">
 				{{ 'keyword.capitalize.status' | translate }}
@@ -75,6 +78,25 @@
 				<span [title]="roleColumn.getAttribute('data-value')" class="truncate">
 					{{ roleColumn.getAttribute('data-value') }}
 				</span>
+			</div>
+			<div tableColumnFlex="assignmentsService">
+				<div>
+					<ng-container *ngIf="item.assignments.service.full; else PartOfServicesTemplate">
+						<div class="border bg-green-50 border-green-600 text-green-600 leading-tight px-3 py-1 rounded-full">
+							{{ 'keyword.lowercase.all' | translate }}
+						</div>
+					</ng-container>
+					<ng-template #PartOfServicesTemplate>
+						<div *ngIf="item.assignments.service.include.length"
+								 class="border bg-yellow-50 border-yellow-600 text-yellow-600 leading-tight px-3 py-1 rounded-full">
+							{{ item.assignments.service.include.length }}
+						</div>
+						<div *ngIf="!item.assignments.service.include.length"
+								 class="border bg-red-50 border-red-600 text-red-600 leading-tight px-3 py-1 rounded-full">
+							{{ 'member.form.assignments.button.hint.includeIsEmpty' | translate }}
+						</div>
+					</ng-template>
+				</div>
 			</div>
 			<div tableColumnFlex="active">
 				<div activeStyle [activeText]="'keyword.capitalize.active' | translate"

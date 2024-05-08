@@ -65,6 +65,11 @@ export class TableListComponent extends TableComponent<RIMember> {
 					minWidth: '120px',
 				},
 			},
+			assignmentsService: {
+				style: {
+					minWidth: '150px',
+				},
+			},
 			role: {
 				style: {
 					minWidth: '150px',
