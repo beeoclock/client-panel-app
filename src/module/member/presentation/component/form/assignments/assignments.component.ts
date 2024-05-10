@@ -36,7 +36,6 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 		this.form.controls.service.controls.full.valueChanges.pipe(
 			this.takeUntil(),
 		).subscribe((test) => {
-			console.log(test)
 			this.updateIsNotFull();
 		});
 	}

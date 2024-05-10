@@ -166,13 +166,11 @@ export class DateControlCalendarWithSpecialistsComponent implements OnInit {
 			return;
 		}
 		firstElementChild.click();
-		console.log(this.ionDateTime);
 	}
 
 	public async setToday() {
 		const today = DateTime.now().toISODate() ?? this.dateControl.value;
 		await this.ionDateTime.reset();
-		console.log(this.ionDateTime);
 		setTimeout(() => {
 			this.dateControl.setValue(today);
 		}, 350)

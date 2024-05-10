@@ -26,10 +26,10 @@ import {
 import {CellComponent} from "@event/presentation/page/calendar-with-specialists/component/cell/cell.component";
 import {
 	SlotFrameComponent
-} from "@event/presentation/page/calendar-with-specialists/component/container/slot-frame.component";
+} from "@event/presentation/page/calendar-with-specialists/component/container/slot-frame/slot-frame.component";
 import {
 	DataFrameComponent
-} from "@event/presentation/page/calendar-with-specialists/component/container/data-frame.component";
+} from "@event/presentation/page/calendar-with-specialists/component/container/data-frame/data-frame.component";
 
 @Component({
 	selector: 'event-container-calendar-with-specialists-component',
