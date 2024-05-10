@@ -114,12 +114,16 @@ export class PushBoxComponent extends Reactive implements OnInit {
 
 		}
 
-		if (this.pushBoxService.componentRefMapById.has(id)) {
-			const componentRef = this.updatePushBoxComponent({
-				id, componentInputs, showLoading, button,
-				useComponentNameAsPrefixOfId, component
-			})
-			return componentRef;
+		const existComponentRef = this.updatePushBoxComponent({
+			id, componentInputs, showLoading, button,
+			useComponentNameAsPrefixOfId, component
+		});
+
+		if (existComponentRef) {
+
+			this.listOfComponents.move(existComponentRef.hostView, 0);
+
+			return existComponentRef;
 		}
 
 		this.ngxLogger.debug('PushBoxComponent.observe$', component);
