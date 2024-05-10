@@ -7,7 +7,7 @@ import {
 	ComposeCalendarWithSpecialistsService
 } from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
-import {async, filter, map, startWith, switchMap} from "rxjs";
+import {filter, map, startWith, switchMap} from "rxjs";
 import {Store} from "@ngxs/store";
 import {is} from "thiis";
 import {DateTime} from "luxon";
@@ -111,5 +111,4 @@ export class SlotFrameComponent {
 		return `70px`;
 	}
 
-	protected readonly async = async;
 }

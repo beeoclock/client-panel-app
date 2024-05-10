@@ -24,6 +24,7 @@ import {
 } from "@event/presentation/component/change-status/change-status-on-cancelled.component";
 import {ChangeStatusOnDoneComponent} from "@event/presentation/component/change-status/change-status-on-done.component";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
+import {EventCardComponent} from "@event/presentation/component/list/card/card.component";
 
 @Component({
 	selector: 'event-card-list-component',
@@ -49,16 +50,13 @@ import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 		ChangeStatusOnBookedComponent,
 		ChangeStatusOnCancelledComponent,
 		ChangeStatusOnDoneComponent,
-		NoDataPipe
+		NoDataPipe,
+		EventCardComponent
 	]
 })
 export class CardListComponent extends TableComponent<RMIEvent> {
 
 	public override readonly actions = EventActions;
-
-	public sameYear(start: string | undefined): boolean {
-		return start ? new Date(start).getFullYear() === new Date().getFullYear() : false;
-	}
 
 	public override open(id: string) {
 		this.store.dispatch(new EventActions.OpenDetailsById(id));

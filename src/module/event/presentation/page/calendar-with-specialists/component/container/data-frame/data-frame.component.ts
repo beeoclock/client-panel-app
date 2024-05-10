@@ -6,24 +6,39 @@ import * as Member from "@member/domain";
 import {DateTime} from "luxon";
 import {map, Observable} from "rxjs";
 import {
-	EventCardComponent
-} from "@event/presentation/page/calendar-with-specialists/component/event-card/event-card.component";
-import {
 	ComposeCalendarWithSpecialistsService
 } from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 import {RIEvent} from "@event/domain";
 import {Reactive} from "@utility/cdk/reactive";
 import {Store} from "@ngxs/store";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
+import {
+	GroupEventCardComponent
+} from "@event/presentation/page/calendar-with-specialists/component/container/data-frame/event-card/group-event-card.component";
+import {
+	EventCardComponent
+} from "@event/presentation/page/calendar-with-specialists/component/container/data-frame/event-card/event-card.component";
+import {
+	groupOverlappingEvents
+} from "@event/presentation/page/calendar-with-specialists/component/container/data-frame/eventUtils";
 
 @Component({
 	selector: 'event-data-frame-component',
 	template: `
-		<event-card-component
-			*ngFor="let event of (events$ | async) ?? []; trackBy: trackById"
-			[id]="event.data._id"
-			[card]="event.card"
-			[event]="event"/>
+		<ng-container *ngFor="let groupEvents of (groupEvents$ | async) ?? []">
+
+			<ng-container *ngIf="groupEvents.length > 1; else DefaultEventPresentation">
+				<group-event-card-component
+					[groupEvents]="groupEvents"/>
+			</ng-container>
+			<ng-template #DefaultEventPresentation>
+				<event-card-component
+					*ngFor="let event of groupEvents; trackBy: trackById"
+					[id]="event.data._id"
+					[card]="event.card"
+					[event]="event"/>
+			</ng-template>
+		</ng-container>
 	`,
 	standalone: true,
 	imports: [
@@ -33,6 +48,8 @@ import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-special
 		TimeLineComponent,
 		NgStyle,
 		AsyncPipe,
+		EventCardComponent,
+		GroupEventCardComponent,
 		EventCardComponent
 	],
 	encapsulation: ViewEncapsulation.None,
@@ -83,33 +100,56 @@ export class DataFrameComponent extends Reactive {
 	public readonly startTimeToDisplay = this.composeCalendarWithSpecialistsService.startTimeToDisplay;
 	public readonly endTimeToDisplay = this.composeCalendarWithSpecialistsService.endTimeToDisplay;
 
-	public readonly events$: Observable<{
+	public readonly groupEvents$: Observable<{
 		card: {
 			startTime: number;
 			durationInMinutes: number;
 			column: number;
 		};
 		data: RIEvent;
-	}[]> = this.store.select(CalendarWithSpecialistsQueries.data).pipe(
+	}[][]> = this.store.select(CalendarWithSpecialistsQueries.data).pipe(
 		this.takeUntil(),
-		map(({items}) => {
-			return items.map((item) => {
-				const column = this.columnHeaderList.findIndex((column) => {
-					return column.member?._id === item?.services?.[0]?.specialists?.[0]?.member?._id;
-				});
-				const start = DateTime.fromISO(item.start).toLocal();
-				return {
-					data: item,
-					card: {
-						startTime: start.hour + (start.minute / 60),
-						durationInMinutes: item.services[0].durationVersions[0].durationInSeconds / 60,
-						column,
-					}
-				};
-			}).filter(({card}) => {
-				return card.startTime >= this.startTimeToDisplay && card.startTime <= this.endTimeToDisplay;
+		map(({items}) => items),
+		map((items) => {
+			return [...items].sort((a, b) => {
+				return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
 			});
-		})
+		}), // Sort by updatedAt
+		map((items) => {
+			return items.reduce((acc, item) => {
+				const specialistId = item.services[0].specialists[0].member?._id;
+				if (!specialistId) {
+					return acc;
+				}
+				acc[specialistId] = acc[specialistId] || [];
+				acc[specialistId].push(item);
+				return acc;
+			}, {} as {[key: string]: RIEvent[]});
+		}),
+		map((items) => Object.values(structuredClone(items)).map(groupOverlappingEvents<RIEvent[]>).flat()),
+		map((group) => {
+			console.log(group)
+			return group.map((items) => {
+				console.log(items)
+				return items.map((item) => {
+					console.log(item)
+					const column = this.columnHeaderList.findIndex((column) => {
+						return column.member?._id === item?.services?.[0]?.specialists?.[0]?.member?._id;
+					});
+					const start = DateTime.fromISO(item.start).toLocal();
+					return {
+						data: item,
+						card: {
+							startTime: start.hour + (start.minute / 60),
+							durationInMinutes: item.services[0].durationVersions[0].durationInSeconds / 60,
+							column,
+						}
+					};
+				}).filter(({card}) => {
+					return card.startTime >= this.startTimeToDisplay && card.startTime <= this.endTimeToDisplay;
+				});
+			});
+		}),
 	);
 
 	public trackById(index: number, event: { data: RIEvent }) {
