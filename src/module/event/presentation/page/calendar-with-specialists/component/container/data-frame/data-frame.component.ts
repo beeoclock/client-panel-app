@@ -117,7 +117,7 @@ export class DataFrameComponent extends Reactive {
 		}), // Sort by updatedAt
 		map((items) => {
 			return items.reduce((acc, item) => {
-				const specialistId = item.services[0].specialists[0].member?._id;
+				const specialistId = item?.services?.[0]?.specialists?.[0]?.member?._id;
 				if (!specialistId) {
 					return acc;
 				}
