@@ -405,6 +405,18 @@
 				}
 			}
 		},
+		"statistic": {
+			"period": {
+				"LAST_MONTH": "Минулого місяця",
+				"LAST_WEEK": "Минулого тижня",
+				"LAST_YEAR": "Минулий рік",
+				"THIS_MONTH": "Цього місяця",
+				"THIS_WEEK": "Цього тижня",
+				"THIS_YEAR": "Цього року",
+				"TODAY": "Сьогодні",
+				"YESTERDAY": "Вчора"
+			}
+		},
 		"title": "Подія",
 		"warning": {
 			"durationAndPriceConflict": "Обери доступну тривалість або найдовша буде обрана автоматично після прийняття.",
@@ -1091,6 +1103,7 @@
 		"requested": "Запити",
 		"services": "Послуги",
 		"settings": "Налаштування",
+		"statistic": "Статистика",
 		"switch-business-client": "Змінити контекст",
 		"table": "Таблиця"
 	},

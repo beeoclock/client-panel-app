@@ -64,7 +64,6 @@ export class GroupEventCardComponent {
 
 	@HostBinding('style.grid-row-start')
 	public get gridRowStart() {
-		console.log(this.card, ((this.card.startTime - this.startTimeToDisplay) * this.stepPerHour) + 1)
 		return this.card.startTime > 0 ? (((this.card.startTime | 0) - this.startTimeToDisplay) * this.stepPerHour) + 1 : 1;
 	}
 

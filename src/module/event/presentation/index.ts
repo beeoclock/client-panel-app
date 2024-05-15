@@ -17,6 +17,10 @@ export const routers = [
 				loadComponent: () => import('./page/calendar'),
 			},
 			{
+				path: 'statistic',
+				loadComponent: () => import('./page/statistic'),
+			},
+			{
 				path: 'calendar-with-specialists',
 				loadComponent: () => import('./page/calendar-with-specialists'),
 			},

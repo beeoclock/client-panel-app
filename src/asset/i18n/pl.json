@@ -405,6 +405,18 @@
 				}
 			}
 		},
+		"statistic": {
+			"period": {
+				"LAST_MONTH": "Zeszły miesiąc",
+				"LAST_WEEK": "Zeszły tydzień",
+				"LAST_YEAR": "Zeszły rok",
+				"THIS_MONTH": "Ten miesiąc",
+				"THIS_WEEK": "W tym tygodniu",
+				"THIS_YEAR": "W tym roku",
+				"TODAY": "Dzisiaj",
+				"YESTERDAY": "Wczoraj"
+			}
+		},
 		"title": "Wydarzenie",
 		"warning": {
 			"durationAndPriceConflict": "Wybierz dostępny czas trwania, w przeciwnym razie najdłuższy zostanie wybrany automatycznie po akceptacji.",
@@ -1091,6 +1103,7 @@
 		"requested": "Zażądane",
 		"services": "Usługi",
 		"settings": "Ustawienia",
+		"statistic": "Statystyki",
 		"switch-business-client": "Zmień kontekst",
 		"table": "Tabela"
 	},
