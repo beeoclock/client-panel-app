@@ -405,6 +405,18 @@
 				}
 			}
 		},
+		"statistic": {
+			"period": {
+				"LAST_MONTH": "Sidste måned",
+				"LAST_WEEK": "Sidste uge",
+				"LAST_YEAR": "Sidste år",
+				"THIS_MONTH": "Denne måned",
+				"THIS_WEEK": "Denne uge",
+				"THIS_YEAR": "Dette år",
+				"TODAY": "I dag",
+				"YESTERDAY": "I går"
+			}
+		},
 		"title": "Begivenhed",
 		"warning": {
 			"durationAndPriceConflict": "Vælg en tilgængelig varighed, eller den længste vil automatisk blive valgt efter accept.",
@@ -1091,6 +1103,7 @@
 		"requested": "Anmodninger",
 		"services": "Tjenester",
 		"settings": "Indstillinger",
+		"statistic": "Statistik",
 		"switch-business-client": "Skift kontekst",
 		"table": "Tabel"
 	},

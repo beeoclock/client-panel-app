@@ -405,6 +405,18 @@
 				}
 			}
 		},
+		"statistic": {
+			"period": {
+				"LAST_MONTH": "Last month",
+				"LAST_WEEK": "Last week",
+				"LAST_YEAR": "Last year",
+				"THIS_MONTH": "This month",
+				"THIS_WEEK": "This week",
+				"THIS_YEAR": "This year",
+				"TODAY": "Today",
+				"YESTERDAY": "Yesterday"
+			}
+		},
 		"title": "Event",
 		"warning": {
 			"durationAndPriceConflict": "Choose an available duration or the longest will be selected automatically after acceptance.",
@@ -1091,6 +1103,7 @@
 		"requested": "Requests",
 		"services": "Services",
 		"settings": "Settings",
+		"statistic": "Statistics",
 		"switch-business-client": "Change context",
 		"table": "Table"
 	},

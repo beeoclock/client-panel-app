@@ -20,6 +20,7 @@ interface IMenuItem {
 	translateKey: string;
 	target?: '_blank';
 	disabled?: boolean;
+	beta?: boolean;
 	routerLinkActiveOptions: {
 		exact: boolean;
 	} | IsActiveMatchOptions;
@@ -180,6 +181,19 @@ export class MenuSidebarComponent implements OnInit {
 		});
 		this.menu.push({
 			order: 4,
+			url: '/event/statistic',
+			translateKey: 'sidebar.statistic',
+			icon: 'bi bi-bar-chart',
+			beta: true,
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		});
+		this.menu.push({
+			order: 5,
 			url: '/customer/list',
 			translateKey: 'sidebar.customers',
 			icon: 'bi bi-person-vcard',
@@ -191,7 +205,7 @@ export class MenuSidebarComponent implements OnInit {
 			}
 		});
 		this.menu.push({
-			order: 5,
+			order: 6,
 			url: '/member/list',
 			translateKey: 'sidebar.members',
 			icon: 'bi bi-people',
@@ -203,7 +217,7 @@ export class MenuSidebarComponent implements OnInit {
 			}
 		});
 		this.menu.push({
-			order: 6,
+			order: 7,
 			url: '/service/list',
 			translateKey: 'sidebar.services',
 			icon: 'bi bi-shop-window',
@@ -215,7 +229,7 @@ export class MenuSidebarComponent implements OnInit {
 			}
 		});
 		this.menu.push({
-			order: 7,
+			order: 8,
 			url: '/client/business-profile',
 			translateKey: 'sidebar.businessProfile',
 			icon: 'bi bi-buildings',
@@ -227,7 +241,7 @@ export class MenuSidebarComponent implements OnInit {
 			}
 		});
 		this.menu.push({
-			order: 8,
+			order: 9,
 			url: '/client/business-settings',
 			translateKey: 'sidebar.businessSettings',
 			icon: 'bi bi-building-gear',
