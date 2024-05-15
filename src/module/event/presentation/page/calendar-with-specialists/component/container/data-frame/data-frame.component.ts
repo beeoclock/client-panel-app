@@ -128,11 +128,8 @@ export class DataFrameComponent extends Reactive {
 		}),
 		map((items) => Object.values(structuredClone(items)).map(groupOverlappingEvents<RIEvent[]>).flat()),
 		map((group) => {
-			console.log(group)
 			return group.map((items) => {
-				console.log(items)
 				return items.map((item) => {
-					console.log(item)
 					const column = this.columnHeaderList.findIndex((column) => {
 						return column.member?._id === item?.services?.[0]?.specialists?.[0]?.member?._id;
 					});
