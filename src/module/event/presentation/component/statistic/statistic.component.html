@@ -17,7 +17,7 @@
 				<figure *ngFor="let success of statisticPerMember.services.success" class="flex flex-col items-center justify-center p-8 text-center bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
 					<blockquote class="max-w-2xl mx-auto text-gray-500 dark:text-gray-400">
 						<h3 *ngIf="!(loader$ | async)" class="text-lg font-semibold" [class.text-green-600]="success.count">
-							{{ success.count | currency: success.currency : 'symbol-narrow' }} / {{ success.count }}
+							{{ success.amount | currency: success.currency : 'symbol-narrow' }} / {{ success.count }}
 						</h3>
 						<utility-loader *ngIf="loader$ | async"/>
 					</blockquote>
