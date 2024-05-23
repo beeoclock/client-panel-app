@@ -71,6 +71,9 @@
       ],
       "@member/*": [
         "./src/module/member/*"
+      ],
+      "@ui.page/*": [
+        "./src/ui.page/*"
       ]
     }
   },

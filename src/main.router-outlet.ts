@@ -24,7 +24,7 @@ import {AppActions} from "@utility/state/app/app.actions";
 		<router-outlet/>
 	`,
 })
-export class AppComponent implements AfterViewInit {
+export class MainRouterOutlet implements AfterViewInit {
 
 	private readonly store = inject(Store);
 	private readonly languageService = inject(LanguageService);

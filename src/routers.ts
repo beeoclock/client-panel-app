@@ -38,7 +38,12 @@ export const routes: Routes = [
 			},
 			{
 				path: 'member',
-				loadChildren: () => import('@member/index')
+				children: [
+					{
+						path: 'list',
+						loadComponent: () => import('@ui.page/member/list/list.member.ui.page')
+					}
+				]
 			},
 			{
 				path: 'user',

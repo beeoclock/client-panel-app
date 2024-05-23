@@ -16,8 +16,8 @@ import {CardListComponent} from "@member/presentation/component/list/card/card.l
 import {TableListComponent} from "@member/presentation/component/list/table/table.list.component";
 
 @Component({
-	selector: 'member-list-page',
-	templateUrl: './index.html',
+	selector: 'app-list-member-ui-page',
+	templateUrl: './list.member.ui.page.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		RouterLink,
@@ -32,7 +32,7 @@ import {TableListComponent} from "@member/presentation/component/list/table/tabl
 	],
 	standalone: true
 })
-export default class Index extends ListPage {
+export class ListMemberUiPage extends ListPage {
 
 	public override readonly actions = MemberActions;
 
@@ -44,3 +44,5 @@ export default class Index extends ListPage {
 		);
 
 }
+
+export default ListMemberUiPage;
