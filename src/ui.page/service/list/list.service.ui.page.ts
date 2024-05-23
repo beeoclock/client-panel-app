@@ -15,8 +15,8 @@ import {
 } from "@service/presentation/component/list/layout/desktop/desktop.layout.list.component";
 
 @Component({
-	selector: 'service-list-page',
-	templateUrl: './index.html',
+	selector: 'app-list-service-ui-page',
+	templateUrl: './list.service.ui.page.html',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
