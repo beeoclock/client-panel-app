@@ -34,7 +34,7 @@ export interface ICustomerForm {
 
 }
 
-export class CustomerForm extends BaseEntityForm<ICustomerForm> {
+export class CustomerForm extends BaseEntityForm<'Customer', ICustomerForm> {
 
 	public readonly components = {
 		[CustomerFormFieldsEnum.firstName]: {
@@ -107,7 +107,7 @@ export class CustomerForm extends BaseEntityForm<ICustomerForm> {
 	];
 
 	constructor() {
-		super({
+		super('Customer', {
 
 			[CustomerFormFieldsEnum.firstName]: new FormControl(),
 			[CustomerFormFieldsEnum.lastName]: new FormControl(),

@@ -72,6 +72,9 @@
       "@order/*": [
         "./src/module/order/*"
       ],
+      "@absence/*": [
+        "./src/module/absence/*"
+      ],
       "@page/*": [
         "./src/page/*"
       ]
