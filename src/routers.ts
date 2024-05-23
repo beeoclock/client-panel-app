@@ -48,10 +48,6 @@ export const routes: Routes = [
 				]
 			},
 			{
-				path: 'user',
-				loadChildren: () => import('@user/presentation')
-			},
-			{
 				path: 'event',
 				loadChildren: () => import('@event/index')
 			},
