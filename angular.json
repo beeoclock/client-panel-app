@@ -15,11 +15,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-					"builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:browser-esbuild",
           "options": {
             "allowedCommonJsDependencies": [
               "hash-sum",
-							"typescript-debounce-decorator"
+              "typescript-debounce-decorator"
             ],
             "outputPath": "dist",
             "index": "src/index.html",
@@ -42,13 +42,13 @@
           },
           "configurations": {
             "production": {
-							"assets": [
-								"src/favicon.ico",
-								"src/asset",
-								"src/manifest.webmanifest",
-								"src/firebase-messaging-sw.prod.js"
-							],
-							"budgets": [
+              "assets": [
+                "src/favicon.ico",
+                "src/asset",
+                "src/manifest.webmanifest",
+                "src/firebase-messaging-sw.prod.js"
+              ],
+              "budgets": [
                 {
                   "type": "initial",
                   "maximumWarning": "2mb",
@@ -69,13 +69,13 @@
               "outputHashing": "all"
             },
             "develop": {
-							"assets": [
-								"src/favicon.ico",
-								"src/asset",
-								"src/manifest.webmanifest",
-								"src/firebase-messaging-sw.dev.js"
-							],
-							"budgets": [
+              "assets": [
+                "src/favicon.ico",
+                "src/asset",
+                "src/manifest.webmanifest",
+                "src/firebase-messaging-sw.dev.js"
+              ],
+              "budgets": [
                 {
                   "type": "initial",
                   "maximumWarning": "2mb",
