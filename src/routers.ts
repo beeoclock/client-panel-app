@@ -7,6 +7,7 @@ import {EventRequestedState} from "@event/state/event-requested/event-requested.
 import WrapperPanelComponent from "@utility/presentation/component/wrapper-panel/wrapper-panel.component";
 import {CalendarWithSpecialistsState} from "@event/state/calendar-with-specialists/calendar–with-specialists.state";
 import {ServiceState} from "@service/state/service/service.state";
+import {CustomerState} from "@customer/state/customer/customer.state";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['identity']);
 
@@ -60,7 +61,15 @@ export const routes: Routes = [
 			},
 			{
 				path: 'customer',
-				loadChildren: () => import('@customer/index')
+				providers: [
+					importProvidersFrom(NgxsModule.forFeature([CustomerState])),
+				],
+				children: [
+					{
+						path: 'list',
+						loadComponent: () => import('@ui.page/customer/list/list.customer.ui.page')
+					}
+				]
 			},
 			{
 				path: 'service',

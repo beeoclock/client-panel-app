@@ -28,7 +28,7 @@ import {
 	],
 	standalone: true
 })
-export default class Index extends ListPage {
+export class ListServiceUiPage extends ListPage {
 
 	public override readonly actions = ServiceActions;
 
@@ -40,3 +40,5 @@ export default class Index extends ListPage {
 		);
 
 }
+
+export default ListServiceUiPage;
