@@ -43,7 +43,7 @@ export const routes: Routes = [
 				children: [
 					{
 						path: 'list',
-						loadComponent: () => import('@ui.page/member/list/list.member.ui.page')
+						loadComponent: () => import('@page/member/list/list.member.ui.page')
 					}
 				]
 			},
@@ -57,7 +57,33 @@ export const routes: Routes = [
 			},
 			{
 				path: 'client',
-				loadChildren: () => import('@module/client/index')
+				children: [
+					{
+						path: 'business-profile',
+						loadComponent: () => import('@page/client/business-profile/business-profile.ui.page')
+					},
+					{
+						path: 'business-settings',
+						loadComponent: () => import('@page/client/business-settings/business-settings.ui.page')
+					},
+					{
+						path: 'settings',
+						loadComponent: () => import('@page/client/settings/settings.ui.page')
+					},
+					{
+						path: 'notification',
+						children: [
+							{
+								path: '',
+								loadComponent: () => import('@page/client/notification/notification.ui.page')
+							},
+							{
+								path: ':id',
+								loadComponent: () => import('@page/client/notification/notification.ui.page')
+							}
+						]
+					}
+				]
 			},
 			{
 				path: 'customer',
@@ -67,7 +93,7 @@ export const routes: Routes = [
 				children: [
 					{
 						path: 'list',
-						loadComponent: () => import('@ui.page/customer/list/list.customer.ui.page')
+						loadComponent: () => import('@page/customer/list/list.customer.ui.page')
 					}
 				]
 			},
@@ -79,7 +105,7 @@ export const routes: Routes = [
 				children: [
 					{
 						path: 'list',
-						loadComponent: () => import('@ui.page/service/list/list.service.ui.page')
+						loadComponent: () => import('@page/service/list/list.service.ui.page')
 					}
 				]
 			},

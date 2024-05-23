@@ -51,8 +51,8 @@ import {Reactive} from "@utility/cdk/reactive";
 import {is} from "thiis";
 
 @Component({
-	selector: 'client-business-profile-page',
-	templateUrl: './index.html',
+	selector: 'app-business-profile-client-ui-page',
+	templateUrl: './business-profile.ui.page.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		FormBusinessProfileComponent,
@@ -75,7 +75,7 @@ import {is} from "thiis";
 	],
 	standalone: true
 })
-export default class Index extends Reactive implements OnInit {
+export class BusinessProfileUiPage extends Reactive implements OnInit {
 
 	// @ViewChild(CoverImageBusinessProfileComponent)
 	// public readonly coverImageBusinessProfileComponent!: CoverImageBusinessProfileComponent;
@@ -180,3 +180,5 @@ export default class Index extends Reactive implements OnInit {
 	}
 
 }
+
+export default BusinessProfileUiPage;

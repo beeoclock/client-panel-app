@@ -2,11 +2,11 @@ import {Component, ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'client-notification-page',
-  templateUrl: './index.html',
+  templateUrl: './notification.ui.page.html',
   encapsulation: ViewEncapsulation.None,
   imports: [],
   standalone: true
 })
-export default class Index {
+export default class NotificationUiPage {
 
 }

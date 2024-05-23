@@ -26,7 +26,7 @@ import {
 
 @Component({
 	selector: 'app-list-customer-ui-page',
-	templateUrl: './index.html',
+	templateUrl: './list.customer.ui.page.html',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [

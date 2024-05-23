@@ -1,5 +1,7 @@
 # Bee O`clock - Client Panel App
 
+![concept.jpg](project-material%2Fconcept.jpg)
+
 ## State Management
 Ми використовуємо в якості менеджера стану NGXS. Всі файли стану розміщені в папці `state` в кожному з модулів тобто як приклад `./src/modules/account/state`.
 
