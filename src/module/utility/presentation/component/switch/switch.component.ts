@@ -7,16 +7,16 @@ import {filter} from "rxjs";
 import {is} from "thiis";
 
 @Component({
-	selector: 'utility-switch-component',
-	standalone: true,
-	template: `
-		<label class="relative inline-flex items-center justify-between cursor-pointer w-full">
+    selector: 'utility-switch-component',
+    standalone: true,
+    template: `
+        <label class="relative inline-flex items-center justify-between cursor-pointer w-full">
         <span
-					class="mr-3 text-sm font-medium text-beeColor-900 dark:text-beeDarkColor-300">
+                class="mr-3 text-sm font-medium text-beeColor-900 dark:text-beeDarkColor-300">
           {{ label ?? (labelTranslateKey | translate) }}
         </span>
-			<input [id]="id" type="checkbox" [formControl]="localControl" class="sr-only peer">
-			<div class="
+            <input [id]="id" type="checkbox" [formControl]="localControl" class="sr-only peer">
+            <div class="
 				relative
 				min-w-11
 				max-w-11
@@ -45,60 +45,63 @@ import {is} from "thiis";
 				after:transition-all
 				dark:border-beeDarkColor-600
 				peer-checked:bg-blue-600">
-			</div>
-		</label>
-	`,
-	imports: [
-		ReactiveFormsModule,
-		TranslateModule,
-	]
+            </div>
+        </label>
+    `,
+    imports: [
+        ReactiveFormsModule,
+        TranslateModule,
+    ]
 })
 export class SwitchComponent extends Reactive implements OnInit, OnChanges {
 
-	@Input()
-	public label: unknown | string;
+    @Input()
+    public label: unknown | string;
 
-	@Input()
-	public labelTranslateKey = 'keyword.capitalize.active';
+    @Input()
+    public labelTranslateKey = 'keyword.capitalize.active';
 
-	@Input()
-	public id = '';
+    @Input()
+    public id = '';
 
-	@Input()
-	public control = new FormControl(); // External control
+    @Input()
+    public units: unknown[] = [ActiveEnum.NO, ActiveEnum.YES];
 
-	public readonly localControl = new FormControl();
+    @Input()
+    public control = new FormControl(); // External control
 
-	public ngOnChanges(changes: SimpleChanges & { control: SimpleChange }) {
+    public readonly localControl = new FormControl();
 
-		if (changes.control) {
+    public ngOnChanges(changes: SimpleChanges & { control: SimpleChange }) {
 
-			const control = changes.control.currentValue as FormControl;
-			this.localControl.setValue(control.value);
-			control.valueChanges.pipe(
-				this.takeUntil(),
-				filter((value) => {
-					return this.localControl.value !== value;
-				})
-			).subscribe((value) => {
-				this.localControl.setValue(value);
-			});
+        if (changes.control) {
 
-		}
+            const control = changes.control.currentValue as FormControl;
+            this.localControl.setValue(control.value);
+            control.valueChanges.pipe(
+                this.takeUntil(),
+                filter((value) => {
+                    return this.localControl.value !== value;
+                })
+            ).subscribe((value) => {
+                this.localControl.setValue(value);
+            });
 
-	}
+        }
 
-	public ngOnInit(): void {
+    }
 
-		this.localControl.valueChanges.pipe(
-			this.takeUntil(),
-			filter(is.boolean),
-		).subscribe((value) => {
-			this.control.setValue(
-				value ? ActiveEnum.YES : ActiveEnum.NO,
-			);
-		});
+    public ngOnInit(): void {
 
-	}
+        this.localControl.valueChanges.pipe(
+            this.takeUntil(),
+            filter(is.boolean),
+        ).subscribe((value) => {
+            this.control.setValue(
+                value ? this.units[1] : this.units[0],
+            );
+        });
+
+    }
 
 }

@@ -43,6 +43,7 @@ import {SwitchComponent} from "@utility/presentation/component/switch/switch.com
 				[control]="note"/>
 
 			<utility-switch-component
+				[units]="[false, true]"
 				[control]="entireBusiness"
 				[label]="'client.profile.form.inputs.published.label' | translate"/>
 
