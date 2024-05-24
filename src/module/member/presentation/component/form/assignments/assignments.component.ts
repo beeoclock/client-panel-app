@@ -72,7 +72,7 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 				const {newSelectedServiceList} = renderedComponentRef.instance as {newSelectedServiceList: IService[]};
 				const include = newSelectedServiceList.map(({_id}) => ({serviceId: _id}));
 				this.form.controls.service.controls.include.patchValue(include);
-				// this.pushBoxService.destroy$.next(SelectServicePushBoxComponent.name);
+				// this.pushBoxService.destroy$.next(SelectMemberPushBoxComponent.name);
 			});
 		}
 

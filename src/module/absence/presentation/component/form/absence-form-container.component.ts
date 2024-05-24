@@ -12,6 +12,11 @@ import {
 } from "@client/presentation/component/business-profile/form-business-profile.component";
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {NgSelectModule} from "@ng-select/ng-select";
+import {Reactive} from "@utility/cdk/reactive";
+import {NgIf} from "@angular/common";
+import {
+    MembersAbsenceFormContainerComponent
+} from "@absence/presentation/component/form/members.absence-form-container.component";
 
 @Component({
     selector: 'app-absence-form-container',
@@ -25,7 +30,9 @@ import {NgSelectModule} from "@ng-select/ng-select";
         FormBusinessProfileComponent,
         SwitchComponent,
         NgSelectModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgIf,
+        MembersAbsenceFormContainerComponent
     ],
     standalone: true,
     template: `
@@ -62,12 +69,15 @@ import {NgSelectModule} from "@ng-select/ng-select";
                     [control]="entireBusiness"
                     [label]="'absence.form.inputs.entireBusiness.label' | translate"/>
 
-            [TODO memberIds]
+            <app-members-absence-form-container
+                    [entireBusiness]="entireBusiness"
+                    [memberIds]="memberIds"/>
+
         </bee-card>
 
     `
 })
-export class AbsenceFormContainerComponent {
+export class AbsenceFormContainerComponent extends Reactive {
 
     @Input()
     public start!: FormControl<string>;

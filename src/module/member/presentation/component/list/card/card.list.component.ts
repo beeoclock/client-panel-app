@@ -1,5 +1,5 @@
 import {Component, ViewEncapsulation} from "@angular/core";
-import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
@@ -13,8 +13,9 @@ import {TableComponent} from "@utility/table.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {IMember} from "@member/domain";
+import {RIMember} from "@member/domain";
 import {MemberActions} from "@member/state/member/member.actions";
+import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 
 @Component({
 	selector: 'member-card-list-component',
@@ -34,12 +35,17 @@ import {MemberActions} from "@member/state/member/member.actions";
 		CurrencyPipe,
 		HumanizeDurationPipe,
 		CardComponent,
-		NgIf
+		NgIf,
+		AsyncPipe,
 	]
 })
-export class CardListComponent extends TableComponent<IMember> {
+export class CardListComponent extends TableComponent<RIMember> {
 
 	public override readonly actions = MemberActions;
+
+	public showAction = new BooleanStreamState(true);
+
+	public showSelectedStatus = new BooleanStreamState(false);
 
 	public override open(id: string) {
 		this.store.dispatch(new MemberActions.OpenDetailsById(id));
