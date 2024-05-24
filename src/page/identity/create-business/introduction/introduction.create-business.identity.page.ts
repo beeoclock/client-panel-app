@@ -12,7 +12,7 @@ import {IMember} from "@identity/domain/interface/i.member";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
 
 @Component({
-	selector: 'app-introduction-create-business-identity-ui-page',
+	selector: 'app-introduction-create-business-identity-page',
 	templateUrl: './introduction.create-business.identity.page.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,

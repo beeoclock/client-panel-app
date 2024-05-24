@@ -14,7 +14,7 @@ import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.
 import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
-	selector: 'app-service-provide-type-create-business-identity-ui-page',
+	selector: 'app-service-provide-type-create-business-identity-page',
 	templateUrl: './service-provide-type.create-business.identity.page.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,

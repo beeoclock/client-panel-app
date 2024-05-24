@@ -18,7 +18,7 @@ import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 import {ToastController} from "@ionic/angular";
 
 @Component({
-	selector: 'app-confirm-invitation-identity-ui-page',
+	selector: 'app-confirm-invitation-identity-page',
 	templateUrl: './confirm-invitation.identity.page.html',
 	standalone: true,
 	imports: [

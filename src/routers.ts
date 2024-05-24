@@ -11,6 +11,7 @@ import {CustomerState} from "@customer/state/customer/customer.state";
 import WrapperIdentityComponent from "@utility/presentation/component/wrapper-identity/wrapper-identity.component";
 import {tokenResolver} from "@utility/presentation/resolver/token.resolver";
 import {AbsenceState} from "@absence/state/absence/absence.state";
+import {OrderState} from "@order/state/order/order.state";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
@@ -60,6 +61,18 @@ export const routes: Routes = [
 					{
 						path: 'list',
 						loadComponent: () => import('@page/absence/list/list.absence.page')
+					}
+				]
+			},
+			{
+				path: 'order',
+				providers: [
+					importProvidersFrom(NgxsModule.forFeature([OrderState])),
+				],
+				children: [
+					{
+						path: 'list',
+						loadComponent: () => import('@page/order/list/list.order.page')
 					}
 				]
 			},

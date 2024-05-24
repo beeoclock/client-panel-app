@@ -8,7 +8,7 @@ import {OrderEndpoint} from "@order/external/endpoint/order.endpoint";
 @Injectable({
 	providedIn: 'root'
 })
-export class ItemOrderApiAdapter extends BaseApiAdapter<IOrderDto, [string]> {
+export class DetailsOrderApiAdapter extends BaseApiAdapter<IOrderDto, [string]> {
 
 
 	/**

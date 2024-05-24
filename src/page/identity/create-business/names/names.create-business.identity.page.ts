@@ -16,7 +16,7 @@ import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 
 @Component({
-	selector: 'app-names-create-business-identity-ui-page',
+	selector: 'app-names-create-business-identity-page',
 	templateUrl: './names.create-business.identity.page.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,

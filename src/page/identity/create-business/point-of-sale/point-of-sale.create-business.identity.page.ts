@@ -1,10 +1,10 @@
 import {
-	AfterViewInit,
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	inject,
-	ViewEncapsulation
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    inject,
+    ViewEncapsulation
 } from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
@@ -15,12 +15,12 @@ import {ChangeLanguageComponent} from "@utility/presentation/component/change-la
 import {CreateBusinessQuery} from "@identity/query/create-business.query";
 import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
 import {
-	AddressBusinessProfileComponent
+    AddressBusinessProfileComponent
 } from "@client/presentation/component/business-profile/address/address.business-profile.component";
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
-	selector: 'app-point-of-sale-create-business-identity-ui-page',
+	selector: 'app-point-of-sale-create-business-identity-page',
 	templateUrl: './point-of-sale.create-business.identity.page.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,

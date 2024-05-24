@@ -1,11 +1,11 @@
 import {
-	AfterViewInit,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	inject,
-	ViewChild,
-	ViewEncapsulation
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    inject,
+    ViewChild,
+    ViewEncapsulation
 } from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
@@ -29,17 +29,17 @@ import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
 import {
-	UpdateBusinessProfileApiAdapter
+    UpdateBusinessProfileApiAdapter
 } from "@client/adapter/external/api/buisness-profile/update.business-profile.api.adapter";
 import * as Client from "@client/domain";
 import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
 import {IAddress} from "@client/domain/interface/i.address";
 import {
-	PatchMediaGalleryClientApiAdapter
+    PatchMediaGalleryClientApiAdapter
 } from "@client/adapter/external/api/media/gallery/patch.media.gallery.client.api.adapter";
 import {CreateServiceApiAdapter} from "@service/adapter/external/api/create.service.api.adapter";
 import {
-	ModalSelectSpecialistListAdapter
+    ModalSelectSpecialistListAdapter
 } from "@member/adapter/external/component/modal-select-specialist.list.adapter";
 import {IService} from "@service/domain";
 
@@ -51,7 +51,7 @@ const enum Status {
 }
 
 @Component({
-	selector: 'app-processing-create-business-identity-ui-page',
+	selector: 'app-processing-create-business-identity-page',
 	templateUrl: './processing.create-business.identity.page.html',
 	standalone: true,
 	imports: [

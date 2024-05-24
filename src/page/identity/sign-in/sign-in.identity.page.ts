@@ -9,7 +9,7 @@ import {NgOptimizedImage} from "@angular/common";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 
 @Component({
-	selector: 'app-sign-in-identity-ui-page',
+	selector: 'app-sign-in-identity-page',
 	templateUrl: './sign-in.identity.page.html',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,

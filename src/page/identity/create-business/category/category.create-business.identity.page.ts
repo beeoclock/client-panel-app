@@ -12,7 +12,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {BusinessCategory} from "@utility/domain/business-category";
 
 @Component({
-	selector: 'app-category-create-business-identity-ui-page',
+	selector: 'app-category-create-business-identity-page',
 	templateUrl: './category.create-business.identity.page.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,

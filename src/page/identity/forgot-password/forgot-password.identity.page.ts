@@ -16,7 +16,7 @@ import {SignUpComponent} from "@identity/presentation/component/sign-up.componen
 import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 
 @Component({
-	selector: 'app-forgot-password-identity-ui-page',
+	selector: 'app-forgot-password-identity-page',
 	templateUrl: './forgot-password.identity.page.html',
 	standalone: true,
 	imports: [

@@ -1,10 +1,10 @@
 import {
-	AfterViewInit,
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	inject,
-	ViewEncapsulation
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    inject,
+    ViewEncapsulation
 } from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
@@ -18,7 +18,7 @@ import {SchedulesFormComponent} from "@utility/presentation/component/schedule/s
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
-	selector: 'app-schedules-create-business-identity-ui-page',
+	selector: 'app-schedules-create-business-identity-page',
 	templateUrl: './schedules.create-business.identity.page.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,

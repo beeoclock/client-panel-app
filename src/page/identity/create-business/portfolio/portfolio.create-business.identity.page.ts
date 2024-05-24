@@ -7,13 +7,13 @@ import {BackLinkComponent} from "@utility/presentation/component/link/back.link.
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {
-	GalleryBusinessProfileComponent
+    GalleryBusinessProfileComponent
 } from "@client/presentation/component/business-profile/gallery/gallery.business-profile/gallery.business-profile.component";
 import {CreateBusinessQuery} from "@identity/query/create-business.query";
 import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
-	selector: 'app-portfolio-create-business-identity-ui-page',
+	selector: 'app-portfolio-create-business-identity-page',
 	templateUrl: './portfolio.create-business.identity.page.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,

@@ -9,7 +9,7 @@ import {OrderEndpoint} from "@order/external/endpoint/order.endpoint";
 @Injectable({
 	providedIn: 'root'
 })
-export class ListOrderApiAdapter extends BaseApiAdapter<ResponseListType<IOrderDto>, [TableState_BackendFormat]> {
+export class PagedOrderApiAdapter extends BaseApiAdapter<ResponseListType<IOrderDto>, [TableState_BackendFormat]> {
 
 
 	/**

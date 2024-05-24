@@ -7,15 +7,15 @@ import {BackLinkComponent} from "@utility/presentation/component/link/back.link.
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {CreateBusinessQuery} from "@identity/query/create-business.query";
 import {
-	AddressBusinessProfileComponent
+    AddressBusinessProfileComponent
 } from "@client/presentation/component/business-profile/address/address.business-profile.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {
-	ContainerBusinessSettingsComponent
+    ContainerBusinessSettingsComponent
 } from "@client/presentation/component/business-settings/container.business-settings.component";
 
 @Component({
-	selector: 'app-languages-create-business-identity-ui-page',
+	selector: 'app-languages-create-business-identity-page',
 	templateUrl: './languages.create-business.identity.page.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,

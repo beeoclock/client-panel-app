@@ -14,13 +14,13 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {FormButtonWithIconComponent} from "@utility/presentation/component/button/form-button-with-icon.component";
 import {ScheduleFormComponent} from "@utility/presentation/component/schedule/schedule.form.component";
 import {
-	CreateBusinessModalService
+    CreateBusinessModalService
 } from "@service/presentation/component/form/modal/create-business/create-business.modal.service";
 import {ServiceForm} from "@service/presentation/form";
 
 
 @Component({
-	selector: 'app-services-create-business-identity-ui-page',
+	selector: 'app-services-create-business-identity-page',
 	templateUrl: './services.create-business.identity.page.html',
 	standalone: true,
 	imports: [

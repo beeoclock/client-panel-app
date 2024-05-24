@@ -20,7 +20,7 @@ import {BackButtonComponent} from "@utility/presentation/component/button/back.b
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 
 @Component({
-  selector: 'app-identity-corridor-ui-page',
+  selector: 'app-identity-corridor-page',
   templateUrl: './corridor.identity.page.html',
   standalone: true,
 	imports: [

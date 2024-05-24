@@ -14,7 +14,7 @@ import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum"
 import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
-	selector: 'app-industry-create-business-identity-ui-page',
+	selector: 'app-industry-create-business-identity-page',
 	templateUrl: './industry.create-business.identity.page.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,

@@ -17,7 +17,7 @@ import {ChangeLanguageComponent} from "@utility/presentation/component/change-la
 import {LogoutComponent} from "@utility/presentation/component/logout/logout.component";
 
 @Component({
-	selector: 'app-confirm-email-identity-ui-page',
+	selector: 'app-confirm-email-identity-page',
 	templateUrl: './confirm-email.identity.page.html',
 	standalone: true,
 	imports: [

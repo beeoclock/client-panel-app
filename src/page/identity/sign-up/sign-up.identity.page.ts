@@ -9,7 +9,7 @@ import {ChangeLanguageComponent} from "@utility/presentation/component/change-la
 import {SignInComponent} from "@identity/presentation/component/sign-in.component/sign-in.component";
 
 @Component({
-  selector: 'app-sign-up-identity-ui-page',
+  selector: 'app-sign-up-identity-page',
   templateUrl: './sign-up.identity.page.html',
   standalone: true,
     imports: [

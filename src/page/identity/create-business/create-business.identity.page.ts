@@ -11,7 +11,7 @@ import {LogoutComponent} from "@utility/presentation/component/logout/logout.com
 import {AsyncPipe, NgIf} from "@angular/common";
 
 @Component({
-	selector: 'app-identity-create-business-identity-ui-page',
+	selector: 'app-identity-create-business-identity-page',
 	template: `
 		<div class="h-screen relative p-4 overflow-y-auto">
 			<router-outlet/>
