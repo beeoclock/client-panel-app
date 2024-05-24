@@ -2,6 +2,27 @@
   "absence": {
     "button": {
       "create": "Додати відсутність"
+    },
+    "form": {
+      "inputs": {
+        "entireBusiness": {
+          "label": "Весь бізнес"
+        },
+        "note": {
+          "placeholder": "Краще мати і не потребувати ніж не мати і потребувати, залиши нотатку з якої потім зрозумієш що відбулось"
+        }
+      }
+    },
+    "type": {
+      "break": {
+        "label": "Перерва"
+      },
+      "holiday": {
+        "label": "Свято"
+      },
+      "vacation": {
+        "label": "Канікули"
+      }
     }
   },
   "autoActionOnEventInSeconds": {

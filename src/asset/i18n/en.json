@@ -2,6 +2,27 @@
   "absence": {
     "button": {
       "create": "Add absence"
+    },
+    "form": {
+      "inputs": {
+        "entireBusiness": {
+          "label": "Entire business"
+        },
+        "note": {
+          "placeholder": "It is better to have and not need than not to have and need, leave a note from which you will understand what happened later"
+        }
+      }
+    },
+    "type": {
+      "break": {
+        "label": "Break"
+      },
+      "holiday": {
+        "label": "Holiday"
+      },
+      "vacation": {
+        "label": "Vacation"
+      }
     }
   },
   "autoActionOnEventInSeconds": {
