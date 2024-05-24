@@ -1,4 +1,9 @@
 {
+	"absence": {
+		"button": {
+			"create": "Додати відсутність"
+		}
+	},
 	"autoActionOnEventInSeconds": {
 		"EIGHT_HOURS": "8 годин",
 		"FIFTEEN_MINUTES": "15 хвилин",
@@ -1085,6 +1090,7 @@
 		"Online": "Онлайн"
 	},
 	"sidebar": {
+		"absence": "Відсутність",
 		"addEvent": "Додати подію",
 		"businessProfile": "Профіль компанії",
 		"businessSettings": "Налаштування компанії",

@@ -33,17 +33,17 @@ export class AbsenceDetailsContainerComponent {
 
 	public readonly store = inject(Store);
 
-	public async delete(customer: IAbsenceDto) {
+	public async delete(absence: IAbsenceDto) {
 
-		const {active} = customer;
+		const {active} = absence;
 
 		if (active) {
 
-			return alert('You can\'t delete active customer');
+			return alert('You can\'t delete active absence');
 
 		}
 
-		await firstValueFrom(this.store.dispatch(new AbsenceActions.DeleteItem(customer._id)));
+		await firstValueFrom(this.store.dispatch(new AbsenceActions.DeleteItem(absence._id)));
 
 	}
 

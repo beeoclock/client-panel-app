@@ -1,4 +1,9 @@
 {
+	"absence": {
+		"button": {
+			"create": "Add absence"
+		}
+	},
 	"autoActionOnEventInSeconds": {
 		"EIGHT_HOURS": "8 hours",
 		"FIFTEEN_MINUTES": "15 minutes",
@@ -1085,6 +1090,7 @@
 		"Online": "Online"
 	},
 	"sidebar": {
+		"absence": "Absence",
 		"addEvent": "Add event",
 		"businessProfile": "Business profile",
 		"businessSettings": "Company settings",

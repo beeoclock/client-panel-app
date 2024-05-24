@@ -4,14 +4,14 @@ import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {TableListComponent} from "@customer/presentation/component/list/table/table.list.component";
-import {FilterComponent} from "@customer/presentation/component/filter/filter.component";
 import {LayoutListComponent} from "@utility/layout.list.component";
+import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {FilterComponent} from "@absence/presentation/component/filter/filter.component";
+import {TableListComponent} from "@absence/presentation/component/list/table/table.list.component";
 import {
 	AutoRefreshButtonComponent
-} from "@customer/presentation/component/button/auto-refresh/auto-refresh.button.component";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+} from "@absence/presentation/component/button/auto-refresh/auto-refresh.button.component";
+import {AbsenceActions} from "@absence/state/absence/absence.actions";
 
 @Component({
 	selector: 'app-absence-desktop-layout-list-component',
@@ -31,7 +31,7 @@ import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 export class DesktopLayoutListComponent extends LayoutListComponent<IAbsenceDto> {
 
 	public openForm(): void {
-		this.store.dispatch(new CustomerActions.OpenForm());
+		this.store.dispatch(new AbsenceActions.OpenForm());
 	}
 
 }

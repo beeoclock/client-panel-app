@@ -10,6 +10,7 @@ import {ServiceState} from "@service/state/service/service.state";
 import {CustomerState} from "@customer/state/customer/customer.state";
 import WrapperIdentityComponent from "@utility/presentation/component/wrapper-identity/wrapper-identity.component";
 import {tokenResolver} from "@utility/presentation/resolver/token.resolver";
+import {AbsenceState} from "@absence/state/absence/absence.state";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
@@ -47,6 +48,18 @@ export const routes: Routes = [
 					{
 						path: 'list',
 						loadComponent: () => import('@page/member/list/list.member.page')
+					}
+				]
+			},
+			{
+				path: 'absence',
+				providers: [
+					importProvidersFrom(NgxsModule.forFeature([AbsenceState])),
+				],
+				children: [
+					{
+						path: 'list',
+						loadComponent: () => import('@page/absence/list/list.absence.page')
 					}
 				]
 			},

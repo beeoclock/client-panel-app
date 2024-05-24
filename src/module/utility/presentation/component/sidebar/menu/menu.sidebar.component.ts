@@ -206,6 +206,18 @@ export class MenuSidebarComponent implements OnInit {
 		});
 		this.menu.push({
 			order: 6,
+			url: '/absence/list',
+			translateKey: 'sidebar.absence',
+			icon: 'bi bi-person-vcard',
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		});
+		this.menu.push({
+			order: 7,
 			url: '/member/list',
 			translateKey: 'sidebar.members',
 			icon: 'bi bi-people',
@@ -217,7 +229,7 @@ export class MenuSidebarComponent implements OnInit {
 			}
 		});
 		this.menu.push({
-			order: 7,
+			order: 8,
 			url: '/service/list',
 			translateKey: 'sidebar.services',
 			icon: 'bi bi-shop-window',
@@ -229,7 +241,7 @@ export class MenuSidebarComponent implements OnInit {
 			}
 		});
 		this.menu.push({
-			order: 8,
+			order: 9,
 			url: '/client/business-profile',
 			translateKey: 'sidebar.businessProfile',
 			icon: 'bi bi-buildings',
@@ -241,7 +253,7 @@ export class MenuSidebarComponent implements OnInit {
 			}
 		});
 		this.menu.push({
-			order: 9,
+			order: 10,
 			url: '/client/business-settings',
 			translateKey: 'sidebar.businessSettings',
 			icon: 'bi bi-building-gear',

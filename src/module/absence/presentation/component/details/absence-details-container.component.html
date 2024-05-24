@@ -1,4 +1,4 @@
-<ng-container *ngIf="item as customer">
+<ng-container *ngIf="item">
 	<div class="bg-white">
 		<dl class="divide-y divide-gray-100">
 			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
@@ -6,7 +6,7 @@
 					{{ 'keyword.capitalize.note' | translate }}
 				</dt>
 				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-					{{ customer.note }}
+					{{ item.note }}
 				</dd>
 			</div>
 			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
@@ -14,7 +14,7 @@
 					{{ 'keyword.capitalize.status' | translate }}
 				</dt>
 				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
-					<div activeStyle [active]="customer.active"></div>
+					<div activeStyle [active]="item.active"></div>
 				</dd>
 			</div>
 		</dl>
@@ -24,7 +24,7 @@
 
 		<div class="flex justify-between flex-col md:flex-row gap-4 bg-white p-4 border-y">
 
-			<bee-delete-button [buttonWidthFull]="true" (event)="delete(customer)"/>
+			<bee-delete-button [buttonWidthFull]="true" (event)="delete(item)"/>
 			<edit-button-component [buttonWidthFull]="true" (click)="openForm()"/>
 
 		</div>
@@ -39,7 +39,7 @@
 						#
 					</div>
 					<div>
-						{{ customer._id }}
+						{{ item._id }}
 					</div>
 
 				</div>
@@ -50,7 +50,7 @@
 						{{ 'keyword.capitalize.createdAt' | translate }}:
 					</div>
 					<div>
-						{{ customer.createdAt | dynamicDate }}
+						{{ item.createdAt | dynamicDate }}
 					</div>
 
 				</div>
@@ -61,7 +61,7 @@
 						{{ 'keyword.capitalize.updatedAt' | translate }}:
 					</div>
 					<div>
-						{{ customer.updatedAt | dynamicDate }}
+						{{ item.updatedAt | dynamicDate }}
 					</div>
 
 				</div>

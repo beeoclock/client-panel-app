@@ -1,4 +1,9 @@
 {
+	"absence": {
+		"button": {
+			"create": "Tilføj fravær"
+		}
+	},
 	"autoActionOnEventInSeconds": {
 		"EIGHT_HOURS": "8 timer",
 		"FIFTEEN_MINUTES": "15 minutter",
@@ -1085,6 +1090,7 @@
 		"Online": "Online"
 	},
 	"sidebar": {
+		"absence": "Fravær",
 		"addEvent": "Tilføj begivenhed",
 		"businessProfile": "Forretningsprofil",
 		"businessSettings": "Firma indstillinger",

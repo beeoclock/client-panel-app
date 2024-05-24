@@ -20,15 +20,6 @@ import {AbsenceActions} from "@absence/state/absence/absence.actions";
 			(edit)="edit()"
 			[id]="id"
 			[active]="item.active">
-			<!--			<li>-->
-			<!--				<a-->
-			<!--					[routerLink]="['../../', 'event', 'form']"-->
-			<!--					[queryParams]="{customerId: item._id, returnUrl}"-->
-			<!--					class="flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">-->
-			<!--					<i class="bi bi-calendar2-week"></i>-->
-			<!--					{{ 'keyword.capitalize.add-event' | translate }}-->
-			<!--				</a>-->
-			<!--			</li>-->
 		</utility-table-column-action>
 	`,
 	imports: [
@@ -54,7 +45,7 @@ export class RowActionButtonComponent {
 
 		if (active) {
 
-			return alert('You can\'t delete active customer');
+			return alert('You can\'t delete active absence');
 
 		}
 		this.store.dispatch(new AbsenceActions.DeleteItem(this.item._id));

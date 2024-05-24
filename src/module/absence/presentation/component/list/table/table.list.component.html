@@ -1,32 +1,32 @@
 <div [tableFlex]="tableConfiguration">
 	<div tableRowFlex="header">
-		<div tableColumnFlex="firstName">
-			{{ 'keyword.capitalize.firstName' | translate }}
-		</div>
-		<div tableColumnFlex="lastName" data-orderBy="lastName">
-			<div class="flex gap-3 items-center">
-				{{ 'keyword.capitalize.lastName' | translate }}
-				<utility-sort-indicator
-					orderBy="lastName"
-					[tableState]="tableState"/>
-			</div>
-		</div>
-		<div tableColumnFlex="email" data-orderBy="email">
-			<div class="flex gap-3 items-center">
-				{{ 'keyword.capitalize.email' | translate }}
-				<utility-sort-indicator
-					orderBy="email"
-					[tableState]="tableState"/>
-			</div>
-		</div>
-		<div tableColumnFlex="phone" data-orderBy="phone">
-			<div class="flex gap-3 items-center">
-				{{ 'keyword.capitalize.phone' | translate }}
-				<utility-sort-indicator
-					orderBy="phone"
-					[tableState]="tableState"/>
-			</div>
-		</div>
+<!--		<div tableColumnFlex="firstName">-->
+<!--			{{ 'keyword.capitalize.firstName' | translate }}-->
+<!--		</div>-->
+<!--		<div tableColumnFlex="lastName" data-orderBy="lastName">-->
+<!--			<div class="flex gap-3 items-center">-->
+<!--				{{ 'keyword.capitalize.lastName' | translate }}-->
+<!--				<utility-sort-indicator-->
+<!--					orderBy="lastName"-->
+<!--					[tableState]="tableState"/>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--		<div tableColumnFlex="email" data-orderBy="email">-->
+<!--			<div class="flex gap-3 items-center">-->
+<!--				{{ 'keyword.capitalize.email' | translate }}-->
+<!--				<utility-sort-indicator-->
+<!--					orderBy="email"-->
+<!--					[tableState]="tableState"/>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--		<div tableColumnFlex="phone" data-orderBy="phone">-->
+<!--			<div class="flex gap-3 items-center">-->
+<!--				{{ 'keyword.capitalize.phone' | translate }}-->
+<!--				<utility-sort-indicator-->
+<!--					orderBy="phone"-->
+<!--					[tableState]="tableState"/>-->
+<!--			</div>-->
+<!--		</div>-->
 		<div tableColumnFlex="note">
 			{{ 'keyword.capitalize.note' | translate }}
 		</div>
@@ -61,26 +61,26 @@
 	<!-- Column Cell	-->
 	<div tableBodyFlex>
 		<div tableRowFlex="body" (click)="doubleClick(item._id)" *ngFor="let item of tableState.items; trackBy: trackById">
-			<div tableColumnFlex="firstName">
-				<span class="truncate">
-					{{ item.firstName | noData }}
-				</span>
-			</div>
-			<div tableColumnFlex="lastName">
-				<span class="truncate">
-					{{ item.lastName | noData }}
-				</span>
-			</div>
-			<div tableColumnFlex="email">
-				<span [title]="item.email " class="truncate">
-					<a href="mailto:{{ item.email }}">{{ item.email | noData }}</a>
-				</span>
-			</div>
-			<div tableColumnFlex="phone">
-				<span [title]="item.phone" class="truncate">
-					{{ item.phone | noData }}
-				</span>
-			</div>
+<!--			<div tableColumnFlex="firstName">-->
+<!--				<span class="truncate">-->
+<!--					{{ item.firstName | noData }}-->
+<!--				</span>-->
+<!--			</div>-->
+<!--			<div tableColumnFlex="lastName">-->
+<!--				<span class="truncate">-->
+<!--					{{ item.lastName | noData }}-->
+<!--				</span>-->
+<!--			</div>-->
+<!--			<div tableColumnFlex="email">-->
+<!--				<span [title]="item.email " class="truncate">-->
+<!--					<a href="mailto:{{ item.email }}">{{ item.email | noData }}</a>-->
+<!--				</span>-->
+<!--			</div>-->
+<!--			<div tableColumnFlex="phone">-->
+<!--				<span [title]="item.phone" class="truncate">-->
+<!--					{{ item.phone | noData }}-->
+<!--				</span>-->
+<!--			</div>-->
 			<div tableColumnFlex="note">
 				<span [title]="item.note" class="truncate">
 					{{ item.note | noData }}
@@ -101,7 +101,7 @@
 				</span>
 			</div>
 			<div tableColumnFlex="action" class="border-l sticky right-0">
-				<customer-row-action-button-component
+				<app-absence-row-action-button-component
 					[item]="item"
 					[id]="item._id"/>
 			</div>

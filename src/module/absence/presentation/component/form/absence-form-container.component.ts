@@ -7,6 +7,10 @@ import {DatetimeLocalInputComponent} from "@utility/presentation/component/input
 import {TranslateModule} from "@ngx-translate/core";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {
+	FormBusinessProfileComponent
+} from "@client/presentation/component/business-profile/form-business-profile.component";
+import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 
 @Component({
 	selector: 'app-absence-form-container',
@@ -16,27 +20,35 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 		DatetimeLocalInputComponent,
 		TranslateModule,
 		FormTextareaComponent,
-		CardComponent
+		CardComponent,
+		FormBusinessProfileComponent,
+		SwitchComponent
 	],
 	standalone: true,
 	template: `
 
-		<datetime-local-input-component
-			[label]="'keyword.capitalize.ownOptionOfTime' | translate"
-			[control]="start"/>
+		<bee-card>
+			<datetime-local-input-component
+				[label]="'keyword.capitalize.ownOptionOfTime' | translate"
+				[control]="start"/>
 
-		<datetime-local-input-component
-			[label]="'keyword.capitalize.ownOptionOfTime' | translate"
-			[control]="end"/>
+			<datetime-local-input-component
+				[label]="'keyword.capitalize.ownOptionOfTime' | translate"
+				[control]="end"/>
 
-		<form-textarea-component
-			id="event-form-public-note-input"
-			[label]="'keyword.capitalize.note' | translate"
-			[placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
-			[control]="note"/>
+			<form-textarea-component
+				id="event-form-public-note-input"
+				[label]="'keyword.capitalize.note' | translate"
+				[placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
+				[control]="note"/>
 
-		[TODO type]
-		[TODO memberIds]
+			<utility-switch-component
+				[control]="entireBusiness"
+				[label]="'client.profile.form.inputs.published.label' | translate"/>
+
+			[TODO type]
+			[TODO memberIds]
+		</bee-card>
 
 	`
 })
