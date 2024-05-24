@@ -17,7 +17,7 @@ import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 
 @Component({
 	selector: 'app-forgot-password-identity-ui-page',
-	templateUrl: './forgot-password.identity.ui.page.html',
+	templateUrl: './forgot-password.identity.page.html',
 	standalone: true,
 	imports: [
 		GettingStartedComponent,
@@ -33,7 +33,7 @@ import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class ForgotPasswordIdentityUiPage {
+export class ForgotPasswordIdentityPage {
 
 	@HostBinding()
 	public class = 'col-md-7 d-flex flex-center';
@@ -91,4 +91,4 @@ export class ForgotPasswordIdentityUiPage {
 
 }
 
-export default ForgotPasswordIdentityUiPage;
+export default ForgotPasswordIdentityPage;

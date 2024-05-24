@@ -52,7 +52,7 @@ import {is} from "thiis";
 
 @Component({
 	selector: 'app-business-profile-client-ui-page',
-	templateUrl: './business-profile.ui.page.html',
+	templateUrl: './business-profile.page.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		FormBusinessProfileComponent,
@@ -75,7 +75,7 @@ import {is} from "thiis";
 	],
 	standalone: true
 })
-export class BusinessProfileUiPage extends Reactive implements OnInit {
+export class BusinessProfilePage extends Reactive implements OnInit {
 
 	// @ViewChild(CoverImageBusinessProfileComponent)
 	// public readonly coverImageBusinessProfileComponent!: CoverImageBusinessProfileComponent;
@@ -181,4 +181,4 @@ export class BusinessProfileUiPage extends Reactive implements OnInit {
 
 }
 
-export default BusinessProfileUiPage;
+export default BusinessProfilePage;

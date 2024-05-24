@@ -36,7 +36,7 @@ import {
 
 @Component({
 	selector: 'client-business-settings-page',
-	templateUrl: './business-settings.ui.page.html',
+	templateUrl: './business-settings.page.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		BookingSettingsBusinessProfileComponent,
@@ -54,7 +54,7 @@ import {
 	],
 	standalone: true
 })
-export default class BusinessSettingsUiPage implements OnInit {
+export default class BusinessSettingsPage implements OnInit {
 
 	public readonly form = new BusinessProfileForm();
 	public readonly store = inject(Store);

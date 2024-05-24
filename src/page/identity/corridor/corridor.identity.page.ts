@@ -21,7 +21,7 @@ import {BackLinkComponent} from "@utility/presentation/component/link/back.link.
 
 @Component({
   selector: 'app-identity-corridor-ui-page',
-  templateUrl: './corridor.identity.ui.page.html',
+  templateUrl: './corridor.identity.page.html',
   standalone: true,
 	imports: [
 		RouterLink,
@@ -39,7 +39,7 @@ import {BackLinkComponent} from "@utility/presentation/component/link/back.link.
 	],
   encapsulation: ViewEncapsulation.None
 })
-export class CorridorIdentityUiPage extends Reactive implements OnInit {
+export class CorridorIdentityPage extends Reactive implements OnInit {
 
   private readonly store = inject(Store);
   private readonly router = inject(Router);
@@ -124,4 +124,4 @@ export class CorridorIdentityUiPage extends Reactive implements OnInit {
 
 }
 
-export default CorridorIdentityUiPage;
+export default CorridorIdentityPage;

@@ -26,7 +26,7 @@ import {
 
 @Component({
 	selector: 'app-list-customer-ui-page',
-	templateUrl: './list.customer.ui.page.html',
+	templateUrl: './list.customer.page.html',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
@@ -48,7 +48,7 @@ import {
 	],
 	standalone: true
 })
-export class ListCustomerUiPage extends ListPage {
+export class ListCustomerPage extends ListPage {
 
 	public override readonly actions = CustomerActions;
 	public readonly tableState$: Observable<ITableState<ICustomer>> = this.store.select(CustomerState.tableState)
@@ -60,4 +60,4 @@ export class ListCustomerUiPage extends ListPage {
 
 }
 
-export default ListCustomerUiPage;
+export default ListCustomerPage;

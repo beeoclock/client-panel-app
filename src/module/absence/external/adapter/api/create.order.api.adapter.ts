@@ -12,6 +12,7 @@ export class CreateAbsenceApiAdapter extends BaseApiAdapter<IAbsenceDto, [ICreat
 	 * @param body
 	 */
 	public override execute$(body: ICreateAbsenceDto) {
+
 		return this.httpClient.post<IAbsenceDto>(AbsenceEndpoint.CREATE, body);
 	}
 

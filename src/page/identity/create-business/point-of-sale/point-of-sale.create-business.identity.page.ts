@@ -21,7 +21,7 @@ import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
 	selector: 'app-point-of-sale-create-business-identity-ui-page',
-	templateUrl: './point-of-sale.create-business.identity.ui.page.html',
+	templateUrl: './point-of-sale.create-business.identity.page.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
@@ -36,7 +36,7 @@ import {TranslateModule} from "@ngx-translate/core";
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class PointOfSaleCreateBusinessIdentityUiPage implements AfterViewInit {
+export class PointOfSaleCreateBusinessIdentityPage implements AfterViewInit {
 
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
@@ -60,4 +60,4 @@ export class PointOfSaleCreateBusinessIdentityUiPage implements AfterViewInit {
 
 }
 
-export default PointOfSaleCreateBusinessIdentityUiPage;
+export default PointOfSaleCreateBusinessIdentityPage;

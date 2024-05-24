@@ -16,7 +16,7 @@ import {
 
 @Component({
 	selector: 'app-list-service-ui-page',
-	templateUrl: './list.service.ui.page.html',
+	templateUrl: './list.service.page.html',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
@@ -28,7 +28,7 @@ import {
 	],
 	standalone: true
 })
-export class ListServiceUiPage extends ListPage {
+export class ListServicePage extends ListPage {
 
 	public override readonly actions = ServiceActions;
 
@@ -41,4 +41,4 @@ export class ListServiceUiPage extends ListPage {
 
 }
 
-export default ListServiceUiPage;
+export default ListServicePage;

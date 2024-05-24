@@ -14,7 +14,7 @@ import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'app-portfolio-create-business-identity-ui-page',
-	templateUrl: './portfolio.create-business.identity.ui.page.html',
+	templateUrl: './portfolio.create-business.identity.page.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
@@ -29,7 +29,7 @@ import {Reactive} from "@utility/cdk/reactive";
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class PortfolioCreateBusinessIdentityUiPage extends Reactive implements AfterViewInit {
+export class PortfolioCreateBusinessIdentityPage extends Reactive implements AfterViewInit {
 
 	public readonly galleryForm = this.createBusinessQuery.getGalleryForm();
 
@@ -48,4 +48,4 @@ export class PortfolioCreateBusinessIdentityUiPage extends Reactive implements A
 
 }
 
-export default PortfolioCreateBusinessIdentityUiPage;
+export default PortfolioCreateBusinessIdentityPage;

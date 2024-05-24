@@ -16,7 +16,7 @@ import {
 
 @Component({
 	selector: 'app-languages-create-business-identity-ui-page',
-	templateUrl: './languages.create-business.identity.ui.page.html',
+	templateUrl: './languages.create-business.identity.page.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
     imports: [
@@ -32,7 +32,7 @@ import {
     ],
 	encapsulation: ViewEncapsulation.None
 })
-export class LanguagesCreateBusinessIdentityUiPage {
+export class LanguagesCreateBusinessIdentityPage {
 
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
 	public readonly businessSettingsForm = this.createBusinessQuery.getBusinessSettings();
@@ -41,4 +41,4 @@ export class LanguagesCreateBusinessIdentityUiPage {
 
 }
 
-export default LanguagesCreateBusinessIdentityUiPage;
+export default LanguagesCreateBusinessIdentityPage;

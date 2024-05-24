@@ -21,7 +21,7 @@ import {ServiceForm} from "@service/presentation/form";
 
 @Component({
 	selector: 'app-services-create-business-identity-ui-page',
-	templateUrl: './services.create-business.identity.ui.page.html',
+	templateUrl: './services.create-business.identity.page.html',
 	standalone: true,
 	imports: [
 		RouterLink,
@@ -39,7 +39,7 @@ import {ServiceForm} from "@service/presentation/form";
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class ServicesCreateBusinessIdentityUiPage {
+export class ServicesCreateBusinessIdentityPage {
 
 	private readonly createBusinessModalService = inject(CreateBusinessModalService);
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
@@ -70,4 +70,4 @@ export class ServicesCreateBusinessIdentityUiPage {
 
 }
 
-export default ServicesCreateBusinessIdentityUiPage;
+export default ServicesCreateBusinessIdentityPage;

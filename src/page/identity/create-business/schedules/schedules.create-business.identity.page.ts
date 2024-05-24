@@ -19,7 +19,7 @@ import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
 	selector: 'app-schedules-create-business-identity-ui-page',
-	templateUrl: './schedules.create-business.identity.ui.page.html',
+	templateUrl: './schedules.create-business.identity.page.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
@@ -34,7 +34,7 @@ import {TranslateModule} from "@ngx-translate/core";
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class SchedulesCreateBusinessIdentityUiPage implements AfterViewInit {
+export class SchedulesCreateBusinessIdentityPage implements AfterViewInit {
 
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
@@ -57,4 +57,4 @@ export class SchedulesCreateBusinessIdentityUiPage implements AfterViewInit {
 
 }
 
-export default SchedulesCreateBusinessIdentityUiPage;
+export default SchedulesCreateBusinessIdentityPage;

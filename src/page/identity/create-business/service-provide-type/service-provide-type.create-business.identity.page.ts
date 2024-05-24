@@ -9,11 +9,13 @@ import {CreateBusinessQuery} from "@identity/query/create-business.query";
 import {NgForOf, NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {ReactiveFormsModule} from "@angular/forms";
-import {BusinessCategory} from "@utility/domain/business-category";
+import {ServiceProvideType} from "@utility/domain/service-provide-type";
+import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
-	selector: 'app-category-create-business-identity-ui-page',
-	templateUrl: './category.create-business.identity.ui.page.html',
+	selector: 'app-service-provide-type-create-business-identity-ui-page',
+	templateUrl: './service-provide-type.create-business.identity.page.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
@@ -30,17 +32,22 @@ import {BusinessCategory} from "@utility/domain/business-category";
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class CategoryCreateBusinessIdentityUiPage implements OnInit {
+export class ServiceProvideTypeCreateBusinessIdentityPage extends Reactive implements OnInit {
 
 	private readonly router = inject(Router);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
-	public readonly businessIndustryControl = this.createBusinessQuery.getBusinessIndustryControl();
-	public readonly businessCategoryControl = this.createBusinessQuery.getBusinessCategoryControl();
-	public readonly listWithIcon = BusinessCategory.listsByIndustry[this.businessIndustryControl.value];
+	public readonly serviceProvideTypeControl = this.createBusinessQuery.getServiceProvideTypeControl();
+	public readonly listWithIcon = ServiceProvideType.listWithIcon;
+
+	public nextStepPath = 'point-of-sale';
+
+	constructor() {
+		super();
+	}
 
 	public get valid(): boolean {
-		return this.businessCategoryControl.valid;
+		return this.serviceProvideTypeControl.valid;
 	}
 
 	public get invalid(): boolean {
@@ -48,13 +55,26 @@ export class CategoryCreateBusinessIdentityUiPage implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		this.businessCategoryControl.valueChanges.subscribe(() => {
-			this.router.navigate(['../', 'point-of-sale'], {
+		this.updateNextStepPath(this.serviceProvideTypeControl.value);
+		this.serviceProvideTypeControl.valueChanges.pipe(this.takeUntil()).subscribe((value) => {
+			this.updateNextStepPath(value);
+			const commands = ['../', this.nextStepPath];
+			this.router.navigate(commands, {
 				relativeTo: this.activatedRoute
 			}).then();
 		});
 	}
 
+	private updateNextStepPath(value: ServiceProvideTypeEnum) {
+		switch (value) {
+			case ServiceProvideTypeEnum.Online:
+				this.nextStepPath = 'schedules';
+				break;
+			default:
+				this.nextStepPath = 'point-of-sale';
+		}
+	}
+
 }
 
-export default CategoryCreateBusinessIdentityUiPage;
+export default ServiceProvideTypeCreateBusinessIdentityPage;

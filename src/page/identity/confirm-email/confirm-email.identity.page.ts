@@ -18,7 +18,7 @@ import {LogoutComponent} from "@utility/presentation/component/logout/logout.com
 
 @Component({
 	selector: 'app-confirm-email-identity-ui-page',
-	templateUrl: './confirm-email.identity.ui.page.html',
+	templateUrl: './confirm-email.identity.page.html',
 	standalone: true,
 	imports: [
 		NgOptimizedImage,
@@ -33,7 +33,7 @@ import {LogoutComponent} from "@utility/presentation/component/logout/logout.com
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class ConfirmEmailIdentityUiPage extends Reactive implements OnInit {
+export class ConfirmEmailIdentityPage extends Reactive implements OnInit {
 
 	private readonly firebaseMode = 'verifyEmail' as const;
 	private readonly auth = inject(Auth);
@@ -103,4 +103,4 @@ export class ConfirmEmailIdentityUiPage extends Reactive implements OnInit {
 
 }
 
-export default ConfirmEmailIdentityUiPage;
+export default ConfirmEmailIdentityPage;

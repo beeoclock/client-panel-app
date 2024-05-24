@@ -17,7 +17,7 @@ import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/butto
 
 @Component({
 	selector: 'app-names-create-business-identity-ui-page',
-	templateUrl: './names.create-business.identity.ui.page.html',
+	templateUrl: './names.create-business.identity.page.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
@@ -34,7 +34,7 @@ import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/butto
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class NamesCreateBusinessIdentityUiPage {
+export class NamesCreateBusinessIdentityPage {
 
 	@Select(IdentityState.clients)
 	private readonly clients$!: Observable<IMember[]>;
@@ -74,4 +74,4 @@ export class NamesCreateBusinessIdentityUiPage {
 	}
 }
 
-export default NamesCreateBusinessIdentityUiPage;
+export default NamesCreateBusinessIdentityPage;

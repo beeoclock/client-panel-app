@@ -16,7 +16,7 @@ import {
 
 @Component({
   selector: 'client-settings-page',
-  templateUrl: './settings.ui.page.html',
+  templateUrl: './settings.page.html',
   encapsulation: ViewEncapsulation.None,
 	imports: [
 		DangerZoneComponent,
@@ -34,5 +34,5 @@ import {
 	],
   standalone: true
 })
-export default class SettingsUiPage {
+export default class SettingsPage {
 }

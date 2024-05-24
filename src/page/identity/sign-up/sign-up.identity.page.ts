@@ -10,7 +10,7 @@ import {SignInComponent} from "@identity/presentation/component/sign-in.componen
 
 @Component({
   selector: 'app-sign-up-identity-ui-page',
-  templateUrl: './sign-up.identity.ui.page.html',
+  templateUrl: './sign-up.identity.page.html',
   standalone: true,
     imports: [
         ReactiveFormsModule,
@@ -25,7 +25,7 @@ import {SignInComponent} from "@identity/presentation/component/sign-in.componen
     ],
   encapsulation: ViewEncapsulation.None
 })
-export class SignUpIdentityUiPage {
+export class SignUpIdentityPage {
 }
 
-export default SignUpIdentityUiPage;
+export default SignUpIdentityPage;

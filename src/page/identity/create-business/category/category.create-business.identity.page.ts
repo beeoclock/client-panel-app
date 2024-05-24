@@ -6,16 +6,14 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {CreateBusinessQuery} from "@identity/query/create-business.query";
-import {BusinessIndustry} from "@utility/domain/business-industry";
 import {NgForOf, NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {ReactiveFormsModule} from "@angular/forms";
-import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
-import {Reactive} from "@utility/cdk/reactive";
+import {BusinessCategory} from "@utility/domain/business-category";
 
 @Component({
-	selector: 'app-industry-create-business-identity-ui-page',
-	templateUrl: './industry.create-business.identity.ui.page.html',
+	selector: 'app-category-create-business-identity-ui-page',
+	templateUrl: './category.create-business.identity.page.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
@@ -32,55 +30,31 @@ import {Reactive} from "@utility/cdk/reactive";
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class IndustryCreateBusinessIdentityUiPage extends Reactive implements OnInit {
+export class CategoryCreateBusinessIdentityPage implements OnInit {
 
-	private readonly createBusinessQuery = inject(CreateBusinessQuery);
 	private readonly router = inject(Router);
 	private readonly activatedRoute = inject(ActivatedRoute);
+	private readonly createBusinessQuery = inject(CreateBusinessQuery);
 	public readonly businessIndustryControl = this.createBusinessQuery.getBusinessIndustryControl();
-	public readonly industryListWithIcon = BusinessIndustry.listWithIcon;
-	public nextStepPath = 'category';
-
-	constructor() {
-		super();
-	}
-
-	public ngOnInit(): void {
-		this.updateNextStepPath(this.businessIndustryControl.value);
-		this.businessIndustryControl.valueChanges.pipe(this.takeUntil()).subscribe((value) => {
-			this.updateNextStepPath(value);
-			const commands = ['../', this.nextStepPath];
-			this.router.navigate(commands, {
-				relativeTo: this.activatedRoute
-			}).then();
-		});
-	}
+	public readonly businessCategoryControl = this.createBusinessQuery.getBusinessCategoryControl();
+	public readonly listWithIcon = BusinessCategory.listsByIndustry[this.businessIndustryControl.value];
 
 	public get valid(): boolean {
-		return this.businessIndustryControl.valid;
+		return this.businessCategoryControl.valid;
 	}
 
 	public get invalid(): boolean {
 		return !this.valid;
 	}
 
-	private updateNextStepPath(value: BusinessIndustryEnum) {
-		switch (value) {
-			case BusinessIndustryEnum.BeautyIndustry:
-				this.nextStepPath = 'category';
-				break;
-			case BusinessIndustryEnum.TeachingAndConsultation:
-				this.nextStepPath = 'service-provide-type';
-				break;
-			case BusinessIndustryEnum.Healthcare:
-				this.nextStepPath = 'category';
-				break;
-			case BusinessIndustryEnum.Other:
-				this.nextStepPath = 'point-of-sale';
-				break;
-		}
+	public ngOnInit(): void {
+		this.businessCategoryControl.valueChanges.subscribe(() => {
+			this.router.navigate(['../', 'point-of-sale'], {
+				relativeTo: this.activatedRoute
+			}).then();
+		});
 	}
+
 }
 
-
-export default IndustryCreateBusinessIdentityUiPage;
+export default CategoryCreateBusinessIdentityPage;

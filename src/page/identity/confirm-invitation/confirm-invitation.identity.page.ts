@@ -19,7 +19,7 @@ import {ToastController} from "@ionic/angular";
 
 @Component({
 	selector: 'app-confirm-invitation-identity-ui-page',
-	templateUrl: './confirm-invitation.identity.ui.page.html',
+	templateUrl: './confirm-invitation.identity.page.html',
 	standalone: true,
 	imports: [
 		ReactiveFormsModule,
@@ -34,7 +34,7 @@ import {ToastController} from "@ionic/angular";
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class ConfirmInvitationIdentityUiPage implements OnInit {
+export class ConfirmInvitationIdentityPage implements OnInit {
 
 	private readonly confirmInvitationApiAdapter = inject(ConfirmInvitationApiAdapter);
 	private readonly activatedRoute = inject(ActivatedRoute);
@@ -93,4 +93,4 @@ export class ConfirmInvitationIdentityUiPage implements OnInit {
 
 }
 
-export default ConfirmInvitationIdentityUiPage;
+export default ConfirmInvitationIdentityPage;

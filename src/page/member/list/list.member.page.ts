@@ -17,7 +17,7 @@ import {TableListComponent} from "@member/presentation/component/list/table/tabl
 
 @Component({
 	selector: 'app-list-member-ui-page',
-	templateUrl: './list.member.ui.page.html',
+	templateUrl: './list.member.page.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		RouterLink,
@@ -32,7 +32,7 @@ import {TableListComponent} from "@member/presentation/component/list/table/tabl
 	],
 	standalone: true
 })
-export class ListMemberUiPage extends ListPage {
+export class ListMemberPage extends ListPage {
 
 	public override readonly actions = MemberActions;
 
@@ -45,4 +45,4 @@ export class ListMemberUiPage extends ListPage {
 
 }
 
-export default ListMemberUiPage;
+export default ListMemberPage;

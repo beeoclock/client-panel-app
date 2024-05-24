@@ -10,7 +10,7 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 
 @Component({
 	selector: 'app-sign-in-identity-ui-page',
-	templateUrl: './sign-in.identity.ui.page.html',
+	templateUrl: './sign-in.identity.page.html',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
@@ -25,8 +25,8 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class SignInIdentityUiPage {
+export class SignInIdentityPage {
 
 }
 
-export default SignInIdentityUiPage;
+export default SignInIdentityPage;

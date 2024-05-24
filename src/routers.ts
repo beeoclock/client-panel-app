@@ -46,7 +46,7 @@ export const routes: Routes = [
 				children: [
 					{
 						path: 'list',
-						loadComponent: () => import('@page/member/list/list.member.ui.page')
+						loadComponent: () => import('@page/member/list/list.member.page')
 					}
 				]
 			},
@@ -59,26 +59,26 @@ export const routes: Routes = [
 				children: [
 					{
 						path: 'business-profile',
-						loadComponent: () => import('@page/client/business-profile/business-profile.ui.page')
+						loadComponent: () => import('@page/client/business-profile/business-profile.page')
 					},
 					{
 						path: 'business-settings',
-						loadComponent: () => import('@page/client/business-settings/business-settings.ui.page')
+						loadComponent: () => import('@page/client/business-settings/business-settings.page')
 					},
 					{
 						path: 'settings',
-						loadComponent: () => import('@page/client/settings/settings.ui.page')
+						loadComponent: () => import('@page/client/settings/settings.page')
 					},
 					{
 						path: 'notification',
 						children: [
 							{
 								path: '',
-								loadComponent: () => import('@page/client/notification/notification.ui.page')
+								loadComponent: () => import('@page/client/notification/notification.page')
 							},
 							{
 								path: ':id',
-								loadComponent: () => import('@page/client/notification/notification.ui.page')
+								loadComponent: () => import('@page/client/notification/notification.page')
 							}
 						]
 					}
@@ -92,7 +92,7 @@ export const routes: Routes = [
 				children: [
 					{
 						path: 'list',
-						loadComponent: () => import('@page/customer/list/list.customer.ui.page')
+						loadComponent: () => import('@page/customer/list/list.customer.page')
 					}
 				]
 			},
@@ -104,7 +104,7 @@ export const routes: Routes = [
 				children: [
 					{
 						path: 'list',
-						loadComponent: () => import('@page/service/list/list.service.ui.page')
+						loadComponent: () => import('@page/service/list/list.service.page')
 					}
 				]
 			},
@@ -123,83 +123,83 @@ export const routes: Routes = [
 				children: [
 					{
 						path: '',
-						loadComponent: () => import('@page/identity/sign-in/sign-in.identity.ui.page')
+						loadComponent: () => import('@page/identity/sign-in/sign-in.identity.page')
 					},
 					{
 						path: 'sign-up',
-						loadComponent: () => import('@page/identity/sign-up/sign-up.identity.ui.page')
+						loadComponent: () => import('@page/identity/sign-up/sign-up.identity.page')
 					},
 					{
 						path: 'confirm-invitation',
-						loadComponent: () => import('@page/identity/confirm-invitation/confirm-invitation.identity.ui.page')
+						loadComponent: () => import('@page/identity/confirm-invitation/confirm-invitation.identity.page')
 					},
 					{
 						path: 'forgot-password',
-						loadComponent: () => import('@page/identity/forgot-password/forgot-password.identity.ui.page')
+						loadComponent: () => import('@page/identity/forgot-password/forgot-password.identity.page')
 					},
 				]
 			},
 			{
 				path: 'confirm-email',
-				loadComponent: () => import('@page/identity/confirm-email/confirm-email.identity.ui.page')
+				loadComponent: () => import('@page/identity/confirm-email/confirm-email.identity.page')
 			},
 			{
 				path: 'corridor',
 				resolve: {
 					clientId: tokenResolver,
 				},
-				loadComponent: () => import('@page/identity/corridor/corridor.identity.ui.page')
+				loadComponent: () => import('@page/identity/corridor/corridor.identity.page')
 			},
 			{
 				path: 'create-business',
 				resolve: {
 					clientId: tokenResolver,
 				},
-				loadComponent: () => import('@page/identity/create-business/create-business.identity.ui.page'),
+				loadComponent: () => import('@page/identity/create-business/create-business.identity.page'),
 				children: [
 					{
 						path: '',
-						loadComponent: () => import('@page/identity/create-business/introduction/introduction.create-business.identity.ui.page'),
+						loadComponent: () => import('@page/identity/create-business/introduction/introduction.create-business.identity.page'),
 					},
 					{
 						path: 'names',
-						loadComponent: () => import('@page/identity/create-business/names/names.create-business.identity.ui.page'),
+						loadComponent: () => import('@page/identity/create-business/names/names.create-business.identity.page'),
 					},
 					{
 						path: 'industry',
-						loadComponent: () => import('@page/identity/create-business/industry/industry.create-business.identity.ui.page'),
+						loadComponent: () => import('@page/identity/create-business/industry/industry.create-business.identity.page'),
 					},
 					{
 						path: 'point-of-sale',
-						loadComponent: () => import('@page/identity/create-business/point-of-sale/point-of-sale.create-business.identity.ui.page'),
+						loadComponent: () => import('@page/identity/create-business/point-of-sale/point-of-sale.create-business.identity.page'),
 					},
 					{
 						path: 'schedules',
-						loadComponent: () => import('@page/identity/create-business/schedules/schedules.create-business.identity.ui.page'),
+						loadComponent: () => import('@page/identity/create-business/schedules/schedules.create-business.identity.page'),
 					},
 					{
 						path: 'languages',
-						loadComponent: () => import('@page/identity/create-business/languages/languages.create-business.identity.ui.page'),
+						loadComponent: () => import('@page/identity/create-business/languages/languages.create-business.identity.page'),
 					},
 					{
 						path: 'portfolio',
-						loadComponent: () => import('@page/identity/create-business/portfolio/portfolio.create-business.identity.ui.page'),
+						loadComponent: () => import('@page/identity/create-business/portfolio/portfolio.create-business.identity.page'),
 					},
 					{
 						path: 'services',
-						loadComponent: () => import('@page/identity/create-business/services/services.create-business.identity.ui.page'),
+						loadComponent: () => import('@page/identity/create-business/services/services.create-business.identity.page'),
 					},
 					{
 						path: 'category',
-						loadComponent: () => import('@page/identity/create-business/category/category.create-business.identity.ui.page'),
+						loadComponent: () => import('@page/identity/create-business/category/category.create-business.identity.page'),
 					},
 					{
 						path: 'service-provide-type',
-						loadComponent: () => import('@page/identity/create-business/service-provide-type/service-provide-type.create-business.identity.ui.page'),
+						loadComponent: () => import('@page/identity/create-business/service-provide-type/service-provide-type.create-business.identity.page'),
 					},
 					{
 						path: 'processing',
-						loadComponent: () => import('@page/identity/create-business/processing/processing.create-business.identity.ui.page'),
+						loadComponent: () => import('@page/identity/create-business/processing/processing.create-business.identity.page'),
 					}
 				]
 			},

@@ -52,7 +52,7 @@ const enum Status {
 
 @Component({
 	selector: 'app-processing-create-business-identity-ui-page',
-	templateUrl: './processing.create-business.identity.ui.page.html',
+	templateUrl: './processing.create-business.identity.page.html',
 	standalone: true,
 	imports: [
 		RouterLink,
@@ -73,7 +73,7 @@ const enum Status {
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class ProcessingCreateBusinessIdentityUiPage implements AfterViewInit {
+export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 
 	@ViewChild('goToDashboardPage')
 	public goToDashboardPage!: ElementRef<HTMLButtonElement>;
@@ -298,4 +298,4 @@ export class ProcessingCreateBusinessIdentityUiPage implements AfterViewInit {
 
 }
 
-export default ProcessingCreateBusinessIdentityUiPage;
+export default ProcessingCreateBusinessIdentityPage;

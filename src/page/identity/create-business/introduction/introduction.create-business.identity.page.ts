@@ -13,7 +13,7 @@ import {IdentityActions} from "@identity/state/identity/identity.actions";
 
 @Component({
 	selector: 'app-introduction-create-business-identity-ui-page',
-	templateUrl: './introduction.create-business.identity.ui.page.html',
+	templateUrl: './introduction.create-business.identity.page.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
@@ -27,7 +27,7 @@ import {IdentityActions} from "@identity/state/identity/identity.actions";
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class IntroductionCreateBusinessIdentityUiPage {
+export class IntroductionCreateBusinessIdentityPage {
 
 	private readonly store = inject(Store);
 
@@ -54,4 +54,4 @@ export class IntroductionCreateBusinessIdentityUiPage {
 
 }
 
-export default IntroductionCreateBusinessIdentityUiPage;
+export default IntroductionCreateBusinessIdentityPage;

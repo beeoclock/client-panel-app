@@ -33,7 +33,7 @@ import {AsyncPipe, NgIf} from "@angular/common";
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class CreateBusinessIdentityUiPage {
+export class CreateBusinessIdentityPage {
 
 	// private readonly logger = inject(NGXLogger);
 	// public readonly translateService = inject(TranslateService);
@@ -92,4 +92,4 @@ export class CreateBusinessIdentityUiPage {
 
 }
 
-export default CreateBusinessIdentityUiPage;
+export default CreateBusinessIdentityPage;
