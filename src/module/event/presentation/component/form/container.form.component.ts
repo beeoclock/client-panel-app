@@ -46,7 +46,6 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 import {DefaultInputDirective} from "@utility/presentation/directives/input/default.input.directive";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import * as Member from '@member/domain';
-import {ISpecialist} from "@service/domain/interface/i.specialist";
 
 @Component({
 	selector: 'event-container-form-component',
@@ -169,13 +168,14 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 			});
 
 		if (this.member) {
+			const member = this.member;
 			this.form.controls.services.valueChanges.pipe(filter(is.array_not_empty<IService[]>), take(1)).subscribe((services) => {
 				this.form.controls.services.patchValue(services.map((service) => {
 					return {
 						...service,
 						specialists: [{
-							object: 'Specialist' as ISpecialist['object'],
-							member: this.member,
+							object: 'SpecialistDto',
+							member,
 						}],
 					};
 				}));

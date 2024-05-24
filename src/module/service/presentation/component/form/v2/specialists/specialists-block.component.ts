@@ -132,7 +132,7 @@ export class SpecialistsBlockComponent implements OnInit {
 			return;
 		}
 
-		const newSelectedSpecialistList = this.specialistListControl.value.filter((specialist) => specialist !== member._id);
+		const newSelectedSpecialistList = this.specialistListControl.value.filter((specialist) => specialist.member._id !== member._id);
 
 		this.specialistListControl.patchValue(newSelectedSpecialistList);
 

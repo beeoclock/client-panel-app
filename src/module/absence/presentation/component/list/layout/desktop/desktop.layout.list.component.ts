@@ -1,0 +1,37 @@
+import {Component, ViewEncapsulation} from "@angular/core";
+import {AsyncPipe, NgIf} from "@angular/common";
+import {
+	NotFoundTableDataComponent
+} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
+import {TranslateModule} from "@ngx-translate/core";
+import {TableListComponent} from "@customer/presentation/component/list/table/table.list.component";
+import {FilterComponent} from "@customer/presentation/component/filter/filter.component";
+import {LayoutListComponent} from "@utility/layout.list.component";
+import {
+	AutoRefreshButtonComponent
+} from "@customer/presentation/component/button/auto-refresh/auto-refresh.button.component";
+import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+
+@Component({
+	selector: 'app-absence-desktop-layout-list-component',
+	templateUrl: './desktop.layout.list.component.html',
+	standalone: true,
+	encapsulation: ViewEncapsulation.None,
+	imports: [
+		AsyncPipe,
+		FilterComponent,
+		NgIf,
+		NotFoundTableDataComponent,
+		TableListComponent,
+		TranslateModule,
+		AutoRefreshButtonComponent,
+	]
+})
+export class DesktopLayoutListComponent extends LayoutListComponent<IAbsenceDto> {
+
+	public openForm(): void {
+		this.store.dispatch(new CustomerActions.OpenForm());
+	}
+
+}
