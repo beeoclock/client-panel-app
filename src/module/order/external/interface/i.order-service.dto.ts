@@ -1,22 +1,27 @@
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {IOrderServiceDetailsDto} from "@order/external/interface/i.order-service-details.dto";
+import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+
+export interface IHistoryDto {
+	object: string;
+	issuerRole: string;
+	issuerId: string;
+	reason: string;
+	value: string;
+	createdAt: string;
+}
+
+export interface IMetaDto {
+	object: string;
+	history: IHistoryDto[];
+}
 
 export interface IOrderServiceDto {
 	object: "OrderServiceDto";
 	_id: string;
 	serviceSnapshot: IServiceDto;
 	orderServiceDetails: IOrderServiceDetailsDto;
-	status: string;
-	meta: {
-		object: string;
-		history: {
-			object: string;
-			issuerRole: string;
-			issuerId: string;
-			reason: string;
-			value: string;
-			createdAt: string;
-		}[];
-	};
+	status: OrderServiceStatusEnum;
+	meta: IMetaDto;
 	customerNote: string;
 }

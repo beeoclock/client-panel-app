@@ -11,6 +11,10 @@
         "note": {
           "placeholder": "Lepiej mieć i nie potrzebować, niż nie mieć i potrzebować, zostawić notatkę, aby później zrozumieć, co się stało"
         }
+      },
+      "title": {
+        "create": "Dodawanie nieobecności",
+        "edit": "Edytowanie nieobecności"
       }
     },
     "type": {

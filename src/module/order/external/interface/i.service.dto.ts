@@ -1,4 +1,5 @@
 import {LanguageCodeEnum} from "@utility/domain/enum";
+import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 
 export interface IServiceDto {
 	object: "ServiceDto";
@@ -8,7 +9,7 @@ export interface IServiceDto {
 		object: string;
 		duration: {
 			object: string;
-			durationVersionType: string;
+			durationVersionType: DurationVersionTypeEnum;
 		}
 	},
 	presentation: {

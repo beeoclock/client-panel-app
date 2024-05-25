@@ -11,6 +11,10 @@
         "note": {
           "placeholder": "It is better to have and not need than not to have and need, leave a note from which you will understand what happened later"
         }
+      },
+      "title": {
+        "create": "Adding an absence",
+        "edit": "Editing an absence"
       }
     },
     "type": {

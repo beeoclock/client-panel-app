@@ -11,6 +11,10 @@
         "note": {
           "placeholder": "Det er bedre at have og ikke have brug for end ikke at have og have brug for, efterlad en note for at forstå, hvad der skete senere."
         }
+      },
+      "title": {
+        "create": "Tilføjelse af fravær",
+        "edit": "Redigering af fravær"
       }
     },
     "type": {
