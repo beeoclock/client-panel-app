@@ -301,6 +301,14 @@
     "details": {
       "title": "Dane klienta"
     },
+    "enum": {
+      "type": {
+        "new": "Nowy",
+        "regular": "Klient",
+        "unknown": "Anonimowy",
+        "unregistered": "Gość"
+      }
+    },
     "form": {
       "input": {
         "note": {
@@ -821,6 +829,7 @@
       "addSocialMedia": "Dodaj media społecznościowe",
       "additional": "Dodatkowe",
       "address": "Adres",
+      "amount": "Kwota",
       "approvalType": "Typ homologacji",
       "approve": "Zatwierdź",
       "attendees": "Uczestnicy",
@@ -899,6 +908,10 @@
       "order": "Kolejność",
       "ownOptionOfTime": "Godzina według Twojego życzenia",
       "ownOptionOfTimeHint": "Wybierz tę opcję, jeśli chcesz samodzielnie określić czas wydarzenia, niezależnie od innych wydarzeń zaplanowanych na tę godzinę.",
+      "payer": "Płatnik",
+      "payment": "Płatność",
+      "paymentMethod": "Metoda płatności",
+      "paymentStatus": "Status płatności",
       "periodOfDay": {
         "AFTERNOON": "Popołudnie",
         "EVENING": "Wieczór",
@@ -1072,6 +1085,27 @@
   "pagination": {
     "message": {
       "allDataDownloaded": "Wszystkie dostępne dane zostały pobrane"
+    }
+  },
+  "payment": {
+    "providerType": {
+      "onSite": {
+        "label": "Na miejscu"
+      }
+    },
+    "status": {
+      "failed": {
+        "label": "Nie powiodło się"
+      },
+      "pending": {
+        "label": "W toku"
+      },
+      "registered": {
+        "label": "Zarejestrowany"
+      },
+      "succeeded": {
+        "label": "Udało się"
+      }
     }
   },
   "role": {

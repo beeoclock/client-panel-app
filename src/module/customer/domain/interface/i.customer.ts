@@ -11,7 +11,7 @@ export interface ICustomer extends IBaseEntity<'Customer'> {
 	phone: string | null;
 	email: string & tags.Format<"email"> | null;
 	note: string | null;
-	customerType: CustomerTypeEnum & tags.Default<CustomerTypeEnum.New>;
+	customerType: CustomerTypeEnum & tags.Default<CustomerTypeEnum.new>;
 
 	active: Enum.ActiveEnum;
 }

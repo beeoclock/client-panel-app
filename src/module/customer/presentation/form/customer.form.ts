@@ -124,7 +124,7 @@ export class CustomerForm extends BaseEntityForm<'Customer', ICustomerForm> {
                 nonNullable: true,
             }),
 
-            [CustomerFormFieldsEnum.customerType]: new FormControl(CustomerTypeEnum.New, {
+            [CustomerFormFieldsEnum.customerType]: new FormControl(CustomerTypeEnum.new, {
                 nonNullable: true,
             }),
         });
@@ -132,7 +132,7 @@ export class CustomerForm extends BaseEntityForm<'Customer', ICustomerForm> {
     }
 
     public isNew(): boolean {
-        return this.controls.customerType.value === CustomerTypeEnum.New;
+        return this.controls.customerType.value === CustomerTypeEnum.new;
     }
 
     public isNotNew(): boolean {

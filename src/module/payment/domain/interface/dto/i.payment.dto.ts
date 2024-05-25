@@ -14,7 +14,7 @@ export interface IPaymentDto extends IBaseEntity<'PaymentDto'>{
     amount: number & tags.Minimum<0>;
     currency: CurrencyCodeEnum & tags.Default<CurrencyCodeEnum.USD>;
     method: PaymentMethodEnum & tags.Default<PaymentMethodEnum.CASH>;
-    providerType?: PaymentProviderTypeEnum & tags.Default<PaymentProviderTypeEnum.local>;
+    providerType?: PaymentProviderTypeEnum & tags.Default<PaymentProviderTypeEnum.onSite>;
     status: PaymentStatusEnum & tags.Default<PaymentStatusEnum.pending>;
     paymentDate?: string;
 }

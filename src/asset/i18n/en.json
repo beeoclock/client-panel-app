@@ -301,6 +301,14 @@
     "details": {
       "title": "Customer details"
     },
+    "enum": {
+      "type": {
+        "new": "New",
+        "regular": "Customer",
+        "unknown": "Anonymous",
+        "unregistered": "Guest"
+      }
+    },
     "form": {
       "input": {
         "note": {
@@ -821,6 +829,7 @@
       "addSocialMedia": "Add social media",
       "additional": "Additional",
       "address": "Address",
+      "amount": "Amount",
       "approvalType": "Approval type",
       "approve": "Approve",
       "attendees": "Attendees",
@@ -899,6 +908,10 @@
       "order": "Order",
       "ownOptionOfTime": "Hour according to your wish",
       "ownOptionOfTimeHint": "Choose this option if you want to determine the time of the event yourself, regardless of other events scheduled for that time.",
+      "payer": "Payer",
+      "payment": "Payment",
+      "paymentMethod": "Payment method",
+      "paymentStatus": "Payment status",
       "periodOfDay": {
         "AFTERNOON": "Afternoon",
         "EVENING": "Evening",
@@ -1072,6 +1085,27 @@
   "pagination": {
     "message": {
       "allDataDownloaded": "All available data has been downloaded"
+    }
+  },
+  "payment": {
+    "providerType": {
+      "onSite": {
+        "label": "On site"
+      }
+    },
+    "status": {
+      "failed": {
+        "label": "Failed"
+      },
+      "pending": {
+        "label": "Pending"
+      },
+      "registered": {
+        "label": "Registered"
+      },
+      "succeeded": {
+        "label": "Succeeded"
+      }
     }
   },
   "role": {

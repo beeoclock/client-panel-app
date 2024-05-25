@@ -18,6 +18,12 @@ import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
 import {CreateOrderForm} from "@order/presentation/form/create.order.form";
 import {IPaymentDto} from "@module/payment/domain/interface/dto/i.payment.dto";
+import {
+    PaymentOrderFormContainerComponent
+} from "@order/presentation/component/form/payment.order-form-container.component";
+import {
+    PayerOrderFormContainerComponent
+} from "@order/presentation/component/form/payer.order-form-container.component";
 
 @Component({
     selector: 'app-order-form-container',
@@ -32,7 +38,9 @@ import {IPaymentDto} from "@module/payment/domain/interface/dto/i.payment.dto";
         SwitchComponent,
         ButtonSaveContainerComponent,
         FormsModule,
-        PrimaryButtonDirective
+        PrimaryButtonDirective,
+        PaymentOrderFormContainerComponent,
+        PayerOrderFormContainerComponent
     ],
     standalone: true,
     template: `
@@ -40,6 +48,10 @@ import {IPaymentDto} from "@module/payment/domain/interface/dto/i.payment.dto";
             <bee-card>
                 [TODO memberIds]
             </bee-card>
+
+            <app-payer-order-form-container [form]="form.controls.payment"/>
+            <app-payment-order-form-container [form]="form.controls.payment" />
+
             <utility-button-save-container-component class="bottom-0">
                 <button
                         type="button"

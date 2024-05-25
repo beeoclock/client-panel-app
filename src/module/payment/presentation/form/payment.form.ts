@@ -27,7 +27,7 @@ export class PaymentForm extends BaseEntityForm<'PaymentDto', IPaymentForm> {
             providerPaymentRef: new FormControl(),
             orderId: new FormControl(),
             payer: CustomerForm.create({
-                customerType: CustomerTypeEnum.Unknown,
+                customerType: CustomerTypeEnum.unknown,
             }),
             amount: new FormControl<number>(0, {
                 nonNullable: true,
@@ -36,10 +36,10 @@ export class PaymentForm extends BaseEntityForm<'PaymentDto', IPaymentForm> {
             method: new FormControl(PaymentMethodEnum.CASH, {
                 nonNullable: true,
             }),
-            providerType: new FormControl(PaymentProviderTypeEnum.local, {
+            providerType: new FormControl(PaymentProviderTypeEnum.onSite, {
                 nonNullable: true,
             }),
-            status: new FormControl(PaymentStatusEnum.pending, {
+            status: new FormControl(PaymentStatusEnum.succeeded, {
                 nonNullable: true,
             }),
             paymentDate: new FormControl(new Date().toISOString(), {

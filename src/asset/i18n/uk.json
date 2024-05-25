@@ -301,6 +301,14 @@
     "details": {
       "title": "Інформація про клієнта"
     },
+    "enum": {
+      "type": {
+        "new": "Новий",
+        "regular": "Клієнт",
+        "unknown": "Анонім",
+        "unregistered": "Гість"
+      }
+    },
     "form": {
       "input": {
         "note": {
@@ -821,6 +829,7 @@
       "addSocialMedia": "Додати соціальну мережу",
       "additional": "Додатково",
       "address": "Адреса",
+      "amount": "Cума",
       "approvalType": "Тип схвалення",
       "approve": "Прийняти",
       "attendees": "Учасники",
@@ -899,6 +908,10 @@
       "order": "Послідовність",
       "ownOptionOfTime": "Година за твоїм бажанням",
       "ownOptionOfTimeHint": "Оберіть цю опцію, якщо хочеш визначити час події самостійно, незалежно від інших подій, запланованих на цей час.",
+      "payer": "Платник",
+      "payment": "Оплата",
+      "paymentMethod": "Спосіб оплати",
+      "paymentStatus": "Статус оплати",
       "periodOfDay": {
         "AFTERNOON": "День",
         "EVENING": "Вечір",
@@ -1072,6 +1085,27 @@
   "pagination": {
     "message": {
       "allDataDownloaded": "Завантажено усі дані які були доступні"
+    }
+  },
+  "payment": {
+    "providerType": {
+      "onSite": {
+        "label": "На місці"
+      }
+    },
+    "status": {
+      "failed": {
+        "label": "Не вдалося"
+      },
+      "pending": {
+        "label": "На розгляді"
+      },
+      "registered": {
+        "label": "Зареєстровано"
+      },
+      "succeeded": {
+        "label": "Успішно"
+      }
     }
   },
   "role": {

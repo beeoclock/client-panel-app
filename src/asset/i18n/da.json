@@ -301,6 +301,14 @@
     "details": {
       "title": "Kundeoplysninger"
     },
+    "enum": {
+      "type": {
+        "new": "Ny",
+        "regular": "Kunde",
+        "unknown": "Anonym",
+        "unregistered": "Gæst"
+      }
+    },
     "form": {
       "input": {
         "note": {
@@ -821,6 +829,7 @@
       "addSocialMedia": "Tilføj sociale medier",
       "additional": "Yderligere",
       "address": "Adresse",
+      "amount": "Beløb",
       "approvalType": "Godkendelsestype",
       "approve": "Godkend",
       "attendees": "Deltagere",
@@ -899,6 +908,10 @@
       "order": "Rækkefølge",
       "ownOptionOfTime": "Time efter eget ønske",
       "ownOptionOfTimeHint": "Vælg denne mulighed, hvis du ønsker selv at bestemme tidspunktet for begivenheden, uanset andre planlagte begivenheder på det tidspunkt.",
+      "payer": "Udbetaler",
+      "payment": "Betaling",
+      "paymentMethod": "Betalingsmetode",
+      "paymentStatus": "Betalingsstatus",
       "periodOfDay": {
         "AFTERNOON": "Eftermiddag",
         "EVENING": "Aften",
@@ -1072,6 +1085,27 @@
   "pagination": {
     "message": {
       "allDataDownloaded": "Alle tilgængelige data er downloadet"
+    }
+  },
+  "payment": {
+    "providerType": {
+      "onSite": {
+        "label": "På stedet"
+      }
+    },
+    "status": {
+      "failed": {
+        "label": "Mislykket"
+      },
+      "pending": {
+        "label": "Afventer"
+      },
+      "registered": {
+        "label": "Registreret"
+      },
+      "succeeded": {
+        "label": "Lykkedes"
+      }
     }
   },
   "role": {

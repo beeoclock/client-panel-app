@@ -1,6 +1,6 @@
 export enum CustomerTypeEnum {
-    Regular = 'Regular',
-    Unregistered = 'Unregistered',
-    New = 'New',
-    Unknown = 'Unknown',
+    regular = 'regular',
+    unregistered = 'unregistered',
+    new = 'new',
+    unknown = 'unknown',
 }
