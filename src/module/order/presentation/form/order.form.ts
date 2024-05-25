@@ -1,14 +1,14 @@
 import {BaseEntityForm} from "@utility/base.form";
 import {FormControl} from "@angular/forms";
 import {IOrderProductDto} from "@order/external/interface/i.order-product.dto";
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {OrderStatus} from "@order/domain/enum/order.status.enum";
 import {IOrderMetaDto, randomOrderMetaDto} from "@order/external/interface/i.order-meta.dto";
+import {ServiceOrderFormArray} from "@order/presentation/form/service.order.form";
 
 export interface IOrderForm {
 
     products: FormControl<IOrderProductDto[]>;
-    services: FormControl<IOrderServiceDto[]>;
+    services: ServiceOrderFormArray;
     status: FormControl<OrderStatus>;
     meta: FormControl<IOrderMetaDto>;
     businessNote: FormControl<string>;
@@ -25,9 +25,7 @@ export class OrderForm extends BaseEntityForm<'OrderDto', IOrderForm> {
                 nonNullable: true,
             }),
 
-            services: new FormControl<IOrderServiceDto[]>([], {
-                nonNullable: true,
-            }),
+            services: new ServiceOrderFormArray(),
 
             status: new FormControl<OrderStatus>(OrderStatus.CONFIRMED, {
                 nonNullable: true,

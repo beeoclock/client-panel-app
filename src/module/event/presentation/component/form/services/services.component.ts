@@ -104,6 +104,10 @@ export class ServicesComponent extends Reactive implements OnInit {
 			component: SelectServicePushBoxComponent,
 		});
 
+		if (!pushBoxWrapperComponentRef) {
+			return;
+		}
+
 		const {renderedComponentRef} = pushBoxWrapperComponentRef.instance;
 
 		if (renderedComponentRef?.instance instanceof SelectServicePushBoxComponent) {

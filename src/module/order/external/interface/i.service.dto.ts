@@ -6,9 +6,9 @@ export interface IServiceDto {
 	_id: string;
 	active: number;
 	configuration: {
-		object: string;
+		// object: string; // TODO: Add type
 		duration: {
-			object: string;
+			// object: string; // TODO: Add type
 			durationVersionType: DurationVersionTypeEnum;
 		}
 	},

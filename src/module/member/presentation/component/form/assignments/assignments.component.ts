@@ -65,6 +65,10 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 			}
 		});
 
+		if (!pushBoxWrapperComponentRef) {
+			return;
+		}
+
 		const {renderedComponentRef} = pushBoxWrapperComponentRef.instance;
 
 		if (renderedComponentRef?.instance instanceof SelectServicePushBoxComponent) {

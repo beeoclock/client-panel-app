@@ -24,6 +24,9 @@ import {
 import {
     PayerOrderFormContainerComponent
 } from "@order/presentation/component/form/payer.order-form-container.component";
+import {
+    ServiceOrderFormContainerComponent
+} from "@order/presentation/component/form/service.order-form-container.component";
 
 @Component({
     selector: 'app-order-form-container',
@@ -40,12 +43,14 @@ import {
         FormsModule,
         PrimaryButtonDirective,
         PaymentOrderFormContainerComponent,
-        PayerOrderFormContainerComponent
+        PayerOrderFormContainerComponent,
+        ServiceOrderFormContainerComponent
     ],
     standalone: true,
     template: `
         <form class="flex flex-col gap-4">
 
+            <app-service-order-form-container [form]="form.controls.order"/>
             <app-payer-order-form-container [form]="form.controls.payment"/>
             <app-payment-order-form-container [form]="form.controls.payment" />
             <bee-card>

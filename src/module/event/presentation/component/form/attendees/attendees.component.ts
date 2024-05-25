@@ -45,6 +45,10 @@ export class AttendeesComponent extends Reactive {
 			component: SelectCustomerPushBoxComponent,
 		});
 
+		if (!pushBoxWrapperComponentRef) {
+			return;
+		}
+
 		const {renderedComponentRef} = pushBoxWrapperComponentRef.instance;
 
 		if (renderedComponentRef?.instance instanceof SelectCustomerPushBoxComponent) {

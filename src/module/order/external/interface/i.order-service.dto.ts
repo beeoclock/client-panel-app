@@ -1,6 +1,7 @@
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {IOrderServiceDetailsDto} from "@order/external/interface/i.order-service-details.dto";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import typia from "typia";
 
 export interface IHistoryDto {
 	object: 'HistoryEntryDto';
@@ -16,6 +17,10 @@ export interface IMetaDto {
 	history: IHistoryDto[];
 }
 
+export const isMetaDto = typia.createIs<IMetaDto>();
+export const validMetaDto = typia.createValidate<IMetaDto>();
+export const randomMetaDto = typia.createRandom<IMetaDto>();
+
 export interface IOrderServiceDto {
 	object: "OrderServiceDto";
 	_id: string;
@@ -25,3 +30,7 @@ export interface IOrderServiceDto {
 	meta: IMetaDto;
 	customerNote: string;
 }
+
+export const isOrderServiceDto = typia.createIs<IOrderServiceDto>();
+export const validOrderServiceDto = typia.createValidate<IOrderServiceDto>();
+export const randomOrderServiceDto = typia.createRandom<IOrderServiceDto>();

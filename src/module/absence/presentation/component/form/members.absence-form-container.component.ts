@@ -97,6 +97,9 @@ export class MembersAbsenceFormContainerComponent extends Reactive implements On
             }
         });
 
+        if (!pushBoxWrapperComponentRef) {
+            return;
+        }
 
         const {renderedComponentRef} = pushBoxWrapperComponentRef.instance;
 
