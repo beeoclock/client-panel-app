@@ -17,9 +17,9 @@ import {NGXLogger} from "ngx-logger";
 import {PaymentForm} from "@module/payment/presentation/form/payment.form";
 import {CurrencyPipe} from "@angular/common";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {PaymentProviderTypeEnum} from "@module/payment/domain/enum/payment.provider-type.enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {PaymentStatusEnum} from "@module/payment/domain/enum/payment.status.enum";
+import {PaymentMethodEnum} from "@module/payment/domain/enum/payment.method.enum";
 
 @Component({
     selector: 'app-payment-order-form-container',
@@ -59,24 +59,24 @@ import {PaymentStatusEnum} from "@module/payment/domain/enum/payment.status.enum
             </ul>
 
             <div>
-                <label default for="order-form-inputs-payment-provider-type">
+                <label default for="order-form-inputs-payment-method">
                     {{ 'keyword.capitalize.paymentMethod' | translate }}
                 </label>
                 <ng-select
-                        labelForId="order-form-inputs-payment-provider-type"
+                        labelForId="order-form-inputs-payment-method"
                         bindLabel="label"
                         bindValue="value"
-                        [formControl]="form.controls.providerType"
-                        [items]="paymentProviderTypeOptions"
+                        [formControl]="form.controls.method"
+                        [items]="paymentMethodOptions"
                         [clearable]="false"/>
             </div>
 
             <div>
-                <label default for="order-form-label-payment-provider-type">
+                <label default for="order-form-label-payment-status">
                     {{ 'keyword.capitalize.paymentStatus' | translate }}
                 </label>
                 <ng-select
-                        id="order-form-inputs-provider-type"
+                        id="order-form-inputs-payment-status"
                         labelForId=""
                         bindLabel="label"
                         bindValue="value"
@@ -97,8 +97,8 @@ export class PaymentOrderFormContainerComponent implements OnInit {
     private readonly ngxLogger = inject(NGXLogger);
     private readonly translateService = inject(TranslateService);
 
-    public readonly paymentProviderTypeOptions = Object.values(PaymentProviderTypeEnum).map((value) => {
-        const labelTranslateKey = `payment.providerType.${value}.label`;
+    public readonly paymentMethodOptions = [PaymentMethodEnum.CASH, PaymentMethodEnum.CARD].map((value) => {
+        const labelTranslateKey = `payment.method.${value}.label`;
         let label = this.translateService.instant(labelTranslateKey);
         if (label === labelTranslateKey) {
             label = value;

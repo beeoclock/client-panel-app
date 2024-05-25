@@ -1088,6 +1088,14 @@
     }
   },
   "payment": {
+    "method": {
+      "CARD": {
+        "label": "Kort"
+      },
+      "CASH": {
+        "label": "Kontanter"
+      }
+    },
     "providerType": {
       "onSite": {
         "label": "På stedet"

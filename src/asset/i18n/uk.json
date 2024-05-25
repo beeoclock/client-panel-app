@@ -1088,6 +1088,14 @@
     }
   },
   "payment": {
+    "method": {
+      "CARD": {
+        "label": "Картка"
+      },
+      "CASH": {
+        "label": "Готівка"
+      }
+    },
     "providerType": {
       "onSite": {
         "label": "На місці"
