@@ -1,7 +1,6 @@
-import {Component, inject, Input, ViewEncapsulation} from '@angular/core';
-import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {Component, inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {ReactiveFormsModule} from "@angular/forms";
 import {AbsenceTypeEnum} from "@absence/domain/enums/absence.type.enum";
-import {ActiveEnum} from "@utility/domain/enum";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -17,6 +16,12 @@ import {NgIf} from "@angular/common";
 import {
     MembersAbsenceFormContainerComponent
 } from "@absence/presentation/component/form/members.absence-form-container.component";
+import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {Store} from "@ngxs/store";
+import {NGXLogger} from "ngx-logger";
+import {firstValueFrom} from "rxjs";
+import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {AbsenceForm} from "@absence/presentation/form/absence.form";
 
 @Component({
     selector: 'app-absence-form-container',
@@ -43,67 +48,76 @@ import {
                     id="absence-form-type-input"
                     bindLabel="label"
                     bindValue="id"
-                    [formControl]="type"
+                    [formControl]="form.controls.type"
                     [items]="types"
                     [clearable]="false"/>
 
             <datetime-local-input-component
                     id="absence-form-start-input"
                     [label]="'keyword.capitalize.start' | translate"
-                    [control]="start"/>
+                    [control]="form.controls.start"/>
 
             <datetime-local-input-component
                     id="absence-form-end-input"
                     [label]="'keyword.capitalize.end' | translate"
-                    [control]="end"/>
+                    [control]="form.controls.end"/>
 
             <form-textarea-component
                     id="absence-form-note-input"
                     [label]="'keyword.capitalize.note' | translate"
                     [placeholder]="'absence.form.inputs.note.placeholder' | translate"
-                    [control]="note"/>
+                    [control]="form.controls.note"/>
 
             <utility-switch-component
                     id="absence-form-entire-business-switch"
                     [units]="[false, true]"
-                    [control]="entireBusiness"
+                    [control]="form.controls.entireBusiness"
                     [label]="'absence.form.inputs.entireBusiness.label' | translate"/>
 
             <app-members-absence-form-container
-                    [entireBusiness]="entireBusiness"
-                    [memberIds]="memberIds"/>
+                    [entireBusiness]="form.controls.entireBusiness"
+                    [memberIds]="form.controls.memberIds"/>
 
         </bee-card>
 
     `
 })
-export class AbsenceFormContainerComponent extends Reactive {
+export class AbsenceFormContainerComponent extends Reactive implements OnInit {
 
     @Input()
-    public start!: FormControl<string>;
-
-    @Input()
-    public end!: FormControl<string>;
-
-    @Input()
-    public timeZone!: FormControl<string>;
-
-    @Input()
-    public note!: FormControl<string>;
-
-    @Input()
-    public active!: FormControl<ActiveEnum>;
-
-    @Input()
-    public type!: FormControl<AbsenceTypeEnum>;
-
-    @Input()
-    public entireBusiness!: FormControl<boolean>;
-
-    @Input()
-    public memberIds!: FormControl<string[]>;
+    public item!: Omit<IAbsenceDto, 'object'>;
 
     private readonly translateService = inject(TranslateService);
+
+    public readonly form: AbsenceForm = new AbsenceForm();
+
+    private readonly store = inject(Store);
+    private readonly ngxLogger = inject(NGXLogger);
+
+    public ngOnInit(): void {
+        this.form.patchValue(this.item);
+        this.form.updateValueAndValidity();
+    }
+
+    public async save(): Promise<void> {
+        this.form.markAllAsTouched();
+
+        this.form.valid && await this.finishSave();
+        this.form.invalid && this.ngxLogger.error('Form is invalid', this.form);
+    }
+
+    private async finishSave() {
+        const value = this.form.getRawValue();
+
+        this.form.disable();
+        this.form.markAsPending();
+        const isEditMode = !!this.item;
+        !isEditMode && await firstValueFrom(this.store.dispatch(new AbsenceActions.CreateItem(value)));
+        isEditMode && await firstValueFrom(this.store.dispatch(new AbsenceActions.UpdateItem(value)));
+        this.form.enable();
+        this.form.updateValueAndValidity();
+
+    }
 
     public readonly types = Object.values(AbsenceTypeEnum).map((id) => {
         return {

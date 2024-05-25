@@ -17,12 +17,10 @@ export interface IAbsenceForm {
 
 }
 
-export class AbsenceForm<OBJECT_NAME extends 'CreateAbsenceDto' | 'UpdateAbsenceDto' = 'CreateAbsenceDto' | 'UpdateAbsenceDto'> extends BaseEntityForm<OBJECT_NAME, IAbsenceForm> {
+export class AbsenceForm extends BaseEntityForm<'AbsenceDto', IAbsenceForm> {
 
-	constructor(
-		objectName: OBJECT_NAME,
-	) {
-		super(objectName, {
+	constructor() {
+		super('AbsenceDto', {
 
 			// Start date now
 			start: new FormControl(DateTime.local().toUTC().toISO(), {

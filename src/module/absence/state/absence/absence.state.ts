@@ -123,12 +123,12 @@ export class AbsenceState {
 
 		const title = await this.translateService.instant('absence.form.title.edit');
 
-		const {UpdateAbsenceFormContainerComponent} = await import("@absence/presentation/component/form/update/update.absence-form-container.component");
+		const {AbsenceFormContainerComponent} = await import("@absence/presentation/component/form/absence-form-container.component");
 
 		await this.pushBoxService.buildItAsync({
 			title,
 			id: action.payload,
-			component: UpdateAbsenceFormContainerComponent,
+			component: AbsenceFormContainerComponent,
 			componentInputs: {},
 		});
 
@@ -137,7 +137,7 @@ export class AbsenceState {
 		await this.pushBoxService.buildItAsync({
 			title,
 			id: action.payload,
-			component: UpdateAbsenceFormContainerComponent,
+			component: AbsenceFormContainerComponent,
 			componentInputs: {
 				item,
 				isEditMode: true,
@@ -149,15 +149,15 @@ export class AbsenceState {
 	@Action(AbsenceActions.OpenForm)
 	public async openFormAction(ctx: StateContext<IAbsenceState>, {payload}: AbsenceActions.OpenForm): Promise<void> {
 
-		const {CreateAbsenceFormContainerComponent} = await import("@absence/presentation/component/form/create/create.absence-form-container.component");
+		const {AbsenceFormContainerComponent} = await import("@absence/presentation/component/form/absence-form-container.component");
 
 		const {componentInputs, pushBoxInputs} = payload ?? {};
 
 		await this.pushBoxService.buildItAsync({
-			id: CreateAbsenceFormContainerComponent.name,
+			id: AbsenceFormContainerComponent.name,
 			title: this.translateService.instant('absence.form.title.create'),
 			...pushBoxInputs,
-			component: CreateAbsenceFormContainerComponent,
+			component: AbsenceFormContainerComponent,
 			componentInputs,
 		});
 

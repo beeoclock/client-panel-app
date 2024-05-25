@@ -17,11 +17,3 @@ export interface IAbsenceDto {
 	createdAt: string;
 	updatedAt: string;
 }
-
-export interface ICreateAbsenceDto extends Omit<IAbsenceDto, 'object'> {
-	object: 'CreateAbsenceDto';
-}
-
-export interface IUpdateAbsenceDto extends Omit<IAbsenceDto, 'object'> {
-	object: 'UpdateAbsenceDto';
-}

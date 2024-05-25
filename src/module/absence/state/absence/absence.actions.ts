@@ -1,5 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IAbsenceDto, ICreateAbsenceDto, IUpdateAbsenceDto} from "@module/absence/external/interface/i.absence.dto";
+import {IAbsenceDto} from "@module/absence/external/interface/i.absence.dto";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace AbsenceActions {
@@ -51,11 +51,11 @@ export namespace AbsenceActions {
 		public static override readonly type = '[Absence API] Get Item';
 	}
 
-	export class CreateItem extends BaseActions.CreateItem<ICreateAbsenceDto> {
+	export class CreateItem extends BaseActions.CreateItem<IAbsenceDto> {
 		public static override readonly type = '[Absence API] Create Item';
 	}
 
-	export class UpdateItem extends BaseActions.UpdateItem<IUpdateAbsenceDto> {
+	export class UpdateItem extends BaseActions.UpdateItem<IAbsenceDto> {
 		public static override readonly type = '[Absence API] Update Item';
 	}
 
