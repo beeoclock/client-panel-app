@@ -348,7 +348,8 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 	public async getList(ctx: StateContext<IBaseState<ITEM>>, {
 		payload: {
 			resetPage,
-			resetParams
+			resetParams,
+			queryParams,
 		}
 	}: BaseActions.GetList): Promise<void> {
 
@@ -371,7 +372,10 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 			const params = newTableState.toBackendFormat();
 
 			// Update current state
-			const {items, totalSize} = await this.paged.executeAsync(params);
+			const {items, totalSize} = await this.paged.executeAsync({
+				...params,
+				...(queryParams ?? {})
+			});
 
 			newTableState
 				.setTotal(totalSize)

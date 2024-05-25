@@ -14,9 +14,10 @@ import {
 import {FormsModule} from "@angular/forms";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {CreateOrderForm} from "@order/presentation/form/create.order.form";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
+import {CreateOrderForm} from "@order/presentation/form/create.order.form";
+import {IPaymentDto} from "@module/payment/domain/interface/dto/i.payment.dto";
 
 @Component({
     selector: 'app-order-form-container',
@@ -36,9 +37,7 @@ import {NGXLogger} from "ngx-logger";
     standalone: true,
     template: `
         <form class="flex flex-col gap-4">
-
             <bee-card>
-
                 [TODO memberIds]
             </bee-card>
             <utility-button-save-container-component class="bottom-0">
@@ -53,13 +52,15 @@ import {NGXLogger} from "ngx-logger";
                 </button>
             </utility-button-save-container-component>
         </form>
-
     `
 })
 export class OrderFormContainerComponent implements OnInit {
 
     @Input()
-    public item!: Omit<IOrderDto, 'object'>;
+    public orderDto!: IOrderDto;
+
+    @Input()
+    public paymentDto!: IPaymentDto;
 
     public readonly form: CreateOrderForm = new CreateOrderForm();
 
@@ -67,20 +68,20 @@ export class OrderFormContainerComponent implements OnInit {
     private readonly ngxLogger = inject(NGXLogger);
 
     public ngOnInit(): void {
-        this.form.patchValue(this.item);
+        this.form.controls.order.patchValue(this.orderDto);
+        this.form.controls.payment.patchValue(this.paymentDto);
         this.form.updateValueAndValidity();
     }
 
     public async save(): Promise<void> {
         this.form.markAllAsTouched();
-
         this.form.valid && await this.finishSave();
         this.form.invalid && this.ngxLogger.error('Form is invalid', this.form);
     }
 
     private async finishSave() {
-        const value = this.form.getRawValue();
-
+        const {order, payment} = this.form.getRawValue();
+        console.log({order, payment});
         this.form.disable();
         this.form.markAsPending();
         // TODO
@@ -88,8 +89,6 @@ export class OrderFormContainerComponent implements OnInit {
         // await firstValueFrom(this.store.dispatch(new OrderActions.UpdateItem(value)));
         this.form.enable();
         this.form.updateValueAndValidity();
-
     }
-
 
 }

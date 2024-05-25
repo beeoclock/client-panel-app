@@ -13,6 +13,7 @@ import {
 import {RIMember} from "@member/domain";
 import {MemberState} from "@member/state/member/member.state";
 import {MemberActions} from "@member/state/member/member.actions";
+import {ActiveEnum} from "@utility/domain/enum";
 
 @Component({
     selector: 'member-external-list-component',
@@ -34,6 +35,9 @@ export class MemberExternalListComponent extends ListPage {
     public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
 
     public override readonly actions = MemberActions;
+    protected override readonly getListParams = {
+        active: ActiveEnum.YES
+    };
 
     public readonly tableState$: Observable<ITableState<RIMember>> = this.store.select(MemberState.tableState)
         .pipe(

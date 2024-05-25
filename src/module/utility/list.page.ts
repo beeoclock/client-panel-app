@@ -3,6 +3,7 @@ import {Store} from "@ngxs/store";
 import {firstValueFrom, of} from "rxjs";
 import {BooleanState} from "@utility/domain";
 import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
+import {BaseActions} from "@utility/state/base/base.actions";
 
 @Component({
 	selector: 'utility-list-page',
@@ -19,6 +20,8 @@ export abstract class ListPage implements OnInit {
 	public readonly actions!: {
 		GetList: any;
 	};
+
+	protected readonly getListParams: unknown | null = null;
 
 	public initialized = new BooleanState(false);
 
@@ -37,7 +40,14 @@ export abstract class ListPage implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		firstValueFrom(this.store.dispatch(new this.actions.GetList())).then(() => {
+		let action = new this.actions.GetList();
+		if (this.getListParams) {
+			action = new this.actions.GetList({
+				queryParams: this.getListParams,
+				...BaseActions.GetList.defaultPayload
+			});
+		}
+		firstValueFrom(this.store.dispatch(action)).then(() => {
 			this.initialized.switchOn();
 			this.changeDetectorRef.detectChanges();
 		});
