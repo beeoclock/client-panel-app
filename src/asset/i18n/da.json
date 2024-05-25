@@ -3,6 +3,9 @@
     "button": {
       "create": "Tilføj fravær"
     },
+    "details": {
+      "title": "Detaljer om fravær"
+    },
     "form": {
       "inputs": {
         "entireBusiness": {
@@ -1034,6 +1037,15 @@
   "order": {
     "button": {
       "create": "Tilføj ordre"
+    },
+    "details": {
+      "title": "Bestil detaljer"
+    },
+    "form": {
+      "title": {
+        "create": "Tilføjelse af en ordre",
+        "edit": "Redigering af en ordre"
+      }
     }
   },
   "page": {

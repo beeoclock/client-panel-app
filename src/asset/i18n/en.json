@@ -3,6 +3,9 @@
     "button": {
       "create": "Add absence"
     },
+    "details": {
+      "title": "Absence details"
+    },
     "form": {
       "inputs": {
         "entireBusiness": {
@@ -1034,6 +1037,15 @@
   "order": {
     "button": {
       "create": "Add order"
+    },
+    "details": {
+      "title": "Order details"
+    },
+    "form": {
+      "title": {
+        "create": "Adding an order",
+        "edit": "Editing an order"
+      }
     }
   },
   "page": {

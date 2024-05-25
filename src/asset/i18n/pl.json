@@ -3,6 +3,9 @@
     "button": {
       "create": "Dodaj nieobecność"
     },
+    "details": {
+      "title": "Szczegóły dotyczące nieobecności"
+    },
     "form": {
       "inputs": {
         "entireBusiness": {
@@ -1034,6 +1037,15 @@
   "order": {
     "button": {
       "create": "Dodaj zamówienie"
+    },
+    "details": {
+      "title": "Szczegóły zamówienia"
+    },
+    "form": {
+      "title": {
+        "create": "Dodawanie zamówienia",
+        "edit": "Edytowanie zamówienia"
+      }
     }
   },
   "page": {

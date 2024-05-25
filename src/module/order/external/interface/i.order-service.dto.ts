@@ -3,7 +3,7 @@ import {IOrderServiceDetailsDto} from "@order/external/interface/i.order-service
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 
 export interface IHistoryDto {
-	object: string;
+	object: 'HistoryEntryDto';
 	issuerRole: string;
 	issuerId: string;
 	reason: string;
@@ -12,7 +12,7 @@ export interface IHistoryDto {
 }
 
 export interface IMetaDto {
-	object: string;
+	object: 'MetaDto';
 	history: IHistoryDto[];
 }
 
