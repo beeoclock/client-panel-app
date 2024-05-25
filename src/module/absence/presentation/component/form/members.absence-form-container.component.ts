@@ -81,7 +81,7 @@ export class MembersAbsenceFormContainerComponent extends Reactive implements On
 
         const {SelectMemberPushBoxComponent} = await import("@member/presentation/push-box/select-member.push-box.component");
 
-        const title = this.translateService.instant('member.form.assignments.service.select.title');
+        const title = this.translateService.instant('absence.form.membersIds.select.title');
 
         const pushBoxWrapperComponentRef = await this.pushBoxService.buildItAsync({
             title,

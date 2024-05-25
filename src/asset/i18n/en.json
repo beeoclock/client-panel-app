@@ -15,6 +15,11 @@
           "placeholder": "It is better to have and not need than not to have and need, leave a note from which you will understand what happened later"
         }
       },
+      "membersIds": {
+        "select": {
+          "title": "Selection of members"
+        }
+      },
       "title": {
         "create": "Adding an absence",
         "edit": "Editing an absence"
