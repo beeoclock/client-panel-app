@@ -45,12 +45,16 @@ import {
     standalone: true,
     template: `
         <form class="flex flex-col gap-4">
-            <bee-card>
-                [TODO memberIds]
-            </bee-card>
 
             <app-payer-order-form-container [form]="form.controls.payment"/>
             <app-payment-order-form-container [form]="form.controls.payment" />
+            <bee-card>
+                <form-textarea-component
+                        id="order-business-note"
+                        [label]="'keyword.capitalize.note' | translate"
+                        [placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
+                        [control]="form.controls.order.controls.businessNote"/>
+            </bee-card>
 
             <utility-button-save-container-component class="bottom-0">
                 <button

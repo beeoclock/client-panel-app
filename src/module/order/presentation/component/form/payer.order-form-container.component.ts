@@ -75,6 +75,10 @@ export class PayerOrderFormContainerComponent implements OnInit {
 
     // TODO: Add customer from services
 
+    // TODO: Allow to select one customer if customer type is CustomerTypeEnum.regular
+    // TODO: Show and allow to fill form of new customer if customer type is CustomerTypeEnum.new
+    // TODO: Show and allow to fill form of unregistered customer if customer type is CustomerTypeEnum.unregistered
+
     private readonly ngxLogger = inject(NGXLogger);
     private readonly translateService = inject(TranslateService);
 

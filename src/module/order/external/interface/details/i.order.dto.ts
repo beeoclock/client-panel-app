@@ -9,6 +9,7 @@ export interface IOrderDto extends IBaseEntity<'OrderDto'> {
 	services: IOrderServiceDto[];
 	status: OrderStatus;
 	meta: IOrderMetaDto;
+	businessNote: string;
 }
 
 export type IListOrderDto = IOrderDto[];

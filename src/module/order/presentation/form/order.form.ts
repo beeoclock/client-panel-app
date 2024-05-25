@@ -7,38 +7,43 @@ import {IOrderMetaDto, randomOrderMetaDto} from "@order/external/interface/i.ord
 
 export interface IOrderForm {
 
-	products: FormControl<IOrderProductDto[]>;
-	services: FormControl<IOrderServiceDto[]>;
-	status: FormControl<OrderStatus>;
-	meta: FormControl<IOrderMetaDto>;
+    products: FormControl<IOrderProductDto[]>;
+    services: FormControl<IOrderServiceDto[]>;
+    status: FormControl<OrderStatus>;
+    meta: FormControl<IOrderMetaDto>;
+    businessNote: FormControl<string>;
 
 }
 
 export class OrderForm extends BaseEntityForm<'OrderDto', IOrderForm> {
 
-	constructor() {
+    constructor() {
 
-		super('OrderDto', {
+        super('OrderDto', {
 
-			products: new FormControl<IOrderProductDto[]>([], {
-				nonNullable: true,
-			}),
+            products: new FormControl<IOrderProductDto[]>([], {
+                nonNullable: true,
+            }),
 
-			services: new FormControl<IOrderServiceDto[]>([], {
-				nonNullable: true,
-			}),
+            services: new FormControl<IOrderServiceDto[]>([], {
+                nonNullable: true,
+            }),
 
-			status: new FormControl<OrderStatus>(OrderStatus.CONFIRMED, {
-				nonNullable: true,
-			}),
+            status: new FormControl<OrderStatus>(OrderStatus.CONFIRMED, {
+                nonNullable: true,
+            }),
 
-			meta: new FormControl<IOrderMetaDto>(randomOrderMetaDto(), {
-				nonNullable: true,
-			}),
+            meta: new FormControl(randomOrderMetaDto(), {
+                nonNullable: true,
+            }),
 
-		});
+            businessNote: new FormControl('', {
+                nonNullable: true,
+            }),
 
-	}
+        });
+
+    }
 
 }
 
