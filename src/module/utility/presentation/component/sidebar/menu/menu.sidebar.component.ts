@@ -20,6 +20,7 @@ interface IMenuItem {
 	translateKey: string;
 	target?: '_blank';
 	disabled?: boolean;
+	visible: boolean;
 	beta?: boolean;
 	routerLinkActiveOptions: {
 		exact: boolean;
@@ -54,6 +55,20 @@ export class MenuSidebarComponent implements OnInit {
 
 	public menu: IMenuItem[] = [];
 
+	public readonly requestedMenuItem: IMenuItem = {
+		order: 2,
+		translateKey: 'sidebar.requested',
+		icon: 'bi bi-calendar-plus',
+		visible: false,
+		routerLinkActiveOptions: {
+			paths: "subset",
+			matrixParams: "ignored",
+			queryParams: "ignored",
+			fragment: "ignored",
+		},
+		url: '/event/requested',
+	};
+
 	public async goToPublicPage(): Promise<void> {
 
 		let path;
@@ -71,16 +86,17 @@ export class MenuSidebarComponent implements OnInit {
 
 	}
 
+	public trackByUrl(index: number, event: IMenuItem) {
+		return event.url;
+	}
+
 	public ngOnInit(): void {
 		// TODO change bus event on state (ngxs)
 		this.ngEventBus
 			.on(EventBusTokenEnum.SIDE_BAR_EVENT_REQUESTED_BADGE)
 			.subscribe((event) => {
 				const badge = event.data as string;
-				const menuItem = this.menu.find((item) => item.translateKey === 'sidebar.requested');
-				if (menuItem) {
-					menuItem.badge = badge;
-				}
+				this.requestedMenuItem.badge = badge;
 			});
 
 		this.businessProfile$.subscribe((item) => {
@@ -88,20 +104,7 @@ export class MenuSidebarComponent implements OnInit {
 			if (item) {
 				const { bookingSettings } = item;
 				const { autoBookEvent } = bookingSettings;
-				if (is.false(autoBookEvent)) {
-					this.menu.push({
-						order: 2,
-						translateKey: 'sidebar.requested',
-						icon: 'bi bi-calendar-plus',
-						routerLinkActiveOptions: {
-							paths: "subset",
-							matrixParams: "ignored",
-							queryParams: "ignored",
-							fragment: "ignored",
-						},
-						url: '/event/requested',
-					});
-				}
+				this.requestedMenuItem.visible = is.false(autoBookEvent);
 			}
 			this.updateMenu();
 		});
@@ -110,7 +113,9 @@ export class MenuSidebarComponent implements OnInit {
 
 	public initMenu(): void {
 
-		this.menu = [];
+		this.menu = [
+			this.requestedMenuItem
+		];
 
 		// this.menu.push({
 		// 	order: 0,
@@ -133,6 +138,7 @@ export class MenuSidebarComponent implements OnInit {
 			order: 1,
 			translateKey: 'sidebar.calendar.label',
 			icon: 'bi bi-calendar2-event',
+			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",
@@ -148,6 +154,7 @@ export class MenuSidebarComponent implements OnInit {
 					routerLinkActiveOptions: {
 						exact: true
 					},
+					visible: true,
 					order: 0
 				},
 				{
@@ -157,6 +164,7 @@ export class MenuSidebarComponent implements OnInit {
 					routerLinkActiveOptions: {
 						exact: true
 					},
+					visible: true,
 					order: 1
 				},
 			]
@@ -179,6 +187,7 @@ export class MenuSidebarComponent implements OnInit {
 			translateKey: 'sidebar.statistic',
 			icon: 'bi bi-bar-chart',
 			beta: true,
+			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",
@@ -191,6 +200,7 @@ export class MenuSidebarComponent implements OnInit {
 			url: '/customer/list',
 			translateKey: 'sidebar.customers',
 			icon: 'bi bi-person-vcard',
+			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",
@@ -203,6 +213,7 @@ export class MenuSidebarComponent implements OnInit {
 			url: '/order/list',
 			translateKey: 'sidebar.order',
 			icon: 'bi bi-cart',
+			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",
@@ -215,6 +226,7 @@ export class MenuSidebarComponent implements OnInit {
 			url: '/absence/list',
 			translateKey: 'sidebar.absence',
 			icon: 'bi bi-calendar2-x',
+			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",
@@ -226,6 +238,7 @@ export class MenuSidebarComponent implements OnInit {
 			order: 8,
 			url: '/member/list',
 			translateKey: 'sidebar.members',
+			visible: true,
 			icon: 'bi bi-people',
 			routerLinkActiveOptions: {
 				paths: "subset",
@@ -239,6 +252,7 @@ export class MenuSidebarComponent implements OnInit {
 			url: '/service/list',
 			translateKey: 'sidebar.services',
 			icon: 'bi bi-emoji-smile',
+			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",
@@ -250,6 +264,7 @@ export class MenuSidebarComponent implements OnInit {
 			order: 10,
 			url: '/client/business-profile',
 			translateKey: 'sidebar.businessProfile',
+			visible: true,
 			icon: 'bi bi-buildings',
 			routerLinkActiveOptions: {
 				paths: "subset",
@@ -263,6 +278,7 @@ export class MenuSidebarComponent implements OnInit {
 			url: '/client/business-settings',
 			translateKey: 'sidebar.businessSettings',
 			icon: 'bi bi-building-gear',
+			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",

@@ -1,20 +1,21 @@
 <div class="h-full px-3 py-4 overflow-y-auto bg-white dark:bg-beeDarkColor-900 flex flex-col justify-between">
 
-	<ul class="space-y-2 font-medium">
+    <ul class="space-y-2 font-medium">
 
-		<li *ngFor="let item of menu">
+        <li *ngFor="let item of menu; trackBy: trackByUrl">
 
-			<ng-container *ngIf="item?.items?.length;">
+            <ng-container *ngIf="item.visible">
+                <ng-container *ngIf="item?.items?.length;">
 
-				<button
-					#buttonOfSubMenu
-					(click)="buttonOfSubMenu.toggleAttribute('data-close')"
-					data-close
-					type="button"
-					[class.bg-beeColor-200]="!buttonOfSubMenu.hasAttribute('data-close')"
-					[class.rounded-t-xl]="!buttonOfSubMenu.hasAttribute('data-close')"
-					[class.rounded-lg]="buttonOfSubMenu.hasAttribute('data-close')"
-					class="
+                    <button
+                        #buttonOfSubMenu
+                        (click)="buttonOfSubMenu.toggleAttribute('data-close')"
+                        data-close
+                        type="button"
+                        [class.bg-beeColor-200]="!buttonOfSubMenu.hasAttribute('data-close')"
+                        [class.rounded-t-xl]="!buttonOfSubMenu.hasAttribute('data-close')"
+                        [class.rounded-lg]="buttonOfSubMenu.hasAttribute('data-close')"
+                        class="
 					border
               flex
               items-center
@@ -28,8 +29,8 @@
               dark:text-white
               dark:hover:bg-beeDarkColor-800">
 
-					<i
-						class="
+                        <i
+                                class="
                 flex-shrink-0
                 w-6
                 h-6
@@ -39,70 +40,73 @@
                 group-hover:text-beeColor-900
                 dark:text-beeDarkColor-400
                 dark:group-hover:text-white"
-						[class]="item.icon"></i>
+                                [class]="item.icon"></i>
 
-					<span class="flex-1 ml-2 text-left whitespace-nowrap">
+                        <span class="flex-1 ml-2 text-left whitespace-nowrap">
               {{ item.translateKey | translate }}
             </span>
 
-					<i class="bi bi-chevron-down me-1"></i>
+                        <i class="bi bi-chevron-down me-1"></i>
 
-				</button>
+                    </button>
 
-				<ul [class.hidden]="buttonOfSubMenu.hasAttribute('data-close')" class="border border-beeColor-200 p-2 py-2 rounded-b-xl space-y-2">
-					<li *ngFor="let subItem of item.items">
+                    <ul [class.hidden]="buttonOfSubMenu.hasAttribute('data-close')"
+                        class="border border-beeColor-200 p-2 py-2 rounded-b-xl space-y-2">
+                        <li *ngFor="let subItem of item.items; trackBy: trackByUrl">
 
-						<a
-							(isActiveChange)="$event && buttonOfSubMenu.removeAttribute('data-close')"
-							[routerLink]="subItem.url"
-							(click)="detectAutoClose()"
-							[attr.target]="item.target"
-							[class.disabled]="item.disabled ?? false"
-							[routerLinkActiveOptions]="subItem.routerLinkActiveOptions"
-							[routerLinkActive]="['bg-beeColor-100', 'dark:bg-beeDarkColor-800']"
-							class="
-                  flex
-                  items-center
-                  w-full
-                  p-2
-                  text-beeColor-900
-                  transition
-                  duration-75
-                  rounded-lg
-                  group
-                  hover:bg-beeColor-100
-                  dark:text-white
-                  dark:hover:bg-beeDarkColor-800">
+                            <ng-container *ngIf="subItem.visible">
+                                <a
+                                        (isActiveChange)="$event && buttonOfSubMenu.removeAttribute('data-close')"
+                                        [routerLink]="subItem.url"
+                                        (click)="detectAutoClose()"
+                                        [attr.target]="item.target"
+                                        [class.disabled]="item.disabled ?? false"
+                                        [routerLinkActiveOptions]="subItem.routerLinkActiveOptions"
+                                        [routerLinkActive]="['bg-beeColor-100', 'dark:bg-beeDarkColor-800']"
+                                        class="
+										  flex
+										  items-center
+										  w-full
+										  p-2
+										  text-beeColor-900
+										  transition
+										  duration-75
+										  rounded-lg
+										  group
+										  hover:bg-beeColor-100
+										  dark:text-white
+										  dark:hover:bg-beeDarkColor-800">
 
-							<i
-									class="
-									ms-1
-                flex-shrink-0
-                w-6
-                h-6
-                text-beeColor-500
-                transition
-                duration-75
-                group-hover:text-beeColor-900
-                dark:text-beeDarkColor-400
-                dark:group-hover:text-white"
-									[class]="subItem.icon"></i>
-							<span>{{ subItem.translateKey | translate }}</span>
-						</a>
-					</li>
-				</ul>
-			</ng-container>
+                                    <i
+                                            class="
+											ms-1
+											flex-shrink-0
+											w-6
+											h-6
+											text-beeColor-500
+											transition
+											duration-75
+											group-hover:text-beeColor-900
+											dark:text-beeDarkColor-400
+											dark:group-hover:text-white"
+                                            [class]="subItem.icon"></i>
+                                    <span>{{ subItem.translateKey | translate }}</span>
+                                </a>
+                            </ng-container>
+                        </li>
+                    </ul>
+                </ng-container>
 
-			<ng-container *ngIf="!item?.items">
+                <ng-container *ngIf="!item?.items">
 
-				<a
-					(click)="detectAutoClose()"
-					[routerLink]="item.url"
-					[attr.target]="item.target"
-					[class.disabled]="item.disabled ?? false"
-					[routerLinkActiveOptions]="item.routerLinkActiveOptions"
-					[routerLinkActive]="['bg-beeColor-100', 'dark:bg-beeDarkColor-800']"
-					class="
+                    <a
+                            (click)="detectAutoClose()"
+                            [routerLink]="item.url"
+                            [attr.target]="item.target"
+                            [class.disabled]="item.disabled ?? false"
+                            [routerLinkActiveOptions]="item.routerLinkActiveOptions"
+                            [routerLinkActive]="['bg-beeColor-100', 'dark:bg-beeDarkColor-800']"
+                            class="
 					border
 					border-transparent
               flex
@@ -115,42 +119,43 @@
               hover:bg-beeColor-100
               dark:hover:bg-beeDarkColor-800">
 
-					<div>
-						<i
-							class="w-6 h-6 ms-1 text-beeColor-500 transition duration-75 dark:text-beeDarkColor-400 group-hover:text-beeColor-900 dark:group-hover:text-white"
-							[class]="item.icon"></i>
+                        <div>
+                            <i
+                                    class="w-6 h-6 ms-1 text-beeColor-500 transition duration-75 dark:text-beeDarkColor-400 group-hover:text-beeColor-900 dark:group-hover:text-white"
+                                    [class]="item.icon"></i>
 
-						<span class="ml-2">{{ item.translateKey | translate }}</span>
-					</div>
+                            <span class="ml-2">{{ item.translateKey | translate }}</span>
+                        </div>
 
-					<ng-container *ngIf="item?.badge">
-						<span class="ms-2 rounded-full h-[24px] w-[24px] flex items-center justify-center bg-blue-600 text-sm text-white">{{ item.badge }}</span>
-					</ng-container>
+                        <ng-container *ngIf="item?.badge">
+                            <span class="ms-2 rounded-full h-[24px] w-[24px] flex items-center justify-center bg-blue-600 text-sm text-white">{{ item.badge }}</span>
+                        </ng-container>
 
-					<ng-container *ngIf="item?.beta">
+                        <ng-container *ngIf="item?.beta">
 						<span class="ms-2 px-1 rounded text-xs h-[24px] flex items-center justify-center font-bold scale-75 border-2 border-blue-300 text-blue-300">
 							BETA
 						</span>
-					</ng-container>
+                        </ng-container>
 
-				</a>
+                    </a>
 
-			</ng-container>
+                </ng-container>
+            </ng-container>
 
-		</li>
+        </li>
 
-	</ul>
+    </ul>
 
 
-	<ul>
-		<li>
-			<button
-				(click)="goToPublicPage()"
-				class="w-full border border-blue-600 rounded-2xl bg-blue-100 dark:bg-blue-500/50 px-3 py-1 text-blue-600 dark:text-blue-200 me-2 flex items-center justify-between gap-2">
-				{{ 'keyword.capitalize.publicPage' | translate }}
-				<i class="bi bi-box-arrow-up-right"></i>
-			</button>
-		</li>
-	</ul>
+    <ul>
+        <li>
+            <button
+                    (click)="goToPublicPage()"
+                    class="w-full border border-blue-600 rounded-2xl bg-blue-100 dark:bg-blue-500/50 px-3 py-1 text-blue-600 dark:text-blue-200 me-2 flex items-center justify-between gap-2">
+                {{ 'keyword.capitalize.publicPage' | translate }}
+                <i class="bi bi-box-arrow-up-right"></i>
+            </button>
+        </li>
+    </ul>
 
 </div>
