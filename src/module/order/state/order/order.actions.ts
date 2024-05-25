@@ -1,7 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {IUpdateOrderDto} from "@order/external/interface/update/i.update-order.dto";
-import {ICreateOrderDto} from "@order/external/interface/create/i.create-order.dto";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace OrderActions {
@@ -53,11 +51,11 @@ export namespace OrderActions {
 		public static override readonly type = '[Order API] Get Item';
 	}
 
-	export class CreateItem extends BaseActions.CreateItem<ICreateOrderDto> {
+	export class CreateItem extends BaseActions.CreateItem<IOrderDto> {
 		public static override readonly type = '[Order API] Create Item';
 	}
 
-	export class UpdateItem extends BaseActions.UpdateItem<IUpdateOrderDto> {
+	export class UpdateItem extends BaseActions.UpdateItem<IOrderDto> {
 		public static override readonly type = '[Order API] Update Item';
 	}
 

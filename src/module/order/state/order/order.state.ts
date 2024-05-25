@@ -123,12 +123,12 @@ export class OrderState {
 
 		const title = await this.translateService.instant('order.form.title.edit');
 
-		const {UpdateOrderFormContainerComponent} = await import("@order/presentation/component/form/update/update.order-form-container.component");
+		const {OrderFormContainerComponent} = await import("@order/presentation/component/form/order-form-container.component");
 
 		await this.pushBoxService.buildItAsync({
 			title,
 			id: action.payload,
-			component: UpdateOrderFormContainerComponent,
+			component: OrderFormContainerComponent,
 			componentInputs: {},
 		});
 
@@ -137,7 +137,7 @@ export class OrderState {
 		await this.pushBoxService.buildItAsync({
 			title,
 			id: action.payload,
-			component: UpdateOrderFormContainerComponent,
+			component: OrderFormContainerComponent,
 			componentInputs: {
 				item,
 				isEditMode: true,
@@ -149,15 +149,15 @@ export class OrderState {
 	@Action(OrderActions.OpenForm)
 	public async openFormAction(ctx: StateContext<IOrderState>, {payload}: OrderActions.OpenForm): Promise<void> {
 
-		const {CreateOrderFormContainerComponent} = await import("@order/presentation/component/form/create/create.order-form-container.component");
+		const {OrderFormContainerComponent} = await import("@order/presentation/component/form/order-form-container.component");
 
 		const {componentInputs, pushBoxInputs} = payload ?? {};
 
 		await this.pushBoxService.buildItAsync({
-			id: CreateOrderFormContainerComponent.name,
+			id: OrderFormContainerComponent.name,
 			title: this.translateService.instant('order.form.title.create'),
 			...pushBoxInputs,
-			component: CreateOrderFormContainerComponent,
+			component: OrderFormContainerComponent,
 			componentInputs,
 		});
 
