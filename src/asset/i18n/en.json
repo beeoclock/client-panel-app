@@ -1141,7 +1141,15 @@
     "addEvent": "Add event",
     "businessProfile": "Business profile",
     "businessSettings": "Company settings",
-    "calendar": "Calendar",
+    "calendar": {
+      "label": "Calendar",
+      "ordinary": {
+        "label": "Ordinary"
+      },
+      "withSpecialists": {
+        "label": "With specialists"
+      }
+    },
     "customers": "Customers",
     "dashboard": "Dashboard",
     "events": "Events",

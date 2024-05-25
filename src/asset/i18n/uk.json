@@ -1141,7 +1141,15 @@
     "addEvent": "Додати подію",
     "businessProfile": "Профіль компанії",
     "businessSettings": "Налаштування компанії",
-    "calendar": "Календар",
+    "calendar": {
+      "label": "Календар",
+      "ordinary": {
+        "label": "Звичайний"
+      },
+      "withSpecialists": {
+        "label": "З спеціалістами"
+      }
+    },
     "customers": "Клієнти",
     "dashboard": "Панель керування",
     "events": "Події",

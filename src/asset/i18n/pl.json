@@ -1141,7 +1141,15 @@
     "addEvent": "Dodaj wydarzenie",
     "businessProfile": "Profil biznesowy",
     "businessSettings": "Ustawienia firmy",
-    "calendar": "Kalendarz",
+    "calendar": {
+      "label": "Kalendarz",
+      "ordinary": {
+        "label": "Zwykły"
+      },
+      "withSpecialists": {
+        "label": "Ze specjalistami"
+      }
+    },
     "customers": "Klienci",
     "dashboard": "Panel główny",
     "events": "Wydarzenia",

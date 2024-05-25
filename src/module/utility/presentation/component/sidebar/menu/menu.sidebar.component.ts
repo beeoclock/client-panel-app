@@ -112,15 +112,15 @@ export class MenuSidebarComponent implements OnInit {
 
 		this.menu = [];
 
-		this.menu.push({
-			order: 0,
-			url: '/event/calendar-with-specialists',
-			translateKey: 'sidebar.dashboard',
-			icon: 'bi bi-calendar2-event',
-			routerLinkActiveOptions: {
-				exact: true
-			}
-		});
+		// this.menu.push({
+		// 	order: 0,
+		// 	url: '/event/calendar-with-specialists',
+		// 	translateKey: 'sidebar.dashboard',
+		// 	icon: 'bi bi-calendar2-event',
+		// 	routerLinkActiveOptions: {
+		// 		exact: true
+		// 	}
+		// });
 		// {
 		// 	url: '/dashboard',
 		// 	translateKey: 'sidebar.dashboard',
@@ -131,8 +131,8 @@ export class MenuSidebarComponent implements OnInit {
 		// },
 		this.menu.push({
 			order: 1,
-			translateKey: 'sidebar.events',
-			icon: 'bi bi-table',
+			translateKey: 'sidebar.calendar.label',
+			icon: 'bi bi-calendar2-event',
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",
@@ -140,45 +140,39 @@ export class MenuSidebarComponent implements OnInit {
 				fragment: "ignored",
 			},
 			url: '/event/list',
-			// items: [
-			// 	{
-			// 		translateKey: 'sidebar.events.list',
-			// 		url: '/client/profile',
-			// 		icon: 'bi bi-person',
-			// 		routerLinkActiveOptions: {
-			// 			exact: true
-			// 		}
-			// 	},
-			// 	{
-			// 		translateKey: 'sidebar.events.table',
-			// 		url: '/client/settings',
-			// 		icon: 'bi bi-gear',
-			// 		routerLinkActiveOptions: {
-			// 			exact: true
-			// 		}
-			// 	},
-			// 	{
-			// 		translateKey: 'sidebar.events.calendar',
-			// 		url: '/identity/corridor',
-			// 		icon: 'bi bi-gear',
-			// 		routerLinkActiveOptions: {
-			// 			exact: true
-			// 		}
-			// 	},
-			// ]
+			items: [
+				{
+					translateKey: 'sidebar.calendar.withSpecialists.label',
+					url: '/event/calendar-with-specialists',
+					icon: 'bi bi-person-badge',
+					routerLinkActiveOptions: {
+						exact: true
+					},
+					order: 0
+				},
+				{
+					url: '/event/calendar',
+					translateKey: 'sidebar.calendar.ordinary.label',
+					icon: 'bi bi-calendar-week',
+					routerLinkActiveOptions: {
+						exact: true
+					},
+					order: 1
+				},
+			]
 		});
-		this.menu.push({
-			order: 3,
-			translateKey: 'sidebar.calendar',
-			icon: 'bi bi-calendar-week',
-			routerLinkActiveOptions: {
-				paths: "subset",
-				matrixParams: "ignored",
-				queryParams: "ignored",
-				fragment: "ignored",
-			},
-			url: '/event/calendar',
-		});
+		// this.menu.push({
+		// 	order: 3,
+		// 	url: '/event/calendar',
+		// 	translateKey: 'sidebar.calendar',
+		// 	icon: 'bi bi-calendar-week',
+		// 	routerLinkActiveOptions: {
+		// 		paths: "subset",
+		// 		matrixParams: "ignored",
+		// 		queryParams: "ignored",
+		// 		fragment: "ignored",
+		// 	},
+		// });
 		this.menu.push({
 			order: 4,
 			url: '/event/statistic',

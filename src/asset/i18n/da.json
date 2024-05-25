@@ -1141,7 +1141,15 @@
     "addEvent": "Tilføj begivenhed",
     "businessProfile": "Forretningsprofil",
     "businessSettings": "Firma indstillinger",
-    "calendar": "Kalender",
+    "calendar": {
+      "label": "Kalender",
+      "ordinary": {
+        "label": "Almindelig"
+      },
+      "withSpecialists": {
+        "label": "Med specialister"
+      }
+    },
     "customers": "Kunder",
     "dashboard": "Dashboard",
     "events": "Begivenheder",
