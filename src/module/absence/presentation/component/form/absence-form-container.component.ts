@@ -22,6 +22,10 @@ import {NGXLogger} from "ngx-logger";
 import {firstValueFrom} from "rxjs";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {AbsenceForm} from "@absence/presentation/form/absence.form";
+import {
+    ButtonSaveContainerComponent
+} from "@utility/presentation/component/container/button-save/button-save.container.component";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 
 @Component({
     selector: 'app-absence-form-container',
@@ -37,48 +41,63 @@ import {AbsenceForm} from "@absence/presentation/form/absence.form";
         NgSelectModule,
         ReactiveFormsModule,
         NgIf,
-        MembersAbsenceFormContainerComponent
+        MembersAbsenceFormContainerComponent,
+        ButtonSaveContainerComponent,
+        PrimaryButtonDirective
     ],
     standalone: true,
     template: `
+        <form class="flex flex-col gap-4">
 
-        <bee-card>
+            <bee-card>
 
-            <ng-select
-                    id="absence-form-type-input"
-                    bindLabel="label"
-                    bindValue="id"
-                    [formControl]="form.controls.type"
-                    [items]="types"
-                    [clearable]="false"/>
+                <ng-select
+                        id="absence-form-type-input"
+                        bindLabel="label"
+                        bindValue="id"
+                        [formControl]="form.controls.type"
+                        [items]="types"
+                        [clearable]="false"/>
 
-            <datetime-local-input-component
-                    id="absence-form-start-input"
-                    [label]="'keyword.capitalize.start' | translate"
-                    [control]="form.controls.start"/>
+                <datetime-local-input-component
+                        id="absence-form-start-input"
+                        [label]="'keyword.capitalize.start' | translate"
+                        [control]="form.controls.start"/>
 
-            <datetime-local-input-component
-                    id="absence-form-end-input"
-                    [label]="'keyword.capitalize.end' | translate"
-                    [control]="form.controls.end"/>
+                <datetime-local-input-component
+                        id="absence-form-end-input"
+                        [label]="'keyword.capitalize.end' | translate"
+                        [control]="form.controls.end"/>
 
-            <form-textarea-component
-                    id="absence-form-note-input"
-                    [label]="'keyword.capitalize.note' | translate"
-                    [placeholder]="'absence.form.inputs.note.placeholder' | translate"
-                    [control]="form.controls.note"/>
+                <form-textarea-component
+                        id="absence-form-note-input"
+                        [label]="'keyword.capitalize.note' | translate"
+                        [placeholder]="'absence.form.inputs.note.placeholder' | translate"
+                        [control]="form.controls.note"/>
 
-            <utility-switch-component
-                    id="absence-form-entire-business-switch"
-                    [units]="[false, true]"
-                    [control]="form.controls.entireBusiness"
-                    [label]="'absence.form.inputs.entireBusiness.label' | translate"/>
+                <utility-switch-component
+                        id="absence-form-entire-business-switch"
+                        [units]="[false, true]"
+                        [control]="form.controls.entireBusiness"
+                        [label]="'absence.form.inputs.entireBusiness.label' | translate"/>
 
-            <app-members-absence-form-container
-                    [entireBusiness]="form.controls.entireBusiness"
-                    [memberIds]="form.controls.memberIds"/>
+                <app-members-absence-form-container
+                        [entireBusiness]="form.controls.entireBusiness"
+                        [memberIds]="form.controls.memberIds"/>
 
-        </bee-card>
+            </bee-card>
+            <utility-button-save-container-component class="bottom-0">
+                <button
+                        type="button"
+                        primary
+                        [isLoading]="form.pending"
+                        [disabled]="form.disabled"
+                        [scrollToFirstError]="true"
+                        (click)="save()">
+                    {{ 'keyword.capitalize.save' | translate }}
+                </button>
+            </utility-button-save-container-component>
+        </form>
 
     `
 })
