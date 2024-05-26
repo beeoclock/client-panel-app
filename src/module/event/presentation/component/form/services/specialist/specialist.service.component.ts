@@ -36,7 +36,11 @@ export class SpecialistServiceComponent {
 	public memberTableState$!: Observable<TableState<RIMember>>;
 
 	public get selectedSpecialist(): ISpecialist | undefined {
-		return this.serviceListControl.value[this.index].specialists[0];
+		const service = this.serviceListControl.value[this.index];
+		if (!service) {
+			return undefined;
+		}
+		return service.specialists[0];
 	}
 
 	public changeMemberInSpecialist(member: RIMember): void {

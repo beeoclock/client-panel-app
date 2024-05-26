@@ -52,7 +52,7 @@ import {
 
             <app-service-order-form-container [form]="form.controls.order"/>
             <app-payer-order-form-container [form]="form.controls.payment"/>
-            <app-payment-order-form-container [form]="form.controls.payment" />
+            <app-payment-order-form-container [form]="form" />
             <bee-card>
                 <form-textarea-component
                         id="order-business-note"

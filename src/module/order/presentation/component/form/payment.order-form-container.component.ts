@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -20,6 +20,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {PaymentStatusEnum} from "@module/payment/domain/enum/payment.status.enum";
 import {PaymentMethodEnum} from "@module/payment/domain/enum/payment.method.enum";
+import {CreateOrderForm} from "@order/presentation/form/create.order.form";
 
 @Component({
     selector: 'app-payment-order-form-container',
@@ -53,7 +54,7 @@ import {PaymentMethodEnum} from "@module/payment/domain/enum/payment.method.enum
                         {{ 'keyword.capitalize.amount' | translate }}:
                     </div>
                     <div>
-                        {{ form.controls.amount.value | currency: form.controls.currency.value ?? 'USD' }}
+                        {{ paymentForm.controls.amount.value | currency: paymentForm.controls.currency.value ?? 'USD' }}
                     </div>
                 </li>
             </ul>
@@ -66,7 +67,7 @@ import {PaymentMethodEnum} from "@module/payment/domain/enum/payment.method.enum
                         labelForId="order-form-inputs-payment-method"
                         bindLabel="label"
                         bindValue="value"
-                        [formControl]="form.controls.method"
+                        [formControl]="paymentForm.controls.method"
                         [items]="paymentMethodOptions"
                         [clearable]="false"/>
             </div>
@@ -80,7 +81,7 @@ import {PaymentMethodEnum} from "@module/payment/domain/enum/payment.method.enum
                         labelForId=""
                         bindLabel="label"
                         bindValue="value"
-                        [formControl]="form.controls.status"
+                        [formControl]="paymentForm.controls.status"
                         [items]="paymentStatusOptions"
                         [clearable]="false"/>
             </div>
@@ -91,11 +92,14 @@ import {PaymentMethodEnum} from "@module/payment/domain/enum/payment.method.enum
 })
 export class PaymentOrderFormContainerComponent implements OnInit {
 
-    @Input()
-    public form!: PaymentForm;
+    public form = input.required<CreateOrderForm>();
 
     private readonly ngxLogger = inject(NGXLogger);
     private readonly translateService = inject(TranslateService);
+
+    public get paymentForm(): PaymentForm {
+        return this.form().controls.payment;
+    }
 
     public readonly paymentMethodOptions = [PaymentMethodEnum.CASH, PaymentMethodEnum.CARD].map((value) => {
         const labelTranslateKey = `payment.method.${value}.label`;
