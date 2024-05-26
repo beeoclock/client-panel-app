@@ -12,6 +12,8 @@ import {
 import {BaseEntityForm} from "@utility/base.form";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 import {ICustomer} from "@customer/domain";
+import {Subject} from "rxjs";
+import {takeUntil} from "rxjs/operators";
 
 export const enum CustomerFormFieldsEnum {
 
@@ -39,6 +41,18 @@ export interface ICustomerForm {
 }
 
 export class CustomerForm extends BaseEntityForm<'Customer', ICustomerForm> {
+
+    private readonly destroy$ = new Subject<void>();
+
+    public readonly atLeastOneFieldMustBeFilledValidator = atLeastOneFieldMustBeFilledValidator([
+        '_id',
+        CustomerFormFieldsEnum.active,
+        CustomerFormFieldsEnum.note,
+        'object',
+        'createdAt',
+        'updatedAt',
+        CustomerFormFieldsEnum.customerType
+    ]);
 
     public readonly components = {
         [CustomerFormFieldsEnum.firstName]: {
@@ -129,6 +143,7 @@ export class CustomerForm extends BaseEntityForm<'Customer', ICustomerForm> {
             }),
         });
         this.initValidation();
+        this.initHandlers();
     }
 
     public isNew(): boolean {
@@ -150,18 +165,20 @@ export class CustomerForm extends BaseEntityForm<'Customer', ICustomerForm> {
     }
 
     public initValidation(): void {
+
         this.controls.email.setValidators([Validators.email, noWhitespaceValidator()]);
         this.controls.phone.setValidators([noWhitespaceValidator()]);
 
-        this.addValidators(atLeastOneFieldMustBeFilledValidator([
-            '_id',
-            CustomerFormFieldsEnum.active,
-            CustomerFormFieldsEnum.note,
-            'object',
-            'createdAt',
-            'updatedAt',
-            CustomerFormFieldsEnum.customerType
-        ]));
+        this.value.customerType !== CustomerTypeEnum.unknown && this.addAtLeastOneFieldMustBeFilledValidator();
+
+    }
+
+    public addAtLeastOneFieldMustBeFilledValidator(): void {
+        this.addValidators(this.atLeastOneFieldMustBeFilledValidator);
+    }
+
+    public removeAtLeastOneFieldMustBeFilledValidator(): void {
+        this.removeValidators(this.atLeastOneFieldMustBeFilledValidator);
     }
 
     public static create(initValue: Partial<ICustomer> = {}): CustomerForm {
@@ -171,6 +188,29 @@ export class CustomerForm extends BaseEntityForm<'Customer', ICustomerForm> {
         form.patchValue(initValue);
 
         return form;
+
+    }
+
+    public initHandlers(): void {
+
+        this.controls.customerType.valueChanges.pipe(
+            takeUntil(this.destroy$)
+        ).subscribe((customerType) => {
+
+            if (customerType === CustomerTypeEnum.new) {
+                this.addAtLeastOneFieldMustBeFilledValidator();
+            } else {
+                this.removeAtLeastOneFieldMustBeFilledValidator();
+            }
+
+        });
+
+    }
+
+    public destroyHandlers(): void {
+
+        this.destroy$.next();
+        this.destroy$.complete();
 
     }
 }

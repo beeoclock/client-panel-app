@@ -1,7 +1,7 @@
 import {AbstractControl, ValidatorFn} from "@angular/forms";
 import {is} from "thiis";
 
-export const atLeastOneFieldMustBeFilledValidator = (ignoreField: string[] = []): ValidatorFn => {
+export function atLeastOneFieldMustBeFilledValidator(ignoreField: string[] = []): ValidatorFn {
 	return (control: AbstractControl) => {
 		if (is.object(control.value)) {
 			const formValue = control.getRawValue();
@@ -15,4 +15,4 @@ export const atLeastOneFieldMustBeFilledValidator = (ignoreField: string[] = [])
 		}
 		return null;
 	};
-};
+}

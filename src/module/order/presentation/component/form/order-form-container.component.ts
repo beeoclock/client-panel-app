@@ -27,6 +27,9 @@ import {
 import {
     ServiceOrderFormContainerComponent
 } from "@order/presentation/component/form/service.order-form-container.component";
+import {OrderActions} from "@order/state/order/order.actions";
+import {CreateOrderApiAdapter} from "@order/external/adapter/api/create.order.api.adapter";
+import {CreatePaymentApiAdapter} from "@module/payment/external/adapter/api/create.payment.api.adapter";
 
 @Component({
     selector: 'app-order-form-container',
@@ -87,6 +90,8 @@ export class OrderFormContainerComponent implements OnInit, OnDestroy {
 
     private readonly store = inject(Store);
     private readonly ngxLogger = inject(NGXLogger);
+    private readonly createOrderApiAdapter = inject(CreateOrderApiAdapter);
+    private readonly createPaymentApiAdapter = inject(CreatePaymentApiAdapter);
 
     public ngOnInit(): void {
         this.form.controls.order.patchValue(this.orderDto);
@@ -101,19 +106,26 @@ export class OrderFormContainerComponent implements OnInit, OnDestroy {
     }
 
     private async finishSave() {
-        const {order, payment} = this.form.getRawValue();
+        const {order, payment} = this.form.value as { order: IOrderDto, payment: IPaymentDto };
         console.log({order, payment});
         this.form.disable();
         this.form.markAsPending();
         // TODO
-        // await firstValueFrom(this.store.dispatch(new OrderActions.CreateItem(value)));
-        // await firstValueFrom(this.store.dispatch(new OrderActions.UpdateItem(value)));
+        const createOrderResponse = await this.createOrderApiAdapter.executeAsync(order as IOrderDto);
+        payment.orderId = createOrderResponse._id;
+        const createPaymentResponse = await this.createPaymentApiAdapter.executeAsync(payment as IPaymentDto);
+
+        console.log(createPaymentResponse);
+
         this.form.enable();
         this.form.updateValueAndValidity();
+
+        this.store.dispatch(new OrderActions.CloseForm());
     }
 
     public ngOnDestroy() {
         this.form.destroyHandlers();
+        this.form.controls.payment.controls.payer.destroyHandlers();
     }
 
 }

@@ -1,9 +1,9 @@
 export enum OrderStatus {
-  DRAFT = 'DRAFT',
-  UNCONFIRMED = 'UNCONFIRMED',
-  CONFIRMED = 'CONFIRMED',
-  PENDING = 'PENDING',
-  DONE = 'DONE',
-  CANCELLED = 'CANCELLED',
-  REJECTED = "REJECTED"
+  draft = 'draft',
+  unconfirmed = 'unconfirmed',
+  confirmed = 'confirmed',
+  pending = 'pending',
+  done = 'done',
+  cancelled = 'cancelled',
+  rejected = "rejected"
 }

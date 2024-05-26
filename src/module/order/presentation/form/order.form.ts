@@ -27,7 +27,7 @@ export class OrderForm extends BaseEntityForm<'OrderDto', IOrderForm> {
 
             services: new ServiceOrderFormArray(),
 
-            status: new FormControl<OrderStatus>(OrderStatus.CONFIRMED, {
+            status: new FormControl<OrderStatus>(OrderStatus.confirmed, {
                 nonNullable: true,
             }),
 
