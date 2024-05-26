@@ -85,10 +85,10 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
                     <div class="flex justify-between items-center gap-8">
 
                         <div class="flex items-center gap-2 w-full">
-                            <div class="bg-neutral-100 text-neutral-800 font-medium inline-flex gap-2 items-center px-2 py-0.5 rounded-2xl dark:bg-gray-700 dark:text-neutral-400 border border-neutral-400">
+                            <div class="bg-neutral-100 text-neutral-800 font-medium inline-flex gap-1 items-center px-2 py-0.5 rounded-2xl dark:bg-gray-700 dark:text-neutral-400 border border-neutral-400">
                                 {{ (service.serviceSnapshot?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: (service.serviceSnapshot?.durationVersions?.[0]?.prices?.[0]?.currency ?? 'USD') : 'symbol-narrow'  }}
                             </div>
-                            <div class="bg-neutral-100 text-neutral-800 font-medium inline-flex gap-2 items-center px-2 py-0.5 rounded-2xl dark:bg-gray-700 dark:text-neutral-400 border border-neutral-400">
+                            <div class="bg-neutral-100 text-neutral-800 font-medium inline-flex gap-1 items-center px-2 py-0.5 rounded-2xl dark:bg-gray-700 dark:text-neutral-400 border border-neutral-400">
                                 <i class="bi bi-clock text-beeColor-500"></i>
                                 {{ (service.serviceSnapshot?.durationVersions?.[0]?.durationInSeconds ?? 0) | humanizeDuration }}
                             </div>

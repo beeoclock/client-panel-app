@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, Input, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
 import {TranslateModule} from "@ngx-translate/core";
@@ -75,7 +75,7 @@ import {
         </form>
     `
 })
-export class OrderFormContainerComponent implements OnInit {
+export class OrderFormContainerComponent implements OnInit, OnDestroy {
 
     @Input()
     public orderDto!: IOrderDto;
@@ -110,6 +110,10 @@ export class OrderFormContainerComponent implements OnInit {
         // await firstValueFrom(this.store.dispatch(new OrderActions.UpdateItem(value)));
         this.form.enable();
         this.form.updateValueAndValidity();
+    }
+
+    public ngOnDestroy() {
+        this.form.destroyHandlers();
     }
 
 }
