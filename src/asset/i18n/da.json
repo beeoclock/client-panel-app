@@ -843,6 +843,7 @@
       "businessCategory": "Forretningskategori",
       "businessIndustry": "Forretningsindustri",
       "businessName": "Forretningsnavn",
+      "businessNote": "Forretningsnote",
       "businessProfile": "Forretningsprofil",
       "businessSettings": "Forretningsindstillinger",
       "cancel": "Annuller",

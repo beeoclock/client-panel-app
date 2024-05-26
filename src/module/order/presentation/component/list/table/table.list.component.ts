@@ -50,28 +50,12 @@ export class TableListComponent extends TableComponent<IOrderDto> {
 
 	public readonly tableConfiguration = {
 		columns: {
-			email: {
-				style: {
-					minWidth: '350px',
-					flexGrow: 1,
-				},
-			},
-			lastName: {
+			services: {
 				style: {
 					minWidth: '200px',
 				},
 			},
-			firstName: {
-				style: {
-					minWidth: '120px',
-				},
-			},
-			phone: {
-				style: {
-					minWidth: '200px',
-				},
-			},
-			active: {
+			businessNote: {
 				style: {
 					minWidth: '200px',
 				},

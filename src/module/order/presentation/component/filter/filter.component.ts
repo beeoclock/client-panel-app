@@ -35,7 +35,6 @@ import {OrderState} from "@order/state/order/order.state";
         <utility-default-panel-component>
             <div *ngIf="isNotMobile$ | async" class="flex overflow-x-auto gap-4">
                 <ng-container *ngTemplateOutlet="SearchInput"></ng-container>
-                <ng-container *ngTemplateOutlet="OrderActiveSelect"></ng-container>
                 <ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
             </div>
             <div *ngIf="isMobile$ | async" class="flex gap-4 justify-between w-full">
@@ -47,15 +46,8 @@ import {OrderState} from "@order/state/order/order.state";
             </div>
         </utility-default-panel-component>
         <div *ngIf="isMobile$ | async" class="flex overflow-x-auto gap-2 my-2 px-2">
-            <ng-container *ngTemplateOutlet="OrderActiveSelect"></ng-container>
             <ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
         </div>
-
-        <ng-template #OrderActiveSelect>
-            <ion-select-active
-                    class="px-4 py-2 border border-beeColor-200 rounded-2xl"
-                    [control]="form.controls.active"/>
-        </ng-template>
 
         <ng-template #SearchInput>
             <utility-search-input-component [control]="form.controls.phrase"/>
