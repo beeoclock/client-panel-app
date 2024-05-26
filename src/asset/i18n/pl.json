@@ -371,6 +371,9 @@
         }
       }
     },
+    "additionalMenu": {
+      "title": "Dodatkowe menu"
+    },
     "details": {
       "title": "Szczegółowy widok wydarzenia"
     },

@@ -7,12 +7,13 @@ import {
 import {
 	ComposeCalendarWithSpecialistsService
 } from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {firstValueFrom} from "rxjs";
-import {EventActions} from "@event/state/event/event.actions";
+import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
+import {AdditionalMenuComponent} from "@event/presentation/component/additional-menu/additional-menu.component";
 
 @Component({
 	selector: 'event-cell-component',
@@ -74,44 +75,46 @@ export class CellComponent {
 	}
 
 	@HostListener('click', ['$event'])
-	public onClick(event: MouseEvent) {
+	public async onClick(event: MouseEvent) {
 		if (this.scrollCalendarDomManipulationService.isScrolling.isOn) {
 			return;
 		}
+
+		const title = this.translateService.instant('event.additionalMenu.title');
+
+		const selectedDate = await firstValueFrom(this.selectedDate$);
 
 		const callback = () => {
 			this.ngxLogger.debug('Callback');
 			this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
 		};
 
-		firstValueFrom(this.selectedDate$).then((selectedDate) => {
+		const datetimeISO = selectedDate
+			.startOf('day')
+			.plus({
+				hours: this.startTimeToDisplay,
+				minutes: this.rowIndex * this.slotInMinutes
+			})
+			.toJSDate()
+			.toISOString();
 
-			const datetimeISO = selectedDate
-				.startOf('day')
-				.plus({
-					hours: this.startTimeToDisplay,
-					minutes: this.rowIndex * this.slotInMinutes
-				})
-				.toJSDate()
-				.toISOString();
-
-			this.store.dispatch(
-				new EventActions.OpenForm({
-					componentInputs: {
-						datetimeISO,
-						member: this.column.member ?? undefined,
-						callback
-					}
-
-				})
-			);
-
+		await this.pushBoxService.buildItAsync({
+			component: AdditionalMenuComponent,
+			title,
+			componentInputs: {
+				datetimeISO,
+				member: this.column.member ?? undefined,
+				callback
+			}
 		});
+
 
 		event.preventDefault();
 		event.stopPropagation();
 	}
 
+	private readonly translateService = inject(TranslateService);
+	private readonly pushBoxService = inject(PushBoxService);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly scrollCalendarDomManipulationService = inject(ScrollCalendarDomManipulationService);
 

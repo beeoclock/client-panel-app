@@ -371,6 +371,9 @@
         }
       }
     },
+    "additionalMenu": {
+      "title": "Ekstra menu"
+    },
     "details": {
       "title": "Detaljeret visning af begivenheden"
     },
