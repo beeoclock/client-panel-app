@@ -21,7 +21,7 @@ import {NGXLogger} from "ngx-logger";
 		<bee-card>
 
 			<utility-switch-component
-				[label]="'client.settings.form.autoBookEvent.label' | translate"
+				[label]="'client.settings.form.autoBookOrder.label' | translate"
 				[id]="id"
 				[control]="control"/>
 

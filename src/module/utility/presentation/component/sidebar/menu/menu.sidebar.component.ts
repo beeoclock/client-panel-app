@@ -103,8 +103,8 @@ export class MenuSidebarComponent implements OnInit {
 			this.initMenu();
 			if (item) {
 				const { bookingSettings } = item;
-				const { autoBookEvent } = bookingSettings;
-				this.requestedMenuItem.visible = is.false(autoBookEvent);
+				const { autoBookOrder } = bookingSettings;
+				this.requestedMenuItem.visible = is.false(autoBookOrder);
 			}
 			this.updateMenu();
 		});

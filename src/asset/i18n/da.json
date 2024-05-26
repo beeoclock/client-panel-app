@@ -37,7 +37,7 @@
       }
     }
   },
-  "autoActionOnEventInSeconds": {
+  "autoActionOnOrderInSeconds": {
     "EIGHT_HOURS": "8 timer",
     "FIFTEEN_MINUTES": "15 minutter",
     "FIVE_HOURS": "5 timer",
@@ -54,7 +54,7 @@
     "TWENTY_MINUTES": "20 minutter",
     "TWO_HOURS": "2 timer"
   },
-  "autoActionTypeOnEvent": {
+  "autoActionTypeOnOrder": {
     "APPROVE": "Godkend",
     "DENY": "Afvis"
   },
@@ -173,10 +173,10 @@
               }
             },
             "input": {
-              "autoActionOnEventInSeconds": {
+              "autoActionOnOrderInSeconds": {
                 "placeholder": "Vælg den tid, hvorefter den valgte automatiske handling skal starte for den nyligt oprettede reservation/begivenhed"
               },
-              "autoActionTypeOnEvent": {
+              "autoActionTypeOnOrder": {
                 "placeholder": "Vælg den type handling, der automatisk skal ske for den nyligt oprettede reservation/begivenhed"
               },
               "earliestBooking": {
@@ -277,7 +277,7 @@
         }
       },
       "form": {
-        "autoBookEvent": {
+        "autoBookOrder": {
           "label": "Tillad en kunde at booke en begivenhed med det samme med en bekræftet status"
         },
         "inputs": {
@@ -833,8 +833,8 @@
       "approvalType": "Godkendelsestype",
       "approve": "Godkend",
       "attendees": "Deltagere",
-      "autoActionOnEventInSeconds": "Automatisk handlings starttid",
-      "autoActionTypeOnEvent": "Type automatisk handling",
+      "autoActionOnOrderInSeconds": "Automatisk handlings starttid",
+      "autoActionTypeOnOrder": "Type automatisk handling",
       "avatar": "Avatar",
       "back": "Tilbage",
       "bookingSettings": "Bookingindstillinger",

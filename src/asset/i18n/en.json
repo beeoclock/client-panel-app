@@ -37,7 +37,7 @@
       }
     }
   },
-  "autoActionOnEventInSeconds": {
+  "autoActionOnOrderInSeconds": {
     "EIGHT_HOURS": "8 hours",
     "FIFTEEN_MINUTES": "15 minutes",
     "FIVE_HOURS": "5 hours",
@@ -54,7 +54,7 @@
     "TWENTY_MINUTES": "20 minutes",
     "TWO_HOURS": "2 hours"
   },
-  "autoActionTypeOnEvent": {
+  "autoActionTypeOnOrder": {
     "APPROVE": "Approve",
     "DENY": "Deny"
   },
@@ -173,10 +173,10 @@
               }
             },
             "input": {
-              "autoActionOnEventInSeconds": {
+              "autoActionOnOrderInSeconds": {
                 "placeholder": "Choose the time after which the selected automatic action should start for the newly created reservation/event"
               },
-              "autoActionTypeOnEvent": {
+              "autoActionTypeOnOrder": {
                 "placeholder": "Select the type of action that should take place automatically for the newly created reservation/event"
               },
               "earliestBooking": {
@@ -277,7 +277,7 @@
         }
       },
       "form": {
-        "autoBookEvent": {
+        "autoBookOrder": {
           "label": "Allow a customer to book an event immediately with a confirmed status"
         },
         "inputs": {
@@ -833,8 +833,8 @@
       "approvalType": "Approval type",
       "approve": "Approve",
       "attendees": "Attendees",
-      "autoActionOnEventInSeconds": "Automatic action start time",
-      "autoActionTypeOnEvent": "Type of automatic action",
+      "autoActionOnOrderInSeconds": "Automatic action start time",
+      "autoActionTypeOnOrder": "Type of automatic action",
       "avatar": "Avatar",
       "back": "Back",
       "bookingSettings": "Booking settings",

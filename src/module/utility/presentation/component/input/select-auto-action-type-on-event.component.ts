@@ -10,7 +10,7 @@ import {AutomaticApprovalTimeType} from "@utility/domain/enum/automatic-approval
   standalone: true,
   template: `
 		<label default [for]="id">
-			{{ 'keyword.capitalize.autoActionTypeOnEvent' | translate }}
+			{{ 'keyword.capitalize.autoActionTypeOnOrder' | translate }}
 		</label>
 		<ng-select
 			bindLabel="name"
@@ -21,7 +21,7 @@ import {AutomaticApprovalTimeType} from "@utility/domain/enum/automatic-approval
 			[formControl]="control">
 		</ng-select>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
-			{{ 'client.profile.form.section.bookingSettings.input.autoActionTypeOnEvent.placeholder' | translate }}
+			{{ 'client.profile.form.section.bookingSettings.input.autoActionTypeOnOrder.placeholder' | translate }}
 		</div>
 	`,
   encapsulation: ViewEncapsulation.None,
@@ -47,7 +47,7 @@ export class SelectAutoActionTypeOnEventComponent {
     .filter((autoActionType) => typeof autoActionType === 'string')
     .map((autoActionType) => {
       return {
-        name: this.translateService.instant(`autoActionTypeOnEvent.${autoActionType}`),
+        name: this.translateService.instant(`autoActionTypeOnOrder.${autoActionType}`),
         type: AutomaticApprovalTimeType[autoActionType as keyof typeof AutomaticApprovalTimeType]
       };
     });

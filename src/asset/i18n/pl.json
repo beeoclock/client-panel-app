@@ -37,7 +37,7 @@
       }
     }
   },
-  "autoActionOnEventInSeconds": {
+  "autoActionOnOrderInSeconds": {
     "EIGHT_HOURS": "8 godzin",
     "FIFTEEN_MINUTES": "15 minut",
     "FIVE_HOURS": "5 godzin",
@@ -54,7 +54,7 @@
     "TWENTY_MINUTES": "20 minut",
     "TWO_HOURS": "2 godziny"
   },
-  "autoActionTypeOnEvent": {
+  "autoActionTypeOnOrder": {
     "APPROVE": "Zatwierdź",
     "DENY": "Odrzuć"
   },
@@ -173,10 +173,10 @@
               }
             },
             "input": {
-              "autoActionOnEventInSeconds": {
+              "autoActionOnOrderInSeconds": {
                 "placeholder": "Wybierz czas po jakim ma się rozpocząć wybrana akcja automatyczna dla nowo utworzonej rezerwacji/wydarzenia"
               },
-              "autoActionTypeOnEvent": {
+              "autoActionTypeOnOrder": {
                 "placeholder": "Wybierz typ akcji, która ma nastąpić automatycznie dla nowo utworzonej rezerwacji/wydarzenia"
               },
               "earliestBooking": {
@@ -277,7 +277,7 @@
         }
       },
       "form": {
-        "autoBookEvent": {
+        "autoBookOrder": {
           "label": "Umożliwienie klientowi natychmiastowej rezerwacji wydarzenia z potwierdzonym statusem"
         },
         "inputs": {
@@ -833,8 +833,8 @@
       "approvalType": "Typ homologacji",
       "approve": "Zatwierdź",
       "attendees": "Uczestnicy",
-      "autoActionOnEventInSeconds": "Czas rozpoczęcia automatycznego działania",
-      "autoActionTypeOnEvent": "Rodzaj akcji automatycznej",
+      "autoActionOnOrderInSeconds": "Czas rozpoczęcia automatycznego działania",
+      "autoActionTypeOnOrder": "Rodzaj akcji automatycznej",
       "avatar": "Awatar",
       "back": "Wstecz",
       "bookingSettings": "Ustawienia rezerwacji",

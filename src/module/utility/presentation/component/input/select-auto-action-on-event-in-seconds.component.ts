@@ -10,18 +10,18 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
   standalone: true,
   template: `
     <label default [for]="id">
-      {{ 'keyword.capitalize.autoActionOnEventInSeconds' | translate }}
+      {{ 'keyword.capitalize.autoActionOnOrderInSeconds' | translate }}
     </label>
     <ng-select
       bindLabel="name"
       bindValue="seconds"
-      [items]="autoActionOnEventInSecondsList"
+      [items]="autoActionOnOrderInSecondsList"
       [clearable]="false"
       [id]="id"
       [formControl]="control">
     </ng-select>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
-			{{ 'client.profile.form.section.bookingSettings.input.autoActionOnEventInSeconds.placeholder' | translate }}
+			{{ 'client.profile.form.section.bookingSettings.input.autoActionOnOrderInSeconds.placeholder' | translate }}
 		</div>
   `,
   encapsulation: ViewEncapsulation.None,
@@ -43,12 +43,12 @@ export class SelectAutoActionOnEventInSecondsComponent {
 
   public readonly translateService = inject(TranslateService);
 
-  public readonly autoActionOnEventInSecondsList = Object.values(AutoActionOnEventInSecondsEnum)
-    .filter((autoActionOnEventInSecondsValue) => typeof autoActionOnEventInSecondsValue === 'string')
-    .map((autoActionOnEventInSecondsValue) => {
+  public readonly autoActionOnOrderInSecondsList = Object.values(AutoActionOnEventInSecondsEnum)
+    .filter((autoActionOnOrderInSecondsValue) => typeof autoActionOnOrderInSecondsValue === 'string')
+    .map((autoActionOnOrderInSecondsValue) => {
       return {
-        name: this.translateService.instant(`autoActionOnEventInSeconds.${autoActionOnEventInSecondsValue}`),
-        seconds: AutoActionOnEventInSecondsEnum[autoActionOnEventInSecondsValue as keyof typeof autoActionOnEventInSecondsValue]
+        name: this.translateService.instant(`autoActionOnOrderInSeconds.${autoActionOnOrderInSecondsValue}`),
+        seconds: AutoActionOnEventInSecondsEnum[autoActionOnOrderInSecondsValue as keyof typeof autoActionOnOrderInSecondsValue]
       };
     });
 
