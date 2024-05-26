@@ -9,6 +9,7 @@ import {AsyncPipe, NgIf} from "@angular/common";
 import {MemberState} from "@member/state/member/member.state";
 import {ITableState} from "@utility/domain/table.state";
 import * as Member from "@member/domain";
+import {RIMember} from "@member/domain";
 import {
 	ScheduleContainerWeekCalendarComponent
 } from "@event/presentation/page/calendar-with-specialists/component/schedule.container.week-calendar.component";
@@ -17,6 +18,7 @@ import {
 	ComposeCalendarWithSpecialistsService
 } from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 import {Reactive} from "@utility/cdk/reactive";
+import {ActiveEnum} from "@utility/domain/enum";
 
 @Component({
 	selector: 'event-members-container-week-calendar-component',
@@ -48,7 +50,8 @@ export class MembersContainerWeekCalendarComponent extends Reactive {
 		}),
 		filter((tableState) => tableState.total > 0),
 		tap((tableState) => {
-			this.composeCalendarWithSpecialistsService.setMembers(tableState.items);
+			const members = tableState.items.filter((member: RIMember) => member.active === ActiveEnum.YES);
+			this.composeCalendarWithSpecialistsService.setMembers(members);
 		})
 	);
 
