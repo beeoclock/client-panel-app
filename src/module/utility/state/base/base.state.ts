@@ -51,10 +51,10 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 	protected readonly item!: BaseApiAdapter<ITEM, unknown[]>;
 	protected readonly create!: BaseApiAdapter<ITEM, unknown[]>;
 	protected readonly update!: BaseApiAdapter<ITEM, unknown[]>;
-	protected readonly remove!: BaseApiAdapter<unknown, unknown[]>;
+	protected readonly delete!: BaseApiAdapter<unknown, unknown[]>;
 	protected readonly archive!: BaseApiAdapter<unknown, unknown[]>;
 	protected readonly unarchive!: BaseApiAdapter<unknown, unknown[]>;
-	protected readonly list!: BaseApiAdapter<{
+	protected readonly paged!: BaseApiAdapter<{
 		items: ITEM[];
 		totalSize: number;
 	}, unknown[]>;
@@ -223,7 +223,7 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
 
-		const isOk = await this.remove.executeAsync(payload).then((result) => {
+		const isOk = await this.delete.executeAsync(payload).then((result) => {
 			this.ngxLogger.debug('Delete result: ', result);
 			return true;
 		}).catch((error) => {
@@ -348,7 +348,8 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 	public async getList(ctx: StateContext<IBaseState<ITEM>>, {
 		payload: {
 			resetPage,
-			resetParams
+			resetParams,
+			queryParams,
 		}
 	}: BaseActions.GetList): Promise<void> {
 
@@ -371,7 +372,10 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 			const params = newTableState.toBackendFormat();
 
 			// Update current state
-			const {items, totalSize} = await this.list.executeAsync(params);
+			const {items, totalSize} = await this.paged.executeAsync({
+				...params,
+				...(queryParams ?? {})
+			});
 
 			newTableState
 				.setTotal(totalSize)

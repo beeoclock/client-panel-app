@@ -4,11 +4,11 @@ import {SelectTimeComponent} from "@event/presentation/component/form/select-tim
 import {BusySlotsEventApiAdapter} from "@event/adapter/external/api/busy-slots.event.api.adapter";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
-import {RIBusySlot} from "@event/domain/interface/i.busy-slot";
 import {DateTime} from "luxon";
 import {SlotBuildingStrategyEnum} from "@client/domain/enum/slot-building-strategy.enum";
 import {BehaviorSubject} from "rxjs";
 import {IDayItem} from "@utility/domain/interface/i.day-item";
+import {IBusySlot} from "@order/external/interface/busy-slot/i.busy-slot";
 
 
 @Injectable()
@@ -24,7 +24,7 @@ export class SlotsService {
 
 	private firstDayIso!: string;
 	private lastDayIso!: string;
-	private busySlots: RIBusySlot[] = [];
+	private busySlots: IBusySlot[] = [];
 	private schedules: RISchedule[] = [];
 	private specialist: string | undefined;
 	private eventDurationInSeconds = 0;
@@ -124,7 +124,7 @@ export class SlotsService {
 
 	}
 
-	public setBusySlots(busySlots: RIBusySlot[]) {
+	public setBusySlots(busySlots: IBusySlot[]) {
 
 		this.logger.debug('setBusySlots', {busySlots})
 		this.busySlots = busySlots;

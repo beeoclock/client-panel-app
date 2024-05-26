@@ -31,8 +31,8 @@ export class MemberState extends BaseState<Member.RIMember> {
 	protected override readonly create = inject(CreateMemberApiAdapter);
 	protected override readonly update = inject(UpdateMemberApiAdapter);
 	protected override readonly item = inject(ItemMemberApiAdapter);
-	protected override readonly remove = inject(RemoveMemberApiAdapter);
-	protected override readonly list = inject(ListMemberApiAdapter);
+	protected override readonly delete = inject(RemoveMemberApiAdapter);
+	protected override readonly paged = inject(ListMemberApiAdapter);
 
 	private readonly translateService = inject(TranslateService);
 

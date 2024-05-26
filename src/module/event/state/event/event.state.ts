@@ -42,8 +42,8 @@ export class EventState extends BaseState<Event.IEvent> {
 	protected override readonly create = inject(CreateEventApiAdapter);
 	protected override readonly update = inject(UpdateEventApiAdapter);
 	protected override readonly item = inject(ItemEventApiAdapter);
-	protected override readonly remove = inject(RemoveEventApiAdapter);
-	protected override readonly list = inject(ListMergedEventApiAdapter);
+	protected override readonly delete = inject(RemoveEventApiAdapter);
+	protected override readonly paged = inject(ListMergedEventApiAdapter);
 
 	// Change status
 	protected readonly doneStatusEventApiAdapter = inject(DoneStatusEventApiAdapter);

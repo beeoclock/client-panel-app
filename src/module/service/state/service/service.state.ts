@@ -34,8 +34,8 @@ export class ServiceState extends BaseState<IService> {
 	protected override readonly create = inject(CreateServiceApiAdapter);
 	protected override readonly update = inject(UpdateServiceApiAdapter);
 	protected override readonly item = inject(ItemServiceApiAdapter);
-	protected override readonly remove = inject(RemoveServiceApiAdapter);
-	protected override readonly list = inject(ListServiceApiAdapter);
+	protected override readonly delete = inject(RemoveServiceApiAdapter);
+	protected override readonly paged = inject(ListServiceApiAdapter);
 
 	private readonly translateService = inject(TranslateService);
 

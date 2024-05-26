@@ -46,7 +46,6 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 import {DefaultInputDirective} from "@utility/presentation/directives/input/default.input.directive";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import * as Member from '@member/domain';
-import {ISpecialist} from "@service/domain/interface/i.specialist";
 
 @Component({
 	selector: 'event-container-form-component',
@@ -86,6 +85,9 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 	public isEditMode = false;
 
 	@Input()
+	public useDefaultFlow = true;
+
+	@Input()
 	public backButtonComponent!: BackButtonComponent;
 
 	@Input()
@@ -95,7 +97,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 	public member: Member.RIMember | undefined;
 
 	@Input()
-	public callback: (() => void) | null = null;
+	public callback: ((component: ContainerFormComponent, formValue: IEvent) => void) | null = null;
 
 	private readonly store = inject(Store);
 	public readonly activatedRoute = inject(ActivatedRoute);
@@ -122,7 +124,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 
 	public ngOnChanges(changes: SimpleChanges & {forceStart: SimpleChange}): void {
 		const {forceStart} = changes;
-		if (forceStart.currentValue) {
+		if (forceStart && forceStart.currentValue) {
 			this.form.controls.start.patchValue(forceStart.currentValue);
 		}
 	}
@@ -169,13 +171,14 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 			});
 
 		if (this.member) {
+			const member = this.member;
 			this.form.controls.services.valueChanges.pipe(filter(is.array_not_empty<IService[]>), take(1)).subscribe((services) => {
 				this.form.controls.services.patchValue(services.map((service) => {
 					return {
 						...service,
 						specialists: [{
-							object: 'Specialist' as ISpecialist['object'],
-							member: this.member,
+							object: 'SpecialistDto',
+							member,
 						}],
 					};
 				}));
@@ -298,19 +301,23 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 			// Trim note field
 			value.note = value.note?.trim();
 
-			if (this.isEditMode) {
+			if (this.useDefaultFlow) {
 
-				await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(value)));
+				if (this.isEditMode) {
 
-			} else {
+					await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(value)));
 
-				await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(value)));
+				} else {
+
+					await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(value)));
+
+				}
 
 			}
 
 			// TODO check if customers/attends is exist in db (just check if selected customer has _id field if exist is in db if not then need to make request to create the new customer)
 
-			this.callback?.();
+			this.callback?.(this, value);
 
 			this.form.enable();
 			this.form.updateValueAndValidity();

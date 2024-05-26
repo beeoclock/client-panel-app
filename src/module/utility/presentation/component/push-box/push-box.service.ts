@@ -5,102 +5,99 @@ import {PushBoxComponent} from "@utility/presentation/component/push-box/push-bo
 import {NGXLogger} from "ngx-logger";
 
 export type PushBoxBuildItArgsType = {
-	id?: string;
-	component: Type<unknown>;
-	componentInputs?: Record<string, unknown>;
-	useComponentNameAsPrefixOfId?: boolean; // Default false
-	//
-	title?: string;
-	showLoading?: boolean;
-	button?: {
-		close?: {
-			classList?: string[];
-			title?: string;
-			useDefaultIcon?: boolean;
-			text?: string;
-			callback?: () => void;
-		}
-	}
+    id?: string;
+    component: Type<unknown>;
+    componentInputs?: Record<string, unknown>;
+    useComponentNameAsPrefixOfId?: boolean; // Default false
+    //
+    title?: string;
+    showLoading?: boolean;
+    button?: {
+        close?: {
+            classList?: string[];
+            title?: string;
+            useDefaultIcon?: boolean;
+            text?: string;
+            callback?: () => void;
+        }
+    }
 }
 
 
 @Injectable({
-	providedIn: 'root'
+    providedIn: 'root'
 })
-export class PushBoxService {
+export class PushBoxService<COMPONENT> {
 
-	private pushBoxContainer: PushBoxComponent | undefined;
+    private pushBoxContainer: PushBoxComponent | undefined;
 
-	public readonly buildIt$ = new Subject<PushBoxBuildItArgsType>();
+    public readonly buildIt$ = new Subject<PushBoxBuildItArgsType>();
 
-	public readonly destroy$ = new Subject<string>();
-	// It will destroy all components with the same component name
-	public readonly destroyByComponentName$ = new Subject<string>();
+    public readonly destroy$ = new Subject<string>();
+    // It will destroy all components with the same component name
+    public readonly destroyByComponentName$ = new Subject<string>();
 
-	public readonly componentRefMapById = new Map<string, ComponentRef<PushBoxWrapperComponent>>();
-	public readonly componentRefMapByComponentName = new Map<string, ComponentRef<PushBoxWrapperComponent>[]>();
+    public readonly componentRefMapById = new Map<string, ComponentRef<PushBoxWrapperComponent<COMPONENT>>>();
+    public readonly componentRefMapByComponentName = new Map<string, ComponentRef<PushBoxWrapperComponent<COMPONENT>>[]>();
 
-	private readonly ngxLogger = inject(NGXLogger);
+    private readonly ngxLogger = inject(NGXLogger);
 
-	constructor() {
+    constructor() {
 
-		const emptyFunction = () => {
-		};
+        const emptyFunction = () => {
+        };
 
-		this.buildIt$.subscribe(this.pushBoxContainer?.buildComponentAndRender?.bind?.(this) ?? emptyFunction);
+        this.buildIt$.subscribe(this.pushBoxContainer?.buildComponentAndRender?.bind?.(this) ?? emptyFunction);
 
-		this.destroy$.subscribe((id: string) => {
+        this.destroy$.subscribe((id: string) => {
 
-			if (!this.componentRefMapById.has(id)) {
-				this.ngxLogger.debug('PushBoxComponent.destroy$ !componentRefMapById.has', id);
-				return;
-			}
+            if (!this.componentRefMapById.has(id)) {
+                this.ngxLogger.debug('PushBoxComponent.destroy$ !componentRefMapById.has', id);
+                return;
+            }
 
-			this.ngxLogger.debug('PushBoxComponent.destroy$', id);
+            this.ngxLogger.debug('PushBoxComponent.destroy$', id);
 
-			this.pushBoxContainer?.destroyComponent?.(id);
+            this.pushBoxContainer?.destroyComponent?.(id);
 
-		});
+        });
 
-		this.destroyByComponentName$.subscribe((componentName: string) => {
+        this.destroyByComponentName$.subscribe((componentName: string) => {
 
-			const componentRefList = this.componentRefMapByComponentName.get(componentName);
+            const componentRefList = this.componentRefMapByComponentName.get(componentName);
 
-			if (!componentRefList?.length) {
-				this.ngxLogger.debug('PushBoxComponent.destroyByComponentName$ Did not find', componentName);
-				return;
-			}
+            if (!componentRefList?.length) {
+                this.ngxLogger.debug('PushBoxComponent.destroyByComponentName$ Did not find', componentName);
+                return;
+            }
 
-			this.ngxLogger.debug('PushBoxComponent.destroyByComponentName$', componentName);
+            this.ngxLogger.debug('PushBoxComponent.destroyByComponentName$', componentName);
 
-			componentRefList.forEach((componentRef) => {
-				componentRef.instance.destroySelf();
-			});
+            componentRefList.forEach((componentRef) => {
+                componentRef.instance.destroySelf();
+            });
 
-			this.componentRefMapByComponentName.delete(componentName);
+            this.componentRefMapByComponentName.delete(componentName);
 
-		});
-	}
+        });
+    }
 
-	public buildItAsync(args: PushBoxBuildItArgsType) {
+    public async buildItAsync(args: PushBoxBuildItArgsType) {
+        const componentRef = this.pushBoxContainer?.buildComponentAndRender?.(args);
+        console.log('buildItAsync:componentRef', componentRef)
+        return componentRef;
+    }
 
-		return new Promise<ComponentRef<PushBoxWrapperComponent>>((resolve, reject) => {
-			const componentRef = this.pushBoxContainer?.buildComponentAndRender?.(args);
-			!componentRef ? reject() : resolve(componentRef);
-		});
+    public updatePushBoxComponentAsync(args: PushBoxBuildItArgsType) {
 
-	}
+        return new Promise<ComponentRef<PushBoxWrapperComponent<COMPONENT>>>((resolve, reject) => {
+            const componentRef = this.pushBoxContainer?.updatePushBoxComponent?.(args);
+            !componentRef ? reject() : resolve(componentRef);
+        });
 
-	public updatePushBoxComponentAsync(args: PushBoxBuildItArgsType) {
+    }
 
-		return new Promise<ComponentRef<PushBoxWrapperComponent>>((resolve, reject) => {
-			const componentRef = this.pushBoxContainer?.updatePushBoxComponent?.(args);
-			!componentRef ? reject() : resolve(componentRef);
-		});
-
-	}
-
-	public registerContainer(pushBoxContainer: PushBoxComponent) {
-		this.pushBoxContainer = pushBoxContainer;
-	}
+    public registerContainer(pushBoxContainer: PushBoxComponent) {
+        this.pushBoxContainer = pushBoxContainer;
+    }
 }

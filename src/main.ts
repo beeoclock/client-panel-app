@@ -1,5 +1,5 @@
 import {bootstrapApplication} from '@angular/platform-browser';
-import {AppComponent} from '@src/app.component';
+import {MainRouterOutlet} from '@src/main.router-outlet';
 import {enableProdMode, importProvidersFrom, isDevMode} from '@angular/core';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {environment} from '@src/environment/environment';
@@ -16,33 +16,23 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading} from '@angular/router';
 import {routes} from '@src/routers';
 import {browserLocalPersistence} from "@firebase/auth";
-import {NgxsModule} from "@ngxs/store";
-import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {IonicModule} from "@ionic/angular";
 import {Utility} from "@utility/index";
 import {initRuntimeEnvironment} from "@src/runtime.environment";
-import {IdentityState} from "@identity/state/identity/identity.state";
-import {AppState} from "@utility/state/app/app.state";
 import {provideEnvironmentNgxMask} from "ngx-mask";
 import {tokens} from "@src/token";
 import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
 import {provideServiceWorker} from '@angular/service-worker';
 import {LanguageCodeEnum} from "@utility/domain/enum";
-import {ClientState} from "@client/state/client/client.state";
 import {NgEventBus} from 'ng-event-bus';
 import {getMessaging, provideMessaging} from "@angular/fire/messaging";
-import {MemberState} from "@member/state/member/member.state";
+import {getAnalytics, provideAnalytics} from "@angular/fire/analytics";
+import {ngxsProviders} from "@src/ngxs";
+
 
 import '@angular/common/locales/global/da';
 import '@angular/common/locales/global/pl';
 import '@angular/common/locales/global/uk';
-import {getAnalytics, provideAnalytics} from "@angular/fire/analytics";
-
-// DefaultValueAccessor.prototype.registerOnChange = function (fn: (_: string | null) => void): void {
-// 	this.onChange = (value: string | null) => {
-// 		fn(value === '' ? null : value);
-// 	};
-// };
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -55,16 +45,7 @@ if (environment.production) {
 
 initRuntimeEnvironment();
 
-const ngxsProviders = [
-	NgxsModule.forRoot([IdentityState, AppState, ClientState, MemberState], {
-		developmentMode: !environment.production
-	}),
-	NgxsReduxDevtoolsPluginModule.forRoot({
-		disabled: environment.production
-	}),
-];
-
-bootstrapApplication(AppComponent, {
+bootstrapApplication(MainRouterOutlet, {
 	providers: [
 		...tokens,
 		NgEventBus,
@@ -77,7 +58,8 @@ bootstrapApplication(AppComponent, {
 			...ngxsProviders,
 			IonicModule.forRoot({
 				mode: 'ios',
-				animated: false
+				animated: false,
+				rippleEffect: false
 			}),
 			provideFirebaseApp(() =>
 				initializeApp(environment.firebase.options)

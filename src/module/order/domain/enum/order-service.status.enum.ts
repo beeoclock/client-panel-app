@@ -1,0 +1,8 @@
+export enum OrderServiceStatusEnum {
+  REQUESTED = 'REQUESTED',
+  ACCEPTED = 'ACCEPTED',
+  PENDING = 'PENDING',
+  REJECTED = 'REJECTED',
+  CANCELLED = 'CANCELLED',
+  DONE = 'DONE'
+}

@@ -44,7 +44,8 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 						<ul role="list" class="divide-y divide-gray-100 rounded-md border border-gray-200">
 							<li class="flex">
 								<img
-									[src]="event.services[0].presentation?.banners?.[0]?.url ?? ''"
+									*ngIf="event.services[0].presentation?.banners?.[0]?.url as bannerUrl"
+									[src]="bannerUrl"
 									class="object-cover bg-beeColor-200 rounded-l-md w-14"
 									alt=""/>
 								<div class="flex flex-col justify-center text-sm leading-6 p-4">

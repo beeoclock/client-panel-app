@@ -83,15 +83,17 @@ export namespace BaseActions {
 
 	export class GetList {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
+		public static readonly defaultPayload = {
+			resetPage: false,
+			resetParams: false,
+		};
 
 		constructor(
 			public readonly payload: {
 				resetPage: boolean;
 				resetParams: boolean;
-			} = {
-				resetPage: false,
-				resetParams: false,
-			},
+				queryParams?: Record<string, unknown>;
+			} = GetList.defaultPayload,
 		) {
 		}
 	}

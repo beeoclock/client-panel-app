@@ -9,7 +9,7 @@ import {
 	NgModuleRef,
 	Type
 } from '@angular/core';
-import {AppComponent} from "@src/app.component";
+import {MainRouterOutlet} from "@src/main.router-outlet";
 
 @Injectable({
 	providedIn: 'root'
@@ -39,7 +39,7 @@ export class InjectionComponentService {
 			return rootComponents[0];
 		}
 
-		return this.getComponentRef(AppComponent);
+		return this.getComponentRef(MainRouterOutlet);
 
 		// throw new Error('View Container not found! ngUpgrade needs to manually set this via setRootViewContainer.');
 	}

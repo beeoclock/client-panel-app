@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, ElementRef, HostBinding, Input, ViewChild, ViewEncapsulation} from "@angular/core";
-import {CdkMenu, CdkMenuTrigger} from "@angular/cdk/menu";
 import {NgIf} from "@angular/common";
 import {Dropdown, DropdownInterface, DropdownOptions} from "flowbite";
 import {Placement} from "@popperjs/core/lib/enums";
@@ -9,8 +8,6 @@ import {Placement} from "@popperjs/core/lib/enums";
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [
-    CdkMenuTrigger,
-    CdkMenu,
     NgIf
   ],
   template: `

@@ -49,16 +49,16 @@ import {
 			<hr>
 
       <select-auto-action-on-event-in-seconds-component
-        [control]="form.controls.autoActionOnEventInSeconds"/>
+        [control]="form.controls.autoActionOnOrderInSeconds"/>
 
 			<select-auto-action-type-on-event-component
 				[control]="form.controls.automaticApprovalType"/>
 
 			<div class="">
 				{{ 'client.profile.form.section.bookingSettings.hint.autoActionOnEvent.start' | translate }}
-				<kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ 'autoActionTypeOnEvent.' + form.controls.automaticApprovalType.value | translate }}</kbd>
+				<kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ 'autoActionTypeOnOrder.' + form.controls.automaticApprovalType.value | translate }}</kbd>
 				{{ 'client.profile.form.section.bookingSettings.hint.autoActionOnEvent.after' | translate }}
-				<kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ form.controls.autoActionOnEventInSeconds.value | humanizeDuration }}</kbd>
+				<kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ form.controls.autoActionOnOrderInSeconds.value | humanizeDuration }}</kbd>
 				{{ 'client.profile.form.section.bookingSettings.hint.autoActionOnEvent.finish' | translate }}
 			</div>
 

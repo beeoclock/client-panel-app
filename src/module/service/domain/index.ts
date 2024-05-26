@@ -5,7 +5,7 @@ export * from './interface';
 export const Service = {
 	memberToSpecialist: (member: RIMember): ISpecialist => {
 		return {
-			object: 'Specialist',
+			object: 'SpecialistDto',
 			member: member
 		};
 	}

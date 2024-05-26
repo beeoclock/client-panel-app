@@ -1,12 +1,12 @@
 import {
-	Component,
-	ComponentRef,
-	HostBinding,
-	Input,
-	Type,
-	ViewChild,
-	ViewContainerRef,
-	ViewEncapsulation
+    Component,
+    ComponentRef,
+    HostBinding,
+    Input,
+    Type,
+    ViewChild,
+    ViewContainerRef,
+    ViewEncapsulation
 } from "@angular/core";
 import {NgIf} from "@angular/common";
 import {PushBoxBuildItArgsType} from "@utility/presentation/component/push-box/push-box.service";
@@ -42,7 +42,7 @@ import {PushBoxBuildItArgsType} from "@utility/presentation/component/push-box/p
 		<ng-container #renderContainer></ng-container>
 	`
 })
-export class PushBoxWrapperComponent {
+export class PushBoxWrapperComponent<COMPONENT> {
 
 	@Input()
 	public showLoading = true;
@@ -72,14 +72,14 @@ export class PushBoxWrapperComponent {
 	@HostBinding()
 	public class = 'flex flex-col h-screen';
 
-	public renderedComponent: Type<any> | undefined;
-	public renderedComponentRef: ComponentRef<any> | undefined;
+	public renderedComponent: Type<COMPONENT> | undefined;
+	public renderedComponentRef: ComponentRef<COMPONENT> | undefined;
 
 	public doDone() {
 		this.destroySelf();
 	}
 
-	public renderComponent(component: Type<any>, inputs?: Record<string, any>) {
+	public renderComponent(component: Type<COMPONENT>, inputs?: Record<string, unknown>) {
 
 		if (this.showLoading) {
 			return;

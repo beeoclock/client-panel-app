@@ -89,7 +89,7 @@ export class MemberForm extends FormGroup<IMemberForm> {
 		this.controls.email.setValidators([Validators.email, Validators.required]);
 	}
 
-	public static create(initValue: RIMember): MemberForm {
+	public static create(initValue: Partial<RIMember> = {}): MemberForm {
 
 		const form = new MemberForm();
 
@@ -104,3 +104,4 @@ export class MemberForm extends FormGroup<IMemberForm> {
 	}
 
 }
+

@@ -33,7 +33,7 @@ const defaults = baseDefaults<Event.RIEvent>({
 export class EventRequestedState extends BaseState<Event.RIEvent> {
 
 	protected override readonly update = inject(UpdateEventApiAdapter);
-	protected override readonly list = inject(ListEventApiAdapter);
+	protected override readonly paged = inject(ListEventApiAdapter);
 
 	// Change status
 	protected readonly rejectedStatusEventApiAdapter = inject(RejectedStatusEventApiAdapter);

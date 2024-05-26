@@ -33,8 +33,8 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 	protected override readonly create = inject(CreateCustomerApiAdapter);
 	protected override readonly update = inject(UpdateCustomerApiAdapter);
 	protected override readonly item = inject(ItemCustomerApiAdapter);
-	protected override readonly remove = inject(RemoveCustomerApiAdapter);
-	protected override readonly list = inject(ListCustomerApiAdapter);
+	protected override readonly delete = inject(RemoveCustomerApiAdapter);
+	protected override readonly paged = inject(ListCustomerApiAdapter);
 
 	private readonly translateService = inject(TranslateService);
 

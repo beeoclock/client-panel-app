@@ -20,6 +20,7 @@ interface IMenuItem {
 	translateKey: string;
 	target?: '_blank';
 	disabled?: boolean;
+	visible: boolean;
 	beta?: boolean;
 	routerLinkActiveOptions: {
 		exact: boolean;
@@ -54,6 +55,20 @@ export class MenuSidebarComponent implements OnInit {
 
 	public menu: IMenuItem[] = [];
 
+	public readonly requestedMenuItem: IMenuItem = {
+		order: 2,
+		translateKey: 'sidebar.requested',
+		icon: 'bi bi-calendar-plus',
+		visible: false,
+		routerLinkActiveOptions: {
+			paths: "subset",
+			matrixParams: "ignored",
+			queryParams: "ignored",
+			fragment: "ignored",
+		},
+		url: '/event/requested',
+	};
+
 	public async goToPublicPage(): Promise<void> {
 
 		let path;
@@ -71,37 +86,25 @@ export class MenuSidebarComponent implements OnInit {
 
 	}
 
+	public trackByUrl(index: number, event: IMenuItem) {
+		return event.url;
+	}
+
 	public ngOnInit(): void {
 		// TODO change bus event on state (ngxs)
 		this.ngEventBus
 			.on(EventBusTokenEnum.SIDE_BAR_EVENT_REQUESTED_BADGE)
 			.subscribe((event) => {
 				const badge = event.data as string;
-				const menuItem = this.menu.find((item) => item.translateKey === 'sidebar.requested');
-				if (menuItem) {
-					menuItem.badge = badge;
-				}
+				this.requestedMenuItem.badge = badge;
 			});
 
 		this.businessProfile$.subscribe((item) => {
 			this.initMenu();
 			if (item) {
 				const { bookingSettings } = item;
-				const { autoBookEvent } = bookingSettings;
-				if (is.false(autoBookEvent)) {
-					this.menu.push({
-						order: 2,
-						translateKey: 'sidebar.requested',
-						icon: 'bi bi-calendar-plus',
-						routerLinkActiveOptions: {
-							paths: "subset",
-							matrixParams: "ignored",
-							queryParams: "ignored",
-							fragment: "ignored",
-						},
-						url: '/event/requested',
-					});
-				}
+				const { autoBookOrder } = bookingSettings;
+				this.requestedMenuItem.visible = is.false(autoBookOrder);
 			}
 			this.updateMenu();
 		});
@@ -110,17 +113,19 @@ export class MenuSidebarComponent implements OnInit {
 
 	public initMenu(): void {
 
-		this.menu = [];
+		this.menu = [
+			this.requestedMenuItem
+		];
 
-		this.menu.push({
-			order: 0,
-			url: '/event/calendar-with-specialists',
-			translateKey: 'sidebar.dashboard',
-			icon: 'bi bi-calendar2-event',
-			routerLinkActiveOptions: {
-				exact: true
-			}
-		});
+		// this.menu.push({
+		// 	order: 0,
+		// 	url: '/event/calendar-with-specialists',
+		// 	translateKey: 'sidebar.dashboard',
+		// 	icon: 'bi bi-calendar2-event',
+		// 	routerLinkActiveOptions: {
+		// 		exact: true
+		// 	}
+		// });
 		// {
 		// 	url: '/dashboard',
 		// 	translateKey: 'sidebar.dashboard',
@@ -131,8 +136,9 @@ export class MenuSidebarComponent implements OnInit {
 		// },
 		this.menu.push({
 			order: 1,
-			translateKey: 'sidebar.events',
-			icon: 'bi bi-table',
+			translateKey: 'sidebar.calendar.label',
+			icon: 'bi bi-calendar2-event',
+			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",
@@ -140,51 +146,48 @@ export class MenuSidebarComponent implements OnInit {
 				fragment: "ignored",
 			},
 			url: '/event/list',
-			// items: [
-			// 	{
-			// 		translateKey: 'sidebar.events.list',
-			// 		url: '/client/profile',
-			// 		icon: 'bi bi-person',
-			// 		routerLinkActiveOptions: {
-			// 			exact: true
-			// 		}
-			// 	},
-			// 	{
-			// 		translateKey: 'sidebar.events.table',
-			// 		url: '/client/settings',
-			// 		icon: 'bi bi-gear',
-			// 		routerLinkActiveOptions: {
-			// 			exact: true
-			// 		}
-			// 	},
-			// 	{
-			// 		translateKey: 'sidebar.events.calendar',
-			// 		url: '/identity/corridor',
-			// 		icon: 'bi bi-gear',
-			// 		routerLinkActiveOptions: {
-			// 			exact: true
-			// 		}
-			// 	},
-			// ]
+			items: [
+				{
+					translateKey: 'sidebar.calendar.withSpecialists.label',
+					url: '/event/calendar-with-specialists',
+					icon: 'bi bi-person-badge',
+					routerLinkActiveOptions: {
+						exact: true
+					},
+					visible: true,
+					order: 0
+				},
+				{
+					url: '/event/calendar',
+					translateKey: 'sidebar.calendar.ordinary.label',
+					icon: 'bi bi-calendar-week',
+					routerLinkActiveOptions: {
+						exact: true
+					},
+					visible: true,
+					order: 1
+				},
+			]
 		});
-		this.menu.push({
-			order: 3,
-			translateKey: 'sidebar.calendar',
-			icon: 'bi bi-calendar-week',
-			routerLinkActiveOptions: {
-				paths: "subset",
-				matrixParams: "ignored",
-				queryParams: "ignored",
-				fragment: "ignored",
-			},
-			url: '/event/calendar',
-		});
+		// this.menu.push({
+		// 	order: 3,
+		// 	url: '/event/calendar',
+		// 	translateKey: 'sidebar.calendar',
+		// 	icon: 'bi bi-calendar-week',
+		// 	routerLinkActiveOptions: {
+		// 		paths: "subset",
+		// 		matrixParams: "ignored",
+		// 		queryParams: "ignored",
+		// 		fragment: "ignored",
+		// 	},
+		// });
 		this.menu.push({
 			order: 4,
 			url: '/event/statistic',
 			translateKey: 'sidebar.statistic',
 			icon: 'bi bi-bar-chart',
 			beta: true,
+			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",
@@ -197,6 +200,7 @@ export class MenuSidebarComponent implements OnInit {
 			url: '/customer/list',
 			translateKey: 'sidebar.customers',
 			icon: 'bi bi-person-vcard',
+			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",
@@ -206,9 +210,10 @@ export class MenuSidebarComponent implements OnInit {
 		});
 		this.menu.push({
 			order: 6,
-			url: '/member/list',
-			translateKey: 'sidebar.members',
-			icon: 'bi bi-people',
+			url: '/order/list',
+			translateKey: 'sidebar.order',
+			icon: 'bi bi-cart',
+			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",
@@ -218,9 +223,10 @@ export class MenuSidebarComponent implements OnInit {
 		});
 		this.menu.push({
 			order: 7,
-			url: '/service/list',
-			translateKey: 'sidebar.services',
-			icon: 'bi bi-shop-window',
+			url: '/absence/list',
+			translateKey: 'sidebar.absence',
+			icon: 'bi bi-calendar2-x',
+			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",
@@ -230,9 +236,10 @@ export class MenuSidebarComponent implements OnInit {
 		});
 		this.menu.push({
 			order: 8,
-			url: '/client/business-profile',
-			translateKey: 'sidebar.businessProfile',
-			icon: 'bi bi-buildings',
+			url: '/member/list',
+			translateKey: 'sidebar.members',
+			visible: true,
+			icon: 'bi bi-people',
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",
@@ -242,9 +249,36 @@ export class MenuSidebarComponent implements OnInit {
 		});
 		this.menu.push({
 			order: 9,
+			url: '/service/list',
+			translateKey: 'sidebar.services',
+			icon: 'bi bi-emoji-smile',
+			visible: true,
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		});
+		this.menu.push({
+			order: 10,
+			url: '/client/business-profile',
+			translateKey: 'sidebar.businessProfile',
+			visible: true,
+			icon: 'bi bi-buildings',
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		});
+		this.menu.push({
+			order: 11,
 			url: '/client/business-settings',
 			translateKey: 'sidebar.businessSettings',
 			icon: 'bi bi-building-gear',
+			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
 				matrixParams: "ignored",
