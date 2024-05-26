@@ -76,9 +76,9 @@ export class TableListComponent extends TableComponent<IOrderDto> {
 					minWidth: '200px',
 				},
 			},
-			note: {
+			status: {
 				style: {
-					minWidth: '200px',
+					minWidth: '150px',
 				},
 			},
 			createdAt: {

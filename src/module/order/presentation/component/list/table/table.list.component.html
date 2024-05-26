@@ -27,9 +27,9 @@
 <!--					[tableState]="tableState"/>-->
 <!--			</div>-->
 <!--		</div>-->
-<!--		<div tableColumnFlex="note">-->
-<!--			{{ 'keyword.capitalize.note' | translate }}-->
-<!--		</div>-->
+		<div tableColumnFlex="status">
+			{{ 'keyword.capitalize.status' | translate }}
+		</div>
 <!--		<div tableColumnFlex="active" data-orderBy="active">-->
 <!--			<div class="flex gap-3 items-center">-->
 <!--				{{ 'keyword.capitalize.active' | translate }}-->
@@ -81,14 +81,10 @@
 <!--					{{ item.phone | noData }}-->
 <!--				</span>-->
 <!--			</div>-->
-			<div tableColumnFlex="note">
-<!--				<span [title]="item.note" class="truncate">-->
-<!--					{{ item.note | noData }}-->
-<!--				</span>-->
-			</div>
-			<div tableColumnFlex="active">
-<!--				<div activeStyle [active]="item.active">-->
-<!--				</div>-->
+			<div tableColumnFlex="status">
+				<span [title]="item.status" class="truncate">
+					{{ item.status | noData }}
+				</span>
 			</div>
 			<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
 				<span [title]="createdAtColumn.getAttribute('data-value')" class="truncate">
