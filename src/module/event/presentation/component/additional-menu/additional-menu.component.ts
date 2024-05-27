@@ -16,7 +16,7 @@ import {TranslateModule} from "@ngx-translate/core";
     template: `
         <div class="grid grid-cols-1 gap-4 p-4">
             <button type="button" (click)="openOrderForm()"
-                    class="text-start bg-gray-50 hover:bg-gray-100 p-4 cursor-pointer rounded-md border border-gray-300 transition-colors duration-300">
+                    class="text-start bg-white hover:bg-gray-100 p-4 cursor-pointer rounded-md border border-gray-300 transition-colors duration-300">
                 <h3 class="text-lg font-semibold text-black mb-2">
                     <i class="w-6 h-6 me-1 text-beeColor-500 transition duration-75 dark:text-beeDarkColor-400 bi bi-cart"></i>
                     {{ 'event.additionalMenu.items.addNewOrder.title' | translate }}
@@ -26,7 +26,7 @@ import {TranslateModule} from "@ngx-translate/core";
                 </p>
             </button>
             <button type="button" (click)="openAbsenceForm()"
-                    class="text-start bg-gray-50 hover:bg-gray-100 p-4 cursor-pointer rounded-md border border-gray-300 transition-colors duration-300">
+                    class="text-start bg-white hover:bg-gray-100 p-4 cursor-pointer rounded-md border border-gray-300 transition-colors duration-300">
                 <h3 class="text-lg font-semibold text-black mb-2">
                     <i class="w-6 h-6 me-1 text-beeColor-500 transition duration-75 dark:text-beeDarkColor-400 bi bi-calendar2-x"></i>
                     {{ 'event.additionalMenu.items.addNewAbsence.title' | translate }}
