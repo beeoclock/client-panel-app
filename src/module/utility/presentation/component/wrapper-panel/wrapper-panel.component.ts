@@ -27,6 +27,9 @@ import {
 import {ThemeService} from "@utility/cdk/theme.service";
 import {TranslateService} from "@ngx-translate/core";
 import {PushBoxComponent} from "@utility/presentation/component/push-box/push-box.component";
+import {ClientState} from "@client/state/client/client.state";
+import {is} from "thiis";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -60,7 +63,7 @@ import {PushBoxComponent} from "@utility/presentation/component/push-box/push-bo
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export default class WrapperPanelComponent implements AfterViewInit, OnDestroy {
+export default class WrapperPanelComponent extends Reactive implements AfterViewInit, OnDestroy {
 
 	public readonly mainContainerId = inject(MAIN_CONTAINER_ID);
 	private readonly document = inject(DOCUMENT);
@@ -79,16 +82,26 @@ export default class WrapperPanelComponent implements AfterViewInit, OnDestroy {
 	private checkerTimer: undefined | NodeJS.Timeout;
 	private isUserOnWebSite = true;
 
+	public readonly businessProfile$ = this.store.select(ClientState.item);
+
 	constructor() {
+		super();
 		this.initNotificationChecker();
 	}
 
 	public ngAfterViewInit(): void {
-		this.initEventRequested();
 		this.initDetectorIfUserHasActiveWebsite();
 		this.initClient();
 		this.initMemberList();
 		this.initAccountFrontendSettings();
+
+		this.businessProfile$.pipe(this.takeUntil()).subscribe((businessProfile) => {
+			if (!businessProfile) { return; }
+			const {bookingSettings} = businessProfile;
+			const {autoBookOrder} = bookingSettings;
+			is.false(autoBookOrder) && this.initEventRequested();
+		});
+
 	}
 
 	private initMemberList(): void {
@@ -142,12 +155,13 @@ export default class WrapperPanelComponent implements AfterViewInit, OnDestroy {
 		};
 	}
 
-	public ngOnDestroy(): void {
+	public override ngOnDestroy(): void {
 		this.store.dispatch(new CustomerActions.Init());
 		this.store.dispatch(new ServiceActions.Init());
 		this.store.dispatch(new MemberActions.Init());
 		this.store.dispatch(new EventActions.Init());
 		this.store.dispatch(new EventRequestedActions.Init());
+		super.ngOnDestroy();
 	}
 }
 
