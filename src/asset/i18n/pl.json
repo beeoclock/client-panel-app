@@ -1048,6 +1048,13 @@
     "details": {
       "title": "Informacje o pracowniku"
     },
+    "enum": {
+      "profileStatus": {
+        "active": "Aktywny",
+        "deleted": "Usunięty",
+        "suspended": "Zawieszony"
+      }
+    },
     "form": {
       "assignments": {
         "button": {

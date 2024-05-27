@@ -277,9 +277,6 @@ export class ServiceOrderFormContainerComponent implements OnInit {
                 // forceStart: componentInputs?.datetimeISO,
                 // isEditMode: !!componentInputs?.event,
             },
-        }).then((test) => {
-            console.log('test', test)
-            return test;
         });
 
         console.log('componentRef', componentRef);
@@ -339,7 +336,6 @@ export class ServiceOrderFormContainerComponent implements OnInit {
                     object: "ServiceDto",
                 } as unknown as IServiceDto,
             }, index);
-
 
             componentRef.instance.destroySelf();
 

@@ -77,14 +77,14 @@ export class SwitchComponent extends Reactive implements OnInit, OnChanges {
         if (changes.control) {
 
             const control = changes.control.currentValue as FormControl;
-            this.localControl.setValue(control.value);
+            this.localControl.setValue(this.units.indexOf(control.value) === 1);
             control.valueChanges.pipe(
                 this.takeUntil(),
                 filter((value) => {
-                    return this.localControl.value !== value;
+                    return this.units[Number(this.localControl.value)] !== value;
                 })
             ).subscribe((value) => {
-                this.localControl.setValue(value);
+                this.localControl.setValue(this.units.indexOf(value) === 1);
             });
 
         }

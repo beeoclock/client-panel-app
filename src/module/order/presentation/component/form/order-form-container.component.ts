@@ -86,6 +86,8 @@ export class OrderFormContainerComponent implements OnInit, OnDestroy {
     @Input()
     public paymentDto!: IPaymentDto;
 
+    // TODO: add input of callback and call it on save
+
     public readonly form: CreateOrderForm = new CreateOrderForm();
 
     private readonly store = inject(Store);

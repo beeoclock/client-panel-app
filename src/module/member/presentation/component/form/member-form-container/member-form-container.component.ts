@@ -15,6 +15,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {CommonModule} from "@angular/common";
 import {MemberFormAssignmentsComponent} from "@member/presentation/component/form/assignments/assignments.component";
+import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
 
 @Component({
 	selector: 'member-form-page',
@@ -41,6 +42,8 @@ export class MemberFormContainerComponent implements OnInit {
 	private readonly store = inject(Store);
 
 	public form = new MemberForm();
+
+	public readonly memberProfileStatusEnum = MemberProfileStatusEnum;
 
 	@Input()
 	public item: RIMember | undefined;

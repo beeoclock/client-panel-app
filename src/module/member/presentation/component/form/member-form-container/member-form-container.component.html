@@ -40,8 +40,9 @@
 
 			<utility-switch-component
 				id="member-form-status"
+				[units]="[memberProfileStatusEnum.suspended, memberProfileStatusEnum.active]"
 				[label]="'keyword.capitalize.active' | translate"
-				[control]="form.controls.active"/>
+				[control]="form.controls.profileStatus"/>
 
 		</form>
 

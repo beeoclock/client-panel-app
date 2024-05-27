@@ -99,9 +99,7 @@
 				</div>
 			</div>
 			<div tableColumnFlex="active">
-				<div activeStyle [activeText]="'keyword.capitalize.active' | translate"
-						 [inactiveText]="'keyword.capitalize.inactive' | translate" [active]="item.active">
-				</div>
+				{{ ('member.enum.profileStatus.' + item.profileStatus) | translate }}
 			</div>
 			<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
 				<span [title]="createdAtColumn.getAttribute('data-value')" class="truncate">

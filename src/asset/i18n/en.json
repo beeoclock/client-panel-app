@@ -1048,6 +1048,13 @@
     "details": {
       "title": "Information about a member of staff"
     },
+    "enum": {
+      "profileStatus": {
+        "active": "Active",
+        "deleted": "Deleted",
+        "suspended": "Suspended"
+      }
+    },
     "form": {
       "assignments": {
         "button": {

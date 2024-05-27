@@ -9,10 +9,10 @@ import * as Member from "@member/domain";
 import {RIMember} from "@member/domain";
 import {MemberActions} from "@member/state/member/member.actions";
 import {Reactive} from "@utility/cdk/reactive";
-import {ActiveEnum} from "@utility/domain/enum";
 import {ScheduleContainerWeekCalendarComponent} from "./schedule.container.week-calendar.component";
 import {ComposeCalendarWithSpecialistsService} from "./compose.calendar-with-specialists.service";
 import {ComposeCalendarWithSpecialistsComponent} from "./compose.calendar-with-specialists.component";
+import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
 
 @Component({
 	selector: 'event-members-container-week-calendar-component',
@@ -44,7 +44,7 @@ export class MembersContainerWeekCalendarComponent extends Reactive {
 		}),
 		filter((tableState) => tableState.total > 0),
 		tap((tableState) => {
-			const members = tableState.items.filter((member: RIMember) => member.active === ActiveEnum.YES);
+			const members = tableState.items.filter((member: RIMember) => member.profileStatus === MemberProfileStatusEnum.active);
 			this.composeCalendarWithSpecialistsService.setMembers(members);
 		})
 	);
