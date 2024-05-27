@@ -15,10 +15,22 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {NGXLogger} from "ngx-logger";
 import {PaymentForm} from "@module/payment/presentation/form/payment.form";
-import {CurrencyPipe, NgClass, NgForOf} from "@angular/common";
+import {CurrencyPipe, NgClass, NgForOf, NgSwitch, NgSwitchCase} from "@angular/common";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
+import {
+    NewPayerOrderFormContainerComponent
+} from "@order/presentation/component/form/payer/by-customer-type/new.payer.order-form-container.component";
+import {
+    RegularPayerOrderFormContainerComponent
+} from "@order/presentation/component/form/payer/by-customer-type/regular.payer.order-form-container.component";
+import {
+    UnknownPayerOrderFormContainerComponent
+} from "@order/presentation/component/form/payer/by-customer-type/unknown.payer.order-form-container.component";
+import {
+    UnregisteredPayerOrderFormContainerComponent
+} from "@order/presentation/component/form/payer/by-customer-type/unregistered.payer.order-form-container.component";
 
 @Component({
     selector: 'app-payer-order-form-container',
@@ -39,7 +51,13 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
         ReactiveFormsModule,
         DefaultLabelDirective,
         NgForOf,
-        NgClass
+        NgClass,
+        NgSwitch,
+        NewPayerOrderFormContainerComponent,
+        NgSwitchCase,
+        RegularPayerOrderFormContainerComponent,
+        UnknownPayerOrderFormContainerComponent,
+        UnregisteredPayerOrderFormContainerComponent
     ],
     standalone: true,
     template: `
@@ -47,7 +65,6 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
         <bee-card>
 
             <div class="font-bold">{{ 'keyword.capitalize.payer' | translate }}</div>
-
 
             <div class="flex flex-wrap gap-4">
                 <ng-container *ngFor="let customerType of customerTypes">
@@ -63,6 +80,14 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
                 </ng-container>
             </div>
 
+            <ng-container [ngSwitch]="form.controls.payer.value.customerType">
+
+                <app-new-payer-order-form-container *ngSwitchCase="customerTypeEnum.new"/>
+                <app-regular-payer-order-form-container *ngSwitchCase="customerTypeEnum.regular"/>
+                <app-unknown-payer-order-form-container *ngSwitchCase="customerTypeEnum.unknown"/>
+                <app-unregistered-payer-order-form-container *ngSwitchCase="customerTypeEnum.unregistered"/>
+
+            </ng-container>
 
         </bee-card>
 
@@ -88,6 +113,7 @@ export class PayerOrderFormContainerComponent implements OnInit {
             name: this.translateService.instant(`customer.enum.type.${value}`)
         };
     });
+    public readonly customerTypeEnum = CustomerTypeEnum;
 
     public ngOnInit(): void {
 

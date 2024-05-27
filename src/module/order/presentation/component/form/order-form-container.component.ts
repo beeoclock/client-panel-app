@@ -23,7 +23,7 @@ import {
 } from "@order/presentation/component/form/payment.order-form-container.component";
 import {
     PayerOrderFormContainerComponent
-} from "@order/presentation/component/form/payer.order-form-container.component";
+} from "@order/presentation/component/form/payer/payer.order-form-container.component";
 import {
     ServiceOrderFormContainerComponent
 } from "@order/presentation/component/form/service.order-form-container.component";
