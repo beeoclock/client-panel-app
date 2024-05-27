@@ -13,6 +13,9 @@
         },
         "note": {
           "placeholder": "Lepiej mieć i nie potrzebować, niż nie mieć i potrzebować, zostawić notatkę, aby później zrozumieć, co się stało"
+        },
+        "type": {
+          "label": "Typ"
         }
       },
       "membersIds": {
@@ -202,6 +205,10 @@
               "availableLanguages": {
                 "hint": "Wybierz języki, w których prowadzisz działalność, być może prowadzisz działalność nie tylko dla mieszkańców, ale także dla turystów. Wybór ten określi dostępną listę języków dla wiadomości e-mail",
                 "label": "Języki, w których prowadzisz działalność"
+              },
+              "baseCurrency": {
+                "hint": "Wybierz główną walutę, w której działasz, jest to konieczne do raportów i prawidłowej prezentacji kwoty podczas składania zamówienia.",
+                "label": "Główna waluta"
               },
               "currencies": {
                 "hint": "Wybierz waluty, w których możesz otrzymać płatność za świadczoną usługę, dzięki temu ustawieniu możesz wybrać konkretną walutę dla konkretnej usługi.",

@@ -4,10 +4,11 @@ import * as Client from "@client/domain";
 import {ClientActions} from "@client/state/client/client.actions";
 import {AppActions} from "@utility/state/app/app.actions";
 import {
-	ItemBusinessProfileApiAdapter
+    ItemBusinessProfileApiAdapter
 } from "@client/adapter/external/api/buisness-profile/item.business-profile.api.adapter";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
+import {BASE_CURRENCY} from "@src/token";
 
 interface IClientState {
 	item: Client.RIClient | undefined;
@@ -70,7 +71,8 @@ export class ClientState {
 
 	}
 
-	public readonly itemBusinessProfileApiAdapter = inject(ItemBusinessProfileApiAdapter);
+	private readonly BASE_CURRENCY = inject(BASE_CURRENCY);
+	private readonly itemBusinessProfileApiAdapter = inject(ItemBusinessProfileApiAdapter);
 
 	@Action(ClientActions.InitClient)
 	public async getItem(ctx: StateContext<IClientState>): Promise<void> {
@@ -80,7 +82,9 @@ export class ClientState {
 		const item = await this.itemBusinessProfileApiAdapter.executeAsync();
 		ctx.patchState({
 			item
-		})
+		});
+
+		this.BASE_CURRENCY.next(item.businessSettings.baseCurrency ?? null);
 
 		ctx.dispatch(new AppActions.PageLoading(false));
 

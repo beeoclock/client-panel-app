@@ -13,6 +13,9 @@
         },
         "note": {
           "placeholder": "Det er bedre at have og ikke have brug for end ikke at have og have brug for, efterlad en note for at forstå, hvad der skete senere."
+        },
+        "type": {
+          "label": "Type"
         }
       },
       "membersIds": {
@@ -202,6 +205,10 @@
               "availableLanguages": {
                 "hint": "Vælg de sprog, du driver forretning på, måske driver du ikke kun forretning for lokale, men også for turister. Dette valg vil bestemme den tilgængelige liste over sprog til e-mails",
                 "label": "Sprog, som du driver forretning på"
+              },
+              "baseCurrency": {
+                "hint": "Vælg den hovedvaluta, du arbejder i. Det er nødvendigt for rapporter og for at kunne præsentere beløbet korrekt, når du afgiver en ordre.",
+                "label": "Hovedvaluta"
               },
               "currencies": {
                 "hint": "Vælg de valutaer, som du kan modtage betaling i for den leverede service, takket være denne indstilling kan du vælge en bestemt valuta for en bestemt service.",

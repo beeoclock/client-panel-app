@@ -53,6 +53,7 @@ export class TableListComponent extends TableComponent<IOrderDto> {
 			services: {
 				style: {
 					minWidth: '200px',
+					flexGrow: 1,
 				},
 			},
 			businessNote: {

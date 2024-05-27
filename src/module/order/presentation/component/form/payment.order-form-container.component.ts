@@ -21,6 +21,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 import {PaymentStatusEnum} from "@module/payment/domain/enum/payment.status.enum";
 import {PaymentMethodEnum} from "@module/payment/domain/enum/payment.method.enum";
 import {CreateOrderForm} from "@order/presentation/form/create.order.form";
+import {BASE_CURRENCY} from '@src/token';
 
 @Component({
     selector: 'app-payment-order-form-container',
@@ -54,7 +55,7 @@ import {CreateOrderForm} from "@order/presentation/form/create.order.form";
                         {{ 'keyword.capitalize.amount' | translate }}:
                     </div>
                     <div>
-                        {{ paymentForm.controls.amount.value | currency: paymentForm.controls.currency.value ?? 'USD' }}
+                        {{ paymentForm.controls.amount.value | currency: paymentForm.controls.currency.value ?? 'USD': 'symbol-narrow' }}
                     </div>
                 </li>
             </ul>
@@ -97,6 +98,8 @@ export class PaymentOrderFormContainerComponent implements OnInit {
     private readonly ngxLogger = inject(NGXLogger);
     private readonly translateService = inject(TranslateService);
 
+    private readonly BASE_CURRENCY = inject(BASE_CURRENCY);
+
     public get paymentForm(): PaymentForm {
         return this.form().controls.payment;
     }
@@ -128,6 +131,9 @@ export class PaymentOrderFormContainerComponent implements OnInit {
     public ngOnInit(): void {
 
         this.ngxLogger.info('PaymentOrderFormContainerComponent initialized');
+        this.BASE_CURRENCY.subscribe((currency) => {
+            this.paymentForm.controls.currency.setValue(currency);
+        });
 
     }
 

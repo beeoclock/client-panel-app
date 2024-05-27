@@ -17,6 +17,9 @@ import {
 import {
 	TimeZoneBookingSettingsComponent
 } from "@client/presentation/component/business-settings/time-zone/time-zone.booking-settings.component";
+import {
+	BaseCurrencyBusinessSettingsComponent
+} from "@client/presentation/component/business-settings/base-currency.business-settings.component";
 
 @Component({
 	selector: 'client-container-business-settings-component',
@@ -27,6 +30,8 @@ import {
 			<client-email-language-business-settings-component
 				[availableLanguagesControl]="businessSettings.controls.availableLanguages"
 				[control]="businessSettings.controls.emailLanguage"/>
+			<app-client-base-currency-business-settings-component
+				[control]="businessSettings.controls.baseCurrency"/>
 			<client-currencies-business-settings-component
 				[control]="businessSettings.controls.currencies"/>
 			<client-booking-settings-time-zone-component
@@ -40,7 +45,8 @@ import {
 		NgIf,
 		CurrenciesBusinessSettingsComponent,
 		MandatoryAttendeePropertiesComponent,
-		TimeZoneBookingSettingsComponent
+		TimeZoneBookingSettingsComponent,
+		BaseCurrencyBusinessSettingsComponent
 	],
 	standalone: true
 })

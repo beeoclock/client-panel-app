@@ -13,6 +13,9 @@
         },
         "note": {
           "placeholder": "It is better to have and not need than not to have and need, leave a note from which you will understand what happened later"
+        },
+        "type": {
+          "label": "Type"
         }
       },
       "membersIds": {
@@ -202,6 +205,10 @@
               "availableLanguages": {
                 "hint": "Choose the languages in which you do business, maybe you do business not only for locals but also for tourists. This choice will determine the available list of languages for emails",
                 "label": "Languages in which you do business"
+              },
+              "baseCurrency": {
+                "hint": "Select the main currency in which you operate, this is necessary for reports and the correct presentation of the amount when placing an order.",
+                "label": "Main currency"
               },
               "currencies": {
                 "hint": "Select the currencies in which you can receive payment for the service provided, thanks to this setting you can choose a specific currency for a specific service.",

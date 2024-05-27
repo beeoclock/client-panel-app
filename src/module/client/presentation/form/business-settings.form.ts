@@ -7,6 +7,7 @@ export interface IBusinessSettingsForm {
 	availableLanguages: FormControl<LanguageCodeEnum[]>;
 	emailLanguage: FormControl<LanguageCodeEnum>;
 	currencies: FormControl<CurrencyCodeEnum[]>;
+	baseCurrency: FormControl<CurrencyCodeEnum>;
 }
 
 export class BusinessSettingsForm extends FormGroup<IBusinessSettingsForm> {
@@ -25,6 +26,7 @@ export class BusinessSettingsForm extends FormGroup<IBusinessSettingsForm> {
 			currencies: new FormControl([], {
 				nonNullable: true,
 			}),
+			baseCurrency: new FormControl(),
 			emailLanguage: new FormControl(LanguageCodeEnum.en, {
 				nonNullable: true,
 			}),
@@ -39,6 +41,7 @@ export class BusinessSettingsForm extends FormGroup<IBusinessSettingsForm> {
 		this.controls.availableLanguages.setValidators([Validators.required, Validators.minLength(1)]);
 		this.controls.emailLanguage.setValidators([Validators.required]);
 		this.controls.currencies.setValidators([Validators.required, Validators.minLength(1)]);
+		this.controls.baseCurrency.setValidators([Validators.required]);
 	}
 
 }

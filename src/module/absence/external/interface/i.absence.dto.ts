@@ -10,7 +10,7 @@ export interface IAbsenceDto {
 	end: string;
 	type: AbsenceTypeEnum;
 	entireBusiness: boolean;
-	// members?: MemberDto[]; // TODO
+	memberIds: string[];
 	// locations?: LocationDto[]; // TODO
 	timeZone: string;
 	// meta?: MetaDto;

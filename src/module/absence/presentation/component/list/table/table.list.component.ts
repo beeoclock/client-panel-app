@@ -1,5 +1,5 @@
 import {Component, ViewEncapsulation} from "@angular/core";
-import {CurrencyPipe, NgForOf} from "@angular/common";
+import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {
@@ -41,7 +41,8 @@ import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 		RowTableFlexDirective,
 		TableTableFlexDirective,
 		NoDataPipe,
-		RowActionButtonComponent
+		RowActionButtonComponent,
+		NgIf
 	]
 })
 export class TableListComponent extends TableComponent<IAbsenceDto> {
@@ -50,28 +51,23 @@ export class TableListComponent extends TableComponent<IAbsenceDto> {
 
 	public readonly tableConfiguration = {
 		columns: {
-			email: {
+			type: {
 				style: {
-					minWidth: '350px',
+					minWidth: '150px',
 					flexGrow: 1,
 				},
 			},
-			lastName: {
+			start: {
 				style: {
 					minWidth: '200px',
 				},
 			},
-			firstName: {
-				style: {
-					minWidth: '120px',
-				},
-			},
-			phone: {
+			end: {
 				style: {
 					minWidth: '200px',
 				},
 			},
-			active: {
+			attendees: {
 				style: {
 					minWidth: '200px',
 				},

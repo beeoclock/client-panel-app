@@ -113,6 +113,6 @@ bootstrapApplication(MainRouterOutlet, {
 		provideServiceWorker('ngsw-worker.js', {
 			enabled: !isDevMode(),
 			registrationStrategy: 'registerWhenStable:30000'
-		})
+		}),
 	]
 }).catch(e => console.error(e));
