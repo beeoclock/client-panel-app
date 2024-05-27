@@ -7,14 +7,15 @@ import {
 	Input,
 	ViewEncapsulation
 } from "@angular/core";
-import {
-	ComposeCalendarWithSpecialistsService
-} from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
+
 import {IEvent, RIEvent} from "@event/domain";
 import {DatePipe, NgIf} from "@angular/common";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 import {Store} from "@ngxs/store";
 import {EventActions} from "@event/state/event/event.actions";
+import {
+	ComposeCalendarWithSpecialistsService
+} from "@page/event/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 
 @Component({
 	selector: 'event-card-component',

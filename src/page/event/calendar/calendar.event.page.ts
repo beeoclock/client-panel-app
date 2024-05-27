@@ -22,7 +22,7 @@ import {InitCalendarAction} from "@event/state/calendar/actions/init.calendar.ac
 import {ContainerCalendarComponent} from "@event/presentation/component/calendar/container.calendar.component";
 
 @Component({
-	selector: 'event-calendar-page',
+	selector: 'app-event-calendar-page',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		FilterComponent,
@@ -45,7 +45,7 @@ import {ContainerCalendarComponent} from "@event/presentation/component/calendar
 			[hidden]="initialized.isFalse"/>
 	`
 })
-export default class Index extends Reactive implements OnInit, AfterViewInit, OnDestroy {
+export default class CalendarEventPage extends Reactive implements OnInit, AfterViewInit, OnDestroy {
 
 	private readonly calendarDomManipulationService = inject(DataCalendarDomManipulationService);
 	private readonly ngxLogger = inject(NGXLogger);

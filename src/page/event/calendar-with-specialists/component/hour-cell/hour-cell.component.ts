@@ -1,7 +1,7 @@
 import {Component, HostBinding, inject, Input, ViewEncapsulation} from "@angular/core";
 import {
 	ComposeCalendarWithSpecialistsService
-} from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
+} from "@page/event/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 
 @Component({
 	selector: 'event-hour-cell-component',

@@ -8,7 +8,7 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {
-	TableStatePaginationComponent
+    TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {FilterComponent} from "@event/presentation/component/filter/filter.component";
@@ -18,23 +18,23 @@ import {RouterLink} from "@angular/router";
 import {StarterComponent} from "@utility/presentation/component/starter/starter.component";
 import {TableListComponent} from "@event/presentation/component/list/table/table.list.component";
 import {
-	NotFoundTableDataComponent
+    NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {CardListComponent} from "@event/presentation/component/list/card/card.list.component";
 import {MobileLayoutListComponent} from "@event/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {
-	DesktopLayoutListComponent
+    DesktopLayoutListComponent
 } from "@event/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {EventRequestedState} from "@event/state/event-requested/event-requested.state";
 import {EventRequestedActions} from "@event/state/event-requested/event-requested.actions";
 import {
-	ListOfCardCollectionByDateComponent
+    ListOfCardCollectionByDateComponent
 } from "@event/presentation/component/requsted/list-of-card-collection-by-date/list-of-card-collection-by-date.component";
 import {IonicModule} from "@ionic/angular";
 
 @Component({
-	selector: 'event-requested-page',
-	templateUrl: './index.html',
+	selector: 'app-event-requested-page',
+	templateUrl: './requested.event.page.html',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
@@ -62,7 +62,7 @@ import {IonicModule} from "@ionic/angular";
 	],
 	standalone: true
 })
-export default class Index extends ListPage {
+export default class RequestedEventPage extends ListPage {
 
 	public override readonly actions = EventRequestedActions;
 

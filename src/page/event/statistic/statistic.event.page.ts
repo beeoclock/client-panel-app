@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/co
 import {StatisticComponent} from "@event/presentation/component/statistic/statistic.component";
 
 @Component({
-	selector: 'event-statistic-page',
+	selector: 'app-event-statistic-page',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
@@ -13,6 +13,6 @@ import {StatisticComponent} from "@event/presentation/component/statistic/statis
 		<event-statistic-component/>
 	`
 })
-export default class Index {
+export default class StatisticEventPage {
 
 }

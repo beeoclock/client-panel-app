@@ -1,16 +1,16 @@
 import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, ViewEncapsulation} from "@angular/core";
-import {
-	ComposeCalendarWithSpecialistsService
-} from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 import {RIEvent} from "@event/domain";
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
-import {
-	EventCardComponent
-} from "@event/presentation/page/calendar-with-specialists/component/container/data-frame/event-card/event-card.component";
 import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
 import {
+	ComposeCalendarWithSpecialistsService
+} from "@page/event/calendar-with-specialists/component/compose.calendar-with-specialists.service";
+import {
+	EventCardComponent
+} from "@page/event/calendar-with-specialists/component/container/data-frame/event-card/event-card.component";
+import {
 	ListOfEventsInTheGroupComponent
-} from "@event/presentation/page/calendar-with-specialists/component/container/data-frame/event-card/list-of-events-in-the-group.component";
+} from "@page/event/calendar-with-specialists/component/container/data-frame/event-card/list-of-events-in-the-group.component";
 
 @Component({
 	selector: 'group-event-card-component',

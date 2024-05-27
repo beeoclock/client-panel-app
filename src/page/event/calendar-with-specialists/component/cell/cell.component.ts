@@ -4,9 +4,7 @@ import {NGXLogger} from "ngx-logger";
 import {
 	ScrollCalendarDomManipulationService
 } from "@event/presentation/dom-manipulation-service/scroll.calendar.dom-manipulation-service";
-import {
-	ComposeCalendarWithSpecialistsService
-} from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
+
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
@@ -14,6 +12,9 @@ import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-special
 import {firstValueFrom} from "rxjs";
 import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
 import {AdditionalMenuComponent} from "@event/presentation/component/additional-menu/additional-menu.component";
+import {
+	ComposeCalendarWithSpecialistsService
+} from "@page/event/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 
 @Component({
 	selector: 'event-cell-component',

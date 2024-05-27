@@ -1,28 +1,24 @@
 import {Component, inject, OnInit, ViewEncapsulation} from "@angular/core";
 import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
-import {TimeLineComponent} from "@event/presentation/page/calendar-with-specialists/component/time-line.component";
-import {
-	HeaderCalendarComponent
-} from "@event/presentation/page/calendar-with-specialists/component/header.calendar.component";
 import {
 	ScrollCalendarDomManipulationService
 } from "@event/presentation/dom-manipulation-service/scroll.calendar.dom-manipulation-service";
-import {
-	HourCellComponent
-} from "@event/presentation/page/calendar-with-specialists/component/hour-cell/hour-cell.component";
-import {CellComponent} from "@event/presentation/page/calendar-with-specialists/component/cell/cell.component";
-import {
-	ContainerCalendarWithSpecialistsComponent
-} from "@event/presentation/page/calendar-with-specialists/component/container/container.calendar-with-specialists.component";
-import {
-	DateControlCalendarWithSpecialistsComponent
-} from "@event/presentation/page/calendar-with-specialists/component/filter/date-control/date-control.calendar-with-specialists.component";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {ActivatedRoute} from "@angular/router";
 import {Reactive} from "@src/module/utility/cdk/reactive";
 import {Store} from "@ngxs/store";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
+import {TimeLineComponent} from "@page/event/calendar-with-specialists/component/time-line.component";
+import {HeaderCalendarComponent} from "@page/event/calendar-with-specialists/component/header.calendar.component";
+import {HourCellComponent} from "@page/event/calendar-with-specialists/component/hour-cell/hour-cell.component";
+import {
+	ContainerCalendarWithSpecialistsComponent
+} from "@page/event/calendar-with-specialists/component/container/container.calendar-with-specialists.component";
+import {
+	DateControlCalendarWithSpecialistsComponent
+} from "@page/event/calendar-with-specialists/component/filter/date-control/date-control.calendar-with-specialists.component";
+import {CellComponent} from "@page/event/calendar-with-specialists/component/cell/cell.component";
 
 @Component({
 	selector: 'event-compose-calendar-with-specialists-component',

@@ -1,16 +1,14 @@
 import {Component, HostBinding, inject, Input, ViewEncapsulation} from "@angular/core";
-import {CellComponent} from "@event/presentation/page/calendar-with-specialists/component/cell/cell.component";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
-import {TimeLineComponent} from "@event/presentation/page/calendar-with-specialists/component/time-line.component";
 import * as Member from "@member/domain";
-import {
-	ComposeCalendarWithSpecialistsService
-} from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {filter, map, startWith, switchMap} from "rxjs";
 import {Store} from "@ngxs/store";
 import {is} from "thiis";
 import {DateTime} from "luxon";
+import {ComposeCalendarWithSpecialistsService} from "../../compose.calendar-with-specialists.service";
+import {TimeLineComponent} from "../../time-line.component";
+import {CellComponent} from "../../cell/cell.component";
 
 @Component({
 	selector: 'event-slot-frame-component',

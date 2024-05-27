@@ -9,27 +9,23 @@ import {
 	ViewEncapsulation
 } from "@angular/core";
 import {DatePipe, NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
-import {TimeLineComponent} from "@event/presentation/page/calendar-with-specialists/component/time-line.component";
-import {
-	HeaderCalendarComponent
-} from "@event/presentation/page/calendar-with-specialists/component/header.calendar.component";
-import {
-	ComposeCalendarWithSpecialistsService
-} from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 import * as Member from "@member/domain";
 import {
 	ScrollCalendarDomManipulationService
 } from "@event/presentation/dom-manipulation-service/scroll.calendar.dom-manipulation-service";
-import {
-	HourCellComponent
-} from "@event/presentation/page/calendar-with-specialists/component/hour-cell/hour-cell.component";
-import {CellComponent} from "@event/presentation/page/calendar-with-specialists/component/cell/cell.component";
+import {TimeLineComponent} from "@page/event/calendar-with-specialists/component/time-line.component";
+import {HeaderCalendarComponent} from "@page/event/calendar-with-specialists/component/header.calendar.component";
+import {HourCellComponent} from "@page/event/calendar-with-specialists/component/hour-cell/hour-cell.component";
+import {CellComponent} from "@page/event/calendar-with-specialists/component/cell/cell.component";
 import {
 	SlotFrameComponent
-} from "@event/presentation/page/calendar-with-specialists/component/container/slot-frame/slot-frame.component";
+} from "@page/event/calendar-with-specialists/component/container/slot-frame/slot-frame.component";
 import {
 	DataFrameComponent
-} from "@event/presentation/page/calendar-with-specialists/component/container/data-frame/data-frame.component";
+} from "@page/event/calendar-with-specialists/component/container/data-frame/data-frame.component";
+import {
+	ComposeCalendarWithSpecialistsService
+} from "@page/event/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 
 @Component({
 	selector: 'event-container-calendar-with-specialists-component',

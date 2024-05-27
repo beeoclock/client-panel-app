@@ -1,20 +1,20 @@
 import {
-	AfterViewInit,
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	HostBinding,
-	inject,
-	Input,
-	OnDestroy,
-	OnInit,
-	ViewEncapsulation
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    HostBinding,
+    inject,
+    Input,
+    OnDestroy,
+    OnInit,
+    ViewEncapsulation
 } from "@angular/core";
 import {DatePipe, NgIf, NgStyle} from "@angular/common";
 import {
-	ComposeCalendarWithSpecialistsService
-} from "@event/presentation/page/calendar-with-specialists/component/compose.calendar-with-specialists.service";
+    ComposeCalendarWithSpecialistsService
+} from "@page/event/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 
 @Component({
 	selector: 'event-time-line-component',
