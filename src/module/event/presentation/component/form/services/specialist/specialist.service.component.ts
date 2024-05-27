@@ -37,10 +37,10 @@ export class SpecialistServiceComponent {
 
 	public get selectedSpecialist(): ISpecialist | undefined {
 		const service = this.serviceListControl.value[this.index];
-		if (!service) {
-			return undefined;
+		if (service?.specialists?.length > 0) {
+			return service.specialists[0];
 		}
-		return service.specialists[0];
+		return undefined;
 	}
 
 	public changeMemberInSpecialist(member: RIMember): void {
