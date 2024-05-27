@@ -372,6 +372,16 @@
       }
     },
     "additionalMenu": {
+      "items": {
+        "addNewAbsence": {
+          "hint": "Through this option you will add a new break in your calendar for yourself or for others.",
+          "title": "Add a new absence"
+        },
+        "addNewOrder": {
+          "hint": "Through this option, you will add a new order with the service and product.",
+          "title": "Add a new order"
+        }
+      },
       "title": "Additional menu"
     },
     "details": {

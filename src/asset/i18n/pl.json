@@ -372,6 +372,16 @@
       }
     },
     "additionalMenu": {
+      "items": {
+        "addNewAbsence": {
+          "hint": "Za pomocą tej opcji można dodać nową przerwę w kalendarzu dla siebie lub innych osób.",
+          "title": "Dodaj nową nieobecność"
+        },
+        "addNewOrder": {
+          "hint": "Za pomocą tej opcji dodasz nowe zamówienie z usługą i produktem.",
+          "title": "Dodaj nowe zamówienie"
+        }
+      },
       "title": "Dodatkowe menu"
     },
     "details": {

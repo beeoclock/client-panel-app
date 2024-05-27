@@ -372,6 +372,16 @@
       }
     },
     "additionalMenu": {
+      "items": {
+        "addNewAbsence": {
+          "hint": "Med denne mulighed kan du tilføje en ny pause i din kalender til dig selv eller andre.",
+          "title": "Tilføj et nyt fravær"
+        },
+        "addNewOrder": {
+          "hint": "Med denne mulighed tilføjer du en ny ordre med service og produkt.",
+          "title": "Tilføj en ny ordre"
+        }
+      },
       "title": "Ekstra menu"
     },
     "details": {

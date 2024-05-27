@@ -4,29 +4,35 @@ import {PushBoxService} from "@utility/presentation/component/push-box/push-box.
 import {Store} from "@ngxs/store";
 import {OrderActions} from "@order/state/order/order.actions";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-additional-menu',
     standalone: true,
     encapsulation: ViewEncapsulation.None,
+    imports: [
+        TranslateModule
+    ],
     template: `
         <div class="grid grid-cols-1 gap-4 p-4">
-            <button type="button" (click)="openOrderForm()" class="text-start bg-gray-50 hover:bg-gray-100 p-4 cursor-pointer rounded-md border border-gray-300 transition-colors duration-300">
+            <button type="button" (click)="openOrderForm()"
+                    class="text-start bg-gray-50 hover:bg-gray-100 p-4 cursor-pointer rounded-md border border-gray-300 transition-colors duration-300">
                 <h3 class="text-lg font-semibold text-black mb-2">
                     <i class="w-6 h-6 me-1 text-beeColor-500 transition duration-75 dark:text-beeDarkColor-400 bi bi-cart"></i>
-                    Dodaj nowe zamówienie
+                    {{ 'event.additionalMenu.items.addNewOrder.title' | translate }}
                 </h3>
                 <p class="text-gray-600">
-                    Przez tą opcji będziesz dodawać nowe zamówienie wraz z usługą i produktem.
+                    {{ 'event.additionalMenu.items.addNewOrder.hint' | translate }}
                 </p>
             </button>
-            <button type="button" (click)="openAbsenceForm()" class="text-start bg-gray-50 hover:bg-gray-100 p-4 cursor-pointer rounded-md border border-gray-300 transition-colors duration-300">
+            <button type="button" (click)="openAbsenceForm()"
+                    class="text-start bg-gray-50 hover:bg-gray-100 p-4 cursor-pointer rounded-md border border-gray-300 transition-colors duration-300">
                 <h3 class="text-lg font-semibold text-black mb-2">
                     <i class="w-6 h-6 me-1 text-beeColor-500 transition duration-75 dark:text-beeDarkColor-400 bi bi-calendar2-x"></i>
-                    Dodaj nową przerwę
+                    {{ 'event.additionalMenu.items.addNewAbsence.title' | translate }}
                 </h3>
                 <p class="text-gray-600">
-                    Przez tą opcji będziesz dodawać nową przerwę w swoim kalendarzu dla siebie lub dla innych.
+                    {{ 'event.additionalMenu.items.addNewAbsence.hint' | translate }}
                 </p>
             </button>
         </div>
