@@ -26,7 +26,7 @@ export class ServiceOrderForm extends BaseEntityForm<'OrderServiceDto', IService
 
             orderServiceDetails: new FormControl(),
 
-            status: new FormControl(OrderServiceStatusEnum.PENDING, {
+            status: new FormControl(OrderServiceStatusEnum.pending, {
                 nonNullable: true,
             }),
 

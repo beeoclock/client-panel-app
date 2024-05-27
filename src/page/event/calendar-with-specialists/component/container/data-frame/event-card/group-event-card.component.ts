@@ -1,24 +1,45 @@
 import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, ViewEncapsulation} from "@angular/core";
-import {RIEvent} from "@event/domain";
+import {IEvent_V2} from "@event/domain";
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
 import {
 	ComposeCalendarWithSpecialistsService
 } from "@page/event/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 import {
-	EventCardComponent
-} from "@page/event/calendar-with-specialists/component/container/data-frame/event-card/event-card.component";
+	OrderEventCardComponent
+} from "@page/event/calendar-with-specialists/component/container/data-frame/event-card/order-event-card.component";
 import {
 	ListOfEventsInTheGroupComponent
 } from "@page/event/calendar-with-specialists/component/container/data-frame/event-card/list-of-events-in-the-group.component";
+import {
+	AbsenceEventCardComponent
+} from "@page/event/calendar-with-specialists/component/container/data-frame/event-card/absence-event-card.component";
+import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 
 @Component({
 	selector: 'group-event-card-component',
 	template: `
-		<event-card-component
-			[id]="event.data._id"
-			[card]="event.card"
-			[event]="event"/>
+		<ng-container *ngIf="isOrder(event); else AbsenceTemplate">
+
+			<order-event-card-component
+				[id]="event.data._id"
+				[card]="event.card"
+				[event]="event"/>
+
+		</ng-container>
+		<ng-template #AbsenceTemplate>
+			<ng-container *ngIf="isAbsence(event); else UnknownTemplate">
+				<absence-event-card-component
+					[id]="event.data._id"
+					[card]="event.card"
+					[event]="event"/>
+			</ng-container>
+		</ng-template>
+		<ng-template #UnknownTemplate>
+			<!--            Unknown            -->
+		</ng-template>
 		<div class="z-10">
 			<button type="button" (click)="openPushBoxWithEvents()" class="border rounded-2xl p-1 mt-1 mb-1 mr-1 flex justify-center items-center cursor-pointer transition-all hover:bg-blue-100 hover:text-blue-600 hover:border-blue-400">
 				+{{ groupEvents.length - 1 }}
@@ -29,8 +50,9 @@ import {
 	imports: [
 		DatePipe,
 		NgIf,
-		EventCardComponent,
-		NgForOf
+		OrderEventCardComponent,
+		NgForOf,
+		AbsenceEventCardComponent
 	],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
@@ -39,7 +61,7 @@ export class GroupEventCardComponent {
 
 	@Input()
 	public groupEvents!: {
-		data: RIEvent;
+		data: IEvent_V2;
 		card: {
 			startTime: number;
 			durationInMinutes: number;
@@ -95,6 +117,28 @@ export class GroupEventCardComponent {
 				groupEvents: this.groupEvents.slice(1)
 			}
 		});
+	}
+
+	public isOrder(event: { data: IEvent_V2 }): event is {
+		data: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>;
+		card: {
+			startTime: number;
+			durationInMinutes: number;
+			column: number;
+		};
+	} {
+		return event.data.is === 'order';
+	}
+
+	public isAbsence(event: { data: IEvent_V2 }): event is {
+		data: IEvent_V2<IAbsenceDto>;
+		card: {
+			startTime: number;
+			durationInMinutes: number;
+			column: number;
+		};
+	} {
+		return event.data.is === 'absence';
 	}
 
 }

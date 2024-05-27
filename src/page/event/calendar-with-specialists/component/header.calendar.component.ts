@@ -41,6 +41,11 @@ export class HeaderCalendarComponent {
 	}
 
 	@HostBinding()
+	public get id(): string {
+		return 'header-of-calendar-' + (this.member?._id ?? '');
+	}
+
+	@HostBinding()
 	public get class() {
 		return 'row-start-[1] sticky top-0 z-20 bg-white dark:bg-gradient-to-b dark:from-slate-600 dark:to-slate-700 border-slate-100 dark:border-black/10 border-b';
 	}

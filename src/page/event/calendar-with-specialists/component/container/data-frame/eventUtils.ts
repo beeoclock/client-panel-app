@@ -1,6 +1,6 @@
-import {RIEvent} from "@event/domain";
+import {IEvent_V2} from "@event/domain";
 
-export function isOverlapping(event1: RIEvent, event2: RIEvent, options = {
+export function isOverlapping(event1: IEvent_V2, event2: IEvent_V2, options = {
 	inside: true,
 	cover: true,
 	startInside: true,
@@ -17,8 +17,8 @@ export function isOverlapping(event1: RIEvent, event2: RIEvent, options = {
 	) || false;
 }
 
-export function groupOverlappingEvents<T>(events: RIEvent[]): T[] {
-	const groups: RIEvent[][] = [];
+export function groupOverlappingEvents<T>(events: IEvent_V2[]): T[] {
+	const groups: IEvent_V2[][] = [];
 
 	for (const event of events) {
 		let foundGroup = false;
