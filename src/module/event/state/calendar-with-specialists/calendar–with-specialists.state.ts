@@ -78,9 +78,6 @@ export class CalendarWithSpecialistsState {
             }),
         ]);
 
-        const paramsStart = DateTime.fromISO(params.start).toJSDate();
-        const paramsEnd = DateTime.fromISO(params.end).toJSDate();
-
         const data: IEvent_V2[] = [
             ...orderPaged.items.reduce((acc, order) => {
                 if (order.services.length === 0) {
@@ -88,18 +85,6 @@ export class CalendarWithSpecialistsState {
                 }
 
                 order.services.forEach((service) => {
-
-                    // Filter by start and end, algorithm is range: start >= params.start && end <= params.end
-
-                    const serviceStart = DateTime.fromISO(service.orderServiceDetails.start).toJSDate();
-                    const serviceEnd = DateTime.fromISO(service.orderServiceDetails.end).toJSDate();
-
-                    if (
-                        serviceEnd < paramsStart ||
-                        serviceStart > paramsEnd
-                    ) {
-                        return;
-                    }
 
                     const attendees = service.orderServiceDetails.specialists.map((specialist) => {
                         return {
@@ -163,23 +148,6 @@ export class CalendarWithSpecialistsState {
             loader: false,
             data,
         });
-
-        // this.listMergedEventApiAdapter.executeAsync(params).then((data) => {
-        //
-        // 	ctx.patchState({
-        // 		loader: false,
-        // 		data,
-        // 	})
-        //
-        // }).catch((error) => {
-        //
-        // 	this.ngxLogger.error('CalendarWithSpecialistsState.getItems', error);
-        //
-        // 	ctx.patchState({
-        // 		loader: false,
-        // 	});
-        //
-        // });
 
     }
 
