@@ -50,7 +50,7 @@ export class ServiceOrderFormArray extends FormArray<ServiceOrderForm> {
         super([]);
     }
 
-    public pushNewOne(initialValue?: Partial<IOrderServiceDto> | undefined): ServiceOrderForm {
+    public pushNewOne(initialValue?: Partial<IOrderServiceDto> | undefined, index: number | undefined = undefined): ServiceOrderForm {
 
         const control = new ServiceOrderForm();
 
@@ -60,7 +60,12 @@ export class ServiceOrderFormArray extends FormArray<ServiceOrderForm> {
 
         }
 
-        this.push(control);
+        if (index !== undefined) {
+            this.insert(index, control);
+        } else {
+            this.push(control);
+        }
+
         this.updateValueAndValidity();
 
         return control;

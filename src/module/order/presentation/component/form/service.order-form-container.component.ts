@@ -40,6 +40,7 @@ import {EventStatusStyleDirective} from "@event/presentation/directive/event-sta
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
+import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 
 
 @Component({
@@ -128,7 +129,7 @@ import {LinkButtonDirective} from "@utility/presentation/directives/button/link.
                             <i class="bi bi-trash"></i>
                             {{ 'keyword.capitalize.delete' | translate }}
                         </button>
-                        <button type="button" primaryLink (click)="edit()">
+                        <button type="button" primaryLink (click)="edit(service, index)">
                             <i class="bi bi-pencil"></i>
                             {{ 'keyword.capitalize.edit' | translate }}
                         </button>
@@ -250,7 +251,7 @@ export class ServiceOrderFormContainerComponent implements OnInit {
 
             componentRef.instance.destroySelf();
 
-        })
+        });
 
         const {instance} = renderedComponentRef;
 
@@ -262,7 +263,87 @@ export class ServiceOrderFormContainerComponent implements OnInit {
         this.form.controls.services.removeAt(index);
     }
 
-    public edit() {
+    public async edit(service: Partial<IOrderServiceDto>, index: number) {
+
+        this.ngxLogger.info('ServiceOrderFormContainerComponent.edit()');
+
+        const componentRef = await this.pushBoxService.buildItAsync({
+            title: this.translateService.instant('event.form.title.create'),
+            component: ContainerFormComponent,
+            componentInputs: {
+                isEditMode: true,
+                useDefaultFlow: false,
+                orderServiceDto: service,
+                // forceStart: componentInputs?.datetimeISO,
+                // isEditMode: !!componentInputs?.event,
+            },
+        }).then((test) => {
+            console.log('test', test)
+            return test;
+        });
+
+        console.log('componentRef', componentRef);
+
+        if (!componentRef) {
+            return;
+        }
+
+        const {renderedComponentRef} = componentRef.instance;
+
+        if (!renderedComponentRef) {
+            return;
+        }
+
+        renderedComponentRef.setInput('callback', (component: ContainerFormComponent, formValue: IEvent) => {
+            this.ngxLogger.info('callback', component, formValue);
+
+            if (!formValue.services || !formValue.services.length) {
+                return;
+            }
+
+            if (!formValue.attendees || !formValue.attendees.length) {
+                return;
+            }
+
+            if (!formValue.timeZone) {
+                return;
+            }
+
+            if (!formValue.start) {
+                return;
+            }
+
+            if (!formValue.end) {
+                return;
+            }
+
+            this.form.controls.services.pushNewOne({
+                customerNote: formValue.note,
+                orderServiceDetails: {
+                    object: 'OrderServiceDetailsDto',
+                    active: ActiveEnum.YES,
+                    start: formValue.start,
+                    end: formValue.end,
+                    type: ReservationTypeEnum.service,
+                    // languageCodes: LanguageCodeEnum[];
+                    // attachments: IAttachmentDto[];
+                    specialists: formValue.services[0].specialists,
+                    attendees: formValue.attendees,
+                    // locations: ILocationsDto[];
+                    timeZone: formValue.timeZone,
+                    createdAt: formValue.createdAt,
+                    updatedAt: formValue.updatedAt,
+                },
+                serviceSnapshot: {
+                    ...formValue.services[0],
+                    object: "ServiceDto",
+                } as unknown as IServiceDto,
+            }, index);
+
+
+            componentRef.instance.destroySelf();
+
+        });
 
     }
 

@@ -32,10 +32,12 @@
 				[serviceListControl]="form.controls.services"/>
 		</bee-card>
 
-		<bee-card *ngIf="slotsService.specialistExist">
+<!--		 *ngIf="slotsService.specialistExist"-->
+		<bee-card>
 
+<!--			[editable]="!isEditMode"-->
 			<event-select-time-slot-form-component
-				[editable]="!isEditMode"
+				[editable]="true"
 				[configurationForm]="form.controls.configuration"
 				[control]="form.controls.start"/>
 

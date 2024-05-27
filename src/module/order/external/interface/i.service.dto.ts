@@ -1,4 +1,4 @@
-import {LanguageCodeEnum} from "@utility/domain/enum";
+import {ActiveEnum, CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 
 export interface IServiceDto {
@@ -24,8 +24,8 @@ export interface IServiceDto {
 	languageVersions: {
 		title: string;
 		description: string;
-		language: string;
-		active: number;
+		language: LanguageCodeEnum;
+		active: ActiveEnum;
 	}[];
 	durationVersions: [
 		{
@@ -33,7 +33,7 @@ export interface IServiceDto {
 			durationInSeconds: number;
 			prices: {
 				price: number;
-				currency: string;
+				currency: CurrencyCodeEnum;
 				preferredLanguages: LanguageCodeEnum[];
 			}[];
 		}
