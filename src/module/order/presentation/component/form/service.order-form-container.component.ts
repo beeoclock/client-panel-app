@@ -39,6 +39,7 @@ import {
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
+import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
 
 
 @Component({
@@ -69,7 +70,8 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
         ChangeStatusOnRejectedComponent,
         EventStatusStyleDirective,
         NgIf,
-        NoDataPipe
+        NoDataPipe,
+        LinkButtonDirective
     ],
     standalone: true,
     template: `
@@ -80,7 +82,7 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 
             <div class="flex flex-wrap gap-4">
 
-                <bee-card class="text-sm w-full" gap="gap-2" *ngFor="let service of form.controls.services.value">
+                <bee-card class="text-sm w-full" gap="gap-2" *ngFor="let service of form.controls.services.value; let index = index">
 
                     <div class="flex justify-between items-center gap-8">
 
@@ -119,8 +121,21 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
                             {{ service.customerNote }}
                         </div>
                     </ng-container>
-                </bee-card>
 
+                    <div class="flex justify-between">
+
+                        <button type="button" link (click)="delete(index)">
+                            <i class="bi bi-trash"></i>
+                            {{ 'keyword.capitalize.delete' | translate }}
+                        </button>
+                        <button type="button" primaryLink (click)="edit()">
+                            <i class="bi bi-pencil"></i>
+                            {{ 'keyword.capitalize.edit' | translate }}
+                        </button>
+
+                    </div>
+
+                </bee-card>
 
             </div>
 
@@ -240,6 +255,14 @@ export class ServiceOrderFormContainerComponent implements OnInit {
         const {instance} = renderedComponentRef;
 
         console.log('instance', instance);
+
+    }
+
+    public delete(index: number) {
+        this.form.controls.services.removeAt(index);
+    }
+
+    public edit() {
 
     }
 
