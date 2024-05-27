@@ -137,7 +137,8 @@ export class MenuSidebarComponent implements OnInit {
 		this.menu.push({
 			order: 1,
 			translateKey: 'sidebar.calendar.label',
-			icon: 'bi bi-calendar2-event',
+			icon: 'bi bi-calendar-week',
+			// icon: 'bi bi-calendar2-event',
 			visible: true,
 			routerLinkActiveOptions: {
 				paths: "subset",
@@ -145,29 +146,29 @@ export class MenuSidebarComponent implements OnInit {
 				queryParams: "ignored",
 				fragment: "ignored",
 			},
-			url: '/event/list',
-			items: [
-				{
-					translateKey: 'sidebar.calendar.withSpecialists.label',
-					url: '/event/calendar-with-specialists',
-					icon: 'bi bi-person-badge',
-					routerLinkActiveOptions: {
-						exact: true
-					},
-					visible: true,
-					order: 0
-				},
-				{
-					url: '/event/calendar',
-					translateKey: 'sidebar.calendar.ordinary.label',
-					icon: 'bi bi-calendar-week',
-					routerLinkActiveOptions: {
-						exact: true
-					},
-					visible: true,
-					order: 1
-				},
-			]
+			url: '/event/calendar-with-specialists',
+			// items: [
+			// 	{
+			// 		translateKey: 'sidebar.calendar.withSpecialists.label',
+			// 		url: '/event/calendar-with-specialists',
+			// 		icon: 'bi bi-person-badge',
+			// 		routerLinkActiveOptions: {
+			// 			exact: true
+			// 		},
+			// 		visible: true,
+			// 		order: 0
+			// 	},
+			// 	{
+			// 		url: '/event/calendar',
+			// 		translateKey: 'sidebar.calendar.ordinary.label',
+			// 		icon: 'bi bi-calendar-week',
+			// 		routerLinkActiveOptions: {
+			// 			exact: true
+			// 		},
+			// 		visible: true,
+			// 		order: 1
+			// 	},
+			// ]
 		});
 		// this.menu.push({
 		// 	order: 3,
