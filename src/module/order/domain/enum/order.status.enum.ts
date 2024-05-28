@@ -1,4 +1,4 @@
-export enum OrderStatus {
+export enum OrderStatusEnum {
   draft = 'draft',
   unconfirmed = 'unconfirmed',
   confirmed = 'confirmed',
