@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
 import {RIMember} from "@member/domain";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-selected-member-additional-menu',
@@ -9,14 +10,17 @@ import {RIMember} from "@member/domain";
     template: `
         <div class="text-beeColor-400 flex justify-between text-sm">
             <div>
-                Selected member
+                {{ 'keyword.capitalize.selectedMember' | translate }}
             </div>
-<!--            <div>-->
-<!--                #{{ member._id }}-->
-<!--            </div>-->
+            <!--            <div>-->
+            <!--                #{{ member._id }}-->
+            <!--            </div>-->
         </div>
         <div class="text-beeColor-500">{{ member.firstName }}&nbsp;{{ member.lastName }}</div>
     `,
+    imports: [
+        TranslateModule
+    ]
 })
 export class SelectedMemberAdditionalMenuComponent {
 

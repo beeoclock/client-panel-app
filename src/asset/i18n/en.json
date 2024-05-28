@@ -963,6 +963,8 @@
       "select": "Select",
       "selectSpecialist": "Select specialist",
       "selected": "Selected",
+      "selectedDateTime": "Selected date and time",
+      "selectedMember": "Selected member",
       "send": "Send",
       "sendAgain": "Send again",
       "service": "Service",

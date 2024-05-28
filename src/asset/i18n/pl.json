@@ -963,6 +963,8 @@
       "select": "Wybierz",
       "selectSpecialist": "Wybierz specjalistę",
       "selected": "Wybrano",
+      "selectedDateTime": "Wybrana data i godzina",
+      "selectedMember": "Wybrany członek",
       "send": "Wyślij",
       "sendAgain": "Wyślij ponownie",
       "service": "Usługa",

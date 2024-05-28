@@ -963,6 +963,8 @@
       "select": "Vælg",
       "selectSpecialist": "Vælg specialist",
       "selected": "Valgt",
+      "selectedDateTime": "Valgt dato og klokkeslæt",
+      "selectedMember": "Udvalgt medlem",
       "send": "Send",
       "sendAgain": "Send igen",
       "service": "Tjeneste",

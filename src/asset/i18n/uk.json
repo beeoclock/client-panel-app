@@ -963,6 +963,8 @@
       "select": "Вибрати",
       "selectSpecialist": "Виберіть спеціаліста",
       "selected": "Обрано",
+      "selectedDateTime": "Обрані дата та час",
+      "selectedMember": "Обраний учасник",
       "send": "Відправити",
       "sendAgain": "Відправити ще раз",
       "service": "Послуга",
