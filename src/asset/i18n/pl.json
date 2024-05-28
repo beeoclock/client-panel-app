@@ -1011,11 +1011,14 @@
       "in": "w",
       "min": "min.",
       "no-data": "brak danych",
+      "now": "teraz",
       "or": "lub",
       "sec": "sek.",
       "service": "usługa",
       "short": {
-        "days": "d"
+        "days": "d",
+        "hour": "g",
+        "minutes": "min"
       }
     },
     "status": {

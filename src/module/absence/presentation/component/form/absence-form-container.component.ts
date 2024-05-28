@@ -104,7 +104,10 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 export class AbsenceFormContainerComponent extends Reactive implements OnInit {
 
     @Input()
-    public item!: Omit<IAbsenceDto, 'object'>;
+    public item!: Partial<IAbsenceDto>;
+
+    @Input()
+    public isEditMode: boolean = false;
 
     private readonly translateService = inject(TranslateService);
 
@@ -130,9 +133,8 @@ export class AbsenceFormContainerComponent extends Reactive implements OnInit {
 
         this.form.disable();
         this.form.markAsPending();
-        const isEditMode = !!this.item;
-        !isEditMode && await firstValueFrom(this.store.dispatch(new AbsenceActions.CreateItem(value)));
-        isEditMode && await firstValueFrom(this.store.dispatch(new AbsenceActions.UpdateItem(value)));
+        !this.isEditMode && await firstValueFrom(this.store.dispatch(new AbsenceActions.CreateItem(value)));
+        this.isEditMode && await firstValueFrom(this.store.dispatch(new AbsenceActions.UpdateItem(value)));
         this.form.enable();
         this.form.updateValueAndValidity();
 

@@ -1011,11 +1011,14 @@
       "in": "i",
       "min": "min.",
       "no-data": "ingen data",
+      "now": "nu",
       "or": "eller",
       "sec": "sek.",
       "service": "tjeneste",
       "short": {
-        "days": "d"
+        "days": "d",
+        "hour": "t",
+        "minutes": "min"
       }
     },
     "status": {

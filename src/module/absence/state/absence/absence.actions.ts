@@ -32,7 +32,7 @@ export namespace AbsenceActions {
 
 	export class OpenForm extends BaseActions.OpenForm<{
 		isEditMode?: boolean;
-		item?: IAbsenceDto;
+		item?: Partial<IAbsenceDto>;
 	}> {
 		public static override readonly type = '[Absence Application] Open Form';
 	}
