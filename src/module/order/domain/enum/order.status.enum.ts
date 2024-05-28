@@ -4,6 +4,6 @@ export enum OrderStatusEnum {
   confirmed = 'confirmed',
   pending = 'pending',
   done = 'done',
-  cancelled = 'cancelled',
-  rejected = "rejected"
+  cancelled = 'cancelled', // By customer
+  rejected = 'rejected' // By member
 }
