@@ -21,6 +21,7 @@ import {NGXLogger} from "ngx-logger";
 		<bee-card>
 
 			<utility-switch-component
+				[booleanValue]="true"
 				labelTranslateKey="keyword.capitalize.notification"
 				[id]="id"
 				[control]="control"/>

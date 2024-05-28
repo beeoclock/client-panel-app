@@ -65,6 +65,9 @@ export class SwitchComponent extends Reactive implements OnInit, OnChanges {
     public id = '';
 
     @Input()
+    public booleanValue = false;
+
+    @Input()
     public units: unknown[] = [ActiveEnum.NO, ActiveEnum.YES];
 
     @Input()
@@ -77,13 +80,24 @@ export class SwitchComponent extends Reactive implements OnInit, OnChanges {
         if (changes.control) {
 
             const control = changes.control.currentValue as FormControl;
-            this.localControl.setValue(this.units.indexOf(control.value) === 1);
+            if (this.booleanValue) {
+                this.localControl.setValue(control.value);
+            } else {
+                this.localControl.setValue(this.units.indexOf(control.value) === 1);
+            }
             control.valueChanges.pipe(
                 this.takeUntil(),
                 filter((value) => {
+                    if (this.booleanValue) {
+                        return this.localControl.value !== value;
+                    }
                     return this.units[Number(this.localControl.value)] !== value;
                 })
             ).subscribe((value) => {
+                if (this.booleanValue) {
+                    this.localControl.setValue(value);
+                    return;
+                }
                 this.localControl.setValue(this.units.indexOf(value) === 1);
             });
 
@@ -97,6 +111,10 @@ export class SwitchComponent extends Reactive implements OnInit, OnChanges {
             this.takeUntil(),
             filter(is.boolean),
         ).subscribe((value) => {
+            if (this.booleanValue) {
+                this.control.setValue(value);
+                return;
+            }
             this.control.setValue(
                 value ? this.units[1] : this.units[0],
             );

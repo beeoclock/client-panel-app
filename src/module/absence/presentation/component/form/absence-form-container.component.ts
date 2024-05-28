@@ -77,7 +77,7 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 
                 <utility-switch-component
                         id="absence-form-entire-business-switch"
-                        [units]="[false, true]"
+                        [booleanValue]="true"
                         [control]="form.controls.entireBusiness"
                         [label]="'absence.form.inputs.entireBusiness.label' | translate"/>
 
