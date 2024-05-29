@@ -11,11 +11,12 @@ import {
 import {IAttendee, IEvent_V2} from "@event/domain";
 import {DatePipe, NgIf} from "@angular/common";
 import {Store} from "@ngxs/store";
-import {EventActions} from "@event/state/event/event.actions";
 import {
     ComposeCalendarWithSpecialistsService
 } from "@page/event/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {TranslateModule} from "@ngx-translate/core";
+import {AbsenceActions} from "@absence/state/absence/absence.actions";
 
 @Component({
     selector: 'absence-event-card-component',
@@ -29,7 +30,7 @@ import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 			</span>
         </div>
         <div class="text-xs font-medium">
-            BREAK
+            {{ ('absence.type.' + event.data.originalData.type + '.label') | translate }}
         </div>
         <div *ngIf="event.data.note" class="text-xs font-medium">
             📓 {{ event.data.note }}
@@ -38,7 +39,8 @@ import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
     standalone: true,
     imports: [
         DatePipe,
-        NgIf
+        NgIf,
+        TranslateModule
     ],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -71,7 +73,7 @@ export class AbsenceEventCardComponent {
 
     @HostListener('click')
     public async onClick() {
-        await this.openEventDetails(this.event.data);
+        await this.openAbsenceDetails(this.event.data);
     }
 
     @HostBinding('style.grid-row-start')
@@ -147,8 +149,8 @@ export class AbsenceEventCardComponent {
         }).join(', ');
     }
 
-    private async openEventDetails(event: IEvent_V2) {
-        this.store.dispatch(new EventActions.OpenDetailsById(event._id));
+    private async openAbsenceDetails(event: IEvent_V2<IAbsenceDto>) {
+        this.store.dispatch(new AbsenceActions.OpenDetailsById(event.originalData._id));
     }
 
 }
