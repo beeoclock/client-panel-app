@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
-import {RMIEvent} from "@event/domain";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
+import {IBaseEntity} from "@utility/domain";
 
 @Component({
 	selector: 'event-meta-details',
@@ -52,5 +52,5 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class MetaDetailsComponent {
 	@Input({required: true})
-	public event!: RMIEvent;
+	public event!: IBaseEntity<any>;
 }

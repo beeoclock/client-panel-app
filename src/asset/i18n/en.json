@@ -456,16 +456,18 @@
       "status": {
         "all": "All",
         "plural": {
-          "booked": "Booked",
+          "accepted": "Accepted",
           "cancelled": "Canceled",
           "done": "Done",
+          "pending": "Pending",
           "rejected": "Rejected",
           "requested": "Requested"
         },
         "singular": {
-          "booked": "Booked",
+          "accepted": "Accepted",
           "cancelled": "Canceled",
           "done": "Done",
+          "pending": "Pending",
           "rejected": "Rejected",
           "requested": "Requested"
         }

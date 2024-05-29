@@ -456,16 +456,18 @@
       "status": {
         "all": "Alle",
         "plural": {
-          "booked": "Booket",
+          "accepted": "Accepteret",
           "cancelled": "Aflyst",
           "done": "Færdig",
+          "pending": "Afventer",
           "rejected": "Afvist",
           "requested": "Anmodet"
         },
         "singular": {
-          "booked": "Booket",
+          "accepted": "Accepteret",
           "cancelled": "Aflyst",
           "done": "Færdig",
+          "pending": "Afventer",
           "rejected": "Afvist",
           "requested": "Anmodet"
         }

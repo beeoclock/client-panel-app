@@ -456,16 +456,18 @@
       "status": {
         "all": "Всі",
         "plural": {
-          "booked": "Зарезервовані",
+          "accepted": "Прийняті",
           "cancelled": "Скасовані",
           "done": "Виконані",
+          "pending": "На розгляді",
           "rejected": "Відхилані",
           "requested": "На запиті"
         },
         "singular": {
-          "booked": "Зарезервовано",
+          "accepted": "Прийнято",
           "cancelled": "Скасована",
           "done": "Виконано",
+          "pending": "На розгляді",
           "rejected": "Відхилено",
           "requested": "Запит"
         }

@@ -28,7 +28,7 @@ import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 
 			<event-v2-general-details [event]="event"/>
 <!--			<event-buttons-details [event]="event"/>-->
-<!--			<event-meta-details [event]="event"/>-->
+			<event-meta-details [event]="event.originalData.order"/>
 
 		</ng-container>
 

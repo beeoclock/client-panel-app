@@ -456,16 +456,18 @@
       "status": {
         "all": "Wszystkie",
         "plural": {
-          "booked": "Zarezerwowane",
+          "accepted": "Zaakceptowane",
           "cancelled": "Odwołane",
           "done": "Gotowe",
+          "pending": "Oczekujące",
           "rejected": "Odrzucone",
           "requested": "Zażądane"
         },
         "singular": {
-          "booked": "Zarezerwowane",
+          "accepted": "Zaakceptowany",
           "cancelled": "Odwołane",
           "done": "Gotowe",
+          "pending": "W toku",
           "rejected": "Odrzucono",
           "requested": "Zażądane"
         }
