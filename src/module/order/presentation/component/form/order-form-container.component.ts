@@ -138,15 +138,18 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 
     private async finishSave() {
         const {order, payment} = this.form.value as { order: IOrderDto, payment: IPaymentDto };
-        console.log({order, payment});
         this.form.disable();
         this.form.markAsPending();
         // TODO check for error response from order
         const createOrderResponse = await this.createOrderApiAdapter.executeAsync(order as IOrderDto);
-        payment.orderId = createOrderResponse._id;
-        const createPaymentResponse = await this.createPaymentApiAdapter.executeAsync(payment as IPaymentDto);
+        this.ngxLogger.info('Order created', createOrderResponse);
 
-        console.log(createPaymentResponse);
+        payment.orderId = createOrderResponse._id;
+
+        if (payment.orderId) {
+            const createPaymentResponse = await this.createPaymentApiAdapter.executeAsync(payment as IPaymentDto);
+            this.ngxLogger.info('Payment created', createPaymentResponse);
+        }
 
         this.form.enable();
         this.form.updateValueAndValidity();

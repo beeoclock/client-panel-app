@@ -127,7 +127,6 @@ export class PayerOrderFormContainerComponent implements OnInit {
 
         this.form.controls.payer.reset();
         this.form.controls.payer.controls.customerType.setValue(customerType);
-        console.log(this.form.controls.payer.value);
     }
 
     public isCustomerTypeSelected(customerType: CustomerTypeEnum): boolean {

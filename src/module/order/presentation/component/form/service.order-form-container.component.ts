@@ -196,8 +196,6 @@ export class ServiceOrderFormContainerComponent implements OnInit {
             // isEditMode: !!componentInputs?.event,
         };
 
-        console.log(this.setupPartialData)
-
         if (this.setupPartialData.defaultAppointmentStartDateTimeIso) {
             componentInputs.forceStart = this.setupPartialData.defaultAppointmentStartDateTimeIso;
         }
@@ -210,12 +208,7 @@ export class ServiceOrderFormContainerComponent implements OnInit {
             title: this.translateService.instant('event.form.title.create'),
             component: ContainerFormComponent,
             componentInputs,
-        }).then((test) => {
-            console.log('test', test)
-            return test;
         });
-
-        console.log('componentRef', componentRef);
 
         if (!componentRef) {
             return;
