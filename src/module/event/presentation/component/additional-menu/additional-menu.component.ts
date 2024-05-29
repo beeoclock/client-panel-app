@@ -158,8 +158,15 @@ export class AdditionalMenuComponent implements OnInit {
     }
 
     public openOrderForm() {
-        // TODO: set datetimeISO, member and callback in store
-        this.store.dispatch(new OrderActions.OpenForm());
+        this.store.dispatch(new OrderActions.OpenForm({
+            componentInputs: {
+                setupPartialData: {
+                    defaultAppointmentStartDateTimeIso: this.datetimeISO,
+                    defaultMemberForService: this.member
+                }
+            }
+        }));
+
         this.closeSelf();
     }
 

@@ -41,6 +41,7 @@ import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {RIMember} from "@member/domain";
 
 
 @Component({
@@ -81,7 +82,7 @@ import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 
             <div class="font-bold">{{ 'keyword.capitalize.services' | translate }}</div>
 
-            <div class="flex flex-wrap gap-4">
+            <div class="flex flex-wrap gap-4" *ngIf="form.controls.services.value.length">
 
                 <bee-card class="text-sm w-full" gap="gap-2" *ngFor="let service of form.controls.services.value; let index = index">
 
@@ -159,6 +160,12 @@ import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 export class ServiceOrderFormContainerComponent implements OnInit {
 
     @Input()
+    public setupPartialData: {
+        defaultAppointmentStartDateTimeIso?: string;
+        defaultMemberForService?: RIMember;
+    } = {};
+
+    @Input()
     public form!: OrderForm;
 
     public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
@@ -177,14 +184,32 @@ export class ServiceOrderFormContainerComponent implements OnInit {
 
         this.ngxLogger.info('ServiceOrderFormContainerComponent.addService()');
 
+        const componentInputs: {
+            useDefaultFlow: boolean;
+            isEditMode: boolean;
+            forceStart?: string;
+            member?: RIMember;
+        } = {
+            isEditMode: false,
+            useDefaultFlow: false,
+            // forceStart: componentInputs?.datetimeISO,
+            // isEditMode: !!componentInputs?.event,
+        };
+
+        console.log(this.setupPartialData)
+
+        if (this.setupPartialData.defaultAppointmentStartDateTimeIso) {
+            componentInputs.forceStart = this.setupPartialData.defaultAppointmentStartDateTimeIso;
+        }
+
+        if (this.setupPartialData.defaultMemberForService) {
+            componentInputs.member = this.setupPartialData.defaultMemberForService;
+        }
+
         const componentRef = await this.pushBoxService.buildItAsync({
             title: this.translateService.instant('event.form.title.create'),
             component: ContainerFormComponent,
-            componentInputs: {
-                useDefaultFlow: false,
-                // forceStart: componentInputs?.datetimeISO,
-                // isEditMode: !!componentInputs?.event,
-            },
+            componentInputs,
         }).then((test) => {
             console.log('test', test)
             return test;
@@ -248,6 +273,7 @@ export class ServiceOrderFormContainerComponent implements OnInit {
                 } as unknown as IServiceDto,
             });
 
+            // TODO: call function to increase defaultAppointmentStartDateTimeIso
 
             componentRef.instance.destroySelf();
 
@@ -267,16 +293,29 @@ export class ServiceOrderFormContainerComponent implements OnInit {
 
         this.ngxLogger.info('ServiceOrderFormContainerComponent.edit()');
 
+        const componentInputs: {
+            orderServiceDto: Partial<IOrderServiceDto>;
+            useDefaultFlow: boolean;
+            isEditMode: boolean;
+            forceStart?: string;
+        } = {
+            isEditMode: true,
+            useDefaultFlow: false,
+            orderServiceDto: service,
+            // forceStart: componentInputs?.datetimeISO,
+            // isEditMode: !!componentInputs?.event,
+        };
+
+        console.log(this.setupPartialData)
+
+        if (this.setupPartialData.defaultAppointmentStartDateTimeIso) {
+            componentInputs.forceStart = this.setupPartialData.defaultAppointmentStartDateTimeIso;
+        }
+
         const componentRef = await this.pushBoxService.buildItAsync({
             title: this.translateService.instant('event.form.title.create'),
             component: ContainerFormComponent,
-            componentInputs: {
-                isEditMode: true,
-                useDefaultFlow: false,
-                orderServiceDto: service,
-                // forceStart: componentInputs?.datetimeISO,
-                // isEditMode: !!componentInputs?.event,
-            },
+            componentInputs,
         });
 
         console.log('componentRef', componentRef);
@@ -336,6 +375,8 @@ export class ServiceOrderFormContainerComponent implements OnInit {
                     object: "ServiceDto",
                 } as unknown as IServiceDto,
             }, index);
+
+            // TODO: call function to increase defaultAppointmentStartDateTimeIso
 
             componentRef.instance.destroySelf();
 

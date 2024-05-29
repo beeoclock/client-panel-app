@@ -9,8 +9,10 @@ import {DurationSelectComponent} from "@utility/presentation/component/input/dur
 import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/price-and-currency.component";
 import {NGXLogger} from "ngx-logger";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
-import {merge, Subscription} from "rxjs";
+import {firstValueFrom, map, merge, Subscription} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
+import {Store} from "@ngxs/store";
+import {ClientState} from "@client/state/client/client.state";
 
 @Component({
 	selector: 'event-duration-version-type-range',
@@ -57,13 +59,16 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 	}[] = [];
 
 	private readonly logger = inject(NGXLogger);
+	private readonly store = inject(Store);
 
 	private selectedVariantIndex = -1;
 	private handler: Subscription | undefined;
 
-	constructor() {
-		super();
-	}
+	public readonly baseCurrency$ = this.store.select(ClientState.item).pipe(
+		map((item) => {
+			return item?.businessSettings?.baseCurrency;
+		})
+	);
 
 	public ngOnInit() {
 		this.logger.debug('ngOnInit');
@@ -78,7 +83,7 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 		return this.variantList[this.selectedVariantIndex];
 	}
 
-	public buildVariants(): void {
+	public async buildVariants() {
 		this.logger.debug('buildVariants');
 
 		// Clear previous variants
@@ -96,7 +101,8 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 		const showOnlyValueOfPrice = price !== null;
 
 		// Currency
-		const currency = durationVersion.prices[0].currency || null;
+		const baseCurrency = await firstValueFrom(this.baseCurrency$.pipe(this.takeUntil()));
+		const currency = durationVersion.prices[0].currency || baseCurrency || null;
 		const showOnlyValueOfCurrency = currency !== null;
 
 		// Duration

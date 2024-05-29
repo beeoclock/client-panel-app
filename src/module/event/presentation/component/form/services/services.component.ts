@@ -22,6 +22,8 @@ import {
 } from "@event/presentation/component/form/services/specialist/specialist.service.component";
 import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
 import {Reactive} from "@utility/cdk/reactive";
+import {RIMember} from "@member/domain";
+import {BooleanState} from "@utility/domain";
 
 @Component({
 	selector: 'event-service-component',
@@ -59,6 +61,15 @@ export class ServicesComponent extends Reactive implements OnInit {
 	@Input()
 	public editable = true;
 
+	@Input()
+	public rememberLastSelectedMember = true;
+
+	@Input()
+	public setMemberOnlyOnce = true;
+
+	@Input()
+	public member: RIMember | undefined;
+
 	@ViewChildren(DurationVersionTypeRangeComponent)
 	public durationVersionTypeRangeComponentList!: QueryList<DurationVersionTypeRangeComponent>;
 
@@ -67,6 +78,10 @@ export class ServicesComponent extends Reactive implements OnInit {
 	private readonly modalSelectServiceListAdapter = inject(ModalSelectServiceListAdapter);
 
 	public readonly loading$ = this.modalSelectServiceListAdapter.loading$;
+
+	private readonly memberHasBeenSet = new BooleanState(false);
+
+	private lastSelectedMember: RIMember | undefined;
 
 	public ngOnInit(): void {
 
@@ -81,6 +96,27 @@ export class ServicesComponent extends Reactive implements OnInit {
 			// this.modalSelectServiceService.selectedServiceList = this.serviceListControl.value;
 
 		});
+
+		if (this.rememberLastSelectedMember) {
+			this.serviceListControl.valueChanges.pipe(this.takeUntil()).subscribe((value) => {
+				// Check if all services have member if not set the last selected member
+				if (value.some((service) => !service?.specialists?.[0]?.member)) {
+					if (this.lastSelectedMember) {
+						const member = this.lastSelectedMember;
+						value.forEach((service) => {
+							if (!service?.specialists?.[0]?.member) {
+								service.specialists = [{
+									object: 'SpecialistDto',
+									member,
+								}];
+							}
+						});
+						return;
+					}
+				}
+				this.lastSelectedMember = value[0]?.specialists[0]?.member;
+			});
+		}
 
 	}
 
@@ -110,9 +146,20 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 		const {renderedComponentRef} = pushBoxWrapperComponentRef.instance;
 
-		if (renderedComponentRef?.instance instanceof SelectServicePushBoxComponent) {
-			renderedComponentRef.instance.selectedServicesListener.pipe(this.takeUntil()).subscribe(() => {
-				this.serviceListControl.patchValue(renderedComponentRef.instance.newSelectedServiceList);
+		if (!renderedComponentRef) {
+			return;
+		}
+
+		const {instance} = renderedComponentRef;
+
+		if (instance instanceof SelectServicePushBoxComponent) {
+			instance.selectedServicesListener.pipe(this.takeUntil()).subscribe(() => {
+
+				let {newSelectedServiceList} = instance;
+
+				newSelectedServiceList = this.setMember(newSelectedServiceList)
+
+				this.serviceListControl.patchValue(newSelectedServiceList);
 				this.pushBoxService.destroy$.next(SelectServicePushBoxComponent.name);
 			});
 		}
@@ -135,4 +182,30 @@ export class ServicesComponent extends Reactive implements OnInit {
 		return this.durationVersionTypeRangeComponentList.toArray().every((component) => component.checkIfSelectedVariantIsValid());
 	}
 
+	private setMember(newSelectedServiceList: IService[]) {
+
+		if (this.member) {
+
+			if (this.setMemberOnlyOnce) {
+				if (this.memberHasBeenSet.isOn) {
+					return newSelectedServiceList;
+				}
+				this.memberHasBeenSet.switchOn();
+			}
+
+			const member = this.member;
+			newSelectedServiceList = newSelectedServiceList.map((service) => {
+				return {
+					...service,
+					specialists: [{
+						object: 'SpecialistDto',
+						member,
+					}],
+				};
+			})
+		}
+
+		return newSelectedServiceList;
+
+	}
 }

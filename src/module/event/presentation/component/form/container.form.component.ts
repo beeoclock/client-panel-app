@@ -171,22 +171,6 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 
 			});
 
-		// if (this.member) {
-		// 	const member = this.member;
-		// 	this.form.controls.services.valueChanges.pipe(filter(is.array_not_empty<IService[]>), take(1)).subscribe((services) => {
-		// 		this.form.controls.services.patchValue(services.map((service) => {
-		// 			return {
-		// 				...service,
-		// 				object: 'ServiceDto',
-		// 				specialists: [{
-		// 					object: 'SpecialistDto',
-		// 					member,
-		// 				}],
-		// 			};
-		// 		}));
-		// 	});
-		// }
-
 		this.detectItem();
 
 	}

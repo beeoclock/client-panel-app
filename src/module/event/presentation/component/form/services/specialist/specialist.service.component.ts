@@ -29,9 +29,6 @@ export class SpecialistServiceComponent {
 	@Input({required: true})
 	public index!: number;
 
-	@Input()
-	public forceSpecialists: ISpecialist[] = [];
-
 	@Select(MemberSelector.tableState)
 	public memberTableState$!: Observable<TableState<RIMember>>;
 

@@ -1,5 +1,6 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {RIMember} from "@member/domain";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace OrderActions {
@@ -33,6 +34,10 @@ export namespace OrderActions {
 	export class OpenForm extends BaseActions.OpenForm<{
 		isEditMode?: boolean;
 		item?: IOrderDto;
+		setupPartialData?: {
+			defaultAppointmentStartDateTimeIso?: string;
+			defaultMemberForService?: RIMember;
+		};
 	}> {
 		public static override readonly type = '[Order Application] Open Form';
 	}

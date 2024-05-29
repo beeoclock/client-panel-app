@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, effect, inject, input, Input, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
 import {TranslateModule} from "@ngx-translate/core";
@@ -30,6 +30,7 @@ import {
 import {OrderActions} from "@order/state/order/order.actions";
 import {CreateOrderApiAdapter} from "@order/external/adapter/api/create.order.api.adapter";
 import {CreatePaymentApiAdapter} from "@module/payment/external/adapter/api/create.payment.api.adapter";
+import {RIMember} from "@member/domain";
 
 @Component({
     selector: 'app-order-form-container',
@@ -53,7 +54,7 @@ import {CreatePaymentApiAdapter} from "@module/payment/external/adapter/api/crea
     template: `
         <form class="flex flex-col gap-4">
 
-            <app-service-order-form-container [form]="form.controls.order"/>
+            <app-service-order-form-container [form]="form.controls.order" [setupPartialData]="setupPartialData()"/>
             <app-payer-order-form-container [form]="form.controls.payment"/>
             <app-payment-order-form-container [form]="form" />
             <bee-card>
@@ -80,6 +81,11 @@ import {CreatePaymentApiAdapter} from "@module/payment/external/adapter/api/crea
 })
 export class OrderFormContainerComponent implements OnInit, OnDestroy {
 
+    public readonly setupPartialData = input<{
+        defaultAppointmentStartDateTimeIso?: string;
+        defaultMemberForService?: RIMember;
+    }>({});
+
     @Input()
     public orderDto!: IOrderDto;
 
@@ -94,6 +100,13 @@ export class OrderFormContainerComponent implements OnInit, OnDestroy {
     private readonly ngxLogger = inject(NGXLogger);
     private readonly createOrderApiAdapter = inject(CreateOrderApiAdapter);
     private readonly createPaymentApiAdapter = inject(CreatePaymentApiAdapter);
+
+    constructor() {
+        effect(() => {
+            // TODO: set setupPartialData to form and init handlers for form at services control.
+            // TODO: add DI service to temporary collect information about avaialable customer in form scope to select them at payer case and add new service.
+        });
+    }
 
     public ngOnInit(): void {
         this.form.controls.order.patchValue(this.orderDto);
