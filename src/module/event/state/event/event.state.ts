@@ -115,39 +115,39 @@ export class EventState extends BaseState<Event.IEvent> {
 			useComponentNameAsPrefixOfId: true,
 			component: ContainerDetailsComponent,
 			componentInputs: {
-				event: Event.MEvent.create(item)
+				event: item
 			},
 		});
 
 	}
 
-	@Action(EventActions.OpenDetailsById)
-	public async openDetailsById(ctx: StateContext<IEventState>, {payload: id}: EventActions.OpenDetailsById) {
-
-		const title = this.translateService.instant('event.details.title');
-
-		const {ContainerDetailsComponent} = await import("@event/presentation/component/details/container.details.component");
-
-		await this.pushBoxService.buildItAsync({
-			id,
-			useComponentNameAsPrefixOfId: true,
-			component: ContainerDetailsComponent,
-			showLoading: true,
-			title
-		});
-
-		const event = await this.item.executeAsync(id);
-
-		await this.pushBoxService.updatePushBoxComponentAsync({
-			id,
-			useComponentNameAsPrefixOfId: true,
-			component: ContainerDetailsComponent,
-			componentInputs: {
-				event: Event.MEvent.create(event)
-			},
-		});
-
-	}
+	// @Action(EventActions.OpenDetailsById)
+	// public async openDetailsById(ctx: StateContext<IEventState>, {payload: id}: EventActions.OpenDetailsById) {
+	//
+	// 	const title = this.translateService.instant('event.details.title');
+	//
+	// 	const {ContainerDetailsComponent} = await import("@event/presentation/component/details/container.details.component");
+	//
+	// 	await this.pushBoxService.buildItAsync({
+	// 		id,
+	// 		useComponentNameAsPrefixOfId: true,
+	// 		component: ContainerDetailsComponent,
+	// 		showLoading: true,
+	// 		title
+	// 	});
+	//
+	// 	const event = await this.item.executeAsync(id);
+	//
+	// 	await this.pushBoxService.updatePushBoxComponentAsync({
+	// 		id,
+	// 		useComponentNameAsPrefixOfId: true,
+	// 		component: ContainerDetailsComponent,
+	// 		componentInputs: {
+	// 			event: Event.MEvent.create(event)
+	// 		},
+	// 	});
+	//
+	// }
 
 	@Action(EventActions.OpenFormToEditById)
 	public async openFormToEditById(ctx: StateContext<IEventState>, {payload: id}: EventActions.OpenFormToEditById) {

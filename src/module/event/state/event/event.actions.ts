@@ -1,5 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IEvent, RMIEvent} from "@event/domain";
+import {IEvent, IEvent_V2, RMIEvent} from "@event/domain";
 import * as Member from '@member/domain';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -19,13 +19,13 @@ export namespace EventActions {
 		public static override readonly type = '[Event Application] Update Opened Details';
 	}
 
-	export class OpenDetails extends BaseActions.OpenDetails<IEvent> {
+	export class OpenDetails extends BaseActions.OpenDetails<IEvent_V2> {
 		public static override readonly type = '[Event Application] Open Details';
 	}
 
-	export class OpenDetailsById extends BaseActions.OpenDetailsById {
-		public static override readonly type = '[Event Application] Open Details By Id';
-	}
+	// export class OpenDetailsById extends BaseActions.OpenDetailsById {
+	// 	public static override readonly type = '[Event Application] Open Details By Id';
+	// }
 
 	export class OpenFormToEditById extends BaseActions.OpenFormToEditById {
 		public static override readonly type = '[Event Application] Open Form To Edit By Id';

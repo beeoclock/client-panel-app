@@ -114,6 +114,9 @@ export class OrderEventCardComponent {
             case OrderServiceStatusEnum.done:
                 classList.push('bg-green-500', 'border-green-500', 'hover:bg-green-600');
                 break;
+            case OrderServiceStatusEnum.pending:
+                classList.push('bg-yellow-500', 'border-yellow-500', 'hover:bg-yellow-600');
+                break;
         }
 
         return classList.join(' ');
@@ -141,7 +144,7 @@ export class OrderEventCardComponent {
     }
 
     private async openEventDetails(event: IEvent_V2) {
-        this.store.dispatch(new EventActions.OpenDetailsById(event._id));
+        this.store.dispatch(new EventActions.OpenDetails(event));
     }
 
 }

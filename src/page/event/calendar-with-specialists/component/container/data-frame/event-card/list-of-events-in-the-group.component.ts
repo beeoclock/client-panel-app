@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, ViewEncapsulation} from "@angular/core";
 import {IEvent, MEvent, RIEvent} from "@event/domain";
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
-import {EventActions} from "@event/state/event/event.actions";
 import {Store} from "@ngxs/store";
 import {EventCardComponent} from "@event/presentation/component/list/card/card.component";
 
@@ -44,7 +43,7 @@ export class ListOfEventsInTheGroupComponent {
 	private readonly store = inject(Store);
 
 	public async openEventDetails(event: IEvent) {
-		this.store.dispatch(new EventActions.OpenDetailsById(event._id));
+		// this.store.dispatch(new EventActions.OpenDetailsById(event._id));
 	}
 
 }

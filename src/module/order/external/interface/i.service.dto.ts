@@ -27,17 +27,15 @@ export interface IServiceDto {
 		language: LanguageCodeEnum;
 		active: ActiveEnum;
 	}[];
-	durationVersions: [
-		{
-			breakInSeconds: number;
-			durationInSeconds: number;
-			prices: {
-				price: number;
-				currency: CurrencyCodeEnum;
-				preferredLanguages: LanguageCodeEnum[];
-			}[];
-		}
-	];
+	durationVersions: {
+		breakInSeconds: number;
+		durationInSeconds: number;
+		prices: {
+			price: number;
+			currency: CurrencyCodeEnum;
+			preferredLanguages: LanguageCodeEnum[];
+		}[];
+	}[];
 	createdAt: string;
 	updatedAt: string;
 	order: number;

@@ -5,7 +5,6 @@ import {IEvent} from "@event/domain";
 import {DateTime, Interval} from "luxon";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 import {Store} from "@ngxs/store";
-import {EventActions} from "@event/state/event/event.actions";
 
 @Injectable()
 export class DataCalendarDomManipulationService {
@@ -316,7 +315,8 @@ export class DataCalendarDomManipulationService {
 	}
 
 	private async openEventDetails(event: IEvent) {
-		this.store.dispatch(new EventActions.OpenDetailsById(event._id));
+		console.log('open', event._id)
+		// this.store.dispatch(new EventActions.OpenDetailsById(event._id));
 	}
 
 }

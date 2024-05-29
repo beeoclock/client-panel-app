@@ -4,6 +4,7 @@ import {DurationHelper} from "@utility/helper/duration.helper";
 import {TranslateService} from "@ngx-translate/core";
 import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
 import {CurrencyPipe} from "@angular/common";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Injectable()
 export class DurationVersionHtmlHelper {
@@ -13,7 +14,7 @@ export class DurationVersionHtmlHelper {
 	private readonly humanizeDurationHelper = inject(HumanizeDurationHelper);
 	private readonly currencyPipe = inject(CurrencyPipe);
 
-	public getDurationValue(item: IService): string {
+	public getDurationValue(item: IService | IServiceDto): string {
 		const {durationVersions} = item;
 		if (this.durationHelper.durationIsRangeMode(item) && durationVersions.length > 1) {
 			const translateKeyFrom = 'keyword.capitalize.from';
@@ -38,7 +39,7 @@ export class DurationVersionHtmlHelper {
 		return result.join(' / ');
 	}
 
-	public getPriceValue(item: IService): string {
+	public getPriceValue(item: IService | IServiceDto): string {
 		const {durationVersions} = item;
 		if (this.durationHelper.durationIsRangeMode(item) && durationVersions.length > 1) {
 			const translateKeyFrom = 'keyword.capitalize.from';

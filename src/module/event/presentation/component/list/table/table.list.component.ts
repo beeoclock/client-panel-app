@@ -108,7 +108,8 @@ export class TableListComponent extends TableComponent<IEvent> {
 	}
 
 	public override open(id: string): void {
-		this.store.dispatch(new EventActions.OpenDetailsById(id));
+		console.log('open', id)
+		// this.store.dispatch(new EventActions.OpenDetailsById(id));
 	}
 
 	public edit(id: string): void {

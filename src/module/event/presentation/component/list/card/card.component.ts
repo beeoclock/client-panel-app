@@ -1,7 +1,7 @@
 import {Component, EventEmitter, inject, Input, Output, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {
-	ChangeStatusOnCancelledComponent
+    ChangeStatusOnCancelledComponent
 } from "@event/presentation/component/change-status/change-status-on-cancelled.component";
 import {ChangeStatusOnDoneComponent} from "@event/presentation/component/change-status/change-status-on-done.component";
 import {CurrencyPipe, DatePipe, NgForOf, NgIf} from "@angular/common";
@@ -37,7 +37,7 @@ import {EventActions} from "@event/state/event/event.actions";
 					<div eventStatusStyle mode="text" [status]="item.status"></div>
 					<div
 						class="bg-neutral-100 text-neutral-800 font-medium inline-flex gap-2 items-center px-2 py-0.5 rounded-2xl dark:bg-gray-700 dark:text-neutral-400 border border-neutral-400">
-						{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item.services[0].durationVersions[0].prices[0].currency: 'symbol-narrow'  }}
+						{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow'  }}
 					</div>
 				</div>
 				<utility-table-column-action placement="bottom-start" [offsetDistance]="10" [id]="item._id!" (open)="singleClick.emit(item)" (edit)="edit()" (delete)="delete()"/>

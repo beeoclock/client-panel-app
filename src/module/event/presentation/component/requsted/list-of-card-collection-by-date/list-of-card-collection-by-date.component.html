@@ -44,7 +44,7 @@
 										<div
 											*ngIf="!item.someServiceHasRangeDurationVersion"
 											class="bg-neutral-100 text-neutral-800 font-medium inline-flex gap-2 items-center px-2 py-0.5 rounded-2xl dark:bg-gray-700 dark:text-neutral-400 border border-neutral-400">
-											{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item.services[0].durationVersions[0].prices[0].currency: 'symbol-narrow'  }}
+											{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow'  }}
 										</div>
 									</div>
 									<utility-table-column-action placement="bottom-start" [offsetDistance]="10" [id]="item._id!"/>
