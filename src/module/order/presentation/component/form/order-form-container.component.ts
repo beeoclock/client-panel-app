@@ -119,7 +119,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
         this.form.updateValueAndValidity();
         this.form.controls.order.valueChanges.pipe(this.takeUntil()).subscribe((value) => {
             value.services?.forEach((service) => {
-                service.orderServiceDetails?.attendees.forEach((attendee) => {
+                service.orderAppointmentDetails?.attendees.forEach((attendee) => {
                     this.availableCustomersInForm.set({
                         [attendee.customer._id]: attendee.customer,
                         ...this.availableCustomersInForm()
@@ -141,7 +141,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
         console.log({order, payment});
         this.form.disable();
         this.form.markAsPending();
-        // TODO
+        // TODO check for error response from order
         const createOrderResponse = await this.createOrderApiAdapter.executeAsync(order as IOrderDto);
         payment.orderId = createOrderResponse._id;
         const createPaymentResponse = await this.createPaymentApiAdapter.executeAsync(payment as IPaymentDto);

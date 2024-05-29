@@ -2,13 +2,13 @@ import {BaseEntityForm} from "@utility/base.form";
 import {FormArray, FormControl} from "@angular/forms";
 import {IMetaDto, IOrderServiceDto, randomMetaDto} from "@order/external/interface/i.order-service.dto";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
-import {IOrderServiceDetailsDto} from "@order/external/interface/i.order-service-details.dto";
+import {IOrderAppointmentDetailsDto} from "@order/external/interface/i-order-appointment-details.dto";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 
 export interface IServiceOrderForm {
 
     serviceSnapshot: FormControl<IServiceDto>;
-    orderServiceDetails: FormControl<IOrderServiceDetailsDto>;
+    orderAppointmentDetails: FormControl<IOrderAppointmentDetailsDto>;
     customerNote: FormControl<string>;
 
     status: FormControl<OrderServiceStatusEnum>;
@@ -24,7 +24,7 @@ export class ServiceOrderForm extends BaseEntityForm<'OrderServiceDto', IService
 
             serviceSnapshot: new FormControl(),
 
-            orderServiceDetails: new FormControl(),
+            orderAppointmentDetails: new FormControl(),
 
             status: new FormControl(OrderServiceStatusEnum.pending, {
                 nonNullable: true,

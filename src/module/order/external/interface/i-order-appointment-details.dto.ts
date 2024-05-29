@@ -18,8 +18,8 @@ export interface ILocationsDto {
     address: string;
 }
 
-export interface IOrderServiceDetailsDto {
-    object: "OrderServiceDetailsDto";
+export interface IOrderAppointmentDetailsDto {
+    object: "OrderAppointmentDetailsDto";
     active: ActiveEnum;
     start: string;
     end: string;

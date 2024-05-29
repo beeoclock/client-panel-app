@@ -102,7 +102,7 @@ import {RIMember} from "@member/domain";
                     <div class="cursor-pointer inline-flex gap-4 items-center">
                         <i class="bi bi-calendar text-beeColor-500"></i>
                         <div class="inline-flex gap-2">
-                            {{ service.orderServiceDetails?.start | date: 'yyyy-MM-dd HH:mm' }}
+                            {{ service.orderAppointmentDetails?.start | date: 'yyyy-MM-dd HH:mm' }}
                         </div>
                     </div>
                     <div class="cursor-pointer inline-flex gap-4 items-center">
@@ -111,11 +111,11 @@ import {RIMember} from "@member/domain";
                     </div>
                     <div class="cursor-pointer inline-flex gap-4 items-center">
                         <i class="bi bi-file-person text-beeColor-500"></i>
-                        {{ service.orderServiceDetails?.specialists?.[0]?.member?.firstName }}
-                        {{ service.orderServiceDetails?.specialists?.[0]?.member?.lastName }}
+                        {{ service.orderAppointmentDetails?.specialists?.[0]?.member?.firstName }}
+                        {{ service.orderAppointmentDetails?.specialists?.[0]?.member?.lastName }}
                     </div>
                     <event-attendee-card-component
-                            *ngFor="let attendee of (service.orderServiceDetails?.attendees ?? [])"
+                            *ngFor="let attendee of (service.orderAppointmentDetails?.attendees ?? [])"
                             [attendee]="attendee"/>
                     <ng-container *ngIf="service?.customerNote?.length">
                         <hr class="mt-2">
@@ -252,8 +252,8 @@ export class ServiceOrderFormContainerComponent implements OnInit {
 
             this.form.controls.services.pushNewOne({
                 customerNote: formValue.note,
-                orderServiceDetails: {
-                    object: 'OrderServiceDetailsDto',
+                orderAppointmentDetails: {
+                    object: 'OrderAppointmentDetailsDto',
                     active: ActiveEnum.YES,
                     start: formValue.start,
                     end: formValue.end,
@@ -353,8 +353,8 @@ export class ServiceOrderFormContainerComponent implements OnInit {
 
             this.form.controls.services.at(index).patchValue({
                 customerNote: formValue.note,
-                orderServiceDetails: {
-                    object: 'OrderServiceDetailsDto',
+                orderAppointmentDetails: {
+                    object: 'OrderAppointmentDetailsDto',
                     active: ActiveEnum.YES,
                     start: formValue.start,
                     end: formValue.end,

@@ -1,8 +1,8 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from "@angular/core";
 import {IonicModule} from "@ionic/angular";
 import {
-	DatetimePeriodEnum,
-	IonSelectEventStatusComponent
+    DatetimePeriodEnum,
+    IonSelectEventStatusComponent
 } from "@event/presentation/component/statistic/component/ion-select-datetime-period.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {FormControl} from "@angular/forms";
@@ -76,7 +76,7 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 					return acc;
 				}
 
-				item.orderServiceDetails.specialists.forEach((specialist) => {
+				item.orderAppointmentDetails.specialists.forEach((specialist) => {
 
 					const memberId = specialist.member._id
 

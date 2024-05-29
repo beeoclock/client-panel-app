@@ -86,7 +86,7 @@ export class CalendarWithSpecialistsState {
 
                 order.services.forEach((service) => {
 
-                    const attendees = service.orderServiceDetails.specialists.map((specialist) => {
+                    const attendees = service.orderAppointmentDetails?.specialists.map((specialist) => {
                         return {
                             _id: specialist.member._id,
                             isOrganizer: IsOrganizerEnum.NO,
@@ -95,7 +95,7 @@ export class CalendarWithSpecialistsState {
                         } as IAttendee_V2;
                     });
 
-                    service.orderServiceDetails.attendees.forEach((attendee) => {
+                    service.orderAppointmentDetails?.attendees.forEach((attendee) => {
                         attendees.push({
                             _id: attendee._id,
                             isOrganizer: IsOrganizerEnum.NO,
@@ -109,8 +109,8 @@ export class CalendarWithSpecialistsState {
                         _id: service._id,
                         updatedAt: order.updatedAt,
                         createdAt: order.createdAt,
-                        start: service.orderServiceDetails.start,
-                        end: service.orderServiceDetails.end,
+                        start: service.orderAppointmentDetails.start,
+                        end: service.orderAppointmentDetails.end,
                         note: service.customerNote,
                         entireBusiness: false,
                         attendees,

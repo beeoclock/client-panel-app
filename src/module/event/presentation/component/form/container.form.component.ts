@@ -338,7 +338,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 		if (result?._id) {
 
 			// Fill forceStart
-			this.forceStart = result.orderServiceDetails.start;
+			this.forceStart = result.orderAppointmentDetails.start;
 
 			// const dataFromRoute: {
 			// 	cacheLoaded: boolean;
@@ -354,7 +354,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 			//
 			// } else {
 
-			const {orderServiceDetails: {attendees}} = result;
+			const {orderAppointmentDetails: {attendees}} = result;
 
 			this.form.patchValue({
 
@@ -366,7 +366,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 					presentation: {
 						banners: result.serviceSnapshot.presentation.banners as unknown as RIMedia[],
 					} as unknown as IPresentation,
-					specialists: result.orderServiceDetails.specialists.map((specialist) => {
+					specialists: result.orderAppointmentDetails.specialists.map((specialist) => {
 						return {
 							...specialist,
 							object: 'SpecialistDto',
@@ -375,9 +375,9 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 					configuration: result.serviceSnapshot.configuration as unknown as IConfiguration,
 				}],
 				note: result.customerNote,
-				start: result.orderServiceDetails.start,
-				end: result.orderServiceDetails.end,
-				timeZone: result.orderServiceDetails.timeZone,
+				start: result.orderAppointmentDetails.start,
+				end: result.orderAppointmentDetails.end,
+				timeZone: result.orderAppointmentDetails.timeZone,
 
 			});
 
