@@ -1093,6 +1093,18 @@
       "title": "Bestil detaljer"
     },
     "form": {
+      "payment": {
+        "payer": {
+          "case": {
+            "new": {
+              "hint": "I dette tilfælde vil betaleren automatisk blive tilføjet til kundedatabasen."
+            },
+            "unregistered": {
+              "hint": "Betaleren bliver ikke automatisk tilføjet til kundedatabasen."
+            }
+          }
+        }
+      },
       "title": {
         "create": "Tilføjelse af en ordre",
         "edit": "Redigering af en ordre"

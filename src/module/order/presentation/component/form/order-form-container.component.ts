@@ -1,4 +1,4 @@
-import {Component, effect, inject, input, Input, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, effect, inject, input, Input, OnDestroy, OnInit, signal, ViewEncapsulation} from '@angular/core';
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
 import {TranslateModule} from "@ngx-translate/core";
@@ -31,6 +31,8 @@ import {OrderActions} from "@order/state/order/order.actions";
 import {CreateOrderApiAdapter} from "@order/external/adapter/api/create.order.api.adapter";
 import {CreatePaymentApiAdapter} from "@module/payment/external/adapter/api/create.payment.api.adapter";
 import {RIMember} from "@member/domain";
+import {Reactive} from "@utility/cdk/reactive";
+import {ICustomer} from "@customer/domain";
 
 @Component({
     selector: 'app-order-form-container',
@@ -79,7 +81,7 @@ import {RIMember} from "@member/domain";
         </form>
     `
 })
-export class OrderFormContainerComponent implements OnInit, OnDestroy {
+export class OrderFormContainerComponent extends Reactive implements OnInit, OnDestroy {
 
     public readonly setupPartialData = input<{
         defaultAppointmentStartDateTimeIso?: string;
@@ -101,7 +103,10 @@ export class OrderFormContainerComponent implements OnInit, OnDestroy {
     private readonly createOrderApiAdapter = inject(CreateOrderApiAdapter);
     private readonly createPaymentApiAdapter = inject(CreatePaymentApiAdapter);
 
+    public readonly availableCustomersInForm = signal<{[key: string]: ICustomer}>({});
+
     constructor() {
+        super();
         effect(() => {
             // TODO: set setupPartialData to form and init handlers for form at services control.
             // TODO: add DI service to temporary collect information about avaialable customer in form scope to select them at payer case and add new service.
@@ -112,6 +117,17 @@ export class OrderFormContainerComponent implements OnInit, OnDestroy {
         this.form.controls.order.patchValue(this.orderDto);
         this.form.controls.payment.patchValue(this.paymentDto);
         this.form.updateValueAndValidity();
+        this.form.controls.order.valueChanges.pipe(this.takeUntil()).subscribe((value) => {
+            value.services?.forEach((service) => {
+                service.orderServiceDetails?.attendees.forEach((attendee) => {
+                    this.availableCustomersInForm.set({
+                        [attendee.customer._id]: attendee.customer,
+                        ...this.availableCustomersInForm()
+                    })
+                });
+            });
+            console.log(this.availableCustomersInForm())
+        });
     }
 
     public async save(): Promise<void> {
@@ -138,7 +154,8 @@ export class OrderFormContainerComponent implements OnInit, OnDestroy {
         this.store.dispatch(new OrderActions.CloseForm());
     }
 
-    public ngOnDestroy() {
+    public override ngOnDestroy() {
+        super.ngOnDestroy();
         this.form.destroyHandlers();
         this.form.controls.payment.controls.payer.destroyHandlers();
     }

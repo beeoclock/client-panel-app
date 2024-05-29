@@ -10,6 +10,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {CustomerForm} from "@customer/presentation/form";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 import {ICustomer} from "@customer/domain";
+import {FormAttendantComponent} from "@event/presentation/component/form/attendees/attendant/form.attendant.component";
 
 @Component({
 	selector: 'event-attendant-component',
@@ -22,7 +23,8 @@ import {ICustomer} from "@customer/domain";
 		InvalidTooltipDirective,
 		FormInputComponent,
 		TranslateModule,
-		InvalidTooltipComponent
+		InvalidTooltipComponent,
+		FormAttendantComponent,
 	],
 	template: `
 
@@ -49,51 +51,7 @@ import {ICustomer} from "@customer/domain";
 		</ng-container>
 
 		<ng-template #FromTemplate>
-			<div class="grid gap-4">
-
-				<form-input
-					inputType="text"
-					autocomplete="off"
-					id="attendee-first-name"
-					[placeholder]="'keyword.capitalize.firstName' | translate"
-					[control]="form.controls.firstName"
-					[label]="'keyword.capitalize.firstName' | translate"/>
-
-				<form-input
-					inputType="text"
-					autocomplete="off"
-					id="attendee-last-name"
-					[placeholder]="'keyword.capitalize.lastName' | translate"
-					[control]="form.controls.lastName"
-					[label]="'keyword.capitalize.lastName' | translate"/>
-
-				<form-input
-					inputType="email"
-					autocomplete="off"
-					placeholder="firstname.lastname@example.com"
-					id="attendee-email"
-					[control]="form.controls.email"
-					[label]="'keyword.capitalize.email' | translate"/>
-
-				<form-input
-					inputType="tel"
-					autocomplete="off"
-					placeholder="+000000000000"
-					id="attendee-phone"
-					[control]="form.controls.phone"
-					[label]="'keyword.capitalize.phone' | translate"/>
-
-				<div
-					class="md:col-span-2"
-					[class.hidden]="
-					form.valid ||
-					form.controls.phone.untouched ||
-					form.controls.email.untouched
-				">
-					<utility-invalid-message class="flex justify-center" [control]="form"/>
-				</div>
-
-			</div>
+			<app-event-form-attendant-component [form]="form"/>
 		</ng-template>
 	`
 })

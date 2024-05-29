@@ -1093,6 +1093,18 @@
       "title": "Order details"
     },
     "form": {
+      "payment": {
+        "payer": {
+          "case": {
+            "new": {
+              "hint": "In this case, the payer will be automatically added to the customer database"
+            },
+            "unregistered": {
+              "hint": "The payer will not be automatically added to the customer database"
+            }
+          }
+        }
+      },
       "title": {
         "create": "Adding an order",
         "edit": "Editing an order"

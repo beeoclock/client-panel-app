@@ -1093,6 +1093,18 @@
       "title": "Szczegóły zamówienia"
     },
     "form": {
+      "payment": {
+        "payer": {
+          "case": {
+            "new": {
+              "hint": "W takim przypadku płatnik zostanie automatycznie dodany do bazy danych klientów"
+            },
+            "unregistered": {
+              "hint": "Płatnik nie zostanie automatycznie dodany do bazy danych klientów."
+            }
+          }
+        }
+      },
       "title": {
         "create": "Dodawanie zamówienia",
         "edit": "Edytowanie zamówienia"

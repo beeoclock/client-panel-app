@@ -82,10 +82,10 @@ import {
 
             <ng-container [ngSwitch]="form.controls.payer.value.customerType">
 
-                <app-new-payer-order-form-container *ngSwitchCase="customerTypeEnum.new"/>
-                <app-regular-payer-order-form-container *ngSwitchCase="customerTypeEnum.regular"/>
-                <app-unknown-payer-order-form-container *ngSwitchCase="customerTypeEnum.unknown"/>
-                <app-unregistered-payer-order-form-container *ngSwitchCase="customerTypeEnum.unregistered"/>
+                <app-new-payer-order-form-container [form]="form" *ngSwitchCase="customerTypeEnum.new"/>
+                <app-regular-payer-order-form-container [form]="form" *ngSwitchCase="customerTypeEnum.regular"/>
+                <app-unknown-payer-order-form-container [form]="form" *ngSwitchCase="customerTypeEnum.unknown"/>
+                <app-unregistered-payer-order-form-container [form]="form" *ngSwitchCase="customerTypeEnum.unregistered"/>
 
             </ng-container>
 
@@ -125,7 +125,9 @@ export class PayerOrderFormContainerComponent implements OnInit {
 
         this.ngxLogger.info('PayerOrderFormContainerComponent.setCustomerType()', {customerType});
 
+        this.form.controls.payer.reset();
         this.form.controls.payer.controls.customerType.setValue(customerType);
+        console.log(this.form.controls.payer.value);
     }
 
     public isCustomerTypeSelected(customerType: CustomerTypeEnum): boolean {

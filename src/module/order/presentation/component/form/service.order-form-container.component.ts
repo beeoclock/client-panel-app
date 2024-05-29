@@ -84,7 +84,7 @@ import {RIMember} from "@member/domain";
 
             <div class="flex flex-wrap gap-4" *ngIf="form.controls.services.value.length">
 
-                <bee-card class="text-sm w-full" gap="gap-2" *ngFor="let service of form.controls.services.value; let index = index">
+                <bee-card class="text-sm w-full border" gap="gap-2" *ngFor="let service of form.controls.services.value; let index = index">
 
                     <div class="flex justify-between items-center gap-8">
 
@@ -302,18 +302,14 @@ export class ServiceOrderFormContainerComponent implements OnInit {
             isEditMode: true,
             useDefaultFlow: false,
             orderServiceDto: service,
-            // forceStart: componentInputs?.datetimeISO,
-            // isEditMode: !!componentInputs?.event,
         };
-
-        console.log(this.setupPartialData)
 
         if (this.setupPartialData.defaultAppointmentStartDateTimeIso) {
             componentInputs.forceStart = this.setupPartialData.defaultAppointmentStartDateTimeIso;
         }
 
         const componentRef = await this.pushBoxService.buildItAsync({
-            title: this.translateService.instant('event.form.title.create'),
+            title: this.translateService.instant('event.form.title.edit'),
             component: ContainerFormComponent,
             componentInputs,
         });
@@ -353,7 +349,9 @@ export class ServiceOrderFormContainerComponent implements OnInit {
                 return;
             }
 
-            this.form.controls.services.pushNewOne({
+            console.log('index', index)
+
+            this.form.controls.services.at(index).patchValue({
                 customerNote: formValue.note,
                 orderServiceDetails: {
                     object: 'OrderServiceDetailsDto',
@@ -374,7 +372,7 @@ export class ServiceOrderFormContainerComponent implements OnInit {
                     ...formValue.services[0],
                     object: "ServiceDto",
                 } as unknown as IServiceDto,
-            }, index);
+            });
 
             // TODO: call function to increase defaultAppointmentStartDateTimeIso
 
