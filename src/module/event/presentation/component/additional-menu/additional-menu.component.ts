@@ -202,7 +202,6 @@ export class AdditionalMenuComponent implements OnInit {
                 item
             }
         }));
-        this.closeSelf();
     }
 
     public closeSelf() {
