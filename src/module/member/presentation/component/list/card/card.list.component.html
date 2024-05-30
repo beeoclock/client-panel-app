@@ -24,10 +24,9 @@
 				</div>
 
 
-				<utility-table-column-action
+				<member-row-action-button-component
 						*ngIf="showAction.state$ | async"
-						(open)="open($event)"
-						(edit)="edit($event)"
+						[item]="item"
 						[id]="item._id"/>
 
 				<div (click)="singleClick(item)" *ngIf="showSelectedStatus.state$ | async">

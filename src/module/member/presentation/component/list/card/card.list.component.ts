@@ -16,6 +16,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {RIMember} from "@member/domain";
 import {MemberActions} from "@member/state/member/member.actions";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
+import {RowActionButtonComponent} from "@member/presentation/component/row-action-button/row-action-button.component";
 
 @Component({
 	selector: 'member-card-list-component',
@@ -37,6 +38,7 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 		CardComponent,
 		NgIf,
 		AsyncPipe,
+		RowActionButtonComponent,
 	]
 })
 export class CardListComponent extends TableComponent<RIMember> {
@@ -46,13 +48,5 @@ export class CardListComponent extends TableComponent<RIMember> {
 	public showAction = new BooleanStreamState(true);
 
 	public showSelectedStatus = new BooleanStreamState(false);
-
-	public override open(id: string) {
-		this.store.dispatch(new MemberActions.OpenDetailsById(id));
-	}
-
-	public edit(id: string) {
-		this.store.dispatch(new MemberActions.OpenFormToEditById(id));
-	}
 
 }

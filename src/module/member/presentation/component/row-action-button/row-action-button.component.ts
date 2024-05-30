@@ -2,7 +2,6 @@ import {Component, inject, Input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
-import {ServiceActions} from "@service/state/service/service.actions";
 import {RIMember} from "@member/domain";
 import {MemberActions} from "@member/state/member/member.actions";
 
@@ -38,12 +37,12 @@ export class RowActionButtonComponent {
 	private readonly store = inject(Store);
 
 	public delete(id: string): void {
-		this.store.dispatch(new ServiceActions.DeleteItem(id));
+		this.store.dispatch(new MemberActions.DeleteItem(id));
 	}
 
 	public async archive(id: string): Promise<void> {
 		await firstValueFrom(this.store.dispatch(
-			new ServiceActions.ArchiveItem(id)));
+			new MemberActions.ArchiveItem(id)));
 	}
 
 	public open() {
