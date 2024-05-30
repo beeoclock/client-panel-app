@@ -8,15 +8,16 @@ import {AbsenceEndpoint} from "@module/absence/external/endpoint/absence.endpoin
 @Injectable({
 	providedIn: 'root'
 })
-export class UpdateAbsenceApiAdapter extends BaseApiAdapter<IAbsenceDto, [string, IAbsenceDto]> {
+export class UpdateAbsenceApiAdapter extends BaseApiAdapter<IAbsenceDto, [IAbsenceDto]> {
 
 	/**
-	 * @param id
 	 * @param body
 	 */
-	public override execute$(id: string, body: IAbsenceDto) {
+	public override execute$(body: IAbsenceDto) {
 		return this.httpClient.put<IAbsenceDto>(AbsenceEndpoint.UPDATE, body, {
-			context: new HttpContext().set(TokensHttpContext.REPLACE, {id})
+			context: new HttpContext().set(TokensHttpContext.REPLACE, {
+				id: body._id
+			})
 		});
 	}
 
