@@ -1,12 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    inject,
-    Input,
-    OnInit,
-    ViewEncapsulation
-} from '@angular/core';
+import {ChangeDetectorRef, Component, inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
@@ -14,7 +6,7 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {
-    FormBusinessProfileComponent
+	FormBusinessProfileComponent
 } from "@client/presentation/component/business-profile/form-business-profile.component";
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {NgSelectModule} from "@ng-select/ng-select";
@@ -39,7 +31,6 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
         NgIf
     ],
     standalone: true,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <button *ngIf="visibleState.isTrue" class="border hover:border-blue-700 cursor-pointer flex hover:bg-blue-500 hover:text-white bg-gray-50 justify-between px-3 py-2 rounded-lg transition-all w-full" type="button" (click)="openModalToSelectMember()">
             <span>{{ 'keyword.capitalize.members' | translate }}: {{ memberIds.value.length }}</span>

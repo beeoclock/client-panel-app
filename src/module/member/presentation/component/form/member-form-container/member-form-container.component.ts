@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, inject, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewEncapsulation} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {MemberForm} from "@member/presentation/form/member.form";
@@ -34,7 +34,7 @@ import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-statu
 	],
 	standalone: true
 })
-export class MemberFormContainerComponent implements OnInit {
+export class MemberFormContainerComponent implements OnInit, OnChanges {
 
 	@ViewChild(AvatarContainerComponent)
 	public avatarContainerComponent!: AvatarContainerComponent;
@@ -53,6 +53,15 @@ export class MemberFormContainerComponent implements OnInit {
 
 	public ngOnInit(): void {
 		this.detectItem();
+	}
+
+	public ngOnChanges(changes: SimpleChanges & {item: RIMember | undefined}) {
+
+		const {item} = changes;
+		if (item) {
+			this.detectItem();
+		}
+
 	}
 
 	public detectItem(): void {
