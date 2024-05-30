@@ -6,10 +6,12 @@ import {TableState_BackendFormat} from "@utility/domain/table.state";
 import {PaymentEndpoint} from '../../endpoint/payment.endpoint';
 import {IPaymentDto} from "@module/payment/domain/interface/dto/i.payment.dto";
 
+type TParams = TableState_BackendFormat;
+
 @Injectable({
     providedIn: 'root'
 })
-export class PagedPaymentApiAdapter extends BaseApiAdapter<ResponseListType<IPaymentDto>, [TableState_BackendFormat]> {
+export class PagedPaymentApiAdapter extends BaseApiAdapter<ResponseListType<IPaymentDto>, [TParams]> {
 
 
     /**
@@ -17,7 +19,7 @@ export class PagedPaymentApiAdapter extends BaseApiAdapter<ResponseListType<IPay
      * @param params
      */
     @TypeGuard([is.object_not_empty])
-    public override execute$(params: TableState_BackendFormat) {
+    public override execute$(params: TParams) {
         return this.httpClient.get<ResponseListType<IPaymentDto>>(PaymentEndpoint.PAGED, {
             params: params as never,
         });

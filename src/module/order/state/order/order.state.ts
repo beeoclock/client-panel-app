@@ -10,12 +10,13 @@ import {PagedOrderApiAdapter} from "@order/external/adapter/api/paged.order.api.
 import {DeleteOrderApiAdapter} from "../../external/adapter/api/delete.order.api.adapter";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {OrderActions} from "@order/state/order/order.actions";
+import {PagedPaymentApiAdapter} from "@module/payment/external/adapter/api/paged.payment.api.adapter";
 
 export type IOrderState = IBaseState<IOrderDto>;
 
 const defaults = baseDefaults<IOrderDto>({
 	filters: {},
-	orderBy: OrderByEnum.CREATED_AT,
+	orderBy: OrderByEnum.UPDATED_AT,
 	orderDir: OrderDirEnum.DESC,
 });
 
@@ -32,6 +33,7 @@ export class OrderState extends BaseState<IOrderDto> {
 	protected override readonly delete = inject(DeleteOrderApiAdapter);
 	protected override readonly paged = inject(PagedOrderApiAdapter);
 
+	private readonly paymentPaged = inject(PagedPaymentApiAdapter);
 	private readonly translateService = inject(TranslateService);
 
 	constructor() {
@@ -124,14 +126,23 @@ export class OrderState extends BaseState<IOrderDto> {
 			componentInputs: {},
 		});
 
-		const item = await this.item.executeAsync(action.payload);
+		const orderDto = await this.item.executeAsync(action.payload);
+		const paymentResponse = await this.paymentPaged.executeAsync({
+			orderId: action.payload,
+			page: 1,
+			pageSize: 1,
+			orderBy: OrderByEnum.CREATED_AT,
+			orderDir: OrderDirEnum.DESC,
+		});
+		const paymentDto = paymentResponse.items[0];
 
 		await this.pushBoxService.buildItAsync({
 			title,
 			id: action.payload,
 			component: OrderFormContainerComponent,
 			componentInputs: {
-				item,
+				orderDto,
+				paymentDto,
 				isEditMode: true,
 			},
 		});

@@ -1,15 +1,26 @@
-import {Component, effect, inject, input, Input, OnDestroy, OnInit, signal, ViewEncapsulation} from '@angular/core';
+import {
+	Component,
+	inject,
+	input,
+	OnChanges,
+	OnDestroy,
+	OnInit,
+	signal,
+	SimpleChange,
+	SimpleChanges,
+	ViewEncapsulation
+} from '@angular/core';
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {
-    FormBusinessProfileComponent
+	FormBusinessProfileComponent
 } from "@client/presentation/component/business-profile/form-business-profile.component";
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {
-    ButtonSaveContainerComponent
+	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {FormsModule} from "@angular/forms";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
@@ -19,13 +30,13 @@ import {NGXLogger} from "ngx-logger";
 import {CreateOrderForm} from "@order/presentation/form/create.order.form";
 import {IPaymentDto} from "@module/payment/domain/interface/dto/i.payment.dto";
 import {
-    PaymentOrderFormContainerComponent
+	PaymentOrderFormContainerComponent
 } from "@order/presentation/component/form/payment.order-form-container.component";
 import {
-    PayerOrderFormContainerComponent
+	PayerOrderFormContainerComponent
 } from "@order/presentation/component/form/payer/payer.order-form-container.component";
 import {
-    ServiceOrderFormContainerComponent
+	ServiceOrderFormContainerComponent
 } from "@order/presentation/component/form/service.order-form-container.component";
 import {OrderActions} from "@order/state/order/order.actions";
 import {CreateOrderApiAdapter} from "@order/external/adapter/api/create.order.api.adapter";
@@ -33,134 +44,156 @@ import {CreatePaymentApiAdapter} from "@module/payment/external/adapter/api/crea
 import {RIMember} from "@member/domain";
 import {Reactive} from "@utility/cdk/reactive";
 import {ICustomer} from "@customer/domain";
+import {UpdateOrderApiAdapter} from "@order/external/adapter/api/update.order.api.adapter";
+import {UpdatePaymentApiAdapter} from "@module/payment/external/adapter/api/update.payment.api.adapter";
 
 @Component({
-    selector: 'app-order-form-container',
-    encapsulation: ViewEncapsulation.None,
-    imports: [
-        FormInputComponent,
-        DatetimeLocalInputComponent,
-        TranslateModule,
-        FormTextareaComponent,
-        CardComponent,
-        FormBusinessProfileComponent,
-        SwitchComponent,
-        ButtonSaveContainerComponent,
-        FormsModule,
-        PrimaryButtonDirective,
-        PaymentOrderFormContainerComponent,
-        PayerOrderFormContainerComponent,
-        ServiceOrderFormContainerComponent
-    ],
-    standalone: true,
-    template: `
-        <form class="flex flex-col gap-4">
+	selector: 'app-order-form-container',
+	encapsulation: ViewEncapsulation.None,
+	imports: [
+		FormInputComponent,
+		DatetimeLocalInputComponent,
+		TranslateModule,
+		FormTextareaComponent,
+		CardComponent,
+		FormBusinessProfileComponent,
+		SwitchComponent,
+		ButtonSaveContainerComponent,
+		FormsModule,
+		PrimaryButtonDirective,
+		PaymentOrderFormContainerComponent,
+		PayerOrderFormContainerComponent,
+		ServiceOrderFormContainerComponent
+	],
+	standalone: true,
+	template: `
+		<form class="flex flex-col gap-4">
 
-            <app-service-order-form-container [form]="form.controls.order" [setupPartialData]="setupPartialData()"/>
-            <app-payer-order-form-container [form]="form.controls.payment"/>
-            <app-payment-order-form-container [form]="form" />
-            <bee-card>
-                <form-textarea-component
-                        id="order-business-note"
-                        [label]="'keyword.capitalize.note' | translate"
-                        [placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
-                        [control]="form.controls.order.controls.businessNote"/>
-            </bee-card>
+			<app-service-order-form-container [form]="form.controls.order" [setupPartialData]="setupPartialData()"/>
+			<app-payer-order-form-container [form]="form.controls.payment"/>
+			<app-payment-order-form-container [form]="form"/>
+			<bee-card>
+				<form-textarea-component
+					id="order-business-note"
+					[label]="'keyword.capitalize.note' | translate"
+					[placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
+					[control]="form.controls.order.controls.businessNote"/>
+			</bee-card>
 
-            <utility-button-save-container-component class="bottom-0">
-                <button
-                        type="button"
-                        primary
-                        [isLoading]="form.pending"
-                        [disabled]="form.disabled"
-                        [scrollToFirstError]="true"
-                        (click)="save()">
-                    {{ 'keyword.capitalize.save' | translate }}
-                </button>
-            </utility-button-save-container-component>
-        </form>
-    `
+			<utility-button-save-container-component class="bottom-0">
+				<button
+					type="button"
+					primary
+					[isLoading]="form.pending"
+					[disabled]="form.disabled"
+					[scrollToFirstError]="true"
+					(click)="save()">
+					{{ 'keyword.capitalize.save' | translate }}
+				</button>
+			</utility-button-save-container-component>
+		</form>
+	`
 })
-export class OrderFormContainerComponent extends Reactive implements OnInit, OnDestroy {
+export class OrderFormContainerComponent extends Reactive implements OnInit, OnDestroy, OnChanges {
 
-    public readonly setupPartialData = input<{
-        defaultAppointmentStartDateTimeIso?: string;
-        defaultMemberForService?: RIMember;
-    }>({});
+	public readonly setupPartialData = input<{
+		defaultAppointmentStartDateTimeIso?: string;
+		defaultMemberForService?: RIMember;
+	}>({});
+	public readonly orderDto = input<Partial<IOrderDto>>({});
+	public readonly paymentDto = input<Partial<IPaymentDto>>({});
+	public readonly isEditMode = input<boolean>(false);
 
-    @Input()
-    public orderDto!: IOrderDto;
+	// TODO: add input of callback and call it on save
 
-    @Input()
-    public paymentDto!: IPaymentDto;
+	public readonly form: CreateOrderForm = new CreateOrderForm();
 
-    // TODO: add input of callback and call it on save
+	private readonly store = inject(Store);
+	private readonly ngxLogger = inject(NGXLogger);
 
-    public readonly form: CreateOrderForm = new CreateOrderForm();
+	private readonly createOrderApiAdapter = inject(CreateOrderApiAdapter);
+	private readonly createPaymentApiAdapter = inject(CreatePaymentApiAdapter);
 
-    private readonly store = inject(Store);
-    private readonly ngxLogger = inject(NGXLogger);
-    private readonly createOrderApiAdapter = inject(CreateOrderApiAdapter);
-    private readonly createPaymentApiAdapter = inject(CreatePaymentApiAdapter);
+	private readonly updateOrderApiAdapter = inject(UpdateOrderApiAdapter);
+	private readonly updatePaymentApiAdapter = inject(UpdatePaymentApiAdapter);
 
-    public readonly availableCustomersInForm = signal<{[key: string]: ICustomer}>({});
+	public readonly availableCustomersInForm = signal<{ [key: string]: ICustomer }>({});
 
-    constructor() {
-        super();
-        effect(() => {
-            // TODO: set setupPartialData to form and init handlers for form at services control.
-            // TODO: add DI service to temporary collect information about avaialable customer in form scope to select them at payer case and add new service.
-        });
-    }
+	public ngOnChanges(changes: SimpleChanges & { orderDto: SimpleChange; paymentDto: SimpleChange; isEditMode: SimpleChange;}) {
 
-    public ngOnInit(): void {
-        this.form.controls.order.patchValue(this.orderDto);
-        this.form.controls.payment.patchValue(this.paymentDto);
-        this.form.updateValueAndValidity();
-        this.form.controls.order.valueChanges.pipe(this.takeUntil()).subscribe((value) => {
-            value.services?.forEach((service) => {
-                service.orderAppointmentDetails?.attendees.forEach((attendee) => {
-                    this.availableCustomersInForm.set({
-                        [attendee.customer._id]: attendee.customer,
-                        ...this.availableCustomersInForm()
-                    })
-                });
-            });
-            console.log(this.availableCustomersInForm())
-        });
-    }
+		console.log('changes', changes)
+		const {orderDto, paymentDto} = changes;
+		orderDto && this.patchOrderValue(orderDto);
+		paymentDto && this.form.controls.payment.patchValue(paymentDto.currentValue);
+		this.form.updateValueAndValidity();
 
-    public async save(): Promise<void> {
-        this.form.markAllAsTouched();
-        this.form.valid && await this.finishSave();
-        this.form.invalid && this.ngxLogger.error('Form is invalid', this.form);
-    }
+	}
 
-    private async finishSave() {
-        const {order, payment} = this.form.value as { order: IOrderDto, payment: IPaymentDto };
-        this.form.disable();
-        this.form.markAsPending();
-        // TODO check for error response from order
-        const createOrderResponse = await this.createOrderApiAdapter.executeAsync(order as IOrderDto);
-        this.ngxLogger.info('Order created', createOrderResponse);
+	public ngOnInit(): void {
+		this.form.controls.order.patchValue(this.orderDto());
+		this.form.controls.payment.patchValue(this.paymentDto());
+		this.form.updateValueAndValidity();
+		this.form.controls.order.valueChanges.pipe(this.takeUntil()).subscribe((value) => {
+			value.services?.forEach((service) => {
+				service.orderAppointmentDetails?.attendees.forEach((attendee) => {
+					this.availableCustomersInForm.set({
+						[attendee.customer._id]: attendee.customer,
+						...this.availableCustomersInForm()
+					})
+				});
+			});
+		});
+	}
 
-        payment.orderId = createOrderResponse._id;
+	public async save(): Promise<void> {
+		this.form.markAllAsTouched();
+		this.form.valid && await this.finishSave();
+		this.form.invalid && this.ngxLogger.error('Form is invalid', this.form);
+	}
 
-        if (payment.orderId) {
-            const createPaymentResponse = await this.createPaymentApiAdapter.executeAsync(payment as IPaymentDto);
-            this.ngxLogger.info('Payment created', createPaymentResponse);
-        }
+	private async finishSave() {
+		const {order, payment} = this.form.value as { order: IOrderDto, payment: IPaymentDto };
+		this.form.disable();
+		this.form.markAsPending();
+		if (this.isEditMode()) {
+			console.log('update order', order)
 
-        this.form.enable();
-        this.form.updateValueAndValidity();
+			await this.updateOrderApiAdapter.executeAsync(order as IOrderDto);
+			await this.updatePaymentApiAdapter.executeAsync(payment as IPaymentDto);
 
-        this.store.dispatch(new OrderActions.CloseForm());
-    }
+		} else {
 
-    public override ngOnDestroy() {
-        super.ngOnDestroy();
-        this.form.destroyHandlers();
-        this.form.controls.payment.controls.payer.destroyHandlers();
-    }
+			// TODO check for error response from order
+			const createOrderResponse = await this.createOrderApiAdapter.executeAsync(order as IOrderDto);
+			this.ngxLogger.info('Order created', createOrderResponse);
+
+			payment.orderId = createOrderResponse._id;
+
+			if (payment.orderId) {
+				const createPaymentResponse = await this.createPaymentApiAdapter.executeAsync(payment as IPaymentDto);
+				this.ngxLogger.info('Payment created', createPaymentResponse);
+			}
+
+		}
+
+		this.form.enable();
+		this.form.updateValueAndValidity();
+
+		this.store.dispatch(new OrderActions.CloseForm());
+	}
+
+	public override ngOnDestroy() {
+		super.ngOnDestroy();
+		this.form.destroyHandlers();
+		this.form.controls.payment.controls.payer.destroyHandlers();
+	}
+
+	private patchOrderValue(orderDto: SimpleChange) {
+		const {currentValue} = orderDto as {currentValue: IOrderDto};
+		this.form.controls.order.patchValue(currentValue);
+		currentValue.services?.forEach((service) => {
+			this.form.controls.order.controls.services.pushNewOne(service);
+		});
+	}
 
 }

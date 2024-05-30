@@ -8,15 +8,16 @@ import {TokensHttpContext} from "@src/tokens.http-context";
 @Injectable({
     providedIn: 'root'
 })
-export class UpdateOrderApiAdapter extends BaseApiAdapter<IOrderDto, [string, IOrderDto]> {
+export class UpdateOrderApiAdapter extends BaseApiAdapter<IOrderDto, [IOrderDto]> {
 
     /**
-     * @param id
-     * @param body
-     */
-    public override execute$(id: string, body: IOrderDto) {
+		 * @param body
+		 */
+    public override execute$(body: IOrderDto) {
         return this.httpClient.put<IOrderDto>(OrderEndpoint.UPDATE, body, {
-            context: new HttpContext().set(TokensHttpContext.REPLACE, {id})
+            context: new HttpContext().set(TokensHttpContext.REPLACE, {
+							id: body._id
+						})
         });
     }
 

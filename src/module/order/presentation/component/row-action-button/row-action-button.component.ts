@@ -18,8 +18,7 @@ import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 			(delete)="delete()"
 			(open)="open()"
 			(edit)="edit()"
-			[id]="id">
-		</utility-table-column-action>
+			[id]="id"/>
 	`,
 	imports: [
 		ActionComponent,

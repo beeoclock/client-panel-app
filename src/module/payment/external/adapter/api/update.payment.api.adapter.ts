@@ -6,18 +6,19 @@ import {IPaymentDto} from "@module/payment/domain/interface/dto/i.payment.dto";
 import {PaymentEndpoint} from "@module/payment/external/endpoint/payment.endpoint";
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
-export class UpdatePaymentApiAdapter extends BaseApiAdapter<IPaymentDto, [string, IPaymentDto]> {
+export class UpdatePaymentApiAdapter extends BaseApiAdapter<IPaymentDto, [IPaymentDto]> {
 
-    /**
-     * @param id
-     * @param body
-     */
-    public override execute$(id: string, body: IPaymentDto) {
-        return this.httpClient.put<IPaymentDto>(PaymentEndpoint.UPDATE, body, {
-            context: new HttpContext().set(TokensHttpContext.REPLACE, {id})
-        });
-    }
+	/**
+	 * @param body
+	 */
+	public override execute$(body: IPaymentDto) {
+		return this.httpClient.put<IPaymentDto>(PaymentEndpoint.UPDATE, body, {
+			context: new HttpContext().set(TokensHttpContext.REPLACE, {
+				id: body._id
+			})
+		});
+	}
 
 }
