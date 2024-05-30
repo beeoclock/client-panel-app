@@ -123,8 +123,11 @@ export class DatetimeLocalInputComponent extends Reactive implements OnInit {
 
 	private initLocalControlValue() {
 
+		const {value} = this.control;
+		this.ngxLogger.debug('DatetimeLocalInputComponent', 'initLocalControlValue', this.control);
+
 		// Convert into datetime-local format
-		const date = DateTime.fromISO(this.control.value);
+		const date = DateTime.fromISO(value);
 		const localControlStartValue = date.toISO();
 		localControlStartValue && this.localControl.patchValue(localControlStartValue.substring(0, 16), {
 			emitEvent: false,
@@ -135,8 +138,8 @@ export class DatetimeLocalInputComponent extends Reactive implements OnInit {
 
 	private initControlValue() {
 
-		const {value} = this.control;
-		this.ngxLogger.debug('DatetimeLocalInputComponent', 'valueChanges', this.control);
+		const {value} = this.localControl;
+		this.ngxLogger.debug('DatetimeLocalInputComponent', 'initControlValue', this.localControl);
 		if (!value) {
 			return;
 		}
