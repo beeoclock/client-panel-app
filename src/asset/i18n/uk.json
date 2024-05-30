@@ -1094,6 +1094,19 @@
     "details": {
       "title": "Деталі замовлення"
     },
+    "enum": {
+      "status": {
+        "singular": {
+          "cancelled": "Скасовано",
+          "confirmed": "Підтверджено",
+          "done": "Виконано",
+          "draft": "Чернетка",
+          "pending": "В процесі",
+          "rejected": "Відхилено",
+          "requested": "Запит"
+        }
+      }
+    },
     "form": {
       "payment": {
         "payer": {

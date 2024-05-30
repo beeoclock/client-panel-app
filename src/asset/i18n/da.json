@@ -1094,6 +1094,19 @@
     "details": {
       "title": "Bestil detaljer"
     },
+    "enum": {
+      "status": {
+        "singular": {
+          "cancelled": "Aflyst",
+          "confirmed": "Bekræftet",
+          "done": "Færdig",
+          "draft": "Udkast",
+          "pending": "Afventer",
+          "rejected": "Afvist",
+          "requested": "Anmodet om"
+        }
+      }
+    },
     "form": {
       "payment": {
         "payer": {

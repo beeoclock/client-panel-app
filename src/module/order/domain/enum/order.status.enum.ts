@@ -1,6 +1,6 @@
 export enum OrderStatusEnum {
   draft = 'draft',
-  unconfirmed = 'unconfirmed',
+  requested = 'requested',
   confirmed = 'confirmed',
   pending = 'pending',
   done = 'done',

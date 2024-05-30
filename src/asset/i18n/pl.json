@@ -1094,6 +1094,19 @@
     "details": {
       "title": "Szczegóły zamówienia"
     },
+    "enum": {
+      "status": {
+        "singular": {
+          "cancelled": "Anulowane",
+          "confirmed": "Potwierdzono",
+          "done": "Gotowe",
+          "draft": "Wersja robocza",
+          "pending": "W toku",
+          "rejected": "Odrzucono",
+          "requested": "Żądany"
+        }
+      }
+    },
     "form": {
       "payment": {
         "payer": {

@@ -1094,6 +1094,19 @@
     "details": {
       "title": "Order details"
     },
+    "enum": {
+      "status": {
+        "singular": {
+          "cancelled": "Cancelled",
+          "confirmed": "Confirmed",
+          "done": "Done",
+          "draft": "Draft",
+          "pending": "Pending",
+          "rejected": "Rejected",
+          "requested": "Requested"
+        }
+      }
+    },
     "form": {
       "payment": {
         "payer": {
