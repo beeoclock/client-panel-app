@@ -77,8 +77,6 @@ import {RIMedia} from "@module/media/domain/interface/i.media";
 })
 export class ContainerFormComponent extends Reactive implements OnInit, OnChanges {
 
-	// TODO move functions to store effects/actions
-
 	@Input()
 	public orderServiceDto: IOrderServiceDto | undefined;
 

@@ -5,11 +5,11 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {
-    FormBusinessProfileComponent
+	FormBusinessProfileComponent
 } from "@client/presentation/component/business-profile/form-business-profile.component";
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {
-    ButtonSaveContainerComponent
+	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
@@ -28,13 +28,13 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {
-    AttendeeCardComponent
+	AttendeeCardComponent
 } from "@event/presentation/component/requsted/list-of-card-collection-by-date/attendee-card/attendee.card.component";
 import {
-    ChangeStatusOnBookedComponent
+	ChangeStatusOnBookedComponent
 } from "@event/presentation/component/change-status/change-status-on-booked.component";
 import {
-    ChangeStatusOnRejectedComponent
+	ChangeStatusOnRejectedComponent
 } from "@event/presentation/component/change-status/change-status-on-rejected.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
@@ -203,6 +203,8 @@ export class ServiceOrderFormContainerComponent implements OnInit {
         if (this.setupPartialData.defaultMemberForService) {
             componentInputs.member = this.setupPartialData.defaultMemberForService;
         }
+
+				this.ngxLogger.info('componentInputs', componentInputs);
 
         const componentRef = await this.pushBoxService.buildItAsync({
             title: this.translateService.instant('event.form.title.create'),

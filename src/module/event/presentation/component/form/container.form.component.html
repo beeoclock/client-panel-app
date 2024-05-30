@@ -1,4 +1,3 @@
-
 <div *ngIf="preview.isOn" class="col-span-12">
 
 	<event-general-details [isPreview]="preview.isOn" [event]="value"/>
@@ -29,14 +28,14 @@
 
 		<bee-card>
 			<event-service-component
-					[member]="member"
+				[member]="member"
 				[serviceListControl]="form.controls.services"/>
 		</bee-card>
 
-<!--		 *ngIf="slotsService.specialistExist"-->
+		<!--		 *ngIf="slotsService.specialistExist"-->
 		<bee-card>
 
-<!--			[editable]="!isEditMode"-->
+			<!--			[editable]="!isEditMode"-->
 			<event-select-time-slot-form-component
 				[editable]="true"
 				[configurationForm]="form.controls.configuration"

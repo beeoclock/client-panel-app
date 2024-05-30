@@ -6,7 +6,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {NGXLogger} from "ngx-logger";
 import {Reactive} from "@utility/cdk/reactive";
-import {filter} from "rxjs";
+import {filter, startWith} from "rxjs";
 import {is} from "thiis";
 import {DateTime} from "luxon";
 
@@ -61,6 +61,7 @@ export class DatetimeLocalInputComponent extends Reactive implements OnInit {
 	public ngOnInit(): void {
 
 		this.localControl.valueChanges.pipe(
+			startWith(this.localControl.value),
 			this.takeUntil(),
 			filter(is.string),
 		).subscribe((localValue) => {
@@ -69,6 +70,7 @@ export class DatetimeLocalInputComponent extends Reactive implements OnInit {
 		});
 
 		this.control.valueChanges.pipe(
+			startWith(this.control.value),
 			this.takeUntil(),
 			filter(is.string),
 		).subscribe((controlValue) => {
@@ -85,6 +87,12 @@ export class DatetimeLocalInputComponent extends Reactive implements OnInit {
 	}
 
 	private detectChanges(localValue: string | null, controlValue: string | null) {
+
+		this.ngxLogger.debug('DatetimeLocalInputComponent', 'detectChanges', {
+			localValue,
+			controlValue,
+			previousValue: this.previousValue
+		});
 
 		if (controlValue === localValue) {
 			return;
