@@ -1,9 +1,9 @@
 <div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState.items.length">
 	<bee-card class="text-sm" *ngFor="let item of tableState.items; trackBy: trackById">
-		<div (click)="singleClick(item)">
+		<div>
 			<div class="flex justify-between items-center gap-8">
 
-				<div class="flex justify-between">
+				<div (click)="singleClick(item)" class="flex justify-between">
 					<div class="flex-1 flex text-beeColor-500">
 						<div>
 							#
@@ -22,7 +22,8 @@
 						*ngIf="showAction.state$ | async"
 						[item]="item"
 						[id]="item._id"/>
-				<div *ngIf="showSelectedStatus.state$ | async">
+
+				<div (click)="singleClick(item)" *ngIf="showSelectedStatus.state$ | async">
 					<div
 							*ngIf="selectedIds.includes(item._id)"
 							class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
@@ -35,7 +36,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="flex flex-col gap-2">
+			<div (click)="singleClick(item)" class="flex flex-col gap-2">
 				<div class="grid grid-cols-2 gap-2">
 					<div class="flex justify-between">
 						<div class="flex-1">

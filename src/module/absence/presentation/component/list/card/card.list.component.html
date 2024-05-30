@@ -21,6 +21,7 @@
 				*ngIf="showAction.state$ | async"
 				[item]="item"
 				[id]="item._id"/>
+
 			<div (click)="singleClick(item)" *ngIf="showSelectedStatus.state$ | async">
 				<div
 					*ngIf="selectedIds.includes(item._id)"
@@ -34,7 +35,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="grid grid-cols-2 gap-2">
+		<div (click)="singleClick(item)" class="grid grid-cols-2 gap-2">
 
 			<div class="flex justify-between">
 				<div class="flex-1">
@@ -57,7 +58,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="flex justify-between">
+		<div (click)="singleClick(item)" class="flex justify-between">
 			<div class="flex-1">
 				<div>
 					{{ 'keyword.capitalize.attendees' | translate }}
@@ -72,7 +73,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="flex justify-between">
+		<div (click)="singleClick(item)" class="flex justify-between">
 			<div class="flex-1">
 				<div>
 					{{ 'keyword.capitalize.note' | translate }}
@@ -82,7 +83,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="grid grid-cols-2 gap-2">
+		<div (click)="singleClick(item)" class="grid grid-cols-2 gap-2">
 			<div class="flex justify-between">
 				<div class="flex-1">
 					<div>
