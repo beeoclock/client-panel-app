@@ -68,7 +68,7 @@
 						{{ 'absence.form.inputs.entireBusiness.label' | translate }}
 					</ng-container>
 					<ng-template #MembersTemplate>
-						{{ item.memberIds.length ?? 0 }}
+						{{ item?.memberIds?.length ?? 0 }}
 					</ng-template>
 				</div>
 			</div>
