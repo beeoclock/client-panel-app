@@ -47,6 +47,9 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 import * as Member from '@member/domain';
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {RIMedia} from "@module/media/domain/interface/i.media";
+import {
+	CustomerTypeCustomerComponent
+} from "@customer/presentation/component/form/by-customer-type/customer-type.customer.component";
 
 @Component({
 	selector: 'event-container-form-component',
@@ -69,6 +72,7 @@ import {RIMedia} from "@module/media/domain/interface/i.media";
 		DatePipe,
 		DefaultPanelComponent,
 		BackButtonComponent,
+		CustomerTypeCustomerComponent,
 	],
 	providers: [
 		SlotsService

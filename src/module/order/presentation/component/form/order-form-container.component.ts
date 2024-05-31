@@ -33,9 +33,6 @@ import {
 	PaymentOrderFormContainerComponent
 } from "@order/presentation/component/form/payment.order-form-container.component";
 import {
-	PayerOrderFormContainerComponent
-} from "@order/presentation/component/form/payer/payer.order-form-container.component";
-import {
 	ServiceOrderFormContainerComponent
 } from "@order/presentation/component/form/service.order-form-container.component";
 import {OrderActions} from "@order/state/order/order.actions";
@@ -46,6 +43,9 @@ import {Reactive} from "@utility/cdk/reactive";
 import {ICustomer} from "@customer/domain";
 import {UpdateOrderApiAdapter} from "@order/external/adapter/api/update.order.api.adapter";
 import {UpdatePaymentApiAdapter} from "@module/payment/external/adapter/api/update.payment.api.adapter";
+import {
+	CustomerTypeCustomerComponent
+} from "@customer/presentation/component/form/by-customer-type/customer-type.customer.component";
 
 @Component({
 	selector: 'app-order-form-container',
@@ -62,15 +62,39 @@ import {UpdatePaymentApiAdapter} from "@module/payment/external/adapter/api/upda
 		FormsModule,
 		PrimaryButtonDirective,
 		PaymentOrderFormContainerComponent,
-		PayerOrderFormContainerComponent,
-		ServiceOrderFormContainerComponent
+		ServiceOrderFormContainerComponent,
+		CustomerTypeCustomerComponent
 	],
 	standalone: true,
 	template: `
 		<form class="flex flex-col gap-4">
 
 			<app-service-order-form-container [form]="form.controls.order" [setupPartialData]="setupPartialData()"/>
-			<app-payer-order-form-container [form]="form.controls.payment"/>
+			<bee-card>
+				<app-customer-type-customer-component
+					[form]="form.controls.payment.controls.payer">
+					<div class="font-bold" slot="label">{{ 'keyword.capitalize.payer' | translate }}</div>
+					<div slot="banner" customer-type="new" class="bg-beeColor-100 border-2 px-3 py-2 rounded-lg text-beeColor-600 text-sm flex flex-col">
+						<div class="font-bold">
+							<i class="bi bi-exclamation-triangle-fill"></i>
+							{{ 'keyword.capitalize.warning' | translate }}
+						</div>
+						<div>
+							{{ 'order.form.payment.payer.case.new.hint' | translate }}
+						</div>
+					</div>
+
+					<div slot="banner" customer-type="unregistered" class="bg-beeColor-100 border-2 px-3 py-2 rounded-lg text-beeColor-600 text-sm flex flex-col">
+						<div class="font-bold">
+							<i class="bi bi-exclamation-triangle-fill"></i>
+							{{ 'keyword.capitalize.warning' | translate }}
+						</div>
+						<div>
+							{{ 'order.form.payment.payer.case.unregistered.hint' | translate }}
+						</div>
+					</div>
+				</app-customer-type-customer-component>
+			</bee-card>
 			<app-payment-order-form-container [form]="form"/>
 			<bee-card>
 				<form-textarea-component
@@ -119,7 +143,11 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 
 	public readonly availableCustomersInForm = signal<{ [key: string]: ICustomer }>({});
 
-	public ngOnChanges(changes: SimpleChanges & { orderDto: SimpleChange; paymentDto: SimpleChange; isEditMode: SimpleChange;}) {
+	public ngOnChanges(changes: SimpleChanges & {
+		orderDto: SimpleChange;
+		paymentDto: SimpleChange;
+		isEditMode: SimpleChange;
+	}) {
 
 		console.log('changes', changes)
 		const {orderDto, paymentDto} = changes;
@@ -189,7 +217,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	}
 
 	private patchOrderValue(orderDto: SimpleChange) {
-		const {currentValue} = orderDto as {currentValue: IOrderDto};
+		const {currentValue} = orderDto as { currentValue: IOrderDto };
 		this.form.controls.order.patchValue(currentValue);
 		currentValue.services?.forEach((service) => {
 			this.form.controls.order.controls.services.pushNewOne(service);

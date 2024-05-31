@@ -2,6 +2,7 @@ import {FormArray, FormControl, FormGroup} from "@angular/forms";
 import {IAttendee} from "@event/domain";
 import {CustomerForm} from "@customer/presentation/form";
 import {IsNewCustomerEnum, IsOptionalEnum, IsOrganizerEnum} from "@utility/domain/enum";
+import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 
 
 export interface IAttendantForm {
@@ -22,10 +23,12 @@ export class AttendantForm extends FormGroup<IAttendantForm> {
 			isOrganizer: new FormControl(IsOrganizerEnum.NO, {
 				nonNullable: true
 			}),
-			isNewCustomer: new FormControl(IsNewCustomerEnum.YES, {
+			isNewCustomer: new FormControl(IsNewCustomerEnum.YES, { // TODO: redundant
 				nonNullable: true
 			}),
-			customer: new CustomerForm()
+			customer: CustomerForm.create({
+				customerType: CustomerTypeEnum.unknown
+			})
 		});
 	}
 
