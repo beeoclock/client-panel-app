@@ -156,7 +156,6 @@ export class ServiceState extends BaseState<IService> {
 
 		await this.pushBoxService.buildItAsync({
 			title: this.translateService.instant('service.form.title.create'),
-			id: ServiceContainerFormComponent.name,
 			...pushBoxInputs,
 			component: ServiceContainerFormComponent,
 			componentInputs,

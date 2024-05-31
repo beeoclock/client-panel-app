@@ -149,7 +149,6 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 		const {componentInputs, pushBoxInputs} = payload ?? {};
 
 		await this.pushBoxService.buildItAsync({
-			id: CustomerFormContainerComponent.name,
 			title: this.translateService.instant('customer.form.title.create'),
 			...pushBoxInputs,
 			component: CustomerFormContainerComponent,

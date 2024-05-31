@@ -259,7 +259,6 @@ export class OrderState extends BaseState<IOrderDto> {
 		const {componentInputs, pushBoxInputs} = payload ?? {};
 
 		await this.pushBoxService.buildItAsync({
-			id: OrderFormContainerComponent.name,
 			title: this.translateService.instant('order.form.title.create'),
 			...pushBoxInputs,
 			component: OrderFormContainerComponent,
