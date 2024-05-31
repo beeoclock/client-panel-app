@@ -7,11 +7,11 @@ import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {
-    SelectedMemberAdditionalMenuComponent
+	SelectedMemberAdditionalMenuComponent
 } from "@event/presentation/component/additional-menu/selected-member.additional-menu.component";
 import {NgIf} from "@angular/common";
 import {
-    SelectedDatetimeAdditionalMenuComponent
+	SelectedDatetimeAdditionalMenuComponent
 } from "@event/presentation/component/additional-menu/selected-datetime.additional-menu.component";
 import {DateTime} from "luxon";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
@@ -196,6 +196,8 @@ export class AdditionalMenuComponent implements OnInit {
             item.start = this.datetimeISO;
             item.end = DateTime.fromISO(this.datetimeISO).plus({minutes: differenceInMinutes}).toJSDate().toISOString();
         }
+
+				this.ngxLogger.info('AdditionalMenuComponent.openAbsenceForm', item);
 
         this.store.dispatch(new AbsenceActions.OpenForm({
             componentInputs: {

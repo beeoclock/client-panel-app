@@ -148,7 +148,7 @@ export class AbsenceState extends BaseState<IAbsenceDto> {
         await this.pushBoxService.buildItAsync({
             id: AbsenceFormContainerComponent.name,
             title: this.translateService.instant('absence.form.title.create'),
-            ...pushBoxInputs,
+            ...(pushBoxInputs ?? {}),
             component: AbsenceFormContainerComponent,
             componentInputs,
         });
