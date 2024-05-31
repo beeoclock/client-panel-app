@@ -1,19 +1,19 @@
 import {
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    HostBinding,
-    inject,
-    Input,
-    OnDestroy,
-    OnInit,
-    ViewEncapsulation
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	HostBinding,
+	inject,
+	Input,
+	OnDestroy,
+	OnInit,
+	ViewEncapsulation
 } from "@angular/core";
 import {DatePipe, NgIf, NgStyle} from "@angular/common";
 import {
-    ComposeCalendarWithSpecialistsService
+	ComposeCalendarWithSpecialistsService
 } from "@page/event/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 
 @Component({
@@ -28,13 +28,15 @@ import {
 	template: `
 		<!-- Current time -->
 <!--		<div class="min-w-[70px] flex justify-end">-->
-<!--			<div-->
-<!--				class="z-20 px-2 py-1 border border-red-500 bg-white rounded-l-2xl rounded-b-2xl text-xs text-right text-red-500 uppercase font-bold">-->
-<!--				{{ currentDate | date: 'HH:mm' }}-->
-<!--			</div>-->
-<!--		</div>-->
+		<div class="z-[11] bg-white flex justify-end left-0 min-w-[70px] sticky" [style.transform]="'translateY(-50%)'">
+			<div
+				class="px-2 py-1 border border-red-500 bg-white rounded-2xl text-xs text-right text-red-500 uppercase font-bold">
+				{{ currentDate | date: 'HH:mm' }}
+			</div>
+		</div>
 		<!-- Line -->
-		<div class="border-t border-red-400/50 w-full h-1"></div>
+		<!--		border-t border-red-400/50 h-1 -->
+		<div class="w-full bg-[#f87171] h-[2px]"></div>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

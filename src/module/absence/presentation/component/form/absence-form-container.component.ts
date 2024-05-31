@@ -118,7 +118,6 @@ export class AbsenceFormContainerComponent extends Reactive implements OnChanges
 
 	public ngOnChanges(changes: SimpleChanges & { item: Partial<IAbsenceDto> }) {
 
-		console.log(changes)
 		const {item} = changes;
 		if (item) {
 			this.detectItem();

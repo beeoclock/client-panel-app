@@ -7,7 +7,7 @@ import {NgIf} from "@angular/common";
 	template: `
 		<ng-container *ngIf="member">
 			<div
-				class="flex gap-2 items-center justify-start h-full px-2 text-slate-900 dark:text-slate-200 text-sm font-medium">
+				class="dark:text-slate-200 flex font-medium gap-1 h-full items-center justify-start px-1 text-slate-900 text-sm">
 				<div class="rounded-full bg-beeColor-400 min-h-8 min-w-8 flex justify-center items-center">
 					<ng-container *ngIf="member?.avatar?.url; else InitialsTemplate">
 						<img [src]="member.avatar.url" class="min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 rounded-full" alt="">
@@ -17,7 +17,7 @@ import {NgIf} from "@angular/common";
 						<div class="text-white text-xs font-bold">{{ getMemberLastName[0] }}</div>
 					</ng-template>
 				</div>
-				<div>{{ getMemberFirstName }} {{ getMemberLastName }}</div>
+				<div class="line-clamp-2">{{ getMemberFirstName }} {{ getMemberLastName }}</div>
 			</div>
 		</ng-container>
 	`,

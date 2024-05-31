@@ -344,8 +344,6 @@ export class ServiceOrderFormContainerComponent implements OnInit {
                 return;
             }
 
-            console.log('index', index)
-
             this.form.controls.services.at(index).patchValue({
                 customerNote: formValue.note,
                 orderAppointmentDetails: {

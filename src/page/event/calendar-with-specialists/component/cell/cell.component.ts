@@ -20,7 +20,7 @@ import {
 	selector: 'event-cell-component',
 	template: `
 		<div
-			class="opacity-0 hover:opacity-100 transition-all flex items-center h-full px-2 cursor-pointer bg-neutral-100 active:bg-blue-400 active:text-white text-neutral-500">
+			class="active:bg-blue-400 active:text-white bg-neutral-100 border-2 border-[#00000038] cursor-pointer flex h-full hover:opacity-100 items-center opacity-0 px-2 rounded-md text-neutral-500 transition-all">
 			+ {{ 'keyword.capitalize.add-event' | translate }}
 		</div>
 	`,
@@ -67,7 +67,7 @@ export class CellComponent {
 
 	@HostBinding()
 	public get class() {
-		return 'border-slate-100 dark:border-slate-200/5 border-r';
+		return 'border-slate-100 dark:border-slate-200/5 border-r z-10';
 	}
 
 	@HostBinding('class.border-b')

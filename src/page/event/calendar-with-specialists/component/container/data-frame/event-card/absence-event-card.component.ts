@@ -17,6 +17,7 @@ import {
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {TranslateModule} from "@ngx-translate/core";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {DateTime} from "luxon";
 
 @Component({
 	selector: 'absence-event-card-component',
@@ -72,9 +73,7 @@ export class AbsenceEventCardComponent {
 	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
 	private readonly store = inject(Store);
 
-	public readonly slotInMinutes = this.composeCalendarWithSpecialistsService.slotInMinutes;
 	public readonly startTimeToDisplay = this.composeCalendarWithSpecialistsService.startTimeToDisplay;
-	public readonly stepPerHour = this.composeCalendarWithSpecialistsService.stepPerHour;
 
 	@HostListener('click')
 	public async onClick() {
@@ -83,36 +82,52 @@ export class AbsenceEventCardComponent {
 
 	@HostBinding('style.grid-row-start')
 	public get gridRowStart() {
-
-		const startRowIndex = 1;
-		const {startTime} = this.card;
-
-		if ((startTime - this.startTimeToDisplay) <= 0) {
-			return startRowIndex;
-		}
-
-		const startTimeWithoutDecimalPart = Math.floor(startTime);
-		const startTimeWithOffset = startTimeWithoutDecimalPart - this.startTimeToDisplay;
-		const result = (startTimeWithOffset * this.stepPerHour) + startRowIndex
-		// take decimal part of the result and round it to 0 or 25 or 50 or 75
-		const decimalPart = startTime % 1;
-		const roundedDecimalPart = Math.floor(decimalPart * this.stepPerHour);
-
-		console.log({
-			event: this.event,
-			result,
-			startTime,
-			roundedDecimalPart,
-			newSomething: Math.floor(result) + roundedDecimalPart
-		})
-
-		return Math.floor(result) + roundedDecimalPart;
-
+		return 1;
 	}
 
-	@HostBinding('style.grid-row-end')
-	public get gridRowEnd() {
-		return (this.card.startTime > 0 ? (((this.card.startTime - this.startTimeToDisplay) * this.stepPerHour) + 1) : 1) + (this.card.durationInMinutes / this.slotInMinutes);
+	@HostBinding('style.margin-top')
+	public get marginTop() {
+
+		const {start} = this.event.data;
+		const {
+			oneHourHeightInPx,
+			oneHoursInMinutes,
+			// slotInMinutes
+		} = this.composeCalendarWithSpecialistsService;
+
+		// Take hours and minutes from the start time
+		const startDateTime = DateTime.fromISO(start);
+		const startHourWithoutStartTimeToDisplay = startDateTime.hour - this.startTimeToDisplay;
+
+		if (startHourWithoutStartTimeToDisplay < 0) {
+			return '0px';
+		}
+
+		const startInMinutes = (startHourWithoutStartTimeToDisplay * 60) + startDateTime.minute;
+
+		return `${(oneHourHeightInPx / oneHoursInMinutes) * startInMinutes}px`;
+	}
+
+	// Calculate the end of the event in px but it should be proportional to the slot size
+	@HostBinding('style.height')
+	public get height() {
+		// return (this.card.startTime > 0 ? (((this.card.startTime - this.startTimeToDisplay) * this.stepPerHour) + 1) : 1) + (this.card.durationInMinutes / this.slotInMinutes);
+
+		const {
+			oneHourHeightInPx,
+			oneHoursInMinutes,
+			// slotInMinutes
+		} = this.composeCalendarWithSpecialistsService;
+		// const defaultHeight = (oneHourHeightInPx / oneHoursInMinutes) * slotInMinutes; // (180/60)*10 = 30px
+		let height = 0;
+
+		// Calculate height
+		// Take duration of the event
+		const duration = this.card.durationInMinutes;
+
+		height = (oneHourHeightInPx / oneHoursInMinutes) * duration;
+
+		return `${height}px`;
 	}
 
 	@HostBinding('style.grid-column-start')
@@ -125,10 +140,10 @@ export class AbsenceEventCardComponent {
 
 		// Choose color by status
 		const classList = [
-			'transition-all hover:cursor-pointer z-10 border rounded-lg m-1 p-1 flex flex-col text-white overflow-hidden',
+			'relative transition-all hover:cursor-pointer z-[11] border-2 rounded-md border-[#00000038] p-1 flex flex-col text-white overflow-hidden',
 		];
 
-		classList.push('bg-gray-600', 'border-gray-600', 'hover:bg-gray-700');
+		classList.push('bg-gray-600', 'hover:bg-gray-700'); // 'border-gray-600',
 
 		return classList.join(' ');
 	}

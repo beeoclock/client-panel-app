@@ -149,7 +149,6 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		isEditMode: SimpleChange;
 	}) {
 
-		console.log('changes', changes)
 		const {orderDto, paymentDto} = changes;
 		orderDto && this.patchOrderValue(orderDto);
 		paymentDto && this.form.controls.payment.patchValue(paymentDto.currentValue);
@@ -184,7 +183,6 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		this.form.disable();
 		this.form.markAsPending();
 		if (this.isEditMode()) {
-			console.log('update order', order)
 
 			await this.updateOrderApiAdapter.executeAsync(order as IOrderDto);
 			await this.updatePaymentApiAdapter.executeAsync(payment as IPaymentDto);

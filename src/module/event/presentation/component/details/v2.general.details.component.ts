@@ -11,7 +11,7 @@ import {ISpecialist} from "@service/domain/interface/i.specialist";
 import {ICustomer} from "@customer/domain";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 import {
-    OrderServiceStatusStyleDirective
+	OrderServiceStatusStyleDirective
 } from "@event/presentation/directive/order-service-status-style/order-service-status-style.directive";
 
 @Component({
@@ -169,7 +169,6 @@ export class V2GeneralDetailsComponent implements OnChanges {
 
             const {attendees} = event.currentValue as IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>;
             attendees.forEach((attendee) => {
-                console.log(attendee);
                 (attendee.is === 'specialist') && this.attendantMap.specialists.push(attendee.originalData as ISpecialist);
                 (attendee.is === 'customer') && this.attendantMap.customers.push((attendee.originalData as IAttendee).customer);
             });
