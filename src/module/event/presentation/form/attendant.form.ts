@@ -1,7 +1,7 @@
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
 import {IAttendee} from "@event/domain";
 import {CustomerForm} from "@customer/presentation/form";
-import {IsNewCustomerEnum, IsOptionalEnum, IsOrganizerEnum} from "@utility/domain/enum";
+import {IsOptionalEnum, IsOrganizerEnum} from "@utility/domain/enum";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 
 
@@ -9,7 +9,6 @@ export interface IAttendantForm {
 	_id: FormControl<string>;
 	isOptional: FormControl<IsOptionalEnum>;
 	isOrganizer: FormControl<IsOrganizerEnum>;
-	isNewCustomer: FormControl<IsNewCustomerEnum>;
 	customer: CustomerForm;
 }
 
@@ -23,34 +22,10 @@ export class AttendantForm extends FormGroup<IAttendantForm> {
 			isOrganizer: new FormControl(IsOrganizerEnum.NO, {
 				nonNullable: true
 			}),
-			isNewCustomer: new FormControl(IsNewCustomerEnum.YES, { // TODO: redundant
-				nonNullable: true
-			}),
 			customer: CustomerForm.create({
 				customerType: CustomerTypeEnum.unknown
 			})
 		});
-	}
-
-	public toggleIsNewCustomer(force: IsNewCustomerEnum | undefined = undefined): void {
-
-		if (force !== undefined) {
-
-			this.controls.isNewCustomer.patchValue(force);
-			return;
-
-		}
-
-		if (this.controls.isNewCustomer.value === IsNewCustomerEnum.YES) {
-
-			this.controls.isNewCustomer.patchValue(IsNewCustomerEnum.NO);
-
-		} else {
-
-			this.controls.isNewCustomer.patchValue(IsNewCustomerEnum.YES);
-
-		}
-
 	}
 
 }

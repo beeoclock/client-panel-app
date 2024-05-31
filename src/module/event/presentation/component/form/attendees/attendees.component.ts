@@ -4,7 +4,6 @@ import {NgForOf, NgIf} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {AttendeesForm} from "@event/presentation/form/attendant.form";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {IsNewCustomerEnum} from "@utility/domain/enum";
 import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
 import {Reactive} from "@utility/cdk/reactive";
 
@@ -59,7 +58,6 @@ export class AttendeesComponent extends Reactive {
 				this.form.controls[0].patchValue({
 					customer: newSelectedServiceList[0]
 				});
-				this.form.controls[0].toggleIsNewCustomer(IsNewCustomerEnum.NO);
 				this.form.controls[0].controls.customer.disable();
 
 				this.pushBoxService.destroy$.next(SelectCustomerPushBoxComponent.name);

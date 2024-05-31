@@ -1,6 +1,6 @@
 import {IService} from "@service/domain";
 import {ICustomer} from "@customer/domain";
-import {ActiveEnum, IsNewCustomerEnum, IsOptionalEnum, IsOrganizerEnum, ResponseStatusEnum} from "@utility/domain/enum";
+import {ActiveEnum, IsOptionalEnum, IsOrganizerEnum, ResponseStatusEnum} from "@utility/domain/enum";
 import {RIBaseEntity} from "@utility/domain";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 
@@ -12,7 +12,6 @@ export interface IAttendee extends RIBaseEntity<'Event.Attendant'> {
 	isOptional: IsOptionalEnum;
 	isOrganizer: IsOrganizerEnum;
 	responseStatus: ResponseStatusEnum;
-	isNewCustomer: IsNewCustomerEnum;
 	customer: ICustomer;
 	active: ActiveEnum;
 }
@@ -40,7 +39,6 @@ export interface MIEvent extends IEvent {
 }
 
 export type RMIEvent = Required<MIEvent>;
-
 
 
 export interface IAttendee_V2<ORIGINAL_DATA = unknown> {
