@@ -4,6 +4,7 @@ import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
 export const OrderEndpoint = {
 	CREATE: '/api/v1/order',
 	UPDATE: '/api/v1/order/{id}',
+	UPDATE_SERVICE: '/api/v1/order/{id}/service',
 	UPDATE_STATUS: '/api/v1/order/{id}/status/{status}',
 	UPDATE_SERVICE_STATUS: '/api/v1/order/{id}/service/{serviceId}/status/{status}',
 	DELETE: '/api/v1/order/{id}', // TODO: check if backend did changes
@@ -22,6 +23,13 @@ export const orderEndpoint: EndpointCollectionType = {
 		}
 	},
 	PATCH: {
+		[OrderEndpoint.UPDATE_SERVICE]: {
+			source: SourceNetworkEnum.panel,
+			replace: true,
+			header: {
+				authorization: true,
+			}
+		},
 		[OrderEndpoint.UPDATE_STATUS]: {
 			source: SourceNetworkEnum.panel,
 			replace: true,

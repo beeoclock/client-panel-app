@@ -1,6 +1,7 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {RIMember} from "@member/domain";
+import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace OrderActions {
@@ -25,6 +26,19 @@ export namespace OrderActions {
 
 	export class OpenDetailsById extends BaseActions.OpenDetailsById {
 		public static override readonly type = '[Order Application] Open Details By Id';
+	}
+
+	export class OpenOrderServiceForm {
+		public static readonly type = '[Order Application] Open Order Service Form';
+
+		public constructor(
+			public readonly payload: {
+				orderId: string;
+				isEditMode?: boolean;
+				item?: Partial<IOrderServiceDto>;
+			}
+		) {
+		}
 	}
 
 	export class OpenFormToEditById extends BaseActions.OpenFormToEditById {

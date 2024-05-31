@@ -11,7 +11,6 @@ import {
 import {IAttendee, IEvent_V2} from "@event/domain";
 import {DatePipe, NgIf} from "@angular/common";
 import {Store} from "@ngxs/store";
-import {EventActions} from "@event/state/event/event.actions";
 import {
 	ComposeCalendarWithSpecialistsService
 } from "@page/event/calendar-with-specialists/component/compose.calendar-with-specialists.service";
@@ -19,6 +18,7 @@ import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 import {DateTime} from "luxon";
+import {OrderActions} from "@order/state/order/order.actions";
 
 @Component({
 	selector: 'order-event-card-component',
@@ -183,8 +183,12 @@ export class OrderEventCardComponent {
 		}).join(', ');
 	}
 
-	private async openEventDetails(event: IEvent_V2) {
-		this.store.dispatch(new EventActions.OpenDetails(event));
+	private async openEventDetails(event: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>) {
+		this.store.dispatch(new OrderActions.OpenOrderServiceForm({
+			orderId: event.originalData.order._id,
+			item: event.originalData.service,
+			isEditMode: true
+		}));
 	}
 
 }

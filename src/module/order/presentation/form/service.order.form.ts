@@ -7,64 +7,74 @@ import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.en
 
 export interface IServiceOrderForm {
 
-    serviceSnapshot: FormControl<IServiceDto>;
-    orderAppointmentDetails: FormControl<IOrderAppointmentDetailsDto>;
-    customerNote: FormControl<string>;
+	serviceSnapshot: FormControl<IServiceDto>;
+	orderAppointmentDetails: FormControl<IOrderAppointmentDetailsDto>;
+	customerNote: FormControl<string>;
 
-    status: FormControl<OrderServiceStatusEnum>;
-    meta: FormControl<IMetaDto>;
+	status: FormControl<OrderServiceStatusEnum>;
+	meta: FormControl<IMetaDto>;
 
 }
 
 export class ServiceOrderForm extends BaseEntityForm<'OrderServiceDto', IServiceOrderForm> {
 
-    constructor() {
+	constructor() {
 
-        super('OrderServiceDto', {
+		super('OrderServiceDto', {
 
-            serviceSnapshot: new FormControl(),
+			serviceSnapshot: new FormControl(),
 
-            orderAppointmentDetails: new FormControl(),
+			orderAppointmentDetails: new FormControl(),
 
-            status: new FormControl(OrderServiceStatusEnum.pending, {
-                nonNullable: true,
-            }),
+			status: new FormControl(OrderServiceStatusEnum.pending, {
+				nonNullable: true,
+			}),
 
-            meta: new FormControl(randomMetaDto(), {
-                nonNullable: true,
-            }),
+			meta: new FormControl(randomMetaDto(), {
+				nonNullable: true,
+			}),
 
-            customerNote: new FormControl('', {
-                nonNullable: true,
-            }),
+			customerNote: new FormControl('', {
+				nonNullable: true,
+			}),
 
-        });
+		});
 
-    }
+	}
+
+	public static create(initValue: Partial<IOrderServiceDto> = {}): ServiceOrderForm {
+
+		const form = new ServiceOrderForm();
+
+		initValue && form.patchValue(initValue);
+
+		return form;
+
+	}
 
 }
 
 export class ServiceOrderFormArray extends FormArray<ServiceOrderForm> {
 
-    constructor() {
-        super([]);
-    }
+	constructor() {
+		super([]);
+	}
 
-    public pushNewOne(initialValue?: Partial<IOrderServiceDto> | undefined): ServiceOrderForm {
+	public pushNewOne(initialValue?: Partial<IOrderServiceDto> | undefined): ServiceOrderForm {
 
-        const control = new ServiceOrderForm();
+		const control = new ServiceOrderForm();
 
-        if (initialValue) {
+		if (initialValue) {
 
-            control.patchValue(initialValue);
+			control.patchValue(initialValue);
 
-        }
-        this.push(control);
+		}
+		this.push(control);
 
-        this.updateValueAndValidity();
+		this.updateValueAndValidity();
 
-        return control;
+		return control;
 
-    }
+	}
 
 }

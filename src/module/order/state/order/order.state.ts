@@ -1,7 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
-import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {ActiveEnum, OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {TranslateService} from "@ngx-translate/core";
 import {CreateOrderApiAdapter} from "@order/external/adapter/api/create.order.api.adapter";
 import {UpdateOrderApiAdapter} from "@order/external/adapter/api/update.order.api.adapter";
@@ -11,6 +11,13 @@ import {DeleteOrderApiAdapter} from "../../external/adapter/api/delete.order.api
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {OrderActions} from "@order/state/order/order.actions";
 import {PagedPaymentApiAdapter} from "@module/payment/external/adapter/api/paged.payment.api.adapter";
+import {UpdateServiceOrderApiAdapter} from "@order/external/adapter/api/update.service.order.api.adapter";
+import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {ContainerFormComponent} from "@event/presentation/component/form/container.form.component";
+import {IEvent} from "@event/domain";
+import {ReservationTypeEnum} from "@order/domain/enum/reservation.type.enum";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
 
 export type IOrderState = IBaseState<IOrderDto>;
 
@@ -33,6 +40,7 @@ export class OrderState extends BaseState<IOrderDto> {
 	protected override readonly delete = inject(DeleteOrderApiAdapter);
 	protected override readonly paged = inject(PagedOrderApiAdapter);
 
+	private readonly updateServiceOrderApiAdapter = inject(UpdateServiceOrderApiAdapter);
 	private readonly paymentPaged = inject(PagedPaymentApiAdapter);
 	private readonly translateService = inject(TranslateService);
 
@@ -145,6 +153,99 @@ export class OrderState extends BaseState<IOrderDto> {
 				paymentDto,
 				isEditMode: true,
 			},
+		});
+
+	}
+
+	@Action(OrderActions.OpenOrderServiceForm)
+	public async openOrderServiceFormAction(ctx: StateContext<IOrderState>, {payload}: OrderActions.OpenOrderServiceForm): Promise<void> {
+
+
+		this.ngxLogger.info('openOrderServiceFormAction', payload);
+
+		const {orderId, isEditMode, item} = payload;
+
+		const componentInputs: {
+			orderServiceDto: Partial<IOrderServiceDto>;
+			useDefaultFlow: boolean;
+			isEditMode: boolean;
+			forceStart?: string;
+		} = {
+			isEditMode: isEditMode ?? false,
+			useDefaultFlow: false,
+			orderServiceDto: item ?? {},
+		};
+
+		const componentRef = await this.pushBoxService.buildItAsync({
+			title: this.translateService.instant('event.form.title.edit'),
+			component: ContainerFormComponent,
+			componentInputs,
+		});
+
+		console.log('componentRef', componentRef);
+
+		if (!componentRef) {
+			return;
+		}
+
+		const {renderedComponentRef} = componentRef.instance;
+
+		if (!renderedComponentRef) {
+			return;
+		}
+
+		renderedComponentRef.setInput('callback', (component: ContainerFormComponent, formValue: IEvent) => {
+			this.ngxLogger.info('callback', component, formValue);
+
+			if (!formValue.services || !formValue.services.length) {
+				return;
+			}
+
+			if (!formValue.attendees || !formValue.attendees.length) {
+				return;
+			}
+
+			if (!formValue.timeZone) {
+				return;
+			}
+
+			if (!formValue.start) {
+				return;
+			}
+
+			if (!formValue.end) {
+				return;
+			}
+
+			const orderServiceForm = ServiceOrderForm.create({
+				customerNote: formValue.note,
+				orderAppointmentDetails: {
+					object: 'OrderAppointmentDetailsDto',
+					active: ActiveEnum.YES,
+					start: formValue.start,
+					end: formValue.end,
+					type: ReservationTypeEnum.service,
+					// languageCodes: LanguageCodeEnum[];
+					// attachments: IAttachmentDto[];
+					specialists: formValue.services[0].specialists,
+					attendees: formValue.attendees,
+					// locations: ILocationsDto[];
+					timeZone: formValue.timeZone,
+					createdAt: formValue.createdAt,
+					updatedAt: formValue.updatedAt,
+				},
+				serviceSnapshot: {
+					...formValue.services[0],
+					object: "ServiceDto",
+				} as unknown as IServiceDto,
+			});
+
+			this.updateServiceOrderApiAdapter.executeAsync(orderId, orderServiceForm.value);
+
+			// TODO: call function to increase defaultAppointmentStartDateTimeIso
+
+			componentRef.instance.destroySelf();
+
 		});
 
 	}
