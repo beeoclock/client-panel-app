@@ -66,9 +66,9 @@ import {
 
 			<select-slot-building-strategy-component [slotSettings]="form.controls.slotSettings"/>
 
-			<hr>
+<!--			<hr>-->
 
-			<select-slot-retrieving-strategy-component [slotSettings]="form.controls.slotSettings"/>
+<!--			<select-slot-retrieving-strategy-component [slotSettings]="form.controls.slotSettings"/>-->
 
     </bee-card>
   `
