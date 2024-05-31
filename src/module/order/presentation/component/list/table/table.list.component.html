@@ -43,7 +43,7 @@
             </div>
             <div tableColumnFlex="status">
 				<span [title]="item.status" class="truncate">
-					{{ item.status | noData }}
+					{{ ('order.enum.status.singular.' + item.status) | translate }}
 				</span>
             </div>
             <div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
