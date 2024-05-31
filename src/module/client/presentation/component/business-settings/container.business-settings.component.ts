@@ -32,8 +32,8 @@ import {
 				[control]="businessSettings.controls.emailLanguage"/>
 			<app-client-base-currency-business-settings-component
 				[control]="businessSettings.controls.baseCurrency"/>
-			<client-currencies-business-settings-component
-				[control]="businessSettings.controls.currencies"/>
+<!--			<client-currencies-business-settings-component-->
+<!--				[control]="businessSettings.controls.currencies"/>-->
 			<client-booking-settings-time-zone-component
 				[control]="businessSettings.controls.timeZone"/>
 		</bee-card>
