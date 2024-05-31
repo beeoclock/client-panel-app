@@ -218,6 +218,7 @@ export class OrderState extends BaseState<IOrderDto> {
 			}
 
 			const orderServiceForm = ServiceOrderForm.create({
+				...(formValue as any),
 				customerNote: formValue.note,
 				orderAppointmentDetails: {
 					object: 'OrderAppointmentDetailsDto',

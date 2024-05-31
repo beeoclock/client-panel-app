@@ -18,6 +18,7 @@ import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 import {NGXLogger} from "ngx-logger";
+import {OrderActions} from "@order/state/order/order.actions";
 
 @Component({
 	selector: 'app-event-v2-buttons-details',
@@ -120,8 +121,13 @@ export class V2ButtonsDetailsComponent implements OnChanges {
 	private readonly store = inject(Store);
 
 	public editEvent() {
-		// this.store.dispatch(new .OpenFormToEditById(this.event._id));
-		// TODO: Detect which form to open? of service or of order?
+
+		this.store.dispatch(new OrderActions.OpenOrderServiceForm({
+			orderId: this.event.originalData.order._id,
+			item: this.event.originalData.service,
+			isEditMode: true
+		}));
+
 	}
 
 	public openFormToRepeat() {
