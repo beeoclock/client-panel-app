@@ -9,6 +9,7 @@ import {ActiveStyleDirective} from "@utility/presentation/directives/active-styl
 import {NgIf} from "@angular/common";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 
 @Component({
 	selector: 'absence-detail-page',
@@ -20,7 +21,8 @@ import {AbsenceActions} from "@absence/state/absence/absence.actions";
 		DeleteButtonComponent,
 		EditButtonComponent,
 		ActiveStyleDirective,
-		NgIf
+		NgIf,
+		NoDataPipe
 	],
 	standalone: true
 })

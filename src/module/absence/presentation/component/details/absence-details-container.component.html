@@ -3,18 +3,50 @@
 		<dl class="divide-y divide-gray-100">
 			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
-					{{ 'keyword.capitalize.note' | translate }}
-				</dt>
-				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-					{{ item.note }}
-				</dd>
-			</div>
-			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
-				<dt class="text-sm font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.status' | translate }}
 				</dt>
 				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
 					<div activeStyle [active]="item.active"></div>
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.singular.capitalize.type' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ ('absence.type.' + item.type + '.label') | translate }}
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.start' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ item.start | dynamicDate }}
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.end' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ item.end | dynamicDate }}
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.attendees' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ item?.memberIds?.length ?? 0 }}
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.note' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ item.note | noData }}
 				</dd>
 			</div>
 		</dl>

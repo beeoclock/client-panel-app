@@ -1025,7 +1025,8 @@
 		},
 		"singular": {
 			"capitalize": {
-				"client": "Klient"
+				"client": "Klient",
+				"type": "Typ"
 			}
 		},
 		"status": {
