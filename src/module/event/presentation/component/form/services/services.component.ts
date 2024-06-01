@@ -138,6 +138,10 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 		const pushBoxWrapperComponentRef = await this.pushBoxService.buildItAsync({
 			component: SelectServicePushBoxComponent,
+			componentInputs: {
+				multiple: false,
+				selectedServiceList: this.serviceListControl.value
+			}
 		});
 
 		if (!pushBoxWrapperComponentRef) {
@@ -153,14 +157,14 @@ export class ServicesComponent extends Reactive implements OnInit {
 		const {instance} = renderedComponentRef;
 
 		if (instance instanceof SelectServicePushBoxComponent) {
-			instance.selectedServicesListener.pipe(this.takeUntil()).subscribe(() => {
+			instance.selectedServicesListener.pipe(this.takeUntil()).subscribe(async () => {
 
 				let {newSelectedServiceList} = instance;
 
 				newSelectedServiceList = this.setMember(newSelectedServiceList)
 
 				this.serviceListControl.patchValue(newSelectedServiceList);
-				this.pushBoxService.destroy$.next(SelectServicePushBoxComponent.name);
+				await this.pushBoxService.destroyComponent(SelectServicePushBoxComponent);
 			});
 		}
 

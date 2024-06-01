@@ -51,7 +51,7 @@ export class AttendeesComponent extends Reactive {
 		const {renderedComponentRef} = pushBoxWrapperComponentRef.instance;
 
 		if (renderedComponentRef?.instance instanceof SelectCustomerPushBoxComponent) {
-			renderedComponentRef.instance.selectedCustomerListener.pipe(this.takeUntil()).subscribe(() => {
+			renderedComponentRef.instance.selectedCustomerListener.pipe(this.takeUntil()).subscribe(async () => {
 
 				const {newSelectedServiceList} = renderedComponentRef.instance;
 
@@ -60,7 +60,7 @@ export class AttendeesComponent extends Reactive {
 				});
 				this.form.controls[0].controls.customer.disable();
 
-				this.pushBoxService.destroy$.next(SelectCustomerPushBoxComponent.name);
+				await this.pushBoxService.destroyComponent(SelectCustomerPushBoxComponent);
 			});
 		}
 

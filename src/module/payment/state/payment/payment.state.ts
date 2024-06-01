@@ -47,11 +47,6 @@ export class PaymentState extends BaseState<IPaymentDto> {
 
 		// const {PaymentDetailsContainerComponent} = await import("@payment/presentation/component/details/payment-details-container.component");
 		//
-		// if (action?.payload) {
-		// 	this.pushBoxService.destroy$.next(PaymentDetailsContainerComponent.name + '_' + action?.payload);
-		// 	return;
-		// }
-		//
 		// this.pushBoxService.destroyByComponentName$.next(PaymentDetailsContainerComponent.name);
 
 	}
@@ -59,10 +54,6 @@ export class PaymentState extends BaseState<IPaymentDto> {
 	@Action(PaymentActions.CloseForm)
 	public async closeFormAction(ctx: StateContext<IPaymentState>, action?: PaymentActions.CloseForm) {
 
-		// if (action?.payload) {
-		// 	this.pushBoxService.destroy$.next(action?.payload);
-		// 	return;
-		// }
 		//
 		// const {PaymentFormContainerComponent} = await import("@payment/presentation/component/form/payment-form-container.component");
 		//

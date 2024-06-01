@@ -64,6 +64,7 @@ export class SelectServicePushBoxComponent extends Reactive implements OnInit, A
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly logger = inject(NGXLogger);
 
+	@Input()
 	public multiple = true;
 
 	public ngOnInit(): void {
@@ -101,16 +102,16 @@ export class SelectServicePushBoxComponent extends Reactive implements OnInit, A
 		});
 	}
 
-	public select(service: IService): void {
+	public async select(service: IService) {
 		if (!this.multiple) {
 			if (this.newSelectedServiceList.length) {
 				this.newSelectedServiceList.splice(0, 1);
 			}
 		}
 		this.newSelectedServiceList.push({...service});
-
 		this.selectedServicesListener.emit();
 		this.changeDetectorRef.detectChanges();
+
 	}
 
 	public deselect(service: IService): void {

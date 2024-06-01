@@ -51,12 +51,7 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
 
-		if (action?.payload) {
-			this.pushBoxService.destroy$.next(CustomerDetailsContainerComponent.name + '_' + action?.payload);
-			return;
-		}
-
-		this.pushBoxService.destroyByComponentName$.next(CustomerDetailsContainerComponent.name);
+		await this.pushBoxService.destroyComponent(CustomerDetailsContainerComponent);
 
 	}
 
@@ -65,7 +60,7 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 		const {CustomerFormContainerComponent} = await import("@customer/presentation/component/form/customer-form-container.component");
 
-		this.pushBoxService.destroyByComponentName$.next(CustomerFormContainerComponent.name);
+		await this.pushBoxService.destroyComponent(CustomerFormContainerComponent);
 
 	}
 

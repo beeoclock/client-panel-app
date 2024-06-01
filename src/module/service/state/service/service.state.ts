@@ -52,26 +52,16 @@ export class ServiceState extends BaseState<IService> {
 
 		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
 
-		if (action?.payload) {
-			this.pushBoxService.destroy$.next(ServiceDetails.name + '_' + action?.payload);
-			return;
-		}
-
-		this.pushBoxService.destroyByComponentName$.next(ServiceDetails.name);
+		await this.pushBoxService.destroyComponent(ServiceDetails);
 
 	}
 
 	@Action(ServiceActions.CloseForm)
 	public async closeForm(ctx: StateContext<IServiceState>, action?: ServiceActions.CloseForm) {
 
-		if (action?.payload) {
-			this.pushBoxService.destroy$.next(action?.payload);
-			return;
-		}
-
 		const {ServiceContainerFormComponent} = await import("@service/presentation/component/form/service-container–form/service-container–form.component");
 
-		this.pushBoxService.destroyByComponentName$.next(ServiceContainerFormComponent.name);
+		await this.pushBoxService.destroyComponent(ServiceContainerFormComponent);
 
 	}
 

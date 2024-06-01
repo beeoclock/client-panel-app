@@ -106,7 +106,6 @@ export class MembersAbsenceFormContainerComponent extends Reactive implements On
                     const memberIds = newSelectedMemberList.map(({_id}) => _id);
                     this.memberIds.patchValue(memberIds);
                     this.changeDetectorRef.detectChanges();
-                    // this.pushBoxService.destroy$.next(SelectMemberPushBoxComponent.name);
                 });
             }
         } catch (error) {

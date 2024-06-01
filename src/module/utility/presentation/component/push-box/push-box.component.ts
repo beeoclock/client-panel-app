@@ -117,6 +117,8 @@ export class PushBoxComponent extends Reactive implements OnInit {
 
 		if (existComponentRef) {
 
+			this.ngxLogger.debug('PushBoxComponent.buildComponentAndRender', 'Component already exist, moving to the top');
+
 			this.listOfComponents.move(existComponentRef.hostView, 0);
 
 			return existComponentRef;
@@ -176,6 +178,7 @@ export class PushBoxComponent extends Reactive implements OnInit {
 		if (!componentRef) {
 			return;
 		}
+
 		const wasLoading = componentRef.instance.showLoading;
 		componentRef.setInput('showLoading', showLoading ?? false);
 		// If the component was loading and now is not loading, render the component
@@ -185,6 +188,7 @@ export class PushBoxComponent extends Reactive implements OnInit {
 			componentRef.instance.renderedComponentRef?.setInput(key, value);
 		});
 		this.updateVisibility();
+
 		return componentRef;
 	}
 

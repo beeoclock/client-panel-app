@@ -77,26 +77,16 @@ export class EventState extends BaseState<Event.IEvent> {
 
 		const {ContainerDetailsComponent} = await import("@event/presentation/component/details/container.details.component");
 
-		if (action?.payload) {
-			this.pushBoxService.destroy$.next(ContainerDetailsComponent.name + '_' + action?.payload);
-			return;
-		}
-
-		this.pushBoxService.destroyByComponentName$.next(ContainerDetailsComponent.name);
+		await this.pushBoxService.destroyComponent(ContainerDetailsComponent);
 
 	}
 
 	@Action(EventActions.CloseForm)
 	public async closeForm(ctx: StateContext<IEventState>, action?: EventActions.CloseForm) {
 
-		if (action?.payload) {
-			this.pushBoxService.destroy$.next(action?.payload);
-			return;
-		}
-
 		const {ContainerFormComponent} = await import("@event/presentation/component/form/container.form.component");
 
-		this.pushBoxService.destroyByComponentName$.next(ContainerFormComponent.name);
+		await this.pushBoxService.destroyComponent(ContainerFormComponent);
 
 	}
 

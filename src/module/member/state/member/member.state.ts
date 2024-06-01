@@ -49,26 +49,16 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
 
-		if (action?.payload) {
-			this.pushBoxService.destroy$.next(MemberDetailsContainerComponent.name + '_' + action?.payload);
-			return;
-		}
-
-		this.pushBoxService.destroyByComponentName$.next(MemberDetailsContainerComponent.name);
+		await this.pushBoxService.destroyComponent(MemberDetailsContainerComponent);
 
 	}
 
 	@Action(MemberActions.CloseForm)
 	public async closeForm(ctx: StateContext<IMemberState>, action?: MemberActions.CloseForm) {
 
-		if (action?.payload) {
-			this.pushBoxService.destroy$.next(action?.payload);
-			return;
-		}
-
 		const {MemberFormContainerComponent} = await import("@member/presentation/component/form/member-form-container/member-form-container.component");
 
-		this.pushBoxService.destroyByComponentName$.next(MemberFormContainerComponent.name);
+		await this.pushBoxService.destroyComponent(MemberFormContainerComponent);
 
 	}
 

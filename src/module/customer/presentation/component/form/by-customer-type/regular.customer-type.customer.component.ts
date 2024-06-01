@@ -68,13 +68,13 @@ export class RegularCustomerTypeCustomerComponent extends Reactive {
 		const {renderedComponentRef} = pushBoxWrapperComponentRef.instance;
 
 		if (renderedComponentRef?.instance instanceof SelectCustomerPushBoxComponent) {
-			renderedComponentRef.instance.selectedCustomerListener.pipe(this.takeUntil()).subscribe(() => {
+			renderedComponentRef.instance.selectedCustomerListener.pipe(this.takeUntil()).subscribe(async () => {
 
 				const {newSelectedServiceList} = renderedComponentRef.instance;
 
 				this.form.patchValue(newSelectedServiceList[0]);
 
-				this.pushBoxService.destroy$.next(SelectCustomerPushBoxComponent.name);
+				await this.pushBoxService.destroyComponent(SelectCustomerPushBoxComponent);
 			});
 		}
 

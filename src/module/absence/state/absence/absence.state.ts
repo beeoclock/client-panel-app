@@ -14,213 +14,220 @@ import {DeleteAbsenceApiAdapter} from "@module/absence/external/adapter/api/dele
 export type IAbsenceState = IBaseState<IAbsenceDto>;
 
 const defaults = baseDefaults<IAbsenceDto>({
-    filters: {},
-    orderBy: OrderByEnum.CREATED_AT,
-    orderDir: OrderDirEnum.DESC,
+	filters: {},
+	orderBy: OrderByEnum.CREATED_AT,
+	orderDir: OrderDirEnum.DESC,
 });
 
 @State<IAbsenceState>({
-    name: 'absence',
-    defaults,
+	name: 'absence',
+	defaults,
 })
 @Injectable()
 export class AbsenceState extends BaseState<IAbsenceDto> {
 
-    protected override readonly create = inject(CreateAbsenceApiAdapter);
-    protected override readonly update = inject(UpdateAbsenceApiAdapter);
-    protected override readonly item = inject(DetailsAbsenceApiAdapter);
-    protected override readonly delete = inject(DeleteAbsenceApiAdapter);
-    protected override readonly paged = inject(PagedAbsenceApiAdapter);
+	protected override readonly create = inject(CreateAbsenceApiAdapter);
+	protected override readonly update = inject(UpdateAbsenceApiAdapter);
+	protected override readonly item = inject(DetailsAbsenceApiAdapter);
+	protected override readonly delete = inject(DeleteAbsenceApiAdapter);
+	protected override readonly paged = inject(PagedAbsenceApiAdapter);
 
-    private readonly translateService = inject(TranslateService);
+	private readonly translateService = inject(TranslateService);
 
-    constructor() {
-        super(
-            defaults,
-        );
-    }
+	constructor() {
+		super(
+			defaults,
+		);
+	}
 
-    // Application layer
+	// Application layer
 
-    @Action(AbsenceActions.CloseDetails)
-    public async closeDetailsAction(ctx: StateContext<IAbsenceState>, action?: AbsenceActions.CloseDetails) {
+	@Action(AbsenceActions.CloseDetails)
+	public async closeDetailsAction(ctx: StateContext<IAbsenceState>, action?: AbsenceActions.CloseDetails) {
 
-        const {AbsenceDetailsContainerComponent} = await import("@absence/presentation/component/details/absence-details-container.component");
+		const {AbsenceDetailsContainerComponent} = await import("@absence/presentation/component/details/absence-details-container.component");
 
-        if (action?.payload) {
-            this.pushBoxService.destroy$.next(AbsenceDetailsContainerComponent.name + '_' + action?.payload);
-            return;
-        }
+		await this.pushBoxService.destroyComponent(AbsenceDetailsContainerComponent);
 
-        this.pushBoxService.destroyByComponentName$.next(AbsenceDetailsContainerComponent.name);
+	}
 
-    }
+	@Action(AbsenceActions.CloseForm)
+	public async closeFormAction(ctx: StateContext<IAbsenceState>, action?: AbsenceActions.CloseForm) {
 
-    @Action(AbsenceActions.CloseForm)
-    public async closeFormAction(ctx: StateContext<IAbsenceState>, action?: AbsenceActions.CloseForm) {
+		const {AbsenceFormContainerComponent} = await import("@absence/presentation/component/form/absence-form-container.component");
 
-        if (action?.payload) {
-            this.pushBoxService.destroy$.next(action?.payload);
-            return;
-        }
+		await this.pushBoxService.destroyComponent(AbsenceFormContainerComponent);
 
-        const {AbsenceFormContainerComponent} = await import("@absence/presentation/component/form/absence-form-container.component");
+	}
 
-        this.pushBoxService.destroyByComponentName$.next(AbsenceFormContainerComponent.name);
+	@Action(AbsenceActions.UpdateOpenedDetails)
+	public async updateOpenedDetailsAction(ctx: StateContext<IAbsenceState>, {payload}: AbsenceActions.UpdateOpenedDetails) {
 
-    }
+		const {AbsenceDetailsContainerComponent} = await import("@absence/presentation/component/details/absence-details-container.component");
 
-    @Action(AbsenceActions.UpdateOpenedDetails)
-    public async updateOpenedDetailsAction(ctx: StateContext<IAbsenceState>, {payload}: AbsenceActions.UpdateOpenedDetails) {
+		await this.pushBoxService.updatePushBoxComponentAsync({
+			component: AbsenceDetailsContainerComponent,
+			componentInputs: {item: payload},
+		});
 
-        const {AbsenceDetailsContainerComponent} = await import("@absence/presentation/component/details/absence-details-container.component");
+	}
 
-        await this.pushBoxService.updatePushBoxComponentAsync({
-            component: AbsenceDetailsContainerComponent,
-            componentInputs: {item: payload},
-        });
+	@Action(AbsenceActions.OpenDetails)
+	public async openDetailsAction(ctx: StateContext<IAbsenceState>, {payload}: AbsenceActions.OpenDetails) {
 
-    }
+		const title = await this.translateService.instant('absence.details.title');
 
-    @Action(AbsenceActions.OpenDetailsById)
-    public async openDetailsByIdAction(ctx: StateContext<IAbsenceState>, {payload: id}: AbsenceActions.OpenDetailsById) {
+		const {AbsenceDetailsContainerComponent} = await import("@absence/presentation/component/details/absence-details-container.component");
 
-        const title = await this.translateService.instant('absence.details.title');
+		await this.pushBoxService.buildItAsync({
+			title,
+			component: AbsenceDetailsContainerComponent,
+			componentInputs: {
+				item: payload
+			},
+		});
 
-        const {AbsenceDetailsContainerComponent} = await import("@absence/presentation/component/details/absence-details-container.component");
+	}
 
-        await this.pushBoxService.buildItAsync({
-            title,
-            showLoading: true,
-            component: AbsenceDetailsContainerComponent,
-        });
+	@Action(AbsenceActions.OpenDetailsById)
+	public async openDetailsByIdAction(ctx: StateContext<IAbsenceState>, {payload: id}: AbsenceActions.OpenDetailsById) {
 
-        const item = await this.item.executeAsync(id);
+		const title = await this.translateService.instant('absence.details.title');
 
-        await this.pushBoxService.updatePushBoxComponentAsync({
-            component: AbsenceDetailsContainerComponent,
-            componentInputs: {item},
-        });
+		const {AbsenceDetailsContainerComponent} = await import("@absence/presentation/component/details/absence-details-container.component");
 
-    }
+		await this.pushBoxService.buildItAsync({
+			title,
+			showLoading: true,
+			component: AbsenceDetailsContainerComponent,
+		});
 
-    @Action(AbsenceActions.OpenFormToEditById)
-    public async openFormToEditByIdAction(ctx: StateContext<IAbsenceState>, action: AbsenceActions.OpenFormToEditById) {
+		const item = await this.item.executeAsync(id);
 
-        const title = await this.translateService.instant('absence.form.title.edit');
+		await this.pushBoxService.updatePushBoxComponentAsync({
+			component: AbsenceDetailsContainerComponent,
+			componentInputs: {item},
+		});
 
-        const {AbsenceFormContainerComponent} = await import("@absence/presentation/component/form/absence-form-container.component");
+	}
 
-        await this.pushBoxService.buildItAsync({
-            title,
-            component: AbsenceFormContainerComponent,
-            componentInputs: {},
-        });
+	@Action(AbsenceActions.OpenFormToEditById)
+	public async openFormToEditByIdAction(ctx: StateContext<IAbsenceState>, action: AbsenceActions.OpenFormToEditById) {
 
-        const item = await this.item.executeAsync(action.payload);
+		const title = await this.translateService.instant('absence.form.title.edit');
 
-        await this.pushBoxService.buildItAsync({
-            title,
-            component: AbsenceFormContainerComponent,
-            componentInputs: {
-                item,
-                isEditMode: true,
-            },
-        });
+		const {AbsenceFormContainerComponent} = await import("@absence/presentation/component/form/absence-form-container.component");
 
-    }
+		await this.pushBoxService.buildItAsync({
+			title,
+			component: AbsenceFormContainerComponent,
+			componentInputs: {},
+		});
 
-    @Action(AbsenceActions.OpenForm)
-    public async openFormAction(ctx: StateContext<IAbsenceState>, {payload}: AbsenceActions.OpenForm): Promise<void> {
+		const item = await this.item.executeAsync(action.payload);
 
-        const {AbsenceFormContainerComponent} = await import("@absence/presentation/component/form/absence-form-container.component");
+		await this.pushBoxService.buildItAsync({
+			title,
+			component: AbsenceFormContainerComponent,
+			componentInputs: {
+				item,
+				isEditMode: true,
+			},
+		});
 
-        const {componentInputs, pushBoxInputs} = payload ?? {};
+	}
 
-        await this.pushBoxService.buildItAsync({
-            title: this.translateService.instant('absence.form.title.create'),
-            ...(pushBoxInputs ?? {}),
-            component: AbsenceFormContainerComponent,
-            componentInputs,
-        });
+	@Action(AbsenceActions.OpenForm)
+	public async openFormAction(ctx: StateContext<IAbsenceState>, {payload}: AbsenceActions.OpenForm): Promise<void> {
 
-    }
+		const {AbsenceFormContainerComponent} = await import("@absence/presentation/component/form/absence-form-container.component");
 
-    // API
+		const {componentInputs, pushBoxInputs} = payload ?? {};
 
-    @Action(AbsenceActions.Init)
-    public override async init(ctx: StateContext<IAbsenceState>): Promise<void> {
-        await super.init(ctx);
-    }
+		await this.pushBoxService.buildItAsync({
+			title: this.translateService.instant('absence.form.title.create'),
+			...(pushBoxInputs ?? {}),
+			component: AbsenceFormContainerComponent,
+			componentInputs,
+		});
 
-    @Action(AbsenceActions.UpdateFilters)
-    public override updateFilters(ctx: StateContext<IAbsenceState>, action: AbsenceActions.UpdateFilters) {
-        super.updateFilters(ctx, action);
-    }
+	}
 
-    @Action(AbsenceActions.UpdateTableState)
-    public override updateTableState(ctx: StateContext<IAbsenceState>, action: AbsenceActions.UpdateTableState) {
-        super.updateTableState(ctx, action);
-    }
+	// API
 
-    @Action(AbsenceActions.CreateItem)
-    public override async createItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.CreateItem) {
-        await super.createItem(ctx, action);
-        await this.closeFormAction(ctx);
-    }
+	@Action(AbsenceActions.Init)
+	public override async init(ctx: StateContext<IAbsenceState>): Promise<void> {
+		await super.init(ctx);
+	}
 
-    @Action(AbsenceActions.UpdateItem)
-    public override async updateItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.UpdateItem): Promise<void> {
-        await super.updateItem(ctx, action);
+	@Action(AbsenceActions.UpdateFilters)
+	public override updateFilters(ctx: StateContext<IAbsenceState>, action: AbsenceActions.UpdateFilters) {
+		super.updateFilters(ctx, action);
+	}
 
-				// TODO: fix problem with ID, need to find way for use generate and use a new if of push-box or create
-			// TODO: some new interface e.g. OnInit but for push-box to control form/modal/push-box
+	@Action(AbsenceActions.UpdateTableState)
+	public override updateTableState(ctx: StateContext<IAbsenceState>, action: AbsenceActions.UpdateTableState) {
+		super.updateTableState(ctx, action);
+	}
 
-			// TODO: we can't use default component.name but we can create custom component name!!!
+	@Action(AbsenceActions.CreateItem)
+	public override async createItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.CreateItem) {
+		await super.createItem(ctx, action);
+		await this.closeFormAction(ctx);
+	}
 
-        await this.closeFormAction(ctx, {
-            payload: action.payload._id
-        });
-        const {data} = ctx.getState().item;
-        data && await this.updateOpenedDetailsAction(ctx, {payload: data});
-    }
+	@Action(AbsenceActions.UpdateItem)
+	public override async updateItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.UpdateItem): Promise<void> {
+		await super.updateItem(ctx, action);
 
-    @Action(AbsenceActions.GetItem)
-    public override async getItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.GetItem): Promise<void> {
-        await super.getItem(ctx, action);
-    }
+		// TODO: fix problem with ID, need to find way for use generate and use a new if of push-box or create
+		// TODO: some new interface e.g. OnInit but for push-box to control form/modal/push-box
 
-    @Action(AbsenceActions.DeleteItem)
-    public override async deleteItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.DeleteItem) {
-        await super.deleteItem(ctx, action);
-        await this.closeDetailsAction(ctx, action);
-    }
+		// TODO: we can't use default component.name but we can create custom component name!!!
 
-    @Action(AbsenceActions.GetList)
-    public override async getList(ctx: StateContext<IAbsenceState>, action: AbsenceActions.GetList): Promise<void> {
-        await super.getList(ctx, action);
-    }
+		await this.closeFormAction(ctx, {
+			payload: action.payload._id
+		});
+		const {data} = ctx.getState().item;
+		data && await this.updateOpenedDetailsAction(ctx, {payload: data});
+	}
 
-    // Selectors
+	@Action(AbsenceActions.GetItem)
+	public override async getItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.GetItem): Promise<void> {
+		await super.getItem(ctx, action);
+	}
 
-    @Selector()
-    public static itemData(state: IAbsenceState) {
-        return state.item.data;
-    }
+	@Action(AbsenceActions.DeleteItem)
+	public override async deleteItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.DeleteItem) {
+		await super.deleteItem(ctx, action);
+		await this.closeDetailsAction(ctx, action);
+	}
 
-    @Selector()
-    public static tableStateItems(state: IAbsenceState) {
-        return state.tableState.items;
-    }
+	@Action(AbsenceActions.GetList)
+	public override async getList(ctx: StateContext<IAbsenceState>, action: AbsenceActions.GetList): Promise<void> {
+		await super.getList(ctx, action);
+	}
 
-    @Selector()
-    public static tableState(state: IAbsenceState) {
-        return state.tableState;
-    }
+	// Selectors
 
-    @Selector()
-    public static tableStateFilters(state: IAbsenceState) {
-        return state.tableState.filters;
-    }
+	@Selector()
+	public static itemData(state: IAbsenceState) {
+		return state.item.data;
+	}
+
+	@Selector()
+	public static tableStateItems(state: IAbsenceState) {
+		return state.tableState.items;
+	}
+
+	@Selector()
+	public static tableState(state: IAbsenceState) {
+		return state.tableState;
+	}
+
+	@Selector()
+	public static tableStateFilters(state: IAbsenceState) {
+		return state.tableState.filters;
+	}
 
 }

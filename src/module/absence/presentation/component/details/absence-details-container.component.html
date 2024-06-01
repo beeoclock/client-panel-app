@@ -38,7 +38,12 @@
 					{{ 'keyword.capitalize.attendees' | translate }}
 				</dt>
 				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-					{{ item?.memberIds?.length ?? 0 }}
+					<ng-container *ngIf="item.entireBusiness; else MembersTemplate">
+						{{ 'absence.form.inputs.entireBusiness.label' | translate }}
+					</ng-container>
+					<ng-template #MembersTemplate>
+						{{ item?.memberIds?.length ?? 0 }}
+					</ng-template>
 				</dd>
 			</div>
 			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">

@@ -170,7 +170,7 @@ export class AbsenceEventCardComponent {
 	}
 
 	private async openAbsenceDetails(event: IEvent_V2<IAbsenceDto>) {
-		this.store.dispatch(new AbsenceActions.OpenDetailsById(event.originalData._id));
+		this.store.dispatch(new AbsenceActions.OpenDetails(event.originalData));
 	}
 
 }

@@ -176,8 +176,6 @@ export class AdditionalMenuComponent implements OnInit {
                 }
             }
         }));
-
-        this.closeSelf();
     }
 
     public openAbsenceForm(differenceInMinutes: number = 15, useDatetimeISO: boolean = true) {
@@ -206,8 +204,8 @@ export class AdditionalMenuComponent implements OnInit {
         }));
     }
 
-    public closeSelf() {
-        this.pushBoxService.destroyByComponentName$.next(AdditionalMenuComponent.name);
-    }
+    public async closeSelf() {
+			await this.pushBoxService.destroyComponent(AdditionalMenuComponent);
+		}
 
 }

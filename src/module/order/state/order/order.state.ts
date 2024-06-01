@@ -57,26 +57,16 @@ export class OrderState extends BaseState<IOrderDto> {
 
 		const {OrderDetailsContainerComponent} = await import("@order/presentation/component/details/order-details-container.component");
 
-		if (action?.payload) {
-			this.pushBoxService.destroy$.next(OrderDetailsContainerComponent.name + '_' + action?.payload);
-			return;
-		}
-
-		this.pushBoxService.destroyByComponentName$.next(OrderDetailsContainerComponent.name);
+		await this.pushBoxService.destroyComponent(OrderDetailsContainerComponent);
 
 	}
 
 	@Action(OrderActions.CloseForm)
 	public async closeFormAction(ctx: StateContext<IOrderState>, action?: OrderActions.CloseForm) {
 
-		if (action?.payload) {
-			this.pushBoxService.destroy$.next(action?.payload);
-			return;
-		}
-
 		const {OrderFormContainerComponent} = await import("@order/presentation/component/form/order-form-container.component");
 
-		this.pushBoxService.destroyByComponentName$.next(OrderFormContainerComponent.name);
+		await this.pushBoxService.destroyComponent(OrderFormContainerComponent);
 
 	}
 
