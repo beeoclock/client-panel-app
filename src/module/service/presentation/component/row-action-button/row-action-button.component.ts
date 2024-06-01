@@ -69,7 +69,7 @@ export class RowActionButtonComponent {
 	}
 
 	public open(id: string): void {
-		this.store.dispatch(new ServiceActions.OpenDetailsById(id));
+		this.store.dispatch(new ServiceActions.OpenDetails(this.item));
 	}
 
 	public edit(id: string): void {
