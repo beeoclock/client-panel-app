@@ -71,10 +71,10 @@ export class PushBoxComponent extends Reactive implements OnInit {
 		this.pushBoxService.registerContainer(this);
 	}
 
-	public destroyComponent(id: string): boolean {
-		const componentRef = this.pushBoxService.componentRefMapById.get(id);
+	public destroyComponent(key: string): boolean {
+		const componentRef = this.pushBoxService.componentRefMapById.get(key);
 		componentRef?.destroy();
-		this.pushBoxService.componentRefMapById.delete(id);
+		this.pushBoxService.componentRefMapById.delete(key);
 		this.updateVisibility();
 
 		return !!componentRef;
@@ -85,7 +85,13 @@ export class PushBoxComponent extends Reactive implements OnInit {
 		if (!lastComponent || !lastComponent.instance.renderedComponent) {
 			return false;
 		}
-		lastComponent && this.destroyComponent(lastComponent.instance.id);
+		const mirror = reflectComponentType(lastComponent.instance.renderedComponent);
+		if (!mirror) {
+			this.ngxLogger.error('PushBoxComponent.removeLastComponent', 'value of `component` property is not a component');
+			return false;
+		}
+		const { selector } = mirror;
+		lastComponent && this.destroyComponent(selector);
 
 		this.updateVisibility();
 
@@ -124,7 +130,7 @@ export class PushBoxComponent extends Reactive implements OnInit {
 			return existComponentRef;
 		}
 
-		this.ngxLogger.debug('PushBoxComponent.observe$', component);
+		this.ngxLogger.debug('PushBoxComponent.buildComponentAndRender', selector, component);
 
 		const pushBoxWrapperComponentRef = this.listOfComponents.createComponent(
 			PushBoxWrapperComponent,
@@ -147,10 +153,10 @@ export class PushBoxComponent extends Reactive implements OnInit {
 
 		pushBoxWrapperComponentRef.instance.renderComponent(component, componentInputs);
 		this.pushBoxService.componentRefMapById.set(selector, pushBoxWrapperComponentRef);
-		if (!this.pushBoxService.componentRefMapByComponentName.has(component.name)) {
-			this.pushBoxService.componentRefMapByComponentName.set(component.name, []);
+		if (!this.pushBoxService.componentRefMapByComponentName.has(selector)) {
+			this.pushBoxService.componentRefMapByComponentName.set(selector, []);
 		}
-		this.pushBoxService.componentRefMapByComponentName.get(component.name)?.push(pushBoxWrapperComponentRef);
+		this.pushBoxService.componentRefMapByComponentName.get(selector)?.push(pushBoxWrapperComponentRef);
 		this.updateVisibility();
 
 		return pushBoxWrapperComponentRef;

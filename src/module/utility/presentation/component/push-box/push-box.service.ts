@@ -47,7 +47,7 @@ export class PushBoxService<COMPONENT> {
 		const componentRefList = this.componentRefMapByComponentName.get(selector);
 
 		if (!componentRefList?.length) {
-			this.ngxLogger.debug('PushBoxComponent.destroyComponent Did not find', selector);
+			this.ngxLogger.debug('PushBoxComponent.destroyComponent Did not find', selector, this);
 			return false;
 		}
 
