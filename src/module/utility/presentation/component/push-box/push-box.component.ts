@@ -104,7 +104,8 @@ export class PushBoxComponent extends Reactive implements OnInit {
 			componentInputs,
 			title,
 			showLoading,
-			button
+			button,
+			callback
 		}: PushBoxBuildItArgsType
 	) {
 
@@ -142,9 +143,9 @@ export class PushBoxComponent extends Reactive implements OnInit {
 		pushBoxWrapperComponentRef.setInput('id', selector);
 		pushBoxWrapperComponentRef.setInput('showLoading', showLoading ?? false);
 		pushBoxWrapperComponentRef.setInput('destroySelf', () => {
-			// TODO: Add before destroy to
+			callback?.on?.destroy?.before?.();
 			this.destroyComponent(selector);
-			// TODO: Add after destroy to
+			callback?.on?.destroy?.after?.();
 		});
 
 		if (button) {

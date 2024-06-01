@@ -17,7 +17,15 @@ export type PushBoxBuildItArgsType = {
 			text?: string;
 			callback?: () => void;
 		}
-	}
+	};
+	callback?: {
+		on?: {
+			destroy?: {
+				before?: () => void;
+				after?: () => void;
+			};
+		};
+	};
 }
 
 

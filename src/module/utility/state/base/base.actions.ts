@@ -68,6 +68,14 @@ export namespace BaseActions {
 					id?: string;
 					title?: string;
 					showLoading?: boolean;
+					callback?: {
+						on?: {
+							destroy?: {
+								before?: () => void;
+								after?: () => void;
+							};
+						};
+					};
 				};
 				componentInputs?: COMPONENT_INPUTS;
 			},
