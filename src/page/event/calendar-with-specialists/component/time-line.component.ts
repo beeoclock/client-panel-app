@@ -28,7 +28,7 @@ import {
 	template: `
 		<!-- Current time -->
 <!--		<div class="min-w-[70px] flex justify-end">-->
-		<div class="z-[11] bg-white flex justify-end left-0 min-w-[70px] sticky" [style.transform]="'translateY(-50%)'">
+		<div class="z-[11] border-r border-slate-100 bg-white flex justify-end left-0 min-w-[70px] sticky" [style.transform]="'translateY(-50%)'">
 			<div
 				class="px-2 py-1 border border-red-500 bg-white rounded-2xl text-xs text-right text-red-500 uppercase font-bold">
 				{{ currentDate | date: 'HH:mm' }}
