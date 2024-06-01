@@ -5,10 +5,8 @@ import {PushBoxComponent} from "@utility/presentation/component/push-box/push-bo
 import {NGXLogger} from "ngx-logger";
 
 export type PushBoxBuildItArgsType = {
-    id?: string;
     component: Type<unknown>;
     componentInputs?: Record<string, unknown>;
-    useComponentNameAsPrefixOfId?: boolean; // Default false
     //
     title?: string;
     showLoading?: boolean;

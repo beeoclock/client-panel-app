@@ -78,8 +78,6 @@ export class MemberState extends BaseState<Member.RIMember> {
 		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
 
 		await this.pushBoxService.updatePushBoxComponentAsync({
-			id: payload._id,
-			useComponentNameAsPrefixOfId: true,
 			component: MemberDetailsContainerComponent,
 			componentInputs: {
 				item: payload
@@ -96,18 +94,14 @@ export class MemberState extends BaseState<Member.RIMember> {
 		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
 
 		await this.pushBoxService.buildItAsync({
-			id,
 			title,
 			showLoading: true,
-			useComponentNameAsPrefixOfId: true,
 			component: MemberDetailsContainerComponent,
 		});
 
 		const item = await this.item.executeAsync(id);
 
 		await this.pushBoxService.updatePushBoxComponentAsync({
-			id,
-			useComponentNameAsPrefixOfId: true,
 			component: MemberDetailsContainerComponent,
 			componentInputs: {
 				item

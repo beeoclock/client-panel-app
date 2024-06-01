@@ -7,6 +7,7 @@ import {
 	inject,
 	Input,
 	OnInit,
+	reflectComponentType,
 	ViewChild,
 	ViewContainerRef
 } from "@angular/core";
@@ -19,7 +20,6 @@ import {NGXLogger} from "ngx-logger";
 import {PushBoxBuildItArgsType, PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
 import {PushBoxWrapperComponent} from "@utility/presentation/component/push-box/push-box-wrapper.component";
 import {PushBoxContainerComponent} from "@utility/presentation/component/push-box/push-box.container.component";
-import {uuid} from "typia/lib/utils/RandomGenerator/RandomGenerator";
 
 @Component({
 	selector: 'utility-push-box',
@@ -98,25 +98,21 @@ export class PushBoxComponent extends Reactive implements OnInit {
 			componentInputs,
 			title,
 			showLoading,
-			button,
-			id,
-			useComponentNameAsPrefixOfId
+			button
 		}: PushBoxBuildItArgsType
 	) {
 
-		if (useComponentNameAsPrefixOfId) {
+		const componentMirror = reflectComponentType(component);
 
-			id = `${component.name}_${id ?? uuid()}`;
-
-		} else {
-
-			id = id ?? component.name;
-
+		if (!componentMirror) {
+			this.ngxLogger.error('PushBoxComponent.buildComponentAndRender', 'value of `component` property is not a component');
+			return;
 		}
 
+		const { selector } = componentMirror;
+
 		const existComponentRef = this.updatePushBoxComponent({
-			id, componentInputs, showLoading, button,
-			useComponentNameAsPrefixOfId, component
+			componentInputs, showLoading, button, component
 		});
 
 		if (existComponentRef) {
@@ -135,11 +131,11 @@ export class PushBoxComponent extends Reactive implements OnInit {
 			}
 		);
 		pushBoxWrapperComponentRef.setInput('title', title);
-		pushBoxWrapperComponentRef.setInput('id', id);
+		pushBoxWrapperComponentRef.setInput('id', selector);
 		pushBoxWrapperComponentRef.setInput('showLoading', showLoading ?? false);
 		pushBoxWrapperComponentRef.setInput('destroySelf', () => {
 			// TODO: Add before destroy to
-			this.destroyComponent(id);
+			this.destroyComponent(selector);
 			// TODO: Add after destroy to
 		});
 
@@ -148,7 +144,7 @@ export class PushBoxComponent extends Reactive implements OnInit {
 		}
 
 		pushBoxWrapperComponentRef.instance.renderComponent(component, componentInputs);
-		this.pushBoxService.componentRefMapById.set(id, pushBoxWrapperComponentRef);
+		this.pushBoxService.componentRefMapById.set(selector, pushBoxWrapperComponentRef);
 		if (!this.pushBoxService.componentRefMapByComponentName.has(component.name)) {
 			this.pushBoxService.componentRefMapByComponentName.set(component.name, []);
 		}
@@ -161,24 +157,22 @@ export class PushBoxComponent extends Reactive implements OnInit {
 
 	public updatePushBoxComponent(
 		{
-			id,
 			componentInputs,
 			showLoading,
-			useComponentNameAsPrefixOfId,
 			component
 		}: PushBoxBuildItArgsType
 	) {
-		if (useComponentNameAsPrefixOfId) {
 
-			id = `${component.name}_${id ?? uuid()}`;
+		const componentMirror = reflectComponentType(component);
 
-		} else {
-
-			id = id ?? component.name;
-
+		if (!componentMirror) {
+			this.ngxLogger.error('PushBoxComponent.buildComponentAndRender', 'value of `component` property is not a component');
+			return;
 		}
 
-		const componentRef = this.pushBoxService.componentRefMapById.get(id);
+		const { selector } = componentMirror;
+
+		const componentRef = this.pushBoxService.componentRefMapById.get(selector);
 		if (!componentRef) {
 			return;
 		}

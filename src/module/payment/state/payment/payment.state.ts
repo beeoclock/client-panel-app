@@ -77,7 +77,6 @@ export class PaymentState extends BaseState<IPaymentDto> {
 		//
 		// await this.pushBoxService.updatePushBoxComponentAsync({
 		// 	id: payload._id,
-		// 	useComponentNameAsPrefixOfId: true,
 		// 	component: PaymentDetailsContainerComponent,
 		// 	componentInputs: {item: payload},
 		// });
@@ -95,15 +94,12 @@ export class PaymentState extends BaseState<IPaymentDto> {
 		// 	id,
 		// 	title,
 		// 	showLoading: true,
-		// 	useComponentNameAsPrefixOfId: true,
 		// 	component: PaymentDetailsContainerComponent,
 		// });
 		//
 		// const item = await this.item.executeAsync(id);
 		//
 		// await this.pushBoxService.updatePushBoxComponentAsync({
-		// 	id,
-		// 	useComponentNameAsPrefixOfId: true,
 		// 	component: PaymentDetailsContainerComponent,
 		// 	componentInputs: {item},
 		// });

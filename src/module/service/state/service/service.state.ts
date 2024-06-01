@@ -81,8 +81,6 @@ export class ServiceState extends BaseState<IService> {
 		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
 
 		await this.pushBoxService.updatePushBoxComponentAsync({
-			id: payload._id,
-			useComponentNameAsPrefixOfId: true,
 			component: ServiceDetails,
 			componentInputs: {item: payload},
 		});
@@ -99,16 +97,12 @@ export class ServiceState extends BaseState<IService> {
 		await this.pushBoxService.buildItAsync({
 			title,
 			showLoading: true,
-			useComponentNameAsPrefixOfId: true,
-			id,
 			component: ServiceDetails,
 		});
 
 		const item = await this.item.executeAsync(id);
 
 		await this.pushBoxService.updatePushBoxComponentAsync({
-			id,
-			useComponentNameAsPrefixOfId: true,
 			component: ServiceDetails,
 			componentInputs: {item},
 		});

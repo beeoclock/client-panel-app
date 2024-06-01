@@ -76,8 +76,6 @@ export class AbsenceState extends BaseState<IAbsenceDto> {
         const {AbsenceDetailsContainerComponent} = await import("@absence/presentation/component/details/absence-details-container.component");
 
         await this.pushBoxService.updatePushBoxComponentAsync({
-            id: payload._id,
-            useComponentNameAsPrefixOfId: true,
             component: AbsenceDetailsContainerComponent,
             componentInputs: {item: payload},
         });
@@ -92,18 +90,14 @@ export class AbsenceState extends BaseState<IAbsenceDto> {
         const {AbsenceDetailsContainerComponent} = await import("@absence/presentation/component/details/absence-details-container.component");
 
         await this.pushBoxService.buildItAsync({
-            id,
             title,
             showLoading: true,
-            useComponentNameAsPrefixOfId: true,
             component: AbsenceDetailsContainerComponent,
         });
 
         const item = await this.item.executeAsync(id);
 
         await this.pushBoxService.updatePushBoxComponentAsync({
-            id,
-            useComponentNameAsPrefixOfId: true,
             component: AbsenceDetailsContainerComponent,
             componentInputs: {item},
         });
@@ -119,7 +113,6 @@ export class AbsenceState extends BaseState<IAbsenceDto> {
 
         await this.pushBoxService.buildItAsync({
             title,
-            id: action.payload,
             component: AbsenceFormContainerComponent,
             componentInputs: {},
         });
@@ -128,7 +121,6 @@ export class AbsenceState extends BaseState<IAbsenceDto> {
 
         await this.pushBoxService.buildItAsync({
             title,
-            id: action.payload,
             component: AbsenceFormContainerComponent,
             componentInputs: {
                 item,
@@ -180,6 +172,12 @@ export class AbsenceState extends BaseState<IAbsenceDto> {
     @Action(AbsenceActions.UpdateItem)
     public override async updateItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.UpdateItem): Promise<void> {
         await super.updateItem(ctx, action);
+
+				// TODO: fix problem with ID, need to find way for use generate and use a new if of push-box or create
+			// TODO: some new interface e.g. OnInit but for push-box to control form/modal/push-box
+
+			// TODO: we can't use default component.name but we can create custom component name!!!
+
         await this.closeFormAction(ctx, {
             payload: action.payload._id
         });

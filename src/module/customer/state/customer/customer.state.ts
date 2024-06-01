@@ -75,8 +75,6 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
 
 		await this.pushBoxService.updatePushBoxComponentAsync({
-			id: payload._id,
-			useComponentNameAsPrefixOfId: true,
 			component: CustomerDetailsContainerComponent,
 			componentInputs: {item: payload},
 		});
@@ -91,18 +89,14 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
 
 		await this.pushBoxService.buildItAsync({
-			id,
 			title,
 			showLoading: true,
-			useComponentNameAsPrefixOfId: true,
 			component: CustomerDetailsContainerComponent,
 		});
 
 		const item = await this.item.executeAsync(id);
 
 		await this.pushBoxService.updatePushBoxComponentAsync({
-			id,
-			useComponentNameAsPrefixOfId: true,
 			component: CustomerDetailsContainerComponent,
 			componentInputs: {item},
 		});

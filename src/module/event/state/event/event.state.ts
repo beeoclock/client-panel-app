@@ -64,8 +64,6 @@ export class EventState extends BaseState<Event.IEvent> {
 		const {ContainerDetailsComponent} = await import("@event/presentation/component/details/container.details.component");
 
 		await this.pushBoxService.updatePushBoxComponentAsync({
-			id: payload._id,
-			useComponentNameAsPrefixOfId: true,
 			component: ContainerDetailsComponent,
 			componentInputs: {
 				event: Event.MEvent.create(payload)
@@ -110,9 +108,7 @@ export class EventState extends BaseState<Event.IEvent> {
 		const {ContainerDetailsComponent} = await import("@event/presentation/component/details/container.details.component");
 
 		await this.pushBoxService.buildItAsync({
-			id: item._id,
 			title,
-			useComponentNameAsPrefixOfId: true,
 			component: ContainerDetailsComponent,
 			componentInputs: {
 				event: item
@@ -129,8 +125,6 @@ export class EventState extends BaseState<Event.IEvent> {
 	// 	const {ContainerDetailsComponent} = await import("@event/presentation/component/details/container.details.component");
 	//
 	// 	await this.pushBoxService.buildItAsync({
-	// 		id,
-	// 		useComponentNameAsPrefixOfId: true,
 	// 		component: ContainerDetailsComponent,
 	// 		showLoading: true,
 	// 		title
@@ -140,7 +134,6 @@ export class EventState extends BaseState<Event.IEvent> {
 	//
 	// 	await this.pushBoxService.updatePushBoxComponentAsync({
 	// 		id,
-	// 		useComponentNameAsPrefixOfId: true,
 	// 		component: ContainerDetailsComponent,
 	// 		componentInputs: {
 	// 			event: Event.MEvent.create(event)

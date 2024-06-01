@@ -86,8 +86,6 @@ export class OrderState extends BaseState<IOrderDto> {
 		const {OrderDetailsContainerComponent} = await import("@order/presentation/component/details/order-details-container.component");
 
 		await this.pushBoxService.updatePushBoxComponentAsync({
-			id: payload._id,
-			useComponentNameAsPrefixOfId: true,
 			component: OrderDetailsContainerComponent,
 			componentInputs: {item: payload},
 		});
@@ -102,18 +100,14 @@ export class OrderState extends BaseState<IOrderDto> {
 		const {OrderDetailsContainerComponent} = await import("@order/presentation/component/details/order-details-container.component");
 
 		await this.pushBoxService.buildItAsync({
-			id,
 			title,
 			showLoading: true,
-			useComponentNameAsPrefixOfId: true,
 			component: OrderDetailsContainerComponent,
 		});
 
 		const item = await this.item.executeAsync(id);
 
 		await this.pushBoxService.updatePushBoxComponentAsync({
-			id,
-			useComponentNameAsPrefixOfId: true,
 			component: OrderDetailsContainerComponent,
 			componentInputs: {item},
 		});
@@ -129,7 +123,6 @@ export class OrderState extends BaseState<IOrderDto> {
 
 		await this.pushBoxService.buildItAsync({
 			title,
-			id: action.payload,
 			component: OrderFormContainerComponent,
 			componentInputs: {},
 		});
@@ -146,7 +139,6 @@ export class OrderState extends BaseState<IOrderDto> {
 
 		await this.pushBoxService.buildItAsync({
 			title,
-			id: action.payload,
 			component: OrderFormContainerComponent,
 			componentInputs: {
 				orderDto,
