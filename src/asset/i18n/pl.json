@@ -312,7 +312,7 @@
 			"type": {
 				"new": "Nowy",
 				"regular": "Klient",
-				"unknown": "Anonimowy",
+				"anonymous": "Anonimowy",
 				"unregistered": "Gość"
 			}
 		},

@@ -2,7 +2,7 @@ import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {CustomerForm} from "@customer/presentation/form";
 
 @Component({
-	selector: 'app-unknown-customer-type-customer',
+	selector: 'app-anonymous-customer-type-customer',
 	encapsulation: ViewEncapsulation.None,
 	imports: [],
 	standalone: true,
@@ -10,7 +10,7 @@ import {CustomerForm} from "@customer/presentation/form";
 
 	`
 })
-export class UnknownCustomerTypeCustomerComponent {
+export class AnonymousCustomerTypeCustomerComponent {
 
 	@Input()
 	public form!: CustomerForm;

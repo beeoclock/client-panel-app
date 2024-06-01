@@ -23,7 +23,7 @@ export class AttendantForm extends FormGroup<IAttendantForm> {
 				nonNullable: true
 			}),
 			customer: CustomerForm.create({
-				customerType: CustomerTypeEnum.unknown
+				customerType: CustomerTypeEnum.anonymous
 			})
 		});
 	}

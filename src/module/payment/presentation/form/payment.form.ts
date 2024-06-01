@@ -27,7 +27,7 @@ export class PaymentForm extends BaseEntityForm<'PaymentDto', IPaymentForm> {
             providerPaymentRef: new FormControl(),
             orderId: new FormControl(),
             payer: CustomerForm.create({
-                customerType: CustomerTypeEnum.unknown,
+                customerType: CustomerTypeEnum.anonymous,
             }),
             amount: new FormControl<number>(0, {
                 nonNullable: true,

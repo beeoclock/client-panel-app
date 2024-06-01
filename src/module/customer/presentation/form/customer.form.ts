@@ -2,12 +2,12 @@ import {AbstractControl, FormControl, Validators} from '@angular/forms';
 import {ActiveEnum} from "@utility/domain/enum";
 import {noWhitespaceValidator} from "@utility/validation/whitespace";
 import {
-    atLeastOneFieldMustBeFilledValidator
+	atLeastOneFieldMustBeFilledValidator
 } from "@customer/presentation/form/validation/atLeastOneFieldMustBeFilled.validation";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {
-    SwitchActiveBlockComponent
+	SwitchActiveBlockComponent
 } from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
 import {BaseEntityForm} from "@utility/base.form";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
@@ -169,7 +169,7 @@ export class CustomerForm extends BaseEntityForm<'Customer', ICustomerForm> {
         this.controls.email.setValidators([Validators.email, noWhitespaceValidator()]);
         this.controls.phone.setValidators([noWhitespaceValidator()]);
 
-        this.value.customerType !== CustomerTypeEnum.unknown && this.addAtLeastOneFieldMustBeFilledValidator();
+        this.value.customerType !== CustomerTypeEnum.anonymous && this.addAtLeastOneFieldMustBeFilledValidator();
 
     }
 
