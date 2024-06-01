@@ -5,7 +5,7 @@
 	<button
 		type="button"
 		class="flex flex-col items-center gap-1 p-2 rounded-2xl border-2 min-w-[100px] max-h-[100px] min-h-[100px]"
-		*ngFor="let member of (memberTableState$ | async)?.items ?? []"
+		*ngFor="let member of (members$ | async) ?? []"
 		(click)="changeMemberInSpecialist(member)"
 		[class.border-green-500]="member._id === selectedSpecialist?.member?._id">
 

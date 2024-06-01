@@ -5,10 +5,11 @@ import {TranslateModule} from "@ngx-translate/core";
 import {MemberSelector} from "@member/state/member/member.selector";
 import {Select} from "@ngxs/store";
 import {RIMember} from "@member/domain";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {TableState} from "@utility/domain/table.state";
 import {FormControl} from "@angular/forms";
 import {IService} from "@service/domain";
+import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
 
 @Component({
 	selector: 'event-service-specialist-component',
@@ -30,7 +31,13 @@ export class SpecialistServiceComponent {
 	public index!: number;
 
 	@Select(MemberSelector.tableState)
-	public memberTableState$!: Observable<TableState<RIMember>>;
+	private memberTableState$!: Observable<TableState<RIMember>>;
+
+	public readonly members$: Observable<RIMember[]> = this.memberTableState$.pipe(
+		map(({items}) => {
+			return items.filter(member => member.profileStatus === MemberProfileStatusEnum.active);
+		})
+	);
 
 	public get selectedSpecialist(): ISpecialist | undefined {
 		const service = this.serviceListControl.value[this.index];
