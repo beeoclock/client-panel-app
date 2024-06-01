@@ -76,6 +76,23 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 	}
 
+	@Action(CustomerActions.OpenDetails)
+	public async openDetailsAction(ctx: StateContext<ICustomerState>, {payload}: CustomerActions.OpenDetails) {
+
+		const title = await this.translateService.instant('customer.details.title');
+
+		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
+
+		await this.pushBoxService.buildItAsync({
+			title,
+			componentInputs: {
+				item: payload
+			},
+			component: CustomerDetailsContainerComponent,
+		});
+
+	}
+
 	@Action(CustomerActions.OpenDetailsById)
 	public async openDetailsById(ctx: StateContext<ICustomerState>, {payload: id}: CustomerActions.OpenDetailsById) {
 

@@ -74,6 +74,22 @@ export class PaymentState extends BaseState<IPaymentDto> {
 
 	}
 
+	@Action(PaymentActions.OpenDetails)
+	public async openDetailsAction(ctx: StateContext<IPaymentState>, {payload}: PaymentActions.OpenDetails) {
+
+		// const title = await this.translateService.instant('payment.details.title');
+		//
+		// const {PaymentDetailsContainerComponent} = await import("@payment/presentation/component/details/payment-details-container.component");
+		//
+		// await this.pushBoxService.buildItAsync({
+		// 	id,
+		// 	title,
+		// 	componentInputs: {item: payload},
+		// 	component: PaymentDetailsContainerComponent,
+		// });
+
+	}
+
 	@Action(PaymentActions.OpenDetailsById)
 	public async openDetailsByIdAction(ctx: StateContext<IPaymentState>, {payload: id}: PaymentActions.OpenDetailsById) {
 

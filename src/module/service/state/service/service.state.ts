@@ -77,6 +77,23 @@ export class ServiceState extends BaseState<IService> {
 
 	}
 
+	@Action(ServiceActions.OpenDetails)
+	public async openDetailsAction(ctx: StateContext<IServiceState>, {payload}: ServiceActions.OpenDetails) {
+
+		const title = this.translateService.instant('service.details.title');
+
+		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
+
+		await this.pushBoxService.buildItAsync({
+			title,
+			componentInputs: {
+				item: payload
+			},
+			component: ServiceDetails,
+		});
+
+	}
+
 	@Action(ServiceActions.OpenDetailsById)
 	public async openDetailsById(ctx: StateContext<IServiceState>, {payload: id}: ServiceActions.OpenDetailsById) {
 

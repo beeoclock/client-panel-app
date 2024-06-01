@@ -76,6 +76,23 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 	}
 
+	@Action(MemberActions.OpenDetails)
+	public async openDetails(ctx: StateContext<IMemberState>, {payload}: MemberActions.OpenDetails) {
+
+		const title = await this.translateService.instant('member.details.title');
+
+		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
+
+		await this.pushBoxService.buildItAsync({
+			title,
+			componentInputs: {
+				item: payload
+			},
+			component: MemberDetailsContainerComponent,
+		});
+
+	}
+
 	@Action(MemberActions.OpenDetailsById)
 	public async openDetailsById(ctx: StateContext<IMemberState>, {payload: id}: MemberActions.OpenDetailsById) {
 
