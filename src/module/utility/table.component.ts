@@ -52,7 +52,7 @@ export abstract class TableComponent<ITEM extends RIBaseEntity<string>> implemen
 	private initUserTapOnTheCardHandler(): void {
 		this.singleClickEmitter.subscribe((item) => {
 			if (this.goToDetailsOnSingleClick) {
-				this.open(item._id);
+				this.open(item);
 			}
 		});
 	}
@@ -67,8 +67,8 @@ export abstract class TableComponent<ITEM extends RIBaseEntity<string>> implemen
 	}
 
 	@DoubleClick
-	public doubleClick(id: string): void {
-		this.open(id);
+	public doubleClick(item: ITEM): void {
+		this.open(item);
 	}
 
 	public updateOrderBy(target: HTMLTableCellElement): void {
@@ -95,7 +95,7 @@ export abstract class TableComponent<ITEM extends RIBaseEntity<string>> implemen
 		});
 	}
 
-	public open(id: string): void {
+	public open(item: ITEM): void {
 		throw new Error('Method not implemented.');
 	}
 

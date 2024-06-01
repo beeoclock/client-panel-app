@@ -4,7 +4,7 @@ import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {
-    TableStatePaginationComponent
+	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
@@ -17,10 +17,10 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {ButtonsDetailsComponent} from "@event/presentation/component/details/buttons.details.component";
 import {
-    ChangeStatusOnBookedComponent
+	ChangeStatusOnBookedComponent
 } from "@event/presentation/component/change-status/change-status-on-booked.component";
 import {
-    ChangeStatusOnCancelledComponent
+	ChangeStatusOnCancelledComponent
 } from "@event/presentation/component/change-status/change-status-on-cancelled.component";
 import {ChangeStatusOnDoneComponent} from "@event/presentation/component/change-status/change-status-on-done.component";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
@@ -58,8 +58,8 @@ export class CardListComponent extends TableComponent<RMIEvent> {
 
 	public override readonly actions = EventActions;
 
-	public override open(id: string) {
-		console.log('open', id)
+	public override open(item: RMIEvent) {
+		console.log('open', item)
 		// this.store.dispatch(new EventActions.OpenDetailsById(id));
 	}
 

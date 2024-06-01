@@ -113,8 +113,8 @@ export class TableListComponent extends TableComponent<IService> {
 		},
 	}
 
-	public override open(id: string) {
-		this.store.dispatch(new ServiceActions.OpenDetailsById(id));
+	public override open(item: IService) {
+		this.store.dispatch(new ServiceActions.OpenDetails(item));
 	}
 
 }

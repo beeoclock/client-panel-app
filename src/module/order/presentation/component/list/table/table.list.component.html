@@ -31,7 +31,7 @@
     </div>
     <!-- Column Cell	-->
     <div tableBodyFlex>
-        <div tableRowFlex="body" (click)="doubleClick(item._id)"
+        <div tableRowFlex="body" (click)="doubleClick(item)"
              *ngFor="let item of tableState.items; trackBy: trackById">
             <div tableColumnFlex="services">
 				{{ item?.services?.length ?? 0 }}

@@ -9,6 +9,7 @@ import {ActiveStyleDirective} from "@utility/presentation/directives/active-styl
 import {NgIf} from "@angular/common";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {OrderActions} from "@order/state/order/order.actions";
+import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 
 @Component({
     selector: 'order-detail-page',
@@ -35,13 +36,13 @@ export class OrderDetailsContainerComponent {
 
     public async delete(order: IOrderDto) {
 
-        // const {active} = order;
-        //
-        // if (active) {
-        //
-        //     return alert('You can\'t delete active order');
-        //
-        // }
+        const {status} = order;
+
+        if ([OrderStatusEnum.rejected, OrderStatusEnum.cancelled, OrderStatusEnum.draft, OrderStatusEnum].includes(status)) {
+
+            return alert('You can\'t delete order with status ' + status + ', change status on one of the following: ' + OrderStatusEnum.draft + ', ' + OrderStatusEnum.cancelled + ', ' + OrderStatusEnum.rejected );
+
+        }
 
         await firstValueFrom(this.store.dispatch(new OrderActions.DeleteItem(order._id)));
 

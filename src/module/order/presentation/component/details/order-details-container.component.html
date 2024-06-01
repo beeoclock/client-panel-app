@@ -3,10 +3,18 @@
 		<dl class="divide-y divide-gray-100">
 			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
-					{{ 'keyword.capitalize.note' | translate }}
+					{{ 'keyword.capitalize.services' | translate }}
 				</dt>
 				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-<!--					{{ item.note }}-->
+					{{ item?.services?.length }}
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.businessNote' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ item.businessNote }}
 				</dd>
 			</div>
 			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
@@ -14,7 +22,7 @@
 					{{ 'keyword.capitalize.status' | translate }}
 				</dt>
 				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
-<!--					<div activeStyle [active]="item.active"></div>-->
+					{{ ('order.enum.status.singular.' + item.status) | translate }}
 				</dd>
 			</div>
 		</dl>

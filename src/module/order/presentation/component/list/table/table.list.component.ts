@@ -85,8 +85,8 @@ export class TableListComponent extends TableComponent<IOrderDto> {
 		},
 	};
 
-	public override open(id: string) {
-		this.store.dispatch(new OrderActions.OpenDetailsById(id));
+	public override open(item: IOrderDto) {
+		this.store.dispatch(new OrderActions.OpenDetails(item));
 	}
 
 }

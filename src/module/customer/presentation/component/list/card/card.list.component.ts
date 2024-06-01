@@ -49,8 +49,8 @@ export class CardListComponent extends TableComponent<ICustomer> {
 
 	public showSelectedStatus = new BooleanStreamState(false);
 
-	public override open(id: string) {
-		this.store.dispatch(new CustomerActions.OpenDetailsById(id));
+	public override open(item: ICustomer) {
+		this.store.dispatch(new CustomerActions.OpenDetails(item));
 	}
 
 }

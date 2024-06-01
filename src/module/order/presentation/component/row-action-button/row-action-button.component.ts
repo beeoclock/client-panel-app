@@ -63,7 +63,7 @@ export class RowActionButtonComponent {
 	// }
 
 	public open(): void {
-		this.store.dispatch(new OrderActions.OpenDetailsById(this.item._id));
+		this.store.dispatch(new OrderActions.OpenDetails(this.item));
 	}
 
 	public edit(): void {

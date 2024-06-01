@@ -58,7 +58,7 @@
 	</div>
 	<!-- Column Cell	-->
 	<div tableBodyFlex>
-		<div tableRowFlex="body" (click)="doubleClick(item._id)" *ngFor="let item of tableState.items; trackBy: trackById">
+		<div tableRowFlex="body" (click)="doubleClick(item)" *ngFor="let item of tableState.items; trackBy: trackById">
 			<div tableColumnFlex="service">
 				<span [title]="item?.services?.[0]?.languageVersions?.[0]?.title" class="truncate">
 					{{ item?.services?.[0]?.languageVersions?.[0]?.title }}
@@ -103,7 +103,7 @@
 				</span>
 			</div>
 			<div tableColumnFlex="action" class="border-l sticky right-0">
-				<utility-table-column-action (delete)="delete(item._id)" (open)="open($event)" (edit)="edit($event)" [id]="item._id"/>
+				<utility-table-column-action (delete)="delete(item._id)" (open)="open(item)" (edit)="edit($event)" [id]="item._id"/>
 			</div>
 		</div>
 	</div>

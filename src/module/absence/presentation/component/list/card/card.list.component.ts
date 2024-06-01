@@ -49,8 +49,8 @@ export class CardListComponent extends TableComponent<IAbsenceDto> {
 
 	public showSelectedStatus = new BooleanStreamState(false);
 
-	public override open(id: string) {
-		this.store.dispatch(new AbsenceActions.OpenDetailsById(id));
+	public override open(item: IAbsenceDto) {
+		this.store.dispatch(new AbsenceActions.OpenDetails(item));
 	}
 
 }

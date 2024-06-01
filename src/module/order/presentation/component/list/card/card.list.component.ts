@@ -3,7 +3,7 @@ import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {
-    TableStatePaginationComponent
+	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
@@ -49,8 +49,8 @@ export class CardListComponent extends TableComponent<IOrderDto> {
 
 	public showSelectedStatus = new BooleanStreamState(false);
 
-	public override open(id: string) {
-		this.store.dispatch(new OrderActions.OpenDetailsById(id));
+	public override open(item: IOrderDto) {
+		this.store.dispatch(new OrderActions.OpenDetails(item));
 	}
 
 }

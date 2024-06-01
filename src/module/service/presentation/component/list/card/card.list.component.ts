@@ -86,8 +86,8 @@ export class CardListComponent extends TableComponent<IService> implements OnCha
 		return firstOption ?? languageVersions[0];
 	}
 
-	public override open(id: string): void {
-		this.store.dispatch(new ServiceActions.OpenDetailsById(id));
+	public override open(item: IService): void {
+		this.store.dispatch(new ServiceActions.OpenDetails(item));
 	}
 
 }

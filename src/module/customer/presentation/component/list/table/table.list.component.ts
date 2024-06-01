@@ -100,8 +100,8 @@ export class TableListComponent extends TableComponent<ICustomer> {
 		},
 	};
 
-	public override open(id: string) {
-		this.store.dispatch(new CustomerActions.OpenDetailsById(id));
+	public override open(item: ICustomer) {
+		this.store.dispatch(new CustomerActions.OpenDetails(item));
 	}
 
 }

@@ -107,8 +107,8 @@ export class TableListComponent extends TableComponent<IEvent> {
 		this.store.dispatch(new EventActions.DeleteItem(id));
 	}
 
-	public override open(id: string): void {
-		console.log('open', id)
+	public override open(item: IEvent): void {
+		console.log('open', item)
 		// this.store.dispatch(new EventActions.OpenDetailsById(id));
 	}
 

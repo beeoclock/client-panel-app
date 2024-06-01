@@ -82,6 +82,23 @@ export class OrderState extends BaseState<IOrderDto> {
 
 	}
 
+	@Action(OrderActions.OpenDetails)
+	public async openDetailsAction(ctx: StateContext<IOrderState>, {payload}: OrderActions.OpenDetails) {
+
+		const title = await this.translateService.instant('order.details.title');
+
+		const {OrderDetailsContainerComponent} = await import("@order/presentation/component/details/order-details-container.component");
+
+		await this.pushBoxService.buildItAsync({
+			title,
+			componentInputs: {
+				item: payload
+			},
+			component: OrderDetailsContainerComponent,
+		});
+
+	}
+
 	@Action(OrderActions.OpenDetailsById)
 	public async openDetailsByIdAction(ctx: StateContext<IOrderState>, {payload: id}: OrderActions.OpenDetailsById) {
 

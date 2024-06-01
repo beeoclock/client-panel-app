@@ -96,8 +96,8 @@ export class TableListComponent extends TableComponent<IAbsenceDto> {
 		},
 	};
 
-	public override open(id: string) {
-		this.store.dispatch(new AbsenceActions.OpenDetailsById(id));
+	public override open(item: IAbsenceDto) {
+		this.store.dispatch(new AbsenceActions.OpenDetails(item));
 	}
 
 }
