@@ -139,7 +139,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
                         acc[specialistId] = acc[specialistId] || [];
 
-                        acc[specialistId].push(event);
+                        acc[specialistId].push(structuredClone(event));
 
                     });
 
@@ -156,7 +156,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
                         acc[specialistId] = acc[specialistId] || [];
 
                         // Push event into specialist's list and filter out other specialists but keep customers
-                        acc[specialistId].push({
+                        acc[specialistId].push(structuredClone({
                             ...event,
                             attendees: event.attendees.filter((attendee) => {
                                 if (attendee.is === 'specialist') {
@@ -164,7 +164,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
                                 }
                                 return true;
                             })
-                        });
+                        }));
 
                     });
 
@@ -286,7 +286,15 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
                 // Change vertical position of the event but mouse has another top position then the event should be included the difference
 
+
+                // Step is to change height of the event is: 5 minutes what is equal to (120px/60px)*5 = 10px
+                // So, user can't change height of the event less than 10px every step
                 const diffY = event.clientY - prevMousePosition.y;
+
+                // TODO: Implement this feature
+                // if (Math.abs(diffY) < 10) {
+                //     return;
+                // }
 
                 prevMousePosition = {x: event.clientX, y: event.clientY};
 
@@ -314,6 +322,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
                         break;
                     }
                     case 'top': {
+
                         // Change height of the event and top position
                         const currentTop = htmlDivElement.offsetTop;
                         const newTop = currentTop + diffY;
@@ -354,6 +363,8 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
                     }
                 }
 
+                this.eventCalendarWithSpecialistWidgetComponent?.someUpdateFromExternal();
+
                 // Detect if htmlDivElement is near to another htmlDivElement if yes then change width of the events
 
                 // Check if htmlDivElement is near to another htmlDivElement
@@ -372,7 +383,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
                                 return;
                             }
                             column.nativeElement.appendChild(htmlDivElement);
-                            htmlDivElement.setAttribute('data-column-index', newIndex);
+                            this.eventCalendarWithSpecialistWidgetComponent?.changeMember(this.calendarWithSpecialistLocaStateService.members[Number(newIndex) - 1]);
                         }
                     });
                 }
@@ -517,7 +528,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
             return;
         }
 
-        console.log('mouseover: ', $event, columnIndex, htmlDivElement.dataset.columnIndex);
+        console.log('mouseover: ', $event, columnIndex, htmlDivElement.dataset.columnIndex, htmlDivElement.dataset.columnIndex === columnIndex);
 
         if (htmlDivElement.dataset.columnIndex === columnIndex) {
             return;
@@ -527,12 +538,14 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
         // Move HTML element to another column
 
         const column = document.querySelector(`[data-index="${columnIndex}"]`);
+        console.log('column', column, columnIndex)
         if (!column) {
             return;
         }
         column.appendChild(htmlDivElement);
-        // Change data-column-index attribute
-        htmlDivElement.setAttribute('data-column-index', columnIndex);
+        const index = Number(columnIndex) - 1;
+        const member = this.calendarWithSpecialistLocaStateService.members[index];
+        this.eventCalendarWithSpecialistWidgetComponent?.changeMember(member);
 
     }
 
@@ -575,8 +588,11 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
         column.appendChild(htmlDivElement);
         // Change data-column-index attribute
         if (this.eventCalendarWithSpecialistWidgetComponent) {
-            // TODO: change column, change specialist and dispatch action to save changes into database
-            // this.eventCalendarWithSpecialistWidgetComponent. = Number(columnIndex);
+
+            const index = Number(columnIndex) - 1;
+            const member = this.calendarWithSpecialistLocaStateService.members[index];
+            this.eventCalendarWithSpecialistWidgetComponent?.changeMember(member);
+
         }
     }
 
