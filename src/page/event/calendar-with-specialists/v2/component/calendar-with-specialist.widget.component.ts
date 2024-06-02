@@ -48,6 +48,7 @@ import {PushBoxService} from "@utility/presentation/component/push-box/push-box.
     template: `
         <div class="h-[50px] flex gap-4 px-2 items-center bg-white border-b border-beeColor-200">
             <event-date-control-calendar-with-specialists-component/>
+            <utility-auto-refresh-component (emitter)="forceRefresh()" [isLoading]="(loader$ | async) ?? false"/>
         </div>
         <!-- Grid of hour rows -->
         <div class="flex relative overflow-auto bg-white h-[calc(100vh-114px)] md:h-[calc(100vh-50px)]">
