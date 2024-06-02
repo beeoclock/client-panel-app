@@ -12,13 +12,13 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {
-	DurationVersionTypeRangeComponent
+    DurationVersionTypeRangeComponent
 } from "@event/presentation/component/form/services/duration-version-type/duration-version-type.range.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 import {
-	SpecialistServiceComponent
+    SpecialistServiceComponent
 } from "@event/presentation/component/form/services/specialist/specialist.service.component";
 import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
 import {Reactive} from "@utility/cdk/reactive";
@@ -114,7 +114,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 						return;
 					}
 				}
-				this.lastSelectedMember = value[0]?.specialists[0]?.member;
+				this.lastSelectedMember = value?.[0]?.specialists?.[0]?.member;
 			});
 		}
 

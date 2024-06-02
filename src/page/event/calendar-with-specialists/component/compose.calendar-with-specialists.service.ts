@@ -6,9 +6,9 @@ export class ComposeCalendarWithSpecialistsService {
 
 	public readonly hoursMode = 24;
 	public readonly oneHoursInMinutes = 60; // Don't change this value
-	public readonly slotInMinutes = 10;
+	public readonly slotInMinutes = 15;
 	public readonly stepPerHour = this.oneHoursInMinutes / this.slotInMinutes;
-	public readonly oneHourHeightInPx = 180;
+	public readonly oneHourHeightInPx = 120;
 	public readonly heightPerSlotInPx = this.oneHourHeightInPx / this.stepPerHour;
 	public readonly headerHeightInPx = 50;
 

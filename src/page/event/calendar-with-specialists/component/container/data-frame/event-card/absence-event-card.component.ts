@@ -80,11 +80,6 @@ export class AbsenceEventCardComponent {
 		await this.openAbsenceDetails(this.event.data);
 	}
 
-	@HostBinding('style.grid-row-start')
-	public get gridRowStart() {
-		return 1;
-	}
-
 	@HostBinding('style.margin-top')
 	public get marginTop() {
 

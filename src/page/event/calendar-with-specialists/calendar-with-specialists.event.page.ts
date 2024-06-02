@@ -1,10 +1,10 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 import {
-    MembersContainerWeekCalendarComponent
-} from "@page/event/calendar-with-specialists/component/members.container.week-calendar.component";
-import {
     ComposeCalendarWithSpecialistsService
 } from "@page/event/calendar-with-specialists/component/compose.calendar-with-specialists.service";
+import {
+    MembersV2ContainerWeekCalendarComponent
+} from "@page/event/calendar-with-specialists/v2/members.container.week-calendar.component";
 
 @Component({
     selector: 'app-event-calendar-with-specialists-page',
@@ -13,11 +13,11 @@ import {
     providers: [
         ComposeCalendarWithSpecialistsService
     ],
-    imports: [
-        MembersContainerWeekCalendarComponent
-    ],
+	imports: [
+		MembersV2ContainerWeekCalendarComponent
+	],
     template: `
-        <event-members-container-week-calendar-component/>
+			<app-event-v2-members-container-week-calendar-component/>
     `
 })
 export default class CalendarWithSpecialistsEventPage {

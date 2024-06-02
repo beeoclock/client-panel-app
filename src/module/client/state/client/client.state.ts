@@ -44,6 +44,11 @@ export class ClientState {
 	}
 
 	@Selector()
+	public static schedules(state: IClientState): RISchedule[] | undefined {
+		return state.item?.schedules;
+	}
+
+	@Selector()
 	public static earliestScheduleAndLatestSchedule(state: IClientState): {
 		earliestSchedule: RISchedule,
 		latestSchedule: RISchedule,
