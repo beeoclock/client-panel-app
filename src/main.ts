@@ -1,4 +1,4 @@
-import {bootstrapApplication} from '@angular/platform-browser';
+import {bootstrapApplication, HammerModule} from '@angular/platform-browser';
 import {MainRouterOutlet} from '@src/main.router-outlet';
 import {enableProdMode, importProvidersFrom, isDevMode} from '@angular/core';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
@@ -29,6 +29,7 @@ import {getMessaging, provideMessaging} from "@angular/fire/messaging";
 import {getAnalytics, provideAnalytics} from "@angular/fire/analytics";
 import {ngxsProviders} from "@src/ngxs";
 
+import 'hammerjs';
 
 import '@angular/common/locales/global/da';
 import '@angular/common/locales/global/pl';
@@ -51,6 +52,7 @@ bootstrapApplication(MainRouterOutlet, {
 		NgEventBus,
 		provideEnvironmentNgxMask(),
 		importProvidersFrom(
+			HammerModule,
 			LoggerModule.forRoot({
 				level: environment.production ? NgxLoggerLevel.OFF : NgxLoggerLevel.TRACE,
 				serverLogLevel: NgxLoggerLevel.OFF,

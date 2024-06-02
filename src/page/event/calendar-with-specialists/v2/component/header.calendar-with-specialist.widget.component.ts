@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
 import * as Member from "@member/domain";
 import {NgIf} from "@angular/common";
 
@@ -22,6 +22,7 @@ import {NgIf} from "@angular/common";
 		</ng-container>
 	`,
 	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		NgIf
 	],

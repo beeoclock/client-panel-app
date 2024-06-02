@@ -1,4 +1,4 @@
-import {Component, inject} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {filter, tap} from "rxjs";
 import {is} from "thiis";
@@ -12,12 +12,13 @@ import {Reactive} from "@utility/cdk/reactive";
 import {ScheduleV2ContainerWeekCalendarComponent} from "./schedule.container.week-calendar.component";
 import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
 import {
-    CalendarWithSpecialistLocaStateService
+	CalendarWithSpecialistLocaStateService
 } from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 
 @Component({
 	selector: 'app-event-v2-members-container-week-calendar-component',
 	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-container *ngIf="item$ | async">
 			<app-event-v2-schedule-container-week-calendar-component/>
