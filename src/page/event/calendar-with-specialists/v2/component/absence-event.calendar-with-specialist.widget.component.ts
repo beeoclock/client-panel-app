@@ -6,9 +6,6 @@ import {Store} from "@ngxs/store";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {TranslateModule} from "@ngx-translate/core";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
-import {
-	CalendarWithSpecialistLocaStateService
-} from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 
 @Component({
 	selector: 'app-absence-event-calendar-with-specialist-widget-component',
@@ -47,12 +44,9 @@ export class AbsenceEventCalendarWithSpecialistWidgetComponent {
 	@Input()
 	public event!: IEvent_V2<IAbsenceDto>;
 
-	private readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 	private readonly store = inject(Store);
 
-	public readonly startTimeToDisplay = this.calendarWithSpecialistLocaStateService.startTimeToDisplay;
 
-	// @HostListener('click')
 	public async onClick() {
 		await this.openAbsenceDetails(this.event);
 	}

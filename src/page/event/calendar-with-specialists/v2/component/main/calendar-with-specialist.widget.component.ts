@@ -393,10 +393,11 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 	public mouseMoveListener = (event: MouseEvent, isMobile: boolean = false) => {
 
-		this.ngxLogger.info('mouseMoveListener: ', event, this.mouseDown);
 		if (!this.mouseDown) {
 			return;
 		}
+
+		this.ngxLogger.info('mouseMoveListener: ', event);
 
 		// Step is to change height of the event is: 5 minutes what is equal to (120px/60px)*5 = 10px
 		// So, user can't change height of the event less than 10px every step
