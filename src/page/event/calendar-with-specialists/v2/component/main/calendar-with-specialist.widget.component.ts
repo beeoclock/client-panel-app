@@ -15,9 +15,6 @@ import {
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {
-	DateControlCalendarWithSpecialistsComponent
-} from "@page/event/calendar-with-specialists/component/filter/date-control/date-control.calendar-with-specialists.component";
-import {
 	EventCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/event.calendar-with-specialist.widget.component";
 import {
@@ -56,7 +53,6 @@ import {
 		NgForOf,
 		AsyncPipe,
 		AutoRefreshComponent,
-		DateControlCalendarWithSpecialistsComponent,
 		NgIf,
 		EventCalendarWithSpecialistWidgetComponent,
 		HeaderCalendarWithSpecialistWidgetComponent,
