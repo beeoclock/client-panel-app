@@ -9,7 +9,7 @@ import {AsyncPipe, NgIf} from "@angular/common";
 import {CalendarWithSpecialistLocaStateService} from "./calendar-with-specialist.loca.state.service";
 import {
 	CalendarWithSpecialistWidgetComponent
-} from "@page/event/calendar-with-specialists/v2/component/calendar-with-specialist.widget.component";
+} from "@page/event/calendar-with-specialists/v2/component/main/calendar-with-specialist.widget.component";
 
 @Component({
 	selector: 'app-event-v2-schedule-container-week-calendar-component',
@@ -36,8 +36,8 @@ export class ScheduleV2ContainerWeekCalendarComponent extends Reactive {
 			filter(is.not_null_or_undefined<{ earliestSchedule: RISchedule; latestSchedule: RISchedule; }>),
 			tap(({earliestSchedule, latestSchedule}) => {
 
-				this.calendarWithSpecialistLocaStateService.setEarliestScheduleToDisplay(earliestSchedule.startInSeconds);
-				this.calendarWithSpecialistLocaStateService.setLatestScheduleToDisplay(latestSchedule.endInSeconds);
+				this.calendarWithSpecialistLocaStateService.setEarliestScheduleInSeconds(earliestSchedule.startInSeconds);
+				this.calendarWithSpecialistLocaStateService.setLatestScheduleInSeconds(latestSchedule.endInSeconds);
 
 			})
 		),

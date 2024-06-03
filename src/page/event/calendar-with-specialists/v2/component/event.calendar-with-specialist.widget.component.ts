@@ -28,6 +28,7 @@ import {DateTime} from "luxon";
 import {RIMember} from "@member/domain";
 import {UpdateServiceOrderApiAdapter} from "@order/external/adapter/api/update.service.order.api.adapter";
 import {UpdateAbsenceApiAdapter} from "@absence/external/adapter/api/update.order.api.adapter";
+import {NGXLogger} from "ngx-logger";
 
 type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenceDto>;
 
@@ -47,10 +48,13 @@ type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenc
 		<app-absence-event-calendar-with-specialist-widget-component *ngIf="isAbsence(item)" [event]="item"/>
 		<ng-container *ngIf="draggable">
 
-			<div data-dragging="position"
-					 class="overflow-hidden absolute bg-black/50 bg-opacity-50 border-2 border-blue-500 bottom-0 left-0 p-1 right-0 rounded-md text-white top-0">
-				<div data-dragging="position" class="h-full py-1 text-white flex flex-col justify-between"
-						 *ngIf="temporaryInformationAboutNewStartAndEnd">
+			<div
+				data-dragging="position"
+				class="overflow-hidden absolute bg-black/50 bg-opacity-50 border-2 border-blue-500 bottom-0 left-0 p-1 right-0 rounded-md text-white top-0">
+				<div
+					data-dragging="position"
+					class="h-full py-1 text-white flex flex-col justify-between"
+					*ngIf="temporaryInformationAboutNewStartAndEnd">
 					<div data-dragging="position" class="w-full text-center">
 						{{ temporaryInformationAboutNewStartAndEnd.start | date: 'HH:mm' }}
 					</div>
@@ -59,17 +63,21 @@ type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenc
 					</div>
 				</div>
 			</div>
-			<div class="-top-1 absolute bg-blue-500 h-3 left-1/2 rounded-full w-3"
-					 [style.transform]="'translate(-50%, 0)'">
+			<div
+				class="-top-1 absolute bg-blue-500 h-3 left-1/2 rounded-full w-3"
+				[style.transform]="'translate(-50%, 0)'">
 			</div>
-			<div data-dragging="top"
-					 class="-top-2 w-full absolute bg-transparent h-5 left-0 right-0 rounded-full cursor-ns-resize">
+			<div
+				data-dragging="top"
+				class="-top-2 w-full absolute bg-transparent h-5 left-0 right-0 rounded-full cursor-ns-resize">
 			</div>
-			<div class="-bottom-1 absolute bg-blue-500 h-3  left-1/2 rounded-full w-3"
-					 [style.transform]="'translate(-50%, 0)'">
+			<div
+				class="-bottom-1 absolute bg-blue-500 h-3  left-1/2 rounded-full w-3"
+				[style.transform]="'translate(-50%, 0)'">
 			</div>
-			<div data-dragging="bottom"
-					 class="-bottom-2 w-full absolute bg-transparent h-5 left-0 right-0 rounded-full cursor-ns-resize">
+			<div
+				data-dragging="bottom"
+				class="-bottom-2 w-full absolute bg-transparent h-5 left-0 right-0 rounded-full cursor-ns-resize">
 			</div>
 		</ng-container>
 	`
@@ -83,6 +91,9 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	public get class() {
 		return 'absolute';
 	}
+
+	@HostBinding('style.touch-action')
+	public touchAction = 'auto';
 
 	@HostBinding('attr.data-is-event')
 	public isEvent = true;
@@ -126,22 +137,24 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	@ViewChild(AbsenceEventCalendarWithSpecialistWidgetComponent)
 	private absenceEventCalendarWithSpecialistWidgetComponent!: AbsenceEventCalendarWithSpecialistWidgetComponent;
 
+	private readonly ngxLogger = inject(NGXLogger);
+
 	@HostListener('tap', ['$event'])
 	onTap(event: any) {
 		if (this.draggable) {
-			console.log('Draggable mode is enabled');
+			this.ngxLogger.debug('EventCalendarWithSpecialistWidgetComponent:onTap');
 			return;
 		}
-		console.log('tap event detected:', event);
+		this.ngxLogger.debug('tap event detected:', event);
 		this.orderEventCalendarWithSpecialistWidgetComponent?.onClick?.();
 		this.absenceEventCalendarWithSpecialistWidgetComponent?.onClick?.();
 	}
 
 	// If draggable is enabled and user press outside of the event, then disable draggable mode
 	@HostListener('document:tap', ['$event'])
-	onDocumentTap(event: HammerInput) {
+	public onDocumentTap(event: HammerInput) {
 		if (this.draggable && !this.elementRef.nativeElement.contains(event.target)) {
-			this.toggleMode(false);
+			this.toggleMode(false).then();
 			// Prevent event propagation
 			event.preventDefault();
 			event.srcEvent.preventDefault();
@@ -151,12 +164,12 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	}
 
 	@HostListener('press', ['$event'])
-	onPress(event: any) {
+	public onPress(event: HammerInput) {
 		if (this.draggable) {
-			console.log('Draggable mode is enabled');
+			this.ngxLogger.debug('EventCalendarWithSpecialistWidgetComponent:onPress');
 			return;
 		}
-		console.log('press event detected:', event);
+		this.ngxLogger.debug('press event detected:', event);
 		// Додайте вашу логіку тут
 		this.toggleMode(true);
 	}
@@ -165,7 +178,6 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	public temporaryNewMember: RIMember | null = null;
 
 	public changeMember(member: RIMember) {
-		console.log('changeMember', member)
 		this.temporaryNewMember = member;
 	}
 
@@ -201,7 +213,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	private saveInProgress = false;
 
 	public async toggleMode(force?: boolean) {
-		console.log('toggleMode', force, this.draggable)
+		this.ngxLogger.debug('EventCalendarWithSpecialistWidgetComponent:toggleMode');
 		this.draggable = force ?? !this.draggable;
 		this.changeDetectorRef.detectChanges();
 		this.draggable && this.calendarWithSpecialistLocaStateService.setEventCalendarWithSpecialistWidgetComponent(this);

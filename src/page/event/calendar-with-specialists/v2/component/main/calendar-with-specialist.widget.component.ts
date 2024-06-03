@@ -8,6 +8,7 @@ import {
 	inject,
 	OnInit,
 	QueryList,
+	ViewChild,
 	ViewChildren,
 	ViewEncapsulation
 } from "@angular/core";
@@ -27,7 +28,7 @@ import {NGXLogger} from "ngx-logger";
 import {
 	HeaderCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/header.calendar-with-specialist.widget.component";
-import {map} from "rxjs";
+import {map, tap} from "rxjs";
 import {IEvent_V2} from "@event/domain";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Store} from "@ngxs/store";
@@ -41,62 +42,16 @@ import {
 	EmptySlotCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/empty-slot.calendar-with-specialist.widget.component";
 import {RIMember} from "@member/domain";
+import {
+	TimeLineCalendarWithSpecialistWidgetComponent
+} from "@page/event/calendar-with-specialists/v2/component/time-line.calendar-with-specialist.widget.component";
 
 @Component({
 	selector: 'app-calendar-with-specialists-widget-component',
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	template: `
-		<div class="h-[50px] flex gap-4 px-2 items-center bg-white border-b border-beeColor-200">
-			<event-date-control-calendar-with-specialists-component/>
-			<utility-auto-refresh-component (emitter)="forceRefresh()" [isLoading]="(loader$ | async) ?? false"/>
-		</div>
-		<!-- Grid of hour rows -->
-		<div class="flex relative overflow-auto bg-white h-[calc(100vh-114px)] md:h-[calc(100vh-50px)]">
-			<div class="bg-white border-r flex flex-col left-0 sticky z-10" data-is-column="true"
-					 [style.width]="calendarWithSpecialistLocaStateService.hoursWidthInPx"
-					 [style.min-height]="calendarWithSpecialistLocaStateService.columnHeightInPx">
-				<div [style.min-height]="calendarWithSpecialistLocaStateService.specialistCellHeightInPx"
-						 class="z-10 bg-white sticky top-0 border-b">
-				</div>
-				<div class="border-b text-slate-400 text-right px-2 sticky left-0"
-						 [style.min-height]="calendarWithSpecialistLocaStateService.oneHourInPx"
-						 *ngFor="let hourRow of calendarWithSpecialistLocaStateService.hourRowListInPx; trackBy: trackByHour">
-					{{ hourRow.hour }}
-				</div>
-			</div>
-			<div
-				*ngFor="let member of calendarWithSpecialistLocaStateService.members; let index = index; trackBy: trackByMemberId"
-				#column
-				(mouseover)="mouseover($event)"
-				(mouseenter)="mouseEnter($event)"
-				(touchstart)="mouseover($event)"
-				(touchend)="mouseEnter($event)"
-				[attr.data-index]="index + 1"
-				class="flex flex-col border-r relative" data-is-column="true"
-				[style.width]="calendarWithSpecialistLocaStateService.cellWidthInPx"
-				[style.min-width]="calendarWithSpecialistLocaStateService.cellWidthInPx"
-				[style.max-width]="calendarWithSpecialistLocaStateService.cellWidthInPx"
-				[style.min-height]="calendarWithSpecialistLocaStateService.columnHeightInPx">
-				<div [style.min-height]="calendarWithSpecialistLocaStateService.specialistCellHeightInPx"
-						 class="z-10 p-1 bg-white sticky top-0 border-b">
-
-					<event-header-calendar-with-specialist-widget-component [member]="member"/>
-
-				</div>
-				<div class="border-b"
-						 [attr.data-column-index]="index + 1"
-						 [style.min-height]="calendarWithSpecialistLocaStateService.oneHourInPx"
-						 *ngFor="let hourRow of calendarWithSpecialistLocaStateService.hourRowListInPx; trackBy: trackByHour">
-					<app-empty-slot-calendar-with-specialist-widget-component [class.hidden]="thereSomeEventCalendarWithSpecialistWidgetComponent" [hour]="hourRow.original" [member]="member"/>
-				</div>
-				<ng-container *ngIf="eventsBySpecialistId[member._id] as events">
-					<app-event-calendar-with-specialists-widget-component *ngFor="let event of events; trackBy: trackById" [item]="event"/>
-				</ng-container>
-			</div>
-		</div>
-	`,
+	templateUrl: './calendar-with-specialist.widget.component.html',
 	imports: [
 		NgForOf,
 		AsyncPipe,
@@ -106,18 +61,44 @@ import {RIMember} from "@member/domain";
 		EventCalendarWithSpecialistWidgetComponent,
 		HeaderCalendarWithSpecialistWidgetComponent,
 		TranslateModule,
-		EmptySlotCalendarWithSpecialistWidgetComponent
+		EmptySlotCalendarWithSpecialistWidgetComponent,
+		TimeLineCalendarWithSpecialistWidgetComponent,
 	]
 })
 export class CalendarWithSpecialistWidgetComponent extends Reactive implements OnInit, AfterViewInit {
 
 	public changeEventPositionIsOn = false;
+	public handleChangeEventForDraggingEnabledElement = false;
 
 	public readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
 	private readonly activatedRoute = inject(ActivatedRoute);
+
+	@ViewChild('calendar')
+	public calendar!: ElementRef<HTMLDivElement>;
+
+	public readonly isToday$ = this.store.select(CalendarWithSpecialistsQueries.isToday);
+	public readonly showTimeLine$ = this.isToday$.pipe(
+		tap((isToday) => {
+			if (!isToday) {
+				// Scroll to first rendered event
+				const firstEvent = document.querySelector('[data-is-event="true"]');
+				if (firstEvent) {
+					// TODO: refactoring this part of code, move the coee as function and call at first recived data of events
+					firstEvent.scrollIntoView({behavior: 'smooth', block: 'start'});
+				} else {
+					// Scroll to the earliest schedule time
+					let topToScroll = this.calendarWithSpecialistLocaStateService.earliestScheduleInSeconds / 60;
+					topToScroll = topToScroll * this.calendarWithSpecialistLocaStateService.oneMinuteForPx;
+
+					this.calendar.nativeElement.scrollTo({top: topToScroll, behavior: 'smooth'});
+				}
+			}
+		})
+	);
+
 
 	public trackByHour(index: number, hour: {
 		original: number;
@@ -262,14 +243,81 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 	prevMousePosition = {x: 0, y: 0};
 	whatIsDragging: 'position' | 'top' | 'bottom' | null = null;
 
+	moveCallback = {
+		position: (htmlDivElement: HTMLElement, diffY: number) => {
+
+			const currentTop = htmlDivElement.offsetTop;
+			const newTop = currentTop + diffY;
+
+			// Check if new top position is not out of column + specialist cell height
+			if (newTop > this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx) {
+				// Check of new top position is not out of the bottom of the column
+				// Get event height
+				const eventHeight = htmlDivElement.clientHeight;
+				// Check if new top position is not out of the bottom of the column
+				if ((newTop + eventHeight) <= this.calendarWithSpecialistLocaStateService.columnHeightForPx) {
+					htmlDivElement.style.top = `${newTop}px`;
+				}
+			}
+		},
+		top: (htmlDivElement: HTMLElement, diffY: number) => {
+
+			// Change height of the event and top position
+			const currentTop = htmlDivElement.offsetTop;
+			const newTop = currentTop + diffY;
+			const currentHeight = htmlDivElement.clientHeight;
+			const newHeight = currentHeight - diffY;
+
+			// Check if new top position is not out of column + specialist cell height
+			if (newTop > this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx) {
+				// Check of new top position is not out of the bottom of the column
+				// Get event height
+				const eventHeight = htmlDivElement.clientHeight;
+				// Check if new top position is not out of the bottom of the column
+				if ((newTop + eventHeight) <= this.calendarWithSpecialistLocaStateService.columnHeightForPx) {
+					// Check if newTop is not out of bottom of the event
+					if (newTop <= (currentTop + currentHeight)) {
+						htmlDivElement.style.top = `${newTop}px`;
+						htmlDivElement.style.height = `${newHeight}px`;
+					}
+				}
+			}
+
+		},
+		bottom: (htmlDivElement: HTMLElement, diffY: number) => {
+
+			// Change height of the event
+			const currentHeight = htmlDivElement.clientHeight;
+			const newHeight = currentHeight + diffY;
+
+			// Check of new top position is not out of the bottom of the column
+			// Check if new top position is not out of the bottom of the column
+			if ((newHeight + htmlDivElement.offsetTop) <= this.calendarWithSpecialistLocaStateService.columnHeightForPx) {
+				htmlDivElement.style.height = `${newHeight}px`;
+			}
+		}
+	};
+
 	@HostListener('document:mouseup')
 	public documentMouseUpListener() {
-		this.ngxLogger.info('documentMouseUpListener: delete all listeners');
+		this.ngxLogger.info('documentMouseUpListener: mouseDown false and changeEventPositionIsOn false');
 		this.mouseDown = false;
+		this.changeEventPositionIsOn = false;
+		this.handleChangeEventForDraggingEnabledElement = false;
+	}
+
+	@HostListener('document:panend')
+	public panend() {
+		this.ngxLogger.info('panend');
+		this.mouseDown = false;
+		this.changeEventPositionIsOn = false;
+		this.handleChangeEventForDraggingEnabledElement = false;
+
 	}
 
 	@HostListener('document:mousedown', ['$event'])
 	public documentMouseDownListener(event: MouseEvent) {
+
 
 		if (!event) {
 			return;
@@ -286,7 +334,15 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		}
 
 		this.whatIsDragging = (target.dataset.dragging ?? null) as 'position' | 'top' | 'bottom' | null;
-		this.ngxLogger.info('documentMouseDownListener: ', event, this.whatIsDragging, this.mouseDown);
+		this.handleChangeEventForDraggingEnabledElement = this.whatIsDragging !== null;
+		this.changeEventPositionIsOn = this.whatIsDragging === 'position';
+
+		this.ngxLogger.info('documentMouseDownListener: ', {
+			event,
+			whatIsDragging: this.whatIsDragging,
+			handleChangeEventForDraggingEnabledElement: this.handleChangeEventForDraggingEnabledElement,
+			changeEventPositionIsOn: this.changeEventPositionIsOn
+		});
 
 		if (this.whatIsDragging === null) {
 			return;
@@ -300,26 +356,30 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 	// For mobile
 
-	touchStartListener = (event: TouchEvent) => {
-		console.log('touchstart: ', event);
+	public touchStartListener = (event: TouchEvent) => {
 		this.documentMouseDownListener(event.touches[0] as unknown as MouseEvent);
-		event.preventDefault();
-		event.stopPropagation();
 	}
 
-	touchMoveListener = (event: TouchEvent) => {
-		console.log('touchmove: ', event);
+	public touchMoveListener = (event: TouchEvent) => {
+		if (!this.mouseDown) {
+			return;
+		}
+		if (!this.handleChangeEventForDraggingEnabledElement) {
+			return;
+		}
+
 		this.mouseMoveListener(event.touches[0] as unknown as MouseEvent, true);
 		event.preventDefault();
 		event.stopPropagation();
 	}
 
-	mouseUpListener = () => {
+	public mouseUpListener = () => {
 		this.ngxLogger.info('mouseUpListener: delete all listeners');
 		this.mutatedOtherEventHtmlList.length = 0;
 
 		this.mouseDown = false;
 		this.changeEventPositionIsOn = false;
+		this.handleChangeEventForDraggingEnabledElement = false;
 		this.eventCalendarWithSpecialistWidgetComponent?.toggleMode(false);
 
 		this.prevMousePosition = {x: 0, y: 0};
@@ -331,29 +391,16 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		this.changeDetectorRef.detectChanges();
 	}
 
-	mouseMoveListener = (event: MouseEvent | undefined, isMobile: boolean = false) => {
+	public mouseMoveListener = (event: MouseEvent, isMobile: boolean = false) => {
 
 		this.ngxLogger.info('mouseMoveListener: ', event, this.mouseDown);
 		if (!this.mouseDown) {
 			return;
 		}
 
-		if (!event) {
-			return;
-		}
-
-		// Change vertical position of the event but mouse has another top position then the event should be included the difference
-
-
-
 		// Step is to change height of the event is: 5 minutes what is equal to (120px/60px)*5 = 10px
 		// So, user can't change height of the event less than 10px every step
 		const diffY = event.clientY - this.prevMousePosition.y;
-
-		// TODO: Implement this feature
-		// if (Math.abs(diffY) < 10) {
-		//     return;
-		// }
 
 		this.prevMousePosition = {x: event.clientX, y: event.clientY};
 
@@ -363,67 +410,8 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 			return;
 		}
 
-		switch (this.whatIsDragging) {
-			case 'position': {
-
-				this.changeEventPositionIsOn = true;
-
-				const currentTop = htmlDivElement.offsetTop;
-				const newTop = currentTop + diffY;
-
-				// Check if new top position is not out of column + specialist cell height
-				if (newTop > this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx) {
-					// Check of new top position is not out of the bottom of the column
-					// Get event height
-					const eventHeight = htmlDivElement.clientHeight;
-					// Check if new top position is not out of the bottom of the column
-					if ((newTop + eventHeight) <= this.calendarWithSpecialistLocaStateService.columnHeightForPx) {
-						htmlDivElement.style.top = `${newTop}px`;
-					}
-				}
-
-				break;
-			}
-			case 'top': {
-
-				// Change height of the event and top position
-				const currentTop = htmlDivElement.offsetTop;
-				const newTop = currentTop + diffY;
-				const currentHeight = htmlDivElement.clientHeight;
-				const newHeight = currentHeight - diffY;
-
-				// Check if new top position is not out of column + specialist cell height
-				if (newTop > this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx) {
-					// Check of new top position is not out of the bottom of the column
-					// Get event height
-					const eventHeight = htmlDivElement.clientHeight;
-					// Check if new top position is not out of the bottom of the column
-					if ((newTop + eventHeight) <= this.calendarWithSpecialistLocaStateService.columnHeightForPx) {
-						// Check if newTop is not out of bottom of the event
-						if (newTop <= (currentTop + currentHeight)) {
-							htmlDivElement.style.top = `${newTop}px`;
-							htmlDivElement.style.height = `${newHeight}px`;
-						}
-					}
-				}
-
-
-				break;
-			}
-			case 'bottom': {
-				// Change height of the event
-				const currentHeight = htmlDivElement.clientHeight;
-				const newHeight = currentHeight + diffY;
-
-				// Check of new top position is not out of the bottom of the column
-				// Check if new top position is not out of the bottom of the column
-				if ((newHeight + htmlDivElement.offsetTop) <= this.calendarWithSpecialistLocaStateService.columnHeightForPx) {
-					htmlDivElement.style.height = `${newHeight}px`;
-				}
-
-
-				break;
-			}
+		if (this.whatIsDragging) {
+			(this.moveCallback[this.whatIsDragging])?.(htmlDivElement, diffY);
 		}
 
 		this.eventCalendarWithSpecialistWidgetComponent?.someUpdateFromExternal();
@@ -436,30 +424,31 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 			return;
 		}
 
-		if (isMobile) {
-			this.columnList.forEach((column) => {
-				// Find if event is now in other column
-				const rect = column.nativeElement.getBoundingClientRect();
-				if (event.clientX > rect.left && event.clientX < rect.right && event.clientY > rect.top && event.clientY < rect.bottom) {
-					const newIndex = column.nativeElement.dataset.index;
-					if (!newIndex) {
-						return;
-					}
-					column.nativeElement.appendChild(htmlDivElement);
-					this.eventCalendarWithSpecialistWidgetComponent?.changeMember(this.calendarWithSpecialistLocaStateService.members[Number(newIndex) - 1]);
-				}
-			});
-		}
-
-		const nearEvents = column.querySelectorAll('[data-is-event="true"]');
-
 		const restoreWidthOfMutatedEvents = () => {
 			this.mutatedOtherEventHtmlList.forEach((element, index) => {
-				console.log('element', element, index, column.clientWidth, this.mutatedOtherEventHtmlList.length)
 				element.style.width = `${column.clientWidth / this.mutatedOtherEventHtmlList.length}px`;
 				element.style.transform = `translateX(calc(100% * ${index}))`;
 			});
 		};
+
+		if (isMobile) {
+			if (this.changeEventPositionIsOn) {
+				this.columnList.forEach((column) => {
+					// Find if event is now in other column
+					const rect = column.nativeElement.getBoundingClientRect();
+					if (event.clientX > rect.left && event.clientX < rect.right && event.clientY > rect.top && event.clientY < rect.bottom) {
+						const newIndex = column.nativeElement.dataset.index;
+						if (!newIndex) {
+							return;
+						}
+						column.nativeElement.appendChild(htmlDivElement);
+						this.eventCalendarWithSpecialistWidgetComponent?.changeMember(this.calendarWithSpecialistLocaStateService.members[Number(newIndex) - 1]);
+					}
+				});
+			}
+		}
+
+		const nearEvents = column.querySelectorAll('[data-is-event="true"]');
 
 		if (!nearEvents.length || nearEvents.length === 1) {
 			htmlDivElement.style.width = '100%';
@@ -468,43 +457,9 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 			return;
 		}
 
-		const findNearEvents = Array.from(nearEvents).filter((element) => {
-			if (element === htmlDivElement) {
-				return false;
-			}
-			const elm = element as HTMLDivElement;
-			const rect = elm.getBoundingClientRect();
-			const rect2 = htmlDivElement.getBoundingClientRect();
-			return rect.top < rect2.bottom && rect.bottom > rect2.top;
-		});
-
-		if (!findNearEvents.length) {
-			htmlDivElement.style.width = '100%';
-			htmlDivElement.style.transform = `translateX(0)`;
+		this.fixNearEventsWidth(nearEvents, htmlDivElement, column, () => {
 			restoreWidthOfMutatedEvents();
-			return;
-		}
-
-		const top = htmlDivElement.offsetTop;
-		const htmlDivElementHasSmollerTop = findNearEvents.every((element) => {
-			const elm = element as HTMLDivElement;
-			return elm.offsetTop > top;
 		});
-
-		this.mutatedOtherEventHtmlList.length = 0;
-
-		findNearEvents.forEach((element, index) => {
-			if (element === htmlDivElement) {
-				return;
-			}
-			const elm = element as HTMLDivElement;
-			this.mutatedOtherEventHtmlList.push(elm);
-			elm.style.width = `${column.clientWidth / (findNearEvents.length + 1)}px`;
-			elm.style.transform = `translateX(calc(100% * ${index + (htmlDivElementHasSmollerTop ? 1 : 0)}))`
-		});
-
-		htmlDivElement.style.width = `${column.clientWidth / (findNearEvents.length + 1)}px`;
-		htmlDivElement.style.transform = `translateX(calc(100% * ${(htmlDivElementHasSmollerTop ? 0 : findNearEvents.length)}))`
 
 	}
 
@@ -528,7 +483,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 	}
 
-	mouseover($event: MouseEvent | TouchEvent) {
+	public mouseover($event: MouseEvent | TouchEvent) {
 
 		const {target} = $event as unknown as MouseEvent & { target: HTMLElement }
 
@@ -574,7 +529,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 	}
 
 
-	mouseEnter($event: MouseEvent | TouchEvent) {
+	public mouseEnter($event: MouseEvent | TouchEvent) {
 		const {target} = $event as unknown as MouseEvent & { target: HTMLElement }
 
 		if (!this.mouseDown) {
@@ -622,6 +577,54 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		}
 	}
 
+	/**
+	 * Possible value of sourceTop, sourceBottom, targetTop, targetBottom is 423.515625,
+	 * so we have to cut off the decimal part by `$value | 0` and
+	 * divide it by oneMinuteForPx from calendarWithSpecialistLocaStateService
+	 *
+	 * @param target
+	 * @param source
+	 */
+	public targetIsNearOfSource(target: HTMLElement, source: HTMLElement): boolean {
+
+		let {top: sourceTop, bottom: sourceBottom} = source.getBoundingClientRect();
+
+		// [IMPORTANT] sourceTop has relative value of current height per hour on UI layout, so we have to convert it to minutes to know the exact position
+		sourceTop = sourceTop / this.calendarWithSpecialistLocaStateService.oneMinuteForPx;
+		sourceTop = sourceTop | 0;
+
+		// [IMPORTANT] sourceBottom has relative value of current height per hour on UI layout, so we have to convert it to minutes to know the exact position
+		sourceBottom = sourceBottom / this.calendarWithSpecialistLocaStateService.oneMinuteForPx;
+		sourceBottom = sourceBottom | 0;
+
+		const htmlElement = target as HTMLDivElement;
+		let {top: targetTop, bottom: targetBottom} = htmlElement.getBoundingClientRect();
+
+		// [IMPORTANT] targetTop has relative value of current height per hour on UI layout, so we have to convert it to minutes to know the exact position
+		targetTop = targetTop / this.calendarWithSpecialistLocaStateService.oneMinuteForPx;
+		targetTop = targetTop | 0;
+
+		// [IMPORTANT] targetBottom has relative value of current height per hour on UI layout, so we have to convert it to minutes to know the exact position
+		targetBottom = targetBottom / this.calendarWithSpecialistLocaStateService.oneMinuteForPx;
+		targetBottom = targetBottom | 0;
+
+		const htmlElementInside = targetTop > sourceTop && targetBottom < sourceBottom;
+		if (htmlElementInside) {
+			return true;
+		}
+		const htmlElementTop = targetTop > sourceTop && targetTop < sourceBottom;
+		if (htmlElementTop) {
+			return true;
+		}
+		const htmlElementBottom = targetBottom > sourceTop && targetBottom < sourceBottom;
+		if (htmlElementBottom) {
+			return true;
+		}
+		const htmlElementOutside = targetTop < sourceTop && targetBottom > sourceBottom;
+		return htmlElementOutside;
+
+	}
+
 	public findAndFixNearEventsWidthInEachColumn(column: ElementRef<HTMLDivElement>) {
 
 		const columnElement = column.nativeElement;
@@ -638,45 +641,60 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 			const eventElement = event as HTMLDivElement;
 
-			const rect = eventElement.getBoundingClientRect();
-
-			const nearEvents = eventsArray.filter((element) => {
-				if (element === eventElement) {
-					return false;
-				}
-				const elm = element as HTMLDivElement;
-				const rect2 = elm.getBoundingClientRect();
-				return rect.top < rect2.bottom && rect.bottom > rect2.top;
-			});
-
-			if (!nearEvents.length) {
-				eventElement.style.width = '100%';
-				eventElement.style.transform = `translateX(0)`;
-				return;
-			}
-
-			const top = eventElement.offsetTop;
-			const eventHasSmollerTop = nearEvents.every((element) => {
-				const elm = element as HTMLDivElement;
-				return elm.offsetTop > top;
-			});
-
-			nearEvents.forEach((element, index) => {
-				if (element === eventElement) {
-					return;
-				}
-				const elm = element as HTMLDivElement;
-				elm.style.width = `${columnElement.clientWidth / (nearEvents.length + 1)}px`;
-				elm.style.transform = `translateX(calc(100% * ${index + (eventHasSmollerTop ? 1 : 0)}))`
-			});
-
-			eventElement.style.width = `${columnElement.clientWidth / (nearEvents.length + 1)}px`;
-			eventElement.style.transform = `translateX(calc(100% * ${(eventHasSmollerTop ? 0 : nearEvents.length)}))`
+			this.fixNearEventsWidth(events, eventElement, columnElement);
 
 		});
 
 		this.changeDetectorRef.detectChanges();
 
+	}
+
+	public fixNearEventsWidth(nearEvents: NodeListOf<Element>, htmlDivElement: HTMLElement, column: HTMLElement, callbackIfNoNearEvents: (() => void) = (() => {
+	})) {
+		const findNearEvents = Array.from(nearEvents).filter((element) => {
+			if (element === htmlDivElement) {
+				return false;
+			}
+
+			return this.targetIsNearOfSource(element as HTMLDivElement, htmlDivElement);
+
+		});
+
+		if (!findNearEvents.length) {
+			htmlDivElement.style.width = '100%';
+			htmlDivElement.style.transform = `translateX(0)`;
+			callbackIfNoNearEvents();
+			return;
+		}
+
+		const top = htmlDivElement.offsetTop;
+		const htmlDivElementHasSmollerTop = findNearEvents.every((element) => {
+			const elm = element as HTMLDivElement;
+			return elm.offsetTop > top;
+		});
+
+		// [IMPORTANT] Only if dragging is enabled
+		if (this.handleChangeEventForDraggingEnabledElement) {
+			this.mutatedOtherEventHtmlList.length = 0;
+		}
+
+		findNearEvents.forEach((element, index) => {
+			if (element === htmlDivElement) {
+				return;
+			}
+			const elm = element as HTMLDivElement;
+
+			// [IMPORTANT] Only if dragging is enabled
+			if (this.handleChangeEventForDraggingEnabledElement) {
+				this.mutatedOtherEventHtmlList.push(elm);
+			}
+
+			elm.style.width = `${column.clientWidth / (findNearEvents.length + 1)}px`;
+			elm.style.transform = `translateX(calc(100% * ${index + (htmlDivElementHasSmollerTop ? 1 : 0)}))`
+		});
+
+		htmlDivElement.style.width = `${column.clientWidth / (findNearEvents.length + 1)}px`;
+		htmlDivElement.style.transform = `translateX(calc(100% * ${(htmlDivElementHasSmollerTop ? 0 : findNearEvents.length)}))`;
 	}
 
 }

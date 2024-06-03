@@ -17,7 +17,7 @@ import {
 } from "@page/event/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 
 @Component({
-	selector: 'event-time-line-component',
+	selector: 'app-time-line-calendar-with-specialist-widget-component',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
@@ -27,28 +27,29 @@ import {
 	],
 	template: `
 		<!-- Current time -->
-<!--		<div class="min-w-[70px] flex justify-end">-->
-		<div class="z-[11] border-r border-slate-100 bg-white flex justify-end left-0 min-w-[70px] sticky" [style.transform]="'translateY(-50%)'">
+		<div class="border-2 border-red-500 bg-white rounded-b-md flex justify-end left-0 sticky w-[50px]">
 			<div
-				class="px-2 py-1 border border-red-500 bg-white rounded-2xl text-xs text-right text-red-500 uppercase font-bold">
+				class="py-1 rounded-2xl text-sm text-center text-red-500 uppercase font-bold w-[50px]">
 				{{ currentDate | date: 'HH:mm' }}
 			</div>
 		</div>
 		<!-- Line -->
-		<!--		border-t border-red-400/50 h-1 -->
 		<div class="w-full bg-[#f87171] h-[2px]"></div>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TimeLineComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TimeLineCalendarWithSpecialistWidgetComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	@Input()
 	public currentDate = new Date();
 
 	@HostBinding()
-	public class = 'absolute top-0 left-0 w-full flex items-start transition-all';
+	public class = 'absolute flex items-start left-0 top-0 transition-all z-[11] w-[100vh] md:w-full';
 
-	@HostBinding()
+	@HostBinding('style.height')
+	public height = '0';
+
+	@HostBinding('style')
 	public style = '';
 
 	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
