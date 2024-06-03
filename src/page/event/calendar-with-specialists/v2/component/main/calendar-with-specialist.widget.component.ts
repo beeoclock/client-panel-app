@@ -42,6 +42,9 @@ import {RIMember} from "@member/domain";
 import {
 	TimeLineCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/time-line.calendar-with-specialist.widget.component";
+import {
+	DateControlCalendarWithSpecialistsComponent
+} from "../../filter/date-control/date-control.calendar-with-specialists.component";
 
 @Component({
 	selector: 'app-calendar-with-specialists-widget-component',
@@ -53,6 +56,7 @@ import {
 		NgForOf,
 		AsyncPipe,
 		AutoRefreshComponent,
+		DateControlCalendarWithSpecialistsComponent,
 		NgIf,
 		EventCalendarWithSpecialistWidgetComponent,
 		HeaderCalendarWithSpecialistWidgetComponent,
