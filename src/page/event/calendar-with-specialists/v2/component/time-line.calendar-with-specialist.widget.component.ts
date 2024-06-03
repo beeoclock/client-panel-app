@@ -13,8 +13,8 @@ import {
 } from "@angular/core";
 import {DatePipe, NgIf, NgStyle} from "@angular/common";
 import {
-	ComposeCalendarWithSpecialistsService
-} from "@page/event/calendar-with-specialists/component/compose.calendar-with-specialists.service";
+	CalendarWithSpecialistLocaStateService
+} from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 
 @Component({
 	selector: 'app-time-line-calendar-with-specialist-widget-component',
@@ -52,15 +52,15 @@ export class TimeLineCalendarWithSpecialistWidgetComponent implements OnInit, Af
 	@HostBinding('style')
 	public style = '';
 
-	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
+	private readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 	private readonly elementRef = inject(ElementRef);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
-	public readonly startTimeToDisplay = this.composeCalendarWithSpecialistsService.startTimeToDisplay;
+	public readonly startTimeToDisplay = this.calendarWithSpecialistLocaStateService.startTimeToDisplay;
 
-	public readonly headerHeightInPx = this.composeCalendarWithSpecialistsService.headerHeightInPx;
+	public readonly headerHeightInPx = this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx;
 
-	public readonly heightInPx = this.composeCalendarWithSpecialistsService.oneHourHeightInPx;
+	public readonly heightInPx = this.calendarWithSpecialistLocaStateService.oneHourForPx;
 
 	private interval: NodeJS.Timer | null = null;
 

@@ -4,12 +4,12 @@ import {IAttendee, IEvent_V2} from "@event/domain";
 import {DatePipe, NgIf} from "@angular/common";
 import {Store} from "@ngxs/store";
 import {EventActions} from "@event/state/event/event.actions";
-import {
-	ComposeCalendarWithSpecialistsService
-} from "@page/event/calendar-with-specialists/component/compose.calendar-with-specialists.service";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {
+	CalendarWithSpecialistLocaStateService
+} from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 
 @Component({
 	selector: 'app-order-event-calendar-with-specialist-widget-component',
@@ -42,10 +42,10 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 	@Input()
 	public event!: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>;
 
-	private readonly composeCalendarWithSpecialistsService = inject(ComposeCalendarWithSpecialistsService);
+	private readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 	private readonly store = inject(Store);
 
-	public readonly startTimeToDisplay = this.composeCalendarWithSpecialistsService.startTimeToDisplay;
+	public readonly startTimeToDisplay = this.calendarWithSpecialistLocaStateService.startTimeToDisplay;
 
 	// @HostListener('click')
 	public async onClick() {
