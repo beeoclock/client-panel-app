@@ -1,5 +1,5 @@
 import {Component, HostBinding, inject, OnInit, ViewEncapsulation} from "@angular/core";
-import {WhacAMoleResizeContainer} from "@utility/presentation/component/whac-a-mole/whac-a-mole.resize-container";
+import {WhacAMoleResizeContainer} from "@utility/presentation/whac-a-mole/whac-a-mole.resize-container";
 import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {Reactive} from "@utility/cdk/reactive";

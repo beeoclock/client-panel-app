@@ -1,6 +1,6 @@
 import {ComponentRef, inject, Injectable, reflectComponentType, Type} from "@angular/core";
-import {WhacAMoleWrapper} from "@utility/presentation/component/whac-a-mole/whac-a-mole.wrapper";
-import {WhacAMole} from "@utility/presentation/component/whac-a-mole/whac-a-mole";
+import {WhacAMoleWrapper} from "@utility/presentation/whac-a-mole/whac-a-mole.wrapper";
+import {WhacAMole} from "@utility/presentation/whac-a-mole/whac-a-mole";
 import {NGXLogger} from "ngx-logger";
 
 export type PushBoxBuildItArgsType = {

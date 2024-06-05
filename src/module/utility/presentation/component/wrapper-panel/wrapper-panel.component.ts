@@ -26,7 +26,7 @@ import {
 } from "@module/account/adapter/external/api/get.frontend-settings.account.api.adapter";
 import {ThemeService} from "@utility/cdk/theme.service";
 import {TranslateService} from "@ngx-translate/core";
-import {WhacAMole} from "@utility/presentation/component/whac-a-mole/whac-a-mole";
+import {WhacAMole} from "@utility/presentation/whac-a-mole/whac-a-mole";
 import {ClientState} from "@client/state/client/client.state";
 import {is} from "thiis";
 import {Reactive} from "@utility/cdk/reactive";

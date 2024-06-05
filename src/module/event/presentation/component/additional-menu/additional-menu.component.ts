@@ -1,6 +1,6 @@
 import {Component, HostBinding, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
 import {RIMember} from "@member/domain";
-import {WhacAMoleProvider} from "@utility/presentation/component/whac-a-mole/whac-a-mole.provider";
+import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {Store} from "@ngxs/store";
 import {OrderActions} from "@order/state/order/order.actions";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";

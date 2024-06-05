@@ -2,7 +2,7 @@ import {Component, HostBinding, inject, Input, ViewEncapsulation} from '@angular
 import {TranslateModule} from "@ngx-translate/core";
 import {NgIf} from "@angular/common";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {WhacAMoleProvider} from "@utility/presentation/component/whac-a-mole/whac-a-mole.provider";
+import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {Reactive} from "@utility/cdk/reactive";
 import {CustomerForm} from "@customer/presentation/form";
 

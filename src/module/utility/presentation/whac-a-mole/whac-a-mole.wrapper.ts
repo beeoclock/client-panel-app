@@ -9,7 +9,7 @@ import {
 	ViewEncapsulation
 } from "@angular/core";
 import {NgIf} from "@angular/common";
-import {PushBoxBuildItArgsType} from "@utility/presentation/component/whac-a-mole/whac-a-mole.provider";
+import {PushBoxBuildItArgsType} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 
 @Component({
 	selector: 'whac-a-mole-wrapper',

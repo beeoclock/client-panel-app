@@ -20,7 +20,7 @@ import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-typ
 import {
 	SpecialistServiceComponent
 } from "@event/presentation/component/form/services/specialist/specialist.service.component";
-import {WhacAMoleProvider} from "@utility/presentation/component/whac-a-mole/whac-a-mole.provider";
+import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {Reactive} from "@utility/cdk/reactive";
 import {RIMember} from "@member/domain";
 import {BooleanState} from "@utility/domain";

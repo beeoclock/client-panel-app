@@ -11,7 +11,7 @@ import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {NGXLogger} from "ngx-logger";
 import {RIBaseEntity} from "@utility/domain";
 import {NgEventBus} from "ng-event-bus";
-import {WhacAMoleProvider} from "@utility/presentation/component/whac-a-mole/whac-a-mole.provider";
+import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 
 export interface IBaseState_Item<ITEM> {
 	data: undefined | ITEM;

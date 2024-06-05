@@ -10,7 +10,7 @@ import {
 } from "@client/presentation/component/business-profile/form-business-profile.component";
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {WhacAMoleProvider} from "@utility/presentation/component/whac-a-mole/whac-a-mole.provider";
+import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {Reactive} from "@utility/cdk/reactive";
 import {NgIf} from "@angular/common";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";

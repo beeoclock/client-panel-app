@@ -17,12 +17,9 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 import {TranslateModule} from "@ngx-translate/core";
 import {DebounceClickDirective} from "@utility/presentation/directives/debounce/debounce.directive";
 import {NGXLogger} from "ngx-logger";
-import {
-	PushBoxBuildItArgsType,
-	WhacAMoleProvider
-} from "@utility/presentation/component/whac-a-mole/whac-a-mole.provider";
-import {WhacAMoleWrapper} from "@utility/presentation/component/whac-a-mole/whac-a-mole.wrapper";
-import {WhacAMoleContainer} from "@utility/presentation/component/whac-a-mole/whac-a-mole.container";
+import {PushBoxBuildItArgsType, WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
+import {WhacAMoleWrapper} from "@utility/presentation/whac-a-mole/whac-a-mole.wrapper";
+import {WhacAMoleContainer} from "@utility/presentation/whac-a-mole/whac-a-mole.container";
 
 @Component({
 	selector: 'whac-a-mole',

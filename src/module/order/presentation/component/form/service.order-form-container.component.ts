@@ -19,7 +19,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {OrderForm} from "@order/presentation/form/order.form";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {WhacAMoleProvider} from "@utility/presentation/component/whac-a-mole/whac-a-mole.provider";
+import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {ContainerFormComponent} from '@event/presentation/component/form/container.form.component';
 import {IEvent} from "@event/domain";
 import {ActiveEnum} from "@utility/domain/enum";
