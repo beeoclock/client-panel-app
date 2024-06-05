@@ -1,6 +1,6 @@
 import {ComponentRef, inject, Injectable, reflectComponentType, Type} from "@angular/core";
-import {PushBoxWrapperComponent} from "@utility/presentation/component/push-box/push-box-wrapper.component";
-import {PushBoxComponent} from "@utility/presentation/component/push-box/push-box.component";
+import {WhacAMoleWrapper} from "@utility/presentation/component/whac-a-mole/whac-a-mole.wrapper";
+import {WhacAMole} from "@utility/presentation/component/whac-a-mole/whac-a-mole";
 import {NGXLogger} from "ngx-logger";
 
 export type PushBoxBuildItArgsType = {
@@ -32,12 +32,12 @@ export type PushBoxBuildItArgsType = {
 @Injectable({
 	providedIn: 'root'
 })
-export class PushBoxService<COMPONENT> {
+export class WhacAMoleProvider<COMPONENT> {
 
-	private pushBoxContainer: PushBoxComponent | undefined;
+	private pushBoxContainer: WhacAMole | undefined;
 
-	public readonly componentRefMapById = new Map<string, ComponentRef<PushBoxWrapperComponent<COMPONENT>>>();
-	public readonly componentRefMapByComponentName = new Map<string, ComponentRef<PushBoxWrapperComponent<COMPONENT>>[]>();
+	public readonly componentRefMapById = new Map<string, ComponentRef<WhacAMoleWrapper<COMPONENT>>>();
+	public readonly componentRefMapByComponentName = new Map<string, ComponentRef<WhacAMoleWrapper<COMPONENT>>[]>();
 
 	private readonly ngxLogger = inject(NGXLogger);
 
@@ -46,7 +46,7 @@ export class PushBoxService<COMPONENT> {
 		const componentMirror = reflectComponentType(component);
 
 		if (!componentMirror) {
-			this.ngxLogger.error('PushBoxComponent.buildComponentAndRender', 'value of `component` property is not a component');
+			this.ngxLogger.error('WhacAMole.buildComponentAndRender', 'value of `component` property is not a component');
 			return false;
 		}
 
@@ -55,11 +55,11 @@ export class PushBoxService<COMPONENT> {
 		const componentRefList = this.componentRefMapByComponentName.get(selector);
 
 		if (!componentRefList?.length) {
-			this.ngxLogger.debug('PushBoxComponent.destroyComponent Did not find', selector, this);
+			this.ngxLogger.debug('WhacAMole.destroyComponent Did not find', selector, this);
 			return false;
 		}
 
-		this.ngxLogger.debug('PushBoxComponent.destroyComponent', selector);
+		this.ngxLogger.debug('WhacAMole.destroyComponent', selector);
 
 		componentRefList.forEach((componentRef) => {
 			componentRef.instance.destroySelf();
@@ -79,14 +79,14 @@ export class PushBoxService<COMPONENT> {
 
 	public updatePushBoxComponentAsync(args: PushBoxBuildItArgsType) {
 
-		return new Promise<ComponentRef<PushBoxWrapperComponent<COMPONENT>>>((resolve, reject) => {
+		return new Promise<ComponentRef<WhacAMoleWrapper<COMPONENT>>>((resolve, reject) => {
 			const componentRef = this.pushBoxContainer?.updatePushBoxComponent?.(args);
 			!componentRef ? reject() : resolve(componentRef);
 		});
 
 	}
 
-	public registerContainer(pushBoxContainer: PushBoxComponent) {
+	public registerContainer(pushBoxContainer: WhacAMole) {
 		this.pushBoxContainer = pushBoxContainer;
 	}
 }

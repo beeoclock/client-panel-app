@@ -4,7 +4,7 @@ import {NgForOf, NgIf} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {AttendeesForm} from "@event/presentation/form/attendant.form";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
+import {WhacAMoleProvider} from "@utility/presentation/component/whac-a-mole/whac-a-mole.provider";
 import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
@@ -25,7 +25,7 @@ export class AttendeesComponent extends Reactive {
 	@Input()
 	public form!: AttendeesForm;
 
-	private readonly pushBoxService = inject(PushBoxService);
+	private readonly pushBoxService = inject(WhacAMoleProvider);
 
 	public remove(index: number): void {
 

@@ -5,7 +5,7 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {AssignmentsForm} from "@member/presentation/form/member.form";
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {Reactive} from "@utility/cdk/reactive";
-import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
+import {WhacAMoleProvider} from "@utility/presentation/component/whac-a-mole/whac-a-mole.provider";
 import {IService} from "@src/module/service/domain";
 
 @Component({
@@ -27,7 +27,7 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 
 	private readonly translateService = inject(TranslateService);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
-	private readonly pushBoxService = inject(PushBoxService);
+	private readonly pushBoxService = inject(WhacAMoleProvider);
 
 	public isNotFull = false;
 

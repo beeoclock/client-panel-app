@@ -17,12 +17,15 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 import {TranslateModule} from "@ngx-translate/core";
 import {DebounceClickDirective} from "@utility/presentation/directives/debounce/debounce.directive";
 import {NGXLogger} from "ngx-logger";
-import {PushBoxBuildItArgsType, PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
-import {PushBoxWrapperComponent} from "@utility/presentation/component/push-box/push-box-wrapper.component";
-import {PushBoxContainerComponent} from "@utility/presentation/component/push-box/push-box.container.component";
+import {
+	PushBoxBuildItArgsType,
+	WhacAMoleProvider
+} from "@utility/presentation/component/whac-a-mole/whac-a-mole.provider";
+import {WhacAMoleWrapper} from "@utility/presentation/component/whac-a-mole/whac-a-mole.wrapper";
+import {WhacAMoleContainer} from "@utility/presentation/component/whac-a-mole/whac-a-mole.container";
 
 @Component({
-	selector: 'utility-push-box',
+	selector: 'whac-a-mole',
 	standalone: true,
 	imports: [
 		NgIf,
@@ -31,18 +34,18 @@ import {PushBoxContainerComponent} from "@utility/presentation/component/push-bo
 		DebounceClickDirective,
 		LoaderComponent,
 		TranslateModule,
-		PushBoxContainerComponent
+		WhacAMoleContainer
 	],
 	template: `
-		<utility-push-box-container>
+		<whac-a-mole-container>
 			<ng-container #listOfComponents/>
-		</utility-push-box-container>
+		</whac-a-mole-container>
 	`
 })
-export class PushBoxComponent extends Reactive implements OnInit {
+export class WhacAMole extends Reactive implements OnInit {
 
 	@Input()
-	public id = 'push-box';
+	public id = 'whac-a-mole';
 
 	@HostBinding()
 	public class = 'hidden absolute top-0 right-0 h-dvh z-50 w-full bg-black/50 flex justify-end lg:min-w-[375px] lg:max-w-[375px] lg:relative';
@@ -57,13 +60,13 @@ export class PushBoxComponent extends Reactive implements OnInit {
 		}
 		// Check if target is the host element
 		if (event.target === this.elementRef.nativeElement) {
-			this.ngxLogger.debug('PushBoxComponent.onClick', event);
+			this.ngxLogger.debug('WhacAMole.onClick', event);
 			this.removeLastComponent();
 		}
 	}
 
 	private readonly ngxLogger = inject(NGXLogger);
-	private readonly pushBoxService = inject(PushBoxService);
+	private readonly pushBoxService = inject(WhacAMoleProvider);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 
@@ -87,7 +90,7 @@ export class PushBoxComponent extends Reactive implements OnInit {
 		}
 		const mirror = reflectComponentType(lastComponent.instance.renderedComponent);
 		if (!mirror) {
-			this.ngxLogger.error('PushBoxComponent.removeLastComponent', 'value of `component` property is not a component');
+			this.ngxLogger.error('WhacAMole.removeLastComponent', 'value of `component` property is not a component');
 			return false;
 		}
 		const { selector } = mirror;
@@ -112,7 +115,7 @@ export class PushBoxComponent extends Reactive implements OnInit {
 		const componentMirror = reflectComponentType(component);
 
 		if (!componentMirror) {
-			this.ngxLogger.error('PushBoxComponent.buildComponentAndRender', 'value of `component` property is not a component');
+			this.ngxLogger.error('WhacAMole.buildComponentAndRender', 'value of `component` property is not a component');
 			return;
 		}
 
@@ -124,17 +127,17 @@ export class PushBoxComponent extends Reactive implements OnInit {
 
 		if (existComponentRef) {
 
-			this.ngxLogger.debug('PushBoxComponent.buildComponentAndRender', 'Component already exist, moving to the top');
+			this.ngxLogger.debug('WhacAMole.buildComponentAndRender', 'Component already exist, moving to the top');
 
 			this.listOfComponents.move(existComponentRef.hostView, 0);
 
 			return existComponentRef;
 		}
 
-		this.ngxLogger.debug('PushBoxComponent.buildComponentAndRender', selector, component);
+		this.ngxLogger.debug('WhacAMole.buildComponentAndRender', selector, component);
 
 		const pushBoxWrapperComponentRef = this.listOfComponents.createComponent(
-			PushBoxWrapperComponent,
+			WhacAMoleWrapper,
 			{
 				index: 0 // Insert at the beginning
 			}
@@ -175,7 +178,7 @@ export class PushBoxComponent extends Reactive implements OnInit {
 		const componentMirror = reflectComponentType(component);
 
 		if (!componentMirror) {
-			this.ngxLogger.error('PushBoxComponent.buildComponentAndRender', 'value of `component` property is not a component');
+			this.ngxLogger.error('WhacAMole.buildComponentAndRender', 'value of `component` property is not a component');
 			return;
 		}
 

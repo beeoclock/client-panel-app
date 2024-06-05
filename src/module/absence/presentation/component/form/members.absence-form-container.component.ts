@@ -10,7 +10,7 @@ import {
 } from "@client/presentation/component/business-profile/form-business-profile.component";
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
+import {WhacAMoleProvider} from "@utility/presentation/component/whac-a-mole/whac-a-mole.provider";
 import {Reactive} from "@utility/cdk/reactive";
 import {NgIf} from "@angular/common";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
@@ -49,7 +49,7 @@ export class MembersAbsenceFormContainerComponent extends Reactive implements On
     public memberIds!: FormControl<string[]>;
 
     private readonly translateService = inject(TranslateService);
-    private readonly pushBoxService = inject(PushBoxService);
+    private readonly pushBoxService = inject(WhacAMoleProvider);
     private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
     public readonly visibleState = new BooleanStreamState(false);

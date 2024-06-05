@@ -180,8 +180,8 @@ export class AbsenceState extends BaseState<IAbsenceDto> {
 	public override async updateItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.UpdateItem): Promise<void> {
 		await super.updateItem(ctx, action);
 
-		// TODO: fix problem with ID, need to find way for use generate and use a new if of push-box or create
-		// TODO: some new interface e.g. OnInit but for push-box to control form/modal/push-box
+		// TODO: fix problem with ID, need to find way for use generate and use a new if of whac-a-mole or create
+		// TODO: some new interface e.g. OnInit but for whac-a-mole to control form/modal/whac-a-mole
 
 		// TODO: we can't use default component.name but we can create custom component name!!!
 

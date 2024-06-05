@@ -11,7 +11,7 @@ import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {NGXLogger} from "ngx-logger";
 import {RIBaseEntity} from "@utility/domain";
 import {NgEventBus} from "ng-event-bus";
-import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
+import {WhacAMoleProvider} from "@utility/presentation/component/whac-a-mole/whac-a-mole.provider";
 
 export interface IBaseState_Item<ITEM> {
 	data: undefined | ITEM;
@@ -46,7 +46,7 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 	protected readonly router = inject(Router);
 	protected readonly store = inject(Store);
 	protected readonly ngxLogger = inject(NGXLogger);
-	protected readonly pushBoxService = inject(PushBoxService);
+	protected readonly pushBoxService = inject(WhacAMoleProvider);
 
 	protected readonly item!: BaseApiAdapter<ITEM, unknown[]>;
 	protected readonly create!: BaseApiAdapter<ITEM, unknown[]>;

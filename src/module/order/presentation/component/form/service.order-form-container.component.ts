@@ -19,7 +19,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {OrderForm} from "@order/presentation/form/order.form";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
+import {WhacAMoleProvider} from "@utility/presentation/component/whac-a-mole/whac-a-mole.provider";
 import {ContainerFormComponent} from '@event/presentation/component/form/container.form.component';
 import {IEvent} from "@event/domain";
 import {ActiveEnum} from "@utility/domain/enum";
@@ -170,7 +170,7 @@ export class ServiceOrderFormContainerComponent implements OnInit {
 
     public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
-    private readonly pushBoxService = inject(PushBoxService<ContainerFormComponent>);
+    private readonly pushBoxService = inject(WhacAMoleProvider<ContainerFormComponent>);
     private readonly ngxLogger = inject(NGXLogger);
     private readonly translateService = inject(TranslateService);
 

@@ -26,7 +26,7 @@ import {
 } from "@module/account/adapter/external/api/get.frontend-settings.account.api.adapter";
 import {ThemeService} from "@utility/cdk/theme.service";
 import {TranslateService} from "@ngx-translate/core";
-import {PushBoxComponent} from "@utility/presentation/component/push-box/push-box.component";
+import {WhacAMole} from "@utility/presentation/component/whac-a-mole/whac-a-mole";
 import {ClientState} from "@client/state/client/client.state";
 import {is} from "thiis";
 import {Reactive} from "@utility/cdk/reactive";
@@ -47,7 +47,7 @@ import {Reactive} from "@utility/cdk/reactive";
 
 		</ng-container>
 
-		<utility-push-box/>
+		<whac-a-mole/>
 
 	`,
 	imports: [
@@ -59,7 +59,7 @@ import {Reactive} from "@utility/cdk/reactive";
 		PageLoadingProgressBarComponent,
 		NgIf,
 		AsyncPipe,
-		PushBoxComponent
+		WhacAMole
 	],
 	encapsulation: ViewEncapsulation.None
 })

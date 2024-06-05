@@ -4,12 +4,12 @@ import {Reactive} from "@utility/cdk/reactive";
 import {combineLatest} from "rxjs";
 
 @Component({
-	selector: 'utility-push-box-resize-container',
+	selector: 'whac-a-mole-resize-container',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: ``
 })
-export class PushBoxResizeContainerComponent extends Reactive implements OnInit {
+export class WhacAMoleResizeContainer extends Reactive implements OnInit {
 
 	@HostBinding()
 	public class = 'absolute right-full top-0 bottom-0 w-1 bg-beeColor-200 transition-all hover:bg-blue-300 hover:shadow cursor-col-resize';
@@ -25,7 +25,7 @@ export class PushBoxResizeContainerComponent extends Reactive implements OnInit 
 	public isNotMobile = false;
 	public isNotTabletAndMobile = false;
 
-	public width = +(localStorage.getItem('push-box-width') ?? '0');
+	public width = +(localStorage.getItem('whac-a-mole-width') ?? '0');
 
 	@HostListener('mousedown', ['$event'])
 	public onMouseDown(event: MouseEvent): void {
@@ -100,7 +100,7 @@ export class PushBoxResizeContainerComponent extends Reactive implements OnInit 
 	}
 
 	public saveWidth(width: number) {
-		localStorage.setItem('push-box-width', width.toString());
+		localStorage.setItem('whac-a-mole-width', width.toString());
 	}
 
 	public updateWidth(width: number) {

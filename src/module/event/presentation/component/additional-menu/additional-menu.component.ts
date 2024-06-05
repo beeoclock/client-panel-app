@@ -1,6 +1,6 @@
 import {Component, HostBinding, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
 import {RIMember} from "@member/domain";
-import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
+import {WhacAMoleProvider} from "@utility/presentation/component/whac-a-mole/whac-a-mole.provider";
 import {Store} from "@ngxs/store";
 import {OrderActions} from "@order/state/order/order.actions";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
@@ -166,7 +166,7 @@ export class AdditionalMenuComponent implements OnInit {
 
 	public readonly now = new Date().toISOString();
 
-	private readonly pushBoxService = inject(PushBoxService);
+	private readonly pushBoxService = inject(WhacAMoleProvider);
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
 

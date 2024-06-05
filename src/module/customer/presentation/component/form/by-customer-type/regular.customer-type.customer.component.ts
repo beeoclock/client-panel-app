@@ -2,7 +2,7 @@ import {Component, HostBinding, inject, Input, ViewEncapsulation} from '@angular
 import {TranslateModule} from "@ngx-translate/core";
 import {NgIf} from "@angular/common";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
+import {WhacAMoleProvider} from "@utility/presentation/component/whac-a-mole/whac-a-mole.provider";
 import {Reactive} from "@utility/cdk/reactive";
 import {CustomerForm} from "@customer/presentation/form";
 
@@ -42,7 +42,7 @@ export class RegularCustomerTypeCustomerComponent extends Reactive {
 	@HostBinding()
 	public readonly class = 'flex flex-col gap-2'
 
-	private readonly pushBoxService = inject(PushBoxService);
+	private readonly pushBoxService = inject(WhacAMoleProvider);
 
 	public getCustomer() {
 		if (!this.form.value) {

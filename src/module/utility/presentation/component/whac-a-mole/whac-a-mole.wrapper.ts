@@ -1,18 +1,18 @@
 import {
-    Component,
-    ComponentRef,
-    HostBinding,
-    Input,
-    Type,
-    ViewChild,
-    ViewContainerRef,
-    ViewEncapsulation
+	Component,
+	ComponentRef,
+	HostBinding,
+	Input,
+	Type,
+	ViewChild,
+	ViewContainerRef,
+	ViewEncapsulation
 } from "@angular/core";
 import {NgIf} from "@angular/common";
-import {PushBoxBuildItArgsType} from "@utility/presentation/component/push-box/push-box.service";
+import {PushBoxBuildItArgsType} from "@utility/presentation/component/whac-a-mole/whac-a-mole.provider";
 
 @Component({
-	selector: 'utility-push-box-wrapper',
+	selector: 'whac-a-mole-wrapper',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
@@ -42,7 +42,7 @@ import {PushBoxBuildItArgsType} from "@utility/presentation/component/push-box/p
 		<ng-container #renderContainer></ng-container>
 	`
 })
-export class PushBoxWrapperComponent<COMPONENT> {
+export class WhacAMoleWrapper<COMPONENT> {
 
 	@Input()
 	public showLoading = true;

@@ -27,7 +27,7 @@ import {CustomerExternalListComponent} from "@customer/presentation/component/ex
 import {ICustomer} from "@customer/domain";
 
 @Component({
-	selector: 'customer-select-customer-push-box-component',
+	selector: 'customer-select-customer-whac-a-mole-component',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,

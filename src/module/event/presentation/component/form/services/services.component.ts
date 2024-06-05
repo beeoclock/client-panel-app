@@ -12,15 +12,15 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {
-    DurationVersionTypeRangeComponent
+	DurationVersionTypeRangeComponent
 } from "@event/presentation/component/form/services/duration-version-type/duration-version-type.range.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 import {
-    SpecialistServiceComponent
+	SpecialistServiceComponent
 } from "@event/presentation/component/form/services/specialist/specialist.service.component";
-import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
+import {WhacAMoleProvider} from "@utility/presentation/component/whac-a-mole/whac-a-mole.provider";
 import {Reactive} from "@utility/cdk/reactive";
 import {RIMember} from "@member/domain";
 import {BooleanState} from "@utility/domain";
@@ -74,7 +74,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 	public durationVersionTypeRangeComponentList!: QueryList<DurationVersionTypeRangeComponent>;
 
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
-	private readonly pushBoxService = inject(PushBoxService);
+	private readonly pushBoxService = inject(WhacAMoleProvider);
 	private readonly modalSelectServiceListAdapter = inject(ModalSelectServiceListAdapter);
 
 	public readonly loading$ = this.modalSelectServiceListAdapter.loading$;

@@ -7,7 +7,7 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Store} from "@ngxs/store";
-import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
+import {WhacAMoleProvider} from "@utility/presentation/component/whac-a-mole/whac-a-mole.provider";
 
 @Component({
 	selector: 'app-empty-slot-calendar-with-specialist-widget-component',
@@ -31,7 +31,7 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent {
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
-	private readonly pushBoxService = inject(PushBoxService);
+	private readonly pushBoxService = inject(WhacAMoleProvider);
 
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
 
