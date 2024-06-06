@@ -9,7 +9,6 @@ import {
 	SimpleChanges,
 	ViewChildren
 } from "@angular/core";
-import {AttendeesComponent} from "@event/presentation/component/form/attendees/attendees.component";
 import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
@@ -55,7 +54,6 @@ import {
 	selector: 'event-container-form-component',
 	standalone: true,
 	imports: [
-		AttendeesComponent,
 		ButtonSaveContainerComponent,
 		CardComponent,
 		FormTextareaComponent,

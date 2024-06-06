@@ -1,11 +1,8 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Directive, OnDestroy} from '@angular/core';
 import {MonoTypeOperatorFunction, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-@Component({
-  template: ``
-})
-// eslint-disable-next-line @angular-eslint/component-class-suffix
+@Directive()
 export abstract class Reactive implements OnDestroy {
 
   private readonly unsubscribe$ = new Subject<void>();
@@ -18,14 +15,12 @@ export abstract class Reactive implements OnDestroy {
 
     if (this.unsubscribe$) {
 
-      if (this.unsubscribe$.isStopped) {
-        return;
-      }
-
       this.unsubscribe$.next();
       this.unsubscribe$.complete();
+      this.unsubscribe$.unsubscribe();
 
     }
+
   }
 
   protected takeUntil<T>(): MonoTypeOperatorFunction<T> {
@@ -33,3 +28,5 @@ export abstract class Reactive implements OnDestroy {
   }
 
 }
+
+
