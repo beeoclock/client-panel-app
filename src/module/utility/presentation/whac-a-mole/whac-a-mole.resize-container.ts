@@ -1,140 +1,118 @@
-import {Component, ElementRef, HostBinding, HostListener, inject, OnInit, ViewEncapsulation} from "@angular/core";
+import {Component, ElementRef, HostBinding, HostListener, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {combineLatest} from 'rxjs';
 import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
 import {Reactive} from "@utility/cdk/reactive";
-import {combineLatest} from "rxjs";
 
 @Component({
-	selector: 'whac-a-mole-resize-container',
-	standalone: true,
-	encapsulation: ViewEncapsulation.None,
-	template: ``
+  selector: 'whac-a-mole-resize-container',
+  standalone: true,
+  encapsulation: ViewEncapsulation.None,
+  template: ``
 })
 export class WhacAMoleResizeContainer extends Reactive implements OnInit {
+  @HostBinding()
+  public class =
+    'absolute right-full top-0 bottom-0 w-1 bg-neutral-200 transition-all hover:bg-blue-300 hover:shadow cursor-col-resize';
 
-	@HostBinding()
-	public class = 'absolute right-full top-0 bottom-0 w-1 bg-beeColor-200 transition-all hover:bg-blue-300 hover:shadow cursor-col-resize';
+  @HostBinding('class.hidden')
+  public isHidden = false;
 
-	@HostBinding('class.hidden')
-	public isHidden = false;
+  private readonly elementRef = inject(ElementRef);
+  private readonly windowWidthSizeService = inject(WindowWidthSizeService);
 
-	private readonly elementRef = inject(ElementRef);
-	private readonly windowWidthSizeService = inject(WindowWidthSizeService);
+  public readonly isNotTablet$ = this.windowWidthSizeService.isNotTablet$;
+  public readonly isNotMobile$ = this.windowWidthSizeService.isNotMobile$;
+  public isNotMobile = false;
+  public isNotTabletAndMobile = false;
 
-	public readonly isNotTablet$ = this.windowWidthSizeService.isNotTablet$;
-	public readonly isNotMobile$ = this.windowWidthSizeService.isNotMobile$;
-	public isNotMobile = false;
-	public isNotTabletAndMobile = false;
+  public width = +(localStorage.getItem('whac-a-mole-width') ?? '0');
 
-	public width = +(localStorage.getItem('whac-a-mole-width') ?? '0');
+  @HostListener('mousedown', ['$event'])
+  public onMouseDown(event: MouseEvent): void {
+    event.preventDefault();
 
-	@HostListener('mousedown', ['$event'])
-	public onMouseDown(event: MouseEvent): void {
+    const startX = event.clientX;
+    const startWidth = this.elementRef.nativeElement.parentElement?.clientWidth || 0;
 
-		event.preventDefault();
+    const onMouseMove = (moveEvent: MouseEvent) => {
+      const diff = moveEvent.clientX - startX;
 
-		const startX = event.clientX;
-		const startWidth = this.elementRef.nativeElement.parentElement?.clientWidth || 0;
+      const newWidth = startWidth - diff;
 
-		const onMouseMove = (moveEvent: MouseEvent) => {
+      this.updateWidth(newWidth);
 
-			const diff = moveEvent.clientX - startX;
+      this.saveWidth(newWidth);
+    };
 
-			const newWidth = startWidth - (diff);
+    const onMouseUp = () => {
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    };
 
-			this.updateWidth(newWidth);
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  }
 
-			this.saveWidth(newWidth);
+  @HostListener('touchstart', ['$event'])
+  public onTouchStart(event: TouchEvent): void {
+    event.preventDefault();
 
-		};
+    const startX = event.touches[0].clientX;
+    const startWidth = this.elementRef.nativeElement.parentElement?.clientWidth || 0;
 
-		const onMouseUp = () => {
-			document.removeEventListener('mousemove', onMouseMove);
-			document.removeEventListener('mouseup', onMouseUp);
-		};
+    const onTouchMove = (moveEvent: TouchEvent) => {
+      const diff = moveEvent.touches[0].clientX - startX;
 
-		document.addEventListener('mousemove', onMouseMove);
-		document.addEventListener('mouseup', onMouseUp);
-	}
+      const newWidth = startWidth - diff;
 
-	@HostListener('touchstart', ['$event'])
-	public onTouchStart(event: TouchEvent): void {
+      this.updateWidth(newWidth);
 
-		event.preventDefault();
+      this.saveWidth(newWidth);
+    };
 
-		const startX = event.touches[0].clientX;
-		const startWidth = this.elementRef.nativeElement.parentElement?.clientWidth || 0;
+    const onTouchEnd = () => {
+      document.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchend', onTouchEnd);
+    };
 
-		const onTouchMove = (moveEvent: TouchEvent) => {
+    document.addEventListener('touchmove', onTouchMove);
+    document.addEventListener('touchend', onTouchEnd);
+  }
 
-			const diff = moveEvent.touches[0].clientX - startX;
+  public ngOnInit() {
+    combineLatest([this.isNotTablet$, this.isNotMobile$])
+      .pipe(this.takeUntil())
+      .subscribe(({ 0: isNotTablet, 1: isNotMobile }) => {
+        this.isHidden = !isNotMobile;
+        this.isNotTabletAndMobile = isNotTablet && isNotMobile;
+        this.isNotMobile = isNotMobile;
+        this.updateWidth(+this.width);
+      });
+  }
 
-			const newWidth = startWidth - (diff);
+  public saveWidth(width: number) {
+    localStorage.setItem('whac-a-mole-width', width.toString());
+  }
 
-			this.updateWidth(newWidth);
+  public updateWidth(width: number) {
+    if (!width) {
+      return;
+    }
 
-			this.saveWidth(newWidth);
+    const { parentElement } = this.elementRef.nativeElement as { parentElement: HTMLElement };
 
-		};
+    if (parentElement!.classList.contains('sm:min-w-[375px]')) {
+      this.deleteClasses(parentElement!, 'sm:min-w-[375px]', 'sm:max-w-[375px]', 'sm:w-[375px]');
+      this.deleteClasses(parentElement!.parentElement!, 'lg:min-w-[375px]', 'lg:max-w-[375px]');
+    }
 
-		const onTouchEnd = () => {
-			document.removeEventListener('touchmove', onTouchMove);
-			document.removeEventListener('touchend', onTouchEnd);
-		};
+    parentElement!.style.width = this.isNotMobile ? `${width}px` : '';
+    parentElement!.parentElement!.style.width = this.isNotTabletAndMobile ? `${width}px` : '';
+  }
 
-		document.addEventListener('touchmove', onTouchMove);
-		document.addEventListener('touchend', onTouchEnd);
-	}
-
-	public ngOnInit() {
-		combineLatest([
-			this.isNotTablet$,
-			this.isNotMobile$
-		]).pipe(
-			this.takeUntil()
-		).subscribe(({0: isNotTablet, 1: isNotMobile}) => {
-			this.isHidden = !isNotMobile;
-			this.isNotTabletAndMobile = isNotTablet && isNotMobile;
-			this.isNotMobile = isNotMobile;
-			this.updateWidth(+this.width);
-		});
-	}
-
-	public saveWidth(width: number) {
-		localStorage.setItem('whac-a-mole-width', width.toString());
-	}
-
-	public updateWidth(width: number) {
-
-		if (!width) {
-			return;
-		}
-
-		const {parentElement} = this.elementRef.nativeElement as { parentElement: HTMLElement };
-
-		if (parentElement!.classList.contains('sm:min-w-[375px]')) {
-
-			this.deleteClasses(parentElement!, 'sm:min-w-[375px]', 'sm:max-w-[375px]', 'sm:w-[375px]');
-			this.deleteClasses(parentElement!.parentElement!, 'lg:min-w-[375px]', 'lg:max-w-[375px]');
-
-		}
-
-		if (this.isNotMobile) {
-			parentElement!.style.width = `${width}px`;
-		} else {
-			parentElement!.style.width = '';
-		}
-
-		if (this.isNotTabletAndMobile) {
-			parentElement!.parentElement!.style.width = `${width}px`;
-		} else {
-			parentElement!.parentElement!.style.width = '';
-		}
-	}
-
-	private deleteClasses(from: HTMLElement, ...classes: string[]) {
-		classes.forEach((className) => {
-			from.classList.remove(className);
-		});
-	}
-
+  private deleteClasses(from: HTMLElement, ...classes: string[]) {
+    classes.forEach((className) => {
+      from.classList.remove(className);
+    });
+  }
 }

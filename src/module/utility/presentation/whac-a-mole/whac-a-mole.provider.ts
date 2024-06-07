@@ -1,92 +1,61 @@
-import {ComponentRef, inject, Injectable, reflectComponentType, Type} from "@angular/core";
+import {ComponentRef, inject, Injectable, reflectComponentType, Type} from '@angular/core';
+import {NGXLogger} from 'ngx-logger';
+import {WhacAMoleBuildItArgsType} from "@utility/presentation/whac-a-mole/whac-a-mole.type";
 import {WhacAMoleWrapper} from "@utility/presentation/whac-a-mole/whac-a-mole.wrapper";
 import {WhacAMole} from "@utility/presentation/whac-a-mole/whac-a-mole";
-import {NGXLogger} from "ngx-logger";
-
-export type PushBoxBuildItArgsType = {
-	component: Type<unknown>;
-	componentInputs?: Record<string, unknown>;
-	//
-	title?: string;
-	showLoading?: boolean;
-	button?: {
-		close?: {
-			classList?: string[];
-			title?: string;
-			useDefaultIcon?: boolean;
-			text?: string;
-			callback?: () => void;
-		}
-	};
-	callback?: {
-		on?: {
-			destroy?: {
-				before?: () => void;
-				after?: () => void;
-			};
-		};
-	};
-}
-
 
 @Injectable({
-	providedIn: 'root'
+  providedIn: 'root'
 })
 export class WhacAMoleProvider<COMPONENT> {
+  private pushBoxContainer: WhacAMole | undefined;
 
-	private pushBoxContainer: WhacAMole | undefined;
+  public readonly componentRefMapById = new Map<string, ComponentRef<WhacAMoleWrapper<COMPONENT>>>();
+  public readonly componentRefMapByComponentName = new Map<string, ComponentRef<WhacAMoleWrapper<COMPONENT>>[]>();
 
-	public readonly componentRefMapById = new Map<string, ComponentRef<WhacAMoleWrapper<COMPONENT>>>();
-	public readonly componentRefMapByComponentName = new Map<string, ComponentRef<WhacAMoleWrapper<COMPONENT>>[]>();
+  private readonly ngxLogger = inject(NGXLogger);
 
-	private readonly ngxLogger = inject(NGXLogger);
+  public async buildItAsync(args: WhacAMoleBuildItArgsType) {
+    const componentRef = this.pushBoxContainer?.buildComponentAndRender?.(args);
+    return componentRef;
+  }
 
-	public async destroyComponent(component: Type<unknown>) {
+  public updatePushBoxComponentAsync(args: WhacAMoleBuildItArgsType) {
+    return new Promise<ComponentRef<WhacAMoleWrapper<COMPONENT>>>((resolve, reject) => {
+      const componentRef = this.pushBoxContainer?.updatePushBoxComponent?.(args);
+      !componentRef ? reject() : resolve(componentRef);
+    });
+  }
 
-		const componentMirror = reflectComponentType(component);
+  public async destroyComponent(component: Type<unknown>) {
+    const componentMirror = reflectComponentType(component);
 
-		if (!componentMirror) {
-			this.ngxLogger.error('WhacAMole.buildComponentAndRender', 'value of `component` property is not a component');
-			return false;
-		}
+    if (!componentMirror) {
+      this.ngxLogger.error('WhacAMole.buildComponentAndRender', 'value of `component` property is not a component');
+      return false;
+    }
 
-		const {selector} = componentMirror;
+    const { selector } = componentMirror;
 
-		const componentRefList = this.componentRefMapByComponentName.get(selector);
+    const componentRefList = this.componentRefMapByComponentName.get(selector);
 
-		if (!componentRefList?.length) {
-			this.ngxLogger.debug('WhacAMole.destroyComponent Did not find', selector, this);
-			return false;
-		}
+    if (!componentRefList?.length) {
+      this.ngxLogger.debug('WhacAMole.destroyComponent Did not find', selector, this);
+      return false;
+    }
 
-		this.ngxLogger.debug('WhacAMole.destroyComponent', selector);
+    this.ngxLogger.debug('WhacAMole.destroyComponent', selector);
 
-		componentRefList.forEach((componentRef) => {
-			componentRef.instance.destroySelf();
-		});
+    componentRefList.forEach((componentRef) => {
+      componentRef.instance.destroySelf();
+    });
 
-		this.componentRefMapByComponentName.delete(selector);
+    this.componentRefMapByComponentName.delete(selector);
 
-		return true;
+    return true;
+  }
 
-	}
-
-	public async buildItAsync(args: PushBoxBuildItArgsType) {
-		const componentRef = this.pushBoxContainer?.buildComponentAndRender?.(args);
-		console.log('buildItAsync:componentRef', componentRef)
-		return componentRef;
-	}
-
-	public updatePushBoxComponentAsync(args: PushBoxBuildItArgsType) {
-
-		return new Promise<ComponentRef<WhacAMoleWrapper<COMPONENT>>>((resolve, reject) => {
-			const componentRef = this.pushBoxContainer?.updatePushBoxComponent?.(args);
-			!componentRef ? reject() : resolve(componentRef);
-		});
-
-	}
-
-	public registerContainer(pushBoxContainer: WhacAMole) {
-		this.pushBoxContainer = pushBoxContainer;
-	}
+  public registerContainer(pushBoxContainer: WhacAMole) {
+    this.pushBoxContainer = pushBoxContainer;
+  }
 }

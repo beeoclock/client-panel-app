@@ -7,35 +7,36 @@ import {
 	ViewChild,
 	ViewContainerRef,
 	ViewEncapsulation
-} from "@angular/core";
-import {NgIf} from "@angular/common";
-import {PushBoxBuildItArgsType} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
+} from '@angular/core';
+import {NgIf} from '@angular/common';
+import {WhacAMoleBuildItArgsType} from "@utility/presentation/whac-a-mole/whac-a-mole.type";
 
 @Component({
 	selector: 'whac-a-mole-wrapper',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
-	imports: [
-		NgIf
-	],
+	imports: [NgIf],
 	template: `
 		<div class="flex justify-between p-1 border-b">
 			<div class="truncate font-bold p-2">{{ title }}</div>
 			<div class="flex gap-2">
 				<button
 					type="button"
-					class="hover:bg-beeColor-200 p-2 px-3 rounded-lg transition-all"
+					class="hover:bg-neutral-200 p-2 px-3 rounded-lg transition-all"
 					(click)="doDone()"
-					[title]="button?.close?.title ?? ''">
-					<span *ngIf="button?.close?.text" [class]="button?.close?.classList ?? ''">
-						{{ button?.close?.text }}
-					</span>
+					[title]="button?.close?.title ?? ''"
+				>
+          <span *ngIf="button?.close?.text" [class]="button?.close?.classList ?? ''">
+            {{ button?.close?.text }}
+          </span>
 					<i *ngIf="button?.close?.useDefaultIcon ?? false" class="bi bi-x-lg"></i>
 				</button>
 			</div>
 		</div>
-		<div *ngIf="showLoading" role="status"
-				 class="animate-pulse bg-gray-300 dark:bg-gray-700 flex h-dvh items-center justify-center m-1 rounded-lg">
+		<div
+			*ngIf="showLoading"
+			role="status"
+			class="animate-pulse bg-gray-300 dark:bg-gray-700 flex h-dvh items-center justify-center m-1 rounded-lg">
 			<span class="sr-only">Loading...</span>
 		</div>
 
@@ -43,19 +44,18 @@ import {PushBoxBuildItArgsType} from "@utility/presentation/whac-a-mole/whac-a-m
 	`
 })
 export class WhacAMoleWrapper<COMPONENT> {
-
 	@Input()
 	public showLoading = true;
 
 	@HostBinding()
-	@Input({required: true})
+	@Input() // Required
 	public id!: string;
 
 	@Input()
 	public title = 'Title';
 
 	@Input()
-	public button: PushBoxBuildItArgsType['button'] = {
+	public button: WhacAMoleBuildItArgsType['button'] = {
 		close: {
 			title: 'Close',
 			useDefaultIcon: true
@@ -70,7 +70,7 @@ export class WhacAMoleWrapper<COMPONENT> {
 	private readonly renderContainer!: ViewContainerRef;
 
 	@HostBinding()
-	public class = 'flex flex-col h-screen';
+	public class = 'flex flex-col h-[calc(100vh-75px)]';
 
 	public renderedComponent: Type<COMPONENT> | undefined;
 	public renderedComponentRef: ComponentRef<COMPONENT> | undefined;
@@ -80,7 +80,6 @@ export class WhacAMoleWrapper<COMPONENT> {
 	}
 
 	public renderComponent(component: Type<COMPONENT>, inputs?: Record<string, unknown>) {
-
 		if (this.showLoading) {
 			return;
 		}
@@ -88,18 +87,17 @@ export class WhacAMoleWrapper<COMPONENT> {
 		this.renderedComponent = component;
 
 		const componentRef = this.renderContainer.createComponent(component);
-		componentRef.location.nativeElement.classList.add('h-screen', 'overflow-y-auto');
+		componentRef.location.nativeElement.classList.add('h-[calc(100vh-75px)]', 'overflow-y-auto');
 
 		this.renderedComponentRef = componentRef;
 
-		inputs && Object.entries(inputs).forEach(({0: key, 1: value}) => {
-			componentRef.setInput(key, value)
+		inputs &&
+		Object.entries(inputs).forEach(({0: key, 1: value}) => {
+			componentRef.setInput(key, value);
 		});
 
 		componentRef.changeDetectorRef.detectChanges();
 
 		return componentRef;
-
 	}
-
 }
