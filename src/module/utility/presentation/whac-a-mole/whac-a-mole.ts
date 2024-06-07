@@ -37,22 +37,10 @@ export class WhacAMole extends Reactive implements OnInit {
 
   @HostBinding()
   public class =
-    'hidden absolute top-0 right-0 h-[calc(100dvh-75px)] z-50 w-full bg-black/50 flex justify-end lg:min-w-[375px] lg:max-w-[375px] lg:relative';
+    'animate-slideOut w-full !w-0 absolute top-0 right-0 h-[calc(100dvh-64px)] z-50 bg-black/50 flex justify-end lg:min-w-[375px] lg:max-w-[375px] lg:relative';
 
   @ViewChild('listOfComponents', { read: ViewContainerRef, static: true })
   public readonly listOfComponents!: ViewContainerRef;
-
-  @HostListener('click', ['$event'])
-  public onClick(event: MouseEvent): void {
-    if (this.isHidden) {
-      return;
-    }
-    const isHostElement = event.target === this.elementRef.nativeElement;
-    if (isHostElement) {
-      this.ngxLogger.debug('WhacAMole.onClick', event);
-      this.removeLastComponent();
-    }
-  }
 
   @HostListener('document:keydown.escape')
   public handleOnEscapeKey(): void {
@@ -194,14 +182,13 @@ export class WhacAMole extends Reactive implements OnInit {
     return componentRef;
   }
 
-  private get isHidden(): boolean {
-    return this.elementRef.nativeElement.classList.contains('hidden');
-  }
 
   private updateVisibility(hidden?: boolean): void {
     const thereAreNoComponents = !this.whacAMoleProvider.componentRefMapById.size;
     hidden = hidden ?? thereAreNoComponents;
-    this.elementRef.nativeElement.classList.toggle('hidden', hidden);
+    this.elementRef.nativeElement.classList.toggle('!w-0', hidden);
+    this.elementRef.nativeElement.classList.toggle('animate-slideOut', hidden);
+    this.elementRef.nativeElement.classList.toggle('animate-slideIn', !hidden);
     this.changeDetectorRef.detectChanges();
   }
 }

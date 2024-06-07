@@ -27,10 +27,20 @@ module.exports = {
           '100%': {
             transform: 'translateX(100%) scaleX(0.5)',
           },
-        }
+        },
+				slideIn: {
+					'0%': { transform: 'translateX(100%)' },
+					'100%': { transform: 'translateX(0%)' },
+				},
+				slideOut: {
+					'0%': { transform: 'translateX(0)' },
+					'100%': { transform: 'translateX(100%)' },
+				},
       },
       animation: {
-        indeterminateAnimation: 'indeterminateAnimation 1s infinite linear'
+        indeterminateAnimation: 'indeterminateAnimation 1s infinite linear',
+				slideIn: 'slideIn 0.2s ease-out forwards',
+				slideOut: 'slideOut 0.2s ease-out forwards',
       }
     },
   },

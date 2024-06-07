@@ -70,7 +70,7 @@ export class WhacAMoleWrapper<COMPONENT> {
 	private readonly renderContainer!: ViewContainerRef;
 
 	@HostBinding()
-	public class = 'flex flex-col h-[calc(100vh-75px)]';
+	public class = 'flex flex-col h-[calc(100vh-64px)]';
 
 	public renderedComponent: Type<COMPONENT> | undefined;
 	public renderedComponentRef: ComponentRef<COMPONENT> | undefined;
@@ -87,7 +87,7 @@ export class WhacAMoleWrapper<COMPONENT> {
 		this.renderedComponent = component;
 
 		const componentRef = this.renderContainer.createComponent(component);
-		componentRef.location.nativeElement.classList.add('h-[calc(100vh-75px)]', 'overflow-y-auto');
+		componentRef.location.nativeElement.classList.add('h-[calc(100vh-64px)]', 'overflow-y-auto');
 
 		this.renderedComponentRef = componentRef;
 
