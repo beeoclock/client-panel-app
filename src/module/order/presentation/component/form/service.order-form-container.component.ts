@@ -170,7 +170,7 @@ export class ServiceOrderFormContainerComponent implements OnInit {
 
     public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
-    private readonly pushBoxService = inject(WhacAMoleProvider<ContainerFormComponent>);
+    private readonly whacAMaleProvider = inject(WhacAMoleProvider<ContainerFormComponent>);
     private readonly ngxLogger = inject(NGXLogger);
     private readonly translateService = inject(TranslateService);
 
@@ -206,7 +206,7 @@ export class ServiceOrderFormContainerComponent implements OnInit {
 
 				this.ngxLogger.info('componentInputs', componentInputs);
 
-        const componentRef = await this.pushBoxService.buildItAsync({
+        const componentRef = await this.whacAMaleProvider.buildItAsync({
             title: this.translateService.instant('event.form.title.create'),
             component: ContainerFormComponent,
             componentInputs,
@@ -303,7 +303,7 @@ export class ServiceOrderFormContainerComponent implements OnInit {
             componentInputs.forceStart = this.setupPartialData.defaultAppointmentStartDateTimeIso;
         }
 
-        const componentRef = await this.pushBoxService.buildItAsync({
+        const componentRef = await this.whacAMaleProvider.buildItAsync({
             title: this.translateService.instant('event.form.title.edit'),
             component: ContainerFormComponent,
             componentInputs,

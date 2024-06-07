@@ -20,7 +20,7 @@ export class WhacAMoleProvider<COMPONENT> {
     return componentRef;
   }
 
-  public updatePushBoxComponentAsync(args: WhacAMoleBuildItArgsType) {
+  public updateWhacAMoleComponentAsync(args: WhacAMoleBuildItArgsType) {
     return new Promise<ComponentRef<WhacAMoleWrapper<COMPONENT>>>((resolve, reject) => {
       const componentRef = this.pushBoxContainer?.updatePushBoxComponent?.(args);
       !componentRef ? reject() : resolve(componentRef);

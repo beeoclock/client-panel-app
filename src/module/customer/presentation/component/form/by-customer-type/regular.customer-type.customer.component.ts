@@ -42,7 +42,7 @@ export class RegularCustomerTypeCustomerComponent extends Reactive {
 	@HostBinding()
 	public readonly class = 'flex flex-col gap-2'
 
-	private readonly pushBoxService = inject(WhacAMoleProvider);
+	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 
 	public getCustomer() {
 		if (!this.form.value) {
@@ -57,7 +57,7 @@ export class RegularCustomerTypeCustomerComponent extends Reactive {
 	public async selectCustomer() {
 		const {SelectCustomerPushBoxComponent} = await import("@customer/presentation/push-box/select-customer.push-box.component");
 
-		const pushBoxWrapperComponentRef = await this.pushBoxService.buildItAsync({
+		const pushBoxWrapperComponentRef = await this.whacAMaleProvider.buildItAsync({
 			component: SelectCustomerPushBoxComponent,
 			componentInputs: {
 				multiple: false,
@@ -78,7 +78,7 @@ export class RegularCustomerTypeCustomerComponent extends Reactive {
 
 				this.form.patchValue(newSelectedCustomerList[0]);
 
-				await this.pushBoxService.destroyComponent(SelectCustomerPushBoxComponent);
+				await this.whacAMaleProvider.destroyComponent(SelectCustomerPushBoxComponent);
 			});
 		}
 

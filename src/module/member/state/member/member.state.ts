@@ -49,7 +49,7 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
 
-		await this.pushBoxService.destroyComponent(MemberDetailsContainerComponent);
+		await this.whacAMaleProvider.destroyComponent(MemberDetailsContainerComponent);
 
 	}
 
@@ -58,7 +58,7 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 		const {MemberFormContainerComponent} = await import("@member/presentation/component/form/member-form-container/member-form-container.component");
 
-		await this.pushBoxService.destroyComponent(MemberFormContainerComponent);
+		await this.whacAMaleProvider.destroyComponent(MemberFormContainerComponent);
 
 	}
 
@@ -67,12 +67,14 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
 
-		await this.pushBoxService.updatePushBoxComponentAsync({
+		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 			component: MemberDetailsContainerComponent,
 			componentInputs: {
 				item: payload
 			},
-		});
+		}).catch((error) => {
+			this.ngxLogger.error('MemberState.updateOpenedDetails', error);
+		})
 
 	}
 
@@ -83,7 +85,7 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title,
 			componentInputs: {
 				item: payload
@@ -100,7 +102,7 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title,
 			showLoading: true,
 			component: MemberDetailsContainerComponent,
@@ -108,7 +110,7 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 		const item = await this.item.executeAsync(id);
 
-		await this.pushBoxService.updatePushBoxComponentAsync({
+		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 			component: MemberDetailsContainerComponent,
 			componentInputs: {
 				item
@@ -156,7 +158,7 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 		const {componentInputs, pushBoxInputs} = payload ?? {};
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title: this.translateService.instant('member.form.title.create'),
 			...pushBoxInputs,
 			component: MemberFormContainerComponent,

@@ -49,7 +49,7 @@ export class MembersAbsenceFormContainerComponent extends Reactive implements On
     public memberIds!: FormControl<string[]>;
 
     private readonly translateService = inject(TranslateService);
-    private readonly pushBoxService = inject(WhacAMoleProvider);
+    private readonly whacAMaleProvider = inject(WhacAMoleProvider);
     private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
     public readonly visibleState = new BooleanStreamState(false);
@@ -74,7 +74,7 @@ export class MembersAbsenceFormContainerComponent extends Reactive implements On
 
         const title = this.translateService.instant('absence.form.membersIds.select.title');
 
-        const pushBoxWrapperComponentRef = await this.pushBoxService.buildItAsync({
+        const pushBoxWrapperComponentRef = await this.whacAMaleProvider.buildItAsync({
             title,
             component: SelectMemberPushBoxComponent,
             componentInputs: {

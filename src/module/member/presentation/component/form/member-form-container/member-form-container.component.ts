@@ -75,6 +75,7 @@ export class MemberFormContainerComponent implements OnInit, OnChanges {
 	public async save(): Promise<void> {
 		this.form.markAllAsTouched();
 		if (this.form.valid) {
+
 			this.form.disable();
 			this.form.markAsPending();
 			const memberBody = this.form.getRawValue() as RIMember;

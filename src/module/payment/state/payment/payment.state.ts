@@ -47,7 +47,7 @@ export class PaymentState extends BaseState<IPaymentDto> {
 
 		// const {PaymentDetailsContainerComponent} = await import("@payment/presentation/component/details/payment-details-container.component");
 		//
-		// this.pushBoxService.destroyByComponentName$.next(PaymentDetailsContainerComponent.name);
+		// this.whacAMaleProvider.destroyByComponentName$.next(PaymentDetailsContainerComponent.name);
 
 	}
 
@@ -57,7 +57,7 @@ export class PaymentState extends BaseState<IPaymentDto> {
 		//
 		// const {PaymentFormContainerComponent} = await import("@payment/presentation/component/form/payment-form-container.component");
 		//
-		// this.pushBoxService.destroyByComponentName$.next(PaymentFormContainerComponent.name);
+		// this.whacAMaleProvider.destroyByComponentName$.next(PaymentFormContainerComponent.name);
 
 	}
 
@@ -66,7 +66,7 @@ export class PaymentState extends BaseState<IPaymentDto> {
 
 		// const {PaymentDetailsContainerComponent} = await import("@payment/presentation/component/details/payment-details-container.component");
 		//
-		// await this.pushBoxService.updatePushBoxComponentAsync({
+		// await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 		// 	id: payload._id,
 		// 	component: PaymentDetailsContainerComponent,
 		// 	componentInputs: {item: payload},
@@ -81,7 +81,7 @@ export class PaymentState extends BaseState<IPaymentDto> {
 		//
 		// const {PaymentDetailsContainerComponent} = await import("@payment/presentation/component/details/payment-details-container.component");
 		//
-		// await this.pushBoxService.buildItAsync({
+		// await this.whacAMaleProvider.buildItAsync({
 		// 	id,
 		// 	title,
 		// 	componentInputs: {item: payload},
@@ -97,7 +97,7 @@ export class PaymentState extends BaseState<IPaymentDto> {
 		//
 		// const {PaymentDetailsContainerComponent} = await import("@payment/presentation/component/details/payment-details-container.component");
 		//
-		// await this.pushBoxService.buildItAsync({
+		// await this.whacAMaleProvider.buildItAsync({
 		// 	id,
 		// 	title,
 		// 	showLoading: true,
@@ -106,7 +106,7 @@ export class PaymentState extends BaseState<IPaymentDto> {
 		//
 		// const item = await this.item.executeAsync(id);
 		//
-		// await this.pushBoxService.updatePushBoxComponentAsync({
+		// await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 		// 	component: PaymentDetailsContainerComponent,
 		// 	componentInputs: {item},
 		// });
@@ -120,7 +120,7 @@ export class PaymentState extends BaseState<IPaymentDto> {
 		//
 		// const {PaymentFormContainerComponent} = await import("@payment/presentation/component/form/payment-form-container.component");
 		//
-		// await this.pushBoxService.buildItAsync({
+		// await this.whacAMaleProvider.buildItAsync({
 		// 	title,
 		// 	id: action.payload,
 		// 	component: PaymentFormContainerComponent,
@@ -129,7 +129,7 @@ export class PaymentState extends BaseState<IPaymentDto> {
 		//
 		// const item = await this.item.executeAsync(action.payload);
 		//
-		// await this.pushBoxService.buildItAsync({
+		// await this.whacAMaleProvider.buildItAsync({
 		// 	title,
 		// 	id: action.payload,
 		// 	component: PaymentFormContainerComponent,
@@ -148,7 +148,7 @@ export class PaymentState extends BaseState<IPaymentDto> {
 		//
 		// const {componentInputs, pushBoxInputs} = payload ?? {};
 		//
-		// await this.pushBoxService.buildItAsync({
+		// await this.whacAMaleProvider.buildItAsync({
 		// 	id: PaymentFormContainerComponent.name,
 		// 	title: this.translateService.instant('payment.form.title.create'),
 		// 	...pushBoxInputs,

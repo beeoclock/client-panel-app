@@ -51,7 +51,7 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
 
-		await this.pushBoxService.destroyComponent(CustomerDetailsContainerComponent);
+		await this.whacAMaleProvider.destroyComponent(CustomerDetailsContainerComponent);
 
 	}
 
@@ -60,7 +60,7 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 		const {CustomerFormContainerComponent} = await import("@customer/presentation/component/form/customer-form-container.component");
 
-		await this.pushBoxService.destroyComponent(CustomerFormContainerComponent);
+		await this.whacAMaleProvider.destroyComponent(CustomerFormContainerComponent);
 
 	}
 
@@ -69,9 +69,11 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
 
-		await this.pushBoxService.updatePushBoxComponentAsync({
+		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 			component: CustomerDetailsContainerComponent,
 			componentInputs: {item: payload},
+		}).catch((error) => {
+			this.ngxLogger.error('CustomerState.updateOpenedDetails', error);
 		});
 
 	}
@@ -83,7 +85,7 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title,
 			componentInputs: {
 				item: payload
@@ -100,7 +102,7 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title,
 			showLoading: true,
 			component: CustomerDetailsContainerComponent,
@@ -108,7 +110,7 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 		const item = await this.item.executeAsync(id);
 
-		await this.pushBoxService.updatePushBoxComponentAsync({
+		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 			component: CustomerDetailsContainerComponent,
 			componentInputs: {item},
 		});
@@ -154,7 +156,7 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 		const {componentInputs, pushBoxInputs} = payload ?? {};
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title: this.translateService.instant('customer.form.title.create'),
 			...pushBoxInputs,
 			component: CustomerFormContainerComponent,

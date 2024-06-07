@@ -31,7 +31,7 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent {
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
-	private readonly pushBoxService = inject(WhacAMoleProvider);
+	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
 
@@ -76,7 +76,7 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent {
 			.toJSDate()
 			.toISOString();
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			component: AdditionalMenuComponent,
 			title,
 			componentInputs: {

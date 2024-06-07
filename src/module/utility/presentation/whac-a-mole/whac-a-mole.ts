@@ -172,8 +172,10 @@ export class WhacAMole extends Reactive implements OnInit {
 
     const componentRef = this.whacAMoleProvider.componentRefMapById.get(componentMirror.selector);
     if (!componentRef) {
+			this.ngxLogger.debug('WhacAMole.updatePushBoxComponent', 'Component does not exist');
       return;
     }
+		this.ngxLogger.debug('WhacAMole.updatePushBoxComponent', 'C1111');
 
     const wasLoading = componentRef.instance.showLoading;
     componentRef.setInput('showLoading', showLoading ?? false);

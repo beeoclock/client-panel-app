@@ -57,7 +57,7 @@ export class OrderState extends BaseState<IOrderDto> {
 
 		const {OrderDetailsContainerComponent} = await import("@order/presentation/component/details/order-details-container.component");
 
-		await this.pushBoxService.destroyComponent(OrderDetailsContainerComponent);
+		await this.whacAMaleProvider.destroyComponent(OrderDetailsContainerComponent);
 
 	}
 
@@ -66,7 +66,7 @@ export class OrderState extends BaseState<IOrderDto> {
 
 		const {OrderFormContainerComponent} = await import("@order/presentation/component/form/order-form-container.component");
 
-		await this.pushBoxService.destroyComponent(OrderFormContainerComponent);
+		await this.whacAMaleProvider.destroyComponent(OrderFormContainerComponent);
 
 	}
 
@@ -75,7 +75,7 @@ export class OrderState extends BaseState<IOrderDto> {
 
 		const {OrderDetailsContainerComponent} = await import("@order/presentation/component/details/order-details-container.component");
 
-		await this.pushBoxService.updatePushBoxComponentAsync({
+		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 			component: OrderDetailsContainerComponent,
 			componentInputs: {item: payload},
 		});
@@ -89,7 +89,7 @@ export class OrderState extends BaseState<IOrderDto> {
 
 		const {OrderDetailsContainerComponent} = await import("@order/presentation/component/details/order-details-container.component");
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title,
 			componentInputs: {
 				item: payload
@@ -106,7 +106,7 @@ export class OrderState extends BaseState<IOrderDto> {
 
 		const {OrderDetailsContainerComponent} = await import("@order/presentation/component/details/order-details-container.component");
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title,
 			showLoading: true,
 			component: OrderDetailsContainerComponent,
@@ -114,7 +114,7 @@ export class OrderState extends BaseState<IOrderDto> {
 
 		const item = await this.item.executeAsync(id);
 
-		await this.pushBoxService.updatePushBoxComponentAsync({
+		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 			component: OrderDetailsContainerComponent,
 			componentInputs: {item},
 		});
@@ -128,7 +128,7 @@ export class OrderState extends BaseState<IOrderDto> {
 
 		const {OrderFormContainerComponent} = await import("@order/presentation/component/form/order-form-container.component");
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title,
 			component: OrderFormContainerComponent,
 			componentInputs: {},
@@ -144,7 +144,7 @@ export class OrderState extends BaseState<IOrderDto> {
 		});
 		const paymentDto = paymentResponse.items[0];
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title,
 			component: OrderFormContainerComponent,
 			componentInputs: {
@@ -175,7 +175,7 @@ export class OrderState extends BaseState<IOrderDto> {
 			orderServiceDto: item ?? {},
 		};
 
-		const componentRef = await this.pushBoxService.buildItAsync({
+		const componentRef = await this.whacAMaleProvider.buildItAsync({
 			title: this.translateService.instant('event.form.title.edit'),
 			component: ContainerFormComponent,
 			componentInputs,
@@ -257,7 +257,7 @@ export class OrderState extends BaseState<IOrderDto> {
 
 		const {componentInputs, pushBoxInputs} = payload ?? {};
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title: this.translateService.instant('order.form.title.create'),
 			...pushBoxInputs,
 			component: OrderFormContainerComponent,

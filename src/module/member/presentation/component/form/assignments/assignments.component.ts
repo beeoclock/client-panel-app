@@ -27,7 +27,7 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 
 	private readonly translateService = inject(TranslateService);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
-	private readonly pushBoxService = inject(WhacAMoleProvider);
+	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 
 	public isNotFull = false;
 
@@ -51,7 +51,7 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 
 		const title = this.translateService.instant('member.form.assignments.service.select.title');
 
-		const pushBoxWrapperComponentRef = await this.pushBoxService.buildItAsync({
+		const pushBoxWrapperComponentRef = await this.whacAMaleProvider.buildItAsync({
 			title,
 			component: SelectServicePushBoxComponent,
 			componentInputs: {

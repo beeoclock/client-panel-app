@@ -46,7 +46,7 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 	protected readonly router = inject(Router);
 	protected readonly store = inject(Store);
 	protected readonly ngxLogger = inject(NGXLogger);
-	protected readonly pushBoxService = inject(WhacAMoleProvider);
+	protected readonly whacAMaleProvider = inject(WhacAMoleProvider);
 
 	protected readonly item!: BaseApiAdapter<ITEM, unknown[]>;
 	protected readonly create!: BaseApiAdapter<ITEM, unknown[]>;

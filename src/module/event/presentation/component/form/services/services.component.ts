@@ -74,7 +74,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 	public durationVersionTypeRangeComponentList!: QueryList<DurationVersionTypeRangeComponent>;
 
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
-	private readonly pushBoxService = inject(WhacAMoleProvider);
+	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly modalSelectServiceListAdapter = inject(ModalSelectServiceListAdapter);
 
 	public readonly loading$ = this.modalSelectServiceListAdapter.loading$;
@@ -136,7 +136,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 		const {SelectServicePushBoxComponent} = await import("@service/presentation/push-box/select-service.push-box.component");
 
-		const pushBoxWrapperComponentRef = await this.pushBoxService.buildItAsync({
+		const pushBoxWrapperComponentRef = await this.whacAMaleProvider.buildItAsync({
 			component: SelectServicePushBoxComponent,
 			componentInputs: {
 				multiple: false,
@@ -164,7 +164,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 				newSelectedServiceList = this.setMember(newSelectedServiceList)
 
 				this.serviceListControl.patchValue(newSelectedServiceList);
-				await this.pushBoxService.destroyComponent(SelectServicePushBoxComponent);
+				await this.whacAMaleProvider.destroyComponent(SelectServicePushBoxComponent);
 			});
 		}
 

@@ -166,7 +166,7 @@ export class AdditionalMenuComponent implements OnInit {
 
 	public readonly now = new Date().toISOString();
 
-	private readonly pushBoxService = inject(WhacAMoleProvider);
+	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
 
@@ -230,7 +230,7 @@ export class AdditionalMenuComponent implements OnInit {
 	}
 
 	public async closeSelf() {
-		await this.pushBoxService.destroyComponent(AdditionalMenuComponent);
+		await this.whacAMaleProvider.destroyComponent(AdditionalMenuComponent);
 	}
 
 }

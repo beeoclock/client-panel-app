@@ -63,11 +63,13 @@ export class EventState extends BaseState<Event.IEvent> {
 
 		const {ContainerDetailsComponent} = await import("@event/presentation/component/details/container.details.component");
 
-		await this.pushBoxService.updatePushBoxComponentAsync({
+		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 			component: ContainerDetailsComponent,
 			componentInputs: {
 				event: Event.MEvent.create(payload)
 			},
+		}).catch((error) => {
+			this.ngxLogger.error('EventState.updateOpenedDetails', error);
 		});
 
 	}
@@ -77,7 +79,7 @@ export class EventState extends BaseState<Event.IEvent> {
 
 		const {ContainerDetailsComponent} = await import("@event/presentation/component/details/container.details.component");
 
-		await this.pushBoxService.destroyComponent(ContainerDetailsComponent);
+		await this.whacAMaleProvider.destroyComponent(ContainerDetailsComponent);
 
 	}
 
@@ -86,7 +88,7 @@ export class EventState extends BaseState<Event.IEvent> {
 
 		const {ContainerFormComponent} = await import("@event/presentation/component/form/container.form.component");
 
-		await this.pushBoxService.destroyComponent(ContainerFormComponent);
+		await this.whacAMaleProvider.destroyComponent(ContainerFormComponent);
 
 	}
 
@@ -97,7 +99,7 @@ export class EventState extends BaseState<Event.IEvent> {
 
 		const {ContainerDetailsComponent} = await import("@event/presentation/component/details/container.details.component");
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title,
 			component: ContainerDetailsComponent,
 			componentInputs: {
@@ -114,7 +116,7 @@ export class EventState extends BaseState<Event.IEvent> {
 	//
 	// 	const {ContainerDetailsComponent} = await import("@event/presentation/component/details/container.details.component");
 	//
-	// 	await this.pushBoxService.buildItAsync({
+	// 	await this.whacAMaleProvider.buildItAsync({
 	// 		component: ContainerDetailsComponent,
 	// 		showLoading: true,
 	// 		title
@@ -122,7 +124,7 @@ export class EventState extends BaseState<Event.IEvent> {
 	//
 	// 	const event = await this.item.executeAsync(id);
 	//
-	// 	await this.pushBoxService.updatePushBoxComponentAsync({
+	// 	await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 	// 		id,
 	// 		component: ContainerDetailsComponent,
 	// 		componentInputs: {
@@ -170,7 +172,7 @@ export class EventState extends BaseState<Event.IEvent> {
 
 		const {pushBoxInputs, componentInputs} = payload ?? {};
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title: this.translateService.instant('event.form.title.create'),
 			...pushBoxInputs,
 			component: ContainerFormComponent,

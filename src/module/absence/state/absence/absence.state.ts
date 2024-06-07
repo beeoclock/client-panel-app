@@ -47,7 +47,7 @@ export class AbsenceState extends BaseState<IAbsenceDto> {
 
 		const {AbsenceDetailsContainerComponent} = await import("@absence/presentation/component/details/absence-details-container.component");
 
-		await this.pushBoxService.destroyComponent(AbsenceDetailsContainerComponent);
+		await this.whacAMaleProvider.destroyComponent(AbsenceDetailsContainerComponent);
 
 	}
 
@@ -56,7 +56,7 @@ export class AbsenceState extends BaseState<IAbsenceDto> {
 
 		const {AbsenceFormContainerComponent} = await import("@absence/presentation/component/form/absence-form-container.component");
 
-		await this.pushBoxService.destroyComponent(AbsenceFormContainerComponent);
+		await this.whacAMaleProvider.destroyComponent(AbsenceFormContainerComponent);
 
 	}
 
@@ -65,7 +65,7 @@ export class AbsenceState extends BaseState<IAbsenceDto> {
 
 		const {AbsenceDetailsContainerComponent} = await import("@absence/presentation/component/details/absence-details-container.component");
 
-		await this.pushBoxService.updatePushBoxComponentAsync({
+		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 			component: AbsenceDetailsContainerComponent,
 			componentInputs: {item: payload},
 		});
@@ -79,7 +79,7 @@ export class AbsenceState extends BaseState<IAbsenceDto> {
 
 		const {AbsenceDetailsContainerComponent} = await import("@absence/presentation/component/details/absence-details-container.component");
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title,
 			component: AbsenceDetailsContainerComponent,
 			componentInputs: {
@@ -96,7 +96,7 @@ export class AbsenceState extends BaseState<IAbsenceDto> {
 
 		const {AbsenceDetailsContainerComponent} = await import("@absence/presentation/component/details/absence-details-container.component");
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title,
 			showLoading: true,
 			component: AbsenceDetailsContainerComponent,
@@ -104,7 +104,7 @@ export class AbsenceState extends BaseState<IAbsenceDto> {
 
 		const item = await this.item.executeAsync(id);
 
-		await this.pushBoxService.updatePushBoxComponentAsync({
+		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 			component: AbsenceDetailsContainerComponent,
 			componentInputs: {item},
 		});
@@ -118,7 +118,7 @@ export class AbsenceState extends BaseState<IAbsenceDto> {
 
 		const {AbsenceFormContainerComponent} = await import("@absence/presentation/component/form/absence-form-container.component");
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title,
 			component: AbsenceFormContainerComponent,
 			componentInputs: {},
@@ -126,7 +126,7 @@ export class AbsenceState extends BaseState<IAbsenceDto> {
 
 		const item = await this.item.executeAsync(action.payload);
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title,
 			component: AbsenceFormContainerComponent,
 			componentInputs: {
@@ -144,7 +144,7 @@ export class AbsenceState extends BaseState<IAbsenceDto> {
 
 		const {componentInputs, pushBoxInputs} = payload ?? {};
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title: this.translateService.instant('absence.form.title.create'),
 			...(pushBoxInputs ?? {}),
 			component: AbsenceFormContainerComponent,
