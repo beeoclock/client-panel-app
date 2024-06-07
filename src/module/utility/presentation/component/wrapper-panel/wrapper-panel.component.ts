@@ -15,7 +15,6 @@ import {IdTokenResult} from "@angular/fire/auth";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {MemberActions} from "@member/state/member/member.actions";
-import {EventActions} from "@event/state/event/event.actions";
 import {MAIN_CONTAINER_ID} from "@src/token";
 import {NGXLogger} from "ngx-logger";
 import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
@@ -159,7 +158,6 @@ export default class WrapperPanelComponent extends Reactive implements AfterView
 		this.store.dispatch(new CustomerActions.Init());
 		this.store.dispatch(new ServiceActions.Init());
 		this.store.dispatch(new MemberActions.Init());
-		this.store.dispatch(new EventActions.Init());
 		this.store.dispatch(new EventRequestedActions.Init());
 		super.ngOnDestroy();
 	}

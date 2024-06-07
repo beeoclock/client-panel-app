@@ -4,11 +4,8 @@ import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
 import {NgIf, NgTemplateOutlet} from "@angular/common";
 import {
-	ChangeStatusOnBookedComponent
-} from "@event/presentation/component/change-status/change-status-on-booked.component";
-import {
-	ChangeStatusOnCancelledComponent
-} from "@event/presentation/component/change-status/change-status-on-cancelled.component";
+	ChangeStatusOnAcceptedComponent
+} from "@event/presentation/component/change-status/change-status-on-accepted.component";
 import {ChangeStatusOnDoneComponent} from "@event/presentation/component/change-status/change-status-on-done.component";
 import {IEvent_V2} from "@event/domain";
 import {DeleteButtonComponent} from "@event/presentation/component/button/delete-button/delete-button.component";
@@ -19,6 +16,9 @@ import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 import {NGXLogger} from "ngx-logger";
 import {OrderActions} from "@order/state/order/order.actions";
+import {
+	ChangeStatusOnRejectedComponent
+} from "@event/presentation/component/change-status/change-status-on-rejected.component";
 
 @Component({
 	selector: 'app-event-v2-buttons-details',
@@ -29,55 +29,63 @@ import {OrderActions} from "@order/state/order/order.actions";
 		RouterLink,
 		NgIf,
 		NgTemplateOutlet,
-		ChangeStatusOnBookedComponent,
-		ChangeStatusOnCancelledComponent,
+		ChangeStatusOnAcceptedComponent,
 		ChangeStatusOnDoneComponent,
 		DeleteButtonComponent,
 		EditButtonComponent,
+		ChangeStatusOnRejectedComponent,
 	],
 	template: `
 <!--		<event-delete-button-component [event]="event"/>-->
 
-		<edit-button-component (click)="editEvent()"/>
+
+		<ng-container *ngIf="isRequested">
+
+			<ng-container *ngTemplateOutlet="ButtonToRejectEvent"/>
+			<edit-button-component (click)="editEvent()"/>
+			<ng-container *ngTemplateOutlet="ButtonToAcceptEvent"/>
+
+		</ng-container>
 
 		<ng-container *ngIf="isPending">
 
-			<ng-container *ngTemplateOutlet="ButtonToCancelEvent"/>
-
-			<ng-container *ngTemplateOutlet="ButtonToBookEvent"/>
+			<edit-button-component (click)="editEvent()"/>
+			<ng-container *ngTemplateOutlet="ButtonToRejectEvent"/>
 
 		</ng-container>
 
 		<ng-container *ngIf="isAccepted">
 
-			<ng-container *ngTemplateOutlet="ButtonToCancelEvent"/>
-
+			<ng-container *ngTemplateOutlet="ButtonToRejectEvent"/>
+			<edit-button-component (click)="editEvent()"/>
 			<ng-container *ngTemplateOutlet="ButtonToDoneEvent"/>
 
 		</ng-container>
 
 		<ng-container *ngIf="isDone">
 
-			<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>
+			<edit-button-component (click)="editEvent()"/>
+<!--			<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>-->
 
 		</ng-container>
 
 		<ng-container *ngIf="isNegative">
 
-			<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>
+			<edit-button-component (click)="editEvent()"/>
+<!--			<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>-->
 
 		</ng-container>
 
-		<ng-template #ButtonToCancelEvent>
-<!--			<event-change-status-on-cancelled-component [event]="event"/>-->
+		<ng-template #ButtonToRejectEvent>
+			<event-change-status-on-rejected-component [event]="event"/>
 		</ng-template>
 
-		<ng-template #ButtonToBookEvent>
-<!--			<event-change-status-on-booked-component [event]="event"/>-->
+		<ng-template #ButtonToAcceptEvent>
+			<event-change-status-on-accepted-component [event]="event"/>
 		</ng-template>
 
 		<ng-template #ButtonToDoneEvent>
-<!--			<event-change-status-on-done-component [event]="event"/>-->
+			<event-change-status-on-done-component [event]="event"/>
 		</ng-template>
 
 		<ng-template #ButtonToRepeatEvent>
@@ -116,6 +124,7 @@ export class V2ButtonsDetailsComponent implements OnChanges {
 	public isDone = false;
 	public isAccepted = false;
 	public isPending = false;
+	public isRequested = false;
 
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
@@ -148,6 +157,7 @@ export class V2ButtonsDetailsComponent implements OnChanges {
 			this.isDone = [OrderServiceStatusEnum.done].includes(status);
 			this.isAccepted = [OrderServiceStatusEnum.accepted].includes(status);
 			this.isPending = [OrderServiceStatusEnum.pending].includes(status);
+			this.isRequested = [OrderServiceStatusEnum.requested].includes(status);
 		}
 
 	}

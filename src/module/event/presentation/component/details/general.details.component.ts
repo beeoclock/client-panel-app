@@ -2,10 +2,11 @@ import {Component, HostBinding, inject, Input} from "@angular/core";
 import {RMIEvent} from "@event/domain";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
-import {CurrencyPipe, NgClass, NgForOf, NgIf} from "@angular/common";
+import {CurrencyPipe, NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase} from "@angular/common";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
+import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 
 @Component({
 	selector: 'event-general-details',
@@ -19,6 +20,8 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 		EventStatusStyleDirective,
 		HumanizeDurationPipe,
 		NgClass,
+		NgSwitch,
+		NgSwitchCase,
 	],
 	providers: [
 		CurrencyPipe,
@@ -76,15 +79,31 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 								<li
 									*ngIf="attendant.customer"
 									class="grid grid-cols-1 py-4 pl-4 pr-5 text-sm leading-6">
-									<div class="">
-										{{ attendant.customer.firstName }} {{ attendant.customer.lastName }}
-									</div>
-									<div class="">
-										{{ attendant.customer.email }}
-									</div>
-									<div class="">
-										{{ attendant.customer.phone }}
-									</div>
+
+									<ng-container [ngSwitch]="attendant.customer.customerType">
+										<ng-container *ngSwitchCase="customerTypeEnum.unregistered">
+											<div class="">
+												{{ attendant.customer.firstName }} {{ attendant.customer.lastName }}
+											</div>
+										</ng-container>
+										<ng-container *ngSwitchCase="customerTypeEnum.regular">
+											<div class="">
+												{{ attendant.customer.firstName }} {{ attendant.customer.lastName }}
+											</div>
+											<div class="">
+												{{ attendant.customer.email }}
+											</div>
+											<div class="">
+												{{ attendant.customer.phone }}
+											</div>
+										</ng-container>
+										<ng-container *ngSwitchCase="customerTypeEnum.anonymous">
+											<div class="">
+												{{ 'keyword.capitalize.anonymous' | translate }}
+											</div>
+										</ng-container>
+									</ng-container>
+
 								</li>
 							</ng-container>
 						</ul>
@@ -140,6 +159,7 @@ export class GeneralDetailsComponent {
 	public class = 'block bg-white';
 
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
+	public readonly customerTypeEnum = CustomerTypeEnum;
 
 	public get isNotPreview(): boolean {
 		return !this.isPreview;

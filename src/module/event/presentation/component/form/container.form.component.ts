@@ -30,14 +30,13 @@ import {NGXLogger} from "ngx-logger";
 import {EventForm} from "@event/presentation/form/event.form";
 import {BooleanState} from "@utility/domain";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
-import {combineLatest, filter, firstValueFrom, map, Observable, tap} from "rxjs";
+import {combineLatest, filter, map, Observable, tap} from "rxjs";
 import {IEvent, MEvent, RMIEvent} from "@event/domain";
 import {ClientState} from "@client/state/client/client.state";
 import {RIClient} from "@client/domain";
 import {is} from "thiis";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {IConfiguration, IPresentation, IService} from "@service/domain";
-import {EventActions} from "@event/state/event/event.actions";
 import {Reactive} from "@utility/cdk/reactive";
 import {TimeInputComponent} from "@utility/presentation/component/input/time.input.component";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
@@ -293,11 +292,11 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 
 				if (this.isEditMode) {
 
-					await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(value)));
+					// await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(value)));
 
 				} else {
 
-					await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(value)));
+					// await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(value)));
 
 				}
 

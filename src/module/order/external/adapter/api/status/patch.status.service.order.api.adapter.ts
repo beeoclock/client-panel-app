@@ -12,15 +12,15 @@ import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.en
 export class PatchStatusServiceOrderApiAdapter extends BaseApiAdapter<IOrderDto, [string, string, OrderServiceStatusEnum]> {
 
     /**
-     * @param id
-     * @param service
-     * @param status
-     */
-    public override execute$(id: string, service: string, status: OrderServiceStatusEnum) {
+		 * @param orderId
+		 * @param serviceId
+		 * @param status
+		 */
+    public override execute$(orderId: string, serviceId: string, status: OrderServiceStatusEnum) {
         return this.httpClient.patch<IOrderDto>(OrderEndpoint.UPDATE_SERVICE_STATUS, null, {
             context: new HttpContext().set(TokensHttpContext.REPLACE, {
-                id,
-                service,
+                id: orderId,
+                serviceId,
                 status
             })
         });

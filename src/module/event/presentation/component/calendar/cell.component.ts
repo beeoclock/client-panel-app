@@ -15,7 +15,6 @@ import {RefreshCalendarAction} from "@event/state/calendar/actions/refresh.calen
 import {
 	ScrollCalendarDomManipulationService
 } from "@event/presentation/dom-manipulation-service/scroll.calendar.dom-manipulation-service";
-import {EventActions} from "@event/state/event/event.actions";
 
 @Component({
 	selector: 'event-calendar-cell-component',
@@ -69,12 +68,12 @@ export class CellComponent implements OnChanges {
 			this.ngxLogger.debug('Callback');
 			this.store.dispatch(new RefreshCalendarAction());
 		};
-		this.store.dispatch(new EventActions.OpenForm({
-			componentInputs: {
-				datetimeISO: this.datetimeISO,
-				callback,
-			}
-		}));
+		// this.store.dispatch(new EventActions.OpenForm({
+		// 	componentInputs: {
+		// 		datetimeISO: this.datetimeISO,
+		// 		callback,
+		// 	}
+		// }));
 		event.preventDefault();
 		event.stopPropagation();
 	}

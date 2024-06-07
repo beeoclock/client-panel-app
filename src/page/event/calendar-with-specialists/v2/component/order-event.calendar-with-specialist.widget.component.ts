@@ -3,10 +3,10 @@ import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, ViewEnca
 import {IAttendee, IEvent_V2} from "@event/domain";
 import {DatePipe, NgIf} from "@angular/common";
 import {Store} from "@ngxs/store";
-import {EventActions} from "@event/state/event/event.actions";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {EventActions} from "@event/state/event/event.actions";
 
 @Component({
 	selector: 'app-order-event-calendar-with-specialist-widget-component',
@@ -100,7 +100,6 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 	}
 
 	private async openEventDetails(event: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>) {
-
 		this.store.dispatch(new EventActions.OpenDetails(event));
 	}
 

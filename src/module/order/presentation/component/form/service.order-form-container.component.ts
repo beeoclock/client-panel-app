@@ -31,8 +31,8 @@ import {
 	AttendeeCardComponent
 } from "@event/presentation/component/requsted/list-of-card-collection-by-date/attendee-card/attendee.card.component";
 import {
-	ChangeStatusOnBookedComponent
-} from "@event/presentation/component/change-status/change-status-on-booked.component";
+	ChangeStatusOnAcceptedComponent
+} from "@event/presentation/component/change-status/change-status-on-accepted.component";
 import {
 	ChangeStatusOnRejectedComponent
 } from "@event/presentation/component/change-status/change-status-on-rejected.component";
@@ -68,7 +68,7 @@ import {RIMember} from "@member/domain";
         DatePipe,
         ActionComponent,
         AttendeeCardComponent,
-        ChangeStatusOnBookedComponent,
+        ChangeStatusOnAcceptedComponent,
         ChangeStatusOnRejectedComponent,
         EventStatusStyleDirective,
         NgIf,

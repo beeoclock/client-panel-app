@@ -93,7 +93,7 @@ export class FilterComponent extends BaseFilterComponent {
 	}
 
 	public openForm(): void {
-		this.store.dispatch(new EventActions.OpenForm());
+		// this.store.dispatch(new EventActions.OpenForm());
 	}
 
 }

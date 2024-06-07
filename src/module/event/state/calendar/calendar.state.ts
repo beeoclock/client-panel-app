@@ -1,4 +1,4 @@
-import {inject, Injectable} from "@angular/core";
+import {Injectable} from "@angular/core";
 import {Action, State, StateContext} from "@ngxs/store";
 import {DateTime} from "luxon";
 import {
@@ -8,7 +8,6 @@ import {
 import {PushNextCalendarAction} from "@event/state/calendar/actions/push.next.calendar.action";
 import {PushPrevCalendarAction} from "@event/state/calendar/actions/push.prev.calendar.action";
 import {GetListCalendarAction} from "@event/state/calendar/actions/get-list.calendar.action";
-import {ListMergedEventApiAdapter} from "@event/adapter/external/api/list.merged.event.api.adapter";
 import {IEvent} from "@event/domain";
 import {InitCalendarAction} from "@event/state/calendar/actions/init.calendar.action";
 import {RefreshCalendarAction} from "@event/state/calendar/actions/refresh.calendar.action";
@@ -39,11 +38,11 @@ export interface ICalendarState {
 @Injectable()
 export class CalendarState {
 
-	private readonly listMergedEventApiAdapter = inject(ListMergedEventApiAdapter);
+	// private readonly listMergedEventApiAdapter = inject(ListMergedEventApiAdapter);
 
 	@Action(GetListCalendarAction)
 	public async getListCalendarAction(ctx: StateContext<ICalendarState>, action: GetListCalendarAction) {
-		await GetListCalendarAction.execute(ctx, action.payload, this.listMergedEventApiAdapter);
+		// await GetListCalendarAction.execute(ctx, action.payload, this.listMergedEventApiAdapter);
 	}
 
 	@Action(InitCalendarAction)

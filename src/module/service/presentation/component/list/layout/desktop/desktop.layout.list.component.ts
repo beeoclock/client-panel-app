@@ -1,6 +1,5 @@
 import {Component, ViewEncapsulation} from "@angular/core";
 import {AsyncPipe, NgIf} from "@angular/common";
-import {CardListComponent} from "@event/presentation/component/list/card/card.list.component";
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
@@ -21,7 +20,6 @@ import {ServiceActions} from "@service/state/service/service.actions";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		AsyncPipe,
-		CardListComponent,
 		FilterComponent,
 		NgIf,
 		NotFoundTableDataComponent,

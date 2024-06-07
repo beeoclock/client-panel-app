@@ -1,18 +1,14 @@
-import {inject, Injectable} from "@angular/core";
+import {Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import * as Event from "@event/domain";
 import {MEvent} from "@event/domain";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
-import {BookedStatusEventApiAdapter} from "@event/adapter/external/api/booked.status.event.api.adapter";
 import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
-import {RejectedStatusEventApiAdapter} from "@event/adapter/external/api/rejected.status.event.api.adapter";
 import {EventRequestedActions} from "./event-requested.actions";
-import {ListEventApiAdapter} from "../../adapter/external/api/list.event.api.adapter";
 import {EventBusTokenEnum} from "@src/event-bus-token.enum";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
-import {UpdateEventApiAdapter} from "@event/adapter/external/api/update.event.api.adapter";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 
 export type IEventRequestedState = IBaseState<Event.RIEvent>;
@@ -32,12 +28,12 @@ const defaults = baseDefaults<Event.RIEvent>({
 @Injectable()
 export class EventRequestedState extends BaseState<Event.RIEvent> {
 
-	protected override readonly update = inject(UpdateEventApiAdapter);
-	protected override readonly paged = inject(ListEventApiAdapter);
+	// protected override readonly update = inject(UpdateEventApiAdapter);
+	// protected override readonly paged = inject(ListEventApiAdapter);
 
 	// Change status
-	protected readonly rejectedStatusEventApiAdapter = inject(RejectedStatusEventApiAdapter);
-	protected readonly bookedStatusEventApiAdapter = inject(BookedStatusEventApiAdapter);
+	// protected readonly rejectedStatusEventApiAdapter = inject(RejectedStatusEventApiAdapter);
+	// protected readonly bookedStatusEventApiAdapter = inject(BookedStatusEventApiAdapter);
 
 	constructor() {
 		super(
@@ -86,13 +82,13 @@ export class EventRequestedState extends BaseState<Event.RIEvent> {
 			}
 		});
 
-		await this.update.executeAsync(event);
+		// await this.update.executeAsync(event);
 	}
 
 	@Action(EventRequestedActions.BookedStatus)
 	public async bookedStatus(ctx: StateContext<IEventRequestedState>, {payload}: EventRequestedActions.BookedStatus): Promise<void> {
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
-		await this.bookedStatusEventApiAdapter.executeAsync(payload._id);
+		// await this.bookedStatusEventApiAdapter.executeAsync(payload._id);
 
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 	}
@@ -100,7 +96,7 @@ export class EventRequestedState extends BaseState<Event.RIEvent> {
 	@Action(EventRequestedActions.RejectedStatus)
 	public async rejectedStatus(ctx: StateContext<IEventRequestedState>, {payload}: EventRequestedActions.RejectedStatus): Promise<void> {
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
-		await this.rejectedStatusEventApiAdapter.executeAsync(payload._id);
+		// await this.rejectedStatusEventApiAdapter.executeAsync(payload._id);
 
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 	}

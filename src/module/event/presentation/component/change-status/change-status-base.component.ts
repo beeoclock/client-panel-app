@@ -6,7 +6,10 @@ import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.
 import {NgIf, NgTemplateOutlet} from "@angular/common";
 import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum";
 import {NGXLogger} from "ngx-logger";
-import {RIEvent, RMIEvent} from "@event/domain";
+import {IEvent_V2} from "@event/domain";
+import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 
 @Component({
 	selector: 'event-change-status-base-component',
@@ -25,19 +28,21 @@ import {RIEvent, RMIEvent} from "@event/domain";
 export abstract class ChangeStatusBaseComponent {
 
 	@Input({required: true})
-	public event!: RMIEvent | RIEvent;
+	public event!: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>;
 
 	@Output()
 	public readonly statusChange = new EventEmitter<void>();
 
-	public readonly logger = inject(NGXLogger);
+	public readonly ngxLogger = inject(NGXLogger);
 	public readonly router = inject(Router);
 	public readonly activatedRoute = inject(ActivatedRoute);
 
+	public readonly loading = new BooleanStreamState(false);
+
 	protected postStatusChange(newStatus: EventStatusEnum): void {
-		this.logger.debug(`postStatusChange: ${newStatus}`);
+		this.ngxLogger.debug(`postStatusChange: ${newStatus}`);
 		const {action, from, redirectUri} = this.activatedRoute.snapshot.queryParams;
-		this.logger.debug(`action: ${action}, from: ${from}, redirectUri: ${redirectUri}`);
+		this.ngxLogger.debug(`action: ${action}, from: ${from}, redirectUri: ${redirectUri}`);
 		if (redirectUri) {
 			this.router.navigate([redirectUri ?? '/']).then();
 		}

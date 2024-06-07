@@ -1,17 +1,16 @@
-import {Component, HostBinding, HostListener, inject} from "@angular/core";
-import {IEvent} from "@event/domain";
+import {Component, inject} from "@angular/core";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
-import {firstValueFrom} from "rxjs";
-import {EventActions} from "@event/state/event/event.actions";
 import {Store} from "@ngxs/store";
 import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
 import {NgIf, NgTemplateOutlet} from "@angular/common";
-import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum";
 import {ChangeStatusBaseComponent} from "@event/presentation/component/change-status/change-status-base.component";
-import {RefreshCalendarAction} from "@event/state/calendar/actions/refresh.calendar.action";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
+import {EventActions} from "@event/state/event/event.actions";
+import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {firstValueFrom} from "rxjs";
+import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 
 @Component({
 	selector: 'event-change-status-on-done-component',
@@ -22,19 +21,15 @@ import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-speciali
 		RouterLink,
 		EditLinkComponent,
 		NgIf,
-		NgTemplateOutlet
+		NgTemplateOutlet,
+		LoaderComponent
 	],
 	template: `
-		<i class="bi bi-check-lg"></i>
-		{{ 'event.action.button.done.label' | translate }}
-	`
-})
-export class ChangeStatusOnDoneComponent extends ChangeStatusBaseComponent {
-
-	public readonly store = inject(Store);
-
-	@HostBinding()
-	public class = `
+		<button
+			(click)="this.changeStatusOnDone()"
+			[disabled]="loading.isTrue"
+		type="button"
+			class="
 		w-full
 		flex
 		items-center
@@ -52,22 +47,35 @@ export class ChangeStatusOnDoneComponent extends ChangeStatusBaseComponent {
 		ring-inset
 		ring-green-300
 		hover:bg-green-100
-		cursor-pointer
-	`;
+		cursor-pointer">
 
-	@HostListener('click')
-	public onClick(): void {
-		this.changeStatusOnDone(this.event).then();
-	}
+			<ng-container *ngIf="loading.isFalse">
+				<i class="bi bi-check-lg"></i>
+				{{ 'event.action.button.done.label' | translate }}
+			</ng-container>
+			<utility-loader [py2_5]="false" *ngIf="loading.isTrue"/>
+		</button>
+	`
+})
+export class ChangeStatusOnDoneComponent extends ChangeStatusBaseComponent {
 
-	public async changeStatusOnDone(event: IEvent): Promise<void> {
-		await firstValueFrom(this.store.dispatch(new EventActions.DoneStatus(event)));
-		await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
-		this.postStatusChange(EventStatusEnum.done);
-		this.store.dispatch(new EventActions.GetList({resetPage: false, resetParams: false}));
-		this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
-		this.store.dispatch(new RefreshCalendarAction());
+	public readonly store = inject(Store);
+
+	public async changeStatusOnDone(): Promise<void> {
+		this.loading.doTrue();
+		this.event.originalData.service.status = OrderServiceStatusEnum.done;
+		const actionToChangeStatus$ = this.store.dispatch(new EventActions.ChangeServiceStatus({
+			serviceId: this.event.originalData.service._id,
+			orderId: this.event.originalData.order._id,
+			status: OrderServiceStatusEnum.done,
+		}));
+		await firstValueFrom(actionToChangeStatus$);
+		const actionToUpdateList$ =  this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
+		await firstValueFrom(actionToUpdateList$);
+		const actionToUpdateDetails$ = this.store.dispatch(new EventActions.UpdateOpenedDetails(this.event));
+		await firstValueFrom(actionToUpdateDetails$);
 		this.statusChange.emit();
+		this.loading.doFalse();
 	}
 
 }

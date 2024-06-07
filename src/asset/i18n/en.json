@@ -1,1335 +1,1336 @@
 {
-  "absence": {
-    "button": {
-      "create": "Add absence"
-    },
-    "details": {
-      "title": "Absence details"
-    },
-    "form": {
-      "inputs": {
-        "entireBusiness": {
-          "label": "Entire business"
-        },
-        "note": {
-          "placeholder": "It is better to have and not need than not to have and need, leave a note from which you will understand what happened later"
-        },
-        "type": {
-          "label": "Type"
-        }
-      },
-      "membersIds": {
-        "select": {
-          "title": "Selection of members"
-        }
-      },
-      "title": {
-        "create": "Adding an absence",
-        "edit": "Editing an absence"
-      }
-    },
-    "type": {
-      "break": {
-        "label": "Break"
-      },
-      "holiday": {
-        "label": "Holiday"
-      },
-      "vacation": {
-        "label": "Vacation"
-      }
-    }
-  },
-  "autoActionOnOrderInSeconds": {
-    "EIGHT_HOURS": "8 hours",
-    "FIFTEEN_MINUTES": "15 minutes",
-    "FIVE_HOURS": "5 hours",
-    "FIVE_MINUTES": "5 minutes",
-    "FORTY_FIVE_MINUTES": "45 minutes",
-    "FOUR_HOURS": "4 hours",
-    "ONE_DAY": "1 day",
-    "ONE_HOUR": "1 hour",
-    "SEVEN_HOURS": "7 hours",
-    "SIX_HOURS": "6 hours",
-    "TEN_MINUTES": "10 minutes",
-    "THIRTY_MINUTES": "30 minutes",
-    "THREE_HOURS": "3 hours",
-    "TWENTY_MINUTES": "20 minutes",
-    "TWO_HOURS": "2 hours"
-  },
-  "autoActionTypeOnOrder": {
-    "APPROVE": "Approve",
-    "DENY": "Deny"
-  },
-  "autoRefresh": {
-    "hint": {
-      "selectTime": "Auto. update"
-    },
-    "time": {
-      "off": "off"
-    }
-  },
-  "businessCategory": {
-    "Barbershop": "Barbershop",
-    "BeautySalon": "Beauty salon",
-    "Dentistry": "Dentistry",
-    "EyebrowStylist": "Eyebrow stylist",
-    "Hairdresser": "Hairdresser",
-    "Manicurist": "Manicurist",
-    "Other": "Other",
-    "PhysicalRehabilitation": "Physical rehabilitation",
-    "Psychotherapy": "Psychotherapy"
-  },
-  "businessIndustry": {
-    "BeautyIndustry": "Beauty industry",
-    "Healthcare": "Healthcare",
-    "Other": "Other",
-    "TeachingAndConsultation": "Teaching & consultation"
-  },
-  "change-name": {
-    "form": {
-      "input": {
-        "name": {
-          "placeholder": "Your full name"
-        }
-      }
-    },
-    "modal": {
-      "title": "Change name"
-    }
-  },
-  "change-phone-number": {
-    "form": {
-      "input": {
-        "phoneNumber": {
-          "placeholder": "Your phone number"
-        }
-      }
-    },
-    "modal": {
-      "title": "Change phone number"
-    }
-  },
-  "client": {
-    "profile": {
-      "form": {
-        "inputs": {
-          "active": {
-            "label": "Active",
-            "placeholder": "Switch on if you want to be active"
-          },
-          "description": {
-            "label": "Business description",
-            "placeholder": "Shortly describe what you do"
-          },
-          "feature": {
-            "label": "Feature",
-            "placeholder": "Enter catching phrase"
-          },
-          "name": {
-            "label": "Business name",
-            "placeholder": "Type Company or Personal name"
-          },
-          "published": {
-            "label": "Public access"
-          },
-          "username": {
-            "hint": {
-              "under": "Please note that any changes you make in this area can affect various indicators. Take SEO, for example - changes here can affect where your content appears in search results."
-            },
-            "label": "Username",
-            "placeholder": "Bee.O_clock"
-          }
-        },
-        "section": {
-          "address": {
-            "input": {
-              "city": {
-                "placeholder": "Your city"
-              },
-              "country": {
-                "placeholder": "Your country"
-              },
-              "customLink": {
-                "hint": "Specify the link where the user should be taken from the public page by clicking on the address, if you want to use the standard mode, leave this field blank",
-                "label": "Custom link",
-                "placeholder": "https://example.com"
-              },
-              "streetAddressLineOne": {
-                "placeholder": "Street, avn., boulevard, etc. name"
-              },
-              "streetAddressLineTwo": {
-                "placeholder": "Office, house, etc. number"
-              },
-              "zipCode": {
-                "placeholder": "Your zip-code"
-              }
-            },
-            "title": "Address"
-          },
-          "bookingSettings": {
-            "hint": {
-              "autoActionOnEvent": {
-                "after": "in",
-                "finish": "after creation.",
-                "start": "The newly created event/reservation will be automatically"
-              }
-            },
-            "input": {
-              "autoActionOnOrderInSeconds": {
-                "placeholder": "Choose the time after which the selected automatic action should start for the newly created reservation/event"
-              },
-              "autoActionTypeOnOrder": {
-                "placeholder": "Select the type of action that should take place automatically for the newly created reservation/event"
-              },
-              "earliestBooking": {
-                "placeholder": "That is the shortest time after which it is possible to book a service"
-              },
-              "latestBooking": {
-                "placeholder": "Set of period of rolling weeks people can book in your calendar"
-              }
-            },
-            "select": {
-              "mandatoryAttendeeProperties": {
-                "hint": "Choose which fields should be required on the public page for your customers",
-                "label": "Required fields"
-              },
-              "timeZone": {
-                "hint": "Select the time zone where you do business, this field will determine the process to create free appointments for bookings and display your work schedule.",
-                "label": "Time zone"
-              }
-            }
-          },
-          "businessSettings": {
-            "select": {
-              "availableLanguages": {
-                "hint": "Choose the languages in which you do business, maybe you do business not only for locals but also for tourists. This choice will determine the available list of languages for emails",
-                "label": "Languages in which you do business"
-              },
-              "baseCurrency": {
-                "hint": "Select the main currency in which you operate, this is necessary for reports and the correct presentation of the amount when placing an order.",
-                "label": "Main currency"
-              },
-              "currencies": {
-                "hint": "Select the currencies in which you can receive payment for the service provided, thanks to this setting you can choose a specific currency for a specific service.",
-                "label": "Currencies"
-              },
-              "emailLanguage": {
-                "hint": "Select the language in which you want to receive emails, the available options depend on the languages you do business in",
-                "label": "The language of emails"
-              }
-            }
-          },
-          "coverImage": {
-            "fileover": "Put your files here",
-            "motivate": "You can inject a little more personality into your profile and help people recognize your work by uploading a \n image (an image, photo or other graphic icon of your business).",
-            "title": "Cover image"
-          },
-          "gallery": {
-            "comment": "Upload images that demonstrate your work from the best side. Images must be 1800px wide by 900px high and in JPEG or PNG format. You may upload up to 6 images.",
-            "title": "Gallery"
-          },
-          "logo": {
-            "fileover": "Put your files here",
-            "formats": "Allowed types: SVG, PNG, JPG or GIF",
-            "motivate": "You can inject a little more personality into your business profile and help people recognize you by uploading a logo (an image, photo or other graphic icon of \"you\").",
-            "title": "Logo"
-          }
-        }
-      },
-      "title": "Profile"
-    },
-    "settings": {
-      "defaultData": {
-        "event": {
-          "form": {
-            "inputs": {
-              "language": {
-                "label": "Default event language"
-              },
-              "service": {
-                "label": "Default event service (top service)"
-              }
-            }
-          },
-          "title": "Default data of event"
-        },
-        "service": {
-          "form": {
-            "inputs": {
-              "break": {
-                "label": "Default service break"
-              },
-              "duration": {
-                "label": "Default service duration"
-              },
-              "endWork": {
-                "label": "Default service end to work"
-              },
-              "language": {
-                "label": "Default service language"
-              },
-              "price": {
-                "label": "Default service price"
-              },
-              "startWork": {
-                "label": "Default service start to work"
-              },
-              "workDays": {
-                "label": "Default service work days"
-              }
-            }
-          },
-          "title": "Default data of service"
-        }
-      },
-      "form": {
-        "autoBookOrder": {
-          "label": "Allow a customer to book an event immediately with a confirmed status"
-        },
-        "inputs": {
-          "darkMode": {
-            "label": "Dark mode"
-          }
-        }
-      },
-      "title": "Settings"
-    }
-  },
-  "country": {
-    "DK": "Denmark",
-    "PL": "Poland",
-    "UA": "Ukraine"
-  },
-  "customer": {
-    "button": {
-      "create": "Add customer"
-    },
-    "details": {
-      "title": "Customer details"
-    },
-    "enum": {
-      "type": {
-        "anonymous": "Anonymous",
-        "new": "New",
-        "regular": "Customer",
-        "unregistered": "Guest"
-      }
-    },
-    "form": {
-      "input": {
-        "note": {
-          "placeholder": "Here you can enter additional information about the customer"
-        }
-      },
-      "title": {
-        "create": "Adding a customer",
-        "edit": "Editing a customer"
-      }
-    },
-    "title": "Customer"
-  },
-  "danger-zone": {
-    "button": {
-      "delete": {
-        "label": "Delete business account"
-      }
-    },
-    "hint": {
-      "message": "Delete business account. After deleting the business account, there is no going back. Please consider this action carefully."
-    },
-    "title": "Danger zone"
-  },
-  "earliestBooking": {
-    "FIVE_HOURS": "In 5 hours",
-    "FOUR_HOURS": "In 4 hours",
-    "MINUTE_15": "In 15 minutes",
-    "MINUTE_30": "In 30 minutes",
-    "NO_LIMIT": "No earliest booking time",
-    "ONE_DAY": "In 1 day",
-    "ONE_HOUR": "In 1 hour",
-    "ONE_WEEK": "In 1 week",
-    "SIX_HOURS": "In 6 hours",
-    "THREE_DAYS": "In 3 days",
-    "THREE_HOURS": "In 3 hours",
-    "TWO_HOURS": "In 2 hours"
-  },
-  "enum": {
-    "facility": {
-      "capitalize": {
-        "ACCEPTING_CARD_PAYMENT": "Accepting credit cards",
-        "ACCEPTING_CHILDREN": "Child-friendly",
-        "ACCEPTING_PETS": "Pets allowed",
-        "ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Accommodations for people with disabilities",
-        "FREE_PARKING": "Free Parking",
-        "INTERNET": "Internet (Wi-Fi)"
-      }
-    },
-    "theme": {
-      "dark": "Dark",
-      "light": "Light"
-    }
-  },
-  "event": {
-    "action": {
-      "button": {
-        "done": {
-          "label": "Event completed"
-        }
-      }
-    },
-    "additionalMenu": {
-      "items": {
-        "addNewAbsence": {
-          "hint": "Through this option you will add a new break in your calendar for yourself or for others.",
-          "title": "Add a new absence"
-        },
-        "addNewOrder": {
-          "hint": "Through this option, you will add a new order with the service and product.",
-          "title": "Add a new order"
-        }
-      },
-      "title": "Additional menu"
-    },
-    "details": {
-      "title": "Detailed view of the event"
-    },
-    "form": {
-      "section": {
-        "additional": {
-          "input": {
-            "note": {
-              "placeholder": "Here you can enter additional information about the event"
-            }
-          }
-        },
-        "attendant": {
-          "button": {
-            "add": "Add attendant",
-            "select": "Select customer",
-            "togglePresentationOfNewAttendant": "This client is not listed (new client)"
-          },
-          "input": {
-            "selectCustomer": {
-              "placeholder": "Select customer"
-            }
-          }
-        },
-        "customer": {
-          "modal": {
-            "title": "Customer choice"
-          }
-        },
-        "datetime": {
-          "hint": {
-            "selectDateToSelectTimeSlot": "Select one of the proposed dates to be able to choose the time"
-          }
-        },
-        "service": {
-          "button": {
-            "add": "Add service",
-            "select": "Select service"
-          },
-          "input": {
-            "selectService": {
-              "placeholder": "Select service"
-            }
-          },
-          "modal": {
-            "title": "Select service"
-          }
-        }
-      },
-      "title": {
-        "create": "Adding a new event",
-        "edit": "Edition of the event"
-      }
-    },
-    "keyword": {
-      "capitalize": {
-        "end": "Estimated End",
-        "repeat": "Repeat",
-        "service": "Service",
-        "start": "Booking Start",
-        "status": "Status"
-      },
-      "status": {
-        "all": "All",
-        "plural": {
-          "accepted": "Accepted",
-          "cancelled": "Canceled",
-          "done": "Done",
-          "pending": "Pending",
-          "rejected": "Rejected",
-          "requested": "Requested"
-        },
-        "singular": {
-          "accepted": "Accepted",
-          "cancelled": "Canceled",
-          "done": "Done",
-          "pending": "Pending",
-          "rejected": "Rejected",
-          "requested": "Requested"
-        }
-      }
-    },
-    "statistic": {
-      "period": {
-        "LAST_MONTH": "Last month",
-        "LAST_WEEK": "Last week",
-        "LAST_YEAR": "Last year",
-        "THIS_MONTH": "This month",
-        "THIS_WEEK": "This week",
-        "THIS_YEAR": "This year",
-        "TODAY": "Today",
-        "YESTERDAY": "Yesterday"
-      }
-    },
-    "title": "Event",
-    "warning": {
-      "durationAndPriceConflict": "Choose an available duration or the longest will be selected automatically after acceptance.",
-      "multipleEventAtSameTime": "More than one event at this time."
-    }
-  },
-  "example": {
-    "firstName": "John",
-    "lastName": "Smith"
-  },
-  "form": {
-    "validation": {
-      "atLeastOneFieldMustBeFilled": "At least one field must be filled",
-      "durationFormatInvalid": "Valid format is hours:minutes (00:00)",
-      "email": "Invalid E-mail format",
-      "emailOrPhoneRequired": "E-mail or phone number is required",
-      "imageSize": "Maximum image size is {{max}}, current size is {{value}}",
-      "mask": "Invalid format, correct format is {{requiredMask}}",
-      "minlength": "Minimum length is {{requiredLength}}",
-      "pattern": "A username can contain only letters, numbers, an underscore (_), and a dot (.)",
-      "required": "Required field",
-      "shouldBeMoreThen": {
-        "startInSeconds": "The end time must be longer than the start time"
-      },
-      "whitespace": "Remove all spaces"
-    }
-  },
-  "http": {
-    "DELETE": {
-      "/api/v1/customer/{id}": {
-        "before": {
-          "accept": {
-            "header": "Deleting a customer",
-            "message": "Are you sure you want to remove the customer?"
-          }
-        }
-      },
-      "/api/v1/event/{id}": {
-        "before": {
-          "accept": {
-            "header": "Deleting an event",
-            "message": "Are you sure you want to remove the event?"
-          }
-        }
-      },
-      "/api/v1/service/{id}": {
-        "before": {
-          "accept": {
-            "header": "Deleting a service",
-            "message": "Are you sure you want to remove the service?"
-          }
-        }
-      }
-    },
-    "PATCH": {
-      "/api/v1/event/{id}/booked": {
-        "after": {
-          "success": {
-            "header": "Event booked",
-            "message": "Event was successfully booked."
-          }
-        }
-      },
-      "/api/v1/event/{id}/cancelled": {
-        "after": {
-          "success": {
-            "header": "Event cancelled",
-            "message": "Event was successfully cancelled."
-          }
-        }
-      },
-      "/api/v1/event/{id}/done": {
-        "after": {
-          "success": {
-            "header": "Event done",
-            "message": "Event was successfully done."
-          }
-        }
-      },
-      "/api/v1/event/{id}/rejected": {
-        "after": {
-          "success": {
-            "header": "Event rejected",
-            "message": "Event was successfully rejected."
-          }
-        }
-      },
-      "/api/v1/event/{id}/requested": {
-        "after": {
-          "success": {
-            "header": "Event requested",
-            "message": "Event was successfully requested."
-          }
-        }
-      }
-    },
-    "POST": {
-      "/api/v1/customer": {
-        "after": {
-          "success": {
-            "header": "Customer created",
-            "message": "Customer was successfully created."
-          }
-        }
-      },
-      "/api/v1/event": {
-        "after": {
-          "success": {
-            "header": "Event created",
-            "message": "Event was successfully created."
-          }
-        }
-      },
-      "/api/v1/service": {
-        "after": {
-          "success": {
-            "header": "Service created",
-            "message": "Service was successfully created."
-          }
-        }
-      }
-    },
-    "PUT": {
-      "/api/v1/business-profile": {
-        "after": {
-          "success": {
-            "header": "Business profile",
-            "message": "Business profile was successfully updated."
-          }
-        }
-      },
-      "/api/v1/customer/{id}": {
-        "after": {
-          "success": {
-            "header": "Customer updated",
-            "message": "Customer was successfully updated."
-          }
-        }
-      },
-      "/api/v1/event/{id}": {
-        "after": {
-          "success": {
-            "header": "Event updated",
-            "message": "Event was successfully updated."
-          }
-        }
-      },
-      "/api/v1/service/{id}": {
-        "after": {
-          "success": {
-            "header": "Service updated",
-            "message": "Service was successfully updated."
-          }
-        }
-      }
-    },
-    "response": {
-      "status": {
-        "504": {
-          "content": "Check internet or try again later.",
-          "title": "Server Error"
-        }
-      }
-    }
-  },
-  "identity": {
-    "confirm-email": {
-      "hint": "Maybe the previous email has already expired, you can send another one to confirm the email",
-      "sendAgain": {
-        "hint": "After clicking, we will send you an email with a link to confirm your email address"
-      },
-      "sent": {
-        "hint": "Check your e-mail box, sometimes different mail services may not interpret our e-mail correctly, also look in spam!",
-        "title": "Email sent successfully"
-      },
-      "title": "You do not have a verified email address"
-    },
-    "confirm-invitation": {
-      "form": {
-        "description": "This is the last step to joining the organization to which you have been invited",
-        "inputs": {
-          "password": {
-            "label": "Create a password for authorization"
-          }
-        }
-      }
-    },
-    "confirmInvitation": {
-      "success": "Congratulations, you can now log in"
-    },
-    "corridor": {
-      "addBusiness": "Create new Business",
-      "selectBusiness": "Select Business context"
-    },
-    "create-business": {
-      "form": {
-        "inputs": {
-          "address": {
-            "label": "Address"
-          },
-          "businessName": {
-            "label": "Business Name",
-            "placeholder": "Salon Urody \"Bee O`clock\""
-          },
-          "name": {
-            "label": "Name"
-          },
-          "slogan": {
-            "label": "Slogan"
-          }
-        }
-      },
-      "section": {
-        "category": {
-          "title": "Choose Your Niche"
-        },
-        "industry": {
-          "title": "What is Your Industry?"
-        },
-        "introduction": {
-          "button": "Get Started",
-          "description": "Boost your business performance with an all-in-one solution",
-          "welcome": "Welcome to"
-        },
-        "languages": {
-          "title": "What languages do you do business in?"
-        },
-        "names": {
-          "title": "Enter Your Name and the Name of Your Business"
-        },
-        "pointOfSale": {
-          "title": "Where Can Customers Reach You?"
-        },
-        "portfolio": {
-          "title": "Your Portfolio"
-        },
-        "processing": {
-          "button": "Go to the dashboard"
-        },
-        "schedules": {
-          "title": "Your Working Hours"
-        },
-        "serviceProvideType": {
-          "title": "Choose Your Service Approach"
-        },
-        "services": {
-          "title": "What Services you Provide?"
-        }
-      }
-    },
-    "forgot-password": {
-      "form": {
-        "button": {
-          "sign-in": "Login",
-          "submit": "Send"
-        },
-        "inputs": {
-          "email": {
-            "label": "E-mail",
-            "placeholder": "Enter E-mail"
-          }
-        },
-        "label": "Password recovery"
-      }
-    },
-    "reset-password": {
-      "form": {
-        "button": {
-          "sign-in": "Login",
-          "submit": "Change password"
-        },
-        "inputs": {
-          "password": {
-            "label": "Password",
-            "placeholder": "Enter password"
-          }
-        },
-        "label": "Reset password"
-      }
-    },
-    "sign-in": {
-      "form": {
-        "button": {
-          "forgot-password": "Forgot password",
-          "sign-up": "Registration",
-          "submit": "Login"
-        },
-        "inputs": {
-          "email": {
-            "label": "E-mail",
-            "placeholder": "name.surname@beeoclock.com"
-          },
-          "password": {
-            "label": "Password",
-            "placeholder": "Enter password"
-          }
-        },
-        "label": "Login"
-      },
-      "hint": {
-        "notAMember": "Not a member yet?",
-        "signInToYourAccount": "Sign in to your account"
-      },
-      "link": {
-        "forgotPassword": "Forgot password?"
-      }
-    },
-    "sign-up": {
-      "afterSuccess": {
-        "nextStep": "The next step is to confirm your email.",
-        "openMailService": "Open the email service",
-        "weSentEmail": "We sent a letter to the address",
-        "youHaveSuccessfullyRegistered": "Congratulations, you have successfully registered!"
-      },
-      "form": {
-        "button": {
-          "sign-in": "Login",
-          "submit": "Registration"
-        },
-        "inputs": {
-          "display-name": {
-            "label": "How should everyone call you",
-            "placeholder": "e.g. Company name, Personal name"
-          },
-          "email": {
-            "label": "E-mail",
-            "placeholder": "Enter E-mail address"
-          },
-          "password": {
-            "label": "Password",
-            "placeholder": "Enter password"
-          },
-          "password-confirm": {
-            "label": "Password confirm",
-            "placeholder": "Enter password confirm"
-          },
-          "timezone": {
-            "inputs": {
-              "offset": {
-                "label": "Password confirm",
-                "placeholder": "Enter password confirm"
-              }
-            }
-          }
-        },
-        "label": "Registration"
-      },
-      "hint": {
-        "youHaveAnAccount": "You have an account?"
-      }
-    }
-  },
-  "keyword": {
-    "capitalize": {
-      "account": "Account",
-      "action": "Action",
-      "activate": "Activate",
-      "active": "Active",
-      "add-event": "Add event",
-      "add-service": "Add service",
-      "addAvailableHours": "Add available hours",
-      "addContactPhone": "Add phone number",
-      "addDuration": "Add duration",
-      "addSocialMedia": "Add social media",
-      "additional": "Additional",
-      "address": "Address",
-      "amount": "Amount",
-      "approvalType": "Approval type",
-      "approve": "Approve",
-      "attendees": "Attendees",
-      "autoActionOnOrderInSeconds": "Automatic action start time",
-      "autoActionTypeOnOrder": "Type of automatic action",
-      "avatar": "Avatar",
-      "back": "Back",
-      "bookingSettings": "Booking settings",
-      "break": "Break",
-      "business": "Business",
-      "businessCategory": "Business category",
-      "businessIndustry": "Business industry",
-      "businessName": "Business name",
-      "businessNote": "Business note",
-      "businessProfile": "Business profile",
-      "businessSettings": "Business settings",
-      "cancel": "Cancel",
-      "chooseImage": "Choose image",
-      "city": "City",
-      "clearCache": "Refresh cache",
-      "clickToUpload": "Click to upload",
-      "clients": "Clients",
-      "close": "Close",
-      "comingSoon": "Coming soon...",
-      "confirm": "Confirm",
-      "contact": "Contact",
-      "contactPhone": "Contact phone",
-      "country": "Country",
-      "create": "Create",
-      "createdAt": "Created at",
-      "customer": "Customer",
-      "customers": "customers",
-      "dataNotFound": "Data not found",
-      "dateAndTime": "Date and time",
-      "deactivate": "Deactivate",
-      "delete": "Delete",
-      "description": "Description",
-      "details": "Details",
-      "dismiss": "Dismiss",
-      "done": "Done",
-      "downloadMore": "Download more",
-      "duration": "Duration",
-      "earliestBooking": "Earliest booking time",
-      "edit": "Edit",
-      "email": "E-mail",
-      "end": "End",
-      "event": "Event",
-      "events": "Events",
-      "every": "Every",
-      "facilities": "Facilities",
-      "feature": "Feature",
-      "firstName": "First name",
-      "from": "From",
-      "fullName": "Full name",
-      "general": "General",
-      "image": "Image",
-      "inactive": "Inactive",
-      "information": "Information",
-      "initializing": "Initializing",
-      "language": "Language",
-      "languages": "Languages",
-      "lastName": "Last name",
-      "lastUpdate": "Last update",
-      "latestBooking": "When an event can be booked",
-      "logout": "Logout",
-      "members": "Members",
-      "menu": "Menu",
-      "name": "Name",
-      "next": "Next",
-      "nextStep": "Next step",
-      "no": "No",
-      "noData": "No data",
-      "notSpecified": "Not specified",
-      "note": "Note",
-      "notification": "Notification",
-      "openTimePicker": "Select",
-      "order": "Order",
-      "ownOptionOfTime": "Hour according to your wish",
-      "ownOptionOfTimeHint": "Choose this option if you want to determine the time of the event yourself, regardless of other events scheduled for that time.",
-      "payer": "Payer",
-      "payment": "Payment",
-      "paymentMethod": "Payment method",
-      "paymentStatus": "Payment status",
-      "periodOfDay": {
-        "AFTERNOON": "Afternoon",
-        "EVENING": "Evening",
-        "MORNING": "Morning",
-        "NIGHT": "Night"
-      },
-      "permission": "Permission",
-      "phone": "Phone",
-      "placeholder": {
-        "description": "Type description",
-        "search": "Search",
-        "selectBusinessCategory": "Select business category",
-        "selectBusinessIndustry": "Select business industry",
-        "selectServiceProvideType": "Select service provide type"
-      },
-      "portfolio": "Portfolio",
-      "preview": "Preview",
-      "previous": "Previous",
-      "price": "Price",
-      "priceTimeFormatPrompt": "hours:minutes",
-      "prices": "Prices",
-      "processing": "Processing",
-      "publicPage": "Public page",
-      "reject": "Reject",
-      "role": "Role",
-      "save": "Save",
-      "search": "search",
-      "select": "Select",
-      "selectSpecialist": "Select specialist",
-      "selected": "Selected",
-      "selectedDateTime": "Selected date and time",
-      "selectedMember": "Selected member",
-      "send": "Send",
-      "sendAgain": "Send again",
-      "service": "Service",
-      "serviceProvideType": "Service provide type",
-      "services": "Services",
-      "signIn": "Sign in",
-      "signOut": "Sign out",
-      "signUp": "Sign up",
-      "slogan": "Slogan",
-      "socialMedia": "Social media",
-      "soon": "Soon",
-      "specialist": "Specialist",
-      "specialists": "Specialists",
-      "start": "Start",
-      "status": "Status",
-      "streetAddressLineOne": "Address 1",
-      "streetAddressLineTwo": "Address 2",
-      "successfully": "Successfully",
-      "theme": "Theme",
-      "thereArentAnyEvents": "There aren't any events on {{ datetime }}",
-      "title": "Title",
-      "to": "To",
-      "today": "Today",
-      "tomorrow": "Tomorrow",
-      "total": "Total",
-      "unknown": "Unknown",
-      "update": "Updated",
-      "updatedAt": "Updated at",
-      "warning": "Warning",
-      "workdays": "Workdays",
-      "workingHours": "Working hours",
-      "writePrice": "Write price",
-      "yes": "Yes",
-      "zipCode": "Zip code"
-    },
-    "lowercase": {
-      "after": "after",
-      "ago": "ago",
-      "all": "all",
-      "at": "at",
-      "days": "days",
-      "details": "details",
-      "dragAndDrop": "drag and drop",
-      "in": "in",
-      "min": "min.",
-      "no-data": "no data",
-      "now": "now",
-      "or": "or",
-      "sec": "sec.",
-      "service": "service",
-      "short": {
-        "days": "d",
-        "hour": "h",
-        "minutes": "min"
-      }
-    },
-    "singular": {
-      "capitalize": {
-        "client": "Client",
-        "freeMovement": "Free movement",
-        "openDetails": "Open details",
-        "type": "Type"
-      }
-    },
-    "status": {
-      "all": "All",
-      "plural": {
-        "0": "Inactive",
-        "1": "Active"
-      }
-    }
-  },
-  "latestBooking": {
-    "EIGHT_WEEKS": "Within 8 weeks",
-    "FIVE_WEEKS": "Within 5 weeks",
-    "FOUR_WEEKS": "Within 4 weeks",
-    "NO_LIMIT": "Any available time",
-    "SEVEN_WEEKS": "Within 7 weeks",
-    "SIX_WEEKS": "Within 6 weeks",
-    "THREE_WEEKS": "Within 3 weeks",
-    "TWO_WEEKS": "This week and next week"
-  },
-  "mandatoryAttendeeProperties": {
-    "options": {
-      "email": "E-mail",
-      "firstName": "First name",
-      "phone": "Phone"
-    }
-  },
-  "member": {
-    "button": {
-      "create": "Add member"
-    },
-    "details": {
-      "title": "Information about a member of staff"
-    },
-    "enum": {
-      "profileStatus": {
-        "active": "Active",
-        "deleted": "Deleted",
-        "suspended": "Suspended"
-      }
-    },
-    "form": {
-      "assignments": {
-        "button": {
-          "hint": {
-            "all": "entire list",
-            "includeIsEmpty": "none"
-          },
-          "label": "Services provided by the specialist"
-        },
-        "service": {
-          "full": {
-            "label": "The specialist provides all available (active) services on the list"
-          },
-          "select": {
-            "title": "Selection of services"
-          }
-        }
-      },
-      "title": {
-        "create": "Add a team member",
-        "edit": "Edit a team member"
-      }
-    },
-    "title": "Member"
-  },
-  "order": {
-    "button": {
-      "create": "Add order"
-    },
-    "details": {
-      "title": "Order details"
-    },
-    "enum": {
-      "status": {
-        "singular": {
-          "cancelled": "Cancelled",
-          "confirmed": "Confirmed",
-          "done": "Done",
-          "draft": "Draft",
-          "pending": "Pending",
-          "rejected": "Rejected",
-          "requested": "Requested"
-        }
-      }
-    },
-    "form": {
-      "payment": {
-        "payer": {
-          "case": {
-            "new": {
-              "hint": "In this case, the payer will be automatically added to the customer database"
-            },
-            "unregistered": {
-              "hint": "The payer will not be automatically added to the customer database"
-            }
-          }
-        }
-      },
-      "title": {
-        "create": "Adding an order",
-        "edit": "Editing an order"
-      }
-    }
-  },
-  "page": {
-    "calendar": {
-      "title": "Calendar"
-    },
-    "select-client": {
-      "button": {
-        "create-new-client": "Create a new client"
-      },
-      "form": {
-        "button": {
-          "submit": "Select"
-        }
-      },
-      "title": "Select client"
-    }
-  },
-  "pagination": {
-    "message": {
-      "allDataDownloaded": "All available data has been downloaded"
-    }
-  },
-  "payment": {
-    "method": {
-      "CARD": {
-        "label": "Card"
-      },
-      "CASH": {
-        "label": "Cash"
-      }
-    },
-    "providerType": {
-      "onSite": {
-        "label": "On site"
-      }
-    },
-    "status": {
-      "failed": {
-        "label": "Failed"
-      },
-      "pending": {
-        "label": "Pending"
-      },
-      "registered": {
-        "label": "Registered"
-      },
-      "succeeded": {
-        "label": "Succeeded"
-      }
-    }
-  },
-  "role": {
-    "ADMIN": "Admin",
-    "OWNER": "Owner",
-    "SPECIALIST": "Specialist"
-  },
-  "service": {
-    "details": {
-      "title": "Information about the service"
-    },
-    "form": {
-      "order": {
-        "input": {
-          "placeholder": "Specify the position of this service in the list on the public site"
-        }
-      },
-      "title": {
-        "create": "Adding a service",
-        "edit": "Editing a service"
-      },
-      "v2": {
-        "section": {
-          "availableLanguages": {
-            "hint": "You can create a service that will be available in multiple languages, to add another language, select one of the available languages",
-            "title": "Service languages"
-          },
-          "presentation": {
-            "motivate": "You can inject a little more personality into your services and help people recognize your work by uploading a \n image (an image, photo or other graphic icon of your service)."
-          },
-          "prices": {
-            "button": {
-              "add": {
-                "label": "Add price"
-              }
-            },
-            "suffix": {
-              "range": {
-                "from": " (from)",
-                "to": " (to)"
-              }
-            },
-            "switch": {
-              "range": {
-                "title": "Range mode (from - to)"
-              }
-            }
-          }
-        }
-      }
-    },
-    "keyword": {
-      "capitalize": {
-        "active": "Active",
-        "inactive": "Inactive"
-      }
-    },
-    "title": "Service"
-  },
-  "serviceProvideType": {
-    "Mixed": "Mixed",
-    "Offline": "Offline",
-    "Online": "Online"
-  },
-  "sidebar": {
-    "absence": "Absence",
-    "addEvent": "Add event",
-    "businessProfile": "Business profile",
-    "businessSettings": "Company settings",
-    "calendar": {
-      "label": "Calendar",
-      "ordinary": {
-        "label": "Ordinary"
-      },
-      "withSpecialists": {
-        "label": "With specialists"
-      }
-    },
-    "customers": "Customers",
-    "dashboard": "Dashboard",
-    "events": "Events",
-    "members": "Members",
-    "order": "Orders",
-    "private": "Private",
-    "profile": {
-      "signOut": {
-        "header": "Logout",
-        "message": "Do you really want to leave?"
-      }
-    },
-    "requested": "Requests",
-    "services": "Services",
-    "settings": "Settings",
-    "statistic": "Statistics",
-    "switch-business-client": "Change context",
-    "table": "Table"
-  },
-  "sign-out": {
-    "button": {
-      "sign-out": {
-        "label": "Sign out now"
-      }
-    },
-    "title": "Sign out"
-  },
-  "slotBuildingStrategy": {
-    "hint": "Choose the time interval according to which the available slots for your client should be built, or choose the format in which the available time slots will be built by the selected service",
-    "options": {
-      "accordingToAService": "According to a service"
-    },
-    "title": "Construction of time slots"
-  },
-  "slotRetrievingStrategy": {
-    "hint": "This strategy controls the possibility of choosing time intervals for events that have not yet received confirmation from the specialist. Below you will see examples of the chosen strategy.",
-    "hists": {
-      "byOption": {
-        "IncludeRequested": "This option blocks the ability of clients to add new events to slots with already existing entries in status",
-        "OnlyBooked": "Wybrana opcja umożliwia klientom dodawanie nowych wydarzeń do już zajętych slotów za pośrednictwem strony publicznej, pod warunkiem, że żadne z nich nie otrzymało jeszcze statusu"
-      }
-    },
-    "options": {
-      "IncludeRequested": "Including requested events",
-      "OnlyBooked": "Only booked"
-    },
-    "title": "Strategy of proposed time intervals"
-  },
-  "updateAvailable": {
-    "header": "New version",
-    "message": "A new version of the app is available, would you like to update?"
-  },
-  "weekday": {
-    "long": {
-      "friday": "Friday",
-      "monday": "Monday",
-      "saturday": "Saturday",
-      "sunday": "Sunday",
-      "thursday": "Thursday",
-      "tuesday": "Tuesday",
-      "wednesday": "Wednesday"
-    },
-    "short": {
-      "friday": "Fri",
-      "monday": "Mon",
-      "saturday": "Sat",
-      "sunday": "Sun",
-      "thursday": "Thu",
-      "tuesday": "Tue",
-      "wednesday": "Wed"
-    }
-  }
+	"absence": {
+		"button": {
+			"create": "Add absence"
+		},
+		"details": {
+			"title": "Absence details"
+		},
+		"form": {
+			"inputs": {
+				"entireBusiness": {
+					"label": "Entire business"
+				},
+				"note": {
+					"placeholder": "It is better to have and not need than not to have and need, leave a note from which you will understand what happened later"
+				},
+				"type": {
+					"label": "Type"
+				}
+			},
+			"membersIds": {
+				"select": {
+					"title": "Selection of members"
+				}
+			},
+			"title": {
+				"create": "Adding an absence",
+				"edit": "Editing an absence"
+			}
+		},
+		"type": {
+			"break": {
+				"label": "Break"
+			},
+			"holiday": {
+				"label": "Holiday"
+			},
+			"vacation": {
+				"label": "Vacation"
+			}
+		}
+	},
+	"autoActionOnOrderInSeconds": {
+		"EIGHT_HOURS": "8 hours",
+		"FIFTEEN_MINUTES": "15 minutes",
+		"FIVE_HOURS": "5 hours",
+		"FIVE_MINUTES": "5 minutes",
+		"FORTY_FIVE_MINUTES": "45 minutes",
+		"FOUR_HOURS": "4 hours",
+		"ONE_DAY": "1 day",
+		"ONE_HOUR": "1 hour",
+		"SEVEN_HOURS": "7 hours",
+		"SIX_HOURS": "6 hours",
+		"TEN_MINUTES": "10 minutes",
+		"THIRTY_MINUTES": "30 minutes",
+		"THREE_HOURS": "3 hours",
+		"TWENTY_MINUTES": "20 minutes",
+		"TWO_HOURS": "2 hours"
+	},
+	"autoActionTypeOnOrder": {
+		"APPROVE": "Approve",
+		"DENY": "Deny"
+	},
+	"autoRefresh": {
+		"hint": {
+			"selectTime": "Auto. update"
+		},
+		"time": {
+			"off": "off"
+		}
+	},
+	"businessCategory": {
+		"Barbershop": "Barbershop",
+		"BeautySalon": "Beauty salon",
+		"Dentistry": "Dentistry",
+		"EyebrowStylist": "Eyebrow stylist",
+		"Hairdresser": "Hairdresser",
+		"Manicurist": "Manicurist",
+		"Other": "Other",
+		"PhysicalRehabilitation": "Physical rehabilitation",
+		"Psychotherapy": "Psychotherapy"
+	},
+	"businessIndustry": {
+		"BeautyIndustry": "Beauty industry",
+		"Healthcare": "Healthcare",
+		"Other": "Other",
+		"TeachingAndConsultation": "Teaching & consultation"
+	},
+	"change-name": {
+		"form": {
+			"input": {
+				"name": {
+					"placeholder": "Your full name"
+				}
+			}
+		},
+		"modal": {
+			"title": "Change name"
+		}
+	},
+	"change-phone-number": {
+		"form": {
+			"input": {
+				"phoneNumber": {
+					"placeholder": "Your phone number"
+				}
+			}
+		},
+		"modal": {
+			"title": "Change phone number"
+		}
+	},
+	"client": {
+		"profile": {
+			"form": {
+				"inputs": {
+					"active": {
+						"label": "Active",
+						"placeholder": "Switch on if you want to be active"
+					},
+					"description": {
+						"label": "Business description",
+						"placeholder": "Shortly describe what you do"
+					},
+					"feature": {
+						"label": "Feature",
+						"placeholder": "Enter catching phrase"
+					},
+					"name": {
+						"label": "Business name",
+						"placeholder": "Type Company or Personal name"
+					},
+					"published": {
+						"label": "Public access"
+					},
+					"username": {
+						"hint": {
+							"under": "Please note that any changes you make in this area can affect various indicators. Take SEO, for example - changes here can affect where your content appears in search results."
+						},
+						"label": "Username",
+						"placeholder": "Bee.O_clock"
+					}
+				},
+				"section": {
+					"address": {
+						"input": {
+							"city": {
+								"placeholder": "Your city"
+							},
+							"country": {
+								"placeholder": "Your country"
+							},
+							"customLink": {
+								"hint": "Specify the link where the user should be taken from the public page by clicking on the address, if you want to use the standard mode, leave this field blank",
+								"label": "Custom link",
+								"placeholder": "https://example.com"
+							},
+							"streetAddressLineOne": {
+								"placeholder": "Street, avn., boulevard, etc. name"
+							},
+							"streetAddressLineTwo": {
+								"placeholder": "Office, house, etc. number"
+							},
+							"zipCode": {
+								"placeholder": "Your zip-code"
+							}
+						},
+						"title": "Address"
+					},
+					"bookingSettings": {
+						"hint": {
+							"autoActionOnEvent": {
+								"after": "in",
+								"finish": "after creation.",
+								"start": "The newly created event/reservation will be automatically"
+							}
+						},
+						"input": {
+							"autoActionOnOrderInSeconds": {
+								"placeholder": "Choose the time after which the selected automatic action should start for the newly created reservation/event"
+							},
+							"autoActionTypeOnOrder": {
+								"placeholder": "Select the type of action that should take place automatically for the newly created reservation/event"
+							},
+							"earliestBooking": {
+								"placeholder": "That is the shortest time after which it is possible to book a service"
+							},
+							"latestBooking": {
+								"placeholder": "Set of period of rolling weeks people can book in your calendar"
+							}
+						},
+						"select": {
+							"mandatoryAttendeeProperties": {
+								"hint": "Choose which fields should be required on the public page for your customers",
+								"label": "Required fields"
+							},
+							"timeZone": {
+								"hint": "Select the time zone where you do business, this field will determine the process to create free appointments for bookings and display your work schedule.",
+								"label": "Time zone"
+							}
+						}
+					},
+					"businessSettings": {
+						"select": {
+							"availableLanguages": {
+								"hint": "Choose the languages in which you do business, maybe you do business not only for locals but also for tourists. This choice will determine the available list of languages for emails",
+								"label": "Languages in which you do business"
+							},
+							"baseCurrency": {
+								"hint": "Select the main currency in which you operate, this is necessary for reports and the correct presentation of the amount when placing an order.",
+								"label": "Main currency"
+							},
+							"currencies": {
+								"hint": "Select the currencies in which you can receive payment for the service provided, thanks to this setting you can choose a specific currency for a specific service.",
+								"label": "Currencies"
+							},
+							"emailLanguage": {
+								"hint": "Select the language in which you want to receive emails, the available options depend on the languages you do business in",
+								"label": "The language of emails"
+							}
+						}
+					},
+					"coverImage": {
+						"fileover": "Put your files here",
+						"motivate": "You can inject a little more personality into your profile and help people recognize your work by uploading a \n image (an image, photo or other graphic icon of your business).",
+						"title": "Cover image"
+					},
+					"gallery": {
+						"comment": "Upload images that demonstrate your work from the best side. Images must be 1800px wide by 900px high and in JPEG or PNG format. You may upload up to 6 images.",
+						"title": "Gallery"
+					},
+					"logo": {
+						"fileover": "Put your files here",
+						"formats": "Allowed types: SVG, PNG, JPG or GIF",
+						"motivate": "You can inject a little more personality into your business profile and help people recognize you by uploading a logo (an image, photo or other graphic icon of \"you\").",
+						"title": "Logo"
+					}
+				}
+			},
+			"title": "Profile"
+		},
+		"settings": {
+			"defaultData": {
+				"event": {
+					"form": {
+						"inputs": {
+							"language": {
+								"label": "Default event language"
+							},
+							"service": {
+								"label": "Default event service (top service)"
+							}
+						}
+					},
+					"title": "Default data of event"
+				},
+				"service": {
+					"form": {
+						"inputs": {
+							"break": {
+								"label": "Default service break"
+							},
+							"duration": {
+								"label": "Default service duration"
+							},
+							"endWork": {
+								"label": "Default service end to work"
+							},
+							"language": {
+								"label": "Default service language"
+							},
+							"price": {
+								"label": "Default service price"
+							},
+							"startWork": {
+								"label": "Default service start to work"
+							},
+							"workDays": {
+								"label": "Default service work days"
+							}
+						}
+					},
+					"title": "Default data of service"
+				}
+			},
+			"form": {
+				"autoBookOrder": {
+					"label": "Allow a customer to book an event immediately with a confirmed status"
+				},
+				"inputs": {
+					"darkMode": {
+						"label": "Dark mode"
+					}
+				}
+			},
+			"title": "Settings"
+		}
+	},
+	"country": {
+		"DK": "Denmark",
+		"PL": "Poland",
+		"UA": "Ukraine"
+	},
+	"customer": {
+		"button": {
+			"create": "Add customer"
+		},
+		"details": {
+			"title": "Customer details"
+		},
+		"enum": {
+			"type": {
+				"anonymous": "Anonymous",
+				"new": "New",
+				"regular": "Customer",
+				"unregistered": "Guest"
+			}
+		},
+		"form": {
+			"input": {
+				"note": {
+					"placeholder": "Here you can enter additional information about the customer"
+				}
+			},
+			"title": {
+				"create": "Adding a customer",
+				"edit": "Editing a customer"
+			}
+		},
+		"title": "Customer"
+	},
+	"danger-zone": {
+		"button": {
+			"delete": {
+				"label": "Delete business account"
+			}
+		},
+		"hint": {
+			"message": "Delete business account. After deleting the business account, there is no going back. Please consider this action carefully."
+		},
+		"title": "Danger zone"
+	},
+	"earliestBooking": {
+		"FIVE_HOURS": "In 5 hours",
+		"FOUR_HOURS": "In 4 hours",
+		"MINUTE_15": "In 15 minutes",
+		"MINUTE_30": "In 30 minutes",
+		"NO_LIMIT": "No earliest booking time",
+		"ONE_DAY": "In 1 day",
+		"ONE_HOUR": "In 1 hour",
+		"ONE_WEEK": "In 1 week",
+		"SIX_HOURS": "In 6 hours",
+		"THREE_DAYS": "In 3 days",
+		"THREE_HOURS": "In 3 hours",
+		"TWO_HOURS": "In 2 hours"
+	},
+	"enum": {
+		"facility": {
+			"capitalize": {
+				"ACCEPTING_CARD_PAYMENT": "Accepting credit cards",
+				"ACCEPTING_CHILDREN": "Child-friendly",
+				"ACCEPTING_PETS": "Pets allowed",
+				"ACCOMMODATIONS_FOR_PEOPLE_WITH_DISABILITIES": "Accommodations for people with disabilities",
+				"FREE_PARKING": "Free Parking",
+				"INTERNET": "Internet (Wi-Fi)"
+			}
+		},
+		"theme": {
+			"dark": "Dark",
+			"light": "Light"
+		}
+	},
+	"event": {
+		"action": {
+			"button": {
+				"done": {
+					"label": "Event completed"
+				}
+			}
+		},
+		"additionalMenu": {
+			"items": {
+				"addNewAbsence": {
+					"hint": "Through this option you will add a new break in your calendar for yourself or for others.",
+					"title": "Add a new absence"
+				},
+				"addNewOrder": {
+					"hint": "Through this option, you will add a new order with the service and product.",
+					"title": "Add a new order"
+				}
+			},
+			"title": "Additional menu"
+		},
+		"details": {
+			"title": "Detailed view of the event"
+		},
+		"form": {
+			"section": {
+				"additional": {
+					"input": {
+						"note": {
+							"placeholder": "Here you can enter additional information about the event"
+						}
+					}
+				},
+				"attendant": {
+					"button": {
+						"add": "Add attendant",
+						"select": "Select customer",
+						"togglePresentationOfNewAttendant": "This client is not listed (new client)"
+					},
+					"input": {
+						"selectCustomer": {
+							"placeholder": "Select customer"
+						}
+					}
+				},
+				"customer": {
+					"modal": {
+						"title": "Customer choice"
+					}
+				},
+				"datetime": {
+					"hint": {
+						"selectDateToSelectTimeSlot": "Select one of the proposed dates to be able to choose the time"
+					}
+				},
+				"service": {
+					"button": {
+						"add": "Add service",
+						"select": "Select service"
+					},
+					"input": {
+						"selectService": {
+							"placeholder": "Select service"
+						}
+					},
+					"modal": {
+						"title": "Select service"
+					}
+				}
+			},
+			"title": {
+				"create": "Adding a new event",
+				"edit": "Edition of the event"
+			}
+		},
+		"keyword": {
+			"capitalize": {
+				"end": "Estimated End",
+				"repeat": "Repeat",
+				"service": "Service",
+				"start": "Booking Start",
+				"status": "Status"
+			},
+			"status": {
+				"all": "All",
+				"plural": {
+					"accepted": "Accepted",
+					"cancelled": "Canceled",
+					"done": "Done",
+					"pending": "In progress",
+					"rejected": "Rejected",
+					"requested": "Requested"
+				},
+				"singular": {
+					"accepted": "Accepted",
+					"cancelled": "Canceled",
+					"done": "Done",
+					"pending": "In progress",
+					"rejected": "Rejected",
+					"requested": "Requested"
+				}
+			}
+		},
+		"statistic": {
+			"period": {
+				"LAST_MONTH": "Last month",
+				"LAST_WEEK": "Last week",
+				"LAST_YEAR": "Last year",
+				"THIS_MONTH": "This month",
+				"THIS_WEEK": "This week",
+				"THIS_YEAR": "This year",
+				"TODAY": "Today",
+				"YESTERDAY": "Yesterday"
+			}
+		},
+		"title": "Event",
+		"warning": {
+			"durationAndPriceConflict": "Choose an available duration or the longest will be selected automatically after acceptance.",
+			"multipleEventAtSameTime": "More than one event at this time."
+		}
+	},
+	"example": {
+		"firstName": "John",
+		"lastName": "Smith"
+	},
+	"form": {
+		"validation": {
+			"atLeastOneFieldMustBeFilled": "At least one field must be filled",
+			"durationFormatInvalid": "Valid format is hours:minutes (00:00)",
+			"email": "Invalid E-mail format",
+			"emailOrPhoneRequired": "E-mail or phone number is required",
+			"imageSize": "Maximum image size is {{max}}, current size is {{value}}",
+			"mask": "Invalid format, correct format is {{requiredMask}}",
+			"minlength": "Minimum length is {{requiredLength}}",
+			"pattern": "A username can contain only letters, numbers, an underscore (_), and a dot (.)",
+			"required": "Required field",
+			"shouldBeMoreThen": {
+				"startInSeconds": "The end time must be longer than the start time"
+			},
+			"whitespace": "Remove all spaces"
+		}
+	},
+	"http": {
+		"DELETE": {
+			"/api/v1/customer/{id}": {
+				"before": {
+					"accept": {
+						"header": "Deleting a customer",
+						"message": "Are you sure you want to remove the customer?"
+					}
+				}
+			},
+			"/api/v1/event/{id}": {
+				"before": {
+					"accept": {
+						"header": "Deleting an event",
+						"message": "Are you sure you want to remove the event?"
+					}
+				}
+			},
+			"/api/v1/service/{id}": {
+				"before": {
+					"accept": {
+						"header": "Deleting a service",
+						"message": "Are you sure you want to remove the service?"
+					}
+				}
+			}
+		},
+		"PATCH": {
+			"/api/v1/event/{id}/booked": {
+				"after": {
+					"success": {
+						"header": "Event booked",
+						"message": "Event was successfully booked."
+					}
+				}
+			},
+			"/api/v1/event/{id}/cancelled": {
+				"after": {
+					"success": {
+						"header": "Event cancelled",
+						"message": "Event was successfully cancelled."
+					}
+				}
+			},
+			"/api/v1/event/{id}/done": {
+				"after": {
+					"success": {
+						"header": "Event done",
+						"message": "Event was successfully done."
+					}
+				}
+			},
+			"/api/v1/event/{id}/rejected": {
+				"after": {
+					"success": {
+						"header": "Event rejected",
+						"message": "Event was successfully rejected."
+					}
+				}
+			},
+			"/api/v1/event/{id}/requested": {
+				"after": {
+					"success": {
+						"header": "Event requested",
+						"message": "Event was successfully requested."
+					}
+				}
+			}
+		},
+		"POST": {
+			"/api/v1/customer": {
+				"after": {
+					"success": {
+						"header": "Customer created",
+						"message": "Customer was successfully created."
+					}
+				}
+			},
+			"/api/v1/event": {
+				"after": {
+					"success": {
+						"header": "Event created",
+						"message": "Event was successfully created."
+					}
+				}
+			},
+			"/api/v1/service": {
+				"after": {
+					"success": {
+						"header": "Service created",
+						"message": "Service was successfully created."
+					}
+				}
+			}
+		},
+		"PUT": {
+			"/api/v1/business-profile": {
+				"after": {
+					"success": {
+						"header": "Business profile",
+						"message": "Business profile was successfully updated."
+					}
+				}
+			},
+			"/api/v1/customer/{id}": {
+				"after": {
+					"success": {
+						"header": "Customer updated",
+						"message": "Customer was successfully updated."
+					}
+				}
+			},
+			"/api/v1/event/{id}": {
+				"after": {
+					"success": {
+						"header": "Event updated",
+						"message": "Event was successfully updated."
+					}
+				}
+			},
+			"/api/v1/service/{id}": {
+				"after": {
+					"success": {
+						"header": "Service updated",
+						"message": "Service was successfully updated."
+					}
+				}
+			}
+		},
+		"response": {
+			"status": {
+				"504": {
+					"content": "Check internet or try again later.",
+					"title": "Server Error"
+				}
+			}
+		}
+	},
+	"identity": {
+		"confirm-email": {
+			"hint": "Maybe the previous email has already expired, you can send another one to confirm the email",
+			"sendAgain": {
+				"hint": "After clicking, we will send you an email with a link to confirm your email address"
+			},
+			"sent": {
+				"hint": "Check your e-mail box, sometimes different mail services may not interpret our e-mail correctly, also look in spam!",
+				"title": "Email sent successfully"
+			},
+			"title": "You do not have a verified email address"
+		},
+		"confirm-invitation": {
+			"form": {
+				"description": "This is the last step to joining the organization to which you have been invited",
+				"inputs": {
+					"password": {
+						"label": "Create a password for authorization"
+					}
+				}
+			}
+		},
+		"confirmInvitation": {
+			"success": "Congratulations, you can now log in"
+		},
+		"corridor": {
+			"addBusiness": "Create new Business",
+			"selectBusiness": "Select Business context"
+		},
+		"create-business": {
+			"form": {
+				"inputs": {
+					"address": {
+						"label": "Address"
+					},
+					"businessName": {
+						"label": "Business Name",
+						"placeholder": "Salon Urody \"Bee O`clock\""
+					},
+					"name": {
+						"label": "Name"
+					},
+					"slogan": {
+						"label": "Slogan"
+					}
+				}
+			},
+			"section": {
+				"category": {
+					"title": "Choose Your Niche"
+				},
+				"industry": {
+					"title": "What is Your Industry?"
+				},
+				"introduction": {
+					"button": "Get Started",
+					"description": "Boost your business performance with an all-in-one solution",
+					"welcome": "Welcome to"
+				},
+				"languages": {
+					"title": "What languages do you do business in?"
+				},
+				"names": {
+					"title": "Enter Your Name and the Name of Your Business"
+				},
+				"pointOfSale": {
+					"title": "Where Can Customers Reach You?"
+				},
+				"portfolio": {
+					"title": "Your Portfolio"
+				},
+				"processing": {
+					"button": "Go to the dashboard"
+				},
+				"schedules": {
+					"title": "Your Working Hours"
+				},
+				"serviceProvideType": {
+					"title": "Choose Your Service Approach"
+				},
+				"services": {
+					"title": "What Services you Provide?"
+				}
+			}
+		},
+		"forgot-password": {
+			"form": {
+				"button": {
+					"sign-in": "Login",
+					"submit": "Send"
+				},
+				"inputs": {
+					"email": {
+						"label": "E-mail",
+						"placeholder": "Enter E-mail"
+					}
+				},
+				"label": "Password recovery"
+			}
+		},
+		"reset-password": {
+			"form": {
+				"button": {
+					"sign-in": "Login",
+					"submit": "Change password"
+				},
+				"inputs": {
+					"password": {
+						"label": "Password",
+						"placeholder": "Enter password"
+					}
+				},
+				"label": "Reset password"
+			}
+		},
+		"sign-in": {
+			"form": {
+				"button": {
+					"forgot-password": "Forgot password",
+					"sign-up": "Registration",
+					"submit": "Login"
+				},
+				"inputs": {
+					"email": {
+						"label": "E-mail",
+						"placeholder": "name.surname@beeoclock.com"
+					},
+					"password": {
+						"label": "Password",
+						"placeholder": "Enter password"
+					}
+				},
+				"label": "Login"
+			},
+			"hint": {
+				"notAMember": "Not a member yet?",
+				"signInToYourAccount": "Sign in to your account"
+			},
+			"link": {
+				"forgotPassword": "Forgot password?"
+			}
+		},
+		"sign-up": {
+			"afterSuccess": {
+				"nextStep": "The next step is to confirm your email.",
+				"openMailService": "Open the email service",
+				"weSentEmail": "We sent a letter to the address",
+				"youHaveSuccessfullyRegistered": "Congratulations, you have successfully registered!"
+			},
+			"form": {
+				"button": {
+					"sign-in": "Login",
+					"submit": "Registration"
+				},
+				"inputs": {
+					"display-name": {
+						"label": "How should everyone call you",
+						"placeholder": "e.g. Company name, Personal name"
+					},
+					"email": {
+						"label": "E-mail",
+						"placeholder": "Enter E-mail address"
+					},
+					"password": {
+						"label": "Password",
+						"placeholder": "Enter password"
+					},
+					"password-confirm": {
+						"label": "Password confirm",
+						"placeholder": "Enter password confirm"
+					},
+					"timezone": {
+						"inputs": {
+							"offset": {
+								"label": "Password confirm",
+								"placeholder": "Enter password confirm"
+							}
+						}
+					}
+				},
+				"label": "Registration"
+			},
+			"hint": {
+				"youHaveAnAccount": "You have an account?"
+			}
+		}
+	},
+	"keyword": {
+		"capitalize": {
+			"account": "Account",
+			"action": "Action",
+			"activate": "Activate",
+			"active": "Active",
+			"add-event": "Add event",
+			"add-service": "Add service",
+			"addAvailableHours": "Add available hours",
+			"addContactPhone": "Add phone number",
+			"addDuration": "Add duration",
+			"addSocialMedia": "Add social media",
+			"additional": "Additional",
+			"address": "Address",
+			"amount": "Amount",
+			"anonymous": "Anonymous",
+			"approvalType": "Approval type",
+			"approve": "Approve",
+			"attendees": "Attendees",
+			"autoActionOnOrderInSeconds": "Automatic action start time",
+			"autoActionTypeOnOrder": "Type of automatic action",
+			"avatar": "Avatar",
+			"back": "Back",
+			"bookingSettings": "Booking settings",
+			"break": "Break",
+			"business": "Business",
+			"businessCategory": "Business category",
+			"businessIndustry": "Business industry",
+			"businessName": "Business name",
+			"businessNote": "Business note",
+			"businessProfile": "Business profile",
+			"businessSettings": "Business settings",
+			"cancel": "Cancel",
+			"chooseImage": "Choose image",
+			"city": "City",
+			"clearCache": "Refresh cache",
+			"clickToUpload": "Click to upload",
+			"clients": "Clients",
+			"close": "Close",
+			"comingSoon": "Coming soon...",
+			"confirm": "Confirm",
+			"contact": "Contact",
+			"contactPhone": "Contact phone",
+			"country": "Country",
+			"create": "Create",
+			"createdAt": "Created at",
+			"customer": "Customer",
+			"customers": "customers",
+			"dataNotFound": "Data not found",
+			"dateAndTime": "Date and time",
+			"deactivate": "Deactivate",
+			"delete": "Delete",
+			"description": "Description",
+			"details": "Details",
+			"dismiss": "Dismiss",
+			"done": "Done",
+			"downloadMore": "Download more",
+			"duration": "Duration",
+			"earliestBooking": "Earliest booking time",
+			"edit": "Edit",
+			"email": "E-mail",
+			"end": "End",
+			"event": "Event",
+			"events": "Events",
+			"every": "Every",
+			"facilities": "Facilities",
+			"feature": "Feature",
+			"firstName": "First name",
+			"from": "From",
+			"fullName": "Full name",
+			"general": "General",
+			"image": "Image",
+			"inactive": "Inactive",
+			"information": "Information",
+			"initializing": "Initializing",
+			"language": "Language",
+			"languages": "Languages",
+			"lastName": "Last name",
+			"lastUpdate": "Last update",
+			"latestBooking": "When an event can be booked",
+			"logout": "Logout",
+			"members": "Members",
+			"menu": "Menu",
+			"name": "Name",
+			"next": "Next",
+			"nextStep": "Next step",
+			"no": "No",
+			"noData": "No data",
+			"notSpecified": "Not specified",
+			"note": "Note",
+			"notification": "Notification",
+			"openTimePicker": "Select",
+			"order": "Order",
+			"ownOptionOfTime": "Hour according to your wish",
+			"ownOptionOfTimeHint": "Choose this option if you want to determine the time of the event yourself, regardless of other events scheduled for that time.",
+			"payer": "Payer",
+			"payment": "Payment",
+			"paymentMethod": "Payment method",
+			"paymentStatus": "Payment status",
+			"periodOfDay": {
+				"AFTERNOON": "Afternoon",
+				"EVENING": "Evening",
+				"MORNING": "Morning",
+				"NIGHT": "Night"
+			},
+			"permission": "Permission",
+			"phone": "Phone",
+			"placeholder": {
+				"description": "Type description",
+				"search": "Search",
+				"selectBusinessCategory": "Select business category",
+				"selectBusinessIndustry": "Select business industry",
+				"selectServiceProvideType": "Select service provide type"
+			},
+			"portfolio": "Portfolio",
+			"preview": "Preview",
+			"previous": "Previous",
+			"price": "Price",
+			"priceTimeFormatPrompt": "hours:minutes",
+			"prices": "Prices",
+			"processing": "Processing",
+			"publicPage": "Public page",
+			"reject": "Reject",
+			"role": "Role",
+			"save": "Save",
+			"search": "search",
+			"select": "Select",
+			"selectSpecialist": "Select specialist",
+			"selected": "Selected",
+			"selectedDateTime": "Selected date and time",
+			"selectedMember": "Selected member",
+			"send": "Send",
+			"sendAgain": "Send again",
+			"service": "Service",
+			"serviceProvideType": "Service provide type",
+			"services": "Services",
+			"signIn": "Sign in",
+			"signOut": "Sign out",
+			"signUp": "Sign up",
+			"slogan": "Slogan",
+			"socialMedia": "Social media",
+			"soon": "Soon",
+			"specialist": "Specialist",
+			"specialists": "Specialists",
+			"start": "Start",
+			"status": "Status",
+			"streetAddressLineOne": "Address 1",
+			"streetAddressLineTwo": "Address 2",
+			"successfully": "Successfully",
+			"theme": "Theme",
+			"thereArentAnyEvents": "There aren't any events on {{ datetime }}",
+			"title": "Title",
+			"to": "To",
+			"today": "Today",
+			"tomorrow": "Tomorrow",
+			"total": "Total",
+			"unknown": "Unknown",
+			"update": "Updated",
+			"updatedAt": "Updated at",
+			"warning": "Warning",
+			"workdays": "Workdays",
+			"workingHours": "Working hours",
+			"writePrice": "Write price",
+			"yes": "Yes",
+			"zipCode": "Zip code"
+		},
+		"lowercase": {
+			"after": "after",
+			"ago": "ago",
+			"all": "all",
+			"at": "at",
+			"days": "days",
+			"details": "details",
+			"dragAndDrop": "drag and drop",
+			"in": "in",
+			"min": "min.",
+			"no-data": "no data",
+			"now": "now",
+			"or": "or",
+			"sec": "sec.",
+			"service": "service",
+			"short": {
+				"days": "d",
+				"hour": "h",
+				"minutes": "min"
+			}
+		},
+		"singular": {
+			"capitalize": {
+				"client": "Client",
+				"freeMovement": "Free movement",
+				"openDetails": "Open details",
+				"type": "Type"
+			}
+		},
+		"status": {
+			"all": "All",
+			"plural": {
+				"0": "Inactive",
+				"1": "Active"
+			}
+		}
+	},
+	"latestBooking": {
+		"EIGHT_WEEKS": "Within 8 weeks",
+		"FIVE_WEEKS": "Within 5 weeks",
+		"FOUR_WEEKS": "Within 4 weeks",
+		"NO_LIMIT": "Any available time",
+		"SEVEN_WEEKS": "Within 7 weeks",
+		"SIX_WEEKS": "Within 6 weeks",
+		"THREE_WEEKS": "Within 3 weeks",
+		"TWO_WEEKS": "This week and next week"
+	},
+	"mandatoryAttendeeProperties": {
+		"options": {
+			"email": "E-mail",
+			"firstName": "First name",
+			"phone": "Phone"
+		}
+	},
+	"member": {
+		"button": {
+			"create": "Add member"
+		},
+		"details": {
+			"title": "Information about a member of staff"
+		},
+		"enum": {
+			"profileStatus": {
+				"active": "Active",
+				"deleted": "Deleted",
+				"suspended": "Suspended"
+			}
+		},
+		"form": {
+			"assignments": {
+				"button": {
+					"hint": {
+						"all": "entire list",
+						"includeIsEmpty": "none"
+					},
+					"label": "Services provided by the specialist"
+				},
+				"service": {
+					"full": {
+						"label": "The specialist provides all available (active) services on the list"
+					},
+					"select": {
+						"title": "Selection of services"
+					}
+				}
+			},
+			"title": {
+				"create": "Add a team member",
+				"edit": "Edit a team member"
+			}
+		},
+		"title": "Member"
+	},
+	"order": {
+		"button": {
+			"create": "Add order"
+		},
+		"details": {
+			"title": "Order details"
+		},
+		"enum": {
+			"status": {
+				"singular": {
+					"cancelled": "Cancelled",
+					"confirmed": "Confirmed",
+					"done": "Done",
+					"draft": "Draft",
+					"pending": "In progress",
+					"rejected": "Rejected",
+					"requested": "Requested"
+				}
+			}
+		},
+		"form": {
+			"payment": {
+				"payer": {
+					"case": {
+						"new": {
+							"hint": "In this case, the payer will be automatically added to the customer database"
+						},
+						"unregistered": {
+							"hint": "The payer will not be automatically added to the customer database"
+						}
+					}
+				}
+			},
+			"title": {
+				"create": "Adding an order",
+				"edit": "Editing an order"
+			}
+		}
+	},
+	"page": {
+		"calendar": {
+			"title": "Calendar"
+		},
+		"select-client": {
+			"button": {
+				"create-new-client": "Create a new client"
+			},
+			"form": {
+				"button": {
+					"submit": "Select"
+				}
+			},
+			"title": "Select client"
+		}
+	},
+	"pagination": {
+		"message": {
+			"allDataDownloaded": "All available data has been downloaded"
+		}
+	},
+	"payment": {
+		"method": {
+			"CARD": {
+				"label": "Card"
+			},
+			"CASH": {
+				"label": "Cash"
+			}
+		},
+		"providerType": {
+			"onSite": {
+				"label": "On site"
+			}
+		},
+		"status": {
+			"failed": {
+				"label": "Failed"
+			},
+			"pending": {
+				"label": "Pending"
+			},
+			"registered": {
+				"label": "Registered"
+			},
+			"succeeded": {
+				"label": "Succeeded"
+			}
+		}
+	},
+	"role": {
+		"ADMIN": "Admin",
+		"OWNER": "Owner",
+		"SPECIALIST": "Specialist"
+	},
+	"service": {
+		"details": {
+			"title": "Information about the service"
+		},
+		"form": {
+			"order": {
+				"input": {
+					"placeholder": "Specify the position of this service in the list on the public site"
+				}
+			},
+			"title": {
+				"create": "Adding a service",
+				"edit": "Editing a service"
+			},
+			"v2": {
+				"section": {
+					"availableLanguages": {
+						"hint": "You can create a service that will be available in multiple languages, to add another language, select one of the available languages",
+						"title": "Service languages"
+					},
+					"presentation": {
+						"motivate": "You can inject a little more personality into your services and help people recognize your work by uploading a \n image (an image, photo or other graphic icon of your service)."
+					},
+					"prices": {
+						"button": {
+							"add": {
+								"label": "Add price"
+							}
+						},
+						"suffix": {
+							"range": {
+								"from": " (from)",
+								"to": " (to)"
+							}
+						},
+						"switch": {
+							"range": {
+								"title": "Range mode (from - to)"
+							}
+						}
+					}
+				}
+			}
+		},
+		"keyword": {
+			"capitalize": {
+				"active": "Active",
+				"inactive": "Inactive"
+			}
+		},
+		"title": "Service"
+	},
+	"serviceProvideType": {
+		"Mixed": "Mixed",
+		"Offline": "Offline",
+		"Online": "Online"
+	},
+	"sidebar": {
+		"absence": "Absence",
+		"addEvent": "Add event",
+		"businessProfile": "Business profile",
+		"businessSettings": "Company settings",
+		"calendar": {
+			"label": "Calendar",
+			"ordinary": {
+				"label": "Ordinary"
+			},
+			"withSpecialists": {
+				"label": "With specialists"
+			}
+		},
+		"customers": "Customers",
+		"dashboard": "Dashboard",
+		"events": "Events",
+		"members": "Members",
+		"order": "Orders",
+		"private": "Private",
+		"profile": {
+			"signOut": {
+				"header": "Logout",
+				"message": "Do you really want to leave?"
+			}
+		},
+		"requested": "Requests",
+		"services": "Services",
+		"settings": "Settings",
+		"statistic": "Statistics",
+		"switch-business-client": "Change context",
+		"table": "Table"
+	},
+	"sign-out": {
+		"button": {
+			"sign-out": {
+				"label": "Sign out now"
+			}
+		},
+		"title": "Sign out"
+	},
+	"slotBuildingStrategy": {
+		"hint": "Choose the time interval according to which the available slots for your client should be built, or choose the format in which the available time slots will be built by the selected service",
+		"options": {
+			"accordingToAService": "According to a service"
+		},
+		"title": "Construction of time slots"
+	},
+	"slotRetrievingStrategy": {
+		"hint": "This strategy controls the possibility of choosing time intervals for events that have not yet received confirmation from the specialist. Below you will see examples of the chosen strategy.",
+		"hists": {
+			"byOption": {
+				"IncludeRequested": "This option blocks the ability of clients to add new events to slots with already existing entries in status",
+				"OnlyBooked": "Wybrana opcja umożliwia klientom dodawanie nowych wydarzeń do już zajętych slotów za pośrednictwem strony publicznej, pod warunkiem, że żadne z nich nie otrzymało jeszcze statusu"
+			}
+		},
+		"options": {
+			"IncludeRequested": "Including requested events",
+			"OnlyBooked": "Only booked"
+		},
+		"title": "Strategy of proposed time intervals"
+	},
+	"updateAvailable": {
+		"header": "New version",
+		"message": "A new version of the app is available, would you like to update?"
+	},
+	"weekday": {
+		"long": {
+			"friday": "Friday",
+			"monday": "Monday",
+			"saturday": "Saturday",
+			"sunday": "Sunday",
+			"thursday": "Thursday",
+			"tuesday": "Tuesday",
+			"wednesday": "Wednesday"
+		},
+		"short": {
+			"friday": "Fri",
+			"monday": "Mon",
+			"saturday": "Sat",
+			"sunday": "Sun",
+			"thursday": "Thu",
+			"tuesday": "Tue",
+			"wednesday": "Wed"
+		}
+	}
 }

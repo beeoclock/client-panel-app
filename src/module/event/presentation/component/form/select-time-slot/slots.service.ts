@@ -1,7 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {NGXLogger} from "ngx-logger";
 import {SelectTimeComponent} from "@event/presentation/component/form/select-time-slot/time/select-time.component";
-import {BusySlotsEventApiAdapter} from "@event/adapter/external/api/busy-slots.event.api.adapter";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {DateTime} from "luxon";
@@ -15,7 +14,7 @@ import {IBusySlot} from "@order/external/interface/busy-slot/i.busy-slot";
 export class SlotsService {
 
 	private readonly logger = inject(NGXLogger);
-	private readonly busySlotsEventApiAdapter = inject(BusySlotsEventApiAdapter);
+	// private readonly busySlotsEventApiAdapter = inject(BusySlotsEventApiAdapter);
 
 	public readonly slots: string[] = [];
 
@@ -188,7 +187,7 @@ export class SlotsService {
 
 		this.logger.debug('loadBusySlots', {params});
 
-		return this.busySlotsEventApiAdapter.executeAsync(params).then(this.setBusySlots.bind(this));
+		// return this.busySlotsEventApiAdapter.executeAsync(params).then(this.setBusySlots.bind(this));
 	}
 
 	private calculateFreeSchedulePiecesPerDay() {

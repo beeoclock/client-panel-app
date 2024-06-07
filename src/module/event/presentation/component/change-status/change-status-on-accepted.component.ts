@@ -1,20 +1,18 @@
 import {Component, inject} from "@angular/core";
-import {IEvent} from "@event/domain";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
-import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
 import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
 import {NgIf, NgTemplateOutlet} from "@angular/common";
-import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum";
 import {ChangeStatusBaseComponent} from "@event/presentation/component/change-status/change-status-base.component";
-import {EventRequestedActions} from "@event/state/event-requested/event-requested.actions";
-import {RefreshCalendarAction} from "@event/state/calendar/actions/refresh.calendar.action";
+import {EventActions} from "@event/state/event/event.actions";
+import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
+import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 
 @Component({
-	selector: 'event-change-status-on-booked-component',
+	selector: 'event-change-status-on-accepted-component',
 	standalone: true,
 	imports: [
 		DynamicDatePipe,
@@ -22,12 +20,14 @@ import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-speciali
 		RouterLink,
 		EditLinkComponent,
 		NgIf,
-		NgTemplateOutlet
+		NgTemplateOutlet,
+		LoaderComponent
 	],
 	template: `
 		<button
 			type="button"
-			(click)="changeStatusOnBooked(event)"
+			(click)="changeStatusOnAccepted()"
+			[disabled]="loading.isTrue"
 			class="
 				w-full
 				flex
@@ -46,26 +46,32 @@ import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-speciali
 				ring-inset
 				ring-blue-300
 				hover:bg-blue-100">
-			<i class="bi bi-check-lg"></i>
-			{{ 'keyword.capitalize.approve' | translate }}
+			<ng-container *ngIf="loading.isFalse">
+				<i class="bi bi-check-lg"></i>
+				{{ 'keyword.capitalize.confirm' | translate }}
+			</ng-container>
+			<utility-loader [py2_5]="false" *ngIf="loading.isTrue"/>
 		</button>
 	`
 })
-export class ChangeStatusOnBookedComponent extends ChangeStatusBaseComponent {
+export class ChangeStatusOnAcceptedComponent extends ChangeStatusBaseComponent {
 
 	public readonly store = inject(Store);
 
-	public async changeStatusOnBooked(event: IEvent): Promise<void> {
-		await firstValueFrom(this.store.dispatch(new EventRequestedActions.BookedStatus(event)));
-		await firstValueFrom(this.store.dispatch(new EventRequestedActions.SetAutomaticallyDuration({
-			...event,
-			status: EventStatusEnum.booked,
-		})));
-		this.postStatusChange(EventStatusEnum.booked);
-		this.store.dispatch(new EventRequestedActions.GetList({resetPage: false, resetParams: false}));
+	public async changeStatusOnAccepted(): Promise<void> {
+
+		this.loading.doTrue();
+		this.event.originalData.service.status = OrderServiceStatusEnum.accepted;
+
+		this.store.dispatch(new EventActions.ChangeServiceStatus({
+			serviceId: this.event.originalData.service._id,
+			orderId: this.event.originalData.order._id,
+			status: OrderServiceStatusEnum.accepted,
+		}));
 		this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
-		this.store.dispatch(new RefreshCalendarAction());
+		this.store.dispatch(new EventActions.UpdateOpenedDetails(this.event));
 		this.statusChange.emit();
+		this.loading.doFalse();
 	}
 
 
