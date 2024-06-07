@@ -37,10 +37,23 @@ export class WhacAMole extends Reactive implements OnInit {
 
   @HostBinding()
   public class =
-    'animate-slideOut w-full !w-0 absolute top-0 right-0 h-[calc(100dvh-64px)] z-50 bg-black/50 flex justify-end lg:min-w-[375px] lg:max-w-[375px] lg:relative';
+    'not-tablet:animate-slideOut hidden tablet:hidden w-full not-tablet:!w-0 absolute top-0 right-0 h-[calc(100dvh-64px)] md:h-screen z-50 bg-black/50 flex justify-end lg:min-w-[375px] lg:max-w-[375px] lg:relative';
 
   @ViewChild('listOfComponents', { read: ViewContainerRef, static: true })
   public readonly listOfComponents!: ViewContainerRef;
+
+	// It is for table device
+  @HostListener('click', ['$event'])
+  public onClick(event: MouseEvent): void {
+    if (this.isHidden) {
+      return;
+    }
+    const isHostElement = event.target === this.elementRef.nativeElement;
+    if (isHostElement) {
+      this.ngxLogger.debug('WhacAMole.onClick', event);
+      this.removeLastComponent();
+    }
+  }
 
   @HostListener('document:keydown.escape')
   public handleOnEscapeKey(): void {
@@ -182,13 +195,24 @@ export class WhacAMole extends Reactive implements OnInit {
     return componentRef;
   }
 
+  private get isHidden(): boolean {
+    return this.elementRef.nativeElement.classList.contains('hidden');
+  }
 
   private updateVisibility(hidden?: boolean): void {
     const thereAreNoComponents = !this.whacAMoleProvider.componentRefMapById.size;
     hidden = hidden ?? thereAreNoComponents;
-    this.elementRef.nativeElement.classList.toggle('!w-0', hidden);
-    this.elementRef.nativeElement.classList.toggle('animate-slideOut', hidden);
-    this.elementRef.nativeElement.classList.toggle('animate-slideIn', !hidden);
+    this.elementRef.nativeElement.classList.toggle('tablet:hidden', hidden);
+		this.elementRef.nativeElement.classList.toggle('not-tablet:!w-0', hidden);
+		this.elementRef.nativeElement.classList.toggle('not-tablet:animate-slideOut', hidden);
+    this.elementRef.nativeElement.classList.toggle('not-tablet:animate-slideIn', !hidden);
+		if (hidden) {
+			setTimeout(() => {
+				this.elementRef.nativeElement.classList.toggle('hidden', hidden);
+			}, 300);
+		} else {
+			this.elementRef.nativeElement.classList.toggle('hidden', hidden);
+		}
     this.changeDetectorRef.detectChanges();
   }
 }

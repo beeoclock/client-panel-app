@@ -43,6 +43,31 @@ module.exports = {
 				slideOut: 'slideOut 0.2s ease-out forwards',
       }
     },
+		screens: {
+			'sm': '640px',
+			// => @media (min-width: 640px) { ... }
+
+			'md': '768px',
+			// => @media (min-width: 768px) { ... }
+
+			'lg': '1024px',
+			// => @media (min-width: 1024px) { ... }
+
+			'xl': '1280px',
+			// => @media (min-width: 1280px) { ... }
+
+			'2xl': '1536px',
+			// => @media (min-width: 1536px) { ... }
+
+			// Mobile
+			'mobile': {'max': '639px'},
+			'tablet': {'min': '640px', 'max': '1023px'},
+			// Mobile or laptop
+			'not-tablet': [
+				{'max': '639px'},
+				{'min': '1024px'}
+			]
+		}
   },
   variants: {},
   plugins: [
