@@ -459,7 +459,7 @@
 					"accepted": "Accepted",
 					"cancelled": "Canceled",
 					"done": "Done",
-					"pending": "In progress",
+					"inProgress": "In progress",
 					"rejected": "Rejected",
 					"requested": "Requested"
 				},
@@ -467,7 +467,7 @@
 					"accepted": "Accepted",
 					"cancelled": "Canceled",
 					"done": "Done",
-					"pending": "In progress",
+					"inProgress": "In progress",
 					"rejected": "Rejected",
 					"requested": "Requested"
 				}
@@ -1110,7 +1110,7 @@
 					"confirmed": "Confirmed",
 					"done": "Done",
 					"draft": "Draft",
-					"pending": "In progress",
+					"inProgress": "In progress",
 					"rejected": "Rejected",
 					"requested": "Requested"
 				}
@@ -1174,8 +1174,8 @@
 			"failed": {
 				"label": "Failed"
 			},
-			"pending": {
-				"label": "Pending"
+			"inProgress": {
+				"label": "In progress"
 			},
 			"registered": {
 				"label": "Registered"

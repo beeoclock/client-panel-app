@@ -70,7 +70,7 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 			case OrderServiceStatusEnum.done:
 				classList.push('bg-green-500', 'hover:bg-green-600'); // 'border-green-500',
 				break;
-			case OrderServiceStatusEnum.pending:
+			case OrderServiceStatusEnum.inProgress:
 				classList.push('bg-yellow-500', 'hover:bg-yellow-600'); // 'border-yellow-500',
 				break;
 		}

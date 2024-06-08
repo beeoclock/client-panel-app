@@ -36,7 +36,7 @@ import {
 		ChangeStatusOnRejectedComponent,
 	],
 	template: `
-<!--		<event-delete-button-component [event]="event"/>-->
+		<!--		<event-delete-button-component [event]="event"/>-->
 
 
 		<ng-container *ngIf="isRequested">
@@ -47,7 +47,7 @@ import {
 
 		</ng-container>
 
-		<ng-container *ngIf="isPending">
+		<ng-container *ngIf="inProgress">
 
 			<edit-button-component (click)="editEvent()"/>
 			<ng-container *ngTemplateOutlet="ButtonToRejectEvent"/>
@@ -65,14 +65,14 @@ import {
 		<ng-container *ngIf="isDone">
 
 			<edit-button-component (click)="editEvent()"/>
-<!--			<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>-->
+			<!--			<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>-->
 
 		</ng-container>
 
 		<ng-container *ngIf="isNegative">
 
 			<edit-button-component (click)="editEvent()"/>
-<!--			<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>-->
+			<!--			<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>-->
 
 		</ng-container>
 
@@ -123,7 +123,7 @@ export class V2ButtonsDetailsComponent implements OnChanges {
 	public isNegative = false;
 	public isDone = false;
 	public isAccepted = false;
-	public isPending = false;
+	public inProgress = false;
 	public isRequested = false;
 
 	private readonly ngxLogger = inject(NGXLogger);
@@ -156,7 +156,7 @@ export class V2ButtonsDetailsComponent implements OnChanges {
 			this.isNegative = [OrderServiceStatusEnum.cancelled, OrderServiceStatusEnum.rejected].includes(status);
 			this.isDone = [OrderServiceStatusEnum.done].includes(status);
 			this.isAccepted = [OrderServiceStatusEnum.accepted].includes(status);
-			this.isPending = [OrderServiceStatusEnum.pending].includes(status);
+			this.inProgress = [OrderServiceStatusEnum.inProgress].includes(status);
 			this.isRequested = [OrderServiceStatusEnum.requested].includes(status);
 		}
 

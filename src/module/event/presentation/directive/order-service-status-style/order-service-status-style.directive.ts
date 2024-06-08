@@ -43,7 +43,7 @@ export class OrderServiceStatusStyleDirective implements OnInit, OnChanges {
 			text: ['text-blue-400', 'border-blue-400'],
 			badge: ['bg-blue-500', 'border-blue-500', 'dark:bg-blue-900', 'dark:border-blue-800']
 		},
-		[OrderServiceStatusEnum.pending]: {
+		[OrderServiceStatusEnum.inProgress]: {
 			base: ['dark:text-yellow-400'],
 			text: ['text-yellow-400', 'border-yellow-400'],
 			badge: ['bg-yellow-500', 'border-yellow-500', 'dark:bg-yellow-900', 'dark:border-yellow-800']

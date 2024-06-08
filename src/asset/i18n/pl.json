@@ -459,7 +459,7 @@
 					"accepted": "Zaakceptowane",
 					"cancelled": "Odwołane",
 					"done": "Gotowe",
-					"pending": "W trakcie",
+					"inProgress": "W trakcie",
 					"rejected": "Odrzucone",
 					"requested": "Zażądane"
 				},
@@ -467,7 +467,7 @@
 					"accepted": "Zaakceptowany",
 					"cancelled": "Odwołane",
 					"done": "Gotowe",
-					"pending": "W trakcie",
+					"inProgress": "W trakcie",
 					"rejected": "Odrzucono",
 					"requested": "Zażądane"
 				}
@@ -1110,7 +1110,7 @@
 					"confirmed": "Potwierdzono",
 					"done": "Gotowe",
 					"draft": "Wersja robocza",
-					"pending": "W trakcie",
+					"inProgress": "W trakcie",
 					"rejected": "Odrzucono",
 					"requested": "Żądany"
 				}
@@ -1174,7 +1174,7 @@
 			"failed": {
 				"label": "Nie powiodło się"
 			},
-			"pending": {
+			"inProgress": {
 				"label": "W toku"
 			},
 			"registered": {

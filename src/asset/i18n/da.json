@@ -459,7 +459,7 @@
 					"accepted": "Accepteret",
 					"cancelled": "Aflyst",
 					"done": "Færdig",
-					"pending": "I gang",
+					"inProgress": "I gang",
 					"rejected": "Afvist",
 					"requested": "Anmodet"
 				},
@@ -467,7 +467,7 @@
 					"accepted": "Accepteret",
 					"cancelled": "Aflyst",
 					"done": "Færdig",
-					"pending": "I gang",
+					"inProgress": "I gang",
 					"rejected": "Afvist",
 					"requested": "Anmodet"
 				}
@@ -1110,7 +1110,7 @@
 					"confirmed": "Bekræftet",
 					"done": "Færdig",
 					"draft": "Udkast",
-					"pending": "I gang",
+					"inProgress": "I gang",
 					"rejected": "Afvist",
 					"requested": "Anmodet om"
 				}

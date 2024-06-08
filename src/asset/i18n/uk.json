@@ -459,7 +459,7 @@
 					"accepted": "Прийняті",
 					"cancelled": "Скасовані",
 					"done": "Виконані",
-					"pending": "В процесі",
+					"inProgress": "В процесі",
 					"rejected": "Відхилані",
 					"requested": "На запиті"
 				},
@@ -467,7 +467,7 @@
 					"accepted": "Прийнято",
 					"cancelled": "Скасована",
 					"done": "Виконано",
-					"pending": "В процесі",
+					"inProgress": "В процесі",
 					"rejected": "Відхилено",
 					"requested": "Запит"
 				}
@@ -1111,7 +1111,7 @@
 					"confirmed": "Підтверджено",
 					"done": "Виконано",
 					"draft": "Чернетка",
-					"pending": "В процесі",
+					"inProgress": "В процесі",
 					"rejected": "Відхилено",
 					"requested": "Запит"
 				}
@@ -1175,7 +1175,7 @@
 			"failed": {
 				"label": "Не вдалося"
 			},
-			"pending": {
+			"inProgress": {
 				"label": "В процесі"
 			},
 			"registered": {
