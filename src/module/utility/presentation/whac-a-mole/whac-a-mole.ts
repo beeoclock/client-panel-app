@@ -37,7 +37,7 @@ export class WhacAMole extends Reactive implements OnInit {
 
   @HostBinding()
   public class =
-    'not-tablet:animate-slideOut hidden tablet:hidden w-full not-tablet:!w-0 absolute top-0 right-0 h-[calc(100dvh-64px)] md:h-screen z-50 bg-black/50 flex justify-end lg:min-w-[375px] lg:max-w-[375px] lg:relative';
+    'not-tablet:animate-slideOut hidden tablet:hidden w-full not-tablet:!w-0 absolute top-0 right-0 md:h-screen z-50 bg-black/50 flex justify-end lg:min-w-[375px] lg:max-w-[375px] lg:relative';
 
   @ViewChild('listOfComponents', { read: ViewContainerRef, static: true })
   public readonly listOfComponents!: ViewContainerRef;
