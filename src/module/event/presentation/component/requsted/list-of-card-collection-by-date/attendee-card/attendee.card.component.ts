@@ -1,5 +1,7 @@
-import {Component, Input} from "@angular/core";
+import {Component, inject, Input} from "@angular/core";
 import {IAttendee} from "@event/domain";
+import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
 	selector: 'event-attendee-card-component',
@@ -12,10 +14,18 @@ export class AttendeeCardComponent {
 	@Input()
 	public attendee!: IAttendee;
 
+	private readonly translateService = inject(TranslateService);
+
 	public get fullName(): string | null {
 
 		if (!this.attendee?.customer) {
 			return null;
+		}
+
+		switch (this.attendee.customer.customerType) {
+			case CustomerTypeEnum.anonymous:
+				return this.translateService.instant('customer.enum.type.anonymous');
+
 		}
 
 		let fullName = null;
