@@ -1,5 +1,10 @@
 {
 	"absence": {
+		"action": {
+			"delete": {
+				"question": "Er du sikker på, at du vil slette fraværet?"
+			}
+		},
 		"button": {
 			"create": "Tilføj fravær"
 		},

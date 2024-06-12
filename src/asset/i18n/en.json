@@ -1,5 +1,10 @@
 {
 	"absence": {
+		"action": {
+			"delete": {
+				"question": "Are you sure you want to delete the absence?"
+			}
+		},
 		"button": {
 			"create": "Add absence"
 		},

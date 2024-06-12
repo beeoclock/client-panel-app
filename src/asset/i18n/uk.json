@@ -1,5 +1,10 @@
 {
 	"absence": {
+		"action": {
+			"delete": {
+				"question": "Ви впевнені, що хочете видалити відсутність?"
+			}
+		},
 		"button": {
 			"create": "Додати відсутність"
 		},
@@ -839,6 +844,7 @@
 	},
 	"keyword": {
 		"capitalize": {
+			"accept": "Прийняти",
 			"account": "Профіль",
 			"action": "Дія",
 			"activate": "Активувати",
@@ -855,7 +861,6 @@
 			"anonymous": "Анонімний",
 			"approvalType": "Тип схвалення",
 			"approve": "Затвердити",
-			"accept": "Прийняти",
 			"attendees": "Учасники",
 			"autoActionOnOrderInSeconds": "Час запуску автоматичної дії",
 			"autoActionTypeOnOrder": "Тип автоматичної дії",

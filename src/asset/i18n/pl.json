@@ -1,5 +1,10 @@
 {
 	"absence": {
+		"action": {
+			"delete": {
+				"question": "Czy na pewno chcesz usunąć nieobecność?"
+			}
+		},
 		"button": {
 			"create": "Dodaj nieobecność"
 		},

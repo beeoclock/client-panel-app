@@ -2,7 +2,7 @@ import {Component, inject, Input, ViewEncapsulation} from '@angular/core';
 import {firstValueFrom} from 'rxjs';
 import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
@@ -34,15 +34,14 @@ export class AbsenceDetailsContainerComponent {
 	public item!: IAbsenceDto;
 
 	public readonly store = inject(Store);
+	public readonly translateService = inject(TranslateService);
 
 	public async delete(absence: IAbsenceDto) {
 
-		const {active} = absence;
+		const question = this.translateService.instant('absence.action.delete.question');
 
-		if (active) {
-
-			return alert('You can\'t delete active absence');
-
+		if (!confirm(question)) {
+			return;
 		}
 
 		await firstValueFrom(this.store.dispatch(new AbsenceActions.DeleteItem(absence._id)));
