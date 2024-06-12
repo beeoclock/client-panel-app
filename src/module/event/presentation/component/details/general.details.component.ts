@@ -134,7 +134,7 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 						{{ 'keyword.capitalize.note' | translate }}
 					</dt>
 					<dd
-						class="mt-1 text-sm leading-6"
+						class="mt-1 text-sm leading-6 text-wrap break-words"
 						[ngClass]="{
 							'text-beeColor-500 italic': !thereIsDescription,
 							'text-gray-700': thereIsDescription
