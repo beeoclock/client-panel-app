@@ -36,8 +36,6 @@ import {
 		ChangeStatusOnRejectedComponent,
 	],
 	template: `
-		<!--		<event-delete-button-component [event]="event"/>-->
-
 
 		<ng-container *ngIf="isRequested">
 
@@ -110,6 +108,10 @@ import {
 				{{ 'event.keyword.capitalize.repeat' | translate }}
 			</button>
 		</ng-template>
+
+<!--		<hr>-->
+
+<!--		<event-delete-button-component [event]="event"/>-->
 	`
 })
 export class V2ButtonsDetailsComponent implements OnChanges {
