@@ -69,7 +69,12 @@ export class RowActionButtonComponent {
 	}
 
 	public edit(): void {
-		this.store.dispatch(new AbsenceActions.OpenFormToEditById(this.item._id));
+		this.store.dispatch(new AbsenceActions.OpenForm({
+			componentInputs: {
+				isEditMode: true,
+				item: this.item
+			}
+		}));
 	}
 
 }

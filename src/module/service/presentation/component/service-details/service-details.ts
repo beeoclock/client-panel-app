@@ -74,7 +74,12 @@ export class ServiceDetails {
 
 	public edit(): void {
 		if (!this.item) return;
-		this.store.dispatch(new ServiceActions.OpenFormToEditById(this.item._id));
+		this.store.dispatch(new ServiceActions.OpenForm({
+			componentInputs: {
+				isEditMode: true,
+				item: this.item
+			}
+		}));
 	}
 
 
