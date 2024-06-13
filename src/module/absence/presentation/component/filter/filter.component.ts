@@ -30,48 +30,48 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		AutoRefreshComponent
 	],
 	template: `
-		<utility-default-panel-component>
-			<div *ngIf="isNotMobile$ | async" class="flex overflow-x-auto gap-4">
-				<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
-				<ng-container *ngTemplateOutlet="AbsenceActiveSelect"></ng-container>
-				<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
-			</div>
-			<div *ngIf="isMobile$ | async" class="flex gap-4 justify-between w-full">
-				<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
-				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
-			</div>
-			<div *ngIf="isNotMobile$ | async">
-				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
-			</div>
-		</utility-default-panel-component>
-		<div *ngIf="isMobile$ | async" class="flex overflow-x-auto gap-2 my-2 px-2">
-			<ng-container *ngTemplateOutlet="AbsenceActiveSelect"></ng-container>
-			<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
-		</div>
+        <utility-default-panel-component>
+            <div *ngIf="isNotMobile$ | async" class="flex overflow-x-auto gap-4">
+                <ng-container *ngTemplateOutlet="SearchInput"></ng-container>
+                <ng-container *ngTemplateOutlet="AbsenceActiveSelect"></ng-container>
+                <ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
+            </div>
+            <div *ngIf="isMobile$ | async" class="flex gap-4 justify-between w-full">
+                <ng-container *ngTemplateOutlet="SearchInput"></ng-container>
+                <ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
+            </div>
+            <div *ngIf="isNotMobile$ | async">
+                <ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
+            </div>
+        </utility-default-panel-component>
+        <div *ngIf="isMobile$ | async" class="flex overflow-x-auto gap-2 my-2 px-2">
+            <ng-container *ngTemplateOutlet="AbsenceActiveSelect"></ng-container>
+            <ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
+        </div>
 
-		<ng-template #AbsenceActiveSelect>
-			<ion-select-active
-				class="px-4 py-2 border border-beeColor-300 rounded-2xl"
-				[control]="form.controls.active"/>
-		</ng-template>
+        <ng-template #AbsenceActiveSelect>
+            <ion-select-active
+                    class="px-4 py-3 border border-beeColor-300 rounded-2xl"
+                    [control]="form.controls.active"/>
+        </ng-template>
 
-		<ng-template #SearchInput>
-			<utility-search-input-component [control]="form.controls.phrase"/>
-		</ng-template>
+        <ng-template #SearchInput>
+            <utility-search-input-component [control]="form.controls.phrase"/>
+        </ng-template>
 
-		<ng-template #AutoRefresh>
-			<utility-auto-refresh-component (emitter)="forceRefresh()"/>
-		</ng-template>
+        <ng-template #AutoRefresh>
+            <utility-auto-refresh-component (emitter)="forceRefresh()"/>
+        </ng-template>
 
-		<ng-template #ButtonToOpenForm>
-			<button *ngIf="showButtonGoToForm" type="button" primary (click)="openForm()">
-				<i class="bi bi-plus-lg"></i>
-				<span class="hidden xl:block">
+        <ng-template #ButtonToOpenForm>
+            <button *ngIf="showButtonGoToForm" type="button" class="!py-3 !px-4 !text-base" primary (click)="openForm()">
+                <i class="bi bi-plus-lg"></i>
+                <span class="hidden xl:block">
 					{{ 'absence.button.create' | translate }}
 				</span>
-			</button>
-		</ng-template>
-	`
+            </button>
+        </ng-template>
+    `
 })
 export class FilterComponent extends BaseFilterComponent {
 

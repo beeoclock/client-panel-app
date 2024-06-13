@@ -63,12 +63,13 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 		<ng-template #SelectOrderStatus>
 			<ion-select-wrapper
 				id="order-filter-select-order-status"
+				class="py-3"
 				[options]="orderStatusOptions"
 				[control]="orderStatusControl"/>
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>
-			<button *ngIf="showButtonGoToForm" type="button" primary (click)="openForm()">
+			<button *ngIf="showButtonGoToForm" type="button" class="!py-3 !px-4 !text-base" primary (click)="openForm()">
 				<i class="bi bi-plus-lg"></i>
 				<div class="hidden xl:block">
 					{{ 'order.button.create' | translate }}

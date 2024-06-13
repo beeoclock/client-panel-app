@@ -4,6 +4,7 @@
 		<utility-auto-refresh-component (emitter)="forceRefresh()" [isLoading]="(loader$ | async) ?? false"/>
 		<ion-select-wrapper
 			id="calendar-with-specialists-filter-order-service-status"
+			class="py-3"
 			[options]="orderServiceStatusOptions"
 			[control]="orderServiceStatusControl"/>
 	</div>

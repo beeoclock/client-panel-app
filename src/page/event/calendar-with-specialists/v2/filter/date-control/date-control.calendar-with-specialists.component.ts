@@ -19,7 +19,7 @@ import {Reactive} from "@utility/cdk/reactive";
 				(click)="prevDate()"
 				[disabled]="loader$ | async"
 				type="button"
-				class="flex h-9 items-center justify-center rounded-l-2xl border-y border-l border-beeColor-300 text-beeColor-400 hover:text-beeColor-500 focus:relative w-9 pr-0 hover:bg-beeColor-100">
+				class="flex h-12 items-center justify-center rounded-l-2xl border-y border-l border-beeColor-300 text-beeColor-400 hover:text-beeColor-500 focus:relative w-9 pr-0 hover:bg-beeColor-100">
 				<i class="bi bi-chevron-left"></i>
 			</button>
 
@@ -57,7 +57,7 @@ import {Reactive} from "@utility/cdk/reactive";
 				(click)="nextDate()"
 				[disabled]="loader$ | async"
 				type="button"
-				class="flex h-9 items-center justify-center rounded-r-2xl border-y border-r border-beeColor-300 text-beeColor-400 hover:text-beeColor-500 focus:relative w-9 pl-0 hover:bg-beeColor-100">
+				class="flex h-12 items-center justify-center rounded-r-2xl border-y border-r border-beeColor-300 text-beeColor-400 hover:text-beeColor-500 focus:relative w-9 pl-0 hover:bg-beeColor-100">
 				<i class="bi bi-chevron-right"></i>
 			</button>
 

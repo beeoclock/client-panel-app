@@ -55,7 +55,7 @@ import {
 
 		<ng-template #ServiceActiveSelect>
 			<ion-select-active
-				class="px-4 py-2 border border-beeColor-300 rounded-2xl"
+				class="px-4 py-3 border border-beeColor-300 rounded-2xl"
 				[control]="form.controls.active"/>
 		</ng-template>
 
@@ -65,7 +65,7 @@ import {
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>
-			<button *ngIf="showButtonGoToForm" type="button" primary (click)="openForm()">
+			<button *ngIf="showButtonGoToForm" type="button" class="!py-3 !px-4 !text-base" primary (click)="openForm()">
 				<i class="bi bi-plus-lg"></i>
 				<span class="hidden xl:block">
 					{{ 'keyword.capitalize.add-service' | translate }}

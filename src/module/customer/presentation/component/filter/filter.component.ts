@@ -51,7 +51,7 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 
 		<ng-template #CustomerActiveSelect>
 			<ion-select-active
-				class="px-4 py-2 border border-beeColor-300 rounded-2xl"
+				class="px-4 py-3 border border-beeColor-300 rounded-2xl"
 				[control]="form.controls.active"/>
 		</ng-template>
 
@@ -64,7 +64,7 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>
-			<button *ngIf="showButtonGoToForm" type="button" primary (click)="openForm()">
+			<button *ngIf="showButtonGoToForm" type="button" primary class="!py-3 !px-4 !text-base" (click)="openForm()">
 				<i class="bi bi-plus-lg"></i>
 				<span class="hidden xl:block">
 					{{ 'customer.button.create' | translate }}
