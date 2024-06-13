@@ -1115,7 +1115,7 @@
 					"confirmed": "Bekræftet",
 					"done": "Færdig",
 					"draft": "Udkast",
-					"inProgress": "I gang",
+					"pending": "Afventer",
 					"rejected": "Afvist",
 					"requested": "Anmodet om"
 				}

@@ -8,7 +8,7 @@ export namespace CalendarWithSpecialistsAction {
 		static readonly type = '[CalendarWithSpecialists] Set Date';
 
 		constructor(public readonly payload: {
-			date: string;
+			start: string;
 		}) {
 		}
 	}
@@ -19,5 +19,14 @@ export namespace CalendarWithSpecialistsAction {
 
 	export class PrevDate {
 		static readonly type = '[CalendarWithSpecialists] Prev Date';
+	}
+
+	export class UpdateFilters {
+		static readonly type = '[CalendarWithSpecialists] Update Filters';
+
+		constructor(public readonly payload: {
+			[key: string]: undefined | unknown;
+		}) {
+		}
 	}
 }

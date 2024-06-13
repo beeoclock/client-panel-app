@@ -1115,7 +1115,7 @@
 					"confirmed": "Confirmed",
 					"done": "Done",
 					"draft": "Draft",
-					"inProgress": "In progress",
+					"pending": "Pending",
 					"rejected": "Rejected",
 					"requested": "Requested"
 				}

@@ -166,7 +166,7 @@ export namespace BaseActions {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 
 		constructor(
-			public readonly payload: Pick<ITableState<unknown>, 'filters'>,
+			public readonly payload: ITableState<unknown>['filters'],
 		) {
 		}
 	}

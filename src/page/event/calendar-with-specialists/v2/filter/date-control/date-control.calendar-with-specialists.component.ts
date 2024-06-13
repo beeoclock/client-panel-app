@@ -8,6 +8,7 @@ import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-speciali
 import {IonDatetime, IonicModule, ModalController} from "@ionic/angular";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {DateTime} from "luxon";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'event-date-control-calendar-with-specialists-component',
@@ -72,7 +73,7 @@ import {DateTime} from "luxon";
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class DateControlCalendarWithSpecialistsComponent implements OnInit {
+export class DateControlCalendarWithSpecialistsComponent extends Reactive implements OnInit {
 
 	public readonly dateControl: FormControl<string> = new FormControl((new Date()).toISOString(), {
 		nonNullable: true
@@ -92,6 +93,7 @@ export class DateControlCalendarWithSpecialistsComponent implements OnInit {
 
 	public readonly loader$ = this.store.select(CalendarWithSpecialistsQueries.loader);
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start).pipe(
+		this.takeUntil(),
 		tap((selectedDatetime) => {
 			if (!selectedDatetime) {
 				return;
@@ -132,10 +134,10 @@ export class DateControlCalendarWithSpecialistsComponent implements OnInit {
 	public readonly locale = this.translateService.currentLang;
 
 	public ngOnInit() {
-		this.dateControl.valueChanges.subscribe((date) => {
+		this.dateControl.valueChanges.subscribe((start) => {
 
 			this.store.dispatch(new CalendarWithSpecialistsAction.SetDate({
-				date
+				start
 			}));
 			this.modalController.getTop().then((modal) => {
 				modal && modal.dismiss().then();

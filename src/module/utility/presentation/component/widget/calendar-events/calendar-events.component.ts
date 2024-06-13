@@ -9,9 +9,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {RIEvent} from "@event/domain";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
-import {
-	IonSelectEventStatusComponent
-} from "@utility/presentation/component/input/ion/ion-select-event-status.component";
+import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
 import {DynamicDateHelper} from "@utility/presentation/pipes/dynamic-date/dynamic-date.helper";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
@@ -40,7 +38,7 @@ import {DateTime} from "luxon";
 		NgIf,
 		LoaderComponent,
 		EventStatusStyleDirective,
-		IonSelectEventStatusComponent,
+		IonSelectWrapperComponent,
 		DynamicDatePipe,
 		ActionComponent,
 		CurrencyPipe,

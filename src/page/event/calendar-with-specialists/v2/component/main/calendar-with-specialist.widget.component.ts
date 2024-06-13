@@ -25,7 +25,7 @@ import {NGXLogger} from "ngx-logger";
 import {
 	HeaderCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/header.calendar-with-specialist.widget.component";
-import {map, tap} from "rxjs";
+import {firstValueFrom, map, switchMap, tap} from "rxjs";
 import {IEvent_V2} from "@event/domain";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Store} from "@ngxs/store";
@@ -34,7 +34,7 @@ import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {ActivatedRoute} from "@angular/router";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {
 	EmptySlotCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/empty-slot.calendar-with-specialist.widget.component";
@@ -45,6 +45,9 @@ import {
 import {
 	DateControlCalendarWithSpecialistsComponent
 } from "../../filter/date-control/date-control.calendar-with-specialists.component";
+import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
+import {FormControl} from "@angular/forms";
+import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 
 @Component({
 	selector: 'app-calendar-with-specialists-widget-component',
@@ -63,6 +66,7 @@ import {
 		TranslateModule,
 		EmptySlotCalendarWithSpecialistWidgetComponent,
 		TimeLineCalendarWithSpecialistWidgetComponent,
+		IonSelectWrapperComponent,
 	]
 })
 export class CalendarWithSpecialistWidgetComponent extends Reactive implements OnInit, AfterViewInit {
@@ -75,6 +79,23 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
 	private readonly activatedRoute = inject(ActivatedRoute);
+	private readonly translateService = inject(TranslateService);
+
+	public readonly orderServiceStatusControl = new FormControl<OrderServiceStatusEnum | ''>('');
+
+	public orderServiceStatusOptions: {
+		value: any;
+		label: string;
+	}[] = [];
+
+	private initEventStatusList() {
+		Object.keys(OrderServiceStatusEnum).forEach((status) => {
+			this.orderServiceStatusOptions.push({
+				value: status,
+				label: this.translateService.instant(`event.keyword.status.plural.${status}`)
+			});
+		});
+	}
 
 	@ViewChild('calendar')
 	public calendar!: ElementRef<HTMLDivElement>;
@@ -178,7 +199,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 	public ngOnInit() {
 
-		this.detectDateInQueryParams();
+		this.detectParamsInQueryParams();
 		this.calendarWithSpecialistLocaStateService.eventCalendarWithSpecialistWidgetComponent$.pipe(
 			this.takeUntil()
 		).subscribe((eventCalendarWithSpecialistWidgetComponent) => {
@@ -194,9 +215,39 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 			}, 0);
 		});
 
+		this.store.select(CalendarWithSpecialistsQueries.params).pipe(
+			this.takeUntil(),
+		).subscribe((params) => {
+			if ('status' in params) {
+				const {status} = params;
+				if (status) {
+					this.orderServiceStatusControl.setValue(status as any, {
+						emitEvent: false,
+						onlySelf: true
+					});
+				}
+			}
+		});
+
+		this.orderServiceStatusControl.valueChanges.pipe(
+			this.takeUntil(),
+			switchMap((status) => {
+				return this.store.dispatch(
+					new CalendarWithSpecialistsAction.UpdateFilters({
+						status
+					})
+				)
+			}),
+			switchMap(() => this.store.dispatch(new CalendarWithSpecialistsAction.GetItems())),
+		).subscribe(() => {
+			console.log('orderServiceStatusControl.valueChanges')
+		});
+
 	}
 
 	public ngAfterViewInit() {
+
+		this.initEventStatusList();
 
 		this.columnList.changes.pipe(
 			this.takeUntil()
@@ -213,17 +264,44 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 	}
 
-	private detectDateInQueryParams() {
-		const {date} = this.activatedRoute.snapshot.queryParams;
-
-		if (!date) {
+	private async detectParamsInQueryParams() {
+		const {status, start} = this.activatedRoute.snapshot.queryParams;
+		if (!status && !start) {
 			this.forceRefresh().then();
 			return;
 		}
 
-		this.store.dispatch(new CalendarWithSpecialistsAction.SetDate({
-			date
-		}));
+		if (start) {
+
+			console.log('setDate$:before', start)
+			const setDate$ = this.store.dispatch(new CalendarWithSpecialistsAction.SetDate({
+				start
+			}));
+			await firstValueFrom(setDate$);
+			console.log('setDate$:after', start)
+
+		}
+
+		if (status) {
+
+			console.log('updateFilters$:before', status)
+			this.orderServiceStatusControl.setValue(status, {
+				emitEvent: false,
+				onlySelf: true
+			});
+			const updateFilters$ = this.store.dispatch(new CalendarWithSpecialistsAction.UpdateFilters({
+				status
+			}));
+			await firstValueFrom(updateFilters$);
+			console.log('updateFilters$:after', status)
+
+		}
+
+		console.log('getItems$:before')
+		const getItems$ = this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
+		await firstValueFrom(getItems$);
+
+		console.log('getItems$:after')
 	}
 
 

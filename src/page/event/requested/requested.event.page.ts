@@ -11,7 +11,6 @@ import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
-import {FilterComponent} from "@event/presentation/component/filter/filter.component";
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
@@ -38,7 +37,6 @@ import {IonicModule} from "@ionic/angular";
 		TableStatePaginationComponent,
 		SortIndicatorComponent,
 		TranslateModule,
-		FilterComponent,
 		DropdownComponent,
 		AsyncPipe,
 		RouterLink,

@@ -1,6 +1,10 @@
 <div class="h-[50px] flex gap-4 px-2 items-center bg-white border-b border-beeColor-200">
 	<event-date-control-calendar-with-specialists-component/>
 	<utility-auto-refresh-component (emitter)="forceRefresh()" [isLoading]="(loader$ | async) ?? false"/>
+	<ion-select-wrapper
+		id="calendar-with-specialists-filter-order-service-status"
+		[options]="orderServiceStatusOptions"
+		[control]="orderServiceStatusControl"/>
 </div>
 <!-- Grid of hour rows -->
 <div #calendar class="flex relative overflow-auto bg-white h-[calc(100vh-114px)] md:h-[calc(100vh-50px)]">

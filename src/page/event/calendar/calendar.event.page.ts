@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, inject, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {FilterComponent} from "@event/presentation/component/filter/filter.component";
 import {DOCUMENT, NgForOf, NgIf} from "@angular/common";
 import {HoursComponent} from "@event/presentation/component/calendar/hours.component";
 import {ColumnsBlockComponent} from "@event/presentation/component/calendar/columns-block.component";
@@ -25,7 +24,6 @@ import {ContainerCalendarComponent} from "@event/presentation/component/calendar
 	selector: 'app-event-calendar-page',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		FilterComponent,
 		NgIf,
 		HoursComponent,
 		ColumnsBlockComponent,
