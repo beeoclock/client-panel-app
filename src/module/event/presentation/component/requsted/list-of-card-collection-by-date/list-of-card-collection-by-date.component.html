@@ -1,4 +1,4 @@
-<div class="block max-w-full overflow-x-auto h-[calc(100vh-64px)] md:h-[calc(100vh)]">
+<div class="block max-w-full overflow-x-auto h-[calc(100dvh-64px)] md:h-[calc(100vh)]">
 	<event-requested-filter-component/>
 	<div class="flex flex-col" *ngIf="items$ | async as items">
 		<div class="flex flex-col" *ngFor="let dateItem of items | keyvalue; let index = index">

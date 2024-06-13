@@ -62,7 +62,7 @@ export class ContainerCalendarComponent implements AfterViewInit {
 	public hoursComponentRef!: HoursComponent;
 
 	@HostBinding()
-	public class = 'bg-white	flex overflow-auto h-[calc(100vh-64px)] md:h-full relative';
+	public class = 'bg-white	flex overflow-auto h-[calc(100dvh-64px)] md:h-full relative';
 
 	public readonly elementRef = inject(ElementRef);
 	private readonly ngxLogger = inject(NGXLogger);
