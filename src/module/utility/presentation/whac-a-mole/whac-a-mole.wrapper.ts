@@ -70,7 +70,7 @@ export class WhacAMoleWrapper<COMPONENT> {
 	private readonly renderContainer!: ViewContainerRef;
 
 	@HostBinding()
-	public class = 'flex flex-col h-screen';
+	public class = 'flex flex-col h-dvh';
 
 	public renderedComponent: Type<COMPONENT> | undefined;
 	public renderedComponentRef: ComponentRef<COMPONENT> | undefined;

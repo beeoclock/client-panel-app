@@ -130,6 +130,18 @@ export class ConfigurationForm extends FormGroup<IConfigurationForm> {
 	}
 }
 
+export interface IPresentationForm {
+	color: FormControl<string | null>;
+}
+
+export class PresentationForm extends FormGroup<IPresentationForm> {
+	constructor() {
+		super({
+			color: new FormControl(),
+		});
+	}
+}
+
 export interface IPrepaymentPolicyForm {
 	isRequired: FormControl<boolean>;
 	isPercentage: FormControl<boolean>;
@@ -202,6 +214,7 @@ export interface IServiceForm {
 	createdAt: FormControl<string>;
 	updatedAt: FormControl<string>;
 	order: FormControl<number | null>;
+	presentation: PresentationForm;
 
 	[key: string]: AbstractControl;
 }
@@ -220,6 +233,7 @@ export class ServiceForm extends FormGroup<IServiceForm> {
 			active: new FormControl(ActiveEnum.YES, {
 				nonNullable: true,
 			}),
+			presentation: new PresentationForm(),
 			_id: new FormControl(),
 			object: new FormControl('Service', {
 				nonNullable: true,

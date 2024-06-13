@@ -881,6 +881,7 @@
 			"clickToUpload": "Kliknij, aby przesłać",
 			"clients": "Klienci",
 			"close": "Zamknij",
+			"color": "Kolor",
 			"comingSoon": "Już wkrótce...",
 			"confirm": "Potwierdź",
 			"contact": "Kontakt",
@@ -1200,6 +1201,11 @@
 			"title": "Informacje o usłudze"
 		},
 		"form": {
+			"color": {
+				"input": {
+					"hint": "Kolor usługi jest używany do wyświetlania wydarzenia w kalendarzu w wybranym kolorze"
+				}
+			},
 			"order": {
 				"input": {
 					"placeholder": "Określ pozycję tej usługi na liście na stronie publicznej"

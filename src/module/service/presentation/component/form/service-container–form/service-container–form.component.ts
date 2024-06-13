@@ -37,6 +37,9 @@ import {ClientState} from "@client/state/client/client.state";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {NGXLogger} from "ngx-logger";
+import {
+	ServiceFormImageComponent
+} from "@service/presentation/component/form/v2/image/service-form-image/service-form-image.component";
 
 @Component({
 	selector: 'service-form-v2-page-component',
@@ -59,6 +62,7 @@ import {NGXLogger} from "ngx-logger";
 		ServicesFormComponent,
 		FormInputComponent,
 		CardComponent,
+		ServiceFormImageComponent,
 	]
 })
 export class ServiceContainerFormComponent implements OnInit {
@@ -110,6 +114,10 @@ export class ServiceContainerFormComponent implements OnInit {
 			}
 
 			this.form.patchValue(rest);
+
+			if (presentation?.color) {
+				this.form.controls.presentation.controls.color.setValue(presentation.color);
+			}
 
 			if (durationVersions) {
 

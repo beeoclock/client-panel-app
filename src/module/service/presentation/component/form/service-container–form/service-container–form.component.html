@@ -24,6 +24,16 @@
 				[label]="'keyword.capitalize.order' | translate"
 				[placeholder]="'service.form.order.input.placeholder' | translate"
 				[control]="form.controls.order"/>
+
+			<form-input
+				inputType="color"
+				customClassList="!p-0"
+				[label]="'keyword.capitalize.color' | translate"
+				[control]="form.controls.presentation.controls.color"/>
+			<p class="text-beeColor-500">
+				{{ 'service.form.color.input.hint' | translate }}
+			</p>
+
 		</bee-card>
 
 		<utility-button-save-container-component class="bottom-0">

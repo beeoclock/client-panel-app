@@ -881,6 +881,7 @@
 			"clickToUpload": "Click to upload",
 			"clients": "Clients",
 			"close": "Close",
+			"color": "Color",
 			"comingSoon": "Coming soon...",
 			"confirm": "Confirm",
 			"contact": "Contact",
@@ -1200,6 +1201,11 @@
 			"title": "Information about the service"
 		},
 		"form": {
+			"color": {
+				"input": {
+					"hint": "The colour of the service is used to display the event in the calendar in the selected colour"
+				}
+			},
 			"order": {
 				"input": {
 					"placeholder": "Specify the position of this service in the list on the public site"

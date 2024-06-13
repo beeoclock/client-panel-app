@@ -881,6 +881,7 @@
 			"clickToUpload": "Klik for at uploade",
 			"clients": "Klienter",
 			"close": "Luk",
+			"color": "Farve",
 			"comingSoon": "Kommer snart...",
 			"confirm": "Bekræft",
 			"contact": "Kontakt",
@@ -1200,6 +1201,11 @@
 			"title": "Information om tjenesten"
 		},
 		"form": {
+			"color": {
+				"input": {
+					"hint": "Tjenestens farve bruges til at vise begivenheden i kalenderen i den valgte farve."
+				}
+			},
 			"order": {
 				"input": {
 					"placeholder": "Angiv placeringen af denne tjeneste på listen på den offentlige hjemmeside"
