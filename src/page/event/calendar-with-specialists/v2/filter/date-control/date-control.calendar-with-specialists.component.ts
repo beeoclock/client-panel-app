@@ -41,7 +41,7 @@ import {Reactive} from "@utility/cdk/reactive";
 			<button (click)="openDateModal()"
 							[disabled]="loader$ | async"
 							id="open-modal"
-							class="border-y border-beeColor-300 px-3.5 text-beeColor-900 flex flex-col justify-center items-center cursor-pointer hover:bg-beeColor-100 transition-all">
+							class="border-y border-beeColor-300 text-nowrap px-3.5 text-beeColor-900 flex flex-col justify-center items-center cursor-pointer hover:bg-beeColor-100 transition-all">
 
 				<span *ngIf="hint$ | async as translateKey" class="text-xs font-semibold">
 					{{ translateKey | translate }}
