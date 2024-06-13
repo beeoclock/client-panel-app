@@ -4,7 +4,7 @@ import * as Client from "@client/domain";
 import {ClientActions} from "@client/state/client/client.actions";
 import {AppActions} from "@utility/state/app/app.actions";
 import {
-    ItemBusinessProfileApiAdapter
+	ItemBusinessProfileApiAdapter
 } from "@client/adapter/external/api/buisness-profile/item.business-profile.api.adapter";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
@@ -36,6 +36,11 @@ export class ClientState {
 	@Selector()
 	public static currencies(state: IClientState): CurrencyCodeEnum[] | undefined {
 		return state.item?.businessSettings?.currencies;
+	}
+
+	@Selector()
+	public static baseCurrency(state: IClientState): CurrencyCodeEnum | undefined {
+		return state.item?.businessSettings?.baseCurrency;
 	}
 
 	@Selector()

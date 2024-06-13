@@ -6,6 +6,8 @@ import {MemberState} from "@member/state/member/member.state";
 import {environment} from "@environment/environment";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {PaymentState} from "@module/payment/state/payment/payment.state";
+import {NgxsSelectSnapshotModule} from "@ngxs-labs/select-snapshot";
+import {NgxsDispatchPluginModule} from "@ngxs-labs/dispatch-decorator";
 
 export const ngxsProviders = [
 	NgxsModule.forRoot([IdentityState, AppState, ClientState, MemberState, PaymentState], {
@@ -14,4 +16,6 @@ export const ngxsProviders = [
 	NgxsReduxDevtoolsPluginModule.forRoot({
 		disabled: environment.production
 	}),
+	NgxsSelectSnapshotModule.forRoot(),
+	NgxsDispatchPluginModule.forRoot(),
 ];

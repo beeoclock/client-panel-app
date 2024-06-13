@@ -1,14 +1,14 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from "@angular/core";
 import {IonicModule} from "@ionic/angular";
 import {
-    DatetimePeriodEnum,
-    IonSelectEventStatusComponent
+	DatetimePeriodEnum,
+	IonSelectEventStatusComponent
 } from "@event/presentation/component/statistic/component/ion-select-datetime-period.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {FormControl} from "@angular/forms";
 import {Store} from "@ngxs/store";
 import {MemberState} from "@member/state/member/member.state";
-import {combineLatest, map, Observable} from "rxjs";
+import {combineLatest, filter, map, Observable} from "rxjs";
 import {StatisticQueries} from "@event/state/statistic/statistic.queries";
 import {Reactive} from "@utility/cdk/reactive";
 import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from "@angular/common";
@@ -21,6 +21,9 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {is} from "thiis";
+import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
+import {IClient} from "@client/domain";
 
 @Component({
 	selector: 'event-statistic-component',
@@ -49,7 +52,20 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly store = inject(Store);
 
+	@SelectSnapshot(ClientState.item)
+	public readonly clientItem: IClient | undefined;
+
 	public readonly loader$: Observable<boolean> = this.store.select(StatisticQueries.loader);
+
+	public summary: {
+		amount: number;
+		currency: CurrencyCodeEnum;
+		count: number;
+	} = {
+		amount: 0,
+		count: 0,
+		currency: CurrencyCodeEnum.USD
+	};
 
 	public readonly statisticPerMember$: Observable<{
 		member: RIMember;
@@ -59,22 +75,33 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 				currency: CurrencyCodeEnum;
 				amount: number;
 				count: number;
-			}[];
+			};
 		};
 	}[]> = combineLatest([
 		this.store.select(MemberState.tableStateItems),
 		this.store.select(StatisticQueries.data),
 		this.datetimePeriodControl.valueChanges,
-		this.store.select(ClientState.currencies)
+		this.store.select(ClientState.baseCurrency).pipe(
+			filter(is.not_undefined<CurrencyCodeEnum>)
+		)
 	]).pipe(
 		this.takeUntil(),
-		map(({0: members, 1: statistic, 2: datetimePeriod, 3: currencies}) => {
+		map(({0: members, 1: statistic, 2: datetimePeriod, 3: baseCurrency}) => {
+
+			this.summary = {
+				amount: 0,
+				count: 0,
+				currency: baseCurrency
+			};
 
 			const statisticPerMemberId = statistic.reduce((acc, item) => {
 
 				if (item.status !== OrderServiceStatusEnum.done) {
 					return acc;
 				}
+
+				this.summary.amount += item.serviceSnapshot.durationVersions?.[0]?.prices?.[0]?.price ?? 0;
+				this.summary.count += 1;
 
 				item.orderAppointmentDetails.specialists.forEach((specialist) => {
 
@@ -88,7 +115,7 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 
 				return acc;
 
-			}, {} as {[key: string]: IOrderServiceDto[]});
+			}, {} as { [key: string]: IOrderServiceDto[] });
 
 			return members.map((member) => {
 
@@ -96,28 +123,22 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 					currency: CurrencyCodeEnum;
 					amount: number;
 					count: number;
-				}[] = (currencies ?? []).map((currency) => ({
-					currency,
+				} = {
+					currency: baseCurrency,
 					amount: 0,
 					count: 0
-				}));
+				};
 
 				const foundServices = statisticPerMemberId[member._id] ?? [];
 
 				foundServices.forEach((service) => {
 					const serviceCurrency = (service.serviceSnapshot.durationVersions?.[0]?.prices?.[0]?.currency ?? CurrencyCodeEnum.USD) as CurrencyCodeEnum;
-					const servicePrice = service.serviceSnapshot.durationVersions?.[0]?.prices?.[0]?.price ?? 0;
-					const foundCurrency = success.find(({currency}) => currency === serviceCurrency);
-					if (foundCurrency) {
-						foundCurrency.amount += servicePrice;
-						foundCurrency.count += 1;
-					} else {
-						success.push({
-							currency: serviceCurrency,
-							amount: servicePrice,
-							count: 1
-						});
+					if (serviceCurrency !== baseCurrency) {
+						return;
 					}
+					const servicePrice = service.serviceSnapshot.durationVersions?.[0]?.prices?.[0]?.price ?? 0;
+					success.amount += servicePrice;
+					success.count += 1;
 				});
 
 				const services = {
