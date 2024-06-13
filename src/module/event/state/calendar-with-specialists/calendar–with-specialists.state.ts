@@ -85,10 +85,17 @@ export class CalendarWithSpecialistsState {
 
 				order.services.forEach((service) => {
 
+					// Check if the order is in the correct status
 					if ('status' in orderParams) {
 						if (service.status !== orderParams.status) {
 							return;
 						}
+					}
+
+					// Check if appointment start is in the correct range
+					console.log(DateTime.fromISO(service.orderAppointmentDetails.start).hasSame(DateTime.fromISO(params.start), 'day'), service.orderAppointmentDetails.start, params.start);
+					if (DateTime.fromISO(service.orderAppointmentDetails.start).hasSame(DateTime.fromISO(params.start), 'day') === false) {
+						return;
 					}
 
 					const attendees = service.orderAppointmentDetails?.specialists.map((specialist) => {
@@ -186,6 +193,8 @@ export class CalendarWithSpecialistsState {
 			start: DateTime.fromISO(params.start).plus({days: 1}).startOf('day').toJSDate().toISOString()
 		}));
 
+		ctx.dispatch(new CalendarWithSpecialistsAction.GetItems());
+
 	}
 
 	@Action(CalendarWithSpecialistsAction.PrevDate)
@@ -196,6 +205,8 @@ export class CalendarWithSpecialistsState {
 		ctx.dispatch(new CalendarWithSpecialistsAction.SetDate({
 			start: DateTime.fromISO(params.start).minus({days: 1}).startOf('day').toJSDate().toISOString()
 		}));
+
+		ctx.dispatch(new CalendarWithSpecialistsAction.GetItems());
 
 	}
 

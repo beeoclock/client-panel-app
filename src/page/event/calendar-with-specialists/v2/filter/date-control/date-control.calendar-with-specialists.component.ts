@@ -3,7 +3,7 @@ import {AsyncPipe, DOCUMENT, NgIf} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
-import {combineLatest, map, tap} from "rxjs";
+import {combineLatest, map, switchMap, tap} from "rxjs";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 import {IonDatetime, IonicModule, ModalController} from "@ionic/angular";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
@@ -43,7 +43,7 @@ import {Reactive} from "@utility/cdk/reactive";
 							id="open-modal"
 							class="border-y border-beeColor-300 text-nowrap px-3.5 text-beeColor-900 flex flex-col justify-center items-center cursor-pointer hover:bg-beeColor-100 transition-all">
 
-				<span *ngIf="hint$ | async as translateKey" class="text-xs font-semibold">
+				<span *ngIf="hint$ | async as translateKey" class="text-sm font-semibold">
 					{{ translateKey | translate }}
 				</span>
 
@@ -134,11 +134,17 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 	public readonly locale = this.translateService.currentLang;
 
 	public ngOnInit() {
-		this.dateControl.valueChanges.subscribe((start) => {
-
-			this.store.dispatch(new CalendarWithSpecialistsAction.SetDate({
-				start
-			}));
+		this.dateControl.valueChanges.pipe(
+			this.takeUntil(),
+			switchMap((start) => {
+				return this.store.dispatch(new CalendarWithSpecialistsAction.SetDate({
+					start
+				}))
+			}),
+			switchMap(() => {
+				return this.store.dispatch(new CalendarWithSpecialistsAction.GetItems())
+			}),
+		).subscribe(() => {
 			this.modalController.getTop().then((modal) => {
 				modal && modal.dismiss().then();
 			});

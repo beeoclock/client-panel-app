@@ -181,8 +181,6 @@ export class OrderState extends BaseState<IOrderDto> {
 			componentInputs,
 		});
 
-		console.log('componentRef', componentRef);
-
 		if (!componentRef) {
 			return;
 		}
