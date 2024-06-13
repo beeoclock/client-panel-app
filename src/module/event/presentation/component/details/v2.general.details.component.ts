@@ -122,7 +122,7 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 							class="mt-1 text-sm leading-6 text-gray-700 flex items-center gap-2">
 						<div
 							class="rounded-full bg-beeColor-400 min-h-8 min-w-8 flex justify-center items-center font-bold text-white">
-							{{ specialist.member.firstName[0] }}{{ specialist.member.lastName[0] }}
+							{{ specialist.member?.firstName?.[0] ?? '' }}{{ specialist.member?.lastName?.[0] ?? '' }}
 						</div>
 						{{ specialist.member.firstName }} {{ specialist.member.lastName }}
 					</dd>
