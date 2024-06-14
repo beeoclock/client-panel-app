@@ -309,8 +309,6 @@ export class ServiceOrderFormContainerComponent implements OnInit {
             componentInputs,
         });
 
-        console.log('componentRef', componentRef);
-
         if (!componentRef) {
             return;
         }

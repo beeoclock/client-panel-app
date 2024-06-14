@@ -246,11 +246,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 	public detectItem(): void {
 
 		if (this.isEditMode) {
-
-			console.log('detectItem', this.form.value, this.orderServiceDto)
 			this.fillForm(this.orderServiceDto);
-			console.log('detectItem2', this.form.value, this.orderServiceDto)
-
 		}
 
 	}
@@ -399,8 +395,6 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 
 			this.form.updateValueAndValidity();
 			this.form.controls.configuration.controls.ignoreEventChecks.patchValue(true);
-
-			console.log('fillForm:result', this.form);
 
 		}
 	}

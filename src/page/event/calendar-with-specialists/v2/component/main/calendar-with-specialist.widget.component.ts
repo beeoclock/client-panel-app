@@ -273,18 +273,15 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 		if (start) {
 
-			console.log('setDate$:before', start)
 			const setDate$ = this.store.dispatch(new CalendarWithSpecialistsAction.SetDate({
 				start
 			}));
 			await firstValueFrom(setDate$);
-			console.log('setDate$:after', start)
 
 		}
 
 		if (status) {
 
-			console.log('updateFilters$:before', status)
 			this.orderServiceStatusControl.setValue(status, {
 				emitEvent: false,
 				onlySelf: true
@@ -293,15 +290,12 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 				status
 			}));
 			await firstValueFrom(updateFilters$);
-			console.log('updateFilters$:after', status)
 
 		}
 
-		console.log('getItems$:before')
 		const getItems$ = this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
 		await firstValueFrom(getItems$);
 
-		console.log('getItems$:after')
 	}
 
 

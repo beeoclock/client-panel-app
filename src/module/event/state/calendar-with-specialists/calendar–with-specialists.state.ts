@@ -93,7 +93,6 @@ export class CalendarWithSpecialistsState {
 					}
 
 					// Check if appointment start is in the correct range
-					console.log(DateTime.fromISO(service.orderAppointmentDetails.start).hasSame(DateTime.fromISO(params.start), 'day'), service.orderAppointmentDetails.start, params.start);
 					if (DateTime.fromISO(service.orderAppointmentDetails.start).hasSame(DateTime.fromISO(params.start), 'day') === false) {
 						return;
 					}
