@@ -71,9 +71,9 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 		<ng-template #ButtonToOpenForm>
 			<button *ngIf="showButtonGoToForm" type="button" class="!py-3 !px-4 !text-base" primary (click)="openForm()">
 				<i class="bi bi-plus-lg"></i>
-				<div class="hidden xl:block">
-					{{ 'order.button.create' | translate }}
-				</div>
+<!--				<div class="hidden xl:block">-->
+<!--					{{ 'order.button.create' | translate }}-->
+<!--				</div>-->
 			</button>
 		</ng-template>
 	`

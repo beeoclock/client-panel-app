@@ -66,9 +66,9 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		<ng-template #ButtonToOpenForm>
 			<button *ngIf="showButtonGoToForm" type="button" primary class="!py-3 !px-4 !text-base" (click)="openForm()">
 				<i class="bi bi-plus-lg"></i>
-				<span class="hidden xl:block">
-					{{ 'customer.button.create' | translate }}
-				</span>
+<!--				<span class="hidden xl:block">-->
+<!--					{{ 'customer.button.create' | translate }}-->
+<!--				</span>-->
 			</button>
 		</ng-template>
 	`

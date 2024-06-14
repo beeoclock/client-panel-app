@@ -67,9 +67,9 @@ import {
 		<ng-template #ButtonToOpenForm>
 			<button *ngIf="showButtonGoToForm" type="button" class="!py-3 !px-4 !text-base" primary (click)="openForm()">
 				<i class="bi bi-plus-lg"></i>
-				<span class="hidden xl:block">
-					{{ 'keyword.capitalize.add-service' | translate }}
-				</span>
+<!--				<span class="hidden xl:block">-->
+<!--					{{ 'keyword.capitalize.add-service' | translate }}-->
+<!--				</span>-->
 			</button>
 		</ng-template>
 	`

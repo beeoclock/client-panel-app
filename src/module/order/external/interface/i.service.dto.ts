@@ -14,6 +14,7 @@ export interface IServiceDto {
 	},
 	presentation: {
 		banners: string[];
+		color?: string;
 	};
 	prepaymentPolicy: {
 		isRequired: boolean;

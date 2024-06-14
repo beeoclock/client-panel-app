@@ -1,5 +1,5 @@
 import {Component, inject, ViewEncapsulation} from "@angular/core";
-import {CurrencyPipe, NgForOf} from "@angular/common";
+import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {
@@ -44,6 +44,7 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 		TableTableFlexDirective,
 		NoDataPipe,
 		RowActionButtonComponent,
+		NgIf,
 	],
 	providers: [
 		CurrencyPipe,

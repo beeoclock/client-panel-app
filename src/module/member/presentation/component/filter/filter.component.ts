@@ -42,9 +42,9 @@ import {NgIf} from "@angular/common";
 				class="md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
 				<button type="button" primary class="!py-3 !px-4 !text-base" (click)="openForm()">
 					<i class="bi bi-plus-lg"></i>
-					<span class="hidden md:block">
-					{{ 'member.button.create' | translate }}
-					</span>
+<!--					<span class="hidden md:block">-->
+<!--					{{ 'member.button.create' | translate }}-->
+<!--					</span>-->
 				</button>
 			</div>
 		</utility-default-panel-component>
