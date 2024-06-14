@@ -63,6 +63,14 @@ export namespace AbsenceActions {
 		public static override readonly type = '[Absence API] Update Item';
 	}
 
+	export class ArchiveItem extends BaseActions.ArchiveItem {
+		public static override readonly type = '[Absence API] Archive Item';
+	}
+
+	export class UnarchiveItem extends BaseActions.UnarchiveItem {
+		public static override readonly type = '[Absence API] Unarchive Item';
+	}
+
 	// Updates of state
 
 	export class UpdateFilters extends BaseActions.UpdateFilters {

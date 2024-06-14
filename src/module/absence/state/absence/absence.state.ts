@@ -10,6 +10,8 @@ import {UpdateAbsenceApiAdapter} from "@module/absence/external/adapter/api/upda
 import {DetailsAbsenceApiAdapter} from "@module/absence/external/adapter/api/details.order.api.adapter";
 import {PagedAbsenceApiAdapter} from "@module/absence/external/adapter/api/paged.order.api.adapter";
 import {DeleteAbsenceApiAdapter} from "@module/absence/external/adapter/api/delete.order.api.adapter";
+import {ArchiveAbsenceApiAdapter} from "@absence/external/adapter/api/archive.absence.api.adapter";
+import {UnarchiveAbsenceApiAdapter} from "@absence/external/adapter/api/unarchive.absence.api.adapter";
 
 export type IAbsenceState = IBaseState<IAbsenceDto>;
 
@@ -31,6 +33,8 @@ export class AbsenceState extends BaseState<IAbsenceDto> {
 	protected override readonly item = inject(DetailsAbsenceApiAdapter);
 	protected override readonly delete = inject(DeleteAbsenceApiAdapter);
 	protected override readonly paged = inject(PagedAbsenceApiAdapter);
+	protected override readonly archive = inject(ArchiveAbsenceApiAdapter);
+	protected override readonly unarchive = inject(UnarchiveAbsenceApiAdapter);
 
 	private readonly translateService = inject(TranslateService);
 
@@ -174,6 +178,16 @@ export class AbsenceState extends BaseState<IAbsenceDto> {
 	public override async createItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.CreateItem) {
 		await super.createItem(ctx, action);
 		await this.closeFormAction(ctx);
+	}
+
+	@Action(AbsenceActions.ArchiveItem)
+	public override async archiveItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.ArchiveItem) {
+		await super.archiveItem(ctx, action);
+	}
+
+	@Action(AbsenceActions.UnarchiveItem)
+	public override async unarchiveItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.UnarchiveItem) {
+		await super.unarchiveItem(ctx, action);
 	}
 
 	@Action(AbsenceActions.UpdateItem)

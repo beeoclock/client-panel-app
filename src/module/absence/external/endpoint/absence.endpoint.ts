@@ -7,9 +7,27 @@ export const AbsenceEndpoint = {
 	DELETE: '/api/v1/absence/{id}',
 	DETAILS: '/api/v1/absence/{id}',
 	PAGED: '/api/v1/absence/paged',
+	ARCHIVE: '/api/v1/customer/{id}/archive',
+	UNARCHIVE: '/api/v1/customer/{id}/unarchive',
 }
 
 export const absenceEndpoint: EndpointCollectionType = {
+	PATCH: {
+		[AbsenceEndpoint.ARCHIVE]: {
+			source: SourceNetworkEnum.panel,
+			replace: true,
+			header: {
+				authorization: true,
+			}
+		},
+		[AbsenceEndpoint.UNARCHIVE]: {
+			source: SourceNetworkEnum.panel,
+			replace: true,
+			header: {
+				authorization: true,
+			}
+		},
+	},
 	POST: {
 		[AbsenceEndpoint.CREATE]: {
 			source: SourceNetworkEnum.panel,

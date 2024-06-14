@@ -18,6 +18,8 @@ import {AbsenceActions} from "@absence/state/absence/absence.actions";
 			(delete)="delete()"
 			(open)="open()"
 			(edit)="edit()"
+			(deactivate)="deactivate()"
+			(activate)="activate()"
 			[id]="id"
 			[active]="item.active">
 		</utility-table-column-action>
@@ -51,18 +53,13 @@ export class RowActionButtonComponent {
 		this.store.dispatch(new AbsenceActions.DeleteItem(this.item._id));
 	}
 
-	// public activate(): void {
-	// 	this.store.dispatch(new AbsenceActions.UnarchiveItem(this.item._id));
-	// }
-	//
-	// public deactivate(): void {
-	// 	this.store.dispatch(new AbsenceActions.ArchiveItem(this.item._id));
-	// }
-	//
-	// public async archive(id: string): Promise<void> {
-	// 	await firstValueFrom(this.store.dispatch(
-	// 		new AbsenceActions.ArchiveItem(id)));
-	// }
+	public activate(): void {
+		this.store.dispatch(new AbsenceActions.UnarchiveItem(this.item._id));
+	}
+
+	public deactivate(): void {
+		this.store.dispatch(new AbsenceActions.ArchiveItem(this.item._id));
+	}
 
 	public open(): void {
 		this.store.dispatch(new AbsenceActions.OpenDetails(this.item));
