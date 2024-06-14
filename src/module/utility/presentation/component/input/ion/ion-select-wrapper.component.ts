@@ -1,7 +1,7 @@
-import {Component, HostBinding, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateModule} from "@ngx-translate/core";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {IonicModule} from "@ionic/angular";
 import {NgForOf} from "@angular/common";
@@ -13,6 +13,7 @@ import {NgForOf} from "@angular/common";
 		<ion-select
 			[formControl]="control"
 			[multiple]="multiple"
+			[placeholder]="'event.keyword.status.all' | translate"
 			class="!min-h-0"
 			fill="solid"
 			interface="popover">
@@ -33,7 +34,7 @@ import {NgForOf} from "@angular/common";
 		NgForOf
 	],
 })
-export class IonSelectWrapperComponent implements OnInit {
+export class IonSelectWrapperComponent {
 
 	@Input({required: true})
 	public id!: string;
@@ -44,9 +45,6 @@ export class IonSelectWrapperComponent implements OnInit {
 	@Input()
 	public multiple = false;
 
-	@Input()
-	public addAllOption = true;
-
 	@Input({required: true})
 	public options: {
 		value: any;
@@ -56,19 +54,4 @@ export class IonSelectWrapperComponent implements OnInit {
 	@HostBinding()
 	public class = 'px-4 py-2 border border-beeColor-300 rounded-2xl';
 
-	private readonly translateService = inject(TranslateService);
-
-	public ngOnInit(): void {
-		this.initAllOption();
-	}
-
-	private initAllOption() {
-		if (!this.addAllOption) {
-			return;
-		}
-		this.options.unshift({
-			value: '',
-			label: this.translateService.instant('event.keyword.status.all')
-		});
-	}
 }

@@ -64,16 +64,18 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 			<ion-select-wrapper
 				id="order-filter-select-order-status"
 				class="py-3"
+				[multiple]="true"
 				[options]="orderStatusOptions"
 				[control]="orderStatusControl"/>
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>
-			<button *ngIf="showButtonGoToForm" type="button" class="!py-3 !px-4 !text-base" primary (click)="openForm()">
+			<button *ngIf="showButtonGoToForm" type="button" class="!py-3 !px-4 !text-base" primary
+					(click)="openForm()">
 				<i class="bi bi-plus-lg"></i>
-<!--				<div class="hidden xl:block">-->
-<!--					{{ 'order.button.create' | translate }}-->
-<!--				</div>-->
+				<!--				<div class="hidden xl:block">-->
+				<!--					{{ 'order.button.create' | translate }}-->
+				<!--				</div>-->
 			</button>
 		</ng-template>
 	`
@@ -87,7 +89,7 @@ export class FilterComponent extends BaseFilterComponent implements OnInit {
 	public override readonly actions = OrderActions;
 	public override readonly state = OrderState;
 
-	public readonly orderStatusControl = new FormControl<OrderServiceStatusEnum | ''>('', {
+	public readonly orderStatusControl = new FormControl<OrderServiceStatusEnum[]>([], {
 		nonNullable: true
 	});
 
@@ -118,9 +120,9 @@ export class FilterComponent extends BaseFilterComponent implements OnInit {
 
 	public ngOnInit() {
 		this.initOrderStatusList();
-		this.orderStatusControl.valueChanges.pipe(this.takeUntil()).subscribe((status: string) => {
+		this.orderStatusControl.valueChanges.pipe(this.takeUntil()).subscribe((statuses) => {
 			this.store.dispatch([
-				new OrderActions.UpdateFilters({status}),
+				new OrderActions.UpdateFilters({statuses}),
 				new OrderActions.GetList()
 			]);
 		});
