@@ -67,12 +67,7 @@ export class RowActionButtonComponent {
 	}
 
 	public edit(): void {
-		this.store.dispatch(new OrderActions.OpenForm({
-			componentInputs: {
-				isEditMode: true,
-				item: this.item
-			}
-		}));
+		this.store.dispatch(new OrderActions.OpenFormToEditById(this.item._id));
 	}
 
 }

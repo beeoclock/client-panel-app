@@ -132,6 +132,7 @@ export class OrderState extends BaseState<IOrderDto> {
 			title,
 			component: OrderFormContainerComponent,
 			componentInputs: {},
+			showLoading: true,
 		});
 
 		const orderDto = await this.item.executeAsync(action.payload);
