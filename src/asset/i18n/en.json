@@ -188,15 +188,15 @@
 								"placeholder": "Select the type of action that should take place automatically for the newly created reservation/event"
 							},
 							"earliestBooking": {
-								"placeholder": "That is the shortest time after which it is possible to book a service"
+								"placeholder": "The shortest period of time after which you can book a service"
 							},
 							"latestBooking": {
-								"placeholder": "Set of period of rolling weeks people can book in your calendar"
+								"placeholder": "Time during which the service can be booked"
 							}
 						},
 						"select": {
 							"mandatoryAttendeeProperties": {
-								"hint": "Choose which fields should be required on the public page for your customers",
+								"hint": "Select which fields are required for customers to fill in when booking a service",
 								"label": "Required fields"
 							},
 							"timeZone": {
@@ -208,12 +208,16 @@
 					"businessSettings": {
 						"select": {
 							"availableLanguages": {
-								"hint": "Choose the languages in which you do business, maybe you do business not only for locals but also for tourists. This choice will determine the available list of languages for emails",
-								"label": "Languages in which you do business"
+								"hint": "Languages are available for customers on the public page and when sending messages",
+								"label": "Additional languages"
 							},
 							"baseCurrency": {
-								"hint": "Select the main currency in which you operate, this is necessary for reports and the correct presentation of the amount when placing an order.",
+								"hint": "Select the main currency to display amounts correctly in reports and orders",
 								"label": "Main currency"
+							},
+							"baseLanguage": {
+								"hint": "The language in which services, reports and notifications are displayed, unless otherwise specified in your personal profile",
+								"label": "Base language"
 							},
 							"currencies": {
 								"hint": "Select the currencies in which you can receive payment for the service provided, thanks to this setting you can choose a specific currency for a specific service.",
@@ -337,7 +341,9 @@
 	"danger-zone": {
 		"button": {
 			"delete": {
-				"label": "Delete business account"
+				"hint": "Deleting a business account is irreversible, so consider this decision carefully.",
+				"label": "Delete business profile",
+				"title": "Deleting a business profile"
 			}
 		},
 		"hint": {
@@ -919,6 +925,7 @@
 			"information": "Information",
 			"initializing": "Initializing",
 			"language": "Language",
+			"languageAndRegion": "Language and Region",
 			"languages": "Languages",
 			"lastName": "Last name",
 			"lastUpdate": "Last update",
@@ -1300,11 +1307,11 @@
 		"title": "Sign out"
 	},
 	"slotBuildingStrategy": {
-		"hint": "Choose the time interval according to which the available slots for your client should be built, or choose the format in which the available time slots will be built by the selected service",
+		"hint": "Intervals in the business schedule for which the client books the service",
 		"options": {
 			"accordingToAService": "According to a service"
 		},
-		"title": "Construction of time slots"
+		"title": "Time slots"
 	},
 	"slotRetrievingStrategy": {
 		"hint": "This strategy controls the possibility of choosing time intervals for events that have not yet received confirmation from the specialist. Below you will see examples of the chosen strategy.",

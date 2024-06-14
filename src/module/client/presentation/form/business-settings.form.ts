@@ -5,6 +5,7 @@ export interface IBusinessSettingsForm {
 	object: FormControl<'BusinessSettings'>;
 	timeZone: FormControl<string>;
 	availableLanguages: FormControl<LanguageCodeEnum[]>;
+	baseLanguage: FormControl<LanguageCodeEnum>;
 	emailLanguage: FormControl<LanguageCodeEnum>;
 	currencies: FormControl<CurrencyCodeEnum[]>;
 	baseCurrency: FormControl<CurrencyCodeEnum>;
@@ -21,6 +22,9 @@ export class BusinessSettingsForm extends FormGroup<IBusinessSettingsForm> {
 				nonNullable: true,
 			}),
 			availableLanguages: new FormControl([LanguageCodeEnum.en], {
+				nonNullable: true,
+			}),
+			baseLanguage: new FormControl(LanguageCodeEnum.en, {
 				nonNullable: true,
 			}),
 			currencies: new FormControl([], {

@@ -188,15 +188,15 @@
 								"placeholder": "Wybierz typ akcji, która ma nastąpić automatycznie dla nowo utworzonej rezerwacji/wydarzenia"
 							},
 							"earliestBooking": {
-								"placeholder": "Określa najkrótszy dostępny czas przed umożliwieniem rezerwacji usługi"
+								"placeholder": "Najkrótszy okres, po którym można zarezerwować usługę"
 							},
 							"latestBooking": {
-								"placeholder": "Określa czas dostępności rezerwacji usługi"
+								"placeholder": "Czas, w którym można zarezerwować usługę"
 							}
 						},
 						"select": {
 							"mandatoryAttendeeProperties": {
-								"hint": "Wybierz, które pola są wymagane na stronie publicznej dla klientów.",
+								"hint": "Wybierz pola wymagane do wypełnienia przez klientów podczas rezerwacji usługi.",
 								"label": "Wymagane pola"
 							},
 							"timeZone": {
@@ -208,12 +208,16 @@
 					"businessSettings": {
 						"select": {
 							"availableLanguages": {
-								"hint": "Wybierz języki, w których prowadzisz działalność, być może prowadzisz działalność nie tylko dla mieszkańców, ale także dla turystów. Wybór ten określi dostępną listę języków dla wiadomości e-mail",
-								"label": "Języki, w których prowadzisz działalność"
+								"hint": "Języki są dostępne dla klientów na stronie publicznej i podczas wysyłania wiadomości.",
+								"label": "Dodatkowe języki"
 							},
 							"baseCurrency": {
-								"hint": "Wybierz główną walutę, w której działasz, jest to konieczne do raportów i prawidłowej prezentacji kwoty podczas składania zamówienia.",
+								"hint": "Wybierz główną walutę, aby poprawnie wyświetlać kwoty w raportach i zamówieniach.",
 								"label": "Główna waluta"
+							},
+							"baseLanguage": {
+								"hint": "Język, w którym wyświetlane są usługi, raporty i powiadomienia, o ile nie określono inaczej w profilu osobistym użytkownika.",
+								"label": "Główny język"
 							},
 							"currencies": {
 								"hint": "Wybierz waluty, w których możesz otrzymać płatność za świadczoną usługę, dzięki temu ustawieniu możesz wybrać konkretną walutę dla konkretnej usługi.",
@@ -337,7 +341,9 @@
 	"danger-zone": {
 		"button": {
 			"delete": {
-				"label": "Usuń konto firmowe"
+				"hint": "Usunięcie konta firmowego jest nieodwracalne, dlatego należy dokładnie rozważyć tę decyzję.",
+				"label": "Usuń profil biznesowy",
+				"title": "Usuwanie profilu biznesowego"
 			}
 		},
 		"hint": {
@@ -919,6 +925,7 @@
 			"information": "Informacje",
 			"initializing": "Inicializacja",
 			"language": "Język",
+			"languageAndRegion": "Język i region",
 			"languages": "Języki",
 			"lastName": "Nazwisko",
 			"lastUpdate": "Ostatnia aktualizacja",
@@ -1300,11 +1307,11 @@
 		"title": "Wyloguj się"
 	},
 	"slotBuildingStrategy": {
-		"hint": "Wybierz przedział czasowy według jakiego mają być budowane dostępne sloty dla Twojego klienta lub wybierz format w jakim wybrane sloty będą budowane przez wybraną usługę",
+		"hint": "Odstępy czasu w harmonogramie biznesowym, na które klient rezerwuje usługę",
 		"options": {
 			"accordingToAService": "Według serwisu"
 		},
-		"title": "Budowa przedziałów czasowych"
+		"title": "Przedziały czasowe"
 	},
 	"slotRetrievingStrategy": {
 		"hint": "Strategia ta kontroluje możliwość wyboru przedziałów czasowych dla wydarzeń, które nie uzyskały jeszcze potwierdzenia od specjalisty. Poniżej zobaczysz przykłady wybranej strategii.",

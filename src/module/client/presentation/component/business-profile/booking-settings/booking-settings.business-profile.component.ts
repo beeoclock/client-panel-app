@@ -17,6 +17,9 @@ import {
 import {
 	SelectSlotRetrievingStrategyComponent
 } from "@utility/presentation/component/input/select-slot-retrieving-strategy.component";
+import {
+	MandatoryAttendeePropertiesComponent
+} from "@client/presentation/component/booking-settings/mandatory-attendee-properties/mandatory-attendee-properties.component";
 
 @Component({
   selector: 'client-business-profile-booking-settings-component',
@@ -31,13 +34,14 @@ import {
 		SelectAutoActionTypeOnEventComponent,
 		HumanizeDurationPipe,
 		SelectSlotBuildingStrategyComponent,
-		SelectSlotRetrievingStrategyComponent
+		SelectSlotRetrievingStrategyComponent,
+		MandatoryAttendeePropertiesComponent
 	],
   template: `
     <bee-card gap="gap-8">
 
       <strong class="dark:text-white">
-        {{ 'keyword.capitalize.bookingSettings' | translate }}
+        {{ 'keyword.capitalize.services' | translate }}
       </strong>
 
       <select-latest-booking-component
@@ -71,6 +75,10 @@ import {
 <!--			<hr>-->
 
 <!--			<select-slot-retrieving-strategy-component [slotSettings]="form.controls.slotSettings"/>-->
+
+
+		<client-booking-settings-mandatory-attendee-properties-component
+			[control]="form.controls.mandatoryAttendeeProperties"/>
 
     </bee-card>
   `

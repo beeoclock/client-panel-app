@@ -188,15 +188,15 @@
 								"placeholder": "Vælg den type handling, der automatisk skal ske for den nyligt oprettede reservation/begivenhed"
 							},
 							"earliestBooking": {
-								"placeholder": "Det er den korteste tid, hvorefter det er muligt at booke en tjeneste"
+								"placeholder": "Den korteste periode, efter hvilken du kan bestille en service"
 							},
 							"latestBooking": {
-								"placeholder": "Sæt periode med rullende uger, folk kan booke i din kalender"
+								"placeholder": "Tidspunkt, hvor tjenesten kan bookes"
 							}
 						},
 						"select": {
 							"mandatoryAttendeeProperties": {
-								"hint": "Vælg, hvilke felter der er obligatoriske på den offentlige side for dine kunder.",
+								"hint": "Vælg, hvilke felter kunderne skal udfylde, når de booker en tjeneste",
 								"label": "Krævede felter"
 							},
 							"timeZone": {
@@ -208,12 +208,16 @@
 					"businessSettings": {
 						"select": {
 							"availableLanguages": {
-								"hint": "Vælg de sprog, du driver forretning på, måske driver du ikke kun forretning for lokale, men også for turister. Dette valg vil bestemme den tilgængelige liste over sprog til e-mails",
-								"label": "Sprog, som du driver forretning på"
+								"hint": "Sprog er tilgængelige for kunder på den offentlige side og når de sender beskeder",
+								"label": "Yderligere sprog"
 							},
 							"baseCurrency": {
-								"hint": "Vælg den hovedvaluta, du arbejder i. Det er nødvendigt for rapporter og for at kunne præsentere beløbet korrekt, når du afgiver en ordre.",
+								"hint": "Vælg hovedvalutaen for at vise beløb korrekt i rapporter og ordrer",
 								"label": "Hovedvaluta"
+							},
+							"baseLanguage": {
+								"hint": "Det sprog, som tjenester, rapporter og meddelelser vises på, medmindre andet er angivet i din personlige profil.",
+								"label": "Hovedsprog"
 							},
 							"currencies": {
 								"hint": "Vælg de valutaer, som du kan modtage betaling i for den leverede service, takket være denne indstilling kan du vælge en bestemt valuta for en bestemt service.",
@@ -337,7 +341,9 @@
 	"danger-zone": {
 		"button": {
 			"delete": {
-				"label": "Slet forretningskonto"
+				"hint": "Det er uigenkaldeligt at slette en virksomhedskonto, så overvej beslutningen nøje.",
+				"label": "Slet virksomhedsprofil",
+				"title": "Sletning af en virksomhedsprofil"
 			}
 		},
 		"hint": {
@@ -919,6 +925,7 @@
 			"information": "Information",
 			"initializing": "Initialiserer",
 			"language": "Sprog",
+			"languageAndRegion": "Sprog og region",
 			"languages": "Sprog",
 			"lastName": "Efternavn",
 			"lastUpdate": "Sidste opdatering",
@@ -1300,11 +1307,11 @@
 		"title": "Log ud"
 	},
 	"slotBuildingStrategy": {
-		"hint": "Vælg det tidsinterval, hvorefter de tilgængelige slots for din klient skal bygges, eller vælg det format, hvori de tilgængelige tidsrum vil blive bygget af den valgte tjeneste",
+		"hint": "Intervaller i den forretningsplan, som kunden booker tjenesten til",
 		"options": {
 			"accordingToAService": "Ifølge en tjeneste"
 		},
-		"title": "Opbygning af tidsslots"
+		"title": "Tidspunkter"
 	},
 	"slotRetrievingStrategy": {
 		"hint": "Denne strategi styrer muligheden for at vælge tidsintervaller for begivenheder, der endnu ikke har modtaget bekræftelse fra specialisten. Nedenfor vil du se eksempler på den valgte strategi.",
