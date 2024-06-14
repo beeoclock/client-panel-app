@@ -102,6 +102,7 @@ export class ServiceContainerFormComponent implements OnInit {
 
 	public ngOnInit(): void {
 		this.detectItem();
+		console.log(this.presentationForm);
 	}
 
 	public detectItem(): void {
@@ -109,8 +110,9 @@ export class ServiceContainerFormComponent implements OnInit {
 
 			const {durationVersions, languageVersions, presentation, ...rest} = this.item;
 
-			if (presentation) {
-				this.presentationForm.patchValue(presentation);
+			console.log(presentation);
+			if (presentation?.banners?.length) {
+				this.presentationForm.controls.banners.patchValue(presentation.banners);
 			}
 
 			this.form.patchValue(rest);

@@ -24,7 +24,7 @@ import {ServicePresentationForm} from '@src/module/service/presentation/form/ser
 })
 export class ImageBlockComponent {
 
-	@Input()
+	@Input({ required: true })
 	public presentationForm!: ServicePresentationForm;
 
 	@ViewChildren(ServiceFormImageComponent)
