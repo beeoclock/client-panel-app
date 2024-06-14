@@ -40,7 +40,7 @@ export interface ICustomerForm {
 
 }
 
-export class CustomerForm extends BaseEntityForm<'Customer', ICustomerForm> {
+export class CustomerForm extends BaseEntityForm<'CustomerDto', ICustomerForm> {
 
     private readonly destroy$ = new Subject<void>();
 
@@ -125,7 +125,7 @@ export class CustomerForm extends BaseEntityForm<'Customer', ICustomerForm> {
     ];
 
     constructor() {
-        super('Customer', {
+        super('CustomerDto', {
 
             [CustomerFormFieldsEnum.firstName]: new FormControl(),
             [CustomerFormFieldsEnum.lastName]: new FormControl(),
