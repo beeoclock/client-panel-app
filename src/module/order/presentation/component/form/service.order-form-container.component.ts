@@ -42,39 +42,43 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {RIMember} from "@member/domain";
+import {
+	OrderServiceDetailsComponent
+} from "@order/presentation/component/details/service/order-service-details.component";
 
 
 @Component({
     selector: 'app-service-order-form-container',
     encapsulation: ViewEncapsulation.None,
-    imports: [
-        FormInputComponent,
-        DatetimeLocalInputComponent,
-        TranslateModule,
-        FormTextareaComponent,
-        CardComponent,
-        FormBusinessProfileComponent,
-        SwitchComponent,
-        ButtonSaveContainerComponent,
-        FormsModule,
-        PrimaryButtonDirective,
-        CurrencyPipe,
-        NgSelectModule,
-        ReactiveFormsModule,
-        DefaultLabelDirective,
-        PrimaryLinkButtonDirective,
-        NgForOf,
-        HumanizeDurationPipe,
-        DatePipe,
-        ActionComponent,
-        AttendeeCardComponent,
-        ChangeStatusOnAcceptedComponent,
-        ChangeStatusOnRejectedComponent,
-        EventStatusStyleDirective,
-        NgIf,
-        NoDataPipe,
-        LinkButtonDirective
-    ],
+	imports: [
+		FormInputComponent,
+		DatetimeLocalInputComponent,
+		TranslateModule,
+		FormTextareaComponent,
+		CardComponent,
+		FormBusinessProfileComponent,
+		SwitchComponent,
+		ButtonSaveContainerComponent,
+		FormsModule,
+		PrimaryButtonDirective,
+		CurrencyPipe,
+		NgSelectModule,
+		ReactiveFormsModule,
+		DefaultLabelDirective,
+		PrimaryLinkButtonDirective,
+		NgForOf,
+		HumanizeDurationPipe,
+		DatePipe,
+		ActionComponent,
+		AttendeeCardComponent,
+		ChangeStatusOnAcceptedComponent,
+		ChangeStatusOnRejectedComponent,
+		EventStatusStyleDirective,
+		NgIf,
+		NoDataPipe,
+		LinkButtonDirective,
+		OrderServiceDetailsComponent
+	],
     standalone: true,
     template: `
 
@@ -84,60 +88,24 @@ import {RIMember} from "@member/domain";
 
             <div class="flex flex-wrap gap-4" *ngIf="form.controls.services.value.length">
 
-                <bee-card class="text-sm w-full border" gap="gap-2" *ngFor="let service of form.controls.services.value; let index = index">
+				<app-order-service-details
+					*ngFor="let service of form.controls.services.getRawValue(); let index = index"
+					[service]="service">
 
-                    <div class="flex justify-between items-center gap-8">
+					<div slot="footer" class="flex justify-between">
 
-                        <div class="flex items-center gap-2 w-full">
-                            <div class="bg-neutral-100 text-neutral-800 font-medium inline-flex gap-1 items-center px-2 py-0.5 rounded-2xl dark:bg-gray-700 dark:text-neutral-400 border border-neutral-400">
-                                {{ (service.serviceSnapshot?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: (service.serviceSnapshot?.durationVersions?.[0]?.prices?.[0]?.currency ?? 'USD') : 'symbol-narrow'  }}
-                            </div>
-                            <div class="bg-neutral-100 text-neutral-800 font-medium inline-flex gap-1 items-center px-2 py-0.5 rounded-2xl dark:bg-gray-700 dark:text-neutral-400 border border-neutral-400">
-                                <i class="bi bi-clock text-beeColor-500"></i>
-                                {{ (service.serviceSnapshot?.durationVersions?.[0]?.durationInSeconds ?? 0) | humanizeDuration }}
-                            </div>
-                        </div>
+						<button type="button" link (click)="delete(index)">
+							<i class="bi bi-trash"></i>
+							{{ 'keyword.capitalize.delete' | translate }}
+						</button>
+						<button type="button" primaryLink (click)="edit(service, index)">
+							<i class="bi bi-pencil"></i>
+							{{ 'keyword.capitalize.edit' | translate }}
+						</button>
 
-                    </div>
-                    <div class="cursor-pointer inline-flex gap-4 items-center">
-                        <i class="bi bi-calendar text-beeColor-500"></i>
-                        <div class="inline-flex gap-2">
-                            {{ service.orderAppointmentDetails?.start | date: 'yyyy-MM-dd HH:mm' }}
-                        </div>
-                    </div>
-                    <div class="cursor-pointer inline-flex gap-4 items-center">
-                        <i class="bi bi-cart text-beeColor-500"></i>
-                        {{ service.serviceSnapshot?.languageVersions?.[0]?.title | noData }}
-                    </div>
-                    <div class="cursor-pointer inline-flex gap-4 items-center">
-                        <i class="bi bi-file-person text-beeColor-500"></i>
-                        {{ service.orderAppointmentDetails?.specialists?.[0]?.member?.firstName }}
-                        {{ service.orderAppointmentDetails?.specialists?.[0]?.member?.lastName }}
-                    </div>
-                    <event-attendee-card-component
-                            *ngFor="let attendee of (service.orderAppointmentDetails?.attendees ?? [])"
-                            [attendee]="attendee"/>
-                    <ng-container *ngIf="service?.customerNote?.length">
-                        <hr class="mt-2">
-                        <div class="text-neutral-500 dark:text-neutral-400 py-2">
-                            {{ service.customerNote }}
-                        </div>
-                    </ng-container>
+					</div>
 
-                    <div class="flex justify-between">
-
-                        <button type="button" link (click)="delete(index)">
-                            <i class="bi bi-trash"></i>
-                            {{ 'keyword.capitalize.delete' | translate }}
-                        </button>
-                        <button type="button" primaryLink (click)="edit(service, index)">
-                            <i class="bi bi-pencil"></i>
-                            {{ 'keyword.capitalize.edit' | translate }}
-                        </button>
-
-                    </div>
-
-                </bee-card>
+				</app-order-service-details>
 
             </div>
 

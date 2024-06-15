@@ -1,12 +1,24 @@
 <ng-container *ngIf="item">
 	<div class="bg-white">
 		<dl class="divide-y divide-gray-100">
-			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+			<div class="px-4 py-6 grid">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.services' | translate }}
 				</dt>
 				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-					{{ item?.services?.length }}
+
+					<div class="flex flex-wrap gap-4" *ngIf="item.services.length">
+
+						<app-order-service-details
+							class="w-full cursor-pointer hover:bg-gray-100"
+							*ngFor="let service of item.services; let index = index"
+							(click)="openAppointmentDetails(service)"
+							[service]="service">
+
+						</app-order-service-details>
+
+					</div>
+
 				</dd>
 			</div>
 			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
