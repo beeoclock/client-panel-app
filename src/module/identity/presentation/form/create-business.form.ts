@@ -1,5 +1,5 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {AddressForm, GalleryForm} from "@client/presentation/form";
+import {AddressForm, BookingSettingsForm, GalleryForm} from "@client/presentation/form";
 import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
 import {ServiceForm, ServicesForm} from "@service/presentation/form";
 import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
@@ -36,6 +36,7 @@ interface IBusinessClientForm {
 	gallery: GalleryForm;
 	services: ServicesForm;
 	businessSettings: BusinessSettingsForm;
+	bookingSettings: BookingSettingsForm;
 
 	businessCategory: FormControl<BusinessCategoryEnum>;
 	serviceProvideType: FormControl<ServiceProvideTypeEnum>;
@@ -55,6 +56,7 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 			schedules: new SchedulesForm(),
 			gallery: new GalleryForm(),
 			businessSettings: new BusinessSettingsForm(),
+			bookingSettings: new BookingSettingsForm(),
 			services: new ServicesForm([]),
 
 			businessCategory: new FormControl(),
