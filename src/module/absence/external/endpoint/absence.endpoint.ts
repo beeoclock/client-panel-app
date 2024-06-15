@@ -7,8 +7,8 @@ export const AbsenceEndpoint = {
 	DELETE: '/api/v1/absence/{id}',
 	DETAILS: '/api/v1/absence/{id}',
 	PAGED: '/api/v1/absence/paged',
-	ARCHIVE: '/api/v1/customer/{id}/archive',
-	UNARCHIVE: '/api/v1/customer/{id}/unarchive',
+	ARCHIVE: '/api/v1/absence/{id}/archive',
+	UNARCHIVE: '/api/v1/absence/{id}/unarchive',
 }
 
 export const absenceEndpoint: EndpointCollectionType = {
