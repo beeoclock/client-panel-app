@@ -36,7 +36,7 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 	],
 	template: `
 
-		<div class="p-4 flex justify-between">
+		<div class="p-2 flex justify-between">
 			<div *ngIf="isNotPreview && status" orderServiceStatusStyle [status]="status"></div>
 			<div
 				*ngIf="isPreview"
@@ -46,7 +46,7 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 		</div>
 		<div class="border-t border-gray-100">
 			<dl class="divide-y divide-gray-100">
-				<div class="p-4">
+				<div class="p-2">
 					<dt class="text-sm font-medium leading-6 text-gray-900">
 						{{ 'keyword.capitalize.service' | translate }}
 					</dt>
@@ -76,7 +76,7 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 						</ul>
 					</dd>
 				</div>
-				<div class="p-4">
+				<div class="p-2">
 					<dt class="text-sm font-medium leading-6 text-gray-900">
 						{{ 'keyword.capitalize.customer' | translate }}
 					</dt>
@@ -114,7 +114,7 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 						</ul>
 					</dd>
 				</div>
-				<div class="p-4">
+				<div class="p-2">
 					<dt class="text-sm font-medium leading-6 text-gray-900">
 						{{ 'keyword.capitalize.specialist' | translate }}
 					</dt>
@@ -127,7 +127,7 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 						{{ specialist.member.firstName }} {{ specialist.member.lastName }}
 					</dd>
 				</div>
-				<div class="p-4 ">
+				<div class="p-2 ">
 					<dt class="text-sm font-medium leading-6 text-gray-900">
 						{{ 'keyword.capitalize.dateAndTime' | translate }}
 					</dt>
@@ -135,7 +135,7 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 						{{ event.start | dynamicDate: 'medium' }}
 					</dd>
 				</div>
-				<div class="p-4 ">
+				<div class="p-2 ">
 					<dt class="text-sm font-medium leading-6 text-gray-900">
 						{{ 'keyword.capitalize.note' | translate }}
 					</dt>
