@@ -24,9 +24,7 @@ export class BusinessSettingsForm extends FormGroup<IBusinessSettingsForm> {
 			availableLanguages: new FormControl([LanguageCodeEnum.en], {
 				nonNullable: true,
 			}),
-			baseLanguage: new FormControl(LanguageCodeEnum.en, {
-				nonNullable: true,
-			}),
+			baseLanguage: new FormControl(),
 			currencies: new FormControl([], {
 				nonNullable: true,
 			}),
@@ -42,8 +40,9 @@ export class BusinessSettingsForm extends FormGroup<IBusinessSettingsForm> {
 
 	private initValidators(): void {
 		this.controls.timeZone.setValidators(Validators.required);
-		this.controls.availableLanguages.setValidators([Validators.required, Validators.minLength(1)]);
+		this.controls.baseLanguage.setValidators([Validators.required]);
 		this.controls.emailLanguage.setValidators([Validators.required]);
+		this.controls.availableLanguages.setValidators([Validators.required, Validators.minLength(1)]);
 		this.controls.currencies.setValidators([Validators.required, Validators.minLength(1)]);
 		this.controls.baseCurrency.setValidators([Validators.required]);
 	}

@@ -11,22 +11,24 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 @Component({
 	selector: 'client-available-languages-business-settings-component',
 	template: `
-		<label default for="client-business-settings-form-available-languages">
-			{{ 'client.profile.form.section.businessSettings.select.availableLanguages.label' | translate }}
-		</label>
-		<ng-select
-			labelForId="client-business-settings-form-available-languages"
-			bindLabel="name"
-			bindValue="code"
-			isRequired
-			hasError
-			invalidTooltip
-			[multiple]="true"
-			[items]="languageList"
-			[closeOnSelect]="false"
-			[clearable]="false"
-			[formControl]="control">
-		</ng-select>
+		<div class="relative">
+			<label default for="client-business-settings-form-available-languages">
+				{{ 'client.profile.form.section.businessSettings.select.availableLanguages.label' | translate }}
+			</label>
+			<ng-select
+				labelForId="client-business-settings-form-available-languages"
+				bindLabel="name"
+				bindValue="code"
+				isRequired
+				hasError
+				invalidTooltip
+				[multiple]="true"
+				[items]="languageList"
+				[closeOnSelect]="false"
+				[clearable]="false"
+				[formControl]="control">
+			</ng-select>
+		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
 			{{ 'client.profile.form.section.businessSettings.select.availableLanguages.hint' | translate }}
 		</div>
@@ -47,7 +49,10 @@ export class AvailableLanguagesBusinessSettingsComponent {
 	@Input({ required: true })
 	public control!: FormControl<LanguageCodeEnum[]>;
 
-	public readonly languageList = LANGUAGES;
+	@Input()
+	public exclude: LanguageCodeEnum[] = [];
+
+	public readonly languageList = LANGUAGES.filter((language) => !this.exclude.includes(language.code))
 
 	@HostBinding()
 	public class = 'flex flex-col text-start';

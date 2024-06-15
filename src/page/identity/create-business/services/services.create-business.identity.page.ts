@@ -14,9 +14,10 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {FormButtonWithIconComponent} from "@utility/presentation/component/button/form-button-with-icon.component";
 import {ScheduleFormComponent} from "@utility/presentation/component/schedule/schedule.form.component";
 import {
-    CreateBusinessModalService
+	CreateBusinessModalService
 } from "@service/presentation/component/form/modal/create-business/create-business.modal.service";
 import {ServiceForm} from "@service/presentation/form";
+import {NGXLogger} from "ngx-logger";
 
 
 @Component({
@@ -43,27 +44,33 @@ export class ServicesCreateBusinessIdentityPage {
 
 	private readonly createBusinessModalService = inject(CreateBusinessModalService);
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
+	private readonly ngxLogger = inject(NGXLogger);
 	public readonly servicesForm = this.createBusinessQuery.getServicesForm();
 
 	public get serviceList() {
 		return (this.servicesForm.value ?? []) as IService[];
 	}
 
-	public openServiceFormModal(index?: number | undefined) {
+	public openServiceFormModal(service?: IService | undefined) {
 		let serviceFormToEdit = undefined;
-		if (index !== undefined) {
+		if (service !== undefined) {
 			serviceFormToEdit = new ServiceForm();
-			serviceFormToEdit.setValue(this.servicesForm.at(index).getRawValue());
+			serviceFormToEdit.patchValue(service);
 		}
 		const {availableLanguages} = this.createBusinessQuery.getBusinessSettings().value;
 		this.createBusinessModalService.openServiceFormModal(
 			availableLanguages ?? [],
 			serviceFormToEdit
 		).then((newServiceForm) => {
-			if (index === undefined) {
+			if (service === undefined) {
 				this.servicesForm.push(newServiceForm);
 			} else {
-				this.servicesForm.at(index).setValue(newServiceForm.getRawValue());
+				const serviceForm = this.servicesForm.controls.find((control) => control.value._id === service._id);
+				if (serviceForm) {
+					serviceForm.patchValue(newServiceForm.value as Partial<IService>);
+				} else {
+					this.ngxLogger.error('Service not found');
+				}
 			}
 		});
 	}

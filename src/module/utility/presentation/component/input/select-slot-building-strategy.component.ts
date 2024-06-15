@@ -13,15 +13,17 @@ import {SlotSettingsForm} from "@client/presentation/form/slot-settings.form";
 	selector: 'select-slot-building-strategy-component',
 	standalone: true,
 	template: `
-		<label default [for]="id">
-			{{ 'slotBuildingStrategy.title' | translate }}
-		</label>
-		<ng-select
-			bindValue="id"
-			[items]="options"
-			[clearable]="false"
-			[id]="id"
-			[formControl]="localControl"/>
+		<div class="relative">
+			<label default [for]="id">
+				{{ 'slotBuildingStrategy.title' | translate }}
+			</label>
+			<ng-select
+				bindValue="id"
+				[items]="options"
+				[clearable]="false"
+				[id]="id"
+				[formControl]="localControl"/>
+		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
 			{{ 'slotBuildingStrategy.hint' | translate }}
 		</div>

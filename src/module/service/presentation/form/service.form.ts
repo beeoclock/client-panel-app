@@ -7,6 +7,7 @@ import {ISpecialist} from "@service/domain/interface/i.specialist";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 import {filter} from "rxjs";
 import {is} from "thiis";
+import ObjectID from "bson-objectid";
 
 export interface ILanguageVersionForm {
 	title: FormControl<string>;
@@ -220,7 +221,7 @@ export interface IServiceForm {
 }
 
 export class ServiceForm extends FormGroup<IServiceForm> {
-	constructor(initialValue?: IService) {
+	constructor(initialValue: Partial<IService> = {}) {
 		super({
 			// schedules: new SchedulesForm(),
 			configuration: new ConfigurationForm(),
@@ -234,7 +235,9 @@ export class ServiceForm extends FormGroup<IServiceForm> {
 				nonNullable: true,
 			}),
 			presentation: new PresentationForm(),
-			_id: new FormControl(),
+			_id: new FormControl(new ObjectID().toHexString(), {
+				nonNullable: true,
+			}),
 			object: new FormControl('Service', {
 				nonNullable: true,
 			}),
@@ -242,16 +245,22 @@ export class ServiceForm extends FormGroup<IServiceForm> {
 			order: new FormControl(),
 			updatedAt: new FormControl(),
 		});
-		this.initValue(initialValue);
 		this.initHandlers();
+		this.patchValue(initialValue);
 	}
 
-	public initValue(initialValue?: IService): void {
-		if (initialValue) {
-			Object.keys(initialValue).forEach(key => {
-				if (this.contains(key)) {
-					this.controls[key].setValue((initialValue as never)[key]);
-				}
+	public override patchValue(value: Partial<IService>): void {
+		super.patchValue(value);
+		if (value.languageVersions) {
+			this.controls.languageVersions.clear();
+			value.languageVersions.forEach((languageVersion) => {
+				this.controls.languageVersions.pushNewOne(languageVersion);
+			});
+		}
+		if (value.durationVersions) {
+			this.controls.durationVersions.clear();
+			value.durationVersions.forEach((durationVersion) => {
+				this.controls.durationVersions.pushNewOne(durationVersion);
 			});
 		}
 	}

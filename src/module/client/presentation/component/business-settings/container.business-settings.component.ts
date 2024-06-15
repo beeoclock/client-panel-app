@@ -33,11 +33,11 @@ import {
 			<strong class="dark:text-white">
 				{{ 'keyword.capitalize.languageAndRegion' | translate }}
 			</strong>
-
-			<client-base-language-business-settings-component
-				[control]="businessSettings.controls.baseLanguage"/>
 			<client-available-languages-business-settings-component
 				[control]="businessSettings.controls.availableLanguages"/>
+			<client-base-language-business-settings-component
+				[include]="businessSettings.controls.availableLanguages.value"
+				[control]="businessSettings.controls.baseLanguage"/>
 			<client-email-language-business-settings-component
 				[availableLanguagesControl]="businessSettings.controls.availableLanguages"
 				[control]="businessSettings.controls.emailLanguage"/>

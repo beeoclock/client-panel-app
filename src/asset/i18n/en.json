@@ -208,8 +208,8 @@
 					"businessSettings": {
 						"select": {
 							"availableLanguages": {
-								"hint": "Languages are available for customers on the public page and when sending messages",
-								"label": "Additional languages"
+								"hint": "Languages in which you provide services and in which the public website will be available.",
+								"label": "Languages you do business in"
 							},
 							"baseCurrency": {
 								"hint": "Select the main currency to display amounts correctly in reports and orders",
@@ -217,7 +217,8 @@
 							},
 							"baseLanguage": {
 								"hint": "The language in which services, reports and notifications are displayed, unless otherwise specified in your personal profile",
-								"label": "Base language"
+								"label": "Base language",
+								"placeholder": "First, choose the languages in which you do business"
 							},
 							"currencies": {
 								"hint": "Select the currencies in which you can receive payment for the service provided, thanks to this setting you can choose a specific currency for a specific service.",

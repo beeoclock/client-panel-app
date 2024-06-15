@@ -18,7 +18,7 @@ export class HasErrorDirective implements DoCheck {
   public hasErrorEnabled = true;
 
   @Input()
-  public classForNgSelect = 'border-danger';
+  public classForNgSelect = '!border-red-500';
 
   @Input()
   public ngSelectQuerySelectorClass = 'ng-select-container';

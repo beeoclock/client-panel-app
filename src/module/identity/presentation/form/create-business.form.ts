@@ -5,7 +5,7 @@ import {ServiceForm, ServicesForm} from "@service/presentation/form";
 import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
 import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
 import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
-import {ActiveEnum, LanguageCodeEnum} from "@utility/domain/enum";
+import {ActiveEnum} from "@utility/domain/enum";
 import {DefaultServicesByBusinessCategory} from "@utility/domain/const/c.default-services-by-business-category";
 import {BusinessSettingsForm} from "@client/presentation/form/business-settings.form";
 
@@ -46,8 +46,6 @@ interface IBusinessClientForm {
 }
 
 export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
-
-	public currentLanguage = LanguageCodeEnum.en;
 
 	constructor() {
 		super({
@@ -103,7 +101,7 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 		this.controls.services.clear();
 
 		const businessCategory = this.controls.businessCategory.value as BusinessCategoryEnum;
-		const servicesByLanguage = DefaultServicesByBusinessCategory[this.currentLanguage];
+		const servicesByLanguage = DefaultServicesByBusinessCategory[this.controls.businessSettings.controls.baseLanguage.value];
 
 		if (!servicesByLanguage) {
 			return;

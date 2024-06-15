@@ -208,8 +208,8 @@
 					"businessSettings": {
 						"select": {
 							"availableLanguages": {
-								"hint": "Sprog er tilgængelige for kunder på den offentlige side og når de sender beskeder",
-								"label": "Yderligere sprog"
+								"hint": "Sprog, som du leverer tjenester på, og som den offentlige hjemmeside vil være tilgængelig på.",
+								"label": "Sprog, du driver forretning på"
 							},
 							"baseCurrency": {
 								"hint": "Vælg hovedvalutaen for at vise beløb korrekt i rapporter og ordrer",
@@ -217,7 +217,8 @@
 							},
 							"baseLanguage": {
 								"hint": "Det sprog, som tjenester, rapporter og meddelelser vises på, medmindre andet er angivet i din personlige profil.",
-								"label": "Hovedsprog"
+								"label": "Hovedsprog",
+								"placeholder": "Først skal du vælge de sprog, du driver forretning på"
 							},
 							"currencies": {
 								"hint": "Vælg de valutaer, som du kan modtage betaling i for den leverede service, takket være denne indstilling kan du vælge en bestemt valuta for en bestemt service.",

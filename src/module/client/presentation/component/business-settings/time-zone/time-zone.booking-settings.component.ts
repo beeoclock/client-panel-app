@@ -22,24 +22,26 @@ import {NgSelectModule} from "@ng-select/ng-select";
 		ReactiveFormsModule
 	],
 	template: `
-		<label default for="client-booking-settings-form-time-zone">
-			{{ 'client.profile.form.section.bookingSettings.select.timeZone.label' | translate }}
-		</label>
-		<ng-select
-			labelForId="client-booking-settings-form-time-zone"
-			bindLabel="label"
-			bindValue="value"
-			isRequired
-			hasError
-			invalidTooltip
-			[placeholder]="'keyword.capitalize.notSpecified' | translate"
-			[multiple]="false"
-			[items]="items"
-			[closeOnSelect]="false"
-			[clearable]="false"
-			[formControl]="control">
-		</ng-select>
-		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
+		<div class="relative">
+			<label default for="client-booking-settings-form-time-zone">
+				{{ 'client.profile.form.section.bookingSettings.select.timeZone.label' | translate }}
+			</label>
+			<ng-select
+				labelForId="client-booking-settings-form-time-zone"
+				bindLabel="label"
+				bindValue="value"
+				isRequired
+				hasError
+				invalidTooltip
+				[placeholder]="'keyword.capitalize.notSpecified' | translate"
+				[multiple]="false"
+				[items]="items"
+				[closeOnSelect]="false"
+				[clearable]="false"
+				[formControl]="control">
+			</ng-select>
+		</div>
+		<div class="italic leading-tight text-start p-2 text-beeColor-500 text-sm">
 			{{ 'client.profile.form.section.bookingSettings.select.timeZone.hint' | translate }}
 		</div>
 	`

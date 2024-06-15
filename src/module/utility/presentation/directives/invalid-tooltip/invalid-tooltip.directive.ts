@@ -5,39 +5,39 @@ import {TranslateService} from "@ngx-translate/core";
 import {getFirstKey} from "@utility/domain";
 
 @Directive({
-  selector: '[invalidTooltip]',
-  standalone: true
+	selector: '[invalidTooltip]',
+	standalone: true
 })
 export class InvalidTooltipDirective implements DoCheck {
 
-  @Input()
-  public needTouched = true;
+	@Input()
+	public needTouched = true;
 
-  @Input()
-  public basePathOfTranslate = 'form.validation.';
+	@Input()
+	public basePathOfTranslate = 'form.validation.';
 
-  @Input()
-  public setRedBorderTo: string | undefined;
+	@Input()
+	public setRedBorderTo: string | undefined;
 
-  public control: undefined | null | AbstractControl;
+	public control: undefined | null | AbstractControl;
 
-  public invalidCustomTooltip: undefined | HTMLDivElement;
+	public invalidCustomTooltip: undefined | HTMLDivElement;
 
-  @Optional()
-  private readonly ngControl = inject(NgControl);
-  private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
-  private readonly translateService = inject(TranslateService);
-  private reason: string | null = null;
+	@Optional()
+	private readonly ngControl = inject(NgControl);
+	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
+	private readonly translateService = inject(TranslateService);
+	private reason: string | null = null;
 
-  public ngDoCheck(): void {
-    this.control = this.ngControl?.control; // Get the associated control
-    this.detection(); // Call the function to mark invalid elements
-  }
+	public ngDoCheck(): void {
+		this.control = this.ngControl?.control; // Get the associated control
+		this.detection(); // Call the function to mark invalid elements
+	}
 
-  // Detect if control has error, if it true that add
-  // invalid custom tooltip about the error
-  // if it false that we try to remove existing invalid custom tooltip
-  public detection(): void {
+	// Detect if control has error, if it true that add
+	// invalid custom tooltip about the error
+	// if it false that we try to remove existing invalid custom tooltip
+	public detection(): void {
 
 		if (this.needTouched) {
 			if (this.control?.untouched) {
@@ -45,90 +45,92 @@ export class InvalidTooltipDirective implements DoCheck {
 			}
 		}
 
-    const hasError = is.object_not_empty(this.control?.errors);
+		const hasError = is.object_not_empty(this.control?.errors);
 
-    if (hasError) {
+		if (hasError) {
 
-      this.buildInvalidCustomTooltip();
+			this.buildInvalidCustomTooltip();
 
-    } else {
+		} else {
 
-      this.disposeInvalidCustomTooltip();
+			this.disposeInvalidCustomTooltip();
 
-    }
+		}
 
-  }
+	}
 
-  // Delete existing invalid custom tooltip form DOM
-  public disposeInvalidCustomTooltip(): void {
+	// Delete existing invalid custom tooltip form DOM
+	public disposeInvalidCustomTooltip(): void {
 
-    this.invalidCustomTooltip?.remove();
+		this.invalidCustomTooltip?.remove();
 
 		this.reason = null;
 
-    // Remove red border from input
-    this.elementRef.nativeElement.classList.remove('!border-red-500');
+		// Remove red border from input
+		this.elementRef.nativeElement.classList.remove('!border-red-500');
 
-  }
+	}
 
-  // Add invalid custom tooltip in DOM
-  public buildInvalidCustomTooltip(): void {
+	// Add invalid custom tooltip in DOM
+	public buildInvalidCustomTooltip(): void {
 
-    // Check if control is exist and if it is untouched
-    if (!this.control || this.control.root.untouched) {
-      return;
-    }
+		// Check if control is exist and if it is untouched
+		if (!this.control || this.control.root.untouched) {
+			return;
+		}
 
-    // Get first key of errors from control errors object
-    const key = getFirstKey(this.control.errors);
+		// Get first key of errors from control errors object
+		const key = getFirstKey(this.control.errors);
 
-    // Check if tooltip is existed
-    if (this.invalidCustomTooltip) {
-      // Check reason, if the same then leave the function
+		// Check if tooltip is existed
+		if (this.invalidCustomTooltip) {
+			// Check reason, if the same then leave the function
 			if (this.reason === key) {
-        return;
-      }
-      this.invalidCustomTooltip?.remove();
-    }
+				return;
+			}
+			this.invalidCustomTooltip?.remove();
+		}
 
-    // Update reason
-    this.reason = key;
+		// Update reason
+		this.reason = key;
 
-    // Check if element has parent element to set relative position
-    if (!this.elementRef.nativeElement.parentElement) {
-      return;
-    }
+		// Check if element has parent element to set relative position
+		if (!this.elementRef.nativeElement.parentElement) {
+			return;
+		}
 
-    // Check if parent has relative position
-    if (
-      !this.elementRef.nativeElement.parentElement.classList.contains('relative')
-    ) {
-      // If it has not that add
-      this.elementRef.nativeElement.parentElement.classList.add('relative')
-    }
+		// Check if parent has relative position
+		if (
+			!this.elementRef.nativeElement.parentElement.classList.contains('relative')
+		) {
+			// If it has not that add
+			this.elementRef.nativeElement.parentElement.classList.add('relative')
+		}
 
-    // Build custom DOM element
-    this.invalidCustomTooltip = document.createElement('div');
-    this.invalidCustomTooltip.classList.add(
-      'absolute',
-      'top-full',
-      'rounded',
-      'bg-red-500',
-      'text-white',
-      'px-3',
-      'py-1',
-      'z-30'
-    );
+		// Build custom DOM element
+		this.invalidCustomTooltip = document.createElement('div');
+		this.invalidCustomTooltip.classList.add(
+			'absolute',
+			'top-full',
+			'rounded-b',
+			'bg-red-500',
+			'text-white',
+			'px-3',
+			'py-1',
+			'z-30',
+			'max-w-[calc(100%-12px)]',
+			'right-[6px]'
+		);
 
-    // Set message about error
-    this.invalidCustomTooltip.innerText = this.translateService.instant(
-      this.basePathOfTranslate + key,
-      this.control.errors?.[key] ?? undefined
-    );
+		// Set message about error
+		this.invalidCustomTooltip.innerText = this.translateService.instant(
+			this.basePathOfTranslate + key,
+			this.control.errors?.[key] ?? undefined
+		);
 
-    this.elementRef.nativeElement.parentElement.appendChild(this.invalidCustomTooltip);
+		this.elementRef.nativeElement.parentElement.appendChild(this.invalidCustomTooltip);
 
-    // Add border red to input
+		// Add border red to input
 		if (this.setRedBorderTo) {
 			const element = document.querySelector(this.setRedBorderTo);
 			if (element) {
@@ -138,6 +140,6 @@ export class InvalidTooltipDirective implements DoCheck {
 			this.elementRef.nativeElement.classList.add('!border-red-500');
 		}
 
-  }
+	}
 
 }

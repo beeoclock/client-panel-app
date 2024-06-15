@@ -6,50 +6,52 @@ import {AutoActionOnEventInSecondsEnum} from "@utility/domain/enum/auto-action-o
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({
-  selector: 'select-auto-action-on-event-in-seconds-component',
-  standalone: true,
-  template: `
-    <label default [for]="id">
-      {{ 'keyword.capitalize.autoActionOnOrderInSeconds' | translate }}
-    </label>
-    <ng-select
-      bindLabel="name"
-      bindValue="seconds"
-      [items]="autoActionOnOrderInSecondsList"
-      [clearable]="false"
-      [id]="id"
-      [formControl]="control">
-    </ng-select>
+	selector: 'select-auto-action-on-event-in-seconds-component',
+	standalone: true,
+	template: `
+		<div class="relative">
+			<label default [for]="id">
+				{{ 'keyword.capitalize.autoActionOnOrderInSeconds' | translate }}
+			</label>
+			<ng-select
+				bindLabel="name"
+				bindValue="seconds"
+				[items]="autoActionOnOrderInSecondsList"
+				[clearable]="false"
+				[id]="id"
+				[formControl]="control">
+			</ng-select>
+		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
 			{{ 'client.profile.form.section.bookingSettings.input.autoActionOnOrderInSeconds.placeholder' | translate }}
 		</div>
-  `,
-  encapsulation: ViewEncapsulation.None,
+	`,
+	encapsulation: ViewEncapsulation.None,
 	imports: [
 		NgSelectModule,
 		ReactiveFormsModule,
 		TranslateModule,
 		DefaultLabelDirective
 	],
-  changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectAutoActionOnEventInSecondsComponent {
 
-  @Input()
-  public id = '';
+	@Input()
+	public id = '';
 
-  @Input()
-  public control = new FormControl();
+	@Input()
+	public control = new FormControl();
 
-  public readonly translateService = inject(TranslateService);
+	public readonly translateService = inject(TranslateService);
 
-  public readonly autoActionOnOrderInSecondsList = Object.values(AutoActionOnEventInSecondsEnum)
-    .filter((autoActionOnOrderInSecondsValue) => typeof autoActionOnOrderInSecondsValue === 'string')
-    .map((autoActionOnOrderInSecondsValue) => {
-      return {
-        name: this.translateService.instant(`autoActionOnOrderInSeconds.${autoActionOnOrderInSecondsValue}`),
-        seconds: AutoActionOnEventInSecondsEnum[autoActionOnOrderInSecondsValue as keyof typeof autoActionOnOrderInSecondsValue]
-      };
-    });
+	public readonly autoActionOnOrderInSecondsList = Object.values(AutoActionOnEventInSecondsEnum)
+		.filter((autoActionOnOrderInSecondsValue) => typeof autoActionOnOrderInSecondsValue === 'string')
+		.map((autoActionOnOrderInSecondsValue) => {
+			return {
+				name: this.translateService.instant(`autoActionOnOrderInSeconds.${autoActionOnOrderInSecondsValue}`),
+				seconds: AutoActionOnEventInSecondsEnum[autoActionOnOrderInSecondsValue as keyof typeof autoActionOnOrderInSecondsValue]
+			};
+		});
 
 }

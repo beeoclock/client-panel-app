@@ -6,49 +6,51 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 import {NgSelectModule} from "@ng-select/ng-select";
 
 @Component({
-  selector: 'select-latest-booking-component',
-  standalone: true,
-  template: `
-    <label default
-           [for]="id">{{ 'keyword.capitalize.latestBooking' | translate }}</label>
-    <ng-select
-      bindLabel="name"
-      bindValue="seconds"
-      [items]="latestBookingList"
-      [clearable]="false"
-      [id]="id"
-      [formControl]="control">
-    </ng-select>
+	selector: 'select-latest-booking-component',
+	standalone: true,
+	template: `
+		<div class="relative">
+			<label default
+				   [for]="id">{{ 'keyword.capitalize.latestBooking' | translate }}</label>
+			<ng-select
+				bindLabel="name"
+				bindValue="seconds"
+				[items]="latestBookingList"
+				[clearable]="false"
+				[id]="id"
+				[formControl]="control">
+			</ng-select>
+		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
 			{{ 'client.profile.form.section.bookingSettings.input.latestBooking.placeholder' | translate }}
 		</div>
-  `,
-  encapsulation: ViewEncapsulation.None,
+	`,
+	encapsulation: ViewEncapsulation.None,
 	imports: [
 		ReactiveFormsModule,
 		TranslateModule,
 		DefaultLabelDirective,
 		NgSelectModule
 	],
-  changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectLatestBookingComponent {
 
-  @Input()
-  public id = '';
+	@Input()
+	public id = '';
 
-  @Input()
-  public control = new FormControl();
+	@Input()
+	public control = new FormControl();
 
-  public readonly translateService = inject(TranslateService);
+	public readonly translateService = inject(TranslateService);
 
-  public readonly latestBookingList = Object.values(LatestBookingEnum)
-    .filter((latestBookingName) => typeof latestBookingName === 'string')
-    .map((latestBookingName) => {
-      return {
-        name: this.translateService.instant(`latestBooking.${latestBookingName}`),
-        seconds: LatestBookingEnum[latestBookingName as keyof typeof LatestBookingEnum]
-      };
-    });
+	public readonly latestBookingList = Object.values(LatestBookingEnum)
+		.filter((latestBookingName) => typeof latestBookingName === 'string')
+		.map((latestBookingName) => {
+			return {
+				name: this.translateService.instant(`latestBooking.${latestBookingName}`),
+				seconds: LatestBookingEnum[latestBookingName as keyof typeof LatestBookingEnum]
+			};
+		});
 
 }
