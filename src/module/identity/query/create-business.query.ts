@@ -16,6 +16,10 @@ export class CreateBusinessQuery {
 		return this.createBusinessFormRepository.form.controls.businessCategory;
 	}
 
+	public getBookingSettingsControl() {
+		return this.createBusinessFormRepository.form.controls.bookingSettings;
+	}
+
 	public getBusinessIndustryControl() {
 		return this.createBusinessFormRepository.form.controls.businessIndustry;
 	}
