@@ -1,6 +1,6 @@
 import {BaseEntityForm} from "@utility/base.form";
 import {FormArray, FormControl} from "@angular/forms";
-import {IMetaDto, IOrderServiceDto, randomMetaDto} from "@order/external/interface/i.order-service.dto";
+import {IMetaDto, IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {IOrderAppointmentDetailsDto} from "@order/external/interface/i-order-appointment-details.dto";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
@@ -30,9 +30,7 @@ export class ServiceOrderForm extends BaseEntityForm<'OrderServiceDto', IService
 				nonNullable: true,
 			}),
 
-			meta: new FormControl(randomMetaDto(), {
-				nonNullable: true,
-			}),
+			meta: new FormControl(),
 
 			customerNote: new FormControl('', {
 				nonNullable: true,
