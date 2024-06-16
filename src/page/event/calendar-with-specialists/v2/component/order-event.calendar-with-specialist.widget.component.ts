@@ -1,4 +1,12 @@
-import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, ViewEncapsulation} from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	HostBinding,
+	inject,
+	Input,
+	ViewEncapsulation
+} from "@angular/core";
 
 import {IAttendee, IEvent_V2} from "@event/domain";
 import {DatePipe, NgIf} from "@angular/common";
@@ -43,7 +51,7 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 	public useServiceColor = true;
 
 	private readonly store = inject(Store);
-
+	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 
 	public async onClick() {
 		await this.openEventDetails(this.event);
@@ -119,16 +127,23 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 
 			const {customer} = attendant.originalData as IAttendee;
 
-			if (customer?.firstName) {
-				acc.push(customer?.firstName);
+			switch (true) {
+				case !!customer?.firstName && !!customer?.lastName:
+					acc.push(`${customer?.firstName} ${customer?.lastName}`);
+					return acc;
+				case !!customer?.firstName:
+					acc.push(customer?.firstName);
+					return acc;
+				case !!customer?.email:
+					acc.push(customer?.email);
+					return acc;
+				case !!customer?.phone:
+					acc.push(customer?.phone);
+					return acc;
 			}
-			if (customer?.phone) {
-				acc.push(customer?.phone);
-			}
-			if (customer?.email) {
-				acc.push(customer?.email);
-			}
+
 			return acc;
+
 		}, [] as string[]).join(', ');
 	}
 

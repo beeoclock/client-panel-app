@@ -87,6 +87,12 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	@Input({required: true})
 	public item!: DATA;
 
+	@ViewChild(OrderEventCalendarWithSpecialistWidgetComponent)
+	private orderEventCalendarWithSpecialistWidgetComponent!: OrderEventCalendarWithSpecialistWidgetComponent;
+
+	@ViewChild(AbsenceEventCalendarWithSpecialistWidgetComponent)
+	private absenceEventCalendarWithSpecialistWidgetComponent!: AbsenceEventCalendarWithSpecialistWidgetComponent;
+
 	@HostBinding()
 	public get class() {
 		return 'absolute';
@@ -131,13 +137,25 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		return '100%';
 	}
 
-	@ViewChild(OrderEventCalendarWithSpecialistWidgetComponent)
-	private orderEventCalendarWithSpecialistWidgetComponent!: OrderEventCalendarWithSpecialistWidgetComponent;
-
-	@ViewChild(AbsenceEventCalendarWithSpecialistWidgetComponent)
-	private absenceEventCalendarWithSpecialistWidgetComponent!: AbsenceEventCalendarWithSpecialistWidgetComponent;
-
 	private readonly ngxLogger = inject(NGXLogger);
+
+	// Hover
+	@HostListener('mouseenter')
+	public onMouseEnter() {
+		this.ngxLogger.debug('EventCalendarWithSpecialistWidgetComponent:onMouseEnter');
+		if (this.orderEventCalendarWithSpecialistWidgetComponent) {
+			this.elementRef.nativeElement.classList.add('z-20');
+			this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.remove('bottom-0');
+		}
+	}
+	@HostListener('mouseleave')
+	public onMouseLeave() {
+		this.ngxLogger.debug('EventCalendarWithSpecialistWidgetComponent:onMouseLeave');
+		if (this.orderEventCalendarWithSpecialistWidgetComponent) {
+			this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.add('bottom-0');
+			this.elementRef.nativeElement.classList.remove('z-20');
+		}
+	}
 
 	@HostListener('tap', ['$event'])
 	onTap(event: any) {
