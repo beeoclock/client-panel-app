@@ -403,6 +403,11 @@
 			},
 			"title": "Dodatkowe menu"
 		},
+		"calendar-with-specialists": {
+			"confirm-changes": {
+				"message": "Czy na pewno chcesz zapisać zmiany?"
+			}
+		},
 		"details": {
 			"title": "Szczegółowy widok wydarzenia"
 		},

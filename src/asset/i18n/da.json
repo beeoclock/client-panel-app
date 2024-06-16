@@ -403,6 +403,11 @@
 			},
 			"title": "Ekstra menu"
 		},
+		"calendar-with-specialists": {
+			"confirm-changes": {
+				"message": "Er du sikker på, at du vil gemme ændringerne?"
+			}
+		},
 		"details": {
 			"title": "Detaljeret visning af begivenheden"
 		},

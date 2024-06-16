@@ -29,6 +29,8 @@ import {RIMember} from "@member/domain";
 import {UpdateServiceOrderApiAdapter} from "@order/external/adapter/api/update.service.order.api.adapter";
 import {UpdateAbsenceApiAdapter} from "@absence/external/adapter/api/update.order.api.adapter";
 import {NGXLogger} from "ngx-logger";
+import {AlertController} from "@ionic/angular";
+import {TranslateService} from "@ngx-translate/core";
 
 type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenceDto>;
 
@@ -148,6 +150,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 			this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.remove('bottom-0');
 		}
 	}
+
 	@HostListener('mouseleave')
 	public onMouseLeave() {
 		this.ngxLogger.debug('EventCalendarWithSpecialistWidgetComponent:onMouseLeave');
@@ -195,6 +198,12 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	public temporaryInformationAboutNewStartAndEnd: { start: string, end: string } | null = null;
 	public temporaryNewMember: RIMember | null = null;
+	public snapshottedOriginalPosition: { top: number, height: number } | null = null;
+	public previousData: {
+		member: RIMember | undefined;
+		htmlParent: HTMLElement | null | undefined;
+		memberId: string | undefined;
+	} | null = null;
 
 	public changeMember(member: RIMember) {
 		this.temporaryNewMember = member;
@@ -228,6 +237,8 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly updateServiceOrderApiAdapter = inject(UpdateServiceOrderApiAdapter);
 	private readonly updateAbsenceApiAdapter = inject(UpdateAbsenceApiAdapter);
+	private readonly alertController = inject(AlertController);
+	private readonly translateService = inject(TranslateService);
 
 	private saveInProgress = false;
 
@@ -238,9 +249,23 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		this.draggable && this.calendarWithSpecialistLocaStateService.setEventCalendarWithSpecialistWidgetComponent(this);
 		!this.draggable && this.calendarWithSpecialistLocaStateService.setEventCalendarWithSpecialistWidgetComponent(null);
 
+		if (this.draggable) {
+			this.snapshotOriginalPosition();
+		}
+
 		if (!this.draggable && (this.temporaryInformationAboutNewStartAndEnd || this.temporaryNewMember) && !this.saveInProgress) {
 
 			this.saveInProgress = true;
+
+			const answer = await this.confirmChanges();
+
+			if (!answer) {
+				this.temporaryNewMember = null;
+				this.temporaryInformationAboutNewStartAndEnd = null;
+				this.saveInProgress = false;
+				this.restoreOriginalPosition();
+				return false;
+			}
 
 			if (this.temporaryInformationAboutNewStartAndEnd) {
 
@@ -290,8 +315,12 @@ export class EventCalendarWithSpecialistWidgetComponent {
 			this.temporaryInformationAboutNewStartAndEnd = null;
 			this.saveInProgress = false;
 
+			return true;
+
 		}
+
 		this.changeDetectorRef.detectChanges();
+		return false;
 
 	}
 
@@ -301,6 +330,78 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	public isAbsence(event: DATA): event is IEvent_V2<IAbsenceDto> {
 		return event.is === 'absence';
+	}
+
+	public snapshotOriginalPosition() {
+
+		this.snapshottedOriginalPosition = {
+			top: this.elementRef.nativeElement.offsetTop,
+			height: this.elementRef.nativeElement.offsetHeight
+		};
+
+		if (this.isOrder(this.item)) {
+			this.previousData = {
+				memberId: undefined,
+				member: this.item.originalData.service.orderAppointmentDetails.specialists[0].member,
+				htmlParent: this.elementRef.nativeElement.parentElement
+			}
+		}
+
+		if (this.isAbsence(this.item)) {
+			this.previousData = {
+				member: undefined,
+				memberId: this.item.originalData.memberIds[0],
+				htmlParent: this.elementRef.nativeElement.parentElement
+			}
+		}
+
+	}
+
+	public restoreOriginalPosition() {
+		if (this.snapshottedOriginalPosition) {
+			this.elementRef.nativeElement.style.top = `${this.snapshottedOriginalPosition.top}px`;
+			this.elementRef.nativeElement.style.height = `${this.snapshottedOriginalPosition.height}px`;
+		}
+		this.snapshottedOriginalPosition = null;
+
+		if (this.previousData) {
+
+			if (this.isOrder(this.item) && this.previousData.member) {
+				this.item.originalData.service.orderAppointmentDetails.specialists[0].member = this.previousData.member;
+			}
+
+			if (this.isAbsence(this.item) && this.previousData.memberId) {
+				this.item.originalData.memberIds = [this.previousData.memberId];
+			}
+
+			if (this.previousData.htmlParent) {
+				this.previousData.htmlParent.appendChild(this.elementRef.nativeElement);
+			}
+
+		}
+
+		this.previousData = null;
+	}
+
+	private confirmChanges(): Promise<boolean> {
+		return new Promise<boolean>((resolve) => {
+
+			this.alertController.create({
+				header: this.translateService.instant('keyword.capitalize.confirm'),
+				message: this.translateService.instant('event.calendar-with-specialists.confirm-changes.message'),
+				buttons: [
+					{
+						text: this.translateService.instant('keyword.capitalize.cancel'),
+						role: 'cancel',
+						handler: () => resolve(false)
+					},
+					{
+						text: this.translateService.instant('keyword.capitalize.yes'),
+						handler: () => resolve(true)
+					}
+				]
+			}).then(alert => alert.present());
+		});
 	}
 
 }

@@ -403,6 +403,11 @@
 			},
 			"title": "Додаткове меню"
 		},
+		"calendar-with-specialists": {
+			"confirm-changes": {
+				"message": "Ви впевнені, що хочете зберегти зміни?"
+			}
+		},
 		"details": {
 			"title": "Детальний перегляд події"
 		},
