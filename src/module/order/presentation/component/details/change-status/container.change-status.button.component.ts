@@ -58,10 +58,10 @@ import {NgSwitch, NgSwitchCase} from "@angular/common";
 				<app-done-change-status-button [item]="item"/>
 			</ng-container>
 			<ng-container *ngSwitchCase="status.cancelled">
-				<app-confirmed-change-status-button [item]="item"/>
+<!--				<app-confirmed-change-status-button [item]="item"/>-->
 			</ng-container>
 			<ng-container *ngSwitchCase="status.rejected">
-				<app-confirmed-change-status-button [item]="item"/>
+<!--				<app-confirmed-change-status-button [item]="item"/>-->
 			</ng-container>
 			<ng-container *ngSwitchCase="status.draft">
 
