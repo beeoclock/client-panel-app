@@ -10,7 +10,7 @@ import {NgIf} from "@angular/common";
 				class="dark:text-slate-200 flex font-medium gap-1 h-full items-center justify-start px-1 text-slate-900 text-sm">
 				<div class="rounded-full bg-beeColor-400 min-h-8 min-w-8 flex justify-center items-center">
 					<ng-container *ngIf="member?.avatar?.url; else InitialsTemplate">
-						<img [src]="member.avatar.url" class="min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 rounded-full" alt="">
+						<img [src]="member.avatar.url" class="min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 rounded-full object-cover" alt="">
 					</ng-container>
 					<ng-template #InitialsTemplate>
 						<div class="text-white text-xs font-bold">{{ getMemberFirstName[0] }}</div>
