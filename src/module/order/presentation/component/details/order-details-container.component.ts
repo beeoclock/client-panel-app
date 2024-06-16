@@ -19,6 +19,9 @@ import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {EventActions} from "@event/state/event/event.actions";
 import {IAttendee_V2} from "@event/domain";
 import {IsOrganizerEnum} from "@utility/domain/enum";
+import {
+	ContainerChangeStatusButtonComponent
+} from "@order/presentation/component/details/change-status/container.change-status.button.component";
 
 @Component({
 	selector: 'order-detail-page',
@@ -34,7 +37,8 @@ import {IsOrganizerEnum} from "@utility/domain/enum";
 		LinkButtonDirective,
 		NgForOf,
 		OrderServiceDetailsComponent,
-		PrimaryLinkButtonDirective
+		PrimaryLinkButtonDirective,
+		ContainerChangeStatusButtonComponent,
 	],
 	standalone: true
 })
