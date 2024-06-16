@@ -29,6 +29,8 @@ export class InvalidTooltipDirective implements DoCheck {
 	private readonly translateService = inject(TranslateService);
 	private reason: string | null = null;
 
+	private readonly invalidClassList = ['!border-red-500', '!ring-red-500'];
+
 	public ngDoCheck(): void {
 		this.control = this.ngControl?.control; // Get the associated control
 		this.detection(); // Call the function to mark invalid elements
@@ -67,7 +69,18 @@ export class InvalidTooltipDirective implements DoCheck {
 		this.reason = null;
 
 		// Remove red border from input
-		this.elementRef.nativeElement.classList.remove('!border-red-500');
+		if (this.setRedBorderTo) {
+			const element = document.querySelector(this.setRedBorderTo);
+			if (element) {
+				this.invalidClassList.forEach((className) => {
+					element.classList.remove(className);
+				});
+			}
+		} else {
+			this.invalidClassList.forEach((className) => {
+				this.elementRef.nativeElement.classList.remove(className);
+			});
+		}
 
 	}
 
@@ -134,10 +147,14 @@ export class InvalidTooltipDirective implements DoCheck {
 		if (this.setRedBorderTo) {
 			const element = document.querySelector(this.setRedBorderTo);
 			if (element) {
-				element.classList.add('!border-red-500');
+				this.invalidClassList.forEach((className) => {
+					element.classList.add(className);
+				});
 			}
 		} else {
-			this.elementRef.nativeElement.classList.add('!border-red-500');
+			this.invalidClassList.forEach((className) => {
+				this.elementRef.nativeElement.classList.add(className);
+			});
 		}
 
 	}
