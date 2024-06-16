@@ -6,7 +6,7 @@ import {AssignmentsForm} from "@member/presentation/form/member.form";
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {Reactive} from "@utility/cdk/reactive";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
-import {IService} from "@src/module/service/domain";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Component({
 	selector: 'member-form-assignments',
@@ -35,7 +35,7 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 		this.updateIsNotFull();
 		this.form.controls.service.controls.full.valueChanges.pipe(
 			this.takeUntil(),
-		).subscribe((test) => {
+		).subscribe(() => {
 			this.updateIsNotFull();
 		});
 	}
@@ -55,7 +55,7 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 			title,
 			component: SelectServicePushBoxComponent,
 			componentInputs: {
-				selectedServiceList: this.form.controls.service.controls.include.value.map(({serviceId}) => ({_id: serviceId}))
+				selectedServiceList: this.form.controls.service.controls.include.value.map(({service}) => service)
 			},
 			button: {
 				close: {
@@ -73,8 +73,8 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 
 		if (renderedComponentRef?.instance instanceof SelectServicePushBoxComponent) {
 			renderedComponentRef.instance.selectedServicesListener.pipe(this.takeUntil()).subscribe(() => {
-				const {newSelectedServiceList} = renderedComponentRef.instance as {newSelectedServiceList: IService[]};
-				const include = newSelectedServiceList.map(({_id}) => ({serviceId: _id}));
+				const {newSelectedServiceList} = renderedComponentRef.instance as {newSelectedServiceList: IServiceDto[]};
+				const include = newSelectedServiceList.map((service) => ({service}));
 				this.form.controls.service.controls.include.patchValue(include);
 			});
 		}

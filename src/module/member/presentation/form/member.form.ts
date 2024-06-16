@@ -3,11 +3,12 @@ import {RIMember} from "@member/domain";
 import {RoleEnum} from "@utility/domain/enum/role.enum";
 import {RESPONSE_IMemberMedia} from "@member/domain/interface/i.member-media";
 import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 export interface IAssignments_ServiceForm {
 	full: FormControl<boolean>;
 	include: FormControl<{
-		serviceId: string;
+		service: IServiceDto;
 	}[]>;
 }
 
