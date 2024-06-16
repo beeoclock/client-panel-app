@@ -19,6 +19,9 @@ import {OrderActions} from "@order/state/order/order.actions";
 import {
 	ChangeStatusOnRejectedComponent
 } from "@event/presentation/component/change-status/change-status-on-rejected.component";
+import {
+	ChangeStatusOnCancelledComponent
+} from "@event/presentation/component/change-status/change-status-on-cancelled.component";
 
 @Component({
 	selector: 'app-event-v2-buttons-details',
@@ -34,6 +37,7 @@ import {
 		DeleteButtonComponent,
 		EditButtonComponent,
 		ChangeStatusOnRejectedComponent,
+		ChangeStatusOnCancelledComponent,
 	],
 	template: `
 
@@ -54,7 +58,7 @@ import {
 
 		<ng-container *ngIf="isAccepted">
 
-			<ng-container *ngTemplateOutlet="ButtonToRejectEvent"/>
+			<ng-container *ngTemplateOutlet="ButtonToCancelledEvent"/>
 			<edit-button-component (click)="editEvent()"/>
 			<ng-container *ngTemplateOutlet="ButtonToDoneEvent"/>
 
@@ -84,6 +88,10 @@ import {
 
 		<ng-template #ButtonToDoneEvent>
 			<event-change-status-on-done-component [event]="event"/>
+		</ng-template>
+
+		<ng-template #ButtonToCancelledEvent>
+			<event-change-status-on-cancelled-component [event]="event"/>
 		</ng-template>
 
 		<ng-template #ButtonToRepeatEvent>
