@@ -887,6 +887,7 @@
 			"businessProfile": "Forretningsprofil",
 			"businessSettings": "Forretningsindstillinger",
 			"cancel": "Annuller",
+			"changeStatus": "Skift status",
 			"chooseImage": "Vælg billede",
 			"city": "By",
 			"clearCache": "Opdater cache",
@@ -1118,6 +1119,12 @@
 	"order": {
 		"button": {
 			"create": "Tilføj ordre"
+		},
+		"confirmation": {
+			"change-status": {
+				"hint": "Statusvariablen kan have en effekt på tjenesterne i denne ordre, hvis den f.eks. er annulleret, annulleres alle tjenester også.",
+				"message": "Er du sikker på, at du vil ændre status?"
+			}
 		},
 		"details": {
 			"title": "Bestil detaljer"

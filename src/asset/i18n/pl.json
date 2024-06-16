@@ -887,6 +887,7 @@
 			"businessProfile": "Profil biznesu",
 			"businessSettings": "Ustawienia biznesowe",
 			"cancel": "Anuluj",
+			"changeStatus": "Zmień status",
 			"chooseImage": "Wybierz plik",
 			"city": "Miasto",
 			"clearCache": "Wyczyść Cache",
@@ -1118,6 +1119,12 @@
 	"order": {
 		"button": {
 			"create": "Dodaj zamówienie"
+		},
+		"confirmation": {
+			"change-status": {
+				"hint": "Zmienna statusu może mieć wpływ na usługi w tym zamówieniu, na przykład jeśli zostanie anulowana, wszystkie usługi również zostaną anulowane.",
+				"message": "Czy na pewno chcesz zmienić status?"
+			}
 		},
 		"details": {
 			"title": "Szczegóły zamówienia"

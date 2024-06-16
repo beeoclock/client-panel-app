@@ -2,6 +2,7 @@ import {BaseActions} from "@utility/state/base/base.actions";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {RIMember} from "@member/domain";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace OrderActions {
@@ -90,6 +91,18 @@ export namespace OrderActions {
 
 	export class UpdateTableState extends BaseActions.UpdateTableState<IOrderDto> {
 		public static override readonly type = '[Order State] Update Table State';
+	}
+
+	export class ChangeStatus {
+		public static readonly type = '[Order State] Change Status';
+
+		public constructor(
+			public readonly payload: {
+				id: string;
+				status: OrderStatusEnum;
+			}
+		) {
+		}
 	}
 
 }

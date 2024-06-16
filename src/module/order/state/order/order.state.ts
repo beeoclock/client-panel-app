@@ -18,6 +18,7 @@ import {IEvent} from "@event/domain";
 import {ReservationTypeEnum} from "@order/domain/enum/reservation.type.enum";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
+import {PatchStatusOrderApiAdapter} from "@order/external/adapter/api/status/patch.status.order.api.adapter";
 
 export type IOrderState = IBaseState<IOrderDto>;
 
@@ -43,6 +44,7 @@ export class OrderState extends BaseState<IOrderDto> {
 	private readonly updateServiceOrderApiAdapter = inject(UpdateServiceOrderApiAdapter);
 	private readonly paymentPaged = inject(PagedPaymentApiAdapter);
 	private readonly translateService = inject(TranslateService);
+	private readonly patchStatusOrderApiAdapter = inject(PatchStatusOrderApiAdapter);
 
 	constructor() {
 		super(
@@ -266,6 +268,11 @@ export class OrderState extends BaseState<IOrderDto> {
 	}
 
 	// API
+
+	@Action(OrderActions.ChangeStatus)
+	public async changeStatusActionHandler(ctx: StateContext<IOrderState>, action: OrderActions.ChangeStatus): Promise<void> {
+		await this.patchStatusOrderApiAdapter.executeAsync(action.payload.id, action.payload.status);
+	}
 
 	@Action(OrderActions.Init)
 	public override async init(ctx: StateContext<IOrderState>): Promise<void> {

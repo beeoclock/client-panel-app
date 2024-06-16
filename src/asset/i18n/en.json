@@ -887,6 +887,7 @@
 			"businessProfile": "Business profile",
 			"businessSettings": "Business settings",
 			"cancel": "Cancel",
+			"changeStatus": "Change status",
 			"chooseImage": "Choose image",
 			"city": "City",
 			"clearCache": "Refresh cache",
@@ -1118,6 +1119,12 @@
 	"order": {
 		"button": {
 			"create": "Add order"
+		},
+		"confirmation": {
+			"change-status": {
+				"hint": "The status variable can have an effect on the services in this order, for example, if canceled, all services will be canceled as well.",
+				"message": "Are you sure you want to change status?"
+			}
 		},
 		"details": {
 			"title": "Order details"

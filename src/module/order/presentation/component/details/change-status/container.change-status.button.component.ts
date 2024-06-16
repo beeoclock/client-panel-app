@@ -24,6 +24,7 @@ import {
 } from "@order/presentation/component/details/change-status/buttons/draft.change-status.button.component";
 import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 import {NgSwitch, NgSwitchCase} from "@angular/common";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
 	selector: 'app-container-change-status-button',
@@ -40,10 +41,19 @@ import {NgSwitch, NgSwitchCase} from "@angular/common";
 		RejectedChangeStatusButtonComponent,
 		DraftChangeStatusButtonComponent,
 		NgSwitch,
-		NgSwitchCase
+		NgSwitchCase,
+		TranslateModule
 	],
 	template: `
 
+		<div class="flex flex-col gap-2 mb-4">
+			<div class="text-xl text-gray-600">
+				{{ 'keyword.capitalize.changeStatus' | translate }}
+			</div>
+			<div class="text-sm text-gray-500">
+				{{ 'order.confirmation.change-status.hint' | translate }}
+			</div>
+		</div>
 		<div class="flex flex-col gap-4" [ngSwitch]="item.status">
 
 			<ng-container *ngSwitchCase="status.pending">
