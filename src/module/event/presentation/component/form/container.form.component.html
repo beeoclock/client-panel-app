@@ -57,14 +57,23 @@
 		</bee-card>
 
 		<utility-button-save-container-component class="bottom-0">
+<!--			<button-->
+<!--				type="button"-->
+<!--				primary-->
+<!--				[scrollToFirstError]="true"-->
+<!--				[isLoading]="form.pending"-->
+<!--				[disabled]="form.disabled"-->
+<!--				(click)="goToPreview()">-->
+<!--				{{ 'keyword.capitalize.preview' | translate }}-->
+<!--			</button>-->
 			<button
 				type="button"
 				primary
-				[scrollToFirstError]="true"
 				[isLoading]="form.pending"
 				[disabled]="form.disabled"
-				(click)="goToPreview()">
-				{{ 'keyword.capitalize.preview' | translate }}
+				[scrollToFirstError]="true"
+				(click)="save()">
+				{{ 'keyword.capitalize.save' | translate }}
 			</button>
 		</utility-button-save-container-component>
 

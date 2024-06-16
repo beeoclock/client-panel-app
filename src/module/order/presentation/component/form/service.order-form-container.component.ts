@@ -48,8 +48,8 @@ import {
 
 
 @Component({
-    selector: 'app-service-order-form-container',
-    encapsulation: ViewEncapsulation.None,
+	selector: 'app-service-order-form-container',
+	encapsulation: ViewEncapsulation.None,
 	imports: [
 		FormInputComponent,
 		DatetimeLocalInputComponent,
@@ -79,14 +79,14 @@ import {
 		LinkButtonDirective,
 		OrderServiceDetailsComponent
 	],
-    standalone: true,
-    template: `
+	standalone: true,
+	template: `
 
-        <bee-card>
+		<bee-card>
 
-            <div class="font-bold">{{ 'keyword.capitalize.services' | translate }}</div>
+			<div class="font-bold">{{ 'keyword.capitalize.services' | translate }}</div>
 
-            <div class="flex flex-wrap gap-4" *ngIf="form.controls.services.value.length">
+			<div class="flex flex-wrap gap-4" *ngIf="form.controls.services.value.length">
 
 				<app-order-service-details
 					*ngFor="let service of form.controls.services.getRawValue(); let index = index"
@@ -107,238 +107,241 @@ import {
 
 				</app-order-service-details>
 
-            </div>
+			</div>
 
-            <div class="block">
+			<div class="block">
 
-                <button type="button" primaryLink (click)="addService()">
-                    <i class="bi bi-plus-lg"></i>
-                    {{ 'event.form.section.service.button.add' | translate }}
-                </button>
+				<button type="button" primaryLink (click)="addService()">
+					<i class="bi bi-plus-lg"></i>
+					{{ 'event.form.section.service.button.add' | translate }}
+				</button>
 
-            </div>
-        </bee-card>
+			</div>
+		</bee-card>
 
-    `,
-    providers: [
-        DurationVersionHtmlHelper,
-        CurrencyPipe
-    ]
+	`,
+	providers: [
+		DurationVersionHtmlHelper,
+		CurrencyPipe
+	]
 })
 export class ServiceOrderFormContainerComponent implements OnInit {
 
-    @Input()
-    public setupPartialData: {
-        defaultAppointmentStartDateTimeIso?: string;
-        defaultMemberForService?: RIMember;
-    } = {};
+	@Input()
+	public setupPartialData: {
+		defaultAppointmentStartDateTimeIso?: string;
+		defaultMemberForService?: RIMember;
+	} = {};
 
-    @Input()
-    public form!: OrderForm;
+	@Input()
+	public form!: OrderForm;
 
-    public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
+	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
-    private readonly whacAMaleProvider = inject(WhacAMoleProvider<ContainerFormComponent>);
-    private readonly ngxLogger = inject(NGXLogger);
-    private readonly translateService = inject(TranslateService);
+	private readonly whacAMaleProvider = inject(WhacAMoleProvider<ContainerFormComponent>);
+	private readonly ngxLogger = inject(NGXLogger);
+	private readonly translateService = inject(TranslateService);
 
-    public ngOnInit(): void {
+	public ngOnInit(): void {
 
-        this.ngxLogger.info('ServiceOrderFormContainerComponent.ngOnInit()');
+		this.ngxLogger.info('ServiceOrderFormContainerComponent.ngOnInit()');
 
-    }
+	}
 
-    public async addService() {
+	public async addService() {
 
-        this.ngxLogger.info('ServiceOrderFormContainerComponent.addService()');
+		this.ngxLogger.info('ServiceOrderFormContainerComponent.addService()');
 
-        const componentInputs: {
-            useDefaultFlow: boolean;
-            isEditMode: boolean;
-            forceStart?: string;
-            member?: RIMember;
-        } = {
-            isEditMode: false,
-            useDefaultFlow: false,
-            // forceStart: componentInputs?.datetimeISO,
-            // isEditMode: !!componentInputs?.event,
-        };
+		const componentInputs: {
+			useDefaultFlow: boolean;
+			isEditMode: boolean;
+			forceStart?: string;
+			member?: RIMember;
+		} = {
+			isEditMode: false,
+			useDefaultFlow: false,
+			// forceStart: componentInputs?.datetimeISO,
+			// isEditMode: !!componentInputs?.event,
+		};
 
-        if (this.setupPartialData.defaultAppointmentStartDateTimeIso) {
-            componentInputs.forceStart = this.setupPartialData.defaultAppointmentStartDateTimeIso;
-        }
+		if (this.setupPartialData.defaultAppointmentStartDateTimeIso) {
+			componentInputs.forceStart = this.setupPartialData.defaultAppointmentStartDateTimeIso;
+		}
 
-        if (this.setupPartialData.defaultMemberForService) {
-            componentInputs.member = this.setupPartialData.defaultMemberForService;
-        }
+		if (this.setupPartialData.defaultMemberForService) {
+			componentInputs.member = this.setupPartialData.defaultMemberForService;
+		}
 
-				this.ngxLogger.info('componentInputs', componentInputs);
+		this.ngxLogger.info('componentInputs', componentInputs);
 
-        const componentRef = await this.whacAMaleProvider.buildItAsync({
-            title: this.translateService.instant('event.form.title.create'),
-            component: ContainerFormComponent,
-            componentInputs,
-        });
+		const componentRef = await this.whacAMaleProvider.buildItAsync({
+			title: this.translateService.instant('event.form.title.create'),
+			component: ContainerFormComponent,
+			componentInputs,
+		});
 
-        if (!componentRef) {
-            return;
-        }
+		if (!componentRef) {
+			return;
+		}
 
-        const {renderedComponentRef} = componentRef.instance;
+		const {renderedComponentRef} = componentRef.instance;
 
-        if (!renderedComponentRef) {
-            return;
-        }
+		if (!renderedComponentRef) {
+			return;
+		}
 
-        renderedComponentRef.setInput('callback', (component: ContainerFormComponent, formValue: IEvent) => {
-            this.ngxLogger.info('callback', component, formValue);
+		renderedComponentRef.setInput('callback', (component: ContainerFormComponent, formValue: IEvent) => {
+			this.ngxLogger.info('callback', component, formValue);
 
-            if (!formValue.services || !formValue.services.length) {
-                return;
-            }
+			if (!formValue.services || !formValue.services.length) {
+				return;
+			}
 
-            if (!formValue.attendees || !formValue.attendees.length) {
-                return;
-            }
+			if (!formValue.attendees || !formValue.attendees.length) {
+				return;
+			}
 
-            if (!formValue.timeZone) {
-                return;
-            }
+			if (!formValue.timeZone) {
+				return;
+			}
 
-            if (!formValue.start) {
-                return;
-            }
+			if (!formValue.start) {
+				return;
+			}
 
-            if (!formValue.end) {
-                return;
-            }
+			if (!formValue.end) {
+				return;
+			}
 
-            this.form.controls.services.pushNewOne({
-                customerNote: formValue.note,
-                orderAppointmentDetails: {
-                    object: 'OrderAppointmentDetailsDto',
-                    active: ActiveEnum.YES,
-                    start: formValue.start,
-                    end: formValue.end,
-                    type: ReservationTypeEnum.service,
-                    // languageCodes: LanguageCodeEnum[];
-                    // attachments: IAttachmentDto[];
-                    specialists: formValue.services[0].specialists,
-                    attendees: formValue.attendees,
-                    // locations: ILocationsDto[];
-                    timeZone: formValue.timeZone,
-                    createdAt: formValue.createdAt,
-                    updatedAt: formValue.updatedAt,
-                },
-                serviceSnapshot: {
-                    ...formValue.services[0],
-                    object: "ServiceDto",
-                } as unknown as IServiceDto,
-            });
+			this.form.controls.services.pushNewOne({
+				customerNote: formValue.note,
+				orderAppointmentDetails: {
+					object: 'OrderAppointmentDetailsDto',
+					active: ActiveEnum.YES,
+					start: formValue.start,
+					end: formValue.end,
+					type: ReservationTypeEnum.service,
+					// languageCodes: LanguageCodeEnum[];
+					// attachments: IAttachmentDto[];
+					specialists: formValue.services[0].specialists,
+					attendees: formValue.attendees,
+					// locations: ILocationsDto[];
+					timeZone: formValue.timeZone,
+					createdAt: formValue.createdAt,
+					updatedAt: formValue.updatedAt,
+				},
+				serviceSnapshot: {
+					...formValue.services[0],
+					object: "ServiceDto",
+				} as unknown as IServiceDto,
+			});
 
-            // TODO: call function to increase defaultAppointmentStartDateTimeIso
+			// TODO: call function to increase defaultAppointmentStartDateTimeIso
 
-            componentRef.instance.destroySelf();
+			componentRef.instance.destroySelf();
 
-        });
+		});
 
-        const {instance} = renderedComponentRef;
+		const {instance} = renderedComponentRef;
 
-        console.log('instance', instance);
+		console.log('instance', instance);
 
-    }
+	}
 
-    public delete(index: number) {
-        this.form.controls.services.removeAt(index);
-    }
+	public delete(index: number) {
+		this.ngxLogger.info('ServiceOrderFormContainerComponent.delete()');
+		this.form.controls.services.removeAt(index);
+	}
 
-    public async edit(service: Partial<IOrderServiceDto>, index: number) {
+	public async edit(service: Partial<IOrderServiceDto>, index: number) {
 
-        this.ngxLogger.info('ServiceOrderFormContainerComponent.edit()');
+		this.ngxLogger.info('ServiceOrderFormContainerComponent.edit()');
 
-        const componentInputs: {
-            orderServiceDto: Partial<IOrderServiceDto>;
-            useDefaultFlow: boolean;
-            isEditMode: boolean;
-            forceStart?: string;
-        } = {
-            isEditMode: true,
-            useDefaultFlow: false,
-            orderServiceDto: service,
-        };
+		const componentInputs: {
+			orderServiceDto: Partial<IOrderServiceDto>;
+			useDefaultFlow: boolean;
+			isEditMode: boolean;
+			forceStart?: string;
+		} = {
+			isEditMode: true,
+			useDefaultFlow: false,
+			orderServiceDto: service,
+		};
 
-        if (this.setupPartialData.defaultAppointmentStartDateTimeIso) {
-            componentInputs.forceStart = this.setupPartialData.defaultAppointmentStartDateTimeIso;
-        }
+		if (this.setupPartialData.defaultAppointmentStartDateTimeIso) {
+			componentInputs.forceStart = this.setupPartialData.defaultAppointmentStartDateTimeIso;
+		}
 
-        const componentRef = await this.whacAMaleProvider.buildItAsync({
-            title: this.translateService.instant('event.form.title.edit'),
-            component: ContainerFormComponent,
-            componentInputs,
-        });
+		const componentRef = await this.whacAMaleProvider.buildItAsync({
+			title: this.translateService.instant('event.form.title.edit'),
+			component: ContainerFormComponent,
+			componentInputs,
+		});
 
-        if (!componentRef) {
-            return;
-        }
+		if (!componentRef) {
+			this.ngxLogger.error('componentRef is not defined');
+			return;
+		}
 
-        const {renderedComponentRef} = componentRef.instance;
+		const {renderedComponentRef} = componentRef.instance;
 
-        if (!renderedComponentRef) {
-            return;
-        }
+		if (!renderedComponentRef) {
+			this.ngxLogger.error('renderedComponentRef is not defined');
+			return;
+		}
 
-        renderedComponentRef.setInput('callback', (component: ContainerFormComponent, formValue: IEvent) => {
-            this.ngxLogger.info('callback', component, formValue);
+		renderedComponentRef.setInput('callback', (component: ContainerFormComponent, formValue: IEvent) => {
+			this.ngxLogger.info('callback', component, formValue);
 
-            if (!formValue.services || !formValue.services.length) {
-                return;
-            }
+			if (!formValue.services || !formValue.services.length) {
+				return;
+			}
 
-            if (!formValue.attendees || !formValue.attendees.length) {
-                return;
-            }
+			if (!formValue.attendees || !formValue.attendees.length) {
+				return;
+			}
 
-            if (!formValue.timeZone) {
-                return;
-            }
+			if (!formValue.timeZone) {
+				return;
+			}
 
-            if (!formValue.start) {
-                return;
-            }
+			if (!formValue.start) {
+				return;
+			}
 
-            if (!formValue.end) {
-                return;
-            }
+			if (!formValue.end) {
+				return;
+			}
 
-            this.form.controls.services.at(index).patchValue({
-                customerNote: formValue.note,
-                orderAppointmentDetails: {
-                    object: 'OrderAppointmentDetailsDto',
-                    active: ActiveEnum.YES,
-                    start: formValue.start,
-                    end: formValue.end,
-                    type: ReservationTypeEnum.service,
-                    // languageCodes: LanguageCodeEnum[];
-                    // attachments: IAttachmentDto[];
-                    specialists: formValue.services[0].specialists,
-                    attendees: formValue.attendees,
-                    // locations: ILocationsDto[];
-                    timeZone: formValue.timeZone,
-                    createdAt: formValue.createdAt,
-                    updatedAt: formValue.updatedAt,
-                },
-                serviceSnapshot: {
-                    ...formValue.services[0],
-                    object: "ServiceDto",
-                } as unknown as IServiceDto,
-            });
+			this.form.controls.services.at(index).patchValue({
+				customerNote: formValue.note,
+				orderAppointmentDetails: {
+					object: 'OrderAppointmentDetailsDto',
+					active: ActiveEnum.YES,
+					start: formValue.start,
+					end: formValue.end,
+					type: ReservationTypeEnum.service,
+					// languageCodes: LanguageCodeEnum[];
+					// attachments: IAttachmentDto[];
+					specialists: formValue.services[0].specialists,
+					attendees: formValue.attendees,
+					// locations: ILocationsDto[];
+					timeZone: formValue.timeZone,
+					createdAt: formValue.createdAt,
+					updatedAt: formValue.updatedAt,
+				},
+				serviceSnapshot: {
+					...formValue.services[0],
+					object: "ServiceDto",
+				} as unknown as IServiceDto,
+			});
 
-            // TODO: call function to increase defaultAppointmentStartDateTimeIso
+			// TODO: call function to increase defaultAppointmentStartDateTimeIso
 
-            componentRef.instance.destroySelf();
+			componentRef.instance.destroySelf();
 
-        });
+		});
 
-    }
+	}
 
 }

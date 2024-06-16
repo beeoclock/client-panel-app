@@ -59,6 +59,7 @@ export class CellComponent implements OnChanges {
 
 	@HostListener('click', ['$event'])
 	public onClick(event: MouseEvent) {
+		this.ngxLogger.debug('Click', event);
 		if (this.scrollCalendarDomManipulationService.isScrolling.isOn) {
 			this.ngxLogger.debug('It is not click, it is scrolling');
 			return;

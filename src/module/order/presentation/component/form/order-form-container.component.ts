@@ -74,7 +74,8 @@ import {
 				<app-customer-type-customer-component
 					[form]="form.controls.payment.controls.payer">
 					<div class="font-bold" slot="label">{{ 'keyword.capitalize.payer' | translate }}</div>
-					<div slot="banner" customer-type="new" class="bg-beeColor-100 border-2 px-3 py-2 rounded-lg text-beeColor-600 text-sm flex flex-col">
+					<div slot="banner" customer-type="new"
+						 class="bg-beeColor-100 border-2 px-3 py-2 rounded-lg text-beeColor-600 text-sm flex flex-col">
 						<div class="font-bold">
 							<i class="bi bi-exclamation-triangle-fill"></i>
 							{{ 'keyword.capitalize.warning' | translate }}
@@ -84,7 +85,8 @@ import {
 						</div>
 					</div>
 
-					<div slot="banner" customer-type="unregistered" class="bg-beeColor-100 border-2 px-3 py-2 rounded-lg text-beeColor-600 text-sm flex flex-col">
+					<div slot="banner" customer-type="unregistered"
+						 class="bg-beeColor-100 border-2 px-3 py-2 rounded-lg text-beeColor-600 text-sm flex flex-col">
 						<div class="font-bold">
 							<i class="bi bi-exclamation-triangle-fill"></i>
 							{{ 'keyword.capitalize.warning' | translate }}

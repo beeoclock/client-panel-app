@@ -370,7 +370,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		}
 	};
 
-	@HostListener('document:mouseup')
+	@HostListener('mouseup')
 	public documentMouseUpListener() {
 		this.ngxLogger.info('documentMouseUpListener: mouseDown false and changeEventPositionIsOn false');
 		this.mouseDown = false;
@@ -378,7 +378,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		this.handleChangeEventForDraggingEnabledElement = false;
 	}
 
-	@HostListener('document:panend')
+	@HostListener('panend')
 	public panend() {
 		this.ngxLogger.info('panend');
 		this.mouseDown = false;
@@ -387,9 +387,9 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 	}
 
-	@HostListener('document:mousedown', ['$event'])
+	@HostListener('mousedown', ['$event'])
 	public documentMouseDownListener(event: MouseEvent) {
-
+		this.ngxLogger.info('documentMouseDownListener: ', event);
 
 		if (!event) {
 			return;

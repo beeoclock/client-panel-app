@@ -16,7 +16,7 @@ import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
 })
 export class WhacAMoleContainer extends Reactive implements OnInit {
 	@HostBinding()
-	public class = 'sm:w-[375px] sm:min-w-[375px] sm:max-w-[375px] w-full bg-neutral-50';
+	public class = 'sm:w-[375px] sm:min-w-[375px] sm:max-w-[375px] w-full bg-neutral-50 overflow-hidden';
 
 	@HostBinding('class.relative')
 	public relative = false;

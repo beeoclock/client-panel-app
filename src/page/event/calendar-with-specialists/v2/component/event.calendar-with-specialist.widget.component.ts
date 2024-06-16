@@ -154,6 +154,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	@HostListener('document:tap', ['$event'])
 	public onDocumentTap(event: HammerInput) {
 		if (this.draggable && !this.elementRef.nativeElement.contains(event.target)) {
+			this.ngxLogger.debug('EventCalendarWithSpecialistWidgetComponent:onDocumentTap');
 			this.toggleMode(false).then();
 			// Prevent event propagation
 			event.preventDefault();
