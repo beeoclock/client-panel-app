@@ -7,7 +7,7 @@ import {
 	ViewChild,
 	ViewEncapsulation
 } from '@angular/core';
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
@@ -109,8 +109,9 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 		],
 	}
 
+	private readonly router = inject(Router);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
-	private readonly logger = inject(NGXLogger);
+	private readonly ngxLogger = inject(NGXLogger);
 	private readonly createServiceApiAdapter = inject(CreateServiceApiAdapter);
 	private readonly updateBusinessProfileApiAdapter = inject(UpdateBusinessProfileApiAdapter);
 	public readonly patchMediaGalleryClientApiAdapter = inject(PatchMediaGalleryClientApiAdapter);
@@ -171,7 +172,7 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 
 				} catch (e) {
 
-					this.logger.error(e);
+					this.ngxLogger.error(e);
 					step.status = Status.Failed;
 					this.changeDetectorRef.detectChanges();
 					throw e;
@@ -189,14 +190,14 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 			}
 
 		} catch (e) {
-			this.logger.error(e);
+			this.ngxLogger.error(e);
 		}
 		this.changeDetectorRef.detectChanges();
 	}
 
 	private async stepCreateBusiness(): Promise<void> {
 		try {
-			this.logger.debug('stepCreateBusiness');
+			this.ngxLogger.debug('stepCreateBusiness');
 			const serviceProvideType = this.createBusinessQuery.getServiceProvideTypeControl().value;
 			const businessCategory = this.createBusinessQuery.getBusinessCategoryControl().value;
 			const bookingSettings = this.createBusinessQuery.getBookingSettingsControl().value;
@@ -222,21 +223,24 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 				body.bookingSettings = bookingSettings as any;
 			}
 
-			this.logger.debug('stepCreateBusiness:body', body);
+			this.ngxLogger.debug('stepCreateBusiness:body', body);
 
 			const request$ = this.identityApiAdapter.postCreateBusinessClient$(body);
 			const {id: clientId} = await firstValueFrom(request$);
-			this.logger.debug('stepCreateBusiness:clientId', clientId);
+			this.ngxLogger.debug('stepCreateBusiness:clientId', clientId);
 
 			const requestToSwitchContext$ = this.identityApiAdapter.patchSwitchBusinessClient$({clientId});
 			await firstValueFrom(requestToSwitchContext$);
-			this.logger.debug('stepCreateBusiness:context switched');
+			this.ngxLogger.debug('stepCreateBusiness:context switched');
 
 			// Refresh token and receive new claims
 			await firstValueFrom(this.store.dispatch(new IdentityActions.InitToken()));
-			this.logger.debug('stepCreateBusiness:done');
+			this.ngxLogger.debug('stepCreateBusiness:done');
+
+			await this.router.navigate(['/']);
+
 		} catch (e) {
-			this.logger.error(e);
+			this.ngxLogger.error(e);
 			throw e;
 		}
 	}
