@@ -30,12 +30,24 @@ export class SpecialistServiceComponent {
 	@Input({required: true})
 	public index!: number;
 
+	@Input({required: true})
+	public service!: IService;
+
 	@Select(MemberSelector.tableState)
 	private memberTableState$!: Observable<TableState<RIMember>>;
 
 	public readonly members$: Observable<RIMember[]> = this.memberTableState$.pipe(
 		map(({items}) => {
-			return items.filter(member => member.profileStatus === MemberProfileStatusEnum.active);
+			return items.filter(member => {
+				if (member.profileStatus === MemberProfileStatusEnum.active) {
+					if (!member.assignments.service.full) {
+						const specialistCanServeService = member.assignments.service.include.some(({service: {_id}}) => _id === this.service._id);
+						return specialistCanServeService;
+					}
+					return  true;
+				}
+				return false;
+			});
 		})
 	);
 
