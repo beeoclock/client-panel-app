@@ -48,6 +48,11 @@ import {
 import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
 import {FormControl} from "@angular/forms";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {OrderActions} from "@order/state/order/order.actions";
+import {DateTime} from "luxon";
+import {ClientState} from "@client/state/client/client.state";
+import {RISchedule} from "@utility/domain/interface/i.schedule";
 
 @Component({
 	selector: 'app-calendar-with-specialists-widget-component',
@@ -67,6 +72,7 @@ import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.en
 		EmptySlotCalendarWithSpecialistWidgetComponent,
 		TimeLineCalendarWithSpecialistWidgetComponent,
 		IonSelectWrapperComponent,
+		PrimaryButtonDirective,
 	]
 })
 export class CalendarWithSpecialistWidgetComponent extends Reactive implements OnInit, AfterViewInit {
@@ -80,6 +86,9 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 	private readonly store = inject(Store);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly translateService = inject(TranslateService);
+
+	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
+	public readonly schedules$ = this.store.select(ClientState.schedules);
 
 	public readonly orderServiceStatusControl = new FormControl<OrderServiceStatusEnum | ''>('');
 
@@ -120,6 +129,56 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		})
 	);
 
+	public async openForm() {
+
+		// From selectedDate$
+		const schedules = await firstValueFrom(this.schedules$);
+		const selectedDate = await firstValueFrom(this.selectedDate$);
+		const now = DateTime.now();
+		let defaultAppointmentStartDateTimeIso = selectedDate.toJSDate().toISOString();
+
+		if (selectedDate.hasSame(now, 'day')) {
+			defaultAppointmentStartDateTimeIso = now.toJSDate().toISOString();
+		} else {
+			if (schedules) {
+				const foundSchedule = schedules.reduce((acc: null | RISchedule, schedule) => {
+
+					if (acc) {
+						if (schedule.workDays.includes(selectedDate.weekday)) {
+							if (schedule.startInSeconds < acc.startInSeconds) {
+								return schedule;
+							}
+						}
+					} else {
+						if (schedule.workDays.includes(selectedDate.weekday)) {
+							return schedule;
+						}
+					}
+
+					return acc;
+				}, null);
+
+				if (foundSchedule) {
+
+					defaultAppointmentStartDateTimeIso = selectedDate.plus({
+						seconds: foundSchedule.startInSeconds
+					}).toJSDate().toISOString();
+
+				}
+
+			}
+		}
+
+		this.store.dispatch(
+			new OrderActions.OpenForm({
+				componentInputs: {
+					setupPartialData: {
+						defaultAppointmentStartDateTimeIso,
+					}
+				}
+			})
+		);
+	}
 
 	public trackByHour(index: number, hour: {
 		original: number;

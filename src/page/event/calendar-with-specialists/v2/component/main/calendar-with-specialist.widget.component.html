@@ -1,12 +1,23 @@
 <div class="grid grid-rows-[60px] h-[calc(100%-60px)] md:h-full">
-	<div class="p-2 flex gap-2 items-center bg-white border-b border-beeColor-200">
-		<event-date-control-calendar-with-specialists-component/>
-		<utility-auto-refresh-component (emitter)="forceRefresh()" [isLoading]="(loader$ | async) ?? false"/>
-		<ion-select-wrapper
-			id="calendar-with-specialists-filter-order-service-status"
-			class="py-3"
-			[options]="orderServiceStatusOptions"
-			[control]="orderServiceStatusControl"/>
+	<div class="p-2 flex justify-between gap-2 items-center bg-white border-b border-beeColor-200">
+		<div class="overflow-x-auto flex gap-2">
+			<event-date-control-calendar-with-specialists-component/>
+			<utility-auto-refresh-component (emitter)="forceRefresh()" [isLoading]="(loader$ | async) ?? false"/>
+			<ion-select-wrapper
+				id="calendar-with-specialists-filter-order-service-status"
+				class="py-3"
+				[options]="orderServiceStatusOptions"
+				[control]="orderServiceStatusControl"/>
+		</div>
+		<div>
+			<button type="button" class="!py-3 !px-4 !text-base" primary
+					(click)="openForm()">
+				<i class="bi bi-plus-lg"></i>
+				<!--				<div class="hidden xl:block">-->
+				<!--					{{ 'order.button.create' | translate }}-->
+				<!--				</div>-->
+			</button>
+		</div>
 	</div>
 	<!-- Grid of hour rows -->
 	<div #calendar class="flex relative overflow-auto h-0 min-h-full bg-white">
