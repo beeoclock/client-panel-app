@@ -147,7 +147,9 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		this.ngxLogger.debug('EventCalendarWithSpecialistWidgetComponent:onMouseEnter');
 		if (this.orderEventCalendarWithSpecialistWidgetComponent) {
 			this.elementRef.nativeElement.classList.add('z-20');
-			this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.remove('bottom-0');
+			if (this.elementRef.nativeElement.clientHeight < this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.scrollHeight) {
+				this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.remove('bottom-0');
+			}
 		}
 	}
 
@@ -155,7 +157,9 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	public onMouseLeave() {
 		this.ngxLogger.debug('EventCalendarWithSpecialistWidgetComponent:onMouseLeave');
 		if (this.orderEventCalendarWithSpecialistWidgetComponent) {
-			this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.add('bottom-0');
+			if (this.elementRef.nativeElement.clientHeight < this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.scrollHeight) {
+				this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.add('bottom-0');
+			}
 			this.elementRef.nativeElement.classList.remove('z-20');
 		}
 	}
