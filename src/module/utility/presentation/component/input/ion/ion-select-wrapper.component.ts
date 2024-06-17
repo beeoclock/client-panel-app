@@ -52,6 +52,6 @@ export class IonSelectWrapperComponent {
 	}[] = [];
 
 	@HostBinding()
-	public class = 'px-4 py-2 border border-beeColor-300 rounded-2xl';
+	public class = 'px-4 flex items-center border border-beeColor-300 rounded-2xl';
 
 }

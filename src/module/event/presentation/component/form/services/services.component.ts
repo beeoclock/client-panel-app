@@ -142,10 +142,12 @@ export class ServicesComponent extends Reactive implements OnInit {
 		let useTableStateFromStore = true;
 		let tableState = new TableState<IService>().toCache();
 
-		if (this.member) {
-			if (!this.member.assignments.service.full) {
-				const member = await this.itemMemberApiAdapter.executeAsync(this.member._id);
-				const items = member.assignments.service.include.map(({service}) => service as unknown as IService);
+		const member = this.lastSelectedMember || this.member;
+
+		if (member) {
+			if (!member.assignments.service.full) {
+				const memberWithPopulateServices = await this.itemMemberApiAdapter.executeAsync(member._id);
+				const items = memberWithPopulateServices.assignments.service.include.map(({service}) => service as unknown as IService);
 				useTableStateFromStore = false;
 				tableState = new TableState<IService>().setItems(items).setTotal(items.length).toCache();
 			}

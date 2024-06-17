@@ -63,7 +63,6 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 		<ng-template #SelectOrderStatus>
 			<ion-select-wrapper
 				id="order-filter-select-order-status"
-				class="py-3"
 				[multiple]="true"
 				[options]="orderStatusOptions"
 				[control]="orderStatusControl"/>
