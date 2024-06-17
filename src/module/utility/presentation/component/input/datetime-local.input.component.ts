@@ -100,23 +100,23 @@ export class DatetimeLocalInputComponent extends Reactive implements OnInit {
 
 		if (is.null(this.previousValue)) {
 			// First time
-			if (controlValue) {
-				this.previousValue = controlValue;
-				this.initLocalControlValue();
-			}
 			if (localValue) {
 				this.previousValue = localValue;
 				this.initControlValue();
 			}
-		} else {
-			// Update
-			if (controlValue !== this.previousValue) {
+			if (controlValue) {
 				this.previousValue = controlValue;
 				this.initLocalControlValue();
 			}
+		} else {
+			// Update
 			if (localValue !== this.previousValue) {
 				this.previousValue = localValue;
 				this.initControlValue();
+			}
+			if (controlValue !== this.previousValue) {
+				this.previousValue = controlValue;
+				this.initLocalControlValue();
 			}
 		}
 	}
