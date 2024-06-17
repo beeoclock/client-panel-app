@@ -2,10 +2,10 @@
 	<service-mobile-layout-list-component
 		[showButtonGoToForm]="false"
 		[isPage]="false"
-		[tableState]="tableState$ | async"
+		[tableState]="tableState"
 		*ngIf="isMobile$ | async" />
 	<service-desktop-layout-list-component
-		[tableState]="tableState$ | async"
+		[tableState]="tableState"
 		*ngIf="isNotMobile$ | async" />
 </ng-container>
 <ng-template #NotInitializedTemplate>

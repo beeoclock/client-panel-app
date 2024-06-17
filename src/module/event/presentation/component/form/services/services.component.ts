@@ -24,6 +24,8 @@ import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.p
 import {Reactive} from "@utility/cdk/reactive";
 import {RIMember} from "@member/domain";
 import {BooleanState} from "@utility/domain";
+import {TableState} from "@utility/domain/table.state";
+import {ItemMemberApiAdapter} from "@member/adapter/external/api/item.member.api.adapter";
 
 @Component({
 	selector: 'event-service-component',
@@ -76,6 +78,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly modalSelectServiceListAdapter = inject(ModalSelectServiceListAdapter);
+	private readonly itemMemberApiAdapter = inject(ItemMemberApiAdapter);
 
 	public readonly loading$ = this.modalSelectServiceListAdapter.loading$;
 
@@ -136,11 +139,25 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 		const {SelectServicePushBoxComponent} = await import("@service/presentation/push-box/select-service.push-box.component");
 
+		let useTableStateFromStore = true;
+		let tableState = new TableState<IService>().toCache();
+
+		if (this.member) {
+			if (!this.member.assignments.service.full) {
+				const member = await this.itemMemberApiAdapter.executeAsync(this.member._id);
+				const items = member.assignments.service.include.map(({service}) => service as unknown as IService);
+				useTableStateFromStore = false;
+				tableState = new TableState<IService>().setItems(items).setTotal(items.length).toCache();
+			}
+		}
+
 		const pushBoxWrapperComponentRef = await this.whacAMaleProvider.buildItAsync({
 			component: SelectServicePushBoxComponent,
 			componentInputs: {
 				multiple: false,
-				selectedServiceList: this.serviceListControl.value
+				selectedServiceList: this.serviceListControl.value,
+				useTableStateFromStore,
+				tableState
 			}
 		});
 

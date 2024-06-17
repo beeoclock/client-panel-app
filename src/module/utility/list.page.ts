@@ -4,12 +4,13 @@ import {firstValueFrom, of} from "rxjs";
 import {BooleanState} from "@utility/domain";
 import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
 import {BaseActions} from "@utility/state/base/base.actions";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'utility-list-page',
 	template: ``
 })
-export abstract class ListPage implements OnInit {
+export abstract class ListPage extends Reactive implements OnInit {
 
 	@Input()
 	public mobileMode = false;

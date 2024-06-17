@@ -26,6 +26,7 @@ import {
 	MobileLayoutListComponent
 } from "@service/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {Reactive} from "@utility/cdk/reactive";
+import {ITableState, TableState} from "@utility/domain/table.state";
 
 @Component({
 	selector: 'utility-modal-select-service-component',
@@ -44,7 +45,7 @@ import {Reactive} from "@utility/cdk/reactive";
 		ServiceExternalListComponent
 	],
 	template: `
-		<service-external-list-component [mobileMode]="true"/>
+		<service-external-list-component [useTableStateFromStore]="useTableStateFromStore" [tableState]="tableState" [mobileMode]="true"/>
 	`
 })
 export class SelectServicePushBoxComponent extends Reactive implements OnInit, AfterViewInit {
@@ -57,6 +58,12 @@ export class SelectServicePushBoxComponent extends Reactive implements OnInit, A
 
 	@Output()
 	public readonly selectedServicesListener = new EventEmitter<void>();
+
+	@Input()
+	public useTableStateFromStore = true;
+
+	@Input()
+	public tableState: ITableState<IService> = new TableState<IService>().toCache();
 
 	@ViewChild(ServiceExternalListComponent)
 	public serviceExternalListComponent!: ServiceExternalListComponent;
