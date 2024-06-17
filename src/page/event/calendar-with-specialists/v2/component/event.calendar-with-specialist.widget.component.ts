@@ -390,9 +390,31 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	private confirmChanges(): Promise<boolean> {
 		return new Promise<boolean>((resolve) => {
 
+			let message = this.translateService.instant('event.calendar-with-specialists.confirm-changes.message.default');
+			let subHeader = undefined;
+
+			if (this.isOrder(this.item)) {
+
+				if (this.temporaryNewMember && !this.temporaryNewMember.assignments.service.full) {
+
+					const {service} = this.item.originalData;
+					const newMemberCanServerTheService = this.temporaryNewMember.assignments.service.include.some(({service: includedService}) => {
+						return service._id === includedService._id;
+					});
+
+					if (!newMemberCanServerTheService) {
+						subHeader = this.translateService.instant('event.calendar-with-specialists.confirm-changes.subHeader.important');
+						message = this.translateService.instant('event.calendar-with-specialists.confirm-changes.message.important');
+					}
+
+				}
+
+			}
+
 			this.alertController.create({
 				header: this.translateService.instant('keyword.capitalize.confirm'),
-				message: this.translateService.instant('event.calendar-with-specialists.confirm-changes.message'),
+				subHeader,
+				message,
 				buttons: [
 					{
 						text: this.translateService.instant('keyword.capitalize.cancel'),
@@ -401,6 +423,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 					},
 					{
 						text: this.translateService.instant('keyword.capitalize.yes'),
+						cssClass: subHeader ? '!text-red-500' : '',
 						handler: () => resolve(true)
 					}
 				]

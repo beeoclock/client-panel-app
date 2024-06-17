@@ -405,7 +405,13 @@
 		},
 		"calendar-with-specialists": {
 			"confirm-changes": {
-				"message": "Are you sure you want to save changes?"
+				"message": {
+					"default": "Are you sure you want to save changes?",
+					"important": "Are you sure you want to attribute this event to a specialist who cannot provide such a service? There is no such service on the list of selected services that a specialist can provide!"
+				},
+				"subHeader": {
+					"important": "Attention, major changes"
+				}
 			}
 		},
 		"details": {

@@ -405,7 +405,13 @@
 		},
 		"calendar-with-specialists": {
 			"confirm-changes": {
-				"message": "Czy na pewno chcesz zapisać zmiany?"
+				"message": {
+					"default": "Czy na pewno chcesz zapisać zmiany?",
+					"important": "Czy na pewno chcesz przypisać to zdarzenie specjaliście, który nie może świadczyć takiej usługi? Nie ma takiej usługi na liście wybranych usług, które może świadczyć specjalista!"
+				},
+				"subHeader": {
+					"important": "Uwaga, poważne zmiany"
+				}
 			}
 		},
 		"details": {

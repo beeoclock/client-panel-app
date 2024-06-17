@@ -405,7 +405,13 @@
 		},
 		"calendar-with-specialists": {
 			"confirm-changes": {
-				"message": "Er du sikker på, at du vil gemme ændringerne?"
+				"message": {
+					"default": "Er du sikker på, at du vil gemme ændringerne?",
+					"important": "Er du sikker på, at du vil tilskrive denne begivenhed til en specialist, som ikke kan levere en sådan service? Der findes ikke en sådan tjeneste på listen over udvalgte tjenester, som en specialist kan levere!"
+				},
+				"subHeader": {
+					"important": "Opmærksomhed, store ændringer"
+				}
 			}
 		},
 		"details": {
