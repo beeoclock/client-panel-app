@@ -9,7 +9,7 @@ import {
 } from "@angular/core";
 
 import {IAttendee, IEvent_V2} from "@event/domain";
-import {DatePipe, NgIf} from "@angular/common";
+import {DatePipe, NgIf, NgSwitch, NgSwitchCase} from "@angular/common";
 import {Store} from "@ngxs/store";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
@@ -19,14 +19,22 @@ import {EventActions} from "@event/state/event/event.actions";
 @Component({
 	selector: 'app-order-event-calendar-with-specialist-widget-component',
 	template: `
-		<div class="flex flex-wrap">
-			<span class="text-xs dark:text-sky-100">
+		<div class="flex gap-1 items-center justify-between">
+			<div class="text-xs dark:text-sky-100">
 				{{ event.start | date: 'HH:mm' }} - {{ event.end | date: 'HH:mm' }}
-			</span>
-			<span class="text-xs font-bold dark:text-sky-100">
-				{{ getAttendeesInformation() }}
-			</span>
+			</div>
+			<ng-container [ngSwitch]="event.originalData.service.status">
+				<i *ngSwitchCase="orderServiceStatusEnum.done" class="bi bi-check2-all"></i>
+				<i *ngSwitchCase="orderServiceStatusEnum.cancelled" class="bi bi-x"></i>
+				<i *ngSwitchCase="orderServiceStatusEnum.rejected" class="bi bi-x"></i>
+				<i *ngSwitchCase="orderServiceStatusEnum.accepted" class="bi bi-check2"></i>
+				<i *ngSwitchCase="orderServiceStatusEnum.inProgress" class="bi bi-hourglass-split"></i>
+				<i *ngSwitchCase="orderServiceStatusEnum.requested" class="bi bi-exclamation"></i>
+			</ng-container>
 		</div>
+		<div class="text-xs font-bold dark:text-sky-100">
+				{{ getAttendeesInformation() }}
+			</div>
 		<div class="text-xs font-medium">
 			{{ event.originalData.service.serviceSnapshot.languageVersions[0].title }}
 		</div>
@@ -37,7 +45,9 @@ import {EventActions} from "@event/state/event/event.actions";
 	standalone: true,
 	imports: [
 		DatePipe,
-		NgIf
+		NgIf,
+		NgSwitch,
+		NgSwitchCase
 	],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
@@ -52,6 +62,8 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 
 	private readonly store = inject(Store);
 	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
+
+	public readonly orderServiceStatusEnum = OrderServiceStatusEnum;
 
 	public async onClick() {
 		await this.openEventDetails(this.event);
@@ -76,7 +88,7 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 		// Choose color by status
 		const classList = [
 			'absolute top-0 bottom-0 left-0 right-0 border-2',
-			'transition-all cursor-pointer rounded-md border-[#00000038] p-1 flex flex-col overflow-hidden',
+			'transition-all cursor-pointer rounded-md border-[#00000038] px-1 flex flex-col overflow-hidden',
 		];
 
 		const {service} = this.event.originalData;

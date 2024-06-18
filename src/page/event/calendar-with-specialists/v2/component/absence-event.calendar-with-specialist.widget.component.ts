@@ -11,7 +11,7 @@ import {AbsenceActions} from "@absence/state/absence/absence.actions";
 	selector: 'app-absence-event-calendar-with-specialist-widget-component',
 	template: `
 		<div class="flex flex-wrap gap-1">
-			<div class="w-full flex gap-2 justify-between">
+			<div class="w-full flex justify-between">
 				<div class="text-xs dark:text-sky-100">
 					{{ event.start | date: 'HH:mm' }} - {{ event.end | date: 'HH:mm' }}
 				</div>
@@ -34,7 +34,7 @@ import {AbsenceActions} from "@absence/state/absence/absence.actions";
 	imports: [
 		DatePipe,
 		NgIf,
-		TranslateModule
+		TranslateModule,
 	],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
@@ -57,7 +57,7 @@ export class AbsenceEventCalendarWithSpecialistWidgetComponent {
 		// Choose color by status
 		const classList = [
 			'absolute top-0 bottom-0 left-0 right-0 text-white border-2',
-			'transition-all cursor-pointer rounded-md border-[#00000038] p-1 flex flex-col overflow-hidden',
+			'transition-all cursor-pointer rounded-md border-[#00000038] px-1 flex flex-col overflow-hidden',
 		];
 
 		classList.push('bg-gray-600', 'hover:bg-gray-700'); // 'border-gray-600',
