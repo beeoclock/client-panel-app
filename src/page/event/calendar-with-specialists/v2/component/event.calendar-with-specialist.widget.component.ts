@@ -95,6 +95,18 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	@ViewChild(AbsenceEventCalendarWithSpecialistWidgetComponent)
 	private absenceEventCalendarWithSpecialistWidgetComponent!: AbsenceEventCalendarWithSpecialistWidgetComponent;
 
+	private readonly ngxLogger = inject(NGXLogger);
+
+	public readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
+	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
+	private readonly changeDetectorRef = inject(ChangeDetectorRef);
+	private readonly updateServiceOrderApiAdapter = inject(UpdateServiceOrderApiAdapter);
+	private readonly updateAbsenceApiAdapter = inject(UpdateAbsenceApiAdapter);
+	private readonly alertController = inject(AlertController);
+	private readonly translateService = inject(TranslateService);
+
+	private saveInProgress = false;
+
 	@HostBinding()
 	public get class() {
 		return 'absolute';
@@ -138,8 +150,6 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	public get width() {
 		return '100%';
 	}
-
-	private readonly ngxLogger = inject(NGXLogger);
 
 	// Hover
 	@HostListener('mouseenter')
@@ -236,16 +246,6 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	}
 
-	public readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
-	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
-	private readonly changeDetectorRef = inject(ChangeDetectorRef);
-	private readonly updateServiceOrderApiAdapter = inject(UpdateServiceOrderApiAdapter);
-	private readonly updateAbsenceApiAdapter = inject(UpdateAbsenceApiAdapter);
-	private readonly alertController = inject(AlertController);
-	private readonly translateService = inject(TranslateService);
-
-	private saveInProgress = false;
-
 	public async toggleMode(force?: boolean) {
 		this.ngxLogger.debug('EventCalendarWithSpecialistWidgetComponent:toggleMode');
 		this.draggable = force ?? !this.draggable;
@@ -306,7 +306,10 @@ export class EventCalendarWithSpecialistWidgetComponent {
 			}
 
 			if (this.isOrder(this.item)) {
-				await this.updateServiceOrderApiAdapter.executeAsync(this.item.originalData.order._id, this.item.originalData.service);
+				const durationInSeconds = DateTime.fromISO(this.item.end).diff(DateTime.fromISO(this.item.start), 'seconds').seconds;
+				const editedService = this.item.originalData.service;
+				editedService.serviceSnapshot.durationVersions[0].durationInSeconds = durationInSeconds;
+				await this.updateServiceOrderApiAdapter.executeAsync(this.item.originalData.order._id, editedService);
 				this.item = structuredClone(this.item);
 			}
 
@@ -336,7 +339,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		return event.is === 'absence';
 	}
 
-	public snapshotOriginalPosition() {
+	private snapshotOriginalPosition() {
 
 		this.snapshottedOriginalPosition = {
 			top: this.elementRef.nativeElement.offsetTop,
@@ -361,7 +364,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	}
 
-	public restoreOriginalPosition() {
+	private restoreOriginalPosition() {
 		if (this.snapshottedOriginalPosition) {
 			this.elementRef.nativeElement.style.top = `${this.snapshottedOriginalPosition.top}px`;
 			this.elementRef.nativeElement.style.height = `${this.snapshottedOriginalPosition.height}px`;
