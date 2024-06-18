@@ -15,13 +15,13 @@ import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 import {NGXLogger} from "ngx-logger";
-import {OrderActions} from "@order/state/order/order.actions";
 import {
 	ChangeStatusOnRejectedComponent
 } from "@event/presentation/component/change-status/change-status-on-rejected.component";
 import {
 	ChangeStatusOnCancelledComponent
 } from "@event/presentation/component/change-status/change-status-on-cancelled.component";
+import {EventActions} from "@event/state/event/event.actions";
 
 @Component({
 	selector: 'app-event-v2-buttons-details',
@@ -141,9 +141,14 @@ export class V2ButtonsDetailsComponent implements OnChanges {
 
 	public editEvent() {
 
-		this.store.dispatch(new OrderActions.OpenOrderServiceForm({
-			orderId: this.event.originalData.order._id,
-			item: this.event.originalData.service,
+		// this.store.dispatch(new EventActions.OpenOrderServiceForm({
+		// 	orderId: this.event.originalData.order._id,
+		// 	item: this.event.originalData.service,
+		// 	isEditMode: true
+		// }));
+
+		this.store.dispatch(new EventActions.OpenOrderServiceForm({
+			event: this.event,
 			isEditMode: true
 		}));
 

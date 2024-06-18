@@ -1,7 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
-import {ActiveEnum, OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {TranslateService} from "@ngx-translate/core";
 import {CreateOrderApiAdapter} from "@order/external/adapter/api/create.order.api.adapter";
 import {UpdateOrderApiAdapter} from "@order/external/adapter/api/update.order.api.adapter";
@@ -11,13 +11,6 @@ import {DeleteOrderApiAdapter} from "../../external/adapter/api/delete.order.api
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {OrderActions} from "@order/state/order/order.actions";
 import {PagedPaymentApiAdapter} from "@module/payment/external/adapter/api/paged.payment.api.adapter";
-import {UpdateServiceOrderApiAdapter} from "@order/external/adapter/api/update.service.order.api.adapter";
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
-import {ContainerFormComponent} from "@event/presentation/component/form/container.form.component";
-import {IEvent} from "@event/domain";
-import {ReservationTypeEnum} from "@order/domain/enum/reservation.type.enum";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
-import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
 import {PatchStatusOrderApiAdapter} from "@order/external/adapter/api/status/patch.status.order.api.adapter";
 
 export type IOrderState = IBaseState<IOrderDto>;
@@ -41,7 +34,6 @@ export class OrderState extends BaseState<IOrderDto> {
 	protected override readonly delete = inject(DeleteOrderApiAdapter);
 	protected override readonly paged = inject(PagedOrderApiAdapter);
 
-	private readonly updateServiceOrderApiAdapter = inject(UpdateServiceOrderApiAdapter);
 	private readonly paymentPaged = inject(PagedPaymentApiAdapter);
 	private readonly translateService = inject(TranslateService);
 	private readonly patchStatusOrderApiAdapter = inject(PatchStatusOrderApiAdapter);
@@ -55,7 +47,7 @@ export class OrderState extends BaseState<IOrderDto> {
 	// Application layer
 
 	@Action(OrderActions.CloseDetails)
-	public async closeDetailsAction(ctx: StateContext<IOrderState>, action?: OrderActions.CloseDetails) {
+	public async closeDetailsAction() {
 
 		const {OrderDetailsContainerComponent} = await import("@order/presentation/component/details/order-details-container.component");
 
@@ -64,7 +56,7 @@ export class OrderState extends BaseState<IOrderDto> {
 	}
 
 	@Action(OrderActions.CloseForm)
-	public async closeFormAction(ctx: StateContext<IOrderState>, action?: OrderActions.CloseForm) {
+	public async closeFormAction() {
 
 		const {OrderFormContainerComponent} = await import("@order/presentation/component/form/order-form-container.component");
 
@@ -159,98 +151,6 @@ export class OrderState extends BaseState<IOrderDto> {
 
 	}
 
-	@Action(OrderActions.OpenOrderServiceForm)
-	public async openOrderServiceFormAction(ctx: StateContext<IOrderState>, {payload}: OrderActions.OpenOrderServiceForm): Promise<void> {
-
-
-		this.ngxLogger.info('openOrderServiceFormAction', payload);
-
-		const {orderId, isEditMode, item} = payload;
-
-		const componentInputs: {
-			orderServiceDto: Partial<IOrderServiceDto>;
-			useDefaultFlow: boolean;
-			isEditMode: boolean;
-			forceStart?: string;
-		} = {
-			isEditMode: isEditMode ?? false,
-			useDefaultFlow: false,
-			orderServiceDto: item ?? {},
-		};
-
-		const componentRef = await this.whacAMaleProvider.buildItAsync({
-			title: this.translateService.instant('event.form.title.edit'),
-			component: ContainerFormComponent,
-			componentInputs,
-		});
-
-		if (!componentRef) {
-			return;
-		}
-
-		const {renderedComponentRef} = componentRef.instance;
-
-		if (!renderedComponentRef) {
-			return;
-		}
-
-		renderedComponentRef.setInput('callback', (component: ContainerFormComponent, formValue: IEvent) => {
-			this.ngxLogger.info('callback', component, formValue);
-
-			if (!formValue.services || !formValue.services.length) {
-				return;
-			}
-
-			if (!formValue.attendees || !formValue.attendees.length) {
-				return;
-			}
-
-			if (!formValue.timeZone) {
-				return;
-			}
-
-			if (!formValue.start) {
-				return;
-			}
-
-			if (!formValue.end) {
-				return;
-			}
-
-			const orderServiceForm = ServiceOrderForm.create({
-				...(formValue as any),
-				customerNote: formValue.note,
-				orderAppointmentDetails: {
-					object: 'OrderAppointmentDetailsDto',
-					active: ActiveEnum.YES,
-					start: formValue.start,
-					end: formValue.end,
-					type: ReservationTypeEnum.service,
-					// languageCodes: LanguageCodeEnum[];
-					// attachments: IAttachmentDto[];
-					specialists: formValue.services[0].specialists,
-					attendees: formValue.attendees,
-					// locations: ILocationsDto[];
-					timeZone: formValue.timeZone,
-					createdAt: formValue.createdAt,
-					updatedAt: formValue.updatedAt,
-				},
-				serviceSnapshot: {
-					...formValue.services[0],
-					object: "ServiceDto",
-				} as unknown as IServiceDto,
-			});
-
-			this.updateServiceOrderApiAdapter.executeAsync(orderId, orderServiceForm.value);
-
-			// TODO: call function to increase defaultAppointmentStartDateTimeIso
-
-			componentRef.instance.destroySelf();
-
-		});
-
-	}
-
 	@Action(OrderActions.OpenForm)
 	public async openFormAction(ctx: StateContext<IOrderState>, {payload}: OrderActions.OpenForm): Promise<void> {
 
@@ -292,15 +192,13 @@ export class OrderState extends BaseState<IOrderDto> {
 	@Action(OrderActions.CreateItem)
 	public override async createItem(ctx: StateContext<IOrderState>, action: OrderActions.CreateItem) {
 		await super.createItem(ctx, action);
-		await this.closeFormAction(ctx);
+		await this.closeFormAction();
 	}
 
 	@Action(OrderActions.UpdateItem)
 	public override async updateItem(ctx: StateContext<IOrderState>, action: OrderActions.UpdateItem): Promise<void> {
 		await super.updateItem(ctx, action);
-		await this.closeFormAction(ctx, {
-			payload: action.payload._id
-		});
+		await this.closeFormAction();
 		const {data} = ctx.getState().item;
 		data && await this.updateOpenedDetailsAction(ctx, {payload: data});
 	}
@@ -313,7 +211,7 @@ export class OrderState extends BaseState<IOrderDto> {
 	@Action(OrderActions.DeleteItem)
 	public override async deleteItem(ctx: StateContext<IOrderState>, action: OrderActions.DeleteItem) {
 		await super.deleteItem(ctx, action);
-		await this.closeDetailsAction(ctx, action);
+		await this.closeDetailsAction();
 	}
 
 	@Action(OrderActions.GetList)
