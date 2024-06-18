@@ -398,7 +398,9 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 			if (this.isOrder(this.item)) {
 
-				if (this.temporaryNewMember && !this.temporaryNewMember.assignments.service.full) {
+				const prevMember = this.previousData?.member;
+
+				if (this.temporaryNewMember && prevMember && this.temporaryNewMember._id !== prevMember._id && !this.temporaryNewMember.assignments.service.full) {
 
 					const {service} = this.item.originalData;
 					const newMemberCanServerTheService = this.temporaryNewMember.assignments.service.include.some(({service: includedService}) => {
