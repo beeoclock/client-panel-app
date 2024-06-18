@@ -25,7 +25,7 @@ import {AutoRefreshStorageService} from "@utility/presentation/component/auto-re
 				<ion-select
 					[formControl]="control"
 					labelPlacement="start"
-					class="px-4 py-2 border border-beeColor-300 shadow-sm rounded-2xl rounded-r-none !min-h-0"
+					class="px-4 py-3 border border-beeColor-300 shadow-sm rounded-2xl rounded-r-none !min-h-0"
 					fill="solid"
 					interface="popover">
 					<ion-select-option [disabled]="true">
@@ -41,7 +41,7 @@ import {AutoRefreshStorageService} from "@utility/presentation/component/auto-re
 					(click)="emitter.emit()"
 					type="submit"
 					link
-					class="rounded-l-none border border-l-0 p-2 h-full text-sm border-beeColor-300 shadow-sm">
+					class="rounded-l-none border border-l-0 !p-3 h-full text-sm border-beeColor-300 shadow-sm">
 					<i [class.animate-spin]="isLoading" class="bi bi-arrow-clockwise"></i>
 				</button>
 			</div>

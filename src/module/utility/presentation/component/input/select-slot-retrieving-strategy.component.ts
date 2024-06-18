@@ -12,16 +12,18 @@ import {NgIf} from "@angular/common";
 	selector: 'select-slot-retrieving-strategy-component',
 	standalone: true,
 	template: `
-		<label default [for]="id">
-			{{ 'slotRetrievingStrategy.title' | translate }}
-		</label>
-		<ng-select
-			bindLabel="label"
-			bindValue="id"
-			[items]="options"
-			[clearable]="false"
-			[id]="id"
-			[formControl]="slotSettings.controls.slotRetrievingStrategy"/>
+		<div class="relative">
+			<label default [for]="id">
+				{{ 'slotRetrievingStrategy.title' | translate }}
+			</label>
+			<ng-select
+				bindLabel="label"
+				bindValue="id"
+				[items]="options"
+				[clearable]="false"
+				[id]="id"
+				[formControl]="slotSettings.controls.slotRetrievingStrategy"/>
+		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
 			{{ 'slotRetrievingStrategy.hint' | translate }}
 		</div>

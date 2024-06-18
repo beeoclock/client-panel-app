@@ -142,6 +142,7 @@ export class ChangeLanguageComponent implements AfterViewInit {
     this.form.controls.language.valueChanges.subscribe((languageCode: LanguageCodeEnum | null) => {
       if (languageCode) {
         this.translateService.use(languageCode);
+		window.location.reload();
       }
     });
 

@@ -63,14 +63,20 @@
       "@service/*": [
         "./src/module/service/*"
       ],
-      "@user/*": [
-        "./src/module/user/*"
-      ],
       "@utility/*": [
         "./src/module/utility/*"
       ],
       "@member/*": [
         "./src/module/member/*"
+      ],
+      "@order/*": [
+        "./src/module/order/*"
+      ],
+      "@absence/*": [
+        "./src/module/absence/*"
+      ],
+      "@page/*": [
+        "./src/page/*"
       ]
     }
   },

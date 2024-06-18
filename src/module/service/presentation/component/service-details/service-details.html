@@ -2,7 +2,7 @@
 	<div class="bg-white">
 		<dl class="divide-y divide-gray-100">
 
-			<div *ngIf="(service.presentation?.banners ?? []).length > 0" class="px-4 py-6 sm:gap-4 flex flex-wrap">
+			<div *ngIf="(service.presentation?.banners ?? []).length > 0" class="p-4 sm:gap-4 flex flex-wrap">
 				<div
 					*ngFor="let banner of service.presentation?.banners"
 					class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-beeColor-400">
@@ -13,7 +13,7 @@
 						alt="Uploaded Image"/>
 				</div>
 			</div>
-			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+			<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.title' | translate }}
 				</dt>
@@ -21,7 +21,7 @@
 					{{ service.languageVersions[0].title }}
 				</dd>
 			</div>
-			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+			<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.description' | translate }}
 				</dt>
@@ -29,7 +29,7 @@
 					{{ service.languageVersions[0].description }}
 				</dd>
 			</div>
-			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+			<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.order' | translate }}
 				</dt>
@@ -37,7 +37,18 @@
 					{{ service.order }}
 				</dd>
 			</div>
-			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+			<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.color' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					<div class="h-10 w-10 rounded-full" *ngIf="service.presentation?.color" [style.background-color]="service.presentation?.color ?? ''"></div>
+					<div class="h-10 w-10 rounded-full flex justify-center items-center bg-gray-100" *ngIf="!service.presentation?.color">
+						❓
+					</div>
+				</dd>
+			</div>
+			<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.status' | translate }}
 				</dt>
@@ -47,7 +58,7 @@
 					</div>
 				</dd>
 			</div>
-			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+			<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.price' | translate }}
 				</dt>
@@ -57,7 +68,7 @@
 					</div>
 				</dd>
 			</div>
-			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+			<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.duration' | translate }}
 				</dt>

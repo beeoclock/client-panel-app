@@ -1,5 +1,51 @@
 {
-	"autoActionOnEventInSeconds": {
+	"absence": {
+		"action": {
+			"delete": {
+				"question": "Czy na pewno chcesz usunąć nieobecność?"
+			}
+		},
+		"button": {
+			"create": "Dodaj nieobecność"
+		},
+		"details": {
+			"title": "Szczegóły dotyczące nieobecności"
+		},
+		"form": {
+			"inputs": {
+				"entireBusiness": {
+					"label": "Cały biznes"
+				},
+				"note": {
+					"placeholder": "Lepiej mieć i nie potrzebować, niż nie mieć i potrzebować, zostawić notatkę, aby później zrozumieć, co się stało"
+				},
+				"type": {
+					"label": "Typ"
+				}
+			},
+			"membersIds": {
+				"select": {
+					"title": "Wybór członków"
+				}
+			},
+			"title": {
+				"create": "Dodawanie nieobecności",
+				"edit": "Edytowanie nieobecności"
+			}
+		},
+		"type": {
+			"break": {
+				"label": "Przerwa"
+			},
+			"holiday": {
+				"label": "Wolne"
+			},
+			"vacation": {
+				"label": "Urlop"
+			}
+		}
+	},
+	"autoActionOnOrderInSeconds": {
 		"EIGHT_HOURS": "8 godzin",
 		"FIFTEEN_MINUTES": "15 minut",
 		"FIVE_HOURS": "5 godzin",
@@ -16,7 +62,7 @@
 		"TWENTY_MINUTES": "20 minut",
 		"TWO_HOURS": "2 godziny"
 	},
-	"autoActionTypeOnEvent": {
+	"autoActionTypeOnOrder": {
 		"APPROVE": "Zatwierdź",
 		"DENY": "Odrzuć"
 	},
@@ -135,22 +181,22 @@
 							}
 						},
 						"input": {
-							"autoActionOnEventInSeconds": {
+							"autoActionOnOrderInSeconds": {
 								"placeholder": "Wybierz czas po jakim ma się rozpocząć wybrana akcja automatyczna dla nowo utworzonej rezerwacji/wydarzenia"
 							},
-							"autoActionTypeOnEvent": {
+							"autoActionTypeOnOrder": {
 								"placeholder": "Wybierz typ akcji, która ma nastąpić automatycznie dla nowo utworzonej rezerwacji/wydarzenia"
 							},
 							"earliestBooking": {
-								"placeholder": "Określa najkrótszy dostępny czas przed umożliwieniem rezerwacji usługi"
+								"placeholder": "Najkrótszy okres, po którym można zarezerwować usługę"
 							},
 							"latestBooking": {
-								"placeholder": "Określa czas dostępności rezerwacji usługi"
+								"placeholder": "Czas, w którym można zarezerwować usługę"
 							}
 						},
 						"select": {
 							"mandatoryAttendeeProperties": {
-								"hint": "Wybierz, które pola są wymagane na stronie publicznej dla klientów.",
+								"hint": "Wybierz pola wymagane do wypełnienia przez klientów podczas rezerwacji usługi.",
 								"label": "Wymagane pola"
 							},
 							"timeZone": {
@@ -162,8 +208,17 @@
 					"businessSettings": {
 						"select": {
 							"availableLanguages": {
-								"hint": "Wybierz języki, w których prowadzisz działalność, być może prowadzisz działalność nie tylko dla mieszkańców, ale także dla turystów. Wybór ten określi dostępną listę języków dla wiadomości e-mail",
+								"hint": "Języki, w których świadczone są usługi i w których będzie dostępna publiczna strona internetowa.",
 								"label": "Języki, w których prowadzisz działalność"
+							},
+							"baseCurrency": {
+								"hint": "Wybierz główną walutę, aby poprawnie wyświetlać kwoty w raportach i zamówieniach.",
+								"label": "Główna waluta"
+							},
+							"baseLanguage": {
+								"hint": "Język, w którym wyświetlane są usługi, raporty i powiadomienia, o ile nie określono inaczej w profilu osobistym użytkownika.",
+								"label": "Główny język",
+								"placeholder": "Najpierw wybierz języki, w których prowadzisz działalność"
 							},
 							"currencies": {
 								"hint": "Wybierz waluty, w których możesz otrzymać płatność za świadczoną usługę, dzięki temu ustawieniu możesz wybrać konkretną walutę dla konkretnej usługi.",
@@ -239,7 +294,7 @@
 				}
 			},
 			"form": {
-				"autoBookEvent": {
+				"autoBookOrder": {
 					"label": "Umożliwienie klientowi natychmiastowej rezerwacji wydarzenia z potwierdzonym statusem"
 				},
 				"inputs": {
@@ -263,6 +318,14 @@
 		"details": {
 			"title": "Dane klienta"
 		},
+		"enum": {
+			"type": {
+				"anonymous": "Anonimowy",
+				"new": "Nowy",
+				"regular": "Klient",
+				"unregistered": "Gość"
+			}
+		},
 		"form": {
 			"input": {
 				"note": {
@@ -279,7 +342,9 @@
 	"danger-zone": {
 		"button": {
 			"delete": {
-				"label": "Usuń konto firmowe"
+				"hint": "Usunięcie konta firmowego jest nieodwracalne, dlatego należy dokładnie rozważyć tę decyzję.",
+				"label": "Usuń profil biznesowy",
+				"title": "Usuwanie profilu biznesowego"
 			}
 		},
 		"hint": {
@@ -322,6 +387,30 @@
 			"button": {
 				"done": {
 					"label": "Wydarzenie zakończone"
+				}
+			}
+		},
+		"additionalMenu": {
+			"items": {
+				"addNewAbsence": {
+					"hint": "Za pomocą tej opcji można dodać nową przerwę w kalendarzu dla siebie lub innych osób.",
+					"title": "Dodaj nową nieobecność"
+				},
+				"addNewOrder": {
+					"hint": "Za pomocą tej opcji dodasz nowe zamówienie z usługą i produktem.",
+					"title": "Dodaj nowe zamówienie"
+				}
+			},
+			"title": "Dodatkowe menu"
+		},
+		"calendar-with-specialists": {
+			"confirm-changes": {
+				"message": {
+					"default": "Czy na pewno chcesz zapisać zmiany?",
+					"important": "Czy na pewno chcesz przypisać to zdarzenie specjaliście, który nie może świadczyć takiej usługi? Nie ma takiej usługi na liście wybranych usług, które może świadczyć specjalista!"
+				},
+				"subHeader": {
+					"important": "Uwaga, poważne zmiany"
 				}
 			}
 		},
@@ -390,16 +479,18 @@
 			"status": {
 				"all": "Wszystkie",
 				"plural": {
-					"booked": "Zarezerwowane",
+					"accepted": "Zaakceptowane",
 					"cancelled": "Odwołane",
 					"done": "Gotowe",
+					"inProgress": "W trakcie",
 					"rejected": "Odrzucone",
 					"requested": "Zażądane"
 				},
 				"singular": {
-					"booked": "Zarezerwowane",
+					"accepted": "Zaakceptowany",
 					"cancelled": "Odwołane",
 					"done": "Gotowe",
+					"inProgress": "W trakcie",
 					"rejected": "Odrzucono",
 					"requested": "Zażądane"
 				}
@@ -783,11 +874,13 @@
 			"addSocialMedia": "Dodaj media społecznościowe",
 			"additional": "Dodatkowe",
 			"address": "Adres",
+			"amount": "Kwota",
+			"anonymous": "Anonimowy",
 			"approvalType": "Typ homologacji",
 			"approve": "Zatwierdź",
 			"attendees": "Uczestnicy",
-			"autoActionOnEventInSeconds": "Czas rozpoczęcia automatycznego działania",
-			"autoActionTypeOnEvent": "Rodzaj akcji automatycznej",
+			"autoActionOnOrderInSeconds": "Czas rozpoczęcia automatycznego działania",
+			"autoActionTypeOnOrder": "Rodzaj akcji automatycznej",
 			"avatar": "Awatar",
 			"back": "Wstecz",
 			"bookingSettings": "Ustawienia rezerwacji",
@@ -796,15 +889,18 @@
 			"businessCategory": "Kategoria biznesowa",
 			"businessIndustry": "Branża biznesowa",
 			"businessName": "Nazwa firmy",
+			"businessNote": "Notatka służbowa",
 			"businessProfile": "Profil biznesu",
 			"businessSettings": "Ustawienia biznesowe",
 			"cancel": "Anuluj",
+			"changeStatus": "Zmień status",
 			"chooseImage": "Wybierz plik",
 			"city": "Miasto",
 			"clearCache": "Wyczyść Cache",
 			"clickToUpload": "Kliknij, aby przesłać",
 			"clients": "Klienci",
 			"close": "Zamknij",
+			"color": "Kolor",
 			"comingSoon": "Już wkrótce...",
 			"confirm": "Potwierdź",
 			"contact": "Kontakt",
@@ -842,6 +938,7 @@
 			"information": "Informacje",
 			"initializing": "Inicializacja",
 			"language": "Język",
+			"languageAndRegion": "Język i region",
 			"languages": "Języki",
 			"lastName": "Nazwisko",
 			"lastUpdate": "Ostatnia aktualizacja",
@@ -861,6 +958,10 @@
 			"order": "Kolejność",
 			"ownOptionOfTime": "Godzina według Twojego życzenia",
 			"ownOptionOfTimeHint": "Wybierz tę opcję, jeśli chcesz samodzielnie określić czas wydarzenia, niezależnie od innych wydarzeń zaplanowanych na tę godzinę.",
+			"payer": "Płatnik",
+			"payment": "Płatność",
+			"paymentMethod": "Metoda płatności",
+			"paymentStatus": "Status płatności",
 			"periodOfDay": {
 				"AFTERNOON": "Popołudnie",
 				"EVENING": "Wieczór",
@@ -891,6 +992,8 @@
 			"select": "Wybierz",
 			"selectSpecialist": "Wybierz specjalistę",
 			"selected": "Wybrano",
+			"selectedDateTime": "Wybrana data i godzina",
+			"selectedMember": "Wybrany członek",
 			"send": "Wyślij",
 			"sendAgain": "Wyślij ponownie",
 			"service": "Usługa",
@@ -937,11 +1040,22 @@
 			"in": "w",
 			"min": "min.",
 			"no-data": "brak danych",
+			"now": "teraz",
 			"or": "lub",
 			"sec": "sek.",
 			"service": "usługa",
 			"short": {
-				"days": "d"
+				"days": "d",
+				"hour": "g",
+				"minutes": "min"
+			}
+		},
+		"singular": {
+			"capitalize": {
+				"client": "Klient",
+				"freeMovement": "Swobodne przemieszczanie",
+				"openDetails": "Otwórz szczegóły",
+				"type": "Typ"
 			}
 		},
 		"status": {
@@ -976,6 +1090,13 @@
 		"details": {
 			"title": "Informacje o pracowniku"
 		},
+		"enum": {
+			"profileStatus": {
+				"active": "Aktywny",
+				"deleted": "Usunięty",
+				"suspended": "Zawieszony"
+			}
+		},
 		"form": {
 			"assignments": {
 				"button": {
@@ -1001,6 +1122,51 @@
 		},
 		"title": "Członek"
 	},
+	"order": {
+		"button": {
+			"create": "Dodaj zamówienie"
+		},
+		"confirmation": {
+			"change-status": {
+				"hint": "Zmienna statusu może mieć wpływ na usługi w tym zamówieniu, na przykład jeśli zostanie anulowana, wszystkie usługi również zostaną anulowane.",
+				"message": "Czy na pewno chcesz zmienić status?"
+			}
+		},
+		"details": {
+			"title": "Szczegóły zamówienia"
+		},
+		"enum": {
+			"status": {
+				"singular": {
+					"cancelled": "Anulowane",
+					"confirmed": "Potwierdzono",
+					"done": "Gotowe",
+					"draft": "Wersja robocza",
+					"pending": "W toku",
+					"rejected": "Odrzucono",
+					"requested": "Żądany"
+				}
+			}
+		},
+		"form": {
+			"payment": {
+				"payer": {
+					"case": {
+						"new": {
+							"hint": "W takim przypadku płatnik zostanie automatycznie dodany do bazy danych klientów"
+						},
+						"unregistered": {
+							"hint": "Płatnik nie zostanie automatycznie dodany do bazy danych klientów."
+						}
+					}
+				}
+			},
+			"title": {
+				"create": "Dodawanie zamówienia",
+				"edit": "Edytowanie zamówienia"
+			}
+		}
+	},
 	"page": {
 		"calendar": {
 			"title": "Kalendarz"
@@ -1022,6 +1188,35 @@
 			"allDataDownloaded": "Wszystkie dostępne dane zostały pobrane"
 		}
 	},
+	"payment": {
+		"method": {
+			"CARD": {
+				"label": "Karta"
+			},
+			"CASH": {
+				"label": "Gotówka"
+			}
+		},
+		"providerType": {
+			"onSite": {
+				"label": "Na miejscu"
+			}
+		},
+		"status": {
+			"failed": {
+				"label": "Nie powiodło się"
+			},
+			"inProgress": {
+				"label": "W toku"
+			},
+			"registered": {
+				"label": "Zarejestrowany"
+			},
+			"succeeded": {
+				"label": "Udało się"
+			}
+		}
+	},
 	"role": {
 		"ADMIN": "Administrator",
 		"OWNER": "Właściciel",
@@ -1032,6 +1227,11 @@
 			"title": "Informacje o usłudze"
 		},
 		"form": {
+			"color": {
+				"input": {
+					"hint": "Kolor usługi jest używany do wyświetlania wydarzenia w kalendarzu w wybranym kolorze"
+				}
+			},
 			"order": {
 				"input": {
 					"placeholder": "Określ pozycję tej usługi na liście na stronie publicznej"
@@ -1085,14 +1285,24 @@
 		"Online": "Online"
 	},
 	"sidebar": {
+		"absence": "Nieobecność",
 		"addEvent": "Dodaj wydarzenie",
 		"businessProfile": "Profil biznesowy",
 		"businessSettings": "Ustawienia firmy",
-		"calendar": "Kalendarz",
+		"calendar": {
+			"label": "Kalendarz",
+			"ordinary": {
+				"label": "Zwykły"
+			},
+			"withSpecialists": {
+				"label": "Ze specjalistami"
+			}
+		},
 		"customers": "Klienci",
 		"dashboard": "Panel główny",
 		"events": "Wydarzenia",
 		"members": "Członkowie",
+		"order": "Zamówienia",
 		"private": "Prywatne",
 		"profile": {
 			"signOut": {
@@ -1116,11 +1326,11 @@
 		"title": "Wyloguj się"
 	},
 	"slotBuildingStrategy": {
-		"hint": "Wybierz przedział czasowy według jakiego mają być budowane dostępne sloty dla Twojego klienta lub wybierz format w jakim wybrane sloty będą budowane przez wybraną usługę",
+		"hint": "Odstępy czasu w harmonogramie biznesowym, na które klient rezerwuje usługę",
 		"options": {
 			"accordingToAService": "Według serwisu"
 		},
-		"title": "Budowa przedziałów czasowych"
+		"title": "Przedziały czasowe"
 	},
 	"slotRetrievingStrategy": {
 		"hint": "Strategia ta kontroluje możliwość wyboru przedziałów czasowych dla wydarzeń, które nie uzyskały jeszcze potwierdzenia od specjalisty. Poniżej zobaczysz przykłady wybranej strategii.",

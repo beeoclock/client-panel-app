@@ -8,6 +8,7 @@ import {
 } from "@client/adapter/external/api/buisness-profile/item.business-profile.api.adapter";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
+import {BASE_CURRENCY} from "@src/token";
 
 interface IClientState {
 	item: Client.RIClient | undefined;
@@ -38,8 +39,18 @@ export class ClientState {
 	}
 
 	@Selector()
+	public static baseCurrency(state: IClientState): CurrencyCodeEnum | undefined {
+		return state.item?.businessSettings?.baseCurrency;
+	}
+
+	@Selector()
 	public static username(state: IClientState): string | undefined | null {
 		return state.item?.username;
+	}
+
+	@Selector()
+	public static schedules(state: IClientState): RISchedule[] | undefined {
+		return state.item?.schedules;
 	}
 
 	@Selector()
@@ -70,7 +81,8 @@ export class ClientState {
 
 	}
 
-	public readonly itemBusinessProfileApiAdapter = inject(ItemBusinessProfileApiAdapter);
+	private readonly BASE_CURRENCY = inject(BASE_CURRENCY);
+	private readonly itemBusinessProfileApiAdapter = inject(ItemBusinessProfileApiAdapter);
 
 	@Action(ClientActions.InitClient)
 	public async getItem(ctx: StateContext<IClientState>): Promise<void> {
@@ -80,7 +92,9 @@ export class ClientState {
 		const item = await this.itemBusinessProfileApiAdapter.executeAsync();
 		ctx.patchState({
 			item
-		})
+		});
+
+		this.BASE_CURRENCY.next(item.businessSettings.baseCurrency ?? null);
 
 		ctx.dispatch(new AppActions.PageLoading(false));
 

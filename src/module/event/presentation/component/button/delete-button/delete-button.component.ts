@@ -1,8 +1,9 @@
 import {Component, EventEmitter, inject, Input, Output, ViewEncapsulation} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
-import {IEvent} from "@event/domain";
+import {IEvent_V2} from "@event/domain";
 import {Store} from "@ngxs/store";
-import {EventActions} from "@event/state/event/event.actions";
+import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 
 @Component({
 	selector: 'event-delete-button-component',
@@ -41,7 +42,7 @@ import {EventActions} from "@event/state/event/event.actions";
 export class DeleteButtonComponent {
 
 	@Input()
-	public event!: IEvent;
+	public event!: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>;
 
 	@Output()
 	public readonly deleteStatus = new EventEmitter<void>();
@@ -49,7 +50,7 @@ export class DeleteButtonComponent {
 	private readonly store = inject(Store);
 
 	public submit() {
-		this.store.dispatch(new EventActions.DeleteItem(this.event._id));
+		// this.store.dispatch(new Ord.DeleteItem(this.event._id));
 		this.deleteStatus.emit();
 	}
 

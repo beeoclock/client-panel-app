@@ -30,7 +30,7 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 				<input
 					type="text"
 					id="simple-search"
-					class="block shadow-sm w-full min-w-[200px] pr-4 py-2 pl-10 border border-beeColor-300 rounded-2xl text-sm text-beeColor-900 focus:ring-blue-500 focus:border-blue-500 dark:bg-beeColor-700 dark:border-beeColor-600 dark:placeholder-beeColor-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+					class="block shadow-sm w-full min-w-[200px] pr-4 py-3 pl-10 border border-beeColor-300 rounded-2xl text-sm text-beeColor-900 focus:ring-blue-500 focus:border-blue-500 dark:bg-beeColor-700 dark:border-beeColor-600 dark:placeholder-beeColor-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 					[formControl]="control"
 					[placeholder]="placeholder" />
 			</div>

@@ -9,19 +9,21 @@ import {AutomaticApprovalTimeType} from "@utility/domain/enum/automatic-approval
   selector: 'select-auto-action-type-on-event-component',
   standalone: true,
   template: `
-		<label default [for]="id">
-			{{ 'keyword.capitalize.autoActionTypeOnEvent' | translate }}
-		</label>
-		<ng-select
-			bindLabel="name"
-			bindValue="type"
-			[items]="autoActionTypeList"
-			[clearable]="false"
-			[id]="id"
-			[formControl]="control">
-		</ng-select>
+		<div class="relative">
+			<label default [for]="id">
+				{{ 'keyword.capitalize.autoActionTypeOnOrder' | translate }}
+			</label>
+			<ng-select
+				bindLabel="name"
+				bindValue="type"
+				[items]="autoActionTypeList"
+				[clearable]="false"
+				[id]="id"
+				[formControl]="control">
+			</ng-select>
+		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
-			{{ 'client.profile.form.section.bookingSettings.input.autoActionTypeOnEvent.placeholder' | translate }}
+			{{ 'client.profile.form.section.bookingSettings.input.autoActionTypeOnOrder.placeholder' | translate }}
 		</div>
 	`,
   encapsulation: ViewEncapsulation.None,
@@ -47,7 +49,7 @@ export class SelectAutoActionTypeOnEventComponent {
     .filter((autoActionType) => typeof autoActionType === 'string')
     .map((autoActionType) => {
       return {
-        name: this.translateService.instant(`autoActionTypeOnEvent.${autoActionType}`),
+        name: this.translateService.instant(`autoActionTypeOnOrder.${autoActionType}`),
         type: AutomaticApprovalTimeType[autoActionType as keyof typeof AutomaticApprovalTimeType]
       };
     });

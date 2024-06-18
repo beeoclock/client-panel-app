@@ -46,6 +46,7 @@ export abstract class BaseFilterComponent extends Reactive {
 				})
 			});
 		this.form.valueChanges.pipe(
+			this.takeUntil(),
 			debounceTime(MS_HALF_SECOND),
 			map(clearObjectClone)
 		).subscribe(async (value: any) => {

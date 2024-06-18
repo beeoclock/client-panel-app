@@ -1,30 +1,39 @@
 import {Component, HostBinding, Input} from "@angular/core";
 import {AsyncPipe, NgIf} from "@angular/common";
-import {ButtonsDetailsComponent} from "@event/presentation/component/details/buttons.details.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {GeneralDetailsComponent} from "@event/presentation/component/details/general.details.component";
 import {MetaDetailsComponent} from "@event/presentation/component/details/meta.details.component";
-import {RMIEvent} from "@event/domain";
+import {IEvent_V2} from "@event/domain";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
+import {V2GeneralDetailsComponent} from "@event/presentation/component/details/v2.general.details.component";
+import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {V2ButtonsDetailsComponent} from "@event/presentation/component/details/v2.buttons.details.component";
+import {
+	ButtonOpenOrderDetailsComponent
+} from "@event/presentation/component/details/button.open-order.details.component";
 
 @Component({
 	selector: 'event-container-details-component',
 	standalone: true,
 	imports: [
 		AsyncPipe,
-		ButtonsDetailsComponent,
 		CardComponent,
 		GeneralDetailsComponent,
 		MetaDetailsComponent,
 		NgIf,
-		LoaderComponent
+		LoaderComponent,
+		V2GeneralDetailsComponent,
+		V2ButtonsDetailsComponent,
+		ButtonOpenOrderDetailsComponent
 	],
 	template: `
 		<ng-container *ngIf="event; else LoadingTemplate">
 
-			<event-general-details [event]="event"/>
-			<event-buttons-details [event]="event"/>
-			<event-meta-details [event]="event"/>
+			<button-open-order-details [order]="event.originalData.order"/>
+			<event-v2-general-details [event]="event"/>
+			<app-event-v2-buttons-details [event]="event"/>
+			<event-meta-details [event]="event.originalData.order"/>
 
 		</ng-container>
 
@@ -35,8 +44,8 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 })
 export class ContainerDetailsComponent {
 
-	@Input()
-	public event!: RMIEvent;
+	@Input({required: true})
+	public event!: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>;
 
 	@HostBinding()
 	public class = 'pb-48 block';

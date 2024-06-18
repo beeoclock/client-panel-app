@@ -5,6 +5,7 @@ import {
 	Component,
 	EventEmitter,
 	inject,
+	Input,
 	OnInit,
 	Output,
 	QueryList,
@@ -26,7 +27,7 @@ import {CustomerExternalListComponent} from "@customer/presentation/component/ex
 import {ICustomer} from "@customer/domain";
 
 @Component({
-	selector: 'customer-select-customer-push-box-component',
+	selector: 'customer-select-customer-whac-a-mole-component',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -47,23 +48,27 @@ import {ICustomer} from "@customer/domain";
 export class SelectCustomerPushBoxComponent implements OnInit, AfterViewInit {
 
 	@ViewChild(CustomerExternalListComponent)
-	public CustomerExternalListComponent!: CustomerExternalListComponent;
+	public customerExternalListComponent!: CustomerExternalListComponent;
 
-	public readonly changeDetectorRef = inject(ChangeDetectorRef);
-	public readonly router = inject(Router);
-	public readonly logger = inject(NGXLogger);
+	@Input()
+	public selectedCustomerList: ICustomer[] = [];
 
-	public selectedServiceList: ICustomer[] = [];
-	public newSelectedServiceList: ICustomer[] = [];
+	@Input()
+	public newSelectedCustomerList: ICustomer[] = [];
 
+	@Input()
 	public multiple = true;
 
 	@Output()
 	public readonly selectedCustomerListener = new EventEmitter<void>();
 
+	public readonly changeDetectorRef = inject(ChangeDetectorRef);
+	public readonly router = inject(Router);
+	public readonly logger = inject(NGXLogger);
+
 	public ngOnInit(): void {
 
-		this.newSelectedServiceList = [...(this.selectedServiceList ?? [])];
+		this.newSelectedCustomerList = [...(this.selectedCustomerList ?? [])];
 
 	}
 
@@ -72,10 +77,10 @@ export class SelectCustomerPushBoxComponent implements OnInit, AfterViewInit {
 	}
 
 	private async initializeCustomConfiguration() {
-		const mobileLayoutListComponents = await firstValueFrom<QueryList<MobileLayoutListComponent>>(this.CustomerExternalListComponent.mobileLayoutListComponents.changes);
+		const mobileLayoutListComponents = await firstValueFrom<QueryList<MobileLayoutListComponent>>(this.customerExternalListComponent.mobileLayoutListComponents.changes);
 		const {first: mobileLayoutListComponent} = mobileLayoutListComponents;
 		const {first: cardListComponent} = mobileLayoutListComponent.cardListComponents;
-		cardListComponent.selectedIds = this.newSelectedServiceList.map((service) => service._id);
+		cardListComponent.selectedIds = this.newSelectedCustomerList.map((customer) => customer._id);
 		cardListComponent.showAction.doFalse();
 		cardListComponent.showSelectedStatus.doTrue();
 		cardListComponent.goToDetailsOnSingleClick = false;
@@ -85,34 +90,36 @@ export class SelectCustomerPushBoxComponent implements OnInit, AfterViewInit {
 			} else {
 				this.select(item);
 			}
+			cardListComponent.selectedIds = this.newSelectedCustomerList.map(({_id}) => _id);
+			cardListComponent.changeDetectorRef.detectChanges();
 		});
 	}
 
 	public async submit(): Promise<ICustomer[]> {
 		return new Promise((resolve) => {
-			resolve(this.newSelectedServiceList);
+			resolve(this.newSelectedCustomerList);
 		});
 	}
 
 	public select(service: ICustomer): void {
 		if (!this.multiple) {
-			if (this.newSelectedServiceList.length) {
-				this.newSelectedServiceList.splice(0, 1);
+			if (this.newSelectedCustomerList.length) {
+				this.newSelectedCustomerList.splice(0, 1);
 			}
 		}
-		this.newSelectedServiceList.push({...service});
+		this.newSelectedCustomerList.push({...service});
 
 		this.selectedCustomerListener.emit();
 		this.changeDetectorRef.detectChanges();
 	}
 
 	public deselect(service: ICustomer): void {
-		this.newSelectedServiceList = this.newSelectedServiceList.filter((selectedMember: ICustomer) => selectedMember._id !== service._id);
+		this.newSelectedCustomerList = this.newSelectedCustomerList.filter((selectedMember: ICustomer) => selectedMember._id !== service._id);
 		this.changeDetectorRef.detectChanges();
 	}
 
 	public isSelected(service: ICustomer): boolean {
-		return this.newSelectedServiceList.some((selectedMember: ICustomer) => selectedMember._id === service._id);
+		return this.newSelectedCustomerList.some((selectedMember: ICustomer) => selectedMember._id === service._id);
 	}
 
 	public isNotSelected(service: ICustomer): boolean {

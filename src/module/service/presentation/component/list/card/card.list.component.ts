@@ -14,7 +14,6 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {ILanguageVersion, IService} from "@service/domain";
 import {ServiceActions} from "@service/state/service/service.actions";
-import {LanguageCodeEnum} from "@utility/domain/enum";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
@@ -51,10 +50,6 @@ export class CardListComponent extends TableComponent<IService> implements OnCha
 	public readonly translateService = inject(TranslateService);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
-	public get currentLanguageCode(): LanguageCodeEnum {
-		return this.translateService.getDefaultLang() as LanguageCodeEnum;
-	}
-
 	public showAction = new BooleanStreamState(true);
 
 	public showSelectedStatus = new BooleanStreamState(false);
@@ -82,12 +77,12 @@ export class CardListComponent extends TableComponent<IService> implements OnCha
 	}
 
 	public getFirstLanguageVersion(languageVersions: ILanguageVersion[] = []): ILanguageVersion {
-		const firstOption = languageVersions.find(({language}) => language === this.currentLanguageCode);
-		return firstOption ?? languageVersions[0];
+		const firstFoundOption = languageVersions.find(({language}) => language === this.translateService.currentLang);
+		return firstFoundOption ?? languageVersions[0];
 	}
 
-	public override open(id: string): void {
-		this.store.dispatch(new ServiceActions.OpenDetailsById(id));
+	public override open(item: IService): void {
+		this.store.dispatch(new ServiceActions.OpenDetails(item));
 	}
 
 }

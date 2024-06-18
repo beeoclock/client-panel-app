@@ -15,6 +15,7 @@ import {DeepPartial} from "@utility/base.type";
 
 export interface IBusinessSettings {
 	timeZone?: string;
+	baseCurrency?: CurrencyCodeEnum;
 	currencies?: CurrencyCodeEnum[];
 	availableLanguages: LanguageCodeEnum[];
 	emailLanguage: LanguageCodeEnum;

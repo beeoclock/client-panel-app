@@ -9,7 +9,7 @@ import {Component, Input} from '@angular/core';
 			<div class="w-full">
 				<div
 					[class.rounded-b-2xl]="roundedBottom"
-					class="relative bg-white border-b border-beeColor-200 dark:bg-gray-800 p-4 flex flex-col md:flex-row-reverse md:items-center gap-4">
+					class="relative bg-white border-b border-beeColor-200 dark:bg-gray-800 p-2 flex flex-col md:flex-row-reverse md:items-center gap-2">
 					<div class="flex items-center justify-between gap-4 w-full">
 						<ng-content/>
 					</div>

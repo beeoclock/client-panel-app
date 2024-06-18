@@ -1,0 +1,36 @@
+<div class="pb-48 pt-4">
+
+	<form class="flex flex-col gap-4 m-auto max-w-xl">
+
+		<client-business-profile-booking-settings-component
+			[form]="form.controls.bookingSettings"/>
+
+<!--		<client-auto-book-event [control]="form.controls.bookingSettings.controls.autoBookOrder"/>-->
+
+		<client-container-business-settings-component
+			[businessSettings]="form.controls.businessSettings"/>
+
+		<utility-button-save-container-component class="bottom-16 md:bottom-0">
+			<button
+				primary
+				type="button"
+				(click)="save()"
+				[scrollToFirstError]="true"
+				[isLoading]="form.pending"
+				[disabled]="form.disabled">
+				{{ 'keyword.capitalize.save' | translate }}
+			</button>
+		</utility-button-save-container-component>
+
+	</form>
+
+	<hr class="m-auto max-w-xl mt-4">
+
+<!--	<client-event-settings-component class="m-auto block max-w-xl mt-4"/>-->
+
+<!--	<client-service-settings-component class="m-auto block max-w-xl mt-4"/>-->
+
+	<client-danger-zone-component class="m-auto block max-w-xl mt-4"/>
+
+</div>
+

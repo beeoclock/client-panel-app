@@ -9,9 +9,7 @@ import {IonSelectActiveComponent} from "@utility/presentation/component/input/io
 import {CustomerState} from "@customer/state/customer/customer.state";
 import {BaseFilterComponent} from "@utility/base.filter.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
-import {
-	IonSelectEventStatusComponent
-} from "@utility/presentation/component/input/ion/ion-select-event-status.component";
+import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
 import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 
@@ -25,7 +23,7 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		TranslateModule,
 		IonSelectActiveComponent,
 		DefaultPanelComponent,
-		IonSelectEventStatusComponent,
+		IonSelectWrapperComponent,
 		AsyncPipe,
 		NgIf,
 		NgTemplateOutlet,
@@ -53,7 +51,7 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 
 		<ng-template #CustomerActiveSelect>
 			<ion-select-active
-				class="px-4 py-2 border border-beeColor-200 rounded-2xl"
+				class="px-4 py-3 border border-beeColor-300 rounded-2xl"
 				[control]="form.controls.active"/>
 		</ng-template>
 
@@ -66,11 +64,11 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>
-			<button *ngIf="showButtonGoToForm" type="button" primary (click)="openForm()">
+			<button *ngIf="showButtonGoToForm" type="button" primary class="!py-3 !px-4 !text-base" (click)="openForm()">
 				<i class="bi bi-plus-lg"></i>
-				<span class="hidden xl:block">
-					{{ 'customer.button.create' | translate }}
-				</span>
+<!--				<span class="hidden xl:block">-->
+<!--					{{ 'customer.button.create' | translate }}-->
+<!--				</span>-->
 			</button>
 		</ng-template>
 	`

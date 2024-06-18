@@ -5,8 +5,8 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {AssignmentsForm} from "@member/presentation/form/member.form";
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {Reactive} from "@utility/cdk/reactive";
-import {PushBoxService} from "@utility/presentation/component/push-box/push-box.service";
-import {IService} from "@src/module/service/domain";
+import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Component({
 	selector: 'member-form-assignments',
@@ -27,7 +27,7 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 
 	private readonly translateService = inject(TranslateService);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
-	private readonly pushBoxService = inject(PushBoxService);
+	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 
 	public isNotFull = false;
 
@@ -35,7 +35,7 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 		this.updateIsNotFull();
 		this.form.controls.service.controls.full.valueChanges.pipe(
 			this.takeUntil(),
-		).subscribe((test) => {
+		).subscribe(() => {
 			this.updateIsNotFull();
 		});
 	}
@@ -51,11 +51,11 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 
 		const title = this.translateService.instant('member.form.assignments.service.select.title');
 
-		const pushBoxWrapperComponentRef = await this.pushBoxService.buildItAsync({
+		const pushBoxWrapperComponentRef = await this.whacAMaleProvider.buildItAsync({
 			title,
 			component: SelectServicePushBoxComponent,
 			componentInputs: {
-				selectedServiceList: this.form.controls.service.controls.include.value.map(({serviceId}) => ({_id: serviceId}))
+				selectedServiceList: this.form.controls.service.controls.include.value.map(({service}) => service)
 			},
 			button: {
 				close: {
@@ -65,14 +65,17 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 			}
 		});
 
+		if (!pushBoxWrapperComponentRef) {
+			return;
+		}
+
 		const {renderedComponentRef} = pushBoxWrapperComponentRef.instance;
 
 		if (renderedComponentRef?.instance instanceof SelectServicePushBoxComponent) {
 			renderedComponentRef.instance.selectedServicesListener.pipe(this.takeUntil()).subscribe(() => {
-				const {newSelectedServiceList} = renderedComponentRef.instance as {newSelectedServiceList: IService[]};
-				const include = newSelectedServiceList.map(({_id}) => ({serviceId: _id}));
+				const {newSelectedServiceList} = renderedComponentRef.instance as {newSelectedServiceList: IServiceDto[]};
+				const include = newSelectedServiceList.map((service) => ({service}));
 				this.form.controls.service.controls.include.patchValue(include);
-				// this.pushBoxService.destroy$.next(SelectServicePushBoxComponent.name);
 			});
 		}
 

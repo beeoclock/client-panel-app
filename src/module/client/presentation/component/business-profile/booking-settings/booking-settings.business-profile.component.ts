@@ -17,6 +17,9 @@ import {
 import {
 	SelectSlotRetrievingStrategyComponent
 } from "@utility/presentation/component/input/select-slot-retrieving-strategy.component";
+import {
+	MandatoryAttendeePropertiesComponent
+} from "@client/presentation/component/booking-settings/mandatory-attendee-properties/mandatory-attendee-properties.component";
 
 @Component({
   selector: 'client-business-profile-booking-settings-component',
@@ -31,13 +34,14 @@ import {
 		SelectAutoActionTypeOnEventComponent,
 		HumanizeDurationPipe,
 		SelectSlotBuildingStrategyComponent,
-		SelectSlotRetrievingStrategyComponent
+		SelectSlotRetrievingStrategyComponent,
+		MandatoryAttendeePropertiesComponent
 	],
   template: `
     <bee-card gap="gap-8">
 
       <strong class="dark:text-white">
-        {{ 'keyword.capitalize.bookingSettings' | translate }}
+        {{ 'keyword.capitalize.services' | translate }}
       </strong>
 
       <select-latest-booking-component
@@ -48,27 +52,33 @@ import {
 
 			<hr>
 
-      <select-auto-action-on-event-in-seconds-component
-        [control]="form.controls.autoActionOnEventInSeconds"/>
-
-			<select-auto-action-type-on-event-component
-				[control]="form.controls.automaticApprovalType"/>
-
-			<div class="">
-				{{ 'client.profile.form.section.bookingSettings.hint.autoActionOnEvent.start' | translate }}
-				<kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ 'autoActionTypeOnEvent.' + form.controls.automaticApprovalType.value | translate }}</kbd>
-				{{ 'client.profile.form.section.bookingSettings.hint.autoActionOnEvent.after' | translate }}
-				<kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ form.controls.autoActionOnEventInSeconds.value | humanizeDuration }}</kbd>
-				{{ 'client.profile.form.section.bookingSettings.hint.autoActionOnEvent.finish' | translate }}
-			</div>
-
-			<hr>
-
 			<select-slot-building-strategy-component [slotSettings]="form.controls.slotSettings"/>
 
-			<hr>
+<!--	В низу знаходяться налаштування які відповідаю за крок "ЗАПИТ" коли бізнес має ще підтвердити чи приймає заявку на реалізацію		-->
 
-			<select-slot-retrieving-strategy-component [slotSettings]="form.controls.slotSettings"/>
+<!--			<hr>-->
+
+			<!--      <select-auto-action-on-event-in-seconds-component-->
+			<!--        [control]="form.controls.autoActionOnOrderInSeconds"/>-->
+
+			<!--			<select-auto-action-type-on-event-component-->
+			<!--				[control]="form.controls.automaticApprovalType"/>-->
+
+			<!--			<div class="">-->
+			<!--				{{ 'client.profile.form.section.bookingSettings.hint.autoActionOnEvent.start' | translate }}-->
+			<!--				<kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ 'autoActionTypeOnOrder.' + form.controls.automaticApprovalType.value | translate }}</kbd>-->
+			<!--				{{ 'client.profile.form.section.bookingSettings.hint.autoActionOnEvent.after' | translate }}-->
+			<!--				<kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ form.controls.autoActionOnOrderInSeconds.value | humanizeDuration }}</kbd>-->
+			<!--				{{ 'client.profile.form.section.bookingSettings.hint.autoActionOnEvent.finish' | translate }}-->
+			<!--			</div>-->
+
+<!--			<hr>-->
+
+<!--			<select-slot-retrieving-strategy-component [slotSettings]="form.controls.slotSettings"/>-->
+
+
+		<client-booking-settings-mandatory-attendee-properties-component
+			[control]="form.controls.mandatoryAttendeeProperties"/>
 
     </bee-card>
   `

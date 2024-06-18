@@ -56,7 +56,7 @@
 					{{ 'keyword.capitalize.status' | translate }}
 				</dt>
 				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
-					<div activeStyle [active]="member.active"></div>
+					{{ ('member.enum.profileStatus.' + member.profileStatus) | translate }}
 				</dd>
 			</div>
 			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">

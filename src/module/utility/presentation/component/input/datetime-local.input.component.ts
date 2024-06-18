@@ -6,20 +6,20 @@ import {TranslateModule} from "@ngx-translate/core";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {NGXLogger} from "ngx-logger";
 import {Reactive} from "@utility/cdk/reactive";
-import {filter} from "rxjs";
+import {filter, startWith} from "rxjs";
 import {is} from "thiis";
 import {DateTime} from "luxon";
 
 @Component({
-  selector: 'datetime-local-input-component',
-  standalone: true,
+	selector: 'datetime-local-input-component',
+	standalone: true,
 	imports: [
 		InputIconComponent,
 		InputBadgeComponent,
 		TranslateModule,
 		FormInputComponent,
 	],
-  template: `
+	template: `
 		<form-input
 			[id]="id"
 			[showLabel]="showLabel"
@@ -30,43 +30,52 @@ import {DateTime} from "luxon";
 			inputType="datetime-local">
 			<ng-content/>
 		</form-input>
-  `
+	`
 })
 export class DatetimeLocalInputComponent extends Reactive implements OnInit {
 
 	@Input({required: true})
 	public control!: FormControl;
 
-  public readonly localControl = new FormControl<string | null>(null);
+	public readonly localControl = new FormControl<string | null>(null);
 
-  @Input()
-  public label = '';
+	@Input()
+	public label = '';
 
-  @Input()
-  public id = '';
+	@Input()
+	public id = '';
 
-  @Input()
-  public customClassList: string = '';
+	@Input()
+	public customClassList: string = '';
 
-  @Input()
-  public additionalClassList: string = '';
+	@Input()
+	public additionalClassList: string = '';
 
-  @Input()
-  public showLabel = true;
+	@Input()
+	public showLabel = true;
 
 	private readonly ngxLogger = inject(NGXLogger);
 
+	private previousValue: string | null = null;
+
 	public ngOnInit(): void {
 
-		this.initLocalControlValue();
-
 		this.localControl.valueChanges.pipe(
+			startWith(this.localControl.value),
 			this.takeUntil(),
-			filter(is.string)
-		).subscribe((value) => {
-			this.ngxLogger.debug('DatetimeLocalInputComponent', 'valueChanges', value);
-			const date = new Date(value);
-			this.control.patchValue(date.toISOString());
+			filter(is.string),
+		).subscribe((localValue) => {
+			const {value: controlValue} = this.control;
+			this.detectChanges(localValue, controlValue);
+		});
+
+		this.control.valueChanges.pipe(
+			startWith(this.control.value),
+			this.takeUntil(),
+			filter(is.string),
+		).subscribe((controlValue) => {
+			const {value: localValue} = this.localControl;
+			this.detectChanges(localValue, controlValue);
 		});
 
 		// Errors
@@ -77,12 +86,68 @@ export class DatetimeLocalInputComponent extends Reactive implements OnInit {
 
 	}
 
+	private detectChanges(localValue: string | null, controlValue: string | null) {
+
+		this.ngxLogger.debug('DatetimeLocalInputComponent', 'detectChanges', {
+			localValue,
+			controlValue,
+			previousValue: this.previousValue
+		});
+
+		if (controlValue === localValue) {
+			return;
+		}
+
+		if (is.null(this.previousValue)) {
+			// First time
+			if (localValue) {
+				this.previousValue = localValue;
+				this.initControlValue();
+			}
+			if (controlValue) {
+				this.previousValue = controlValue;
+				this.initLocalControlValue();
+			}
+		} else {
+			// Update
+			if (localValue !== this.previousValue) {
+				this.previousValue = localValue;
+				this.initControlValue();
+			}
+			if (controlValue !== this.previousValue) {
+				this.previousValue = controlValue;
+				this.initLocalControlValue();
+			}
+		}
+	}
+
 	private initLocalControlValue() {
 
+		const {value} = this.control;
+		this.ngxLogger.debug('DatetimeLocalInputComponent', 'initLocalControlValue', this.control);
+
 		// Convert into datetime-local format
-		const date = DateTime.fromISO(this.control.value);
+		const date = DateTime.fromISO(value);
 		const localControlStartValue = date.toISO();
-		localControlStartValue && this.localControl.patchValue(localControlStartValue.substring(0, 16));
+		localControlStartValue && this.localControl.patchValue(localControlStartValue.substring(0, 16), {
+			emitEvent: false,
+			onlySelf: true
+		});
+
+	}
+
+	private initControlValue() {
+
+		const {value} = this.localControl;
+		this.ngxLogger.debug('DatetimeLocalInputComponent', 'initControlValue', this.localControl);
+		if (!value) {
+			return;
+		}
+		const date = new Date(value);
+		this.control.patchValue(date.toISOString(), {
+			emitEvent: false,
+			onlySelf: true
+		});
 
 	}
 

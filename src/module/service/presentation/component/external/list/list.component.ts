@@ -1,18 +1,26 @@
-import {ChangeDetectionStrategy, Component, QueryList, ViewChildren, ViewEncapsulation} from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	Input,
+	OnInit,
+	QueryList,
+	ViewChildren,
+	ViewEncapsulation
+} from '@angular/core';
 import {AsyncPipe, NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
-import {IService} from '@service/domain';
 import {ListPage} from "@utility/list.page";
-import {Observable, tap} from "rxjs";
+import {tap} from "rxjs";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {ServiceState} from "@service/state/service/service.state";
-import {ITableState} from "@utility/domain/table.state";
+import {ITableState, TableState} from "@utility/domain/table.state";
 import {
 	MobileLayoutListComponent
 } from "@service/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {
 	DesktopLayoutListComponent
 } from "@service/presentation/component/list/layout/desktop/desktop.layout.list.component";
+import {IService} from "@service/domain";
 
 @Component({
 	selector: 'service-external-list-component',
@@ -28,18 +36,31 @@ import {
 	],
 	standalone: true
 })
-export class ServiceExternalListComponent extends ListPage {
+export class ServiceExternalListComponent extends ListPage implements OnInit {
+
+	@Input()
+	public useTableStateFromStore = true;
+
+	@Input()
+	public tableState: ITableState<IService> = new TableState<IService>().toCache();
 
 	@ViewChildren(MobileLayoutListComponent)
 	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
 
 	public override readonly actions = ServiceActions;
 
-	public readonly tableState$: Observable<ITableState<IService>> = this.store.select(ServiceState.tableState)
-		.pipe(
-			tap((tableState) => {
-				this.changeDetectorRef.detectChanges();
-			})
-		);
+	public override ngOnInit() {
+		super.ngOnInit();
+		this.store.select(ServiceState.tableState)
+			.pipe(
+				this.takeUntil(),
+				tap((tableState) => {
+					if (this.useTableStateFromStore) {
+						this.tableState = tableState;
+						this.changeDetectorRef.detectChanges();
+					}
+				})
+			).subscribe();
+	}
 
 }

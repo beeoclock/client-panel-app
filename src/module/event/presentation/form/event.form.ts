@@ -26,9 +26,13 @@ export class EventForm extends FormGroup<IEventForm> {
 			note: new FormControl(),
 			end: new FormControl(),
 			start: new FormControl(),
-			servicesAreProvidedInParallel: new FormControl(),
+			servicesAreProvidedInParallel: new FormControl(false, {
+				nonNullable: true,
+			}),
 			services: new FormControl(),
-			timeZone: new FormControl(),
+			timeZone: new FormControl(Intl.DateTimeFormat().resolvedOptions().timeZone, {
+				nonNullable: true,
+			}),
 			attendees: new AttendeesForm(),
 			configuration: new EventConfigurationForm(),
 		});
@@ -53,7 +57,6 @@ export class EventForm extends FormGroup<IEventForm> {
 		this.controls.servicesAreProvidedInParallel.patchValue(false);
 		// this.controls.end.patchValue(new Date().toISOString());
 		// this.controls.start.patchValue(new Date().toISOString());
-		this.controls.timeZone.patchValue(Intl.DateTimeFormat().resolvedOptions().timeZone);
 	}
 
 	public initHandler(): void {

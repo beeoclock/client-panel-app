@@ -1,17 +1,16 @@
 import {Component, inject} from "@angular/core";
-import {IEvent} from "@event/domain";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
 import {firstValueFrom} from "rxjs";
-import {EventActions} from "@event/state/event/event.actions";
 import {Store} from "@ngxs/store";
 import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
 import {NgIf, NgTemplateOutlet} from "@angular/common";
-import {EventStatusEnum} from "@src/module/utility/domain/enum/event-status.enum";
 import {ChangeStatusBaseComponent} from "@event/presentation/component/change-status/change-status-base.component";
-import {RefreshCalendarAction} from "@event/state/calendar/actions/refresh.calendar.action";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
+import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {EventActions} from "@event/state/event/event.actions";
+import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 
 @Component({
 	selector: 'event-change-status-on-cancelled-component',
@@ -22,12 +21,14 @@ import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-speciali
 		RouterLink,
 		EditLinkComponent,
 		NgIf,
-		NgTemplateOutlet
+		NgTemplateOutlet,
+		LoaderComponent
 	],
 	template: `
 		<button
 			type="button"
-			(click)="changeStatusOnCancelled(event)"
+			[disabled]="loading.isTrue"
+			(click)="changeStatusOnCancelled()"
 			class="
 				w-full
 				flex
@@ -46,8 +47,11 @@ import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-speciali
 				ring-inset
 				ring-red-300
 				hover:bg-red-100">
-			<i class="bi bi-x-lg"></i>
-			{{ 'keyword.capitalize.cancel' | translate }}
+			<ng-container *ngIf="loading.isFalse">
+				<i class="bi bi-x-lg"></i>
+				{{ 'keyword.capitalize.cancel' | translate }}
+			</ng-container>
+			<utility-loader [py2_5]="false" *ngIf="loading.isTrue"/>
 		</button>
 	`
 })
@@ -55,14 +59,24 @@ export class ChangeStatusOnCancelledComponent extends ChangeStatusBaseComponent 
 
 	public readonly store = inject(Store);
 
-	public async changeStatusOnCancelled(event: IEvent): Promise<void> {
-		await firstValueFrom(this.store.dispatch(new EventActions.CancelledStatus(event)));
-		await firstValueFrom(this.store.dispatch(new EventActions.GetItem(event._id)));
-		this.postStatusChange(EventStatusEnum.cancelled);
-		this.store.dispatch(new EventActions.GetList({resetPage: false, resetParams: false}));
+	public async changeStatusOnCancelled(): Promise<void> {
+		this.loading.doTrue();
+		this.event.originalData.service.status = OrderServiceStatusEnum.cancelled;
+		await firstValueFrom(
+			this.store.dispatch(
+				new EventActions.ChangeServiceStatus({
+					orderId: this.event.originalData.order._id,
+					serviceId: this.event.originalData.service._id,
+					status: OrderServiceStatusEnum.cancelled,
+				})
+			)
+		);
+		// this.postStatusChange(EventStatusEnum.rejected);
 		this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
-		this.store.dispatch(new RefreshCalendarAction());
+		this.store.dispatch(new EventActions.UpdateOpenedDetails(this.event));
 		this.statusChange.emit();
+		this.loading.doFalse();
 	}
+
 
 }

@@ -1,7 +1,8 @@
 import {RIBaseEntity} from "@utility/domain";
 import {RoleEnum} from "@utility/domain/enum/role.enum";
 import {RESPONSE_IMemberMedia} from "@member/domain/interface/i.member-media";
-import {ActiveEnum} from "@src/module/utility/domain/enum";
+import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 export interface IAssignments {
 	// object: 'Assignments';
@@ -10,7 +11,7 @@ export interface IAssignments {
 		full: boolean;
 		include: {
 			// "object": "string",
-			serviceId: string;
+			service: IServiceDto;
 		}[];
 	}
 }
@@ -20,7 +21,7 @@ export interface IMember extends RIBaseEntity<'Member'> {
 	secondName?: string; // Deprecated
 	lastName?: string;
 	email: string;
-	active: ActiveEnum;
+	profileStatus: MemberProfileStatusEnum;
 	avatar?: RESPONSE_IMemberMedia;
 	role?: RoleEnum;
 	phone?: string;

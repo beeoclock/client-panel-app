@@ -1,9 +1,31 @@
 <utility-default-panel-component>
 	<ion-select-statistic-datetime-period
 		[control]="datetimePeriodControl"
-		class="px-4 py-2 border border-beeColor-300 shadow-sm rounded-2xl"/>
+		class="px-4 py-3 border border-beeColor-300 shadow-sm rounded-2xl"/>
 </utility-default-panel-component>
 <div class="flex flex-wrap gap-4 p-4">
+
+
+	<div *ngIf="clientItem" class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+		<div class="flex items-center justify-between mb-4">
+			<h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">
+				{{ clientItem.name }}
+			</h5>
+		</div>
+		<div class="grid gap-4 md:grid-cols-2 bg-white dark:bg-gray-800">
+			<figure class="flex flex-col items-center justify-center p-8 text-center bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
+				<blockquote class="max-w-2xl mx-auto text-gray-500 dark:text-gray-400">
+					<h3 *ngIf="!(loader$ | async)" class="text-lg font-semibold" [class.text-green-600]="summary.count">
+						{{ summary.amount | currency: summary.currency : 'symbol-narrow' }} / {{ summary.count }}
+					</h3>
+					<utility-loader *ngIf="loader$ | async"/>
+				</blockquote>
+			</figure>
+		</div>
+	</div>
+
+	<hr class="w-full">
+
 	<ng-container *ngFor="let statisticPerMember of (statisticPerMember$ | async)">
 
 		<div class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -14,10 +36,18 @@
 				</h5>
 			</div>
 			<div class="grid gap-4 md:grid-cols-2 bg-white dark:bg-gray-800">
-				<figure *ngFor="let success of statisticPerMember.services.success" class="flex flex-col items-center justify-center p-8 text-center bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
+<!--				<figure *ngFor="let success of statisticPerMember.services.success" class="flex flex-col items-center justify-center p-8 text-center bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">-->
+<!--					<blockquote class="max-w-2xl mx-auto text-gray-500 dark:text-gray-400">-->
+<!--						<h3 *ngIf="!(loader$ | async)" class="text-lg font-semibold" [class.text-green-600]="success.count">-->
+<!--							{{ success.amount | currency: success.currency : 'symbol-narrow' }} / {{ success.count }}-->
+<!--						</h3>-->
+<!--						<utility-loader *ngIf="loader$ | async"/>-->
+<!--					</blockquote>-->
+<!--				</figure>-->
+				<figure class="flex flex-col items-center justify-center p-8 text-center bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
 					<blockquote class="max-w-2xl mx-auto text-gray-500 dark:text-gray-400">
-						<h3 *ngIf="!(loader$ | async)" class="text-lg font-semibold" [class.text-green-600]="success.count">
-							{{ success.amount | currency: success.currency : 'symbol-narrow' }} / {{ success.count }}
+						<h3 *ngIf="!(loader$ | async)" class="text-lg font-semibold" [class.text-green-600]="statisticPerMember.services.success.count">
+							{{ statisticPerMember.services.success.amount | currency: statisticPerMember.services.success.currency : 'symbol-narrow' }} / {{ statisticPerMember.services.success.count }}
 						</h3>
 						<utility-loader *ngIf="loader$ | async"/>
 					</blockquote>

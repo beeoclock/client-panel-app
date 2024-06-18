@@ -1,0 +1,16 @@
+<app-order-filter-component/>
+<ng-container *ngIf="tableState">
+	<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
+		<app-list-order-table [tableState]="tableState"/>
+	</ng-container>
+	<ng-template #EmptyTemplate>
+		<not-found-table-data-component
+			class="block h-full"
+			(clickListener)="openForm()"
+			[showLinkToForm]="true"
+			[linkLabel]="'order.button.create' | translate"
+			[label]="'keyword.capitalize.dataNotFound' | translate">
+			<app-order-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
+		</not-found-table-data-component>
+	</ng-template>
+</ng-container>

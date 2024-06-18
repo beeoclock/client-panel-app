@@ -1,9 +1,9 @@
 <div class="block max-w-full overflow-x-auto h-[calc(100vh-134px)] md:h-[calc(100vh-135px)]">
 	<div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState.items.length">
 		<bee-card class="text-sm" *ngFor="let item of tableState.items; trackBy: trackById">
-			<div (click)="singleClick(item)" class="flex justify-between items-center">
+			<div class="flex justify-between items-center">
 
-				<div class="flex justify-between w-full gap-2 items-center">
+				<div (click)="singleClick(item)" class="flex justify-between w-full gap-2 items-center">
 					<div class="rounded-full bg-beeColor-400 min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 flex justify-center items-center">
 						<ng-container *ngIf="item?.avatar?.url; else InitialsTemplate">
 							<img [src]="item?.avatar?.url" class="min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 rounded-full object-cover" alt="">
@@ -22,12 +22,27 @@
 						</div>
 					</div>
 				</div>
-				<utility-table-column-action
-					(open)="open($event)"
-					(edit)="edit($event)"
-					[id]="item._id"/>
+
+
+				<member-row-action-button-component
+						*ngIf="showAction.state$ | async"
+						[item]="item"
+						[id]="item._id"/>
+
+				<div (click)="singleClick(item)" *ngIf="showSelectedStatus.state$ | async">
+					<div
+							*ngIf="selectedIds.includes(item._id)"
+							class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
+						{{ 'keyword.capitalize.selected' | translate }}
+					</div>
+					<div
+							*ngIf="!selectedIds.includes(item._id)"
+							class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">
+						{{ 'keyword.capitalize.select' | translate }}
+					</div>
+				</div>
 			</div>
-			<div class="flex justify-between">
+			<div (click)="singleClick(item)" class="flex justify-between">
 				<div class="flex-1">
 					<div>
 						{{ 'keyword.capitalize.email' | translate }}

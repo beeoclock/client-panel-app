@@ -2,12 +2,13 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RIMember} from "@member/domain";
 import {RoleEnum} from "@utility/domain/enum/role.enum";
 import {RESPONSE_IMemberMedia} from "@member/domain/interface/i.member-media";
-import {ActiveEnum} from "@utility/domain/enum";
+import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 export interface IAssignments_ServiceForm {
 	full: FormControl<boolean>;
 	include: FormControl<{
-		serviceId: string;
+		service: IServiceDto;
 	}[]>;
 }
 
@@ -59,7 +60,7 @@ export interface IMemberForm {
 	firstName: FormControl<string>;
 	lastName: FormControl<string>;
 	role: FormControl<RoleEnum>;
-	active: FormControl<ActiveEnum>;
+	profileStatus: FormControl<MemberProfileStatusEnum>;
 	assignments: AssignmentsForm;
 
 	// TODO role or/and permission
@@ -74,7 +75,7 @@ export class MemberForm extends FormGroup<IMemberForm> {
 			avatar: new FormControl(),
 			firstName: new FormControl(),
 			lastName: new FormControl(),
-			active: new FormControl(ActiveEnum.YES, {
+			profileStatus: new FormControl(MemberProfileStatusEnum.active, {
 				nonNullable: true,
 			}),
 			role: new FormControl(RoleEnum.SPECIALIST, {
@@ -89,7 +90,7 @@ export class MemberForm extends FormGroup<IMemberForm> {
 		this.controls.email.setValidators([Validators.email, Validators.required]);
 	}
 
-	public static create(initValue: RIMember): MemberForm {
+	public static create(initValue: Partial<RIMember> = {}): MemberForm {
 
 		const form = new MemberForm();
 
@@ -104,3 +105,4 @@ export class MemberForm extends FormGroup<IMemberForm> {
 	}
 
 }
+

@@ -1,0 +1,76 @@
+<div class="grid grid-rows-[60px] h-[calc(100%-60px)] md:h-full">
+	<div class="p-2 flex justify-between gap-2 items-center bg-white border-b border-beeColor-200">
+		<div class="overflow-x-auto flex gap-2">
+			<event-date-control-calendar-with-specialists-component/>
+			<utility-auto-refresh-component (emitter)="forceRefresh()" [isLoading]="(loader$ | async) ?? false"/>
+			<ion-select-wrapper
+				id="calendar-with-specialists-filter-order-service-status"
+				[options]="orderServiceStatusOptions"
+				[control]="orderServiceStatusControl"/>
+		</div>
+		<div>
+			<button type="button" class="!py-3 !px-4 !text-base" primary
+					(click)="openForm()">
+				<i class="bi bi-plus-lg"></i>
+				<!--				<div class="hidden xl:block">-->
+				<!--					{{ 'order.button.create' | translate }}-->
+				<!--				</div>-->
+			</button>
+		</div>
+	</div>
+	<!-- Grid of hour rows -->
+	<div #calendar class="flex relative overflow-auto h-0 min-h-full bg-white">
+		<app-time-line-calendar-with-specialist-widget-component *ngIf="showTimeLine$ | async"/>
+		<div
+			class="bg-white border-r flex flex-col left-0 sticky z-10 text-sm text-center" data-is-column="true"
+			[style.width]="calendarWithSpecialistLocaStateService.hoursWidthInPx"
+			[style.min-height]="calendarWithSpecialistLocaStateService.columnHeightInPx">
+			<div
+				[style.min-height]="calendarWithSpecialistLocaStateService.specialistCellHeightInPx"
+				class="z-[12] bg-white sticky top-0 border-b">
+			</div>
+			<div
+				class="border-b text-slate-400 text-right px-1 sticky left-0"
+				[style.min-height]="calendarWithSpecialistLocaStateService.oneHourInPx"
+				*ngFor="let hourRow of calendarWithSpecialistLocaStateService.hourRowListInPx; trackBy: trackByHour">
+				{{ hourRow.hour }}
+			</div>
+		</div>
+		<div
+			*ngFor="let member of calendarWithSpecialistLocaStateService.members; let index = index; trackBy: trackByMemberId"
+			#column
+			(mouseover)="mouseover($event)"
+			(mouseenter)="mouseEnter($event)"
+			(touchstart)="mouseover($event)"
+			(touchend)="mouseEnter($event)"
+			[attr.data-index]="index + 1"
+			class="flex flex-col border-r relative" data-is-column="true"
+			[style.width]="calendarWithSpecialistLocaStateService.cellWidthInPx"
+			[style.min-width]="calendarWithSpecialistLocaStateService.cellWidthInPx"
+			[style.max-width]="calendarWithSpecialistLocaStateService.cellWidthInPx"
+			[style.min-height]="calendarWithSpecialistLocaStateService.columnHeightInPx">
+			<div
+				[style.min-height]="calendarWithSpecialistLocaStateService.specialistCellHeightInPx"
+				class="z-[12] p-1 bg-white sticky top-0 border-b">
+
+				<event-header-calendar-with-specialist-widget-component [member]="member"/>
+
+			</div>
+			<div
+				class="border-b"
+				[attr.data-column-index]="index + 1"
+				[style.min-height]="calendarWithSpecialistLocaStateService.oneHourInPx"
+				*ngFor="let hourRow of calendarWithSpecialistLocaStateService.hourRowListInPx; trackBy: trackByHour">
+				<app-empty-slot-calendar-with-specialist-widget-component
+					[class.hidden]="thereSomeEventCalendarWithSpecialistWidgetComponent" [hour]="hourRow.original"
+					[member]="member"/>
+			</div>
+			<ng-container *ngIf="eventsBySpecialistId[member._id] as events">
+				<app-event-calendar-with-specialists-widget-component
+					*ngFor="let event of events; trackBy: trackById"
+					[item]="event"/>
+			</ng-container>
+		</div>
+	</div>
+
+</div>

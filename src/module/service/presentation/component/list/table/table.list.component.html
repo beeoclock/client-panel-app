@@ -1,10 +1,27 @@
 <div [tableFlex]="tableConfiguration">
 	<div tableRowFlex="header">
+		<div tableColumnFlex="color">
+			{{ 'keyword.capitalize.color' | translate }}
+		</div>
 		<div tableColumnFlex="title" data-orderBy="languageVersions.title">
 			<div class="flex gap-3 items-center">
 				{{ 'keyword.capitalize.title' | translate }}
 				<utility-sort-indicator
 					orderBy="languageVersions.title"
+					[tableState]="tableState"/>
+			</div>
+		</div>
+		<div tableColumnFlex="price">
+			{{ 'keyword.capitalize.price' | translate }}
+		</div>
+		<div tableColumnFlex="duration">
+			{{ 'keyword.capitalize.duration' | translate }}
+		</div>
+		<div tableColumnFlex="order" data-orderBy="order">
+			<div class="flex gap-3 items-center">
+				{{ 'keyword.capitalize.order' | translate }}
+				<utility-sort-indicator
+					orderBy="order"
 					[tableState]="tableState"/>
 			</div>
 		</div>
@@ -16,20 +33,6 @@
 					[tableState]="tableState"
 				/>
 			</div>
-		</div>
-		<div tableColumnFlex="order" data-orderBy="order">
-			<div class="flex gap-3 items-center">
-				{{ 'keyword.capitalize.order' | translate }}
-				<utility-sort-indicator
-					orderBy="order"
-					[tableState]="tableState"/>
-			</div>
-		</div>
-		<div tableColumnFlex="price">
-			{{ 'keyword.capitalize.price' | translate }}
-		</div>
-		<div tableColumnFlex="duration">
-			{{ 'keyword.capitalize.duration' | translate }}
 		</div>
 		<div tableColumnFlex="createdAt" data-orderBy="createdAt">
 			<div class="flex gap-3 items-center">
@@ -53,19 +56,17 @@
 	</div>
 	<!-- Column Cell	-->
 	<div tableBodyFlex>
-		<div tableRowFlex="body" (click)="doubleClick(item._id)" *ngFor="let item of tableState.items; trackBy: trackById">
+		<div tableRowFlex="body" (click)="doubleClick(item)" *ngFor="let item of tableState.items; trackBy: trackById">
+			<div tableColumnFlex="color">
+				<div class="h-10 w-10 rounded-full" *ngIf="item.presentation?.color" [style.background-color]="item.presentation?.color ?? ''"></div>
+				<div class="h-10 w-10 rounded-full flex justify-center items-center bg-gray-100" *ngIf="!item.presentation?.color">
+					❓
+				</div>
+			</div>
 			<div tableColumnFlex="title">
 				<span class="truncate">
 					{{ getFirstLanguageVersion(item.languageVersions).title }}
 				</span>
-			</div>
-			<div tableColumnFlex="active">
-				<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
-						 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="item.active">
-				</div>
-			</div>
-			<div tableColumnFlex="order">
-				{{ item.order }}
 			</div>
 			<div tableColumnFlex="duration">
 				<span class="truncate" [innerHTML]="durationVersionHtmlHelper.getPriceValue(item)">
@@ -74,6 +75,14 @@
 			<div tableColumnFlex="price">
 				<span class="truncate" [innerHTML]="durationVersionHtmlHelper.getDurationValue(item)">
 				</span>
+			</div>
+			<div tableColumnFlex="order">
+				{{ item.order }}
+			</div>
+			<div tableColumnFlex="active">
+				<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
+					 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="item.active">
+				</div>
 			</div>
 			<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
 				<span [title]="createdAtColumn.getAttribute('data-value')" class="truncate">

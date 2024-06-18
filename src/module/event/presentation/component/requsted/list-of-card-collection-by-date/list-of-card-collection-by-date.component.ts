@@ -9,8 +9,8 @@ import {DateTime} from "luxon";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {
-	ChangeStatusOnBookedComponent
-} from "@event/presentation/component/change-status/change-status-on-booked.component";
+	ChangeStatusOnAcceptedComponent
+} from "@event/presentation/component/change-status/change-status-on-accepted.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
@@ -40,7 +40,7 @@ import {FilterComponent} from "@event/presentation/component/filter/requested-fi
 		NgIf,
 		CardComponent,
 		ActionComponent,
-		ChangeStatusOnBookedComponent,
+		ChangeStatusOnAcceptedComponent,
 		CurrencyPipe,
 		DatePipe,
 		EventStatusStyleDirective,

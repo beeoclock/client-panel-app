@@ -36,7 +36,8 @@ export class MobileLayoutListComponent extends LayoutListComponent<IService> {
 
 	@ViewChildren(CardListComponent)
 	public cardListComponents!: QueryList<CardListComponent>;
-	openForm() {
+
+	public openForm() {
 		this.store.dispatch(new ServiceActions.OpenForm());
 	}
 

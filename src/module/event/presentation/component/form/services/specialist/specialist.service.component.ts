@@ -5,10 +5,11 @@ import {TranslateModule} from "@ngx-translate/core";
 import {MemberSelector} from "@member/state/member/member.selector";
 import {Select} from "@ngxs/store";
 import {RIMember} from "@member/domain";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {TableState} from "@utility/domain/table.state";
 import {FormControl} from "@angular/forms";
 import {IService} from "@service/domain";
+import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
 
 @Component({
 	selector: 'event-service-specialist-component',
@@ -29,14 +30,33 @@ export class SpecialistServiceComponent {
 	@Input({required: true})
 	public index!: number;
 
-	@Input()
-	public forceSpecialists: ISpecialist[] = [];
+	@Input({required: true})
+	public service!: IService;
 
 	@Select(MemberSelector.tableState)
-	public memberTableState$!: Observable<TableState<RIMember>>;
+	private memberTableState$!: Observable<TableState<RIMember>>;
+
+	public readonly members$: Observable<RIMember[]> = this.memberTableState$.pipe(
+		map(({items}) => {
+			return items.filter(member => {
+				if (member.profileStatus === MemberProfileStatusEnum.active) {
+					if (!member.assignments.service.full) {
+						const specialistCanServeService = member.assignments.service.include.some(({service: {_id}}) => _id === this.service._id);
+						return specialistCanServeService;
+					}
+					return  true;
+				}
+				return false;
+			});
+		})
+	);
 
 	public get selectedSpecialist(): ISpecialist | undefined {
-		return this.serviceListControl.value[this.index].specialists[0];
+		const service = this.serviceListControl.value[this.index];
+		if (service?.specialists?.length > 0) {
+			return service.specialists[0];
+		}
+		return undefined;
 	}
 
 	public changeMemberInSpecialist(member: RIMember): void {

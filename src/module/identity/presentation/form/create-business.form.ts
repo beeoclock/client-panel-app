@@ -1,11 +1,11 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {AddressForm, GalleryForm} from "@client/presentation/form";
+import {AddressForm, BookingSettingsForm, GalleryForm} from "@client/presentation/form";
 import {SchedulesForm} from "@utility/presentation/form/schdeule.form";
 import {ServiceForm, ServicesForm} from "@service/presentation/form";
 import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum";
 import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
 import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
-import {ActiveEnum, LanguageCodeEnum} from "@utility/domain/enum";
+import {ActiveEnum} from "@utility/domain/enum";
 import {DefaultServicesByBusinessCategory} from "@utility/domain/const/c.default-services-by-business-category";
 import {BusinessSettingsForm} from "@client/presentation/form/business-settings.form";
 
@@ -36,6 +36,7 @@ interface IBusinessClientForm {
 	gallery: GalleryForm;
 	services: ServicesForm;
 	businessSettings: BusinessSettingsForm;
+	bookingSettings: BookingSettingsForm;
 
 	businessCategory: FormControl<BusinessCategoryEnum>;
 	serviceProvideType: FormControl<ServiceProvideTypeEnum>;
@@ -47,8 +48,6 @@ interface IBusinessClientForm {
 
 export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 
-	public currentLanguage = LanguageCodeEnum.en;
-
 	constructor() {
 		super({
 			addressForm: new AddressForm({
@@ -57,6 +56,7 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 			schedules: new SchedulesForm(),
 			gallery: new GalleryForm(),
 			businessSettings: new BusinessSettingsForm(),
+			bookingSettings: new BookingSettingsForm(),
 			services: new ServicesForm([]),
 
 			businessCategory: new FormControl(),
@@ -103,7 +103,7 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 		this.controls.services.clear();
 
 		const businessCategory = this.controls.businessCategory.value as BusinessCategoryEnum;
-		const servicesByLanguage = DefaultServicesByBusinessCategory[this.currentLanguage];
+		const servicesByLanguage = DefaultServicesByBusinessCategory[this.controls.businessSettings.controls.baseLanguage.value];
 
 		if (!servicesByLanguage) {
 			return;

@@ -7,4 +7,3 @@ export * from './days-of-week.enum';
 export * from './response-status.enum';
 export * from './is-optional.enum';
 export * from './is-organizer.enum';
-export * from './is-new-customer.enum';

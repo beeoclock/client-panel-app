@@ -9,9 +9,7 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 import {IonSelectActiveComponent} from "@utility/presentation/component/input/ion/ion-select-active.component";
 import {ServiceState} from "@service/state/service/service.state";
 import {BaseFilterComponent} from "@utility/base.filter.component";
-import {
-	IonSelectEventStatusComponent
-} from "@utility/presentation/component/input/ion/ion-select-event-status.component";
+import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
 import {
@@ -28,7 +26,7 @@ import {
 		RouterLink,
 		PrimaryButtonDirective,
 		IonSelectActiveComponent,
-		IonSelectEventStatusComponent,
+		IonSelectWrapperComponent,
 		DefaultPanelComponent,
 		AsyncPipe,
 		NgIf,
@@ -57,7 +55,7 @@ import {
 
 		<ng-template #ServiceActiveSelect>
 			<ion-select-active
-				class="px-4 py-2 border border-beeColor-200 rounded-2xl"
+				class="px-4 py-3 border border-beeColor-300 rounded-2xl"
 				[control]="form.controls.active"/>
 		</ng-template>
 
@@ -67,11 +65,11 @@ import {
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>
-			<button *ngIf="showButtonGoToForm" type="button" primary (click)="openForm()">
+			<button *ngIf="showButtonGoToForm" type="button" class="!py-3 !px-4 !text-base" primary (click)="openForm()">
 				<i class="bi bi-plus-lg"></i>
-				<span class="hidden xl:block">
-					{{ 'keyword.capitalize.add-service' | translate }}
-				</span>
+<!--				<span class="hidden xl:block">-->
+<!--					{{ 'keyword.capitalize.add-service' | translate }}-->
+<!--				</span>-->
 			</button>
 		</ng-template>
 	`

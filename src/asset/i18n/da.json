@@ -1,5 +1,51 @@
 {
-	"autoActionOnEventInSeconds": {
+	"absence": {
+		"action": {
+			"delete": {
+				"question": "Er du sikker på, at du vil slette fraværet?"
+			}
+		},
+		"button": {
+			"create": "Tilføj fravær"
+		},
+		"details": {
+			"title": "Detaljer om fravær"
+		},
+		"form": {
+			"inputs": {
+				"entireBusiness": {
+					"label": "Hele virksomheden"
+				},
+				"note": {
+					"placeholder": "Det er bedre at have og ikke have brug for end ikke at have og have brug for, efterlad en note for at forstå, hvad der skete senere."
+				},
+				"type": {
+					"label": "Type"
+				}
+			},
+			"membersIds": {
+				"select": {
+					"title": "Udvælgelse af medlemmer"
+				}
+			},
+			"title": {
+				"create": "Tilføjelse af fravær",
+				"edit": "Redigering af fravær"
+			}
+		},
+		"type": {
+			"break": {
+				"label": "Pause"
+			},
+			"holiday": {
+				"label": "Helligdag"
+			},
+			"vacation": {
+				"label": "Ferie"
+			}
+		}
+	},
+	"autoActionOnOrderInSeconds": {
 		"EIGHT_HOURS": "8 timer",
 		"FIFTEEN_MINUTES": "15 minutter",
 		"FIVE_HOURS": "5 timer",
@@ -16,7 +62,7 @@
 		"TWENTY_MINUTES": "20 minutter",
 		"TWO_HOURS": "2 timer"
 	},
-	"autoActionTypeOnEvent": {
+	"autoActionTypeOnOrder": {
 		"APPROVE": "Godkend",
 		"DENY": "Afvis"
 	},
@@ -135,22 +181,22 @@
 							}
 						},
 						"input": {
-							"autoActionOnEventInSeconds": {
+							"autoActionOnOrderInSeconds": {
 								"placeholder": "Vælg den tid, hvorefter den valgte automatiske handling skal starte for den nyligt oprettede reservation/begivenhed"
 							},
-							"autoActionTypeOnEvent": {
+							"autoActionTypeOnOrder": {
 								"placeholder": "Vælg den type handling, der automatisk skal ske for den nyligt oprettede reservation/begivenhed"
 							},
 							"earliestBooking": {
-								"placeholder": "Det er den korteste tid, hvorefter det er muligt at booke en tjeneste"
+								"placeholder": "Den korteste periode, efter hvilken du kan bestille en service"
 							},
 							"latestBooking": {
-								"placeholder": "Sæt periode med rullende uger, folk kan booke i din kalender"
+								"placeholder": "Tidspunkt, hvor tjenesten kan bookes"
 							}
 						},
 						"select": {
 							"mandatoryAttendeeProperties": {
-								"hint": "Vælg, hvilke felter der er obligatoriske på den offentlige side for dine kunder.",
+								"hint": "Vælg, hvilke felter kunderne skal udfylde, når de booker en tjeneste",
 								"label": "Krævede felter"
 							},
 							"timeZone": {
@@ -162,8 +208,17 @@
 					"businessSettings": {
 						"select": {
 							"availableLanguages": {
-								"hint": "Vælg de sprog, du driver forretning på, måske driver du ikke kun forretning for lokale, men også for turister. Dette valg vil bestemme den tilgængelige liste over sprog til e-mails",
-								"label": "Sprog, som du driver forretning på"
+								"hint": "Sprog, som du leverer tjenester på, og som den offentlige hjemmeside vil være tilgængelig på.",
+								"label": "Sprog, du driver forretning på"
+							},
+							"baseCurrency": {
+								"hint": "Vælg hovedvalutaen for at vise beløb korrekt i rapporter og ordrer",
+								"label": "Hovedvaluta"
+							},
+							"baseLanguage": {
+								"hint": "Det sprog, som tjenester, rapporter og meddelelser vises på, medmindre andet er angivet i din personlige profil.",
+								"label": "Hovedsprog",
+								"placeholder": "Først skal du vælge de sprog, du driver forretning på"
 							},
 							"currencies": {
 								"hint": "Vælg de valutaer, som du kan modtage betaling i for den leverede service, takket være denne indstilling kan du vælge en bestemt valuta for en bestemt service.",
@@ -239,7 +294,7 @@
 				}
 			},
 			"form": {
-				"autoBookEvent": {
+				"autoBookOrder": {
 					"label": "Tillad en kunde at booke en begivenhed med det samme med en bekræftet status"
 				},
 				"inputs": {
@@ -263,6 +318,14 @@
 		"details": {
 			"title": "Kundeoplysninger"
 		},
+		"enum": {
+			"type": {
+				"anonymous": "Anonym",
+				"new": "Ny",
+				"regular": "Kunde",
+				"unregistered": "Gæst"
+			}
+		},
 		"form": {
 			"input": {
 				"note": {
@@ -279,7 +342,9 @@
 	"danger-zone": {
 		"button": {
 			"delete": {
-				"label": "Slet forretningskonto"
+				"hint": "Det er uigenkaldeligt at slette en virksomhedskonto, så overvej beslutningen nøje.",
+				"label": "Slet virksomhedsprofil",
+				"title": "Sletning af en virksomhedsprofil"
 			}
 		},
 		"hint": {
@@ -322,6 +387,30 @@
 			"button": {
 				"done": {
 					"label": "Begivenhed gennemført"
+				}
+			}
+		},
+		"additionalMenu": {
+			"items": {
+				"addNewAbsence": {
+					"hint": "Med denne mulighed kan du tilføje en ny pause i din kalender til dig selv eller andre.",
+					"title": "Tilføj et nyt fravær"
+				},
+				"addNewOrder": {
+					"hint": "Med denne mulighed tilføjer du en ny ordre med service og produkt.",
+					"title": "Tilføj en ny ordre"
+				}
+			},
+			"title": "Ekstra menu"
+		},
+		"calendar-with-specialists": {
+			"confirm-changes": {
+				"message": {
+					"default": "Er du sikker på, at du vil gemme ændringerne?",
+					"important": "Er du sikker på, at du vil tilskrive denne begivenhed til en specialist, som ikke kan levere en sådan service? Der findes ikke en sådan tjeneste på listen over udvalgte tjenester, som en specialist kan levere!"
+				},
+				"subHeader": {
+					"important": "Opmærksomhed, store ændringer"
 				}
 			}
 		},
@@ -390,16 +479,18 @@
 			"status": {
 				"all": "Alle",
 				"plural": {
-					"booked": "Booket",
+					"accepted": "Accepteret",
 					"cancelled": "Aflyst",
 					"done": "Færdig",
+					"inProgress": "I gang",
 					"rejected": "Afvist",
 					"requested": "Anmodet"
 				},
 				"singular": {
-					"booked": "Booket",
+					"accepted": "Accepteret",
 					"cancelled": "Aflyst",
 					"done": "Færdig",
+					"inProgress": "I gang",
 					"rejected": "Afvist",
 					"requested": "Anmodet"
 				}
@@ -783,11 +874,13 @@
 			"addSocialMedia": "Tilføj sociale medier",
 			"additional": "Yderligere",
 			"address": "Adresse",
+			"amount": "Beløb",
+			"anonymous": "Anonym",
 			"approvalType": "Godkendelsestype",
 			"approve": "Godkend",
 			"attendees": "Deltagere",
-			"autoActionOnEventInSeconds": "Automatisk handlings starttid",
-			"autoActionTypeOnEvent": "Type automatisk handling",
+			"autoActionOnOrderInSeconds": "Automatisk handlings starttid",
+			"autoActionTypeOnOrder": "Type automatisk handling",
 			"avatar": "Avatar",
 			"back": "Tilbage",
 			"bookingSettings": "Bookingindstillinger",
@@ -796,15 +889,18 @@
 			"businessCategory": "Forretningskategori",
 			"businessIndustry": "Forretningsindustri",
 			"businessName": "Forretningsnavn",
+			"businessNote": "Forretningsnote",
 			"businessProfile": "Forretningsprofil",
 			"businessSettings": "Forretningsindstillinger",
 			"cancel": "Annuller",
+			"changeStatus": "Skift status",
 			"chooseImage": "Vælg billede",
 			"city": "By",
 			"clearCache": "Opdater cache",
 			"clickToUpload": "Klik for at uploade",
 			"clients": "Klienter",
 			"close": "Luk",
+			"color": "Farve",
 			"comingSoon": "Kommer snart...",
 			"confirm": "Bekræft",
 			"contact": "Kontakt",
@@ -842,6 +938,7 @@
 			"information": "Information",
 			"initializing": "Initialiserer",
 			"language": "Sprog",
+			"languageAndRegion": "Sprog og region",
 			"languages": "Sprog",
 			"lastName": "Efternavn",
 			"lastUpdate": "Sidste opdatering",
@@ -861,6 +958,10 @@
 			"order": "Rækkefølge",
 			"ownOptionOfTime": "Time efter eget ønske",
 			"ownOptionOfTimeHint": "Vælg denne mulighed, hvis du ønsker selv at bestemme tidspunktet for begivenheden, uanset andre planlagte begivenheder på det tidspunkt.",
+			"payer": "Udbetaler",
+			"payment": "Betaling",
+			"paymentMethod": "Betalingsmetode",
+			"paymentStatus": "Betalingsstatus",
 			"periodOfDay": {
 				"AFTERNOON": "Eftermiddag",
 				"EVENING": "Aften",
@@ -891,6 +992,8 @@
 			"select": "Vælg",
 			"selectSpecialist": "Vælg specialist",
 			"selected": "Valgt",
+			"selectedDateTime": "Valgt dato og klokkeslæt",
+			"selectedMember": "Udvalgt medlem",
 			"send": "Send",
 			"sendAgain": "Send igen",
 			"service": "Tjeneste",
@@ -937,11 +1040,22 @@
 			"in": "i",
 			"min": "min.",
 			"no-data": "ingen data",
+			"now": "nu",
 			"or": "eller",
 			"sec": "sek.",
 			"service": "tjeneste",
 			"short": {
-				"days": "d"
+				"days": "d",
+				"hour": "t",
+				"minutes": "min"
+			}
+		},
+		"singular": {
+			"capitalize": {
+				"client": "Klient",
+				"freeMovement": "Fri bevægelighed",
+				"openDetails": "Åbn detaljer",
+				"type": "Type"
 			}
 		},
 		"status": {
@@ -976,6 +1090,13 @@
 		"details": {
 			"title": "Oplysninger om en medarbejder"
 		},
+		"enum": {
+			"profileStatus": {
+				"active": "Aktiv",
+				"deleted": "Slettet",
+				"suspended": "Suspenderet"
+			}
+		},
 		"form": {
 			"assignments": {
 				"button": {
@@ -1001,6 +1122,51 @@
 		},
 		"title": "Medlem"
 	},
+	"order": {
+		"button": {
+			"create": "Tilføj ordre"
+		},
+		"confirmation": {
+			"change-status": {
+				"hint": "Statusvariablen kan have en effekt på tjenesterne i denne ordre, hvis den f.eks. er annulleret, annulleres alle tjenester også.",
+				"message": "Er du sikker på, at du vil ændre status?"
+			}
+		},
+		"details": {
+			"title": "Bestil detaljer"
+		},
+		"enum": {
+			"status": {
+				"singular": {
+					"cancelled": "Aflyst",
+					"confirmed": "Bekræftet",
+					"done": "Færdig",
+					"draft": "Udkast",
+					"pending": "Afventer",
+					"rejected": "Afvist",
+					"requested": "Anmodet om"
+				}
+			}
+		},
+		"form": {
+			"payment": {
+				"payer": {
+					"case": {
+						"new": {
+							"hint": "I dette tilfælde vil betaleren automatisk blive tilføjet til kundedatabasen."
+						},
+						"unregistered": {
+							"hint": "Betaleren bliver ikke automatisk tilføjet til kundedatabasen."
+						}
+					}
+				}
+			},
+			"title": {
+				"create": "Tilføjelse af en ordre",
+				"edit": "Redigering af en ordre"
+			}
+		}
+	},
 	"page": {
 		"calendar": {
 			"title": "Kalender"
@@ -1022,6 +1188,35 @@
 			"allDataDownloaded": "Alle tilgængelige data er downloadet"
 		}
 	},
+	"payment": {
+		"method": {
+			"CARD": {
+				"label": "Kort"
+			},
+			"CASH": {
+				"label": "Kontanter"
+			}
+		},
+		"providerType": {
+			"onSite": {
+				"label": "På stedet"
+			}
+		},
+		"status": {
+			"failed": {
+				"label": "Mislykket"
+			},
+			"pending": {
+				"label": "Afventer"
+			},
+			"registered": {
+				"label": "Registreret"
+			},
+			"succeeded": {
+				"label": "Lykkedes"
+			}
+		}
+	},
 	"role": {
 		"ADMIN": "Administrator",
 		"OWNER": "Ejer",
@@ -1032,6 +1227,11 @@
 			"title": "Information om tjenesten"
 		},
 		"form": {
+			"color": {
+				"input": {
+					"hint": "Tjenestens farve bruges til at vise begivenheden i kalenderen i den valgte farve."
+				}
+			},
 			"order": {
 				"input": {
 					"placeholder": "Angiv placeringen af denne tjeneste på listen på den offentlige hjemmeside"
@@ -1085,14 +1285,24 @@
 		"Online": "Online"
 	},
 	"sidebar": {
+		"absence": "Fravær",
 		"addEvent": "Tilføj begivenhed",
 		"businessProfile": "Forretningsprofil",
 		"businessSettings": "Firma indstillinger",
-		"calendar": "Kalender",
+		"calendar": {
+			"label": "Kalender",
+			"ordinary": {
+				"label": "Almindelig"
+			},
+			"withSpecialists": {
+				"label": "Med specialister"
+			}
+		},
 		"customers": "Kunder",
 		"dashboard": "Dashboard",
 		"events": "Begivenheder",
 		"members": "Medlemmer",
+		"order": "Indkøb",
 		"private": "Privat",
 		"profile": {
 			"signOut": {
@@ -1116,11 +1326,11 @@
 		"title": "Log ud"
 	},
 	"slotBuildingStrategy": {
-		"hint": "Vælg det tidsinterval, hvorefter de tilgængelige slots for din klient skal bygges, eller vælg det format, hvori de tilgængelige tidsrum vil blive bygget af den valgte tjeneste",
+		"hint": "Intervaller i den forretningsplan, som kunden booker tjenesten til",
 		"options": {
 			"accordingToAService": "Ifølge en tjeneste"
 		},
-		"title": "Opbygning af tidsslots"
+		"title": "Tidspunkter"
 	},
 	"slotRetrievingStrategy": {
 		"hint": "Denne strategi styrer muligheden for at vælge tidsintervaller for begivenheder, der endnu ikke har modtaget bekræftelse fra specialisten. Nedenfor vil du se eksempler på den valgte strategi.",

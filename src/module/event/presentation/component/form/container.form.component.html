@@ -1,4 +1,3 @@
-
 <div *ngIf="preview.isOn" class="col-span-12">
 
 	<event-general-details [isPreview]="preview.isOn" [event]="value"/>
@@ -24,18 +23,26 @@
 	<form [formGroup]="form" class="flex flex-col gap-4">
 
 		<bee-card>
-			<event-attendees-component [form]="form.controls.attendees"/>
+			<app-customer-type-customer-component
+				[form]="form.controls.attendees.controls[0].controls.customer">
+				<div class="mb-2" slot="label">
+					<strong class="text-2xl dark:text-white">{{ 'keyword.singular.capitalize.client' | translate }}</strong>
+				</div>
+			</app-customer-type-customer-component>
 		</bee-card>
 
 		<bee-card>
 			<event-service-component
+				[member]="member"
 				[serviceListControl]="form.controls.services"/>
 		</bee-card>
 
-		<bee-card *ngIf="slotsService.specialistExist">
+		<!--		 *ngIf="slotsService.specialistExist"-->
+		<bee-card>
 
+			<!--			[editable]="!isEditMode"-->
 			<event-select-time-slot-form-component
-				[editable]="!isEditMode"
+				[editable]="true"
 				[configurationForm]="form.controls.configuration"
 				[control]="form.controls.start"/>
 
@@ -50,14 +57,23 @@
 		</bee-card>
 
 		<utility-button-save-container-component class="bottom-0">
+<!--			<button-->
+<!--				type="button"-->
+<!--				primary-->
+<!--				[scrollToFirstError]="true"-->
+<!--				[isLoading]="form.pending"-->
+<!--				[disabled]="form.disabled"-->
+<!--				(click)="goToPreview()">-->
+<!--				{{ 'keyword.capitalize.preview' | translate }}-->
+<!--			</button>-->
 			<button
 				type="button"
 				primary
-				[scrollToFirstError]="true"
 				[isLoading]="form.pending"
 				[disabled]="form.disabled"
-				(click)="goToPreview()">
-				{{ 'keyword.capitalize.preview' | translate }}
+				[scrollToFirstError]="true"
+				(click)="save()">
+				{{ 'keyword.capitalize.save' | translate }}
 			</button>
 		</utility-button-save-container-component>
 

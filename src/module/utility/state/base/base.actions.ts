@@ -68,6 +68,14 @@ export namespace BaseActions {
 					id?: string;
 					title?: string;
 					showLoading?: boolean;
+					callback?: {
+						on?: {
+							destroy?: {
+								before?: () => void;
+								after?: () => void;
+							};
+						};
+					};
 				};
 				componentInputs?: COMPONENT_INPUTS;
 			},
@@ -83,15 +91,17 @@ export namespace BaseActions {
 
 	export class GetList {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
+		public static readonly defaultPayload = {
+			resetPage: false,
+			resetParams: false,
+		};
 
 		constructor(
 			public readonly payload: {
 				resetPage: boolean;
 				resetParams: boolean;
-			} = {
-				resetPage: false,
-				resetParams: false,
-			},
+				queryParams?: Record<string, unknown>;
+			} = GetList.defaultPayload,
 		) {
 		}
 	}
@@ -156,7 +166,7 @@ export namespace BaseActions {
 		public static readonly type: string = '[TODO] Not Implemented Yet!';
 
 		constructor(
-			public readonly payload: Pick<ITableState<unknown>, 'filters'>,
+			public readonly payload: ITableState<unknown>['filters'],
 		) {
 		}
 	}

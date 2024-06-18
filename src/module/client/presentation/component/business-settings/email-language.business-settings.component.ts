@@ -11,20 +11,22 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 @Component({
 	selector: 'client-email-language-business-settings-component',
 	template: `
-		<label default for="client-business-settings-form-email-language">
-			{{ 'client.profile.form.section.businessSettings.select.emailLanguage.label' | translate }}
-		</label>
-		<ng-select
-			labelForId="client-business-settings-form-email-language"
-			bindLabel="name"
-			bindValue="code"
-			isRequired
-			hasError
-			invalidTooltip
-			[items]="languageList"
-			[clearable]="false"
-			[formControl]="control">
-		</ng-select>
+		<div class="relative">
+			<label default for="client-business-settings-form-email-language">
+				{{ 'client.profile.form.section.businessSettings.select.emailLanguage.label' | translate }}
+			</label>
+			<ng-select
+				labelForId="client-business-settings-form-email-language"
+				bindLabel="name"
+				bindValue="code"
+				isRequired
+				hasError
+				invalidTooltip
+				[items]="languageList"
+				[clearable]="false"
+				[formControl]="control">
+			</ng-select>
+		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
 			{{ 'client.profile.form.section.businessSettings.select.emailLanguage.hint' | translate }}
 		</div>

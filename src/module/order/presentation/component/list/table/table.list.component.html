@@ -1,0 +1,69 @@
+<div [tableFlex]="tableConfiguration">
+    <div tableRowFlex="header">
+        <div tableColumnFlex="services">
+            {{ 'keyword.capitalize.services' | translate }}
+        </div>
+        <div tableColumnFlex="businessNote">
+            {{ 'keyword.capitalize.businessNote' | translate }}
+        </div>
+        <div tableColumnFlex="status">
+            {{ 'keyword.capitalize.status' | translate }}
+        </div>
+        <div tableColumnFlex="createdAt" data-orderBy="createdAt">
+            <div class="flex gap-3 items-center">
+                {{ 'keyword.capitalize.createdAt' | translate }}
+                <utility-sort-indicator
+                        orderBy="createdAt"
+                        [tableState]="tableState"/>
+            </div>
+        </div>
+        <div tableColumnFlex="updatedAt" data-orderBy="updatedAt">
+            <div class="flex gap-3 items-center">
+                {{ 'keyword.capitalize.updatedAt' | translate }}
+                <utility-sort-indicator
+                        orderBy="updatedAt"
+                        [tableState]="tableState"/>
+            </div>
+        </div>
+        <div tableColumnFlex="action" class="border-l sticky right-0">
+            {{ 'keyword.capitalize.action' | translate }}
+        </div>
+    </div>
+    <!-- Column Cell	-->
+    <div tableBodyFlex>
+        <div tableRowFlex="body" (click)="doubleClick(item)"
+             *ngFor="let item of tableState.items; trackBy: trackById">
+            <div tableColumnFlex="services">
+				{{ item?.services?.length ?? 0 }}
+            </div>
+            <div tableColumnFlex="businessNote">
+				<span [title]="item?.businessNote ?? ''" class="truncate">
+					{{ item?.businessNote | noData }}
+				</span>
+            </div>
+            <div tableColumnFlex="status">
+				<span [title]="item.status" class="truncate">
+					{{ ('order.enum.status.singular.' + item.status) | translate }}
+				</span>
+            </div>
+            <div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
+				<span [title]="createdAtColumn.getAttribute('data-value')" class="truncate">
+					{{ createdAtColumn.getAttribute('data-value') }}
+				</span>
+            </div>
+            <div tableColumnFlex="updatedAt" #updatedAtColumn [attr.data-value]="item.updatedAt | dynamicDate">
+				<span [title]="updatedAtColumn.getAttribute('data-value')" class="truncate">
+					{{ updatedAtColumn.getAttribute('data-value') }}
+				</span>
+            </div>
+            <div tableColumnFlex="action" class="border-l sticky right-0">
+                <app-order-row-action-button-component
+                        [item]="item"
+                        [id]="item._id"/>
+            </div>
+        </div>
+    </div>
+</div>
+<utility-table-state-pagination-component
+        (page)="pageChange($event)"
+        [tableState]="tableState"/>

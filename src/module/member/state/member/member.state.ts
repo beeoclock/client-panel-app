@@ -31,8 +31,8 @@ export class MemberState extends BaseState<Member.RIMember> {
 	protected override readonly create = inject(CreateMemberApiAdapter);
 	protected override readonly update = inject(UpdateMemberApiAdapter);
 	protected override readonly item = inject(ItemMemberApiAdapter);
-	protected override readonly remove = inject(RemoveMemberApiAdapter);
-	protected override readonly list = inject(ListMemberApiAdapter);
+	protected override readonly delete = inject(RemoveMemberApiAdapter);
+	protected override readonly paged = inject(ListMemberApiAdapter);
 
 	private readonly translateService = inject(TranslateService);
 
@@ -49,26 +49,16 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
 
-		if (action?.payload) {
-			this.pushBoxService.destroy$.next(MemberDetailsContainerComponent.name + '_' + action?.payload);
-			return;
-		}
-
-		this.pushBoxService.destroyByComponentName$.next(MemberDetailsContainerComponent.name);
+		await this.whacAMaleProvider.destroyComponent(MemberDetailsContainerComponent);
 
 	}
 
 	@Action(MemberActions.CloseForm)
 	public async closeForm(ctx: StateContext<IMemberState>, action?: MemberActions.CloseForm) {
 
-		if (action?.payload) {
-			this.pushBoxService.destroy$.next(action?.payload);
-			return;
-		}
-
 		const {MemberFormContainerComponent} = await import("@member/presentation/component/form/member-form-container/member-form-container.component");
 
-		this.pushBoxService.destroyByComponentName$.next(MemberFormContainerComponent.name);
+		await this.whacAMaleProvider.destroyComponent(MemberFormContainerComponent);
 
 	}
 
@@ -77,13 +67,30 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
 
-		await this.pushBoxService.updatePushBoxComponentAsync({
-			id: payload._id,
-			useComponentNameAsPrefixOfId: true,
+		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 			component: MemberDetailsContainerComponent,
 			componentInputs: {
 				item: payload
 			},
+		}).catch((error) => {
+			this.ngxLogger.error('MemberState.updateOpenedDetails', error);
+		})
+
+	}
+
+	@Action(MemberActions.OpenDetails)
+	public async openDetails(ctx: StateContext<IMemberState>, {payload}: MemberActions.OpenDetails) {
+
+		const title = await this.translateService.instant('member.details.title');
+
+		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
+
+		await this.whacAMaleProvider.buildItAsync({
+			title,
+			componentInputs: {
+				item: payload
+			},
+			component: MemberDetailsContainerComponent,
 		});
 
 	}
@@ -95,19 +102,15 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
 
-		await this.pushBoxService.buildItAsync({
-			id,
+		await this.whacAMaleProvider.buildItAsync({
 			title,
 			showLoading: true,
-			useComponentNameAsPrefixOfId: true,
 			component: MemberDetailsContainerComponent,
 		});
 
 		const item = await this.item.executeAsync(id);
 
-		await this.pushBoxService.updatePushBoxComponentAsync({
-			id,
-			useComponentNameAsPrefixOfId: true,
+		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 			component: MemberDetailsContainerComponent,
 			componentInputs: {
 				item
@@ -155,7 +158,7 @@ export class MemberState extends BaseState<Member.RIMember> {
 
 		const {componentInputs, pushBoxInputs} = payload ?? {};
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title: this.translateService.instant('member.form.title.create'),
 			...pushBoxInputs,
 			component: MemberFormContainerComponent,

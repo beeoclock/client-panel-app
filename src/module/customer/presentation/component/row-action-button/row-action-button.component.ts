@@ -20,15 +20,15 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 			(edit)="edit()"
 			[id]="id"
 			[active]="item.active">
-<!--			<li>-->
-<!--				<a-->
-<!--					[routerLink]="['../../', 'event', 'form']"-->
-<!--					[queryParams]="{customerId: item._id, returnUrl}"-->
-<!--					class="flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">-->
-<!--					<i class="bi bi-calendar2-week"></i>-->
-<!--					{{ 'keyword.capitalize.add-event' | translate }}-->
-<!--				</a>-->
-<!--			</li>-->
+			<!--			<li>-->
+			<!--				<a-->
+			<!--					[routerLink]="['../../', 'event', 'form']"-->
+			<!--					[queryParams]="{customerId: item._id, returnUrl}"-->
+			<!--					class="flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">-->
+			<!--					<i class="bi bi-calendar2-week"></i>-->
+			<!--					{{ 'keyword.capitalize.add-event' | translate }}-->
+			<!--				</a>-->
+			<!--			</li>-->
 		</utility-table-column-action>
 	`,
 	imports: [
@@ -74,11 +74,16 @@ export class RowActionButtonComponent {
 	}
 
 	public open(): void {
-		this.store.dispatch(new CustomerActions.OpenDetailsById(this.item._id));
+		this.store.dispatch(new CustomerActions.OpenDetails(this.item));
 	}
 
 	public edit(): void {
-		this.store.dispatch(new CustomerActions.OpenFormToEditById(this.item._id));
+		this.store.dispatch(new CustomerActions.OpenForm({
+			componentInputs: {
+				isEditMode: true,
+				item: this.item
+			}
+		}));
 	}
 
 }

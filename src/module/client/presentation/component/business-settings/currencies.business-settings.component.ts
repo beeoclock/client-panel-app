@@ -11,20 +11,22 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 @Component({
 	selector: 'client-currencies-business-settings-component',
 	template: `
-		<label default [for]="id">
-			{{ 'client.profile.form.section.businessSettings.select.currencies.label' | translate }}
-		</label>
-		<ng-select
-			[labelForId]="id"
-			isRequired
-			hasError
-			invalidTooltip
-			[multiple]="true"
-			[items]="currencyList"
-			[closeOnSelect]="false"
-			[clearable]="false"
-			[formControl]="control">
-		</ng-select>
+		<div class="relative">
+			<label default [for]="id">
+				{{ 'client.profile.form.section.businessSettings.select.currencies.label' | translate }}
+			</label>
+			<ng-select
+				[labelForId]="id"
+				isRequired
+				hasError
+				invalidTooltip
+				[multiple]="true"
+				[items]="currencyList"
+				[closeOnSelect]="false"
+				[clearable]="false"
+				[formControl]="control">
+			</ng-select>
+		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
 			{{ 'client.profile.form.section.businessSettings.select.currencies.hint' | translate }}
 		</div>

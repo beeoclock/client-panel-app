@@ -1,6 +1,0 @@
-<div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState.items.length">
-	<event-card-component *ngFor="let item of tableState.items; trackBy: trackById" [item]="item" (singleClick)="singleClick($event)" />
-</div>
-<utility-table-state-pagination-component
-	(page)="pageChange($event)"
-	[tableState]="tableState"/>

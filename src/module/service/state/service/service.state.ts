@@ -34,8 +34,8 @@ export class ServiceState extends BaseState<IService> {
 	protected override readonly create = inject(CreateServiceApiAdapter);
 	protected override readonly update = inject(UpdateServiceApiAdapter);
 	protected override readonly item = inject(ItemServiceApiAdapter);
-	protected override readonly remove = inject(RemoveServiceApiAdapter);
-	protected override readonly list = inject(ListServiceApiAdapter);
+	protected override readonly delete = inject(RemoveServiceApiAdapter);
+	protected override readonly paged = inject(ListServiceApiAdapter);
 
 	private readonly translateService = inject(TranslateService);
 
@@ -52,26 +52,16 @@ export class ServiceState extends BaseState<IService> {
 
 		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
 
-		if (action?.payload) {
-			this.pushBoxService.destroy$.next(ServiceDetails.name + '_' + action?.payload);
-			return;
-		}
-
-		this.pushBoxService.destroyByComponentName$.next(ServiceDetails.name);
+		await this.whacAMaleProvider.destroyComponent(ServiceDetails);
 
 	}
 
 	@Action(ServiceActions.CloseForm)
 	public async closeForm(ctx: StateContext<IServiceState>, action?: ServiceActions.CloseForm) {
 
-		if (action?.payload) {
-			this.pushBoxService.destroy$.next(action?.payload);
-			return;
-		}
-
 		const {ServiceContainerFormComponent} = await import("@service/presentation/component/form/service-container–form/service-container–form.component");
 
-		this.pushBoxService.destroyByComponentName$.next(ServiceContainerFormComponent.name);
+		await this.whacAMaleProvider.destroyComponent(ServiceContainerFormComponent);
 
 	}
 
@@ -80,11 +70,28 @@ export class ServiceState extends BaseState<IService> {
 
 		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
 
-		await this.pushBoxService.updatePushBoxComponentAsync({
-			id: payload._id,
-			useComponentNameAsPrefixOfId: true,
+		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 			component: ServiceDetails,
 			componentInputs: {item: payload},
+		}).catch((error) => {
+			this.ngxLogger.error('ServiceState.updateOpenedDetails', error);
+		});
+
+	}
+
+	@Action(ServiceActions.OpenDetails)
+	public async openDetailsAction(ctx: StateContext<IServiceState>, {payload}: ServiceActions.OpenDetails) {
+
+		const title = this.translateService.instant('service.details.title');
+
+		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
+
+		await this.whacAMaleProvider.buildItAsync({
+			title,
+			componentInputs: {
+				item: payload
+			},
+			component: ServiceDetails,
 		});
 
 	}
@@ -96,19 +103,15 @@ export class ServiceState extends BaseState<IService> {
 
 		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title,
 			showLoading: true,
-			useComponentNameAsPrefixOfId: true,
-			id,
 			component: ServiceDetails,
 		});
 
 		const item = await this.item.executeAsync(id);
 
-		await this.pushBoxService.updatePushBoxComponentAsync({
-			id,
-			useComponentNameAsPrefixOfId: true,
+		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 			component: ServiceDetails,
 			componentInputs: {item},
 		});
@@ -154,9 +157,8 @@ export class ServiceState extends BaseState<IService> {
 
 		const {pushBoxInputs, componentInputs} = payload ?? {};
 
-		await this.pushBoxService.buildItAsync({
+		await this.whacAMaleProvider.buildItAsync({
 			title: this.translateService.instant('service.form.title.create'),
-			id: ServiceContainerFormComponent.name,
 			...pushBoxInputs,
 			component: ServiceContainerFormComponent,
 			componentInputs,

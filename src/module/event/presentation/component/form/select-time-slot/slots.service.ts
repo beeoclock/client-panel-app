@@ -1,21 +1,20 @@
 import {inject, Injectable} from "@angular/core";
 import {NGXLogger} from "ngx-logger";
 import {SelectTimeComponent} from "@event/presentation/component/form/select-time-slot/time/select-time.component";
-import {BusySlotsEventApiAdapter} from "@event/adapter/external/api/busy-slots.event.api.adapter";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
-import {RIBusySlot} from "@event/domain/interface/i.busy-slot";
 import {DateTime} from "luxon";
 import {SlotBuildingStrategyEnum} from "@client/domain/enum/slot-building-strategy.enum";
 import {BehaviorSubject} from "rxjs";
 import {IDayItem} from "@utility/domain/interface/i.day-item";
+import {IBusySlot} from "@order/external/interface/busy-slot/i.busy-slot";
 
 
 @Injectable()
 export class SlotsService {
 
 	private readonly logger = inject(NGXLogger);
-	private readonly busySlotsEventApiAdapter = inject(BusySlotsEventApiAdapter);
+	// private readonly busySlotsEventApiAdapter = inject(BusySlotsEventApiAdapter);
 
 	public readonly slots: string[] = [];
 
@@ -24,7 +23,7 @@ export class SlotsService {
 
 	private firstDayIso!: string;
 	private lastDayIso!: string;
-	private busySlots: RIBusySlot[] = [];
+	private busySlots: IBusySlot[] = [];
 	private schedules: RISchedule[] = [];
 	private specialist: string | undefined;
 	private eventDurationInSeconds = 0;
@@ -124,7 +123,7 @@ export class SlotsService {
 
 	}
 
-	public setBusySlots(busySlots: RIBusySlot[]) {
+	public setBusySlots(busySlots: IBusySlot[]) {
 
 		this.logger.debug('setBusySlots', {busySlots})
 		this.busySlots = busySlots;
@@ -188,7 +187,7 @@ export class SlotsService {
 
 		this.logger.debug('loadBusySlots', {params});
 
-		return this.busySlotsEventApiAdapter.executeAsync(params).then(this.setBusySlots.bind(this));
+		// return this.busySlotsEventApiAdapter.executeAsync(params).then(this.setBusySlots.bind(this));
 	}
 
 	private calculateFreeSchedulePiecesPerDay() {

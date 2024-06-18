@@ -1,14 +1,14 @@
 import {
-	Component,
-	ElementRef,
-	HostBinding,
-	inject,
-	Input,
-	OnChanges,
-	OnInit,
-	SimpleChange,
-	SimpleChanges,
-	ViewEncapsulation
+    Component,
+    ElementRef,
+    HostBinding,
+    inject,
+    Input,
+    OnChanges,
+    OnInit,
+    SimpleChange,
+    SimpleChanges,
+    ViewEncapsulation
 } from '@angular/core';
 import {NgClass, NgIf} from '@angular/common';
 
@@ -39,7 +39,7 @@ export class CardComponent implements OnChanges, OnInit {
 	public flexCol = true;
 
 	@HostBinding('class')
-	public hostClass = 'bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl flex';
+	public hostClass = 'bg-white shadow rounded-2xl flex';
 
 	private readonly elementRef = inject(ElementRef);
 

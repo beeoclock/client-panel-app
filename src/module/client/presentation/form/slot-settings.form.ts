@@ -18,22 +18,17 @@ export class SlotSettingsForm extends FormGroup<ISlotSettingsForm> {
 			object: new FormControl('SlotSettings', {
 				nonNullable: true,
 			}),
-			slotIntervalInSeconds: new FormControl(),
-			slotBuildingStrategy: new FormControl(),
-			slotRetrievingStrategy: new FormControl(),
+			slotIntervalInSeconds: new FormControl(0, {
+				nonNullable: true,
+			}),
+			slotBuildingStrategy: new FormControl(SlotBuildingStrategyEnum.ByService, {
+				nonNullable: true,
+			}),
+			slotRetrievingStrategy: new FormControl(SlotRetrievingStrategyEnum.IncludeRequested, {
+				nonNullable: true,
+			}),
 		});
 
-		this.initValue();
-		this.initValidators();
-
-	}
-
-	private initValue(): void {
-		this.controls.slotBuildingStrategy.setValue(SlotBuildingStrategyEnum.ByService);
-		this.controls.slotIntervalInSeconds.setValue(0);
-	}
-
-	private initValidators(): void {
 	}
 
 }

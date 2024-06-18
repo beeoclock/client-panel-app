@@ -7,6 +7,7 @@ import {BooleanState} from "@utility/domain";
 import {PatchMemberMediaApiAdapter} from "@member/adapter/external/api/media/patch.member-media.api.adapter";
 import {RESPONSE_IMemberMedia} from "@member/domain/interface/i.member-media";
 import {AvatarFormComponent} from "@member/presentation/component/form/avatar-form/avatar-form.component";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
 	selector: 'member-form-avatar-container-component',
@@ -31,10 +32,13 @@ export class AvatarContainerComponent {
 	public readonly toggleInfo = new BooleanState(true);
 
 	public readonly patchMemberMediaApiAdapter = inject(PatchMemberMediaApiAdapter);
+	public readonly ngxLogger = inject(NGXLogger);
 
 	public async save(memberId: string): Promise<void> {
 
 		const component = this.avatarFormComponent;
+
+		this.ngxLogger.debug('AvatarContainerComponent:save', component);
 
 		if (!component.selectedFile) {
 			return;

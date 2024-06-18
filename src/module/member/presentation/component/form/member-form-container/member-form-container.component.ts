@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, inject, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewEncapsulation} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {MemberForm} from "@member/presentation/form/member.form";
@@ -15,6 +15,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {CommonModule} from "@angular/common";
 import {MemberFormAssignmentsComponent} from "@member/presentation/component/form/assignments/assignments.component";
+import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
 
 @Component({
 	selector: 'member-form-page',
@@ -33,7 +34,7 @@ import {MemberFormAssignmentsComponent} from "@member/presentation/component/for
 	],
 	standalone: true
 })
-export class MemberFormContainerComponent implements OnInit {
+export class MemberFormContainerComponent implements OnInit, OnChanges {
 
 	@ViewChild(AvatarContainerComponent)
 	public avatarContainerComponent!: AvatarContainerComponent;
@@ -41,6 +42,8 @@ export class MemberFormContainerComponent implements OnInit {
 	private readonly store = inject(Store);
 
 	public form = new MemberForm();
+
+	public readonly memberProfileStatusEnum = MemberProfileStatusEnum;
 
 	@Input()
 	public item: RIMember | undefined;
@@ -50,6 +53,15 @@ export class MemberFormContainerComponent implements OnInit {
 
 	public ngOnInit(): void {
 		this.detectItem();
+	}
+
+	public ngOnChanges(changes: SimpleChanges & {item: RIMember | undefined}) {
+
+		const {item} = changes;
+		if (item) {
+			this.detectItem();
+		}
+
 	}
 
 	public detectItem(): void {
@@ -63,6 +75,7 @@ export class MemberFormContainerComponent implements OnInit {
 	public async save(): Promise<void> {
 		this.form.markAllAsTouched();
 		if (this.form.valid) {
+
 			this.form.disable();
 			this.form.markAsPending();
 			const memberBody = this.form.getRawValue() as RIMember;

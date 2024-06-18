@@ -1,5 +1,51 @@
 {
-	"autoActionOnEventInSeconds": {
+	"absence": {
+		"action": {
+			"delete": {
+				"question": "Are you sure you want to delete the absence?"
+			}
+		},
+		"button": {
+			"create": "Add absence"
+		},
+		"details": {
+			"title": "Absence details"
+		},
+		"form": {
+			"inputs": {
+				"entireBusiness": {
+					"label": "Entire business"
+				},
+				"note": {
+					"placeholder": "It is better to have and not need than not to have and need, leave a note from which you will understand what happened later"
+				},
+				"type": {
+					"label": "Type"
+				}
+			},
+			"membersIds": {
+				"select": {
+					"title": "Selection of members"
+				}
+			},
+			"title": {
+				"create": "Adding an absence",
+				"edit": "Editing an absence"
+			}
+		},
+		"type": {
+			"break": {
+				"label": "Break"
+			},
+			"holiday": {
+				"label": "Holiday"
+			},
+			"vacation": {
+				"label": "Vacation"
+			}
+		}
+	},
+	"autoActionOnOrderInSeconds": {
 		"EIGHT_HOURS": "8 hours",
 		"FIFTEEN_MINUTES": "15 minutes",
 		"FIVE_HOURS": "5 hours",
@@ -16,7 +62,7 @@
 		"TWENTY_MINUTES": "20 minutes",
 		"TWO_HOURS": "2 hours"
 	},
-	"autoActionTypeOnEvent": {
+	"autoActionTypeOnOrder": {
 		"APPROVE": "Approve",
 		"DENY": "Deny"
 	},
@@ -135,22 +181,22 @@
 							}
 						},
 						"input": {
-							"autoActionOnEventInSeconds": {
+							"autoActionOnOrderInSeconds": {
 								"placeholder": "Choose the time after which the selected automatic action should start for the newly created reservation/event"
 							},
-							"autoActionTypeOnEvent": {
+							"autoActionTypeOnOrder": {
 								"placeholder": "Select the type of action that should take place automatically for the newly created reservation/event"
 							},
 							"earliestBooking": {
-								"placeholder": "That is the shortest time after which it is possible to book a service"
+								"placeholder": "The shortest period of time after which you can book a service"
 							},
 							"latestBooking": {
-								"placeholder": "Set of period of rolling weeks people can book in your calendar"
+								"placeholder": "Time during which the service can be booked"
 							}
 						},
 						"select": {
 							"mandatoryAttendeeProperties": {
-								"hint": "Choose which fields should be required on the public page for your customers",
+								"hint": "Select which fields are required for customers to fill in when booking a service",
 								"label": "Required fields"
 							},
 							"timeZone": {
@@ -162,8 +208,17 @@
 					"businessSettings": {
 						"select": {
 							"availableLanguages": {
-								"hint": "Choose the languages in which you do business, maybe you do business not only for locals but also for tourists. This choice will determine the available list of languages for emails",
-								"label": "Languages in which you do business"
+								"hint": "Languages in which you provide services and in which the public website will be available.",
+								"label": "Languages you do business in"
+							},
+							"baseCurrency": {
+								"hint": "Select the main currency to display amounts correctly in reports and orders",
+								"label": "Main currency"
+							},
+							"baseLanguage": {
+								"hint": "The language in which services, reports and notifications are displayed, unless otherwise specified in your personal profile",
+								"label": "Base language",
+								"placeholder": "First, choose the languages in which you do business"
 							},
 							"currencies": {
 								"hint": "Select the currencies in which you can receive payment for the service provided, thanks to this setting you can choose a specific currency for a specific service.",
@@ -239,7 +294,7 @@
 				}
 			},
 			"form": {
-				"autoBookEvent": {
+				"autoBookOrder": {
 					"label": "Allow a customer to book an event immediately with a confirmed status"
 				},
 				"inputs": {
@@ -263,6 +318,14 @@
 		"details": {
 			"title": "Customer details"
 		},
+		"enum": {
+			"type": {
+				"anonymous": "Anonymous",
+				"new": "New",
+				"regular": "Customer",
+				"unregistered": "Guest"
+			}
+		},
 		"form": {
 			"input": {
 				"note": {
@@ -279,7 +342,9 @@
 	"danger-zone": {
 		"button": {
 			"delete": {
-				"label": "Delete business account"
+				"hint": "Deleting a business account is irreversible, so consider this decision carefully.",
+				"label": "Delete business profile",
+				"title": "Deleting a business profile"
 			}
 		},
 		"hint": {
@@ -322,6 +387,30 @@
 			"button": {
 				"done": {
 					"label": "Event completed"
+				}
+			}
+		},
+		"additionalMenu": {
+			"items": {
+				"addNewAbsence": {
+					"hint": "Through this option you will add a new break in your calendar for yourself or for others.",
+					"title": "Add a new absence"
+				},
+				"addNewOrder": {
+					"hint": "Through this option, you will add a new order with the service and product.",
+					"title": "Add a new order"
+				}
+			},
+			"title": "Additional menu"
+		},
+		"calendar-with-specialists": {
+			"confirm-changes": {
+				"message": {
+					"default": "Are you sure you want to save changes?",
+					"important": "Are you sure you want to attribute this event to a specialist who cannot provide such a service? There is no such service on the list of selected services that a specialist can provide!"
+				},
+				"subHeader": {
+					"important": "Attention, major changes"
 				}
 			}
 		},
@@ -390,16 +479,18 @@
 			"status": {
 				"all": "All",
 				"plural": {
-					"booked": "Booked",
+					"accepted": "Accepted",
 					"cancelled": "Canceled",
 					"done": "Done",
+					"inProgress": "In progress",
 					"rejected": "Rejected",
 					"requested": "Requested"
 				},
 				"singular": {
-					"booked": "Booked",
+					"accepted": "Accepted",
 					"cancelled": "Canceled",
 					"done": "Done",
+					"inProgress": "In progress",
 					"rejected": "Rejected",
 					"requested": "Requested"
 				}
@@ -783,11 +874,13 @@
 			"addSocialMedia": "Add social media",
 			"additional": "Additional",
 			"address": "Address",
+			"amount": "Amount",
+			"anonymous": "Anonymous",
 			"approvalType": "Approval type",
 			"approve": "Approve",
 			"attendees": "Attendees",
-			"autoActionOnEventInSeconds": "Automatic action start time",
-			"autoActionTypeOnEvent": "Type of automatic action",
+			"autoActionOnOrderInSeconds": "Automatic action start time",
+			"autoActionTypeOnOrder": "Type of automatic action",
 			"avatar": "Avatar",
 			"back": "Back",
 			"bookingSettings": "Booking settings",
@@ -796,15 +889,18 @@
 			"businessCategory": "Business category",
 			"businessIndustry": "Business industry",
 			"businessName": "Business name",
+			"businessNote": "Business note",
 			"businessProfile": "Business profile",
 			"businessSettings": "Business settings",
 			"cancel": "Cancel",
+			"changeStatus": "Change status",
 			"chooseImage": "Choose image",
 			"city": "City",
 			"clearCache": "Refresh cache",
 			"clickToUpload": "Click to upload",
 			"clients": "Clients",
 			"close": "Close",
+			"color": "Color",
 			"comingSoon": "Coming soon...",
 			"confirm": "Confirm",
 			"contact": "Contact",
@@ -842,6 +938,7 @@
 			"information": "Information",
 			"initializing": "Initializing",
 			"language": "Language",
+			"languageAndRegion": "Language and Region",
 			"languages": "Languages",
 			"lastName": "Last name",
 			"lastUpdate": "Last update",
@@ -861,6 +958,10 @@
 			"order": "Order",
 			"ownOptionOfTime": "Hour according to your wish",
 			"ownOptionOfTimeHint": "Choose this option if you want to determine the time of the event yourself, regardless of other events scheduled for that time.",
+			"payer": "Payer",
+			"payment": "Payment",
+			"paymentMethod": "Payment method",
+			"paymentStatus": "Payment status",
 			"periodOfDay": {
 				"AFTERNOON": "Afternoon",
 				"EVENING": "Evening",
@@ -891,6 +992,8 @@
 			"select": "Select",
 			"selectSpecialist": "Select specialist",
 			"selected": "Selected",
+			"selectedDateTime": "Selected date and time",
+			"selectedMember": "Selected member",
 			"send": "Send",
 			"sendAgain": "Send again",
 			"service": "Service",
@@ -937,11 +1040,22 @@
 			"in": "in",
 			"min": "min.",
 			"no-data": "no data",
+			"now": "now",
 			"or": "or",
 			"sec": "sec.",
 			"service": "service",
 			"short": {
-				"days": "d"
+				"days": "d",
+				"hour": "h",
+				"minutes": "min"
+			}
+		},
+		"singular": {
+			"capitalize": {
+				"client": "Client",
+				"freeMovement": "Free movement",
+				"openDetails": "Open details",
+				"type": "Type"
 			}
 		},
 		"status": {
@@ -976,6 +1090,13 @@
 		"details": {
 			"title": "Information about a member of staff"
 		},
+		"enum": {
+			"profileStatus": {
+				"active": "Active",
+				"deleted": "Deleted",
+				"suspended": "Suspended"
+			}
+		},
 		"form": {
 			"assignments": {
 				"button": {
@@ -1001,6 +1122,51 @@
 		},
 		"title": "Member"
 	},
+	"order": {
+		"button": {
+			"create": "Add order"
+		},
+		"confirmation": {
+			"change-status": {
+				"hint": "The status variable can have an effect on the services in this order, for example, if canceled, all services will be canceled as well.",
+				"message": "Are you sure you want to change status?"
+			}
+		},
+		"details": {
+			"title": "Order details"
+		},
+		"enum": {
+			"status": {
+				"singular": {
+					"cancelled": "Cancelled",
+					"confirmed": "Confirmed",
+					"done": "Done",
+					"draft": "Draft",
+					"pending": "Pending",
+					"rejected": "Rejected",
+					"requested": "Requested"
+				}
+			}
+		},
+		"form": {
+			"payment": {
+				"payer": {
+					"case": {
+						"new": {
+							"hint": "In this case, the payer will be automatically added to the customer database"
+						},
+						"unregistered": {
+							"hint": "The payer will not be automatically added to the customer database"
+						}
+					}
+				}
+			},
+			"title": {
+				"create": "Adding an order",
+				"edit": "Editing an order"
+			}
+		}
+	},
 	"page": {
 		"calendar": {
 			"title": "Calendar"
@@ -1022,6 +1188,35 @@
 			"allDataDownloaded": "All available data has been downloaded"
 		}
 	},
+	"payment": {
+		"method": {
+			"CARD": {
+				"label": "Card"
+			},
+			"CASH": {
+				"label": "Cash"
+			}
+		},
+		"providerType": {
+			"onSite": {
+				"label": "On site"
+			}
+		},
+		"status": {
+			"failed": {
+				"label": "Failed"
+			},
+			"inProgress": {
+				"label": "In progress"
+			},
+			"registered": {
+				"label": "Registered"
+			},
+			"succeeded": {
+				"label": "Succeeded"
+			}
+		}
+	},
 	"role": {
 		"ADMIN": "Admin",
 		"OWNER": "Owner",
@@ -1032,6 +1227,11 @@
 			"title": "Information about the service"
 		},
 		"form": {
+			"color": {
+				"input": {
+					"hint": "The colour of the service is used to display the event in the calendar in the selected colour"
+				}
+			},
 			"order": {
 				"input": {
 					"placeholder": "Specify the position of this service in the list on the public site"
@@ -1085,14 +1285,24 @@
 		"Online": "Online"
 	},
 	"sidebar": {
+		"absence": "Absence",
 		"addEvent": "Add event",
 		"businessProfile": "Business profile",
 		"businessSettings": "Company settings",
-		"calendar": "Calendar",
+		"calendar": {
+			"label": "Calendar",
+			"ordinary": {
+				"label": "Ordinary"
+			},
+			"withSpecialists": {
+				"label": "With specialists"
+			}
+		},
 		"customers": "Customers",
 		"dashboard": "Dashboard",
 		"events": "Events",
 		"members": "Members",
+		"order": "Orders",
 		"private": "Private",
 		"profile": {
 			"signOut": {
@@ -1116,11 +1326,11 @@
 		"title": "Sign out"
 	},
 	"slotBuildingStrategy": {
-		"hint": "Choose the time interval according to which the available slots for your client should be built, or choose the format in which the available time slots will be built by the selected service",
+		"hint": "Intervals in the business schedule for which the client books the service",
 		"options": {
 			"accordingToAService": "According to a service"
 		},
-		"title": "Construction of time slots"
+		"title": "Time slots"
 	},
 	"slotRetrievingStrategy": {
 		"hint": "This strategy controls the possibility of choosing time intervals for events that have not yet received confirmation from the specialist. Below you will see examples of the chosen strategy.",

@@ -1,5 +1,4 @@
 import {
-	AfterContentInit,
 	Component,
 	inject,
 	Input,
@@ -10,7 +9,6 @@ import {
 	SimpleChanges,
 	ViewChildren
 } from "@angular/core";
-import {AttendeesComponent} from "@event/presentation/component/form/attendees/attendees.component";
 import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
@@ -26,33 +24,35 @@ import {
 import {ServicesComponent} from "@event/presentation/component/form/services/services.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {Select, Store} from "@ngxs/store";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
 import {NGXLogger} from "ngx-logger";
 import {EventForm} from "@event/presentation/form/event.form";
 import {BooleanState} from "@utility/domain";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
-import {combineLatest, filter, firstValueFrom, map, Observable, take, tap} from "rxjs";
+import {combineLatest, filter, map, Observable, tap} from "rxjs";
 import {IEvent, MEvent, RMIEvent} from "@event/domain";
 import {ClientState} from "@client/state/client/client.state";
 import {RIClient} from "@client/domain";
 import {is} from "thiis";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
-import {IService} from "@service/domain";
-import {EventActions} from "@event/state/event/event.actions";
+import {IConfiguration, IPresentation, IService} from "@service/domain";
 import {Reactive} from "@utility/cdk/reactive";
 import {TimeInputComponent} from "@utility/presentation/component/input/time.input.component";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {DefaultInputDirective} from "@utility/presentation/directives/input/default.input.directive";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import * as Member from '@member/domain';
-import {ISpecialist} from "@service/domain/interface/i.specialist";
+import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {RIMedia} from "@module/media/domain/interface/i.media";
+import {
+	CustomerTypeCustomerComponent
+} from "@customer/presentation/component/form/by-customer-type/customer-type.customer.component";
 
 @Component({
 	selector: 'event-container-form-component',
 	standalone: true,
 	imports: [
-		AttendeesComponent,
 		ButtonSaveContainerComponent,
 		CardComponent,
 		FormTextareaComponent,
@@ -69,21 +69,23 @@ import {ISpecialist} from "@service/domain/interface/i.specialist";
 		DatePipe,
 		DefaultPanelComponent,
 		BackButtonComponent,
+		CustomerTypeCustomerComponent,
 	],
 	providers: [
 		SlotsService
 	],
 	templateUrl: './container.form.component.html'
 })
-export class ContainerFormComponent extends Reactive implements OnInit, AfterContentInit, OnChanges {
-
-	// TODO move functions to store effects/actions
+export class ContainerFormComponent extends Reactive implements OnInit, OnChanges {
 
 	@Input()
-	public event: RMIEvent | undefined;
+	public orderServiceDto: IOrderServiceDto | undefined;
 
 	@Input()
 	public isEditMode = false;
+
+	@Input()
+	public useDefaultFlow = true;
 
 	@Input()
 	public backButtonComponent!: BackButtonComponent;
@@ -95,10 +97,9 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 	public member: Member.RIMember | undefined;
 
 	@Input()
-	public callback: (() => void) | null = null;
+	public callback: ((component: ContainerFormComponent, formValue: IEvent) => void) | null = null;
 
 	private readonly store = inject(Store);
-	public readonly activatedRoute = inject(ActivatedRoute);
 	public readonly slotsService = inject(SlotsService);
 	public readonly router = inject(Router);
 	private readonly logger = inject(NGXLogger);
@@ -117,12 +118,12 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 	public client$!: Observable<RIClient>;
 
 	public get value(): RMIEvent {
-		return MEvent.create(this.form.getRawValue() as IEvent);
+		return MEvent.create(this.form.getRawValue() as unknown as IEvent);
 	}
 
 	public ngOnChanges(changes: SimpleChanges & {forceStart: SimpleChange}): void {
 		const {forceStart} = changes;
-		if (forceStart.currentValue) {
+		if (forceStart && forceStart.currentValue) {
 			this.form.controls.start.patchValue(forceStart.currentValue);
 		}
 	}
@@ -137,11 +138,12 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 					map(({0: firstService}) => firstService),
 					filter((firstService) => {
 						// Allow only if specialist or duration is not the same
-						const newSpecialist = this.takeSpecialistFromService(firstService);
+						// const newSpecialist = this.takeSpecialistFromService(firstService);
 						const durationInSeconds = this.getEventDurationInSeconds(firstService);
-						return this.specialist !== newSpecialist || this.eventDurationInSeconds !== durationInSeconds;
+						// this.specialist !== newSpecialist ||
+						return this.eventDurationInSeconds !== durationInSeconds;
 					}),
-					tap(this.setSpecialist.bind(this)),
+					// tap(this.setSpecialist.bind(this)),
 					tap(this.setEventDuration.bind(this)),
 				),
 			]
@@ -168,41 +170,27 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 
 			});
 
-		if (this.member) {
-			this.form.controls.services.valueChanges.pipe(filter(is.array_not_empty<IService[]>), take(1)).subscribe((services) => {
-				this.form.controls.services.patchValue(services.map((service) => {
-					return {
-						...service,
-						specialists: [{
-							object: 'Specialist' as ISpecialist['object'],
-							member: this.member,
-						}],
-					};
-				}));
-			});
-		}
-
 		this.detectItem();
 
 	}
 
-	public ngAfterContentInit(): void {
+	// public ngAfterContentInit(): void {
 
-		this.activatedRoute.data.pipe(
-			this.takeUntil(),
-		).subscribe((data) => {
-			// {cacheLoaded: boolean; customer: undefined | ICustomer; service: undefined | IService;}
-			const {customer, service} = data;
-			if (customer) {
-				this.form.controls.attendees.controls[0].controls.customer.patchValue(customer);
-				this.form.controls.attendees.controls[0].disable();
-			}
-			if (service) {
-				this.form.controls.services.patchValue([service]);
-			}
-		});
+		// this.activatedRoute.data.pipe(
+		// 	this.takeUntil(),
+		// ).subscribe((data) => {
+		// 	// {cacheLoaded: boolean; customer: undefined | ICustomer; service: undefined | IService;}
+		// 	const {customer, service} = data;
+		// 	if (customer) {
+		// 		this.form.controls.attendees.controls[0].controls.customer.patchValue(customer);
+		// 		this.form.controls.attendees.controls[0].disable();
+		// 	}
+		// 	if (service) {
+		// 		this.form.controls.services.patchValue([service]);
+		// 	}
+		// });
 
-	}
+	// }
 
 	private getEventDurationInSeconds(service: IService): number {
 		try {
@@ -229,38 +217,36 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 		return this;
 	}
 
-	private takeSpecialistFromService(service: IService): string {
+	// private takeSpecialistFromService(service: IServiceDto): string {
+	//
+	// 	const [firstSpecialist] = service?. ?? [];
+	//
+	// 	if (!firstSpecialist) {
+	// 		return '';
+	// 	}
+	//
+	// 	const {member} = firstSpecialist;
+	//
+	// 	if (is.string(member)) {
+	// 		return member;
+	// 	}
+	//
+	// 	return member?._id ?? '';
+	//
+	// }
 
-		const [firstSpecialist] = service?.specialists ?? [];
-
-		if (!firstSpecialist) {
-			return '';
-		}
-
-		const {member} = firstSpecialist;
-
-		if (is.string(member)) {
-			return member;
-		}
-
-		return member?._id ?? '';
-
-	}
-
-	private setSpecialist(service: IService): this {
-
-		this.specialist = this.takeSpecialistFromService(service);
-
-		return this;
-
-	}
+	// private setSpecialist(service: IServiceDto): this {
+	//
+	// 	this.specialist = this.takeSpecialistFromService(service);
+	//
+	// 	return this;
+	//
+	// }
 
 	public detectItem(): void {
 
 		if (this.isEditMode) {
-
-			this.fillForm(this.event);
-
+			this.fillForm(this.orderServiceDto);
 		}
 
 	}
@@ -275,7 +261,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 
 			this.form.disable();
 			this.form.markAsPending();
-			const value = this.form.getRawValue() as IEvent;
+			const value = this.form.getRawValue() as unknown as IEvent;
 
 			// Delete each configuration of duration at service
 			if (value.services?.length) {
@@ -298,19 +284,23 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 			// Trim note field
 			value.note = value.note?.trim();
 
-			if (this.isEditMode) {
+			if (this.useDefaultFlow) {
 
-				await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(value)));
+				if (this.isEditMode) {
 
-			} else {
+					// await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(value)));
 
-				await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(value)));
+				} else {
+
+					// await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(value)));
+
+				}
 
 			}
 
 			// TODO check if customers/attends is exist in db (just check if selected customer has _id field if exist is in db if not then need to make request to create the new customer)
 
-			this.callback?.();
+			this.callback?.(this, value);
 
 			this.form.enable();
 			this.form.updateValueAndValidity();
@@ -341,31 +331,54 @@ export class ContainerFormComponent extends Reactive implements OnInit, AfterCon
 		});
 	}
 
-	public fillForm(result: IEvent | undefined | null): void {
+	public fillForm(result: IOrderServiceDto | undefined | null): void {
 		if (result?._id) {
 
-			const {attendees, ...rest} = result;
-
 			// Fill forceStart
-			this.forceStart = rest.start;
+			this.forceStart = result.orderAppointmentDetails.start;
 
-			const dataFromRoute: {
-				cacheLoaded: boolean;
-				repeat: boolean;
-				item: never; // This is all ngnx store
-			} = this.activatedRoute.snapshot.data as never;
+			// const dataFromRoute: {
+			// 	cacheLoaded: boolean;
+			// 	repeat: boolean;
+			// 	item: never; // This is all ngnx store
+			// } = this.activatedRoute.snapshot.data as never;
 
-			if (dataFromRoute?.repeat) {
+			// if (dataFromRoute?.repeat) {
+			//
+			// 	const {status, _id, ...initialValue} = rest;
+			//
+			// 	this.form.patchValue(structuredClone(initialValue));
+			//
+			// } else {
 
-				const {status, _id, ...initialValue} = rest;
+			const {orderAppointmentDetails: {attendees}} = result;
 
-				this.form.patchValue(structuredClone(initialValue));
+			this.form.patchValue({
 
-			} else {
+				_id: result._id,
+				services: [{
+					...result.serviceSnapshot,
+					object: 'Service',
+					schedules: [],
+					presentation: {
+						banners: result.serviceSnapshot.presentation.banners as unknown as RIMedia[],
+					} as unknown as IPresentation,
+					specialists: result.orderAppointmentDetails.specialists.map((specialist) => {
+						return {
+							...specialist,
+							object: 'SpecialistDto',
+						};
+					}),
+					configuration: result.serviceSnapshot.configuration as unknown as IConfiguration,
+				}],
+				note: result.customerNote,
+				start: result.orderAppointmentDetails.start,
+				end: result.orderAppointmentDetails.end,
+				timeZone: result.orderAppointmentDetails.timeZone,
 
-				this.form.patchValue(structuredClone(rest));
+			});
 
-			}
+			// }
 
 			if (attendees?.length) {
 
