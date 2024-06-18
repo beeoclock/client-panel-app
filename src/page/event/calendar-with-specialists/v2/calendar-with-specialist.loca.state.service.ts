@@ -30,7 +30,7 @@ export class CalendarWithSpecialistLocaStateService {
 	public readonly columnHeightForPx = (this.oneHourForPx * 24) + this.specialistCellHeightForPx;
 	public readonly columnHeightInPx = `${this.columnHeightForPx}px`;
 
-	public readonly cellWidthInPx = '140px';
+	public readonly cellWidthInPx = '160px';
 	public readonly hoursWidthInPx = '50px';
 
 	public readonly eventCalendarWithSpecialistWidgetComponent$ = new BehaviorSubject<EventCalendarWithSpecialistWidgetComponent | null>(null);

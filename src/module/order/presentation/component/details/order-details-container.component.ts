@@ -55,9 +55,9 @@ export class OrderDetailsContainerComponent {
 
 		const {status} = order;
 
-		if ([OrderStatusEnum.rejected, OrderStatusEnum.cancelled, OrderStatusEnum.draft, OrderStatusEnum].includes(status)) {
+		if ([OrderStatusEnum.confirmed, OrderStatusEnum.inProgress, OrderStatusEnum.requested].includes(status)) {
 
-			return alert('You can\'t delete order with status ' + status + ', change status on one of the following: ' + OrderStatusEnum.draft + ', ' + OrderStatusEnum.cancelled + ', ' + OrderStatusEnum.rejected);
+			return alert('You can\'t delete order with status ' + status + ', change status on one of the following: ' + OrderStatusEnum.draft + ', ' + OrderStatusEnum.cancelled + ', ' + OrderStatusEnum.rejected + ', '  + OrderStatusEnum.done);
 
 		}
 

@@ -1142,7 +1142,7 @@
 					"confirmed": "Confirmed",
 					"done": "Done",
 					"draft": "Draft",
-					"pending": "Pending",
+					"inProgress": "Igangværende",
 					"rejected": "Rejected",
 					"requested": "Requested"
 				}

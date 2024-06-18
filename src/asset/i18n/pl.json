@@ -1142,7 +1142,7 @@
 					"confirmed": "Potwierdzono",
 					"done": "Gotowe",
 					"draft": "Wersja robocza",
-					"pending": "W toku",
+					"inProgress": "W toku",
 					"rejected": "Odrzucono",
 					"requested": "Żądany"
 				}
