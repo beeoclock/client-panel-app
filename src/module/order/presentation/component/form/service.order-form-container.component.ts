@@ -1,4 +1,12 @@
-import {Component, inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	inject,
+	Input,
+	OnInit,
+	ViewEncapsulation
+} from '@angular/core';
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -45,6 +53,8 @@ import {RIMember} from "@member/domain";
 import {
 	OrderServiceDetailsComponent
 } from "@order/presentation/component/details/service/order-service-details.component";
+import {Reactive} from "@utility/cdk/reactive";
+import {filter} from 'rxjs';
 
 
 @Component({
@@ -80,16 +90,17 @@ import {
 		OrderServiceDetailsComponent
 	],
 	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 
 		<bee-card>
 
 			<div class="font-bold">{{ 'keyword.capitalize.services' | translate }}</div>
 
-			<div class="flex flex-wrap gap-4" *ngIf="form.controls.services.value.length">
+			<div class="flex flex-wrap gap-4" *ngIf="list.length">
 
 				<app-order-service-details
-					*ngFor="let service of form.controls.services.getRawValue(); let index = index"
+					*ngFor="let service of list; let index = index; trackBy: trackById;"
 					[service]="service">
 
 					<div slot="footer" class="flex justify-between">
@@ -125,7 +136,7 @@ import {
 		CurrencyPipe
 	]
 })
-export class ServiceOrderFormContainerComponent implements OnInit {
+export class ServiceOrderFormContainerComponent extends Reactive implements OnInit {
 
 	@Input()
 	public setupPartialData: {
@@ -136,16 +147,37 @@ export class ServiceOrderFormContainerComponent implements OnInit {
 	@Input()
 	public form!: OrderForm;
 
+	public list: IOrderServiceDto[] = [];
+
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider<ContainerFormComponent>);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly translateService = inject(TranslateService);
+	private readonly changeDetectorRef = inject(ChangeDetectorRef);
+
+	public trackById(index: number, item: IOrderServiceDto) {
+		return item._id;
+	}
 
 	public ngOnInit(): void {
 
 		this.ngxLogger.info('ServiceOrderFormContainerComponent.ngOnInit()');
 
+		this.updateList(this.form.controls.services.getRawValue());
+
+		this.form.controls.services.valueChanges.pipe(
+			this.takeUntil(),
+			filter(Array.isArray),
+		).subscribe((value: IOrderServiceDto[]) => {
+			this.updateList(value);
+		});
+
+	}
+
+	public updateList(value: IOrderServiceDto[]) {
+		this.list = value;
+		this.changeDetectorRef.detectChanges();
 	}
 
 	public async addService() {
@@ -241,10 +273,6 @@ export class ServiceOrderFormContainerComponent implements OnInit {
 			componentRef.instance.destroySelf();
 
 		});
-
-		const {instance} = renderedComponentRef;
-
-		console.log('instance', instance);
 
 	}
 
