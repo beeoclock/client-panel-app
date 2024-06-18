@@ -44,10 +44,9 @@
 			(touchstart)="mouseover($event)"
 			(touchend)="mouseEnter($event)"
 			[attr.data-index]="index + 1"
-			class="flex flex-col border-r relative" data-is-column="true"
+			class="flex flex-col flex-1 border-r relative" data-is-column="true"
 			[style.width]="calendarWithSpecialistLocaStateService.cellWidthInPx"
 			[style.min-width]="calendarWithSpecialistLocaStateService.cellWidthInPx"
-			[style.max-width]="calendarWithSpecialistLocaStateService.cellWidthInPx"
 			[style.min-height]="calendarWithSpecialistLocaStateService.columnHeightInPx">
 			<div
 				[style.min-height]="calendarWithSpecialistLocaStateService.specialistCellHeightInPx"
