@@ -14,8 +14,8 @@ import {
 	DoneChangeStatusButtonComponent
 } from "@order/presentation/component/details/change-status/buttons/done.change-status.button.component";
 import {
-	PendingChangeStatusButtonComponent
-} from "@order/presentation/component/details/change-status/buttons/pending.change-status.button.component";
+	InProgressChangeStatusButtonComponent
+} from "@order/presentation/component/details/change-status/buttons/in-progress.change-status.button.component";
 import {
 	RejectedChangeStatusButtonComponent
 } from "@order/presentation/component/details/change-status/buttons/rejected.change-status.button.component";
@@ -37,7 +37,7 @@ import {TranslateModule} from "@ngx-translate/core";
 		RequestedChangeStatusButtonComponent,
 		ConfirmedChangeStatusButtonComponent,
 		DoneChangeStatusButtonComponent,
-		PendingChangeStatusButtonComponent,
+		InProgressChangeStatusButtonComponent,
 		RejectedChangeStatusButtonComponent,
 		DraftChangeStatusButtonComponent,
 		NgSwitch,
@@ -56,7 +56,7 @@ import {TranslateModule} from "@ngx-translate/core";
 		</div>
 		<div class="flex flex-col gap-4" [ngSwitch]="item.status">
 
-			<ng-container *ngSwitchCase="status.pending">
+			<ng-container *ngSwitchCase="status.inProgress">
 				<app-cancelled-change-status-button [item]="item"/>
 				<app-done-change-status-button [item]="item"/>
 			</ng-container>

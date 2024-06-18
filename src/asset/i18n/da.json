@@ -1142,7 +1142,7 @@
 					"confirmed": "Bekræftet",
 					"done": "Færdig",
 					"draft": "Udkast",
-					"pending": "Afventer",
+					"inProgress": "Igangværende",
 					"rejected": "Afvist",
 					"requested": "Anmodet om"
 				}
@@ -1206,8 +1206,8 @@
 			"failed": {
 				"label": "Mislykket"
 			},
-			"pending": {
-				"label": "Afventer"
+			"inProgress": {
+				"label": "Igangværende"
 			},
 			"registered": {
 				"label": "Registreret"

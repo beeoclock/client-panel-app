@@ -10,15 +10,15 @@ import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	selector: 'app-pending-change-status-button',
+	selector: 'app-in-progress-change-status-button',
 	imports: [
 		TranslateModule
 	],
 	template: `
-		{{ 'order.enum.status.singular.pending' | translate }}
+		{{ 'order.enum.status.singular.inProgress' | translate }}
 	`
 })
-export class PendingChangeStatusButtonComponent extends BaseChangeStatusButtonComponent implements OnInit {
+export class InProgressChangeStatusButtonComponent extends BaseChangeStatusButtonComponent implements OnInit {
 
 	public ngOnInit(): void {
 		this.class += 'text-yellow-500';
@@ -32,7 +32,7 @@ export class PendingChangeStatusButtonComponent extends BaseChangeStatusButtonCo
 		this.store.dispatch(
 			new OrderActions.ChangeStatus({
 				id: this.item._id,
-				status: OrderStatusEnum.pending
+				status: OrderStatusEnum.inProgress
 			})
 		)
 	}
