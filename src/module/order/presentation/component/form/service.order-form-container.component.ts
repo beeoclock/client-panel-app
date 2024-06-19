@@ -198,6 +198,13 @@ export class ServiceOrderFormContainerComponent extends Reactive implements OnIn
 
 		if (this.setupPartialData.defaultAppointmentStartDateTimeIso) {
 			componentInputs.forceStart = this.setupPartialData.defaultAppointmentStartDateTimeIso;
+			if (this.list.length) {
+				const lastService = this.list[this.list.length - 1];
+				const {end} = lastService.orderAppointmentDetails;
+				if (end) {
+					componentInputs.forceStart = end;
+				}
+			}
 		}
 
 		if (this.setupPartialData.defaultMemberForService) {

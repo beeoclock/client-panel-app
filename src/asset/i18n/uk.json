@@ -867,6 +867,7 @@
 			"action": "Дія",
 			"activate": "Активувати",
 			"active": "Активний",
+			"add": "Додати",
 			"add-event": "Додати подію",
 			"add-service": "Додати послугу",
 			"addAvailableHours": "Додати графік роботи",
@@ -1207,8 +1208,8 @@
 			"failed": {
 				"label": "Не вдалося"
 			},
-			"inProgress": {
-				"label": "В процесі"
+			"pending": {
+				"label": "Очікування"
 			},
 			"registered": {
 				"label": "Зареєстровано"

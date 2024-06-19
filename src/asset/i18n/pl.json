@@ -866,6 +866,7 @@
 			"action": "Akcja",
 			"activate": "Aktywuj",
 			"active": "Aktywny",
+			"add": "Dodaj",
 			"add-event": "Dodaj wydarzenie",
 			"add-service": "Dodaj usługę",
 			"addAvailableHours": "Dodaj dostępne godziny",
@@ -1206,7 +1207,7 @@
 			"failed": {
 				"label": "Nie powiodło się"
 			},
-			"inProgress": {
+			"pending": {
 				"label": "W toku"
 			},
 			"registered": {

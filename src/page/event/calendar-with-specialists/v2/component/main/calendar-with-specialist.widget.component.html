@@ -1,5 +1,5 @@
 <div class="grid grid-rows-[60px] h-[calc(100%-60px)] md:h-full">
-	<div class="p-2 flex justify-between gap-2 items-center bg-white border-b border-beeColor-200">
+	<div class="overflow-x-auto overflow-y-hidden p-2 flex justify-between gap-2 items-center bg-white border-b border-beeColor-200">
 		<div class="overflow-x-auto flex gap-2">
 			<event-date-control-calendar-with-specialists-component/>
 			<utility-auto-refresh-component (emitter)="forceRefresh()" [isLoading]="(loader$ | async) ?? false"/>
@@ -20,11 +20,11 @@
 	</div>
 	<!-- Grid of hour rows -->
 	<div #calendar class="flex relative overflow-auto h-0 min-h-full bg-white">
-		<app-time-line-calendar-with-specialist-widget-component *ngIf="showTimeLine$ | async"/>
 		<div
 			class="bg-white border-r flex flex-col left-0 sticky z-10 text-sm text-center" data-is-column="true"
 			[style.width]="calendarWithSpecialistLocaStateService.hoursWidthInPx"
 			[style.min-height]="calendarWithSpecialistLocaStateService.columnHeightInPx">
+			<app-time-line-calendar-with-specialist-widget-component *ngIf="showTimeLine$ | async" [showLine]="false"/>
 			<div
 				[style.min-height]="calendarWithSpecialistLocaStateService.specialistCellHeightInPx"
 				class="z-[12] bg-white sticky top-0 border-b">
@@ -44,10 +44,19 @@
 			(touchstart)="mouseover($event)"
 			(touchend)="mouseEnter($event)"
 			[attr.data-index]="index + 1"
-			class="flex flex-col flex-1 border-r relative" data-is-column="true"
+			class="flex flex-col flex-1 border-r relative bg-[#00000008]" data-is-column="true"
 			[style.width]="calendarWithSpecialistLocaStateService.cellWidthInPx"
 			[style.min-width]="calendarWithSpecialistLocaStateService.cellWidthInPx"
 			[style.min-height]="calendarWithSpecialistLocaStateService.columnHeightInPx">
+			<app-schedule-element-calendar-with-specialist-widget-component [member]="member">
+				<div
+					class="border-b"
+					[attr.data-column-index]="index + 1"
+					[style.min-height]="calendarWithSpecialistLocaStateService.oneHourInPx"
+					*ngFor="let hourRow of calendarWithSpecialistLocaStateService.hourRowListInPx; trackBy: trackByHour">
+				</div>
+			</app-schedule-element-calendar-with-specialist-widget-component>
+			<app-time-line-calendar-with-specialist-widget-component *ngIf="showTimeLine$ | async" [showCurrentTime]="false"/>
 			<div
 				[style.min-height]="calendarWithSpecialistLocaStateService.specialistCellHeightInPx"
 				class="z-[12] p-1 bg-white sticky top-0 border-b">
