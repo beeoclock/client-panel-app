@@ -29,7 +29,7 @@ import {
 	],
 	template: `
 		<!-- Current time -->
-		<div *ngIf="showCurrentTime" class="border-2 border-red-500 bg-white rounded-b-lg rounded-l-lg flex justify-end left-0 sticky w-full">
+		<div *ngIf="showCurrentTime" class="border-2 border-red-500 bg-white rounded-b-lg flex justify-end left-0 sticky w-full">
 			<div
 				class="py-1 rounded-2xl text-sm text-center text-red-500 uppercase font-bold w-full">
 				{{ currentDate | date: 'HH:mm' }}
