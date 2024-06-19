@@ -86,6 +86,10 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 								<span class="text-2xl">1</span>
 								<span class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
 							</button>
+							<button type="button" (click)="openAbsenceForm(90, true)" [class]="classList.absence.button">
+								<span class="text-2xl">1.5</span>
+								<span class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
+							</button>
 							<button type="button" (click)="openAbsenceForm(120, true)" [class]="classList.absence.button">
 								<span class="text-2xl">2</span>
 								<span class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
@@ -121,6 +125,10 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 						</button>
 						<button type="button" (click)="openAbsenceForm(60, false)" [class]="classList.absence.button">
 							<span class="text-2xl">1</span><span
+							class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
+						</button>
+						<button type="button" (click)="openAbsenceForm(90, false)" [class]="classList.absence.button">
+							<span class="text-2xl">1.5</span><span
 							class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
 						</button>
 						<button type="button" (click)="openAbsenceForm(120, false)" [class]="classList.absence.button">
