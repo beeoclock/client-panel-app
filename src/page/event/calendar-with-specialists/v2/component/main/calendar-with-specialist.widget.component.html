@@ -20,11 +20,11 @@
 	</div>
 	<!-- Grid of hour rows -->
 	<div #calendar class="flex relative overflow-auto h-0 min-h-full bg-white">
-		<app-time-line-calendar-with-specialist-widget-component *ngIf="showTimeLine$ | async"/>
 		<div
 			class="bg-white border-r flex flex-col left-0 sticky z-10 text-sm text-center" data-is-column="true"
 			[style.width]="calendarWithSpecialistLocaStateService.hoursWidthInPx"
 			[style.min-height]="calendarWithSpecialistLocaStateService.columnHeightInPx">
+			<app-time-line-calendar-with-specialist-widget-component *ngIf="showTimeLine$ | async" [showLine]="false"/>
 			<div
 				[style.min-height]="calendarWithSpecialistLocaStateService.specialistCellHeightInPx"
 				class="z-[12] bg-white sticky top-0 border-b">
@@ -48,6 +48,7 @@
 			[style.width]="calendarWithSpecialistLocaStateService.cellWidthInPx"
 			[style.min-width]="calendarWithSpecialistLocaStateService.cellWidthInPx"
 			[style.min-height]="calendarWithSpecialistLocaStateService.columnHeightInPx">
+			<app-time-line-calendar-with-specialist-widget-component *ngIf="showTimeLine$ | async" [showCurrentTime]="false"/>
 			<div
 				[style.min-height]="calendarWithSpecialistLocaStateService.specialistCellHeightInPx"
 				class="z-[12] p-1 bg-white sticky top-0 border-b">
