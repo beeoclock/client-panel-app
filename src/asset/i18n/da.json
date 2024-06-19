@@ -1207,8 +1207,8 @@
 			"failed": {
 				"label": "Mislykket"
 			},
-			"inProgress": {
-				"label": "Igangværende"
+			"pending": {
+				"label": "Afventende"
 			},
 			"registered": {
 				"label": "Registreret"

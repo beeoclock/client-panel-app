@@ -1207,8 +1207,8 @@
 			"failed": {
 				"label": "Failed"
 			},
-			"inProgress": {
-				"label": "In progress"
+			"pending": {
+				"label": "Pending"
 			},
 			"registered": {
 				"label": "Registered"

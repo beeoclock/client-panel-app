@@ -1207,7 +1207,7 @@
 			"failed": {
 				"label": "Nie powiodło się"
 			},
-			"inProgress": {
+			"pending": {
 				"label": "W toku"
 			},
 			"registered": {

@@ -1208,8 +1208,8 @@
 			"failed": {
 				"label": "Не вдалося"
 			},
-			"inProgress": {
-				"label": "В процесі"
+			"pending": {
+				"label": "Очікування"
 			},
 			"registered": {
 				"label": "Зареєстровано"
