@@ -866,6 +866,7 @@
 			"action": "Action",
 			"activate": "Activate",
 			"active": "Active",
+			"add": "Add",
 			"add-event": "Add event",
 			"add-service": "Add service",
 			"addAvailableHours": "Add available hours",
