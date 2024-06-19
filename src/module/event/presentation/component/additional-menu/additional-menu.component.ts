@@ -9,7 +9,7 @@ import {NGXLogger} from "ngx-logger";
 import {
 	SelectedMemberAdditionalMenuComponent
 } from "@event/presentation/component/additional-menu/selected-member.additional-menu.component";
-import {NgIf} from "@angular/common";
+import {DatePipe, NgIf} from "@angular/common";
 import {
 	SelectedDatetimeAdditionalMenuComponent
 } from "@event/presentation/component/additional-menu/selected-datetime.additional-menu.component";
@@ -25,7 +25,8 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 		SelectedMemberAdditionalMenuComponent,
 		NgIf,
 		SelectedDatetimeAdditionalMenuComponent,
-		DynamicDatePipe
+		DynamicDatePipe,
+		DatePipe
 	],
 	template: `
 		<div class="grid grid-cols-1 gap-2 p-2">
@@ -45,6 +46,35 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 					<span>{{ 'event.additionalMenu.items.addNewOrder.title' | translate }}</span>
 				</h3>
 			</button>
+
+			<div class="relative flex py-2 items-center">
+				<div class="flex-grow border-t border-beeColor-300"></div>
+				<span class="flex-shrink mx-4 text-beeColor-500">
+					{{ 'keyword.lowercase.or' | translate }}
+				</span>
+				<div class="flex-grow border-t border-beeColor-300"></div>
+			</div>
+
+			<div class="flex justify-between gap-2">
+				<button type="button" (click)="openOrderForm(15)"
+						class="flex-1 text-center bg-white border border-blue-950 cursor-pointer duration-300 hover:bg-blue-200 p-4 rounded-md transition-colors">
+					<h3 class="text-lg font-semibold text-blue-950 flex items-center justify-center gap-2">
+						<span>{{ getDatetimeISOPlusMinutes(15) | date: 'HH:mm' }}</span>
+					</h3>
+				</button>
+				<button type="button" (click)="openOrderForm(30)"
+						class="flex-1 text-center bg-white border border-blue-950 cursor-pointer duration-300 hover:bg-blue-200 p-4 rounded-md transition-colors">
+					<h3 class="text-lg font-semibold text-blue-950 flex items-center justify-center gap-2">
+						<span>{{ getDatetimeISOPlusMinutes(30) | date: 'HH:mm' }}</span>
+					</h3>
+				</button>
+				<button type="button" (click)="openOrderForm(45)"
+						class="flex-1 text-center bg-white border border-blue-950 cursor-pointer duration-300 hover:bg-blue-200 p-4 rounded-md transition-colors">
+					<h3 class="text-lg font-semibold text-blue-950 flex items-center justify-center gap-2">
+						<span>{{ getDatetimeISOPlusMinutes(45) | date: 'HH:mm' }}</span>
+					</h3>
+				</button>
+			</div>
 
 			<p class="text-beeColor-500 text-sm px-2 italic">
 				{{ 'event.additionalMenu.items.addNewOrder.hint' | translate }}
@@ -182,11 +212,24 @@ export class AdditionalMenuComponent implements OnInit {
 		this.ngxLogger.info('AdditionalMenuComponent initialized', this);
 	}
 
-	public openOrderForm() {
+	public getDatetimeISOPlusMinutes(minutes: number) {
+		if (!this.datetimeISO) {
+			return DateTime.now().plus({minutes}).toJSDate().toISOString();
+		}
+		return DateTime.fromISO(this.datetimeISO).plus({minutes}).toJSDate().toISOString();
+	}
+
+	public openOrderForm(minutes: number = 0) {
+
+		let defaultAppointmentStartDateTimeIso = this.datetimeISO || DateTime.now().toJSDate().toISOString();
+		if (minutes) {
+			defaultAppointmentStartDateTimeIso = DateTime.fromISO(defaultAppointmentStartDateTimeIso).plus({minutes}).toJSDate().toISOString();
+		}
+
 		this.store.dispatch(new OrderActions.OpenForm({
 			componentInputs: {
 				setupPartialData: {
-					defaultAppointmentStartDateTimeIso: this.datetimeISO,
+					defaultAppointmentStartDateTimeIso,
 					defaultMemberForService: this.member
 				}
 			},
