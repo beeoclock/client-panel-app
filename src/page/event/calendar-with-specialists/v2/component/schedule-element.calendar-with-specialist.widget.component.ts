@@ -30,7 +30,7 @@ import {
 	],
 	template: `
 		<div
-			class="absolute bg-white w-full"
+			class="absolute bg-white w-full overflow-hidden"
 			[style.z-index]="1"
 			*ngFor="let elementData of dataToBuildScheduleElements"
 			[attr.data-start]="elementData.start"
