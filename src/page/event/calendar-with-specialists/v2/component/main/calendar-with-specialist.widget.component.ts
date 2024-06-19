@@ -15,9 +15,6 @@ import {
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {
-	EventCalendarWithSpecialistWidgetComponent
-} from "@page/event/calendar-with-specialists/v2/component/event.calendar-with-specialist.widget.component";
-import {
 	CalendarWithSpecialistLocaStateService
 } from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {Reactive} from "@utility/cdk/reactive";
@@ -35,9 +32,6 @@ import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {ActivatedRoute} from "@angular/router";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {
-	EmptySlotCalendarWithSpecialistWidgetComponent
-} from "@page/event/calendar-with-specialists/v2/component/empty-slot.calendar-with-specialist.widget.component";
 import {RIMember} from "@member/domain";
 import {
 	TimeLineCalendarWithSpecialistWidgetComponent
@@ -53,6 +47,15 @@ import {OrderActions} from "@order/state/order/order.actions";
 import {DateTime} from "luxon";
 import {ClientState} from "@client/state/client/client.state";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
+import {
+	ScheduleElementCalendarWithSpecialistWidgetComponent
+} from "@page/event/calendar-with-specialists/v2/component/schedule-element.calendar-with-specialist.widget.component";
+import {
+	EventCalendarWithSpecialistWidgetComponent
+} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/event.calendar-with-specialist.widget.component";
+import {
+	EmptySlotCalendarWithSpecialistWidgetComponent
+} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/empty-slot.calendar-with-specialist.widget.component";
 
 @Component({
 	selector: 'app-calendar-with-specialists-widget-component',
@@ -73,6 +76,7 @@ import {RISchedule} from "@utility/domain/interface/i.schedule";
 		TimeLineCalendarWithSpecialistWidgetComponent,
 		IonSelectWrapperComponent,
 		PrimaryButtonDirective,
+		ScheduleElementCalendarWithSpecialistWidgetComponent,
 	]
 })
 export class CalendarWithSpecialistWidgetComponent extends Reactive implements OnInit, AfterViewInit {

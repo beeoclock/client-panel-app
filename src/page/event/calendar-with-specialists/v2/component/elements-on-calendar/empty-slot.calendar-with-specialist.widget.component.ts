@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, HostBinding, HostListener, inject, Input} from "@angular/core";
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	HostBinding,
+	HostListener,
+	inject,
+	Input
+} from "@angular/core";
 import {RIMember} from "@member/domain";
 import {firstValueFrom} from "rxjs";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
@@ -20,7 +29,7 @@ import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.p
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true
 })
-export class EmptySlotCalendarWithSpecialistWidgetComponent {
+export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterViewInit {
 
 	@Input({required: true})
 	public hour!: number;
@@ -32,6 +41,7 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent {
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
+	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
 
@@ -52,7 +62,11 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent {
 
 	@HostBinding()
 	public get class() {
-		return 'active:bg-blue-400 active:text-white bg-neutral-100 border-2 border-[#00000038] cursor-pointer flex h-full hover:opacity-100 items-center opacity-0 px-2 rounded-md text-neutral-500 transition-all';
+		return 'active:bg-blue-400 relative active:text-white bg-neutral-100 border-2 border-[#00000038] cursor-pointer flex h-full hover:opacity-100 items-center opacity-0 px-2 rounded-md text-neutral-500 transition-all';
+	}
+
+	public ngAfterViewInit() {
+		this.elementRef.nativeElement.style.zIndex = '2';
 	}
 
 	public async openAdditionalMenu() {

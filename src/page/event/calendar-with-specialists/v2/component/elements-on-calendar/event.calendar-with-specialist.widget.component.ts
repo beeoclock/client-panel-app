@@ -18,12 +18,6 @@ import {IEvent_V2} from "@event/domain";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
-import {
-	OrderEventCalendarWithSpecialistWidgetComponent
-} from "@page/event/calendar-with-specialists/v2/component/order-event.calendar-with-specialist.widget.component";
-import {
-	AbsenceEventCalendarWithSpecialistWidgetComponent
-} from "@page/event/calendar-with-specialists/v2/component/absence-event.calendar-with-specialist.widget.component";
 import {DateTime} from "luxon";
 import {RIMember} from "@member/domain";
 import {UpdateServiceOrderApiAdapter} from "@order/external/adapter/api/update.service.order.api.adapter";
@@ -31,12 +25,16 @@ import {UpdateAbsenceApiAdapter} from "@absence/external/adapter/api/update.orde
 import {NGXLogger} from "ngx-logger";
 import {AlertController} from "@ionic/angular";
 import {TranslateService} from "@ngx-translate/core";
+import {
+	OrderEventCalendarWithSpecialistWidgetComponent
+} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/order-event.calendar-with-specialist.widget.component";
+import {
+	AbsenceEventCalendarWithSpecialistWidgetComponent
+} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/absence-event.calendar-with-specialist.widget.component";
 
 type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenceDto>;
 
 @Component({
-	selector: 'app-event-calendar-with-specialists-widget-component',
-	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
@@ -45,6 +43,8 @@ type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenc
 		AbsenceEventCalendarWithSpecialistWidgetComponent,
 		DatePipe
 	],
+	selector: 'app-event-calendar-with-specialists-widget-component',
+	standalone: true,
 	template: `
 		<app-order-event-calendar-with-specialist-widget-component *ngIf="isOrder(item)" [event]="item"/>
 		<app-absence-event-calendar-with-specialist-widget-component *ngIf="isAbsence(item)" [event]="item"/>
@@ -114,6 +114,9 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	@HostBinding('style.touch-action')
 	public touchAction = 'auto';
+
+	@HostBinding('style.z-index')
+	public zIndex = 3;
 
 	@HostBinding('attr.data-is-event')
 	public isEvent = true;

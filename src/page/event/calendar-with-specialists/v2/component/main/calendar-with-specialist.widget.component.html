@@ -44,10 +44,18 @@
 			(touchstart)="mouseover($event)"
 			(touchend)="mouseEnter($event)"
 			[attr.data-index]="index + 1"
-			class="flex flex-col flex-1 border-r relative" data-is-column="true"
+			class="flex flex-col flex-1 border-r relative bg-[#00000008]" data-is-column="true"
 			[style.width]="calendarWithSpecialistLocaStateService.cellWidthInPx"
 			[style.min-width]="calendarWithSpecialistLocaStateService.cellWidthInPx"
 			[style.min-height]="calendarWithSpecialistLocaStateService.columnHeightInPx">
+			<app-schedule-element-calendar-with-specialist-widget-component [member]="member">
+				<div
+					class="border-b"
+					[attr.data-column-index]="index + 1"
+					[style.min-height]="calendarWithSpecialistLocaStateService.oneHourInPx"
+					*ngFor="let hourRow of calendarWithSpecialistLocaStateService.hourRowListInPx; trackBy: trackByHour">
+				</div>
+			</app-schedule-element-calendar-with-specialist-widget-component>
 			<app-time-line-calendar-with-specialist-widget-component *ngIf="showTimeLine$ | async" [showCurrentTime]="false"/>
 			<div
 				[style.min-height]="calendarWithSpecialistLocaStateService.specialistCellHeightInPx"
