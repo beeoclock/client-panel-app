@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!list.length">
-	<bee-card class="text-sm cursor-pointer hover:bg-beeColor-50" *ngFor="let item of list; trackBy: trackById">
+	<bee-card class="text-sm cursor-pointer border-2 border-transparent hover:border-blue-500" [class.!border-green-500]="selectedIds.includes(item._id)" *ngFor="let item of list; trackBy: trackById">
 		<div class="flex justify-between items-start gap-2">
 			<div class="w-full flex flex-col gap-2" (click)="singleClick(item)">
 				<div class="flex gap-2">
@@ -14,7 +14,18 @@
 					</div>
 				</div>
 				<div class="">
-					{{ getFirstLanguageVersion(item.languageVersions).title }}
+					<div class="flex flex-col gap-2">
+						<div
+							*ngFor="let languageVersion of item.languageVersions; let i = index"
+							class="relative flex gap-2 items-center rounded-lg bg-neutral-100 p-1 font-sans text-xs font-bold uppercase text-neutral-900">
+							<label class="relative flex items-center justify-center p-0 cursor-pointer border-2 border-neutral-200 px-1 rounded-lg">
+								{{ languageVersion.language }}
+							</label>
+							<div>
+								{{ languageVersion.title }}
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<service-row-action-button-component *ngIf="showAction.state$ | async" [item]="item" [id]="item._id"/>
