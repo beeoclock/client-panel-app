@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "start:local": "ng serve --configuration local",
+    "start:local_production": "ng serve --configuration local_production",
     "start:production": "ng serve --configuration production",
     "start:emulator": "ng serve --configuration emulator",
     "start:emulator:authorization": "ng serve --configuration emulator-authorization",
