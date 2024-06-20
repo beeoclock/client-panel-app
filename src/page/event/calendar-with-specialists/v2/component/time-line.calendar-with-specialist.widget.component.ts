@@ -1,5 +1,4 @@
 import {
-	AfterViewInit,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
@@ -40,7 +39,7 @@ import {
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TimeLineCalendarWithSpecialistWidgetComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+export class TimeLineCalendarWithSpecialistWidgetComponent implements OnInit, OnDestroy, OnChanges {
 
 	@Input()
 	public currentDate = new Date();
@@ -82,16 +81,6 @@ export class TimeLineCalendarWithSpecialistWidgetComponent implements OnInit, Af
 	public ngOnInit() {
 
 		this.init();
-
-	}
-
-	public ngAfterViewInit() {
-
-		if (this.showCurrentTime) {
-			setTimeout(() => {
-				this.elementRef.nativeElement.scrollIntoView({behavior: 'smooth', block: 'center'});
-			}, 0);
-		}
 
 	}
 

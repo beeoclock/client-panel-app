@@ -22,7 +22,7 @@ import {NGXLogger} from "ngx-logger";
 import {
 	HeaderCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/header.calendar-with-specialist.widget.component";
-import {firstValueFrom, map, switchMap, tap} from "rxjs";
+import {firstValueFrom, map, switchMap} from "rxjs";
 import {IEvent_V2} from "@event/domain";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Store} from "@ngxs/store";
@@ -115,22 +115,22 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 	public readonly isToday$ = this.store.select(CalendarWithSpecialistsQueries.isToday);
 	public readonly showTimeLine$ = this.isToday$.pipe(
-		tap((isToday) => {
-			if (!isToday) {
-				// Scroll to first rendered event
-				const firstEvent = document.querySelector('[data-is-event="true"]');
-				if (firstEvent) {
-					// TODO: refactoring this part of code, move the coee as function and call at first recived data of events
-					firstEvent.scrollIntoView({behavior: 'smooth', block: 'start'});
-				} else {
-					// Scroll to the earliest schedule time
-					let topToScroll = this.calendarWithSpecialistLocaStateService.earliestScheduleInSeconds / 60;
-					topToScroll = topToScroll * this.calendarWithSpecialistLocaStateService.oneMinuteForPx;
-
-					this.calendar.nativeElement.scrollTo({top: topToScroll, behavior: 'smooth'});
-				}
-			}
-		})
+		// tap((isToday) => {
+		// 	if (!isToday) {
+		// 		// Scroll to first rendered event
+		// 		const firstEvent = document.querySelector('[data-is-event="true"]');
+		// 		if (firstEvent) {
+		// 			// TODO: refactoring this part of code, move the coee as function and call at first recived data of events
+		// 			firstEvent.scrollIntoView({behavior: 'smooth', block: 'start'});
+		// 		} else {
+		// 			// Scroll to the earliest schedule time
+		// 			let topToScroll = this.calendarWithSpecialistLocaStateService.earliestScheduleInSeconds / 60;
+		// 			topToScroll = topToScroll * this.calendarWithSpecialistLocaStateService.oneMinuteForPx;
+		//
+		// 			this.calendar.nativeElement.scrollTo({top: topToScroll, behavior: 'smooth'});
+		// 		}
+		// 	}
+		// })
 	);
 
 	public async openForm() {

@@ -1,10 +1,13 @@
 import {
+	AfterViewInit,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
+	ElementRef,
 	inject,
 	Input,
-	OnInit,
+	QueryList,
+	ViewChildren,
 	ViewEncapsulation
 } from "@angular/core";
 import {RIMember} from "@member/domain";
@@ -19,6 +22,19 @@ import {NgForOf} from "@angular/common";
 import {
 	CalendarWithSpecialistLocaStateService
 } from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
+import {BooleanState} from "@utility/domain";
+
+
+interface IData {
+	start: string;
+	end: string;
+	isBusinessSchedule: boolean;
+	isMemberSchedule: boolean;
+	style: {
+		top: number; // in px
+		height: number; // in px
+	}
+}
 
 @Component({
 	standalone: true,
@@ -30,9 +46,10 @@ import {
 	],
 	template: `
 		<div
+			#scheduleElement
 			class="absolute bg-white w-full overflow-hidden"
+			*ngFor="let elementData of dataToBuildScheduleElements; trackBy: trackByStart"
 			[style.z-index]="1"
-			*ngFor="let elementData of dataToBuildScheduleElements"
 			[attr.data-start]="elementData.start"
 			[attr.data-end]="elementData.end"
 			[attr.data-is-business-schedule]="elementData.isBusinessSchedule"
@@ -44,21 +61,21 @@ import {
 		</div>
 	`
 })
-export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reactive implements OnInit {
+export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reactive implements AfterViewInit {
 
 	@Input()
 	public member: RIMember | null = null;
 
-	public dataToBuildScheduleElements: {
-		start: string;
-		end: string;
-		isBusinessSchedule: boolean;
-		isMemberSchedule: boolean;
-		style: {
-			top: number; // in px
-			height: number; // in px
-		}
-	}[] = [];
+	@Input()
+	public index: number = -1; // Index of instance
+
+	@Input()
+	public calendar: HTMLDivElement | null = null;
+
+	@ViewChildren('scheduleElement')
+	public scheduleElements!: QueryList<ElementRef<HTMLDivElement>>;
+
+	public readonly dataToBuildScheduleElements: IData[] = [];
 
 	public selectedDate: DateTime = DateTime.now();
 
@@ -66,10 +83,13 @@ export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reacti
 	private readonly store = inject(Store);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
+	private readonly scrollInitialized = new BooleanState(false);
+
 	public readonly schedulesForSelectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start).pipe(
 		filter(DateTime.isDateTime),
 		switchMap(selectedDate => {
 			this.selectedDate = selectedDate;
+			this.scrollInitialized.switchOff();
 			return this.store.select(ClientState.schedules).pipe(
 				filter(Array.isArray),
 				map((schedules: RISchedule[]) =>
@@ -81,12 +101,37 @@ export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reacti
 		}),
 	);
 
-	public ngOnInit() {
+	public trackByStart(index: number, item: IData): string {
+		return item.start;
+	}
+
+
+	public ngAfterViewInit() {
+
+		if (this.index === 1) {
+
+			this.scheduleElements.changes.pipe(
+				this.takeUntil(),
+			).subscribe((scheduleElements: QueryList<ElementRef<HTMLDivElement>>) => {
+
+				if (this.scrollInitialized.isOn) {
+					return;
+				}
+				this.scrollInitialized.switchOn();
+
+				this.calendar?.scrollTo({
+					top: scheduleElements.first.nativeElement.offsetTop - this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx,
+				})
+
+			});
+
+		}
+
 		this.schedulesForSelectedDate$.pipe(
 			this.takeUntil(),
 		).subscribe((schedules) => {
+			this.dataToBuildScheduleElements.length = 0;
 			schedules.forEach(schedule => {
-				console.log(schedule);
 				const start = this.selectedDate.startOf('day').plus({seconds: schedule.startInSeconds});
 				const end = this.selectedDate.startOf('day').plus({seconds: schedule.endInSeconds});
 
@@ -109,6 +154,7 @@ export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reacti
 			});
 			this.changeDetectorRef.detectChanges();
 		});
+
 	}
 
 }
