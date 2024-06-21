@@ -17,11 +17,12 @@ import {NGXLogger} from "ngx-logger";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
 import {Store} from "@ngxs/store";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
+import {BooleanState} from "@utility/domain";
 
 @Component({
 	selector: 'app-empty-slot-calendar-with-specialist-widget-component',
 	template: `
-			+ {{ 'keyword.capitalize.add-event' | translate }}
+		+ {{ 'keyword.capitalize.add-event' | translate }}
 	`,
 	imports: [
 		TranslateModule
@@ -44,6 +45,8 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
+
+	public readonly showSquare = new BooleanState(false);
 
 	@HostListener('click')
 	public async onClick() {
@@ -71,6 +74,8 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 
 	public async openAdditionalMenu() {
 
+		this.showSelectedSquare(true);
+
 		const title = this.translateService.instant('event.additionalMenu.title');
 
 		const selectedDate = await firstValueFrom(this.selectedDate$);
@@ -93,12 +98,56 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 		await this.whacAMaleProvider.buildItAsync({
 			component: AdditionalMenuComponent,
 			title,
+			callback: {
+				on: {
+					destroy: {
+						after: () => {
+							this.ngxLogger.debug('Callback:destroy:after');
+							this.showSelectedSquare(false);
+						}
+					},
+					update: {
+						before: (componentInputs) => {
+							this.ngxLogger.debug('Callback:update:before', componentInputs, this);
+							if (componentInputs) {
+								const {
+									datetimeISO: datetimeISOComponent,
+									member: memberComponent
+								} = componentInputs as { datetimeISO: string; member: RIMember };
+								this.ngxLogger.debug('Callback:update:before:datetimeISOComponent', datetimeISOComponent);
+								this.ngxLogger.debug('Callback:update:before:memberComponent', memberComponent);
+								console.log(datetimeISOComponent !== datetimeISO || memberComponent?._id !== this.member._id)
+								console.log(datetimeISOComponent, datetimeISO, memberComponent?._id, this.member._id)
+								if (datetimeISOComponent !== datetimeISO || memberComponent?._id !== this.member._id) {
+									this.showSelectedSquare(false);
+								}
+							}
+						}
+					}
+				}
+			},
 			componentInputs: {
 				datetimeISO,
 				member: this.member,
 				callback
 			}
 		});
+
+	}
+
+	public showSelectedSquare(show: boolean) {
+		this.ngxLogger.debug('showSelectedSquare', show);
+		this.showSquare.toggle(show);
+
+		if (show) {
+			this.elementRef.nativeElement.classList.add('!opacity-100');
+			this.elementRef.nativeElement.classList.add('border-dashed');
+			this.elementRef.nativeElement.classList.add('border-beeColor-500');
+		} else {
+			this.elementRef.nativeElement.classList.remove('!opacity-100');
+			this.elementRef.nativeElement.classList.remove('border-dashed');
+			this.elementRef.nativeElement.classList.remove('border-beeColor-500');
+		}
 
 	}
 
