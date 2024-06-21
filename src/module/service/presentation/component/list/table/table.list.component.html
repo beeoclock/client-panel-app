@@ -66,10 +66,10 @@
 				</div>
 			</div>
 			<div tableColumnFlex="title">
-				<div class="flex flex-col gap-2">
+				<div class="flex flex-col divide-y w-full">
 					<div
 						*ngFor="let languageVersion of item.languageVersions; let i = index"
-						class="relative flex gap-2 items-center rounded-lg bg-neutral-100 p-1 font-sans text-xs font-bold uppercase text-neutral-900">
+						class="relative text-wrap flex gap-2 items-start py-2 font-sans text-xs font-bold uppercase text-neutral-900">
 						<label class="relative flex items-center justify-center p-0 cursor-pointer border-2 border-neutral-200 px-1 rounded-lg">
 							{{ languageVersion.language }}
 						</label>
