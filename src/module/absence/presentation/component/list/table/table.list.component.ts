@@ -53,7 +53,7 @@ export class TableListComponent extends TableComponent<IAbsenceDto> {
 		columns: {
 			type: {
 				style: {
-					minWidth: '150px',
+					minWidth: '100px',
 					flexGrow: 1,
 				},
 			},
@@ -69,7 +69,7 @@ export class TableListComponent extends TableComponent<IAbsenceDto> {
 			},
 			attendees: {
 				style: {
-					minWidth: '200px',
+					minWidth: '150px',
 				},
 			},
 			note: {
@@ -79,12 +79,12 @@ export class TableListComponent extends TableComponent<IAbsenceDto> {
 			},
 			createdAt: {
 				style: {
-					minWidth: '250px',
+					minWidth: '200px',
 				},
 			},
 			updatedAt: {
 				style: {
-					minWidth: '250px',
+					minWidth: '200px',
 				},
 			},
 			action: {

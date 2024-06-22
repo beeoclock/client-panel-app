@@ -382,6 +382,8 @@ export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
 				.setItems(items)
 				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
 
+			this.ngxLogger.debug('Table state: ', newTableState);
+
 			ctx.patchState({
 				...state,
 				tableState: newTableState.toCache(),

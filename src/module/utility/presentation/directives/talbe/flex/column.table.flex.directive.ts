@@ -22,7 +22,8 @@ export class ColumnTableFlexDirective implements OnInit {
 
 	@HostBinding()
 	public class = [
-		'p-3',
+		'px-2',
+		'py-4',
 		'whitespace-nowrap',
 
 		'border-b',

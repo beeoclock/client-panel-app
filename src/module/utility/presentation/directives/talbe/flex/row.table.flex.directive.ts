@@ -27,7 +27,7 @@ export class RowTableFlexDirective implements AfterViewInit {
 				this.elementRef.nativeElement.classList.add('font-bold', 'text-xs', 'uppercase');
 				break;
 			case 'body':
-				this.elementRef.nativeElement.classList.add('hover:bg-beeColor-100', 'cursor-pointer', 'transition');
+				this.elementRef.nativeElement.classList.add('hover:bg-beeColor-100', 'cursor-pointer', 'transition', 'even:bg-neutral-50');
 				break;
 		}
 

@@ -52,23 +52,23 @@ export class TableListComponent extends TableComponent<IOrderDto> {
 		columns: {
 			services: {
 				style: {
-					minWidth: '200px',
+					minWidth: '100px',
 					flexGrow: 1,
 				},
 			},
 			businessNote: {
 				style: {
-					minWidth: '200px',
+					minWidth: '150px',
 				},
 			},
 			status: {
 				style: {
-					minWidth: '150px',
+					minWidth: '100px',
 				},
 			},
 			createdAt: {
 				style: {
-					minWidth: '250px',
+					minWidth: '200px',
 				},
 			},
 			updatedAt: {
