@@ -11,7 +11,7 @@
 			{{ clientItem.name }}
 		</h5>
 		<div *ngIf="!(loader$ | async)" class="flex flex-wrap gap-4">
-			<div class="gap-2 min-w-[200px] rounded-lg border bg-white p-4 flex flex-col">
+			<div class="gap-2 min-w-[200px] rounded-lg border bg-white p-4 flex flex-col justify-between">
 				<div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-2xl">
 					💰
 				</div>
@@ -22,7 +22,7 @@
 					{{ 'statistic.global.revenue' | translate }}
 				</div>
 			</div>
-			<div class="gap-2 min-w-[200px] rounded-lg border bg-white p-4 flex flex-col">
+			<div class="gap-2 min-w-[200px] rounded-lg border bg-white p-4 flex flex-col justify-between">
 				<div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-2xl">
 					🛒
 				</div>
@@ -31,6 +31,27 @@
 				</div>
 				<div class="text-neutral-600">
 					{{ 'statistic.global.numberOfSales' | translate }}
+				</div>
+			</div>
+			<div class="gap-2 min-w-[200px] rounded-lg border bg-white p-4 flex flex-col justify-between">
+				<div class="flex gap-2 justify-between items-center">
+					<div class="flex gap-2">
+						<div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-2xl">
+							🏆
+						</div>
+						<div class="font-bold text-2xl">
+							x {{ summary.topService.count }}
+						</div>
+					</div>
+					<div class="text-neutral-600">
+						%{{ summary.topService.count / summary.count * 100 | number: '1.0-0' }}
+					</div>
+				</div>
+				<div class="font-bold truncate max-w-[200px]">
+					{{ summary.topService.service?.serviceSnapshot?.languageVersions?.[0]?.title }}
+				</div>
+				<div class="text-neutral-600">
+					{{ 'statistic.global.topService' | translate }}
 				</div>
 			</div>
 		</div>

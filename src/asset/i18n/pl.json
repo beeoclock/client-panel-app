@@ -1350,7 +1350,8 @@
 	"statistic": {
 		"global": {
 			"numberOfSales": "Liczba sprzedaży",
-			"revenue": "Utarg"
+			"revenue": "Utarg",
+			"topService": "Najpopularniejsza usługa"
 		}
 	},
 	"updateAvailable": {

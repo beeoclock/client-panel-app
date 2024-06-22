@@ -1350,7 +1350,8 @@
 	"statistic": {
 		"global": {
 			"numberOfSales": "Antal salg",
-			"revenue": "Indtægter"
+			"revenue": "Indtægter",
+			"topService": "Den mest populære tjeneste"
 		}
 	},
 	"updateAvailable": {

@@ -1351,7 +1351,8 @@
 	"statistic": {
 		"global": {
 			"numberOfSales": "Кількість продажів",
-			"revenue": "Виручка"
+			"revenue": "Виручка",
+			"topService": "Найпопулярніша послуга"
 		}
 	},
 	"updateAvailable": {

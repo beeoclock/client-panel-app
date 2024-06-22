@@ -11,7 +11,7 @@ import {MemberState} from "@member/state/member/member.state";
 import {combineLatest, filter, map, Observable} from "rxjs";
 import {StatisticQueries} from "@event/state/statistic/statistic.queries";
 import {Reactive} from "@utility/cdk/reactive";
-import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, CurrencyPipe, DecimalPipe, NgForOf, NgIf} from "@angular/common";
 import {RIMember} from "@member/domain";
 import {ClientState} from "@client/state/client/client.state";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
@@ -40,7 +40,8 @@ import {TranslateModule} from "@ngx-translate/core";
 		NgIf,
 		CurrencyPipe,
 		LoaderComponent,
-		TranslateModule
+		TranslateModule,
+		DecimalPipe
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -69,11 +70,19 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 				service: IOrderServiceDto;
 			}
 		};
+		topService: {
+			count: number;
+			service: IOrderServiceDto | undefined;
+		};
 	} = {
 		amount: 0,
 		count: 0,
 		currency: CurrencyCodeEnum.USD,
-		serviceCounter: {}
+		serviceCounter: {},
+		topService: {
+			count: 0,
+			service: undefined
+		}
 	};
 
 	public readonly statisticPerMember$: Observable<{
@@ -101,7 +110,11 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 				amount: 0,
 				count: 0,
 				currency: baseCurrency,
-				serviceCounter: {}
+				serviceCounter: {},
+				topService: {
+					count: 0,
+					service: undefined
+				}
 			};
 
 			const statisticPerMemberId = statistic.reduce((acc, item) => {
@@ -116,6 +129,20 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 					count: (this.summary.serviceCounter[item.serviceSnapshot._id]?.count ?? 0) + 1,
 					service: item
 				};
+
+				if (!this.summary.topService.service) {
+					this.summary.topService = {
+						count: this.summary.serviceCounter[item.serviceSnapshot._id].count,
+						service: this.summary.serviceCounter[item.serviceSnapshot._id].service
+					};
+				} else {
+					if (this.summary.serviceCounter[item.serviceSnapshot._id].count > this.summary.topService.count) {
+						this.summary.topService = {
+							count: this.summary.serviceCounter[item.serviceSnapshot._id].count,
+							service: this.summary.serviceCounter[item.serviceSnapshot._id].service
+						};
+					}
+				}
 
 				item.orderAppointmentDetails.specialists.forEach((specialist) => {
 
