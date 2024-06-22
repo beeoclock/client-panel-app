@@ -1347,6 +1347,12 @@
 		},
 		"title": "Strategi for foreslåede tidsintervaller"
 	},
+	"statistic": {
+		"global": {
+			"numberOfSales": "Antal salg",
+			"revenue": "Indtægter"
+		}
+	},
 	"updateAvailable": {
 		"header": "Ny version",
 		"message": "En ny version af appen er tilgængelig, vil du opdatere?"

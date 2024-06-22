@@ -1347,6 +1347,12 @@
 		},
 		"title": "Strategia proponowanych przedziałów czasowych"
 	},
+	"statistic": {
+		"global": {
+			"numberOfSales": "Liczba sprzedaży",
+			"revenue": "Utarg"
+		}
+	},
 	"updateAvailable": {
 		"header": "Nowa wersja",
 		"message": "Dostępna jest nowa wersja aplikacji, czy chcesz zaktualizować?"

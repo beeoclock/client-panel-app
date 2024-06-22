@@ -24,6 +24,7 @@ import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.en
 import {is} from "thiis";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {IClient} from "@client/domain";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
 	selector: 'event-statistic-component',
@@ -38,7 +39,8 @@ import {IClient} from "@client/domain";
 		AsyncPipe,
 		NgIf,
 		CurrencyPipe,
-		LoaderComponent
+		LoaderComponent,
+		TranslateModule
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -61,10 +63,17 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 		amount: number;
 		currency: CurrencyCodeEnum;
 		count: number;
+		serviceCounter: {
+			[key: string]: {
+				count: number;
+				service: IOrderServiceDto;
+			}
+		};
 	} = {
 		amount: 0,
 		count: 0,
-		currency: CurrencyCodeEnum.USD
+		currency: CurrencyCodeEnum.USD,
+		serviceCounter: {}
 	};
 
 	public readonly statisticPerMember$: Observable<{
@@ -91,7 +100,8 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 			this.summary = {
 				amount: 0,
 				count: 0,
-				currency: baseCurrency
+				currency: baseCurrency,
+				serviceCounter: {}
 			};
 
 			const statisticPerMemberId = statistic.reduce((acc, item) => {
@@ -102,6 +112,10 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 
 				this.summary.amount += item.serviceSnapshot.durationVersions?.[0]?.prices?.[0]?.price ?? 0;
 				this.summary.count += 1;
+				this.summary.serviceCounter[item.serviceSnapshot._id] = {
+					count: (this.summary.serviceCounter[item.serviceSnapshot._id]?.count ?? 0) + 1,
+					service: item
+				};
 
 				item.orderAppointmentDetails.specialists.forEach((specialist) => {
 

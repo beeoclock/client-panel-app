@@ -1347,6 +1347,12 @@
 		},
 		"title": "Strategy of proposed time intervals"
 	},
+	"statistic": {
+		"global": {
+			"numberOfSales": "Number of sales",
+			"revenue": "Revenue"
+		}
+	},
 	"updateAvailable": {
 		"header": "New version",
 		"message": "A new version of the app is available, would you like to update?"
