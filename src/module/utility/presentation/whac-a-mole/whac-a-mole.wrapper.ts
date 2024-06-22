@@ -66,6 +66,14 @@ export class WhacAMoleWrapper<COMPONENT> {
 	public destroySelf = () => {
 	};
 
+	@Input()
+	public updateSelfBefore = (componentInputs: Record<string, unknown> | undefined) => {
+	};
+
+	@Input()
+	public updateSelfAfter = (componentInputs: Record<string, unknown> | undefined) => {
+	};
+
 	@ViewChild('renderContainer', {read: ViewContainerRef, static: true})
 	private readonly renderContainer!: ViewContainerRef;
 

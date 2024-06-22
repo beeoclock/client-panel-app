@@ -22,191 +22,216 @@ import {WhacAMoleBuildItArgsType} from "@utility/presentation/whac-a-mole/whac-a
 import {WhacAMoleWrapper} from "@utility/presentation/whac-a-mole/whac-a-mole.wrapper";
 
 @Component({
-  selector: 'whac-a-mole',
-  standalone: true,
-  imports: [NgIf, NgForOf, NgClass, TranslateModule, WhacAMoleContainer],
-  template: `
-    <whac-a-mole-container>
-      <ng-container #listOfComponents></ng-container>
-    </whac-a-mole-container>
-  `
+	selector: 'whac-a-mole',
+	standalone: true,
+	imports: [NgIf, NgForOf, NgClass, TranslateModule, WhacAMoleContainer],
+	template: `
+		<whac-a-mole-container>
+			<ng-container #listOfComponents></ng-container>
+		</whac-a-mole-container>
+	`
 })
 export class WhacAMole extends Reactive implements OnInit {
-  @Input()
-  public id = 'whac-a-mole';
+	@Input()
+	public id = 'whac-a-mole';
 
-  @HostBinding()
-  public class =
-    'not-tablet:animate-slideOut hidden tablet:hidden w-full not-tablet:!w-0 absolute top-0 right-0 h-screen z-50 bg-black/50 flex justify-end lg:min-w-[375px] lg:max-w-[375px] lg:relative';
+	@HostBinding()
+	public class =
+		'not-tablet:animate-slideOut hidden tablet:hidden w-full not-tablet:!w-0 absolute top-0 right-0 h-screen z-50 bg-black/50 flex justify-end lg:min-w-[375px] lg:max-w-[375px] lg:relative';
 
-  @ViewChild('listOfComponents', { read: ViewContainerRef, static: true })
-  public readonly listOfComponents!: ViewContainerRef;
+	@ViewChild('listOfComponents', {read: ViewContainerRef, static: true})
+	public readonly listOfComponents!: ViewContainerRef;
 
 	// It is for table device
-  @HostListener('click', ['$event'])
-  public onClick(event: MouseEvent): void {
-    if (this.isHidden) {
-      return;
-    }
-    const isHostElement = event.target === this.elementRef.nativeElement;
-    if (isHostElement) {
-      this.ngxLogger.debug('WhacAMole.onClick', event);
-      this.removeLastComponent();
-    }
-  }
+	@HostListener('click', ['$event'])
+	public onClick(event: MouseEvent): void {
+		if (this.isHidden) {
+			return;
+		}
+		const isHostElement = event.target === this.elementRef.nativeElement;
+		if (isHostElement) {
+			this.ngxLogger.debug('WhacAMole.onClick', event);
+			this.removeLastComponent();
+		}
+	}
 
-  @HostListener('document:keydown.escape')
-  public handleOnEscapeKey(): void {
-    this.ngxLogger.debug('handleOnEscapeKey');
-    this.removeLastComponent();
-  }
+	@HostListener('document:keydown.escape')
+	public handleOnEscapeKey(): void {
+		this.ngxLogger.debug('handleOnEscapeKey');
+		this.removeLastComponent();
+	}
 
-  private readonly ngxLogger = inject(NGXLogger);
-  private readonly whacAMoleProvider = inject(WhacAMoleProvider);
-  private readonly changeDetectorRef = inject(ChangeDetectorRef);
-  private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
+	private readonly ngxLogger = inject(NGXLogger);
+	private readonly whacAMoleProvider = inject(WhacAMoleProvider);
+	private readonly changeDetectorRef = inject(ChangeDetectorRef);
+	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 
-  public ngOnInit() {
-    this.whacAMoleProvider.registerContainer(this);
-  }
+	public ngOnInit() {
+		this.whacAMoleProvider.registerContainer(this);
+	}
 
-  public destroyComponent(key: string): boolean {
-    const componentRef = this.whacAMoleProvider.componentRefMapById.get(key);
-    componentRef?.destroy();
-    this.whacAMoleProvider.componentRefMapById.delete(key);
-    this.updateVisibility();
+	public destroyComponent(key: string): boolean {
+		const componentRef = this.whacAMoleProvider.componentRefMapById.get(key);
+		componentRef?.destroy();
+		this.whacAMoleProvider.componentRefMapById.delete(key);
+		this.updateVisibility();
 
-    return !!componentRef;
-  }
+		return !!componentRef;
+	}
 
-  public removeLastComponent(): boolean {
-    const lastComponent = Array.from(this.whacAMoleProvider.componentRefMapById.values()).pop() as ComponentRef<
-      WhacAMoleWrapper<unknown>
-    >;
+	public removeLastComponent(): boolean {
+		const lastComponent = Array.from(this.whacAMoleProvider.componentRefMapById.values()).pop() as ComponentRef<
+			WhacAMoleWrapper<unknown>
+		>;
 
-    if (!lastComponent?.instance.renderedComponent) {
-      return false;
-    }
+		if (!lastComponent?.instance.renderedComponent) {
+			return false;
+		}
 
-    const mirror = reflectComponentType(lastComponent.instance.renderedComponent);
-    if (!mirror) {
-      this.ngxLogger.error('WhacAMole.removeLastComponent', 'value of `component` property is not a component');
-      return false;
-    }
+		const mirror = reflectComponentType(lastComponent.instance.renderedComponent);
+		if (!mirror) {
+			this.ngxLogger.error('WhacAMole.removeLastComponent', 'value of `component` property is not a component');
+			return false;
+		}
 
-    this.destroyComponent(mirror.selector);
+		this.destroyComponent(mirror.selector);
 
-    this.updateVisibility();
+		this.updateVisibility();
 
-    return true;
-  }
+		return true;
+	}
 
-  public buildComponentAndRender({
-    component,
-    componentInputs,
-    title,
-    showLoading,
-    button,
-    callback
-  }: WhacAMoleBuildItArgsType) {
-    const componentMirror = reflectComponentType(component);
+	public buildComponentAndRender({
+									   component,
+									   componentInputs,
+									   title,
+									   showLoading,
+									   button,
+									   callback
+								   }: WhacAMoleBuildItArgsType) {
+		const componentMirror = reflectComponentType(component);
 
-    if (!componentMirror) {
-      this.ngxLogger.error('WhacAMole.buildComponentAndRender', 'value of `component` property is not a component');
-      return;
-    }
+		if (!componentMirror) {
+			this.ngxLogger.error('WhacAMole.buildComponentAndRender', 'value of `component` property is not a component');
+			return;
+		}
 
-    const { selector } = componentMirror;
+		const {selector} = componentMirror;
 
-    const existComponentRef = this.updatePushBoxComponent({
-      componentInputs,
-      showLoading,
-      button,
-      component
-    });
+		const existComponentRef = this.updatePushBoxComponent({
+			componentInputs,
+			showLoading,
+			button,
+			component,
+			callback
+		});
 
-    if (existComponentRef) {
-      this.ngxLogger.debug('WhacAMole.buildComponentAndRender', 'Component already exist, moving to the top');
+		if (existComponentRef) {
+			this.ngxLogger.debug('WhacAMole.buildComponentAndRender', 'Component already exist, moving to the top');
 
-      this.listOfComponents.move(existComponentRef.hostView, 0);
+			this.listOfComponents.move(existComponentRef.hostView, 0);
 
-      return existComponentRef;
-    }
+			return existComponentRef;
+		}
 
-    this.ngxLogger.debug('WhacAMole.buildComponentAndRender', selector, component);
+		this.ngxLogger.debug('WhacAMole.buildComponentAndRender', selector, component);
 
-    const whacAMoleWrapperComponentRef = this.listOfComponents.createComponent(WhacAMoleWrapper, {
-      index: 0 // Insert at the beginning
-    });
-    whacAMoleWrapperComponentRef.setInput('title', title);
-    whacAMoleWrapperComponentRef.setInput('id', selector);
-    whacAMoleWrapperComponentRef.setInput('showLoading', showLoading ?? false);
-    whacAMoleWrapperComponentRef.setInput('destroySelf', () => {
-      callback?.on?.destroy?.before?.();
-      this.destroyComponent(selector);
-      callback?.on?.destroy?.after?.();
-    });
+		const whacAMoleWrapperComponentRef = this.listOfComponents.createComponent(WhacAMoleWrapper, {
+			index: 0 // Insert at the beginning
+		});
+		whacAMoleWrapperComponentRef.setInput('title', title);
+		whacAMoleWrapperComponentRef.setInput('id', selector);
+		whacAMoleWrapperComponentRef.setInput('showLoading', showLoading ?? false);
+		whacAMoleWrapperComponentRef.setInput('destroySelf', () => {
+			callback?.on?.destroy?.before?.();
+			this.destroyComponent(selector);
+			callback?.on?.destroy?.after?.();
+		});
+		whacAMoleWrapperComponentRef.setInput('updateSelfBefore', (componentInputs: Record<string, unknown> | undefined) => {
+			callback?.on?.update?.before?.(componentInputs);
+		});
+		whacAMoleWrapperComponentRef.setInput('updateSelfAfter', (componentInputs: Record<string, unknown> | undefined) => {
+			callback?.on?.update?.after?.(componentInputs);
+		});
 
-    if (button) {
-      whacAMoleWrapperComponentRef.setInput('button', button);
-    }
+		if (button) {
+			whacAMoleWrapperComponentRef.setInput('button', button);
+		}
 
-    whacAMoleWrapperComponentRef.instance.renderComponent(component, componentInputs);
-    this.whacAMoleProvider.componentRefMapById.set(selector, whacAMoleWrapperComponentRef);
-    if (!this.whacAMoleProvider.componentRefMapByComponentName.has(selector)) {
-      this.whacAMoleProvider.componentRefMapByComponentName.set(selector, []);
-    }
-    this.whacAMoleProvider.componentRefMapByComponentName.get(selector)?.push(whacAMoleWrapperComponentRef);
-    this.updateVisibility();
+		whacAMoleWrapperComponentRef.instance.renderComponent(component, componentInputs);
+		this.whacAMoleProvider.componentRefMapById.set(selector, whacAMoleWrapperComponentRef);
+		if (!this.whacAMoleProvider.componentRefMapByComponentName.has(selector)) {
+			this.whacAMoleProvider.componentRefMapByComponentName.set(selector, []);
+		}
+		this.whacAMoleProvider.componentRefMapByComponentName.get(selector)?.push(whacAMoleWrapperComponentRef);
+		this.updateVisibility();
 
-    return whacAMoleWrapperComponentRef;
-  }
+		return whacAMoleWrapperComponentRef;
+	}
 
-  public updatePushBoxComponent({ componentInputs, showLoading, component }: WhacAMoleBuildItArgsType) {
-    const componentMirror = reflectComponentType(component);
+	public updatePushBoxComponent({componentInputs, showLoading, component, callback}: WhacAMoleBuildItArgsType) {
+		const componentMirror = reflectComponentType(component);
 
-    if (!componentMirror) {
-      this.ngxLogger.error('WhacAMole.buildComponentAndRender', 'value of `component` property is not a component');
-      return;
-    }
+		if (!componentMirror) {
+			this.ngxLogger.error('WhacAMole.buildComponentAndRender', 'value of `component` property is not a component');
+			return;
+		}
 
-    const componentRef = this.whacAMoleProvider.componentRefMapById.get(componentMirror.selector);
-    if (!componentRef) {
+		const componentRef = this.whacAMoleProvider.componentRefMapById.get(componentMirror.selector);
+		if (!componentRef) {
 			this.ngxLogger.debug('WhacAMole.updatePushBoxComponent', 'Component does not exist');
-      return;
-    }
+			return;
+		}
 
-    const wasLoading = componentRef.instance.showLoading;
-    componentRef.setInput('showLoading', showLoading ?? false);
+		const wasLoading = componentRef.instance.showLoading;
+		componentRef.setInput('showLoading', showLoading ?? false);
 
-    // Render the component if it was loading and now it's not
-    if (wasLoading && !showLoading) {
-      componentRef.instance.renderComponent(component, componentInputs);
-    }
+		componentRef.instance.updateSelfBefore(componentInputs);
 
-    // Update the inputs if the component was not loading and still is not loading
-    if (!wasLoading && !showLoading && componentInputs) {
-      Object.entries(componentInputs).forEach(([key, value]) => {
-        componentRef.instance.renderedComponentRef?.setInput(key, value);
-      });
-    }
+		// Render the component if it was loading and now it's not
+		if (wasLoading && !showLoading) {
+			componentRef.instance.renderComponent(component, componentInputs);
+		}
 
-    this.updateVisibility();
+		// Update the inputs if the component was not loading and still is not loading
+		if (!wasLoading && !showLoading && componentInputs) {
+			Object.entries(componentInputs).forEach(([key, value]) => {
+				componentRef.instance.renderedComponentRef?.setInput(key, value);
+			});
+		}
 
-    return componentRef;
-  }
+		componentRef.instance.updateSelfAfter(componentInputs);
 
-  private get isHidden(): boolean {
-    return this.elementRef.nativeElement.classList.contains('hidden');
-  }
+		if (callback?.on?.update?.before) {
+			componentRef.setInput('updateSelfBefore', callback?.on?.update?.before);
+		}
 
-  private updateVisibility(hidden?: boolean): void {
-    const thereAreNoComponents = !this.whacAMoleProvider.componentRefMapById.size;
-    hidden = hidden ?? thereAreNoComponents;
-    this.elementRef.nativeElement.classList.toggle('tablet:hidden', hidden);
+		if (callback?.on?.update?.after) {
+			componentRef.setInput('updateSelfAfter', callback?.on?.update?.after);
+		}
+
+		componentRef.setInput('destroySelf', () => {
+			callback?.on?.destroy?.before?.();
+			this.destroyComponent(componentMirror.selector);
+			callback?.on?.destroy?.after?.();
+		});
+
+		this.updateVisibility();
+
+		return componentRef;
+	}
+
+	private get isHidden(): boolean {
+		return this.elementRef.nativeElement.classList.contains('hidden');
+	}
+
+	private updateVisibility(hidden?: boolean): void {
+		const thereAreNoComponents = !this.whacAMoleProvider.componentRefMapById.size;
+		hidden = hidden ?? thereAreNoComponents;
+		this.elementRef.nativeElement.classList.toggle('tablet:hidden', hidden);
 		this.elementRef.nativeElement.classList.toggle('not-tablet:!w-0', hidden);
 		this.elementRef.nativeElement.classList.toggle('not-tablet:animate-slideOut', hidden);
-    this.elementRef.nativeElement.classList.toggle('not-tablet:animate-slideIn', !hidden);
+		this.elementRef.nativeElement.classList.toggle('not-tablet:animate-slideIn', !hidden);
 		if (hidden) {
 			setTimeout(() => {
 				this.elementRef.nativeElement.classList.toggle('hidden', hidden);
@@ -214,6 +239,6 @@ export class WhacAMole extends Reactive implements OnInit {
 		} else {
 			this.elementRef.nativeElement.classList.toggle('hidden', hidden);
 		}
-    this.changeDetectorRef.detectChanges();
-  }
+		this.changeDetectorRef.detectChanges();
+	}
 }

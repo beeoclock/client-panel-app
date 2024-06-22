@@ -51,7 +51,7 @@ export class TableListComponent extends TableComponent<RIMember> {
 		columns: {
 			lastName: {
 				style: {
-					minWidth: '400px',
+					minWidth: '300px',
 					flexGrow: 1,
 				},
 			},
@@ -67,17 +67,17 @@ export class TableListComponent extends TableComponent<RIMember> {
 			},
 			assignmentsService: {
 				style: {
-					minWidth: '150px',
+					minWidth: '100px',
 				},
 			},
 			role: {
 				style: {
-					minWidth: '150px',
+					minWidth: '120px',
 				},
 			},
 			active: {
 				style: {
-					minWidth: '150px',
+					minWidth: '120px',
 				},
 			},
 			createdAt: {

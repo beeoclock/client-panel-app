@@ -73,4 +73,44 @@ export class DurationVersionHtmlHelper {
 		return result.join(' / ');
 	}
 
+	/**
+	 * V2
+	 */
+
+	public getDurationValueV2(item: IService): string {
+		const {durationVersions} = item;
+		const {0: fromDurationVersion} = durationVersions;
+		const durationFrom = this.humanizeDurationHelper.fromSeconds(
+			fromDurationVersion.durationInSeconds,
+		);
+		if (
+			this.durationHelper.durationIsRangeMode(item) &&
+			durationVersions.length > 1
+		) {
+			return `⌛ ${durationFrom}+`;
+		}
+		return `⌛ ${durationFrom}`;
+	}
+
+	public getPriceValueV2(item: IService): string {
+		const {durationVersions} = item;
+		const {0: fromDurationVersion} = durationVersions;
+		const priceForm = this.currencyPipe.transform(
+			fromDurationVersion.prices[0].price,
+			fromDurationVersion.prices[0].currency,
+			'symbol-narrow',
+			'1.0-2',
+		);
+		if (!priceForm) {
+			return '-';
+		}
+		if (
+			this.durationHelper.durationIsRangeMode(item) &&
+			durationVersions.length > 1
+		) {
+			return `💰 ${priceForm}+`;
+		}
+		return `💰 ${priceForm}`;
+	}
+
 }

@@ -52,13 +52,13 @@ export class TableListComponent extends TableComponent<ICustomer> {
 		columns: {
 			email: {
 				style: {
-					minWidth: '350px',
+					minWidth: '250px',
 					flexGrow: 1,
 				},
 			},
 			lastName: {
 				style: {
-					minWidth: '200px',
+					minWidth: '150px',
 				},
 			},
 			firstName: {
@@ -73,7 +73,7 @@ export class TableListComponent extends TableComponent<ICustomer> {
 			},
 			active: {
 				style: {
-					minWidth: '200px',
+					minWidth: '100px',
 				},
 			},
 			note: {
@@ -83,12 +83,12 @@ export class TableListComponent extends TableComponent<ICustomer> {
 			},
 			createdAt: {
 				style: {
-					minWidth: '250px',
+					minWidth: '200px',
 				},
 			},
 			updatedAt: {
 				style: {
-					minWidth: '250px',
+					minWidth: '200px',
 				},
 			},
 			action: {
