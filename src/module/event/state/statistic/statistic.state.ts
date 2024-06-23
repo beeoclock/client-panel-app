@@ -6,6 +6,7 @@ import {NGXLogger} from "ngx-logger";
 import {StatisticAction} from "@event/state/statistic/statistic.action";
 import {PagedOrderApiAdapter} from "@order/external/adapter/api/paged.order.api.adapter";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 
 export interface IStatisticState {
     params: {
@@ -13,6 +14,7 @@ export interface IStatisticState {
         end: string;
         page: number;
         pageSize: number;
+		statuses: OrderStatusEnum[];
         orderBy: OrderByEnum;
         orderDir: OrderDirEnum;
     };
@@ -26,6 +28,7 @@ export interface IStatisticState {
         params: {
             start: DateTime.now().startOf('day').toJSDate().toISOString(),
             end: DateTime.now().endOf('day').toJSDate().toISOString(),
+			statuses: [OrderStatusEnum.done],
             page: 1,
             pageSize: 1000,
             orderBy: OrderByEnum.CREATED_AT,
