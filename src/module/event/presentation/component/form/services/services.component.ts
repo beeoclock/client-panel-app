@@ -111,6 +111,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 								service.specialists = [{
 									object: 'SpecialistDto',
 									member,
+									wasSelectedAnybody: false,
 								}];
 							}
 						});
@@ -223,6 +224,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 					specialists: [{
 						object: 'SpecialistDto',
 						member,
+						wasSelectedAnybody: false,
 					}],
 				};
 			})

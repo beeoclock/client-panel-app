@@ -215,7 +215,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	public temporaryInformationAboutNewStartAndEnd: { start: string, end: string } | null = null;
 	public temporaryNewMember: RIMember | null = null;
-	public snapshottedOriginalPosition: { top: number, height: number } | null = null;
+	public snapshotOfOriginalPosition: { top: number, height: number } | null = null;
 	public previousData: {
 		member: RIMember | undefined;
 		htmlParent: HTMLElement | null | undefined;
@@ -300,6 +300,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 					this.item.originalData.service.orderAppointmentDetails.specialists = [{
 						object: 'SpecialistDto',
 						member: this.temporaryNewMember,
+						wasSelectedAnybody: false
 					}];
 				}
 
@@ -344,7 +345,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	private snapshotOriginalPosition() {
 
-		this.snapshottedOriginalPosition = {
+		this.snapshotOfOriginalPosition = {
 			top: this.elementRef.nativeElement.offsetTop,
 			height: this.elementRef.nativeElement.offsetHeight
 		};
@@ -368,11 +369,11 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	}
 
 	private restoreOriginalPosition() {
-		if (this.snapshottedOriginalPosition) {
-			this.elementRef.nativeElement.style.top = `${this.snapshottedOriginalPosition.top}px`;
-			this.elementRef.nativeElement.style.height = `${this.snapshottedOriginalPosition.height}px`;
+		if (this.snapshotOfOriginalPosition) {
+			this.elementRef.nativeElement.style.top = `${this.snapshotOfOriginalPosition.top}px`;
+			this.elementRef.nativeElement.style.height = `${this.snapshotOfOriginalPosition.height}px`;
 		}
-		this.snapshottedOriginalPosition = null;
+		this.snapshotOfOriginalPosition = null;
 
 		if (this.previousData) {
 

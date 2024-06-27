@@ -66,7 +66,8 @@ export class SpecialistServiceComponent {
 					...service,
 					specialists: [{
 						object: 'Specialist' as ISpecialist['object'],
-						member
+						member,
+						wasSelectedAnybody: false,
 					}],
 				};
 			}
