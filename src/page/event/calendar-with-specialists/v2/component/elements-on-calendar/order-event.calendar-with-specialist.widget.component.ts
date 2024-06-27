@@ -24,7 +24,7 @@ import {EventActions} from "@event/state/event/event.actions";
 				{{ event.start | date: 'HH:mm' }} - {{ event.end | date: 'HH:mm' }}
 			</div>
 			<div class="flex gap-1">
-				<i *ngIf="event.originalData?.service?.orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody ?? false" title="Anybody" class="bi bi-person"></i>
+				<i *ngIf="event.originalData?.service?.orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody ?? false" title="Specialist: Anybody" class="bi bi-person"></i>
 				<ng-container [ngSwitch]="event.originalData.service.status">
 					<i *ngSwitchCase="orderServiceStatusEnum.done" title="Done" class="bi bi-check2-all"></i>
 					<i *ngSwitchCase="orderServiceStatusEnum.cancelled" title="Cancelled" class="bi bi-x"></i>
