@@ -142,12 +142,12 @@ export class CalendarWithSpecialistsState {
 					end: absence.end,
 					note: absence.note,
 					entireBusiness: absence.entireBusiness,
-					attendees: absence.memberIds.map((attendee) => {
+					attendees: absence.members.map((attendee) => {
 						return {
 							isOrganizer: IsOrganizerEnum.NO,
 							is: 'specialist',
 							originalData: attendee,
-							_id: attendee
+							_id: attendee._id
 						} as IAttendee_V2;
 					}),
 					originalData: absence,

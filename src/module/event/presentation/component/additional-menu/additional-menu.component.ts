@@ -248,13 +248,13 @@ export class AdditionalMenuComponent implements OnInit {
 	public openAbsenceForm(differenceInMinutes: number = 15, useDatetimeISO: boolean = true) {
 
 		const item = {
-			memberIds: [] as string[],
+			members: [] as RIMember[],
 			start: DateTime.now().toJSDate().toISOString(),
 			end: DateTime.now().plus({minutes: differenceInMinutes}).toJSDate().toISOString(),
 		};
 
 		if (this.member) {
-			item.memberIds = [this.member._id];
+			item.members = [this.member];
 		}
 
 		if (useDatetimeISO && this.datetimeISO) {

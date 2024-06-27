@@ -305,7 +305,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 				}
 
 				if (this.isAbsence(this.item)) {
-					this.item.originalData.memberIds = [this.temporaryNewMember._id];
+					this.item.originalData.members = [this.temporaryNewMember];
 				}
 			}
 
@@ -359,9 +359,10 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		}
 
 		if (this.isAbsence(this.item)) {
+			const member = this.item.originalData.members[0];
 			this.previousData = {
-				member: undefined,
-				memberId: this.item.originalData.memberIds[0],
+				memberId: member._id,
+				member,
 				htmlParent: this.elementRef.nativeElement.parentElement
 			}
 		}
@@ -381,8 +382,8 @@ export class EventCalendarWithSpecialistWidgetComponent {
 				this.item.originalData.service.orderAppointmentDetails.specialists[0].member = this.previousData.member;
 			}
 
-			if (this.isAbsence(this.item) && this.previousData.memberId) {
-				this.item.originalData.memberIds = [this.previousData.memberId];
+			if (this.isAbsence(this.item) && this.previousData.member) {
+				this.item.originalData.members = [this.previousData.member];
 			}
 
 			if (this.previousData.htmlParent) {

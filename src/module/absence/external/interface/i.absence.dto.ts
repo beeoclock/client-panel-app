@@ -1,5 +1,6 @@
 import {ActiveEnum} from "@utility/domain/enum";
 import {AbsenceTypeEnum} from "@module/absence/domain/enums/absence.type.enum";
+import {RIMember} from "@member/domain";
 
 export interface IAbsenceDto {
 	object: 'AbsenceDto';
@@ -10,7 +11,7 @@ export interface IAbsenceDto {
 	end: string;
 	type: AbsenceTypeEnum;
 	entireBusiness: boolean;
-	memberIds: string[];
+	members: RIMember[];
 	// locations?: LocationDto[]; // TODO
 	timeZone: string;
 	// meta?: MetaDto;
