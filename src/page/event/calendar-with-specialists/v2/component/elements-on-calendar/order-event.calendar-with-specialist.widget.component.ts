@@ -24,14 +24,14 @@ import {EventActions} from "@event/state/event/event.actions";
 				{{ event.start | date: 'HH:mm' }} - {{ event.end | date: 'HH:mm' }}
 			</div>
 			<div class="flex gap-1">
-				<i *ngIf="event.originalData?.service?.orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody ?? false" class="bi bi-person"></i>
+				<i *ngIf="event.originalData?.service?.orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody ?? false" title="Anybody" class="bi bi-person"></i>
 				<ng-container [ngSwitch]="event.originalData.service.status">
-					<i *ngSwitchCase="orderServiceStatusEnum.done" class="bi bi-check2-all"></i>
-					<i *ngSwitchCase="orderServiceStatusEnum.cancelled" class="bi bi-x"></i>
-					<i *ngSwitchCase="orderServiceStatusEnum.rejected" class="bi bi-x"></i>
-					<i *ngSwitchCase="orderServiceStatusEnum.accepted" class="bi bi-check2"></i>
-					<i *ngSwitchCase="orderServiceStatusEnum.inProgress" class="bi bi-hourglass-split"></i>
-					<i *ngSwitchCase="orderServiceStatusEnum.requested" class="bi bi-exclamation"></i>
+					<i *ngSwitchCase="orderServiceStatusEnum.done" title="Done" class="bi bi-check2-all"></i>
+					<i *ngSwitchCase="orderServiceStatusEnum.cancelled" title="Cancelled" class="bi bi-x"></i>
+					<i *ngSwitchCase="orderServiceStatusEnum.rejected" title="Rejected" class="bi bi-x"></i>
+					<i *ngSwitchCase="orderServiceStatusEnum.accepted" title="Accepted" class="bi bi-check2"></i>
+					<i *ngSwitchCase="orderServiceStatusEnum.inProgress" title="In progress" class="bi bi-hourglass-split"></i>
+					<i *ngSwitchCase="orderServiceStatusEnum.requested" title="Requested" class="bi bi-exclamation"></i>
 				</ng-container>
 			</div>
 		</div>
