@@ -14,6 +14,7 @@ import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.p
 import {Reactive} from "@utility/cdk/reactive";
 import {NgIf} from "@angular/common";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
+import {RIMember} from "@member/domain";
 
 @Component({
     selector: 'app-members-absence-form-container',
@@ -33,7 +34,7 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
     standalone: true,
     template: `
         <button *ngIf="visibleState.isTrue" class="border hover:border-blue-700 cursor-pointer flex hover:bg-blue-500 hover:text-white bg-gray-50 justify-between px-3 py-2 rounded-lg transition-all w-full" type="button" (click)="openModalToSelectMember()">
-            <span>{{ 'keyword.capitalize.members' | translate }}: {{ memberIds.value.length }}</span>
+            <span>{{ 'keyword.capitalize.members' | translate }}: {{ members.value.length }}</span>
             <span class="">
                 <i class="bi bi-chevron-right"></i>
             </span>
@@ -46,7 +47,7 @@ export class MembersAbsenceFormContainerComponent extends Reactive implements On
     public entireBusiness!: FormControl<boolean>;
 
     @Input()
-    public memberIds!: FormControl<string[]>;
+    public members!: FormControl<RIMember[]>;
 
     private readonly translateService = inject(TranslateService);
     private readonly whacAMaleProvider = inject(WhacAMoleProvider);
@@ -78,7 +79,7 @@ export class MembersAbsenceFormContainerComponent extends Reactive implements On
             title,
             component: SelectMemberPushBoxComponent,
             componentInputs: {
-                selectedMemberList: this.memberIds.value.map((_id) => ({_id}))
+                selectedMemberList: this.members.value
             },
             button: {
                 close: {
@@ -103,8 +104,7 @@ export class MembersAbsenceFormContainerComponent extends Reactive implements On
             if (instance instanceof SelectMemberPushBoxComponent) {
                 instance.selectedMembersListener.pipe(this.takeUntil()).subscribe(() => {
                     const {newSelectedMemberList} = instance;
-                    const memberIds = newSelectedMemberList.map(({_id}) => _id);
-                    this.memberIds.patchValue(memberIds);
+                    this.members.patchValue(newSelectedMemberList);
                     this.changeDetectorRef.detectChanges();
                 });
             }

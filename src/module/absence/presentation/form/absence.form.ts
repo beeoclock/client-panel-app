@@ -3,6 +3,7 @@ import {ActiveEnum} from "@utility/domain/enum";
 import {BaseEntityForm} from "@utility/base.form";
 import {AbsenceTypeEnum} from "@absence/domain/enums/absence.type.enum";
 import {DateTime} from "luxon";
+import {RIMember} from "@member/domain";
 
 export interface IAbsenceForm {
 
@@ -13,7 +14,7 @@ export interface IAbsenceForm {
 	active: FormControl<ActiveEnum>;
 	type: FormControl<AbsenceTypeEnum>;
 	entireBusiness: FormControl<boolean>;
-	memberIds: FormControl<string[]>;
+	members: FormControl<RIMember[]>;
 
 }
 
@@ -41,7 +42,7 @@ export class AbsenceForm extends BaseEntityForm<'AbsenceDto', IAbsenceForm> {
 				nonNullable: true,
 			}),
 
-			memberIds: new FormControl([], {
+			members: new FormControl([], {
 				nonNullable: true,
 			}),
 

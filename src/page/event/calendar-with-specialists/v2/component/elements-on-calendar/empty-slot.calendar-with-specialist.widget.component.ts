@@ -114,10 +114,9 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 									datetimeISO: datetimeISOComponent,
 									member: memberComponent
 								} = componentInputs as { datetimeISO: string; member: RIMember };
-								this.ngxLogger.debug('Callback:update:before:datetimeISOComponent', datetimeISOComponent);
-								this.ngxLogger.debug('Callback:update:before:memberComponent', memberComponent);
-								console.log(datetimeISOComponent !== datetimeISO || memberComponent?._id !== this.member._id)
-								console.log(datetimeISOComponent, datetimeISO, memberComponent?._id, this.member._id)
+
+								this.ngxLogger.debug('Callback:update:before', {datetimeISOComponent, memberComponent});
+
 								if (datetimeISOComponent !== datetimeISO || memberComponent?._id !== this.member._id) {
 									this.showSelectedSquare(false);
 								}

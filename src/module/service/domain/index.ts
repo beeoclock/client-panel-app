@@ -6,7 +6,8 @@ export const Service = {
 	memberToSpecialist: (member: RIMember): ISpecialist => {
 		return {
 			object: 'SpecialistDto',
-			member: member
+			member: member,
+			wasSelectedAnybody: false,
 		};
 	}
 }

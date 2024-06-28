@@ -83,7 +83,7 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 
 				<app-members-absence-form-container
 					[entireBusiness]="form.controls.entireBusiness"
-					[memberIds]="form.controls.memberIds"/>
+					[members]="form.controls.members"/>
 
 			</bee-card>
 			<utility-button-save-container-component class="bottom-0">

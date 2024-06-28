@@ -215,7 +215,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	public temporaryInformationAboutNewStartAndEnd: { start: string, end: string } | null = null;
 	public temporaryNewMember: RIMember | null = null;
-	public snapshottedOriginalPosition: { top: number, height: number } | null = null;
+	public snapshotOfOriginalPosition: { top: number, height: number } | null = null;
 	public previousData: {
 		member: RIMember | undefined;
 		htmlParent: HTMLElement | null | undefined;
@@ -300,11 +300,12 @@ export class EventCalendarWithSpecialistWidgetComponent {
 					this.item.originalData.service.orderAppointmentDetails.specialists = [{
 						object: 'SpecialistDto',
 						member: this.temporaryNewMember,
+						wasSelectedAnybody: false
 					}];
 				}
 
 				if (this.isAbsence(this.item)) {
-					this.item.originalData.memberIds = [this.temporaryNewMember._id];
+					this.item.originalData.members = [this.temporaryNewMember];
 				}
 			}
 
@@ -344,7 +345,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	private snapshotOriginalPosition() {
 
-		this.snapshottedOriginalPosition = {
+		this.snapshotOfOriginalPosition = {
 			top: this.elementRef.nativeElement.offsetTop,
 			height: this.elementRef.nativeElement.offsetHeight
 		};
@@ -358,9 +359,10 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		}
 
 		if (this.isAbsence(this.item)) {
+			const member = this.item.originalData.members[0];
 			this.previousData = {
-				member: undefined,
-				memberId: this.item.originalData.memberIds[0],
+				memberId: member._id,
+				member,
 				htmlParent: this.elementRef.nativeElement.parentElement
 			}
 		}
@@ -368,11 +370,11 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	}
 
 	private restoreOriginalPosition() {
-		if (this.snapshottedOriginalPosition) {
-			this.elementRef.nativeElement.style.top = `${this.snapshottedOriginalPosition.top}px`;
-			this.elementRef.nativeElement.style.height = `${this.snapshottedOriginalPosition.height}px`;
+		if (this.snapshotOfOriginalPosition) {
+			this.elementRef.nativeElement.style.top = `${this.snapshotOfOriginalPosition.top}px`;
+			this.elementRef.nativeElement.style.height = `${this.snapshotOfOriginalPosition.height}px`;
 		}
-		this.snapshottedOriginalPosition = null;
+		this.snapshotOfOriginalPosition = null;
 
 		if (this.previousData) {
 
@@ -380,8 +382,8 @@ export class EventCalendarWithSpecialistWidgetComponent {
 				this.item.originalData.service.orderAppointmentDetails.specialists[0].member = this.previousData.member;
 			}
 
-			if (this.isAbsence(this.item) && this.previousData.memberId) {
-				this.item.originalData.memberIds = [this.previousData.memberId];
+			if (this.isAbsence(this.item) && this.previousData.member) {
+				this.item.originalData.members = [this.previousData.member];
 			}
 
 			if (this.previousData.htmlParent) {
