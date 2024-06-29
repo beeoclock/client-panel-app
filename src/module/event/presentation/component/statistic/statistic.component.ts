@@ -222,28 +222,28 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 			switch (datetimePeriod) {
 				case DatetimePeriodEnum.YESTERDAY:
 					this.start = this.start.minus({days: 1});
-					this.end = this.end.minus({days: 1});
+					this.end = this.end.startOf('day');
 					break;
 				case DatetimePeriodEnum.THIS_WEEK:
 					this.start = this.start.startOf('week');
 					break;
 				case DatetimePeriodEnum.LAST_WEEK:
 					this.start = this.start.startOf('week').minus({weeks: 1});
-					this.end = this.end.startOf('week').minus({days: 1});
+					this.end = this.end.startOf('week');
 					break;
 				case DatetimePeriodEnum.THIS_MONTH:
 					this.start = this.start.startOf('month');
 					break;
 				case DatetimePeriodEnum.LAST_MONTH:
 					this.start = this.start.startOf('month').minus({months: 1});
-					this.end = this.end.startOf('month').minus({days: 1});
+					this.end = this.end.startOf('month');
 					break;
 				case DatetimePeriodEnum.THIS_YEAR:
 					this.start = this.start.startOf('year');
 					break;
 				case DatetimePeriodEnum.LAST_YEAR:
 					this.start = this.start.startOf('year').minus({years: 1});
-					this.end = this.end.startOf('year').minus({days: 1});
+					this.end = this.end.startOf('year');
 					break;
 			}
 			this.initPeriodTitle();
