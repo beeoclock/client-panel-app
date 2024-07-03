@@ -9,24 +9,25 @@ import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {Store} from "@ngxs/store";
 import {ClientState} from "@client/state/client/client.state";
-import {map, tap} from "rxjs";
+import {filter, map} from "rxjs";
 import {AsyncPipe} from "@angular/common";
+import {is} from "thiis";
 
 @Component({
-  selector: 'price-and-currency-component',
-  standalone: true,
-  template: `
-    <label default [for]="prefix + 'price'">{{ label }}</label>
-    <div class="flex">
-      <input
-        [id]="prefix + 'price'"
-        [formControl]="priceControl"
-        mask="separator.2"
-        type="text"
-        hasError
-        invalidTooltip
-        [placeholder]="'keyword.capitalize.writePrice' | translate"
-        class="
+	selector: 'price-and-currency-component',
+	standalone: true,
+	template: `
+		<label default [for]="prefix + 'price'">{{ label }}</label>
+		<div class="flex">
+			<input
+				[id]="prefix + 'price'"
+				[formControl]="priceControl"
+				mask="separator.2"
+				type="text"
+				hasError
+				invalidTooltip
+				[placeholder]="'keyword.capitalize.writePrice' | translate"
+				class="
           rounded-none
           rounded-l
           border
@@ -48,8 +49,8 @@ import {AsyncPipe} from "@angular/common";
           dark:text-white
           dark:focus:ring-blue-500
           dark:focus:border-blue-500">
-      <span
-        class="
+			<span
+				class="
           inline-flex
           items-center
           text-sm
@@ -64,19 +65,19 @@ import {AsyncPipe} from "@angular/common";
           dark:text-beeDarkColor-400
           dark:border-beeDarkColor-600">
           <ng-select
-            style="width: 100px"
-            class="border-0"
-            bindLabel="name"
-            bindValue="id"
-            [items]="currencyList$ | async"
-            [clearable]="false"
-            [id]="prefix + 'currency'"
-            [formControl]="currencyControl">
+			  style="width: 100px"
+			  class="border-0"
+			  bindLabel="name"
+			  bindValue="id"
+			  [items]="currencyList$ | async"
+			  [clearable]="false"
+			  [id]="prefix + 'currency'"
+			  [formControl]="currencyControl">
           </ng-select>
         </span>
-    </div>
-  `,
-  encapsulation: ViewEncapsulation.None,
+		</div>
+	`,
+	encapsulation: ViewEncapsulation.None,
 	imports: [
 		NgSelectModule,
 		ReactiveFormsModule,
@@ -87,34 +88,49 @@ import {AsyncPipe} from "@angular/common";
 		DefaultLabelDirective,
 		AsyncPipe
 	],
-  changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PriceAndCurrencyComponent {
 
-  @Input()
-  public prefix = '';
+	@Input()
+	public prefix = '';
 
-  @Input()
-  public label = '';
+	@Input()
+	public label = '';
 
-  @Input()
-  public currencyControl = new FormControl();
+	@Input()
+	public currencyControl = new FormControl();
 
-  @Input()
-  public priceControl = new FormControl();
+	@Input()
+	public priceControl = new FormControl();
 
-  public readonly translateService = inject(TranslateService);
-  private readonly store = inject(Store);
+	public readonly translateService = inject(TranslateService);
+	private readonly store = inject(Store);
 
-	public readonly currencyList$ = this.store.select(ClientState.currencies).pipe(
-		map((currencies) => {
-			if (!currencies) {
-				return Object.values(CurrencyCodeEnum);
-			}
-			return currencies;
-		}),
-		tap((currencies) => {
+	// public readonly currencyList$ = this.store.select(ClientState.currencies).pipe(
+	// 	map((currencies) => {
+	// 		if (!currencies) {
+	// 			return Object.values(CurrencyCodeEnum);
+	// 		}
+	// 		return currencies;
+	// 	}),
+	// 	tap((currencies) => {
+	// 		this.updateValue(currencies);
+	// 	}),
+	// 	map((currencies) => {
+	// 		return currencies.map((currency) => ({
+	// 			id: currency,
+	// 			name: currency
+	// 		}));
+	// 	}),
+	// );
+
+	public readonly currencyList$ = this.store.select(ClientState.baseCurrency).pipe(
+		filter(is.not_undefined<CurrencyCodeEnum>),
+		map((currency) => {
+			const currencies = [currency];
 			this.updateValue(currencies);
+			return currencies;
 		}),
 		map((currencies) => {
 			return currencies.map((currency) => ({
@@ -124,10 +140,10 @@ export class PriceAndCurrencyComponent {
 		}),
 	);
 
-  private updateValue(currencies: CurrencyCodeEnum[]): void {
+	private updateValue(currencies: CurrencyCodeEnum[]): void {
 		if (!this.currencyControl.value) {
 			this.currencyControl.setValue(currencies[0]);
 		}
-  }
+	}
 
 }
