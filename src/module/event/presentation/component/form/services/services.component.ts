@@ -88,17 +88,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 	public ngOnInit(): void {
 
-		// this.serviceListControl.valueChanges.subscribe((value) => {
-		//
-		//   this.modalSelectServiceService.selectedServiceList = value;
-		//
-		// });
-
-		this.initServices().then(() => {
-
-			// this.modalSelectServiceService.selectedServiceList = this.serviceListControl.value;
-
-		});
+		this.initServices().then();
 
 		if (this.rememberLastSelectedMember) {
 			this.serviceListControl.valueChanges.pipe(this.takeUntil()).subscribe((value) => {
@@ -206,17 +196,29 @@ export class ServicesComponent extends Reactive implements OnInit {
 		return this.durationVersionTypeRangeComponentList.toArray().every((component) => component.checkIfSelectedVariantIsValid());
 	}
 
-	private setMember(newSelectedServiceList: IService[]) {
-
+	/**
+	 * Updates the list of services by setting a member to each service's specialists array if not already set.
+	 * This method is designed to ensure that each service in the provided list has an associated member.
+	 * It operates under the condition that if `setMemberOnlyOnce` is true, a member will only be set once
+	 * across all service updates to prevent overriding existing member assignments.
+	 *
+	 * @param {IService[]} newSelectedServiceList - The list of services to update with a member.
+	 * @returns {IService[]} The updated list of services with a member set for each service's specialists.
+	 */
+	private setMember(newSelectedServiceList: IService[]): IService[] {
+		// Check if a member is available to be set
 		if (this.member) {
-
+			// If setMemberOnlyOnce is true, check if a member has already been set
 			if (this.setMemberOnlyOnce) {
+				// If a member has been set, return the list without making changes
 				if (this.memberHasBeenSet.isOn) {
 					return newSelectedServiceList;
 				}
+				// Mark that a member has been set to prevent future updates
 				this.memberHasBeenSet.switchOn();
 			}
 
+			// Assign the member to each service's specialists array
 			const member = this.member;
 			newSelectedServiceList = newSelectedServiceList.map((service) => {
 				return {
@@ -230,7 +232,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 			})
 		}
 
+		// Return the updated list of services
 		return newSelectedServiceList;
-
 	}
 }
