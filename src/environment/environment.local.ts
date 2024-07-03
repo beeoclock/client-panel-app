@@ -11,8 +11,8 @@ export const environment = {
 	proxy: false,
 	setDefaultValueToInputs: false,
 	apiUrls: {
-		panel: 'local.panel',
-		identity: 'local.identity',
+		panel: 'http://localhost:3000',
+		identity: 'http://localhost:4000',
 	},
 	endpoint: {
 		config: {

@@ -51,6 +51,22 @@ bootstrapApplication(MainRouterOutlet, {
 		...tokens,
 		NgEventBus,
 		provideEnvironmentNgxMask(),
+		provideFirebaseApp(() =>
+			initializeApp(environment.firebase.options)
+		),
+		provideAnalytics(() => getAnalytics()),
+		provideMessaging(() => getMessaging()),
+		provideAuth(() => {
+			const auth = getAuth();
+			auth.setPersistence(browserLocalPersistence)
+				.catch((error) => {
+					console.error(error);
+				});
+			if (environment.firebase.emulator.all || environment.firebase.emulator.authorization) {
+				connectAuthEmulator(auth, 'http://localhost:9099');
+			}
+			return auth;
+		}),
 		importProvidersFrom(
 			HammerModule,
 			LoggerModule.forRoot({
@@ -62,22 +78,6 @@ bootstrapApplication(MainRouterOutlet, {
 				mode: 'ios',
 				animated: false,
 				rippleEffect: false
-			}),
-			provideFirebaseApp(() =>
-				initializeApp(environment.firebase.options)
-			),
-			provideAnalytics(() => getAnalytics()),
-			provideMessaging(() => getMessaging()),
-			provideAuth(() => {
-				const auth = getAuth();
-				auth.setPersistence(browserLocalPersistence)
-					.catch((error) => {
-						console.error(error);
-					});
-				if (environment.firebase.emulator.all || environment.firebase.emulator.authorization) {
-					connectAuthEmulator(auth, 'http://localhost:9099');
-				}
-				return auth;
 			}),
 			TranslateModule.forRoot({
 				useDefaultLang: true,

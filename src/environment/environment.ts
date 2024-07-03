@@ -11,8 +11,8 @@ export const environment = {
 	proxy: false,
 	setDefaultValueToInputs: false,
 	apiUrls: {
-		panel: 'api.panel',
-		identity: 'api.identity',
+		panel: 'https://api.dev.beeoclock.com/panel',
+		identity: 'https://api.dev.beeoclock.com/identity',
 	},
 	endpoint: {
 		config: {
