@@ -13,9 +13,6 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {DetailsBlockComponent} from "@service/presentation/component/form/v2/details/details-block.component";
 import {PricesBlockComponent} from "@service/presentation/component/form/v2/prices/prices-block.component";
-import {
-	SpecialistsBlockComponent
-} from "@service/presentation/component/form/v2/specialists/specialists-block.component";
 import {ServiceForm} from "@service/presentation/form/service.form";
 import {firstValueFrom} from "rxjs";
 import {ServiceActions} from "@service/state/service/service.actions";
@@ -54,7 +51,6 @@ import {
 		TranslateModule,
 		DetailsBlockComponent,
 		PricesBlockComponent,
-		SpecialistsBlockComponent,
 		SwitchActiveBlockComponent,
 		PrimaryButtonDirective,
 		AsyncPipe,

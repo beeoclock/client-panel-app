@@ -1,21 +1,18 @@
 import {inject, Injectable} from '@angular/core';
 import {
-  ModalButtonInterface,
-  ModalButtonRoleEnum,
-  ModalComponent
+	ModalButtonInterface,
+	ModalButtonRoleEnum,
+	ModalComponent
 } from "@utility/presentation/component/modal/modal.component";
 import {ModalService} from "@utility/presentation/component/modal/modal.service";
 import {TranslateService} from "@ngx-translate/core";
-import {
-  ModalSelectSpecialistComponent
-} from "@utility/presentation/component/modal-select-specialist/modal-select-specialist.component";
 import {Reactive} from "@utility/cdk/reactive";
 import {Auth} from "@angular/fire/auth";
 import {Store} from "@ngxs/store";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {ChangePhoneNumberForm} from "@client/presentation/form/change-phone-number.form";
 import {
-  ChangePhoneNumberComponent
+	ChangePhoneNumberComponent
 } from "@client/presentation/component/settings/change-phone-number/change-phone-number.component";
 
 @Injectable({
@@ -79,7 +76,7 @@ export class ModalChangePhoneNumberService extends Reactive {
       role: ModalButtonRoleEnum.accept,
       enabledDebounceClick: true,
       callback: (modal: ModalComponent) => {
-        const component = modal.componentChildRefList[0].instance as unknown as ModalSelectSpecialistComponent;
+        const component = modal.componentChildRefList[0].instance;
         component.submit().then(() => {
           this.store.dispatch(new IdentityActions.InitToken());
           modal.closeModal();
