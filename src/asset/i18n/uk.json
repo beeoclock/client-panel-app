@@ -1152,6 +1152,11 @@
 			}
 		},
 		"form": {
+			"input": {
+				"businessNote": {
+					"placeholder": "Тут можеш додати примітку яка не буде доступна клієнту"
+				}
+			},
 			"payment": {
 				"payer": {
 					"case": {

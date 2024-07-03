@@ -1151,6 +1151,11 @@
 			}
 		},
 		"form": {
+			"input": {
+				"businessNote": {
+					"placeholder": "W tym miejscu można dodać notatkę, która nie będzie dostępna dla klienta"
+				}
+			},
 			"payment": {
 				"payer": {
 					"case": {

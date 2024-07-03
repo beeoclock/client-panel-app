@@ -101,8 +101,8 @@ import {
 			<bee-card>
 				<form-textarea-component
 					id="order-business-note"
-					[label]="'keyword.capitalize.note' | translate"
-					[placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
+					[label]="'keyword.capitalize.businessNote' | translate"
+					[placeholder]="'order.form.input.businessNote.placeholder' | translate"
 					[control]="form.controls.order.controls.businessNote"/>
 			</bee-card>
 
@@ -129,6 +129,13 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	public readonly orderDto = input<Partial<IOrderDto>>({});
 	public readonly paymentDto = input<Partial<IPaymentDto>>({});
 	public readonly isEditMode = input<boolean>(false);
+	public readonly firstStepOnInit  = input<{
+		openServiceForm: boolean;
+		serviceFormWasOpened: boolean;
+	}>({
+		openServiceForm: true,
+		serviceFormWasOpened: false
+	});
 
 	// TODO: add input of callback and call it on save
 

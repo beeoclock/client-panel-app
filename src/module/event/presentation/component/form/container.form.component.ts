@@ -23,14 +23,13 @@ import {
 } from "@event/presentation/component/form/select-time-slot/index/select-time-slot.component";
 import {ServicesComponent} from "@event/presentation/component/form/services/services.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {Select, Store} from "@ngxs/store";
+import {Store} from "@ngxs/store";
 import {Router} from "@angular/router";
 import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
 import {NGXLogger} from "ngx-logger";
 import {EventForm} from "@event/presentation/form/event.form";
-import {BooleanState} from "@utility/domain";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
-import {combineLatest, filter, map, Observable, tap} from "rxjs";
+import {combineLatest, filter, map, tap} from "rxjs";
 import {IEvent, MEvent, RMIEvent} from "@event/domain";
 import {ClientState} from "@client/state/client/client.state";
 import {RIClient} from "@client/domain";
@@ -85,9 +84,6 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 	public isEditMode = false;
 
 	@Input()
-	public useDefaultFlow = true;
-
-	@Input()
 	public backButtonComponent!: BackButtonComponent;
 
 	@Input()
@@ -106,16 +102,15 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 
 	public readonly form = new EventForm();
 
-	public readonly preview = new BooleanState(false);
-
 	public specialist = '';
 	public eventDurationInSeconds = 0;
 
 	@ViewChildren(ServicesComponent)
 	public servicesComponent!: QueryList<ServicesComponent>;
 
-	@Select(ClientState.item)
-	public client$!: Observable<RIClient>;
+	public readonly client$ = this.store.select(ClientState.item).pipe(
+		filter(is.not_undefined<RIClient>),
+	);
 
 	public get value(): RMIEvent {
 		return MEvent.create(this.form.getRawValue() as unknown as IEvent);
@@ -174,24 +169,6 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 
 	}
 
-	// public ngAfterContentInit(): void {
-
-		// this.activatedRoute.data.pipe(
-		// 	this.takeUntil(),
-		// ).subscribe((data) => {
-		// 	// {cacheLoaded: boolean; customer: undefined | ICustomer; service: undefined | IService;}
-		// 	const {customer, service} = data;
-		// 	if (customer) {
-		// 		this.form.controls.attendees.controls[0].controls.customer.patchValue(customer);
-		// 		this.form.controls.attendees.controls[0].disable();
-		// 	}
-		// 	if (service) {
-		// 		this.form.controls.services.patchValue([service]);
-		// 	}
-		// });
-
-	// }
-
 	private getEventDurationInSeconds(service: IService): number {
 		try {
 			// Find the biggest duration version
@@ -216,32 +193,6 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 		this.eventDurationInSeconds = this.getEventDurationInSeconds(service);
 		return this;
 	}
-
-	// private takeSpecialistFromService(service: IServiceDto): string {
-	//
-	// 	const [firstSpecialist] = service?. ?? [];
-	//
-	// 	if (!firstSpecialist) {
-	// 		return '';
-	// 	}
-	//
-	// 	const {member} = firstSpecialist;
-	//
-	// 	if (is.string(member)) {
-	// 		return member;
-	// 	}
-	//
-	// 	return member?._id ?? '';
-	//
-	// }
-
-	// private setSpecialist(service: IServiceDto): this {
-	//
-	// 	this.specialist = this.takeSpecialistFromService(service);
-	//
-	// 	return this;
-	//
-	// }
 
 	public detectItem(): void {
 
@@ -284,20 +235,6 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 			// Trim note field
 			value.note = value.note?.trim();
 
-			if (this.useDefaultFlow) {
-
-				if (this.isEditMode) {
-
-					// await firstValueFrom(this.store.dispatch(new EventActions.UpdateItem(value)));
-
-				} else {
-
-					// await firstValueFrom(this.store.dispatch(new EventActions.CreateItem(value)));
-
-				}
-
-			}
-
 			// TODO check if customers/attends is exist in db (just check if selected customer has _id field if exist is in db if not then need to make request to create the new customer)
 
 			this.callback?.(this, value);
@@ -308,48 +245,11 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 		}
 	}
 
-	public goToPreview(): void {
-
-		if (!this.checkIfServicesAreValid()) {
-			this.logger.debug('Services are not valid');
-			return;
-		}
-
-		this.logger.debug('Services are valid');
-
-		this.form.updateValueAndValidity();
-		this.form.markAllAsTouched();
-		this.logger.debug(`Event:goToPreview:${this.form.status}`, this.form, this.form.getRawValue());
-		if (this.form.valid) {
-			this.preview.switchOn();
-		}
-	}
-
-	private checkIfServicesAreValid(): boolean {
-		return this.servicesComponent.toArray().every((serviceComponent) => {
-			return serviceComponent.checkValidationOfDurationVersionTypeRangeComponentList();
-		});
-	}
-
 	public fillForm(result: IOrderServiceDto | undefined | null): void {
 		if (result?._id) {
 
 			// Fill forceStart
 			this.forceStart = result.orderAppointmentDetails.start;
-
-			// const dataFromRoute: {
-			// 	cacheLoaded: boolean;
-			// 	repeat: boolean;
-			// 	item: never; // This is all ngnx store
-			// } = this.activatedRoute.snapshot.data as never;
-
-			// if (dataFromRoute?.repeat) {
-			//
-			// 	const {status, _id, ...initialValue} = rest;
-			//
-			// 	this.form.patchValue(structuredClone(initialValue));
-			//
-			// } else {
 
 			const {orderAppointmentDetails: {attendees}} = result;
 
@@ -377,8 +277,6 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 				timeZone: result.orderAppointmentDetails.timeZone,
 
 			});
-
-			// }
 
 			if (attendees?.length) {
 

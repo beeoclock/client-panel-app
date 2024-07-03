@@ -1151,6 +1151,11 @@
 			}
 		},
 		"form": {
+			"input": {
+				"businessNote": {
+					"placeholder": "Her kan du tilføje en note, som ikke vil være tilgængelig for klienten."
+				}
+			},
 			"payment": {
 				"payer": {
 					"case": {
