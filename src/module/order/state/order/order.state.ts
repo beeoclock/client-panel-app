@@ -169,12 +169,10 @@ export class OrderState extends BaseState<IOrderDto> {
 
 		const componentInputs: {
 			orderServiceDto: Partial<IOrderServiceDto>;
-			useDefaultFlow: boolean;
 			isEditMode: boolean;
 			forceStart?: string;
 		} = {
 			isEditMode: isEditMode ?? false,
-			useDefaultFlow: false,
 			orderServiceDto: item ?? {},
 		};
 
