@@ -19,6 +19,7 @@ export interface IBusinessSettings {
 	currencies?: CurrencyCodeEnum[];
 	availableLanguages: LanguageCodeEnum[];
 	emailLanguage: LanguageCodeEnum;
+	baseLanguage: LanguageCodeEnum;
 	createdAt?: string;
 	updatedAt?: string;
 }

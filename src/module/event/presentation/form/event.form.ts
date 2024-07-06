@@ -2,12 +2,14 @@ import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/form
 import {IService} from "@service/domain";
 import {AttendeesForm} from "@event/presentation/form/attendant.form";
 import {EventConfigurationForm} from "@event/presentation/form/configuration.form";
+import {LanguageCodeEnum} from "@utility/domain/enum";
 
 
 export interface IEventForm {
 	_id: FormControl<string>;
 	servicesAreProvidedInParallel: FormControl<boolean>;
 	services: FormControl<IService[]>;
+	language: FormControl<LanguageCodeEnum>;
 	note: FormControl<string>;
 	start: FormControl<string>;
 	end: FormControl<string>;
@@ -30,6 +32,7 @@ export class EventForm extends FormGroup<IEventForm> {
 				nonNullable: true,
 			}),
 			services: new FormControl(),
+			language: new FormControl(),
 			timeZone: new FormControl(Intl.DateTimeFormat().resolvedOptions().timeZone, {
 				nonNullable: true,
 			}),

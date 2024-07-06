@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
 import {FormControl} from "@angular/forms";
 import {IService} from "@service/domain";
-import {NgClass, NgForOf} from "@angular/common";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {LanguageNamePipe} from "@utility/presentation/pipes/language-name/language-name.pipe";
 import {LanguageCodeEnum} from "@utility/domain/enum";
 
@@ -13,7 +13,8 @@ import {LanguageCodeEnum} from "@utility/domain/enum";
 	imports: [
 		NgForOf,
 		NgClass,
-		LanguageNamePipe
+		LanguageNamePipe,
+		NgIf
 	],
 	template: `
 
@@ -30,12 +31,12 @@ import {LanguageCodeEnum} from "@utility/domain/enum";
 			</ng-container>
 		</div>
 
-		<div class="flex-1 flex flex-col gap-2">
+		<div *ngIf="languageVersion" class="flex-1 flex flex-col gap-2">
 			<div class="font-bold line-clamp-2">
-				{{ service.languageVersions[0].title }}
+				{{ languageVersion.title }}
 			</div>
 			<div class="text-beeColor-500 line-clamp-2 hidden md:block">
-				{{ service.languageVersions[0].description }}
+				{{ languageVersion.description }}
 			</div>
 		</div>
 
@@ -47,41 +48,31 @@ export class LanguageVersionOrderControlComponent {
 	public serviceListControl!: FormControl<IService[]>;
 
 	@Input({required: true})
+	public languageControl: FormControl<LanguageCodeEnum> = new FormControl();
+
+	@Input({required: true})
 	public index!: number;
 
 	@Input({required: true})
 	public service!: IService;
 
+	@HostBinding()
+	public class = 'flex flex-col gap-4'
+
 	public get languageCodes(): LanguageCodeEnum[] {
 		return this.service.languageVersions.map(({language}) => language);
 	}
 
-	public isSelected(languageCode: string): boolean {
-		return this.serviceListControl.value[this.index].languageVersions.some(({language}) => language === languageCode);
+	public get languageVersion() {
+		return this.service.languageVersions.find(({language}) => language === this.languageControl.value);
 	}
 
-	public setLanguageCode(languageCode: string): void {
-		const services = this.serviceListControl.value.map((service, index) => {
-			if (this.index === index) {
-				return {
-					...service,
-					languageVersions: service.languageVersions.map(languageVersion => {
-						if (languageVersion.language === languageCode) {
-							return {
-								...languageVersion,
-								order: 0
-							};
-						}
-						return {
-							...languageVersion,
-							order: 1
-						};
-					})
-				};
-			}
-			return service;
-		});
-		this.serviceListControl.setValue(services);
+	public isSelected(languageCode: string): boolean {
+		return this.languageControl.value === languageCode;
+	}
+
+	public setLanguageCode(languageCode: LanguageCodeEnum): void {
+		this.languageControl.setValue(languageCode);
 	}
 
 }

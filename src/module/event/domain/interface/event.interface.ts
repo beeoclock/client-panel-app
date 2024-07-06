@@ -1,6 +1,6 @@
 import {IService} from "@service/domain";
 import {ICustomer} from "@customer/domain";
-import {ActiveEnum, IsOptionalEnum, IsOrganizerEnum, ResponseStatusEnum} from "@utility/domain/enum";
+import {ActiveEnum, IsOptionalEnum, IsOrganizerEnum, LanguageCodeEnum, ResponseStatusEnum} from "@utility/domain/enum";
 import {RIBaseEntity} from "@utility/domain";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 
@@ -19,6 +19,7 @@ export interface IAttendee extends RIBaseEntity<'Event.Attendant'> {
 export interface IEvent extends RIBaseEntity<'Event'> {
 	servicesAreProvidedInParallel?: boolean;
 	services?: IService[];
+	language?: LanguageCodeEnum;
 	note?: string;
 	start?: string;
 	end?: string;

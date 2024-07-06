@@ -29,6 +29,7 @@ import {ItemMemberApiAdapter} from "@member/adapter/external/api/item.member.api
 import {
 	LanguageVersionOrderControlComponent
 } from "@event/presentation/component/form/services/language-version/language-version.order.control.component";
+import {LanguageCodeEnum} from "@utility/domain/enum";
 
 @Component({
 	selector: 'event-service-component',
@@ -63,6 +64,9 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 	@Input({required: true})
 	public serviceListControl: FormControl<IService[]> = new FormControl([] as any);
+
+	@Input({required: true})
+	public languageControl: FormControl<LanguageCodeEnum> = new FormControl();
 
 	@Input()
 	public editable = true;

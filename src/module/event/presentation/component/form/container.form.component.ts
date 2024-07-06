@@ -47,6 +47,7 @@ import {RIMedia} from "@module/media/domain/interface/i.media";
 import {
 	CustomerTypeCustomerComponent
 } from "@customer/presentation/component/form/by-customer-type/customer-type.customer.component";
+import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 
 @Component({
 	selector: 'event-container-form-component',
@@ -108,6 +109,9 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 	@ViewChildren(ServicesComponent)
 	public servicesComponent!: QueryList<ServicesComponent>;
 
+	@SelectSnapshot(ClientState.item)
+	public readonly clientItem!: RIClient;
+
 	public readonly client$ = this.store.select(ClientState.item).pipe(
 		filter(is.not_undefined<RIClient>),
 	);
@@ -124,6 +128,8 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 	}
 
 	public ngOnInit(): void {
+
+		this.form.controls.language.setValue(this.clientItem.businessSettings.baseLanguage);
 
 		const clientAndService$ = combineLatest(
 			[

@@ -1,4 +1,4 @@
-import {ActiveEnum} from "@utility/domain/enum";
+import {ActiveEnum, LanguageCodeEnum} from "@utility/domain/enum";
 import {IAttendee} from "@event/domain";
 import {ISpecialist} from "@service/domain/interface/i.specialist";
 import {ReservationTypeEnum} from "@order/domain/enum/reservation.type.enum";
@@ -24,7 +24,7 @@ export interface IOrderAppointmentDetailsDto {
     start: string;
     end: string;
     type: ReservationTypeEnum;
-    // languageCodes: LanguageCodeEnum[]; // TODO Add type
+    languageCodes: LanguageCodeEnum[]; // TODO Add type
     // attachments: IAttachmentDto[]; // TODO Add type
     specialists: ISpecialist[];
     attendees: IAttendee[];
