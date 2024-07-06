@@ -26,6 +26,9 @@ import {RIMember} from "@member/domain";
 import {BooleanState} from "@utility/domain";
 import {TableState} from "@utility/domain/table.state";
 import {ItemMemberApiAdapter} from "@member/adapter/external/api/item.member.api.adapter";
+import {
+	LanguageVersionOrderControlComponent
+} from "@event/presentation/component/form/services/language-version/language-version.order.control.component";
 
 @Component({
 	selector: 'event-service-component',
@@ -49,6 +52,7 @@ import {ItemMemberApiAdapter} from "@member/adapter/external/api/item.member.api
 		CardComponent,
 		RowActionButtonComponent,
 		SpecialistServiceComponent,
+		LanguageVersionOrderControlComponent,
 	],
 	providers: [
 		CurrencyPipe,

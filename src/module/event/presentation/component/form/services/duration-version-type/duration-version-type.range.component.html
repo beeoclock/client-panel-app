@@ -15,6 +15,7 @@
 
 			<price-and-currency-component
 				class="flex-1"
+				[currencyList]="(currencyList$ | async) ?? []"
 				[label]="'keyword.capitalize.price' | translate"
 				[priceControl]="variant.price.control"
 				[currencyControl]="variant.currency.control"/>

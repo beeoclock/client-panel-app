@@ -5,7 +5,7 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {CreateBusinessQuery} from "@identity/query/create-business.query";
 import {ServiceItemComponent} from "@service/presentation/component/list/item/item.componen";
 import {NgForOf} from "@angular/common";
@@ -18,6 +18,7 @@ import {
 } from "@service/presentation/component/form/modal/create-business/create-business.modal.service";
 import {ServiceForm} from "@service/presentation/form";
 import {NGXLogger} from "ngx-logger";
+import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
 
 
 @Component({
@@ -43,6 +44,7 @@ import {NGXLogger} from "ngx-logger";
 export class ServicesCreateBusinessIdentityPage {
 
 	private readonly createBusinessModalService = inject(CreateBusinessModalService);
+	private readonly translateService = inject(TranslateService);
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
 	private readonly ngxLogger = inject(NGXLogger);
 	public readonly servicesForm = this.createBusinessQuery.getServicesForm();
@@ -57,11 +59,14 @@ export class ServicesCreateBusinessIdentityPage {
 			serviceFormToEdit = new ServiceForm();
 			serviceFormToEdit.patchValue(service);
 		}
-		const {availableLanguages} = this.createBusinessQuery.getBusinessSettings().value;
-		this.createBusinessModalService.openServiceFormModal(
-			availableLanguages ?? [],
-			serviceFormToEdit
-		).then((newServiceForm) => {
+		const {availableLanguages, baseLanguage, currencies, baseCurrency} = this.createBusinessQuery.getBusinessSettings().value;
+		this.createBusinessModalService.openServiceFormModal({
+			availableLanguages: availableLanguages ?? [],
+			baseLanguage: baseLanguage ?? this.translateService.currentLang as LanguageCodeEnum,
+			currencies: currencies ?? [],
+			baseCurrency: baseCurrency ?? CurrencyCodeEnum.USD,
+			serviceForm: serviceFormToEdit
+		}).then((newServiceForm) => {
 			if (service === undefined) {
 				this.servicesForm.push(newServiceForm);
 			} else {

@@ -11,6 +11,7 @@ import {InputBadgeComponent} from "@utility/presentation/component/input/input-b
 import {PriceForm} from "@service/presentation/form/service.form";
 import {TimeInputComponent} from "@utility/presentation/component/input/time.input.component";
 import {DurationSelectComponent} from "@utility/presentation/component/input/duration.select.component";
+import {CurrencyCodeEnum} from "@utility/domain/enum";
 
 @Component({
 	selector: 'service-form-price-block-component',
@@ -23,6 +24,7 @@ import {DurationSelectComponent} from "@utility/presentation/component/input/dur
 					[control]="durationInSecondsControl"/>
 				<price-and-currency-component
 					[label]="('keyword.capitalize.price' | translate) + suffix"
+					[currencyList]="currencyList"
 					[priceControl]="priceForm.controls.price"
 					[currencyControl]="priceForm.controls.currency"/>
 			</div>
@@ -51,4 +53,7 @@ export class PriceBlockComponent {
 
 	@Input()
 	public suffix = '';
+
+	@Input({required: true})
+	public currencyList: { id: CurrencyCodeEnum; name: CurrencyCodeEnum; }[] = [];
 }

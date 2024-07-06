@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	Component,
+	inject,
+	Input,
+	OnChanges,
+	SimpleChange,
+	SimpleChanges,
+	ViewEncapsulation
+} from "@angular/core";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
@@ -7,11 +16,6 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-error.directive";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
-import {Store} from "@ngxs/store";
-import {ClientState} from "@client/state/client/client.state";
-import {filter, map} from "rxjs";
-import {AsyncPipe} from "@angular/common";
-import {is} from "thiis";
 
 @Component({
 	selector: 'price-and-currency-component',
@@ -69,7 +73,7 @@ import {is} from "thiis";
 			  class="border-0"
 			  bindLabel="name"
 			  bindValue="id"
-			  [items]="currencyList$ | async"
+			  [items]="currencyList"
 			  [clearable]="false"
 			  [id]="prefix + 'currency'"
 			  [formControl]="currencyControl">
@@ -86,17 +90,19 @@ import {is} from "thiis";
 		NgxMaskDirective,
 		TranslateModule,
 		DefaultLabelDirective,
-		AsyncPipe
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PriceAndCurrencyComponent {
+export class PriceAndCurrencyComponent implements OnChanges {
 
 	@Input()
 	public prefix = '';
 
 	@Input()
 	public label = '';
+
+	@Input({required: true})
+	public currencyList: { id: CurrencyCodeEnum; name: CurrencyCodeEnum; }[] = [];
 
 	@Input()
 	public currencyControl = new FormControl();
@@ -105,44 +111,22 @@ export class PriceAndCurrencyComponent {
 	public priceControl = new FormControl();
 
 	public readonly translateService = inject(TranslateService);
-	private readonly store = inject(Store);
 
-	// public readonly currencyList$ = this.store.select(ClientState.currencies).pipe(
-	// 	map((currencies) => {
-	// 		if (!currencies) {
-	// 			return Object.values(CurrencyCodeEnum);
-	// 		}
-	// 		return currencies;
-	// 	}),
-	// 	tap((currencies) => {
-	// 		this.updateValue(currencies);
-	// 	}),
-	// 	map((currencies) => {
-	// 		return currencies.map((currency) => ({
-	// 			id: currency,
-	// 			name: currency
-	// 		}));
-	// 	}),
-	// );
+	public ngOnChanges(changes: SimpleChanges & { currencyList: SimpleChange }) {
+		console.log(changes)
+		if (changes.currencyList) {
+			this.updateValue(changes.currencyList.currentValue);
+		}
 
-	public readonly currencyList$ = this.store.select(ClientState.baseCurrency).pipe(
-		filter(is.not_undefined<CurrencyCodeEnum>),
-		map((currency) => {
-			const currencies = [currency];
-			this.updateValue(currencies);
-			return currencies;
-		}),
-		map((currencies) => {
-			return currencies.map((currency) => ({
-				id: currency,
-				name: currency
-			}));
-		}),
-	);
+		this.currencyControl.valueChanges.subscribe((currency) => {
+			console.log(currency)
+		});
+	}
 
-	private updateValue(currencies: CurrencyCodeEnum[]): void {
+	private updateValue(currencies: { id: CurrencyCodeEnum; name: CurrencyCodeEnum; }[]): void {
+		console.log(this.currencyControl.value)
 		if (!this.currencyControl.value) {
-			this.currencyControl.setValue(currencies[0]);
+			this.currencyControl.setValue(currencies[0].id);
 		}
 	}
 

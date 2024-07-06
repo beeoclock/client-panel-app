@@ -11,6 +11,7 @@
 			[availableLanguages]="availableLanguages"/>
 
 		<service-form-prices-block-component
+			[currencyList]="(currencyList$ | async) ?? []"
 			[durationConfigurationForm]="form.controls.configuration.controls.duration"
 			[durationVersions]="form.controls.durationVersions"/>
 

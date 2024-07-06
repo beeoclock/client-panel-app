@@ -9,10 +9,11 @@ import {DurationSelectComponent} from "@utility/presentation/component/input/dur
 import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/price-and-currency.component";
 import {NGXLogger} from "ngx-logger";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
-import {firstValueFrom, map, merge, Subscription} from "rxjs";
+import {filter, firstValueFrom, map, merge, Subscription} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
 import {Store} from "@ngxs/store";
 import {ClientState} from "@client/state/client/client.state";
+import {is} from "thiis";
 
 @Component({
 	selector: 'event-duration-version-type-range',
@@ -60,6 +61,17 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 
 	private readonly logger = inject(NGXLogger);
 	private readonly store = inject(Store);
+
+	public readonly currencyList$ = this.store.select(ClientState.baseCurrency).pipe(
+		filter(is.not_undefined<CurrencyCodeEnum>),
+		map((currency) => [currency]),
+		map((currencies) => {
+			return currencies.map((currency) => ({
+				id: currency,
+				name: currency
+			}));
+		}),
+	);
 
 	private selectedVariantIndex = -1;
 	private handler: Subscription | undefined;

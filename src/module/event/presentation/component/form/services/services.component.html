@@ -18,14 +18,10 @@
 						class="object-cover rounded-2xl min-w-[64px] max-w-[64px] min-h-[64px] max-h-[64px]"
 						alt="Uploaded Image"/>
 				</div>
-				<div class="flex-1 flex flex-col gap-2">
-					<div class="font-bold">
-						{{ service.languageVersions[0].title }}
-					</div>
-					<div class="text-beeColor-500 hidden md:block">
-						{{ service.languageVersions[0].description }}
-					</div>
-				</div>
+				<app-language-version-order-control-component
+					[serviceListControl]="serviceListControl"
+					[service]="service"
+					[index]="index"/>
 			</div>
 			<event-duration-version-type-range
 				[serviceListControl]="serviceListControl"

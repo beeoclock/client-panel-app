@@ -10,7 +10,7 @@ import {
 	CreateBusinessComponent
 } from "@service/presentation/component/form/modal/create-business/create-business.component";
 import {ServiceForm} from "@service/presentation/form";
-import {LanguageCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
 
 type RESOLVE_TYPE = { (value: ServiceForm | PromiseLike<ServiceForm>): void; (arg0: ServiceForm): void; };
 type REJECT_TYPE = { (reason?: never): void; (arg0?: never): void; };
@@ -23,14 +23,26 @@ export class CreateBusinessModalService {
 	private readonly modalService = inject(ModalService);
 	private readonly translateService = inject(TranslateService);
 
-	public async openServiceFormModal(availableLanguages: LanguageCodeEnum[], serviceForm?: ServiceForm): Promise<ServiceForm> {
+	public async openServiceFormModal({availableLanguages, serviceForm, baseLanguage, baseCurrency, currencies}: {
+		availableLanguages: LanguageCodeEnum[];
+		serviceForm?: ServiceForm;
+		baseLanguage: LanguageCodeEnum;
+		currencies: CurrencyCodeEnum[];
+		baseCurrency: CurrencyCodeEnum;
+	}): Promise<ServiceForm> {
 
 		const title = await this.translateService.instant('service.title');
 		const data: {
-			form?: ServiceForm,
-			availableLanguages: LanguageCodeEnum[]
+			form?: ServiceForm;
+			availableLanguages: LanguageCodeEnum[];
+			baseLanguage: LanguageCodeEnum;
+			currencies: CurrencyCodeEnum[];
+			baseCurrency: CurrencyCodeEnum;
 		} = {
-			availableLanguages
+			availableLanguages,
+			baseLanguage,
+			currencies,
+			baseCurrency,
 		};
 
 		if (serviceForm) {
