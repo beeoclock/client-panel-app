@@ -71,7 +71,6 @@ export class ChangeStatusOnCancelledComponent extends ChangeStatusBaseComponent 
 				})
 			)
 		);
-		// this.postStatusChange(EventStatusEnum.rejected);
 		this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
 		this.store.dispatch(new EventActions.UpdateOpenedDetails(this.event));
 		this.statusChange.emit();
