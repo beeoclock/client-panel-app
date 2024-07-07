@@ -41,6 +41,7 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 			</div>
 
 			<button type="button" (click)="openOrderForm()"
+					id="open-order-form"
 							class="text-center bg-white border border-blue-950 cursor-pointer duration-300 hover:bg-blue-200 p-4 rounded-md transition-colors">
 				<h3 class="text-lg font-semibold text-blue-950 flex items-center justify-center gap-2">
 					<span>{{ 'event.additionalMenu.items.addNewOrder.title' | translate }}</span>
@@ -56,19 +57,19 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 			</div>
 
 			<div class="flex justify-between gap-2">
-				<button type="button" (click)="openOrderForm(15)"
+				<button type="button" (click)="openOrderForm(15)" id="open-order-form-alternative-15"
 						class="flex-1 text-center bg-white border border-blue-950 cursor-pointer duration-300 hover:bg-blue-200 p-4 rounded-md transition-colors">
 					<h3 class="text-lg font-semibold text-blue-950 flex items-center justify-center gap-2">
 						<span>{{ getDatetimeISOPlusMinutes(15) | date: 'HH:mm' }}</span>
 					</h3>
 				</button>
-				<button type="button" (click)="openOrderForm(30)"
+				<button type="button" (click)="openOrderForm(30)" id="open-order-form-alternative-30"
 						class="flex-1 text-center bg-white border border-blue-950 cursor-pointer duration-300 hover:bg-blue-200 p-4 rounded-md transition-colors">
 					<h3 class="text-lg font-semibold text-blue-950 flex items-center justify-center gap-2">
 						<span>{{ getDatetimeISOPlusMinutes(30) | date: 'HH:mm' }}</span>
 					</h3>
 				</button>
-				<button type="button" (click)="openOrderForm(45)"
+				<button type="button" (click)="openOrderForm(45)" id="open-order-form-alternative-45"
 						class="flex-1 text-center bg-white border border-blue-950 cursor-pointer duration-300 hover:bg-blue-200 p-4 rounded-md transition-colors">
 					<h3 class="text-lg font-semibold text-blue-950 flex items-center justify-center gap-2">
 						<span>{{ getDatetimeISOPlusMinutes(45) | date: 'HH:mm' }}</span>
