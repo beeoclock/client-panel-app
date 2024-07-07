@@ -57,7 +57,7 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
                         {{ 'keyword.capitalize.service' | translate }}
                     </dt>
                     <dd class="mt-2 text-sm text-gray-900 ">
-                        <ul role="list" class="divide-y divide-gray-100 rounded-md border border-gray-200">
+                        <ul role="list" class="divide-y divide-gray-100 rounded-md border-2 border-gray-200" [style.border-color]="event.originalData.service.serviceSnapshot.presentation.color">
                             <li class="flex">
                                 <img
                                         *ngIf="bannerUrl?.length"
@@ -66,15 +66,15 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
                                         alt=""/>
                                 <div class="flex flex-col justify-center text-sm leading-6 p-4">
                                     <strong>{{ title }}</strong>
-                                    <div class="flex w-full gap-4">
-                                        <div
-                                                class="flex flex-col"
-                                                [innerHTML]="durationVersionHtmlHelper.getDurationValue(event.originalData.service.serviceSnapshot)">
-                                        </div>
-                                        <div
-                                                class="flex flex-col"
-                                                [innerHTML]="durationVersionHtmlHelper.getPriceValue(event.originalData.service.serviceSnapshot)">
-                                        </div>
+                                    <div class="flex w-full gap-2 py-2">
+										<div
+											[innerHTML]="durationVersionHtmlHelper.getPriceValueV2(event.originalData.service.serviceSnapshot)"
+											class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-sm font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
+										></div>
+										<div
+											[innerHTML]="durationVersionHtmlHelper.getDurationValueV2(event.originalData.service.serviceSnapshot)"
+											class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-sm font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
+										></div>
                                     </div>
                                     <p class="text-beeColor-500 line-clamp-2">{{ description }}</p>
                                 </div>
@@ -94,7 +94,7 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
                                         class="flex flex-col gap-2 py-4 px-3 text-sm leading-6">
                                     <ng-container [ngSwitch]="customer.customerType">
                                         <ng-container *ngSwitchCase="customerTypeEnum.unregistered">
-                                            <div class="font-bold text-2xl">
+                                            <div class="font-bold text-lg">
                                                 {{ customer.firstName }} {{ customer.lastName }}
                                             </div>
                                         </ng-container>

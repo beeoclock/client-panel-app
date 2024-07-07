@@ -12,7 +12,7 @@ import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
 import {DoubleClick} from "@utility/domain/decorator/double-click";
 import {ActivatedRoute, Router} from "@angular/router";
-import {RIBaseEntity} from "@utility/domain";
+import {IBaseEntity} from "@utility/domain";
 import {ITableState} from "@utility/domain/table.state";
 import {debounce} from "typescript-debounce-decorator";
 import {BaseActions} from "@utility/state/base/base.actions";
@@ -22,7 +22,7 @@ import {OrderByEnum} from "./domain/enum";
 	selector: 'utility-table-component',
 	template: ``
 })
-export abstract class TableComponent<ITEM extends RIBaseEntity<string>> implements AfterViewInit {
+export abstract class TableComponent<ITEM extends IBaseEntity<string>> implements AfterViewInit {
 
 	@Input()
 	public goToDetailsOnSingleClick = true;

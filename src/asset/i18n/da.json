@@ -470,11 +470,14 @@
 		},
 		"keyword": {
 			"capitalize": {
+				"chronologyOfEventChanges": "Kronologi af begivenhedsændringer",
 				"end": "Forventet slutning",
 				"repeat": "Gentag",
 				"service": "Tjeneste",
 				"start": "Bookingstart",
-				"status": "Status"
+				"status": "Status",
+				"statusChanged": "Status ændret",
+				"statusChangedTo": "Status ændret til"
 			},
 			"status": {
 				"all": "Alle",
@@ -895,6 +898,9 @@
 			"businessSettings": "Forretningsindstillinger",
 			"cancel": "Annuller",
 			"changeStatus": "Skift status",
+			"changes": "Ændringer",
+			"changesFrom": "Fra",
+			"changesTo": "Til",
 			"chooseImage": "Vælg billede",
 			"city": "By",
 			"clearCache": "Opdater cache",
@@ -1171,6 +1177,13 @@
 			"title": {
 				"create": "Tilføjelse af en ordre",
 				"edit": "Redigering af en ordre"
+			}
+		},
+		"keyword": {
+			"singular": {
+				"capitalize": {
+					"openDetails": "Åbn ordredetaljer"
+				}
 			}
 		}
 	},

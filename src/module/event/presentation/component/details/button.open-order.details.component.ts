@@ -26,7 +26,7 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 		</div>
 
 		<button (click)="openOrderDetails()" type="button" class="p-2 transition-all rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 flex justify-between">
-			{{ 'keyword.singular.capitalize.openDetails' | translate }}
+			{{ 'order.keyword.singular.capitalize.openDetails' | translate }}
 			<i class="bi bi-chevron-right"></i>
 		</button>
 	`

@@ -1,14 +1,14 @@
 import {IService} from "@service/domain";
 import {ICustomer} from "@customer/domain";
 import {ActiveEnum, IsOptionalEnum, IsOrganizerEnum, LanguageCodeEnum, ResponseStatusEnum} from "@utility/domain/enum";
-import {RIBaseEntity} from "@utility/domain";
+import {IBaseEntity} from "@utility/domain";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 
 export interface IEventConfiguration {
 	ignoreEventChecks: boolean; // Ignore checking if slot is busy
 }
 
-export interface IAttendee extends RIBaseEntity<'Event.Attendant'> {
+export interface IAttendee extends IBaseEntity<'Event.Attendant'> {
 	isOptional: IsOptionalEnum;
 	isOrganizer: IsOrganizerEnum;
 	responseStatus: ResponseStatusEnum;
@@ -16,7 +16,7 @@ export interface IAttendee extends RIBaseEntity<'Event.Attendant'> {
 	active: ActiveEnum;
 }
 
-export interface IEvent extends RIBaseEntity<'Event'> {
+export interface IEvent extends IBaseEntity<'Event'> {
 	servicesAreProvidedInParallel?: boolean;
 	services?: IService[];
 	language?: LanguageCodeEnum;

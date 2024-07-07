@@ -470,11 +470,14 @@
 		},
 		"keyword": {
 			"capitalize": {
+				"chronologyOfEventChanges": "Chronology of event changes",
 				"end": "Estimated End",
 				"repeat": "Repeat",
 				"service": "Service",
 				"start": "Booking Start",
-				"status": "Status"
+				"status": "Status",
+				"statusChanged": "Status changed",
+				"statusChangedTo": "Status changed to"
 			},
 			"status": {
 				"all": "All",
@@ -895,6 +898,9 @@
 			"businessSettings": "Business settings",
 			"cancel": "Cancel",
 			"changeStatus": "Change status",
+			"changes": "Changes",
+			"changesFrom": "From",
+			"changesTo": "To",
 			"chooseImage": "Choose image",
 			"city": "City",
 			"clearCache": "Refresh cache",
@@ -1171,6 +1177,13 @@
 			"title": {
 				"create": "Adding an order",
 				"edit": "Editing an order"
+			}
+		},
+		"keyword": {
+			"singular": {
+				"capitalize": {
+					"openDetails": "Open order details"
+				}
 			}
 		}
 	},

@@ -77,7 +77,7 @@ export class DurationVersionHtmlHelper {
 	 * V2
 	 */
 
-	public getDurationValueV2(item: IService): string {
+	public getDurationValueV2(item: IService | IServiceDto): string {
 		const {durationVersions} = item;
 		const {0: fromDurationVersion} = durationVersions;
 		const durationFrom = this.humanizeDurationHelper.fromSeconds(
@@ -92,7 +92,7 @@ export class DurationVersionHtmlHelper {
 		return `⌛ ${durationFrom}`;
 	}
 
-	public getPriceValueV2(item: IService): string {
+	public getPriceValueV2(item: IService | IServiceDto): string {
 		const {durationVersions} = item;
 		const {0: fromDurationVersion} = durationVersions;
 		const priceForm = this.currencyPipe.transform(
