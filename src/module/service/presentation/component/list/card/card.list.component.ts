@@ -56,7 +56,10 @@ export class CardListComponent extends TableComponent<IService> implements OnCha
 
 	public list: IService[] = [];
 
-	public ngOnChanges(changes: SimpleChanges & { tableState: SimpleChange }): void {
+	public override ngOnChanges(changes: SimpleChanges & { tableState: SimpleChange }): void {
+
+		super.ngOnChanges(changes);
+
 		if (changes.tableState.firstChange) {
 			this.list = [...changes.tableState.currentValue.items];
 		} else {

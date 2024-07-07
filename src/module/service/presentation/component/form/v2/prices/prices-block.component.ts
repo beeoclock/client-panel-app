@@ -6,7 +6,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {FormControl} from "@angular/forms";
 import {Reactive} from "@utility/cdk/reactive";
-import {ActiveEnum} from "@utility/domain/enum";
+import {ActiveEnum, CurrencyCodeEnum} from "@utility/domain/enum";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 import {TranslateModule} from "@ngx-translate/core";
 import {filter, take} from "rxjs";
@@ -30,6 +30,7 @@ import {filter, take} from "rxjs";
 				<!--        </div>-->
 
 				<service-form-price-block-component
+					[currencyList]="currencyList"
 					[suffix]="isRangeMode ? (getTranslateSuffixKey(index) | translate) : ''"
 					[priceForm]="durationVersion.controls.prices.at(0)"
 					[durationInSecondsControl]="durationVersion.controls.durationInSeconds"/>
@@ -60,6 +61,9 @@ export class PricesBlockComponent extends Reactive implements OnInit {
 
 	@Input()
 	public durationConfigurationForm = new DurationConfigurationForm();
+
+	@Input({required: true})
+	public currencyList: { id: CurrencyCodeEnum; name: CurrencyCodeEnum; }[] = [];
 
 	public readonly switchToRangeModeControl = new FormControl(ActiveEnum.NO);
 

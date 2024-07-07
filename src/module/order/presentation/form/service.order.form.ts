@@ -1,9 +1,10 @@
 import {BaseEntityForm} from "@utility/base.form";
 import {FormArray, FormControl} from "@angular/forms";
-import {IMetaDto, IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {IOrderAppointmentDetailsDto} from "@order/external/interface/i-order-appointment-details.dto";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {IMeta} from "@utility/domain";
 
 export interface IServiceOrderForm {
 
@@ -12,7 +13,7 @@ export interface IServiceOrderForm {
 	customerNote: FormControl<string>;
 
 	status: FormControl<OrderServiceStatusEnum>;
-	meta: FormControl<IMetaDto>;
+	meta: FormControl<IMeta>;
 
 }
 

@@ -9,7 +9,7 @@ import {getMaxPage} from "@utility/domain/max-page";
 import {Router} from "@angular/router";
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {NGXLogger} from "ngx-logger";
-import {RIBaseEntity} from "@utility/domain";
+import {IBaseEntity} from "@utility/domain";
 import {NgEventBus} from "ng-event-bus";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 
@@ -39,7 +39,7 @@ export function baseDefaults<T>({filters, orderBy, orderDir}: {
 	};
 }
 
-export abstract class BaseState<ITEM extends RIBaseEntity<string>> {
+export abstract class BaseState<ITEM extends IBaseEntity<string>> {
 
 	protected readonly ngEventBus = inject(NgEventBus);
 

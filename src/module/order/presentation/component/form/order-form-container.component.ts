@@ -46,6 +46,9 @@ import {UpdatePaymentApiAdapter} from "@module/payment/external/adapter/api/upda
 import {
 	CustomerTypeCustomerComponent
 } from "@customer/presentation/component/form/by-customer-type/customer-type.customer.component";
+import {
+	PayerOrderFormContainerComponent
+} from "@order/presentation/component/form/payer.order-form-container.component";
 
 @Component({
 	selector: 'app-order-form-container',
@@ -63,61 +66,36 @@ import {
 		PrimaryButtonDirective,
 		PaymentOrderFormContainerComponent,
 		ServiceOrderFormContainerComponent,
-		CustomerTypeCustomerComponent
+		CustomerTypeCustomerComponent,
+		PayerOrderFormContainerComponent
 	],
 	standalone: true,
 	template: `
-		<form class="flex flex-col gap-4">
+        <form class="flex flex-col gap-4">
 
-			<app-service-order-form-container [form]="form.controls.order" [setupPartialData]="setupPartialData()"/>
-			<bee-card>
-				<app-customer-type-customer-component
-					[form]="form.controls.payment.controls.payer">
-					<div class="font-bold" slot="label">{{ 'keyword.capitalize.payer' | translate }}</div>
-					<div slot="banner" customer-type="new"
-						 class="bg-beeColor-100 border-2 px-3 py-2 rounded-lg text-beeColor-600 text-sm flex flex-col">
-						<div class="font-bold">
-							<i class="bi bi-exclamation-triangle-fill"></i>
-							{{ 'keyword.capitalize.warning' | translate }}
-						</div>
-						<div>
-							{{ 'order.form.payment.payer.case.new.hint' | translate }}
-						</div>
-					</div>
+            <app-service-order-form-container [form]="form.controls.order" [setupPartialData]="setupPartialData()"/>
+            <payer-order-form-container [payerForm]="form.controls.payment.controls.payer" [serviceOrderArrayForm]="form.controls.order.controls.services"/>
+            <app-payment-order-form-container [form]="form"/>
+            <bee-card>
+                <form-textarea-component
+                        id="order-business-note"
+                        [label]="'keyword.capitalize.businessNote' | translate"
+                        [placeholder]="'order.form.input.businessNote.placeholder' | translate"
+                        [control]="form.controls.order.controls.businessNote"/>
+            </bee-card>
 
-					<div slot="banner" customer-type="unregistered"
-						 class="bg-beeColor-100 border-2 px-3 py-2 rounded-lg text-beeColor-600 text-sm flex flex-col">
-						<div class="font-bold">
-							<i class="bi bi-exclamation-triangle-fill"></i>
-							{{ 'keyword.capitalize.warning' | translate }}
-						</div>
-						<div>
-							{{ 'order.form.payment.payer.case.unregistered.hint' | translate }}
-						</div>
-					</div>
-				</app-customer-type-customer-component>
-			</bee-card>
-			<app-payment-order-form-container [form]="form"/>
-			<bee-card>
-				<form-textarea-component
-					id="order-business-note"
-					[label]="'keyword.capitalize.note' | translate"
-					[placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
-					[control]="form.controls.order.controls.businessNote"/>
-			</bee-card>
-
-			<utility-button-save-container-component class="bottom-0">
-				<button
-					type="button"
-					primary
-					[isLoading]="form.pending"
-					[disabled]="form.disabled"
-					[scrollToFirstError]="true"
-					(click)="save()">
-					{{ 'keyword.capitalize.save' | translate }}
-				</button>
-			</utility-button-save-container-component>
-		</form>
+            <utility-button-save-container-component class="bottom-0">
+                <button
+                        type="button"
+                        primary
+                        [isLoading]="form.pending"
+                        [disabled]="form.disabled"
+                        [scrollToFirstError]="true"
+                        (click)="save()">
+                    {{ 'keyword.capitalize.save' | translate }}
+                </button>
+            </utility-button-save-container-component>
+        </form>
 	`
 })
 export class OrderFormContainerComponent extends Reactive implements OnInit, OnDestroy, OnChanges {
@@ -129,6 +107,13 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	public readonly orderDto = input<Partial<IOrderDto>>({});
 	public readonly paymentDto = input<Partial<IPaymentDto>>({});
 	public readonly isEditMode = input<boolean>(false);
+	public readonly firstStepOnInit  = input<{
+		openServiceForm: boolean;
+		serviceFormWasOpened: boolean;
+	}>({
+		openServiceForm: true,
+		serviceFormWasOpened: false
+	});
 
 	// TODO: add input of callback and call it on save
 

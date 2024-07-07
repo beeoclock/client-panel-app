@@ -1,6 +1,6 @@
 import {ActiveEnum, CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
 import {ISocialNetworkLink} from "@client/domain/interface/i.social-network-link";
-import {RIBaseEntity} from "@utility/domain/interface";
+import {IBaseEntity} from "@utility/domain/interface";
 import {FacilityEnum} from "@utility/domain/enum/facility.enum";
 import {IContact} from "@client/domain/interface/i.contact";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
@@ -19,11 +19,12 @@ export interface IBusinessSettings {
 	currencies?: CurrencyCodeEnum[];
 	availableLanguages: LanguageCodeEnum[];
 	emailLanguage: LanguageCodeEnum;
+	baseLanguage: LanguageCodeEnum;
 	createdAt?: string;
 	updatedAt?: string;
 }
 
-export interface RIClient extends RIBaseEntity<'Client'> {
+export interface RIClient extends IBaseEntity<'Client'> {
 	status: BusinessClientStatusEnum;
 	published: ActiveEnum;
 	name: string;

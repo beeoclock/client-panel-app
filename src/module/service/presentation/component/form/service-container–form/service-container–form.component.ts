@@ -13,11 +13,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {DetailsBlockComponent} from "@service/presentation/component/form/v2/details/details-block.component";
 import {PricesBlockComponent} from "@service/presentation/component/form/v2/prices/prices-block.component";
-import {
-	SpecialistsBlockComponent
-} from "@service/presentation/component/form/v2/specialists/specialists-block.component";
 import {ServiceForm} from "@service/presentation/form/service.form";
-import {firstValueFrom} from "rxjs";
+import {filter, firstValueFrom, map} from "rxjs";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {IService} from "@service/domain";
 import {Store} from "@ngxs/store";
@@ -40,6 +37,8 @@ import {NGXLogger} from "ngx-logger";
 import {
 	ServiceFormImageComponent
 } from "@service/presentation/component/form/v2/image/service-form-image/service-form-image.component";
+import {is} from "thiis";
+import {CurrencyCodeEnum} from "@utility/domain/enum";
 
 @Component({
 	selector: 'service-form-v2-page-component',
@@ -54,7 +53,6 @@ import {
 		TranslateModule,
 		DetailsBlockComponent,
 		PricesBlockComponent,
-		SpecialistsBlockComponent,
 		SwitchActiveBlockComponent,
 		PrimaryButtonDirective,
 		AsyncPipe,
@@ -97,6 +95,35 @@ export class ServiceContainerFormComponent implements OnInit {
 	public readonly activatedRoute = inject(ActivatedRoute);
 	public readonly router = inject(Router);
 	public readonly ngxLogger = inject(NGXLogger);
+
+	public readonly currencyList$ = this.store.select(ClientState.baseCurrency).pipe(
+		filter(is.not_undefined<CurrencyCodeEnum>),
+		map((currency) => [currency]),
+		map((currencies) => {
+			return currencies.map((currency) => ({
+				id: currency,
+				name: currency
+			}));
+		}),
+	);
+
+	// public readonly currencyList$ = this.store.select(ClientState.currencies).pipe(
+	// 	map((currencies) => {
+	// 		if (!currencies) {
+	// 			return Object.values(CurrencyCodeEnum);
+	// 		}
+	// 		return currencies;
+	// 	}),
+	// 	tap((currencies) => {
+	// 		this.updateValue(currencies);
+	// 	}),
+	// 	map((currencies) => {
+	// 		return currencies.map((currency) => ({
+	// 			id: currency,
+	// 			name: currency
+	// 		}));
+	// 	}),
+	// );
 
 	public readonly availableLanguages$ = this.store.select(ClientState.availableLanguages);
 

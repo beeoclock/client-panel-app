@@ -67,7 +67,6 @@ export class ChangeStatusOnRejectedComponent extends ChangeStatusBaseComponent {
 			serviceId: this.event.originalData.service._id,
 			status: OrderServiceStatusEnum.rejected,
 		})));
-		// this.postStatusChange(EventStatusEnum.rejected);
 		this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
 		this.store.dispatch(new EventActions.UpdateOpenedDetails(this.event));
 		this.statusChange.emit();

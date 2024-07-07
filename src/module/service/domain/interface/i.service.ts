@@ -1,5 +1,5 @@
 import {ActiveEnum} from '@utility/domain/enum/active.enum';
-import {RIBaseEntity} from '@utility/domain';
+import {IBaseEntity} from '@utility/domain';
 import {ISchedule} from "@utility/domain/interface/i.schedule";
 import {
 	IConfiguration,
@@ -11,7 +11,7 @@ import {
 import {ISpecialist} from "@service/domain/interface/i.specialist";
 
 
-export interface IService extends RIBaseEntity<'Service'> {
+export interface IService extends IBaseEntity<'Service'> {
 	active: ActiveEnum;
 	configuration: IConfiguration;
 	prepaymentPolicy?: IPrepaymentPolicy;

@@ -33,7 +33,9 @@ import {
 			<button-open-order-details [order]="event.originalData.order"/>
 			<event-v2-general-details [event]="event"/>
 			<app-event-v2-buttons-details [event]="event"/>
-			<event-meta-details [event]="event.originalData.order"/>
+			<event-meta-details
+				[orderDro]="event.originalData.order"
+				[orderServiceDto]="event.originalData.service"/>
 
 		</ng-container>
 

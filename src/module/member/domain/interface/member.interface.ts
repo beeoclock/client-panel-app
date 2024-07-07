@@ -1,4 +1,4 @@
-import {RIBaseEntity} from "@utility/domain";
+import {IBaseEntity} from "@utility/domain";
 import {RoleEnum} from "@utility/domain/enum/role.enum";
 import {RESPONSE_IMemberMedia} from "@member/domain/interface/i.member-media";
 import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
@@ -16,7 +16,7 @@ export interface IAssignments {
 	}
 }
 
-export interface IMember extends RIBaseEntity<'Member'> {
+export interface IMember extends IBaseEntity<'Member'> {
 	firstName?: string;
 	secondName?: string; // Deprecated
 	lastName?: string;

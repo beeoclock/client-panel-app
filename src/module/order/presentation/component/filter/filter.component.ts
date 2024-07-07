@@ -41,11 +41,11 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 			</div>
 			<div *ngIf="isMobile$ | async" class="flex gap-4 justify-between w-full">
 				<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
-				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
+<!--				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>-->
 			</div>
-			<div *ngIf="isNotMobile$ | async">
-				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
-			</div>
+<!--			<div *ngIf="isNotMobile$ | async">-->
+<!--				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>-->
+<!--			</div>-->
 		</utility-default-panel-component>
 		<div *ngIf="isMobile$ | async" class="flex overflow-x-auto gap-2 my-2 px-2">
 			<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
@@ -68,15 +68,15 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 				[control]="orderStatusControl"/>
 		</ng-template>
 
-		<ng-template #ButtonToOpenForm>
-			<button *ngIf="showButtonGoToForm" type="button" class="!py-3 !px-4 !text-base" primary
-					(click)="openForm()">
-				<i class="bi bi-plus-lg"></i>
-				<!--				<div class="hidden xl:block">-->
-				<!--					{{ 'order.button.create' | translate }}-->
-				<!--				</div>-->
-			</button>
-		</ng-template>
+<!--		<ng-template #ButtonToOpenForm>-->
+<!--			<button *ngIf="showButtonGoToForm" type="button" class="!py-3 !px-4 !text-base" primary-->
+<!--					(click)="openForm()">-->
+<!--				<i class="bi bi-plus-lg"></i>-->
+<!--				&lt;!&ndash;				<div class="hidden xl:block">&ndash;&gt;-->
+<!--				&lt;!&ndash;					{{ 'order.button.create' | translate }}&ndash;&gt;-->
+<!--				&lt;!&ndash;				</div>&ndash;&gt;-->
+<!--			</button>-->
+<!--		</ng-template>-->
 	`
 })
 export class FilterComponent extends BaseFilterComponent implements OnInit {

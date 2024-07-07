@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	Component,
+	inject,
+	Input,
+	OnChanges,
+	SimpleChange,
+	SimpleChanges,
+	ViewEncapsulation
+} from "@angular/core";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
@@ -7,26 +16,22 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-error.directive";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
-import {Store} from "@ngxs/store";
-import {ClientState} from "@client/state/client/client.state";
-import {map, tap} from "rxjs";
-import {AsyncPipe} from "@angular/common";
 
 @Component({
-  selector: 'price-and-currency-component',
-  standalone: true,
-  template: `
-    <label default [for]="prefix + 'price'">{{ label }}</label>
-    <div class="flex">
-      <input
-        [id]="prefix + 'price'"
-        [formControl]="priceControl"
-        mask="separator.2"
-        type="text"
-        hasError
-        invalidTooltip
-        [placeholder]="'keyword.capitalize.writePrice' | translate"
-        class="
+	selector: 'price-and-currency-component',
+	standalone: true,
+	template: `
+		<label default [for]="prefix + 'price'">{{ label }}</label>
+		<div class="flex">
+			<input
+				[id]="prefix + 'price'"
+				[formControl]="priceControl"
+				mask="separator.2"
+				type="text"
+				hasError
+				invalidTooltip
+				[placeholder]="'keyword.capitalize.writePrice' | translate"
+				class="
           rounded-none
           rounded-l
           border
@@ -48,8 +53,8 @@ import {AsyncPipe} from "@angular/common";
           dark:text-white
           dark:focus:ring-blue-500
           dark:focus:border-blue-500">
-      <span
-        class="
+			<span
+				class="
           inline-flex
           items-center
           text-sm
@@ -64,19 +69,19 @@ import {AsyncPipe} from "@angular/common";
           dark:text-beeDarkColor-400
           dark:border-beeDarkColor-600">
           <ng-select
-            style="width: 100px"
-            class="border-0"
-            bindLabel="name"
-            bindValue="id"
-            [items]="currencyList$ | async"
-            [clearable]="false"
-            [id]="prefix + 'currency'"
-            [formControl]="currencyControl">
+			  style="width: 100px"
+			  class="border-0"
+			  bindLabel="name"
+			  bindValue="id"
+			  [items]="currencyList"
+			  [clearable]="false"
+			  [id]="prefix + 'currency'"
+			  [formControl]="currencyControl">
           </ng-select>
         </span>
-    </div>
-  `,
-  encapsulation: ViewEncapsulation.None,
+		</div>
+	`,
+	encapsulation: ViewEncapsulation.None,
 	imports: [
 		NgSelectModule,
 		ReactiveFormsModule,
@@ -85,49 +90,44 @@ import {AsyncPipe} from "@angular/common";
 		NgxMaskDirective,
 		TranslateModule,
 		DefaultLabelDirective,
-		AsyncPipe
 	],
-  changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PriceAndCurrencyComponent {
+export class PriceAndCurrencyComponent implements OnChanges {
 
-  @Input()
-  public prefix = '';
+	@Input()
+	public prefix = '';
 
-  @Input()
-  public label = '';
+	@Input()
+	public label = '';
 
-  @Input()
-  public currencyControl = new FormControl();
+	@Input({required: true})
+	public currencyList: { id: CurrencyCodeEnum; name: CurrencyCodeEnum; }[] = [];
 
-  @Input()
-  public priceControl = new FormControl();
+	@Input()
+	public currencyControl = new FormControl();
 
-  public readonly translateService = inject(TranslateService);
-  private readonly store = inject(Store);
+	@Input()
+	public priceControl = new FormControl();
 
-	public readonly currencyList$ = this.store.select(ClientState.currencies).pipe(
-		map((currencies) => {
-			if (!currencies) {
-				return Object.values(CurrencyCodeEnum);
-			}
-			return currencies;
-		}),
-		tap((currencies) => {
-			this.updateValue(currencies);
-		}),
-		map((currencies) => {
-			return currencies.map((currency) => ({
-				id: currency,
-				name: currency
-			}));
-		}),
-	);
+	public readonly translateService = inject(TranslateService);
 
-  private updateValue(currencies: CurrencyCodeEnum[]): void {
-		if (!this.currencyControl.value) {
-			this.currencyControl.setValue(currencies[0]);
+	public ngOnChanges(changes: SimpleChanges & { currencyList: SimpleChange }) {
+		console.log(changes)
+		if (changes.currencyList) {
+			this.updateValue(changes.currencyList.currentValue);
 		}
-  }
+
+		this.currencyControl.valueChanges.subscribe((currency) => {
+			console.log(currency)
+		});
+	}
+
+	private updateValue(currencies: { id: CurrencyCodeEnum; name: CurrencyCodeEnum; }[]): void {
+		console.log(this.currencyControl.value)
+		if (!this.currencyControl.value) {
+			this.currencyControl.setValue(currencies[0].id);
+		}
+	}
 
 }

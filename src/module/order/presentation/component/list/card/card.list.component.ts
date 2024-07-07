@@ -17,10 +17,24 @@ import {RowActionButtonComponent} from "@order/presentation/component/row-action
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {OrderActions} from "@order/state/order/order.actions";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {CardItemOrderComponent} from "@order/presentation/component/list/card/item/card.item.order.component";
 
 @Component({
 	selector: 'app-order-card-list-component',
-	templateUrl: './card.list.component.html',
+	template: `
+		<div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState.items.length">
+			<app-card-item-order-component
+				*ngFor="let item of tableState.items; trackBy: trackById"
+				[showAction]="(showAction.state$ | async) ?? false"
+				[showSelectedStatus]="(showSelectedStatus.state$ | async) ?? false"
+				[selectedIds]="selectedIds"
+				[item]="item" />
+		</div>
+		<utility-table-state-pagination-component
+			[mobileMode]="true"
+			(page)="pageChange($event)"
+			[tableState]="tableState"/>
+	`,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
@@ -38,19 +52,14 @@ import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 		NgIf,
 		NoDataPipe,
 		RowActionButtonComponent,
-		AsyncPipe
+		AsyncPipe,
+		CardItemOrderComponent
 	]
 })
 export class CardListComponent extends TableComponent<IOrderDto> {
 
 	public override readonly actions = OrderActions;
-
-	public showAction = new BooleanStreamState(true);
-
-	public showSelectedStatus = new BooleanStreamState(false);
-
-	public override open(item: IOrderDto) {
-		this.store.dispatch(new OrderActions.OpenDetails(item));
-	}
+	public readonly showAction = new BooleanStreamState(true);
+	public readonly showSelectedStatus = new BooleanStreamState(false);
 
 }

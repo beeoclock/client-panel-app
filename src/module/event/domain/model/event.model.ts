@@ -2,6 +2,7 @@ import {IAttendee, IEvent, IEventConfiguration, RMIEvent} from "@event/domain";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 import {IService} from "@service/domain";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
+import {LanguageCodeEnum} from "@utility/domain/enum";
 
 export class MEvent implements RMIEvent {
 
@@ -15,6 +16,7 @@ export class MEvent implements RMIEvent {
 	public readonly servicesAreProvidedInParallel!: boolean;
 	public readonly services!: IService[];
 	public readonly note!: string;
+	public readonly language!: LanguageCodeEnum;
 	public readonly attendees!: IAttendee[];
 	public readonly timeZone!: string;
 	public readonly configuration!: IEventConfiguration;

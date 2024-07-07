@@ -55,6 +55,9 @@ import {
 } from "@order/presentation/component/details/service/order-service-details.component";
 import {Reactive} from "@utility/cdk/reactive";
 import {filter} from 'rxjs';
+import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
+import {ClientState} from "@client/state/client/client.state";
+import {RIClient} from "@client/domain";
 
 
 @Component({
@@ -155,6 +158,9 @@ export class ServiceOrderFormContainerComponent extends Reactive implements OnIn
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly translateService = inject(TranslateService);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
+
+	@SelectSnapshot(ClientState.item)
+	public readonly clientItem!: RIClient;
 
 	public trackById(index: number, item: IOrderServiceDto) {
 		return item._id;
@@ -260,7 +266,7 @@ export class ServiceOrderFormContainerComponent extends Reactive implements OnIn
 					start: formValue.start,
 					end: formValue.end,
 					type: ReservationTypeEnum.service,
-					// languageCodes: LanguageCodeEnum[];
+					languageCodes: [formValue.language ?? this.clientItem.businessSettings.baseLanguage],
 					// attachments: IAttachmentDto[];
 					specialists: formValue.services[0].specialists,
 					attendees: formValue.attendees,
@@ -356,7 +362,7 @@ export class ServiceOrderFormContainerComponent extends Reactive implements OnIn
 					start: formValue.start,
 					end: formValue.end,
 					type: ReservationTypeEnum.service,
-					// languageCodes: LanguageCodeEnum[];
+					languageCodes: [formValue.language ?? this.clientItem.businessSettings.baseLanguage],
 					// attachments: IAttachmentDto[];
 					specialists: formValue.services[0].specialists,
 					attendees: formValue.attendees,

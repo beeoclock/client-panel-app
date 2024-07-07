@@ -470,11 +470,14 @@
 		},
 		"keyword": {
 			"capitalize": {
+				"chronologyOfEventChanges": "Хронологія змін події",
 				"end": "Планується завершити",
 				"repeat": "Повторити",
 				"service": "Послуга",
 				"start": "Заплановано на",
-				"status": "Статус"
+				"status": "Статус",
+				"statusChanged": "Змінено статус",
+				"statusChangedTo": "Змінено статус на"
 			},
 			"status": {
 				"all": "Всі",
@@ -896,6 +899,9 @@
 			"businessSettings": "Бізнес налаштування",
 			"cancel": "Скасувати",
 			"changeStatus": "Змінити статус",
+			"changes": "Зміни",
+			"changesFrom": "З",
+			"changesTo": "На",
 			"chooseImage": "Вибери файл",
 			"city": "Населений пункт",
 			"clearCache": "Очистити кеш",
@@ -1152,6 +1158,11 @@
 			}
 		},
 		"form": {
+			"input": {
+				"businessNote": {
+					"placeholder": "Тут можеш додати примітку яка не буде доступна клієнту"
+				}
+			},
 			"payment": {
 				"payer": {
 					"case": {
@@ -1167,6 +1178,13 @@
 			"title": {
 				"create": "Додавання замовлення",
 				"edit": "Редагування замовлення"
+			}
+		},
+		"keyword": {
+			"singular": {
+				"capitalize": {
+					"openDetails": "Відкрити деталі замовлення"
+				}
 			}
 		}
 	},

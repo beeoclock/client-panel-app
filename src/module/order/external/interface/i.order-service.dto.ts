@@ -2,24 +2,8 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {IOrderAppointmentDetailsDto} from "@order/external/interface/i-order-appointment-details.dto";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 import typia from "typia";
+import {IMeta} from "@utility/domain";
 
-export interface IHistoryDto {
-	object: 'HistoryEntryDto';
-	issuerRole: string;
-	issuerId: string;
-	reason: string;
-	value: string;
-	createdAt: string;
-}
-
-export interface IMetaDto {
-	object: 'MetaDto';
-	history: IHistoryDto[];
-}
-
-export const isMetaDto = typia.createIs<IMetaDto>();
-export const validMetaDto = typia.createValidate<IMetaDto>();
-export const randomMetaDto = typia.createRandom<IMetaDto>();
 
 export interface IOrderServiceDto {
 	object: "OrderServiceDto";
@@ -27,7 +11,7 @@ export interface IOrderServiceDto {
 	serviceSnapshot: IServiceDto;
 	orderAppointmentDetails: IOrderAppointmentDetailsDto;
 	status: OrderServiceStatusEnum;
-	meta: IMetaDto;
+	meta: IMeta;
 	customerNote: string;
 }
 

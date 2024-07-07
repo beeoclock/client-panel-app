@@ -169,12 +169,10 @@ export class OrderState extends BaseState<IOrderDto> {
 
 		const componentInputs: {
 			orderServiceDto: Partial<IOrderServiceDto>;
-			useDefaultFlow: boolean;
 			isEditMode: boolean;
 			forceStart?: string;
 		} = {
 			isEditMode: isEditMode ?? false,
-			useDefaultFlow: false,
 			orderServiceDto: item ?? {},
 		};
 
@@ -226,7 +224,7 @@ export class OrderState extends BaseState<IOrderDto> {
 					start: formValue.start,
 					end: formValue.end,
 					type: ReservationTypeEnum.service,
-					// languageCodes: LanguageCodeEnum[];
+					languageCodes: [formValue.language],
 					// attachments: IAttachmentDto[];
 					specialists: formValue.services[0].specialists,
 					attendees: formValue.attendees,
