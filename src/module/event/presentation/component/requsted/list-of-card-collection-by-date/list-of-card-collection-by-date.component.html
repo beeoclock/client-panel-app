@@ -38,7 +38,7 @@
 
 						<div *ngFor="let item of toEventListType(timeItem.value)">
 							<bee-card class="text-sm" gap="gap-2">
-								<div class="flex justify-between items-center gap-8">
+								<div class="flex flex-wrap justify-between items-center gap-8">
 									<div class="cursor-pointer flex items-center gap-2 w-full" (click)="singleClick(item)">
 										<div eventStatusStyle mode="text" [status]="item.status"></div>
 										<div

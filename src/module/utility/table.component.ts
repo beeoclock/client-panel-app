@@ -1,12 +1,15 @@
 import {
-	AfterViewInit,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	EventEmitter,
-	inject,
-	Input,
-	Output
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    inject,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChange,
+    SimpleChanges
 } from "@angular/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
@@ -19,97 +22,105 @@ import {BaseActions} from "@utility/state/base/base.actions";
 import {OrderByEnum} from "./domain/enum";
 
 @Component({
-	selector: 'utility-table-component',
-	template: ``
+    selector: 'utility-table-component',
+    template: ``
 })
-export abstract class TableComponent<ITEM extends IBaseEntity<string>> implements AfterViewInit {
+export abstract class TableComponent<ITEM extends IBaseEntity<string>> implements AfterViewInit, OnChanges {
 
-	@Input()
-	public goToDetailsOnSingleClick = true;
+    @Input()
+    public goToDetailsOnSingleClick = true;
 
-	@Input({required: true})
-	public tableState!: ITableState<ITEM>;
+    @Input({required: true})
+    public tableState!: ITableState<ITEM>;
 
-	@Output()
-	public readonly singleClickEmitter = new EventEmitter<ITEM>();
+    @Output()
+    public readonly singleClickEmitter = new EventEmitter<ITEM>();
 
-	public readonly router = inject(Router);
-	public readonly activatedRoute = inject(ActivatedRoute);
-	public readonly store = inject(Store);
-	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
-	public readonly changeDetectorRef = inject(ChangeDetectorRef);
-	public readonly actions!: {
-		readonly GetList: typeof BaseActions.GetList;
-		readonly UpdateTableState: typeof BaseActions.UpdateTableState<ITEM>;
-	};
-	public selectedIds: string[] = [];
+    public ngOnChanges(changes: SimpleChanges & {
+        tableState: SimpleChange
+    }) {
+        if (changes.tableState?.currentValue) {
+            this.changeDetectorRef.detectChanges();
+        }
+    }
 
-	public ngAfterViewInit(): void {
-		this.initOrderByAndOrderDirHandler();
-		this.initUserTapOnTheCardHandler();
-	}
+    public readonly router = inject(Router);
+    public readonly activatedRoute = inject(ActivatedRoute);
+    public readonly store = inject(Store);
+    public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
+    public readonly changeDetectorRef = inject(ChangeDetectorRef);
+    public readonly actions!: {
+        readonly GetList: typeof BaseActions.GetList;
+        readonly UpdateTableState: typeof BaseActions.UpdateTableState<ITEM>;
+    };
+    public selectedIds: string[] = [];
 
-	private initUserTapOnTheCardHandler(): void {
-		this.singleClickEmitter.subscribe((item) => {
-			if (this.goToDetailsOnSingleClick) {
-				this.open(item);
-			}
-		});
-	}
+    public ngAfterViewInit(): void {
+        this.initOrderByAndOrderDirHandler();
+        this.initUserTapOnTheCardHandler();
+    }
 
-	public trackById(index: number, item: ITEM): string {
-		return item._id;
-	}
+    private initUserTapOnTheCardHandler(): void {
+        this.singleClickEmitter.subscribe((item) => {
+            if (this.goToDetailsOnSingleClick) {
+                this.open(item);
+            }
+        });
+    }
 
-	@debounce(300)
-	public singleClick(item: ITEM) {
-		this.singleClickEmitter.emit(item);
-	}
+    public trackById(index: number, item: ITEM): string {
+        return item._id;
+    }
 
-	@DoubleClick
-	public doubleClick(item: ITEM): void {
-		this.open(item);
-	}
+    @debounce(300)
+    public singleClick(item: ITEM) {
+        this.singleClickEmitter.emit(item);
+    }
 
-	public updateOrderBy(target: HTMLTableCellElement): void {
-		const orderBy = target.getAttribute('data-orderBy') as OrderByEnum | null;
-		if (!orderBy) {
-			const parent = target.parentElement as HTMLTableCellElement;
-			if (parent) {
-				this.updateOrderBy(parent);
-			}
-		} else {
-			firstValueFrom(this.store.dispatch(new this.actions.UpdateTableState({
-				orderBy
-			}))).then(() => {
-				this.store.dispatch(new this.actions.GetList());
-			});
-		}
-	}
+    @DoubleClick
+    public doubleClick(item: ITEM): void {
+        this.open(item);
+    }
 
-	public pageChange($event: number): void {
-		firstValueFrom(this.store.dispatch(new this.actions.UpdateTableState({
-			page: $event
-		}))).then(() => {
-			this.store.dispatch(new this.actions.GetList());
-		});
-	}
+    public updateOrderBy(target: HTMLTableCellElement): void {
+        const orderBy = target.getAttribute('data-orderBy') as OrderByEnum | null;
+        if (!orderBy) {
+            const parent = target.parentElement as HTMLTableCellElement;
+            if (parent) {
+                this.updateOrderBy(parent);
+            }
+        } else {
+            firstValueFrom(this.store.dispatch(new this.actions.UpdateTableState({
+                orderBy
+            }))).then(() => {
+                this.store.dispatch(new this.actions.GetList());
+            });
+        }
+    }
 
-	public open(item: ITEM): void {
-		throw new Error('Method not implemented.');
-	}
+    public pageChange($event: number): void {
+        firstValueFrom(this.store.dispatch(new this.actions.UpdateTableState({
+            page: $event
+        }))).then(() => {
+            this.store.dispatch(new this.actions.GetList());
+        });
+    }
 
-	private initOrderByAndOrderDirHandler(): void {
+    public open(item: ITEM): void {
+        throw new Error('Method not implemented.');
+    }
 
-		// orderBy and orderDir
-		this.elementRef.nativeElement.querySelectorAll('[data-orderBy]').forEach((foundElement) => {
-			foundElement.classList.add('cursor-pointer');
-			foundElement.addEventListener('click', ($event) => {
-				if ($event.target) {
-					const target = $event.target as HTMLTableCellElement;
-					this.updateOrderBy(target);
-				}
-			})
-		});
-	}
+    private initOrderByAndOrderDirHandler(): void {
+
+        // orderBy and orderDir
+        this.elementRef.nativeElement.querySelectorAll('[data-orderBy]').forEach((foundElement) => {
+            foundElement.classList.add('cursor-pointer');
+            foundElement.addEventListener('click', ($event) => {
+                if ($event.target) {
+                    const target = $event.target as HTMLTableCellElement;
+                    this.updateOrderBy(target);
+                }
+            })
+        });
+    }
 }
