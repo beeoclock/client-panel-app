@@ -7,7 +7,7 @@ import {ISpecialist} from "@service/domain/interface/i.specialist";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 import {filter} from "rxjs";
 import {is} from "thiis";
-import ObjectID from "bson-objectid";
+import {BaseEntityForm} from "@utility/base.form";
 
 export interface ILanguageVersionForm {
 	title: FormControl<string>;
@@ -208,21 +208,17 @@ export interface IServiceForm {
 	prepaymentPolicy: PrepaymentPolicyForm;
 	languageVersions: LanguageVersionsForm;
 	durationVersions: DurationVersionsForm;
-	_id: FormControl<string>;
 	specialists: FormControl<ISpecialist[]>;
 	active: FormControl<ActiveEnum>;
-	object: FormControl<'Service'>;
-	createdAt: FormControl<string>;
-	updatedAt: FormControl<string>;
 	order: FormControl<number | null>;
 	presentation: PresentationForm;
 
 	[key: string]: AbstractControl;
 }
 
-export class ServiceForm extends FormGroup<IServiceForm> {
+export class ServiceForm extends BaseEntityForm<'Service', IServiceForm> {
 	constructor(initialValue: Partial<IService> = {}) {
-		super({
+		super('Service', {
 			// schedules: new SchedulesForm(),
 			configuration: new ConfigurationForm(),
 			prepaymentPolicy: new PrepaymentPolicyForm(),
@@ -235,15 +231,7 @@ export class ServiceForm extends FormGroup<IServiceForm> {
 				nonNullable: true,
 			}),
 			presentation: new PresentationForm(),
-			_id: new FormControl(new ObjectID().toHexString(), {
-				nonNullable: true,
-			}),
-			object: new FormControl('Service', {
-				nonNullable: true,
-			}),
-			createdAt: new FormControl(),
 			order: new FormControl(),
-			updatedAt: new FormControl(),
 		});
 		this.initHandlers();
 		this.patchValue(initialValue);
