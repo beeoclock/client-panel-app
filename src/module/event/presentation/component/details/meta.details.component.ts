@@ -94,9 +94,11 @@ export class MetaDetailsComponent implements OnChanges {
 
 	public prepareChronology() {
 
-		console.log(this.orderServiceDto.meta.history);
-
 		this.chronologyList.length = 0;
+
+		if (!this.orderServiceDto?.meta?.history?.length) {
+			return;
+		}
 
 		this.orderServiceDto.meta.history.reverse().forEach((historyItem: IHistory | IHistoryV2) => {
 			if ('_v' in historyItem) {
