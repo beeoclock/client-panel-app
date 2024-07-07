@@ -268,6 +268,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 					schedules: [],
 					presentation: {
 						banners: result.serviceSnapshot.presentation.banners as unknown as RIMedia[],
+						color: result.serviceSnapshot.presentation.color,
 					} as unknown as IPresentation,
 					specialists: result.orderAppointmentDetails.specialists.map((specialist) => {
 						return {
