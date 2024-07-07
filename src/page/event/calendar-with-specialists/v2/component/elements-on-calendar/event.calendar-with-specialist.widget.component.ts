@@ -313,7 +313,12 @@ export class EventCalendarWithSpecialistWidgetComponent {
 				const durationInSeconds = DateTime.fromISO(this.item.end).diff(DateTime.fromISO(this.item.start), 'seconds').seconds;
 				const editedService = this.item.originalData.service;
 				editedService.serviceSnapshot.durationVersions[0].durationInSeconds = durationInSeconds;
-				await this.updateServiceOrderApiAdapter.executeAsync(this.item.originalData.order._id, editedService);
+				await this.updateServiceOrderApiAdapter.executeAsync(this.item.originalData.order._id, {
+					serviceSnapshot: editedService.serviceSnapshot,
+					orderAppointmentDetails: editedService.orderAppointmentDetails,
+					_id: editedService._id,
+					status: editedService.status
+				});
 				this.item = structuredClone(this.item);
 			}
 
