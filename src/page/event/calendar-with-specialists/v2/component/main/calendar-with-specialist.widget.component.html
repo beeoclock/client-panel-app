@@ -76,6 +76,9 @@
 			<ng-container *ngIf="eventsBySpecialistId[member._id] as events">
 				<app-event-calendar-with-specialists-widget-component
 					*ngFor="let event of events; trackBy: trackById"
+					[attr.data-member-id]="member._id"
+					[attr.data-member-first-name]="member.firstName"
+					[attr.data-member-last-name]="member.lastName"
 					[item]="event"/>
 			</ng-container>
 		</div>
