@@ -33,21 +33,20 @@ import {
 
 		</div>
 
-		<div class="flex flex-col">
+<!--		<div class="flex flex-col">-->
 
-			<div>
-				{{ 'keyword.capitalize.lastUpdate' | translate }}:
-			</div>
-			<div>
-				{{ orderDro.updatedAt | dynamicDate }}
-			</div>
+<!--			<div>-->
+<!--				{{ 'keyword.capitalize.lastUpdate' | translate }}:-->
+<!--			</div>-->
+<!--			<div>-->
+<!--				{{ orderDro.updatedAt | dynamicDate }}-->
+<!--			</div>-->
 
-		</div>
+<!--		</div>-->
 
 		<ol class="relative border-s border-gray-200 dark:border-gray-700 gap-4 flex flex-col">
 			<li *ngFor="let chronology of chronologyList" class="ms-4">
-				<div
-					class="absolute w-3 h-3 rounded-full mt-1.5 -start-1.5 border border-beeColor-400 bg-beeColor-300"></div>
+				<div class="absolute w-3 h-3 rounded-full mt-1.5 -start-1.5 border border-beeColor-400 bg-beeColor-300"></div>
 				<time *ngIf="chronology.iso" class="mb-1 text-sm font-normal leading-none">
 					{{ chronology.iso | dynamicDate }}
 				</time>
@@ -57,10 +56,10 @@ import {
 				<h3 class="font-bold">
 					{{ chronology.labelTranslateKey | translate }}
 				</h3>
-				<p class="" [innerHTML]="chronology.description">
-				</p>
-				<event-list-from-to-chronology *ngIf="chronology.valueWithFromToProperties"
-										  [valueWithFromToProperties]="chronology.valueWithFromToProperties"/>
+				<p class="" [innerHTML]="chronology.description"></p>
+				<event-list-from-to-chronology
+					*ngIf="chronology.valueWithFromToProperties"
+					[valueWithFromToProperties]="chronology.valueWithFromToProperties"/>
 			</li>
 		</ol>
 
@@ -96,11 +95,20 @@ export class MetaDetailsComponent implements OnChanges {
 
 		this.chronologyList.length = 0;
 
+		this.chronologyList.push({
+			iso: this.orderDro.createdAt,
+			labelTranslateKey: 'keyword.capitalize.createdAt',
+			description: DateTime.fromISO(this.orderDro.createdAt).toRelative({
+				locale: this.translateService.currentLang
+			}) ?? '',
+			valueWithFromToProperties: null
+		});
+
 		if (!this.orderServiceDto?.meta?.history?.length) {
 			return;
 		}
 
-		this.orderServiceDto.meta.history.reverse().forEach((historyItem: IHistory | IHistoryV2) => {
+		this.orderServiceDto.meta.history.forEach((historyItem: IHistory | IHistoryV2) => {
 			if ('_v' in historyItem) {
 				switch (historyItem._v) {
 					case 2:
@@ -135,7 +143,6 @@ export class MetaDetailsComponent implements OnChanges {
 					});
 					return;
 				case 'status':
-					console.log(historyItem.value);
 					this.chronologyList.push({
 						iso: null,
 						labelTranslateKey: 'event.keyword.capitalize.statusChangedTo',
@@ -144,15 +151,6 @@ export class MetaDetailsComponent implements OnChanges {
 					});
 					return;
 			}
-		});
-
-		this.chronologyList.push({
-			iso: this.orderDro.createdAt,
-			labelTranslateKey: 'keyword.capitalize.createdAt',
-			description: DateTime.fromISO(this.orderDro.createdAt).toRelative({
-				locale: this.translateService.currentLang
-			}) ?? '',
-			valueWithFromToProperties: null
 		});
 
 	}

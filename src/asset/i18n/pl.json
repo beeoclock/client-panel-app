@@ -415,6 +415,22 @@
 			}
 		},
 		"details": {
+			"meta": {
+				"history": {
+					"keyword": {
+						"capitalize": {
+							"_id": "Identyfikator",
+							"durationInSeconds": "Czas trwania",
+							"durationVersions": "Czas trwania wersji",
+							"end": "Koniec",
+							"orderAppointmentDetails": "Zmiany w wydarzeniu",
+							"serviceSnapshot": "Usługa (stan w momencie składania zamówienia)",
+							"start": "Początek",
+							"wasSelectedAnybody": "Został wybrany ktokolwiek"
+						}
+					}
+				}
+			},
 			"title": "Szczegółowy widok wydarzenia"
 		},
 		"form": {
@@ -492,6 +508,7 @@
 				"singular": {
 					"accepted": "Zaakceptowany",
 					"cancelled": "Odwołane",
+					"confirmed": "Potwierdzono",
 					"done": "Gotowe",
 					"inProgress": "W trakcie",
 					"rejected": "Odrzucono",

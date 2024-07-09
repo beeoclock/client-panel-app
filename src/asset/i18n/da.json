@@ -415,6 +415,22 @@
 			}
 		},
 		"details": {
+			"meta": {
+				"history": {
+					"keyword": {
+						"capitalize": {
+							"_id": "Identifikator",
+							"durationInSeconds": "Varighed",
+							"durationVersions": "Varighed version",
+							"end": "Slut",
+							"orderAppointmentDetails": "Ændringer i begivenheden",
+							"serviceSnapshot": "Service (angiv på bestillingstidspunktet)",
+							"start": "Begyndelsen",
+							"wasSelectedAnybody": "Blev valgt nogen"
+						}
+					}
+				}
+			},
 			"title": "Detaljeret visning af begivenheden"
 		},
 		"form": {
@@ -492,6 +508,7 @@
 				"singular": {
 					"accepted": "Accepteret",
 					"cancelled": "Aflyst",
+					"confirmed": "Bekræftet",
 					"done": "Færdig",
 					"inProgress": "I gang",
 					"rejected": "Afvist",

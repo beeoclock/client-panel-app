@@ -415,6 +415,22 @@
 			}
 		},
 		"details": {
+			"meta": {
+				"history": {
+					"keyword": {
+						"capitalize": {
+							"_id": "Ідентифікатор",
+							"durationInSeconds": "Тривалість",
+							"durationVersions": "Версія тривалості",
+							"end": "Кінець",
+							"orderAppointmentDetails": "Зміни у записі",
+							"serviceSnapshot": "Послуга (стан на момент складання замовлення)",
+							"start": "Початок",
+							"wasSelectedAnybody": "Був обраний будь-хто"
+						}
+					}
+				}
+			},
 			"title": "Детальний перегляд події"
 		},
 		"form": {
@@ -492,6 +508,7 @@
 				"singular": {
 					"accepted": "Прийнято",
 					"cancelled": "Скасована",
+					"confirmed": "Підтверджено",
 					"done": "Виконано",
 					"inProgress": "В процесі",
 					"rejected": "Відхилено",
