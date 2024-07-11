@@ -25,6 +25,7 @@ import {
 } from "@customer/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {CustomerExternalListComponent} from "@customer/presentation/component/external/list/list.component";
 import {ICustomer} from "@customer/domain";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'customer-select-customer-whac-a-mole-component',
@@ -45,7 +46,7 @@ import {ICustomer} from "@customer/domain";
 		<customer-external-list-component [mobileMode]="true"/>
 	`
 })
-export class SelectCustomerPushBoxComponent implements OnInit, AfterViewInit {
+export class SelectCustomerPushBoxComponent extends Reactive implements OnInit, AfterViewInit {
 
 	@ViewChild(CustomerExternalListComponent)
 	public customerExternalListComponent!: CustomerExternalListComponent;
@@ -84,7 +85,7 @@ export class SelectCustomerPushBoxComponent implements OnInit, AfterViewInit {
 		cardListComponent.showAction.doFalse();
 		cardListComponent.showSelectedStatus.doTrue();
 		cardListComponent.goToDetailsOnSingleClick = false;
-		cardListComponent.singleClickEmitter.subscribe((item) => {
+		cardListComponent.singleClickEmitter.pipe(this.takeUntil()).subscribe((item) => {
 			if (this.isSelected(item)) {
 				this.deselect(item);
 			} else {

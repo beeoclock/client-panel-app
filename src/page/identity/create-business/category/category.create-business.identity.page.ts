@@ -10,6 +10,7 @@ import {NgForOf, NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {ReactiveFormsModule} from "@angular/forms";
 import {BusinessCategory} from "@utility/domain/business-category";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'app-category-create-business-identity-page',
@@ -30,7 +31,7 @@ import {BusinessCategory} from "@utility/domain/business-category";
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class CategoryCreateBusinessIdentityPage implements OnInit {
+export class CategoryCreateBusinessIdentityPage extends Reactive implements OnInit {
 
 	private readonly router = inject(Router);
 	private readonly activatedRoute = inject(ActivatedRoute);
@@ -48,7 +49,7 @@ export class CategoryCreateBusinessIdentityPage implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		this.businessCategoryControl.valueChanges.subscribe(() => {
+		this.businessCategoryControl.valueChanges.pipe(this.takeUntil()).subscribe(() => {
 			this.router.navigate(['../', 'point-of-sale'], {
 				relativeTo: this.activatedRoute
 			}).then();

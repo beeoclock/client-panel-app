@@ -3,6 +3,8 @@ import {IService} from "@service/domain";
 import {AttendeesForm} from "@event/presentation/form/attendant.form";
 import {EventConfigurationForm} from "@event/presentation/form/configuration.form";
 import {LanguageCodeEnum} from "@utility/domain/enum";
+import {takeUntil} from "rxjs/operators";
+import {Subject} from "rxjs";
 
 
 export interface IEventForm {
@@ -21,6 +23,8 @@ export interface IEventForm {
 }
 
 export class EventForm extends FormGroup<IEventForm> {
+
+	private readonly destroy$ = new Subject<void>();
 
 	constructor() {
 		super({
@@ -63,7 +67,9 @@ export class EventForm extends FormGroup<IEventForm> {
 	}
 
 	public initHandler(): void {
-		this.valueChanges.subscribe((value) => {
+		this.valueChanges.pipe(
+			takeUntil(this.destroy$),
+		).subscribe((value) => {
 			const {services, start} = value;
 			const [firstService] = services ?? [];
 			if (!firstService || !start) {
@@ -79,6 +85,13 @@ export class EventForm extends FormGroup<IEventForm> {
 				onlySelf: true,
 			});
 		});
+	}
+
+	public destroyHandlers(): void {
+
+		this.destroy$.next();
+		this.destroy$.complete();
+
 	}
 
 }

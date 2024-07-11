@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {BusinessProfileForm} from "@client/presentation/form/business-profile.form";
 import {Select, Store} from "@ngxs/store";
 import * as Client from "@client/domain";
@@ -30,6 +30,7 @@ import {
 import {
 	AutoBookEventComponent
 } from "@client/presentation/component/business-settings/auto-book-event/auto-book-event.component";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'client-business-settings-page',
@@ -50,7 +51,7 @@ import {
 	],
 	standalone: true
 })
-export default class BusinessSettingsPage implements OnInit {
+export default class BusinessSettingsPage extends Reactive implements OnInit, OnDestroy {
 
 	public readonly form = new BusinessProfileForm();
 	public readonly store = inject(Store);
@@ -62,7 +63,8 @@ export default class BusinessSettingsPage implements OnInit {
 	public ngOnInit(): void {
 
 		this.item$.pipe(
-			filter(Boolean)
+			filter(Boolean),
+			this.takeUntil(),
 		).subscribe((item) => {
 
 			const {socialNetworkLinks, schedules, contacts, addresses, ...data} = item;
@@ -129,6 +131,11 @@ export default class BusinessSettingsPage implements OnInit {
 			this.form.enable();
 			this.form.updateValueAndValidity();
 		}
+	}
+
+	public override ngOnDestroy(): void {
+		super.ngOnDestroy();
+		this.form.destroyHandlers();
 	}
 
 }

@@ -12,6 +12,7 @@ import {ClientState} from "@client/state/client/client.state";
 import {is} from "thiis";
 import {TENANT_ID} from "@src/token";
 import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
+import {Reactive} from "@utility/cdk/reactive";
 
 interface IMenuItem {
 	order: number;
@@ -43,7 +44,7 @@ interface IMenuItem {
 		WithTenantIdPipe
 	],
 })
-export class MenuSidebarComponent implements OnInit {
+export class MenuSidebarComponent extends Reactive implements OnInit {
 
 	private readonly store = inject(Store);
 	private readonly ngEventBus = inject(NgEventBus);
@@ -102,7 +103,9 @@ export class MenuSidebarComponent implements OnInit {
 				this.requestedMenuItem.badge = badge;
 			});
 
-		this.businessProfile$.subscribe((item) => {
+		this.businessProfile$.pipe(
+			this.takeUntil()
+		).subscribe((item) => {
 			this.initMenu();
 			if (item) {
 				const { bookingSettings } = item;

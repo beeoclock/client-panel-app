@@ -6,6 +6,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {FormControl} from "@angular/forms";
 import {NGXLogger} from "ngx-logger";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'client-notification-settings-page',
@@ -29,7 +30,7 @@ import {NGXLogger} from "ngx-logger";
 		</bee-card>
 	`
 })
-export class NotificationSettingsComponent implements OnInit {
+export class NotificationSettingsComponent extends Reactive implements OnInit {
 
 	public readonly id = 'notification-permission-switcher';
 
@@ -46,7 +47,7 @@ export class NotificationSettingsComponent implements OnInit {
 
 		this.control.setValue(this.permissionIsGranted);
 
-		this.control.valueChanges.subscribe((value) => {
+		this.control.valueChanges.pipe(this.takeUntil()).subscribe((value) => {
 
 			this.ngxLogger.debug('[NOTIFICATION] Permission value changed to:', value);
 

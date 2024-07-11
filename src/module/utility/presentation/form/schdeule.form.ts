@@ -4,6 +4,8 @@ import {ISchedule, RISchedule} from "@utility/domain/interface/i.schedule";
 import {extractSecondsFrom_hh_mm_ss} from "@utility/domain/time";
 import {ShouldBeMoreThenValidation} from "@utility/presentation/form/validation/should-be-more-then.validation";
 import {is} from "thiis";
+import {takeUntil} from "rxjs/operators";
+import {Subject} from "rxjs";
 
 export interface IScheduleForm {
 	workDays: FormControl<WeekDaysEnum[]>;
@@ -14,6 +16,9 @@ export interface IScheduleForm {
 }
 
 export class ScheduleForm extends FormGroup<IScheduleForm> {
+
+	private readonly destroy$ = new Subject<void>();
+
 	constructor(initialValue?: ISchedule) {
 		super({
 			workDays: new FormControl(),
@@ -46,9 +51,16 @@ export class ScheduleForm extends FormGroup<IScheduleForm> {
 	}
 
 	private initStartInSecondsHandler(): void {
-		this.controls.startInSeconds.valueChanges.subscribe(() => {
+		this.controls.startInSeconds.valueChanges.pipe(
+			takeUntil(this.destroy$)
+		).subscribe(() => {
 			this.controls.endInSeconds.updateValueAndValidity();
 		})
+	}
+
+	public destroyHandlers(): void {
+		this.destroy$.next();
+		this.destroy$.complete();
 	}
 }
 

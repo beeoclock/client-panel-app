@@ -1,12 +1,13 @@
 import {Directive, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Subject, Subscription} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
+import {Reactive} from "@utility/cdk/reactive";
 
 @Directive({
   selector: '[appDebounceClick]',
   standalone: true
 })
-export class DebounceClickDirective implements OnInit, OnDestroy {
+export class DebounceClickDirective extends Reactive implements OnInit, OnDestroy {
 
   @Input()
   public enabledDebounceClick = true;
@@ -22,11 +23,15 @@ export class DebounceClickDirective implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.subscription = this.clicks
-      .pipe(debounceTime(this.debounceTime))
+      .pipe(
+          debounceTime(this.debounceTime),
+          this.takeUntil(),
+      )
       .subscribe(e => this.debounceClick.emit(e));
   }
 
-  public ngOnDestroy(): void {
+  public override ngOnDestroy(): void {
+    super.ngOnDestroy();
     this.subscription?.unsubscribe();
   }
 

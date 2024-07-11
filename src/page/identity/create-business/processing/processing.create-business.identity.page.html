@@ -39,8 +39,8 @@
 					</li>
 				</ol>
 
-				<div class="flex justify-center px-2 mt-4 w-full">
-					<button #goToDashboardPage routerLink="/event/calendar-with-specialists" primary class="max-w-sm" [class.disabled]="allStepsFinishedWithSuccess.isOff">
+				<div *ngIf="allStepsFinishedWithSuccess.isOn" class="flex justify-center px-2 mt-4 w-full">
+					<button #goToDashboardPage [routerLink]="'event/calendar-with-specialists' | withTenantId" primary class="max-w-sm">
 						{{ 'identity.create-business.section.processing.button' | translate }}
 					</button>
 				</div>

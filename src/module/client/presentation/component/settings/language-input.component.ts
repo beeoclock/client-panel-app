@@ -7,6 +7,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 import {
 	LanguageBusinessPanelFrontendSettingsAccountApiAdapter
 } from "@module/account/adapter/external/api/language.business-panel.frontend-settings.account.api.adapter";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'client-settings-language-input-component',
@@ -31,7 +32,7 @@ import {
 		</ng-select>
 	`
 })
-export class LanguageInputComponent {
+export class LanguageInputComponent extends Reactive {
 
 	public readonly control = new FormControl();
 	public readonly translateService = inject(TranslateService);
@@ -39,8 +40,9 @@ export class LanguageInputComponent {
 	public readonly languages = LANGUAGES;
 
 	constructor() {
+		super();
 		this.control.setValue(this.translateService.currentLang);
-		this.control.valueChanges.subscribe((languageCode) => {
+		this.control.valueChanges.pipe(this.takeUntil()).subscribe((languageCode) => {
 			this.translateService.use(languageCode);
 			this.languageBusinessPanelFrontendSettingsAccountApiAdapter
 				.executeAsync(languageCode)

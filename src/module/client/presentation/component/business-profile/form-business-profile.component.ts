@@ -85,7 +85,7 @@ import {
 })
 export class FormBusinessProfileComponent {
 
-	@Input()
-	public form = new BusinessProfileForm();
+	@Input({ required: true })
+	public form!: BusinessProfileForm;
 
 }
