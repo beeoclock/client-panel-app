@@ -1,6 +1,6 @@
 import {Routes} from '@angular/router';
 import {AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
-import {clientIdResolver} from "@utility/presentation/resolver/client-id.resolver";
+import {tenantIdResolver} from "@utility/presentation/resolver/tenant-id.resolver";
 import {importProvidersFrom} from "@angular/core";
 import {NgxsModule} from "@ngxs/store";
 import WrapperPanelComponent from "@utility/presentation/component/wrapper-panel/wrapper-panel.component";
@@ -25,13 +25,9 @@ export const routes: Routes = [
         data: {
             authGuardPipe: redirectUnauthorizedToLogin
         },
-        resolve: {
-            clientId: clientIdResolver,
-        },
         // providers: [
         //     importProvidersFrom(NgxsModule.forFeature([EventRequestedState])),
         // ],
-        component: WrapperPanelComponent,
         children: [
             {
                 path: '',
@@ -39,122 +35,136 @@ export const routes: Routes = [
                 redirectTo: '/identity',
             },
             {
-                path: 'member',
+                path: ':tenantId',
+                resolve: {
+                    tenantId: tenantIdResolver,
+                },
+                component: WrapperPanelComponent,
                 children: [
                     {
-                        path: 'list',
-                        loadComponent: () => import('@page/member/list/list.member.page')
-                    }
-                ]
-            },
-            {
-                path: 'absence',
-                providers: [
-                    importProvidersFrom(NgxsModule.forFeature([AbsenceState])),
-                ],
-                children: [
-                    {
-                        path: 'list',
-                        loadComponent: () => import('@page/absence/list/list.absence.page')
-                    }
-                ]
-            },
-            {
-                path: 'order',
-                children: [
-                    {
-                        path: 'list',
-                        loadComponent: () => import('@page/order/list/list.order.page')
-                    }
-                ]
-            },
-            {
-                path: 'event',
-                providers: [
-                    importProvidersFrom(NgxsModule.forFeature([EventState, OrderState])),
-                ],
-                children: [
-                    {
-                        path: 'requested',
-                        loadComponent: () => import('@page/event/requested/requested.event.page')
+                        path: '',
+                        pathMatch: 'full',
+                        redirectTo: '/identity',
                     },
                     {
-                        path: 'calendar',
-                        providers: [
-                            importProvidersFrom(NgxsModule.forFeature([CalendarState])),
-                        ],
-                        loadComponent: () => import('@page/event/calendar/calendar.event.page')
-                    },
-                    {
-                        path: 'statistic',
-                        providers: [
-                            importProvidersFrom(NgxsModule.forFeature([StatisticState])),
-                        ],
-                        loadComponent: () => import('@page/event/statistic/statistic.event.page')
-                    },
-                    {
-                        path: 'calendar-with-specialists',
-                        providers: [
-                            importProvidersFrom(NgxsModule.forFeature([CalendarWithSpecialistsState])),
-                        ],
-                        loadComponent: () => import('@page/event/calendar-with-specialists/calendar-with-specialists.event.page')
-                    },
-                ]
-            },
-            {
-                path: 'client',
-                children: [
-                    {
-                        path: 'business-profile',
-                        loadComponent: () => import('@page/client/business-profile/business-profile.page')
-                    },
-                    {
-                        path: 'business-settings',
-                        loadComponent: () => import('@page/client/business-settings/business-settings.page')
-                    },
-                    {
-                        path: 'settings',
-                        loadComponent: () => import('@page/client/settings/settings.page')
-                    },
-                    {
-                        path: 'notification',
+                        path: 'member',
                         children: [
                             {
-                                path: '',
-                                loadComponent: () => import('@page/client/notification/notification.page')
-                            },
-                            {
-                                path: ':id',
-                                loadComponent: () => import('@page/client/notification/notification.page')
+                                path: 'list',
+                                loadComponent: () => import('@page/member/list/list.member.page')
                             }
                         ]
-                    }
-                ]
-            },
-            {
-                path: 'customer',
-                providers: [
-                    importProvidersFrom(NgxsModule.forFeature([CustomerState])),
-                ],
-                children: [
+                    },
                     {
-                        path: 'list',
-                        loadComponent: () => import('@page/customer/list/list.customer.page')
-                    }
-                ]
-            },
-            {
-                path: 'service',
-                providers: [
-                    importProvidersFrom(NgxsModule.forFeature([ServiceState])),
-                ],
-                children: [
+                        path: 'absence',
+                        providers: [
+                            importProvidersFrom(NgxsModule.forFeature([AbsenceState])),
+                        ],
+                        children: [
+                            {
+                                path: 'list',
+                                loadComponent: () => import('@page/absence/list/list.absence.page')
+                            }
+                        ]
+                    },
                     {
-                        path: 'list',
-                        loadComponent: () => import('@page/service/list/list.service.page')
-                    }
+                        path: 'order',
+                        children: [
+                            {
+                                path: 'list',
+                                loadComponent: () => import('@page/order/list/list.order.page')
+                            }
+                        ]
+                    },
+                    {
+                        path: 'event',
+                        providers: [
+                            importProvidersFrom(NgxsModule.forFeature([EventState, OrderState])),
+                        ],
+                        children: [
+                            {
+                                path: 'requested',
+                                loadComponent: () => import('@page/event/requested/requested.event.page')
+                            },
+                            {
+                                path: 'calendar',
+                                providers: [
+                                    importProvidersFrom(NgxsModule.forFeature([CalendarState])),
+                                ],
+                                loadComponent: () => import('@page/event/calendar/calendar.event.page')
+                            },
+                            {
+                                path: 'statistic',
+                                providers: [
+                                    importProvidersFrom(NgxsModule.forFeature([StatisticState])),
+                                ],
+                                loadComponent: () => import('@page/event/statistic/statistic.event.page')
+                            },
+                            {
+                                path: 'calendar-with-specialists',
+                                providers: [
+                                    importProvidersFrom(NgxsModule.forFeature([CalendarWithSpecialistsState])),
+                                ],
+                                loadComponent: () => import('@page/event/calendar-with-specialists/calendar-with-specialists.event.page')
+                            },
+                        ]
+                    },
+                    {
+                        path: 'client',
+                        children: [
+                            {
+                                path: 'business-profile',
+                                loadComponent: () => import('@page/client/business-profile/business-profile.page')
+                            },
+                            {
+                                path: 'business-settings',
+                                loadComponent: () => import('@page/client/business-settings/business-settings.page')
+                            },
+                            {
+                                path: 'settings',
+                                loadComponent: () => import('@page/client/settings/settings.page')
+                            },
+                            {
+                                path: 'notification',
+                                children: [
+                                    {
+                                        path: '',
+                                        loadComponent: () => import('@page/client/notification/notification.page')
+                                    },
+                                    {
+                                        path: ':id',
+                                        loadComponent: () => import('@page/client/notification/notification.page')
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        path: 'customer',
+                        providers: [
+                            importProvidersFrom(NgxsModule.forFeature([CustomerState])),
+                        ],
+                        children: [
+                            {
+                                path: 'list',
+                                loadComponent: () => import('@page/customer/list/list.customer.page')
+                            }
+                        ]
+                    },
+                    {
+                        path: 'service',
+                        providers: [
+                            importProvidersFrom(NgxsModule.forFeature([ServiceState])),
+                        ],
+                        children: [
+                            {
+                                path: 'list',
+                                loadComponent: () => import('@page/service/list/list.service.page')
+                            }
+                        ]
+                    },
                 ]
-            },
+            }
         ]
     },
     {
