@@ -42,6 +42,7 @@ import {
 	ModalSelectSpecialistListAdapter
 } from "@member/adapter/external/component/modal-select-specialist.list.adapter";
 import {IService} from "@service/domain";
+import {TENANT_ID} from "@src/token";
 
 const enum Status {
 	Success = 'success',
@@ -119,6 +120,7 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
 	public readonly identityApiAdapter = inject(IdentityApiAdapter);
 	public readonly store = inject(Store);
+	public readonly tenantId$ = inject(TENANT_ID);
 	public readonly allStepsFinishedWithSuccess = new BooleanState(false);
 	public readonly modalSelectSpecialistListAdapter = inject(ModalSelectSpecialistListAdapter);
 
@@ -226,11 +228,10 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 			this.ngxLogger.debug('stepCreateBusiness:body', body);
 
 			const request$ = this.identityApiAdapter.postCreateBusinessClient$(body);
-			const {id: clientId} = await firstValueFrom(request$);
-			this.ngxLogger.debug('stepCreateBusiness:clientId', clientId);
+			const {id: tenantId} = await firstValueFrom(request$);
+			this.ngxLogger.debug('stepCreateBusiness:tenantId', tenantId);
 
-			const requestToSwitchContext$ = this.identityApiAdapter.patchSwitchBusinessClient$({clientId});
-			await firstValueFrom(requestToSwitchContext$);
+			this.tenantId$.next(tenantId);
 			this.ngxLogger.debug('stepCreateBusiness:context switched');
 
 			// Refresh token and receive new claims

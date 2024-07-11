@@ -35,12 +35,4 @@ export class IdentityApiAdapter {
 		return this.http.post(identityEndpointEnum.postCreateUserAndBusinessClient, body);
 	}
 
-	/**
-	 *
-	 * @param body
-	 */
-	public patchSwitchBusinessClient$(body: { clientId: string }) {
-		return this.http.patch(identityEndpointEnum.patchSwitchBusinessClient, body);
-	}
-
 }

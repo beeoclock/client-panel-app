@@ -37,7 +37,8 @@ export const serviceEndpoint: EndpointCollectionType = {
 		[serviceEndpointEnum.paged]: {
 			source: SourceNetworkEnum.panel,
 			header: {
-				authorization: true
+				authorization: true,
+				tenantId: true,
 			}
 		},
 	},
@@ -66,7 +67,8 @@ export const serviceEndpoint: EndpointCollectionType = {
 		[serviceEndpointEnum.create]: {
 			source: SourceNetworkEnum.panel,
 			header: {
-				authorization: true
+				authorization: true,
+				tenantId: true,
 			},
 			after: {
 				success: {

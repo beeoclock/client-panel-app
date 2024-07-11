@@ -4,13 +4,13 @@ import {NgForOf, NgIf} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
-import {IdentityState} from "@identity/state/identity/identity.state";
 import {SidebarService} from "@utility/presentation/component/sidebar/sidebar.service";
 import {environment} from "@environment/environment";
 import {EventBusTokenEnum} from "@src/event-bus-token.enum";
 import {NgEventBus} from "ng-event-bus";
 import {ClientState} from "@client/state/client/client.state";
 import {is} from "thiis";
+import {TENANT_ID} from "@src/token";
 
 interface IMenuItem {
 	order: number;
@@ -46,6 +46,7 @@ export class MenuSidebarComponent implements OnInit {
 	private readonly store = inject(Store);
 	private readonly ngEventBus = inject(NgEventBus);
 	private readonly sidebarService = inject(SidebarService);
+	private readonly tenantId$ = inject(TENANT_ID);
 
 	public readonly businessProfile$ = this.store.select(ClientState.item);
 
@@ -77,7 +78,7 @@ export class MenuSidebarComponent implements OnInit {
 
 		if (!path) {
 
-			path = await firstValueFrom(this.store.select(IdentityState.clientId));
+			path = await firstValueFrom(this.tenantId$);
 
 		}
 

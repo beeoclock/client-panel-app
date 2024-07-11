@@ -18,6 +18,7 @@ import {AppActions} from "@utility/state/app/app.actions";
 import {Reactive} from "@utility/cdk/reactive";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
+import {TENANT_ID} from "@src/token";
 
 @Component({
   selector: 'app-identity-corridor-page',
@@ -49,8 +50,7 @@ export class CorridorIdentityPage extends Reactive implements OnInit {
   @Select(IdentityState.clients)
   private readonly clients$!: Observable<IMember[]>;
 
-  @Select(IdentityState.clientId)
-  public readonly clientId$!: Observable<string | undefined>;
+  public readonly tenantId$ = inject(TENANT_ID);
 
   public readonly members$ = this.clients$.pipe(
     filter(Array.isArray),
@@ -80,7 +80,7 @@ export class CorridorIdentityPage extends Reactive implements OnInit {
 
     this.store.dispatch(new IdentityActions.GetClients());
 
-    this.clientId$.pipe(
+    this.tenantId$.pipe(
 			this.takeUntil(),
       filter((result) => !!result),
       filter(() => !('force' in this.activatedRoute.snapshot.queryParams)),
@@ -103,14 +103,11 @@ export class CorridorIdentityPage extends Reactive implements OnInit {
     this.disabled.switchOn();
 
     this.store.dispatch(new AppActions.PageLoading(true)).pipe(
-      // Switch business client by server side
-      switchMap(() => this.identityApiAdapter.patchSwitchBusinessClient$({
-        clientId: member.client._id
-      })),
-      // Refresh token and receive new claims
-      tap(() => this.store.dispatch(new IdentityActions.InitToken())),
-      switchMap(() => this.clientId$),
-      filter((clientId) => clientId === member.client._id),
+      tap(() => {
+          this.tenantId$.next(member.client._id);
+      }),
+      switchMap(() => this.tenantId$),
+      filter((tenantId) => tenantId === member.client._id),
       tap(() => this.store.dispatch(new AppActions.PageLoading(false))),
       switchMap(() => from(this.gotToMainAuthorizedPage())),
       this.takeUntil(),

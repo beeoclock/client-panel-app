@@ -25,7 +25,8 @@ export const customerEndpoint: EndpointCollectionType = {
         [customerEndpointEnum.paged]: {
             source: SourceNetworkEnum.panel,
             header: {
-                authorization: true
+                authorization: true,
+                tenantId: true,
             }
         },
     },

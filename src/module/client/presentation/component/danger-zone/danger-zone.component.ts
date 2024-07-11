@@ -1,15 +1,15 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {
-	DeleteBusinessClientClientAdapter
+  DeleteBusinessClientClientAdapter
 } from "@identity/adapter/external/module/delete-business-client.client.adapter";
 import {AlertController} from "@ionic/angular";
 import {Store} from "@ngxs/store";
-import {IdentityState} from "@identity/state/identity/identity.state";
 import {firstValueFrom} from "rxjs";
 import {Router} from "@angular/router";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {TENANT_ID} from "@src/token";
 
 @Component({
   selector: 'client-danger-zone-component',
@@ -55,6 +55,7 @@ export class DangerZoneComponent {
   private readonly alertController = inject(AlertController);
   private readonly store = inject(Store);
   private readonly router = inject(Router);
+  private readonly tenantId$ = inject(TENANT_ID);
   private readonly deleteBusinessClientClientAdapter = inject(DeleteBusinessClientClientAdapter);
 
   public async deleteBusinessClient() {
@@ -68,10 +69,10 @@ export class DangerZoneComponent {
           text: this.translateService.instant('keyword.capitalize.yes'),
           role: 'confirm',
           handler: async () => {
-            const clientId = await firstValueFrom(this.store.select(IdentityState.clientId));
-            if (clientId) {
+            const tenantId = await firstValueFrom(this.tenantId$);
+            if (tenantId) {
               try {
-                await firstValueFrom(this.deleteBusinessClientClientAdapter.deleteBusinessClient(clientId));
+                await firstValueFrom(this.deleteBusinessClientClientAdapter.deleteBusinessClient(tenantId));
                 await this.router.navigate(['/', 'identity', 'corridor'], {
                   queryParams: {
                     force: true
@@ -87,7 +88,7 @@ export class DangerZoneComponent {
                 await errorAlert.present();
               }
             } else {
-              throw new Error('clientId is empty!');
+              throw new Error('tenantId is empty!');
             }
           },
         },

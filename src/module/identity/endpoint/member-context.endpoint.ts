@@ -12,7 +12,6 @@ export const memberContextEndpoint: EndpointCollectionType = {
             source: SourceNetworkEnum.identity,
             header: {
                 authorization: true,
-                tenantId: true,
             }
         }
     },

@@ -5,7 +5,6 @@ export enum identityEndpointEnum {
     postCreateUser = '/api/v1/provider/create-user',
     postCreateUserAndBusinessClient = '/api/v1/provider/create-user-and-business-client',
     postCreateBusinessClient = '/api/v1/provider/create-business-client',
-    patchSwitchBusinessClient = '/api/v1/provider/switch-business-client',
     postResetPassword = '/api/v1/provider/reset-password',
     confirmEmail = '/api/v1/provider/confirm-email',
     confirmInvitation = '/api/v1/provider/confirm-invitation',
@@ -38,8 +37,7 @@ export const identityEndpoint: EndpointCollectionType = {
         [identityEndpointEnum.postCreateBusinessClient]: {
             source: SourceNetworkEnum.identity,
             header: {
-                authorization: true,
-                tenantId: true,
+                authorization: true
             }
         },
         [identityEndpointEnum.postRegisterDevice]: {
@@ -51,13 +49,6 @@ export const identityEndpoint: EndpointCollectionType = {
         }
     },
     PATCH: {
-        [identityEndpointEnum.patchSwitchBusinessClient]: {
-            source: SourceNetworkEnum.identity,
-            header: {
-                authorization: true,
-                tenantId: true,
-            }
-        },
         [identityEndpointEnum.patchChangeName]: {
             source: SourceNetworkEnum.identity,
             header: {
