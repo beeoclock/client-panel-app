@@ -13,6 +13,7 @@ export const businessProfileEndpoint: EndpointCollectionType = {
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		}
 	},
@@ -21,6 +22,7 @@ export const businessProfileEndpoint: EndpointCollectionType = {
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
+				tenantId: true,
 			},
 			after: {
 				success: {

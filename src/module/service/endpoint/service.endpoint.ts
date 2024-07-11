@@ -23,6 +23,7 @@ export const serviceEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[serviceEndpointEnum.item]: {
@@ -30,6 +31,7 @@ export const serviceEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[serviceEndpointEnum.paged]: {
@@ -48,6 +50,7 @@ export const serviceEndpoint: EndpointCollectionType = {
 			},
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[serviceEndpointEnum.deleteBanners]: {
@@ -55,6 +58,7 @@ export const serviceEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 	},
@@ -86,6 +90,7 @@ export const serviceEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[serviceEndpointEnum.unarchive]: {
@@ -93,6 +98,7 @@ export const serviceEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[serviceEndpointEnum.patchBanners]: {
@@ -100,6 +106,7 @@ export const serviceEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 	},
@@ -109,6 +116,7 @@ export const serviceEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			},
 			after: {
 				success: {
