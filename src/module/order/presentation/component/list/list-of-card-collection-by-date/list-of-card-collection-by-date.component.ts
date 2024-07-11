@@ -48,7 +48,7 @@ import {OrderActions} from "@order/state/order/order.actions";
                                 {{ timeItem.key }} ({{ toEventListType(timeItem?.value ?? [])?.length ?? 0 }})
                             </div>
                         </div>
-                        <div class="p-4 flex flex-wrap gap-4 overflow-x-auto">
+                        <div class="p-4 flex gap-4 overflow-x-auto">
                             <app-card-item-order-component
                                     *ngFor="let item of toEventListType(timeItem.value); trackBy: trackById"
                                     [showAction]="(showAction.state$ | async) ?? false"

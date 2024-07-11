@@ -32,7 +32,7 @@ export const routes: Routes = [
             {
                 path: '',
                 pathMatch: 'full',
-                redirectTo: '/identity',
+                redirectTo: '/identity/corridor',
             },
             {
                 path: ':tenantId',
@@ -203,14 +203,14 @@ export const routes: Routes = [
             {
                 path: 'corridor',
                 resolve: {
-                    clientId: tokenResolver,
+                    token: tokenResolver,
                 },
                 loadComponent: () => import('@page/identity/corridor/corridor.identity.page')
             },
             {
                 path: 'create-business',
                 resolve: {
-                    clientId: tokenResolver,
+                    token: tokenResolver,
                 },
                 loadComponent: () => import('@page/identity/create-business/create-business.identity.page'),
                 children: [
