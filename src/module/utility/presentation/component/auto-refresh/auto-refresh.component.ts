@@ -13,6 +13,7 @@ import {is} from "thiis";
 import {filter} from "rxjs";
 import {MS_ONE_SECOND} from "@utility/domain/const/c.time";
 import {AutoRefreshStorageService} from "@utility/presentation/component/auto-refresh/auto-refresh.storage.service";
+import {VisibilityService} from "@utility/cdk/visibility.service";
 
 @Component({
 	selector: 'utility-auto-refresh-component',
@@ -77,6 +78,7 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 		nonNullable: true,
 	});
 
+	private readonly visibilityService = inject(VisibilityService);
 	private readonly translateService = inject(TranslateService);
 	private readonly autoRefreshStorageService = inject(AutoRefreshStorageService);
 
@@ -137,7 +139,9 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 		}
 
 		this.timer = setTimeout(() => {
-			this.emitter.emit();
+			if (this.visibilityService.visibilityChange.value) {
+				this.emitter.emit();
+			}
 			this.initTimer(seconds);
 		}, timeout);
 
