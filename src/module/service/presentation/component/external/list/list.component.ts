@@ -43,7 +43,7 @@ import {ServiceTableService} from "@service/presentation/component/list/service.
 		}
 	]
 })
-export class ServiceExternalListComponent extends ListPage implements OnInit {
+export class ServiceExternalListComponent extends ListPage<IService> implements OnInit {
 
 	@Input()
 	public useTableStateFromStore = true;

@@ -49,7 +49,7 @@ import {MemberTableService} from "@member/presentation/component/list/member.tab
 		}
 	]
 })
-export class ListMemberPage extends ListPage {
+export class ListMemberPage extends ListPage<RIMember> {
 
 	public readonly tableState$: Observable<ITableState<RIMember>> = this.store.select(MemberState.tableState)
 		.pipe(

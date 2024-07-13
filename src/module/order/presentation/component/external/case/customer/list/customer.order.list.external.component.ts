@@ -9,19 +9,7 @@ import {
 } from '@angular/core';
 import {AsyncPipe, NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
-import {ITableState, TableState} from "@utility/domain/table.state";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {
-	AutoRefreshButtonComponent
-} from "@order/presentation/component/button/auto-refresh/auto-refresh.button.component";
-import {FilterComponent} from "@order/presentation/component/filter/filter.component";
-import {
-	ListOfCardCollectionByDateComponent
-} from "@order/presentation/component/list/list-of-card-collection-by-date/list-of-card-collection-by-date.component";
-import {
-	NotFoundTableDataComponent
-} from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
-import {tap} from "rxjs";
 import {
 	DesktopLayoutListComponent
 } from "@order/presentation/component/list/layout/desktop/desktop.layout.list.component";
@@ -32,20 +20,17 @@ import {TableService} from "@utility/table.service";
 import {
 	CustomerOrderTableService
 } from "@order/presentation/component/external/case/customer/list/customer.order.table.service";
+import {TableState} from "@utility/domain/table.state";
+import {PeerCustomerOrderActions} from "@order/state/peer-customer/peer-customer.order.actions";
 
 @Component({
 	selector: 'order-external-list-component',
-	templateUrl: './customer.order.list.external.component.html',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		AsyncPipe,
 		NgIf,
 		TranslateModule,
-		AutoRefreshButtonComponent,
-		FilterComponent,
-		ListOfCardCollectionByDateComponent,
-		NotFoundTableDataComponent,
 		DesktopLayoutListComponent,
 		MobileLayoutListComponent,
 	],
@@ -55,18 +40,29 @@ import {
 			provide: TableService,
 			useClass: CustomerOrderTableService
 		}
-	]
+	],
+	template: `
+		<ng-container *ngIf="initialized.isOn; else NotInitializedTemplate">
+			<app-order-mobile-layout-list-component
+				[showButtonGoToForm]="false"
+				[isPage]="false"
+				[tableState]="tableService.tableState"
+				*ngIf="isMobile$ | async"/>
+			<app-order-desktop-layout-list-component
+				[tableState]="tableService.tableState"
+				*ngIf="isNotMobile$ | async"/>
+		</ng-container>
+		<ng-template #NotInitializedTemplate>
+			<div class="p-4">
+				{{ 'keyword.capitalize.initializing' | translate }}...
+			</div>
+		</ng-template>
+	`
 })
-export class CustomerOrderListExternalComponent extends ListPage implements OnInit {
+export class CustomerOrderListExternalComponent extends ListPage<IOrderDto> implements OnInit {
 
 	@Input({required: true})
 	public customerId!: string;
-
-	@Input()
-	public useTableStateFromStore = true;
-
-	@Input()
-	public tableState: ITableState<IOrderDto> = new TableState<IOrderDto>().toCache();
 
 	@ViewChildren(MobileLayoutListComponent)
 	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
@@ -74,17 +70,21 @@ export class CustomerOrderListExternalComponent extends ListPage implements OnIn
 	public override mobileMode = true;
 
 	public override ngOnInit() {
+		this.store.dispatch(new PeerCustomerOrderActions.UpdateFilters({
+			customerId: this.customerId,
+		}));
 		super.ngOnInit();
 		this.store.select(PeerCustomerOrderState.tableState)
 			.pipe(
 				this.takeUntil(),
-				tap((tableState) => {
-					if (this.useTableStateFromStore) {
-						this.tableState = tableState;
-						this.changeDetectorRef.detectChanges();
-					}
-				})
-			).subscribe();
+			).subscribe((tableState) => {
+			if (tableState.page > this.tableService.tableState.page) {
+				this.tableService.tableState.addNextPageWithItems(tableState.items);
+			} else {
+				this.tableService.tableState = TableState.fromCache(tableState);
+			}
+			this.changeDetectorRef.detectChanges();
+		});
 	}
 
 }

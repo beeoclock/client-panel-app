@@ -36,7 +36,7 @@ import {TableService} from "@utility/table.service";
 		}
 	]
 })
-export class MemberExternalListComponent extends ListPage {
+export class MemberExternalListComponent extends ListPage<RIMember> {
 
     @ViewChildren(MobileLayoutListComponent)
     public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;

@@ -55,7 +55,7 @@ import {CustomerTableService} from "@customer/presentation/component/list/custom
 		}
 	]
 })
-export class ListCustomerPage extends ListPage {
+export class ListCustomerPage extends ListPage<ICustomer> {
 
 	public readonly tableState$: Observable<ITableState<ICustomer>> = this.store.select(CustomerState.tableState)
 		.pipe(

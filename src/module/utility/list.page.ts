@@ -11,7 +11,7 @@ import {TableService} from "@utility/table.service";
 	selector: 'utility-list-page',
 	template: ``
 })
-export abstract class ListPage extends Reactive implements OnInit {
+export abstract class ListPage<ITEM> extends Reactive implements OnInit {
 
 	@Input()
 	public mobileMode = false;
@@ -19,7 +19,7 @@ export abstract class ListPage extends Reactive implements OnInit {
 	protected readonly store = inject(Store);
 	protected readonly changeDetectorRef = inject(ChangeDetectorRef);
 	protected readonly windowWidthSizeService = inject(WindowWidthSizeService);
-	protected readonly tableService = inject(TableService);
+	protected readonly tableService: TableService<ITEM> = inject(TableService);
 
 	protected readonly getListParams?: Record<string, unknown>;
 

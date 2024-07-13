@@ -55,7 +55,7 @@ import {AbsenceTableService} from "@absence/presentation/component/list/absence.
 		}
 	]
 })
-export class ListAbsencePage extends ListPage {
+export class ListAbsencePage extends ListPage<IAbsenceDto> {
 
 	public readonly tableState$: Observable<ITableState<IAbsenceDto>> = this.store.select(AbsenceState.tableState)
 		.pipe(

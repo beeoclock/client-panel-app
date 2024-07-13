@@ -57,7 +57,7 @@ import {RequestedEventTableService} from "@event/presentation/component/requsted
 		}
 	]
 })
-export default class RequestedEventPage extends ListPage {
+export default class RequestedEventPage extends ListPage<RMIEvent> {
 
 	public readonly tableState$: Observable<ITableState<RMIEvent>> = this.store.select(EventRequestedState.tableState)
 		.pipe(

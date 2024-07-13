@@ -97,11 +97,7 @@ export abstract class TableComponent<ITEM extends IBaseEntity<string>> implement
     }
 
     public pageChange($event: number): void {
-        firstValueFrom(this.store.dispatch(new this.tableService.actions.UpdateTableState({
-            page: $event
-        }))).then(() => {
-            this.store.dispatch(new this.tableService.actions.GetList());
-        });
+        this.tableService.pageChange($event);
     }
 
     public open(item: ITEM): void {

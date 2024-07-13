@@ -48,12 +48,6 @@ import {OrderTableService} from "@order/presentation/component/list/order.table.
 		<order-list-of-card-collection-by-date-layout
 			[hidden]="initialized.isOff"
 			[tableState]="tableState$ | async"/>
-		<!--<app-order-mobile-layout-list-component-->
-		<!--[tableState]="tableState$ | async"-->
-		<!--*ngIf="isMobile$ | async"/>-->
-		<!--<app-order-desktop-layout-list-component-->
-		<!--[tableState]="tableState$ | async"-->
-		<!--*ngIf="isNotMobile$ | async"/>-->
 		<ng-template [ngIf]="initialized.isOff">
 			<div class="p-4">
 				{{ 'keyword.capitalize.initializing' | translate }}...
@@ -68,7 +62,7 @@ import {OrderTableService} from "@order/presentation/component/list/order.table.
 		}
 	],
 })
-export class ListOrderPage extends ListPage {
+export class ListOrderPage extends ListPage<IOrderDto> {
 
 	public readonly tableState$: Observable<ITableState<IOrderDto>> = this.store.select(OrderState.tableState)
 		.pipe(
