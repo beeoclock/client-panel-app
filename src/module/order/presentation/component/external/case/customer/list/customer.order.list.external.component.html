@@ -1,0 +1,33 @@
+<!--<ng-container *ngIf="initialized.isOn; else NotInitializedTemplate">-->
+<!--	<service-mobile-layout-list-component-->
+<!--		[showButtonGoToForm]="false"-->
+<!--		[isPage]="false"-->
+<!--		[tableState]="tableState"-->
+<!--		*ngIf="isMobile$ | async" />-->
+<!--	<service-desktop-layout-list-component-->
+<!--		[tableState]="tableState"-->
+<!--		*ngIf="isNotMobile$ | async" />-->
+<!--</ng-container>-->
+<!--<ng-template #NotInitializedTemplate>-->
+<!--	<div class="p-4">-->
+<!--		{{ 'keyword.capitalize.initializing' | translate }}...-->
+<!--	</div>-->
+<!--</ng-template>-->
+<div class="grid grid-rows-[80px]">
+	<app-order-filter-component/>
+	<div class="overflow-y-auto h-0 min-h-full bg-white">
+		<ng-container *ngIf="tableState">
+			<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
+				<order-list-of-card-collection-by-date-component [items]="items" [tableState]="tableState"/>
+			</ng-container>
+			<ng-template #EmptyTemplate>
+				<not-found-table-data-component
+						class="block h-full"
+						[linkLabel]="'order.button.create' | translate"
+						[label]="'keyword.capitalize.dataNotFound' | translate">
+					<app-order-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
+				</not-found-table-data-component>
+			</ng-template>
+		</ng-container>
+	</div>
+</div>

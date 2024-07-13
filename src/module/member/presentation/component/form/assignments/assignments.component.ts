@@ -47,13 +47,13 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 
 	public async selectServices() {
 
-		const {SelectServicePushBoxComponent} = await import("@service/presentation/push-box/select-service.push-box.component");
+		const {SelectServiceWhacAMoleComponent} = await import("@service/presentation/push-box/select-service.whac-a-mole.component");
 
 		const title = this.translateService.instant('member.form.assignments.service.select.title');
 
 		const pushBoxWrapperComponentRef = await this.whacAMaleProvider.buildItAsync({
 			title,
-			component: SelectServicePushBoxComponent,
+			component: SelectServiceWhacAMoleComponent,
 			componentInputs: {
 				selectedServiceList: this.form.controls.service.controls.include.value.map(({service}) => service)
 			},
@@ -71,7 +71,7 @@ export class MemberFormAssignmentsComponent extends Reactive implements OnInit {
 
 		const {renderedComponentRef} = pushBoxWrapperComponentRef.instance;
 
-		if (renderedComponentRef?.instance instanceof SelectServicePushBoxComponent) {
+		if (renderedComponentRef?.instance instanceof SelectServiceWhacAMoleComponent) {
 			renderedComponentRef.instance.selectedServicesListener.pipe(this.takeUntil()).subscribe(() => {
 				const {newSelectedServiceList} = renderedComponentRef.instance as {newSelectedServiceList: IServiceDto[]};
 				const include = newSelectedServiceList.map((service) => ({service}));

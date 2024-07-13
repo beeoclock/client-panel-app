@@ -136,7 +136,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 	public async openModalToSelectService() {
 
-		const {SelectServicePushBoxComponent} = await import("@service/presentation/push-box/select-service.push-box.component");
+		const {SelectServiceWhacAMoleComponent} = await import("@service/presentation/push-box/select-service.whac-a-mole.component");
 
 		let useTableStateFromStore = true;
 		let tableState = new TableState<IService>().toCache();
@@ -153,7 +153,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 		}
 
 		const pushBoxWrapperComponentRef = await this.whacAMaleProvider.buildItAsync({
-			component: SelectServicePushBoxComponent,
+			component: SelectServiceWhacAMoleComponent,
 			componentInputs: {
 				multiple: false,
 				selectedServiceList: this.serviceListControl.value,
@@ -174,7 +174,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 		const {instance} = renderedComponentRef;
 
-		if (instance instanceof SelectServicePushBoxComponent) {
+		if (instance instanceof SelectServiceWhacAMoleComponent) {
 			instance.selectedServicesListener.pipe(this.takeUntil()).subscribe(async () => {
 
 				let {newSelectedServiceList} = instance;
@@ -182,7 +182,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 				newSelectedServiceList = this.setMember(newSelectedServiceList)
 
 				this.serviceListControl.patchValue(newSelectedServiceList);
-				await this.whacAMaleProvider.destroyComponent(SelectServicePushBoxComponent);
+				await this.whacAMaleProvider.destroyComponent(SelectServiceWhacAMoleComponent);
 			});
 		}
 

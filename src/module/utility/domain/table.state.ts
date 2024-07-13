@@ -30,14 +30,17 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 
 	#filters = {};
 	#maxPage = 1;
-	#orderBy = OrderByEnum.CREATED_AT;
-	#orderDir = OrderDirEnum.DESC;
-	#page = 1;
-	#pageSize = 20;
 	#hashSum = '';
 	#items: ITEM[] = [];
 	#total = 0;
 	#lastUpdate = (new Date()).toISOString();
+
+	readonly #pagination = {
+		orderBy: OrderByEnum.CREATED_AT,
+		orderDir: OrderDirEnum.DESC,
+		page: 1,
+		pageSize: 20,
+	};
 
 	constructor() {
 		this.initHashSum();
@@ -59,23 +62,30 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 		return this;
 	}
 
+	public clearFilters(): this {
+		this.#filters = {};
+		this.initHashSum();
+		this.updateLastUpdate();
+		return this;
+	}
+
 	public setOrderBy(value: OrderByEnum) {
 		this.orderBy = value;
 		return this;
 	}
 
 	public set orderBy(value: OrderByEnum) {
-		this.#orderBy = value;
+		this.#pagination.orderBy = value;
 		this.initHashSum();
 		this.updateLastUpdate();
 	}
 
 	public get orderBy(): OrderByEnum {
-		return this.#orderBy;
+		return this.#pagination.orderBy;
 	}
 
 	public set orderDir(value: OrderDirEnum) {
-		this.#orderDir = value;
+		this.#pagination.orderDir = value;
 		this.initHashSum();
 		this.updateLastUpdate();
 	}
@@ -86,7 +96,7 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 	}
 
 	public get orderDir(): OrderDirEnum {
-		return this.#orderDir;
+		return this.#pagination.orderDir;
 	}
 
 	public setPage(value: number) {
@@ -95,17 +105,17 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 	}
 
 	public set page(value: number) {
-		this.#page = value;
+		this.#pagination.page = value;
 		this.initHashSum();
 		this.updateLastUpdate();
 	}
 
 	public get page(): number {
-		return this.#page;
+		return this.#pagination.page;
 	}
 
 	public nextPage() {
-		this.#page += 1;
+		this.#pagination.page += 1;
 		this.initHashSum();
 		this.updateLastUpdate();
 		return this;
@@ -117,13 +127,13 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 	}
 
 	public set pageSize(value: number) {
-		this.#pageSize = value;
+		this.#pagination.pageSize = value;
 		this.initHashSum();
 		this.updateLastUpdate();
 	}
 
 	public get pageSize(): number {
-		return this.#pageSize;
+		return this.#pagination.pageSize;
 	}
 
 	public set items(value: ITEM[]) {
@@ -138,6 +148,18 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 
 	public get items(): ITEM[] {
 		return this.#items;
+	}
+
+	public clearItems(): this {
+		this.#items = [];
+		this.updateLastUpdate();
+		return this;
+	}
+
+	public addItems(value: ITEM[]): this {
+		this.#items = this.#items.concat(value);
+		this.updateLastUpdate();
+		return this;
 	}
 
 	public set total(value: number) {
@@ -199,12 +221,16 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 	public initHashSum(): string {
 		this.#hashSum = hash_sum({
 			filters: this.#filters,
-			orderBy: this.#orderBy,
-			orderDir: this.#orderDir,
-			page: this.#page,
-			pageSize: this.#pageSize,
+			orderBy: this.#pagination.orderBy,
+			orderDir: this.#pagination.orderDir,
+			page: this.#pagination.page,
+			pageSize: this.#pagination.pageSize,
 		});
 		return this.hashSum;
+	}
+
+	public addNextPageWithItems(items: ITEM[]): this {
+		return this.nextPage().addItems(items);
 	}
 
 	public updateLastUpdate(): void {
