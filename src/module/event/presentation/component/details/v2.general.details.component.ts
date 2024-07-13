@@ -17,6 +17,8 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
+import {Store} from "@ngxs/store";
+import {CustomerActions} from "@customer/state/customer/customer.actions";
 
 @Component({
 	selector: 'event-v2-general-details',
@@ -99,9 +101,9 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
                                             </div>
                                         </ng-container>
                                         <ng-container *ngSwitchCase="customerTypeEnum.regular">
-                                            <div class="font-bold text-lg px-4">
+                                            <button primaryLink (click)="openCustomerDetails(customer)" class="font-bold text-lg px-4">
                                                 {{ customer.firstName }} {{ customer.lastName }}
-                                            </div>
+                                            </button>
                                             <div class="flex flex-wrap gap-2">
                                                 <a *ngIf="customer.email?.length" href="mailto:{{ customer.email }}"
                                                    primaryLinkStyle class="gap-2">
@@ -181,6 +183,7 @@ export class V2GeneralDetailsComponent implements OnChanges {
 	@HostBinding()
 	public class = 'block bg-white';
 
+	public readonly store = inject(Store);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
 	public readonly attendantMap: {
@@ -229,4 +232,7 @@ export class V2GeneralDetailsComponent implements OnChanges {
 		return !!this.event?.note?.length;
 	}
 
+	public openCustomerDetails(customer: ICustomer) {
+		this.store.dispatch(new CustomerActions.OpenDetailsById(customer._id));
+	}
 }

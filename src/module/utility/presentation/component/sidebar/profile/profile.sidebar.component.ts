@@ -8,6 +8,7 @@ import {Observable} from "rxjs";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {AlertController} from "@ionic/angular";
+import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
 
 
 @Component({
@@ -15,13 +16,14 @@ import {AlertController} from "@ionic/angular";
 	selector: 'utility-sidebar-profile-component',
 	templateUrl: './profile.sidebar.component.html',
 	encapsulation: ViewEncapsulation.None,
-	imports: [
-		AsyncPipe,
-		RouterLink,
-		TranslateModule,
-		NgForOf,
-		NgIf
-	],
+    imports: [
+        AsyncPipe,
+        RouterLink,
+        TranslateModule,
+        NgForOf,
+        NgIf,
+        WithTenantIdPipe
+    ],
 })
 export class ProfileSidebarComponent {
 

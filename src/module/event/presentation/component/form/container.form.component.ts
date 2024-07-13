@@ -3,6 +3,7 @@ import {
 	inject,
 	Input,
 	OnChanges,
+	OnDestroy,
 	OnInit,
 	QueryList,
 	SimpleChange,
@@ -76,7 +77,7 @@ import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 	],
 	templateUrl: './container.form.component.html'
 })
-export class ContainerFormComponent extends Reactive implements OnInit, OnChanges {
+export class ContainerFormComponent extends Reactive implements OnInit, OnChanges, OnDestroy {
 
 	@Input()
 	public orderServiceDto: IOrderServiceDto | undefined;
@@ -302,6 +303,11 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 			this.form.controls.configuration.controls.ignoreEventChecks.patchValue(true);
 
 		}
+	}
+
+	public override ngOnDestroy() {
+		this.form.destroyHandlers();
+		super.ngOnDestroy();
 	}
 
 }

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@utility/table.component";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {DateTime} from "luxon";
@@ -8,7 +8,7 @@ import {CardListComponent} from "@order/presentation/component/list/card/card.li
 import {CardItemOrderComponent} from "@order/presentation/component/list/card/item/card.item.order.component";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {
-    TableStatePaginationComponent
+	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
 import {OrderActions} from "@order/state/order/order.actions";
 
@@ -28,7 +28,6 @@ import {OrderActions} from "@order/state/order/order.actions";
         TableStatePaginationComponent
     ],
     template: `
-        <div class="flex flex-col">
             <div class="flex flex-col" *ngFor="let dateItem of keyvalue(items); let index = index">
                 <div class="ps-8 p-4 bg-beeColor-200 text-beeColor-600 sticky top-0">
                     <div class="flex gap-4 items-center">
@@ -48,7 +47,7 @@ import {OrderActions} from "@order/state/order/order.actions";
                                 {{ timeItem.key }} ({{ toEventListType(timeItem?.value ?? [])?.length ?? 0 }})
                             </div>
                         </div>
-                        <div class="p-4 flex flex-wrap gap-4 overflow-x-auto">
+                        <div class="p-4 flex gap-4 overflow-x-auto">
                             <app-card-item-order-component
                                     *ngFor="let item of toEventListType(timeItem.value); trackBy: trackById"
                                     [showAction]="(showAction.state$ | async) ?? false"
@@ -64,7 +63,6 @@ import {OrderActions} from "@order/state/order/order.actions";
                     (page)="pageChange($event)"
                     [tableState]="tableState"/>
 
-        </div>
     `
 })
 export class ListOfCardCollectionByDateComponent extends TableComponent<IOrderDto> {
@@ -81,6 +79,9 @@ export class ListOfCardCollectionByDateComponent extends TableComponent<IOrderDt
     public readonly showSelectedStatus = new BooleanStreamState(false);
 
     private readonly translateService = inject(TranslateService);
+
+    @HostBinding()
+    public class = 'flex flex-col';
 
     public keyvalue(value: any): {
         key: string;

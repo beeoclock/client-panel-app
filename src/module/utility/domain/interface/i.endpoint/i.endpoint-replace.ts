@@ -25,5 +25,6 @@ export interface EndpointInterface {
 	}
 	header?: {
 		authorization?: boolean;
+		tenantId?: boolean;
 	};
 }

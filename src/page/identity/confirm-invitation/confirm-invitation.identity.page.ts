@@ -16,6 +16,7 @@ import {ConfirmInvitationApiAdapter} from "@identity/adapter/external/api/confir
 import {NGXLogger} from "ngx-logger";
 import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 import {ToastController} from "@ionic/angular";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'app-confirm-invitation-identity-page',
@@ -34,7 +35,7 @@ import {ToastController} from "@ionic/angular";
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class ConfirmInvitationIdentityPage implements OnInit {
+export class ConfirmInvitationIdentityPage extends Reactive implements OnInit {
 
 	private readonly confirmInvitationApiAdapter = inject(ConfirmInvitationApiAdapter);
 	private readonly activatedRoute = inject(ActivatedRoute);
@@ -46,6 +47,7 @@ export class ConfirmInvitationIdentityPage implements OnInit {
 
 	public ngOnInit() {
 		this.activatedRoute.queryParams.pipe(
+			this.takeUntil(),
 			filter(is.object_not_empty<IQueryParamsConfirmInvitation>)
 		).subscribe((params) => {
 			this.form.patchValue(params);

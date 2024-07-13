@@ -24,18 +24,21 @@ export const businessProfileMediaEndpoint: EndpointCollectionType = {
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[businessProfileMediaEndpointEnum.getBanners]: {
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[businessProfileMediaEndpointEnum.getLogo]: {
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		}
 	},
@@ -44,18 +47,21 @@ export const businessProfileMediaEndpoint: EndpointCollectionType = {
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[businessProfileMediaEndpointEnum.patchBanners]: {
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[businessProfileMediaEndpointEnum.patchLogo]: {
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 	},
@@ -65,6 +71,7 @@ export const businessProfileMediaEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[businessProfileMediaEndpointEnum.deleteBanners]: {
@@ -72,12 +79,14 @@ export const businessProfileMediaEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[businessProfileMediaEndpointEnum.deleteLogo]: {
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 	},

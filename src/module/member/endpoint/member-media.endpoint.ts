@@ -13,6 +13,7 @@ Endpoint.registerEndpointPackage(RequestMethodEnum.PATCH, {
 		replace: true,
 		header: {
 			authorization: true,
+			tenantId: true,
 		}
 	},
 });
@@ -23,6 +24,7 @@ Endpoint.registerEndpointPackage(RequestMethodEnum.DELETE, {
 		replace: true,
 		header: {
 			authorization: true,
+			tenantId: true,
 		}
 	},
 });

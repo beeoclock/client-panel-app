@@ -48,7 +48,7 @@ import {ITableState, TableState} from "@utility/domain/table.state";
 		<service-external-list-component [useTableStateFromStore]="useTableStateFromStore" [tableState]="tableState" [mobileMode]="true"/>
 	`
 })
-export class SelectServicePushBoxComponent extends Reactive implements OnInit, AfterViewInit {
+export class SelectServiceWhacAMoleComponent extends Reactive implements OnInit, AfterViewInit {
 
 	@Input()
 	public selectedServiceList: IService[] = [];

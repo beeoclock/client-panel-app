@@ -4,13 +4,15 @@ import {NgForOf, NgIf} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
-import {IdentityState} from "@identity/state/identity/identity.state";
 import {SidebarService} from "@utility/presentation/component/sidebar/sidebar.service";
 import {environment} from "@environment/environment";
 import {EventBusTokenEnum} from "@src/event-bus-token.enum";
 import {NgEventBus} from "ng-event-bus";
 import {ClientState} from "@client/state/client/client.state";
 import {is} from "thiis";
+import {TENANT_ID} from "@src/token";
+import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
+import {Reactive} from "@utility/cdk/reactive";
 
 interface IMenuItem {
 	order: number;
@@ -38,14 +40,16 @@ interface IMenuItem {
 		NgForOf,
 		RouterLink,
 		RouterLinkActive,
-		TranslateModule
+		TranslateModule,
+		WithTenantIdPipe
 	],
 })
-export class MenuSidebarComponent implements OnInit {
+export class MenuSidebarComponent extends Reactive implements OnInit {
 
 	private readonly store = inject(Store);
 	private readonly ngEventBus = inject(NgEventBus);
 	private readonly sidebarService = inject(SidebarService);
+	private readonly tenantId$ = inject(TENANT_ID);
 
 	public readonly businessProfile$ = this.store.select(ClientState.item);
 
@@ -66,7 +70,7 @@ export class MenuSidebarComponent implements OnInit {
 			queryParams: "ignored",
 			fragment: "ignored",
 		},
-		url: '/event/requested',
+		url: 'event/requested',
 	};
 
 	public async goToPublicPage(): Promise<void> {
@@ -77,7 +81,7 @@ export class MenuSidebarComponent implements OnInit {
 
 		if (!path) {
 
-			path = await firstValueFrom(this.store.select(IdentityState.clientId));
+			path = await firstValueFrom(this.tenantId$);
 
 		}
 
@@ -99,7 +103,9 @@ export class MenuSidebarComponent implements OnInit {
 				this.requestedMenuItem.badge = badge;
 			});
 
-		this.businessProfile$.subscribe((item) => {
+		this.businessProfile$.pipe(
+			this.takeUntil()
+		).subscribe((item) => {
 			this.initMenu();
 			if (item) {
 				const { bookingSettings } = item;
@@ -119,7 +125,7 @@ export class MenuSidebarComponent implements OnInit {
 
 		// this.menu.push({
 		// 	order: 0,
-		// 	url: '/event/calendar-with-specialists',
+		// 	url: 'event/calendar-with-specialists',
 		// 	translateKey: 'sidebar.dashboard',
 		// 	icon: 'bi bi-calendar2-event',
 		// 	routerLinkActiveOptions: {
@@ -127,7 +133,7 @@ export class MenuSidebarComponent implements OnInit {
 		// 	}
 		// });
 		// {
-		// 	url: '/dashboard',
+		// 	url: 'dashboard',
 		// 	translateKey: 'sidebar.dashboard',
 		// 	icon: 'bi bi-pie-chart',
 		// 	routerLinkActiveOptions: {
@@ -146,11 +152,11 @@ export class MenuSidebarComponent implements OnInit {
 				queryParams: "ignored",
 				fragment: "ignored",
 			},
-			url: '/event/calendar-with-specialists',
+			url: 'event/calendar-with-specialists',
 			// items: [
 			// 	{
 			// 		translateKey: 'sidebar.calendar.withSpecialists.label',
-			// 		url: '/event/calendar-with-specialists',
+			// 		url: 'event/calendar-with-specialists',
 			// 		icon: 'bi bi-person-badge',
 			// 		routerLinkActiveOptions: {
 			// 			exact: true
@@ -159,7 +165,7 @@ export class MenuSidebarComponent implements OnInit {
 			// 		order: 0
 			// 	},
 			// 	{
-			// 		url: '/event/calendar',
+			// 		url: 'event/calendar',
 			// 		translateKey: 'sidebar.calendar.ordinary.label',
 			// 		icon: 'bi bi-calendar-week',
 			// 		routerLinkActiveOptions: {
@@ -172,7 +178,7 @@ export class MenuSidebarComponent implements OnInit {
 		});
 		// this.menu.push({
 		// 	order: 3,
-		// 	url: '/event/calendar',
+		// 	url: 'event/calendar',
 		// 	translateKey: 'sidebar.calendar',
 		// 	icon: 'bi bi-calendar-week',
 		// 	routerLinkActiveOptions: {
@@ -184,7 +190,7 @@ export class MenuSidebarComponent implements OnInit {
 		// });
 		this.menu.push({
 			order: 4,
-			url: '/event/statistic',
+			url: 'event/statistic',
 			translateKey: 'sidebar.statistic',
 			icon: 'bi bi-bar-chart',
 			beta: true,
@@ -198,7 +204,7 @@ export class MenuSidebarComponent implements OnInit {
 		});
 		this.menu.push({
 			order: 5,
-			url: '/customer/list',
+			url: 'customer/list',
 			translateKey: 'sidebar.customers',
 			icon: 'bi bi-person-vcard',
 			visible: true,
@@ -211,7 +217,7 @@ export class MenuSidebarComponent implements OnInit {
 		});
 		this.menu.push({
 			order: 6,
-			url: '/order/list',
+			url: 'order/list',
 			translateKey: 'sidebar.order',
 			icon: 'bi bi-cart',
 			visible: true,
@@ -224,7 +230,7 @@ export class MenuSidebarComponent implements OnInit {
 		});
 		this.menu.push({
 			order: 7,
-			url: '/absence/list',
+			url: 'absence/list',
 			translateKey: 'sidebar.absence',
 			icon: 'bi bi-calendar2-x',
 			visible: true,
@@ -237,7 +243,7 @@ export class MenuSidebarComponent implements OnInit {
 		});
 		this.menu.push({
 			order: 8,
-			url: '/member/list',
+			url: 'member/list',
 			translateKey: 'sidebar.members',
 			visible: true,
 			icon: 'bi bi-people',
@@ -250,7 +256,7 @@ export class MenuSidebarComponent implements OnInit {
 		});
 		this.menu.push({
 			order: 9,
-			url: '/service/list',
+			url: 'service/list',
 			translateKey: 'sidebar.services',
 			icon: 'bi bi-emoji-smile',
 			visible: true,
@@ -263,7 +269,7 @@ export class MenuSidebarComponent implements OnInit {
 		});
 		this.menu.push({
 			order: 10,
-			url: '/client/business-profile',
+			url: 'client/business-profile',
 			translateKey: 'sidebar.businessProfile',
 			visible: true,
 			icon: 'bi bi-buildings',
@@ -276,7 +282,7 @@ export class MenuSidebarComponent implements OnInit {
 		});
 		this.menu.push({
 			order: 11,
-			url: '/client/business-settings',
+			url: 'client/business-settings',
 			translateKey: 'sidebar.businessSettings',
 			icon: 'bi bi-building-gear',
 			visible: true,
@@ -296,7 +302,7 @@ export class MenuSidebarComponent implements OnInit {
 		//   items: [
 		//     {
 		//       translateKey: 'sidebar.profile',
-		//       url: '/client/profile',
+		//       url: 'client/profile',
 		//       icon: 'bi bi-person',
 		//       routerLinkActiveOptions: {
 		//         exact: true
@@ -304,7 +310,7 @@ export class MenuSidebarComponent implements OnInit {
 		//     },
 		//     {
 		//       translateKey: 'sidebar.settings',
-		//       url: '/client/settings',
+		//       url: 'client/settings',
 		//       icon: 'bi bi-gear',
 		//       routerLinkActiveOptions: {
 		//         exact: true
@@ -312,7 +318,7 @@ export class MenuSidebarComponent implements OnInit {
 		//     },
 		//     {
 		//       translateKey: 'sidebar.switch-business-client',
-		//       url: '/identity/corridor',
+		//       url: 'identity/corridor',
 		//       icon: 'bi bi-gear',
 		//       routerLinkActiveOptions: {
 		//         exact: true

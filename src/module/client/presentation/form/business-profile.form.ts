@@ -12,6 +12,8 @@ import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.
 import {BusinessSettingsForm} from "@client/presentation/form/business-settings.form";
 import {is} from "thiis";
 import {USERNAME_ANGULAR_VALIDATOR} from "@utility/validators";
+import {takeUntil} from "rxjs/operators";
+import {Subject} from 'rxjs';
 
 
 export interface IBusinessProfile {
@@ -38,6 +40,8 @@ export interface IBusinessProfile {
 }
 
 export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
+
+	private readonly destroy$ = new Subject<void>();
 
 	constructor() {
 		super({
@@ -70,13 +74,22 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
 	}
 
 	private initHandles(): void {
-		this.controls.published.valueChanges.subscribe((value) => {
+		this.controls.published.valueChanges.pipe(
+			takeUntil(this.destroy$)
+		).subscribe((value) => {
 			if (is.boolean(value)) {
 				this.controls.published.patchValue(+value, {
 					emitEvent: false
 				});
 			}
 		})
+	}
+
+	public destroyHandlers(): void {
+
+		this.destroy$.next();
+		this.destroy$.complete();
+
 	}
 
 	private initValue(): void {

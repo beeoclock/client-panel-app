@@ -18,109 +18,109 @@ import {AppActions} from "@utility/state/app/app.actions";
 import {Reactive} from "@utility/cdk/reactive";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
+import {TENANT_ID} from "@src/token";
 
 @Component({
-  selector: 'app-identity-corridor-page',
-  templateUrl: './corridor.identity.page.html',
-  standalone: true,
-	imports: [
-		RouterLink,
-		ReactiveFormsModule,
-		SignInComponent,
-		NgForOf,
-		AsyncPipe,
-		NgIf,
-		LoaderComponent,
-		TranslateModule,
-		ChangeLanguageComponent,
-		LogoutComponent,
-		BackButtonComponent,
-		BackLinkComponent
-	],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-identity-corridor-page',
+    templateUrl: './corridor.identity.page.html',
+    standalone: true,
+    imports: [
+        RouterLink,
+        ReactiveFormsModule,
+        SignInComponent,
+        NgForOf,
+        AsyncPipe,
+        NgIf,
+        LoaderComponent,
+        TranslateModule,
+        ChangeLanguageComponent,
+        LogoutComponent,
+        BackButtonComponent,
+        BackLinkComponent
+    ],
+    encapsulation: ViewEncapsulation.None
 })
 export class CorridorIdentityPage extends Reactive implements OnInit {
 
-  private readonly store = inject(Store);
-  private readonly router = inject(Router);
-  private readonly activatedRoute = inject(ActivatedRoute);
-  private readonly identityApiAdapter = inject(IdentityApiAdapter);
+    private readonly store = inject(Store);
+    private readonly router = inject(Router);
+    private readonly activatedRoute = inject(ActivatedRoute);
+    private readonly identityApiAdapter = inject(IdentityApiAdapter);
 
-  @Select(IdentityState.clients)
-  private readonly clients$!: Observable<IMember[]>;
+    @Select(IdentityState.clients)
+    private readonly clients$!: Observable<IMember[]>;
 
-  @Select(IdentityState.clientId)
-  public readonly clientId$!: Observable<string | undefined>;
+    public readonly tenantId$ = inject(TENANT_ID);
 
-  public readonly members$ = this.clients$.pipe(
-    filter(Array.isArray),
-    tap((result) => {
-      if (!('force' in this.activatedRoute.snapshot.queryParams)) {
-        if (result.length === 0) {
-          this.gotToCreateBusinessPage({
-            firstCompany: true
-          }).then();
-        }
-      } else {
-        if ('firstCompany' in this.activatedRoute.snapshot.queryParams) {
-          if (result.length) {
-            this.select(result[0]).then();
-          }
-        }
-      }
-      this.loader.switchOff();
-    })
-  );
+    public readonly members$ = this.clients$.pipe(
+        filter(Array.isArray),
+        tap((result) => {
+            if (!('force' in this.activatedRoute.snapshot.queryParams)) {
+                if (result.length === 0) {
+                    this.gotToCreateBusinessPage({
+                        firstCompany: true
+                    }).then();
+                }
+            } else {
+                if ('firstCompany' in this.activatedRoute.snapshot.queryParams) {
+                    if (result.length) {
+                        this.select(result[0]).then();
+                    }
+                }
+            }
+            this.loader.switchOff();
+        })
+    );
 
-  public readonly loader = new BooleanState(true);
-  public readonly disabled = new BooleanState(false);
-	public readonly pathToMainAuthorizedPage = ['/', 'event', 'calendar-with-specialists'];
+    public readonly loader = new BooleanState(true);
+    public readonly disabled = new BooleanState(false);
 
-  public ngOnInit(): void {
+    public ngOnInit(): void {
 
-    this.store.dispatch(new IdentityActions.GetClients());
+        this.store.dispatch(new IdentityActions.GetClients());
 
-    this.clientId$.pipe(
-			this.takeUntil(),
-      filter((result) => !!result),
-      filter(() => !('force' in this.activatedRoute.snapshot.queryParams)),
-      switchMap(() => from(this.gotToMainAuthorizedPage()))
-    ).subscribe();
+        this.tenantId$.pipe(
+            this.takeUntil(),
+            filter((result) => !!result),
+            filter(() => !('force' in this.activatedRoute.snapshot.queryParams)),
+            switchMap(() => from(this.gotToMainAuthorizedPage()))
+        ).subscribe();
 
-  }
+    }
 
-  public async gotToCreateBusinessPage(queryParams = {}): Promise<boolean> {
-    return this.router.navigate(['/', 'identity', 'create-business'], {
-      queryParams
-    });
-  }
+    public async gotToCreateBusinessPage(queryParams = {}): Promise<boolean> {
+        return this.router.navigate(['/', 'identity', 'create-business'], {
+            queryParams
+        });
+    }
 
-  public async gotToMainAuthorizedPage(): Promise<boolean> {
-    return this.router.navigate(this.pathToMainAuthorizedPage);
-  }
+    public get pathToMainAuthorizedPageWithTenantId() {
+        return ['/', this.tenantId$.value ?? '', 'event', 'calendar-with-specialists'];
+    }
 
-  public async select(member: IMember): Promise<void> {
-    this.disabled.switchOn();
+    public async gotToMainAuthorizedPage(): Promise<boolean> {
+        return this.router.navigate(this.pathToMainAuthorizedPageWithTenantId);
+    }
 
-    this.store.dispatch(new AppActions.PageLoading(true)).pipe(
-      // Switch business client by server side
-      switchMap(() => this.identityApiAdapter.patchSwitchBusinessClient$({
-        clientId: member.client._id
-      })),
-      // Refresh token and receive new claims
-      tap(() => this.store.dispatch(new IdentityActions.InitToken())),
-      switchMap(() => this.clientId$),
-      filter((clientId) => clientId === member.client._id),
-      tap(() => this.store.dispatch(new AppActions.PageLoading(false))),
-      switchMap(() => from(this.gotToMainAuthorizedPage())),
-      this.takeUntil(),
-    ).subscribe({
-      error: () => {
-        this.disabled.switchOff();
-      }
-    });
+    public async select(member: IMember): Promise<void> {
+        this.disabled.switchOn();
 
-  }
+        this.store.dispatch(new AppActions.PageLoading(true)).pipe(
+            tap(() => {
+                this.tenantId$.next(member.client._id);
+            }),
+            switchMap(() => this.tenantId$),
+            filter((tenantId) => tenantId === member.client._id),
+            tap(() => this.store.dispatch(new AppActions.PageLoading(false))),
+            switchMap(() => from(this.gotToMainAuthorizedPage())),
+            this.takeUntil(),
+        ).subscribe({
+            error: () => {
+                this.disabled.switchOff();
+            }
+        });
+
+    }
 
 }
 
