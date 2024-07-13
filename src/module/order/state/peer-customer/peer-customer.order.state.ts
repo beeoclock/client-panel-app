@@ -3,14 +3,15 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {PagedOrderApiAdapter} from "@order/external/adapter/api/paged.order.api.adapter";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {OrderActions} from "@order/state/order/order.actions";
 import {ITableState, TableState} from "@utility/domain/table.state";
+import {BaseState} from "@utility/state/base/base.state";
+import {PeerCustomerOrderActions} from "@order/state/peer-customer/peer-customer.order.actions";
 
-export type IOrderState = {
+export type IPeerCustomerOrderState = {
 	tableState: ITableState<IOrderDto>;
 };
 
-@State<IOrderState>({
+@State<IPeerCustomerOrderState>({
 	name: 'peerCustomerOrderState',
 	defaults: {
 		tableState: new TableState<IOrderDto>().setOrderBy(OrderByEnum.UPDATED_AT).setOrderDir(OrderDirEnum.DESC).toCache(),
@@ -19,49 +20,38 @@ export type IOrderState = {
 @Injectable()
 export class PeerCustomerOrderState {
 
-	protected override readonly paged = inject(PagedOrderApiAdapter);
+	private readonly paged = inject(PagedOrderApiAdapter);
 
-	// API
-	@Action(OrderActions.Init)
-	public override async init(ctx: StateContext<IOrderState>): Promise<void> {
-		await super.init(ctx);
+	@Action(PeerCustomerOrderActions.UpdateFilters)
+	public updateFilters(ctx: StateContext<IPeerCustomerOrderState>, action: PeerCustomerOrderActions.UpdateFilters) {
+		BaseState.updateFilters(ctx, action);
 	}
 
-	@Action(OrderActions.UpdateFilters)
-	public override updateFilters(ctx: StateContext<IOrderState>, action: OrderActions.UpdateFilters) {
-		super.updateFilters(ctx, action);
+	@Action(PeerCustomerOrderActions.UpdateTableState)
+	public updateTableState(ctx: StateContext<IPeerCustomerOrderState>, action: PeerCustomerOrderActions.UpdateTableState) {
+		BaseState.updateTableState(ctx, action);
 	}
 
-	@Action(OrderActions.UpdateTableState)
-	public override updateTableState(ctx: StateContext<IOrderState>, action: OrderActions.UpdateTableState) {
-		super.updateTableState(ctx, action);
-	}
-
-
-	@Action(OrderActions.GetList)
-	public override async getList(ctx: StateContext<IOrderState>, action: OrderActions.GetList): Promise<void> {
-		await super.getList(ctx, action);
-	}
+	//
+	// @Action(PeerCustomerOrderActions.GetList)
+	// public async getList(ctx: StateContext<IPeerCustomerOrderState>, action: PeerCustomerOrderActions.GetList): Promise<void> {
+	// 	await super.getList(ctx, action);
+	// }
 
 	// Selectors
 
 	@Selector()
-	public static itemData(state: IOrderState) {
-		return state.item.data;
-	}
-
-	@Selector()
-	public static tableStateItems(state: IOrderState) {
+	public static tableStateItems(state: IPeerCustomerOrderState) {
 		return state.tableState.items;
 	}
 
 	@Selector()
-	public static tableState(state: IOrderState) {
+	public static tableState(state: IPeerCustomerOrderState) {
 		return state.tableState;
 	}
 
 	@Selector()
-	public static tableStateFilters(state: IOrderState) {
+	public static tableStateFilters(state: IPeerCustomerOrderState) {
 		return state.tableState.filters;
 	}
 

@@ -11,17 +11,18 @@ export class LogoutService {
 
 	private readonly router = inject(Router);
 	private readonly auth = inject(Auth);
-	private readonly logger = inject(NGXLogger);
+	private readonly ngxLogger = inject(NGXLogger);
 	private readonly tenantId$ = inject(TENANT_ID);
 
 	public logout(): void {
+		this.ngxLogger.info(LogoutService.name, 'logout');
 		this.auth.signOut()
 			.then(() => {
 				this.tenantId$.next(null);
-				this.router.navigate(['/']).then();
+				this.router.navigate(['/', 'identity']).then();
 			})
 			.catch((error) => {
-				this.logger.error(LogoutService.name, error);
+				this.ngxLogger.error(LogoutService.name, error);
 			});
 	}
 }
