@@ -1,24 +1,16 @@
 import {
 	ChangeDetectionStrategy,
-	ChangeDetectorRef,
 	Component,
-	inject,
 	Input,
-	OnChanges,
+	OnInit,
 	QueryList,
-	SimpleChange,
-	SimpleChanges,
 	ViewChildren,
 	ViewEncapsulation
 } from '@angular/core';
 import {AsyncPipe, NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {ITableState, TableState} from "@utility/domain/table.state";
-import {
-	MobileLayoutListComponent
-} from "@service/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {DateTime} from "luxon";
 import {
 	AutoRefreshButtonComponent
 } from "@order/presentation/component/button/auto-refresh/auto-refresh.button.component";
@@ -29,71 +21,70 @@ import {
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
+import {tap} from "rxjs";
+import {
+	DesktopLayoutListComponent
+} from "@order/presentation/component/list/layout/desktop/desktop.layout.list.component";
+import {ListPage} from "@utility/list.page";
+import {PeerCustomerOrderState} from "@order/state/peer-customer/peer-customer.order.state";
+import {MobileLayoutListComponent} from "@order/presentation/component/list/layout/mobile/mobile.layout.list.component";
+import {TableService} from "@utility/table.service";
+import {
+	CustomerOrderTableService
+} from "@order/presentation/component/external/case/customer/list/customer.order.table.service";
 
 @Component({
-    selector: 'order-external-list-component',
-    templateUrl: './customer.order.list.external.component.html',
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        AsyncPipe,
-        NgIf,
-        TranslateModule,
-        AutoRefreshButtonComponent,
-        FilterComponent,
-        ListOfCardCollectionByDateComponent,
-        NotFoundTableDataComponent,
-    ],
-    standalone: true
+	selector: 'order-external-list-component',
+	templateUrl: './customer.order.list.external.component.html',
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [
+		AsyncPipe,
+		NgIf,
+		TranslateModule,
+		AutoRefreshButtonComponent,
+		FilterComponent,
+		ListOfCardCollectionByDateComponent,
+		NotFoundTableDataComponent,
+		DesktopLayoutListComponent,
+		MobileLayoutListComponent,
+	],
+	standalone: true,
+	providers: [
+		{
+			provide: TableService,
+			useClass: CustomerOrderTableService
+		}
+	]
 })
-export class CustomerOrderListExternalComponent implements OnChanges {
+export class CustomerOrderListExternalComponent extends ListPage implements OnInit {
 
-    @Input()
-    public useTableStateFromStore = true;
+	@Input({required: true})
+	public customerId!: string;
 
-    @Input()
-    public tableState: ITableState<IOrderDto> = new TableState<IOrderDto>().toCache();
+	@Input()
+	public useTableStateFromStore = true;
 
-    @ViewChildren(MobileLayoutListComponent)
-    public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
+	@Input()
+	public tableState: ITableState<IOrderDto> = new TableState<IOrderDto>().toCache();
 
-    public items: { [key: string]: { [key: string]: IOrderDto[] } } = {};
+	@ViewChildren(MobileLayoutListComponent)
+	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
 
-    private readonly changeDetectorRef = inject(ChangeDetectorRef);
+	public override mobileMode = true;
 
-    public ngOnChanges(changes: SimpleChanges & { tableState: SimpleChange }) {
-
-        if (changes.tableState?.currentValue) {
-            const {items} = changes.tableState.currentValue as { items: IOrderDto[] };
-            this.items = {};
-            this.items = items.reduce((acc, item) => {
-                const dateTime = DateTime.fromISO(item.createdAt);
-                const dateKey = dateTime.toFormat('yyyy-MM-dd');
-                const timeKey = dateTime.toFormat('HH:mm');
-                const dateGroup = acc[dateKey] ?? {};
-                const timeGroup = dateGroup[timeKey] ?? [];
-                timeGroup.push(item);
-                dateGroup[timeKey] = timeGroup;
-                acc[dateKey] = dateGroup;
-                return acc;
-            }, this.items);
-        }
-        this.changeDetectorRef.detectChanges();
-
-    }
-    //
-    // public override ngOnInit() {
-    //     super.ngOnInit();
-    //     this.store.select(OrderState.tableState)
-    //         .pipe(
-    //             this.takeUntil(),
-    //             tap((tableState) => {
-    //                 if (this.useTableStateFromStore) {
-    //                     this.tableState = tableState;
-    //                     this.changeDetectorRef.detectChanges();
-    //                 }
-    //             })
-    //         ).subscribe();
-    // }
+	public override ngOnInit() {
+		super.ngOnInit();
+		this.store.select(PeerCustomerOrderState.tableState)
+			.pipe(
+				this.takeUntil(),
+				tap((tableState) => {
+					if (this.useTableStateFromStore) {
+						this.tableState = tableState;
+						this.changeDetectorRef.detectChanges();
+					}
+				})
+			).subscribe();
+	}
 
 }

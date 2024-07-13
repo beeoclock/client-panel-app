@@ -5,6 +5,7 @@ import {BooleanState} from "@utility/domain";
 import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
 import {BaseActions} from "@utility/state/base/base.actions";
 import {Reactive} from "@utility/cdk/reactive";
+import {TableService} from "@utility/table.service";
 
 @Component({
 	selector: 'utility-list-page',
@@ -18,11 +19,9 @@ export abstract class ListPage extends Reactive implements OnInit {
 	protected readonly store = inject(Store);
 	protected readonly changeDetectorRef = inject(ChangeDetectorRef);
 	protected readonly windowWidthSizeService = inject(WindowWidthSizeService);
-	public readonly actions!: {
-		GetList: any;
-	};
+	protected readonly tableService = inject(TableService);
 
-	protected readonly getListParams: unknown | null = null;
+	protected readonly getListParams?: Record<string, unknown>;
 
 	public initialized = new BooleanState(false);
 
@@ -41,9 +40,9 @@ export abstract class ListPage extends Reactive implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		let action = new this.actions.GetList();
+		let action = new this.tableService.actions.GetList();
 		if (this.getListParams) {
-			action = new this.actions.GetList({
+			action = new this.tableService.actions.GetList({
 				queryParams: this.getListParams,
 				...BaseActions.GetList.defaultPayload
 			});

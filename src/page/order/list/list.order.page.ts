@@ -18,10 +18,11 @@ import {
 import {MobileLayoutListComponent} from "@order/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {OrderState} from "@order/state/order/order.state";
-import {OrderActions} from "@order/state/order/order.actions";
 import {
 	ListOfCardCollectionByDateLayout
 } from "@order/presentation/component/list/layout/list-of-card-collection-by-date/list-of-card-collection-by-date.layout";
+import {TableService} from "@utility/table.service";
+import {OrderTableService} from "@order/presentation/component/list/order.table.service";
 
 @Component({
 	selector: 'app-list-order-page',
@@ -59,15 +60,19 @@ import {
 			</div>
 		</ng-template>
 
-	`
+	`,
+	providers: [
+		{
+			provide: TableService,
+			useClass: OrderTableService
+		}
+	],
 })
 export class ListOrderPage extends ListPage {
 
-	public override readonly actions = OrderActions;
 	public readonly tableState$: Observable<ITableState<IOrderDto>> = this.store.select(OrderState.tableState)
 		.pipe(
 			tap((tableState) => {
-				console.log(tableState)
 				this.changeDetectorRef.detectChanges();
 			})
 		);

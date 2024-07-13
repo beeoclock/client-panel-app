@@ -19,7 +19,7 @@ export class CustomerOrderListExternalWhacAMole {
         const pushBoxWrapperComponentRef = await this.whacAMaleProvider.buildItAsync({
             component: CustomerOrderListExternalComponent,
             componentInputs: {
-                customerId: false,
+                customerId,
             }
         });
 

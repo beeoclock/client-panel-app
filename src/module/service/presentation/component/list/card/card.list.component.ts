@@ -17,6 +17,7 @@ import {ServiceActions} from "@service/state/service/service.actions";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
+import {ServiceTableService} from "@service/presentation/component/list/service.table.service";
 
 @Component({
 	selector: 'service-card-list-component',
@@ -42,11 +43,11 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 	providers: [
 		CurrencyPipe,
 		DurationVersionHtmlHelper,
+		ServiceTableService
 	],
 })
 export class CardListComponent extends TableComponent<IService> implements OnChanges {
 
-	public override readonly actions = ServiceActions;
 	public readonly translateService = inject(TranslateService);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 

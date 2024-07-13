@@ -53,8 +53,6 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 })
 export class TableListComponent extends TableComponent<IService> {
 
-	public override readonly actions = ServiceActions;
-
 	public readonly translateService = inject(TranslateService);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 

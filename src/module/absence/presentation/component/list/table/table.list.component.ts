@@ -47,7 +47,7 @@ import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 })
 export class TableListComponent extends TableComponent<IAbsenceDto> {
 
-	public override readonly actions = AbsenceActions;
+	// public override readonly actions = AbsenceActions;
 
 	public readonly tableConfiguration = {
 		columns: {

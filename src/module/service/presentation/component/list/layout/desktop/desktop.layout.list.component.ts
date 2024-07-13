@@ -26,7 +26,7 @@ import {ServiceActions} from "@service/state/service/service.actions";
 		TranslateModule,
 		TableListComponent,
 		AutoRefreshButtonComponent,
-	]
+	],
 })
 export class DesktopLayoutListComponent extends LayoutListComponent<IService> {
 

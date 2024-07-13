@@ -1,15 +1,15 @@
 import {
-    AfterViewInit,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    inject,
-    Input,
-    OnChanges,
-    Output,
-    SimpleChange,
-    SimpleChanges
+	AfterViewInit,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	inject,
+	Input,
+	OnChanges,
+	Output,
+	SimpleChange,
+	SimpleChanges
 } from "@angular/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
@@ -18,11 +18,12 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {IBaseEntity} from "@utility/domain";
 import {ITableState} from "@utility/domain/table.state";
 import {debounce} from "typescript-debounce-decorator";
-import {BaseActions} from "@utility/state/base/base.actions";
 import {OrderByEnum} from "./domain/enum";
+import {TableService} from "@utility/table.service";
 
 @Component({
     selector: 'utility-table-component',
+	providers: [TableService],
     template: ``
 })
 export abstract class TableComponent<ITEM extends IBaseEntity<string>> implements AfterViewInit, OnChanges {
@@ -45,14 +46,11 @@ export abstract class TableComponent<ITEM extends IBaseEntity<string>> implement
     }
 
     public readonly router = inject(Router);
+    public readonly tableService = inject(TableService);
     public readonly activatedRoute = inject(ActivatedRoute);
     public readonly store = inject(Store);
     public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
     public readonly changeDetectorRef = inject(ChangeDetectorRef);
-    public readonly actions!: {
-        readonly GetList: typeof BaseActions.GetList;
-        readonly UpdateTableState: typeof BaseActions.UpdateTableState<ITEM>;
-    };
     public selectedIds: string[] = [];
 
     public ngAfterViewInit(): void {
@@ -90,19 +88,19 @@ export abstract class TableComponent<ITEM extends IBaseEntity<string>> implement
                 this.updateOrderBy(parent);
             }
         } else {
-            firstValueFrom(this.store.dispatch(new this.actions.UpdateTableState({
+            firstValueFrom(this.store.dispatch(new this.tableService.actions.UpdateTableState({
                 orderBy
             }))).then(() => {
-                this.store.dispatch(new this.actions.GetList());
+                this.store.dispatch(new this.tableService.actions.GetList());
             });
         }
     }
 
     public pageChange($event: number): void {
-        firstValueFrom(this.store.dispatch(new this.actions.UpdateTableState({
+        firstValueFrom(this.store.dispatch(new this.tableService.actions.UpdateTableState({
             page: $event
         }))).then(() => {
-            this.store.dispatch(new this.actions.GetList());
+            this.store.dispatch(new this.tableService.actions.GetList());
         });
     }
 

@@ -12,19 +12,21 @@ import {NgIf} from "@angular/common";
 import {
 	CustomerOrderListExternalWhacAMole
 } from "@order/presentation/component/external/case/customer/list/customer.order.list.external.whac-a-mole";
+import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
 
 @Component({
     selector: 'customer-detail-page',
     templateUrl: './customer-details-container.component.html',
     encapsulation: ViewEncapsulation.None,
-    imports: [
-        DynamicDatePipe,
-        TranslateModule,
-        DeleteButtonComponent,
-        EditButtonComponent,
-        ActiveStyleDirective,
-        NgIf
-    ],
+	imports: [
+		DynamicDatePipe,
+		TranslateModule,
+		DeleteButtonComponent,
+		EditButtonComponent,
+		ActiveStyleDirective,
+		NgIf,
+		PrimaryLinkStyleDirective
+	],
     standalone: true
 })
 export class CustomerDetailsContainerComponent {

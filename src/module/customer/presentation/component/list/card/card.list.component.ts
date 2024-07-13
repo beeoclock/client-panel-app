@@ -43,7 +43,7 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 })
 export class CardListComponent extends TableComponent<ICustomer> {
 
-	public override readonly actions = CustomerActions;
+	// public override readonly actions = CustomerActions;
 
 	public showAction = new BooleanStreamState(true);
 

@@ -3,7 +3,6 @@ import {ListPage} from "@utility/list.page";
 import {CustomerState} from "@customer/state/customer/customer.state";
 import {Observable, tap} from "rxjs";
 import {ICustomer} from "@customer/domain";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ITableState} from "@utility/domain/table.state";
 import {StarterComponent} from "@utility/presentation/component/starter/starter.component";
 import {TranslateModule} from "@ngx-translate/core";
@@ -13,16 +12,18 @@ import {RouterLink} from "@angular/router";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {
-    NotFoundTableDataComponent
+	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TableListComponent} from "@customer/presentation/component/list/table/table.list.component";
 import {CardListComponent} from "@customer/presentation/component/list/card/card.list.component";
 import {
-    DesktopLayoutListComponent
+	DesktopLayoutListComponent
 } from "@customer/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {
-    MobileLayoutListComponent
+	MobileLayoutListComponent
 } from "@customer/presentation/component/list/layout/mobile/mobile.layout.list.component";
+import {TableService} from "@utility/table.service";
+import {CustomerTableService} from "@customer/presentation/component/list/customer.table.service";
 
 @Component({
 	selector: 'app-list-customer-page',
@@ -46,11 +47,16 @@ import {
 		DesktopLayoutListComponent,
 		MobileLayoutListComponent,
 	],
-	standalone: true
+	standalone: true,
+	providers: [
+		{
+			provide: TableService,
+			useClass: CustomerTableService
+		}
+	]
 })
 export class ListCustomerPage extends ListPage {
 
-	public override readonly actions = CustomerActions;
 	public readonly tableState$: Observable<ITableState<ICustomer>> = this.store.select(CustomerState.tableState)
 		.pipe(
 			tap((tableState) => {

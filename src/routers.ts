@@ -14,6 +14,7 @@ import {OrderState} from "@order/state/order/order.state";
 import {EventState} from "@event/state/event/event.state";
 import {CalendarState} from "@event/state/calendar/calendar.state";
 import {StatisticState} from "@event/state/statistic/statistic.state";
+import {PeerCustomerOrderState} from "@order/state/peer-customer/peer-customer.order.state";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
@@ -147,6 +148,9 @@ export const routes: Routes = [
 					tenantId: tenantIdResolver,
 				},
 				component: WrapperPanelComponent,
+				providers: [
+					importProvidersFrom(NgxsModule.forFeature([PeerCustomerOrderState])),
+				],
 				children: [
 					{
 						path: '',

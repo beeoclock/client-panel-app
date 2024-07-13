@@ -14,19 +14,17 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@order/presentation/component/row-action-button/row-action-button.component";
-import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import {OrderActions} from "@order/state/order/order.actions";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {CardItemOrderComponent} from "@order/presentation/component/list/card/item/card.item.order.component";
 
 @Component({
 	selector: 'app-order-card-list-component',
 	template: `
-		<div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState.items.length">
+		<div class="flex flex-col items-center justify-center gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState.items.length">
 			<app-card-item-order-component
 				*ngFor="let item of tableState.items; trackBy: trackById"
-				[showAction]="(showAction.state$ | async) ?? false"
-				[showSelectedStatus]="(showSelectedStatus.state$ | async) ?? false"
+				[showAction]="(tableService.showAction.state$ | async) ?? false"
+				[showSelectedStatus]="(tableService.showSelectedStatus.state$ | async) ?? false"
 				[selectedIds]="selectedIds"
 				[item]="item" />
 		</div>
@@ -57,9 +55,5 @@ import {CardItemOrderComponent} from "@order/presentation/component/list/card/it
 	]
 })
 export class CardListComponent extends TableComponent<IOrderDto> {
-
-	public override readonly actions = OrderActions;
-	public readonly showAction = new BooleanStreamState(true);
-	public readonly showSelectedStatus = new BooleanStreamState(false);
 
 }

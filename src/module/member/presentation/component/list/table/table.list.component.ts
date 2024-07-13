@@ -45,7 +45,7 @@ import {RowActionButtonComponent} from "@member/presentation/component/row-actio
 })
 export class TableListComponent extends TableComponent<RIMember> {
 
-	public override readonly actions = MemberActions;
+	// public override readonly actions = MemberActions;
 
 	public readonly tableConfiguration = {
 		columns: {

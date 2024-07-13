@@ -11,7 +11,6 @@ import {AsyncPipe, NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {ListPage} from "@utility/list.page";
 import {tap} from "rxjs";
-import {ServiceActions} from "@service/state/service/service.actions";
 import {ServiceState} from "@service/state/service/service.state";
 import {ITableState, TableState} from "@utility/domain/table.state";
 import {
@@ -21,6 +20,8 @@ import {
 	DesktopLayoutListComponent
 } from "@service/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {IService} from "@service/domain";
+import {TableService} from "@utility/table.service";
+import {ServiceTableService} from "@service/presentation/component/list/service.table.service";
 
 @Component({
 	selector: 'service-external-list-component',
@@ -34,7 +35,13 @@ import {IService} from "@service/domain";
 		DesktopLayoutListComponent,
 		MobileLayoutListComponent,
 	],
-	standalone: true
+	standalone: true,
+	providers: [
+		{
+			provide: TableService,
+			useClass: ServiceTableService
+		}
+	]
 })
 export class ServiceExternalListComponent extends ListPage implements OnInit {
 
@@ -46,8 +53,6 @@ export class ServiceExternalListComponent extends ListPage implements OnInit {
 
 	@ViewChildren(MobileLayoutListComponent)
 	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
-
-	public override readonly actions = ServiceActions;
 
 	public override ngOnInit() {
 		super.ngOnInit();
