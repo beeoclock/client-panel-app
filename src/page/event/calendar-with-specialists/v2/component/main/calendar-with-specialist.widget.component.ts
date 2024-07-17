@@ -744,20 +744,17 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		targetBottom = targetBottom / this.calendarWithSpecialistLocaStateService.oneMinuteForPx;
 		targetBottom = targetBottom | 0;
 
-		const htmlElementInside = targetTop > sourceTop && targetBottom < sourceBottom;
-		if (htmlElementInside) {
-			return true;
+		switch (true) {
+			case targetTop > sourceTop && targetBottom < sourceBottom: // target is inside source
+			case targetTop <= sourceTop && sourceTop < targetBottom: // targetTop is inside source
+			case targetBottom >= sourceBottom && sourceBottom > targetTop: // targetBottom is inside source
+			case targetTop < sourceTop && targetBottom > sourceBottom: // target is outside source
+			case targetTop === sourceTop && targetBottom === sourceBottom: // target is equal to source
+				return true;
 		}
-		const htmlElementTop = targetTop > sourceTop && targetTop < sourceBottom;
-		if (htmlElementTop) {
-			return true;
-		}
-		const htmlElementBottom = targetBottom > sourceTop && targetBottom < sourceBottom;
-		if (htmlElementBottom) {
-			return true;
-		}
-		const htmlElementOutside = targetTop < sourceTop && targetBottom > sourceBottom;
-		return htmlElementOutside;
+
+		return false;
+
 
 	}
 

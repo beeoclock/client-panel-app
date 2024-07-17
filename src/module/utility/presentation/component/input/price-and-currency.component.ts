@@ -113,18 +113,12 @@ export class PriceAndCurrencyComponent implements OnChanges {
 	public readonly translateService = inject(TranslateService);
 
 	public ngOnChanges(changes: SimpleChanges & { currencyList: SimpleChange }) {
-		console.log(changes)
 		if (changes.currencyList) {
 			this.updateValue(changes.currencyList.currentValue);
 		}
-
-		this.currencyControl.valueChanges.subscribe((currency) => {
-			console.log(currency)
-		});
 	}
 
 	private updateValue(currencies: { id: CurrencyCodeEnum; name: CurrencyCodeEnum; }[]): void {
-		console.log(this.currencyControl.value)
 		if (!this.currencyControl.value) {
 			this.currencyControl.setValue(currencies[0].id);
 		}
