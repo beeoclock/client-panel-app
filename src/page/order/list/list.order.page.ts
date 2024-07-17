@@ -67,7 +67,6 @@ export class ListOrderPage extends ListPage {
 	public readonly tableState$: Observable<ITableState<IOrderDto>> = this.store.select(OrderState.tableState)
 		.pipe(
 			tap((tableState) => {
-				console.log(tableState)
 				this.changeDetectorRef.detectChanges();
 			})
 		);

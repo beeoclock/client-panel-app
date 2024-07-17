@@ -114,8 +114,6 @@ export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reacti
 				this.takeUntil(),
 			).subscribe((scheduleElements: QueryList<ElementRef<HTMLDivElement>>) => {
 
-				console.log('scheduleElements', this.scrollInitialized, scheduleElements.first.nativeElement.offsetTop, this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx);
-
 				if (this.scrollInitialized.isOn) {
 					return;
 				}
