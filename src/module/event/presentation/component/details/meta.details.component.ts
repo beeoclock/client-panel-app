@@ -135,7 +135,6 @@ export class MetaDetailsComponent implements OnChanges {
 					});
 					return;
 				case 'status':
-					console.log(historyItem.value);
 					this.chronologyList.push({
 						iso: null,
 						labelTranslateKey: 'event.keyword.capitalize.statusChangedTo',
