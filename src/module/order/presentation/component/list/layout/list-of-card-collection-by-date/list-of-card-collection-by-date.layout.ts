@@ -82,8 +82,6 @@ export class ListOfCardCollectionByDateLayout extends LayoutListComponent<IOrder
 
 	public ngOnChanges(changes: SimpleChanges & { tableState: SimpleChange }) {
 
-		console.log(changes)
-
 		if (changes.tableState?.currentValue) {
 			const {items} = changes.tableState.currentValue as { items: IOrderDto[] };
 			this.items = items.reduce((acc, item) => {
@@ -97,7 +95,6 @@ export class ListOfCardCollectionByDateLayout extends LayoutListComponent<IOrder
 				acc[dateKey] = dateGroup;
 				return acc;
 			}, {} as { [key: string]: { [key: string]: IOrderDto[] } });
-			console.log(this.items)
 		}
 		this.changeDetectorRef.detectChanges();
 
