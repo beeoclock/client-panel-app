@@ -26,7 +26,7 @@ import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 
 			<form-input
 				id="client-form-name"
-				inputType="name"
+				inputType="text"
 				autocomplete="name"
 				[placeholder]="'change-name.form.input.name.placeholder' | translate"
 				[control]="form.controls.name"

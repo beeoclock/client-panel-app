@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input} from '@angular/core';
+import {Component, HostBinding, Input, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 
 import {NgIf} from '@angular/common';
@@ -13,6 +13,7 @@ import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-m
 @Component({
     selector: 'app-event-names-form-attendant-component',
     standalone: true,
+	encapsulation: ViewEncapsulation.None,
     imports: [
         ReactiveFormsModule,
         NgIf,

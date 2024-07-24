@@ -19,7 +19,6 @@ export class DefaultInputDirective implements OnInit, OnChanges {
 			'w-full',
 			'rounded-md',
 			'border-0',
-			'py-1.5',
 			'text-gray-900',
 			'shadow-sm',
 			'ring-1',
