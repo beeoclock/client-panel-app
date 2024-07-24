@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
 
 import {IAttendee, IEvent_V2} from "@event/domain";
 import {DatePipe, NgIf} from "@angular/common";
@@ -6,6 +6,7 @@ import {Store} from "@ngxs/store";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {TranslateModule} from "@ngx-translate/core";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {DateTime} from "luxon";
 
 @Component({
 	selector: 'app-absence-event-calendar-with-specialist-widget-component',
@@ -13,7 +14,8 @@ import {AbsenceActions} from "@absence/state/absence/absence.actions";
 		<div class="flex flex-wrap gap-1">
 			<div class="w-full flex justify-between">
 				<div class="text-xs dark:text-sky-100">
-					{{ event.start | date: 'HH:mm' }} - {{ event.end | date: 'HH:mm' }}
+<!--					{{ event.start | date: 'HH:mm' }} - {{ event.end | date: 'HH:mm' }}-->
+					{{ startEndTitle }}
 				</div>
 				<div class="dark:text-sky-100 absolute right-2">
 					<i class="bi bi-cup-hot-fill"></i>
@@ -39,13 +41,14 @@ import {AbsenceActions} from "@absence/state/absence/absence.actions";
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AbsenceEventCalendarWithSpecialistWidgetComponent {
+export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnInit {
 
 	@Input()
 	public event!: IEvent_V2<IAbsenceDto>;
 
-	private readonly store = inject(Store);
+	public startEndTitle = '';
 
+	private readonly store = inject(Store);
 
 	public async onClick() {
 		await this.openAbsenceDetails(this.event);
@@ -63,6 +66,10 @@ export class AbsenceEventCalendarWithSpecialistWidgetComponent {
 		classList.push('bg-gray-600', 'hover:bg-gray-700'); // 'border-gray-600',
 
 		return classList.join(' ');
+	}
+
+	public ngOnInit() {
+		this.initStartEndTitle();
 	}
 
 	public getAttendeesInformation() {
@@ -84,6 +91,43 @@ export class AbsenceEventCalendarWithSpecialistWidgetComponent {
 			}
 			return '';
 		}).join(', ');
+	}
+
+	public initStartEndTitle(): void {
+
+		const {start, end} = this.event;
+		const startDateTime = DateTime.fromISO(start);
+		const endDateTime = DateTime.fromISO(end);
+
+		if (startDateTime.hasSame(endDateTime, 'day')) {
+			this.startEndTitle = `${startDateTime.toFormat('HH:mm')} - ${endDateTime.toFormat('HH:mm')}`;
+			return;
+		}
+
+		if (startDateTime.hasSame(endDateTime, 'month')) {
+
+			this.startEndTitle = `${startDateTime.toFormat('d')} - ${endDateTime.toFormat('d')} ${endDateTime.toFormat('LLL')}`;
+
+			if (!DateTime.now().hasSame(startDateTime, 'year')) {
+				this.startEndTitle += ` ${startDateTime.toFormat('yyyy')}`;
+			}
+
+			return;
+		}
+
+		if (startDateTime.hasSame(endDateTime, 'year')) {
+
+			this.startEndTitle = `${startDateTime.toFormat('d LLL')} - ${endDateTime.toFormat('d LLL')}`;
+
+			if (!DateTime.now().hasSame(startDateTime, 'year')) {
+				this.startEndTitle += ` ${startDateTime.toFormat('yyyy')}`;
+			}
+
+			return;
+		}
+
+		this.startEndTitle = `${startDateTime.toFormat('d LLL yyyy')} - ${endDateTime.toFormat('d LLL yyyy')}`;
+
 	}
 
 	private async openAbsenceDetails(event: IEvent_V2<IAbsenceDto>) {

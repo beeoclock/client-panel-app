@@ -31,6 +31,8 @@ import {
 import {
 	AbsenceEventCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/absence-event.calendar-with-specialist.widget.component";
+import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
+import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
 
 type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenceDto>;
 
@@ -95,6 +97,9 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	@ViewChild(AbsenceEventCalendarWithSpecialistWidgetComponent)
 	private absenceEventCalendarWithSpecialistWidgetComponent!: AbsenceEventCalendarWithSpecialistWidgetComponent;
 
+	@SelectSnapshot(CalendarWithSpecialistsQueries.start)
+	public selectedDate!: DateTime;
+
 	private readonly ngxLogger = inject(NGXLogger);
 
 	public readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
@@ -136,15 +141,24 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	@HostBinding('style.top')
 	public get top() {
-		const startDateTime = DateTime.fromISO(this.item.start);
-		const minutes = startDateTime.diff(DateTime.fromISO(this.item.start).startOf('day'), 'minutes').minutes;
+		let startDateTime = DateTime.fromISO(this.item.start);
+		if (startDateTime < this.selectedDate) {
+			startDateTime = this.selectedDate;
+		}
+		const minutes = startDateTime.diff(startDateTime.startOf('day'), 'minutes').minutes;
 		return `${(minutes * this.calendarWithSpecialistLocaStateService.oneMinuteForPx) + this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx}px`;
 	}
 
 	@HostBinding('style.height')
 	public get height() {
-		const endDateTime = DateTime.fromISO(this.item.end);
-		const startDateTime = DateTime.fromISO(this.item.start);
+		let endDateTime = DateTime.fromISO(this.item.end);
+		if (endDateTime > this.selectedDate.endOf('day')) {
+			endDateTime = this.selectedDate.endOf('day');
+		}
+		let  startDateTime = DateTime.fromISO(this.item.start);
+		if (startDateTime < this.selectedDate) {
+			startDateTime = this.selectedDate;
+		}
 		const duration = endDateTime.diff(startDateTime, 'minutes').minutes;
 		return `${(duration * this.calendarWithSpecialistLocaStateService.oneMinuteForPx)}px`;
 	}
@@ -230,7 +244,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		const rect = this.elementRef.nativeElement.getBoundingClientRect();
 		const parentRect = this.elementRef.nativeElement?.parentElement?.getBoundingClientRect?.();
 		if (!parentRect) {
-			console.error('Parent element not found');
+			this.ngxLogger.error('EventCalendarWithSpecialistWidgetComponent:someUpdateFromExternal:parentRect is not defined');
 			return;
 		}
 		// Calculate new start and duration
