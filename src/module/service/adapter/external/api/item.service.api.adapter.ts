@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
-import * as Service from '@service/domain';
 import {serviceEndpointEnum} from "@service/endpoint/service.endpoint";
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ItemServiceApiAdapter extends BaseApiAdapter<Service.IService, [string]> {
+export class ItemServiceApiAdapter extends BaseApiAdapter<IServiceDto, [string]> {
 
 
   /**
@@ -16,7 +16,7 @@ export class ItemServiceApiAdapter extends BaseApiAdapter<Service.IService, [str
    * @param id
    */
   public override execute$(id: string) {
-    return this.httpClient.get<Service.IService>(serviceEndpointEnum.item, {
+    return this.httpClient.get<IServiceDto>(serviceEndpointEnum.item, {
 			context: new HttpContext().set(TokensHttpContext.REPLACE, {
 				id
 			}),

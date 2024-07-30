@@ -215,7 +215,7 @@ export class V2GeneralDetailsComponent implements OnChanges {
 				(attendee.is === 'customer') && this.attendantMap.customers.push((attendee.originalData as IAttendee).customer);
 			});
 
-			this.bannerUrl = this.event?.originalData?.service?.serviceSnapshot?.presentation?.banners?.[0] ?? '';
+			this.bannerUrl = this.event?.originalData?.service?.serviceSnapshot?.presentation?.banners?.[0]?.url ?? '';
 			this.title = this.event?.originalData?.service?.serviceSnapshot?.languageVersions?.[0]?.title ?? '';
 			this.description = this.event?.originalData?.service?.serviceSnapshot?.languageVersions?.[0]?.description ?? '';
 			this.status = this.event?.originalData?.service?.status ?? null;

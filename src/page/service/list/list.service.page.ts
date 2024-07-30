@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
 import {AsyncPipe, NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
-import {IService} from '@service/domain';
 import {ListPage} from "@utility/list.page";
 import {Observable, tap} from "rxjs";
 import {ServiceState} from "@service/state/service/service.state";
@@ -14,6 +13,7 @@ import {
 } from "@service/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {TableService} from "@utility/table.service";
 import {ServiceTableService} from "@service/presentation/component/list/service.table.service";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Component({
 	selector: 'app-list-service-page',
@@ -35,9 +35,9 @@ import {ServiceTableService} from "@service/presentation/component/list/service.
 	],
 	standalone: true
 })
-export class ListServicePage extends ListPage<IService> {
+export class ListServicePage extends ListPage<IServiceDto> {
 
-	public readonly tableState$: Observable<ITableState<IService>> = this.store.select(ServiceState.tableState)
+	public readonly tableState$: Observable<ITableState<IServiceDto>> = this.store.select(ServiceState.tableState)
 		.pipe(
 			tap((tableState) => {
 				this.changeDetectorRef.detectChanges();

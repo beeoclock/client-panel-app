@@ -78,7 +78,7 @@ export class EventRequestedState extends BaseState<Event.RIEvent> {
 				});
 				service.durationVersions = [foundLongestDurationVersion];
 				// Change configuration.duration.durationVersionType to SINGLE
-				delete service.configuration.duration;
+				// delete service.configuration.duration;
 			}
 		});
 

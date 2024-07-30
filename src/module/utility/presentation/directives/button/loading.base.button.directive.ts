@@ -1,60 +1,70 @@
-import {AfterViewInit, Directive, DoCheck, ElementRef, inject, Input, OnInit} from "@angular/core";
+import {AfterViewInit, Directive, DoCheck, ElementRef, HostBinding, inject, Input, OnInit} from "@angular/core";
 import {TranslateService} from "@ngx-translate/core";
 import {SpinnerSvg} from "@utility/domain/spinner.svg";
 import {BaseButtonDirective} from "@utility/presentation/directives/button/base.button.directive";
 
 @Directive({
-  selector: 'button[loadingBase]',
-  standalone: true,
+	selector: 'button[loadingBase]',
+	standalone: true,
 })
 export class LoadingBaseButtonDirective extends BaseButtonDirective implements OnInit, DoCheck, AfterViewInit {
 
-  @Input()
-  public isLoading: boolean | undefined = undefined;
+	@Input()
+	public isLoading: boolean | undefined = undefined;
 
-  private readonly translateService = inject(TranslateService);
-  private readonly elementRef: ElementRef<HTMLButtonElement> = inject(ElementRef);
-  private temporaryButtonHTML: string | undefined;
-  private loadingHTML = '';
-  private initialized = false;
+	@Input()
+	public isDisabled = false;
 
-  public override ngOnInit(): void {
-    super.ngOnInit();
-    this.initLoadingLabel();
-  }
+	@HostBinding('disabled')
+	public disabled = false;
 
-  public ngDoCheck(): void {
-    if (this.initialized) {
-      this.detectLoading();
-    }
-  }
+	private readonly translateService = inject(TranslateService);
+	private readonly elementRef: ElementRef<HTMLButtonElement> = inject(ElementRef);
+	private temporaryButtonHTML: string | undefined;
+	private loadingHTML = '';
+	private initialized = false;
 
-  public ngAfterViewInit() {
-    this.initialized = true;
-    this.detectLoading();
-  }
+	public override ngOnInit(): void {
+		super.ngOnInit();
+		this.initLoadingLabel();
+	}
 
-  private initLoadingLabel(): void {
-    const label = this.translateService.instant('keyword.capitalize.processing');
-    this.loadingHTML = `<div class="flex items-center justify-center">${SpinnerSvg} ${label}...</div>`;
-  }
+	public ngDoCheck(): void {
+		if (this.initialized) {
+			this.detectLoading();
+		}
+	}
 
-  private detectLoading(): void {
+	public ngAfterViewInit() {
+		this.initialized = true;
+		this.detectLoading();
+	}
+
+	private initLoadingLabel(): void {
+		const label = this.translateService.instant('keyword.capitalize.processing');
+		this.loadingHTML = `<div class="flex items-center justify-center">${SpinnerSvg} ${label}...</div>`;
+	}
+
+	private detectLoading(): void {
 		if (this.isLoading === undefined) {
 			return;
 		}
-    this.elementRef.nativeElement.disabled = this.isLoading;
-    if (this.isLoading) {
-      if (!this.temporaryButtonHTML) {
-        this.temporaryButtonHTML = this.elementRef.nativeElement.innerHTML;
-        this.elementRef.nativeElement.innerHTML = this.loadingHTML;
-      }
-    } else {
-      if (this.temporaryButtonHTML) {
-        this.elementRef.nativeElement.innerHTML = this.temporaryButtonHTML ?? '';
-        this.temporaryButtonHTML = undefined;
-      }
-    }
-  }
+		if (this.isDisabled) {
+			this.disabled = true;
+			return;
+		}
+		this.disabled = this.isLoading;
+		if (this.isLoading) {
+			if (!this.temporaryButtonHTML) {
+				this.temporaryButtonHTML = this.elementRef.nativeElement.innerHTML;
+				this.elementRef.nativeElement.innerHTML = this.loadingHTML;
+			}
+		} else {
+			if (this.temporaryButtonHTML) {
+				this.elementRef.nativeElement.innerHTML = this.temporaryButtonHTML ?? '';
+				this.temporaryButtonHTML = undefined;
+			}
+		}
+	}
 
 }

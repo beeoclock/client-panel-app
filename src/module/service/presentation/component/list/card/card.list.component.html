@@ -13,15 +13,15 @@
 								❓
 							</div>
 						</div>
-						<div class="rounded-lg px-2 py-1 text-sm border"
-							 [class.text-red-700]="!item.active"
-							 [class.bg-red-100]="!item.active"
-							 [class.border-red-200]="!item.active"
-							 [class.text-green-700]="item.active"
-							 [class.bg-green-100]="item.active"
-							 [class.border-green-200]="item.active">
-							{{ (item.active ? 'service.keyword.capitalize.active' : 'service.keyword.capitalize.inactive') | translate }}
-						</div>
+<!--						<div class="rounded-lg px-2 py-1 text-sm border"-->
+<!--							 [class.text-red-700]="!item.active"-->
+<!--							 [class.bg-red-100]="!item.active"-->
+<!--							 [class.border-red-200]="!item.active"-->
+<!--							 [class.text-green-700]="item.active"-->
+<!--							 [class.bg-green-100]="item.active"-->
+<!--							 [class.border-green-200]="item.active">-->
+<!--							{{ (item.active ? 'service.keyword.capitalize.active' : 'service.keyword.capitalize.inactive') | translate }}-->
+<!--						</div>-->
 
 						<div
 							[innerHTML]="durationVersionHtmlHelper.getPriceValueV2(item)"

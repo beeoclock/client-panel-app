@@ -10,19 +10,12 @@ import {
 	SimpleChanges,
 	ViewEncapsulation
 } from '@angular/core';
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {
-	FormBusinessProfileComponent
-} from "@client/presentation/component/business-profile/form-business-profile.component";
-import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
-import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
-import {FormsModule} from "@angular/forms";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {Store} from "@ngxs/store";
@@ -32,9 +25,6 @@ import {IPaymentDto} from "@module/payment/domain/interface/dto/i.payment.dto";
 import {
 	PaymentOrderFormContainerComponent
 } from "@order/presentation/component/form/payment.order-form-container.component";
-import {
-	ServiceOrderFormContainerComponent
-} from "@order/presentation/component/form/service.order-form-container.component";
 import {OrderActions} from "@order/state/order/order.actions";
 import {CreateOrderApiAdapter} from "@order/external/adapter/api/create.order.api.adapter";
 import {CreatePaymentApiAdapter} from "@module/payment/external/adapter/api/create.payment.api.adapter";
@@ -44,58 +34,54 @@ import {ICustomer} from "@customer/domain";
 import {UpdateOrderApiAdapter} from "@order/external/adapter/api/update.order.api.adapter";
 import {UpdatePaymentApiAdapter} from "@module/payment/external/adapter/api/update.payment.api.adapter";
 import {
-	CustomerTypeCustomerComponent
-} from "@customer/presentation/component/form/by-customer-type/customer-type.customer.component";
-import {
-	PayerOrderFormContainerComponent
-} from "@order/presentation/component/form/payer.order-form-container.component";
+	ListServiceFormOrderComponent
+} from "@src/component/smart/order/form/service/list/list.service.form.order.component";
+import {FormsModule} from "@angular/forms";
 
 @Component({
 	selector: 'app-order-form-container',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		FormInputComponent,
-		DatetimeLocalInputComponent,
-		TranslateModule,
-		FormTextareaComponent,
-		CardComponent,
-		FormBusinessProfileComponent,
-		SwitchComponent,
+		ListServiceFormOrderComponent,
 		ButtonSaveContainerComponent,
-		FormsModule,
 		PrimaryButtonDirective,
+		TranslateModule,
+		CardComponent,
+		FormTextareaComponent,
 		PaymentOrderFormContainerComponent,
-		ServiceOrderFormContainerComponent,
-		CustomerTypeCustomerComponent,
-		PayerOrderFormContainerComponent
+		FormsModule,
 	],
 	standalone: true,
 	template: `
-        <form class="flex flex-col gap-4">
+		<form class="flex flex-col gap-4 bg-white">
 
-            <app-service-order-form-container [form]="form.controls.order" [setupPartialData]="setupPartialData()"/>
-            <payer-order-form-container [payerForm]="form.controls.payment.controls.payer" [serviceOrderArrayForm]="form.controls.order.controls.services"/>
-            <app-payment-order-form-container [form]="form"/>
-            <bee-card>
-                <form-textarea-component
-                        id="order-business-note"
-                        [label]="'keyword.capitalize.businessNote' | translate"
-                        [placeholder]="'order.form.input.businessNote.placeholder' | translate"
-                        [control]="form.controls.order.controls.businessNote"/>
-            </bee-card>
+			<app-list-service-form-order-component
+				#appListServiceFormOrderComponent
+				[serviceOrderFormArray]="form.controls.order.controls.services"
+				[setupPartialData]="setupPartialData()"
+				class="flex-1"/>
 
-            <utility-button-save-container-component class="bottom-0">
-                <button
-                        type="button"
-                        primary
-                        [isLoading]="form.pending"
-                        [disabled]="form.disabled"
-                        [scrollToFirstError]="true"
-                        (click)="save()">
-                    {{ 'keyword.capitalize.save' | translate }}
-                </button>
-            </utility-button-save-container-component>
-        </form>
+			<app-payment-order-form-container [form]="form"/>
+			<bee-card>
+				<form-textarea-component
+					id="order-business-note"
+					[label]="'keyword.capitalize.businessNote' | translate"
+					[placeholder]="'order.form.input.businessNote.placeholder' | translate"
+					[control]="form.controls.order.controls.businessNote"/>
+			</bee-card>
+
+			<utility-button-save-container-component class="bottom-0">
+				<button
+					type="button"
+					primary
+					[isLoading]="form.pending"
+					[isDisabled]="form.disabled || (!appListServiceFormOrderComponent.serviceOrderFormArray.length)"
+					[scrollToFirstError]="true"
+					(click)="save()">
+					{{ 'keyword.capitalize.save' | translate }}
+				</button>
+			</utility-button-save-container-component>
+		</form>
 	`
 })
 export class OrderFormContainerComponent extends Reactive implements OnInit, OnDestroy, OnChanges {
@@ -107,7 +93,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	public readonly orderDto = input<Partial<IOrderDto>>({});
 	public readonly paymentDto = input<Partial<IPaymentDto>>({});
 	public readonly isEditMode = input<boolean>(false);
-	public readonly firstStepOnInit  = input<{
+	public readonly firstStepOnInit = input<{
 		openServiceForm: boolean;
 		serviceFormWasOpened: boolean;
 	}>({

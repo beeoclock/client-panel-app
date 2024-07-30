@@ -34,6 +34,11 @@ export class ClientState {
 	}
 
 	@Selector()
+	public static baseLanguage(state: IClientState): LanguageCodeEnum | undefined {
+		return state.item?.businessSettings?.baseLanguage;
+	}
+
+	@Selector()
 	public static currencies(state: IClientState): CurrencyCodeEnum[] | undefined {
 		return state.item?.businessSettings?.currencies;
 	}

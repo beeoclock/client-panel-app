@@ -17,11 +17,11 @@ export class HumanizeDurationPipe implements PipeTransform {
 	public transform(value: string | number, type: 'duration' | 'iso' | 'seconds' = 'seconds'): string {
 		switch (type) {
 			case 'iso':
-				return this.humanizeDurationHelper.formatISO(value as string);
+				return this.humanizeDurationHelper.formatISO(value as string); // value example: 2021-10-10T10:00:00
 			case 'duration':
-				return this.humanizeDurationHelper.formatDuration(value as string);
+				return this.humanizeDurationHelper.formatDuration(value as string); // value example: PT1H
 			case 'seconds':
-				return this.humanizeDurationHelper.fromSeconds(value as number);
+				return this.humanizeDurationHelper.fromSeconds(value as number); // value example: 3600
 		}
 	}
 

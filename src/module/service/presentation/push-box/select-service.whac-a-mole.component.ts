@@ -15,7 +15,6 @@ import {
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {IService} from "@service/domain";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {NGXLogger} from "ngx-logger";
@@ -27,6 +26,7 @@ import {
 } from "@service/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {Reactive} from "@utility/cdk/reactive";
 import {ITableState, TableState} from "@utility/domain/table.state";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Component({
 	selector: 'utility-modal-select-service-component',
@@ -45,16 +45,17 @@ import {ITableState, TableState} from "@utility/domain/table.state";
 		ServiceExternalListComponent
 	],
 	template: `
-		<service-external-list-component [useTableStateFromStore]="useTableStateFromStore" [tableState]="tableState" [mobileMode]="true"/>
+		<service-external-list-component [useTableStateFromStore]="useTableStateFromStore" [tableState]="tableState"
+										 [mobileMode]="true"/>
 	`
 })
 export class SelectServiceWhacAMoleComponent extends Reactive implements OnInit, AfterViewInit {
 
 	@Input()
-	public selectedServiceList: IService[] = [];
+	public selectedServiceList: IServiceDto[] = [];
 
 	@Input()
-	public newSelectedServiceList: IService[] = [];
+	public newSelectedServiceList: IServiceDto[] = [];
 
 	@Output()
 	public readonly selectedServicesListener = new EventEmitter<void>();
@@ -63,7 +64,7 @@ export class SelectServiceWhacAMoleComponent extends Reactive implements OnInit,
 	public useTableStateFromStore = true;
 
 	@Input()
-	public tableState: ITableState<IService> = new TableState<IService>().toCache();
+	public tableState: ITableState<IServiceDto> = new TableState<IServiceDto>().toCache();
 
 	@ViewChild(ServiceExternalListComponent)
 	public serviceExternalListComponent!: ServiceExternalListComponent;
@@ -103,13 +104,13 @@ export class SelectServiceWhacAMoleComponent extends Reactive implements OnInit,
 		});
 	}
 
-	public async submit(): Promise<IService[]> {
+	public async submit(): Promise<IServiceDto[]> {
 		return new Promise((resolve) => {
 			resolve(this.newSelectedServiceList);
 		});
 	}
 
-	public async select(service: IService) {
+	public async select(service: IServiceDto) {
 		if (!this.multiple) {
 			if (this.newSelectedServiceList.length) {
 				this.newSelectedServiceList.splice(0, 1);
@@ -121,17 +122,17 @@ export class SelectServiceWhacAMoleComponent extends Reactive implements OnInit,
 
 	}
 
-	public deselect(service: IService): void {
+	public deselect(service: IServiceDto): void {
 		this.newSelectedServiceList = this.newSelectedServiceList.filter(({_id}) => _id !== service._id);
 		this.selectedServicesListener.emit();
 		this.changeDetectorRef.detectChanges();
 	}
 
-	public isSelected(service: IService): boolean {
+	public isSelected(service: IServiceDto): boolean {
 		return this.newSelectedServiceList.some(({_id}) => _id === service._id);
 	}
 
-	public isNotSelected(service: IService): boolean {
+	public isNotSelected(service: IServiceDto): boolean {
 		return !this.isSelected(service);
 	}
 }

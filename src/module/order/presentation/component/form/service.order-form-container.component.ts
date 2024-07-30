@@ -268,7 +268,7 @@ export class ServiceOrderFormContainerComponent extends Reactive implements OnIn
 					type: ReservationTypeEnum.service,
 					languageCodes: [formValue.language ?? this.clientItem.businessSettings.baseLanguage],
 					// attachments: IAttachmentDto[];
-					specialists: formValue.services[0].specialists,
+					specialists: formValue.specialists ?? [],
 					attendees: formValue.attendees,
 					// locations: ILocationsDto[];
 					timeZone: formValue.timeZone,
@@ -364,7 +364,7 @@ export class ServiceOrderFormContainerComponent extends Reactive implements OnIn
 					type: ReservationTypeEnum.service,
 					languageCodes: [formValue.language ?? this.clientItem.businessSettings.baseLanguage],
 					// attachments: IAttachmentDto[];
-					specialists: formValue.services[0].specialists,
+					specialists: formValue.specialists ?? [],
 					attendees: formValue.attendees,
 					// locations: ILocationsDto[];
 					timeZone: formValue.timeZone,

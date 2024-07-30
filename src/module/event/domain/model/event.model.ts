@@ -1,8 +1,9 @@
 import {IAttendee, IEvent, IEventConfiguration, RMIEvent} from "@event/domain";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
-import {IService} from "@service/domain";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 import {LanguageCodeEnum} from "@utility/domain/enum";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {ISpecialist} from "@service/domain/interface/i.specialist";
 
 export class MEvent implements RMIEvent {
 
@@ -14,12 +15,13 @@ export class MEvent implements RMIEvent {
 	public readonly updatedAt!: string;
 	public readonly object!: 'Event';
 	public readonly servicesAreProvidedInParallel!: boolean;
-	public readonly services!: IService[];
+	public readonly services!: IServiceDto[];
 	public readonly note!: string;
 	public readonly language!: LanguageCodeEnum;
 	public readonly attendees!: IAttendee[];
 	public readonly timeZone!: string;
 	public readonly configuration!: IEventConfiguration;
+	public readonly specialists!: ISpecialist[];
 
 	constructor(initialValue?: Partial<IEvent>) {
 		if (initialValue) {

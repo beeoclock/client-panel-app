@@ -10,7 +10,7 @@ import {SortIndicatorComponent} from "@utility/presentation/component/pagination
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
-import {ILanguageVersion, IService} from "@service/domain";
+import {ILanguageVersion} from "@service/domain";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {LanguageCodeEnum} from "@utility/domain/enum";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
@@ -21,6 +21,7 @@ import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/fl
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Component({
 	selector: 'service-table-list-component',
@@ -51,7 +52,7 @@ import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.h
 		DurationVersionHtmlHelper,
 	]
 })
-export class TableListComponent extends TableComponent<IService> {
+export class TableListComponent extends TableComponent<IServiceDto> {
 
 	public readonly translateService = inject(TranslateService);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
@@ -112,7 +113,7 @@ export class TableListComponent extends TableComponent<IService> {
 		},
 	}
 
-	public override open(item: IService) {
+	public override open(item: IServiceDto) {
 		this.store.dispatch(new ServiceActions.OpenDetails(item));
 	}
 

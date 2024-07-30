@@ -100,8 +100,8 @@
 									(click)="singleClick(item)"
 									class="cursor-pointer inline-flex gap-4 items-center">
 									<i class="bi bi-file-person text-beeColor-500"></i>
-									{{ item?.services?.[0]?.specialists?.[0]?.member?.firstName }}
-									{{ item?.services?.[0]?.specialists?.[0]?.member?.lastName }}
+									{{ item?.specialists?.[0]?.member?.firstName }}
+									{{ item?.specialists?.[0]?.member?.lastName }}
 								</div>
 								<event-attendee-card-component
 									*ngFor="let attendee of (item?.attendees ?? [])"

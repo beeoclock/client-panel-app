@@ -8,8 +8,9 @@ import {RIMember} from "@member/domain";
 import {map, Observable} from "rxjs";
 import {TableState} from "@utility/domain/table.state";
 import {FormControl} from "@angular/forms";
-import {IService} from "@service/domain";
+
 import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Component({
 	selector: 'event-service-specialist-component',
@@ -25,13 +26,13 @@ import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-statu
 export class SpecialistServiceComponent {
 
 	@Input({required: true})
-	public serviceListControl!: FormControl<IService[]>;
+	public serviceListControl!: FormControl<IServiceDto[]>;
 
 	@Input({required: true})
 	public index!: number;
 
 	@Input({required: true})
-	public service!: IService;
+	public service!: IServiceDto;
 
 	@Select(MemberSelector.tableState)
 	private memberTableState$!: Observable<TableState<RIMember>>;
@@ -53,9 +54,9 @@ export class SpecialistServiceComponent {
 
 	public get selectedSpecialist(): ISpecialist | undefined {
 		const service = this.serviceListControl.value[this.index];
-		if (service?.specialists?.length > 0) {
-			return service.specialists[0];
-		}
+		// if (service?.specialists?.length > 0) {
+		// 	return service.specialists[0];
+		// }
 		return undefined;
 	}
 

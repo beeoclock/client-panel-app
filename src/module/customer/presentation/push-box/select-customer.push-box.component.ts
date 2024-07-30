@@ -61,7 +61,7 @@ export class SelectCustomerPushBoxComponent extends Reactive implements OnInit, 
 	public multiple = true;
 
 	@Output()
-	public readonly selectedCustomerListener = new EventEmitter<void>();
+	public readonly selectedCustomerListener = new EventEmitter<ICustomer[]>();
 
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly router = inject(Router);
@@ -110,7 +110,7 @@ export class SelectCustomerPushBoxComponent extends Reactive implements OnInit, 
 		}
 		this.newSelectedCustomerList.push({...service});
 
-		this.selectedCustomerListener.emit();
+		this.selectedCustomerListener.emit(this.newSelectedCustomerList);
 		this.changeDetectorRef.detectChanges();
 	}
 

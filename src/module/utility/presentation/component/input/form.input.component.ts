@@ -48,6 +48,7 @@ import {
 			invalidTooltip
 			default
 			emptyStringToNull
+			[autofocus]="enableAutoFocus"
 			[step]="step"
 			[isRequiredEnabled]="showLabel"
 			[formControl]="control"
@@ -66,6 +67,9 @@ export class FormInputComponent implements DoCheck {
 
 	@Input()
 	public labelTranslateKey = '';
+
+	@Input()
+	public enableAutoFocus = false;
 
 	@Input()
 	public showLabel = true;

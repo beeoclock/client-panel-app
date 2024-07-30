@@ -1,9 +1,10 @@
 import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
 import {FormControl} from "@angular/forms";
-import {IService} from "@service/domain";
+
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {LanguageNamePipe} from "@utility/presentation/pipes/language-name/language-name.pipe";
 import {LanguageCodeEnum} from "@utility/domain/enum";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Component({
 	standalone: true,
@@ -45,7 +46,7 @@ import {LanguageCodeEnum} from "@utility/domain/enum";
 export class LanguageVersionOrderControlComponent {
 
 	@Input({required: true})
-	public serviceListControl!: FormControl<IService[]>;
+	public serviceListControl!: FormControl<IServiceDto[]>;
 
 	@Input({required: true})
 	public languageControl: FormControl<LanguageCodeEnum> = new FormControl();
@@ -54,7 +55,7 @@ export class LanguageVersionOrderControlComponent {
 	public index!: number;
 
 	@Input({required: true})
-	public service!: IService;
+	public service!: IServiceDto;
 
 	@HostBinding()
 	public class = 'flex flex-col gap-4'

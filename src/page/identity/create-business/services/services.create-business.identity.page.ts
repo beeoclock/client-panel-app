@@ -9,7 +9,7 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {CreateBusinessQuery} from "@identity/query/create-business.query";
 import {ServiceItemComponent} from "@service/presentation/component/list/item/item.componen";
 import {NgForOf} from "@angular/common";
-import {IService} from "@service/domain";
+
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {FormButtonWithIconComponent} from "@utility/presentation/component/button/form-button-with-icon.component";
 import {ScheduleFormComponent} from "@utility/presentation/component/schedule/schedule.form.component";
@@ -19,6 +19,7 @@ import {
 import {ServiceForm} from "@service/presentation/form";
 import {NGXLogger} from "ngx-logger";
 import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 
 @Component({
@@ -50,10 +51,10 @@ export class ServicesCreateBusinessIdentityPage {
 	public readonly servicesForm = this.createBusinessQuery.getServicesForm();
 
 	public get serviceList() {
-		return (this.servicesForm.value ?? []) as IService[];
+		return (this.servicesForm.value ?? []) as IServiceDto[];
 	}
 
-	public openServiceFormModal(service?: IService | undefined) {
+	public openServiceFormModal(service?: IServiceDto | undefined) {
 		let serviceFormToEdit = undefined;
 		if (service !== undefined) {
 			serviceFormToEdit = new ServiceForm();
@@ -72,7 +73,7 @@ export class ServicesCreateBusinessIdentityPage {
 			} else {
 				const serviceForm = this.servicesForm.controls.find((control) => control.value._id === service._id);
 				if (serviceForm) {
-					serviceForm.patchValue(newServiceForm.value as Partial<IService>);
+					serviceForm.patchValue(newServiceForm.value as Partial<IServiceDto>);
 				} else {
 					this.ngxLogger.error('Service not found');
 				}

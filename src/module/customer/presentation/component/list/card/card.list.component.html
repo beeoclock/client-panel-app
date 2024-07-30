@@ -1,14 +1,12 @@
 <div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState.items.length">
-	<bee-card class="text-sm border-2 border-transparent hover:border-blue-500" [class.!border-green-500]="selectedIds.includes(item._id)"  *ngFor="let item of tableState.items; trackBy: trackById">
+	<bee-card class="text-sm border-2 border-transparent hover:border-blue-500 !gap-0" [class.!border-green-500]="selectedIds.includes(item._id)"  *ngFor="let item of tableState.items; trackBy: trackById">
 		<div class="flex justify-between items-center gap-8">
 
 			<div (click)="singleClick(item)" class="flex justify-between">
 				<div class="flex-1">
-					<div>
-						{{ 'keyword.capitalize.fullName' | translate }}
-					</div>
-					<div class="font-bold flex gap-2">
-						<div>{{ item.firstName | noData }}</div> <div>{{ item.lastName | noData }}</div>
+					<div class="font-bold flex">
+<!--						{{ 'keyword.capitalize.fullName' | translate }}-->
+						<div>{{ item.firstName | noData }}</div>&nbsp;<div>{{ item.lastName | noData }}</div>
 					</div>
 				</div>
 			</div>
@@ -21,39 +19,38 @@
 				*ngIf="showAction.state$ | async"
 				[item]="item"
 				[id]="item._id"/>
+
 			<div (click)="singleClick(item)" *ngIf="showSelectedStatus.state$ | async">
-				<div
-					*ngIf="selectedIds.includes(item._id)"
-					class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
-					{{ 'keyword.capitalize.selected' | translate }}
-				</div>
-				<div
-					*ngIf="!selectedIds.includes(item._id)"
-					class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">
-					{{ 'keyword.capitalize.select' | translate }}
-				</div>
+				<i *ngIf="selectedIds.includes(item._id)"
+				   class="bi bi-check-circle text-green-600 text-xl"></i>
+				<i *ngIf="!selectedIds.includes(item._id)"
+				   class="bi bi-circle text-gray-600 text-xl"></i>
 			</div>
 		</div>
-		<div class="flex justify-between">
-			<div class="flex-1">
-				<div>
-					{{ 'keyword.capitalize.email' | translate }}
-				</div>
-				<div class="font-bold">
-					{{ item.email | noData }}
-				</div>
-			</div>
+		<div class="">
+			{{ item.email | noData }}
 		</div>
-		<div class="flex justify-between">
-			<div class="flex-1">
-				<div>
-					{{ 'keyword.capitalize.phone' | translate }}
-				</div>
-				<div class="font-bold">
-					{{ item.phone | noData }}
-				</div>
-			</div>
-		</div>
+		<div>{{ item.phone | noData }}</div>
+<!--		<div class="flex justify-between">-->
+<!--			<div class="flex-1">-->
+<!--				<div>-->
+<!--					{{ 'keyword.capitalize.email' | translate }}-->
+<!--				</div>-->
+<!--				<div class="font-bold">-->
+<!--					{{ item.email | noData }}-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--		<div class="flex justify-between">-->
+<!--			<div class="flex-1">-->
+<!--				<div>-->
+<!--					{{ 'keyword.capitalize.phone' | translate }}-->
+<!--				</div>-->
+<!--				<div class="font-bold">-->
+<!--					{{ item.phone | noData }}-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
 	</bee-card>
 </div>
 <utility-table-state-pagination-component

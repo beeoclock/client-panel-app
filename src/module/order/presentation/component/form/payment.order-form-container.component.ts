@@ -5,11 +5,11 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {
-    FormBusinessProfileComponent
+	FormBusinessProfileComponent
 } from "@client/presentation/component/business-profile/form-business-profile.component";
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
 import {
-    ButtonSaveContainerComponent
+	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
@@ -55,7 +55,7 @@ import {BASE_CURRENCY} from '@src/token';
                         {{ 'keyword.capitalize.amount' | translate }}:
                     </div>
                     <div>
-                        {{ paymentForm.controls.amount.value | currency: paymentForm.controls.currency.value ?? 'USD': 'symbol-narrow' }}
+                        {{ (amount || paymentForm.controls.amount.value) | currency: paymentForm.controls.currency.value ?? 'USD': 'symbol-narrow' }}
                     </div>
                 </li>
             </ul>
@@ -95,6 +95,9 @@ export class PaymentOrderFormContainerComponent implements OnInit {
 
     @Input()
     public form!: CreateOrderForm;
+
+	@Input()
+	public amount = 0;
 
     private readonly ngxLogger = inject(NGXLogger);
     private readonly translateService = inject(TranslateService);

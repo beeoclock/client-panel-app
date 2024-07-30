@@ -5,7 +5,8 @@ import {Store} from "@ngxs/store";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {Router, RouterLink} from "@angular/router";
-import {IService} from "@service/domain";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
+
 
 @Component({
 	selector: 'service-row-action-button-component',
@@ -43,7 +44,7 @@ export class RowActionButtonComponent {
 	public id!: string;
 
 	@Input({required: true})
-	public item!: IService;
+	public item!: IServiceDto;
 
 	private readonly store = inject(Store);
 	private readonly router = inject(Router);

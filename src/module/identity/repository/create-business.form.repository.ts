@@ -6,9 +6,10 @@ import {LanguageCodeEnum} from "@utility/domain/enum";
 import {LanguageCountry} from "@utility/domain/const/c.language-country";
 import {LanguageCurrency} from "@utility/domain/const/c.language-currency";
 import {BooleanState} from "@utility/domain";
-import {IService} from "@service/domain";
+
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {Reactive} from "@utility/cdk/reactive";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Injectable({
 	providedIn: 'root'
@@ -46,7 +47,7 @@ export class CreateBusinessFormRepository extends Reactive implements OnDestroy 
 		if (value) {
 			const parsedValue = JSON.parse(value) as {
 				schedules: RISchedule[],
-				services: IService[],
+				services: IServiceDto[],
 				// gallery: { object: string; images: string[] }
 			};
 

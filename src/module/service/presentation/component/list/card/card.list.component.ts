@@ -12,12 +12,13 @@ import {TableComponent} from "@utility/table.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {ILanguageVersion, IService} from "@service/domain";
+import {ILanguageVersion} from "@service/domain";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {ServiceTableService} from "@service/presentation/component/list/service.table.service";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Component({
 	selector: 'service-card-list-component',
@@ -46,7 +47,7 @@ import {ServiceTableService} from "@service/presentation/component/list/service.
 		ServiceTableService
 	],
 })
-export class CardListComponent extends TableComponent<IService> implements OnChanges {
+export class CardListComponent extends TableComponent<IServiceDto> implements OnChanges {
 
 	public readonly translateService = inject(TranslateService);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
@@ -55,7 +56,7 @@ export class CardListComponent extends TableComponent<IService> implements OnCha
 
 	public showSelectedStatus = new BooleanStreamState(false);
 
-	public list: IService[] = [];
+	public list: IServiceDto[] = [];
 
 	public override ngOnChanges(changes: SimpleChanges & { tableState: SimpleChange }): void {
 
@@ -85,7 +86,7 @@ export class CardListComponent extends TableComponent<IService> implements OnCha
 		return firstFoundOption ?? languageVersions[0];
 	}
 
-	public override open(item: IService): void {
+	public override open(item: IServiceDto): void {
 		this.store.dispatch(new ServiceActions.OpenDetails(item));
 	}
 
