@@ -5,6 +5,7 @@ import {BooleanState} from "@utility/domain";
 import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
 import {BaseActions} from "@utility/state/base/base.actions";
 import {Reactive} from "@utility/cdk/reactive";
+import {AnalyticsService} from "@utility/cdk/analytics.service";
 
 @Component({
 	selector: 'utility-list-page',
