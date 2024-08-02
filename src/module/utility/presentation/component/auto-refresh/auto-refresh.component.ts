@@ -87,25 +87,33 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 			label: this.translateService.instant('autoRefresh.time.off'),
 			value: 0,
 		},
-		{
-			label: '5 ' + this.translateService.instant('keyword.lowercase.sec'),
-			value: 5,
-		},
-		{
-			label: '10 ' + this.translateService.instant('keyword.lowercase.sec'),
-			value: 10,
-		},
-		{
-			label: '15 ' + this.translateService.instant('keyword.lowercase.sec'),
-			value: 15,
-		},
-		{
-			label: '30 ' + this.translateService.instant('keyword.lowercase.sec'),
-			value: 30,
-		},
+		// {
+		// 	label: '5 ' + this.translateService.instant('keyword.lowercase.sec'),
+		// 	value: 5,
+		// },
+		// {
+		// 	label: '10 ' + this.translateService.instant('keyword.lowercase.sec'),
+		// 	value: 10,
+		// },
+		// {
+		// 	label: '15 ' + this.translateService.instant('keyword.lowercase.sec'),
+		// 	value: 15,
+		// },
+		// {
+		// 	label: '30 ' + this.translateService.instant('keyword.lowercase.sec'),
+		// 	value: 30,
+		// },
 		{
 			label: '1 ' + this.translateService.instant('keyword.lowercase.min'),
 			value: 60,
+		},
+		{
+			label: '2 ' + this.translateService.instant('keyword.lowercase.min'),
+			value: 120,
+		},
+		{
+			label: '5 ' + this.translateService.instant('keyword.lowercase.min'),
+			value: 300,
 		}
 	];
 
