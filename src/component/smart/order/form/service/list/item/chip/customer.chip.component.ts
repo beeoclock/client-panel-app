@@ -11,6 +11,9 @@ import {CustomerForm} from "@customer/presentation/form";
 import ObjectID from "bson-objectid";
 import {Reactive} from "@utility/cdk/reactive";
 import {ICustomer} from "@customer/domain";
+import {
+	CustomerListIonicComponent
+} from "@src/component/smart/order/form/service/list/item/chip/customer/customer.list.ionic.component";
 
 @Component({
 	selector: 'app-customer-chip-component',
@@ -19,6 +22,7 @@ import {ICustomer} from "@customer/domain";
 		`
 			ion-popover {
 				--width: auto;
+				--max-height: 400px
 			}
 		`
 	],
@@ -28,7 +32,8 @@ import {ICustomer} from "@customer/domain";
 		IonPopover,
 		CustomerTypeCustomerComponent,
 		TranslateModule,
-		NgSwitchCase
+		NgSwitchCase,
+		CustomerListIonicComponent
 	],
 	template: `
 		<button
@@ -53,32 +58,33 @@ import {ICustomer} from "@customer/domain";
 			</div>
 
 		</button>
-		<ion-popover [trigger]="'customer-trigger-' + id" [keepContentsMounted]="true">
+		<ion-popover #customerPopover [trigger]="'customer-trigger-' + id" [keepContentsMounted]="true">
 			<ng-template>
-				<app-customer-type-customer-component class="p-4" [form]="customerForm" [showList]="true">
-					<!--							<div class="font-bold" slot="label">{{ 'keyword.capitalize.payer' | translate }}</div>-->
-					<div slot="banner" customer-type="new"
-						 class="bg-beeColor-100 border-2 px-3 py-2 rounded-lg text-beeColor-600 text-sm flex flex-col">
-						<div class="font-bold">
-							<i class="bi bi-exclamation-triangle-fill"></i>
-							{{ 'keyword.capitalize.warning' | translate }}
-						</div>
-						<div>
-							{{ 'order.form.payment.payer.case.new.hint' | translate }}
-						</div>
-					</div>
+				<app-customer-list-ionic-component [customerForm]="customerForm"/>
+<!--				<app-customer-type-customer-component class="p-4" [form]="customerForm" [showList]="true">-->
+<!--					&lt;!&ndash;							<div class="font-bold" slot="label">{{ 'keyword.capitalize.payer' | translate }}</div>&ndash;&gt;-->
+<!--					<div slot="banner" customer-type="new"-->
+<!--						 class="bg-beeColor-100 border-2 px-3 py-2 rounded-lg text-beeColor-600 text-sm flex flex-col">-->
+<!--						<div class="font-bold">-->
+<!--							<i class="bi bi-exclamation-triangle-fill"></i>-->
+<!--							{{ 'keyword.capitalize.warning' | translate }}-->
+<!--						</div>-->
+<!--						<div>-->
+<!--							{{ 'order.form.payment.payer.case.new.hint' | translate }}-->
+<!--						</div>-->
+<!--					</div>-->
 
-					<div slot="banner" customer-type="unregistered"
-						 class="bg-beeColor-100 border-2 px-3 py-2 rounded-lg text-beeColor-600 text-sm flex flex-col">
-						<div class="font-bold">
-							<i class="bi bi-exclamation-triangle-fill"></i>
-							{{ 'keyword.capitalize.warning' | translate }}
-						</div>
-						<div>
-							{{ 'order.form.payment.payer.case.unregistered.hint' | translate }}
-						</div>
-					</div>
-				</app-customer-type-customer-component>
+<!--					<div slot="banner" customer-type="unregistered"-->
+<!--						 class="bg-beeColor-100 border-2 px-3 py-2 rounded-lg text-beeColor-600 text-sm flex flex-col">-->
+<!--						<div class="font-bold">-->
+<!--							<i class="bi bi-exclamation-triangle-fill"></i>-->
+<!--							{{ 'keyword.capitalize.warning' | translate }}-->
+<!--						</div>-->
+<!--						<div>-->
+<!--							{{ 'order.form.payment.payer.case.unregistered.hint' | translate }}-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</app-customer-type-customer-component>-->
 			</ng-template>
 		</ion-popover>
 	`
