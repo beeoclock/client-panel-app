@@ -49,6 +49,7 @@ import {
 import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {is} from "thiis";
+import {AnalyticsService} from "@utility/cdk/analytics.service";
 
 @Component({
 	selector: 'app-business-profile-client-page',
@@ -88,6 +89,7 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 
 	public readonly form = new BusinessProfileForm();
 	public readonly store = inject(Store);
+	public readonly analyticsService = inject(AnalyticsService);
 	public readonly updateBusinessProfileApiAdapter = inject(UpdateBusinessProfileApiAdapter);
 
 	public readonly serviceProfideType = ServiceProvideTypeEnum;
@@ -97,6 +99,8 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 	);
 
 	public ngOnInit(): void {
+
+		this.analyticsService.logEvent('business_profile_page_initialized');
 
 		this.item$.pipe(this.takeUntil()).subscribe((item) => {
 

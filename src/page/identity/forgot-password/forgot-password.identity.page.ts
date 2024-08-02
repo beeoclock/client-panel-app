@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {GettingStartedComponent} from '@utility/presentation/component/getting-started/getting-started.component';
 import ResetPasswordForm from "@identity/presentation/form/reset-password.form";
 import {Router} from "@angular/router";
@@ -14,6 +14,7 @@ import {ForgotPasswordApiAdapter} from "@identity/adapter/external/api/forgot-pa
 import {NgOptimizedImage} from "@angular/common";
 import {SignUpComponent} from "@identity/presentation/component/sign-up.component/sign-up.component";
 import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
+import {AnalyticsService} from "@utility/cdk/analytics.service";
 
 @Component({
 	selector: 'app-forgot-password-identity-page',
@@ -33,16 +34,21 @@ import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class ForgotPasswordIdentityPage {
+export class ForgotPasswordIdentityPage implements OnInit {
 
-	@HostBinding()
-	public class = 'col-md-7 d-flex flex-center';
-
+	readonly #analyticsService = inject(AnalyticsService);
 	public readonly form = new ResetPasswordForm();
 	private readonly forgotPasswordApiAdapter = inject(ForgotPasswordApiAdapter);
 	private readonly router = inject(Router);
 	private readonly translateService = inject(TranslateService);
 	private readonly toastController = inject(ToastController);
+
+	public ngOnInit() {
+		this.#analyticsService.logEvent('member_list_page_initialized');
+	}
+
+	@HostBinding()
+	public class = 'col-md-7 d-flex flex-center';
 
 	public signIn(): void {
 

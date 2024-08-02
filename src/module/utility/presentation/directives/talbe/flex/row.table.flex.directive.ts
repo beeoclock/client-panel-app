@@ -1,36 +1,56 @@
-import {AfterViewInit, Directive, ElementRef, HostBinding, inject, Input} from "@angular/core";
+import {AfterViewInit, Directive, ElementRef, HostBinding, inject, Input, Renderer2} from "@angular/core";
 
+/**
+ * Directive to apply specific styles to table rows based on their type (header, body, footer).
+ * This directive uses Renderer2 for DOM manipulation to ensure compatibility with Angular's rendering engine.
+ */
 @Directive({
-	selector: '[tableRowFlex]',
-	standalone: true,
+  selector: '[tableRowFlex]',
+  standalone: true,
 })
 export class RowTableFlexDirective implements AfterViewInit {
 
-	@Input()
-	public tableRowFlex: 'header' | 'body' | 'footer' = 'body';
+  /**
+   * Input property to specify the type of the table row.
+   * Can be 'header', 'body', or 'footer'. Default is 'body'.
+   */
+  @Input()
+  public tableRowFlex: 'header' | 'body' | 'footer' = 'body';
 
-	@HostBinding()
-	public class = [
-		'flex',
-		'bg-white',
-		'text-beeColor-700',
-		'dark:bg-beeDarkColor-800',
-		'dark:text-beeDarkColor-400',
-	];
+  /**
+   * HostBinding to apply default classes to the table row element.
+   */
+  @HostBinding()
+  public class = [
+    'flex',
+    'bg-white',
+    'text-beeColor-700',
+    'dark:bg-beeDarkColor-800',
+    'dark:text-beeDarkColor-400',
+  ];
 
-	private readonly elementRef = inject(ElementRef<HTMLDivElement>);
+  private readonly elementRef = inject(ElementRef<HTMLDivElement>);
+  private readonly renderer = inject(Renderer2);
 
-	public ngAfterViewInit() {
+  /**
+   * Lifecycle hook that is called after the view has been initialized.
+   * Applies specific styles to the table row element based on the value of tableRowFlex.
+   */
+  public ngAfterViewInit() {
+    const nativeElement = this.elementRef.nativeElement;
 
-		switch (this.tableRowFlex) {
-			case 'header':
-				this.elementRef.nativeElement.classList.add('font-bold', 'text-xs', 'uppercase');
-				break;
-			case 'body':
-				this.elementRef.nativeElement.classList.add('hover:bg-beeColor-100', 'cursor-pointer', 'transition', 'even:bg-neutral-50');
-				break;
-		}
-
-	}
-
+    switch (this.tableRowFlex) {
+      case 'header':
+        this.renderer.addClass(nativeElement, 'font-bold');
+        this.renderer.addClass(nativeElement, 'text-xs');
+        this.renderer.addClass(nativeElement, 'uppercase');
+        break;
+      case 'body':
+        this.renderer.addClass(nativeElement, 'hover:bg-beeColor-100');
+        this.renderer.addClass(nativeElement, 'cursor-pointer');
+        this.renderer.addClass(nativeElement, 'transition');
+        this.renderer.addClass(nativeElement, 'even:bg-neutral-50');
+        break;
+    }
+  }
 }
