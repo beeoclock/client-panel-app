@@ -17,6 +17,8 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
+import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'event-v2-general-details',
@@ -227,6 +229,11 @@ export class V2GeneralDetailsComponent implements OnChanges {
 
 	public get thereIsDescription(): boolean {
 		return !!this.event?.note?.length;
+	}
+
+	@Dispatch()
+	public openCustomerDetails(customer: ICustomer) {
+		return new CustomerActions.OpenDetailsById(customer._id);
 	}
 
 }

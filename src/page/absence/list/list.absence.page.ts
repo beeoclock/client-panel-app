@@ -12,15 +12,15 @@ import {RouterLink} from "@angular/router";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {
-    NotFoundTableDataComponent
+	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TableListComponent} from "@absence/presentation/component/list/table/table.list.component";
 import {CardListComponent} from "@absence/presentation/component/list/card/card.list.component";
 import {
-    DesktopLayoutListComponent
+	DesktopLayoutListComponent
 } from "@absence/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {
-    MobileLayoutListComponent
+	MobileLayoutListComponent
 } from "@absence/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 
@@ -57,6 +57,11 @@ export class ListAbsencePage extends ListPage {
 				this.changeDetectorRef.detectChanges();
 			})
 		);
+
+	public override ngOnInit() {
+		super.ngOnInit();
+		this.analyticsService.logEvent('list_absence_page_initialized');
+	}
 
 }
 

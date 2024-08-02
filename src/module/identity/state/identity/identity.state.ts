@@ -110,6 +110,21 @@ export class IdentityState implements NgxsOnInit {
 	}
 
 	@Selector()
+	public static accountDetails(state: IIdentityState) {
+		const {token} = state;
+		if (!token) {
+			return {};
+		}
+		const {claims} = token;
+		return {
+			email: claims.email,
+			id: claims.accountId,
+			name: claims.name,
+			userId: claims.userId,
+		}
+	}
+
+	@Selector()
 	public static clients(state: IIdentityState) {
 		return state.clients;
 	}

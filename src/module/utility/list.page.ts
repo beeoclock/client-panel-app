@@ -15,6 +15,8 @@ export abstract class ListPage extends Reactive implements OnInit {
 	@Input()
 	public mobileMode = false;
 
+
+	protected readonly analyticsService = inject(AnalyticsService);
 	protected readonly store = inject(Store);
 	protected readonly changeDetectorRef = inject(ChangeDetectorRef);
 	protected readonly windowWidthSizeService = inject(WindowWidthSizeService);

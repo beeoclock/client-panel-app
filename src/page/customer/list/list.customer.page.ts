@@ -13,15 +13,15 @@ import {RouterLink} from "@angular/router";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {
-    NotFoundTableDataComponent
+	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TableListComponent} from "@customer/presentation/component/list/table/table.list.component";
 import {CardListComponent} from "@customer/presentation/component/list/card/card.list.component";
 import {
-    DesktopLayoutListComponent
+	DesktopLayoutListComponent
 } from "@customer/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {
-    MobileLayoutListComponent
+	MobileLayoutListComponent
 } from "@customer/presentation/component/list/layout/mobile/mobile.layout.list.component";
 
 @Component({
@@ -57,6 +57,11 @@ export class ListCustomerPage extends ListPage {
 				this.changeDetectorRef.detectChanges();
 			})
 		);
+
+	public override ngOnInit() {
+		super.ngOnInit();
+		this.analyticsService.logEvent('customer_list_page_initialized');
+	}
 
 }
 

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SignInComponent} from '@identity/presentation/component/sign-in.component/sign-in.component';
@@ -7,6 +7,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {NgOptimizedImage} from "@angular/common";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
+import {AnalyticsService} from "@utility/cdk/analytics.service";
 
 @Component({
 	selector: 'app-sign-in-identity-page',
@@ -25,8 +26,11 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class SignInIdentityPage {
-
+export class SignInIdentityPage implements OnInit {
+	readonly #analyticsService = inject(AnalyticsService);
+	public  ngOnInit() {
+		this.#analyticsService.logEvent('member_list_page_initialized');
+	}
 }
 
 export default SignInIdentityPage;

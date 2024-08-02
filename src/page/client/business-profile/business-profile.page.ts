@@ -1,54 +1,55 @@
 import {Component, inject, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {BusinessProfileForm} from "@client/presentation/form/business-profile.form";
 import {
-    CoverImageBusinessProfileComponent
+	CoverImageBusinessProfileComponent
 } from "@client/presentation/component/business-profile/cover-image/cover-image.business-profile.component";
 import {
-    LogoBusinessProfileComponent
+	LogoBusinessProfileComponent
 } from "@client/presentation/component/business-profile/logo/logo.business-profile.component";
 import {Store} from "@ngxs/store";
 import {IClient} from "@client/domain";
 import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {
-    GalleryBusinessProfileComponent
+	GalleryBusinessProfileComponent
 } from "@client/presentation/component/business-profile/gallery/gallery.business-profile/gallery.business-profile.component";
 import {ClientState} from "@client/state/client/client.state";
 import {filter} from "rxjs";
 import {
-    UpdateBusinessProfileApiAdapter
+	UpdateBusinessProfileApiAdapter
 } from "@client/adapter/external/api/buisness-profile/update.business-profile.api.adapter";
 import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
 import {ClientActions} from "@client/state/client/client.actions";
 import {
-    FormBusinessProfileComponent
+	FormBusinessProfileComponent
 } from "@client/presentation/component/business-profile/form-business-profile.component";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {
-    BusinessProfileContactPhoneComponent
+	BusinessProfileContactPhoneComponent
 } from "@client/presentation/component/business-profile/contact-phone/contact-phone.componen";
 import {SchedulesFormComponent} from "@utility/presentation/component/schedule/schedules.form.component";
 import {
-    AddressBusinessProfileComponent
+	AddressBusinessProfileComponent
 } from "@client/presentation/component/business-profile/address/address.business-profile.component";
 import {
-    SwitchActiveBlockComponent
+	SwitchActiveBlockComponent
 } from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {
-    FacilitiesBusinessProfileComponent
+	FacilitiesBusinessProfileComponent
 } from "@client/presentation/component/business-profile/facilities/facilities.business-profile.component";
 import {
-    BusinessProfileSocialMediaComponent
+	BusinessProfileSocialMediaComponent
 } from "@client/presentation/component/business-profile/social-media/social-media.componen";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {
-    ButtonSaveContainerComponent
+	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {is} from "thiis";
+import {AnalyticsService} from "@utility/cdk/analytics.service";
 
 @Component({
 	selector: 'app-business-profile-client-page',
@@ -88,6 +89,7 @@ export class BusinessProfilePage extends Reactive implements OnInit {
 
 	public readonly form = new BusinessProfileForm();
 	public readonly store = inject(Store);
+	public readonly analyticsService = inject(AnalyticsService);
 	public readonly updateBusinessProfileApiAdapter = inject(UpdateBusinessProfileApiAdapter);
 
 	public readonly serviceProfideType = ServiceProvideTypeEnum;
@@ -97,6 +99,8 @@ export class BusinessProfilePage extends Reactive implements OnInit {
 	);
 
 	public ngOnInit(): void {
+
+		this.analyticsService.logEvent('business_profile_page_initialized');
 
 		this.item$.pipe(this.takeUntil()).subscribe((item) => {
 

@@ -71,6 +71,11 @@ export class ListOrderPage extends ListPage {
 			})
 		);
 
+	public override ngOnInit() {
+		super.ngOnInit();
+		this.analyticsService.logEvent('order_list_page_initialized');
+	}
+
 }
 
 export default ListOrderPage;

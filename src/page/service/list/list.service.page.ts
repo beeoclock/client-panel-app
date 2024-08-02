@@ -8,10 +8,10 @@ import {ServiceActions} from "@service/state/service/service.actions";
 import {ServiceState} from "@service/state/service/service.state";
 import {ITableState} from "@utility/domain/table.state";
 import {
-    MobileLayoutListComponent
+	MobileLayoutListComponent
 } from "@service/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {
-    DesktopLayoutListComponent
+	DesktopLayoutListComponent
 } from "@service/presentation/component/list/layout/desktop/desktop.layout.list.component";
 
 @Component({
@@ -38,6 +38,11 @@ export class ListServicePage extends ListPage {
 				this.changeDetectorRef.detectChanges();
 			})
 		);
+
+	public override ngOnInit() {
+		super.ngOnInit();
+		this.analyticsService.logEvent('service_list_page_initialized');
+	}
 
 }
 
