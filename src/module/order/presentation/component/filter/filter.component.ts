@@ -57,7 +57,7 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 		</ng-template>
 
 		<ng-template #AutoRefresh>
-			<utility-auto-refresh-component (emitter)="forceRefresh()"/>
+			<utility-auto-refresh-component id="order-filter-auto-refresh" (emitter)="forceRefresh()"/>
 		</ng-template>
 
 		<ng-template #SelectOrderStatus>

@@ -8,7 +8,7 @@ import {OrderActions} from "@order/state/order/order.actions";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<utility-auto-refresh-component (emitter)="forceRefresh()"/>
+		<utility-auto-refresh-component id="order-auto-refresh" (emitter)="forceRefresh()"/>
 	`,
 	imports: [
 		AutoRefreshComponent

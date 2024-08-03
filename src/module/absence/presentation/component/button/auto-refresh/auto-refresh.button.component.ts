@@ -8,7 +8,7 @@ import {AbsenceActions} from "@absence/state/absence/absence.actions";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<utility-auto-refresh-component (emitter)="forceRefresh()"/>
+		<utility-auto-refresh-component id="absence-auto-refresh" (emitter)="forceRefresh()"/>
 	`,
 	imports: [
 		AutoRefreshComponent
