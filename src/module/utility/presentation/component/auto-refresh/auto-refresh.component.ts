@@ -16,6 +16,28 @@ import {AutoRefreshStorageService} from "@utility/presentation/component/auto-re
 import {VisibilityService} from "@utility/cdk/visibility.service";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 
+enum AutoRefreshTime {
+	OFF = 0,
+	// FIVE_SEC = 5,
+	// TEN_SEC = 10,
+	// FIFTEEN_SEC = 15,
+	// THIRTY_SEC = 30,
+	ONE_MIN = 60,
+	TWO_MIN = 120,
+	FIVE_MIN = 300,
+}
+
+const allowedAutoRefreshTimes = [
+	AutoRefreshTime.OFF,
+	// AutoRefreshTime.FIVE_SEC,
+	// AutoRefreshTime.TEN_SEC,
+	// AutoRefreshTime.FIFTEEN_SEC,
+	// AutoRefreshTime.THIRTY_SEC,
+	AutoRefreshTime.ONE_MIN,
+	AutoRefreshTime.TWO_MIN,
+	AutoRefreshTime.FIVE_MIN,
+];
+
 @Component({
 	selector: 'utility-auto-refresh-component',
 	standalone: true,
@@ -87,7 +109,7 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 	public readonly options = [
 		{
 			label: this.translateService.instant('autoRefresh.time.off'),
-			value: 0,
+			value: AutoRefreshTime.OFF,
 		},
 		// {
 		// 	label: '5 ' + this.translateService.instant('keyword.lowercase.sec'),
@@ -107,15 +129,15 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 		// },
 		{
 			label: '1 ' + this.translateService.instant('keyword.lowercase.min'),
-			value: 60,
+			value: AutoRefreshTime.ONE_MIN,
 		},
 		{
 			label: '2 ' + this.translateService.instant('keyword.lowercase.min'),
-			value: 120,
+			value: AutoRefreshTime.TWO_MIN,
 		},
 		{
 			label: '5 ' + this.translateService.instant('keyword.lowercase.min'),
-			value: 300,
+			value: AutoRefreshTime.FIVE_MIN,
 		}
 	];
 
@@ -128,13 +150,22 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 			this.initTimer(value);
 		});
 
+		this.init();
+
+	}
+
+	public init() {
 		const value = this.autoRefreshStorageService.get(this.id);
 		if (is.string(value)) {
+			if (!allowedAutoRefreshTimes.includes(Number(value))) {
+				this.autoRefreshStorageService.remove(this.id);
+				this.control.setValue(AutoRefreshTime.ONE_MIN);
+				return;
+			}
 			this.control.setValue(Number(value));
 		} else {
 			this.initTimer(this.control.value);
 		}
-
 	}
 
 	public initTimer(seconds: number) {
