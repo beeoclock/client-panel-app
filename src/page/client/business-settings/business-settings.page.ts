@@ -31,6 +31,7 @@ import {
 	AutoBookEventComponent
 } from "@client/presentation/component/business-settings/auto-book-event/auto-book-event.component";
 import {Reactive} from "@utility/cdk/reactive";
+import {AnalyticsService} from "@utility/cdk/analytics.service";
 
 @Component({
 	selector: 'client-business-settings-page',
@@ -55,12 +56,15 @@ export default class BusinessSettingsPage extends Reactive implements OnInit, On
 
 	public readonly form = new BusinessProfileForm();
 	public readonly store = inject(Store);
+	public readonly analyticsService = inject(AnalyticsService);
 	public readonly updateBusinessProfileApiAdapter = inject(UpdateBusinessProfileApiAdapter);
 
 	@Select(ClientState.item)
 	public readonly item$!: Observable<Client.RIClient>;
 
 	public ngOnInit(): void {
+
+		this.analyticsService.logEvent('business_settings_page_initialized');
 
 		this.item$.pipe(
 			filter(Boolean),

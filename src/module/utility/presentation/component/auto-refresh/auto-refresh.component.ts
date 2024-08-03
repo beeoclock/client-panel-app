@@ -14,6 +14,29 @@ import {filter} from "rxjs";
 import {MS_ONE_SECOND} from "@utility/domain/const/c.time";
 import {AutoRefreshStorageService} from "@utility/presentation/component/auto-refresh/auto-refresh.storage.service";
 import {VisibilityService} from "@utility/cdk/visibility.service";
+import {AnalyticsService} from "@utility/cdk/analytics.service";
+
+enum AutoRefreshTime {
+	OFF = 0,
+	// FIVE_SEC = 5,
+	// TEN_SEC = 10,
+	// FIFTEEN_SEC = 15,
+	// THIRTY_SEC = 30,
+	ONE_MIN = 60,
+	TWO_MIN = 120,
+	FIVE_MIN = 300,
+}
+
+const allowedAutoRefreshTimes = [
+	AutoRefreshTime.OFF,
+	// AutoRefreshTime.FIVE_SEC,
+	// AutoRefreshTime.TEN_SEC,
+	// AutoRefreshTime.FIFTEEN_SEC,
+	// AutoRefreshTime.THIRTY_SEC,
+	AutoRefreshTime.ONE_MIN,
+	AutoRefreshTime.TWO_MIN,
+	AutoRefreshTime.FIVE_MIN,
+];
 
 @Component({
 	selector: 'utility-auto-refresh-component',
@@ -78,6 +101,7 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 		nonNullable: true,
 	});
 
+	private readonly analyticsService = inject(AnalyticsService);
 	private readonly visibilityService = inject(VisibilityService);
 	private readonly translateService = inject(TranslateService);
 	private readonly autoRefreshStorageService = inject(AutoRefreshStorageService);
@@ -85,27 +109,35 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 	public readonly options = [
 		{
 			label: this.translateService.instant('autoRefresh.time.off'),
-			value: 0,
+			value: AutoRefreshTime.OFF,
 		},
-		{
-			label: '5 ' + this.translateService.instant('keyword.lowercase.sec'),
-			value: 5,
-		},
-		{
-			label: '10 ' + this.translateService.instant('keyword.lowercase.sec'),
-			value: 10,
-		},
-		{
-			label: '15 ' + this.translateService.instant('keyword.lowercase.sec'),
-			value: 15,
-		},
-		{
-			label: '30 ' + this.translateService.instant('keyword.lowercase.sec'),
-			value: 30,
-		},
+		// {
+		// 	label: '5 ' + this.translateService.instant('keyword.lowercase.sec'),
+		// 	value: 5,
+		// },
+		// {
+		// 	label: '10 ' + this.translateService.instant('keyword.lowercase.sec'),
+		// 	value: 10,
+		// },
+		// {
+		// 	label: '15 ' + this.translateService.instant('keyword.lowercase.sec'),
+		// 	value: 15,
+		// },
+		// {
+		// 	label: '30 ' + this.translateService.instant('keyword.lowercase.sec'),
+		// 	value: 30,
+		// },
 		{
 			label: '1 ' + this.translateService.instant('keyword.lowercase.min'),
-			value: 60,
+			value: AutoRefreshTime.ONE_MIN,
+		},
+		{
+			label: '2 ' + this.translateService.instant('keyword.lowercase.min'),
+			value: AutoRefreshTime.TWO_MIN,
+		},
+		{
+			label: '5 ' + this.translateService.instant('keyword.lowercase.min'),
+			value: AutoRefreshTime.FIVE_MIN,
 		}
 	];
 
@@ -118,13 +150,22 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 			this.initTimer(value);
 		});
 
+		this.init();
+
+	}
+
+	public init() {
 		const value = this.autoRefreshStorageService.get(this.id);
 		if (is.string(value)) {
+			if (!allowedAutoRefreshTimes.includes(Number(value))) {
+				this.autoRefreshStorageService.remove(this.id);
+				this.control.setValue(AutoRefreshTime.ONE_MIN);
+				return;
+			}
 			this.control.setValue(Number(value));
 		} else {
 			this.initTimer(this.control.value);
 		}
-
 	}
 
 	public initTimer(seconds: number) {
@@ -139,8 +180,12 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 		}
 
 		this.timer = setTimeout(() => {
-			if (this.visibilityService.visibilityChange.value) {
+			if (this.visibilityService.visibilityChange.value && !this.isLoading) {
 				this.emitter.emit();
+				this.analyticsService.logEvent('auto_refresh_component_emit', {
+					id: this.id,
+					seconds,
+				});
 			}
 			this.initTimer(seconds);
 		}, timeout);

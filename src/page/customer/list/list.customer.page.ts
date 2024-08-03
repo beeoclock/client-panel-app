@@ -64,6 +64,11 @@ export class ListCustomerPage extends ListPage<ICustomer> {
 			})
 		);
 
+	public override ngOnInit() {
+		super.ngOnInit();
+		this.analyticsService.logEvent('customer_list_page_initialized');
+	}
+
 }
 
 export default ListCustomerPage;

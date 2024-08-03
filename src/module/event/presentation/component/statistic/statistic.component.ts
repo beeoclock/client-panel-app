@@ -27,6 +27,8 @@ import {IClient} from "@client/domain";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
 import {NGXLogger} from "ngx-logger";
+import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {IdentityState} from "@identity/state/identity/identity.state";
 
 @Component({
 	selector: 'event-statistic-component',
@@ -58,6 +60,16 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly translateService = inject(TranslateService);
+
+	private readonly analyticsService = inject(AnalyticsService);
+
+	@SelectSnapshot(IdentityState.accountDetails)
+	public readonly accountDetails!: {
+		email?: string;
+		id?: string;
+		name?: string;
+		userId?: string;
+	};
 
 	@SelectSnapshot(ClientState.item)
 	public readonly clientItem: IClient | undefined;
@@ -247,10 +259,16 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 					break;
 			}
 			this.initPeriodTitle();
-			this.store.dispatch(new StatisticAction.SetDate({
+			const payload = {
 				start: this.start.toJSDate().toISOString(),
 				end: this.end.toJSDate().toISOString()
-			}));
+			};
+			this.analyticsService.logEvent('statistic_period_changed', {
+				period: datetimePeriod,
+				payload: JSON.stringify(payload),
+				accountDetails: JSON.stringify(this.accountDetails)
+			});
+			this.store.dispatch(new StatisticAction.SetDate(payload));
 			this.router.navigate([], {
 				queryParams: {
 					period: datetimePeriod

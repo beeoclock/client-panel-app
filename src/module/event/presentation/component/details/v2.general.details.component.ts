@@ -17,8 +17,8 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
-import {Store} from "@ngxs/store";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'event-v2-general-details',
@@ -183,7 +183,6 @@ export class V2GeneralDetailsComponent implements OnChanges {
 	@HostBinding()
 	public class = 'block bg-white';
 
-	public readonly store = inject(Store);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
 	public readonly attendantMap: {
@@ -232,7 +231,9 @@ export class V2GeneralDetailsComponent implements OnChanges {
 		return !!this.event?.note?.length;
 	}
 
+	@Dispatch()
 	public openCustomerDetails(customer: ICustomer) {
-		this.store.dispatch(new CustomerActions.OpenDetailsById(customer._id));
+		return new CustomerActions.OpenDetailsById(customer._id);
 	}
+
 }

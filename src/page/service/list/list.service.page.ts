@@ -44,6 +44,11 @@ export class ListServicePage extends ListPage<IServiceDto> {
 			})
 		);
 
+	public override ngOnInit() {
+		super.ngOnInit();
+		this.analyticsService.logEvent('service_list_page_initialized');
+	}
+
 }
 
 export default ListServicePage;

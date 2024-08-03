@@ -8,7 +8,7 @@ import {MemberActions} from "@member/state/member/member.actions";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<utility-auto-refresh-component (emitter)="forceRefresh()"/>
+		<utility-auto-refresh-component id="member-auto-refresh" (emitter)="forceRefresh()"/>
 	`,
 	imports: [
 		AutoRefreshComponent

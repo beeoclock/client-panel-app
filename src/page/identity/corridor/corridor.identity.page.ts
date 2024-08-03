@@ -8,7 +8,6 @@ import {filter, from, Observable, switchMap, tap} from "rxjs";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {IMember} from "@identity/domain/interface/i.member";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
-import {IdentityApiAdapter} from "@identity/adapter/external/api/identity.api.adapter";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
@@ -19,6 +18,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {TENANT_ID} from "@src/token";
+import {AnalyticsService} from "@utility/cdk/analytics.service";
 
 @Component({
     selector: 'app-identity-corridor-page',
@@ -45,7 +45,8 @@ export class CorridorIdentityPage extends Reactive implements OnInit {
     private readonly store = inject(Store);
     private readonly router = inject(Router);
     private readonly activatedRoute = inject(ActivatedRoute);
-    private readonly identityApiAdapter = inject(IdentityApiAdapter);
+
+	readonly #analyticsService = inject(AnalyticsService);
 
     @Select(IdentityState.clients)
     private readonly clients$!: Observable<IMember[]>;
@@ -76,6 +77,8 @@ export class CorridorIdentityPage extends Reactive implements OnInit {
     public readonly disabled = new BooleanState(false);
 
     public ngOnInit(): void {
+
+		this.#analyticsService.logEvent('corridor_identity_page_initialized');
 
         this.store.dispatch(new IdentityActions.GetClients());
 

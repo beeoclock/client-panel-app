@@ -64,6 +64,11 @@ export class ListAbsencePage extends ListPage<IAbsenceDto> {
 			})
 		);
 
+	public override ngOnInit() {
+		super.ngOnInit();
+		this.analyticsService.logEvent('list_absence_page_initialized');
+	}
+
 }
 
 export default ListAbsencePage;

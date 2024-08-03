@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterOutlet} from "@angular/router";
@@ -9,6 +9,7 @@ import {FormTextareaComponent} from "@utility/presentation/component/input/form.
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {LogoutComponent} from "@utility/presentation/component/logout/logout.component";
 import {AsyncPipe, NgIf} from "@angular/common";
+import {AnalyticsService} from "@utility/cdk/analytics.service";
 
 @Component({
 	selector: 'app-identity-create-business-identity-page',
@@ -33,7 +34,11 @@ import {AsyncPipe, NgIf} from "@angular/common";
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class CreateBusinessIdentityPage {
+export class CreateBusinessIdentityPage implements OnInit {
+	readonly #analyticsService = inject(AnalyticsService);
+	public  ngOnInit() {
+		this.#analyticsService.logEvent('member_list_page_initialized');
+	}
 
 	// private readonly logger = inject(NGXLogger);
 	// public readonly translateService = inject(TranslateService);

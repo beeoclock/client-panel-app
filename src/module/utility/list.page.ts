@@ -6,6 +6,7 @@ import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
 import {BaseActions} from "@utility/state/base/base.actions";
 import {Reactive} from "@utility/cdk/reactive";
 import {TableService} from "@utility/table.service";
+import {AnalyticsService} from "@utility/cdk/analytics.service";
 
 @Component({
 	selector: 'utility-list-page',
@@ -16,6 +17,8 @@ export abstract class ListPage<ITEM> extends Reactive implements OnInit {
 	@Input()
 	public mobileMode = false;
 
+
+	protected readonly analyticsService = inject(AnalyticsService);
 	protected readonly store = inject(Store);
 	protected readonly changeDetectorRef = inject(ChangeDetectorRef);
 	protected readonly windowWidthSizeService = inject(WindowWidthSizeService);

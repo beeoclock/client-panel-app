@@ -15,6 +15,7 @@ import {BooleanState} from "@utility/domain";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {LogoutComponent} from "@utility/presentation/component/logout/logout.component";
+import {AnalyticsService} from "@utility/cdk/analytics.service";
 
 @Component({
 	selector: 'app-confirm-email-identity-page',
@@ -43,6 +44,8 @@ export class ConfirmEmailIdentityPage extends Reactive implements OnInit {
 	private readonly router = inject(Router);
 	private readonly sendConfirmEmailListApiAdapter = inject(SendConfirmEmailListApiAdapter);
 
+	readonly #analyticsService = inject(AnalyticsService);
+
 	public readonly emailSending = new BooleanState(false);
 	public readonly emailIsSent = new BooleanState(false);
 	public emailUrl = new URL('https://beeoclock.com');
@@ -60,6 +63,7 @@ export class ConfirmEmailIdentityPage extends Reactive implements OnInit {
 
 
 	public ngOnInit(): void {
+		this.#analyticsService.logEvent('confirm_email_page_initialized');
 		this.activatedRoute.queryParams.pipe(this.takeUntil()).subscribe((params: Params | {
 			mode?: string,
 			oobCode?: string,

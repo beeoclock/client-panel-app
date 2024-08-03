@@ -58,6 +58,11 @@ export class ListMemberPage extends ListPage<RIMember> {
 			})
 		);
 
+	public override ngOnInit() {
+		super.ngOnInit();
+		this.analyticsService.logEvent('member_list_page_initialized');
+	}
+
 }
 
 export default ListMemberPage;

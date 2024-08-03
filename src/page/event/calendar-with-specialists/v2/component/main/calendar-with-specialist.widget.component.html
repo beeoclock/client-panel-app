@@ -2,7 +2,7 @@
 	<div class="overflow-x-auto overflow-y-hidden p-2 flex justify-between gap-2 items-center bg-white border-b border-beeColor-200">
 		<div class="overflow-x-auto flex gap-2">
 			<event-date-control-calendar-with-specialists-component/>
-			<utility-auto-refresh-component (emitter)="forceRefresh()" [isLoading]="(loader$ | async) ?? false"/>
+			<utility-auto-refresh-component id="event-calendar-with-specialist-filter-auto-refresh" (emitter)="forceRefresh()" [isLoading]="(loader$ | async) ?? false"/>
 			<ion-select-wrapper
 				id="calendar-with-specialists-filter-order-service-status"
 				[options]="orderServiceStatusOptions"
