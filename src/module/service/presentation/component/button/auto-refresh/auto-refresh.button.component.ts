@@ -8,7 +8,7 @@ import {ServiceActions} from "@service/state/service/service.actions";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<utility-auto-refresh-component (emitter)="forceRefresh()"/>
+		<utility-auto-refresh-component id="service-auto-refresh" (emitter)="forceRefresh()"/>
 	`,
 	imports: [
 		AutoRefreshComponent

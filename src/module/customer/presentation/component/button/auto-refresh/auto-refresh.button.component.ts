@@ -8,7 +8,7 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<utility-auto-refresh-component (emitter)="forceRefresh()"/>
+		<utility-auto-refresh-component id="customer-auto-refresh" (emitter)="forceRefresh()"/>
 	`,
 	imports: [
 		AutoRefreshComponent

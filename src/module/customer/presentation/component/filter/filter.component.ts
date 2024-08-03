@@ -60,7 +60,7 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		</ng-template>
 
 		<ng-template #AutoRefresh>
-			<utility-auto-refresh-component (emitter)="forceRefresh()"/>
+			<utility-auto-refresh-component id="customer-filter-auto-refresh" (emitter)="forceRefresh()"/>
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>
