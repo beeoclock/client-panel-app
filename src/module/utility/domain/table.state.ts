@@ -62,6 +62,14 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 		return this;
 	}
 
+	public patchFilters(value: { [key: string]: unknown }): this { // TODO interface
+		this.filters = {
+			...this.filters,
+			...value,
+		};
+		return this;
+	}
+
 	public clearFilters(): this {
 		this.#filters = {};
 		this.initHashSum();

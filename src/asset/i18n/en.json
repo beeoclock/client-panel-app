@@ -1191,6 +1191,13 @@
 					}
 				}
 			},
+			"service": {
+				"customer": {
+					"hist": {
+						"anonymous": "This choice indicates that the client is unidentified and not registered in the system. Consequently, they will be displayed as an anonymous client everywhere."
+					}
+				}
+			},
 			"title": {
 				"create": "Adding an order",
 				"edit": "Editing an order"

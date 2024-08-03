@@ -197,11 +197,15 @@ export class CustomerForm extends BaseEntityForm<'CustomerDto', ICustomerForm> {
             takeUntil(this.destroy$)
         ).subscribe((customerType) => {
 
-            if (customerType === CustomerTypeEnum.new) {
-                this.addAtLeastOneFieldMustBeFilledValidator();
-            } else {
-                this.removeAtLeastOneFieldMustBeFilledValidator();
-            }
+			this.removeAtLeastOneFieldMustBeFilledValidator();
+
+			switch (customerType) {
+				case CustomerTypeEnum.new:
+				case CustomerTypeEnum.unregistered:
+				case CustomerTypeEnum.regular:
+					this.addAtLeastOneFieldMustBeFilledValidator();
+					break;
+			}
 
         });
 

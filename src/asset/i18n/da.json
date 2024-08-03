@@ -1191,6 +1191,13 @@
 					}
 				}
 			},
+			"service": {
+				"customer": {
+					"hist": {
+						"anonymous": "Dette valg indikerer, at kunden ikke er identificeret og ikke er registreret i systemet. Derfor vil kunden blive vist som anonym overalt."
+					}
+				}
+			},
 			"title": {
 				"create": "Tilføjelse af en ordre",
 				"edit": "Redigering af en ordre"

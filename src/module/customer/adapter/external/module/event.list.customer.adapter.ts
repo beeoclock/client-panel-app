@@ -15,12 +15,26 @@ export class EventListCustomerAdapter {
 	public readonly tableState = new TableState<Customer.ICustomer>();
 	public readonly loading$ = new BooleanStreamState(false);
 
-	public resetTableState(): void {
+	public resetTableState() {
 
 		this.tableState
 			.setPage(1)
 			.setTotal(0)
 			.setItems([]);
+
+		return this;
+
+	}
+
+	public filterByPhrase(phrase: string) {
+
+		this.tableState
+			.setPage(1)
+			.setTotal(0)
+			.setItems([])
+			.patchFilters({phrase});
+
+		return this;
 
 	}
 
@@ -28,7 +42,7 @@ export class EventListCustomerAdapter {
 	 * GET PAGE
 	 * Find data in tabelState
 	 */
-	public async getPageAsync(): Promise<void> {
+	public async getPageAsync() {
 
 		if (this.loading$.isTrue) {
 			return;
@@ -50,6 +64,8 @@ export class EventListCustomerAdapter {
 		}
 
 		this.loading$.doFalse();
+
+		return this;
 
 	}
 

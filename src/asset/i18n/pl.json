@@ -1191,6 +1191,13 @@
 					}
 				}
 			},
+			"service": {
+				"customer": {
+					"hist": {
+						"anonymous": "Ten wybór oznacza, że klient jest nieznany i nie jest zarejestrowany w systemie. W związku z tym będzie wyświetlany wszędzie jako anonimowy klient."
+					}
+				}
+			},
 			"title": {
 				"create": "Dodawanie zamówienia",
 				"edit": "Edytowanie zamówienia"
