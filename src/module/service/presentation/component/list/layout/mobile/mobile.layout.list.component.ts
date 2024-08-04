@@ -5,13 +5,14 @@ import {
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardListComponent} from "@service/presentation/component/list/card/card.list.component";
-import {IService} from "@service/domain";
+
 import {FilterComponent} from "@service/presentation/component/filter/filter.component";
 import {LayoutListComponent} from "@utility/layout.list.component";
 import {
 	AutoRefreshButtonComponent
 } from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {ServiceActions} from "@service/state/service/service.actions";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Component({
 	selector: 'service-mobile-layout-list-component',
@@ -29,7 +30,7 @@ import {ServiceActions} from "@service/state/service/service.actions";
 		NgClass
 	]
 })
-export class MobileLayoutListComponent extends LayoutListComponent<IService> {
+export class MobileLayoutListComponent extends LayoutListComponent<IServiceDto> {
 
 	@Input()
 	public showButtonGoToForm = true;

@@ -1,19 +1,24 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {IService} from "@service/domain";
+
 import {AttendeesForm} from "@event/presentation/form/attendant.form";
 import {EventConfigurationForm} from "@event/presentation/form/configuration.form";
 import {LanguageCodeEnum} from "@utility/domain/enum";
+import {takeUntil} from "rxjs/operators";
+import {Subject} from "rxjs";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {ISpecialist} from "@service/domain/interface/i.specialist";
 
 
 export interface IEventForm {
 	_id: FormControl<string>;
 	servicesAreProvidedInParallel: FormControl<boolean>;
-	services: FormControl<IService[]>;
+	services: FormControl<IServiceDto[]>;
 	language: FormControl<LanguageCodeEnum>;
 	note: FormControl<string>;
 	start: FormControl<string>;
 	end: FormControl<string>;
 	timeZone: FormControl<string>;
+	specialists: FormControl<ISpecialist[]>;
 	attendees: AttendeesForm;
 	configuration: EventConfigurationForm;
 
@@ -21,6 +26,8 @@ export interface IEventForm {
 }
 
 export class EventForm extends FormGroup<IEventForm> {
+
+	private readonly destroy$ = new Subject<void>();
 
 	constructor() {
 		super({
@@ -33,6 +40,9 @@ export class EventForm extends FormGroup<IEventForm> {
 			}),
 			services: new FormControl(),
 			language: new FormControl(),
+			specialists: new FormControl([] as ISpecialist[], {
+				nonNullable: true,
+			}),
 			timeZone: new FormControl(Intl.DateTimeFormat().resolvedOptions().timeZone, {
 				nonNullable: true,
 			}),
@@ -63,7 +73,9 @@ export class EventForm extends FormGroup<IEventForm> {
 	}
 
 	public initHandler(): void {
-		this.valueChanges.subscribe((value) => {
+		this.valueChanges.pipe(
+			takeUntil(this.destroy$),
+		).subscribe((value) => {
 			const {services, start} = value;
 			const [firstService] = services ?? [];
 			if (!firstService || !start) {
@@ -79,6 +91,13 @@ export class EventForm extends FormGroup<IEventForm> {
 				onlySelf: true,
 			});
 		});
+	}
+
+	public destroyHandlers(): void {
+
+		this.destroy$.next();
+		this.destroy$.complete();
+
 	}
 
 }

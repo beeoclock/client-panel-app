@@ -21,6 +21,6 @@ export class NewCustomerTypeCustomerComponent {
 	public form!: CustomerForm;
 
 	@HostBinding()
-	public readonly class = 'flex flex-col gap-2'
+	public readonly class = 'flex flex-col gap-2 pb-4'
 
 }

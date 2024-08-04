@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {BusinessProfileForm} from "@client/presentation/form/business-profile.form";
 import {Select, Store} from "@ngxs/store";
 import * as Client from "@client/domain";
@@ -32,6 +32,7 @@ import {
 } from "@client/presentation/component/business-settings/auto-book-event/auto-book-event.component";
 import {Reactive} from "@utility/cdk/reactive";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
 	selector: 'client-business-settings-page',
@@ -52,9 +53,10 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 	],
 	standalone: true
 })
-export default class BusinessSettingsPage extends Reactive implements OnInit {
+export default class BusinessSettingsPage extends Reactive implements OnInit, OnDestroy {
 
 	public readonly form = new BusinessProfileForm();
+	public readonly ngxLogger = inject(NGXLogger);
 	public readonly store = inject(Store);
 	public readonly analyticsService = inject(AnalyticsService);
 	public readonly updateBusinessProfileApiAdapter = inject(UpdateBusinessProfileApiAdapter);
@@ -134,7 +136,14 @@ export default class BusinessSettingsPage extends Reactive implements OnInit {
 			this.store.dispatch(new ClientActions.InitClient());
 			this.form.enable();
 			this.form.updateValueAndValidity();
+		} else {
+			this.ngxLogger.error('Form is invalid', this.form);
 		}
+	}
+
+	public override ngOnDestroy(): void {
+		super.ngOnDestroy();
+		this.form.destroyHandlers();
 	}
 
 }

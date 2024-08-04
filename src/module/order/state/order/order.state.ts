@@ -226,7 +226,7 @@ export class OrderState extends BaseState<IOrderDto> {
 					type: ReservationTypeEnum.service,
 					languageCodes: [formValue.language],
 					// attachments: IAttachmentDto[];
-					specialists: formValue.services[0].specialists,
+					specialists: formValue.specialists,
 					attendees: formValue.attendees,
 					// locations: ILocationsDto[];
 					timeZone: formValue.timeZone,

@@ -24,11 +24,11 @@ export interface IOrderAppointmentDetailsDto {
     start: string;
     end: string;
     type: ReservationTypeEnum;
-    languageCodes: LanguageCodeEnum[]; // TODO Add type
-    // attachments: IAttachmentDto[]; // TODO Add type
+    languageCodes: LanguageCodeEnum[];
+    // attachments: IAttachmentDto[];
     specialists: ISpecialist[];
     attendees: IAttendee[];
-    // locations: ILocationsDto[]; // TODO Add type
+    // locations: ILocationsDto[];
     timeZone: string;
     createdAt: string;
     updatedAt: string;

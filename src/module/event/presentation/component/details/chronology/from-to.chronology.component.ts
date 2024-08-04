@@ -10,8 +10,11 @@ import {
 	ViewEncapsulation
 } from "@angular/core";
 import {NgForOf, NgIf} from "@angular/common";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
+import {is} from "thiis";
+import {DateTime} from "luxon";
+import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
 
 @Component({
 	selector: 'event-from-to-chronology',
@@ -25,18 +28,18 @@ import {NGXLogger} from "ngx-logger";
 	],
 	template: `
 		<div class="px-2">
-			{{ fromToObject.objectName }}
+			{{ getTranslate(fromToObject.objectName) }}
 		</div>
 		<div
 			*ngIf="value"
 			class="flex flex-col bg-white border border-beeColor-200 rounded-lg divide-y divide-beeColor-200">
 			<div class="flex divide-x divide-beeColor-200">
-				<div class="text-center min-w-[26px] w-[26px] max-w-[26px] p-2 py-1 text-red-600 bg-red-50 rounded-tl-lg">-</div>
+				<div title="from" class="text-center min-w-[26px] w-[26px] max-w-[26px] p-2 py-1 text-red-600 bg-red-50 rounded-tl-lg">-</div>
 				<div class="flex-1 p-2 py-1" [innerHTML]="buildPresentation(value.from)">
 				</div>
 			</div>
 			<div class="flex divide-x divide-beeColor-200">
-				<div class="text-center min-w-[26px] w-[26px] max-w-[26px] p-2 py-1 text-green-600 bg-green-50 rounded-bl-lg">+</div>
+				<div title="to" class="text-center min-w-[26px] w-[26px] max-w-[26px] p-2 py-1 text-green-600 bg-green-50 rounded-bl-lg">+</div>
 				<div class="flex-1 p-2 py-1" [innerHTML]="buildPresentation(value.to)">
 				</div>
 			</div>
@@ -59,7 +62,9 @@ export class FromToChronologyComponent implements OnChanges {
 	@HostBinding()
 	public class = 'flex flex-col gap-2'
 
+	private readonly humanizeDurationHelper = inject(HumanizeDurationHelper);
 	private readonly ngxLogger = inject(NGXLogger);
+	private readonly translateService = inject(TranslateService);
 
 	public value: {
 		from: {
@@ -83,14 +88,31 @@ export class FromToChronologyComponent implements OnChanges {
 		this.parse(changes.fromToObject.currentValue);
 	}
 
+	public getTranslate(key: string) {
+		const translateKey = `event.details.meta.history.keyword.capitalize.${key}`;
+		const result = this.translateService.instant(translateKey);
+		if (result === translateKey) {
+			return key;
+		}
+		return result;
+	}
+
 	public buildPresentation(target: {
 		type: string;
 		value: any;
 	}) {
 		switch (target.type) {
 			case 'string':
-				return target.value;
+				switch (true) {
+					case is.iso(target.value):
+						return DateTime.fromISO(target.value).toFormat('yyyy-MM-dd HH:mm:ss');
+					default:
+						return target.value;
+				}
 			case 'number':
+				if (this.fromToObject.objectName.toLowerCase().search('seconds')) {
+					return this.humanizeDurationHelper.fromSeconds(target.value);
+				}
 				return target.value;
 		}
 	}

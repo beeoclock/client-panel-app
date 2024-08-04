@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {BusinessProfileForm} from "@client/presentation/form/business-profile.form";
 import {
 	CoverImageBusinessProfileComponent
@@ -76,7 +76,7 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 	],
 	standalone: true
 })
-export class BusinessProfilePage extends Reactive implements OnInit {
+export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 
 	// @ViewChild(CoverImageBusinessProfileComponent)
 	// public readonly coverImageBusinessProfileComponent!: CoverImageBusinessProfileComponent;
@@ -181,6 +181,11 @@ export class BusinessProfilePage extends Reactive implements OnInit {
 		if (is.string_empty(value.username)) {
 			value.username = null;
 		}
+	}
+
+	public override ngOnDestroy() {
+		super.ngOnDestroy();
+		this.form.destroyHandlers();
 	}
 
 }

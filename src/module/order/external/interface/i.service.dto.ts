@@ -1,5 +1,6 @@
 import {ActiveEnum, CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
+import {IPresentation} from "@service/domain";
 
 export interface IServiceDto {
 	object: "ServiceDto";
@@ -12,10 +13,7 @@ export interface IServiceDto {
 			durationVersionType: DurationVersionTypeEnum;
 		}
 	},
-	presentation: {
-		banners: string[];
-		color?: string;
-	};
+	presentation: IPresentation;
 	prepaymentPolicy: {
 		isRequired: boolean;
 		isPercentage: boolean;

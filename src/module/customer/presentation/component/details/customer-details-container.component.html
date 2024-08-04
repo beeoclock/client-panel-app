@@ -1,46 +1,78 @@
 <ng-container *ngIf="item as customer">
 	<div class="bg-white">
 		<dl class="divide-y divide-gray-100">
-			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.fullName' | translate }}
 				</dt>
-				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
 					{{ customer.firstName }}&nbsp;{{ customer.lastName }}
 				</dd>
 			</div>
-			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.email' | translate }}
 				</dt>
-				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-					{{ customer.email }}
+				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
+					<a *ngIf="customer.email?.length" href="mailto:{{ customer.email }}"
+					   primaryLinkStyle class="gap-2">
+						<i class="bi bi-envelope-at"></i>
+						{{ customer.email }}
+					</a>
 				</dd>
 			</div>
-			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.phone' | translate }}
 				</dt>
-				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-					{{ customer.phone }}
+				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
+					<a *ngIf="customer.phone?.length" href="tel:{{ customer.phone }}"
+					   primaryLinkStyle class="gap-2">
+						<i class="bi bi-telephone"></i>
+						{{ customer.phone }}
+					</a>
+					<a *ngIf="customer.phone?.length" href="sms:{{ customer.phone }}"
+					   primaryLinkStyle class="gap-2">
+						<i class="bi bi-send"></i>
+						SMS
+					</a>
 				</dd>
 			</div>
-			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.note' | translate }}
 				</dt>
-				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
 					{{ customer.note }}
 				</dd>
 			</div>
-			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.status' | translate }}
 				</dt>
-				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
+				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2 flex">
 					<div activeStyle [active]="customer.active"></div>
 				</dd>
 			</div>
+			<button (click)="openCustomersOrders()" class="w-full p-3 flex justify-between cursor-pointer hover:bg-gray-50 transition-all">
+
+				<dt class="text-sm font-medium leading-6 text-gray-900 text-start">
+					{{ 'sidebar.order' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex justify-end">
+					<div class="flex items-center gap-4">
+<!--						<div-->
+<!--							 class="border bg-yellow-50 border-yellow-600 text-yellow-600 leading-tight px-3 py-1 rounded-full">-->
+<!--							142-->
+<!--						</div>-->
+<!--						<div *ngIf="form.controls.service.includeIsEmpty"-->
+<!--							 class="border bg-red-50 border-red-600 text-red-600 leading-tight px-3 py-1 rounded-full">-->
+<!--							{{ 'member.form.assignments.button.hint.includeIsEmpty' | translate }}-->
+<!--						</div>-->
+						<i class="bi bi-chevron-right"></i>
+					</div>
+				</dd>
+			</button>
 		</dl>
 	</div>
 

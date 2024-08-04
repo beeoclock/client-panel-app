@@ -1,7 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
-import * as Service from "@service/domain";
-import {IService} from "@service/domain";
+
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {ArchiveServiceApiAdapter} from "@service/adapter/external/api/archive.service.api.adapter";
 import {CreateServiceApiAdapter} from "@service/adapter/external/api/create.service.api.adapter";
@@ -13,10 +12,11 @@ import {ServiceActions} from "@service/state/service/service.actions";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {UnarchiveServiceApiAdapter} from "@service/adapter/external/api/unarchive.service.api.adapter";
 import {TranslateService} from "@ngx-translate/core";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
-export type IServiceState = IBaseState<Service.IService>
+export type IServiceState = IBaseState<IServiceDto>
 
-const defaults = baseDefaults<Service.IService>({
+const defaults = baseDefaults<IServiceDto>({
 	filters: {},
 	orderDir: OrderDirEnum.DESC,
 	orderBy: OrderByEnum.CREATED_AT,
@@ -27,7 +27,7 @@ const defaults = baseDefaults<Service.IService>({
 	defaults
 })
 @Injectable()
-export class ServiceState extends BaseState<IService> {
+export class ServiceState extends BaseState<IServiceDto> {
 
 	protected override readonly unarchive = inject(UnarchiveServiceApiAdapter);
 	protected override readonly archive = inject(ArchiveServiceApiAdapter);

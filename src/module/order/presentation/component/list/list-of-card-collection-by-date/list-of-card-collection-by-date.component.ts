@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@utility/table.component";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {DateTime} from "luxon";
@@ -8,129 +8,129 @@ import {CardListComponent} from "@order/presentation/component/list/card/card.li
 import {CardItemOrderComponent} from "@order/presentation/component/list/card/item/card.item.order.component";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {
-    TableStatePaginationComponent
+	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
-import {OrderActions} from "@order/state/order/order.actions";
 
 @Component({
-    standalone: true,
-    selector: 'order-list-of-card-collection-by-date-component',
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        NgForOf,
-        KeyValuePipe,
-        TranslateModule,
-        CardListComponent,
-        AsyncPipe,
-        CardItemOrderComponent,
-        NgIf,
-        TableStatePaginationComponent
-    ],
-    template: `
-        <div class="flex flex-col">
-            <div class="flex flex-col" *ngFor="let dateItem of keyvalue(items); let index = index">
-                <div class="ps-8 p-4 bg-beeColor-200 text-beeColor-600 sticky top-0">
-                    <div class="flex gap-4 items-center">
-                        <div class="text-xl font-bold flex-1">{{ getDateCorrectFormat(dateItem.key) }}
-                            , {{ getDayNameByDate(dateItem.key) }}</div>
-                        <div class="flex flex-wrap">
-                            <div>
-                                {{ todayOrAgo(dateItem.key) }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex flex-col pb-8 pt-4">
-                    <div *ngFor="let timeItem of (dateItem.value | keyvalue);">
-                        <div class="text-sm px-4 text-beeColor-600 flex justify-start gap-2 overflow-x-auto">
-                            <div class="font-bold bg-neutral-200 rounded-xl p-2 px-4">
-                                {{ timeItem.key }} ({{ toEventListType(timeItem?.value ?? [])?.length ?? 0 }})
-                            </div>
-                        </div>
-                        <div class="p-4 flex flex-wrap gap-4 overflow-x-auto">
-                            <app-card-item-order-component
-                                    *ngFor="let item of toEventListType(timeItem.value); trackBy: trackById"
-                                    [showAction]="(showAction.state$ | async) ?? false"
-                                    [showSelectedStatus]="(showSelectedStatus.state$ | async) ?? false"
-                                    [selectedIds]="selectedIds"
-                                    [item]="item"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <utility-table-state-pagination-component
-                    [mobileMode]="true"
-                    (page)="pageChange($event)"
-                    [tableState]="tableState"/>
+	standalone: true,
+	selector: 'order-list-of-card-collection-by-date-component',
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [
+		NgForOf,
+		KeyValuePipe,
+		TranslateModule,
+		CardListComponent,
+		AsyncPipe,
+		CardItemOrderComponent,
+		NgIf,
+		TableStatePaginationComponent
+	],
+	template: `
+		<div class="flex flex-col" *ngFor="let dateItem of keyvalue(items); let index = index">
+			<div class="ps-8 p-4 bg-beeColor-200 text-beeColor-600 sticky top-0">
+				<div class="flex gap-4 items-center">
+					<div class="text-xl font-bold flex-1">{{ getDateCorrectFormat(dateItem.key) }}
+						, {{ getDayNameByDate(dateItem.key) }}</div>
+					<div class="flex flex-wrap">
+						<div>
+							{{ todayOrAgo(dateItem.key) }}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="flex flex-col pb-8 pt-4">
+				<div *ngFor="let timeItem of (dateItem.value | keyvalue);">
+					<div class="text-sm px-4 text-beeColor-600 flex justify-start gap-2 overflow-x-auto">
+						<div class="font-bold bg-neutral-200 rounded-xl p-2 px-4">
+							{{ timeItem.key }} ({{ toEventListType(timeItem?.value ?? [])?.length ?? 0 }})
+						</div>
+					</div>
+					<div class="p-4 flex gap-4 overflow-x-auto">
+						<app-card-item-order-component
+							*ngFor="let item of toEventListType(timeItem.value); trackBy: trackById"
+							[showAction]="(showAction.state$ | async) ?? false"
+							[showSelectedStatus]="(showSelectedStatus.state$ | async) ?? false"
+							[selectedIds]="selectedIds"
+							[item]="item"/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<utility-table-state-pagination-component
+			[mobileMode]="true"
+			(page)="pageChange($event)"
+			[tableState]="tableState"/>
 
-        </div>
-    `
+	`
 })
 export class ListOfCardCollectionByDateComponent extends TableComponent<IOrderDto> {
 
-    @Input({required: true})
-    public items: {
-        [key: string]: {
-            [key: string]: IOrderDto[]
-        }
-    } = {};
+	@Input({required: true})
+	public items: {
+		[key: string]: {
+			[key: string]: IOrderDto[]
+		}
+	} = {};
 
-    public override readonly actions = OrderActions;
-    public readonly showAction = new BooleanStreamState(true);
-    public readonly showSelectedStatus = new BooleanStreamState(false);
+	// public override readonly actions = OrderActions;
+	public readonly showAction = new BooleanStreamState(true);
+	public readonly showSelectedStatus = new BooleanStreamState(false);
 
-    private readonly translateService = inject(TranslateService);
+	private readonly translateService = inject(TranslateService);
 
-    public keyvalue(value: any): {
-        key: string;
-        value: any
-    }[] {
-        if (!value) return [];
-        return Object.entries(value).map(([key, value]) => ({key, value}));
-    }
+	@HostBinding()
+	public class = 'flex flex-col';
 
-    public toEventListType(list: unknown): IOrderDto[] {
-        return list as IOrderDto[];
-    }
+	public keyvalue(value: any): {
+		key: string;
+		value: any
+	}[] {
+		if (!value) return [];
+		return Object.entries(value).map(([key, value]) => ({key, value}));
+	}
 
-    public getDayNameByDate(date: string) {
-        return DateTime.fromISO(date).toFormat('EEE', {
-            locale: this.translateService.currentLang,
-        });
-    }
+	public toEventListType(list: unknown): IOrderDto[] {
+		return list as IOrderDto[];
+	}
 
-    public sameYear(start: string | undefined): boolean {
-        return start ? new Date(start).getFullYear() === new Date().getFullYear() : false;
-    }
+	public getDayNameByDate(date: string) {
+		return DateTime.fromISO(date).toFormat('EEE', {
+			locale: this.translateService.currentLang,
+		});
+	}
 
-    public getDateCorrectFormat(date: string) {
-        // If the same year, then we don't need to show the year
-        if (this.sameYear(date)) {
-            return DateTime.fromISO(date).toFormat('dd MMMM', {
-                locale: this.translateService.currentLang,
-            });
-        }
-        return DateTime.fromISO(date).toFormat('dd MMMM yyyy', {
-            locale: this.translateService.currentLang,
-        });
-    }
+	public sameYear(start: string | undefined): boolean {
+		return start ? new Date(start).getFullYear() === new Date().getFullYear() : false;
+	}
 
-    public todayOrAgo(date: string) {
-        // Round to the nearest day
-        const today = DateTime.local().startOf('day');
-        const target = DateTime.fromISO(date).startOf('day');
+	public getDateCorrectFormat(date: string) {
+		// If the same year, then we don't need to show the year
+		if (this.sameYear(date)) {
+			return DateTime.fromISO(date).toFormat('dd MMMM', {
+				locale: this.translateService.currentLang,
+			});
+		}
+		return DateTime.fromISO(date).toFormat('dd MMMM yyyy', {
+			locale: this.translateService.currentLang,
+		});
+	}
 
-        if (target.hasSame(today, 'day')) {
-            return this.translateService.instant('keyword.capitalize.today');
-        }
+	public todayOrAgo(date: string) {
+		// Round to the nearest day
+		const today = DateTime.local().startOf('day');
+		const target = DateTime.fromISO(date).startOf('day');
 
-        if (target.hasSame(today.minus({days: 1}), 'day')) {
-            return this.translateService.instant('keyword.capitalize.yesterday');
-        }
+		if (target.hasSame(today, 'day')) {
+			return this.translateService.instant('keyword.capitalize.today');
+		}
 
-        return target.toRelative({locale: this.translateService.currentLang});
+		if (target.hasSame(today.minus({days: 1}), 'day')) {
+			return this.translateService.instant('keyword.capitalize.yesterday');
+		}
 
-    }
+		return target.toRelative({locale: this.translateService.currentLang});
+
+	}
 
 }

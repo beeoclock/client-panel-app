@@ -16,7 +16,7 @@ import {PricesBlockComponent} from "@service/presentation/component/form/v2/pric
 import {ServiceForm} from "@service/presentation/form/service.form";
 import {filter, firstValueFrom, map} from "rxjs";
 import {ServiceActions} from "@service/state/service/service.actions";
-import {IService} from "@service/domain";
+
 import {Store} from "@ngxs/store";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
@@ -39,6 +39,7 @@ import {
 } from "@service/presentation/component/form/v2/image/service-form-image/service-form-image.component";
 import {is} from "thiis";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Component({
 	selector: 'service-form-v2-page-component',
@@ -72,19 +73,21 @@ export class ServiceContainerFormComponent implements OnInit {
 	public isEditMode = false;
 
 	@Input()
-	public item: IService | null = null;
+	public item: IServiceDto | null = null;
 
 	public readonly form = new ServiceForm();
 	public readonly presentationForm = new ServicePresentationForm({
-		_id: '',
-		createdAt: '',
-		updatedAt: '',
-		object: 'Service.Presentation',
 		banners: [{
-			object: 'Media',
+			object: 'MediaDto',
 			mediaType: MediaTypeEnum.serviceBanner,
 			_id: '',
 			url: '',
+			metadata: {
+				object: 'MediaMetadataDto',
+				height: 0,
+				size: 0,
+				width: 0
+			},
 			createdAt: '',
 			updatedAt: '',
 		}]
@@ -181,7 +184,7 @@ export class ServiceContainerFormComponent implements OnInit {
 		) {
 			this.form.disable();
 			this.form.markAsPending();
-			const value = this.form.getRawValue() as IService;
+			const value = this.form.getRawValue() as IServiceDto;
 			if (this.isEditMode) {
 				await firstValueFrom(this.store.dispatch(new ServiceActions.UpdateItem(value)));
 				await this.imageBlock.save(value._id);

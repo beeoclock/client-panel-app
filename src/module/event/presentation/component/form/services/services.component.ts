@@ -5,7 +5,7 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {IService} from "@service/domain";
+
 import {ModalSelectServiceListAdapter} from "@service/adapter/external/component/modal-select-service.list.adapter";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
@@ -30,6 +30,7 @@ import {
 	LanguageVersionOrderControlComponent
 } from "@event/presentation/component/form/services/language-version/language-version.order.control.component";
 import {LanguageCodeEnum} from "@utility/domain/enum";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Component({
 	selector: 'event-service-component',
@@ -63,7 +64,7 @@ import {LanguageCodeEnum} from "@utility/domain/enum";
 export class ServicesComponent extends Reactive implements OnInit {
 
 	@Input({required: true})
-	public serviceListControl: FormControl<IService[]> = new FormControl([] as any);
+	public serviceListControl: FormControl<IServiceDto[]> = new FormControl([] as any);
 
 	@Input({required: true})
 	public languageControl: FormControl<LanguageCodeEnum> = new FormControl();
@@ -98,27 +99,27 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 		this.initServices().then();
 
-		if (this.rememberLastSelectedMember) {
-			this.serviceListControl.valueChanges.pipe(this.takeUntil()).subscribe((value) => {
-				// Check if all services have member if not set the last selected member
-				if (value.some((service) => !service?.specialists?.[0]?.member)) {
-					if (this.lastSelectedMember) {
-						const member = this.lastSelectedMember;
-						value.forEach((service) => {
-							if (!service?.specialists?.[0]?.member) {
-								service.specialists = [{
-									object: 'SpecialistDto',
-									member,
-									wasSelectedAnybody: false,
-								}];
-							}
-						});
-						return;
-					}
-				}
-				this.lastSelectedMember = value?.[0]?.specialists?.[0]?.member;
-			});
-		}
+		// if (this.rememberLastSelectedMember) {
+		// 	this.serviceListControl.valueChanges.pipe(this.takeUntil()).subscribe((value) => {
+		// 		// Check if all services have member if not set the last selected member
+		// 		if (value.some((service) => !service?.specialists?.[0]?.member)) {
+		// 			if (this.lastSelectedMember) {
+		// 				const member = this.lastSelectedMember;
+		// 				value.forEach((service) => {
+		// 					if (!service?.specialists?.[0]?.member) {
+		// 						service.specialists = [{
+		// 							object: 'SpecialistDto',
+		// 							member,
+		// 							wasSelectedAnybody: false,
+		// 						}];
+		// 					}
+		// 				});
+		// 				return;
+		// 			}
+		// 		}
+		// 		this.lastSelectedMember = value?.[0]?.specialists?.[0]?.member;
+		// 	});
+		// }
 
 	}
 
@@ -136,24 +137,24 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 	public async openModalToSelectService() {
 
-		const {SelectServicePushBoxComponent} = await import("@service/presentation/push-box/select-service.push-box.component");
+		const {SelectServiceWhacAMoleComponent} = await import("@service/presentation/push-box/select-service.whac-a-mole.component");
 
 		let useTableStateFromStore = true;
-		let tableState = new TableState<IService>().toCache();
+		let tableState = new TableState<IServiceDto>().toCache();
 
 		const member = this.lastSelectedMember || this.member;
 
 		if (member) {
 			if (!member.assignments.service.full) {
 				const memberWithPopulateServices = await this.itemMemberApiAdapter.executeAsync(member._id);
-				const items = memberWithPopulateServices.assignments.service.include.map(({service}) => service as unknown as IService);
+				const items = memberWithPopulateServices.assignments.service.include.map(({service}) => service as unknown as IServiceDto);
 				useTableStateFromStore = false;
-				tableState = new TableState<IService>().setItems(items).setTotal(items.length).toCache();
+				tableState = new TableState<IServiceDto>().setItems(items).setTotal(items.length).toCache();
 			}
 		}
 
 		const pushBoxWrapperComponentRef = await this.whacAMaleProvider.buildItAsync({
-			component: SelectServicePushBoxComponent,
+			component: SelectServiceWhacAMoleComponent,
 			componentInputs: {
 				multiple: false,
 				selectedServiceList: this.serviceListControl.value,
@@ -174,7 +175,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 		const {instance} = renderedComponentRef;
 
-		if (instance instanceof SelectServicePushBoxComponent) {
+		if (instance instanceof SelectServiceWhacAMoleComponent) {
 			instance.selectedServicesListener.pipe(this.takeUntil()).subscribe(async () => {
 
 				let {newSelectedServiceList} = instance;
@@ -182,13 +183,13 @@ export class ServicesComponent extends Reactive implements OnInit {
 				newSelectedServiceList = this.setMember(newSelectedServiceList)
 
 				this.serviceListControl.patchValue(newSelectedServiceList);
-				await this.whacAMaleProvider.destroyComponent(SelectServicePushBoxComponent);
+				await this.whacAMaleProvider.destroyComponent(SelectServiceWhacAMoleComponent);
 			});
 		}
 
 	}
 
-	public removeServiceFromSelectedList(service: IService): void {
+	public removeServiceFromSelectedList(service: IServiceDto): void {
 
 		const newSelectedSpecialistList = this.serviceListControl.value.filter((value) => value._id !== service._id);
 
@@ -196,7 +197,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 	}
 
-	public isDurationVersionTypeRange(service: IService): boolean {
+	public isDurationVersionTypeRange(service: IServiceDto): boolean {
 		return service.configuration.duration?.durationVersionType === DurationVersionTypeEnum.RANGE;
 	}
 
@@ -210,10 +211,10 @@ export class ServicesComponent extends Reactive implements OnInit {
 	 * It operates under the condition that if `setMemberOnlyOnce` is true, a member will only be set once
 	 * across all service updates to prevent overriding existing member assignments.
 	 *
-	 * @param {IService[]} newSelectedServiceList - The list of services to update with a member.
-	 * @returns {IService[]} The updated list of services with a member set for each service's specialists.
+	 * @param {IServiceDto[]} newSelectedServiceList - The list of services to update with a member.
+	 * @returns {IServiceDto[]} The updated list of services with a member set for each service's specialists.
 	 */
-	private setMember(newSelectedServiceList: IService[]): IService[] {
+	private setMember(newSelectedServiceList: IServiceDto[]): IServiceDto[] {
 		// Check if a member is available to be set
 		if (this.member) {
 			// If setMemberOnlyOnce is true, check if a member has already been set

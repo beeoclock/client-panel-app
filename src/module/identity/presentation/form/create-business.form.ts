@@ -8,6 +8,8 @@ import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum"
 import {ActiveEnum} from "@utility/domain/enum";
 import {DefaultServicesByBusinessCategory} from "@utility/domain/const/c.default-services-by-business-category";
 import {BusinessSettingsForm} from "@client/presentation/form/business-settings.form";
+import {takeUntil} from "rxjs/operators";
+import {Subject} from "rxjs";
 
 interface IBusinessOwnerForm {
 	firstName: FormControl<string>;
@@ -47,6 +49,8 @@ interface IBusinessClientForm {
 }
 
 export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
+
+	private readonly destroy$ = new Subject<void>();
 
 	constructor() {
 		super({
@@ -93,7 +97,9 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 	}
 
 	private initBusinessCategoryHandler() {
-		this.controls.businessCategory.valueChanges.subscribe(() => {
+		this.controls.businessCategory.valueChanges.pipe(
+			takeUntil(this.destroy$)
+		).subscribe(() => {
 			this.fillServices();
 		})
 	}
@@ -145,5 +151,10 @@ export default class CreateBusinessForm extends FormGroup<IBusinessClientForm> {
 		});
 
 
+	}
+
+	public destroyHandlers(): void {
+		this.destroy$.next();
+		this.destroy$.complete();
 	}
 }

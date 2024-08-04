@@ -15,7 +15,6 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@absence/presentation/component/row-action-button/row-action-button.component";
-import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 
 @Component({
@@ -43,11 +42,11 @@ import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 })
 export class CardListComponent extends TableComponent<IAbsenceDto> {
 
-	public override readonly actions = AbsenceActions;
+	// public override readonly actions = AbsenceActions;
 
-	public showAction = new BooleanStreamState(true);
+	// public showAction = new BooleanStreamState(true);
 
-	public showSelectedStatus = new BooleanStreamState(false);
+	// public showSelectedStatus = new BooleanStreamState(false);
 
 	public override open(item: IAbsenceDto) {
 		this.store.dispatch(new AbsenceActions.OpenDetails(item));

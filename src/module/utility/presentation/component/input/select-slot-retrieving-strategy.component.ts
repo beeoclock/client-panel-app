@@ -31,11 +31,11 @@ import {NgIf} from "@angular/common";
 			<ng-container *ngIf="isIncludeRequested">
 				{{ 'slotRetrievingStrategy.hists.byOption.IncludeRequested' | translate }}
 				: <kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ 'event.keyword.status.singular.requested' | translate }}</kbd>
-				, <kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ 'event.keyword.status.singular.booked' | translate }}</kbd>
+				, <kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ 'event.keyword.status.singular.confirmed' | translate }}</kbd>
 			</ng-container>
 			<ng-container *ngIf="isOnlyBooked">
 				{{ 'slotRetrievingStrategy.hists.byOption.OnlyBooked' | translate }}
-				: <kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ 'event.keyword.status.singular.booked' | translate }}</kbd>
+				: <kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ 'event.keyword.status.singular.confirmed' | translate }}</kbd>
 			</ng-container>
 		</div>
 	`,

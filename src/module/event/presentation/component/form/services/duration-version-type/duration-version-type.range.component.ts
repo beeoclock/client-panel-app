@@ -1,5 +1,5 @@
 import {Component, inject, Input, OnInit} from "@angular/core";
-import {IService} from "@service/domain";
+
 import {FormControl, Validators} from "@angular/forms";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {AsyncPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgTemplateOutlet} from "@angular/common";
@@ -14,6 +14,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {Store} from "@ngxs/store";
 import {ClientState} from "@client/state/client/client.state";
 import {is} from "thiis";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Component({
 	selector: 'event-duration-version-type-range',
@@ -36,10 +37,10 @@ import {is} from "thiis";
 export class DurationVersionTypeRangeComponent extends Reactive implements OnInit {
 
 	@Input({required: true})
-	public service!: IService;
+	public service!: IServiceDto;
 
 	@Input({required: true})
-	public serviceListControl!: FormControl<IService[]>;
+	public serviceListControl!: FormControl<IServiceDto[]>;
 
 	@Input({required: true})
 	public index = 0;

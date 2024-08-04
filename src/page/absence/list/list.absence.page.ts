@@ -2,7 +2,6 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/co
 import {ListPage} from "@utility/list.page";
 import {AbsenceState} from "@absence/state/absence/absence.state";
 import {Observable, tap} from "rxjs";
-import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {ITableState} from "@utility/domain/table.state";
 import {StarterComponent} from "@utility/presentation/component/starter/starter.component";
 import {TranslateModule} from "@ngx-translate/core";
@@ -23,6 +22,8 @@ import {
 	MobileLayoutListComponent
 } from "@absence/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {TableService} from "@utility/table.service";
+import {AbsenceTableService} from "@absence/presentation/component/list/absence.table.service";
 
 @Component({
 	selector: 'app-list-absence-page',
@@ -46,11 +47,16 @@ import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 		DesktopLayoutListComponent,
 		MobileLayoutListComponent,
 	],
-	standalone: true
+	standalone: true,
+	providers: [
+		{
+			provide: TableService,
+			useClass: AbsenceTableService
+		}
+	]
 })
-export class ListAbsencePage extends ListPage {
+export class ListAbsencePage extends ListPage<IAbsenceDto> {
 
-	public override readonly actions = AbsenceActions;
 	public readonly tableState$: Observable<ITableState<IAbsenceDto>> = this.store.select(AbsenceState.tableState)
 		.pipe(
 			tap((tableState) => {

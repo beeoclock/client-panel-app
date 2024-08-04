@@ -4,7 +4,6 @@ import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from '@angular/common';
 import {firstValueFrom} from 'rxjs';
 import {BackLinkComponent} from '@utility/presentation/component/link/back.link.component';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
-import {IService} from '@service/domain';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
@@ -21,6 +20,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Component({
 	selector: 'service-detail-page',
@@ -59,12 +59,12 @@ import {EditButtonComponent} from "@utility/presentation/component/button/edit.b
 export class ServiceDetails {
 
 	@Input()
-	public item: IService | null = null;
+	public item: IServiceDto | null = null;
 
 	public readonly store = inject(Store);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
-	public async delete(service: IService): Promise<void> {
+	public async delete(service: IServiceDto): Promise<void> {
 		const {_id: id, active} = service;
 		if (active) {
 			return alert('You can\'t delete active service');

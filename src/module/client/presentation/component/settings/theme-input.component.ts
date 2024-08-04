@@ -7,6 +7,7 @@ import {ThemeService} from "@utility/cdk/theme.service";
 import {
 	ThemeBusinessPanelFrontendSettingsAccountApiAdapter
 } from "@module/account/adapter/external/api/theme.business-panel.frontend-settings.account.api.adapter";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'client-settings-theme-input-component',
@@ -35,7 +36,7 @@ import {
 		</ng-select>
 	`
 })
-export class ThemeInputComponent implements OnInit {
+export class ThemeInputComponent extends Reactive implements OnInit {
 
 	public readonly control = new FormControl();
 	public readonly themeService = inject(ThemeService);
@@ -47,7 +48,7 @@ export class ThemeInputComponent implements OnInit {
 	public ngOnInit() {
 
 		this.control.setValue(this.themeService.theme);
-		this.control.valueChanges.subscribe((theme) => {
+		this.control.valueChanges.pipe(this.takeUntil()).subscribe((theme) => {
 			this.themeService.toggleTheme(theme);
 			this.themeBusinessPanelFrontendSettingsAccountApiAdapter.executeAsync(theme);
 		});

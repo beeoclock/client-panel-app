@@ -116,7 +116,6 @@ export class PriceAndCurrencyComponent implements OnChanges {
 		if (changes.currencyList) {
 			this.updateValue(changes.currencyList.currentValue);
 		}
-
 	}
 
 	private updateValue(currencies: { id: CurrencyCodeEnum; name: CurrencyCodeEnum; }[]): void {

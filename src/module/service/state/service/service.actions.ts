@@ -1,5 +1,6 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IService} from "@service/domain";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
+
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace ServiceActions {
@@ -17,11 +18,11 @@ export namespace ServiceActions {
 		public static override readonly type = '[Service Application] Close Form';
 	}
 
-	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<IService> {
+	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<IServiceDto> {
 		public static override readonly type = '[Service Application] Update Opened Details';
 	}
 
-	export class OpenDetails extends BaseActions.OpenDetails<IService> {
+	export class OpenDetails extends BaseActions.OpenDetails<IServiceDto> {
 		public static override readonly type = '[Service Application] Open Details';
 	}
 
@@ -35,7 +36,7 @@ export namespace ServiceActions {
 
 	export class OpenForm extends BaseActions.OpenForm<{
 		isEditMode?: boolean;
-		item?: IService;
+		item?: IServiceDto;
 	}> {
 		public static override readonly type = '[Service Application] Open Form';
 	}
@@ -66,11 +67,11 @@ export namespace ServiceActions {
 		public static override readonly type = '[Service API] Get Item';
 	}
 
-	export class CreateItem extends BaseActions.CreateItem<IService> {
+	export class CreateItem extends BaseActions.CreateItem<IServiceDto> {
 		public static override readonly type = '[Service API] Create Item';
 	}
 
-	export class UpdateItem extends BaseActions.UpdateItem<IService> {
+	export class UpdateItem extends BaseActions.UpdateItem<IServiceDto> {
 		public static override readonly type = '[Service API] Update Item';
 	}
 
@@ -80,7 +81,7 @@ export namespace ServiceActions {
 		public static override readonly type = '[Service State] Update Filters';
 	}
 
-	export class UpdateTableState extends BaseActions.UpdateTableState<IService> {
+	export class UpdateTableState extends BaseActions.UpdateTableState<IServiceDto> {
 		public static override readonly type = '[Service State] Update Table State';
 	}
 

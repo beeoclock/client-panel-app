@@ -94,7 +94,9 @@ export class CalendarEventsComponent extends Reactive implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		this.selectedDateControl.valueChanges.subscribe((value) => {
+		this.selectedDateControl.valueChanges.pipe(
+			this.takeUntil()
+		).subscribe((value) => {
 			this.updateItems(value);
 		});
 	}

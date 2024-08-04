@@ -1,13 +1,13 @@
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActiveEnum, LanguageCodeEnum} from '@utility/domain/enum';
 import {CurrencyCodeEnum} from '@utility/domain/enum/currency-code.enum';
-import {IDurationVersion, ILanguageVersion, IService} from "@service/domain";
+import {IDurationVersion, ILanguageVersion} from "@service/domain";
 import {extractSecondsFrom_hh_mm_ss, STR_MINUTE_45} from "@utility/domain/time";
-import {ISpecialist} from "@service/domain/interface/i.specialist";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 import {filter} from "rxjs";
 import {is} from "thiis";
 import {BaseEntityForm} from "@utility/base.form";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 export interface ILanguageVersionForm {
 	title: FormControl<string>;
@@ -99,21 +99,18 @@ export class PricesForm extends FormArray<PriceForm> {
 }
 
 export interface IDurationConfigurationForm {
-	object: FormControl<'DurationConfiguration'>;
 	durationVersionType: FormControl<DurationVersionTypeEnum>;
 }
 
 export class DurationConfigurationForm extends FormGroup<IDurationConfigurationForm> {
 	constructor() {
 		super({
-			object: new FormControl(),
 			durationVersionType: new FormControl(),
 		});
 		this.initValue();
 	}
 
 	public initValue(): void {
-		this.controls.object.setValue('DurationConfiguration');
 		this.controls.durationVersionType.setValue(DurationVersionTypeEnum.VARIABLE);
 	}
 
@@ -202,13 +199,12 @@ export class DurationVersionsForm extends FormArray<DurationVersionForm> {
 
 }
 
-export interface IServiceForm {
+export interface IServiceDtoForm {
 	// schedules: SchedulesForm;
 	configuration: ConfigurationForm;
 	prepaymentPolicy: PrepaymentPolicyForm;
 	languageVersions: LanguageVersionsForm;
 	durationVersions: DurationVersionsForm;
-	specialists: FormControl<ISpecialist[]>;
 	active: FormControl<ActiveEnum>;
 	order: FormControl<number | null>;
 	presentation: PresentationForm;
@@ -216,17 +212,14 @@ export interface IServiceForm {
 	[key: string]: AbstractControl;
 }
 
-export class ServiceForm extends BaseEntityForm<'Service', IServiceForm> {
-	constructor(initialValue: Partial<IService> = {}) {
-		super('Service', {
+export class ServiceForm extends BaseEntityForm<'ServiceDto', IServiceDtoForm> {
+	constructor(initialValue: Partial<IServiceDto> = {}) {
+		super('ServiceDto', {
 			// schedules: new SchedulesForm(),
 			configuration: new ConfigurationForm(),
 			prepaymentPolicy: new PrepaymentPolicyForm(),
 			languageVersions: new LanguageVersionsForm(),
 			durationVersions: new DurationVersionsForm(),
-			specialists: new FormControl([], {
-				nonNullable: true,
-			}),
 			active: new FormControl(ActiveEnum.YES, {
 				nonNullable: true,
 			}),
@@ -237,7 +230,7 @@ export class ServiceForm extends BaseEntityForm<'Service', IServiceForm> {
 		this.patchValue(initialValue);
 	}
 
-	public override patchValue(value: Partial<IService>): void {
+	public override patchValue(value: Partial<IServiceDto>): void {
 		super.patchValue(value);
 		if (value.languageVersions) {
 			this.controls.languageVersions.clear();

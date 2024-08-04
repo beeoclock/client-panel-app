@@ -64,13 +64,13 @@ import {CustomerForm} from "@customer/presentation/form";
 
         <ng-content select="[slot='label']"/>
 
-        <div class="flex flex-wrap gap-4">
+        <div class="bg-white flex gap-4 py-2 sticky top-0 z-10">
             <ng-container *ngFor="let customerType of customerTypes">
                 <button
+					type="button"
+					class="rounded-xl border border-beeColor-200 px-3 text-center py-1.5 dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 dark:text-white hover:bg-blue-300 active:bg-blue-500"
                         (click)="setCustomerType(customerType.value)"
-                        type="button"
-                        [ngClass]="{'bg-blue-500 border-blue-600 text-white': isCustomerTypeSelected(customerType.value)}"
-                        class="rounded-xl border border-beeColor-200 px-3 text-center py-1.5 dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 dark:text-white hover:bg-blue-300 active:bg-blue-500">
+						[ngClass]="{'bg-blue-500 border-blue-600 text-white': isCustomerTypeSelected(customerType.value)}">
                     {{ customerType.name }}
                 </button>
             </ng-container>
@@ -85,7 +85,7 @@ import {CustomerForm} from "@customer/presentation/form";
                         select="[slot='banner'][customer-type='unregistered']"/>
 
             <app-new-customer-type-customer [form]="form" *ngSwitchCase="customerTypeEnum.new"/>
-            <app-regular-customer-type-customer [form]="form" *ngSwitchCase="customerTypeEnum.regular"/>
+            <app-regular-customer-type-customer [form]="form" *ngSwitchCase="customerTypeEnum.regular" [showList]="showList"/>
             <app-anonymous-customer-type-customer [form]="form" *ngSwitchCase="customerTypeEnum.anonymous"/>
             <app-unregistered-customer-type-customer [form]="form" *ngSwitchCase="customerTypeEnum.unregistered"/>
 
@@ -97,6 +97,9 @@ export class CustomerTypeCustomerComponent implements OnInit {
 
 	@Input()
 	public form!: CustomerForm;
+
+	@Input()
+	public showList = false;
 
 	@HostBinding()
 	public readonly class = 'flex flex-col gap-4'

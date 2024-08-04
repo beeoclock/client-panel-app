@@ -58,7 +58,7 @@ export interface ModalButtonInterface<COMPONENT_REF = unknown> {
 			<div class="relative w-full max-w-2xl max-h-full">
 
 				<!-- Modal content -->
-				<div class="relative bg-white rounded-lg shadow h-screen md:h-auto dark:bg-beeDarkColor-800">
+				<div class="relative bg-white rounded-lg shadow h-screen md:h-auto dark:bg-beeDarkColor-800 flex flex-col">
 
 					<!-- Modal header -->
 					<div class="flex items-start justify-between p-4 border-b rounded-t dark:border-beeDarkColor-600">
@@ -79,18 +79,16 @@ export interface ModalButtonInterface<COMPONENT_REF = unknown> {
 					<div
 						#contentRef
 						[ngClass]="{
-						'md:p-6 space-y-6': contentPadding,
-						'h-[calc(100vh-70px)] max-h-[calc(100vh-70px)]': visibleButtons.length === 0,
-						'h-[calc(100vh-10rem)] max-h-[calc(100vh-10rem)]': visibleButtons.length,
+						'p-4': contentPadding,
 						}"
-						class="overflow-y-auto md:h-auto md:max-h-[calc(100vh-16rem)]">
+						class="flex-1 overflow-y-auto md:h-auto md:max-h-[calc(100vh-16rem)]">
 						<ng-content/>
 					</div>
 
 					<!-- Modal footer -->
 					<div
 						*ngIf="buttons?.length"
-						class="flex items-center p-6 space-x-2 border-t border-beeColor-200 rounded-b dark:border-beeDarkColor-600 justify-between">
+						class="flex items-center p-4 space-x-2 border-t border-beeColor-200 rounded-b dark:border-beeDarkColor-600 justify-between">
 
 						<button
 							type="button"

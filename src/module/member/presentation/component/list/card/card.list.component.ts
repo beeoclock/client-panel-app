@@ -14,8 +14,6 @@ import {EventStatusStyleDirective} from "@event/presentation/directive/event-sta
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {RIMember} from "@member/domain";
-import {MemberActions} from "@member/state/member/member.actions";
-import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {RowActionButtonComponent} from "@member/presentation/component/row-action-button/row-action-button.component";
 
 @Component({
@@ -43,10 +41,10 @@ import {RowActionButtonComponent} from "@member/presentation/component/row-actio
 })
 export class CardListComponent extends TableComponent<RIMember> {
 
-	public override readonly actions = MemberActions;
-
-	public showAction = new BooleanStreamState(true);
-
-	public showSelectedStatus = new BooleanStreamState(false);
+	// public override readonly actions = MemberActions;
+	//
+	// public showAction = new BooleanStreamState(true);
+	//
+	// public showSelectedStatus = new BooleanStreamState(false);
 
 }

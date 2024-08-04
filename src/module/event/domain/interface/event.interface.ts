@@ -1,8 +1,9 @@
-import {IService} from "@service/domain";
 import {ICustomer} from "@customer/domain";
 import {ActiveEnum, IsOptionalEnum, IsOrganizerEnum, LanguageCodeEnum, ResponseStatusEnum} from "@utility/domain/enum";
 import {IBaseEntity} from "@utility/domain";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {ISpecialist} from "@service/domain/interface/i.specialist";
 
 export interface IEventConfiguration {
 	ignoreEventChecks: boolean; // Ignore checking if slot is busy
@@ -18,7 +19,8 @@ export interface IAttendee extends IBaseEntity<'Event.Attendant'> {
 
 export interface IEvent extends IBaseEntity<'Event'> {
 	servicesAreProvidedInParallel?: boolean;
-	services?: IService[];
+	services?: IServiceDto[];
+	specialists?: ISpecialist[];
 	language?: LanguageCodeEnum;
 	note?: string;
 	start?: string;

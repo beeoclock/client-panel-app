@@ -41,5 +41,4 @@ export class MobileLayoutListComponent extends LayoutListComponent<IOrderDto> {
 		this.store.dispatch(new OrderActions.OpenForm());
 	}
 
-	protected readonly open = open;
 }

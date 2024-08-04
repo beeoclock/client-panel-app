@@ -46,7 +46,7 @@ import {OrderActions} from "@order/state/order/order.actions";
 })
 export class TableListComponent extends TableComponent<IOrderDto> {
 
-	public override readonly actions = OrderActions;
+	// public override readonly actions = OrderActions;
 
 	public readonly tableConfiguration = {
 		columns: {

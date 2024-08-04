@@ -95,11 +95,6 @@ export class IdentityState implements NgxsOnInit {
 	}
 
 	@Selector()
-	public static clientId(state: IIdentityState) {
-		return state.token?.claims?.clientId;
-	}
-
-	@Selector()
 	public static accountId(state: IIdentityState) {
 		return state.token?.claims?.accountId;
 	}

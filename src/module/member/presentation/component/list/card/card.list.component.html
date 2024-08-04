@@ -25,11 +25,11 @@
 
 
 				<member-row-action-button-component
-						*ngIf="showAction.state$ | async"
+						*ngIf="tableService.showAction.state$ | async"
 						[item]="item"
 						[id]="item._id"/>
 
-				<div (click)="singleClick(item)" *ngIf="showSelectedStatus.state$ | async">
+				<div (click)="singleClick(item)" *ngIf="tableService.showSelectedStatus.state$ | async">
 					<div
 							*ngIf="selectedIds.includes(item._id)"
 							class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">

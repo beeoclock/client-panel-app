@@ -23,6 +23,7 @@ export const serviceEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[serviceEndpointEnum.item]: {
@@ -30,12 +31,14 @@ export const serviceEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[serviceEndpointEnum.paged]: {
 			source: SourceNetworkEnum.panel,
 			header: {
-				authorization: true
+				authorization: true,
+				tenantId: true,
 			}
 		},
 	},
@@ -48,6 +51,7 @@ export const serviceEndpoint: EndpointCollectionType = {
 			},
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[serviceEndpointEnum.deleteBanners]: {
@@ -55,6 +59,7 @@ export const serviceEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 	},
@@ -62,7 +67,8 @@ export const serviceEndpoint: EndpointCollectionType = {
 		[serviceEndpointEnum.create]: {
 			source: SourceNetworkEnum.panel,
 			header: {
-				authorization: true
+				authorization: true,
+				tenantId: true,
 			},
 			after: {
 				success: {
@@ -86,6 +92,7 @@ export const serviceEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[serviceEndpointEnum.unarchive]: {
@@ -93,6 +100,7 @@ export const serviceEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[serviceEndpointEnum.patchBanners]: {
@@ -100,6 +108,7 @@ export const serviceEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 	},
@@ -109,6 +118,7 @@ export const serviceEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			},
 			after: {
 				success: {

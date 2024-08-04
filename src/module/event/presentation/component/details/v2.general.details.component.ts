@@ -101,9 +101,9 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
                                             </div>
                                         </ng-container>
                                         <ng-container *ngSwitchCase="customerTypeEnum.regular">
-                                            <div class="font-bold text-lg px-4">
+                                            <button primaryLink (click)="openCustomerDetails(customer)" class="font-bold text-lg px-4">
                                                 {{ customer.firstName }} {{ customer.lastName }}
-                                            </div>
+                                            </button>
                                             <div class="flex flex-wrap gap-2">
                                                 <a *ngIf="customer.email?.length" href="mailto:{{ customer.email }}"
                                                    primaryLinkStyle class="gap-2">
@@ -214,7 +214,7 @@ export class V2GeneralDetailsComponent implements OnChanges {
 				(attendee.is === 'customer') && this.attendantMap.customers.push((attendee.originalData as IAttendee).customer);
 			});
 
-			this.bannerUrl = this.event?.originalData?.service?.serviceSnapshot?.presentation?.banners?.[0] ?? '';
+			this.bannerUrl = this.event?.originalData?.service?.serviceSnapshot?.presentation?.banners?.[0]?.url ?? '';
 			this.title = this.event?.originalData?.service?.serviceSnapshot?.languageVersions?.[0]?.title ?? '';
 			this.description = this.event?.originalData?.service?.serviceSnapshot?.languageVersions?.[0]?.description ?? '';
 			this.status = this.event?.originalData?.service?.status ?? null;

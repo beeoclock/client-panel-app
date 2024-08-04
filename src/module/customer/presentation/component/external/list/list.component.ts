@@ -4,7 +4,6 @@ import {TranslateModule} from '@ngx-translate/core';
 import {ListPage} from "@utility/list.page";
 import {Observable, tap} from "rxjs";
 import {ITableState} from "@utility/domain/table.state";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {CustomerState} from "@customer/state/customer/customer.state";
 import {ICustomer} from "@customer/domain";
 import {
@@ -13,6 +12,8 @@ import {
 import {
 	DesktopLayoutListComponent
 } from "@customer/presentation/component/list/layout/desktop/desktop.layout.list.component";
+import {CustomerTableService} from "@customer/presentation/component/list/customer.table.service";
+import {TableService} from "@utility/table.service";
 
 @Component({
 	selector: 'customer-external-list-component',
@@ -26,14 +27,18 @@ import {
 		MobileLayoutListComponent,
 		DesktopLayoutListComponent,
 	],
-	standalone: true
+	standalone: true,
+	providers: [
+		{
+			provide: TableService,
+			useClass: CustomerTableService
+		}
+	]
 })
-export class CustomerExternalListComponent extends ListPage {
+export class CustomerExternalListComponent extends ListPage<ICustomer> {
 
 	@ViewChildren(MobileLayoutListComponent)
 	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
-
-	public override readonly actions = CustomerActions;
 
 	public readonly tableState$: Observable<ITableState<ICustomer>> = this.store.select(CustomerState.tableState)
 		.pipe(

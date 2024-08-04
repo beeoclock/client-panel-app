@@ -3,6 +3,7 @@ import {
 	inject,
 	Input,
 	OnChanges,
+	OnDestroy,
 	OnInit,
 	QueryList,
 	SimpleChange,
@@ -35,7 +36,7 @@ import {ClientState} from "@client/state/client/client.state";
 import {RIClient} from "@client/domain";
 import {is} from "thiis";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
-import {IConfiguration, IPresentation, IService} from "@service/domain";
+import {IPresentation, RIConfiguration} from "@service/domain";
 import {Reactive} from "@utility/cdk/reactive";
 import {TimeInputComponent} from "@utility/presentation/component/input/time.input.component";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
@@ -48,6 +49,7 @@ import {
 	CustomerTypeCustomerComponent
 } from "@customer/presentation/component/form/by-customer-type/customer-type.customer.component";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Component({
 	selector: 'event-container-form-component',
@@ -76,7 +78,7 @@ import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 	],
 	templateUrl: './container.form.component.html'
 })
-export class ContainerFormComponent extends Reactive implements OnInit, OnChanges {
+export class ContainerFormComponent extends Reactive implements OnInit, OnChanges, OnDestroy {
 
 	@Input()
 	public orderServiceDto: IOrderServiceDto | undefined;
@@ -175,7 +177,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 
 	}
 
-	private getEventDurationInSeconds(service: IService): number {
+	private getEventDurationInSeconds(service: IServiceDto): number {
 		try {
 			// Find the biggest duration version
 
@@ -195,7 +197,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 		}
 	}
 
-	private setEventDuration(service: IService): this {
+	private setEventDuration(service: IServiceDto): this {
 		this.eventDurationInSeconds = this.getEventDurationInSeconds(service);
 		return this;
 	}
@@ -260,29 +262,26 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 			const {orderAppointmentDetails: {attendees}} = result;
 
 			this.form.patchValue({
-
 				_id: result._id,
 				services: [{
 					...result.serviceSnapshot,
-					object: 'Service',
-					schedules: [],
+					object: 'ServiceDto',
 					presentation: {
-						banners: result.serviceSnapshot.presentation.banners as unknown as RIMedia[],
+						banners: result.serviceSnapshot.presentation.banners as unknown as (RIMedia[]),
 						color: result.serviceSnapshot.presentation.color,
 					} as unknown as IPresentation,
-					specialists: result.orderAppointmentDetails.specialists.map((specialist) => {
-						return {
-							...specialist,
-							object: 'SpecialistDto',
-						};
-					}),
-					configuration: result.serviceSnapshot.configuration as unknown as IConfiguration,
+					configuration: result.serviceSnapshot.configuration as unknown as RIConfiguration,
 				}],
+				specialists: result.orderAppointmentDetails.specialists.map((specialist) => {
+					return {
+						...specialist,
+						object: 'SpecialistDto',
+					};
+				}),
 				note: result.customerNote,
 				start: result.orderAppointmentDetails.start,
 				end: result.orderAppointmentDetails.end,
 				timeZone: result.orderAppointmentDetails.timeZone,
-
 			});
 
 			if (attendees?.length) {
@@ -302,6 +301,11 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 			this.form.controls.configuration.controls.ignoreEventChecks.patchValue(true);
 
 		}
+	}
+
+	public override ngOnDestroy() {
+		this.form.destroyHandlers();
+		super.ngOnDestroy();
 	}
 
 }

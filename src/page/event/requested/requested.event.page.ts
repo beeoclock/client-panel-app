@@ -19,11 +19,12 @@ import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {EventRequestedState} from "@event/state/event-requested/event-requested.state";
-import {EventRequestedActions} from "@event/state/event-requested/event-requested.actions";
 import {
 	ListOfCardCollectionByDateComponent
 } from "@event/presentation/component/requsted/list-of-card-collection-by-date/list-of-card-collection-by-date.component";
 import {IonicModule} from "@ionic/angular";
+import {TableService} from "@utility/table.service";
+import {RequestedEventTableService} from "@event/presentation/component/requsted/requested.event.table.service";
 
 @Component({
 	selector: 'app-event-requested-page',
@@ -48,11 +49,15 @@ import {IonicModule} from "@ionic/angular";
 		ListOfCardCollectionByDateComponent,
 		IonicModule
 	],
-	standalone: true
+	standalone: true,
+	providers: [
+		{
+			provide: TableService,
+			useClass: RequestedEventTableService
+		}
+	]
 })
-export default class RequestedEventPage extends ListPage {
-
-	public override readonly actions = EventRequestedActions;
+export default class RequestedEventPage extends ListPage<RMIEvent> {
 
 	public readonly tableState$: Observable<ITableState<RMIEvent>> = this.store.select(EventRequestedState.tableState)
 		.pipe(

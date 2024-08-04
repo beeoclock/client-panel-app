@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable, OnDestroy} from "@angular/core";
 import CreateBusinessForm from "@identity/presentation/form/create-business.form";
 import {NGXLogger} from "ngx-logger";
 import {TranslateService} from "@ngx-translate/core";
@@ -6,14 +6,15 @@ import {LanguageCodeEnum} from "@utility/domain/enum";
 import {LanguageCountry} from "@utility/domain/const/c.language-country";
 import {LanguageCurrency} from "@utility/domain/const/c.language-currency";
 import {BooleanState} from "@utility/domain";
-import {IService} from "@service/domain";
+
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {Reactive} from "@utility/cdk/reactive";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Injectable({
 	providedIn: 'root'
 })
-export class CreateBusinessFormRepository extends Reactive {
+export class CreateBusinessFormRepository extends Reactive implements OnDestroy {
 
 	readonly #form = new CreateBusinessForm();
 	public readonly formLocalStorageKey = 'create-business-form';
@@ -46,7 +47,7 @@ export class CreateBusinessFormRepository extends Reactive {
 		if (value) {
 			const parsedValue = JSON.parse(value) as {
 				schedules: RISchedule[],
-				services: IService[],
+				services: IServiceDto[],
 				// gallery: { object: string; images: string[] }
 			};
 
@@ -133,6 +134,11 @@ export class CreateBusinessFormRepository extends Reactive {
 
 	public saveToStorage(): void {
 		localStorage.setItem(this.formLocalStorageKey, JSON.stringify(this.form.getRawValue()));
+	}
+
+	public override ngOnDestroy() {
+		super.ngOnDestroy();
+		this.form.destroyHandlers();
 	}
 
 }

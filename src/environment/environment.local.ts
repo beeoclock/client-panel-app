@@ -12,7 +12,7 @@ export const environment = {
 	setDefaultValueToInputs: false,
 	apiUrls: {
 		panel: 'http://localhost:3000',
-		identity: 'http://localhost:4000',
+		identity: 'http://localhost:3001',
 	},
 	endpoint: {
 		config: {

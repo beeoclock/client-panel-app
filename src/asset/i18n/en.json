@@ -415,6 +415,22 @@
 			}
 		},
 		"details": {
+			"meta": {
+				"history": {
+					"keyword": {
+						"capitalize": {
+							"_id": "Identifier",
+							"durationInSeconds": "Duration",
+							"durationVersions": "Duration version",
+							"end": "End",
+							"orderAppointmentDetails": "Changes in the event",
+							"serviceSnapshot": "Service (state at the time of ordering)",
+							"start": "Start",
+							"wasSelectedAnybody": "Was selected anybody"
+						}
+					}
+				}
+			},
 			"title": "Detailed view of the event"
 		},
 		"form": {
@@ -492,6 +508,7 @@
 				"singular": {
 					"accepted": "Accepted",
 					"cancelled": "Canceled",
+					"confirmed": "Confirmed",
 					"done": "Done",
 					"inProgress": "In progress",
 					"rejected": "Rejected",
@@ -1171,6 +1188,13 @@
 						"unregistered": {
 							"hint": "The payer will not be automatically added to the customer database"
 						}
+					}
+				}
+			},
+			"service": {
+				"customer": {
+					"hist": {
+						"anonymous": "This choice indicates that the client is unidentified and not registered in the system. Consequently, they will be displayed as an anonymous client everywhere."
 					}
 				}
 			},

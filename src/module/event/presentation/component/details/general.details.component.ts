@@ -166,11 +166,11 @@ export class GeneralDetailsComponent {
 	}
 
 	public get firstName(): string {
-		return this.event?.services?.[0]?.specialists?.[0]?.member?.firstName ?? '';
+		return this.event?.specialists?.[0]?.member?.firstName ?? '';
 	}
 
 	public get lastName(): string {
-		return this.event?.services?.[0]?.specialists?.[0]?.member?.lastName ?? '';
+		return this.event?.specialists?.[0]?.member?.lastName ?? '';
 	}
 
 	public get thereIsDescription(): boolean {

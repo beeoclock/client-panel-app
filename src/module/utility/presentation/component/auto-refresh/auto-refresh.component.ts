@@ -13,6 +13,7 @@ import {is} from "thiis";
 import {filter} from "rxjs";
 import {MS_ONE_SECOND} from "@utility/domain/const/c.time";
 import {AutoRefreshStorageService} from "@utility/presentation/component/auto-refresh/auto-refresh.storage.service";
+import {VisibilityService} from "@utility/cdk/visibility.service";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 
 enum AutoRefreshTime {
@@ -101,6 +102,7 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 	});
 
 	private readonly analyticsService = inject(AnalyticsService);
+	private readonly visibilityService = inject(VisibilityService);
 	private readonly translateService = inject(TranslateService);
 	private readonly autoRefreshStorageService = inject(AutoRefreshStorageService);
 
@@ -178,7 +180,7 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 		}
 
 		this.timer = setTimeout(() => {
-			if (!this.isLoading) {
+			if (this.visibilityService.visibilityChange.value && !this.isLoading) {
 				this.emitter.emit();
 				this.analyticsService.logEvent('auto_refresh_component_emit', {
 					id: this.id,

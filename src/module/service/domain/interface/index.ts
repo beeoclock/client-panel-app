@@ -1,4 +1,3 @@
-export * from './i.service';
 export * from './i.configuration';
 export * from './i.prepayment.policy';
 export * from './i.language.version';

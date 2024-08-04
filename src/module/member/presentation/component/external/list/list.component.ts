@@ -5,15 +5,16 @@ import {ListPage} from "@utility/list.page";
 import {Observable, tap} from "rxjs";
 import {ITableState} from "@utility/domain/table.state";
 import {
-    MobileLayoutListComponent
+	MobileLayoutListComponent
 } from "@member/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {
-    DesktopLayoutListComponent
+	DesktopLayoutListComponent
 } from "@member/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {RIMember} from "@member/domain";
 import {MemberState} from "@member/state/member/member.state";
-import {MemberActions} from "@member/state/member/member.actions";
 import {ActiveEnum} from "@utility/domain/enum";
+import {MemberTableService} from "@member/presentation/component/list/member.table.service";
+import {TableService} from "@utility/table.service";
 
 @Component({
     selector: 'member-external-list-component',
@@ -27,14 +28,19 @@ import {ActiveEnum} from "@utility/domain/enum";
         DesktopLayoutListComponent,
         MobileLayoutListComponent,
     ],
-    standalone: true
+    standalone: true,
+	providers: [
+		{
+			provide: TableService,
+			useClass: MemberTableService
+		}
+	]
 })
-export class MemberExternalListComponent extends ListPage {
+export class MemberExternalListComponent extends ListPage<RIMember> {
 
     @ViewChildren(MobileLayoutListComponent)
     public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
 
-    public override readonly actions = MemberActions;
     protected override readonly getListParams = {
         active: ActiveEnum.YES
     };

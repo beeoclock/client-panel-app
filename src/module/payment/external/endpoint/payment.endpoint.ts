@@ -15,6 +15,7 @@ export const paymentEndpoint: EndpointCollectionType = {
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		}
 	},
@@ -24,6 +25,7 @@ export const paymentEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		}
 	},
@@ -33,6 +35,7 @@ export const paymentEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		}
 	},
@@ -41,6 +44,7 @@ export const paymentEndpoint: EndpointCollectionType = {
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[PaymentEndpoint.DETAILS]: {
@@ -48,6 +52,7 @@ export const paymentEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		}
 	},

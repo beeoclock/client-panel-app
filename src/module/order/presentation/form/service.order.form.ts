@@ -24,15 +24,11 @@ export class ServiceOrderForm extends BaseEntityForm<'OrderServiceDto', IService
 		super('OrderServiceDto', {
 
 			serviceSnapshot: new FormControl(),
-
 			orderAppointmentDetails: new FormControl(),
-
 			status: new FormControl(OrderServiceStatusEnum.accepted, {
 				nonNullable: true,
 			}),
-
 			meta: new FormControl(),
-
 			customerNote: new FormControl('', {
 				nonNullable: true,
 			}),

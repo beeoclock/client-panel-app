@@ -2,11 +2,12 @@ import {inject} from "@angular/core";
 import {ActivatedRouteSnapshot, ResolveFn} from "@angular/router";
 import {Store} from "@ngxs/store";
 import {catchError, EMPTY} from "rxjs";
-import {IService} from "@service/domain";
+
 import {ServiceActions} from "@service/state/service/service.actions";
 import {IAppState} from "@utility/state/app/app.state";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
-export const serviceDetailsResolver: ResolveFn<IService> = (
+export const serviceDetailsResolver: ResolveFn<IServiceDto> = (
 	route: ActivatedRouteSnapshot,
 ) => {
 

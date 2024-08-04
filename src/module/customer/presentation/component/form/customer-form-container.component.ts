@@ -23,6 +23,7 @@ import {
 } from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
 import {NGXLogger} from "ngx-logger";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 
 @Component({
 	selector: 'customer-form-page',
@@ -55,7 +56,9 @@ export class CustomerFormContainerComponent implements OnInit {
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
 
-	public readonly form = new CustomerForm();
+	public readonly form = CustomerForm.create({
+		customerType: CustomerTypeEnum.regular
+	});
 
 	@Input()
 	public item!: ICustomer | undefined;
@@ -70,7 +73,10 @@ export class CustomerFormContainerComponent implements OnInit {
 	public detectItem(): void {
 		if (this.isEditMode && this.item) {
 			this.isEditMode = true;
-			this.form.patchValue(this.item);
+			this.form.patchValue({
+				...this.item,
+				customerType: CustomerTypeEnum.regular
+			});
 			this.form.updateValueAndValidity();
 		}
 	}

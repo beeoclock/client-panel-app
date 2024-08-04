@@ -20,6 +20,7 @@ export class AutoRefreshStorageService {
 	}
 
 	public remove(key: string): void {
+		// TODO: Fix this {}
 		const data = JSON.parse(this.storage.getItem(AutoRefreshStorageService.key) || '{}');
 		delete data[key];
 		this.storage.setItem(AutoRefreshStorageService.key, JSON.stringify(data));

@@ -19,6 +19,7 @@ export const orderEndpoint: EndpointCollectionType = {
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		}
 	},
@@ -28,6 +29,7 @@ export const orderEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[OrderEndpoint.UPDATE_STATUS]: {
@@ -35,6 +37,7 @@ export const orderEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[OrderEndpoint.UPDATE_SERVICE_STATUS]: {
@@ -42,6 +45,7 @@ export const orderEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		}
 	},
@@ -51,6 +55,7 @@ export const orderEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		}
 	},
@@ -60,6 +65,7 @@ export const orderEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		}
 	},
@@ -68,12 +74,14 @@ export const orderEndpoint: EndpointCollectionType = {
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[OrderEndpoint.BUSY_SLOTS]: {
 			source: SourceNetworkEnum.panel,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		},
 		[OrderEndpoint.DETAILS]: {
@@ -81,6 +89,7 @@ export const orderEndpoint: EndpointCollectionType = {
 			replace: true,
 			header: {
 				authorization: true,
+				tenantId: true,
 			}
 		}
 	},

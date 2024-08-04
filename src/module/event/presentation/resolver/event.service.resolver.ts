@@ -2,12 +2,13 @@ import {inject} from "@angular/core";
 import {ActivatedRouteSnapshot, ResolveFn} from "@angular/router";
 import {Store} from "@ngxs/store";
 import {catchError, EMPTY, of, switchMap} from "rxjs";
-import {IService} from "@service/domain";
+
 import {IServiceState} from "@service/state/service/service.state";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {ItemServiceApiAdapter} from "@service/adapter/external/api/item.service.api.adapter";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
-export const eventServiceResolver: ResolveFn<IService | undefined> = (
+export const eventServiceResolver: ResolveFn<IServiceDto | undefined> = (
 	route: ActivatedRouteSnapshot,
 ) => {
 
@@ -25,7 +26,7 @@ export const eventServiceResolver: ResolveFn<IService | undefined> = (
 		.pipe(
 			switchMap((services) => {
 				if (services?.length) {
-					const service = services.find((service: IService) => service._id === serviceId);
+					const service = services.find((service: IServiceDto) => service._id === serviceId);
 					if (!service) {
 						return store.dispatch(new ServiceActions.GetItem(serviceId));
 					}

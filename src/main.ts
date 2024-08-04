@@ -101,6 +101,7 @@ bootstrapApplication(MainRouterOutlet, {
 			Utility.Interceptors.ParamsReplaceInterceptor,
 			Utility.Interceptors.ErrorInterceptor,
 			Utility.Interceptors.SourceInterceptor,
+			Utility.Interceptors.TenantIdInterceptor,
 			Utility.Interceptors.AccessTokenInterceptor,
 		])),
 		provideRouter(
