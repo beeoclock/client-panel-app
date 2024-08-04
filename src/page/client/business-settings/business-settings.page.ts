@@ -32,6 +32,7 @@ import {
 } from "@client/presentation/component/business-settings/auto-book-event/auto-book-event.component";
 import {Reactive} from "@utility/cdk/reactive";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
 	selector: 'client-business-settings-page',
@@ -55,6 +56,7 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 export default class BusinessSettingsPage extends Reactive implements OnInit, OnDestroy {
 
 	public readonly form = new BusinessProfileForm();
+	public readonly ngxLogger = inject(NGXLogger);
 	public readonly store = inject(Store);
 	public readonly analyticsService = inject(AnalyticsService);
 	public readonly updateBusinessProfileApiAdapter = inject(UpdateBusinessProfileApiAdapter);
@@ -134,6 +136,8 @@ export default class BusinessSettingsPage extends Reactive implements OnInit, On
 			this.store.dispatch(new ClientActions.InitClient());
 			this.form.enable();
 			this.form.updateValueAndValidity();
+		} else {
+			this.ngxLogger.error('Form is invalid', this.form);
 		}
 	}
 
