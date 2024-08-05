@@ -208,8 +208,6 @@ export interface IServiceDtoForm {
 	active: FormControl<ActiveEnum>;
 	order: FormControl<number | null>;
 	presentation: PresentationForm;
-
-	[key: string]: AbstractControl;
 }
 
 export class ServiceForm extends BaseEntityForm<'ServiceDto', IServiceDtoForm> {
