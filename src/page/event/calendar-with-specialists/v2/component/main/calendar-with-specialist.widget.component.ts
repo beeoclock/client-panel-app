@@ -526,6 +526,13 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		this.changeDetectorRef.detectChanges();
 	}
 
+	protected restoreWidthOfMutatedEvents(column: HTMLElement) {
+		this.mutatedOtherEventHtmlList.forEach((element, index) => {
+			element.style.width = `${column.clientWidth / this.mutatedOtherEventHtmlList.length}px`;
+			element.style.transform = `translateX(calc(100% * ${index}))`;
+		});
+	};
+
 	public mouseMoveListener = (event: MouseEvent, isMobile: boolean = false) => {
 
 		if (!this.mouseDown) {
@@ -560,13 +567,6 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 			return;
 		}
 
-		const restoreWidthOfMutatedEvents = () => {
-			this.mutatedOtherEventHtmlList.forEach((element, index) => {
-				element.style.width = `${column.clientWidth / this.mutatedOtherEventHtmlList.length}px`;
-				element.style.transform = `translateX(calc(100% * ${index}))`;
-			});
-		};
-
 		if (isMobile) {
 			if (this.changeEventPositionIsOn) {
 				this.columnList.forEach((column) => {
@@ -589,12 +589,12 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		if (!nearEvents.length || nearEvents.length === 1) {
 			htmlDivElement.style.width = '100%';
 			htmlDivElement.style.transform = `translateX(0)`;
-			restoreWidthOfMutatedEvents();
+			this.restoreWidthOfMutatedEvents(column);
 			return;
 		}
 
 		this.fixNearEventsWidth(nearEvents, htmlDivElement, column, () => {
-			restoreWidthOfMutatedEvents();
+			this.restoreWidthOfMutatedEvents(column);
 		});
 
 	}

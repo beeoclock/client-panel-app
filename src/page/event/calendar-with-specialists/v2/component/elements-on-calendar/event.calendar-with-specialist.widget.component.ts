@@ -155,7 +155,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		if (endDateTime > this.selectedDate.endOf('day')) {
 			endDateTime = this.selectedDate.endOf('day');
 		}
-		let  startDateTime = DateTime.fromISO(this.item.start);
+		let startDateTime = DateTime.fromISO(this.item.start);
 		if (startDateTime < this.selectedDate) {
 			startDateTime = this.selectedDate;
 		}
@@ -240,6 +240,10 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		this.temporaryNewMember = member;
 	}
 
+	/**
+	 * Updates the temporary information about the new start and end times of the event
+	 * based on the current position and size of the element in the DOM.
+	 */
 	public someUpdateFromExternal() {
 		const rect = this.elementRef.nativeElement.getBoundingClientRect();
 		const parentRect = this.elementRef.nativeElement?.parentElement?.getBoundingClientRect?.();
@@ -247,20 +251,24 @@ export class EventCalendarWithSpecialistWidgetComponent {
 			this.ngxLogger.error('EventCalendarWithSpecialistWidgetComponent:someUpdateFromExternal:parentRect is not defined');
 			return;
 		}
+
+		this.ngxLogger.debug('EventCalendarWithSpecialistWidgetComponent:someUpdateFromExternal', {rect, parentRect});
+
+		const newStartPosition = ((rect.top - parentRect.top) - this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx);
+
 		// Calculate new start and duration
-		const newStartInMinutes = ((rect.top - parentRect.top) - this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx) / this.calendarWithSpecialistLocaStateService.oneMinuteForPx;
+		const newStartInMinutes = newStartPosition / this.calendarWithSpecialistLocaStateService.oneMinuteForPx;
 		const newDurationInMinutes = rect.height / this.calendarWithSpecialistLocaStateService.oneMinuteForPx;
 
 		const startDateTime = DateTime.fromISO(this.item.start);
-		const newStartDateTime = startDateTime.startOf('day').plus({minutes: newStartInMinutes});
-		const newEndDateTime = newStartDateTime.plus({minutes: newDurationInMinutes});
+		const newStartDateTime = startDateTime.startOf('day').plus({minutes: newStartInMinutes}).startOf('second');
+		const newEndDateTime = newStartDateTime.plus({minutes: newDurationInMinutes}).startOf('second');
 
 		this.temporaryInformationAboutNewStartAndEnd = {
 			start: newStartDateTime.toJSDate().toISOString(),
 			end: newEndDateTime.toJSDate().toISOString()
 		};
 		this.changeDetectorRef.detectChanges();
-
 	}
 
 	public async toggleMode(force?: boolean) {
