@@ -3,20 +3,11 @@ import {ActiveEnum} from "@utility/domain/enum";
 import {BaseEntityForm} from "@utility/base.form";
 import {AbsenceTypeEnum} from "@absence/domain/enums/absence.type.enum";
 import {DateTime} from "luxon";
-import {RIMember} from "@member/domain";
+import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 
-export interface IAbsenceForm {
-
-	start: FormControl<string>;
-	end: FormControl<string>;
-	timeZone: FormControl<string>;
-	note: FormControl<string>;
-	active: FormControl<ActiveEnum>;
-	type: FormControl<AbsenceTypeEnum>;
-	entireBusiness: FormControl<boolean>;
-	members: FormControl<RIMember[]>;
-
-}
+export type IAbsenceForm = {
+	[K in keyof IAbsenceDto]: FormControl<IAbsenceDto[K]>;
+};
 
 export class AbsenceForm extends BaseEntityForm<'AbsenceDto', IAbsenceForm> {
 
@@ -59,6 +50,12 @@ export class AbsenceForm extends BaseEntityForm<'AbsenceDto', IAbsenceForm> {
 			}),
 		});
 
+	}
+
+	public static create(initialValues: Partial<IAbsenceDto> = {}): AbsenceForm {
+		const form = new AbsenceForm();
+		form.patchValue(initialValues);
+		return form;
 	}
 
 }
