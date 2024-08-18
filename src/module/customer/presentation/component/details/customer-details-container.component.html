@@ -15,7 +15,7 @@
 				</dt>
 				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
 					<a *ngIf="customer.email?.length" href="mailto:{{ customer.email }}"
-					   primaryLinkStyle class="gap-2">
+					   primaryLinkStyle class="gap-2 whitespace-nowrap text-ellipsis text-nowrap overflow-hidden">
 						<i class="bi bi-envelope-at"></i>
 						{{ customer.email }}
 					</a>

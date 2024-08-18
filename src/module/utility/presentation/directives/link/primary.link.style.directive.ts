@@ -16,7 +16,6 @@ export class PrimaryLinkStyleDirective {
 		'px-4',
 		'py-2',
 		'flex',
-		'flex-wrap',
 		'items-center',
 		'justify-start',
 	];
