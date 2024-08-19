@@ -758,6 +758,9 @@
 				"names": {
 					"title": "Enter Your Name and the Name of Your Business"
 				},
+				"only-company": {
+					"title": "Enter the Name of Business"
+				},
 				"pointOfSale": {
 					"title": "Where Can Customers Reach You?"
 				},

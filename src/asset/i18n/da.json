@@ -758,6 +758,9 @@
 				"names": {
 					"title": "Indtast dit navn og din forretnings navn"
 				},
+				"only-company": {
+					"title": "Indtast navnet på virksomheden"
+				},
 				"pointOfSale": {
 					"title": "Hvor kan kunderne nå dig?"
 				},
