@@ -758,6 +758,9 @@
 				"names": {
 					"title": "Wpisz swoje imię i nazwisko oraz nazwę swojej firmy"
 				},
+				"only-company": {
+					"title": "Wpisz nazwę firmy"
+				},
 				"pointOfSale": {
 					"title": "Gdzie klienci mogą do Ciebie dotrzeć?"
 				},
