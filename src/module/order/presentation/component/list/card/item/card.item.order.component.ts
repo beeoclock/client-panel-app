@@ -47,11 +47,18 @@ import {is} from "thiis";
 					</div>
 
 					<div class="flex items-center gap-2">
-						<div>
-							<div
-								class="py-1 px-2 inline-flex items-center gap-x-1 text-xs bg-gray-100 text-gray-800 rounded-lg dark:bg-neutral-500/20 dark:text-neutral-400">
-								{{ item._id.slice(item._id.length - 6) }}
-							</div>
+<!--						<div>-->
+<!--							<div-->
+<!--								class="py-1 px-2 inline-flex items-center gap-x-1 text-xs bg-gray-100 text-gray-800 rounded-lg dark:bg-neutral-500/20 dark:text-neutral-400">-->
+<!--								{{ item._id.slice(item._id.length - 6) }}-->
+<!--							</div>-->
+<!--						</div>-->
+
+						<div
+							*ngIf="(baseCurrency$ | async) as baseCurrency"
+							class="py-1 px-1.5 inline-flex items-center gap-x-1 bg-gray-100 text-gray-800 rounded-md dark:bg-neutral-500/20 dark:text-neutral-400">
+							💰
+							{{ amount(item.services) | currency: baseCurrency : 'symbol-narrow' }}
 						</div>
 						<app-order-row-action-button-component
 							*ngIf="showAction"
@@ -75,8 +82,8 @@ import {is} from "thiis";
 				<div (click)="singleClick()" class="flex flex-col gap-2 cursor-pointer">
 					<div
 						*ngFor="let service of item.services"
-						class="flex items-center bg-white border border-neutral-200 rounded-2xl p-1.5 pe-3">
-						<div class="flex flex-col items-start" *ngIf="service.orderAppointmentDetails.specialists[0].member as member">
+						class="flex items-start justify-between bg-white border border-neutral-200 rounded-2xl p-1.5 pe-3">
+						<div class="flex flex-col flex-1 items-start" *ngIf="service.orderAppointmentDetails.specialists[0].member as member">
 							<div class="flex gap-2 items-center">
 								<div
 									class="rounded-full bg-beeColor-400 min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 flex justify-center items-center">
@@ -92,34 +99,44 @@ import {is} from "thiis";
 										</div>
 									</ng-template>
 								</div>
-								<div class="whitespace-nowrap text-sm text-gray-800 font-bold">
+								<div class="whitespace-nowrap text-gray-800 font-bold">
 									{{ member.firstName }}
 									{{ member.lastName }}
 								</div>
 							</div>
 							<div class="flex items-start gap-2 text-gray-600">
-								<div class="mt-1 w-7 flex h-3 items-center justify-start rounded-full" [style.background-color]="service.serviceSnapshot.presentation.color">
+								<div class="mt-1 w-7 flex h-3 items-center justify-start rounded-full" [style.background-color]="service?.serviceSnapshot?.presentation?.color">
 									{{ service.serviceSnapshot.presentation.color ? '' : '❓' }}
 								</div>
 								<div>
 									{{ service.serviceSnapshot.languageVersions[0].title }}
 								</div>
 							</div>
+							<div *ngIf="service.orderAppointmentDetails?.attendees?.[0]?.customer as customer" class="flex items-start gap-2 text-gray-600">
+								<div class="mt-1 w-7 flex h-3 items-center justify-center">
+									👤
+								</div>
+								<div>
+									{{ customer.firstName }}
+									{{ customer.lastName }}
+								</div>
+							</div>
+						</div>
+						<div class="flex flex-col">
+							<div>
+								🗓️ {{ service.orderAppointmentDetails.start | dynamicDate: 'shortDate' }}
+							</div>
+							<div>
+								⏰ {{ service.orderAppointmentDetails.start | dynamicDate: 'time' }}
+							</div>
 						</div>
 					</div>
-					<div class="flex gap-2">
-						<div
-							*ngIf="(baseCurrency$ | async) as baseCurrency"
-							class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs bg-gray-100 text-gray-800 rounded-md dark:bg-neutral-500/20 dark:text-neutral-400">
-							💰
-							{{ amount(item.services) | currency: baseCurrency : 'symbol-narrow' }}
-						</div>
-						<div
-							class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs bg-gray-100 text-gray-800 rounded-md dark:bg-neutral-500/20 dark:text-neutral-400">
-							⏰
-							{{ item.createdAt | dynamicDate }}
-						</div>
-					</div>
+<!--					<div class="flex gap-2">-->
+<!--						<div-->
+<!--							class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs bg-gray-100 text-gray-800 rounded-md dark:bg-neutral-500/20 dark:text-neutral-400">-->
+<!--							{{ item.createdAt | dynamicDate }}-->
+<!--						</div>-->
+<!--					</div>-->
 					<div class="flex justify-between" *ngIf="item.businessNote?.length">
 						<div class="flex-1">
 							<div>
