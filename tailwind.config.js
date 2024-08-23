@@ -7,9 +7,6 @@ module.exports = {
 		"./src/**/*.{html,ts}",
 	],
 	theme: {
-		fontFamily: {
-			sans: ['Noto Sans', 'sans-serif'],
-		},
 		extend: {
 			colors: {
 				beeColor: colors.neutral,
