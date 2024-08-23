@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, CurrencyPipe, NgIf} from "@angular/common";
+import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
@@ -20,108 +20,119 @@ import {is} from "thiis";
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [
-        AsyncPipe,
-        CardComponent,
-        DynamicDatePipe,
-        NgIf,
-        NoDataPipe,
-        RowActionButtonComponent,
-        TranslateModule,
-        CurrencyPipe
-    ],
+	imports: [
+		AsyncPipe,
+		CardComponent,
+		DynamicDatePipe,
+		NgIf,
+		NoDataPipe,
+		RowActionButtonComponent,
+		TranslateModule,
+		CurrencyPipe,
+		NgForOf
+	],
     template: `
-        <bee-card class="text-sm border-2 border-transparent hover:border-blue-500"
-                  [class.!border-green-500]="selectedIds.includes(item._id)">
-            <div>
-                <div class="flex flex-wrap justify-between items-center gap-8">
+		<bee-card padding="p-2" class="text-sm border-2 border-transparent hover:border-blue-500"
+				  [class.!border-green-500]="selectedIds.includes(item._id)">
+			<div class="flex flex-col gap-2">
+				<div class="flex flex-wrap justify-between items-center gap-8">
 
-                    <div (click)="singleClick()" class="flex justify-between cursor-pointer">
-                        <div class="flex-1 flex text-beeColor-500">
-                            <div>
-                                #
-                            </div>
-                            <div class="flex gap-2">
-                                <div>{{ item._id }}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <app-order-row-action-button-component
-                            *ngIf="showAction"
-                            [item]="item"
-                            [id]="item._id"/>
+					<div (click)="singleClick()" class="flex justify-between cursor-pointer">
+						<div class="flex-1 flex text-beeColor-500">
 
-                    <div (click)="singleClick()" class=" cursor-pointer" *ngIf="showSelectedStatus">
-                        <div
-                                *ngIf="selectedIds.includes(item._id)"
-                                class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
-                            {{ 'keyword.capitalize.selected' | translate }}
-                        </div>
-                        <div
-                                *ngIf="!selectedIds.includes(item._id)"
-                                class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">
-                            {{ 'keyword.capitalize.select' | translate }}
-                        </div>
-                    </div>
-                </div>
-                <div (click)="singleClick()" class="flex flex-col gap-2 cursor-pointer">
-                    <div class="grid grid-cols-2 gap-2">
-                        <div class="flex justify-between">
-                            <div class="flex-1">
-                                <div>
-                                    {{ 'keyword.capitalize.services' | translate }}
-                                </div>
-                                <div class="font-bold">
-                                    {{ item.services.length }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex justify-between">
-                            <div class="flex-1">
-                                <div>
-                                    {{ 'keyword.capitalize.status' | translate }}
-                                </div>
-                                <div class="font-bold">
-                                    {{ ('order.enum.status.singular.' + item.status) | translate }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex justify-between">
-                        <div class="flex-1">
-                            <div>
-                                {{ 'keyword.capitalize.businessNote' | translate }}
-                            </div>
-                            <div class="font-bold">
-                                {{ item.businessNote | noData }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <div class="flex justify-between">
-                            <div class="flex-1">
-                                <div>
-                                    {{ 'keyword.capitalize.amount' | translate }}
-                                </div>
-                                <div class="font-bold" *ngIf="(baseCurrency$ | async) as baseCurrency">
-                                    {{ amount(item.services) | currency: baseCurrency : 'symbol-narrow' }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex justify-between">
-                            <div class="flex-1">
-                                <div>
-                                    {{ 'keyword.capitalize.createdAt' | translate }}
-                                </div>
-                                <div class="font-bold">
-                                    {{ item.createdAt | dynamicDate }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </bee-card>`
+							<div class="font-bold">
+								{{ ('order.enum.status.singular.' + item.status) | translate }}
+							</div>
+						</div>
+					</div>
+
+					<div class="flex items-center gap-2">
+						<div>
+							<div
+								class="py-1 px-2 inline-flex items-center gap-x-1 text-xs bg-gray-100 text-gray-800 rounded-lg dark:bg-neutral-500/20 dark:text-neutral-400">
+								{{ item._id.slice(item._id.length - 6) }}
+							</div>
+						</div>
+						<app-order-row-action-button-component
+							*ngIf="showAction"
+							[item]="item"
+							[id]="item._id"/>
+					</div>
+
+					<div (click)="singleClick()" class=" cursor-pointer" *ngIf="showSelectedStatus">
+						<div
+							*ngIf="selectedIds.includes(item._id)"
+							class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
+							{{ 'keyword.capitalize.selected' | translate }}
+						</div>
+						<div
+							*ngIf="!selectedIds.includes(item._id)"
+							class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">
+							{{ 'keyword.capitalize.select' | translate }}
+						</div>
+					</div>
+				</div>
+				<div (click)="singleClick()" class="flex flex-col gap-2 cursor-pointer">
+					<div
+						*ngFor="let service of item.services"
+						class="flex items-center bg-white border border-neutral-200 rounded-2xl p-1.5 pe-3">
+						<div class="flex flex-col items-start" *ngIf="service.orderAppointmentDetails.specialists[0].member as member">
+							<div class="flex gap-2 items-center">
+								<div
+									class="rounded-full bg-beeColor-400 min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 flex justify-center items-center">
+									<ng-container *ngIf="member?.avatar?.url; else InitialsTemplate">
+										<img [src]="member?.avatar?.url"
+											 class="min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 rounded-full object-cover"
+											 alt="">
+									</ng-container>
+									<ng-template #InitialsTemplate>
+										<div class="text-white text-xs font-bold">{{ member?.firstName?.[0] ?? '' }}
+										</div>
+										<div class="text-white text-xs font-bold">{{ member?.lastName?.[0] ?? '' }}
+										</div>
+									</ng-template>
+								</div>
+								<div class="whitespace-nowrap text-sm text-gray-800 font-bold">
+									{{ member.firstName }}
+									{{ member.lastName }}
+								</div>
+							</div>
+							<div class="flex items-start gap-2 text-gray-600">
+								<div class="mt-1 w-7 flex h-3 items-center justify-start rounded-full" [style.background-color]="service.serviceSnapshot.presentation.color">
+									{{ service.serviceSnapshot.presentation.color ? '' : '❓' }}
+								</div>
+								<div>
+									{{ service.serviceSnapshot.languageVersions[0].title }}
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="flex gap-2">
+						<div
+							*ngIf="(baseCurrency$ | async) as baseCurrency"
+							class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs bg-gray-100 text-gray-800 rounded-md dark:bg-neutral-500/20 dark:text-neutral-400">
+							💰
+							{{ amount(item.services) | currency: baseCurrency : 'symbol-narrow' }}
+						</div>
+						<div
+							class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs bg-gray-100 text-gray-800 rounded-md dark:bg-neutral-500/20 dark:text-neutral-400">
+							⏰
+							{{ item.createdAt | dynamicDate }}
+						</div>
+					</div>
+					<div class="flex justify-between" *ngIf="item.businessNote?.length">
+						<div class="flex-1">
+							<div>
+								{{ 'keyword.capitalize.businessNote' | translate }}
+							</div>
+							<div class="font-bold">
+								{{ item.businessNote | noData }}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</bee-card>`
 })
 export class CardItemOrderComponent {
 
