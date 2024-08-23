@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, CurrencyPipe, DatePipe, NgForOf, NgIf} from "@angular/common";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
@@ -29,7 +29,8 @@ import {is} from "thiis";
 		RowActionButtonComponent,
 		TranslateModule,
 		CurrencyPipe,
-		NgForOf
+		NgForOf,
+		DatePipe
 	],
     template: `
 		<bee-card padding="p-2" class="text-sm border-2 border-transparent hover:border-blue-500"
@@ -122,12 +123,12 @@ import {is} from "thiis";
 								</div>
 							</div>
 						</div>
-						<div class="flex flex-col">
+						<div class="flex flex-col justify-center items-center">
 							<div>
 								🗓️ {{ service.orderAppointmentDetails.start | dynamicDate: 'shortDate' }}
 							</div>
 							<div>
-								⏰ {{ service.orderAppointmentDetails.start | dynamicDate: 'time' }}
+								⏰ {{ service.orderAppointmentDetails.start | date: 'HH:mm' }}
 							</div>
 						</div>
 					</div>
