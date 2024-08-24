@@ -48,13 +48,6 @@ import {is} from "thiis";
 					</div>
 
 					<div class="flex items-center gap-2">
-<!--						<div>-->
-<!--							<div-->
-<!--								class="py-1 px-2 inline-flex items-center gap-x-1 text-xs bg-gray-100 text-gray-800 rounded-lg dark:bg-neutral-500/20 dark:text-neutral-400">-->
-<!--								{{ item._id.slice(item._id.length - 6) }}-->
-<!--							</div>-->
-<!--						</div>-->
-
 						<div
 							*ngIf="(baseCurrency$ | async) as baseCurrency"
 							class="py-1 px-1.5 inline-flex items-center gap-x-1 bg-gray-100 text-gray-800 rounded-md dark:bg-neutral-500/20 dark:text-neutral-400">
@@ -128,16 +121,10 @@ import {is} from "thiis";
 								🗓️ {{ service.orderAppointmentDetails.start | dynamicDate: 'shortDate' }}
 							</div>
 							<div>
-								⏰ {{ service.orderAppointmentDetails.start | date: 'HH:mm' }}
+								⏰ {{ service.orderAppointmentDetails.start | dynamicDate: 'hhMM' }}
 							</div>
 						</div>
 					</div>
-<!--					<div class="flex gap-2">-->
-<!--						<div-->
-<!--							class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs bg-gray-100 text-gray-800 rounded-md dark:bg-neutral-500/20 dark:text-neutral-400">-->
-<!--							{{ item.createdAt | dynamicDate }}-->
-<!--						</div>-->
-<!--					</div>-->
 					<div class="flex justify-between" *ngIf="item.businessNote?.length">
 						<div class="flex-1">
 							<div>
