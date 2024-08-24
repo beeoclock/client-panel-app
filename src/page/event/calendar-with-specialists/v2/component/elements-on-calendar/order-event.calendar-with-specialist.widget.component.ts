@@ -75,6 +75,8 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 	public useServiceColor = true;
 
 	private readonly store = inject(Store);
+
+	// Used by external components
 	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 
 	public readonly orderServiceStatusEnum = OrderServiceStatusEnum;

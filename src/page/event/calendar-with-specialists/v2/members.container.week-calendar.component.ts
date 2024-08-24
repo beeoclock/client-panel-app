@@ -9,20 +9,19 @@ import * as Member from "@member/domain";
 import {RIMember} from "@member/domain";
 import {MemberActions} from "@member/state/member/member.actions";
 import {Reactive} from "@utility/cdk/reactive";
-import {ScheduleV2ContainerWeekCalendarComponent} from "./schedule.container.week-calendar.component";
+import ScheduleV2ContainerWeekCalendarComponent from "./schedule.container.week-calendar.component";
 import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
-import {
-	CalendarWithSpecialistLocaStateService
-} from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
+import CalendarWithSpecialistLocaStateService
+	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 
 @Component({
 	selector: 'app-event-v2-members-container-week-calendar-component',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<ng-container *ngIf="item$ | async">
+		@if (item$ | async) {
 			<app-event-v2-schedule-container-week-calendar-component/>
-		</ng-container>
+		}
 	`,
 	imports: [
 		NgIf,
@@ -30,7 +29,7 @@ import {
 		ScheduleV2ContainerWeekCalendarComponent
 	]
 })
-export class MembersV2ContainerWeekCalendarComponent extends Reactive {
+export default class MembersV2ContainerWeekCalendarComponent extends Reactive {
 
 	private readonly store = inject(Store);
 	private readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);

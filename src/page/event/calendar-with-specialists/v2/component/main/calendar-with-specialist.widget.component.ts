@@ -12,11 +12,10 @@ import {
 	ViewChildren,
 	ViewEncapsulation
 } from "@angular/core";
-import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, DOCUMENT, NgForOf, NgIf} from "@angular/common";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
-import {
-	CalendarWithSpecialistLocaStateService
-} from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
+import CalendarWithSpecialistLocaStateService
+	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {Reactive} from "@utility/cdk/reactive";
 import {NGXLogger} from "ngx-logger";
 import {
@@ -32,7 +31,6 @@ import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {ActivatedRoute} from "@angular/router";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {RIMember} from "@member/domain";
 import {
 	TimeLineCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/time-line.calendar-with-specialist.widget.component";
@@ -84,10 +82,11 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 	public changeEventPositionIsOn = false;
 	public handleChangeEventForDraggingEnabledElement = false;
 
-	public readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
+	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
+	private readonly document = inject(DOCUMENT);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly translateService = inject(TranslateService);
 
@@ -114,24 +113,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 	public calendar!: ElementRef<HTMLDivElement>;
 
 	public readonly isToday$ = this.store.select(CalendarWithSpecialistsQueries.isToday);
-	public readonly showTimeLine$ = this.isToday$.pipe(
-		// tap((isToday) => {
-		// 	if (!isToday) {
-		// 		// Scroll to first rendered event
-		// 		const firstEvent = document.querySelector('[data-is-event="true"]');
-		// 		if (firstEvent) {
-		// 			// TODO: refactoring this part of code, move the coee as function and call at first recived data of events
-		// 			firstEvent.scrollIntoView({behavior: 'smooth', block: 'start'});
-		// 		} else {
-		// 			// Scroll to the earliest schedule time
-		// 			let topToScroll = this.calendarWithSpecialistLocaStateService.earliestScheduleInSeconds / 60;
-		// 			topToScroll = topToScroll * this.calendarWithSpecialistLocaStateService.oneMinuteForPx;
-		//
-		// 			this.calendar.nativeElement.scrollTo({top: topToScroll, behavior: 'smooth'});
-		// 		}
-		// 	}
-		// })
-	);
+	public readonly showTimeLine$ = this.isToday$.pipe();
 
 	public async openForm() {
 
@@ -182,21 +164,6 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 				}
 			})
 		);
-	}
-
-	public trackByHour(index: number, hour: {
-		original: number;
-		hour: string;
-	}): string {
-		return hour.hour;
-	}
-
-	public trackById(index: number, item: IEvent_V2): string {
-		return item._id;
-	}
-
-	public trackByMemberId(index: number, item: RIMember): string {
-		return item._id;
 	}
 
 	public eventsBySpecialistId: {
@@ -519,9 +486,9 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 		this.prevMousePosition = {x: 0, y: 0};
 		// Delete listeners
-		document.removeEventListener('mousemove', this.mouseMoveListener, false);
-		document.removeEventListener('touchstart', this.touchStartListener, false);
-		document.removeEventListener('touchmove', this.touchMoveListener, false);
+		this.document.removeEventListener('mousemove', this.mouseMoveListener, false);
+		this.document.removeEventListener('touchstart', this.touchStartListener, false);
+		this.document.removeEventListener('touchmove', this.touchMoveListener, false);
 
 		this.changeDetectorRef.detectChanges();
 	}
@@ -611,9 +578,9 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 			return;
 		}
 
-		document.addEventListener('mousemove', this.mouseMoveListener, false);
-		document.addEventListener('touchstart', this.touchStartListener, {passive: false});
-		document.addEventListener('touchmove', this.touchMoveListener, {passive: false});
+		this.document.addEventListener('mousemove', this.mouseMoveListener, false);
+		this.document.addEventListener('touchstart', this.touchStartListener, {passive: false});
+		this.document.addEventListener('touchmove', this.touchMoveListener, {passive: false});
 
 		this.changeDetectorRef.detectChanges();
 
@@ -653,7 +620,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		// Move event to another column
 		// Move HTML element to another column
 
-		const column = document.querySelector(`[data-index="${columnIndex}"]`);
+		const column = this.document.querySelector(`[data-index="${columnIndex}"]`);
 		if (!column) {
 			return;
 		}
@@ -698,7 +665,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		// Move event to another column
 		// Move HTML element to another column
 
-		const column = document.querySelector(`[data-index="${columnIndex}"]`);
+		const column = this.document.querySelector(`[data-index="${columnIndex}"]`);
 		if (!column) {
 			return;
 		}
