@@ -19,9 +19,8 @@ import {Store} from "@ngxs/store";
 import {filter, map, switchMap} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
 import {NgForOf} from "@angular/common";
-import {
-	CalendarWithSpecialistLocaStateService
-} from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
+import CalendarWithSpecialistLocaStateService
+	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {BooleanState} from "@utility/domain";
 
 
@@ -45,20 +44,23 @@ interface IData {
 		NgForOf
 	],
 	template: `
-		<div
-			#scheduleElement
-			class="absolute bg-white w-full overflow-hidden"
-			*ngFor="let elementData of dataToBuildScheduleElements; trackBy: trackByStart"
-			[style.z-index]="1"
-			[attr.data-start]="elementData.start"
-			[attr.data-end]="elementData.end"
-			[attr.data-is-business-schedule]="elementData.isBusinessSchedule"
-			[attr.data-is-member-schedule]="elementData.isMemberSchedule"
-			[style.height.px]="elementData.style.height"
-			[style.top.px]="elementData.style.top">
-			<ng-content/>
+		@for (elementData of dataToBuildScheduleElements; track elementData.start) {
 
-		</div>
+			<div
+				#scheduleElement
+				class="absolute bg-white w-full overflow-hidden"
+				[style.z-index]="1"
+				[attr.data-start]="elementData.start"
+				[attr.data-end]="elementData.end"
+				[attr.data-is-business-schedule]="elementData.isBusinessSchedule"
+				[attr.data-is-member-schedule]="elementData.isMemberSchedule"
+				[style.height.px]="elementData.style.height"
+				[style.top.px]="elementData.style.top">
+				<ng-content/>
+
+			</div>
+
+		}
 	`
 })
 export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reactive implements AfterViewInit {
@@ -100,11 +102,6 @@ export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reacti
 			)
 		}),
 	);
-
-	public trackByStart(index: number, item: IData): string {
-		return item.start;
-	}
-
 
 	public ngAfterViewInit() {
 

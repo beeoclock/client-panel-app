@@ -7,13 +7,13 @@ import {
 	HostListener,
 	inject,
 	Input,
+	Renderer2,
 	ViewChild,
 	ViewEncapsulation
 } from "@angular/core";
 import {DatePipe, NgIf} from "@angular/common";
-import {
-	CalendarWithSpecialistLocaStateService
-} from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
+import CalendarWithSpecialistLocaStateService
+	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {IEvent_V2} from "@event/domain";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
@@ -104,6 +104,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	public readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
+	private readonly renderer2 = inject(Renderer2);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly updateServiceOrderApiAdapter = inject(UpdateServiceOrderApiAdapter);
 	private readonly updateAbsenceApiAdapter = inject(UpdateAbsenceApiAdapter);
@@ -173,7 +174,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	public onMouseEnter() {
 		this.ngxLogger.debug('EventCalendarWithSpecialistWidgetComponent:onMouseEnter');
 		if (this.orderEventCalendarWithSpecialistWidgetComponent) {
-			this.elementRef.nativeElement.classList.add('z-20');
+			this.renderer2.addClass(this.elementRef.nativeElement, 'z-20');
 			if (this.elementRef.nativeElement.clientHeight < this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.scrollHeight) {
 				this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.remove('bottom-0');
 			}
@@ -187,7 +188,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 			if (this.elementRef.nativeElement.clientHeight < this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.scrollHeight) {
 				this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.add('bottom-0');
 			}
-			this.elementRef.nativeElement.classList.remove('z-20');
+			this.renderer2.removeClass(this.elementRef.nativeElement, 'z-20');
 		}
 	}
 
@@ -398,8 +399,8 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	private restoreOriginalPosition() {
 		if (this.snapshotOfOriginalPosition) {
-			this.elementRef.nativeElement.style.top = `${this.snapshotOfOriginalPosition.top}px`;
-			this.elementRef.nativeElement.style.height = `${this.snapshotOfOriginalPosition.height}px`;
+			this.renderer2.setStyle(this.elementRef.nativeElement, 'top', `${this.snapshotOfOriginalPosition.top}px`);
+			this.renderer2.setStyle(this.elementRef.nativeElement, 'height', `${this.snapshotOfOriginalPosition.height}px`);
 		}
 		this.snapshotOfOriginalPosition = null;
 
