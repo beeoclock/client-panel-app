@@ -24,17 +24,18 @@ export interface IBaseState<ITEM> {
 	lastTableHashSum: undefined | string;
 }
 
-export function baseDefaults<T>({filters, orderBy, orderDir}: {
+export function baseDefaults<T>({filters, orderBy, orderDir, pageSize}: {
 	filters: { [key: string]: unknown; };
 	orderBy: OrderByEnum;
 	orderDir: OrderDirEnum;
+	pageSize: number;
 }): IBaseState<T> {
 	return {
 		item: {
 			data: undefined,
 			downloadedAt: new Date(),
 		},
-		tableState: new TableState<T>().setFilters(filters).setOrderBy(orderBy).setOrderDir(orderDir).toCache(),
+		tableState: new TableState<T>().setFilters(filters).setOrderBy(orderBy).setOrderDir(orderDir).setPageSize(pageSize).toCache(),
 		lastTableHashSum: undefined,
 	};
 }

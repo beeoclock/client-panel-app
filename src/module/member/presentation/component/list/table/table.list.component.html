@@ -50,71 +50,73 @@
 	</div>
 	<!-- Column Cell	-->
 	<div tableBodyFlex>
-		<div tableRowFlex="body" (click)="doubleClick(item)" *ngFor="let item of tableState.items; trackBy: trackById">
-			<div tableColumnFlex="lastName" class="flex gap-2">
+		@for (item of tableState.items; track item._id) {
+			<div tableRowFlex="body" (click)="doubleClick(item)">
+				<div tableColumnFlex="lastName" class="flex gap-2">
 
-				<div class="rounded-full bg-beeColor-400 min-h-8 min-w-8 flex justify-center items-center">
-					<ng-container *ngIf="item?.avatar?.url; else InitialsTemplate">
-						<img [src]="item.avatar.url" class="min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 rounded-full object-cover" alt="">
-					</ng-container>
-					<ng-template #InitialsTemplate>
-						<div class="text-white text-xs font-bold">{{ item?.firstName?.[0] ?? '' }}</div>
-						<div class="text-white text-xs font-bold">{{ item?.lastName?.[0] ?? '' }}</div>
-					</ng-template>
-				</div>
-				<span class="truncate">
+					<div class="rounded-full bg-beeColor-400 min-h-8 min-w-8 flex justify-center items-center">
+						<ng-container *ngIf="item?.avatar?.url; else InitialsTemplate">
+							<img [src]="item.avatar.url" class="min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 rounded-full object-cover" alt="">
+						</ng-container>
+						<ng-template #InitialsTemplate>
+							<div class="text-white text-xs font-bold">{{ item?.firstName?.[0] ?? '' }}</div>
+							<div class="text-white text-xs font-bold">{{ item?.lastName?.[0] ?? '' }}</div>
+						</ng-template>
+					</div>
+					<span class="truncate">
 					{{ item.firstName }} {{ item.lastName }}
 				</span>
-			</div>
-			<div tableColumnFlex="email">
-				<a [title]="item.email"  class="truncate" href="mailto:{{ item.email }}">{{ item.email }}</a>
-			</div>
-<!--			<div tableColumnFlex="phone" #phoneColumn [attr.data-value]="item.phone">-->
-<!--				<span [title]="phoneColumn.getAttribute('data-value')" class="truncate">-->
-<!--					{{ phoneColumn.getAttribute('data-value') }}-->
-<!--				</span>-->
-<!--			</div>-->
-			<div tableColumnFlex="role" #roleColumn [attr.data-value]="'role.' + item.role | translate">
+				</div>
+				<div tableColumnFlex="email">
+					<a [title]="item.email"  class="truncate" href="mailto:{{ item.email }}">{{ item.email }}</a>
+				</div>
+				<!--			<div tableColumnFlex="phone" #phoneColumn [attr.data-value]="item.phone">-->
+				<!--				<span [title]="phoneColumn.getAttribute('data-value')" class="truncate">-->
+				<!--					{{ phoneColumn.getAttribute('data-value') }}-->
+				<!--				</span>-->
+				<!--			</div>-->
+				<div tableColumnFlex="role" #roleColumn [attr.data-value]="'role.' + item.role | translate">
 				<span [title]="roleColumn.getAttribute('data-value')" class="truncate">
 					{{ roleColumn.getAttribute('data-value') }}
 				</span>
-			</div>
-			<div tableColumnFlex="assignmentsService">
-				<div>
-					<ng-container *ngIf="item?.assignments?.service?.full; else PartOfServicesTemplate">
-						<div class="border bg-green-50 border-green-600 text-green-600 leading-tight px-3 py-1 rounded-full">
-							{{ 'keyword.lowercase.all' | translate }}
-						</div>
-					</ng-container>
-					<ng-template #PartOfServicesTemplate>
-						<div *ngIf="item?.assignments?.service?.include?.length"
-								 class="border bg-yellow-50 border-yellow-600 text-yellow-600 leading-tight px-3 py-1 rounded-full">
-							{{ item.assignments.service.include.length }}
-						</div>
-						<div *ngIf="!item?.assignments?.service?.include?.length"
-								 class="border bg-red-50 border-red-600 text-red-600 leading-tight px-3 py-1 rounded-full">
-							{{ 'member.form.assignments.button.hint.includeIsEmpty' | translate }}
-						</div>
-					</ng-template>
 				</div>
-			</div>
-			<div tableColumnFlex="active">
-				{{ ('member.enum.profileStatus.' + item.profileStatus) | translate }}
-			</div>
-			<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
+				<div tableColumnFlex="assignmentsService">
+					<div>
+						<ng-container *ngIf="item?.assignments?.service?.full; else PartOfServicesTemplate">
+							<div class="border bg-green-50 border-green-600 text-green-600 leading-tight px-3 py-1 rounded-full">
+								{{ 'keyword.lowercase.all' | translate }}
+							</div>
+						</ng-container>
+						<ng-template #PartOfServicesTemplate>
+							<div *ngIf="item?.assignments?.service?.include?.length"
+								 class="border bg-yellow-50 border-yellow-600 text-yellow-600 leading-tight px-3 py-1 rounded-full">
+								{{ item.assignments.service.include.length }}
+							</div>
+							<div *ngIf="!item?.assignments?.service?.include?.length"
+								 class="border bg-red-50 border-red-600 text-red-600 leading-tight px-3 py-1 rounded-full">
+								{{ 'member.form.assignments.button.hint.includeIsEmpty' | translate }}
+							</div>
+						</ng-template>
+					</div>
+				</div>
+				<div tableColumnFlex="active">
+					{{ ('member.enum.profileStatus.' + item.profileStatus) | translate }}
+				</div>
+				<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
 				<span [title]="createdAtColumn.getAttribute('data-value')" class="truncate">
 					{{ createdAtColumn.getAttribute('data-value') }}
 				</span>
-			</div>
-			<div tableColumnFlex="updatedAt" #updatedAtColumn [attr.data-value]="item.updatedAt | dynamicDate">
+				</div>
+				<div tableColumnFlex="updatedAt" #updatedAtColumn [attr.data-value]="item.updatedAt | dynamicDate">
 				<span [title]="updatedAtColumn.getAttribute('data-value')" class="truncate">
 					{{ updatedAtColumn.getAttribute('data-value') }}
 				</span>
+				</div>
+				<div tableColumnFlex="action" class="border-l sticky right-0">
+					<member-row-action-button-component [item]="item" [id]="item._id"/>
+				</div>
 			</div>
-			<div tableColumnFlex="action" class="border-l sticky right-0">
-				<member-row-action-button-component [item]="item" [id]="item._id"/>
-			</div>
-		</div>
+		}
 	</div>
 </div>
 <utility-table-state-pagination-component

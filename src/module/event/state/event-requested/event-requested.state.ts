@@ -19,6 +19,7 @@ const defaults = baseDefaults<Event.RIEvent>({
 	},
 	orderDir: OrderDirEnum.ASC,
 	orderBy: OrderByEnum.START,
+	pageSize: 20
 });
 
 @State<IEventRequestedState>({

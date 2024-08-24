@@ -26,6 +26,7 @@ const defaults = baseDefaults<IOrderDto>({
 	filters: {},
 	orderBy: OrderByEnum.UPDATED_AT,
 	orderDir: OrderDirEnum.DESC,
+	pageSize: 20
 });
 
 @State<IOrderState>({

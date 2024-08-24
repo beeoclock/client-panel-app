@@ -20,13 +20,15 @@ import {CardItemOrderComponent} from "@order/presentation/component/list/card/it
 @Component({
 	selector: 'app-order-card-list-component',
 	template: `
-		<div class="flex flex-col items-center justify-center gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState.items.length">
-			<app-card-item-order-component
-				*ngFor="let item of tableState.items; trackBy: trackById"
-				[showAction]="(tableService.showAction.state$ | async) ?? false"
-				[showSelectedStatus]="(tableService.showSelectedStatus.state$ | async) ?? false"
-				[selectedIds]="selectedIds"
-				[item]="item" />
+		<div class="flex flex-col items-center justify-center gap-4 my-4"
+			 [class.h-[calc(100vh-134px)]]="!tableState.items.length">
+			@for (item of tableState.items; track item._id) {
+				<app-card-item-order-component
+					[showAction]="(tableService.showAction.state$ | async) ?? false"
+					[showSelectedStatus]="(tableService.showSelectedStatus.state$ | async) ?? false"
+					[selectedIds]="selectedIds"
+					[item]="item"/>
+			}
 		</div>
 		<utility-table-state-pagination-component
 			[mobileMode]="true"

@@ -18,6 +18,7 @@ const defaults = baseDefaults<Member.RIMember>({
 	filters: {},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
+	pageSize: 20
 });
 
 @State<IMemberState>({

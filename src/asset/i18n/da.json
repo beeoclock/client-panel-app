@@ -885,6 +885,7 @@
 	},
 	"keyword": {
 		"capitalize": {
+			"accept": "Accepter",
 			"account": "Konto",
 			"action": "Handling",
 			"activate": "Aktivér",
@@ -1158,6 +1159,15 @@
 			"change-status": {
 				"hint": "Statusvariablen kan have en effekt på tjenesterne i denne ordre, hvis den f.eks. er annulleret, annulleres alle tjenester også.",
 				"message": "Er du sikker på, at du vil ændre status?"
+			},
+			"delete": {
+				"service": {
+					"header": "Sletning af den bestilte tjeneste",
+					"message": "Vil du virkelig slette den bestilte tjeneste?",
+					"subHeader": {
+						"lastService": "Når man sletter den senest bestilte tjeneste, slettes selve bestillingen automatisk."
+					}
+				}
 			}
 		},
 		"details": {

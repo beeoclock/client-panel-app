@@ -27,36 +27,42 @@ import {
 		TableStatePaginationComponent
 	],
 	template: `
-		<div class="flex flex-col" *ngFor="let dateItem of keyvalue(items); let index = index">
-			<div class="ps-8 p-4 bg-beeColor-200 text-beeColor-600 sticky top-0">
-				<div class="flex gap-4 items-center">
-					<div class="text-xl font-bold flex-1">{{ getDateCorrectFormat(dateItem.key) }}
-						, {{ getDayNameByDate(dateItem.key) }}</div>
-					<div class="flex flex-wrap">
+		@for (dateItem of (items | keyvalue); track dateItem.key) {
+			<div class="flex flex-col">
+				<div class="ps-8 p-4 bg-beeColor-200 text-beeColor-600 sticky top-0">
+					<div class="flex gap-4 items-center">
+						<div class="text-xl font-bold flex-1">{{ getDateCorrectFormat(dateItem.key) }}
+							, {{ getDayNameByDate(dateItem.key) }}
+						</div>
+						<div class="flex flex-wrap">
+							<div>
+								{{ todayOrAgo(dateItem.key) }}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="flex flex-col pb-8 pt-4">
+					@for (timeItem of (dateItem.value | keyvalue); track timeItem.key) {
 						<div>
-							{{ todayOrAgo(dateItem.key) }}
+							<div class="text-sm px-4 text-beeColor-600 flex justify-start gap-2 overflow-x-auto">
+								<div class="font-bold bg-neutral-200 rounded-xl p-2 px-4">
+									{{ timeItem.key }} ({{ toEventListType(timeItem?.value ?? [])?.length ?? 0 }})
+								</div>
+							</div>
+							<div class="p-4 flex gap-4 overflow-x-auto">
+								@for (item of toEventListType(timeItem.value); track item._id) {
+									<app-card-item-order-component
+										[showAction]="(showAction.state$ | async) ?? false"
+										[showSelectedStatus]="(showSelectedStatus.state$ | async) ?? false"
+										[selectedIds]="selectedIds"
+										[item]="item"/>
+								}
+							</div>
 						</div>
-					</div>
+					}
 				</div>
 			</div>
-			<div class="flex flex-col pb-8 pt-4">
-				<div *ngFor="let timeItem of (dateItem.value | keyvalue);">
-					<div class="text-sm px-4 text-beeColor-600 flex justify-start gap-2 overflow-x-auto">
-						<div class="font-bold bg-neutral-200 rounded-xl p-2 px-4">
-							{{ timeItem.key }} ({{ toEventListType(timeItem?.value ?? [])?.length ?? 0 }})
-						</div>
-					</div>
-					<div class="p-4 flex gap-4 overflow-x-auto">
-						<app-card-item-order-component
-							*ngFor="let item of toEventListType(timeItem.value); trackBy: trackById"
-							[showAction]="(showAction.state$ | async) ?? false"
-							[showSelectedStatus]="(showSelectedStatus.state$ | async) ?? false"
-							[selectedIds]="selectedIds"
-							[item]="item"/>
-					</div>
-				</div>
-			</div>
-		</div>
+		}
 		<utility-table-state-pagination-component
 			[mobileMode]="true"
 			(page)="pageChange($event)"
@@ -81,14 +87,6 @@ export class ListOfCardCollectionByDateComponent extends TableComponent<IOrderDt
 
 	@HostBinding()
 	public class = 'flex flex-col';
-
-	public keyvalue(value: any): {
-		key: string;
-		value: any
-	}[] {
-		if (!value) return [];
-		return Object.entries(value).map(([key, value]) => ({key, value}));
-	}
 
 	public toEventListType(list: unknown): IOrderDto[] {
 		return list as IOrderDto[];

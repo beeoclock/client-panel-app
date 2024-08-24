@@ -107,7 +107,10 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 		return this.#pagination.orderDir;
 	}
 
-	public setPage(value: number) {
+	public setPage(value: unknown) {
+		if ('number' !== typeof value) {
+			return this;
+		}
 		this.page = value;
 		return this;
 	}
@@ -129,7 +132,10 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 		return this;
 	}
 
-	public setPageSize(value: number) {
+	public setPageSize(value: unknown) {
+		if ('number' !== typeof value) {
+			return this;
+		}
 		this.pageSize = value;
 		return this;
 	}

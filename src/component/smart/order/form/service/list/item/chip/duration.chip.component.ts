@@ -63,7 +63,7 @@ export class DurationChipComponent extends Reactive implements OnInit {
 
 	public readonly durationFormControl = new FormControl<string>(DateTime.now().startOf('day').toJSDate().toISOString());
 
-	public readonly duration = signal<number>(0)
+	public readonly duration = signal<number>(0);
 
 	public ngOnInit() {
 
@@ -72,6 +72,10 @@ export class DurationChipComponent extends Reactive implements OnInit {
 			filter(is.string)
 		).subscribe((duration) => {
 			const diffInSeconds = DateTime.fromISO(duration).diff(DateTime.fromISO(duration).startOf('day')).as('seconds');
+
+			if (this.duration() === diffInSeconds) {
+				return;
+			}
 			this.duration.set(diffInSeconds);
 			this.durationChanges.emit(diffInSeconds);
 		});

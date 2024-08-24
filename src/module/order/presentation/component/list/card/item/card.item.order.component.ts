@@ -14,6 +14,12 @@ import {ClientState} from "@client/state/client/client.state";
 import {RIClient} from "@client/domain";
 import {filter, map} from "rxjs";
 import {is} from "thiis";
+import DurationPricePipe from "@utility/presentation/pipes/duration-price.pipe";
+import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
+import {
+	ListServiceFormCardOrderComponent
+} from "@order/presentation/component/list/card/item/services/list.service.form.card.order.component";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
     selector: 'app-card-item-order-component',
@@ -30,13 +36,18 @@ import {is} from "thiis";
 		TranslateModule,
 		CurrencyPipe,
 		NgForOf,
-		DatePipe
+		DatePipe,
+		DurationPricePipe,
+		ListServiceFormCardOrderComponent,
+	],
+	providers: [
+		DurationVersionHtmlHelper
 	],
     template: `
-		<bee-card padding="p-2" class="text-sm border-2 border-transparent hover:border-blue-500"
+		<bee-card padding="p-0" class="text-sm border-2 border-transparent hover:border-blue-500"
 				  [class.!border-green-500]="selectedIds.includes(item._id)">
 			<div class="flex flex-col gap-2">
-				<div class="flex flex-wrap justify-between items-center gap-8">
+				<div class="p-2 flex flex-wrap justify-between items-center gap-8">
 
 					<div (click)="singleClick()" class="flex justify-between cursor-pointer">
 						<div class="flex-1 flex text-beeColor-500">
@@ -48,12 +59,12 @@ import {is} from "thiis";
 					</div>
 
 					<div class="flex items-center gap-2">
-						<div
-							*ngIf="(baseCurrency$ | async) as baseCurrency"
-							class="py-1 px-1.5 inline-flex items-center gap-x-1 bg-gray-100 text-gray-800 rounded-md dark:bg-neutral-500/20 dark:text-neutral-400">
-							💰
-							{{ amount(item.services) | currency: baseCurrency : 'symbol-narrow' }}
-						</div>
+						@if (baseCurrency$ | async; as baseCurrency) {
+							<div
+								class="py-1 px-1.5 inline-flex items-center gap-x-1 bg-gray-100 text-gray-800 rounded-md dark:bg-neutral-500/20 dark:text-neutral-400">
+								💰{{ amount(item.services) | currency: baseCurrency : 'symbol-narrow' }}
+							</div>
+						}
 						<app-order-row-action-button-component
 							*ngIf="showAction"
 							[item]="item"
@@ -73,68 +84,25 @@ import {is} from "thiis";
 						</div>
 					</div>
 				</div>
-				<div (click)="singleClick()" class="flex flex-col gap-2 cursor-pointer">
-					<div
-						*ngFor="let service of item.services"
-						class="flex items-start justify-between bg-white border border-neutral-200 rounded-2xl p-1.5 pe-3">
-						<div class="flex flex-col flex-1 items-start" *ngIf="service.orderAppointmentDetails.specialists[0].member as member">
-							<div class="flex gap-2 items-center">
-								<div
-									class="rounded-full bg-beeColor-400 min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 flex justify-center items-center">
-									<ng-container *ngIf="member?.avatar?.url; else InitialsTemplate">
-										<img [src]="member?.avatar?.url"
-											 class="min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 rounded-full object-cover"
-											 alt="">
-									</ng-container>
-									<ng-template #InitialsTemplate>
-										<div class="text-white text-xs font-bold">{{ member?.firstName?.[0] ?? '' }}
-										</div>
-										<div class="text-white text-xs font-bold">{{ member?.lastName?.[0] ?? '' }}
-										</div>
-									</ng-template>
-								</div>
-								<div class="whitespace-nowrap text-gray-800 font-bold">
-									{{ member.firstName }}
-									{{ member.lastName }}
-								</div>
-							</div>
-							<div class="flex items-start gap-2 text-gray-600">
-								<div class="mt-1 w-7 flex h-3 items-center justify-start rounded-full" [style.background-color]="service?.serviceSnapshot?.presentation?.color">
-									{{ service.serviceSnapshot.presentation.color ? '' : '❓' }}
+				<!--				(click)="singleClick()"-->
+				<div class="flex flex-col gap-2 cursor-pointer">
+					<app-list-service-form-card-order-component
+						[order]="item"
+						(deleteOrder)="deleteOrder()"
+						(saveOrderServiceChanges)="saveNewChanges($event)"
+						(deleteServiceOrderAt)="deleteServiceOrderAt($event)"/>
+					@if (item.businessNote?.length) {
+						<div class="flex justify-between">
+							<div class="flex-1">
+								<div>
+									{{ 'keyword.capitalize.businessNote' | translate }}
 								</div>
 								<div>
-									{{ service.serviceSnapshot.languageVersions[0].title }}
-								</div>
-							</div>
-							<div *ngIf="service.orderAppointmentDetails?.attendees?.[0]?.customer as customer" class="flex items-start gap-2 text-gray-600">
-								<div class="mt-1 w-7 flex h-3 items-center justify-center">
-									👤
-								</div>
-								<div>
-									{{ customer.firstName }}
-									{{ customer.lastName }}
+									{{ item.businessNote | noData }}
 								</div>
 							</div>
 						</div>
-						<div class="flex flex-col justify-center items-center">
-							<div>
-								🗓️ {{ service.orderAppointmentDetails.start | dynamicDate: 'shortDate' }}
-							</div>
-							<div>
-								⏰ {{ service.orderAppointmentDetails.start | dynamicDate: 'hhMM' }}
-							</div>
-						</div>
-					</div>
-					<div class="flex justify-between" *ngIf="item.businessNote?.length">
-						<div class="flex-1">
-							<div>
-								{{ 'keyword.capitalize.businessNote' | translate }}
-							</div>
-							<div class="font-bold">
-								{{ item.businessNote | noData }}
-							</div>
-						</div>
-					</div>
+					}
 				</div>
 			</div>
 		</bee-card>`
@@ -174,6 +142,11 @@ export class CardItemOrderComponent {
         this.store.dispatch(new OrderActions.OpenDetails(this.item));
     }
 
+	@Dispatch()
+	public saveNewChanges(item: IOrderDto): OrderActions.UpdateItem {
+		return new OrderActions.UpdateItem(item);
+	}
+
     public amount(services: IOrderServiceDto[]): number {
 
         return services.reduce((acc, service) => {
@@ -181,5 +154,17 @@ export class CardItemOrderComponent {
         }, 0);
 
     }
+
+	protected deleteOrder() {
+		this.store.dispatch(new OrderActions.DeleteItem(this.item._id));
+	}
+
+	protected deleteServiceOrderAt($event: number) {
+		this.item  = {
+			...this.item,
+			services: this.item.services.filter((_, index) => index !== $event),
+		};
+		this.saveNewChanges(this.item);
+	}
 
 }

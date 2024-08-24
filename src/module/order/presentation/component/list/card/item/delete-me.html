@@ -1,0 +1,62 @@
+
+<!--					@for (service of item.services; track service._id) {-->
+<!--						<div-->
+<!--							class="flex items-start justify-between bg-white border border-neutral-200 rounded-2xl p-1.5 pe-3">-->
+<!--							<div class="flex flex-col flex-1 items-start"-->
+<!--								 *ngIf="service.orderAppointmentDetails.specialists[0].member as member">-->
+<!--								<div class="flex gap-2 items-center">-->
+<!--									<div-->
+<!--										class="rounded-full bg-beeColor-400 min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 flex justify-center items-center">-->
+<!--										@if (member?.avatar?.url) {-->
+<!--											<img [src]="member?.avatar?.url"-->
+<!--												 class="min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 rounded-full object-cover"-->
+<!--												 alt="">-->
+<!--										} @else {-->
+<!--											<div class="text-white text-xs font-bold">{{ member?.firstName?.[0] ?? '' }}</div>-->
+<!--											<div class="text-white text-xs font-bold">{{ member?.lastName?.[0] ?? '' }}</div>-->
+<!--										}-->
+<!--									</div>-->
+<!--									<div class="whitespace-nowrap text-gray-800 font-bold">-->
+<!--										{{ member.firstName }}-->
+<!--										{{ member.lastName }}-->
+<!--									</div>-->
+<!--								</div>-->
+<!--								<div class="flex items-start gap-2 text-gray-600">-->
+<!--									<div class="mt-1 w-7 flex h-3 items-center justify-start rounded-full"-->
+<!--										 [style.background-color]="service?.serviceSnapshot?.presentation?.color">-->
+<!--										{{ service.serviceSnapshot.presentation.color ? '' : '❓' }}-->
+<!--									</div>-->
+<!--									<div>-->
+<!--										{{ service.serviceSnapshot.languageVersions[0].title }}-->
+<!--									</div>-->
+<!--								</div>-->
+<!--								@if (service.orderAppointmentDetails?.attendees?.[0]?.customer; as customer) {-->
+<!--									<div class="flex items-start gap-2 text-gray-600">-->
+<!--										<div class="mt-1 w-7 flex h-3 items-center justify-center">-->
+<!--											👤-->
+<!--										</div>-->
+<!--										<div>-->
+<!--											{{ customer.firstName }}-->
+<!--											{{ customer.lastName }}-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								}-->
+<!--								<div class="flex items-start gap-2 text-gray-600">-->
+<!--									<div class="mt-1 w-7 flex h-3 items-center justify-center">-->
+<!--										🗓️-->
+<!--									</div>-->
+<!--									<div>-->
+<!--										{{ service.orderAppointmentDetails.start | dynamicDate }}-->
+<!--									</div>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--							<div class="flex flex-col w-16 justify-center items-end">-->
+<!--								<div class="text-right">-->
+<!--									⏳ {{ service.serviceSnapshot | durationPrice: 'duration' }}-->
+<!--								</div>-->
+<!--								@if (service.customerNote) {-->
+<!--									<i [title]="service.customerNote" class="bi bi-chat-text"></i>-->
+<!--								}-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					}-->
