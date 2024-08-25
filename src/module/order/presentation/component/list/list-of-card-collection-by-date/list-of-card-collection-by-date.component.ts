@@ -41,24 +41,13 @@ import {
 						</div>
 					</div>
 				</div>
-				<div class="flex flex-col pb-8 pt-4">
-					@for (timeItem of (dateItem.value | keyvalue); track timeItem.key) {
-						<div>
-							<div class="text-sm px-4 text-beeColor-600 flex justify-start gap-2 overflow-x-auto">
-								<div class="font-bold bg-neutral-200 rounded-xl p-2 px-4">
-									{{ timeItem.key }} ({{ toEventListType(timeItem?.value ?? [])?.length ?? 0 }})
-								</div>
-							</div>
-							<div class="p-4 flex gap-4 overflow-x-auto">
-								@for (item of toEventListType(timeItem.value); track item._id) {
-									<app-card-item-order-component
-										[showAction]="(showAction.state$ | async) ?? false"
-										[showSelectedStatus]="(showSelectedStatus.state$ | async) ?? false"
-										[selectedIds]="selectedIds"
-										[item]="item"/>
-								}
-							</div>
-						</div>
+				<div class="flex flex-wrap p-4 pb-8 pt-4 gap-4">
+					@for (item of dateItem.value; track item._id) {
+						<app-card-item-order-component
+							[showAction]="(showAction.state$ | async) ?? false"
+							[showSelectedStatus]="(showSelectedStatus.state$ | async) ?? false"
+							[selectedIds]="selectedIds"
+							[orderDto]="item"/>
 					}
 				</div>
 			</div>
@@ -74,12 +63,9 @@ export class ListOfCardCollectionByDateComponent extends TableComponent<IOrderDt
 
 	@Input({required: true})
 	public items: {
-		[key: string]: {
-			[key: string]: IOrderDto[]
-		}
+		[key: string]: IOrderDto[]
 	} = {};
 
-	// public override readonly actions = OrderActions;
 	public readonly showAction = new BooleanStreamState(true);
 	public readonly showSelectedStatus = new BooleanStreamState(false);
 
@@ -87,10 +73,6 @@ export class ListOfCardCollectionByDateComponent extends TableComponent<IOrderDt
 
 	@HostBinding()
 	public class = 'flex flex-col';
-
-	public toEventListType(list: unknown): IOrderDto[] {
-		return list as IOrderDto[];
-	}
 
 	public getDayNameByDate(date: string) {
 		return DateTime.fromISO(date).toFormat('EEE', {

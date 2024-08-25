@@ -27,7 +27,7 @@ import {CardItemOrderComponent} from "@order/presentation/component/list/card/it
 					[showAction]="(tableService.showAction.state$ | async) ?? false"
 					[showSelectedStatus]="(tableService.showSelectedStatus.state$ | async) ?? false"
 					[selectedIds]="selectedIds"
-					[item]="item"/>
+					[orderDto]="item"/>
 			}
 		</div>
 		<utility-table-state-pagination-component

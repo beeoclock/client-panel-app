@@ -3,9 +3,12 @@ import {
 	Component,
 	EventEmitter,
 	Input,
+	OnChanges,
 	OnInit,
 	Output,
 	signal,
+	SimpleChange,
+	SimpleChanges,
 	ViewEncapsulation
 } from "@angular/core";
 import {IonDatetime, IonPopover} from "@ionic/angular/standalone";
@@ -50,7 +53,7 @@ import {is} from "thiis";
 		</ion-popover>
 	`
 })
-export class DurationChipComponent extends Reactive implements OnInit {
+export class DurationChipComponent extends Reactive implements OnInit, OnChanges {
 
 	@Input()
 	public initialValue: number = 0;
@@ -64,6 +67,14 @@ export class DurationChipComponent extends Reactive implements OnInit {
 	public readonly durationFormControl = new FormControl<string>(DateTime.now().startOf('day').toJSDate().toISOString());
 
 	public readonly duration = signal<number>(0);
+
+	public ngOnChanges(changes: SimpleChanges & { initialValue: SimpleChange }) {
+		console.log('changes', changes);
+		if (changes.initialValue) {
+			this.initFormControlValue(changes.initialValue.currentValue);
+		}
+
+	}
 
 	public ngOnInit() {
 
@@ -80,9 +91,13 @@ export class DurationChipComponent extends Reactive implements OnInit {
 			this.durationChanges.emit(diffInSeconds);
 		});
 
-		this.durationFormControl.patchValue(DateTime.now().startOf('day').plus({
-			seconds: this.initialValue
-		}).toISO());
+		this.initFormControlValue(this.initialValue);
 
+	}
+
+	private initFormControlValue(seconds: number = 0) {
+		this.durationFormControl.patchValue(DateTime.now().startOf('day').plus({
+			seconds
+		}).toISO());
 	}
 }

@@ -1,4 +1,4 @@
-<ng-container *ngIf="item">
+@if (item) {
 	<div class="bg-white">
 		<dl class="divide-y divide-gray-100">
 			<div class="px-4 py-6 grid">
@@ -9,13 +9,18 @@
 
 					<div class="flex flex-wrap gap-4" *ngIf="item.services.length">
 
-						<app-order-service-details
-							class="w-full cursor-pointer hover:bg-gray-100"
-							*ngFor="let service of item.services; let index = index"
-							(click)="openAppointmentDetails(service)"
-							[service]="service">
 
-						</app-order-service-details>
+						<app-list-service-form-card-order-component
+							[idPrefix]="idPrefix + '-' + item._id + '-'"
+							[order]="item"/>
+
+<!--						<app-order-service-details-->
+<!--							class="w-full cursor-pointer hover:bg-gray-100"-->
+<!--							*ngFor="let service of item.services; let index = index"-->
+<!--							(click)="openAppointmentDetails(service)"-->
+<!--							[service]="service">-->
+
+<!--						</app-order-service-details>-->
 
 					</div>
 
@@ -97,4 +102,4 @@
 		</div>
 
 	</div>
-</ng-container>
+}

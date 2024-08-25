@@ -24,7 +24,7 @@ export type IOrderState = IBaseState<IOrderDto>;
 
 const defaults = baseDefaults<IOrderDto>({
 	filters: {},
-	orderBy: OrderByEnum.UPDATED_AT,
+	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
 	pageSize: 20
 });

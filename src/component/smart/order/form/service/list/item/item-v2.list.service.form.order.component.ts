@@ -5,7 +5,9 @@ import {
 	HostBinding,
 	inject,
 	Input,
+	OnChanges,
 	Output,
+	SimpleChanges,
 	ViewEncapsulation
 } from "@angular/core";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
@@ -93,7 +95,7 @@ import {ActiveEnum, IsOptionalEnum, IsOrganizerEnum, ResponseStatusEnum} from "@
 
 	`
 })
-export class ItemV2ListServiceFormOrderComponent extends Reactive {
+export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnChanges {
 
 	@HostBinding()
 	public class = 'flex-col justify-start items-start p-3 gap-2 flex';
@@ -120,6 +122,10 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive {
 	public readonly saveChanges = new EventEmitter<void>();
 
 	readonly #ngxLogger = inject(NGXLogger);
+
+	public ngOnChanges(changes: SimpleChanges) {
+		this.#ngxLogger.debug('ItemV2ListServiceFormOrderComponent:ngOnChanges', changes);
+	}
 
 	public get service() {
 		return this.item.service;

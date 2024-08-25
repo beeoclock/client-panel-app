@@ -26,7 +26,7 @@ import {
 	AttendeeCardComponent
 } from "@event/presentation/component/requsted/list-of-card-collection-by-date/attendee-card/attendee.card.component";
 import {FilterComponent} from "@order/presentation/component/filter/filter.component";
-import {LayoutListComponent} from "@utility/layout.list.component";
+import LayoutListComponent from "@utility/layout.list.component";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {
 	AutoRefreshButtonComponent
@@ -78,24 +78,30 @@ import {
 })
 export class ListOfCardCollectionByDateLayout extends LayoutListComponent<IOrderDto> implements OnChanges {
 
-	public items: { [key: string]: { [key: string]: IOrderDto[] } } = {};
+	public items: { [key: string]: IOrderDto[] } = {};
 
 	public ngOnChanges(changes: SimpleChanges & { tableState: SimpleChange }) {
+
+		this.ngxLogger.debug('ListOfCardCollectionByDateLayout:changes', changes);
 
 		if (changes.tableState?.currentValue) {
 			const {items} = changes.tableState.currentValue as { items: IOrderDto[] };
 			this.items = items.reduce((acc, item) => {
 				const dateTime = DateTime.fromISO(item.createdAt);
 				const dateKey = dateTime.toFormat('yyyy-MM-dd');
-				const timeKey = dateTime.toFormat('HH:mm');
-				const dateGroup = acc[dateKey] ?? {};
-				const timeGroup = dateGroup[timeKey] ?? [];
-				timeGroup.push(item);
-				dateGroup[timeKey] = timeGroup;
-				acc[dateKey] = dateGroup;
+				// const timeKey = dateTime.toFormat('HH:mm');
+				if (!acc[dateKey]) {
+					acc[dateKey] = [];
+				}
+				// const timeGroup = dateGroup[timeKey] ?? [];
+				// timeGroup.push(item);
+				// dateGroup[timeKey] = timeGroup;
+
+				acc[dateKey].push(item);
 				return acc;
-			}, {} as { [key: string]: { [key: string]: IOrderDto[] } });
+			}, {} as { [key: string]: IOrderDto[] });
 		}
+
 		this.changeDetectorRef.detectChanges();
 
 	}

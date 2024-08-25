@@ -4,9 +4,8 @@ import {
 	Component,
 	HostBinding,
 	inject,
-	input,
+	Input,
 	OnInit,
-	output,
 	ViewEncapsulation
 } from "@angular/core";
 import {
@@ -15,7 +14,6 @@ import {
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
-import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {Reactive} from "@utility/cdk/reactive";
 import {NgForOf} from "@angular/common";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
@@ -26,6 +24,8 @@ import {ClientState} from "@client/state/client/client.state";
 import {LanguageCodeEnum} from "@utility/domain/enum";
 import {AlertController} from "@ionic/angular";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {OrderActions} from "@order/state/order/order.actions";
 
 @Component({
 	standalone: true,
@@ -43,7 +43,7 @@ import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 			<div class="bg-white flex-col justify-start items-start flex divide-y border border-gray-200 rounded-2xl">
 				@for (item of selectedServicePlusControlList; track item._id; let index = $index) {
 					<app-item-list-v2-service-form-order-component
-						[id]="item._id"
+						[id]="idPrefix + item._id"
 						(deleteMe)="deleteItem(index)"
 						(saveChanges)="saveChanges(item.control)"
 						[item]="item"
@@ -55,11 +55,11 @@ import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 })
 export class ListServiceFormCardOrderComponent extends Reactive implements OnInit {
 
-	public readonly order = input.required<IOrderDto>();
+	@Input({required: true})
+	public order!: IOrderDto;
 
-	public readonly deleteOrder = output<void>();
-	public readonly deleteServiceOrderAt = output<number>();
-	public readonly saveOrderServiceChanges = output<IOrderDto>();
+	@Input()
+	public idPrefix = '';
 
 	@HostBinding()
 	public class = 'flex-col justify-start items-start flex';
@@ -79,12 +79,12 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnIni
 
 	readonly #ngxLogger = inject(NGXLogger);
 	readonly #translateService = inject(TranslateService);
-	readonly #whacAMaleProvider = inject(WhacAMoleProvider);
 	readonly #changeDetectorRef = inject(ChangeDetectorRef);
 	readonly #alertController = inject(AlertController);
 
 	public ngOnInit() {
-		this.order().services.forEach((orderServiceDto) => {
+		this.#ngxLogger.info('ListServiceFormCardOrderComponent', this.order);
+		this.order.services.forEach((orderServiceDto) => {
 			this.selectedServicePlusControlList.push({
 				_id: orderServiceDto._id,
 				service: orderServiceDto.serviceSnapshot,
@@ -99,6 +99,7 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnIni
 	}
 
 	public async deleteItem(index: number) {
+		this.#ngxLogger.info('deleteItem', index);
 		const isLastServiceInOrder = this.selectedServicePlusControlList.length === 1;
 		const confirmed = await this.confirmToDelete(isLastServiceInOrder);
 
@@ -108,14 +109,16 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnIni
 
 		this.selectedServicePlusControlList.splice(index, 1);
 
-		isLastServiceInOrder && this.deleteOrder.emit();
-		!isLastServiceInOrder && this.deleteServiceOrderAt.emit(index);
+		isLastServiceInOrder && this.deleteOrder();
+		!isLastServiceInOrder && this.deleteServiceOrderAt(index);
 
 		this.#changeDetectorRef.detectChanges();
 
 	}
 
 	private async confirmToDelete(isLastServiceInOrder = false) {
+		this.#ngxLogger.info('confirmToDelete', isLastServiceInOrder);
+
 		const header = this.#translateService.instant('order.confirmation.delete.service.header');
 		const message = this.#translateService.instant('order.confirmation.delete.service.message');
 		let subHeader = '';
@@ -147,16 +150,34 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnIni
 	}
 
 	protected saveChanges(control: ServiceOrderForm) {
+		this.#ngxLogger.info('saveChanges', control.getRawValue());
+
 		const orderServiceDto = control.getRawValue();
-		const orderDto = this.order();
-		this.saveOrderServiceChanges.emit({
-			...orderDto,
-			services: orderDto.services.map((service) => {
+		this.saveNewChanges({
+			...this.order,
+			services: this.order.services.map((service) => {
 				if (service._id === orderServiceDto._id) {
 					return orderServiceDto;
 				}
 				return service;
 			})
+		});
+	}
+
+	@Dispatch()
+	protected saveNewChanges(item: IOrderDto): OrderActions.UpdateItem {
+		return new OrderActions.UpdateItem(item);
+	}
+
+	@Dispatch()
+	protected deleteOrder() {
+		return new OrderActions.DeleteItem(this.order._id);
+	}
+
+	protected deleteServiceOrderAt($event: number) {
+		this.saveNewChanges({
+			...this.order,
+			services: this.order.services.filter((_, index) => index !== $event),
 		});
 	}
 }
