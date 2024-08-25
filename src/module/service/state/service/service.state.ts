@@ -20,6 +20,7 @@ const defaults = baseDefaults<IServiceDto>({
 	filters: {},
 	orderDir: OrderDirEnum.DESC,
 	orderBy: OrderByEnum.CREATED_AT,
+	pageSize: 20
 });
 
 @State<IServiceState>({

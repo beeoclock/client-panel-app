@@ -32,6 +32,7 @@ export class HumanizeDurationHelper {
 		return humanizeDuration.humanizer({
 			language: this.language,
 			languages: LanguagesHumanizeDurationHelper,
+			spacer: '',
 		});
 	}
 

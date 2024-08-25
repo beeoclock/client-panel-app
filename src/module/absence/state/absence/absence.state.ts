@@ -19,6 +19,7 @@ const defaults = baseDefaults<IAbsenceDto>({
 	filters: {},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
+	pageSize: 20
 });
 
 @State<IAbsenceState>({

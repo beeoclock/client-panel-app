@@ -7,7 +7,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {TableListComponent} from "@customer/presentation/component/list/table/table.list.component";
 import {ICustomer} from "@customer/domain";
 import {FilterComponent} from "@customer/presentation/component/filter/filter.component";
-import {LayoutListComponent} from "@utility/layout.list.component";
+import LayoutListComponent from "@utility/layout.list.component";
 import {
 	AutoRefreshButtonComponent
 } from "@customer/presentation/component/button/auto-refresh/auto-refresh.button.component";

@@ -1,14 +1,14 @@
 import {Component, ViewEncapsulation} from "@angular/core";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {
-    NotFoundTableDataComponent
+	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {LayoutListComponent} from "@utility/layout.list.component";
+import LayoutListComponent from "@utility/layout.list.component";
 import {FilterComponent} from "@order/presentation/component/filter/filter.component";
 import {TableListComponent} from "@order/presentation/component/list/table/table.list.component";
 import {
-    AutoRefreshButtonComponent
+	AutoRefreshButtonComponent
 } from "@order/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {OrderActions} from "@order/state/order/order.actions";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";

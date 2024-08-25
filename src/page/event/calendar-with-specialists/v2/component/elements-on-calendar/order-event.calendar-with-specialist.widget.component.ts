@@ -24,41 +24,41 @@ import {EventActions} from "@event/state/event/event.actions";
 				{{ event.start | date: 'HH:mm' }} - {{ event.end | date: 'HH:mm' }}
 			</div>
 			<div class="flex gap-2">
-				@if(event.originalData?.service?.orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody ){
+				@if (event.originalData?.service?.orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody) {
 					<i title="Specialist: Anybody" class="bi bi-person"></i>
 				}
-				@if(event.note){
+				@if (event.note) {
 					<i [title]="event.note" class="bi bi-chat-text"></i>
 				}
-				@switch (event.originalData.service.status)        {
-					@case (orderServiceStatusEnum.done)     {
+				@switch (event.originalData.service.status) {
+					@case (orderServiceStatusEnum.done) {
 						<i title="Done" class="bi bi-check2-all"></i>
 					}
-					@case (orderServiceStatusEnum.cancelled)     {
+					@case (orderServiceStatusEnum.cancelled) {
 						<i title="Cancelled" class="bi bi-x"></i>
 					}
-					@case (orderServiceStatusEnum.rejected)     {
+					@case (orderServiceStatusEnum.rejected) {
 						<i title="Rejected" class="bi bi-x"></i>
 					}
-					@case (orderServiceStatusEnum.accepted)     {
-						<i  title="Accepted" class="bi bi-check2"></i>
+					@case (orderServiceStatusEnum.accepted) {
+						<i title="Accepted" class="bi bi-check2"></i>
 					}
-					@case (orderServiceStatusEnum.inProgress)     {
+					@case (orderServiceStatusEnum.inProgress) {
 						<i title="In progress" class="bi bi-hourglass-split"></i>
 					}
-					@case (orderServiceStatusEnum.requested)     {
+					@case (orderServiceStatusEnum.requested) {
 						<i title="Requested" class="bi bi-exclamation"></i>
 					}
 				}
 			</div>
 		</div>
 		<div class="text-xs font-bold dark:text-sky-100">
-				{{ getAttendeesInformation() }}
-			</div>
+			{{ getAttendeesInformation() }}
+		</div>
 		<div class="text-xs font-medium">
 			{{ event.originalData.service.serviceSnapshot.languageVersions[0].title }}
 		</div>
-	`,
+    `,
 	standalone: true,
 	imports: [
 		DatePipe,

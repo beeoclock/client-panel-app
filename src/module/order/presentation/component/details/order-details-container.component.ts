@@ -22,6 +22,9 @@ import {IsOrganizerEnum} from "@utility/domain/enum";
 import {
 	ContainerChangeStatusButtonComponent
 } from "@order/presentation/component/details/change-status/container.change-status.button.component";
+import {
+	ListServiceFormCardOrderComponent
+} from "@order/presentation/component/list/card/item/services/list.service.form.card.order.component";
 
 @Component({
 	selector: 'order-detail-page',
@@ -39,6 +42,7 @@ import {
 		OrderServiceDetailsComponent,
 		PrimaryLinkButtonDirective,
 		ContainerChangeStatusButtonComponent,
+		ListServiceFormCardOrderComponent,
 	],
 	standalone: true
 })
@@ -48,6 +52,8 @@ export class OrderDetailsContainerComponent {
 
 	@Input()
 	public item!: IOrderDto;
+
+	public readonly idPrefix = 'order-details-container';
 
 	public readonly store = inject(Store);
 

@@ -17,6 +17,7 @@ const defaults = baseDefaults<IPaymentDto>({
 	filters: {},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
+	pageSize: 20
 });
 
 @State<IPaymentState>({
