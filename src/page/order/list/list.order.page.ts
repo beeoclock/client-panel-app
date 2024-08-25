@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation} from '@angular/core';
 import {ListPage} from "@utility/list.page";
 import {Observable, tap} from "rxjs";
 import {ITableState} from "@utility/domain/table.state";
@@ -23,6 +23,7 @@ import {
 } from "@order/presentation/component/list/layout/list-of-card-collection-by-date/list-of-card-collection-by-date.layout";
 import {TableService} from "@utility/table.service";
 import {OrderTableService} from "@order/presentation/component/list/order.table.service";
+import {OrderActions} from "@order/state/order/order.actions";
 
 @Component({
 	selector: 'app-list-order-page',
@@ -62,7 +63,7 @@ import {OrderTableService} from "@order/presentation/component/list/order.table.
 		}
 	],
 })
-export class ListOrderPage extends ListPage<IOrderDto> {
+export default class ListOrderPage extends ListPage<IOrderDto> implements OnDestroy {
 
 	public readonly tableState$: Observable<ITableState<IOrderDto>> = this.store.select(OrderState.tableState)
 		.pipe(
@@ -76,6 +77,9 @@ export class ListOrderPage extends ListPage<IOrderDto> {
 		this.analyticsService.logEvent('order_list_page_initialized');
 	}
 
-}
+	public override ngOnDestroy() {
+		super.ngOnDestroy();
+		this.store.dispatch(new OrderActions.Init());
+	}
 
-export default ListOrderPage;
+}

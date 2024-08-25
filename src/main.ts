@@ -1,6 +1,6 @@
 import {bootstrapApplication, HammerModule} from '@angular/platform-browser';
 import {MainRouterOutlet} from '@src/main.router-outlet';
-import {enableProdMode, importProvidersFrom, isDevMode} from '@angular/core';
+import {enableProdMode, importProvidersFrom, isDevMode, provideZoneChangeDetection} from '@angular/core';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {environment} from '@src/environment/environment';
 import {connectAuthEmulator, getAuth, provideAuth} from '@angular/fire/auth';
@@ -50,6 +50,11 @@ bootstrapApplication(MainRouterOutlet, {
 	providers: [
 		...tokens,
 		NgEventBus,
+		provideZoneChangeDetection({
+			eventCoalescing: true,
+			runCoalescing: true,
+
+		}),
 		provideEnvironmentNgxMask(),
 		provideFirebaseApp(() =>
 			initializeApp(environment.firebase.options)

@@ -72,4 +72,10 @@ export class ServiceOrderFormArray extends FormArray<ServiceOrderForm> {
 
 	}
 
+	public static create(initialValue: IOrderServiceDto[] = []): ServiceOrderFormArray {
+		const formArray = new ServiceOrderFormArray();
+		initialValue.forEach((serviceOrderDto) => formArray.push(ServiceOrderForm.create(serviceOrderDto)));
+		return formArray;
+	}
+
 }

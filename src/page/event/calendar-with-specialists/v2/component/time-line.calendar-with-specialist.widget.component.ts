@@ -2,7 +2,6 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
-	ElementRef,
 	HostBinding,
 	inject,
 	Input,
@@ -13,9 +12,8 @@ import {
 	ViewEncapsulation
 } from "@angular/core";
 import {DatePipe, NgIf, NgStyle} from "@angular/common";
-import {
-	CalendarWithSpecialistLocaStateService
-} from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
+import CalendarWithSpecialistLocaStateService
+	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 
 @Component({
 	selector: 'app-time-line-calendar-with-specialist-widget-component',
@@ -28,14 +26,22 @@ import {
 	],
 	template: `
 		<!-- Current time -->
-		<div *ngIf="showCurrentTime" class="border-2 border-red-500 bg-white rounded-b-lg flex justify-end left-0 sticky w-full">
-			<div
-				class="py-1 rounded-2xl text-sm text-center text-red-500 uppercase font-bold w-full">
-				{{ currentDate | date: 'HH:mm' }}
+		@if (showCurrentTime) {
+
+			<div class="border-2 border-red-500 bg-white rounded-b-lg flex justify-end left-0 sticky w-full">
+				<div
+					class="py-1 rounded-2xl text-sm text-center text-red-500 uppercase font-bold w-full">
+					{{ currentDate | date: 'HH:mm' }}
+				</div>
 			</div>
-		</div>
+
+		}
 		<!-- Line -->
-		<div *ngIf="showLine" class="w-full bg-[#f87171] h-[2px]"></div>
+		@if (showLine) {
+
+			<div class="w-full bg-[#f87171] h-[2px]"></div>
+
+		}
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -60,7 +66,6 @@ export class TimeLineCalendarWithSpecialistWidgetComponent implements OnInit, On
 	public style = '';
 
 	private readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
-	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
 	public readonly startTimeToDisplay = this.calendarWithSpecialistLocaStateService.startTimeToDisplay;

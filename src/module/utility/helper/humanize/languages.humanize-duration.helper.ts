@@ -1,4 +1,6 @@
-export const LanguagesHumanizeDurationHelper = {
+import {UnitTranslationOptions} from "humanize-duration";
+
+export const LanguagesHumanizeDurationHelper: Record<string, UnitTranslationOptions> = {
 	short_en: {
 		y: () => "y",
 		mo: () => "mo",
@@ -14,7 +16,7 @@ export const LanguagesHumanizeDurationHelper = {
 		mo: () => "міс",
 		w: () => "тиж",
 		d: () => "д",
-		h: () => "год",
+		h: () => "г",
 		m: () => "хв",
 		s: () => "сек",
 		ms: () => "мсек",
@@ -24,7 +26,7 @@ export const LanguagesHumanizeDurationHelper = {
 		mo: () => "m",
 		w: () => "tyg",
 		d: () => "dn",
-		h: () => "godz",
+		h: () => "g",
 		m: () => "min",
 		s: () => "sek",
 		ms: () => "ms",

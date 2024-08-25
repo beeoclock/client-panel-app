@@ -6,7 +6,8 @@ import {
 	HostBinding,
 	HostListener,
 	inject,
-	Input
+	Input,
+	Renderer2
 } from "@angular/core";
 import {RIMember} from "@member/domain";
 import {firstValueFrom} from "rxjs";
@@ -33,7 +34,10 @@ import {BooleanState} from "@utility/domain";
 export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterViewInit {
 
 	@Input({required: true})
-	public hour!: number;
+	public startInMinutes!: number;
+
+	@Input({required: true})
+	public durationInMinutes!: number;
 
 	@Input({required: true})
 	public member!: RIMember;
@@ -43,6 +47,7 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 	private readonly store = inject(Store);
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
+	private readonly renderer2 = inject(Renderer2);
 
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
 
@@ -69,7 +74,7 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 	}
 
 	public ngAfterViewInit() {
-		this.elementRef.nativeElement.style.zIndex = '2';
+		this.renderer2.setStyle(this.elementRef.nativeElement, 'z-index', '2');
 	}
 
 	public async openAdditionalMenu() {
@@ -90,7 +95,7 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 		const datetimeISO = selectedDate
 			.startOf('day')
 			.plus({
-				hours: this.hour,
+				minutes: this.startInMinutes,
 			})
 			.toJSDate()
 			.toISOString();
@@ -138,15 +143,11 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 		this.ngxLogger.debug('showSelectedSquare', show);
 		this.showSquare.toggle(show);
 
-		if (show) {
-			this.elementRef.nativeElement.classList.add('!opacity-100');
-			this.elementRef.nativeElement.classList.add('border-dashed');
-			this.elementRef.nativeElement.classList.add('border-beeColor-500');
-		} else {
-			this.elementRef.nativeElement.classList.remove('!opacity-100');
-			this.elementRef.nativeElement.classList.remove('border-dashed');
-			this.elementRef.nativeElement.classList.remove('border-beeColor-500');
-		}
+		const method = show ? this.renderer2.addClass : this.renderer2.removeClass;
+
+		method(this.elementRef.nativeElement, '!opacity-100');
+		method(this.elementRef.nativeElement, 'border-dashed');
+		method(this.elementRef.nativeElement, 'border-beeColor-500');
 
 	}
 

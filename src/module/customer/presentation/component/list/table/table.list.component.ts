@@ -46,8 +46,6 @@ import {RowActionButtonComponent} from "@customer/presentation/component/row-act
 })
 export class TableListComponent extends TableComponent<ICustomer> {
 
-	// public override readonly actions = CustomerActions;
-
 	public readonly tableConfiguration = {
 		columns: {
 			email: {

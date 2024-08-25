@@ -758,6 +758,9 @@
 				"names": {
 					"title": "Wpisz swoje imię i nazwisko oraz nazwę swojej firmy"
 				},
+				"only-company": {
+					"title": "Wpisz nazwę firmy"
+				},
 				"pointOfSale": {
 					"title": "Gdzie klienci mogą do Ciebie dotrzeć?"
 				},
@@ -882,6 +885,7 @@
 	},
 	"keyword": {
 		"capitalize": {
+			"accept": "Akceptuj",
 			"account": "Konto",
 			"action": "Akcja",
 			"activate": "Aktywuj",
@@ -1155,6 +1159,15 @@
 			"change-status": {
 				"hint": "Zmienna statusu może mieć wpływ na usługi w tym zamówieniu, na przykład jeśli zostanie anulowana, wszystkie usługi również zostaną anulowane.",
 				"message": "Czy na pewno chcesz zmienić status?"
+			},
+			"delete": {
+				"service": {
+					"header": "Usuwanie zamówionej usługi",
+					"message": "Czy naprawdę chcesz usunąć zamówioną usługę?",
+					"subHeader": {
+						"lastService": "Usunięcie ostatnio zamówionej usługi powoduje automatyczne usunięcie samego zamówienia."
+					}
+				}
 			}
 		},
 		"details": {

@@ -758,6 +758,9 @@
 				"names": {
 					"title": "Enter Your Name and the Name of Your Business"
 				},
+				"only-company": {
+					"title": "Enter the Name of Business"
+				},
 				"pointOfSale": {
 					"title": "Where Can Customers Reach You?"
 				},
@@ -882,6 +885,7 @@
 	},
 	"keyword": {
 		"capitalize": {
+			"accept": "Accept",
 			"account": "Account",
 			"action": "Action",
 			"activate": "Activate",
@@ -1155,6 +1159,15 @@
 			"change-status": {
 				"hint": "The status variable can have an effect on the services in this order, for example, if canceled, all services will be canceled as well.",
 				"message": "Are you sure you want to change status?"
+			},
+			"delete": {
+				"service": {
+					"header": "Deleting the ordered service",
+					"message": "Do you really want to delete the ordered service?",
+					"subHeader": {
+						"lastService": "Deleting the last ordered service automatically deletes the order itself."
+					}
+				}
 			}
 		},
 		"details": {

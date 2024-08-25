@@ -1,68 +1,70 @@
 <div class="block max-w-full overflow-x-auto h-[calc(100vh-134px)] md:h-[calc(100vh-135px)]">
 	<div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState.items.length">
-		<bee-card class="text-sm border-2 border-transparent hover:border-blue-500" [class.!border-green-500]="selectedIds.includes(item._id)"  *ngFor="let item of tableState.items; trackBy: trackById">
-			<div class="flex justify-between items-center">
+		@for (item of tableState.items; track item._id) {
+			<bee-card class="text-sm border-2 border-transparent hover:border-blue-500" [class.!border-green-500]="selectedIds.includes(item._id)">
+				<div class="flex justify-between items-center">
 
-				<div (click)="singleClick(item)" class="flex justify-between w-full gap-2 items-center">
-					<div class="rounded-full bg-beeColor-400 min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 flex justify-center items-center">
-						<ng-container *ngIf="item?.avatar?.url; else InitialsTemplate">
-							<img [src]="item?.avatar?.url" class="min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 rounded-full object-cover" alt="">
-						</ng-container>
-						<ng-template #InitialsTemplate>
-							<div class="text-white text-xs font-bold">{{ item?.firstName?.[0] ?? '' }}</div>
-							<div class="text-white text-xs font-bold">{{ item?.lastName?.[0] ?? '' }}</div>
-						</ng-template>
-					</div>
-					<div class="flex-1">
-						<div>
-							{{ 'keyword.capitalize.fullName' | translate }}
+					<div (click)="singleClick(item)" class="flex justify-between w-full gap-2 items-center">
+						<div class="rounded-full bg-beeColor-400 min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 flex justify-center items-center">
+							<ng-container *ngIf="item?.avatar?.url; else InitialsTemplate">
+								<img [src]="item?.avatar?.url" class="min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 rounded-full object-cover" alt="">
+							</ng-container>
+							<ng-template #InitialsTemplate>
+								<div class="text-white text-xs font-bold">{{ item?.firstName?.[0] ?? '' }}</div>
+								<div class="text-white text-xs font-bold">{{ item?.lastName?.[0] ?? '' }}</div>
+							</ng-template>
 						</div>
-						<div class="font-bold">
-							{{ item.firstName ?? '-' }} {{ item.lastName ?? '-' }}
+						<div class="flex-1">
+							<div>
+								{{ 'keyword.capitalize.fullName' | translate }}
+							</div>
+							<div class="font-bold">
+								{{ item.firstName ?? '-' }} {{ item.lastName ?? '-' }}
+							</div>
 						</div>
 					</div>
-				</div>
 
 
-				<member-row-action-button-component
+					<member-row-action-button-component
 						*ngIf="tableService.showAction.state$ | async"
 						[item]="item"
 						[id]="item._id"/>
 
-				<div (click)="singleClick(item)" *ngIf="tableService.showSelectedStatus.state$ | async">
-					<div
+					<div (click)="singleClick(item)" *ngIf="tableService.showSelectedStatus.state$ | async">
+						<div
 							*ngIf="selectedIds.includes(item._id)"
 							class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
-						{{ 'keyword.capitalize.selected' | translate }}
-					</div>
-					<div
+							{{ 'keyword.capitalize.selected' | translate }}
+						</div>
+						<div
 							*ngIf="!selectedIds.includes(item._id)"
 							class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">
-						{{ 'keyword.capitalize.select' | translate }}
+							{{ 'keyword.capitalize.select' | translate }}
+						</div>
 					</div>
 				</div>
-			</div>
-			<div (click)="singleClick(item)" class="flex justify-between">
-				<div class="flex-1">
-					<div>
-						{{ 'keyword.capitalize.email' | translate }}
-					</div>
-					<div class="font-bold">
-						{{ item.email }}
+				<div (click)="singleClick(item)" class="flex justify-between">
+					<div class="flex-1">
+						<div>
+							{{ 'keyword.capitalize.email' | translate }}
+						</div>
+						<div class="font-bold">
+							{{ item.email }}
+						</div>
 					</div>
 				</div>
-			</div>
-<!--			<div class="flex justify-between">-->
-<!--				<div class="flex-1">-->
-<!--					<div>-->
-<!--						{{ 'keyword.capitalize.phone' | translate }}-->
-<!--					</div>-->
-<!--					<div class="font-bold">-->
-<!--						{{ item.phone ?? '-' }}-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</div>-->
-		</bee-card>
+				<!--			<div class="flex justify-between">-->
+				<!--				<div class="flex-1">-->
+				<!--					<div>-->
+				<!--						{{ 'keyword.capitalize.phone' | translate }}-->
+				<!--					</div>-->
+				<!--					<div class="font-bold">-->
+				<!--						{{ item.phone ?? '-' }}-->
+				<!--					</div>-->
+				<!--				</div>-->
+				<!--			</div>-->
+			</bee-card>
+		}
 	</div>
 	<utility-table-state-pagination-component
 		(page)="pageChange($event)"

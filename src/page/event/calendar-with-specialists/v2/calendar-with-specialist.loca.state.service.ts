@@ -9,7 +9,11 @@ import {
 @Injectable({
 	providedIn: 'root'
 })
-export class CalendarWithSpecialistLocaStateService {
+export default class CalendarWithSpecialistLocaStateService {
+
+	// Property to control amount of available button in each hour cell to add event
+	public readonly maxCreateEventButtonInHourCell = 2; // 2 buttons: 1 for each 30 minutes
+	public readonly createEventButtonDurationInMinutes = 60 / this.maxCreateEventButtonInHourCell;
 
 	public readonly specialistCellHeightForPx = 50;
 	public readonly specialistCellHeightInPx = `${this.specialistCellHeightForPx}px`;
@@ -27,6 +31,19 @@ export class CalendarWithSpecialistLocaStateService {
 			isEven: i % 2 === 0
 		}
 	});
+
+	public readonly createEventButtonList = Array.from({length: 24}).flatMap((_, hour) => {
+		return Array.from({length: this.maxCreateEventButtonInHourCell}).map((__, hourPeace) => {
+			return {
+				id: `${hour}_${hourPeace}`,
+				startInMinutes: (hour * 60) + (hourPeace * this.createEventButtonDurationInMinutes),
+				durationInMinutes: this.createEventButtonDurationInMinutes,
+				heightInPx: `${this.oneHourForPx / this.maxCreateEventButtonInHourCell}px`,
+				isLastPeace: this.maxCreateEventButtonInHourCell - 1 === hourPeace
+			}
+		});
+	});
+
 	public readonly columnHeightForPx = (this.oneHourForPx * 24) + this.specialistCellHeightForPx;
 	public readonly columnHeightInPx = `${this.columnHeightForPx}px`;
 

@@ -31,37 +31,38 @@
     </div>
     <!-- Column Cell	-->
     <div tableBodyFlex>
-        <div tableRowFlex="body" (click)="doubleClick(item)"
-             *ngFor="let item of tableState.items; trackBy: trackById">
-            <div tableColumnFlex="services">
-				{{ item?.services?.length ?? 0 }}
-            </div>
-            <div tableColumnFlex="businessNote">
+		@for (item of tableState.items; track item._id) {
+			<div tableRowFlex="body" (click)="doubleClick(item)">
+				<div tableColumnFlex="services">
+					{{ item?.services?.length ?? 0 }}
+				</div>
+				<div tableColumnFlex="businessNote">
 				<span [title]="item?.businessNote ?? ''" class="truncate">
 					{{ item?.businessNote | noData }}
 				</span>
-            </div>
-            <div tableColumnFlex="status">
+				</div>
+				<div tableColumnFlex="status">
 				<span [title]="item.status" class="truncate">
 					{{ ('order.enum.status.singular.' + item.status) | translate }}
 				</span>
-            </div>
-            <div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
+				</div>
+				<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
 				<span [title]="createdAtColumn.getAttribute('data-value')" class="truncate">
 					{{ createdAtColumn.getAttribute('data-value') }}
 				</span>
-            </div>
-            <div tableColumnFlex="updatedAt" #updatedAtColumn [attr.data-value]="item.updatedAt | dynamicDate">
+				</div>
+				<div tableColumnFlex="updatedAt" #updatedAtColumn [attr.data-value]="item.updatedAt | dynamicDate">
 				<span [title]="updatedAtColumn.getAttribute('data-value')" class="truncate">
 					{{ updatedAtColumn.getAttribute('data-value') }}
 				</span>
-            </div>
-            <div tableColumnFlex="action" class="border-l sticky right-0">
-                <app-order-row-action-button-component
-                        [item]="item"
-                        [id]="item._id"/>
-            </div>
-        </div>
+				</div>
+				<div tableColumnFlex="action" class="border-l sticky right-0">
+					<app-order-row-action-button-component
+						[item]="item"
+						[id]="item._id"/>
+				</div>
+			</div>
+		}
     </div>
 </div>
 <utility-table-state-pagination-component

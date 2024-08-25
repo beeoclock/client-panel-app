@@ -56,59 +56,61 @@
 	</div>
 	<!-- Column Cell	-->
 	<div tableBodyFlex>
-		<div tableRowFlex="body" (click)="doubleClick(item)" *ngFor="let item of tableState.items; trackBy: trackById">
-			<div tableColumnFlex="color">
-				<div class="h-10 w-10 rounded-full" *ngIf="item.presentation?.color"
-					 [style.background-color]="item.presentation?.color ?? ''"></div>
-				<div class="h-10 w-10 rounded-full flex justify-center items-center bg-gray-100"
-					 *ngIf="!item.presentation?.color">
-					❓
+		@for (item of tableState.items; track item._id) {
+			<div tableRowFlex="body" (click)="doubleClick(item)">
+				<div tableColumnFlex="color">
+					<div class="h-10 w-10 rounded-full" *ngIf="item.presentation?.color"
+						 [style.background-color]="item.presentation?.color ?? ''"></div>
+					<div class="h-10 w-10 rounded-full flex justify-center items-center bg-gray-100"
+						 *ngIf="!item.presentation?.color">
+						❓
+					</div>
 				</div>
-			</div>
-			<div tableColumnFlex="title">
-				<div class="flex flex-col divide-y w-full rounded-lg border">
-					<div
-						*ngFor="let languageVersion of item.languageVersions; let i = index"
-						class="relative text-wrap flex gap-2 items-start p-2 font-sans text-xs font-bold uppercase text-neutral-900">
-						<label class="relative flex items-center justify-center p-0 cursor-pointer border-2 border-neutral-200 px-1 rounded-lg">
-							{{ languageVersion.language }}
-						</label>
-						<div>
-							{{ languageVersion.title }}
+				<div tableColumnFlex="title">
+					<div class="flex flex-col divide-y w-full rounded-lg border">
+						<div
+							*ngFor="let languageVersion of item.languageVersions; let i = index"
+							class="relative text-wrap flex gap-2 items-start p-2 font-sans text-xs font-bold uppercase text-neutral-900">
+							<label class="relative flex items-center justify-center p-0 cursor-pointer border-2 border-neutral-200 px-1 rounded-lg">
+								{{ languageVersion.language }}
+							</label>
+							<div>
+								{{ languageVersion.title }}
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div tableColumnFlex="price">
+				<div tableColumnFlex="price">
 				<span class="truncate" [innerHTML]="durationVersionHtmlHelper.getPriceValue(item)">
 				</span>
-			</div>
-			<div tableColumnFlex="duration">
+				</div>
+				<div tableColumnFlex="duration">
 				<span class="truncate" [innerHTML]="durationVersionHtmlHelper.getDurationValue(item)">
 				</span>
-			</div>
-			<div tableColumnFlex="order">
-				{{ item.order }}
-			</div>
-			<div tableColumnFlex="active">
-				<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
-					 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="item.active">
 				</div>
-			</div>
-			<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
+				<div tableColumnFlex="order">
+					{{ item.order }}
+				</div>
+				<div tableColumnFlex="active">
+					<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
+						 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="item.active">
+					</div>
+				</div>
+				<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
 				<span [title]="createdAtColumn.getAttribute('data-value')" class="truncate">
 					{{ createdAtColumn.getAttribute('data-value') }}
 				</span>
-			</div>
-			<div tableColumnFlex="updatedAt" #updatedAtColumn [attr.data-value]="item.updatedAt | dynamicDate">
+				</div>
+				<div tableColumnFlex="updatedAt" #updatedAtColumn [attr.data-value]="item.updatedAt | dynamicDate">
 				<span [title]="updatedAtColumn.getAttribute('data-value')" class="truncate">
 					{{ updatedAtColumn.getAttribute('data-value') }}
 				</span>
+				</div>
+				<div tableColumnFlex="action" class="border-l sticky right-0">
+					<service-row-action-button-component [item]="item" [id]="item._id"/>
+				</div>
 			</div>
-			<div tableColumnFlex="action" class="border-l sticky right-0">
-				<service-row-action-button-component [item]="item" [id]="item._id"/>
-			</div>
-		</div>
+		}
 	</div>
 </div>
 <utility-table-state-pagination-component

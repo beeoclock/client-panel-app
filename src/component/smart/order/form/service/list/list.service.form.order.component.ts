@@ -42,20 +42,18 @@ import {DateTime} from "luxon";
 			<div class="text-neutral-700 text-base font-bold w-full">
 				{{ 'keyword.capitalize.services' | translate }}
 			</div>
-			<!--			<button primaryLink class="w-8 rounded-lg justify-center items-center flex !py-0">-->
-			<!--				<i class="bi bi-layout-three-columns text-2xl"></i>-->
-			<!--			</button>-->
 			<button (click)="addService()" primaryLink class="w-8 rounded-lg justify-center items-center flex !py-0">
 				<i class="bi bi-plus-circle text-2xl"></i>
 			</button>
 		</div>
 		<div class="flex-col justify-start items-start flex">
-			<div class="p-2 bg-white flex-col justify-start items-start gap-2 flex">
-				<app-item-list-v2-service-form-order-component
-					*ngFor="let item of selectedServicePlusControlList; let index = index;"
-					(deleteMe)="deleteItem(index)"
-					[item]="item"
-					[setupPartialData]="setupPartialData"/>
+			<div class="bg-white flex-col justify-start items-start flex divide-y border border-gray-200 rounded-2xl">
+				@for (item of selectedServicePlusControlList; track item.service._id; let index = $index) {
+					<app-item-list-v2-service-form-order-component
+						(deleteMe)="deleteItem(index)"
+						[item]="item"
+						[setupPartialData]="setupPartialData"/>
+				}
 			</div>
 		</div>
 	`

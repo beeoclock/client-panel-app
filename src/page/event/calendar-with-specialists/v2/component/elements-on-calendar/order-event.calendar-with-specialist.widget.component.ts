@@ -9,7 +9,7 @@ import {
 } from "@angular/core";
 
 import {IAttendee, IEvent_V2} from "@event/domain";
-import {DatePipe, NgIf, NgSwitch, NgSwitchCase} from "@angular/common";
+import {DatePipe} from "@angular/common";
 import {Store} from "@ngxs/store";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
@@ -23,34 +23,45 @@ import {EventActions} from "@event/state/event/event.actions";
 			<div class="text-xs dark:text-sky-100">
 				{{ event.start | date: 'HH:mm' }} - {{ event.end | date: 'HH:mm' }}
 			</div>
-			<div class="flex gap-1">
-				<i *ngIf="event.originalData?.service?.orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody ?? false" title="Specialist: Anybody" class="bi bi-person"></i>
-				<ng-container [ngSwitch]="event.originalData.service.status">
-					<i *ngSwitchCase="orderServiceStatusEnum.done" title="Done" class="bi bi-check2-all"></i>
-					<i *ngSwitchCase="orderServiceStatusEnum.cancelled" title="Cancelled" class="bi bi-x"></i>
-					<i *ngSwitchCase="orderServiceStatusEnum.rejected" title="Rejected" class="bi bi-x"></i>
-					<i *ngSwitchCase="orderServiceStatusEnum.accepted" title="Accepted" class="bi bi-check2"></i>
-					<i *ngSwitchCase="orderServiceStatusEnum.inProgress" title="In progress" class="bi bi-hourglass-split"></i>
-					<i *ngSwitchCase="orderServiceStatusEnum.requested" title="Requested" class="bi bi-exclamation"></i>
-				</ng-container>
+			<div class="flex gap-2">
+				@if (event.originalData?.service?.orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody) {
+					<i title="Specialist: Anybody" class="bi bi-person"></i>
+				}
+				@if (event.note) {
+					<i [title]="event.note" class="bi bi-chat-text"></i>
+				}
+				@switch (event.originalData.service.status) {
+					@case (orderServiceStatusEnum.done) {
+						<i title="Done" class="bi bi-check2-all"></i>
+					}
+					@case (orderServiceStatusEnum.cancelled) {
+						<i title="Cancelled" class="bi bi-x"></i>
+					}
+					@case (orderServiceStatusEnum.rejected) {
+						<i title="Rejected" class="bi bi-x"></i>
+					}
+					@case (orderServiceStatusEnum.accepted) {
+						<i title="Accepted" class="bi bi-check2"></i>
+					}
+					@case (orderServiceStatusEnum.inProgress) {
+						<i title="In progress" class="bi bi-hourglass-split"></i>
+					}
+					@case (orderServiceStatusEnum.requested) {
+						<i title="Requested" class="bi bi-exclamation"></i>
+					}
+				}
 			</div>
 		</div>
 		<div class="text-xs font-bold dark:text-sky-100">
-				{{ getAttendeesInformation() }}
-			</div>
+			{{ getAttendeesInformation() }}
+		</div>
 		<div class="text-xs font-medium">
 			{{ event.originalData.service.serviceSnapshot.languageVersions[0].title }}
 		</div>
-		<div *ngIf="event.note" class="text-xs font-medium">
-			📓 {{ event.note }}
-		</div>
-	`,
+    `,
 	standalone: true,
 	imports: [
 		DatePipe,
-		NgIf,
-		NgSwitch,
-		NgSwitchCase
 	],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
@@ -64,6 +75,8 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 	public useServiceColor = true;
 
 	private readonly store = inject(Store);
+
+	// Used by external components
 	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 
 	public readonly orderServiceStatusEnum = OrderServiceStatusEnum;

@@ -6,7 +6,7 @@ import {is} from "thiis";
 import {ISchedule, RISchedule} from "@utility/domain/interface/i.schedule";
 import {Reactive} from "@utility/cdk/reactive";
 import {AsyncPipe, NgIf} from "@angular/common";
-import {CalendarWithSpecialistLocaStateService} from "./calendar-with-specialist.loca.state.service";
+import CalendarWithSpecialistLocaStateService from "./calendar-with-specialist.loca.state.service";
 import {
 	CalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/main/calendar-with-specialist.widget.component";
@@ -16,9 +16,9 @@ import {
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<ng-container *ngIf="item$ | async">
+		@if (item$ | async) {
 			<app-calendar-with-specialists-widget-component/>
-		</ng-container>
+		}
 	`,
 	imports: [
 		NgIf,
@@ -26,7 +26,7 @@ import {
 		CalendarWithSpecialistWidgetComponent
 	]
 })
-export class ScheduleV2ContainerWeekCalendarComponent extends Reactive {
+export default class ScheduleV2ContainerWeekCalendarComponent extends Reactive {
 
 	private readonly store = inject(Store);
 	private readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);

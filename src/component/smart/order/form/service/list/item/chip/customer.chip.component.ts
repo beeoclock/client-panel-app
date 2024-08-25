@@ -1,7 +1,15 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, output, ViewChild} from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	inject,
+	Input,
+	OnInit,
+	output,
+	ViewChild
+} from "@angular/core";
 import {IonPopover} from "@ionic/angular/standalone";
 import {NgSwitch, NgSwitchCase} from "@angular/common";
-import {RIMember} from "@member/domain";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 import {
 	CustomerTypeCustomerComponent
@@ -61,33 +69,9 @@ import {
 		<ion-popover #customerPopover
 					 [trigger]="'customer-trigger-' + id"
 					 [keepContentsMounted]="true"
-					 [backdropDismiss]="customerForm.valid">
+					 [backdropDismiss]="false">
 			<ng-template>
-				<app-customer-list-ionic-component [customerForm]="customerForm" (doDone)="doDone()"/>
-				<!--				<app-customer-type-customer-component class="p-4" [form]="customerForm" [showList]="true">-->
-				<!--					&lt;!&ndash;							<div class="font-bold" slot="label">{{ 'keyword.capitalize.payer' | translate }}</div>&ndash;&gt;-->
-				<!--					<div slot="banner" customer-type="new"-->
-				<!--						 class="bg-beeColor-100 border-2 px-3 py-2 rounded-lg text-beeColor-600 text-sm flex flex-col">-->
-				<!--						<div class="font-bold">-->
-				<!--							<i class="bi bi-exclamation-triangle-fill"></i>-->
-				<!--							{{ 'keyword.capitalize.warning' | translate }}-->
-				<!--						</div>-->
-				<!--						<div>-->
-				<!--							{{ 'order.form.payment.payer.case.new.hint' | translate }}-->
-				<!--						</div>-->
-				<!--					</div>-->
-
-				<!--					<div slot="banner" customer-type="unregistered"-->
-				<!--						 class="bg-beeColor-100 border-2 px-3 py-2 rounded-lg text-beeColor-600 text-sm flex flex-col">-->
-				<!--						<div class="font-bold">-->
-				<!--							<i class="bi bi-exclamation-triangle-fill"></i>-->
-				<!--							{{ 'keyword.capitalize.warning' | translate }}-->
-				<!--						</div>-->
-				<!--						<div>-->
-				<!--							{{ 'order.form.payment.payer.case.unregistered.hint' | translate }}-->
-				<!--						</div>-->
-				<!--					</div>-->
-				<!--				</app-customer-type-customer-component>-->
+				<app-customer-list-ionic-component [customerForm]="customerForm" (doDone)="doDone($event)"/>
 			</ng-template>
 		</ion-popover>
 	`
@@ -95,7 +79,7 @@ import {
 export class CustomerChipComponent extends Reactive implements OnInit {
 
 	@Input()
-	public initialValue: RIMember | undefined = undefined;
+	public initialValue: ICustomer | undefined;
 
 	@Input()
 	public id: string = ObjectID().toHexString();
@@ -105,23 +89,27 @@ export class CustomerChipComponent extends Reactive implements OnInit {
 	@ViewChild('customerPopover')
 	public readonly customerPopover!: IonPopover;
 
+	readonly #changeDetectorRef = inject(ChangeDetectorRef);
+
 	public readonly customerForm = CustomerForm.create({
 		customerType: CustomerTypeEnum.anonymous
 	});
 
-	protected readonly customerTypeEnum = CustomerTypeEnum;
-
 	public ngOnInit() {
-
-		this.customerForm.valueChanges.pipe(this.takeUntil()).subscribe((value) => {
-			const rawValue = this.customerForm.getRawValue();
-			this.customerChanges.emit(rawValue);
-		});
-
+		if (this.initialValue) {
+			this.customerForm.patchValue(this.initialValue);
+			this.#changeDetectorRef.detectChanges();
+		}
 	}
 
-	protected doDone() {
+	protected readonly customerTypeEnum = CustomerTypeEnum;
+
+	protected doDone(save: boolean = true) {
 		if (this.customerForm.valid) {
+			if (save) {
+				const rawValue = this.customerForm.getRawValue();
+				this.customerChanges.emit(rawValue);
+			}
 			this.customerPopover.dismiss().then();
 		}
 	}

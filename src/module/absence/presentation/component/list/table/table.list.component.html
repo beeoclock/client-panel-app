@@ -60,58 +60,59 @@
     </div>
     <!-- Column Cell	-->
     <div tableBodyFlex>
-        <div tableRowFlex="body" (click)="doubleClick(item)"
-             *ngFor="let item of tableState.items; trackBy: trackById">
-            <div tableColumnFlex="type">
+		@for (item of tableState.items; track item._id) {
+			<div tableRowFlex="body" (click)="doubleClick(item)">
+				<div tableColumnFlex="type">
 				<span [title]="item.type" class="truncate">
 					{{ ('absence.type.' + item.type + '.label') | translate }}
 				</span>
-            </div>
-            <div tableColumnFlex="start" #startColumn
-                 [attr.data-value]="(item.start ? (item.start | dynamicDate) : null) ?? 'Invalid Time'">
+				</div>
+				<div tableColumnFlex="start" #startColumn
+					 [attr.data-value]="(item.start ? (item.start | dynamicDate) : null) ?? 'Invalid Time'">
 				<span [title]="startColumn.getAttribute('data-value')" class="truncate">
 					{{ startColumn.getAttribute('data-value') }}
 				</span>
-            </div>
-            <div tableColumnFlex="end" #endColumn
-                 [attr.data-value]="(item.end ? (item.end | dynamicDate) : null) ?? 'Invalid Time'">
+				</div>
+				<div tableColumnFlex="end" #endColumn
+					 [attr.data-value]="(item.end ? (item.end | dynamicDate) : null) ?? 'Invalid Time'">
 				<span [title]="endColumn.getAttribute('data-value')" class="truncate">
 					{{ endColumn.getAttribute('data-value') }}
 				</span>
-            </div>
-            <div tableColumnFlex="attendees">
-                <ng-container *ngIf="item.entireBusiness; else MembersTemplate">
-                    {{ 'absence.form.inputs.entireBusiness.label' | translate }}
-                </ng-container>
-                <ng-template #MembersTemplate>
-                    {{ item?.members?.length ?? 0 }}
-                </ng-template>
-            </div>
-            <div tableColumnFlex="note">
+				</div>
+				<div tableColumnFlex="attendees">
+					<ng-container *ngIf="item.entireBusiness; else MembersTemplate">
+						{{ 'absence.form.inputs.entireBusiness.label' | translate }}
+					</ng-container>
+					<ng-template #MembersTemplate>
+						{{ item?.members?.length ?? 0 }}
+					</ng-template>
+				</div>
+				<div tableColumnFlex="note">
 				<span [title]="item.note" class="truncate">
 					{{ item.note | noData }}
 				</span>
-            </div>
-            <div tableColumnFlex="active">
-                <div activeStyle [active]="item.active">
-                </div>
-            </div>
-            <div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
+				</div>
+				<div tableColumnFlex="active">
+					<div activeStyle [active]="item.active">
+					</div>
+				</div>
+				<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
 				<span [title]="createdAtColumn.getAttribute('data-value')" class="truncate">
 					{{ createdAtColumn.getAttribute('data-value') }}
 				</span>
-            </div>
-            <div tableColumnFlex="updatedAt" #updatedAtColumn [attr.data-value]="item.updatedAt | dynamicDate">
+				</div>
+				<div tableColumnFlex="updatedAt" #updatedAtColumn [attr.data-value]="item.updatedAt | dynamicDate">
 				<span [title]="updatedAtColumn.getAttribute('data-value')" class="truncate">
 					{{ updatedAtColumn.getAttribute('data-value') }}
 				</span>
-            </div>
-            <div tableColumnFlex="action" class="border-l sticky right-0">
-                <app-absence-row-action-button-component
-                        [item]="item"
-                        [id]="item._id"/>
-            </div>
-        </div>
+				</div>
+				<div tableColumnFlex="action" class="border-l sticky right-0">
+					<app-absence-row-action-button-component
+						[item]="item"
+						[id]="item._id"/>
+				</div>
+			</div>
+		}
     </div>
 </div>
 <utility-table-state-pagination-component

@@ -1,4 +1,4 @@
-import {inject, Injectable} from "@angular/core";
+import {inject, Injectable, Renderer2} from "@angular/core";
 import {DOCUMENT} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
 import {IEvent} from "@event/domain";
@@ -11,6 +11,7 @@ export class DataCalendarDomManipulationService {
 
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
+	private readonly renderer2 = inject(Renderer2);
 	private readonly document = inject(DOCUMENT);
 
 	private DOMElementCollection: Map<string, HTMLDivElement> = new Map<string, HTMLDivElement>();
@@ -262,26 +263,26 @@ export class DataCalendarDomManipulationService {
 
 		newDiv.childNodes.forEach((node) => {
 			if (node instanceof HTMLDivElement) {
-				node.addEventListener('click', (mouseClickEvent) => {
+				this.renderer2.listen(node, 'click', (mouseClickEvent) => {
 					this.openEventDetails(event);
 					mouseClickEvent.stopPropagation();
 					mouseClickEvent.preventDefault();
 				});
 
-				node.addEventListener('mouseenter', () => {
+				this.renderer2.listen(node, 'mouseenter', () => {
 					newDiv.classList.add('z-20');
 				});
 
-				node.addEventListener('mouseleave', () => {
+				this.renderer2.listen(node, 'mouseleave', () => {
 					newDiv.classList.remove('z-20');
 				});
 
 				// Only if clientHeight is less than scrollHeight
 				if (node.clientHeight < node.scrollHeight) {
-					node.addEventListener('mouseenter', () => {
+					this.renderer2.listen(node, 'mouseenter', () => {
 						node.style.height = 'auto';
 					});
-					node.addEventListener('mouseleave', () => {
+					this.renderer2.listen(node, 'mouseleave', () => {
 						node.style.height = heightInPx + 'px';
 					});
 				}
@@ -315,7 +316,6 @@ export class DataCalendarDomManipulationService {
 	}
 
 	private async openEventDetails(event: IEvent) {
-		console.log('open', event._id)
 		// this.store.dispatch(new EventActions.OpenDetailsById(event._id));
 	}
 

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
 import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone";
 import {NgForOf} from "@angular/common";
 import ObjectID from "bson-objectid";
@@ -27,29 +27,33 @@ import {RILanguageVersion} from "@service/domain";
 				{{ languageCodeFormControl.value }}
 			</div>
 		</button>
-		<ion-popover #selectLanguageVersionPopover [trigger]="'select-language-version-' + id">
+		<ion-popover [trigger]="'select-language-version-' + id">
 			<ng-template>
 				<ion-list>
-					<ion-item [button]="true" lines="full" [detail]="false"
-							  *ngFor="let languageVersion of languageVersions"
-							  (click)="languageCodeFormControl.setValue(languageVersion.language);selectLanguageVersionPopover.dismiss()">
-						<ion-label class="uppercase">{{ languageVersion.language }}</ion-label>
-					</ion-item>
+					@for (languageVersion of languageVersions; track languageVersion.language) {
+						<ion-item [button]="true" lines="full" [detail]="false"
+								  (click)="select(languageVersion.language)">
+							<ion-label class="uppercase">{{ languageVersion.language }}</ion-label>
+						</ion-item>
+					}
 				</ion-list>
 			</ng-template>
 		</ion-popover>
 	`
 })
-export class LanguageChipComponent extends Reactive implements OnInit {
+export default class LanguageChipComponent extends Reactive implements OnInit {
 
 	@Input({required: true})
 	public initialValue!: LanguageCodeEnum;
 
-	@Input({ required: true })
+	@Input({required: true})
 	public languageVersions: RILanguageVersion[] = [];
 
 	@Input()
 	public id: string = ObjectID().toHexString();
+
+	@ViewChild(IonPopover)
+	public selectLanguageVersionPopover!: IonPopover;
 
 	public readonly languageCodeFormControl = new FormControl<LanguageCodeEnum>(this.initialValue, {
 		nonNullable: true,
@@ -57,6 +61,11 @@ export class LanguageChipComponent extends Reactive implements OnInit {
 
 	public ngOnInit() {
 		this.languageCodeFormControl.setValue(this.initialValue);
+	}
+
+	public select(language: LanguageCodeEnum) {
+		this.languageCodeFormControl.setValue(language);
+		this.selectLanguageVersionPopover.dismiss().then();
 	}
 
 }

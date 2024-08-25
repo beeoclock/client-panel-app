@@ -14,10 +14,12 @@ import {DateTime} from "luxon";
 		<div class="flex flex-wrap gap-1">
 			<div class="w-full flex justify-between">
 				<div class="text-xs dark:text-sky-100">
-<!--					{{ event.start | date: 'HH:mm' }} - {{ event.end | date: 'HH:mm' }}-->
 					{{ startEndTitle }}
 				</div>
-				<div class="dark:text-sky-100 absolute right-2">
+				<div class="dark:text-sky-100 absolute right-2 gap-2 flex">
+					@if(event.note){
+						<i [title]="event.note" class="bi bi-chat-text"></i>
+					}
 					<i class="bi bi-cup-hot-fill"></i>
 				</div>
 			</div>
@@ -28,14 +30,10 @@ import {DateTime} from "luxon";
 		<div class="text-xs font-medium">
 			{{ ('absence.type.' + event.originalData.type + '.label') | translate }}
 		</div>
-		<div *ngIf="event.note" class="text-xs font-medium">
-			📓 {{ event.note }}
-		</div>
 	`,
 	standalone: true,
 	imports: [
 		DatePipe,
-		NgIf,
 		TranslateModule,
 	],
 	encapsulation: ViewEncapsulation.None,
