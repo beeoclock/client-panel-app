@@ -114,6 +114,9 @@ export class CardItemOrderComponent implements OnInit {
 	showSelectedStatus: boolean = false;
 
 	@HostBinding()
+	public id!: string;
+
+	@HostBinding()
 	public class = 'min-w-[340px] w-[340px]';
 
 	public baseCurrency!: CurrencyCodeEnum;
@@ -131,6 +134,7 @@ export class CardItemOrderComponent implements OnInit {
 	}
 
 	public ngOnInit() {
+		this.id = this.orderDto._id;
 		this.totalAmount = this.amount(this.orderDto.services);
 		this.baseCurrency = this.orderDto.services[0].serviceSnapshot?.durationVersions?.[0]?.prices?.[0]?.currency ?? CurrencyCodeEnum.USD;
 	}
