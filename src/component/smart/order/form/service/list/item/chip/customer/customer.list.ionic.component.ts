@@ -107,7 +107,7 @@ import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.
 
 				@case (customerTypeEnum.anonymous) {
 
-					<div class="p-4 max-w-xs min-w-[20rem]">
+					<div class="p-4 min-w-[20rem]">
 						<div class="text-2xl font-bold">
 							{{ 'keyword.capitalize.anonymous' | translate }}
 						</div>
@@ -118,17 +118,17 @@ import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.
 				}
 				@case (customerTypeEnum.new) {
 					<app-event-form-attendant-component
-						class="p-4 block max-w-xs min-w-[20rem]"
+						class="p-4 block min-w-[20rem]"
 						[form]="localCustomerForm"/>
 				}
 				@case (customerTypeEnum.unregistered) {
 					<app-event-names-form-attendant-component
-						class="p-4 max-w-xs min-w-[20rem]"
+						class="p-4 min-w-[20rem]"
 						[form]="localCustomerForm"/>
 				}
 				@case (customerTypeEnum.regular) {
 
-					<div class="max-w-xs min-w-[20rem] max-h-full">
+					<div class="min-w-[20rem] max-h-full">
 						<ion-searchbar
 							[debounce]="1000"
 							(ionInput)="handleInput($event)"
@@ -201,17 +201,17 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 		this.initLocalFormValue();
 	}
 
-	async handleInput(event: any) {
+	public async handleInput(event: any) {
 		const query = event.target.value.toLowerCase();
 		await this.eventListCustomerAdapter.filterByPhrase(query).getPageAsync();
 		this.changeDetectorRef.detectChanges();
 	}
 
-	select(customer: ICustomer) {
+	public select(customer: ICustomer) {
 		this.selectedCustomer = customer;
 	}
 
-	isChecked(customer: ICustomer) {
+	public isChecked(customer: ICustomer) {
 		if (!this.selectedCustomer) return false;
 		return this.selectedCustomer._id === customer._id;
 	}
@@ -247,6 +247,7 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 	protected changeCustomerType() {
 		this.selectedCustomer = undefined;
 		this.clearForm();
+		this.changeDetectorRef.detectChanges();
 	}
 
 	protected clearForm() {
