@@ -107,7 +107,7 @@ import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.
 
 				@case (customerTypeEnum.anonymous) {
 
-					<div class="p-4 min-w-[20rem]">
+					<div class="p-4 max-w-xs min-w-[20rem]">
 						<div class="text-2xl font-bold">
 							{{ 'keyword.capitalize.anonymous' | translate }}
 						</div>
@@ -209,6 +209,7 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 
 	public select(customer: ICustomer) {
 		this.selectedCustomer = customer;
+		this.changeDetectorRef.detectChanges();
 	}
 
 	public isChecked(customer: ICustomer) {
@@ -236,11 +237,13 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 		if (this.localCustomerForm.invalid && !this.selectedCustomer) return;
 		if (JSON.stringify(this.localCustomerForm.value) === JSON.stringify(this.customerForm().value)) {
 			this.doDone.emit(false);
+			this.changeDetectorRef.detectChanges();
 			return;
 		}
 
 		this.initFormValue();
 		this.doDone.emit(true);
+		this.changeDetectorRef.detectChanges();
 
 	}
 
