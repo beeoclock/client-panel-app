@@ -27,22 +27,22 @@ import {
 		TableStatePaginationComponent
 	],
 	template: `
-		@for (dateItem of (items | keyvalue); track dateItem.key) {
+		@for (dateItem of itemsWithDate; track dateItem[0]) {
 			<div class="flex flex-col">
 				<div class="ps-8 p-4 bg-beeColor-200 text-beeColor-600 sticky top-0">
 					<div class="flex gap-4 items-center">
-						<div class="text-xl font-bold flex-1">{{ getDateCorrectFormat(dateItem.key) }}
-							, {{ getDayNameByDate(dateItem.key) }}
+						<div class="text-xl font-bold flex-1">{{ getDateCorrectFormat(dateItem[0]) }}
+							, {{ getDayNameByDate(dateItem[0]) }}
 						</div>
 						<div class="flex flex-wrap">
 							<div>
-								{{ todayOrAgo(dateItem.key) }}
+								{{ todayOrAgo(dateItem[0]) }}
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="flex flex-wrap p-4 pb-8 pt-4 gap-4">
-					@for (item of dateItem.value; track item._id) {
+					@for (item of dateItem[1]; track item._id) {
 						<app-card-item-order-component
 							[showAction]="(showAction.state$ | async) ?? false"
 							[showSelectedStatus]="(showSelectedStatus.state$ | async) ?? false"
@@ -62,9 +62,7 @@ import {
 export class ListOfCardCollectionByDateComponent extends TableComponent<IOrderDto> {
 
 	@Input({required: true})
-	public items: {
-		[key: string]: IOrderDto[]
-	} = {};
+	public itemsWithDate: [string, IOrderDto[]][] = [];
 
 	public readonly showAction = new BooleanStreamState(true);
 	public readonly showSelectedStatus = new BooleanStreamState(false);

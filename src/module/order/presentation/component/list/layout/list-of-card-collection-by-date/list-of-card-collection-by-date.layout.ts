@@ -39,6 +39,7 @@ import {CardItemOrderComponent} from "@order/presentation/component/list/card/it
 import {
 	ListOfCardCollectionByDateComponent
 } from "@order/presentation/component/list/list-of-card-collection-by-date/list-of-card-collection-by-date.component";
+import {ITableState} from "@utility/domain/table.state";
 
 @Component({
 	selector: 'order-list-of-card-collection-by-date-layout',
@@ -78,28 +79,40 @@ import {
 })
 export class ListOfCardCollectionByDateLayout extends LayoutListComponent<IOrderDto> implements OnChanges {
 
-	public items: { [key: string]: IOrderDto[] } = {};
+	public readonly mapOfItems: Map<string, IOrderDto[]> = new Map<string, IOrderDto[]>();
+	public itemsWithDate: [string, IOrderDto[]][] = [];
+	private previousTableState: ITableState<IOrderDto> | undefined;
 
 	public ngOnChanges(changes: SimpleChanges & { tableState: SimpleChange }) {
 
 		this.ngxLogger.debug('ListOfCardCollectionByDateLayout:changes', changes);
 
 		if (changes.tableState?.currentValue) {
-			const {items} = changes.tableState.currentValue as { items: IOrderDto[] };
-			this.items = items.reduce((acc, item) => {
+
+			const currentTableState = changes.tableState.currentValue as ITableState<IOrderDto>;
+
+			console.log({
+				currentTableState,
+				previousTableState: this.previousTableState
+			})
+
+			// Check if the tableState is not the same as the previous one
+			if (this.previousTableState && this.previousTableState.page === currentTableState.page && this.previousTableState.items.length === currentTableState.items.length) {
+				console.log('Same page');
+				return;
+			}
+
+			const {items} = currentTableState;
+			items.forEach((item) => {
 				const dateTime = DateTime.fromISO(item.createdAt);
 				const dateKey = dateTime.toFormat('yyyy-MM-dd');
-				// const timeKey = dateTime.toFormat('HH:mm');
-				if (!acc[dateKey]) {
-					acc[dateKey] = [];
-				}
-				// const timeGroup = dateGroup[timeKey] ?? [];
-				// timeGroup.push(item);
-				// dateGroup[timeKey] = timeGroup;
+				this.mapOfItems.set(dateKey, (this.mapOfItems.get(dateKey) || []).concat(item));
+			});
+			this.itemsWithDate = Array.from(this.mapOfItems.entries());
+			console.log('this.itemsWithDate', this.itemsWithDate)
 
-				acc[dateKey].push(item);
-				return acc;
-			}, {} as { [key: string]: IOrderDto[] });
+			this.previousTableState = currentTableState as ITableState<IOrderDto>;
+
 		}
 
 		this.changeDetectorRef.detectChanges();

@@ -113,7 +113,8 @@ export abstract class BaseState<ITEM extends IBaseEntity<string>> {
 
 		const newTableState = TableState.fromCache({
 			...state.tableState,
-			...payload
+			...payload,
+			items: []
 		});
 
 		ctx.patchState({
@@ -386,7 +387,6 @@ export abstract class BaseState<ITEM extends IBaseEntity<string>> {
 			this.ngxLogger.debug('Table state: ', newTableState);
 
 			ctx.patchState({
-				...state,
 				tableState: newTableState.toCache(),
 				lastTableHashSum: newTableState.hashSum
 			});

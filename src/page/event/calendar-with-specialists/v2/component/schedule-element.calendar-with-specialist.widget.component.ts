@@ -117,7 +117,7 @@ export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reacti
 				this.scrollInitialized.switchOn();
 
 				this.calendar?.scrollTo({
-					top: scheduleElements.first.nativeElement.offsetTop - this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx,
+					top: (scheduleElements?.first?.nativeElement?.offsetTop ?? 0) - this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx,
 				})
 
 			});

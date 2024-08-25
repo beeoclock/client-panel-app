@@ -91,7 +91,7 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnIni
 				control: ServiceOrderForm.create(orderServiceDto),
 				setupPartialData: {
 					defaultAppointmentStartDateTimeIso: orderServiceDto.orderAppointmentDetails.start,
-					defaultMemberForService: orderServiceDto.orderAppointmentDetails.specialists[0].member
+					defaultMemberForService: orderServiceDto?.orderAppointmentDetails?.specialists?.[0]?.member
 				}
 			});
 		});
