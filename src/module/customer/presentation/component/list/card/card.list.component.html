@@ -12,11 +12,6 @@
 						</div>
 					</div>
 				</div>
-				<!--			<div (click)="singleClick(item)" class="flex items-center gap-2 w-full">-->
-				<!--				<div [class.text-red-700]="!item.active" [class.text-green-700]="item.active">-->
-				<!--					{{ (item.active ? 'keyword.capitalize.active' : 'keyword.capitalize.inactive' ) | translate }}-->
-				<!--				</div>-->
-				<!--			</div>-->
 				<customer-row-action-button-component
 					*ngIf="showAction.state$ | async"
 					[item]="item"
@@ -33,26 +28,6 @@
 				{{ item.email | noData }}
 			</div>
 			<div>{{ item.phone | noData }}</div>
-			<!--		<div class="flex justify-between">-->
-			<!--			<div class="flex-1">-->
-			<!--				<div>-->
-			<!--					{{ 'keyword.capitalize.email' | translate }}-->
-			<!--				</div>-->
-			<!--				<div class="font-bold">-->
-			<!--					{{ item.email | noData }}-->
-			<!--				</div>-->
-			<!--			</div>-->
-			<!--		</div>-->
-			<!--		<div class="flex justify-between">-->
-			<!--			<div class="flex-1">-->
-			<!--				<div>-->
-			<!--					{{ 'keyword.capitalize.phone' | translate }}-->
-			<!--				</div>-->
-			<!--				<div class="font-bold">-->
-			<!--					{{ item.phone | noData }}-->
-			<!--				</div>-->
-			<!--			</div>-->
-			<!--		</div>-->
 		</bee-card>
 	}
 </div>

@@ -13,11 +13,6 @@
 						</div>
 					</div>
 				</div>
-				<!--			<div (click)="singleClick(item)" class="flex items-center gap-2 w-full">-->
-				<!--				<div [class.text-red-700]="!item.active" [class.text-green-700]="item.active">-->
-				<!--					{{ (item.active ? 'keyword.capitalize.active' : 'keyword.capitalize.inactive' ) | translate }}-->
-				<!--				</div>-->
-				<!--			</div>-->
 				<app-absence-row-action-button-component
 					*ngIf="tableService.showAction.state$ | async"
 					[item]="item"

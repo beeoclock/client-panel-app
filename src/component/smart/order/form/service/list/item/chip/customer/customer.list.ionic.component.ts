@@ -193,7 +193,6 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 	protected selectedCustomer: ICustomer | undefined;
 
 	public ngOnInit() {
-		console.log('CustomerListIonicComponent:ngOnInit', this.customerForm().value);
 		if (!this.eventListCustomerAdapter.tableState.items.length) {
 			this.eventListCustomerAdapter.resetTableState().getPageAsync().then(() => {
 				this.changeDetectorRef.detectChanges();
