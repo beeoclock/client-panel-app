@@ -69,7 +69,6 @@ export class DurationChipComponent extends Reactive implements OnInit, OnChanges
 	public readonly duration = signal<number>(0);
 
 	public ngOnChanges(changes: SimpleChanges & { initialValue: SimpleChange }) {
-		console.log('changes', changes);
 		if (changes.initialValue) {
 			this.initFormControlValue(changes.initialValue.currentValue);
 		}

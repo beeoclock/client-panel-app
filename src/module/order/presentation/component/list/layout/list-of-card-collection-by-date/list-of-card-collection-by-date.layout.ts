@@ -1,30 +1,17 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
+	inject,
 	OnChanges,
+	OnInit,
 	SimpleChange,
 	SimpleChanges,
 	ViewEncapsulation
 } from "@angular/core";
-import {AsyncPipe, CurrencyPipe, DatePipe, KeyValuePipe, NgForOf, NgIf} from "@angular/common";
-import {FirstKeyNameModule} from "@utility/presentation/pipes/first-key-name/first-key-name.module";
+import {CurrencyPipe} from "@angular/common";
 import {DateTime} from "luxon";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
-import {
-	ChangeStatusOnAcceptedComponent
-} from "@event/presentation/component/change-status/change-status-on-accepted.component";
-import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
-import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {TranslateModule} from "@ngx-translate/core";
-import {
-	ChangeStatusOnRejectedComponent
-} from "@event/presentation/component/change-status/change-status-on-rejected.component";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
-import {
-	AttendeeCardComponent
-} from "@event/presentation/component/requsted/list-of-card-collection-by-date/attendee-card/attendee.card.component";
 import {FilterComponent} from "@order/presentation/component/filter/filter.component";
 import LayoutListComponent from "@utility/layout.list.component";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
@@ -34,12 +21,12 @@ import {
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
-import {TableListComponent} from "@order/presentation/component/list/table/table.list.component";
-import {CardItemOrderComponent} from "@order/presentation/component/list/card/item/card.item.order.component";
 import {
 	ListOfCardCollectionByDateComponent
 } from "@order/presentation/component/list/list-of-card-collection-by-date/list-of-card-collection-by-date.component";
 import {ITableState} from "@utility/domain/table.state";
+import {Actions, ofActionSuccessful} from '@ngxs/store';
+import {OrderActions} from "@order/state/order/order.actions";
 
 @Component({
 	selector: 'order-list-of-card-collection-by-date-layout',
@@ -48,40 +35,42 @@ import {ITableState} from "@utility/domain/table.state";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
-		NgForOf,
-		AsyncPipe,
-		FirstKeyNameModule,
-		KeyValuePipe,
-		NgIf,
-		CardComponent,
-		ActionComponent,
-		ChangeStatusOnAcceptedComponent,
-		CurrencyPipe,
-		DatePipe,
-		EventStatusStyleDirective,
-		HumanizeDurationPipe,
-		NoDataPipe,
-		TranslateModule,
-		ChangeStatusOnRejectedComponent,
-		AttendeeCardComponent,
-		FilterComponent,
-		FilterComponent,
-		AutoRefreshButtonComponent,
 		NotFoundTableDataComponent,
-		TableListComponent,
-		CardItemOrderComponent,
+		AutoRefreshButtonComponent,
 		ListOfCardCollectionByDateComponent,
+		FilterComponent,
+		TranslateModule
 	],
 	providers: [
 		CurrencyPipe,
 		DurationVersionHtmlHelper,
 	],
 })
-export class ListOfCardCollectionByDateLayout extends LayoutListComponent<IOrderDto> implements OnChanges {
+export class ListOfCardCollectionByDateLayout extends LayoutListComponent<IOrderDto> implements OnChanges, OnInit {
 
 	public readonly mapOfItems: Map<string, IOrderDto[]> = new Map<string, IOrderDto[]>();
 	public itemsWithDate: [string, IOrderDto[]][] = [];
 	private previousTableState: ITableState<IOrderDto> | undefined;
+
+	private readonly actions$ = inject(Actions);
+
+	public ngOnInit() {
+		// Handle store action on delete order
+		this.actions$
+			.pipe(
+				this.takeUntil(),
+				ofActionSuccessful(OrderActions.DeleteItem)
+			).subscribe((result) => {
+			this.mapOfItems.forEach((value, key) => {
+				const index = value.findIndex((item) => item._id === result.payload);
+				if (index !== -1) {
+					value.splice(index, 1);
+					this.mapOfItems.set(key, value);
+					this.itemsWithDate = Array.from(this.mapOfItems.entries());
+				}
+			});
+		});
+	}
 
 	public ngOnChanges(changes: SimpleChanges & { tableState: SimpleChange }) {
 
@@ -91,14 +80,8 @@ export class ListOfCardCollectionByDateLayout extends LayoutListComponent<IOrder
 
 			const currentTableState = changes.tableState.currentValue as ITableState<IOrderDto>;
 
-			console.log({
-				currentTableState,
-				previousTableState: this.previousTableState
-			})
-
 			// Check if the tableState is not the same as the previous one
 			if (this.previousTableState && this.previousTableState.page === currentTableState.page && this.previousTableState.items.length === currentTableState.items.length) {
-				console.log('Same page');
 				return;
 			}
 
@@ -109,7 +92,6 @@ export class ListOfCardCollectionByDateLayout extends LayoutListComponent<IOrder
 				this.mapOfItems.set(dateKey, (this.mapOfItems.get(dateKey) || []).concat(item));
 			});
 			this.itemsWithDate = Array.from(this.mapOfItems.entries());
-			console.log('this.itemsWithDate', this.itemsWithDate)
 
 			this.previousTableState = currentTableState as ITableState<IOrderDto>;
 

@@ -316,7 +316,6 @@ export class DataCalendarDomManipulationService {
 	}
 
 	private async openEventDetails(event: IEvent) {
-		console.log('open', event._id)
 		// this.store.dispatch(new EventActions.OpenDetailsById(event._id));
 	}
 

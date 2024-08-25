@@ -268,9 +268,8 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 					})
 				)
 			}),
-			switchMap(() => this.store.dispatch(new CalendarWithSpecialistsAction.GetItems())),
 		).subscribe(() => {
-			console.log('orderServiceStatusControl.valueChanges')
+			this.store.dispatch(new CalendarWithSpecialistsAction.GetItems())
 		});
 
 	}
