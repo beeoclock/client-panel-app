@@ -3,7 +3,7 @@ import {
 	ChangeDetectorRef,
 	Component,
 	inject,
-	input,
+	Input,
 	OnInit,
 	output,
 	ViewEncapsulation
@@ -181,7 +181,8 @@ import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.
 })
 export class CustomerListIonicComponent extends Reactive implements OnInit {
 
-	public customerForm = input.required<CustomerForm>();
+	@Input({ required: true })
+	public customerForm!: CustomerForm;
 	public readonly doDone = output<boolean>();
 
 	protected readonly store = inject(Store);
@@ -219,14 +220,14 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 
 	private initFormValue() {
 		if (this.selectedCustomer) {
-			this.customerForm().patchValue(this.selectedCustomer);
+			this.customerForm.patchValue(this.selectedCustomer);
 			return;
 		}
-		this.customerForm().patchValue(this.localCustomerForm.value);
+		this.customerForm.patchValue(this.localCustomerForm.value);
 	}
 
 	private initLocalFormValue() {
-		this.localCustomerForm.patchValue(this.customerForm().value);
+		this.localCustomerForm.patchValue(this.customerForm.value);
 		if (this.localCustomerForm.value.customerType === CustomerTypeEnum.regular) {
 			this.selectedCustomer = this.localCustomerForm.getRawValue();
 		}
@@ -235,7 +236,8 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 	protected done() {
 
 		if (this.localCustomerForm.invalid && !this.selectedCustomer) return;
-		if (JSON.stringify(this.localCustomerForm.value) === JSON.stringify(this.customerForm().value)) {
+
+		if (JSON.stringify(this.localCustomerForm.value) === JSON.stringify(this.customerForm.value)) {
 			this.doDone.emit(false);
 			this.changeDetectorRef.detectChanges();
 			return;
@@ -254,7 +256,7 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 	}
 
 	protected clearForm() {
-		this.customerForm().patchValue({
+		this.customerForm.patchValue({
 			_id: ObjectID().toHexString(),
 			firstName: null,
 			lastName: null,
