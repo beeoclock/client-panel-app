@@ -153,6 +153,9 @@ export class WhacAMole extends Reactive implements OnInit {
 		whacAMoleWrapperComponentRef.setInput('updateSelfAfter', (componentInputs: Record<string, unknown> | undefined) => {
 			callback?.on?.update?.after?.(componentInputs);
 		});
+		whacAMoleWrapperComponentRef.onDestroy(() => {
+			this.destroyComponent(selector);
+		});
 
 		if (button) {
 			whacAMoleWrapperComponentRef.setInput('button', button);
