@@ -3,7 +3,7 @@
 
 		<div class="flex justify-between items-center">
 			<utility-logout-component *ngIf="!(tenantId$ | async)"/>
-			<utility-back-link-component *ngIf="(tenantId$ | async)" [url]="pathToMainAuthorizedPageWithTenantId" />
+			<utility-back-link-component *ngIf="(tenantId$ | async)" [url]="backPath" />
 			<utility-change-language-component/>
 		</div>
 		<ul class="flex flex-col mt-4">

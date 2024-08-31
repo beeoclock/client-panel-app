@@ -68,7 +68,7 @@ export default class WrapperPanelComponent extends Reactive implements AfterView
 	private readonly document = inject(DOCUMENT);
 	public readonly getFrontendSettingsAccountApiAdapter = inject(GetFrontendSettingsAccountApiAdapter);
 	private readonly store = inject(Store);
-	private readonly logger = inject(NGXLogger);
+	private readonly ngxLogger = inject(NGXLogger);
 	private readonly themeService = inject(ThemeService);
 	private readonly translateService = inject(TranslateService);
 
@@ -95,7 +95,9 @@ export default class WrapperPanelComponent extends Reactive implements AfterView
 		this.initAccountFrontendSettings();
 
 		this.businessProfile$.pipe(this.takeUntil()).subscribe((businessProfile) => {
-			if (!businessProfile) { return; }
+			if (!businessProfile) {
+				return;
+			}
 			const {bookingSettings} = businessProfile;
 			const {autoBookOrder} = bookingSettings;
 			is.false(autoBookOrder) && this.initEventRequested();
@@ -138,7 +140,7 @@ export default class WrapperPanelComponent extends Reactive implements AfterView
 		if (!this.checkerTimer) {
 			this.checkerTimer = setTimeout(() => {
 				if (this.isUserOnWebSite) {
-					this.logger.info(WrapperPanelComponent.name, 'initNotificationChecker', 'TODO: IMPLEMENT REQUEST TO GET NOTIFICATION!')
+					this.ngxLogger.info(WrapperPanelComponent.name, 'initNotificationChecker', 'TODO: IMPLEMENT REQUEST TO GET NOTIFICATION!')
 				}
 
 				this.clearNotificationChecker();
