@@ -1,4 +1,6 @@
 import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
 	Component,
 	inject,
 	input,
@@ -52,6 +54,7 @@ import {FormsModule} from "@angular/forms";
 		FormsModule,
 	],
 	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form class="flex flex-col gap-4 bg-white">
 
@@ -107,6 +110,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
+	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
 	private readonly createOrderApiAdapter = inject(CreateOrderApiAdapter);
 	private readonly createPaymentApiAdapter = inject(CreatePaymentApiAdapter);
@@ -189,10 +193,13 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 
 	private patchOrderValue(orderDto: SimpleChange) {
 		const {currentValue} = orderDto as { currentValue: IOrderDto };
+		console.log('currentValue', currentValue);
 		this.form.controls.order.patchValue(currentValue);
 		currentValue.services?.forEach((service) => {
 			this.form.controls.order.controls.services.pushNewOne(service);
 		});
+		console.log('form', this.form);
+		this.changeDetectorRef.detectChanges();
 	}
 
 }

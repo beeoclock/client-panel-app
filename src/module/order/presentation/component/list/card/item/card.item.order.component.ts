@@ -67,18 +67,21 @@ import {CurrencyCodeEnum} from "@utility/domain/enum";
 							[id]="orderDto._id"/>
 					</div>
 
-					<div (click)="singleClick()" class=" cursor-pointer" *ngIf="showSelectedStatus">
-						<div
-							*ngIf="selectedIds.includes(orderDto._id)"
-							class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
-							{{ 'keyword.capitalize.selected' | translate }}
+					@if (showSelectedStatus) {
+						<div (click)="singleClick()" class=" cursor-pointer">
+							@if (selectedIds.includes(orderDto._id)) {
+								<div
+									class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
+									{{ 'keyword.capitalize.selected' | translate }}
+								</div>
+							} @else {
+								<div
+									class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">
+									{{ 'keyword.capitalize.select' | translate }}
+								</div>
+							}
 						</div>
-						<div
-							*ngIf="!selectedIds.includes(orderDto._id)"
-							class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">
-							{{ 'keyword.capitalize.select' | translate }}
-						</div>
-					</div>
+					}
 				</div>
 				<div class="flex flex-col gap-2 cursor-pointer">
 					<app-list-service-form-card-order-component
