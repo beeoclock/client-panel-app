@@ -13,6 +13,7 @@ import {
 } from "@client/presentation/component/business-profile/cover-image/image.cover-image.business-profile/image.cover-image.business-profile.component";
 import {NgForOf, NgIf} from "@angular/common";
 import {RIMedia} from "@module/media/domain/interface/i.media";
+import {MediaStateEnum} from "@utility/presentation/component/image/base.image.component";
 
 @Component({
 	selector: 'client-logo-business-profile-component',
@@ -42,7 +43,7 @@ export class LogoBusinessProfileComponent {
 
 	public async save(): Promise<void> {
 
-		if (this.imageLogoBusinessProfileComponent.mediaIsChanged.isOff) {
+		if (this.imageLogoBusinessProfileComponent.mediaState === MediaStateEnum.NOT_CHANGED) {
 			return;
 		}
 
@@ -54,7 +55,7 @@ export class LogoBusinessProfileComponent {
 		}
 		await this.patchMediaLogoClientApiAdapter.executeAsync(formData);
 
-		this.imageLogoBusinessProfileComponent.mediaIsChanged.switchOff();
+		this.imageLogoBusinessProfileComponent.mediaState = MediaStateEnum.NOT_CHANGED;
 
 	}
 
