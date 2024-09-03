@@ -14,8 +14,6 @@ import {
 	IonCheckbox,
 	IonContent,
 	IonHeader,
-	IonInfiniteScroll,
-	IonInfiniteScrollContent,
 	IonItem,
 	IonLabel,
 	IonList,
@@ -25,7 +23,6 @@ import {
 	IonSpinner,
 	IonToolbar
 } from "@ionic/angular/standalone";
-import {AsyncPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgTemplateOutlet} from "@angular/common";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 import {ReactiveFormsModule} from "@angular/forms";
 import {FormAttendantComponent} from "@event/presentation/component/form/attendees/attendant/form.attendant.component";
@@ -46,31 +43,23 @@ import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		IonList,
-		IonSearchbar,
-		IonItem,
-		IonLabel,
-		NgForOf,
-		IonAvatar,
-		IonCheckbox,
-		IonSegment,
-		IonSegmentButton,
-		IonContent,
 		IonHeader,
 		IonToolbar,
-		IonInfiniteScroll,
-		IonInfiniteScrollContent,
+		IonSegment,
+		IonSegmentButton,
+		IonLabel,
+		TranslateModule,
 		ReactiveFormsModule,
-		NgSwitch,
-		NgSwitchCase,
+		IonContent,
 		FormAttendantComponent,
 		NamesFormAttendantComponent,
-		TranslateModule,
-		AsyncPipe,
-		NgIf,
-		PrimaryButtonDirective,
-		NgTemplateOutlet,
-		IonSpinner
+		IonSearchbar,
+		IonList,
+		IonItem,
+		IonAvatar,
+		IonCheckbox,
+		IonSpinner,
+		PrimaryButtonDirective
 	],
 	template: `
 

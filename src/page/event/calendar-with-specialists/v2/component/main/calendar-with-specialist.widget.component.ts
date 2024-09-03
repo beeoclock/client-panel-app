@@ -24,7 +24,7 @@ import {
 import {firstValueFrom, map, switchMap} from "rxjs";
 import {IEvent_V2} from "@event/domain";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
-import {Store} from "@ngxs/store";
+import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
@@ -54,6 +54,8 @@ import {
 import {
 	EmptySlotCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/empty-slot.calendar-with-specialist.widget.component";
+import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'app-calendar-with-specialists-widget-component',
@@ -89,6 +91,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 	private readonly document = inject(DOCUMENT);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly translateService = inject(TranslateService);
+	private readonly actions$ = inject(Actions);
 
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
 	public readonly schedules$ = this.store.select(ClientState.schedules);
@@ -245,6 +248,17 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 			}, 0);
 		});
 
+		this.actions$
+			.pipe(
+				this.takeUntil(),
+				ofActionSuccessful(
+					AbsenceActions.DeleteItem,
+					OrderActions.DeleteItem,
+				)
+			).subscribe((result) => {
+				this.dispatchActionToUpdateCalendar();
+		});
+
 		this.store.select(CalendarWithSpecialistsQueries.params).pipe(
 			this.takeUntil(),
 		).subscribe((params) => {
@@ -285,6 +299,11 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 				this.findAndFixNearEventsWidthInEachColumn(column);
 			});
 		});
+	}
+
+	@Dispatch()
+	public dispatchActionToUpdateCalendar() {
+		return new CalendarWithSpecialistsAction.GetItems();
 	}
 
 	public async forceRefresh() {
