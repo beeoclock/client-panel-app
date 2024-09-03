@@ -1,5 +1,5 @@
 import hash_sum from "hash-sum";
-import {OrderByEnum, OrderDirEnum} from "./enum";
+import {ActiveEnum, OrderByEnum, OrderDirEnum} from "./enum";
 
 export interface ITableState<ITEM> {
 	hashSum: string;
@@ -8,7 +8,7 @@ export interface ITableState<ITEM> {
 	orderDir: OrderDirEnum;
 	filters: {
 		search?: string;
-		active?: string;
+		active?: string | ActiveEnum;
 		[key: string]: undefined | unknown;
 	};
 	page: number;
@@ -286,6 +286,19 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 		newObject.updateLastUpdate();
 
 		return newObject;
+
+	}
+
+	public static create<T>(initialValue: Partial<ITableState<T>> = {}) {
+
+		const tableState = new TableState<T>();
+
+		Object.assign(tableState, initialValue);
+
+		tableState.initHashSum();
+		tableState.updateLastUpdate();
+
+		return tableState;
 
 	}
 

@@ -4,6 +4,7 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {ListCustomerApiAdapter} from "@customer/adapter/external/api/list.customer.api.adapter";
 import * as Customer from "@customer/domain";
 import {NGXLogger} from "ngx-logger";
+import {ActiveEnum} from "@utility/domain/enum";
 
 @Injectable({
 	providedIn: 'root'
@@ -12,7 +13,11 @@ export class EventListCustomerAdapter {
 
 	private readonly logger = inject(NGXLogger);
 	public readonly listCustomerApiAdapter = inject(ListCustomerApiAdapter);
-	public readonly tableState = new TableState<Customer.ICustomer>();
+	public readonly tableState = TableState.create<Customer.ICustomer>({
+		filters: {
+			active: ActiveEnum.YES
+		}
+	});
 	public readonly loading$ = new BooleanStreamState(false);
 
 	public resetTableState() {
