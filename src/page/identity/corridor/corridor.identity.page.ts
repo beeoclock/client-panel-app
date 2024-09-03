@@ -20,6 +20,7 @@ import {BackLinkComponent} from "@utility/presentation/component/link/back.link.
 import {LAST_OPENED_TENANT_ID_MAP_BY_LOGIN, TENANT_ID} from "@src/token";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'app-identity-corridor-page',
@@ -64,20 +65,26 @@ export class CorridorIdentityPage extends Reactive implements OnInit {
 	public readonly members$ = this.clients$.pipe(
 		filter(Array.isArray),
 		tap((result) => {
-			if (!('force' in this.activatedRoute.snapshot.queryParams)) {
-				if (result.length === 0) {
-					this.gotToCreateBusinessPage({
-						firstCompany: true
-					}).then();
-				}
-			} else {
-				if ('firstCompany' in this.activatedRoute.snapshot.queryParams) {
-					if (result.length) {
-						this.select(result[0]).then();
-					}
-				}
+
+			const force = 'force' in this.activatedRoute.snapshot.queryParams;
+			const firstCompany = 'firstCompany' in this.activatedRoute.snapshot.queryParams;
+			const haveCompany = result.length > 0;
+			const needCreateCompany = !force && !haveCompany;
+			const selectFirstCompany = force && firstCompany && haveCompany;
+
+			if (needCreateCompany) {
+				this.gotToCreateBusinessPage({
+					firstCompany: true
+				}).then();
+				return;
 			}
+
+			if (selectFirstCompany) {
+				this.select(result[0]).then();
+			}
+
 			this.loader.switchOff();
+
 		})
 	);
 
@@ -142,10 +149,7 @@ export class CorridorIdentityPage extends Reactive implements OnInit {
 		this.store.dispatch(new AppActions.PageLoading(true)).pipe(
 			tap(() => {
 				const tenantId = member.client._id;
-				const lastOpenedTenantIdMapByLogin = this.lastOpenedTenantIdMapByLogin$.value;
-				lastOpenedTenantIdMapByLogin.set(this.accountEmail, tenantId);
-				localStorage.setItem('lastOpenedTenantIdMapByLogin', JSON.stringify(Array.from(lastOpenedTenantIdMapByLogin.entries())));
-				this.lastOpenedTenantIdMapByLogin$.next(lastOpenedTenantIdMapByLogin);
+				this.setLastOpenedTenantIdMapByLogin(tenantId);
 				this.tenantId$.next(tenantId);
 			}),
 			switchMap(() => this.tenantId$),
@@ -159,6 +163,11 @@ export class CorridorIdentityPage extends Reactive implements OnInit {
 			}
 		});
 
+	}
+
+	@Dispatch()
+	private setLastOpenedTenantIdMapByLogin(tenantId: string) {
+		return new AppActions.SetLastOpenedTenantIdMapByLogin(this.accountEmail, tenantId);
 	}
 
 }

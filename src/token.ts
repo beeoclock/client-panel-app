@@ -50,11 +50,17 @@ export const tokens = [
 	{
 		provide: LAST_OPENED_TENANT_ID_MAP_BY_LOGIN,
 		useFactory: () => {
-			const data = localStorage.getItem('lastOpenedTenantIdMapByLogin');
-			if (data) {
-				return new BehaviorSubject(new Map(JSON.parse(data)));
+			let mappedData = new Map();
+			try {
+				const data = localStorage.getItem('lastOpenedTenantIdMapByLogin');
+				if (data) {
+					const parsedData = JSON.parse(data);
+					mappedData = new Map(parsedData);
+				}
+			} catch (e) {
+				console.error(e);
 			}
-			return new BehaviorSubject(new Map());
+			return new BehaviorSubject(mappedData);
 		},
 	},
 	{
