@@ -107,7 +107,7 @@ import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.
 
 				@case (customerTypeEnum.anonymous) {
 
-					<div class="p-4 max-w-xs min-w-[20rem]">
+					<div class="p-3 max-w-xs min-w-[20rem]">
 						<div class="text-2xl font-bold">
 							{{ 'keyword.capitalize.anonymous' | translate }}
 						</div>
@@ -118,12 +118,12 @@ import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.
 				}
 				@case (customerTypeEnum.new) {
 					<app-event-form-attendant-component
-						class="p-4 block min-w-[20rem]"
+						class="p-3 block min-w-[20rem]"
 						[form]="localCustomerForm"/>
 				}
 				@case (customerTypeEnum.unregistered) {
 					<app-event-names-form-attendant-component
-						class="p-4 min-w-[20rem]"
+						class="p-3 min-w-[20rem]"
 						[form]="localCustomerForm"/>
 				}
 				@case (customerTypeEnum.regular) {
@@ -162,7 +162,7 @@ import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.
 
 						</ion-list>
 						@if (eventListCustomerAdapter.loading$.isTrue) {
-							<div class="p-4">
+							<div class="p-3">
 								<ion-spinner name="dots"></ion-spinner>
 							</div>
 						}
@@ -172,7 +172,7 @@ import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.
 			}
 
 		</ion-content>
-		<div class="px-4 pb-4 flex justify-between items-center sticky bottom-0">
+		<div class="px-3 pb-3 flex justify-between items-center sticky bottom-0">
 			<button primary (click)="done()">
 				{{ 'keyword.capitalize.done' | translate }}
 			</button>

@@ -10,7 +10,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {CustomerForm} from "@customer/presentation/form";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 import {
-    NamesFormAttendantComponent
+	NamesFormAttendantComponent
 } from "@event/presentation/component/form/attendees/attendant/names.form.attendant.component";
 
 @Component({
@@ -29,7 +29,7 @@ import {
     ],
     template: `
 
-        <div class="grid gap-4">
+        <div class="grid gap-3">
 
             <app-event-names-form-attendant-component [form]="form"/>
 

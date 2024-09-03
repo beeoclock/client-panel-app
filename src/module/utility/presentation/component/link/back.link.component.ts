@@ -8,12 +8,12 @@ import {WINDOW, WINDOW_PROVIDERS} from "@utility/cdk/window.provider";
   selector: 'utility-back-link-component',
   standalone: true,
   template: `
-    <a
+    <button
       (click)="navigateToBack()"
       #link link>
       <i class="bi bi-arrow-left me-2"></i>
       {{ 'keyword.capitalize.back' | translate }}
-    </a>
+    </button>
   `,
   imports: [
     RouterLink,

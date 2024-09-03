@@ -51,7 +51,7 @@ export class NamesFormAttendantComponent {
     public form!: CustomerForm;
 
     @HostBinding()
-    public readonly class = 'grid gap-4';
+    public readonly class = 'flex gap-3';
 
 
 }
