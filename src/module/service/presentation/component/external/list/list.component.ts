@@ -22,6 +22,7 @@ import {
 import {TableService} from "@utility/table.service";
 import {ServiceTableService} from "@service/presentation/component/list/service.table.service";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {OrderDirEnum} from "@utility/domain/enum";
 
 @Component({
 	selector: 'service-external-list-component',
@@ -53,6 +54,11 @@ export class ServiceExternalListComponent extends ListPage<IServiceDto> implemen
 
 	@ViewChildren(MobileLayoutListComponent)
 	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
+
+	public override readonly getListParams = {
+		orderBy: 'order',
+		orderDir: OrderDirEnum.ASC
+	};
 
 	public override ngOnInit() {
 		super.ngOnInit();

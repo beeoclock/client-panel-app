@@ -7,6 +7,7 @@ import {BehaviorSubject} from "rxjs";
 export const THEME = new InjectionToken<BehaviorSubject<ThemeEnum>>('THEME');
 export const ACCESS_TOKEN = new InjectionToken<BehaviorSubject<string | null>>('ACCESS_TOKEN');
 export const TENANT_ID = new InjectionToken<BehaviorSubject<string | null>>('TENANT_ID');
+export const LAST_OPENED_TENANT_ID_MAP_BY_LOGIN = new InjectionToken<BehaviorSubject<Map<string, string>>>('LAST_OPENED_TENANT_ID_MAP_BY_LOGIN');
 export const BASE_CURRENCY = new InjectionToken<BehaviorSubject<CurrencyCodeEnum | null>>('BASE_CURRENCY');
 
 export const SIDEBAR_ID = new InjectionToken<string>('SIDEBAR_ID');
@@ -45,6 +46,22 @@ export const tokens = [
 	{
 		provide: TENANT_ID,
 		useValue: new BehaviorSubject(null)
+	},
+	{
+		provide: LAST_OPENED_TENANT_ID_MAP_BY_LOGIN,
+		useFactory: () => {
+			let mappedData = new Map();
+			try {
+				const data = localStorage.getItem('lastOpenedTenantIdMapByLogin');
+				if (data) {
+					const parsedData = JSON.parse(data);
+					mappedData = new Map(parsedData);
+				}
+			} catch (e) {
+				console.error(e);
+			}
+			return new BehaviorSubject(mappedData);
+		},
 	},
 	{
 		provide: BASE_CURRENCY,
