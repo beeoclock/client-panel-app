@@ -129,6 +129,9 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		const {orderDto, paymentDto} = changes;
 		orderDto && this.patchOrderValue(orderDto);
 		paymentDto && this.form.controls.payment.patchValue(paymentDto.currentValue);
+		if (this.isEditMode()) {
+			this.updatePaymentFormWithOrderDto(orderDto.currentValue);
+		}
 		this.form.updateValueAndValidity();
 
 	}
@@ -193,13 +196,21 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 
 	private patchOrderValue(orderDto: SimpleChange) {
 		const {currentValue} = orderDto as { currentValue: IOrderDto };
-		console.log('currentValue', currentValue);
 		this.form.controls.order.patchValue(currentValue);
 		currentValue.services?.forEach((service) => {
 			this.form.controls.order.controls.services.pushNewOne(service);
 		});
-		console.log('form', this.form);
 		this.changeDetectorRef.detectChanges();
+	}
+
+	private updatePaymentFormWithOrderDto(orderDto: Partial<IOrderDto>) {
+
+		if (!orderDto) {
+			return;
+		}
+
+		if (orderDto._id) this.form.controls.payment.controls.orderId.patchValue(orderDto._id);
+
 	}
 
 }
