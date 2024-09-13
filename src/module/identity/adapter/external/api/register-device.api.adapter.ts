@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {identityEndpointEnum} from "@identity/endpoint/identity.endpoint";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {ProviderTypeEnum} from "@identity/domain/enum/provider-type.enum";
 
 type TBody = {

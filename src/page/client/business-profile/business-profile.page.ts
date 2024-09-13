@@ -48,7 +48,7 @@ import {
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 
 @Component({

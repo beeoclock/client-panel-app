@@ -1,6 +1,6 @@
 import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {EndpointInterface} from "@utility/domain/interface/i.endpoint/i.endpoint-replace";
 
 export type EndpointCollectionType = {

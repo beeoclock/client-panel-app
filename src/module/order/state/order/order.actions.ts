@@ -83,6 +83,17 @@ export namespace OrderActions {
 		public static override readonly type = '[Order API] Update Item';
 	}
 
+	export class PutItem {
+		public static readonly type = '[Order API] Put Item';
+
+		public constructor(
+			public readonly payload: {
+				item: IOrderDto;
+			}
+		) {
+		}
+	}
+
 	// Updates of state
 
 	export class UpdateFilters extends BaseActions.UpdateFilters {

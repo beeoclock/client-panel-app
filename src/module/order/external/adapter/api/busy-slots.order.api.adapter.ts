@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {OrderEndpoint} from "@order/external/endpoint/order.endpoint";
 import {IBusySlot} from "@order/external/interface/busy-slot/i.busy-slot";
 

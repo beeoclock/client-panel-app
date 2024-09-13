@@ -1,4 +1,4 @@
-import {is} from "thiis";
+import {is} from "@utility/checker";
 
 export enum CellCountryPrefixEnum {
   // UK = 44,

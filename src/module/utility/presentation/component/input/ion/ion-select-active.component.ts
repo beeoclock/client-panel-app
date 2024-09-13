@@ -6,7 +6,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 import {IonicModule} from "@ionic/angular";
 import {NgForOf} from "@angular/common";
 import {ActiveEnum} from "@utility/domain/enum";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 
 @Component({
 	selector: 'ion-select-active',

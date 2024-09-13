@@ -47,6 +47,8 @@ export class OrderState extends BaseState<IOrderDto> {
 	private readonly translateService = inject(TranslateService);
 	private readonly patchStatusOrderApiAdapter = inject(PatchStatusOrderApiAdapter);
 
+	private readonly updateOrderApiAdapter = inject(UpdateOrderApiAdapter);
+
 	constructor() {
 		super(
 			defaults,
@@ -318,6 +320,11 @@ export class OrderState extends BaseState<IOrderDto> {
 	@Action(OrderActions.GetList)
 	public override async getList(ctx: StateContext<IOrderState>, action: OrderActions.GetList): Promise<void> {
 		await super.getList(ctx, action);
+	}
+
+	@Action(OrderActions.PutItem)
+	public async putItem(ctx: StateContext<IOrderState>, action: OrderActions.PutItem): Promise<void> {
+		await this.updateOrderApiAdapter.executeAsync(action.payload.item);
 	}
 
 	// Selectors

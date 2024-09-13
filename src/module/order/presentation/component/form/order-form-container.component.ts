@@ -33,12 +33,12 @@ import {CreatePaymentApiAdapter} from "@module/payment/external/adapter/api/crea
 import {RIMember} from "@member/domain";
 import {Reactive} from "@utility/cdk/reactive";
 import {ICustomer} from "@customer/domain";
-import {UpdateOrderApiAdapter} from "@order/external/adapter/api/update.order.api.adapter";
 import {UpdatePaymentApiAdapter} from "@module/payment/external/adapter/api/update.payment.api.adapter";
 import {
 	ListServiceFormOrderComponent
 } from "@src/component/smart/order/form/service/list/list.service.form.order.component";
 import {FormsModule} from "@angular/forms";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'app-order-form-container',
@@ -115,7 +115,6 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	private readonly createOrderApiAdapter = inject(CreateOrderApiAdapter);
 	private readonly createPaymentApiAdapter = inject(CreatePaymentApiAdapter);
 
-	private readonly updateOrderApiAdapter = inject(UpdateOrderApiAdapter);
 	private readonly updatePaymentApiAdapter = inject(UpdatePaymentApiAdapter);
 
 	public readonly availableCustomersInForm = signal<{ [key: string]: ICustomer }>({});
@@ -158,13 +157,20 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		this.form.invalid && this.ngxLogger.error('Form is invalid', this.form);
 	}
 
+	@Dispatch()
+	private putOrder(item: IOrderDto) {
+		return new OrderActions.PutItem({
+			item
+		});
+	}
+
 	private async finishSave() {
 		const {order, payment} = this.form.value as { order: IOrderDto, payment: IPaymentDto };
 		this.form.disable();
 		this.form.markAsPending();
 		if (this.isEditMode()) {
 
-			await this.updateOrderApiAdapter.executeAsync(order as IOrderDto);
+			await this.putOrder(order);
 			await this.updatePaymentApiAdapter.executeAsync(payment as IPaymentDto);
 
 		} else {

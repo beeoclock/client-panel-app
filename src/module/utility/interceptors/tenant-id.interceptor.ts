@@ -3,7 +3,7 @@ import {filter, switchMap, take} from "rxjs";
 import {inject} from "@angular/core";
 import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {Endpoint} from "@utility/domain/endpoint";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {TokensHttpContext} from "@src/tokens.http-context";
 import {TENANT_ID} from "@src/token";
 

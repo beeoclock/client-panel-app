@@ -1,6 +1,6 @@
 import {Directive, DoCheck, ElementRef, inject, Input, Optional} from '@angular/core';
 import {AbstractControl, NgControl} from '@angular/forms';
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {TranslateService} from "@ngx-translate/core";
 import {getFirstKey} from "@utility/domain";
 
