@@ -36,29 +36,45 @@ import {SpecialistModel} from "@service/domain/model/specialist.model";
 		NgIf,
 	],
 	template: `
+
+		<!-- Button to show selected specialist and place where user can change selected specialist -->
 		<button
 			[id]="'select-specialist' + id"
 			class="p-1 rounded-lg border border-gray-200 justify-center items-center flex">
-			<div
-				class="rounded-full bg-beeColor-400 min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 flex justify-center items-center">
-				<ng-container *ngIf="specialistFormControl.value?.member?.avatar?.url; else InitialsTemplate">
-					<img [src]="specialistFormControl.value?.member?.avatar?.url"
-						 class="min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 rounded-full object-cover"
-						 alt="">
-				</ng-container>
-				<ng-template #InitialsTemplate>
-					<div
-						class="text-white text-xs font-bold">{{ specialistFormControl.value?.member?.firstName?.[0] ?? '' }}
-					</div>
-					<div
-						class="text-white text-xs font-bold">{{ specialistFormControl.value?.member?.lastName?.[0] ?? '' }}
-					</div>
-				</ng-template>
-			</div>
-			<div class="text-slate-900 text-sm font-normal px-2">
-				{{ specialistFormControl.value?.member?.firstName }}
-			</div>
+
+			@if (specialistFormControl.value) {
+
+				<div
+					class="rounded-full bg-beeColor-400 min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 flex justify-center items-center">
+					@if (specialistFormControl.value?.member?.avatar?.url) {
+
+						<img [src]="specialistFormControl.value?.member?.avatar?.url"
+							 class="min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 rounded-full object-cover"
+							 alt="">
+					} @else {
+
+						<div
+							class="text-white text-xs font-bold">{{ specialistFormControl.value?.member?.firstName?.[0] ?? '' }}
+						</div>
+						<div
+							class="text-white text-xs font-bold">{{ specialistFormControl.value?.member?.lastName?.[0] ?? '' }}
+						</div>
+
+					}
+				</div>
+				<div class="text-slate-900 text-sm font-normal px-2">
+					{{ specialistFormControl.value?.member?.firstName }}
+				</div>
+
+			} @else {
+				<!-- Warning: No assigned specialist -->
+				<div class="text-red-500 text-sm font-normal px-2 py-1">
+					No assigned specialist
+				</div>
+			}
 		</button>
+
+		<!-- Control to select specialist -->
 		<ion-popover #selectSpecialistPopover [trigger]="'select-specialist' + id">
 			<ng-template>
 				<ion-list>
@@ -67,17 +83,17 @@ import {SpecialistModel} from "@service/domain/model/specialist.model";
 						<div
 							slot="start"
 							class="rounded-full bg-beeColor-400 min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 flex justify-center items-center">
-							<ng-container *ngIf="member?.avatar?.url; else InitialsTemplate">
+							@if (member?.avatar?.url) {
 								<img [src]="member?.avatar?.url"
 									 class="min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 rounded-full object-cover"
 									 alt="">
-							</ng-container>
-							<ng-template #InitialsTemplate>
+							} @else {
+
 								<div class="text-white text-xs font-bold">{{ member?.firstName?.[0] ?? '' }}
 								</div>
 								<div class="text-white text-xs font-bold">{{ member?.lastName?.[0] ?? '' }}
 								</div>
-							</ng-template>
+							}
 						</div>
 						<ion-label>{{ member.firstName }}</ion-label>
 					</ion-item>
@@ -89,7 +105,7 @@ import {SpecialistModel} from "@service/domain/model/specialist.model";
 export class SpecialistChipComponent extends Reactive implements OnInit {
 
 	@Input()
-	public initialValue: RIMember | undefined = undefined;
+	public initialValue: SpecialistModel | RIMember | null = null;
 
 	@Input()
 	public id: string = ObjectID().toHexString();
@@ -103,11 +119,30 @@ export class SpecialistChipComponent extends Reactive implements OnInit {
 	public readonly specialistFormControl = new FormControl<ISpecialist | null>(null);
 
 	public ngOnInit() {
-		this.initialValue && this.setMemberAsSpecialist(this.initialValue)
+		this.initSpecialist();
 	}
 
-	public setMemberAsSpecialist(member: RIMember) {
+	public initSpecialist() {
+		console.log('initialValue', this.initialValue)
+		if (this.initialValue instanceof SpecialistModel) {
+			this.setSpecialist(this.initialValue);
+		} else {
+			this.setMemberAsSpecialist(this.initialValue);
+		}
+	}
+
+	public setMemberAsSpecialist(member: RIMember | null) {
+		if (!member) {
+			return;
+		}
 		const specialist = SpecialistModel.create({member});
+		this.setSpecialist(specialist);
+	}
+
+	public setSpecialist(specialist: ISpecialist | null) {
+		if (!specialist) {
+			return;
+		}
 		this.specialistFormControl.setValue(specialist);
 		this.specialistChanges.emit(specialist);
 	}

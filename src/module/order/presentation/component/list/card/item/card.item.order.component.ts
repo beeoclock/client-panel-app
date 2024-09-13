@@ -87,7 +87,7 @@ import {CurrencyCodeEnum} from "@utility/domain/enum";
 					<app-list-service-form-card-order-component
 						[order]="orderDto"/>
 					@if (orderDto.businessNote?.length) {
-						<div class="flex justify-between">
+						<div class="flex justify-between px-2 pb-2">
 							<div class="flex-1">
 								<div>
 									{{ 'keyword.capitalize.businessNote' | translate }}
