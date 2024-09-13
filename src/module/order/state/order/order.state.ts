@@ -43,11 +43,11 @@ export class OrderState extends BaseState<IOrderDto> {
 	protected override readonly paged = inject(PagedOrderApiAdapter);
 
 	private readonly updateServiceOrderApiAdapter = inject(UpdateServiceOrderApiAdapter);
-	private readonly paymentPaged = inject(PagedPaymentApiAdapter);
 	private readonly translateService = inject(TranslateService);
 	private readonly patchStatusOrderApiAdapter = inject(PatchStatusOrderApiAdapter);
 
 	private readonly updateOrderApiAdapter = inject(UpdateOrderApiAdapter);
+	private readonly pagedPaymentApiAdapter = inject(PagedPaymentApiAdapter);
 
 	constructor() {
 		super(
@@ -141,7 +141,8 @@ export class OrderState extends BaseState<IOrderDto> {
 		});
 
 		const orderDto = await this.item.executeAsync(action.payload);
-		const paymentResponse = await this.paymentPaged.executeAsync({
+
+		const paymentResponse = await this.pagedPaymentApiAdapter.executeAsync({
 			orderId: action.payload,
 			page: 1,
 			pageSize: 1,

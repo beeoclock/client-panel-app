@@ -35,6 +35,8 @@ export class PaymentState extends BaseState<IPaymentDto> {
 
 	private readonly translateService = inject(TranslateService);
 
+	private readonly updatePaymentApiAdapter = inject(UpdatePaymentApiAdapter);
+
 	constructor() {
 		super(
 			defaults,
@@ -206,6 +208,11 @@ export class PaymentState extends BaseState<IPaymentDto> {
 	@Action(PaymentActions.GetList)
 	public override async getList(ctx: StateContext<IPaymentState>, action: PaymentActions.GetList): Promise<void> {
 		await super.getList(ctx, action);
+	}
+
+	@Action(PaymentActions.PutItem)
+	public async putItem(ctx: StateContext<IPaymentState>, action: PaymentActions.PutItem): Promise<void> {
+		await this.updatePaymentApiAdapter.executeAsync(action.payload.item);
 	}
 
 	// Selectors

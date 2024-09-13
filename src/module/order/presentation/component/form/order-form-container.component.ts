@@ -33,12 +33,12 @@ import {CreatePaymentApiAdapter} from "@module/payment/external/adapter/api/crea
 import {RIMember} from "@member/domain";
 import {Reactive} from "@utility/cdk/reactive";
 import {ICustomer} from "@customer/domain";
-import {UpdatePaymentApiAdapter} from "@module/payment/external/adapter/api/update.payment.api.adapter";
 import {
 	ListServiceFormOrderComponent
 } from "@src/component/smart/order/form/service/list/list.service.form.order.component";
 import {FormsModule} from "@angular/forms";
-import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {lastValueFrom} from "rxjs";
+import {PaymentActions} from "@module/payment/state/payment/payment.actions";
 
 @Component({
 	selector: 'app-order-form-container',
@@ -115,8 +115,6 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	private readonly createOrderApiAdapter = inject(CreateOrderApiAdapter);
 	private readonly createPaymentApiAdapter = inject(CreatePaymentApiAdapter);
 
-	private readonly updatePaymentApiAdapter = inject(UpdatePaymentApiAdapter);
-
 	public readonly availableCustomersInForm = signal<{ [key: string]: ICustomer }>({});
 
 	public ngOnChanges(changes: SimpleChanges & {
@@ -157,11 +155,28 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		this.form.invalid && this.ngxLogger.error('Form is invalid', this.form);
 	}
 
-	@Dispatch()
-	private putOrder(item: IOrderDto) {
-		return new OrderActions.PutItem({
+	/**
+	 * Dispatch put order action
+	 * @param item
+	 * @private
+	 */
+	private dispatchPutOrderAction$(item: IOrderDto) {
+		const action = new OrderActions.PutItem({
 			item
 		});
+		return this.store.dispatch(action);
+	}
+
+	/**
+	 * Dispatch put payment action
+	 * @param item
+	 * @private
+	 */
+	private dispatchPutPaymentAction$(item: IPaymentDto) {
+		const action = new PaymentActions.PutItem({
+			item
+		});
+		return this.store.dispatch(action);
 	}
 
 	private async finishSave() {
@@ -170,8 +185,8 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		this.form.markAsPending();
 		if (this.isEditMode()) {
 
-			await this.putOrder(order);
-			await this.updatePaymentApiAdapter.executeAsync(payment as IPaymentDto);
+			await lastValueFrom(this.dispatchPutPaymentAction$(payment));
+			await lastValueFrom(this.dispatchPutOrderAction$(order));
 
 		} else {
 
