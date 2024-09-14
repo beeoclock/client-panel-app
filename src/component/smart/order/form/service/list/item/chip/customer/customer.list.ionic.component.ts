@@ -119,13 +119,20 @@ import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.
 
 					<div class="min-w-[20rem] max-h-full">
 						<ion-searchbar
+							[id]="id + 'ion-searchbar'"
 							[debounce]="1000"
 							(ionInput)="handleInput($event)"
 							[placeholder]="'keyword.capitalize.search' | translate">
 						</ion-searchbar>
-						<ion-list>
+						<ion-list
+							[id]="id + 'ion-list'">
 							@for (customer of eventListCustomerAdapter.tableState.items; track customer._id) {
-								<ion-item (click)="select(customer)" lines="full" [button]="true" [detailIcon]="false">
+								<ion-item
+									(click)="select(customer)"
+									lines="full"
+									[id]="id + 'ion-item-' + customer._id"
+									[button]="true"
+									[detailIcon]="false">
 									<ion-avatar aria-hidden="true" slot="start">
 										<div
 											class="min-w-[36px] max-w-[36px] min-h-[36px] max-h-[36px] rounded-full bg-beeColor-400 flex justify-center items-center uppercase">
@@ -140,9 +147,9 @@ import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.
 							}
 							@if (eventListCustomerAdapter.loading$.isFalse) {
 
-								<ion-item lines="full" [button]="true"
+								<ion-item [id]="id + '-ion-item-download-more'" lines="full" [button]="true"
 										  [detailIcon]="false" (click)="nextPage()">
-									<ion-label>
+									<ion-label [id]="id + '-ion-item-download-more-ion-label'">
 										{{ 'keyword.capitalize.downloadMore' | translate }}
 									</ion-label>
 								</ion-item>
@@ -152,7 +159,7 @@ import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.
 						</ion-list>
 						@if (eventListCustomerAdapter.loading$.isTrue) {
 							<div class="p-3">
-								<ion-spinner name="dots"></ion-spinner>
+								<ion-spinner [id]="id + '-ion-spinner'" name="dots"></ion-spinner>
 							</div>
 						}
 					</div>
@@ -172,6 +179,10 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 
 	@Input({ required: true })
 	public customerForm!: CustomerForm;
+
+	@Input({ required: true })
+	public id!: string;
+
 	public readonly doDone = output<boolean>();
 
 	protected readonly store = inject(Store);

@@ -129,12 +129,19 @@ export class OrderState extends BaseState<IOrderDto> {
 	@Action(OrderActions.OpenFormToEditById)
 	public async openFormToEditByIdAction(ctx: StateContext<IOrderState>, action: OrderActions.OpenFormToEditById) {
 
+		const whacamoleId = 'edit-order-form-by-id-' + action.payload;
+
+		if (this.whacAMaleProvider.componentRefMapById.has(whacamoleId)) {
+			return;
+		}
+
 		const title = await this.translateService.instant('order.form.title.edit');
 
 		const {OrderFormContainerComponent} = await import("@order/presentation/component/form/order-form-container.component");
 
 		await this.whacAMaleProvider.buildItAsync({
 			title,
+			id: whacamoleId,
 			component: OrderFormContainerComponent,
 			componentInputs: {},
 			showLoading: true,
@@ -153,6 +160,7 @@ export class OrderState extends BaseState<IOrderDto> {
 
 		await this.whacAMaleProvider.buildItAsync({
 			title,
+			id: whacamoleId,
 			component: OrderFormContainerComponent,
 			componentInputs: {
 				orderDto,
