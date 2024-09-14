@@ -14,6 +14,7 @@ import {
 import {DatePipe, NgIf, NgStyle} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
+import {is} from "@utility/checker";
 
 @Component({
 	selector: 'app-time-line-calendar-with-specialist-widget-component',
@@ -109,7 +110,7 @@ export class TimeLineCalendarWithSpecialistWidgetComponent implements OnInit, On
 
 	private clearInterval() {
 		if (this.interval) {
-			clearInterval(this.interval);
+			if (is.number(this.interval)) clearInterval(this.interval);
 			this.interval = null;
 		}
 	}

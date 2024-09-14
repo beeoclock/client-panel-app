@@ -37,7 +37,7 @@ import {NGXLogger} from "ngx-logger";
 import {
 	ServiceFormImageComponent
 } from "@service/presentation/component/form/v2/image/service-form-image/service-form-image.component";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 

@@ -9,7 +9,7 @@ import {LinkButtonDirective} from "@utility/presentation/directives/button/link.
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IonicModule} from "@ionic/angular";
 import {Reactive} from "@utility/cdk/reactive";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {filter} from "rxjs";
 import {MS_ONE_SECOND} from "@utility/domain/const/c.time";
 import {AutoRefreshStorageService} from "@utility/presentation/component/auto-refresh/auto-refresh.storage.service";

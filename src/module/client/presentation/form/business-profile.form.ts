@@ -10,7 +10,7 @@ import {BusinessCategoryEnum} from "@utility/domain/enum/business-category.enum"
 import {BusinessIndustry} from "@utility/domain/business-industry";
 import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
 import {BusinessSettingsForm} from "@client/presentation/form/business-settings.form";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {USERNAME_ANGULAR_VALIDATOR} from "@utility/validators";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from 'rxjs';

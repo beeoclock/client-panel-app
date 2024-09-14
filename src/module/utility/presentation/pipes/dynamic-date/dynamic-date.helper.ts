@@ -1,6 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {TranslateService} from "@ngx-translate/core";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 
 export type Formats = 'short' | 'medium' | 'shortDate' | 'time' | 'hhMM';
 

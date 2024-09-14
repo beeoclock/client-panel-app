@@ -5,7 +5,7 @@ import {IDurationVersion, ILanguageVersion} from "@service/domain";
 import {extractSecondsFrom_hh_mm_ss, STR_MINUTE_45} from "@utility/domain/time";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 import {filter} from "rxjs";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {BaseEntityForm} from "@utility/base.form";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 

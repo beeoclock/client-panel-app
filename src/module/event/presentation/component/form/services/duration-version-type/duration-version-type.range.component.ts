@@ -13,7 +13,7 @@ import {filter, firstValueFrom, map, merge, Subscription} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
 import {Store} from "@ngxs/store";
 import {ClientState} from "@client/state/client/client.state";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Component({

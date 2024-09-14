@@ -34,7 +34,7 @@ import {combineLatest, filter, map, tap} from "rxjs";
 import {IEvent, MEvent, RMIEvent} from "@event/domain";
 import {ClientState} from "@client/state/client/client.state";
 import {RIClient} from "@client/domain";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {IPresentation, RIConfiguration} from "@service/domain";
 import {Reactive} from "@utility/cdk/reactive";
@@ -135,7 +135,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 
 		const clientAndService$ = combineLatest(
 			[
-				this.client$.pipe(filter(is.object)),
+				this.client$.pipe(filter(is.object<RIClient>)),
 				this.form.controls.services.valueChanges.pipe(
 					filter((services) => !!services?.length),
 					map(({0: firstService}) => firstService),

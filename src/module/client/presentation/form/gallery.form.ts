@@ -54,8 +54,8 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 			const lastImageControl = this.controls.images.controls.at(-1);
 
 			// Subscribe to changes in the last image control
-			lastImageControl?.valueChanges.pipe(takeUntil(this.takeUntilLastImage$)).subscribe((value) => {
-				if (value?.length) {
+			lastImageControl?.valueChanges.pipe(takeUntil(this.takeUntilLastImage$)).subscribe((value: File) => {
+				if (value.size) {
 					// If the value is not empty, add a new image control to the form array
 					this.controls.images.push(GalleryForm.getNewControlWithValidation());
 
@@ -92,7 +92,7 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 
 		const lastImageControl = this.controls.images.controls.at(-1);
 
-		if (!this.controls.images.length || lastImageControl?.value?.length) {
+		if (!this.controls.images.length || lastImageControl?.value?.size) {
 			this.controls.images.push(GalleryForm.getNewControlWithValidation());
 			initialValue && this.controls.images.at(-1).patchValue(initialValue);
 			this.controls.images.push(GalleryForm.getNewControlWithValidation());

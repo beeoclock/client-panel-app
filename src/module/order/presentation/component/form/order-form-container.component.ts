@@ -1,4 +1,6 @@
 import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
 	Component,
 	inject,
 	input,
@@ -31,12 +33,12 @@ import {CreatePaymentApiAdapter} from "@module/payment/external/adapter/api/crea
 import {RIMember} from "@member/domain";
 import {Reactive} from "@utility/cdk/reactive";
 import {ICustomer} from "@customer/domain";
-import {UpdateOrderApiAdapter} from "@order/external/adapter/api/update.order.api.adapter";
-import {UpdatePaymentApiAdapter} from "@module/payment/external/adapter/api/update.payment.api.adapter";
 import {
 	ListServiceFormOrderComponent
 } from "@src/component/smart/order/form/service/list/list.service.form.order.component";
 import {FormsModule} from "@angular/forms";
+import {lastValueFrom} from "rxjs";
+import {PaymentActions} from "@module/payment/state/payment/payment.actions";
 
 @Component({
 	selector: 'app-order-form-container',
@@ -52,6 +54,7 @@ import {FormsModule} from "@angular/forms";
 		FormsModule,
 	],
 	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form class="flex flex-col gap-4 bg-white">
 
@@ -107,12 +110,10 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
+	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
 	private readonly createOrderApiAdapter = inject(CreateOrderApiAdapter);
 	private readonly createPaymentApiAdapter = inject(CreatePaymentApiAdapter);
-
-	private readonly updateOrderApiAdapter = inject(UpdateOrderApiAdapter);
-	private readonly updatePaymentApiAdapter = inject(UpdatePaymentApiAdapter);
 
 	public readonly availableCustomersInForm = signal<{ [key: string]: ICustomer }>({});
 
@@ -125,6 +126,9 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		const {orderDto, paymentDto} = changes;
 		orderDto && this.patchOrderValue(orderDto);
 		paymentDto && this.form.controls.payment.patchValue(paymentDto.currentValue);
+		if (this.isEditMode()) {
+			this.updatePaymentFormWithOrderDto(orderDto.currentValue);
+		}
 		this.form.updateValueAndValidity();
 
 	}
@@ -151,14 +155,38 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		this.form.invalid && this.ngxLogger.error('Form is invalid', this.form);
 	}
 
+	/**
+	 * Dispatch put order action
+	 * @param item
+	 * @private
+	 */
+	private dispatchPutOrderAction$(item: IOrderDto) {
+		const action = new OrderActions.PutItem({
+			item
+		});
+		return this.store.dispatch(action);
+	}
+
+	/**
+	 * Dispatch put payment action
+	 * @param item
+	 * @private
+	 */
+	private dispatchPutPaymentAction$(item: IPaymentDto) {
+		const action = new PaymentActions.PutItem({
+			item
+		});
+		return this.store.dispatch(action);
+	}
+
 	private async finishSave() {
 		const {order, payment} = this.form.value as { order: IOrderDto, payment: IPaymentDto };
 		this.form.disable();
 		this.form.markAsPending();
 		if (this.isEditMode()) {
 
-			await this.updateOrderApiAdapter.executeAsync(order as IOrderDto);
-			await this.updatePaymentApiAdapter.executeAsync(payment as IPaymentDto);
+			await lastValueFrom(this.dispatchPutPaymentAction$(payment));
+			await lastValueFrom(this.dispatchPutOrderAction$(order));
 
 		} else {
 
@@ -193,6 +221,17 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		currentValue.services?.forEach((service) => {
 			this.form.controls.order.controls.services.pushNewOne(service);
 		});
+		this.changeDetectorRef.detectChanges();
+	}
+
+	private updatePaymentFormWithOrderDto(orderDto: Partial<IOrderDto>) {
+
+		if (!orderDto) {
+			return;
+		}
+
+		if (orderDto._id) this.form.controls.payment.controls.orderId.patchValue(orderDto._id);
+
 	}
 
 }

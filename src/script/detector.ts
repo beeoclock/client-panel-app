@@ -2,7 +2,7 @@
 /*                                  Detector                                  */
 /* -------------------------------------------------------------------------- */
 
-import {is} from 'thiis';
+import {is} from "@utility/checker";
 
 export const detectorInit = (html: HTMLElement) => {
 

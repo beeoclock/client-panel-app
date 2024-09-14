@@ -4,7 +4,7 @@ import {inject} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {filter} from "rxjs";
 import {IdTokenResult} from "@angular/fire/auth";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 
 
 export const tokenResolver: ResolveFn<IdTokenResult | undefined> = () => {

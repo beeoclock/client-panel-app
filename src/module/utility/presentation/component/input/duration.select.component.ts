@@ -8,7 +8,7 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 import {generateTimeOptions} from "@src/script/generate-time-options";
 import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
 import {extractSecondsFrom_hh_mm_ss, secondsTo_hh_mm} from "@utility/domain/time";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {filter, map} from "rxjs";
 import {NGXLogger} from "ngx-logger";
 import {Reactive} from "@utility/cdk/reactive";

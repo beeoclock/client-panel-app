@@ -71,7 +71,10 @@ import {
 					 [keepContentsMounted]="true"
 					 [backdropDismiss]="false">
 			<ng-template>
-				<app-customer-list-ionic-component [customerForm]="customerForm" (doDone)="doDone($event)"/>
+				<app-customer-list-ionic-component
+					[id]="'customer-list-ionic-' + id"
+					[customerForm]="customerForm"
+					(doDone)="doDone($event)"/>
 			</ng-template>
 		</ion-popover>
 	`

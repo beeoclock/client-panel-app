@@ -4,7 +4,7 @@ import {customerEndpointEnum} from "@customer/endpoint/customer.endpoint";
 import {TableState_BackendFormat} from "@utility/domain/table.state";
 import {BaseApiAdapter, ResponseListType} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 
 @Injectable({
   providedIn: 'root'

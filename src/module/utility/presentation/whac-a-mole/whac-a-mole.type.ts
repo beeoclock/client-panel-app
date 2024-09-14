@@ -5,6 +5,7 @@ export type WhacAMoleBuildItArgsType = {
 	componentInputs?: Record<string, unknown>;
 	title?: string;
 	showLoading?: boolean;
+	id?: string;
 	button?: {
 		close?: {
 			classList?: string[];

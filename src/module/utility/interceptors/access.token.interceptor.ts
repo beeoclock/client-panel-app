@@ -7,7 +7,7 @@ import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {Endpoint} from "@utility/domain/endpoint";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {HttpStatusEnum} from "@utility/domain/enum/http-status.enum";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {TokensHttpContext} from "@src/tokens.http-context";
 
 /**

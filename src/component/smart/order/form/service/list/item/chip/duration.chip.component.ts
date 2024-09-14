@@ -20,7 +20,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {DateTime} from "luxon";
 import {filter} from "rxjs";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 
 @Component({
 	selector: 'app-duration-chip-component',

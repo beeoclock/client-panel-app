@@ -1,4 +1,4 @@
-import {is} from "thiis";
+import {is} from "@utility/checker";
 
 export enum CellCountryPrefixEnum {
   // UK = 44,
@@ -224,7 +224,7 @@ export const CELL_COUNTRY_PREFIX_OBJECT_LIST = Object.values(CellCountryPrefixEn
   .map(code => {
     return {
       id: code,
-      label: `+${code} - ${CellCountryPrefixEnum[code as keyof typeof CellCountryPrefixEnum]}`,
+      label: `+${code} - ${CellCountryPrefixEnum[code as unknown as keyof typeof CellCountryPrefixEnum]}`,
       shortLabel: `+${code}`,
     };
   });
