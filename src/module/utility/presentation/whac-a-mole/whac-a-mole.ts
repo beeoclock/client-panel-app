@@ -107,7 +107,8 @@ export class WhacAMole extends Reactive implements OnInit {
 									   title,
 									   showLoading,
 									   button,
-									   callback
+									   callback,
+									   id
 								   }: WhacAMoleBuildItArgsType) {
 		const componentMirror = reflectComponentType(component);
 
@@ -162,7 +163,7 @@ export class WhacAMole extends Reactive implements OnInit {
 		}
 
 		whacAMoleWrapperComponentRef.instance.renderComponent(component, componentInputs);
-		this.whacAMoleProvider.componentRefMapById.set(selector, whacAMoleWrapperComponentRef);
+		this.whacAMoleProvider.componentRefMapById.set(id ?? selector, whacAMoleWrapperComponentRef);
 		if (!this.whacAMoleProvider.componentRefMapByComponentName.has(selector)) {
 			this.whacAMoleProvider.componentRefMapByComponentName.set(selector, []);
 		}
@@ -172,7 +173,7 @@ export class WhacAMole extends Reactive implements OnInit {
 		return whacAMoleWrapperComponentRef;
 	}
 
-	public updatePushBoxComponent({componentInputs, showLoading, component, callback}: WhacAMoleBuildItArgsType) {
+	public updatePushBoxComponent({componentInputs, showLoading, component, callback, id}: WhacAMoleBuildItArgsType) {
 		const componentMirror = reflectComponentType(component);
 
 		if (!componentMirror) {
@@ -180,7 +181,7 @@ export class WhacAMole extends Reactive implements OnInit {
 			return;
 		}
 
-		const componentRef = this.whacAMoleProvider.componentRefMapById.get(componentMirror.selector);
+		const componentRef = this.whacAMoleProvider.componentRefMapById.get(id ?? componentMirror.selector);
 		if (!componentRef) {
 			this.ngxLogger.debug('WhacAMole.updatePushBoxComponent', 'Component does not exist');
 			return;

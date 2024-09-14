@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {filter, tap} from "rxjs";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {MemberState} from "@member/state/member/member.state";
 import {ITableState} from "@utility/domain/table.state";

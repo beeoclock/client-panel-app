@@ -12,7 +12,7 @@ import {
 import {NgForOf, NgIf} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {DateTime} from "luxon";
 import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
 

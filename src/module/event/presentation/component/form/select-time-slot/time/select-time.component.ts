@@ -14,7 +14,7 @@ import {MS_QUARTER_SECOND} from "@utility/domain/const/c.time";
 import {TimeInputComponent} from "@utility/presentation/component/input/time.input.component";
 import {EventConfigurationForm} from "@event/presentation/form/configuration.form";
 import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 
 export interface ITimeSlot {
 	isPast: boolean;

@@ -5,6 +5,9 @@ import {
 	HostBinding,
 	inject,
 	Input,
+	OnChanges,
+	SimpleChange,
+	SimpleChanges,
 	ViewEncapsulation
 } from "@angular/core";
 import {
@@ -58,7 +61,7 @@ import {DateTime} from "luxon";
 		</div>
 	`
 })
-export class ListServiceFormOrderComponent extends Reactive {
+export class ListServiceFormOrderComponent extends Reactive implements OnChanges{
 
 	@Input()
 	public setupPartialData: {
@@ -85,6 +88,25 @@ export class ListServiceFormOrderComponent extends Reactive {
 	readonly #whacAMaleProvider = inject(WhacAMoleProvider);
 	readonly #changeDetectorRef = inject(ChangeDetectorRef);
 
+	public ngOnChanges(changes: SimpleChanges & {serviceOrderFormArray: SimpleChange}) {
+		const {serviceOrderFormArray} = changes;
+		if (!serviceOrderFormArray) {
+			return;
+		}
+		const {currentValue} = serviceOrderFormArray as {currentValue: ServiceOrderFormArray};
+		if (!currentValue) {
+			return;
+		}
+		this.selectedServicePlusControlList.length = 0;
+		currentValue.controls.forEach((control) => {
+			this.selectedServicePlusControlList.push({
+				service: control.getRawValue().serviceSnapshot,
+				control
+			});
+		});
+		this.#changeDetectorRef.detectChanges();
+	}
+
 	public deleteItem(index: number) {
 		this.selectedServicePlusControlList.splice(index, 1);
 		this.serviceOrderFormArray.removeAt(index);
@@ -98,22 +120,10 @@ export class ListServiceFormOrderComponent extends Reactive {
 		let useTableStateFromStore = true;
 		let tableState = new TableState<IServiceDto>().toCache();
 
-		// const member = this.lastSelectedMember || this.member;
-
-		// if (member) {
-		// 	if (!member.assignments.service.full) {
-		// 		const memberWithPopulateServices = await this.itemMemberApiAdapter.executeAsync(member._id);
-		// 		const items = memberWithPopulateServices.assignments.service.include.map(({service}) => service as unknown as IServiceDto);
-		// 		useTableStateFromStore = false;
-		// 		tableState = new TableState<IServiceDto>().setItems(items).setTotal(items.length).toCache();
-		// 	}
-		// }
-
 		const pushBoxWrapperComponentRef = await this.#whacAMaleProvider.buildItAsync({
 			component: SelectServiceWhacAMoleComponent,
 			componentInputs: {
 				multiple: false,
-				// selectedServiceList: this.serviceListControl.value,
 				useTableStateFromStore,
 				tableState
 			}

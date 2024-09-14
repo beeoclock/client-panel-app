@@ -3,7 +3,7 @@ import {TypeGuard} from '@p4ck493/ts-type-guard';
 import {ModalButtonInterface, ModalComponent,} from "@utility/presentation/component/modal/modal.component";
 import {v4} from 'uuid';
 import {InjectionComponentService} from "@utility/presentation/injection-component/injection-component.service";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {environment} from "@environment/environment";
 import {NGXLogger} from "ngx-logger";
 

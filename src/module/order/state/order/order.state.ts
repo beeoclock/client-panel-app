@@ -43,9 +43,11 @@ export class OrderState extends BaseState<IOrderDto> {
 	protected override readonly paged = inject(PagedOrderApiAdapter);
 
 	private readonly updateServiceOrderApiAdapter = inject(UpdateServiceOrderApiAdapter);
-	private readonly paymentPaged = inject(PagedPaymentApiAdapter);
 	private readonly translateService = inject(TranslateService);
 	private readonly patchStatusOrderApiAdapter = inject(PatchStatusOrderApiAdapter);
+
+	private readonly updateOrderApiAdapter = inject(UpdateOrderApiAdapter);
+	private readonly pagedPaymentApiAdapter = inject(PagedPaymentApiAdapter);
 
 	constructor() {
 		super(
@@ -127,19 +129,27 @@ export class OrderState extends BaseState<IOrderDto> {
 	@Action(OrderActions.OpenFormToEditById)
 	public async openFormToEditByIdAction(ctx: StateContext<IOrderState>, action: OrderActions.OpenFormToEditById) {
 
+		const whacamoleId = 'edit-order-form-by-id-' + action.payload;
+
+		if (this.whacAMaleProvider.componentRefMapById.has(whacamoleId)) {
+			return;
+		}
+
 		const title = await this.translateService.instant('order.form.title.edit');
 
 		const {OrderFormContainerComponent} = await import("@order/presentation/component/form/order-form-container.component");
 
 		await this.whacAMaleProvider.buildItAsync({
 			title,
+			id: whacamoleId,
 			component: OrderFormContainerComponent,
 			componentInputs: {},
 			showLoading: true,
 		});
 
 		const orderDto = await this.item.executeAsync(action.payload);
-		const paymentResponse = await this.paymentPaged.executeAsync({
+
+		const paymentResponse = await this.pagedPaymentApiAdapter.executeAsync({
 			orderId: action.payload,
 			page: 1,
 			pageSize: 1,
@@ -150,6 +160,7 @@ export class OrderState extends BaseState<IOrderDto> {
 
 		await this.whacAMaleProvider.buildItAsync({
 			title,
+			id: whacamoleId,
 			component: OrderFormContainerComponent,
 			componentInputs: {
 				orderDto,
@@ -318,6 +329,11 @@ export class OrderState extends BaseState<IOrderDto> {
 	@Action(OrderActions.GetList)
 	public override async getList(ctx: StateContext<IOrderState>, action: OrderActions.GetList): Promise<void> {
 		await super.getList(ctx, action);
+	}
+
+	@Action(OrderActions.PutItem)
+	public async putItem(ctx: StateContext<IOrderState>, action: OrderActions.PutItem): Promise<void> {
+		await this.updateOrderApiAdapter.executeAsync(action.payload.item);
 	}
 
 	// Selectors

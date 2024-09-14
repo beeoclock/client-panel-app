@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import * as Client from '@client/domain';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {businessProfileEndpointEnum} from "@client/endpoint/business-profile.endpoint";
 
 @Injectable({

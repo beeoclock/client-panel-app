@@ -95,7 +95,7 @@ export class WhacAMoleWrapper<COMPONENT> {
 		this.renderedComponent = component;
 
 		const componentRef = this.renderContainer.createComponent(component);
-		componentRef.location.nativeElement.classList.add('h-screen', 'overflow-y-auto');
+		componentRef.location.nativeElement.classList.add('min-h-[calc(100%-50px)]', 'h-screen', 'overflow-y-auto');
 
 		this.renderedComponentRef = componentRef;
 

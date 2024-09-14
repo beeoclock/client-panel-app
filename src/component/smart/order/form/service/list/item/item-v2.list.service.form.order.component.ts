@@ -29,6 +29,7 @@ import {NGXLogger} from "ngx-logger";
 import {DateTime} from "luxon";
 import {ICustomer} from "@customer/domain";
 import {ActiveEnum, IsOptionalEnum, IsOrganizerEnum, ResponseStatusEnum} from "@utility/domain/enum";
+import {SpecialistModel} from "@service/domain/model/specialist.model";
 
 @Component({
 	selector: 'app-item-list-v2-service-form-order-component',
@@ -80,7 +81,7 @@ import {ActiveEnum, IsOptionalEnum, IsOrganizerEnum, ResponseStatusEnum} from "@
 				<app-specialist-chip-component
 					[id]="id"
 					(specialistChanges)="handleSpecialistChanges($event)"
-					[initialValue]="setupPartialData.defaultMemberForService"/>
+					[initialValue]="initialSpecialistOrMember"/>
 				<app-price-chip-component
 					[id]="id"
 					(priceChanges)="handlePriceChanges($event)"
@@ -125,6 +126,18 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 
 	public ngOnChanges(changes: SimpleChanges) {
 		this.#ngxLogger.debug('ItemV2ListServiceFormOrderComponent:ngOnChanges', changes);
+	}
+
+	public get initialSpecialistOrMember() {
+		const specialist = this.item.control.getRawValue().orderAppointmentDetails.specialists[0];
+
+		if (specialist?.member?.firstName?.length) return SpecialistModel.create(specialist);
+
+		const member = this.setupPartialData.defaultMemberForService;
+
+		if (member?.lastName?.length) return SpecialistModel.create({member});
+
+		return null;
 	}
 
 	public get service() {

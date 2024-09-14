@@ -4,7 +4,7 @@ import {environment} from "@environment/environment";
 import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 import {REPLACE_MAP_REGEX} from "@utility/domain/const/c.regex";
 import {IEndpointReplace} from "@utility/domain/interface/i.endpoint/i.endpoint-replace";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {TokensHttpContext} from '@src/tokens.http-context';
 import {NGXLogger} from 'ngx-logger';
 import {inject} from "@angular/core";

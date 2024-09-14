@@ -21,7 +21,7 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
-import {is} from "thiis";
+import {is} from "@utility/checker";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {IClient} from "@client/domain";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";

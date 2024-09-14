@@ -4,6 +4,7 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {AutoActionOnEventInSecondsEnum} from "@utility/domain/enum/auto-action-on-event-in-seconds.enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
+import {is} from "@utility/checker";
 
 @Component({
 	selector: 'select-auto-action-on-event-in-seconds-component',
@@ -46,11 +47,11 @@ export class SelectAutoActionOnEventInSecondsComponent {
 	public readonly translateService = inject(TranslateService);
 
 	public readonly autoActionOnOrderInSecondsList = Object.values(AutoActionOnEventInSecondsEnum)
-		.filter((autoActionOnOrderInSecondsValue) => typeof autoActionOnOrderInSecondsValue === 'string')
-		.map((autoActionOnOrderInSecondsValue) => {
+		.filter(is.string)
+		.map((autoActionOnOrderInSecondsValue: any) => { // TODO: Find why to delete type "any" here
 			return {
 				name: this.translateService.instant(`autoActionOnOrderInSeconds.${autoActionOnOrderInSecondsValue}`),
-				seconds: AutoActionOnEventInSecondsEnum[autoActionOnOrderInSecondsValue as keyof typeof autoActionOnOrderInSecondsValue]
+				seconds: AutoActionOnEventInSecondsEnum[autoActionOnOrderInSecondsValue]
 			};
 		});
 

@@ -1,4 +1,4 @@
-import {is} from "thiis";
+import {is} from "@utility/checker";
 
 export function clearObject(target: any) {
 	for (const key in target) {
