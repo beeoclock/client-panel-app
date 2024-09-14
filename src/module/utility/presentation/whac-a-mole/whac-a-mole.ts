@@ -141,11 +141,11 @@ export class WhacAMole extends Reactive implements OnInit {
 			index: 0 // Insert at the beginning
 		});
 		whacAMoleWrapperComponentRef.setInput('title', title);
-		whacAMoleWrapperComponentRef.setInput('id', selector);
+		whacAMoleWrapperComponentRef.setInput('id', id ?? selector);
 		whacAMoleWrapperComponentRef.setInput('showLoading', showLoading ?? false);
 		whacAMoleWrapperComponentRef.setInput('destroySelf', () => {
 			callback?.on?.destroy?.before?.();
-			this.destroyComponent(selector);
+			this.destroyComponent(id ?? selector);
 			callback?.on?.destroy?.after?.();
 		});
 		whacAMoleWrapperComponentRef.setInput('updateSelfBefore', (componentInputs: Record<string, unknown> | undefined) => {
@@ -155,7 +155,7 @@ export class WhacAMole extends Reactive implements OnInit {
 			callback?.on?.update?.after?.(componentInputs);
 		});
 		whacAMoleWrapperComponentRef.onDestroy(() => {
-			this.destroyComponent(selector);
+			this.destroyComponent(id ?? selector);
 		});
 
 		if (button) {
