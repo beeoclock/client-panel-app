@@ -216,7 +216,7 @@ export class WhacAMole extends Reactive implements OnInit {
 
 		componentRef.setInput('destroySelf', () => {
 			callback?.on?.destroy?.before?.();
-			this.destroyComponent(componentMirror.selector);
+			this.destroyComponent(id ?? componentMirror.selector);
 			callback?.on?.destroy?.after?.();
 		});
 
