@@ -162,6 +162,17 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 				const start = this.setupPartialData.defaultAppointmentStartDateTimeIso ?? DateTime.now().toJSDate().toISOString();
 				const end = DateTime.fromISO(start).plus({seconds: service.durationVersions[0].durationInSeconds}).toJSDate().toISOString();
 
+				const attendees = [];
+				const lastService = this.selectedServicePlusControlList[this.selectedServicePlusControlList.length - 1];
+
+				if (lastService) {
+					const {orderAppointmentDetails} = lastService.control.getRawValue();
+					const {attendees: lastServiceAttendees} = orderAppointmentDetails;
+					if (lastServiceAttendees.length) {
+						attendees.push(lastServiceAttendees[0]);
+					}
+				}
+
 				this.selectedServicePlusControlList.push({
 					service,
 					control: this.serviceOrderFormArray.pushNewOne({
@@ -181,7 +192,7 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 							type: ReservationTypeEnum.service,
 							languageCodes: [this.#translateService.currentLang as LanguageCodeEnum],
 							specialists: [],
-							attendees: [],
+							attendees,
 							timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 							createdAt: DateTime.now().toJSDate().toISOString(),
 							updatedAt: DateTime.now().toJSDate().toISOString(),
