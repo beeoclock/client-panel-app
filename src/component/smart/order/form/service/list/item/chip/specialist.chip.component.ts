@@ -14,7 +14,6 @@ import {NgForOf, NgIf} from "@angular/common";
 import {RIMember} from "@member/domain";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {MemberState} from "@member/state/member/member.state";
-import {ITableState} from "@utility/domain/table.state";
 import ObjectID from "bson-objectid";
 import {Reactive} from "@utility/cdk/reactive";
 import {ISpecialist} from "@service/domain/interface/i.specialist";
@@ -80,7 +79,7 @@ import {TranslateModule} from "@ngx-translate/core";
 		<ion-popover #selectSpecialistPopover [trigger]="'select-specialist' + id">
 			<ng-template>
 				<ion-list>
-					<ion-item [button]="true" lines="full" [detail]="false" *ngFor="let member of members.items"
+					<ion-item [button]="true" lines="full" [detail]="false" *ngFor="let member of members"
 							  (click)="setMemberAsSpecialist(member);selectSpecialistPopover.dismiss()">
 						<div
 							slot="start"
@@ -113,7 +112,7 @@ export class SpecialistChipComponent extends Reactive implements OnInit {
 	public id: string = ObjectID().toHexString();
 
 	@SelectSnapshot(MemberState.activeMembers)
-	public readonly members!: ITableState<RIMember>;
+	public readonly members!: RIMember[];
 
 	@Output()
 	public readonly specialistChanges = new EventEmitter<ISpecialist>();
