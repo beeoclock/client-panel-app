@@ -19,6 +19,7 @@ import ObjectID from "bson-objectid";
 import {Reactive} from "@utility/cdk/reactive";
 import {ISpecialist} from "@service/domain/interface/i.specialist";
 import {SpecialistModel} from "@service/domain/model/specialist.model";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
 	selector: 'app-specialist-chip-component',
@@ -34,6 +35,7 @@ import {SpecialistModel} from "@service/domain/model/specialist.model";
 		IonPopover,
 		NgForOf,
 		NgIf,
+		TranslateModule,
 	],
 	template: `
 
@@ -67,9 +69,9 @@ import {SpecialistModel} from "@service/domain/model/specialist.model";
 				</div>
 
 			} @else {
-				<!-- Warning: No assigned specialist -->
+				<!-- Error: No assigned specialist -->
 				<div class="text-red-500 text-sm font-normal px-2 py-1">
-					No assigned specialist
+					{{ 'order.form.chip.specialist.noAssignedSpecialist' | translate }}
 				</div>
 			}
 		</button>
@@ -110,7 +112,7 @@ export class SpecialistChipComponent extends Reactive implements OnInit {
 	@Input()
 	public id: string = ObjectID().toHexString();
 
-	@SelectSnapshot(MemberState.tableState)
+	@SelectSnapshot(MemberState.activeMembers)
 	public readonly members!: ITableState<RIMember>;
 
 	@Output()

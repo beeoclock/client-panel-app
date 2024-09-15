@@ -1187,6 +1187,11 @@
 			}
 		},
 		"form": {
+			"chip": {
+				"specialist": {
+					"noAssignedSpecialist": "Ingen tildelt specialist"
+				}
+			},
 			"input": {
 				"businessNote": {
 					"placeholder": "Her kan du tilføje en note, som ikke vil være tilgængelig for klienten."

@@ -11,6 +11,7 @@ import {RemoveMemberApiAdapter} from "@member/adapter/external/api/remove.member
 import {ListMemberApiAdapter} from "@member/adapter/external/api/list.member.api.adapter";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {TranslateService} from "@ngx-translate/core";
+import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
 
 export type IMemberState = IBaseState<Member.RIMember>;
 
@@ -230,6 +231,11 @@ export class MemberState extends BaseState<Member.RIMember> {
 	@Selector()
 	public static tableState(state: IMemberState) {
 		return state.tableState;
+	}
+
+	@Selector()
+	public static activeMembers(state: IMemberState) {
+		return state.tableState.items.filter((member) => member.profileStatus === MemberProfileStatusEnum.active);
 	}
 
 }

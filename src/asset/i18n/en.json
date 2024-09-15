@@ -1187,6 +1187,11 @@
 			}
 		},
 		"form": {
+			"chip": {
+				"specialist": {
+					"noAssignedSpecialist": "No assigned specialist"
+				}
+			},
 			"input": {
 				"businessNote": {
 					"placeholder": "Here you can add a note that will not be available to the client"
