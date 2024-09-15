@@ -14,11 +14,11 @@ import {NgForOf, NgIf} from "@angular/common";
 import {RIMember} from "@member/domain";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {MemberState} from "@member/state/member/member.state";
-import {ITableState} from "@utility/domain/table.state";
 import ObjectID from "bson-objectid";
 import {Reactive} from "@utility/cdk/reactive";
 import {ISpecialist} from "@service/domain/interface/i.specialist";
 import {SpecialistModel} from "@service/domain/model/specialist.model";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
 	selector: 'app-specialist-chip-component',
@@ -34,6 +34,7 @@ import {SpecialistModel} from "@service/domain/model/specialist.model";
 		IonPopover,
 		NgForOf,
 		NgIf,
+		TranslateModule,
 	],
 	template: `
 
@@ -67,9 +68,9 @@ import {SpecialistModel} from "@service/domain/model/specialist.model";
 				</div>
 
 			} @else {
-				<!-- Warning: No assigned specialist -->
+				<!-- Error: No assigned specialist -->
 				<div class="text-red-500 text-sm font-normal px-2 py-1">
-					No assigned specialist
+					{{ 'order.form.chip.specialist.noAssignedSpecialist' | translate }}
 				</div>
 			}
 		</button>
@@ -78,7 +79,7 @@ import {SpecialistModel} from "@service/domain/model/specialist.model";
 		<ion-popover #selectSpecialistPopover [trigger]="'select-specialist' + id">
 			<ng-template>
 				<ion-list>
-					<ion-item [button]="true" lines="full" [detail]="false" *ngFor="let member of members.items"
+					<ion-item [button]="true" lines="full" [detail]="false" *ngFor="let member of members"
 							  (click)="setMemberAsSpecialist(member);selectSpecialistPopover.dismiss()">
 						<div
 							slot="start"
@@ -110,8 +111,8 @@ export class SpecialistChipComponent extends Reactive implements OnInit {
 	@Input()
 	public id: string = ObjectID().toHexString();
 
-	@SelectSnapshot(MemberState.tableState)
-	public readonly members!: ITableState<RIMember>;
+	@SelectSnapshot(MemberState.activeMembers)
+	public readonly members!: RIMember[];
 
 	@Output()
 	public readonly specialistChanges = new EventEmitter<ISpecialist>();

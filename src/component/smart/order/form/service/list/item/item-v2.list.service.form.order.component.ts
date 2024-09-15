@@ -135,7 +135,7 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 
 		const member = this.setupPartialData.defaultMemberForService;
 
-		if (member?.lastName?.length) return SpecialistModel.create({member});
+		if (member?.firstName?.length) return SpecialistModel.create({member});
 
 		return null;
 	}
