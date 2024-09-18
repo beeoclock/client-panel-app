@@ -33,6 +33,9 @@ import {
 import {Reactive} from "@utility/cdk/reactive";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 import {NGXLogger} from "ngx-logger";
+import {
+	NotificationSettingsComponent
+} from "@client/presentation/component/business-profile/notification-settings/notification-settings.component";
 
 @Component({
 	selector: 'client-business-settings-page',
@@ -50,6 +53,7 @@ import {NGXLogger} from "ngx-logger";
 		DangerZoneComponent,
 		ContainerBusinessSettingsComponent,
 		AutoBookEventComponent,
+		NotificationSettingsComponent,
 	],
 	standalone: true
 })

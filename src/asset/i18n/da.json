@@ -1438,5 +1438,21 @@
 			"tuesday": "Tir",
 			"wednesday": "Ons"
 		}
+	},
+	"notificationSetting": {
+		"cardTitle": "Kunde Notifikationsindstillinger",
+		"emailNotificationSettings": {
+			"label": "E-mail Notifikationer",
+			"hint": "Send notifikationer til kunden via e-mail"
+		},
+		"smsNotificationSettings": {
+			"label": "SMS Notifikationer",
+			"hint": "Send notifikationer til kunden via SMS"
+		},
+		"sendNotificationConditionType": {
+			"allow": "Tillad",
+			"allowButAsk": "Spørg Hver Gang",
+			"deny": "Send Ikke"
+		}
 	}
 }
