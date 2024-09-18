@@ -19,6 +19,7 @@ export const RuntimeEnvironment: {
 } = {
   window: (window || {}) as never,
   apiUrls: {
+    analytic: undefined,
     panel: undefined,
     identity: undefined,
   }

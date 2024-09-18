@@ -15,118 +15,123 @@ import {EventState} from "@event/state/event/event.state";
 import {CalendarState} from "@event/state/calendar/calendar.state";
 import {StatisticState} from "@event/state/statistic/statistic.state";
 import {PeerCustomerOrderState} from "@order/state/peer-customer/peer-customer.order.state";
+import {SmsUsedAnalyticState} from "@module/analytic/internal/store/sms-used/sms-used.analytic.state";
+import {
+	DateRangeReportAnalyticState
+} from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.state";
+import {DailyReportAnalyticState} from "@module/analytic/internal/store/daily-report/daily-report.analytic.state";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
 
 export const routes: Routes = [
-    {
-        path: 'identity',
-        children: [
-            {
-                path: '',
-                canActivate: [AuthGuard],
-                component: WrapperIdentityComponent,
-                data: {
-                    authGuardPipe: redirectLoggedInToSendEmail
-                },
-                children: [
-                    {
-                        path: '',
-                        loadComponent: () => import('@page/identity/sign-in/sign-in.identity.page')
-                    },
-                    {
-                        path: 'sign-up',
-                        loadComponent: () => import('@page/identity/sign-up/sign-up.identity.page')
-                    },
-                    {
-                        path: 'confirm-invitation',
-                        loadComponent: () => import('@page/identity/confirm-invitation/confirm-invitation.identity.page')
-                    },
-                    {
-                        path: 'forgot-password',
-                        loadComponent: () => import('@page/identity/forgot-password/forgot-password.identity.page')
-                    },
-                ]
-            },
-            {
-                path: 'confirm-email',
-                loadComponent: () => import('@page/identity/confirm-email/confirm-email.identity.page')
-            },
-            {
-                path: 'corridor',
+	{
+		path: 'identity',
+		children: [
+			{
+				path: '',
+				canActivate: [AuthGuard],
+				component: WrapperIdentityComponent,
+				data: {
+					authGuardPipe: redirectLoggedInToSendEmail
+				},
+				children: [
+					{
+						path: '',
+						loadComponent: () => import('@page/identity/sign-in/sign-in.identity.page')
+					},
+					{
+						path: 'sign-up',
+						loadComponent: () => import('@page/identity/sign-up/sign-up.identity.page')
+					},
+					{
+						path: 'confirm-invitation',
+						loadComponent: () => import('@page/identity/confirm-invitation/confirm-invitation.identity.page')
+					},
+					{
+						path: 'forgot-password',
+						loadComponent: () => import('@page/identity/forgot-password/forgot-password.identity.page')
+					},
+				]
+			},
+			{
+				path: 'confirm-email',
+				loadComponent: () => import('@page/identity/confirm-email/confirm-email.identity.page')
+			},
+			{
+				path: 'corridor',
 				canActivate: [AuthGuard],
 				data: {
 					authGuardPipe: redirectUnauthorizedToLogin
 				},
-                resolve: {
-                    token: tokenResolver,
-                },
-                loadComponent: () => import('@page/identity/corridor/corridor.identity.page')
-            },
-            {
-                path: 'create-business',
+				resolve: {
+					token: tokenResolver,
+				},
+				loadComponent: () => import('@page/identity/corridor/corridor.identity.page')
+			},
+			{
+				path: 'create-business',
 				canActivate: [AuthGuard],
 				data: {
 					authGuardPipe: redirectUnauthorizedToLogin
 				},
-                resolve: {
-                    token: tokenResolver,
-                },
-                loadComponent: () => import('@page/identity/create-business/create-business.identity.page'),
-                children: [
-                    {
-                        path: '',
-                        loadComponent: () => import('@page/identity/create-business/introduction/introduction.create-business.identity.page'),
-                    },
-                    {
-                        path: 'names',
-                        loadComponent: () => import('@page/identity/create-business/names/names.create-business.identity.page'),
-                    },
-                    {
-                        path: 'industry',
-                        loadComponent: () => import('@page/identity/create-business/industry/industry.create-business.identity.page'),
-                    },
-                    {
-                        path: 'point-of-sale',
-                        loadComponent: () => import('@page/identity/create-business/point-of-sale/point-of-sale.create-business.identity.page'),
-                    },
-                    {
-                        path: 'schedules',
-                        loadComponent: () => import('@page/identity/create-business/schedules/schedules.create-business.identity.page'),
-                    },
-                    {
-                        path: 'languages',
-                        loadComponent: () => import('@page/identity/create-business/languages/languages.create-business.identity.page'),
-                    },
-                    {
-                        path: 'portfolio',
-                        loadComponent: () => import('@page/identity/create-business/portfolio/portfolio.create-business.identity.page'),
-                    },
-                    {
-                        path: 'services',
-                        loadComponent: () => import('@page/identity/create-business/services/services.create-business.identity.page'),
-                    },
-                    {
-                        path: 'category',
-                        loadComponent: () => import('@page/identity/create-business/category/category.create-business.identity.page'),
-                    },
-                    {
-                        path: 'service-provide-type',
-                        loadComponent: () => import('@page/identity/create-business/service-provide-type/service-provide-type.create-business.identity.page'),
-                    },
-                    {
-                        path: 'processing',
-                        loadComponent: () => import('@page/identity/create-business/processing/processing.create-business.identity.page'),
-                    }
-                ]
-            },
-        ]
-    },
-    {
-        path: '404',
-        loadComponent: () => import('@utility/presentation/page/404')
-    },
+				resolve: {
+					token: tokenResolver,
+				},
+				loadComponent: () => import('@page/identity/create-business/create-business.identity.page'),
+				children: [
+					{
+						path: '',
+						loadComponent: () => import('@page/identity/create-business/introduction/introduction.create-business.identity.page'),
+					},
+					{
+						path: 'names',
+						loadComponent: () => import('@page/identity/create-business/names/names.create-business.identity.page'),
+					},
+					{
+						path: 'industry',
+						loadComponent: () => import('@page/identity/create-business/industry/industry.create-business.identity.page'),
+					},
+					{
+						path: 'point-of-sale',
+						loadComponent: () => import('@page/identity/create-business/point-of-sale/point-of-sale.create-business.identity.page'),
+					},
+					{
+						path: 'schedules',
+						loadComponent: () => import('@page/identity/create-business/schedules/schedules.create-business.identity.page'),
+					},
+					{
+						path: 'languages',
+						loadComponent: () => import('@page/identity/create-business/languages/languages.create-business.identity.page'),
+					},
+					{
+						path: 'portfolio',
+						loadComponent: () => import('@page/identity/create-business/portfolio/portfolio.create-business.identity.page'),
+					},
+					{
+						path: 'services',
+						loadComponent: () => import('@page/identity/create-business/services/services.create-business.identity.page'),
+					},
+					{
+						path: 'category',
+						loadComponent: () => import('@page/identity/create-business/category/category.create-business.identity.page'),
+					},
+					{
+						path: 'service-provide-type',
+						loadComponent: () => import('@page/identity/create-business/service-provide-type/service-provide-type.create-business.identity.page'),
+					},
+					{
+						path: 'processing',
+						loadComponent: () => import('@page/identity/create-business/processing/processing.create-business.identity.page'),
+					}
+				]
+			},
+		]
+	},
+	{
+		path: '404',
+		loadComponent: () => import('@utility/presentation/page/404')
+	},
 	{
 		path: '',
 		canActivate: [AuthGuard],
@@ -175,6 +180,32 @@ export const routes: Routes = [
 							{
 								path: 'list',
 								loadComponent: () => import('@page/absence/list/list.absence.page')
+							}
+						]
+					},
+					{
+						path: 'analytic',
+						children: [
+							{
+								path: 'sms-used',
+								providers: [
+									importProvidersFrom(NgxsModule.forFeature([SmsUsedAnalyticState])),
+								],
+								loadComponent: () => import('@page/analytic/sms-used/sms-used.analytic.page')
+							},
+							{
+								path: 'date-range-report',
+								providers: [
+									importProvidersFrom(NgxsModule.forFeature([DateRangeReportAnalyticState])),
+								],
+								loadComponent: () => import('@page/analytic/date-range-report/date-range-report.analytic.page')
+							},
+							{
+								path: 'daily-report',
+								providers: [
+									importProvidersFrom(NgxsModule.forFeature([DailyReportAnalyticState])),
+								],
+								loadComponent: () => import('@page/analytic/daily-report/daily-report.analytic.page')
 							}
 						]
 					},
@@ -278,8 +309,8 @@ export const routes: Routes = [
 			}
 		]
 	},
-    {
-        path: '**',
-        redirectTo: '/',
-    }
+	{
+		path: '**',
+		redirectTo: '/',
+	}
 ];

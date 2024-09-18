@@ -5,12 +5,17 @@
 
 		<div class="overflow-x-auto flex gap-2">
 			<event-date-control-calendar-with-specialists-component/>
-			<utility-auto-refresh-component id="event-calendar-with-specialist-filter-auto-refresh"
-											(emitter)="forceRefresh()" [isLoading]="(loader$ | async) ?? false"/>
+
+			<utility-auto-refresh-component
+				id="event-calendar-with-specialist-filter-auto-refresh"
+				(emitter)="forceRefresh()"
+				[isLoading]="(loader$ | async) ?? false"/>
+
 			<ion-select-wrapper
 				id="calendar-with-specialists-filter-order-service-status"
 				[options]="orderServiceStatusOptions"
 				[control]="orderServiceStatusControl"/>
+
 		</div>
 
 	</div>
@@ -26,7 +31,8 @@
 
 			@if (showTimeLine$ | async) {
 
-				<app-time-line-calendar-with-specialist-widget-component [showLine]="false"/>
+				<app-time-line-calendar-with-specialist-widget-component
+					[showLine]="false"/>
 
 			}
 
@@ -61,8 +67,10 @@
 				[style.min-width]="calendarWithSpecialistLocaStateService.cellWidthInPx"
 				[style.min-height]="calendarWithSpecialistLocaStateService.columnHeightInPx">
 
-				<app-schedule-element-calendar-with-specialist-widget-component [index]="index" [calendar]="calendar"
-																				[member]="member">
+				<app-schedule-element-calendar-with-specialist-widget-component
+					[index]="index"
+					[calendar]="calendar"
+					[member]="member">
 
 					@for (hourRow of calendarWithSpecialistLocaStateService.hourRowListInPx; track hourRow.hour) {
 

@@ -1,4 +1,4 @@
-import {constant} from "@environment/constant";
+import {config, constant, endpoint} from "@environment/constant";
 
 export const environment = {
 	production: true,
@@ -7,25 +7,13 @@ export const environment = {
 	proxy: false,
 	setDefaultValueToInputs: false,
 	apiUrls: {
+		analytic: 'https://api.beeoclock.com/analytic',
 		panel: 'https://api.beeoclock.com/panel',
 		identity: 'https://api.beeoclock.com/identity',
 	},
-	endpoint: {
-		config: {
-			replace: false,
-			loading: false,
-			defaultErrorHandler: true,
-		}
-	},
+	endpoint,
 	constant,
-	config: {
-		modal: {
-			prefix: 'beeoclock_modal_'
-		},
-		pagination: {
-			maxLength: 5
-		}
-	},
+	config,
 	firebase: {
 		options: {
 			apiKey: "AIzaSyDwj-I3xgErbKnJqMVGqd1uqIb20qRlS44",
