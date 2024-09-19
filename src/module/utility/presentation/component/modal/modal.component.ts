@@ -337,9 +337,11 @@ export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements
 	}
 
 	private initHandleOnCloseModalButton(): void {
-		this.btnCloseRef?.nativeElement.addEventListener('click', () => {
+		const callback = () => {
 			this.executeCallback(ModalButtonRoleEnum.cancel);
-		});
+			this.btnCloseRef?.nativeElement.removeEventListener('click', callback);
+		};
+		this.btnCloseRef?.nativeElement.addEventListener('click', callback);
 	}
 
 }
