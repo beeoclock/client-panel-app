@@ -2,36 +2,36 @@ import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@utility/checker";
-import {tags} from "typia";
 import {AnalyticEndpointEnum} from "@module/analytic/external/endpoint/analytic.endpoint";
+import {Types} from "@utility/types";
 
 export namespace SmsUsedAnalyticApi {
 
 	export interface IRequestQueryParams {
 		[param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
 
-		startDate: string & tags.Format<"date">;
-		endDate: string & tags.Format<"date">;
+		startDate: string & Types.Format<"date">;
+		endDate: string & Types.Format<"date">;
 	}
 
 	export interface IMessage {
-		sid: string & tags.Pattern<"^SM[0-9a-fA-F]{32}$">; // SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-		dateCreated: string & tags.Format<"date-time">;
-		dateUpdated: string & tags.Format<"date-time">;
-		dateSent: string & tags.Format<"date-time">;
+		sid: string & Types.SID; // SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+		dateCreated: string & Types.DateTime;
+		dateUpdated: string & Types.DateTime;
+		dateSent: string & Types.DateTime;
 		to: string;
 		from: string;
 		status: "delivered";
 		body: string;
-		price: string & tags.Pattern<"^\\$0\\.[0-9]{4}$">; // "$0.0075",
-		errorCode: number & tags.Default<0>;
-		errorMessage: string & tags.Default<"">;
+		price: string & Types.Pattern<"^\\$0\\.[0-9]{4}$">; // "$0.0075",
+		errorCode: number & Types.Default<0>;
+		errorMessage: string & Types.Default<"">;
 	}
 
 	export interface ISmsUsed {
-		startDate: string & tags.Format<"date-time">;
-		endDate: string & tags.Format<"date-time">;
-		totalMessages: number & tags.Minimum<0>;
+		startDate: string & Types.DateTime;
+		endDate: string & Types.DateTime;
+		totalMessages: number & Types.Minimum<0>;
 		messages: IMessage[];
 	}
 

@@ -1,12 +1,13 @@
-import typia, {tags} from "typia";
 import {RoleEnum} from "@utility/domain/enum/role.enum";
+import {Tools} from "@utility/tools";
+import {Types} from "@utility/types";
 
 export interface IBaseEntity<OBJECT_TYPE extends string> {
 
 	// Added by the system
-	_id: string & tags.Pattern<'^[0-9a-fA-F]{24}$'>;
-	createdAt: string & tags.Format<'date-time'>;
-	updatedAt: string & tags.Format<'date-time'>;
+	_id: string & Types.ObjectId;
+	createdAt: string & Types.DateTime;
+	updatedAt: string & Types.DateTime;
 	object: OBJECT_TYPE;
 
 }
@@ -18,9 +19,9 @@ export type IMeta = {
 	history: (IHistory | IHistoryV2)[];
 }
 
-export const isIMeta = typia.createIs<IMeta>();
-export const validIMeta = typia.createValidate<IMeta>();
-export const randomIMeta = typia.createRandom<IMeta>();
+export const isIMeta = Tools.createIs<IMeta>();
+export const validIMeta = Tools.createValidate<IMeta>();
+export const randomIMeta = Tools.createRandom<IMeta>();
 
 export type IHistory = {
 	issuerId: string;
@@ -29,9 +30,9 @@ export type IHistory = {
 	value: string; // JSON
 }
 
-export const isIHistory = typia.createIs<IHistory>();
-export const validIHistory = typia.createValidate<IHistory>();
-export const randomIHistory = typia.createRandom<IHistory>();
+export const isIHistory = Tools.createIs<IHistory>();
+export const validIHistory = Tools.createValidate<IHistory>();
+export const randomIHistory = Tools.createRandom<IHistory>();
 
 export type IHistoryV2 = {
 	issuer: {
@@ -44,6 +45,6 @@ export type IHistoryV2 = {
 	_v: 2;
 }
 
-export const isIHistoryV2 = typia.createIs<IHistoryV2>();
-export const validIHistoryV2 = typia.createValidate<IHistoryV2>();
-export const randomIHistoryV2 = typia.createRandom<IHistoryV2>();
+export const isIHistoryV2 = Tools.createIs<IHistoryV2>();
+export const validIHistoryV2 = Tools.createValidate<IHistoryV2>();
+export const randomIHistoryV2 = Tools.createRandom<IHistoryV2>();
