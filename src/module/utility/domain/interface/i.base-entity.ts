@@ -4,7 +4,7 @@ import {RoleEnum} from "@utility/domain/enum/role.enum";
 export interface IBaseEntity<OBJECT_TYPE extends string> {
 
 	// Added by the system
-	_id: string & tags.Pattern<'^(?=[a-f\\d]{24}$)(\\d+[a-f]|[a-f]+\\d)'>;
+	_id: string & tags.Pattern<'^[0-9a-fA-F]{24}$'>;
 	createdAt: string & tags.Format<'date-time'>;
 	updatedAt: string & tags.Format<'date-time'>;
 	object: OBJECT_TYPE;

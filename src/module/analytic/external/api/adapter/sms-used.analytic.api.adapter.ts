@@ -15,7 +15,7 @@ export namespace SmsUsedAnalyticApi {
 	}
 
 	export interface IMessage {
-		sid: string & tags.Pattern<"/^SM[0-9a-fA-F]{32}$/">; // SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+		sid: string & tags.Pattern<"^SM[0-9a-fA-F]{32}$">; // SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 		dateCreated: string & tags.Format<"date-time">;
 		dateUpdated: string & tags.Format<"date-time">;
 		dateSent: string & tags.Format<"date-time">;
@@ -23,7 +23,7 @@ export namespace SmsUsedAnalyticApi {
 		from: string;
 		status: "delivered";
 		body: string;
-		price: string & tags.Pattern<"/^\\$\\d+\\.\\d{4}$/">; // "$0.0075",
+		price: string & tags.Pattern<"^\\$0\\.[0-9]{4}$">; // "$0.0075",
 		errorCode: number & tags.Default<0>;
 		errorMessage: string & tags.Default<"">;
 	}

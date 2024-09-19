@@ -16,15 +16,15 @@ export namespace DailyReportAnalyticApi {
 
 	export interface ISpecialist {
 		// Mongodb ObjectId
-		memberId: string & tags.Pattern<"/^[0-9a-fA-F]{24}$/">;
+		memberId: string & tags.Pattern<"^[0-9a-fA-F]{24}$">;
 		firstName: string;
 		lastName: string;
 		email: string & tags.Format<"email">;
 	}
 
 	export interface IProduct {
-		orderId: string & tags.Pattern<"/^[0-9a-fA-F]{24}$/">;
-		orderProductId: string & tags.Pattern<"/^[0-9a-fA-F]{24}$/">;
+		orderId: string & tags.Pattern<"^[0-9a-fA-F]{24}$">;
+		orderProductId: string & tags.Pattern<"^[0-9a-fA-F]{24}$">;
 		productSpecialCode: string;
 		price: number & tags.Minimum<0>;
 		currency: CurrencyCodeEnum & tags.Default<CurrencyCodeEnum.USD>;
@@ -32,8 +32,8 @@ export namespace DailyReportAnalyticApi {
 	}
 
 	export interface IService {
-		orderServiceId: string & tags.Pattern<"/^[0-9a-fA-F]{24}$/">;
-		serviceId: string & tags.Pattern<"/^[0-9a-fA-F]{24}$/">;
+		orderServiceId: string & tags.Pattern<"^[0-9a-fA-F]{24}$">;
+		serviceId: string & tags.Pattern<"^[0-9a-fA-F]{24}$">;
 		serviceName: string;
 		price: number & tags.Minimum<0>;
 		currency: CurrencyCodeEnum & tags.Default<CurrencyCodeEnum.USD>;
