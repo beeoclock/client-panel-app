@@ -34,7 +34,7 @@ export interface IBusinessProfile {
 
 	bookingSettings: BookingSettingsForm;
 	businessSettings: BusinessSettingsForm;
-	notificationSetting: NotificationSettingsFromGroup;
+	notificationSettings: NotificationSettingsFromGroup;
 	addresses: AddressesForm;
 	schedules: SchedulesForm;
 	contacts: ContactsForm;
@@ -58,7 +58,7 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
 			}),
 			name: new FormControl(),
 			username: new FormControl(),
-			notificationSetting: new FormGroup({
+			notificationSettings: new FormGroup({
 				emailNotificationSettings: new FormGroup({sendNotificationConditionType: new FormControl()}),
 				smsNotificationSettings: new FormGroup({sendNotificationConditionType: new FormControl()}),
 			}),
