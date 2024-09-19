@@ -1438,5 +1438,21 @@
 			"tuesday": "Вт",
 			"wednesday": "Ср"
 		}
+	},
+	"notificationSetting": {
+		"cardTitle": "Налаштування сповіщень клієнта",
+		"emailNotificationSettings": {
+			"label": "Email сповіщення",
+			"hint": "Надсилати клієнту сповіщення електронною поштою"
+		},
+		"smsNotificationSettings": {
+			"label": "Sms сповіщення",
+			"hint": "Надсилати клієнту смс сповіщення"
+		},
+		"sendNotificationConditionType": {
+			"allow": "Дозволити",
+			"allowButAsk": "Щоразу запитувати",
+			"deny": "Не надсилати"
+		}
 	}
 }

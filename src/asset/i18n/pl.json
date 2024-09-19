@@ -1438,5 +1438,21 @@
 			"tuesday": "Wt",
 			"wednesday": "Śr"
 		}
+	},
+	"notificationSetting": {
+		"cardTitle": "Ustawienia Powiadomień Klienta",
+		"emailNotificationSettings": {
+			"label": "Powiadomienia Email",
+			"hint": "Wysyłaj powiadomienia do klienta przez e-mail"
+		},
+		"smsNotificationSettings": {
+			"label": "Powiadomienia SMS",
+			"hint": "Wysyłaj powiadomienia do klienta przez SMS"
+		},
+		"sendNotificationConditionType": {
+			"allow": "Zezwól",
+			"allowButAsk": "Pytaj Za Każdym Razem",
+			"deny": "Nie Wysyłaj"
+		}
 	}
 }
