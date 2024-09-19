@@ -10,8 +10,8 @@ export namespace SmsUsedAnalyticApi {
 	export interface IRequestQueryParams {
 		[param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
 
-		startDate: string & Types.Format<"date">;
-		endDate: string & Types.Format<"date">;
+		startDate: string & Types.Date;
+		endDate: string & Types.Date;
 	}
 
 	export interface IMessage {

@@ -45,6 +45,23 @@
 			}
 		}
 	},
+	"analytic": {
+		"summary": {
+			"appointments": {
+				"by": {
+					"client": "Публічна сторінка",
+					"panel": "Панель"
+				},
+				"total": "Кількість наданих послуг"
+			},
+			"averageBill": "Середній чек",
+			"averageServiceTime": "Середній час обслуговування",
+			"income": "Дохід",
+			"totalOrders": "Всього замовлень",
+			"totalServiceTime": "Кількість наданих послуг у годинах",
+			"uniqueClients": "Унікальні клієнти"
+		}
+	},
 	"autoActionOnOrderInSeconds": {
 		"EIGHT_HOURS": "8 годин",
 		"FIFTEEN_MINUTES": "15 хвилин",

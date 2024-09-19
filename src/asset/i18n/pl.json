@@ -45,6 +45,23 @@
 			}
 		}
 	},
+	"analytic": {
+		"summary": {
+			"appointments": {
+				"by": {
+					"client": "Strona publiczna",
+					"panel": "Panel"
+				},
+				"total": "Liczba świadczonych usług"
+			},
+			"averageBill": "Średni rachunek",
+			"averageServiceTime": "Średni czas obsługi",
+			"income": "Dochód",
+			"totalOrders": "Całkowita liczba zamówień",
+			"totalServiceTime": "Ilość świadczonych usług w godzinach",
+			"uniqueClients": "Unikalni klienci"
+		}
+	},
 	"autoActionOnOrderInSeconds": {
 		"EIGHT_HOURS": "8 godzin",
 		"FIFTEEN_MINUTES": "15 minut",

@@ -10,8 +10,8 @@ export namespace DateRangeReportAnalyticApi {
 
 	export interface IRequestQueryParams {
 		[param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
-		startDate: string & Types.Format<"date">;
-		endDate: string & Types.Format<"date">;
+		startDate: string & Types.Date;
+		endDate: string & Types.Date;
 		specialistIds: string[];
 	}
 
@@ -21,6 +21,12 @@ export namespace DateRangeReportAnalyticApi {
 		firstName: string;
 		lastName: string;
 		email: string & Types.Format<"email">;
+	}
+
+	export interface IAttendee {
+		customerId: string & Types.ObjectId;
+		firstName: string;
+		lastName: string;
 	}
 
 	export interface IProduct {
@@ -41,14 +47,15 @@ export namespace DateRangeReportAnalyticApi {
 		durationInSeconds: number & Types.Minimum<0>;
 		startTime: string & Types.DateTime;
 		endTime: string & Types.DateTime;
-		createdOn: "client" | "panel" & Types.Default<"client">;
+		createdOn: ("client" | "panel") & Types.Default<"client">;
 		wasSelectedAnybody: boolean & Types.Default<false>;
 		status: "inProgress";
+		attendants: IAttendee[];
 	}
 
 	export interface ISpecialistReport {
 		specialist: ISpecialist;
-		date: string & Types.Format<"date">;
+		date: string & Types.Date;
 		totalRevenue: number & Types.Minimum<0>;
 		services: IService[],
 		products: IProduct[],
@@ -57,7 +64,7 @@ export namespace DateRangeReportAnalyticApi {
 	}
 
 	export interface IDateRangeReport {
-		date: string & Types.Format<"date">;
+		date: string & Types.Date;
 		specialistReports: ISpecialistReport[],
 		totalRevenue: number & Types.Minimum<0>;
 		totalOrders: number & Types.Minimum<0>;

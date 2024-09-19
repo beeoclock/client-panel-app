@@ -45,6 +45,23 @@
 			}
 		}
 	},
+	"analytic": {
+		"summary": {
+			"appointments": {
+				"by": {
+					"client": "Public page",
+					"panel": "Panel"
+				},
+				"total": "Number of services provided"
+			},
+			"averageBill": "Average bill",
+			"averageServiceTime": "Average service time",
+			"income": "Income",
+			"totalOrders": "Total orders",
+			"totalServiceTime": "Number of services provided in hours",
+			"uniqueClients": "Unique clients"
+		}
+	},
 	"autoActionOnOrderInSeconds": {
 		"EIGHT_HOURS": "8 hours",
 		"FIFTEEN_MINUTES": "15 minutes",

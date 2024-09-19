@@ -45,6 +45,23 @@
 			}
 		}
 	},
+	"analytic": {
+		"summary": {
+			"appointments": {
+				"by": {
+					"client": "Offentlig hjemmeside",
+					"panel": "Panel"
+				},
+				"total": "Antal leverede tjenester"
+			},
+			"averageBill": "Gennemsnitlig regning",
+			"averageServiceTime": "Gennemsnitlig servicetid",
+			"income": "Indkomst",
+			"totalOrders": "Samlede ordrer",
+			"totalServiceTime": "Antal leverede tjenester i timer",
+			"uniqueClients": "Unikke kunder"
+		}
+	},
 	"autoActionOnOrderInSeconds": {
 		"EIGHT_HOURS": "8 timer",
 		"FIFTEEN_MINUTES": "15 minutter",

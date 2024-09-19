@@ -11,7 +11,7 @@ export namespace DailyReportAnalyticApi {
 	export interface IRequestQueryParams {
 		[param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
 
-		date: string & Types.Format<"date">;
+		date: string & Types.Date;
 		specialistIds: string[];
 	}
 
@@ -29,7 +29,7 @@ export namespace DailyReportAnalyticApi {
 		productSpecialCode: string;
 		price: number & Types.Minimum<0>;
 		currency: CurrencyCodeEnum & Types.Default<CurrencyCodeEnum.USD>;
-		saleDate: string & Types.Format<"date-time">;
+		saleDate: string & Types.DateTime;
 	}
 
 	export interface IService {
@@ -39,8 +39,8 @@ export namespace DailyReportAnalyticApi {
 		price: number & Types.Minimum<0>;
 		currency: CurrencyCodeEnum & Types.Default<CurrencyCodeEnum.USD>;
 		durationInSeconds: number & Types.Minimum<0>;
-		startTime: string & Types.Format<"date-time">;
-		endTime: string & Types.Format<"date-time">;
+		startTime: string & Types.DateTime;
+		endTime: string & Types.DateTime;
 		createdOn: "client" | "panel" & Types.Default<"client">;
 		wasSelectedAnybody: boolean & Types.Default<false>;
 		status: "inProgress";
@@ -48,7 +48,7 @@ export namespace DailyReportAnalyticApi {
 
 	export interface ISpecialistReport {
 		specialist: ISpecialist;
-		date: string & Types.Format<"date">;
+		date: string & Types.Date;
 		totalRevenue: number & Types.Minimum<0>;
 		services: IService[],
 		products: IProduct[],
@@ -57,12 +57,12 @@ export namespace DailyReportAnalyticApi {
 	}
 
 	export interface IDailyReport {
-		date: string & Types.Format<"date">;
+		date: string & Types.Date;
 		specialistReports: ISpecialistReport[],
 		totalRevenue: number & Types.Minimum<0>;
 		totalOrders: number & Types.Minimum<0>;
-		createdAt: string & Types.Format<"date-time">;
-		updatedAt: string & Types.Format<"date-time">;
+		createdAt: string & Types.DateTime;
+		updatedAt: string & Types.DateTime;
 	}
 
 	export type IResponse = IDailyReport;
