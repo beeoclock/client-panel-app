@@ -4,5 +4,6 @@ export enum OrderServiceStatusEnum {
 	inProgress = 'inProgress',
 	done = 'done',
 	rejected = 'rejected',
+	deleted = 'deleted',
 	cancelled = 'cancelled'
 }

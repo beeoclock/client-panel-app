@@ -28,27 +28,27 @@
 					</tr>
 					</thead>
 					<tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-						@for (item of table; track item.customer.customerId) {
+<!--						@for (item of table; track item.customer.customerId) {-->
 
-							<tr>
-								<td class="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
-									{{ item.customer.firstName }} {{ item.customer.lastName }}
-								</td>
-								<td class="px-3 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
-									{{ item.data.expenses | currency: baseCurrency: 'symbol' }}
-								</td>
-								<td class="px-3 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
-									{{ item.data.appointments.total }}
-								</td>
-								<td class="px-3 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
-									{{ item.data.appointments.by.panel }}
-								</td>
-								<td class="px-3 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
-									{{ item.data.appointments.by.panel }}
-								</td>
-							</tr>
+<!--							<tr>-->
+<!--								<td class="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">-->
+<!--									{{ item.customer.firstName }} {{ item.customer.lastName }}-->
+<!--								</td>-->
+<!--								<td class="px-3 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">-->
+<!--									{{ item.data.expenses | currency: baseCurrency: 'symbol' }}-->
+<!--								</td>-->
+<!--								<td class="px-3 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">-->
+<!--									{{ item.data.appointments.total }}-->
+<!--								</td>-->
+<!--								<td class="px-3 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">-->
+<!--									{{ item.data.appointments.by.panel }}-->
+<!--								</td>-->
+<!--								<td class="px-3 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">-->
+<!--									{{ item.data.appointments.by.panel }}-->
+<!--								</td>-->
+<!--							</tr>-->
 
-						}
+<!--						}-->
 					</tbody>
 				</table>
 			</div>

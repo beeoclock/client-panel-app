@@ -1,432 +1,638 @@
-// Here we will calculate the date range for the report for analytic propery in store
 import {DateRangeReportAnalyticApi} from "@module/analytic/external/api/adapter/date-range-report.analytic.api.adapter";
-import {
-	IDateRangeAnalyticState
-} from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.state";
+import {Analytic} from "@module/analytic/internal/store/date-range-report/interface/i.analytic";
+import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {ApplicationEnum} from "@utility/domain/enum/application.enum";
 
-export function calculateDateRangeReportAnalyticTool(response: DateRangeReportAnalyticApi.IResponse): IDateRangeAnalyticState['analytic'] {
-	if (!response) {
-		return null;
-	}
+// Here we will calculate the date range for the report for analytic propery in store
+// Припускаємо, що всі необхідні типи та енумерації вже імпортовані або визначені:
 
-	const analyticData: IDateRangeAnalyticState['analytic'] = {
+// Функція для отримання ключів енумерації
+function getEnumKeys<T>(enumObj: T): (keyof T)[] {
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-expect-error
+	return Object.keys(enumObj) as (keyof T)[];
+}
+
+// Основна функція перетворення
+export function transformIResponseToAnalytic(iResponse: DateRangeReportAnalyticApi.IResponse): Analytic.I {
+	const analyticData: Analytic.I = {
 		summary: {
-			income: response.totalRevenue,
-			averageBill: response.totalRevenue / response.totalOrders,
-			totalOrders: response.totalOrders,
-			averageServiceTime: 0,
-			totalServiceTime: 0,
-			uniqueClients: 0,
-			appointments: {
-				total: 0,
-				by: {
-					panel: {
-						total: 0,
-						percentages: 0
-					},
-					client: {
-						total: 0,
-						percentages: 0
+			revenue: {
+				average: {
+					by: {
+						source: {},
+						status: {}
+					}
+				},
+				total: {
+					by: {
+						source: {
+							[ApplicationEnum.panel]: 0,
+							[ApplicationEnum.client]: 0,
+						},
+						status: {
+							[OrderServiceStatusEnum.requested]: 0,
+							[OrderServiceStatusEnum.accepted]: 0,
+							[OrderServiceStatusEnum.inProgress]: 0,
+							[OrderServiceStatusEnum.done]: 0,
+							[OrderServiceStatusEnum.rejected]: 0,
+							[OrderServiceStatusEnum.cancelled]: 0,
+							[OrderServiceStatusEnum.deleted]: 0,
+						}
 					}
 				}
+			},
+			total: {
+				serviceTime: 0
+			},
+			average: {
+				serviceTime: 0
 			}
 		},
 		counter: {
-			by: {
-				specialist: {},
-				customer: {},
-				service: {},
-				calendar: {},
-				month: {},
-				weekDay: {},
-				hour: {}
+			specialists: 0,
+			services: 0,
+			customers: 0,
+			orders: 0,
+			orderService: {
+				total: 0,
+				by: {
+					status: {
+						[OrderServiceStatusEnum.requested]: 0,
+						[OrderServiceStatusEnum.accepted]: 0,
+						[OrderServiceStatusEnum.inProgress]: 0,
+						[OrderServiceStatusEnum.done]: 0,
+						[OrderServiceStatusEnum.rejected]: 0,
+						[OrderServiceStatusEnum.cancelled]: 0,
+						[OrderServiceStatusEnum.deleted]: 0,
+					},
+					source: {
+						[ApplicationEnum.panel]: 0,
+						[ApplicationEnum.client]: 0
+					},
+					wasSelectedAnybody: 0
+				}
 			}
 		},
-		service: {},
-		specialist: {},
-		customer: {},
+		specialistRecord: {},
+		serviceRecord: {},
+		customerRecord: {},
+		orderRecord: {},
+		orderService: {
+			record: {},
+			by: {
+				status: {
+					[OrderServiceStatusEnum.requested]: {},
+					[OrderServiceStatusEnum.accepted]: {},
+					[OrderServiceStatusEnum.inProgress]: {},
+					[OrderServiceStatusEnum.done]: {},
+					[OrderServiceStatusEnum.rejected]: {},
+					[OrderServiceStatusEnum.cancelled]: {},
+					[OrderServiceStatusEnum.deleted]: {},
+				},
+				source: {
+					[ApplicationEnum.panel]: {},
+					[ApplicationEnum.client]: {}
+				},
+				wasSelectedAnybody: {}
+			}
+		}
 	};
 
-	// NOTE: SPECIALIST
-	response.specialistReports.forEach((specialistReport: DateRangeReportAnalyticApi.ISpecialistReport) => {
+	// Множини для унікальних ідентифікаторів
+	const uniqueSpecialists = new Set<string>();
+	const uniqueServices = new Set<string>();
+	const uniqueCustomers = new Set<string>();
+	const uniqueOrders = new Set<string>();
 
-		const specialistExist = specialistReport.specialist.memberId in analyticData.specialist;
-		if (!specialistExist) {
+	// Змінні для обчислення середніх значень
+	let totalServiceTime = 0;
+	let totalServiceCount = 0;
 
-			analyticData.specialist[specialistReport.specialist.memberId] = specialistReport.specialist;
-			analyticData.counter.by.specialist[specialistReport.specialist.memberId] = {
-				income: specialistReport.totalRevenue,
-				uniqueClients: 0,
-				averageBill: 0,
-				averageServiceTime: 0,
-				totalServiceTime: 0,
-				appointments: {
-					total: 0,
-					by: {
-						panel: {
-							total: 0,
-							percentages: 0
+	// Обробка кожного specialistReport
+	for (const specialistReport of iResponse.specialistReports) {
+		const specialistId = specialistReport.specialist.memberId;
+
+		// Додавання унікального спеціаліста
+		if (!uniqueSpecialists.has(specialistId)) {
+			uniqueSpecialists.add(specialistId);
+			analyticData.counter.specialists++;
+		}
+
+		// Ініціалізація запису спеціаліста
+		if (!analyticData.specialistRecord[specialistId]) {
+			analyticData.specialistRecord[specialistId] = {
+				summary: {
+					revenue: {
+						average: {
+							by: {
+								source: {},
+								status: {}
+							}
 						},
-						client: {
-							total: 0,
-							percentages: 0
+						total: {
+							by: {
+								source: {
+									[ApplicationEnum.panel]: 0,
+									[ApplicationEnum.client]: 0
+								},
+								status: {
+									[OrderServiceStatusEnum.requested]: 0,
+									[OrderServiceStatusEnum.accepted]: 0,
+									[OrderServiceStatusEnum.inProgress]: 0,
+									[OrderServiceStatusEnum.done]: 0,
+									[OrderServiceStatusEnum.rejected]: 0,
+									[OrderServiceStatusEnum.cancelled]: 0,
+									[OrderServiceStatusEnum.deleted]: 0,
+								}
+							}
+						}
+					},
+					total: {
+						serviceTime: 0
+					},
+					average: {
+						serviceTime: 0
+					}
+				},
+				counter: {
+					customers: 0,
+					services: 0,
+					orders: 0,
+					orderService: {
+						total: 0,
+						by: {
+							status: {
+								[OrderServiceStatusEnum.requested]: 0,
+								[OrderServiceStatusEnum.accepted]: 0,
+								[OrderServiceStatusEnum.inProgress]: 0,
+								[OrderServiceStatusEnum.done]: 0,
+								[OrderServiceStatusEnum.rejected]: 0,
+								[OrderServiceStatusEnum.cancelled]: 0,
+								[OrderServiceStatusEnum.deleted]: 0,
+							},
+							source: {
+								[ApplicationEnum.panel]: 0,
+								[ApplicationEnum.client]: 0
+							},
+							wasSelectedAnybody: 0
 						}
 					}
 				},
-				uniqueClient: {},
+				details: {
+					id: specialistReport.specialist.memberId,
+					firstName: specialistReport.specialist.firstName,
+					lastName: specialistReport.specialist.lastName,
+					email: specialistReport.specialist.email
+				},
+				serviceRecord: {},
+				orderRecord: {},
+				orderServiceRecord: {},
+				customerRecord: {}
 			};
-
 		}
 
-		// NOTE: DATE REPORTS
-		specialistReport.dateReports.forEach((dateReport) => {
+		const specialistData = analyticData.specialistRecord[specialistId];
 
-			// NOTE: SERVICE
-			dateReport.services.forEach((service: DateRangeReportAnalyticApi.IService) => {
+		// Обробка dateReports
+		for (const dateReport of specialistReport.dateReports) {
+			// Обробка services
+			for (const service of dateReport.services) {
+				// Оновлення лічильників
+				analyticData.counter.orderService.total++;
+				specialistData.counter.orderService.total++;
 
-				const date = new Date(service.startTime);
+				// Оновлення за статусом
+				const status = service.status as keyof typeof OrderServiceStatusEnum;
+				analyticData.counter.orderService.by.status[status]++;
+				specialistData.counter.orderService.by.status[status]++;
 
-				// NOTE: Calculate appointments in total
-				analyticData.summary.appointments.total++;
-				// Calculate appointments by panel and client
-				const {createdOn} = service as {createdOn: 'client' | 'panel'};
-				analyticData.summary.appointments.by[createdOn].total++;
+				// Оновлення за джерелом
+				const source = service.createdOn as keyof typeof ApplicationEnum;
+				analyticData.counter.orderService.by.source[source]++;
+				specialistData.counter.orderService.by.source[source]++;
 
-				// Set service in analyticData.service
-				const serviceExist = service.serviceId in analyticData.service;
-				if (!serviceExist) {
-					analyticData.service[service.serviceId] = service;
+				// wasSelectedAnybody
+				if (service.wasSelectedAnybody) {
+					analyticData.counter.orderService.by.wasSelectedAnybody++;
+					specialistData.counter.orderService.by.wasSelectedAnybody++;
 				}
 
-				const serviceExistInCounter = service.serviceId in analyticData.counter.by.service;
-				if (!serviceExistInCounter) {
-					analyticData.counter.by.service[service.serviceId] = {
-						income: 0,
-						uniqueClients: 0,
-						appointments: {
-							total: 0,
-							by: {
-								panel: 0,
-								client: 0
-							}
+				// Оновлення загального доходу
+				analyticData.summary.revenue.total.by.status[status] += service.price;
+				analyticData.summary.revenue.total.by.source[source] += service.price;
+				specialistData.summary.revenue.total.by.status[status] += service.price;
+				specialistData.summary.revenue.total.by.source[source] += service.price;
+
+				// Оновлення часу сервісу
+				const duration = service.durationInSeconds;
+				totalServiceTime += duration;
+				totalServiceCount++;
+				analyticData.summary.total.serviceTime += duration;
+				specialistData.summary.total.serviceTime += duration;
+
+				// Обробка orderService.record
+				const orderServiceId = service.orderServiceId;
+				if (!analyticData.orderService.record[orderServiceId]) {
+					// Обробка клієнтів
+					const customersDetails = service.attendants.map(attendant => {
+						const customerId = attendant.customerId;
+
+						// Додавання унікального клієнта
+						if (!uniqueCustomers.has(customerId)) {
+							uniqueCustomers.add(customerId);
+							analyticData.counter.customers++;
 						}
-					};
-				}
 
-				// NOTE: Service counter
-				const serviceCounter = analyticData.counter.by.service[service.serviceId];
-
-				// Calculate income
-				serviceCounter.income += service.price;
-				// Calculate appointments by panel and client
-				serviceCounter.appointments.total++;
-				serviceCounter.appointments.by[createdOn]++;
-
-				// NOTE: Calendar counter
-				// TODO: Додати інформацію про різницю між часом, тобто є певний час між тим коли замовили і наколи замовили, ця інформація може допомогти визначити час який витрачається на обробку замовлення та теоретично за скільки клієнт повернеться
-				const serviceExistInCalendar = service.startTime in analyticData.counter.by.calendar;
-				// Format: YYYY-MM-DD
-				const dateKey = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
-				if (!serviceExistInCalendar) {
-					analyticData.counter.by.calendar[dateKey] = {
-						uniqueClients: 0,
-						appointments: {
-							total: 0,
-							by: {
-								panel: 0,
-								client: 0
-							}
-						},
-						income: 0
-					};
-				}
-
-				const calendarCounter = analyticData.counter.by.calendar[dateKey];
-				// Calculate appointments by panel and client
-				calendarCounter.appointments.total++;
-				calendarCounter.appointments.by[createdOn]++;
-				// Calculate income
-				calendarCounter.income += service.price;
-
-				// NOTE: Month counter
-				const monthKey = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
-				const monthExistInCounter = monthKey in analyticData.counter.by.month;
-				if (!monthExistInCounter) {
-					analyticData.counter.by.month[monthKey] = {
-						uniqueClients: 0,
-						appointments: {
-							total: 0,
-							by: {
-								panel: 0,
-								client: 0
-							}
-						},
-						income: 0
-					};
-				}
-
-				const monthCounter = analyticData.counter.by.month[monthKey];
-				// Calculate appointments by panel and client
-				monthCounter.appointments.total++;
-				monthCounter.appointments.by[createdOn]++;
-				// Calculate income
-				monthCounter.income += service.price;
-
-				// NOTE: Day counter
-				const weekDay = date.getDay();
-				const weekDayExistInCounter = weekDay in analyticData.counter.by.weekDay;
-				if (!weekDayExistInCounter) {
-					analyticData.counter.by.weekDay[weekDay] = {
-						uniqueClients: 0,
-						appointments: {
-							total: 0,
-							percentages: 0,
-							by: {
-								panel: {
-									percentages: 0,
-									total: 0
+						// Ініціалізація запису клієнта
+						if (!analyticData.customerRecord[customerId]) {
+							analyticData.customerRecord[customerId] = {
+								summary: {
+									revenue: {
+										average: {
+											by: {
+												source: {},
+												status: {}
+											}
+										},
+										total: {
+											by: {
+												source: {
+													[ApplicationEnum.panel]: 0,
+													[ApplicationEnum.client]: 0
+												},
+												status: {
+													[OrderServiceStatusEnum.requested]: 0,
+													[OrderServiceStatusEnum.accepted]: 0,
+													[OrderServiceStatusEnum.inProgress]: 0,
+													[OrderServiceStatusEnum.done]: 0,
+													[OrderServiceStatusEnum.rejected]: 0,
+													[OrderServiceStatusEnum.cancelled]: 0,
+													[OrderServiceStatusEnum.deleted]: 0,
+												}
+											}
+										}
+									},
+									total: {
+										serviceTime: 0
+									},
+									average: {
+										serviceTime: 0
+									}
 								},
-								client: {
+								counter: {
+									specialists: 0,
+									services: 0,
+									orders: 0,
+									orderService: {
+										total: 0,
+										by: {
+											status: {
+												[OrderServiceStatusEnum.requested]: 0,
+												[OrderServiceStatusEnum.accepted]: 0,
+												[OrderServiceStatusEnum.inProgress]: 0,
+												[OrderServiceStatusEnum.done]: 0,
+												[OrderServiceStatusEnum.rejected]: 0,
+												[OrderServiceStatusEnum.cancelled]: 0,
+												[OrderServiceStatusEnum.deleted]: 0,
+											},
+											source: {
+												[ApplicationEnum.panel]: 0,
+												[ApplicationEnum.client]: 0
+											},
+											wasSelectedAnybody: 0
+										}
+									}
+								},
+								details: {
+									id: attendant.customerId,
+									firstName: attendant.firstName,
+									lastName: attendant.lastName,
+									registeredDate: attendant.registeredDate
+								},
+								specialistRecord: {},
+								serviceRecord: {},
+								orderRecord: {},
+								orderServiceRecord: {}
+							};
+						}
+
+						// Оновлення лічильників клієнта
+						const customerData = analyticData.customerRecord[customerId];
+						customerData.counter.orderService.total++;
+						customerData.counter.orderService.by.status[status]++;
+						customerData.counter.orderService.by.source[source]++;
+						if (service.wasSelectedAnybody) {
+							customerData.counter.orderService.by.wasSelectedAnybody++;
+						}
+
+						// Оновлення доходу клієнта
+						customerData.summary.revenue.total.by.status[status] += service.price;
+						customerData.summary.revenue.total.by.source[source] += service.price;
+
+						// Оновлення часу сервісу клієнта
+						customerData.summary.total.serviceTime += duration;
+
+						// Додавання записів до specialistRecord клієнта
+						customerData.specialistRecord[specialistId] = {
+							...specialistData,
+							serviceRecord: {}
+						};
+
+						// Додавання запису orderServiceRecord
+						customerData.orderServiceRecord[orderServiceId] = {
+							id: service.orderServiceId,
+							orderId: service.orderId,
+							price: service.price,
+							currency: service.currency,
+							durationInSeconds: service.durationInSeconds,
+							startTime: service.startTime,
+							endTime: service.endTime,
+							createdOn: service.createdOn,
+							wasSelectedAnybody: service.wasSelectedAnybody,
+							status: service.status,
+							customers: service.attendants.map(attendant => {
+								return {
+									id: attendant.customerId,
+									firstName: attendant.firstName,
+									lastName: attendant.lastName,
+									registeredDate: attendant.registeredDate
+								};
+							}),
+							service: {
+								id: service.serviceId,
+								serviceName: service.serviceName
+							}
+						}; // Заповнимо пізніше
+
+						return customerData.details;
+					});
+
+					// Обробка сервісу
+					const serviceId = service.serviceId;
+					if (!uniqueServices.has(serviceId)) {
+						uniqueServices.add(serviceId);
+						analyticData.counter.services++;
+					}
+
+					// Ініціалізація serviceRecord
+					if (!analyticData.serviceRecord[serviceId]) {
+						analyticData.serviceRecord[serviceId] = {
+							summary: {
+								revenue: {
+									average: {
+										by: {
+											source: {},
+											status: {}
+										}
+									},
+									total: {
+										by: {
+											source: {
+												[ApplicationEnum.panel]: 0,
+												[ApplicationEnum.client]: 0
+											},
+											status: {
+												[OrderServiceStatusEnum.requested]: 0,
+												[OrderServiceStatusEnum.accepted]: 0,
+												[OrderServiceStatusEnum.inProgress]: 0,
+												[OrderServiceStatusEnum.done]: 0,
+												[OrderServiceStatusEnum.rejected]: 0,
+												[OrderServiceStatusEnum.cancelled]: 0,
+												[OrderServiceStatusEnum.deleted]: 0,
+											}
+										}
+									}
+								},
+								total: {
+									serviceTime: 0
+								},
+								average: {
+									serviceTime: 0
+								}
+							},
+							counter: {
+								specialists: 0,
+								customers: 0,
+								orders: 0,
+								orderService: {
 									total: 0,
-									percentages: 0
-								}
-							}
-						},
-						income: 0
-					};
-				}
-
-				const weekDayCounter = analyticData.counter.by.weekDay[weekDay];
-				// Calculate appointments by panel and client
-				weekDayCounter.appointments.total++;
-				weekDayCounter.appointments.by[createdOn].total++;
-				// Calculate income
-				weekDayCounter.income += service.price;
-
-				// NOTE: Hour counter
-				const hour = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
-				const hourExistInCounter = hour in analyticData.counter.by.hour;
-				if (!hourExistInCounter) {
-					analyticData.counter.by.hour[hour] = {
-						uniqueClients: 0,
-						appointments: {
-							total: 0,
-							by: {
-								panel: 0,
-								client: 0
-							}
-						},
-						income: 0
-					};
-				}
-
-				const hourCounter = analyticData.counter.by.hour[hour];
-				// Calculate appointments by panel and client
-				hourCounter.appointments.total++;
-				hourCounter.appointments.by[createdOn]++;
-				// Calculate income
-				hourCounter.income += service.price;
-
-				// NOTE: Specialist counter
-				const specialistCounter = analyticData.counter.by.specialist[specialistReport.specialist.memberId];
-
-				// Calculate averageBill
-				specialistCounter.appointments.total++;
-				// Calculate appointments by panel and client
-				specialistCounter.appointments.by[createdOn].total++;
-				specialistCounter.averageBill += service.price;
-				specialistCounter.totalServiceTime += getDifferenceInSecondsBetweenTwoIso(service.startTime, service.endTime);
-
-				// Calculate averageServiceTime
-				const durationInSeconds = getDifferenceInSecondsBetweenTwoIso(service.startTime, service.endTime);
-				analyticData.summary.totalServiceTime += durationInSeconds;
-
-				// NOTE: ATTENDEE
-				service.attendants.forEach((attendee: DateRangeReportAnalyticApi.IAttendee) => {
-
-					if (!attendee.customerId || !attendee.customerId.length) {
-						return;
-					}
-
-					// Set client in analyticData.customer if not exist
-					const clientExistInCounter = attendee.customerId in analyticData.counter.by.customer;
-					if (!clientExistInCounter) {
-						analyticData.counter.by.customer[attendee.customerId] = {
-							appointments: {
-								total: 0,
-								by: {
-									panel: 0,
-									client: 0
-								}
-							},
-							order: {
-								service: {
-									[service.serviceId]: {
-										appointments: {
-											total: 0,
-											by: {
-												panel: 0,
-												client: 0
-											}
+									by: {
+										status: {
+											[OrderServiceStatusEnum.requested]: 0,
+											[OrderServiceStatusEnum.accepted]: 0,
+											[OrderServiceStatusEnum.inProgress]: 0,
+											[OrderServiceStatusEnum.done]: 0,
+											[OrderServiceStatusEnum.rejected]: 0,
+											[OrderServiceStatusEnum.cancelled]: 0,
+											[OrderServiceStatusEnum.deleted]: 0,
 										},
-										expenses: 0
-									},
-								},
-							},
-							expenses: 0
-						};
-					}
-
-					// Set client in analyticData.customer if not exist
-					const clientExist = attendee.customerId in analyticData.customer;
-					if (!clientExist) {
-						analyticData.customer[attendee.customerId] = attendee;
-					}
-
-					// Set client in specialistCounter.uniqueClient if not exist
-					const clientExistInSpecialistCounter = attendee.customerId in specialistCounter.uniqueClient;
-					if (!clientExistInSpecialistCounter) {
-						specialistCounter.uniqueClient[attendee.customerId] = {
-							appointments: {
-								total: 0,
-								by: {
-									panel: 0,
-									client: 0
-								}
-							},
-							order: {
-								service: {
-									[service.serviceId]: {
-										appointments: {
-											total: 0,
-											by: {
-												panel: 0,
-												client: 0
-											}
+										source: {
+											[ApplicationEnum.panel]: 0,
+											[ApplicationEnum.client]: 0
 										},
-										expenses: 0
-									},
-								},
-							},
-							expenses: 0
-						};
-					}
-
-					const clientCounterInSpecialistCounter = specialistCounter.uniqueClient[attendee.customerId];
-
-					// Calculate appointments by panel and client
-					clientCounterInSpecialistCounter.appointments.total++;
-					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-					// @ts-expect-error
-					clientCounterInSpecialistCounter.appointments.by[service.createdOn]++;
-
-					// Calculate expenses
-					clientCounterInSpecialistCounter.expenses += service.price;
-
-					// Set service in clientCounterInSpecialistCounter.order.service if not exist
-					const serviceExistInClientCounterInSpecialistCounter = service.serviceId in clientCounterInSpecialistCounter.order.service;
-					if (!serviceExistInClientCounterInSpecialistCounter) {
-						clientCounterInSpecialistCounter.order.service[service.serviceId] = {
-							appointments: {
-								total: 0,
-								by: {
-									panel: 0,
-									client: 0
+										wasSelectedAnybody: 0
+									}
 								}
 							},
-							expenses: 0
-						};
-					}
-
-					const serviceCounterInClientCounterInSpecialistCounter = clientCounterInSpecialistCounter.order.service[service.serviceId];
-					serviceCounterInClientCounterInSpecialistCounter.expenses = service.price;
-					serviceCounterInClientCounterInSpecialistCounter.appointments.total++;
-					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-					// @ts-expect-error
-					serviceCounterInClientCounterInSpecialistCounter.appointments.by[service.createdOn]++;
-
-					const clientCounter = analyticData.counter.by.customer[attendee.customerId];
-
-					// Calculate appointments by panel and client
-					clientCounter.appointments.total++;
-					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-					// @ts-expect-error
-					clientCounter.appointments.by[service.createdOn]++;
-
-					// Calculate expenses
-					clientCounter.expenses += service.price;
-
-					// Set service in clientCounter.order.service if not exist
-					const serviceExistInClientCounter = service.serviceId in clientCounter.order.service;
-					if (!serviceExistInClientCounter) {
-						clientCounter.order.service[service.serviceId] = {
-							appointments: {
-								total: 0,
-								by: {
-									panel: 0,
-									client: 0
-								}
+							details: {
+								id: service.serviceId,
+								serviceName: service.serviceName
 							},
-							expenses: 0
+							specialistRecord: {},
+							customerRecord: {},
+							orderRecord: {},
+							orderServiceRecord: {}
 						};
 					}
 
-					const serviceCounterInClientCounter = clientCounter.order.service[service.serviceId];
-					serviceCounterInClientCounter.expenses = service.price;
-					serviceCounterInClientCounter.appointments.total++;
-					serviceCounterInClientCounter.appointments.by[createdOn]++;
+					const serviceData = analyticData.serviceRecord[serviceId];
 
-				});
+					// Оновлення лічильників сервісу
+					serviceData.counter.orderService.total++;
+					serviceData.counter.orderService.by.status[status]++;
+					serviceData.counter.orderService.by.source[source]++;
+					if (service.wasSelectedAnybody) {
+						serviceData.counter.orderService.by.wasSelectedAnybody++;
+					}
 
-			});
+					// Оновлення доходу сервісу
+					serviceData.summary.revenue.total.by.status[status] += service.price;
+					serviceData.summary.revenue.total.by.source[source] += service.price;
 
-		});
+					// Оновлення часу сервісу
+					serviceData.summary.total.serviceTime += duration;
 
-		const specialistCounter = analyticData.counter.by.specialist[specialistReport.specialist.memberId];
-		// NOTE: Calculate averageBill of specialist
-		specialistCounter.averageBill = specialistCounter.income / specialistCounter.appointments.total;
-		// NOTE: Calculate averageServiceTime of specialist
-		specialistCounter.averageServiceTime = specialistCounter.totalServiceTime / specialistCounter.appointments.total;
-		// NOTE: Calculate percentage of appointments by panel and client and round to 2 decimal places
-		specialistCounter.appointments.by.panel.percentages = Math.round(specialistCounter.appointments.by.panel.total / specialistCounter.appointments.total * 100 * 100) / 100;
-		specialistCounter.appointments.by.client.percentages = Math.round(specialistCounter.appointments.by.client.total / specialistCounter.appointments.total * 100 * 100) / 100;
+					// Додавання записів до specialistRecord сервісу
+					serviceData.specialistRecord[specialistId] = specialistData;
 
-		analyticData.summary.appointments.by.panel.percentages = Math.round(analyticData.summary.appointments.by.panel.total / analyticData.summary.appointments.total * 100 * 100) / 100;
-		analyticData.summary.appointments.by.client.percentages = Math.round(analyticData.summary.appointments.by.client.total / analyticData.summary.appointments.total * 100 * 100) / 100;
+					// Додавання записів до customerRecord сервісу
+					for (const attendant of service.attendants) {
+						const customerId = attendant.customerId;
+						serviceData.customerRecord[customerId] = {
+							...analyticData.customerRecord[customerId],
+							specialistRecord: {}
+						};
+						specialistData.customerRecord[customerId] = analyticData.customerRecord[customerId];
+					}
 
-		Object.keys(analyticData.counter.by.weekDay).forEach((weekDay: string) => {
-			const weekDayCounter = analyticData.counter.by.weekDay[Number(weekDay)];
-			weekDayCounter.appointments.by.panel.percentages = Math.round(weekDayCounter.appointments.by.panel.total / weekDayCounter.appointments.total * 100 * 100) / 100;
-			weekDayCounter.appointments.by.client.percentages = Math.round(weekDayCounter.appointments.by.client.total / weekDayCounter.appointments.total * 100 * 100) / 100;
-			weekDayCounter.appointments.percentages = Math.round(weekDayCounter.appointments.total / analyticData.summary.appointments.total * 100 * 100) / 100;
-		});
+					// Обробка замовлення
+					const orderId = service.orderId;
+					if (!uniqueOrders.has(orderId)) {
+						uniqueOrders.add(orderId);
+						analyticData.counter.orders++;
+						specialistData.counter.orders++;
 
-		// NOTE: Calculate uniqueClients
-		analyticData.summary.uniqueClients = Object.keys(analyticData.customer).length;
-		specialistCounter.uniqueClients = Object.keys(specialistCounter.uniqueClient).length;
+						// Ініціалізація orderRecord
+						analyticData.orderRecord[orderId] = {
+							id: orderId,
+							orderService: []
+						};
+					}
 
-		// NOTE: Calculate uniqueClients
-		// Object.keys(analyticData.counter.by.service).forEach((serviceId) => {
-		// 	const serviceCounter = analyticData.counter.by.service[serviceId];
-		// 	serviceCounter.uniqueClients = Object.keys(serviceCounter.uniqueClient).length;
-		// });
+					// Додавання orderService до замовлення
+					analyticData.orderRecord[orderId].orderService.push({
+						id: service.orderServiceId,
+						orderId: service.orderId,
+						price: service.price,
+						currency: service.currency,
+						durationInSeconds: service.durationInSeconds,
+						startTime: service.startTime,
+						endTime: service.endTime,
+						createdOn: service.createdOn,
+						wasSelectedAnybody: service.wasSelectedAnybody,
+						status: service.status,
+						customers: customersDetails,
+						service: serviceData.details
+					});
 
-	});
+					// Додавання orderService.record
+					analyticData.orderService.record[orderServiceId] = {
+						id: service.orderServiceId,
+						orderId: service.orderId,
+						price: service.price,
+						currency: service.currency,
+						durationInSeconds: service.durationInSeconds,
+						startTime: service.startTime,
+						endTime: service.endTime,
+						createdOn: service.createdOn,
+						wasSelectedAnybody: service.wasSelectedAnybody,
+						status: service.status,
+						customers: customersDetails,
+						service: serviceData.details
+					};
 
-	analyticData.summary.averageServiceTime += analyticData.summary.totalServiceTime / analyticData.summary.appointments.total;
+					// Додавання orderRecord до specialistData
+					specialistData.orderRecord[orderId] = analyticData.orderRecord[orderId];
+					specialistData.orderServiceRecord[orderServiceId] = analyticData.orderService.record[orderServiceId];
+					specialistData.serviceRecord[serviceId] = serviceData;
+
+					// Додавання orderRecord до serviceData
+					serviceData.orderRecord[orderId] = analyticData.orderRecord[orderId];
+					serviceData.orderServiceRecord[orderServiceId] = analyticData.orderService.record[orderServiceId];
+
+					// Додавання orderRecord до customerData
+					for (const attendant of service.attendants) {
+						const customerId = attendant.customerId;
+						const customerData = analyticData.customerRecord[customerId];
+						customerData.orderRecord[orderId] = analyticData.orderRecord[orderId];
+						customerData.orderServiceRecord[orderServiceId] = analyticData.orderService.record[orderServiceId];
+						customerData.serviceRecord[serviceId] = serviceData;
+						customerData.specialistRecord[specialistId] = specialistData;
+					}
+
+					// Оновлення orderService.by.status
+					analyticData.orderService.by.status[status][orderServiceId] = analyticData.orderService.record[orderServiceId];
+					// Оновлення orderService.by.source
+					analyticData.orderService.by.source[source][orderServiceId] = analyticData.orderService.record[orderServiceId];
+					// Оновлення wasSelectedAnybody
+					if (service.wasSelectedAnybody) {
+						analyticData.orderService.by.wasSelectedAnybody[orderServiceId] = analyticData.orderService.record[orderServiceId];
+					}
+				}
+			}
+		}
+	}
+
+	// Обчислення середніх значень
+	analyticData.summary.average.serviceTime = totalServiceCount > 0 ? totalServiceTime / totalServiceCount : 0;
+
+	// Середній дохід за статусом та джерелом
+	for (const status of getEnumKeys(OrderServiceStatusEnum)) {
+		const totalByStatus = analyticData.summary.revenue.total.by.status[status];
+		const countByStatus = analyticData.counter.orderService.by.status[status];
+		analyticData.summary.revenue.average.by.status[status] = countByStatus > 0 ? totalByStatus / countByStatus : 0;
+	}
+
+	for (const source of getEnumKeys(ApplicationEnum)) {
+		const totalBySource = analyticData.summary.revenue.total.by.source[source];
+		const countBySource = analyticData.counter.orderService.by.source[source];
+		analyticData.summary.revenue.average.by.source[source] = countBySource > 0 ? totalBySource / countBySource : 0;
+	}
+
+	// Аналогічно обчисліть середні значення для specialistRecord, serviceRecord та customerRecord
+	// Обчислення для кожного спеціаліста
+	for (const specialistId in analyticData.specialistRecord) {
+		const specialistData = analyticData.specialistRecord[specialistId];
+
+		specialistData.summary.average.serviceTime = specialistData.counter.orderService.total > 0
+			? specialistData.summary.total.serviceTime / specialistData.counter.orderService.total
+			: 0;
+
+		for (const status of getEnumKeys(OrderServiceStatusEnum)) {
+			const totalByStatus = specialistData.summary.revenue.total.by.status[status];
+			const countByStatus = specialistData.counter.orderService.by.status[status];
+			specialistData.summary.revenue.average.by.status[status] = countByStatus > 0 ? totalByStatus / countByStatus : 0;
+		}
+
+		for (const source of getEnumKeys(ApplicationEnum)) {
+			const totalBySource = specialistData.summary.revenue.total.by.source[source];
+			const countBySource = specialistData.counter.orderService.by.source[source];
+			specialistData.summary.revenue.average.by.source[source] = countBySource > 0 ? totalBySource / countBySource : 0;
+		}
+	}
+
+	// Обчислення для кожного сервісу
+	for (const serviceId in analyticData.serviceRecord) {
+		const serviceData = analyticData.serviceRecord[serviceId];
+
+		serviceData.summary.average.serviceTime = serviceData.counter.orderService.total > 0
+			? serviceData.summary.total.serviceTime / serviceData.counter.orderService.total
+			: 0;
+
+		for (const status of getEnumKeys(OrderServiceStatusEnum)) {
+			const totalByStatus = serviceData.summary.revenue.total.by.status[status];
+			const countByStatus = serviceData.counter.orderService.by.status[status];
+			serviceData.summary.revenue.average.by.status[status] = countByStatus > 0 ? totalByStatus / countByStatus : 0;
+		}
+
+		for (const source of getEnumKeys(ApplicationEnum)) {
+			const totalBySource = serviceData.summary.revenue.total.by.source[source];
+			const countBySource = serviceData.counter.orderService.by.source[source];
+			serviceData.summary.revenue.average.by.source[source] = countBySource > 0 ? totalBySource / countBySource : 0;
+		}
+	}
+
+	// Обчислення для кожного клієнта
+	for (const customerId in analyticData.customerRecord) {
+		const customerData = analyticData.customerRecord[customerId];
+
+		customerData.summary.average.serviceTime = customerData.counter.orderService.total > 0
+			? customerData.summary.total.serviceTime / customerData.counter.orderService.total
+			: 0;
+
+		for (const status of getEnumKeys(OrderServiceStatusEnum)) {
+			const totalByStatus = customerData.summary.revenue.total.by.status[status];
+			const countByStatus = customerData.counter.orderService.by.status[status];
+			customerData.summary.revenue.average.by.status[status] = countByStatus > 0 ? totalByStatus / countByStatus : 0;
+		}
+
+		for (const source of getEnumKeys(ApplicationEnum)) {
+			const totalBySource = customerData.summary.revenue.total.by.source[source];
+			const countBySource = customerData.counter.orderService.by.source[source];
+			customerData.summary.revenue.average.by.source[source] = countBySource > 0 ? totalBySource / countBySource : 0;
+		}
+	}
 
 	return analyticData;
-
-}
-
-/**
- *
- * @param firstIso
- * @param secondIso
- */
-function getDifferenceInSecondsBetweenTwoIso(firstIso: string, secondIso: string): number {
-	const firstDate = new Date(firstIso);
-	const secondDate = new Date(secondIso);
-
-	return Math.abs(firstDate.getTime() - secondDate.getTime()) / 1000;
 }
