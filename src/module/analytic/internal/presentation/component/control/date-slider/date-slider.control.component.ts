@@ -10,7 +10,7 @@ import {
 	ViewChild,
 	ViewEncapsulation
 } from "@angular/core";
-import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {DateTime} from "luxon";
 import {AsyncPipe, DatePipe, DOCUMENT, NgIf} from "@angular/common";
 import {IonDatetime, IonicModule} from "@ionic/angular";
@@ -43,10 +43,10 @@ enum IntervalTypeEnum {
 export class DateSliderControlComponent extends Reactive implements OnChanges, OnInit {
 
 	@Input({required: true})
-	public fromControl!: FormControl<string>;
-
-	@Input({required: true})
-	public toControl!: FormControl<string>;
+	public fromToFormGroup = new FormGroup({
+		from: new FormControl(),
+		to: new FormControl()
+	});
 
 	@Input()
 	public initialIntervalType: IntervalTypeEnum = IntervalTypeEnum.DAY;
@@ -77,19 +77,19 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 	public readonly dayCases = {
 		isYesterday: () => {
 			return {
-				enabled: this.fromControl.value === this.today.minus({days: 1}).startOf('day').toJSDate().toISOString(),
+				enabled: this.dateControl.value === this.today.minus({days: 1}).startOf('day').toJSDate().toISOString(),
 				translateKey: 'keyword.capitalize.yesterday'
 			};
 		},
 		isToday: () => {
 			return {
-				enabled: this.fromControl.value === this.today.startOf('day').toJSDate().toISOString(),
+				enabled: this.dateControl.value === this.today.startOf('day').toJSDate().toISOString(),
 				translateKey: 'keyword.capitalize.today'
 			};
 		},
 		isTomorrow: () => {
 			return {
-				enabled: this.fromControl.value === this.today.plus({days: 1}).startOf('day').toJSDate().toISOString(),
+				enabled: this.dateControl.value === this.today.plus({days: 1}).startOf('day').toJSDate().toISOString(),
 				translateKey: 'keyword.capitalize.tomorrow'
 			};
 		},
@@ -138,8 +138,10 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 		this.dateControl.valueChanges.pipe(
 			this.takeUntil()
 		).subscribe((toISO) => {
-			this.toControl.patchValue(toISO);
-			this.fromControl.patchValue(DateTime.fromISO(toISO).startOf(this.intervalTypeControl.value).toJSDate().toISOString());
+			this.fromToFormGroup.patchValue({
+				from: DateTime.fromISO(toISO).startOf(this.intervalTypeControl.value).toJSDate().toISOString(),
+				to: toISO
+			})
 			this.detectCase();
 		});
 		this.intervalTypeControl.valueChanges.pipe(
@@ -222,8 +224,8 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 	private updateFromAndToControls(method: 'plus' | 'minus') {
 
-		const from = this.fromControl.value;
-		const to = this.toControl.value;
+		const from = this.fromToFormGroup.controls.from.value;
+		const to = this.fromToFormGroup.controls.to.value;
 		const intervalType = this.intervalTypeControl.value;
 
 		const {newFrom, newTo} = this.changeInterval(from, to, method, intervalType);
@@ -240,12 +242,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 			return;
 		}
 
-		this.fromControl.patchValue(newFrom.toJSDate().toISOString());
-		this.toControl.patchValue(newTo.toJSDate().toISOString());
-
-		if (this.intervalTypeControl.value === IntervalTypeEnum.DAY) {
-			this.dateControl.setValue(newTo.toJSDate().toISOString());
-		}
+		this.dateControl.patchValue(newTo.toJSDate().toISOString());
 
 		this.detectCase();
 
@@ -272,35 +269,30 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 			newTo = this.today;
 		}
 
-		console.log({newFrom, newTo})
-
 		return {newFrom, newTo};
 
 	}
 
 	private initFromAndToControls(force: boolean = false) {
-		if (!this.fromControl.value || force) {
-			this.fromControl.setValue(this.today.startOf('day').toJSDate().toISOString());
+		if ((!this.fromToFormGroup.controls.to.value && !this.fromToFormGroup.controls.from.value) || force) {
+			this.fromToFormGroup.patchValue({
+				from: this.today.startOf('day').toJSDate().toISOString(),
+				to: this.today.toJSDate().toISOString()
+			});
 		}
-		if (!this.toControl.value || force) {
-			this.toControl.setValue(this.today.toJSDate().toISOString());
-		}
-		this.dateControl.setValue(this.toControl.value);
+		this.dateControl.setValue(this.fromToFormGroup.controls.to.value);
 	}
 
 	private updateControlByIntervalType(intervalType: IntervalTypeEnum) {
 
-		const from = this.fromControl.value;
-		// const to = this.toControl.value;
+		const dateISO = this.dateControl.value;
 
-		const fromDateTime = DateTime.fromISO(from);
-		// const toDateTime = DateTime.fromISO(to);
+		const dateTime = DateTime.fromISO(dateISO);
 
-		this.fromControl.patchValue(fromDateTime.startOf(intervalType).toJSDate().toISOString());
-		if (this.today.hasSame(fromDateTime, intervalType)) {
-			this.toControl.patchValue(this.today.toJSDate().toISOString());
+		if (this.today.hasSame(dateTime, intervalType)) {
+			this.dateControl.setValue(this.today.toJSDate().toISOString());
 		} else {
-			this.toControl.patchValue(fromDateTime.endOf(intervalType).toJSDate().toISOString());
+			this.dateControl.setValue(dateTime.endOf(intervalType).toJSDate().toISOString());
 		}
 
 		this.changeDetectorRef.detectChanges();

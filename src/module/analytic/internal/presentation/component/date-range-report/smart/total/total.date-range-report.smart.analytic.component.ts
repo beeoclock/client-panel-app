@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit, ViewEncapsulation} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {
 	DateRangeReportAnalyticState,
@@ -28,6 +28,10 @@ import {RIMember} from "@member/domain";
 import {
 	DateSliderControlComponent
 } from "@module/analytic/internal/presentation/component/control/date-slider/date-slider.control.component";
+import {Reactive} from "@utility/cdk/reactive";
+import {
+	DateRangeReportAnalyticActions
+} from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.actions";
 
 @Component({
 	standalone: true,
@@ -50,7 +54,7 @@ import {
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TotalDateRangeReportSmartAnalyticComponent {
+export class TotalDateRangeReportSmartAnalyticComponent extends Reactive implements OnInit {
 
 	public readonly items: {
 		id: string;
@@ -107,4 +111,20 @@ export class TotalDateRangeReportSmartAnalyticComponent {
 		})
 	);
 
+	public ngOnInit() {
+		this.filterFormGroup.valueChanges.pipe(
+			this.takeUntil()
+		).subscribe((formValue) => {
+			this.store.dispatch([
+				new DateRangeReportAnalyticActions.UpdateQueryParams({
+					startDate: formValue.from,
+					endDate: formValue.to,
+					specialistIds: []
+				}),
+				new DateRangeReportAnalyticActions.GetList()
+			]);
+		});
+	}
+
+	protected readonly Object = Object;
 }

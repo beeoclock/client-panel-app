@@ -95,19 +95,19 @@
 					</div>
 				}
 				<div [class.text-xs]="hint.length">
-					{{ fromControl.value | date: 'yyyy-MM-dd' }}
+					{{ dateControl.value | date: 'yyyy-MM-dd' }}
 				</div>
 			}
 			@case (intervalTypeEnum.WEEK) {
 
-				{{ getWeekTitle(fromControl.value, toControl.value) }}
+				{{ getWeekTitle(fromToFormGroup.controls.from.value, fromToFormGroup.controls.to.value) }}
 
 			}
 			@case (intervalTypeEnum.MONTH) {
-				{{ fromControl.value | date: 'yyyy-MM' }}
+				{{ dateControl.value | date: 'yyyy-MM' }}
 			}
 			@case (intervalTypeEnum.YEAR) {
-				{{ fromControl.value | date: 'yyyy' }}
+				{{ dateControl.value | date: 'yyyy' }}
 			}
 
 		}

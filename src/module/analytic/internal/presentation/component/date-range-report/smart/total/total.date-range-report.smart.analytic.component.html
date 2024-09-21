@@ -7,9 +7,7 @@
 			<div class="mb-40 bg-white">
 
 				<div class="flex w-full p-2">
-					<app-date-slider-control-component
-						[fromControl]="filterFormGroup.controls.from"
-						[toControl]="filterFormGroup.controls.to"/>
+					<app-date-slider-control-component [fromToFormGroup]="filterFormGroup"/>
 				</div>
 
 				@if (analytic$ | async; as analytic) {
@@ -82,139 +80,159 @@
 									<li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
 										<div class="flex gap-x-2 justify-between w-full">
 
-											<div class="flex flex-col items-center justify-center">
-												<div class="w-full text-center">
-													{{ 'weekday.short.monday' | translate }}
+											@if (analytic.counter.by.weekDay[1]; as weekDay) {
+												<div class="flex flex-col items-center justify-center">
+													<div class="w-full text-center">
+														{{ 'weekday.short.monday' | translate }}
+													</div>
+													<!-- Progress Vertical -->
+													<div
+														class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
+														role="progressbar"
+														[attr.aria-valuenow]="weekDay.appointments.percentages"
+														aria-valuemin="0"
+														aria-valuemax="100">
+														<div class="rounded-full overflow-hidden bg-blue-600"
+															 [style.height.%]="weekDay.appointments.percentages"></div>
+													</div>
+													<!-- End Progress Vertical -->
+													<div class="w-full text-center">
+														{{ weekDay.appointments.total }}
+													</div>
 												</div>
-												<!-- Progress Vertical -->
-												<div
-													class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
-													role="progressbar"
-													[attr.aria-valuenow]="analytic.counter.by.weekDay[1].appointments.percentages"
-													aria-valuemin="0"
-													aria-valuemax="100">
-													<div class="rounded-full overflow-hidden bg-blue-600"
-														 [style.height.%]="analytic.counter.by.weekDay[1].appointments.percentages"></div>
+											}
+
+											@if (analytic.counter.by.weekDay[2]; as weekDay) {
+												<div class="flex flex-col items-center justify-center">
+													<div class="w-full text-center">
+														{{ 'weekday.short.tuesday' | translate }}
+													</div>
+													<!-- Progress Vertical -->
+													<div
+														class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
+														role="progressbar"
+														[attr.aria-valuenow]="weekDay.appointments.percentages"
+														aria-valuemin="0"
+														aria-valuemax="100">
+														<div class="rounded-full overflow-hidden bg-blue-600"
+															 [style.height.%]="weekDay.appointments.percentages"></div>
+													</div>
+													<!-- End Progress Vertical -->
+													<div class="w-full text-center">
+														{{ weekDay.appointments.total }}
+													</div>
 												</div>
-												<!-- End Progress Vertical -->
-												<div class="w-full text-center">
-													{{ analytic.counter.by.weekDay[1].appointments.total }}
+											}
+
+											@if (analytic.counter.by.weekDay[3]; as weekDay) {
+												<div class="flex flex-col items-center justify-center">
+													<div class="w-full text-center">
+														{{ 'weekday.short.wednesday' | translate }}
+													</div>
+													<!-- Progress Vertical -->
+													<div
+														class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
+														role="progressbar"
+														[attr.aria-valuenow]="weekDay.appointments.percentages"
+														aria-valuemin="0"
+														aria-valuemax="100">
+														<div class="rounded-full overflow-hidden bg-blue-600"
+															 [style.height.%]="weekDay.appointments.percentages"></div>
+													</div>
+													<!-- End Progress Vertical -->
+													<div class="w-full text-center">
+														{{ weekDay.appointments.total }}
+													</div>
 												</div>
-											</div>
-											<div class="flex flex-col items-center justify-center">
-												<div class="w-full text-center">
-													{{ 'weekday.short.tuesday' | translate }}
+											}
+
+											@if (analytic.counter.by.weekDay[4]; as weekDay) {
+												<div class="flex flex-col items-center justify-center">
+													<div class="w-full text-center">
+														{{ 'weekday.short.thursday' | translate }}
+													</div>
+													<!-- Progress Vertical -->
+													<div
+														class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
+														role="progressbar"
+														[attr.aria-valuenow]="weekDay.appointments.percentages"
+														aria-valuemin="0"
+														aria-valuemax="100">
+														<div class="rounded-full overflow-hidden bg-blue-600"
+															 [style.height.%]="weekDay.appointments.percentages"></div>
+													</div>
+													<!-- End Progress Vertical -->
+													<div class="w-full text-center">
+														{{ weekDay.appointments.total }}
+													</div>
 												</div>
-												<!-- Progress Vertical -->
-												<div
-													class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
-													role="progressbar"
-													[attr.aria-valuenow]="analytic.counter.by.weekDay[2].appointments.percentages"
-													aria-valuemin="0"
-													aria-valuemax="100">
-													<div class="rounded-full overflow-hidden bg-blue-600"
-														 [style.height.%]="analytic.counter.by.weekDay[2].appointments.percentages"></div>
+											}
+
+											@if (analytic.counter.by.weekDay[5]; as weekDay) {
+												<div class="flex flex-col items-center justify-center">
+													<div class="w-full text-center">
+														{{ 'weekday.short.friday' | translate }}
+													</div>
+													<!-- Progress Vertical -->
+													<div
+														class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
+														role="progressbar"
+														[attr.aria-valuenow]="weekDay.appointments.percentages"
+														aria-valuemin="0"
+														aria-valuemax="100">
+														<div class="rounded-full overflow-hidden bg-blue-600"
+															 [style.height.%]="weekDay.appointments.percentages"></div>
+													</div>
+													<!-- End Progress Vertical -->
+													<div class="w-full text-center">
+														{{ weekDay.appointments.total }}
+													</div>
 												</div>
-												<!-- End Progress Vertical -->
-												<div class="w-full text-center">
-													{{ analytic.counter.by.weekDay[2].appointments.total }}
+											}
+
+											@if (analytic.counter.by.weekDay[6]; as weekDay) {
+												<div class="flex flex-col items-center justify-center">
+													<div class="w-full text-center">
+														{{ 'weekday.short.saturday' | translate }}
+													</div>
+													<!-- Progress Vertical -->
+													<div
+														class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
+														role="progressbar"
+														[attr.aria-valuenow]="weekDay.appointments.percentages"
+														aria-valuemin="0"
+														aria-valuemax="100">
+														<div class="rounded-full overflow-hidden bg-blue-600"
+															 [style.height.%]="weekDay.appointments.percentages"></div>
+													</div>
+													<!-- End Progress Vertical -->
+													<div class="w-full text-center">
+														{{ weekDay.appointments.total }}
+													</div>
 												</div>
-											</div>
-											<div class="flex flex-col items-center justify-center">
-												<div class="w-full text-center">
-													{{ 'weekday.short.wednesday' | translate }}
+											}
+
+											@if (analytic.counter.by.weekDay[0]; as weekDay) {
+												<div class="flex flex-col items-center justify-center">
+													<div class="w-full text-center">
+														{{ 'weekday.short.sunday' | translate }}
+													</div>
+													<!-- Progress Vertical -->
+													<div
+														class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
+														role="progressbar"
+														[attr.aria-valuenow]="weekDay.appointments.percentages"
+														aria-valuemin="0"
+														aria-valuemax="100">
+														<div class="rounded-full overflow-hidden bg-blue-600"
+															 [style.height.%]="weekDay.appointments.percentages"></div>
+													</div>
+													<!-- End Progress Vertical -->
+													<div class="w-full text-center">
+														{{ weekDay.appointments.total }}
+													</div>
 												</div>
-												<!-- Progress Vertical -->
-												<div
-													class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
-													role="progressbar"
-													[attr.aria-valuenow]="analytic.counter.by.weekDay[3].appointments.percentages"
-													aria-valuemin="0"
-													aria-valuemax="100">
-													<div class="rounded-full overflow-hidden bg-blue-600"
-														 [style.height.%]="analytic.counter.by.weekDay[3].appointments.percentages"></div>
-												</div>
-												<!-- End Progress Vertical -->
-												<div class="w-full text-center">
-													{{ analytic.counter.by.weekDay[3].appointments.total }}
-												</div>
-											</div>
-											<div class="flex flex-col items-center justify-center">
-												<div class="w-full text-center">
-													{{ 'weekday.short.thursday' | translate }}
-												</div>
-												<!-- Progress Vertical -->
-												<div
-													class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
-													role="progressbar"
-													[attr.aria-valuenow]="analytic.counter.by.weekDay[4].appointments.percentages"
-													aria-valuemin="0"
-													aria-valuemax="100">
-													<div class="rounded-full overflow-hidden bg-blue-600"
-														 [style.height.%]="analytic.counter.by.weekDay[4].appointments.percentages"></div>
-												</div>
-												<!-- End Progress Vertical -->
-												<div class="w-full text-center">
-													{{ analytic.counter.by.weekDay[4].appointments.total }}
-												</div>
-											</div>
-											<div class="flex flex-col items-center justify-center">
-												<div class="w-full text-center">
-													{{ 'weekday.short.friday' | translate }}
-												</div>
-												<!-- Progress Vertical -->
-												<div
-													class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
-													role="progressbar"
-													[attr.aria-valuenow]="analytic.counter.by.weekDay[5].appointments.percentages"
-													aria-valuemin="0"
-													aria-valuemax="100">
-													<div class="rounded-full overflow-hidden bg-blue-600"
-														 [style.height.%]="analytic.counter.by.weekDay[5].appointments.percentages"></div>
-												</div>
-												<!-- End Progress Vertical -->
-												<div class="w-full text-center">
-													{{ analytic.counter.by.weekDay[5].appointments.total }}
-												</div>
-											</div>
-											<div class="flex flex-col items-center justify-center">
-												<div class="w-full text-center">
-													{{ 'weekday.short.saturday' | translate }}
-												</div>
-												<!-- Progress Vertical -->
-												<div
-													class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
-													role="progressbar"
-													[attr.aria-valuenow]="analytic.counter.by.weekDay[6].appointments.percentages"
-													aria-valuemin="0"
-													aria-valuemax="100">
-													<div class="rounded-full overflow-hidden bg-blue-600"
-														 [style.height.%]="analytic.counter.by.weekDay[6].appointments.percentages"></div>
-												</div>
-												<!-- End Progress Vertical -->
-												<div class="w-full text-center">
-													{{ analytic.counter.by.weekDay[6].appointments.total }}
-												</div>
-											</div>
-											<div class="flex flex-col items-center justify-center">
-												<div class="w-full text-center">
-													{{ 'weekday.short.sunday' | translate }}
-												</div>
-												<!-- Progress Vertical -->
-												<div
-													class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
-													role="progressbar"
-													[attr.aria-valuenow]="analytic.counter.by.weekDay[0].appointments.percentages"
-													aria-valuemin="0"
-													aria-valuemax="100">
-													<div class="rounded-full overflow-hidden bg-blue-600"
-														 [style.height.%]="analytic.counter.by.weekDay[0].appointments.percentages"></div>
-												</div>
-												<!-- End Progress Vertical -->
-												<div class="w-full text-center">
-													{{ analytic.counter.by.weekDay[0].appointments.total }}
-												</div>
-											</div>
+											}
 										</div>
 									</li>
 									<li class="flex flex-col items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
