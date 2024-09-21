@@ -1,0 +1,88 @@
+
+		<!-- List Group -->
+		<div class="max-w-md w-full">
+
+			<ul class="flex flex-col bg-white w-full max-w-md">
+
+				<li class="grid grid-cols-3 divide-x divide-y -mt-px border text-gray-800 first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
+
+					<div class="p-2 flex flex-col items-center justify-center">
+						<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
+							{{ 'analytic.summary.income' | translate }}
+						</p>
+						<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">
+							{{ specialist.income | currency: baseCurrency: 'symbol' }}
+						</p>
+					</div>
+					<div class="p-2 flex flex-col items-center justify-center">
+						<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
+							{{ 'analytic.summary.averageBill' | translate }}
+						</p>
+						<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">
+							{{ specialist.averageBill | currency: baseCurrency: 'symbol' }}
+						</p>
+					</div>
+					<div class="p-2 flex flex-col items-center justify-center">
+						<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
+							{{ 'analytic.summary.uniqueClients' | translate }}
+						</p>
+						<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">
+							{{ specialist.uniqueClients }}
+						</p>
+					</div>
+
+				</li>
+				<li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
+					<div class="flex items center justify-between w-full gap-8">
+						<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
+							{{ 'analytic.summary.appointments.total' | translate }}
+						</p>
+						<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">
+							{{ specialist.appointments.total }}
+						</p>
+					</div>
+				</li>
+				<li class="flex flex-col items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
+					<!-- Progress -->
+					<div class="w-full">
+						<div class="flex justify-between gap-2">
+							<div
+								class="inline-block mb-2 py-0.5 px-1.5 bg-blue-50 border border-blue-200 text-xs font-medium text-blue-600 rounded-lg dark:bg-blue-800/30 dark:border-blue-800 dark:text-blue-500">
+								{{ 'analytic.summary.appointments.by.panel' | translate }}
+								({{ specialist.appointments.by.panel.total }})
+								{{ specialist.appointments.by.panel.percentages }}%
+							</div>
+							<div
+								class="text-right inline-block mb-2 py-0.5 px-1.5 bg-yellow-50 border border-yellow-200 text-xs font-medium text-yellow-600 rounded-lg dark:bg-yellow-800/30 dark:border-yellow-800 dark:text-yellow-500">
+								{{ 'analytic.summary.appointments.by.client' | translate }}
+								({{ specialist.appointments.by.client.total }})
+								{{ specialist.appointments.by.client.percentages }}%
+							</div>
+						</div>
+						<!-- Multiple bars Progress -->
+						<div
+							class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700">
+							<div
+								class="flex flex-col justify-center overflow-hidden bg-blue-500 text-xs text-white text-center whitespace-nowrap"
+								[style.width.%]="specialist.appointments.by.panel.percentages"
+								[attr.aria-valuenow]="specialist.appointments.by.panel.percentages"
+								role="progressbar"
+								aria-valuemin="0"
+								aria-valuemax="100">
+							</div>
+							<div
+								class="flex flex-col justify-center overflow-hidden bg-yellow-500 text-xs text-white text-center whitespace-nowrap"
+								[style.width.%]="specialist.appointments.by.client.percentages"
+								[attr.aria-valuenow]="specialist.appointments.by.client.percentages"
+								role="progressbar"
+								aria-valuemin="0"
+								aria-valuemax="100">
+							</div>
+						</div>
+						<!-- End Multiple bars Progress -->
+					</div>
+					<!-- End Progress -->
+				</li>
+
+			</ul>
+		</div>

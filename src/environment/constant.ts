@@ -18,5 +18,6 @@ export const config = {
 	},
 	pagination: {
 		maxLength: 5
-	}
+	},
+	startYear: 2022
 };

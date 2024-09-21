@@ -10,7 +10,7 @@ export interface ICustomer extends IBaseEntity<'CustomerDto'> {
 	firstName: string & Types.MaxLength<50> | null;
 	lastName: string & Types.MaxLength<50> | null;
 	phone: string | null;
-	email: string & Types.Format<"email"> | null;
+	email: string & Types.Email | null;
 	note: string | null;
 	customerType: CustomerTypeEnum & Types.Default<CustomerTypeEnum.new>;
 

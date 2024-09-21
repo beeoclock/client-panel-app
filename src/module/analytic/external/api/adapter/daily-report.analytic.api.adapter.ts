@@ -20,7 +20,7 @@ export namespace DailyReportAnalyticApi {
 		memberId: string & Types.ObjectId;
 		firstName: string;
 		lastName: string;
-		email: string & Types.Format<"email">;
+		email: string & Types.Email;
 	}
 
 	export interface IProduct {

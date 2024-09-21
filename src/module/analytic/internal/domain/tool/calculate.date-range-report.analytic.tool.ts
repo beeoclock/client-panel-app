@@ -78,307 +78,305 @@ export function calculateDateRangeReportAnalyticTool(response: DateRangeReportAn
 
 		}
 
-		// NOTE: SERVICE
-		specialistReport.services.forEach((service: DateRangeReportAnalyticApi.IService) => {
+		// NOTE: DATE REPORTS
+		specialistReport.dateReports.forEach((dateReport) => {
 
-			const date = new Date(service.startTime);
+			// NOTE: SERVICE
+			dateReport.services.forEach((service: DateRangeReportAnalyticApi.IService) => {
 
-			// NOTE: Calculate appointments in total
-			analyticData.summary.appointments.total++;
-			// Calculate appointments by panel and client
-			const {createdOn} = service as {createdOn: 'client' | 'panel'};
-			analyticData.summary.appointments.by[createdOn].total++;
+				const date = new Date(service.startTime);
 
-			// Set service in analyticData.service
-			const serviceExist = service.serviceId in analyticData.service;
-			if (!serviceExist) {
-				analyticData.service[service.serviceId] = service;
-			}
+				// NOTE: Calculate appointments in total
+				analyticData.summary.appointments.total++;
+				// Calculate appointments by panel and client
+				const {createdOn} = service as {createdOn: 'client' | 'panel'};
+				analyticData.summary.appointments.by[createdOn].total++;
 
-			const serviceExistInCounter = service.serviceId in analyticData.counter.by.service;
-			if (!serviceExistInCounter) {
-				analyticData.counter.by.service[service.serviceId] = {
-					income: 0,
-					uniqueClients: 0,
-					appointments: {
-						total: 0,
-						by: {
-							panel: 0,
-							client: 0
+				// Set service in analyticData.service
+				const serviceExist = service.serviceId in analyticData.service;
+				if (!serviceExist) {
+					analyticData.service[service.serviceId] = service;
+				}
+
+				const serviceExistInCounter = service.serviceId in analyticData.counter.by.service;
+				if (!serviceExistInCounter) {
+					analyticData.counter.by.service[service.serviceId] = {
+						income: 0,
+						uniqueClients: 0,
+						appointments: {
+							total: 0,
+							by: {
+								panel: 0,
+								client: 0
+							}
 						}
+					};
+				}
+
+				// NOTE: Service counter
+				const serviceCounter = analyticData.counter.by.service[service.serviceId];
+
+				// Calculate income
+				serviceCounter.income += service.price;
+				// Calculate appointments by panel and client
+				serviceCounter.appointments.total++;
+				serviceCounter.appointments.by[createdOn]++;
+
+				// NOTE: Calendar counter
+				// TODO: Додати інформацію про різницю між часом, тобто є певний час між тим коли замовили і наколи замовили, ця інформація може допомогти визначити час який витрачається на обробку замовлення та теоретично за скільки клієнт повернеться
+				const serviceExistInCalendar = service.startTime in analyticData.counter.by.calendar;
+				// Format: YYYY-MM-DD
+				const dateKey = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+				if (!serviceExistInCalendar) {
+					analyticData.counter.by.calendar[dateKey] = {
+						uniqueClients: 0,
+						appointments: {
+							total: 0,
+							by: {
+								panel: 0,
+								client: 0
+							}
+						},
+						income: 0
+					};
+				}
+
+				const calendarCounter = analyticData.counter.by.calendar[dateKey];
+				// Calculate appointments by panel and client
+				calendarCounter.appointments.total++;
+				calendarCounter.appointments.by[createdOn]++;
+				// Calculate income
+				calendarCounter.income += service.price;
+
+				// NOTE: Month counter
+				const monthKey = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
+				const monthExistInCounter = monthKey in analyticData.counter.by.month;
+				if (!monthExistInCounter) {
+					analyticData.counter.by.month[monthKey] = {
+						uniqueClients: 0,
+						appointments: {
+							total: 0,
+							by: {
+								panel: 0,
+								client: 0
+							}
+						},
+						income: 0
+					};
+				}
+
+				const monthCounter = analyticData.counter.by.month[monthKey];
+				// Calculate appointments by panel and client
+				monthCounter.appointments.total++;
+				monthCounter.appointments.by[createdOn]++;
+				// Calculate income
+				monthCounter.income += service.price;
+
+				// NOTE: Day counter
+				const weekDay = date.getDay();
+				const weekDayExistInCounter = weekDay in analyticData.counter.by.weekDay;
+				if (!weekDayExistInCounter) {
+					analyticData.counter.by.weekDay[weekDay] = {
+						uniqueClients: 0,
+						appointments: {
+							total: 0,
+							percentages: 0,
+							by: {
+								panel: {
+									percentages: 0,
+									total: 0
+								},
+								client: {
+									total: 0,
+									percentages: 0
+								}
+							}
+						},
+						income: 0
+					};
+				}
+
+				const weekDayCounter = analyticData.counter.by.weekDay[weekDay];
+				// Calculate appointments by panel and client
+				weekDayCounter.appointments.total++;
+				weekDayCounter.appointments.by[createdOn].total++;
+				// Calculate income
+				weekDayCounter.income += service.price;
+
+				// NOTE: Hour counter
+				const hour = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+				const hourExistInCounter = hour in analyticData.counter.by.hour;
+				if (!hourExistInCounter) {
+					analyticData.counter.by.hour[hour] = {
+						uniqueClients: 0,
+						appointments: {
+							total: 0,
+							by: {
+								panel: 0,
+								client: 0
+							}
+						},
+						income: 0
+					};
+				}
+
+				const hourCounter = analyticData.counter.by.hour[hour];
+				// Calculate appointments by panel and client
+				hourCounter.appointments.total++;
+				hourCounter.appointments.by[createdOn]++;
+				// Calculate income
+				hourCounter.income += service.price;
+
+				// NOTE: Specialist counter
+				const specialistCounter = analyticData.counter.by.specialist[specialistReport.specialist.memberId];
+
+				// Calculate averageBill
+				specialistCounter.appointments.total++;
+				// Calculate appointments by panel and client
+				specialistCounter.appointments.by[createdOn].total++;
+				specialistCounter.averageBill += service.price;
+				specialistCounter.totalServiceTime += getDifferenceInSecondsBetweenTwoIso(service.startTime, service.endTime);
+
+				// Calculate averageServiceTime
+				const durationInSeconds = getDifferenceInSecondsBetweenTwoIso(service.startTime, service.endTime);
+				analyticData.summary.totalServiceTime += durationInSeconds;
+
+				// NOTE: ATTENDEE
+				service.attendants.forEach((attendee: DateRangeReportAnalyticApi.IAttendee) => {
+
+					if (!attendee.customerId || !attendee.customerId.length) {
+						return;
 					}
-				};
-			}
 
-			// NOTE: Service counter
-			const serviceCounter = analyticData.counter.by.service[service.serviceId];
-
-			// Calculate income
-			serviceCounter.income += service.price;
-			// Calculate appointments by panel and client
-			serviceCounter.appointments.total++;
-			serviceCounter.appointments.by[createdOn]++;
-
-			// NOTE: Calendar counter
-			// TODO: Додати інформацію про різницю між часом, тобто є певний час між тим коли замовили і наколи замовили, ця інформація може допомогти визначити час який витрачається на обробку замовлення та теоретично за скільки клієнт повернеться
-			const serviceExistInCalendar = service.startTime in analyticData.counter.by.calendar;
-			// Format: YYYY-MM-DD
-			const dateKey = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
-			if (!serviceExistInCalendar) {
-				analyticData.counter.by.calendar[dateKey] = {
-					uniqueClients: 0,
-					appointments: {
-						total: 0,
-						by: {
-							panel: 0,
-							client: 0
-						}
-					},
-					income: 0
-				};
-			}
-
-			const calendarCounter = analyticData.counter.by.calendar[dateKey];
-			// Calculate appointments by panel and client
-			calendarCounter.appointments.total++;
-			calendarCounter.appointments.by[createdOn]++;
-			// Calculate income
-			calendarCounter.income += service.price;
-
-			// NOTE: Month counter
-			const monthKey = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
-			const monthExistInCounter = monthKey in analyticData.counter.by.month;
-			if (!monthExistInCounter) {
-				analyticData.counter.by.month[monthKey] = {
-					uniqueClients: 0,
-					appointments: {
-						total: 0,
-						by: {
-							panel: 0,
-							client: 0
-						}
-					},
-					income: 0
-				};
-			}
-
-			const monthCounter = analyticData.counter.by.month[monthKey];
-			// Calculate appointments by panel and client
-			monthCounter.appointments.total++;
-			monthCounter.appointments.by[createdOn]++;
-			// Calculate income
-			monthCounter.income += service.price;
-
-			// NOTE: Day counter
-			const weekDay = date.getDay();
-			const weekDayExistInCounter = weekDay in analyticData.counter.by.weekDay;
-			if (!weekDayExistInCounter) {
-				analyticData.counter.by.weekDay[weekDay] = {
-					uniqueClients: 0,
-					appointments: {
-						total: 0,
-						percentages: 0,
-						by: {
-							panel: {
-								percentages: 0,
-								total: 0
-							},
-							client: {
+					// Set client in analyticData.customer if not exist
+					const clientExistInCounter = attendee.customerId in analyticData.counter.by.customer;
+					if (!clientExistInCounter) {
+						analyticData.counter.by.customer[attendee.customerId] = {
+							appointments: {
 								total: 0,
-								percentages: 0
-							}
-						}
-					},
-					income: 0
-				};
-			}
-
-			const weekDayCounter = analyticData.counter.by.weekDay[weekDay];
-			// Calculate appointments by panel and client
-			weekDayCounter.appointments.total++;
-			weekDayCounter.appointments.by[createdOn].total++;
-			// Calculate income
-			weekDayCounter.income += service.price;
-
-			// NOTE: Hour counter
-			const hour = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
-			const hourExistInCounter = hour in analyticData.counter.by.hour;
-			if (!hourExistInCounter) {
-				analyticData.counter.by.hour[hour] = {
-					uniqueClients: 0,
-					appointments: {
-						total: 0,
-						by: {
-							panel: 0,
-							client: 0
-						}
-					},
-					income: 0
-				};
-			}
-
-			const hourCounter = analyticData.counter.by.hour[hour];
-			// Calculate appointments by panel and client
-			hourCounter.appointments.total++;
-			hourCounter.appointments.by[createdOn]++;
-			// Calculate income
-			hourCounter.income += service.price;
-
-			// NOTE: Specialist counter
-			const specialistCounter = analyticData.counter.by.specialist[specialistReport.specialist.memberId];
-
-			// Calculate averageBill
-			specialistCounter.appointments.total++;
-			// Calculate appointments by panel and client
-			specialistCounter.appointments.by[createdOn].total++;
-			specialistCounter.averageBill += service.price;
-			specialistCounter.totalServiceTime += getDifferenceInSecondsBetweenTwoIso(service.startTime, service.endTime);
-
-			// Calculate averageServiceTime
-			const durationInSeconds = getDifferenceInSecondsBetweenTwoIso(service.startTime, service.endTime);
-			analyticData.summary.totalServiceTime += durationInSeconds;
-
-			// NOTE: ATTENDEE
-			service.attendants.forEach((attendee: DateRangeReportAnalyticApi.IAttendee) => {
-
-				if (!attendee.customerId || !attendee.customerId.length) {
-					return;
-				}
-
-				// NOTE: Calculate uniqueClients
-				analyticData.summary.uniqueClients++;
-				specialistCounter.uniqueClients++;
-				serviceCounter.uniqueClients++;
-
-				// Set client in analyticData.customer if not exist
-				const clientExistInCounter = attendee.customerId in analyticData.counter.by.customer;
-				if (!clientExistInCounter) {
-					analyticData.counter.by.customer[attendee.customerId] = {
-						appointments: {
-							total: 0,
-							by: {
-								panel: 0,
-								client: 0
-							}
-						},
-						order: {
-							service: {
-								[service.serviceId]: {
-									appointments: {
-										total: 0,
-										by: {
-											panel: 0,
-											client: 0
-										}
+								by: {
+									panel: 0,
+									client: 0
+								}
+							},
+							order: {
+								service: {
+									[service.serviceId]: {
+										appointments: {
+											total: 0,
+											by: {
+												panel: 0,
+												client: 0
+											}
+										},
+										expenses: 0
 									},
-									expenses: 0
 								},
 							},
-						},
-						expenses: 0
-					};
-				}
+							expenses: 0
+						};
+					}
 
-				// Set client in analyticData.customer if not exist
-				const clientExist = attendee.customerId in analyticData.customer;
-				if (!clientExist) {
-					analyticData.customer[attendee.customerId] = attendee;
-				}
+					// Set client in analyticData.customer if not exist
+					const clientExist = attendee.customerId in analyticData.customer;
+					if (!clientExist) {
+						analyticData.customer[attendee.customerId] = attendee;
+					}
 
-				// Set client in specialistCounter.uniqueClient if not exist
-				const clientExistInSpecialistCounter = attendee.customerId in specialistCounter.uniqueClient;
-				if (!clientExistInSpecialistCounter) {
-					specialistCounter.uniqueClient[attendee.customerId] = {
-						appointments: {
-							total: 0,
-							by: {
-								panel: 0,
-								client: 0
-							}
-						},
-						order: {
-							service: {
-								[service.serviceId]: {
-									appointments: {
-										total: 0,
-										by: {
-											panel: 0,
-											client: 0
-										}
+					// Set client in specialistCounter.uniqueClient if not exist
+					const clientExistInSpecialistCounter = attendee.customerId in specialistCounter.uniqueClient;
+					if (!clientExistInSpecialistCounter) {
+						specialistCounter.uniqueClient[attendee.customerId] = {
+							appointments: {
+								total: 0,
+								by: {
+									panel: 0,
+									client: 0
+								}
+							},
+							order: {
+								service: {
+									[service.serviceId]: {
+										appointments: {
+											total: 0,
+											by: {
+												panel: 0,
+												client: 0
+											}
+										},
+										expenses: 0
 									},
-									expenses: 0
 								},
 							},
-						},
-						expenses: 0
-					};
-				}
+							expenses: 0
+						};
+					}
 
-				const clientCounterInSpecialistCounter = specialistCounter.uniqueClient[attendee.customerId];
+					const clientCounterInSpecialistCounter = specialistCounter.uniqueClient[attendee.customerId];
 
-				// Calculate appointments by panel and client
-				clientCounterInSpecialistCounter.appointments.total++;
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-expect-error
-				clientCounterInSpecialistCounter.appointments.by[service.createdOn]++;
+					// Calculate appointments by panel and client
+					clientCounterInSpecialistCounter.appointments.total++;
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					// @ts-expect-error
+					clientCounterInSpecialistCounter.appointments.by[service.createdOn]++;
 
-				// Calculate expenses
-				clientCounterInSpecialistCounter.expenses += service.price;
+					// Calculate expenses
+					clientCounterInSpecialistCounter.expenses += service.price;
 
-				// Set service in clientCounterInSpecialistCounter.order.service if not exist
-				const serviceExistInClientCounterInSpecialistCounter = service.serviceId in clientCounterInSpecialistCounter.order.service;
-				if (!serviceExistInClientCounterInSpecialistCounter) {
-					clientCounterInSpecialistCounter.order.service[service.serviceId] = {
-						appointments: {
-							total: 0,
-							by: {
-								panel: 0,
-								client: 0
-							}
-						},
-						expenses: 0
-					};
-				}
+					// Set service in clientCounterInSpecialistCounter.order.service if not exist
+					const serviceExistInClientCounterInSpecialistCounter = service.serviceId in clientCounterInSpecialistCounter.order.service;
+					if (!serviceExistInClientCounterInSpecialistCounter) {
+						clientCounterInSpecialistCounter.order.service[service.serviceId] = {
+							appointments: {
+								total: 0,
+								by: {
+									panel: 0,
+									client: 0
+								}
+							},
+							expenses: 0
+						};
+					}
 
-				const serviceCounterInClientCounterInSpecialistCounter = clientCounterInSpecialistCounter.order.service[service.serviceId];
-				serviceCounterInClientCounterInSpecialistCounter.expenses = service.price;
-				serviceCounterInClientCounterInSpecialistCounter.appointments.total++;
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-expect-error
-				serviceCounterInClientCounterInSpecialistCounter.appointments.by[service.createdOn]++;
+					const serviceCounterInClientCounterInSpecialistCounter = clientCounterInSpecialistCounter.order.service[service.serviceId];
+					serviceCounterInClientCounterInSpecialistCounter.expenses = service.price;
+					serviceCounterInClientCounterInSpecialistCounter.appointments.total++;
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					// @ts-expect-error
+					serviceCounterInClientCounterInSpecialistCounter.appointments.by[service.createdOn]++;
 
-				const clientCounter = analyticData.counter.by.customer[attendee.customerId];
+					const clientCounter = analyticData.counter.by.customer[attendee.customerId];
 
-				// Calculate appointments by panel and client
-				clientCounter.appointments.total++;
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-expect-error
-				clientCounter.appointments.by[service.createdOn]++;
+					// Calculate appointments by panel and client
+					clientCounter.appointments.total++;
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					// @ts-expect-error
+					clientCounter.appointments.by[service.createdOn]++;
 
-				// Calculate expenses
-				clientCounter.expenses += service.price;
+					// Calculate expenses
+					clientCounter.expenses += service.price;
 
-				// Set service in clientCounter.order.service if not exist
-				const serviceExistInClientCounter = service.serviceId in clientCounter.order.service;
-				if (!serviceExistInClientCounter) {
-					clientCounter.order.service[service.serviceId] = {
-						appointments: {
-							total: 0,
-							by: {
-								panel: 0,
-								client: 0
-							}
-						},
-						expenses: 0
-					};
-				}
+					// Set service in clientCounter.order.service if not exist
+					const serviceExistInClientCounter = service.serviceId in clientCounter.order.service;
+					if (!serviceExistInClientCounter) {
+						clientCounter.order.service[service.serviceId] = {
+							appointments: {
+								total: 0,
+								by: {
+									panel: 0,
+									client: 0
+								}
+							},
+							expenses: 0
+						};
+					}
 
-				const serviceCounterInClientCounter = clientCounter.order.service[service.serviceId];
-				serviceCounterInClientCounter.expenses = service.price;
-				serviceCounterInClientCounter.appointments.total++;
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-expect-error
-				serviceCounterInClientCounter.appointments.by[service.createdOn]++;
+					const serviceCounterInClientCounter = clientCounter.order.service[service.serviceId];
+					serviceCounterInClientCounter.expenses = service.price;
+					serviceCounterInClientCounter.appointments.total++;
+					serviceCounterInClientCounter.appointments.by[createdOn]++;
+
+				});
 
 			});
 
@@ -402,6 +400,16 @@ export function calculateDateRangeReportAnalyticTool(response: DateRangeReportAn
 			weekDayCounter.appointments.by.client.percentages = Math.round(weekDayCounter.appointments.by.client.total / weekDayCounter.appointments.total * 100 * 100) / 100;
 			weekDayCounter.appointments.percentages = Math.round(weekDayCounter.appointments.total / analyticData.summary.appointments.total * 100 * 100) / 100;
 		});
+
+		// NOTE: Calculate uniqueClients
+		analyticData.summary.uniqueClients = Object.keys(analyticData.customer).length;
+		specialistCounter.uniqueClients = Object.keys(specialistCounter.uniqueClient).length;
+
+		// NOTE: Calculate uniqueClients
+		// Object.keys(analyticData.counter.by.service).forEach((serviceId) => {
+		// 	const serviceCounter = analyticData.counter.by.service[serviceId];
+		// 	serviceCounter.uniqueClients = Object.keys(serviceCounter.uniqueClient).length;
+		// });
 
 	});
 

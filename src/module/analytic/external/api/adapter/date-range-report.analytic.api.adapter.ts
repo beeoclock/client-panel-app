@@ -5,6 +5,7 @@ import {is} from "@utility/checker";
 import {AnalyticEndpointEnum} from "@module/analytic/external/endpoint/analytic.endpoint";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {Types} from "@utility/types";
+import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 
 export namespace DateRangeReportAnalyticApi {
 
@@ -20,13 +21,14 @@ export namespace DateRangeReportAnalyticApi {
 		memberId: string & Types.ObjectId;
 		firstName: string;
 		lastName: string;
-		email: string & Types.Format<"email">;
+		email: string & Types.Email;
 	}
 
 	export interface IAttendee {
 		customerId: string & Types.ObjectId;
 		firstName: string;
 		lastName: string;
+		registeredDate: string & Types.DateTime;
 	}
 
 	export interface IProduct {
@@ -40,6 +42,7 @@ export namespace DateRangeReportAnalyticApi {
 
 	export interface IService {
 		orderServiceId: string & Types.ObjectId;
+		orderId: string & Types.ObjectId;
 		serviceId: string & Types.ObjectId;
 		serviceName: string;
 		price: number & Types.Minimum<0>;
@@ -49,27 +52,32 @@ export namespace DateRangeReportAnalyticApi {
 		endTime: string & Types.DateTime;
 		createdOn: ("client" | "panel") & Types.Default<"client">;
 		wasSelectedAnybody: boolean & Types.Default<false>;
-		status: "inProgress";
+		status: OrderServiceStatusEnum & Types.Default<OrderServiceStatusEnum.accepted>;
 		attendants: IAttendee[];
+	}
+
+	export interface IDateReport {
+		services: IService[];
+		products: IProduct[];
+		dateRevenue: number & Types.Minimum<0>;
+		date: string & Types.Date;
 	}
 
 	export interface ISpecialistReport {
 		specialist: ISpecialist;
-		date: string & Types.Date;
+		startDate: string & Types.Date;
+		endDate: string & Types.Date;
 		totalRevenue: number & Types.Minimum<0>;
-		services: IService[],
-		products: IProduct[],
-		createdAt: "2024-08-27T12:00:00Z",
-		updatedAt: "2024-08-27T12:00:00Z"
+		dateReports: IDateReport[];
 	}
 
 	export interface IDateRangeReport {
-		date: string & Types.Date;
-		specialistReports: ISpecialistReport[],
+		startDate: string & Types.Date;
+		endDate: string & Types.Date;
+		specialistReports: ISpecialistReport[];
 		totalRevenue: number & Types.Minimum<0>;
 		totalOrders: number & Types.Minimum<0>;
-		createdAt: string & Types.DateTime;
-		updatedAt: string & Types.DateTime;
+		totalOrderServices: number & Types.Minimum<0>;
 	}
 
 	export type IResponse = IDateRangeReport;

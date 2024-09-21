@@ -52,11 +52,15 @@
 					"client": "Offentlig hjemmeside",
 					"panel": "Panel"
 				},
+				"title": "Besøg og kunder",
 				"total": "Antal leverede tjenester"
 			},
 			"averageBill": "Gennemsnitlig regning",
 			"averageServiceTime": "Gennemsnitlig servicetid",
 			"income": "Indkomst",
+			"overview": {
+				"title": "Generelt overblik"
+			},
 			"totalOrders": "Samlede ordrer",
 			"totalServiceTime": "Antal leverede tjenester i timer",
 			"uniqueClients": "Unikke kunder"
@@ -957,6 +961,7 @@
 			"customers": "kunder",
 			"dataNotFound": "Data ikke fundet",
 			"dateAndTime": "Dato og tid",
+			"day": "Dag",
 			"deactivate": "Deaktiver",
 			"delete": "Slet",
 			"description": "Beskrivelse",
@@ -991,6 +996,7 @@
 			"logout": "Log ud",
 			"members": "Medlemmer",
 			"menu": "Menu",
+			"month": "Måned",
 			"name": "Navn",
 			"next": "Næste",
 			"nextStep": "Næste skridt",
@@ -1068,9 +1074,11 @@
 			"update": "Opdateret",
 			"updatedAt": "Opdateret kl",
 			"warning": "Advarsel",
+			"week": "Uge",
 			"workdays": "Arbejdsdage",
 			"workingHours": "Arbejdstimer",
 			"writePrice": "Skriv pris",
+			"year": "År",
 			"yes": "Ja",
 			"yesterday": "Yesterday",
 			"zipCode": "Postnummer"
@@ -1379,6 +1387,7 @@
 		},
 		"customers": "Kunder",
 		"dashboard": "Dashboard",
+		"dateRangeReport": "Analyse",
 		"events": "Begivenheder",
 		"members": "Medlemmer",
 		"order": "Indkøb",

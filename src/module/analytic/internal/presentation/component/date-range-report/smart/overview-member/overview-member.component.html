@@ -1,0 +1,150 @@
+<div class="flex flex-col bg-white w-full gap-2 p-2">
+
+	@if (analytic.counter.by.specialist[selectedMemberId]; as specialist) {
+
+		<h2 class="text-2xl font-bold mt-4">
+			{{ 'analytic.summary.overview.title' | translate }}
+		</h2>
+
+		<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
+			<!-- Card -->
+			<div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-800 dark:border-neutral-700">
+				<div class="p-4 md:p-5">
+					<div class="flex items-center gap-x-2">
+						<p class="text-xs uppercase tracking-wide text-gray-500 dark:text-neutral-500">
+							{{ 'analytic.summary.income' | translate }}
+						</p>
+					</div>
+
+					<div class="mt-1 flex items-center gap-x-2">
+						<h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
+							{{ specialist.income | currency: baseCurrency: 'symbol' }}
+						</h3>
+					</div>
+				</div>
+			</div>
+			<!-- End Card -->
+
+			<!-- Card -->
+			<div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-800 dark:border-neutral-700">
+				<div class="p-4 md:p-5">
+					<div class="flex items-center gap-x-2">
+						<p class="text-xs uppercase tracking-wide text-gray-500 dark:text-neutral-500">
+							{{ 'analytic.summary.averageBill' | translate }}
+						</p>
+					</div>
+
+					<div class="mt-1 flex items-center gap-x-2">
+						<h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
+							{{ specialist.averageBill | currency: baseCurrency: 'symbol' }}
+						</h3>
+					</div>
+				</div>
+			</div>
+			<!-- End Card -->
+
+			<!-- Card -->
+			<div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-800 dark:border-neutral-700">
+				<div class="p-4 md:p-5">
+					<div class="flex items-center gap-x-2">
+						<p class="text-xs uppercase tracking-wide text-gray-500 dark:text-neutral-500">
+							{{ 'analytic.summary.appointments.total' | translate }}
+						</p>
+					</div>
+
+					<div class="mt-1 flex items-center gap-x-2">
+						<h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
+							{{ specialist.appointments.total }}
+						</h3>
+					</div>
+				</div>
+			</div>
+			<!-- End Card -->
+
+			<!-- Card -->
+			<div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-800 dark:border-neutral-700">
+				<div class="p-4 md:p-5">
+					<div class="flex items-center gap-x-2">
+						<p class="text-xs uppercase tracking-wide text-gray-500 dark:text-neutral-500">
+							{{ 'analytic.summary.uniqueClients' | translate }}
+						</p>
+					</div>
+
+					<div class="mt-1 flex items-center gap-x-2">
+						<h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
+							{{ specialist.uniqueClients }}
+						</h3>
+					</div>
+				</div>
+			</div>
+			<!-- End Card -->
+		</div>
+
+		<h2 class="text-2xl font-bold mt-4">
+			{{ 'analytic.summary.appointments.title' | translate }}
+		</h2>
+
+		<!-- End List Group -->
+		<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
+			<!-- Card -->
+			<div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-800 dark:border-neutral-700">
+				<div class="p-4 md:p-5">
+					<div class="flex items-center gap-x-2">
+						<p class="text-xs uppercase tracking-wide text-gray-500 dark:text-neutral-500">
+							{{ 'analytic.summary.appointments.total' | translate }}
+						</p>
+					</div>
+
+					<div class="mt-1 flex items-center gap-x-2">
+						<h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
+							{{ specialist.appointments.total }}
+						</h3>
+					</div>
+				</div>
+			</div>
+			<!-- End Card -->
+			<!-- Card -->
+			<div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-800 dark:border-neutral-700">
+				<div class="p-4 md:p-5">
+					<div class="flex items-center gap-x-2">
+						<p class="text-xs uppercase tracking-wide text-gray-500 dark:text-neutral-500">
+							{{ 'analytic.summary.appointments.by.panel' | translate }}
+						</p>
+					</div>
+
+					<div class="mt-1 flex items-center gap-x-2">
+						<h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
+							{{ specialist.appointments.by.panel.total }}
+						</h3>
+						<small> {{ specialist.appointments.by.panel.percentages }}% </small>
+					</div>
+				</div>
+			</div>
+			<!-- End Card -->
+			<!-- Card -->
+			<div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-800 dark:border-neutral-700">
+				<div class="p-4 md:p-5">
+					<div class="flex items-center gap-x-2">
+						<p class="text-xs uppercase tracking-wide text-gray-500 dark:text-neutral-500">
+							{{ 'analytic.summary.appointments.by.client' | translate }}
+						</p>
+					</div>
+
+					<div class="mt-1 flex items-center gap-x-2">
+						<h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
+							{{ specialist.appointments.by.client.total }}
+						</h3>
+						<small> {{ specialist.appointments.by.client.percentages }}% </small>
+					</div>
+				</div>
+			</div>
+			<!-- End Card -->
+		</div>
+		<app-customer-table-component
+			[baseCurrency]="baseCurrency"
+			[analytic]="analytic"
+			[selectedMemberId]="selectedMemberId"/>
+
+	}
+
+</div>

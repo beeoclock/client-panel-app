@@ -1,396 +1,286 @@
-<div class="mb-40">
-	@if (analytic$ | async; as analytic) {
+@if (activeMembers$ | async; as activeMembers) {
 
-		<div class="flex flex-wrap p-2 gap-2">
+	@if (baseCurrency$ | async; as baseCurrency) {
 
-			<!-- List Group -->
-			<div class="max-w-md w-full">
-				<ul class="flex flex-col bg-white w-full max-w-md">
-					<li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
-						<div class="flex items-center justify-between w-full gap-8">
-							<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
-								Business Logo
-							</p>
-							<p class="text-base font-bold text-gray-800 dark:text-neutral-200 text-right">
-								Business Name
-							</p>
-						</div>
-					</li>
+		@if (clientItem$ | async; as clientItem) {
 
-					<li class="grid grid-cols-3 divide-x divide-y -mt-px border text-gray-800 first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
+			<div class="mb-40 bg-white">
 
-						<div class="p-2 flex flex-col items-center justify-center">
-							<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
-								{{ 'analytic.summary.income' | translate }}
-							</p>
-							<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">
-								{{ analytic.summary.income | currency: baseCurrency: 'symbol' }}
-							</p>
-						</div>
-						<div class="p-2 flex flex-col items-center justify-center">
-							<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
-								{{ 'analytic.summary.averageBill' | translate }}
-							</p>
-							<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">
-								{{ analytic.summary.averageBill | currency: baseCurrency: 'symbol' }}
-							</p>
-						</div>
-						<div class="p-2 flex flex-col items-center justify-center">
-							<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
-								{{ 'analytic.summary.uniqueClients' | translate }}
-							</p>
-							<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">
-								{{ analytic.summary.uniqueClients }}
-							</p>
-						</div>
-
-					</li>
-
-					<li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
-						<div class="flex items center justify-between w-full gap-8">
-							<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
-								{{ 'analytic.summary.totalOrders' | translate }}
-							</p>
-							<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">
-								{{ analytic.summary.totalOrders }}
-							</p>
-						</div>
-					</li>
-					<li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
-						<div class="flex items center justify-between w-full gap-8">
-							<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
-								{{ 'analytic.summary.appointments.total' | translate }}
-							</p>
-							<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">
-								{{ analytic.summary.appointments.total }}
-							</p>
-						</div>
-					</li>
-
-					<li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
-						<div class="flex gap-x-2 justify-between w-full">
-
-							<div class="flex flex-col items-center justify-center">
-								<div class="w-full text-center">
-									{{ 'weekday.short.monday' | translate }}
-								</div>
-								<!-- Progress Vertical -->
-								<div
-									class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
-									role="progressbar"
-									[attr.aria-valuenow]="analytic.counter.by.weekDay[1].appointments.percentages"
-									aria-valuemin="0"
-									aria-valuemax="100">
-									<div class="rounded-full overflow-hidden bg-blue-600"
-										 [style.height.%]="analytic.counter.by.weekDay[1].appointments.percentages"></div>
-								</div>
-								<!-- End Progress Vertical -->
-								<div class="w-full text-center">
-									{{ analytic.counter.by.weekDay[1].appointments.total }}
-								</div>
-							</div>
-							<div class="flex flex-col items-center justify-center">
-								<div class="w-full text-center">
-									{{ 'weekday.short.tuesday' | translate }}
-								</div>
-								<!-- Progress Vertical -->
-								<div
-									class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
-									role="progressbar"
-									[attr.aria-valuenow]="analytic.counter.by.weekDay[2].appointments.percentages"
-									aria-valuemin="0"
-									aria-valuemax="100">
-									<div class="rounded-full overflow-hidden bg-blue-600"
-										 [style.height.%]="analytic.counter.by.weekDay[2].appointments.percentages"></div>
-								</div>
-								<!-- End Progress Vertical -->
-								<div class="w-full text-center">
-									{{ analytic.counter.by.weekDay[2].appointments.total }}
-								</div>
-							</div>
-							<div class="flex flex-col items-center justify-center">
-								<div class="w-full text-center">
-									{{ 'weekday.short.wednesday' | translate }}
-								</div>
-								<!-- Progress Vertical -->
-								<div
-									class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
-									role="progressbar"
-									[attr.aria-valuenow]="analytic.counter.by.weekDay[3].appointments.percentages"
-									aria-valuemin="0"
-									aria-valuemax="100">
-									<div class="rounded-full overflow-hidden bg-blue-600"
-										 [style.height.%]="analytic.counter.by.weekDay[3].appointments.percentages"></div>
-								</div>
-								<!-- End Progress Vertical -->
-								<div class="w-full text-center">
-									{{ analytic.counter.by.weekDay[3].appointments.total }}
-								</div>
-							</div>
-							<div class="flex flex-col items-center justify-center">
-								<div class="w-full text-center">
-									{{ 'weekday.short.thursday' | translate }}
-								</div>
-								<!-- Progress Vertical -->
-								<div
-									class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
-									role="progressbar"
-									[attr.aria-valuenow]="analytic.counter.by.weekDay[4].appointments.percentages"
-									aria-valuemin="0"
-									aria-valuemax="100">
-									<div class="rounded-full overflow-hidden bg-blue-600"
-										 [style.height.%]="analytic.counter.by.weekDay[4].appointments.percentages"></div>
-								</div>
-								<!-- End Progress Vertical -->
-								<div class="w-full text-center">
-									{{ analytic.counter.by.weekDay[4].appointments.total }}
-								</div>
-							</div>
-							<div class="flex flex-col items-center justify-center">
-								<div class="w-full text-center">
-									{{ 'weekday.short.friday' | translate }}
-								</div>
-								<!-- Progress Vertical -->
-								<div
-									class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
-									role="progressbar"
-									[attr.aria-valuenow]="analytic.counter.by.weekDay[5].appointments.percentages"
-									aria-valuemin="0"
-									aria-valuemax="100">
-									<div class="rounded-full overflow-hidden bg-blue-600"
-										 [style.height.%]="analytic.counter.by.weekDay[5].appointments.percentages"></div>
-								</div>
-								<!-- End Progress Vertical -->
-								<div class="w-full text-center">
-									{{ analytic.counter.by.weekDay[5].appointments.total }}
-								</div>
-							</div>
-							<div class="flex flex-col items-center justify-center">
-								<div class="w-full text-center">
-									{{ 'weekday.short.saturday' | translate }}
-								</div>
-								<!-- Progress Vertical -->
-								<div
-									class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
-									role="progressbar"
-									[attr.aria-valuenow]="analytic.counter.by.weekDay[6].appointments.percentages"
-									aria-valuemin="0"
-									aria-valuemax="100">
-									<div class="rounded-full overflow-hidden bg-blue-600"
-										 [style.height.%]="analytic.counter.by.weekDay[6].appointments.percentages"></div>
-								</div>
-								<!-- End Progress Vertical -->
-								<div class="w-full text-center">
-									{{ analytic.counter.by.weekDay[6].appointments.total }}
-								</div>
-							</div>
-							<div class="flex flex-col items-center justify-center">
-								<div class="w-full text-center">
-									{{ 'weekday.short.sunday' | translate }}
-								</div>
-								<!-- Progress Vertical -->
-								<div
-									class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
-									role="progressbar"
-									[attr.aria-valuenow]="analytic.counter.by.weekDay[0].appointments.percentages"
-									aria-valuemin="0"
-									aria-valuemax="100">
-									<div class="rounded-full overflow-hidden bg-blue-600"
-										 [style.height.%]="analytic.counter.by.weekDay[0].appointments.percentages"></div>
-								</div>
-								<!-- End Progress Vertical -->
-								<div class="w-full text-center">
-									{{ analytic.counter.by.weekDay[0].appointments.total }}
-								</div>
-							</div>
-						</div>
-					</li>
-					<li class="flex flex-col items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
-						<!-- Progress -->
-						<div class="w-full">
-							<div class="flex justify-between gap-2">
-								<div
-									class="inline-block mb-2 py-0.5 px-1.5 bg-blue-50 border border-blue-200 text-xs font-medium text-blue-600 rounded-lg dark:bg-blue-800/30 dark:border-blue-800 dark:text-blue-500">
-									{{ 'analytic.summary.appointments.by.panel' | translate }}
-									({{ analytic.summary.appointments.by.panel.total }}
-									) {{ analytic.summary.appointments.by.panel.percentages }}%
-								</div>
-								<div
-									class="text-right inline-block mb-2 py-0.5 px-1.5 bg-yellow-50 border border-yellow-200 text-xs font-medium text-yellow-600 rounded-lg dark:bg-yellow-800/30 dark:border-yellow-800 dark:text-yellow-500">
-									{{ 'analytic.summary.appointments.by.client' | translate }}
-									({{ analytic.summary.appointments.by.client.total }}
-									) {{ analytic.summary.appointments.by.client.percentages }}%
-								</div>
-							</div>
-							<!-- Multiple bars Progress -->
-							<div class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700">
-								<div
-									class="flex flex-col justify-center overflow-hidden bg-blue-500 text-xs text-white text-center whitespace-nowrap"
-									[style.width.%]="analytic.summary.appointments.by.panel.percentages"
-									[attr.aria-valuenow]="analytic.summary.appointments.by.panel.percentages"
-									role="progressbar"
-									aria-valuemin="0"
-									aria-valuemax="100">
-								</div>
-								<div
-									class="flex flex-col justify-center overflow-hidden bg-yellow-500 text-xs text-white text-center whitespace-nowrap"
-									[style.width.%]="analytic.summary.appointments.by.client.percentages"
-									[attr.aria-valuenow]="analytic.summary.appointments.by.client.percentages"
-									role="progressbar"
-									aria-valuemin="0"
-									aria-valuemax="100">
-								</div>
-							</div>
-							<!-- End Multiple bars Progress -->
-						</div>
-						<!-- End Progress -->
-					</li>
-				</ul>
-			</div>
-			<!-- End List Group -->
-
-		</div>
-
-		<div class="flex flex-wrap w-full gap-2 p-2">
-
-
-			@for (specialist of analytic.counter.by.specialist | keyvalue; track specialist.key) {
-
-				<!-- List Group -->
-				<div class="max-w-md w-full">
-					<ul class="flex flex-col bg-white w-full max-w-md">
-						<li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
-							<div class="flex items-center justify-between w-full gap-8">
-								<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
-									Avatar
-								</p>
-								<p class="text-base font-bold text-gray-800 dark:text-neutral-200 text-right">
-									{{ analytic.specialist[specialist.key].firstName }} {{ analytic.specialist[specialist.key].lastName }}
-								</p>
-							</div>
-						</li>
-
-						<li class="grid grid-cols-3 divide-x divide-y -mt-px border text-gray-800 first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
-
-							<div class="p-2 flex flex-col items-center justify-center">
-								<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
-									{{ 'analytic.summary.income' | translate }}
-								</p>
-								<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">
-									{{ specialist.value.income | currency: baseCurrency: 'symbol' }}
-								</p>
-							</div>
-							<div class="p-2 flex flex-col items-center justify-center">
-								<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
-									{{ 'analytic.summary.averageBill' | translate }}
-								</p>
-								<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">
-									{{ specialist.value.averageBill | currency: baseCurrency: 'symbol' }}
-								</p>
-							</div>
-							<div class="p-2 flex flex-col items-center justify-center">
-								<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
-									{{ 'analytic.summary.uniqueClients' | translate }}
-								</p>
-								<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">
-									{{ specialist.value.uniqueClients }}
-								</p>
-							</div>
-
-						</li>
-
-						<!--					<li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">-->
-						<!--						<div class="flex items center justify-between w-full gap-8">-->
-						<!--							<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">-->
-						<!--								{{ 'analytic.summary.income' | translate }}-->
-						<!--							</p>-->
-						<!--							<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">-->
-						<!--								{{ specialist.value.income | currency: baseCurrency: 'symbol' }}-->
-						<!--							</p>-->
-						<!--						</div>-->
-						<!--					</li>-->
-
-						<!--					<li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">-->
-						<!--						<div class="flex items center justify-between w-full gap-8">-->
-						<!--							<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">-->
-						<!--								{{ 'analytic.summary.averageBill' | translate }}-->
-						<!--							</p>-->
-						<!--							<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">-->
-						<!--								{{ specialist.value.averageBill | currency: baseCurrency: 'symbol' }}-->
-						<!--							</p>-->
-						<!--						</div>-->
-						<!--					</li>-->
-
-						<!--					<li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">-->
-						<!--						<div class="flex items center justify-between w-full gap-8">-->
-						<!--							<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">-->
-						<!--								{{ 'analytic.summary.uniqueClients' | translate }}-->
-						<!--							</p>-->
-						<!--							<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">-->
-						<!--								{{ specialist.value.uniqueClients }}-->
-						<!--							</p>-->
-						<!--						</div>-->
-						<!--					</li>-->
-						<li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
-							<div class="flex items center justify-between w-full gap-8">
-								<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
-									{{ 'analytic.summary.appointments.total' | translate }}
-								</p>
-								<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">
-									{{ specialist.value.appointments.total }}
-								</p>
-							</div>
-						</li>
-						<li class="flex flex-col items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
-							<!-- Progress -->
-							<div class="w-full">
-								<div class="flex justify-between gap-2">
-									<div
-										class="inline-block mb-2 py-0.5 px-1.5 bg-blue-50 border border-blue-200 text-xs font-medium text-blue-600 rounded-lg dark:bg-blue-800/30 dark:border-blue-800 dark:text-blue-500">
-										{{ 'analytic.summary.appointments.by.panel' | translate }}
-										({{ specialist.value.appointments.by.panel.total }}
-										) {{ specialist.value.appointments.by.panel.percentages }}%
-									</div>
-									<div
-										class="text-right inline-block mb-2 py-0.5 px-1.5 bg-yellow-50 border border-yellow-200 text-xs font-medium text-yellow-600 rounded-lg dark:bg-yellow-800/30 dark:border-yellow-800 dark:text-yellow-500">
-										{{ 'analytic.summary.appointments.by.client' | translate }}
-										({{ specialist.value.appointments.by.client.total }}
-										) {{ specialist.value.appointments.by.client.percentages }}%
-									</div>
-								</div>
-								<!-- Multiple bars Progress -->
-								<div
-									class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700">
-									<div
-										class="flex flex-col justify-center overflow-hidden bg-blue-500 text-xs text-white text-center whitespace-nowrap"
-										[style.width.%]="specialist.value.appointments.by.panel.percentages"
-										[attr.aria-valuenow]="specialist.value.appointments.by.panel.percentages"
-										role="progressbar"
-										aria-valuemin="0"
-										aria-valuemax="100">
-									</div>
-									<div
-										class="flex flex-col justify-center overflow-hidden bg-yellow-500 text-xs text-white text-center whitespace-nowrap"
-										[style.width.%]="specialist.value.appointments.by.client.percentages"
-										[attr.aria-valuenow]="specialist.value.appointments.by.client.percentages"
-										role="progressbar"
-										aria-valuemin="0"
-										aria-valuemax="100">
-									</div>
-								</div>
-								<!-- End Multiple bars Progress -->
-							</div>
-							<!-- End Progress -->
-						</li>
-
-					</ul>
+				<div class="flex w-full p-2">
+					<app-date-slider-control-component
+						[fromControl]="filterFormGroup.controls.from"
+						[toControl]="filterFormGroup.controls.to"/>
 				</div>
-				<!-- End List Group -->
 
-			}
+				@if (analytic$ | async; as analytic) {
 
-		</div>
+					<div class="flex flex-col w-full divide-y">
+
+						<div class="p-2">
+
+							<app-radio-tailwindcss-component [control]="control" [items]="items"/>
+
+						</div>
+
+						<div>
+
+							@if (clientItem._id === control.value) {
+
+								<!-- List Group -->
+								<ul class="flex flex-col bg-white w-full max-w-md">
+
+									<li class="grid grid-cols-3 divide-x divide-y -mt-px border text-gray-800 first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
+
+										<div class="p-2 flex flex-col items-center justify-center">
+											<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
+												{{ 'analytic.summary.income' | translate }}
+											</p>
+											<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">
+												{{ analytic.summary.income | currency: baseCurrency: 'symbol' }}
+											</p>
+										</div>
+										<div class="p-2 flex flex-col items-center justify-center">
+											<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
+												{{ 'analytic.summary.averageBill' | translate }}
+											</p>
+											<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">
+												{{ analytic.summary.averageBill | currency: baseCurrency: 'symbol' }}
+											</p>
+										</div>
+										<div class="p-2 flex flex-col items-center justify-center">
+											<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
+												{{ 'analytic.summary.uniqueClients' | translate }}
+											</p>
+											<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">
+												{{ analytic.summary.uniqueClients }}
+											</p>
+										</div>
+
+									</li>
+
+									<li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
+										<div class="flex items center justify-between w-full gap-8">
+											<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
+												{{ 'analytic.summary.totalOrders' | translate }}
+											</p>
+											<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">
+												{{ analytic.summary.totalOrders }}
+											</p>
+										</div>
+									</li>
+									<li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
+										<div class="flex items center justify-between w-full gap-8">
+											<p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
+												{{ 'analytic.summary.appointments.total' | translate }}
+											</p>
+											<p class="text-sm font-bold text-gray-800 dark:text-neutral-200 text-right">
+												{{ analytic.summary.appointments.total }}
+											</p>
+										</div>
+									</li>
+
+									<li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
+										<div class="flex gap-x-2 justify-between w-full">
+
+											<div class="flex flex-col items-center justify-center">
+												<div class="w-full text-center">
+													{{ 'weekday.short.monday' | translate }}
+												</div>
+												<!-- Progress Vertical -->
+												<div
+													class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
+													role="progressbar"
+													[attr.aria-valuenow]="analytic.counter.by.weekDay[1].appointments.percentages"
+													aria-valuemin="0"
+													aria-valuemax="100">
+													<div class="rounded-full overflow-hidden bg-blue-600"
+														 [style.height.%]="analytic.counter.by.weekDay[1].appointments.percentages"></div>
+												</div>
+												<!-- End Progress Vertical -->
+												<div class="w-full text-center">
+													{{ analytic.counter.by.weekDay[1].appointments.total }}
+												</div>
+											</div>
+											<div class="flex flex-col items-center justify-center">
+												<div class="w-full text-center">
+													{{ 'weekday.short.tuesday' | translate }}
+												</div>
+												<!-- Progress Vertical -->
+												<div
+													class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
+													role="progressbar"
+													[attr.aria-valuenow]="analytic.counter.by.weekDay[2].appointments.percentages"
+													aria-valuemin="0"
+													aria-valuemax="100">
+													<div class="rounded-full overflow-hidden bg-blue-600"
+														 [style.height.%]="analytic.counter.by.weekDay[2].appointments.percentages"></div>
+												</div>
+												<!-- End Progress Vertical -->
+												<div class="w-full text-center">
+													{{ analytic.counter.by.weekDay[2].appointments.total }}
+												</div>
+											</div>
+											<div class="flex flex-col items-center justify-center">
+												<div class="w-full text-center">
+													{{ 'weekday.short.wednesday' | translate }}
+												</div>
+												<!-- Progress Vertical -->
+												<div
+													class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
+													role="progressbar"
+													[attr.aria-valuenow]="analytic.counter.by.weekDay[3].appointments.percentages"
+													aria-valuemin="0"
+													aria-valuemax="100">
+													<div class="rounded-full overflow-hidden bg-blue-600"
+														 [style.height.%]="analytic.counter.by.weekDay[3].appointments.percentages"></div>
+												</div>
+												<!-- End Progress Vertical -->
+												<div class="w-full text-center">
+													{{ analytic.counter.by.weekDay[3].appointments.total }}
+												</div>
+											</div>
+											<div class="flex flex-col items-center justify-center">
+												<div class="w-full text-center">
+													{{ 'weekday.short.thursday' | translate }}
+												</div>
+												<!-- Progress Vertical -->
+												<div
+													class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
+													role="progressbar"
+													[attr.aria-valuenow]="analytic.counter.by.weekDay[4].appointments.percentages"
+													aria-valuemin="0"
+													aria-valuemax="100">
+													<div class="rounded-full overflow-hidden bg-blue-600"
+														 [style.height.%]="analytic.counter.by.weekDay[4].appointments.percentages"></div>
+												</div>
+												<!-- End Progress Vertical -->
+												<div class="w-full text-center">
+													{{ analytic.counter.by.weekDay[4].appointments.total }}
+												</div>
+											</div>
+											<div class="flex flex-col items-center justify-center">
+												<div class="w-full text-center">
+													{{ 'weekday.short.friday' | translate }}
+												</div>
+												<!-- Progress Vertical -->
+												<div
+													class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
+													role="progressbar"
+													[attr.aria-valuenow]="analytic.counter.by.weekDay[5].appointments.percentages"
+													aria-valuemin="0"
+													aria-valuemax="100">
+													<div class="rounded-full overflow-hidden bg-blue-600"
+														 [style.height.%]="analytic.counter.by.weekDay[5].appointments.percentages"></div>
+												</div>
+												<!-- End Progress Vertical -->
+												<div class="w-full text-center">
+													{{ analytic.counter.by.weekDay[5].appointments.total }}
+												</div>
+											</div>
+											<div class="flex flex-col items-center justify-center">
+												<div class="w-full text-center">
+													{{ 'weekday.short.saturday' | translate }}
+												</div>
+												<!-- Progress Vertical -->
+												<div
+													class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
+													role="progressbar"
+													[attr.aria-valuenow]="analytic.counter.by.weekDay[6].appointments.percentages"
+													aria-valuemin="0"
+													aria-valuemax="100">
+													<div class="rounded-full overflow-hidden bg-blue-600"
+														 [style.height.%]="analytic.counter.by.weekDay[6].appointments.percentages"></div>
+												</div>
+												<!-- End Progress Vertical -->
+												<div class="w-full text-center">
+													{{ analytic.counter.by.weekDay[6].appointments.total }}
+												</div>
+											</div>
+											<div class="flex flex-col items-center justify-center">
+												<div class="w-full text-center">
+													{{ 'weekday.short.sunday' | translate }}
+												</div>
+												<!-- Progress Vertical -->
+												<div
+													class="flex flex-col flex-nowrap justify-end w-2 h-16 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
+													role="progressbar"
+													[attr.aria-valuenow]="analytic.counter.by.weekDay[0].appointments.percentages"
+													aria-valuemin="0"
+													aria-valuemax="100">
+													<div class="rounded-full overflow-hidden bg-blue-600"
+														 [style.height.%]="analytic.counter.by.weekDay[0].appointments.percentages"></div>
+												</div>
+												<!-- End Progress Vertical -->
+												<div class="w-full text-center">
+													{{ analytic.counter.by.weekDay[0].appointments.total }}
+												</div>
+											</div>
+										</div>
+									</li>
+									<li class="flex flex-col items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:border-neutral-700 dark:text-neutral-200">
+										<!-- Progress -->
+										<div class="w-full">
+											<div class="flex justify-between gap-2">
+												<div
+													class="inline-block mb-2 py-0.5 px-1.5 bg-blue-50 border border-blue-200 text-xs font-medium text-blue-600 rounded-lg dark:bg-blue-800/30 dark:border-blue-800 dark:text-blue-500">
+													{{ 'analytic.summary.appointments.by.panel' | translate }}
+													({{ analytic.summary.appointments.by.panel.total }})
+													{{ analytic.summary.appointments.by.panel.percentages }}%
+												</div>
+												<div
+													class="text-right inline-block mb-2 py-0.5 px-1.5 bg-yellow-50 border border-yellow-200 text-xs font-medium text-yellow-600 rounded-lg dark:bg-yellow-800/30 dark:border-yellow-800 dark:text-yellow-500">
+													{{ 'analytic.summary.appointments.by.client' | translate }}
+													({{ analytic.summary.appointments.by.client.total }})
+													{{ analytic.summary.appointments.by.client.percentages }}%
+												</div>
+											</div>
+											<!-- Multiple bars Progress -->
+											<div
+												class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700">
+												<div
+													class="flex flex-col justify-center overflow-hidden bg-blue-500 text-xs text-white text-center whitespace-nowrap"
+													[style.width.%]="analytic.summary.appointments.by.panel.percentages"
+													[attr.aria-valuenow]="analytic.summary.appointments.by.panel.percentages"
+													role="progressbar"
+													aria-valuemin="0"
+													aria-valuemax="100">
+												</div>
+												<div
+													class="flex flex-col justify-center overflow-hidden bg-yellow-500 text-xs text-white text-center whitespace-nowrap"
+													[style.width.%]="analytic.summary.appointments.by.client.percentages"
+													[attr.aria-valuenow]="analytic.summary.appointments.by.client.percentages"
+													role="progressbar"
+													aria-valuemin="0"
+													aria-valuemax="100">
+												</div>
+											</div>
+											<!-- End Multiple bars Progress -->
+										</div>
+										<!-- End Progress -->
+									</li>
+								</ul>
+								<!-- End List Group -->
+
+							} @else {
+
+								<app-overview-member-component
+									[analytic]="analytic"
+									[baseCurrency]="baseCurrency"
+									[activeMembers]="activeMembers"
+									[selectedMemberId]="control.value"/>
+
+							}
+
+						</div>
+
+					</div>
+
+				}
+
+			</div>
+
+		}
 
 	}
 
-</div>
+}

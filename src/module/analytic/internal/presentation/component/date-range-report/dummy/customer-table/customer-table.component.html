@@ -1,0 +1,57 @@
+<div class="flex flex-col">
+	<div class="-m-1.5 overflow-x-auto">
+		<div class="p-1.5 min-w-full inline-block align-middle">
+			<div class="border rounded-lg shadow overflow-hidden dark:border-neutral-700 dark:shadow-gray-900">
+				<table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
+					<thead class="bg-gray-50 dark:bg-neutral-700">
+					<tr>
+						<th scope="col"
+							class="px-3 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-400">
+							{{ 'keyword.capitalize.customer' | translate }}
+						</th>
+						<th scope="col"
+							class="px-3 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-400">
+							{{ 'keyword.capitalize.expenses' | translate }}
+						</th>
+						<th scope="col"
+							class="px-3 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-400">
+							Appointments
+						</th>
+						<th scope="col"
+							class="px-3 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-400">
+							By panel
+						</th>
+						<th scope="col"
+							class="px-3 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-400">
+							By public page
+						</th>
+					</tr>
+					</thead>
+					<tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+						@for (item of table; track item.customer.customerId) {
+
+							<tr>
+								<td class="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
+									{{ item.customer.firstName }} {{ item.customer.lastName }}
+								</td>
+								<td class="px-3 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
+									{{ item.data.expenses | currency: baseCurrency: 'symbol' }}
+								</td>
+								<td class="px-3 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
+									{{ item.data.appointments.total }}
+								</td>
+								<td class="px-3 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
+									{{ item.data.appointments.by.panel }}
+								</td>
+								<td class="px-3 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
+									{{ item.data.appointments.by.panel }}
+								</td>
+							</tr>
+
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

@@ -188,7 +188,7 @@ export type IDateRangeAnalyticState = {
 						};
 						expenses: number;
 					};
-				}
+				};
 			};
 		};
 		specialist: {
