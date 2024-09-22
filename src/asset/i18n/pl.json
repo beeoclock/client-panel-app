@@ -1453,6 +1453,11 @@
 			"allow": "Zezwól",
 			"allowButAsk": "Pytaj Za Każdym Razem",
 			"deny": "Nie Wysyłaj"
+		},
+		"modal": {
+			"title": "Powiadom Biznes i Klienta",
+			"sendEmails": "Wyślij E-mail",
+			"sendSms": "Wyślij Wiadomość SMS"
 		}
 	}
 }

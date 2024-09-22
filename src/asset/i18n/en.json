@@ -1453,6 +1453,11 @@
 			"allow": "Allow",
 			"allowButAsk": "Ask Each Time",
 			"deny": "Do Not Send"
+		},
+		"modal": {
+			"title": "Notify Business and Customer",
+			"sendEmails": "Send Email",
+			"sendSms": "Send Text Message"
 		}
 	}
 }

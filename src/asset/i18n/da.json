@@ -1453,6 +1453,11 @@
 			"allow": "Tillad",
 			"allowButAsk": "Spørg Hver Gang",
 			"deny": "Send Ikke"
+		},
+		"modal": {
+			"title": "Underret Virksomhed og Kunde",
+			"sendEmails": "Send E-mail",
+			"sendSms": "Send SMS"
 		}
 	}
 }
