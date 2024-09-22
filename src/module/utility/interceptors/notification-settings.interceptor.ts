@@ -28,7 +28,7 @@ export const NotificationSettingsInterceptor: HttpInterceptorFn = (req, next) =>
 			const updatedBody = {
 				...req.body as object,
 				// TODO move Receivers to UI settings
-				notificationSettings: {sendNotification: resp.data?.length, sendTypes: resp.data, sendReceivers: ['business', 'client']}
+				notificationSettings: {sendNotification: Boolean(resp.data?.length), sendTypes: resp.data, sendReceivers: ['business', 'client']}
 			}
 			return next(req.clone({body: updatedBody}))
 		}))
