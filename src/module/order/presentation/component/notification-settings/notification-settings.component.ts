@@ -15,7 +15,7 @@ import {TranslateModule} from "@ngx-translate/core";
 	styles: ``
 })
 export class NotificationSettingsComponent {
-	private modalCtrl: ModalController = inject(ModalController);
+	private readonly modalCtrl: ModalController = inject(ModalController);
 	@Input() public askSmsNotifications: boolean | undefined;
 	@Input() public askEmailNotifications: boolean | undefined;
 
@@ -24,9 +24,9 @@ export class NotificationSettingsComponent {
 		email: FormControl<boolean>
 	}> = new FormGroup({sms: new FormControl(), email: new FormControl()});
 
-	confirm() {
+	public confirm(): void {
 		const formValue = this.sendTypesFormGroup.value;
-		return this.modalCtrl.dismiss(Object.keys(formValue).filter((key) => !!formValue[key as keyof typeof this.sendTypesFormGroup.controls]));
+		this.modalCtrl.dismiss(Object.keys(formValue).filter((key) => !!formValue[key as keyof typeof this.sendTypesFormGroup.controls])).then();
 	}
 
 }
