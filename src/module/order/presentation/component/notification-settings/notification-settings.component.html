@@ -6,7 +6,10 @@
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding">
+<ion-content class="p-2">
+	<div class="m-4 text-xl">
+		{{ 'notificationSetting.modal.contentTitle' | translate }}
+	</div>
 	@if (askEmailNotifications) {
 		<ion-item>
 			<ion-toggle
@@ -21,4 +24,7 @@
 			</ion-toggle>
 		</ion-item>
 	}
+	<div class="italic leading-tight p-4 text-beeColor-500 text-sm">
+		{{ 'notificationSetting.modal.hint' | translate }}
+	</div>
 </ion-content>

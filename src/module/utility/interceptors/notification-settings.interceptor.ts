@@ -9,16 +9,22 @@ import {Store} from "@ngxs/store";
 import {ClientState} from "@client/state/client/client.state";
 import {SendNotificationConditionEnum} from "@utility/domain/enum/send-notification-condition.enum";
 import {OverlayEventDetail} from "@ionic/core/dist/types/utils/overlays-interface";
+import {RequestMethodEnum} from "@utility/domain/enum/request-method.enum";
 
 
 export const NotificationSettingsInterceptor: HttpInterceptorFn = (req, next) => {
+	const handledMethods = [RequestMethodEnum.POST, RequestMethodEnum.PUT, RequestMethodEnum.PATCH];
 
-	const handledMethods = ['POST', 'PUT', 'DELETE'];
+	if(!handledMethods.includes(req.method as RequestMethodEnum) || !req.url.includes('/order')){
+		return next(req);
+	}
+
+
 	const store = inject(Store);
 	const notificationSettings = store.selectSnapshot(ClientState.notificationSettings);
-	const askEmailNotifications = notificationSettings?.emailNotificationSettings.sendNotificationConditionType === SendNotificationConditionEnum.ALLOW_BUT_ASK;
-	const askSmsNotifications = notificationSettings?.smsNotificationSettings.sendNotificationConditionType === SendNotificationConditionEnum.ALLOW_BUT_ASK;
-	const needToShowNotificationsSettingModal = handledMethods.includes(req.method) && req.url.includes('/order') && (askEmailNotifications || askSmsNotifications)
+	const askEmailNotifications = notificationSettings?.emailNotificationSettings?.sendNotificationConditionType === SendNotificationConditionEnum.ALLOW_BUT_ASK;
+	const askSmsNotifications = notificationSettings?.smsNotificationSettings?.sendNotificationConditionType === SendNotificationConditionEnum.ALLOW_BUT_ASK;
+	const needToShowNotificationsSettingModal = askEmailNotifications || askSmsNotifications;
 
 	if (needToShowNotificationsSettingModal) {
 		return from(notificationSettingsFromModal({

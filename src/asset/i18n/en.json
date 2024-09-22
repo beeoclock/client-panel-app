@@ -1455,9 +1455,11 @@
 			"deny": "Do Not Send"
 		},
 		"modal": {
-			"title": "Notify Business and Customer",
+			"title": "Notification",
 			"sendEmails": "Send Email",
-			"sendSms": "Send Text Message"
+			"sendSms": "Send Text Message",
+			"hint": "You are seeing this window because the company settings specify to always ask whether to send notifications to participants.",
+			"contentTitle": "Choose how to notify participants about the changes."
 		}
 	}
 }

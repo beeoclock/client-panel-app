@@ -1455,9 +1455,11 @@
 			"deny": "Send Ikke"
 		},
 		"modal": {
-			"title": "Underret Virksomhed og Kunde",
+			"title": "Notifikation",
 			"sendEmails": "Send E-mail",
-			"sendSms": "Send SMS"
+			"sendSms": "Send SMS",
+			"hint": "Du ser dette vindue, fordi virksomhedens indstillinger angiver altid at spørge, om der skal sendes beskeder til deltagerne.",
+			"contentTitle": "Vælg, hvordan deltagerne skal underrettes om ændringerne."
 		}
 	}
 }

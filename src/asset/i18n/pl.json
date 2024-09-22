@@ -1455,9 +1455,11 @@
 			"deny": "Nie Wysyłaj"
 		},
 		"modal": {
-			"title": "Powiadom Biznes i Klienta",
+			"title": "Powiadomienie",
 			"sendEmails": "Wyślij E-mail",
-			"sendSms": "Wyślij Wiadomość SMS"
+			"sendSms": "Wyślij Wiadomość SMS",
+			"hint": "Widzisz to okno, ponieważ ustawienia firmy określają, aby zawsze pytać, czy wysyłać powiadomienia do uczestników.",
+			"contentTitle": "Wybierz, jak powiadomić uczestników o zmianach."
 		}
 	}
 }
