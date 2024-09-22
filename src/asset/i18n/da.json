@@ -1453,6 +1453,13 @@
 			"allow": "Tillad",
 			"allowButAsk": "Spørg Hver Gang",
 			"deny": "Send Ikke"
+		},
+		"modal": {
+			"title": "Notifikation",
+			"sendEmails": "Send E-mail",
+			"sendSms": "Send SMS",
+			"hint": "Du ser dette vindue, fordi virksomhedens indstillinger angiver altid at spørge, om der skal sendes beskeder til deltagerne.",
+			"contentTitle": "Vælg, hvordan deltagerne skal underrettes om ændringerne."
 		}
 	}
 }
