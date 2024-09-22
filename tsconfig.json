@@ -1,89 +1,90 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": false,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022",
-    "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
-    "paths": {
-      "@src/*": [
-        "./src/*"
-      ],
-      "@environment/*": [
-        "./src/environment/*"
-      ],
-      "@asset/*": [
-        "./src/asset/*"
-      ],
-      "@scss/*": [
-        "./src/asset/scss/*"
-      ],
-      "@icon/*": [
-        "./src/asset/icon/*"
-      ],
-      "@app/*": [
-        "./src/app/*"
-      ],
-      "@module/*": [
-        "./src/module/*"
-      ],
-      "@client/*": [
-        "./src/module/client/*"
-      ],
-      "@customer/*": [
-        "./src/module/customer/*"
-      ],
-      "@event/*": [
-        "./src/module/event/*"
-      ],
-      "@identity/*": [
-        "./src/module/identity/*"
-      ],
-      "@service/*": [
-        "./src/module/service/*"
-      ],
-      "@utility/*": [
-        "./src/module/utility/*"
-      ],
-      "@member/*": [
-        "./src/module/member/*"
-      ],
-      "@order/*": [
-        "./src/module/order/*"
-      ],
-      "@absence/*": [
-        "./src/module/absence/*"
-      ],
-      "@page/*": [
-        "./src/page/*"
-      ]
-    }
-  },
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
-  }
+	"compileOnSave": false,
+	"compilerOptions": {
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"baseUrl": "./",
+		"outDir": "./dist/out-tsc",
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"strictNullChecks": true,
+		"noImplicitOverride": true,
+		"noPropertyAccessFromIndexSignature": false,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"sourceMap": true,
+		"declaration": false,
+		"downlevelIteration": true,
+		"experimentalDecorators": true,
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"importHelpers": true,
+		"target": "ES2022",
+		"module": "ES2022",
+		"useDefineForClassFields": false,
+		"lib": [
+			"ES2022",
+			"dom"
+		],
+		"paths": {
+			"@src/*": [
+				"./src/*"
+			],
+			"@environment/*": [
+				"./src/environment/*"
+			],
+			"@asset/*": [
+				"./src/asset/*"
+			],
+			"@scss/*": [
+				"./src/asset/scss/*"
+			],
+			"@icon/*": [
+				"./src/asset/icon/*"
+			],
+			"@app/*": [
+				"./src/app/*"
+			],
+			"@module/*": [
+				"./src/module/*"
+			],
+			"@client/*": [
+				"./src/module/client/*"
+			],
+			"@customer/*": [
+				"./src/module/customer/*"
+			],
+			"@event/*": [
+				"./src/module/event/*"
+			],
+			"@identity/*": [
+				"./src/module/identity/*"
+			],
+			"@service/*": [
+				"./src/module/service/*"
+			],
+			"@utility/*": [
+				"./src/module/utility/*"
+			],
+			"@member/*": [
+				"./src/module/member/*"
+			],
+			"@order/*": [
+				"./src/module/order/*"
+			],
+			"@absence/*": [
+				"./src/module/absence/*"
+			],
+			"@page/*": [
+				"./src/page/*"
+			]
+		}
+	},
+	"angularCompilerOptions": {
+		"enableI18nLegacyMessageIdFormat": false,
+		"strictInjectionParameters": true,
+		"strictInputAccessModifiers": true,
+		"strictTemplates": true
+	}
 }

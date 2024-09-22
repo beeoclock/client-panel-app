@@ -208,6 +208,12 @@ export namespace Analytic {
 			};
 		};
 
+		// TODO: Add _meta property to store information about the data source or createdAt, processingDate, hash for cache, etc.
+		_meta: {
+			createdAt: string & Types.DateTime;
+			processedAt: string & Types.DateTime;
+		};
+
 	}
 
 }
