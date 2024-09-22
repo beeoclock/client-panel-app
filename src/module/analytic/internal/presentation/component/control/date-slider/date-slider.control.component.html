@@ -9,7 +9,7 @@
 
 	<ion-datetime-button id="hidden-ion-datetime-button" [hidden]="true" datetime="datetime"/>
 
-	<ion-modal [keepContentsMounted]="true">
+	<ion-modal [keepContentsMounted]="true" (willDismiss)="cancelChanges()">
 		<ng-template>
 			<div class="p-2">
 				<ion-segment [formControl]="intervalTypeControl">
@@ -78,6 +78,23 @@
 
 			}
 
+			<div class="flex justify-between px-4 pb-4 gap-4">
+				<button
+					(click)="cancelChanges()"
+					type="button"
+					class="flex-1 h-12 items-center justify-center rounded-lg border border-beeColor-300 text-beeColor-400 hover:text-beeColor-500 focus:relative w-9 pr-0 hover:bg-beeColor-100">
+					{{ 'keyword.capitalize.cancel' | translate }}
+				</button>
+				<button
+					(click)="acceptChanges()"
+					type="button"
+					primary
+					class="flex-1 h-12 rounded-lg items-center">
+					{{ 'keyword.capitalize.confirm' | translate }}
+				</button>
+
+			</div>
+
 		</ng-template>
 	</ion-modal>
 
@@ -86,7 +103,7 @@
 		id="open-modal"
 		class="border-y border-beeColor-300 text-nowrap px-3.5 text-beeColor-900 flex flex-col justify-center items-center cursor-pointer hover:bg-beeColor-100 transition-all">
 
-		@switch (intervalTypeControl.value) {
+		@switch (cacheOfCurrentData?.intervalTypeControlValue ?? intervalTypeControl.value) {
 
 			@case (intervalTypeEnum.DAY) {
 				@if (hint.length) {
@@ -95,7 +112,7 @@
 					</div>
 				}
 				<div [class.text-xs]="hint.length">
-					{{ dateControl.value | date: 'yyyy-MM-dd' }}
+					{{ (cacheOfCurrentData?.dateControlValue ?? dateControl.value) | date: 'yyyy-MM-dd' }}
 				</div>
 			}
 			@case (intervalTypeEnum.WEEK) {
@@ -104,10 +121,10 @@
 
 			}
 			@case (intervalTypeEnum.MONTH) {
-				{{ dateControl.value | date: 'yyyy-MM' }}
+				{{ (cacheOfCurrentData?.dateControlValue ?? dateControl.value) | date: 'yyyy-MM' }}
 			}
 			@case (intervalTypeEnum.YEAR) {
-				{{ dateControl.value | date: 'yyyy' }}
+				{{ (cacheOfCurrentData?.dateControlValue ?? dateControl.value) | date: 'yyyy' }}
 			}
 
 		}
