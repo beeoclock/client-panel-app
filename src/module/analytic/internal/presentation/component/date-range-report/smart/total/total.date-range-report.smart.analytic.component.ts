@@ -32,6 +32,12 @@ import {Reactive} from "@utility/cdk/reactive";
 import {
 	DateRangeReportAnalyticActions
 } from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.actions";
+import {
+	OverviewTotalComponent
+} from "@module/analytic/internal/presentation/component/date-range-report/dummy/overview-total/overview-total.component";
+import {
+	CardOverviewComponent
+} from "@module/analytic/internal/presentation/component/date-range-report/dummy/overview-total/card/card.overview.component";
 
 @Component({
 	standalone: true,
@@ -51,6 +57,8 @@ import {
 		MemberRadioTailwindcssComponent,
 		OverviewMemberComponent,
 		DateSliderControlComponent,
+		OverviewTotalComponent,
+		CardOverviewComponent,
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

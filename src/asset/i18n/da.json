@@ -46,6 +46,16 @@
 		}
 	},
 	"analytic": {
+		"counter": {
+			"customers": "Antal betjente kunder",
+			"orderService": {
+				"by": {
+					"status": {
+						"done": "Antal leverede tjenester"
+					}
+				}
+			}
+		},
 		"summary": {
 			"appointments": {
 				"by": {

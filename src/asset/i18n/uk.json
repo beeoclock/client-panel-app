@@ -46,6 +46,16 @@
 		}
 	},
 	"analytic": {
+		"counter": {
+			"customers": "Кількість обслужених клієнтів",
+			"orderService": {
+				"by": {
+					"status": {
+						"done": "Кількість наданих послуг"
+					}
+				}
+			}
+		},
 		"summary": {
 			"appointments": {
 				"by": {

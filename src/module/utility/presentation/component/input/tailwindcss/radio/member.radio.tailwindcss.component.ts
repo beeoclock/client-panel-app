@@ -25,17 +25,17 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 
 					<label
 						[for]="item.id"
-						class="inline-flex bg-white rounded-2xl transition-all cursor-pointer p-1 border-2 items-center justify-between text-gray-500 cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+						class="inline-flex bg-white rounded-2xl transition-all p-1 border-2 items-center justify-between text-gray-500 cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
 
-						<div class="block max-w-24 h-40">
+						<div class="flex items-center flex-nowrap">
 
 							<div
-								class="rounded-2xl bg-beeColor-400 min-h-24 min-w-24 max-h-24 max-w-24 h-24 w-7 flex justify-center items-center">
+								class="rounded-full bg-beeColor-400 min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 flex justify-center items-center">
 
 								@if (item?.avatar?.length) {
 
 									<img [src]="item.avatar"
-										 class="min-h-24 min-w-24 max-h-24 max-w-24 h-24 w-24 rounded-2xl object-cover"
+										 class="min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 rounded-full object-cover"
 										 [attr.alt]="item.label">
 
 								} @else {
@@ -57,7 +57,7 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 								}
 
 							</div>
-							<div class="w-full">
+							<div class="w-full px-2 text-nowrap whitespace-nowrap">
 
 								{{ item.label }}
 

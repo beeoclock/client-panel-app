@@ -46,6 +46,16 @@
 		}
 	},
 	"analytic": {
+		"counter": {
+			"customers": "Liczba obsługiwanych klientów",
+			"orderService": {
+				"by": {
+					"status": {
+						"done": "Liczba świadczonych usług"
+					}
+				}
+			}
+		},
 		"summary": {
 			"appointments": {
 				"by": {
