@@ -23,9 +23,7 @@ export type IDateRangeAnalyticState = {
 	name: 'dateRangeReportAnalytic',
 	defaults: {
 		queryParams: {
-			startDate: DateTime.now().minus({
-				year: 1
-			}).toJSDate().toISOString(),
+			startDate: DateTime.now().startOf('day').toJSDate().toISOString(),
 			endDate: DateTime.now().toJSDate().toISOString(),
 			specialistIds: [] as string[],
 		},

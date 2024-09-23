@@ -7,7 +7,8 @@
 			<div class="mb-40 bg-white">
 
 				<div class="flex w-full p-2">
-					<app-date-slider-control-component [fromToFormGroup]="filterFormGroup"/>
+					<app-date-slider-control-component
+						[fromToFormGroup]="filterFormGroup"/>
 				</div>
 
 				@if (analytic$ | async; as analytic) {
@@ -16,7 +17,9 @@
 
 						<div class="p-2">
 
-							<app-radio-tailwindcss-component [control]="control" [items]="items"/>
+							<app-radio-tailwindcss-component
+								[control]="control"
+								[items]="items"/>
 
 						</div>
 
@@ -24,73 +27,88 @@
 
 							@if (clientItem._id === control.value) {
 
-								<!-- Card Section -->
-								<div class="p-2 mx-auto flex flex-col gap-2">
-
-									<h1 class="text-4xl font-bold">
-										{{ analytic.summary.revenue.total.by.status.done | currency: baseCurrency: 'symbol' }}
-									</h1>
-
-									<!-- Grid -->
-									<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
-
-										<card-overview
-											[label]="'analytic.summary.averageBill' | translate "
-											[value]="analytic.summary.revenue.average.by.status.done | currency: baseCurrency: 'symbol'"/>
-
-										<card-overview
-											[label]="'analytic.summary.totalOrders' | translate "
-											[value]="analytic.counter.orders"/>
-
-										<card-overview
-											[label]="'analytic.counter.orderService.by.status.done' | translate "
-											[value]="analytic.counter.orderService.by.status.done"/>
-
-										<card-overview
-											[label]="'analytic.counter.customers' | translate "
-											[value]="analytic.counter.customers"/>
-
-									</div>
-									<!-- End Grid -->
-
-								</div>
-								<!-- End Card Section -->
-
-							} @else {
-
-								@if (analytic.specialistRecord[control.value]; as specialist) {
+								<div class="p-2 flex flex-wrap gap-2">
 
 									<!-- Card Section -->
-									<div class="p-2 mx-auto flex flex-col gap-2">
+									<div class="flex flex-col gap-2">
 
 										<h1 class="text-4xl font-bold">
-											{{ specialist.summary.revenue.total.by.status.done | currency: baseCurrency: 'symbol' }}
+											{{ analytic.summary.revenue.total.by.status.done | currency: baseCurrency: 'symbol' }}
 										</h1>
 
 										<!-- Grid -->
 										<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
 
 											<card-overview
+												id="order-summary-revenue-average-by-status-done"
 												[label]="'analytic.summary.averageBill' | translate "
-												[value]="specialist.summary.revenue.average.by.status.done | currency: baseCurrency: 'symbol'"/>
+												[value]="analytic.summary.revenue.average.by.status.done | currency: baseCurrency: 'symbol'"/>
 
 											<card-overview
+												id="order-total-orders-total"
 												[label]="'analytic.summary.totalOrders' | translate "
-												[value]="specialist.counter.orders"/>
+												[value]="analytic.counter.orders.total"/>
 
 											<card-overview
+												id="order-service-by-status-done"
 												[label]="'analytic.counter.orderService.by.status.done' | translate "
-												[value]="specialist.counter.orderService.by.status.done"/>
-
-											<card-overview
-												[label]="'analytic.counter.customers' | translate "
-												[value]="specialist.counter.customers"/>
+												[value]="analytic.counter.orderService.by.status.done"/>
 
 										</div>
 										<!-- End Grid -->
 
 									</div>
 									<!-- End Card Section -->
+
+									<customer-list-group
+										[baseCurrency]="baseCurrency"
+										[customerReport]="analytic.customerRecord"/>
+
+								</div>
+
+							} @else {
+
+								@if (analytic.specialistRecord[control.value]; as specialist) {
+
+									<div class="p-2 flex flex-wrap gap-2">
+
+										<!-- Card Section -->
+										<div class="flex flex-col gap-2">
+
+											<h1 class="text-4xl font-bold">
+												{{ specialist.summary.revenue.total.by.status.done | currency: baseCurrency: 'symbol' }}
+											</h1>
+
+											<!-- Grid -->
+											<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
+
+												<card-overview
+													id="specialist-summary-revenue-average-by-status-done"
+													[label]="'analytic.summary.averageBill' | translate "
+													[value]="specialist.summary.revenue.average.by.status.done | currency: baseCurrency: 'symbol'"/>
+
+												<card-overview
+													id="specialist-summary-total-orders"
+													[label]="'analytic.summary.totalOrders' | translate "
+													[value]="specialist.counter.orders.total"/>
+
+												<card-overview
+													id="specialist-summary-order-service-by-status-done"
+													[label]="'analytic.counter.orderService.by.status.done' | translate "
+													[value]="specialist.counter.orderService.by.status.done"/>
+
+											</div>
+											<!-- End Grid -->
+
+										</div>
+										<!-- End Card Section -->
+
+										<customer-list-group
+											id="specialist-customer-list-group"
+											[baseCurrency]="baseCurrency"
+											[customerReport]="specialist.customerRecord"/>
+
+									</div>
 								}
 
 							}

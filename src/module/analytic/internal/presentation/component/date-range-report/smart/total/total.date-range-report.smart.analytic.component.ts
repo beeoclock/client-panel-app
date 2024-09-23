@@ -32,6 +32,9 @@ import {
 import {
 	CardOverviewComponent
 } from "@module/analytic/internal/presentation/component/date-range-report/dummy/overview-total/card/card.overview.component";
+import {
+	CustomerListGroupComponent
+} from "@module/analytic/internal/presentation/component/date-range-report/dummy/customer-list-group/customer-list-group.component";
 
 @Component({
 	standalone: true,
@@ -51,6 +54,7 @@ import {
 		MemberRadioTailwindcssComponent,
 		DateSliderControlComponent,
 		CardOverviewComponent,
+		CustomerListGroupComponent,
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -62,7 +66,9 @@ export class TotalDateRangeReportSmartAnalyticComponent extends Reactive impleme
 		avatar: string;
 	}[] = [];
 
-	public readonly control = new FormControl();
+	public readonly control = new FormControl<string>('', {
+		nonNullable: true
+	});
 	public readonly filterFormGroup = new FormGroup({
 		from: new FormControl(),
 		to: new FormControl()

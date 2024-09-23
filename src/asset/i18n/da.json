@@ -47,7 +47,7 @@
 	},
 	"analytic": {
 		"counter": {
-			"customers": "Antal betjente kunder",
+			"customers": "Betjente kunder",
 			"orderService": {
 				"by": {
 					"status": {

@@ -10,17 +10,21 @@ export namespace Analytic {
 			average: {
 				by: {
 					source: {
-						[orderServiceCreatedOn: string]: number;
+						-readonly [orderServiceCreatedOn in keyof typeof ApplicationEnum]: {
+							-readonly [orderServiceStatus in keyof typeof OrderServiceStatusEnum]: number;
+						};
 					};
 					status: {
-						[orderServiceStatus: string]: number;
+						-readonly [orderServiceStatus in keyof typeof OrderServiceStatusEnum]: number;
 					};
 				};
 			};
 			total: {
 				by: {
 					source: {
-						-readonly [orderServiceCreatedOn in keyof typeof ApplicationEnum]: number;
+						-readonly [orderServiceCreatedOn in keyof typeof ApplicationEnum]: {
+							-readonly [orderServiceStatus in keyof typeof OrderServiceStatusEnum]: number;
+						};
 					};
 					status: {
 						-readonly [orderServiceStatus in keyof typeof OrderServiceStatusEnum]: number;
@@ -55,7 +59,9 @@ export namespace Analytic {
 		customers: number;
 		// TODO: Add information about returning customers by registeredDate property.
 
-		orders: number;
+		orders: {
+			total: number;
+		};
 		orderService: {
 			total: number;
 			by: {
@@ -63,7 +69,9 @@ export namespace Analytic {
 					-readonly [status in keyof typeof OrderServiceStatusEnum]: number;
 				};
 				source: {
-					-readonly [createdOn in keyof typeof ApplicationEnum]: number;
+					-readonly [createdOn in keyof typeof ApplicationEnum]: {
+						-readonly [status in keyof typeof OrderServiceStatusEnum]: number;
+					};
 				};
 				wasSelectedAnybody: number;
 			};

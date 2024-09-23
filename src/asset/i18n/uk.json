@@ -47,7 +47,7 @@
 	},
 	"analytic": {
 		"counter": {
-			"customers": "Кількість обслужених клієнтів",
+			"customers": "Обслужених клієнтів",
 			"orderService": {
 				"by": {
 					"status": {

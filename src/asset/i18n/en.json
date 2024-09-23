@@ -47,7 +47,7 @@
 	},
 	"analytic": {
 		"counter": {
-			"customers": "Number of customers served",
+			"customers": "Customers served",
 			"orderService": {
 				"by": {
 					"status": {
