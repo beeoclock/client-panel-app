@@ -18,9 +18,6 @@ import {filter, tap} from "rxjs";
 import {
 	MemberRadioTailwindcssComponent
 } from "@utility/presentation/component/input/tailwindcss/radio/member.radio.tailwindcss.component";
-import {
-	OverviewMemberComponent
-} from "@module/analytic/internal/presentation/component/date-range-report/smart/overview-member/overview-member.component";
 import {is} from "@utility/checker";
 import {RIClient} from "@client/domain";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
@@ -32,9 +29,6 @@ import {Reactive} from "@utility/cdk/reactive";
 import {
 	DateRangeReportAnalyticActions
 } from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.actions";
-import {
-	OverviewTotalComponent
-} from "@module/analytic/internal/presentation/component/date-range-report/dummy/overview-total/overview-total.component";
 import {
 	CardOverviewComponent
 } from "@module/analytic/internal/presentation/component/date-range-report/dummy/overview-total/card/card.overview.component";
@@ -55,9 +49,7 @@ import {
 		ReactiveFormsModule,
 		SelectTailwindcssComponent,
 		MemberRadioTailwindcssComponent,
-		OverviewMemberComponent,
 		DateSliderControlComponent,
-		OverviewTotalComponent,
 		CardOverviewComponent,
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
@@ -133,6 +125,4 @@ export class TotalDateRangeReportSmartAnalyticComponent extends Reactive impleme
 			]);
 		});
 	}
-
-	protected readonly Object = Object;
 }
