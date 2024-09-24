@@ -11,20 +11,14 @@ import {
 	ViewEncapsulation
 } from "@angular/core";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {DateTime} from "luxon";
+import {DateTime, Interval} from "luxon";
 import {AsyncPipe, DatePipe, DOCUMENT, NgIf} from "@angular/common";
 import {IonDatetime, IonicModule, IonModal} from "@ionic/angular";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {environment} from "@environment/environment";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-
-enum IntervalTypeEnum {
-	DAY = 'day',
-	WEEK = 'week',
-	MONTH = 'month',
-	YEAR = 'year',
-}
+import {IntervalTypeEnum} from "@module/analytic/internal/domain/enum/interval.enum";
 
 @Component({
 	selector: 'app-date-slider-control-component',
@@ -45,13 +39,17 @@ enum IntervalTypeEnum {
 export class DateSliderControlComponent extends Reactive implements OnChanges, OnInit {
 
 	@Input({required: true})
-	public fromToFormGroup = new FormGroup({
-		from: new FormControl(),
-		to: new FormControl()
+	public form = new FormGroup({
+		interval: new FormControl<IntervalTypeEnum>(IntervalTypeEnum.day, {
+			nonNullable: true
+		}),
+		selectedDate: new FormControl<string>(DateTime.now().toJSDate().toISOString(), {
+			nonNullable: true
+		}),
 	});
 
 	@Input()
-	public initialIntervalType: IntervalTypeEnum = IntervalTypeEnum.DAY;
+	public initialIntervalType: IntervalTypeEnum = IntervalTypeEnum.day;
 
 	@ViewChild(IonDatetime)
 	public readonly ionDateTime!: IonDatetime;
@@ -64,10 +62,6 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 	public get today() {
 		return DateTime.now();
 	}
-
-	public readonly datetimeAttributes = {
-		max: this.today.toJSDate().toISOString()
-	};
 
 	public readonly intervalTypes = Object.values(IntervalTypeEnum);
 
@@ -104,27 +98,14 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 	public readonly years = this.today.year - (environment.config.startYear - 1);
 	public readonly yearOptions: {
-		fromDateTime: DateTime;
-		toDateTime: DateTime;
-		fromISO: string;
-		toISO: string;
-	}[] = Array.from({length: (this.years)}, (_, i) => i).map((i) => {
-		const fromDateTime = this.today.set({year: environment.config.startYear}).plus({years: i});
-		const fromISO = fromDateTime.toJSDate().toISOString();
-		let toDateTime = this.today.set({year: environment.config.startYear}).plus({years: i}).endOf('year');
-		let toISO = toDateTime.toJSDate().toISOString();
-		if (DateTime.fromISO(toISO) > this.today) {
-			toDateTime = this.today;
-			toISO = toDateTime.toJSDate().toISOString();
-		}
-		return {
-			fromDateTime,
-			toDateTime,
-			fromISO,
-			toISO
-		};
-	}).reverse();
+		dateTimeISO: string;
+	}[] = this.getYearISOList();
 	public readonly weekOptions: { fromISO: string; toISO: string; }[] = [];
+
+	public readonly datetimeAttributes = {
+		min: this.today.set({year: environment.config.startYear}).toJSDate().toISOString(),
+		max: this.today.set({year: environment.config.startYear}).plus({year: this.years}).endOf('year').startOf('week').toJSDate().toISOString(),
+	};
 
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly translateService = inject(TranslateService);
@@ -145,30 +126,24 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 	public ngOnInit() {
 		this.initListOfOperations();
-		this.initFromAndToControls();
 		this.detectCase();
 	}
 
-	public cancelChanges() {
-		if (this.cacheOfCurrentData) {
-			this.dateControl.patchValue(this.cacheOfCurrentData.dateControlValue);
-			this.intervalTypeControl.patchValue(this.cacheOfCurrentData.intervalTypeControlValue);
-			this.cacheOfCurrentData = null;
-		}
-		this.detectCase();
-		this.changeDetectorRef.detectChanges();
-		this.clearCache();
-		this.ionModal.dismiss().then();
+	protected cancelChanges() {
+		this.ionModal.dismiss({
+			intervalType: this.cacheOfCurrentData?.intervalTypeControlValue,
+			selectedDate: this.cacheOfCurrentData?.dateControlValue
+		}, 'cancel').then();
 	}
 
-	public acceptChanges() {
+	protected acceptChanges() {
 		const intervalType = this.intervalTypeControl.getRawValue();
-		this.updateControlByIntervalType(intervalType);
-		this.updateForm();
-		this.detectCase();
-		this.changeDetectorRef.detectChanges();
-		this.clearCache();
-		this.ionModal.dismiss().then();
+		const selectedDate = this.dateControl.getRawValue();
+
+		this.ionModal.dismiss({
+			intervalType,
+			selectedDate
+		}, 'accept').then();
 	}
 
 	public previous() {
@@ -179,14 +154,14 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 		this.updateFromAndToControls('plus');
 	}
 
-	public async setToday() {
+	protected async setToday() {
 		await this.ionDateTime.reset();
 		setTimeout(() => {
 			this.dateControl.patchValue(this.today.toJSDate().toISOString());
 		}, 350)
 	}
 
-	public openDateModal() {
+	protected openDateModal() {
 		const button = this.document.getElementById('hidden-ion-datetime-button');
 		if (!button) {
 			return;
@@ -203,7 +178,20 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 		firstElementChild.click();
 	}
 
-	public getWeekTitle(fromISO: string, toISO: string) {
+	protected getRangeInISO() {
+
+		const {interval, selectedDate} = this.form.getRawValue();
+
+		const fromDateTime = DateTime.fromISO(selectedDate).startOf(interval);
+		const toDateTime = DateTime.fromISO(selectedDate).endOf(interval);
+
+		return {
+			fromISO: fromDateTime.toJSDate().toISOString(),
+			toISO: toDateTime.toJSDate().toISOString()
+		};
+	}
+
+	protected getWeekTitle(fromISO: string, toISO: string) {
 
 		const fromDateTime = DateTime.fromISO(fromISO).setLocale(this.locale);
 		const toDateTime = DateTime.fromISO(toISO).setLocale(this.locale);
@@ -234,42 +222,53 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 	}
 
-	public onIonChange($event: CustomEvent) {
-		const {value: toISO} = $event.detail;
-		this.dateControl.patchValue(toISO);
+	protected onIonChange($event: CustomEvent) {
+		const {value: dateTimeISO} = $event.detail;
+		this.dateControl.patchValue(dateTimeISO);
+	}
+
+	protected didDismiss($event: CustomEvent) {
+
+		const {data, role} = $event.detail as {
+			data: {
+				intervalType: IntervalTypeEnum;
+				selectedDate: string;
+			},
+			role: 'accept' | 'cancel'
+		};
+
+		switch (role) {
+			case 'accept':
+				this.intervalTypeControl.setValue(data.intervalType);
+				this.dateControl.setValue(data.selectedDate);
+				this.updateForm();
+				break;
+		}
+
+		this.clearCache();
+		this.detectCase();
+		this.changeDetectorRef.detectChanges();
+
 	}
 
 	private updateForm() {
-		const toISO = this.dateControl.getRawValue();
-		this.fromToFormGroup.patchValue({
-			from: DateTime.fromISO(toISO).startOf(this.intervalTypeControl.value).toJSDate().toISOString(),
-			to: toISO
+		const selectedDate = this.dateControl.getRawValue();
+		const interval = this.intervalTypeControl.getRawValue();
+		this.form.patchValue({
+			interval,
+			selectedDate,
 		});
 	}
 
 	private updateFromAndToControls(method: 'plus' | 'minus') {
 
-		const from = this.fromToFormGroup.controls.from.value;
-		const to = this.fromToFormGroup.controls.to.value;
+		const selectedDate = this.form.controls.selectedDate.value;
 		const intervalType = this.intervalTypeControl.value;
 
-		const {newFrom, newTo} = this.changeInterval(from, to, method, intervalType);
+		const {newDateTime} = this.changeInterval(selectedDate, method, intervalType);
 
-		if (newFrom > newTo) {
-			return;
-		}
-
-		if (newFrom > this.today) {
-			return;
-		}
-
-		if (newTo > this.today) {
-			return;
-		}
-
-		this.dateControl.patchValue(newTo.toJSDate().toISOString());
+		this.dateControl.patchValue(newDateTime.toJSDate().toISOString());
 		this.updateForm();
-
 		this.detectCase();
 
 		this.changeDetectorRef.detectChanges();
@@ -297,85 +296,45 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 		});
 	}
 
-	private changeInterval(from: string, to: string, method: 'plus' | 'minus', interval: IntervalTypeEnum) {
+	private changeInterval(dateISO: string, method: 'plus' | 'minus', interval: IntervalTypeEnum) {
 
-		const newFrom = DateTime.fromISO(from)[method]({[interval]: 1}).startOf('day');
-		let newTo = newFrom.endOf(interval);
+		const newDateTime = DateTime.fromISO(dateISO)[method]({[interval]: 1}).startOf('day');
 
-		if (newTo > this.today) {
-			newTo = this.today;
-		}
-
-		return {newFrom, newTo};
-
-	}
-
-	private initFromAndToControls(force: boolean = false) {
-		if ((!this.fromToFormGroup.controls.to.value && !this.fromToFormGroup.controls.from.value) || force) {
-			this.fromToFormGroup.patchValue({
-				from: this.today.startOf('day').toJSDate().toISOString(),
-				to: this.today.toJSDate().toISOString()
-			});
-		}
-		this.dateControl.setValue(this.fromToFormGroup.controls.to.value);
-	}
-
-	private updateControlByIntervalType(intervalType: IntervalTypeEnum) {
-
-		const dateISO = this.dateControl.value;
-
-		const dateTime = DateTime.fromISO(dateISO);
-
-		if (this.today.hasSame(dateTime, intervalType)) {
-			this.dateControl.setValue(this.today.toJSDate().toISOString());
-		} else {
-			this.dateControl.setValue(dateTime.endOf(intervalType).toJSDate().toISOString());
-		}
-
-		this.changeDetectorRef.detectChanges();
+		return {newDateTime};
 
 	}
 
 	private initListOfOperations() {
 		this.weekOptions.length = 0;
-		// Add all weeks of period from environment.config.startYear to current year
-		for (let year = 0; year <= this.years; year++) {
-			const yearDateTime = this.today.set({year: environment.config.startYear}).plus({year});
-			const weeks = this.getWeeksInYear(yearDateTime);
-			this.weekOptions.push(...weeks);
-		}
+		const fromDateTime = this.today.set({year: environment.config.startYear}).endOf('year').startOf('week');
+		const toDateTime = fromDateTime.plus({years: this.years}).endOf('year').startOf('week');
+
+		Interval.fromDateTimes(fromDateTime, toDateTime).splitBy({weeks: 1}).forEach((interval) => {
+			const {start, end} = interval;
+			if (!start || !end) {
+				return;
+			}
+			this.weekOptions.push({
+				fromISO: start.toJSDate().toISOString(),
+				toISO: end.toJSDate().toISOString()
+			});
+		});
+
 		this.weekOptions.reverse();
 	}
 
-	private getWeeksInYear(year: DateTime) {
-		const firstDay = year.startOf('year');
-		let lastDay = year.endOf('year');
-		if (lastDay > this.today) {
-			lastDay = this.today;
-		}
-		const weeks: {
-			fromDateTime: DateTime;
-			toDateTime: DateTime;
-			fromISO: string;
-			toISO: string;
-		}[] = [];
-		let currentDay = firstDay;
-		while (currentDay <= lastDay) {
-			const fromDateTime = currentDay;
-			let toDateTime = currentDay.endOf('week');
-			if (toDateTime > this.today) {
-				toDateTime = this.today;
+	private getYearISOList() {
+		const fromDateTime = this.today.set({year: environment.config.startYear}).endOf('year').startOf('week');
+		const toDateTime = fromDateTime.plus({years: this.years}).endOf('year').startOf('week');
+		return Interval.fromDateTimes(fromDateTime, toDateTime).splitBy({years: 1}).map((interval) => {
+			const {start} = interval;
+			if (!start) {
+				return null;
 			}
-			const fromISO = fromDateTime.toJSDate().toISOString();
-			const toISO = toDateTime.toJSDate().toISOString();
-			weeks.push({
-				fromDateTime,
-				toDateTime,
-				fromISO,
-				toISO
-			});
-			currentDay = currentDay.plus({weeks: 1});
-		}
-		return weeks;
+			return {
+				dateTimeISO: start.toJSDate().toISOString()
+			};
+		}).filter((item) => item !== null).reverse() as { dateTimeISO: string }[];
 	}
+
 }

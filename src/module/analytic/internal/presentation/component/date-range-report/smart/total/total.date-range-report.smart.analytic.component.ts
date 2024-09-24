@@ -35,6 +35,8 @@ import {
 import {
 	CustomerListGroupComponent
 } from "@module/analytic/internal/presentation/component/date-range-report/dummy/customer-list-group/customer-list-group.component";
+import {IntervalTypeEnum} from "@module/analytic/internal/domain/enum/interval.enum";
+import {DateTime} from "luxon";
 
 @Component({
 	standalone: true,
@@ -69,9 +71,13 @@ export class TotalDateRangeReportSmartAnalyticComponent extends Reactive impleme
 	public readonly control = new FormControl<string>('', {
 		nonNullable: true
 	});
-	public readonly filterFormGroup = new FormGroup({
-		from: new FormControl(),
-		to: new FormControl()
+	public readonly filterStateFormGroup = new FormGroup({
+		interval: new FormControl<IntervalTypeEnum>(IntervalTypeEnum.day, {
+			nonNullable: true
+		}),
+		selectedDate: new FormControl<string>(DateTime.now().toJSDate().toISOString(), {
+			nonNullable: true
+		}),
 	});
 
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
@@ -118,13 +124,12 @@ export class TotalDateRangeReportSmartAnalyticComponent extends Reactive impleme
 	);
 
 	public ngOnInit() {
-		this.filterFormGroup.valueChanges.pipe(
+		this.filterStateFormGroup.valueChanges.pipe(
 			this.takeUntil()
-		).subscribe((formValue) => {
+		).subscribe(() => {
 			this.store.dispatch([
 				new DateRangeReportAnalyticActions.UpdateQueryParams({
-					startDate: formValue.from,
-					endDate: formValue.to,
+					...this.filterStateFormGroup.getRawValue(),
 					specialistIds: []
 				}),
 				new DateRangeReportAnalyticActions.GetList()

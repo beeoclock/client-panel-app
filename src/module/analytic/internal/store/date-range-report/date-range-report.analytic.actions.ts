@@ -1,4 +1,6 @@
-import {DateRangeReportAnalyticApi} from "@module/analytic/external/api/adapter/date-range-report.analytic.api.adapter";
+import {
+	IDateRangeAnalyticState
+} from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.state";
 
 export namespace DateRangeReportAnalyticActions {
 
@@ -14,7 +16,7 @@ export namespace DateRangeReportAnalyticActions {
 		public static readonly type = '[Date RangeReport Analytic State] Update Query Params';
 
 		public constructor(
-			public readonly payload: DateRangeReportAnalyticApi.IRequestQueryParams,
+			public readonly payload: IDateRangeAnalyticState['filterState'],
 		) {
 		}
 	}

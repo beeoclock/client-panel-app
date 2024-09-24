@@ -9,7 +9,7 @@
 
 	<ion-datetime-button id="hidden-ion-datetime-button" [hidden]="true" datetime="datetime"/>
 
-	<ion-modal [keepContentsMounted]="true" (willDismiss)="cancelChanges()">
+	<ion-modal [keepContentsMounted]="true" (willDismiss)="cancelChanges()" (didDismiss)="didDismiss($event)">
 		<ng-template>
 			<div class="p-2">
 				<ion-segment [formControl]="intervalTypeControl">
@@ -27,11 +27,12 @@
 
 			@switch (intervalTypeControl.value) {
 
-				@case (intervalTypeEnum.DAY) {
+				@case (intervalTypeEnum.day) {
 					<ion-datetime
 						class="w-full min-w-full"
 						[firstDayOfWeek]="1"
 						[locale]="locale"
+						[min]="datetimeAttributes.min"
 						[max]="datetimeAttributes.max"
 						id="datetime"
 						presentation="date"
@@ -44,7 +45,7 @@
 						</ion-item>
 					</ion-list>
 				}
-				@case (intervalTypeEnum.WEEK) {
+				@case (intervalTypeEnum.week) {
 					<ion-picker>
 						<ion-picker-column [value]="dateControl.value" (ionChange)="onIonChange($event)">
 							@for(weekOption of weekOptions; track weekOption.toISO) {
@@ -56,20 +57,21 @@
 					</ion-picker>
 				}
 
-				@case (intervalTypeEnum.MONTH) {
+				@case (intervalTypeEnum.month) {
 					<ion-datetime
 						[locale]="locale"
+						[min]="datetimeAttributes.min"
 						[max]="datetimeAttributes.max"
 						[formControl]="dateControl"
 						presentation="month-year"/>
 				}
 
-				@case (intervalTypeEnum.YEAR) {
+				@case (intervalTypeEnum.year) {
 					<ion-picker>
 						<ion-picker-column [value]="dateControl.value" (ionChange)="onIonChange($event)">
-							@for(yearOption of yearOptions; track yearOption.fromISO) {
-								<ion-picker-column-option [value]="yearOption.toISO">
-									{{ yearOption.toISO | date: 'yyyy' }}
+							@for(yearOption of yearOptions; track yearOption.dateTimeISO) {
+								<ion-picker-column-option [value]="yearOption.dateTimeISO">
+									{{ yearOption.dateTimeISO | date: 'yyyy' }}
 								</ion-picker-column-option>
 							}
 						</ion-picker-column>
@@ -105,7 +107,7 @@
 
 		@switch (cacheOfCurrentData?.intervalTypeControlValue ?? intervalTypeControl.value) {
 
-			@case (intervalTypeEnum.DAY) {
+			@case (intervalTypeEnum.day) {
 				@if (hint.length) {
 					<div class="text-sm font-semibold">
 						{{ hint | translate }}
@@ -115,15 +117,15 @@
 					{{ (cacheOfCurrentData?.dateControlValue ?? dateControl.value) | date: 'yyyy-MM-dd' }}
 				</div>
 			}
-			@case (intervalTypeEnum.WEEK) {
+			@case (intervalTypeEnum.week) {
 
-				{{ getWeekTitle(fromToFormGroup.controls.from.value, fromToFormGroup.controls.to.value) }}
+				{{ getWeekTitle(getRangeInISO().fromISO, getRangeInISO().toISO) }}
 
 			}
-			@case (intervalTypeEnum.MONTH) {
+			@case (intervalTypeEnum.month) {
 				{{ (cacheOfCurrentData?.dateControlValue ?? dateControl.value) | date: 'yyyy-MM' }}
 			}
-			@case (intervalTypeEnum.YEAR) {
+			@case (intervalTypeEnum.year) {
 				{{ (cacheOfCurrentData?.dateControlValue ?? dateControl.value) | date: 'yyyy' }}
 			}
 

@@ -11,8 +11,8 @@ export namespace DateRangeReportAnalyticApi {
 
 	export interface IRequestQueryParams {
 		[param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
-		startDate: string & Types.Date;
-		endDate: string & Types.Date;
+		startDateTime: string & Types.Date;
+		endDateTime: string & Types.Date;
 		specialistIds: string[];
 	}
 

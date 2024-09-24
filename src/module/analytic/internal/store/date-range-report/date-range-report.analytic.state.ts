@@ -12,9 +12,14 @@ import {
 	transformIResponseToAnalytic
 } from "@module/analytic/internal/domain/tool/calculate.date-range-report.analytic.tool";
 import {Analytic} from "@module/analytic/internal/store/date-range-report/interface/i.analytic";
+import {IntervalTypeEnum} from "@module/analytic/internal/domain/enum/interval.enum";
 
 export type IDateRangeAnalyticState = {
-	queryParams: DateRangeReportAnalyticApi.IRequestQueryParams;
+	filterState: {
+		interval: IntervalTypeEnum;
+		selectedDate: string;
+		specialistIds: string[];
+	};
 	response: DateRangeReportAnalyticApi.IResponse | null;
 	analytic: Analytic.I | null;
 };
@@ -22,9 +27,9 @@ export type IDateRangeAnalyticState = {
 @State<IDateRangeAnalyticState>({
 	name: 'dateRangeReportAnalytic',
 	defaults: {
-		queryParams: {
-			startDate: DateTime.now().startOf('day').toJSDate().toISOString(),
-			endDate: DateTime.now().toJSDate().toISOString(),
+		filterState: {
+			interval: IntervalTypeEnum.day,
+			selectedDate: DateTime.now().toJSDate().toISOString(),
 			specialistIds: [] as string[],
 		},
 		response: null,
@@ -43,7 +48,7 @@ export class DateRangeReportAnalyticState {
 	public UpdateQueryParams(ctx: StateContext<IDateRangeAnalyticState>, {payload}: DateRangeReportAnalyticActions.UpdateQueryParams) {
 
 		ctx.patchState({
-			queryParams: payload
+			filterState: payload
 		})
 
 	}
@@ -57,8 +62,23 @@ export class DateRangeReportAnalyticState {
 
 		try {
 
+			const {
+				specialistIds,
+				selectedDate,
+				interval
+			} = state.filterState;
+
+			const startDateTime = DateTime.fromISO(selectedDate).startOf(interval).toJSDate().toISOString();
+			const endDateTime = DateTime.fromISO(selectedDate).endOf(interval).toJSDate().toISOString();
+
+			const queryParams: DateRangeReportAnalyticApi.IRequestQueryParams = {
+				specialistIds,
+				startDateTime,
+				endDateTime
+			}
+
 			// Update current state
-			const response = await this.dateRangeReportAnalyticApiAdapter.executeAsync(state.queryParams);
+			const response = await this.dateRangeReportAnalyticApiAdapter.executeAsync(queryParams);
 			const analytic = transformIResponseToAnalytic(response);
 
 			this.ngxLogger.debug('DateRangeReportAnalyticActions.GetList ', response, analytic);
@@ -85,8 +105,8 @@ export class DateRangeReportAnalyticState {
 	}
 
 	@Selector()
-	public static queryParams(state: IDateRangeAnalyticState) {
-		return state.queryParams;
+	public static filterState(state: IDateRangeAnalyticState) {
+		return state.filterState;
 	}
 
 	@Selector()

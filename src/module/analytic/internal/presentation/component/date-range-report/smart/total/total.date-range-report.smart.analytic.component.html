@@ -8,7 +8,7 @@
 
 				<div class="flex w-full p-2">
 					<app-date-slider-control-component
-						[fromToFormGroup]="filterFormGroup"/>
+						[form]="filterStateFormGroup"/>
 				</div>
 
 				@if (analytic$ | async; as analytic) {
