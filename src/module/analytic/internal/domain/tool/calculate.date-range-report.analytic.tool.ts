@@ -2,6 +2,8 @@ import {DateRangeReportAnalyticApi} from "@module/analytic/external/api/adapter/
 import {Analytic} from "@module/analytic/internal/store/date-range-report/interface/i.analytic";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 import {ApplicationEnum} from "@utility/domain/enum/application.enum";
+import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
+import {is} from "@utility/checker";
 
 // Here we will calculate the date range for the report for analytic propery in store
 // Припускаємо, що всі необхідні типи та енумерації вже імпортовані або визначені:
@@ -13,63 +15,76 @@ function getEnumKeys<T>(enumObj: T): (keyof T)[] {
 	return Object.keys(enumObj) as (keyof T)[];
 }
 
-function getStatusNumberState() {
+function getOrderServiceStatusStateWithDefaultValue<T>(defaultValue: T) {
+	const isEmptyObject = is.object_empty(defaultValue);
+	const dv = () => isEmptyObject ? {} : defaultValue;
 	return {
-		[OrderServiceStatusEnum.requested]: 0,
-		[OrderServiceStatusEnum.accepted]: 0,
-		[OrderServiceStatusEnum.inProgress]: 0,
-		[OrderServiceStatusEnum.done]: 0,
-		[OrderServiceStatusEnum.rejected]: 0,
-		[OrderServiceStatusEnum.cancelled]: 0,
-		[OrderServiceStatusEnum.deleted]: 0,
+		[OrderServiceStatusEnum.requested]: dv(),
+		[OrderServiceStatusEnum.accepted]: dv(),
+		[OrderServiceStatusEnum.inProgress]: dv(),
+		[OrderServiceStatusEnum.done]: dv(),
+		[OrderServiceStatusEnum.rejected]: dv(),
+		[OrderServiceStatusEnum.cancelled]: dv(),
+		[OrderServiceStatusEnum.deleted]: dv(),
+	} as unknown as {
+		-readonly [key in keyof typeof OrderServiceStatusEnum]: T;
 	};
 }
 
-// Клас для обробки аналітичних даних
+function getOrderStatusStateWithDefaultValue<T>(defaultValue: T) {
+	const isEmptyObject = is.object_empty(defaultValue);
+	const dv = () => isEmptyObject ? {} : defaultValue;
+	return {
+		[OrderStatusEnum.done]: dv(),
+		[OrderStatusEnum.inProgress]: dv(),
+		[OrderStatusEnum.rejected]: dv(),
+		[OrderStatusEnum.cancelled]: dv(),
+		[OrderStatusEnum.confirmed]: dv(),
+		[OrderStatusEnum.draft]: dv(),
+		[OrderStatusEnum.requested]: dv(),
+	} as unknown as {
+		-readonly [key in keyof typeof OrderStatusEnum]: T;
+	};
+}
+
+/**
+ * Main class for processing analytic data
+ */
 class AnalyticProcessor {
+
 	// Вхідні дані
-	private iResponse: DateRangeReportAnalyticApi.IResponse;
+	private response: DateRangeReportAnalyticApi.IResponse;
 	// Вихідні дані
 	private readonly analyticData: Analytic.I;
 
-	// Множини для збереження унікальних ідентифікаторів
-	private uniqueSpecialists = new Set<string>();
-	private uniqueServices = new Set<string>();
-	private uniqueCustomers = new Set<string>();
-	private uniqueOrders = new Set<string>();
-
-	// Змінні для обчислення середніх значень
-	private totalServiceTime = 0;
-	private totalServiceCount = 0;
-
 	private readonly createdAt: string = new Date().toISOString();
 
-	public constructor(iResponse: DateRangeReportAnalyticApi.IResponse) {
-		this.iResponse = iResponse;
-		this.analyticData = this.initializeAnalyticData();
+	public constructor(response: DateRangeReportAnalyticApi.IResponse) {
+		this.response = response;
+		this.analyticData = this.getAnalyticStructure();
 	}
 
 	// Ініціалізація початкової структури даних
-	private initializeAnalyticData(): Analytic.I {
+	private getAnalyticStructure(): Analytic.I {
 		return {
 			summary: {
 				revenue: {
 					average: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getStatusNumberState(),
-								[ApplicationEnum.client]: getStatusNumberState()
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
 							},
-							status: getStatusNumberState()
+							status: getOrderServiceStatusStateWithDefaultValue(0)
 						}
 					},
 					total: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getStatusNumberState(),
-								[ApplicationEnum.client]: getStatusNumberState()
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
 							},
-							status: getStatusNumberState()
+							status: getOrderServiceStatusStateWithDefaultValue(0)
 						}
 					}
 				},
@@ -85,15 +100,22 @@ class AnalyticProcessor {
 				services: 0,
 				customers: 0,
 				orders: {
-					total: 0
+					total: 0,
+					by: {
+						status: getOrderStatusStateWithDefaultValue(0),
+						source: {
+							[ApplicationEnum.panel]: getOrderStatusStateWithDefaultValue(0),
+							[ApplicationEnum.client]: getOrderStatusStateWithDefaultValue(0)
+						}
+					}
 				},
 				orderService: {
 					total: 0,
 					by: {
-						status: getStatusNumberState(),
+						status: getOrderServiceStatusStateWithDefaultValue(0),
 						source: {
-							[ApplicationEnum.panel]: getStatusNumberState(),
-							[ApplicationEnum.client]: getStatusNumberState()
+							[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+							[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
 						},
 						wasSelectedAnybody: 0
 					}
@@ -102,22 +124,23 @@ class AnalyticProcessor {
 			specialistRecord: {},
 			serviceRecord: {},
 			customerRecord: {},
-			orderRecord: {},
+			order: {
+				record: {},
+				by: {
+					status: getOrderStatusStateWithDefaultValue({}),
+					source: {
+						[ApplicationEnum.panel]: getOrderStatusStateWithDefaultValue({}),
+						[ApplicationEnum.client]: getOrderStatusStateWithDefaultValue({})
+					}
+				}
+			},
 			orderService: {
 				record: {},
 				by: {
-					status: {
-						[OrderServiceStatusEnum.requested]: {},
-						[OrderServiceStatusEnum.accepted]: {},
-						[OrderServiceStatusEnum.inProgress]: {},
-						[OrderServiceStatusEnum.done]: {},
-						[OrderServiceStatusEnum.rejected]: {},
-						[OrderServiceStatusEnum.cancelled]: {},
-						[OrderServiceStatusEnum.deleted]: {},
-					},
+					status: getOrderServiceStatusStateWithDefaultValue({}),
 					source: {
-						[ApplicationEnum.panel]: {},
-						[ApplicationEnum.client]: {}
+						[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue({}),
+						[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue({})
 					},
 					wasSelectedAnybody: {}
 				}
@@ -129,89 +152,809 @@ class AnalyticProcessor {
 		};
 	}
 
-	// Ініціалізація запису спеціаліста
-	private initializeSpecialistRecord(specialistId: string, specialistReport: DateRangeReportAnalyticApi.ISpecialistReport): void {
-		this.analyticData.specialistRecord[specialistId] = {
-			summary: {
-				revenue: {
-					average: {
-						by: {
-							source: {
-								[ApplicationEnum.panel]: getStatusNumberState(),
-								[ApplicationEnum.client]: getStatusNumberState()
-							},
-							status: getStatusNumberState()
-						}
-					},
-					total: {
-						by: {
-							source: {
-								[ApplicationEnum.panel]: getStatusNumberState(),
-								[ApplicationEnum.client]: getStatusNumberState()
-							},
-							status: getStatusNumberState()
-						}
-					}
-				},
-				total: {
-					serviceTime: 0
-				},
-				average: {
-					serviceTime: 0
+	private initializeProcessingDate(): void {
+		this.analyticData._meta.processedAt = new Date().toISOString();
+	}
+
+	/**
+	 * NOTE: #1 Main processing function
+	 */
+	public process(): Analytic.I {
+
+		this.stepOne();
+		this.stepTwo();
+		this.stepThree();
+		this.stepFour();
+
+		this.initializeProcessingDate();
+		return this.analyticData;
+	}
+
+	/**
+	 * Process: Initialization global data in analytic context
+	 * @private
+	 */
+	private stepOne(): void {
+
+		const analyticInitializationGlobalData = new AnalyticInitializationGlobalData(this.analyticData);
+
+		this.response.specialistReports.forEach(({dateReports, specialist}) => {
+
+			// TODO: Add new process for products.
+			dateReports.forEach(({services}) => {
+
+				services.forEach((service) => {
+					analyticInitializationGlobalData.process(service, specialist);
+				});
+
+			});
+
+		});
+
+	}
+
+	/**
+	 * Process: Separation
+	 * @private
+	 */
+	private stepTwo(): void {
+
+		const analyticSeparation = new AnalyticSeparation(this.analyticData);
+		analyticSeparation.process();
+
+	}
+
+	private stepThree(): void {
+
+		const analyticCalculation = new AnalyticFilter(this.analyticData);
+		analyticCalculation.process();
+
+	}
+
+	private stepFour(): void {
+
+		const analyticCalculation = new AnalyticCalculation(this.analyticData);
+		analyticCalculation.process();
+
+	}
+
+}
+
+/**
+ *
+ */
+class AnalyticInitializationGlobalData {
+
+	public constructor(
+		private readonly analyticData: Analytic.I,
+	) {
+	}
+
+	public process(
+		service: DateRangeReportAnalyticApi.IService,
+		specialist: DateRangeReportAnalyticApi.ISpecialist
+	): void {
+
+		/**
+		 * ➡️service
+		 */
+		if (!this.analyticData.serviceRecord[service.serviceId]) {
+			this.analyticData.serviceRecord[service.serviceId] = AnalyticDataTools.getServiceRecordStructure(service);
+		}
+
+		/**
+		 * ➡️specialist
+		 */
+		if (!this.analyticData.specialistRecord[specialist.memberId]) {
+			this.analyticData.specialistRecord[specialist.memberId] = AnalyticDataTools.getSpecialistRecordStructure(specialist);
+		}
+
+		/**
+		 * ➡️order
+		 */
+		const orderService = this.analyticData.orderService.record[service.orderServiceId] = AnalyticDataTools.getOrderServiceRecord(service, specialist);
+		let order = this.analyticData.order.record[service.orderId];
+		if (!order) {
+			const orderService = this.analyticData.orderService.record[service.orderServiceId] = AnalyticDataTools.getOrderServiceRecord(service, specialist);
+			order = this.analyticData.order.record[service.orderId] = AnalyticDataTools.getOrderRecordStructure(orderService);
+		}
+		order.orderServices.push(orderService);
+		const areThereAllDoneOrderServices = order.orderServices.every(({status}) => status === OrderServiceStatusEnum.done);
+		const orderStatus = areThereAllDoneOrderServices ? OrderStatusEnum.done : OrderStatusEnum.inProgress;
+		order.specificStatus = orderStatus;
+
+		/**
+		 * ➡️customer
+		 */
+		service.attendants.forEach((attendee) => {
+			if (!this.analyticData.customerRecord[attendee.customerId]) {
+				this.analyticData.customerRecord[attendee.customerId] = AnalyticDataTools.getCustomerRecordStructure(attendee);
+			}
+		});
+
+	}
+
+}
+
+/**
+ *
+ */
+class AnalyticSeparation {
+
+	public constructor(
+		private readonly analyticData: Analytic.I,
+	) {
+	}
+
+	public process() {
+
+		const base = this.analyticData;
+
+		/**
+		 * ➡️orderService
+		 */
+		Object.values(base.orderService.record).forEach((orderServiceRecord) => {
+
+			/**
+			 * Place to declare local variables
+			 */
+			const {status, id: orderServiceId, createdOn, wasSelectedAnybody} = orderServiceRecord;
+			const refToGlobalOrder = base.order.record[orderServiceRecord.orderId];
+
+			/**
+			 * ✅[ORDER SERVICE]
+			 * Part of: orderService
+			 * Separate by: status, source and wasSelectedAnybody
+			 */
+			base.orderService.by.status[status][orderServiceId] = orderServiceRecord;
+			base.orderService.by.source[createdOn][status][orderServiceId] = orderServiceRecord;
+			if (wasSelectedAnybody) base.orderService.by.wasSelectedAnybody[orderServiceId] = orderServiceRecord;
+
+			// -------------------------------- //
+
+			/**
+			 * ✅[SPECIALIST]
+			 * Part of: specialistRecord
+			 */
+			const specialistCell = base.specialistRecord[orderServiceRecord.specialist.id];
+			const serviceForSpecialist = AnalyticDataTools.getServiceRecordStructureForSpecialist(orderServiceRecord.service);
+
+			if (!specialistCell.orderServiceRecord[orderServiceId]) {
+				specialistCell.orderServiceRecord[orderServiceId] = orderServiceRecord;
+			}
+
+			if (!specialistCell.serviceRecord[orderServiceRecord.service.id]) {
+				specialistCell.serviceRecord[orderServiceRecord.service.id] = serviceForSpecialist;
+			}
+
+			if (!specialistCell.orderRecord[orderServiceRecord.orderId]) {
+				specialistCell.orderRecord[orderServiceRecord.orderId] = refToGlobalOrder;
+			}
+
+			// -------------------------------- //
+
+			/**
+			 * ✅[SERVICE]
+			 * Part of: serviceRecord
+			 */
+			const serviceCell = base.serviceRecord[orderServiceRecord.service.id];
+			const specialistForService = AnalyticDataTools.getSpecialistRecordStructureForService(orderServiceRecord.specialist);
+
+			if (!serviceCell.orderServiceRecord[orderServiceId]) {
+				serviceCell.orderServiceRecord[orderServiceId] = orderServiceRecord;
+			}
+
+			if (!serviceCell.orderRecord[orderServiceRecord.orderId]) {
+				serviceCell.orderRecord[orderServiceRecord.orderId] = refToGlobalOrder;
+			}
+
+			if (!serviceCell.specialistRecord[orderServiceRecord.specialist.id]) {
+				serviceCell.specialistRecord[orderServiceRecord.specialist.id] = specialistForService;
+			}
+
+
+			// -------------------------------- //
+
+			/**
+			 * ➡️customerRecord
+			 * Part of: customerRecord
+			 */
+			orderServiceRecord.customers.forEach((customer) => {
+
+				/**
+				 * Place to declare local variables
+				 */
+				const customerCell = base.customerRecord[customer.id];
+
+				if (!customerCell) {
+					console.error(`Customer with id ${customer.id} not found in customerRecord`);
+					return;
 				}
-			},
-			counter: {
-				customers: 0,
-				services: 0,
-				orders: {
-					total: 0
-				},
-				orderService: {
-					total: 0,
-					by: {
-						status: getStatusNumberState(),
-						source: {
-							[ApplicationEnum.panel]: getStatusNumberState(),
-							[ApplicationEnum.client]: getStatusNumberState()
-						},
-						wasSelectedAnybody: 0
-					}
+
+				/**
+				 * ✅[CUSTOMER] IN SERVICE RECORD
+				 */
+				if (!serviceCell.customerRecord[customer.id]) {
+					serviceCell.customerRecord[customer.id] = customerCell;
 				}
+
+				/**
+				 * ✅[CUSTOMER] IN SPECIALIST RECORD
+				 */
+				if (!specialistCell.customerRecord[customer.id]) {
+					specialistCell.customerRecord[customer.id] = customerCell;
+				}
+
+				/**
+				 * ✅[ORDER SERVICE] IN CUSTOMER RECORD
+				 * Part of: customerRecord but for orderService
+				 * Separate by: status, source and wasSelectedAnybody
+				 */
+				const customerOrderServiceBase = customerCell.orderService;
+				customerOrderServiceBase.record[orderServiceId] = orderServiceRecord;
+				customerOrderServiceBase.by.status[status][orderServiceId] = orderServiceRecord;
+				customerOrderServiceBase.by.source[createdOn][status][orderServiceId] = orderServiceRecord;
+				if (wasSelectedAnybody) customerOrderServiceBase.by.wasSelectedAnybody[orderServiceId] = orderServiceRecord;
+
+				// -------------------------------- //
+
+				/**
+				 * ✅[ORDER] IN CUSTOMER RECORD
+				 * Part of: customerRecord but for order
+				 */
+				const areThereAllDoneOrderServices = refToGlobalOrder.orderServices.every(({status}) => status === OrderServiceStatusEnum.done);
+				const orderStatus = areThereAllDoneOrderServices ? OrderStatusEnum.done : OrderStatusEnum.inProgress;
+
+				customerCell.order.record[orderServiceId] = refToGlobalOrder;
+				customerCell.order.by.status[orderStatus][orderServiceId] = refToGlobalOrder;
+				customerCell.order.by.source[createdOn][orderStatus][orderServiceId] = refToGlobalOrder;
+
+				// -------------------------------- //
+
+				/**
+				 * ✅[SPECIALIST] IN CUSTOMER RECORD
+				 * Part of: customerRecord but for specialist
+				 */
+				const specialistId = orderServiceRecord.specialist.id;
+				const specialistInCustomerScope = customerCell.specialistRecord[specialistId] = AnalyticDataTools.getSpecialistRecordStructureForCustomer(orderServiceRecord.specialist);
+				specialistInCustomerScope.serviceRecord[orderServiceRecord.service.id] = serviceForSpecialist;
+				specialistInCustomerScope.orderRecord[orderServiceRecord.orderId] = refToGlobalOrder;
+				specialistInCustomerScope.orderServiceRecord[orderServiceId] = orderServiceRecord;
+
+				// -------------------------------- //
+
+				/**
+				 * ✅[SERVICE] IN CUSTOMER RECORD
+				 * Part of: customerRecord but for service
+				 */
+				const serviceInCustomerScope = customerCell.serviceRecord[orderServiceRecord.service.id] = AnalyticDataTools.getServiceRecordStructureForCustomer(orderServiceRecord.service);
+				serviceInCustomerScope.orderRecord[orderServiceRecord.orderId] = refToGlobalOrder;
+				serviceInCustomerScope.orderServiceRecord[orderServiceId] = orderServiceRecord;
+				serviceInCustomerScope.specialistRecord[specialistId] = specialistForService;
+
+			});
+
+		});
+
+	}
+
+}
+
+/**
+ * Filter analytic data
+ */
+class AnalyticFilter {
+
+	public constructor(
+		private readonly analyticData: Analytic.I,
+	) {
+	}
+
+	public process() {
+
+		const base = this.analyticData;
+
+		Object.values(base.specialistRecord).forEach((specialist) => {
+
+			Object.keys(specialist.customerRecord).forEach((customerId) => {
+
+				const refToGlobalCustomer = specialist.customerRecord[customerId];
+				const customer = specialist.customerRecord[customerId] = structuredClone(refToGlobalCustomer);
+
+				/**
+				 * START: order
+				 */
+
+				customer.order.record = {};
+				customer.order.by.status = getOrderStatusStateWithDefaultValue({});
+				customer.order.by.source = {
+					[ApplicationEnum.panel]: getOrderStatusStateWithDefaultValue({}),
+					[ApplicationEnum.client]: getOrderStatusStateWithDefaultValue({})
+				};
+
+				Object.values(refToGlobalCustomer.order.record).forEach((order) => {
+
+					if (customer.order.record[order.id]) {
+						return;
+					}
+
+					const newOrder = customer.order.record[order.id] = structuredClone(order);
+					newOrder.orderServices = [];
+
+					customer.order.by.status[order.specificStatus][order.id] = newOrder;
+					customer.order.by.source[order.source][order.specificStatus][order.id] = newOrder;
+
+				});
+
+				/**
+				 * FINISH: order
+				 */
+				/**
+				 * START: service
+				 */
+
+				customer.serviceRecord = {};
+
+				Object.values(refToGlobalCustomer.serviceRecord).forEach((service) => {
+
+					if (customer.serviceRecord[service.details.id]) {
+						return;
+					}
+
+					const newService = customer.serviceRecord[service.details.id] = structuredClone(service);
+					newService.orderRecord = {};
+					newService.orderServiceRecord = {};
+
+				});
+
+				/**
+				 * FINISH: service
+				 */
+				/**
+				 * START: orderService + order + service
+				 */
+
+				customer.orderService.record = {};
+				customer.orderService.by.wasSelectedAnybody = {};
+				customer.orderService.by.status = getOrderServiceStatusStateWithDefaultValue({});
+				customer.orderService.by.source = {
+					[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue({}),
+					[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue({})
+				};
+
+				Object.values(refToGlobalCustomer.orderService.record).forEach((orderService) => {
+
+					if (orderService.specialist.id !== specialist.details.id) {
+						return;
+					}
+
+					if (customer.orderService.record[orderService.id]) {
+						return;
+					}
+
+					customer.orderService.record[orderService.id] = orderService;
+					customer.orderService.by.status[orderService.status][orderService.id] = orderService;
+					customer.orderService.by.source[orderService.createdOn][orderService.status][orderService.id] = orderService;
+					if (orderService.wasSelectedAnybody) customer.orderService.by.wasSelectedAnybody[orderService.id] = orderService;
+
+					// Add orderService to order
+					customer.order.record[orderService.orderId].orderServices.push(orderService);
+
+					// Add orderService to service
+					customer.serviceRecord[orderService.service.id].orderServiceRecord[orderService.id] = orderService;
+					customer.serviceRecord[orderService.service.id].orderRecord[orderService.orderId] = customer.order.record[orderService.orderId];
+
+
+				});
+
+				/**
+				 * FINISH: orderService
+				 */
+
+			});
+
+			Object.keys(specialist.serviceRecord).forEach((serviceId) => {
+
+				const refToGlobalService = specialist.serviceRecord[serviceId];
+				const service = specialist.serviceRecord[serviceId] = structuredClone(refToGlobalService);
+
+				/**
+				 * START: order
+				 */
+
+				service.orderRecord = {};
+
+				/**
+				 * FINISH: order
+				 */
+				/**
+				 * START: service
+				 */
+
+				service.customerRecord = {};
+
+				/**
+				 * FINISH: service
+				 */
+				/**
+				 * START: orderService + order + service
+				 */
+
+				service.orderServiceRecord = {};
+				Object.values(refToGlobalService.orderServiceRecord).forEach((refToGlobalOrderService) => {
+
+					if (refToGlobalOrderService.specialist.id !== specialist.details.id) {
+						return;
+					}
+
+					if (service.orderServiceRecord[refToGlobalOrderService.id]) {
+						return;
+					}
+
+					const orderService = service.orderServiceRecord[refToGlobalOrderService.id] = structuredClone(refToGlobalOrderService);
+
+					// Add orderService to order
+					service.orderRecord[orderService.orderId].orderServices.push(orderService);
+
+					// Add orderService to customer
+					orderService.customers.forEach((refToGlobalCustomer) => {
+
+						const customer = service.customerRecord[refToGlobalCustomer.id] = structuredClone(base.customerRecord[refToGlobalCustomer.id]);
+
+						if (!customer.orderService.record[orderService.id]) {
+							customer.orderService.record[orderService.id] = orderService;
+						}
+
+						if (!customer.order.record[orderService.orderId]) {
+							customer.order.record[orderService.orderId] = service.orderRecord[orderService.orderId];
+						}
+
+
+					});
+
+				});
+
+				/**
+				 * FINISH: orderService
+				 */
+
+			});
+
+			Object.keys(specialist.orderRecord).forEach((orderId) => {
+
+				const refToGlobalOrder = specialist.orderRecord[orderId];
+				const order = specialist.orderRecord[orderId] = structuredClone(refToGlobalOrder);
+
+				/**
+				 * START: orderService + service
+				 */
+
+				order.orderServices.forEach((orderService) => {
+
+					const service = specialist.serviceRecord[orderService.service.id];
+
+					if (!service.orderServiceRecord[orderService.id]) {
+						service.orderServiceRecord[orderService.id] = orderService;
+					}
+
+					if (!service.orderRecord[orderService.orderId]) {
+						service.orderRecord[orderService.orderId] = order;
+					}
+
+				});
+
+				/**
+				 * FINISH: orderService
+				 */
+
+			});
+
+		});
+
+	}
+
+}
+
+/**
+ *
+ */
+class AnalyticCalculation {
+
+	public constructor(
+		private readonly analyticData: Analytic.I,
+	) {
+	}
+
+	public process() {
+
+		const base = this.analyticData;
+
+		base.counter.customers = Object.keys(base.customerRecord).length;
+		base.counter.services = Object.keys(base.serviceRecord).length;
+
+		/**
+		 * EACH CONTEXT
+		 */
+
+		/**
+		 * OrderService context
+		 */
+		Object.values(base.orderService.record).forEach((orderService) => {
+			base.counter.orderService.total++;
+			base.counter.orderService.by.status[orderService.status]++;
+			base.counter.orderService.by.source[orderService.createdOn][orderService.status]++;
+			base.counter.orderService.by.wasSelectedAnybody += orderService.wasSelectedAnybody ? 1 : 0;
+
+			base.summary.total.serviceTime += orderService.durationInSeconds;
+			base.summary.revenue.total.by.status[orderService.status] += orderService.price;
+			base.summary.revenue.total.by.source[orderService.createdOn][orderService.status] += orderService.price;
+
+		});
+
+		base.summary.average.serviceTime = base.summary.total.serviceTime / base.counter.orderService.total;
+
+		/**
+		 * Order context
+		 */
+		Object.values(base.order.record).forEach((order) => {
+			base.counter.orders.total++;
+			base.counter.orders.by.status[order.specificStatus]++;
+			base.counter.orders.by.source[order.source][order.specificStatus]++;
+		});
+
+		Object.keys(base.summary.revenue.total.by.status).forEach((orderServiceStatus) => {
+
+			const orderServiceStatusEnum = orderServiceStatus as OrderServiceStatusEnum;
+
+			// Calculate average revenue for each order
+			const totalRevenueByStatus = base.summary.revenue.total.by.status[orderServiceStatusEnum];
+
+			// TODO: Add forEach for each order status when backend will be ready for it
+			const orderCountByStatus = base.counter.orders.by.status[OrderStatusEnum.done];
+			base.summary.revenue.average.by.status[orderServiceStatusEnum] = totalRevenueByStatus / orderCountByStatus;
+
+			Object.keys(base.summary.revenue.total.by.source).forEach((source) => {
+
+				const sourceEnum = source as ApplicationEnum;
+
+				const totalRevenueBySource = base.summary.revenue.total.by.source[sourceEnum][orderServiceStatusEnum];
+				const orderCountBySource = base.counter.orders.by.source[sourceEnum][OrderStatusEnum.done];
+				base.summary.revenue.average.by.source[sourceEnum][orderServiceStatusEnum] = totalRevenueBySource / orderCountBySource;
+
+			});
+
+		});
+
+		/**
+		 * Specialist context
+		 */
+		Object.values(base.specialistRecord).forEach((specialist) => {
+
+			// Increment specialists counter
+			base.counter.specialists++;
+
+			specialist.counter.services = Object.keys(specialist.serviceRecord).length;
+
+			Object.values(specialist.orderServiceRecord).forEach((orderService) => {
+
+				specialist.summary.total.serviceTime += orderService.durationInSeconds;
+				specialist.summary.revenue.total.by.status[orderService.status] += orderService.price;
+				specialist.summary.revenue.total.by.source[orderService.createdOn][orderService.status] += orderService.price;
+
+				specialist.counter.orderService.total++;
+				specialist.counter.orderService.by.status[orderService.status]++;
+				specialist.counter.orderService.by.source[orderService.createdOn][orderService.status]++;
+
+			});
+
+			specialist.summary.average.serviceTime = specialist.summary.total.serviceTime / specialist.counter.orderService.total;
+
+			Object.keys(specialist.customerRecord).forEach((customerId) => {
+
+				// Increment customers counter
+				specialist.counter.customers++;
+
+				const customer = specialist.customerRecord[customerId];
+
+				Object.values(customer.orderService.record).forEach((orderService) => {
+
+					customer.summary.total.serviceTime += orderService.durationInSeconds;
+					customer.summary.revenue.total.by.status[orderService.status] += orderService.price;
+					customer.summary.revenue.total.by.source[orderService.createdOn][orderService.status] += orderService.price;
+
+					customer.counter.orderService.total++;
+					customer.counter.orderService.by.status[orderService.status]++;
+					customer.counter.orderService.by.source[orderService.createdOn][orderService.status]++;
+
+				});
+
+				customer.summary.average.serviceTime = customer.summary.total.serviceTime / customer.counter.orderService.total;
+
+				Object.values(customer.order.record).forEach((order) => {
+
+					customer.counter.orders.total++;
+					customer.counter.orders.by.status[order.specificStatus]++;
+					customer.counter.orders.by.source[order.source][order.specificStatus]++;
+
+					// Calculate average revenue for each customer
+					const customerRevenue = customer.summary.revenue.total.by.status[order.specificStatus];
+					const customerOrdersCount = customer.counter.orders.by.status[order.specificStatus];
+					const customerOrdersCountBySource = customer.counter.orders.by.source[order.source][order.specificStatus];
+
+					customer.summary.revenue.average.by.status[order.specificStatus] = customerRevenue / customerOrdersCount;
+					customer.summary.revenue.average.by.source[order.source][order.specificStatus] = customerRevenue / customerOrdersCountBySource;
+
+				});
+
+			});
+
+			Object.values(specialist.orderRecord).forEach((order) => {
+
+				specialist.counter.orders.total++;
+				specialist.counter.orders.by.status[order.specificStatus]++;
+				specialist.counter.orders.by.source[order.source][order.specificStatus]++;
+
+				// Calculate average revenue for each specialist
+				const specialistRevenue = specialist.summary.revenue.total.by.status[order.specificStatus];
+				const specialistOrdersCount = specialist.counter.orders.by.status[order.specificStatus];
+				const specialistOrdersCountBySource = specialist.counter.orders.by.source[order.source][order.specificStatus];
+
+				specialist.summary.revenue.average.by.status[order.specificStatus] = specialistRevenue / specialistOrdersCount;
+				specialist.summary.revenue.average.by.source[order.source][order.specificStatus] = specialistRevenue / specialistOrdersCountBySource;
+
+			});
+
+		});
+
+		/**
+		 * Service context
+		 */
+		Object.values(base.serviceRecord).forEach((service) => {
+
+			Object.values(service.orderServiceRecord).forEach((orderService) => {
+
+				service.summary.total.serviceTime += orderService.durationInSeconds;
+				service.summary.revenue.total.by.status[orderService.status] += orderService.price;
+				service.summary.revenue.total.by.source[orderService.createdOn][orderService.status] += orderService.price;
+
+				service.counter.orderService.total++;
+				service.counter.orderService.by.status[orderService.status]++;
+				service.counter.orderService.by.source[orderService.createdOn][orderService.status]++;
+
+			});
+
+			service.summary.average.serviceTime = service.summary.total.serviceTime / service.counter.orderService.total;
+
+			service.counter.customers = Object.keys(service.customerRecord).length;
+
+			Object.values(service.orderRecord).forEach((order) => {
+
+				service.counter.orders.total++;
+				service.counter.orders.by.status[order.specificStatus]++;
+				service.counter.orders.by.source[order.source][order.specificStatus]++;
+
+				// Calculate average revenue for each service
+				const serviceRevenue = service.summary.revenue.total.by.status[order.specificStatus];
+				const serviceOrdersCount = service.counter.orders.by.status[order.specificStatus];
+				const serviceOrdersCountBySource = service.counter.orders.by.source[order.source][order.specificStatus];
+
+				service.summary.revenue.average.by.status[order.specificStatus] = serviceRevenue / serviceOrdersCount;
+				service.summary.revenue.average.by.source[order.source][order.specificStatus] = serviceRevenue / serviceOrdersCountBySource;
+
+			});
+
+		});
+
+		/**
+		 * Customer context
+		 */
+		Object.values(base.customerRecord).forEach((customer) => {
+
+			Object.values(customer.orderService.record).forEach((orderService) => {
+
+				customer.summary.total.serviceTime += orderService.durationInSeconds;
+				customer.summary.revenue.total.by.status[orderService.status] += orderService.price;
+				customer.summary.revenue.total.by.source[orderService.createdOn][orderService.status] += orderService.price;
+
+				customer.counter.orderService.total++;
+				customer.counter.orderService.by.status[orderService.status]++;
+				customer.counter.orderService.by.source[orderService.createdOn][orderService.status]++;
+
+			});
+
+			customer.summary.average.serviceTime = customer.summary.total.serviceTime / customer.counter.orderService.total;
+
+			customer.counter.specialists = Object.keys(customer.specialistRecord).length;
+
+			Object.values(customer.order.record).forEach((order) => {
+
+				customer.counter.orders.total++;
+				customer.counter.orders.by.status[order.specificStatus]++;
+				customer.counter.orders.by.source[order.source][order.specificStatus]++;
+
+				// Calculate average revenue for each customer
+				const customerRevenue = customer.summary.revenue.total.by.status[order.specificStatus];
+				const customerOrdersCount = customer.counter.orders.by.status[order.specificStatus];
+				const customerOrdersCountBySource = customer.counter.orders.by.source[order.source][order.specificStatus];
+
+				customer.summary.revenue.average.by.status[order.specificStatus] = customerRevenue / customerOrdersCount;
+				customer.summary.revenue.average.by.source[order.source][order.specificStatus] = customerRevenue / customerOrdersCountBySource;
+
+			});
+
+		});
+
+	}
+
+}
+
+/**
+ *
+ */
+class AnalyticDataTools {
+
+	/**
+	 * Return order record structure
+	 * @param service
+	 * @param specialist
+	 * @private
+	 */
+	public static getOrderServiceRecord(service: DateRangeReportAnalyticApi.IService, specialist: DateRangeReportAnalyticApi.ISpecialist): Analytic.IOrderService {
+		return {
+			id: service.orderServiceId,
+			orderId: service.orderId,
+			price: service.price,
+			currency: service.currency,
+			durationInSeconds: service.durationInSeconds,
+			startTime: service.startTime,
+			endTime: service.endTime,
+			createdOn: service.createdOn,
+			wasSelectedAnybody: service.wasSelectedAnybody,
+			status: service.status,
+			customers: service.attendants.map((attendee) => ({
+				id: attendee.customerId,
+				firstName: attendee.firstName,
+				lastName: attendee.lastName,
+				registeredDate: attendee.registeredDate
+			})),
+			service: {
+				id: service.serviceId,
+				serviceName: service.serviceName
 			},
-			details: {
-				id: specialistReport.specialist.memberId,
-				firstName: specialistReport.specialist.firstName,
-				lastName: specialistReport.specialist.lastName,
-				email: specialistReport.specialist.email
-			},
-			serviceRecord: {},
-			orderRecord: {},
-			orderServiceRecord: {},
-			customerRecord: {}
+			specialist: {
+				id: specialist.memberId,
+				firstName: specialist.firstName,
+				lastName: specialist.lastName,
+				email: specialist.email
+			}
 		};
 	}
 
-	// Ініціалізація запису сервісу
-	private initializeServiceRecord(serviceId: string, service: DateRangeReportAnalyticApi.IService): void {
-		this.analyticData.serviceRecord[serviceId] = {
+	/**
+	 * Return service record structure
+	 * @param service
+	 * @private
+	 */
+	public static getServiceRecordStructure(service: DateRangeReportAnalyticApi.IService) {
+		return {
 			summary: {
 				revenue: {
 					average: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getStatusNumberState(),
-								[ApplicationEnum.client]: getStatusNumberState()
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
 							},
-							status: getStatusNumberState()
+							status: getOrderServiceStatusStateWithDefaultValue(0)
 						}
 					},
 					total: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getStatusNumberState(),
-								[ApplicationEnum.client]: getStatusNumberState()
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
 							},
-							status: getStatusNumberState()
+							status: getOrderServiceStatusStateWithDefaultValue(0)
 						}
 					}
 				},
@@ -226,15 +969,22 @@ class AnalyticProcessor {
 				specialists: 0,
 				customers: 0,
 				orders: {
-					total: 0
+					total: 0,
+					by: {
+						status: getOrderStatusStateWithDefaultValue(0),
+						source: {
+							[ApplicationEnum.panel]: getOrderStatusStateWithDefaultValue(0),
+							[ApplicationEnum.client]: getOrderStatusStateWithDefaultValue(0)
+						}
+					}
 				},
 				orderService: {
 					total: 0,
 					by: {
-						status: getStatusNumberState(),
+						status: getOrderServiceStatusStateWithDefaultValue(0),
 						source: {
-							[ApplicationEnum.panel]: getStatusNumberState(),
-							[ApplicationEnum.client]: getStatusNumberState()
+							[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+							[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
 						},
 						wasSelectedAnybody: 0
 					}
@@ -251,27 +1001,373 @@ class AnalyticProcessor {
 		};
 	}
 
-	// Ініціалізація запису клієнта
-	private getCustomerRecordStructure<RETURN>(attendant: DateRangeReportAnalyticApi.IAttendee, withoutKey?: keyof Analytic.ICustomer): RETURN {
+	/**
+	 * Return service record structure
+	 * @param service
+	 * @private
+	 */
+	public static getServiceRecordStructureForCustomer(service: Analytic.IService['details']): Omit<Analytic.IService, 'customerRecord'> {
+		return {
+			summary: {
+				revenue: {
+					average: {
+						by: {
+							source: {
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+							},
+							status: getOrderServiceStatusStateWithDefaultValue(0)
+						}
+					},
+					total: {
+						by: {
+							source: {
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+							},
+							status: getOrderServiceStatusStateWithDefaultValue(0)
+						}
+					}
+				},
+				total: {
+					serviceTime: 0
+				},
+				average: {
+					serviceTime: 0
+				}
+			},
+			counter: {
+				specialists: 0,
+				customers: 0,
+				orders: {
+					total: 0,
+					by: {
+						status: getOrderStatusStateWithDefaultValue(0),
+						source: {
+							[ApplicationEnum.panel]: getOrderStatusStateWithDefaultValue(0),
+							[ApplicationEnum.client]: getOrderStatusStateWithDefaultValue(0)
+						}
+					}
+				},
+				orderService: {
+					total: 0,
+					by: {
+						status: getOrderServiceStatusStateWithDefaultValue(0),
+						source: {
+							[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+							[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+						},
+						wasSelectedAnybody: 0
+					}
+				}
+			},
+			details: service,
+			specialistRecord: {},
+			orderRecord: {},
+			orderServiceRecord: {}
+		};
+	}
+
+	/**
+	 * Return service record structure
+	 * @param service
+	 * @private
+	 */
+	public static getServiceRecordStructureForSpecialist(service: Analytic.IService['details']) {
+		return {
+			summary: {
+				revenue: {
+					average: {
+						by: {
+							source: {
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+							},
+							status: getOrderServiceStatusStateWithDefaultValue(0)
+						}
+					},
+					total: {
+						by: {
+							source: {
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+							},
+							status: getOrderServiceStatusStateWithDefaultValue(0)
+						}
+					}
+				},
+				total: {
+					serviceTime: 0
+				},
+				average: {
+					serviceTime: 0
+				}
+			},
+			counter: {
+				specialists: 0,
+				customers: 0,
+				orders: {
+					total: 0,
+					by: {
+						status: getOrderStatusStateWithDefaultValue(0),
+						source: {
+							[ApplicationEnum.panel]: getOrderStatusStateWithDefaultValue(0),
+							[ApplicationEnum.client]: getOrderStatusStateWithDefaultValue(0)
+						}
+					}
+				},
+				orderService: {
+					total: 0,
+					by: {
+						status: getOrderServiceStatusStateWithDefaultValue(0),
+						source: {
+							[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+							[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+						},
+						wasSelectedAnybody: 0
+					}
+				}
+			},
+			details: service,
+			customerRecord: {},
+			orderRecord: {},
+			orderServiceRecord: {}
+		};
+	}
+
+	/**
+	 * Return specialist record structure
+	 * @private
+	 * @param specialist
+	 */
+	public static getSpecialistRecordStructure(specialist: DateRangeReportAnalyticApi.ISpecialist) {
+		return {
+			summary: {
+				revenue: {
+					average: {
+						by: {
+							source: {
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+							},
+							status: getOrderServiceStatusStateWithDefaultValue(0)
+						}
+					},
+					total: {
+						by: {
+							source: {
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+							},
+							status: getOrderServiceStatusStateWithDefaultValue(0)
+						}
+					}
+				},
+				total: {
+					serviceTime: 0
+				},
+				average: {
+					serviceTime: 0
+				}
+			},
+			counter: {
+				customers: 0,
+				services: 0,
+				orders: {
+					total: 0,
+					by: {
+						status: getOrderStatusStateWithDefaultValue(0),
+						source: {
+							[ApplicationEnum.panel]: getOrderStatusStateWithDefaultValue(0),
+							[ApplicationEnum.client]: getOrderStatusStateWithDefaultValue(0)
+						}
+					}
+				},
+				orderService: {
+					total: 0,
+					by: {
+						status: getOrderServiceStatusStateWithDefaultValue(0),
+						source: {
+							[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+							[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+						},
+						wasSelectedAnybody: 0
+					}
+				}
+			},
+			details: {
+				id: specialist.memberId,
+				firstName: specialist.firstName,
+				lastName: specialist.lastName,
+				email: specialist.email
+			},
+			serviceRecord: {},
+			orderRecord: {},
+			orderServiceRecord: {},
+			customerRecord: {}
+		};
+	}
+
+	/**
+	 * Return specialist record structure
+	 * @private
+	 * @param specialist
+	 */
+	public static getSpecialistRecordStructureForCustomer(specialist: Analytic.ISpecialist['details']): Omit<Analytic.ISpecialist, 'customerRecord'> {
+		return {
+			summary: {
+				revenue: {
+					average: {
+						by: {
+							source: {
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+							},
+							status: getOrderServiceStatusStateWithDefaultValue(0)
+						}
+					},
+					total: {
+						by: {
+							source: {
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+							},
+							status: getOrderServiceStatusStateWithDefaultValue(0)
+						}
+					}
+				},
+				total: {
+					serviceTime: 0
+				},
+				average: {
+					serviceTime: 0
+				}
+			},
+			counter: {
+				customers: 0,
+				services: 0,
+				orders: {
+					total: 0,
+					by: {
+						status: getOrderStatusStateWithDefaultValue(0),
+						source: {
+							[ApplicationEnum.panel]: getOrderStatusStateWithDefaultValue(0),
+							[ApplicationEnum.client]: getOrderStatusStateWithDefaultValue(0)
+						}
+					}
+				},
+				orderService: {
+					total: 0,
+					by: {
+						status: getOrderServiceStatusStateWithDefaultValue(0),
+						source: {
+							[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+							[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+						},
+						wasSelectedAnybody: 0
+					}
+				}
+			},
+			details: specialist,
+			serviceRecord: {},
+			orderRecord: {},
+			orderServiceRecord: {},
+		};
+	}
+
+	/**
+	 * Return specialist record structure
+	 * @private
+	 * @param specialist
+	 */
+	public static getSpecialistRecordStructureForService(specialist: Analytic.ISpecialist['details']) {
+		return {
+			summary: {
+				revenue: {
+					average: {
+						by: {
+							source: {
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+							},
+							status: getOrderServiceStatusStateWithDefaultValue(0)
+						}
+					},
+					total: {
+						by: {
+							source: {
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+							},
+							status: getOrderServiceStatusStateWithDefaultValue(0)
+						}
+					}
+				},
+				total: {
+					serviceTime: 0
+				},
+				average: {
+					serviceTime: 0
+				}
+			},
+			counter: {
+				customers: 0,
+				services: 0,
+				orders: {
+					total: 0,
+					by: {
+						status: getOrderStatusStateWithDefaultValue(0),
+						source: {
+							[ApplicationEnum.panel]: getOrderStatusStateWithDefaultValue(0),
+							[ApplicationEnum.client]: getOrderStatusStateWithDefaultValue(0)
+						}
+					}
+				},
+				orderService: {
+					total: 0,
+					by: {
+						status: getOrderServiceStatusStateWithDefaultValue(0),
+						source: {
+							[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+							[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+						},
+						wasSelectedAnybody: 0
+					}
+				}
+			},
+			details: specialist,
+			customerRecord: {},
+			orderRecord: {},
+			orderServiceRecord: {},
+		};
+	}
+
+	/**
+	 * Return customer record structure
+	 * @param attendant
+	 * @param withoutKey
+	 * @private
+	 */
+	public static getCustomerRecordStructure<RETURN>(attendant: DateRangeReportAnalyticApi.IAttendee, withoutKey?: keyof Analytic.ICustomer): RETURN {
 		const structure = {
 			summary: {
 				revenue: {
 					average: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getStatusNumberState(),
-								[ApplicationEnum.client]: getStatusNumberState()
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
 							},
-							status: getStatusNumberState()
+							status: getOrderServiceStatusStateWithDefaultValue(0)
 						}
 					},
 					total: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getStatusNumberState(),
-								[ApplicationEnum.client]: getStatusNumberState()
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
 							},
-							status: getStatusNumberState()
+							status: getOrderServiceStatusStateWithDefaultValue(0)
 						}
 					}
 				},
@@ -286,15 +1382,22 @@ class AnalyticProcessor {
 				specialists: 0,
 				services: 0,
 				orders: {
-					total: 0
+					total: 0,
+					by: {
+						status: getOrderStatusStateWithDefaultValue(0),
+						source: {
+							[ApplicationEnum.panel]: getOrderStatusStateWithDefaultValue(0),
+							[ApplicationEnum.client]: getOrderStatusStateWithDefaultValue(0)
+						}
+					}
 				},
 				orderService: {
 					total: 0,
 					by: {
-						status: getStatusNumberState(),
+						status: getOrderServiceStatusStateWithDefaultValue(0),
 						source: {
-							[ApplicationEnum.panel]: getStatusNumberState(),
-							[ApplicationEnum.client]: getStatusNumberState()
+							[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
+							[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
 						},
 						wasSelectedAnybody: 0
 					}
@@ -308,8 +1411,27 @@ class AnalyticProcessor {
 			},
 			specialistRecord: {},
 			serviceRecord: {},
-			orderRecord: {},
-			orderServiceRecord: {}
+			order: {
+				record: {},
+				by: {
+					status: getOrderStatusStateWithDefaultValue({}),
+					source: {
+						[ApplicationEnum.panel]: getOrderStatusStateWithDefaultValue({}),
+						[ApplicationEnum.client]: getOrderStatusStateWithDefaultValue({})
+					}
+				}
+			},
+			orderService: {
+				record: {},
+				by: {
+					status: getOrderServiceStatusStateWithDefaultValue({}),
+					source: {
+						[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue({}),
+						[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue({})
+					},
+					wasSelectedAnybody: {}
+				},
+			}
 		};
 
 		if (withoutKey) {
@@ -319,479 +1441,26 @@ class AnalyticProcessor {
 		return structure as RETURN;
 	}
 
-	private initializeProcessingDate(): void {
-		this.analyticData._meta.processedAt = new Date().toISOString();
-	}
-
 	/**
-	 * NOTE: #1
-	 * Основний метод для обробки даних
-	 */
-	public process(): Analytic.I {
-
-		// Обробка кожного звіту спеціаліста
-		for (const specialistReport of this.iResponse.specialistReports) {
-			this.processSpecialistReport(specialistReport);
-		}
-
-		// Обчислення середніх значень після збору всіх даних
-		this.calculateAverages();
-		this.calculateTotal();
-
-		this.initializeProcessingDate();
-
-		return this.analyticData;
-	}
-
-	/**
-	 * NOTE: #2
-	 * Обробка звіту спеціаліста
-	 * @param specialistReport
-	 * @private
-	 */
-	private processSpecialistReport(specialistReport: DateRangeReportAnalyticApi.ISpecialistReport): void {
-		const specialistId = specialistReport.specialist.memberId;
-
-		// Додавання унікального спеціаліста
-		if (!this.uniqueSpecialists.has(specialistId)) {
-			this.uniqueSpecialists.add(specialistId);
-		}
-
-		// Ініціалізація запису спеціаліста, якщо він ще не існує
-		if (!this.analyticData.specialistRecord[specialistId]) {
-			this.initializeSpecialistRecord(specialistId, specialistReport);
-		}
-
-		const specialistData = this.analyticData.specialistRecord[specialistId];
-
-		// Обробка звітів за датами
-		for (const dateReport of specialistReport.dateReports) {
-			this.processDateReport(dateReport, specialistData);
-		}
-	}
-
-	/**
-	 * NOTE: #2.1
-	 * Обробка звіту за датою
-	 * @param dateReport
-	 * @param specialistData
-	 * @private
-	 */
-	private processDateReport(dateReport: DateRangeReportAnalyticApi.IDateReport, specialistData: Analytic.ISpecialist): void {
-		// Обробка кожного сервісу в звіті за датою
-		for (const orderService of dateReport.services) {
-			this.processService(orderService, specialistData);
-		}
-	}
-
-	/**
-	 * NOTE: #2.1.1
-	 * Обробка сервісу
+	 * Return order record structure
 	 * @param orderService
-	 * @param specialistData
-	 * @private
 	 */
-	private processService(orderService: DateRangeReportAnalyticApi.IService, specialistData: Analytic.ISpecialist): void {
-		// Оновлення лічильників загальної кількості сервісів
-		specialistData.counter.orderService.total++;
-
-		// Declaring section
-		const {durationInSeconds, wasSelectedAnybody} = orderService;
-		const status = orderService.status as keyof typeof OrderServiceStatusEnum;
-		const source = orderService.createdOn as keyof typeof ApplicationEnum;
-
-		// Оновлення лічильників за статусом
-		this.analyticData.counter.orderService.by.status[status]++;
-		specialistData.counter.orderService.by.status[status]++;
-
-		// Оновлення лічильників за джерелом
-		this.analyticData.counter.orderService.by.source[source][status]++;
-		specialistData.counter.orderService.by.source[source][status]++;
-
-		// Оновлення лічильника wasSelectedAnybody
-		if (wasSelectedAnybody) {
-			this.analyticData.counter.orderService.by.wasSelectedAnybody++;
-			specialistData.counter.orderService.by.wasSelectedAnybody++;
-		}
-
-		// Оновлення загального доходу
-		this.analyticData.summary.revenue.total.by.status[status] += orderService.price;
-		this.analyticData.summary.revenue.total.by.source[source][status] += orderService.price;
-		specialistData.summary.revenue.total.by.status[status] += orderService.price;
-		specialistData.summary.revenue.total.by.source[source][status] += orderService.price;
-
-		// Оновлення часу сервісу
-		this.totalServiceTime += durationInSeconds;
-		this.totalServiceCount++;
-		this.analyticData.summary.total.serviceTime += durationInSeconds;
-		specialistData.summary.total.serviceTime += durationInSeconds;
-
-		// Обробка запису orderService
-		const orderServiceId = orderService.orderServiceId;
-		if (!this.analyticData.orderService.record[orderServiceId]) {
-			this.processOrderService(orderService, specialistData);
-		}
-	}
-
-	/**
-	 * NOTE: #2.1.1.1
-	 * Обробка orderService
-	 * @param service
-	 * @param specialistData
-	 * @private
-	 */
-	private processOrderService(service: DateRangeReportAnalyticApi.IService, specialistData: Analytic.ISpecialist): void {
-		// Обробка клієнтів, пов'язаних з сервісом
-		const customers = service.attendants.map(attendant => {
-			return this.processCustomer(this.analyticData.customerRecord, attendant, service, specialistData);
-		});
-
-		// Обробка сервісу в контексті загальної аналітики
-		this.processServiceRecord(service, specialistData);
-
-		// Обробка замовлення
-		this.processOrder(service, specialistData, customers);
-	}
-
-	/**
-	 * NOTE: #2.1.1.1.1
-	 * Обробка клієнта
-	 * @param customerRecord
-	 * @param attendant
-	 * @param service
-	 * @param specialistData
-	 * @private
-	 */
-	private processCustomer(
-		customerRecord: {
-			[customerId: string]: Analytic.ICustomer;
-		},
-		attendant: DateRangeReportAnalyticApi.IAttendee,
-		service: DateRangeReportAnalyticApi.IService,
-		specialistData: Analytic.ISpecialist
-	): Analytic.ICustomer {
-		const customerId = attendant.customerId;
-
-		// Ініціалізація запису клієнта, якщо він ще не існує
-		if (!customerRecord[customerId]) {
-			this.uniqueCustomers.add(customerId);
-			this.analyticData.customerRecord[customerId] = this.getCustomerRecordStructure<Analytic.ICustomer>(attendant);
-		}
-
-		const customerData = customerRecord[customerId];
-
-		// Оновлення лічильників клієнта
-		const status = service.status as keyof typeof OrderServiceStatusEnum;
-		const source = service.createdOn as keyof typeof ApplicationEnum;
-		const duration = service.durationInSeconds;
-
-		customerData.counter.orderService.total++;
-		customerData.counter.orderService.by.status[status]++;
-		customerData.counter.orderService.by.source[source][status]++;
-		if (service.wasSelectedAnybody) {
-			customerData.counter.orderService.by.wasSelectedAnybody++;
-		}
-
-		// Оновлення доходу та часу сервісу клієнта
-		customerData.summary.revenue.total.by.status[status] += service.price;
-		customerData.summary.revenue.total.by.source[source][status] += service.price;
-		customerData.summary.total.serviceTime += duration;
-
-		// Додавання записів спеціаліста до клієнта
-		customerData.specialistRecord[specialistData.details.id] = specialistData;
-		customerData.counter.orders.total = customerData.orderRecord ? Object.keys(customerData.orderRecord).length : 0;
-
-		return customerData;
-	}
-
-	/**
-	 * NOTE: #2.1.1.1.1.1
-	 * Обробка клієнта
-	 * @param customerRecord
-	 * @param attendant
-	 * @param service
-	 * @private
-	 */
-	private processCustomerForSpecialist(
-		customerRecord: {
-			[customerId: string]: Omit<Analytic.ICustomer, 'specialistRecord'>;
-		},
-		attendant: DateRangeReportAnalyticApi.IAttendee,
-		service: DateRangeReportAnalyticApi.IService,
-	): void {
-		const customerId = attendant.customerId;
-
-		// Ініціалізація запису клієнта, якщо він ще не існує
-		if (!customerRecord[customerId]) {
-			const newCustomerRecordStructure = this.getCustomerRecordStructure<Omit<Analytic.ICustomer, 'specialistRecord'>>(attendant, 'specialistRecord');
-			customerRecord[customerId] = newCustomerRecordStructure;
-		}
-
-		const customerData = customerRecord[customerId];
-
-		// Оновлення лічильників клієнта
-		const status = service.status as keyof typeof OrderServiceStatusEnum;
-		const source = service.createdOn as keyof typeof ApplicationEnum;
-		const duration = service.durationInSeconds;
-
-		customerData.counter.orderService.total++;
-		customerData.counter.orderService.by.status[status]++;
-		customerData.counter.orderService.by.source[source][status]++;
-		if (service.wasSelectedAnybody) {
-			customerData.counter.orderService.by.wasSelectedAnybody++;
-		}
-
-		const orderServiceData = this.getOrderServiceRecord(service);
-
-		if (!customerData.orderRecord[service.orderId]) {
-			customerData.orderRecord[service.orderId] = {
-				id: service.orderId,
-				orderService: [orderServiceData]
-			};
-		} else {
-			customerData.orderRecord[service.orderId].orderService.push(orderServiceData);
-		}
-
-		customerData.orderServiceRecord[service.orderServiceId] = orderServiceData;
-		customerData.serviceRecord[service.serviceId] = this.analyticData.serviceRecord[service.serviceId];
-
-		// Додавання записів спеціаліста до клієнта
-		customerData.counter.orders.total = customerData.orderRecord ? Object.keys(customerData.orderRecord).length : 0;
-
-		// Оновлення доходу та часу сервісу клієнта
-		const totalByStatus = customerData.summary.revenue.total.by.status[status] += service.price;
-		const totalBySourceAndStatus = customerData.summary.revenue.total.by.source[source][status] += service.price;
-
-		// TODO: Add for orders.total also .by.status and .by.source
-		customerData.summary.revenue.average.by.status[status] = totalByStatus / customerData.counter.orders.total;
-		customerData.summary.revenue.average.by.source[source][status] = totalBySourceAndStatus / customerData.counter.orders.total;
-		customerData.summary.total.serviceTime += duration;
-
-		customerRecord[customerId] = customerData;
-	}
-
-	/**
-	 * NOTE: #2.1.1.1.2
-	 * Обробка запису сервісу
-	 * @param service
-	 * @param specialistData
-	 * @private
-	 */
-	private processServiceRecord(service: DateRangeReportAnalyticApi.IService, specialistData: Analytic.ISpecialist): void {
-		const serviceId = service.serviceId;
-
-		// Ініціалізація запису сервісу, якщо він ще не існує
-		if (!this.analyticData.serviceRecord[serviceId]) {
-			this.uniqueServices.add(serviceId);
-			this.initializeServiceRecord(serviceId, service);
-		}
-
-		const serviceData = this.analyticData.serviceRecord[serviceId];
-
-		// Оновлення лічильників сервісу
-		const status = service.status as keyof typeof OrderServiceStatusEnum;
-		const source = service.createdOn as keyof typeof ApplicationEnum;
-		const duration = service.durationInSeconds;
-
-		serviceData.counter.orderService.total++;
-		serviceData.counter.orderService.by.status[status]++;
-		serviceData.counter.orderService.by.source[source][status]++;
-		if (service.wasSelectedAnybody) {
-			serviceData.counter.orderService.by.wasSelectedAnybody++;
-		}
-
-		// Оновлення доходу та часу сервісу
-		serviceData.summary.revenue.total.by.status[status] += service.price;
-		serviceData.summary.revenue.total.by.source[source][status] += service.price;
-		serviceData.summary.total.serviceTime += duration;
-
-		// Додавання записів спеціаліста до сервісу
-		serviceData.specialistRecord[specialistData.details.id] = specialistData;
-
-		// Додавання записів клієнтів до сервісу
-		for (const attendee of service.attendants) {
-			serviceData.customerRecord[attendee.customerId] = this.analyticData.customerRecord[attendee.customerId];
-			this.processCustomerForSpecialist(specialistData.customerRecord, attendee, service);
-		}
-	}
-
-	/**
-	 * NOTE: #2.1.1.1.3
-	 * Обробка замовлення
-	 * @param service
-	 * @param specialistData
-	 * @param customers
-	 * @private
-	 */
-	private processOrder(service: DateRangeReportAnalyticApi.IService, specialistData: Analytic.ISpecialist, customers: Analytic.ICustomer[]): void {
-		const orderId = service.orderId;
-
-		// Додавання унікального замовлення
-		if (!this.uniqueOrders.has(orderId)) {
-			this.uniqueOrders.add(orderId);
-			specialistData.counter.orders.total++;
-
-			// Ініціалізація запису замовлення
-			this.analyticData.orderRecord[orderId] = {
-				id: orderId,
-				orderService: []
-			};
-		}
-
-		// Додавання orderService до замовлення
-		const orderServiceData = this.getOrderServiceRecord(service);
-
-		this.analyticData.orderRecord[orderId].orderService.push(orderServiceData);
-
-		// Додавання запису orderService
-		this.analyticData.orderService.record[service.orderServiceId] = orderServiceData;
-
-		// Оновлення записів спеціаліста
-		specialistData.orderRecord[orderId] = this.analyticData.orderRecord[orderId];
-		specialistData.orderServiceRecord[service.orderServiceId] = orderServiceData;
-		specialistData.serviceRecord[service.serviceId] = this.analyticData.serviceRecord[service.serviceId];
-
-		// Оновлення записів сервісу
-		const serviceData = this.analyticData.serviceRecord[service.serviceId];
-		serviceData.orderRecord[orderId] = this.analyticData.orderRecord[orderId];
-		serviceData.orderServiceRecord[service.orderServiceId] = orderServiceData;
-
-		// Оновлення записів клієнтів
-		for (const customerDetail of orderServiceData.customers) {
-			const customerData = this.analyticData.customerRecord[customerDetail.id];
-			customerData.orderRecord[orderId] = this.analyticData.orderRecord[orderId];
-			customerData.orderServiceRecord[service.orderServiceId] = orderServiceData;
-			customerData.serviceRecord[service.serviceId] = serviceData;
-			customerData.specialistRecord[specialistData.details.id] = specialistData;
-		}
-
-		// Оновлення orderService.by.status
-		const status = service.status as keyof typeof OrderServiceStatusEnum;
-		this.analyticData.orderService.by.status[status][service.orderServiceId] = orderServiceData;
-
-		// Оновлення orderService.by.source
-		const source = service.createdOn as keyof typeof ApplicationEnum;
-		this.analyticData.orderService.by.source[source][service.orderServiceId] = orderServiceData;
-
-		// Оновлення wasSelectedAnybody
-		if (service.wasSelectedAnybody) {
-			this.analyticData.orderService.by.wasSelectedAnybody[service.orderServiceId] = orderServiceData;
-		}
-	}
-
-	/**
-	 * NOTE: #3
-	 * @private
-	 */
-	private calculateAverages(): void {
-		// Обчислення середнього часу сервісу
-		this.analyticData.summary.average.serviceTime = this.totalServiceCount > 0 ? this.totalServiceTime / this.totalServiceCount : 0;
-
-		// Середній дохід за статусом
-		for (const status of getEnumKeys(OrderServiceStatusEnum)) {
-			const totalByStatus = this.analyticData.summary.revenue.total.by.status[status];
-			const countByStatus = this.analyticData.counter.orderService.by.status[status];
-			this.analyticData.summary.revenue.average.by.status[status] = countByStatus > 0 ? totalByStatus / countByStatus : 0;
-
-			// Середній дохід за джерелом
-			for (const source of getEnumKeys(ApplicationEnum)) {
-				const totalBySource = this.analyticData.summary.revenue.total.by.source[source][status];
-				const countBySource = this.analyticData.counter.orderService.by.source[source][status];
-				this.analyticData.summary.revenue.average.by.source[source][status] = countBySource > 0 ? totalBySource / countBySource : 0;
-			}
-
-		}
-
-		// Обчислення середніх значень для кожного спеціаліста
-		for (const specialistId in this.analyticData.specialistRecord) {
-			const specialistData = this.analyticData.specialistRecord[specialistId];
-			this.calculateEntityAverages(specialistData);
-		}
-
-		// Обчислення середніх значень для кожного сервісу
-		for (const serviceId in this.analyticData.serviceRecord) {
-			const serviceData = this.analyticData.serviceRecord[serviceId];
-			this.calculateEntityAverages(serviceData);
-		}
-
-		// Обчислення середніх значень для кожного клієнта
-		for (const customerId in this.analyticData.customerRecord) {
-			const customerData = this.analyticData.customerRecord[customerId];
-			this.calculateEntityAverages(customerData);
-		}
-	}
-
-	/**
-	 * NOTE: #3.1
-	 * Обчислення середніх значень для сутності (спеціаліст, сервіс, клієнт)
-	 * @param entityData
-	 * @private
-	 */
-	private calculateEntityAverages(entityData: Analytic.ICustomer | Analytic.IService | Analytic.ISpecialist): void {
-		entityData.summary.average.serviceTime = entityData.counter.orderService.total > 0
-			? entityData.summary.total.serviceTime / entityData.counter.orderService.total
-			: 0;
-
-		for (const status of getEnumKeys(OrderServiceStatusEnum)) {
-			const totalByStatus = entityData.summary.revenue.total.by.status[status];
-			const countByStatus = entityData.counter.orderService.by.status[status];
-			entityData.summary.revenue.average.by.status[status] = countByStatus > 0 ? totalByStatus / countByStatus : 0;
-
-			for (const source of getEnumKeys(ApplicationEnum)) {
-				const totalBySource = entityData.summary.revenue.total.by.source[source][status];
-				const countBySource = entityData.counter.orderService.by.source[source][status];
-				entityData.summary.revenue.average.by.source[source][status] = countBySource > 0 ? totalBySource / countBySource : 0;
-			}
-
-		}
-	}
-
-	private calculateTotal(): void {
-		// Обчислення загальної кількості спеціалістів
-		this.analyticData.counter.specialists = this.uniqueSpecialists.size;
-
-		// Обчислення загальної кількості сервісів
-		this.analyticData.counter.services = this.uniqueServices.size;
-
-		// Обчислення загальної кількості клієнтів
-		this.analyticData.counter.customers = this.uniqueCustomers.size;
-
-		// Обчислення загальної кількості замовлень
-		this.analyticData.counter.orders.total = this.uniqueOrders.size;
-	}
-
-	private getOrderServiceRecord(service: DateRangeReportAnalyticApi.IService): Analytic.IOrderService {
+	public static getOrderRecordStructure(orderService: Analytic.IOrderService): Analytic.IOrder {
 		return {
-			id: service.orderServiceId,
-			orderId: service.orderId,
-			price: service.price,
-			currency: service.currency,
-			durationInSeconds: service.durationInSeconds,
-			startTime: service.startTime,
-			endTime: service.endTime,
-			createdOn: service.createdOn,
-			wasSelectedAnybody: service.wasSelectedAnybody,
-			status: service.status,
-			customers: service.attendants.map(attendant => {
-				return {
-					id: attendant.customerId,
-					firstName: attendant.firstName,
-					lastName: attendant.lastName,
-					registeredDate: attendant.registeredDate
-				};
-			}),
-			service: {
-				id: service.serviceId,
-				serviceName: service.serviceName
-			}
+			id: orderService.orderId,
+			orderServices: [orderService],
+			specificStatus: OrderStatusEnum.inProgress, // TODO: find better way!
+			source: orderService.createdOn
 		};
 	}
+
 }
 
 // Експорт функції для використання зовнішніми модулями
 export function transformIResponseToAnalytic(iResponse: DateRangeReportAnalyticApi.IResponse): Analytic.I {
 	const processor = new AnalyticProcessor(iResponse);
 	const analyticData = processor.process();
+	console.log({analyticData})
 	return analyticData;
 }
 

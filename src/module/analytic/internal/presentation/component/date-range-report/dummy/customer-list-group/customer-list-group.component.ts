@@ -36,20 +36,23 @@ type T = Analytic.ICustomer | Omit<Analytic.ICustomer, 'specialistRecord'>;
 							</div>
 							<div class="flex flex-wrap gap-2">
 								<div
+									id="customer-summary-revenue-total-by-status-done-{{ index }}"
 									[title]="'analytic.summary.income' | translate"
 									class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full dark:bg-teal-500/10 dark:text-teal-500">
 									{{ customer.summary.revenue.total.by.status.done | currency: baseCurrency: 'symbol-narrow' }}
 								</div>
 								<div
+									id="customer-summary-revenue-average-by-status-done-{{ index }}"
 									[title]="'analytic.summary.averageBill' | translate"
 									class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs bg-gray-100 text-gray-800 rounded-md dark:bg-neutral-500/20 dark:text-neutral-400">
 									{{ customer.summary.revenue.average.by.status.done | currency: baseCurrency: 'symbol-narrow' }}
 								</div>
 								<div
+									id="customer-counter-orders-by-status-done-{{ index }}"
 									[title]="'analytic.summary.totalOrders' | translate"
 									class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs bg-gray-100 text-gray-800 rounded-md dark:bg-neutral-500/20 dark:text-neutral-400">
 									<i class="bi bi-receipt"></i>
-									{{ customer.counter.orders.total }}
+									{{ customer.counter.orders.by.status.done}}
 								</div>
 							</div>
 						</li>
@@ -92,14 +95,19 @@ export class CustomerListGroupComponent implements OnChanges {
 		this.customerList.length = 0;
 		console.log('customerReport', this.customerReport);
 		Object.keys(this.customerReport).forEach((customerId) => {
-			if (!this.customerReport?.[customerId]?.details?.firstName?.length) {
+			const customer = this.customerReport?.[customerId];
+			if (!customer?.details?.firstName?.length) {
+				return;
+			}
+			if (!customer.summary.revenue.total.by.status.done) {
 				return;
 			}
 			this.customerList.push(this.customerReport[customerId]);
 		});
+		console.log('customerList #1', this.customerList);
 		// Sort by revenue
 		this.customerList.sort((a, b) => b.summary.revenue.total.by.status.done - a.summary.revenue.total.by.status.done);
-		console.log('customerList', this.customerList);
+		console.log('customerList #2', this.customerList);
 	}
 
 }

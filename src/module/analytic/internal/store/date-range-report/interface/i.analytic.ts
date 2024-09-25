@@ -2,6 +2,7 @@ import {Types} from "@utility/types";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 import {ApplicationEnum} from "@utility/domain/enum/application.enum";
+import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 
 export namespace Analytic {
 
@@ -61,6 +62,16 @@ export namespace Analytic {
 
 		orders: {
 			total: number;
+			by: {
+				status: {
+					-readonly [status in keyof typeof OrderStatusEnum]: number;
+				};
+				source: {
+					-readonly [createdOn in keyof typeof ApplicationEnum]: {
+						-readonly [status in keyof typeof OrderStatusEnum]: number;
+					};
+				};
+			};
 		};
 		orderService: {
 			total: number;
@@ -147,17 +158,15 @@ export namespace Analytic {
 		serviceRecord: {
 			[serviceId: string]: Omit<IService, 'customerRecord'>;
 		};
-		orderRecord: {
-			[orderId: string]: IOrder;
-		};
-		orderServiceRecord: {
-			[orderServiceId: string]: IOrderService;
-		};
+		order: IOrderAnalytic;
+		orderService: IOrderServiceAnalytic;
 	}
 
 	export interface IOrder {
 		id: string & Types.ObjectId;
-		orderService: IOrderService[];
+		orderServices: IOrderService[];
+		specificStatus: OrderStatusEnum.done | OrderStatusEnum.inProgress;
+		source: ApplicationEnum; // & Types.Default<ApplicationEnum.client>
 	}
 
 	export interface IOrderService {
@@ -168,11 +177,55 @@ export namespace Analytic {
 		durationInSeconds: number & Types.Minimum<0>;
 		startTime: string & Types.DateTime;
 		endTime: string & Types.DateTime;
-		createdOn: ("client" | "panel") & Types.Default<"client">;
+		createdOn: ApplicationEnum; // & Types.Default<ApplicationEnum.client>
 		wasSelectedAnybody: boolean & Types.Default<false>;
-		status: OrderServiceStatusEnum & Types.Default<OrderServiceStatusEnum.accepted>;
+		status: OrderServiceStatusEnum; //  & Types.Default<OrderServiceStatusEnum.accepted>
 		customers: ICustomer['details'][];
 		service: IService['details'];
+		specialist: ISpecialist['details'];
+	}
+
+	export interface IOrderAnalytic {
+		record: {
+			[orderId: string]: IOrder;
+		},
+		by: {
+			status: {
+				-readonly [orderStatus in keyof typeof OrderStatusEnum]: {
+					[orderId: string]: IOrder;
+				};
+			};
+			source: {
+				-readonly [orderServiceCreatedOn in keyof typeof ApplicationEnum]: {
+					-readonly [orderStatus in keyof typeof OrderStatusEnum]: {
+						[orderId: string]: IOrder;
+					};
+				};
+			};
+		}
+	}
+
+	export interface IOrderServiceAnalytic {
+		record: {
+			[orderServiceId: string]: IOrderService;
+		}
+		by: {
+			status: {
+				-readonly [orderServiceStatus in keyof typeof OrderServiceStatusEnum]: {
+					[orderServiceId: string]: IOrderService;
+				};
+			};
+			source: {
+				-readonly [orderServiceCreatedOn in keyof typeof ApplicationEnum]: {
+					-readonly [orderServiceStatus in keyof typeof OrderServiceStatusEnum]: {
+						[orderServiceId: string]: IOrderService;
+					};
+				};
+			};
+			wasSelectedAnybody: {
+				[orderServiceId: string]: IOrderService;
+			};
+		};
 	}
 
 	export interface I {
@@ -192,29 +245,8 @@ export namespace Analytic {
 
 		// TODO: Calendar: {by: {date:{}, month: {}, week: {}, year: {}, hours: {}}}
 
-		orderRecord: {
-			[orderId: string]: IOrder;
-		};
-		orderService: {
-			record: {
-				[orderServiceId: string]: IOrderService;
-			}
-			by: {
-				status: {
-					-readonly [orderServiceStatus in keyof typeof OrderServiceStatusEnum]: {
-						[orderServiceId: string]: IOrderService;
-					};
-				};
-				source: {
-					-readonly [orderServiceCreatedOn in keyof typeof ApplicationEnum]: {
-						[orderServiceId: string]: IOrderService;
-					};
-				};
-				wasSelectedAnybody: {
-					[orderServiceId: string]: IOrderService;
-				};
-			};
-		};
+		order: IOrderAnalytic;
+		orderService: IOrderServiceAnalytic;
 
 		// TODO: Add _meta property to store information about the data source or createdAt, processingDate, hash for cache, etc.
 		_meta: {

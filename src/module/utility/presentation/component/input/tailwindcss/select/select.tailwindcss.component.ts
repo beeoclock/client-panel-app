@@ -89,11 +89,11 @@ import {FormControl} from "@angular/forms";
 
 					@if (item.label.split(' '); as labelParts) {
 						<div
-							class="text-white text-xs font-bold">{{ labelParts[0][0] ?? '' }}
+							class="text-white text-xs font-bold">{{ labelParts?.[0]?.[0] ?? '' }}
 						</div>
 
 						<div
-							class="text-white text-xs font-bold">{{ labelParts[1][0] ?? '' }}
+							class="text-white text-xs font-bold">{{ labelParts?.[1]?.[0] ?? '' }}
 						</div>
 					}
 

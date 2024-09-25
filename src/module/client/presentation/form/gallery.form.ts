@@ -55,7 +55,9 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 
 			// Subscribe to changes in the last image control
 			lastImageControl?.valueChanges.pipe(takeUntil(this.takeUntilLastImage$)).subscribe((value: File) => {
-				if (value.size) {
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-expect-error
+				if (value?.size || value?.length) {
 					// If the value is not empty, add a new image control to the form array
 					this.controls.images.push(GalleryForm.getNewControlWithValidation());
 
@@ -94,10 +96,10 @@ export class GalleryForm extends FormGroup<IGalleryForm> {
 
 		if (!this.controls.images.length || lastImageControl?.value?.size) {
 			this.controls.images.push(GalleryForm.getNewControlWithValidation());
-			initialValue && this.controls.images.at(-1).patchValue(initialValue);
+			if (initialValue) this.controls.images.at(-1).patchValue(initialValue);
 			this.controls.images.push(GalleryForm.getNewControlWithValidation());
 		} else {
-			initialValue && this.controls.images.at(-1).patchValue(initialValue);
+			if (initialValue) this.controls.images.at(-1).patchValue(initialValue);
 		}
 
 		this.initHandlerForLastImage();

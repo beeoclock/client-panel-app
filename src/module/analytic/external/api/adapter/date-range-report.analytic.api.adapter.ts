@@ -6,6 +6,7 @@ import {AnalyticEndpointEnum} from "@module/analytic/external/endpoint/analytic.
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {Types} from "@utility/types";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {ApplicationEnum} from "@utility/domain/enum/application.enum";
 
 export namespace DateRangeReportAnalyticApi {
 
@@ -50,7 +51,7 @@ export namespace DateRangeReportAnalyticApi {
 		durationInSeconds: number & Types.Minimum<0>;
 		startTime: string & Types.DateTime;
 		endTime: string & Types.DateTime;
-		createdOn: ("client" | "panel") & Types.Default<"client">;
+		createdOn: ApplicationEnum & Types.Default<ApplicationEnum.client>;
 		wasSelectedAnybody: boolean & Types.Default<false>;
 		status: OrderServiceStatusEnum & Types.Default<OrderServiceStatusEnum.accepted>;
 		attendants: IAttendee[];

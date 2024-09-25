@@ -44,12 +44,12 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 
 										<div
 											class="text-white text-xs font-bold">
-											{{ labelParts[0][0] ?? '' }}
+											{{ labelParts?.[0]?.[0] ?? '' }}
 										</div>
 
 										<div
 											class="text-white text-xs font-bold">
-											{{ labelParts[1][0] ?? '' }}
+											{{ labelParts?.[1]?.[0] ?? '' }}
 										</div>
 
 									}

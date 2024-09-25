@@ -45,9 +45,9 @@
 												[value]="analytic.summary.revenue.average.by.status.done | currency: baseCurrency: 'symbol'"/>
 
 											<card-overview
-												id="order-total-orders-total"
+												id="order-total-orders-by-status-done"
 												[label]="'analytic.summary.totalOrders' | translate "
-												[value]="analytic.counter.orders.total"/>
+												[value]="analytic.counter.orders.by.status.done"/>
 
 											<card-overview
 												id="order-service-by-status-done"
@@ -88,9 +88,9 @@
 													[value]="specialist.summary.revenue.average.by.status.done | currency: baseCurrency: 'symbol'"/>
 
 												<card-overview
-													id="specialist-summary-total-orders"
+													id="specialist-counter-orders-by-status-done"
 													[label]="'analytic.summary.totalOrders' | translate "
-													[value]="specialist.counter.orders.total"/>
+													[value]="specialist.counter.orders.by.status.done"/>
 
 												<card-overview
 													id="specialist-summary-order-service-by-status-done"
