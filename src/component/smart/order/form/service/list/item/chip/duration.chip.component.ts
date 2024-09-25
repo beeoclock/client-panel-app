@@ -21,6 +21,7 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 import {DateTime} from "luxon";
 import {filter} from "rxjs";
 import {is} from "@utility/checker";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
 	selector: 'app-duration-chip-component',
@@ -33,7 +34,8 @@ import {is} from "@utility/checker";
 		FormInputComponent,
 		HumanizeDurationPipe,
 		IonDatetime,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		TranslateModule
 	],
 	template: `
 		<button
@@ -47,6 +49,8 @@ import {is} from "@utility/checker";
 			<ng-template>
 				<ion-datetime
 					presentation="time"
+					[cancelText]="'keyword.capitalize.cancel' | translate"
+					[doneText]="'keyword.capitalize.done' | translate"
 					[formControl]="durationFormControl"
 					[showDefaultButtons]="true"/>
 			</ng-template>
