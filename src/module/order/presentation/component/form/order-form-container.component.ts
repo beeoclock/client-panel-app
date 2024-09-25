@@ -183,14 +183,15 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		const {order, payment} = this.form.value as { order: IOrderDto, payment: IPaymentDto };
 		this.form.disable();
 		this.form.markAsPending();
-		if (this.isEditMode()) {
 
-			await lastValueFrom(this.dispatchPutPaymentAction$(payment));
-			await lastValueFrom(this.dispatchPutOrderAction$(order));
+		try {
 
-		} else {
+			if (this.isEditMode()) {
 
-			try {
+				await lastValueFrom(this.dispatchPutPaymentAction$(payment));
+				await lastValueFrom(this.dispatchPutOrderAction$(order));
+
+			} else {
 
 				// TODO: Refactoring it into state actions
 				const createOrderResponse = await this.createOrderApiAdapter.executeAsync(order as IOrderDto);
@@ -203,18 +204,18 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 					this.ngxLogger.info('Payment created', createPaymentResponse);
 				}
 
-			} catch (error) {
-
-				this.ngxLogger.error('Error while creating order', error);
-
 			}
+
+			this.store.dispatch(new OrderActions.CloseForm());
+
+		} catch (error) {
+
+			this.ngxLogger.error('Error while creating order', error);
 
 		}
 
 		this.form.enable();
 		this.form.updateValueAndValidity();
-
-		this.store.dispatch(new OrderActions.CloseForm());
 	}
 
 	public override ngOnDestroy() {
