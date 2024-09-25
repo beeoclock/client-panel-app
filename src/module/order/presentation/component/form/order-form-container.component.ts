@@ -151,8 +151,8 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 
 	public async save(): Promise<void> {
 		this.form.markAllAsTouched();
-		this.form.valid && await this.finishSave();
-		this.form.invalid && this.ngxLogger.error('Form is invalid', this.form);
+		if (this.form.valid) await this.finishSave();
+		if (this.form.invalid) this.ngxLogger.error('Form is invalid', this.form);
 	}
 
 	/**
@@ -190,15 +190,23 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 
 		} else {
 
-			// TODO check for error response from order
-			const createOrderResponse = await this.createOrderApiAdapter.executeAsync(order as IOrderDto);
-			this.ngxLogger.info('Order created', createOrderResponse);
+			try {
 
-			payment.orderId = createOrderResponse._id;
+				// TODO: Refactoring it into state actions
+				const createOrderResponse = await this.createOrderApiAdapter.executeAsync(order as IOrderDto);
+				this.ngxLogger.info('Order created', createOrderResponse);
 
-			if (payment.orderId) {
-				const createPaymentResponse = await this.createPaymentApiAdapter.executeAsync(payment as IPaymentDto);
-				this.ngxLogger.info('Payment created', createPaymentResponse);
+				payment.orderId = createOrderResponse._id;
+
+				if (payment.orderId) {
+					const createPaymentResponse = await this.createPaymentApiAdapter.executeAsync(payment as IPaymentDto);
+					this.ngxLogger.info('Payment created', createPaymentResponse);
+				}
+
+			} catch (error) {
+
+				this.ngxLogger.error('Error while creating order', error);
+
 			}
 
 		}
