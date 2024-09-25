@@ -373,6 +373,11 @@
 	"danger-zone": {
 		"button": {
 			"delete": {
+				"confirm": {
+					"message": "Er du sikker på, at du vil slette forretningsklienten, så vil alle data blive slettet, og det vil ikke være muligt at gendanne dem, og alle brugere, der havde adgang til denne forretningsklient, vil også miste adgangen, hvis du kun vil forlade denne forretningsklient, skal du klikke på knappen »Afslut denne forretningsklient«.",
+					"sub-title": "Når du har slettet en erhvervskunde, er der ingen vej tilbage. Vær sikker på det.",
+					"title": "Slet forretningsklient"
+				},
 				"hint": "Det er uigenkaldeligt at slette en virksomhedskonto, så overvej beslutningen nøje.",
 				"label": "Slet virksomhedsprofil",
 				"title": "Sletning af en virksomhedsprofil"
@@ -984,6 +989,7 @@
 			"edit": "Rediger",
 			"email": "E-mail",
 			"end": "Slut",
+			"error": "Fejl",
 			"event": "Begivenhed",
 			"events": "Begivenheder",
 			"every": "Hver",
@@ -1065,6 +1071,7 @@
 			"signUp": "Tilmeld dig",
 			"slogan": "Slogan",
 			"socialMedia": "Sociale medier",
+			"somethingWentWrong": "Noget gik galt!",
 			"soon": "Snart",
 			"specialist": "Specialist",
 			"specialists": "Specialister",
