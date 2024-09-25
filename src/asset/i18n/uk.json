@@ -1049,6 +1049,7 @@
 			"successfully": "Успішно",
 			"theme": "Тема",
 			"thereArentAnyEvents": "Подій немає на {{ datetime }}",
+			"time": "Час",
 			"title": "Назва",
 			"to": "До",
 			"today": "Сьогодні",
@@ -1157,6 +1158,29 @@
 			}
 		},
 		"title": "Учасник"
+	},
+	"notificationSetting": {
+		"cardTitle": "Налаштування сповіщень клієнта",
+		"emailNotificationSettings": {
+			"hint": "Надсилати клієнту сповіщення електронною поштою",
+			"label": "Email сповіщення"
+		},
+		"modal": {
+			"contentTitle": "Оберіть, як сповістити учасників про зміни.",
+			"hint": "Ви бачите це вікно, оскільки в налаштуваннях компанії вказано завжди запитувати, чи надсилати сповіщення учасникам.",
+			"sendEmails": "Надіслати Email",
+			"sendSms": "Надіслати текстове повідомлення",
+			"title": "Сповіщення"
+		},
+		"sendNotificationConditionType": {
+			"allow": "Дозволити",
+			"allowButAsk": "Щоразу запитувати",
+			"deny": "Не надсилати"
+		},
+		"smsNotificationSettings": {
+			"hint": "Надсилати клієнту смс сповіщення",
+			"label": "Sms сповіщення"
+		}
 	},
 	"order": {
 		"button": {
@@ -1444,29 +1468,6 @@
 			"thursday": "Чт",
 			"tuesday": "Вт",
 			"wednesday": "Ср"
-		}
-	},
-	"notificationSetting": {
-		"cardTitle": "Налаштування сповіщень клієнта",
-		"emailNotificationSettings": {
-			"label": "Email сповіщення",
-			"hint": "Надсилати клієнту сповіщення електронною поштою"
-		},
-		"smsNotificationSettings": {
-			"label": "Sms сповіщення",
-			"hint": "Надсилати клієнту смс сповіщення"
-		},
-		"sendNotificationConditionType": {
-			"allow": "Дозволити",
-			"allowButAsk": "Щоразу запитувати",
-			"deny": "Не надсилати"
-		},
-		"modal": {
-			"title": "Сповіщення",
-			"sendEmails": "Надіслати Email",
-			"sendSms": "Надіслати текстове повідомлення",
-			"hint": "Ви бачите це вікно, оскільки в налаштуваннях компанії вказано завжди запитувати, чи надсилати сповіщення учасникам.",
-			"contentTitle": "Оберіть, як сповістити учасників про зміни."
 		}
 	}
 }

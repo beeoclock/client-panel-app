@@ -46,7 +46,17 @@ import {DateTime} from "luxon";
 		</button>
 		<ion-popover [trigger]="'datetime-trigger-' + id" [keepContentsMounted]="true">
 			<ng-template>
-				<ion-datetime [locale]="locale" [formControl]="startFormControl" [showDefaultButtons]="true"/>
+				<ion-datetime
+					[locale]="locale"
+					[lang]="locale"
+					[showDefaultButtons]="true"
+					[formControl]="startFormControl"
+					[cancelText]="'keyword.capitalize.cancel' | translate"
+					[doneText]="'keyword.capitalize.done' | translate">
+					<div slot="time-label">
+						{{ 'keyword.capitalize.time' | translate }}
+					</div>
+				</ion-datetime>
 			</ng-template>
 		</ion-popover>
 	`

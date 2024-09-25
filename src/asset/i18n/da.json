@@ -1049,6 +1049,7 @@
 			"successfully": "Med succes",
 			"theme": "Tema",
 			"thereArentAnyEvents": "Der er ingen begivenheder den {{ datetime }}",
+			"time": "Tid",
 			"title": "Titel",
 			"to": "Til",
 			"today": "I dag",
@@ -1157,6 +1158,29 @@
 			}
 		},
 		"title": "Medlem"
+	},
+	"notificationSetting": {
+		"cardTitle": "Kunde Notifikationsindstillinger",
+		"emailNotificationSettings": {
+			"hint": "Send notifikationer til kunden via e-mail",
+			"label": "E-mail Notifikationer"
+		},
+		"modal": {
+			"contentTitle": "Vælg, hvordan deltagerne skal underrettes om ændringerne.",
+			"hint": "Du ser dette vindue, fordi virksomhedens indstillinger angiver altid at spørge, om der skal sendes beskeder til deltagerne.",
+			"sendEmails": "Send E-mail",
+			"sendSms": "Send SMS",
+			"title": "Notifikation"
+		},
+		"sendNotificationConditionType": {
+			"allow": "Tillad",
+			"allowButAsk": "Spørg Hver Gang",
+			"deny": "Send Ikke"
+		},
+		"smsNotificationSettings": {
+			"hint": "Send notifikationer til kunden via SMS",
+			"label": "SMS Notifikationer"
+		}
 	},
 	"order": {
 		"button": {
@@ -1444,29 +1468,6 @@
 			"thursday": "Tor",
 			"tuesday": "Tir",
 			"wednesday": "Ons"
-		}
-	},
-	"notificationSetting": {
-		"cardTitle": "Kunde Notifikationsindstillinger",
-		"emailNotificationSettings": {
-			"label": "E-mail Notifikationer",
-			"hint": "Send notifikationer til kunden via e-mail"
-		},
-		"smsNotificationSettings": {
-			"label": "SMS Notifikationer",
-			"hint": "Send notifikationer til kunden via SMS"
-		},
-		"sendNotificationConditionType": {
-			"allow": "Tillad",
-			"allowButAsk": "Spørg Hver Gang",
-			"deny": "Send Ikke"
-		},
-		"modal": {
-			"title": "Notifikation",
-			"sendEmails": "Send E-mail",
-			"sendSms": "Send SMS",
-			"hint": "Du ser dette vindue, fordi virksomhedens indstillinger angiver altid at spørge, om der skal sendes beskeder til deltagerne.",
-			"contentTitle": "Vælg, hvordan deltagerne skal underrettes om ændringerne."
 		}
 	}
 }

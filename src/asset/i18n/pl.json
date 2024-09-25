@@ -1049,6 +1049,7 @@
 			"successfully": "Pomyślnie",
 			"theme": "Motyw",
 			"thereArentAnyEvents": "Nie ma żadnych wydarzeń na {{ datetime }}",
+			"time": "Czas",
 			"title": "Tytuł",
 			"to": "Do",
 			"today": "Dziś",
@@ -1157,6 +1158,29 @@
 			}
 		},
 		"title": "Członek"
+	},
+	"notificationSetting": {
+		"cardTitle": "Ustawienia Powiadomień Klienta",
+		"emailNotificationSettings": {
+			"hint": "Wysyłaj powiadomienia do klienta przez e-mail",
+			"label": "Powiadomienia Email"
+		},
+		"modal": {
+			"contentTitle": "Wybierz, jak powiadomić uczestników o zmianach.",
+			"hint": "Widzisz to okno, ponieważ ustawienia firmy określają, aby zawsze pytać, czy wysyłać powiadomienia do uczestników.",
+			"sendEmails": "Wyślij E-mail",
+			"sendSms": "Wyślij Wiadomość SMS",
+			"title": "Powiadomienie"
+		},
+		"sendNotificationConditionType": {
+			"allow": "Zezwól",
+			"allowButAsk": "Pytaj Za Każdym Razem",
+			"deny": "Nie Wysyłaj"
+		},
+		"smsNotificationSettings": {
+			"hint": "Wysyłaj powiadomienia do klienta przez SMS",
+			"label": "Powiadomienia SMS"
+		}
 	},
 	"order": {
 		"button": {
@@ -1444,29 +1468,6 @@
 			"thursday": "Cz",
 			"tuesday": "Wt",
 			"wednesday": "Śr"
-		}
-	},
-	"notificationSetting": {
-		"cardTitle": "Ustawienia Powiadomień Klienta",
-		"emailNotificationSettings": {
-			"label": "Powiadomienia Email",
-			"hint": "Wysyłaj powiadomienia do klienta przez e-mail"
-		},
-		"smsNotificationSettings": {
-			"label": "Powiadomienia SMS",
-			"hint": "Wysyłaj powiadomienia do klienta przez SMS"
-		},
-		"sendNotificationConditionType": {
-			"allow": "Zezwól",
-			"allowButAsk": "Pytaj Za Każdym Razem",
-			"deny": "Nie Wysyłaj"
-		},
-		"modal": {
-			"title": "Powiadomienie",
-			"sendEmails": "Wyślij E-mail",
-			"sendSms": "Wyślij Wiadomość SMS",
-			"hint": "Widzisz to okno, ponieważ ustawienia firmy określają, aby zawsze pytać, czy wysyłać powiadomienia do uczestników.",
-			"contentTitle": "Wybierz, jak powiadomić uczestników o zmianach."
 		}
 	}
 }
