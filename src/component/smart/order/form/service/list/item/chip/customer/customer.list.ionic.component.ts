@@ -36,6 +36,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import ObjectID from "bson-objectid";
 import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.list.customer.adapter";
+import {DefaultButtonDirective} from "@utility/presentation/directives/button/default.button.directive";
 
 @Component({
 	selector: 'app-customer-list-ionic-component',
@@ -59,13 +60,13 @@ import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.
 		IonAvatar,
 		IonCheckbox,
 		IonSpinner,
-		PrimaryButtonDirective
+		PrimaryButtonDirective,
+		DefaultButtonDirective
 	],
 	template: `
 
 		<ion-header>
 			<ion-toolbar>
-
 				<ion-segment (ionChange)="changeCustomerType()"
 							 [formControl]="localCustomerForm.controls.customerType">
 					<ion-segment-button [value]="customerTypeEnum.regular">
@@ -125,6 +126,7 @@ import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.
 							[placeholder]="'keyword.capitalize.search' | translate">
 						</ion-searchbar>
 						<ion-list
+							class="pb-3"
 							[id]="id + 'ion-list'">
 							@for (customer of eventListCustomerAdapter.tableState.items; track customer._id) {
 								<ion-item
@@ -168,7 +170,10 @@ import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.
 			}
 
 		</ion-content>
-		<div class="px-3 pb-3 flex justify-between items-center sticky bottom-0">
+		<div class="px-3 pb-3 gap-3 flex justify-between items-center sticky bottom-0">
+			<button default (click)="cancel()">
+				{{ 'keyword.capitalize.cancel' | translate }}
+			</button>
 			<button primary (click)="done()">
 				{{ 'keyword.capitalize.done' | translate }}
 			</button>
@@ -228,20 +233,14 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 
 	private initLocalFormValue() {
 		this.localCustomerForm.patchValue(this.customerForm.value);
-		if (this.localCustomerForm.value.customerType === CustomerTypeEnum.regular) {
-			this.selectedCustomer = this.localCustomerForm.getRawValue();
-		}
+		this.detectIfCustomerSelect();
 	}
 
 	protected done() {
 
-		if (this.localCustomerForm.invalid && !this.selectedCustomer) return;
+		this.localCustomerForm.markAllAsTouched();
 
-		if (JSON.stringify(this.localCustomerForm.value) === JSON.stringify(this.customerForm.value)) {
-			this.doDone.emit(false);
-			this.changeDetectorRef.detectChanges();
-			return;
-		}
+		if (this.localCustomerForm.invalid) return;
 
 		this.initFormValue();
 		this.doDone.emit(true);
@@ -249,14 +248,19 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 
 	}
 
-	protected changeCustomerType() {
-		this.selectedCustomer = undefined;
-		this.clearForm();
+	protected cancel() {
+		this.doDone.emit(false);
 		this.changeDetectorRef.detectChanges();
 	}
 
-	protected clearForm() {
-		this.customerForm.patchValue({
+	protected changeCustomerType() {
+		this.detectIfCustomerSelect();
+		this.clearLocalForm();
+		this.changeDetectorRef.detectChanges();
+	}
+
+	protected clearLocalForm() {
+		this.localCustomerForm.patchValue({
 			_id: ObjectID().toHexString(),
 			firstName: null,
 			lastName: null,
@@ -271,5 +275,11 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 	}
 
 	protected readonly customerTypeEnum = CustomerTypeEnum;
+
+	private detectIfCustomerSelect() {
+		if (this.customerForm.value.customerType === CustomerTypeEnum.regular) {
+			this.selectedCustomer = this.customerForm.getRawValue();
+		}
+	}
 
 }
