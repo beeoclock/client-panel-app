@@ -1438,5 +1438,28 @@
 			"tuesday": "Tir",
 			"wednesday": "Ons"
 		}
+	},
+	"notificationSetting": {
+		"cardTitle": "Kunde Notifikationsindstillinger",
+		"emailNotificationSettings": {
+			"label": "E-mail Notifikationer",
+			"hint": "Send notifikationer til kunden via e-mail"
+		},
+		"smsNotificationSettings": {
+			"label": "SMS Notifikationer",
+			"hint": "Send notifikationer til kunden via SMS"
+		},
+		"sendNotificationConditionType": {
+			"allow": "Tillad",
+			"allowButAsk": "Spørg Hver Gang",
+			"deny": "Send Ikke"
+		},
+		"modal": {
+			"title": "Notifikation",
+			"sendEmails": "Send E-mail",
+			"sendSms": "Send SMS",
+			"hint": "Du ser dette vindue, fordi virksomhedens indstillinger angiver altid at spørge, om der skal sendes beskeder til deltagerne.",
+			"contentTitle": "Vælg, hvordan deltagerne skal underrettes om ændringerne."
+		}
 	}
 }

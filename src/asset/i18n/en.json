@@ -1438,5 +1438,28 @@
 			"tuesday": "Tue",
 			"wednesday": "Wed"
 		}
+	},
+	"notificationSetting": {
+		"cardTitle": "Customer Notification Settings",
+		"emailNotificationSettings": {
+			"label": "Email Notifications",
+			"hint": "Send notifications to the customer via email"
+		},
+		"smsNotificationSettings": {
+			"label": "SMS Notifications",
+			"hint": "Send notifications to the customer via SMS"
+		},
+		"sendNotificationConditionType": {
+			"allow": "Allow",
+			"allowButAsk": "Ask Each Time",
+			"deny": "Do Not Send"
+		},
+		"modal": {
+			"title": "Notification",
+			"sendEmails": "Send Email",
+			"sendSms": "Send Text Message",
+			"hint": "You are seeing this window because the company settings specify to always ask whether to send notifications to participants.",
+			"contentTitle": "Choose how to notify participants about the changes."
+		}
 	}
 }

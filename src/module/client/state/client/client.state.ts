@@ -9,6 +9,7 @@ import {
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
 import {BASE_CURRENCY} from "@src/token";
+import {INotificationsSettings} from "@client/domain";
 
 interface IClientState {
 	item: Client.RIClient | undefined;
@@ -26,6 +27,11 @@ export class ClientState {
 	@Selector()
 	public static item(state: IClientState): Client.RIClient | undefined {
 		return state.item;
+	}
+
+	@Selector()
+	public static notificationSettings(state: IClientState): INotificationsSettings | undefined {
+		return state.item?.notificationSettings;
 	}
 
 	@Selector()

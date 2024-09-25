@@ -1438,5 +1438,28 @@
 			"tuesday": "Wt",
 			"wednesday": "Śr"
 		}
+	},
+	"notificationSetting": {
+		"cardTitle": "Ustawienia Powiadomień Klienta",
+		"emailNotificationSettings": {
+			"label": "Powiadomienia Email",
+			"hint": "Wysyłaj powiadomienia do klienta przez e-mail"
+		},
+		"smsNotificationSettings": {
+			"label": "Powiadomienia SMS",
+			"hint": "Wysyłaj powiadomienia do klienta przez SMS"
+		},
+		"sendNotificationConditionType": {
+			"allow": "Zezwól",
+			"allowButAsk": "Pytaj Za Każdym Razem",
+			"deny": "Nie Wysyłaj"
+		},
+		"modal": {
+			"title": "Powiadomienie",
+			"sendEmails": "Wyślij E-mail",
+			"sendSms": "Wyślij Wiadomość SMS",
+			"hint": "Widzisz to okno, ponieważ ustawienia firmy określają, aby zawsze pytać, czy wysyłać powiadomienia do uczestników.",
+			"contentTitle": "Wybierz, jak powiadomić uczestników o zmianach."
+		}
 	}
 }
