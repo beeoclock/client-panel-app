@@ -342,6 +342,11 @@
 	"danger-zone": {
 		"button": {
 			"delete": {
+				"confirm": {
+					"message": "Are you sure that you want to delete the business client, then all data will be deleted and it will not be possible to restore them, and all users who had access to this business client will also lose access, if you only want to leave this business client, click on the \"Exit this business client\" button.",
+					"sub-title": "Once you delete a business client, there is no going back. Please be certain.",
+					"title": "Delete Business Client"
+				},
 				"hint": "Deleting a business account is irreversible, so consider this decision carefully.",
 				"label": "Delete business profile",
 				"title": "Deleting a business profile"
@@ -952,6 +957,7 @@
 			"edit": "Edit",
 			"email": "E-mail",
 			"end": "End",
+			"error": "Error",
 			"event": "Event",
 			"events": "Events",
 			"every": "Every",
@@ -1032,6 +1038,7 @@
 			"signUp": "Sign up",
 			"slogan": "Slogan",
 			"socialMedia": "Social media",
+			"somethingWentWrong": "Something went wrong!",
 			"soon": "Soon",
 			"specialist": "Specialist",
 			"specialists": "Specialists",
