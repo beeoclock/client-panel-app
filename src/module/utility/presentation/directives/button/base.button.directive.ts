@@ -16,6 +16,7 @@ export const baseButtonClassList = [
 	'gap-2',
 	"w-full",
 	"justify-center",
+	"items-center",
 	"rounded-2xl",
 	"dark:bg-black",
 	"px-3",
