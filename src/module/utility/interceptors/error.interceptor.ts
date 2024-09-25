@@ -18,9 +18,17 @@ export const ErrorInterceptor: HttpInterceptorFn = (request, next) => {
 		catchError((response: HttpErrorResponse) => {
 			const {error} = response;
 
+			let message = 'Unknown';
+
+			if (typeof error === 'string') {
+				message = error;
+			} else {
+				message = error?.message ?? message;
+			}
+
 			toastController.create({
 				header: error?.error ?? 'Error',
-				message: error?.message ?? 'Unknown',
+				message,
 				duration: 10_000,
 				buttons: [
 					{
