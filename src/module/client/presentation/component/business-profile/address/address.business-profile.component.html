@@ -1,48 +1,48 @@
 <bee-card *ngIf="form">
 
-  <strong class="dark:text-white">{{ 'client.profile.form.section.address.title' | translate }}</strong>
+	<strong class="dark:text-white">{{ 'client.profile.form.section.address.title' | translate }}</strong>
 
-  <country-select-component
+	<country-select-component
 		[hidden]="hideInputList.includes('country')"
-    [control]="form.controls.country"/>
+		[control]="form.controls.country"/>
 
-  <form-input
-    id="business-profile-form-address-city-input"
-    inputType="text"
-    autocomplete="city"
+	<form-input
+		id="business-profile-form-address-city-input"
+		inputType="text"
+		autocomplete="city"
 		[hidden]="hideInputList.includes('city')"
-    [placeholder]="'client.profile.form.section.address.input.city.placeholder' | translate"
-    [control]="form.controls.city"
-    [label]="'keyword.capitalize.city' | translate"/>
+		[placeholder]="'client.profile.form.section.address.input.city.placeholder' | translate"
+		[control]="form.controls.city"
+		[label]="'keyword.capitalize.city' | translate"/>
 
-  <form-input
-    id="business-profile-form-address-zipCode-input"
-    inputType="text"
-    autocomplete="zipCode"
+	<form-input
+		id="business-profile-form-address-zipCode-input"
+		inputType="text"
+		autocomplete="zipCode"
 		[hidden]="hideInputList.includes('zipCode')"
-    [placeholder]="'client.profile.form.section.address.input.zipCode.placeholder' | translate"
-    [control]="form.controls.zipCode"
-    [label]="'keyword.capitalize.zipCode' | translate"/>
+		[placeholder]="'client.profile.form.section.address.input.zipCode.placeholder' | translate"
+		[control]="form.controls.zipCode"
+		[label]="'keyword.capitalize.zipCode' | translate"/>
 
-  <form-input
-    id="business-profile-form-address-streetAddressLineOne-input"
-    inputType="text"
-    autocomplete="streetAddressLineOne"
+	<form-input
+		id="business-profile-form-address-streetAddressLineOne-input"
+		inputType="text"
+		autocomplete="streetAddressLineOne"
 		[hidden]="hideInputList.includes('addressLineOne')"
-    [placeholder]="'client.profile.form.section.address.input.streetAddressLineTwo.placeholder' | translate"
-    [control]="form.controls.streetAddressLineOne"
-    [label]="'keyword.capitalize.streetAddressLineOne' | translate"/>
+		[placeholder]="'client.profile.form.section.address.input.streetAddressLineOne.placeholder' | translate"
+		[control]="form.controls.streetAddressLineOne"
+		[label]="'keyword.capitalize.streetAddressLineOne' | translate"/>
 
-  <form-input
-    id="business-profile-form-address-streetAddressLineTwo-input"
-    inputType="text"
-    autocomplete="streetAddressLineTwo"
+	<form-input
+		id="business-profile-form-address-streetAddressLineTwo-input"
+		inputType="text"
+		autocomplete="streetAddressLineTwo"
 		[hidden]="hideInputList.includes('addressLineTwo')"
-    [placeholder]="'client.profile.form.section.address.input.streetAddressLineTwo.placeholder' | translate"
-    [control]="form.controls.streetAddressLineTwo"
-    [label]="'keyword.capitalize.streetAddressLineTwo' | translate"/>
+		[placeholder]="'client.profile.form.section.address.input.streetAddressLineTwo.placeholder' | translate"
+		[control]="form.controls.streetAddressLineTwo"
+		[label]="'keyword.capitalize.streetAddressLineTwo' | translate"/>
 
-  <div>
+	<div>
 		<form-input
 			id="business-profile-form-address-customLink-input"
 			inputType="text"
