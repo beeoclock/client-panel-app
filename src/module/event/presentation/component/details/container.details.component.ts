@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input} from "@angular/core";
+import {Component, HostBinding, inject, Input, OnInit} from "@angular/core";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {GeneralDetailsComponent} from "@event/presentation/component/details/general.details.component";
@@ -12,6 +12,11 @@ import {V2ButtonsDetailsComponent} from "@event/presentation/component/details/v
 import {
 	ButtonOpenOrderDetailsComponent
 } from "@event/presentation/component/details/button.open-order.details.component";
+import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
+import {OrderActions} from "@order/state/order/order.actions";
+import {Reactive} from "@utility/cdk/reactive";
+import {EventActions} from "@event/state/event/event.actions";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
 	selector: 'event-container-details-component',
@@ -44,12 +49,39 @@ import {
 		</ng-template>
 	`
 })
-export class ContainerDetailsComponent {
+export class ContainerDetailsComponent extends Reactive implements OnInit {
 
 	@Input({required: true})
 	public event!: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>;
 
 	@HostBinding()
 	public class = 'pb-48 block';
+
+	private readonly store = inject(Store);
+	private readonly actions$ = inject(Actions);
+	private readonly ngxLogger = inject(NGXLogger);
+
+	public ngOnInit(): void {
+
+		this.actions$
+			.pipe(
+				this.takeUntil(),
+				ofActionSuccessful(
+					OrderActions.DeleteItem,
+				)
+			)
+			.subscribe(({payload: orderId}) => {
+
+				if (this.event.originalData.order._id !== orderId) {
+					return;
+				}
+
+				this.ngxLogger.debug('ContainerDetailsComponent.ngOnInit', `Order ${orderId} deleted, closing dialog`);
+
+				// Close the dialog
+				this.store.dispatch(new EventActions.CloseDetails());
+			});
+
+	}
 
 }
