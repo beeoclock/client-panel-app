@@ -47,11 +47,13 @@ import {SpecialistModel} from "@service/domain/model/specialist.model";
 	],
 	template: `
 		<div class="justify-start items-start gap-1 flex w-full">
-			<div class="justify-start items-center gap-1.5 flex flex-1">
-				<div
-					class="w-3 flex h-[34px] items-center justify-start min-h-full rounded-xl"
-					[style.background-color]="service.presentation.color">
-					{{ service.presentation.color ? '' : '❓' }}
+			<div class="justify-start gap-1.5 flex flex-1">
+				<div class="block py-0.5 min-h-[32px]">
+					<div
+						class="h-full rounded-xl w-2 flex items-center"
+						[style.background-color]="service.presentation.color">
+						{{ service.presentation.color ? '' : '❓' }}
+					</div>
 				</div>
 				<div class="justify-start items-center flex">
 					<div class="text-black text-sm font-bold">
