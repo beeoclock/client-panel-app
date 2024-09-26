@@ -34,7 +34,7 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 	],
 	template: `
 		<utility-default-panel-component>
-			<div *ngIf="isNotMobile$ | async" class="flex overflow-x-auto gap-4">
+			<div *ngIf="isNotMobile$ | async" class="flex overflow-x-auto gap-2">
 				<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
 				<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
 				<ng-container *ngTemplateOutlet="SelectOrderStatus"></ng-container>
