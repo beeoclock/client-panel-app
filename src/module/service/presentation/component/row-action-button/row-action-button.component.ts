@@ -3,7 +3,7 @@ import {ActionComponent} from "@utility/presentation/component/table/column/acti
 import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
 import {ServiceActions} from "@service/state/service/service.actions";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router, RouterLink} from "@angular/router";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 
@@ -46,6 +46,7 @@ export class RowActionButtonComponent {
 	@Input({required: true})
 	public item!: IServiceDto;
 
+	private readonly translateService = inject(TranslateService);
 	private readonly store = inject(Store);
 	private readonly router = inject(Router);
 	public readonly returnUrl = this.router.url;
@@ -78,6 +79,9 @@ export class RowActionButtonComponent {
 			componentInputs: {
 				isEditMode: true,
 				item: this.item
+			},
+			pushBoxInputs: {
+				title: this.translateService.instant('service.form.title.edit')
 			}
 		}));
 	}
