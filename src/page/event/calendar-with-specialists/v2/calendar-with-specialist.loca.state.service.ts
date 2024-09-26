@@ -5,6 +5,7 @@ import {BehaviorSubject} from "rxjs";
 import {
 	EventCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/event.calendar-with-specialist.widget.component";
+import {FormControl} from "@angular/forms";
 
 @Injectable({
 	providedIn: 'root'
@@ -21,6 +22,10 @@ export default class CalendarWithSpecialistLocaStateService {
 	public readonly oneHourForPx = 120;
 	public readonly oneHourInPx = `${this.oneHourForPx}px`;
 	public readonly oneMinuteForPx = this.oneHourForPx / 60;
+
+	public readonly movementInMinutesControl = new FormControl<number>(1, {
+		nonNullable: true
+	});
 
 	public readonly hourRowListInPx = Array.from({length: 24}, (_, i) => {
 		return {

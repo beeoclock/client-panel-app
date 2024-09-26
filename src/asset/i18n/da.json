@@ -417,6 +417,12 @@
 				"subHeader": {
 					"important": "Opmærksomhed, store ændringer"
 				}
+			},
+			"settings": {
+				"move-minute": {
+					"description": "På få minutter",
+					"title": "Bevægelse"
+				}
 			}
 		},
 		"details": {

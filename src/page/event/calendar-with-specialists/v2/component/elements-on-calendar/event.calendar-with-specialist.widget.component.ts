@@ -253,8 +253,6 @@ export class EventCalendarWithSpecialistWidgetComponent {
 			return;
 		}
 
-		this.ngxLogger.debug('EventCalendarWithSpecialistWidgetComponent:someUpdateFromExternal', {rect, parentRect});
-
 		const newStartPosition = ((rect.top - parentRect.top) - this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx);
 
 		// Calculate new start and duration

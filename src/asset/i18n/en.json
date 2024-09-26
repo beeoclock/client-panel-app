@@ -417,6 +417,12 @@
 				"subHeader": {
 					"important": "Attention, major changes"
 				}
+			},
+			"settings": {
+				"move-minute": {
+					"description": "In minutes",
+					"title": "Movement"
+				}
 			}
 		},
 		"details": {
