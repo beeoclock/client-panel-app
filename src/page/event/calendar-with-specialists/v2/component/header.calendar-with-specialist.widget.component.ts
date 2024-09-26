@@ -5,12 +5,12 @@ import {NgIf} from "@angular/common";
 @Component({
 	selector: 'event-header-calendar-with-specialist-widget-component',
 	template: `
-		<ng-container *ngIf="member">
+		@if (member) {
 			<div
 				class="dark:text-slate-200 flex font-medium gap-1 h-full items-center justify-start px-1 text-slate-900 text-sm">
 				<div class="rounded-full bg-beeColor-400 min-h-8 min-w-8 flex justify-center items-center">
 
-					@if (member?.avatar?.url) {
+					@if (member.avatar?.url) {
 
 						<img [src]="member.avatar.url"
 							 class="min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 rounded-full object-cover" alt="">
@@ -25,7 +25,7 @@ import {NgIf} from "@angular/common";
 				</div>
 				<div class="line-clamp-2">{{ getMemberFirstName }} {{ getMemberLastName }}</div>
 			</div>
-		</ng-container>
+		}
 	`,
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,

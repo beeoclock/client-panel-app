@@ -37,6 +37,7 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 import ObjectID from "bson-objectid";
 import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.list.customer.adapter";
 import {DefaultButtonDirective} from "@utility/presentation/directives/button/default.button.directive";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
 	selector: 'app-customer-list-ionic-component',
@@ -193,6 +194,7 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 	protected readonly store = inject(Store);
 	protected readonly localCustomerForm = CustomerForm.create();
 
+	public readonly ngxLogger = inject(NGXLogger);
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly eventListCustomerAdapter = inject(EventListCustomerAdapter);
 
@@ -215,6 +217,7 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 
 	public select(customer: ICustomer) {
 		this.selectedCustomer = customer;
+		this.localCustomerForm.patchValue(customer);
 		this.changeDetectorRef.detectChanges();
 	}
 
@@ -224,10 +227,6 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 	}
 
 	private initFormValue() {
-		if (this.selectedCustomer) {
-			this.customerForm.patchValue(this.selectedCustomer);
-			return;
-		}
 		this.customerForm.patchValue(this.localCustomerForm.value);
 	}
 
@@ -240,7 +239,10 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 
 		this.localCustomerForm.markAllAsTouched();
 
-		if (this.localCustomerForm.invalid) return;
+		if (this.localCustomerForm.invalid) {
+			this.ngxLogger.error('Form is invalid', this.localCustomerForm.errors);
+			return;
+		}
 
 		this.initFormValue();
 		this.doDone.emit(true);
@@ -266,7 +268,8 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 			lastName: null,
 			email: null,
 			phone: null,
-		})
+		});
+		this.localCustomerForm.markAsUntouched();
 	}
 
 	protected async nextPage() {
