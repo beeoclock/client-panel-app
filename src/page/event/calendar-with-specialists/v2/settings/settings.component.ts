@@ -22,7 +22,7 @@ import {Reactive} from "@utility/cdk/reactive";
 		DefaultButtonDirective,
 		IonPopover,
 		ReactiveFormsModule,
-		TranslateModule
+		TranslateModule,
 	]
 })
 export class SettingsComponent extends Reactive implements OnInit {
@@ -44,7 +44,7 @@ export class SettingsComponent extends Reactive implements OnInit {
 
 	public minus() {
 		const currentValue = this.control.value;
-		if (currentValue === 0) {
+		if (currentValue <= 1) {
 			return;
 		}
 		this.control.setValue(currentValue - 1);
@@ -52,7 +52,13 @@ export class SettingsComponent extends Reactive implements OnInit {
 
 	public ngOnInit(): void {
 		this.control.valueChanges.pipe(this.takeUntil()).subscribe((value) => {
-			console.log(value);
+			if (value === null) {
+				return;
+			}
+			if (value < 1) {
+				this.control.setValue(1);
+				return;
+			}
 			this.save();
 		});
 		this.restore();
