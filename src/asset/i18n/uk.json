@@ -417,6 +417,12 @@
 				"subHeader": {
 					"important": "Увага, важливі зміни"
 				}
+			},
+			"settings": {
+				"move-minute": {
+					"description": "В хвилинах",
+					"title": "Переміщення"
+				}
 			}
 		},
 		"details": {

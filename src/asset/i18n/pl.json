@@ -417,6 +417,12 @@
 				"subHeader": {
 					"important": "Uwaga, poważne zmiany"
 				}
+			},
+			"settings": {
+				"move-minute": {
+					"description": "W minutach",
+					"title": "Przemieszczanie"
+				}
 			}
 		},
 		"details": {
