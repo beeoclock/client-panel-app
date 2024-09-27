@@ -342,6 +342,11 @@
 	"danger-zone": {
 		"button": {
 			"delete": {
+				"confirm": {
+					"message": "Er du sikker på, at du vil slette forretningsklienten, så vil alle data blive slettet, og det vil ikke være muligt at gendanne dem, og alle brugere, der havde adgang til denne forretningsklient, vil også miste adgangen, hvis du kun vil forlade denne forretningsklient, skal du klikke på knappen »Afslut denne forretningsklient«.",
+					"sub-title": "Når du har slettet en erhvervskunde, er der ingen vej tilbage. Vær sikker på det.",
+					"title": "Slet forretningsklient"
+				},
 				"hint": "Det er uigenkaldeligt at slette en virksomhedskonto, så overvej beslutningen nøje.",
 				"label": "Slet virksomhedsprofil",
 				"title": "Sletning af en virksomhedsprofil"
@@ -411,6 +416,12 @@
 				},
 				"subHeader": {
 					"important": "Opmærksomhed, store ændringer"
+				}
+			},
+			"settings": {
+				"move-minute": {
+					"description": "På få minutter",
+					"title": "Bevægelse"
 				}
 			}
 		},
@@ -952,6 +963,7 @@
 			"edit": "Rediger",
 			"email": "E-mail",
 			"end": "Slut",
+			"error": "Fejl",
 			"event": "Begivenhed",
 			"events": "Begivenheder",
 			"every": "Hver",
@@ -1032,6 +1044,7 @@
 			"signUp": "Tilmeld dig",
 			"slogan": "Slogan",
 			"socialMedia": "Sociale medier",
+			"somethingWentWrong": "Noget gik galt!",
 			"soon": "Snart",
 			"specialist": "Specialist",
 			"specialists": "Specialister",
@@ -1042,6 +1055,7 @@
 			"successfully": "Med succes",
 			"theme": "Tema",
 			"thereArentAnyEvents": "Der er ingen begivenheder den {{ datetime }}",
+			"time": "Tid",
 			"title": "Titel",
 			"to": "Til",
 			"today": "I dag",
@@ -1150,6 +1164,29 @@
 			}
 		},
 		"title": "Medlem"
+	},
+	"notificationSetting": {
+		"cardTitle": "Kunde Notifikationsindstillinger",
+		"emailNotificationSettings": {
+			"hint": "Send notifikationer til kunden via e-mail",
+			"label": "E-mail Notifikationer"
+		},
+		"modal": {
+			"contentTitle": "Vælg, hvordan deltagerne skal underrettes om ændringerne.",
+			"hint": "Du ser dette vindue, fordi virksomhedens indstillinger angiver altid at spørge, om der skal sendes beskeder til deltagerne.",
+			"sendEmails": "Send E-mail",
+			"sendSms": "Send SMS",
+			"title": "Notifikation"
+		},
+		"sendNotificationConditionType": {
+			"allow": "Tillad",
+			"allowButAsk": "Spørg Hver Gang",
+			"deny": "Send Ikke"
+		},
+		"smsNotificationSettings": {
+			"hint": "Send notifikationer til kunden via SMS",
+			"label": "SMS Notifikationer"
+		}
 	},
 	"order": {
 		"button": {
@@ -1437,29 +1474,6 @@
 			"thursday": "Tor",
 			"tuesday": "Tir",
 			"wednesday": "Ons"
-		}
-	},
-	"notificationSetting": {
-		"cardTitle": "Kunde Notifikationsindstillinger",
-		"emailNotificationSettings": {
-			"label": "E-mail Notifikationer",
-			"hint": "Send notifikationer til kunden via e-mail"
-		},
-		"smsNotificationSettings": {
-			"label": "SMS Notifikationer",
-			"hint": "Send notifikationer til kunden via SMS"
-		},
-		"sendNotificationConditionType": {
-			"allow": "Tillad",
-			"allowButAsk": "Spørg Hver Gang",
-			"deny": "Send Ikke"
-		},
-		"modal": {
-			"title": "Notifikation",
-			"sendEmails": "Send E-mail",
-			"sendSms": "Send SMS",
-			"hint": "Du ser dette vindue, fordi virksomhedens indstillinger angiver altid at spørge, om der skal sendes beskeder til deltagerne.",
-			"contentTitle": "Vælg, hvordan deltagerne skal underrettes om ændringerne."
 		}
 	}
 }

@@ -82,7 +82,8 @@ bootstrapApplication(MainRouterOutlet, {
 			IonicModule.forRoot({
 				mode: 'ios',
 				animated: false,
-				rippleEffect: false
+				rippleEffect: false,
+				innerHTMLTemplatesEnabled: true,
 			}),
 			TranslateModule.forRoot({
 				useDefaultLang: true,

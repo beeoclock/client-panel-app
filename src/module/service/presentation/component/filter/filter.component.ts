@@ -35,7 +35,7 @@ import {
 	],
 	template: `
 		<utility-default-panel-component>
-			<div *ngIf="isNotMobile$ | async" class="flex overflow-x-auto gap-4">
+			<div *ngIf="isNotMobile$ | async" class="flex overflow-x-auto gap-2">
 				<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
 				<ng-container *ngTemplateOutlet="ServiceActiveSelect"></ng-container>
 				<service-auto-refresh-component/>

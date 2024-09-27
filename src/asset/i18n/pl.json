@@ -342,6 +342,11 @@
 	"danger-zone": {
 		"button": {
 			"delete": {
+				"confirm": {
+					"message": "Czy na pewno chcesz usunąć klienta biznesowego, wszystkie dane zostaną usunięte i nie będzie można ich przywrócić, a wszyscy użytkownicy, którzy mieli dostęp do tego klienta biznesowego, również utracą dostęp, jeśli chcesz tylko opuścić tego klienta biznesowego, kliknij przycisk „Wyjdź z tego klienta biznesowego”.",
+					"sub-title": "Po usunięciu klienta biznesowego nie ma możliwości powrotu. Upewnij się.",
+					"title": "Usuń klienta biznesowego"
+				},
 				"hint": "Usunięcie konta firmowego jest nieodwracalne, dlatego należy dokładnie rozważyć tę decyzję.",
 				"label": "Usuń profil biznesowy",
 				"title": "Usuwanie profilu biznesowego"
@@ -411,6 +416,12 @@
 				},
 				"subHeader": {
 					"important": "Uwaga, poważne zmiany"
+				}
+			},
+			"settings": {
+				"move-minute": {
+					"description": "W minutach",
+					"title": "Przemieszczanie"
 				}
 			}
 		},
@@ -952,6 +963,7 @@
 			"edit": "Edytuj",
 			"email": "E-mail",
 			"end": "Koniec",
+			"error": "Błąd",
 			"event": "Wydarzenie",
 			"events": "Wydarzenia",
 			"every": "Każdą",
@@ -1032,6 +1044,7 @@
 			"signUp": "Zarejestruj się",
 			"slogan": "Slogan",
 			"socialMedia": "Media społecznościowe",
+			"somethingWentWrong": "Coś poszło nie tak!",
 			"soon": "Wkrótce",
 			"specialist": "Specjalista",
 			"specialists": "Specjaliści",
@@ -1042,6 +1055,7 @@
 			"successfully": "Pomyślnie",
 			"theme": "Motyw",
 			"thereArentAnyEvents": "Nie ma żadnych wydarzeń na {{ datetime }}",
+			"time": "Czas",
 			"title": "Tytuł",
 			"to": "Do",
 			"today": "Dziś",
@@ -1150,6 +1164,29 @@
 			}
 		},
 		"title": "Członek"
+	},
+	"notificationSetting": {
+		"cardTitle": "Ustawienia Powiadomień Klienta",
+		"emailNotificationSettings": {
+			"hint": "Wysyłaj powiadomienia do klienta przez e-mail",
+			"label": "Powiadomienia Email"
+		},
+		"modal": {
+			"contentTitle": "Wybierz, jak powiadomić uczestników o zmianach.",
+			"hint": "Widzisz to okno, ponieważ ustawienia firmy określają, aby zawsze pytać, czy wysyłać powiadomienia do uczestników.",
+			"sendEmails": "Wyślij E-mail",
+			"sendSms": "Wyślij Wiadomość SMS",
+			"title": "Powiadomienie"
+		},
+		"sendNotificationConditionType": {
+			"allow": "Zezwól",
+			"allowButAsk": "Pytaj Za Każdym Razem",
+			"deny": "Nie Wysyłaj"
+		},
+		"smsNotificationSettings": {
+			"hint": "Wysyłaj powiadomienia do klienta przez SMS",
+			"label": "Powiadomienia SMS"
+		}
 	},
 	"order": {
 		"button": {
@@ -1437,29 +1474,6 @@
 			"thursday": "Cz",
 			"tuesday": "Wt",
 			"wednesday": "Śr"
-		}
-	},
-	"notificationSetting": {
-		"cardTitle": "Ustawienia Powiadomień Klienta",
-		"emailNotificationSettings": {
-			"label": "Powiadomienia Email",
-			"hint": "Wysyłaj powiadomienia do klienta przez e-mail"
-		},
-		"smsNotificationSettings": {
-			"label": "Powiadomienia SMS",
-			"hint": "Wysyłaj powiadomienia do klienta przez SMS"
-		},
-		"sendNotificationConditionType": {
-			"allow": "Zezwól",
-			"allowButAsk": "Pytaj Za Każdym Razem",
-			"deny": "Nie Wysyłaj"
-		},
-		"modal": {
-			"title": "Powiadomienie",
-			"sendEmails": "Wyślij E-mail",
-			"sendSms": "Wyślij Wiadomość SMS",
-			"hint": "Widzisz to okno, ponieważ ustawienia firmy określają, aby zawsze pytać, czy wysyłać powiadomienia do uczestników.",
-			"contentTitle": "Wybierz, jak powiadomić uczestników o zmianach."
 		}
 	}
 }

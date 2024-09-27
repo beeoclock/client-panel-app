@@ -43,28 +43,28 @@ import {TranslateModule} from "@ngx-translate/core";
 			[id]="'select-specialist' + id"
 			class="p-1 rounded-lg border border-gray-200 justify-center items-center flex">
 
-			@if (specialistFormControl.value) {
+			@if (specialistFormControl.value; as specialist) {
 
 				<div
 					class="rounded-full bg-beeColor-400 min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 flex justify-center items-center">
-					@if (specialistFormControl.value?.member?.avatar?.url) {
+					@if (specialist.member.avatar?.url) {
 
-						<img [src]="specialistFormControl.value?.member?.avatar?.url"
+						<img [src]="specialist.member.avatar?.url"
 							 class="min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 rounded-full object-cover"
 							 alt="">
 					} @else {
 
 						<div
-							class="text-white text-xs font-bold">{{ specialistFormControl.value?.member?.firstName?.[0] ?? '' }}
+							class="text-white text-xs font-bold">{{ (specialist.member.firstName ?? '')[0] }}
 						</div>
 						<div
-							class="text-white text-xs font-bold">{{ specialistFormControl.value?.member?.lastName?.[0] ?? '' }}
+							class="text-white text-xs font-bold">{{ (specialist.member.lastName ?? '')[0] }}
 						</div>
 
 					}
 				</div>
 				<div class="text-slate-900 text-sm font-normal px-2">
-					{{ specialistFormControl.value?.member?.firstName }}
+					{{ specialist.member.firstName }}
 				</div>
 
 			} @else {
@@ -79,25 +79,27 @@ import {TranslateModule} from "@ngx-translate/core";
 		<ion-popover #selectSpecialistPopover [trigger]="'select-specialist' + id">
 			<ng-template>
 				<ion-list>
-					<ion-item [button]="true" lines="full" [detail]="false" *ngFor="let member of members"
-							  (click)="setMemberAsSpecialist(member);selectSpecialistPopover.dismiss()">
-						<div
-							slot="start"
-							class="rounded-full bg-beeColor-400 min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 flex justify-center items-center">
-							@if (member?.avatar?.url) {
-								<img [src]="member?.avatar?.url"
-									 class="min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 rounded-full object-cover"
-									 alt="">
-							} @else {
+					@for (member of members; track member._id) {
+						<ion-item [button]="true" lines="full" [detail]="false"
+								  (click)="setMemberAsSpecialist(member);selectSpecialistPopover.dismiss()">
+							<div
+								slot="start"
+								class="rounded-full bg-beeColor-400 min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 flex justify-center items-center">
+								@if (member.avatar?.url) {
+									<img [src]="member?.avatar?.url"
+										 class="min-h-7 min-w-7 max-h-7 max-w-7 h-7 w-7 rounded-full object-cover"
+										 alt="">
+								} @else {
 
-								<div class="text-white text-xs font-bold">{{ member?.firstName?.[0] ?? '' }}
-								</div>
-								<div class="text-white text-xs font-bold">{{ member?.lastName?.[0] ?? '' }}
-								</div>
-							}
-						</div>
-						<ion-label>{{ member.firstName }}</ion-label>
-					</ion-item>
+									<div class="text-white text-xs font-bold">{{ member.firstName?.[0] ?? '' }}
+									</div>
+									<div class="text-white text-xs font-bold">{{ member.lastName?.[0] ?? '' }}
+									</div>
+								}
+							</div>
+							<ion-label>{{ member.firstName }}</ion-label>
+						</ion-item>
+					}
 				</ion-list>
 			</ng-template>
 		</ion-popover>

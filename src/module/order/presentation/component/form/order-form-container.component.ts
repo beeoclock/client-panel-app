@@ -151,8 +151,8 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 
 	public async save(): Promise<void> {
 		this.form.markAllAsTouched();
-		this.form.valid && await this.finishSave();
-		this.form.invalid && this.ngxLogger.error('Form is invalid', this.form);
+		if (this.form.valid) await this.finishSave();
+		if (this.form.invalid) this.ngxLogger.error('Form is invalid', this.form);
 	}
 
 	/**
@@ -183,30 +183,39 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		const {order, payment} = this.form.value as { order: IOrderDto, payment: IPaymentDto };
 		this.form.disable();
 		this.form.markAsPending();
-		if (this.isEditMode()) {
 
-			await lastValueFrom(this.dispatchPutPaymentAction$(payment));
-			await lastValueFrom(this.dispatchPutOrderAction$(order));
+		try {
 
-		} else {
+			if (this.isEditMode()) {
 
-			// TODO check for error response from order
-			const createOrderResponse = await this.createOrderApiAdapter.executeAsync(order as IOrderDto);
-			this.ngxLogger.info('Order created', createOrderResponse);
+				await lastValueFrom(this.dispatchPutPaymentAction$(payment));
+				await lastValueFrom(this.dispatchPutOrderAction$(order));
 
-			payment.orderId = createOrderResponse._id;
+			} else {
 
-			if (payment.orderId) {
-				const createPaymentResponse = await this.createPaymentApiAdapter.executeAsync(payment as IPaymentDto);
-				this.ngxLogger.info('Payment created', createPaymentResponse);
+				// TODO: Refactoring it into state actions
+				const createOrderResponse = await this.createOrderApiAdapter.executeAsync(order as IOrderDto);
+				this.ngxLogger.info('Order created', createOrderResponse);
+
+				payment.orderId = createOrderResponse._id;
+
+				if (payment.orderId) {
+					const createPaymentResponse = await this.createPaymentApiAdapter.executeAsync(payment as IPaymentDto);
+					this.ngxLogger.info('Payment created', createPaymentResponse);
+				}
+
 			}
+
+			this.store.dispatch(new OrderActions.CloseForm());
+
+		} catch (error) {
+
+			this.ngxLogger.error('Error while creating order', error);
 
 		}
 
 		this.form.enable();
 		this.form.updateValueAndValidity();
-
-		this.store.dispatch(new OrderActions.CloseForm());
 	}
 
 	public override ngOnDestroy() {

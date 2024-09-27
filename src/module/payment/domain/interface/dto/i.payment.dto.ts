@@ -3,23 +3,24 @@ import {PaymentMethodEnum} from "@module/payment/domain/enum/payment.method.enum
 import {PaymentProviderTypeEnum} from "@module/payment/domain/enum/payment.provider-type.enum";
 import {PaymentStatusEnum} from "@module/payment/domain/enum/payment.status.enum";
 import {ICustomer} from "@customer/domain";
-import typia, {tags} from "typia";
 import {IBaseEntity} from "@utility/domain";
+import {Tools} from "@utility/tools";
+import {Types} from "@utility/types";
 
 
-export interface IPaymentDto extends IBaseEntity<'PaymentDto'>{
-    providerPaymentRef: string | null;
-    orderId: string;
-    payer: ICustomer;
-    amount: number & tags.Minimum<0>;
-    currency: CurrencyCodeEnum & tags.Default<CurrencyCodeEnum.USD>;
-    method: PaymentMethodEnum & tags.Default<PaymentMethodEnum.CASH>;
-    providerType?: PaymentProviderTypeEnum & tags.Default<PaymentProviderTypeEnum.onSite>;
-    status: PaymentStatusEnum & tags.Default<PaymentStatusEnum.pending>;
-    paymentDate?: string;
+export interface IPaymentDto extends IBaseEntity<'PaymentDto'> {
+	providerPaymentRef: string | null;
+	orderId: string;
+	payer: ICustomer;
+	amount: number & Types.Minimum<0>;
+	currency: CurrencyCodeEnum & Types.Default<CurrencyCodeEnum.USD>;
+	method: PaymentMethodEnum & Types.Default<PaymentMethodEnum.CASH>;
+	providerType?: PaymentProviderTypeEnum & Types.Default<PaymentProviderTypeEnum.onSite>;
+	status: PaymentStatusEnum & Types.Default<PaymentStatusEnum.pending>;
+	paymentDate?: string;
 }
 
 
-export const isPayment = typia.createIs<IPaymentDto>();
-export const validPayment = typia.createValidate<IPaymentDto>();
-export const randomPayment = typia.createRandom<IPaymentDto>();
+export const isPayment = Tools.createIs<IPaymentDto>();
+export const validPayment = Tools.createValidate<IPaymentDto>();
+export const randomPayment = Tools.createRandom<IPaymentDto>();

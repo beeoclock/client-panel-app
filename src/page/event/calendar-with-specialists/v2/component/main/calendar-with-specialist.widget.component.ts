@@ -56,6 +56,7 @@ import {
 } from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/empty-slot.calendar-with-specialist.widget.component";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {SettingsComponent} from "@page/event/calendar-with-specialists/v2/settings/settings.component";
 
 @Component({
 	selector: 'app-calendar-with-specialists-widget-component',
@@ -77,6 +78,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 		IonSelectWrapperComponent,
 		PrimaryButtonDirective,
 		ScheduleElementCalendarWithSpecialistWidgetComponent,
+		SettingsComponent,
 	]
 })
 export class CalendarWithSpecialistWidgetComponent extends Reactive implements OnInit, AfterViewInit {
@@ -363,14 +365,27 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 	prevMousePosition = {x: 0, y: 0};
 	whatIsDragging: 'position' | 'top' | 'bottom' | null = null;
 
+	public get twoMinutesForPx() {
+		return this.calendarWithSpecialistLocaStateService.oneMinuteForPx * this.calendarWithSpecialistLocaStateService.movementInMinutesControl.value;
+	}
+
 	moveCallback = {
+		accumulationDiffY: 0,
 		position: (htmlDivElement: HTMLElement, diffY: number) => {
 
+			this.moveCallback.accumulationDiffY += diffY;
+
+			console.log(this.twoMinutesForPx)
+			if (this.moveCallback.accumulationDiffY % this.twoMinutesForPx) {
+				return;
+			}
+
 			const currentTop = htmlDivElement.offsetTop;
-			const newTop = currentTop + diffY;
+			const newTop = currentTop + this.moveCallback.accumulationDiffY;
+			this.moveCallback.accumulationDiffY = 0;
 
 			// Check if new top position is not out of column + specialist cell height
-			if (newTop > this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx) {
+			if (newTop >= this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx) {
 				// Check of new top position is not out of the bottom of the column
 				// Get event height
 				const eventHeight = htmlDivElement.clientHeight;
@@ -381,12 +396,21 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 			}
 		},
 		top: (htmlDivElement: HTMLElement, diffY: number) => {
+			this.moveCallback.accumulationDiffY += diffY;
+
+
+			console.log(this.moveCallback.accumulationDiffY, this.twoMinutesForPx, this.moveCallback.accumulationDiffY % this.twoMinutesForPx)
+
+			if (this.moveCallback.accumulationDiffY % this.twoMinutesForPx) {
+				return;
+			}
 
 			// Change height of the event and top position
 			const currentTop = htmlDivElement.offsetTop;
-			const newTop = currentTop + diffY;
+			const newTop = currentTop + this.moveCallback.accumulationDiffY;
 			const currentHeight = htmlDivElement.clientHeight;
-			const newHeight = currentHeight - diffY;
+			const newHeight = currentHeight - this.moveCallback.accumulationDiffY;
+			this.moveCallback.accumulationDiffY = 0;
 
 			// Check if new top position is not out of column + specialist cell height
 			if (newTop > this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx) {
@@ -405,10 +429,16 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 		},
 		bottom: (htmlDivElement: HTMLElement, diffY: number) => {
+			this.moveCallback.accumulationDiffY += diffY;
+
+			if (this.moveCallback.accumulationDiffY % this.twoMinutesForPx) {
+				return;
+			}
 
 			// Change height of the event
 			const currentHeight = htmlDivElement.clientHeight;
-			const newHeight = currentHeight + diffY;
+			const newHeight = currentHeight + this.moveCallback.accumulationDiffY;
+			this.moveCallback.accumulationDiffY = 0;
 
 			// Check of new top position is not out of the bottom of the column
 			// Check if new top position is not out of the bottom of the column
@@ -523,8 +553,6 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		if (!this.mouseDown) {
 			return;
 		}
-
-		this.ngxLogger.info('mouseMoveListener: ', event);
 
 		// Step is to change height of the event is: 5 minutes what is equal to (120px/60px)*5 = 10px
 		// So, user can't change height of the event less than 10px every step

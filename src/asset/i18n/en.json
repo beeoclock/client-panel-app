@@ -342,6 +342,11 @@
 	"danger-zone": {
 		"button": {
 			"delete": {
+				"confirm": {
+					"message": "Are you sure that you want to delete the business client, then all data will be deleted and it will not be possible to restore them, and all users who had access to this business client will also lose access, if you only want to leave this business client, click on the \"Exit this business client\" button.",
+					"sub-title": "Once you delete a business client, there is no going back. Please be certain.",
+					"title": "Delete Business Client"
+				},
 				"hint": "Deleting a business account is irreversible, so consider this decision carefully.",
 				"label": "Delete business profile",
 				"title": "Deleting a business profile"
@@ -411,6 +416,12 @@
 				},
 				"subHeader": {
 					"important": "Attention, major changes"
+				}
+			},
+			"settings": {
+				"move-minute": {
+					"description": "In minutes",
+					"title": "Movement"
 				}
 			}
 		},
@@ -952,6 +963,7 @@
 			"edit": "Edit",
 			"email": "E-mail",
 			"end": "End",
+			"error": "Error",
 			"event": "Event",
 			"events": "Events",
 			"every": "Every",
@@ -1032,6 +1044,7 @@
 			"signUp": "Sign up",
 			"slogan": "Slogan",
 			"socialMedia": "Social media",
+			"somethingWentWrong": "Something went wrong!",
 			"soon": "Soon",
 			"specialist": "Specialist",
 			"specialists": "Specialists",
@@ -1042,6 +1055,7 @@
 			"successfully": "Successfully",
 			"theme": "Theme",
 			"thereArentAnyEvents": "There aren't any events on {{ datetime }}",
+			"time": "Time",
 			"title": "Title",
 			"to": "To",
 			"today": "Today",
@@ -1150,6 +1164,29 @@
 			}
 		},
 		"title": "Member"
+	},
+	"notificationSetting": {
+		"cardTitle": "Customer Notification Settings",
+		"emailNotificationSettings": {
+			"hint": "Send notifications to the customer via email",
+			"label": "Email Notifications"
+		},
+		"modal": {
+			"contentTitle": "Choose how to notify participants about the changes.",
+			"hint": "You are seeing this window because the company settings specify to always ask whether to send notifications to participants.",
+			"sendEmails": "Send Email",
+			"sendSms": "Send Text Message",
+			"title": "Notification"
+		},
+		"sendNotificationConditionType": {
+			"allow": "Allow",
+			"allowButAsk": "Ask Each Time",
+			"deny": "Do Not Send"
+		},
+		"smsNotificationSettings": {
+			"hint": "Send notifications to the customer via SMS",
+			"label": "SMS Notifications"
+		}
 	},
 	"order": {
 		"button": {
@@ -1437,29 +1474,6 @@
 			"thursday": "Thu",
 			"tuesday": "Tue",
 			"wednesday": "Wed"
-		}
-	},
-	"notificationSetting": {
-		"cardTitle": "Customer Notification Settings",
-		"emailNotificationSettings": {
-			"label": "Email Notifications",
-			"hint": "Send notifications to the customer via email"
-		},
-		"smsNotificationSettings": {
-			"label": "SMS Notifications",
-			"hint": "Send notifications to the customer via SMS"
-		},
-		"sendNotificationConditionType": {
-			"allow": "Allow",
-			"allowButAsk": "Ask Each Time",
-			"deny": "Do Not Send"
-		},
-		"modal": {
-			"title": "Notification",
-			"sendEmails": "Send Email",
-			"sendSms": "Send Text Message",
-			"hint": "You are seeing this window because the company settings specify to always ask whether to send notifications to participants.",
-			"contentTitle": "Choose how to notify participants about the changes."
 		}
 	}
 }

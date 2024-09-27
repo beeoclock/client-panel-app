@@ -1,13 +1,14 @@
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {IOrderAppointmentDetailsDto} from "@order/external/interface/i-order-appointment-details.dto";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
-import typia from "typia";
 import {IMeta} from "@utility/domain";
+import {Tools} from "@utility/tools";
+import {Types} from "@utility/types";
 
 
 export interface IOrderServiceDto {
 	object: "OrderServiceDto";
-	_id: string;
+	_id: string & Types.ObjectId;
 	serviceSnapshot: IServiceDto;
 	orderAppointmentDetails: IOrderAppointmentDetailsDto;
 	status: OrderServiceStatusEnum;
@@ -15,6 +16,6 @@ export interface IOrderServiceDto {
 	customerNote: string;
 }
 
-export const isOrderServiceDto = typia.createIs<IOrderServiceDto>();
-export const validOrderServiceDto = typia.createValidate<IOrderServiceDto>();
-export const randomOrderServiceDto = typia.createRandom<IOrderServiceDto>();
+export const isOrderServiceDto = Tools.createIs<IOrderServiceDto>();
+export const validOrderServiceDto = Tools.createValidate<IOrderServiceDto>();
+export const randomOrderServiceDto = Tools.createRandom<IOrderServiceDto>();

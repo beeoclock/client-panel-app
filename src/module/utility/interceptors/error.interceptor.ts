@@ -1,7 +1,7 @@
 import {HttpErrorResponse, HttpInterceptorFn} from "@angular/common/http";
 import {catchError, throwError} from 'rxjs';
 import {inject} from "@angular/core";
-import {ToastController} from "@ionic/angular";
+import {IonicSafeString, ToastController} from "@ionic/angular";
 
 /**
  * TODO Handle any error on response
@@ -18,9 +18,35 @@ export const ErrorInterceptor: HttpInterceptorFn = (request, next) => {
 		catchError((response: HttpErrorResponse) => {
 			const {error} = response;
 
+			let message: string | IonicSafeString = 'Unknown';
+
+			if (typeof error === 'string') {
+				message = error;
+			} else {
+				if ('errors' in error) {
+					message = `<div>`;
+					error.errors.forEach((error: {
+						error: string;
+						message: string;
+						detail: string;
+					}) => {
+						message += `
+							<div class="flex flex-col gap-2">
+								<div>${error.error}</div>
+								<div>${error.message}</div>
+								<div>${error.detail}</div>
+							</div>
+						`;
+					});
+					message += `</div>`;
+				} else {
+					message = error?.message ?? message;
+				}
+			}
+
 			toastController.create({
 				header: error?.error ?? 'Error',
-				message: error?.message ?? 'Unknown',
+				message,
 				duration: 10_000,
 				buttons: [
 					{

@@ -83,7 +83,6 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnIni
 	readonly #alertController = inject(AlertController);
 
 	public ngOnInit() {
-		this.#ngxLogger.info('ListServiceFormCardOrderComponent', this.order);
 		this.order.services.forEach((orderServiceDto) => {
 			this.selectedServicePlusControlList.push({
 				_id: orderServiceDto._id,

@@ -29,38 +29,37 @@ import {
     ],
     template: `
 
-        <div class="grid gap-3">
+		<div class="grid gap-3">
 
-            <app-event-names-form-attendant-component [form]="form"/>
+			<app-event-names-form-attendant-component [form]="form"/>
 
-            <form-input
-                    inputType="email"
-                    autocomplete="off"
-                    placeholder="firstname.lastname@example.com"
-                    id="attendee-email"
-                    [control]="form.controls.email"
-                    [label]="'keyword.capitalize.email' | translate"/>
+			<form-input
+				inputType="email"
+				autocomplete="off"
+				placeholder="firstname.lastname@example.com"
+				id="attendee-email"
+				[control]="form.controls.email"
+				[label]="'keyword.capitalize.email' | translate"/>
 
-            <form-input
-                    inputType="tel"
-                    autocomplete="off"
-                    placeholder="+000000000000"
-                    id="attendee-phone"
-                    [control]="form.controls.phone"
-                    [label]="'keyword.capitalize.phone' | translate"/>
+			<form-input
+				inputType="tel"
+				autocomplete="off"
+				placeholder="+000000000000"
+				id="attendee-phone"
+				[control]="form.controls.phone"
+				[label]="'keyword.capitalize.phone' | translate"/>
 
-            <div
-                    class="md:col-span-2"
-                    [class.hidden]="
+			<div
+				[class.hidden]="
 					form.valid ||
 					form.controls.phone.untouched ||
 					form.controls.email.untouched
 				">
-                <utility-invalid-message class="flex justify-center" [control]="form"/>
-            </div>
+				<utility-invalid-message class="flex justify-center" [control]="form"/>
+			</div>
 
-        </div>
-    `
+		</div>
+	`
 })
 export class FormAttendantComponent {
 
