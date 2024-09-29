@@ -4,6 +4,8 @@ import {
 	Component,
 	HostListener,
 	inject,
+	Input,
+	OnChanges,
 	ViewEncapsulation
 } from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -67,7 +69,8 @@ import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 			<!--			</div>-->
 
 			<div>
-				<button (click)="signIn()" type="button" id="identity-sign-in-form-primary-button" primary [isLoading]="form.pending">
+				<button (click)="signIn()" type="button" id="identity-sign-in-form-primary-button" primary
+						[isLoading]="form.pending">
 					{{ 'keyword.capitalize.signIn' | translate }}
 				</button>
 			</div>
@@ -87,7 +90,16 @@ import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 		PrimaryButtonDirective
 	]
 })
-export class SignInComponent {
+export class SignInComponent implements OnChanges {
+
+	@Input()
+	public initialValues: {
+		email: string;
+		password: string;
+	} = {
+		email: '',
+		password: ''
+	};
 
 	public readonly form = new LoginForm();
 	private readonly router = inject(Router);
@@ -102,6 +114,10 @@ export class SignInComponent {
 	public async onEnter(event: KeyboardEvent): Promise<void> {
 		this.logger.debug('onEnter', event);
 		await this.signIn();
+	}
+
+	public ngOnChanges(): void {
+		this.form.patchValue(this.initialValues);
 	}
 
 	public async signIn(): Promise<void> {
