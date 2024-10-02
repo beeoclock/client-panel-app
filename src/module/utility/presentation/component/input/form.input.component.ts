@@ -48,8 +48,8 @@ import {
 			invalidTooltip
 			default
 			emptyStringToNull
-			[autofocus]="enableAutoFocus"
 			[step]="step"
+			[min]="min"
 			[isRequiredEnabled]="showLabel"
 			[formControl]="control"
 			[classList]="customClassList"
@@ -69,9 +69,6 @@ export class FormInputComponent implements DoCheck {
 	public labelTranslateKey = '';
 
 	@Input()
-	public enableAutoFocus = false;
-
-	@Input()
 	public showLabel = true;
 
 	@Input()
@@ -85,6 +82,9 @@ export class FormInputComponent implements DoCheck {
 
 	@Input()
 	public additionalClassList: string = '';
+
+	@Input()
+	public min: number | null = null;
 
 	@Input()
 	public placeholder: string | null = null;
