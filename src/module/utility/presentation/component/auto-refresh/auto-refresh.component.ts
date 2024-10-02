@@ -43,13 +43,12 @@ const allowedAutoRefreshTimes = [
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-
-		<form>
-			<div class="flex">
+		<form class="h-full">
+			<div class="flex h-full">
 				<ion-select
 					[formControl]="control"
 					labelPlacement="start"
-					class="px-4 py-3 border border-beeColor-300 shadow-sm rounded-2xl rounded-r-none !min-h-0"
+					class="px-4 py-3 border border-beeColor-300 shadow-sm rounded-2xl rounded-r-none !min-h-0 flex items-center"
 					fill="solid"
 					interface="popover">
 					<ion-select-option [disabled]="true">

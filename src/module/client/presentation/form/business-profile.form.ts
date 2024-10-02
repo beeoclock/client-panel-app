@@ -14,6 +14,7 @@ import {is} from "@utility/checker";
 import {USERNAME_ANGULAR_VALIDATOR} from "@utility/validators";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from 'rxjs';
+import {SendNotificationConditionEnum} from "@utility/domain/enum/send-notification-condition.enum";
 
 
 export interface IBusinessProfile {
@@ -33,11 +34,17 @@ export interface IBusinessProfile {
 
 	bookingSettings: BookingSettingsForm;
 	businessSettings: BusinessSettingsForm;
+	notificationSettings: NotificationSettingsFromGroup;
 	addresses: AddressesForm;
 	schedules: SchedulesForm;
 	contacts: ContactsForm;
 	facilities: FormControl<FacilityEnum[]>;
 }
+
+export type NotificationSettingsFromGroup = FormGroup<{
+	emailNotificationSettings: FormGroup<{ sendNotificationConditionType: FormControl<SendNotificationConditionEnum> }>;
+	smsNotificationSettings: FormGroup<{ sendNotificationConditionType: FormControl<SendNotificationConditionEnum> }>;
+}>;
 
 export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
 
@@ -51,6 +58,10 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
 			}),
 			name: new FormControl(),
 			username: new FormControl(),
+			notificationSettings: new FormGroup({
+				emailNotificationSettings: new FormGroup({sendNotificationConditionType: new FormControl()}),
+				smsNotificationSettings: new FormGroup({sendNotificationConditionType: new FormControl()}),
+			}),
 			businessCategory: new FormControl(),
 			businessIndustry: new FormControl(),
 			serviceProvideType: new FormControl(),
@@ -64,7 +75,7 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
 			facilities: new FormControl(),
 			addresses: new AddressesForm(),
 			schedules: new SchedulesForm(),
-			contacts: new ContactsForm(),
+			contacts: new ContactsForm()
 		});
 
 		this.initValidators();

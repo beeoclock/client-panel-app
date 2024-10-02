@@ -448,6 +448,12 @@
 				"subHeader": {
 					"important": "Увага, важливі зміни"
 				}
+			},
+			"settings": {
+				"move-minute": {
+					"description": "В хвилинах",
+					"title": "Переміщення"
+				}
 			}
 		},
 		"details": {
@@ -1082,6 +1088,7 @@
 			"successfully": "Успішно",
 			"theme": "Тема",
 			"thereArentAnyEvents": "Подій немає на {{ datetime }}",
+			"time": "Час",
 			"title": "Назва",
 			"to": "До",
 			"today": "Сьогодні",
@@ -1192,6 +1199,29 @@
 			}
 		},
 		"title": "Учасник"
+	},
+	"notificationSetting": {
+		"cardTitle": "Налаштування сповіщень клієнта",
+		"emailNotificationSettings": {
+			"hint": "Надсилати клієнту сповіщення електронною поштою",
+			"label": "Email сповіщення"
+		},
+		"modal": {
+			"contentTitle": "Оберіть, як сповістити учасників про зміни.",
+			"hint": "Ви бачите це вікно, оскільки в налаштуваннях компанії вказано завжди запитувати, чи надсилати сповіщення учасникам.",
+			"sendEmails": "Надіслати Email",
+			"sendSms": "Надіслати текстове повідомлення",
+			"title": "Сповіщення"
+		},
+		"sendNotificationConditionType": {
+			"allow": "Дозволити",
+			"allowButAsk": "Щоразу запитувати",
+			"deny": "Не надсилати"
+		},
+		"smsNotificationSettings": {
+			"hint": "Надсилати клієнту смс сповіщення",
+			"label": "Sms сповіщення"
+		}
 	},
 	"order": {
 		"button": {

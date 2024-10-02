@@ -12,6 +12,7 @@ import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum"
 import {BusinessClientStatusEnum} from "@client/domain/enum/business-client-status.enum";
 import {RIMedia} from "@module/media/domain/interface/i.media";
 import {DeepPartial} from "@utility/base.type";
+import {SendNotificationConditionEnum} from "@utility/domain/enum/send-notification-condition.enum";
 
 export interface IBusinessSettings {
 	timeZone?: string;
@@ -22,6 +23,17 @@ export interface IBusinessSettings {
 	baseLanguage: LanguageCodeEnum;
 	createdAt?: string;
 	updatedAt?: string;
+}
+
+export interface INotificationsSettings {
+	smsNotificationSettings: {
+		sendNotificationConditionType: SendNotificationConditionEnum;
+	};
+	emailNotificationSettings: {
+		emailLanguage: LanguageCodeEnum;
+		sendNotificationConditionType: SendNotificationConditionEnum;
+		allowedEmailTypes?: boolean | string;
+	};
 }
 
 export interface RIClient extends IBaseEntity<'Client'> {
@@ -36,6 +48,7 @@ export interface RIClient extends IBaseEntity<'Client'> {
 	socialNetworkLinks: ISocialNetworkLink[];
 
 	businessSettings: IBusinessSettings;
+	notificationSettings: INotificationsSettings;
 	banners: RIMedia[];
 	bookingSettings: IBookingSettings;
 	addresses: IAddress[];

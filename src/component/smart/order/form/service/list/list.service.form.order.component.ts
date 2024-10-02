@@ -117,8 +117,8 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 
 		const {SelectServiceWhacAMoleComponent} = await import("@service/presentation/push-box/select-service.whac-a-mole.component");
 
-		let useTableStateFromStore = true;
-		let tableState = new TableState<IServiceDto>().toCache();
+		const useTableStateFromStore = true;
+		const tableState = new TableState<IServiceDto>().toCache();
 
 		const pushBoxWrapperComponentRef = await this.#whacAMaleProvider.buildItAsync({
 			component: SelectServiceWhacAMoleComponent,

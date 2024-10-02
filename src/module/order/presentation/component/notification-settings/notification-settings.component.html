@@ -1,0 +1,30 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>{{ 'notificationSetting.modal.title' | translate }}</ion-title>
+		<ion-buttons slot="end">
+			<ion-button (click)="confirm()" [strong]="true">{{ 'keyword.capitalize.confirm' | translate }}</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<ion-content class="p-2">
+	<div class="m-4 text-xl">
+		{{ 'notificationSetting.modal.contentTitle' | translate }}
+	</div>
+	@if (askEmailNotifications) {
+		<ion-item>
+			<ion-toggle
+				[formControl]="sendTypesFormGroup.controls.email">{{ 'notificationSetting.modal.sendEmails' | translate }}
+			</ion-toggle>
+		</ion-item>
+	}
+	@if (askSmsNotifications) {
+		<ion-item>
+			<ion-toggle
+				[formControl]="sendTypesFormGroup.controls.sms">{{ 'notificationSetting.modal.sendSms' | translate }}
+			</ion-toggle>
+		</ion-item>
+	}
+	<div class="italic leading-tight p-4 text-beeColor-500 text-sm">
+		{{ 'notificationSetting.modal.hint' | translate }}
+	</div>
+</ion-content>

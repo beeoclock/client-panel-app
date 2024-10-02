@@ -448,6 +448,12 @@
 				"subHeader": {
 					"important": "Attention, major changes"
 				}
+			},
+			"settings": {
+				"move-minute": {
+					"description": "In minutes",
+					"title": "Movement"
+				}
 			}
 		},
 		"details": {
@@ -1082,6 +1088,7 @@
 			"successfully": "Successfully",
 			"theme": "Theme",
 			"thereArentAnyEvents": "There aren't any events on {{ datetime }}",
+			"time": "Time",
 			"title": "Title",
 			"to": "To",
 			"today": "Today",
@@ -1192,6 +1199,29 @@
 			}
 		},
 		"title": "Member"
+	},
+	"notificationSetting": {
+		"cardTitle": "Customer Notification Settings",
+		"emailNotificationSettings": {
+			"hint": "Send notifications to the customer via email",
+			"label": "Email Notifications"
+		},
+		"modal": {
+			"contentTitle": "Choose how to notify participants about the changes.",
+			"hint": "You are seeing this window because the company settings specify to always ask whether to send notifications to participants.",
+			"sendEmails": "Send Email",
+			"sendSms": "Send Text Message",
+			"title": "Notification"
+		},
+		"sendNotificationConditionType": {
+			"allow": "Allow",
+			"allowButAsk": "Ask Each Time",
+			"deny": "Do Not Send"
+		},
+		"smsNotificationSettings": {
+			"hint": "Send notifications to the customer via SMS",
+			"label": "SMS Notifications"
+		}
 	},
 	"order": {
 		"button": {
