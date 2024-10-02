@@ -76,7 +76,8 @@ export class TableListComponent extends TableComponent<ICustomer> {
 			},
 			note: {
 				style: {
-					minWidth: '200px',
+					minWidth: '260px',
+					maxWidth: '260px',
 				},
 			},
 			createdAt: {
