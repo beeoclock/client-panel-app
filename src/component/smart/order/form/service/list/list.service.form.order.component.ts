@@ -106,6 +106,7 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 				service: control.getRawValue().serviceSnapshot,
 				control,
 				setupPartialData: {
+					...this.setupPartialData || {},
 					defaultAppointmentStartDateTimeIso: control.getRawValue().orderAppointmentDetails.start,
 				}
 			});
@@ -207,6 +208,7 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 						}
 					}),
 					setupPartialData: {
+						...this.setupPartialData || {},
 						defaultAppointmentStartDateTimeIso: start,
 					}
 				});
