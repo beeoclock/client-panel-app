@@ -5,7 +5,7 @@ import {
 	HostListener,
 	inject,
 	Input,
-	OnChanges,
+	OnInit,
 	ViewEncapsulation
 } from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -44,8 +44,8 @@ import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 			<form-input-password
 				id="password"
 				autocomplete="password"
-				[control]="form.controls.password"
 				placeholder="password"
+				[control]="form.controls.password"
 				[label]="'identity.sign-in.form.inputs.password.label' | translate">
 				<a
 					label-end
@@ -90,7 +90,7 @@ import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 		PrimaryButtonDirective
 	]
 })
-export class SignInComponent implements OnChanges {
+export class SignInComponent implements OnInit {
 
 	@Input()
 	public initialValues: {
@@ -116,7 +116,7 @@ export class SignInComponent implements OnChanges {
 		await this.signIn();
 	}
 
-	public ngOnChanges(): void {
+	public ngOnInit(): void {
 		this.form.patchValue(this.initialValues);
 	}
 

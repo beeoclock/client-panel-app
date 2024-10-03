@@ -12,7 +12,7 @@
 					{{ 'identity.sign-in.hint.signInToYourAccount' | translate }}
 				</h1>
 				<form class="space-y-4 md:space-y-8" action="#">
-					<identity-sign-in-component [initialValues]="initialLoginValues"/>
+					<identity-sign-in-component [initialValues]="initialLoginValues()"/>
 
 					<p class="mt-10 text-center text-sm text-beeColor-500">
 						{{ 'identity.sign-in.hint.notAMember' | translate }}

@@ -36,7 +36,7 @@ export class SignInIdentityPage implements OnInit {
 
 	readonly #analyticsService = inject(AnalyticsService);
 
-	public get initialLoginValues(): {
+	public initialLoginValues(): {
 		email: string;
 		password: string;
 	} {
