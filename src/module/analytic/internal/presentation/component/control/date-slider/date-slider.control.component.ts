@@ -19,6 +19,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {environment} from "@environment/environment";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {IntervalTypeEnum} from "@module/analytic/internal/domain/enum/interval.enum";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
 	selector: 'app-date-slider-control-component',
@@ -100,7 +101,11 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 	public readonly yearOptions: {
 		dateTimeISO: string;
 	}[] = this.getYearISOList();
-	public readonly weekOptions: { fromISO: string; toISO: string; }[] = [];
+	public readonly weekOptions: {
+		fromISO: string;
+		toISO: string;
+		title: string;
+	}[] = [];
 
 	public readonly datetimeAttributes = {
 		min: this.today.set({year: environment.config.startYear}).toJSDate().toISOString(),
@@ -110,6 +115,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly translateService = inject(TranslateService);
 	private readonly document = inject(DOCUMENT);
+	private readonly ngxLogger = inject(NGXLogger);
 
 	public readonly locale = this.translateService.currentLang;
 
@@ -140,6 +146,8 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 		const intervalType = this.intervalTypeControl.getRawValue();
 		const selectedDate = this.dateControl.getRawValue();
 
+		this.ngxLogger.debug('acceptChanges', {intervalType, selectedDate});
+
 		this.ionModal.dismiss({
 			intervalType,
 			selectedDate
@@ -157,7 +165,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 	protected async setToday() {
 		await this.ionDateTime.reset();
 		setTimeout(() => {
-			this.dateControl.patchValue(this.today.toJSDate().toISOString());
+			this.dateControl.patchValue(this.today.endOf('day').toJSDate().toISOString());
 		}, 350)
 	}
 
@@ -182,6 +190,10 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 		const {interval, selectedDate} = this.form.getRawValue();
 
+		return this.getRangeInISOByInterval(interval, selectedDate);
+	}
+
+	protected getRangeInISOByInterval(interval: IntervalTypeEnum, selectedDate: string) {
 		const fromDateTime = DateTime.fromISO(selectedDate).startOf(interval);
 		const toDateTime = DateTime.fromISO(selectedDate).endOf(interval);
 
@@ -193,8 +205,8 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 	protected getWeekTitle(fromISO: string, toISO: string) {
 
-		const fromDateTime = DateTime.fromISO(fromISO).setLocale(this.locale);
-		const toDateTime = DateTime.fromISO(toISO).setLocale(this.locale);
+		const fromDateTime = DateTime.fromISO(fromISO).toLocal().setLocale(this.locale);
+		const toDateTime = DateTime.fromISO(toISO).toLocal().setLocale(this.locale);
 
 		if (fromDateTime.hasSame(toDateTime, 'month')) {
 
@@ -314,9 +326,16 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 			if (!start || !end) {
 				return;
 			}
+
+			const {
+				fromISO,
+				toISO
+			} = this.getRangeInISOByInterval(IntervalTypeEnum.week, start.toJSDate().toISOString());
+
 			this.weekOptions.push({
-				fromISO: start.toJSDate().toISOString(),
-				toISO: end.toJSDate().toISOString()
+				fromISO,
+				toISO,
+				title: this.getWeekTitle(fromISO, toISO)
 			});
 		});
 
@@ -331,10 +350,21 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 			if (!start) {
 				return null;
 			}
+			const dateTimeISO = start.toJSDate().toISOString();
 			return {
-				dateTimeISO: start.toJSDate().toISOString()
+				dateTimeISO
 			};
 		}).filter((item) => item !== null).reverse() as { dateTimeISO: string }[];
+	}
+
+	protected convertIntoEndOfWeek(value: string) {
+		return DateTime.fromISO(value).endOf('week').toJSDate().toISOString();
+	}
+
+	protected setYear($event: CustomEvent) {
+		const year = $event.detail.value;
+		const fromDateTime = DateTime.fromISO(year).endOf('year').startOf('week');
+		this.dateControl.patchValue(fromDateTime.toJSDate().toISOString());
 	}
 
 }

@@ -47,10 +47,11 @@
 				}
 				@case (intervalTypeEnum.week) {
 					<ion-picker>
-						<ion-picker-column [value]="dateControl.value" (ionChange)="onIonChange($event)">
+						<ion-picker-column [value]="convertIntoEndOfWeek(dateControl.value)"
+										   (ionChange)="onIonChange($event)">
 							@for(weekOption of weekOptions; track weekOption.toISO) {
 								<ion-picker-column-option [value]="weekOption.toISO">
-									{{ getWeekTitle(weekOption.fromISO, weekOption.toISO) }}
+									{{ weekOption.title }}
 								</ion-picker-column-option>
 							}
 						</ion-picker-column>
@@ -68,9 +69,9 @@
 
 				@case (intervalTypeEnum.year) {
 					<ion-picker>
-						<ion-picker-column [value]="dateControl.value" (ionChange)="onIonChange($event)">
+						<ion-picker-column [value]="dateControl.value | date: 'YYYY'" (ionChange)="setYear($event)">
 							@for(yearOption of yearOptions; track yearOption.dateTimeISO) {
-								<ion-picker-column-option [value]="yearOption.dateTimeISO">
+								<ion-picker-column-option [value]="yearOption.dateTimeISO | date: 'YYYY'">
 									{{ yearOption.dateTimeISO | date: 'yyyy' }}
 								</ion-picker-column-option>
 							}
@@ -118,9 +119,7 @@
 				</div>
 			}
 			@case (intervalTypeEnum.week) {
-
 				{{ getWeekTitle(getRangeInISO().fromISO, getRangeInISO().toISO) }}
-
 			}
 			@case (intervalTypeEnum.month) {
 				{{ (cacheOfCurrentData?.dateControlValue ?? dateControl.value) | date: 'yyyy-MM' }}

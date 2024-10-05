@@ -93,7 +93,6 @@ export class CustomerListGroupComponent implements OnChanges {
 
 	private buildCustomerList(): void {
 		this.customerList.length = 0;
-		console.log('customerReport', this.customerReport);
 		Object.keys(this.customerReport).forEach((customerId) => {
 			const customer = this.customerReport?.[customerId];
 			if (!customer?.details?.firstName?.length) {
@@ -104,10 +103,8 @@ export class CustomerListGroupComponent implements OnChanges {
 			}
 			this.customerList.push(this.customerReport[customerId]);
 		});
-		console.log('customerList #1', this.customerList);
 		// Sort by revenue
 		this.customerList.sort((a, b) => b.summary.revenue.total.by.status.done - a.summary.revenue.total.by.status.done);
-		console.log('customerList #2', this.customerList);
 	}
 
 }
