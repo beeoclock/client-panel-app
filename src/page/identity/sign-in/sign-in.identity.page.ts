@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SignInComponent} from '@identity/presentation/component/sign-in.component/sign-in.component';
@@ -27,8 +27,26 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 	encapsulation: ViewEncapsulation.None
 })
 export class SignInIdentityPage implements OnInit {
+
+	@Input()
+	public login: string | null = null;
+
+	@Input()
+	public password: string | null = null;
+
 	readonly #analyticsService = inject(AnalyticsService);
-	public  ngOnInit() {
+
+	public initialLoginValues(): {
+		email: string;
+		password: string;
+	} {
+		return {
+			email: this.login ?? '',
+			password: this.password ?? ''
+		}
+	}
+
+	public ngOnInit() {
 		this.#analyticsService.logEvent('member_list_page_initialized');
 	}
 }

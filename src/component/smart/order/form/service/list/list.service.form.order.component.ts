@@ -55,7 +55,7 @@ import {DateTime} from "luxon";
 					<app-item-list-v2-service-form-order-component
 						(deleteMe)="deleteItem(index)"
 						[item]="item"
-						[setupPartialData]="setupPartialData"/>
+						[setupPartialData]="item.setupPartialData"/>
 				}
 			</div>
 		</div>
@@ -78,6 +78,9 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 	public readonly selectedServicePlusControlList: {
 		service: IServiceDto;
 		control: ServiceOrderForm;
+		setupPartialData: {
+			defaultAppointmentStartDateTimeIso: string;
+		};
 	}[] = [];
 
 	@SelectSnapshot(ClientState.baseLanguage)
@@ -101,7 +104,11 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 		currentValue.controls.forEach((control) => {
 			this.selectedServicePlusControlList.push({
 				service: control.getRawValue().serviceSnapshot,
-				control
+				control,
+				setupPartialData: {
+					...this.setupPartialData || {},
+					defaultAppointmentStartDateTimeIso: control.getRawValue().orderAppointmentDetails.start,
+				}
 			});
 		});
 		this.#changeDetectorRef.detectChanges();
@@ -159,8 +166,7 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 					foundLanguageVersion = service.languageVersions[0];
 				}
 
-				const start = this.setupPartialData.defaultAppointmentStartDateTimeIso ?? DateTime.now().toJSDate().toISOString();
-				const end = DateTime.fromISO(start).plus({seconds: service.durationVersions[0].durationInSeconds}).toJSDate().toISOString();
+				let start = this.setupPartialData.defaultAppointmentStartDateTimeIso ?? DateTime.now().toJSDate().toISOString();
 
 				const attendees = [];
 				const lastService = this.selectedServicePlusControlList[this.selectedServicePlusControlList.length - 1];
@@ -171,7 +177,10 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 					if (lastServiceAttendees.length) {
 						attendees.push(lastServiceAttendees[0]);
 					}
+					start = orderAppointmentDetails.end ?? start;
 				}
+
+				const end = DateTime.fromISO(start).plus({seconds: service.durationVersions[0].durationInSeconds}).toJSDate().toISOString();
 
 				this.selectedServicePlusControlList.push({
 					service,
@@ -197,7 +206,11 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 							createdAt: DateTime.now().toJSDate().toISOString(),
 							updatedAt: DateTime.now().toJSDate().toISOString(),
 						}
-					})
+					}),
+					setupPartialData: {
+						...this.setupPartialData || {},
+						defaultAppointmentStartDateTimeIso: start,
+					}
 				});
 
 				this.#changeDetectorRef.detectChanges();
