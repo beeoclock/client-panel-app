@@ -13,7 +13,13 @@ import {
 } from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading} from '@angular/router';
+import {
+	PreloadAllModules,
+	provideRouter,
+	withComponentInputBinding,
+	withInMemoryScrolling,
+	withPreloading
+} from '@angular/router';
 import {routes} from '@src/routers';
 import {browserLocalPersistence} from "@firebase/auth";
 import {IonicModule} from "@ionic/angular";
@@ -118,7 +124,7 @@ bootstrapApplication(MainRouterOutlet, {
 			}),
 			withPreloading(PreloadAllModules),
 			// withViewTransitions(), // TODO add when we will control which container should have animation
-			// withComponentInputBinding(), // TODO add when we will vision of how to use it
+			withComponentInputBinding(),
 		),
 		provideServiceWorker('ngsw-worker.js', {
 			enabled: !isDevMode(),

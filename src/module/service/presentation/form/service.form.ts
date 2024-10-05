@@ -51,7 +51,10 @@ export interface IPriceForm {
 export class PriceForm extends FormGroup<IPriceForm> {
 	constructor() {
 		super({
-			price: new FormControl(),
+			price: new FormControl(0, {
+				nonNullable: true,
+				validators: [Validators.min(0)],
+			}),
 			currency: new FormControl(),
 			// preferredLanguages: new FormControl(),
 		});

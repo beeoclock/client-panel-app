@@ -48,6 +48,11 @@ export class OrderServiceStatusStyleDirective implements OnInit, OnChanges {
 			text: ['text-yellow-400', 'border-yellow-400'],
 			badge: ['bg-yellow-500', 'border-yellow-500', 'dark:bg-yellow-900', 'dark:border-yellow-800']
 		},
+		[OrderServiceStatusEnum.deleted]: {
+			base: ['dark:text-grey-400'],
+			text: ['text-grey-400', 'border-grey-400'],
+			badge: ['bg-grey-500', 'border-grey-500', 'dark:bg-grey-900', 'dark:border-grey-800']
+		},
 	};
 
 	private readonly base = ['px-2', 'py-1', 'flex', 'items-center', 'justify-center', 'h-6', 'text-xs', 'rounded-full', 'border', 'uppercase'];

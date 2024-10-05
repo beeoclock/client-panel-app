@@ -375,7 +375,6 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 			this.moveCallback.accumulationDiffY += diffY;
 
-			console.log(this.twoMinutesForPx)
 			if (this.moveCallback.accumulationDiffY % this.twoMinutesForPx) {
 				return;
 			}
@@ -397,9 +396,6 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		},
 		top: (htmlDivElement: HTMLElement, diffY: number) => {
 			this.moveCallback.accumulationDiffY += diffY;
-
-
-			console.log(this.moveCallback.accumulationDiffY, this.twoMinutesForPx, this.moveCallback.accumulationDiffY % this.twoMinutesForPx)
 
 			if (this.moveCallback.accumulationDiffY % this.twoMinutesForPx) {
 				return;
