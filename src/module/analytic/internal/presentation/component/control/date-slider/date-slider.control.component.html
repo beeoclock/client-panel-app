@@ -1,0 +1,142 @@
+<div class="relative flex rounded-2xl bg-white shadow-sm items-stretch">
+
+	<button
+		(click)="previous()"
+		type="button"
+		class="flex h-12 items-center justify-center rounded-l-2xl border-y border-l border-beeColor-300 text-beeColor-400 hover:text-beeColor-500 focus:relative w-9 pr-0 hover:bg-beeColor-100">
+		<i class="bi bi-chevron-left"></i>
+	</button>
+
+	<ion-datetime-button id="hidden-ion-datetime-button" [hidden]="true" datetime="datetime"/>
+
+	<ion-modal [keepContentsMounted]="true" (willDismiss)="cancelChanges()" (didDismiss)="didDismiss($event)">
+		<ng-template>
+			<div class="p-2">
+				<ion-segment [formControl]="intervalTypeControl">
+
+					@for (intervalType of intervalTypes; track intervalType) {
+						<ion-segment-button [value]="intervalType">
+							<ion-label>
+								{{ 'keyword.capitalize.' + intervalType | translate }}
+							</ion-label>
+						</ion-segment-button>
+					}
+
+				</ion-segment>
+			</div>
+
+			@switch (intervalTypeControl.value) {
+
+				@case (intervalTypeEnum.day) {
+					<ion-datetime
+						class="w-full min-w-full"
+						[firstDayOfWeek]="1"
+						[locale]="locale"
+						[min]="datetimeAttributes.min"
+						[max]="datetimeAttributes.max"
+						id="datetime"
+						presentation="date"
+						[formControl]="dateControl"/>
+					<ion-list [inset]="true">
+						<ion-item [button]="true" (click)="setToday()" detail="false" color="light">
+							<ion-label class="text-center">
+								{{ 'keyword.capitalize.today' | translate }}
+							</ion-label>
+						</ion-item>
+					</ion-list>
+				}
+				@case (intervalTypeEnum.week) {
+					<ion-picker>
+						<ion-picker-column [value]="convertIntoEndOfWeek(dateControl.value)"
+										   (ionChange)="onIonChange($event)">
+							@for(weekOption of weekOptions; track weekOption.toISO) {
+								<ion-picker-column-option [value]="weekOption.toISO">
+									{{ weekOption.title }}
+								</ion-picker-column-option>
+							}
+						</ion-picker-column>
+					</ion-picker>
+				}
+
+				@case (intervalTypeEnum.month) {
+					<ion-datetime
+						[locale]="locale"
+						[min]="datetimeAttributes.min"
+						[max]="datetimeAttributes.max"
+						[formControl]="dateControl"
+						presentation="month-year"/>
+				}
+
+				@case (intervalTypeEnum.year) {
+					<ion-picker>
+						<ion-picker-column [value]="dateControl.value | date: 'YYYY'" (ionChange)="setYear($event)">
+							@for(yearOption of yearOptions; track yearOption.dateTimeISO) {
+								<ion-picker-column-option [value]="yearOption.dateTimeISO | date: 'YYYY'">
+									{{ yearOption.dateTimeISO | date: 'yyyy' }}
+								</ion-picker-column-option>
+							}
+						</ion-picker-column>
+					</ion-picker>
+				}
+
+			}
+
+			<div class="flex justify-between px-4 pb-4 gap-4">
+				<button
+					(click)="cancelChanges()"
+					type="button"
+					class="flex-1 h-12 items-center justify-center rounded-lg border border-beeColor-300 text-beeColor-400 hover:text-beeColor-500 focus:relative w-9 pr-0 hover:bg-beeColor-100">
+					{{ 'keyword.capitalize.cancel' | translate }}
+				</button>
+				<button
+					(click)="acceptChanges()"
+					type="button"
+					primary
+					class="flex-1 h-12 rounded-lg items-center">
+					{{ 'keyword.capitalize.confirm' | translate }}
+				</button>
+
+			</div>
+
+		</ng-template>
+	</ion-modal>
+
+	<button
+		(click)="openDateModal()"
+		id="open-modal"
+		class="border-y border-beeColor-300 text-nowrap px-3.5 text-beeColor-900 flex flex-col justify-center items-center cursor-pointer hover:bg-beeColor-100 transition-all">
+
+		@switch (cacheOfCurrentData?.intervalTypeControlValue ?? intervalTypeControl.value) {
+
+			@case (intervalTypeEnum.day) {
+				@if (hint.length) {
+					<div class="text-sm font-semibold">
+						{{ hint | translate }}
+					</div>
+				}
+				<div [class.text-xs]="hint.length">
+					{{ (cacheOfCurrentData?.dateControlValue ?? dateControl.value) | date: 'yyyy-MM-dd' }}
+				</div>
+			}
+			@case (intervalTypeEnum.week) {
+				{{ getWeekTitle(getRangeInISO().fromISO, getRangeInISO().toISO) }}
+			}
+			@case (intervalTypeEnum.month) {
+				{{ (cacheOfCurrentData?.dateControlValue ?? dateControl.value) | date: 'yyyy-MM' }}
+			}
+			@case (intervalTypeEnum.year) {
+				{{ (cacheOfCurrentData?.dateControlValue ?? dateControl.value) | date: 'yyyy' }}
+			}
+
+		}
+
+	</button>
+
+	<button
+		(click)="next()"
+		type="button"
+		class="flex h-12 items-center justify-center rounded-r-2xl border-y border-r border-beeColor-300 text-beeColor-400 hover:text-beeColor-500 focus:relative w-9 pl-0 hover:bg-beeColor-100">
+		<i class="bi bi-chevron-right"></i>
+	</button>
+
+</div>

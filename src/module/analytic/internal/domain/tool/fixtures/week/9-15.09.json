@@ -1,0 +1,310 @@
+{
+	"startDate": "2024-09-08T22:00:00.000Z",
+	"endDate": "2024-09-15T21:59:59.999Z",
+	"totalOrderServices": 12,
+	"totalOrders": 11,
+	"totalRevenue": 5900,
+	"specialistReports": [
+		{
+			"dateReports": [
+				{
+					"date": "2024-09-14",
+					"services": [
+						{
+							"orderServiceId": "66e466786807651f6644fbaa",
+							"orderId": "66e465e2d2d701220b7c9fc9",
+							"serviceId": "668902f88bfb2a0781a57e45",
+							"status": "accepted",
+							"serviceName": "Relaxation Massage",
+							"price": 450,
+							"currency": "DKK",
+							"durationInSeconds": 3600,
+							"startTime": "2024-09-14T10:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66e466786807651f6644fbad",
+									"firstName": "test",
+									"lastName": "",
+									"registeredDate": "2024-09-19T21:40:03.697Z"
+								}
+							],
+							"endTime": "2024-09-14T11:00:00.000Z",
+							"createdOn": "client",
+							"wasSelectedAnybody": true
+						},
+						{
+							"orderServiceId": "66e4672e6807651f6644fbc6",
+							"orderId": "66e4672afe838a797938f43f",
+							"serviceId": "668902f88bfb2a0781a57e45",
+							"status": "accepted",
+							"serviceName": "Relaxation Massage",
+							"price": 450,
+							"currency": "DKK",
+							"durationInSeconds": 3600,
+							"startTime": "2024-09-14T11:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66e4672e6807651f6644fbc9",
+									"firstName": "test",
+									"lastName": "",
+									"registeredDate": "2024-09-19T21:40:03.712Z"
+								}
+							],
+							"endTime": "2024-09-14T12:00:00.000Z",
+							"createdOn": "client",
+							"wasSelectedAnybody": true
+						},
+						{
+							"orderServiceId": "66e46a486807651f6644fbec",
+							"orderId": "66e46a459b9658cf0cd67d99",
+							"serviceId": "668902f88bfb2a0781a57e45",
+							"status": "accepted",
+							"serviceName": "Relaxation Massage",
+							"price": 450,
+							"currency": "DKK",
+							"durationInSeconds": 3600,
+							"startTime": "2024-09-14T12:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66e46a486807651f6644fbef",
+									"firstName": "test",
+									"lastName": "",
+									"registeredDate": "2024-09-19T21:40:03.726Z"
+								}
+							],
+							"endTime": "2024-09-14T13:00:00.000Z",
+							"createdOn": "client",
+							"wasSelectedAnybody": true
+						},
+						{
+							"orderServiceId": "66e46a6a6807651f6644fc11",
+							"orderId": "66e46a6815e7a758bf692b32",
+							"serviceId": "668902f88bfb2a0781a57e45",
+							"status": "accepted",
+							"serviceName": "Relaxation Massage",
+							"price": 450,
+							"currency": "DKK",
+							"durationInSeconds": 3600,
+							"startTime": "2024-09-14T13:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66e46a6a6807651f6644fc14",
+									"firstName": "test",
+									"lastName": "",
+									"registeredDate": "2024-09-19T21:40:03.742Z"
+								}
+							],
+							"endTime": "2024-09-14T14:00:00.000Z",
+							"createdOn": "client",
+							"wasSelectedAnybody": true
+						}
+					],
+					"products": [],
+					"dateRevenue": 1800
+				},
+				{
+					"date": "2024-09-13",
+					"services": [
+						{
+							"orderServiceId": "66e47031d28686951128a3fa",
+							"orderId": "66e46f3440afae8f27677f33",
+							"serviceId": "668902f88bfb2a0781a57e47",
+							"status": "accepted",
+							"serviceName": "Dybdemassage",
+							"price": 600,
+							"currency": "DKK",
+							"durationInSeconds": 4500,
+							"startTime": "2024-09-13T17:02:41.345Z",
+							"attendants": [],
+							"endTime": "2024-09-13T18:17:41.345Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						}
+					],
+					"products": [],
+					"dateRevenue": 600
+				}
+			],
+			"endDate": "2024-09-15T21:59:59.999Z",
+			"specialist": {
+				"memberId": "668902f45b63e2e81ae3ff3e",
+				"firstName": "Sophie",
+				"lastName": "Andersen",
+				"email": "ivan.karbashevskyi+12@gmail.com"
+			},
+			"startDate": "2024-09-08T22:00:00.000Z",
+			"totalRevenue": 2400
+		},
+		{
+			"dateReports": [
+				{
+					"date": "2024-09-13",
+					"services": [
+						{
+							"orderServiceId": "66e4080f92ab314204f76b38",
+							"serviceId": "668902f88bfb2a0781a57e47",
+							"status": "deleted",
+							"serviceName": "Dybdemassage",
+							"price": 600,
+							"currency": "DKK",
+							"durationInSeconds": 4500,
+							"startTime": "2024-09-13T09:38:23.432Z",
+							"attendants": [],
+							"endTime": "2024-09-13T10:53:23.432Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						}
+					],
+					"products": [],
+					"dateRevenue": 600
+				}
+			],
+			"endDate": "2024-09-15T21:59:59.999Z",
+			"specialist": {
+				"memberId": "66893cad118ee689f76a476c",
+				"firstName": "Jan",
+				"lastName": "Kowalski",
+				"email": "ivan.karbashevskyi@gmail.com"
+			},
+			"startDate": "2024-09-08T22:00:00.000Z",
+			"totalRevenue": 600
+		},
+		{
+			"dateReports": [
+				{
+					"date": "2024-09-13",
+					"services": [
+						{
+							"orderServiceId": "66e3fd11fb0f5fe26efc9e4f",
+							"serviceId": "668902f88bfb2a0781a57e45",
+							"status": "deleted",
+							"serviceName": "Afslappende massage",
+							"price": 450,
+							"currency": "DKK",
+							"durationInSeconds": 3600,
+							"startTime": "2024-09-13T08:51:29.214Z",
+							"attendants": [],
+							"endTime": "2024-09-13T09:51:29.214Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						},
+						{
+							"orderServiceId": "66e4054c9c2e95f93dd1cb32",
+							"orderId": "66d6eebeabdf9335777b70b1",
+							"serviceId": "668904108bfb2a0781a57ea7",
+							"status": "accepted",
+							"serviceName": "Hot Stone Massage",
+							"price": 650,
+							"currency": "DKK",
+							"durationInSeconds": 5400,
+							"startTime": "2024-09-13T09:26:36.694Z",
+							"attendants": [],
+							"endTime": "2024-09-13T10:56:36.694Z",
+							"createdOn": "panel",
+							"wasSelectedAnybody": false
+						}
+					],
+					"products": [],
+					"dateRevenue": 1100
+				},
+				{
+					"date": "2024-09-14",
+					"services": [
+						{
+							"orderServiceId": "66e42cbc6807651f6644f972",
+							"orderId": "66e42cb9c1070d566a3b4436",
+							"serviceId": "668902f88bfb2a0781a57e45",
+							"status": "accepted",
+							"serviceName": "Relaxation Massage",
+							"price": 450,
+							"currency": "DKK",
+							"durationInSeconds": 3600,
+							"startTime": "2024-09-14T10:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "668ae6c35dbf8a31d19094d0",
+									"firstName": "Ivan",
+									"lastName": "Karbashevskyi",
+									"registeredDate": "2024-09-19T21:40:03.619Z"
+								}
+							],
+							"endTime": "2024-09-14T11:00:00.000Z",
+							"createdOn": "client",
+							"wasSelectedAnybody": true
+						},
+						{
+							"orderServiceId": "66e42cef6807651f6644f990",
+							"orderId": "66e42cbcc1070d566a3b4440",
+							"serviceId": "668902f88bfb2a0781a57e45",
+							"status": "accepted",
+							"serviceName": "Relaxation Massage",
+							"price": 450,
+							"currency": "DKK",
+							"durationInSeconds": 3600,
+							"startTime": "2024-09-14T11:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "668ae6c35dbf8a31d19094d0",
+									"firstName": "Ivan",
+									"lastName": "Karbashevskyi",
+									"registeredDate": "2024-09-19T21:40:03.635Z"
+								}
+							],
+							"endTime": "2024-09-14T12:00:00.000Z",
+							"createdOn": "client",
+							"wasSelectedAnybody": true
+						},
+						{
+							"orderServiceId": "66e443276807651f6644fa0b",
+							"orderId": "66e4431d866f27794a1b1023",
+							"serviceId": "668902f88bfb2a0781a57e45",
+							"status": "accepted",
+							"serviceName": "Relaxation Massage",
+							"price": 450,
+							"currency": "DKK",
+							"durationInSeconds": 3600,
+							"startTime": "2024-09-14T12:00:00.000Z",
+							"attendants": [],
+							"endTime": "2024-09-14T13:00:00.000Z",
+							"createdOn": "client",
+							"wasSelectedAnybody": true
+						},
+						{
+							"orderServiceId": "66e465e16807651f6644fb91",
+							"orderId": "66e465dcd2d701220b7c9fc3",
+							"serviceId": "668902f88bfb2a0781a57e45",
+							"status": "accepted",
+							"serviceName": "Relaxation Massage",
+							"price": 450,
+							"currency": "DKK",
+							"durationInSeconds": 3600,
+							"startTime": "2024-09-14T13:00:00.000Z",
+							"attendants": [
+								{
+									"customerId": "66e465e16807651f6644fb94",
+									"firstName": "test",
+									"lastName": "",
+									"registeredDate": "2024-09-19T21:40:03.685Z"
+								}
+							],
+							"endTime": "2024-09-14T14:00:00.000Z",
+							"createdOn": "client",
+							"wasSelectedAnybody": true
+						}
+					],
+					"products": [],
+					"dateRevenue": 1800
+				}
+			],
+			"endDate": "2024-09-15T21:59:59.999Z",
+			"specialist": {
+				"memberId": "6689427f118ee689f76a49df",
+				"firstName": "John",
+				"lastName": "Smith",
+				"email": "ivan.karbashevskyi+1@gmail.com"
+			},
+			"startDate": "2024-09-08T22:00:00.000Z",
+			"totalRevenue": 2900
+		}
+	]
+}

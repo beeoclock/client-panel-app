@@ -2,7 +2,7 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The settings of file replacements can be found in `angular.json`.
 
-import {constant} from "@environment/constant";
+import {config, constant, endpoint} from "@environment/constant";
 
 export const environment = {
 	production: false,
@@ -11,25 +11,13 @@ export const environment = {
 	proxy: false,
 	setDefaultValueToInputs: false,
 	apiUrls: {
+		analytic: 'https://api.dev.beeoclock.com/analytic',
 		panel: 'https://api.dev.beeoclock.com/panel',
 		identity: 'https://api.dev.beeoclock.com/identity',
 	},
-	endpoint: {
-		config: {
-			replace: false,
-			loading: false,
-			defaultErrorHandler: true,
-		}
-	},
+	endpoint,
 	constant,
-	config: {
-		modal: {
-			prefix: 'beeoclock_modal_'
-		},
-		pagination: {
-			maxLength: 5
-		}
-	},
+	config,
 	firebase: {
 		options: {
 			apiKey: "AIzaSyDpqktdOQyijnyCaiaOl3_DxUQhTu3PjUg",

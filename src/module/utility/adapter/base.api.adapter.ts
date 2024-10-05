@@ -1,4 +1,4 @@
-import {inject, Injectable} from "@angular/core";
+import {inject} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {firstValueFrom, Observable} from "rxjs";
 
@@ -7,9 +7,6 @@ export type ResponseListType<ITEM> = {
 	totalSize: number;
 };
 
-@Injectable({
-	providedIn: 'root'
-})
 export abstract class BaseApiAdapter<RESPONSE, ARGUMENTS extends readonly unknown[] = []> {
 
 	protected readonly httpClient = inject(HttpClient);

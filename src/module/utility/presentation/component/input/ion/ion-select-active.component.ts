@@ -17,11 +17,11 @@ import {is} from "@utility/checker";
 			class="!min-h-0"
 			fill="solid"
 			interface="popover">
-			<ion-select-option
-				*ngFor="let status of statusList"
-				[value]="status.id">
-				{{ status.label }}
-			</ion-select-option>
+			@for (status of statusList; track status.id) {
+				<ion-select-option [value]="status.id">
+					{{ status.label }}
+				</ion-select-option>
+			}
 		</ion-select>
 	`,
 	encapsulation: ViewEncapsulation.None,

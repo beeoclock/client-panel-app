@@ -45,6 +45,37 @@
 			}
 		}
 	},
+	"analytic": {
+		"counter": {
+			"customers": "Obsługiwani klienci",
+			"orderService": {
+				"by": {
+					"status": {
+						"done": "Liczba świadczonych usług"
+					}
+				}
+			}
+		},
+		"summary": {
+			"appointments": {
+				"by": {
+					"client": "Strona publiczna",
+					"panel": "Panel"
+				},
+				"title": "Wizyty i klienci",
+				"total": "Liczba świadczonych usług"
+			},
+			"averageBill": "Średni rachunek",
+			"averageServiceTime": "Średni czas obsługi",
+			"income": "Dochód",
+			"overview": {
+				"title": "Ogólny przegląd"
+			},
+			"totalOrders": "Całkowita liczba zamówień",
+			"totalServiceTime": "Ilość świadczonych usług w godzinach",
+			"uniqueClients": "Unikalni klienci"
+		}
+	},
 	"autoActionOnOrderInSeconds": {
 		"EIGHT_HOURS": "8 godzin",
 		"FIFTEEN_MINUTES": "15 minut",
@@ -951,6 +982,7 @@
 			"customers": "Klienty",
 			"dataNotFound": "Nie znaleziono danych",
 			"dateAndTime": "Data i czas",
+			"day": "Dzień",
 			"deactivate": "Dezaktywuj",
 			"delete": "Usuń",
 			"description": "Opis",
@@ -986,6 +1018,7 @@
 			"logout": "Wyloguj się",
 			"members": "Członkowie",
 			"menu": "Menu",
+			"month": "Miesiąc",
 			"name": "Nazwa",
 			"next": "Dalej",
 			"nextStep": "Dalej",
@@ -1065,9 +1098,11 @@
 			"update": "Zaktualizowano",
 			"updatedAt": "Zaktualizowano",
 			"warning": "Uwaga",
+			"week": "Tydzień",
 			"workdays": "Dni pracy",
 			"workingHours": "Godziny pracy",
 			"writePrice": "Wpisz cenę",
+			"year": "Rok",
 			"yes": "Tak",
 			"yesterday": "Wczoraj",
 			"zipCode": "Kod pocztowy"
@@ -1399,6 +1434,7 @@
 		},
 		"customers": "Klienci",
 		"dashboard": "Panel główny",
+		"dateRangeReport": "Analityka",
 		"events": "Wydarzenia",
 		"members": "Członkowie",
 		"order": "Zamówienia",

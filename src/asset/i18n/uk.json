@@ -45,6 +45,37 @@
 			}
 		}
 	},
+	"analytic": {
+		"counter": {
+			"customers": "Обслужених клієнтів",
+			"orderService": {
+				"by": {
+					"status": {
+						"done": "Кількість наданих послуг"
+					}
+				}
+			}
+		},
+		"summary": {
+			"appointments": {
+				"by": {
+					"client": "Публічна сторінка",
+					"panel": "Панель"
+				},
+				"title": "Записи та клієнти",
+				"total": "Кількість наданих послуг"
+			},
+			"averageBill": "Середній чек",
+			"averageServiceTime": "Середній час обслуговування",
+			"income": "Дохід",
+			"overview": {
+				"title": "Загальний огляд"
+			},
+			"totalOrders": "Всього замовлень",
+			"totalServiceTime": "Кількість наданих послуг у годинах",
+			"uniqueClients": "Унікальні клієнти"
+		}
+	},
 	"autoActionOnOrderInSeconds": {
 		"EIGHT_HOURS": "8 годин",
 		"FIFTEEN_MINUTES": "15 хвилин",
@@ -951,6 +982,7 @@
 			"customers": "Клієнти",
 			"dataNotFound": "Дані не знайдені",
 			"dateAndTime": "Дата та час",
+			"day": "День",
 			"deactivate": "Деактивувати",
 			"delete": "Видалити",
 			"description": "Опис",
@@ -986,6 +1018,7 @@
 			"logout": "Вихід",
 			"members": "Учасники",
 			"menu": "Меню",
+			"month": "Місяць",
 			"name": "Ім'я",
 			"next": "Далі",
 			"nextStep": "Наступний крок",
@@ -1065,9 +1098,11 @@
 			"update": "Оновити",
 			"updatedAt": "Оновлено",
 			"warning": "Увага",
+			"week": "Тиждень",
 			"workdays": "Робочі дні",
 			"workingHours": "Графік роботи",
 			"writePrice": "Ввести ціну",
+			"year": "Рік",
 			"yes": "Так",
 			"yesterday": "Вчора",
 			"zipCode": "Поштовий індекс"
@@ -1399,6 +1434,7 @@
 		},
 		"customers": "Клієнти",
 		"dashboard": "Панель керування",
+		"dateRangeReport": "Аналітика",
 		"events": "Події",
 		"members": "Команда",
 		"order": "Замовлення",

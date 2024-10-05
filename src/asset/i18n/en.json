@@ -45,6 +45,37 @@
 			}
 		}
 	},
+	"analytic": {
+		"counter": {
+			"customers": "Customers served",
+			"orderService": {
+				"by": {
+					"status": {
+						"done": "Number of services provided"
+					}
+				}
+			}
+		},
+		"summary": {
+			"appointments": {
+				"by": {
+					"client": "Public page",
+					"panel": "Panel"
+				},
+				"title": "Appointments and customers",
+				"total": "Number of services provided"
+			},
+			"averageBill": "Average bill",
+			"averageServiceTime": "Average service time",
+			"income": "Income",
+			"overview": {
+				"title": "General overview"
+			},
+			"totalOrders": "Total orders",
+			"totalServiceTime": "Number of services provided in hours",
+			"uniqueClients": "Unique clients"
+		}
+	},
 	"autoActionOnOrderInSeconds": {
 		"EIGHT_HOURS": "8 hours",
 		"FIFTEEN_MINUTES": "15 minutes",
@@ -951,6 +982,7 @@
 			"customers": "customers",
 			"dataNotFound": "Data not found",
 			"dateAndTime": "Date and time",
+			"day": "Day",
 			"deactivate": "Deactivate",
 			"delete": "Delete",
 			"description": "Description",
@@ -986,6 +1018,7 @@
 			"logout": "Logout",
 			"members": "Members",
 			"menu": "Menu",
+			"month": "Month",
 			"name": "Name",
 			"next": "Next",
 			"nextStep": "Next step",
@@ -1065,9 +1098,11 @@
 			"update": "Updated",
 			"updatedAt": "Updated at",
 			"warning": "Warning",
+			"week": "Week",
 			"workdays": "Workdays",
 			"workingHours": "Working hours",
 			"writePrice": "Write price",
+			"year": "Year",
 			"yes": "Yes",
 			"yesterday": "Yesterday",
 			"zipCode": "Zip code"
@@ -1399,6 +1434,7 @@
 		},
 		"customers": "Customers",
 		"dashboard": "Dashboard",
+		"dateRangeReport": "Analytics",
 		"events": "Events",
 		"members": "Members",
 		"order": "Orders",
