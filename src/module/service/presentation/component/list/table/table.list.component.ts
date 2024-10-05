@@ -86,7 +86,7 @@ export class TableListComponent extends TableComponent<IServiceDto> {
 			},
 			order: {
 				style: {
-					minWidth: '100px',
+					minWidth: '126px',
 				},
 			},
 			duration: {
