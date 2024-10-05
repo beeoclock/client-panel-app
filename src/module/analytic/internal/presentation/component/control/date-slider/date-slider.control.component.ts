@@ -249,10 +249,11 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 			role: 'accept' | 'cancel'
 		};
 
+		this.intervalTypeControl.setValue(data.intervalType);
+		this.dateControl.setValue(data.selectedDate);
+
 		switch (role) {
 			case 'accept':
-				this.intervalTypeControl.setValue(data.intervalType);
-				this.dateControl.setValue(data.selectedDate);
 				this.updateForm();
 				break;
 		}
