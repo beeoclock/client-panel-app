@@ -1,11 +1,7 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from "@angular/core";
 import {IonicModule} from "@ionic/angular";
-import {
-	DatetimePeriodEnum,
-	IonSelectEventStatusComponent
-} from "@event/presentation/component/statistic/component/ion-select-datetime-period.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
-import {FormControl} from "@angular/forms";
+import {FormControl, FormGroup} from "@angular/forms";
 import {Store} from "@ngxs/store";
 import {MemberState} from "@member/state/member/member.state";
 import {combineLatest, filter, map, Observable} from "rxjs";
@@ -29,6 +25,10 @@ import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-statu
 import {NGXLogger} from "ngx-logger";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 import {IdentityState} from "@identity/state/identity/identity.state";
+import {
+	DateSliderControlComponent
+} from "@module/analytic/internal/presentation/component/control/date-slider/date-slider.control.component";
+import {IntervalTypeEnum} from "@module/analytic/internal/domain/enum/interval.enum";
 
 @Component({
 	selector: 'event-statistic-component',
@@ -37,7 +37,6 @@ import {IdentityState} from "@identity/state/identity/identity.state";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		IonicModule,
-		IonSelectEventStatusComponent,
 		DefaultPanelComponent,
 		NgForOf,
 		AsyncPipe,
@@ -45,15 +44,12 @@ import {IdentityState} from "@identity/state/identity/identity.state";
 		CurrencyPipe,
 		LoaderComponent,
 		TranslateModule,
-		DecimalPipe
+		DecimalPipe,
+		DateSliderControlComponent
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatisticComponent extends Reactive implements AfterViewInit {
-
-	public readonly datetimePeriodControl = new FormControl<DatetimePeriodEnum>(DatetimePeriodEnum.TODAY, {
-		nonNullable: true
-	});
 
 	private readonly router = inject(Router);
 	private readonly activatedRoute = inject(ActivatedRoute);
@@ -62,6 +58,15 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 	private readonly translateService = inject(TranslateService);
 
 	private readonly analyticsService = inject(AnalyticsService);
+
+	public readonly filterStateFormGroup = new FormGroup({
+		interval: new FormControl<IntervalTypeEnum>(IntervalTypeEnum.day, {
+			nonNullable: true
+		}),
+		selectedDate: new FormControl<string>(DateTime.now().toJSDate().toISOString(), {
+			nonNullable: true
+		}),
+	});
 
 	@SelectSnapshot(IdentityState.accountDetails)
 	public readonly accountDetails!: {
@@ -122,13 +127,18 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 			})
 		),
 		this.store.select(StatisticQueries.data),
-		this.datetimePeriodControl.valueChanges,
+		this.filterStateFormGroup.valueChanges,
 		this.store.select(ClientState.baseCurrency).pipe(
 			filter(is.not_undefined<CurrencyCodeEnum>)
 		)
 	]).pipe(
 		this.takeUntil(),
-		map(({0: members, 1: statistic, 2: datetimePeriod, 3: baseCurrency}) => {
+		map(({
+				 0: members,
+				 1: statistic,
+				 2: filterState,
+				 3: baseCurrency
+			 }) => {
 
 			this.summary = {
 				amount: 0,
@@ -228,110 +238,46 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 	);
 
 	public ngAfterViewInit(): void {
-		this.datetimePeriodControl.valueChanges.pipe(this.takeUntil()).subscribe((datetimePeriod) => {
-			this.start = DateTime.now().startOf('day');
-			this.end = DateTime.now().endOf('day');
-			switch (datetimePeriod) {
-				case DatetimePeriodEnum.YESTERDAY:
-					this.start = this.start.minus({days: 1});
-					this.end = this.end.startOf('day');
-					break;
-				case DatetimePeriodEnum.THIS_WEEK:
-					this.start = this.start.startOf('week');
-					break;
-				case DatetimePeriodEnum.LAST_WEEK:
-					this.start = this.start.startOf('week').minus({weeks: 1});
-					this.end = this.end.startOf('week');
-					break;
-				case DatetimePeriodEnum.THIS_MONTH:
-					this.start = this.start.startOf('month');
-					break;
-				case DatetimePeriodEnum.LAST_MONTH:
-					this.start = this.start.startOf('month').minus({months: 1});
-					this.end = this.end.startOf('month');
-					break;
-				case DatetimePeriodEnum.THIS_YEAR:
-					this.start = this.start.startOf('year');
-					break;
-				case DatetimePeriodEnum.LAST_YEAR:
-					this.start = this.start.startOf('year').minus({years: 1});
-					this.end = this.end.startOf('year');
-					break;
+		this.filterStateFormGroup.valueChanges.pipe(
+			this.takeUntil(),
+		).subscribe(({interval, selectedDate}) => {
+
+			if (!selectedDate || !interval) {
+				return;
 			}
-			this.initPeriodTitle();
-			const payload = {
-				start: this.start.toJSDate().toISOString(),
-				end: this.end.toJSDate().toISOString()
+
+			const start = DateTime.fromISO(selectedDate).startOf(interval).toJSDate().toISOString();
+			const end = DateTime.fromISO(selectedDate).endOf(interval).toJSDate().toISOString();
+			const payload: {
+				start: string;
+				end: string;
+			} = {
+				start,
+				end,
 			};
 			this.analyticsService.logEvent('statistic_period_changed', {
-				period: datetimePeriod,
+				period: interval,
 				payload: JSON.stringify(payload),
 				accountDetails: JSON.stringify(this.accountDetails)
 			});
 			this.store.dispatch(new StatisticAction.SetDate(payload));
 			this.router.navigate([], {
 				queryParams: {
-					period: datetimePeriod
+					interval,
+					selectedDate
 				},
 				queryParamsHandling: 'merge'
 			});
 		});
-		const {period} = this.activatedRoute.snapshot.queryParams as Params & {
-			period?: DatetimePeriodEnum;
+		const {interval, selectedDate} = this.activatedRoute.snapshot.queryParams as Params & {
+			interval?: IntervalTypeEnum;
+			selectedDate?: string;
 		};
 
-		this.datetimePeriodControl.setValue(period ?? DatetimePeriodEnum.TODAY);
-	}
-
-
-	public initPeriodTitle(): void {
-
-		if (this.start.hasSame(this.end, 'day')) {
-
-			if (DateTime.now().hasSame(this.start, 'day')) {
-
-				const today = this.translateService.instant('keyword.capitalize.today');
-				this.periodTitle = `${today} (${this.start.toFormat('cccc')})`
-				return;
-
-			}
-
-			if (DateTime.now().minus({
-				days: 1
-			}).hasSame(this.start, 'day')) {
-
-				const yesterday = this.translateService.instant('keyword.capitalize.yesterday');
-				this.periodTitle = `${yesterday} (${this.start.toFormat('cccc')})`
-				return;
-
-			}
-
-		}
-
-		if (this.start.hasSame(this.end, 'month')) {
-
-			this.periodTitle = `${this.start.toFormat('d')} - ${this.end.toFormat('d')} ${this.end.toFormat('LLL')}`;
-
-			if (!DateTime.now().hasSame(this.start, 'year')) {
-				this.periodTitle += ` ${this.start.toFormat('yyyy')}`;
-			}
-
-			return;
-		}
-
-		if (this.start.hasSame(this.end, 'year')) {
-
-			this.periodTitle = `${this.start.toFormat('d LLL')} - ${this.end.toFormat('d LLL')}`;
-
-			if (!DateTime.now().hasSame(this.start, 'year')) {
-				this.periodTitle += ` ${this.start.toFormat('yyyy')}`;
-			}
-
-			return;
-		}
-
-		this.periodTitle = `${this.start.toFormat('d LLL yyyy')} - ${this.end.toFormat('d LLL yyyy')}`;
-
+		this.filterStateFormGroup.patchValue({
+			interval: interval ?? IntervalTypeEnum.day,
+			selectedDate: selectedDate ?? DateTime.now().toJSDate().toISOString()
+		});
 	}
 
 }

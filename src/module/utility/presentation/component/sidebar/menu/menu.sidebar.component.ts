@@ -202,20 +202,20 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 				fragment: "ignored",
 			}
 		});
-		this.menu.push({
-			order: 4,
-			url: 'analytic/date-range-report',
-			translateKey: 'sidebar.dateRangeReport',
-			icon: 'bi bi-bar-chart',
-			beta: true,
-			visible: true,
-			routerLinkActiveOptions: {
-				paths: "subset",
-				matrixParams: "ignored",
-				queryParams: "ignored",
-				fragment: "ignored",
-			}
-		});
+		// this.menu.push({
+		// 	order: 4,
+		// 	url: 'analytic/date-range-report',
+		// 	translateKey: 'sidebar.dateRangeReport',
+		// 	icon: 'bi bi-bar-chart',
+		// 	beta: true,
+		// 	visible: true,
+		// 	routerLinkActiveOptions: {
+		// 		paths: "subset",
+		// 		matrixParams: "ignored",
+		// 		queryParams: "ignored",
+		// 		fragment: "ignored",
+		// 	}
+		// });
 		this.menu.push({
 			order: 5,
 			url: 'customer/list',
