@@ -11,7 +11,7 @@ import {IconComponent} from "@src/component/adapter/icon/icon.component";
 	],
 	template: `
 		@if (firstTime) {
-			<app-icon title="Specialist: Anybody" name="bootstrapPersonAdd"/>
+			<app-icon title="First time" name="bootstrapPersonAdd"/>
 		}
 	`
 })
