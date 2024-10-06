@@ -80,6 +80,7 @@
 		"ng-event-bus": "7.0.1",
 		"ngx-logger": "5.0.12",
 		"ngx-mask": "18.0.4",
+		"ngx-socket-io": "^4.7.0",
 		"rxjs": "7.8.1",
 		"tslib": "2.8.1",
 		"typescript-debounce-decorator": "0.0.18",
