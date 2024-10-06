@@ -37,7 +37,7 @@ import {
 			</div>
 			<div class="flex gap-2">
 				<app-first-time-icon-component
-					[firstTime]="event.originalData.service.orderAppointmentDetails.attendees[0].firstTime ?? false"/>
+					[firstTime]="event.originalData.service?.orderAppointmentDetails?.attendees?.[0]?.firstTime ?? false"/>
 				<app-anybody-specialist-icon-component
 					[wasSelectedAnybody]="event.originalData?.service?.orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody ?? false"/>
 				<app-note-icon-component [note]="event?.note ?? ''"/>
