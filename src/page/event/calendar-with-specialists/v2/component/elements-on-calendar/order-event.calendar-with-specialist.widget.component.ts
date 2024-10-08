@@ -15,6 +15,18 @@ import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 import {EventActions} from "@event/state/event/event.actions";
+import {
+	AnybodySpecialistIconComponent
+} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/anybody-specialist.icon.component";
+import {
+	NoteIconComponent
+} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/note.icon.component";
+import {
+	StatusIconComponent
+} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.icon.component";
+import {
+	FirstTimeIconComponent
+} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/first-time.icon.component";
 
 @Component({
 	selector: 'app-order-event-calendar-with-specialist-widget-component',
@@ -24,32 +36,12 @@ import {EventActions} from "@event/state/event/event.actions";
 				{{ event.start | date: 'HH:mm' }} - {{ event.end | date: 'HH:mm' }}
 			</div>
 			<div class="flex gap-2">
-				@if (event.originalData?.service?.orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody) {
-					<i title="Specialist: Anybody" class="bi bi-person"></i>
-				}
-				@if (event.note) {
-					<i [title]="event.note" class="bi bi-chat-text"></i>
-				}
-				@switch (event.originalData.service.status) {
-					@case (orderServiceStatusEnum.done) {
-						<i title="Done" class="bi bi-check2-all"></i>
-					}
-					@case (orderServiceStatusEnum.cancelled) {
-						<i title="Cancelled" class="bi bi-x"></i>
-					}
-					@case (orderServiceStatusEnum.rejected) {
-						<i title="Rejected" class="bi bi-x"></i>
-					}
-					@case (orderServiceStatusEnum.accepted) {
-						<i title="Accepted" class="bi bi-check2"></i>
-					}
-					@case (orderServiceStatusEnum.inProgress) {
-						<i title="In progress" class="bi bi-hourglass-split"></i>
-					}
-					@case (orderServiceStatusEnum.requested) {
-						<i title="Requested" class="bi bi-exclamation"></i>
-					}
-				}
+				<app-first-time-icon-component
+					[firstTime]="event.originalData.service?.orderAppointmentDetails?.attendees?.[0]?.firstTime ?? false"/>
+				<app-anybody-specialist-icon-component
+					[wasSelectedAnybody]="event.originalData?.service?.orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody ?? false"/>
+				<app-note-icon-component [note]="event?.note ?? ''"/>
+				<app-status-icon-component [status]="event.originalData.service.status"/>
 			</div>
 		</div>
 		<div class="text-xs font-bold dark:text-sky-100">
@@ -58,10 +50,14 @@ import {EventActions} from "@event/state/event/event.actions";
 		<div class="text-xs font-medium">
 			{{ event.originalData.service.serviceSnapshot.languageVersions[0].title }}
 		</div>
-    `,
+	`,
 	standalone: true,
 	imports: [
 		DatePipe,
+		AnybodySpecialistIconComponent,
+		NoteIconComponent,
+		StatusIconComponent,
+		FirstTimeIconComponent,
 	],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
