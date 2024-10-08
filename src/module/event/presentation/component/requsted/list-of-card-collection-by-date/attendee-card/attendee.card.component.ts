@@ -3,12 +3,15 @@ import {IAttendee} from "@event/domain";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 import {TranslateService} from "@ngx-translate/core";
 import {IAttendeeDto} from "@order/external/interface/i-order-appointment-details.dto";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'event-attendee-card-component',
 	templateUrl: './attendee.card.component.html',
 	standalone: true,
-	imports: [],
+	imports: [
+		IconComponent
+	],
 })
 export class AttendeeCardComponent {
 

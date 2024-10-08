@@ -4,6 +4,7 @@ import {Store} from "@ngxs/store";
 import {OrderActions} from "@order/state/order/order.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	standalone: true,
@@ -12,7 +13,8 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		TranslateModule,
-		DynamicDatePipe
+		DynamicDatePipe,
+		IconComponent
 	],
 	template: `
 
@@ -27,7 +29,7 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 
 		<button (click)="openOrderDetails()" type="button" class="p-2 transition-all rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 flex justify-between">
 			{{ 'order.keyword.singular.capitalize.openDetails' | translate }}
-			<i class="bi bi-chevron-right"></i>
+			<app-icon name="bootstrapChevronRight"/>
 		</button>
 	`
 })

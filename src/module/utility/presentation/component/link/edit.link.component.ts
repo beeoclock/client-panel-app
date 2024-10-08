@@ -3,6 +3,7 @@ import {NgIf} from '@angular/common';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'edit-link-component',
@@ -32,7 +33,7 @@ import {RouterLink} from "@angular/router";
         ring-1
         ring-inset
         ring-beeColor-300">
-			<i class="bi bi-pencil me-2"></i>
+			<app-icon name="bootstrapPencil" class="me-2"/>
 			{{ 'keyword.capitalize.edit' | translate }}
 		</a>
 
@@ -41,7 +42,8 @@ import {RouterLink} from "@angular/router";
 		NgIf,
 		SpinnerComponent,
 		TranslateModule,
-		RouterLink
+		RouterLink,
+		IconComponent
 	]
 })
 export class EditLinkComponent {

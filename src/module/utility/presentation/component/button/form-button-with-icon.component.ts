@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulatio
 import {NgIf} from '@angular/common';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {TranslateModule} from "@ngx-translate/core";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
   selector: 'bee-form-button-with-icon',
@@ -9,14 +10,15 @@ import {TranslateModule} from "@ngx-translate/core";
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   template: `
-      <i class="bi bi-plus-lg"></i>
+	  <app-icon name="bootstrapPlusLg"/>
       {{ label }}
   `,
-  imports: [
-    NgIf,
-    SpinnerComponent,
-    TranslateModule
-  ]
+	imports: [
+		NgIf,
+		SpinnerComponent,
+		TranslateModule,
+		IconComponent
+	]
 })
 export class FormButtonWithIconComponent {
 

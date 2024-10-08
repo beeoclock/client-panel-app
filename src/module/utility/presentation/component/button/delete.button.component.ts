@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEnc
 import {NgIf} from '@angular/common';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {TranslateModule} from "@ngx-translate/core";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
   selector: 'bee-delete-button',
@@ -32,15 +33,16 @@ import {TranslateModule} from "@ngx-translate/core";
         ring-beeColor-300
         dark:ring-red-700
         hover:dark:ring-red-700">
-      <i class="bi bi-trash me-2"></i>
+		<app-icon name="bootstrapTrash" class="me-2"/>
       {{ 'keyword.capitalize.delete' | translate }}
     </button>
   `,
-  imports: [
-    NgIf,
-    SpinnerComponent,
-    TranslateModule
-  ]
+	imports: [
+		NgIf,
+		SpinnerComponent,
+		TranslateModule,
+		IconComponent
+	]
 })
 export class DeleteButtonComponent {
 

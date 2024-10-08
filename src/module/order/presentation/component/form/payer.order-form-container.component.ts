@@ -6,6 +6,7 @@ import {
 import {TranslateModule} from "@ngx-translate/core";
 import {CustomerForm} from "@customer/presentation/form";
 import {ServiceOrderFormArray} from "@order/presentation/form/service.order.form";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	standalone: true,
@@ -15,7 +16,8 @@ import {ServiceOrderFormArray} from "@order/presentation/form/service.order.form
 	imports: [
 		CardComponent,
 		CustomerTypeCustomerComponent,
-		TranslateModule
+		TranslateModule,
+		IconComponent
 	],
 	template: `
 		<bee-card>
@@ -25,7 +27,7 @@ import {ServiceOrderFormArray} from "@order/presentation/form/service.order.form
 				<div slot="banner" customer-type="new"
 					 class="bg-beeColor-100 border-2 px-3 py-2 rounded-lg text-beeColor-600 text-sm flex flex-col">
 					<div class="font-bold">
-						<i class="bi bi-exclamation-triangle-fill"></i>
+						<app-icon name="bootstrapExclamationTriangleFill"/>
 						{{ 'keyword.capitalize.warning' | translate }}
 					</div>
 					<div>
@@ -36,7 +38,7 @@ import {ServiceOrderFormArray} from "@order/presentation/form/service.order.form
 				<div slot="banner" customer-type="unregistered"
 					 class="bg-beeColor-100 border-2 px-3 py-2 rounded-lg text-beeColor-600 text-sm flex flex-col">
 					<div class="font-bold">
-						<i class="bi bi-exclamation-triangle-fill"></i>
+						<app-icon name="bootstrapExclamationTriangleFill"/>
 						{{ 'keyword.capitalize.warning' | translate }}
 					</div>
 					<div>

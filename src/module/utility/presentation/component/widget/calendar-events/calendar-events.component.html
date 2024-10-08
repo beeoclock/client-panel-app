@@ -47,12 +47,12 @@
 									{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow'  }}
 								</div>
 								<div class="text-2xl text-neutral-500" *ngIf="item?.note?.length">
-									<i class="bi bi-chat-heart"></i>
+									<app-icon name="bootstrapChatHeart"/>
 								</div>
 							</div>
 							<div
 								class="inline-flex gap-4 items-center">
-								<i class="bi bi-cart"></i>
+								<app-icon name="bootstrapCart"/>
 								{{ item?.services?.[0]?.languageVersions?.[0]?.title | noData }}
 							</div>
 							<div
@@ -60,7 +60,7 @@
 								#attendantRef
 								[attr.data-value]="(attendant?.customer?.firstName ?? '') + ' ' + (attendant.customer.lastName ?? '')"
 								class="inline-flex gap-4 items-center">
-								<i class="bi bi-person"></i>
+								<app-icon name="bootstrapPerson"/>
 								{{ (attendantRef?.getAttribute?.('data-value')?.length ?? 0) > 1 ? attendantRef.getAttribute('data-value') : (attendant?.customer?.email ?? attendant?.customer?.phone ?? '-') }}
 							</div>
 						</div>
@@ -80,7 +80,7 @@
 		class="border-t p-3 w-full text-blue-500 hover:bg-blue-100 rounded-b-2xl transition-all"
 		routerLink="/event/form"
 		[queryParams]="{returnUrl, start: selectedDateControl.value}">
-		<i class="bi bi-plus-lg"></i>
+		<app-icon name="bootstrapPlusLg"/>
 		{{ 'keyword.capitalize.add-event' | translate }}
 	</button>
 </div>

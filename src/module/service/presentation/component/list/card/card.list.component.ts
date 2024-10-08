@@ -19,6 +19,7 @@ import {RowActionButtonComponent} from "@service/presentation/component/row-acti
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {ServiceTableService} from "@service/presentation/component/list/service.table.service";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'service-card-list-component',
@@ -39,7 +40,8 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 		CardComponent,
 		NgIf,
 		AsyncPipe,
-		RowActionButtonComponent
+		RowActionButtonComponent,
+		IconComponent
 	],
 	providers: [
 		CurrencyPipe,

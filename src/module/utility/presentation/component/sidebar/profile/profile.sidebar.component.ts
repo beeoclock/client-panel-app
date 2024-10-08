@@ -9,6 +9,7 @@ import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {AlertController} from "@ionic/angular";
 import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 
 @Component({
@@ -22,7 +23,8 @@ import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe"
         TranslateModule,
         NgForOf,
         NgIf,
-        WithTenantIdPipe
+		WithTenantIdPipe,
+		IconComponent
     ],
 })
 export class ProfileSidebarComponent {

@@ -8,6 +8,7 @@ import {PatchMemberMediaApiAdapter} from "@member/adapter/external/api/media/pat
 import {RESPONSE_IMemberMedia} from "@member/domain/interface/i.member-media";
 import {AvatarFormComponent} from "@member/presentation/component/form/avatar-form/avatar-form.component";
 import {NGXLogger} from "ngx-logger";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'member-form-avatar-container-component',
@@ -18,7 +19,8 @@ import {NGXLogger} from "ngx-logger";
 		TranslateModule,
 		CardComponent,
 		NgForOf,
-		AvatarFormComponent
+		AvatarFormComponent,
+		IconComponent
 	]
 })
 export class AvatarContainerComponent {

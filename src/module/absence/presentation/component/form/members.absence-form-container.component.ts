@@ -15,6 +15,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {NgIf} from "@angular/common";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {RIMember} from "@member/domain";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
     selector: 'app-members-absence-form-container',
@@ -29,14 +30,15 @@ import {RIMember} from "@member/domain";
         SwitchComponent,
         NgSelectModule,
         ReactiveFormsModule,
-        NgIf
+        NgIf,
+        IconComponent
     ],
     standalone: true,
     template: `
         <button *ngIf="visibleState.isTrue" class="border hover:border-blue-700 cursor-pointer flex hover:bg-blue-500 hover:text-white bg-gray-50 justify-between px-3 py-2 rounded-lg transition-all w-full" type="button" (click)="openModalToSelectMember()">
             <span>{{ 'keyword.capitalize.members' | translate }}: {{ members.value.length }}</span>
             <span class="">
-                <i class="bi bi-chevron-right"></i>
+                <app-icon name="bootstrapChevronRight"/>
             </span>
         </button>
     `

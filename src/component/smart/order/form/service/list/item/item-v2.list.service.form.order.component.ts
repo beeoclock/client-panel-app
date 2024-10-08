@@ -29,6 +29,7 @@ import {NGXLogger} from "ngx-logger";
 import {DateTime} from "luxon";
 import {ICustomer} from "@customer/domain";
 import {SpecialistModel} from "@service/domain/model/specialist.model";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'app-item-list-v2-service-form-order-component',
@@ -43,6 +44,7 @@ import {SpecialistModel} from "@service/domain/model/specialist.model";
 		StartChipComponent,
 		LanguageChipComponent,
 		PrimaryLinkButtonDirective,
+		IconComponent,
 	],
 	template: `
 		<div class="justify-start items-start gap-1 flex w-full">
@@ -62,7 +64,7 @@ import {SpecialistModel} from "@service/domain/model/specialist.model";
 			</div>
 			<button primaryLink (click)="deleteMe.emit()"
 					class="w-8 h-8 p-1.5 rounded-lg justify-center items-center flex">
-				<i class="bi bi-dash-circle text-2xl"></i>
+				<app-icon name="bootstrapDashCircle" class="text-2xl"/>
 			</button>
 		</div>
 		<div class="justify-start items-start flex">

@@ -21,6 +21,7 @@ import {
 import {IDayItem} from "@utility/domain/interface/i.day-item";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {DateTime} from "luxon";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'utility-widget-calendar-events',
@@ -46,6 +47,7 @@ import {DateTime} from "luxon";
 		HumanizeDurationPipe,
 		NoDataPipe,
 		DateSliderSelectComponent,
+		IconComponent,
 	]
 })
 export class CalendarEventsComponent extends Reactive implements OnInit {

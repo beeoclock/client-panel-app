@@ -3,6 +3,7 @@ import {NgIf} from '@angular/common';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'edit-button-component',
@@ -10,14 +11,15 @@ import {RouterLink} from "@angular/router";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<i class="bi bi-pencil me-2"></i>
+		<app-icon name="bootstrapPencil" class="me-2"/>
 		{{ 'keyword.capitalize.edit' | translate }}
 	`,
 	imports: [
 		NgIf,
 		SpinnerComponent,
 		TranslateModule,
-		RouterLink
+		RouterLink,
+		IconComponent
 	]
 })
 export class EditButtonComponent {

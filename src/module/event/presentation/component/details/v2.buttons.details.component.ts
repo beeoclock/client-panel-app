@@ -22,6 +22,7 @@ import {
 import {
 	ChangeStatusOnCancelledComponent
 } from "@event/presentation/component/change-status/change-status-on-cancelled.component";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'app-event-v2-buttons-details',
@@ -38,6 +39,7 @@ import {
 		EditButtonComponent,
 		ChangeStatusOnRejectedComponent,
 		ChangeStatusOnCancelledComponent,
+		IconComponent,
 	],
 	template: `
 
@@ -112,7 +114,7 @@ import {
               ring-inset
               ring-blue-300
               hover:bg-blue-100">
-				<i class="bi bi-arrow-repeat"></i>
+				<app-icon name="bootstrapArrowRepeat"/>
 				{{ 'event.keyword.capitalize.repeat' | translate }}
 			</button>
 		</ng-template>

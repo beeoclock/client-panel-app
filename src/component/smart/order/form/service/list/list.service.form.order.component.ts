@@ -28,6 +28,7 @@ import {ClientState} from "@client/state/client/client.state";
 import {ActiveEnum, LanguageCodeEnum} from "@utility/domain/enum";
 import {ReservationTypeEnum} from "@order/domain/enum/reservation.type.enum";
 import {DateTime} from "luxon";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	standalone: true,
@@ -38,7 +39,8 @@ import {DateTime} from "luxon";
 		ItemV2ListServiceFormOrderComponent,
 		PrimaryLinkButtonDirective,
 		TranslateModule,
-		NgForOf
+		NgForOf,
+		IconComponent
 	],
 	template: `
 		<div class="h-12 px-4 py-2 bg-neutral-50 border-slate-400 justify-start items-center gap-2 flex w-full">
@@ -46,7 +48,7 @@ import {DateTime} from "luxon";
 				{{ 'keyword.capitalize.services' | translate }}
 			</div>
 			<button (click)="addService()" primaryLink class="w-8 rounded-lg justify-center items-center flex !py-0">
-				<i class="bi bi-plus-circle text-2xl"></i>
+				<app-icon name="bootstrapPlusCircle" class="text-2xl"/>
 			</button>
 		</div>
 		<div class="flex-col justify-start items-start flex">

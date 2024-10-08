@@ -22,20 +22,22 @@ import {environment} from "@environment/environment";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
 import {BooleanState} from "@utility/domain";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
   selector: 'utility-table-state-pagination-component',
   standalone: true,
   templateUrl: './table-state-pagination.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    NgSelectModule,
-    NgForOf,
-    ReactiveFormsModule,
-    NgIf,
-    RouterLink,
-    TranslateModule,
-  ],
+	imports: [
+		NgSelectModule,
+		NgForOf,
+		ReactiveFormsModule,
+		NgIf,
+		RouterLink,
+		TranslateModule,
+		IconComponent,
+	],
   encapsulation: ViewEncapsulation.None
 })
 export class TableStatePaginationComponent implements OnChanges {

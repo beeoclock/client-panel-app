@@ -22,18 +22,20 @@
 							<div class="flex items-center justify-between">
 								<span class="sr-only">{{ step.title }}</span>
 								<h3 class="font-medium">{{ index + 1 }}. {{ step.title }}</h3>
-								<ng-template [ngIf]="step.status === 'inQueue'">
-									<i class="bi bi-hourglass"></i>
-								</ng-template>
-								<ng-template [ngIf]="step.status === 'failed'">
-									<i class="bi bi-x-circle"></i>
-								</ng-template>
-								<ng-template [ngIf]="step.status === 'inProgress'">
-									<utility-loader [px5]="false" [py2_5]="false" [mr2]="false"/>
-								</ng-template>
-								<ng-template [ngIf]="step.status === 'success'">
-									<i class="bi bi-check-lg"></i>
-								</ng-template>
+								@switch (step.status) {
+									@case ('inQueue') {
+										<app-icon name="bootstrapHourglass"/>
+									}
+									@case ('failed') {
+										<app-icon name="bootstrapXCircle"/>
+									}
+									@case ('inProgress') {
+										<utility-loader [px5]="false" [py2_5]="false" [mr2]="false"/>
+									}
+									@case ('success') {
+										<app-icon name="bootstrapCheckLg"/>
+									}
+								}
 							</div>
 						</div>
 					</li>

@@ -15,6 +15,7 @@ import {MS_ONE_SECOND} from "@utility/domain/const/c.time";
 import {AutoRefreshStorageService} from "@utility/presentation/component/auto-refresh/auto-refresh.storage.service";
 import {VisibilityService} from "@utility/cdk/visibility.service";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 enum AutoRefreshTime {
 	OFF = 0,
@@ -65,7 +66,7 @@ const allowedAutoRefreshTimes = [
 					type="submit"
 					link
 					class="rounded-l-none border border-l-0 !p-3 h-full text-sm border-beeColor-300 shadow-sm">
-					<i [class.animate-spin]="isLoading" class="bi bi-arrow-clockwise"></i>
+					<app-icon name="bootstrapArrowClockwise" [class.animate-spin]="isLoading"/>
 				</button>
 			</div>
 		</form>
@@ -82,7 +83,8 @@ const allowedAutoRefreshTimes = [
 		TranslateModule,
 		IonicModule,
 		NgForOf,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		IconComponent
 	]
 })
 export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit {

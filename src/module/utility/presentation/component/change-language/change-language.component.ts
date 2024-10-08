@@ -16,6 +16,7 @@ import {NgForOf} from "@angular/common";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {Dropdown, DropdownInterface, DropdownOptions} from "flowbite";
 import {TranslateService} from "@ngx-translate/core";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
   selector: 'utility-change-language-component',
@@ -44,7 +45,7 @@ import {TranslateService} from "@ngx-translate/core";
         dark:hover:bg-blue-700
         dark:focus:ring-blue-800"
       type="button">
-      <i class="bi bi-translate"></i>
+		<app-icon name="bootstrapTranslate"/>
 <!--      <span class="ms-2">-->
 <!--        {{ selectedLanguageLabel }}-->
 <!--      </span>-->
@@ -73,12 +74,13 @@ import {TranslateService} from "@ngx-translate/core";
 
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    RouterLink,
-    DropdownComponent,
-    NgForOf,
-    ReactiveFormsModule
-  ],
+	imports: [
+		RouterLink,
+		DropdownComponent,
+		NgForOf,
+		ReactiveFormsModule,
+		IconComponent
+	],
   encapsulation: ViewEncapsulation.None
 })
 export class ChangeLanguageComponent implements AfterViewInit {

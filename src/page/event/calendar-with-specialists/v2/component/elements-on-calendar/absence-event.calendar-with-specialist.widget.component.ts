@@ -1,12 +1,13 @@
 import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
 
 import {IAttendee, IEvent_V2} from "@event/domain";
-import {DatePipe, NgIf} from "@angular/common";
+import {DatePipe} from "@angular/common";
 import {Store} from "@ngxs/store";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {TranslateModule} from "@ngx-translate/core";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {DateTime} from "luxon";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'app-absence-event-calendar-with-specialist-widget-component',
@@ -18,9 +19,9 @@ import {DateTime} from "luxon";
 				</div>
 				<div class="dark:text-sky-100 absolute right-2 gap-2 flex">
 					@if(event.note){
-						<i [title]="event.note" class="bi bi-chat-text"></i>
+						<app-icon name="bootstrapChatText" [title]="event.note"/>
 					}
-					<i class="bi bi-cup-hot-fill"></i>
+					<app-icon name="bootstrapCupHotFill"/>
 				</div>
 			</div>
 			<div class="text-xs font-bold dark:text-sky-100">
@@ -35,6 +36,7 @@ import {DateTime} from "luxon";
 	imports: [
 		DatePipe,
 		TranslateModule,
+		IconComponent,
 	],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush

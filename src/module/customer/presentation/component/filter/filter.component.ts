@@ -12,6 +12,7 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
 import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'customer-filter-component',
@@ -27,7 +28,8 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		AsyncPipe,
 		NgIf,
 		NgTemplateOutlet,
-		AutoRefreshComponent
+		AutoRefreshComponent,
+		IconComponent
 	],
 	template: `
 		<utility-default-panel-component>
@@ -64,12 +66,14 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>
-			<button *ngIf="showButtonGoToForm" type="button" primary class="!py-3 !px-4 !text-base" (click)="openForm()">
-				<i class="bi bi-plus-lg"></i>
-<!--				<span class="hidden xl:block">-->
-<!--					{{ 'customer.button.create' | translate }}-->
-<!--				</span>-->
-			</button>
+			@if (showButtonGoToForm) {
+				<button type="button" primary class="!py-3 !px-4 !text-base" (click)="openForm()">
+					<app-icon name="bootstrapPlusLg"/>
+					<!--				<span class="hidden xl:block">-->
+					<!--					{{ 'customer.button.create' | translate }}-->
+					<!--				</span>-->
+				</button>
+			}
 		</ng-template>
 	`
 })

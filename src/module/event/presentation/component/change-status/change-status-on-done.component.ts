@@ -11,6 +11,7 @@ import {EventActions} from "@event/state/event/event.actions";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 import {firstValueFrom} from "rxjs";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'event-change-status-on-done-component',
@@ -22,7 +23,8 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 		EditLinkComponent,
 		NgIf,
 		NgTemplateOutlet,
-		LoaderComponent
+		LoaderComponent,
+		IconComponent
 	],
 	template: `
 		<button
@@ -50,7 +52,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 		cursor-pointer">
 
 			<ng-container *ngIf="loading.isFalse">
-				<i class="bi bi-check-lg"></i>
+				<app-icon name="bootstrapCheckLg"/>
 				{{ 'event.action.button.done.label' | translate }}
 			</ng-container>
 			<utility-loader [py2_5]="false" *ngIf="loading.isTrue"/>

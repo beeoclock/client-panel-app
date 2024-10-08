@@ -4,6 +4,7 @@ import {IonPopover} from "@ionic/angular/standalone";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'settings-component',
@@ -23,6 +24,7 @@ import {Reactive} from "@utility/cdk/reactive";
 		IonPopover,
 		ReactiveFormsModule,
 		TranslateModule,
+		IconComponent,
 	]
 })
 export class SettingsComponent extends Reactive implements OnInit {

@@ -10,12 +10,13 @@ import {
 } from '@angular/core';
 import {NgIf} from '@angular/common';
 import {WhacAMoleBuildItArgsType} from "@utility/presentation/whac-a-mole/whac-a-mole.type";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'whac-a-mole-wrapper',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
-	imports: [NgIf],
+	imports: [NgIf, IconComponent],
 	template: `
 		<div class="flex justify-between p-1 border-b">
 			<div class="truncate font-bold p-2">{{ title }}</div>
@@ -29,7 +30,9 @@ import {WhacAMoleBuildItArgsType} from "@utility/presentation/whac-a-mole/whac-a
           <span *ngIf="button?.close?.text" [class]="button?.close?.classList ?? ''">
             {{ button?.close?.text }}
           </span>
-					<i *ngIf="button?.close?.useDefaultIcon ?? false" class="bi bi-x-lg"></i>
+					@if (button?.close?.useDefaultIcon ?? false) {
+						<app-icon name="bootstrapXLg"/>
+					}
 				</button>
 			</div>
 		</div>

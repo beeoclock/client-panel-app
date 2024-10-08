@@ -16,6 +16,7 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {LogoutComponent} from "@utility/presentation/component/logout/logout.component";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'app-confirm-email-identity-page',
@@ -30,7 +31,8 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 		PrimaryButtonDirective,
 		PrimaryLinkStyleDirective,
 		ChangeLanguageComponent,
-		LogoutComponent
+		LogoutComponent,
+		IconComponent
 	],
 	encapsulation: ViewEncapsulation.None
 })

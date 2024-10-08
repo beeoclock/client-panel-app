@@ -7,6 +7,7 @@ import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-m
 import {BaseImageComponent} from "@utility/presentation/component/image/base.image.component";
 import {FormControl} from "@angular/forms";
 import {file2base64} from "@utility/domain/file2base64";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'client-image-gallery-business-profile-component',
@@ -16,7 +17,8 @@ import {file2base64} from "@utility/domain/file2base64";
 		NgIf,
 		DragAndDropDirective,
 		PlaceholderImageComponent,
-		InvalidTooltipComponent
+		InvalidTooltipComponent,
+		IconComponent
 	],
 	standalone: true,
 	templateUrl: './image.gallery.business-profile.component.html'

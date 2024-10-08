@@ -11,6 +11,7 @@ import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-speciali
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 import {EventActions} from "@event/state/event/event.actions";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'event-change-status-on-cancelled-component',
@@ -22,7 +23,8 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 		EditLinkComponent,
 		NgIf,
 		NgTemplateOutlet,
-		LoaderComponent
+		LoaderComponent,
+		IconComponent
 	],
 	template: `
 		<button
@@ -48,7 +50,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 				ring-red-300
 				hover:bg-red-100">
 			<ng-container *ngIf="loading.isFalse">
-				<i class="bi bi-x-lg"></i>
+				<app-icon name="bootstrapXLg"/>
 				{{ 'keyword.capitalize.cancel' | translate }}
 			</ng-container>
 			<utility-loader [py2_5]="false" *ngIf="loading.isTrue"/>

@@ -25,6 +25,7 @@ import {
 } from "@event/presentation/component/requsted/list-of-card-collection-by-date/attendee-card/attendee.card.component";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FilterComponent} from "@event/presentation/component/filter/requested-filter.component";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'event-list-of-card-collection-by-date-component',
@@ -50,6 +51,7 @@ import {FilterComponent} from "@event/presentation/component/filter/requested-fi
 		ChangeStatusOnRejectedComponent,
 		AttendeeCardComponent,
 		FilterComponent,
+		IconComponent,
 	],
 	providers: [
 		CurrencyPipe,

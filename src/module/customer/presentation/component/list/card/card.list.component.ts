@@ -17,6 +17,7 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@customer/presentation/component/row-action-button/row-action-button.component";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'customer-card-list-component',
@@ -38,7 +39,8 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 		NgIf,
 		NoDataPipe,
 		RowActionButtonComponent,
-		AsyncPipe
+		AsyncPipe,
+		IconComponent
 	]
 })
 export class CardListComponent extends TableComponent<ICustomer> {

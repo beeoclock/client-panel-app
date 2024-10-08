@@ -4,6 +4,7 @@ import {IEvent_V2} from "@event/domain";
 import {Store} from "@ngxs/store";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'event-delete-button-component',
@@ -30,13 +31,14 @@ import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 				ring-inset
 				ring-red-300
 				hover:bg-red-100">
-			<i class="bi bi-trash"></i>
+			<app-icon name="bootstrapTrash"/>
 			{{ 'keyword.capitalize.delete' | translate }}
 		</button>
 	`,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		TranslateModule
+		TranslateModule,
+		IconComponent
 	]
 })
 export class DeleteButtonComponent {

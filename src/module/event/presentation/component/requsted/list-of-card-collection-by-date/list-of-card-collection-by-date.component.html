@@ -26,7 +26,7 @@
 							<div
 								class="flex items-center whitespace-nowrap gap-2 p-3 py-2 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800"
 								role="alert">
-								<i class="bi bi-exclamation-triangle-fill"></i>
+								<app-icon name="bootstrapExclamationTriangleFill"/>
 								<div class="font-bold">{{ 'keyword.capitalize.warning' | translate }}!</div>
 								<div>
 									{{ 'event.warning.multipleEventAtSameTime' | translate }}
@@ -55,7 +55,7 @@
 										class="flex flex-col items-center p-3 py-2 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800"
 										role="alert">
 										<div class="flex justify-start w-full">
-											<i class="bi bi-exclamation-triangle-fill me-2"></i>
+											<app-icon name="bootstrapExclamationTriangleFill" class="me-2"/>
 											<div class="font-bold">{{ 'keyword.capitalize.warning' | translate }}!</div>
 										</div>
 										<div>
@@ -65,7 +65,7 @@
 									<div class="flex pt-1">
 										<div (click)="singleClick(item)" class="cursor-pointer flex-1 flex items-center gap-4">
 											<div class="text-beeColor-500">
-												<i class="bi bi-clock"></i>
+												<app-icon name="bootstrapClock"/>
 											</div>
 											<div class="flex flex-col"
 													 [innerHTML]="durationVersionHtmlHelper.getDurationValue(item.services[0])">
@@ -81,7 +81,7 @@
 									<div
 										(click)="singleClick(item)"
 										class="cursor-pointer inline-flex gap-4 items-center">
-										<i class="bi bi-clock text-beeColor-500"></i>
+										<app-icon name="bootstrapClock" class="text-beeColor-500"/>
 										<div class="inline-flex gap-2">
 											{{ item.start | date: 'HH:mm' }} - {{ item.end | date: 'HH:mm' }}
 											<div class="text-neutral-500">
@@ -93,13 +93,13 @@
 								<div
 									(click)="singleClick(item)"
 									class="cursor-pointer inline-flex gap-4 items-center">
-									<i class="bi bi-cart text-beeColor-500"></i>
+									<app-icon name="bootstrapCart" class="text-beeColor-500"/>
 									{{ item?.services?.[0]?.languageVersions?.[0]?.title | noData }}
 								</div>
 								<div
 									(click)="singleClick(item)"
 									class="cursor-pointer inline-flex gap-4 items-center">
-									<i class="bi bi-file-person text-beeColor-500"></i>
+									<app-icon name="bootstrapFilePerson" class="text-beeColor-500"/>
 									{{ item?.specialists?.[0]?.member?.firstName }}
 									{{ item?.specialists?.[0]?.member?.lastName }}
 								</div>

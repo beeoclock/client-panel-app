@@ -17,6 +17,7 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 import {BooleanState} from "@utility/domain";
 import {AlreadySignUpLinkComponent} from "@identity/presentation/component/link/alredy-sign-up.link.component";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'identity-sign-up-component',
@@ -28,7 +29,7 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 
 			<div class="flex flex-col gap-4 items-center justify-center text-center">
 				<div class="text-green-500 text-4xl">
-					<i class="bi bi-check-circle"></i>
+					<app-icon name="bootstrapCheckCircle"/>
 				</div>
 
 				<div class="">
@@ -44,7 +45,8 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 				</div>
 
 				<a [href]="emailUrl.href" primaryLinkStyle class="justify-center">
-					{{ 'identity.sign-up.afterSuccess.openMailService' | translate }}&nbsp;<strong>{{ emailUrl.host }}</strong>&nbsp;<i class="bi bi-arrow-right"></i>
+					{{ 'identity.sign-up.afterSuccess.openMailService' | translate }}&nbsp;<strong>{{ emailUrl.host }}</strong>&nbsp;<app-icon
+					name="bootstrapArrowRight"/>
 				</a>
 			</div>
 
@@ -92,6 +94,7 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 		AlreadySignUpLinkComponent,
 		PrimaryLinkStyleDirective,
 		PrimaryButtonDirective,
+		IconComponent,
 	]
 })
 export class SignUpComponent {

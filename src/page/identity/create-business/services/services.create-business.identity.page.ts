@@ -20,6 +20,7 @@ import {ServiceForm} from "@service/presentation/form";
 import {NGXLogger} from "ngx-logger";
 import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 
 @Component({
@@ -38,7 +39,8 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 		NgForOf,
 		CardComponent,
 		FormButtonWithIconComponent,
-		ScheduleFormComponent
+		ScheduleFormComponent,
+		IconComponent
 	],
 	encapsulation: ViewEncapsulation.None
 })

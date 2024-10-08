@@ -15,6 +15,7 @@ import {
 } from "@event/presentation/component/additional-menu/selected-datetime.additional-menu.component";
 import {DateTime} from "luxon";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'app-additional-menu',
@@ -26,7 +27,8 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 		NgIf,
 		SelectedDatetimeAdditionalMenuComponent,
 		DynamicDatePipe,
-		DatePipe
+		DatePipe,
+		IconComponent
 	],
 	template: `
 		<div class="grid grid-cols-1 gap-2 p-2">
@@ -36,7 +38,7 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 			</div>
 
 			<div class="font-bold text-lg text-blue-950">
-				<i class="bi bi-cart"></i>&nbsp;
+				<app-icon name="bootstrapCart"/>&nbsp;
 				<span>{{ 'sidebar.order' | translate }}</span>
 			</div>
 
@@ -83,7 +85,7 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 
 			<div class="flex flex-col gap-2 mt-4">
 				<div class="font-bold text-lg text-blue-950">
-					<i class="bi bi-calendar-x"></i>
+					<app-icon name="bootstrapCalendarX"/>
 					{{ 'keyword.capitalize.break' | translate }}
 				</div>
 				<ng-container *ngIf="datetimeISO">

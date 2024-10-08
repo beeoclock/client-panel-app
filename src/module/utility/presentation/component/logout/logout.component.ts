@@ -2,6 +2,7 @@ import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {TranslateModule} from "@ngx-translate/core";
 import {LogoutService} from "@utility/presentation/component/logout/logout.service";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'utility-logout-component',
@@ -27,14 +28,15 @@ import {LogoutService} from "@utility/presentation/component/logout/logout.servi
         dark:hover:bg-blue-700
         dark:focus:ring-blue-800">
         <span class="me-2">
-          <i class="bi bi-box-arrow-left"></i>
+			<app-icon name="bootstrapBoxArrowLeft"/>
         </span>
 			{{ 'keyword.capitalize.logout' | translate }}
 		</button>
 	`,
 	imports: [
 		RouterLink,
-		TranslateModule
+		TranslateModule,
+		IconComponent
 	],
 	encapsulation: ViewEncapsulation.None
 })

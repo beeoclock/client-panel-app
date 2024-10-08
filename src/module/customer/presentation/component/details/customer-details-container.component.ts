@@ -13,6 +13,7 @@ import {
 	CustomerOrderListExternalWhacAMole
 } from "@order/presentation/component/external/case/customer/list/customer.order.list.external.whac-a-mole";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
     selector: 'customer-detail-page',
@@ -25,7 +26,8 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 		EditButtonComponent,
 		ActiveStyleDirective,
 		NgIf,
-		PrimaryLinkStyleDirective
+		PrimaryLinkStyleDirective,
+		IconComponent
 	],
     standalone: true
 })

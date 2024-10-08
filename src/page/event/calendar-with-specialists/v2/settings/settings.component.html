@@ -1,7 +1,7 @@
 <button
 	id="calendar-with-specialists-settings-button"
 	class="border border-beeColor-300 flex items-center p-3 rounded-2xl transition-all hover:bg-beeColor-100">
-	<i class="bi bi-gear"></i>
+	<app-icon name="bootstrapGear"/>
 </button>
 <ion-popover trigger="calendar-with-specialists-settings-button">
 	<ng-template>
@@ -24,7 +24,7 @@
 								(click)="minus()"
 								class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
 								tabindex="-1" aria-label="Decrease" data-hs-input-number-decrement="">
-							<i class="bi bi-dash"></i>
+							<app-icon name="bootstrapDash"/>
 						</button>
 						<input
 							[formControl]="control"
@@ -36,7 +36,7 @@
 								(click)="plus()"
 								class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
 								tabindex="-1" aria-label="Increase" data-hs-input-number-increment="">
-							<i class="bi bi-plus"></i>
+							<app-icon name="bootstrapPlus"/>
 						</button>
 					</div>
 				</div>
