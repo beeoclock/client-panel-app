@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, Input} from "@angular/core";
 import {NgIconComponent, provideIcons} from "@ng-icons/core";
 import {
 	bootstrapArrowClockwise,
@@ -139,14 +139,22 @@ export type IconNameType =
 @Component({
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
+	styles: [
+		`
+			:host {
+				display: inline-block;
+				width: var(--ng-icon__size, 1em);
+				height: var(--ng-icon__size, 1em);
+				line-height: initial;
+				vertical-align: initial;
+				overflow: hidden;
+			}
+		`
+	],
 	selector: 'app-icon',
 	template: `
 		<ng-icon [name]="name"/>
 	`,
-	host: {
-		class: 'contents'
-	},
 	imports: [
 		NgIconComponent
 	],

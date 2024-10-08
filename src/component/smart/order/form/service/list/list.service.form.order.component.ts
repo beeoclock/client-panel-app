@@ -47,7 +47,8 @@ import {IconComponent} from "@src/component/adapter/icon/icon.component";
 			<div class="text-neutral-700 text-base font-bold w-full">
 				{{ 'keyword.capitalize.services' | translate }}
 			</div>
-			<button (click)="addService()" primaryLink class="w-8 rounded-lg justify-center items-center flex !py-0">
+			<button (click)="addService()" primaryLink
+					class="w-8 rounded-lg justify-center items-center flex !p-1 !m-0">
 				<app-icon name="bootstrapPlusCircle" class="text-2xl"/>
 			</button>
 		</div>

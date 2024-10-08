@@ -63,7 +63,7 @@ import {IconComponent} from "@src/component/adapter/icon/icon.component";
 				</div>
 			</div>
 			<button primaryLink (click)="deleteMe.emit()"
-					class="w-8 h-8 p-1.5 rounded-lg justify-center items-center flex">
+					class="w-8 h-8 !p-0 !m-0 rounded-lg justify-center items-center flex">
 				<app-icon name="bootstrapDashCircle" class="text-2xl"/>
 			</button>
 		</div>
