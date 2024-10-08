@@ -18,6 +18,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {DebounceClickDirective} from "@utility/presentation/directives/debounce/debounce.directive";
 import {NGXLogger} from "ngx-logger";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 export enum ModalButtonRoleEnum {
 	'cancel' = 'cancel',
@@ -45,7 +46,8 @@ export interface ModalButtonInterface<COMPONENT_REF = unknown> {
 		NgClass,
 		DebounceClickDirective,
 		LoaderComponent,
-		TranslateModule
+		TranslateModule,
+		IconComponent
 	],
 	template: `
 		<div
@@ -70,7 +72,7 @@ export interface ModalButtonInterface<COMPONENT_REF = unknown> {
 							(click)="closeModal()"
 							class="text-beeColor-400 bg-transparent hover:bg-beeColor-200 hover:text-beeColor-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-beeDarkColor-600 dark:hover:text-white"
 							data-modal-hide="defaultModal">
-							<i class="bi bi-x-lg w-5 h-5"></i>
+							<app-icon name="bootstrapXLg" class="w-5 h-5"/>
 							<span class="sr-only">Close modal</span>
 						</button>
 					</div>

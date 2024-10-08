@@ -13,6 +13,7 @@ import {
 } from "@client/presentation/component/business-profile/cover-image/image.cover-image.business-profile/image.cover-image.business-profile.component";
 import {NgForOf, NgIf} from "@angular/common";
 import {RIMedia} from "@module/media/domain/interface/i.media";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'client-logo-business-profile-component',
@@ -25,6 +26,7 @@ import {RIMedia} from "@module/media/domain/interface/i.media";
 		ImageCoverImageBusinessProfileComponent,
 		NgForOf,
 		NgIf,
+		IconComponent,
 	],
 	standalone: true
 })

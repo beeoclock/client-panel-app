@@ -3,6 +3,7 @@ import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {TranslateModule} from "@ngx-translate/core";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
 import {WINDOW, WINDOW_PROVIDERS} from "@utility/cdk/window.provider";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
   selector: 'utility-back-link-component',
@@ -11,15 +12,16 @@ import {WINDOW, WINDOW_PROVIDERS} from "@utility/cdk/window.provider";
     <button
       (click)="navigateToBack()"
       #link link>
-      <i class="bi bi-arrow-left me-2"></i>
+		<app-icon name="bootstrapArrowLeft" class="me-2"/>
       {{ 'keyword.capitalize.back' | translate }}
     </button>
   `,
-  imports: [
-    RouterLink,
-    TranslateModule,
-    LinkButtonDirective
-  ],
+	imports: [
+		RouterLink,
+		TranslateModule,
+		LinkButtonDirective,
+		IconComponent
+	],
 	providers: [
 		WINDOW_PROVIDERS
 	],

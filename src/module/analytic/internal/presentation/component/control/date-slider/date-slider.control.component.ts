@@ -20,6 +20,7 @@ import {environment} from "@environment/environment";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {IntervalTypeEnum} from "@module/analytic/internal/domain/enum/interval.enum";
 import {NGXLogger} from "ngx-logger";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'app-date-slider-control-component',
@@ -34,7 +35,8 @@ import {NGXLogger} from "ngx-logger";
 		TranslateModule,
 		DatePipe,
 		ReactiveFormsModule,
-		PrimaryButtonDirective
+		PrimaryButtonDirective,
+		IconComponent
 	]
 })
 export class DateSliderControlComponent extends Reactive implements OnChanges, OnInit {

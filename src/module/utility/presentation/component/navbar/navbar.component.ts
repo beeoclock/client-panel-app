@@ -6,6 +6,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {ProfileComponent} from "@utility/presentation/component/profile/profile.component";
 import {SidebarService} from "@utility/presentation/component/sidebar/sidebar.service";
 import {NgOptimizedImage} from "@angular/common";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
   standalone: true,
@@ -18,7 +19,8 @@ import {NgOptimizedImage} from "@angular/common";
 		RouterLink,
 		TranslateModule,
 		ProfileComponent,
-		NgOptimizedImage
+		NgOptimizedImage,
+		IconComponent
 	]
 })
 export class NavbarComponent {
