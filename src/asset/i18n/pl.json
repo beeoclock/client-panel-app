@@ -542,6 +542,7 @@
 				"plural": {
 					"accepted": "Zaakceptowane",
 					"cancelled": "Odwołane",
+					"deleted": "Usunięte",
 					"done": "Gotowe",
 					"inProgress": "W trakcie",
 					"rejected": "Odrzucone",

@@ -542,6 +542,7 @@
 				"plural": {
 					"accepted": "Прийняті",
 					"cancelled": "Скасовані",
+					"deleted": "Видалені",
 					"done": "Виконані",
 					"inProgress": "В процесі",
 					"rejected": "Відхилані",

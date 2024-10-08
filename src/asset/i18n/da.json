@@ -542,6 +542,7 @@
 				"plural": {
 					"accepted": "Accepteret",
 					"cancelled": "Aflyst",
+					"deleted": "Slettet",
 					"done": "Færdig",
 					"inProgress": "I gang",
 					"rejected": "Afvist",
