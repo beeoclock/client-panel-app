@@ -8,6 +8,7 @@ import {PagedOrderApiAdapter} from "@order/external/adapter/api/paged.order.api.
 import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 import {ResponseListType} from "@utility/adapter/base.api.adapter";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {initStatisticCalculator, statisticCalculator} from "@event/state/statistic/statistic.calculator";
 
 export interface IStatisticState {
     params: {
@@ -20,6 +21,7 @@ export interface IStatisticState {
         orderDir: OrderDirEnum;
     };
 	data: ResponseListType<IOrderDto>;
+	calculated: ReturnType<typeof statisticCalculator>;
     loader: boolean;
 }
 
@@ -39,6 +41,7 @@ export interface IStatisticState {
 			items: [],
 			totalSize: 0,
 		},
+		calculated: initStatisticCalculator(),
         loader: false,
     },
 })
@@ -68,6 +71,7 @@ export class StatisticState {
                 ctx.patchState({
 					data,
                     loader: false,
+					calculated: statisticCalculator(data),
                 });
 
             })

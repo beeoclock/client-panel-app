@@ -35,4 +35,9 @@ export class StatisticQueries {
 		return data;
 	}
 
+	@Selector([StatisticQueries.state.calculated])
+	static calculated(calculated: IStatisticState['calculated']) {
+		return calculated;
+	}
+
 }
