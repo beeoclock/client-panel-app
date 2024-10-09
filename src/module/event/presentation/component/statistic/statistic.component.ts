@@ -7,7 +7,7 @@ import {MemberState} from "@member/state/member/member.state";
 import {combineLatest, filter, map, Observable} from "rxjs";
 import {StatisticQueries} from "@event/state/statistic/statistic.queries";
 import {Reactive} from "@utility/cdk/reactive";
-import {AsyncPipe, CurrencyPipe, DecimalPipe, KeyValuePipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, CurrencyPipe, DecimalPipe, KeyValuePipe} from "@angular/common";
 import {ClientState} from "@client/state/client/client.state";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {StatisticAction} from "@event/state/statistic/statistic.action";
@@ -36,9 +36,7 @@ import {statisticCalculator} from "@event/state/statistic/statistic.calculator";
 	imports: [
 		IonicModule,
 		DefaultPanelComponent,
-		NgForOf,
 		AsyncPipe,
-		NgIf,
 		CurrencyPipe,
 		LoaderComponent,
 		TranslateModule,
