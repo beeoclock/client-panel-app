@@ -135,10 +135,17 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 		this.takeUntil(),
 		map(({
 				 0: members,
-				 1: statistic,
+				 1: orderPage,
 				 2: filterState,
 				 3: baseCurrency
 			 }) => {
+
+			this.ngxLogger.info('StatisticComponent', 'statisticPerMember$', {
+				members,
+				orderPage,
+				filterState,
+				baseCurrency,
+			});
 
 			this.summary = {
 				amount: 0,
@@ -151,40 +158,44 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 				}
 			};
 
-			const statisticPerMemberId = statistic.reduce((acc, item) => {
+			const statisticPerMemberId = orderPage.items.reduce((acc, item) => {
 
-				if (item.status !== OrderServiceStatusEnum.done) {
-					return acc;
-				}
+				item.services.forEach((orderServiceDto) => {
 
-				this.summary.amount += item.serviceSnapshot.durationVersions?.[0]?.prices?.[0]?.price ?? 0;
-				this.summary.count += 1;
-				this.summary.serviceCounter[item.serviceSnapshot._id] = {
-					count: (this.summary.serviceCounter[item.serviceSnapshot._id]?.count ?? 0) + 1,
-					service: item
-				};
-
-				if (!this.summary.topService.service) {
-					this.summary.topService = {
-						count: this.summary.serviceCounter[item.serviceSnapshot._id].count,
-						service: this.summary.serviceCounter[item.serviceSnapshot._id].service
-					};
-				} else {
-					if (this.summary.serviceCounter[item.serviceSnapshot._id].count > this.summary.topService.count) {
-						this.summary.topService = {
-							count: this.summary.serviceCounter[item.serviceSnapshot._id].count,
-							service: this.summary.serviceCounter[item.serviceSnapshot._id].service
-						};
+					if (orderServiceDto.status !== OrderServiceStatusEnum.done) {
+						return;
 					}
-				}
 
-				item.orderAppointmentDetails.specialists.forEach((specialist) => {
+					this.summary.amount += orderServiceDto.serviceSnapshot.durationVersions?.[0]?.prices?.[0]?.price ?? 0;
+					this.summary.count += 1;
+					this.summary.serviceCounter[orderServiceDto.serviceSnapshot._id] = {
+						count: (this.summary.serviceCounter[orderServiceDto.serviceSnapshot._id]?.count ?? 0) + 1,
+						service: orderServiceDto
+					};
 
-					const memberId = specialist.member._id;
+					if (!this.summary.topService.service) {
+						this.summary.topService = {
+							count: this.summary.serviceCounter[orderServiceDto.serviceSnapshot._id].count,
+							service: this.summary.serviceCounter[orderServiceDto.serviceSnapshot._id].service
+						};
+					} else {
+						if (this.summary.serviceCounter[orderServiceDto.serviceSnapshot._id].count > this.summary.topService.count) {
+							this.summary.topService = {
+								count: this.summary.serviceCounter[orderServiceDto.serviceSnapshot._id].count,
+								service: this.summary.serviceCounter[orderServiceDto.serviceSnapshot._id].service
+							};
+						}
+					}
 
-					acc[memberId] = acc[memberId] ?? [];
+					orderServiceDto.orderAppointmentDetails.specialists.forEach((specialist) => {
 
-					acc[memberId].push(item);
+						const memberId = specialist.member._id;
+
+						acc[memberId] = acc[memberId] ?? [];
+
+						acc[memberId].push(orderServiceDto);
+
+					});
 
 				});
 

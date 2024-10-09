@@ -5,8 +5,9 @@ import {DateTime} from "luxon";
 import {NGXLogger} from "ngx-logger";
 import {StatisticAction} from "@event/state/statistic/statistic.action";
 import {PagedOrderApiAdapter} from "@order/external/adapter/api/paged.order.api.adapter";
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
+import {ResponseListType} from "@utility/adapter/base.api.adapter";
+import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 
 export interface IStatisticState {
     params: {
@@ -18,7 +19,7 @@ export interface IStatisticState {
         orderBy: OrderByEnum;
         orderDir: OrderDirEnum;
     };
-    data: IOrderServiceDto[];
+	data: ResponseListType<IOrderDto>;
     loader: boolean;
 }
 
@@ -34,7 +35,10 @@ export interface IStatisticState {
             orderBy: OrderByEnum.CREATED_AT,
             orderDir: OrderDirEnum.DESC,
         },
-        data: [],
+		data: {
+			items: [],
+			totalSize: 0,
+		},
         loader: false,
     },
 })
@@ -62,7 +66,7 @@ export class StatisticState {
             .then((data) => {
 
                 ctx.patchState({
-                    data: data.items.map((item) => item.services).flat(),
+					data,
                     loader: false,
                 });
 
