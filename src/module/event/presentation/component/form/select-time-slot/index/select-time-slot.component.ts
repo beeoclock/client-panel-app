@@ -14,6 +14,7 @@ import {
 } from "@utility/presentation/component/slider/date-slider-select/date-slider-select.component";
 import {EventConfigurationForm} from "@event/presentation/form/configuration.form";
 import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'event-select-time-slot-form-component',
@@ -29,6 +30,7 @@ import {DatetimeLocalInputComponent} from "@utility/presentation/component/input
 		DynamicDatePipe,
 		DateSliderSelectComponent,
 		DatetimeLocalInputComponent,
+		IconComponent,
 	]
 })
 export class SelectTimeSlotComponent {

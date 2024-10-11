@@ -7,6 +7,7 @@ import {
 	SocialNetworkLinkFormComponent
 } from "@client/presentation/component/business-profile/social-media/social-network-link.form.component";
 import {FormButtonWithIconComponent} from "@utility/presentation/component/button/form-button-with-icon.component";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'client-business-profile-social-media-component',
@@ -30,7 +31,7 @@ import {FormButtonWithIconComponent} from "@utility/presentation/component/butto
 						type="button"
 						class="text-beeColor-600 hover:text-red-600 hover:bg-red-100 px-3 py-2 rounded-full"
 						(click)="form.removeAt(index)">
-						<i class="bi bi-trash"></i>
+						<app-icon name="bootstrapTrash"/>
 					</button>
 				</div>
 			</div>
@@ -46,7 +47,8 @@ import {FormButtonWithIconComponent} from "@utility/presentation/component/butto
 		SocialNetworkLinkFormComponent,
 		CardComponent,
 		SocialNetworkLinkFormComponent,
-		FormButtonWithIconComponent
+		FormButtonWithIconComponent,
+		IconComponent
 	]
 })
 export class BusinessProfileSocialMediaComponent {

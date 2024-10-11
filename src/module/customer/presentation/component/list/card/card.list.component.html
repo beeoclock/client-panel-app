@@ -17,11 +17,12 @@
 					[item]="item"
 					[id]="item._id"/>
 
-				<div (click)="singleClick(item)" *ngIf="showSelectedStatus.state$ | async">
-					<i *ngIf="selectedIds.includes(item._id)"
-					   class="bi bi-check-circle text-green-600 text-xl"></i>
-					<i *ngIf="!selectedIds.includes(item._id)"
-					   class="bi bi-circle text-gray-600 text-xl"></i>
+				<div (click)="singleClick(item)" *ngIf="showSelectedStatus.state$ | async" class="text-xl">
+					@if (selectedIds.includes(item._id)) {
+						<app-icon name="bootstrapCheckCircle" class="text-green-600"/>
+					} @else {
+						<app-icon name="bootstrapCircle" class="text-gray-600"/>
+					}
 				</div>
 			</div>
 			<div class="">

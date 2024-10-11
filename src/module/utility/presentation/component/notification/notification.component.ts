@@ -1,12 +1,14 @@
 import {Component, ViewEncapsulation} from "@angular/core";
 import {RouterLink} from "@angular/router";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'utility-notification-component',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		RouterLink
+		RouterLink,
+		IconComponent
 	],
 	template: `
 
@@ -27,7 +29,7 @@ import {RouterLink} from "@angular/router";
         dark:focus:ring-beeDarkColor-600"
 			id="navbarDropdownNotification"
 			role="button">
-			<i class="bi bi-bell-fill h4"></i>
+			<app-icon name="bootstrapBellFill" class="h4"/>
 		</button>
 		<!--    <div-->
 		<!--      aria-labelledby="navbarDropdownNotification"-->

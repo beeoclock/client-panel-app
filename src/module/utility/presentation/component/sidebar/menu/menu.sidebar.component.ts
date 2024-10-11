@@ -13,6 +13,7 @@ import {is} from "@utility/checker";
 import {TENANT_ID} from "@src/token";
 import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
 import {Reactive} from "@utility/cdk/reactive";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 interface IMenuItem {
 	order: number;
@@ -41,7 +42,8 @@ interface IMenuItem {
 		RouterLink,
 		RouterLinkActive,
 		TranslateModule,
-		WithTenantIdPipe
+		WithTenantIdPipe,
+		IconComponent
 	],
 })
 export class MenuSidebarComponent extends Reactive implements OnInit {

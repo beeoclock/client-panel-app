@@ -8,6 +8,7 @@ import {CustomerForm} from "@customer/presentation/form";
 import {CustomerExternalListComponent} from "@customer/presentation/component/external/list/list.component";
 import {SelectCustomerPushBoxComponent} from "@customer/presentation/push-box/select-customer.push-box.component";
 import {ICustomer} from "@customer/domain";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'app-regular-customer-type-customer',
@@ -17,7 +18,8 @@ import {ICustomer} from "@customer/domain";
 		TranslateModule,
 		PrimaryLinkButtonDirective,
 		CustomerExternalListComponent,
-		SelectCustomerPushBoxComponent
+		SelectCustomerPushBoxComponent,
+		IconComponent
 	],
 	standalone: true,
 	template: `
@@ -39,7 +41,7 @@ import {ICustomer} from "@customer/domain";
 
 			<div class="block">
 				<button type="button" primaryLink (click)="openContainerToSelectCustomer()">
-					<i class="bi bi-list-check"></i>
+					<app-icon name="bootstrapListCheck"/>
 					{{ 'event.form.section.attendant.button.select' | translate }}
 				</button>
 			</div>

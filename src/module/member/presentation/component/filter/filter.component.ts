@@ -11,6 +11,7 @@ import {BaseFilterComponent} from "@utility/base.filter.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {IonSelectActiveComponent} from "@utility/presentation/component/input/ion/ion-select-active.component";
 import {NgIf} from "@angular/common";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'member-filter-component',
@@ -23,7 +24,8 @@ import {NgIf} from "@angular/common";
 		RouterLink,
 		DefaultPanelComponent,
 		IonSelectActiveComponent,
-		NgIf
+		NgIf,
+		IconComponent
 	],
 	template: `
 
@@ -41,7 +43,7 @@ import {NgIf} from "@angular/common";
 				*ngIf="showButtonGoToForm"
 				class="md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
 				<button type="button" primary class="!py-3 !px-4 !text-base" (click)="openForm()">
-					<i class="bi bi-plus-lg"></i>
+					<app-icon name="bootstrapPlusLg"/>
 <!--					<span class="hidden md:block">-->
 <!--					{{ 'member.button.create' | translate }}-->
 <!--					</span>-->

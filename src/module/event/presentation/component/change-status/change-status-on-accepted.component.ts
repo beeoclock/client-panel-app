@@ -10,6 +10,7 @@ import {EventActions} from "@event/state/event/event.actions";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'event-change-status-on-accepted-component',
@@ -21,7 +22,8 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 		EditLinkComponent,
 		NgIf,
 		NgTemplateOutlet,
-		LoaderComponent
+		LoaderComponent,
+		IconComponent
 	],
 	template: `
 		<button
@@ -47,7 +49,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 				ring-blue-300
 				hover:bg-blue-100">
 			<ng-container *ngIf="loading.isFalse">
-				<i class="bi bi-check-lg"></i>
+				<app-icon name="bootstrapCheckLg"/>
 				{{ 'keyword.capitalize.confirm' | translate }}
 			</ng-container>
 			<utility-loader [py2_5]="false" *ngIf="loading.isTrue"/>
