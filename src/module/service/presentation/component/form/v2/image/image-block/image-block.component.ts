@@ -9,6 +9,8 @@ import {
 	ServiceFormImageComponent
 } from "@service/presentation/component/form/v2/image/service-form-image/service-form-image.component";
 import {ServicePresentationForm} from '@src/module/service/presentation/form/service.presentation.form';
+import {DeleteBannerServiceApiAdapter} from "@service/adapter/external/api/delete.banner.service.api.adapter";
+import {MediaStateEnum} from "@utility/presentation/component/image/base.image.component";
 
 @Component({
 	selector: 'service-form-image-block-component',
@@ -35,12 +37,21 @@ export class ImageBlockComponent {
 	public readonly control = new FormControl();
 
 	public readonly patchBannerServiceApiAdapter = inject(PatchBannerServiceApiAdapter);
+	public readonly deleteBannerServiceApiAdapter = inject(DeleteBannerServiceApiAdapter);
 
 	public async save(serviceId: string): Promise<void> {
 
 		for (const component of this.serviceFormImageComponent.toArray()) {
 
-			if (component.mediaIsChanged.isOff) {
+			if (component.mediaState === MediaStateEnum.NOT_CHANGED) {
+				continue;
+			}
+
+			if (component.mediaState === MediaStateEnum.DELETED) {
+				if (!component.banner) {
+					continue;
+				}
+				await this.deleteBannerServiceApiAdapter.executeAsync(serviceId, component.banner._id);
 				continue;
 			}
 
@@ -54,6 +65,12 @@ export class ImageBlockComponent {
 			await this.patchBannerServiceApiAdapter.executeAsync(serviceId, formData);
 
 		}
+
+	}
+
+	public clear(): void {
+
+		this.serviceFormImageComponent.forEach(component => component.clear());
 
 	}
 

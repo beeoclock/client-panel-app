@@ -2,11 +2,18 @@
 
 	<div class="flex justify-between">
 		<span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.image' | translate }}</span>
-		<button type="button"
-						class="text-beeColor-500 dark:text-beeColor-400 hover:text-beeColor-600 dark:hover:text-beeColor-500"
-						(click)="toggleInfo.toggle()">
-			<i class="bi" [class.bi-eye]="toggleInfo.isOff" [class.bi-eye-slash]="toggleInfo.isOn"></i>
-		</button>
+		<div class="flex gap-2">
+			<button type="button"
+					class="text-beeColor-500 dark:text-beeColor-400 hover:text-beeColor-600 dark:hover:text-beeColor-500 w-[40px] h-[40px]"
+					(click)="toggleInfo.toggle()">
+				<i class="bi" [class.bi-eye]="toggleInfo.isOff" [class.bi-eye-slash]="toggleInfo.isOn"></i>
+			</button>
+			<button type="button"
+					class="text-beeColor-500 dark:text-beeColor-400 hover:text-beeColor-600 dark:hover:text-beeColor-500 w-[40px] h-[40px]"
+					(click)="clear()">
+				<i class="bi bi-trash"></i>
+			</button>
+		</div>
 	</div>
 	<service-form-image-component
 		*ngFor="let banner of presentationForm.controls.banners.value; let index = index"

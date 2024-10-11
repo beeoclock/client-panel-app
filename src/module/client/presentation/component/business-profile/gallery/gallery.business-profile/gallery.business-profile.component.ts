@@ -26,6 +26,7 @@ import {
 } from "@client/adapter/external/api/media/gallery/delete.media.gallery.client.api.adapter";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 import {RIMedia} from "@module/media/domain/interface/i.media";
+import {MediaStateEnum} from "@utility/presentation/component/image/base.image.component";
 
 @Component({
 	selector: 'client-gallery-business-profile-component',
@@ -102,7 +103,7 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 				continue;
 			}
 
-			if (component.mediaIsChanged.isOff) {
+			if (component.mediaState === MediaStateEnum.NOT_CHANGED) {
 				continue;
 			}
 
@@ -119,7 +120,7 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 
 			await this.patchMediaGalleryClientApiAdapter.executeAsync(formData);
 
-			component.mediaIsChanged.switchOff();
+			component.mediaState = MediaStateEnum.NOT_CHANGED;
 
 		}
 

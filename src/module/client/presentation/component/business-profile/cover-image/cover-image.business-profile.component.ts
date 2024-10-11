@@ -12,6 +12,7 @@ import {
 	PatchMediaBannersClientApiAdapter
 } from "@client/adapter/external/api/media/banners/patch.media.banners.client.api.adapter";
 import {RIMedia} from "@module/media/domain/interface/i.media";
+import {MediaStateEnum} from "@utility/presentation/component/image/base.image.component";
 
 @Component({
 	selector: 'client-cover-image-business-profile-component',
@@ -41,7 +42,7 @@ export class CoverImageBusinessProfileComponent {
 
 	public async save(): Promise<void> {
 
-		if (this.imageCoverImageBusinessProfileComponent.mediaIsChanged.isOff) {
+		if (this.imageCoverImageBusinessProfileComponent.mediaState === MediaStateEnum.NOT_CHANGED) {
 			return;
 		}
 
@@ -54,7 +55,7 @@ export class CoverImageBusinessProfileComponent {
 
 		await this.patchMediaBannersClientApiAdapter.executeAsync(formData);
 
-		this.imageCoverImageBusinessProfileComponent.mediaIsChanged.switchOff();
+		this.imageCoverImageBusinessProfileComponent.mediaState = MediaStateEnum.NOT_CHANGED;
 
 	}
 
