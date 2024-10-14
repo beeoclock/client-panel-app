@@ -922,6 +922,10 @@
 				"label": "Rejestracja"
 			},
 			"hint": {
+				"mainText": "Narzędzia dostosowane do indywidualnych potrzeb",
+				"quote": "Pracuj z najlepszymi specjalistami! \t\t\t\t\t\t\t\t\t\tBee&nbsp;O'clock to szybkość, profesjonalizm i niezawodność.",
+				"subBainText": "Zarejestruj konto w kilka sekund i zacznij korzystać ze wszystkich funkcji Bee O'clock. \t\t\t\t\t\t\t\t\tfunkcji Bee O'clock. Skupiamy się na uzyskiwaniu wyników \t\t\t\t\t\t\t\t\ttak szybko, jak to możliwe.",
+				"successfulInCurrentYear": "Twój sukces jest naszą misją w {{currentYear}}.",
 				"youHaveAnAccount": "Masz już konto?"
 			}
 		}

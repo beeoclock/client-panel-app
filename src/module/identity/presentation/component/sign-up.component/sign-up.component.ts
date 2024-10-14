@@ -16,6 +16,8 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 import {BooleanState} from "@utility/domain";
 import {AlreadySignUpLinkComponent} from "@identity/presentation/component/link/alredy-sign-up.link.component";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
+import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
 	selector: 'identity-sign-up-component',
@@ -32,7 +34,8 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 				@if (signUpAfterSuccess.isOn) {
 
 
-					<div class="max-w-md">
+					<div class="max-w-md flex flex-col gap-4">
+						<utility-change-language-component class="self-end"/>
 						<div
 							class="p-4 sm:p-7 gap-4 text-center items-center flex flex-col bg-white rounded-2xl shadow-lg dark:bg-neutral-900 justify-center">
 							<div class="text-green-500 text-4xl">
@@ -66,18 +69,16 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 					<div class="grid items-center md:grid-cols-2 gap-8 lg:gap-12">
 						<div>
 							<p class="inline-block text-sm font-medium bg-clip-text bg-gradient-to-l from-blue-600 to-violet-500 text-transparent dark:from-blue-400 dark:to-violet-400">
-								Ваш успіх — наша місія у 2024 році
+								{{ 'identity.sign-up.hint.successfulInCurrentYear' | translate: {currentYear} }}
 							</p>
 
 							<!-- Title -->
 							<div class="mt-4 md:mb-12 max-w-2xl">
 								<h1 class="mb-4 font-semibold text-gray-800 text-2xl lg:text-5xl dark:text-neutral-200">
-									Інструменти, адаптовані під ваші індивідуальні потреби
+									{{ 'identity.sign-up.hint.mainText' | translate }}
 								</h1>
 								<p class="text-gray-600 dark:text-neutral-400">
-									Зареєструйте обліковий запис всього за кілька секунд та почніть використовувати всі
-									можливості Bee O'clock. Ми фокусуємось на тому, щоб Ви отримували результат
-									якнайшвидше.
+									{{ 'identity.sign-up.hint.subBainText' | translate }}
 								</p>
 							</div>
 							<!-- End Title -->
@@ -94,9 +95,8 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 								</svg>
 
 								<div class="relative z-10">
-									<p class="text-xl italic text-gray-800 dark:text-white">
-										Працюйте з найкращими фахівцями!
-										Bee&nbsp;O'clock — це швидкість, професіоналізм та надійність.
+									<p class="text-xl italic text-gray-800 dark:text-white"
+									   [innerHTML]="'identity.sign-up.hint.quote' | translate">
 									</p>
 								</div>
 
@@ -104,8 +104,10 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 									<div class="flex items-center gap-x-4">
 										<div class="shrink-0">
 											<img class="size-8 rounded-full"
-												 src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-												 alt="Avatar">
+												 width="32"
+												 height="32"
+												 ngSrc="https://karbashevskyi.github.io/nx-monorepo/cv/en-US/images/Ivan-Karbashevskyi.jpeg"
+												 alt="Ivan's photo">
 										</div>
 										<div class="grow">
 											<div class="font-semibold text-gray-800 dark:text-neutral-200">Ivan
@@ -125,7 +127,8 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 						<div>
 							<!-- Form -->
 							<form>
-								<div class="lg:max-w-lg lg:mx-auto lg:me-0 ms-auto">
+								<div class="lg:max-w-lg lg:mx-auto lg:me-0 ms-auto flex flex-col gap-4">
+									<utility-change-language-component class="self-end"/>
 									<!-- Card -->
 									<div
 										class="p-4 sm:p-7 flex flex-col bg-white rounded-2xl shadow-lg dark:bg-neutral-900">
@@ -175,6 +178,7 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 							<!-- End Form -->
 						</div>
 						<!-- End Col -->
+
 					</div>
 					<!-- End Grid -->
 
@@ -225,6 +229,8 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 		AlreadySignUpLinkComponent,
 		PrimaryLinkStyleDirective,
 		PrimaryButtonDirective,
+		ChangeLanguageComponent,
+		NgOptimizedImage,
 	]
 })
 export class SignUpComponent {
@@ -234,6 +240,8 @@ export class SignUpComponent {
 	public readonly form = new RegistrationForm();
 	public readonly signUpAfterSuccess = new BooleanState(false);
 	public emailUrl = new URL('https://beeoclock.com');
+
+	public readonly currentYear = new Date().getFullYear();
 
 	public async signUp(): Promise<void> {
 		this.form.markAllAsTouched();
