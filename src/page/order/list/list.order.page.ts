@@ -49,11 +49,13 @@ import {OrderActions} from "@order/state/order/order.actions";
 		<order-list-of-card-collection-by-date-layout
 			[hidden]="initialized.isOff"
 			[tableState]="tableState$ | async"/>
-		<ng-template [ngIf]="initialized.isOff">
+
+		@if (initialized.isOff) {
+
 			<div class="p-4">
 				{{ 'keyword.capitalize.initializing' | translate }}...
 			</div>
-		</ng-template>
+		}
 
 	`,
 	providers: [
