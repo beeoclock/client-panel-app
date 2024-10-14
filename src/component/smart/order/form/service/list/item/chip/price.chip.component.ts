@@ -39,17 +39,18 @@ import {DefaultButtonDirective} from "@utility/presentation/directives/button/de
 	template: `
 		<button
 			(click)="initCache()"
-			[id]="'input-price-' + id"
+			[id]="'input-price-button-' + id"
 			class="px-3 py-2 rounded-lg border border-gray-200 justify-center items-center flex">
 			<div class="text-slate-900 text-sm font-normal">
 				{{ ((cachedValue ?? priceFormControl.value) | currency: currency) ?? '-' }}
 			</div>
 		</button>
-		<ion-popover #popover [trigger]="'input-price-' + id" [keepContentsMounted]="true">
+		<ion-popover #popover [trigger]="'input-price-button-' + id" [keepContentsMounted]="true">
 			<ng-template>
 				<div class="flex flex-col p-2 gap-2">
 
-					<form-input inputType="number" [min]="0" [control]="priceFormControl"/>
+					<form-input inputType="number" [min]="0" [control]="priceFormControl" [id]="id + '-price'"
+								[label]="'keyword.capitalize.price' | translate"/>
 					<div class="flex gap-2">
 						<button
 							default

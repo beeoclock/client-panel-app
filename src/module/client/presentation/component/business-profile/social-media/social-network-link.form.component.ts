@@ -32,7 +32,7 @@ import {TranslateModule} from "@ngx-translate/core";
           autocomplete="socialMedia.link"
           placeholder="https://example.com"
           [control]="form.controls.link"
-          [showLabel]="false"/>
+		  [label]="'keyword.capitalize.socialMedia' | translate"/>
       </div>
     </div>
   `
