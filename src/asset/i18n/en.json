@@ -922,6 +922,10 @@
 				"label": "Registration"
 			},
 			"hint": {
+				"mainText": "Tools tailored to your individual needs",
+				"quote": "Work with the best specialists! \t\t\t\t\t\t\t\t\t\tBee&nbsp;O'clock stands for speed, professionalism and reliability.",
+				"subBainText": "Register an account in just a few seconds and start using all the \t\t\t\t\t\t\t\t\tof Bee O'clock's features. We focus on getting you results \t\t\t\t\t\t\t\t\tas quickly as possible.",
+				"successfulInCurrentYear": "Your success is our mission in {{currentYear}}",
 				"youHaveAnAccount": "You have an account?"
 			}
 		}
