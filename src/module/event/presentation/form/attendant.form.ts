@@ -1,45 +1,44 @@
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
-import {IAttendee} from "@event/domain";
 import {CustomerForm} from "@customer/presentation/form";
-import {IsOptionalEnum, IsOrganizerEnum} from "@utility/domain/enum";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
+import {IAttendeeDto} from "@order/external/interface/i-order-appointment-details.dto";
 
 
-export interface IAttendantForm {
+export interface IAttendeeDtoForm {
+	object: FormControl<'AttendeeDto'>;
 	_id: FormControl<string>;
-	isOptional: FormControl<IsOptionalEnum>;
-	isOrganizer: FormControl<IsOrganizerEnum>;
 	customer: CustomerForm;
+	firstTime: FormControl<boolean>;
 }
 
-export class AttendantForm extends FormGroup<IAttendantForm> {
+export class AttendeeDtoForm extends FormGroup<IAttendeeDtoForm> {
 	constructor() {
 		super({
+			object: new FormControl('AttendeeDto', {
+				nonNullable: true,
+			}),
 			_id: new FormControl(),
-			isOptional: new FormControl(IsOptionalEnum.NO, {
-				nonNullable: true
-			}),
-			isOrganizer: new FormControl(IsOrganizerEnum.NO, {
-				nonNullable: true
-			}),
 			customer: CustomerForm.create({
 				customerType: CustomerTypeEnum.anonymous
-			})
+			}),
+			firstTime: new FormControl(false, {
+				nonNullable: true,
+			}),
 		});
 	}
 
 }
 
 
-export class AttendeesForm extends FormArray<AttendantForm> {
+export class AttendeesForm extends FormArray<AttendeeDtoForm> {
 
 	constructor() {
-		super([new AttendantForm()]);
+		super([new AttendeeDtoForm()]);
 	}
 
-	public pushNewOne(initialValue?: IAttendee | undefined): AttendantForm {
+	public pushNewOne(initialValue?: Partial<IAttendeeDto>): AttendeeDtoForm {
 
-		const control = new AttendantForm();
+		const control = new AttendeeDtoForm();
 
 		if (initialValue) {
 

@@ -542,6 +542,7 @@
 				"plural": {
 					"accepted": "Accepteret",
 					"cancelled": "Aflyst",
+					"deleted": "Slettet",
 					"done": "Færdig",
 					"inProgress": "I gang",
 					"rejected": "Afvist",
@@ -921,6 +922,10 @@
 				"label": "Registrering"
 			},
 			"hint": {
+				"mainText": "Værktøjer skræddersyet til dine individuelle behov",
+				"quote": "Arbejd med de bedste specialister! \t\t\t\t\t\t\t\t\t\tBee&nbsp;O'clock står for hurtighed, professionalisme og pålidelighed.",
+				"subBainText": "Opret en konto på få sekunder, og kom i gang med at bruge alle \t\t\t\t\t\t\t\t\taf Bee O'clocks funktioner. Vi fokuserer på at give dig resultater \t\t\t\t\t\t\t\t\tså hurtigt som muligt.",
+				"successfulInCurrentYear": "Din succes er vores mission i {{currentYear}}.",
 				"youHaveAnAccount": "Har du en konto?"
 			}
 		}

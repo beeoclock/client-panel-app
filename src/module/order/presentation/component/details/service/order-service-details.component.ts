@@ -61,9 +61,10 @@ import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 			{{ service.orderAppointmentDetails?.specialists?.[0]?.member?.firstName }}
 			{{ service.orderAppointmentDetails?.specialists?.[0]?.member?.lastName }}
 		</div>
-		<event-attendee-card-component
-			*ngFor="let attendee of (service.orderAppointmentDetails?.attendees ?? [])"
-			[attendee]="attendee"/>
+		@for (attendee of (service.orderAppointmentDetails?.attendees ?? []); track attendee._id) {
+			<event-attendee-card-component
+				[attendee]="attendee"/>
+		}
 		<ng-container *ngIf="service?.customerNote?.length">
 			<hr class="mt-2">
 			<div class="text-neutral-500 dark:text-neutral-400 py-2">

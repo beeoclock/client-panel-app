@@ -172,7 +172,6 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	// Hover
 	@HostListener('mouseenter')
 	public onMouseEnter() {
-		this.ngxLogger.debug('EventCalendarWithSpecialistWidgetComponent:onMouseEnter');
 		if (this.orderEventCalendarWithSpecialistWidgetComponent) {
 			this.renderer2.addClass(this.elementRef.nativeElement, 'z-20');
 			if (this.elementRef.nativeElement.clientHeight < this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.scrollHeight) {
@@ -183,7 +182,6 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	@HostListener('mouseleave')
 	public onMouseLeave() {
-		this.ngxLogger.debug('EventCalendarWithSpecialistWidgetComponent:onMouseLeave');
 		if (this.orderEventCalendarWithSpecialistWidgetComponent) {
 			if (this.elementRef.nativeElement.clientHeight < this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.scrollHeight) {
 				this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.add('bottom-0');

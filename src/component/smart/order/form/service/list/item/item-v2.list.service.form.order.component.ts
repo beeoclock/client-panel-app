@@ -28,7 +28,6 @@ import {ISpecialist} from "@service/domain/interface/i.specialist";
 import {NGXLogger} from "ngx-logger";
 import {DateTime} from "luxon";
 import {ICustomer} from "@customer/domain";
-import {ActiveEnum, IsOptionalEnum, IsOrganizerEnum, ResponseStatusEnum} from "@utility/domain/enum";
 import {SpecialistModel} from "@service/domain/model/specialist.model";
 
 @Component({
@@ -218,14 +217,10 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 		const copyOrderAppointmentDetails = structuredClone(orderAppointmentDetails);
 		copyOrderAppointmentDetails.attendees = [{
 			customer,
-			isOptional: IsOptionalEnum.NO,
-			isOrganizer: IsOrganizerEnum.NO,
-			responseStatus: ResponseStatusEnum.needsAction,
-			active: ActiveEnum.YES,
 			_id: ObjectID().toHexString(),
 			createdAt: DateTime.now().toJSDate().toISOString(),
 			updatedAt: DateTime.now().toJSDate().toISOString(),
-			object: "Event.Attendant"
+			object: "AttendeeDto",
 		}];
 		this.item.control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);
 		this.saveChanges.emit();

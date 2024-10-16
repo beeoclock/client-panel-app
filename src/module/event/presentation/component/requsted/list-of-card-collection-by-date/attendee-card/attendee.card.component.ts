@@ -2,6 +2,7 @@ import {Component, inject, Input} from "@angular/core";
 import {IAttendee} from "@event/domain";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 import {TranslateService} from "@ngx-translate/core";
+import {IAttendeeDto} from "@order/external/interface/i-order-appointment-details.dto";
 
 @Component({
 	selector: 'event-attendee-card-component',
@@ -12,7 +13,7 @@ import {TranslateService} from "@ngx-translate/core";
 export class AttendeeCardComponent {
 
 	@Input()
-	public attendee!: IAttendee;
+	public attendee!: IAttendee | IAttendeeDto;
 
 	private readonly translateService = inject(TranslateService);
 

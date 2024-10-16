@@ -42,7 +42,8 @@ import {CELL_COUNTRY_PREFIX_OBJECT_LIST} from "@utility/domain/enum/cell-country
           autocomplete="socialMedia.link"
           placeholder="000000000"
           [control]="form.controls.phoneNumber"
-          [showLabel]="false"/>
+		  [label]="'keyword.capitalize.phone' | translate"
+		/>
 
       </div>
 
