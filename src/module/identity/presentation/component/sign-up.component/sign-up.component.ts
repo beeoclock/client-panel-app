@@ -134,7 +134,7 @@ import {NgOptimizedImage} from "@angular/common";
 										class="p-4 sm:p-7 flex flex-col bg-white rounded-2xl shadow-lg dark:bg-neutral-900">
 										<div class="text-center">
 											<h1 class="block text-2xl font-bold text-gray-800 dark:text-white">
-												{{ 'sign-out.title' | translate }}
+												{{ 'identity.sign-up.form.label' | translate }}
 											</h1>
 											<identity-already-sign-up-link-component/>
 										</div>
