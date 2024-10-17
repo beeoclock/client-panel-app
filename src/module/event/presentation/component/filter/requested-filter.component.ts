@@ -6,6 +6,7 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {EventRequestedState} from "@event/state/event-requested/event-requested.state";
 import {EventRequestedActions} from "@event/state/event-requested/event-requested.actions";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @Component({
 	selector: 'event-requested-filter-component',
@@ -13,12 +14,13 @@ import {EventRequestedActions} from "@event/state/event-requested/event-requeste
 	imports: [
 		DefaultPanelComponent,
 		SearchInputComponent,
-		AutoRefreshComponent
+		AutoRefreshComponent,
+		ReactiveFormsModule
 	],
 	template: `
 		<utility-default-panel-component>
 			<div class="flex overflow-x-auto gap-2">
-				<utility-search-input-component [control]="form.controls.phrase"/>
+				<utility-search-input-component [formControl]="form.controls.phrase"/>
 				<utility-auto-refresh-component (emitter)="forceRefresh()"/>
 			</div>
 		</utility-default-panel-component>

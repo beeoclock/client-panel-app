@@ -13,7 +13,7 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 import {OrderActions} from "@order/state/order/order.actions";
 import {OrderState} from "@order/state/order/order.state";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
-import {FormControl} from "@angular/forms";
+import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 
 @Component({
@@ -30,7 +30,8 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 		AsyncPipe,
 		NgIf,
 		NgTemplateOutlet,
-		AutoRefreshComponent
+		AutoRefreshComponent,
+		ReactiveFormsModule
 	],
 	template: `
 		<utility-default-panel-component>
@@ -53,7 +54,7 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 		</div>
 
 		<ng-template #SearchInput>
-			<utility-search-input-component [control]="form.controls.phrase"/>
+			<utility-search-input-component [formControl]="form.controls.phrase"/>
 		</ng-template>
 
 		<ng-template #AutoRefresh>
