@@ -15,6 +15,7 @@ import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
 import {
 	AutoRefreshButtonComponent
 } from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @Component({
 	selector: 'service-filter-component',
@@ -31,7 +32,8 @@ import {
 		AsyncPipe,
 		NgIf,
 		NgTemplateOutlet,
-		AutoRefreshButtonComponent
+		AutoRefreshButtonComponent,
+		ReactiveFormsModule
 	],
 	template: `
 		<utility-default-panel-component>
@@ -61,11 +63,12 @@ import {
 
 		<ng-template #SearchInput>
 			<utility-search-input-component
-				[control]="form.controls.phrase"/>
+				[formControl]="form.controls.phrase"/>
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>
-			<button *ngIf="showButtonGoToForm" type="button" class="!py-3 !px-4 !text-base" primary (click)="openForm()">
+			<button *ngIf="showButtonGoToForm" type="button" class="!py-3 !px-4 !text-base flex-1" primary
+					(click)="openForm()">
 				<i class="bi bi-plus-lg"></i>
 <!--				<span class="hidden xl:block">-->
 <!--					{{ 'keyword.capitalize.add-service' | translate }}-->
