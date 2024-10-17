@@ -45,11 +45,13 @@ import {TranslateModule} from "@ngx-translate/core";
 			isRequired
 			invalidTooltip
 			[id]="id"
+			[setRedBorderTo]="'#' + id + '-mirror'"
 			[formControl]="control"
 			[isRequiredEnabled]="showLabel">
 
 		<input
 			#inputElement
+			[id]="id + '-mirror'"
 			[class.disabled]="control.disabled"
 			[placeholder]="placeholder"
 			[autocomplete]="autocomplete"
