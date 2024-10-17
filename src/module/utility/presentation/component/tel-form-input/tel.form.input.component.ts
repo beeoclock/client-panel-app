@@ -50,7 +50,7 @@ import {TranslateModule} from "@ngx-translate/core";
 
 		<input
 			#inputElement
-			[class.disabled]="disabled"
+			[class.disabled]="control.disabled"
 			[placeholder]="placeholder"
 			[autocomplete]="autocomplete"
 			type="tel"
@@ -82,9 +82,6 @@ export class TelFormInputComponent implements AfterViewInit, OnDestroy, DoCheck 
 
 	@Input()
 	public autocomplete: string = '';
-
-	@Input()
-	public disabled = false;
 
 	@Input()
 	public control!: FormControl;
