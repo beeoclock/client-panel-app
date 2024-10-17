@@ -98,6 +98,7 @@
 		"@compodoc/compodoc": "1.1.25",
 		"@ng-icons/bootstrap-icons": "29.5.1",
 		"@ng-icons/material-icons": "^29.5.1",
+		"@ng-icons/remixicon": "^29.5.1",
 		"@ng-icons/tdesign-icons": "29.5.1",
 		"@ngxs/devtools-plugin": "18.1.1",
 		"@tailwindcss/aspect-ratio": "0.4.2",
