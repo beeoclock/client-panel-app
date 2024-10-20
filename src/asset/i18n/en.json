@@ -588,6 +588,7 @@
 			"email": "Invalid E-mail format",
 			"emailOrPhoneRequired": "E-mail or phone number is required",
 			"imageSize": "Maximum image size is {{max}}, current size is {{value}}",
+			"invalid": "Invalid",
 			"mask": "Invalid format, correct format is {{requiredMask}}",
 			"minlength": "Minimum length is {{requiredLength}}",
 			"pattern": "A username can contain only letters, numbers, an underscore (_), and a dot (.)",

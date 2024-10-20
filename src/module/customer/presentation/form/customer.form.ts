@@ -14,6 +14,7 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 import {ICustomer} from "@customer/domain";
 import {Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
+import {TelFormInputComponent} from "@utility/presentation/component/tel-form-input/tel.form.input.component";
 
 export const enum CustomerFormFieldsEnum {
 
@@ -89,12 +90,10 @@ export class CustomerForm extends BaseEntityForm<'CustomerDto', ICustomerForm> {
 			}
 		},
 		[CustomerFormFieldsEnum.phone]: {
-			componentRef: FormInputComponent,
+			componentRef: TelFormInputComponent,
 			inputs: {
 				id: 'customer-form-phone',
-				inputType: 'tel',
 				labelTranslateKey: 'keyword.capitalize.phone',
-				placeholderTranslateKey: '+000000000000',
 				autocomplete: CustomerFormFieldsEnum.phone,
 				control: this.controls.phone,
 			}

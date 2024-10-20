@@ -588,6 +588,7 @@
 			"email": "Ugyldigt e-mail-format",
 			"emailOrPhoneRequired": "E-mail eller telefonnummer er påkrævet",
 			"imageSize": "Maksimal billedstørrelse er {{max}}, nuværende størrelse er {{value}}",
+			"invalid": "Invalid",
 			"mask": "Ugyldigt format, korrekt format er {{requiredMask}}",
 			"minlength": "Minimumslængde er {{requiredLength}}",
 			"required": "Påkrævet felt",
