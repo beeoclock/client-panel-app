@@ -1,13 +1,13 @@
 import {ChangeDetectionStrategy, Component, inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SignInComponent} from '@identity/presentation/component/sign-in.component/sign-in.component';
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
-import {NgOptimizedImage} from "@angular/common";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
 	selector: 'app-sign-in-identity-page',
@@ -21,6 +21,7 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 		CardComponent,
 		TranslateModule,
 		ChangeLanguageComponent,
+		FormsModule,
 		NgOptimizedImage,
 		PrimaryButtonDirective
 	],

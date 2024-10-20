@@ -3,6 +3,7 @@ import {AbstractControl, NgControl} from '@angular/forms';
 import {is} from "@utility/checker";
 import {TranslateService} from "@ngx-translate/core";
 import {getFirstKey} from "@utility/domain";
+import {DOCUMENT} from "@angular/common";
 
 @Directive({
 	selector: '[invalidTooltip]',
@@ -27,6 +28,7 @@ export class InvalidTooltipDirective implements DoCheck {
 	private readonly ngControl = inject(NgControl);
 	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 	private readonly translateService = inject(TranslateService);
+	private readonly document = inject(DOCUMENT);
 	private reason: string | null = null;
 
 	private readonly invalidClassList = ['!border-red-500', '!ring-red-500'];
@@ -145,7 +147,7 @@ export class InvalidTooltipDirective implements DoCheck {
 
 		// Add border red to input
 		if (this.setRedBorderTo) {
-			const element = document.querySelector(this.setRedBorderTo);
+			const element = this.document.querySelector(this.setRedBorderTo);
 			if (element) {
 				this.invalidClassList.forEach((className) => {
 					element.classList.add(className);

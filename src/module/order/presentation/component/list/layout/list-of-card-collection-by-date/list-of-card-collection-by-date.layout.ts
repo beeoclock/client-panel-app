@@ -85,6 +85,10 @@ export class ListOfCardCollectionByDateLayout extends LayoutListComponent<IOrder
 				return;
 			}
 
+			if (currentTableState.page === 1) {
+				this.mapOfItems.clear();
+			}
+
 			const {items} = currentTableState;
 			items.forEach((item) => {
 				const dateTime = DateTime.fromISO(item.createdAt);

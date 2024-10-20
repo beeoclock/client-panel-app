@@ -55,10 +55,10 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 	public initialIntervalType: IntervalTypeEnum = IntervalTypeEnum.day;
 
 	@ViewChild(IonDatetime)
-	public readonly ionDateTime!: IonDatetime;
+	public ionDateTime!: IonDatetime;
 
 	@ViewChild(IonModal)
-	public readonly ionModal!: IonModal;
+	public ionModal!: IonModal;
 
 	public readonly intervalTypeEnum = IntervalTypeEnum;
 
@@ -79,19 +79,19 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 	public readonly dayCases = {
 		isYesterday: () => {
 			return {
-				enabled: this.dateControl.value === this.today.minus({days: 1}).startOf('day').toJSDate().toISOString(),
+				enabled: this.today.minus({days: 1}).hasSame(DateTime.fromISO(this.dateControl.value), 'day'),
 				translateKey: 'keyword.capitalize.yesterday'
 			};
 		},
 		isToday: () => {
 			return {
-				enabled: this.dateControl.value === this.today.startOf('day').toJSDate().toISOString(),
+				enabled: this.today.hasSame(DateTime.fromISO(this.dateControl.value), 'day'),
 				translateKey: 'keyword.capitalize.today'
 			};
 		},
 		isTomorrow: () => {
 			return {
-				enabled: this.dateControl.value === this.today.plus({days: 1}).startOf('day').toJSDate().toISOString(),
+				enabled: this.today.plus({day: 1}).hasSame(DateTime.fromISO(this.dateControl.value), 'day'),
 				translateKey: 'keyword.capitalize.tomorrow'
 			};
 		},
@@ -133,8 +133,20 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 	}
 
 	public ngOnInit() {
+
+		this.initialize();
+
 		this.initListOfOperations();
 		this.detectCase();
+	}
+
+	public initialize() {
+
+		const {interval, selectedDate} = this.form.getRawValue();
+		if (interval) this.intervalTypeControl.setValue(interval);
+		if (selectedDate) this.dateControl.setValue(selectedDate);
+		this.changeDetectorRef.markForCheck();
+
 	}
 
 	protected cancelChanges() {
