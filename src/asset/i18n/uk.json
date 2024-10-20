@@ -588,6 +588,7 @@
 			"email": "Неправильний формат E-mail",
 			"emailOrPhoneRequired": "Введи номер телефону або E-mail",
 			"imageSize": "Максимальний розмір зображення – {{max}}, поточний розмір – {{value}}",
+			"invalid": "Неправильний",
 			"mask": "Неправильний формат, правильний формат - {{requiredMask}}",
 			"minlength": "Мінімальна довжина - {{requiredLength}}",
 			"required": "Обов'язкове поле",
