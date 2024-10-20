@@ -9,6 +9,7 @@ import {IonDatetime, IonicModule, ModalController} from "@ionic/angular";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {DateTime} from "luxon";
 import {Reactive} from "@utility/cdk/reactive";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'event-date-control-calendar-with-specialists-component',
@@ -20,7 +21,7 @@ import {Reactive} from "@utility/cdk/reactive";
 				[disabled]="loader$ | async"
 				type="button"
 				class="flex h-12 items-center justify-center rounded-l-2xl border-y border-l border-beeColor-300 text-beeColor-400 hover:text-beeColor-500 focus:relative w-9 pr-0 hover:bg-beeColor-100">
-				<i class="bi bi-chevron-left"></i>
+				<app-icon name="bootstrapChevronLeft"/>
 			</button>
 
 			<ion-datetime-button id="hidden-ion-datetime-button" [hidden]="true" datetime="datetime"/>
@@ -58,7 +59,7 @@ import {Reactive} from "@utility/cdk/reactive";
 				[disabled]="loader$ | async"
 				type="button"
 				class="flex h-12 items-center justify-center rounded-r-2xl border-y border-r border-beeColor-300 text-beeColor-400 hover:text-beeColor-500 focus:relative w-9 pl-0 hover:bg-beeColor-100">
-				<i class="bi bi-chevron-right"></i>
+				<app-icon name="bootstrapChevronRight"/>
 			</button>
 
 		</div>
@@ -69,7 +70,8 @@ import {Reactive} from "@utility/cdk/reactive";
 		TranslateModule,
 		AsyncPipe,
 		IonicModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		IconComponent
 	],
 	encapsulation: ViewEncapsulation.None
 })

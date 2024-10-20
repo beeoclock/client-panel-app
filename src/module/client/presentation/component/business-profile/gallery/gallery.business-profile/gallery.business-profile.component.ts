@@ -26,6 +26,7 @@ import {
 } from "@client/adapter/external/api/media/gallery/delete.media.gallery.client.api.adapter";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 import {RIMedia} from "@module/media/domain/interface/i.media";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'client-gallery-business-profile-component',
@@ -36,7 +37,8 @@ import {RIMedia} from "@module/media/domain/interface/i.media";
 		ImageGalleryBusinessProfileComponent,
 		NgForOf,
 		NgIf,
-		InvalidTooltipComponent
+		InvalidTooltipComponent,
+		IconComponent
 	],
 	standalone: true,
 	templateUrl: './gallery.business-profile.component.html'

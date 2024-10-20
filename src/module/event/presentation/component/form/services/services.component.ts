@@ -31,6 +31,7 @@ import {
 } from "@event/presentation/component/form/services/language-version/language-version.order.control.component";
 import {LanguageCodeEnum} from "@utility/domain/enum";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'event-service-component',
@@ -55,6 +56,7 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 		RowActionButtonComponent,
 		SpecialistServiceComponent,
 		LanguageVersionOrderControlComponent,
+		IconComponent,
 	],
 	providers: [
 		CurrencyPipe,

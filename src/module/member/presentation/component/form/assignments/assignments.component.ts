@@ -7,6 +7,7 @@ import {SwitchComponent} from "@utility/presentation/component/switch/switch.com
 import {Reactive} from "@utility/cdk/reactive";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'member-form-assignments',
@@ -17,7 +18,8 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 		CardComponent,
 		NgIf,
 		TranslateModule,
-		SwitchComponent
+		SwitchComponent,
+		IconComponent
 	]
 })
 export class MemberFormAssignmentsComponent extends Reactive implements OnInit {

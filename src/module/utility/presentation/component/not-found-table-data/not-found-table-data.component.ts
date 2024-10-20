@@ -3,6 +3,7 @@ import {NgIf, NgOptimizedImage} from "@angular/common";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {RouterLink} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'not-found-table-data-component',
@@ -12,7 +13,8 @@ import {TranslateModule} from "@ngx-translate/core";
 		PrimaryButtonDirective,
 		RouterLink,
 		TranslateModule,
-		NgIf
+		NgIf,
+		IconComponent
 	],
 	template: `
 		<div class="grid grid-cols-12 h-[calc(100%-118px)] md:h-[calc(100%-70px)]">
@@ -23,7 +25,7 @@ import {TranslateModule} from "@ngx-translate/core";
 				</div>
 				<ng-template [ngIf]="showLinkToForm">
 					<button type="button" primary (click)="clickListener.emit($event)">
-						<i class="bi bi-plus-lg"></i>
+						<app-icon name="bootstrapPlusLg"/>
 						{{ linkLabel }}
 					</button>
 				</ng-template>

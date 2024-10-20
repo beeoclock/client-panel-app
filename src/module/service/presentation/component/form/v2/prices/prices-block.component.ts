@@ -25,7 +25,7 @@ import {filter, take} from "rxjs";
 				<!--        <div class="flex justify-between">-->
 				<!--          <span class="text-beeColor-400">Price version #{{ index + 1 }}</span>-->
 				<!--          <button type="button" class="text-beeColor-600 hover:text-red-600 hover:bg-red-100 px-2 py-1 rounded-2xl">-->
-				<!--            <i class="bi bi-trash"></i>-->
+				<!--            <app-icon name="bootstrapTrash"/>-->
 				<!--          </button>-->
 				<!--        </div>-->
 
@@ -40,7 +40,7 @@ import {filter, take} from "rxjs";
 			</div>
 
 			<!--      <button type="button" (click)="durationVersions.pushNewOne()" class="w-full text-blue-600 rounded px-4 py-2 hover:bg-blue-100">-->
-			<!--        <i class="bi bi-plus-lg"></i>-->
+			<!--        <app-icon name="bootstrapPlusLg"/>-->
 			<!--        {{ 'service.form.v2.section.prices.button.add.label' | translate }}-->
 			<!--      </button>-->
 

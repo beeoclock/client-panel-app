@@ -15,6 +15,7 @@ import {Store} from "@ngxs/store";
 import {ClientState} from "@client/state/client/client.state";
 import {is} from "@utility/checker";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'event-duration-version-type-range',
@@ -31,7 +32,8 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 		NgTemplateOutlet,
 		FormInputComponent,
 		DurationSelectComponent,
-		PriceAndCurrencyComponent
+		PriceAndCurrencyComponent,
+		IconComponent
 	]
 })
 export class DurationVersionTypeRangeComponent extends Reactive implements OnInit {

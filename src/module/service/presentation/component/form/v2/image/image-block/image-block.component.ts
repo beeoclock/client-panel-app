@@ -9,6 +9,7 @@ import {
 	ServiceFormImageComponent
 } from "@service/presentation/component/form/v2/image/service-form-image/service-form-image.component";
 import {ServicePresentationForm} from '@src/module/service/presentation/form/service.presentation.form';
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'service-form-image-block-component',
@@ -19,7 +20,8 @@ import {ServicePresentationForm} from '@src/module/service/presentation/form/ser
 		TranslateModule,
 		CardComponent,
 		ServiceFormImageComponent,
-		NgForOf
+		NgForOf,
+		IconComponent
 	]
 })
 export class ImageBlockComponent {

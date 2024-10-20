@@ -3,6 +3,7 @@ import {Analytic} from "@module/analytic/internal/store/date-range-report/interf
 import {TranslateModule} from "@ngx-translate/core";
 import {CurrencyPipe} from "@angular/common";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 type T = Analytic.ICustomer | Omit<Analytic.ICustomer, 'specialistRecord'>;
 
@@ -51,7 +52,7 @@ type T = Analytic.ICustomer | Omit<Analytic.ICustomer, 'specialistRecord'>;
 									id="customer-counter-orders-by-status-done-{{ index }}"
 									[title]="'analytic.summary.totalOrders' | translate"
 									class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs bg-gray-100 text-gray-800 rounded-md dark:bg-neutral-500/20 dark:text-neutral-400">
-									<i class="bi bi-receipt"></i>
+									<app-icon name="bootstrapReceipt"/>
 									{{ customer.counter.orders.by.status.done}}
 								</div>
 							</div>
@@ -63,7 +64,8 @@ type T = Analytic.ICustomer | Omit<Analytic.ICustomer, 'specialistRecord'>;
 	`,
 	imports: [
 		TranslateModule,
-		CurrencyPipe
+		CurrencyPipe,
+		IconComponent
 	],
 	host: {
 		class: 'w-full md:max-w-xs'

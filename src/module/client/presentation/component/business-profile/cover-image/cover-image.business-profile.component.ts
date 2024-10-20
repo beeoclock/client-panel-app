@@ -12,6 +12,7 @@ import {
 	PatchMediaBannersClientApiAdapter
 } from "@client/adapter/external/api/media/banners/patch.media.banners.client.api.adapter";
 import {RIMedia} from "@module/media/domain/interface/i.media";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'client-cover-image-business-profile-component',
@@ -24,7 +25,8 @@ import {RIMedia} from "@module/media/domain/interface/i.media";
 		DragAndDropDirective,
 		PlaceholderImageComponent,
 		ImageCoverImageBusinessProfileComponent,
-		NgForOf
+		NgForOf,
+		IconComponent
 	],
 	standalone: true
 })

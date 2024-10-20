@@ -5,6 +5,7 @@ import {ActiveEnum} from "@utility/domain/enum";
 import {NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {Placement} from "@popperjs/core/lib/enums";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'utility-table-column-action',
@@ -13,18 +14,19 @@ import {Placement} from "@popperjs/core/lib/enums";
 		RouterLink,
 		DropdownComponent,
 		NgIf,
-		TranslateModule
+		TranslateModule,
+		IconComponent
 	],
 	template: `
 		<utility-dropdown [placement]="placement" [offsetDistance]="offsetDistance" [threeDot]="true"
-											[id]="'table-row-' + id">
+						  [id]="'table-row-' + id">
 			<ng-container content>
 				<li>
 					<button
 						type="button"
 						(click)="open.emit(id)"
 						class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-						<i class="bi bi-eye"></i>
+						<app-icon name="bootstrapEye"/>
 						{{ 'keyword.capitalize.details' | translate }}
 					</button>
 				</li>
@@ -33,7 +35,7 @@ import {Placement} from "@popperjs/core/lib/enums";
 						type="button"
 						(click)="edit.emit(id)"
 						class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-						<i class="bi bi-pencil"></i>
+						<app-icon name="bootstrapPencil"/>
 						{{ 'keyword.capitalize.edit' | translate }}
 					</button>
 				</li>
@@ -42,26 +44,30 @@ import {Placement} from "@popperjs/core/lib/enums";
 					<button
 						(click)="delete.emit(id)"
 						class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-						<i class="bi bi-trash"></i>
+						<app-icon name="bootstrapTrash"/>
 						{{ 'keyword.capitalize.delete' | translate }}
 					</button>
 				</li>
-				<li *ngIf="active === activeEnum.NO">
-					<button
-						(click)="activate.emit(id)"
-						class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-						<i class="bi bi-toggle-on"></i>
-						{{ 'keyword.capitalize.activate' | translate }}
-					</button>
-				</li>
-				<li *ngIf="active === activeEnum.YES">
-					<button
-						(click)="deactivate.emit(id)"
-						class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-						<i class="bi bi-toggle-off"></i>
-						{{ 'keyword.capitalize.deactivate' | translate }}
-					</button>
-				</li>
+				@if (active === activeEnum.NO) {
+					<li>
+						<button
+							(click)="activate.emit(id)"
+							class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
+							<app-icon name="bootstrapToggleOn"/>
+							{{ 'keyword.capitalize.activate' | translate }}
+						</button>
+					</li>
+				}
+				@if (active === activeEnum.YES) {
+					<li>
+						<button
+							(click)="deactivate.emit(id)"
+							class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
+							<app-icon name="bootstrapToggleOff"/>
+							{{ 'keyword.capitalize.deactivate' | translate }}
+						</button>
+					</li>
+				}
 			</ng-container>
 		</utility-dropdown>
 	`

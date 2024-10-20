@@ -21,6 +21,7 @@ import {LAST_OPENED_TENANT_ID_MAP_BY_LOGIN, TENANT_ID} from "@src/token";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	selector: 'app-identity-corridor-page',
@@ -38,7 +39,8 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 		ChangeLanguageComponent,
 		LogoutComponent,
 		BackButtonComponent,
-		BackLinkComponent
+		BackLinkComponent,
+		IconComponent
 	],
 	encapsulation: ViewEncapsulation.None
 })

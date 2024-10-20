@@ -16,6 +16,7 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 import {BooleanState} from "@utility/domain";
 import {AlreadySignUpLinkComponent} from "@identity/presentation/component/link/alredy-sign-up.link.component";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {NgOptimizedImage} from "@angular/common";
 
@@ -39,7 +40,7 @@ import {NgOptimizedImage} from "@angular/common";
 						<div
 							class="p-4 sm:p-7 gap-4 text-center items-center flex flex-col bg-white rounded-2xl shadow-lg dark:bg-neutral-900 justify-center">
 							<div class="text-green-500 text-4xl">
-								<i class="bi bi-check-circle"></i>
+								<app-icon name="bootstrapCheckCircle"/>
 							</div>
 
 							<div class="text-2xl">
@@ -57,7 +58,8 @@ import {NgOptimizedImage} from "@angular/common";
 
 							<a [href]="emailUrl.href" primaryLinkStyle class="justify-center flex-col">
 								<span>{{ 'identity.sign-up.afterSuccess.openMailService' | translate }}</span>
-								<span><strong>{{ emailUrl.host }}</strong>&nbsp;<i class="bi bi-arrow-right"></i></span>
+								<span><strong>{{ emailUrl.host }}</strong>&nbsp;<app-icon
+					name="bootstrapArrowRight"/></span>
 							</a>
 						</div>
 					</div>
@@ -229,6 +231,7 @@ import {NgOptimizedImage} from "@angular/common";
 		AlreadySignUpLinkComponent,
 		PrimaryLinkStyleDirective,
 		PrimaryButtonDirective,
+		IconComponent,
 		ChangeLanguageComponent,
 		NgOptimizedImage,
 	]

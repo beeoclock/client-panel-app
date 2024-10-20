@@ -45,6 +45,7 @@ import {
 import {TENANT_ID} from "@src/token";
 import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 const enum Status {
     Success = 'success',
@@ -73,7 +74,8 @@ const enum Status {
         NgClass,
         NgIf,
         LoaderComponent,
-        WithTenantIdPipe
+        WithTenantIdPipe,
+        IconComponent
     ],
     encapsulation: ViewEncapsulation.None
 })

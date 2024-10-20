@@ -58,6 +58,7 @@ import {filter} from 'rxjs';
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {ClientState} from "@client/state/client/client.state";
 import {RIClient} from "@client/domain";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 
 @Component({
@@ -90,7 +91,8 @@ import {RIClient} from "@client/domain";
 		NgIf,
 		NoDataPipe,
 		LinkButtonDirective,
-		OrderServiceDetailsComponent
+		OrderServiceDetailsComponent,
+		IconComponent
 	],
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -109,11 +111,11 @@ import {RIClient} from "@client/domain";
 					<div slot="footer" class="flex justify-between">
 
 						<button type="button" link (click)="delete(index)">
-							<i class="bi bi-trash"></i>
+							<app-icon name="bootstrapTrash"/>
 							{{ 'keyword.capitalize.delete' | translate }}
 						</button>
 						<button type="button" primaryLink (click)="edit(service, index)">
-							<i class="bi bi-pencil"></i>
+							<app-icon name="bootstrapPencil"/>
 							{{ 'keyword.capitalize.edit' | translate }}
 						</button>
 
@@ -126,7 +128,7 @@ import {RIClient} from "@client/domain";
 			<div class="block">
 
 				<button type="button" primaryLink (click)="addService()">
-					<i class="bi bi-plus-lg"></i>
+					<app-icon name="bootstrapPlusLg"/>
 					{{ 'event.form.section.service.button.add' | translate }}
 				</button>
 

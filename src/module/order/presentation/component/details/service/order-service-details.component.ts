@@ -10,6 +10,7 @@ import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {TranslateModule} from "@ngx-translate/core";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
 	standalone: true,
@@ -27,7 +28,8 @@ import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 		NgIf,
 		NoDataPipe,
 		PrimaryLinkButtonDirective,
-		TranslateModule
+		TranslateModule,
+		IconComponent
 	],
 	template: `
 
@@ -40,24 +42,24 @@ import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 				</div>
 				<div
 					class="bg-neutral-100 text-neutral-800 font-medium inline-flex gap-1 items-center px-2 py-0.5 rounded-2xl dark:bg-gray-700 dark:text-neutral-400 border border-neutral-400">
-					<i class="bi bi-clock text-beeColor-500"></i>
+					<app-icon name="bootstrapClock" class="text-beeColor-500"/>
 					{{ (service.serviceSnapshot?.durationVersions?.[0]?.durationInSeconds ?? 0) | humanizeDuration }}
 				</div>
 			</div>
 
 		</div>
 		<div class="cursor-pointer inline-flex gap-4 items-center">
-			<i class="bi bi-calendar text-beeColor-500"></i>
+			<app-icon name="bootstrapCalendar" class="text-beeColor-500"/>
 			<div class="inline-flex gap-2">
 				{{ service.orderAppointmentDetails?.start | date: 'yyyy-MM-dd HH:mm' }}
 			</div>
 		</div>
 		<div class="cursor-pointer inline-flex gap-4 items-center">
-			<i class="bi bi-cart text-beeColor-500"></i>
+			<app-icon name="bootstrapCart" class="text-beeColor-500"/>
 			{{ service.serviceSnapshot?.languageVersions?.[0]?.title | noData }}
 		</div>
 		<div class="cursor-pointer inline-flex gap-4 items-center">
-			<i class="bi bi-file-person text-beeColor-500"></i>
+			<app-icon name="bootstrapFilePerson" class="text-beeColor-500"/>
 			{{ service.orderAppointmentDetails?.specialists?.[0]?.member?.firstName }}
 			{{ service.orderAppointmentDetails?.specialists?.[0]?.member?.lastName }}
 		</div>
