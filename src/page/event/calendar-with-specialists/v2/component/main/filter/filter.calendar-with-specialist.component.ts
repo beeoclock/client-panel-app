@@ -9,7 +9,7 @@ import {SettingsComponent} from "@page/event/calendar-with-specialists/v2/settin
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {FormControl} from "@angular/forms";
 import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
@@ -36,11 +36,12 @@ import {IonPopover} from "@ionic/angular/standalone";
 		DateControlCalendarWithSpecialistsComponent,
 		IonSelectWrapperComponent,
 		SettingsComponent,
-		IonPopover
+		IonPopover,
+		TranslateModule
 	],
 	template: `
 		<div
-			class="overflow-x-auto overflow-y-hidden p-2 flex justify-between gap-2 items-center bg-white border-b border-beeColor-200">
+			class="overflow-x-auto overflow-y-hidden p-1 flex justify-between gap-2 items-center bg-white border-b border-beeColor-200">
 
 			<div class="overflow-x-auto flex gap-2">
 				<event-date-control-calendar-with-specialists-component/>
@@ -59,12 +60,17 @@ import {IonPopover} from "@ionic/angular/standalone";
 							<settings-component
 								[control]="calendarWithSpecialistLocaStateService.movementInMinutesControl"/>
 
-							<ion-select-wrapper
-								class="p-3 max-w-xs"
-								id="calendar-with-specialists-filter-order-service-status"
-								[multiple]="true"
-								[options]="orderServiceStatusOptions"
-								[control]="orderServiceStatusesControl"/>
+							<div>
+								<label for="" class="text-sm">
+									{{ 'keyword.capitalize.statuses' | translate }}
+								</label>
+								<ion-select-wrapper
+									class="p-4 max-w-xs"
+									id="calendar-with-specialists-filter-order-service-status"
+									[multiple]="true"
+									[options]="orderServiceStatusOptions"
+									[control]="orderServiceStatusesControl"/>
+							</div>
 						</div>
 					</ng-template>
 				</ion-popover>
