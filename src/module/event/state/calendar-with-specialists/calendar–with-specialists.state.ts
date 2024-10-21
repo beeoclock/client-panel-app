@@ -23,6 +23,10 @@ export interface ICalendarWithSpecialist {
 	};
 	data: IEvent_V2[];
 	loader: boolean;
+	settings: {
+		startTime: string; // 00:00 - 23:59 Local time
+		endTime: string; // 00:00 - 23:59 Local time
+	}
 }
 
 @State<ICalendarWithSpecialist>({
@@ -45,6 +49,10 @@ export interface ICalendarWithSpecialist {
 		},
 		data: [],
 		loader: false,
+		settings: {
+			startTime: '00:00', // 00:00 - 23:59 Local time
+			endTime: '23:59', // 00:00 - 23:59 Local time
+		}
 	},
 })
 @Injectable()
@@ -58,7 +66,7 @@ export class CalendarWithSpecialistsState {
 	@Action(CalendarWithSpecialistsAction.GetItems)
 	public async getItems(ctx: StateContext<ICalendarWithSpecialist>) {
 
-		const {params, loader} = ctx.getState();
+		const {params, loader, settings} = ctx.getState();
 
 		if (loader) {
 			this.ngxLogger.warn('CalendarWithSpecialistsState.getItems', 'Loader is already active', params);
@@ -73,9 +81,13 @@ export class CalendarWithSpecialistsState {
 			...params
 		};
 
-		const absenceParams = {
-			...params
+		const absenceParams: any = {
+			...params,
 		};
+
+		if ('statuses' in absenceParams) {
+			delete absenceParams.statuses;
+		}
 
 		if ('status' in absenceParams) {
 			delete absenceParams.status;
@@ -85,6 +97,8 @@ export class CalendarWithSpecialistsState {
 			this.pagedOrderApiAdapter.executeAsync(orderParams),
 			this.pagedAbsenceApiAdapter.executeAsync(absenceParams),
 		]);
+
+		const {startTime, endTime} = settings;
 
 		const data: IEvent_V2[] = [
 			...orderPaged.items.reduce((acc, order) => {
@@ -101,8 +115,27 @@ export class CalendarWithSpecialistsState {
 						}
 					}
 
+					const start = DateTime.fromISO(service.orderAppointmentDetails.start);
+
 					// Check if appointment start is in the correct range
-					if (DateTime.fromISO(service.orderAppointmentDetails.start).hasSame(DateTime.fromISO(params.start), 'day') === false) {
+					if (start.hasSame(DateTime.fromISO(params.start), 'day') === false) {
+						return;
+					}
+
+					const end = DateTime.fromISO(service.orderAppointmentDetails.end);
+
+					const serviceStartTime = start.toFormat('HH:mm');
+					const serviceEndTime = end.toFormat('HH:mm');
+
+					if (serviceEndTime < serviceStartTime) {
+						return;
+					}
+
+					if (serviceStartTime < startTime && serviceEndTime < startTime) {
+						return;
+					}
+
+					if (serviceStartTime > endTime && serviceEndTime > endTime) {
 						return;
 					}
 
@@ -141,8 +174,27 @@ export class CalendarWithSpecialistsState {
 				return acc;
 
 			}, [] as IEvent_V2[]),
-			...absencePaged.items.map((absence) => {
-				return {
+			...absencePaged.items.reduce((acc, absence) => {
+
+				const start = DateTime.fromISO(absence.start);
+				const end = DateTime.fromISO(absence.end);
+
+				const absenceStartTime = start.toFormat('HH:mm');
+				const absenceEndTime = end.toFormat('HH:mm');
+
+				if (absenceEndTime < absenceStartTime) {
+					return acc;
+				}
+
+				if (absenceStartTime < startTime && absenceEndTime < startTime) {
+					return acc;
+				}
+
+				if (absenceStartTime > endTime && absenceEndTime > endTime) {
+					return acc;
+				}
+
+				acc.push({
 					is: 'absence',
 					_id: absence._id,
 					updatedAt: absence.updatedAt,
@@ -160,8 +212,11 @@ export class CalendarWithSpecialistsState {
 						} as IAttendee_V2;
 					}),
 					originalData: absence,
-				} as IEvent_V2;
-			})
+				});
+
+				return acc;
+
+			}, [] as IEvent_V2[])
 		];
 
 		ctx.patchState({
