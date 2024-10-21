@@ -208,10 +208,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 	}
 
 	protected cancelChanges() {
-		this.ionModal.dismiss({
-			intervalType: this.cacheOfCurrentData?.intervalTypeControlValue,
-			selectedDate: this.cacheOfCurrentData?.dateControlValue
-		}, 'cancel').then();
+		this.ionModal.dismiss({}, 'cancel').then();
 	}
 
 	protected acceptChanges() {
@@ -323,12 +320,17 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 			role: 'accept' | 'cancel'
 		};
 
-		this.intervalTypeControl.setValue(data.intervalType);
-		this.dateControl.setValue(data.selectedDate);
+		const {dateControlValue, intervalTypeControlValue} = this.cacheOfCurrentData ?? {};
 
 		switch (role) {
 			case 'accept':
+				this.intervalTypeControl.setValue(data.intervalType);
+				this.dateControl.setValue(data.selectedDate);
 				this.updateForm();
+				break;
+			case 'cancel':
+				if (dateControlValue) this.dateControl.patchValue(dateControlValue);
+				if (intervalTypeControlValue) this.intervalTypeControl.patchValue(intervalTypeControlValue);
 				break;
 		}
 
