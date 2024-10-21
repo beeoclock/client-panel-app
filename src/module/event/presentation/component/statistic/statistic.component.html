@@ -8,7 +8,6 @@
 
 		@if (calculatedStatistic$ | async; as calculatedStatistic) {
 
-
 			@if (clientItem) {
 
 				<div class="flex flex-col gap-4">
@@ -20,8 +19,11 @@
 							{{ periodTitle }}
 						</div>
 					</div>
+
 					@if (loader$ | async) {
+
 						<utility-loader/>
+
 					} @else {
 
 						<div class="flex flex-wrap gap-4">
@@ -96,17 +98,13 @@
 						</h5>
 					</div>
 					<div class="grid gap-4 md:grid-cols-2 bg-white dark:bg-gray-800">
-						<!--				<figure *ngFor="let success of statisticPerMember.services.success" class="flex flex-col items-center justify-center p-8 text-center bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">-->
-						<!--					<blockquote class="max-w-2xl mx-auto text-gray-500 dark:text-gray-400">-->
-						<!--						<h3 *ngIf="!(loader$ | async)" class="text-lg font-semibold" [class.text-green-600]="success.count">-->
-						<!--							{{ success.amount | currency: success.currency : 'symbol-narrow' }} / {{ success.count }}-->
-						<!--						</h3>-->
-						<!--						<utility-loader *ngIf="loader$ | async"/>-->
-						<!--					</blockquote>-->
-						<!--				</figure>-->
+
 						@if (loader$ | async) {
+
 							<utility-loader/>
+
 						} @else {
+
 							<div
 								class="gap-2 min-w-[200px] rounded-lg border bg-white p-4 flex flex-col justify-between">
 								<div
@@ -129,6 +127,7 @@
 									{{ specialistRecord.value.total.orderRecordByStatus.done }}
 								</div>
 							</div>
+
 						}
 					</div>
 				</div>

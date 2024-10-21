@@ -21,6 +21,7 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 import {IntervalTypeEnum} from "@module/analytic/internal/domain/enum/interval.enum";
 import {NGXLogger} from "ngx-logger";
 
+
 @Component({
 	selector: 'app-date-slider-control-component',
 	templateUrl: './date-slider.control.component.html',
@@ -64,7 +65,12 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 		return DateTime.now();
 	}
 
-	public readonly intervalTypes = Object.values(IntervalTypeEnum);
+	public readonly intervalTypes = [
+		IntervalTypeEnum.day,
+		IntervalTypeEnum.week,
+		IntervalTypeEnum.month,
+		IntervalTypeEnum.year,
+	];
 
 	public readonly intervalTypeControl = new FormControl<IntervalTypeEnum>(this.initialIntervalType, {
 		nonNullable: true,
@@ -76,23 +82,75 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 	public readonly dayCases = {
 		isYesterday: () => {
+			let enabled = this.intervalTypeControl.value === IntervalTypeEnum.day;
+			if (enabled) {
+				enabled = this.today.minus({days: 1}).hasSame(DateTime.fromISO(this.dateControl.value), 'day');
+			}
 			return {
-				enabled: this.today.minus({days: 1}).hasSame(DateTime.fromISO(this.dateControl.value), 'day'),
+				enabled,
 				translateKey: 'keyword.capitalize.yesterday'
 			};
 		},
 		isToday: () => {
+			let enabled = this.intervalTypeControl.value === IntervalTypeEnum.day;
+			if (enabled) {
+				enabled = this.today.hasSame(DateTime.fromISO(this.dateControl.value), 'day');
+			}
 			return {
-				enabled: this.today.hasSame(DateTime.fromISO(this.dateControl.value), 'day'),
+				enabled,
 				translateKey: 'keyword.capitalize.today'
 			};
 		},
 		isTomorrow: () => {
+			let enabled = this.intervalTypeControl.value === IntervalTypeEnum.day;
+			if (enabled) {
+				enabled = this.today.plus({day: 1}).hasSame(DateTime.fromISO(this.dateControl.value), 'day');
+			}
 			return {
-				enabled: this.today.plus({day: 1}).hasSame(DateTime.fromISO(this.dateControl.value), 'day'),
+				enabled,
 				translateKey: 'keyword.capitalize.tomorrow'
 			};
 		},
+		isThisWeek: () => {
+			let enabled = this.intervalTypeControl.value === IntervalTypeEnum.week;
+			if (enabled) {
+				enabled = this.today.startOf('week').hasSame(DateTime.fromISO(this.dateControl.value), 'week');
+			}
+			return {
+				enabled,
+				translateKey: 'event.statistic.period.THIS_WEEK'
+			};
+		},
+		isLastWeek: () => {
+			let enabled = this.intervalTypeControl.value === IntervalTypeEnum.week;
+			if (enabled) {
+				enabled = this.today.minus({week: 1}).startOf('week').hasSame(DateTime.fromISO(this.dateControl.value), 'week');
+			}
+			return {
+				enabled,
+				translateKey: 'event.statistic.period.LAST_WEEK'
+			};
+		},
+		isThisMonth: () => {
+			let enabled = this.intervalTypeControl.value === IntervalTypeEnum.month;
+			if (enabled) {
+				enabled = this.today.startOf('month').hasSame(DateTime.fromISO(this.dateControl.value), 'month');
+			}
+			return {
+				enabled,
+				translateKey: 'event.statistic.period.THIS_MONTH'
+			};
+		},
+		isLastMonth: () => {
+			let enabled = this.intervalTypeControl.value === IntervalTypeEnum.month;
+			if (enabled) {
+				enabled = this.today.minus({month: 1}).startOf('month').hasSame(DateTime.fromISO(this.dateControl.value), 'month');
+			}
+			return {
+				enabled,
+				translateKey: 'event.statistic.period.LAST_MONTH'
+			};
+		}
 	};
 
 	public hint: string = '';
@@ -127,6 +185,8 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 	public ngOnChanges(changes: SimpleChanges & { initialIntervalType?: SimpleChanges }) {
 		if (changes.initialIntervalType) {
 			this.intervalTypeControl.setValue(this.initialIntervalType);
+			this.detectCase();
+			this.changeDetectorRef.detectChanges();
 		}
 	}
 
@@ -176,9 +236,11 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 	protected async setToday() {
 		await this.ionDateTime.reset();
-		setTimeout(() => {
-			this.dateControl.patchValue(this.today.endOf('day').toJSDate().toISOString());
-		}, 350)
+		this.dateControl.patchValue(this.today.endOf('day').toJSDate().toISOString());
+	}
+
+	protected setYesterday() {
+		this.dateControl.patchValue(this.today.minus({days: 1}).endOf('day').toJSDate().toISOString());
 	}
 
 	protected openDateModal() {
@@ -380,4 +442,23 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 		this.dateControl.patchValue(fromDateTime.toJSDate().toISOString());
 	}
 
+	protected setThisWeek() {
+		const fromDateTime = this.today.startOf('week');
+		this.dateControl.patchValue(fromDateTime.toJSDate().toISOString());
+	}
+
+	protected setLastWeek() {
+		const fromDateTime = this.today.minus({weeks: 1}).startOf('week');
+		this.dateControl.patchValue(fromDateTime.toJSDate().toISOString());
+	}
+
+	protected setThisMonth() {
+		const fromDateTime = this.today.startOf('month');
+		this.dateControl.patchValue(fromDateTime.toJSDate().toISOString());
+	}
+
+	protected setLastMonth() {
+		const fromDateTime = this.today.minus({months: 1}).startOf('month');
+		this.dateControl.patchValue(fromDateTime.toJSDate().toISOString());
+	}
 }
