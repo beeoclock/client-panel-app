@@ -143,7 +143,14 @@ import {NGXLogger} from "ngx-logger";
 										</div>
 									</ion-avatar>
 									<ion-label>
-										{{ customer.firstName }} {{ customer.lastName }}
+										<div class="flex flex-col gap-1">
+											<div class="font-bold text-sm">
+												{{ customer.firstName }} {{ customer.lastName }}
+											</div>
+											<div class="text-sm">
+												{{ customer.phone ?? customer.email }}
+											</div>
+										</div>
 									</ion-label>
 									<ion-checkbox slot="end" [value]="0" [checked]="isChecked(customer)"/>
 								</ion-item>
