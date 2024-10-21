@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
 import {PagedOrderApiAdapter} from "@order/external/adapter/api/paged.order.api.adapter";
 import {PagedAbsenceApiAdapter} from "@absence/external/adapter/api/paged.order.api.adapter";
 import {clearObject} from "@utility/domain/clear.object";
+import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 
 export interface ICalendarWithSpecialist {
 	params: {
@@ -18,6 +19,7 @@ export interface ICalendarWithSpecialist {
 		pageSize: number;
 		orderBy: OrderByEnum;
 		orderDir: OrderDirEnum;
+		statuses: OrderStatusEnum[];
 	};
 	data: IEvent_V2[];
 	loader: boolean;
@@ -33,6 +35,13 @@ export interface ICalendarWithSpecialist {
 			pageSize: 1000,
 			orderBy: OrderByEnum.CREATED_AT,
 			orderDir: OrderDirEnum.DESC,
+			statuses: [
+				OrderStatusEnum.done,
+				OrderStatusEnum.draft,
+				OrderStatusEnum.inProgress,
+				OrderStatusEnum.confirmed,
+				OrderStatusEnum.requested,
+			]
 		},
 		data: [],
 		loader: false,

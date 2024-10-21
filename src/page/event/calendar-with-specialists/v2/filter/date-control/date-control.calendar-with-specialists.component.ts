@@ -9,6 +9,7 @@ import {IonDatetime, IonicModule, ModalController} from "@ionic/angular";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {DateTime} from "luxon";
 import {Reactive} from "@utility/cdk/reactive";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'event-date-control-calendar-with-specialists-component',
@@ -152,12 +153,14 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 		})
 	}
 
+	@Dispatch()
 	public nextDate() {
-		this.store.dispatch(new CalendarWithSpecialistsAction.NextDate());
+		return new CalendarWithSpecialistsAction.NextDate();
 	}
 
+	@Dispatch()
 	public prevDate() {
-		this.store.dispatch(new CalendarWithSpecialistsAction.PrevDate());
+		return new CalendarWithSpecialistsAction.PrevDate();
 	}
 
 	public openDateModal() {

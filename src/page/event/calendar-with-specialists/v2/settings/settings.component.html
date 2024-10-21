@@ -1,47 +1,36 @@
-<button
-	id="calendar-with-specialists-settings-button"
-	class="border border-beeColor-300 flex items-center p-3 rounded-2xl transition-all hover:bg-beeColor-100">
-	<i class="bi bi-gear"></i>
-</button>
-<ion-popover trigger="calendar-with-specialists-settings-button">
-	<ng-template>
-		<div class="p-2">
-			<!-- Input Number -->
-			<div
-				class="py-2 px-3 bg-white border border-gray-200 rounded-lg dark:bg-neutral-900 dark:border-neutral-700"
-				data-hs-input-number="">
-				<div class="w-full flex justify-between items-center gap-x-3">
-					<div>
-						<div class="block font-medium text-sm text-gray-800 dark:text-white">
-							{{ 'event.calendar-with-specialists.settings.move-minute.title' | translate }}
-						</div>
-						<div class="block text-xs text-gray-500 dark:text-neutral-400">
-							{{ 'event.calendar-with-specialists.settings.move-minute.description' | translate }}
-						</div>
-					</div>
-					<div class="flex items-center gap-x-1.5">
-						<button type="button"
-								(click)="minus()"
-								class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
-								tabindex="-1" aria-label="Decrease" data-hs-input-number-decrement="">
-							<i class="bi bi-dash"></i>
-						</button>
-						<input
-							[formControl]="control"
-							class="p-0 w-6 bg-transparent border-0 text-gray-800 text-center focus:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none dark:text-white"
-							style="-moz-appearance: textfield;"
-							type="number"
-						[min]="1">
-						<button type="button"
-								(click)="plus()"
-								class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
-								tabindex="-1" aria-label="Increase" data-hs-input-number-increment="">
-							<i class="bi bi-plus"></i>
-						</button>
-					</div>
-				</div>
+<!-- Input Number -->
+<div
+	class="py-2 px-3 bg-white border border-gray-200 rounded-lg dark:bg-neutral-900 dark:border-neutral-700"
+	data-hs-input-number="">
+	<div class="w-full flex justify-between items-center gap-x-3">
+		<div>
+			<div class="block font-medium text-sm text-gray-800 dark:text-white">
+				{{ 'event.calendar-with-specialists.settings.move-minute.title' | translate }}
 			</div>
-			<!-- End Input Number -->
+			<div class="block text-xs text-gray-500 dark:text-neutral-400">
+				{{ 'event.calendar-with-specialists.settings.move-minute.description' | translate }}
+			</div>
 		</div>
-	</ng-template>
-</ion-popover>
+		<div class="flex items-center gap-x-1.5">
+			<button type="button"
+					(click)="minus()"
+					class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+					tabindex="-1" aria-label="Decrease" data-hs-input-number-decrement="">
+				<i class="bi bi-dash"></i>
+			</button>
+			<input
+				[formControl]="control"
+				class="p-0 w-6 bg-transparent border-0 text-gray-800 text-center focus:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none dark:text-white"
+				style="-moz-appearance: textfield;"
+				type="number"
+				[min]="1">
+			<button type="button"
+					(click)="plus()"
+					class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+					tabindex="-1" aria-label="Increase" data-hs-input-number-increment="">
+				<i class="bi bi-plus"></i>
+			</button>
+		</div>
+	</div>
+</div>
+<!-- End Input Number -->
