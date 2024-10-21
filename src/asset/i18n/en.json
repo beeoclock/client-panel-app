@@ -1490,7 +1490,9 @@
 	},
 	"statistic": {
 		"global": {
+			"averageBill": "Average bill",
 			"numberOfSales": "Number of sales",
+			"numberOfServicesProvided": "Number of services provided",
 			"revenue": "Revenue",
 			"topService": "The most popular service"
 		}

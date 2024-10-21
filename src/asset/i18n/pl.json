@@ -1490,7 +1490,9 @@
 	},
 	"statistic": {
 		"global": {
+			"averageBill": "Średni rachunek",
 			"numberOfSales": "Liczba sprzedaży",
+			"numberOfServicesProvided": "Liczba świadczonych usług",
 			"revenue": "Utarg",
 			"topService": "Najpopularniejsza usługa"
 		}

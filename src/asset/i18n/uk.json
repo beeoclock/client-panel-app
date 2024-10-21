@@ -1490,7 +1490,9 @@
 	},
 	"statistic": {
 		"global": {
+			"averageBill": "Середній чек",
 			"numberOfSales": "Кількість продажів",
+			"numberOfServicesProvided": "Кількість наданих послуг",
 			"revenue": "Виручка",
 			"topService": "Найпопулярніша послуга"
 		}
