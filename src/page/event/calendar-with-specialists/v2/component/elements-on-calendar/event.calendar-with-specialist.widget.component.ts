@@ -269,11 +269,16 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	}
 
 	public async toggleMode(force?: boolean) {
+
 		this.ngxLogger.debug('EventCalendarWithSpecialistWidgetComponent:toggleMode');
 		this.draggable = force ?? !this.draggable;
 		this.changeDetectorRef.detectChanges();
-		this.draggable && this.calendarWithSpecialistLocaStateService.setEventCalendarWithSpecialistWidgetComponent(this);
-		!this.draggable && this.calendarWithSpecialistLocaStateService.setEventCalendarWithSpecialistWidgetComponent(null);
+
+		if (this.draggable) {
+			this.calendarWithSpecialistLocaStateService.setEventCalendarWithSpecialistWidgetComponent(this);
+		} else {
+			this.calendarWithSpecialistLocaStateService.setEventCalendarWithSpecialistWidgetComponent(null)
+		}
 
 		if (this.draggable) {
 			this.snapshotOriginalPosition();
@@ -350,6 +355,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 			this.temporaryInformationAboutNewStartAndEnd = null;
 			this.saveInProgress = false;
 
+			this.changeDetectorRef.detectChanges();
 			return true;
 
 		}

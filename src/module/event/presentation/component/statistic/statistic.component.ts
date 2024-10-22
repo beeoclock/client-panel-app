@@ -1,10 +1,18 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, inject, ViewChild, ViewEncapsulation} from "@angular/core";
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	inject,
+	OnInit,
+	ViewChild,
+	ViewEncapsulation
+} from "@angular/core";
 import {IonicModule} from "@ionic/angular";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Store} from "@ngxs/store";
 import {MemberState} from "@member/state/member/member.state";
-import {combineLatest, filter, map, Observable} from "rxjs";
+import {combineLatest, filter, map, Observable, startWith} from "rxjs";
 import {StatisticQueries} from "@event/state/statistic/statistic.queries";
 import {Reactive} from "@utility/cdk/reactive";
 import {AsyncPipe, CurrencyPipe, DecimalPipe, KeyValuePipe} from "@angular/common";
@@ -46,7 +54,7 @@ import {statisticCalculator} from "@event/state/statistic/statistic.calculator";
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StatisticComponent extends Reactive implements AfterViewInit {
+export class StatisticComponent extends Reactive implements AfterViewInit, OnInit {
 
 	@ViewChild(DateSliderControlComponent)
 	public dateSliderControlComponent!: DateSliderControlComponent;
@@ -99,9 +107,24 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 		map(({1: calculated}) => calculated),
 	);
 
+	public ngOnInit() {
+
+		const {interval, selectedDate} = this.activatedRoute.snapshot.queryParams as Params & {
+			interval?: IntervalTypeEnum;
+			selectedDate?: string;
+		};
+
+		this.filterStateFormGroup.patchValue({
+			interval: interval ?? IntervalTypeEnum.day,
+			selectedDate: selectedDate ?? DateTime.now().toJSDate().toISOString()
+		});
+
+	}
+
 	public ngAfterViewInit() {
 		this.filterStateFormGroup.valueChanges.pipe(
 			this.takeUntil(),
+			startWith(this.filterStateFormGroup.value),
 			map(({interval, selectedDate}) => {
 
 				if (!selectedDate || !interval) {
@@ -132,16 +155,6 @@ export class StatisticComponent extends Reactive implements AfterViewInit {
 				});
 			})
 		).subscribe();
-
-		const {interval, selectedDate} = this.activatedRoute.snapshot.queryParams as Params & {
-			interval?: IntervalTypeEnum;
-			selectedDate?: string;
-		};
-
-		this.filterStateFormGroup.patchValue({
-			interval: interval ?? IntervalTypeEnum.day,
-			selectedDate: selectedDate ?? DateTime.now().toJSDate().toISOString()
-		});
 
 		this.dateSliderControlComponent.initialize();
 

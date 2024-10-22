@@ -1089,6 +1089,7 @@
 			"specialists": "Specialister",
 			"start": "Start",
 			"status": "Status",
+			"statuses": "Statusser",
 			"streetAddressLineOne": "Adresse 1",
 			"streetAddressLineTwo": "Adresse 2",
 			"successfully": "Med succes",
@@ -1489,7 +1490,9 @@
 	},
 	"statistic": {
 		"global": {
+			"averageBill": "Gennemsnitlig regning",
 			"numberOfSales": "Antal salg",
+			"numberOfServicesProvided": "Antal leverede tjenester",
 			"revenue": "Indtægter",
 			"topService": "Den mest populære tjeneste"
 		}

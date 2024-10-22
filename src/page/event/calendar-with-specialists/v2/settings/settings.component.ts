@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from "@angular/core";
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation} from "@angular/core";
 import {DefaultButtonDirective} from "@utility/presentation/directives/button/default.button.directive";
 import {IonPopover} from "@ionic/angular/standalone";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
@@ -8,14 +8,7 @@ import {Reactive} from "@utility/cdk/reactive";
 @Component({
 	selector: 'settings-component',
 	templateUrl: './settings.component.html',
-	styles: [
-		`
-			ion-popover {
-				--width: auto;
-				--max-height: 400px
-			}
-		`
-	],
+	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [

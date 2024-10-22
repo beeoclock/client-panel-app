@@ -1,7 +1,15 @@
-import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	Component,
+	HostBinding,
+	inject,
+	Input,
+	OnChanges,
+	ViewEncapsulation
+} from "@angular/core";
 
 import {IAttendee, IEvent_V2} from "@event/domain";
-import {DatePipe, NgIf} from "@angular/common";
+import {DatePipe} from "@angular/common";
 import {Store} from "@ngxs/store";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {TranslateModule} from "@ngx-translate/core";
@@ -17,7 +25,7 @@ import {DateTime} from "luxon";
 					{{ startEndTitle }}
 				</div>
 				<div class="dark:text-sky-100 absolute right-2 gap-2 flex">
-					@if(event.note){
+					@if (event.note) {
 						<i [title]="event.note" class="bi bi-chat-text"></i>
 					}
 					<i class="bi bi-cup-hot-fill"></i>
@@ -39,7 +47,7 @@ import {DateTime} from "luxon";
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnInit {
+export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnChanges {
 
 	@Input()
 	public event!: IEvent_V2<IAbsenceDto>;
@@ -66,7 +74,7 @@ export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnInit
 		return classList.join(' ');
 	}
 
-	public ngOnInit() {
+	public ngOnChanges() {
 		this.initStartEndTitle();
 	}
 

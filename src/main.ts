@@ -131,4 +131,14 @@ bootstrapApplication(MainRouterOutlet, {
 			registrationStrategy: 'registerWhenStable:30000'
 		}),
 	]
+}).then((ref) => {
+
+	// Ensure Angular destroys itself on hot reloads.
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-expect-error
+	window["ngRef"]?.destroy();
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-expect-error
+	window["ngRef"] = ref;
+
 }).catch(e => console.error(e));

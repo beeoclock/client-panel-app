@@ -1089,6 +1089,7 @@
 			"specialists": "Спеціалісти",
 			"start": "Початок",
 			"status": "Статус",
+			"statuses": "Статуси",
 			"streetAddressLineOne": "Адреса 1",
 			"streetAddressLineTwo": "Адреса 2",
 			"successfully": "Успішно",
@@ -1489,7 +1490,9 @@
 	},
 	"statistic": {
 		"global": {
+			"averageBill": "Середній чек",
 			"numberOfSales": "Кількість продажів",
+			"numberOfServicesProvided": "Кількість наданих послуг",
 			"revenue": "Виручка",
 			"topService": "Найпопулярніша послуга"
 		}
