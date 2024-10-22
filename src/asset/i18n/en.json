@@ -985,6 +985,7 @@
 			"create": "Create",
 			"createdAt": "Created at",
 			"customer": "Customer",
+			"customerNote": "Note from client",
 			"customers": "customers",
 			"dataNotFound": "Data not found",
 			"dateAndTime": "Date and time",

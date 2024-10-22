@@ -985,6 +985,7 @@
 			"create": "Opret",
 			"createdAt": "Oprettet kl",
 			"customer": "Kunde",
+			"customerNote": "En note fra klienten",
 			"customers": "kunder",
 			"dataNotFound": "Data ikke fundet",
 			"dateAndTime": "Dato og tid",
