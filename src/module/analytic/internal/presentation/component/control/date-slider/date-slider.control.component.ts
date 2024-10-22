@@ -455,8 +455,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 	}
 
 	protected setThisMonth() {
-		const fromDateTime = this.today.startOf('month');
-		this.dateControl.patchValue(fromDateTime.toJSDate().toISOString());
+		this.dateControl.patchValue(this.today.toJSDate().toISOString());
 	}
 
 	protected setLastMonth() {
