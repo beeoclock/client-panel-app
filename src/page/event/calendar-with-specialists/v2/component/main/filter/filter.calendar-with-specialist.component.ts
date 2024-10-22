@@ -6,8 +6,6 @@ import {
 } from "@page/event/calendar-with-specialists/v2/filter/date-control/date-control.calendar-with-specialists.component";
 import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
 import {SettingsComponent} from "@page/event/calendar-with-specialists/v2/settings/settings.component";
-import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
-import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {FormControl} from "@angular/forms";
@@ -45,10 +43,6 @@ import {IonPopover} from "@ionic/angular/standalone";
 
 			<div class="overflow-x-auto flex gap-2">
 				<event-date-control-calendar-with-specialists-component/>
-				<utility-auto-refresh-component
-					id="event-calendar-with-specialist-filter-auto-refresh"
-					(emitter)="forceRefresh()"
-					[isLoading]="(loader$ | async) ?? false"/>
 				<button
 					id="calendar-with-specialists-settings-button"
 					class="border border-beeColor-300 flex items-center p-3 rounded-2xl transition-all hover:bg-beeColor-100">
@@ -106,11 +100,6 @@ export class FilterCalendarWithSpecialistComponent implements AfterViewInit {
 
 	public ngAfterViewInit() {
 		this.initEventStatusList();
-	}
-
-	@Dispatch()
-	public async forceRefresh() {
-		return new CalendarWithSpecialistsAction.GetItems();
 	}
 
 }
