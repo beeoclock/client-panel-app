@@ -5,7 +5,6 @@ import {
 	HostListener,
 	inject,
 	Input,
-	OnChanges,
 	OnInit,
 	ViewEncapsulation
 } from '@angular/core';
@@ -92,7 +91,7 @@ import {is} from "@utility/checker";
 		PrimaryButtonDirective
 	]
 })
-export class SignInComponent implements OnInit, OnChanges {
+export class SignInComponent implements OnInit {
 
 	@Input()
 	public initialValues: {
@@ -116,10 +115,6 @@ export class SignInComponent implements OnInit, OnChanges {
 	public async onEnter(event: KeyboardEvent): Promise<void> {
 		this.logger.debug('onEnter', event);
 		await this.signIn();
-	}
-
-	public ngOnChanges(): void {
-		this.form.patchValue(this.initialValues);
 	}
 
 	public ngOnInit(): void {
