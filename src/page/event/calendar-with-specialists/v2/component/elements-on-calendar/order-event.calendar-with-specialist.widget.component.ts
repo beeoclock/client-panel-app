@@ -27,6 +27,9 @@ import {
 import {
 	FirstTimeIconComponent
 } from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/first-time.icon.component";
+import {
+	BusinessNoteIconComponent
+} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/business-note.icon.component";
 
 @Component({
 	selector: 'app-order-event-calendar-with-specialist-widget-component',
@@ -35,12 +38,13 @@ import {
 			<div class="text-xs dark:text-sky-100">
 				{{ event.start | date: 'HH:mm' }} - {{ event.end | date: 'HH:mm' }}
 			</div>
-			<div class="flex gap-2">
+			<div class="flex gap-1">
 				<app-first-time-icon-component
 					[firstTime]="event.originalData.service?.orderAppointmentDetails?.attendees?.[0]?.firstTime ?? false"/>
 				<app-anybody-specialist-icon-component
 					[wasSelectedAnybody]="event.originalData?.service?.orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody ?? false"/>
 				<app-note-icon-component [note]="event?.note ?? ''"/>
+				<app-business-note-icon-component [businessNote]="event?.originalData?.order?.businessNote ?? ''"/>
 				<app-status-icon-component [status]="event.originalData.service.status"/>
 			</div>
 		</div>
@@ -58,6 +62,7 @@ import {
 		NoteIconComponent,
 		StatusIconComponent,
 		FirstTimeIconComponent,
+		BusinessNoteIconComponent,
 	],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
