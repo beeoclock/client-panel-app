@@ -5,6 +5,7 @@ import {tap} from 'rxjs/operators';
 import {SocketActions} from "@utility/state/socket/socket.actions";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
+import {merge} from "rxjs";
 
 export interface SocketStateModel {
 	connected: boolean;
@@ -52,17 +53,15 @@ export class SocketState {
 				ctx.patchState({connected: true});
 			})
 		).subscribe();
+		const events$ = [this.socket.fromEvent('order-created'), this.socket.fromEvent('order-updated'), this.socket.fromEvent('order-cancelled')];
+		merge(...events$).pipe(tap((message: unknown) => {
+			ctx.dispatch(new SocketActions.SocketMessageReceived(message));
+			ctx.dispatch(new CalendarWithSpecialistsAction.GetItems())
+		})).subscribe()
 
 		this.socket.fromEvent('disconnect').pipe(
 			tap(() => {
 				ctx.patchState({connected: false});
-			})
-		).subscribe();
-
-		this.socket.fromEvent('order-created').pipe(
-			tap((message: unknown) => {
-				ctx.dispatch(new SocketActions.SocketMessageReceived(message));
-				ctx.dispatch(new CalendarWithSpecialistsAction.GetItems())
 			})
 		).subscribe();
 	}

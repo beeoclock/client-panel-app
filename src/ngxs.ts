@@ -15,7 +15,8 @@ export const ngxsProviders = [
 		developmentMode: !environment.production
 	}),
 	NgxsReduxDevtoolsPluginModule.forRoot({
-		disabled: environment.production
+		disabled: environment.production,
+		trace: true
 	}),
 	NgxsSelectSnapshotModule.forRoot(),
 	NgxsDispatchPluginModule.forRoot(),
