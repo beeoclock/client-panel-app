@@ -48,6 +48,7 @@ import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-speciali
 			<button-open-order-details [order]="event.originalData.order"/>
 
 			<app-list-service-form-card-order-component
+				[idPrefix]="event.originalData.service._id"
 				[order]="event.originalData.order"
 				[specificOrderServiceId]="event.originalData.service._id"/>
 

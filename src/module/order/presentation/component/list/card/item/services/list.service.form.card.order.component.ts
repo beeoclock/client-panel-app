@@ -5,7 +5,7 @@ import {
 	HostBinding,
 	inject,
 	Input,
-	OnInit,
+	OnChanges,
 	ViewEncapsulation
 } from "@angular/core";
 import {
@@ -55,7 +55,7 @@ import {OrderActions} from "@order/state/order/order.actions";
 		</div>
 	`
 })
-export class ListServiceFormCardOrderComponent extends Reactive implements OnInit {
+export class ListServiceFormCardOrderComponent extends Reactive implements OnChanges {
 
 	@Input({required: true})
 	public order!: IOrderDto;
@@ -87,7 +87,8 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnIni
 	readonly #changeDetectorRef = inject(ChangeDetectorRef);
 	readonly #alertController = inject(AlertController);
 
-	public ngOnInit() {
+	public ngOnChanges() {
+		this.selectedServicePlusControlList.length = 0;
 		this.order.services.forEach((orderServiceDto) => {
 			this.selectedServicePlusControlList.push({
 				_id: orderServiceDto._id,

@@ -102,7 +102,7 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 	@HostBinding()
 	public class = 'flex-col justify-start items-start p-3 gap-2 flex';
 
-	@Input()
+	@Input({required: true})
 	public item!: {
 		service: IServiceDto;
 		control: ServiceOrderForm;
