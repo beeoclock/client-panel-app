@@ -92,13 +92,22 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 			this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
 		};
 
-		const datetimeISO = selectedDate
-			.startOf('day')
+		const baseDateTime = selectedDate
+			.startOf('day');
+
+		let startDateTime = baseDateTime
 			.plus({
 				minutes: this.startInMinutes,
-			})
-			.toJSDate()
-			.toISOString();
+			});
+
+		if (startDateTime.offset !== baseDateTime.offset) {
+
+			const offsetDifference = baseDateTime.offset - startDateTime.offset;
+			startDateTime = startDateTime.plus({hours: offsetDifference / 60});
+
+		}
+
+		const datetimeISO = startDateTime.toJSDate().toISOString();
 
 		await this.whacAMaleProvider.buildItAsync({
 			component: AdditionalMenuComponent,
