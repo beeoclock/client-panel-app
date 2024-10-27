@@ -44,9 +44,11 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 							id="open-modal"
 							class="border-y border-beeColor-300 text-nowrap px-3.5 text-beeColor-900 flex flex-col justify-center items-center cursor-pointer hover:bg-beeColor-100 transition-all">
 
-				<span *ngIf="hint$ | async as translateKey" class="text-sm font-semibold">
-					{{ translateKey | translate }}
-				</span>
+				@if (hint$ | async; as translateKey) {
+					<span class="text-sm font-semibold">
+						{{ translateKey | translate }}
+					</span>
+				}
 
 				<span class="text-xs" *ngIf="selectedDate$ | async as selectedDate">
 					{{ selectedDate.toFormat('yyyy-MM-dd') }}
