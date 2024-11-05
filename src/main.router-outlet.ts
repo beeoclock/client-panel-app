@@ -15,6 +15,7 @@ import {AppActions} from "@utility/state/app/app.actions";
 import {TENANT_ID} from "@src/token";
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {SocketActions} from "@utility/state/socket/socket.actions";
+import {environment} from '@src/environment/environment';
 
 @Component({
 	selector: 'app-root',
@@ -71,7 +72,7 @@ export class MainRouterOutlet implements AfterViewInit {
 		this.store.select(IdentityState.token).pipe(filter(Boolean), take(1)).subscribe((token) => {
 			const tenantId = this.tenantId$.value;
 			this.store.dispatch(new SocketActions.ConnectSocket({
-				url: 'https://api.dev.beeoclock.com',
+				url: environment.apiUrls.ws,
 				options: {
 					query: {
 						tenantId: tenantId,

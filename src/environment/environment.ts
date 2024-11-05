@@ -14,6 +14,7 @@ export const environment = {
 		analytic: 'https://api-dev.beeoclock.com/analytic',
 		panel: 'https://api-dev.beeoclock.com/panel',
 		identity: 'https://api-dev.beeoclock.com/identity',
+		ws: 'https://api-dev.beeoclock.com'
 	},
 	endpoint,
 	constant,
