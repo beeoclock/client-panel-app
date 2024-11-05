@@ -16,7 +16,7 @@ export class WeekDayTimeZoneHelper {
 	public convertWeekDaysToUTC(value: Client.IClient): Client.IClient {
 		const timeZoneOffset = DateTime.local().offset;
 		value.schedules?.forEach((schedule) => {
-			if (schedule.workDays?.length === 7) {
+			if (schedule?.workDays?.length === 7) {
 				return;
 			}
 
@@ -29,22 +29,26 @@ export class WeekDayTimeZoneHelper {
 
 			if (start < 0) {
 				// Yesterday
-				schedule.workDays = schedule.workDays?.map((day) => {
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-expect-error
+				schedule.workDays = schedule?.workDays?.map((day) => {
 					if (day === 1) {
 						return 7;
 					}
-					return day - 1;
+					return (day ?? 0) - 1;
 				});
 				return;
 			}
 
 			if (end > environment.constant.SECONDS.ONE_DAY) {
 				// Tomorrow
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-expect-error
 				schedule.workDays = schedule.workDays?.map((day) => {
 					if (day === 7) {
 						return 1;
 					}
-					return day + 1;
+					return (day ?? 0) + 1;
 				});
 			}
 		});
@@ -59,7 +63,7 @@ export class WeekDayTimeZoneHelper {
 	public convertWeekDaysFromUTC(value: Client.IClient): Client.IClient {
 		const timeZoneOffset = DateTime.local().offset;
 		value.schedules?.forEach((schedule) => {
-			if (schedule.workDays?.length === 7) {
+			if (schedule?.workDays?.length === 7) {
 				return;
 			}
 
@@ -72,22 +76,26 @@ export class WeekDayTimeZoneHelper {
 
 			if (start < 0) {
 				// Yesterday
-				schedule.workDays = schedule.workDays?.map((day) => {
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-expect-error
+				schedule.workDays = schedule?.workDays?.map((day) => {
 					if (day === 7) {
 						return 1;
 					}
-					return day + 1;
+					return (day ?? 0) + 1;
 				});
 				return;
 			}
 
 			if (end > environment.constant.SECONDS.ONE_DAY) {
 				// Tomorrow
-				schedule.workDays = schedule.workDays?.map((day) => {
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-expect-error
+				schedule.workDays = schedule?.workDays?.map((day) => {
 					if (day === 1) {
 						return 7;
 					}
-					return day - 1;
+					return (day ?? 0 ) - 1;
 				});
 			}
 		});
