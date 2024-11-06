@@ -26,7 +26,7 @@ export class NotificationCoreService {
 	private readonly messaging = inject(Messaging);
 	private readonly ngxLogger = inject(NGXLogger);
 
-	private readonly scriptURL = environment.production ? 'firebase-messaging-sw.prod.js' : 'firebase-messaging-sw.dev.js';
+	private readonly scriptURL = 'firebase-messaging-sw.js';
 
 	/**
 	 * initialize is a method that initializes the FCM token and message handler.
