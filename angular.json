@@ -46,7 +46,11 @@
 								"src/favicon.ico",
 								"src/asset",
 								"src/manifest.webmanifest",
-								"environments/production/firebase-messaging-sw.js",
+								{
+									"glob": "firebase-messaging-sw.js",
+									"input": "environments/production/",
+									"output": "./"
+								},
 								{
 									"glob": "robots.txt",
 									"input": "environments/production/",
@@ -78,7 +82,11 @@
 								"src/favicon.ico",
 								"src/asset",
 								"src/manifest.webmanifest",
-								"environments/develop/firebase-messaging-sw.js",
+								{
+									"glob": "firebase-messaging-sw.js",
+									"input": "environments/develop/",
+									"output": "./"
+								},
 								{
 									"glob": "robots.txt",
 									"input": "environments/develop/",
