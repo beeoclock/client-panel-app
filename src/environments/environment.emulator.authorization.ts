@@ -1,4 +1,4 @@
-import {config, constant, endpoint} from "@environment/constant";
+import {config, constant, endpoint} from "@environments/constant";
 
 export const environment = {
 	production: false,

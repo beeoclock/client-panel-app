@@ -46,10 +46,10 @@
 								"src/favicon.ico",
 								"src/asset",
 								"src/manifest.webmanifest",
-								"environments/production/firebase-messaging-sw.js",
+								"src/environments/production/firebase-messaging-sw.js",
 								{
 									"glob": "robots.txt",
-									"input": "environments/production/",
+									"input": "src/environments/production/",
 									"output": "./"
 								}
 							],
@@ -67,8 +67,8 @@
 							],
 							"fileReplacements": [
 								{
-									"replace": "src/environment/environment.ts",
-									"with": "src/environment/environment.prod.ts"
+									"replace": "src/environments/environment.ts",
+									"with": "src/environments/environment.prod.ts"
 								}
 							],
 							"outputHashing": "all"
@@ -78,10 +78,10 @@
 								"src/favicon.ico",
 								"src/asset",
 								"src/manifest.webmanifest",
-								"environments/develop/firebase-messaging-sw.js",
+								"src/environments/develop/firebase-messaging-sw.js",
 								{
 									"glob": "robots.txt",
-									"input": "environments/develop/",
+									"input": "src/environments/develop/",
 									"output": "./"
 								}
 							],
@@ -99,8 +99,8 @@
 							],
 							"fileReplacements": [
 								{
-									"replace": "src/environment/environment.ts",
-									"with": "src/environment/environment.dev.ts"
+									"replace": "src/environments/environment.ts",
+									"with": "src/environments/environment.dev.ts"
 								}
 							],
 							"outputHashing": "all"
@@ -122,8 +122,8 @@
 							"namedChunks": true,
 							"fileReplacements": [
 								{
-									"replace": "src/environment/environment.ts",
-									"with": "src/environment/environment.local.ts"
+									"replace": "src/environments/environment.ts",
+									"with": "src/environments/environment.local.ts"
 								}
 							],
 							"outputHashing": "all"
@@ -137,8 +137,8 @@
 							"namedChunks": true,
 							"fileReplacements": [
 								{
-									"replace": "src/environment/environment.ts",
-									"with": "src/environment/environment.local_production.ts"
+									"replace": "src/environments/environment.ts",
+									"with": "src/environments/environment.local_production.ts"
 								}
 							],
 							"outputHashing": "all"
@@ -152,8 +152,8 @@
 							"namedChunks": true,
 							"fileReplacements": [
 								{
-									"replace": "src/environment/environment.ts",
-									"with": "src/environment/environment.emulator.ts"
+									"replace": "src/environments/environment.ts",
+									"with": "src/environments/environment.emulator.ts"
 								}
 							],
 							"outputHashing": "all"
@@ -167,8 +167,8 @@
 							"namedChunks": true,
 							"fileReplacements": [
 								{
-									"replace": "src/environment/environment.ts",
-									"with": "src/environment/environment.emulator.authorization.ts"
+									"replace": "src/environments/environment.ts",
+									"with": "src/environments/environment.emulator.authorization.ts"
 								}
 							],
 							"outputHashing": "all"

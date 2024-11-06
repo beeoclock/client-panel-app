@@ -5,7 +5,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
 import {SidebarService} from "@utility/presentation/component/sidebar/sidebar.service";
-import {environment} from "@environment/environment";
+import {environment} from "@environments/environment";
 import {EventBusTokenEnum} from "@src/event-bus-token.enum";
 import {NgEventBus} from "ng-event-bus";
 import {ClientState} from "@client/state/client/client.state";

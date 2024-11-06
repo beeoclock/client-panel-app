@@ -1,5 +1,5 @@
 import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
-import {environment} from "@environment/environment";
+import {environment} from "@environments/environment";
 
 
 /**

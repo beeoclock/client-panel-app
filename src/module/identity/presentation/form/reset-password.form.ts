@@ -1,5 +1,5 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {environment} from "@environment/environment";
+import {environment} from "@environments/environment";
 
 interface IResetPassword {
 	email: FormControl<string>;

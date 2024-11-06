@@ -1,7 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {BehaviorSubject} from "rxjs";
 import {getToken, MessagePayload, Messaging, onMessage} from "@angular/fire/messaging";
-import {environment} from "@environment/environment";
+import {environment} from "@environments/environment";
 import {NGXLogger} from "ngx-logger";
 
 /**

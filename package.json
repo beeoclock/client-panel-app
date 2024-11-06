@@ -30,7 +30,7 @@
 		],
 		"moduleNameMapper": {
 			"@src/(.*)": "<rootDir>/src/$1",
-			"@environment/(.*)": "<rootDir>/src/environment/$1",
+			"@environments/(.*)": "<rootDir>/src/environments/$1",
 			"@asset/(.*)": "<rootDir>/src/asset/$1",
 			"@scss/(.*)": "<rootDir>/src/asset/scss/$1",
 			"@icon/(.*)": "<rootDir>/src/asset/icon/$1",

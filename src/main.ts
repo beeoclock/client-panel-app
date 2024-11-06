@@ -2,7 +2,7 @@ import {bootstrapApplication, HammerModule} from '@angular/platform-browser';
 import {MainRouterOutlet} from '@src/main.router-outlet';
 import {enableProdMode, ErrorHandler, importProvidersFrom, isDevMode, provideZoneChangeDetection} from '@angular/core';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
-import {environment} from '@src/environment/environment';
+import {environment} from '@src/environments/environment';
 import {connectAuthEmulator, getAuth, provideAuth} from '@angular/fire/auth';
 import {
 	HTTP_INTERCEPTORS,

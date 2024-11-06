@@ -18,7 +18,7 @@ import {ITableState} from "@utility/domain/table.state";
 import humanizeDuration from "humanize-duration";
 import {DateTime} from "luxon";
 import {getPaginationItems} from "@utility/domain/pagination.items";
-import {environment} from "@environment/environment";
+import {environment} from "@environments/environment";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
 import {BooleanState} from "@utility/domain";

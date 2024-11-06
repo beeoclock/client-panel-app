@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import * as Client from "@client/domain";
 import {DateTime} from "luxon";
-import {environment} from "@environment/environment";
+import {environment} from "@environments/environment";
 
 @Injectable({
 	providedIn: 'root',

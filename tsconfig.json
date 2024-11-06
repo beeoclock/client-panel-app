@@ -31,8 +31,8 @@
 			"@src/*": [
 				"./src/*"
 			],
-			"@environment/*": [
-				"./src/environment/*"
+			"@environments/*": [
+				"./src/environments/*"
 			],
 			"@asset/*": [
 				"./src/asset/*"
