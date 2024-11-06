@@ -1,5 +1,5 @@
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {environment} from "@environments/environment";
+import {environment} from "@environment/environment";
 
 
 interface IRegistrationForm {

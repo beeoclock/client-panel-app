@@ -1,9 +1,13 @@
-import {config, constant, endpoint} from "@environments/constant";
+// This file can be replaced during build by using the `fileReplacements` array.
+// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
+// The settings of file replacements can be found in `angular.json`.
+
+import {config, constant, endpoint} from "@environment/constant";
 
 export const environment = {
 	production: false,
 	develop: true,
-	emulator: true,
+	emulator: false,
 	proxy: false,
 	setDefaultValueToInputs: false,
 	apiUrls: {
@@ -26,7 +30,7 @@ export const environment = {
 			measurementId: "G-BY8R2Y83RS"
 		},
 		emulator: {
-			all: true,
+			all: false,
 			authorization: false,
 			functions: false
 		}
@@ -35,3 +39,12 @@ export const environment = {
 		publicPageOrigin: 'https://dev.beeoclock.com',
 	}
 };
+
+/*
+ * For easier debugging in development mode, you can import the following file
+ * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
+ *
+ * This import should be commented out in production mode because it will have a negative impact
+ * on performance if an error is thrown.
+ */
+// import 'zone.js/dist/zone-error';  // Included with Angular CLI.

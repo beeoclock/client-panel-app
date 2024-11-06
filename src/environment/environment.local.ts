@@ -2,7 +2,7 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The settings of file replacements can be found in `angular.json`.
 
-import {config, constant, endpoint} from "@environments/constant";
+import {config, constant, endpoint} from "@environment/constant";
 
 export const environment = {
 	production: false,
@@ -11,9 +11,9 @@ export const environment = {
 	proxy: false,
 	setDefaultValueToInputs: false,
 	apiUrls: {
-		analytic: 'https://api-dev.beeoclock.com/analytic',
-		panel: 'https://api-dev.beeoclock.com/panel',
-		identity: 'https://api-dev.beeoclock.com/identity',
+		analytic: 'http://localhost:3004',
+		panel: 'http://localhost:3000',
+		identity: 'http://localhost:3001',
 	},
 	endpoint,
 	constant,

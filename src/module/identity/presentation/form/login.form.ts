@@ -1,5 +1,5 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {environment} from "@environments/environment";
+import {environment} from "@environment/environment";
 
 interface ILoginForm {
 	email: FormControl<string | null>;

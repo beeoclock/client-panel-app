@@ -4,7 +4,7 @@ import {ModalButtonInterface, ModalComponent,} from "@utility/presentation/compo
 import {v4} from 'uuid';
 import {InjectionComponentService} from "@utility/presentation/injection-component/injection-component.service";
 import {is} from "@utility/checker";
-import {environment} from "@environments/environment";
+import {environment} from "@environment/environment";
 import {NGXLogger} from "ngx-logger";
 
 export type storeOfModalsType = Record<string, ComponentRef<ModalComponent>>;

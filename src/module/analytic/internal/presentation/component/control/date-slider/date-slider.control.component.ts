@@ -16,7 +16,7 @@ import {AsyncPipe, DatePipe, DOCUMENT, NgIf} from "@angular/common";
 import {IonDatetime, IonicModule, IonModal} from "@ionic/angular";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
-import {environment} from "@environments/environment";
+import {environment} from "@environment/environment";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {IntervalTypeEnum} from "@module/analytic/internal/domain/enum/interval.enum";
 import {NGXLogger} from "ngx-logger";
