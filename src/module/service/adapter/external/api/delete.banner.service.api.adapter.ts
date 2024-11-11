@@ -5,21 +5,23 @@ import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
-export class DeleteBannerServiceApiAdapter extends BaseApiAdapter<unknown, [string]> {
+export class DeleteBannerServiceApiAdapter extends BaseApiAdapter<unknown, [string, string]> {
 
 
-  /**
-   * GET ITEM BY ID
-   * @param id
-   */
-  public override execute$(id: string) {
-    return this.httpClient.delete<unknown>(serviceEndpointEnum.deleteBanners, {
+	/**
+	 * GET ITEM BY ID
+	 * @param serviceId
+	 * @param id
+	 */
+	public override execute$(serviceId: string, id: string) {
+		return this.httpClient.delete<unknown>(serviceEndpointEnum.deleteBanners, {
 			context: new HttpContext().set(TokensHttpContext.REPLACE, {
+				serviceId,
 				id,
 			}),
-    });
-  }
+		});
+	}
 
 }
