@@ -10,7 +10,9 @@ import {AlreadySignUpLinkComponent} from "@identity/presentation/component/link/
 
 @Component({
 	selector: 'app-sign-up-identity-page',
-	templateUrl: './sign-up.identity.page.html',
+	template: `
+		<identity-sign-up-component/>
+	`,
 	standalone: true,
 	imports: [
 		ReactiveFormsModule,

@@ -985,6 +985,7 @@
 			"create": "Utwórz",
 			"createdAt": "Utworzono",
 			"customer": "Klient",
+			"customerNote": "Notatka od klienta",
 			"customers": "Klienty",
 			"dataNotFound": "Nie znaleziono danych",
 			"dateAndTime": "Data i czas",
@@ -1089,6 +1090,7 @@
 			"specialists": "Specjaliści",
 			"start": "Początek",
 			"status": "Status",
+			"statuses": "Statusy",
 			"streetAddressLineOne": "Adres 1",
 			"streetAddressLineTwo": "Adres 2",
 			"successfully": "Pomyślnie",
@@ -1100,6 +1102,7 @@
 			"today": "Dziś",
 			"tomorrow": "Jutro",
 			"total": "Razem",
+			"tryDemoProfile": "Spróbować profilu demo",
 			"unknown": "Nieznany",
 			"update": "Zaktualizowano",
 			"updatedAt": "Zaktualizowano",
@@ -1489,7 +1492,9 @@
 	},
 	"statistic": {
 		"global": {
+			"averageBill": "Średni rachunek",
 			"numberOfSales": "Liczba sprzedaży",
+			"numberOfServicesProvided": "Liczba świadczonych usług",
 			"revenue": "Utarg",
 			"topService": "Najpopularniejsza usługa"
 		}

@@ -21,4 +21,8 @@ export namespace StatisticAction {
 	export class PrevDate {
 		static readonly type = '[Event Statistic] Prev Date';
 	}
+
+	export class Calculate {
+		static readonly type = '[Event Statistic] Calculate';
+	}
 }

@@ -985,6 +985,7 @@
 			"create": "Opret",
 			"createdAt": "Oprettet kl",
 			"customer": "Kunde",
+			"customerNote": "En note fra klienten",
 			"customers": "kunder",
 			"dataNotFound": "Data ikke fundet",
 			"dateAndTime": "Dato og tid",
@@ -1089,6 +1090,7 @@
 			"specialists": "Specialister",
 			"start": "Start",
 			"status": "Status",
+			"statuses": "Statusser",
 			"streetAddressLineOne": "Adresse 1",
 			"streetAddressLineTwo": "Adresse 2",
 			"successfully": "Med succes",
@@ -1100,6 +1102,7 @@
 			"today": "I dag",
 			"tomorrow": "I morgen",
 			"total": "Total",
+			"tryDemoProfile": "Prøv demoprofilen",
 			"unknown": "Ukendt",
 			"update": "Opdateret",
 			"updatedAt": "Opdateret kl",
@@ -1489,7 +1492,9 @@
 	},
 	"statistic": {
 		"global": {
+			"averageBill": "Gennemsnitlig regning",
 			"numberOfSales": "Antal salg",
+			"numberOfServicesProvided": "Antal leverede tjenester",
 			"revenue": "Indtægter",
 			"topService": "Den mest populære tjeneste"
 		}

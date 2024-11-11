@@ -9,6 +9,7 @@ import {IonDatetime, IonicModule, ModalController} from "@ionic/angular";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {DateTime} from "luxon";
 import {Reactive} from "@utility/cdk/reactive";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'event-date-control-calendar-with-specialists-component',
@@ -43,9 +44,11 @@ import {Reactive} from "@utility/cdk/reactive";
 							id="open-modal"
 							class="border-y border-beeColor-300 text-nowrap px-3.5 text-beeColor-900 flex flex-col justify-center items-center cursor-pointer hover:bg-beeColor-100 transition-all">
 
-				<span *ngIf="hint$ | async as translateKey" class="text-sm font-semibold">
-					{{ translateKey | translate }}
-				</span>
+				@if (hint$ | async; as translateKey) {
+					<span class="text-sm font-semibold">
+						{{ translateKey | translate }}
+					</span>
+				}
 
 				<span class="text-xs" *ngIf="selectedDate$ | async as selectedDate">
 					{{ selectedDate.toFormat('yyyy-MM-dd') }}
@@ -152,12 +155,14 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 		})
 	}
 
+	@Dispatch()
 	public nextDate() {
-		this.store.dispatch(new CalendarWithSpecialistsAction.NextDate());
+		return new CalendarWithSpecialistsAction.NextDate();
 	}
 
+	@Dispatch()
 	public prevDate() {
-		this.store.dispatch(new CalendarWithSpecialistsAction.PrevDate());
+		return new CalendarWithSpecialistsAction.PrevDate();
 	}
 
 	public openDateModal() {

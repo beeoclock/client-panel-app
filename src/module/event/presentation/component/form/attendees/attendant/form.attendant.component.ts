@@ -12,21 +12,23 @@ import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-m
 import {
 	NamesFormAttendantComponent
 } from "@event/presentation/component/form/attendees/attendant/names.form.attendant.component";
+import {TelFormInputComponent} from "@utility/presentation/component/tel-form-input/tel.form.input.component";
 
 @Component({
     selector: 'app-event-form-attendant-component',
     standalone: true,
-    imports: [
-        ReactiveFormsModule,
-        NgIf,
-        HasErrorDirective,
-        IsRequiredDirective,
-        InvalidTooltipDirective,
-        FormInputComponent,
-        TranslateModule,
-        InvalidTooltipComponent,
-        NamesFormAttendantComponent
-    ],
+	imports: [
+		ReactiveFormsModule,
+		NgIf,
+		HasErrorDirective,
+		IsRequiredDirective,
+		InvalidTooltipDirective,
+		FormInputComponent,
+		TranslateModule,
+		InvalidTooltipComponent,
+		NamesFormAttendantComponent,
+		TelFormInputComponent
+	],
     template: `
 
 		<div class="grid gap-3">
@@ -41,13 +43,11 @@ import {
 				[control]="form.controls.email"
 				[label]="'keyword.capitalize.email' | translate"/>
 
-			<form-input
-				inputType="tel"
-				autocomplete="off"
-				placeholder="+000000000000"
+			<tel-form-input
 				id="attendee-phone"
 				[control]="form.controls.phone"
-				[label]="'keyword.capitalize.phone' | translate"/>
+				[label]="'keyword.capitalize.phone' | translate"
+				autocomplete="off"/>
 
 			<div
 				[class.hidden]="

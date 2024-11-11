@@ -9,7 +9,10 @@
 
 	<ion-datetime-button id="hidden-ion-datetime-button" [hidden]="true" datetime="datetime"/>
 
-	<ion-modal [keepContentsMounted]="true" (willDismiss)="cancelChanges()" (didDismiss)="didDismiss($event)">
+	<ion-modal
+		[keepContentsMounted]="true"
+		(willDismiss)="cancelChanges()"
+		(didDismiss)="didDismiss($event)">
 		<ng-template>
 			<div class="p-2">
 				<ion-segment [formControl]="intervalTypeControl">
@@ -25,6 +28,13 @@
 				</ion-segment>
 			</div>
 
+
+			<ion-datetime
+				class="hidden"
+				presentation="date"
+				id="datetime"
+				[formControl]="dateControl"/>
+
 			@switch (intervalTypeControl.value) {
 
 				@case (intervalTypeEnum.day) {
@@ -34,13 +44,17 @@
 						[locale]="locale"
 						[min]="datetimeAttributes.min"
 						[max]="datetimeAttributes.max"
-						id="datetime"
 						presentation="date"
 						[formControl]="dateControl"/>
-					<ion-list [inset]="true">
+					<ion-list [inset]="true" lines="full">
 						<ion-item [button]="true" (click)="setToday()" detail="false" color="light">
 							<ion-label class="text-center">
 								{{ 'keyword.capitalize.today' | translate }}
+							</ion-label>
+						</ion-item>
+						<ion-item [button]="true" (click)="setYesterday()" detail="false" color="light">
+							<ion-label class="text-center">
+								{{ 'keyword.capitalize.yesterday' | translate }}
 							</ion-label>
 						</ion-item>
 					</ion-list>
@@ -49,15 +63,26 @@
 					<ion-picker>
 						<ion-picker-column [value]="convertIntoEndOfWeek(dateControl.value)"
 										   (ionChange)="onIonChange($event)">
-							@for(weekOption of weekOptions; track weekOption.toISO) {
+							@for (weekOption of weekOptions; track weekOption.toISO) {
 								<ion-picker-column-option [value]="weekOption.toISO">
 									{{ weekOption.title }}
 								</ion-picker-column-option>
 							}
 						</ion-picker-column>
 					</ion-picker>
+					<ion-list [inset]="true" lines="full">
+						<ion-item [button]="true" (click)="setThisWeek()" detail="false" color="light">
+							<ion-label class="text-center">
+								{{ 'event.statistic.period.THIS_WEEK' | translate }}
+							</ion-label>
+						</ion-item>
+						<ion-item [button]="true" (click)="setLastWeek()" detail="false" color="light">
+							<ion-label class="text-center">
+								{{ 'event.statistic.period.LAST_WEEK' | translate }}
+							</ion-label>
+						</ion-item>
+					</ion-list>
 				}
-
 				@case (intervalTypeEnum.month) {
 					<ion-datetime
 						[locale]="locale"
@@ -65,12 +90,23 @@
 						[max]="datetimeAttributes.max"
 						[formControl]="dateControl"
 						presentation="month-year"/>
+					<ion-list [inset]="true" lines="full">
+						<ion-item [button]="true" (click)="setThisMonth()" detail="false" color="light">
+							<ion-label class="text-center">
+								{{ 'event.statistic.period.THIS_MONTH' | translate }}
+							</ion-label>
+						</ion-item>
+						<ion-item [button]="true" (click)="setLastMonth()" detail="false" color="light">
+							<ion-label class="text-center">
+								{{ 'event.statistic.period.LAST_MONTH' | translate }}
+							</ion-label>
+						</ion-item>
+					</ion-list>
 				}
-
 				@case (intervalTypeEnum.year) {
 					<ion-picker>
 						<ion-picker-column [value]="dateControl.value | date: 'YYYY'" (ionChange)="setYear($event)">
-							@for(yearOption of yearOptions; track yearOption.dateTimeISO) {
+							@for (yearOption of yearOptions; track yearOption.dateTimeISO) {
 								<ion-picker-column-option [value]="yearOption.dateTimeISO | date: 'YYYY'">
 									{{ yearOption.dateTimeISO | date: 'yyyy' }}
 								</ion-picker-column-option>
@@ -85,14 +121,14 @@
 				<button
 					(click)="cancelChanges()"
 					type="button"
-					class="flex-1 h-12 items-center justify-center rounded-lg border border-beeColor-300 text-beeColor-400 hover:text-beeColor-500 focus:relative w-9 pr-0 hover:bg-beeColor-100">
+					class="flex-1 h-10 items-center justify-center rounded-lg border border-beeColor-300 text-beeColor-400 hover:text-beeColor-500 focus:relative w-9 pr-0 hover:bg-beeColor-100">
 					{{ 'keyword.capitalize.cancel' | translate }}
 				</button>
 				<button
 					(click)="acceptChanges()"
 					type="button"
 					primary
-					class="flex-1 h-12 rounded-lg items-center">
+					class="flex-1 h-10 rounded-lg items-center">
 					{{ 'keyword.capitalize.confirm' | translate }}
 				</button>
 
@@ -103,32 +139,33 @@
 
 	<button
 		(click)="openDateModal()"
-		id="open-modal"
 		class="border-y border-beeColor-300 text-nowrap px-3.5 text-beeColor-900 flex flex-col justify-center items-center cursor-pointer hover:bg-beeColor-100 transition-all">
 
-		@switch (cacheOfCurrentData?.intervalTypeControlValue ?? intervalTypeControl.value) {
-
-			@case (intervalTypeEnum.day) {
-				@if (hint.length) {
-					<div class="text-sm font-semibold">
-						{{ hint | translate }}
-					</div>
-				}
-				<div [class.text-xs]="hint.length">
-					{{ (cacheOfCurrentData?.dateControlValue ?? dateControl.value) | date: 'yyyy-MM-dd' }}
-				</div>
-			}
-			@case (intervalTypeEnum.week) {
-				{{ getWeekTitle(getRangeInISO().fromISO, getRangeInISO().toISO) }}
-			}
-			@case (intervalTypeEnum.month) {
-				{{ (cacheOfCurrentData?.dateControlValue ?? dateControl.value) | date: 'yyyy-MM' }}
-			}
-			@case (intervalTypeEnum.year) {
-				{{ (cacheOfCurrentData?.dateControlValue ?? dateControl.value) | date: 'yyyy' }}
-			}
-
+		@if (hint.length) {
+			<div class="text-sm font-semibold">
+				{{ hint | translate }}
+			</div>
 		}
+		<div [class.text-xs]="hint.length">
+
+			@switch (cacheOfCurrentData?.intervalTypeControlValue ?? intervalTypeControl.value) {
+
+				@case (intervalTypeEnum.day) {
+					{{ (cacheOfCurrentData?.dateControlValue ?? dateControl.value) | date: 'yyyy-MM-dd' }}
+				}
+				@case (intervalTypeEnum.week) {
+					{{ getWeekTitle(getRangeInISO().fromISO, getRangeInISO().toISO) }}
+				}
+				@case (intervalTypeEnum.month) {
+					{{ (cacheOfCurrentData?.dateControlValue ?? dateControl.value) | date: 'yyyy-MM' }}
+				}
+				@case (intervalTypeEnum.year) {
+					{{ (cacheOfCurrentData?.dateControlValue ?? dateControl.value) | date: 'yyyy' }}
+				}
+
+			}
+
+		</div>
 
 	</button>
 
