@@ -1,5 +1,5 @@
-import {Component, forwardRef, HostBinding, inject, Input} from '@angular/core';
-import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms';
+import {AfterViewInit, Component, forwardRef, HostBinding, inject, Injector, Input} from '@angular/core';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NgIcon} from "@ng-icons/core";
 import {IconComponent} from "@src/component/adapter/icon/icon.component";
@@ -55,7 +55,7 @@ import {is} from "@utility/checker";
 		}
 	]
 })
-export class SearchInputComponent implements ControlValueAccessor {
+export class SearchInputComponent implements ControlValueAccessor, AfterViewInit {
 
 	public onChanged: (value: string) => void = () => {
 	};
@@ -101,6 +101,9 @@ export class SearchInputComponent implements ControlValueAccessor {
 	public readonly control: FormControl = new FormControl();
 
 	public readonly translateService = inject(TranslateService);
+	private readonly injector = inject(Injector);
+
+	public ngControl!: NgControl;
 
 	@Input()
 	public placeholder = this.translateService.instant('keyword.capitalize.placeholder.search');
@@ -110,6 +113,10 @@ export class SearchInputComponent implements ControlValueAccessor {
 
 	@HostBinding()
 	public class = 'w-full';
+
+	public ngAfterViewInit() {
+		this.ngControl = this.injector.get(NgControl);
+	}
 
 	public submit() {
 		this.onChanged(
@@ -125,7 +132,9 @@ export class SearchInputComponent implements ControlValueAccessor {
 
 	public clear() {
 		this.control.setValue('');
-		this.submit();
+		if (this.ngControl.control?.value?.length) {
+			this.submit();
+		}
 	}
 
 }
