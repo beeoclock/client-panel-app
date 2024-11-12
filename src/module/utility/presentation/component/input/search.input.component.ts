@@ -1,53 +1,140 @@
-import {Component, HostBinding, inject, Input} from '@angular/core';
-import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {AfterViewInit, Component, forwardRef, HostBinding, inject, Injector, Input} from '@angular/core';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {NgIcon} from "@ng-icons/core";
+import {IconComponent} from "@src/component/adapter/icon/icon.component";
+import {is} from "@utility/checker";
 
 @Component({
 	selector: 'utility-search-input-component',
 	standalone: true,
 	imports: [
 		ReactiveFormsModule,
-		TranslateModule
+		TranslateModule,
+		NgIcon,
+		IconComponent
 	],
 	template: `
-		<div class="flex items-center">
-			<label for="simple-search" class="sr-only">
+		<div class="flex items-center h-full">
+			<label [for]="id" class="sr-only">
 				{{ 'keyword.capitalize.search' | translate }}
 			</label>
-			<div class="relative w-full">
-				<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-					<svg
-						aria-hidden="true"
-						class="w-5 h-5 text-beeColor-500 dark:text-beeColor-400"
-						fill="currentColor"
-						viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-						<path
-							fill-rule="evenodd"
-							d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-							clip-rule="evenodd"/>
-					</svg>
-				</div>
+
+			<div class="flex rounded-2xl w-full">
 				<input
 					type="text"
-					id="simple-search"
-					class="block shadow-sm w-full min-w-[200px] pr-4 py-3 pl-10 border border-beeColor-300 rounded-2xl text-sm text-beeColor-900 focus:ring-blue-500 focus:border-blue-500 dark:bg-beeColor-700 dark:border-beeColor-600 dark:placeholder-beeColor-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+					(keydown)="keydown($event)"
+					[id]="id"
+					[placeholder]="placeholder"
 					[formControl]="control"
-					[placeholder]="placeholder" />
+					class="py-3 px-4 block w-full border-gray-200 rounded-s-2xl text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+				@if (control.value.length > 0) {
+					<button
+						(click)="clear()"
+						role="button"
+						type="button"
+						class="bg-white border border-l-0 disabled:opacity-50 disabled:pointer-events-none font-semibold gap-x-2 h-[48px] hover:bg-blue-700 hover:border-blue-600 hover:text-white inline-flex items-center justify-center shrink-0 transition-all w-[48px]">
+						<app-icon name="bootstrapXLg"/>
+					</button>
+				}
+				<button
+					(click)="submit()"
+					role="button"
+					type="button"
+					class="bg-white border border-l-0 disabled:opacity-50 disabled:pointer-events-none font-semibold gap-x-2 h-[48px] hover:bg-blue-700 hover:border-blue-600 hover:text-white inline-flex items-center justify-center rounded-e-2xl shrink-0 transition-all w-[48px]">
+					<app-icon name="bootstrapSearch"/>
+				</button>
 			</div>
 		</div>
-	`
+	`,
+	providers: [
+		{
+			provide: NG_VALUE_ACCESSOR,
+			useExisting: forwardRef(() => SearchInputComponent),
+			multi: true,
+		}
+	]
 })
-export class SearchInputComponent {
+export class SearchInputComponent implements ControlValueAccessor, AfterViewInit {
 
-	@Input()
-	public control: FormControl = new FormControl();
+	public onChanged: (value: string) => void = () => {
+	};
+	public onTouched: () => void = () => {
+	};
+
+	public registerOnChange(fn: (value: string) => void) {
+		this.onChanged = fn;
+	}
+
+	public registerOnTouched(fn: () => void) {
+		this.onTouched = fn;
+	}
+
+	public writeValue(value: unknown): void {
+
+		if (is.string(value)) {
+
+			this.control.setValue(value);
+
+		} else {
+
+			this.control.setValue('');
+
+		}
+
+	}
+
+	public setDisabledState?(isDisabled: boolean): void {
+
+		if (isDisabled) {
+
+			this.control.disable();
+
+		} else {
+
+			this.control.enable();
+
+		}
+
+	}
+
+	public readonly control: FormControl = new FormControl();
 
 	public readonly translateService = inject(TranslateService);
+	private readonly injector = inject(Injector);
+
+	public ngControl!: NgControl;
 
 	@Input()
 	public placeholder = this.translateService.instant('keyword.capitalize.placeholder.search');
 
 	@HostBinding()
+	public id = 'search-input-component';
+
+	@HostBinding()
 	public class = 'w-full';
+
+	public ngAfterViewInit() {
+		this.ngControl = this.injector.get(NgControl);
+	}
+
+	public submit() {
+		this.onChanged(
+			this.control.value
+		);
+	}
+
+	public keydown($event: KeyboardEvent) {
+		if ($event.key === 'Enter') {
+			this.submit();
+		}
+	}
+
+	public clear() {
+		this.control.setValue('');
+		if (this.ngControl.control?.value?.length) {
+			this.submit();
+		}
+	}
 
 }

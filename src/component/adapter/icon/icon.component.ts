@@ -7,7 +7,9 @@ import {
 	bootstrapExclamation,
 	bootstrapHourglassSplit,
 	bootstrapPersonAdd,
-	bootstrapX
+	bootstrapSearch,
+	bootstrapX,
+	bootstrapXLg
 } from "@ng-icons/bootstrap-icons";
 
 import {tdesignUserUnknown} from "@ng-icons/tdesign-icons";
@@ -18,9 +20,11 @@ const bootstrapIcons = {
 	bootstrapChatText,
 	bootstrapCheck2All,
 	bootstrapX,
+	bootstrapXLg,
 	bootstrapCheck2,
 	bootstrapHourglassSplit,
 	bootstrapExclamation,
+	bootstrapSearch,
 };
 
 const tdesignIcons = {

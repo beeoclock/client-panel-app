@@ -12,6 +12,7 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
 import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @Component({
 	selector: 'app-absence-filter-component',
@@ -27,7 +28,8 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
 		AsyncPipe,
 		NgIf,
 		NgTemplateOutlet,
-		AutoRefreshComponent
+		AutoRefreshComponent,
+		ReactiveFormsModule
 	],
 	template: `
         <utility-default-panel-component>
@@ -56,7 +58,7 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
         </ng-template>
 
         <ng-template #SearchInput>
-            <utility-search-input-component [control]="form.controls.phrase"/>
+			<utility-search-input-component [formControl]="form.controls.phrase"/>
         </ng-template>
 
         <ng-template #AutoRefresh>
@@ -64,7 +66,8 @@ import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh
         </ng-template>
 
         <ng-template #ButtonToOpenForm>
-            <button *ngIf="showButtonGoToForm" type="button" class="!py-3 !px-4 !text-base" primary (click)="openForm()">
+			<button *ngIf="showButtonGoToForm" type="button" class="!py-3 !px-4 !text-base flex-1" primary
+					(click)="openForm()">
                 <i class="bi bi-plus-lg"></i>
 <!--                <span class="hidden xl:block">-->
 <!--					{{ 'absence.button.create' | translate }}-->
