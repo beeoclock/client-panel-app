@@ -78,12 +78,13 @@ export class OrderState extends BaseState<IOrderDto> {
 	@Action(OrderActions.UpdateOpenedDetails)
 	public async updateOpenedDetailsAction(ctx: StateContext<IOrderState>, {payload}: OrderActions.UpdateOpenedDetails) {
 
-		const {OrderDetailsContainerComponent} = await import("@order/presentation/component/details/order-details-container.component");
-
-		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
-			component: OrderDetailsContainerComponent,
-			componentInputs: {item: payload},
-		});
+		import("@order/presentation/component/details/order-details-container.component")
+			.then(({OrderDetailsContainerComponent}) => {
+				this.whacAMaleProvider.updateWhacAMoleComponentAsync({
+					component: OrderDetailsContainerComponent,
+					componentInputs: {item: payload},
+				})
+			});
 
 	}
 
@@ -308,11 +309,9 @@ export class OrderState extends BaseState<IOrderDto> {
 	@Action(OrderActions.UpdateItem)
 	public override async updateItem(ctx: StateContext<IOrderState>, action: OrderActions.UpdateItem): Promise<void> {
 		await super.updateItem(ctx, action);
-		await this.closeFormAction(ctx, {
-			payload: action.payload._id
-		});
+		ctx.dispatch(new OrderActions.CloseForm(action.payload._id))
 		const {data} = ctx.getState().item;
-		data && await this.updateOpenedDetailsAction(ctx, {payload: data});
+		if (data) ctx.dispatch(new OrderActions.UpdateOpenedDetails(data));
 	}
 
 	@Action(OrderActions.GetItem)

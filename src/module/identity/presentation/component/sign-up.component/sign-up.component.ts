@@ -127,13 +127,19 @@ import {NgOptimizedImage} from "@angular/common";
 						<div>
 							<!-- Form -->
 							<form>
-								<div class="lg:max-w-lg lg:mx-auto lg:me-0 ms-auto flex flex-col gap-4">
+								<div class="w-full max-w-sm lg:mx-auto lg:me-0 ms-auto flex flex-col gap-4">
 									<utility-change-language-component class="self-end"/>
 									<!-- Card -->
 									<div
 										class="p-4 sm:p-7 flex flex-col bg-white rounded-2xl shadow-lg dark:bg-neutral-900">
-										<div class="text-center">
-											<h1 class="block text-2xl font-bold text-gray-800 dark:text-white">
+
+										<div class="text-start">
+
+											<img class="h-10 w-auto"
+												 ngSrc="/asset/img/logo.png"
+												 alt="Bee O\`clock" height="278" width="278">
+
+											<h1 class="block text-2xl font-bold text-gray-800 dark:text-white mt-10">
 												{{ 'identity.sign-up.form.label' | translate }}
 											</h1>
 											<identity-already-sign-up-link-component/>

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SignInComponent} from '@identity/presentation/component/sign-in.component/sign-in.component';
@@ -8,6 +8,10 @@ import {ChangeLanguageComponent} from "@utility/presentation/component/change-la
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 import {NgOptimizedImage} from "@angular/common";
+import {AlreadySignUpLinkComponent} from "@identity/presentation/component/link/alredy-sign-up.link.component";
+import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
+import {FormInputPasswordComponent} from "@utility/presentation/component/input/form.input.password.component";
+import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
 
 @Component({
 	selector: 'app-sign-in-identity-page',
@@ -23,7 +27,11 @@ import {NgOptimizedImage} from "@angular/common";
 		ChangeLanguageComponent,
 		FormsModule,
 		NgOptimizedImage,
-		PrimaryButtonDirective
+		PrimaryButtonDirective,
+		AlreadySignUpLinkComponent,
+		FormInputComponent,
+		FormInputPasswordComponent,
+		PrimaryLinkStyleDirective
 	],
 	encapsulation: ViewEncapsulation.None
 })
@@ -37,6 +45,9 @@ export class SignInIdentityPage implements OnInit {
 
 	readonly #analyticsService = inject(AnalyticsService);
 
+	@ViewChild(SignInComponent, {static: true})
+	public signInComponent!: SignInComponent;
+
 	public initialLoginValues(): {
 		email: string;
 		password: string;
@@ -49,6 +60,12 @@ export class SignInIdentityPage implements OnInit {
 
 	public ngOnInit() {
 		this.#analyticsService.logEvent('member_list_page_initialized');
+	}
+
+	protected loginIntoDemoProfile() {
+
+		this.signInComponent.doSignIn('demo@beeoclock.com', 'ItIckBeRSOLDENZYGosicirE');
+
 	}
 }
 

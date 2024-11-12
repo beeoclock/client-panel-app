@@ -588,6 +588,7 @@
 			"email": "Неправильний формат E-mail",
 			"emailOrPhoneRequired": "Введи номер телефону або E-mail",
 			"imageSize": "Максимальний розмір зображення – {{max}}, поточний розмір – {{value}}",
+			"invalid": "Неправильний",
 			"mask": "Неправильний формат, правильний формат - {{requiredMask}}",
 			"minlength": "Мінімальна довжина - {{requiredLength}}",
 			"required": "Обов'язкове поле",
@@ -984,6 +985,7 @@
 			"create": "Створити",
 			"createdAt": "Створено",
 			"customer": "Клієнт",
+			"customerNote": "Примітка від клієнта",
 			"customers": "Клієнти",
 			"dataNotFound": "Дані не знайдені",
 			"dateAndTime": "Дата та час",
@@ -1088,6 +1090,7 @@
 			"specialists": "Спеціалісти",
 			"start": "Початок",
 			"status": "Статус",
+			"statuses": "Статуси",
 			"streetAddressLineOne": "Адреса 1",
 			"streetAddressLineTwo": "Адреса 2",
 			"successfully": "Успішно",
@@ -1099,6 +1102,7 @@
 			"today": "Сьогодні",
 			"tomorrow": "Завтра",
 			"total": "Всього",
+			"tryDemoProfile": "Спробувати демо-профіль",
 			"unknown": "Невідомо",
 			"update": "Оновити",
 			"updatedAt": "Оновлено",
@@ -1488,7 +1492,9 @@
 	},
 	"statistic": {
 		"global": {
+			"averageBill": "Середній чек",
 			"numberOfSales": "Кількість продажів",
+			"numberOfServicesProvided": "Кількість наданих послуг",
 			"revenue": "Виручка",
 			"topService": "Найпопулярніша послуга"
 		}

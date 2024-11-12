@@ -7,6 +7,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'intl-tel-input/build/css/intlTelInput.css';
+// intl-tel-input styles
+.iti {
+	display: block !important;
+
+	.iti__country-list {
+		@apply bg-white rounded-lg shadow-lg border border-neutral-100;
+	}
+
+	.iti__search-input {
+		@apply bg-white rounded-lg shadow-lg border border-neutral-100;
+	}
+
+	.iti__dropdown-content {
+		@apply bg-white rounded-lg shadow-lg border border-neutral-100;
+	}
+}
+
 // IONIC START
 /*
  * App Global CSS

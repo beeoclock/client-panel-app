@@ -48,9 +48,13 @@ type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenc
 	selector: 'app-event-calendar-with-specialists-widget-component',
 	standalone: true,
 	template: `
-		<app-order-event-calendar-with-specialist-widget-component *ngIf="isOrder(item)" [event]="item"/>
-		<app-absence-event-calendar-with-specialist-widget-component *ngIf="isAbsence(item)" [event]="item"/>
-		<ng-container *ngIf="draggable">
+		@if (isOrder(item)) {
+			<app-order-event-calendar-with-specialist-widget-component [event]="item"/>
+		}
+		@if (isAbsence(item)) {
+			<app-absence-event-calendar-with-specialist-widget-component [event]="item"/>
+		}
+		@if (draggable) {
 
 			<div
 				data-dragging="position"
@@ -83,7 +87,7 @@ type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenc
 				data-dragging="bottom"
 				class="-bottom-2 w-full absolute bg-transparent h-5 left-0 right-0 rounded-full cursor-ns-resize">
 			</div>
-		</ng-container>
+		}
 	`
 })
 export class EventCalendarWithSpecialistWidgetComponent {
@@ -269,11 +273,16 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	}
 
 	public async toggleMode(force?: boolean) {
+
 		this.ngxLogger.debug('EventCalendarWithSpecialistWidgetComponent:toggleMode');
 		this.draggable = force ?? !this.draggable;
 		this.changeDetectorRef.detectChanges();
-		this.draggable && this.calendarWithSpecialistLocaStateService.setEventCalendarWithSpecialistWidgetComponent(this);
-		!this.draggable && this.calendarWithSpecialistLocaStateService.setEventCalendarWithSpecialistWidgetComponent(null);
+
+		if (this.draggable) {
+			this.calendarWithSpecialistLocaStateService.setEventCalendarWithSpecialistWidgetComponent(this);
+		} else {
+			this.calendarWithSpecialistLocaStateService.setEventCalendarWithSpecialistWidgetComponent(null)
+		}
 
 		if (this.draggable) {
 			this.snapshotOriginalPosition();
@@ -350,6 +359,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 			this.temporaryInformationAboutNewStartAndEnd = null;
 			this.saveInProgress = false;
 
+			this.changeDetectorRef.detectChanges();
 			return true;
 
 		}

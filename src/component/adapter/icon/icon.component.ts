@@ -13,6 +13,7 @@ import {
 } from "@ng-icons/bootstrap-icons";
 
 import {tdesignUserUnknown} from "@ng-icons/tdesign-icons";
+import {remixStickyNoteAddLine} from "@ng-icons/remixicon";
 
 const bootstrapIcons = {
 	bootstrapPersonAdd,
@@ -30,8 +31,13 @@ const tdesignIcons = {
 	tdesignUserUnknown
 };
 
+const remixIcons = {
+	remixStickyNoteAddLine
+};
+
 export type IconNameType =
 	keyof typeof bootstrapIcons |
+	keyof typeof remixIcons |
 	keyof typeof tdesignIcons;
 
 @Component({
@@ -52,6 +58,7 @@ export type IconNameType =
 		provideIcons({
 			...bootstrapIcons,
 			...tdesignIcons,
+			...remixIcons,
 		})
 	]
 })

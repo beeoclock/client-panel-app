@@ -2,19 +2,27 @@
 'overflow-x-auto h-[calc(100dvh-64px)] md:h-[calc(100vh-65px)]': isPage
 }">
 	<customer-filter-component [showButtonGoToForm]="showButtonGoToForm"/>
-	<ng-container *ngIf="tableState">
-		<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
+
+	@if (tableState) {
+
+		@if (tableState.total > 0) {
+
 			<customer-card-list-component [tableState]="tableState"/>
-		</ng-container>
-		<ng-template #EmptyTemplate>
+
+		} @else {
+
 			<not-found-table-data-component
 				class="block h-full"
 				(clickListener)="openForm()"
 				[showLinkToForm]="true"
 				[linkLabel]="'customer.button.create' | translate"
 				[label]="'keyword.capitalize.dataNotFound' | translate">
+
 				<customer-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
+
 			</not-found-table-data-component>
-		</ng-template>
-	</ng-container>
+
+		}
+
+	}
 </div>

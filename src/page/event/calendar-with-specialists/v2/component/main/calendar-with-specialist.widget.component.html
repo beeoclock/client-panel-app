@@ -1,22 +1,7 @@
-<div class="grid grid-rows-[60px] h-[calc(100%-60px)] md:h-full">
+<div class="grid h-full grid-rows-[60px] md:h-full">
 
-	<div
-		class="overflow-x-auto overflow-y-hidden p-2 flex justify-between gap-2 items-center bg-white border-b border-beeColor-200">
-
-		<div class="overflow-x-auto flex gap-2">
-			<event-date-control-calendar-with-specialists-component/>
-			<utility-auto-refresh-component
-				id="event-calendar-with-specialist-filter-auto-refresh"
-				(emitter)="forceRefresh()"
-				[isLoading]="(loader$ | async) ?? false"/>
-			<ion-select-wrapper
-				id="calendar-with-specialists-filter-order-service-status"
-				[options]="orderServiceStatusOptions"
-				[control]="orderServiceStatusControl"/>
-			<settings-component [control]="calendarWithSpecialistLocaStateService.movementInMinutesControl"/>
-		</div>
-
-	</div>
+	<filter-calendar-with-specialist
+		[orderServiceStatusesControl]="orderServiceStatusesControl"/>
 
 	<!-- Grid of hour rows -->
 	<div #calendar class="flex relative overflow-auto h-0 min-h-full bg-white snap-mandatory snap-x scroll-pl-[50px]">

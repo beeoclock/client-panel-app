@@ -588,6 +588,7 @@
 			"email": "Invalid E-mail format",
 			"emailOrPhoneRequired": "E-mail or phone number is required",
 			"imageSize": "Maximum image size is {{max}}, current size is {{value}}",
+			"invalid": "Invalid",
 			"mask": "Invalid format, correct format is {{requiredMask}}",
 			"minlength": "Minimum length is {{requiredLength}}",
 			"pattern": "A username can contain only letters, numbers, an underscore (_), and a dot (.)",
@@ -984,6 +985,7 @@
 			"create": "Create",
 			"createdAt": "Created at",
 			"customer": "Customer",
+			"customerNote": "Note from client",
 			"customers": "customers",
 			"dataNotFound": "Data not found",
 			"dateAndTime": "Date and time",
@@ -1088,6 +1090,7 @@
 			"specialists": "Specialists",
 			"start": "Start",
 			"status": "Status",
+			"statuses": "Statuses",
 			"streetAddressLineOne": "Address 1",
 			"streetAddressLineTwo": "Address 2",
 			"successfully": "Successfully",
@@ -1099,6 +1102,7 @@
 			"today": "Today",
 			"tomorrow": "Tomorrow",
 			"total": "Total",
+			"tryDemoProfile": "Try demo profile",
 			"unknown": "Unknown",
 			"update": "Updated",
 			"updatedAt": "Updated at",
@@ -1488,7 +1492,9 @@
 	},
 	"statistic": {
 		"global": {
+			"averageBill": "Average bill",
 			"numberOfSales": "Number of sales",
+			"numberOfServicesProvided": "Number of services provided",
 			"revenue": "Revenue",
 			"topService": "The most popular service"
 		}
