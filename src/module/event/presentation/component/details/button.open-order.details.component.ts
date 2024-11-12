@@ -36,18 +36,6 @@ import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 			<i class="bi bi-chevron-right"></i>
 		</button>
 
-		@if (order.businessNote?.length) {
-			<div class="flex justify-between">
-				<div class="text-sm">
-					<div class="text-neutral-500">
-						{{ 'keyword.capitalize.businessNote' | translate }}
-					</div>
-					<div>
-						{{ order.businessNote | noData }}
-					</div>
-				</div>
-			</div>
-		}
 	`
 })
 export class ButtonOpenOrderDetailsComponent {
