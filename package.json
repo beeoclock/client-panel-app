@@ -100,6 +100,7 @@
 		"@compodoc/compodoc": "1.1.26",
 		"@ng-icons/bootstrap-icons": "29.8.0",
 		"@ng-icons/material-icons": "29.8.0",
+		"@ng-icons/remixicon": "29.9.0",
 		"@ng-icons/tdesign-icons": "29.8.0",
 		"@ngxs/devtools-plugin": "18.1.4",
 		"@tailwindcss/aspect-ratio": "0.4.2",
