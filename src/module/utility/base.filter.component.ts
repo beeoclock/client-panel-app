@@ -1,8 +1,7 @@
 import {Reactive} from "@utility/cdk/reactive";
 import {Component, inject} from "@angular/core";
 import {Store} from "@ngxs/store";
-import {debounceTime, firstValueFrom, map} from "rxjs";
-import {MS_HALF_SECOND} from "@utility/domain/const/c.time";
+import {firstValueFrom, map} from "rxjs";
 import {clearObjectClone} from "@utility/domain/clear.object";
 import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
 
@@ -47,7 +46,6 @@ export abstract class BaseFilterComponent extends Reactive {
 			});
 		this.form.valueChanges.pipe(
 			this.takeUntil(),
-			debounceTime(MS_HALF_SECOND),
 			map(clearObjectClone)
 		).subscribe(async (value: any) => {
 			this.form.disable({

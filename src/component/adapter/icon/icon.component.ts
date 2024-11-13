@@ -7,27 +7,37 @@ import {
 	bootstrapExclamation,
 	bootstrapHourglassSplit,
 	bootstrapPersonAdd,
-	bootstrapX
+	bootstrapSearch,
+	bootstrapX,
+	bootstrapXLg
 } from "@ng-icons/bootstrap-icons";
 
 import {tdesignUserUnknown} from "@ng-icons/tdesign-icons";
+import {remixStickyNoteAddLine} from "@ng-icons/remixicon";
 
 const bootstrapIcons = {
 	bootstrapPersonAdd,
 	bootstrapChatText,
 	bootstrapCheck2All,
 	bootstrapX,
+	bootstrapXLg,
 	bootstrapCheck2,
 	bootstrapHourglassSplit,
 	bootstrapExclamation,
+	bootstrapSearch,
 };
 
 const tdesignIcons = {
 	tdesignUserUnknown
 };
 
+const remixIcons = {
+	remixStickyNoteAddLine
+};
+
 export type IconNameType =
 	keyof typeof bootstrapIcons |
+	keyof typeof remixIcons |
 	keyof typeof tdesignIcons;
 
 @Component({
@@ -48,6 +58,7 @@ export type IconNameType =
 		provideIcons({
 			...bootstrapIcons,
 			...tdesignIcons,
+			...remixIcons,
 		})
 	]
 })

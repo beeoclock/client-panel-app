@@ -1,9 +1,14 @@
 import {AfterViewInit, Component, ElementRef, inject, Input, OnChanges, ViewChild} from "@angular/core";
 import {extractFile} from "@utility/domain/extract-file";
 import {file2base64} from "@utility/domain/file2base64";
-import {BooleanState} from "@utility/domain";
 import {NGXLogger} from "ngx-logger";
 import {RIMedia} from "@module/media/domain/interface/i.media";
+
+export enum MediaStateEnum {
+	NOT_CHANGED = 'NOT_CHANGED',
+	CHANGED = 'CHANGED',
+	DELETED = 'DELETED',
+}
 
 @Component({
 	selector: 'utility-base-image-component',
@@ -29,7 +34,7 @@ export class BaseImageComponent implements OnChanges, AfterViewInit {
 
 	public selectedFile: File | undefined;
 
-	public mediaIsChanged = new BooleanState(false);
+	public mediaState: MediaStateEnum = MediaStateEnum.NOT_CHANGED;
 
 	protected readonly logger = inject(NGXLogger);
 
@@ -80,6 +85,13 @@ export class BaseImageComponent implements OnChanges, AfterViewInit {
 		await this.workWithFiles(files);
 	}
 
+	public clear(): void {
+		this.mediaState = MediaStateEnum.DELETED;
+		this.previewImage.nativeElement.src = '';
+		this.previewImage.nativeElement.classList.add('hidden');
+		this.selectedFile = undefined;
+	}
+
 	/**
 	 *
 	 * @param files - files to work with
@@ -91,7 +103,7 @@ export class BaseImageComponent implements OnChanges, AfterViewInit {
 
 			this.selectedFile = file;
 			const base64 = await file2base64(file);
-			this.mediaIsChanged.switchOn();
+			this.mediaState = MediaStateEnum.CHANGED;
 			this.updateSrc(base64);
 
 		} catch (e) {

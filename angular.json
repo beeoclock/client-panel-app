@@ -108,7 +108,7 @@
 							"fileReplacements": [
 								{
 									"replace": "src/environment/environment.ts",
-									"with": "src/environment/environment.dev.ts"
+									"with": "src/environment/environment.develop.ts"
 								}
 							],
 							"outputHashing": "all"

@@ -4,7 +4,7 @@ import {NgIf} from "@angular/common";
 import {DragAndDropDirective} from "@utility/presentation/directives/drag-and-drop/drag-and-drop.directive";
 import {PlaceholderImageComponent} from "@utility/presentation/component/image/placeholder.image.component";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
-import {BaseImageComponent} from "@utility/presentation/component/image/base.image.component";
+import {BaseImageComponent, MediaStateEnum} from "@utility/presentation/component/image/base.image.component";
 import {FormControl} from "@angular/forms";
 import {file2base64} from "@utility/domain/file2base64";
 
@@ -47,7 +47,7 @@ export class ImageGalleryBusinessProfileComponent extends BaseImageComponent {
 
 			this.selectedFile = file;
 			const base64 = await file2base64(file);
-			this.mediaIsChanged.switchOn();
+			this.mediaState = MediaStateEnum.CHANGED;
 			this.control.patchValue(base64);
 			this.updateSrc(base64);
 
