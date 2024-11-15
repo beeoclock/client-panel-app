@@ -6,6 +6,7 @@ import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration
 import {CurrencyPipe} from "@angular/common";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
+import {BASE_CURRENCY} from "@src/token";
 
 @Injectable()
 export class DurationVersionHtmlHelper {
@@ -14,6 +15,7 @@ export class DurationVersionHtmlHelper {
 	private readonly translateService = inject(TranslateService);
 	private readonly humanizeDurationHelper = inject(HumanizeDurationHelper);
 	private readonly currencyPipe = inject(CurrencyPipe);
+	private readonly baseCurrency = inject(BASE_CURRENCY);
 
 	public getDurationValue(item: IServiceDto): string {
 		const {durationVersions} = item;
@@ -135,7 +137,7 @@ export class DurationVersionHtmlHelper {
 
 	public getTotalPriceValueV2(items: IServiceDto[]): string {
 		let totalPrice = 0;
-		let currency = CurrencyCodeEnum.USD;
+		let currency = this.baseCurrency.value ?? CurrencyCodeEnum.USD;
 		items.forEach((item) => {
 			const {durationVersions} = item;
 			let {0: fromDurationVersion} = durationVersions;
