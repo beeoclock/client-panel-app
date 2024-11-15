@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {Component, HostBinding, inject, Input, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
 import {RIMember} from "@member/domain";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {Store} from "@ngxs/store";
@@ -9,12 +9,22 @@ import {NGXLogger} from "ngx-logger";
 import {
 	SelectedMemberAdditionalMenuComponent
 } from "@event/presentation/component/additional-menu/selected-member.additional-menu.component";
-import {DatePipe, NgIf} from "@angular/common";
+import {CurrencyPipe, DatePipe, NgIf} from "@angular/common";
 import {
 	SelectedDatetimeAdditionalMenuComponent
 } from "@event/presentation/component/additional-menu/selected-datetime.additional-menu.component";
 import {DateTime} from "luxon";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
+import {SelectServiceListComponent} from "@service/presentation/component/select-list/select-service-list.component";
+import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
+import {CustomerChipComponent} from "@src/component/smart/order/form/service/list/item/chip/customer.chip.component";
+import {IonicModule} from "@ionic/angular";
+import {FormControl, ReactiveFormsModule} from "@angular/forms";
+
+enum SegmentEnum {
+	ORDERING = 'ordering',
+	ABSENCE = 'absence'
+}
 
 @Component({
 	selector: 'app-additional-menu',
@@ -26,159 +36,186 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 		NgIf,
 		SelectedDatetimeAdditionalMenuComponent,
 		DynamicDatePipe,
-		DatePipe
+		DatePipe,
+		SelectServiceListComponent,
+		CustomerChipComponent,
+		IonicModule,
+		ReactiveFormsModule
 	],
+	providers: [CurrencyPipe, DurationVersionHtmlHelper],
 	template: `
-		<div class="grid grid-cols-1 gap-2 p-2">
-			<div class="flex gap-2">
-				<app-selected-member-additional-menu class="flex-1" *ngIf="member" [member]="member"/>
-				<app-selected-datetime-additional-menu class="flex-1" *ngIf="datetimeISO" [datetimeISO]="datetimeISO"/>
-			</div>
-
-			<div class="font-bold text-lg text-blue-950">
-				<i class="bi bi-cart"></i>&nbsp;
-				<span>{{ 'sidebar.order' | translate }}</span>
-			</div>
-
-			<button type="button" (click)="openOrderForm()"
-					id="open-order-form"
-							class="text-center bg-white border border-blue-950 cursor-pointer duration-300 hover:bg-blue-200 p-4 rounded-md transition-colors">
-				<h3 class="text-lg font-semibold text-blue-950 flex items-center justify-center gap-2">
-					<span>{{ 'event.additionalMenu.items.addNewOrder.title' | translate }}</span>
-				</h3>
-			</button>
-
-			<div class="relative flex py-2 items-center">
-				<div class="flex-grow border-t border-beeColor-300"></div>
-				<span class="flex-shrink mx-4 text-beeColor-500">
-					{{ 'keyword.lowercase.or' | translate }}
-				</span>
-				<div class="flex-grow border-t border-beeColor-300"></div>
-			</div>
-
-			<div class="flex justify-between gap-2">
-				<button type="button" (click)="openOrderForm(15)" id="open-order-form-alternative-15"
-						class="flex-1 text-center bg-white border border-blue-950 cursor-pointer duration-300 hover:bg-blue-200 p-4 rounded-md transition-colors">
-					<h3 class="text-lg font-semibold text-blue-950 flex items-center justify-center gap-2">
-						<span>{{ getDatetimeISOPlusMinutes(15) | date: 'HH:mm' }}</span>
-					</h3>
-				</button>
-				<button type="button" (click)="openOrderForm(30)" id="open-order-form-alternative-30"
-						class="flex-1 text-center bg-white border border-blue-950 cursor-pointer duration-300 hover:bg-blue-200 p-4 rounded-md transition-colors">
-					<h3 class="text-lg font-semibold text-blue-950 flex items-center justify-center gap-2">
-						<span>{{ getDatetimeISOPlusMinutes(30) | date: 'HH:mm' }}</span>
-					</h3>
-				</button>
-				<button type="button" (click)="openOrderForm(45)" id="open-order-form-alternative-45"
-						class="flex-1 text-center bg-white border border-blue-950 cursor-pointer duration-300 hover:bg-blue-200 p-4 rounded-md transition-colors">
-					<h3 class="text-lg font-semibold text-blue-950 flex items-center justify-center gap-2">
-						<span>{{ getDatetimeISOPlusMinutes(45) | date: 'HH:mm' }}</span>
-					</h3>
-				</button>
-			</div>
-
-			<p class="text-beeColor-500 text-sm px-2 italic">
-				{{ 'event.additionalMenu.items.addNewOrder.hint' | translate }}
-			</p>
-
-			<div class="flex flex-col gap-2 mt-4">
-				<div class="font-bold text-lg text-blue-950">
-					<i class="bi bi-calendar-x"></i>
-					{{ 'keyword.capitalize.break' | translate }}
-				</div>
-				<ng-container *ngIf="datetimeISO">
-					<div class="flex flex-col gap-1">
-						<div class="text-beeColor-500 flex justify-between">
-							<div>{{ 'keyword.capitalize.from' | translate }}:</div>
-							<div>{{ datetimeISO | dynamicDate }}</div>
+		<div class="flex flex-col gap-2 h-full p-2">
+			<div class="flex flex-col gap-2">
+				<div class="bg-white flex gap-2 justify-between rounded-xl w-full">
+					@if (member) {
+						<div class="text-beeColor-500">
+							{{ member.firstName }}&nbsp;{{ member.lastName }}
 						</div>
-						<div class="grid grid-cols-4 gap-2 text-blue-950">
-							<button type="button" (click)="openAbsenceForm(5, true)" [class]="classList.absence.button">
-								<span class="text-2xl">5</span>
-								<span class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
-							</button>
-							<button type="button" (click)="openAbsenceForm(10, true)" [class]="classList.absence.button">
-								<span class="text-2xl">10</span>
-								<span class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
-							</button>
-							<button type="button" (click)="openAbsenceForm(15, true)" [class]="classList.absence.button">
-								<span class="text-2xl">15</span>
-								<span class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
-							</button>
-							<button type="button" (click)="openAbsenceForm(30, true)" [class]="classList.absence.button">
-								<span class="text-2xl">30</span>
-								<span class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
-							</button>
-							<button type="button" (click)="openAbsenceForm(45, true)" [class]="classList.absence.button">
-								<span class="text-2xl">45</span>
-								<span class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
-							</button>
-							<button type="button" (click)="openAbsenceForm(60, true)" [class]="classList.absence.button">
-								<span class="text-2xl">1</span>
-								<span class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
-							</button>
-							<button type="button" (click)="openAbsenceForm(90, true)" [class]="classList.absence.button">
-								<span class="text-2xl">1.5</span>
-								<span class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
-							</button>
-							<button type="button" (click)="openAbsenceForm(120, true)" [class]="classList.absence.button">
-								<span class="text-2xl">2</span>
-								<span class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
-							</button>
+					}
+					@if (datetimeISO) {
+						<div class="text-beeColor-500">{{ datetimeISO | dynamicDate }}</div>
+					}
+				</div>
+
+				<ion-segment [formControl]="segmentControl">
+
+					@for (segment of segments; track segment) {
+
+						<ion-segment-button [value]="segment">
+							<ion-label>
+								{{ 'keyword.capitalize.' + segment | translate }}
+							</ion-label>
+						</ion-segment-button>
+
+					}
+
+				</ion-segment>
+
+			</div>
+
+			@switch (segmentControl.value) {
+
+				@case (SegmentEnum.ORDERING) {
+
+					<div class="bg-white flex flex-col rounded-xl w-full">
+						<div class="text-beeColor-500 text-sm">{{ 'keyword.capitalize.customer' | translate }}</div>
+						<app-customer-chip-component
+							id="ordering-customer-chip"
+							class="flex flex-1 w-full"
+						/>
+					</div>
+
+					<app-select-service-list-component class="flex-1" #selectServiceListComponent/>
+
+					<div
+						class="flex gap-2 items-center justify-between w-full">
+						<div class="rounded-full p-3 bg-white min-h-[46px] flex items-center">
+							<ul class="leading-tight flex gap-2">
+								<li class="flex gap-1"><span>{{ selectServiceListComponent.selectedServices.length }}</span><i
+									class="bi bi-cart"></i></li>
+								<li><span class="text-nowrap whitespace-nowrap"
+										  [innerHTML]="durationVersionHtmlHelper.getTotalPriceValueV2(selectServiceListComponent.selectedServices)"></span>
+								</li>
+								<li><span class="text-nowrap whitespace-nowrap"
+										  [innerHTML]="durationVersionHtmlHelper.getTotalDurationValueV2(selectServiceListComponent.selectedServices)"></span>
+								</li>
+							</ul>
+						</div>
+						<button
+							[disabled]="!selectServiceListComponent.selectedServices.length"
+							class="border-2 border-slate-600 w-full bg-yellow-400 ps-4 gap-2 rounded-full flex  justify-between items-center"
+							(click)="openOrderForm()">
+
+							<div class="flex flex-col gap-1">
+								<div class="flex">
+								<span class="text-left leading-none">
+									{{ 'keyword.capitalize.nextStep' | translate }}
+								</span>
+								</div>
+							</div>
+							<div class="rounded-full bg-yellow-500 min-w-[46px] min-h-[46px] flex items-center justify-center">
+								<i class="bi bi-chevron-right"></i>
+							</div>
+						</button>
+					</div>
+
+				}
+
+				@case (SegmentEnum.ABSENCE) {
+
+					<div class="flex flex-col gap-2 mt-4">
+						<div class="font-bold text-lg text-blue-950">
+							<i class="bi bi-calendar-x"></i>
+							{{ 'keyword.capitalize.break' | translate }}
+						</div>
+						<ng-container *ngIf="datetimeISO">
+							<div class="flex flex-col gap-1">
+								<div class="text-beeColor-500 flex justify-between">
+									<div>{{ 'keyword.capitalize.from' | translate }}:</div>
+									<div>{{ datetimeISO | dynamicDate }}</div>
+								</div>
+								<div class="grid grid-cols-4 gap-2 text-blue-950">
+									<button type="button" (click)="openAbsenceForm(5, true)" [class]="classList.absence.button">
+										<span class="text-2xl">5</span>
+										<span class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
+									</button>
+									<button type="button" (click)="openAbsenceForm(10, true)" [class]="classList.absence.button">
+										<span class="text-2xl">10</span>
+										<span class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
+									</button>
+									<button type="button" (click)="openAbsenceForm(15, true)" [class]="classList.absence.button">
+										<span class="text-2xl">15</span>
+										<span class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
+									</button>
+									<button type="button" (click)="openAbsenceForm(30, true)" [class]="classList.absence.button">
+										<span class="text-2xl">30</span>
+										<span class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
+									</button>
+									<button type="button" (click)="openAbsenceForm(45, true)" [class]="classList.absence.button">
+										<span class="text-2xl">45</span>
+										<span class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
+									</button>
+									<button type="button" (click)="openAbsenceForm(60, true)" [class]="classList.absence.button">
+										<span class="text-2xl">1</span>
+										<span class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
+									</button>
+									<button type="button" (click)="openAbsenceForm(90, true)" [class]="classList.absence.button">
+										<span class="text-2xl">1.5</span>
+										<span class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
+									</button>
+									<button type="button" (click)="openAbsenceForm(120, true)" [class]="classList.absence.button">
+										<span class="text-2xl">2</span>
+										<span class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
+									</button>
+								</div>
+							</div>
+						</ng-container>
+						<div class="flex flex-col gap-1 mt-4">
+							<div class="text-beeColor-500 flex justify-between">
+								<div>{{ 'keyword.capitalize.from' | translate }}: {{ 'keyword.lowercase.now' | translate }}</div>
+								<div>{{ now | dynamicDate }}</div>
+							</div>
+							<div class="grid grid-cols-4 gap-2 text-blue-950">
+								<button type="button" (click)="openAbsenceForm(5, false)" [class]="classList.absence.button">
+									<span class="text-2xl">5</span><span
+									class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
+								</button>
+								<button type="button" (click)="openAbsenceForm(10, false)" [class]="classList.absence.button">
+									<span class="text-2xl">10</span><span
+									class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
+								</button>
+								<button type="button" (click)="openAbsenceForm(15, false)" [class]="classList.absence.button">
+									<span class="text-2xl">15</span><span
+									class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
+								</button>
+								<button type="button" (click)="openAbsenceForm(30, false)" [class]="classList.absence.button">
+									<span class="text-2xl">30</span><span
+									class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
+								</button>
+								<button type="button" (click)="openAbsenceForm(45, false)" [class]="classList.absence.button">
+									<span class="text-2xl">45</span><span
+									class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
+								</button>
+								<button type="button" (click)="openAbsenceForm(60, false)" [class]="classList.absence.button">
+									<span class="text-2xl">1</span><span
+									class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
+								</button>
+								<button type="button" (click)="openAbsenceForm(90, false)" [class]="classList.absence.button">
+									<span class="text-2xl">1.5</span><span
+									class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
+								</button>
+								<button type="button" (click)="openAbsenceForm(120, false)" [class]="classList.absence.button">
+									<span class="text-2xl">2</span><span
+									class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
+								</button>
+							</div>
 						</div>
 					</div>
-				</ng-container>
-				<div class="flex flex-col gap-1 mt-4">
-					<div class="text-beeColor-500 flex justify-between">
-						<div>{{ 'keyword.capitalize.from' | translate }}: {{ 'keyword.lowercase.now' | translate }}</div>
-						<div>{{ now | dynamicDate }}</div>
-					</div>
-					<div class="grid grid-cols-4 gap-2 text-blue-950">
-						<button type="button" (click)="openAbsenceForm(5, false)" [class]="classList.absence.button">
-							<span class="text-2xl">5</span><span
-							class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
-						</button>
-						<button type="button" (click)="openAbsenceForm(10, false)" [class]="classList.absence.button">
-							<span class="text-2xl">10</span><span
-							class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
-						</button>
-						<button type="button" (click)="openAbsenceForm(15, false)" [class]="classList.absence.button">
-							<span class="text-2xl">15</span><span
-							class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
-						</button>
-						<button type="button" (click)="openAbsenceForm(30, false)" [class]="classList.absence.button">
-							<span class="text-2xl">30</span><span
-							class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
-						</button>
-						<button type="button" (click)="openAbsenceForm(45, false)" [class]="classList.absence.button">
-							<span class="text-2xl">45</span><span
-							class="font-medium">{{ 'keyword.lowercase.short.minutes' | translate }}</span>
-						</button>
-						<button type="button" (click)="openAbsenceForm(60, false)" [class]="classList.absence.button">
-							<span class="text-2xl">1</span><span
-							class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
-						</button>
-						<button type="button" (click)="openAbsenceForm(90, false)" [class]="classList.absence.button">
-							<span class="text-2xl">1.5</span><span
-							class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
-						</button>
-						<button type="button" (click)="openAbsenceForm(120, false)" [class]="classList.absence.button">
-							<span class="text-2xl">2</span><span
-							class="font-medium">{{ 'keyword.lowercase.short.hour' | translate }}</span>
-						</button>
-					</div>
-				</div>
-			</div>
-			<!--            <button type="button" (click)="openAbsenceForm()"-->
-			<!--                    class="bg-white border border-blue-300 cursor-pointer duration-300 hover:bg-gray-100 p-4 rounded-md text-center transition-colors">-->
-			<!--                <h3 class="text-lg font-semibold text-black mb-2">-->
-			<!--                    <i class="w-6 h-6 me-1 text-beeColor-500 transition duration-75 dark:text-beeDarkColor-400 bi bi-calendar2-x"></i>-->
-			<!--                    {{ 'event.additionalMenu.items.addNewAbsence.title' | translate }}-->
-			<!--                </h3>-->
-			<!--                <p class="text-gray-600">-->
-			<!--                    {{ 'event.additionalMenu.items.addNewAbsence.hint' | translate }}-->
-			<!--                </p>-->
-			<!--            </button>-->
+
+				}
+
+			}
+
 		</div>
 	`
 })
@@ -197,6 +234,20 @@ export class AdditionalMenuComponent implements OnInit {
 	@HostBinding()
 	public class = 'bg-white'
 
+	@ViewChild(SelectServiceListComponent)
+	public selectServiceListComponent!: SelectServiceListComponent;
+
+	@ViewChild(CustomerChipComponent)
+	public customerChipComponent!: CustomerChipComponent;
+
+	public readonly segmentControl = new FormControl<SegmentEnum>(SegmentEnum.ORDERING, {
+		nonNullable: true
+	});
+
+	public readonly SegmentEnum = SegmentEnum;
+
+	public readonly segments = [SegmentEnum.ORDERING, SegmentEnum.ABSENCE];
+
 	public readonly classList = {
 		absence: {
 			button: 'bg-white border border-blue-950 cursor-pointer duration-300 hover:bg-blue-200 p-4 rounded-md text-center transition-colors'
@@ -208,6 +259,7 @@ export class AdditionalMenuComponent implements OnInit {
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
+	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
 	public ngOnInit() {
 		this.ngxLogger.info('AdditionalMenuComponent initialized', this);
@@ -230,8 +282,10 @@ export class AdditionalMenuComponent implements OnInit {
 		this.store.dispatch(new OrderActions.OpenForm({
 			componentInputs: {
 				setupPartialData: {
+					serviceList: this.selectServiceListComponent.selectedServices,
 					defaultAppointmentStartDateTimeIso,
-					defaultMemberForService: this.member
+					defaultMemberForService: this.member,
+					customer: this.customerChipComponent.customerForm.getRawValue()
 				}
 			},
 			pushBoxInputs: {

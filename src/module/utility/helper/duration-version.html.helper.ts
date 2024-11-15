@@ -5,6 +5,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
 import {CurrencyPipe} from "@angular/common";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {CurrencyCodeEnum} from "@utility/domain/enum";
 
 @Injectable()
 export class DurationVersionHtmlHelper {
@@ -92,6 +93,25 @@ export class DurationVersionHtmlHelper {
 		return `⌛ ${durationFrom}`;
 	}
 
+	public getTotalDurationValueV2(items: IServiceDto[]): string {
+		let totalDurationInSeconds = 0;
+		items.forEach((item) => {
+			const {durationVersions} = item;
+			let {0: fromDurationVersion} = durationVersions;
+			if (
+				this.durationHelper.durationIsRangeMode(item) &&
+				durationVersions.length > 1
+			) {
+				fromDurationVersion = durationVersions[durationVersions.length - 1];
+			}
+			totalDurationInSeconds += fromDurationVersion.durationInSeconds;
+		});
+		const durationFrom = this.humanizeDurationHelper.fromSeconds(
+			totalDurationInSeconds,
+		);
+		return `${durationFrom}`;
+	}
+
 	public getPriceValueV2(item: IServiceDto): string {
 		const {durationVersions} = item;
 		const {0: fromDurationVersion} = durationVersions;
@@ -111,6 +131,34 @@ export class DurationVersionHtmlHelper {
 			return `💰 ${priceForm}+`;
 		}
 		return `💰 ${priceForm}`;
+	}
+
+	public getTotalPriceValueV2(items: IServiceDto[]): string {
+		let totalPrice = 0;
+		let currency = CurrencyCodeEnum.USD;
+		items.forEach((item) => {
+			const {durationVersions} = item;
+			let {0: fromDurationVersion} = durationVersions;
+			if (
+				this.durationHelper.durationIsRangeMode(item) &&
+				durationVersions.length > 1
+			) {
+				fromDurationVersion = durationVersions[durationVersions.length - 1];
+			}
+			totalPrice += fromDurationVersion.prices[0].price;
+			currency = fromDurationVersion.prices[0].currency;
+		});
+
+		const priceForm = this.currencyPipe.transform(
+			totalPrice,
+			currency,
+			'symbol-narrow',
+			'1.0-2',
+		);
+		if (!priceForm) {
+			return '-';
+		}
+		return `${priceForm}`;
 	}
 
 }

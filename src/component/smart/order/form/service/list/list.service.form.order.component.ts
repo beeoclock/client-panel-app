@@ -6,6 +6,7 @@ import {
 	inject,
 	Input,
 	OnChanges,
+	OnInit,
 	SimpleChange,
 	SimpleChanges,
 	ViewEncapsulation
@@ -15,7 +16,6 @@ import {
 } from "@src/component/smart/order/form/service/list/item/item-v2.list.service.form.order.component";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {NGXLogger} from "ngx-logger";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {TableState} from "@utility/domain/table.state";
 import {Reactive} from "@utility/cdk/reactive";
@@ -28,6 +28,9 @@ import {ClientState} from "@client/state/client/client.state";
 import {ActiveEnum, LanguageCodeEnum} from "@utility/domain/enum";
 import {ReservationTypeEnum} from "@order/domain/enum/reservation.type.enum";
 import {DateTime} from "luxon";
+import {ICustomer} from "@customer/domain";
+import ObjectID from "bson-objectid";
+import {IAttendeeDto} from "@order/external/interface/i-order-appointment-details.dto";
 
 @Component({
 	standalone: true,
@@ -61,12 +64,14 @@ import {DateTime} from "luxon";
 		</div>
 	`
 })
-export class ListServiceFormOrderComponent extends Reactive implements OnChanges{
+export class ListServiceFormOrderComponent extends Reactive implements OnChanges, OnInit {
 
 	@Input()
 	public setupPartialData: {
 		defaultAppointmentStartDateTimeIso?: string;
 		defaultMemberForService?: RIMember;
+		serviceList?: IServiceDto[];
+		customer?: ICustomer;
 	} = {};
 
 	@Input({required: true})
@@ -86,17 +91,22 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 	@SelectSnapshot(ClientState.baseLanguage)
 	public readonly baseLanguage!: LanguageCodeEnum;
 
-	readonly #ngxLogger = inject(NGXLogger);
 	readonly #translateService = inject(TranslateService);
 	readonly #whacAMaleProvider = inject(WhacAMoleProvider);
 	readonly #changeDetectorRef = inject(ChangeDetectorRef);
 
-	public ngOnChanges(changes: SimpleChanges & {serviceOrderFormArray: SimpleChange}) {
+	public ngOnInit() {
+		if (this.setupPartialData?.serviceList?.length) {
+			this.addServiceFromServiceList(this.setupPartialData.serviceList);
+		}
+	}
+
+	public ngOnChanges(changes: SimpleChanges & { serviceOrderFormArray: SimpleChange }) {
 		const {serviceOrderFormArray} = changes;
 		if (!serviceOrderFormArray) {
 			return;
 		}
-		const {currentValue} = serviceOrderFormArray as {currentValue: ServiceOrderFormArray};
+		const {currentValue} = serviceOrderFormArray as { currentValue: ServiceOrderFormArray };
 		if (!currentValue) {
 			return;
 		}
@@ -153,72 +163,88 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 
 				const {newSelectedServiceList} = instance;
 				const {0: service} = newSelectedServiceList;
+				this.addServiceFromServiceList([service]);
 
-				this.#ngxLogger.info('service', service);
-
-				let foundLanguageVersion = service.languageVersions.find(({language}) => language === this.baseLanguage);
-
-				if (!foundLanguageVersion) {
-					foundLanguageVersion = service.languageVersions.find(({language}) => language === this.#translateService.currentLang);
-				}
-
-				if (!foundLanguageVersion) {
-					foundLanguageVersion = service.languageVersions[0];
-				}
-
-				let start = this.setupPartialData.defaultAppointmentStartDateTimeIso ?? DateTime.now().toJSDate().toISOString();
-
-				const attendees = [];
-				const lastService = this.selectedServicePlusControlList[this.selectedServicePlusControlList.length - 1];
-
-				if (lastService) {
-					const {orderAppointmentDetails} = lastService.control.getRawValue();
-					const {attendees: lastServiceAttendees} = orderAppointmentDetails;
-					if (lastServiceAttendees.length) {
-						attendees.push(lastServiceAttendees[0]);
-					}
-					start = orderAppointmentDetails.end ?? start;
-				}
-
-				const end = DateTime.fromISO(start).plus({seconds: service.durationVersions[0].durationInSeconds}).toJSDate().toISOString();
-
-				this.selectedServicePlusControlList.push({
-					service,
-					control: this.serviceOrderFormArray.pushNewOne({
-						serviceSnapshot: {
-							...service,
-							durationVersions: [{
-								...service.durationVersions[0],
-								prices: [service.durationVersions[0].prices[0]]
-							}],
-							languageVersions: [foundLanguageVersion]
-						},
-						orderAppointmentDetails: {
-							object: "OrderAppointmentDetailsDto",
-							active: ActiveEnum.YES,
-							start,
-							end,
-							type: ReservationTypeEnum.service,
-							languageCodes: [this.#translateService.currentLang as LanguageCodeEnum],
-							specialists: [],
-							attendees,
-							timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-							createdAt: DateTime.now().toJSDate().toISOString(),
-							updatedAt: DateTime.now().toJSDate().toISOString(),
-						}
-					}),
-					setupPartialData: {
-						...this.setupPartialData || {},
-						defaultAppointmentStartDateTimeIso: start,
-					}
-				});
-
-				this.#changeDetectorRef.detectChanges();
 				await this.#whacAMaleProvider.destroyComponent(SelectServiceWhacAMoleComponent);
 
 			});
 		}
 
+	}
+
+	public addServiceFromServiceList(serviceList: IServiceDto[]) {
+		serviceList.forEach((service) => {
+
+			let foundLanguageVersion = service.languageVersions.find(({language}) => language === this.baseLanguage);
+
+			if (!foundLanguageVersion) {
+				foundLanguageVersion = service.languageVersions.find(({language}) => language === this.#translateService.currentLang);
+			}
+
+			if (!foundLanguageVersion) {
+				foundLanguageVersion = service.languageVersions[0];
+			}
+
+			let start = this.setupPartialData.defaultAppointmentStartDateTimeIso ?? DateTime.now().toJSDate().toISOString();
+
+			const attendees: IAttendeeDto[] = [];
+			const lastService = this.selectedServicePlusControlList[this.selectedServicePlusControlList.length - 1];
+
+			if (lastService) {
+				const {orderAppointmentDetails} = lastService.control.getRawValue();
+				const {attendees: lastServiceAttendees} = orderAppointmentDetails;
+				if (lastServiceAttendees.length) {
+					attendees.push(lastServiceAttendees[0]);
+				}
+				start = orderAppointmentDetails.end ?? start;
+			} else {
+				if (this.setupPartialData.customer) {
+					attendees.push({
+						customer: this.setupPartialData.customer,
+						_id: ObjectID().toHexString(),
+						createdAt: DateTime.now().toJSDate().toISOString(),
+						updatedAt: DateTime.now().toJSDate().toISOString(),
+						object: "AttendeeDto",
+					});
+				}
+			}
+
+			const end = DateTime.fromISO(start).plus({seconds: service.durationVersions[0].durationInSeconds}).toJSDate().toISOString();
+
+			this.selectedServicePlusControlList.push({
+				service,
+				control: this.serviceOrderFormArray.pushNewOne({
+					serviceSnapshot: {
+						...service,
+						durationVersions: [{
+							...service.durationVersions[0],
+							prices: [service.durationVersions[0].prices[0]]
+						}],
+						languageVersions: [foundLanguageVersion]
+					},
+					orderAppointmentDetails: {
+						object: "OrderAppointmentDetailsDto",
+						active: ActiveEnum.YES,
+						start,
+						end,
+						type: ReservationTypeEnum.service,
+						languageCodes: [this.#translateService.currentLang as LanguageCodeEnum],
+						specialists: [],
+						attendees,
+						timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+						createdAt: DateTime.now().toJSDate().toISOString(),
+						updatedAt: DateTime.now().toJSDate().toISOString(),
+					}
+				}),
+				setupPartialData: {
+					...this.setupPartialData || {},
+					defaultAppointmentStartDateTimeIso: start,
+				}
+			});
+
+		});
+
+		this.#changeDetectorRef.detectChanges();
 	}
 
 }

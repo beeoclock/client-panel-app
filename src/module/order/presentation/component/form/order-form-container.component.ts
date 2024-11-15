@@ -39,6 +39,7 @@ import {
 import {FormsModule} from "@angular/forms";
 import {lastValueFrom} from "rxjs";
 import {PaymentActions} from "@module/payment/state/payment/payment.actions";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 @Component({
 	selector: 'app-order-form-container',
@@ -92,6 +93,8 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	public readonly setupPartialData = input<{
 		defaultAppointmentStartDateTimeIso?: string;
 		defaultMemberForService?: RIMember;
+		serviceList?: IServiceDto[];
+		customer?: ICustomer;
 	}>({});
 	public readonly orderDto = input<Partial<IOrderDto>>({});
 	public readonly paymentDto = input<Partial<IPaymentDto>>({});
