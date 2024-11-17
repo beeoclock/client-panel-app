@@ -136,8 +136,19 @@ export class DurationVersionHtmlHelper {
 	}
 
 	public getTotalPriceValueV2(items: IServiceDto[]): string {
-		let totalPrice = 0;
-		let currency = this.baseCurrency.value ?? CurrencyCodeEnum.USD;
+		const baseCurrency = this.baseCurrency.value ?? CurrencyCodeEnum.USD;
+
+		if (!items?.length) {
+			const priceForm = this.currencyPipe.transform(
+				0,
+				baseCurrency,
+				'symbol-narrow',
+				'1.0-2',
+			);
+			return `${priceForm}`;
+		}
+
+		const perCurrencyTotalPrice = new Map<CurrencyCodeEnum, number>();
 		items.forEach((item) => {
 			const {durationVersions} = item;
 			let {0: fromDurationVersion} = durationVersions;
@@ -147,20 +158,30 @@ export class DurationVersionHtmlHelper {
 			) {
 				fromDurationVersion = durationVersions[durationVersions.length - 1];
 			}
-			totalPrice += fromDurationVersion.prices[0].price;
-			currency = fromDurationVersion.prices[0].currency;
+			const {price, currency} = fromDurationVersion.prices[0];
+			perCurrencyTotalPrice.set(currency, (perCurrencyTotalPrice.get(currency) ?? 0) + price);
 		});
 
-		const priceForm = this.currencyPipe.transform(
-			totalPrice,
-			currency,
-			'symbol-narrow',
-			'1.0-2',
-		);
-		if (!priceForm) {
-			return '-';
-		}
-		return `${priceForm}`;
+		const result: string[] = [];
+
+		perCurrencyTotalPrice.forEach((totalPrice, currency) => {
+
+			if (!totalPrice) {
+				return;
+			}
+
+			const priceForm = this.currencyPipe.transform(
+				totalPrice,
+				currency,
+				'symbol-narrow',
+				'1.0-2',
+			);
+			if (priceForm) {
+				result.push(priceForm);
+			}
+		});
+
+		return result.join(' + ');
 	}
 
 }

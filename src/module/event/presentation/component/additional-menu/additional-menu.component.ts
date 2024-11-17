@@ -88,7 +88,7 @@ enum SegmentEnum {
 					<app-select-service-list-component class="flex-1" #selectServiceListComponent/>
 
 					<div
-						class="flex gap-2 items-center justify-between w-full">
+						class="flex flex-col gap-2 items-center justify-between w-full">
 						<div class="rounded-full p-3 bg-white min-h-[46px] flex items-center">
 							<ul class="leading-tight flex gap-2">
 								<li class="flex gap-1"><span>{{ selectServiceListComponent.selectedServices.length }}</span><i
