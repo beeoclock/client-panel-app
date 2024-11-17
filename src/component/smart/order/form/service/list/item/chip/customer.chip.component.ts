@@ -43,7 +43,7 @@ import {
 	template: `
 		<button
 			[id]="'customer-trigger-' + id"
-			class="px-3 py-2 rounded-lg border border-gray-200 justify-center items-center flex">
+			class="px-3 py-2 rounded-xl border border-gray-200 justify-center items-center flex w-full">
 			<div class="text-slate-900 text-sm font-normal">
 				👤
 				@switch (customerForm.value.customerType) {

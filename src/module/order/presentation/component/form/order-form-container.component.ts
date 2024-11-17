@@ -39,6 +39,9 @@ import {
 import {FormsModule} from "@angular/forms";
 import {lastValueFrom} from "rxjs";
 import {PaymentActions} from "@module/payment/state/payment/payment.actions";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
+import {AdditionalMenuComponent} from "@event/presentation/component/additional-menu/additional-menu.component";
 
 @Component({
 	selector: 'app-order-form-container',
@@ -92,6 +95,8 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	public readonly setupPartialData = input<{
 		defaultAppointmentStartDateTimeIso?: string;
 		defaultMemberForService?: RIMember;
+		serviceList?: IServiceDto[];
+		customer?: ICustomer;
 	}>({});
 	public readonly orderDto = input<Partial<IOrderDto>>({});
 	public readonly paymentDto = input<Partial<IPaymentDto>>({});
@@ -114,6 +119,8 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 
 	private readonly createOrderApiAdapter = inject(CreateOrderApiAdapter);
 	private readonly createPaymentApiAdapter = inject(CreatePaymentApiAdapter);
+
+	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 
 	public readonly availableCustomersInForm = signal<{ [key: string]: ICustomer }>({});
 
@@ -151,8 +158,12 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 
 	public async save(): Promise<void> {
 		this.form.markAllAsTouched();
-		if (this.form.valid) await this.finishSave();
-		if (this.form.invalid) this.ngxLogger.error('Form is invalid', this.form);
+		if (this.form.invalid) {
+			this.ngxLogger.error('Form is invalid', this.form)
+			return;
+		}
+		await this.finishSave();
+		this.whacAMaleProvider.destroyComponent(AdditionalMenuComponent);
 	}
 
 	/**

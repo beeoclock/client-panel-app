@@ -933,6 +933,7 @@
 	},
 	"keyword": {
 		"capitalize": {
+			"absence": "Fravær",
 			"accept": "Accepter",
 			"account": "Konto",
 			"action": "Handling",
@@ -1036,6 +1037,7 @@
 			"notification": "Notifikation",
 			"openTimePicker": "Vælg",
 			"order": "Rækkefølge",
+			"ordering": "Bestilling",
 			"ownOptionOfTime": "Time efter eget ønske",
 			"ownOptionOfTimeHint": "Vælg denne mulighed, hvis du ønsker selv at bestemme tidspunktet for begivenheden, uanset andre planlagte begivenheder på det tidspunkt.",
 			"payer": "Udbetaler",
