@@ -29,7 +29,7 @@ export class SelectedMemberAdditionalMenuComponent {
 
     @HostBinding()
     public get class() {
-        return 'bg-white border border-beeColor-300 flex flex-col p-2 rounded-lg';
+        return 'bg-white border border-beeColor-300 flex flex-col p-2 rounded-xl';
     }
 
 }
