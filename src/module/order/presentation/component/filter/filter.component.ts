@@ -9,7 +9,6 @@ import {BaseFilterComponent} from "@utility/base.filter.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
 import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
-import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {OrderActions} from "@order/state/order/order.actions";
 import {OrderState} from "@order/state/order/order.state";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
@@ -30,14 +29,12 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 		AsyncPipe,
 		NgIf,
 		NgTemplateOutlet,
-		AutoRefreshComponent,
 		ReactiveFormsModule
 	],
 	template: `
 		<utility-default-panel-component>
 			<div *ngIf="isNotMobile$ | async" class="flex overflow-x-auto gap-2">
 				<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
-				<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
 				<ng-container *ngTemplateOutlet="SelectOrderStatus"></ng-container>
 			</div>
 			<div *ngIf="isMobile$ | async" class="flex gap-4 justify-between w-full">
@@ -49,16 +46,11 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 <!--			</div>-->
 		</utility-default-panel-component>
 		<div *ngIf="isMobile$ | async" class="flex overflow-x-auto gap-2 my-2 px-2">
-			<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
 			<ng-container *ngTemplateOutlet="SelectOrderStatus"></ng-container>
 		</div>
 
 		<ng-template #SearchInput>
 			<utility-search-input-component [formControl]="form.controls.phrase"/>
-		</ng-template>
-
-		<ng-template #AutoRefresh>
-			<utility-auto-refresh-component id="order-filter-auto-refresh" (emitter)="forceRefresh()"/>
 		</ng-template>
 
 		<ng-template #SelectOrderStatus>

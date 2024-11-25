@@ -1,15 +1,24 @@
-import {State, Action, StateContext, Selector} from '@ngxs/store';
-import {Injectable} from '@angular/core';
+import {Action, Selector, State, StateContext, Store} from '@ngxs/store';
+import {inject, Injectable} from '@angular/core';
 import {Socket, SocketIoConfig} from 'ngx-socket-io';
 import {tap} from 'rxjs/operators';
 import {SocketActions} from "@utility/state/socket/socket.actions";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 import {merge} from "rxjs";
+import {OrderActions} from "@order/state/order/order.actions";
 
 export interface SocketStateModel {
 	connected: boolean;
 	messages: SocketMessages
+}
+
+export enum SocketEventTypes {
+	OrderCreated = 'order-created',
+	OrderUpdated = 'order-updated',
+	OrderCancelled = 'order-cancelled',
+	OrderRequested = 'order-requested',
+	OrderPaid = 'order-paid',
 }
 
 export type SocketMessages = Array<IOrderDto>;
@@ -24,6 +33,7 @@ export type SocketMessages = Array<IOrderDto>;
 @Injectable()
 export class SocketState {
 	private socket: Socket | undefined;
+	private store: Store = inject(Store);
 
 	@Selector()
 	static isConnected(state: SocketStateModel): boolean {
@@ -53,10 +63,29 @@ export class SocketState {
 				ctx.patchState({connected: true});
 			})
 		).subscribe();
-		const events$ = [this.socket.fromEvent('order-created'), this.socket.fromEvent('order-updated'), this.socket.fromEvent('order-cancelled')];
+
+		const handleEventTypes = [
+			SocketEventTypes.OrderCreated,
+			SocketEventTypes.OrderUpdated,
+			SocketEventTypes.OrderCancelled,
+			SocketEventTypes.OrderRequested,
+			SocketEventTypes.OrderPaid,
+		];
+		const {socket} = this;
+		const events$ = handleEventTypes.map(event => socket.fromEvent(event));
 		merge(...events$).pipe(tap((message: unknown) => {
 			ctx.dispatch(new SocketActions.SocketMessageReceived(message));
-			ctx.dispatch(new CalendarWithSpecialistsAction.GetItems())
+			const url = this.store.selectSnapshot<string>((state) => state.router.state.url);
+			const isCalendarActive = url.includes('calendar-with-specialists');
+			if (isCalendarActive) {
+				ctx.dispatch(new CalendarWithSpecialistsAction.GetItems());
+				return;
+			}
+			const isOrderListActive = url.includes('order/list');
+			if (isOrderListActive) {
+				ctx.dispatch(new OrderActions.GetList());
+				return;
+			}
 		})).subscribe()
 
 		this.socket.fromEvent('disconnect').pipe(
