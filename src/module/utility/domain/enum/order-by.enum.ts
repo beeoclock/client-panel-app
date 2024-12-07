@@ -1,5 +1,6 @@
 export enum OrderByEnum {
-  UPDATED_AT = 'updatedAt',
-  CREATED_AT = 'createdAt',
+	UPDATED_AT = 'updatedAt',
+	CREATED_AT = 'createdAt',
 	START = 'start',
+	ORDER = 'order',
 }

@@ -3,6 +3,8 @@ import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {RIMember} from "@member/domain";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
+import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {ICustomer} from "@customer/domain";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace OrderActions {
@@ -52,6 +54,8 @@ export namespace OrderActions {
 		setupPartialData?: {
 			defaultAppointmentStartDateTimeIso?: string;
 			defaultMemberForService?: RIMember;
+			serviceList?: IServiceDto[];
+			customer?: ICustomer;
 		};
 	}> {
 		public static override readonly type = '[Order Application] Open Form';

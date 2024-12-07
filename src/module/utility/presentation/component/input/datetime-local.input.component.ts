@@ -22,10 +22,8 @@ import {DateTime} from "luxon";
 	template: `
 		<form-input
 			[id]="id"
-			[showLabel]="showLabel"
 			[label]="label"
 			[control]="localControl"
-			[additionalClassList]="additionalClassList"
 			placeholder="00.00.000 00:00:00"
 			inputType="datetime-local">
 			<ng-content/>
@@ -44,15 +42,6 @@ export class DatetimeLocalInputComponent extends Reactive implements OnInit {
 
 	@Input()
 	public id = '';
-
-	@Input()
-	public customClassList: string = '';
-
-	@Input()
-	public additionalClassList: string = '';
-
-	@Input()
-	public showLabel = true;
 
 	private readonly ngxLogger = inject(NGXLogger);
 

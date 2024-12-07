@@ -542,6 +542,7 @@
 				"plural": {
 					"accepted": "Accepted",
 					"cancelled": "Canceled",
+					"deleted": "Deleted",
 					"done": "Done",
 					"inProgress": "In progress",
 					"rejected": "Rejected",
@@ -587,6 +588,7 @@
 			"email": "Invalid E-mail format",
 			"emailOrPhoneRequired": "E-mail or phone number is required",
 			"imageSize": "Maximum image size is {{max}}, current size is {{value}}",
+			"invalid": "Invalid",
 			"mask": "Invalid format, correct format is {{requiredMask}}",
 			"minlength": "Minimum length is {{requiredLength}}",
 			"pattern": "A username can contain only letters, numbers, an underscore (_), and a dot (.)",
@@ -921,12 +923,17 @@
 				"label": "Registration"
 			},
 			"hint": {
+				"mainText": "Tools tailored to your individual needs",
+				"quote": "Work with the best specialists! \t\t\t\t\t\t\t\t\t\tBee&nbsp;O'clock stands for speed, professionalism and reliability.",
+				"subBainText": "Register an account in just a few seconds and start using all the \t\t\t\t\t\t\t\t\tof Bee O'clock's features. We focus on getting you results \t\t\t\t\t\t\t\t\tas quickly as possible.",
+				"successfulInCurrentYear": "Your success is our mission in {{currentYear}}",
 				"youHaveAnAccount": "You have an account?"
 			}
 		}
 	},
 	"keyword": {
 		"capitalize": {
+			"absence": "Absence",
 			"accept": "Accept",
 			"account": "Account",
 			"action": "Action",
@@ -979,6 +986,7 @@
 			"create": "Create",
 			"createdAt": "Created at",
 			"customer": "Customer",
+			"customerNote": "Note from client",
 			"customers": "customers",
 			"dataNotFound": "Data not found",
 			"dateAndTime": "Date and time",
@@ -1029,6 +1037,7 @@
 			"notification": "Notification",
 			"openTimePicker": "Select",
 			"order": "Order",
+			"ordering": "Ordering",
 			"ownOptionOfTime": "Hour according to your wish",
 			"ownOptionOfTimeHint": "Choose this option if you want to determine the time of the event yourself, regardless of other events scheduled for that time.",
 			"payer": "Payer",
@@ -1083,6 +1092,7 @@
 			"specialists": "Specialists",
 			"start": "Start",
 			"status": "Status",
+			"statuses": "Statuses",
 			"streetAddressLineOne": "Address 1",
 			"streetAddressLineTwo": "Address 2",
 			"successfully": "Successfully",
@@ -1094,6 +1104,7 @@
 			"today": "Today",
 			"tomorrow": "Tomorrow",
 			"total": "Total",
+			"tryDemoProfile": "Try demo profile",
 			"unknown": "Unknown",
 			"update": "Updated",
 			"updatedAt": "Updated at",
@@ -1483,7 +1494,9 @@
 	},
 	"statistic": {
 		"global": {
+			"averageBill": "Average bill",
 			"numberOfSales": "Number of sales",
+			"numberOfServicesProvided": "Number of services provided",
 			"revenue": "Revenue",
 			"topService": "The most popular service"
 		}

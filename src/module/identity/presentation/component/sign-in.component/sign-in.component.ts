@@ -26,6 +26,7 @@ import {PrimaryButtonDirective} from "@utility/presentation/directives/button/pr
 import {ToastController} from "@ionic/angular";
 import {NGXLogger} from "ngx-logger";
 import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
+import {is} from "@utility/checker";
 
 @Component({
 	selector: 'identity-sign-in-component',
@@ -129,43 +130,49 @@ export class SignInComponent implements OnInit {
 			this.form.markAsPending();
 
 			const {email, password} = this.form.value;
-			if (email && password) {
-
-				try {
-
-					const {user} = await signInWithEmailAndPassword(this.auth, email, password);
-					const token = await user.getIdTokenResult();
-					await firstValueFrom(this.store.dispatch(new IdentityActions.Token(token)));
-					if (user.emailVerified) {
-						await this.router.navigate(['/', 'identity', 'corridor']);
-					} else {
-						await this.router.navigate(['/', 'identity', 'confirm-email']);
-					}
-
-				} catch (error) {
-
-					const toast = await this.toastController.create({
-						header: 'Error',
-						message: 'Check your credentials',
-						color: 'danger',
-						position: 'top',
-						duration: MS_THREE_SECONDS,
-						buttons: [
-							{
-								text: this.translateService.instant('keyword.capitalize.close'),
-								role: 'cancel',
-							},
-						],
-					});
-					await toast.present().then();
-
-				}
-
-			}
+			await this.doSignIn(email, password);
 
 		}
 
 		this.enableAndUpdateForm();
+
+	}
+
+	public async doSignIn(email: string | unknown | null, password: string | unknown | null) {
+
+		if (!is.string(email) || !is.string(password)) {
+			return;
+		}
+
+		try {
+
+			const {user} = await signInWithEmailAndPassword(this.auth, email, password);
+			const token = await user.getIdTokenResult();
+			await firstValueFrom(this.store.dispatch(new IdentityActions.Token(token)));
+			if (user.emailVerified) {
+				await this.router.navigate(['/', 'identity', 'corridor']);
+			} else {
+				await this.router.navigate(['/', 'identity', 'confirm-email']);
+			}
+
+		} catch (error) {
+
+			const toast = await this.toastController.create({
+				header: 'Error',
+				message: 'Check your credentials',
+				color: 'danger',
+				position: 'top',
+				duration: MS_THREE_SECONDS,
+				buttons: [
+					{
+						text: this.translateService.instant('keyword.capitalize.close'),
+						role: 'cancel',
+					},
+				],
+			});
+			await toast.present().then();
+
+		}
 
 	}
 

@@ -8,10 +8,9 @@ import {ModalComponent} from "@utility/presentation/component/modal/modal.compon
 import {
 	PageLoadingProgressBarComponent
 } from "@utility/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
-import {Select, Store} from "@ngxs/store";
+import {Store} from "@ngxs/store";
 import {IdentityState} from "@identity/state/identity/identity.state";
-import {Observable, tap} from "rxjs";
-import {IdTokenResult} from "@angular/fire/auth";
+import {tap} from "rxjs";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {MemberActions} from "@member/state/member/member.actions";
@@ -34,17 +33,19 @@ import {Reactive} from "@utility/cdk/reactive";
 	selector: 'utility-wrapper-panel-component',
 	standalone: true,
 	template: `
-		<ng-container *ngIf="token$ | async">
+
+		@if (token$ | async) {
 
 			<utility-navbar-component/>
 			<utility-sidebar-component/>
 
-			<div [id]="mainContainerId" class="w-full h-dvh overflow-y-auto sm:ml-64 md:ml-80 transition-all">
+			<div [id]="mainContainerId"
+				 class="w-full h-[calc(100dvh-80px)] md:h-dvh overflow-y-auto sm:ml-64 md:ml-80 transition-all">
 				<utility-page-loading-progress-bar/>
 				<router-outlet/>
 			</div>
 
-		</ng-container>
+		}
 
 		<whac-a-mole/>
 
@@ -72,8 +73,7 @@ export default class WrapperPanelComponent extends Reactive implements AfterView
 	private readonly themeService = inject(ThemeService);
 	private readonly translateService = inject(TranslateService);
 
-	@Select(IdentityState.token)
-	public readonly token$!: Observable<IdTokenResult | undefined>;
+	public readonly token$ = this.store.select(IdentityState.token);
 
 	@HostBinding()
 	public class = 'flex';

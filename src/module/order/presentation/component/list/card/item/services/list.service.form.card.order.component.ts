@@ -5,7 +5,7 @@ import {
 	HostBinding,
 	inject,
 	Input,
-	OnInit,
+	OnChanges,
 	ViewEncapsulation
 } from "@angular/core";
 import {
@@ -42,21 +42,26 @@ import {OrderActions} from "@order/state/order/order.actions";
 		<div class="flex-col justify-start items-start flex">
 			<div class="bg-white flex-col justify-start items-start flex divide-y border border-gray-200 rounded-2xl">
 				@for (item of selectedServicePlusControlList; track item._id; let index = $index) {
-					<app-item-list-v2-service-form-order-component
-						[id]="idPrefix + item._id"
-						(deleteMe)="deleteItem(index)"
-						(saveChanges)="saveChanges(item.control)"
-						[item]="item"
-						[setupPartialData]="item.setupPartialData"/>
+					@if (specificOrderServiceId === null || specificOrderServiceId === item._id) {
+						<app-item-list-v2-service-form-order-component
+							[id]="idPrefix + item._id"
+							(deleteMe)="deleteItem(item._id)"
+							(saveChanges)="saveChanges(item.control)"
+							[item]="item"
+							[setupPartialData]="item.setupPartialData"/>
+					}
 				}
 			</div>
 		</div>
 	`
 })
-export class ListServiceFormCardOrderComponent extends Reactive implements OnInit {
+export class ListServiceFormCardOrderComponent extends Reactive implements OnChanges {
 
 	@Input({required: true})
 	public order!: IOrderDto;
+
+	@Input()
+	public specificOrderServiceId: string | null = null;
 
 	@Input()
 	public idPrefix = '';
@@ -82,7 +87,8 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnIni
 	readonly #changeDetectorRef = inject(ChangeDetectorRef);
 	readonly #alertController = inject(AlertController);
 
-	public ngOnInit() {
+	public ngOnChanges() {
+		this.selectedServicePlusControlList.length = 0;
 		this.order.services.forEach((orderServiceDto) => {
 			this.selectedServicePlusControlList.push({
 				_id: orderServiceDto._id,
@@ -97,8 +103,8 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnIni
 		this.#changeDetectorRef.detectChanges();
 	}
 
-	public async deleteItem(index: number) {
-		this.#ngxLogger.info('deleteItem', index);
+	public async deleteItem(orderServiceId: string) {
+		this.#ngxLogger.info('deleteItem', orderServiceId);
 		const isLastServiceInOrder = this.selectedServicePlusControlList.length === 1;
 		const confirmed = await this.confirmToDelete(isLastServiceInOrder);
 
@@ -106,10 +112,14 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnIni
 			return;
 		}
 
+		const index = this.selectedServicePlusControlList.findIndex(({_id}) => _id === orderServiceId);
 		this.selectedServicePlusControlList.splice(index, 1);
 
-		isLastServiceInOrder && this.deleteOrder();
-		!isLastServiceInOrder && this.deleteServiceOrderAt(index);
+		if (isLastServiceInOrder) {
+			this.deleteOrder();
+		} else {
+			this.deleteServiceOrderAt(orderServiceId);
+		}
 
 		this.#changeDetectorRef.detectChanges();
 
@@ -173,10 +183,10 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnIni
 		return new OrderActions.DeleteItem(this.order._id);
 	}
 
-	protected deleteServiceOrderAt($event: number) {
+	protected deleteServiceOrderAt(orderServiceId: string) {
 		this.saveNewChanges({
 			...this.order,
-			services: this.order.services.filter((_, index) => index !== $event),
+			services: this.order.services.filter(({_id}) => _id !== orderServiceId),
 		});
 	}
 }

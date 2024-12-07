@@ -81,8 +81,12 @@ export class ListOfCardCollectionByDateLayout extends LayoutListComponent<IOrder
 			const currentTableState = changes.tableState.currentValue as ITableState<IOrderDto>;
 
 			// Check if the tableState is not the same as the previous one
-			if (this.previousTableState && this.previousTableState.page === currentTableState.page && this.previousTableState.items.length === currentTableState.items.length) {
+			if (JSON.stringify(this.previousTableState) === JSON.stringify(currentTableState)) {
 				return;
+			}
+
+			if (currentTableState.page === 1) {
+				this.mapOfItems.clear();
 			}
 
 			const {items} = currentTableState;

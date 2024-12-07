@@ -25,7 +25,7 @@ export class SelectedDatetimeAdditionalMenuComponent {
 
     @HostBinding()
     public get class() {
-        return 'border border-beeColor-300 bg-white rounded-lg p-2 flex flex-col';
+        return 'border border-beeColor-300 bg-white rounded-xl p-2 flex flex-col';
     }
 
 }

@@ -542,6 +542,7 @@
 				"plural": {
 					"accepted": "Прийняті",
 					"cancelled": "Скасовані",
+					"deleted": "Видалені",
 					"done": "Виконані",
 					"inProgress": "В процесі",
 					"rejected": "Відхилані",
@@ -587,6 +588,7 @@
 			"email": "Неправильний формат E-mail",
 			"emailOrPhoneRequired": "Введи номер телефону або E-mail",
 			"imageSize": "Максимальний розмір зображення – {{max}}, поточний розмір – {{value}}",
+			"invalid": "Неправильний",
 			"mask": "Неправильний формат, правильний формат - {{requiredMask}}",
 			"minlength": "Мінімальна довжина - {{requiredLength}}",
 			"required": "Обов'язкове поле",
@@ -921,12 +923,17 @@
 				"label": "Реєстрація"
 			},
 			"hint": {
+				"mainText": "Інструменти, адаптовані під ваші індивідуальні потреби",
+				"quote": "Працюйте з найкращими фахівцями! \t\t\t\t\t\t\t\t\t\tBee&nbsp;O'clock — це швидкість, професіоналізм та надійність.",
+				"subBainText": "Зареєструйте обліковий запис всього за кілька секунд та почніть використовувати всі \t\t\t\t\t\t\t\t\tможливості Bee O'clock. Ми фокусуємось на тому, щоб Ви отримували результат \t\t\t\t\t\t\t\t\tякнайшвидше.",
+				"successfulInCurrentYear": "Ваш успіх — наша місія у {{currentYear}} році",
 				"youHaveAnAccount": "Вже зареєстровані?"
 			}
 		}
 	},
 	"keyword": {
 		"capitalize": {
+			"absence": "Відсутність",
 			"accept": "Прийняти",
 			"account": "Профіль",
 			"action": "Дія",
@@ -979,6 +986,7 @@
 			"create": "Створити",
 			"createdAt": "Створено",
 			"customer": "Клієнт",
+			"customerNote": "Примітка від клієнта",
 			"customers": "Клієнти",
 			"dataNotFound": "Дані не знайдені",
 			"dateAndTime": "Дата та час",
@@ -1029,6 +1037,7 @@
 			"notification": "Повідомлення",
 			"openTimePicker": "Вибрати",
 			"order": "Послідовність",
+			"ordering": "Замовлення",
 			"ownOptionOfTime": "Година за твоїм бажанням",
 			"ownOptionOfTimeHint": "Оберіть цю опцію, якщо хочеш визначити час події самостійно, незалежно від інших подій, запланованих на цей час.",
 			"payer": "Платник",
@@ -1083,6 +1092,7 @@
 			"specialists": "Спеціалісти",
 			"start": "Початок",
 			"status": "Статус",
+			"statuses": "Статуси",
 			"streetAddressLineOne": "Адреса 1",
 			"streetAddressLineTwo": "Адреса 2",
 			"successfully": "Успішно",
@@ -1094,6 +1104,7 @@
 			"today": "Сьогодні",
 			"tomorrow": "Завтра",
 			"total": "Всього",
+			"tryDemoProfile": "Спробувати демо-профіль",
 			"unknown": "Невідомо",
 			"update": "Оновити",
 			"updatedAt": "Оновлено",
@@ -1483,7 +1494,9 @@
 	},
 	"statistic": {
 		"global": {
+			"averageBill": "Середній чек",
 			"numberOfSales": "Кількість продажів",
+			"numberOfServicesProvided": "Кількість наданих послуг",
 			"revenue": "Виручка",
 			"topService": "Найпопулярніша послуга"
 		}

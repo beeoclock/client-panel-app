@@ -11,7 +11,6 @@ import {
 } from "@angular/core";
 import {RIMember} from "@member/domain";
 import {firstValueFrom} from "rxjs";
-import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 import {AdditionalMenuComponent} from "@event/presentation/component/additional-menu/additional-menu.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
@@ -89,16 +88,24 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 
 		const callback = () => {
 			this.ngxLogger.debug('Callback');
-			this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
 		};
 
-		const datetimeISO = selectedDate
-			.startOf('day')
+		const baseDateTime = selectedDate
+			.startOf('day');
+
+		let startDateTime = baseDateTime
 			.plus({
 				minutes: this.startInMinutes,
-			})
-			.toJSDate()
-			.toISOString();
+			});
+
+		if (startDateTime.offset !== baseDateTime.offset) {
+
+			const offsetDifference = baseDateTime.offset - startDateTime.offset;
+			startDateTime = startDateTime.plus({hours: offsetDifference / 60});
+
+		}
+
+		const datetimeISO = startDateTime.toJSDate().toISOString();
 
 		await this.whacAMaleProvider.buildItAsync({
 			component: AdditionalMenuComponent,

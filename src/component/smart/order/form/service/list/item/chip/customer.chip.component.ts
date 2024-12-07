@@ -9,7 +9,6 @@ import {
 	ViewChild
 } from "@angular/core";
 import {IonPopover} from "@ionic/angular/standalone";
-import {NgSwitch, NgSwitchCase} from "@angular/common";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 import {
 	CustomerTypeCustomerComponent
@@ -36,40 +35,37 @@ import {
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		NgSwitch,
 		IonPopover,
 		CustomerTypeCustomerComponent,
 		TranslateModule,
-		NgSwitchCase,
 		CustomerListIonicComponent
 	],
 	template: `
 		<button
 			[id]="'customer-trigger-' + id"
-			class="px-3 py-2 rounded-lg border border-gray-200 justify-center items-center flex">
+			class="px-3 py-2 rounded-xl border border-gray-200 justify-center items-center flex w-full">
 			<div class="text-slate-900 text-sm font-normal">
 				👤
-				<ng-container [ngSwitch]="customerForm.value.customerType">
-					<ng-container *ngSwitchCase="customerTypeEnum.unregistered">
+				@switch (customerForm.value.customerType) {
+					@case (customerTypeEnum.unregistered) {
 						{{ customerForm.value.firstName }}
-					</ng-container>
-					<ng-container *ngSwitchCase="customerTypeEnum.regular">
+					}
+					@case (customerTypeEnum.regular) {
 						{{ customerForm.value.firstName }} 📇
-					</ng-container>
-					<ng-container *ngSwitchCase="customerTypeEnum.new">
+					}
+					@case (customerTypeEnum.new) {
 						{{ customerForm.value.firstName }} 🆕
-					</ng-container>
-					<ng-container *ngSwitchCase="customerTypeEnum.anonymous">
+					}
+					@case (customerTypeEnum.anonymous) {
 						{{ 'keyword.capitalize.anonymous' | translate }}
-					</ng-container>
-				</ng-container>
+					}
+				}
 			</div>
 
 		</button>
 		<ion-popover #customerPopover
 					 [trigger]="'customer-trigger-' + id"
-					 [keepContentsMounted]="true"
-					 [backdropDismiss]="false">
+					 [keepContentsMounted]="true">
 			<ng-template>
 				<app-customer-list-ionic-component
 					[id]="'customer-list-ionic-' + id"

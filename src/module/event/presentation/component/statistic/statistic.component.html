@@ -4,108 +4,168 @@
 </utility-default-panel-component>
 <div class="flex flex-wrap gap-4 p-4">
 
+	@if (baseCurrency$ | async; as baseCurrency) {
 
-	<div class="flex flex-col gap-4" *ngIf="clientItem">
-		<div class="flex gap-2">
-			<h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">
-				{{ clientItem.name }}
-			</h5>
-			<div class="text-neutral-600">
-				{{ periodTitle }}
-			</div>
-		</div>
-		<div *ngIf="!(loader$ | async)" class="flex flex-wrap gap-4">
-			<div class="gap-2 min-w-[200px] rounded-lg border bg-white p-4 flex flex-col justify-between">
-				<div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-2xl">
-					💰
-				</div>
-				<div class="text-2xl font-bold" [class.text-green-600]="summary.amount > 0">
-					{{ summary.amount | currency: summary.currency : 'symbol-narrow' }}
-				</div>
-				<div class="text-neutral-600">
-					{{ 'statistic.global.revenue' | translate }}
-				</div>
-			</div>
-			<div class="gap-2 min-w-[200px] rounded-lg border bg-white p-4 flex flex-col justify-between">
-				<div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-2xl">
-					🛒
-				</div>
-				<div class="text-2xl font-bold" [class.text-green-600]="summary.count > 0">
-					{{ summary.count }}
-				</div>
-				<div class="text-neutral-600">
-					{{ 'statistic.global.numberOfSales' | translate }}
-				</div>
-			</div>
-			<div class="gap-2 min-w-[200px] rounded-lg border bg-white p-4 flex flex-col justify-between">
-				<div class="flex gap-2 justify-between items-center">
+		@if (calculatedStatistic$ | async; as calculatedStatistic) {
+
+			@if (clientItem) {
+
+				<div class="flex flex-col gap-4">
 					<div class="flex gap-2">
-						<div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-2xl">
-							🏆
-						</div>
-						<div class="font-bold text-2xl">
-							x {{ summary.topService.count }}
+						<h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">
+							{{ clientItem.name }}
+						</h5>
+						<div class="text-neutral-600">
+							{{ periodTitle }}
 						</div>
 					</div>
-					<div class="text-neutral-600">
-						%{{ summary.topService.count / summary.count * 100 | number: '1.0-0' }}
+
+					@if (loader$ | async) {
+
+						<utility-loader/>
+
+					} @else {
+
+						<div class="flex flex-wrap gap-4">
+							<div
+								class="gap-2 min-w-[200px] rounded-lg border bg-white p-4 flex flex-col justify-between">
+								<div
+									class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-2xl">
+									💰
+								</div>
+								<div class="text-2xl font-bold"
+									 [class.text-green-600]="calculatedStatistic.summary.total.revenue.recordByOrderServiceStatus.done > 0">
+									{{ calculatedStatistic.summary.total.revenue.recordByOrderServiceStatus.done | currency: baseCurrency : 'symbol-narrow' }}
+								</div>
+								<div class="text-neutral-600">
+									{{ 'statistic.global.revenue' | translate }}
+								</div>
+							</div>
+							<div
+								class="gap-2 min-w-[200px] rounded-lg border bg-white p-4 flex flex-col justify-between">
+								<div
+									class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-2xl">
+									💇
+								</div>
+								<div class="text-2xl font-bold"
+									 [class.text-green-600]="calculatedStatistic.summary.total.orderServiceRecordByStatus.done > 0">
+									{{ calculatedStatistic.summary.total.orderServiceRecordByStatus.done }}
+								</div>
+								<div class="text-neutral-600">
+									{{ 'statistic.global.numberOfServicesProvided' | translate }}
+								</div>
+							</div>
+							@if (calculatedStatistic.summary.rating.sort.service.by.status.done[0]; as firstTop) {
+								<div
+									class="gap-2 min-w-[200px] rounded-lg border bg-white p-4 flex flex-col justify-between">
+									<div class="flex gap-2 justify-between items-center">
+										<div class="flex gap-2">
+											<div
+												class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-2xl">
+												🏆
+											</div>
+											<div class="font-bold text-2xl">
+												x {{ firstTop.count ?? 0 }}
+											</div>
+										</div>
+										<div class="text-neutral-600">
+											%{{ firstTop.percentage ?? 0 | number: '1.0-0' }}
+										</div>
+									</div>
+									<div class="font-bold truncate max-w-[200px]">
+										{{ firstTop.service?.languageVersions?.[0]?.title }}
+									</div>
+									<div class="text-neutral-600">
+										{{ 'statistic.global.topService' | translate }}
+									</div>
+								</div>
+							}
+							@if (calculatedStatistic.summary.total.orderRecordByStatus.done > 0) {
+								<div
+									class="gap-2 min-w-[200px] rounded-lg border bg-white p-4 flex flex-col justify-between">
+									<div
+										class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-2xl">
+										🛒
+									</div>
+									<div class="text-2xl font-bold text-green-600">
+										{{ calculatedStatistic.summary.total.orderRecordByStatus.done }}
+									</div>
+									<div class="text-neutral-600">
+										{{ 'statistic.global.numberOfSales' | translate }}
+									</div>
+								</div>
+							}
+							@if (calculatedStatistic.summary.average.billRecordByOrderStatus.done > 0) {
+								<div
+									class="gap-2 min-w-[200px] rounded-lg border bg-white p-4 flex flex-col justify-between">
+									<div
+										class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-2xl">
+										📈
+									</div>
+									<div class="text-2xl font-bold text-green-600">
+										{{ calculatedStatistic.summary.average.billRecordByOrderStatus.done | currency: baseCurrency : 'symbol-narrow' }}
+									</div>
+									<div class="text-neutral-600">
+										{{ 'statistic.global.averageBill' | translate }}
+									</div>
+								</div>
+							}
+
+						</div>
+					}
+				</div>
+			}
+
+			<hr class="w-full">
+
+			@for (specialistRecord of calculatedStatistic.specialistRecordById | keyvalue; track specialistRecord.key) {
+
+				<div
+					class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+					<div class="flex items-center justify-between mb-4">
+						<h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">
+							{{ specialistRecord.value.specialist.member.lastName }}
+							{{ specialistRecord.value.specialist.member.firstName }}
+						</h5>
+					</div>
+					<div class="grid gap-4 md:grid-cols-2 bg-white dark:bg-gray-800">
+
+						@if (loader$ | async) {
+
+							<utility-loader/>
+
+						} @else {
+
+							<div
+								class="gap-2 min-w-[200px] rounded-lg border bg-white p-4 flex flex-col justify-between">
+								<div
+									class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-2xl">
+									💰
+								</div>
+								<div class="text-2xl font-bold"
+									 [class.text-green-600]="specialistRecord.value.total.revenue.recordByOrderServiceStatus.done > 0">
+									{{ specialistRecord.value.total.revenue.recordByOrderServiceStatus.done | currency: baseCurrency : 'symbol-narrow' }}
+								</div>
+							</div>
+							<div
+								class="gap-2 min-w-[200px] rounded-lg border bg-white p-4 flex flex-col justify-between">
+								<div
+									class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-2xl">
+									🛒
+								</div>
+								<div class="text-2xl font-bold"
+									 [class.text-green-600]="specialistRecord.value.total.orderRecordByStatus.done > 0">
+									{{ specialistRecord.value.total.orderRecordByStatus.done }}
+								</div>
+							</div>
+
+						}
 					</div>
 				</div>
-				<div class="font-bold truncate max-w-[200px]">
-					{{ summary.topService.service?.serviceSnapshot?.languageVersions?.[0]?.title }}
-				</div>
-				<div class="text-neutral-600">
-					{{ 'statistic.global.topService' | translate }}
-				</div>
-			</div>
-		</div>
-		<utility-loader *ngIf="loader$ | async"/>
-	</div>
 
-	<hr class="w-full">
+			}
 
-	<ng-container *ngFor="let statisticPerMember of (statisticPerMember$ | async)">
+		}
 
-		<div
-			class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-			<div class="flex items-center justify-between mb-4">
-				<h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">
-					{{ statisticPerMember.member.lastName }}
-					{{ statisticPerMember.member.firstName }}
-				</h5>
-			</div>
-			<div class="grid gap-4 md:grid-cols-2 bg-white dark:bg-gray-800">
-				<!--				<figure *ngFor="let success of statisticPerMember.services.success" class="flex flex-col items-center justify-center p-8 text-center bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">-->
-				<!--					<blockquote class="max-w-2xl mx-auto text-gray-500 dark:text-gray-400">-->
-				<!--						<h3 *ngIf="!(loader$ | async)" class="text-lg font-semibold" [class.text-green-600]="success.count">-->
-				<!--							{{ success.amount | currency: success.currency : 'symbol-narrow' }} / {{ success.count }}-->
-				<!--						</h3>-->
-				<!--						<utility-loader *ngIf="loader$ | async"/>-->
-				<!--					</blockquote>-->
-				<!--				</figure>-->
-				<ng-container *ngIf="!(loader$ | async)">
-					<div class="gap-2 min-w-[200px] rounded-lg border bg-white p-4 flex flex-col justify-between">
-						<div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-2xl">
-							💰
-						</div>
-						<div class="text-2xl font-bold"
-							 [class.text-green-600]="statisticPerMember.services.success.amount > 0">
-							{{ statisticPerMember.services.success.amount | currency: statisticPerMember.services.success.currency : 'symbol-narrow' }}
-						</div>
-					</div>
-					<div class="gap-2 min-w-[200px] rounded-lg border bg-white p-4 flex flex-col justify-between">
-						<div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-2xl">
-							🛒
-						</div>
-						<div class="text-2xl font-bold"
-							 [class.text-green-600]="statisticPerMember.services.success.count > 0">
-							{{ statisticPerMember.services.success.count }}
-						</div>
-					</div>
-				</ng-container>
-				<utility-loader *ngIf="loader$ | async"/>
-			</div>
-		</div>
-
-	</ng-container>
+	}
 </div>

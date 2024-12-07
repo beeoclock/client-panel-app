@@ -1,5 +1,5 @@
-import {Component, HostBinding, inject, Input, OnInit} from "@angular/core";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {AsyncPipe} from "@angular/common";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {GeneralDetailsComponent} from "@event/presentation/component/details/general.details.component";
 import {MetaDetailsComponent} from "@event/presentation/component/details/meta.details.component";
@@ -17,36 +17,47 @@ import {OrderActions} from "@order/state/order/order.actions";
 import {Reactive} from "@utility/cdk/reactive";
 import {EventActions} from "@event/state/event/event.actions";
 import {NGXLogger} from "ngx-logger";
+import {
+	ItemV2ListServiceFormOrderComponent
+} from "@src/component/smart/order/form/service/list/item/item-v2.list.service.form.order.component";
+import {
+	ListServiceFormCardOrderComponent
+} from "@order/presentation/component/list/card/item/services/list.service.form.card.order.component";
 
 @Component({
 	selector: 'event-container-details-component',
 	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	encapsulation: ViewEncapsulation.None,
 	imports: [
 		AsyncPipe,
 		CardComponent,
 		GeneralDetailsComponent,
 		MetaDetailsComponent,
-		NgIf,
 		LoaderComponent,
 		V2GeneralDetailsComponent,
 		V2ButtonsDetailsComponent,
-		ButtonOpenOrderDetailsComponent
+		ButtonOpenOrderDetailsComponent,
+		ItemV2ListServiceFormOrderComponent,
+		ListServiceFormCardOrderComponent
 	],
 	template: `
-		<ng-container *ngIf="event; else LoadingTemplate">
-
+		@if (event) {
 			<button-open-order-details [order]="event.originalData.order"/>
+
+			<app-list-service-form-card-order-component
+				[idPrefix]="event.originalData.service._id"
+				[order]="event.originalData.order"
+				[specificOrderServiceId]="event.originalData.service._id"/>
+
 			<event-v2-general-details [event]="event"/>
 			<app-event-v2-buttons-details [event]="event"/>
 			<event-meta-details
 				[orderDro]="event.originalData.order"
 				[orderServiceDto]="event.originalData.service"/>
-
-		</ng-container>
-
-		<ng-template #LoadingTemplate>
+		} @else {
 			<utility-loader/>
-		</ng-template>
+		}
 	`
 })
 export class ContainerDetailsComponent extends Reactive implements OnInit {
@@ -62,6 +73,22 @@ export class ContainerDetailsComponent extends Reactive implements OnInit {
 	private readonly ngxLogger = inject(NGXLogger);
 
 	public ngOnInit(): void {
+
+		this.ngxLogger.log('ContainerDetailsComponent:ngOnInit');
+
+		this.actions$
+			.pipe(
+				this.takeUntil(),
+				ofActionSuccessful(
+					OrderActions.UpdateItem,
+				)
+			)
+			.subscribe(({payload: order}) => {
+
+				if (this.event.originalData.order._id !== order._id) {
+					return;
+				}
+			});
 
 		this.actions$
 			.pipe(

@@ -542,6 +542,7 @@
 				"plural": {
 					"accepted": "Zaakceptowane",
 					"cancelled": "Odwołane",
+					"deleted": "Usunięte",
 					"done": "Gotowe",
 					"inProgress": "W trakcie",
 					"rejected": "Odrzucone",
@@ -587,6 +588,7 @@
 			"email": "Nieprawidłowy format adresu e-mail",
 			"emailOrPhoneRequired": "Wymagany jest numer telefonu lub adres e-mail",
 			"imageSize": "Maksymalny rozmiar obrazu to {{max}}, bieżący rozmiar to {{value}}",
+			"invalid": "Nieprawidłowy",
 			"mask": "Nieprawidłowy format, poprawny format to {{requiredMask}}",
 			"minlength": "Minimalna długość to {{requiredLength}}",
 			"required": "Wymagane pole",
@@ -921,12 +923,17 @@
 				"label": "Rejestracja"
 			},
 			"hint": {
+				"mainText": "Narzędzia dostosowane do indywidualnych potrzeb",
+				"quote": "Pracuj z najlepszymi specjalistami! \t\t\t\t\t\t\t\t\t\tBee&nbsp;O'clock to szybkość, profesjonalizm i niezawodność.",
+				"subBainText": "Zarejestruj konto w kilka sekund i zacznij korzystać ze wszystkich funkcji Bee O'clock. \t\t\t\t\t\t\t\t\tfunkcji Bee O'clock. Skupiamy się na uzyskiwaniu wyników \t\t\t\t\t\t\t\t\ttak szybko, jak to możliwe.",
+				"successfulInCurrentYear": "Twój sukces jest naszą misją w {{currentYear}}.",
 				"youHaveAnAccount": "Masz już konto?"
 			}
 		}
 	},
 	"keyword": {
 		"capitalize": {
+			"absence": "Nieobecność",
 			"accept": "Akceptuj",
 			"account": "Konto",
 			"action": "Akcja",
@@ -979,6 +986,7 @@
 			"create": "Utwórz",
 			"createdAt": "Utworzono",
 			"customer": "Klient",
+			"customerNote": "Notatka od klienta",
 			"customers": "Klienty",
 			"dataNotFound": "Nie znaleziono danych",
 			"dateAndTime": "Data i czas",
@@ -1029,6 +1037,7 @@
 			"notification": "Powiadomienia",
 			"openTimePicker": "Wybierz",
 			"order": "Kolejność",
+			"ordering": "Zamawianie",
 			"ownOptionOfTime": "Godzina według Twojego życzenia",
 			"ownOptionOfTimeHint": "Wybierz tę opcję, jeśli chcesz samodzielnie określić czas wydarzenia, niezależnie od innych wydarzeń zaplanowanych na tę godzinę.",
 			"payer": "Płatnik",
@@ -1083,6 +1092,7 @@
 			"specialists": "Specjaliści",
 			"start": "Początek",
 			"status": "Status",
+			"statuses": "Statusy",
 			"streetAddressLineOne": "Adres 1",
 			"streetAddressLineTwo": "Adres 2",
 			"successfully": "Pomyślnie",
@@ -1094,6 +1104,7 @@
 			"today": "Dziś",
 			"tomorrow": "Jutro",
 			"total": "Razem",
+			"tryDemoProfile": "Spróbować profilu demo",
 			"unknown": "Nieznany",
 			"update": "Zaktualizowano",
 			"updatedAt": "Zaktualizowano",
@@ -1483,7 +1494,9 @@
 	},
 	"statistic": {
 		"global": {
+			"averageBill": "Średni rachunek",
 			"numberOfSales": "Liczba sprzedaży",
+			"numberOfServicesProvided": "Liczba świadczonych usług",
 			"revenue": "Utarg",
 			"topService": "Najpopularniejsza usługa"
 		}
