@@ -221,7 +221,7 @@ export const routes: Routes = [
 					{
 						path: 'event',
 						providers: [
-							importProvidersFrom(NgxsModule.forFeature([EventState, OrderState])),
+							importProvidersFrom(NgxsModule.forFeature([EventState, OrderState, DateRangeReportAnalyticState])),
 						],
 						children: [
 							{
