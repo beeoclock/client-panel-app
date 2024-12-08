@@ -2,6 +2,11 @@ import {ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation} f
 import {StatisticComponent} from "@event/presentation/component/statistic/statistic.component";
 import {NGXLogger} from "ngx-logger";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {StatisticV2Component} from "@event/presentation/component/statistic-v2/statistic-v2.component";
+import {Store} from "@ngxs/store";
+import {
+	DateRangeReportAnalyticActions
+} from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.actions";
 
 @Component({
 	selector: 'app-event-statistic-page',
@@ -9,20 +14,24 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
-		StatisticComponent
+		StatisticComponent,
+		StatisticV2Component
 	],
 	template: `
-		<event-statistic-component/>
+		<!--		<event-statistic-component/>-->
+		<event-statistic-v2-component/>
 	`
 })
 export default class StatisticEventPage implements OnInit {
 
 	readonly #ngxLogger = inject(NGXLogger);
 	readonly #analyticsService = inject(AnalyticsService);
+	private readonly store = inject(Store);
 
 	public ngOnInit(): void {
 		this.#ngxLogger.info('StatisticEventPage initialized');
 		this.#analyticsService.logEvent('event_statistic_page_initialized');
+		this.store.dispatch(new DateRangeReportAnalyticActions.GetList());
 	}
 
 }

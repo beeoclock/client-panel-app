@@ -1,0 +1,72 @@
+<utility-default-panel-component>
+	<app-date-slider-control-component
+		[form]="filterStateFormGroup"/>
+</utility-default-panel-component>
+@if (activeMembers$ | async; as activeMembers) {
+
+	@if (baseCurrency$ | async; as baseCurrency) {
+
+		@if (clientItem$ | async; as clientItem) {
+
+			<div class="h-screen bg-white">
+
+				@if (analytic$ | async; as analytic) {
+
+					<div class="flex flex-col w-full divide-y">
+
+						<div class="p-2">
+
+							<app-radio-tailwindcss-component
+								[control]="control"
+								[items]="items"/>
+
+						</div>
+
+						<div>
+
+							@if (clientItem._id === control.value) {
+
+								<div class="p-2 flex flex-wrap gap-2">
+
+									<total-statistic-component [summary]="analytic.summary"/>
+									<counter-statistic-component [counter]="analytic.counter"/>
+
+									<customer-table-statistic-component [customerRecord]="analytic.customerRecord"/>
+
+								</div>
+
+							} @else {
+
+								@if (analytic.specialistRecord[control.value]; as specialist) {
+
+									<div class="p-2 flex flex-wrap gap-2">
+
+										<total-statistic-component [summary]="specialist.summary"/>
+										<counter-statistic-component [counter]="specialist.counter"/>
+
+									</div>
+								}
+
+							}
+
+						</div>
+
+					</div>
+
+				} @else {
+					<utility-loader/>
+				}
+
+			</div>
+
+		} @else {
+			<utility-loader/>
+		}
+
+	} @else {
+		<utility-loader/>
+	}
+
+} @else {
+	<utility-loader/>
+}

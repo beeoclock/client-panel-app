@@ -39,13 +39,13 @@ type T = Analytic.ICustomer | Omit<Analytic.ICustomer, 'specialistRecord'>;
 									id="customer-summary-revenue-total-by-status-done-{{ index }}"
 									[title]="'analytic.summary.income' | translate"
 									class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full dark:bg-teal-500/10 dark:text-teal-500">
-									{{ customer.summary.revenue.total.by.status.done | currency: baseCurrency: 'symbol-narrow' }}
+<!--									{{ customer.summary.revenue.total.by.status.done | currency: baseCurrency: 'symbol-narrow' }}-->
 								</div>
 								<div
 									id="customer-summary-revenue-average-by-status-done-{{ index }}"
 									[title]="'analytic.summary.averageBill' | translate"
 									class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs bg-gray-100 text-gray-800 rounded-md dark:bg-neutral-500/20 dark:text-neutral-400">
-									{{ customer.summary.revenue.average.by.status.done | currency: baseCurrency: 'symbol-narrow' }}
+<!--									{{ customer.summary.revenue.average.by.status.done | currency: baseCurrency: 'symbol-narrow' }}-->
 								</div>
 								<div
 									id="customer-counter-orders-by-status-done-{{ index }}"
@@ -104,7 +104,7 @@ export class CustomerListGroupComponent implements OnChanges {
 			this.customerList.push(this.customerReport[customerId]);
 		});
 		// Sort by revenue
-		this.customerList.sort((a, b) => b.summary.revenue.total.by.status.done - a.summary.revenue.total.by.status.done);
+		// this.customerList.sort((a, b) => b.summary.revenue.total.by.status.done - a.summary.revenue.total.by.status.done);
 	}
 
 }
