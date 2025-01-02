@@ -55,6 +55,9 @@ import {
 import {
 	CounterStatisticComponent,
 } from "@event/presentation/component/statistic-v2/components/table/total/counter.statistic.component";
+import {
+	ExampleDiagramComponent
+} from "@event/presentation/component/statistic-v2/components/diagrams/example/example.diagram.component";
 
 @Component({
 	selector: 'event-statistic-v2-component',
@@ -76,7 +79,8 @@ import {
 		CustomerListGroupComponent,
 		MemberRadioTailwindcssComponent,
 		TotalStatisticComponent,
-		CounterStatisticComponent
+		CounterStatisticComponent,
+		ExampleDiagramComponent
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

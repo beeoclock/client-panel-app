@@ -1,6 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import * as Client from "@client/domain";
+import {INotificationsSettings} from "@client/domain";
 import {ClientActions} from "@client/state/client/client.actions";
 import {AppActions} from "@utility/state/app/app.actions";
 import {
@@ -9,7 +10,6 @@ import {
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
 import {BASE_CURRENCY} from "@src/token";
-import {INotificationsSettings} from "@client/domain";
 
 interface IClientState {
 	item: Client.RIClient | undefined;
@@ -62,6 +62,11 @@ export class ClientState {
 	@Selector()
 	public static schedules(state: IClientState): RISchedule[] | undefined {
 		return state.item?.schedules;
+	}
+
+	@Selector()
+	public static businessName(state: IClientState): string {
+		return state.item?.name ?? '';
 	}
 
 	@Selector()
