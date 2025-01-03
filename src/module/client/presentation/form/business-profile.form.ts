@@ -15,6 +15,7 @@ import {USERNAME_ANGULAR_VALIDATOR} from "@utility/validators";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from 'rxjs';
 import {SendNotificationConditionEnum} from "@utility/domain/enum/send-notification-condition.enum";
+import {PublicPageSettings} from "@client/presentation/form/public-page-settings.form";
 
 
 export interface IBusinessProfile {
@@ -32,6 +33,7 @@ export interface IBusinessProfile {
 
 	socialNetworkLinks: SocialNetworksForm;
 
+	publicPageSettings: PublicPageSettings;
 	bookingSettings: BookingSettingsForm;
 	businessSettings: BusinessSettingsForm;
 	notificationSettings: NotificationSettingsFromGroup;
@@ -70,6 +72,7 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
 			published: new FormControl(),
 			socialNetworkLinks: new SocialNetworksForm(),
 
+			publicPageSettings: new PublicPageSettings(),
 			bookingSettings: new BookingSettingsForm(),
 			businessSettings: new BusinessSettingsForm(),
 			facilities: new FormControl(),

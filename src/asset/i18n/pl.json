@@ -166,6 +166,9 @@
 						"label": "Nazwa firmy",
 						"placeholder": "Wpisz nazwę firmy lub nazwisko"
 					},
+					"primaryColor": {
+						"label": "Główny kolor działalności"
+					},
 					"published": {
 						"label": "Dostęp publiczny"
 					},
