@@ -56,8 +56,11 @@ import {
 	CounterStatisticComponent,
 } from "@event/presentation/component/statistic-v2/components/table/total/counter.statistic.component";
 import {
-	ExampleDiagramComponent
-} from "@event/presentation/component/statistic-v2/components/diagrams/example/example.diagram.component";
+	RevenueSummaryDiagramComponent
+} from "@event/presentation/component/statistic-v2/components/diagrams/revenue-summary/revenue-summary.diagram.component";
+import {
+	TotalRevenueDiagramComponent
+} from "@event/presentation/component/statistic-v2/components/diagrams/total-revenue/total-revenue.diagram.component";
 
 @Component({
 	selector: 'event-statistic-v2-component',
@@ -80,7 +83,8 @@ import {
 		MemberRadioTailwindcssComponent,
 		TotalStatisticComponent,
 		CounterStatisticComponent,
-		ExampleDiagramComponent
+		RevenueSummaryDiagramComponent,
+		TotalRevenueDiagramComponent
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

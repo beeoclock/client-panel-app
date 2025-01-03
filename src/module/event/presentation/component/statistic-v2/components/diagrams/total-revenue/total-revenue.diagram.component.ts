@@ -12,7 +12,6 @@ import {
 	ViewEncapsulation
 } from "@angular/core";
 
-// amCharts imports
 import * as am5 from '@amcharts/amcharts5';
 import {PieChart, PieSeries} from "@amcharts/amcharts5/percent";
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
@@ -29,11 +28,12 @@ import {
 import {IonicModule} from "@ionic/angular";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Reactive} from "@utility/cdk/reactive";
-import {TranslatePipe} from "@ngx-translate/core";
+import {TranslatePipe, TranslateService} from "@ngx-translate/core";
+import {ApplicationEnum} from "@utility/domain/enum/application.enum";
 
 @Component({
 	standalone: true,
-	selector: 'example-diagram',
+	selector: 'total-revenue-diagram',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -42,31 +42,48 @@ import {TranslatePipe} from "@ngx-translate/core";
 
 			<div class="flex gap-2 justify-between items-center max-w-full overflow-auto">
 				<div>
-					Сума по статусу замовлення
+					{{ 'analytic.widget.revenue.summary.by.form.source.label' | translate }}
 				</div>
 				<div class="text-black rounded-2xl bg-white px-3">
-					<ion-select aria-label="Fruit" interface="popover" [formControl]="orderServiceStatusFormControl" placeholder="Select fruit">
+					<ion-select aria-label="Fruit" interface="popover" [formControl]="applicationFormControl"
+								placeholder="Select fruit">
 
-						@for (status of (OrderServiceStatusEnum | keyvalue); track status.key) {
+						<ion-select-option [value]="null">
 
-							<ion-select-option [value]="status.value">
+							{{ 'analytic.widget.revenue.summary.by.form.source.all' | translate }}
 
-								{{ ('event.keyword.status.plural.' + status.value) | translate }}
-								&nbsp;&nbsp;
-								{{ analytic().summary.revenue.total.by.status[status.value][baseCurrency] | currency: baseCurrency: 'symbol-narrow' }}
+						</ion-select-option>
 
-							</ion-select-option>
+						<ion-select-option [value]="ApplicationEnum.panel">
 
-						}
+							{{ 'analytic.widget.revenue.summary.by.form.source.panel' | translate }}
+
+						</ion-select-option>
+
+						<ion-select-option [value]="ApplicationEnum.client">
+
+							{{ 'analytic.widget.revenue.summary.by.form.source.client' | translate }}
+
+						</ion-select-option>
 
 					</ion-select>
 				</div>
 			</div>
-			<div class="text-neutral-400 mb-2">
-				Діаграма кругова презентує суму по статусу замовлення для кожного спеціаліста та відсоток від загальної суми.
+			<div class="rounded-2xl bg-white p-2 flex flex-col gap-2 justify-center max-w-full overflow-auto">
+
+				<ion-segment [formControl]="showMoneyOrCountFormControl">
+					<ion-segment-button [value]="true">
+						<ion-label>{{ 'analytic.widget.revenue.summary.by.form.kind.money' | translate }}</ion-label>
+					</ion-segment-button>
+					<ion-segment-button [value]="false">
+						<ion-label>{{ 'analytic.widget.revenue.summary.by.form.kind.count' | translate }}</ion-label>
+					</ion-segment-button>
+				</ion-segment>
+				<div id="total-revenue-diagram-container" style="width: 480px; height: 240px"></div>
+
 			</div>
-			<div class="rounded-2xl bg-white p-2 flex flex-wrap gap-2 justify-center max-w-full overflow-auto">
-				<div id="chartdiv" style="width: 500px; height: 200px"></div>
+			<div class="text-neutral-400 text-sm">
+				{{ 'analytic.widget.revenue.summary.by.description' | translate }}
 			</div>
 		</div>
 	`,
@@ -82,7 +99,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 		class: 'block max-w-full lg:max-w-lg'
 	}
 })
-export class ExampleDiagramComponent extends Reactive implements AfterViewInit, OnDestroy {
+export class TotalRevenueDiagramComponent extends Reactive implements AfterViewInit, OnDestroy {
 
 	public readonly analytic = input.required<Analytic.I>();
 
@@ -91,15 +108,17 @@ export class ExampleDiagramComponent extends Reactive implements AfterViewInit, 
 	private readonly platformId = inject(PLATFORM_ID);
 	private readonly zone = inject(NgZone);
 	private readonly store = inject(Store);
+	private readonly translateService = inject(TranslateService);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
 	protected readonly baseCurrency = this.store.selectSnapshot(ClientState.baseCurrency) ?? CurrencyCodeEnum.USD;
 
-	protected readonly OrderServiceStatusEnum = OrderServiceStatusEnum;
+	protected readonly ApplicationEnum = ApplicationEnum;
 
-	protected readonly orderServiceStatusFormControl = new FormControl(OrderServiceStatusEnum.done, {
+	protected readonly applicationFormControl = new FormControl<null | ApplicationEnum>(null);
+	protected readonly showMoneyOrCountFormControl = new FormControl<boolean>(true, {
 		nonNullable: true
-	});
+	}); // true - money, false count
 
 	public constructor() {
 		super();
@@ -121,7 +140,13 @@ export class ExampleDiagramComponent extends Reactive implements AfterViewInit, 
 	public ngAfterViewInit() {
 
 		this.buildPieChart();
-		this.orderServiceStatusFormControl.valueChanges.pipe(
+		this.applicationFormControl.valueChanges.pipe(
+			this.takeUntil()
+		).subscribe(() => {
+			this.buildPieChart();
+			this.changeDetectorRef.detectChanges();
+		});
+		this.showMoneyOrCountFormControl.valueChanges.pipe(
 			this.takeUntil()
 		).subscribe(() => {
 			this.buildPieChart();
@@ -136,7 +161,7 @@ export class ExampleDiagramComponent extends Reactive implements AfterViewInit, 
 
 			this.root?.dispose();
 
-			const root = am5.Root.new("chartdiv");
+			const root = am5.Root.new("total-revenue-diagram-container");
 
 			root.setThemes([
 				am5themes_Animated.new(root),
@@ -218,14 +243,42 @@ export class ExampleDiagramComponent extends Reactive implements AfterViewInit, 
 			value: number;
 		}[] = [];
 
-		const orderServiceStatus = this.orderServiceStatusFormControl.value;
+		const application = this.applicationFormControl.value;
+		const moneyOrCount = this.showMoneyOrCountFormControl.value;
 
-		Object.values(analytic.specialistRecord).forEach((specialist) => {
-			data.push({
-				name: specialist.details.firstName + ' ' + specialist.details.lastName,
-				value: specialist.summary.revenue.total.by.status[orderServiceStatus][this.baseCurrency]
+		if (moneyOrCount) {
+
+			let statuses = analytic.summary.revenue.total.by.status;
+
+			if (application) {
+				statuses = analytic.summary.revenue.total.by.source[application];
+			}
+
+			Object.keys(statuses).forEach((status) => {
+				const orderServiceStatus = status as OrderServiceStatusEnum;
+				data.push({
+					name: this.translateService.instant(`event.keyword.status.plural.${orderServiceStatus}`),
+					value: statuses[orderServiceStatus][this.baseCurrency]
+				});
 			});
-		});
+
+		} else {
+
+			let statuses = analytic.counter.orderService.by.status;
+
+			if (application) {
+				statuses = analytic.counter.orderService.by.source[application];
+			}
+
+			Object.keys(statuses).forEach((status) => {
+				const orderServiceStatus = status as OrderServiceStatusEnum;
+				data.push({
+					name: this.translateService.instant(`event.keyword.status.plural.${orderServiceStatus}`),
+					value: statuses[orderServiceStatus]
+				});
+			});
+
+		}
 
 		return data;
 	}

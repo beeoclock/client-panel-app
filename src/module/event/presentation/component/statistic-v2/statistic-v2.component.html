@@ -28,9 +28,9 @@
 
 								<div class="p-2 flex flex-wrap gap-2">
 
-									<example-diagram [analytic]="analytic"/>
+									<revenue-summary-diagram [analytic]="analytic"/>
 
-									<total-statistic-component [summary]="analytic.summary"/>
+									<total-revenue-diagram [analytic]="analytic"/>
 									<counter-statistic-component [counter]="analytic.counter"/>
 
 									<customer-table-statistic-component [customerRecord]="analytic.customerRecord"/>

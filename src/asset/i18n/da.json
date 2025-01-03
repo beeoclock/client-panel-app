@@ -74,6 +74,30 @@
 			"totalOrders": "Samlede ordrer",
 			"totalServiceTime": "Antal leverede tjenester i timer",
 			"uniqueClients": "Unikke kunder"
+		},
+		"widget": {
+			"revenue": {
+				"summary": {
+					"by": {
+						"description": "Grafen viser antallet eller mængden af ordrer fra hver kilde individuelt eller i alt, afhængigt af de indstillinger, du vælger.",
+						"form": {
+							"kind": {
+								"count": "Antal bestilte tjenester",
+								"label": "Type af information",
+								"money": "Penge"
+							},
+							"source": {
+								"all": "Fra alle kilder",
+								"client": "Fra den offentlige side",
+								"label": "Kilder til information",
+								"panel": "Fra panelet"
+							}
+						}
+					},
+					"description": "Cirkeldiagrammet viser beløbet efter ordrestatus for hver specialist og procentdelen af det samlede beløb.",
+					"label": "Beløb efter ordrestatus"
+				}
+			}
 		}
 	},
 	"autoActionOnOrderInSeconds": {

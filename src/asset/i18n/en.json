@@ -74,6 +74,30 @@
 			"totalOrders": "Total orders",
 			"totalServiceTime": "Number of services provided in hours",
 			"uniqueClients": "Unique clients"
+		},
+		"widget": {
+			"revenue": {
+				"summary": {
+					"by": {
+						"description": "The graph shows the number or amount of orders from each source individually or in total, depending on the settings you select.",
+						"form": {
+							"kind": {
+								"count": "Number of services ordered",
+								"label": "Type of information",
+								"money": "Money"
+							},
+							"source": {
+								"all": "From all sources",
+								"client": "From the public page",
+								"label": "Sources of information",
+								"panel": "From the panel"
+							}
+						}
+					},
+					"description": "The pie chart shows the amount by order status for each specialist and the percentage of the total amount.",
+					"label": "Amount by order status"
+				}
+			}
 		}
 	},
 	"autoActionOnOrderInSeconds": {

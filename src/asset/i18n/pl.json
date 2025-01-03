@@ -74,6 +74,30 @@
 			"totalOrders": "Całkowita liczba zamówień",
 			"totalServiceTime": "Ilość świadczonych usług w godzinach",
 			"uniqueClients": "Unikalni klienci"
+		},
+		"widget": {
+			"revenue": {
+				"summary": {
+					"by": {
+						"description": "Wykres pokazuje liczbę lub kwotę zamówień z każdego źródła indywidualnie lub łącznie, w zależności od wybranych ustawień.",
+						"form": {
+							"kind": {
+								"count": "Liczba zamówionych usług",
+								"label": "Rodzaj informacji",
+								"money": "Pieniądze"
+							},
+							"source": {
+								"all": "Ze wszystkich źródeł",
+								"client": "Ze strony publicznej",
+								"label": "Źródła informacji",
+								"panel": "Z panelu"
+							}
+						}
+					},
+					"description": "Wykres kołowy pokazuje kwotę według statusu zamówienia dla każdego specjalisty i procent całkowitej kwoty.",
+					"label": "Kwota według statusu zamówienia"
+				}
+			}
 		}
 	},
 	"autoActionOnOrderInSeconds": {
