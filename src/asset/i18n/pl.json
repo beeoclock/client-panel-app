@@ -97,6 +97,31 @@
 					"description": "Wykres kołowy pokazuje kwotę według statusu zamówienia dla każdego specjalisty i procent całkowitej kwoty.",
 					"label": "Kwota według statusu zamówienia"
 				}
+			},
+			"total": {
+				"counter": {
+					"customers": {
+						"title": "Klienci w okresie"
+					},
+					"description": {
+						"title": "Tutaj można znaleźć informacje o usługach świadczonych w wybranym okresie, ich liczbie i procentowym udziale w łącznej liczbie zamówionych usług."
+					},
+					"order-services": {
+						"title": "Zamówione usługi"
+					},
+					"orders": {
+						"case": {
+							"ordersLessThanOrderServices": {
+								"0": "Wszystkie zamówienia mają nie więcej niż jedną usługę",
+								"1": "Niektóre zamówienia obejmują więcej niż jedną usługę"
+							}
+						},
+						"title": "Zamówienie"
+					},
+					"services": {
+						"title": "Usługi za okres"
+					}
+				}
 			}
 		}
 	},

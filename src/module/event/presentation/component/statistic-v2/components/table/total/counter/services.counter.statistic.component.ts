@@ -12,6 +12,7 @@ import {
 	StatusIconComponent
 } from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.icon.component";
 import {Analytic} from "@module/analytic/internal/store/date-range-report/interface/i.analytic";
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
 	selector: 'services-counter-statistic-component',
@@ -21,10 +22,12 @@ import {Analytic} from "@module/analytic/internal/store/date-range-report/interf
 			<div>
 				<i class="w-6 h-6 ms-1 text-beeColor-500 transition duration-75 dark:text-beeDarkColor-400 group-hover:text-beeColor-900 dark:group-hover:text-white bi bi-emoji-smile"></i>
 			</div>
-			<span class="uppercase">Послуги за період</span>
+			<span class="uppercase">
+				{{ 'analytic.widget.total.counter.services.title' | translate }}
+			</span>
 		</div>
-		<div class="text-sm text-neutral-400">Тут представлена інформацію про послуги які були надані за обраний період
-			та їх кількість і відсоток від загальної кількості замовлених послуг
+		<div class="text-sm text-neutral-400">
+			{{ 'analytic.widget.total.counter.description.title' | translate }}
 		</div>
 		<div class="rounded-2xl bg-white flex justify-center flex-col text-center">
 			<div class="text-2xl font-bold p-2 border-b">{{ analytic().counter.services }}</div>
@@ -79,7 +82,8 @@ import {Analytic} from "@module/analytic/internal/store/date-range-report/interf
 		KeyValuePipe,
 		CurrencyPipe,
 		StatusIconComponent,
-		DecimalPipe
+		DecimalPipe,
+		TranslatePipe
 	],
 	host: {
 		class: 'rounded-2xl bg-neutral-100 p-2 flex flex-col gap-2 w-full lg:max-w-sm h-full'

@@ -97,6 +97,31 @@
 					"description": "The pie chart shows the amount by order status for each specialist and the percentage of the total amount.",
 					"label": "Amount by order status"
 				}
+			},
+			"total": {
+				"counter": {
+					"customers": {
+						"title": "Clients for the period"
+					},
+					"description": {
+						"title": "Here you can find information about the services provided for the selected period, their number and percentage of the total number of ordered services"
+					},
+					"order-services": {
+						"title": "Services ordered"
+					},
+					"orders": {
+						"case": {
+							"ordersLessThanOrderServices": {
+								"0": "All orders have no more than one service",
+								"1": "Some orders have more than one service"
+							}
+						},
+						"title": "Order."
+					},
+					"services": {
+						"title": "Some orders have more than one service"
+					}
+				}
 			}
 		}
 	},

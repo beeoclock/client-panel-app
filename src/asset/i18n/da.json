@@ -97,6 +97,31 @@
 					"description": "Cirkeldiagrammet viser beløbet efter ordrestatus for hver specialist og procentdelen af det samlede beløb.",
 					"label": "Beløb efter ordrestatus"
 				}
+			},
+			"total": {
+				"counter": {
+					"customers": {
+						"title": "Kunder for perioden"
+					},
+					"description": {
+						"title": "Her kan du finde oplysninger om de tjenester, der er leveret i den valgte periode, deres antal og procentdel af det samlede antal bestilte tjenester."
+					},
+					"order-services": {
+						"title": "Bestilte tjenester"
+					},
+					"orders": {
+						"case": {
+							"ordersLessThanOrderServices": {
+								"0": "Alle ordrer har ikke mere end én service",
+								"1": "Nogle ordrer har mere end én service"
+							}
+						},
+						"title": "Bestil"
+					},
+					"services": {
+						"title": "Tjenester for perioden"
+					}
+				}
 			}
 		}
 	},
