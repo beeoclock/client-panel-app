@@ -8,7 +8,7 @@
 
 		@if (clientItem$ | async; as clientItem) {
 
-			<div class="h-screen bg-white">
+			<div class="min-h-screen bg-white">
 
 				@if (analytic$ | async; as analytic) {
 
@@ -28,12 +28,12 @@
 
 								<div class="p-2 flex flex-wrap gap-2">
 
-									<revenue-summary-diagram [analytic]="analytic"/>
-
+									<orders-counter-statistic-component [analytic]="analytic"/>
+									<order-services-counter-statistic-component [analytic]="analytic"/>
+									<customers-counter-statistic-component [analytic]="analytic"/>
+									<services-counter-statistic-component  [analytic]="analytic"/>
 									<total-revenue-diagram [analytic]="analytic"/>
-									<counter-statistic-component [counter]="analytic.counter"/>
-
-									<customer-table-statistic-component [customerRecord]="analytic.customerRecord"/>
+									<revenue-summary-diagram [analytic]="analytic"/>
 
 								</div>
 
@@ -43,8 +43,11 @@
 
 									<div class="p-2 flex flex-wrap gap-2">
 
-										<total-statistic-component [summary]="specialist.summary"/>
-										<counter-statistic-component [counter]="specialist.counter"/>
+										<orders-counter-statistic-component [analytic]="specialist"/>
+										<order-services-counter-statistic-component [analytic]="specialist"/>
+										<customers-counter-statistic-component [analytic]="specialist"/>
+<!--										<services-counter-statistic-component  [analytic]="specialist"/>-->
+										<total-revenue-diagram [analytic]="specialist"/>
 
 									</div>
 								}

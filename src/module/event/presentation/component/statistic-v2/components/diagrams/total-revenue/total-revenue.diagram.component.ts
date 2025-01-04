@@ -101,7 +101,7 @@ import {ApplicationEnum} from "@utility/domain/enum/application.enum";
 })
 export class TotalRevenueDiagramComponent extends Reactive implements AfterViewInit, OnDestroy {
 
-	public readonly analytic = input.required<Analytic.I>();
+	public readonly analytic = input.required<Analytic.I | Analytic.ISpecialist>();
 
 	private root!: am5.Root;
 

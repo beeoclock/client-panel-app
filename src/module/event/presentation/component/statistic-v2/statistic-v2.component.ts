@@ -53,14 +53,23 @@ import {
 	TotalStatisticComponent
 } from "@event/presentation/component/statistic-v2/components/table/total/total.statistic.component";
 import {
-	CounterStatisticComponent,
-} from "@event/presentation/component/statistic-v2/components/table/total/counter.statistic.component";
-import {
 	RevenueSummaryDiagramComponent
 } from "@event/presentation/component/statistic-v2/components/diagrams/revenue-summary/revenue-summary.diagram.component";
 import {
 	TotalRevenueDiagramComponent
 } from "@event/presentation/component/statistic-v2/components/diagrams/total-revenue/total-revenue.diagram.component";
+import {
+	OrdersCounterStatisticComponent
+} from "@event/presentation/component/statistic-v2/components/table/total/counter/orders.counter.statistic.component";
+import {
+	OrderServicesCounterStatisticComponent
+} from "@event/presentation/component/statistic-v2/components/table/total/counter/order-services.counter.statistic.component";
+import {
+	CustomersCounterStatisticComponent
+} from "@event/presentation/component/statistic-v2/components/table/total/counter/customers.counter.statistic.component";
+import {
+	ServicesCounterStatisticComponent
+} from "@event/presentation/component/statistic-v2/components/table/total/counter/services.counter.statistic.component";
 
 @Component({
 	selector: 'event-statistic-v2-component',
@@ -82,8 +91,11 @@ import {
 		CustomerListGroupComponent,
 		MemberRadioTailwindcssComponent,
 		TotalStatisticComponent,
-		CounterStatisticComponent,
 		RevenueSummaryDiagramComponent,
+		OrdersCounterStatisticComponent,
+		OrderServicesCounterStatisticComponent,
+		CustomersCounterStatisticComponent,
+		ServicesCounterStatisticComponent,
 		TotalRevenueDiagramComponent
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
