@@ -1,6 +1,6 @@
 import {bootstrapApplication, HammerModule} from '@angular/platform-browser';
 import {MainRouterOutlet} from '@src/main.router-outlet';
-import {enableProdMode, importProvidersFrom, isDevMode, provideZoneChangeDetection} from '@angular/core';
+import {enableProdMode, ErrorHandler, importProvidersFrom, isDevMode, provideZoneChangeDetection} from '@angular/core';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {environment} from '@src/environment/environment';
 import {connectAuthEmulator, getAuth, provideAuth} from '@angular/fire/auth';
@@ -148,10 +148,10 @@ bootstrapApplication(MainRouterOutlet, {
 			enabled: !isDevMode(),
 			registrationStrategy: 'registerWhenStable:30000'
 		}),
-		// {
-		// 	provide: ErrorHandler,
-		// 	useValue: Sentry.createErrorHandler(),
-		// },
+		{
+			provide: ErrorHandler,
+			useValue: Sentry.createErrorHandler(),
+		},
 	]
 }).then((ref) => {
 
