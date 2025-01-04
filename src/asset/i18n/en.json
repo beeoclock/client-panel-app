@@ -190,6 +190,9 @@
 						"label": "Business name",
 						"placeholder": "Type Company or Personal name"
 					},
+					"primaryColor": {
+						"label": "The main color of business"
+					},
 					"published": {
 						"label": "Public access"
 					},

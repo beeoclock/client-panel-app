@@ -48,6 +48,7 @@ import {
 					isRequired
 					invalidTooltip
 					emptyStringToNull
+					[class.h-16]="inputType === 'color'"
 					[step]="step"
 					[min]="min"
 					[formControl]="control"

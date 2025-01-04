@@ -190,6 +190,9 @@
 						"label": "Forretningsnavn",
 						"placeholder": "Skriv firma- eller personnavn"
 					},
+					"primaryColor": {
+						"label": "Virksomhedens vigtigste farve"
+					},
 					"published": {
 						"label": "Offentlig adgang"
 					},

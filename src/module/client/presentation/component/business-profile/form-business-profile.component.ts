@@ -80,6 +80,13 @@ import {
 				id="business-profile-form-serviceProvideType-input"
 				[control]="form.controls.serviceProvideType"/>
 
+			<form-input
+				id="business-profile-form-name-input"
+				inputType="color"
+				autocomplete="primaryColor"
+				[control]="form.controls.publicPageSettings.controls.primaryColor"
+				[label]="'client.profile.form.inputs.primaryColor.label' | translate"/>
+
 		</bee-card>
 	`
 })
