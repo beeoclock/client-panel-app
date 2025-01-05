@@ -34,5 +34,8 @@ export const environment = {
 	},
 	urls: {
 		publicPageOrigin: 'https://beeoclock.com',
+	},
+	footer: {
+		label: `Bee o'clock © 2025`
 	}
 };

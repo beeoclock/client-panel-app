@@ -12,6 +12,7 @@ import {AlreadySignUpLinkComponent} from "@identity/presentation/component/link/
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormInputPasswordComponent} from "@utility/presentation/component/input/form.input.password.component";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
+import {environment} from "@environment/environment";
 
 @Component({
 	selector: 'app-sign-in-identity-page',
@@ -42,6 +43,8 @@ export class SignInIdentityPage implements OnInit {
 
 	@Input()
 	public password: string | null = null;
+
+	public readonly footerLabel = environment.footer.label;
 
 	readonly #analyticsService = inject(AnalyticsService);
 
