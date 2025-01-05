@@ -49,9 +49,9 @@ import {is} from "@utility/checker";
 				[control]="form.controls.password"
 				[label]="'identity.sign-in.form.inputs.password.label' | translate">
 				<a
-					label-end
+					label-bottom-end
 					routerLink="/identity/forgot-password"
-					class="font-semibold text-blue-600 dark:text-black hover:text-blue-500">
+					class="font-semibold text-blue-600 dark:text-black hover:text-blue-500 text-sm">
 					{{ 'identity.sign-in.link.forgotPassword' | translate }}
 				</a>
 			</form-input-password>
