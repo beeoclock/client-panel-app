@@ -33,5 +33,8 @@ export const environment = {
 	},
 	urls: {
 		publicPageOrigin: 'https://dev.beeoclock.com',
+	},
+	footer: {
+		label: `Bee o'clock Enulator © 2025`
 	}
 };

@@ -12,11 +12,15 @@ export namespace Analytic {
 				by: {
 					source: {
 						-readonly [orderServiceCreatedOn in keyof typeof ApplicationEnum]: {
-							-readonly [orderServiceStatus in keyof typeof OrderServiceStatusEnum]: number;
+							-readonly [orderServiceStatus in keyof typeof OrderServiceStatusEnum]: {
+								-readonly [currency in keyof typeof CurrencyCodeEnum]: number;
+							};
 						};
 					};
 					status: {
-						-readonly [orderServiceStatus in keyof typeof OrderServiceStatusEnum]: number;
+						-readonly [orderServiceStatus in keyof typeof OrderServiceStatusEnum]: {
+							-readonly [currency in keyof typeof CurrencyCodeEnum]: number;
+						};
 					};
 				};
 			};
@@ -24,20 +28,24 @@ export namespace Analytic {
 				by: {
 					source: {
 						-readonly [orderServiceCreatedOn in keyof typeof ApplicationEnum]: {
-							-readonly [orderServiceStatus in keyof typeof OrderServiceStatusEnum]: number;
+							-readonly [orderServiceStatus in keyof typeof OrderServiceStatusEnum]: {
+								-readonly [currency in keyof typeof CurrencyCodeEnum]: number;
+							};
 						};
 					};
 					status: {
-						-readonly [orderServiceStatus in keyof typeof OrderServiceStatusEnum]: number;
+						-readonly [orderServiceStatus in keyof typeof OrderServiceStatusEnum]: {
+							-readonly [currency in keyof typeof CurrencyCodeEnum]: number;
+						};
 					};
 				};
 			};
 		};
 		total: {
-			serviceTime: number;
+			serviceTimeInSeconds: number;
 		};
 		average: {
-			serviceTime: number;
+			serviceTimeInSeconds: number;
 		};
 	}
 

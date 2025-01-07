@@ -10,6 +10,7 @@ export const environment = {
 		analytic: 'https://api-dev.beeoclock.com/analytic',
 		panel: 'https://api-dev.beeoclock.com/panel',
 		identity: 'https://api-dev.beeoclock.com/identity',
+		ws: 'https://api-dev.beeoclock.com'
 	},
 	endpoint,
 	constant,
@@ -33,5 +34,8 @@ export const environment = {
 	},
 	urls: {
 		publicPageOrigin: 'https://dev.beeoclock.com',
+	},
+	footer: {
+		label: `Bee o'clock Dev © 2025`
 	}
 };

@@ -74,6 +74,55 @@
 			"totalOrders": "Samlede ordrer",
 			"totalServiceTime": "Antal leverede tjenester i timer",
 			"uniqueClients": "Unikke kunder"
+		},
+		"widget": {
+			"revenue": {
+				"summary": {
+					"by": {
+						"description": "Grafen viser antallet eller mængden af ordrer fra hver kilde individuelt eller i alt, afhængigt af de indstillinger, du vælger.",
+						"form": {
+							"kind": {
+								"count": "Antal bestilte tjenester",
+								"label": "Type af information",
+								"money": "Penge"
+							},
+							"source": {
+								"all": "Fra alle kilder",
+								"client": "Fra den offentlige side",
+								"label": "Kilder til information",
+								"panel": "Fra panelet"
+							}
+						}
+					},
+					"description": "Cirkeldiagrammet viser beløbet efter ordrestatus for hver specialist og procentdelen af det samlede beløb.",
+					"label": "Beløb efter ordrestatus"
+				}
+			},
+			"total": {
+				"counter": {
+					"customers": {
+						"title": "Kunder for perioden"
+					},
+					"description": {
+						"title": "Her kan du finde oplysninger om de tjenester, der er leveret i den valgte periode, deres antal og procentdel af det samlede antal bestilte tjenester."
+					},
+					"order-services": {
+						"title": "Bestilte tjenester"
+					},
+					"orders": {
+						"case": {
+							"ordersLessThanOrderServices": {
+								"0": "Alle ordrer har ikke mere end én service",
+								"1": "Nogle ordrer har mere end én service"
+							}
+						},
+						"title": "Bestil"
+					},
+					"services": {
+						"title": "Tjenester for perioden"
+					}
+				}
+			}
 		}
 	},
 	"autoActionOnOrderInSeconds": {
@@ -165,6 +214,9 @@
 					"name": {
 						"label": "Forretningsnavn",
 						"placeholder": "Skriv firma- eller personnavn"
+					},
+					"primaryColor": {
+						"label": "Virksomhedens vigtigste farve"
 					},
 					"published": {
 						"label": "Offentlig adgang"

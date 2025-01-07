@@ -11,7 +11,6 @@ import {
 } from "@angular/core";
 import {RIMember} from "@member/domain";
 import {firstValueFrom} from "rxjs";
-import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 import {AdditionalMenuComponent} from "@event/presentation/component/additional-menu/additional-menu.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
@@ -89,7 +88,6 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 
 		const callback = () => {
 			this.ngxLogger.debug('Callback');
-			this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
 		};
 
 		const baseDateTime = selectedDate

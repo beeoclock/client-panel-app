@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@angular/core";
 import {NgIconComponent, provideIcons} from "@ng-icons/core";
 import {
+	bootstrapArchive,
 	bootstrapChatText,
 	bootstrapCheck2,
 	bootstrapCheck2All,
@@ -25,6 +26,7 @@ const bootstrapIcons = {
 	bootstrapHourglassSplit,
 	bootstrapExclamation,
 	bootstrapSearch,
+	bootstrapArchive
 };
 
 const tdesignIcons = {

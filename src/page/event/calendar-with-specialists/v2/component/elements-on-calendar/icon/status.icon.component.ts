@@ -27,6 +27,9 @@ import {IconComponent} from "@src/component/adapter/icon/icon.component";
 			@case (orderServiceStatusEnum.requested) {
 				<app-icon title="Requested" name="bootstrapExclamation"/>
 			}
+			@case (orderServiceStatusEnum.deleted) {
+				<app-icon title="Requested" name="bootstrapArchive"/>
+			}
 		}
 	`,
 	imports: [

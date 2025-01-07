@@ -41,6 +41,7 @@ import 'hammerjs';
 import '@angular/common/locales/global/da';
 import '@angular/common/locales/global/pl';
 import '@angular/common/locales/global/uk';
+import {SocketIoModule} from "ngx-socket-io";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -107,6 +108,7 @@ bootstrapApplication(MainRouterOutlet, {
 				rippleEffect: false,
 				innerHTMLTemplatesEnabled: true,
 			}),
+			SocketIoModule,
 			TranslateModule.forRoot({
 				useDefaultLang: true,
 				defaultLanguage: LanguageCodeEnum.en,

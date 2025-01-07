@@ -23,8 +23,6 @@ import {
 import {
 	ListServiceFormCardOrderComponent
 } from "@order/presentation/component/list/card/item/services/list.service.form.card.order.component";
-import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 
 @Component({
 	selector: 'event-container-details-component',
@@ -90,9 +88,6 @@ export class ContainerDetailsComponent extends Reactive implements OnInit {
 				if (this.event.originalData.order._id !== order._id) {
 					return;
 				}
-
-				this.refreshCalendarWithSpecialist();
-
 			});
 
 		this.actions$
@@ -114,11 +109,6 @@ export class ContainerDetailsComponent extends Reactive implements OnInit {
 				this.store.dispatch(new EventActions.CloseDetails());
 			});
 
-	}
-
-	@Dispatch()
-	public async refreshCalendarWithSpecialist() {
-		return new CalendarWithSpecialistsAction.GetItems();
 	}
 
 }
