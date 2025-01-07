@@ -4,6 +4,7 @@ import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.en
 import {ApplicationEnum} from "@utility/domain/enum/application.enum";
 import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 import {is} from "@utility/checker";
+import {CurrencyCodeEnum} from "@utility/domain/enum";
 
 // Here we will calculate the date range for the report for analytic propery in store
 // Припускаємо, що всі необхідні типи та енумерації вже імпортовані або визначені:
@@ -47,6 +48,36 @@ function getOrderStatusStateWithDefaultValue<T>(defaultValue: T) {
 	};
 }
 
+function getOrderServiceStatusStateWithDefaultValueAndCurrency<T>(defaultValue: T) {
+	const dv = () => getCurrencyCodeStateWithDefaultValue(defaultValue);
+	return {
+		[OrderServiceStatusEnum.requested]: dv(),
+		[OrderServiceStatusEnum.accepted]: dv(),
+		[OrderServiceStatusEnum.inProgress]: dv(),
+		[OrderServiceStatusEnum.done]: dv(),
+		[OrderServiceStatusEnum.rejected]: dv(),
+		[OrderServiceStatusEnum.cancelled]: dv(),
+		[OrderServiceStatusEnum.deleted]: dv(),
+	} as unknown as {
+		-readonly [key in keyof typeof OrderServiceStatusEnum]: {
+			-readonly [key in keyof typeof CurrencyCodeEnum]: T;
+		};
+	};
+}
+
+function getCurrencyCodeStateWithDefaultValue<T>(defaultValue: T) {
+	const isEmptyObject = is.object_empty(defaultValue);
+	const dv = () => isEmptyObject ? {} : defaultValue;
+	return {
+		[CurrencyCodeEnum.UAH]: dv(),
+		[CurrencyCodeEnum.USD]: dv(),
+		[CurrencyCodeEnum.DKK]: dv(),
+		[CurrencyCodeEnum.PLN]: dv(),
+	} as unknown as {
+		-readonly [key in keyof typeof CurrencyCodeEnum]: T;
+	};
+}
+
 /**
  * Main class for processing analytic data
  */
@@ -72,27 +103,27 @@ class AnalyticProcessor {
 					average: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
-								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 							},
-							status: getOrderServiceStatusStateWithDefaultValue(0)
+							status: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 						}
 					},
 					total: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
-								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 							},
-							status: getOrderServiceStatusStateWithDefaultValue(0)
+							status: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 						}
 					}
 				},
 				total: {
-					serviceTime: 0
+					serviceTimeInSeconds: 0
 				},
 				average: {
-					serviceTime: 0
+					serviceTimeInSeconds: 0
 				}
 			},
 			counter: {
@@ -685,13 +716,13 @@ class AnalyticCalculation {
 			base.counter.orderService.by.source[orderService.createdOn][orderService.status]++;
 			base.counter.orderService.by.wasSelectedAnybody += orderService.wasSelectedAnybody ? 1 : 0;
 
-			base.summary.total.serviceTime += orderService.durationInSeconds;
-			base.summary.revenue.total.by.status[orderService.status] += orderService.price;
-			base.summary.revenue.total.by.source[orderService.createdOn][orderService.status] += orderService.price;
+			base.summary.total.serviceTimeInSeconds += orderService.durationInSeconds;
+			base.summary.revenue.total.by.status[orderService.status][orderService.currency as CurrencyCodeEnum] += orderService.price;
+			base.summary.revenue.total.by.source[orderService.createdOn][orderService.status][orderService.currency as CurrencyCodeEnum] += orderService.price;
 
 		});
 
-		base.summary.average.serviceTime = base.summary.total.serviceTime / base.counter.orderService.total;
+		base.summary.average.serviceTimeInSeconds = base.summary.total.serviceTimeInSeconds / base.counter.orderService.total;
 
 		/**
 		 * Order context
@@ -706,20 +737,26 @@ class AnalyticCalculation {
 
 			const orderServiceStatusEnum = orderServiceStatus as OrderServiceStatusEnum;
 
-			// Calculate average revenue for each order
-			const totalRevenueByStatus = base.summary.revenue.total.by.status[orderServiceStatusEnum];
+			Object.keys(base.summary.revenue.total.by.status[orderServiceStatusEnum]).forEach((currency) => {
 
-			// TODO: Add forEach for each order status when backend will be ready for it
-			const orderCountByStatus = base.counter.orders.by.status[OrderStatusEnum.done];
-			base.summary.revenue.average.by.status[orderServiceStatusEnum] = totalRevenueByStatus / orderCountByStatus;
+				const currencyEnum = currency as CurrencyCodeEnum;
 
-			Object.keys(base.summary.revenue.total.by.source).forEach((source) => {
+				// Calculate average revenue for each order
+				const totalRevenueByStatus = base.summary.revenue.total.by.status[orderServiceStatusEnum][currencyEnum];
 
-				const sourceEnum = source as ApplicationEnum;
+				// TODO: Add forEach for each order status when backend will be ready for it
+				const orderCountByStatus = base.counter.orders.by.status[OrderStatusEnum.done];
+				base.summary.revenue.average.by.status[orderServiceStatusEnum][currencyEnum] = totalRevenueByStatus / orderCountByStatus;
 
-				const totalRevenueBySource = base.summary.revenue.total.by.source[sourceEnum][orderServiceStatusEnum];
-				const orderCountBySource = base.counter.orders.by.source[sourceEnum][OrderStatusEnum.done];
-				base.summary.revenue.average.by.source[sourceEnum][orderServiceStatusEnum] = totalRevenueBySource / orderCountBySource;
+				Object.keys(base.summary.revenue.total.by.source).forEach((source) => {
+
+					const sourceEnum = source as ApplicationEnum;
+
+					const totalRevenueBySource = base.summary.revenue.total.by.source[sourceEnum][orderServiceStatusEnum][currencyEnum];
+					const orderCountBySource = base.counter.orders.by.source[sourceEnum][OrderStatusEnum.done];
+					base.summary.revenue.average.by.source[sourceEnum][orderServiceStatusEnum][currencyEnum] = totalRevenueBySource / orderCountBySource;
+
+				});
 
 			});
 
@@ -737,9 +774,9 @@ class AnalyticCalculation {
 
 			Object.values(specialist.orderServiceRecord).forEach((orderService) => {
 
-				specialist.summary.total.serviceTime += orderService.durationInSeconds;
-				specialist.summary.revenue.total.by.status[orderService.status] += orderService.price;
-				specialist.summary.revenue.total.by.source[orderService.createdOn][orderService.status] += orderService.price;
+				specialist.summary.total.serviceTimeInSeconds += orderService.durationInSeconds;
+				specialist.summary.revenue.total.by.status[orderService.status][orderService.currency as CurrencyCodeEnum] += orderService.price;
+				specialist.summary.revenue.total.by.source[orderService.createdOn][orderService.status][orderService.currency as CurrencyCodeEnum] += orderService.price;
 
 				specialist.counter.orderService.total++;
 				specialist.counter.orderService.by.status[orderService.status]++;
@@ -747,7 +784,7 @@ class AnalyticCalculation {
 
 			});
 
-			specialist.summary.average.serviceTime = specialist.summary.total.serviceTime / specialist.counter.orderService.total;
+			specialist.summary.average.serviceTimeInSeconds = specialist.summary.total.serviceTimeInSeconds / specialist.counter.orderService.total;
 
 			Object.keys(specialist.customerRecord).forEach((customerId) => {
 
@@ -758,9 +795,9 @@ class AnalyticCalculation {
 
 				Object.values(customer.orderService.record).forEach((orderService) => {
 
-					customer.summary.total.serviceTime += orderService.durationInSeconds;
-					customer.summary.revenue.total.by.status[orderService.status] += orderService.price;
-					customer.summary.revenue.total.by.source[orderService.createdOn][orderService.status] += orderService.price;
+					customer.summary.total.serviceTimeInSeconds += orderService.durationInSeconds;
+					customer.summary.revenue.total.by.status[orderService.status][orderService.currency as CurrencyCodeEnum] += orderService.price;
+					customer.summary.revenue.total.by.source[orderService.createdOn][orderService.status][orderService.currency as CurrencyCodeEnum] += orderService.price;
 
 					customer.counter.orderService.total++;
 					customer.counter.orderService.by.status[orderService.status]++;
@@ -768,7 +805,7 @@ class AnalyticCalculation {
 
 				});
 
-				customer.summary.average.serviceTime = customer.summary.total.serviceTime / customer.counter.orderService.total;
+				customer.summary.average.serviceTimeInSeconds = customer.summary.total.serviceTimeInSeconds / customer.counter.orderService.total;
 
 				Object.values(customer.order.record).forEach((order) => {
 
@@ -781,8 +818,13 @@ class AnalyticCalculation {
 					const customerOrdersCount = customer.counter.orders.by.status[order.specificStatus];
 					const customerOrdersCountBySource = customer.counter.orders.by.source[order.source][order.specificStatus];
 
-					customer.summary.revenue.average.by.status[order.specificStatus] = customerRevenue / customerOrdersCount;
-					customer.summary.revenue.average.by.source[order.source][order.specificStatus] = customerRevenue / customerOrdersCountBySource;
+					Object.keys(customerRevenue).forEach((currency) => {
+
+						const currencyEnum = currency as CurrencyCodeEnum;
+						customer.summary.revenue.average.by.status[order.specificStatus][currencyEnum] = customerRevenue[currencyEnum] / customerOrdersCount;
+						customer.summary.revenue.average.by.source[order.source][order.specificStatus][currencyEnum] = customerRevenue[currencyEnum] / customerOrdersCountBySource;
+
+					});
 
 				});
 
@@ -799,8 +841,14 @@ class AnalyticCalculation {
 				const specialistOrdersCount = specialist.counter.orders.by.status[order.specificStatus];
 				const specialistOrdersCountBySource = specialist.counter.orders.by.source[order.source][order.specificStatus];
 
-				specialist.summary.revenue.average.by.status[order.specificStatus] = specialistRevenue / specialistOrdersCount;
-				specialist.summary.revenue.average.by.source[order.source][order.specificStatus] = specialistRevenue / specialistOrdersCountBySource;
+
+				Object.keys(specialistRevenue).forEach((currency) => {
+
+					const currencyEnum = currency as CurrencyCodeEnum;
+					specialist.summary.revenue.average.by.status[order.specificStatus][currencyEnum] = specialistRevenue[currencyEnum] / specialistOrdersCount;
+					specialist.summary.revenue.average.by.source[order.source][order.specificStatus][currencyEnum] = specialistRevenue[currencyEnum] / specialistOrdersCountBySource;
+
+				});
 
 			});
 
@@ -813,9 +861,9 @@ class AnalyticCalculation {
 
 			Object.values(service.orderServiceRecord).forEach((orderService) => {
 
-				service.summary.total.serviceTime += orderService.durationInSeconds;
-				service.summary.revenue.total.by.status[orderService.status] += orderService.price;
-				service.summary.revenue.total.by.source[orderService.createdOn][orderService.status] += orderService.price;
+				service.summary.total.serviceTimeInSeconds += orderService.durationInSeconds;
+				service.summary.revenue.total.by.status[orderService.status][orderService.currency as CurrencyCodeEnum] += orderService.price;
+				service.summary.revenue.total.by.source[orderService.createdOn][orderService.status][orderService.currency as CurrencyCodeEnum] += orderService.price;
 
 				service.counter.orderService.total++;
 				service.counter.orderService.by.status[orderService.status]++;
@@ -823,7 +871,7 @@ class AnalyticCalculation {
 
 			});
 
-			service.summary.average.serviceTime = service.summary.total.serviceTime / service.counter.orderService.total;
+			service.summary.average.serviceTimeInSeconds = service.summary.total.serviceTimeInSeconds / service.counter.orderService.total;
 
 			service.counter.customers = Object.keys(service.customerRecord).length;
 
@@ -838,8 +886,13 @@ class AnalyticCalculation {
 				const serviceOrdersCount = service.counter.orders.by.status[order.specificStatus];
 				const serviceOrdersCountBySource = service.counter.orders.by.source[order.source][order.specificStatus];
 
-				service.summary.revenue.average.by.status[order.specificStatus] = serviceRevenue / serviceOrdersCount;
-				service.summary.revenue.average.by.source[order.source][order.specificStatus] = serviceRevenue / serviceOrdersCountBySource;
+				Object.keys(serviceRevenue).forEach((currency) => {
+
+					const currencyEnum = currency as CurrencyCodeEnum;
+					service.summary.revenue.average.by.status[order.specificStatus][currencyEnum] = serviceRevenue[currencyEnum] / serviceOrdersCount;
+					service.summary.revenue.average.by.source[order.source][order.specificStatus][currencyEnum] = serviceRevenue[currencyEnum] / serviceOrdersCountBySource;
+
+				});
 
 			});
 
@@ -852,9 +905,9 @@ class AnalyticCalculation {
 
 			Object.values(customer.orderService.record).forEach((orderService) => {
 
-				customer.summary.total.serviceTime += orderService.durationInSeconds;
-				customer.summary.revenue.total.by.status[orderService.status] += orderService.price;
-				customer.summary.revenue.total.by.source[orderService.createdOn][orderService.status] += orderService.price;
+				customer.summary.total.serviceTimeInSeconds += orderService.durationInSeconds;
+				customer.summary.revenue.total.by.status[orderService.status][orderService.currency as CurrencyCodeEnum] += orderService.price;
+				customer.summary.revenue.total.by.source[orderService.createdOn][orderService.status][orderService.currency as CurrencyCodeEnum] += orderService.price;
 
 				customer.counter.orderService.total++;
 				customer.counter.orderService.by.status[orderService.status]++;
@@ -862,7 +915,7 @@ class AnalyticCalculation {
 
 			});
 
-			customer.summary.average.serviceTime = customer.summary.total.serviceTime / customer.counter.orderService.total;
+			customer.summary.average.serviceTimeInSeconds = customer.summary.total.serviceTimeInSeconds / customer.counter.orderService.total;
 
 			customer.counter.specialists = Object.keys(customer.specialistRecord).length;
 
@@ -877,8 +930,13 @@ class AnalyticCalculation {
 				const customerOrdersCount = customer.counter.orders.by.status[order.specificStatus];
 				const customerOrdersCountBySource = customer.counter.orders.by.source[order.source][order.specificStatus];
 
-				customer.summary.revenue.average.by.status[order.specificStatus] = customerRevenue / customerOrdersCount;
-				customer.summary.revenue.average.by.source[order.source][order.specificStatus] = customerRevenue / customerOrdersCountBySource;
+				Object.keys(customerRevenue).forEach((currency) => {
+
+					const currencyEnum = currency as CurrencyCodeEnum;
+					customer.summary.revenue.average.by.status[order.specificStatus][currencyEnum] = customerRevenue[currencyEnum] / customerOrdersCount;
+					customer.summary.revenue.average.by.source[order.source][order.specificStatus][currencyEnum] = customerRevenue[currencyEnum] / customerOrdersCountBySource;
+
+				});
 
 			});
 
@@ -942,27 +1000,27 @@ class AnalyticDataTools {
 					average: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
-								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 							},
-							status: getOrderServiceStatusStateWithDefaultValue(0)
+							status: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 						}
 					},
 					total: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
-								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 							},
-							status: getOrderServiceStatusStateWithDefaultValue(0)
+							status: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 						}
 					}
 				},
 				total: {
-					serviceTime: 0
+					serviceTimeInSeconds: 0
 				},
 				average: {
-					serviceTime: 0
+					serviceTimeInSeconds: 0
 				}
 			},
 			counter: {
@@ -1013,27 +1071,27 @@ class AnalyticDataTools {
 					average: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
-								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 							},
-							status: getOrderServiceStatusStateWithDefaultValue(0)
+							status: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 						}
 					},
 					total: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
-								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 							},
-							status: getOrderServiceStatusStateWithDefaultValue(0)
+							status: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 						}
 					}
 				},
 				total: {
-					serviceTime: 0
+					serviceTimeInSeconds: 0
 				},
 				average: {
-					serviceTime: 0
+					serviceTimeInSeconds: 0
 				}
 			},
 			counter: {
@@ -1080,27 +1138,27 @@ class AnalyticDataTools {
 					average: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
-								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 							},
-							status: getOrderServiceStatusStateWithDefaultValue(0)
+							status: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 						}
 					},
 					total: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
-								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 							},
-							status: getOrderServiceStatusStateWithDefaultValue(0)
+							status: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 						}
 					}
 				},
 				total: {
-					serviceTime: 0
+					serviceTimeInSeconds: 0
 				},
 				average: {
-					serviceTime: 0
+					serviceTimeInSeconds: 0
 				}
 			},
 			counter: {
@@ -1147,27 +1205,27 @@ class AnalyticDataTools {
 					average: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
-								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 							},
-							status: getOrderServiceStatusStateWithDefaultValue(0)
+							status: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 						}
 					},
 					total: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
-								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 							},
-							status: getOrderServiceStatusStateWithDefaultValue(0)
+							status: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 						}
 					}
 				},
 				total: {
-					serviceTime: 0
+					serviceTimeInSeconds: 0
 				},
 				average: {
-					serviceTime: 0
+					serviceTimeInSeconds: 0
 				}
 			},
 			counter: {
@@ -1220,27 +1278,27 @@ class AnalyticDataTools {
 					average: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
-								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 							},
-							status: getOrderServiceStatusStateWithDefaultValue(0)
+							status: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 						}
 					},
 					total: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
-								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 							},
-							status: getOrderServiceStatusStateWithDefaultValue(0)
+							status: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 						}
 					}
 				},
 				total: {
-					serviceTime: 0
+					serviceTimeInSeconds: 0
 				},
 				average: {
-					serviceTime: 0
+					serviceTimeInSeconds: 0
 				}
 			},
 			counter: {
@@ -1287,27 +1345,27 @@ class AnalyticDataTools {
 					average: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
-								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 							},
-							status: getOrderServiceStatusStateWithDefaultValue(0)
+							status: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 						}
 					},
 					total: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
-								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 							},
-							status: getOrderServiceStatusStateWithDefaultValue(0)
+							status: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 						}
 					}
 				},
 				total: {
-					serviceTime: 0
+					serviceTimeInSeconds: 0
 				},
 				average: {
-					serviceTime: 0
+					serviceTimeInSeconds: 0
 				}
 			},
 			counter: {
@@ -1355,27 +1413,27 @@ class AnalyticDataTools {
 					average: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
-								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 							},
-							status: getOrderServiceStatusStateWithDefaultValue(0)
+							status: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 						}
 					},
 					total: {
 						by: {
 							source: {
-								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValue(0),
-								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValue(0)
+								[ApplicationEnum.panel]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0),
+								[ApplicationEnum.client]: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 							},
-							status: getOrderServiceStatusStateWithDefaultValue(0)
+							status: getOrderServiceStatusStateWithDefaultValueAndCurrency(0)
 						}
 					}
 				},
 				total: {
-					serviceTime: 0
+					serviceTimeInSeconds: 0
 				},
 				average: {
-					serviceTime: 0
+					serviceTimeInSeconds: 0
 				}
 			},
 			counter: {

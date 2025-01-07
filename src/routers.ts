@@ -13,7 +13,6 @@ import {AbsenceState} from "@absence/state/absence/absence.state";
 import {OrderState} from "@order/state/order/order.state";
 import {EventState} from "@event/state/event/event.state";
 import {CalendarState} from "@event/state/calendar/calendar.state";
-import {StatisticState} from "@event/state/statistic/statistic.state";
 import {PeerCustomerOrderState} from "@order/state/peer-customer/peer-customer.order.state";
 import {SmsUsedAnalyticState} from "@module/analytic/internal/store/sms-used/sms-used.analytic.state";
 import {
@@ -221,7 +220,7 @@ export const routes: Routes = [
 					{
 						path: 'event',
 						providers: [
-							importProvidersFrom(NgxsModule.forFeature([EventState, OrderState])),
+							importProvidersFrom(NgxsModule.forFeature([EventState, OrderState, DateRangeReportAnalyticState])),
 						],
 						children: [
 							{
@@ -238,7 +237,7 @@ export const routes: Routes = [
 							{
 								path: 'statistic',
 								providers: [
-									importProvidersFrom(NgxsModule.forFeature([StatisticState])),
+									// importProvidersFrom(NgxsModule.forFeature([StatisticState])),
 								],
 								loadComponent: () => import('@page/event/statistic/statistic.event.page')
 							},
