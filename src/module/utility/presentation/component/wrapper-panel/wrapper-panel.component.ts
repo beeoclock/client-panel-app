@@ -9,8 +9,8 @@ import {
 	PageLoadingProgressBarComponent
 } from "@utility/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
 import {Store} from "@ngxs/store";
-import {IdentityState} from "@identity/state/identity/identity.state";
-import {filter, take, tap, zip} from "rxjs";
+import {BeeoclockIdTokenResult, IdentityState} from "@identity/state/identity/identity.state";
+import {combineLatest, filter, map, switchMap, tap} from "rxjs";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {MemberActions} from "@member/state/member/member.actions";
@@ -174,34 +174,37 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 	}
 
 	private connectWebSocket(): void {
-		zip([
-			this.store.select(IdentityState.token),
-			this.tenantId$
+		combineLatest([
+			this.store.select(IdentityState.token).pipe(filter(is.object<BeeoclockIdTokenResult>)),
+			this.tenantId$.pipe(filter(is.string))
 		])
-			.pipe(filter(([token, tenant]) => {
-				return !!token && !!tenant;
-			}), take(1)).subscribe(([beeoclockTokenResult, tenantId]) => {
-			if (!tenantId) {
-				this.ngxLogger.error('TenantId is not defined');
-				return;
-			}
-			if (!beeoclockTokenResult) {
-				this.ngxLogger.error('Token is not defined');
-				return;
-			}
-			const {token} = beeoclockTokenResult;
-			this.store.dispatch(new SocketActions.ConnectSocket({
-				url: environment.apiUrls.ws,
-				options: {
-					query: {
-						tenantId,
-						token
-					},
-					path: '/ws/panel/socket.io',
-					transports: ['websocket']
-				}
-			}));
-
+		.pipe(
+			this.takeUntil(),
+			map(([beeoclockTokenResult, tenantId]) => {
+				const {token} = beeoclockTokenResult;
+				return {token, tenantId};
+			}),
+			switchMap(({token, tenantId}) => {
+				this.ngxLogger.info(WrapperPanelComponent.name, 'connectWebSocket:DisconnectSocket', {token, tenantId});
+				return this.store.dispatch(new SocketActions.DisconnectSocket()).pipe(
+					map(() => ({token, tenantId}))
+				);
+			})
+		).subscribe({
+			next: ({token, tenantId}) => {
+				this.ngxLogger.info(WrapperPanelComponent.name, 'connectWebSocket:ConnectSocket', {token, tenantId});
+				this.store.dispatch(new SocketActions.ConnectSocket({
+					url: environment.apiUrls.ws,
+					options: {
+						query: {
+							tenantId,
+							token
+						},
+						path: '/ws/panel/socket.io',
+						transports: ['websocket']
+					}
+				}));
+			},
 		});
 	};
 }
