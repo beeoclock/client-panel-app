@@ -1518,7 +1518,6 @@ class AnalyticDataTools {
 export function transformIResponseToAnalytic(iResponse: DateRangeReportAnalyticApi.IResponse): Analytic.I {
 	const processor = new AnalyticProcessor(iResponse);
 	const analyticData = processor.process();
-	console.log({analyticData})
 	return analyticData;
 }
 

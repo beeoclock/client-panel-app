@@ -5,17 +5,14 @@ import {Store} from "@ngxs/store";
 import {AppState} from "@utility/state/app/app.state";
 import {DOCUMENT} from "@angular/common";
 import {LanguageService} from "@utility/cdk/language.service";
-import {filter, take} from "rxjs";
+import {filter} from "rxjs";
 import {is} from "@utility/checker";
 import {SplashScreenService} from "@utility/cdk/splash-screen.service";
 import {ThemeService} from "@utility/cdk/theme.service";
 import {CheckForUpdatePwaService} from "@utility/cdk/check-for-update-pwa.service";
 import {NotificationManagerService} from "@utility/cdk/notification.manager.service";
 import {AppActions} from "@utility/state/app/app.actions";
-import {TENANT_ID} from "@src/token";
-import {IdentityState} from "@identity/state/identity/identity.state";
-import {SocketActions} from "@utility/state/socket/socket.actions";
-import {environment} from '@src/environment/environment';
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'app-root',
@@ -28,7 +25,7 @@ import {environment} from '@src/environment/environment';
 		<router-outlet/>
 	`,
 })
-export class MainRouterOutlet implements AfterViewInit {
+export class MainRouterOutlet extends Reactive implements AfterViewInit {
 
 	private readonly store = inject(Store);
 	private readonly languageService = inject(LanguageService);
@@ -37,10 +34,10 @@ export class MainRouterOutlet implements AfterViewInit {
 	private readonly checkForUpdatePwaService = inject(CheckForUpdatePwaService);
 	private readonly document = inject(DOCUMENT);
 	private readonly notificationManagerService = inject(NotificationManagerService);
-	private readonly tenantId$ = inject(TENANT_ID);
 
 
 	constructor() {
+		super();
 		this.languageService.initialize();
 		this.themeService.initialize();
 		this.checkForUpdatePwaService.initialize();
@@ -64,26 +61,7 @@ export class MainRouterOutlet implements AfterViewInit {
 			});
 
 		this.store.dispatch(new AppActions.PageLoading(false));
-		this.connectWebSocket();
 
 	}
-
-	private connectWebSocket(): void {
-		this.store.select(IdentityState.token).pipe(filter(Boolean), take(1)).subscribe((token) => {
-			const tenantId = this.tenantId$.value;
-			this.store.dispatch(new SocketActions.ConnectSocket({
-				url: environment.apiUrls.ws,
-				options: {
-					query: {
-						tenantId: tenantId,
-						token: token?.token
-					},
-					path: '/ws/panel/socket.io',
-					transports: ['websocket']
-				}
-			}))
-
-		});
-	};
 
 }

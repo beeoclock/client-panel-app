@@ -1,6 +1,5 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
-import {Auth} from "@angular/fire/auth";
-import {Router, RouterLink} from "@angular/router";
+import {RouterLink} from "@angular/router";
 import {NGXLogger} from "ngx-logger";
 import {Select} from "@ngxs/store";
 import {BeeoclockIdTokenResult, IdentityState} from "@identity/state/identity/identity.state";
@@ -9,6 +8,7 @@ import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {AlertController} from "@ionic/angular";
 import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
+import {LogoutService} from "@utility/presentation/component/logout/logout.service";
 
 
 @Component({
@@ -16,22 +16,21 @@ import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe"
 	selector: 'utility-sidebar-profile-component',
 	templateUrl: './profile.sidebar.component.html',
 	encapsulation: ViewEncapsulation.None,
-    imports: [
-        AsyncPipe,
-        RouterLink,
-        TranslateModule,
-        NgForOf,
-        NgIf,
-        WithTenantIdPipe
-    ],
+	imports: [
+		AsyncPipe,
+		RouterLink,
+		TranslateModule,
+		NgForOf,
+		NgIf,
+		WithTenantIdPipe
+	],
 })
 export class ProfileSidebarComponent {
 
-	private readonly auth = inject(Auth);
-	private readonly router = inject(Router);
 	private readonly logger = inject(NGXLogger);
-	private readonly translateService= inject(TranslateService);
+	private readonly translateService = inject(TranslateService);
 	private readonly alertController = inject(AlertController);
+	private readonly logoutService = inject(LogoutService);
 
 	@Select(IdentityState.token)
 	public token$!: Observable<BeeoclockIdTokenResult>;
@@ -63,8 +62,7 @@ export class ProfileSidebarComponent {
 		}
 
 		try {
-			await this.auth.signOut();
-			this.router.navigate(['/']).then();
+			this.logoutService.logout();
 		} catch (error) {
 			this.logger.error(error);
 		}

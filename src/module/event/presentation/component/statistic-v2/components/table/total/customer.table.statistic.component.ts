@@ -191,7 +191,6 @@ export class CustomerTableStatisticComponent implements OnChanges {
 	};
 
 	public ngOnChanges() {
-		console.log('CustomerTableStatisticComponent', this.customerRecord)
 		this.initTable();
 	}
 
