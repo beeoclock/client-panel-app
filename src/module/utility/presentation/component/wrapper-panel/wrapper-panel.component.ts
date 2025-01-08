@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, HostBinding, inject, OnDestroy, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, HostBinding, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {SidebarComponent} from '@utility/presentation/component/sidebar/sidebar.component';
 import {NavbarComponent} from '@utility/presentation/component/navbar/navbar.component';
 import {FooterComponent} from '@utility/presentation/component/footer/footer.component';
@@ -10,11 +10,11 @@ import {
 } from "@utility/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
 import {Store} from "@ngxs/store";
 import {IdentityState} from "@identity/state/identity/identity.state";
-import {tap} from "rxjs";
+import {filter, take, tap, zip} from "rxjs";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {MemberActions} from "@member/state/member/member.actions";
-import {MAIN_CONTAINER_ID} from "@src/token";
+import {MAIN_CONTAINER_ID, TENANT_ID} from "@src/token";
 import {NGXLogger} from "ngx-logger";
 import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
 import {ClientActions} from "@client/state/client/client.actions";
@@ -28,6 +28,8 @@ import {WhacAMole} from "@utility/presentation/whac-a-mole/whac-a-mole";
 import {ClientState} from "@client/state/client/client.state";
 import {is} from "@utility/checker";
 import {Reactive} from "@utility/cdk/reactive";
+import {SocketActions} from "@utility/state/socket/socket.actions";
+import {environment} from "@environment/environment";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -63,7 +65,7 @@ import {Reactive} from "@utility/cdk/reactive";
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export default class WrapperPanelComponent extends Reactive implements AfterViewInit, OnDestroy {
+export default class WrapperPanelComponent extends Reactive implements OnInit, AfterViewInit, OnDestroy {
 
 	public readonly mainContainerId = inject(MAIN_CONTAINER_ID);
 	private readonly document = inject(DOCUMENT);
@@ -72,6 +74,7 @@ export default class WrapperPanelComponent extends Reactive implements AfterView
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly themeService = inject(ThemeService);
 	private readonly translateService = inject(TranslateService);
+	private readonly tenantId$ = inject(TENANT_ID);
 
 	public readonly token$ = this.store.select(IdentityState.token);
 
@@ -86,6 +89,11 @@ export default class WrapperPanelComponent extends Reactive implements AfterView
 	constructor() {
 		super();
 		this.initNotificationChecker();
+	}
+
+	public ngOnInit(): void {
+
+		this.connectWebSocket();
 	}
 
 	public ngAfterViewInit(): void {
@@ -161,8 +169,41 @@ export default class WrapperPanelComponent extends Reactive implements AfterView
 		this.store.dispatch(new ServiceActions.Init());
 		this.store.dispatch(new MemberActions.Init());
 		this.store.dispatch(new EventRequestedActions.Init());
+		this.store.dispatch(new SocketActions.DisconnectSocket());
 		super.ngOnDestroy();
 	}
+
+	private connectWebSocket(): void {
+		zip([
+			this.store.select(IdentityState.token),
+			this.tenantId$
+		])
+			.pipe(filter(([token, tenant]) => {
+				return !!token && !!tenant;
+			}), take(1)).subscribe(([beeoclockTokenResult, tenantId]) => {
+			if (!tenantId) {
+				this.ngxLogger.error('TenantId is not defined');
+				return;
+			}
+			if (!beeoclockTokenResult) {
+				this.ngxLogger.error('Token is not defined');
+				return;
+			}
+			const {token} = beeoclockTokenResult;
+			this.store.dispatch(new SocketActions.ConnectSocket({
+				url: environment.apiUrls.ws,
+				options: {
+					query: {
+						tenantId,
+						token
+					},
+					path: '/ws/panel/socket.io',
+					transports: ['websocket']
+				}
+			}));
+
+		});
+	};
 }
 
 

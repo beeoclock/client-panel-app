@@ -14,6 +14,9 @@ export interface SocketStateModel {
 }
 
 export enum SocketEventTypes {
+	AbsenceCreated = 'absence-created',
+	AbsenceUpdated = 'absence-updated',
+	AbsenceDeleted = 'absence-deleted',
 	OrderCreated = 'order-created',
 	OrderUpdated = 'order-updated',
 	OrderCancelled = 'order-cancelled',
@@ -70,6 +73,10 @@ export class SocketState {
 			SocketEventTypes.OrderCancelled,
 			SocketEventTypes.OrderRequested,
 			SocketEventTypes.OrderPaid,
+
+			SocketEventTypes.AbsenceCreated,
+			SocketEventTypes.AbsenceUpdated,
+			SocketEventTypes.AbsenceDeleted,
 		];
 		const {socket} = this;
 		const events$ = handleEventTypes.map(event => socket.fromEvent(event));
