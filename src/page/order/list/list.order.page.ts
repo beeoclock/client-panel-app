@@ -47,7 +47,7 @@ export default class ListOrderPage extends ListPage<IOrderDto> implements OnDest
 
 	public readonly tableState$: Observable<ITableState<IOrderDto>> = this.store.select(OrderState.tableState)
 		.pipe(
-			tap((tableState) => {
+			tap(() => {
 				this.changeDetectorRef.detectChanges();
 			})
 		);

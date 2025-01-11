@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation} from "@angular/core";
+import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {
@@ -18,6 +18,7 @@ import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/fl
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {ITableState} from "@utility/domain/table.state";
 
 @Component({
 	selector: 'service-table-list-component',
@@ -47,6 +48,7 @@ export class TableListComponent extends TableComponent<IServiceDto> {
 
 	public readonly translateService = inject(TranslateService);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
+	public override readonly tableState = input.required<ITableState<IServiceDto>>();
 
 	public get currentLanguageCode(): LanguageCodeEnum {
 		return this.translateService.getDefaultLang() as LanguageCodeEnum;

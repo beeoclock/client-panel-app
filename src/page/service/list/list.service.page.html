@@ -1,10 +1,11 @@
 <ng-container *ngIf="initialized.isOn; else NotInitializedTemplate">
-	<service-mobile-layout-list-component
-		*ngIf="isMobile$ | async"
-		[tableState]="tableState$ | async"/>
-	<service-desktop-layout-list-component
-		*ngIf="isNotMobile$ | async"
-		[tableState]="tableState$ | async"/>
+	@if (isMobile$ | async) {
+		<service-mobile-layout-list-component
+			[tableState]="tableState$ | async"/>
+	} @else {
+		<service-desktop-layout-list-component
+			[tableState]="tableState$ | async"/>
+	}
 </ng-container>
 <ng-template #NotInitializedTemplate>
 	<div class="p-4">

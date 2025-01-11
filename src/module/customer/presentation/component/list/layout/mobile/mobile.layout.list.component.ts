@@ -12,6 +12,7 @@ import {
 	AutoRefreshButtonComponent
 } from "@customer/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {ITableState} from "@utility/domain/table.state";
 
 @Component({
 	selector: 'customer-mobile-layout-list-component',
@@ -30,6 +31,7 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 export class MobileLayoutListComponent extends LayoutListComponent<ICustomer> {
 
 	public readonly showButtonGoToForm = input(true);
+	public override readonly tableState = input.required<ITableState<ICustomer> | null>();
 
 	readonly cardListComponents = viewChildren(CardListComponent);
 

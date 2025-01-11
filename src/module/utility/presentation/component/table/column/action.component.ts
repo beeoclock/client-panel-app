@@ -53,14 +53,16 @@ import {Placement} from "@popperjs/core/lib/enums";
 						{{ 'keyword.capitalize.activate' | translate }}
 					</button>
 				</li>
-				<li *ngIf="active() === activeEnum.YES">
-					<button
-						(click)="deactivate.emit(id())"
-						class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-						<i class="bi bi-toggle-off"></i>
-						{{ 'keyword.capitalize.deactivate' | translate }}
-					</button>
-				</li>
+				@if (active() === activeEnum.YES) {
+					<li>
+						<button
+							(click)="deactivate.emit(id())"
+							class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
+							<i class="bi bi-toggle-off"></i>
+							{{ 'keyword.capitalize.deactivate' | translate }}
+						</button>
+					</li>
+				}
 			</ng-container>
 		</utility-dropdown>
 	`

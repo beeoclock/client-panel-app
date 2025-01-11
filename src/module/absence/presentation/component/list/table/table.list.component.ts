@@ -16,6 +16,7 @@ import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/fl
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@absence/presentation/component/row-action-button/row-action-button.component";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'app-list-absence-table',
@@ -38,8 +39,6 @@ import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 	]
 })
 export class TableListComponent extends TableComponent<IAbsenceDto> {
-
-	// public override readonly actions = AbsenceActions;
 
 	public readonly tableConfiguration = {
 		columns: {
@@ -88,8 +87,9 @@ export class TableListComponent extends TableComponent<IAbsenceDto> {
 		},
 	};
 
+	@Dispatch()
 	public override open(item: IAbsenceDto) {
-		this.store.dispatch(new AbsenceActions.OpenDetails(item));
+		return new AbsenceActions.OpenDetails(item);
 	}
 
 }

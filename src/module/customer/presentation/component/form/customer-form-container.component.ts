@@ -43,7 +43,7 @@ export class CustomerFormContainerComponent implements OnInit {
 		customerType: CustomerTypeEnum.regular
 	});
 
-	public readonly item = input.required<ICustomer | undefined>();
+	public readonly item = input<ICustomer | undefined>();
 
 	@Input()
 	private isEditMode = false;

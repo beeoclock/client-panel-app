@@ -1,19 +1,16 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
-import {Store} from "@ngxs/store";
 import {TranslateModule} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'app-absence-row-action-button-component',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<!--
-					(activate)="activate()"
-					(deactivate)="deactivate()"-->
 		<utility-table-column-action
 			(delete)="delete()"
 			(open)="open()"
@@ -35,11 +32,11 @@ export class RowActionButtonComponent {
 
 	public readonly item = input.required<IAbsenceDto>();
 
-	private readonly store = inject(Store);
 	private readonly router = inject(Router);
 	public readonly returnUrl = this.router.url;
 
-	public delete(): void {
+	@Dispatch()
+	public delete() {
 		const {active} = this.item();
 
 		if (active) {
@@ -47,28 +44,32 @@ export class RowActionButtonComponent {
 			return alert('You can\'t delete active absence');
 
 		}
-		this.store.dispatch(new AbsenceActions.DeleteItem(this.item()._id));
+		return new AbsenceActions.DeleteItem(this.item()._id);
 	}
 
-	public activate(): void {
-		this.store.dispatch(new AbsenceActions.UnarchiveItem(this.item()._id));
+	@Dispatch()
+	public activate() {
+		return new AbsenceActions.UnarchiveItem(this.item()._id);
 	}
 
-	public deactivate(): void {
-		this.store.dispatch(new AbsenceActions.ArchiveItem(this.item()._id));
+	@Dispatch()
+	public deactivate() {
+		return new AbsenceActions.ArchiveItem(this.item()._id);
 	}
 
-	public open(): void {
-		this.store.dispatch(new AbsenceActions.OpenDetails(this.item()));
+	@Dispatch()
+	public open() {
+		return new AbsenceActions.OpenDetails(this.item());
 	}
 
-	public edit(): void {
-		this.store.dispatch(new AbsenceActions.OpenForm({
+	@Dispatch()
+	public edit() {
+		return new AbsenceActions.OpenForm({
 			componentInputs: {
 				isEditMode: true,
 				item: this.item()
 			}
-		}));
+		});
 	}
 
 }

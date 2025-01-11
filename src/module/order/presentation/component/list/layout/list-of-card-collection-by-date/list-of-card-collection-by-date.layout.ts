@@ -2,6 +2,7 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	inject,
+	input,
 	OnChanges,
 	OnInit,
 	SimpleChange,
@@ -47,6 +48,7 @@ import {OrderActions} from "@order/state/order/order.actions";
 	],
 })
 export class ListOfCardCollectionByDateLayout extends LayoutListComponent<IOrderDto> implements OnChanges, OnInit {
+	public override readonly tableState = input.required<ITableState<IOrderDto> | null>();
 
 	public readonly mapOfItems: Map<string, IOrderDto[]> = new Map<string, IOrderDto[]>();
 	public itemsWithDate: [string, IOrderDto[]][] = [];

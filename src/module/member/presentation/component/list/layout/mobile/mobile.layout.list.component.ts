@@ -1,5 +1,5 @@
 import {Component, input, viewChildren, ViewEncapsulation} from "@angular/core";
-import {NgClass, NgIf} from "@angular/common";
+import {NgClass} from "@angular/common";
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
@@ -12,6 +12,8 @@ import {FilterComponent} from "@member/presentation/component/filter/filter.comp
 import {
 	AutoRefreshButtonComponent
 } from "@member/presentation/component/button/auto-refresh/auto-refresh.button.component";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {ITableState} from "@utility/domain/table.state";
 
 @Component({
 	selector: 'member-mobile-layout-list-component',
@@ -20,7 +22,6 @@ import {
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		CardListComponent,
-		NgIf,
 		NotFoundTableDataComponent,
 		TranslateModule,
 		FilterComponent,
@@ -29,12 +30,14 @@ import {
 	]
 })
 export class MobileLayoutListComponent extends LayoutListComponent<RIMember> {
-
+	public override readonly tableState = input.required<ITableState<RIMember> | null>();
 	public readonly showButtonGoToForm = input(true);
 
 	readonly cardListComponents = viewChildren(CardListComponent);
-	openForm() {
-		this.store.dispatch(new MemberActions.OpenForm());
+
+	@Dispatch()
+	public openForm() {
+		return new MemberActions.OpenForm();
 	}
 
 }

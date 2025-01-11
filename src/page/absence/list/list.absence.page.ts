@@ -4,7 +4,7 @@ import {AbsenceState} from "@absence/state/absence/absence.state";
 import {Observable, tap} from "rxjs";
 import {ITableState} from "@utility/domain/table.state";
 import {TranslateModule} from "@ngx-translate/core";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {AsyncPipe} from "@angular/common";
 import {
 	DesktopLayoutListComponent
 } from "@absence/presentation/component/list/layout/desktop/desktop.layout.list.component";
@@ -22,10 +22,7 @@ import {AbsenceTableService} from "@absence/presentation/component/list/absence.
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		TranslateModule,
-		NgIf,
 		AsyncPipe,
-		DesktopLayoutListComponent,
-		MobileLayoutListComponent,
 		DesktopLayoutListComponent,
 		MobileLayoutListComponent,
 	],
@@ -42,6 +39,9 @@ export class ListAbsencePage extends ListPage<IAbsenceDto> {
 	public readonly tableState$: Observable<ITableState<IAbsenceDto>> = this.store.select(AbsenceState.tableState)
 		.pipe(
 			tap((tableState) => {
+				console.log({
+					tableState
+				});
 				this.changeDetectorRef.detectChanges();
 			})
 		);

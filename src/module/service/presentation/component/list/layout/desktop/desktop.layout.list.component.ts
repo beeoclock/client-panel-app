@@ -1,10 +1,8 @@
 import {Component, ViewEncapsulation} from "@angular/core";
-import {NgIf} from "@angular/common";
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {TableListComponent} from "@service/presentation/component/list/table/table.list.component";
 
 import {FilterComponent} from "@service/presentation/component/filter/filter.component";
 import LayoutListComponent from "@utility/layout.list.component";
@@ -13,6 +11,7 @@ import {
 } from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {CardListComponent} from "@service/presentation/component/list/card/card.list.component";
 
 @Component({
 	selector: 'service-desktop-layout-list-component',
@@ -21,11 +20,10 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		FilterComponent,
-		NgIf,
 		NotFoundTableDataComponent,
 		TranslateModule,
-		TableListComponent,
 		AutoRefreshButtonComponent,
+		CardListComponent,
 	],
 })
 export class DesktopLayoutListComponent extends LayoutListComponent<IServiceDto> {

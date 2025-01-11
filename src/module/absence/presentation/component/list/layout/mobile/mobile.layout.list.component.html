@@ -2,11 +2,11 @@
 'overflow-x-auto h-[calc(100dvh-64px)] md:h-[calc(100vh-65px)]': isPage()
 }">
 	<app-absence-filter-component [showButtonGoToForm]="showButtonGoToForm()"/>
-	<ng-container *ngIf="tableState">
-		<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
-			<app-absence-card-list-component [tableState]="tableState"/>
-		</ng-container>
-		<ng-template #EmptyTemplate>
+	@if (tableState(); as data) {
+		@if (data.total) {
+			<app-absence-card-list-component [tableState]="data"/>
+		} @else {
+
 			<not-found-table-data-component
 				class="block h-full"
 				(clickListener)="openForm()"
@@ -15,6 +15,6 @@
 				[label]="'keyword.capitalize.dataNotFound' | translate">
 				<app-absence-auto-refresh-component [resetPage]="true" [resetParams]="true"/>
 			</not-found-table-data-component>
-		</ng-template>
-	</ng-container>
+		}
+	}
 </div>

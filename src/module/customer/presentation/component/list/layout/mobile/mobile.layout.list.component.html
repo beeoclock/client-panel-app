@@ -3,11 +3,11 @@
 }">
 	<customer-filter-component [showButtonGoToForm]="showButtonGoToForm()"/>
 
-	@if (tableState) {
+	@if (tableState(); as data) {
 
-		@if (tableState.total > 0) {
+		@if (data.total) {
 
-			<customer-card-list-component [tableState]="tableState"/>
+			<customer-card-list-component [tableState]="data"/>
 
 		} @else {
 

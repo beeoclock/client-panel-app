@@ -1,5 +1,4 @@
 import {Component, ViewEncapsulation} from "@angular/core";
-import {NgIf} from "@angular/common";
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
@@ -20,7 +19,6 @@ import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		FilterComponent,
-		NgIf,
 		NotFoundTableDataComponent,
 		TableListComponent,
 		TranslateModule,

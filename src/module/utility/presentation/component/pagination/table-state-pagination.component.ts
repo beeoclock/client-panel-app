@@ -23,90 +23,89 @@ import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
 import {BooleanState} from "@utility/domain";
 
 @Component({
-  selector: 'utility-table-state-pagination-component',
-  standalone: true,
-  templateUrl: './table-state-pagination.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    NgSelectModule,
-    NgForOf,
-    ReactiveFormsModule,
-    NgIf,
-    TranslateModule,
-  ],
-  encapsulation: ViewEncapsulation.None
+	selector: 'utility-table-state-pagination-component',
+	standalone: true,
+	templateUrl: './table-state-pagination.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [
+		NgSelectModule,
+		NgForOf,
+		ReactiveFormsModule,
+		NgIf,
+		TranslateModule,
+	],
+	encapsulation: ViewEncapsulation.None
 })
 export class TableStatePaginationComponent implements OnChanges {
 
-  @Input()
-  public tableState!: ITableState<unknown>;
+	@Input()
+	public tableState!: ITableState<unknown>;
 
-  public readonly mobileMode = input(false);
+	public readonly mobileMode = input(false);
 
-  public readonly pageSize = output<number>();
+	public readonly pageSize = output<number>();
+	public readonly page = output<number>();
 
-  public readonly page = output<number>();
+	public lastUpdate: undefined | string;
+	public pages: number[] = [];
 
-  public lastUpdate: undefined | string;
-  public pages: number[] = [];
+	public readonly translateService = inject(TranslateService);
 
-  public readonly translateService = inject(TranslateService);
-
-  public readonly changeDetectorRef = inject(ChangeDetectorRef);
-  private timerOfLastUpdate: NodeJS.Timeout | undefined;
+	public readonly changeDetectorRef = inject(ChangeDetectorRef);
+	private timerOfLastUpdate: NodeJS.Timeout | undefined;
 
 	public readonly showButtonToClearCache = new BooleanState(false);
 
-  /**
-   *
-   * @param page
-   */
-  public isNaN(page: number): boolean {
-    return isNaN(page);
-  }
+	/**
+	 *
+	 * @param page
+	 */
+	public isNaN(page: number): boolean {
+		return isNaN(page);
+	}
 
-  public ngOnChanges(changes: { tableState: SimpleChange }): void {
-    if (changes.tableState) {
-      this.initTimerOfLastUpdate();
-      this.pages = getPaginationItems(this.tableState.page, this.tableState.maxPage, environment.config.pagination.maxLength);
-      this.changeDetectorRef.detectChanges();
-    }
-  }
+	public ngOnChanges(changes: { tableState: SimpleChange }): void {
+		if (changes.tableState) {
+			this.initTimerOfLastUpdate();
+			this.pages = getPaginationItems(this.tableState.page, this.tableState.maxPage, environment.config.pagination.maxLength);
+			this.changeDetectorRef.detectChanges();
+		}
+	}
 
-  public nextPage(): void {
-    this.changePage(this.tableState.page + 1);
-  }
+	public nextPage(): void {
+		this.changePage(this.tableState.page + 1);
+	}
 
-  public prevPage(): void {
-    this.changePage(this.tableState.page - 1);
-  }
+	public prevPage(): void {
+		this.changePage(this.tableState.page - 1);
+	}
 
-  public changePage(page: number): void {
-    this.page.emit(page);
-  }
+	public changePage(page: number): void {
+		this.page.emit(page);
+	}
 
-  public changePageSize(pageSize: number): void {
-    this.pageSize.emit(pageSize);
-  }
+	public changePageSize(pageSize: number): void {
+		this.pageSize.emit(pageSize);
+	}
 
-  private initTimerOfLastUpdate() {
+	private initTimerOfLastUpdate() {
 
-    this.updateLastUpdate();
-    this.changeDetectorRef.detectChanges();
+		this.updateLastUpdate();
+		this.changeDetectorRef.detectChanges();
 
-    if (this.timerOfLastUpdate) {
-      clearInterval(this.timerOfLastUpdate);
-    }
+		if (this.timerOfLastUpdate) {
+			clearInterval(this.timerOfLastUpdate);
+		}
 
-    this.timerOfLastUpdate = setTimeout(() => {
-      this.initTimerOfLastUpdate();
-    }, MS_ONE_MINUTE);
+		this.timerOfLastUpdate = setTimeout(() => {
+			this.initTimerOfLastUpdate();
+		}, MS_ONE_MINUTE);
 
-  }
+	}
 
-  private updateLastUpdate(): void {
+	private updateLastUpdate(): void {
 
-    const ms = DateTime.now().diff(DateTime.fromISO(this.tableState.lastUpdate)).as('milliseconds');
+		const ms = DateTime.now().diff(DateTime.fromISO(this.tableState.lastUpdate)).as('milliseconds');
 
 		if (ms > MS_ONE_MINUTE) {
 			this.showButtonToClearCache.switchOn();
@@ -114,15 +113,15 @@ export class TableStatePaginationComponent implements OnChanges {
 			this.showButtonToClearCache.switchOff();
 		}
 
-    this.lastUpdate = humanizeDuration(
-      ms,
-      {
-        round: true,
+		this.lastUpdate = humanizeDuration(
+			ms,
+			{
+				round: true,
 				units: ['m'],
-        language: this.translateService.currentLang,
-      }
-    );
+				language: this.translateService.currentLang,
+			}
+		);
 
-  }
+	}
 
 }
