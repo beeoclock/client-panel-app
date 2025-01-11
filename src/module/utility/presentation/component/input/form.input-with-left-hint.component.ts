@@ -1,12 +1,12 @@
 import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	DoCheck,
-	HostBinding,
-	inject,
-	Input,
-	ViewEncapsulation
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  DoCheck,
+  HostBinding,
+  inject,
+  ViewEncapsulation,
+  input
 } from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
@@ -35,60 +35,50 @@ import {TranslateModule} from "@ngx-translate/core";
 		TranslateModule,
 	],
 	template: `
-		<label default *ngIf="showLabel" [for]="id">
-			{{ label ?? (labelTranslateKey | translate) }}
+		<label default *ngIf="showLabel()" [for]="id()">
+			{{ label() ?? (labelTranslateKey() | translate) }}
 		</label>
 		<ng-content/>
 
 		<div
 			class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
 				<span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
-					{{ leftHint }}
+					{{ leftHint() }}
 				</span>
 			<input
 				isRequired
 				invalidTooltip
 				class="w-full block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-				[isRequiredEnabled]="showLabel"
-				[formControl]="control"
-				[placeholder]="placeholder ?? (placeholderTranslateKey | translate)"
-				[id]="id"
-				[type]="inputType"
-				[autocomplete]="autocomplete"/>
+				[isRequiredEnabled]="showLabel()"
+				[formControl]="control()"
+				[placeholder]="placeholder() ?? (placeholderTranslateKey() | translate)"
+				[id]="id()"
+				[type]="inputType()"
+				[autocomplete]="autocomplete()"/>
 		</div>
 	`
 })
 export class FormInputWithLeftHintComponent implements DoCheck {
 
-	@Input({required: true})
-	public leftHint: unknown | string;
+	public readonly leftHint = input.required<unknown | string>();
 
-	@Input()
-	public label: unknown | string;
+	public readonly label = input<unknown | string>();
 
-	@Input()
-	public labelTranslateKey = '';
+	public readonly labelTranslateKey = input('');
 
-	@Input()
-	public showLabel = true;
+	public readonly showLabel = input(true);
 
-	@Input()
-	public id = 'utility-base-input';
+	public readonly id = input('utility-base-input');
 
-	@Input()
-	public inputType = 'text';
+	public readonly inputType = input('text');
 
-	@Input()
-	public placeholder: string | null = null;
+	public readonly placeholder = input<string | null>(null);
 
-	@Input()
-	public placeholderTranslateKey = '';
+	public readonly placeholderTranslateKey = input('');
 
-	@Input()
-	public autocomplete = '';
+	public readonly autocomplete = input('');
 
-	@Input({required: true})
-	public control!: FormControl;
+	public readonly control = input.required<FormControl>();
 
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 

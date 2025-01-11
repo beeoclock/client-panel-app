@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation, input} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from '@angular/common';
 import {firstValueFrom} from 'rxjs';
@@ -58,8 +58,7 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 })
 export class ServiceDetails {
 
-	@Input()
-	public item: IServiceDto | null = null;
+	public readonly item = input<IServiceDto | null>(null);
 
 	public readonly store = inject(Store);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
@@ -73,11 +72,12 @@ export class ServiceDetails {
 	}
 
 	public edit(): void {
-		if (!this.item) return;
+		const item = this.item();
+  if (!item) return;
 		this.store.dispatch(new ServiceActions.OpenForm({
 			componentInputs: {
 				isEditMode: true,
-				item: this.item
+				item: item
 			}
 		}));
 	}

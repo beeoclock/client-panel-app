@@ -1,4 +1,4 @@
-import {Directive, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Directive, EventEmitter, HostListener, OnDestroy, OnInit, Output, input} from '@angular/core';
 import {Subject, Subscription} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import {Reactive} from "@utility/cdk/reactive";
@@ -9,11 +9,9 @@ import {Reactive} from "@utility/cdk/reactive";
 })
 export class DebounceClickDirective extends Reactive implements OnInit, OnDestroy {
 
-  @Input()
-  public enabledDebounceClick = true;
+  public readonly enabledDebounceClick = input(true);
 
-  @Input()
-  public debounceTime = 250;
+  public readonly debounceTime = input(250);
 
   @Output()
   public debounceClick = new EventEmitter();
@@ -24,7 +22,7 @@ export class DebounceClickDirective extends Reactive implements OnInit, OnDestro
   public ngOnInit(): void {
     this.subscription = this.clicks
       .pipe(
-          debounceTime(this.debounceTime),
+          debounceTime(this.debounceTime()),
           this.takeUntil(),
       )
       .subscribe(e => this.debounceClick.emit(e));
@@ -44,7 +42,7 @@ export class DebounceClickDirective extends Reactive implements OnInit, OnDestro
   private clickEvent(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
-    if (this.enabledDebounceClick) {
+    if (this.enabledDebounceClick()) {
       this.clicks.next(event);
     } else {
       this.debounceClick.emit(event);

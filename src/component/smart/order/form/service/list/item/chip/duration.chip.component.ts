@@ -2,7 +2,7 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	EventEmitter,
-	Input,
+	input,
 	OnChanges,
 	OnInit,
 	Output,
@@ -39,13 +39,13 @@ import {TranslateModule} from "@ngx-translate/core";
 	],
 	template: `
 		<button
-			[id]="'input-duration-' + id"
+			[id]="'input-duration-' + id()"
 			class="px-3 py-2 rounded-lg border border-gray-200 justify-center items-center flex">
 			<div class="text-slate-900 text-sm font-normal">
 				⏳ {{ duration() | humanizeDuration }}
 			</div>
 		</button>
-		<ion-popover [trigger]="'input-duration-' + id" [keepContentsMounted]="true">
+		<ion-popover [trigger]="'input-duration-' + id()" [keepContentsMounted]="true">
 			<ng-template>
 				<ion-datetime
 					presentation="time"
@@ -59,11 +59,9 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class DurationChipComponent extends Reactive implements OnInit, OnChanges {
 
-	@Input()
-	public initialValue: number = 0;
+	public readonly initialValue = input<number>(0);
 
-	@Input()
-	public id: string = ObjectID().toHexString();
+	public readonly id = input<string>(ObjectID().toHexString());
 
 	@Output()
 	public readonly durationChanges = new EventEmitter<number>();
@@ -94,7 +92,7 @@ export class DurationChipComponent extends Reactive implements OnInit, OnChanges
 			this.durationChanges.emit(diffInSeconds);
 		});
 
-		this.initFormControlValue(this.initialValue);
+		this.initFormControlValue(this.initialValue());
 
 	}
 

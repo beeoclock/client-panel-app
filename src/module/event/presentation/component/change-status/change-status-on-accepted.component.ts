@@ -61,15 +61,16 @@ export class ChangeStatusOnAcceptedComponent extends ChangeStatusBaseComponent {
 	public async changeStatusOnAccepted(): Promise<void> {
 
 		this.loading.doTrue();
-		this.event.originalData.service.status = OrderServiceStatusEnum.accepted;
+		const event = this.event();
+  event.originalData.service.status = OrderServiceStatusEnum.accepted;
 
 		this.store.dispatch(new EventActions.ChangeServiceStatus({
-			serviceId: this.event.originalData.service._id,
-			orderId: this.event.originalData.order._id,
+			serviceId: event.originalData.service._id,
+			orderId: event.originalData.order._id,
 			status: OrderServiceStatusEnum.accepted,
 		}));
 		this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
-		this.store.dispatch(new EventActions.UpdateOpenedDetails(this.event));
+		this.store.dispatch(new EventActions.UpdateOpenedDetails(event));
 		this.statusChange.emit();
 		this.loading.doFalse();
 	}

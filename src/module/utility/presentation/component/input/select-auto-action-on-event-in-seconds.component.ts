@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation, input} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -11,7 +11,7 @@ import {is} from "@utility/checker";
 	standalone: true,
 	template: `
 		<div class="relative">
-			<label default [for]="id">
+			<label default [for]="id()">
 				{{ 'keyword.capitalize.autoActionOnOrderInSeconds' | translate }}
 			</label>
 			<ng-select
@@ -19,8 +19,8 @@ import {is} from "@utility/checker";
 				bindValue="seconds"
 				[items]="autoActionOnOrderInSecondsList"
 				[clearable]="false"
-				[id]="id"
-				[formControl]="control">
+				[id]="id()"
+				[formControl]="control()">
 			</ng-select>
 		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
@@ -38,11 +38,9 @@ import {is} from "@utility/checker";
 })
 export class SelectAutoActionOnEventInSecondsComponent {
 
-	@Input()
-	public id = '';
+	public readonly id = input('');
 
-	@Input()
-	public control = new FormControl();
+	public readonly control = input(new FormControl());
 
 	public readonly translateService = inject(TranslateService);
 

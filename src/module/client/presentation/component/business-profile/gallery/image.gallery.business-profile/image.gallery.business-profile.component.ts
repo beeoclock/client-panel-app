@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, ViewEncapsulation} from "@angular/core";
+import {Component, EventEmitter, input, Output, ViewEncapsulation} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgIf} from "@angular/common";
 import {DragAndDropDirective} from "@utility/presentation/directives/drag-and-drop/drag-and-drop.directive";
@@ -23,14 +23,13 @@ import {file2base64} from "@utility/domain/file2base64";
 })
 export class ImageGalleryBusinessProfileComponent extends BaseImageComponent {
 
-	@Input()
-	public control!: FormControl;
+	public readonly control = input.required<FormControl>();
 
 	@Output()
 	public readonly remove = new EventEmitter<void>();
 
 	public get isEmptyControl(): boolean {
-		return !this.control.value;
+		return !this.control().value;
 	}
 
 	public get isNotEmptyControl(): boolean {
@@ -48,7 +47,7 @@ export class ImageGalleryBusinessProfileComponent extends BaseImageComponent {
 			this.selectedFile = file;
 			const base64 = await file2base64(file);
 			this.mediaState = MediaStateEnum.CHANGED;
-			this.control.patchValue(base64);
+			this.control().patchValue(base64);
 			this.updateSrc(base64);
 
 		} catch (e) {

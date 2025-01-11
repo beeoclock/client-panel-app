@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewEncapsulation} from '@angular/core';
+import {Component, inject, input, ViewEncapsulation} from '@angular/core';
 import {firstValueFrom} from 'rxjs';
 import {ICustomer} from '@customer/domain';
 import {Store} from "@ngxs/store";
@@ -33,8 +33,7 @@ export class CustomerDetailsContainerComponent {
 
     // TODO add base index of details with store and delete method
 
-    @Input()
-    public item!: ICustomer;
+    public readonly item = input.required<ICustomer>();
 
     public readonly store = inject(Store);
     public readonly customerOrderListExternalWhacAMole = inject(CustomerOrderListExternalWhacAMole);
@@ -54,13 +53,14 @@ export class CustomerDetailsContainerComponent {
     }
 
     public openForm() {
-        if (!this.item) {
+        const item = this.item();
+        if (!item) {
             return
         }
-        this.store.dispatch(new CustomerActions.OpenFormToEditById(this.item?._id));
+        this.store.dispatch(new CustomerActions.OpenFormToEditById(item?._id));
     }
 
     public async openCustomersOrders() {
-        await this.customerOrderListExternalWhacAMole.execute(this.item._id);
+        await this.customerOrderListExternalWhacAMole.execute(this.item()._id);
     }
 }

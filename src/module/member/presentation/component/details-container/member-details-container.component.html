@@ -1,4 +1,4 @@
-<ng-container *ngIf="item as member">
+<ng-container *ngIf="item() as member">
 	<div class="bg-white">
 		<dl class="divide-y divide-gray-100">
 			<div *ngIf="member?.avatar?.url?.length" class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">

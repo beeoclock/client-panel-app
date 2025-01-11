@@ -1,13 +1,13 @@
 import {
-	AfterViewInit,
-	ChangeDetectionStrategy,
-	Component,
-	ElementRef,
-	HostBinding,
-	HostListener,
-	inject,
-	Input,
-	Renderer2
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostBinding,
+  HostListener,
+  inject,
+  Renderer2,
+  input
 } from "@angular/core";
 import {RIMember} from "@member/domain";
 import {firstValueFrom} from "rxjs";
@@ -32,14 +32,11 @@ import {BooleanState} from "@utility/domain";
 })
 export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterViewInit {
 
-	@Input({required: true})
-	public startInMinutes!: number;
+	public readonly startInMinutes = input.required<number>();
 
-	@Input({required: true})
-	public durationInMinutes!: number;
+	public readonly durationInMinutes = input.required<number>();
 
-	@Input({required: true})
-	public member!: RIMember;
+	public readonly member = input.required<RIMember>();
 
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
@@ -95,7 +92,7 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 
 		let startDateTime = baseDateTime
 			.plus({
-				minutes: this.startInMinutes,
+				minutes: this.startInMinutes(),
 			});
 
 		if (startDateTime.offset !== baseDateTime.offset) {
@@ -129,7 +126,7 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 
 								this.ngxLogger.debug('Callback:update:before', {datetimeISOComponent, memberComponent});
 
-								if (datetimeISOComponent !== datetimeISO || memberComponent?._id !== this.member._id) {
+								if (datetimeISOComponent !== datetimeISO || memberComponent?._id !== this.member()._id) {
 									this.showSelectedSquare(false);
 								}
 							}
@@ -139,7 +136,7 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 			},
 			componentInputs: {
 				datetimeISO,
-				member: this.member,
+				member: this.member(),
 				callback
 			}
 		});

@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, input, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 
 import {NgIf} from '@angular/common';
@@ -31,7 +31,7 @@ import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-m
             autocomplete="off"
             id="attendee-first-name"
             [placeholder]="'keyword.capitalize.firstName' | translate"
-            [control]="form.controls.firstName"
+            [control]="form().controls.firstName"
             [label]="'keyword.capitalize.firstName' | translate"/>
 
         <form-input
@@ -39,7 +39,7 @@ import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-m
             autocomplete="off"
             id="attendee-last-name"
             [placeholder]="'keyword.capitalize.lastName' | translate"
-            [control]="form.controls.lastName"
+            [control]="form().controls.lastName"
             [label]="'keyword.capitalize.lastName' | translate"/>
 
 
@@ -47,8 +47,7 @@ import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-m
 })
 export class NamesFormAttendantComponent {
 
-    @Input()
-    public form!: CustomerForm;
+    public readonly form = input.required<CustomerForm>();
 
     @HostBinding()
     public readonly class = 'flex gap-3';

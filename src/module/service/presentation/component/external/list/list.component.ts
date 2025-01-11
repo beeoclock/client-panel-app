@@ -2,6 +2,7 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	Input,
+	input,
 	OnInit,
 	QueryList,
 	ViewChildren,
@@ -46,8 +47,7 @@ import {OrderDirEnum} from "@utility/domain/enum";
 })
 export class ServiceExternalListComponent extends ListPage<IServiceDto> implements OnInit {
 
-	@Input()
-	public useTableStateFromStore = true;
+	public readonly useTableStateFromStore = input(true);
 
 	@Input()
 	public tableState: ITableState<IServiceDto> = new TableState<IServiceDto>().toCache();
@@ -66,7 +66,7 @@ export class ServiceExternalListComponent extends ListPage<IServiceDto> implemen
 			.pipe(
 				this.takeUntil(),
 				tap((tableState) => {
-					if (this.useTableStateFromStore) {
+					if (this.useTableStateFromStore()) {
 						this.tableState = tableState;
 						this.changeDetectorRef.detectChanges();
 					}

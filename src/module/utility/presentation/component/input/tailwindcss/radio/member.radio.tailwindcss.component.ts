@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, ViewEncapsulation, input} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
@@ -12,13 +12,13 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 	template: `
 		<ul class="flex w-full overflow-x-scroll gap-2 md:overflow-x-hidden md:flex-wrap">
 
-			@for (item of items; track item.id) {
+			@for (item of items(); track item.id) {
 
 				<li>
 
 					<input
 						[id]="item.id"
-						[formControl]="control"
+						[formControl]="control()"
 						[value]="item.id"
 						type="radio"
 						class="hidden peer"/>
@@ -80,14 +80,12 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 })
 export class MemberRadioTailwindcssComponent {
 
-	@Input({required: true})
-	public control!: FormControl;
+	public readonly control = input.required<FormControl>();
 
-	@Input({required: true})
-	public items: {
-		id: string;
-		label: string;
-		avatar: string;
-	}[] = [];
+	public readonly items = input.required<{
+    id: string;
+    label: string;
+    avatar: string;
+}[]>();
 
 }

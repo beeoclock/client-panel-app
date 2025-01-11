@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, input, ViewEncapsulation} from "@angular/core";
 import {NgIconComponent, provideIcons} from "@ng-icons/core";
 import {
 	bootstrapArchive,
@@ -48,7 +48,7 @@ export type IconNameType =
 	encapsulation: ViewEncapsulation.None,
 	selector: 'app-icon',
 	template: `
-		<ng-icon [name]="name"/>
+		<ng-icon [name]="name()"/>
 	`,
 	host: {
 		class: 'contents'
@@ -66,7 +66,6 @@ export type IconNameType =
 })
 export class IconComponent {
 
-	@Input({required: true})
-	public name!: IconNameType;
+	public readonly name = input.required<IconNameType>();
 
 }

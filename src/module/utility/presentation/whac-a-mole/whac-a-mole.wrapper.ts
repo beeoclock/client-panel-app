@@ -1,12 +1,13 @@
 import {
-	Component,
-	ComponentRef,
-	HostBinding,
-	Input,
-	Type,
-	ViewChild,
-	ViewContainerRef,
-	ViewEncapsulation
+  Component,
+  ComponentRef,
+  HostBinding,
+  Input,
+  Type,
+  ViewChild,
+  ViewContainerRef,
+  ViewEncapsulation,
+  input
 } from '@angular/core';
 import {NgIf} from '@angular/common';
 import {WhacAMoleBuildItArgsType} from "@utility/presentation/whac-a-mole/whac-a-mole.type";
@@ -18,7 +19,7 @@ import {WhacAMoleBuildItArgsType} from "@utility/presentation/whac-a-mole/whac-a
 	imports: [NgIf],
 	template: `
 		<div class="flex justify-between p-1 border-b">
-			<div class="truncate font-bold p-2">{{ title }}</div>
+			<div class="truncate font-bold p-2">{{ title() }}</div>
 			<div class="flex gap-2">
 				<button
 					type="button"
@@ -34,7 +35,7 @@ import {WhacAMoleBuildItArgsType} from "@utility/presentation/whac-a-mole/whac-a
 			</div>
 		</div>
 		<div
-			*ngIf="showLoading"
+			*ngIf="showLoading()"
 			role="status"
 			class="animate-pulse bg-gray-300 dark:bg-gray-700 flex h-dvh items-center justify-center m-1 rounded-lg">
 			<span class="sr-only">Loading...</span>
@@ -44,15 +45,13 @@ import {WhacAMoleBuildItArgsType} from "@utility/presentation/whac-a-mole/whac-a
 	`
 })
 export class WhacAMoleWrapper<COMPONENT> {
-	@Input()
-	public showLoading = true;
+	public readonly showLoading = input(true);
 
 	@HostBinding()
 	@Input() // Required
 	public id!: string;
 
-	@Input()
-	public title = 'Title';
+	public readonly title = input('Title');
 
 	@Input()
 	public button: WhacAMoleBuildItArgsType['button'] = {
@@ -62,17 +61,14 @@ export class WhacAMoleWrapper<COMPONENT> {
 		}
 	};
 
-	@Input()
-	public destroySelf = () => {
-	};
+	public readonly destroySelf = input(() => {
+});
 
-	@Input()
-	public updateSelfBefore = (componentInputs: Record<string, unknown> | undefined) => {
-	};
+	public readonly updateSelfBefore = input((componentInputs: Record<string, unknown> | undefined) => {
+});
 
-	@Input()
-	public updateSelfAfter = (componentInputs: Record<string, unknown> | undefined) => {
-	};
+	public readonly updateSelfAfter = input((componentInputs: Record<string, unknown> | undefined) => {
+});
 
 	@ViewChild('renderContainer', {read: ViewContainerRef, static: true})
 	private readonly renderContainer!: ViewContainerRef;
@@ -84,11 +80,11 @@ export class WhacAMoleWrapper<COMPONENT> {
 	public renderedComponentRef: ComponentRef<COMPONENT> | undefined;
 
 	public doDone() {
-		this.destroySelf();
+		this.destroySelf()();
 	}
 
 	public renderComponent(component: Type<COMPONENT>, inputs?: Record<string, unknown>) {
-		if (this.showLoading) {
+		if (this.showLoading()) {
 			return;
 		}
 

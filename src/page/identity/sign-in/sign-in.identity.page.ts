@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, ViewChild, ViewEncapsulation, input} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SignInComponent} from '@identity/presentation/component/sign-in.component/sign-in.component';
@@ -38,11 +38,9 @@ import {environment} from "@environment/environment";
 })
 export class SignInIdentityPage implements OnInit {
 
-	@Input()
-	public login: string | null = null;
+	public readonly login = input<string | null>(null);
 
-	@Input()
-	public password: string | null = null;
+	public readonly password = input<string | null>(null);
 
 	public readonly footerLabel = environment.footer.label;
 
@@ -56,8 +54,8 @@ export class SignInIdentityPage implements OnInit {
 		password: string;
 	} {
 		return {
-			email: this.login ?? '',
-			password: this.password ?? ''
+			email: this.login() ?? '',
+			password: this.password() ?? ''
 		}
 	}
 

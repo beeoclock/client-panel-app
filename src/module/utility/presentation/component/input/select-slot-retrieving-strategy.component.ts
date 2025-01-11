@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation, input} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -13,7 +13,7 @@ import {NgIf} from "@angular/common";
 	standalone: true,
 	template: `
 		<div class="relative">
-			<label default [for]="id">
+			<label default [for]="id()">
 				{{ 'slotRetrievingStrategy.title' | translate }}
 			</label>
 			<ng-select
@@ -21,8 +21,8 @@ import {NgIf} from "@angular/common";
 				bindValue="id"
 				[items]="options"
 				[clearable]="false"
-				[id]="id"
-				[formControl]="slotSettings.controls.slotRetrievingStrategy"/>
+				[id]="id()"
+				[formControl]="slotSettings().controls.slotRetrievingStrategy"/>
 		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
 			{{ 'slotRetrievingStrategy.hint' | translate }}
@@ -56,11 +56,9 @@ export class SelectSlotRetrievingStrategyComponent implements OnInit {
 
 	// TODO: add opportunity to change slot interval in seconds via addTag method in ng-select
 
-	@Input()
-	public id = '';
+	public readonly id = input('');
 
-	@Input()
-	public slotSettings = new SlotSettingsForm();
+	public readonly slotSettings = input(new SlotSettingsForm());
 
 	public readonly options: {
 		label: string;
@@ -71,11 +69,11 @@ export class SelectSlotRetrievingStrategyComponent implements OnInit {
 	public readonly humanizeDurationHelper = inject(HumanizeDurationHelper);
 
 	public get isIncludeRequested(): boolean {
-		return this.slotSettings.controls.slotRetrievingStrategy.value === SlotRetrievingStrategyEnum.IncludeRequested;
+		return this.slotSettings().controls.slotRetrievingStrategy.value === SlotRetrievingStrategyEnum.IncludeRequested;
 	}
 
 	public get isOnlyBooked(): boolean {
-		return this.slotSettings.controls.slotRetrievingStrategy.value === SlotRetrievingStrategyEnum.OnlyBooked;
+		return this.slotSettings().controls.slotRetrievingStrategy.value === SlotRetrievingStrategyEnum.OnlyBooked;
 	}
 
 	public ngOnInit() {

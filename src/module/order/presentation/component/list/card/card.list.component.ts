@@ -21,8 +21,8 @@ import {CardItemOrderComponent} from "@order/presentation/component/list/card/it
 	selector: 'app-order-card-list-component',
 	template: `
 		<div class="flex flex-col items-center justify-center gap-4 my-4"
-			 [class.h-[calc(100vh-134px)]]="!tableState.items.length">
-			@for (item of tableState.items; track item._id) {
+			 [class.h-[calc(100vh-134px)]]="!tableState().items.length">
+			@for (item of tableState().items; track item._id) {
 				<app-card-item-order-component
 					[showAction]="(tableService.showAction.state$ | async) ?? false"
 					[showSelectedStatus]="(tableService.showSelectedStatus.state$ | async) ?? false"
@@ -33,7 +33,7 @@ import {CardItemOrderComponent} from "@order/presentation/component/list/card/it
 		<utility-table-state-pagination-component
 			[mobileMode]="true"
 			(page)="pageChange($event)"
-			[tableState]="tableState"/>
+			[tableState]="tableState()"/>
 	`,
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,

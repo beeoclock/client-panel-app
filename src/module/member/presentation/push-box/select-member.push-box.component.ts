@@ -6,6 +6,7 @@ import {
 	EventEmitter,
 	inject,
 	Input,
+	input,
 	OnInit,
 	Output,
 	QueryList,
@@ -47,8 +48,7 @@ import {
 })
 export class SelectMemberPushBoxComponent extends Reactive implements OnInit, AfterViewInit {
 
-	@Input()
-	public selectedMemberList: RIMember[] = [];
+	public readonly selectedMemberList = input<RIMember[]>([]);
 
 	@Input()
 	public newSelectedMemberList: RIMember[] = [];
@@ -66,7 +66,7 @@ export class SelectMemberPushBoxComponent extends Reactive implements OnInit, Af
 
 	public ngOnInit(): void {
 
-		this.newSelectedMemberList = [...(this.selectedMemberList ?? [])];
+		this.newSelectedMemberList = [...(this.selectedMemberList() ?? [])];
 
 	}
 

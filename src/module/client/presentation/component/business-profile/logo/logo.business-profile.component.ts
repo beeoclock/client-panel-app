@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewChild, ViewEncapsulation} from "@angular/core";
+import {Component, inject, input, ViewChild, ViewEncapsulation} from "@angular/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {BooleanState} from "@utility/domain";
@@ -31,8 +31,7 @@ import {MediaStateEnum} from "@utility/presentation/component/image/base.image.c
 })
 export class LogoBusinessProfileComponent {
 
-	@Input()
-	public logo: RIMedia | null | undefined;
+	public readonly logo = input<RIMedia | null>();
 
 	@ViewChild(ImageLogoBusinessProfileComponent)
 	public imageLogoBusinessProfileComponent!: ImageLogoBusinessProfileComponent;
@@ -50,8 +49,9 @@ export class LogoBusinessProfileComponent {
 		const formData = new FormData();
 		formData.append('file', this.imageLogoBusinessProfileComponent.selectedFile as Blob);
 
-		if (this.imageLogoBusinessProfileComponent.banner) {
-			formData.append('_id', this.imageLogoBusinessProfileComponent.banner._id);
+		const banner = this.imageLogoBusinessProfileComponent.banner();
+  if (banner) {
+			formData.append('_id', banner._id);
 		}
 		await this.patchMediaLogoClientApiAdapter.executeAsync(formData);
 

@@ -63,16 +63,17 @@ export class ChangeStatusOnDoneComponent extends ChangeStatusBaseComponent {
 
 	public async changeStatusOnDone(): Promise<void> {
 		this.loading.doTrue();
-		this.event.originalData.service.status = OrderServiceStatusEnum.done;
+		const event = this.event();
+  event.originalData.service.status = OrderServiceStatusEnum.done;
 		const actionToChangeStatus$ = this.store.dispatch(new EventActions.ChangeServiceStatus({
-			serviceId: this.event.originalData.service._id,
-			orderId: this.event.originalData.order._id,
+			serviceId: event.originalData.service._id,
+			orderId: event.originalData.order._id,
 			status: OrderServiceStatusEnum.done,
 		}));
 		await firstValueFrom(actionToChangeStatus$);
 		const actionToUpdateList$ =  this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
 		await firstValueFrom(actionToUpdateList$);
-		const actionToUpdateDetails$ = this.store.dispatch(new EventActions.UpdateOpenedDetails(this.event));
+		const actionToUpdateDetails$ = this.store.dispatch(new EventActions.UpdateOpenedDetails(event));
 		await firstValueFrom(actionToUpdateDetails$);
 		this.statusChange.emit();
 		this.loading.doFalse();

@@ -61,18 +61,19 @@ export class ChangeStatusOnCancelledComponent extends ChangeStatusBaseComponent 
 
 	public async changeStatusOnCancelled(): Promise<void> {
 		this.loading.doTrue();
-		this.event.originalData.service.status = OrderServiceStatusEnum.cancelled;
+		const event = this.event();
+  event.originalData.service.status = OrderServiceStatusEnum.cancelled;
 		await firstValueFrom(
 			this.store.dispatch(
 				new EventActions.ChangeServiceStatus({
-					orderId: this.event.originalData.order._id,
-					serviceId: this.event.originalData.service._id,
+					orderId: event.originalData.order._id,
+					serviceId: event.originalData.service._id,
 					status: OrderServiceStatusEnum.cancelled,
 				})
 			)
 		);
 		this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
-		this.store.dispatch(new EventActions.UpdateOpenedDetails(this.event));
+		this.store.dispatch(new EventActions.UpdateOpenedDetails(event));
 		this.statusChange.emit();
 		this.loading.doFalse();
 	}

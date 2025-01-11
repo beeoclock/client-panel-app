@@ -4,7 +4,7 @@ import {
 	ElementRef,
 	HostBinding,
 	inject,
-	Input,
+	input,
 	QueryList,
 	ViewChild,
 	ViewChildren
@@ -32,11 +32,11 @@ import {NGXLogger} from "ngx-logger";
 	template: `
 
 		<event-calendar-hours-component
-			[currentDate]="currentDate"
+			[currentDate]="currentDate()"
 			#hoursComponent/>
 
 		<event-calendar-columns-block-component
-			*ngFor="let preferences of preferencesOfCalendars"
+			*ngFor="let preferences of preferencesOfCalendars()"
 			[id]="preferences.from.toISOString()"
 			[preferences]="preferences"/>
 
@@ -46,14 +46,12 @@ import {NGXLogger} from "ngx-logger";
 })
 export class ContainerCalendarComponent implements AfterViewInit {
 
-	@Input()
-	public currentDate: Date = new Date();
+	public readonly currentDate = input<Date>(new Date());
 
-	@Input()
-	public preferencesOfCalendars: {
-		from: Date;
-		to: Date;
-	}[] = [];
+	public readonly preferencesOfCalendars = input<{
+    from: Date;
+    to: Date;
+}[]>([]);
 
 	@ViewChildren(ColumnsBlockComponent)
 	public calendarsRef!: QueryList<ColumnsBlockComponent>;
@@ -132,7 +130,7 @@ export class ContainerCalendarComponent implements AfterViewInit {
 	 */
 	public initCurrentCalendar() {
 		const currentCalendarRef = this.calendarsRef.find((calendarRef) => {
-			return calendarRef.preferences.from.toISOString() === this.currentDate.toISOString();
+			return calendarRef.preferences().from.toISOString() === this.currentDate().toISOString();
 		});
 		if (currentCalendarRef) {
 			this.currentCalendarRef = currentCalendarRef;

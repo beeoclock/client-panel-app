@@ -3,11 +3,11 @@
 		<utility-loader/>
 	</div>
 
-	<div class="italic leading-tight text-sm p-2 text-beeColor-500" *ngIf="!localDateTimeControl.value">
+	<div class="italic leading-tight text-sm p-2 text-beeColor-500" *ngIf="!localDateTimeControl().value">
 		{{ 'event.form.section.datetime.hint.selectDateToSelectTimeSlot' | translate }}
 	</div>
 
-	<ng-template [ngIf]="localDateTimeControl.value && !groupedSlots.length">
+	<ng-template [ngIf]="localDateTimeControl().value && !groupedSlots.length">
 		{{ 'keyword.capitalize.dataNotFound' | translate }}
 	</ng-template>
 	<ng-container *ngFor="let group of groupedSlots; let index = index;">

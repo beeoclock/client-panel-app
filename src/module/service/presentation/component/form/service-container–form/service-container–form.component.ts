@@ -3,7 +3,7 @@ import {
 	ChangeDetectorRef,
 	Component,
 	inject,
-	Input,
+	input,
 	OnInit,
 	ViewChild,
 	ViewEncapsulation
@@ -69,11 +69,9 @@ export class ServiceContainerFormComponent implements OnInit {
 	@ViewChild(ImageBlockComponent)
 	public readonly imageBlock!: ImageBlockComponent;
 
-	@Input()
-	public isEditMode = false;
+	public readonly isEditMode = input(false);
 
-	@Input()
-	public item: IServiceDto | null = null;
+	public readonly item = input<IServiceDto | null>(null);
 
 	public readonly form = new ServiceForm();
 	public readonly presentationForm = new ServicePresentationForm({
@@ -135,9 +133,10 @@ export class ServiceContainerFormComponent implements OnInit {
 	}
 
 	public detectItem(): void {
-		if (this.isEditMode && this.item) {
+		const item = this.item();
+  if (this.isEditMode() && item) {
 
-			const {durationVersions, languageVersions, presentation, ...rest} = this.item;
+			const {durationVersions, languageVersions, presentation, ...rest} = item;
 
 			if (presentation?.banners?.length) {
 				this.presentationForm.controls.banners.patchValue(presentation.banners);
@@ -185,13 +184,14 @@ export class ServiceContainerFormComponent implements OnInit {
 			this.form.disable();
 			this.form.markAsPending();
 			const value = this.form.getRawValue() as IServiceDto;
-			if (this.isEditMode) {
+			if (this.isEditMode()) {
 				await firstValueFrom(this.store.dispatch(new ServiceActions.UpdateItem(value)));
 				await this.imageBlock.save(value._id);
 			} else {
 				await firstValueFrom(this.store.dispatch(new ServiceActions.CreateItem(value)));
-				if (this.item) {
-					await this.imageBlock.save(this.item._id);
+				const item = this.item();
+    if (item) {
+					await this.imageBlock.save(item._id);
 				}
 			}
 			this.form.enable();

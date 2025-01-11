@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewEncapsulation} from '@angular/core';
+import {Component, inject, input, ViewEncapsulation} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {TranslateModule} from "@ngx-translate/core";
@@ -25,8 +25,7 @@ import {ActiveStyleDirective} from "@utility/presentation/directives/active-styl
 })
 export class MemberDetailsContainerComponent {
 
-	@Input()
-	public readonly item: RIMember | null = null;
+	public readonly item = input<RIMember | null>(null);
 
 	public readonly store = inject(Store);
 
@@ -35,10 +34,11 @@ export class MemberDetailsContainerComponent {
 	}
 
 	public openForm() {
-		if (!this.item) {
+		const item = this.item();
+  if (!item) {
 			return
 		}
-		this.store.dispatch(new MemberActions.OpenFormToEditById(this.item._id));
+		this.store.dispatch(new MemberActions.OpenFormToEditById(item._id));
 	}
 
 }

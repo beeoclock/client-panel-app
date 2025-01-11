@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, Input, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {RouterLink} from '@angular/router';
@@ -60,8 +60,7 @@ export class CustomerFormContainerComponent implements OnInit {
 		customerType: CustomerTypeEnum.regular
 	});
 
-	@Input()
-	public item!: ICustomer | undefined;
+	public readonly item = input.required<ICustomer | undefined>();
 
 	@Input()
 	private isEditMode = false;
@@ -71,10 +70,11 @@ export class CustomerFormContainerComponent implements OnInit {
 	}
 
 	public detectItem(): void {
-		if (this.isEditMode && this.item) {
+		const item = this.item();
+  if (this.isEditMode && item) {
 			this.isEditMode = true;
 			this.form.patchValue({
-				...this.item,
+				...item,
 				customerType: CustomerTypeEnum.regular
 			});
 			this.form.updateValueAndValidity();

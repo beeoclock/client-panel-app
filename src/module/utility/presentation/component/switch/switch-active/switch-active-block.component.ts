@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 import {NgForOf} from "@angular/common";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
@@ -11,10 +11,10 @@ import {SwitchComponent} from "@utility/presentation/component/switch/switch.com
 		<bee-card>
 
 			<utility-switch-component
-				[id]="id"
-				[control]="control"
-				[labelTranslateKey]="labelTranslateKey"
-				[label]="label"/>
+				[id]="id()"
+				[control]="control()"
+				[labelTranslateKey]="labelTranslateKey()"
+				[label]="label()"/>
 
 		</bee-card>
 	`,
@@ -27,16 +27,12 @@ import {SwitchComponent} from "@utility/presentation/component/switch/switch.com
 })
 export class SwitchActiveBlockComponent {
 
-	@Input()
-	public label: unknown | string;
+	public readonly label = input<unknown | string>();
 
-	@Input()
-	public labelTranslateKey = 'keyword.capitalize.active';
+	public readonly labelTranslateKey = input('keyword.capitalize.active');
 
-	@Input()
-	public id = '';
+	public readonly id = input('');
 
-	@Input()
-	public control = new FormControl(); // External control
+	public readonly control = input(new FormControl()); // External control
 
 }

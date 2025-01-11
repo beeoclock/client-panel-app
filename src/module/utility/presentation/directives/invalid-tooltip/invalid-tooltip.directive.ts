@@ -1,4 +1,4 @@
-import {Directive, DoCheck, ElementRef, inject, Input, Optional} from '@angular/core';
+import {Directive, DoCheck, ElementRef, inject, Optional, input} from '@angular/core';
 import {AbstractControl, NgControl} from '@angular/forms';
 import {is} from "@utility/checker";
 import {TranslateService} from "@ngx-translate/core";
@@ -11,14 +11,11 @@ import {DOCUMENT} from "@angular/common";
 })
 export class InvalidTooltipDirective implements DoCheck {
 
-	@Input()
-	public needTouched = true;
+	public readonly needTouched = input(true);
 
-	@Input()
-	public basePathOfTranslate = 'form.validation.';
+	public readonly basePathOfTranslate = input('form.validation.');
 
-	@Input()
-	public setRedBorderTo: string | undefined;
+	public readonly setRedBorderTo = input<string>();
 
 	public control: undefined | null | AbstractControl;
 
@@ -43,7 +40,7 @@ export class InvalidTooltipDirective implements DoCheck {
 	// if it false that we try to remove existing invalid custom tooltip
 	public detection(): void {
 
-		if (this.needTouched) {
+		if (this.needTouched()) {
 			if (this.control?.untouched) {
 				return;
 			}
@@ -71,8 +68,9 @@ export class InvalidTooltipDirective implements DoCheck {
 		this.reason = null;
 
 		// Remove red border from input
-		if (this.setRedBorderTo) {
-			const element = document.querySelector(this.setRedBorderTo);
+		const setRedBorderTo = this.setRedBorderTo();
+  if (setRedBorderTo) {
+			const element = document.querySelector(setRedBorderTo);
 			if (element) {
 				this.invalidClassList.forEach((className) => {
 					element.classList.remove(className);
@@ -139,15 +137,16 @@ export class InvalidTooltipDirective implements DoCheck {
 
 		// Set message about error
 		this.invalidCustomTooltip.innerText = this.translateService.instant(
-			this.basePathOfTranslate + key,
+			this.basePathOfTranslate() + key,
 			this.control.errors?.[key] ?? undefined
 		);
 
 		this.elementRef.nativeElement.parentElement.appendChild(this.invalidCustomTooltip);
 
 		// Add border red to input
-		if (this.setRedBorderTo) {
-			const element = this.document.querySelector(this.setRedBorderTo);
+		const setRedBorderTo = this.setRedBorderTo();
+  if (setRedBorderTo) {
+			const element = this.document.querySelector(setRedBorderTo);
 			if (element) {
 				this.invalidClassList.forEach((className) => {
 					element.classList.add(className);

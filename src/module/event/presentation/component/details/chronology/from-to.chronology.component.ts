@@ -3,7 +3,7 @@ import {
 	Component,
 	HostBinding,
 	inject,
-	Input,
+	input,
 	OnChanges,
 	SimpleChange,
 	SimpleChanges,
@@ -28,7 +28,7 @@ import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration
 	],
 	template: `
 		<div class="px-2">
-			{{ getTranslate(fromToObject.objectName) }}
+			{{ getTranslate(fromToObject().objectName) }}
 		</div>
 		<div
 			*ngIf="value"
@@ -53,11 +53,10 @@ import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration
 })
 export class FromToChronologyComponent implements OnChanges {
 
-	@Input({required: true})
-	public fromToObject!: {
-		objectName: string;
-		value: any;
-	}; // JSON
+	public readonly fromToObject = input.required<{
+    objectName: string;
+    value: any;
+}>(); // JSON
 
 	@HostBinding()
 	public class = 'flex flex-col gap-2'
@@ -110,7 +109,7 @@ export class FromToChronologyComponent implements OnChanges {
 						return target.value;
 				}
 			case 'number':
-				if (this.fromToObject.objectName.toLowerCase().search('seconds')) {
+				if (this.fromToObject().objectName.toLowerCase().search('seconds')) {
 					return this.humanizeDurationHelper.fromSeconds(target.value);
 				}
 				return target.value;

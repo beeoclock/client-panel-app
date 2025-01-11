@@ -1,4 +1,4 @@
-import {Directive, HostBinding, HostListener, Input, OnInit} from "@angular/core";
+import {Directive, HostBinding, HostListener, OnInit, input} from "@angular/core";
 
 export const enum ButtonTypeEnum {
 	link = 'link',
@@ -66,15 +66,14 @@ export const classListByButtonStyleType = {
 })
 export class BaseButtonDirective implements OnInit {
 
-	@Input()
-	public scrollToFirstError = false;
+	public readonly scrollToFirstError = input(false);
 
 	@HostBinding('class')
 	public class: string[] = [];
 
 	@HostListener('click', ['$event'])
 	public onClick($event: MouseEvent): void {
-		if (!this.scrollToFirstError) {
+		if (!this.scrollToFirstError()) {
 			return;
 		}
 		// TODO move the code below to service

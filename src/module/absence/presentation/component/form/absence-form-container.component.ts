@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {Component, inject, input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import {AbsenceTypeEnum} from "@absence/domain/enums/absence.type.enum";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
@@ -132,11 +132,9 @@ import {DateTime} from "luxon";
 })
 export class AbsenceFormContainerComponent extends Reactive implements OnChanges, OnInit {
 
-	@Input()
-	public item!: Partial<IAbsenceDto>;
+	public readonly item = input.required<Partial<IAbsenceDto>>();
 
-	@Input()
-	public isEditMode: boolean = false;
+	public readonly isEditMode = input<boolean>(false);
 
 	readonly #translateService = inject(TranslateService);
 
@@ -177,7 +175,7 @@ export class AbsenceFormContainerComponent extends Reactive implements OnChanges
 	}
 
 	public detectItem(): void {
-		this.form.patchValue(this.item);
+		this.form.patchValue(this.item());
 		this.form.updateValueAndValidity();
 		this.updateProxyForm();
 	}
@@ -194,8 +192,8 @@ export class AbsenceFormContainerComponent extends Reactive implements OnChanges
 
 		this.form.disable();
 		this.form.markAsPending();
-		!this.isEditMode && await firstValueFrom(this.store.dispatch(new AbsenceActions.CreateItem(value)));
-		this.isEditMode && await firstValueFrom(this.store.dispatch(new AbsenceActions.UpdateItem(value)));
+		!this.isEditMode() && await firstValueFrom(this.store.dispatch(new AbsenceActions.CreateItem(value)));
+		this.isEditMode() && await firstValueFrom(this.store.dispatch(new AbsenceActions.UpdateItem(value)));
 		this.form.enable();
 		this.form.updateValueAndValidity();
 

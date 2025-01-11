@@ -1,4 +1,4 @@
-import {Input, Pipe, PipeTransform} from "@angular/core";
+import {Pipe, PipeTransform, input} from "@angular/core";
 import {DomSanitizer} from "@angular/platform-browser";
 
 @Pipe({
@@ -7,8 +7,7 @@ import {DomSanitizer} from "@angular/platform-browser";
 })
 export class SafePipe implements PipeTransform {
 
-  @Input()
-  public class: undefined | string;
+  public readonly class = input<string>();
 
   constructor(
     private readonly sanitizer: DomSanitizer

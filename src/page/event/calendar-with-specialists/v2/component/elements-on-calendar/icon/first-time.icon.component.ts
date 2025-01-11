@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, HostBinding, ViewEncapsulation, input} from "@angular/core";
 import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
@@ -10,19 +10,18 @@ import {IconComponent} from "@src/component/adapter/icon/icon.component";
 		IconComponent
 	],
 	template: `
-		@if (firstTime) {
+		@if (firstTime()) {
 			<app-icon title="First time" name="bootstrapPersonAdd"/>
 		}
 	`
 })
 export class FirstTimeIconComponent {
 
-	@Input({required: true})
-	public firstTime: boolean = false;
+	public readonly firstTime = input.required<boolean>();
 
 	@HostBinding('class.contents')
 	public get contentsClass(): boolean {
-		return !this.firstTime;
+		return !this.firstTime();
 	}
 
 }

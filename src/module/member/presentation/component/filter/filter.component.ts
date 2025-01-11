@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 import {FilterPanelComponent} from '@utility/presentation/component/panel/filter.panel.component';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {FilterForm} from "@member/presentation/form/filter.form";
@@ -37,7 +37,7 @@ import {NgIf} from "@angular/common";
 					</div>
 				</form>
 			</div>
-			@if (showButtonGoToForm) {
+			@if (showButtonGoToForm()) {
 				<div
 					class="md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
 					<button type="button" primary class="!py-3 !px-4 !text-base" (click)="openForm()">
@@ -53,8 +53,7 @@ import {NgIf} from "@angular/common";
 })
 export class FilterComponent extends BaseFilterComponent {
 
-	@Input()
-	public showButtonGoToForm = true;
+	public readonly showButtonGoToForm = input(true);
 
 	public override readonly form = new FilterForm();
 	public override readonly actions = MemberActions;

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
@@ -24,7 +24,7 @@ interface ITag {
       [hideSelected]="true"
       [items]="[]"
       [clearable]="true"
-      [formControl]="form.controls.test">
+      [formControl]="form().controls.test">
     </ng-select>
   `,
   imports: [
@@ -38,8 +38,7 @@ interface ITag {
 })
 export class TagsComponent {
 
-  @Input()
-  public readonly form = new FormGroup({test: new FormControl()});
+  public readonly form = input(new FormGroup({ test: new FormControl() }));
 
   public addTagFn(name: string): ITag {
     return {

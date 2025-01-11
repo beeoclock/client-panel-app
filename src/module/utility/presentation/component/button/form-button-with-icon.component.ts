@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, HostBinding, ViewEncapsulation, input} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {TranslateModule} from "@ngx-translate/core";
@@ -10,7 +10,7 @@ import {TranslateModule} from "@ngx-translate/core";
   encapsulation: ViewEncapsulation.None,
   template: `
       <i class="bi bi-plus-lg"></i>
-      {{ label }}
+      {{ label() }}
   `,
   imports: [
     NgIf,
@@ -20,8 +20,7 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class FormButtonWithIconComponent {
 
-  @Input()
-  public label = 'LABEL OF BUTTON';
+  public readonly label = input('LABEL OF BUTTON');
 
 	@HostBinding('attr.type')
 	public type = 'button';

@@ -1,4 +1,4 @@
-<div class="flex justify-center pb-4" [class.sm:hidden]="!mobileMode">
+<div class="flex justify-center pb-4" [class.sm:hidden]="!mobileMode()">
 	<div *ngIf="tableState.maxPage === tableState.page" class="text-beeColor-500">
 		{{ 'pagination.message.allDataDownloaded' | translate }}
 	</div>
@@ -11,7 +11,7 @@
 </div>
 
 <div
-	*ngIf="!mobileMode"
+	*ngIf="!mobileMode()"
   class="hidden sm:flex items-center justify-between border-t border-beeColor-200 dark:border-beeDarkColor-800 bg-white dark:bg-beeDarkColor-800 px-4 py-3 sm:px-6 h-16">
 
   <div class="flex flex-1 items-center justify-between">

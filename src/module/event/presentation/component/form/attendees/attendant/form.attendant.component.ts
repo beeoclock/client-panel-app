@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 
 import {NgIf} from '@angular/common';
@@ -33,29 +33,29 @@ import {TelFormInputComponent} from "@utility/presentation/component/tel-form-in
 
 		<div class="grid gap-3">
 
-			<app-event-names-form-attendant-component [form]="form"/>
+			<app-event-names-form-attendant-component [form]="form()"/>
 
 			<form-input
 				inputType="email"
 				autocomplete="off"
 				placeholder="firstname.lastname@example.com"
 				id="attendee-email"
-				[control]="form.controls.email"
+				[control]="form().controls.email"
 				[label]="'keyword.capitalize.email' | translate"/>
 
 			<tel-form-input
 				id="attendee-phone"
-				[control]="form.controls.phone"
+				[control]="form().controls.phone"
 				[label]="'keyword.capitalize.phone' | translate"
 				autocomplete="off"/>
 
 			<div
 				[class.hidden]="
-					form.valid ||
-					form.controls.phone.untouched ||
-					form.controls.email.untouched
+					form().valid ||
+					form().controls.phone.untouched ||
+					form().controls.email.untouched
 				">
-				<utility-invalid-message class="flex justify-center" [control]="form"/>
+				<utility-invalid-message class="flex justify-center" [control]="form()"/>
 			</div>
 
 		</div>
@@ -63,8 +63,7 @@ import {TelFormInputComponent} from "@utility/presentation/component/tel-form-in
 })
 export class FormAttendantComponent {
 
-    @Input()
-    public form!: CustomerForm;
+    public readonly form = input.required<CustomerForm>();
 
 
 }

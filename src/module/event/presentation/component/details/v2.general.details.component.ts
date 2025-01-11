@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, Input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
+import {Component, HostBinding, inject, input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
 import {IAttendee, IEvent_V2} from "@event/domain";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
@@ -45,7 +45,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 	template: `
 
 		<div class="p-2 flex justify-between">
-			@if (isPreview) {
+			@if (isPreview()) {
 				<div
 					class="px-2 py-1 flex items-center justify-center h-6 text-xs rounded-full border text-white uppercase bg-blue-500 border-blue-500 dark:bg-blue-900 dark:text-blue-400 dark:border-blue-800">
 					{{ 'keyword.capitalize.preview' | translate }}
@@ -126,7 +126,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 							'text-beeColor-500 italic': !thereIsDescription,
 							'text-gray-700': thereIsDescription
 						}">
-						{{ thereIsDescription ? event.note : ('keyword.capitalize.noData' | translate) }}
+						{{ thereIsDescription ? event().note : ('keyword.capitalize.noData' | translate) }}
 					</dd>
 				</div>
 				<div class="p-2">
@@ -139,7 +139,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 							'text-beeColor-500 italic': !thereIsBusinessNote,
 							'text-gray-700': thereIsBusinessNote
 						}">
-						{{ thereIsBusinessNote ? event.originalData.order.businessNote : ('keyword.capitalize.noData' | translate) }}
+						{{ thereIsBusinessNote ? event().originalData.order.businessNote : ('keyword.capitalize.noData' | translate) }}
 					</dd>
 				</div>
 			</dl>
@@ -149,11 +149,12 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 })
 export class V2GeneralDetailsComponent implements OnChanges {
 
-	@Input({required: true})
-	public event!: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>;
+	public readonly event = input.required<IEvent_V2<{
+    order: IOrderDto;
+    service: IOrderServiceDto;
+}>>();
 
-	@Input()
-	public isPreview = false;
+	public readonly isPreview = input(false);
 
 	@HostBinding()
 	public class = 'block bg-white';
@@ -189,21 +190,21 @@ export class V2GeneralDetailsComponent implements OnChanges {
 				(attendee.is === 'customer') && this.attendantMap.customers.push((attendee.originalData as IAttendee).customer);
 			});
 
-			this.bannerUrl = this.event?.originalData?.service?.serviceSnapshot?.presentation?.banners?.[0]?.url ?? '';
-			this.title = this.event?.originalData?.service?.serviceSnapshot?.languageVersions?.[0]?.title ?? '';
-			this.description = this.event?.originalData?.service?.serviceSnapshot?.languageVersions?.[0]?.description ?? '';
-			this.status = this.event?.originalData?.service?.status ?? null;
+			this.bannerUrl = this.event()?.originalData?.service?.serviceSnapshot?.presentation?.banners?.[0]?.url ?? '';
+			this.title = this.event()?.originalData?.service?.serviceSnapshot?.languageVersions?.[0]?.title ?? '';
+			this.description = this.event()?.originalData?.service?.serviceSnapshot?.languageVersions?.[0]?.description ?? '';
+			this.status = this.event()?.originalData?.service?.status ?? null;
 
 		}
 
 	}
 
 	public get thereIsDescription(): boolean {
-		return !!this.event?.note?.length;
+		return !!this.event()?.note?.length;
 	}
 
 	public get thereIsBusinessNote(): boolean {
-		return !!this.event?.originalData.order.businessNote?.length;
+		return !!this.event()?.originalData.order.businessNote?.length;
 	}
 
 	@Dispatch()

@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {Component, inject, ViewEncapsulation, input} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -11,7 +11,7 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 	selector: 'bee-service-provide-type-select-component',
 	standalone: true,
 	template: `
-		<label default [for]="id">{{ 'keyword.capitalize.serviceProvideType' | translate }}</label>
+		<label default [for]="id()">{{ 'keyword.capitalize.serviceProvideType' | translate }}</label>
 		<ng-select
 			isRequired
 			invalidTooltip
@@ -21,8 +21,8 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 			[placeholder]="'keyword.capitalize.placeholder.selectServiceProvideType' | translate"
 			[items]="serviceProvideTypeList"
 			[clearable]="false"
-			[id]="id"
-			[formControl]="control">
+			[id]="id()"
+			[formControl]="control()">
 		</ng-select>
 	`,
 	encapsulation: ViewEncapsulation.None,
@@ -37,11 +37,9 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 })
 export class ServiceProvideTypeComponent {
 
-	@Input()
-	public id = '';
+	public readonly id = input('');
 
-	@Input()
-	public control = new FormControl();
+	public readonly control = input(new FormControl());
 
 	public readonly translateService = inject(TranslateService);
 

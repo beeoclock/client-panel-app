@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, HostBinding, input, ViewEncapsulation} from "@angular/core";
 import {FormControl} from "@angular/forms";
 
 import {NgClass, NgForOf, NgIf} from "@angular/common";
@@ -45,35 +45,31 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 })
 export class LanguageVersionOrderControlComponent {
 
-	@Input({required: true})
-	public serviceListControl!: FormControl<IServiceDto[]>;
+	public readonly serviceListControl = input.required<FormControl<IServiceDto[]>>();
 
-	@Input({required: true})
-	public languageControl: FormControl<LanguageCodeEnum> = new FormControl();
+	public readonly languageControl = input.required<FormControl<LanguageCodeEnum>>();
 
-	@Input({required: true})
-	public index!: number;
+	public readonly index = input.required<number>();
 
-	@Input({required: true})
-	public service!: IServiceDto;
+	public readonly service = input.required<IServiceDto>();
 
 	@HostBinding()
 	public class = 'flex flex-col gap-4'
 
 	public get languageCodes(): LanguageCodeEnum[] {
-		return this.service.languageVersions.map(({language}) => language);
+		return this.service().languageVersions.map(({language}) => language);
 	}
 
 	public get languageVersion() {
-		return this.service.languageVersions.find(({language}) => language === this.languageControl.value);
+		return this.service().languageVersions.find(({language}) => language === this.languageControl().value);
 	}
 
 	public isSelected(languageCode: string): boolean {
-		return this.languageControl.value === languageCode;
+		return this.languageControl().value === languageCode;
 	}
 
 	public setLanguageCode(languageCode: LanguageCodeEnum): void {
-		this.languageControl.setValue(languageCode);
+		this.languageControl().setValue(languageCode);
 	}
 
 }

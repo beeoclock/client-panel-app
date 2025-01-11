@@ -1,4 +1,4 @@
-import {Component, Input, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation, input} from '@angular/core';
 import {LANGUAGES} from '@utility/domain/enum';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 
@@ -20,15 +20,14 @@ import {NgSelectModule} from '@ng-select/ng-select';
                  id="service-form-language"
                  bindLabel="name"
                  bindValue="code"
-                 [formControl]="control">
+                 [formControl]="control()">
       </ng-select>
     </div>
   `
 })
 export class LanguageServiceFormComponent {
 
-  @Input()
-  public control = new FormControl();
+  public readonly control = input(new FormControl());
 
   public readonly languageList = LANGUAGES;
 

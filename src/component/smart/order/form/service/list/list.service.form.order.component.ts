@@ -4,7 +4,7 @@ import {
 	Component,
 	HostBinding,
 	inject,
-	Input,
+	input,
 	OnChanges,
 	OnInit,
 	SimpleChange,
@@ -66,16 +66,14 @@ import {IAttendeeDto} from "@order/external/interface/i-order-appointment-detail
 })
 export class ListServiceFormOrderComponent extends Reactive implements OnChanges, OnInit {
 
-	@Input()
-	public setupPartialData: {
-		defaultAppointmentStartDateTimeIso?: string;
-		defaultMemberForService?: RIMember;
-		serviceList?: IServiceDto[];
-		customer?: ICustomer;
-	} = {};
+	public readonly setupPartialData = input<{
+    defaultAppointmentStartDateTimeIso?: string;
+    defaultMemberForService?: RIMember;
+    serviceList?: IServiceDto[];
+    customer?: ICustomer;
+}>({});
 
-	@Input({required: true})
-	public serviceOrderFormArray!: ServiceOrderFormArray;
+	public readonly serviceOrderFormArray = input.required<ServiceOrderFormArray>();
 
 	@HostBinding()
 	public class = 'flex-col justify-start items-start flex';
@@ -96,8 +94,9 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 	readonly #changeDetectorRef = inject(ChangeDetectorRef);
 
 	public ngOnInit() {
-		if (this.setupPartialData?.serviceList?.length) {
-			this.addServiceFromServiceList(this.setupPartialData.serviceList);
+		const setupPartialData = this.setupPartialData();
+  if (setupPartialData?.serviceList?.length) {
+			this.addServiceFromServiceList(setupPartialData.serviceList);
 		}
 	}
 
@@ -116,7 +115,7 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 				service: control.getRawValue().serviceSnapshot,
 				control,
 				setupPartialData: {
-					...this.setupPartialData || {},
+					...this.setupPartialData() || {},
 					defaultAppointmentStartDateTimeIso: control.getRawValue().orderAppointmentDetails.start,
 				}
 			});
@@ -126,7 +125,7 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 
 	public deleteItem(index: number) {
 		this.selectedServicePlusControlList.splice(index, 1);
-		this.serviceOrderFormArray.removeAt(index);
+		this.serviceOrderFormArray().removeAt(index);
 		this.#changeDetectorRef.detectChanges();
 	}
 
@@ -185,12 +184,13 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 				foundLanguageVersion = service.languageVersions[0];
 			}
 
-			let start = this.setupPartialData.defaultAppointmentStartDateTimeIso ?? DateTime.now().toJSDate().toISOString();
+			let start = this.setupPartialData().defaultAppointmentStartDateTimeIso ?? DateTime.now().toJSDate().toISOString();
 
 			const attendees: IAttendeeDto[] = [];
 			const lastService = this.selectedServicePlusControlList[this.selectedServicePlusControlList.length - 1];
 
-			if (lastService) {
+			const setupPartialData = this.setupPartialData();
+   if (lastService) {
 				const {orderAppointmentDetails} = lastService.control.getRawValue();
 				const {attendees: lastServiceAttendees} = orderAppointmentDetails;
 				if (lastServiceAttendees.length) {
@@ -198,9 +198,9 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 				}
 				start = orderAppointmentDetails.end ?? start;
 			} else {
-				if (this.setupPartialData.customer) {
+				if (setupPartialData.customer) {
 					attendees.push({
-						customer: this.setupPartialData.customer,
+						customer: setupPartialData.customer,
 						_id: ObjectID().toHexString(),
 						createdAt: DateTime.now().toJSDate().toISOString(),
 						updatedAt: DateTime.now().toJSDate().toISOString(),
@@ -213,7 +213,7 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 
 			this.selectedServicePlusControlList.push({
 				service,
-				control: this.serviceOrderFormArray.pushNewOne({
+				control: this.serviceOrderFormArray().pushNewOne({
 					serviceSnapshot: {
 						...service,
 						durationVersions: [{
@@ -237,7 +237,7 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 					}
 				}),
 				setupPartialData: {
-					...this.setupPartialData || {},
+					...setupPartialData || {},
 					defaultAppointmentStartDateTimeIso: start,
 				}
 			});

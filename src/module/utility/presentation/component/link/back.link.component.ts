@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostBinding, inject, Input, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, HostBinding, inject, Input, ViewChild, ViewEncapsulation, input} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {TranslateModule} from "@ngx-translate/core";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
@@ -29,8 +29,7 @@ export class BackLinkComponent {
 
   private readonly activatedRoute = inject(ActivatedRoute);
 
-  @Input()
-  public queryParams = {};
+  public readonly queryParams = input({});
 
   @Input()
   public url: never | string[] = [];
@@ -60,7 +59,7 @@ export class BackLinkComponent {
 		}
 		return this.router.navigate(this.url, {
 			relativeTo: this.activatedRoute,
-			queryParams: this.queryParams
+			queryParams: this.queryParams()
 		});
 	}
 

@@ -1,4 +1,4 @@
-import {Component, Input, ViewEncapsulation} from "@angular/core";
+import {Component, Input, input, ViewEncapsulation} from "@angular/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgIf} from "@angular/common";
@@ -26,7 +26,6 @@ export class AddressBusinessProfileComponent {
 	@Input()
 	public form!: AddressForm;
 
-	@Input()
-	public hideInputList: ('country' | 'city' | 'zipCode' | 'addressLineOne' | 'addressLineTwo' | 'customLink')[] = [];
+	public readonly hideInputList = input<('country' | 'city' | 'zipCode' | 'addressLineOne' | 'addressLineTwo' | 'customLink')[]>([]);
 
 }

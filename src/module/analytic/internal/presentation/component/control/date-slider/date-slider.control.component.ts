@@ -4,6 +4,7 @@ import {
 	Component,
 	inject,
 	Input,
+	input,
 	OnChanges,
 	OnInit,
 	SimpleChanges,
@@ -50,8 +51,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 		}),
 	});
 
-	@Input()
-	public initialIntervalType: IntervalTypeEnum = IntervalTypeEnum.day;
+	public readonly initialIntervalType = input<IntervalTypeEnum>(IntervalTypeEnum.day);
 
 	@ViewChild(IonDatetime)
 	public ionDateTime!: IonDatetime;
@@ -72,7 +72,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 		IntervalTypeEnum.year,
 	];
 
-	public readonly intervalTypeControl = new FormControl<IntervalTypeEnum>(this.initialIntervalType, {
+	public readonly intervalTypeControl = new FormControl<IntervalTypeEnum>(this.initialIntervalType(), {
 		nonNullable: true,
 	});
 
@@ -184,7 +184,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 	public ngOnChanges(changes: SimpleChanges & { initialIntervalType?: SimpleChanges }) {
 		if (changes.initialIntervalType) {
-			this.intervalTypeControl.setValue(this.initialIntervalType);
+			this.intervalTypeControl.setValue(this.initialIntervalType());
 			this.detectCase();
 			this.changeDetectorRef.detectChanges();
 		}

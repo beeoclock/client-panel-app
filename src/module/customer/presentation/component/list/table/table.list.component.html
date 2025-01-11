@@ -8,7 +8,7 @@
 				{{ 'keyword.capitalize.lastName' | translate }}
 				<utility-sort-indicator
 					orderBy="lastName"
-					[tableState]="tableState"/>
+					[tableState]="tableState()"/>
 			</div>
 		</div>
 		<div tableColumnFlex="email" data-orderBy="email">
@@ -16,7 +16,7 @@
 				{{ 'keyword.capitalize.email' | translate }}
 				<utility-sort-indicator
 					orderBy="email"
-					[tableState]="tableState"/>
+					[tableState]="tableState()"/>
 			</div>
 		</div>
 		<div tableColumnFlex="phone" data-orderBy="phone">
@@ -24,7 +24,7 @@
 				{{ 'keyword.capitalize.phone' | translate }}
 				<utility-sort-indicator
 					orderBy="phone"
-					[tableState]="tableState"/>
+					[tableState]="tableState()"/>
 			</div>
 		</div>
 		<div tableColumnFlex="note">
@@ -35,7 +35,7 @@
 				{{ 'keyword.capitalize.active' | translate }}
 				<utility-sort-indicator
 					orderBy="active"
-					[tableState]="tableState"/>
+					[tableState]="tableState()"/>
 			</div>
 		</div>
 		<div tableColumnFlex="createdAt" data-orderBy="createdAt">
@@ -43,7 +43,7 @@
 				{{ 'keyword.capitalize.createdAt' | translate }}
 				<utility-sort-indicator
 					orderBy="createdAt"
-					[tableState]="tableState"/>
+					[tableState]="tableState()"/>
 			</div>
 		</div>
 		<div tableColumnFlex="updatedAt" data-orderBy="updatedAt">
@@ -51,7 +51,7 @@
 				{{ 'keyword.capitalize.updatedAt' | translate }}
 				<utility-sort-indicator
 					orderBy="updatedAt"
-					[tableState]="tableState"/>
+					[tableState]="tableState()"/>
 			</div>
 		</div>
 		<div tableColumnFlex="action" class="border-l sticky right-0">
@@ -60,7 +60,7 @@
 	</div>
 	<!-- Column Cell	-->
 	<div tableBodyFlex>
-		@for(item of tableState.items; track item._id) {
+		@for(item of tableState().items; track item._id) {
 			<div tableRowFlex="body" (click)="doubleClick(item)">
 				<div tableColumnFlex="firstName">
 				<span class="truncate">
@@ -112,4 +112,4 @@
 </div>
 <utility-table-state-pagination-component
 	(page)="pageChange($event)"
-	[tableState]="tableState"/>
+	[tableState]="tableState()"/>

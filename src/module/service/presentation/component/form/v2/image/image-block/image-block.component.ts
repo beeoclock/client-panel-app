@@ -1,4 +1,4 @@
-import {Component, inject, Input, QueryList, ViewChildren} from '@angular/core';
+import {Component, inject, input, QueryList, ViewChildren} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
@@ -26,8 +26,7 @@ import {MediaStateEnum} from "@utility/presentation/component/image/base.image.c
 })
 export class ImageBlockComponent {
 
-	@Input({ required: true })
-	public presentationForm!: ServicePresentationForm;
+	public readonly presentationForm = input.required<ServicePresentationForm>();
 
 	@ViewChildren(ServiceFormImageComponent)
 	public serviceFormImageComponent!: QueryList<ServiceFormImageComponent>;
@@ -48,18 +47,20 @@ export class ImageBlockComponent {
 			}
 
 			if (component.mediaState === MediaStateEnum.DELETED) {
-				if (!component.banner) {
+				const banner = component.banner();
+    if (!banner) {
 					continue;
 				}
-				await this.deleteBannerServiceApiAdapter.executeAsync(serviceId, component.banner._id);
+				await this.deleteBannerServiceApiAdapter.executeAsync(serviceId, banner._id);
 				continue;
 			}
 
 			const formData = new FormData();
 			formData.append('file', component.selectedFile as Blob);
 
-			if (component.banner) {
-				formData.append('_id', component.banner._id);
+			const banner = component.banner();
+   if (banner) {
+				formData.append('_id', banner._id);
 			}
 
 			await this.patchBannerServiceApiAdapter.executeAsync(serviceId, formData);

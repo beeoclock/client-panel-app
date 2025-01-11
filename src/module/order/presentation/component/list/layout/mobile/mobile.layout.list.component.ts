@@ -1,4 +1,4 @@
-import {Component, Input, QueryList, ViewChildren, ViewEncapsulation} from "@angular/core";
+import {Component, input, QueryList, ViewChildren, ViewEncapsulation} from "@angular/core";
 import {AsyncPipe, NgClass, NgIf} from "@angular/common";
 import {
 	NotFoundTableDataComponent
@@ -31,8 +31,7 @@ import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 })
 export class MobileLayoutListComponent extends LayoutListComponent<IOrderDto> {
 
-	@Input()
-	public showButtonGoToForm = true;
+	public readonly showButtonGoToForm = input(true);
 
 	@ViewChildren(CardListComponent)
 	public cardListComponents!: QueryList<CardListComponent>;

@@ -1,4 +1,4 @@
-import {AfterViewInit, Directive, ElementRef, Input, Optional} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, Optional, input} from '@angular/core';
 import {AbstractControl, FormArray, FormControl, NgControl} from '@angular/forms';
 
 @Directive({
@@ -7,14 +7,11 @@ import {AbstractControl, FormArray, FormControl, NgControl} from '@angular/forms
 })
 export class IsRequiredDirective implements AfterViewInit {
 
-  @Input()
-  public isRequiredEnabled = true;
+  public readonly isRequiredEnabled = input(true);
 
-  @Input()
-  public labelForId: string | undefined;
+  public readonly labelForId = input<string>();
 
-  @Input()
-  public formArray: FormArray | null = null;
+  public readonly formArray = input<FormArray | null>(null);
 
   constructor(
     @Optional()
@@ -25,11 +22,12 @@ export class IsRequiredDirective implements AfterViewInit {
 
   public ngAfterViewInit(): void {
 
-    if (this.isRequiredEnabled && (this.ngControl || this.formArray)) {
+    const formArray = this.formArray();
+    if (this.isRequiredEnabled() && (this.ngControl || formArray)) {
 
-      if (this.formArray?.controls) {
+      if (formArray?.controls) {
 
-        const validatorsCheck = !this.formArray.controls?.some((item: AbstractControl) => {
+        const validatorsCheck = !formArray.controls?.some((item: AbstractControl) => {
           return !item?.validator && !item?.validator?.(new FormControl())?.['required'];
         });
         if (validatorsCheck) {
@@ -50,8 +48,9 @@ export class IsRequiredDirective implements AfterViewInit {
 
   private initRequiredAsterisk(): void {
 
-		if (this.labelForId) {
-			this.setLabelForId(this.labelForId);
+		const labelForId = this.labelForId();
+  if (labelForId) {
+			this.setLabelForId(labelForId);
 			return;
 		}
 

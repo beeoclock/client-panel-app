@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, input, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
 import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone";
 import {NgForOf} from "@angular/common";
 import ObjectID from "bson-objectid";
@@ -21,16 +21,16 @@ import {RILanguageVersion} from "@service/domain";
 	],
 	template: `
 		<button
-			[id]="'select-language-version-' + id"
+			[id]="'select-language-version-' + id()"
 			class="w-9 h-9 rounded-lg border border-gray-200 justify-center items-center flex">
 			<div class="text-center text-black text-sm font-bold uppercase">
 				{{ languageCodeFormControl.value }}
 			</div>
 		</button>
-		<ion-popover [trigger]="'select-language-version-' + id">
+		<ion-popover [trigger]="'select-language-version-' + id()">
 			<ng-template>
 				<ion-list>
-					@for (languageVersion of languageVersions; track languageVersion.language) {
+					@for (languageVersion of languageVersions(); track languageVersion.language) {
 						<ion-item [button]="true" lines="full" [detail]="false"
 								  (click)="select(languageVersion.language)">
 							<ion-label class="uppercase">{{ languageVersion.language }}</ion-label>
@@ -43,24 +43,21 @@ import {RILanguageVersion} from "@service/domain";
 })
 export default class LanguageChipComponent extends Reactive implements OnInit {
 
-	@Input({required: true})
-	public initialValue!: LanguageCodeEnum;
+	public readonly initialValue = input.required<LanguageCodeEnum>();
 
-	@Input({required: true})
-	public languageVersions: RILanguageVersion[] = [];
+	public readonly languageVersions = input.required<RILanguageVersion[]>();
 
-	@Input()
-	public id: string = ObjectID().toHexString();
+	public readonly id = input<string>(ObjectID().toHexString());
 
 	@ViewChild(IonPopover)
 	public selectLanguageVersionPopover!: IonPopover;
 
-	public readonly languageCodeFormControl = new FormControl<LanguageCodeEnum>(this.initialValue, {
+	public readonly languageCodeFormControl = new FormControl<LanguageCodeEnum>(this.initialValue(), {
 		nonNullable: true,
 	});
 
 	public ngOnInit() {
-		this.languageCodeFormControl.setValue(this.initialValue);
+		this.languageCodeFormControl.setValue(this.initialValue());
 	}
 
 	public select(language: LanguageCodeEnum) {

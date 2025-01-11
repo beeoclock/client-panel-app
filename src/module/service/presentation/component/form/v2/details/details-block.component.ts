@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
@@ -12,19 +12,19 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 	standalone: true,
 	template: `
 		<bee-card>
-			<span *ngIf="showHeader" class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.details' | translate }}</span>
+			<span *ngIf="showHeader()" class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.details' | translate }}</span>
 
 			<form-input
 				id="service-form-details-title-input"
 				inputType="text"
 				autocomplete="service.title"
 				[placeholder]="'keyword.capitalize.title' | translate"
-				[control]="form.controls.title"
+				[control]="form().controls.title"
 				[label]="'keyword.capitalize.title' | translate"/>
 
 			<form-textarea-component
 				id="service-form-details-description-input"
-				[control]="form.controls.description"
+				[control]="form().controls.description"
 				[label]="'keyword.capitalize.description' | translate"
 				[placeholder]="'keyword.capitalize.placeholder.description' | translate"/>
 
@@ -41,10 +41,8 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 })
 export class DetailsBlockComponent {
 
-	@Input()
-	public form = new LanguageVersionForm();
+	public readonly form = input(new LanguageVersionForm());
 
-	@Input()
-	public showHeader = false;
+	public readonly showHeader = input(false);
 
 }

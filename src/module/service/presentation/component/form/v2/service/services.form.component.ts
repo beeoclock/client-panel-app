@@ -1,5 +1,5 @@
 import {LanguageVersionsForm} from '@service/presentation/form/service.form';
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation, input} from '@angular/core';
 import {AsyncPipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {LanguageCodeEnum, LanguageRecord} from '@utility/domain/enum';
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
@@ -41,7 +41,7 @@ import {ServiceFormComponent} from "@service/presentation/component/form/v2/serv
 				</div>
 
 				<div class="p-4 flex flex-wrap gap-4">
-					<ng-container *ngFor="let availableLanguage of availableLanguages">
+					<ng-container *ngFor="let availableLanguage of availableLanguages()">
 						<button
 							(click)="pushNewLanguageVersionForm(availableLanguage)"
 							type="button"
@@ -88,29 +88,30 @@ export class ServicesFormComponent extends Reactive implements OnInit {
 	@Input()
 	public form = new LanguageVersionsForm();
 
-	@Input()
-	public availableLanguages: LanguageCodeEnum[] = [];
+	public readonly availableLanguages = input<LanguageCodeEnum[]>([]);
 
 	public get businessHasMoreThanOneLanguage() {
-		return this.availableLanguages.length > 0;
+		return this.availableLanguages().length > 0;
 	}
 
 	public readonly showAddMore = new BooleanStreamState();
 
 	public ngOnInit() {
 
-		if (this.form.length === 0 && this.availableLanguages.length) {
-			this.pushNewLanguageVersionForm(this.availableLanguages[0]);
+		const availableLanguages = this.availableLanguages();
+  if (this.form.length === 0 && availableLanguages.length) {
+			this.pushNewLanguageVersionForm(availableLanguages[0]);
 		}
 
 	}
 
 	public async updateShowAddMore(): Promise<void> {
-		if (!this.availableLanguages) {
+		const availableLanguages = this.availableLanguages();
+  if (!availableLanguages) {
 			this.showAddMore.doFalse();
 			return;
 		}
-		this.showAddMore.toggle(this.form.length < this.availableLanguages.length);
+		this.showAddMore.toggle(this.form.length < availableLanguages.length);
 	}
 
 	public pushNewLanguageVersionForm(languageCode: LanguageCodeEnum): void {

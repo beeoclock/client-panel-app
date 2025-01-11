@@ -3,14 +3,14 @@
 	<strong class="dark:text-white">{{ 'client.profile.form.section.address.title' | translate }}</strong>
 
 	<country-select-component
-		[hidden]="hideInputList.includes('country')"
+		[hidden]="hideInputList().includes('country')"
 		[control]="form.controls.country"/>
 
 	<form-input
 		id="business-profile-form-address-city-input"
 		inputType="text"
 		autocomplete="city"
-		[hidden]="hideInputList.includes('city')"
+		[hidden]="hideInputList().includes('city')"
 		[placeholder]="'client.profile.form.section.address.input.city.placeholder' | translate"
 		[control]="form.controls.city"
 		[label]="'keyword.capitalize.city' | translate"/>
@@ -19,7 +19,7 @@
 		id="business-profile-form-address-zipCode-input"
 		inputType="text"
 		autocomplete="zipCode"
-		[hidden]="hideInputList.includes('zipCode')"
+		[hidden]="hideInputList().includes('zipCode')"
 		[placeholder]="'client.profile.form.section.address.input.zipCode.placeholder' | translate"
 		[control]="form.controls.zipCode"
 		[label]="'keyword.capitalize.zipCode' | translate"/>
@@ -28,7 +28,7 @@
 		id="business-profile-form-address-streetAddressLineOne-input"
 		inputType="text"
 		autocomplete="streetAddressLineOne"
-		[hidden]="hideInputList.includes('addressLineOne')"
+		[hidden]="hideInputList().includes('addressLineOne')"
 		[placeholder]="'client.profile.form.section.address.input.streetAddressLineOne.placeholder' | translate"
 		[control]="form.controls.streetAddressLineOne"
 		[label]="'keyword.capitalize.streetAddressLineOne' | translate"/>
@@ -37,7 +37,7 @@
 		id="business-profile-form-address-streetAddressLineTwo-input"
 		inputType="text"
 		autocomplete="streetAddressLineTwo"
-		[hidden]="hideInputList.includes('addressLineTwo')"
+		[hidden]="hideInputList().includes('addressLineTwo')"
 		[placeholder]="'client.profile.form.section.address.input.streetAddressLineTwo.placeholder' | translate"
 		[control]="form.controls.streetAddressLineTwo"
 		[label]="'keyword.capitalize.streetAddressLineTwo' | translate"/>
@@ -47,7 +47,7 @@
 			id="business-profile-form-address-customLink-input"
 			inputType="text"
 			autocomplete="address.customLink"
-			[hidden]="hideInputList.includes('customLink')"
+			[hidden]="hideInputList().includes('customLink')"
 			[placeholder]="'client.profile.form.section.address.input.customLink.placeholder' | translate"
 			[control]="form.controls.customLink"
 			[label]="'client.profile.form.section.address.input.customLink.label' | translate"/>

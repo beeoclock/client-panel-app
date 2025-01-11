@@ -1,4 +1,4 @@
-import {Component, Input, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation, input} from '@angular/core';
 import {LanguageVersionForm} from '@service/presentation/form/service.form';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select';
@@ -28,26 +28,26 @@ import {FormTextareaComponent} from "@utility/presentation/component/input/form.
 		FormTextareaComponent,
 	],
 	template: `
-		<form [formGroup]="form" class="flex flex-col gap-3">
+		<form [formGroup]="form()" class="flex flex-col gap-3">
 
 			<service-language-service-form-component
-				*ngIf="!hiddenControls.includes('language')"
-				[control]="form.controls.language"/>
+				*ngIf="!hiddenControls().includes('language')"
+				[control]="form().controls.language"/>
 
 
 			<form-input
-				*ngIf="!hiddenControls.includes('title')"
+				*ngIf="!hiddenControls().includes('title')"
 				id="service-form-title"
 				inputType="text"
 				autocomplete="service.title"
 				[placeholder]="'keyword.capitalize.title' | translate"
-				[control]="form.controls.title"
+				[control]="form().controls.title"
 				[label]="'keyword.capitalize.title' | translate"/>
 
 			<form-textarea-component
-				*ngIf="!hiddenControls.includes('description')"
+				*ngIf="!hiddenControls().includes('description')"
 				id="service-form-description"
-				[control]="form.controls.description"
+				[control]="form().controls.description"
 				[label]="'keyword.capitalize.description' | translate"
 				[placeholder]="'keyword.capitalize.placeholder.description' | translate"/>
 
@@ -56,11 +56,9 @@ import {FormTextareaComponent} from "@utility/presentation/component/input/form.
 })
 export class ServiceFormComponent {
 
-	@Input()
-	public hiddenControls: ('description' | 'title' | 'language')[] = [];
+	public readonly hiddenControls = input<('description' | 'title' | 'language')[]>([]);
 
-	@Input({required: true})
-	public form!: LanguageVersionForm;
+	public readonly form = input.required<LanguageVersionForm>();
 
 
 }

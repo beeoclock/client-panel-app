@@ -1,4 +1,4 @@
-import {Component, Input, ViewEncapsulation} from "@angular/core";
+import {Component, input, ViewEncapsulation} from "@angular/core";
 import {FormControl} from "@angular/forms";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
@@ -21,8 +21,7 @@ import {SafePipe} from "@utility/presentation/pipes/safe.pipe";
 })
 export class FacilitiesBusinessProfileComponent {
 
-  @Input()
-  public control = new FormControl();
+  public readonly control = input(new FormControl());
 
 	public readonly baseTranslationKey = 'enum.facility.capitalize.';
 
@@ -54,15 +53,15 @@ export class FacilitiesBusinessProfileComponent {
   }
 
   public isSelected(facility: FacilityEnum): boolean {
-    return !!this.control.value?.includes(facility);
+    return !!this.control().value?.includes(facility);
   }
 
   public toggleSelect(id: FacilityEnum): void {
-    const value = this.control.value || [];
+    const value = this.control().value || [];
     if (value.includes(id)) {
-      this.control.setValue(value.filter((v: FacilityEnum) => v !== id));
+      this.control().setValue(value.filter((v: FacilityEnum) => v !== id));
     } else {
-      this.control.setValue([...value, id]);
+      this.control().setValue([...value, id]);
     }
   }
 }

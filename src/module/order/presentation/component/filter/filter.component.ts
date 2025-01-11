@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, Input, OnInit} from '@angular/core';
+import {Component, HostBinding, inject, input, OnInit} from '@angular/core';
 import {FilterPanelComponent} from '@utility/presentation/component/panel/filter.panel.component';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {FilterForm} from "@order/presentation/form/filter.form";
@@ -74,8 +74,7 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 })
 export class FilterComponent extends BaseFilterComponent implements OnInit {
 
-	@Input()
-	public showButtonGoToForm = true;
+	public readonly showButtonGoToForm = input(true);
 
 	@HostBinding()
 	public class = 'flex flex-col overflow-x-auto';

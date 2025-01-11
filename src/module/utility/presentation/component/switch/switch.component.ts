@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges} from "@angular/core";
+import {Component, OnChanges, OnInit, SimpleChange, SimpleChanges, input} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@src/module/utility/cdk/reactive";
@@ -13,9 +13,9 @@ import {is} from "@utility/checker";
         <label class="relative inline-flex items-center justify-between cursor-pointer w-full">
         <span
                 class="mr-3 text-sm font-medium text-beeColor-900 dark:text-beeDarkColor-300">
-          {{ label ?? (labelTranslateKey | translate) }}
+          {{ label() ?? (labelTranslateKey() | translate) }}
         </span>
-            <input [id]="id" type="checkbox" [formControl]="localControl" class="sr-only peer">
+            <input [id]="id()" type="checkbox" [formControl]="localControl" class="sr-only peer">
             <div class="
 				relative
 				min-w-11
@@ -55,23 +55,17 @@ import {is} from "@utility/checker";
 })
 export class SwitchComponent extends Reactive implements OnInit, OnChanges {
 
-    @Input()
-    public label: unknown | string;
+    public readonly label = input<unknown | string>();
 
-    @Input()
-    public labelTranslateKey = 'keyword.capitalize.active';
+    public readonly labelTranslateKey = input('keyword.capitalize.active');
 
-    @Input()
-    public id = '';
+    public readonly id = input('');
 
-    @Input()
-    public booleanValue = false;
+    public readonly booleanValue = input(false);
 
-    @Input()
-    public units: unknown[] = [ActiveEnum.NO, ActiveEnum.YES];
+    public readonly units = input<unknown[]>([ActiveEnum.NO, ActiveEnum.YES]);
 
-    @Input()
-    public control = new FormControl(); // External control
+    public readonly control = input(new FormControl()); // External control
 
     public readonly localControl = new FormControl();
 
@@ -80,25 +74,25 @@ export class SwitchComponent extends Reactive implements OnInit, OnChanges {
         if (changes.control) {
 
             const control = changes.control.currentValue as FormControl;
-            if (this.booleanValue) {
+            if (this.booleanValue()) {
                 this.localControl.setValue(control.value);
             } else {
-                this.localControl.setValue(this.units.indexOf(control.value) === 1);
+                this.localControl.setValue(this.units().indexOf(control.value) === 1);
             }
             control.valueChanges.pipe(
                 this.takeUntil(),
                 filter((value) => {
-                    if (this.booleanValue) {
+                    if (this.booleanValue()) {
                         return this.localControl.value !== value;
                     }
-                    return this.units[Number(this.localControl.value)] !== value;
+                    return this.units()[Number(this.localControl.value)] !== value;
                 })
             ).subscribe((value) => {
-                if (this.booleanValue) {
+                if (this.booleanValue()) {
                     this.localControl.setValue(value);
                     return;
                 }
-                this.localControl.setValue(this.units.indexOf(value) === 1);
+                this.localControl.setValue(this.units().indexOf(value) === 1);
             });
 
         }
@@ -111,12 +105,12 @@ export class SwitchComponent extends Reactive implements OnInit, OnChanges {
             this.takeUntil(),
             filter(is.boolean),
         ).subscribe((value) => {
-            if (this.booleanValue) {
-                this.control.setValue(value);
+            if (this.booleanValue()) {
+                this.control().setValue(value);
                 return;
             }
-            this.control.setValue(
-                value ? this.units[1] : this.units[0],
+            this.control().setValue(
+                value ? this.units()[1] : this.units()[0],
             );
         });
 

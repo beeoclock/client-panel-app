@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, Input, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, inject, input, ViewEncapsulation} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {NgIf} from "@angular/common";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
@@ -22,12 +22,12 @@ import {ICustomer} from "@customer/domain";
 	standalone: true,
 	template: `
 		<customer-select-customer-whac-a-mole-component
-			*ngIf="showList"
+			*ngIf="showList()"
 			(selectedCustomerListener)="selectCustomer($event[0])"
 			[style.max-width.px]="350"
-			[multiple]="multiple"/>
+			[multiple]="multiple()"/>
 
-		<ng-container *ngIf="!showList">
+		<ng-container *ngIf="!showList()">
 
 			<ng-container *ngIf="getCustomer() as customer">
 				<div class="rounded-lg border border-gray-200 grid grid-cols-1 py-2 px-3 text-sm leading-6">
@@ -50,14 +50,11 @@ import {ICustomer} from "@customer/domain";
 })
 export class RegularCustomerTypeCustomerComponent extends Reactive {
 
-	@Input()
-	public form!: CustomerForm;
+	public readonly form = input.required<CustomerForm>();
 
-	@Input()
-	public multiple = false;
+	public readonly multiple = input(false);
 
-	@Input()
-	public showList = false;
+	public readonly showList = input(false);
 
 	@HostBinding()
 	public readonly class = 'flex flex-col gap-2'
@@ -65,17 +62,18 @@ export class RegularCustomerTypeCustomerComponent extends Reactive {
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 
 	public getCustomer() {
-		if (!this.form.value) {
+		const form = this.form();
+  if (!form.value) {
 			return null;
 		}
-		if (!this.form.value.firstName) {
+		if (!form.value.firstName) {
 			return null;
 		}
-		return this.form.value;
+		return form.value;
 	}
 
 	public selectCustomer(customer: ICustomer) {
-		this.form.patchValue(customer);
+		this.form().patchValue(customer);
 	}
 
 	public async openContainerToSelectCustomer() {
@@ -85,7 +83,7 @@ export class RegularCustomerTypeCustomerComponent extends Reactive {
 			component: SelectCustomerPushBoxComponent,
 			componentInputs: {
 				multiple: false,
-				selectedCustomerList: [this.form.value]
+				selectedCustomerList: [this.form().value]
 			}
 		});
 

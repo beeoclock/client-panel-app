@@ -1,16 +1,16 @@
 import {
-	ChangeDetectorRef,
-	Component,
-	ComponentRef,
-	ElementRef,
-	HostBinding,
-	HostListener,
-	inject,
-	Input,
-	OnInit,
-	reflectComponentType,
-	ViewChild,
-	ViewContainerRef
+  ChangeDetectorRef,
+  Component,
+  ComponentRef,
+  ElementRef,
+  HostBinding,
+  HostListener,
+  inject,
+  OnInit,
+  reflectComponentType,
+  ViewChild,
+  ViewContainerRef,
+  input
 } from '@angular/core';
 import {NgClass, NgForOf, NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
@@ -32,8 +32,7 @@ import {WhacAMoleWrapper} from "@utility/presentation/whac-a-mole/whac-a-mole.wr
 	`
 })
 export class WhacAMole extends Reactive implements OnInit {
-	@Input()
-	public id = 'whac-a-mole';
+	public readonly id = input('whac-a-mole');
 
 	@HostBinding()
 	public class =
@@ -187,10 +186,10 @@ export class WhacAMole extends Reactive implements OnInit {
 			return;
 		}
 
-		const wasLoading = componentRef.instance.showLoading;
+		const wasLoading = componentRef.instance.showLoading();
 		componentRef.setInput('showLoading', showLoading ?? false);
 
-		componentRef.instance.updateSelfBefore(componentInputs);
+		componentRef.instance.updateSelfBefore()(componentInputs);
 
 		// Render the component if it was loading and now it's not
 		if (wasLoading && !showLoading) {
@@ -204,7 +203,7 @@ export class WhacAMole extends Reactive implements OnInit {
 			});
 		}
 
-		componentRef.instance.updateSelfAfter(componentInputs);
+		componentRef.instance.updateSelfAfter()(componentInputs);
 
 		if (callback?.on?.update?.before) {
 			componentRef.setInput('updateSelfBefore', callback?.on?.update?.before);

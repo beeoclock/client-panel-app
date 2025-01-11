@@ -1,4 +1,14 @@
-import {Component, inject, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewEncapsulation} from '@angular/core';
+import {
+	Component,
+	inject,
+	Input,
+	input,
+	OnChanges,
+	OnInit,
+	SimpleChanges,
+	ViewChild,
+	ViewEncapsulation
+} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {MemberForm} from "@member/presentation/form/member.form";
@@ -45,8 +55,7 @@ export class MemberFormContainerComponent implements OnInit, OnChanges {
 
 	public readonly memberProfileStatusEnum = MemberProfileStatusEnum;
 
-	@Input()
-	public item: RIMember | undefined;
+	public readonly item = input<RIMember>();
 
 	@Input()
 	public isEditMode = false;
@@ -65,9 +74,10 @@ export class MemberFormContainerComponent implements OnInit, OnChanges {
 	}
 
 	public detectItem(): void {
-		if (this.isEditMode && this.item) {
+		const item = this.item();
+  if (this.isEditMode && item) {
 			this.isEditMode = true;
-			this.form = MemberForm.create(this.item);
+			this.form = MemberForm.create(item);
 			this.form.updateValueAndValidity();
 		}
 	}
@@ -84,7 +94,7 @@ export class MemberFormContainerComponent implements OnInit, OnChanges {
 				await firstValueFrom(this.store.dispatch(new MemberActions.UpdateItem(memberBody)));
 			} else {
 				await firstValueFrom(this.store.dispatch(new MemberActions.CreateItem(memberBody)));
-				memberId = this.item?._id ?? memberId;
+				memberId = this.item()?._id ?? memberId;
 			}
 
 			await Promise.all([

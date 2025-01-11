@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnInit, Output} from "@angular/core";
+import {ChangeDetectionStrategy, Component, EventEmitter, inject, input, OnInit, Output} from "@angular/core";
 import {IonDatetime, IonPopover} from "@ionic/angular/standalone";
 import {CurrencyPipe, DatePipe, NgSwitch, NgSwitchCase} from "@angular/common";
 import {
@@ -38,13 +38,13 @@ import {DateTime} from "luxon";
 	],
 	template: `
 		<button
-			[id]="'datetime-trigger-' + id"
+			[id]="'datetime-trigger-' + id()"
 			class="px-3 py-2 rounded-lg border border-gray-200 justify-center items-center flex">
 			<div class="text-slate-900 text-sm font-normal">
 				⏰ {{ startFormControl.value | date: 'yyyy-MM-dd&nbsp;&nbsp;HH:mm' }}
 			</div>
 		</button>
-		<ion-popover [trigger]="'datetime-trigger-' + id" [keepContentsMounted]="true">
+		<ion-popover [trigger]="'datetime-trigger-' + id()" [keepContentsMounted]="true">
 			<ng-template>
 				<ion-datetime
 					[locale]="locale"
@@ -63,11 +63,9 @@ import {DateTime} from "luxon";
 })
 export class StartChipComponent extends Reactive implements OnInit {
 
-	@Input()
-	public initialValue?: string;
+	public readonly initialValue = input<string>();
 
-	@Input()
-	public id: string = ObjectID().toHexString();
+	public readonly id = input<string>(ObjectID().toHexString());
 
 	@Output()
 	public readonly startChanges = new EventEmitter<string>();
@@ -86,8 +84,9 @@ export class StartChipComponent extends Reactive implements OnInit {
 
 		let initialValue = DateTime.now().toISO();
 
-		if (this.initialValue) {
-			initialValue = DateTime.fromISO(this.initialValue).toISO() ?? initialValue;
+		const initialValueValue = this.initialValue();
+  if (initialValueValue) {
+			initialValue = DateTime.fromISO(initialValueValue).toISO() ?? initialValue;
 		}
 
 		this.startFormControl.setValue(initialValue);

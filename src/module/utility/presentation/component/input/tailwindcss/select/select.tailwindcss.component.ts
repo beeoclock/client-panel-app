@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation, input} from '@angular/core';
 import {NgForOf, NgTemplateOutlet} from "@angular/common";
 import {FormControl} from "@angular/forms";
 
@@ -14,14 +14,14 @@ import {FormControl} from "@angular/forms";
 	template: `
 		@if (label?.length) {
 			<label
-				[for]="id"
+				[for]="id()"
 				class="block text-sm font-medium leading-6 text-gray-900 mb-2">
 				{{ label }}
 			</label>
 		}
 		<div class="relative">
 			<button
-				[id]="id"
+				[id]="id()"
 				type="button"
 				class="cursor-pointer transition-all min-w-[240px] relative w-full rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
 				(click)="toggleDropdown()"
@@ -52,7 +52,7 @@ import {FormControl} from "@angular/forms";
 					role="listbox"
 					aria-labelledby="listbox-label"
 				>
-					@for (item of items; track item.id; let index = $index) {
+					@for (item of items(); track item.id; let index = $index) {
 						<li
 							class="cursor-pointer transition-all relative select-none py-2 pl-3 pr-9 text-gray-900"
 							[class.bg-blue-600]="isSelected(item.id)"
@@ -106,45 +106,42 @@ import {FormControl} from "@angular/forms";
 })
 export class SelectTailwindcssComponent implements OnInit {
 
-	@Input()
-	public id: string = '';
+	public readonly id = input<string>('');
 
 	@Input()
 	public label: string = '';
 
-	@Input({ required: true })
-	public formControl!: FormControl;
+	public readonly formControl = input.required<FormControl>();
 
-	@Input()
-	public items: {
-		label: string;
-		avatar: string;
-		id: string;
-	}[] = [
-		{
-			id: 'default',
-			label: 'Tom Cook',
-			avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-		},
-		{
-			id: '1',
-			label: 'Wade Cooper',
-			avatar: 'https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-		},
-	];
+	public readonly items = input<{
+    label: string;
+    avatar: string;
+    id: string;
+}[]>([
+    {
+        id: 'default',
+        label: 'Tom Cook',
+        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+    },
+    {
+        id: '1',
+        label: 'Wade Cooper',
+        avatar: 'https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+    },
+]);
 
 	public dropdownOpen = false;
 
 	public isSelected(id: string) {
-		return this.formControl.value === id;
+		return this.formControl().value === id;
 	}
 
 	public get selectedItem() {
-		return this.items.find(item => item.id === this.formControl.value);
+		return this.items().find(item => item.id === this.formControl().value);
 	}
 
 	public ngOnInit() {
-		this.select(this.items[0].id); // Default selection
+		this.select(this.items()[0].id); // Default selection
 	}
 
 	public toggleDropdown() {
@@ -152,7 +149,7 @@ export class SelectTailwindcssComponent implements OnInit {
 	}
 
 	public select(id: string) {
-		this.formControl.setValue(id);
+		this.formControl().setValue(id);
 		this.dropdownOpen = false;
 	}
 }

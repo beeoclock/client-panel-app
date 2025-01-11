@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, input} from "@angular/core";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {ISpecialist} from "@service/domain/interface/i.specialist";
 import {TranslateModule} from "@ngx-translate/core";
@@ -25,14 +25,11 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 })
 export class SpecialistServiceComponent {
 
-	@Input({required: true})
-	public serviceListControl!: FormControl<IServiceDto[]>;
+	public readonly serviceListControl = input.required<FormControl<IServiceDto[]>>();
 
-	@Input({required: true})
-	public index!: number;
+	public readonly index = input.required<number>();
 
-	@Input({required: true})
-	public service!: IServiceDto;
+	public readonly service = input.required<IServiceDto>();
 
 	@Select(MemberSelector.tableState)
 	private memberTableState$!: Observable<TableState<RIMember>>;
@@ -42,7 +39,7 @@ export class SpecialistServiceComponent {
 			return items.filter(member => {
 				if (member.profileStatus === MemberProfileStatusEnum.active) {
 					if (!member.assignments.service.full) {
-						const specialistCanServeService = member.assignments.service.include.some(({service: {_id}}) => _id === this.service._id);
+						const specialistCanServeService = member.assignments.service.include.some(({service: {_id}}) => _id === this.service()._id);
 						return specialistCanServeService;
 					}
 					return  true;
@@ -53,7 +50,7 @@ export class SpecialistServiceComponent {
 	);
 
 	public get selectedSpecialist(): ISpecialist | undefined {
-		const service = this.serviceListControl.value[this.index];
+		const service = this.serviceListControl().value[this.index()];
 		// if (service?.specialists?.length > 0) {
 		// 	return service.specialists[0];
 		// }
@@ -61,8 +58,8 @@ export class SpecialistServiceComponent {
 	}
 
 	public changeMemberInSpecialist(member: RIMember): void {
-		const services = this.serviceListControl.value.map((service, index) => {
-			if (this.index === index) {
+		const services = this.serviceListControl().value.map((service, index) => {
+			if (this.index() === index) {
 				return {
 					...service,
 					specialists: [{
@@ -75,7 +72,7 @@ export class SpecialistServiceComponent {
 			return service;
 		});
 
-		this.serviceListControl.setValue(services);
+		this.serviceListControl().setValue(services);
 
 	}
 

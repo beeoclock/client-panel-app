@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, ViewEncapsulation, input} from "@angular/core";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {RouterLink} from "@angular/router";
 import {NgOptimizedImage} from "@angular/common";
@@ -17,10 +17,8 @@ import {NgOptimizedImage} from "@angular/common";
 })
 export class StarterComponent {
 
-	@Input()
-	public label!: string;
+	public readonly label = input.required<string>();
 
-	@Input()
-	public link!: string | string[];
+	public readonly link = input.required<string | string[]>();
 
 }

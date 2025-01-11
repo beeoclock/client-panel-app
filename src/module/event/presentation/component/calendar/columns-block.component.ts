@@ -5,7 +5,7 @@ import {
 	ElementRef,
 	HostBinding,
 	inject,
-	Input,
+	input,
 	OnChanges,
 	SimpleChanges
 } from "@angular/core";
@@ -53,14 +53,12 @@ export class ColumnsBlockComponent implements OnChanges {
 	@HostBinding()
 	public style = '';
 
-	@Input()
-	public rowsAmount = 24;
+	public readonly rowsAmount = input(24);
 
-	@Input()
-	public preferences!: {
-		from: Date;
-		to: Date;
-	};
+	public readonly preferences = input.required<{
+    from: Date;
+    to: Date;
+}>();
 
 	public days: DateTime[] = [];
 
@@ -94,7 +92,7 @@ export class ColumnsBlockComponent implements OnChanges {
 
 	public getHours(day: DateTime) {
 		// TODO type: minute, day, week, month
-		return Array.from({length: this.rowsAmount}, (_, index) => {
+		return Array.from({length: this.rowsAmount()}, (_, index) => {
 			return day.plus({hours: index});
 		});
 	}

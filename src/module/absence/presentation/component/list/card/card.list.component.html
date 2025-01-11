@@ -1,5 +1,5 @@
-<div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState.items.length">
-	@for(item of tableState.items; track item._id) {
+<div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState().items.length">
+	@for(item of tableState().items; track item._id) {
 		<bee-card class="text-sm border-2 border-transparent hover:border-blue-500" [class.!border-green-500]="selectedIds.includes(item._id)">
 			<div class="flex justify-between items-center gap-8">
 
@@ -107,4 +107,4 @@
 <utility-table-state-pagination-component
 	[mobileMode]="true"
 	(page)="pageChange($event)"
-	[tableState]="tableState"/>
+	[tableState]="tableState()"/>

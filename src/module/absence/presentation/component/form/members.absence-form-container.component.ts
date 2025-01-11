@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
@@ -34,7 +34,7 @@ import {RIMember} from "@member/domain";
     standalone: true,
     template: `
         <button *ngIf="visibleState.isTrue" class="border hover:border-blue-700 cursor-pointer flex hover:bg-blue-500 hover:text-white bg-gray-50 justify-between px-3 py-2 rounded-lg transition-all w-full" type="button" (click)="openModalToSelectMember()">
-            <span>{{ 'keyword.capitalize.members' | translate }}: {{ members.value.length }}</span>
+            <span>{{ 'keyword.capitalize.members' | translate }}: {{ members().value.length }}</span>
             <span class="">
                 <i class="bi bi-chevron-right"></i>
             </span>
@@ -43,11 +43,9 @@ import {RIMember} from "@member/domain";
 })
 export class MembersAbsenceFormContainerComponent extends Reactive implements OnInit {
 
-    @Input()
-    public entireBusiness!: FormControl<boolean>;
+    public readonly entireBusiness = input.required<FormControl<boolean>>();
 
-    @Input()
-    public members!: FormControl<RIMember[]>;
+    public readonly members = input.required<FormControl<RIMember[]>>();
 
     private readonly translateService = inject(TranslateService);
     private readonly whacAMaleProvider = inject(WhacAMoleProvider);
@@ -57,7 +55,7 @@ export class MembersAbsenceFormContainerComponent extends Reactive implements On
 
     public ngOnInit(): void {
         this.updateIsNotFull();
-        this.entireBusiness.valueChanges.pipe(
+        this.entireBusiness().valueChanges.pipe(
             this.takeUntil(),
         ).subscribe(() => {
             this.updateIsNotFull();
@@ -65,7 +63,7 @@ export class MembersAbsenceFormContainerComponent extends Reactive implements On
     }
 
     public updateIsNotFull(): void {
-        this.visibleState.toggle(!this.entireBusiness.value);
+        this.visibleState.toggle(!this.entireBusiness().value);
         this.changeDetectorRef.detectChanges();
     }
 
@@ -79,7 +77,7 @@ export class MembersAbsenceFormContainerComponent extends Reactive implements On
             title,
             component: SelectMemberPushBoxComponent,
             componentInputs: {
-                selectedMemberList: this.members.value
+                selectedMemberList: this.members().value
             },
             button: {
                 close: {
@@ -104,7 +102,7 @@ export class MembersAbsenceFormContainerComponent extends Reactive implements On
             if (instance instanceof SelectMemberPushBoxComponent) {
                 instance.selectedMembersListener.pipe(this.takeUntil()).subscribe(() => {
                     const {newSelectedMemberList} = instance;
-                    this.members.patchValue(newSelectedMemberList);
+                    this.members().patchValue(newSelectedMemberList);
                     this.changeDetectorRef.detectChanges();
                 });
             }

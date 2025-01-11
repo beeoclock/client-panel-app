@@ -1,4 +1,4 @@
-import {Component, Input, QueryList, ViewChildren, ViewEncapsulation} from "@angular/core";
+import {Component, input, QueryList, ViewChildren, ViewEncapsulation} from "@angular/core";
 import {AsyncPipe, NgClass, NgIf} from "@angular/common";
 import {
 	NotFoundTableDataComponent
@@ -31,8 +31,7 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 })
 export class MobileLayoutListComponent extends LayoutListComponent<ICustomer> {
 
-	@Input()
-	public showButtonGoToForm = true;
+	public readonly showButtonGoToForm = input(true);
 
 	@ViewChildren(CardListComponent)
 	public cardListComponents!: QueryList<CardListComponent>;

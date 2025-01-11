@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, inject, Input, input, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {AsyncPipe, CurrencyPipe, NgForOf, NgIf, NgTemplateOutlet} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
@@ -66,20 +66,15 @@ export class ServicesComponent extends Reactive implements OnInit {
 	@Input({required: true})
 	public serviceListControl: FormControl<IServiceDto[]> = new FormControl([] as any);
 
-	@Input({required: true})
-	public languageControl: FormControl<LanguageCodeEnum> = new FormControl();
+	public readonly languageControl = input.required<FormControl<LanguageCodeEnum>>();
 
-	@Input()
-	public editable = true;
+	public readonly editable = input(true);
 
-	@Input()
-	public rememberLastSelectedMember = true;
+	public readonly rememberLastSelectedMember = input(true);
 
-	@Input()
-	public setMemberOnlyOnce = true;
+	public readonly setMemberOnlyOnce = input(true);
 
-	@Input()
-	public member: RIMember | undefined;
+	public readonly member = input<RIMember>();
 
 	@ViewChildren(DurationVersionTypeRangeComponent)
 	public durationVersionTypeRangeComponentList!: QueryList<DurationVersionTypeRangeComponent>;
@@ -142,7 +137,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 		let useTableStateFromStore = true;
 		let tableState = new TableState<IServiceDto>().toCache();
 
-		const member = this.lastSelectedMember || this.member;
+		const member = this.lastSelectedMember || this.member();
 
 		if (member) {
 			if (!member.assignments.service.full) {
@@ -216,9 +211,10 @@ export class ServicesComponent extends Reactive implements OnInit {
 	 */
 	private setMember(newSelectedServiceList: IServiceDto[]): IServiceDto[] {
 		// Check if a member is available to be set
-		if (this.member) {
+		const memberValue = this.member();
+  if (memberValue) {
 			// If setMemberOnlyOnce is true, check if a member has already been set
-			if (this.setMemberOnlyOnce) {
+			if (this.setMemberOnlyOnce()) {
 				// If a member has been set, return the list without making changes
 				if (this.memberHasBeenSet.isOn) {
 					return newSelectedServiceList;
@@ -228,7 +224,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 			}
 
 			// Assign the member to each service's specialists array
-			const member = this.member;
+			const member = memberValue;
 			newSelectedServiceList = newSelectedServiceList.map((service) => {
 				return {
 					...service,

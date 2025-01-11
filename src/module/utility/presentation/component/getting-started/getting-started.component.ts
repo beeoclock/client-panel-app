@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 
 @Component({
   selector: 'utility-getting-started-component',
@@ -10,7 +10,7 @@ import {Component, Input} from '@angular/core';
           <div class="col-lg-6"><img alt="" class="img-fluid" src="asset/img/icons/spot-illustrations/21.png">
           </div>
           <div class="col-lg-6 ps-lg-4 my-5 text-center text-lg-start">
-            <h3 class="text-primary">{{ title }}</h3>
+            <h3 class="text-primary">{{ title() }}</h3>
           </div>
         </div>
       </div>
@@ -19,7 +19,6 @@ import {Component, Input} from '@angular/core';
 })
 export class GettingStartedComponent {
 
-  @Input()
-  public title = 'title';
+  public readonly title = input('title');
 
 }

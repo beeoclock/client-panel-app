@@ -4,7 +4,7 @@ import {
 	HostBinding,
 	HostListener,
 	inject,
-	Input,
+	input,
 	OnChanges,
 	SimpleChanges
 } from "@angular/core";
@@ -29,14 +29,11 @@ import {
 })
 export class CellComponent implements OnChanges {
 
-	@Input()
-	public baseId!: string;
+	public readonly baseId = input.required<string>();
 
-	@Input()
-	public idSuffix = '';
+	public readonly idSuffix = input('');
 
-	@Input()
-	public datetimeISO = (new Date()).toISOString();
+	public readonly datetimeISO = input((new Date()).toISOString());
 
 	@HostBinding()
 	public class = 'clickMe test relative border-slate-100 dark:border-slate-200/5 h-[50px]';
@@ -53,7 +50,7 @@ export class CellComponent implements OnChanges {
 
 	public ngOnChanges(changes: SimpleChanges & { baseId: { currentValue: CellComponent['baseId'] } }) {
 		if (changes.baseId) {
-			this.id =  `${this.baseId}-${this.idSuffix}`;
+			this.id =  `${this.baseId()}-${this.idSuffix()}`;
 		}
 	}
 

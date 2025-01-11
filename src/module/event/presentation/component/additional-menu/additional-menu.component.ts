@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, Input, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
+import {Component, HostBinding, inject, Input, input, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
 import {RIMember} from "@member/domain";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {Store} from "@ngxs/store";
@@ -227,9 +227,8 @@ export class AdditionalMenuComponent implements OnInit {
 	@Input()
 	public datetimeISO: string | undefined;
 
-	@Input()
-	public callback: (() => void) = () => {
-	};
+	public readonly callback = input<(() => void)>(() => {
+});
 
 	@HostBinding()
 	public class = 'bg-white'
@@ -292,7 +291,7 @@ export class AdditionalMenuComponent implements OnInit {
 				callback: {
 					on: {
 						destroy: {
-							before: this.callback
+							before: this.callback()
 						}
 					}
 				}
@@ -327,7 +326,7 @@ export class AdditionalMenuComponent implements OnInit {
 				callback: {
 					on: {
 						destroy: {
-							before: this.callback
+							before: this.callback()
 						}
 					}
 				}

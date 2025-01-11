@@ -1,4 +1,4 @@
-import {Directive, ElementRef, inject, Input, OnChanges, OnInit, SimpleChange, SimpleChanges} from "@angular/core";
+import {Directive, ElementRef, inject, OnChanges, OnInit, SimpleChange, SimpleChanges, input} from "@angular/core";
 
 @Directive({
 	selector: 'input[default]',
@@ -6,8 +6,7 @@ import {Directive, ElementRef, inject, Input, OnChanges, OnInit, SimpleChange, S
 })
 export class DefaultInputDirective implements OnInit, OnChanges {
 
-	@Input()
-	public additionalClassList = '';
+	public readonly additionalClassList = input('');
 
 	private readonly elementRef = inject(ElementRef);
 
@@ -38,7 +37,7 @@ export class DefaultInputDirective implements OnInit, OnChanges {
 
 		// TODO clear if empty
 		if (changes.additionalClassList && changes.additionalClassList.currentValue?.length > 0) {
-			this.elementRef.nativeElement.classList.add(...this.additionalClassList.split(' '));
+			this.elementRef.nativeElement.classList.add(...this.additionalClassList().split(' '));
 		} else {
 			if (changes.additionalClassList.previousValue?.length > 0) {
 				this.elementRef.nativeElement.classList.remove(...changes.additionalClassList.previousValue.split(' '));

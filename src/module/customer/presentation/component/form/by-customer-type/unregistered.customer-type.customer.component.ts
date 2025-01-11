@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, input, ViewEncapsulation} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {
 	NamesFormAttendantComponent
@@ -15,14 +15,13 @@ import {CustomerForm} from "@customer/presentation/form";
 	standalone: true,
 	template: `
 
-		<app-event-names-form-attendant-component [form]="form"/>
+		<app-event-names-form-attendant-component [form]="form()"/>
 
 	`
 })
 export class UnregisteredCustomerTypeCustomerComponent {
 
-	@Input()
-	public form!: CustomerForm;
+	public readonly form = input.required<CustomerForm>();
 
 	@HostBinding()
 	public readonly class = 'flex flex-col gap-2'

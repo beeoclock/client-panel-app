@@ -1,4 +1,4 @@
-import {Component, inject, Input} from "@angular/core";
+import {Component, inject, input} from "@angular/core";
 import {IAttendee} from "@event/domain";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 import {TranslateService} from "@ngx-translate/core";
@@ -12,18 +12,18 @@ import {IAttendeeDto} from "@order/external/interface/i-order-appointment-detail
 })
 export class AttendeeCardComponent {
 
-	@Input()
-	public attendee!: IAttendee | IAttendeeDto;
+	public readonly attendee = input.required<IAttendee | IAttendeeDto>();
 
 	private readonly translateService = inject(TranslateService);
 
 	public get fullName(): string | null {
 
-		if (!this.attendee?.customer) {
+		const attendee = this.attendee();
+  if (!attendee?.customer) {
 			return null;
 		}
 
-		switch (this.attendee.customer.customerType) {
+		switch (attendee.customer.customerType) {
 			case CustomerTypeEnum.anonymous:
 				return this.translateService.instant('customer.enum.type.anonymous');
 
@@ -31,11 +31,11 @@ export class AttendeeCardComponent {
 
 		let fullName = null;
 
-		if (this.attendee.customer.firstName) {
-			fullName = this.attendee.customer.firstName;
+		if (attendee.customer.firstName) {
+			fullName = attendee.customer.firstName;
 
-			if (this.attendee.customer.lastName) {
-				fullName += ' ' + this.attendee.customer.lastName;
+			if (attendee.customer.lastName) {
+				fullName += ' ' + attendee.customer.lastName;
 			}
 
 		}
@@ -46,24 +46,25 @@ export class AttendeeCardComponent {
 
 	public get contact(): string | null {
 
-		if (!this.attendee?.customer) {
+		const attendee = this.attendee();
+  if (!attendee?.customer) {
 			return null;
 		}
 
 		let contact = null;
 
-		if (this.attendee.customer.email) {
+		if (attendee.customer.email) {
 			contact = `
-				<a class="underline" href="mailto:${this.attendee.customer.email}">
-					${this.attendee.customer.email}
+				<a class="underline" href="mailto:${attendee.customer.email}">
+					${attendee.customer.email}
 				</a>
 			`;
 		}
 
-		if (this.attendee.customer.phone) {
+		if (attendee.customer.phone) {
 			contact = `
-				<a class="underline" href="tel:${this.attendee.customer.phone}">
-					${this.attendee.customer.phone}
+				<a class="underline" href="tel:${attendee.customer.phone}">
+					${attendee.customer.phone}
 				</a>
 			`;
 		}

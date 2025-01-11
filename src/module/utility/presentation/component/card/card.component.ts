@@ -1,14 +1,14 @@
 import {
-    Component,
-    ElementRef,
-    HostBinding,
-    inject,
-    Input,
-    OnChanges,
-    OnInit,
-    SimpleChange,
-    SimpleChanges,
-    ViewEncapsulation
+  Component,
+  ElementRef,
+  HostBinding,
+  inject,
+  OnChanges,
+  OnInit,
+  SimpleChange,
+  SimpleChanges,
+  ViewEncapsulation,
+  input
 } from '@angular/core';
 import {NgClass, NgIf} from '@angular/common';
 
@@ -26,17 +26,13 @@ import {NgClass, NgIf} from '@angular/common';
 })
 export class CardComponent implements OnChanges, OnInit {
 
-	@Input()
-	public gap: 'gap-0' | 'gap-4' | 'gap-1' | 'gap-2' | 'gap-3' | 'gap-8' = 'gap-4';
+	public readonly gap = input<'gap-0' | 'gap-4' | 'gap-1' | 'gap-2' | 'gap-3' | 'gap-8'>('gap-4');
 
-	@Input()
-	public padding = 'p-4';
+	public readonly padding = input('p-4');
 
-	@Input()
-	public width: 'auto' | '96' | string = 'auto';
+	public readonly width = input<'auto' | '96' | string>('auto');
 
-	@Input()
-	public flexCol = true;
+	public readonly flexCol = input(true);
 
 	@HostBinding('class')
 	public hostClass = 'bg-white shadow rounded-2xl flex';
@@ -85,8 +81,8 @@ export class CardComponent implements OnChanges, OnInit {
 	}
 
 	public ngOnInit(): void {
-		this.hostClass += ` ${this.gap} ${this.padding} ${this.width}`;
-		this.elementRef.nativeElement.classList.toggle('flex-col', this.flexCol);
+		this.hostClass += ` ${this.gap()} ${this.padding()} ${this.width()}`;
+		this.elementRef.nativeElement.classList.toggle('flex-col', this.flexCol());
 	}
 
 }

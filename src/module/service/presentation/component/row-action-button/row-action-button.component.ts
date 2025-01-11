@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {Component, inject, ViewEncapsulation, input} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
@@ -19,8 +19,8 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 			(delete)="delete()"
 			(open)="open()"
 			(edit)="edit()"
-			[id]="id"
-			[active]="item.active">
+			[id]="id()"
+			[active]="item().active">
 			<!--			<li>-->
 			<!--				<a-->
 			<!--					[routerLink]="['../../', 'event', 'form']"-->
@@ -40,11 +40,9 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 })
 export class RowActionButtonComponent {
 
-	@Input()
-	public id!: string;
+	public readonly id = input.required<string>();
 
-	@Input({required: true})
-	public item!: IServiceDto;
+	public readonly item = input.required<IServiceDto>();
 
 	private readonly translateService = inject(TranslateService);
 	private readonly store = inject(Store);
@@ -52,33 +50,33 @@ export class RowActionButtonComponent {
 	public readonly returnUrl = this.router.url;
 
 	public delete(): void {
-		const {active} = this.item;
+		const {active} = this.item();
 
 		if (active) {
 
 			return alert('You can\'t delete active service');
 
 		}
-		this.store.dispatch(new ServiceActions.DeleteItem(this.item._id));
+		this.store.dispatch(new ServiceActions.DeleteItem(this.item()._id));
 	}
 
 	public activate(): void {
-		this.store.dispatch(new ServiceActions.UnarchiveItem(this.item._id));
+		this.store.dispatch(new ServiceActions.UnarchiveItem(this.item()._id));
 	}
 
 	public deactivate(): void {
-		this.store.dispatch(new ServiceActions.ArchiveItem(this.item._id));
+		this.store.dispatch(new ServiceActions.ArchiveItem(this.item()._id));
 	}
 
 	public open(): void {
-		this.store.dispatch(new ServiceActions.OpenDetails(this.item));
+		this.store.dispatch(new ServiceActions.OpenDetails(this.item()));
 	}
 
 	public edit(): void {
 		this.store.dispatch(new ServiceActions.OpenForm({
 			componentInputs: {
 				isEditMode: true,
-				item: this.item
+				item: this.item()
 			},
 			pushBoxInputs: {
 				title: this.translateService.instant('service.form.title.edit')

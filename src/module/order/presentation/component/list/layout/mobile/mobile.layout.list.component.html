@@ -1,7 +1,7 @@
 <div class="block max-w-full" [ngClass]="{
-'overflow-x-auto h-[calc(100dvh-64px)] md:h-[calc(100vh-65px)]': isPage
+'overflow-x-auto h-[calc(100dvh-64px)] md:h-[calc(100vh-65px)]': isPage()
 }">
-	<app-order-filter-component [showButtonGoToForm]="showButtonGoToForm"/>
+	<app-order-filter-component [showButtonGoToForm]="showButtonGoToForm()"/>
 	<ng-container *ngIf="tableState">
 		<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
 			<app-order-card-list-component [tableState]="tableState"/>

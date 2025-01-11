@@ -1,4 +1,4 @@
-import {Component, Input, ViewEncapsulation} from '@angular/core';
+import {Component, input, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SocialNetworkForm} from "@client/presentation/form/social-network.form";
 import {SOCIAL_NETWORKS} from "@utility/domain/enum/social-network.enum";
@@ -21,7 +21,7 @@ import {TranslateModule} from "@ngx-translate/core";
       <div class="w-40">
         <ng-select
           id="type"
-          [formControl]="form.controls.type"
+          [formControl]="form().controls.type"
           [items]="socialNetworks"
           [clearable]="false">
         </ng-select>
@@ -31,7 +31,7 @@ import {TranslateModule} from "@ngx-translate/core";
           id="business-profile-form-social-media-link-input"
           autocomplete="socialMedia.link"
           placeholder="https://example.com"
-          [control]="form.controls.link"
+          [control]="form().controls.link"
 		  [label]="'keyword.capitalize.socialMedia' | translate"/>
       </div>
     </div>
@@ -39,8 +39,7 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class SocialNetworkLinkFormComponent {
 
-  @Input()
-  public form!: SocialNetworkForm;
+  public readonly form = input.required<SocialNetworkForm>();
 
   public readonly socialNetworks = SOCIAL_NETWORKS;
 

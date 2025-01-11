@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, OnChanges, Output, SimpleChange, SimpleChanges} from "@angular/core";
+import {Component, EventEmitter, inject, input, OnChanges, Output, SimpleChange, SimpleChanges} from "@angular/core";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
@@ -26,8 +26,10 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 })
 export abstract class ChangeStatusBaseComponent implements OnChanges {
 
-	@Input({required: true})
-	public event!: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>;
+	public readonly event = input.required<IEvent_V2<{
+    order: IOrderDto;
+    service: IOrderServiceDto;
+}>>();
 
 	@Output()
 	public readonly statusChange = new EventEmitter<void>();

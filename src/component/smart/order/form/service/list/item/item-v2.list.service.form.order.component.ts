@@ -4,7 +4,7 @@ import {
 	EventEmitter,
 	HostBinding,
 	inject,
-	Input,
+	input,
 	OnChanges,
 	Output,
 	SimpleChanges,
@@ -70,28 +70,28 @@ import {SpecialistModel} from "@service/domain/model/specialist.model";
 				<app-language-chip-component
 					[initialValue]="service.languageVersions[0].language"
 					[languageVersions]="service.languageVersions"
-					[id]="id"/>
+					[id]="id()"/>
 				<app-start-chip-component
-					[id]="id"
+					[id]="id()"
 					(startChanges)="handleStartChanges($event)"
-					[initialValue]="setupPartialData.defaultAppointmentStartDateTimeIso"/>
+					[initialValue]="setupPartialData().defaultAppointmentStartDateTimeIso"/>
 				<app-duration-chip-component
-					[id]="id"
+					[id]="id()"
 					(durationChanges)="handleDurationChanges($event)"
 					[initialValue]="service.durationVersions[0].durationInSeconds ?? 0"/>
 				<app-specialist-chip-component
-					[id]="id"
+					[id]="id()"
 					(specialistChanges)="handleSpecialistChanges($event)"
 					[initialValue]="initialSpecialistOrMember"/>
 				<app-price-chip-component
-					[id]="id"
+					[id]="id()"
 					(priceChanges)="handlePriceChanges($event)"
 					[initialValue]="service.durationVersions[0].prices[0].price"
 					[currency]="service.durationVersions[0].prices[0].currency"/>
 				<app-customer-chip-component
 					(customerChanges)="handleCustomerChanges($event)"
 					[initialValue]="initialValueForCustomer"
-					[id]="id"/>
+					[id]="id()"/>
 			</div>
 		</div>
 
@@ -102,20 +102,17 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 	@HostBinding()
 	public class = 'flex-col justify-start items-start p-3 gap-2 flex';
 
-	@Input({required: true})
-	public item!: {
-		service: IServiceDto;
-		control: ServiceOrderForm;
-	};
+	public readonly item = input.required<{
+    service: IServiceDto;
+    control: ServiceOrderForm;
+}>();
 
-	@Input()
-	public setupPartialData: {
-		defaultAppointmentStartDateTimeIso?: string;
-		defaultMemberForService?: RIMember;
-	} = {};
+	public readonly setupPartialData = input<{
+    defaultAppointmentStartDateTimeIso?: string;
+    defaultMemberForService?: RIMember;
+}>({});
 
-	@Input()
-	public id: string = ObjectID().toHexString();
+	public readonly id = input<string>(ObjectID().toHexString());
 
 	@Output()
 	public readonly deleteMe = new EventEmitter<void>();
@@ -130,11 +127,11 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 	}
 
 	public get initialSpecialistOrMember() {
-		const specialist = this.item.control.getRawValue().orderAppointmentDetails.specialists[0];
+		const specialist = this.item().control.getRawValue().orderAppointmentDetails.specialists[0];
 
 		if (specialist?.member?.firstName?.length) return SpecialistModel.create(specialist);
 
-		const member = this.setupPartialData.defaultMemberForService;
+		const member = this.setupPartialData().defaultMemberForService;
 
 		if (member?.firstName?.length) return SpecialistModel.create({member});
 
@@ -142,29 +139,29 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 	}
 
 	public get service() {
-		return this.item.service;
+		return this.item().service;
 	}
 
 	public get initialValueForCustomer() {
-		return this.item.control?.controls?.orderAppointmentDetails?.getRawValue?.()?.attendees?.[0]?.customer ?? undefined;
+		return this.item().control?.controls?.orderAppointmentDetails?.getRawValue?.()?.attendees?.[0]?.customer ?? undefined;
 	}
 
 	public handlePriceChanges(price: number) {
-		this.#ngxLogger.debug('handlePriceChanges', this.id, price);
-		const {serviceSnapshot} = this.item.control.getRawValue();
+		this.#ngxLogger.debug('handlePriceChanges', this.id(), price);
+		const {serviceSnapshot} = this.item().control.getRawValue();
 
 		// Check if the price is the same as the previous price, if so, return early
 		if (serviceSnapshot.durationVersions[0].prices[0].price === price) return;
 
 		const copyServiceSnapshot = structuredClone(serviceSnapshot);
 		copyServiceSnapshot.durationVersions[0].prices[0].price = price;
-		this.item.control.controls.serviceSnapshot.patchValue(copyServiceSnapshot);
+		this.item().control.controls.serviceSnapshot.patchValue(copyServiceSnapshot);
 		this.saveChanges.emit();
 	}
 
 	public handleSpecialistChanges(specialist: ISpecialist) {
-		this.#ngxLogger.debug('handleSpecialistChanges', this.id, specialist);
-		const {orderAppointmentDetails} = this.item.control.getRawValue();
+		this.#ngxLogger.debug('handleSpecialistChanges', this.id(), specialist);
+		const {orderAppointmentDetails} = this.item().control.getRawValue();
 
 		const {0: previousSpecialist} = orderAppointmentDetails.specialists;
 
@@ -172,13 +169,13 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 
 		const copyOrderAppointmentDetails = structuredClone(orderAppointmentDetails);
 		copyOrderAppointmentDetails.specialists = [specialist];
-		this.item.control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);
+		this.item().control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);
 		this.saveChanges.emit();
 	}
 
 	public handleDurationChanges(duration: number) {
-		this.#ngxLogger.debug('handleDurationChanges', this.id, duration);
-		const {serviceSnapshot} = this.item.control.getRawValue();
+		this.#ngxLogger.debug('handleDurationChanges', this.id(), duration);
+		const {serviceSnapshot} = this.item().control.getRawValue();
 		const {durationInSeconds} = serviceSnapshot.durationVersions[0];
 
 		// Check if the duration is the same as the previous duration, if so, return early
@@ -186,19 +183,19 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 
 		const copyServiceSnapshot = structuredClone(serviceSnapshot);
 		copyServiceSnapshot.durationVersions[0].durationInSeconds = duration;
-		this.item.control.controls.serviceSnapshot.patchValue(copyServiceSnapshot);
+		this.item().control.controls.serviceSnapshot.patchValue(copyServiceSnapshot);
 
 		// Update end of orderAppointmentDetails
-		const {orderAppointmentDetails} = this.item.control.getRawValue();
+		const {orderAppointmentDetails} = this.item().control.getRawValue();
 		const copyOrderAppointmentDetails = structuredClone(orderAppointmentDetails);
 		copyOrderAppointmentDetails.end = DateTime.fromISO(copyOrderAppointmentDetails.start).plus({seconds: duration}).toJSDate().toISOString();
-		this.item.control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);
+		this.item().control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);
 		this.saveChanges.emit();
 	}
 
 	public handleStartChanges(start: string) {
-		this.#ngxLogger.debug('handleStartChanges', this.id, start);
-		const {orderAppointmentDetails} = this.item.control.getRawValue();
+		this.#ngxLogger.debug('handleStartChanges', this.id(), start);
+		const {orderAppointmentDetails} = this.item().control.getRawValue();
 
 		// Check if the start is the same as the previous start, if so, return early
 		if (orderAppointmentDetails.start === start) return;
@@ -206,13 +203,13 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 		const copyOrderAppointmentDetails = structuredClone(orderAppointmentDetails);
 		copyOrderAppointmentDetails.start = start;
 		copyOrderAppointmentDetails.end = DateTime.fromISO(start).plus({seconds: this.service.durationVersions[0].durationInSeconds}).toJSDate().toISOString();
-		this.item.control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);
+		this.item().control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);
 		this.saveChanges.emit();
 	}
 
 	public handleCustomerChanges(customer: ICustomer) {
-		this.#ngxLogger.debug('handleCustomerChanges', this.id, customer);
-		const {orderAppointmentDetails} = this.item.control.getRawValue();
+		this.#ngxLogger.debug('handleCustomerChanges', this.id(), customer);
+		const {orderAppointmentDetails} = this.item().control.getRawValue();
 
 		const copyOrderAppointmentDetails = structuredClone(orderAppointmentDetails);
 		copyOrderAppointmentDetails.attendees = [{
@@ -222,7 +219,7 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 			updatedAt: DateTime.now().toJSDate().toISOString(),
 			object: "AttendeeDto",
 		}];
-		this.item.control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);
+		this.item().control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);
 		this.saveChanges.emit();
 	}
 

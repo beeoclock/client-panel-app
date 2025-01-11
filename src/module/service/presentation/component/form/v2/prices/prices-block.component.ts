@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit, input} from '@angular/core';
 import {NgForOf} from "@angular/common";
 import {PriceBlockComponent} from "@service/presentation/component/form/v2/prices/price-block.component";
 import {DurationConfigurationForm, DurationVersionsForm} from "@service/presentation/form/service.form";
@@ -20,7 +20,7 @@ import {filter, take} from "rxjs";
 			<utility-switch-component
 				[control]="switchToRangeModeControl"
 				[labelTranslateKey]="'service.form.v2.section.prices.switch.range.title'"/>
-			<div *ngFor="let durationVersion of durationVersions.controls; let index = index">
+			<div *ngFor="let durationVersion of durationVersions().controls; let index = index">
 
 				<!--        <div class="flex justify-between">-->
 				<!--          <span class="text-beeColor-400">Price version #{{ index + 1 }}</span>-->
@@ -30,7 +30,7 @@ import {filter, take} from "rxjs";
 				<!--        </div>-->
 
 				<service-form-price-block-component
-					[currencyList]="currencyList"
+					[currencyList]="currencyList()"
 					[suffix]="isRangeMode ? (getTranslateSuffixKey(index) | translate) : ''"
 					[priceForm]="durationVersion.controls.prices.at(0)"
 					[durationInSecondsControl]="durationVersion.controls.durationInSeconds"/>
@@ -56,19 +56,19 @@ import {filter, take} from "rxjs";
 })
 export class PricesBlockComponent extends Reactive implements OnInit {
 
-	@Input()
-	public durationVersions = new DurationVersionsForm();
+	public readonly durationVersions = input(new DurationVersionsForm());
 
-	@Input()
-	public durationConfigurationForm = new DurationConfigurationForm();
+	public readonly durationConfigurationForm = input(new DurationConfigurationForm());
 
-	@Input({required: true})
-	public currencyList: { id: CurrencyCodeEnum; name: CurrencyCodeEnum; }[] = [];
+	public readonly currencyList = input.required<{
+    id: CurrencyCodeEnum;
+    name: CurrencyCodeEnum;
+}[]>();
 
 	public readonly switchToRangeModeControl = new FormControl(ActiveEnum.NO);
 
 	public get isRangeMode(): boolean {
-		return this.durationConfigurationForm.controls.durationVersionType.value === DurationVersionTypeEnum.RANGE;
+		return this.durationConfigurationForm().controls.durationVersionType.value === DurationVersionTypeEnum.RANGE;
 	}
 
 	public getTranslateSuffixKey(index: number): string {
@@ -79,7 +79,7 @@ export class PricesBlockComponent extends Reactive implements OnInit {
 	}
 
 	public ngOnInit() {
-		this.durationConfigurationForm.controls.durationVersionType.valueChanges.pipe(
+		this.durationConfigurationForm().controls.durationVersionType.valueChanges.pipe(
 			take(1),
 			filter((value) => value === DurationVersionTypeEnum.RANGE),
 			this.takeUntil()
@@ -91,7 +91,7 @@ export class PricesBlockComponent extends Reactive implements OnInit {
 			if (value) {
 				newValue = DurationVersionTypeEnum.RANGE;
 			}
-			this.durationConfigurationForm.controls.durationVersionType.setValue(newValue);
+			this.durationConfigurationForm().controls.durationVersionType.setValue(newValue);
 		});
 	}
 

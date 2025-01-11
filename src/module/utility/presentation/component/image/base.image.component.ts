@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, inject, Input, OnChanges, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, ElementRef, inject, OnChanges, ViewChild, input} from "@angular/core";
 import {extractFile} from "@utility/domain/extract-file";
 import {file2base64} from "@utility/domain/file2base64";
 import {NGXLogger} from "ngx-logger";
@@ -23,14 +23,14 @@ export class BaseImageComponent implements OnChanges, AfterViewInit {
 	@ViewChild('previewImage')
 	public readonly previewImage!: ElementRef<HTMLImageElement>;
 
-	@Input()
-	public banner: RIMedia | null | undefined | { url: string; _id: string; } = null;
+	public readonly banner = input<RIMedia | null | undefined | {
+    url: string;
+    _id: string;
+}>(null);
 
-	@Input()
-	public index = 0;
+	public readonly index = input(0);
 
-	@Input()
-	public showHit = true;
+	public readonly showHit = input(true);
 
 	public selectedFile: File | undefined;
 
@@ -39,15 +39,17 @@ export class BaseImageComponent implements OnChanges, AfterViewInit {
 	protected readonly logger = inject(NGXLogger);
 
 	public ngAfterViewInit(): void {
-		if (this.banner) {
-			this.updateSrc(this.banner.url);
+		const banner = this.banner();
+  if (banner) {
+			this.updateSrc(banner.url);
 		}
 	}
 
 	public ngOnChanges(): void {
 		// TODO check if is after view init
-		if (this.banner) {
-			this.updateSrc(this.banner.url);
+		const banner = this.banner();
+  if (banner) {
+			this.updateSrc(banner.url);
 		}
 	}
 

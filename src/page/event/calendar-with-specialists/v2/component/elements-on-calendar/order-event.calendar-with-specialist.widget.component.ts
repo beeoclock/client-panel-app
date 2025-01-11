@@ -1,11 +1,11 @@
 import {
-	ChangeDetectionStrategy,
-	Component,
-	ElementRef,
-	HostBinding,
-	inject,
-	Input,
-	ViewEncapsulation
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostBinding,
+  inject,
+  ViewEncapsulation,
+  input
 } from "@angular/core";
 
 import {IAttendee, IEvent_V2} from "@event/domain";
@@ -36,23 +36,23 @@ import {
 	template: `
 		<div class="flex gap-1 items-center justify-between">
 			<div class="text-xs dark:text-sky-100">
-				{{ event.start | date: 'HH:mm' }} - {{ event.end | date: 'HH:mm' }}
+				{{ event().start | date: 'HH:mm' }} - {{ event().end | date: 'HH:mm' }}
 			</div>
 			<div class="flex gap-1">
 				<app-first-time-icon-component
-					[firstTime]="event.originalData.service?.orderAppointmentDetails?.attendees?.[0]?.firstTime ?? false"/>
+					[firstTime]="event().originalData.service?.orderAppointmentDetails?.attendees?.[0]?.firstTime ?? false"/>
 				<app-anybody-specialist-icon-component
-					[wasSelectedAnybody]="event.originalData?.service?.orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody ?? false"/>
-				<app-note-icon-component [note]="event?.note ?? ''"/>
-				<app-business-note-icon-component [businessNote]="event?.originalData?.order?.businessNote ?? ''"/>
-				<app-status-icon-component [status]="event.originalData.service.status"/>
+					[wasSelectedAnybody]="event().originalData?.service?.orderAppointmentDetails?.specialists?.[0]?.wasSelectedAnybody ?? false"/>
+				<app-note-icon-component [note]="event()?.note ?? ''"/>
+				<app-business-note-icon-component [businessNote]="event()?.originalData?.order?.businessNote ?? ''"/>
+				<app-status-icon-component [status]="event().originalData.service.status"/>
 			</div>
 		</div>
 		<div class="text-xs font-bold dark:text-sky-100">
 			{{ getAttendeesInformation() }}
 		</div>
 		<div class="text-xs font-medium">
-			{{ event.originalData.service.serviceSnapshot.languageVersions[0].title }}
+			{{ event().originalData.service.serviceSnapshot.languageVersions[0].title }}
 		</div>
 	`,
 	standalone: true,
@@ -69,11 +69,12 @@ import {
 })
 export class OrderEventCalendarWithSpecialistWidgetComponent {
 
-	@Input()
-	public event!: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>;
+	public readonly event = input.required<IEvent_V2<{
+    order: IOrderDto;
+    service: IOrderServiceDto;
+}>>();
 
-	@Input() // TODO: Add settings for calendar to switch from service color to status color
-	public useServiceColor = true;
+	public readonly useServiceColor = input(true);
 
 	private readonly store = inject(Store);
 
@@ -83,13 +84,13 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 	public readonly orderServiceStatusEnum = OrderServiceStatusEnum;
 
 	public async onClick() {
-		await this.openEventDetails(this.event);
+		await this.openEventDetails(this.event());
 	}
 
 	@HostBinding('style.background-color')
 	public get backgroundColor() {
-		if (this.useServiceColor) {
-			const {service} = this.event.originalData;
+		if (this.useServiceColor()) {
+			const {service} = this.event().originalData;
 			const {presentation} = service.serviceSnapshot;
 			const {color} = presentation;
 			if (color) {
@@ -108,9 +109,9 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 			'transition-all cursor-pointer rounded-md border-[#00000038] px-1 flex flex-col overflow-hidden',
 		];
 
-		const {service} = this.event.originalData;
+		const {service} = this.event().originalData;
 
-		if (this.useServiceColor) {
+		if (this.useServiceColor()) {
 
 			const {presentation} = service.serviceSnapshot;
 			const {color} = presentation;
@@ -149,7 +150,7 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 	}
 
 	public getAttendeesInformation() {
-		return this.event.attendees?.reduce((acc: string[], attendant) => {
+		return this.event().attendees?.reduce((acc: string[], attendant) => {
 			if (attendant.is !== 'customer') {
 				return acc;
 			}

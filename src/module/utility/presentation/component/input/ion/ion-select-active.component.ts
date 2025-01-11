@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation, input} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -13,7 +13,7 @@ import {is} from "@utility/checker";
 	standalone: true,
 	template: `
 		<ion-select
-			[formControl]="control"
+			[formControl]="control()"
 			class="!min-h-0"
 			fill="solid"
 			interface="popover">
@@ -37,14 +37,11 @@ import {is} from "@utility/checker";
 })
 export class IonSelectActiveComponent implements OnInit {
 
-	@Input()
-	public id = '';
+	public readonly id = input('');
 
-	@Input()
-	public control = new FormControl();
+	public readonly control = input(new FormControl());
 
-	@Input()
-	public addAllOption = true;
+	public readonly addAllOption = input(true);
 
 	private readonly translateService = inject(TranslateService);
 
@@ -61,7 +58,7 @@ export class IonSelectActiveComponent implements OnInit {
 
 
 	private initAllOption() {
-		if (!this.addAllOption) {
+		if (!this.addAllOption()) {
 			return;
 		}
 		this.statusList.unshift({

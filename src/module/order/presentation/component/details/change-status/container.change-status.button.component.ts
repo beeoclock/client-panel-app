@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, HostBinding, input, ViewEncapsulation} from "@angular/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {
@@ -54,18 +54,18 @@ import {TranslateModule} from "@ngx-translate/core";
 				{{ 'order.confirmation.change-status.hint' | translate }}
 			</div>
 		</div>
-		<div class="flex flex-col gap-4" [ngSwitch]="item.status">
+		<div class="flex flex-col gap-4" [ngSwitch]="item().status">
 
 			<ng-container *ngSwitchCase="status.inProgress">
-				<app-cancelled-change-status-button [item]="item"/>
-				<app-done-change-status-button [item]="item"/>
+				<app-cancelled-change-status-button [item]="item()"/>
+				<app-done-change-status-button [item]="item()"/>
 			</ng-container>
 			<ng-container *ngSwitchCase="status.done">
 
 			</ng-container>
 			<ng-container *ngSwitchCase="status.confirmed">
-				<app-cancelled-change-status-button [item]="item"/>
-				<app-done-change-status-button [item]="item"/>
+				<app-cancelled-change-status-button [item]="item()"/>
+				<app-done-change-status-button [item]="item()"/>
 			</ng-container>
 			<ng-container *ngSwitchCase="status.cancelled">
 <!--				<app-confirmed-change-status-button [item]="item"/>-->
@@ -77,8 +77,8 @@ import {TranslateModule} from "@ngx-translate/core";
 
 			</ng-container>
 			<ng-container *ngSwitchCase="status.requested">
-				<app-confirmed-change-status-button [item]="item"/>
-				<app-rejected-change-status-button [item]="item"/>
+				<app-confirmed-change-status-button [item]="item()"/>
+				<app-rejected-change-status-button [item]="item()"/>
 			</ng-container>
 
 		</div>
@@ -92,8 +92,7 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class ContainerChangeStatusButtonComponent extends Reactive {
 
-	@Input()
-	public item!: IOrderDto;
+	public readonly item = input.required<IOrderDto>();
 
 	public readonly status = OrderStatusEnum;
 

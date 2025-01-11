@@ -1,12 +1,12 @@
 import {
-	AfterViewInit,
-	Component,
-	ComponentRef,
-	ElementRef,
-	HostListener,
-	inject,
-	Input,
-	ViewChild
+  AfterViewInit,
+  Component,
+  ComponentRef,
+  ElementRef,
+  HostListener,
+  inject,
+  ViewChild,
+  input
 } from "@angular/core";
 import {Modal, ModalInterface, ModalOptions} from "flowbite";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
@@ -50,7 +50,7 @@ export interface ModalButtonInterface<COMPONENT_REF = unknown> {
 	template: `
 		<div
 			#modalRef
-			[id]="id"
+			[id]="id()"
 			data-modal-backdrop="static"
 			tabindex="-1"
 			aria-hidden="true"
@@ -62,7 +62,7 @@ export interface ModalButtonInterface<COMPONENT_REF = unknown> {
 
 					<!-- Modal header -->
 					<div class="flex items-start justify-between p-4 border-b rounded-t dark:border-beeDarkColor-600">
-						<h3 [ngClass]="titleClasses" [id]="id + '_label'" [innerHtml]="title">
+						<h3 [ngClass]="titleClasses" [id]="id() + '_label'" [innerHtml]="title">
 						</h3>
 						<button
 							type="button"
@@ -79,7 +79,7 @@ export interface ModalButtonInterface<COMPONENT_REF = unknown> {
 					<div
 						#contentRef
 						[ngClass]="{
-						'p-4': contentPadding,
+						'p-4': contentPadding(),
 						}"
 						class="flex-1 overflow-y-auto md:h-auto md:max-h-[calc(100vh-16rem)]">
 						<ng-content/>
@@ -130,11 +130,9 @@ export interface ModalButtonInterface<COMPONENT_REF = unknown> {
 })
 export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements AfterViewInit {
 
-	@Input()
-	public id = 'modal-default-id';
+	public readonly id = input('modal-default-id');
 
-	@Input()
-	public contentPadding = true;
+	public readonly contentPadding = input(true);
 
 	@ViewChild('contentRef')
 	public contentRef: ElementRef<HTMLElement> | undefined;
@@ -156,7 +154,7 @@ export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements
 
 	public titleClasses: string[] = ['text-xl', 'font-semibold', 'text-beeColor-900', 'dark:text-white'];
 
-	public readonly idPrefix: string = `${this.id}_buttons_`;
+	public readonly idPrefix: string = `${this.id()}_buttons_`;
 
 	private readonly closeModal$ = new Subject<void>();
 
@@ -199,11 +197,9 @@ export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements
 
 	//
 
-	@Input()
-	public useButton = true;
+	public readonly useButton = input(true);
 
-	@Input()
-	public buttonLabel = 'Open modal';
+	public readonly buttonLabel = input('Open modal');
 
 	@ViewChild('modalRef')
 	public modalRef: ElementRef<HTMLDivElement> | undefined;
@@ -278,7 +274,7 @@ export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements
 			this.#modal?.hide();
 			setTimeout(() => {
 				try {
-					this.externalMethodOnCloseModalEvent?.(this.id);
+					this.externalMethodOnCloseModalEvent?.(this.id());
 					this.elementRef?.nativeElement?.remove();
 				} catch (error) {
 					this.logger.error(error);

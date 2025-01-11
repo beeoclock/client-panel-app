@@ -1,16 +1,17 @@
 import {
-	AfterViewInit,
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	EventEmitter,
-	inject,
-	Input,
-	OnInit,
-	Output,
-	QueryList,
-	ViewChild,
-	ViewEncapsulation
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+  QueryList,
+  ViewChild,
+  ViewEncapsulation,
+  input
 } from "@angular/core";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
@@ -45,14 +46,13 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 		ServiceExternalListComponent
 	],
 	template: `
-		<service-external-list-component [useTableStateFromStore]="useTableStateFromStore" [tableState]="tableState"
+		<service-external-list-component [useTableStateFromStore]="useTableStateFromStore()" [tableState]="tableState()"
 										 [mobileMode]="true"/>
 	`
 })
 export class SelectServiceWhacAMoleComponent extends Reactive implements OnInit, AfterViewInit {
 
-	@Input()
-	public selectedServiceList: IServiceDto[] = [];
+	public readonly selectedServiceList = input<IServiceDto[]>([]);
 
 	@Input()
 	public newSelectedServiceList: IServiceDto[] = [];
@@ -60,11 +60,9 @@ export class SelectServiceWhacAMoleComponent extends Reactive implements OnInit,
 	@Output()
 	public readonly selectedServicesListener = new EventEmitter<void>();
 
-	@Input()
-	public useTableStateFromStore = true;
+	public readonly useTableStateFromStore = input(true);
 
-	@Input()
-	public tableState: ITableState<IServiceDto> = new TableState<IServiceDto>().toCache();
+	public readonly tableState = input<ITableState<IServiceDto>>(new TableState<IServiceDto>().toCache());
 
 	@ViewChild(ServiceExternalListComponent)
 	public serviceExternalListComponent!: ServiceExternalListComponent;
@@ -72,12 +70,11 @@ export class SelectServiceWhacAMoleComponent extends Reactive implements OnInit,
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly logger = inject(NGXLogger);
 
-	@Input()
-	public multiple = true;
+	public readonly multiple = input(true);
 
 	public ngOnInit(): void {
 
-		this.newSelectedServiceList = [...(this.selectedServiceList ?? [])];
+		this.newSelectedServiceList = [...(this.selectedServiceList() ?? [])];
 
 	}
 
@@ -111,7 +108,7 @@ export class SelectServiceWhacAMoleComponent extends Reactive implements OnInit,
 	}
 
 	public async select(service: IServiceDto) {
-		if (!this.multiple) {
+		if (!this.multiple()) {
 			if (this.newSelectedServiceList.length) {
 				this.newSelectedServiceList.splice(0, 1);
 			}

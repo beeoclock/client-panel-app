@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation, input} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {TranslateModule} from "@ngx-translate/core";
@@ -22,8 +22,7 @@ import {RouterLink} from "@angular/router";
 })
 export class EditButtonComponent {
 
-	@Input()
-	public link: string | string[] = 'form';
+	public readonly link = input<string | string[]>('form');
 
 	@HostBinding('class.w-full')
 	@Input()

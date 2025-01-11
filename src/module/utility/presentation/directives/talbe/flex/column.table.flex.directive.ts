@@ -1,4 +1,4 @@
-import {Directive, ElementRef, forwardRef, HostBinding, Inject, Input, OnInit} from "@angular/core";
+import {Directive, ElementRef, forwardRef, HostBinding, Inject, OnInit, input} from "@angular/core";
 import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex/row.table.flex.directive";
 import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
 
@@ -8,8 +8,7 @@ import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/fl
 })
 export class ColumnTableFlexDirective implements OnInit {
 
-	@Input()
-	public tableColumnFlex: string | undefined;
+	public readonly tableColumnFlex = input<string>();
 
 	constructor(
 		@Inject(forwardRef(() => TableTableFlexDirective))
@@ -33,15 +32,16 @@ export class ColumnTableFlexDirective implements OnInit {
 
 	public ngOnInit() {
 
-		switch (this.row.tableRowFlex) {
+		switch (this.row.tableRowFlex()) {
 			case 'body':
 				this.class.push('flex', 'items-center');
 				break;
 		}
 
-		if (this.table.tableFlex) {
-			const columns = this.table.tableFlex.columns;
-			const column = columns[this.tableColumnFlex as string];
+		const tableFlex = this.table.tableFlex();
+  if (tableFlex) {
+			const columns = tableFlex.columns;
+			const column = columns[this.tableColumnFlex() as string];
 			if (column) {
 				if (column.classList) {
 					this.class.push(...column.classList);

@@ -1,16 +1,16 @@
 import {
-	AfterViewInit,
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	DoCheck,
-	ElementRef,
-	HostBinding,
-	inject,
-	Input,
-	OnDestroy,
-	ViewChild,
-	ViewEncapsulation,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  DoCheck,
+  ElementRef,
+  HostBinding,
+  inject,
+  OnDestroy,
+  ViewChild,
+  ViewEncapsulation,
+  input
 } from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
@@ -33,28 +33,28 @@ import {TranslateModule} from "@ngx-translate/core";
 		TranslateModule,
 	],
 	template: `
-		@if (showLabel) {
+		@if (showLabel()) {
 			<label
-				[for]="id"
+				[for]="id()"
 				class="block text-sm font-medium leading-6 text-beeColor-900 dark:text-white">
-				{{ label || (labelTranslateKey | translate) }}
+				{{ label() || (labelTranslateKey() | translate) }}
 			</label>
 		}
 		<input
 			hidden
 			isRequired
 			invalidTooltip
-			[id]="id"
-			[setRedBorderTo]="'#' + id + '-mirror'"
-			[formControl]="control"
-			[isRequiredEnabled]="showLabel">
+			[id]="id()"
+			[setRedBorderTo]="'#' + id() + '-mirror'"
+			[formControl]="control()"
+			[isRequiredEnabled]="showLabel()">
 
 		<input
 			#inputElement
-			[id]="id + '-mirror'"
-			[class.disabled]="control.disabled"
-			[placeholder]="placeholder"
-			[autocomplete]="autocomplete"
+			[id]="id() + '-mirror'"
+			[class.disabled]="control().disabled"
+			[placeholder]="placeholder()"
+			[autocomplete]="autocomplete()"
 			type="tel"
 			class="w-full bg-white rounded-md border border-gray-200 px-3 py-2 placeholder:text-slate-600"
 		/>
@@ -64,29 +64,21 @@ import {TranslateModule} from "@ngx-translate/core";
 	}
 })
 export class TelFormInputComponent implements AfterViewInit, OnDestroy, DoCheck {
-	@Input()
-	public label = '';
+	public readonly label = input('');
 
-	@Input()
-	public labelTranslateKey = '';
+	public readonly labelTranslateKey = input('');
 
-	@Input()
-	public showLabel = true;
+	public readonly showLabel = input(true);
 
-	@Input()
-	public id = 'utility-base-input';
+	public readonly id = input('utility-base-input');
 
-	@Input()
-	public placeholder: string = '000 00 00 00';
+	public readonly placeholder = input<string>('000 00 00 00');
 
-	@Input()
-	public placeholderTranslateKey: string = '';
+	public readonly placeholderTranslateKey = input<string>('');
 
-	@Input()
-	public autocomplete: string = '';
+	public readonly autocomplete = input<string>('');
 
-	@Input()
-	public control!: FormControl;
+	public readonly control = input.required<FormControl>();
 
 	// TODO: Implement country code
 	// @Input()
@@ -124,18 +116,19 @@ export class TelFormInputComponent implements AfterViewInit, OnDestroy, DoCheck 
 		});
 
 		// @ts-ignore
-		if (is.string_not_empty(this.control.value)) this.intlTelInput?.setNumber(this.control.value);
+		const control = this.control();
+  if (is.string_not_empty(control.value)) this.intlTelInput?.setNumber(control.value);
 
 		this.inputElement.nativeElement.addEventListener('countrychange', () => {
 			// @ts-ignore
-			this.control.setValue(this.intlTelInput?.getNumber());
+			this.control().setValue(this.intlTelInput?.getNumber());
 		});
 
 		this.inputElement.nativeElement.addEventListener('input', () => {
 			// @ts-ignore
-			this.control.setValue(this.intlTelInput?.getNumber());
+			this.control().setValue(this.intlTelInput?.getNumber());
 			// @ts-ignore
-			if (!this.intlTelInput.isValidNumber()) this.control.setErrors({
+			if (!this.intlTelInput.isValidNumber()) this.control().setErrors({
 				'invalid': true
 			});
 

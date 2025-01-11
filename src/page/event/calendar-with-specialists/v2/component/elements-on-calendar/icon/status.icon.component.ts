@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, ViewEncapsulation, input} from "@angular/core";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
@@ -8,7 +8,7 @@ import {IconComponent} from "@src/component/adapter/icon/icon.component";
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		@switch (status) {
+		@switch (status()) {
 			@case (orderServiceStatusEnum.done) {
 				<app-icon title="Done" name="bootstrapCheck2All"/>
 			}
@@ -38,8 +38,7 @@ import {IconComponent} from "@src/component/adapter/icon/icon.component";
 })
 export class StatusIconComponent {
 
-	@Input({required: true})
-	public status!: OrderServiceStatusEnum;
+	public readonly status = input.required<OrderServiceStatusEnum>();
 
 	protected readonly orderServiceStatusEnum = OrderServiceStatusEnum;
 

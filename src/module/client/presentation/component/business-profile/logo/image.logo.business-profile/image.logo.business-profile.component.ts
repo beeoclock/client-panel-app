@@ -25,7 +25,7 @@ import {BaseImageComponent} from "@utility/presentation/component/image/base.ima
 					#previewImage
 					class="absolute top-0 left-0 object-cover rounded-xl w-full h-full hidden" alt="Uploaded Image"/>
 				<utility-placeholder-image-component
-					*ngIf="showHit"
+					*ngIf="showHit()"
 					[labelOfDragAndDropZone]="labelOfDragAndDropZone"/>
 				<input
 					id="logo-business-profile-dropzone-file" type="file" #fileInput class="hidden"

@@ -1,14 +1,15 @@
 import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	EventEmitter,
-	inject,
-	Input,
-	OnChanges,
-	Output,
-	SimpleChange,
-	ViewEncapsulation
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChange,
+  ViewEncapsulation,
+  input
 } from '@angular/core';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ReactiveFormsModule} from "@angular/forms";
@@ -43,8 +44,7 @@ export class TableStatePaginationComponent implements OnChanges {
   @Input()
   public tableState!: ITableState<unknown>;
 
-  @Input()
-  public mobileMode = false;
+  public readonly mobileMode = input(false);
 
   @Output()
   public readonly pageSize = new EventEmitter();

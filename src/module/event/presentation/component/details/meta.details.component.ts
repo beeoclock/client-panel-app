@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, Input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
+import {Component, HostBinding, inject, input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IHistory, IHistoryV2} from "@utility/domain";
@@ -28,7 +28,7 @@ import {
 				{{ 'event.keyword.capitalize.chronologyOfEventChanges' | translate }}
 			</div>
 			<div>
-				{{ orderServiceDto._id }}
+				{{ orderServiceDto()._id }}
 			</div>
 
 		</div>
@@ -67,11 +67,9 @@ import {
 })
 export class MetaDetailsComponent implements OnChanges {
 
-	@Input({required: true})
-	public orderDro!: IOrderDto;
+	public readonly orderDro = input.required<IOrderDto>();
 
-	@Input({required: true})
-	public orderServiceDto!: IOrderServiceDto;
+	public readonly orderServiceDto = input.required<IOrderServiceDto>();
 
 	@HostBinding()
 	public class = 'flex flex-col gap-4 text-beeColor-500 p-4 text-sm';
@@ -96,19 +94,20 @@ export class MetaDetailsComponent implements OnChanges {
 		this.chronologyList.length = 0;
 
 		this.chronologyList.push({
-			iso: this.orderDro.createdAt,
+			iso: this.orderDro().createdAt,
 			labelTranslateKey: 'keyword.capitalize.createdAt',
-			description: DateTime.fromISO(this.orderDro.createdAt).toRelative({
+			description: DateTime.fromISO(this.orderDro().createdAt).toRelative({
 				locale: this.translateService.currentLang
 			}) ?? '',
 			valueWithFromToProperties: null
 		});
 
-		if (!this.orderServiceDto?.meta?.history?.length) {
+		const orderServiceDto = this.orderServiceDto();
+  if (!orderServiceDto?.meta?.history?.length) {
 			return;
 		}
 
-		this.orderServiceDto.meta.history.forEach((historyItem: IHistory | IHistoryV2) => {
+		orderServiceDto.meta.history.forEach((historyItem: IHistory | IHistoryV2) => {
 			if ('_v' in historyItem) {
 				switch (historyItem._v) {
 					case 2:

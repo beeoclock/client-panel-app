@@ -1,16 +1,17 @@
 import {
-	AfterViewInit,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	EventEmitter,
-	inject,
-	Input,
-	OnChanges,
-	Output,
-	Renderer2,
-	SimpleChange,
-	SimpleChanges
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  inject,
+  Input,
+  OnChanges,
+  Output,
+  Renderer2,
+  SimpleChange,
+  SimpleChanges,
+  input
 } from "@angular/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
@@ -32,8 +33,7 @@ export abstract class TableComponent<ITEM extends IBaseEntity<string>> implement
 	@Input()
 	public goToDetailsOnSingleClick = true;
 
-	@Input({required: true})
-	public tableState!: ITableState<ITEM>;
+	public readonly tableState = input.required<ITableState<ITEM>>();
 
 	@Output()
 	public readonly singleClickEmitter = new EventEmitter<ITEM>();

@@ -1,15 +1,16 @@
 import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	HostBinding,
-	inject,
-	Input,
-	OnChanges,
-	OnDestroy,
-	OnInit,
-	SimpleChanges,
-	ViewEncapsulation
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  HostBinding,
+  inject,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  ViewEncapsulation,
+  input
 } from "@angular/core";
 import {DatePipe, NgIf, NgStyle} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
@@ -27,7 +28,7 @@ import {is} from "@utility/checker";
 	],
 	template: `
 		<!-- Current time -->
-		@if (showCurrentTime) {
+		@if (showCurrentTime()) {
 
 			<div class="border-2 border-red-500 bg-white rounded-b-lg flex justify-end left-0 sticky w-full">
 				<div
@@ -38,7 +39,7 @@ import {is} from "@utility/checker";
 
 		}
 		<!-- Line -->
-		@if (showLine) {
+		@if (showLine()) {
 
 			<div class="w-full bg-[#f87171] h-[2px]"></div>
 
@@ -51,11 +52,9 @@ export class TimeLineCalendarWithSpecialistWidgetComponent implements OnInit, On
 	@Input()
 	public currentDate = new Date();
 
-	@Input()
-	public showCurrentTime = true;
+	public readonly showCurrentTime = input(true);
 
-	@Input()
-	public showLine = true;
+	public readonly showLine = input(true);
 
 	@HostBinding()
 	public class = 'absolute flex items-start left-0 top-0 transition-all z-[11] w-full';

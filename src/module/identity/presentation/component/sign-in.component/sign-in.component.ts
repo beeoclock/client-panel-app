@@ -4,7 +4,7 @@ import {
 	Component,
 	HostListener,
 	inject,
-	Input,
+	input,
 	OnInit,
 	ViewEncapsulation
 } from '@angular/core';
@@ -93,14 +93,13 @@ import {is} from "@utility/checker";
 })
 export class SignInComponent implements OnInit {
 
-	@Input()
-	public initialValues: {
-		email: string;
-		password: string;
-	} = {
-		email: '',
-		password: ''
-	};
+	public readonly initialValues = input<{
+    email: string;
+    password: string;
+}>({
+    email: '',
+    password: ''
+});
 
 	public readonly form = new LoginForm();
 	private readonly router = inject(Router);
@@ -118,7 +117,7 @@ export class SignInComponent implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		this.form.patchValue(this.initialValues);
+		this.form.patchValue(this.initialValues());
 	}
 
 	public async signIn(): Promise<void> {

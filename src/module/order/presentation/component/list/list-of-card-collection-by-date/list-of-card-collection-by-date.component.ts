@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, HostBinding, inject, input, ViewEncapsulation} from "@angular/core";
 import {TableComponent} from "@utility/table.component";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {DateTime} from "luxon";
@@ -27,7 +27,7 @@ import {
 		TableStatePaginationComponent
 	],
 	template: `
-		@for (dateItem of itemsWithDate; track dateItem[0]) {
+		@for (dateItem of itemsWithDate(); track dateItem[0]) {
 			<div class="flex flex-col">
 				<div class="ps-8 p-4 bg-beeColor-200 text-beeColor-600 sticky top-0">
 					<div class="flex gap-4 items-center">
@@ -55,14 +55,16 @@ import {
 		<utility-table-state-pagination-component
 			[mobileMode]="true"
 			(page)="pageChange($event)"
-			[tableState]="tableState"/>
+			[tableState]="tableState()"/>
 
 	`
 })
 export class ListOfCardCollectionByDateComponent extends TableComponent<IOrderDto> {
 
-	@Input({required: true})
-	public itemsWithDate: [string, IOrderDto[]][] = [];
+	public readonly itemsWithDate = input.required<[
+    string,
+    IOrderDto[]
+][]>();
 
 	public readonly showAction = new BooleanStreamState(true);
 	public readonly showSelectedStatus = new BooleanStreamState(false);

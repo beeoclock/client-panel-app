@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, Input, ViewEncapsulation, input} from '@angular/core';
 
 type TextColorType =
   'text-secondary'
@@ -23,8 +23,7 @@ type TextColorType =
 })
 export class SpinnerComponent {
 
-  @Input()
-  public color: TextColorType = 'text-body';
+  public readonly color = input<TextColorType>('text-body');
 
   @Input()
   @HostBinding('class.spinner-border-sm')
@@ -34,5 +33,5 @@ export class SpinnerComponent {
   public readonly role = 'status';
 
   @HostBinding()
-  public readonly class = ['spinner-border', this.color];
+  public readonly class = ['spinner-border', this.color()];
 }

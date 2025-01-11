@@ -1,14 +1,14 @@
 import {
-	AfterViewInit,
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	inject,
-	Input,
-	QueryList,
-	ViewChildren,
-	ViewEncapsulation
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  inject,
+  QueryList,
+  ViewChildren,
+  ViewEncapsulation,
+  input
 } from "@angular/core";
 import {RIMember} from "@member/domain";
 import {ClientState} from "@client/state/client/client.state";
@@ -65,14 +65,11 @@ interface IData {
 })
 export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reactive implements AfterViewInit {
 
-	@Input()
-	public member: RIMember | null = null;
+	public readonly member = input<RIMember | null>(null);
 
-	@Input()
-	public index: number = -1; // Index of instance
+	public readonly index = input<number>(-1); // Index of instance
 
-	@Input()
-	public calendar: HTMLDivElement | null = null;
+	public readonly calendar = input<HTMLDivElement | null>(null);
 
 	@ViewChildren('scheduleElement')
 	public scheduleElements!: QueryList<ElementRef<HTMLDivElement>>;
@@ -105,7 +102,7 @@ export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reacti
 
 	public ngAfterViewInit() {
 
-		if (this.index === 1) {
+		if (this.index() === 1) {
 
 			this.scheduleElements.changes.pipe(
 				this.takeUntil(),
@@ -116,7 +113,7 @@ export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reacti
 				}
 				this.scrollInitialized.switchOn();
 
-				this.calendar?.scrollTo({
+				this.calendar()?.scrollTo({
 					top: (scheduleElements?.first?.nativeElement?.offsetTop ?? 0) - this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx,
 				})
 

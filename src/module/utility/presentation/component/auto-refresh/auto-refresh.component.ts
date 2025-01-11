@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output, ViewEncapsulation} from "@angular/core";
+import {Component, EventEmitter, inject, OnDestroy, OnInit, Output, ViewEncapsulation, input} from "@angular/core";
 import {NgForOf, NgIf} from "@angular/common";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
@@ -65,7 +65,7 @@ const allowedAutoRefreshTimes = [
 					type="submit"
 					link
 					class="rounded-l-none border border-l-0 !p-3 h-full text-sm border-beeColor-300 shadow-sm">
-					<i [class.animate-spin]="isLoading" class="bi bi-arrow-clockwise"></i>
+					<i [class.animate-spin]="isLoading()" class="bi bi-arrow-clockwise"></i>
 				</button>
 			</div>
 		</form>
@@ -87,11 +87,9 @@ const allowedAutoRefreshTimes = [
 })
 export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit {
 
-	@Input()
-	public id = '@default';
+	public readonly id = input('@default');
 
-	@Input()
-	public isLoading = false;
+	public readonly isLoading = input(false);
 
 	@Output()
 	public readonly emitter: EventEmitter<void> = new EventEmitter<void>();
@@ -145,7 +143,7 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 	public ngOnInit() {
 
 		this.control.valueChanges.pipe(this.takeUntil(), filter(is.number)).subscribe((value) => {
-			this.autoRefreshStorageService.set(this.id, value.toString());
+			this.autoRefreshStorageService.set(this.id(), value.toString());
 			this.initTimer(value);
 		});
 
@@ -154,10 +152,10 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 	}
 
 	public init() {
-		const value = this.autoRefreshStorageService.get(this.id);
+		const value = this.autoRefreshStorageService.get(this.id());
 		if (is.string(value)) {
 			if (!allowedAutoRefreshTimes.includes(Number(value))) {
-				this.autoRefreshStorageService.remove(this.id);
+				this.autoRefreshStorageService.remove(this.id());
 				this.control.setValue(AutoRefreshTime.ONE_MIN);
 				return;
 			}
@@ -179,10 +177,10 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 		}
 
 		this.timer = setTimeout(() => {
-			if (this.visibilityService.visibilityChange.value && !this.isLoading) {
+			if (this.visibilityService.visibilityChange.value && !this.isLoading()) {
 				this.emitter.emit();
 				this.analyticsService.logEvent('auto_refresh_component_emit', {
-					id: this.id,
+					id: this.id(),
 					seconds,
 				});
 			}

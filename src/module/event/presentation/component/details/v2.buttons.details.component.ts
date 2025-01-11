@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, Input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
+import {Component, HostBinding, inject, input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
@@ -79,19 +79,19 @@ import {
 		</ng-container>
 
 		<ng-template #ButtonToRejectEvent>
-			<event-change-status-on-rejected-component [event]="event"/>
+			<event-change-status-on-rejected-component [event]="event()"/>
 		</ng-template>
 
 		<ng-template #ButtonToAcceptEvent>
-			<event-change-status-on-accepted-component [event]="event"/>
+			<event-change-status-on-accepted-component [event]="event()"/>
 		</ng-template>
 
 		<ng-template #ButtonToDoneEvent>
-			<event-change-status-on-done-component [event]="event"/>
+			<event-change-status-on-done-component [event]="event()"/>
 		</ng-template>
 
 		<ng-template #ButtonToCancelledEvent>
-			<event-change-status-on-cancelled-component [event]="event"/>
+			<event-change-status-on-cancelled-component [event]="event()"/>
 		</ng-template>
 
 		<ng-template #ButtonToRepeatEvent>
@@ -124,8 +124,10 @@ import {
 })
 export class V2ButtonsDetailsComponent implements OnChanges {
 
-	@Input({required: true})
-	public event!: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>;
+	public readonly event = input.required<IEvent_V2<{
+    order: IOrderDto;
+    service: IOrderServiceDto;
+}>>();
 
 	@HostBinding()
 	public class = 'flex justify-between flex-col gap-4 bg-white p-4 border-y';
@@ -142,8 +144,8 @@ export class V2ButtonsDetailsComponent implements OnChanges {
 	public editEvent() {
 
 		this.store.dispatch(new OrderActions.OpenOrderServiceForm({
-			orderId: this.event.originalData.order._id,
-			item: this.event.originalData.service,
+			orderId: this.event().originalData.order._id,
+			item: this.event().originalData.service,
 			isEditMode: true
 		}));
 

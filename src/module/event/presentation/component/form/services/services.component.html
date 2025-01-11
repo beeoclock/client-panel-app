@@ -20,7 +20,7 @@
 				</div>
 				<app-language-version-order-control-component
 					[serviceListControl]="serviceListControl"
-					[languageControl]="languageControl"
+					[languageControl]="languageControl()"
 					[service]="service"
 					[index]="index"/>
 			</div>
@@ -37,7 +37,7 @@
 
 	</ng-container>
 
-	<div class="block" *ngIf="editable">
+	<div class="block" *ngIf="editable()">
 		<button type="button" id="open-service-list-to-select-service" [isLoading]="loading$.isTrue" primaryLink (click)="openModalToSelectService()">
 			<i class="bi bi-list-check"></i>
 			{{ 'event.form.section.service.button.select' | translate }}

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, HostBinding, input, ViewEncapsulation} from "@angular/core";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 
@@ -11,7 +11,7 @@ import {TranslateModule} from "@ngx-translate/core";
         <div class="text-beeColor-400 text-sm">
             {{ 'keyword.capitalize.selectedDateTime' | translate }}
         </div>
-        <div class="text-beeColor-500">{{ datetimeISO | dynamicDate }}</div>
+        <div class="text-beeColor-500">{{ datetimeISO() | dynamicDate }}</div>
     `,
     imports: [
         DynamicDatePipe,
@@ -20,8 +20,7 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class SelectedDatetimeAdditionalMenuComponent {
 
-    @Input({required: true})
-    public datetimeISO!: string;
+    public readonly datetimeISO = input.required<string>();
 
     @HostBinding()
     public get class() {

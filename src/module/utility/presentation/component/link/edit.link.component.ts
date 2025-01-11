@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ViewEncapsulation, input} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {TranslateModule} from "@ngx-translate/core";
@@ -11,8 +11,8 @@ import {RouterLink} from "@angular/router";
 	encapsulation: ViewEncapsulation.None,
 	template: `
 		<a
-			[routerLink]="link"
-			[class.w-full]="buttonWidthFull"
+			[routerLink]="link()"
+			[class.w-full]="buttonWidthFull()"
 			class="
         flex
         items-center
@@ -46,10 +46,8 @@ import {RouterLink} from "@angular/router";
 })
 export class EditLinkComponent {
 
-	@Input()
-	public link: string | string[] = 'form';
+	public readonly link = input<string | string[]>('form');
 
-	@Input()
-	public buttonWidthFull = false;
+	public readonly buttonWidthFull = input(false);
 
 }

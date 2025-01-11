@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, inject, Input, ViewChild} from "@angular/core";
+import {ChangeDetectorRef, Component, inject, Input, ViewChild, input} from "@angular/core";
 import {TableComponent} from "@utility/table.component";
 import {ITableState} from "@utility/domain/table.state";
 import {IBaseEntity} from "@utility/domain";
@@ -18,8 +18,7 @@ export default abstract class LayoutListComponent<ITEM extends IBaseEntity<strin
 	@Input({required: true})
 	public tableState!: ITableState<ITEM> | null;
 
-	@Input()
-	public isPage = true;
+	public readonly isPage = input(true);
 
 	protected readonly store = inject(Store);
 	protected readonly changeDetectorRef = inject(ChangeDetectorRef);

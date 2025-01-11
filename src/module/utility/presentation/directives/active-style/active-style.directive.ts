@@ -1,4 +1,4 @@
-import {Directive, ElementRef, inject, Input, OnChanges, OnInit} from '@angular/core';
+import {Directive, ElementRef, inject, OnChanges, OnInit, input} from '@angular/core';
 import {ActiveEnum} from "@utility/domain/enum";
 import {TranslateService} from "@ngx-translate/core";
 
@@ -8,14 +8,11 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class ActiveStyleDirective implements OnInit, OnChanges {
 
-	@Input()
-	public active: ActiveEnum = ActiveEnum.NO;
+	public readonly active = input<ActiveEnum>(ActiveEnum.NO);
 
-	@Input()
-	public activeText: string | undefined;
+	public readonly activeText = input<string>();
 
-	@Input()
-	public inactiveText: string | undefined;
+	public readonly inactiveText = input<string>();
 
 	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 	private readonly translateService = inject(TranslateService);
@@ -40,21 +37,21 @@ export class ActiveStyleDirective implements OnInit, OnChanges {
 
 		let text: string;
 
-		switch (this.active) {
+		switch (this.active()) {
 
 			case ActiveEnum.NO:
 				this.elementRef.nativeElement.classList.add('bg-red-500', 'border-red-500', 'dark:bg-red-900', 'dark:text-red-400', 'dark:border-red-800');
-				text = this.inactiveText ?? this.translateService.instant('keyword.capitalize.inactive');
+				text = this.inactiveText() ?? this.translateService.instant('keyword.capitalize.inactive');
 				break;
 
 			case ActiveEnum.YES:
 				this.elementRef.nativeElement.classList.add('bg-green-500', 'border-green-500', 'dark:bg-green-900', 'dark:text-green-400', 'dark:border-green-800');
-				text = this.activeText ?? this.translateService.instant('keyword.capitalize.active');
+				text = this.activeText() ?? this.translateService.instant('keyword.capitalize.active');
 				break;
 
 			default:
 				this.elementRef.nativeElement.classList.add('bg-beeColor-500', 'border-beeColor-500', 'dark:bg-beeColor-900', 'dark:text-beeColor-400', 'dark:border-beeColor-800');
-				text = this.activeText ?? this.translateService.instant('keyword.capitalize.unknown');
+				text = this.activeText() ?? this.translateService.instant('keyword.capitalize.unknown');
 
 		}
 

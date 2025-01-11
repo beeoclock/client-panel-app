@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
@@ -20,13 +20,13 @@ import {CurrencyCodeEnum} from "@utility/domain/enum";
 		<div class="flex flex-col gap-3">
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
 				<bee-duration-select-component
-					[label]="('keyword.capitalize.duration' | translate) + suffix"
-					[control]="durationInSecondsControl"/>
+					[label]="('keyword.capitalize.duration' | translate) + suffix()"
+					[control]="durationInSecondsControl()"/>
 				<price-and-currency-component
-					[label]="('keyword.capitalize.price' | translate) + suffix"
-					[currencyList]="currencyList"
-					[priceControl]="priceForm.controls.price"
-					[currencyControl]="priceForm.controls.currency"/>
+					[label]="('keyword.capitalize.price' | translate) + suffix()"
+					[currencyList]="currencyList()"
+					[priceControl]="priceForm().controls.price"
+					[currencyControl]="priceForm().controls.currency"/>
 			</div>
 		</div>
 	`,
@@ -45,15 +45,14 @@ import {CurrencyCodeEnum} from "@utility/domain/enum";
 })
 export class PriceBlockComponent {
 
-	@Input()
-	public durationInSecondsControl = new FormControl();
+	public readonly durationInSecondsControl = input(new FormControl());
 
-	@Input()
-	public priceForm = new PriceForm();
+	public readonly priceForm = input(new PriceForm());
 
-	@Input()
-	public suffix = '';
+	public readonly suffix = input('');
 
-	@Input({required: true})
-	public currencyList: { id: CurrencyCodeEnum; name: CurrencyCodeEnum; }[] = [];
+	public readonly currencyList = input.required<{
+    id: CurrencyCodeEnum;
+    name: CurrencyCodeEnum;
+}[]>();
 }

@@ -1,4 +1,4 @@
-import {Directive, DoCheck, ElementRef, inject, Input, Optional} from '@angular/core';
+import {Directive, DoCheck, ElementRef, inject, Input, Optional, input} from '@angular/core';
 import {AbstractControl, NgControl} from '@angular/forms';
 
 @Directive({
@@ -8,20 +8,15 @@ import {AbstractControl, NgControl} from '@angular/forms';
 export class HasErrorDirective implements DoCheck {
 
   // Input properties with default values
-  @Input()
-  public errorClass = 'is-invalid';
+  public readonly errorClass = input('is-invalid');
 
-  @Input()
-  public needTouched = true;
+  public readonly needTouched = input(true);
 
-  @Input()
-  public hasErrorEnabled = true;
+  public readonly hasErrorEnabled = input(true);
 
-  @Input()
-  public classForNgSelect = '!border-red-500';
+  public readonly classForNgSelect = input('!border-red-500');
 
-  @Input()
-  public ngSelectQuerySelectorClass = 'ng-select-container';
+  public readonly ngSelectQuerySelectorClass = input('ng-select-container');
 
   // Control property to bind the associated control
   @Input()
@@ -33,7 +28,7 @@ export class HasErrorDirective implements DoCheck {
   private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef); // ElementRef for DOM manipulation
 
   public ngDoCheck(): void {
-    if (this.hasErrorEnabled) {
+    if (this.hasErrorEnabled()) {
       this.control = this.ngControl?.control; // Get the associated control
       this.markInvalidElements(this.control); // Call the function to mark invalid elements
     }
@@ -45,7 +40,7 @@ export class HasErrorDirective implements DoCheck {
       return; // If control is missing, exit
     }
 
-    const isTouched: boolean = this.needTouched ? control.touched : true;
+    const isTouched: boolean = this.needTouched() ? control.touched : true;
     const isInvalid: boolean = !!Object.keys(control?.errors ?? {}).length && isTouched;
 
     const nativeElement: HTMLElement = this.elementRef.nativeElement;
@@ -68,13 +63,13 @@ export class HasErrorDirective implements DoCheck {
 
     // Toggle CSS class for NG-SELECT
     if (this.elementRef.nativeElement.nodeName === 'NG-SELECT') {
-      const div: HTMLElement | null = this.elementRef.nativeElement.querySelector(`.${this.ngSelectQuerySelectorClass}`);
+      const div: HTMLElement | null = this.elementRef.nativeElement.querySelector(`.${this.ngSelectQuerySelectorClass()}`);
       if (div) {
-        div.classList.toggle(this.classForNgSelect, isInvalid);
+        div.classList.toggle(this.classForNgSelect(), isInvalid);
       }
     }
 
     // Toggle the errorClass for styling
-    this.elementRef.nativeElement.classList.toggle(this.errorClass, isInvalid);
+    this.elementRef.nativeElement.classList.toggle(this.errorClass(), isInvalid);
   }
 }

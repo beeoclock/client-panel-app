@@ -14,7 +14,7 @@
                 {{ 'keyword.capitalize.createdAt' | translate }}
                 <utility-sort-indicator
                         orderBy="createdAt"
-                        [tableState]="tableState"/>
+                        [tableState]="tableState()"/>
             </div>
         </div>
         <div tableColumnFlex="updatedAt" data-orderBy="updatedAt">
@@ -22,7 +22,7 @@
                 {{ 'keyword.capitalize.updatedAt' | translate }}
                 <utility-sort-indicator
                         orderBy="updatedAt"
-                        [tableState]="tableState"/>
+                        [tableState]="tableState()"/>
             </div>
         </div>
         <div tableColumnFlex="action" class="border-l sticky right-0">
@@ -31,7 +31,7 @@
     </div>
     <!-- Column Cell	-->
     <div tableBodyFlex>
-		@for (item of tableState.items; track item._id) {
+		@for (item of tableState().items; track item._id) {
 			<div tableRowFlex="body" (click)="doubleClick(item)">
 				<div tableColumnFlex="services">
 					{{ item?.services?.length ?? 0 }}
@@ -67,4 +67,4 @@
 </div>
 <utility-table-state-pagination-component
         (page)="pageChange($event)"
-        [tableState]="tableState"/>
+        [tableState]="tableState()"/>

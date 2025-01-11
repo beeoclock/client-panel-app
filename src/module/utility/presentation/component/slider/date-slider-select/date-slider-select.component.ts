@@ -1,14 +1,14 @@
 import {
-	AfterViewInit,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	EventEmitter,
-	inject,
-	Input,
-	OnInit,
-	Output,
-	ViewChild
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  inject,
+  OnInit,
+  Output,
+  ViewChild,
+  input
 } from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {DateTime, Settings} from "luxon";
@@ -43,26 +43,19 @@ import {
 })
 export class DateSliderSelectComponent extends Reactive implements OnInit, AfterViewInit {
 
-	@Input()
-	public control!: FormControl<string>;
+	public readonly control = input.required<FormControl<string>>();
 
-	@Input()
-	public localDateTimeControl!: FormControl<DateTime | null>;
+	public readonly localDateTimeControl = input.required<FormControl<DateTime | null>>();
 
-	@Input()
-	public controlsAreRequired = true;
+	public readonly controlsAreRequired = input(true);
 
-	@Input()
-	public preventPastDates = true;
+	public readonly preventPastDates = input(true);
 
-	@Input({required: true})
-	public dayItemList: IDayItem[] = [];
+	public readonly dayItemList = input.required<IDayItem[]>();
 
-	@Input({required: true})
-	public loader!: BooleanStreamState;
+	public readonly loader = input.required<BooleanStreamState>();
 
-	@Input()
-	public firstSlot$: Observable<unknown> | undefined;
+	public readonly firstSlot$ = input<Observable<unknown>>();
 
 	@Output()
 	public updateDayItemList = new EventEmitter<IDayItem[]>();
@@ -86,24 +79,26 @@ export class DateSliderSelectComponent extends Reactive implements OnInit, After
 
 		Settings.defaultLocale = this.translateService.currentLang;
 
-		if (this.controlsAreRequired) {
+		if (this.controlsAreRequired()) {
 
-			if (this.control.value) {
-				this.selectedDateTime = DateTime.fromISO(this.control.value);
+			const control = this.control();
+   if (control.value) {
+				this.selectedDateTime = DateTime.fromISO(control.value);
 			}
 
-			this.control.valueChanges.pipe(this.takeUntil()).subscribe((VALUE) => {
+			control.valueChanges.pipe(this.takeUntil()).subscribe((VALUE) => {
 				this.selectedDateTime = DateTime.fromISO(VALUE);
-				this.localDateTimeControl.patchValue(this.selectedDateTime);
+				this.localDateTimeControl().patchValue(this.selectedDateTime);
 				this.changeDetectorRef.detectChanges();
 			});
 
-			if (this.firstSlot$) {
-				this.firstSlot$.pipe(
+			const firstSlot$ = this.firstSlot$();
+   if (firstSlot$) {
+				firstSlot$.pipe(
 					this.takeUntil(),
 					filter(is.object<{ start: DateTime; end: DateTime; }>),
 				).subscribe((firstSlot) => {
-					this.control.patchValue(firstSlot.start.toJSDate().toISOString());
+					this.control().patchValue(firstSlot.start.toJSDate().toISOString());
 				})
 			}
 
@@ -125,8 +120,8 @@ export class DateSliderSelectComponent extends Reactive implements OnInit, After
 	}
 
 	public prevPackOfDates(): void {
-		const [firstDayItem] = this.dayItemList;
-		if (this.preventPastDates && firstDayItem.isToday) {
+		const [firstDayItem] = this.dayItemList();
+		if (this.preventPastDates() && firstDayItem.isToday) {
 			return;
 		}
 		const {datetime} = firstDayItem;
@@ -136,7 +131,7 @@ export class DateSliderSelectComponent extends Reactive implements OnInit, After
 	}
 
 	public nextPackOfDates(): void {
-		const lastItem = this.dayItemList[this.dayItemList.length - 1];
+		const lastItem = this.dayItemList()[this.dayItemList().length - 1];
 		this.prepareDatetimeList(lastItem.datetime.plus({day: 1}));
 	}
 
@@ -170,7 +165,7 @@ export class DateSliderSelectComponent extends Reactive implements OnInit, After
 	 */
 	public selectDateItem(datetime: DateTime): void {
 		this.selectedDateTime = datetime;
-		this.localDateTimeControl.patchValue(datetime);
+		this.localDateTimeControl().patchValue(datetime);
 	}
 
 	/**
@@ -185,7 +180,7 @@ export class DateSliderSelectComponent extends Reactive implements OnInit, After
 	}
 
 	public hasSelectedTimeSlot(datetime: DateTime): boolean {
-		return DateTime.fromISO(this.control.value).hasSame(datetime, 'day');
+		return DateTime.fromISO(this.control().value).hasSame(datetime, 'day');
 	}
 
 	/**

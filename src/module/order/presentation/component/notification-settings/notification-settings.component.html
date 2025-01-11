@@ -10,14 +10,14 @@
 	<div class="m-4 text-xl">
 		{{ 'notificationSetting.modal.contentTitle' | translate }}
 	</div>
-	@if (askEmailNotifications) {
+	@if (askEmailNotifications()) {
 		<ion-item>
 			<ion-toggle
 				[formControl]="sendTypesFormGroup.controls.email">{{ 'notificationSetting.modal.sendEmails' | translate }}
 			</ion-toggle>
 		</ion-item>
 	}
-	@if (askSmsNotifications) {
+	@if (askSmsNotifications()) {
 		<ion-item>
 			<ion-toggle
 				[formControl]="sendTypesFormGroup.controls.sms">{{ 'notificationSetting.modal.sendSms' | translate }}

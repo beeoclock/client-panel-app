@@ -6,6 +6,7 @@ import {
 	EventEmitter,
 	inject,
 	Input,
+	input,
 	OnInit,
 	Output,
 	QueryList,
@@ -51,14 +52,12 @@ export class SelectCustomerPushBoxComponent extends Reactive implements OnInit, 
 	@ViewChild(CustomerExternalListComponent)
 	public customerExternalListComponent!: CustomerExternalListComponent;
 
-	@Input()
-	public selectedCustomerList: ICustomer[] = [];
+	public readonly selectedCustomerList = input<ICustomer[]>([]);
 
 	@Input()
 	public newSelectedCustomerList: ICustomer[] = [];
 
-	@Input()
-	public multiple = true;
+	public readonly multiple = input(true);
 
 	@Output()
 	public readonly selectedCustomerListener = new EventEmitter<ICustomer[]>();
@@ -69,7 +68,7 @@ export class SelectCustomerPushBoxComponent extends Reactive implements OnInit, 
 
 	public ngOnInit(): void {
 
-		this.newSelectedCustomerList = [...(this.selectedCustomerList ?? [])];
+		this.newSelectedCustomerList = [...(this.selectedCustomerList() ?? [])];
 
 	}
 
@@ -103,7 +102,7 @@ export class SelectCustomerPushBoxComponent extends Reactive implements OnInit, 
 	}
 
 	public select(service: ICustomer): void {
-		if (!this.multiple) {
+		if (!this.multiple()) {
 			if (this.newSelectedCustomerList.length) {
 				this.newSelectedCustomerList.splice(0, 1);
 			}

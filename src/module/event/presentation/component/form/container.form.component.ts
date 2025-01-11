@@ -2,6 +2,7 @@ import {
 	Component,
 	inject,
 	Input,
+	input,
 	OnChanges,
 	OnDestroy,
 	OnInit,
@@ -80,23 +81,18 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 })
 export class ContainerFormComponent extends Reactive implements OnInit, OnChanges, OnDestroy {
 
-	@Input()
-	public orderServiceDto: IOrderServiceDto | undefined;
+	public readonly orderServiceDto = input<IOrderServiceDto>();
 
-	@Input()
-	public isEditMode = false;
+	public readonly isEditMode = input(false);
 
-	@Input()
-	public backButtonComponent!: BackButtonComponent;
+	public readonly backButtonComponent = input.required<BackButtonComponent>();
 
 	@Input()
 	public forceStart: string | undefined;
 
-	@Input()
-	public member: Member.RIMember | undefined;
+	public readonly member = input<Member.RIMember>();
 
-	@Input()
-	public callback: ((component: ContainerFormComponent, formValue: IEvent) => void) | null = null;
+	public readonly callback = input<((component: ContainerFormComponent, formValue: IEvent) => void) | null>(null);
 
 	private readonly store = inject(Store);
 	public readonly slotsService = inject(SlotsService);
@@ -204,8 +200,8 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 
 	public detectItem(): void {
 
-		if (this.isEditMode) {
-			this.fillForm(this.orderServiceDto);
+		if (this.isEditMode()) {
+			this.fillForm(this.orderServiceDto());
 		}
 
 	}
@@ -245,7 +241,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 
 			// TODO check if customers/attends is exist in db (just check if selected customer has _id field if exist is in db if not then need to make request to create the new customer)
 
-			this.callback?.(this, value);
+			this.callback()?.(this, value);
 
 			this.form.enable();
 			this.form.updateValueAndValidity();

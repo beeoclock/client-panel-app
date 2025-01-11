@@ -1,7 +1,7 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
-	Input,
+	input,
 	OnInit,
 	QueryList,
 	ViewChildren,
@@ -61,8 +61,7 @@ import {PeerCustomerOrderActions} from "@order/state/peer-customer/peer-customer
 })
 export class CustomerOrderListExternalComponent extends ListPage<IOrderDto> implements OnInit {
 
-	@Input({required: true})
-	public customerId!: string;
+	public readonly customerId = input.required<string>();
 
 	@ViewChildren(MobileLayoutListComponent)
 	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
@@ -71,7 +70,7 @@ export class CustomerOrderListExternalComponent extends ListPage<IOrderDto> impl
 
 	public override ngOnInit() {
 		this.store.dispatch(new PeerCustomerOrderActions.UpdateFilters({
-			customerId: this.customerId,
+			customerId: this.customerId(),
 		}));
 		super.ngOnInit();
 		this.store.select(PeerCustomerOrderState.tableState)

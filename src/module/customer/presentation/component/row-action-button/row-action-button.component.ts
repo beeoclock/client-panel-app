@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
@@ -18,8 +18,8 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 			(delete)="delete()"
 			(open)="open()"
 			(edit)="edit()"
-			[id]="id"
-			[active]="item.active">
+			[id]="id()"
+			[active]="item().active">
 			<!--			<li>-->
 			<!--				<a-->
 			<!--					[routerLink]="['../../', 'event', 'form']"-->
@@ -39,33 +39,31 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 })
 export class RowActionButtonComponent {
 
-	@Input()
-	public id!: string;
+	public readonly id = input.required<string>();
 
-	@Input({required: true})
-	public item!: ICustomer;
+	public readonly item = input.required<ICustomer>();
 
 	private readonly store = inject(Store);
 	private readonly router = inject(Router);
 	public readonly returnUrl = this.router.url;
 
 	public delete(): void {
-		const {active} = this.item;
+		const {active} = this.item();
 
 		if (active) {
 
 			return alert('You can\'t delete active customer');
 
 		}
-		this.store.dispatch(new CustomerActions.DeleteItem(this.item._id));
+		this.store.dispatch(new CustomerActions.DeleteItem(this.item()._id));
 	}
 
 	public activate(): void {
-		this.store.dispatch(new CustomerActions.UnarchiveItem(this.item._id));
+		this.store.dispatch(new CustomerActions.UnarchiveItem(this.item()._id));
 	}
 
 	public deactivate(): void {
-		this.store.dispatch(new CustomerActions.ArchiveItem(this.item._id));
+		this.store.dispatch(new CustomerActions.ArchiveItem(this.item()._id));
 	}
 
 	public async archive(id: string): Promise<void> {
@@ -74,14 +72,14 @@ export class RowActionButtonComponent {
 	}
 
 	public open(): void {
-		this.store.dispatch(new CustomerActions.OpenDetails(this.item));
+		this.store.dispatch(new CustomerActions.OpenDetails(this.item()));
 	}
 
 	public edit(): void {
 		this.store.dispatch(new CustomerActions.OpenForm({
 			componentInputs: {
 				isEditMode: true,
-				item: this.item
+				item: this.item()
 			}
 		}));
 	}

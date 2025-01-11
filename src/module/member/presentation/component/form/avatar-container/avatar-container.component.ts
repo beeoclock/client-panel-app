@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewChild} from '@angular/core';
+import {Component, inject, input, ViewChild} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
@@ -23,8 +23,7 @@ import {NGXLogger} from "ngx-logger";
 })
 export class AvatarContainerComponent {
 
-	@Input()
-	public control!: FormControl<RESPONSE_IMemberMedia>;
+	public readonly control = input.required<FormControl<RESPONSE_IMemberMedia>>();
 
 	@ViewChild(AvatarFormComponent)
 	public avatarFormComponent!: AvatarFormComponent;

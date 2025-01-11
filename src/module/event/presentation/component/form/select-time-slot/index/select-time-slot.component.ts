@@ -1,4 +1,4 @@
-import {Component, inject, Input} from '@angular/core';
+import {Component, inject, Input, input} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {DateTime} from "luxon";
@@ -33,11 +33,9 @@ import {DatetimeLocalInputComponent} from "@utility/presentation/component/input
 })
 export class SelectTimeSlotComponent {
 
-	@Input({required: true})
-	public control!: FormControl<string>;
+	public readonly control = input.required<FormControl<string>>();
 
-	@Input({required: true})
-	public configurationForm!: EventConfigurationForm;
+	public readonly configurationForm = input.required<EventConfigurationForm>();
 
 	@Input({required: true})
 	public editable!: boolean;

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 import {FilterPanelComponent} from '@utility/presentation/component/panel/filter.panel.component';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {FilterForm} from "@absence/presentation/form/filter.form";
@@ -66,7 +66,7 @@ import {ReactiveFormsModule} from "@angular/forms";
         </ng-template>
 
         <ng-template #ButtonToOpenForm>
-			<button *ngIf="showButtonGoToForm" type="button" class="!py-3 !px-4 !text-base flex-1" primary
+			<button *ngIf="showButtonGoToForm()" type="button" class="!py-3 !px-4 !text-base flex-1" primary
 					(click)="openForm()">
                 <i class="bi bi-plus-lg"></i>
 <!--                <span class="hidden xl:block">-->
@@ -78,8 +78,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 })
 export class FilterComponent extends BaseFilterComponent {
 
-	@Input()
-	public showButtonGoToForm = true;
+	public readonly showButtonGoToForm = input(true);
 
 	public override readonly form = new FilterForm();
 	public override readonly actions = AbsenceActions;

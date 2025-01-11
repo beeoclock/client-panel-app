@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, inject, Input} from "@angular/core";
+import {AfterViewInit, ChangeDetectionStrategy, Component, inject, input} from "@angular/core";
 import {AsyncPipe} from "@angular/common";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {
@@ -63,7 +63,7 @@ import {IonPopover} from "@ionic/angular/standalone";
 									id="calendar-with-specialists-filter-order-service-status"
 									[multiple]="true"
 									[options]="orderServiceStatusOptions"
-									[control]="orderServiceStatusesControl"/>
+									[control]="orderServiceStatusesControl()"/>
 							</div>
 						</div>
 					</ng-template>
@@ -75,8 +75,7 @@ import {IonPopover} from "@ionic/angular/standalone";
 })
 export class FilterCalendarWithSpecialistComponent implements AfterViewInit {
 
-	@Input({required: true})
-	public orderServiceStatusesControl!: FormControl<OrderServiceStatusEnum[]>;
+	public readonly orderServiceStatusesControl = input.required<FormControl<OrderServiceStatusEnum[]>>();
 
 	private readonly translateService = inject(TranslateService);
 	private readonly store = inject(Store);

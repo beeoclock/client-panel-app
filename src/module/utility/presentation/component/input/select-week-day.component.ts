@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewEncapsulation} from '@angular/core';
+import {Component, inject, ViewEncapsulation, input} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {NgClass, NgForOf} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -35,8 +35,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 })
 export class SelectWeekDayComponent {
 
-	@Input()
-	public control = new FormControl(WORK_WEEK);
+	public readonly control = input(new FormControl(WORK_WEEK));
 
 	public readonly translateService = inject(TranslateService);
 
@@ -52,15 +51,15 @@ export class SelectWeekDayComponent {
 	}
 
 	public isSelected(id: number): boolean {
-		return !!this.control.value?.includes?.(id);
+		return !!this.control().value?.includes?.(id);
 	}
 
 	public toggleSelect(id: number): void {
-		const value = this.control.value || [];
+		const value = this.control().value || [];
 		if (value.includes(id)) {
-			this.control.setValue(value.filter((v) => v !== id));
+			this.control().setValue(value.filter((v) => v !== id));
 		} else {
-			this.control.setValue([...value, id]);
+			this.control().setValue([...value, id]);
 		}
 	}
 
