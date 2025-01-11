@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, input, OnInit, viewChild, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, effect, input, OnInit, viewChild, ViewEncapsulation} from "@angular/core";
 import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone";
 import ObjectID from "bson-objectid";
 import {FormControl} from "@angular/forms";
@@ -49,9 +49,16 @@ export default class LanguageChipComponent extends Reactive implements OnInit {
 
 	readonly selectLanguageVersionPopover = viewChild.required(IonPopover);
 
-	public readonly languageCodeFormControl = new FormControl<LanguageCodeEnum>(this.initialValue(), {
+	public readonly languageCodeFormControl = new FormControl<LanguageCodeEnum>(LanguageCodeEnum.en, {
 		nonNullable: true,
 	});
+
+	public constructor() {
+		super();
+		effect(() => {
+			this.languageCodeFormControl.setValue(this.initialValue());
+		});
+	}
 
 	public ngOnInit() {
 		this.languageCodeFormControl.setValue(this.initialValue());
