@@ -1,7 +1,6 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
-import {FirstKeyNameModule} from '@utility/presentation/pipes/first-key-name/first-key-name.module';
 import {RouterLink} from '@angular/router';
 import RegistrationForm from '@identity/presentation/form/registration.form';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
@@ -18,6 +17,7 @@ import {AlreadySignUpLinkComponent} from "@identity/presentation/component/link/
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {NgOptimizedImage} from "@angular/common";
+import {FirstKeyNamePipe} from "@utility/presentation/pipes/first-key-name/first-key-name.pipe";
 
 @Component({
 	selector: 'identity-sign-up-component',
@@ -218,14 +218,13 @@ import {NgOptimizedImage} from "@angular/common";
 			<!-- End Clients Section -->
 		</div>
 		<!-- End Hero -->
-
 	`,
 	imports: [
 		FormsModule,
 		ReactiveFormsModule,
 		HasErrorDirective,
 		TranslateModule,
-		FirstKeyNameModule,
+		FirstKeyNamePipe,
 		RouterLink,
 		DeleteButtonComponent,
 		InvalidTooltipDirective,

@@ -1,16 +1,16 @@
 import {Component, HostBinding, Input, input} from "@angular/core";
 import {AbstractControl} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
-import {FirstKeyNameModule} from "@utility/presentation/pipes/first-key-name/first-key-name.module";
+import {FirstKeyNamePipe} from "@utility/presentation/pipes/first-key-name/first-key-name.pipe";
 
 @Component({
 	selector: 'utility-invalid-message',
 	template: `
-		{{(translationKey() + (control()?.errors | firstKeyName)) | translate: control()?.errors?.[(control()?.errors | firstKeyName)]}}
+		{{ (translationKey() + (control()?.errors | firstKeyName)) | translate: control()?.errors?.[(control()?.errors | firstKeyName)] }}
 	`,
 	imports: [
 		TranslateModule,
-		FirstKeyNameModule,
+		FirstKeyNamePipe,
 	],
 	standalone: true,
 })
@@ -30,4 +30,5 @@ export class InvalidTooltipComponent {
 	public get hide(): boolean {
 		return !this.control()?.errors;
 	}
+
 }

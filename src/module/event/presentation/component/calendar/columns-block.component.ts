@@ -78,7 +78,7 @@ export class ColumnsBlockComponent implements OnChanges {
 
 		if (preferences.currentValue) {
 
-			const {from, to} = preferences.currentValue;
+			const {from, to} = preferences.currentValue();
 			this.days = Interval.fromDateTimes(from, to).splitBy({days: 1}).map(({start}) => start) as DateTime[]
 
 			this.style += ` grid-template-columns: repeat(${this.days.length}, auto);`;

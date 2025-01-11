@@ -85,7 +85,7 @@ export class CustomerFormContainerComponent implements OnInit {
 		this.form.markAllAsTouched();
 		const value = this.form.getRawValue() as ICustomer;
 		const validStatus = validCustomer(value);
-		if (validStatus.errors.length) {
+		if (!(validStatus.success) && validStatus.errors.length) {
 			this.ngxLogger.error('Object is invalid', validStatus);
 			return;
 		}

@@ -16,7 +16,7 @@ import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {IsRequiredDirective} from '@utility/presentation/directives/is-required/is-required';
 import {InvalidTooltipDirective} from '@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive';
-import intlTelInput from 'intl-tel-input';
+import intlTelInput, {Iti} from 'intl-tel-input';
 import {is} from '@utility/checker';
 import {TranslateModule} from "@ngx-translate/core";
 
@@ -78,7 +78,7 @@ export class TelFormInputComponent implements AfterViewInit, OnDestroy, DoCheck 
 
 	public readonly autocomplete = input<string>('');
 
-	public readonly control = input.required<FormControl>();
+	public readonly control = input.required<FormControl<string | null>>();
 
 	// TODO: Implement country code
 	// @Input()
@@ -89,7 +89,7 @@ export class TelFormInputComponent implements AfterViewInit, OnDestroy, DoCheck 
 	@HostBinding()
 	public class = 'block';
 
-	public intlTelInput: unknown | null = null;
+	public intlTelInput: Iti | null = null;
 
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
@@ -105,6 +105,7 @@ export class TelFormInputComponent implements AfterViewInit, OnDestroy, DoCheck 
 			separateDialCode: true,
 			// @ts-ignore
 			countryOrder: ['dk', 'pl', 'ua'],
+			// @ts-ignore
 			utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/23.1.1/js/utils.js',
 			geoIpLookup: callback => {
 				fetch("https://freeipapi.com/api/json")
@@ -115,8 +116,8 @@ export class TelFormInputComponent implements AfterViewInit, OnDestroy, DoCheck 
 		});
 
 		// @ts-ignore
-		const control = this.control();
-  if (is.string_not_empty(control.value)) this.intlTelInput?.setNumber(control.value);
+		const {value} = this.control();
+		if (is.string_not_empty<string>(value)) this.intlTelInput?.setNumber(value);
 
 		this.inputElement().nativeElement.addEventListener('countrychange', () => {
 			// @ts-ignore

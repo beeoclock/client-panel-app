@@ -11,7 +11,6 @@ import {
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {FirstKeyNameModule} from '@utility/presentation/pipes/first-key-name/first-key-name.module';
 import {Router, RouterLink} from '@angular/router';
 import LoginForm from '@identity/presentation/form/login.form';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
@@ -27,6 +26,7 @@ import {ToastController} from "@ionic/angular";
 import {NGXLogger} from "ngx-logger";
 import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 import {is} from "@utility/checker";
+import {FirstKeyNamePipe} from "@utility/presentation/pipes/first-key-name/first-key-name.pipe";
 
 @Component({
 	selector: 'identity-sign-in-component',
@@ -83,7 +83,7 @@ import {is} from "@utility/checker";
 		HasErrorDirective,
 		NgIf,
 		TranslateModule,
-		FirstKeyNameModule,
+		FirstKeyNamePipe,
 		RouterLink,
 		DeleteButtonComponent,
 		FormInputComponent,
@@ -94,12 +94,12 @@ import {is} from "@utility/checker";
 export class SignInComponent implements OnInit {
 
 	public readonly initialValues = input<{
-    email: string;
-    password: string;
-}>({
-    email: '',
-    password: ''
-});
+		email: string;
+		password: string;
+	}>({
+		email: '',
+		password: ''
+	});
 
 	public readonly form = new LoginForm();
 	private readonly router = inject(Router);

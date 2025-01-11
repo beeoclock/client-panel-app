@@ -4,7 +4,6 @@ import {Store} from "@ngxs/store";
 import {MEvent, RIEvent} from "@src/module/event/domain";
 import {AsyncPipe, CurrencyPipe, DatePipe, KeyValuePipe, NgForOf, NgIf} from "@angular/common";
 import {map} from "rxjs";
-import {FirstKeyNameModule} from "@utility/presentation/pipes/first-key-name/first-key-name.module";
 import {DateTime} from "luxon";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
@@ -25,6 +24,7 @@ import {
 } from "@event/presentation/component/requsted/list-of-card-collection-by-date/attendee-card/attendee.card.component";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FilterComponent} from "@event/presentation/component/filter/requested-filter.component";
+import {FirstKeyNamePipe} from "@utility/presentation/pipes/first-key-name/first-key-name.pipe";
 
 @Component({
 	selector: 'event-list-of-card-collection-by-date-component',
@@ -35,7 +35,7 @@ import {FilterComponent} from "@event/presentation/component/filter/requested-fi
 	imports: [
 		NgForOf,
 		AsyncPipe,
-		FirstKeyNameModule,
+		FirstKeyNamePipe,
 		KeyValuePipe,
 		NgIf,
 		CardComponent,

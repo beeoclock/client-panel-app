@@ -2,7 +2,7 @@ import {tags} from 'typia';
 import {Format} from "typia/src/tags/Format";
 
 export namespace Types {
-	export type Format<Value extends keyof Format.Validator> = tags.Format<Value>;
+	export type Format<Value extends Format.Value> = tags.Format<Value>;
 	export type Default<Value extends boolean | bigint | number | string> = tags.Default<Value>;
 	export type Minimum<Value extends number> = tags.Minimum<Value>;
 	export type Maximum<Value extends number> = tags.Maximum<Value>;

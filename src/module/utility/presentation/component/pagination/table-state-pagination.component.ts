@@ -45,9 +45,9 @@ export class TableStatePaginationComponent implements OnChanges {
 
   public readonly mobileMode = input(false);
 
-  public readonly pageSize = output();
+  public readonly pageSize = output<number>();
 
-  public readonly page = output();
+  public readonly page = output<number>();
 
   public lastUpdate: undefined | string;
   public pages: number[] = [];

@@ -70,7 +70,7 @@ export class ActionComponent {
 
 	public readonly id = input.required<string>();
 
-	public readonly active = input.required<ActiveEnum>();
+	public readonly active = input<ActiveEnum>(ActiveEnum.YES);
 
 	public readonly placement = input<Placement>('auto');
 

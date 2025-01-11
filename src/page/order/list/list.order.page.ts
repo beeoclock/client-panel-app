@@ -7,15 +7,11 @@ import {TranslateModule} from "@ngx-translate/core";
 import {FilterComponent} from "@absence/presentation/component/filter/filter.component";
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {RouterLink} from "@angular/router";
-import {AsyncPipe, JsonPipe, NgIf} from "@angular/common";
+import {AsyncPipe, NgIf} from "@angular/common";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
-import {
-	DesktopLayoutListComponent
-} from "@order/presentation/component/list/layout/desktop/desktop.layout.list.component";
-import {MobileLayoutListComponent} from "@order/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {OrderState} from "@order/state/order/order.state";
 import {
@@ -39,10 +35,7 @@ import {OrderActions} from "@order/state/order/order.actions";
 		AsyncPipe,
 		PrimaryButtonDirective,
 		NotFoundTableDataComponent,
-		DesktopLayoutListComponent,
-		MobileLayoutListComponent,
 		ListOfCardCollectionByDateLayout,
-		JsonPipe,
 	],
 	standalone: true,
 	template: `

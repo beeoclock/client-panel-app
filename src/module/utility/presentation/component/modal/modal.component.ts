@@ -58,7 +58,8 @@ export interface ModalButtonInterface<COMPONENT_REF = unknown> {
 			<div class="relative w-full max-w-2xl max-h-full">
 
 				<!-- Modal content -->
-				<div class="relative bg-white rounded-lg shadow h-screen md:h-auto dark:bg-beeDarkColor-800 flex flex-col">
+				<div
+					class="relative bg-white rounded-lg shadow h-screen md:h-auto dark:bg-beeDarkColor-800 flex flex-col">
 
 					<!-- Modal header -->
 					<div class="flex items-start justify-between p-4 border-b rounded-t dark:border-beeDarkColor-600">
@@ -104,11 +105,13 @@ export interface ModalButtonInterface<COMPONENT_REF = unknown> {
 								class="inline-flex items-center font-semibold leading-6 text-sm text-white transition ease-in-out duration-150 cursor-not-allowed"
 								*ngIf="button?.loading; else DefaultTemplate">
 								<svg
-									class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+									class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+									xmlns="http://www.w3.org/2000/svg" fill="none"
 									viewBox="0 0 24 24">
-									<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+									<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+											stroke-width="4"></circle>
 									<path class="opacity-75" fill="currentColor"
-												d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+										  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
 								</svg>
 								{{ 'keyword.capitalize.processing' | translate }}...
 							</div>
@@ -260,7 +263,7 @@ export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements
 	private initModal(): void {
 
 		const modalRef = this.modalRef();
-  if (modalRef) {
+		if (modalRef) {
 
 			this.#modal = new Modal(modalRef.nativeElement, this.modalOptions);
 			this.#modal?.show();
@@ -310,7 +313,7 @@ export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements
 	 * @param button
 	 */
 	@TypeGuard([is.not_null_or_undefined])
-	public buttonAction($event: MouseEvent, button: ModalButtonInterface): void {
+	public buttonAction($event: Event, button: ModalButtonInterface): void {
 
 		if (button?.callback) {
 
@@ -322,7 +325,7 @@ export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements
 
 	private deleteContentIfEmpty(): void {
 		const contentRef = this.contentRef();
-  if (!contentRef?.nativeElement?.firstChild) {
+		if (!contentRef?.nativeElement?.firstChild) {
 			contentRef?.nativeElement?.remove();
 		}
 	}
