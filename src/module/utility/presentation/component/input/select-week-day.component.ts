@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation, input} from '@angular/core';
+import {Component, inject, input, ViewEncapsulation} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {NgClass, NgForOf} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";

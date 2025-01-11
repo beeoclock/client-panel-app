@@ -1,14 +1,14 @@
 import {
-  Component,
-  ElementRef,
-  HostBinding,
-  inject,
-  OnChanges,
-  OnInit,
-  SimpleChange,
-  SimpleChanges,
-  ViewEncapsulation,
-  input
+	Component,
+	ElementRef,
+	HostBinding,
+	inject,
+	input,
+	OnChanges,
+	OnInit,
+	SimpleChange,
+	SimpleChanges,
+	ViewEncapsulation
 } from '@angular/core';
 import {NgClass, NgIf} from '@angular/common';
 

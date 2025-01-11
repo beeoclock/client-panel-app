@@ -1,11 +1,12 @@
 <div class="block max-w-full overflow-x-auto h-[calc(100dvh-64px)] md:h-[calc(100vh)]">
 	<event-requested-filter-component/>
-	<div class="flex flex-col" *ngIf="items$ | async as items">
-		<div class="flex flex-col" *ngFor="let dateItem of items | keyvalue; let index = index">
+	<div *ngIf="items$ | async as items" class="flex flex-col">
+		<div *ngFor="let dateItem of items | keyvalue; let index = index" class="flex flex-col">
 			<div class="ps-8 p-4 bg-beeColor-200 text-beeColor-600 sticky top-0">
 				<div class="flex gap-4 items-center">
 					<div class="text-xl font-bold flex-1">{{ getDateCorrectFormat(dateItem.key) }}
-						, {{ getDayNameByDate(dateItem.key) }}</div>
+						, {{ getDayNameByDate(dateItem.key) }}
+					</div>
 					<div class="flex flex-wrap">
 						<span>
 							{{ 'keyword.lowercase.after' | translate }}
@@ -39,18 +40,21 @@
 						<div *ngFor="let item of toEventListType(timeItem.value)">
 							<bee-card class="text-sm" gap="gap-2">
 								<div class="flex flex-wrap justify-between items-center gap-8">
-									<div class="cursor-pointer flex items-center gap-2 w-full" (click)="singleClick(item)">
-										<div eventStatusStyle mode="text" [status]="item.status"></div>
+									<div (click)="singleClick(item)"
+										 class="cursor-pointer flex items-center gap-2 w-full">
+										<div [status]="item.status" eventStatusStyle mode="text"></div>
 										<div
 											*ngIf="!item.someServiceHasRangeDurationVersion"
 											class="bg-neutral-100 text-neutral-800 font-medium inline-flex gap-2 items-center px-2 py-0.5 rounded-2xl dark:bg-gray-700 dark:text-neutral-400 border border-neutral-400">
-											{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow'  }}
+											{{ (item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.price ?? 0) | currency: item?.services?.[0]?.durationVersions?.[0]?.prices?.[0]?.currency: 'symbol-narrow' }}
 										</div>
 									</div>
-									<utility-table-column-action placement="bottom-start" [offsetDistance]="10" [id]="item._id!"/>
+									<utility-table-column-action [id]="item._id!" [offsetDistance]="10"
+																 placement="bottom-start"/>
 								</div>
 
-								<ng-container *ngIf="item.someServiceHasRangeDurationVersion; else SingleDurationTemplate">
+								<ng-container
+									*ngIf="item.someServiceHasRangeDurationVersion; else SingleDurationTemplate">
 									<div
 										class="flex flex-col items-center p-3 py-2 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800"
 										role="alert">
@@ -63,16 +67,18 @@
 										</div>
 									</div>
 									<div class="flex pt-1">
-										<div (click)="singleClick(item)" class="cursor-pointer flex-1 flex items-center gap-4">
+										<div (click)="singleClick(item)"
+											 class="cursor-pointer flex-1 flex items-center gap-4">
 											<div class="text-beeColor-500">
 												<i class="bi bi-clock"></i>
 											</div>
-											<div class="flex flex-col"
-													 [innerHTML]="durationVersionHtmlHelper.getDurationValue(item.services[0])">
+											<div [innerHTML]="durationVersionHtmlHelper.getDurationValue(item.services[0])"
+												 class="flex flex-col">
 											</div>
 										</div>
 										<div (click)="singleClick(item)" class="cursor-pointer flex items-center gap-4">
-											<div class="flex flex-col" [innerHTML]="durationVersionHtmlHelper.getPriceValue(item.services[0])">
+											<div [innerHTML]="durationVersionHtmlHelper.getPriceValue(item.services[0])"
+												 class="flex flex-col">
 											</div>
 										</div>
 									</div>
@@ -85,7 +91,8 @@
 										<div class="inline-flex gap-2">
 											{{ item.start | date: 'HH:mm' }} - {{ item.end | date: 'HH:mm' }}
 											<div class="text-neutral-500">
-												({{ item?.services?.[0]?.durationVersions?.[0]?.durationInSeconds ?? 0 | humanizeDuration }})
+												({{ item?.services?.[0]?.durationVersions?.[0]?.durationInSeconds ?? 0 | humanizeDuration }}
+												)
 											</div>
 										</div>
 									</div>
@@ -113,8 +120,8 @@
 									</div>
 								</ng-container>
 								<div class="flex gap-4 justify-between pt-1">
-<!--									<event-change-status-on-rejected-component [event]="item"/>-->
-<!--									<event-change-status-on-booked-component [event]="item"/>-->
+									<!--									<event-change-status-on-rejected-component [event]="item"/>-->
+									<!--									<event-change-status-on-booked-component [event]="item"/>-->
 								</div>
 							</bee-card>
 						</div>

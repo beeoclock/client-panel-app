@@ -36,8 +36,10 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 })
 export class ForgotPasswordIdentityPage implements OnInit {
 
-	readonly #analyticsService = inject(AnalyticsService);
 	public readonly form = new ResetPasswordForm();
+	@HostBinding()
+	public class = 'col-md-7 d-flex flex-center';
+	readonly #analyticsService = inject(AnalyticsService);
 	private readonly forgotPasswordApiAdapter = inject(ForgotPasswordApiAdapter);
 	private readonly router = inject(Router);
 	private readonly translateService = inject(TranslateService);
@@ -46,9 +48,6 @@ export class ForgotPasswordIdentityPage implements OnInit {
 	public ngOnInit() {
 		this.#analyticsService.logEvent('member_list_page_initialized');
 	}
-
-	@HostBinding()
-	public class = 'col-md-7 d-flex flex-center';
 
 	public signIn(): void {
 

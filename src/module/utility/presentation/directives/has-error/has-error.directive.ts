@@ -1,4 +1,4 @@
-import {Directive, DoCheck, ElementRef, inject, Input, Optional, input} from '@angular/core';
+import {Directive, DoCheck, ElementRef, inject, Input, input, Optional} from '@angular/core';
 import {AbstractControl, NgControl} from '@angular/forms';
 
 @Directive({

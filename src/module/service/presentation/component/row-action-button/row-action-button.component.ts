@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation, input} from "@angular/core";
+import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";

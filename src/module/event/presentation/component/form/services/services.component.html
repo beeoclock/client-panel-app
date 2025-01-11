@@ -2,7 +2,7 @@
 	<div class="flex justify-between items-center">
 		<strong class="text-2xl dark:text-white">{{ 'keyword.capitalize.service' | translate }}</strong>
 		<utility-invalid-message [class.hidden]="serviceListControl.untouched || serviceListControl.valid"
-														 [control]="serviceListControl"/>
+								 [control]="serviceListControl"/>
 	</div>
 
 	<ng-container *ngFor="let service of serviceListControl.value; let index = index">
@@ -15,30 +15,31 @@
 					<img
 						*ngIf="banner"
 						[src]="banner.url"
-						class="object-cover rounded-2xl min-w-[64px] max-w-[64px] min-h-[64px] max-h-[64px]"
-						alt="Uploaded Image"/>
+						alt="Uploaded Image"
+						class="object-cover rounded-2xl min-w-[64px] max-w-[64px] min-h-[64px] max-h-[64px]"/>
 				</div>
 				<app-language-version-order-control-component
-					[serviceListControl]="serviceListControl"
+					[index]="index"
 					[languageControl]="languageControl()"
-					[service]="service"
-					[index]="index"/>
+					[serviceListControl]="serviceListControl"
+					[service]="service"/>
 			</div>
 			<event-duration-version-type-range
-				[serviceListControl]="serviceListControl"
 				[index]="index"
+				[serviceListControl]="serviceListControl"
 				[service]="service"/>
 
 			<event-service-specialist-component
+				[index]="index"
 				[serviceListControl]="serviceListControl"
-				[service]="service"
-				[index]="index"/>
+				[service]="service"/>
 		</bee-card>
 
 	</ng-container>
 
-	<div class="block" *ngIf="editable()">
-		<button type="button" id="open-service-list-to-select-service" [isLoading]="loading$.isTrue" primaryLink (click)="openModalToSelectService()">
+	<div *ngIf="editable()" class="block">
+		<button (click)="openModalToSelectService()" [isLoading]="loading$.isTrue" id="open-service-list-to-select-service" primaryLink
+				type="button">
 			<i class="bi bi-list-check"></i>
 			{{ 'event.form.section.service.button.select' | translate }}
 		</button>

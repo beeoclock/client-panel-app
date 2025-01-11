@@ -1,12 +1,12 @@
 import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnChanges,
-  SimpleChange,
-  SimpleChanges,
-  ViewEncapsulation,
-  input
+	ChangeDetectionStrategy,
+	Component,
+	inject,
+	input,
+	OnChanges,
+	SimpleChange,
+	SimpleChanges,
+	ViewEncapsulation
 } from "@angular/core";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {NgSelectModule} from "@ng-select/ng-select";

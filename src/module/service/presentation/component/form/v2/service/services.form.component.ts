@@ -1,5 +1,5 @@
 import {LanguageVersionsForm} from '@service/presentation/form/service.form';
-import {Component, Input, OnInit, ViewEncapsulation, input} from '@angular/core';
+import {Component, Input, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {AsyncPipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {LanguageCodeEnum, LanguageRecord} from '@utility/domain/enum';
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";

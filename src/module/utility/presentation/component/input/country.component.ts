@@ -1,11 +1,11 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  inject,
-  OnInit,
-  ViewEncapsulation,
-  input
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	inject,
+	input,
+	OnInit,
+	ViewEncapsulation
 } from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";

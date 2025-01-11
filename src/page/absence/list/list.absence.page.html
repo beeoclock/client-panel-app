@@ -1,10 +1,10 @@
 <ng-container *ngIf="initialized.isOn; else NotInitializedTemplate">
 	<app-absence-mobile-layout-list-component
-		[tableState]="tableState$ | async"
-		*ngIf="isMobile$ | async"/>
+		*ngIf="isMobile$ | async"
+		[tableState]="tableState$ | async"/>
 	<app-absence-desktop-layout-list-component
-		[tableState]="tableState$ | async"
-		*ngIf="isNotMobile$ | async"/>
+		*ngIf="isNotMobile$ | async"
+		[tableState]="tableState$ | async"/>
 </ng-container>
 <ng-template #NotInitializedTemplate>
 	<div class="p-4">

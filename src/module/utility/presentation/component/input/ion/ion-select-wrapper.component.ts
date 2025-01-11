@@ -1,4 +1,4 @@
-import {Component, HostBinding, ViewEncapsulation, input} from "@angular/core";
+import {Component, HostBinding, input, ViewEncapsulation} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";

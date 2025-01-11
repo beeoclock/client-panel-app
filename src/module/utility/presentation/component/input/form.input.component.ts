@@ -1,12 +1,12 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  DoCheck,
-  HostBinding,
-  inject,
-  ViewEncapsulation,
-  input
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	DoCheck,
+	HostBinding,
+	inject,
+	input,
+	ViewEncapsulation
 } from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";

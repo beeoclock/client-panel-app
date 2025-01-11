@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ViewEncapsulation, input} from "@angular/core";
+import {ChangeDetectionStrategy, Component, input, ViewEncapsulation} from "@angular/core";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {RouterLink} from "@angular/router";
 import {NgOptimizedImage} from "@angular/common";

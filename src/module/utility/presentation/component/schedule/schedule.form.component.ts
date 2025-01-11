@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation, input} from '@angular/core';
+import {Component, input, ViewEncapsulation} from '@angular/core';
 import {SelectWeekDayComponent} from "@utility/presentation/component/input/select-week-day.component";
 import {TimeInputComponent} from "@utility/presentation/component/input/time.input.component";
 import {TranslateModule} from "@ngx-translate/core";

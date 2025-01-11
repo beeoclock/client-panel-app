@@ -56,23 +56,27 @@ export class ColumnsBlockComponent implements OnChanges {
 	public readonly rowsAmount = input(24);
 
 	public readonly preferences = input.required<{
-    from: Date;
-    to: Date;
-}>();
+		from: Date;
+		to: Date;
+	}>();
 
 	public days: DateTime[] = [];
 
 	// Using outside of template
 	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
+
 	public dayIdentify(index: number, day: DateTime) {
 		return day.toFormat('dd.MM.yyyy');
 	}
+
 	public hourIdentify(index: number, hour: DateTime) {
 		return hour.toFormat('HH:mm');
 	}
 
-	public ngOnChanges(changes: SimpleChanges & {preferences: {currentValue: ColumnsBlockComponent['preferences']} }): void {
+	public ngOnChanges(changes: SimpleChanges & {
+		preferences: { currentValue: ColumnsBlockComponent['preferences'] }
+	}): void {
 
 		const {preferences} = changes;
 

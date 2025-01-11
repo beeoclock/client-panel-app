@@ -44,24 +44,18 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 })
 export class CorridorIdentityPage extends Reactive implements OnInit {
 
+	public readonly tenantId$ = inject(TENANT_ID);
+	public backPath: string[] = [];
+	public lastOpenedPath: string[] = [];
+	public readonly loader = new BooleanState(true);
+	public readonly disabled = new BooleanState(false);
 	private readonly store = inject(Store);
 	private readonly router = inject(Router);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly lastOpenedTenantIdMapByLogin$ = inject(LAST_OPENED_TENANT_ID_MAP_BY_LOGIN);
-
 	readonly #analyticsService = inject(AnalyticsService);
-
 	@Select(IdentityState.clients)
 	private readonly clients$!: Observable<IMember[]>;
-
-	@SelectSnapshot(IdentityState.accountEmail)
-	private readonly accountEmail!: string;
-
-	public readonly tenantId$ = inject(TENANT_ID);
-
-	public backPath: string[] = [];
-	public lastOpenedPath: string[] = [];
-
 	public readonly members$ = this.clients$.pipe(
 		filter(Array.isArray),
 		tap((result) => {
@@ -87,9 +81,8 @@ export class CorridorIdentityPage extends Reactive implements OnInit {
 
 		})
 	);
-
-	public readonly loader = new BooleanState(true);
-	public readonly disabled = new BooleanState(false);
+	@SelectSnapshot(IdentityState.accountEmail)
+	private readonly accountEmail!: string;
 
 	public ngOnInit(): void {
 
@@ -107,11 +100,6 @@ export class CorridorIdentityPage extends Reactive implements OnInit {
 			switchMap(() => from(this.gotToMainAuthorizedPage()))
 		).subscribe();
 
-	}
-
-	private buildBackPath(): void {
-		this.backPath = this.getPathToBack();
-		this.lastOpenedPath = this.getPathToMainAuthorizedPageWithTenantId();
 	}
 
 	public async gotToCreateBusinessPage(queryParams = {}): Promise<boolean> {
@@ -163,6 +151,11 @@ export class CorridorIdentityPage extends Reactive implements OnInit {
 			}
 		});
 
+	}
+
+	private buildBackPath(): void {
+		this.backPath = this.getPathToBack();
+		this.lastOpenedPath = this.getPathToMainAuthorizedPageWithTenantId();
 	}
 
 	@Dispatch()

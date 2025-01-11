@@ -1,4 +1,4 @@
-<div class="w-screen h-screen flex flex-col justify-center items-center gap-3"  *ngIf="isAuthorized$ | async">
+<div *ngIf="isAuthorized$ | async" class="w-screen h-screen flex flex-col justify-center items-center gap-3">
 
 	<div class="w-full md:w-5/12 lg:w-3/12 flex justify-between">
 		<utility-logout-component/>
@@ -16,11 +16,13 @@
 				<div>
 					{{ 'identity.confirm-email.hint' | translate }}
 				</div>
-				<button (click)="sendAgain()" id="identity-confirm-email-button-send-again" primary [isLoading]="emailSending.isOn" [class.disabled]="emailSending.isOn" type="button">
+				<button (click)="sendAgain()" [class.disabled]="emailSending.isOn" [isLoading]="emailSending.isOn"
+						id="identity-confirm-email-button-send-again" primary type="button">
 					{{ 'keyword.capitalize.sendAgain' | translate }}
 				</button>
 				<div class="text-sm text-neutral-500">
-					{{ 'identity.confirm-email.sendAgain.hint' | translate }}: <strong>{{ accountEmail$ | async }}</strong>
+					{{ 'identity.confirm-email.sendAgain.hint' | translate }}:
+					<strong>{{ accountEmail$ | async }}</strong>
 				</div>
 			</div>
 		</ng-template>
@@ -36,8 +38,9 @@
 					{{ 'identity.confirm-email.sent.hint' | translate }}
 				</div>
 
-				<a [href]="emailUrl.href" primaryLinkStyle class="justify-center">
-					{{ 'identity.sign-up.afterSuccess.openMailService' | translate }}&nbsp;<strong>{{ emailUrl.host }}</strong>&nbsp;<i class="bi bi-arrow-right"></i>
+				<a [href]="emailUrl.href" class="justify-center" primaryLinkStyle>
+					{{ 'identity.sign-up.afterSuccess.openMailService' | translate }}&nbsp;<strong>{{ emailUrl.host }}</strong>&nbsp;<i
+					class="bi bi-arrow-right"></i>
 				</a>
 			</div>
 		</ng-template>

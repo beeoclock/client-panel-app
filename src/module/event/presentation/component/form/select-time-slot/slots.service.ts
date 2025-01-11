@@ -13,14 +13,14 @@ import {IBusySlot} from "@order/external/interface/busy-slot/i.busy-slot";
 @Injectable()
 export class SlotsService {
 
-	private readonly logger = inject(NGXLogger);
-	// private readonly busySlotsEventApiAdapter = inject(BusySlotsEventApiAdapter);
-
 	public readonly slots: string[] = [];
-
+	// private readonly busySlotsEventApiAdapter = inject(BusySlotsEventApiAdapter);
 	public readonly initialized = new BooleanStreamState(false);
 	public readonly loader = new BooleanStreamState(false);
-
+	public dayItemList$: BehaviorSubject<IDayItem[]> = new BehaviorSubject<IDayItem[]>([]);
+	public firstSlot$ = new BehaviorSubject<{ start: DateTime; end: DateTime } | null>(null);
+	public selectTimeComponent: SelectTimeComponent | undefined;
+	private readonly logger = inject(NGXLogger);
 	private firstDayIso!: string;
 	private lastDayIso!: string;
 	private busySlots: IBusySlot[] = [];
@@ -29,10 +29,6 @@ export class SlotsService {
 	private eventDurationInSeconds = 0;
 	private slotBuildingStrategy: SlotBuildingStrategyEnum = SlotBuildingStrategyEnum.ByService;
 	private slotIntervalInSeconds = 0;
-
-	public dayItemList$: BehaviorSubject<IDayItem[]> = new BehaviorSubject<IDayItem[]>([]);
-	public firstSlot$ = new BehaviorSubject<{ start: DateTime; end: DateTime } | null>(null);
-	public selectTimeComponent: SelectTimeComponent | undefined;
 
 	public get dayItemList(): IDayItem[] {
 		return this.dayItemList$.getValue();
@@ -47,16 +43,6 @@ export class SlotsService {
 			return dayItem.datetime.hasSame(day, 'day');
 		});
 		return dayItem?.slots ?? [];
-	}
-
-	private getFirstSlot() {
-		for (const dayItem of this.dayItemList) {
-			const slot = dayItem.slots[0];
-			if (slot) {
-				return slot;
-			}
-		}
-		return null;
 	}
 
 	public async initSlots() {
@@ -173,6 +159,16 @@ export class SlotsService {
 
 		return this;
 
+	}
+
+	private getFirstSlot() {
+		for (const dayItem of this.dayItemList) {
+			const slot = dayItem.slots[0];
+			if (slot) {
+				return slot;
+			}
+		}
+		return null;
 	}
 
 	private async loadBusySlots(start: string, end: string) {

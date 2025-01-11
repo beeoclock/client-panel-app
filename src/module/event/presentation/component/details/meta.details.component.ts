@@ -103,7 +103,7 @@ export class MetaDetailsComponent implements OnChanges {
 		});
 
 		const orderServiceDto = this.orderServiceDto();
-  if (!orderServiceDto?.meta?.history?.length) {
+		if (!orderServiceDto?.meta?.history?.length) {
 			return;
 		}
 

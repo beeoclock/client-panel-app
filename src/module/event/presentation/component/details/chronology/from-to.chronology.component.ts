@@ -54,17 +54,12 @@ import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration
 export class FromToChronologyComponent implements OnChanges {
 
 	public readonly fromToObject = input.required<{
-    objectName: string;
-    value: any;
-}>(); // JSON
+		objectName: string;
+		value: any;
+	}>(); // JSON
 
 	@HostBinding()
 	public class = 'flex flex-col gap-2'
-
-	private readonly humanizeDurationHelper = inject(HumanizeDurationHelper);
-	private readonly ngxLogger = inject(NGXLogger);
-	private readonly translateService = inject(TranslateService);
-
 	public value: {
 		from: {
 			type: string;
@@ -75,13 +70,14 @@ export class FromToChronologyComponent implements OnChanges {
 			value: any;
 		}
 	} | null = null;
-
 	public isParent = false;
-
 	public readonly childFromToObjectList: {
 		objectName: string;
 		value: any;
 	}[] = [];
+	private readonly humanizeDurationHelper = inject(HumanizeDurationHelper);
+	private readonly ngxLogger = inject(NGXLogger);
+	private readonly translateService = inject(TranslateService);
 
 	public ngOnChanges(changes: SimpleChanges & { fromToObject: SimpleChange }) {
 		this.parse(changes.fromToObject.currentValue);

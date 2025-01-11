@@ -1,13 +1,13 @@
 import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  HostBinding,
-  HostListener,
-  inject,
-  Renderer2,
-  input
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	HostBinding,
+	HostListener,
+	inject,
+	input,
+	Renderer2
 } from "@angular/core";
 import {RIMember} from "@member/domain";
 import {firstValueFrom} from "rxjs";
@@ -37,17 +37,21 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 	public readonly durationInMinutes = input.required<number>();
 
 	public readonly member = input.required<RIMember>();
-
+	public readonly showSquare = new BooleanState(false);
+	@HostBinding('style.touch-action')
+	public touchAction = 'auto';
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
+	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 	private readonly renderer2 = inject(Renderer2);
 
-	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
-
-	public readonly showSquare = new BooleanState(false);
+	@HostBinding()
+	public get class() {
+		return 'active:bg-blue-400 relative active:text-white bg-neutral-100 border-2 border-[#00000038] cursor-pointer flex h-full hover:opacity-100 items-center justify-center opacity-0 px-2 rounded-md text-neutral-500 transition-all';
+	}
 
 	@HostListener('click')
 	public async onClick() {
@@ -59,14 +63,6 @@ export class EmptySlotCalendarWithSpecialistWidgetComponent implements AfterView
 	public async onTap() {
 		this.ngxLogger.debug('EmptySlotCalendarWithSpecialistWidgetComponent:onTap');
 		await this.openAdditionalMenu();
-	}
-
-	@HostBinding('style.touch-action')
-	public touchAction = 'auto';
-
-	@HostBinding()
-	public get class() {
-		return 'active:bg-blue-400 relative active:text-white bg-neutral-100 border-2 border-[#00000038] cursor-pointer flex h-full hover:opacity-100 items-center justify-center opacity-0 px-2 rounded-md text-neutral-500 transition-all';
 	}
 
 	public ngAfterViewInit() {

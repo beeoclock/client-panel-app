@@ -36,7 +36,8 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 })
 export class CreateBusinessIdentityPage implements OnInit {
 	readonly #analyticsService = inject(AnalyticsService);
-	public  ngOnInit() {
+
+	public ngOnInit() {
 		this.#analyticsService.logEvent('member_list_page_initialized');
 	}
 

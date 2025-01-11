@@ -39,9 +39,9 @@ export class ContainerCalendarComponent implements AfterViewInit {
 	public readonly currentDate = input<Date>(new Date());
 
 	public readonly preferencesOfCalendars = input<{
-    from: Date;
-    to: Date;
-}[]>([]);
+		from: Date;
+		to: Date;
+	}[]>([]);
 
 	readonly calendarsRef = viewChildren(ColumnsBlockComponent);
 

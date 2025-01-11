@@ -1,17 +1,17 @@
 import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  EventEmitter,
-  inject,
-  Input,
-  OnChanges,
-  Output,
-  Renderer2,
-  SimpleChange,
-  SimpleChanges,
-  input
+	AfterViewInit,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	inject,
+	Input,
+	input,
+	OnChanges,
+	Output,
+	Renderer2,
+	SimpleChange,
+	SimpleChanges
 } from "@angular/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";

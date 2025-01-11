@@ -12,38 +12,39 @@
 
 			<div class="py-6">
 
-				<bee-card padding="p-0" gap="gap-0">
+				<bee-card gap="gap-0" padding="p-0">
 
-					<div class="flex gap-2 md:px-5 w-full border-b" *ngFor="let service of serviceList; let index = index;">
+					<div *ngFor="let service of serviceList; let index = index;"
+						 class="flex gap-2 md:px-5 w-full border-b">
 						<div class="flex items-center">
 							<button
-								type="button"
+								(click)="servicesForm.removeAt(index)"
 								class="text-beeColor-600 hover:text-red-600 hover:bg-red-100 px-3 py-2 rounded-full"
-								(click)="servicesForm.removeAt(index)">
+								type="button">
 								<i class="bi bi-trash"></i>
 							</button>
 						</div>
 						<service-item-component [item]="service" class="flex-1"/>
 						<div class="flex items-center">
 							<button
-								type="button"
+								(click)="openServiceFormModal(service)"
 								class="text-beeColor-600 hover:text-neutral-600 hover:bg-neutral-100 px-3 py-2 rounded-full"
-								(click)="openServiceFormModal(service)">
+								type="button">
 								<i class="bi bi-pencil"></i>
 							</button>
 						</div>
 					</div>
 
 					<bee-form-button-with-icon
-						class="p-5"
 						(click)="openServiceFormModal()"
-						[label]="'keyword.capitalize.add-service' | translate"/>
+						[label]="'keyword.capitalize.add-service' | translate"
+						class="p-5"/>
 
 				</bee-card>
 
 			</div>
 
-			<button routerLink="../processing" primary [class.disabled]="!serviceList.length">
+			<button [class.disabled]="!serviceList.length" primary routerLink="../processing">
 				{{ 'keyword.capitalize.create' | translate }}
 			</button>
 

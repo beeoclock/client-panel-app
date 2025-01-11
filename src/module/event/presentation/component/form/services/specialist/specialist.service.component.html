@@ -3,16 +3,18 @@
 </div>
 <div class="flex flex-wrap gap-4 mt-4">
 	<button
-		type="button"
-		class="flex flex-col items-center gap-1 p-2 rounded-2xl border-2 min-w-[100px] max-h-[100px] min-h-[100px]"
-		*ngFor="let member of (members$ | async) ?? []"
 		(click)="changeMemberInSpecialist(member)"
-		[class.border-green-500]="member._id === selectedSpecialist?.member?._id">
+		*ngFor="let member of (members$ | async) ?? []"
+		[class.border-green-500]="member._id === selectedSpecialist?.member?._id"
+		class="flex flex-col items-center gap-1 p-2 rounded-2xl border-2 min-w-[100px] max-h-[100px] min-h-[100px]"
+		type="button">
 
-		<img *ngIf="member?.avatar?.url?.length" class="min-w-[40px] min-h-[40px] max-w-[40px] max-h-[40px] rounded-full object-cover"
-				 [src]="member?.avatar?.url">
+		<img *ngIf="member?.avatar?.url?.length"
+			 [src]="member?.avatar?.url"
+			 class="min-w-[40px] min-h-[40px] max-w-[40px] max-h-[40px] rounded-full object-cover">
 		<ng-template [ngIf]="!member?.avatar">
-			<div class="min-w-[40px] min-h-[40px] max-w-[40px] max-h-[40px] rounded-full bg-neutral-200 flex items-center justify-center font-bold">
+			<div
+				class="min-w-[40px] min-h-[40px] max-w-[40px] max-h-[40px] rounded-full bg-neutral-200 flex items-center justify-center font-bold">
 				{{ member?.firstName?.charAt(0) }}{{ member?.lastName?.charAt(0) }}
 			</div>
 		</ng-template>

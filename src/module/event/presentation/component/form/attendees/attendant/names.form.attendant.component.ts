@@ -11,46 +11,46 @@ import {CustomerForm} from "@customer/presentation/form";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 
 @Component({
-    selector: 'app-event-names-form-attendant-component',
-    standalone: true,
+	selector: 'app-event-names-form-attendant-component',
+	standalone: true,
 	encapsulation: ViewEncapsulation.None,
-    imports: [
-        ReactiveFormsModule,
-        NgIf,
-        HasErrorDirective,
-        IsRequiredDirective,
-        InvalidTooltipDirective,
-        FormInputComponent,
-        TranslateModule,
-        InvalidTooltipComponent
-    ],
-    template: `
+	imports: [
+		ReactiveFormsModule,
+		NgIf,
+		HasErrorDirective,
+		IsRequiredDirective,
+		InvalidTooltipDirective,
+		FormInputComponent,
+		TranslateModule,
+		InvalidTooltipComponent
+	],
+	template: `
 
-        <form-input
-            inputType="text"
-            autocomplete="off"
-            id="attendee-first-name"
-            [placeholder]="'keyword.capitalize.firstName' | translate"
-            [control]="form().controls.firstName"
-            [label]="'keyword.capitalize.firstName' | translate"/>
+		<form-input
+			inputType="text"
+			autocomplete="off"
+			id="attendee-first-name"
+			[placeholder]="'keyword.capitalize.firstName' | translate"
+			[control]="form().controls.firstName"
+			[label]="'keyword.capitalize.firstName' | translate"/>
 
-        <form-input
-            inputType="text"
-            autocomplete="off"
-            id="attendee-last-name"
-            [placeholder]="'keyword.capitalize.lastName' | translate"
-            [control]="form().controls.lastName"
-            [label]="'keyword.capitalize.lastName' | translate"/>
+		<form-input
+			inputType="text"
+			autocomplete="off"
+			id="attendee-last-name"
+			[placeholder]="'keyword.capitalize.lastName' | translate"
+			[control]="form().controls.lastName"
+			[label]="'keyword.capitalize.lastName' | translate"/>
 
 
-    `
+	`
 })
 export class NamesFormAttendantComponent {
 
-    public readonly form = input.required<CustomerForm>();
+	public readonly form = input.required<CustomerForm>();
 
-    @HostBinding()
-    public readonly class = 'flex gap-3';
+	@HostBinding()
+	public readonly class = 'flex gap-3';
 
 
 }

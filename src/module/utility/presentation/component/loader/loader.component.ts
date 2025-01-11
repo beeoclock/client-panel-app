@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation, input} from '@angular/core';
+import {Component, input, ViewEncapsulation} from '@angular/core';
 import {SpinnerComponent} from "@utility/presentation/component/spinner/spinner.component";
 import {NgIf} from "@angular/common";
 

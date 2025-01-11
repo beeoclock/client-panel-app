@@ -1,16 +1,16 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  HostBinding,
-  inject,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-  ViewEncapsulation,
-  input
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	HostBinding,
+	inject,
+	Input,
+	input,
+	OnChanges,
+	OnDestroy,
+	OnInit,
+	SimpleChanges,
+	ViewEncapsulation
 } from "@angular/core";
 import {DatePipe, NgIf, NgStyle} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
@@ -66,14 +66,10 @@ export class TimeLineCalendarWithSpecialistWidgetComponent implements OnInit, On
 	public style = '';
 
 	private readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
-	private readonly changeDetectorRef = inject(ChangeDetectorRef);
-
 	public readonly startTimeToDisplay = this.calendarWithSpecialistLocaStateService.startTimeToDisplay;
-
 	public readonly headerHeightInPx = this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx;
-
 	public readonly heightInPx = this.calendarWithSpecialistLocaStateService.oneHourForPx;
-
+	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private interval: NodeJS.Timer | null = null;
 
 	public ngOnChanges(changes: SimpleChanges) {
@@ -107,13 +103,6 @@ export class TimeLineCalendarWithSpecialistWidgetComponent implements OnInit, On
 		this.clearInterval();
 	}
 
-	private clearInterval() {
-		if (this.interval) {
-			if (is.number(this.interval)) clearInterval(this.interval);
-			this.interval = null;
-		}
-	}
-
 	public calculateTopPosition() {
 
 		const hours = this.currentDate.getHours() - this.startTimeToDisplay;
@@ -121,6 +110,13 @@ export class TimeLineCalendarWithSpecialistWidgetComponent implements OnInit, On
 		const top = this.headerHeightInPx + ((hours + minutesInHours) * this.heightInPx);
 		this.style += ` top: ${top}px;`;
 
+	}
+
+	private clearInterval() {
+		if (this.interval) {
+			if (is.number(this.interval)) clearInterval(this.interval);
+			this.interval = null;
+		}
 	}
 
 }

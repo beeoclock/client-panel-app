@@ -101,36 +101,37 @@ export class EventCalendarWithSpecialistWidgetComponent {
 
 	@SelectSnapshot(CalendarWithSpecialistsQueries.start)
 	public selectedDate!: DateTime;
-
-	private readonly ngxLogger = inject(NGXLogger);
-
 	public readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
+	@HostBinding('style.touch-action')
+	public touchAction = 'auto';
+	@HostBinding('style.z-index')
+	public zIndex = 3;
+	@HostBinding('attr.data-is-event')
+	public isEvent = true;
+	@HostBinding('attr.data-draggable')
+	public draggable = false;
+	public temporaryInformationAboutNewStartAndEnd: { start: string, end: string } | null = null;
+	public temporaryNewMember: RIMember | null = null;
+	public snapshotOfOriginalPosition: { top: number, height: number } | null = null;
+	public previousData: {
+		member: RIMember | undefined;
+		htmlParent: HTMLElement | null | undefined;
+		memberId: string | undefined;
+	} | null = null;
+	private readonly ngxLogger = inject(NGXLogger);
 	private readonly renderer2 = inject(Renderer2);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly updateServiceOrderApiAdapter = inject(UpdateServiceOrderApiAdapter);
 	private readonly updateAbsenceApiAdapter = inject(UpdateAbsenceApiAdapter);
 	private readonly alertController = inject(AlertController);
 	private readonly translateService = inject(TranslateService);
-
 	private saveInProgress = false;
 
 	@HostBinding()
 	public get class() {
 		return 'absolute';
 	}
-
-	@HostBinding('style.touch-action')
-	public touchAction = 'auto';
-
-	@HostBinding('style.z-index')
-	public zIndex = 3;
-
-	@HostBinding('attr.data-is-event')
-	public isEvent = true;
-
-	@HostBinding('attr.data-draggable')
-	public draggable = false;
 
 	@HostBinding('class.cursor-all-scroll')
 	public get cursorAllScroll() {
@@ -175,7 +176,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	@HostListener('mouseenter')
 	public onMouseEnter() {
 		const orderEventCalendarWithSpecialistWidgetComponent = this.orderEventCalendarWithSpecialistWidgetComponent();
-  if (orderEventCalendarWithSpecialistWidgetComponent) {
+		if (orderEventCalendarWithSpecialistWidgetComponent) {
 			this.renderer2.addClass(this.elementRef.nativeElement, 'z-20');
 			if (this.elementRef.nativeElement.clientHeight < orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.scrollHeight) {
 				orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.remove('bottom-0');
@@ -186,7 +187,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	@HostListener('mouseleave')
 	public onMouseLeave() {
 		const orderEventCalendarWithSpecialistWidgetComponent = this.orderEventCalendarWithSpecialistWidgetComponent();
-  if (orderEventCalendarWithSpecialistWidgetComponent) {
+		if (orderEventCalendarWithSpecialistWidgetComponent) {
 			if (this.elementRef.nativeElement.clientHeight < orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.scrollHeight) {
 				orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.add('bottom-0');
 			}
@@ -229,15 +230,6 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		// Додайте вашу логіку тут
 		this.toggleMode(true);
 	}
-
-	public temporaryInformationAboutNewStartAndEnd: { start: string, end: string } | null = null;
-	public temporaryNewMember: RIMember | null = null;
-	public snapshotOfOriginalPosition: { top: number, height: number } | null = null;
-	public previousData: {
-		member: RIMember | undefined;
-		htmlParent: HTMLElement | null | undefined;
-		memberId: string | undefined;
-	} | null = null;
 
 	public changeMember(member: RIMember) {
 		this.temporaryNewMember = member;

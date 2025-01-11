@@ -87,82 +87,106 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 	public changeEventPositionIsOn = false;
 	public handleChangeEventForDraggingEnabledElement = false;
-
-	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
-	private readonly changeDetectorRef = inject(ChangeDetectorRef);
-	private readonly ngxLogger = inject(NGXLogger);
-	private readonly store = inject(Store);
-	private readonly document = inject(DOCUMENT);
-	private readonly activatedRoute = inject(ActivatedRoute);
-	private readonly actions$ = inject(Actions);
-
-	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
-	public readonly schedules$ = this.store.select(ClientState.schedules);
-
 	public readonly orderServiceStatusesControl: FormControl<OrderServiceStatusEnum[]> = new FormControl<OrderServiceStatusEnum[]>([], {
 		nonNullable: true
 	});
-
 	readonly calendar = viewChild.required<ElementRef<HTMLDivElement>>('calendar');
-
-	public readonly isToday$ = this.store.select(CalendarWithSpecialistsQueries.isToday);
 	public readonly showTimeLine$ = this.isToday$.pipe();
-
-	public async openForm() {
-
-		// From selectedDate$
-		const schedules = await firstValueFrom(this.schedules$);
-		const selectedDate = await firstValueFrom(this.selectedDate$);
-		const now = DateTime.now();
-		let defaultAppointmentStartDateTimeIso = selectedDate.toJSDate().toISOString();
-
-		if (selectedDate.hasSame(now, 'day')) {
-			defaultAppointmentStartDateTimeIso = now.toJSDate().toISOString();
-		} else {
-			if (schedules) {
-				const foundSchedule = schedules.reduce((acc: null | RISchedule, schedule) => {
-
-					if (acc) {
-						if (schedule.workDays.includes(selectedDate.weekday)) {
-							if (schedule.startInSeconds < acc.startInSeconds) {
-								return schedule;
-							}
-						}
-					} else {
-						if (schedule.workDays.includes(selectedDate.weekday)) {
-							return schedule;
-						}
-					}
-
-					return acc;
-				}, null);
-
-				if (foundSchedule) {
-
-					defaultAppointmentStartDateTimeIso = selectedDate.plus({
-						seconds: foundSchedule.startInSeconds
-					}).toJSDate().toISOString();
-
-				}
-
-			}
-		}
-
-		this.store.dispatch(
-			new OrderActions.OpenForm({
-				componentInputs: {
-					setupPartialData: {
-						defaultAppointmentStartDateTimeIso,
-					}
-				}
-			})
-		);
-	}
-
 	public eventsBySpecialistId: {
 		[key: string]: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenceDto>[]
 	} = {};
+	// Find all #column
+	@ViewChildren('column')
+	public columnList!: QueryList<ElementRef<HTMLDivElement>>;
+	public eventCalendarWithSpecialistWidgetComponent: EventCalendarWithSpecialistWidgetComponent | null = null;
+	mutatedOtherEventHtmlList: HTMLDivElement[] = [];
+	mouseDown = false;
+	prevMousePosition = {x: 0, y: 0};
+	whatIsDragging: 'position' | 'top' | 'bottom' | null = null;
+	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
+	moveCallback = {
+		accumulationDiffY: 0,
+		position: (htmlDivElement: HTMLElement, diffY: number) => {
 
+			this.moveCallback.accumulationDiffY += diffY;
+
+			if (this.moveCallback.accumulationDiffY % this.twoMinutesForPx) {
+				return;
+			}
+
+			const currentTop = htmlDivElement.offsetTop;
+			const newTop = currentTop + this.moveCallback.accumulationDiffY;
+			this.moveCallback.accumulationDiffY = 0;
+
+			// Check if new top position is not out of column + specialist cell height
+			if (newTop >= this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx) {
+				// Check of new top position is not out of the bottom of the column
+				// Get event height
+				const eventHeight = htmlDivElement.clientHeight;
+				// Check if new top position is not out of the bottom of the column
+				if ((newTop + eventHeight) <= this.calendarWithSpecialistLocaStateService.columnHeightForPx) {
+					htmlDivElement.style.top = `${newTop}px`;
+				}
+			}
+		},
+		top: (htmlDivElement: HTMLElement, diffY: number) => {
+			this.moveCallback.accumulationDiffY += diffY;
+
+			if (this.moveCallback.accumulationDiffY % this.twoMinutesForPx) {
+				return;
+			}
+
+			// Change height of the event and top position
+			const currentTop = htmlDivElement.offsetTop;
+			const newTop = currentTop + this.moveCallback.accumulationDiffY;
+			const currentHeight = htmlDivElement.clientHeight;
+			const newHeight = currentHeight - this.moveCallback.accumulationDiffY;
+			this.moveCallback.accumulationDiffY = 0;
+
+			// Check if new top position is not out of column + specialist cell height
+			if (newTop > this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx) {
+				// Check of new top position is not out of the bottom of the column
+				// Get event height
+				const eventHeight = htmlDivElement.clientHeight;
+				// Check if new top position is not out of the bottom of the column
+				if ((newTop + eventHeight) <= this.calendarWithSpecialistLocaStateService.columnHeightForPx) {
+					// Check if newTop is not out of bottom of the event
+					if (newTop <= (currentTop + currentHeight)) {
+						htmlDivElement.style.top = `${newTop}px`;
+						htmlDivElement.style.height = `${newHeight}px`;
+					}
+				}
+			}
+
+		},
+		bottom: (htmlDivElement: HTMLElement, diffY: number) => {
+			this.moveCallback.accumulationDiffY += diffY;
+
+			if (this.moveCallback.accumulationDiffY % this.twoMinutesForPx) {
+				return;
+			}
+
+			// Change height of the event
+			const currentHeight = htmlDivElement.clientHeight;
+			const newHeight = currentHeight + this.moveCallback.accumulationDiffY;
+			this.moveCallback.accumulationDiffY = 0;
+
+			// Check of new top position is not out of the bottom of the column
+			// Check if new top position is not out of the bottom of the column
+			if ((newHeight + htmlDivElement.offsetTop) <= this.calendarWithSpecialistLocaStateService.columnHeightForPx) {
+				htmlDivElement.style.height = `${newHeight}px`;
+			}
+		}
+	};
+	private readonly changeDetectorRef = inject(ChangeDetectorRef);
+	private readonly ngxLogger = inject(NGXLogger);
+	private readonly store = inject(Store);
+	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
+	public readonly schedules$ = this.store.select(ClientState.schedules);
+	public readonly isToday$ = this.store.select(CalendarWithSpecialistsQueries.isToday);
+	private readonly document = inject(DOCUMENT);
+	private readonly activatedRoute = inject(ActivatedRoute);
+	private readonly actions$ = inject(Actions);
 	private readonly events$ = this.store.select(CalendarWithSpecialistsQueries.data).pipe(
 		this.takeUntil(),
 		map((items) => {
@@ -216,6 +240,65 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 		}),
 	);
+
+	public get thereSomeEventCalendarWithSpecialistWidgetComponent() {
+		return !!this.eventCalendarWithSpecialistWidgetComponent;
+	}
+
+	public get twoMinutesForPx() {
+		return this.calendarWithSpecialistLocaStateService.oneMinuteForPx * this.calendarWithSpecialistLocaStateService.movementInMinutesControl.value;
+	}
+
+	public async openForm() {
+
+		// From selectedDate$
+		const schedules = await firstValueFrom(this.schedules$);
+		const selectedDate = await firstValueFrom(this.selectedDate$);
+		const now = DateTime.now();
+		let defaultAppointmentStartDateTimeIso = selectedDate.toJSDate().toISOString();
+
+		if (selectedDate.hasSame(now, 'day')) {
+			defaultAppointmentStartDateTimeIso = now.toJSDate().toISOString();
+		} else {
+			if (schedules) {
+				const foundSchedule = schedules.reduce((acc: null | RISchedule, schedule) => {
+
+					if (acc) {
+						if (schedule.workDays.includes(selectedDate.weekday)) {
+							if (schedule.startInSeconds < acc.startInSeconds) {
+								return schedule;
+							}
+						}
+					} else {
+						if (schedule.workDays.includes(selectedDate.weekday)) {
+							return schedule;
+						}
+					}
+
+					return acc;
+				}, null);
+
+				if (foundSchedule) {
+
+					defaultAppointmentStartDateTimeIso = selectedDate.plus({
+						seconds: foundSchedule.startInSeconds
+					}).toJSDate().toISOString();
+
+				}
+
+			}
+		}
+
+		this.store.dispatch(
+			new OrderActions.OpenForm({
+				componentInputs: {
+					setupPartialData: {
+						defaultAppointmentStartDateTimeIso,
+					}
+				}
+			})
+		);
+	}
 
 	public ngOnInit() {
 
@@ -291,136 +374,6 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		return new CalendarWithSpecialistsAction.GetItems();
 	}
 
-	private async detectParamsInQueryParams() {
-		const {statuses, start} = this.activatedRoute.snapshot.queryParams;
-		if (!statuses && !start) {
-			this.dispatchActionToUpdateCalendar();
-			return;
-		}
-
-		if (start) {
-
-			const setDate$ = this.store.dispatch(new CalendarWithSpecialistsAction.SetDate({
-				start
-			}));
-			await firstValueFrom(setDate$);
-
-		}
-
-		if (statuses) {
-
-			this.orderServiceStatusesControl.setValue(statuses, {
-				emitEvent: false,
-				onlySelf: true
-			});
-			const updateFilters$ = this.store.dispatch(new CalendarWithSpecialistsAction.UpdateFilters({
-				statuses
-			}));
-			await firstValueFrom(updateFilters$);
-
-		}
-
-		const getItems$ = this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
-		await firstValueFrom(getItems$);
-
-	}
-
-
-	// Find all #column
-	@ViewChildren('column')
-	public columnList!: QueryList<ElementRef<HTMLDivElement>>;
-
-	public eventCalendarWithSpecialistWidgetComponent: EventCalendarWithSpecialistWidgetComponent | null = null;
-
-	public get thereSomeEventCalendarWithSpecialistWidgetComponent() {
-		return !!this.eventCalendarWithSpecialistWidgetComponent;
-	}
-
-	mutatedOtherEventHtmlList: HTMLDivElement[] = [];
-
-	mouseDown = false;
-	prevMousePosition = {x: 0, y: 0};
-	whatIsDragging: 'position' | 'top' | 'bottom' | null = null;
-
-	public get twoMinutesForPx() {
-		return this.calendarWithSpecialistLocaStateService.oneMinuteForPx * this.calendarWithSpecialistLocaStateService.movementInMinutesControl.value;
-	}
-
-	moveCallback = {
-		accumulationDiffY: 0,
-		position: (htmlDivElement: HTMLElement, diffY: number) => {
-
-			this.moveCallback.accumulationDiffY += diffY;
-
-			if (this.moveCallback.accumulationDiffY % this.twoMinutesForPx) {
-				return;
-			}
-
-			const currentTop = htmlDivElement.offsetTop;
-			const newTop = currentTop + this.moveCallback.accumulationDiffY;
-			this.moveCallback.accumulationDiffY = 0;
-
-			// Check if new top position is not out of column + specialist cell height
-			if (newTop >= this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx) {
-				// Check of new top position is not out of the bottom of the column
-				// Get event height
-				const eventHeight = htmlDivElement.clientHeight;
-				// Check if new top position is not out of the bottom of the column
-				if ((newTop + eventHeight) <= this.calendarWithSpecialistLocaStateService.columnHeightForPx) {
-					htmlDivElement.style.top = `${newTop}px`;
-				}
-			}
-		},
-		top: (htmlDivElement: HTMLElement, diffY: number) => {
-			this.moveCallback.accumulationDiffY += diffY;
-
-			if (this.moveCallback.accumulationDiffY % this.twoMinutesForPx) {
-				return;
-			}
-
-			// Change height of the event and top position
-			const currentTop = htmlDivElement.offsetTop;
-			const newTop = currentTop + this.moveCallback.accumulationDiffY;
-			const currentHeight = htmlDivElement.clientHeight;
-			const newHeight = currentHeight - this.moveCallback.accumulationDiffY;
-			this.moveCallback.accumulationDiffY = 0;
-
-			// Check if new top position is not out of column + specialist cell height
-			if (newTop > this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx) {
-				// Check of new top position is not out of the bottom of the column
-				// Get event height
-				const eventHeight = htmlDivElement.clientHeight;
-				// Check if new top position is not out of the bottom of the column
-				if ((newTop + eventHeight) <= this.calendarWithSpecialistLocaStateService.columnHeightForPx) {
-					// Check if newTop is not out of bottom of the event
-					if (newTop <= (currentTop + currentHeight)) {
-						htmlDivElement.style.top = `${newTop}px`;
-						htmlDivElement.style.height = `${newHeight}px`;
-					}
-				}
-			}
-
-		},
-		bottom: (htmlDivElement: HTMLElement, diffY: number) => {
-			this.moveCallback.accumulationDiffY += diffY;
-
-			if (this.moveCallback.accumulationDiffY % this.twoMinutesForPx) {
-				return;
-			}
-
-			// Change height of the event
-			const currentHeight = htmlDivElement.clientHeight;
-			const newHeight = currentHeight + this.moveCallback.accumulationDiffY;
-			this.moveCallback.accumulationDiffY = 0;
-
-			// Check of new top position is not out of the bottom of the column
-			// Check if new top position is not out of the bottom of the column
-			if ((newHeight + htmlDivElement.offsetTop) <= this.calendarWithSpecialistLocaStateService.columnHeightForPx) {
-				htmlDivElement.style.height = `${newHeight}px`;
-			}
-		}
-	};
-
 	@HostListener('mouseup')
 	public documentMouseUpListener() {
 		this.ngxLogger.info('documentMouseUpListener: mouseDown false and changeEventPositionIsOn false');
@@ -476,12 +429,12 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 	}
 
-
-	// For mobile
-
 	public touchStartListener = (event: TouchEvent) => {
 		this.documentMouseDownListener(event.touches[0] as unknown as MouseEvent);
 	}
+
+
+	// For mobile
 
 	public touchMoveListener = (event: TouchEvent) => {
 		if (!this.mouseDown) {
@@ -513,13 +466,6 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 		this.changeDetectorRef.detectChanges();
 	}
-
-	protected restoreWidthOfMutatedEvents(column: HTMLElement) {
-		this.mutatedOtherEventHtmlList.forEach((element, index) => {
-			element.style.width = `${column.clientWidth / this.mutatedOtherEventHtmlList.length}px`;
-			element.style.transform = `translateX(calc(100% * ${index}))`;
-		});
-	};
 
 	public mouseMoveListener = (event: MouseEvent, isMobile: boolean = false) => {
 
@@ -649,7 +595,6 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		this.eventCalendarWithSpecialistWidgetComponent?.changeMember(member);
 
 	}
-
 
 	public mouseEnter($event: MouseEvent | TouchEvent) {
 		const {target} = $event as unknown as MouseEvent & { target: HTMLElement }
@@ -814,6 +759,47 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 		htmlDivElement.style.width = `${column.clientWidth / (findNearEvents.length + 1)}px`;
 		htmlDivElement.style.transform = `translateX(calc(100% * ${(htmlDivElementHasSmollerTop ? 0 : findNearEvents.length)}))`;
+	}
+
+	protected restoreWidthOfMutatedEvents(column: HTMLElement) {
+		this.mutatedOtherEventHtmlList.forEach((element, index) => {
+			element.style.width = `${column.clientWidth / this.mutatedOtherEventHtmlList.length}px`;
+			element.style.transform = `translateX(calc(100% * ${index}))`;
+		});
+	};
+
+	private async detectParamsInQueryParams() {
+		const {statuses, start} = this.activatedRoute.snapshot.queryParams;
+		if (!statuses && !start) {
+			this.dispatchActionToUpdateCalendar();
+			return;
+		}
+
+		if (start) {
+
+			const setDate$ = this.store.dispatch(new CalendarWithSpecialistsAction.SetDate({
+				start
+			}));
+			await firstValueFrom(setDate$);
+
+		}
+
+		if (statuses) {
+
+			this.orderServiceStatusesControl.setValue(statuses, {
+				emitEvent: false,
+				onlySelf: true
+			});
+			const updateFilters$ = this.store.dispatch(new CalendarWithSpecialistsAction.UpdateFilters({
+				statuses
+			}));
+			await firstValueFrom(updateFilters$);
+
+		}
+
+		const getItems$ = this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
+		await firstValueFrom(getItems$);
+
 	}
 
 }

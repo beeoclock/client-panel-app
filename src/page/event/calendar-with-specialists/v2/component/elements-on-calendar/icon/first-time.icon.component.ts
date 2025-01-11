@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostBinding, ViewEncapsulation, input} from "@angular/core";
+import {ChangeDetectionStrategy, Component, HostBinding, input, ViewEncapsulation} from "@angular/core";
 import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({

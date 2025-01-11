@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation, input} from '@angular/core';
+import {Component, input, ViewEncapsulation} from '@angular/core';
 import {LANGUAGES} from '@utility/domain/enum';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 

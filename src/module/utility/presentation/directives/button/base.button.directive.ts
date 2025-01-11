@@ -1,4 +1,4 @@
-import {Directive, HostBinding, HostListener, OnInit, input} from "@angular/core";
+import {Directive, HostBinding, HostListener, input, OnInit} from "@angular/core";
 
 export const enum ButtonTypeEnum {
 	link = 'link',

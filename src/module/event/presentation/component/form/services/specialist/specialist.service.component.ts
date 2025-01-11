@@ -42,7 +42,7 @@ export class SpecialistServiceComponent {
 						const specialistCanServeService = member.assignments.service.include.some(({service: {_id}}) => _id === this.service()._id);
 						return specialistCanServeService;
 					}
-					return  true;
+					return true;
 				}
 				return false;
 			});

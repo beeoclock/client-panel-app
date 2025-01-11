@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation, input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, HostBinding, Input, input, ViewEncapsulation} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {TranslateModule} from "@ngx-translate/core";

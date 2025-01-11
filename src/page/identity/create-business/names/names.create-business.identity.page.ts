@@ -49,7 +49,9 @@ export class NamesCreateBusinessIdentityPage {
 		}),
 		filter(Array.isArray),
 	);
-
+	private readonly createBusinessQuery = inject(CreateBusinessQuery);
+	public readonly businessNameControl = this.createBusinessQuery.getBusinessNameControl();
+	public readonly businessOwnerForm = this.createBusinessQuery.getBusinessOwnerForm();
 	public readonly firstCompany$ = this.members$.pipe(
 		map((members) => members.length === 0),
 		tap((firstCompany) => {
@@ -59,10 +61,6 @@ export class NamesCreateBusinessIdentityPage {
 			}
 		}),
 	);
-
-	private readonly createBusinessQuery = inject(CreateBusinessQuery);
-	public readonly businessNameControl = this.createBusinessQuery.getBusinessNameControl();
-	public readonly businessOwnerForm = this.createBusinessQuery.getBusinessOwnerForm();
 
 	public get valid(): boolean {
 		const ifBusinessOwnerEnableUseStatusOfValidation = (this.businessOwnerForm.disabled ? true : this.businessOwnerForm.valid);

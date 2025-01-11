@@ -1,4 +1,4 @@
-import {Directive, DoCheck, ElementRef, inject, Optional, input} from '@angular/core';
+import {Directive, DoCheck, ElementRef, inject, input, Optional} from '@angular/core';
 import {AbstractControl, NgControl} from '@angular/forms';
 import {is} from "@utility/checker";
 import {TranslateService} from "@ngx-translate/core";

@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit, SimpleChange, SimpleChanges, input} from "@angular/core";
+import {Component, input, OnChanges, OnInit, SimpleChange, SimpleChanges} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@src/module/utility/cdk/reactive";

@@ -1,4 +1,4 @@
-import {Component, OnInit, input} from '@angular/core';
+import {Component, input, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {InputIconComponent} from "@utility/presentation/component/input/input-icon.component";
 import {extractSecondsFrom_hh_mm_ss, secondsTo_hh_mm} from "@utility/domain/time";

@@ -176,15 +176,15 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 		}
 	}
 
+	public override ngOnDestroy() {
+		super.ngOnDestroy();
+		this.form.destroyHandlers();
+	}
+
 	private checkUsername(value: IClient): void {
 		if (is.string_empty(value.username)) {
 			value.username = null;
 		}
-	}
-
-	public override ngOnDestroy() {
-		super.ngOnDestroy();
-		this.form.destroyHandlers();
 	}
 
 }

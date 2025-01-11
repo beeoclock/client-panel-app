@@ -3,7 +3,7 @@
 
 		<div class="flex justify-between items-center">
 			<utility-logout-component *ngIf="!(tenantId$ | async)"/>
-			<utility-back-link-component *ngIf="(tenantId$ | async)" [url]="backPath" />
+			<utility-back-link-component *ngIf="(tenantId$ | async)" [url]="backPath"/>
 			<utility-change-language-component/>
 		</div>
 		<ul class="flex flex-col mt-4">
@@ -13,8 +13,8 @@
 			</li>
 			<ul class="overflow-y-auto max-h-96 flex flex-col">
 				<li
-					*ngFor="let member of members$ | async"
 					(click)="select(member)"
+					*ngFor="let member of members$ | async"
 					[class.disabled]="disabled.isOn"
 					class="cursor-pointer hover:bg-beeColor-100 inline-flex items-center gap-x-3.5 py-3 px-4 text-sm bg-white border text-beeColor-800 -mt-px dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 dark:text-white">
 					<div class="text-3xl">
@@ -31,7 +31,7 @@
 				</li>
 			</ul>
 			<li *ngIf="loader.isOn"
-					class="font-bold inline-flex items-center gap-x-3.5 py-3 bg-white border text-beeColor-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 dark:text-white">
+				class="font-bold inline-flex items-center gap-x-3.5 py-3 bg-white border text-beeColor-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 dark:text-white">
 				<utility-loader/>
 			</li>
 			<li

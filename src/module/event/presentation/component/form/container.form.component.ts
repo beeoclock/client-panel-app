@@ -92,31 +92,25 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 	public readonly member = input<Member.RIMember>();
 
 	public readonly callback = input<((component: ContainerFormComponent, formValue: IEvent) => void) | null>(null);
-
-	private readonly store = inject(Store);
 	public readonly slotsService = inject(SlotsService);
 	public readonly router = inject(Router);
-	private readonly logger = inject(NGXLogger);
-
 	public readonly form = new EventForm();
-
 	public specialist = '';
 	public eventDurationInSeconds = 0;
-
 	readonly servicesComponent = viewChildren(ServicesComponent);
-
 	@SelectSnapshot(ClientState.item)
 	public readonly clientItem!: RIClient;
-
+	private readonly store = inject(Store);
 	public readonly client$ = this.store.select(ClientState.item).pipe(
 		filter(is.not_undefined<RIClient>),
 	);
+	private readonly logger = inject(NGXLogger);
 
 	public get value(): RMIEvent {
 		return MEvent.create(this.form.getRawValue() as unknown as IEvent);
 	}
 
-	public ngOnChanges(changes: SimpleChanges & {forceStart: SimpleChange}): void {
+	public ngOnChanges(changes: SimpleChanges & { forceStart: SimpleChange }): void {
 		const {forceStart} = changes;
 		if (forceStart && forceStart.currentValue) {
 			this.form.controls.start.patchValue(forceStart.currentValue);
@@ -169,31 +163,6 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 
 		this.detectItem();
 
-	}
-
-	private getEventDurationInSeconds(service: IServiceDto): number {
-		try {
-			// Find the biggest duration version
-
-			const {durationVersions} = service;
-			this.logger.debug('getEventDurationInSeconds', durationVersions);
-			const durationVersion = durationVersions.reduce((acc, curr) => {
-				if (curr.durationInSeconds > acc.durationInSeconds) {
-					return curr;
-				}
-				return acc;
-			}, durationVersions[0]);
-
-			return (durationVersion.durationInSeconds ?? 0) + (durationVersion.breakInSeconds ?? 0);
-
-		} catch (e) {
-			return 0;
-		}
-	}
-
-	private setEventDuration(service: IServiceDto): this {
-		this.eventDurationInSeconds = this.getEventDurationInSeconds(service);
-		return this;
 	}
 
 	public detectItem(): void {
@@ -300,6 +269,31 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 	public override ngOnDestroy() {
 		this.form.destroyHandlers();
 		super.ngOnDestroy();
+	}
+
+	private getEventDurationInSeconds(service: IServiceDto): number {
+		try {
+			// Find the biggest duration version
+
+			const {durationVersions} = service;
+			this.logger.debug('getEventDurationInSeconds', durationVersions);
+			const durationVersion = durationVersions.reduce((acc, curr) => {
+				if (curr.durationInSeconds > acc.durationInSeconds) {
+					return curr;
+				}
+				return acc;
+			}, durationVersions[0]);
+
+			return (durationVersion.durationInSeconds ?? 0) + (durationVersion.breakInSeconds ?? 0);
+
+		} catch (e) {
+			return 0;
+		}
+	}
+
+	private setEventDuration(service: IServiceDto): this {
+		this.eventDurationInSeconds = this.getEventDurationInSeconds(service);
+		return this;
 	}
 
 }

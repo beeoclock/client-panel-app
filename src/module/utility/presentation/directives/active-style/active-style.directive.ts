@@ -1,4 +1,4 @@
-import {Directive, ElementRef, inject, OnChanges, OnInit, input} from '@angular/core';
+import {Directive, ElementRef, inject, input, OnChanges, OnInit} from '@angular/core';
 import {ActiveEnum} from "@utility/domain/enum";
 import {TranslateService} from "@ngx-translate/core";
 

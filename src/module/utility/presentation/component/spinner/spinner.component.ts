@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, ViewEncapsulation, input} from '@angular/core';
+import {Component, HostBinding, Input, input, ViewEncapsulation} from '@angular/core';
 
 type TextColorType =
   'text-secondary'

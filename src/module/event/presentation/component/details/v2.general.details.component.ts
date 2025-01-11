@@ -150,9 +150,9 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 export class V2GeneralDetailsComponent implements OnChanges {
 
 	public readonly event = input.required<IEvent_V2<{
-    order: IOrderDto;
-    service: IOrderServiceDto;
-}>>();
+		order: IOrderDto;
+		service: IOrderServiceDto;
+	}>>();
 
 	public readonly isPreview = input(false);
 

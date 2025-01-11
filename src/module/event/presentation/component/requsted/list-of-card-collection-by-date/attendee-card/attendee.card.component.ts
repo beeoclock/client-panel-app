@@ -19,7 +19,7 @@ export class AttendeeCardComponent {
 	public get fullName(): string | null {
 
 		const attendee = this.attendee();
-  if (!attendee?.customer) {
+		if (!attendee?.customer) {
 			return null;
 		}
 
@@ -47,7 +47,7 @@ export class AttendeeCardComponent {
 	public get contact(): string | null {
 
 		const attendee = this.attendee();
-  if (!attendee?.customer) {
+		if (!attendee?.customer) {
 			return null;
 		}
 

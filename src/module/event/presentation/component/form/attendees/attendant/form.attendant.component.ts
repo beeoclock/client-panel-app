@@ -15,8 +15,8 @@ import {
 import {TelFormInputComponent} from "@utility/presentation/component/tel-form-input/tel.form.input.component";
 
 @Component({
-    selector: 'app-event-form-attendant-component',
-    standalone: true,
+	selector: 'app-event-form-attendant-component',
+	standalone: true,
 	imports: [
 		ReactiveFormsModule,
 		NgIf,
@@ -29,7 +29,7 @@ import {TelFormInputComponent} from "@utility/presentation/component/tel-form-in
 		NamesFormAttendantComponent,
 		TelFormInputComponent
 	],
-    template: `
+	template: `
 
 		<div class="grid gap-3">
 
@@ -63,7 +63,7 @@ import {TelFormInputComponent} from "@utility/presentation/component/tel-form-in
 })
 export class FormAttendantComponent {
 
-    public readonly form = input.required<CustomerForm>();
+	public readonly form = input.required<CustomerForm>();
 
 
 }

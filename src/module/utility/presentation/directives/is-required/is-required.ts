@@ -1,4 +1,4 @@
-import {AfterViewInit, Directive, ElementRef, Optional, input} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, input, Optional} from '@angular/core';
 import {AbstractControl, FormArray, FormControl, NgControl} from '@angular/forms';
 
 @Directive({

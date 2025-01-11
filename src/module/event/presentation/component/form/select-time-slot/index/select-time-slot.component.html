@@ -10,30 +10,30 @@
 		<datetime-local-input-component
 			[control]="control()"/>
 
-<!--		<utility-date-slider-select-component-->
-<!--			(updateDayItemList)="updateDayItemList($event)"-->
-<!--			[dayItemList]="slotsService.dayItemList"-->
-<!--			[firstSlot$]="slotsService.firstSlot$"-->
-<!--			[loader]="slotsService.loader"-->
-<!--			[control]="control"-->
-<!--			[localDateTimeControl]="localDateTimeControl"/>-->
+		<!--		<utility-date-slider-select-component-->
+		<!--			(updateDayItemList)="updateDayItemList($event)"-->
+		<!--			[dayItemList]="slotsService.dayItemList"-->
+		<!--			[firstSlot$]="slotsService.firstSlot$"-->
+		<!--			[loader]="slotsService.loader"-->
+		<!--			[control]="control"-->
+		<!--			[localDateTimeControl]="localDateTimeControl"/>-->
 
-<!--		<hr>-->
+		<!--		<hr>-->
 
-<!--		<event-select-time-slot-time-form-component-->
-<!--			[configurationForm]="configurationForm"-->
-<!--			[localDateTimeControl]="localDateTimeControl"-->
-<!--			[control]="control"/>-->
+		<!--		<event-select-time-slot-time-form-component-->
+		<!--			[configurationForm]="configurationForm"-->
+		<!--			[localDateTimeControl]="localDateTimeControl"-->
+		<!--			[control]="control"/>-->
 
 	</ng-container>
 
-	<div class="flex justify-between items-center" *ngIf="!editable">
+	<div *ngIf="!editable" class="flex justify-between items-center">
 
 		<div>
 			{{ control().value | dynamicDate }}
 		</div>
 
-		<button class="px-2 py-1 rounded-full hover:bg-blue-100 text-blue-600 transition-all" (click)="editable = true">
+		<button (click)="editable = true" class="px-2 py-1 rounded-full hover:bg-blue-100 text-blue-600 transition-all">
 			<i class="bi bi-pencil"></i>
 		</button>
 

@@ -1,11 +1,11 @@
 import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  HostBinding,
-  inject,
-  ViewEncapsulation,
-  input
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	HostBinding,
+	inject,
+	input,
+	ViewEncapsulation
 } from "@angular/core";
 
 import {IAttendee, IEvent_V2} from "@event/domain";
@@ -70,22 +70,15 @@ import {
 export class OrderEventCalendarWithSpecialistWidgetComponent {
 
 	public readonly event = input.required<IEvent_V2<{
-    order: IOrderDto;
-    service: IOrderServiceDto;
-}>>();
+		order: IOrderDto;
+		service: IOrderServiceDto;
+	}>>();
 
 	public readonly useServiceColor = input(true);
-
-	private readonly store = inject(Store);
-
 	// Used by external components
 	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
-
 	public readonly orderServiceStatusEnum = OrderServiceStatusEnum;
-
-	public async onClick() {
-		await this.openEventDetails(this.event());
-	}
+	private readonly store = inject(Store);
 
 	@HostBinding('style.background-color')
 	public get backgroundColor() {
@@ -147,6 +140,10 @@ export class OrderEventCalendarWithSpecialistWidgetComponent {
 		}
 
 		return classList.join(' ');
+	}
+
+	public async onClick() {
+		await this.openEventDetails(this.event());
 	}
 
 	public getAttendeesInformation() {

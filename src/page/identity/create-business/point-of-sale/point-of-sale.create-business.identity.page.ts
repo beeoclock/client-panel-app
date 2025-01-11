@@ -1,10 +1,10 @@
 import {
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    inject,
-    ViewEncapsulation
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	inject,
+	ViewEncapsulation
 } from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
@@ -15,7 +15,7 @@ import {ChangeLanguageComponent} from "@utility/presentation/component/change-la
 import {CreateBusinessQuery} from "@identity/query/create-business.query";
 import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
 import {
-    AddressBusinessProfileComponent
+	AddressBusinessProfileComponent
 } from "@client/presentation/component/business-profile/address/address.business-profile.component";
 import {TranslateModule} from "@ngx-translate/core";
 
@@ -38,12 +38,11 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class PointOfSaleCreateBusinessIdentityPage implements AfterViewInit {
 
+	public backPath = 'category';
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
 	public readonly addressForm = this.createBusinessQuery.getAddressForm();
 	public readonly businessIndustryControl = this.createBusinessQuery.getBusinessIndustryControl();
-
-	public backPath = 'category';
 
 	public ngAfterViewInit(): void {
 		const value = this.businessIndustryControl.value;

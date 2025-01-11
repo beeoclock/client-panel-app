@@ -42,9 +42,9 @@ import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 export class DeleteButtonComponent {
 
 	public readonly event = input.required<IEvent_V2<{
-    order: IOrderDto;
-    service: IOrderServiceDto;
-}>>();
+		order: IOrderDto;
+		service: IOrderServiceDto;
+	}>>();
 
 	public readonly deleteStatus = output<void>();
 

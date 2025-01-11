@@ -47,8 +47,8 @@ export class ServicesCreateBusinessIdentityPage {
 	private readonly createBusinessModalService = inject(CreateBusinessModalService);
 	private readonly translateService = inject(TranslateService);
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
-	private readonly ngxLogger = inject(NGXLogger);
 	public readonly servicesForm = this.createBusinessQuery.getServicesForm();
+	private readonly ngxLogger = inject(NGXLogger);
 
 	public get serviceList() {
 		return (this.servicesForm.value ?? []) as IServiceDto[];
@@ -60,7 +60,12 @@ export class ServicesCreateBusinessIdentityPage {
 			serviceFormToEdit = new ServiceForm();
 			serviceFormToEdit.patchValue(service);
 		}
-		const {availableLanguages, baseLanguage, currencies, baseCurrency} = this.createBusinessQuery.getBusinessSettings().value;
+		const {
+			availableLanguages,
+			baseLanguage,
+			currencies,
+			baseCurrency
+		} = this.createBusinessQuery.getBusinessSettings().value;
 		this.createBusinessModalService.openServiceFormModal({
 			availableLanguages: availableLanguages ?? [],
 			baseLanguage: baseLanguage ?? this.translateService.currentLang as LanguageCodeEnum,

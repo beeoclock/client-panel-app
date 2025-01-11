@@ -81,10 +81,8 @@ export class ServicesComponent extends Reactive implements OnInit {
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly modalSelectServiceListAdapter = inject(ModalSelectServiceListAdapter);
-	private readonly itemMemberApiAdapter = inject(ItemMemberApiAdapter);
-
 	public readonly loading$ = this.modalSelectServiceListAdapter.loading$;
-
+	private readonly itemMemberApiAdapter = inject(ItemMemberApiAdapter);
 	private readonly memberHasBeenSet = new BooleanState(false);
 
 	private lastSelectedMember: RIMember | undefined;
@@ -114,18 +112,6 @@ export class ServicesComponent extends Reactive implements OnInit {
 		// 		this.lastSelectedMember = value?.[0]?.specialists?.[0]?.member;
 		// 	});
 		// }
-
-	}
-
-
-	private async initServices() {
-
-		if (!this.serviceListControl.value.length) {
-
-			this.modalSelectServiceListAdapter.resetTableState();
-			await this.modalSelectServiceListAdapter.getPageAsync();
-
-		}
 
 	}
 
@@ -199,6 +185,17 @@ export class ServicesComponent extends Reactive implements OnInit {
 		return this.durationVersionTypeRangeComponentList().every((component) => component.checkIfSelectedVariantIsValid());
 	}
 
+	private async initServices() {
+
+		if (!this.serviceListControl.value.length) {
+
+			this.modalSelectServiceListAdapter.resetTableState();
+			await this.modalSelectServiceListAdapter.getPageAsync();
+
+		}
+
+	}
+
 	/**
 	 * Updates the list of services by setting a member to each service's specialists array if not already set.
 	 * This method is designed to ensure that each service in the provided list has an associated member.
@@ -211,7 +208,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 	private setMember(newSelectedServiceList: IServiceDto[]): IServiceDto[] {
 		// Check if a member is available to be set
 		const memberValue = this.member();
-  if (memberValue) {
+		if (memberValue) {
 			// If setMemberOnlyOnce is true, check if a member has already been set
 			if (this.setMemberOnlyOnce()) {
 				// If a member has been set, return the list without making changes

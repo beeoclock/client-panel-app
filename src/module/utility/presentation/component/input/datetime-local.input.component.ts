@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, input} from '@angular/core';
+import {Component, inject, input, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {InputIconComponent} from "@utility/presentation/component/input/input-icon.component";
 import {InputBadgeComponent} from "@utility/presentation/component/input/input-badge.component";

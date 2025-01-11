@@ -1,4 +1,4 @@
-import {Directive, ElementRef, forwardRef, HostBinding, Inject, OnInit, input} from "@angular/core";
+import {Directive, ElementRef, forwardRef, HostBinding, Inject, input, OnInit} from "@angular/core";
 import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex/row.table.flex.directive";
 import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
 

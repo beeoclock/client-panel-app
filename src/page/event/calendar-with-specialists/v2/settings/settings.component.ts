@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation, input} from "@angular/core";
+import {ChangeDetectionStrategy, Component, input, OnInit, ViewEncapsulation} from "@angular/core";
 import {DefaultButtonDirective} from "@utility/presentation/directives/button/default.button.directive";
 import {IonPopover} from "@ionic/angular/standalone";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
@@ -21,8 +21,8 @@ import {Reactive} from "@utility/cdk/reactive";
 export class SettingsComponent extends Reactive implements OnInit {
 
 	public readonly control = input(new FormControl<number>(1, {
-    nonNullable: true
-}));
+		nonNullable: true
+	}));
 
 	private readonly key = 'calendar-with-specialist-settings-movement-in-minutes';
 

@@ -43,10 +43,8 @@ export class SignInIdentityPage implements OnInit {
 	public readonly password = input<string | null>(null);
 
 	public readonly footerLabel = environment.footer.label;
-
-	readonly #analyticsService = inject(AnalyticsService);
-
 	readonly signInComponent = viewChild.required(SignInComponent);
+	readonly #analyticsService = inject(AnalyticsService);
 
 	public initialLoginValues(): {
 		email: string;

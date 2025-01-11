@@ -76,17 +76,18 @@ import {IonPopover} from "@ionic/angular/standalone";
 export class FilterCalendarWithSpecialistComponent implements AfterViewInit {
 
 	public readonly orderServiceStatusesControl = input.required<FormControl<OrderServiceStatusEnum[]>>();
-
-	private readonly translateService = inject(TranslateService);
-	private readonly store = inject(Store);
-	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
-
 	public orderServiceStatusOptions: {
 		value: any;
 		label: string;
 	}[] = [];
-
+	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
+	private readonly translateService = inject(TranslateService);
+	private readonly store = inject(Store);
 	public readonly loader$ = this.store.select(CalendarWithSpecialistsQueries.loader);
+
+	public ngAfterViewInit() {
+		this.initEventStatusList();
+	}
 
 	private initEventStatusList() {
 		Object.keys(OrderStatusEnum).forEach((status) => {
@@ -95,10 +96,6 @@ export class FilterCalendarWithSpecialistComponent implements AfterViewInit {
 				label: this.translateService.instant(`order.enum.status.singular.${status}`)
 			});
 		});
-	}
-
-	public ngAfterViewInit() {
-		this.initEventStatusList();
 	}
 
 }

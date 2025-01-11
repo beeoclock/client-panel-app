@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation, input} from "@angular/core";
+import {Component, input, ViewEncapsulation} from "@angular/core";
 import {IsRequiredDirective} from "@utility/presentation/directives/is-required/is-required";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";

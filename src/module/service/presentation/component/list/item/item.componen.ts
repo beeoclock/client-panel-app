@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, ViewEncapsulation, input} from "@angular/core";
+import {Component, HostBinding, inject, input, ViewEncapsulation} from "@angular/core";
 
 import {CurrencyPipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";

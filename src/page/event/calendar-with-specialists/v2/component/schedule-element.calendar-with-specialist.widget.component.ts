@@ -1,14 +1,14 @@
 import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  inject,
-  QueryList,
-  ViewChildren,
-  ViewEncapsulation,
-  input
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	inject,
+	input,
+	QueryList,
+	ViewChildren,
+	ViewEncapsulation
 } from "@angular/core";
 import {RIMember} from "@member/domain";
 import {ClientState} from "@client/state/client/client.state";

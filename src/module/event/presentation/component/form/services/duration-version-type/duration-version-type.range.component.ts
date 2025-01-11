@@ -70,15 +70,17 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 			}));
 		}),
 	);
-
-	private selectedVariantIndex = -1;
-	private handler: Subscription | undefined;
-
 	public readonly baseCurrency$ = this.store.select(ClientState.item).pipe(
 		map((item) => {
 			return item?.businessSettings?.baseCurrency;
 		})
 	);
+	private selectedVariantIndex = -1;
+	private handler: Subscription | undefined;
+
+	public get selectedVariant() {
+		return this.variantList[this.selectedVariantIndex];
+	}
 
 	public ngOnInit() {
 		this.logger.debug('ngOnInit');
@@ -87,10 +89,6 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 
 	public isSelected(index: number): boolean {
 		return this.selectedVariantIndex === index;
-	}
-
-	public get selectedVariant() {
-		return this.variantList[this.selectedVariantIndex];
 	}
 
 	public async buildVariants() {
@@ -170,7 +168,7 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 
 		// Check if duration version is already exists
 		const service = this.service();
-  if (service.durationVersions.length) {
+		if (service.durationVersions.length) {
 			const [firstDurationVersion] = service.durationVersions;
 			const durationIsSame = firstDurationVersion.durationInSeconds === duration.control.value;
 			const priceIsSame = firstDurationVersion.prices[0].price === price.control.value;

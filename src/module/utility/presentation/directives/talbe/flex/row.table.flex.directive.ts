@@ -1,4 +1,4 @@
-import {AfterViewInit, Directive, ElementRef, HostBinding, inject, Renderer2, input} from "@angular/core";
+import {AfterViewInit, Directive, ElementRef, HostBinding, inject, input, Renderer2} from "@angular/core";
 
 /**
  * Directive to apply specific styles to table rows based on their type (header, body, footer).

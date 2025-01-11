@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation, input} from '@angular/core';
+import {Component, input, ViewEncapsulation} from '@angular/core';
 import {LanguageVersionForm} from '@service/presentation/form/service.form';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select';

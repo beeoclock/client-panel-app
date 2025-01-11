@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ViewEncapsulation, input} from "@angular/core";
+import {ChangeDetectionStrategy, Component, input, ViewEncapsulation} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 
 @Component({

@@ -7,11 +7,11 @@ import {BackLinkComponent} from "@utility/presentation/component/link/back.link.
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {CreateBusinessQuery} from "@identity/query/create-business.query";
 import {
-    AddressBusinessProfileComponent
+	AddressBusinessProfileComponent
 } from "@client/presentation/component/business-profile/address/address.business-profile.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {
-    ContainerBusinessSettingsComponent
+	ContainerBusinessSettingsComponent
 } from "@client/presentation/component/business-settings/container.business-settings.component";
 
 @Component({
@@ -19,25 +19,24 @@ import {
 	templateUrl: './languages.create-business.identity.page.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
-    imports: [
-        RouterLink,
-        PrimaryLinkButtonDirective,
-        FormInputComponent,
-        PrimaryButtonDirective,
-        BackLinkComponent,
-        ChangeLanguageComponent,
-        AddressBusinessProfileComponent,
-        TranslateModule,
-        ContainerBusinessSettingsComponent
-    ],
+	imports: [
+		RouterLink,
+		PrimaryLinkButtonDirective,
+		FormInputComponent,
+		PrimaryButtonDirective,
+		BackLinkComponent,
+		ChangeLanguageComponent,
+		AddressBusinessProfileComponent,
+		TranslateModule,
+		ContainerBusinessSettingsComponent
+	],
 	encapsulation: ViewEncapsulation.None
 })
 export class LanguagesCreateBusinessIdentityPage {
 
+	public backPath = 'schedules';
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
 	public readonly businessSettingsForm = this.createBusinessQuery.getBusinessSettings();
-
-	public backPath = 'schedules';
 
 }
 

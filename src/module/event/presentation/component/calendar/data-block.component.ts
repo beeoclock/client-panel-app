@@ -29,15 +29,15 @@ import {NgIf} from "@angular/common";
 export class DataBlockComponent implements OnChanges {
 
 	public readonly data = input.required<{
-    row: number;
-    column: number;
-    rowSpan?: number;
-    content?: {
-        headerHTML?: string;
-        bodyHTML?: string;
-        footerHTML?: string;
-    };
-}>();
+		row: number;
+		column: number;
+		rowSpan?: number;
+		content?: {
+			headerHTML?: string;
+			bodyHTML?: string;
+			footerHTML?: string;
+		};
+	}>();
 
 	@HostBinding()
 	public class = 'bg-blue-400/20 dark:bg-sky-600/50 border border-blue-700/10 dark:border-sky-500 rounded-lg m-1 p-1 flex flex-col cursor-pointer';

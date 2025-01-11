@@ -36,26 +36,22 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 })
 export class ConfirmEmailIdentityPage extends Reactive implements OnInit {
 
+	public readonly emailSending = new BooleanState(false);
+	public readonly emailIsSent = new BooleanState(false);
+	public emailUrl = new URL('https://beeoclock.com');
+	@Select(IdentityState.accountEmail)
+	accountEmail$!: Observable<unknown>;
 	private readonly firebaseMode = 'verifyEmail' as const;
 	private readonly auth = inject(Auth);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly logger = inject(NGXLogger);
 	private readonly store = inject(Store);
-	private readonly router = inject(Router);
-	private readonly sendConfirmEmailListApiAdapter = inject(SendConfirmEmailListApiAdapter);
-
-	readonly #analyticsService = inject(AnalyticsService);
-
-	public readonly emailSending = new BooleanState(false);
-	public readonly emailIsSent = new BooleanState(false);
-	public emailUrl = new URL('https://beeoclock.com');
-
 	public readonly isAuthorized$ = this.store.select((state) => {
 		return state.identity.token !== undefined;
 	});
-
-	@Select(IdentityState.accountEmail)
-	accountEmail$!: Observable<unknown>;
+	private readonly router = inject(Router);
+	private readonly sendConfirmEmailListApiAdapter = inject(SendConfirmEmailListApiAdapter);
+	readonly #analyticsService = inject(AnalyticsService);
 
 	constructor() {
 		super();

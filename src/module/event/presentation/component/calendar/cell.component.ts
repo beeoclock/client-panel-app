@@ -50,7 +50,7 @@ export class CellComponent implements OnChanges {
 
 	public ngOnChanges(changes: SimpleChanges & { baseId: { currentValue: CellComponent['baseId'] } }) {
 		if (changes.baseId) {
-			this.id =  `${this.baseId()}-${this.idSuffix()}`;
+			this.id = `${this.baseId()}-${this.idSuffix()}`;
 		}
 	}
 

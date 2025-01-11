@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation, input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {NgForOf, NgTemplateOutlet} from "@angular/common";
 import {FormControl} from "@angular/forms";
 

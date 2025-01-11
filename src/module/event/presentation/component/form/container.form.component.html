@@ -6,15 +6,16 @@
 			<app-customer-type-customer-component
 				[form]="form.controls.attendees.controls[0].controls.customer">
 				<div class="mb-2" slot="label">
-					<strong class="text-2xl dark:text-white">{{ 'keyword.singular.capitalize.client' | translate }}</strong>
+					<strong
+						class="text-2xl dark:text-white">{{ 'keyword.singular.capitalize.client' | translate }}</strong>
 				</div>
 			</app-customer-type-customer-component>
 		</bee-card>
 
 		<bee-card>
 			<event-service-component
-				[member]="member()"
 				[languageControl]="form.controls.language"
+				[member]="member()"
 				[serviceListControl]="form.controls.services"/>
 		</bee-card>
 
@@ -23,37 +24,37 @@
 
 			<!--			[editable]="!isEditMode"-->
 			<event-select-time-slot-form-component
-				[editable]="true"
 				[configurationForm]="form.controls.configuration"
-				[control]="form.controls.start"/>
+				[control]="form.controls.start"
+				[editable]="true"/>
 
 		</bee-card>
 
 		<bee-card>
 			<form-textarea-component
-				id="event-form-public-note-input"
+				[control]="form.controls.note"
 				[label]="'keyword.capitalize.note' | translate"
 				[placeholder]="'event.form.section.additional.input.note.placeholder' | translate"
-				[control]="form.controls.note"/>
+				id="event-form-public-note-input"/>
 		</bee-card>
 
 		<utility-button-save-container-component class="bottom-0">
-<!--			<button-->
-<!--				type="button"-->
-<!--				primary-->
-<!--				[scrollToFirstError]="true"-->
-<!--				[isLoading]="form.pending"-->
-<!--				[disabled]="form.disabled"-->
-<!--				(click)="goToPreview()">-->
-<!--				{{ 'keyword.capitalize.preview' | translate }}-->
-<!--			</button>-->
+			<!--			<button-->
+			<!--				type="button"-->
+			<!--				primary-->
+			<!--				[scrollToFirstError]="true"-->
+			<!--				[isLoading]="form.pending"-->
+			<!--				[disabled]="form.disabled"-->
+			<!--				(click)="goToPreview()">-->
+			<!--				{{ 'keyword.capitalize.preview' | translate }}-->
+			<!--			</button>-->
 			<button
-				type="button"
-				primary
-				[isLoading]="form.pending"
+				(click)="save()"
 				[disabled]="form.disabled"
+				[isLoading]="form.pending"
 				[scrollToFirstError]="true"
-				(click)="save()">
+				primary
+				type="button">
 				{{ 'keyword.capitalize.add' | translate }}
 			</button>
 		</utility-button-save-container-component>

@@ -87,12 +87,10 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 	};
 
 	readonly ionDateTime = viewChild.required(IonDatetime);
-
+	public readonly isTodayOrTomorrow$ = this.isTodayOrTomorrowStreams$.pipe(
+		map(([isToday, isTomorrow]) => isToday || isTomorrow)
+	);
 	private readonly store = inject(Store);
-	private readonly translateService = inject(TranslateService);
-	private readonly document = inject(DOCUMENT);
-	private readonly modalController = inject(ModalController);
-
 	public readonly loader$ = this.store.select(CalendarWithSpecialistsQueries.loader);
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start).pipe(
 		this.takeUntil(),
@@ -106,16 +104,11 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 			this.dateControl.setValue(selectedDatetime.toISODate() ?? '', {emitEvent: false});
 		})
 	);
-
 	public readonly isTodayOrTomorrowStreams$ = combineLatest([
 		this.store.select(CalendarWithSpecialistsQueries.isToday),
 		this.store.select(CalendarWithSpecialistsQueries.isTomorrow)
 	]);
-
-	public readonly isTodayOrTomorrow$ = this.isTodayOrTomorrowStreams$.pipe(
-		map(([isToday, isTomorrow]) => isToday || isTomorrow)
-	);
-
+	private readonly translateService = inject(TranslateService);
 	public readonly hint$ = combineLatest([
 		this.isTodayOrTomorrowStreams$,
 		this.selectedDate$
@@ -132,8 +125,9 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 			}
 		})
 	);
-
 	public readonly locale = this.translateService.currentLang;
+	private readonly document = inject(DOCUMENT);
+	private readonly modalController = inject(ModalController);
 
 	public ngOnInit() {
 		this.dateControl.valueChanges.pipe(
@@ -173,7 +167,7 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 		if (!shadowRoot) {
 			return;
 		}
-		const {firstElementChild} = shadowRoot as unknown as {firstElementChild: HTMLButtonElement};
+		const {firstElementChild} = shadowRoot as unknown as { firstElementChild: HTMLButtonElement };
 		if (!firstElementChild) {
 			return;
 		}

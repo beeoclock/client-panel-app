@@ -1,4 +1,4 @@
-import {Component, OnInit, input} from '@angular/core';
+import {Component, input, OnInit} from '@angular/core';
 import {NgForOf} from "@angular/common";
 import {PriceBlockComponent} from "@service/presentation/component/form/v2/prices/price-block.component";
 import {DurationConfigurationForm, DurationVersionsForm} from "@service/presentation/form/service.form";

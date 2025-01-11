@@ -1,24 +1,24 @@
 <div class="flex flex-col gap-4">
 	<bee-card
+		(click)="selectVariant(index)"
 		*ngFor="let variant of variantList; let index = index;"
 		[flexCol]="false"
-		padding="p-0"
 		class="shadow-none"
-		(click)="selectVariant(index)">
+		padding="p-0">
 
 
 		<div class="flex-1 flex flex-col gap-4">
 			<bee-duration-select-component
-				class="flex-1"
+				[control]="variant.duration.control"
 				[label]="'keyword.capitalize.duration' | translate"
-				[control]="variant.duration.control"/>
+				class="flex-1"/>
 
 			<price-and-currency-component
-				class="flex-1"
+				[currencyControl]="variant.currency.control"
 				[currencyList]="(currencyList$ | async) ?? []"
 				[label]="'keyword.capitalize.price' | translate"
 				[priceControl]="variant.price.control"
-				[currencyControl]="variant.currency.control"/>
+				class="flex-1"/>
 		</div>
 
 		<div *ngIf="variantList.length > 1" [ngSwitch]="isSelected(index)">

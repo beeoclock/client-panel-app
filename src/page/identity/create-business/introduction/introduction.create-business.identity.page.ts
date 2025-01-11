@@ -29,11 +29,15 @@ import {IdentityActions} from "@identity/state/identity/identity.actions";
 })
 export class IntroductionCreateBusinessIdentityPage {
 
+	public readonly firstCompany$ = this.members$.pipe(
+		map((members) => members.length === 0),
+	);
+	public readonly notFirstCompany$ = this.firstCompany$.pipe(
+		map((firstCompany) => !firstCompany),
+	);
 	private readonly store = inject(Store);
-
 	@Select(IdentityState.clients)
 	private readonly clients$!: Observable<IMember[]>;
-
 	public readonly members$ = this.clients$.pipe(
 		tap((members) => {
 			if (!members) {
@@ -41,14 +45,6 @@ export class IntroductionCreateBusinessIdentityPage {
 			}
 		}),
 		filter(Array.isArray),
-	);
-
-	public readonly firstCompany$ = this.members$.pipe(
-		map((members) => members.length === 0),
-	);
-
-	public readonly notFirstCompany$ = this.firstCompany$.pipe(
-		map((firstCompany) => !firstCompany),
 	);
 
 

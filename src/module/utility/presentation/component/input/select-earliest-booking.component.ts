@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation, input} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";

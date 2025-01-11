@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation, input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from '@angular/common';
 import {firstValueFrom} from 'rxjs';

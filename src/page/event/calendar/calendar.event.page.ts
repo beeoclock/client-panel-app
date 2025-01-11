@@ -45,35 +45,29 @@ import {ContainerCalendarComponent} from "@event/presentation/component/calendar
 })
 export default class CalendarEventPage extends Reactive implements OnInit, AfterViewInit, OnDestroy {
 
+	public currentDate: Date = DateTime.local().startOf(DEFAULT_PRESENTATION_CALENDAR_TYPE).toJSDate();
+	readonly containerOfCalendarsRef = viewChild.required(ContainerCalendarComponent);
+	public readonly initialized = new BooleanStreamState(false);
+	public readonly isPushingNextCalendar = new BooleanStreamState(false);
+	public readonly isPushingPrevCalendar = new BooleanStreamState(false);
+	public readonly preferencesOfCalendars: {
+		from: Date;
+		to: Date;
+	}[] = [];
 	private readonly calendarDomManipulationService = inject(DataCalendarDomManipulationService);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
 	private readonly translateService = inject(TranslateService);
 	private readonly document = inject(DOCUMENT);
-
 	// Hours
 	private readonly selectedHour = '06:00';
-
 	private readonly presentationType$ = this.store.select(CalendarQueries.presentationType);
 	private readonly dateRanges$ = this.store.select(CalendarQueries.dateRanges);
 	private readonly firstDate$ = this.store.select(CalendarQueries.firstDate);
 	private readonly lastDate$ = this.store.select(CalendarQueries.lastDate);
 	private readonly dataByType$ = this.store.select(CalendarQueries.dataByType);
-
 	// Dates
 	private readonly currentDate$ = this.store.select(CalendarQueries.currentDate);
-	public currentDate: Date = DateTime.local().startOf(DEFAULT_PRESENTATION_CALENDAR_TYPE).toJSDate();
-
-	readonly containerOfCalendarsRef = viewChild.required(ContainerCalendarComponent);
-
-	public readonly initialized = new BooleanStreamState(false);
-	public readonly isPushingNextCalendar = new BooleanStreamState(false);
-	public readonly isPushingPrevCalendar = new BooleanStreamState(false);
-
-	public readonly preferencesOfCalendars: {
-		from: Date;
-		to: Date;
-	}[] = [];
 
 	constructor() {
 		super();

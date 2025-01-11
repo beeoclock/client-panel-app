@@ -5,20 +5,20 @@
 		<client-business-profile-booking-settings-component
 			[form]="form.controls.bookingSettings"/>
 
-<!--		<client-auto-book-event [control]="form.controls.bookingSettings.controls.autoBookOrder"/>-->
+		<!--		<client-auto-book-event [control]="form.controls.bookingSettings.controls.autoBookOrder"/>-->
 
 		<client-container-business-settings-component
 			[businessSettings]="form.controls.businessSettings"/>
-		<app-notification-settings [form]="form.controls.notificationSettings" />
+		<app-notification-settings [form]="form.controls.notificationSettings"/>
 
 		<utility-button-save-container-component class="bottom-16 md:bottom-0">
 			<button
-				primary
-				type="button"
 				(click)="save()"
-				[scrollToFirstError]="true"
+				[disabled]="form.disabled"
 				[isLoading]="form.pending"
-				[disabled]="form.disabled">
+				[scrollToFirstError]="true"
+				primary
+				type="button">
 				{{ 'keyword.capitalize.save' | translate }}
 			</button>
 		</utility-button-save-container-component>

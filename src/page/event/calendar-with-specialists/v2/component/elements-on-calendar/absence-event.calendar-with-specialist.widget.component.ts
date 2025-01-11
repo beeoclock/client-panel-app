@@ -56,10 +56,6 @@ export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnChan
 
 	private readonly store = inject(Store);
 
-	public async onClick() {
-		await this.openAbsenceDetails(this.event);
-	}
-
 	@HostBinding('class')
 	public get class() {
 
@@ -72,6 +68,10 @@ export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnChan
 		classList.push('bg-gray-600', 'hover:bg-gray-700'); // 'border-gray-600',
 
 		return classList.join(' ');
+	}
+
+	public async onClick() {
+		await this.openAbsenceDetails(this.event);
 	}
 
 	public ngOnChanges() {

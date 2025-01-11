@@ -38,14 +38,13 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 })
 export class ConfirmInvitationIdentityPage extends Reactive implements OnInit {
 
+	public readonly form = new ConfirmInvitationForm();
 	private readonly confirmInvitationApiAdapter = inject(ConfirmInvitationApiAdapter);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly router = inject(Router);
 	private readonly translateService = inject(TranslateService);
 	private readonly toastController = inject(ToastController);
-	public readonly form = new ConfirmInvitationForm();
-
 	readonly #analyticsService = inject(AnalyticsService);
 
 	public ngOnInit() {

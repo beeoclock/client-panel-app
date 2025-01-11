@@ -34,13 +34,12 @@ import {Reactive} from "@utility/cdk/reactive";
 })
 export class ServiceProvideTypeCreateBusinessIdentityPage extends Reactive implements OnInit {
 
+	public readonly listWithIcon = ServiceProvideType.listWithIcon;
+	public nextStepPath = 'point-of-sale';
 	private readonly router = inject(Router);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
 	public readonly serviceProvideTypeControl = this.createBusinessQuery.getServiceProvideTypeControl();
-	public readonly listWithIcon = ServiceProvideType.listWithIcon;
-
-	public nextStepPath = 'point-of-sale';
 
 	constructor() {
 		super();

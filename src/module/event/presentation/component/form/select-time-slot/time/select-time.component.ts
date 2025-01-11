@@ -95,7 +95,7 @@ export class SelectTimeComponent extends Reactive implements OnInit {
 
 		// Prepare datetime list
 		const control = this.control();
-  if (control.value) {
+		if (control.value) {
 			this.selectedDateTime = DateTime.fromISO(control.value);
 			this.localDateTimeControl().patchValue(this.selectedDateTime);
 		}

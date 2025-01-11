@@ -34,15 +34,23 @@ import {Reactive} from "@utility/cdk/reactive";
 })
 export class IndustryCreateBusinessIdentityPage extends Reactive implements OnInit {
 
-	private readonly createBusinessQuery = inject(CreateBusinessQuery);
-	private readonly router = inject(Router);
-	private readonly activatedRoute = inject(ActivatedRoute);
-	public readonly businessIndustryControl = this.createBusinessQuery.getBusinessIndustryControl();
 	public readonly industryListWithIcon = BusinessIndustry.listWithIcon;
 	public nextStepPath = 'category';
+	private readonly createBusinessQuery = inject(CreateBusinessQuery);
+	public readonly businessIndustryControl = this.createBusinessQuery.getBusinessIndustryControl();
+	private readonly router = inject(Router);
+	private readonly activatedRoute = inject(ActivatedRoute);
 
 	constructor() {
 		super();
+	}
+
+	public get valid(): boolean {
+		return this.businessIndustryControl.valid;
+	}
+
+	public get invalid(): boolean {
+		return !this.valid;
 	}
 
 	public ngOnInit(): void {
@@ -54,14 +62,6 @@ export class IndustryCreateBusinessIdentityPage extends Reactive implements OnIn
 				relativeTo: this.activatedRoute
 			}).then();
 		});
-	}
-
-	public get valid(): boolean {
-		return this.businessIndustryControl.valid;
-	}
-
-	public get invalid(): boolean {
-		return !this.valid;
 	}
 
 	private updateNextStepPath(value: BusinessIndustryEnum) {

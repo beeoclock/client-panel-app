@@ -33,12 +33,12 @@ import {Reactive} from "@utility/cdk/reactive";
 })
 export class CategoryCreateBusinessIdentityPage extends Reactive implements OnInit {
 
+	public readonly listWithIcon = BusinessCategory.listsByIndustry[this.businessIndustryControl.value];
 	private readonly router = inject(Router);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
 	public readonly businessIndustryControl = this.createBusinessQuery.getBusinessIndustryControl();
 	public readonly businessCategoryControl = this.createBusinessQuery.getBusinessCategoryControl();
-	public readonly listWithIcon = BusinessCategory.listsByIndustry[this.businessIndustryControl.value];
 
 	public get valid(): boolean {
 		return this.businessCategoryControl.valid;

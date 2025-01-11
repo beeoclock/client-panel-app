@@ -1,4 +1,4 @@
-import {AfterViewInit, Directive, DoCheck, ElementRef, HostBinding, inject, OnInit, input} from "@angular/core";
+import {AfterViewInit, Directive, DoCheck, ElementRef, HostBinding, inject, input, OnInit} from "@angular/core";
 import {TranslateService} from "@ngx-translate/core";
 import {SpinnerSvg} from "@utility/domain/spinner.svg";
 import {BaseButtonDirective} from "@utility/presentation/directives/button/base.button.directive";

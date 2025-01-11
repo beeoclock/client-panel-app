@@ -1,4 +1,4 @@
-import {Directive, ElementRef, inject, OnChanges, OnInit, SimpleChange, SimpleChanges, input} from "@angular/core";
+import {Directive, ElementRef, inject, input, OnChanges, OnInit, SimpleChange, SimpleChanges} from "@angular/core";
 
 @Directive({
 	selector: 'input[default]',

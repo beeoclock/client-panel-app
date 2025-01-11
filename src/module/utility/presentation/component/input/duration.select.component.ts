@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewEncapsulation, input} from "@angular/core";
+import {Component, inject, input, OnInit, ViewEncapsulation} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";

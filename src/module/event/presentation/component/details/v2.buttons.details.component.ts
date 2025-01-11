@@ -125,9 +125,9 @@ import {
 export class V2ButtonsDetailsComponent implements OnChanges {
 
 	public readonly event = input.required<IEvent_V2<{
-    order: IOrderDto;
-    service: IOrderServiceDto;
-}>>();
+		order: IOrderDto;
+		service: IOrderServiceDto;
+	}>>();
 
 	@HostBinding()
 	public class = 'flex justify-between flex-col gap-4 bg-white p-4 border-y';
@@ -159,12 +159,12 @@ export class V2ButtonsDetailsComponent implements OnChanges {
 
 	public ngOnChanges(changes: SimpleChanges & { event: SimpleChange }) {
 
-		const { event } = changes;
+		const {event} = changes;
 
 		if (event) {
-			const { currentValue } = event;
-			const { originalData } = currentValue as IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>;
-			const { status } = originalData.service;
+			const {currentValue} = event;
+			const {originalData} = currentValue as IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; }>;
+			const {status} = originalData.service;
 			this.isNegative = [OrderServiceStatusEnum.cancelled, OrderServiceStatusEnum.rejected].includes(status);
 			this.isDone = [OrderServiceStatusEnum.done].includes(status);
 			this.isAccepted = [OrderServiceStatusEnum.accepted].includes(status);
