@@ -10,7 +10,7 @@ import {
 	OnInit,
 	Output,
 	QueryList,
-	ViewChild,
+	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
@@ -56,8 +56,7 @@ export class SelectMemberPushBoxComponent extends Reactive implements OnInit, Af
 	@Output()
 	public readonly selectedMembersListener = new EventEmitter<void>();
 
-	@ViewChild(MemberExternalListComponent)
-	public memberExternalListComponent!: MemberExternalListComponent;
+	readonly memberExternalListComponent = viewChild.required(MemberExternalListComponent);
 
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly logger = inject(NGXLogger);
@@ -75,9 +74,9 @@ export class SelectMemberPushBoxComponent extends Reactive implements OnInit, Af
 	}
 
 	private async initializeCustomConfiguration() {
-		const mobileLayoutListComponents = await firstValueFrom<QueryList<MobileLayoutListComponent>>(this.memberExternalListComponent.mobileLayoutListComponents.changes);
+		const mobileLayoutListComponents = await firstValueFrom<QueryList<MobileLayoutListComponent>>(this.memberExternalListComponent().mobileLayoutListComponents.changes);
 		const {first: mobileLayoutListComponent} = mobileLayoutListComponents;
-		const {first: cardListComponent} = mobileLayoutListComponent.cardListComponents;
+		const {first: cardListComponent} = mobileLayoutListComponent.cardListComponents();
 		cardListComponent.selectedIds = this.newSelectedMemberList.map(({_id}) => _id);
 		// cardListComponent.showAction.doFalse();
 		// cardListComponent.showSelectedStatus.doTrue();

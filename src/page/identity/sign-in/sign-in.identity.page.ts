@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit, ViewChild, ViewEncapsulation, input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, input, OnInit, viewChild, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SignInComponent} from '@identity/presentation/component/sign-in.component/sign-in.component';
@@ -46,8 +46,7 @@ export class SignInIdentityPage implements OnInit {
 
 	readonly #analyticsService = inject(AnalyticsService);
 
-	@ViewChild(SignInComponent, {static: true})
-	public signInComponent!: SignInComponent;
+	readonly signInComponent = viewChild.required(SignInComponent);
 
 	public initialLoginValues(): {
 		email: string;
@@ -65,7 +64,7 @@ export class SignInIdentityPage implements OnInit {
 
 	protected loginIntoDemoProfile() {
 
-		this.signInComponent.doSignIn('demo@beeoclock.com', 'ItIckBeRSOLDENZYGosicirE');
+		this.signInComponent().doSignIn('demo@beeoclock.com', 'ItIckBeRSOLDENZYGosicirE');
 
 	}
 }

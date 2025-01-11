@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, inject, OnChanges, ViewChild, input} from "@angular/core";
+import {AfterViewInit, Component, ElementRef, inject, input, OnChanges, viewChild} from "@angular/core";
 import {extractFile} from "@utility/domain/extract-file";
 import {file2base64} from "@utility/domain/file2base64";
 import {NGXLogger} from "ngx-logger";
@@ -17,11 +17,9 @@ export enum MediaStateEnum {
 })
 export class BaseImageComponent implements OnChanges, AfterViewInit {
 
-	@ViewChild('fileInput')
-	public readonly fileInput!: ElementRef<HTMLInputElement>;
+	readonly fileInput = viewChild.required<ElementRef<HTMLInputElement>>('fileInput');
 
-	@ViewChild('previewImage')
-	public readonly previewImage!: ElementRef<HTMLImageElement>;
+	readonly previewImage = viewChild.required<ElementRef<HTMLImageElement>>('previewImage');
 
 	public readonly banner = input<RIMedia | null | undefined | {
     url: string;
@@ -54,11 +52,12 @@ export class BaseImageComponent implements OnChanges, AfterViewInit {
 	}
 
 	public updateSrc(base64: string | undefined): void {
-		if (!base64?.length || !this.previewImage) {
+		const previewImage = this.previewImage();
+  if (!base64?.length || !previewImage) {
 			return;
 		}
-		this.previewImage.nativeElement.src = base64;
-		this.previewImage.nativeElement.classList.remove('hidden');
+		previewImage.nativeElement.src = base64;
+		previewImage.nativeElement.classList.remove('hidden');
 	}
 
 	/**
@@ -89,8 +88,9 @@ export class BaseImageComponent implements OnChanges, AfterViewInit {
 
 	public clear(): void {
 		this.mediaState = MediaStateEnum.DELETED;
-		this.previewImage.nativeElement.src = '';
-		this.previewImage.nativeElement.classList.add('hidden');
+		const previewImage = this.previewImage();
+  previewImage.nativeElement.src = '';
+		previewImage.nativeElement.classList.add('hidden');
 		this.selectedFile = undefined;
 	}
 

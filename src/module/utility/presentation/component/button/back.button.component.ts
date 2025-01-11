@@ -1,4 +1,4 @@
-import {Component, ElementRef, inject, Input, ViewChild, ViewEncapsulation, input} from '@angular/core';
+import {Component, ElementRef, inject, Input, input, viewChild, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {TranslateModule} from "@ngx-translate/core";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
@@ -36,8 +36,7 @@ export class BackButtonComponent {
 	@Input()
 	public url: never | string[] = [];
 
-	@ViewChild('link')
-	public link!: ElementRef<HTMLElement>;
+	readonly link = viewChild.required<ElementRef<HTMLElement>>('link');
 
 	private readonly router = inject(Router);
 

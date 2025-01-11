@@ -4,10 +4,9 @@ import {
 	inject,
 	Input,
 	OnChanges,
-	QueryList,
 	SimpleChange,
 	SimpleChanges,
-	ViewChildren,
+	viewChildren,
 	ViewEncapsulation
 } from "@angular/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
@@ -52,8 +51,7 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 
 	public readonly toggleInfo = new BooleanState(true);
 
-	@ViewChildren(ImageGalleryBusinessProfileComponent)
-	public imageGalleryBusinessProfileComponents!: QueryList<ImageGalleryBusinessProfileComponent>;
+	readonly imageGalleryBusinessProfileComponents = viewChildren(ImageGalleryBusinessProfileComponent);
 
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly patchMediaGalleryClientApiAdapter = inject(PatchMediaGalleryClientApiAdapter);
@@ -97,7 +95,7 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 
 		}
 
-		for (const component of this.imageGalleryBusinessProfileComponents.toArray()) {
+		for (const component of this.imageGalleryBusinessProfileComponents()) {
 
 			if (!component) {
 				continue;

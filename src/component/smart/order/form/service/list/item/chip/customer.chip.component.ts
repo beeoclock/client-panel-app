@@ -6,7 +6,7 @@ import {
 	input,
 	OnInit,
 	output,
-	ViewChild
+	viewChild
 } from "@angular/core";
 import {IonPopover} from "@ionic/angular/standalone";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
@@ -83,8 +83,7 @@ export class CustomerChipComponent extends Reactive implements OnInit {
 
 	public readonly customerChanges = output<ICustomer>();
 
-	@ViewChild('customerPopover')
-	public readonly customerPopover!: IonPopover;
+	readonly customerPopover = viewChild.required<IonPopover>('customerPopover');
 
 	readonly #changeDetectorRef = inject(ChangeDetectorRef);
 
@@ -108,7 +107,7 @@ export class CustomerChipComponent extends Reactive implements OnInit {
 				const rawValue = this.customerForm.getRawValue();
 				this.customerChanges.emit(rawValue);
 			}
-			this.customerPopover.dismiss().then();
+			this.customerPopover().dismiss().then();
 		}
 	}
 }

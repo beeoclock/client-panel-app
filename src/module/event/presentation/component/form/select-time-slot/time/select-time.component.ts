@@ -1,4 +1,4 @@
-import {Component, ElementRef, inject, input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, inject, input, OnInit, viewChild} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {DateTime, Settings} from "luxon";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -60,8 +60,7 @@ export class SelectTimeComponent extends Reactive implements OnInit {
 
 	public selectedDateTime: DateTime = DateTime.now();
 
-	@ViewChild('timeSlotsContainer')
-	public timeSlotsContainer!: ElementRef<HTMLDivElement>;
+	readonly timeSlotsContainer = viewChild.required<ElementRef<HTMLDivElement>>('timeSlotsContainer');
 
 	public readonly logger = inject(NGXLogger);
 	public readonly translateService = inject(TranslateService);

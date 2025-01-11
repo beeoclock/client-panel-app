@@ -6,10 +6,9 @@ import {
 	OnChanges,
 	OnDestroy,
 	OnInit,
-	QueryList,
 	SimpleChange,
 	SimpleChanges,
-	ViewChildren
+	viewChildren
 } from "@angular/core";
 import {
 	ButtonSaveContainerComponent
@@ -104,8 +103,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 	public specialist = '';
 	public eventDurationInSeconds = 0;
 
-	@ViewChildren(ServicesComponent)
-	public servicesComponent!: QueryList<ServicesComponent>;
+	readonly servicesComponent = viewChildren(ServicesComponent);
 
 	@SelectSnapshot(ClientState.item)
 	public readonly clientItem!: RIClient;

@@ -10,7 +10,7 @@ import {
 	OnInit,
 	Output,
 	QueryList,
-	ViewChild,
+	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
@@ -49,8 +49,7 @@ import {Reactive} from "@utility/cdk/reactive";
 })
 export class SelectCustomerPushBoxComponent extends Reactive implements OnInit, AfterViewInit {
 
-	@ViewChild(CustomerExternalListComponent)
-	public customerExternalListComponent!: CustomerExternalListComponent;
+	readonly customerExternalListComponent = viewChild.required(CustomerExternalListComponent);
 
 	public readonly selectedCustomerList = input<ICustomer[]>([]);
 
@@ -77,9 +76,9 @@ export class SelectCustomerPushBoxComponent extends Reactive implements OnInit, 
 	}
 
 	private async initializeCustomConfiguration() {
-		const mobileLayoutListComponents = await firstValueFrom<QueryList<MobileLayoutListComponent>>(this.customerExternalListComponent.mobileLayoutListComponents.changes);
+		const mobileLayoutListComponents = await firstValueFrom<QueryList<MobileLayoutListComponent>>(this.customerExternalListComponent().mobileLayoutListComponents.changes);
 		const {first: mobileLayoutListComponent} = mobileLayoutListComponents;
-		const {first: cardListComponent} = mobileLayoutListComponent.cardListComponents;
+		const {first: cardListComponent} = mobileLayoutListComponent.cardListComponents();
 		cardListComponent.selectedIds = this.newSelectedCustomerList.map((customer) => customer._id);
 		cardListComponent.showAction.doFalse();
 		cardListComponent.showSelectedStatus.doTrue();

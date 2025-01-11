@@ -1,4 +1,13 @@
-import {AfterViewInit, Component, ElementRef, HostBinding, Input, ViewChild, ViewEncapsulation, input} from "@angular/core";
+import {
+	AfterViewInit,
+	Component,
+	ElementRef,
+	HostBinding,
+	Input,
+	input,
+	viewChild,
+	ViewEncapsulation
+} from "@angular/core";
 import {NgIf} from "@angular/common";
 import {Dropdown, DropdownInterface, DropdownOptions} from "flowbite";
 import {Placement} from "@popperjs/core/lib/enums";
@@ -66,11 +75,9 @@ import {Placement} from "@popperjs/core/lib/enums";
 })
 export class DropdownComponent implements AfterViewInit {
 
-  @ViewChild('dropdownButton')
-  public dropdownButton!: ElementRef<HTMLButtonElement>;
+  readonly dropdownButton = viewChild.required<ElementRef<HTMLButtonElement>>('dropdownButton');
 
-  @ViewChild('dropdownMenu')
-  public dropdownMenu!: ElementRef<HTMLDivElement>;
+  readonly dropdownMenu = viewChild.required<ElementRef<HTMLDivElement>>('dropdownMenu');
 
   public readonly placement = input<Placement>('bottom-start');
 
@@ -115,7 +122,7 @@ export class DropdownComponent implements AfterViewInit {
     * triggerEl: required
     * options: optional
     */
-    this.#dropdown = new Dropdown(this.dropdownMenu.nativeElement, this.dropdownButton.nativeElement, options);
+    this.#dropdown = new Dropdown(this.dropdownMenu().nativeElement, this.dropdownButton().nativeElement, options);
 
   }
 

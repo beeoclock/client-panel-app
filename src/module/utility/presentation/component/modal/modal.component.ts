@@ -1,12 +1,12 @@
 import {
-  AfterViewInit,
-  Component,
-  ComponentRef,
-  ElementRef,
-  HostListener,
-  inject,
-  ViewChild,
-  input
+	AfterViewInit,
+	Component,
+	ComponentRef,
+	ElementRef,
+	HostListener,
+	inject,
+	input,
+	viewChild
 } from "@angular/core";
 import {Modal, ModalInterface, ModalOptions} from "flowbite";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
@@ -134,11 +134,9 @@ export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements
 
 	public readonly contentPadding = input(true);
 
-	@ViewChild('contentRef')
-	public contentRef: ElementRef<HTMLElement> | undefined;
+	readonly contentRef = viewChild<ElementRef<HTMLElement>>('contentRef');
 
-	@ViewChild('btnCloseRef')
-	public btnCloseRef: ElementRef<HTMLButtonElement> | undefined;
+	readonly btnCloseRef = viewChild<ElementRef<HTMLButtonElement>>('btnCloseRef');
 
 	private readonly logger = inject(NGXLogger);
 	private readonly translateService = inject(TranslateService);
@@ -201,8 +199,7 @@ export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements
 
 	public readonly buttonLabel = input('Open modal');
 
-	@ViewChild('modalRef')
-	public modalRef: ElementRef<HTMLDivElement> | undefined;
+	readonly modalRef = viewChild<ElementRef<HTMLDivElement>>('modalRef');
 
 	#modal: ModalInterface | undefined;
 
@@ -262,9 +259,10 @@ export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements
 
 	private initModal(): void {
 
-		if (this.modalRef) {
+		const modalRef = this.modalRef();
+  if (modalRef) {
 
-			this.#modal = new Modal(this.modalRef.nativeElement, this.modalOptions);
+			this.#modal = new Modal(modalRef.nativeElement, this.modalOptions);
 			this.#modal?.show();
 
 		}
@@ -323,8 +321,9 @@ export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements
 	}
 
 	private deleteContentIfEmpty(): void {
-		if (!this.contentRef?.nativeElement?.firstChild) {
-			this.contentRef?.nativeElement?.remove();
+		const contentRef = this.contentRef();
+  if (!contentRef?.nativeElement?.firstChild) {
+			contentRef?.nativeElement?.remove();
 		}
 	}
 
@@ -335,9 +334,9 @@ export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements
 	private initHandleOnCloseModalButton(): void {
 		const callback = () => {
 			this.executeCallback(ModalButtonRoleEnum.cancel);
-			this.btnCloseRef?.nativeElement.removeEventListener('click', callback);
+			this.btnCloseRef()?.nativeElement.removeEventListener('click', callback);
 		};
-		this.btnCloseRef?.nativeElement.addEventListener('click', callback);
+		this.btnCloseRef()?.nativeElement.addEventListener('click', callback);
 	}
 
 }

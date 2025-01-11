@@ -1,17 +1,17 @@
 import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  inject,
-  Input,
-  OnInit,
-  Output,
-  QueryList,
-  ViewChild,
-  ViewEncapsulation,
-  input
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	EventEmitter,
+	inject,
+	Input,
+	input,
+	OnInit,
+	Output,
+	QueryList,
+	viewChild,
+	ViewEncapsulation
 } from "@angular/core";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
@@ -64,8 +64,7 @@ export class SelectServiceWhacAMoleComponent extends Reactive implements OnInit,
 
 	public readonly tableState = input<ITableState<IServiceDto>>(new TableState<IServiceDto>().toCache());
 
-	@ViewChild(ServiceExternalListComponent)
-	public serviceExternalListComponent!: ServiceExternalListComponent;
+	readonly serviceExternalListComponent = viewChild.required(ServiceExternalListComponent);
 
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly logger = inject(NGXLogger);
@@ -83,9 +82,9 @@ export class SelectServiceWhacAMoleComponent extends Reactive implements OnInit,
 	}
 
 	private async initializeCustomConfiguration() {
-		const mobileLayoutListComponents = await firstValueFrom<QueryList<MobileLayoutListComponent>>(this.serviceExternalListComponent.mobileLayoutListComponents.changes);
+		const mobileLayoutListComponents = await firstValueFrom<QueryList<MobileLayoutListComponent>>(this.serviceExternalListComponent().mobileLayoutListComponents.changes);
 		const {first: mobileLayoutListComponent} = mobileLayoutListComponents;
-		const {first: cardListComponent} = mobileLayoutListComponent.cardListComponents;
+		const {first: cardListComponent} = mobileLayoutListComponent.cardListComponents();
 		cardListComponent.selectedIds = this.newSelectedServiceList.map(({_id}) => _id);
 		cardListComponent.showAction.doFalse();
 		cardListComponent.showSelectedStatus.doTrue();

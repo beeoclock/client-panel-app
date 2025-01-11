@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, input, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, input, OnInit, viewChild, ViewEncapsulation} from "@angular/core";
 import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone";
 import {NgForOf} from "@angular/common";
 import ObjectID from "bson-objectid";
@@ -49,8 +49,7 @@ export default class LanguageChipComponent extends Reactive implements OnInit {
 
 	public readonly id = input<string>(ObjectID().toHexString());
 
-	@ViewChild(IonPopover)
-	public selectLanguageVersionPopover!: IonPopover;
+	readonly selectLanguageVersionPopover = viewChild.required(IonPopover);
 
 	public readonly languageCodeFormControl = new FormControl<LanguageCodeEnum>(this.initialValue(), {
 		nonNullable: true,
@@ -62,7 +61,7 @@ export default class LanguageChipComponent extends Reactive implements OnInit {
 
 	public select(language: LanguageCodeEnum) {
 		this.languageCodeFormControl.setValue(language);
-		this.selectLanguageVersionPopover.dismiss().then();
+		this.selectLanguageVersionPopover().dismiss().then();
 	}
 
 }

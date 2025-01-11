@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, inject, Input, ViewChild, input} from "@angular/core";
+import {ChangeDetectorRef, Component, inject, Input, input, viewChild} from "@angular/core";
 import {TableComponent} from "@utility/table.component";
 import {ITableState} from "@utility/domain/table.state";
 import {IBaseEntity} from "@utility/domain";
@@ -12,8 +12,7 @@ import {Reactive} from "@utility/cdk/reactive";
 })
 export default abstract class LayoutListComponent<ITEM extends IBaseEntity<string>> extends Reactive {
 
-	@ViewChild(TableComponent)
-	public tableComponent!: TableComponent<ITEM>;
+	readonly tableComponent = viewChild.required(TableComponent);
 
 	@Input({required: true})
 	public tableState!: ITableState<ITEM> | null;

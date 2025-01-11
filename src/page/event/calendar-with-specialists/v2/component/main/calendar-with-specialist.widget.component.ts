@@ -8,7 +8,7 @@ import {
 	inject,
 	OnInit,
 	QueryList,
-	ViewChild,
+	viewChild,
 	ViewChildren,
 	ViewEncapsulation
 } from "@angular/core";
@@ -103,8 +103,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		nonNullable: true
 	});
 
-	@ViewChild('calendar')
-	public calendar!: ElementRef<HTMLDivElement>;
+	readonly calendar = viewChild.required<ElementRef<HTMLDivElement>>('calendar');
 
 	public readonly isToday$ = this.store.select(CalendarWithSpecialistsQueries.isToday);
 	public readonly showTimeLine$ = this.isToday$.pipe();

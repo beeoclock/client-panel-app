@@ -1,16 +1,16 @@
 import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  DoCheck,
-  ElementRef,
-  HostBinding,
-  inject,
-  OnDestroy,
-  ViewChild,
-  ViewEncapsulation,
-  input
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	DoCheck,
+	ElementRef,
+	HostBinding,
+	inject,
+	input,
+	OnDestroy,
+	viewChild,
+	ViewEncapsulation
 } from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
@@ -84,8 +84,7 @@ export class TelFormInputComponent implements AfterViewInit, OnDestroy, DoCheck 
 	// @Input()
 	// public countryCode!: 'pl' | 'uk' | 'da';
 
-	@ViewChild('inputElement', {static: true})
-	public inputElement!: ElementRef<HTMLInputElement>;
+	readonly inputElement = viewChild.required<ElementRef<HTMLInputElement>>('inputElement');
 
 	@HostBinding()
 	public class = 'block';
@@ -99,7 +98,7 @@ export class TelFormInputComponent implements AfterViewInit, OnDestroy, DoCheck 
 	}
 
 	public ngAfterViewInit() {
-		this.intlTelInput = intlTelInput(this.inputElement.nativeElement, {
+		this.intlTelInput = intlTelInput(this.inputElement().nativeElement, {
 			initialCountry: 'auto',
 			// @ts-ignore
 			strictMode: true,
@@ -119,12 +118,12 @@ export class TelFormInputComponent implements AfterViewInit, OnDestroy, DoCheck 
 		const control = this.control();
   if (is.string_not_empty(control.value)) this.intlTelInput?.setNumber(control.value);
 
-		this.inputElement.nativeElement.addEventListener('countrychange', () => {
+		this.inputElement().nativeElement.addEventListener('countrychange', () => {
 			// @ts-ignore
 			this.control().setValue(this.intlTelInput?.getNumber());
 		});
 
-		this.inputElement.nativeElement.addEventListener('input', () => {
+		this.inputElement().nativeElement.addEventListener('input', () => {
 			// @ts-ignore
 			this.control().setValue(this.intlTelInput?.getNumber());
 			// @ts-ignore

@@ -1,4 +1,4 @@
-import {Component, inject, input, ViewChild, ViewEncapsulation} from "@angular/core";
+import {Component, inject, input, viewChild, ViewEncapsulation} from "@angular/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgForOf, NgIf} from "@angular/common";
@@ -33,29 +33,29 @@ export class CoverImageBusinessProfileComponent {
 
 	public readonly banners = input<RIMedia[]>([]);
 
-	@ViewChild(ImageCoverImageBusinessProfileComponent)
-	public imageCoverImageBusinessProfileComponent!: ImageCoverImageBusinessProfileComponent;
+	readonly imageCoverImageBusinessProfileComponent = viewChild.required(ImageCoverImageBusinessProfileComponent);
 
 	public readonly toggleInfo = new BooleanState(true);
 	public readonly patchMediaBannersClientApiAdapter = inject(PatchMediaBannersClientApiAdapter);
 
 	public async save(): Promise<void> {
 
-		if (this.imageCoverImageBusinessProfileComponent.mediaState === MediaStateEnum.NOT_CHANGED) {
+		const imageCoverImageBusinessProfileComponent = this.imageCoverImageBusinessProfileComponent();
+  if (imageCoverImageBusinessProfileComponent.mediaState === MediaStateEnum.NOT_CHANGED) {
 			return;
 		}
 
 		const formData = new FormData();
-		formData.append('file', this.imageCoverImageBusinessProfileComponent.selectedFile as Blob);
+		formData.append('file', imageCoverImageBusinessProfileComponent.selectedFile as Blob);
 
-		const banner = this.imageCoverImageBusinessProfileComponent.banner();
+		const banner = imageCoverImageBusinessProfileComponent.banner();
   if (banner) {
 			formData.append('_id', banner._id);
 		}
 
 		await this.patchMediaBannersClientApiAdapter.executeAsync(formData);
 
-		this.imageCoverImageBusinessProfileComponent.mediaState = MediaStateEnum.NOT_CHANGED;
+		imageCoverImageBusinessProfileComponent.mediaState = MediaStateEnum.NOT_CHANGED;
 
 	}
 

@@ -7,7 +7,7 @@ import {
 	input,
 	OnInit,
 	output,
-	ViewChild
+	viewChild
 } from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {DateTime, Settings} from "luxon";
@@ -63,8 +63,7 @@ export class DateSliderSelectComponent extends Reactive implements OnInit, After
 
 	public amountOfDaySlotsInContainer = 0;
 
-	@ViewChild('daySlotsContainer')
-	public daySlotsContainer!: ElementRef<HTMLDivElement>;
+	readonly daySlotsContainer = viewChild.required<ElementRef<HTMLDivElement>>('daySlotsContainer');
 
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly translateService = inject(TranslateService);
@@ -111,7 +110,7 @@ export class DateSliderSelectComponent extends Reactive implements OnInit, After
 
 	public detectAmountOfDaySlots(): void {
 		// Detect amount of day slots
-		const {clientWidth} = this.daySlotsContainer.nativeElement;
+		const {clientWidth} = this.daySlotsContainer().nativeElement;
 		const dayWidth = 60;
 		const dayMargin = 16;
 		this.amountOfDaySlotsInContainer = Math.floor(clientWidth / (dayWidth + dayMargin));

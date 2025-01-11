@@ -1,14 +1,4 @@
-import {
-	AfterViewInit,
-	Component,
-	ElementRef,
-	HostBinding,
-	inject,
-	input,
-	QueryList,
-	ViewChild,
-	ViewChildren
-} from "@angular/core";
+import {AfterViewInit, Component, ElementRef, HostBinding, inject, input, viewChild, viewChildren} from "@angular/core";
 import {ColumnsBlockComponent} from "@event/presentation/component/calendar/columns-block.component";
 import {HoursComponent} from "@event/presentation/component/calendar/hours.component";
 import {NgForOf} from "@angular/common";
@@ -53,11 +43,9 @@ export class ContainerCalendarComponent implements AfterViewInit {
     to: Date;
 }[]>([]);
 
-	@ViewChildren(ColumnsBlockComponent)
-	public calendarsRef!: QueryList<ColumnsBlockComponent>;
+	readonly calendarsRef = viewChildren(ColumnsBlockComponent);
 
-	@ViewChild(HoursComponent)
-	public hoursComponentRef!: HoursComponent;
+	readonly hoursComponentRef = viewChild.required(HoursComponent);
 
 	@HostBinding()
 	public class = 'bg-white	flex overflow-auto h-[calc(100dvh-64px)] md:h-full relative';
@@ -129,7 +117,7 @@ export class ContainerCalendarComponent implements AfterViewInit {
 	 * @private
 	 */
 	public initCurrentCalendar() {
-		const currentCalendarRef = this.calendarsRef.find((calendarRef) => {
+		const currentCalendarRef = this.calendarsRef().find((calendarRef) => {
 			return calendarRef.preferences().from.toISOString() === this.currentDate().toISOString();
 		});
 		if (currentCalendarRef) {
@@ -148,9 +136,9 @@ export class ContainerCalendarComponent implements AfterViewInit {
 			return;
 		}
 
-		const hoursComponentNativeElement: HTMLElement = this.hoursComponentRef.elementRef.nativeElement;
+		const hoursComponentNativeElement: HTMLElement = this.hoursComponentRef().elementRef.nativeElement;
 		const left = calendarRef.elementRef.nativeElement.offsetLeft - hoursComponentNativeElement.offsetWidth;
-		const top = (this.hoursComponentRef.elementRef.nativeElement?.offsetTop ?? 0) - (this.hoursComponentRef.elementRef.nativeElement?.offsetHeight ?? 0);
+		const top = (this.hoursComponentRef().elementRef.nativeElement?.offsetTop ?? 0) - (this.hoursComponentRef().elementRef.nativeElement?.offsetHeight ?? 0);
 		const scrollToOptions: ScrollToOptions = {
 			left,
 			top,

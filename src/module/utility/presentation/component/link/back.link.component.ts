@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostBinding, inject, Input, ViewChild, ViewEncapsulation, input} from '@angular/core';
+import {Component, ElementRef, HostBinding, inject, Input, input, viewChild, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {TranslateModule} from "@ngx-translate/core";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
@@ -34,8 +34,7 @@ export class BackLinkComponent {
   @Input()
   public url: never | string[] = [];
 
-  @ViewChild('link')
-  public link!: ElementRef<HTMLElement>;
+  readonly link = viewChild.required<ElementRef<HTMLElement>>('link');
 
   @HostBinding()
   public readonly class = 'flex';

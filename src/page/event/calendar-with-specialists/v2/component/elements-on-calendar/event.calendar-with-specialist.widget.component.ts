@@ -8,7 +8,7 @@ import {
 	inject,
 	Input,
 	Renderer2,
-	ViewChild,
+	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
 import {DatePipe, NgIf} from "@angular/common";
@@ -95,11 +95,9 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	@Input({required: true})
 	public item!: DATA;
 
-	@ViewChild(OrderEventCalendarWithSpecialistWidgetComponent)
-	private orderEventCalendarWithSpecialistWidgetComponent!: OrderEventCalendarWithSpecialistWidgetComponent;
+	readonly orderEventCalendarWithSpecialistWidgetComponent = viewChild.required(OrderEventCalendarWithSpecialistWidgetComponent);
 
-	@ViewChild(AbsenceEventCalendarWithSpecialistWidgetComponent)
-	private absenceEventCalendarWithSpecialistWidgetComponent!: AbsenceEventCalendarWithSpecialistWidgetComponent;
+	readonly absenceEventCalendarWithSpecialistWidgetComponent = viewChild.required(AbsenceEventCalendarWithSpecialistWidgetComponent);
 
 	@SelectSnapshot(CalendarWithSpecialistsQueries.start)
 	public selectedDate!: DateTime;
@@ -176,19 +174,21 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	// Hover
 	@HostListener('mouseenter')
 	public onMouseEnter() {
-		if (this.orderEventCalendarWithSpecialistWidgetComponent) {
+		const orderEventCalendarWithSpecialistWidgetComponent = this.orderEventCalendarWithSpecialistWidgetComponent();
+  if (orderEventCalendarWithSpecialistWidgetComponent) {
 			this.renderer2.addClass(this.elementRef.nativeElement, 'z-20');
-			if (this.elementRef.nativeElement.clientHeight < this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.scrollHeight) {
-				this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.remove('bottom-0');
+			if (this.elementRef.nativeElement.clientHeight < orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.scrollHeight) {
+				orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.remove('bottom-0');
 			}
 		}
 	}
 
 	@HostListener('mouseleave')
 	public onMouseLeave() {
-		if (this.orderEventCalendarWithSpecialistWidgetComponent) {
-			if (this.elementRef.nativeElement.clientHeight < this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.scrollHeight) {
-				this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.add('bottom-0');
+		const orderEventCalendarWithSpecialistWidgetComponent = this.orderEventCalendarWithSpecialistWidgetComponent();
+  if (orderEventCalendarWithSpecialistWidgetComponent) {
+			if (this.elementRef.nativeElement.clientHeight < orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.scrollHeight) {
+				orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.add('bottom-0');
 			}
 			this.renderer2.removeClass(this.elementRef.nativeElement, 'z-20');
 		}
@@ -201,8 +201,8 @@ export class EventCalendarWithSpecialistWidgetComponent {
 			return;
 		}
 		this.ngxLogger.debug('tap event detected:', event);
-		this.orderEventCalendarWithSpecialistWidgetComponent?.onClick?.();
-		this.absenceEventCalendarWithSpecialistWidgetComponent?.onClick?.();
+		this.orderEventCalendarWithSpecialistWidgetComponent()?.onClick?.();
+		this.absenceEventCalendarWithSpecialistWidgetComponent()?.onClick?.();
 	}
 
 	// If draggable is enabled and user press outside of the event, then disable draggable mode

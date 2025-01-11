@@ -1,12 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	input,
-	OnInit,
-	QueryList,
-	ViewChildren,
-	ViewEncapsulation
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input, OnInit, viewChildren, ViewEncapsulation} from '@angular/core';
 import {AsyncPipe, NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
@@ -63,8 +55,7 @@ export class CustomerOrderListExternalComponent extends ListPage<IOrderDto> impl
 
 	public readonly customerId = input.required<string>();
 
-	@ViewChildren(MobileLayoutListComponent)
-	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
+	readonly mobileLayoutListComponents = viewChildren(MobileLayoutListComponent);
 
 	public override mobileMode = true;
 

@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
+import {Component, inject, OnInit, viewChild, ViewEncapsulation} from "@angular/core";
 import {AsyncPipe, DOCUMENT, NgIf} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
@@ -86,8 +86,7 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 		max: DateTime.now().plus({years: 3}).toISODate() ?? ''
 	};
 
-	@ViewChild(IonDatetime)
-	public readonly ionDateTime!: IonDatetime;
+	readonly ionDateTime = viewChild.required(IonDatetime);
 
 	private readonly store = inject(Store);
 	private readonly translateService = inject(TranslateService);
@@ -183,7 +182,7 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 
 	public async setToday() {
 		const today = DateTime.now().toISODate() ?? this.dateControl.value;
-		await this.ionDateTime.reset();
+		await this.ionDateTime().reset();
 		setTimeout(() => {
 			this.dateControl.setValue(today);
 		}, 350)

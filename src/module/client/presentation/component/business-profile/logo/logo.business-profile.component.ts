@@ -1,4 +1,4 @@
-import {Component, inject, input, ViewChild, ViewEncapsulation} from "@angular/core";
+import {Component, inject, input, viewChild, ViewEncapsulation} from "@angular/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {BooleanState} from "@utility/domain";
@@ -33,8 +33,7 @@ export class LogoBusinessProfileComponent {
 
 	public readonly logo = input<RIMedia | null>();
 
-	@ViewChild(ImageLogoBusinessProfileComponent)
-	public imageLogoBusinessProfileComponent!: ImageLogoBusinessProfileComponent;
+	readonly imageLogoBusinessProfileComponent = viewChild.required(ImageLogoBusinessProfileComponent);
 
 	public readonly toggleInfo = new BooleanState(true);
 
@@ -42,20 +41,21 @@ export class LogoBusinessProfileComponent {
 
 	public async save(): Promise<void> {
 
-		if (this.imageLogoBusinessProfileComponent.mediaState === MediaStateEnum.NOT_CHANGED) {
+		const imageLogoBusinessProfileComponent = this.imageLogoBusinessProfileComponent();
+  if (imageLogoBusinessProfileComponent.mediaState === MediaStateEnum.NOT_CHANGED) {
 			return;
 		}
 
 		const formData = new FormData();
-		formData.append('file', this.imageLogoBusinessProfileComponent.selectedFile as Blob);
+		formData.append('file', imageLogoBusinessProfileComponent.selectedFile as Blob);
 
-		const banner = this.imageLogoBusinessProfileComponent.banner();
+		const banner = imageLogoBusinessProfileComponent.banner();
   if (banner) {
 			formData.append('_id', banner._id);
 		}
 		await this.patchMediaLogoClientApiAdapter.executeAsync(formData);
 
-		this.imageLogoBusinessProfileComponent.mediaState = MediaStateEnum.NOT_CHANGED;
+		imageLogoBusinessProfileComponent.mediaState = MediaStateEnum.NOT_CHANGED;
 
 	}
 

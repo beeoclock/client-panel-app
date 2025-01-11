@@ -1,4 +1,4 @@
-import {Component, inject, input, ViewChild} from '@angular/core';
+import {Component, inject, input, viewChild} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
@@ -25,8 +25,7 @@ export class AvatarContainerComponent {
 
 	public readonly control = input.required<FormControl<RESPONSE_IMemberMedia>>();
 
-	@ViewChild(AvatarFormComponent)
-	public avatarFormComponent!: AvatarFormComponent;
+	readonly avatarFormComponent = viewChild.required(AvatarFormComponent);
 
 	public readonly toggleInfo = new BooleanState(true);
 
@@ -35,7 +34,7 @@ export class AvatarContainerComponent {
 
 	public async save(memberId: string): Promise<void> {
 
-		const component = this.avatarFormComponent;
+		const component = this.avatarFormComponent();
 
 		this.ngxLogger.debug('AvatarContainerComponent:save', component);
 

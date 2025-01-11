@@ -5,7 +5,7 @@ import {
 	inject,
 	input,
 	OnInit,
-	ViewChild,
+	viewChild,
 	ViewEncapsulation
 } from '@angular/core';
 import {AsyncPipe, NgIf} from "@angular/common";
@@ -66,8 +66,7 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 })
 export class ServiceContainerFormComponent implements OnInit {
 
-	@ViewChild(ImageBlockComponent)
-	public readonly imageBlock!: ImageBlockComponent;
+	readonly imageBlock = viewChild.required(ImageBlockComponent);
 
 	public readonly isEditMode = input(false);
 
@@ -186,12 +185,12 @@ export class ServiceContainerFormComponent implements OnInit {
 			const value = this.form.getRawValue() as IServiceDto;
 			if (this.isEditMode()) {
 				await firstValueFrom(this.store.dispatch(new ServiceActions.UpdateItem(value)));
-				await this.imageBlock.save(value._id);
+				await this.imageBlock().save(value._id);
 			} else {
 				await firstValueFrom(this.store.dispatch(new ServiceActions.CreateItem(value)));
 				const item = this.item();
     if (item) {
-					await this.imageBlock.save(item._id);
+					await this.imageBlock().save(item._id);
 				}
 			}
 			this.form.enable();

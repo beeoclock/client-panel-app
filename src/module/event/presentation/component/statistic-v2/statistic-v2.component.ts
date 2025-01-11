@@ -4,7 +4,7 @@ import {
 	Component,
 	inject,
 	OnInit,
-	ViewChild,
+	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
 import {IonicModule} from "@ionic/angular";
@@ -102,8 +102,7 @@ import {
 })
 export class StatisticV2Component extends Reactive implements OnInit {
 
-	@ViewChild(DateSliderControlComponent)
-	public dateSliderControlComponent!: DateSliderControlComponent;
+	readonly dateSliderControlComponent = viewChild.required(DateSliderControlComponent);
 
 	public readonly items: {
 		id: string;
@@ -228,7 +227,7 @@ export class StatisticV2Component extends Reactive implements OnInit {
 			})
 		).subscribe();
 
-		this.dateSliderControlComponent.initialize();
+		this.dateSliderControlComponent().initialize();
 
 	}
 

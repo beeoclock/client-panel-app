@@ -1,4 +1,4 @@
-import {Component, inject, Input, input, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, inject, Input, input, OnInit, viewChildren} from '@angular/core';
 import {AsyncPipe, CurrencyPipe, NgForOf, NgIf, NgTemplateOutlet} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
@@ -76,8 +76,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 	public readonly member = input<RIMember>();
 
-	@ViewChildren(DurationVersionTypeRangeComponent)
-	public durationVersionTypeRangeComponentList!: QueryList<DurationVersionTypeRangeComponent>;
+	readonly durationVersionTypeRangeComponentList = viewChildren(DurationVersionTypeRangeComponent);
 
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
@@ -197,7 +196,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 	}
 
 	public checkValidationOfDurationVersionTypeRangeComponentList(): boolean {
-		return this.durationVersionTypeRangeComponentList.toArray().every((component) => component.checkIfSelectedVariantIsValid());
+		return this.durationVersionTypeRangeComponentList().every((component) => component.checkIfSelectedVariantIsValid());
 	}
 
 	/**

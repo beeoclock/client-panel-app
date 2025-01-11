@@ -6,7 +6,7 @@ import {
 	OnChanges,
 	OnInit,
 	SimpleChanges,
-	ViewChild,
+	viewChild,
 	ViewEncapsulation
 } from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
@@ -46,8 +46,7 @@ import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-statu
 })
 export class MemberFormContainerComponent implements OnInit, OnChanges {
 
-	@ViewChild(AvatarContainerComponent)
-	public avatarContainerComponent!: AvatarContainerComponent;
+	readonly avatarContainerComponent = viewChild.required(AvatarContainerComponent);
 
 	private readonly store = inject(Store);
 
@@ -98,7 +97,7 @@ export class MemberFormContainerComponent implements OnInit, OnChanges {
 			}
 
 			await Promise.all([
-				this.avatarContainerComponent.save(memberId)
+				this.avatarContainerComponent().save(memberId)
 			]);
 			this.form.enable();
 			this.form.updateValueAndValidity();

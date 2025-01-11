@@ -4,7 +4,7 @@ import {
 	Component,
 	ElementRef,
 	inject,
-	ViewChild,
+	viewChild,
 	ViewEncapsulation
 } from '@angular/core';
 import {RouterLink} from "@angular/router";
@@ -79,8 +79,7 @@ const enum Status {
 })
 export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 
-    @ViewChild('goToDashboardPage', {static: false})
-    public goToDashboardPage!: ElementRef<HTMLButtonElement>;
+    readonly goToDashboardPage = viewChild.required<ElementRef<HTMLButtonElement>>('goToDashboardPage');
 
     public readonly classes = {
         success: [
@@ -190,7 +189,7 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
                 this.allStepsFinishedWithSuccess.switchOn();
                 this.createBusinessQuery.initForm();
                 setTimeout(() => {
-                    this.goToDashboardPage.nativeElement.click();
+                    this.goToDashboardPage().nativeElement.click();
                 }, 1_000);
             }
 

@@ -1,4 +1,4 @@
-import {Component, input, QueryList, ViewChildren, ViewEncapsulation} from "@angular/core";
+import {Component, input, viewChildren, ViewEncapsulation} from "@angular/core";
 import {AsyncPipe, NgClass, NgIf} from "@angular/common";
 import {
 	NotFoundTableDataComponent
@@ -33,8 +33,7 @@ export class MobileLayoutListComponent extends LayoutListComponent<IAbsenceDto> 
 
 	public readonly showButtonGoToForm = input(true);
 
-	@ViewChildren(CardListComponent)
-	public cardListComponents!: QueryList<CardListComponent>;
+	readonly cardListComponents = viewChildren(CardListComponent);
 
 	public openForm(): void {
 		this.store.dispatch(new AbsenceActions.OpenForm());

@@ -1,4 +1,4 @@
-import {Component, inject, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit, viewChild, ViewEncapsulation} from '@angular/core';
 import {BusinessProfileForm} from "@client/presentation/form/business-profile.form";
 import {
 	CoverImageBusinessProfileComponent
@@ -81,8 +81,7 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 	// @ViewChild(CoverImageBusinessProfileComponent)
 	// public readonly coverImageBusinessProfileComponent!: CoverImageBusinessProfileComponent;
 
-	@ViewChild(LogoBusinessProfileComponent)
-	public readonly logoBusinessProfileComponent!: LogoBusinessProfileComponent;
+	readonly logoBusinessProfileComponent = viewChild.required(LogoBusinessProfileComponent);
 
 	// @ViewChild(GalleryBusinessProfileComponent)
 	// public readonly galleryBusinessProfileComponent!: GalleryBusinessProfileComponent;
@@ -163,7 +162,7 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 				// Save cover image
 				// this.coverImageBusinessProfileComponent.save(),
 				// Save logo
-				this.logoBusinessProfileComponent.save(),
+				this.logoBusinessProfileComponent().save(),
 				// Save gallery
 				// this.galleryBusinessProfileComponent.save(),
 				// Save data

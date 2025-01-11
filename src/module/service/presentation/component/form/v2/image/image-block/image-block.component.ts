@@ -1,4 +1,4 @@
-import {Component, inject, input, QueryList, ViewChildren} from '@angular/core';
+import {Component, inject, input, viewChildren} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
@@ -28,8 +28,7 @@ export class ImageBlockComponent {
 
 	public readonly presentationForm = input.required<ServicePresentationForm>();
 
-	@ViewChildren(ServiceFormImageComponent)
-	public serviceFormImageComponent!: QueryList<ServiceFormImageComponent>;
+	readonly serviceFormImageComponent = viewChildren(ServiceFormImageComponent);
 
 	public readonly toggleInfo = new BooleanState(true);
 
@@ -40,7 +39,7 @@ export class ImageBlockComponent {
 
 	public async save(serviceId: string): Promise<void> {
 
-		for (const component of this.serviceFormImageComponent.toArray()) {
+		for (const component of this.serviceFormImageComponent()) {
 
 			if (component.mediaState === MediaStateEnum.NOT_CHANGED) {
 				continue;
@@ -71,7 +70,7 @@ export class ImageBlockComponent {
 
 	public clear(): void {
 
-		this.serviceFormImageComponent.forEach(component => component.clear());
+		this.serviceFormImageComponent().forEach(component => component.clear());
 
 	}
 

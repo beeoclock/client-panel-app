@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, Input, input, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
+import {Component, HostBinding, inject, Input, input, OnInit, viewChild, ViewEncapsulation} from "@angular/core";
 import {RIMember} from "@member/domain";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {Store} from "@ngxs/store";
@@ -233,11 +233,9 @@ export class AdditionalMenuComponent implements OnInit {
 	@HostBinding()
 	public class = 'bg-white'
 
-	@ViewChild(SelectServiceListComponent)
-	public selectServiceListComponent!: SelectServiceListComponent;
+	readonly selectServiceListComponent = viewChild.required(SelectServiceListComponent);
 
-	@ViewChild(CustomerChipComponent)
-	public customerChipComponent!: CustomerChipComponent;
+	readonly customerChipComponent = viewChild.required(CustomerChipComponent);
 
 	public readonly segmentControl = new FormControl<SegmentEnum>(SegmentEnum.ORDERING, {
 		nonNullable: true
@@ -281,10 +279,10 @@ export class AdditionalMenuComponent implements OnInit {
 		this.store.dispatch(new OrderActions.OpenForm({
 			componentInputs: {
 				setupPartialData: {
-					serviceList: this.selectServiceListComponent.selectedServices,
+					serviceList: this.selectServiceListComponent().selectedServices,
 					defaultAppointmentStartDateTimeIso,
 					defaultMemberForService: this.member,
-					customer: this.customerChipComponent.customerForm.getRawValue()
+					customer: this.customerChipComponent().customerForm.getRawValue()
 				}
 			},
 			pushBoxInputs: {

@@ -1,13 +1,13 @@
 import {
-  Component,
-  ComponentRef,
-  HostBinding,
-  Input,
-  Type,
-  ViewChild,
-  ViewContainerRef,
-  ViewEncapsulation,
-  input
+	Component,
+	ComponentRef,
+	HostBinding,
+	Input,
+	input,
+	Type,
+	viewChild,
+	ViewContainerRef,
+	ViewEncapsulation
 } from '@angular/core';
 import {NgIf} from '@angular/common';
 import {WhacAMoleBuildItArgsType} from "@utility/presentation/whac-a-mole/whac-a-mole.type";
@@ -70,8 +70,7 @@ export class WhacAMoleWrapper<COMPONENT> {
 	public readonly updateSelfAfter = input((componentInputs: Record<string, unknown> | undefined) => {
 });
 
-	@ViewChild('renderContainer', {read: ViewContainerRef, static: true})
-	private readonly renderContainer!: ViewContainerRef;
+	readonly renderContainer = viewChild.required('renderContainer', { read: ViewContainerRef });
 
 	@HostBinding()
 	public class = 'flex flex-col h-dvh';
@@ -90,7 +89,7 @@ export class WhacAMoleWrapper<COMPONENT> {
 
 		this.renderedComponent = component;
 
-		const componentRef = this.renderContainer.createComponent(component);
+		const componentRef = this.renderContainer().createComponent(component);
 		componentRef.location.nativeElement.classList.add('min-h-[calc(100%-50px)]', 'h-screen', 'overflow-y-auto');
 
 		this.renderedComponentRef = componentRef;
