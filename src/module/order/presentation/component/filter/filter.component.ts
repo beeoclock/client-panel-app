@@ -1,10 +1,7 @@
 import {Component, HostBinding, inject, input, OnInit} from '@angular/core';
-import {FilterPanelComponent} from '@utility/presentation/component/panel/filter.panel.component';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {FilterForm} from "@order/presentation/form/filter.form";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {IonSelectActiveComponent} from "@utility/presentation/component/input/ion/ion-select-active.component";
 import {BaseFilterComponent} from "@utility/base.filter.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
@@ -19,11 +16,8 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 	selector: 'app-order-filter-component',
 	standalone: true,
 	imports: [
-		FilterPanelComponent,
 		SearchInputComponent,
-		PrimaryButtonDirective,
 		TranslateModule,
-		IonSelectActiveComponent,
 		DefaultPanelComponent,
 		IonSelectWrapperComponent,
 		AsyncPipe,

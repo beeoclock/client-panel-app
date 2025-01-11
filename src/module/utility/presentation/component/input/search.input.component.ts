@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, forwardRef, HostBinding, inject, Injector, input} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {NgIcon} from "@ng-icons/core";
 import {IconComponent} from "@src/component/adapter/icon/icon.component";
 import {is} from "@utility/checker";
 
@@ -11,7 +10,6 @@ import {is} from "@utility/checker";
 	imports: [
 		ReactiveFormsModule,
 		TranslateModule,
-		NgIcon,
 		IconComponent
 	],
 	template: `

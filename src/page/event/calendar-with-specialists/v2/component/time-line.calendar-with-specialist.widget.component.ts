@@ -12,7 +12,7 @@ import {
 	SimpleChanges,
 	ViewEncapsulation
 } from "@angular/core";
-import {DatePipe, NgIf, NgStyle} from "@angular/common";
+import {DatePipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {is} from "@utility/checker";
@@ -23,8 +23,6 @@ import {is} from "@utility/checker";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		DatePipe,
-		NgIf,
-		NgStyle
 	],
 	template: `
 		<!-- Current time -->

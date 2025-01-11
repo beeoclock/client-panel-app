@@ -1,29 +1,19 @@
 import {Component, input} from '@angular/core';
-import {FilterPanelComponent} from '@utility/presentation/component/panel/filter.panel.component';
-import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {FilterForm} from "@member/presentation/form/filter.form";
 import {MemberActions} from "@member/state/member/member.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {RouterLink} from "@angular/router";
 import {MemberState} from "@member/state/member/member.state";
 import {BaseFilterComponent} from "@utility/base.filter.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
-import {IonSelectActiveComponent} from "@utility/presentation/component/input/ion/ion-select-active.component";
-import {NgIf} from "@angular/common";
 
 @Component({
 	selector: 'member-filter-component',
 	standalone: true,
 	imports: [
-		FilterPanelComponent,
-		SearchInputComponent,
 		TranslateModule,
 		PrimaryButtonDirective,
-		RouterLink,
 		DefaultPanelComponent,
-		IonSelectActiveComponent,
-		NgIf
 	],
 	template: `
 

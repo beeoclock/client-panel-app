@@ -87,9 +87,6 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 	};
 
 	readonly ionDateTime = viewChild.required(IonDatetime);
-	public readonly isTodayOrTomorrow$ = this.isTodayOrTomorrowStreams$.pipe(
-		map(([isToday, isTomorrow]) => isToday || isTomorrow)
-	);
 	private readonly store = inject(Store);
 	public readonly loader$ = this.store.select(CalendarWithSpecialistsQueries.loader);
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start).pipe(
@@ -108,6 +105,9 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 		this.store.select(CalendarWithSpecialistsQueries.isToday),
 		this.store.select(CalendarWithSpecialistsQueries.isTomorrow)
 	]);
+	public readonly isTodayOrTomorrow$ = this.isTodayOrTomorrowStreams$.pipe(
+		map(([isToday, isTomorrow]) => isToday || isTomorrow)
+	);
 	private readonly translateService = inject(TranslateService);
 	public readonly hint$ = combineLatest([
 		this.isTodayOrTomorrowStreams$,

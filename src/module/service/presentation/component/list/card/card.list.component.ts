@@ -1,16 +1,10 @@
 import {Component, inject, OnChanges, SimpleChange, SimpleChanges, ViewEncapsulation} from "@angular/core";
 import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from "@angular/common";
-import {RouterLink} from "@angular/router";
-import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
-import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
-import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {ILanguageVersion} from "@service/domain";
 import {ServiceActions} from "@service/state/service/service.actions";
@@ -27,15 +21,8 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		NgForOf,
-		RouterLink,
-		ActiveStyleDirective,
 		TableStatePaginationComponent,
-		DynamicDatePipe,
-		SortIndicatorComponent,
 		TranslateModule,
-		EventStatusStyleDirective,
-		CurrencyPipe,
-		HumanizeDurationPipe,
 		CardComponent,
 		NgIf,
 		AsyncPipe,

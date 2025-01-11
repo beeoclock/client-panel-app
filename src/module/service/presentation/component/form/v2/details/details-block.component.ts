@@ -3,7 +3,6 @@ import {NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
-import {TagsComponent} from "@service/presentation/component/form/v2/details/tags.component";
 import {LanguageVersionForm} from "@service/presentation/form/service.form";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 
@@ -35,7 +34,6 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 		TranslateModule,
 		FormInputComponent,
 		FormTextareaComponent,
-		TagsComponent,
 		CardComponent,
 	]
 })

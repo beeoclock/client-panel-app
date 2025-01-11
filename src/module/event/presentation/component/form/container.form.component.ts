@@ -15,8 +15,6 @@ import {
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
-import {GeneralDetailsComponent} from "@event/presentation/component/details/general.details.component";
-import {DatePipe, NgIf} from "@angular/common";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {ReactiveFormsModule} from "@angular/forms";
 import {
@@ -38,10 +36,6 @@ import {is} from "@utility/checker";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {IPresentation, RIConfiguration} from "@service/domain";
 import {Reactive} from "@utility/cdk/reactive";
-import {TimeInputComponent} from "@utility/presentation/component/input/time.input.component";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {DefaultInputDirective} from "@utility/presentation/directives/input/default.input.directive";
-import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import * as Member from '@member/domain';
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {RIMedia} from "@module/media/domain/interface/i.media";
@@ -58,19 +52,11 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 		ButtonSaveContainerComponent,
 		CardComponent,
 		FormTextareaComponent,
-		GeneralDetailsComponent,
-		NgIf,
 		PrimaryButtonDirective,
 		ReactiveFormsModule,
 		SelectTimeSlotComponent,
 		ServicesComponent,
 		TranslateModule,
-		TimeInputComponent,
-		FormInputComponent,
-		DefaultInputDirective,
-		DatePipe,
-		DefaultPanelComponent,
-		BackButtonComponent,
 		CustomerTypeCustomerComponent,
 	],
 	providers: [

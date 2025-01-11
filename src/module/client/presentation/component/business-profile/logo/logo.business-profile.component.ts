@@ -8,10 +8,6 @@ import {
 import {
 	PatchMediaLogoClientApiAdapter
 } from "@client/adapter/external/api/media/logo/patch.media.logo.client.api.adapter";
-import {
-	ImageCoverImageBusinessProfileComponent
-} from "@client/presentation/component/business-profile/cover-image/image.cover-image.business-profile/image.cover-image.business-profile.component";
-import {NgForOf, NgIf} from "@angular/common";
 import {RIMedia} from "@module/media/domain/interface/i.media";
 import {MediaStateEnum} from "@utility/presentation/component/image/base.image.component";
 
@@ -23,9 +19,6 @@ import {MediaStateEnum} from "@utility/presentation/component/image/base.image.c
 		CardComponent,
 		TranslateModule,
 		ImageLogoBusinessProfileComponent,
-		ImageCoverImageBusinessProfileComponent,
-		NgForOf,
-		NgIf,
 	],
 	standalone: true
 })

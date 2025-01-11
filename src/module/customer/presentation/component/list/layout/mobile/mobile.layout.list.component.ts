@@ -1,5 +1,5 @@
 import {Component, input, viewChildren, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, NgClass, NgIf} from "@angular/common";
+import {NgClass} from "@angular/common";
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
@@ -19,9 +19,7 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		AsyncPipe,
 		CardListComponent,
-		NgIf,
 		NotFoundTableDataComponent,
 		TranslateModule,
 		FilterComponent,

@@ -11,7 +11,6 @@ import {
 import {AsyncPipe, NgIf} from "@angular/common";
 import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
-import {DetailsBlockComponent} from "@service/presentation/component/form/v2/details/details-block.component";
 import {PricesBlockComponent} from "@service/presentation/component/form/v2/prices/prices-block.component";
 import {ServiceForm} from "@service/presentation/form/service.form";
 import {filter, firstValueFrom, map} from "rxjs";
@@ -34,9 +33,6 @@ import {ClientState} from "@client/state/client/client.state";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {NGXLogger} from "ngx-logger";
-import {
-	ServiceFormImageComponent
-} from "@service/presentation/component/form/v2/image/service-form-image/service-form-image.component";
 import {is} from "@utility/checker";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
@@ -52,7 +48,6 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 		ImageBlockComponent,
 		ReactiveFormsModule,
 		TranslateModule,
-		DetailsBlockComponent,
 		PricesBlockComponent,
 		SwitchActiveBlockComponent,
 		PrimaryButtonDirective,
@@ -61,7 +56,6 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 		ServicesFormComponent,
 		FormInputComponent,
 		CardComponent,
-		ServiceFormImageComponent,
 	]
 })
 export class ServiceContainerFormComponent implements OnInit {

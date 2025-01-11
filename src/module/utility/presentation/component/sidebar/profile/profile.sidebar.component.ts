@@ -4,7 +4,7 @@ import {NGXLogger} from "ngx-logger";
 import {Select} from "@ngxs/store";
 import {BeeoclockIdTokenResult, IdentityState} from "@identity/state/identity/identity.state";
 import {Observable} from "rxjs";
-import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {AlertController} from "@ionic/angular";
 import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
@@ -20,8 +20,6 @@ import {LogoutService} from "@utility/presentation/component/logout/logout.servi
 		AsyncPipe,
 		RouterLink,
 		TranslateModule,
-		NgForOf,
-		NgIf,
 		WithTenantIdPipe
 	],
 })

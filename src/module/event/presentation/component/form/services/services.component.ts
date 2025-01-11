@@ -1,21 +1,17 @@
 import {Component, inject, Input, input, OnInit, viewChildren} from '@angular/core';
-import {AsyncPipe, CurrencyPipe, NgForOf, NgIf, NgTemplateOutlet} from '@angular/common';
+import {CurrencyPipe, NgForOf, NgIf} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {NgSelectModule} from "@ng-select/ng-select";
 
 import {ModalSelectServiceListAdapter} from "@service/adapter/external/component/modal-select-service.list.adapter";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {
 	DurationVersionTypeRangeComponent
 } from "@event/presentation/component/form/services/duration-version-type/duration-version-type.range.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 import {
 	SpecialistServiceComponent
@@ -39,20 +35,13 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	imports: [
 		NgIf,
 		TranslateModule,
-		FormInputComponent,
-		FormTextareaComponent,
 		NgSelectModule,
 		ReactiveFormsModule,
 		NgForOf,
-		CurrencyPipe,
-		NgTemplateOutlet,
 		PrimaryLinkButtonDirective,
-		HumanizeDurationPipe,
 		InvalidTooltipComponent,
 		DurationVersionTypeRangeComponent,
-		AsyncPipe,
 		CardComponent,
-		RowActionButtonComponent,
 		SpecialistServiceComponent,
 		LanguageVersionOrderControlComponent,
 	],

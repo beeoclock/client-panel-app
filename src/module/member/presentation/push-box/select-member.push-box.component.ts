@@ -13,11 +13,7 @@ import {
 	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
-import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
-import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {NGXLogger} from "ngx-logger";
 import {Reactive} from "@utility/cdk/reactive";
 import {RIMember} from "@member/domain";
@@ -33,13 +29,7 @@ import {
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		NgForOf,
-		LoaderComponent,
-		NgIf,
 		TranslateModule,
-		CurrencyPipe,
-		HumanizeDurationPipe,
-		PrimaryButtonDirective,
 		MemberExternalListComponent,
 	],
 	template: `

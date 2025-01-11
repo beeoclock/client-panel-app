@@ -18,7 +18,6 @@ import {DateTime} from "luxon";
 import {Store} from "@ngxs/store";
 import {filter, map, switchMap} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
-import {NgForOf} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {BooleanState} from "@utility/domain";
@@ -40,9 +39,6 @@ interface IData {
 	selector: 'app-schedule-element-calendar-with-specialist-widget-component',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
-	imports: [
-		NgForOf
-	],
 	template: `
 		@for (elementData of dataToBuildScheduleElements; track elementData.start) {
 

@@ -1,7 +1,5 @@
 import {Component, inject, input, viewChild} from '@angular/core';
-import {NgForOf, NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {FormControl} from "@angular/forms";
 import {BooleanState} from "@utility/domain";
 import {PatchMemberMediaApiAdapter} from "@member/adapter/external/api/media/patch.member-media.api.adapter";
@@ -14,10 +12,7 @@ import {NGXLogger} from "ngx-logger";
 	templateUrl: './avatar-container.component.html',
 	standalone: true,
 	imports: [
-		NgIf,
 		TranslateModule,
-		CardComponent,
-		NgForOf,
 		AvatarFormComponent
 	]
 })

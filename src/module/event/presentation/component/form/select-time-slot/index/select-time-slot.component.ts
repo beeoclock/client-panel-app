@@ -2,16 +2,11 @@ import {Component, inject, Input, input} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {DateTime} from "luxon";
-import {DatePipe, NgIf} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
-import {SelectTimeComponent} from "@event/presentation/component/form/select-time-slot/time/select-time.component";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
 import {IDayItem} from "@utility/domain/interface/i.day-item";
-import {
-	DateSliderSelectComponent
-} from "@utility/presentation/component/slider/date-slider-select/date-slider-select.component";
 import {EventConfigurationForm} from "@event/presentation/form/configuration.form";
 import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
 
@@ -21,13 +16,9 @@ import {DatetimeLocalInputComponent} from "@utility/presentation/component/input
 	standalone: true,
 	imports: [
 		TranslateModule,
-		DatePipe,
 		InvalidTooltipComponent,
-		SelectTimeComponent,
 		NgIf,
-		HumanizeDurationPipe,
 		DynamicDatePipe,
-		DateSliderSelectComponent,
 		DatetimeLocalInputComponent,
 	]
 })

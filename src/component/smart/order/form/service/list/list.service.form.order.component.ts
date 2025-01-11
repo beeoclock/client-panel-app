@@ -19,7 +19,6 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {TableState} from "@utility/domain/table.state";
 import {Reactive} from "@utility/cdk/reactive";
-import {NgForOf} from "@angular/common";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {RIMember} from "@member/domain";
 import {ServiceOrderForm, ServiceOrderFormArray} from "@order/presentation/form/service.order.form";
@@ -41,7 +40,6 @@ import {IAttendeeDto} from "@order/external/interface/i-order-appointment-detail
 		ItemV2ListServiceFormOrderComponent,
 		PrimaryLinkButtonDirective,
 		TranslateModule,
-		NgForOf
 	],
 	template: `
 		<div class="h-12 px-4 py-2 bg-neutral-50 border-slate-400 justify-start items-center gap-2 flex w-full">

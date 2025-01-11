@@ -2,16 +2,10 @@ import {ChangeDetectionStrategy, Component, inject, input, OnInit, viewChild, Vi
 import {RouterLink} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SignInComponent} from '@identity/presentation/component/sign-in.component/sign-in.component';
-import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 import {NgOptimizedImage} from "@angular/common";
-import {AlreadySignUpLinkComponent} from "@identity/presentation/component/link/alredy-sign-up.link.component";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {FormInputPasswordComponent} from "@utility/presentation/component/input/form.input.password.component";
-import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
 import {environment} from "@environment/environment";
 
 @Component({
@@ -23,16 +17,10 @@ import {environment} from "@environment/environment";
 		RouterLink,
 		ReactiveFormsModule,
 		SignInComponent,
-		CardComponent,
 		TranslateModule,
 		ChangeLanguageComponent,
 		FormsModule,
 		NgOptimizedImage,
-		PrimaryButtonDirective,
-		AlreadySignUpLinkComponent,
-		FormInputComponent,
-		FormInputPasswordComponent,
-		PrimaryLinkStyleDirective
 	],
 	encapsulation: ViewEncapsulation.None
 })

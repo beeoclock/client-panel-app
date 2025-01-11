@@ -2,9 +2,7 @@ import {ChangeDetectionStrategy, Component, inject, input, OnInit, ViewEncapsula
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {IonicModule} from "@ionic/angular";
-import {NgForOf} from "@angular/common";
 import {ActiveEnum} from "@utility/domain/enum";
 import {is} from "@utility/checker";
 
@@ -29,9 +27,7 @@ import {is} from "@utility/checker";
 		NgSelectModule,
 		ReactiveFormsModule,
 		TranslateModule,
-		DefaultLabelDirective,
 		IonicModule,
-		NgForOf
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

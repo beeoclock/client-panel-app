@@ -8,7 +8,6 @@ import {
 	OnChanges,
 	SimpleChanges
 } from "@angular/core";
-import {NgIf} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
 import {Store} from "@ngxs/store";
 import {RefreshCalendarAction} from "@event/state/calendar/actions/refresh.calendar.action";
@@ -20,9 +19,6 @@ import {
 	selector: 'event-calendar-cell-component',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
-	imports: [
-		NgIf
-	],
 	template: `
 
 	`

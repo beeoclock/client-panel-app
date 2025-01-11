@@ -1,5 +1,5 @@
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {IBodyConfirmInvitation, IQueryParamsConfirmInvitation} from "@identity/domain/interface/i.confirm-invitation";
 import {filter} from "rxjs";
 import {is} from "@utility/checker";
@@ -10,8 +10,6 @@ import {FormInputPasswordComponent} from "@utility/presentation/component/input/
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
-import {NgOptimizedImage} from "@angular/common";
-import {SignInComponent} from "@identity/presentation/component/sign-in.component/sign-in.component";
 import {ConfirmInvitationApiAdapter} from "@identity/adapter/external/api/confirm-invitation.api.adapter";
 import {NGXLogger} from "ngx-logger";
 import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
@@ -30,9 +28,6 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 		TranslateModule,
 		PrimaryButtonDirective,
 		ChangeLanguageComponent,
-		NgOptimizedImage,
-		RouterLink,
-		SignInComponent
 	],
 	encapsulation: ViewEncapsulation.None
 })

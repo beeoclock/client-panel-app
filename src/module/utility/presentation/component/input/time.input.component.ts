@@ -1,8 +1,6 @@
 import {Component, input, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {InputIconComponent} from "@utility/presentation/component/input/input-icon.component";
 import {extractSecondsFrom_hh_mm_ss, secondsTo_hh_mm} from "@utility/domain/time";
-import {InputBadgeComponent} from "@utility/presentation/component/input/input-badge.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 
@@ -10,8 +8,6 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
   selector: 'time-input-component',
   standalone: true,
 	imports: [
-		InputIconComponent,
-		InputBadgeComponent,
 		TranslateModule,
 		FormInputComponent,
 	],

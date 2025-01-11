@@ -1,22 +1,9 @@
 import {Component, HostBinding, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {
-	FormBusinessProfileComponent
-} from "@client/presentation/component/business-profile/form-business-profile.component";
-import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
-import {
-	ButtonSaveContainerComponent
-} from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {NGXLogger} from "ngx-logger";
-import {CurrencyPipe, NgClass, NgForOf, NgSwitch, NgSwitchCase} from "@angular/common";
+import {NgClass, NgForOf, NgSwitch, NgSwitchCase} from "@angular/common";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 import {
 	NewCustomerTypeCustomerComponent
@@ -36,20 +23,10 @@ import {CustomerForm} from "@customer/presentation/form";
 	selector: 'app-customer-type-customer-component',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		FormInputComponent,
-		DatetimeLocalInputComponent,
 		TranslateModule,
-		FormTextareaComponent,
-		CardComponent,
-		FormBusinessProfileComponent,
-		SwitchComponent,
-		ButtonSaveContainerComponent,
 		FormsModule,
-		PrimaryButtonDirective,
-		CurrencyPipe,
 		NgSelectModule,
 		ReactiveFormsModule,
-		DefaultLabelDirective,
 		NgForOf,
 		NgClass,
 		NgSwitch,

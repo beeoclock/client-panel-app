@@ -1,5 +1,4 @@
 import {Component, input, ViewEncapsulation} from '@angular/core';
-import {SpinnerComponent} from "@utility/presentation/component/spinner/spinner.component";
 import {NgIf} from "@angular/common";
 
 @Component({
@@ -7,7 +6,6 @@ import {NgIf} from "@angular/common";
   standalone: true,
   encapsulation: ViewEncapsulation.None,
 	imports: [
-		SpinnerComponent,
 		NgIf
 	],
   template: `

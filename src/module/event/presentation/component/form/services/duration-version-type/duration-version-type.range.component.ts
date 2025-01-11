@@ -4,7 +4,6 @@ import {FormControl, Validators} from "@angular/forms";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {AsyncPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgTemplateOutlet} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {DurationSelectComponent} from "@utility/presentation/component/input/duration.select.component";
 import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/price-and-currency.component";
 import {NGXLogger} from "ngx-logger";
@@ -29,7 +28,6 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 		NgSwitch,
 		NgSwitchCase,
 		NgTemplateOutlet,
-		FormInputComponent,
 		DurationSelectComponent,
 		PriceAndCurrencyComponent
 	]

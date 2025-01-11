@@ -8,10 +8,8 @@ import {SlotsService} from "@event/presentation/component/form/select-time-slot/
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {NGXLogger} from "ngx-logger";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import {ButtonArrowComponent} from "@event/presentation/component/form/select-time-slot/button.arrow.component";
 import {debounceTime, filter} from "rxjs";
 import {MS_QUARTER_SECOND} from "@utility/domain/const/c.time";
-import {TimeInputComponent} from "@utility/presentation/component/input/time.input.component";
 import {EventConfigurationForm} from "@event/presentation/form/configuration.form";
 import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
 import {is} from "@utility/checker";
@@ -45,8 +43,6 @@ enum IndexOfPeriodOfDayEnum {
 		LoaderComponent,
 		NgIf,
 		TranslateModule,
-		ButtonArrowComponent,
-		TimeInputComponent,
 		DatetimeLocalInputComponent,
 	],
 })

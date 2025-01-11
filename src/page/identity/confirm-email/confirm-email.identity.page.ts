@@ -1,7 +1,7 @@
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {applyActionCode, Auth} from '@angular/fire/auth';
-import {AsyncPipe, NgIf, NgOptimizedImage} from "@angular/common";
+import {AsyncPipe, NgIf} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
 import {Select, Store} from "@ngxs/store";
 import {SendConfirmEmailListApiAdapter} from "@identity/adapter/external/api/send-confirm-email-list.api.adapter";
@@ -22,7 +22,6 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 	templateUrl: './confirm-email.identity.page.html',
 	standalone: true,
 	imports: [
-		NgOptimizedImage,
 		NgIf,
 		AsyncPipe,
 		CardComponent,

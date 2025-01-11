@@ -13,7 +13,6 @@ import {
 	ViewEncapsulation
 } from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
-import {NgIf} from '@angular/common';
 import {IsRequiredDirective} from '@utility/presentation/directives/is-required/is-required';
 import {InvalidTooltipDirective} from '@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive';
 import intlTelInput, {Iti} from 'intl-tel-input';
@@ -28,7 +27,6 @@ import {TranslateModule} from "@ngx-translate/core";
 	imports: [
 		IsRequiredDirective,
 		InvalidTooltipDirective,
-		NgIf,
 		ReactiveFormsModule,
 		TranslateModule,
 	],

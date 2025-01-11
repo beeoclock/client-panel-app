@@ -14,7 +14,6 @@ import {is} from "@utility/checker";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {Subject, take} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
-import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {DebounceClickDirective} from "@utility/presentation/directives/debounce/debounce.directive";
 import {NGXLogger} from "ngx-logger";
@@ -44,7 +43,6 @@ export interface ModalButtonInterface<COMPONENT_REF = unknown> {
 		NgForOf,
 		NgClass,
 		DebounceClickDirective,
-		LoaderComponent,
 		TranslateModule
 	],
 	template: `

@@ -9,8 +9,6 @@ import {
 	viewChild,
 	ViewEncapsulation
 } from '@angular/core';
-import {RouterLink} from '@angular/router';
-import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {LanguageCodeEnum, LanguageRecord, LANGUAGES} from "@utility/domain/enum";
 import {NgForOf} from "@angular/common";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
@@ -74,8 +72,6 @@ import {TranslateService} from "@ngx-translate/core";
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    RouterLink,
-    DropdownComponent,
     NgForOf,
     ReactiveFormsModule
   ],

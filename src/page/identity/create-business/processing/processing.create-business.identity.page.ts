@@ -8,18 +8,11 @@ import {
 	ViewEncapsulation
 } from '@angular/core';
 import {RouterLink} from "@angular/router";
-import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
-import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {CreateBusinessQuery} from "@identity/query/create-business.query";
-import {ServiceItemComponent} from "@service/presentation/component/list/item/item.componen";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {FormButtonWithIconComponent} from "@utility/presentation/component/button/form-button-with-icon.component";
-import {ScheduleFormComponent} from "@utility/presentation/component/schedule/schedule.form.component";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {BooleanState} from "@utility/domain";
 import {IdentityApiAdapter} from "@identity/adapter/external/api/identity.api.adapter";
@@ -59,17 +52,10 @@ const enum Status {
 	standalone: true,
 	imports: [
 		RouterLink,
-		PrimaryLinkButtonDirective,
-		FormInputComponent,
 		PrimaryButtonDirective,
-		BackLinkComponent,
-		ChangeLanguageComponent,
 		TranslateModule,
-		ServiceItemComponent,
 		NgForOf,
 		CardComponent,
-		FormButtonWithIconComponent,
-		ScheduleFormComponent,
 		NgClass,
 		NgIf,
 		LoaderComponent,

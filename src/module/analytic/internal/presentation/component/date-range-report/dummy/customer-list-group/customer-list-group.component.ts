@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, input, OnChanges, SimpleChanges, ViewEncapsulation} from "@angular/core";
 import {Analytic} from "@module/analytic/internal/store/date-range-report/interface/i.analytic";
 import {TranslateModule} from "@ngx-translate/core";
-import {CurrencyPipe} from "@angular/common";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 
 type T = Analytic.ICustomer | Omit<Analytic.ICustomer, 'specialistRecord'>;
@@ -63,7 +62,6 @@ type T = Analytic.ICustomer | Omit<Analytic.ICustomer, 'specialistRecord'>;
 	`,
 	imports: [
 		TranslateModule,
-		CurrencyPipe
 	],
 	host: {
 		class: 'w-full md:max-w-xs'

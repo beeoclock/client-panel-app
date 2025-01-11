@@ -5,23 +5,14 @@ import {
 	CancelledChangeStatusButtonComponent
 } from "@order/presentation/component/details/change-status/buttons/cancelled.change-status.button.component";
 import {
-	RequestedChangeStatusButtonComponent
-} from "@order/presentation/component/details/change-status/buttons/requested.change-status.button.component";
-import {
 	ConfirmedChangeStatusButtonComponent
 } from "@order/presentation/component/details/change-status/buttons/confirmed.change-status.button.component";
 import {
 	DoneChangeStatusButtonComponent
 } from "@order/presentation/component/details/change-status/buttons/done.change-status.button.component";
 import {
-	InProgressChangeStatusButtonComponent
-} from "@order/presentation/component/details/change-status/buttons/in-progress.change-status.button.component";
-import {
 	RejectedChangeStatusButtonComponent
 } from "@order/presentation/component/details/change-status/buttons/rejected.change-status.button.component";
-import {
-	DraftChangeStatusButtonComponent
-} from "@order/presentation/component/details/change-status/buttons/draft.change-status.button.component";
 import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 import {NgSwitch, NgSwitchCase} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
@@ -32,14 +23,10 @@ import {TranslateModule} from "@ngx-translate/core";
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		DraftChangeStatusButtonComponent,
 		CancelledChangeStatusButtonComponent,
-		RequestedChangeStatusButtonComponent,
 		ConfirmedChangeStatusButtonComponent,
 		DoneChangeStatusButtonComponent,
-		InProgressChangeStatusButtonComponent,
 		RejectedChangeStatusButtonComponent,
-		DraftChangeStatusButtonComponent,
 		NgSwitch,
 		NgSwitchCase,
 		TranslateModule

@@ -1,7 +1,6 @@
 import {Component, HostBinding, inject, input, ViewEncapsulation} from "@angular/core";
 
-import {CurrencyPipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
+import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 
@@ -31,11 +30,8 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
 	imports: [
-		CurrencyPipe,
-		HumanizeDurationPipe,
 		NgIf,
 		NgForOf,
-		NgOptimizedImage
 	],
 	providers: [
 		CurrencyPipe,

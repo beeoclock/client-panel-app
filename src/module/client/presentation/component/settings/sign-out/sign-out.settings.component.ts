@@ -2,8 +2,6 @@ import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from "@an
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {ReactiveFormsModule} from "@angular/forms";
-import {LanguageInputComponent} from "@client/presentation/component/settings/language-input.component";
-import {ThemeInputComponent} from "@client/presentation/component/settings/theme-input.component";
 import {Auth} from "@angular/fire/auth";
 import {Router} from "@angular/router";
 import {NGXLogger} from "ngx-logger";
@@ -17,8 +15,6 @@ import {NGXLogger} from "ngx-logger";
     CardComponent,
     TranslateModule,
     ReactiveFormsModule,
-    LanguageInputComponent,
-    ThemeInputComponent
   ],
   template: `
     <bee-card>

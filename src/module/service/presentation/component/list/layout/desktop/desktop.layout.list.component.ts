@@ -1,5 +1,5 @@
 import {Component, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
@@ -20,7 +20,6 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		AsyncPipe,
 		FilterComponent,
 		NgIf,
 		NotFoundTableDataComponent,

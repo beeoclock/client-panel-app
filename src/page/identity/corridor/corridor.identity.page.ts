@@ -1,7 +1,6 @@
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
-import {SignInComponent} from '@identity/presentation/component/sign-in.component/sign-in.component';
 import {Select, Store} from '@ngxs/store';
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {filter, from, Observable, switchMap, tap} from "rxjs";
@@ -15,7 +14,6 @@ import {LogoutComponent} from "@utility/presentation/component/logout/logout.com
 import {BooleanState} from "@utility/domain";
 import {AppActions} from "@utility/state/app/app.actions";
 import {Reactive} from "@utility/cdk/reactive";
-import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {LAST_OPENED_TENANT_ID_MAP_BY_LOGIN, TENANT_ID} from "@src/token";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
@@ -27,9 +25,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 	templateUrl: './corridor.identity.page.html',
 	standalone: true,
 	imports: [
-		RouterLink,
 		ReactiveFormsModule,
-		SignInComponent,
 		NgForOf,
 		AsyncPipe,
 		NgIf,
@@ -37,7 +33,6 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 		TranslateModule,
 		ChangeLanguageComponent,
 		LogoutComponent,
-		BackButtonComponent,
 		BackLinkComponent
 	],
 	encapsulation: ViewEncapsulation.None

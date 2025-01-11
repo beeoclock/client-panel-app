@@ -1,6 +1,4 @@
 import {Component, ViewEncapsulation} from "@angular/core";
-import {CurrencyPipe, NgForOf} from "@angular/common";
-import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {
 	TableStatePaginationComponent
@@ -13,8 +11,6 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ICustomer} from "@customer/domain";
 import {BodyTableFlexDirective} from "@utility/presentation/directives/talbe/flex/body.table.flex.directive";
 import {ColumnTableFlexDirective} from "@utility/presentation/directives/talbe/flex/column.table.flex.directive";
-import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex/row.table.flex.directive";
 import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
@@ -26,8 +22,6 @@ import {RowActionButtonComponent} from "@customer/presentation/component/row-act
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		NgForOf,
-		RouterLink,
 		ActiveStyleDirective,
 		TableStatePaginationComponent,
 		DynamicDatePipe,
@@ -35,9 +29,6 @@ import {RowActionButtonComponent} from "@customer/presentation/component/row-act
 		TranslateModule,
 		BodyTableFlexDirective,
 		ColumnTableFlexDirective,
-		CurrencyPipe,
-		EventStatusStyleDirective,
-		HumanizeDurationPipe,
 		RowTableFlexDirective,
 		TableTableFlexDirective,
 		NoDataPipe,

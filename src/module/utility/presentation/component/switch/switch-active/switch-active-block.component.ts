@@ -1,5 +1,4 @@
 import {Component, input} from '@angular/core';
-import {NgForOf} from "@angular/common";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
@@ -20,7 +19,6 @@ import {SwitchComponent} from "@utility/presentation/component/switch/switch.com
 	`,
 	imports: [
 		ReactiveFormsModule,
-		NgForOf,
 		CardComponent,
 		SwitchComponent,
 	]

@@ -1,6 +1,4 @@
 import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from "@angular/core";
-import {NgForOf, NgIf} from "@angular/common";
-import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {ChangeNameForm} from "@client/presentation/form/change-name.form";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
@@ -14,9 +12,6 @@ import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		NgForOf,
-		LoaderComponent,
-		NgIf,
 		TranslateModule,
 		FormInputComponent
 	],

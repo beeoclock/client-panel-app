@@ -1,9 +1,7 @@
 import {Component, HostBinding, inject, input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
 import {IAttendee, IEvent_V2} from "@event/domain";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
-import {CurrencyPipe, NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase} from "@angular/common";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
+import {CurrencyPipe, NgClass} from "@angular/common";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
@@ -14,7 +12,6 @@ import {
 	OrderServiceStatusStyleDirective
 } from "@event/presentation/directive/order-service-status-style/order-service-status-style.directive";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
@@ -24,17 +21,9 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 	selector: 'event-v2-general-details',
 	standalone: true,
 	imports: [
-		DynamicDatePipe,
 		TranslateModule,
-		CurrencyPipe,
-		NgForOf,
-		NgIf,
-		HumanizeDurationPipe,
 		NgClass,
 		OrderServiceStatusStyleDirective,
-		NgSwitch,
-		NgSwitchCase,
-		PrimaryButtonDirective,
 		PrimaryLinkButtonDirective,
 		PrimaryLinkStyleDirective,
 	],

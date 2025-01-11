@@ -1,5 +1,5 @@
 import {Component, inject, input, viewChildren} from '@angular/core';
-import {NgForOf, NgIf} from "@angular/common";
+import {NgForOf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {FormControl} from "@angular/forms";
@@ -17,7 +17,6 @@ import {MediaStateEnum} from "@utility/presentation/component/image/base.image.c
 	templateUrl: './image-block.component.html',
 	standalone: true,
 	imports: [
-		NgIf,
 		TranslateModule,
 		CardComponent,
 		ServiceFormImageComponent,

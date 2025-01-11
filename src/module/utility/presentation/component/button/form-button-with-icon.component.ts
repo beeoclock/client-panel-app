@@ -1,6 +1,4 @@
 import {ChangeDetectionStrategy, Component, HostBinding, input, ViewEncapsulation} from '@angular/core';
-import {NgIf} from '@angular/common';
-import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
@@ -13,8 +11,6 @@ import {TranslateModule} from "@ngx-translate/core";
       {{ label() }}
   `,
   imports: [
-    NgIf,
-    SpinnerComponent,
     TranslateModule
   ]
 })

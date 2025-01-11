@@ -2,7 +2,6 @@ import {Component, HostBinding, input, ViewEncapsulation} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
-import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {IonicModule} from "@ionic/angular";
 import {NgForOf} from "@angular/common";
 
@@ -29,7 +28,6 @@ import {NgForOf} from "@angular/common";
 		NgSelectModule,
 		ReactiveFormsModule,
 		TranslateModule,
-		DefaultLabelDirective,
 		IonicModule,
 		NgForOf
 	],

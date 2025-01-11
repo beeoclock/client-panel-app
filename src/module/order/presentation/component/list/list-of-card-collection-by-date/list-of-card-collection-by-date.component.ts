@@ -3,8 +3,7 @@ import {TableComponent} from "@utility/table.component";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {DateTime} from "luxon";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {AsyncPipe, KeyValuePipe, NgForOf, NgIf} from "@angular/common";
-import {CardListComponent} from "@order/presentation/component/list/card/card.list.component";
+import {AsyncPipe} from "@angular/common";
 import {CardItemOrderComponent} from "@order/presentation/component/list/card/item/card.item.order.component";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {
@@ -17,13 +16,9 @@ import {
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		NgForOf,
-		KeyValuePipe,
 		TranslateModule,
-		CardListComponent,
 		AsyncPipe,
 		CardItemOrderComponent,
-		NgIf,
 		TableStatePaginationComponent
 	],
 	template: `

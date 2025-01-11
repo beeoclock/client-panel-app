@@ -1,7 +1,6 @@
 import {Component, input, output} from "@angular/core";
 import {NgIf, NgOptimizedImage} from "@angular/common";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {RouterLink} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
@@ -10,7 +9,6 @@ import {TranslateModule} from "@ngx-translate/core";
 	imports: [
 		NgOptimizedImage,
 		PrimaryButtonDirective,
-		RouterLink,
 		TranslateModule,
 		NgIf
 	],

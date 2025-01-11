@@ -1,9 +1,6 @@
 import {ChangeDetectionStrategy, Component, input, OnInit, output} from "@angular/core";
 import {IonPopover} from "@ionic/angular/standalone";
-import {CurrencyPipe, NgSwitch, NgSwitchCase} from "@angular/common";
-import {
-	CustomerTypeCustomerComponent
-} from "@customer/presentation/component/form/by-customer-type/customer-type.customer.component";
+import {CurrencyPipe} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import ObjectID from "bson-objectid";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
@@ -26,11 +23,8 @@ import {DefaultButtonDirective} from "@utility/presentation/directives/button/de
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		NgSwitch,
 		IonPopover,
-		CustomerTypeCustomerComponent,
 		TranslateModule,
-		NgSwitchCase,
 		CurrencyPipe,
 		FormInputComponent,
 		PrimaryButtonDirective,

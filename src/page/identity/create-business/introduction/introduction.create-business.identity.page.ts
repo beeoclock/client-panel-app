@@ -28,13 +28,6 @@ import {IdentityActions} from "@identity/state/identity/identity.actions";
 	encapsulation: ViewEncapsulation.None
 })
 export class IntroductionCreateBusinessIdentityPage {
-
-	public readonly firstCompany$ = this.members$.pipe(
-		map((members) => members.length === 0),
-	);
-	public readonly notFirstCompany$ = this.firstCompany$.pipe(
-		map((firstCompany) => !firstCompany),
-	);
 	private readonly store = inject(Store);
 	@Select(IdentityState.clients)
 	private readonly clients$!: Observable<IMember[]>;
@@ -45,6 +38,13 @@ export class IntroductionCreateBusinessIdentityPage {
 			}
 		}),
 		filter(Array.isArray),
+	);
+
+	public readonly firstCompany$ = this.members$.pipe(
+		map((members) => members.length === 0),
+	);
+	public readonly notFirstCompany$ = this.firstCompany$.pipe(
+		map((firstCompany) => !firstCompany),
 	);
 
 

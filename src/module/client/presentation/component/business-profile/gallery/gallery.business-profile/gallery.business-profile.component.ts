@@ -11,7 +11,7 @@ import {
 } from "@angular/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgForOf} from "@angular/common";
 import {GalleryForm} from "@client/presentation/form/gallery.form";
 import {BooleanState} from "@utility/domain";
 import {
@@ -23,7 +23,6 @@ import {
 import {
 	DeleteMediaGalleryClientApiAdapter
 } from "@client/adapter/external/api/media/gallery/delete.media.gallery.client.api.adapter";
-import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 import {RIMedia} from "@module/media/domain/interface/i.media";
 import {MediaStateEnum} from "@utility/presentation/component/image/base.image.component";
 
@@ -35,8 +34,6 @@ import {MediaStateEnum} from "@utility/presentation/component/image/base.image.c
 		TranslateModule,
 		ImageGalleryBusinessProfileComponent,
 		NgForOf,
-		NgIf,
-		InvalidTooltipComponent
 	],
 	standalone: true,
 	templateUrl: './gallery.business-profile.component.html'

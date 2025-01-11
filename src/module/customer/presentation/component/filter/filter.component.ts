@@ -1,5 +1,4 @@
 import {Component, input} from '@angular/core';
-import {FilterPanelComponent} from '@utility/presentation/component/panel/filter.panel.component';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {FilterForm} from "@customer/presentation/form/filter.form";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
@@ -9,7 +8,6 @@ import {IonSelectActiveComponent} from "@utility/presentation/component/input/io
 import {CustomerState} from "@customer/state/customer/customer.state";
 import {BaseFilterComponent} from "@utility/base.filter.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
-import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
 import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {ReactiveFormsModule} from "@angular/forms";
@@ -18,13 +16,11 @@ import {ReactiveFormsModule} from "@angular/forms";
 	selector: 'customer-filter-component',
 	standalone: true,
 	imports: [
-		FilterPanelComponent,
 		SearchInputComponent,
 		PrimaryButtonDirective,
 		TranslateModule,
 		IonSelectActiveComponent,
 		DefaultPanelComponent,
-		IonSelectWrapperComponent,
 		AsyncPipe,
 		NgIf,
 		NgTemplateOutlet,

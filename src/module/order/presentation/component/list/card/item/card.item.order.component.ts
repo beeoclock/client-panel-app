@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, HostBinding, Input, input, OnInit, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, CurrencyPipe, DatePipe, NgForOf, NgIf} from "@angular/common";
+import {CurrencyPipe, NgIf} from "@angular/common";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@order/presentation/component/row-action-button/row-action-button.component";
 import {TranslateModule} from "@ngx-translate/core";
@@ -9,7 +8,6 @@ import {debounce} from "typescript-debounce-decorator";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {OrderActions} from "@order/state/order/order.actions";
 import {IOrderServiceDto} from "@src/module/order/external/interface/i.order-service.dto";
-import DurationPricePipe from "@utility/presentation/pipes/duration-price.pipe";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {
 	ListServiceFormCardOrderComponent
@@ -23,17 +21,12 @@ import {CurrencyCodeEnum} from "@utility/domain/enum";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
-		AsyncPipe,
 		CardComponent,
-		DynamicDatePipe,
 		NgIf,
 		NoDataPipe,
 		RowActionButtonComponent,
 		TranslateModule,
 		CurrencyPipe,
-		NgForOf,
-		DatePipe,
-		DurationPricePipe,
 		ListServiceFormCardOrderComponent,
 	],
 	providers: [

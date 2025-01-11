@@ -1,8 +1,5 @@
 import {ChangeDetectionStrategy, Component, HostBinding, Input, input, ViewEncapsulation} from '@angular/core';
-import {NgIf} from '@angular/common';
-import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {TranslateModule} from "@ngx-translate/core";
-import {RouterLink} from "@angular/router";
 
 @Component({
 	selector: 'edit-button-component',
@@ -14,10 +11,7 @@ import {RouterLink} from "@angular/router";
 		{{ 'keyword.capitalize.edit' | translate }}
 	`,
 	imports: [
-		NgIf,
-		SpinnerComponent,
 		TranslateModule,
-		RouterLink
 	]
 })
 export class EditButtonComponent {

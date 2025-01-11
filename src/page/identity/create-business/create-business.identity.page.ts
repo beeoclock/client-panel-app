@@ -2,13 +2,6 @@ import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterOutlet} from "@angular/router";
-import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
-import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {LogoutComponent} from "@utility/presentation/component/logout/logout.component";
-import {AsyncPipe, NgIf} from "@angular/common";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 
 @Component({
@@ -22,14 +15,6 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 	imports: [
 		ReactiveFormsModule,
 		TranslateModule,
-		BackLinkComponent,
-		FormInputComponent,
-		ChangeLanguageComponent,
-		FormTextareaComponent,
-		PrimaryButtonDirective,
-		LogoutComponent,
-		NgIf,
-		AsyncPipe,
 		RouterOutlet
 	],
 	encapsulation: ViewEncapsulation.None

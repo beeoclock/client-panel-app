@@ -6,12 +6,6 @@ import {BusinessSettingsForm} from "@client/presentation/form/business-settings.
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {NgIf} from "@angular/common";
 import {
-	CurrenciesBusinessSettingsComponent
-} from "@client/presentation/component/business-settings/currencies.business-settings.component";
-import {
-	MandatoryAttendeePropertiesComponent
-} from "@client/presentation/component/booking-settings/mandatory-attendee-properties/mandatory-attendee-properties.component";
-import {
 	TimeZoneBookingSettingsComponent
 } from "@client/presentation/component/business-settings/time-zone/time-zone.booking-settings.component";
 import {
@@ -54,8 +48,6 @@ import {
 		EmailLanguageBusinessSettingsComponent,
 		CardComponent,
 		NgIf,
-		CurrenciesBusinessSettingsComponent,
-		MandatoryAttendeePropertiesComponent,
 		TimeZoneBookingSettingsComponent,
 		BaseCurrencyBusinessSettingsComponent,
 		TranslateModule,

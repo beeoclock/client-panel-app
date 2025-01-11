@@ -4,7 +4,7 @@ import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {Router, RouterLink} from "@angular/router";
+import {Router} from "@angular/router";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 
@@ -35,7 +35,6 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	imports: [
 		ActionComponent,
 		TranslateModule,
-		RouterLink
 	]
 })
 export class RowActionButtonComponent {

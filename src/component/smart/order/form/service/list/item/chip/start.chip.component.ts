@@ -1,15 +1,10 @@
 import {ChangeDetectionStrategy, Component, inject, input, OnInit, output} from "@angular/core";
 import {IonDatetime, IonPopover} from "@ionic/angular/standalone";
-import {CurrencyPipe, DatePipe, NgSwitch, NgSwitchCase} from "@angular/common";
-import {
-	CustomerTypeCustomerComponent
-} from "@customer/presentation/component/form/by-customer-type/customer-type.customer.component";
+import {DatePipe} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import ObjectID from "bson-objectid";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Reactive} from "@utility/cdk/reactive";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {DateTime} from "luxon";
 
 @Component({
@@ -24,14 +19,8 @@ import {DateTime} from "luxon";
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		NgSwitch,
 		IonPopover,
-		CustomerTypeCustomerComponent,
 		TranslateModule,
-		NgSwitchCase,
-		CurrencyPipe,
-		FormInputComponent,
-		HumanizeDurationPipe,
 		IonDatetime,
 		ReactiveFormsModule,
 		DatePipe

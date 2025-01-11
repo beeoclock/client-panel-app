@@ -11,11 +11,9 @@ import {
 import {
 	ItemV2ListServiceFormOrderComponent
 } from "@src/component/smart/order/form/service/list/item/item-v2.list.service.form.order.component";
-import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {Reactive} from "@utility/cdk/reactive";
-import {NgForOf} from "@angular/common";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {RIMember} from "@member/domain";
 import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
@@ -34,9 +32,7 @@ import {OrderActions} from "@order/state/order/order.actions";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		ItemV2ListServiceFormOrderComponent,
-		PrimaryLinkButtonDirective,
 		TranslateModule,
-		NgForOf
 	],
 	template: `
 		<div class="flex-col justify-start items-start flex">

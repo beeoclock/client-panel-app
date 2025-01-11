@@ -2,8 +2,6 @@ import {Component, input, ViewEncapsulation} from '@angular/core';
 import {LanguageVersionForm} from '@service/presentation/form/service.form';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {HasErrorDirective} from '@utility/presentation/directives/has-error/has-error.directive';
-import {IsRequiredDirective} from '@utility/presentation/directives/is-required/is-required';
 import {
 	LanguageServiceFormComponent
 } from '@service/presentation/component/form/v2/service/language.service.form.component';
@@ -18,9 +16,7 @@ import {FormTextareaComponent} from "@utility/presentation/component/input/form.
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		ReactiveFormsModule,
-		HasErrorDirective,
 		NgSelectModule,
-		IsRequiredDirective,
 		LanguageServiceFormComponent,
 		FormInputComponent,
 		TranslateModule,

@@ -1,7 +1,5 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from "@angular/router";
-import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
@@ -12,7 +10,6 @@ import {NgForOf} from "@angular/common";
 
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {FormButtonWithIconComponent} from "@utility/presentation/component/button/form-button-with-icon.component";
-import {ScheduleFormComponent} from "@utility/presentation/component/schedule/schedule.form.component";
 import {
 	CreateBusinessModalService
 } from "@service/presentation/component/form/modal/create-business/create-business.modal.service";
@@ -28,8 +25,6 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	standalone: true,
 	imports: [
 		RouterLink,
-		PrimaryLinkButtonDirective,
-		FormInputComponent,
 		PrimaryButtonDirective,
 		BackLinkComponent,
 		ChangeLanguageComponent,
@@ -38,7 +33,6 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 		NgForOf,
 		CardComponent,
 		FormButtonWithIconComponent,
-		ScheduleFormComponent
 	],
 	encapsulation: ViewEncapsulation.None
 })

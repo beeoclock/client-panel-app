@@ -9,8 +9,7 @@ import {
 	OnChanges,
 	SimpleChanges
 } from "@angular/core";
-import {NgForOf, NgIf} from "@angular/common";
-import {DataBlockComponent} from "@event/presentation/component/calendar/data-block.component";
+import {NgForOf} from "@angular/common";
 import {CellComponent} from "@event/presentation/component/calendar/cell.component";
 import {DateTime, Interval} from "luxon";
 
@@ -20,8 +19,6 @@ import {DateTime, Interval} from "luxon";
 	standalone: true,
 	imports: [
 		NgForOf,
-		NgIf,
-		DataBlockComponent,
 		CellComponent
 	],
 	template: `

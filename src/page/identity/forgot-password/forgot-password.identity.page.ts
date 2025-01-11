@@ -1,18 +1,15 @@
 import {Component, HostBinding, inject, OnInit, ViewEncapsulation} from '@angular/core';
-import {GettingStartedComponent} from '@utility/presentation/component/getting-started/getting-started.component';
 import ResetPasswordForm from "@identity/presentation/form/reset-password.form";
 import {Router} from "@angular/router";
 import {ReactiveFormsModule} from "@angular/forms";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
 import {ToastController} from "@ionic/angular";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {ForgotPasswordApiAdapter} from "@identity/adapter/external/api/forgot-password.api.adapter";
 import {NgOptimizedImage} from "@angular/common";
-import {SignUpComponent} from "@identity/presentation/component/sign-up.component/sign-up.component";
 import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 
@@ -21,16 +18,13 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 	templateUrl: './forgot-password.identity.page.html',
 	standalone: true,
 	imports: [
-		GettingStartedComponent,
 		ReactiveFormsModule,
 		FormInputComponent,
 		BackLinkComponent,
 		TranslateModule,
-		CardComponent,
 		ChangeLanguageComponent,
 		PrimaryButtonDirective,
 		NgOptimizedImage,
-		SignUpComponent
 	],
 	encapsulation: ViewEncapsulation.None
 })

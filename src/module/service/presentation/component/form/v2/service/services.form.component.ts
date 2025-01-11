@@ -1,10 +1,8 @@
 import {LanguageVersionsForm} from '@service/presentation/form/service.form';
 import {Component, Input, input, OnInit, ViewEncapsulation} from '@angular/core';
-import {AsyncPipe, NgClass, NgForOf, NgIf} from '@angular/common';
+import {NgClass, NgForOf, NgIf} from '@angular/common';
 import {LanguageCodeEnum, LanguageRecord} from '@utility/domain/enum';
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {FormButtonWithIconComponent} from "@utility/presentation/component/button/form-button-with-icon.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {DetailsBlockComponent} from "@service/presentation/component/form/v2/details/details-block.component";
@@ -17,9 +15,6 @@ import {ServiceFormComponent} from "@service/presentation/component/form/v2/serv
 	imports: [
 		NgForOf,
 		NgIf,
-		AsyncPipe,
-		PrimaryButtonDirective,
-		FormButtonWithIconComponent,
 		TranslateModule,
 		NgClass,
 		DetailsBlockComponent,

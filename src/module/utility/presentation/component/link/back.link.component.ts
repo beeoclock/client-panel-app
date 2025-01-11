@@ -1,5 +1,5 @@
 import {Component, ElementRef, HostBinding, inject, Input, input, viewChild, ViewEncapsulation} from '@angular/core';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateModule} from "@ngx-translate/core";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
 import {WINDOW, WINDOW_PROVIDERS} from "@utility/cdk/window.provider";
@@ -16,7 +16,6 @@ import {WINDOW, WINDOW_PROVIDERS} from "@utility/cdk/window.provider";
     </button>
   `,
   imports: [
-    RouterLink,
     TranslateModule,
     LinkButtonDirective
   ],

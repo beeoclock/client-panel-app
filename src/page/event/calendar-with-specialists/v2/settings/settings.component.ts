@@ -1,6 +1,4 @@
 import {ChangeDetectionStrategy, Component, input, OnInit, ViewEncapsulation} from "@angular/core";
-import {DefaultButtonDirective} from "@utility/presentation/directives/button/default.button.directive";
-import {IonPopover} from "@ionic/angular/standalone";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
@@ -12,8 +10,6 @@ import {Reactive} from "@utility/cdk/reactive";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
-		DefaultButtonDirective,
-		IonPopover,
 		ReactiveFormsModule,
 		TranslateModule,
 	]

@@ -1,5 +1,5 @@
 import {Component, inject, input, output} from "@angular/core";
-import {Router, RouterLink} from "@angular/router";
+import {Router} from "@angular/router";
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {ActiveEnum} from "@utility/domain/enum";
 import {NgIf} from "@angular/common";
@@ -10,7 +10,6 @@ import {Placement} from "@popperjs/core/lib/enums";
 	selector: 'utility-table-column-action',
 	standalone: true,
 	imports: [
-		RouterLink,
 		DropdownComponent,
 		NgIf,
 		TranslateModule

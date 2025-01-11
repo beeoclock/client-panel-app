@@ -1,6 +1,5 @@
 import {Component, inject, ViewEncapsulation} from "@angular/core";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
-import {RouterLink} from "@angular/router";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {
 	TableStatePaginationComponent
@@ -9,16 +8,13 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
-import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {ILanguageVersion} from "@service/domain";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {LanguageCodeEnum} from "@utility/domain/enum";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {BodyTableFlexDirective} from "@utility/presentation/directives/talbe/flex/body.table.flex.directive";
 import {ColumnTableFlexDirective} from "@utility/presentation/directives/talbe/flex/column.table.flex.directive";
 import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex/row.table.flex.directive";
 import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
-import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
@@ -30,20 +26,15 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		NgForOf,
-		RouterLink,
 		ActiveStyleDirective,
 		TableStatePaginationComponent,
 		DynamicDatePipe,
 		SortIndicatorComponent,
 		TranslateModule,
-		EventStatusStyleDirective,
-		HumanizeDurationPipe,
-		CurrencyPipe,
 		BodyTableFlexDirective,
 		ColumnTableFlexDirective,
 		RowTableFlexDirective,
 		TableTableFlexDirective,
-		NoDataPipe,
 		RowActionButtonComponent,
 		NgIf,
 	],

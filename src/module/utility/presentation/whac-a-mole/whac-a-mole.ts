@@ -12,7 +12,6 @@ import {
 	viewChild,
 	ViewContainerRef
 } from '@angular/core';
-import {NgClass, NgForOf, NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {NGXLogger} from 'ngx-logger';
 import {Reactive} from "@utility/cdk/reactive";
@@ -24,7 +23,7 @@ import {WhacAMoleWrapper} from "@utility/presentation/whac-a-mole/whac-a-mole.wr
 @Component({
 	selector: 'whac-a-mole',
 	standalone: true,
-	imports: [NgIf, NgForOf, NgClass, TranslateModule, WhacAMoleContainer],
+	imports: [TranslateModule, WhacAMoleContainer],
 	template: `
 		<whac-a-mole-container>
 			<ng-container #listOfComponents></ng-container>

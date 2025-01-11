@@ -1,14 +1,8 @@
 import {Component, HostBinding, input, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-
-import {NgIf} from '@angular/common';
-import {HasErrorDirective} from '@utility/presentation/directives/has-error/has-error.directive';
-import {IsRequiredDirective} from '@utility/presentation/directives/is-required/is-required';
-import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {CustomerForm} from "@customer/presentation/form";
-import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 
 @Component({
 	selector: 'app-event-names-form-attendant-component',
@@ -16,13 +10,8 @@ import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-m
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		ReactiveFormsModule,
-		NgIf,
-		HasErrorDirective,
-		IsRequiredDirective,
-		InvalidTooltipDirective,
 		FormInputComponent,
 		TranslateModule,
-		InvalidTooltipComponent
 	],
 	template: `
 

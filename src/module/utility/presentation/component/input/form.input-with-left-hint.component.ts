@@ -12,10 +12,8 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {IsRequiredDirective} from "@utility/presentation/directives/is-required/is-required";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
-import {DefaultInputDirective} from "@utility/presentation/directives/input/default.input.directive";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {FloatingLabelDirective} from "@utility/presentation/directives/label/floating.label.directive";
-import {FloatingInputDirective} from "@utility/presentation/directives/input/floating.input.directive";
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
@@ -28,10 +26,7 @@ import {TranslateModule} from "@ngx-translate/core";
 		InvalidTooltipDirective,
 		ReactiveFormsModule,
 		NgIf,
-		DefaultInputDirective,
 		DefaultLabelDirective,
-		FloatingLabelDirective,
-		FloatingInputDirective,
 		TranslateModule,
 	],
 	template: `

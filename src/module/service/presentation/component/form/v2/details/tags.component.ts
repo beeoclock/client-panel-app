@@ -1,9 +1,6 @@
 import {Component, input} from '@angular/core';
-import {NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {NgSelectModule} from "@ng-select/ng-select";
 
 interface ITag {
@@ -28,10 +25,7 @@ interface ITag {
     </ng-select>
   `,
   imports: [
-    NgIf,
     TranslateModule,
-    FormInputComponent,
-    FormTextareaComponent,
     NgSelectModule,
     ReactiveFormsModule,
   ]

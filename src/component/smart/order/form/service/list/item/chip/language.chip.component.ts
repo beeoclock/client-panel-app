@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, input, OnInit, viewChild, ViewEncapsulation} from "@angular/core";
 import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone";
-import {NgForOf} from "@angular/common";
 import ObjectID from "bson-objectid";
 import {FormControl} from "@angular/forms";
 import {Reactive} from "@utility/cdk/reactive";
@@ -17,7 +16,6 @@ import {RILanguageVersion} from "@service/domain";
 		IonItem,
 		IonLabel,
 		IonList,
-		NgForOf
 	],
 	template: `
 		<button

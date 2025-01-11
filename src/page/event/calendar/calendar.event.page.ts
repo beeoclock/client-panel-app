@@ -1,7 +1,5 @@
 import {AfterViewInit, Component, inject, OnDestroy, OnInit, viewChild, ViewEncapsulation} from '@angular/core';
-import {DOCUMENT, NgForOf, NgIf} from "@angular/common";
-import {HoursComponent} from "@event/presentation/component/calendar/hours.component";
-import {ColumnsBlockComponent} from "@event/presentation/component/calendar/columns-block.component";
+import {DOCUMENT} from "@angular/common";
 import {Store} from "@ngxs/store";
 import {CalendarQueries} from "@event/state/calendar/calendar.queries";
 import {DateTime} from "luxon";
@@ -15,7 +13,6 @@ import {
 	DataCalendarDomManipulationService
 } from "@event/presentation/dom-manipulation-service/data.calendar.dom-manipulation-service";
 import {TranslateService} from "@ngx-translate/core";
-import {SpeedDialComponent} from "@event/presentation/component/calendar/speed-dial.component";
 import {Reactive} from "@utility/cdk/reactive";
 import {InitCalendarAction} from "@event/state/calendar/actions/init.calendar.action";
 import {ContainerCalendarComponent} from "@event/presentation/component/calendar/container.calendar.component";
@@ -24,11 +21,6 @@ import {ContainerCalendarComponent} from "@event/presentation/component/calendar
 	selector: 'app-event-calendar-page',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		NgIf,
-		HoursComponent,
-		ColumnsBlockComponent,
-		NgForOf,
-		SpeedDialComponent,
 		ContainerCalendarComponent,
 	],
 	providers: [

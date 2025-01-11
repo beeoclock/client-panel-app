@@ -1,5 +1,5 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
-import {NgForOf, NgIf} from '@angular/common';
+import {NgForOf} from '@angular/common';
 import {ScheduleFormComponent} from "@utility/presentation/component/schedule/schedule.form.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
@@ -12,7 +12,6 @@ import {FormButtonWithIconComponent} from "@utility/presentation/component/butto
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		NgForOf,
-		NgIf,
 		ScheduleFormComponent,
 		CardComponent,
 		TranslateModule,

@@ -13,7 +13,6 @@ import {
 	ViewEncapsulation
 } from "@angular/core";
 import {AsyncPipe, DOCUMENT} from "@angular/common";
-import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {Reactive} from "@utility/cdk/reactive";
@@ -34,13 +33,8 @@ import {TranslateModule} from "@ngx-translate/core";
 import {
 	TimeLineCalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/time-line.calendar-with-specialist.widget.component";
-import {
-	DateControlCalendarWithSpecialistsComponent
-} from "../../filter/date-control/date-control.calendar-with-specialists.component";
-import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
 import {FormControl} from "@angular/forms";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {OrderActions} from "@order/state/order/order.actions";
 import {DateTime} from "luxon";
 import {ClientState} from "@client/state/client/client.state";
@@ -56,7 +50,6 @@ import {
 } from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/empty-slot.calendar-with-specialist.widget.component";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {SettingsComponent} from "@page/event/calendar-with-specialists/v2/settings/settings.component";
 import {
 	FilterCalendarWithSpecialistComponent
 } from "@page/event/calendar-with-specialists/v2/component/main/filter/filter.calendar-with-specialist.component";
@@ -69,17 +62,12 @@ import {
 	templateUrl: './calendar-with-specialist.widget.component.html',
 	imports: [
 		AsyncPipe,
-		AutoRefreshComponent,
-		DateControlCalendarWithSpecialistsComponent,
 		EventCalendarWithSpecialistWidgetComponent,
 		HeaderCalendarWithSpecialistWidgetComponent,
 		TranslateModule,
 		EmptySlotCalendarWithSpecialistWidgetComponent,
 		TimeLineCalendarWithSpecialistWidgetComponent,
-		IonSelectWrapperComponent,
-		PrimaryButtonDirective,
 		ScheduleElementCalendarWithSpecialistWidgetComponent,
-		SettingsComponent,
 		FilterCalendarWithSpecialistComponent,
 	]
 })
@@ -91,7 +79,6 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		nonNullable: true
 	});
 	readonly calendar = viewChild.required<ElementRef<HTMLDivElement>>('calendar');
-	public readonly showTimeLine$ = this.isToday$.pipe();
 	public eventsBySpecialistId: {
 		[key: string]: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenceDto>[]
 	} = {};
@@ -184,6 +171,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start);
 	public readonly schedules$ = this.store.select(ClientState.schedules);
 	public readonly isToday$ = this.store.select(CalendarWithSpecialistsQueries.isToday);
+	public readonly showTimeLine$ = this.isToday$.pipe();
 	private readonly document = inject(DOCUMENT);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly actions$ = inject(Actions);

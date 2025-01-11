@@ -1,7 +1,5 @@
 import {Component, ViewEncapsulation} from '@angular/core';
-import {RouterLink} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
-import {AsyncPipe, JsonPipe} from "@angular/common";
 
 
 @Component({
@@ -9,10 +7,7 @@ import {AsyncPipe, JsonPipe} from "@angular/common";
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
 	imports: [
-		RouterLink,
 		TranslateModule,
-		JsonPipe,
-		AsyncPipe
 	],
 	template: `
 

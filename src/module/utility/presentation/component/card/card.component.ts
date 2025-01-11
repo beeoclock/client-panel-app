@@ -10,16 +10,11 @@ import {
 	SimpleChanges,
 	ViewEncapsulation
 } from '@angular/core';
-import {NgClass, NgIf} from '@angular/common';
 
 @Component({
 	selector: 'bee-card',
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
-	imports: [
-		NgIf,
-		NgClass
-	],
 	template: `
 		<ng-content></ng-content>
 	`

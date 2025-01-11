@@ -1,6 +1,4 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, inject, input} from "@angular/core";
-import {AsyncPipe} from "@angular/common";
-import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {
 	DateControlCalendarWithSpecialistsComponent
 } from "@page/event/calendar-with-specialists/v2/filter/date-control/date-control.calendar-with-specialists.component";
@@ -29,8 +27,6 @@ import {IonPopover} from "@ionic/angular/standalone";
 		`
 	],
 	imports: [
-		AsyncPipe,
-		AutoRefreshComponent,
 		DateControlCalendarWithSpecialistsComponent,
 		IonSelectWrapperComponent,
 		SettingsComponent,

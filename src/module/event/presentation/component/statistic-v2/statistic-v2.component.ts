@@ -14,7 +14,7 @@ import {Store} from "@ngxs/store";
 import {MemberState} from "@member/state/member/member.state";
 import {filter, map, startWith, tap} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
-import {AsyncPipe, CurrencyPipe, DecimalPipe, KeyValuePipe} from "@angular/common";
+import {AsyncPipe} from "@angular/common";
 import {ClientState} from "@client/state/client/client.state";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {DateTime} from "luxon";
@@ -27,9 +27,6 @@ import {
 } from "@module/analytic/internal/presentation/component/control/date-slider/date-slider.control.component";
 import {IntervalTypeEnum} from "@module/analytic/internal/domain/enum/interval.enum";
 import {
-	CustomerTableStatisticComponent
-} from "@event/presentation/component/statistic-v2/components/table/total/customer.table.statistic.component";
-import {
 	DateRangeReportAnalyticState,
 	IDateRangeAnalyticState
 } from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.state";
@@ -38,20 +35,11 @@ import {
 	DateRangeReportAnalyticActions
 } from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.actions";
 import {
-	CardOverviewComponent
-} from "@module/analytic/internal/presentation/component/date-range-report/dummy/overview-total/card/card.overview.component";
-import {
-	CustomerListGroupComponent
-} from "@module/analytic/internal/presentation/component/date-range-report/dummy/customer-list-group/customer-list-group.component";
-import {
 	MemberRadioTailwindcssComponent
 } from "@utility/presentation/component/input/tailwindcss/radio/member.radio.tailwindcss.component";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {StatisticAction} from "@event/state/statistic/statistic.action";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
-import {
-	TotalStatisticComponent
-} from "@event/presentation/component/statistic-v2/components/table/total/total.statistic.component";
 import {
 	RevenueSummaryDiagramComponent
 } from "@event/presentation/component/statistic-v2/components/diagrams/revenue-summary/revenue-summary.diagram.component";
@@ -80,17 +68,10 @@ import {
 		IonicModule,
 		DefaultPanelComponent,
 		AsyncPipe,
-		CurrencyPipe,
 		LoaderComponent,
 		TranslateModule,
-		DecimalPipe,
 		DateSliderControlComponent,
-		KeyValuePipe,
-		CustomerTableStatisticComponent,
-		CardOverviewComponent,
-		CustomerListGroupComponent,
 		MemberRadioTailwindcssComponent,
-		TotalStatisticComponent,
 		RevenueSummaryDiagramComponent,
 		OrdersCounterStatisticComponent,
 		OrderServicesCounterStatisticComponent,

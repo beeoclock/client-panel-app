@@ -13,13 +13,8 @@ import {
 	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
-import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
-import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {NGXLogger} from "ngx-logger";
-import {ServiceItemComponent} from "@service/presentation/component/list/item/item.componen";
 import {ServiceExternalListComponent} from "@service/presentation/component/external/list/list.component";
 import {firstValueFrom} from "rxjs";
 import {
@@ -35,14 +30,7 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		NgForOf,
-		LoaderComponent,
-		NgIf,
 		TranslateModule,
-		CurrencyPipe,
-		HumanizeDurationPipe,
-		PrimaryButtonDirective,
-		ServiceItemComponent,
 		ServiceExternalListComponent
 	],
 	template: `

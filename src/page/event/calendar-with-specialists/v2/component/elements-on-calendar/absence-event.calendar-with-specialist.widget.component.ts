@@ -9,7 +9,6 @@ import {
 } from "@angular/core";
 
 import {IAttendee, IEvent_V2} from "@event/domain";
-import {DatePipe} from "@angular/common";
 import {Store} from "@ngxs/store";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {TranslateModule} from "@ngx-translate/core";
@@ -41,7 +40,6 @@ import {DateTime} from "luxon";
 	`,
 	standalone: true,
 	imports: [
-		DatePipe,
 		TranslateModule,
 	],
 	encapsulation: ViewEncapsulation.None,

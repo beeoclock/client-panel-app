@@ -2,7 +2,6 @@ import {Component, input, ViewEncapsulation} from "@angular/core";
 import {IsRequiredDirective} from "@utility/presentation/directives/is-required/is-required";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({
 	selector: 'form-input-password',
@@ -12,7 +11,6 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 		IsRequiredDirective,
 		InvalidTooltipDirective,
 		ReactiveFormsModule,
-		DefaultLabelDirective,
 	],
 	template: `
 

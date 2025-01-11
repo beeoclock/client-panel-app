@@ -3,7 +3,6 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {TranslateModule} from "@ngx-translate/core";
 import {ReactiveFormsModule} from "@angular/forms";
 import {LanguageInputComponent} from "@client/presentation/component/settings/language-input.component";
-import {ThemeInputComponent} from "@client/presentation/component/settings/theme-input.component";
 
 @Component({
 	selector: 'client-general-settings-component',
@@ -15,7 +14,6 @@ import {ThemeInputComponent} from "@client/presentation/component/settings/theme
 		TranslateModule,
 		ReactiveFormsModule,
 		LanguageInputComponent,
-		ThemeInputComponent
 	],
 	template: `
 		<bee-card>

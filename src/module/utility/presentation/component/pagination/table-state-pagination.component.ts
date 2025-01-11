@@ -13,7 +13,6 @@ import {
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ReactiveFormsModule} from "@angular/forms";
 import {NgForOf, NgIf} from "@angular/common";
-import {RouterLink} from "@angular/router";
 import {ITableState} from "@utility/domain/table.state";
 import humanizeDuration from "humanize-duration";
 import {DateTime} from "luxon";
@@ -33,7 +32,6 @@ import {BooleanState} from "@utility/domain";
     NgForOf,
     ReactiveFormsModule,
     NgIf,
-    RouterLink,
     TranslateModule,
   ],
   encapsulation: ViewEncapsulation.None

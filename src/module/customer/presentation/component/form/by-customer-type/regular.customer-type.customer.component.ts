@@ -5,7 +5,6 @@ import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/butto
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {Reactive} from "@utility/cdk/reactive";
 import {CustomerForm} from "@customer/presentation/form";
-import {CustomerExternalListComponent} from "@customer/presentation/component/external/list/list.component";
 import {SelectCustomerPushBoxComponent} from "@customer/presentation/push-box/select-customer.push-box.component";
 import {ICustomer} from "@customer/domain";
 
@@ -16,7 +15,6 @@ import {ICustomer} from "@customer/domain";
 		NgIf,
 		TranslateModule,
 		PrimaryLinkButtonDirective,
-		CustomerExternalListComponent,
 		SelectCustomerPushBoxComponent
 	],
 	standalone: true,

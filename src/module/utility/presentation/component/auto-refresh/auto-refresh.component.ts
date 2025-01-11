@@ -1,10 +1,6 @@
 import {Component, inject, input, OnDestroy, OnInit, output, ViewEncapsulation} from "@angular/core";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgForOf} from "@angular/common";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
-import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
-import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IonicModule} from "@ionic/angular";
@@ -72,12 +68,7 @@ const allowedAutoRefreshTimes = [
 
 	`,
 	imports: [
-		NgIf,
 		FormsModule,
-		DeleteButtonComponent,
-		DropdownComponent,
-		EditLinkComponent,
-		PrimaryButtonDirective,
 		LinkButtonDirective,
 		TranslateModule,
 		IonicModule,

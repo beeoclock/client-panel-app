@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
 import * as Member from "@member/domain";
-import {NgIf} from "@angular/common";
 
 @Component({
 	selector: 'event-header-calendar-with-specialist-widget-component',
@@ -29,9 +28,6 @@ import {NgIf} from "@angular/common";
 	`,
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [
-		NgIf
-	],
 	encapsulation: ViewEncapsulation.None
 })
 export class HeaderCalendarWithSpecialistWidgetComponent {

@@ -4,10 +4,6 @@ import {Store} from "@ngxs/store";
 import {OrderActions} from "@order/state/order/order.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
-import {
-	ListServiceFormCardOrderComponent
-} from "@order/presentation/component/list/card/item/services/list.service.form.card.order.component";
-import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 
 @Component({
 	standalone: true,
@@ -17,8 +13,6 @@ import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 	imports: [
 		TranslateModule,
 		DynamicDatePipe,
-		ListServiceFormCardOrderComponent,
-		NoDataPipe
 	],
 	template: `
 

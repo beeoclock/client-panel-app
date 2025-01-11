@@ -9,12 +9,9 @@ import {
 	ViewEncapsulation
 } from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {NgIf} from '@angular/common';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {Router, RouterLink} from '@angular/router';
 import LoginForm from '@identity/presentation/form/login.form';
-import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
-import {HasErrorDirective} from '@utility/presentation/directives/has-error/has-error.directive';
 import {Auth, signInWithEmailAndPassword} from "@angular/fire/auth";
 import {Store} from "@ngxs/store";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
@@ -26,7 +23,6 @@ import {ToastController} from "@ionic/angular";
 import {NGXLogger} from "ngx-logger";
 import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 import {is} from "@utility/checker";
-import {FirstKeyNamePipe} from "@utility/presentation/pipes/first-key-name/first-key-name.pipe";
 
 @Component({
 	selector: 'identity-sign-in-component',
@@ -80,12 +76,8 @@ import {FirstKeyNamePipe} from "@utility/presentation/pipes/first-key-name/first
 	standalone: true,
 	imports: [
 		ReactiveFormsModule,
-		HasErrorDirective,
-		NgIf,
 		TranslateModule,
-		FirstKeyNamePipe,
 		RouterLink,
-		DeleteButtonComponent,
 		FormInputComponent,
 		FormInputPasswordComponent,
 		PrimaryButtonDirective

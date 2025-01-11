@@ -13,11 +13,7 @@ import {
 	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
-import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
-import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {Router} from "@angular/router";
 import {NGXLogger} from "ngx-logger";
 import {firstValueFrom} from "rxjs";
@@ -34,13 +30,7 @@ import {Reactive} from "@utility/cdk/reactive";
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		NgForOf,
-		LoaderComponent,
-		NgIf,
 		TranslateModule,
-		CurrencyPipe,
-		HumanizeDurationPipe,
-		PrimaryButtonDirective,
 		CustomerExternalListComponent
 	],
 	template: `

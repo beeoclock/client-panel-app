@@ -11,9 +11,7 @@ import {
 	ViewEncapsulation
 } from "@angular/core";
 import {IonDatetime, IonPopover} from "@ionic/angular/standalone";
-import {NgSwitchCase} from "@angular/common";
 import ObjectID from "bson-objectid";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Reactive} from "@utility/cdk/reactive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
@@ -29,8 +27,6 @@ import {TranslateModule} from "@ngx-translate/core";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		IonPopover,
-		NgSwitchCase,
-		FormInputComponent,
 		HumanizeDurationPipe,
 		IonDatetime,
 		ReactiveFormsModule,

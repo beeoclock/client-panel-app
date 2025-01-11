@@ -1,11 +1,8 @@
 import {Component, inject} from "@angular/core";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
-import {RouterLink} from "@angular/router";
 import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
-import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
-import {NgIf, NgTemplateOutlet} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {ChangeStatusBaseComponent} from "@event/presentation/component/change-status/change-status-base.component";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
@@ -16,12 +13,8 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 	selector: 'event-change-status-on-cancelled-component',
 	standalone: true,
 	imports: [
-		DynamicDatePipe,
 		TranslateModule,
-		RouterLink,
-		EditLinkComponent,
 		NgIf,
-		NgTemplateOutlet,
 		LoaderComponent
 	],
 	template: `

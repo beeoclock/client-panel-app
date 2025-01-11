@@ -7,24 +7,17 @@ import {map} from "rxjs";
 import {DateTime} from "luxon";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
-import {
-	ChangeStatusOnAcceptedComponent
-} from "@event/presentation/component/change-status/change-status-on-accepted.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {debounce} from "typescript-debounce-decorator";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {
-	ChangeStatusOnRejectedComponent
-} from "@event/presentation/component/change-status/change-status-on-rejected.component";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {
 	AttendeeCardComponent
 } from "@event/presentation/component/requsted/list-of-card-collection-by-date/attendee-card/attendee.card.component";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FilterComponent} from "@event/presentation/component/filter/requested-filter.component";
-import {FirstKeyNamePipe} from "@utility/presentation/pipes/first-key-name/first-key-name.pipe";
 
 @Component({
 	selector: 'event-list-of-card-collection-by-date-component',
@@ -35,19 +28,16 @@ import {FirstKeyNamePipe} from "@utility/presentation/pipes/first-key-name/first
 	imports: [
 		NgForOf,
 		AsyncPipe,
-		FirstKeyNamePipe,
 		KeyValuePipe,
 		NgIf,
 		CardComponent,
 		ActionComponent,
-		ChangeStatusOnAcceptedComponent,
 		CurrencyPipe,
 		DatePipe,
 		EventStatusStyleDirective,
 		HumanizeDurationPipe,
 		NoDataPipe,
 		TranslateModule,
-		ChangeStatusOnRejectedComponent,
 		AttendeeCardComponent,
 		FilterComponent,
 	],

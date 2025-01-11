@@ -4,7 +4,6 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {TranslateModule} from "@ngx-translate/core";
 import {CurrencyPipe, NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase} from "@angular/common";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 
@@ -14,11 +13,9 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 	imports: [
 		DynamicDatePipe,
 		TranslateModule,
-		CurrencyPipe,
 		NgForOf,
 		NgIf,
 		EventStatusStyleDirective,
-		HumanizeDurationPipe,
 		NgClass,
 		NgSwitch,
 		NgSwitchCase,

@@ -7,7 +7,6 @@ import {MemberActions} from "@member/state/member/member.actions";
 import {RIMember} from "@member/domain";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
-import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 
 @Component({
 	selector: 'member-detail-page',
@@ -19,7 +18,6 @@ import {ActiveStyleDirective} from "@utility/presentation/directives/active-styl
         DeleteButtonComponent,
         EditButtonComponent,
         DynamicDatePipe,
-        ActiveStyleDirective
     ],
 	standalone: true
 })

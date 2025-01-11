@@ -1,8 +1,6 @@
 import {ChangeDetectionStrategy, Component, input, OnInit, output, ViewEncapsulation} from "@angular/core";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {IonContent, IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone";
+import {IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone";
 import {FormControl} from "@angular/forms";
-import {NgForOf, NgIf} from "@angular/common";
 import {RIMember} from "@member/domain";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {MemberState} from "@member/state/member/member.state";
@@ -18,14 +16,10 @@ import {TranslateModule} from "@ngx-translate/core";
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		FormInputComponent,
-		IonContent,
 		IonItem,
 		IonLabel,
 		IonList,
 		IonPopover,
-		NgForOf,
-		NgIf,
 		TranslateModule,
 	],
 	template: `

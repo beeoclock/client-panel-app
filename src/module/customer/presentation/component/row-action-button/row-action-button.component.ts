@@ -3,7 +3,7 @@ import {ActionComponent} from "@utility/presentation/component/table/column/acti
 import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
 import {TranslateModule} from "@ngx-translate/core";
-import {Router, RouterLink} from "@angular/router";
+import {Router} from "@angular/router";
 import {ICustomer} from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 
@@ -34,7 +34,6 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 	imports: [
 		ActionComponent,
 		TranslateModule,
-		RouterLink
 	]
 })
 export class RowActionButtonComponent {

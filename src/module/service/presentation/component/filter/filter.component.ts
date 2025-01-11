@@ -1,15 +1,12 @@
 import {Component, input} from '@angular/core';
-import {FilterPanelComponent} from '@utility/presentation/component/panel/filter.panel.component';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {FilterForm} from "@service/presentation/form/filter.form";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {TranslateModule} from "@ngx-translate/core";
-import {RouterLink} from "@angular/router";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {IonSelectActiveComponent} from "@utility/presentation/component/input/ion/ion-select-active.component";
 import {ServiceState} from "@service/state/service/service.state";
 import {BaseFilterComponent} from "@utility/base.filter.component";
-import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
 import {
@@ -21,13 +18,10 @@ import {ReactiveFormsModule} from "@angular/forms";
 	selector: 'service-filter-component',
 	standalone: true,
 	imports: [
-		FilterPanelComponent,
 		SearchInputComponent,
 		TranslateModule,
-		RouterLink,
 		PrimaryButtonDirective,
 		IonSelectActiveComponent,
-		IonSelectWrapperComponent,
 		DefaultPanelComponent,
 		AsyncPipe,
 		NgIf,

@@ -6,13 +6,7 @@ import {OrderActions} from "@order/state/order/order.actions";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
-import {
-	SelectedMemberAdditionalMenuComponent
-} from "@event/presentation/component/additional-menu/selected-member.additional-menu.component";
-import {CurrencyPipe, DatePipe, NgIf} from "@angular/common";
-import {
-	SelectedDatetimeAdditionalMenuComponent
-} from "@event/presentation/component/additional-menu/selected-datetime.additional-menu.component";
+import {CurrencyPipe, NgIf} from "@angular/common";
 import {DateTime} from "luxon";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {SelectServiceListComponent} from "@service/presentation/component/select-list/select-service-list.component";
@@ -32,11 +26,8 @@ enum SegmentEnum {
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		TranslateModule,
-		SelectedMemberAdditionalMenuComponent,
 		NgIf,
-		SelectedDatetimeAdditionalMenuComponent,
 		DynamicDatePipe,
-		DatePipe,
 		SelectServiceListComponent,
 		CustomerChipComponent,
 		IonicModule,

@@ -10,9 +10,6 @@ import {
 } from "@angular/core";
 import {IonPopover} from "@ionic/angular/standalone";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
-import {
-	CustomerTypeCustomerComponent
-} from "@customer/presentation/component/form/by-customer-type/customer-type.customer.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {CustomerForm} from "@customer/presentation/form";
 import ObjectID from "bson-objectid";
@@ -36,7 +33,6 @@ import {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		IonPopover,
-		CustomerTypeCustomerComponent,
 		TranslateModule,
 		CustomerListIonicComponent
 	],

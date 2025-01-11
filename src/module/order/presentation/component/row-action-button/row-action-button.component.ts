@@ -2,7 +2,7 @@ import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {Store} from "@ngxs/store";
 import {TranslateModule} from "@ngx-translate/core";
-import {Router, RouterLink} from "@angular/router";
+import {Router} from "@angular/router";
 import {OrderActions} from "@order/state/order/order.actions";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 
@@ -23,7 +23,6 @@ import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 	imports: [
 		ActionComponent,
 		TranslateModule,
-		RouterLink
 	]
 })
 export class RowActionButtonComponent {

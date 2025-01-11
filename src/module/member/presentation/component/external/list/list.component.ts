@@ -47,7 +47,7 @@ export class MemberExternalListComponent extends ListPage<RIMember> {
 
     public readonly tableState$: Observable<ITableState<RIMember>> = this.store.select(MemberState.tableState)
         .pipe(
-            tap((tableState) => {
+            tap(() => {
                 this.changeDetectorRef.detectChanges();
             })
         );

@@ -13,7 +13,7 @@ import {
 } from "@angular/core";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {DateTime, Interval} from "luxon";
-import {AsyncPipe, DatePipe, DOCUMENT, NgIf} from "@angular/common";
+import {DatePipe, DOCUMENT} from "@angular/common";
 import {IonDatetime, IonicModule, IonModal} from "@ionic/angular";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
@@ -30,9 +30,7 @@ import {NGXLogger} from "ngx-logger";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
-		AsyncPipe,
 		IonicModule,
-		NgIf,
 		TranslateModule,
 		DatePipe,
 		ReactiveFormsModule,

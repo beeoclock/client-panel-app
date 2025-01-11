@@ -1,7 +1,5 @@
 import {Component, inject, input, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {InputIconComponent} from "@utility/presentation/component/input/input-icon.component";
-import {InputBadgeComponent} from "@utility/presentation/component/input/input-badge.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {NGXLogger} from "ngx-logger";
@@ -14,8 +12,6 @@ import {DateTime} from "luxon";
 	selector: 'datetime-local-input-component',
 	standalone: true,
 	imports: [
-		InputIconComponent,
-		InputBadgeComponent,
 		TranslateModule,
 		FormInputComponent,
 	],

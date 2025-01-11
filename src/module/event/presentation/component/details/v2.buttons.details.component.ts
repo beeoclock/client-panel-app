@@ -1,14 +1,11 @@
 import {Component, HostBinding, inject, input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
-import {RouterLink} from "@angular/router";
 import {NgIf, NgTemplateOutlet} from "@angular/common";
 import {
 	ChangeStatusOnAcceptedComponent
 } from "@event/presentation/component/change-status/change-status-on-accepted.component";
 import {ChangeStatusOnDoneComponent} from "@event/presentation/component/change-status/change-status-on-done.component";
 import {IEvent_V2} from "@event/domain";
-import {DeleteButtonComponent} from "@event/presentation/component/button/delete-button/delete-button.component";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
 import {Store} from "@ngxs/store";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
@@ -27,14 +24,11 @@ import {
 	selector: 'app-event-v2-buttons-details',
 	standalone: true,
 	imports: [
-		DynamicDatePipe,
 		TranslateModule,
-		RouterLink,
 		NgIf,
 		NgTemplateOutlet,
 		ChangeStatusOnAcceptedComponent,
 		ChangeStatusOnDoneComponent,
-		DeleteButtonComponent,
 		EditButtonComponent,
 		ChangeStatusOnRejectedComponent,
 		ChangeStatusOnCancelledComponent,

@@ -5,18 +5,8 @@ import {TranslateModule} from "@ngx-translate/core";
 import {SelectEarliestBookingComponent} from "@utility/presentation/component/input/select-earliest-booking.component";
 import {SelectLatestBookingComponent} from "@utility/presentation/component/input/select-latest-booking.component";
 import {
-	SelectAutoActionOnEventInSecondsComponent
-} from "@utility/presentation/component/input/select-auto-action-on-event-in-seconds.component";
-import {
-	SelectAutoActionTypeOnEventComponent
-} from "@utility/presentation/component/input/select-auto-action-type-on-event.component";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
-import {
 	SelectSlotBuildingStrategyComponent
 } from "@utility/presentation/component/input/select-slot-building-strategy.component";
-import {
-	SelectSlotRetrievingStrategyComponent
-} from "@utility/presentation/component/input/select-slot-retrieving-strategy.component";
 import {
 	MandatoryAttendeePropertiesComponent
 } from "@client/presentation/component/booking-settings/mandatory-attendee-properties/mandatory-attendee-properties.component";
@@ -30,11 +20,7 @@ import {
 		TranslateModule,
 		SelectEarliestBookingComponent,
 		SelectLatestBookingComponent,
-		SelectAutoActionOnEventInSecondsComponent,
-		SelectAutoActionTypeOnEventComponent,
-		HumanizeDurationPipe,
 		SelectSlotBuildingStrategyComponent,
-		SelectSlotRetrievingStrategyComponent,
 		MandatoryAttendeePropertiesComponent
 	],
   template: `

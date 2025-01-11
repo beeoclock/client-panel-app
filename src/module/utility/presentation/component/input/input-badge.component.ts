@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, input, ViewEncapsulation} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {NgxMaskDirective} from "ngx-mask";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-error.directive";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
@@ -84,7 +83,6 @@ import {IonicModule, IonModal} from "@ionic/angular";
 		ReactiveFormsModule,
 		InvalidTooltipDirective,
 		HasErrorDirective,
-		NgxMaskDirective,
 		DefaultLabelDirective,
 		IonicModule
 	],
