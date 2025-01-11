@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Output, input} from "@angular/core";
+import {Component, inject, input, output} from "@angular/core";
 import {Router, RouterLink} from "@angular/router";
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {ActiveEnum} from "@utility/domain/enum";
@@ -76,20 +76,15 @@ export class ActionComponent {
 
 	public readonly offsetDistance = input(26);
 
-	@Output()
-	public readonly edit = new EventEmitter<string>();
+	public readonly edit = output<string>();
 
-	@Output()
-	public readonly open = new EventEmitter<string>();
+	public readonly open = output<string>();
 
-	@Output()
-	public readonly delete = new EventEmitter<string>();
+	public readonly delete = output<string>();
 
-	@Output()
-	public readonly activate = new EventEmitter<string>();
+	public readonly activate = output<string>();
 
-	@Output()
-	public readonly deactivate = new EventEmitter<string>();
+	public readonly deactivate = output<string>();
 
 	public readonly activeEnum = ActiveEnum;
 

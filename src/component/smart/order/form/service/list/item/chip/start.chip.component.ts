@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, inject, input, OnInit, Output} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, input, OnInit, output} from "@angular/core";
 import {IonDatetime, IonPopover} from "@ionic/angular/standalone";
 import {CurrencyPipe, DatePipe, NgSwitch, NgSwitchCase} from "@angular/common";
 import {
@@ -67,8 +67,7 @@ export class StartChipComponent extends Reactive implements OnInit {
 
 	public readonly id = input<string>(ObjectID().toHexString());
 
-	@Output()
-	public readonly startChanges = new EventEmitter<string>();
+	public readonly startChanges = output<string>();
 
 	readonly #translateService = inject(TranslateService);
 

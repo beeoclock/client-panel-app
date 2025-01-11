@@ -1,4 +1,4 @@
-import {Component, EventEmitter, input, Output, ViewEncapsulation} from "@angular/core";
+import {Component, input, output, ViewEncapsulation} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgIf} from "@angular/common";
 import {DragAndDropDirective} from "@utility/presentation/directives/drag-and-drop/drag-and-drop.directive";
@@ -25,8 +25,7 @@ export class ImageGalleryBusinessProfileComponent extends BaseImageComponent {
 
 	public readonly control = input.required<FormControl>();
 
-	@Output()
-	public readonly remove = new EventEmitter<void>();
+	public readonly remove = output<void>();
 
 	public get isEmptyControl(): boolean {
 		return !this.control().value;

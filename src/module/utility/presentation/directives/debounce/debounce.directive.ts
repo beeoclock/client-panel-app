@@ -1,4 +1,4 @@
-import {Directive, EventEmitter, HostListener, OnDestroy, OnInit, Output, input} from '@angular/core';
+import {Directive, HostListener, input, OnDestroy, OnInit, output} from '@angular/core';
 import {Subject, Subscription} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import {Reactive} from "@utility/cdk/reactive";
@@ -13,8 +13,7 @@ export class DebounceClickDirective extends Reactive implements OnInit, OnDestro
 
   public readonly debounceTime = input(250);
 
-  @Output()
-  public debounceClick = new EventEmitter();
+  public readonly debounceClick = output();
 
   private clicks = new Subject();
   private subscription: Subscription | undefined;

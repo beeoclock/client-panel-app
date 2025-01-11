@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, OnDestroy, OnInit, Output, ViewEncapsulation, input} from "@angular/core";
+import {Component, inject, input, OnDestroy, OnInit, output, ViewEncapsulation} from "@angular/core";
 import {NgForOf, NgIf} from "@angular/common";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
@@ -91,8 +91,7 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 
 	public readonly isLoading = input(false);
 
-	@Output()
-	public readonly emitter: EventEmitter<void> = new EventEmitter<void>();
+	public readonly emitter = output<void>();
 
 	public readonly control = new FormControl(60, {
 		nonNullable: true,

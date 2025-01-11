@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, input, OnChanges, Output, SimpleChange, SimpleChanges} from "@angular/core";
+import {Component, inject, input, OnChanges, output, SimpleChange, SimpleChanges} from "@angular/core";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
@@ -31,8 +31,7 @@ export abstract class ChangeStatusBaseComponent implements OnChanges {
     service: IOrderServiceDto;
 }>>();
 
-	@Output()
-	public readonly statusChange = new EventEmitter<void>();
+	public readonly statusChange = output<void>();
 
 	public ngOnChanges(changes: SimpleChanges & { event: SimpleChange }) {
 		if (changes.event) {

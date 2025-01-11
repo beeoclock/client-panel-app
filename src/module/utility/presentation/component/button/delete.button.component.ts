@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Output, ViewEncapsulation, input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input, output, ViewEncapsulation} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
 import {TranslateModule} from "@ngx-translate/core";
@@ -46,7 +46,6 @@ export class DeleteButtonComponent {
 
   public readonly buttonWidthFull = input(false);
 
-  @Output()
-  public readonly event = new EventEmitter<Event>();
+  public readonly event = output<Event>();
 
 }

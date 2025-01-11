@@ -1,12 +1,11 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
-	EventEmitter,
 	HostBinding,
 	inject,
 	input,
 	OnChanges,
-	Output,
+	output,
 	SimpleChanges,
 	ViewEncapsulation
 } from "@angular/core";
@@ -114,11 +113,9 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 
 	public readonly id = input<string>(ObjectID().toHexString());
 
-	@Output()
-	public readonly deleteMe = new EventEmitter<void>();
+	public readonly deleteMe = output<void>();
 
-	@Output()
-	public readonly saveChanges = new EventEmitter<void>();
+	public readonly saveChanges = output<void>();
 
 	readonly #ngxLogger = inject(NGXLogger);
 

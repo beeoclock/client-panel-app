@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output, input} from "@angular/core";
+import {Component, input, output} from "@angular/core";
 import {NgIf, NgOptimizedImage} from "@angular/common";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {RouterLink} from "@angular/router";
@@ -40,7 +40,6 @@ export class NotFoundTableDataComponent {
 
 	public readonly linkLabel = input('TODO');
 
-	@Output()
-	public readonly clickListener = new EventEmitter<MouseEvent>();
+	public readonly clickListener = output<MouseEvent>();
 
 }

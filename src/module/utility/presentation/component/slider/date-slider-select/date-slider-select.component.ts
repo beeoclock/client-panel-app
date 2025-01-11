@@ -1,14 +1,13 @@
 import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  EventEmitter,
-  inject,
-  OnInit,
-  Output,
-  ViewChild,
-  input
+	AfterViewInit,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	inject,
+	input,
+	OnInit,
+	output,
+	ViewChild
 } from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {DateTime, Settings} from "luxon";
@@ -57,8 +56,7 @@ export class DateSliderSelectComponent extends Reactive implements OnInit, After
 
 	public readonly firstSlot$ = input<Observable<unknown>>();
 
-	@Output()
-	public updateDayItemList = new EventEmitter<IDayItem[]>();
+	public readonly updateDayItemList = output<IDayItem[]>();
 
 	public selectedDateTime: DateTime | undefined = undefined;
 	public today: DateTime = DateTime.now();

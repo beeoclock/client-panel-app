@@ -1,11 +1,10 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
-	EventEmitter,
 	input,
 	OnChanges,
 	OnInit,
-	Output,
+	output,
 	signal,
 	SimpleChange,
 	SimpleChanges,
@@ -63,8 +62,7 @@ export class DurationChipComponent extends Reactive implements OnInit, OnChanges
 
 	public readonly id = input<string>(ObjectID().toHexString());
 
-	@Output()
-	public readonly durationChanges = new EventEmitter<number>();
+	public readonly durationChanges = output<number>();
 
 	public readonly durationFormControl = new FormControl<string>(DateTime.now().startOf('day').toJSDate().toISOString());
 

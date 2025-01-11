@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, input, OnInit, Output} from "@angular/core";
+import {ChangeDetectionStrategy, Component, input, OnInit, output} from "@angular/core";
 import {IonPopover} from "@ionic/angular/standalone";
 import {CurrencyPipe, NgSwitch, NgSwitchCase} from "@angular/common";
 import {
@@ -80,8 +80,7 @@ export class PriceChipComponent extends Reactive implements OnInit {
 
 	public readonly id = input<string>(ObjectID().toHexString());
 
-	@Output()
-	public readonly priceChanges = new EventEmitter<number>();
+	public readonly priceChanges = output<number>();
 
 	protected cachedValue: number | null = null;
 

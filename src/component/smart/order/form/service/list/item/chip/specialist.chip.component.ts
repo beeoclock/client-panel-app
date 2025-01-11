@@ -1,12 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	EventEmitter,
-	input,
-	OnInit,
-	Output,
-	ViewEncapsulation
-} from "@angular/core";
+import {ChangeDetectionStrategy, Component, input, OnInit, output, ViewEncapsulation} from "@angular/core";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {IonContent, IonItem, IonLabel, IonList, IonPopover} from "@ionic/angular/standalone";
 import {FormControl} from "@angular/forms";
@@ -114,8 +106,7 @@ export class SpecialistChipComponent extends Reactive implements OnInit {
 	@SelectSnapshot(MemberState.activeMembers)
 	public readonly members!: RIMember[];
 
-	@Output()
-	public readonly specialistChanges = new EventEmitter<ISpecialist>();
+	public readonly specialistChanges = output<ISpecialist>();
 
 	public readonly specialistFormControl = new FormControl<ISpecialist | null>(null);
 
