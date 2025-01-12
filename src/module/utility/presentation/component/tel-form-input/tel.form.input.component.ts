@@ -96,6 +96,7 @@ export class TelFormInputComponent implements AfterViewInit, OnDestroy, DoCheck 
 	}
 
 	public ngAfterViewInit() {
+
 		this.intlTelInput = intlTelInput(this.inputElement().nativeElement, {
 			initialCountry: 'auto',
 			// @ts-ignore
@@ -104,7 +105,7 @@ export class TelFormInputComponent implements AfterViewInit, OnDestroy, DoCheck 
 			// @ts-ignore
 			countryOrder: ['dk', 'pl', 'ua'],
 			// @ts-ignore
-			utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/23.1.1/js/utils.js',
+			loadUtils: () => import("intl-tel-input/utils"),
 			geoIpLookup: callback => {
 				fetch("https://freeipapi.com/api/json")
 					.then(res => res.json())
