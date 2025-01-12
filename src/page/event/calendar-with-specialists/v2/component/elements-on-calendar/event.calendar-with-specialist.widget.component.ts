@@ -95,9 +95,9 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	@Input({required: true})
 	public item!: DATA;
 
-	readonly orderEventCalendarWithSpecialistWidgetComponent = viewChild.required(OrderEventCalendarWithSpecialistWidgetComponent);
+	readonly orderEventCalendarWithSpecialistWidgetComponent = viewChild(OrderEventCalendarWithSpecialistWidgetComponent);
 
-	readonly absenceEventCalendarWithSpecialistWidgetComponent = viewChild.required(AbsenceEventCalendarWithSpecialistWidgetComponent);
+	readonly absenceEventCalendarWithSpecialistWidgetComponent = viewChild(AbsenceEventCalendarWithSpecialistWidgetComponent);
 
 	@SelectSnapshot(CalendarWithSpecialistsQueries.start)
 	public selectedDate!: DateTime;
