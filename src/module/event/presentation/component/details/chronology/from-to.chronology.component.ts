@@ -9,7 +9,6 @@ import {
 	SimpleChanges,
 	ViewEncapsulation
 } from "@angular/core";
-import {NgForOf, NgIf} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {is} from "@utility/checker";
@@ -22,33 +21,34 @@ import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		NgForOf,
 		TranslateModule,
-		NgIf
 	],
 	template: `
 		<div class="px-2">
 			{{ getTranslate(fromToObject().objectName) }}
 		</div>
-		<div
-			*ngIf="value"
-			class="flex flex-col bg-white border border-beeColor-200 rounded-lg divide-y divide-beeColor-200">
-			<div class="flex divide-x divide-beeColor-200">
-				<div title="from" class="text-center min-w-[26px] w-[26px] max-w-[26px] p-2 py-1 text-red-600 bg-red-50 rounded-tl-lg">-</div>
-				<div class="flex-1 p-2 py-1" [innerHTML]="buildPresentation(value.from)">
+		@if (value) {
+
+			<div
+				class="flex flex-col bg-white border border-beeColor-200 rounded-lg divide-y divide-beeColor-200">
+				<div class="flex divide-x divide-beeColor-200">
+					<div title="from" class="text-center min-w-[26px] w-[26px] max-w-[26px] p-2 py-1 text-red-600 bg-red-50 rounded-tl-lg">-</div>
+					<div class="flex-1 p-2 py-1" [innerHTML]="buildPresentation(value.from)">
+					</div>
+				</div>
+				<div class="flex divide-x divide-beeColor-200">
+					<div title="to" class="text-center min-w-[26px] w-[26px] max-w-[26px] p-2 py-1 text-green-600 bg-green-50 rounded-bl-lg">+</div>
+					<div class="flex-1 p-2 py-1" [innerHTML]="buildPresentation(value.to)">
+					</div>
 				</div>
 			</div>
-			<div class="flex divide-x divide-beeColor-200">
-				<div title="to" class="text-center min-w-[26px] w-[26px] max-w-[26px] p-2 py-1 text-green-600 bg-green-50 rounded-bl-lg">+</div>
-				<div class="flex-1 p-2 py-1" [innerHTML]="buildPresentation(value.to)">
-				</div>
-			</div>
-		</div>
-		<ng-container *ngIf="isParent">
-			<event-from-to-chronology
-				*ngFor="let childFromToObject of childFromToObjectList"
-				[fromToObject]="childFromToObject"/>
-		</ng-container>
+		}
+		@if (isParent) {
+			@for (childFromToObject of childFromToObjectList; track childFromToObjectList)  {
+				<event-from-to-chronology
+					[fromToObject]="childFromToObject"/>
+			}
+		}
 	`
 })
 export class FromToChronologyComponent implements OnChanges {

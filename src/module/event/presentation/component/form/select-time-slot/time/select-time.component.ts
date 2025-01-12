@@ -2,7 +2,7 @@ import {Component, ElementRef, inject, input, OnInit, viewChild} from '@angular/
 import {FormControl} from "@angular/forms";
 import {DateTime, Settings} from "luxon";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {NgClass, NgForOf, NgIf} from "@angular/common";
+import {NgClass} from "@angular/common";
 import {Reactive} from "@utility/cdk/reactive";
 import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
@@ -38,10 +38,8 @@ enum IndexOfPeriodOfDayEnum {
 	standalone: true,
 	templateUrl: './select-time.component.html',
 	imports: [
-		NgForOf,
 		NgClass,
 		LoaderComponent,
-		NgIf,
 		TranslateModule,
 		DatetimeLocalInputComponent,
 	],

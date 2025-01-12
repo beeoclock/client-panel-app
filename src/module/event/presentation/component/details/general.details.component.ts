@@ -27,12 +27,16 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 	template: `
 
 		<div class="p-4 flex justify-between">
-			<div *ngIf="isNotPreview" eventStatusStyle [status]="event().status"></div>
-			<div
-				*ngIf="isPreview()"
-				class="px-2 py-1 flex items-center justify-center h-6 text-xs rounded-full border text-white uppercase bg-blue-500 border-blue-500 dark:bg-blue-900 dark:text-blue-400 dark:border-blue-800">
-				{{ 'keyword.capitalize.preview' | translate }}
-			</div>
+			@if (isPreview()) {
+
+				<div
+					class="px-2 py-1 flex items-center justify-center h-6 text-xs rounded-full border text-white uppercase bg-blue-500 border-blue-500 dark:bg-blue-900 dark:text-blue-400 dark:border-blue-800">
+					{{ 'keyword.capitalize.preview' | translate }}
+				</div>
+			} @else {
+
+				<div eventStatusStyle [status]="event().status"></div>
+			}
 		</div>
 		<div class="border-t border-gray-100">
 			<dl class="divide-y divide-gray-100">
@@ -43,11 +47,12 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 					<dd class="mt-2 text-sm text-gray-900 ">
 						<ul role="list" class="divide-y divide-gray-100 rounded-md border border-gray-200">
 							<li class="flex">
-								<img
-									*ngIf="event().services[0].presentation?.banners?.[0]?.url as bannerUrl"
-									[src]="bannerUrl"
-									class="object-cover bg-beeColor-200 rounded-l-md w-14"
-									alt=""/>
+								@if (event().services[0].presentation?.banners?.[0]?.url; as bannerUrl) {
+									<img
+										[src]="bannerUrl"
+										class="object-cover bg-beeColor-200 rounded-l-md w-14"
+										alt=""/>
+								}
 								<div class="flex flex-col justify-center text-sm leading-6 p-4">
 									<strong>{{ event().services[0].languageVersions[0].title }}</strong>
 									<div class="flex w-full gap-4">
@@ -72,37 +77,41 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 					</dt>
 					<dd class="mt-2 text-sm text-gray-900">
 						<ul role="list" class="divide-y divide-gray-100 rounded-md border border-gray-200">
-							<ng-container *ngFor="let attendant of event().attendees; let index = index;">
-								<li
-									*ngIf="attendant.customer"
-									class="grid grid-cols-1 py-4 pl-4 pr-5 text-sm leading-6">
+							@for (attendant of event().attendees; track attendant._id) {
 
-									<ng-container [ngSwitch]="attendant.customer.customerType">
-										<ng-container *ngSwitchCase="customerTypeEnum.unregistered">
-											<div class="">
-												{{ attendant.customer.firstName }} {{ attendant.customer.lastName }}
-											</div>
-										</ng-container>
-										<ng-container *ngSwitchCase="customerTypeEnum.regular">
-											<div class="">
-												{{ attendant.customer.firstName }} {{ attendant.customer.lastName }}
-											</div>
-											<div class="">
-												{{ attendant.customer.email }}
-											</div>
-											<div class="">
-												{{ attendant.customer.phone }}
-											</div>
-										</ng-container>
-										<ng-container *ngSwitchCase="customerTypeEnum.anonymous">
-											<div class="">
-												{{ 'keyword.capitalize.anonymous' | translate }}
-											</div>
-										</ng-container>
-									</ng-container>
+								@if (attendant.customer) {
 
-								</li>
-							</ng-container>
+									<li
+										class="grid grid-cols-1 py-4 pl-4 pr-5 text-sm leading-6">
+
+										@switch (attendant.customer.customerType) {
+
+											@case (customerTypeEnum.unregistered) {
+												<div class="">
+													{{ attendant.customer.firstName }} {{ attendant.customer.lastName }}
+												</div>
+											}
+											@case (customerTypeEnum.regular) {
+												<div class="">
+													{{ attendant.customer.firstName }} {{ attendant.customer.lastName }}
+												</div>
+												<div class="">
+													{{ attendant.customer.email }}
+												</div>
+												<div class="">
+													{{ attendant.customer.phone }}
+												</div>
+											}
+											@case (customerTypeEnum.anonymous) {
+												<div class="">
+													{{ 'keyword.capitalize.anonymous' | translate }}
+												</div>
+											}
+										}
+
+									</li>
+								}
+							}
 						</ul>
 					</dd>
 				</div>

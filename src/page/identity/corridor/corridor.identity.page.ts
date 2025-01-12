@@ -4,7 +4,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {Select, Store} from '@ngxs/store';
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {filter, from, Observable, switchMap, tap} from "rxjs";
-import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe} from "@angular/common";
 import {IMember} from "@identity/domain/interface/i.member";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
@@ -26,9 +26,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 	standalone: true,
 	imports: [
 		ReactiveFormsModule,
-		NgForOf,
 		AsyncPipe,
-		NgIf,
 		LoaderComponent,
 		TranslateModule,
 		ChangeLanguageComponent,
@@ -51,7 +49,7 @@ export class CorridorIdentityPage extends Reactive implements OnInit {
 	readonly #analyticsService = inject(AnalyticsService);
 	@Select(IdentityState.clients)
 	private readonly clients$!: Observable<IMember[]>;
-	public readonly members$ = this.clients$.pipe(
+	public readonly members$: Observable<IMember[]> = this.clients$.pipe(
 		filter(Array.isArray),
 		tap((result) => {
 

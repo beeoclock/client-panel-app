@@ -1,5 +1,5 @@
 import {Component, input} from "@angular/core";
-import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe} from "@angular/common";
 import {ISpecialist} from "@service/domain/interface/i.specialist";
 import {TranslateModule} from "@ngx-translate/core";
 import {MemberSelector} from "@member/state/member/member.selector";
@@ -18,8 +18,6 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	standalone: true,
 	imports: [
 		AsyncPipe,
-		NgForOf,
-		NgIf,
 		TranslateModule
 	]
 })

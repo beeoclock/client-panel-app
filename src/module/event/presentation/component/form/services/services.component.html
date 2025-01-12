@@ -5,44 +5,49 @@
 								 [control]="serviceListControl"/>
 	</div>
 
-	<ng-container *ngFor="let service of serviceListControl.value; let index = index">
+	@for (service of serviceListControl.value; track service._id) {
 
 		<bee-card class="text-sm shadow-none" padding="p-0">
 			<div class="flex justify-between items-start gap-4">
-				<div
-					*ngFor="let banner of service.presentation?.banners ?? []"
-					class="min-w-[64px] max-w-[64px] min-h-[64px] max-h-[64px] rounded-2xl bg-beeColor-400">
-					<img
-						*ngIf="banner"
-						[src]="banner.url"
-						alt="Uploaded Image"
-						class="object-cover rounded-2xl min-w-[64px] max-w-[64px] min-h-[64px] max-h-[64px]"/>
-				</div>
+				@for (banner of service.presentation?.banners ?? []; track banner._id) {
+					<div
+						class="min-w-[64px] max-w-[64px] min-h-[64px] max-h-[64px] rounded-2xl bg-beeColor-400">
+						@if (banner) {
+							<img
+								[src]="banner.url"
+								alt="Uploaded Image"
+								class="object-cover rounded-2xl min-w-[64px] max-w-[64px] min-h-[64px] max-h-[64px]"/>
+						}
+					</div>
+				}
 				<app-language-version-order-control-component
-					[index]="index"
+					[index]="$index"
 					[languageControl]="languageControl()"
 					[serviceListControl]="serviceListControl"
 					[service]="service"/>
 			</div>
 			<event-duration-version-type-range
-				[index]="index"
+				[index]="$index"
 				[serviceListControl]="serviceListControl"
 				[service]="service"/>
 
 			<event-service-specialist-component
-				[index]="index"
+				[index]="$index"
 				[serviceListControl]="serviceListControl"
 				[service]="service"/>
 		</bee-card>
 
-	</ng-container>
+	}
 
-	<div *ngIf="editable()" class="block">
-		<button (click)="openModalToSelectService()" [isLoading]="loading$.isTrue" id="open-service-list-to-select-service" primaryLink
-				type="button">
-			<i class="bi bi-list-check"></i>
-			{{ 'event.form.section.service.button.select' | translate }}
-		</button>
-	</div>
+	@if (editable()) {
+
+		<div class="block">
+			<button (click)="openModalToSelectService()" [isLoading]="loading$.isTrue" id="open-service-list-to-select-service" primaryLink
+					type="button">
+				<i class="bi bi-list-check"></i>
+				{{ 'event.form.section.service.button.select' | translate }}
+			</button>
+		</div>
+	}
 
 </div>

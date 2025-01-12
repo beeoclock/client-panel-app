@@ -1,4 +1,5 @@
-<ng-container *ngIf="item() as member">
+@if (item(); as member) {
+
 	<div class="bg-white">
 		<dl class="divide-y divide-gray-100">
 			<div *ngIf="member?.avatar?.url?.length" class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
@@ -7,8 +8,8 @@
 				</dt>
 				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
 					<img [src]="member?.avatar?.url"
-							 class="min-w-[192px] max-w-[192px] min-h-[192px] max-h-[192px] flex flex-col items-center justify-center w-full relative rounded-xl cursor-pointer bg-beeColor-50 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-800 dark:bg-beeColor-700 dark:border-beeDarkColor-600 dark:hover:border-beeDarkColor-500 object-cover"
-							 alt="">
+						 class="min-w-[192px] max-w-[192px] min-h-[192px] max-h-[192px] flex flex-col items-center justify-center w-full relative rounded-xl cursor-pointer bg-beeColor-50 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-800 dark:bg-beeColor-700 dark:border-beeDarkColor-600 dark:hover:border-beeDarkColor-500 object-cover"
+						 alt="">
 				</dd>
 			</div>
 			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
@@ -40,11 +41,11 @@
 						</ng-container>
 						<ng-template #PartOfServicesTemplate>
 							<div *ngIf="member.assignments.service.include.length"
-									 class="border bg-yellow-50 border-yellow-600 text-yellow-600 leading-tight px-3 py-1 rounded-full">
+								 class="border bg-yellow-50 border-yellow-600 text-yellow-600 leading-tight px-3 py-1 rounded-full">
 								{{ member.assignments.service.include.length }}
 							</div>
 							<div *ngIf="!member.assignments.service.include.length"
-									 class="border bg-red-50 border-red-600 text-red-600 leading-tight px-3 py-1 rounded-full">
+								 class="border bg-red-50 border-red-600 text-red-600 leading-tight px-3 py-1 rounded-full">
 								{{ 'member.form.assignments.button.hint.includeIsEmpty' | translate }}
 							</div>
 						</ng-template>
@@ -129,4 +130,4 @@
 		</div>
 
 	</div>
-</ng-container>
+}

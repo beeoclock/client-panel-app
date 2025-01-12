@@ -6,7 +6,7 @@ import {OrderActions} from "@order/state/order/order.actions";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {TranslateModule} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
-import {CurrencyPipe, NgIf} from "@angular/common";
+import {CurrencyPipe} from "@angular/common";
 import {DateTime} from "luxon";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {SelectServiceListComponent} from "@service/presentation/component/select-list/select-service-list.component";
@@ -26,7 +26,6 @@ enum SegmentEnum {
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		TranslateModule,
-		NgIf,
 		DynamicDatePipe,
 		SelectServiceListComponent,
 		CustomerChipComponent,
@@ -119,7 +118,8 @@ enum SegmentEnum {
 							<i class="bi bi-calendar-x"></i>
 							{{ 'keyword.capitalize.break' | translate }}
 						</div>
-						<ng-container *ngIf="datetimeISO">
+						@if (datetimeISO) {
+
 							<div class="flex flex-col gap-1">
 								<div class="text-beeColor-500 flex justify-between">
 									<div>{{ 'keyword.capitalize.from' | translate }}:</div>
@@ -160,7 +160,7 @@ enum SegmentEnum {
 									</button>
 								</div>
 							</div>
-						</ng-container>
+						}
 						<div class="flex flex-col gap-1 mt-4">
 							<div class="text-beeColor-500 flex justify-between">
 								<div>{{ 'keyword.capitalize.from' | translate }}: {{ 'keyword.lowercase.now' | translate }}</div>

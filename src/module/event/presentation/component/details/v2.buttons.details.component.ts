@@ -1,6 +1,6 @@
 import {Component, HostBinding, inject, input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
-import {NgIf, NgTemplateOutlet} from "@angular/common";
+import {NgTemplateOutlet} from "@angular/common";
 import {
 	ChangeStatusOnAcceptedComponent
 } from "@event/presentation/component/change-status/change-status-on-accepted.component";
@@ -25,7 +25,6 @@ import {
 	standalone: true,
 	imports: [
 		TranslateModule,
-		NgIf,
 		NgTemplateOutlet,
 		ChangeStatusOnAcceptedComponent,
 		ChangeStatusOnDoneComponent,
@@ -35,42 +34,38 @@ import {
 	],
 	template: `
 
-		<ng-container *ngIf="isRequested">
-
+		@if (isRequested) {
 			<ng-container *ngTemplateOutlet="ButtonToRejectEvent"/>
 			<edit-button-component (click)="editEvent()"/>
 			<ng-container *ngTemplateOutlet="ButtonToAcceptEvent"/>
 
-		</ng-container>
+		}
 
-		<ng-container *ngIf="inProgress">
+		@if (inProgress) {
 
 			<edit-button-component (click)="editEvent()"/>
 			<ng-container *ngTemplateOutlet="ButtonToRejectEvent"/>
+		}
 
-		</ng-container>
 
-		<ng-container *ngIf="isAccepted">
+		@if (isAccepted) {
 
 			<ng-container *ngTemplateOutlet="ButtonToCancelledEvent"/>
 			<edit-button-component (click)="editEvent()"/>
 			<ng-container *ngTemplateOutlet="ButtonToDoneEvent"/>
+		}
 
-		</ng-container>
-
-		<ng-container *ngIf="isDone">
-
-			<edit-button-component (click)="editEvent()"/>
-			<!--			<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>-->
-
-		</ng-container>
-
-		<ng-container *ngIf="isNegative">
+		@if (isDone) {
 
 			<edit-button-component (click)="editEvent()"/>
 			<!--			<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>-->
+		}
 
-		</ng-container>
+		@if (isNegative) {
+
+			<edit-button-component (click)="editEvent()"/>
+			<!--			<ng-container *ngTemplateOutlet="ButtonToRepeatEvent"/>-->
+		}
 
 		<ng-template #ButtonToRejectEvent>
 			<event-change-status-on-rejected-component [event]="event()"/>

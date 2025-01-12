@@ -1,5 +1,5 @@
 import {Component, ViewEncapsulation} from '@angular/core';
-import {AsyncPipe, NgIf} from '@angular/common';
+import {AsyncPipe} from '@angular/common';
 import {ListPage} from "@utility/list.page";
 import {TranslateModule} from "@ngx-translate/core";
 import {Observable, tap} from "rxjs";
@@ -20,7 +20,6 @@ import {MemberTableService} from "@member/presentation/component/list/member.tab
 	templateUrl: './list.member.page.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		NgIf,
 		TranslateModule,
 		AsyncPipe,
 		MobileLayoutListComponent,

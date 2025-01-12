@@ -1,7 +1,6 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {BusinessProfileForm} from '@client/presentation/form/business-profile.form';
 import {ReactiveFormsModule} from '@angular/forms';
-import {NgIf} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
@@ -18,7 +17,6 @@ import {
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		ReactiveFormsModule,
-		NgIf,
 		TranslateModule,
 		CardComponent,
 		FormInputComponent,
@@ -61,15 +59,19 @@ import {
 				id="business-profile-form-businessCategory-input"
 				[control]="form.controls.businessCategory"/>
 
-			<bee-business-industry-select-component
-				*ngIf="form.controls.businessIndustry.value"
-				id="business-profile-form-businessIndustry-input"
-				[control]="form.controls.businessIndustry"/>
+			@if (form.controls.businessIndustry.value)  {
 
-			<bee-service-provide-type-select-component
-				*ngIf="form.controls.serviceProvideType.value"
-				id="business-profile-form-serviceProvideType-input"
-				[control]="form.controls.serviceProvideType"/>
+				<bee-business-industry-select-component
+					id="business-profile-form-businessIndustry-input"
+					[control]="form.controls.businessIndustry"/>
+			}
+
+			@if (form.controls.serviceProvideType.value) {
+
+				<bee-service-provide-type-select-component
+					id="business-profile-form-serviceProvideType-input"
+					[control]="form.controls.serviceProvideType"/>
+			}
 
 			<form-input
 				id="business-profile-form-name-input"

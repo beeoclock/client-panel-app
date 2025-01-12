@@ -1,6 +1,5 @@
 import {Component, input, output, ViewEncapsulation} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
-import {NgIf} from "@angular/common";
 import {DragAndDropDirective} from "@utility/presentation/directives/drag-and-drop/drag-and-drop.directive";
 import {PlaceholderImageComponent} from "@utility/presentation/component/image/placeholder.image.component";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
@@ -13,7 +12,6 @@ import {file2base64} from "@utility/domain/file2base64";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		TranslateModule,
-		NgIf,
 		DragAndDropDirective,
 		PlaceholderImageComponent,
 		InvalidTooltipComponent

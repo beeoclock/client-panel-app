@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from "@angular/router";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {AsyncPipe} from "@angular/common";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {LogoutComponent} from "@utility/presentation/component/logout/logout.component";
 import {filter, map, Observable, tap} from "rxjs";
@@ -21,7 +21,6 @@ import {IdentityActions} from "@identity/state/identity/identity.actions";
 		AsyncPipe,
 		BackLinkComponent,
 		LogoutComponent,
-		NgIf,
 		ChangeLanguageComponent,
 		TranslateModule
 	],

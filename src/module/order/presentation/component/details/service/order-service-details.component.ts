@@ -58,12 +58,13 @@ import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 			<event-attendee-card-component
 				[attendee]="attendee"/>
 		}
-		<ng-container *ngIf="service?.customerNote?.length">
+		@if (service?.customerNote?.length) {
+
 			<hr class="mt-2">
 			<div class="text-neutral-500 dark:text-neutral-400 py-2">
 				{{ service.customerNote }}
 			</div>
-		</ng-container>
+		}
 
 		<ng-content select="[slot='footer']"/>
 

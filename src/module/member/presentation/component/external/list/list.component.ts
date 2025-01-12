@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, QueryList, ViewChildren, ViewEncapsulation} from '@angular/core';
-import {AsyncPipe, NgIf} from '@angular/common';
+import {AsyncPipe} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {ListPage} from "@utility/list.page";
 import {Observable, tap} from "rxjs";
@@ -23,7 +23,6 @@ import {TableService} from "@utility/table.service";
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
         AsyncPipe,
-        NgIf,
         TranslateModule,
         DesktopLayoutListComponent,
         MobileLayoutListComponent,

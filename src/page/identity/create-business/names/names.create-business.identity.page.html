@@ -22,19 +22,20 @@
 					[placeholder]="'identity.create-business.form.inputs.businessName.placeholder' | translate"
 					id="create-business-form-input-businessName"/>
 
-				<form-input
-					*ngIf="firstCompany$ | async"
-					[control]="businessOwnerForm.controls.firstName"
-					[label]="'keyword.capitalize.firstName' | translate"
-					[placeholder]="'example.firstName' | translate"
-					id="create-business-form-input-businessOwner-firstName"/>
+				@if (firstCompany$ | async) {
+					<form-input
+						[control]="businessOwnerForm.controls.firstName"
+						[label]="'keyword.capitalize.firstName' | translate"
+						[placeholder]="'example.firstName' | translate"
+						id="create-business-form-input-businessOwner-firstName"/>
 
-				<form-input
-					*ngIf="firstCompany$ | async"
-					[control]="businessOwnerForm.controls.lastName"
-					[label]="'keyword.capitalize.lastName' | translate"
-					[placeholder]="'example.lastName' | translate"
-					id="create-business-form-input-businessOwner-lastName"/>
+					<form-input
+						[control]="businessOwnerForm.controls.lastName"
+						[label]="'keyword.capitalize.lastName' | translate"
+						[placeholder]="'example.lastName' | translate"
+						id="create-business-form-input-businessOwner-lastName"/>
+
+				}
 
 			</bee-card>
 

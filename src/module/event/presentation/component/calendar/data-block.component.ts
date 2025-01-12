@@ -9,21 +9,25 @@ import {NgIf} from "@angular/common";
 		NgIf
 	],
 	template: `
-		<span
-			class="text-xs text-blue-600 dark:text-sky-100"
-			*ngIf="data().content?.headerHTML as headerHTML"
-			[innerHTML]="headerHTML">
+		@if (data().content?.headerHTML; as headerHTML) {
+			<span
+				class="text-xs text-blue-600 dark:text-sky-100"
+				[innerHTML]="headerHTML">
 			</span>
-		<span
-			class="text-xs font-medium text-blue-600 dark:text-sky-100"
-			*ngIf="data().content?.bodyHTML as bodyHTML"
-			[innerHTML]="bodyHTML">
+		}
+		@if (data().content?.bodyHTML; as bodyHTML) {
+
+			<span
+				class="text-xs font-medium text-blue-600 dark:text-sky-100"
+				[innerHTML]="bodyHTML">
 			</span>
-		<span
-			class="text-xs text-blue-600 dark:text-sky-100"
-			*ngIf="data().content?.footerHTML as footerHTML"
-			[innerHTML]="footerHTML">
+		}
+		@if (data().content?.footerHTML; as footerHTML) {
+			<span
+				class="text-xs text-blue-600 dark:text-sky-100"
+				[innerHTML]="footerHTML">
 			</span>
+		}
 	`
 })
 export class DataBlockComponent implements OnChanges {

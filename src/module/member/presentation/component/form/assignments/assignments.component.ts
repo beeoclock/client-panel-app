@@ -1,6 +1,5 @@
 import {ChangeDetectorRef, Component, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {NgIf} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {AssignmentsForm} from "@member/presentation/form/member.form";
 import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
@@ -15,7 +14,6 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		CardComponent,
-		NgIf,
 		TranslateModule,
 		SwitchComponent
 	]

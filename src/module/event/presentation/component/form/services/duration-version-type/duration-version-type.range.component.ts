@@ -2,7 +2,7 @@ import {Component, inject, input, OnInit} from "@angular/core";
 
 import {FormControl, Validators} from "@angular/forms";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {AsyncPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgTemplateOutlet} from "@angular/common";
+import {AsyncPipe, NgSwitch, NgSwitchCase, NgTemplateOutlet} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {DurationSelectComponent} from "@utility/presentation/component/input/duration.select.component";
 import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/price-and-currency.component";
@@ -21,9 +21,7 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	standalone: true,
 	imports: [
 		CardComponent,
-		NgForOf,
 		AsyncPipe,
-		NgIf,
 		TranslateModule,
 		NgSwitch,
 		NgSwitchCase,

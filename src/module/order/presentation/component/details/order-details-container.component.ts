@@ -5,7 +5,6 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {TranslateModule} from "@ngx-translate/core";
 import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
-import {NgIf} from "@angular/common";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {OrderActions} from "@order/state/order/order.actions";
 import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
@@ -29,7 +28,6 @@ import {
 		TranslateModule,
 		DeleteButtonComponent,
 		EditButtonComponent,
-		NgIf,
 		ContainerChangeStatusButtonComponent,
 		ListServiceFormCardOrderComponent,
 	],

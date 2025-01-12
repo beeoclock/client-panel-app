@@ -1,7 +1,11 @@
 <div class="flex justify-between">
-	<utility-logout-component *ngIf="firstCompany$ | async"/>
-	<utility-back-link-component *ngIf="notFirstCompany$ | async" [queryParams]="{force: true}"
-								 [url]="['../', 'corridor']"/>
+	@if (firstCompany$ | async) {
+		<utility-logout-component/>
+	} @else {
+		<utility-back-link-component
+			[queryParams]="{force: true}"
+			[url]="['../', 'corridor']"/>
+	}
 	<utility-change-language-component/>
 </div>
 <div class="relative pt-12 pb-40 sm:py-16 lg:pt-20 xl:pb-0">

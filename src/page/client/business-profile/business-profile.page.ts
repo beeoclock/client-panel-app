@@ -27,7 +27,7 @@ import {
 import {
 	SwitchActiveBlockComponent
 } from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {AsyncPipe} from "@angular/common";
 import {
 	BusinessProfileSocialMediaComponent
 } from "@client/presentation/component/business-profile/social-media/social-media.componen";
@@ -53,7 +53,6 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 		LogoBusinessProfileComponent,
 		AsyncPipe,
 		BusinessProfileSocialMediaComponent,
-		NgIf,
 		PrimaryButtonDirective,
 		ButtonSaveContainerComponent,
 		TranslateModule

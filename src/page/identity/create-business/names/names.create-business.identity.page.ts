@@ -8,7 +8,7 @@ import {CreateBusinessQuery} from "@identity/query/create-business.query";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {filter, map, Observable, tap} from "rxjs";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {AsyncPipe} from "@angular/common";
 import {Select, Store} from "@ngxs/store";
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {IMember} from "@identity/domain/interface/i.member";
@@ -25,7 +25,6 @@ import {IdentityActions} from "@identity/state/identity/identity.actions";
 		TranslateModule,
 		BackLinkComponent,
 		ChangeLanguageComponent,
-		NgIf,
 		PrimaryButtonDirective,
 		RouterLink,
 		AsyncPipe,

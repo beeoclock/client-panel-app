@@ -11,7 +11,7 @@ import {RouterLink} from "@angular/router";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {CreateBusinessQuery} from "@identity/query/create-business.query";
-import {NgClass, NgForOf, NgIf} from "@angular/common";
+import {NgClass} from "@angular/common";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {BooleanState} from "@utility/domain";
@@ -54,10 +54,8 @@ const enum Status {
 		RouterLink,
 		PrimaryButtonDirective,
 		TranslateModule,
-		NgForOf,
 		CardComponent,
 		NgClass,
-		NgIf,
 		LoaderComponent,
 		WithTenantIdPipe
 	],

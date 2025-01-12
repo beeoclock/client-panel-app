@@ -6,20 +6,22 @@
 			<img
 				#previewImage
 				class="hidden absolute top-0 left-0 object-cover z-10 rounded-xl w-full h-full" alt="Uploaded Image"/>
-			<ng-container *ngIf="showHit()">
-				<ng-container *ngIf="isEmptyControl">
+			@if (showHit()) {
+
+				@if (isEmptyControl) {
+
 					<utility-placeholder-image-component
 						[labelOfDragAndDropZone]="labelOfDragAndDropZone"/>
-				</ng-container>
-				<ng-container *ngIf="isNotEmptyControl">
+				} @else {
+
 					<button
 						(click)="remove.emit()"
 						type="button"
 						class="transition-all hover:shadow-2xl hover:bg-beeColor-600 hover:text-beeColor-50 absolute right-2 top-2 px-4 py-3 bg-white/50 text-xl z-10 rounded-full">
 						<i class="bi bi-trash3"></i>
 					</button>
-				</ng-container>
-			</ng-container>
+				}
+			}
 			<input [id]="'image-gallery-business-profile-dropzone-file-' + index()" type="file" #fileInput class="hidden"
 						 (change)="onFileSelected($event)"
 						 accept="image/*"/>

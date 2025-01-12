@@ -1,7 +1,6 @@
 import {Component, ViewEncapsulation} from "@angular/core";
 import {PlaceholderImageComponent} from "@utility/presentation/component/image/placeholder.image.component";
 import {DragAndDropDirective} from "@utility/presentation/directives/drag-and-drop/drag-and-drop.directive";
-import {NgIf} from "@angular/common";
 import {BaseImageComponent} from "@utility/presentation/component/image/base.image.component";
 
 @Component({
@@ -11,7 +10,6 @@ import {BaseImageComponent} from "@utility/presentation/component/image/base.ima
 	imports: [
 		PlaceholderImageComponent,
 		DragAndDropDirective,
-		NgIf
 	],
 	template: `
 		<div
@@ -24,9 +22,10 @@ import {BaseImageComponent} from "@utility/presentation/component/image/base.ima
 				<img
 					#previewImage
 					class="absolute top-0 left-0 object-cover rounded-xl w-full h-full hidden" alt="Uploaded Image"/>
-				<utility-placeholder-image-component
-					*ngIf="showHit()"
-					[labelOfDragAndDropZone]="labelOfDragAndDropZone"/>
+				@if (showHit()) {
+					<utility-placeholder-image-component
+						[labelOfDragAndDropZone]="labelOfDragAndDropZone"/>
+				}
 				<input
 					id="logo-business-profile-dropzone-file" type="file" #fileInput class="hidden"
 					(change)="onFileSelected($event)"

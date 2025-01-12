@@ -1,7 +1,6 @@
 import {Component, inject} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
-import {NgIf} from "@angular/common";
 import {ChangeStatusBaseComponent} from "@event/presentation/component/change-status/change-status-base.component";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 import {EventActions} from "@event/state/event/event.actions";
@@ -14,7 +13,6 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 	standalone: true,
 	imports: [
 		TranslateModule,
-		NgIf,
 		LoaderComponent
 	],
 	template: `
@@ -42,11 +40,13 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 		hover:bg-green-100
 		cursor-pointer">
 
-			<ng-container *ngIf="loading.isFalse">
+			@if (loading.isFalse) {
+
 				<i class="bi bi-check-lg"></i>
 				{{ 'event.action.button.done.label' | translate }}
-			</ng-container>
-			<utility-loader [py2_5]="false" *ngIf="loading.isTrue"/>
+			} @else {
+				<utility-loader [py2_5]="false"/>
+			}
 		</button>
 	`
 })

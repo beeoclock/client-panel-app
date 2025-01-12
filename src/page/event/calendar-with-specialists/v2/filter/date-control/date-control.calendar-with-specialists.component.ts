@@ -1,5 +1,5 @@
 import {Component, inject, OnInit, viewChild, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, DOCUMENT, NgIf} from "@angular/common";
+import {AsyncPipe, DOCUMENT} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
@@ -28,7 +28,8 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 			<ion-modal [keepContentsMounted]="true">
 				<ng-template>
-					<ion-datetime [firstDayOfWeek]="1" [locale]="locale" [max]="datetimeAttributes.max" id="datetime" presentation="date" [formControl]="dateControl"/>
+					<ion-datetime [firstDayOfWeek]="1" [locale]="locale" [max]="datetimeAttributes.max" id="datetime"
+								  presentation="date" [formControl]="dateControl"/>
 					<ion-list [inset]="true">
 						<ion-item [button]="true" (click)="setToday()" detail="false" color="light">
 							<ion-label class="text-center">
@@ -40,9 +41,9 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 			</ion-modal>
 
 			<button (click)="openDateModal()"
-							[disabled]="loader$ | async"
-							id="open-modal"
-							class="border-y border-beeColor-300 text-nowrap px-3.5 text-beeColor-900 flex flex-col justify-center items-center cursor-pointer hover:bg-beeColor-100 transition-all">
+					[disabled]="loader$ | async"
+					id="open-modal"
+					class="border-y border-beeColor-300 text-nowrap px-3.5 text-beeColor-900 flex flex-col justify-center items-center cursor-pointer hover:bg-beeColor-100 transition-all">
 
 				@if (hint$ | async; as translateKey) {
 					<span class="text-sm font-semibold">
@@ -50,9 +51,11 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 					</span>
 				}
 
-				<span class="text-xs" *ngIf="selectedDate$ | async as selectedDate">
-					{{ selectedDate.toFormat('yyyy-MM-dd') }}
-				</span>
+				@if (selectedDate$ | async; as selectedDate) {
+					<span class="text-xs">
+						{{ selectedDate.toFormat('yyyy-MM-dd') }}
+					</span>
+				}
 
 			</button>
 
@@ -68,7 +71,6 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 	`,
 	standalone: true,
 	imports: [
-		NgIf,
 		TranslateModule,
 		AsyncPipe,
 		IonicModule,

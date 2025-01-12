@@ -6,7 +6,6 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
-import {NgIf} from "@angular/common";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
@@ -21,7 +20,6 @@ import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 		DeleteButtonComponent,
 		EditButtonComponent,
 		ActiveStyleDirective,
-		NgIf,
 		NoDataPipe
 	],
 	standalone: true

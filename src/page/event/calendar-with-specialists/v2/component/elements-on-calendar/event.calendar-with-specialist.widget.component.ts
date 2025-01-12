@@ -11,7 +11,7 @@ import {
 	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
-import {DatePipe, NgIf} from "@angular/common";
+import {DatePipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {IEvent_V2} from "@event/domain";
@@ -40,7 +40,6 @@ type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenc
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		NgIf,
 		OrderEventCalendarWithSpecialistWidgetComponent,
 		AbsenceEventCalendarWithSpecialistWidgetComponent,
 		DatePipe
@@ -59,17 +58,18 @@ type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenc
 			<div
 				data-dragging="position"
 				class="overflow-hidden absolute bg-black/50 bg-opacity-50 border-2 border-blue-500 bottom-0 left-0 p-1 right-0 rounded-md text-white top-0">
-				<div
-					data-dragging="position"
-					class="h-full py-1 text-white flex flex-col justify-between"
-					*ngIf="temporaryInformationAboutNewStartAndEnd">
-					<div data-dragging="position" class="w-full text-center">
-						{{ temporaryInformationAboutNewStartAndEnd.start | date: 'HH:mm' }}
+				@if (temporaryInformationAboutNewStartAndEnd) {
+					<div
+						data-dragging="position"
+						class="h-full py-1 text-white flex flex-col justify-between">
+						<div data-dragging="position" class="w-full text-center">
+							{{ temporaryInformationAboutNewStartAndEnd.start | date: 'HH:mm' }}
+						</div>
+						<div data-dragging="position" class="w-full text-center">
+							{{ temporaryInformationAboutNewStartAndEnd.end | date: 'HH:mm' }}
+						</div>
 					</div>
-					<div data-dragging="position" class="w-full text-center">
-						{{ temporaryInformationAboutNewStartAndEnd.end | date: 'HH:mm' }}
-					</div>
-				</div>
+				}
 			</div>
 			<div
 				class="-top-1 absolute bg-blue-500 h-3 left-1/2 rounded-full w-3"

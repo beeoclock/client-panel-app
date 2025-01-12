@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from "@an
 import {EventRequestedState} from "@event/state/event-requested/event-requested.state";
 import {Store} from "@ngxs/store";
 import {MEvent, RIEvent} from "@src/module/event/domain";
-import {AsyncPipe, CurrencyPipe, DatePipe, KeyValuePipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, CurrencyPipe, DatePipe, KeyValuePipe, NgForOf} from "@angular/common";
 import {map} from "rxjs";
 import {DateTime} from "luxon";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
@@ -29,7 +29,6 @@ import {FilterComponent} from "@event/presentation/component/filter/requested-fi
 		NgForOf,
 		AsyncPipe,
 		KeyValuePipe,
-		NgIf,
 		CardComponent,
 		ActionComponent,
 		CurrencyPipe,

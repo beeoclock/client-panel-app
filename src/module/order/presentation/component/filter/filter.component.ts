@@ -5,7 +5,7 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {BaseFilterComponent} from "@utility/base.filter.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
-import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
+import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {OrderActions} from "@order/state/order/order.actions";
 import {OrderState} from "@order/state/order/order.state";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
@@ -21,27 +21,29 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 		DefaultPanelComponent,
 		IonSelectWrapperComponent,
 		AsyncPipe,
-		NgIf,
 		NgTemplateOutlet,
 		ReactiveFormsModule
 	],
 	template: `
 		<utility-default-panel-component>
-			<div *ngIf="isNotMobile$ | async" class="flex overflow-x-auto gap-2">
-				<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
+			@if (isMobile$ | async) {
+				<div class="flex gap-4 justify-between w-full">
+					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
+					<!--				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>-->
+				</div>
+			} @else {
+				<div class="flex overflow-x-auto gap-2">
+					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
+					<ng-container *ngTemplateOutlet="SelectOrderStatus"></ng-container>
+				</div>
+			}
+		</utility-default-panel-component>
+		@if (isMobile$ | async) {
+
+			<div class="flex overflow-x-auto gap-2 my-2 px-2">
 				<ng-container *ngTemplateOutlet="SelectOrderStatus"></ng-container>
 			</div>
-			<div *ngIf="isMobile$ | async" class="flex gap-4 justify-between w-full">
-				<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
-<!--				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>-->
-			</div>
-<!--			<div *ngIf="isNotMobile$ | async">-->
-<!--				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>-->
-<!--			</div>-->
-		</utility-default-panel-component>
-		<div *ngIf="isMobile$ | async" class="flex overflow-x-auto gap-2 my-2 px-2">
-			<ng-container *ngTemplateOutlet="SelectOrderStatus"></ng-container>
-		</div>
+		}
 
 		<ng-template #SearchInput>
 			<utility-search-input-component [formControl]="form.controls.phrase"/>

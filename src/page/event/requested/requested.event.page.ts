@@ -4,7 +4,6 @@ import {TranslateModule} from "@ngx-translate/core";
 import {map, Observable, tap} from "rxjs";
 import {MEvent, RMIEvent} from "@event/domain";
 import {ITableState} from "@utility/domain/table.state";
-import {NgIf} from "@angular/common";
 import {EventRequestedState} from "@event/state/event-requested/event-requested.state";
 import {
 	ListOfCardCollectionByDateComponent
@@ -20,7 +19,6 @@ import {RequestedEventTableService} from "@event/presentation/component/requsted
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		TranslateModule,
-		NgIf,
 		ListOfCardCollectionByDateComponent,
 		IonicModule
 	],

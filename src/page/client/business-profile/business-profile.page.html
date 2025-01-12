@@ -10,9 +10,10 @@
 				[label]="'client.profile.form.inputs.published.label' | translate"
 				[control]="form.controls.published"/>
 
-			<client-address-business-profile-component
-				*ngIf="(item$ | async)?.serviceProfideType !== serviceProfideType.Online"
-				[form]="form.controls.addresses.controls[0]"/>
+			@if ((item$ | async)?.serviceProfideType !== serviceProfideType.Online) {
+				<client-address-business-profile-component
+					[form]="form.controls.addresses.controls[0]"/>
+			}
 
 			<schedules-form-component
 				[schedulesForm]="form.controls.schedules"/>
@@ -31,10 +32,6 @@
 
 			<client-business-profile-social-media-component
 				[form]="form.controls.socialNetworkLinks"/>
-
-			<!--		<client-facilities-business-profile-component-->
-			<!--			*ngIf="(item$ | async)?.serviceProfideType !== serviceProfideType.Online"-->
-			<!--			[control]="form.controls.facilities"/>-->
 
 			<utility-button-save-container-component class="bottom-16 md:bottom-0">
 				<button

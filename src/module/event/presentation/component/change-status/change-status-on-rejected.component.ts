@@ -2,7 +2,6 @@ import {Component, inject} from "@angular/core";
 import {TranslateModule} from "@ngx-translate/core";
 import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
-import {NgIf} from "@angular/common";
 import {ChangeStatusBaseComponent} from "@event/presentation/component/change-status/change-status-base.component";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
@@ -14,7 +13,6 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 	standalone: true,
 	imports: [
 		TranslateModule,
-		NgIf,
 		LoaderComponent
 	],
 	template: `
@@ -40,11 +38,13 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 				ring-inset
 				ring-red-300
 				hover:bg-red-100">
-			<ng-container *ngIf="loading.isFalse">
+			@if (loading.isFalse) {
+
 				<i class="bi bi-x-lg"></i>
 				{{ 'keyword.capitalize.reject' | translate }}
-			</ng-container>
-			<utility-loader [py2_5]="false" *ngIf="loading.isTrue"/>
+			} @else {
+				<utility-loader [py2_5]="false"/>
+			}
 		</button>
 	`
 })

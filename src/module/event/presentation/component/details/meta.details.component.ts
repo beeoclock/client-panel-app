@@ -2,7 +2,6 @@ import {Component, HostBinding, inject, input, OnChanges, SimpleChange, SimpleCh
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IHistory, IHistoryV2} from "@utility/domain";
-import {NgForOf, NgIf} from "@angular/common";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {DateTime} from "luxon";
@@ -16,8 +15,6 @@ import {
 	imports: [
 		DynamicDatePipe,
 		TranslateModule,
-		NgForOf,
-		NgIf,
 		ListFromToChronologyComponent
 	],
 	template: `
@@ -45,22 +42,29 @@ import {
 <!--		</div>-->
 
 		<ol class="relative border-s border-gray-200 dark:border-gray-700 gap-4 flex flex-col">
-			<li *ngFor="let chronology of chronologyList" class="ms-4">
-				<div class="absolute w-3 h-3 rounded-full mt-1.5 -start-1.5 border border-beeColor-400 bg-beeColor-300"></div>
-				<time *ngIf="chronology.iso" class="mb-1 text-sm font-normal leading-none">
-					{{ chronology.iso | dynamicDate }}
-				</time>
-				<div *ngIf="!chronology.iso" class="mb-1 text-sm font-normal leading-none">
-					{{ 'keyword.capitalize.unknown' | translate }}
-				</div>
-				<h3 class="font-bold">
-					{{ chronology.labelTranslateKey | translate }}
-				</h3>
-				<p class="" [innerHTML]="chronology.description"></p>
-				<event-list-from-to-chronology
-					*ngIf="chronology.valueWithFromToProperties"
-					[valueWithFromToProperties]="chronology.valueWithFromToProperties"/>
-			</li>
+			@for (chronology of chronologyList; track chronology.iso) {
+
+				<li class="ms-4">
+					<div class="absolute w-3 h-3 rounded-full mt-1.5 -start-1.5 border border-beeColor-400 bg-beeColor-300"></div>
+					@if (chronology.iso) {
+						<time class="mb-1 text-sm font-normal leading-none">
+							{{ chronology.iso | dynamicDate }}
+						</time>
+					} @else {
+						<div class="mb-1 text-sm font-normal leading-none">
+							{{ 'keyword.capitalize.unknown' | translate }}
+						</div>
+					}
+					<h3 class="font-bold">
+						{{ chronology.labelTranslateKey | translate }}
+					</h3>
+					<p class="" [innerHTML]="chronology.description"></p>
+					@if (chronology.valueWithFromToProperties) {
+						<event-list-from-to-chronology
+							[valueWithFromToProperties]="chronology.valueWithFromToProperties"/>
+					}
+				</li>
+			}
 		</ol>
 
 	`

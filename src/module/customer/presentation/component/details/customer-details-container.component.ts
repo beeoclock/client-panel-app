@@ -8,11 +8,11 @@ import {TranslateModule} from "@ngx-translate/core";
 import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
-import {NgIf} from "@angular/common";
 import {
 	CustomerOrderListExternalWhacAMole
 } from "@order/presentation/component/external/case/customer/list/customer.order.list.external.whac-a-mole";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
     selector: 'customer-detail-page',
@@ -24,7 +24,6 @@ import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/p
 		DeleteButtonComponent,
 		EditButtonComponent,
 		ActiveStyleDirective,
-		NgIf,
 		PrimaryLinkStyleDirective
 	],
     standalone: true
@@ -52,12 +51,13 @@ export class CustomerDetailsContainerComponent {
 
     }
 
+	@Dispatch()
     public openForm() {
         const item = this.item();
         if (!item) {
             return
         }
-        this.store.dispatch(new CustomerActions.OpenFormToEditById(item?._id));
+        return new CustomerActions.OpenFormToEditById(item?._id);
     }
 
     public async openCustomersOrders() {

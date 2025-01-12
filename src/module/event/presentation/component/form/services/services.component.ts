@@ -1,5 +1,5 @@
 import {Component, inject, Input, input, OnInit, viewChildren} from '@angular/core';
-import {CurrencyPipe, NgForOf, NgIf} from '@angular/common';
+import {CurrencyPipe} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {NgSelectModule} from "@ng-select/ng-select";
@@ -33,11 +33,9 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	templateUrl: './services.component.html',
 	standalone: true,
 	imports: [
-		NgIf,
 		TranslateModule,
 		NgSelectModule,
 		ReactiveFormsModule,
-		NgForOf,
 		PrimaryLinkButtonDirective,
 		InvalidTooltipComponent,
 		DurationVersionTypeRangeComponent,

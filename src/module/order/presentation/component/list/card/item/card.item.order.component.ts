@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, HostBinding, Input, input, OnInit, ViewEncapsulation} from "@angular/core";
-import {CurrencyPipe, NgIf} from "@angular/common";
+import {CurrencyPipe} from "@angular/common";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@order/presentation/component/row-action-button/row-action-button.component";
@@ -22,7 +22,6 @@ import {CurrencyCodeEnum} from "@utility/domain/enum";
 	standalone: true,
 	imports: [
 		CardComponent,
-		NgIf,
 		NoDataPipe,
 		RowActionButtonComponent,
 		TranslateModule,
@@ -54,10 +53,12 @@ import {CurrencyCodeEnum} from "@utility/domain/enum";
 								💰{{ totalAmount | currency: baseCurrency : 'symbol-narrow' }}
 							</div>
 						}
-						<app-order-row-action-button-component
-							*ngIf="showAction()"
-							[item]="orderDto"
-							[id]="orderDto._id"/>
+						@if (showAction()) {
+
+							<app-order-row-action-button-component
+								[item]="orderDto"
+								[id]="orderDto._id"/>
+						}
 					</div>
 
 					@if (showSelectedStatus()) {
