@@ -1,5 +1,4 @@
 import {Component, inject, input, ViewEncapsulation} from '@angular/core';
-import {NgIf} from '@angular/common';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
@@ -14,7 +13,6 @@ import {EditButtonComponent} from "@utility/presentation/component/button/edit.b
 	encapsulation: ViewEncapsulation.None,
     imports: [
         TranslateModule,
-        NgIf,
         DeleteButtonComponent,
         EditButtonComponent,
         DynamicDatePipe,

@@ -1,5 +1,4 @@
 import {Component, ViewEncapsulation} from "@angular/core";
-import {NgIf} from "@angular/common";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {
 	TableStatePaginationComponent
@@ -35,7 +34,6 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 		TableTableFlexDirective,
 		NoDataPipe,
 		RowActionButtonComponent,
-		NgIf
 	]
 })
 export class TableListComponent extends TableComponent<IAbsenceDto> {

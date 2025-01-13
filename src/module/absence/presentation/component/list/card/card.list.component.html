@@ -13,23 +13,29 @@
 						</div>
 					</div>
 				</div>
-				<app-absence-row-action-button-component
-					*ngIf="tableService.showAction.state$ | async"
-					[item]="item"
-					[id]="item._id"/>
+				@if (tableService.showAction.state$ | async) {
 
-				<div (click)="singleClick(item)" *ngIf="tableService.showSelectedStatus.state$ | async">
-					<div
-						*ngIf="selectedIds.includes(item._id)"
-						class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
-						{{ 'keyword.capitalize.selected' | translate }}
+					<app-absence-row-action-button-component
+						[item]="item"
+						[id]="item._id"/>
+				}
+
+				@if (tableService.showSelectedStatus.state$ | async) {
+
+					<div (click)="singleClick(item)">
+						@if (selectedIds.includes(item._id)) {
+							<div
+								class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
+								{{ 'keyword.capitalize.selected' | translate }}
+							</div>
+						} @else {
+							<div
+								class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">
+								{{ 'keyword.capitalize.select' | translate }}
+							</div>
+						}
 					</div>
-					<div
-						*ngIf="!selectedIds.includes(item._id)"
-						class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">
-						{{ 'keyword.capitalize.select' | translate }}
-					</div>
-				</div>
+				}
 			</div>
 			<div (click)="singleClick(item)" class="grid grid-cols-2 gap-2">
 
@@ -60,12 +66,13 @@
 						{{ 'keyword.capitalize.attendees' | translate }}
 					</div>
 					<div class="font-bold">
-						<ng-container *ngIf="item.entireBusiness; else MembersTemplate">
+						@if (item.entireBusiness) {
+
 							{{ 'absence.form.inputs.entireBusiness.label' | translate }}
-						</ng-container>
-						<ng-template #MembersTemplate>
+						} @else {
+
 							{{ item?.members?.length ?? 0 }}
-						</ng-template>
+						}
 					</div>
 				</div>
 			</div>

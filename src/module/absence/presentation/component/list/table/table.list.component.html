@@ -80,12 +80,12 @@
 				</span>
 				</div>
 				<div tableColumnFlex="attendees">
-					<ng-container *ngIf="item.entireBusiness; else MembersTemplate">
+					@if (item.entireBusiness) {
 						{{ 'absence.form.inputs.entireBusiness.label' | translate }}
-					</ng-container>
-					<ng-template #MembersTemplate>
+					} @else {
+
 						{{ item?.members?.length ?? 0 }}
-					</ng-template>
+					}
 				</div>
 				<div tableColumnFlex="note">
 				<span [title]="item.note" class="truncate">

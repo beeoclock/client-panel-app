@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, input, OnInit, viewChildren, ViewEncapsulation} from '@angular/core';
-import {AsyncPipe, NgIf} from '@angular/common';
+import {AsyncPipe} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {
@@ -21,7 +21,6 @@ import {PeerCustomerOrderActions} from "@order/state/peer-customer/peer-customer
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		AsyncPipe,
-		NgIf,
 		TranslateModule,
 		DesktopLayoutListComponent,
 		MobileLayoutListComponent,
@@ -34,21 +33,26 @@ import {PeerCustomerOrderActions} from "@order/state/peer-customer/peer-customer
 		}
 	],
 	template: `
-		<ng-container *ngIf="initialized.isOn; else NotInitializedTemplate">
-			<app-order-mobile-layout-list-component
-				[showButtonGoToForm]="false"
-				[isPage]="false"
-				[tableState]="tableService.tableState"
-				*ngIf="isMobile$ | async"/>
-			<app-order-desktop-layout-list-component
-				[tableState]="tableService.tableState"
-				*ngIf="isNotMobile$ | async"/>
-		</ng-container>
-		<ng-template #NotInitializedTemplate>
+		@if (initialized.isOn) {
+
+			@if (isMobile$ | async) {
+
+				<app-order-mobile-layout-list-component
+					[showButtonGoToForm]="false"
+					[isPage]="false"
+					[tableState]="tableService.tableState"
+				/>
+			} @else {
+
+				<app-order-desktop-layout-list-component
+					[tableState]="tableService.tableState"/>
+			}
+		} @else {
+
 			<div class="p-4">
 				{{ 'keyword.capitalize.initializing' | translate }}...
 			</div>
-		</ng-template>
+		}
 	`
 })
 export class CustomerOrderListExternalComponent extends ListPage<IOrderDto> implements OnInit {

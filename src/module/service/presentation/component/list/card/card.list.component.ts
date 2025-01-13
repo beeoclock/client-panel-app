@@ -1,5 +1,5 @@
 import {Component, effect, inject, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, CurrencyPipe} from "@angular/common";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
@@ -20,11 +20,9 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		NgForOf,
 		TableStatePaginationComponent,
 		TranslateModule,
 		CardComponent,
-		NgIf,
 		AsyncPipe,
 		RowActionButtonComponent
 	],

@@ -8,7 +8,6 @@ import {
 	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
-import {NgIf} from "@angular/common";
 import {Dropdown, DropdownInterface, DropdownOptions} from "flowbite";
 import {Placement} from "@popperjs/core/lib/enums";
 
@@ -16,9 +15,6 @@ import {Placement} from "@popperjs/core/lib/enums";
   selector: 'utility-dropdown',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [
-    NgIf
-  ],
   template: `
 
     <!--  Dropdown button  -->
@@ -44,22 +40,19 @@ import {Placement} from "@popperjs/core/lib/enums";
 			[class.rounded-r-none]="group() === 'right'"
 			[class.rounded-l-none]="group() === 'left'"
       type="button">
-      <ng-container *ngIf="threeDot(); else DefaultTemplate">
-        <i class="bi bi-three-dots-vertical"></i>
-      </ng-container>
-      <ng-template #DefaultTemplate>
+		@if (threeDot()) {
 
-        <ng-container *ngIf="customButtonContent()">
-          <ng-content select="[button]"></ng-content>
-        </ng-container>
+			<i class="bi bi-three-dots-vertical"></i>
+		} @else {
 
-        <ng-container *ngIf="!customButtonContent()">
-          {{ buttonLabel() }}
-          <i class="bi bi-chevron-down -mr-1 ml-1.5 h-5 w-5"></i>
+			@if (customButtonContent()) {
+				<ng-content select="[button]"/>
+			} @else {
 
-        </ng-container>
-
-      </ng-template>
+				{{ buttonLabel() }}
+				<i class="bi bi-chevron-down -mr-1 ml-1.5 h-5 w-5"></i>
+			}
+		}
     </button>
 
     <!-- Dropdown menu -->

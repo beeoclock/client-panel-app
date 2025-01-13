@@ -1,5 +1,4 @@
 import {Component, ViewEncapsulation} from "@angular/core";
-import {NgIf} from "@angular/common";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
@@ -31,7 +30,6 @@ import {RowActionButtonComponent} from "@member/presentation/component/row-actio
         RowTableFlexDirective,
         TableTableFlexDirective,
         RowActionButtonComponent,
-        NgIf
     ]
 })
 export class TableListComponent extends TableComponent<RIMember> {

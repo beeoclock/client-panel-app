@@ -1,6 +1,5 @@
 import {Component, HostBinding, inject, input, ViewEncapsulation} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
-import {NgIf} from "@angular/common";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {Reactive} from "@utility/cdk/reactive";
@@ -12,28 +11,31 @@ import {ICustomer} from "@customer/domain";
 	selector: 'app-regular-customer-type-customer',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		NgIf,
 		TranslateModule,
 		PrimaryLinkButtonDirective,
 		SelectCustomerPushBoxComponent
 	],
 	standalone: true,
 	template: `
-		<customer-select-customer-whac-a-mole-component
-			*ngIf="showList()"
-			(selectedCustomerListener)="selectCustomer($event[0])"
-			[style.max-width.px]="350"
-			[multiple]="multiple()"/>
+		@if (showList()) {
 
-		<ng-container *ngIf="!showList()">
+			<customer-select-customer-whac-a-mole-component
+				(selectedCustomerListener)="selectCustomer($event[0])"
+				[style.max-width.px]="350"
+				[multiple]="multiple()"/>
+		} @else {
 
-			<ng-container *ngIf="getCustomer() as customer">
+			@if (getCustomer(); as customer) {
+
 				<div class="rounded-lg border border-gray-200 grid grid-cols-1 py-2 px-3 text-sm leading-6">
+
 					<div>{{ customer.firstName }} {{ customer.lastName }} </div>
 					<div>{{ customer.email }}</div>
 					<div>{{ customer.phone }}</div>
+
 				</div>
-			</ng-container>
+
+			}
 
 			<div class="block">
 				<button type="button" primaryLink (click)="openContainerToSelectCustomer()">
@@ -41,8 +43,7 @@ import {ICustomer} from "@customer/domain";
 					{{ 'event.form.section.attendant.button.select' | translate }}
 				</button>
 			</div>
-
-		</ng-container>
+		}
 
 	`
 })

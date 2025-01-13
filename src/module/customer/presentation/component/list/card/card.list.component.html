@@ -12,17 +12,23 @@
 						</div>
 					</div>
 				</div>
-				<customer-row-action-button-component
-					*ngIf="showAction.state$ | async"
-					[item]="item"
-					[id]="item._id"/>
+				@if (showAction.state$ | async) {
 
-				<div (click)="singleClick(item)" *ngIf="showSelectedStatus.state$ | async">
-					<i *ngIf="selectedIds.includes(item._id)"
-					   class="bi bi-check-circle text-green-600 text-xl"></i>
-					<i *ngIf="!selectedIds.includes(item._id)"
-					   class="bi bi-circle text-gray-600 text-xl"></i>
-				</div>
+					<customer-row-action-button-component
+						[item]="item"
+						[id]="item._id"/>
+				}
+
+				@if (showSelectedStatus.state$ | async) {
+
+					<div (click)="singleClick(item)">
+						@if (selectedIds.includes(item._id)) {
+							<i class="bi bi-check-circle text-green-600 text-xl"></i>
+						} @else {
+							<i class="bi bi-circle text-gray-600 text-xl"></i>
+						}
+					</div>
+				}
 			</div>
 			<div class="">
 				{{ item.email | noData }}
