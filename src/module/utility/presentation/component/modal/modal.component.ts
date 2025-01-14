@@ -44,96 +44,99 @@ export interface ModalButtonInterface<COMPONENT_REF = unknown> {
 		TranslateModule
 	],
 	template: `
-		<div
-			#modalRef
-			[id]="id()"
-			data-modal-backdrop="static"
-			tabindex="-1"
-			aria-hidden="true"
-			class="fixed top-0 left-0 right-0 z-50 hidden w-full md:p-4 overflow-x-hidden overflow-y-auto md:inset-0 max-h-full">
-			<div class="relative w-full max-w-2xl max-h-full">
+		@if (customId(); as id)  {
 
-				<!-- Modal content -->
-				<div
-					class="relative bg-white rounded-lg shadow h-screen md:h-auto dark:bg-beeDarkColor-800 flex flex-col">
+			<div
+				#modalRef
+				[id]="id"
+				data-modal-backdrop="static"
+				tabindex="-1"
+				aria-hidden="true"
+				class="fixed top-0 left-0 right-0 z-50 hidden w-full md:p-4 overflow-x-hidden overflow-y-auto md:inset-0 max-h-full">
+				<div class="relative w-full max-w-2xl max-h-full">
 
-					<!-- Modal header -->
-					<div class="flex items-start justify-between p-4 border-b rounded-t dark:border-beeDarkColor-600">
-						<h3 [ngClass]="titleClasses" [id]="id() + '_label'" [innerHtml]="title">
-						</h3>
-						<button
-							type="button"
-							#btnCloseRef
-							(click)="closeModal()"
-							class="text-beeColor-400 bg-transparent hover:bg-beeColor-200 hover:text-beeColor-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-beeDarkColor-600 dark:hover:text-white"
-							data-modal-hide="defaultModal">
-							<i class="bi bi-x-lg w-5 h-5"></i>
-							<span class="sr-only">Close modal</span>
-						</button>
-					</div>
-
-					<!-- Modal body -->
+					<!-- Modal content -->
 					<div
-						#contentRef
-						[ngClass]="{
+						class="relative bg-white rounded-lg shadow h-screen md:h-auto dark:bg-beeDarkColor-800 flex flex-col">
+
+						<!-- Modal header -->
+						<div class="flex items-start justify-between p-4 border-b rounded-t dark:border-beeDarkColor-600">
+							<h3 [ngClass]="titleClasses" [id]="id + '_label'" [innerHtml]="title">
+							</h3>
+							<button
+								type="button"
+								#btnCloseRef
+								(click)="closeModal()"
+								class="text-beeColor-400 bg-transparent hover:bg-beeColor-200 hover:text-beeColor-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-beeDarkColor-600 dark:hover:text-white"
+								data-modal-hide="defaultModal">
+								<i class="bi bi-x-lg w-5 h-5"></i>
+								<span class="sr-only">Close modal</span>
+							</button>
+						</div>
+
+						<!-- Modal body -->
+						<div
+							#contentRef
+							[ngClass]="{
 						'p-4': contentPadding(),
 						}"
-						class="flex-1 overflow-y-auto md:h-auto md:max-h-[calc(100vh-16rem)]">
-						<ng-content/>
-					</div>
-
-					<!-- Modal footer -->
-					@if (buttons?.length) {
-
-						<div
-							class="flex items-center p-4 space-x-2 border-t border-beeColor-200 rounded-b dark:border-beeDarkColor-600 justify-between">
-
-							@for (button of visibleButtons; track $index)  {
-								<button
-									type="button"
-									[id]="idPrefix + button.role"
-									[ngClass]="button.classList"
-									[disabled]="button?.disabled"
-									appDebounceClick
-									[enabledDebounceClick]="button?.enabledDebounceClick ?? true"
-									(debounceClick)="buttonAction($event, button)">
-
-									@if (button?.loading) {
-
-										<div class="inline-flex items-center font-semibold leading-6 text-sm text-white transition ease-in-out duration-150 cursor-not-allowed">
-											<svg
-												class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-												xmlns="http://www.w3.org/2000/svg" fill="none"
-												viewBox="0 0 24 24">
-												<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-														stroke-width="4"></circle>
-												<path class="opacity-75" fill="currentColor"
-													  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-											</svg>
-											{{ 'keyword.capitalize.processing' | translate }}...
-										</div>
-									} @else {
-										{{ button?.text }}
-									}
-
-
-								</button>
-							}
-
-
+							class="flex-1 overflow-y-auto md:h-auto md:max-h-[calc(100vh-16rem)]">
+							<ng-content/>
 						</div>
-					}
+
+						<!-- Modal footer -->
+						@if (buttons?.length) {
+
+							<div
+								class="flex items-center p-4 space-x-2 border-t border-beeColor-200 rounded-b dark:border-beeDarkColor-600 justify-between">
+
+								@for (button of visibleButtons; track $index)  {
+									<button
+										type="button"
+										[id]="idPrefix + button.role"
+										[ngClass]="button.classList"
+										[disabled]="button?.disabled"
+										appDebounceClick
+										[enabledDebounceClick]="button?.enabledDebounceClick ?? true"
+										(debounceClick)="buttonAction($event, button)">
+
+										@if (button?.loading) {
+
+											<div class="inline-flex items-center font-semibold leading-6 text-sm text-white transition ease-in-out duration-150 cursor-not-allowed">
+												<svg
+													class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+													xmlns="http://www.w3.org/2000/svg" fill="none"
+													viewBox="0 0 24 24">
+													<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+															stroke-width="4"></circle>
+													<path class="opacity-75" fill="currentColor"
+														  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+												</svg>
+												{{ 'keyword.capitalize.processing' | translate }}...
+											</div>
+										} @else {
+											{{ button?.text }}
+										}
+
+
+									</button>
+								}
+
+
+							</div>
+						}
+
+					</div>
 
 				</div>
 
 			</div>
-
-		</div>
+		}
 	`
 })
 export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements AfterViewInit {
 
-	public readonly id = input('modal-default-id');
+	public readonly customId = input('modal-default-id');
 
 	public readonly contentPadding = input(true);
 
@@ -155,7 +158,7 @@ export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements
 
 	public titleClasses: string[] = ['text-xl', 'font-semibold', 'text-beeColor-900', 'dark:text-white'];
 
-	public readonly idPrefix: string = `${this.id()}_buttons_`;
+	public readonly idPrefix: string = `${this.customId()}_buttons_`;
 
 	private readonly closeModal$ = new Subject<void>();
 
@@ -275,7 +278,7 @@ export class ModalComponent<COMPONENT_REF = unknown> extends Reactive implements
 			this.#modal?.hide();
 			setTimeout(() => {
 				try {
-					this.externalMethodOnCloseModalEvent?.(this.id());
+					this.externalMethodOnCloseModalEvent?.(this.customId());
 					this.elementRef?.nativeElement?.remove();
 				} catch (error) {
 					this.logger.error(error);
