@@ -7,7 +7,6 @@ import {
 } from '@service/presentation/component/form/v2/service/language.service.form.component';
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {NgIf} from "@angular/common";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 
 @Component({
@@ -20,32 +19,36 @@ import {FormTextareaComponent} from "@utility/presentation/component/input/form.
 		LanguageServiceFormComponent,
 		FormInputComponent,
 		TranslateModule,
-		NgIf,
 		FormTextareaComponent,
 	],
 	template: `
 		<form [formGroup]="form()" class="flex flex-col gap-3">
 
-			<service-language-service-form-component
-				*ngIf="!hiddenControls().includes('language')"
-				[control]="form().controls.language"/>
+			@if (!hiddenControls().includes('language')) {
 
+				<service-language-service-form-component
+					[control]="form().controls.language"/>
+			}
 
-			<form-input
-				*ngIf="!hiddenControls().includes('title')"
-				id="service-form-title"
-				inputType="text"
-				autocomplete="service.title"
-				[placeholder]="'keyword.capitalize.title' | translate"
-				[control]="form().controls.title"
-				[label]="'keyword.capitalize.title' | translate"/>
+			@if (!hiddenControls().includes('title')) {
 
-			<form-textarea-component
-				*ngIf="!hiddenControls().includes('description')"
-				id="service-form-description"
-				[control]="form().controls.description"
-				[label]="'keyword.capitalize.description' | translate"
-				[placeholder]="'keyword.capitalize.placeholder.description' | translate"/>
+				<form-input
+					id="service-form-title"
+					inputType="text"
+					autocomplete="service.title"
+					[placeholder]="'keyword.capitalize.title' | translate"
+					[control]="form().controls.title"
+					[label]="'keyword.capitalize.title' | translate"/>
+			}
+
+			@if (!hiddenControls().includes('description')) {
+
+				<form-textarea-component
+					id="service-form-description"
+					[control]="form().controls.description"
+					[label]="'keyword.capitalize.description' | translate"
+					[placeholder]="'keyword.capitalize.placeholder.description' | translate"/>
+			}
 
 		</form>
 	`

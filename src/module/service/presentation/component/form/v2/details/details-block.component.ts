@@ -1,5 +1,4 @@
 import {Component, input} from '@angular/core';
-import {NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
@@ -11,7 +10,10 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 	standalone: true,
 	template: `
 		<bee-card>
-			<span *ngIf="showHeader()" class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.details' | translate }}</span>
+			@if (showHeader()) {
+
+				<span class="text-2xl font-bold text-beeColor-500">{{ 'keyword.capitalize.details' | translate }}</span>
+			}
 
 			<form-input
 				id="service-form-details-title-input"
@@ -30,7 +32,6 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 		</bee-card>
 	`,
 	imports: [
-		NgIf,
 		TranslateModule,
 		FormInputComponent,
 		FormTextareaComponent,

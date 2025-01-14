@@ -1,5 +1,5 @@
 import {Component, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {AsyncPipe} from "@angular/common";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
@@ -17,7 +17,6 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 	imports: [
 		TableStatePaginationComponent,
 		TranslateModule,
-		NgIf,
 		AsyncPipe,
 		RowActionButtonComponent,
 		CardComponent,

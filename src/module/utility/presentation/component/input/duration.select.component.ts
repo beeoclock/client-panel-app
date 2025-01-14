@@ -12,13 +12,15 @@ import {is} from "@utility/checker";
 import {filter, map} from "rxjs";
 import {NGXLogger} from "ngx-logger";
 import {Reactive} from "@utility/cdk/reactive";
-import {NgIf} from "@angular/common";
 
 @Component({
 	selector: 'bee-duration-select-component',
 	standalone: true,
 	template: `
-		<label *ngIf="showLabel()" default [for]="id()">{{ label() }}</label>
+		@if (showLabel()) {
+
+			<label default [for]="id()">{{ label() }}</label>
+		}
 		<ng-select
 			isRequired
 			invalidTooltip
@@ -43,7 +45,6 @@ import {NgIf} from "@angular/common";
 		DefaultLabelDirective,
 		IsRequiredDirective,
 		InvalidTooltipDirective,
-		NgIf
 	],
 })
 export class DurationSelectComponent extends Reactive implements OnInit {

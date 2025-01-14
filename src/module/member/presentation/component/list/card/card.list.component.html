@@ -32,21 +32,24 @@
 							[id]="item._id"/>
 					}
 
-					<div (click)="singleClick(item)" *ngIf="tableService.showSelectedStatus.state$ | async">
-						@if (selectedIds.includes(item._id)) {
+					@if (tableService.showSelectedStatus.state$ | async) {
 
-							<div
-								class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
-								{{ 'keyword.capitalize.selected' | translate }}
-							</div>
-						} @else {
+						<div (click)="singleClick(item)" >
+							@if (selectedIds.includes(item._id)) {
 
-							<div
-								class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">
-								{{ 'keyword.capitalize.select' | translate }}
-							</div>
-						}
-					</div>
+								<div
+									class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
+									{{ 'keyword.capitalize.selected' | translate }}
+								</div>
+							} @else {
+
+								<div
+									class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">
+									{{ 'keyword.capitalize.select' | translate }}
+								</div>
+							}
+						</div>
+					}
 				</div>
 				<div (click)="singleClick(item)" class="flex justify-between">
 					<div class="flex-1">

@@ -9,7 +9,7 @@ import {
 	viewChild
 } from "@angular/core";
 import {Modal, ModalInterface, ModalOptions} from "flowbite";
-import {NgClass, NgForOf, NgIf} from "@angular/common";
+import {NgClass} from "@angular/common";
 import {is} from "@utility/checker";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {Subject, take} from "rxjs";
@@ -39,8 +39,6 @@ export interface ModalButtonInterface<COMPONENT_REF = unknown> {
 	selector: 'utility-modal',
 	standalone: true,
 	imports: [
-		NgIf,
-		NgForOf,
 		NgClass,
 		DebounceClickDirective,
 		TranslateModule
@@ -85,42 +83,46 @@ export interface ModalButtonInterface<COMPONENT_REF = unknown> {
 					</div>
 
 					<!-- Modal footer -->
-					<div
-						*ngIf="buttons?.length"
-						class="flex items-center p-4 space-x-2 border-t border-beeColor-200 rounded-b dark:border-beeDarkColor-600 justify-between">
+					@if (buttons?.length) {
 
-						<button
-							type="button"
-							*ngFor="let button of visibleButtons"
-							[id]="idPrefix + button.role"
-							[ngClass]="button.classList"
-							[disabled]="button?.disabled"
-							appDebounceClick
-							[enabledDebounceClick]="button?.enabledDebounceClick ?? true"
-							(debounceClick)="buttonAction($event, button)">
+						<div
+							class="flex items-center p-4 space-x-2 border-t border-beeColor-200 rounded-b dark:border-beeDarkColor-600 justify-between">
 
-							<div
-								class="inline-flex items-center font-semibold leading-6 text-sm text-white transition ease-in-out duration-150 cursor-not-allowed"
-								*ngIf="button?.loading; else DefaultTemplate">
-								<svg
-									class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-									xmlns="http://www.w3.org/2000/svg" fill="none"
-									viewBox="0 0 24 24">
-									<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-											stroke-width="4"></circle>
-									<path class="opacity-75" fill="currentColor"
-										  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-								</svg>
-								{{ 'keyword.capitalize.processing' | translate }}...
-							</div>
+							@for (button of visibleButtons; track $index)  {
+								<button
+									type="button"
+									[id]="idPrefix + button.role"
+									[ngClass]="button.classList"
+									[disabled]="button?.disabled"
+									appDebounceClick
+									[enabledDebounceClick]="button?.enabledDebounceClick ?? true"
+									(debounceClick)="buttonAction($event, button)">
 
-							<ng-template #DefaultTemplate>
-								{{ button?.text }}
-							</ng-template>
+									@if (button?.loading) {
 
-						</button>
+										<div class="inline-flex items-center font-semibold leading-6 text-sm text-white transition ease-in-out duration-150 cursor-not-allowed">
+											<svg
+												class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+												xmlns="http://www.w3.org/2000/svg" fill="none"
+												viewBox="0 0 24 24">
+												<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+														stroke-width="4"></circle>
+												<path class="opacity-75" fill="currentColor"
+													  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+											</svg>
+											{{ 'keyword.capitalize.processing' | translate }}...
+										</div>
+									} @else {
+										{{ button?.text }}
+									}
 
-					</div>
+
+								</button>
+							}
+
+
+						</div>
+					}
 
 				</div>
 

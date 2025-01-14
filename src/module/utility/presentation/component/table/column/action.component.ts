@@ -2,7 +2,6 @@ import {Component, inject, input, output} from "@angular/core";
 import {Router} from "@angular/router";
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {ActiveEnum} from "@utility/domain/enum";
-import {NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {Placement} from "@popperjs/core/lib/enums";
 
@@ -11,7 +10,6 @@ import {Placement} from "@popperjs/core/lib/enums";
 	standalone: true,
 	imports: [
 		DropdownComponent,
-		NgIf,
 		TranslateModule
 	],
 	template: `
@@ -45,14 +43,16 @@ import {Placement} from "@popperjs/core/lib/enums";
 						{{ 'keyword.capitalize.delete' | translate }}
 					</button>
 				</li>
-				<li *ngIf="active() === activeEnum.NO">
-					<button
-						(click)="activate.emit(id())"
-						class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-						<i class="bi bi-toggle-on"></i>
-						{{ 'keyword.capitalize.activate' | translate }}
-					</button>
-				</li>
+				@if (active() === activeEnum.NO) {
+					<li>
+						<button
+							(click)="activate.emit(id())"
+							class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
+							<i class="bi bi-toggle-on"></i>
+							{{ 'keyword.capitalize.activate' | translate }}
+						</button>
+					</li>
+				}
 				@if (active() === activeEnum.YES) {
 					<li>
 						<button

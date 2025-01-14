@@ -8,7 +8,7 @@ import {IonSelectActiveComponent} from "@utility/presentation/component/input/io
 import {ServiceState} from "@service/state/service/service.state";
 import {BaseFilterComponent} from "@utility/base.filter.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
-import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
+import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {
 	AutoRefreshButtonComponent
 } from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
@@ -24,30 +24,35 @@ import {ReactiveFormsModule} from "@angular/forms";
 		IonSelectActiveComponent,
 		DefaultPanelComponent,
 		AsyncPipe,
-		NgIf,
 		NgTemplateOutlet,
 		AutoRefreshButtonComponent,
 		ReactiveFormsModule
 	],
 	template: `
 		<utility-default-panel-component>
-			<div *ngIf="isNotMobile$ | async" class="flex overflow-x-auto gap-2">
-				<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
-				<ng-container *ngTemplateOutlet="ServiceActiveSelect"></ng-container>
-				<service-auto-refresh-component/>
-			</div>
-			<div *ngIf="isMobile$ | async" class="flex gap-4 justify-between w-full">
-				<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
-				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
-			</div>
-			<div *ngIf="isNotMobile$ | async">
-				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
-			</div>
+			@if (isMobile$ | async) {
+				<div class="flex gap-4 justify-between w-full">
+					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
+					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
+				</div>
+			} @else {
+
+				<div class="flex overflow-x-auto gap-2">
+					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
+					<ng-container *ngTemplateOutlet="ServiceActiveSelect"></ng-container>
+					<service-auto-refresh-component/>
+				</div>
+				<div>
+					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
+				</div>
+			}
 		</utility-default-panel-component>
-		<div *ngIf="isMobile$ | async" class="flex overflow-x-auto gap-2 my-2 px-2">
-			<ng-container *ngTemplateOutlet="ServiceActiveSelect"></ng-container>
-			<service-auto-refresh-component [resetPage]="true"/>
-		</div>
+		@if (isMobile$ | async) {
+			<div  class="flex overflow-x-auto gap-2 my-2 px-2">
+				<ng-container *ngTemplateOutlet="ServiceActiveSelect"></ng-container>
+				<service-auto-refresh-component [resetPage]="true"/>
+			</div>
+		}
 
 		<ng-template #ServiceActiveSelect>
 			<ion-select-active
@@ -61,13 +66,16 @@ import {ReactiveFormsModule} from "@angular/forms";
 		</ng-template>
 
 		<ng-template #ButtonToOpenForm>
-			<button *ngIf="showButtonGoToForm()" type="button" class="!py-3 !px-4 !text-base flex-1" primary
-					(click)="openForm()">
-				<i class="bi bi-plus-lg"></i>
-<!--				<span class="hidden xl:block">-->
-<!--					{{ 'keyword.capitalize.add-service' | translate }}-->
-<!--				</span>-->
-			</button>
+			@if (showButtonGoToForm()) {
+
+				<button type="button" class="!py-3 !px-4 !text-base flex-1" primary
+						(click)="openForm()">
+					<i class="bi bi-plus-lg"></i>
+					<!--				<span class="hidden xl:block">-->
+					<!--					{{ 'keyword.capitalize.add-service' | translate }}-->
+					<!--				</span>-->
+				</button>
+			}
 		</ng-template>
 	`
 })

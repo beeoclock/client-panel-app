@@ -12,7 +12,6 @@ import {
 } from '@angular/core';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ReactiveFormsModule} from "@angular/forms";
-import {NgForOf, NgIf} from "@angular/common";
 import {ITableState} from "@utility/domain/table.state";
 import humanizeDuration from "humanize-duration";
 import {DateTime} from "luxon";
@@ -29,9 +28,7 @@ import {BooleanState} from "@utility/domain";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		NgSelectModule,
-		NgForOf,
 		ReactiveFormsModule,
-		NgIf,
 		TranslateModule,
 	],
 	encapsulation: ViewEncapsulation.None

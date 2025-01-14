@@ -19,7 +19,10 @@ import {DateTime} from "luxon";
 	selector: 'bee-time-select-component',
 	standalone: true,
 	template: `
-		<label *ngIf="showLabel" default [for]="id">{{ label }}</label>
+		@if (showLabel) {
+
+			<label default [for]="id">{{ label }}</label>
+		}
 		<ng-select
 			isRequired
 			invalidTooltip

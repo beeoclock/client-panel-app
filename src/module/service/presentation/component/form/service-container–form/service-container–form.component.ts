@@ -8,7 +8,7 @@ import {
 	viewChild,
 	ViewEncapsulation
 } from '@angular/core';
-import {AsyncPipe, NgIf} from "@angular/common";
+import {AsyncPipe} from "@angular/common";
 import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {PricesBlockComponent} from "@service/presentation/component/form/v2/prices/prices-block.component";
@@ -44,7 +44,6 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
-		NgIf,
 		ImageBlockComponent,
 		ReactiveFormsModule,
 		TranslateModule,

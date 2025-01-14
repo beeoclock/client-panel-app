@@ -1,6 +1,6 @@
 import {Component, HostBinding, inject, input, ViewEncapsulation} from "@angular/core";
 
-import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
+import {CurrencyPipe} from "@angular/common";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 
@@ -8,14 +8,17 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	selector: 'service-item-component',
 	template: `
 		<div class="flex gap-3 mr-3">
-			<div
-				*ngFor="let banner of item().presentation?.banners ?? []">
-				<img
-					*ngIf="banner"
-					[src]="banner"
-					class="w-[90px] h-[90px] rounded-2xl object-cover"
-					alt="Image of service">
-			</div>
+			@for (banner of item().presentation?.banners ?? []; track banner._id) {
+				<div>
+					@if (banner) {
+
+						<img
+							[src]="banner"
+							class="w-[90px] h-[90px] rounded-2xl object-cover"
+							alt="Image of service">
+					}
+				</div>
+			}
 			<div class="flex flex-col flex-1 text-center md:text-start">
 				<div class="w-full text-lg font-semibold">{{ item().languageVersions?.[0]?.title }}</div>
 				<div class="w-full hidden lg:block">{{ item().languageVersions?.[0]?.description }}</div>
@@ -29,10 +32,6 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	`,
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
-	imports: [
-		NgIf,
-		NgForOf,
-	],
 	providers: [
 		CurrencyPipe,
 		DurationVersionHtmlHelper,

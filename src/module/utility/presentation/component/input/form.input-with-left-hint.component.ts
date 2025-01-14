@@ -9,11 +9,9 @@ import {
 	ViewEncapsulation
 } from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {NgIf} from "@angular/common";
 import {IsRequiredDirective} from "@utility/presentation/directives/is-required/is-required";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
-import {FloatingLabelDirective} from "@utility/presentation/directives/label/floating.label.directive";
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
@@ -25,14 +23,16 @@ import {TranslateModule} from "@ngx-translate/core";
 		IsRequiredDirective,
 		InvalidTooltipDirective,
 		ReactiveFormsModule,
-		NgIf,
 		DefaultLabelDirective,
 		TranslateModule,
 	],
 	template: `
-		<label default *ngIf="showLabel()" [for]="id()">
-			{{ label() ?? (labelTranslateKey() | translate) }}
-		</label>
+		@if (showLabel()) {
+
+			<label default [for]="id()">
+				{{ label() ?? (labelTranslateKey() | translate) }}
+			</label>
+		}
 		<ng-content/>
 
 		<div

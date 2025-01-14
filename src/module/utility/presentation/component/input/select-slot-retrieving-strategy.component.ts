@@ -6,7 +6,6 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
 import {SlotSettingsForm} from "@client/presentation/form/slot-settings.form";
 import {SlotRetrievingStrategyEnum} from "@utility/domain/enum/slot-retrieving-strategy.enum";
-import {NgIf} from "@angular/common";
 
 @Component({
 	selector: 'select-slot-retrieving-strategy-component',
@@ -28,15 +27,17 @@ import {NgIf} from "@angular/common";
 			{{ 'slotRetrievingStrategy.hint' | translate }}
 		</div>
 		<div class="mt-2">
-			<ng-container *ngIf="isIncludeRequested">
+			@if (isIncludeRequested) {
+
 				{{ 'slotRetrievingStrategy.hists.byOption.IncludeRequested' | translate }}
 				: <kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ 'event.keyword.status.singular.requested' | translate }}</kbd>
 				, <kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ 'event.keyword.status.singular.confirmed' | translate }}</kbd>
-			</ng-container>
-			<ng-container *ngIf="isOnlyBooked">
+			}
+			@if (isOnlyBooked) {
+
 				{{ 'slotRetrievingStrategy.hists.byOption.OnlyBooked' | translate }}
 				: <kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">{{ 'event.keyword.status.singular.confirmed' | translate }}</kbd>
-			</ng-container>
+			}
 		</div>
 	`,
 	encapsulation: ViewEncapsulation.None,
@@ -45,7 +46,6 @@ import {NgIf} from "@angular/common";
 		ReactiveFormsModule,
 		TranslateModule,
 		DefaultLabelDirective,
-		NgIf,
 	],
 	providers: [
 		HumanizeDurationHelper,

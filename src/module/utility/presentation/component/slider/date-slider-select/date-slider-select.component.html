@@ -10,28 +10,38 @@
 
 		<!-- Day Slots Container -->
 		<div #daySlotsContainer class="flex gap-2 overflow-x-auto w-full justify-center items-center">
-			<ng-container *ngFor="let dayItem of dayItemList()">
+			@for (dayItem of dayItemList(); track $index) {
+
 				<div class="relative pb-0.5 pt-1">
-            <div
-							*ngIf="dayItem.isToday"
+					@if (dayItem.isToday) {
+
+						<div
+
 							class="w-[10px] h-[10px] rounded-full absolute left-[25px] -top-0"
 							[ngClass]="{
                 'bg-blue-200': isSelected(dayItem.datetime),
                 'bg-beeColor-300': !isSelected(dayItem.datetime)
                 }">
-            </div>
-            <div
-							*ngIf="dayItem.slots.length || dayItem.events.length"
+						</div>
+					}
+					@if (dayItem.slots.length || dayItem.events.length) {
+
+						<div
+
 							class="w-[20px] h-[20px] flex items-center justify-center text-sm rounded-full absolute -right-1 -top-0"
 							#daySlotCounterRef
 							[ngClass]="{
                 'bg-blue-200 text-blue-600': isSelected(dayItem.datetime),
                 'bg-beeColor-300 text-beeColor-600': !isSelected(dayItem.datetime)
                 }">
-							<ng-container *ngIf="(dayItem.slots.length || dayItem.events.length || 0) <= 9; else MoreThenNineTemplate">
+							@if ((dayItem.slots.length || dayItem.events.length || 0) <= 9) {
+
 								{{ dayItem.slots.length || dayItem.events.length || 0 }}
-							</ng-container>
-            </div>
+							} @else {
+								9 <span class="text-xs">+</span>
+							}
+						</div>
+					}
 
 					<button
 						type="button"
@@ -43,21 +53,20 @@
 						<span>{{ dayItem.datetime.weekdayShort }}</span>
 					</button>
 
-					<div
-						*ngIf="controlsAreRequired() && hasSelectedTimeSlot(dayItem.datetime)"
-						class="w-[30px] h-[6px] rounded-full absolute left-[15px] -bottom-0"
-						[ngClass]="{
+					@if (controlsAreRequired() && hasSelectedTimeSlot(dayItem.datetime)) {
+
+						<div
+							class="w-[30px] h-[6px] rounded-full absolute left-[15px] -bottom-0"
+							[ngClass]="{
 							'bg-blue-200': isSelected(dayItem.datetime),
 							'bg-beeColor-300': !isSelected(dayItem.datetime)
 						}"
-					></div>
+						></div>
+					}
 				</div>
-			</ng-container>
+			}
 		</div>
 
 		<event-select-time-slot-button-arrow-component [right]="true" (click)="nextPackOfDates()"/>
 	</div>
 </div>
-<ng-template #MoreThenNineTemplate>
-	9 <span class="text-xs">+</span>
-</ng-template>

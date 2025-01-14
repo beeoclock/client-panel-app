@@ -56,16 +56,6 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 				[options]="orderStatusOptions"
 				[control]="orderStatusControl"/>
 		</ng-template>
-
-<!--		<ng-template #ButtonToOpenForm>-->
-<!--			<button *ngIf="showButtonGoToForm" type="button" class="!py-3 !px-4 !text-base" primary-->
-<!--					(click)="openForm()">-->
-<!--				<i class="bi bi-plus-lg"></i>-->
-<!--				&lt;!&ndash;				<div class="hidden xl:block">&ndash;&gt;-->
-<!--				&lt;!&ndash;					{{ 'order.button.create' | translate }}&ndash;&gt;-->
-<!--				&lt;!&ndash;				</div>&ndash;&gt;-->
-<!--			</button>-->
-<!--		</ng-template>-->
 	`
 })
 export class FilterComponent extends BaseFilterComponent implements OnInit {

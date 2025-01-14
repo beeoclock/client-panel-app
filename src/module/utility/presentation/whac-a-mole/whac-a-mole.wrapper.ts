@@ -9,14 +9,12 @@ import {
 	ViewContainerRef,
 	ViewEncapsulation
 } from '@angular/core';
-import {NgIf} from '@angular/common';
 import {WhacAMoleBuildItArgsType} from "@utility/presentation/whac-a-mole/whac-a-mole.type";
 
 @Component({
 	selector: 'whac-a-mole-wrapper',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
-	imports: [NgIf],
 	template: `
 		<div class="flex justify-between p-1 border-b">
 			<div class="truncate font-bold p-2">{{ title() }}</div>
@@ -27,19 +25,27 @@ import {WhacAMoleBuildItArgsType} from "@utility/presentation/whac-a-mole/whac-a
 					(click)="doDone()"
 					[title]="button?.close?.title ?? ''"
 				>
-          <span *ngIf="button?.close?.text" [class]="button?.close?.classList ?? ''">
-            {{ button?.close?.text }}
-          </span>
-					<i *ngIf="button?.close?.useDefaultIcon ?? false" class="bi bi-x-lg"></i>
+					@if (button?.close?.text) {
+
+						<span [class]="button?.close?.classList ?? ''">
+							{{ button?.close?.text }}
+						  </span>
+					}
+					@if (button?.close?.useDefaultIcon ?? false) {
+
+						<i class="bi bi-x-lg"></i>
+					}
 				</button>
 			</div>
 		</div>
-		<div
-			*ngIf="showLoading()"
-			role="status"
-			class="animate-pulse bg-gray-300 dark:bg-gray-700 flex h-dvh items-center justify-center m-1 rounded-lg">
-			<span class="sr-only">Loading...</span>
-		</div>
+		@if (showLoading()) {
+
+			<div
+				role="status"
+				class="animate-pulse bg-gray-300 dark:bg-gray-700 flex h-dvh items-center justify-center m-1 rounded-lg">
+				<span class="sr-only">Loading...</span>
+			</div>
+		}
 
 		<ng-container #renderContainer></ng-container>
 	`

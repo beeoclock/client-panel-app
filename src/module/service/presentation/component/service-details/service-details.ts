@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation} from '@angular/core';
-import {CurrencyPipe, NgForOf, NgIf} from '@angular/common';
+import {CurrencyPipe} from '@angular/common';
 import {firstValueFrom} from 'rxjs';
 import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {TranslateModule} from "@ngx-translate/core";
@@ -17,9 +17,7 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		NgIf,
 		DeleteButtonComponent,
-		NgForOf,
 		TranslateModule,
 		ActiveStyleDirective,
 		DynamicDatePipe,
