@@ -13,26 +13,26 @@
 				<p class="mb-6 mt-1 text-sm leading-6 text-gray-600">
 					{{ 'identity.confirm-invitation.form.description' | translate }}
 				</p>
-				<form class="space-y-4 md:space-y-8 " action="#">
+				<form action="#" class="space-y-4 md:space-y-8 ">
 					<div class="flex flex-col gap-6">
 						<form-input
-							id="email"
-							inputType="email"
-							autocomplete="email"
 							[control]="form.controls.email"
+							[label]="'identity.sign-up.form.inputs.email.label' | translate"
 							[placeholder]="'identity.sign-up.form.inputs.email.placeholder' | translate"
-							[label]="'identity.sign-up.form.inputs.email.label' | translate"/>
+							autocomplete="email"
+							id="email"
+							inputType="email"/>
 
 						<form-input-password
-							id="password"
-							autocomplete="password"
 							[control]="form.controls.password"
+							[label]="'identity.confirm-invitation.form.inputs.password.label' | translate"
 							[placeholder]="'identity.sign-up.form.inputs.password.placeholder' | translate"
-							[label]="'identity.confirm-invitation.form.inputs.password.label' | translate"/>
+							autocomplete="password"
+							id="password"/>
 
 					</div>
 
-					<button (click)="submit()" type="button" primary [isLoading]="form.pending">
+					<button (click)="submit()" [isLoading]="form.pending" primary type="button">
 						{{ 'keyword.capitalize.send' | translate }}
 					</button>
 				</form>

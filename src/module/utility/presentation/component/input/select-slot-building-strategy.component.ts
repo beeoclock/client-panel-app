@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, input, OnInit, ViewEncapsulation} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -14,14 +14,14 @@ import {SlotSettingsForm} from "@client/presentation/form/slot-settings.form";
 	standalone: true,
 	template: `
 		<div class="relative">
-			<label default [for]="id">
+			<label default [for]="id()">
 				{{ 'slotBuildingStrategy.title' | translate }}
 			</label>
 			<ng-select
 				bindValue="id"
 				[items]="options"
 				[clearable]="false"
-				[id]="id"
+				[id]="id()"
 				[formControl]="localControl"/>
 		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
@@ -44,11 +44,9 @@ export class SelectSlotBuildingStrategyComponent implements OnInit {
 
 	// TODO: add opportunity to change slot interval in seconds via addTag method in ng-select
 
-	@Input()
-	public id = '';
+	public readonly id = input('');
 
-	@Input()
-	public slotSettings = new SlotSettingsForm();
+	public readonly slotSettings = input(new SlotSettingsForm());
 
 	public readonly localControl = new FormControl();
 	public readonly options: {
@@ -69,8 +67,8 @@ export class SelectSlotBuildingStrategyComponent implements OnInit {
 
 	private initLocalControlValue(): void {
 		const {id} = this.options.find(option => {
-			const typeValid = option.type === this.slotSettings.controls.slotBuildingStrategy.value;
-			const valueValid = option.value === this.slotSettings.controls.slotIntervalInSeconds.value;
+			const typeValid = option.type === this.slotSettings().controls.slotBuildingStrategy.value;
+			const valueValid = option.value === this.slotSettings().controls.slotIntervalInSeconds.value;
 			return typeValid && valueValid;
 		}) ?? {};
 		if (id) {
@@ -79,8 +77,8 @@ export class SelectSlotBuildingStrategyComponent implements OnInit {
 		this.localControl.valueChanges.subscribe((id) => {
 			const option = this.options.find(option => id === option.id);
 			if (option) {
-				this.slotSettings.controls.slotBuildingStrategy.setValue(option.type);
-				this.slotSettings.controls.slotIntervalInSeconds.setValue(option.value);
+				this.slotSettings().controls.slotBuildingStrategy.setValue(option.type);
+				this.slotSettings().controls.slotIntervalInSeconds.setValue(option.value);
 			}
 		});
 	}

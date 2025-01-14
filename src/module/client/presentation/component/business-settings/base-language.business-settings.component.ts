@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input} from "@angular/core";
+import {Component, HostBinding, input} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {LanguageCodeEnum, LANGUAGES} from "@utility/domain/enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
@@ -27,7 +27,7 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 				[items]="languageList"
 				[closeOnSelect]="false"
 				[clearable]="false"
-				[formControl]="control">
+				[formControl]="control()">
 			</ng-select>
 		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
@@ -47,13 +47,11 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 })
 export class BaseLanguageBusinessSettingsComponent {
 
-	@Input({ required: true })
-	public control!: FormControl<LanguageCodeEnum>;
+	public readonly control = input.required<FormControl<LanguageCodeEnum>>();
 
-	@Input()
-	public include: LanguageCodeEnum[] | null = null;
+	public readonly include = input<LanguageCodeEnum[] | null>(null);
 
-	public readonly languageList = this.include ?? LANGUAGES;
+	public readonly languageList = this.include() ?? LANGUAGES;
 
 	@HostBinding()
 	public class = 'flex flex-col text-start';

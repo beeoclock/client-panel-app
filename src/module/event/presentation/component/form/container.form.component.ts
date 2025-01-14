@@ -2,21 +2,19 @@ import {
 	Component,
 	inject,
 	Input,
+	input,
 	OnChanges,
 	OnDestroy,
 	OnInit,
-	QueryList,
 	SimpleChange,
 	SimpleChanges,
-	ViewChildren
+	viewChildren
 } from "@angular/core";
 import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
-import {GeneralDetailsComponent} from "@event/presentation/component/details/general.details.component";
-import {DatePipe, NgIf} from "@angular/common";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {ReactiveFormsModule} from "@angular/forms";
 import {
@@ -38,10 +36,6 @@ import {is} from "@utility/checker";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {IPresentation, RIConfiguration} from "@service/domain";
 import {Reactive} from "@utility/cdk/reactive";
-import {TimeInputComponent} from "@utility/presentation/component/input/time.input.component";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {DefaultInputDirective} from "@utility/presentation/directives/input/default.input.directive";
-import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import * as Member from '@member/domain';
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {RIMedia} from "@module/media/domain/interface/i.media";
@@ -58,19 +52,11 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 		ButtonSaveContainerComponent,
 		CardComponent,
 		FormTextareaComponent,
-		GeneralDetailsComponent,
-		NgIf,
 		PrimaryButtonDirective,
 		ReactiveFormsModule,
 		SelectTimeSlotComponent,
 		ServicesComponent,
 		TranslateModule,
-		TimeInputComponent,
-		FormInputComponent,
-		DefaultInputDirective,
-		DatePipe,
-		DefaultPanelComponent,
-		BackButtonComponent,
 		CustomerTypeCustomerComponent,
 	],
 	providers: [
@@ -80,49 +66,37 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 })
 export class ContainerFormComponent extends Reactive implements OnInit, OnChanges, OnDestroy {
 
-	@Input()
-	public orderServiceDto: IOrderServiceDto | undefined;
+	public readonly orderServiceDto = input<IOrderServiceDto>();
 
-	@Input()
-	public isEditMode = false;
+	public readonly isEditMode = input(false);
 
-	@Input()
-	public backButtonComponent!: BackButtonComponent;
+	public readonly backButtonComponent = input.required<BackButtonComponent>();
 
 	@Input()
 	public forceStart: string | undefined;
 
-	@Input()
-	public member: Member.RIMember | undefined;
+	public readonly member = input<Member.RIMember>();
 
-	@Input()
-	public callback: ((component: ContainerFormComponent, formValue: IEvent) => void) | null = null;
-
-	private readonly store = inject(Store);
+	public readonly callback = input<((component: ContainerFormComponent, formValue: IEvent) => void) | null>(null);
 	public readonly slotsService = inject(SlotsService);
 	public readonly router = inject(Router);
-	private readonly logger = inject(NGXLogger);
-
 	public readonly form = new EventForm();
-
 	public specialist = '';
 	public eventDurationInSeconds = 0;
-
-	@ViewChildren(ServicesComponent)
-	public servicesComponent!: QueryList<ServicesComponent>;
-
+	readonly servicesComponent = viewChildren(ServicesComponent);
 	@SelectSnapshot(ClientState.item)
 	public readonly clientItem!: RIClient;
-
+	private readonly store = inject(Store);
 	public readonly client$ = this.store.select(ClientState.item).pipe(
 		filter(is.not_undefined<RIClient>),
 	);
+	private readonly logger = inject(NGXLogger);
 
 	public get value(): RMIEvent {
 		return MEvent.create(this.form.getRawValue() as unknown as IEvent);
 	}
 
-	public ngOnChanges(changes: SimpleChanges & {forceStart: SimpleChange}): void {
+	public ngOnChanges(changes: SimpleChanges & { forceStart: SimpleChange }): void {
 		const {forceStart} = changes;
 		if (forceStart && forceStart.currentValue) {
 			this.form.controls.start.patchValue(forceStart.currentValue);
@@ -177,35 +151,10 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 
 	}
 
-	private getEventDurationInSeconds(service: IServiceDto): number {
-		try {
-			// Find the biggest duration version
-
-			const {durationVersions} = service;
-			this.logger.debug('getEventDurationInSeconds', durationVersions);
-			const durationVersion = durationVersions.reduce((acc, curr) => {
-				if (curr.durationInSeconds > acc.durationInSeconds) {
-					return curr;
-				}
-				return acc;
-			}, durationVersions[0]);
-
-			return (durationVersion.durationInSeconds ?? 0) + (durationVersion.breakInSeconds ?? 0);
-
-		} catch (e) {
-			return 0;
-		}
-	}
-
-	private setEventDuration(service: IServiceDto): this {
-		this.eventDurationInSeconds = this.getEventDurationInSeconds(service);
-		return this;
-	}
-
 	public detectItem(): void {
 
-		if (this.isEditMode) {
-			this.fillForm(this.orderServiceDto);
+		if (this.isEditMode()) {
+			this.fillForm(this.orderServiceDto());
 		}
 
 	}
@@ -245,7 +194,7 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 
 			// TODO check if customers/attends is exist in db (just check if selected customer has _id field if exist is in db if not then need to make request to create the new customer)
 
-			this.callback?.(this, value);
+			this.callback()?.(this, value);
 
 			this.form.enable();
 			this.form.updateValueAndValidity();
@@ -306,6 +255,31 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 	public override ngOnDestroy() {
 		this.form.destroyHandlers();
 		super.ngOnDestroy();
+	}
+
+	private getEventDurationInSeconds(service: IServiceDto): number {
+		try {
+			// Find the biggest duration version
+
+			const {durationVersions} = service;
+			this.logger.debug('getEventDurationInSeconds', durationVersions);
+			const durationVersion = durationVersions.reduce((acc, curr) => {
+				if (curr.durationInSeconds > acc.durationInSeconds) {
+					return curr;
+				}
+				return acc;
+			}, durationVersions[0]);
+
+			return (durationVersion.durationInSeconds ?? 0) + (durationVersion.breakInSeconds ?? 0);
+
+		} catch (e) {
+			return 0;
+		}
+	}
+
+	private setEventDuration(service: IServiceDto): this {
+		this.eventDurationInSeconds = this.getEventDurationInSeconds(service);
+		return this;
 	}
 
 }

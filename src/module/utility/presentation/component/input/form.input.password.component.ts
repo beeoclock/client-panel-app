@@ -1,8 +1,7 @@
-import {Component, Input, ViewEncapsulation} from "@angular/core";
+import {Component, input, ViewEncapsulation} from "@angular/core";
 import {IsRequiredDirective} from "@utility/presentation/directives/is-required/is-required";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({
 	selector: 'form-input-password',
@@ -12,7 +11,6 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 		IsRequiredDirective,
 		InvalidTooltipDirective,
 		ReactiveFormsModule,
-		DefaultLabelDirective,
 	],
 	template: `
 
@@ -21,12 +19,12 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 			<input
 				#passwordInput
 				type="password"
-				[formControl]="control"
-				[autocomplete]="autocomplete"
-				[placeholder]="placeholder"
+				[formControl]="control()"
+				[autocomplete]="autocomplete()"
+				[placeholder]="placeholder()"
 				isRequired
 				invalidTooltip
-				[id]="id + '-input'"
+				[id]="id() + '-input'"
 				class="peer p-4 block w-full border-gray-200 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:ring-neutral-600
                       focus:pt-6
                       focus:pb-2
@@ -35,8 +33,8 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
                       autofill:pt-6
                       autofill:pb-2">
 			<label
-				[for]="id + '-input'"
-				[id]="id + '-label'"
+				[for]="id() + '-input'"
+				[id]="id() + '-label'"
 				class="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none
                         peer-focus:scale-90
                         peer-focus:translate-x-0.5
@@ -46,7 +44,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
                         peer-[:not(:placeholder-shown)]:translate-x-0.5
                         peer-[:not(:placeholder-shown)]:-translate-y-1.5
                         peer-[:not(:placeholder-shown)]:text-gray-500 dark:peer-[:not(:placeholder-shown)]:text-neutral-500 dark:text-neutral-500">
-				{{ label }}
+				{{ label() }}
 			</label>
 			<button
 				role="button"
@@ -82,23 +80,17 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 })
 export class FormInputPasswordComponent {
 
-	@Input()
-	public label = 'todo';
+	public readonly label = input('todo');
 
-	@Input()
-	public id = 'utility-base-password';
+	public readonly id = input('utility-base-password');
 
-	@Input()
-	public placeholder = '';
+	public readonly placeholder = input('');
 
-	@Input()
-	public autocomplete = '';
+	public readonly autocomplete = input('');
 
-	@Input()
-	public disabled = false;
+	public readonly disabled = input(false);
 
-	@Input()
-	public control!: FormControl;
+	public readonly control = input.required<FormControl>();
 
 
 }

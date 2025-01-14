@@ -1,9 +1,6 @@
-import {Component, Input} from '@angular/core';
-import {NgIf} from "@angular/common";
+import {Component, input} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {NgSelectModule} from "@ng-select/ng-select";
 
 interface ITag {
@@ -24,22 +21,18 @@ interface ITag {
       [hideSelected]="true"
       [items]="[]"
       [clearable]="true"
-      [formControl]="form.controls.test">
+      [formControl]="form().controls.test">
     </ng-select>
   `,
   imports: [
-    NgIf,
     TranslateModule,
-    FormInputComponent,
-    FormTextareaComponent,
     NgSelectModule,
     ReactiveFormsModule,
   ]
 })
 export class TagsComponent {
 
-  @Input()
-  public readonly form = new FormGroup({test: new FormControl()});
+  public readonly form = input(new FormGroup({ test: new FormControl() }));
 
   public addTagFn(name: string): ITag {
     return {

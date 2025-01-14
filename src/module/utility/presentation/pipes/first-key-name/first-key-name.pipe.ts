@@ -2,7 +2,8 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {getFirstKey} from '@utility/domain/first-key-name';
 
 @Pipe({
-	name: 'firstKeyName'
+	name: 'firstKeyName',
+	standalone: true
 })
 export class FirstKeyNamePipe implements PipeTransform {
 

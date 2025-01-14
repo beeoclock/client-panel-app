@@ -1,20 +1,17 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
-	EventEmitter,
-	Input,
+	input,
 	OnChanges,
 	OnInit,
-	Output,
+	output,
 	signal,
 	SimpleChange,
 	SimpleChanges,
 	ViewEncapsulation
 } from "@angular/core";
 import {IonDatetime, IonPopover} from "@ionic/angular/standalone";
-import {NgSwitchCase} from "@angular/common";
 import ObjectID from "bson-objectid";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Reactive} from "@utility/cdk/reactive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
@@ -30,8 +27,6 @@ import {TranslateModule} from "@ngx-translate/core";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		IonPopover,
-		NgSwitchCase,
-		FormInputComponent,
 		HumanizeDurationPipe,
 		IonDatetime,
 		ReactiveFormsModule,
@@ -39,13 +34,13 @@ import {TranslateModule} from "@ngx-translate/core";
 	],
 	template: `
 		<button
-			[id]="'input-duration-' + id"
+			[id]="'input-duration-' + id()"
 			class="px-3 py-2 rounded-lg border border-gray-200 justify-center items-center flex">
 			<div class="text-slate-900 text-sm font-normal">
 				⏳ {{ duration() | humanizeDuration }}
 			</div>
 		</button>
-		<ion-popover [trigger]="'input-duration-' + id" [keepContentsMounted]="true">
+		<ion-popover [trigger]="'input-duration-' + id()" [keepContentsMounted]="true">
 			<ng-template>
 				<ion-datetime
 					presentation="time"
@@ -59,14 +54,11 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class DurationChipComponent extends Reactive implements OnInit, OnChanges {
 
-	@Input()
-	public initialValue: number = 0;
+	public readonly initialValue = input<number>(0);
 
-	@Input()
-	public id: string = ObjectID().toHexString();
+	public readonly id = input<string>(ObjectID().toHexString());
 
-	@Output()
-	public readonly durationChanges = new EventEmitter<number>();
+	public readonly durationChanges = output<number>();
 
 	public readonly durationFormControl = new FormControl<string>(DateTime.now().startOf('day').toJSDate().toISOString());
 
@@ -94,7 +86,7 @@ export class DurationChipComponent extends Reactive implements OnInit, OnChanges
 			this.durationChanges.emit(diffInSeconds);
 		});
 
-		this.initFormControlValue(this.initialValue);
+		this.initFormControlValue(this.initialValue());
 
 	}
 

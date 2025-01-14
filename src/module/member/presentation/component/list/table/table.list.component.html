@@ -5,7 +5,7 @@
 				{{ 'keyword.capitalize.fullName' | translate }}
 				<utility-sort-indicator
 					orderBy="lastName"
-					[tableState]="tableState"/>
+					[tableState]="tableState()"/>
 			</div>
 		</div>
 		<div tableColumnFlex="email">
@@ -25,7 +25,7 @@
 				{{ 'keyword.capitalize.status' | translate }}
 				<utility-sort-indicator
 					orderBy="active"
-					[tableState]="tableState"/>
+					[tableState]="tableState()"/>
 			</div>
 		</div>
 		<div tableColumnFlex="createdAt" data-orderBy="createdAt">
@@ -33,7 +33,7 @@
 				{{ 'keyword.capitalize.createdAt' | translate }}
 				<utility-sort-indicator
 					orderBy="createdAt"
-					[tableState]="tableState"/>
+					[tableState]="tableState()"/>
 			</div>
 		</div>
 		<div tableColumnFlex="updatedAt" data-orderBy="updatedAt">
@@ -41,7 +41,7 @@
 				{{ 'keyword.capitalize.updatedAt' | translate }}
 				<utility-sort-indicator
 					orderBy="updatedAt"
-					[tableState]="tableState"/>
+					[tableState]="tableState()"/>
 			</div>
 		</div>
 		<div tableColumnFlex="action" class="border-l sticky right-0">
@@ -50,18 +50,18 @@
 	</div>
 	<!-- Column Cell	-->
 	<div tableBodyFlex>
-		@for (item of tableState.items; track item._id) {
+		@for (item of tableState().items; track item._id) {
 			<div tableRowFlex="body" (click)="doubleClick(item)">
 				<div tableColumnFlex="lastName" class="flex gap-2">
 
 					<div class="rounded-full bg-beeColor-400 min-h-8 min-w-8 flex justify-center items-center">
-						<ng-container *ngIf="item?.avatar?.url; else InitialsTemplate">
+						@if (item?.avatar?.url) {
 							<img [src]="item.avatar.url" class="min-h-8 min-w-8 max-h-8 max-w-8 h-8 w-8 rounded-full object-cover" alt="">
-						</ng-container>
-						<ng-template #InitialsTemplate>
+						} @else {
+
 							<div class="text-white text-xs font-bold">{{ item?.firstName?.[0] ?? '' }}</div>
 							<div class="text-white text-xs font-bold">{{ item?.lastName?.[0] ?? '' }}</div>
-						</ng-template>
+						}
 					</div>
 					<span class="truncate">
 					{{ item.firstName }} {{ item.lastName }}
@@ -82,21 +82,27 @@
 				</div>
 				<div tableColumnFlex="assignmentsService">
 					<div>
-						<ng-container *ngIf="item?.assignments?.service?.full; else PartOfServicesTemplate">
+						@if (item?.assignments?.service?.full) {
+
 							<div class="border bg-green-50 border-green-600 text-green-600 leading-tight px-3 py-1 rounded-full">
 								{{ 'keyword.lowercase.all' | translate }}
 							</div>
-						</ng-container>
-						<ng-template #PartOfServicesTemplate>
-							<div *ngIf="item?.assignments?.service?.include?.length"
-								 class="border bg-yellow-50 border-yellow-600 text-yellow-600 leading-tight px-3 py-1 rounded-full">
-								{{ item.assignments.service.include.length }}
-							</div>
-							<div *ngIf="!item?.assignments?.service?.include?.length"
-								 class="border bg-red-50 border-red-600 text-red-600 leading-tight px-3 py-1 rounded-full">
-								{{ 'member.form.assignments.button.hint.includeIsEmpty' | translate }}
-							</div>
-						</ng-template>
+						} @else {
+
+							@if (item?.assignments?.service?.include?.length) {
+
+								<div
+									class="border bg-yellow-50 border-yellow-600 text-yellow-600 leading-tight px-3 py-1 rounded-full">
+									{{ item.assignments.service.include.length }}
+								</div>
+							} @else {
+
+								<div
+									class="border bg-red-50 border-red-600 text-red-600 leading-tight px-3 py-1 rounded-full">
+									{{ 'member.form.assignments.button.hint.includeIsEmpty' | translate }}
+								</div>
+							}
+						}
 					</div>
 				</div>
 				<div tableColumnFlex="active">
@@ -121,4 +127,4 @@
 </div>
 <utility-table-state-pagination-component
 	(page)="pageChange($event)"
-	[tableState]="tableState"/>
+	[tableState]="tableState()"/>

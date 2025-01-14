@@ -1,18 +1,11 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
-import {FirstKeyNameModule} from '@utility/presentation/pipes/first-key-name/first-key-name.module';
-import {RouterLink} from '@angular/router';
 import RegistrationForm from '@identity/presentation/form/registration.form';
-import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
-import {HasErrorDirective} from '@utility/presentation/directives/has-error/has-error.directive';
 import {IdentityApiAdapter} from "@identity/adapter/external/api/identity.api.adapter";
 import {firstValueFrom} from "rxjs";
-import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
-import {IsRequiredDirective} from "@utility/presentation/directives/is-required/is-required";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormInputPasswordComponent} from "@utility/presentation/component/input/form.input.password.component";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {BooleanState} from "@utility/domain";
 import {AlreadySignUpLinkComponent} from "@identity/presentation/component/link/alredy-sign-up.link.component";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
@@ -218,23 +211,15 @@ import {NgOptimizedImage} from "@angular/common";
 			<!-- End Clients Section -->
 		</div>
 		<!-- End Hero -->
-
 	`,
 	imports: [
 		FormsModule,
 		ReactiveFormsModule,
-		HasErrorDirective,
 		TranslateModule,
-		FirstKeyNameModule,
-		RouterLink,
-		DeleteButtonComponent,
-		InvalidTooltipDirective,
-		IsRequiredDirective,
 		FormInputComponent,
 		FormInputPasswordComponent,
 		AlreadySignUpLinkComponent,
 		PrimaryLinkStyleDirective,
-		PrimaryButtonDirective,
 		ChangeLanguageComponent,
 		NgOptimizedImage,
 	]

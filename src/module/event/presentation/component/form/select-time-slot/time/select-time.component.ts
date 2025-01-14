@@ -1,17 +1,15 @@
-import {Component, ElementRef, inject, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, inject, input, OnInit, viewChild} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {DateTime, Settings} from "luxon";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {NgClass, NgForOf, NgIf} from "@angular/common";
+import {NgClass} from "@angular/common";
 import {Reactive} from "@utility/cdk/reactive";
 import {SlotsService} from "@event/presentation/component/form/select-time-slot/slots.service";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {NGXLogger} from "ngx-logger";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import {ButtonArrowComponent} from "@event/presentation/component/form/select-time-slot/button.arrow.component";
 import {debounceTime, filter} from "rxjs";
 import {MS_QUARTER_SECOND} from "@utility/domain/const/c.time";
-import {TimeInputComponent} from "@utility/presentation/component/input/time.input.component";
 import {EventConfigurationForm} from "@event/presentation/form/configuration.form";
 import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
 import {is} from "@utility/checker";
@@ -40,31 +38,23 @@ enum IndexOfPeriodOfDayEnum {
 	standalone: true,
 	templateUrl: './select-time.component.html',
 	imports: [
-		NgForOf,
 		NgClass,
 		LoaderComponent,
-		NgIf,
 		TranslateModule,
-		ButtonArrowComponent,
-		TimeInputComponent,
 		DatetimeLocalInputComponent,
 	],
 })
 export class SelectTimeComponent extends Reactive implements OnInit {
 
-	@Input({required: true})
-	public control!: FormControl<string>;
+	public readonly control = input.required<FormControl<string>>();
 
-	@Input({required: true})
-	public configurationForm!: EventConfigurationForm;
+	public readonly configurationForm = input.required<EventConfigurationForm>();
 
-	@Input({required: true})
-	public localDateTimeControl!: FormControl<DateTime | null>;
+	public readonly localDateTimeControl = input.required<FormControl<DateTime | null>>();
 
 	public selectedDateTime: DateTime = DateTime.now();
 
-	@ViewChild('timeSlotsContainer')
-	public timeSlotsContainer!: ElementRef<HTMLDivElement>;
+	readonly timeSlotsContainer = viewChild.required<ElementRef<HTMLDivElement>>('timeSlotsContainer');
 
 	public readonly logger = inject(NGXLogger);
 	public readonly translateService = inject(TranslateService);
@@ -87,23 +77,24 @@ export class SelectTimeComponent extends Reactive implements OnInit {
 		// Set component into slots.service
 		this.slotsService.selectTimeComponent = this;
 
-		this.control.valueChanges.pipe(
+		this.control().valueChanges.pipe(
 			this.takeUntil(),
 			debounceTime(MS_QUARTER_SECOND),
 		).subscribe((iso) => {
 			this.selectedDateTime = DateTime.fromISO(iso);
-			this.localDateTimeControl.patchValue(this.selectedDateTime);
+			this.localDateTimeControl().patchValue(this.selectedDateTime);
 			const slots = this.slotsService.getSlotsByDay(this.selectedDateTime);
 			this.groupedSlots = this.groupSlots(slots);
 		});
 
 		// Prepare datetime list
-		if (this.control.value) {
-			this.selectedDateTime = DateTime.fromISO(this.control.value);
-			this.localDateTimeControl.patchValue(this.selectedDateTime);
+		const control = this.control();
+		if (control.value) {
+			this.selectedDateTime = DateTime.fromISO(control.value);
+			this.localDateTimeControl().patchValue(this.selectedDateTime);
 		}
 
-		this.localDateTimeControl.valueChanges.pipe(
+		this.localDateTimeControl().valueChanges.pipe(
 			this.takeUntil(),
 			filter(is.not_null<DateTime>),
 			debounceTime(MS_QUARTER_SECOND),
@@ -120,12 +111,12 @@ export class SelectTimeComponent extends Reactive implements OnInit {
 			if (value) {
 				const datetime = DateTime.fromISO(value);
 				this.selectedDateTime = datetime;
-				this.control.patchValue(datetime.toUTC().toISO() as string);
+				this.control().patchValue(datetime.toUTC().toISO() as string);
 			}
 		});
 
-		if (this.control.value) {
-			this.ownOptionOfStartTimeControl.patchValue(this.control.value);
+		if (control.value) {
+			this.ownOptionOfStartTimeControl.patchValue(control.value);
 		}
 
 	}
@@ -138,14 +129,14 @@ export class SelectTimeComponent extends Reactive implements OnInit {
 	}
 
 	public ignoreEventChecks(value: boolean): void {
-		this.configurationForm.controls.ignoreEventChecks.patchValue(value);
+		this.configurationForm().controls.ignoreEventChecks.patchValue(value);
 	}
 
 	public selectDateItem(datetime: DateTime, ignoreEventChecks = false): void {
 		this.ignoreEventChecks(ignoreEventChecks);
 		this.selectedDateTime = datetime;
-		this.control.patchValue(datetime.toUTC().toISO() as string);
-		this.localDateTimeControl.patchValue(datetime, {
+		this.control().patchValue(datetime.toUTC().toISO() as string);
+		this.localDateTimeControl().patchValue(datetime, {
 			emitEvent: false,
 			onlySelf: true
 		});

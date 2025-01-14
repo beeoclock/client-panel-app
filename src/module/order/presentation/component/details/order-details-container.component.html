@@ -7,14 +7,16 @@
 				</dt>
 				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
 
-					<div class="flex flex-wrap gap-4" *ngIf="item.services.length">
+					@if (item.services.length) {
+						<div class="flex flex-wrap gap-4">
 
 
-						<app-list-service-form-card-order-component
-							[idPrefix]="idPrefix + '-' + item._id + '-'"
-							[order]="item"/>
+							<app-list-service-form-card-order-component
+								[idPrefix]="idPrefix + '-' + item._id + '-'"
+								[order]="item"/>
 
-					</div>
+						</div>
+					}
 
 				</dd>
 			</div>

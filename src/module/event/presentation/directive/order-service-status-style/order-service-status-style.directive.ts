@@ -1,4 +1,4 @@
-import {Directive, ElementRef, inject, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Directive, ElementRef, inject, input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 
@@ -8,11 +8,9 @@ import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.en
 })
 export class OrderServiceStatusStyleDirective implements OnInit, OnChanges {
 
-	@Input({required: true})
-	public status!: OrderServiceStatusEnum;
+	public readonly status = input.required<OrderServiceStatusEnum>();
 
-	@Input()
-	public mode: 'text' | 'badge' = 'badge';
+	public readonly mode = input<'text' | 'badge'>('badge');
 
 	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 	private readonly translateService = inject(TranslateService);
@@ -75,18 +73,20 @@ export class OrderServiceStatusStyleDirective implements OnInit, OnChanges {
 
 		this.elementRef.nativeElement.classList.add(...this.base);
 
-		switch (this.mode) {
+		const mode = this.mode();
+  switch (mode) {
 			case "badge":
 				this.elementRef.nativeElement.classList.add('text-white');
 				break;
 		}
 
-		this.elementRef.nativeElement.classList.add(
-			...this.classListByStatusAndMode[this.status].base,
-			...this.classListByStatusAndMode[this.status][this.mode]
+		const status = this.status();
+  this.elementRef.nativeElement.classList.add(
+			...this.classListByStatusAndMode[status].base,
+			...this.classListByStatusAndMode[status][mode]
 		);
 
-		const translateKey = `event.keyword.status.singular.${this.status}`;
+		const translateKey = `event.keyword.status.singular.${status}`;
 		const statusNameInLocal = this.translateService.instant(translateKey);
 		this.elementRef.nativeElement.innerText = statusNameInLocal === translateKey ? this.translateService.instant('keyword.capitalize.unknown') : statusNameInLocal;
 

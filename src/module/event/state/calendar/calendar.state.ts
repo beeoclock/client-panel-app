@@ -13,7 +13,7 @@ import {InitCalendarAction} from "@event/state/calendar/actions/init.calendar.ac
 import {RefreshCalendarAction} from "@event/state/calendar/actions/refresh.calendar.action";
 
 export interface ICalendarState {
-	calendarDataByType: {[key: string]: IEvent[]}; // key - ISO, value - events
+	calendarDataByType: { [key: string]: IEvent[] }; // key - ISO, value - events
 	currentDate: Date;
 	presentationCalendarType: PresentationCalendarType;
 	dateRanges: {

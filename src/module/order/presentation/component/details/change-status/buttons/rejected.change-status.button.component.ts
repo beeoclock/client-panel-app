@@ -31,7 +31,7 @@ export class RejectedChangeStatusButtonComponent extends BaseChangeStatusButtonC
 		}
 		this.store.dispatch(
 			new OrderActions.ChangeStatus({
-				id: this.item._id,
+				id: this.item()._id,
 				status: OrderStatusEnum.rejected
 			})
 		)

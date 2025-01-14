@@ -4,18 +4,14 @@ import {
 	Component,
 	HostListener,
 	inject,
-	Input,
+	input,
 	OnInit,
 	ViewEncapsulation
 } from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {NgIf} from '@angular/common';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {FirstKeyNameModule} from '@utility/presentation/pipes/first-key-name/first-key-name.module';
 import {Router, RouterLink} from '@angular/router';
 import LoginForm from '@identity/presentation/form/login.form';
-import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
-import {HasErrorDirective} from '@utility/presentation/directives/has-error/has-error.directive';
 import {Auth, signInWithEmailAndPassword} from "@angular/fire/auth";
 import {Store} from "@ngxs/store";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
@@ -80,12 +76,8 @@ import {is} from "@utility/checker";
 	standalone: true,
 	imports: [
 		ReactiveFormsModule,
-		HasErrorDirective,
-		NgIf,
 		TranslateModule,
-		FirstKeyNameModule,
 		RouterLink,
-		DeleteButtonComponent,
 		FormInputComponent,
 		FormInputPasswordComponent,
 		PrimaryButtonDirective
@@ -93,14 +85,13 @@ import {is} from "@utility/checker";
 })
 export class SignInComponent implements OnInit {
 
-	@Input()
-	public initialValues: {
+	public readonly initialValues = input<{
 		email: string;
 		password: string;
-	} = {
+	}>({
 		email: '',
 		password: ''
-	};
+	});
 
 	public readonly form = new LoginForm();
 	private readonly router = inject(Router);
@@ -118,7 +109,7 @@ export class SignInComponent implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		this.form.patchValue(this.initialValues);
+		this.form.patchValue(this.initialValues());
 	}
 
 	public async signIn(): Promise<void> {

@@ -126,10 +126,10 @@
 
 describe('SelectTimeComponent', () => {
 
-  it('should be TODO value', () => {
+	it('should be TODO value', () => {
 
 		expect('TODO').toBe('TODO');
 
-  });
+	});
 
 })

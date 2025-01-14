@@ -4,6 +4,14 @@ import {ICalendarState} from "@event/state/calendar/calendar.state";
 export class GetListCalendarAction {
 	public static readonly type = '[Calendar API] Get List';
 
+	constructor(
+		public readonly payload: {
+			from: Date;
+			to: Date;
+		},
+	) {
+	}
+
 	public static async execute(
 		ctx: StateContext<ICalendarState>,
 		payload: GetListCalendarAction['payload'],
@@ -29,14 +37,6 @@ export class GetListCalendarAction {
 				// [from.toISOString()]: items,
 			},
 		});
-	}
-
-	constructor(
-		public readonly payload: {
-			from: Date;
-			to: Date;
-		},
-	) {
 	}
 
 }

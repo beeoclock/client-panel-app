@@ -4,16 +4,12 @@ import {
 	DateRangeReportAnalyticState,
 	IDateRangeAnalyticState
 } from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.state";
-import {AsyncPipe, CurrencyPipe, KeyValuePipe, NgForOf} from "@angular/common";
+import {AsyncPipe} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {ClientState} from "@client/state/client/client.state";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {MemberState} from "@member/state/member/member.state";
 import {IonicModule} from "@ionic/angular";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {
-	SelectTailwindcssComponent
-} from "@utility/presentation/component/input/tailwindcss/select/select.tailwindcss.component";
 import {filter, tap} from "rxjs";
 import {
 	MemberRadioTailwindcssComponent
@@ -46,13 +42,8 @@ import {DateTime} from "luxon";
 	imports: [
 		AsyncPipe,
 		TranslateModule,
-		CurrencyPipe,
-		HumanizeDurationPipe,
-		KeyValuePipe,
 		IonicModule,
-		NgForOf,
 		ReactiveFormsModule,
-		SelectTailwindcssComponent,
 		MemberRadioTailwindcssComponent,
 		DateSliderControlComponent,
 		CardOverviewComponent,

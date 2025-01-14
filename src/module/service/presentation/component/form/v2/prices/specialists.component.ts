@@ -1,43 +1,36 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {NgSelectModule} from "@ng-select/ng-select";
 
 @Component({
   selector: 'service-form-prices-specialists-component',
   standalone: true,
   template: `
-    <label [for]="id">{{ label }}</label>
+    <label [for]="id()">{{ label() }}</label>
     <ng-select
-      [id]="id"
+      [id]="id()"
       bindLabel="name"
       bindValue="code"
       [items]="[]"
       [clearable]="false"
-      [formControl]="control">
+      [formControl]="control()">
     </ng-select>
   `,
   imports: [
     NgIf,
     TranslateModule,
-    FormInputComponent,
-    FormTextareaComponent,
     NgSelectModule,
     ReactiveFormsModule,
   ]
 })
 export class SpecialistsComponent {
 
-  @Input()
-  public id = 'TODO';
+  public readonly id = input('TODO');
 
-  @Input()
-  public label = '';
+  public readonly label = input('');
 
-  @Input()
-  public control = new FormControl();
+  public readonly control = input(new FormControl());
 
 }

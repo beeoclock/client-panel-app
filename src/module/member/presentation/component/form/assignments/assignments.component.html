@@ -6,7 +6,7 @@
 		[booleanValue]="true"
 		[control]="form.controls.service.controls.full"/>
 
-	<ng-container *ngIf="isNotFull">
+	@if (isNotFull) {
 
 		<hr>
 
@@ -15,19 +15,23 @@
 			{{ 'member.form.assignments.button.label' | translate }}
 
 			<div class="flex items-center gap-4">
-				<div *ngIf="form.controls.service.includeIsNotEmpty"
-						 class="border bg-yellow-50 border-yellow-600 text-yellow-600 leading-tight px-3 py-1 rounded-full">
-					{{ form.controls.service.controls.include.value.length }}
-				</div>
-				<div *ngIf="form.controls.service.includeIsEmpty"
-						 class="border bg-red-50 border-red-600 text-red-600 leading-tight px-3 py-1 rounded-full">
-					{{ 'member.form.assignments.button.hint.includeIsEmpty' | translate }}
-				</div>
+				@if (form.controls.service.includeIsNotEmpty) {
+					<div
+						class="border bg-yellow-50 border-yellow-600 text-yellow-600 leading-tight px-3 py-1 rounded-full">
+						{{ form.controls.service.controls.include.value.length }}
+					</div>
+				} @else {
+
+					<div
+						class="border bg-red-50 border-red-600 text-red-600 leading-tight px-3 py-1 rounded-full">
+						{{ 'member.form.assignments.button.hint.includeIsEmpty' | translate }}
+					</div>
+				}
+
 				<i class="bi bi-chevron-right"></i>
 			</div>
 
 		</button>
-
-	</ng-container>
+	}
 
 </bee-card>

@@ -1,5 +1,5 @@
-import {Component, Input, QueryList, ViewChildren, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, NgClass, NgIf} from "@angular/common";
+import {Component, input, viewChildren, ViewEncapsulation} from "@angular/core";
+import {NgClass} from "@angular/common";
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
@@ -19,9 +19,7 @@ import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		AsyncPipe,
 		CardListComponent,
-		NgIf,
 		NotFoundTableDataComponent,
 		TranslateModule,
 		FilterComponent,
@@ -31,11 +29,9 @@ import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 })
 export class MobileLayoutListComponent extends LayoutListComponent<IOrderDto> {
 
-	@Input()
-	public showButtonGoToForm = true;
+	public readonly showButtonGoToForm = input(true);
 
-	@ViewChildren(CardListComponent)
-	public cardListComponents!: QueryList<CardListComponent>;
+	readonly cardListComponents = viewChildren(CardListComponent);
 
 	public openForm(): void {
 		this.store.dispatch(new OrderActions.OpenForm());

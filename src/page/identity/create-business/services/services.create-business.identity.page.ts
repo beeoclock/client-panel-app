@@ -1,7 +1,5 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from "@angular/router";
-import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
@@ -12,7 +10,6 @@ import {NgForOf} from "@angular/common";
 
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {FormButtonWithIconComponent} from "@utility/presentation/component/button/form-button-with-icon.component";
-import {ScheduleFormComponent} from "@utility/presentation/component/schedule/schedule.form.component";
 import {
 	CreateBusinessModalService
 } from "@service/presentation/component/form/modal/create-business/create-business.modal.service";
@@ -28,8 +25,6 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	standalone: true,
 	imports: [
 		RouterLink,
-		PrimaryLinkButtonDirective,
-		FormInputComponent,
 		PrimaryButtonDirective,
 		BackLinkComponent,
 		ChangeLanguageComponent,
@@ -38,7 +33,6 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 		NgForOf,
 		CardComponent,
 		FormButtonWithIconComponent,
-		ScheduleFormComponent
 	],
 	encapsulation: ViewEncapsulation.None
 })
@@ -47,8 +41,8 @@ export class ServicesCreateBusinessIdentityPage {
 	private readonly createBusinessModalService = inject(CreateBusinessModalService);
 	private readonly translateService = inject(TranslateService);
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
-	private readonly ngxLogger = inject(NGXLogger);
 	public readonly servicesForm = this.createBusinessQuery.getServicesForm();
+	private readonly ngxLogger = inject(NGXLogger);
 
 	public get serviceList() {
 		return (this.servicesForm.value ?? []) as IServiceDto[];
@@ -60,7 +54,12 @@ export class ServicesCreateBusinessIdentityPage {
 			serviceFormToEdit = new ServiceForm();
 			serviceFormToEdit.patchValue(service);
 		}
-		const {availableLanguages, baseLanguage, currencies, baseCurrency} = this.createBusinessQuery.getBusinessSettings().value;
+		const {
+			availableLanguages,
+			baseLanguage,
+			currencies,
+			baseCurrency
+		} = this.createBusinessQuery.getBusinessSettings().value;
 		this.createBusinessModalService.openServiceFormModal({
 			availableLanguages: availableLanguages ?? [],
 			baseLanguage: baseLanguage ?? this.translateService.currentLang as LanguageCodeEnum,

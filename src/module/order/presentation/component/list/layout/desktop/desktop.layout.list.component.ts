@@ -1,5 +1,4 @@
 import {Component, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, NgIf} from "@angular/common";
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
@@ -19,9 +18,7 @@ import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		AsyncPipe,
 		FilterComponent,
-		NgIf,
 		NotFoundTableDataComponent,
 		TableListComponent,
 		TranslateModule,

@@ -1,7 +1,5 @@
-import {Component, inject, Input, ViewChild} from '@angular/core';
-import {NgForOf, NgIf} from "@angular/common";
+import {Component, inject, input, viewChild} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {FormControl} from "@angular/forms";
 import {BooleanState} from "@utility/domain";
 import {PatchMemberMediaApiAdapter} from "@member/adapter/external/api/media/patch.member-media.api.adapter";
@@ -14,20 +12,15 @@ import {NGXLogger} from "ngx-logger";
 	templateUrl: './avatar-container.component.html',
 	standalone: true,
 	imports: [
-		NgIf,
 		TranslateModule,
-		CardComponent,
-		NgForOf,
 		AvatarFormComponent
 	]
 })
 export class AvatarContainerComponent {
 
-	@Input()
-	public control!: FormControl<RESPONSE_IMemberMedia>;
+	public readonly control = input.required<FormControl<RESPONSE_IMemberMedia>>();
 
-	@ViewChild(AvatarFormComponent)
-	public avatarFormComponent!: AvatarFormComponent;
+	readonly avatarFormComponent = viewChild.required(AvatarFormComponent);
 
 	public readonly toggleInfo = new BooleanState(true);
 
@@ -36,7 +29,7 @@ export class AvatarContainerComponent {
 
 	public async save(memberId: string): Promise<void> {
 
-		const component = this.avatarFormComponent;
+		const component = this.avatarFormComponent();
 
 		this.ngxLogger.debug('AvatarContainerComponent:save', component);
 

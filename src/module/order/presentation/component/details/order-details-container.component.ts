@@ -5,16 +5,9 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {TranslateModule} from "@ngx-translate/core";
 import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
-import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
-import {NgForOf, NgIf} from "@angular/common";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {OrderActions} from "@order/state/order/order.actions";
 import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
-import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
-import {
-	OrderServiceDetailsComponent
-} from "@order/presentation/component/details/service/order-service-details.component";
-import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
 import {EventActions} from "@event/state/event/event.actions";
 import {IAttendee_V2} from "@event/domain";
@@ -35,12 +28,6 @@ import {
 		TranslateModule,
 		DeleteButtonComponent,
 		EditButtonComponent,
-		ActiveStyleDirective,
-		NgIf,
-		LinkButtonDirective,
-		NgForOf,
-		OrderServiceDetailsComponent,
-		PrimaryLinkButtonDirective,
 		ContainerChangeStatusButtonComponent,
 		ListServiceFormCardOrderComponent,
 	],

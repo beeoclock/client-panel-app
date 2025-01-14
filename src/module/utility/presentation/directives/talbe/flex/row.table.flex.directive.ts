@@ -1,4 +1,4 @@
-import {AfterViewInit, Directive, ElementRef, HostBinding, inject, Input, Renderer2} from "@angular/core";
+import {AfterViewInit, Directive, ElementRef, HostBinding, inject, input, Renderer2} from "@angular/core";
 
 /**
  * Directive to apply specific styles to table rows based on their type (header, body, footer).
@@ -14,8 +14,7 @@ export class RowTableFlexDirective implements AfterViewInit {
    * Input property to specify the type of the table row.
    * Can be 'header', 'body', or 'footer'. Default is 'body'.
    */
-  @Input()
-  public tableRowFlex: 'header' | 'body' | 'footer' = 'body';
+  public readonly tableRowFlex = input<'header' | 'body' | 'footer'>('body');
 
   /**
    * HostBinding to apply default classes to the table row element.
@@ -39,7 +38,7 @@ export class RowTableFlexDirective implements AfterViewInit {
   public ngAfterViewInit() {
     const nativeElement = this.elementRef.nativeElement;
 
-    switch (this.tableRowFlex) {
+    switch (this.tableRowFlex()) {
       case 'header':
         this.renderer.addClass(nativeElement, 'font-bold');
         this.renderer.addClass(nativeElement, 'text-xs');

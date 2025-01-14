@@ -42,11 +42,27 @@ export class EventRequestedState extends BaseState<Event.RIEvent> {
 		);
 	}
 
+	@Selector()
+	public static itemData(state: IEventRequestedState) {
+		return MEvent.create(state.item.data);
+	}
+
+	@Selector()
+	public static tableStateItems(state: IEventRequestedState) {
+		return state.tableState.items;
+	}
+
+	@Selector()
+	public static tableState(state: IEventRequestedState) {
+		return state.tableState;
+	}
+
 	@Action(EventRequestedActions.Init)
 	public override async init(ctx: StateContext<IEventRequestedState>): Promise<void> {
 		await super.init(ctx);
 	}
 
+	// Statuses
 
 	@Action(EventRequestedActions.UpdateFilters)
 	public override updateFilters(ctx: StateContext<IEventRequestedState>, action: EventRequestedActions.UpdateFilters) {
@@ -65,7 +81,7 @@ export class EventRequestedState extends BaseState<Event.RIEvent> {
 		this.ngEventBus.cast(EventBusTokenEnum.SIDE_BAR_EVENT_REQUESTED_BADGE, tableState.total);
 	}
 
-	// Statuses
+	// Selectors
 
 	@Action(EventRequestedActions.SetAutomaticallyDuration)
 	public async setAutomaticallyDuration(ctx: StateContext<IEventRequestedState>, {payload}: EventRequestedActions.SetAutomaticallyDuration): Promise<void> {
@@ -100,23 +116,6 @@ export class EventRequestedState extends BaseState<Event.RIEvent> {
 		// await this.rejectedStatusEventApiAdapter.executeAsync(payload._id);
 
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
-	}
-
-	// Selectors
-
-	@Selector()
-	public static itemData(state: IEventRequestedState) {
-		return MEvent.create(state.item.data);
-	}
-
-	@Selector()
-	public static tableStateItems(state: IEventRequestedState) {
-		return state.tableState.items;
-	}
-
-	@Selector()
-	public static tableState(state: IEventRequestedState) {
-		return state.tableState;
 	}
 
 }

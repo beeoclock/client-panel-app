@@ -1,4 +1,4 @@
-import {AfterViewInit, Directive, DoCheck, ElementRef, HostBinding, inject, Input, OnInit} from "@angular/core";
+import {AfterViewInit, Directive, DoCheck, ElementRef, HostBinding, inject, input, OnInit} from "@angular/core";
 import {TranslateService} from "@ngx-translate/core";
 import {SpinnerSvg} from "@utility/domain/spinner.svg";
 import {BaseButtonDirective} from "@utility/presentation/directives/button/base.button.directive";
@@ -9,11 +9,9 @@ import {BaseButtonDirective} from "@utility/presentation/directives/button/base.
 })
 export class LoadingBaseButtonDirective extends BaseButtonDirective implements OnInit, DoCheck, AfterViewInit {
 
-	@Input()
-	public isLoading: boolean | undefined = undefined;
+	public readonly isLoading = input<boolean>();
 
-	@Input()
-	public isDisabled = false;
+	public readonly isDisabled = input(false);
 
 	@HostBinding('disabled')
 	public disabled = false;
@@ -46,15 +44,16 @@ export class LoadingBaseButtonDirective extends BaseButtonDirective implements O
 	}
 
 	private detectLoading(): void {
-		if (this.isLoading === undefined) {
+		const isLoading = this.isLoading();
+  if (isLoading === undefined) {
 			return;
 		}
-		if (this.isDisabled) {
+		if (this.isDisabled()) {
 			this.disabled = true;
 			return;
 		}
-		this.disabled = this.isLoading;
-		if (this.isLoading) {
+		this.disabled = isLoading;
+		if (isLoading) {
 			if (!this.temporaryButtonHTML) {
 				this.temporaryButtonHTML = this.elementRef.nativeElement.innerHTML;
 				this.elementRef.nativeElement.innerHTML = this.loadingHTML;

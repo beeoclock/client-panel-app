@@ -1,7 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
@@ -19,8 +17,6 @@ import {Reactive} from "@utility/cdk/reactive";
 	standalone: true,
 	imports: [
 		RouterLink,
-		PrimaryLinkButtonDirective,
-		FormInputComponent,
 		PrimaryButtonDirective,
 		BackLinkComponent,
 		ChangeLanguageComponent,

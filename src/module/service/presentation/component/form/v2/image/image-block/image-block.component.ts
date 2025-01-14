@@ -1,5 +1,5 @@
-import {Component, inject, Input, QueryList, ViewChildren} from '@angular/core';
-import {NgForOf, NgIf} from "@angular/common";
+import {Component, inject, input, viewChildren} from '@angular/core';
+import {NgForOf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {FormControl} from "@angular/forms";
@@ -17,7 +17,6 @@ import {MediaStateEnum} from "@utility/presentation/component/image/base.image.c
 	templateUrl: './image-block.component.html',
 	standalone: true,
 	imports: [
-		NgIf,
 		TranslateModule,
 		CardComponent,
 		ServiceFormImageComponent,
@@ -26,11 +25,9 @@ import {MediaStateEnum} from "@utility/presentation/component/image/base.image.c
 })
 export class ImageBlockComponent {
 
-	@Input({ required: true })
-	public presentationForm!: ServicePresentationForm;
+	public readonly presentationForm = input.required<ServicePresentationForm>();
 
-	@ViewChildren(ServiceFormImageComponent)
-	public serviceFormImageComponent!: QueryList<ServiceFormImageComponent>;
+	readonly serviceFormImageComponent = viewChildren(ServiceFormImageComponent);
 
 	public readonly toggleInfo = new BooleanState(true);
 
@@ -41,25 +38,27 @@ export class ImageBlockComponent {
 
 	public async save(serviceId: string): Promise<void> {
 
-		for (const component of this.serviceFormImageComponent.toArray()) {
+		for (const component of this.serviceFormImageComponent()) {
 
 			if (component.mediaState === MediaStateEnum.NOT_CHANGED) {
 				continue;
 			}
 
 			if (component.mediaState === MediaStateEnum.DELETED) {
-				if (!component.banner) {
+				const banner = component.banner();
+    if (!banner) {
 					continue;
 				}
-				await this.deleteBannerServiceApiAdapter.executeAsync(serviceId, component.banner._id);
+				await this.deleteBannerServiceApiAdapter.executeAsync(serviceId, banner._id);
 				continue;
 			}
 
 			const formData = new FormData();
 			formData.append('file', component.selectedFile as Blob);
 
-			if (component.banner) {
-				formData.append('_id', component.banner._id);
+			const banner = component.banner();
+   if (banner) {
+				formData.append('_id', banner._id);
 			}
 
 			await this.patchBannerServiceApiAdapter.executeAsync(serviceId, formData);
@@ -70,7 +69,7 @@ export class ImageBlockComponent {
 
 	public clear(): void {
 
-		this.serviceFormImageComponent.forEach(component => component.clear());
+		this.serviceFormImageComponent().forEach(component => component.clear());
 
 	}
 

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {LatestBookingEnum} from "@utility/domain/enum/latest-booking.enum";
@@ -11,14 +11,14 @@ import {NgSelectModule} from "@ng-select/ng-select";
 	template: `
 		<div class="relative">
 			<label default
-				   [for]="id">{{ 'keyword.capitalize.latestBooking' | translate }}</label>
+				   [for]="id()">{{ 'keyword.capitalize.latestBooking' | translate }}</label>
 			<ng-select
 				bindLabel="name"
 				bindValue="seconds"
 				[items]="latestBookingList"
 				[clearable]="false"
-				[id]="id"
-				[formControl]="control">
+				[id]="id()"
+				[formControl]="control()">
 			</ng-select>
 		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
@@ -36,11 +36,9 @@ import {NgSelectModule} from "@ng-select/ng-select";
 })
 export class SelectLatestBookingComponent {
 
-	@Input()
-	public id = '';
+	public readonly id = input('');
 
-	@Input()
-	public control = new FormControl();
+	public readonly control = input(new FormControl());
 
 	public readonly translateService = inject(TranslateService);
 

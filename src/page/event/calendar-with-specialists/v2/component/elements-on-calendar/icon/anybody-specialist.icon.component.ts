@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, HostBinding, input, ViewEncapsulation} from "@angular/core";
 import {IconComponent} from "@src/component/adapter/icon/icon.component";
 
 @Component({
@@ -7,7 +7,7 @@ import {IconComponent} from "@src/component/adapter/icon/icon.component";
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		@if (wasSelectedAnybody) {
+		@if (wasSelectedAnybody()) {
 			<app-icon title="Specialist: Anybody" name="tdesignUserUnknown"/>
 		}
 	`,
@@ -17,12 +17,11 @@ import {IconComponent} from "@src/component/adapter/icon/icon.component";
 })
 export class AnybodySpecialistIconComponent {
 
-	@Input({required: true})
-	public wasSelectedAnybody!: boolean;
+	public readonly wasSelectedAnybody = input.required<boolean>();
 
 	@HostBinding('class.contents')
 	public get contentsClass(): boolean {
-		return !this.wasSelectedAnybody;
+		return !this.wasSelectedAnybody();
 	}
 
 }

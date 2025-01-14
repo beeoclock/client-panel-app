@@ -237,7 +237,8 @@ export class AbsenceState extends BaseState<IAbsenceDto> {
 
 	@Selector()
 	public static tableState(state: IAbsenceState) {
-		return state.tableState;
+		const {tableState} = state;
+		return tableState;
 	}
 
 	@Selector()

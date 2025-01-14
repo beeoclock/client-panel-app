@@ -5,7 +5,7 @@ import {combineLatest, filter, tap} from "rxjs";
 import {is} from "@utility/checker";
 import {ISchedule, RISchedule} from "@utility/domain/interface/i.schedule";
 import {Reactive} from "@utility/cdk/reactive";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {AsyncPipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService from "./calendar-with-specialist.loca.state.service";
 import {
 	CalendarWithSpecialistWidgetComponent
@@ -21,7 +21,6 @@ import {
 		}
 	`,
 	imports: [
-		NgIf,
 		AsyncPipe,
 		CalendarWithSpecialistWidgetComponent
 	]

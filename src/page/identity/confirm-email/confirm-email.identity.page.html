@@ -1,46 +1,52 @@
-<div class="w-screen h-screen flex flex-col justify-center items-center gap-3"  *ngIf="isAuthorized$ | async">
+@if (isAuthorized$ | async) {
 
-	<div class="w-full md:w-5/12 lg:w-3/12 flex justify-between">
-		<utility-logout-component/>
-		<utility-change-language-component/>
+	<div class="w-screen h-screen flex flex-col justify-center items-center gap-3">
+
+		<div class="w-full md:w-5/12 lg:w-3/12 flex justify-between">
+			<utility-logout-component/>
+			<utility-change-language-component/>
+		</div>
+		<bee-card class="w-full md:w-5/12 lg:w-3/12">
+
+			@if (emailIsSent.isOn) {
+				<div class="text-center flex flex-col gap-3">
+					<div class="text-4xl text-green-500">
+						<i class="bi bi-envelope-arrow-up-fill"></i>
+					</div>
+					<h3 class="text-primary font-bold text-2xl text-green-500">
+						{{ 'identity.confirm-email.sent.title' | translate }}
+					</h3>
+					<div>
+						{{ 'identity.confirm-email.sent.hint' | translate }}
+					</div>
+
+					<a [href]="emailUrl.href" class="justify-center" primaryLinkStyle>
+						{{ 'identity.sign-up.afterSuccess.openMailService' | translate }}&nbsp;<strong>{{ emailUrl.host }}</strong>&nbsp;<i
+						class="bi bi-arrow-right"></i>
+					</a>
+				</div>
+			} @else {
+				<div class="text-center flex flex-col gap-3">
+					<div class="text-4xl text-yellow-500">
+						<i class="bi bi-envelope-exclamation-fill"></i>
+					</div>
+					<h3 class="text-primary font-bold text-2xl text-yellow-500">
+						{{ 'identity.confirm-email.title' | translate }}
+					</h3>
+					<div>
+						{{ 'identity.confirm-email.hint' | translate }}
+					</div>
+					<button (click)="sendAgain()" [class.disabled]="emailSending.isOn" [isLoading]="emailSending.isOn"
+							id="identity-confirm-email-button-send-again" primary type="button">
+						{{ 'keyword.capitalize.sendAgain' | translate }}
+					</button>
+					<div class="text-sm text-neutral-500">
+						{{ 'identity.confirm-email.sendAgain.hint' | translate }}:
+						<strong>{{ accountEmail$ | async }}</strong>
+					</div>
+				</div>
+			}
+		</bee-card>
+
 	</div>
-	<bee-card class="w-full md:w-5/12 lg:w-3/12">
-		<ng-template [ngIf]="emailIsSent.isOff">
-			<div class="text-center flex flex-col gap-3">
-				<div class="text-4xl text-yellow-500">
-					<i class="bi bi-envelope-exclamation-fill"></i>
-				</div>
-				<h3 class="text-primary font-bold text-2xl text-yellow-500">
-					{{ 'identity.confirm-email.title' | translate }}
-				</h3>
-				<div>
-					{{ 'identity.confirm-email.hint' | translate }}
-				</div>
-				<button (click)="sendAgain()" id="identity-confirm-email-button-send-again" primary [isLoading]="emailSending.isOn" [class.disabled]="emailSending.isOn" type="button">
-					{{ 'keyword.capitalize.sendAgain' | translate }}
-				</button>
-				<div class="text-sm text-neutral-500">
-					{{ 'identity.confirm-email.sendAgain.hint' | translate }}: <strong>{{ accountEmail$ | async }}</strong>
-				</div>
-			</div>
-		</ng-template>
-		<ng-template [ngIf]="emailIsSent.isOn">
-			<div class="text-center flex flex-col gap-3">
-				<div class="text-4xl text-green-500">
-					<i class="bi bi-envelope-arrow-up-fill"></i>
-				</div>
-				<h3 class="text-primary font-bold text-2xl text-green-500">
-					{{ 'identity.confirm-email.sent.title' | translate }}
-				</h3>
-				<div>
-					{{ 'identity.confirm-email.sent.hint' | translate }}
-				</div>
-
-				<a [href]="emailUrl.href" primaryLinkStyle class="justify-center">
-					{{ 'identity.sign-up.afterSuccess.openMailService' | translate }}&nbsp;<strong>{{ emailUrl.host }}</strong>&nbsp;<i class="bi bi-arrow-right"></i>
-				</a>
-			</div>
-		</ng-template>
-	</bee-card>
-
-</div>
+}

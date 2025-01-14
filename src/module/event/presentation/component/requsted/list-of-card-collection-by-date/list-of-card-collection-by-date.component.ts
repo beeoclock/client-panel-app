@@ -2,23 +2,16 @@ import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from "@an
 import {EventRequestedState} from "@event/state/event-requested/event-requested.state";
 import {Store} from "@ngxs/store";
 import {MEvent, RIEvent} from "@src/module/event/domain";
-import {AsyncPipe, CurrencyPipe, DatePipe, KeyValuePipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, CurrencyPipe, DatePipe, KeyValuePipe, NgForOf} from "@angular/common";
 import {map} from "rxjs";
-import {FirstKeyNameModule} from "@utility/presentation/pipes/first-key-name/first-key-name.module";
 import {DateTime} from "luxon";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
-import {
-	ChangeStatusOnAcceptedComponent
-} from "@event/presentation/component/change-status/change-status-on-accepted.component";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {debounce} from "typescript-debounce-decorator";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {
-	ChangeStatusOnRejectedComponent
-} from "@event/presentation/component/change-status/change-status-on-rejected.component";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {
 	AttendeeCardComponent
@@ -35,19 +28,15 @@ import {FilterComponent} from "@event/presentation/component/filter/requested-fi
 	imports: [
 		NgForOf,
 		AsyncPipe,
-		FirstKeyNameModule,
 		KeyValuePipe,
-		NgIf,
 		CardComponent,
 		ActionComponent,
-		ChangeStatusOnAcceptedComponent,
 		CurrencyPipe,
 		DatePipe,
 		EventStatusStyleDirective,
 		HumanizeDurationPipe,
 		NoDataPipe,
 		TranslateModule,
-		ChangeStatusOnRejectedComponent,
 		AttendeeCardComponent,
 		FilterComponent,
 	],

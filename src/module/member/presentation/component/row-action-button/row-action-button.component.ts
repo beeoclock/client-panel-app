@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
@@ -10,7 +10,7 @@ import {MemberActions} from "@member/state/member/member.actions";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<utility-table-column-action [id]="id" (delete)="delete($event)" (open)="open()" (edit)="edit()">
+		<utility-table-column-action [id]="id()" (delete)="delete($event)" (open)="open()" (edit)="edit()">
 			<!--			<li>-->
 			<!--				<a-->
 			<!--					[routerLink]="['../../', 'event', 'form']"-->
@@ -28,11 +28,9 @@ import {MemberActions} from "@member/state/member/member.actions";
 })
 export class RowActionButtonComponent {
 
-	@Input()
-	public id!: string;
+	public readonly id = input.required<string>();
 
-	@Input({required: true})
-	public item!: RIMember;
+	public readonly item = input.required<RIMember>();
 
 	private readonly store = inject(Store);
 
@@ -46,10 +44,10 @@ export class RowActionButtonComponent {
 	}
 
 	public open() {
-		this.store.dispatch(new MemberActions.OpenDetails(this.item));
+		this.store.dispatch(new MemberActions.OpenDetails(this.item()));
 	}
 
 	public edit() {
-		this.store.dispatch(new MemberActions.OpenFormToEditById(this.id));
+		this.store.dispatch(new MemberActions.OpenFormToEditById(this.id()));
 	}
 }

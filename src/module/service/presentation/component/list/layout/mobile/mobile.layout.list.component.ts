@@ -1,5 +1,5 @@
-import {Component, Input, QueryList, ViewChildren, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, NgClass, NgIf} from "@angular/common";
+import {Component, input, viewChildren, ViewEncapsulation} from "@angular/core";
+import {NgClass} from "@angular/common";
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
@@ -13,6 +13,8 @@ import {
 } from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {ITableState} from "@utility/domain/table.state";
 
 @Component({
 	selector: 'service-mobile-layout-list-component',
@@ -20,9 +22,7 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		AsyncPipe,
 		CardListComponent,
-		NgIf,
 		NotFoundTableDataComponent,
 		TranslateModule,
 		FilterComponent,
@@ -32,14 +32,14 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 })
 export class MobileLayoutListComponent extends LayoutListComponent<IServiceDto> {
 
-	@Input()
-	public showButtonGoToForm = true;
+	public readonly showButtonGoToForm = input(true);
 
-	@ViewChildren(CardListComponent)
-	public cardListComponents!: QueryList<CardListComponent>;
+	public override readonly tableState = input.required<ITableState<IServiceDto> | null>();
+	public readonly cardListComponents = viewChildren(CardListComponent);
 
+	@Dispatch()
 	public openForm() {
-		this.store.dispatch(new ServiceActions.OpenForm());
+		return new ServiceActions.OpenForm();
 	}
 
 }

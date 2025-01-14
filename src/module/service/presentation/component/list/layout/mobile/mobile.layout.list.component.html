@@ -1,12 +1,13 @@
 <div class="block max-w-full" [ngClass]="{
-'overflow-x-auto h-[calc(100dvh-64px)] md:h-[calc(100vh-65px)]': isPage
+'overflow-x-auto h-[calc(100dvh-64px)] md:h-[calc(100vh-65px)]': isPage()
 }">
-	<service-filter-component [showButtonGoToForm]="showButtonGoToForm"/>
-	<ng-container *ngIf="tableState">
-		<ng-container *ngIf="tableState.total > 0; else EmptyTemplate">
-			<service-card-list-component [tableState]="tableState"/>
-		</ng-container>
-		<ng-template #EmptyTemplate>
+	<service-filter-component [showButtonGoToForm]="showButtonGoToForm()"/>
+	@if (tableState(); as data) {
+		@if (data.total > 0) {
+
+			<service-card-list-component [tableState]="data"/>
+		} @else {
+
 			<not-found-table-data-component
 				class="block h-full"
 				(clickListener)="openForm()"
@@ -15,6 +16,6 @@
 				[label]="'keyword.capitalize.dataNotFound' | translate">
 				<service-auto-refresh-component  [resetPage]="true" [resetParams]="true"/>
 			</not-found-table-data-component>
-		</ng-template>
-	</ng-container>
+		}
+	}
 </div>

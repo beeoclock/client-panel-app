@@ -1,13 +1,15 @@
-<ng-container *ngIf="initialized.isOn; else NotInitializedTemplate">
-	<service-mobile-layout-list-component
-		[tableState]="tableState$ | async"
-		*ngIf="isMobile$ | async" />
-	<service-desktop-layout-list-component
-		[tableState]="tableState$ | async"
-		*ngIf="isNotMobile$ | async" />
-</ng-container>
-<ng-template #NotInitializedTemplate>
+@if (initialized.isOn) {
+	@if (isMobile$ | async) {
+		<service-mobile-layout-list-component
+			[tableState]="tableState$ | async"/>
+	} @else {
+		<service-desktop-layout-list-component
+			[tableState]="tableState$ | async"/>
+	}
+
+} @else {
+
 	<div class="p-4">
 		{{ 'keyword.capitalize.initializing' | translate }}...
 	</div>
-</ng-template>
+}

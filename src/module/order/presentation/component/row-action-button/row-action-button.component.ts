@@ -1,8 +1,8 @@
-import {Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {Store} from "@ngxs/store";
 import {TranslateModule} from "@ngx-translate/core";
-import {Router, RouterLink} from "@angular/router";
+import {Router} from "@angular/router";
 import {OrderActions} from "@order/state/order/order.actions";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 
@@ -18,21 +18,18 @@ import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 			(delete)="delete()"
 			(open)="open()"
 			(edit)="edit()"
-			[id]="id"/>
+			[id]="id()"/>
 	`,
 	imports: [
 		ActionComponent,
 		TranslateModule,
-		RouterLink
 	]
 })
 export class RowActionButtonComponent {
 
-	@Input()
-	public id!: string;
+	public readonly id = input.required<string>();
 
-	@Input({required: true})
-	public item!: IOrderDto;
+	public readonly item = input.required<IOrderDto>();
 
 	private readonly store = inject(Store);
 	private readonly router = inject(Router);
@@ -46,7 +43,7 @@ export class RowActionButtonComponent {
 		// 	return alert('You can\'t delete active order');
 		//
 		// }
-		this.store.dispatch(new OrderActions.DeleteItem(this.item._id));
+		this.store.dispatch(new OrderActions.DeleteItem(this.item()._id));
 	}
 
 	// public activate(): void {
@@ -63,11 +60,11 @@ export class RowActionButtonComponent {
 	// }
 
 	public open(): void {
-		this.store.dispatch(new OrderActions.OpenDetails(this.item));
+		this.store.dispatch(new OrderActions.OpenDetails(this.item()));
 	}
 
 	public edit(): void {
-		this.store.dispatch(new OrderActions.OpenFormToEditById(this.item._id));
+		this.store.dispatch(new OrderActions.OpenFormToEditById(this.item()._id));
 	}
 
 }

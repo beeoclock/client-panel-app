@@ -5,13 +5,14 @@ import {
 	HostBinding,
 	inject,
 	Input,
+	input,
 	OnChanges,
 	OnDestroy,
 	OnInit,
 	SimpleChanges,
 	ViewEncapsulation
 } from "@angular/core";
-import {DatePipe, NgIf, NgStyle} from "@angular/common";
+import {DatePipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {is} from "@utility/checker";
@@ -22,12 +23,10 @@ import {is} from "@utility/checker";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		DatePipe,
-		NgIf,
-		NgStyle
 	],
 	template: `
 		<!-- Current time -->
-		@if (showCurrentTime) {
+		@if (showCurrentTime()) {
 
 			<div class="border-2 border-red-500 bg-white rounded-b-lg flex justify-end left-0 sticky w-full">
 				<div
@@ -38,7 +37,7 @@ import {is} from "@utility/checker";
 
 		}
 		<!-- Line -->
-		@if (showLine) {
+		@if (showLine()) {
 
 			<div class="w-full bg-[#f87171] h-[2px]"></div>
 
@@ -51,11 +50,9 @@ export class TimeLineCalendarWithSpecialistWidgetComponent implements OnInit, On
 	@Input()
 	public currentDate = new Date();
 
-	@Input()
-	public showCurrentTime = true;
+	public readonly showCurrentTime = input(true);
 
-	@Input()
-	public showLine = true;
+	public readonly showLine = input(true);
 
 	@HostBinding()
 	public class = 'absolute flex items-start left-0 top-0 transition-all z-[11] w-full';
@@ -67,14 +64,10 @@ export class TimeLineCalendarWithSpecialistWidgetComponent implements OnInit, On
 	public style = '';
 
 	private readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
-	private readonly changeDetectorRef = inject(ChangeDetectorRef);
-
 	public readonly startTimeToDisplay = this.calendarWithSpecialistLocaStateService.startTimeToDisplay;
-
 	public readonly headerHeightInPx = this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx;
-
 	public readonly heightInPx = this.calendarWithSpecialistLocaStateService.oneHourForPx;
-
+	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private interval: NodeJS.Timer | null = null;
 
 	public ngOnChanges(changes: SimpleChanges) {
@@ -108,13 +101,6 @@ export class TimeLineCalendarWithSpecialistWidgetComponent implements OnInit, On
 		this.clearInterval();
 	}
 
-	private clearInterval() {
-		if (this.interval) {
-			if (is.number(this.interval)) clearInterval(this.interval);
-			this.interval = null;
-		}
-	}
-
 	public calculateTopPosition() {
 
 		const hours = this.currentDate.getHours() - this.startTimeToDisplay;
@@ -122,6 +108,13 @@ export class TimeLineCalendarWithSpecialistWidgetComponent implements OnInit, On
 		const top = this.headerHeightInPx + ((hours + minutesInHours) * this.heightInPx);
 		this.style += ` top: ${top}px;`;
 
+	}
+
+	private clearInterval() {
+		if (this.interval) {
+			if (is.number(this.interval)) clearInterval(this.interval);
+			this.interval = null;
+		}
 	}
 
 }

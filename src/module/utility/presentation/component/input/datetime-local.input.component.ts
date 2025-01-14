@@ -1,7 +1,5 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, input, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {InputIconComponent} from "@utility/presentation/component/input/input-icon.component";
-import {InputBadgeComponent} from "@utility/presentation/component/input/input-badge.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {NGXLogger} from "ngx-logger";
@@ -14,15 +12,13 @@ import {DateTime} from "luxon";
 	selector: 'datetime-local-input-component',
 	standalone: true,
 	imports: [
-		InputIconComponent,
-		InputBadgeComponent,
 		TranslateModule,
 		FormInputComponent,
 	],
 	template: `
 		<form-input
-			[id]="id"
-			[label]="label"
+			[id]="id()"
+			[label]="label()"
 			[control]="localControl"
 			placeholder="00.00.000 00:00:00"
 			inputType="datetime-local">
@@ -32,16 +28,13 @@ import {DateTime} from "luxon";
 })
 export class DatetimeLocalInputComponent extends Reactive implements OnInit {
 
-	@Input({required: true})
-	public control!: FormControl;
+	public readonly control = input.required<FormControl>();
 
 	public readonly localControl = new FormControl<string | null>(null);
 
-	@Input()
-	public label = '';
+	public readonly label = input('');
 
-	@Input()
-	public id = '';
+	public readonly id = input('');
 
 	private readonly ngxLogger = inject(NGXLogger);
 
@@ -54,12 +47,12 @@ export class DatetimeLocalInputComponent extends Reactive implements OnInit {
 			this.takeUntil(),
 			filter(is.string),
 		).subscribe((localValue) => {
-			const {value: controlValue} = this.control;
+			const {value: controlValue} = this.control();
 			this.detectChanges(localValue, controlValue);
 		});
 
-		this.control.valueChanges.pipe(
-			startWith(this.control.value),
+		this.control().valueChanges.pipe(
+			startWith(this.control().value),
 			this.takeUntil(),
 			filter(is.string),
 		).subscribe((controlValue) => {
@@ -68,9 +61,10 @@ export class DatetimeLocalInputComponent extends Reactive implements OnInit {
 		});
 
 		// Errors
-		this.localControl.setErrors(this.control.errors);
-		this.control.statusChanges.subscribe(() => {
-			this.localControl.setErrors(this.control.errors);
+		const control = this.control();
+  this.localControl.setErrors(control.errors);
+		control.statusChanges.subscribe(() => {
+			this.localControl.setErrors(this.control().errors);
 		})
 
 	}
@@ -112,8 +106,8 @@ export class DatetimeLocalInputComponent extends Reactive implements OnInit {
 
 	private initLocalControlValue() {
 
-		const {value} = this.control;
-		this.ngxLogger.debug('DatetimeLocalInputComponent', 'initLocalControlValue', this.control);
+		const {value} = this.control();
+		this.ngxLogger.debug('DatetimeLocalInputComponent', 'initLocalControlValue', this.control());
 
 		// Convert into datetime-local format
 		const date = DateTime.fromISO(value);
@@ -133,7 +127,7 @@ export class DatetimeLocalInputComponent extends Reactive implements OnInit {
 			return;
 		}
 		const date = new Date(value);
-		this.control.patchValue(date.toISOString(), {
+		this.control().patchValue(date.toISOString(), {
 			emitEvent: false,
 			onlySelf: true
 		});

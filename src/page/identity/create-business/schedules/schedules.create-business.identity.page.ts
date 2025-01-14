@@ -1,14 +1,12 @@
 import {
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    inject,
-    ViewEncapsulation
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	inject,
+	ViewEncapsulation
 } from '@angular/core';
 import {RouterLink} from "@angular/router";
-import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
@@ -24,8 +22,6 @@ import {TranslateModule} from "@ngx-translate/core";
 	standalone: true,
 	imports: [
 		RouterLink,
-		PrimaryLinkButtonDirective,
-		FormInputComponent,
 		PrimaryButtonDirective,
 		BackLinkComponent,
 		ChangeLanguageComponent,
@@ -36,12 +32,11 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class SchedulesCreateBusinessIdentityPage implements AfterViewInit {
 
+	public backPath = 'point-of-sale';
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
 	public readonly schedulesForm = this.createBusinessQuery.getSchedulesForm();
 	public readonly serviceProvideTypeControl = this.createBusinessQuery.getServiceProvideTypeControl();
-
-	public backPath = 'point-of-sale';
 
 	public ngAfterViewInit(): void {
 		const value = this.serviceProvideTypeControl.value;

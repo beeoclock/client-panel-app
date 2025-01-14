@@ -1,11 +1,9 @@
-import {Component, HostBinding, inject, Input, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, inject, input, ViewEncapsulation} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
-import {NgIf} from "@angular/common";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {Reactive} from "@utility/cdk/reactive";
 import {CustomerForm} from "@customer/presentation/form";
-import {CustomerExternalListComponent} from "@customer/presentation/component/external/list/list.component";
 import {SelectCustomerPushBoxComponent} from "@customer/presentation/push-box/select-customer.push-box.component";
 import {ICustomer} from "@customer/domain";
 
@@ -13,29 +11,31 @@ import {ICustomer} from "@customer/domain";
 	selector: 'app-regular-customer-type-customer',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		NgIf,
 		TranslateModule,
 		PrimaryLinkButtonDirective,
-		CustomerExternalListComponent,
 		SelectCustomerPushBoxComponent
 	],
 	standalone: true,
 	template: `
-		<customer-select-customer-whac-a-mole-component
-			*ngIf="showList"
-			(selectedCustomerListener)="selectCustomer($event[0])"
-			[style.max-width.px]="350"
-			[multiple]="multiple"/>
+		@if (showList()) {
 
-		<ng-container *ngIf="!showList">
+			<customer-select-customer-whac-a-mole-component
+				(selectedCustomerListener)="selectCustomer($event[0])"
+				[style.max-width.px]="350"
+				[multiple]="multiple()"/>
+		} @else {
 
-			<ng-container *ngIf="getCustomer() as customer">
+			@if (getCustomer(); as customer) {
+
 				<div class="rounded-lg border border-gray-200 grid grid-cols-1 py-2 px-3 text-sm leading-6">
+
 					<div>{{ customer.firstName }} {{ customer.lastName }} </div>
 					<div>{{ customer.email }}</div>
 					<div>{{ customer.phone }}</div>
+
 				</div>
-			</ng-container>
+
+			}
 
 			<div class="block">
 				<button type="button" primaryLink (click)="openContainerToSelectCustomer()">
@@ -43,21 +43,17 @@ import {ICustomer} from "@customer/domain";
 					{{ 'event.form.section.attendant.button.select' | translate }}
 				</button>
 			</div>
-
-		</ng-container>
+		}
 
 	`
 })
 export class RegularCustomerTypeCustomerComponent extends Reactive {
 
-	@Input()
-	public form!: CustomerForm;
+	public readonly form = input.required<CustomerForm>();
 
-	@Input()
-	public multiple = false;
+	public readonly multiple = input(false);
 
-	@Input()
-	public showList = false;
+	public readonly showList = input(false);
 
 	@HostBinding()
 	public readonly class = 'flex flex-col gap-2'
@@ -65,17 +61,18 @@ export class RegularCustomerTypeCustomerComponent extends Reactive {
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 
 	public getCustomer() {
-		if (!this.form.value) {
+		const form = this.form();
+  if (!form.value) {
 			return null;
 		}
-		if (!this.form.value.firstName) {
+		if (!form.value.firstName) {
 			return null;
 		}
-		return this.form.value;
+		return form.value;
 	}
 
 	public selectCustomer(customer: ICustomer) {
-		this.form.patchValue(customer);
+		this.form().patchValue(customer);
 	}
 
 	public async openContainerToSelectCustomer() {
@@ -85,7 +82,7 @@ export class RegularCustomerTypeCustomerComponent extends Reactive {
 			component: SelectCustomerPushBoxComponent,
 			componentInputs: {
 				multiple: false,
-				selectedCustomerList: [this.form.value]
+				selectedCustomerList: [this.form().value]
 			}
 		});
 

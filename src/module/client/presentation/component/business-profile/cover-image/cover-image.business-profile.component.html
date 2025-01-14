@@ -11,7 +11,7 @@
 	</div>
 
 	<client-image-cover-image-business-profile-component
-		*ngFor="let banner of banners"
+		*ngFor="let banner of banners()"
 		[banner]="banner"
 		[showHit]="toggleInfo.isOn"/>
 

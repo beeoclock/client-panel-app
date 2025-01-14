@@ -1,13 +1,9 @@
 import {Component, ViewEncapsulation} from "@angular/core";
-import {RouterLink} from "@angular/router";
 
 @Component({
 	selector: 'utility-notification-component',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
-	imports: [
-		RouterLink
-	],
 	template: `
 
 		<button

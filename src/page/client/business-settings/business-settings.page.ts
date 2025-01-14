@@ -18,18 +18,11 @@ import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
-import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
-import {EventSettingsComponent} from "@client/presentation/component/settings/event/event.settings.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {ServiceSettingsComponent} from "@client/presentation/component/settings/service/service.settings.component";
 import {DangerZoneComponent} from "@client/presentation/component/danger-zone/danger-zone.component";
 import {
 	ContainerBusinessSettingsComponent
 } from "@client/presentation/component/business-settings/container.business-settings.component";
-import {
-	AutoBookEventComponent
-} from "@client/presentation/component/business-settings/auto-book-event/auto-book-event.component";
 import {Reactive} from "@utility/cdk/reactive";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 import {NGXLogger} from "ngx-logger";
@@ -45,14 +38,9 @@ import {
 		BookingSettingsBusinessProfileComponent,
 		ButtonSaveContainerComponent,
 		PrimaryButtonDirective,
-		BackButtonComponent,
-		DefaultPanelComponent,
-		EventSettingsComponent,
 		TranslateModule,
-		ServiceSettingsComponent,
 		DangerZoneComponent,
 		ContainerBusinessSettingsComponent,
-		AutoBookEventComponent,
 		NotificationSettingsComponent,
 	],
 	standalone: true

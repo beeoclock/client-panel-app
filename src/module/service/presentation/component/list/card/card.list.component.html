@@ -7,12 +7,16 @@
 					<div class="flex justify-between gap-2">
 						<div class="flex gap-2">
 							<div>
-								<div class="h-7 w-10 rounded-full" *ngIf="item.presentation?.color"
-									 [style.background-color]="item.presentation?.color ?? ''"></div>
-								<div class="h-7 w-10 rounded-full flex justify-center items-center bg-gray-100"
-									 *ngIf="!item.presentation?.color">
-									❓
-								</div>
+								@if (item.presentation?.color) {
+
+									<div class="h-7 w-10 rounded-full"
+										 [style.background-color]="item.presentation?.color ?? ''"></div>
+								} @else {
+
+									<div class="h-7 w-10 rounded-full flex justify-center items-center bg-gray-100">
+										❓
+									</div>
+								}
 							</div>
 
 							<div
@@ -25,28 +29,39 @@
 							></div>
 						</div>
 
-						<div (click)="singleClick(item)" *ngIf="showSelectedStatus.state$ | async">
-							<i *ngIf="selectedIds.includes(item._id)"
-							   class="bi bi-check-circle text-green-600 text-xl"></i>
-							<i *ngIf="!selectedIds.includes(item._id)"
-							   class="bi bi-circle text-gray-600 text-xl"></i>
-						</div>
+						@if (showSelectedStatus.state$ | async) {
+
+							<div (click)="singleClick(item)">
+								@if (selectedIds.includes(item._id)) {
+									<i
+										class="bi bi-check-circle text-green-600 text-xl"></i>
+								} @else {
+									<i
+										class="bi bi-circle text-gray-600 text-xl"></i>
+								}
+							</div>
+						}
 					</div>
 					<div class="flex flex-col divide-y">
-						<div
-							*ngFor="let languageVersion of item.languageVersions; let i = index"
-							class="relative flex gap-2 items-start py-2 font-sans text-xs font-bold uppercase text-neutral-900">
-							<label
-								class="relative flex items-center justify-center p-0 cursor-pointer border-2 border-neutral-200 px-1 rounded-lg">
-								{{ languageVersion.language }}
-							</label>
-							<div>
-								{{ languageVersion.title }}
+						@for (languageVersion of item.languageVersions; track languageVersion.language) {
+
+							<div
+								class="relative flex gap-2 items-start py-2 font-sans text-xs font-bold uppercase text-neutral-900">
+								<label
+									class="relative flex items-center justify-center p-0 cursor-pointer border-2 border-neutral-200 px-1 rounded-lg">
+									{{ languageVersion.language }}
+								</label>
+								<div>
+									{{ languageVersion.title }}
+								</div>
 							</div>
-						</div>
+						}
 					</div>
 				</div>
-				<service-row-action-button-component *ngIf="showAction.state$ | async" [item]="item" [id]="item._id"/>
+				@if (showAction.state$ | async) {
+					<service-row-action-button-component [item]="item" [id]="item._id"/>
+				}
+
 			</div>
 		</bee-card>
 	}
@@ -54,4 +69,4 @@
 <utility-table-state-pagination-component
 	[mobileMode]="true"
 	(page)="pageChange($event)"
-	[tableState]="tableState"/>
+	[tableState]="tableState()"/>

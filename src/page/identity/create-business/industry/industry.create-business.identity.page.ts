@@ -1,7 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
@@ -20,8 +18,6 @@ import {Reactive} from "@utility/cdk/reactive";
 	standalone: true,
 	imports: [
 		RouterLink,
-		PrimaryLinkButtonDirective,
-		FormInputComponent,
 		PrimaryButtonDirective,
 		BackLinkComponent,
 		ChangeLanguageComponent,
@@ -34,15 +30,23 @@ import {Reactive} from "@utility/cdk/reactive";
 })
 export class IndustryCreateBusinessIdentityPage extends Reactive implements OnInit {
 
-	private readonly createBusinessQuery = inject(CreateBusinessQuery);
-	private readonly router = inject(Router);
-	private readonly activatedRoute = inject(ActivatedRoute);
-	public readonly businessIndustryControl = this.createBusinessQuery.getBusinessIndustryControl();
 	public readonly industryListWithIcon = BusinessIndustry.listWithIcon;
 	public nextStepPath = 'category';
+	private readonly createBusinessQuery = inject(CreateBusinessQuery);
+	public readonly businessIndustryControl = this.createBusinessQuery.getBusinessIndustryControl();
+	private readonly router = inject(Router);
+	private readonly activatedRoute = inject(ActivatedRoute);
 
 	constructor() {
 		super();
+	}
+
+	public get valid(): boolean {
+		return this.businessIndustryControl.valid;
+	}
+
+	public get invalid(): boolean {
+		return !this.valid;
 	}
 
 	public ngOnInit(): void {
@@ -54,14 +58,6 @@ export class IndustryCreateBusinessIdentityPage extends Reactive implements OnIn
 				relativeTo: this.activatedRoute
 			}).then();
 		});
-	}
-
-	public get valid(): boolean {
-		return this.businessIndustryControl.valid;
-	}
-
-	public get invalid(): boolean {
-		return !this.valid;
 	}
 
 	private updateNextStepPath(value: BusinessIndustryEnum) {

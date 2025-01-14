@@ -1,10 +1,6 @@
 import {Component, inject} from "@angular/core";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
-import {RouterLink} from "@angular/router";
 import {Store} from "@ngxs/store";
-import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
-import {NgIf, NgTemplateOutlet} from "@angular/common";
 import {ChangeStatusBaseComponent} from "@event/presentation/component/change-status/change-status-base.component";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 import {EventActions} from "@event/state/event/event.actions";
@@ -16,12 +12,7 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 	selector: 'event-change-status-on-done-component',
 	standalone: true,
 	imports: [
-		DynamicDatePipe,
 		TranslateModule,
-		RouterLink,
-		EditLinkComponent,
-		NgIf,
-		NgTemplateOutlet,
 		LoaderComponent
 	],
 	template: `
@@ -49,11 +40,13 @@ import {LoaderComponent} from "@utility/presentation/component/loader/loader.com
 		hover:bg-green-100
 		cursor-pointer">
 
-			<ng-container *ngIf="loading.isFalse">
+			@if (loading.isFalse) {
+
 				<i class="bi bi-check-lg"></i>
 				{{ 'event.action.button.done.label' | translate }}
-			</ng-container>
-			<utility-loader [py2_5]="false" *ngIf="loading.isTrue"/>
+			} @else {
+				<utility-loader [py2_5]="false"/>
+			}
 		</button>
 	`
 })
@@ -63,16 +56,17 @@ export class ChangeStatusOnDoneComponent extends ChangeStatusBaseComponent {
 
 	public async changeStatusOnDone(): Promise<void> {
 		this.loading.doTrue();
-		this.event.originalData.service.status = OrderServiceStatusEnum.done;
+		const event = this.event();
+  event.originalData.service.status = OrderServiceStatusEnum.done;
 		const actionToChangeStatus$ = this.store.dispatch(new EventActions.ChangeServiceStatus({
-			serviceId: this.event.originalData.service._id,
-			orderId: this.event.originalData.order._id,
+			serviceId: event.originalData.service._id,
+			orderId: event.originalData.order._id,
 			status: OrderServiceStatusEnum.done,
 		}));
 		await firstValueFrom(actionToChangeStatus$);
 		const actionToUpdateList$ =  this.store.dispatch(new CalendarWithSpecialistsAction.GetItems());
 		await firstValueFrom(actionToUpdateList$);
-		const actionToUpdateDetails$ = this.store.dispatch(new EventActions.UpdateOpenedDetails(this.event));
+		const actionToUpdateDetails$ = this.store.dispatch(new EventActions.UpdateOpenedDetails(event));
 		await firstValueFrom(actionToUpdateDetails$);
 		this.statusChange.emit();
 		this.loading.doFalse();

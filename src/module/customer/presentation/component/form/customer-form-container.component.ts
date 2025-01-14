@@ -1,26 +1,17 @@
-import {Component, inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, Input, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
-import {RouterLink} from '@angular/router';
 import {ICustomer, validCustomer} from "@customer/domain";
 import {TranslateModule} from "@ngx-translate/core";
 import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-error.directive";
-import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {CustomerForm} from "@customer/presentation/form";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
-import {KeyValuePipe, NgComponentOutlet, NgForOf} from "@angular/common";
-import {
-	SwitchActiveBlockComponent
-} from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
+import {NgComponentOutlet, NgForOf} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
@@ -31,21 +22,13 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		ReactiveFormsModule,
-		DeleteButtonComponent,
-		HasErrorDirective,
-		RouterLink,
-		InvalidTooltipDirective,
 		TranslateModule,
-		FormInputComponent,
-		SwitchActiveBlockComponent,
-		FormTextareaComponent,
 		CardComponent,
 		PrimaryButtonDirective,
 		InvalidTooltipComponent,
 		ButtonSaveContainerComponent,
 		NgComponentOutlet,
 		NgForOf,
-		KeyValuePipe,
 	],
 	standalone: true
 })
@@ -60,8 +43,7 @@ export class CustomerFormContainerComponent implements OnInit {
 		customerType: CustomerTypeEnum.regular
 	});
 
-	@Input()
-	public item!: ICustomer | undefined;
+	public readonly item = input<ICustomer | undefined>();
 
 	@Input()
 	private isEditMode = false;
@@ -71,10 +53,11 @@ export class CustomerFormContainerComponent implements OnInit {
 	}
 
 	public detectItem(): void {
-		if (this.isEditMode && this.item) {
+		const item = this.item();
+  if (this.isEditMode && item) {
 			this.isEditMode = true;
 			this.form.patchValue({
-				...this.item,
+				...item,
 				customerType: CustomerTypeEnum.regular
 			});
 			this.form.updateValueAndValidity();
@@ -85,7 +68,7 @@ export class CustomerFormContainerComponent implements OnInit {
 		this.form.markAllAsTouched();
 		const value = this.form.getRawValue() as ICustomer;
 		const validStatus = validCustomer(value);
-		if (validStatus.errors.length) {
+		if (!(validStatus.success) && validStatus.errors.length) {
 			this.ngxLogger.error('Object is invalid', validStatus);
 			return;
 		}

@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input} from "@angular/core";
+import {Component, HostBinding, input} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
@@ -12,11 +12,11 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 	selector: 'client-currencies-business-settings-component',
 	template: `
 		<div class="relative">
-			<label default [for]="id">
+			<label default [for]="id()">
 				{{ 'client.profile.form.section.businessSettings.select.currencies.label' | translate }}
 			</label>
 			<ng-select
-				[labelForId]="id"
+				[labelForId]="id()"
 				isRequired
 				hasError
 				invalidTooltip
@@ -24,7 +24,7 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 				[items]="currencyList"
 				[closeOnSelect]="false"
 				[clearable]="false"
-				[formControl]="control">
+				[formControl]="control()">
 			</ng-select>
 		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
@@ -44,11 +44,9 @@ import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-
 })
 export class CurrenciesBusinessSettingsComponent {
 
-	@Input({required: true})
-	public control!: FormControl<CurrencyCodeEnum[]>;
+	public readonly control = input.required<FormControl<CurrencyCodeEnum[]>>();
 
-	@Input()
-	public id = 'client-business-settings-form-currencies';
+	public readonly id = input('client-business-settings-form-currencies');
 
 	public readonly currencyList = Object.keys(CurrencyCodeEnum);
 

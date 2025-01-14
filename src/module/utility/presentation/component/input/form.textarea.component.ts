@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, inject, Input} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, inject, input} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
@@ -17,8 +17,8 @@ import {IsRequiredDirective} from "@utility/presentation/directives/is-required/
 		IsRequiredDirective
 	],
   template: `
-    <label [for]="id" default>
-			{{ label ?? (labelTranslateKey | translate) }}
+    <label [for]="id()" default>
+			{{ label() ?? (labelTranslateKey() | translate) }}
 		</label>
 
     <div class="flex flex-col">
@@ -26,35 +26,28 @@ import {IsRequiredDirective} from "@utility/presentation/directives/is-required/
         invalidTooltip
         isRequired
         class="focus:ring-2 outline-0 border border-beeColor-300 rounded-md bg-white px-3 py-1.5 dark:bg-beeDarkColor-900 dark:border-beeDarkColor-700 dark:text-white"
-        [rows]="rows"
-				[placeholder]="placeholder ?? (placeholderTranslateKey | translate)"
-        [id]="id"
-        [formControl]="control"></textarea>
+        [rows]="rows()"
+				[placeholder]="placeholder() ?? (placeholderTranslateKey() | translate)"
+        [id]="id()"
+        [formControl]="control()"></textarea>
     </div>
   `
 })
 export class FormTextareaComponent implements DoCheck {
 
-  @Input()
-  public control!: FormControl<string>;
+  public readonly control = input.required<FormControl<string>>();
 
-  @Input()
-  public label: unknown | string;
+  public readonly label = input<unknown | string>();
 
-  @Input()
-  public labelTranslateKey = '';
+  public readonly labelTranslateKey = input('');
 
-  @Input()
-  public placeholder: unknown | string;
+  public readonly placeholder = input<unknown | string>();
 
-  @Input()
-  public placeholderTranslateKey = '';
+  public readonly placeholderTranslateKey = input('');
 
-  @Input()
-  public id = '';
+  public readonly id = input('');
 
-  @Input()
-  public rows = 4;
+  public readonly rows = input(4);
 
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
 

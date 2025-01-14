@@ -1,6 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
-import {NgIf} from '@angular/common';
-import {SpinnerComponent} from '@utility/presentation/component/spinner/spinner.component';
+import {ChangeDetectionStrategy, Component, input, output, ViewEncapsulation} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
@@ -12,7 +10,7 @@ import {TranslateModule} from "@ngx-translate/core";
     <button
       type="button"
       (click)="event.emit($event)"
-      [class.w-full]="buttonWidthFull"
+      [class.w-full]="buttonWidthFull()"
       class="
         flex items-center justify-center
         rounded-2xl
@@ -37,17 +35,13 @@ import {TranslateModule} from "@ngx-translate/core";
     </button>
   `,
   imports: [
-    NgIf,
-    SpinnerComponent,
     TranslateModule
   ]
 })
 export class DeleteButtonComponent {
 
-  @Input()
-  public buttonWidthFull = false;
+  public readonly buttonWidthFull = input(false);
 
-  @Output()
-  public readonly event = new EventEmitter<Event>();
+  public readonly event = output<Event>();
 
 }

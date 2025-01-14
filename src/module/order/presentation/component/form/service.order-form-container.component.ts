@@ -58,6 +58,7 @@ import {filter} from 'rxjs';
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {ClientState} from "@client/state/client/client.state";
 import {RIClient} from "@client/domain";
+import {IAttendeeDto} from "@order/external/interface/i-order-appointment-details.dto";
 
 
 @Component({
@@ -100,28 +101,32 @@ import {RIClient} from "@client/domain";
 
 			<div class="font-bold">{{ 'keyword.capitalize.services' | translate }}</div>
 
-			<div class="flex flex-wrap gap-4" *ngIf="list.length">
+			@if (list.length) {
 
-				<app-order-service-details
-					*ngFor="let service of list; let index = index; trackBy: trackById;"
-					[service]="service">
+				<div class="flex flex-wrap gap-4">
 
-					<div slot="footer" class="flex justify-between">
+					@for (service of list; track service._id) {
+						<app-order-service-details
+							[service]="service">
 
-						<button type="button" link (click)="delete(index)">
-							<i class="bi bi-trash"></i>
-							{{ 'keyword.capitalize.delete' | translate }}
-						</button>
-						<button type="button" primaryLink (click)="edit(service, index)">
-							<i class="bi bi-pencil"></i>
-							{{ 'keyword.capitalize.edit' | translate }}
-						</button>
+							<div slot="footer" class="flex justify-between">
 
-					</div>
+								<button type="button" link (click)="delete($index)">
+									<i class="bi bi-trash"></i>
+									{{ 'keyword.capitalize.delete' | translate }}
+								</button>
+								<button type="button" primaryLink (click)="edit(service, $index)">
+									<i class="bi bi-pencil"></i>
+									{{ 'keyword.capitalize.edit' | translate }}
+								</button>
 
-				</app-order-service-details>
+							</div>
 
-			</div>
+						</app-order-service-details>
+					}
+
+				</div>
+			}
 
 			<div class="block">
 
@@ -269,7 +274,7 @@ export class ServiceOrderFormContainerComponent extends Reactive implements OnIn
 					languageCodes: [formValue.language ?? this.clientItem.businessSettings.baseLanguage],
 					// attachments: IAttachmentDto[];
 					specialists: formValue.specialists ?? [],
-					attendees: formValue.attendees,
+					attendees: formValue.attendees as unknown as IAttendeeDto[],
 					// locations: ILocationsDto[];
 					timeZone: formValue.timeZone,
 					createdAt: formValue.createdAt,
@@ -365,7 +370,7 @@ export class ServiceOrderFormContainerComponent extends Reactive implements OnIn
 					languageCodes: [formValue.language ?? this.clientItem.businessSettings.baseLanguage],
 					// attachments: IAttachmentDto[];
 					specialists: formValue.specialists ?? [],
-					attendees: formValue.attendees,
+					attendees: formValue.attendees as unknown as IAttendeeDto[],
 					// locations: ILocationsDto[];
 					timeZone: formValue.timeZone,
 					createdAt: formValue.createdAt,

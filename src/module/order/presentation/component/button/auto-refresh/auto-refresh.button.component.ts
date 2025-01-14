@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {Store} from "@ngxs/store";
 import {OrderActions} from "@order/state/order/order.actions";
@@ -16,18 +16,16 @@ import {OrderActions} from "@order/state/order/order.actions";
 })
 export class AutoRefreshButtonComponent {
 
-	@Input()
-	public resetPage = false;
+	public readonly resetPage = input(false);
 
-	@Input()
-	public resetParams = false;
+	public readonly resetParams = input(false);
 
 	private readonly store = inject(Store);
 
 	public forceRefresh() {
 		this.store.dispatch(new OrderActions.GetList({
-			resetPage: this.resetPage,
-			resetParams: this.resetParams,
+			resetPage: this.resetPage(),
+			resetParams: this.resetParams(),
 		}))
 	}
 

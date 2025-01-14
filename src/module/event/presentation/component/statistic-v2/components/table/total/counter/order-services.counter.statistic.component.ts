@@ -1,8 +1,4 @@
 import {ChangeDetectionStrategy, Component, input, ViewEncapsulation} from "@angular/core";
-import {CurrencyPipe, KeyValuePipe} from "@angular/common";
-import {
-	StatusIconComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.icon.component";
 import {Analytic} from "@module/analytic/internal/store/date-range-report/interface/i.analytic";
 import {TranslatePipe} from "@ngx-translate/core";
 
@@ -29,9 +25,6 @@ import {TranslatePipe} from "@ngx-translate/core";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		KeyValuePipe,
-		CurrencyPipe,
-		StatusIconComponent,
 		TranslatePipe
 	]
 })

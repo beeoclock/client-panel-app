@@ -4,15 +4,14 @@ import {
 	inject,
 	Input,
 	OnChanges,
-	QueryList,
 	SimpleChange,
 	SimpleChanges,
-	ViewChildren,
+	viewChildren,
 	ViewEncapsulation
 } from "@angular/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgForOf} from "@angular/common";
 import {GalleryForm} from "@client/presentation/form/gallery.form";
 import {BooleanState} from "@utility/domain";
 import {
@@ -24,7 +23,6 @@ import {
 import {
 	DeleteMediaGalleryClientApiAdapter
 } from "@client/adapter/external/api/media/gallery/delete.media.gallery.client.api.adapter";
-import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 import {RIMedia} from "@module/media/domain/interface/i.media";
 import {MediaStateEnum} from "@utility/presentation/component/image/base.image.component";
 
@@ -36,8 +34,6 @@ import {MediaStateEnum} from "@utility/presentation/component/image/base.image.c
 		TranslateModule,
 		ImageGalleryBusinessProfileComponent,
 		NgForOf,
-		NgIf,
-		InvalidTooltipComponent
 	],
 	standalone: true,
 	templateUrl: './gallery.business-profile.component.html'
@@ -52,8 +48,7 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 
 	public readonly toggleInfo = new BooleanState(true);
 
-	@ViewChildren(ImageGalleryBusinessProfileComponent)
-	public imageGalleryBusinessProfileComponents!: QueryList<ImageGalleryBusinessProfileComponent>;
+	readonly imageGalleryBusinessProfileComponents = viewChildren(ImageGalleryBusinessProfileComponent);
 
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly patchMediaGalleryClientApiAdapter = inject(PatchMediaGalleryClientApiAdapter);
@@ -97,7 +92,7 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 
 		}
 
-		for (const component of this.imageGalleryBusinessProfileComponents.toArray()) {
+		for (const component of this.imageGalleryBusinessProfileComponents()) {
 
 			if (!component) {
 				continue;
@@ -114,8 +109,9 @@ export class GalleryBusinessProfileComponent implements OnChanges {
 			const formData = new FormData();
 			formData.append('file', component.selectedFile as Blob);
 
-			if (component.banner) {
-				formData.append('_id', component.banner._id);
+			const banner = component.banner();
+   if (banner) {
+				formData.append('_id', banner._id);
 			}
 
 			await this.patchMediaGalleryClientApiAdapter.executeAsync(formData);

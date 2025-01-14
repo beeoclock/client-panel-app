@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -10,7 +10,7 @@ import {AutomaticApprovalTimeType} from "@utility/domain/enum/automatic-approval
   standalone: true,
   template: `
 		<div class="relative">
-			<label default [for]="id">
+			<label default [for]="id()">
 				{{ 'keyword.capitalize.autoActionTypeOnOrder' | translate }}
 			</label>
 			<ng-select
@@ -18,8 +18,8 @@ import {AutomaticApprovalTimeType} from "@utility/domain/enum/automatic-approval
 				bindValue="type"
 				[items]="autoActionTypeList"
 				[clearable]="false"
-				[id]="id"
-				[formControl]="control">
+				[id]="id()"
+				[formControl]="control()">
 			</ng-select>
 		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
@@ -37,11 +37,9 @@ import {AutomaticApprovalTimeType} from "@utility/domain/enum/automatic-approval
 })
 export class SelectAutoActionTypeOnEventComponent {
 
-  @Input()
-  public id = '';
+  public readonly id = input('');
 
-  @Input()
-  public control = new FormControl();
+  public readonly control = input(new FormControl());
 
   public readonly translateService = inject(TranslateService);
 

@@ -1,36 +1,36 @@
-	<div class="flex justify-between">
-		<utility-back-link-component [url]="['../names']"/>
-		<utility-change-language-component/>
-	</div>
-	<div class="relative pt-12 pb-40 sm:py-16 lg:pt-20 xl:pb-0">
-		<div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<div class="mx-auto max-w-3xl text-center">
+<div class="flex justify-between">
+	<utility-back-link-component [url]="['../names']"/>
+	<utility-change-language-component/>
+</div>
+<div class="relative pt-12 pb-40 sm:py-16 lg:pt-20 xl:pb-0">
+	<div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="mx-auto max-w-3xl text-center">
 
-				<h1
-					class="mt-5 text-3xl font-bold leading-tight text-gray-900 sm:text-3xl sm:leading-tight lg:text-4xl lg:leading-tight">
-					{{ 'identity.create-business.section.industry.title' | translate }}
-				</h1>
+			<h1
+				class="mt-5 text-3xl font-bold leading-tight text-gray-900 sm:text-3xl sm:leading-tight lg:text-4xl lg:leading-tight">
+				{{ 'identity.create-business.section.industry.title' | translate }}
+			</h1>
 
-				<form class="py-8 md:py-16">
+			<form class="py-8 md:py-16">
 
-					<ul class="grid w-full gap-6 grid-cols-2 auto-cols-fr md:grid-cols-4 overflow-y-auto max-h-[64vh]">
-						<li
-							*ngFor="let industryWithIcon of industryListWithIcon"
-							class="
+				<ul class="grid w-full gap-6 grid-cols-2 auto-cols-fr md:grid-cols-4 overflow-y-auto max-h-[64vh]">
+					<li
+						*ngFor="let industryWithIcon of industryListWithIcon"
+						class="
 								bg-white
 								border
 								border-gray-200
 								rounded-lg">
-							<input
-								type="radio"
-								name="businessIndustry"
-								class="hidden peer"
-								[id]="'create-business-form-business-industry-' + industryWithIcon.label"
-								[value]="industryWithIcon.label"
-								[formControl]="businessIndustryControl" />
-							<label
-								[for]="'create-business-form-business-industry-' + industryWithIcon.label"
-								class="
+						<input
+							[formControl]="businessIndustryControl"
+							[id]="'create-business-form-business-industry-' + industryWithIcon.label"
+							[value]="industryWithIcon.label"
+							class="hidden peer"
+							name="businessIndustry"
+							type="radio"/>
+						<label
+							[for]="'create-business-form-business-industry-' + industryWithIcon.label"
+							class="
 									flex
 									flex-col
 									items-center
@@ -51,22 +51,22 @@
 									dark:bg-gray-800
 									dark:hover:bg-gray-700
 									md:min-h-[200px]">
-								<div class="w-full text-4xl font-semibold">
-									<i [class]="industryWithIcon.icon"></i>
-								</div>
-								<div class="w-full">{{ ('businessIndustry.' + industryWithIcon.label) | translate }}</div>
-							</label>
-						</li>
-					</ul>
+							<div class="w-full text-4xl font-semibold">
+								<i [class]="industryWithIcon.icon"></i>
+							</div>
+							<div class="w-full">{{ ('businessIndustry.' + industryWithIcon.label) | translate }}</div>
+						</label>
+					</li>
+				</ul>
 
-				</form>
+			</form>
 
-				<ng-template [ngIf]="!!businessIndustryControl.value">
-					<button primary [routerLink]="['../', nextStepPath]" [class.disabled]="invalid">
-						{{ 'keyword.capitalize.nextStep' | translate }}
-					</button>
-				</ng-template>
+			<ng-template [ngIf]="!!businessIndustryControl.value">
+				<button [class.disabled]="invalid" [routerLink]="['../', nextStepPath]" primary>
+					{{ 'keyword.capitalize.nextStep' | translate }}
+				</button>
+			</ng-template>
 
-			</div>
 		</div>
 	</div>
+</div>

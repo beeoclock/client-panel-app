@@ -1,5 +1,5 @@
-import {Component, Input, QueryList, ViewChildren, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, NgClass, NgIf} from "@angular/common";
+import {Component, input, viewChildren, ViewEncapsulation} from "@angular/core";
+import {NgClass} from "@angular/common";
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
@@ -12,6 +12,7 @@ import {
 	AutoRefreshButtonComponent
 } from "@customer/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {ITableState} from "@utility/domain/table.state";
 
 @Component({
 	selector: 'customer-mobile-layout-list-component',
@@ -19,9 +20,7 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		AsyncPipe,
 		CardListComponent,
-		NgIf,
 		NotFoundTableDataComponent,
 		TranslateModule,
 		FilterComponent,
@@ -31,11 +30,10 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 })
 export class MobileLayoutListComponent extends LayoutListComponent<ICustomer> {
 
-	@Input()
-	public showButtonGoToForm = true;
+	public readonly showButtonGoToForm = input(true);
+	public override readonly tableState = input.required<ITableState<ICustomer> | null>();
 
-	@ViewChildren(CardListComponent)
-	public cardListComponents!: QueryList<CardListComponent>;
+	readonly cardListComponents = viewChildren(CardListComponent);
 
 	public openForm(): void {
 		this.store.dispatch(new CustomerActions.OpenForm());

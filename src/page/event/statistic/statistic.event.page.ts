@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
-import {StatisticComponent} from "@event/presentation/component/statistic/statistic.component";
 import {NGXLogger} from "ngx-logger";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 import {StatisticV2Component} from "@event/presentation/component/statistic-v2/statistic-v2.component";
@@ -14,7 +13,6 @@ import {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
-		StatisticComponent,
 		StatisticV2Component
 	],
 	template: `

@@ -1,14 +1,8 @@
 import {Component} from '@angular/core';
-import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 
 @Component({
   selector: 'utility-filter-panel-component',
   standalone: true,
-	imports: [
-		SearchInputComponent,
-		PrimaryButtonDirective
-	],
   template: `
 		<section class="bg-gray-50 dark:bg-gray-900 flex items-center">
 			<div class="w-full">

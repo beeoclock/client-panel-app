@@ -1,8 +1,5 @@
-import {Component, inject, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit, viewChild, ViewEncapsulation} from '@angular/core';
 import {BusinessProfileForm} from "@client/presentation/form/business-profile.form";
-import {
-	CoverImageBusinessProfileComponent
-} from "@client/presentation/component/business-profile/cover-image/cover-image.business-profile.component";
 import {
 	LogoBusinessProfileComponent
 } from "@client/presentation/component/business-profile/logo/logo.business-profile.component";
@@ -10,9 +7,6 @@ import {Store} from "@ngxs/store";
 import {IClient} from "@client/domain";
 import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
-import {
-	GalleryBusinessProfileComponent
-} from "@client/presentation/component/business-profile/gallery/gallery.business-profile/gallery.business-profile.component";
 import {ClientState} from "@client/state/client/client.state";
 import {filter} from "rxjs";
 import {
@@ -23,8 +17,6 @@ import {ClientActions} from "@client/state/client/client.actions";
 import {
 	FormBusinessProfileComponent
 } from "@client/presentation/component/business-profile/form-business-profile.component";
-import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
-import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {
 	BusinessProfileContactPhoneComponent
 } from "@client/presentation/component/business-profile/contact-phone/contact-phone.componen";
@@ -35,10 +27,7 @@ import {
 import {
 	SwitchActiveBlockComponent
 } from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
-import {AsyncPipe, NgIf} from "@angular/common";
-import {
-	FacilitiesBusinessProfileComponent
-} from "@client/presentation/component/business-profile/facilities/facilities.business-profile.component";
+import {AsyncPipe} from "@angular/common";
 import {
 	BusinessProfileSocialMediaComponent
 } from "@client/presentation/component/business-profile/social-media/social-media.componen";
@@ -57,19 +46,13 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		FormBusinessProfileComponent,
-		BackButtonComponent,
-		DefaultPanelComponent,
 		BusinessProfileContactPhoneComponent,
-		GalleryBusinessProfileComponent,
-		CoverImageBusinessProfileComponent,
 		SchedulesFormComponent,
 		AddressBusinessProfileComponent,
 		SwitchActiveBlockComponent,
 		LogoBusinessProfileComponent,
 		AsyncPipe,
-		FacilitiesBusinessProfileComponent,
 		BusinessProfileSocialMediaComponent,
-		NgIf,
 		PrimaryButtonDirective,
 		ButtonSaveContainerComponent,
 		TranslateModule
@@ -81,8 +64,7 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 	// @ViewChild(CoverImageBusinessProfileComponent)
 	// public readonly coverImageBusinessProfileComponent!: CoverImageBusinessProfileComponent;
 
-	@ViewChild(LogoBusinessProfileComponent)
-	public readonly logoBusinessProfileComponent!: LogoBusinessProfileComponent;
+	readonly logoBusinessProfileComponent = viewChild.required(LogoBusinessProfileComponent);
 
 	// @ViewChild(GalleryBusinessProfileComponent)
 	// public readonly galleryBusinessProfileComponent!: GalleryBusinessProfileComponent;
@@ -163,7 +145,7 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 				// Save cover image
 				// this.coverImageBusinessProfileComponent.save(),
 				// Save logo
-				this.logoBusinessProfileComponent.save(),
+				this.logoBusinessProfileComponent().save(),
 				// Save gallery
 				// this.galleryBusinessProfileComponent.save(),
 				// Save data
@@ -177,15 +159,15 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 		}
 	}
 
+	public override ngOnDestroy() {
+		super.ngOnDestroy();
+		this.form.destroyHandlers();
+	}
+
 	private checkUsername(value: IClient): void {
 		if (is.string_empty(value.username)) {
 			value.username = null;
 		}
-	}
-
-	public override ngOnDestroy() {
-		super.ngOnDestroy();
-		this.form.destroyHandlers();
 	}
 
 }

@@ -1,5 +1,4 @@
-import {Component, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {Component, input, ViewEncapsulation} from "@angular/core";
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
@@ -12,6 +11,7 @@ import {
 } from "@member/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {TableListComponent} from "@member/presentation/component/list/table/table.list.component";
 import {FilterComponent} from "@member/presentation/component/filter/filter.component";
+import {ITableState} from "@utility/domain/table.state";
 
 @Component({
 	selector: 'member-desktop-layout-list-component',
@@ -19,9 +19,7 @@ import {FilterComponent} from "@member/presentation/component/filter/filter.comp
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		AsyncPipe,
 		FilterComponent,
-		NgIf,
 		NotFoundTableDataComponent,
 		TranslateModule,
 		TableListComponent,
@@ -30,7 +28,7 @@ import {FilterComponent} from "@member/presentation/component/filter/filter.comp
 	]
 })
 export class DesktopLayoutListComponent extends LayoutListComponent<RIMember> {
-
+	public override readonly tableState = input.required<ITableState<RIMember> | null>();
 	openForm() {
 		this.store.dispatch(new MemberActions.OpenForm());
 	}

@@ -1,5 +1,4 @@
-import {Component, Input} from '@angular/core';
-import {FilterPanelComponent} from '@utility/presentation/component/panel/filter.panel.component';
+import {Component, input} from '@angular/core';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {FilterForm} from "@absence/presentation/form/filter.form";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
@@ -9,8 +8,7 @@ import {IonSelectActiveComponent} from "@utility/presentation/component/input/io
 import {AbsenceState} from "@absence/state/absence/absence.state";
 import {BaseFilterComponent} from "@utility/base.filter.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
-import {IonSelectWrapperComponent} from "@utility/presentation/component/input/ion/ion-select-wrapper.component";
-import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
+import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {ReactiveFormsModule} from "@angular/forms";
 
@@ -18,68 +16,71 @@ import {ReactiveFormsModule} from "@angular/forms";
 	selector: 'app-absence-filter-component',
 	standalone: true,
 	imports: [
-		FilterPanelComponent,
 		SearchInputComponent,
 		PrimaryButtonDirective,
 		TranslateModule,
 		IonSelectActiveComponent,
 		DefaultPanelComponent,
-		IonSelectWrapperComponent,
 		AsyncPipe,
-		NgIf,
 		NgTemplateOutlet,
 		AutoRefreshComponent,
 		ReactiveFormsModule
 	],
 	template: `
-        <utility-default-panel-component>
-            <div *ngIf="isNotMobile$ | async" class="flex overflow-x-auto gap-2">
-                <ng-container *ngTemplateOutlet="SearchInput"></ng-container>
-                <ng-container *ngTemplateOutlet="AbsenceActiveSelect"></ng-container>
-                <ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
-            </div>
-            <div *ngIf="isMobile$ | async" class="flex gap-4 justify-between w-full">
-                <ng-container *ngTemplateOutlet="SearchInput"></ng-container>
-                <ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
-            </div>
-            <div *ngIf="isNotMobile$ | async">
-                <ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
-            </div>
-        </utility-default-panel-component>
-        <div *ngIf="isMobile$ | async" class="flex overflow-x-auto gap-2 my-2 px-2">
-            <ng-container *ngTemplateOutlet="AbsenceActiveSelect"></ng-container>
-            <ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
-        </div>
+		<utility-default-panel-component>
+			@if (isMobile$ | async) {
 
-        <ng-template #AbsenceActiveSelect>
-            <ion-select-active
-                    class="px-4 py-3 border border-beeColor-300 rounded-2xl"
-                    [control]="form.controls.active"/>
-        </ng-template>
+				<div class="flex gap-4 justify-between w-full">
+					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
+					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
+				</div>
+				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
+			} @else {
 
-        <ng-template #SearchInput>
+				<div class="flex overflow-x-auto gap-2">
+					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
+					<ng-container *ngTemplateOutlet="AbsenceActiveSelect"></ng-container>
+					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
+				</div>
+			}
+		</utility-default-panel-component>
+		@if (isMobile$ | async) {
+			<div class="flex overflow-x-auto gap-2 my-2 px-2">
+				<ng-container *ngTemplateOutlet="AbsenceActiveSelect"></ng-container>
+				<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
+			</div>
+		}
+
+		<ng-template #AbsenceActiveSelect>
+			<ion-select-active
+				class="px-4 py-3 border border-beeColor-300 rounded-2xl"
+				[control]="form.controls.active"/>
+		</ng-template>
+
+		<ng-template #SearchInput>
 			<utility-search-input-component [formControl]="form.controls.phrase"/>
-        </ng-template>
+		</ng-template>
 
-        <ng-template #AutoRefresh>
-            <utility-auto-refresh-component id="absence-filter-auto-refresh" (emitter)="forceRefresh()"/>
-        </ng-template>
+		<ng-template #AutoRefresh>
+			<utility-auto-refresh-component id="absence-filter-auto-refresh" (emitter)="forceRefresh()"/>
+		</ng-template>
 
-        <ng-template #ButtonToOpenForm>
-			<button *ngIf="showButtonGoToForm" type="button" class="!py-3 !px-4 !text-base flex-1" primary
-					(click)="openForm()">
-                <i class="bi bi-plus-lg"></i>
-<!--                <span class="hidden xl:block">-->
-<!--					{{ 'absence.button.create' | translate }}-->
-<!--				</span>-->
-            </button>
-        </ng-template>
-    `
+		<ng-template #ButtonToOpenForm>
+			@if (showButtonGoToForm()) {
+				<button type="button" class="!py-3 !px-4 !text-base flex-1" primary
+						(click)="openForm()">
+					<i class="bi bi-plus-lg"></i>
+					<!--                <span class="hidden xl:block">-->
+					<!--					{{ 'absence.button.create' | translate }}-->
+					<!--				</span>-->
+				</button>
+			}
+		</ng-template>
+	`
 })
 export class FilterComponent extends BaseFilterComponent {
 
-	@Input()
-	public showButtonGoToForm = true;
+	public readonly showButtonGoToForm = input(true);
 
 	public override readonly form = new FilterForm();
 	public override readonly actions = AbsenceActions;

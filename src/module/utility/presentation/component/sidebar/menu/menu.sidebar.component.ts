@@ -1,6 +1,5 @@
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {IsActiveMatchOptions, RouterLink, RouterLinkActive} from '@angular/router';
-import {NgForOf, NgIf} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
@@ -36,8 +35,6 @@ interface IMenuItem {
 	templateUrl: './menu.sidebar.component.html',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		NgIf,
-		NgForOf,
 		RouterLink,
 		RouterLinkActive,
 		TranslateModule,

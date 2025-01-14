@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, input, OnChanges, ViewEncapsulation} from "@angular/core";
 import {Analytic} from "@module/analytic/internal/store/date-range-report/interface/i.analytic";
 import {TranslatePipe} from "@ngx-translate/core";
 import {CurrencyPipe, DatePipe, KeyValuePipe} from "@angular/common";
@@ -171,10 +171,9 @@ import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duratio
 })
 export class CustomerTableStatisticComponent implements OnChanges {
 
-	@Input({required: true})
-	public customerRecord!: {
-		[customerId: string]: Analytic.ICustomer;
-	};
+	public readonly customerRecord = input.required<{
+    [customerId: string]: Analytic.ICustomer;
+}>();
 
 	public tableData: Analytic.ICustomer[] = [];
 
@@ -195,7 +194,7 @@ export class CustomerTableStatisticComponent implements OnChanges {
 	}
 
 	public initTable() {
-		this.tableData = Object.values(this.customerRecord);
+		this.tableData = Object.values(this.customerRecord());
 		this.resetPagination();
 	}
 

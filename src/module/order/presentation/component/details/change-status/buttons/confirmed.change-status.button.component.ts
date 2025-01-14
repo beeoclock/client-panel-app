@@ -31,7 +31,7 @@ export class ConfirmedChangeStatusButtonComponent extends BaseChangeStatusButton
 		}
 		this.store.dispatch(
 			new OrderActions.ChangeStatus({
-				id: this.item._id,
+				id: this.item()._id,
 				status: OrderStatusEnum.confirmed
 			})
 		)

@@ -1,4 +1,4 @@
-import {Component, inject, Input, ViewEncapsulation} from "@angular/core";
+import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {RoleEnum} from "@utility/domain/enum/role.enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
@@ -25,14 +25,13 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 			bindValue="value"
 			[items]="roles"
 			[clearable]="false"
-			[formControl]="control">
+			[formControl]="control()">
 		</ng-select>
 	`
 })
 export class SelectRoleComponent {
 
-	@Input()
-	public control!: FormControl<RoleEnum>;
+	public readonly control = input.required<FormControl<RoleEnum>>();
 
 	private readonly translateService = inject(TranslateService);
 	public readonly roles = Object.keys(RoleEnum)

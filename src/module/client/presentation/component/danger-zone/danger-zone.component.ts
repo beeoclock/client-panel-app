@@ -1,5 +1,4 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
-import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {
 	DeleteBusinessClientClientAdapter
 } from "@identity/adapter/external/module/delete-business-client.client.adapter";
@@ -16,7 +15,6 @@ import {TENANT_ID} from "@src/token";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		DeleteButtonComponent,
 		CardComponent,
 		TranslateModule
 	],

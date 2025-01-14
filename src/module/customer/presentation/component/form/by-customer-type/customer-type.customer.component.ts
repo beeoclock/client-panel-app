@@ -1,22 +1,9 @@
-import {Component, HostBinding, inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
+import {Component, HostBinding, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {
-	FormBusinessProfileComponent
-} from "@client/presentation/component/business-profile/form-business-profile.component";
-import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
-import {
-	ButtonSaveContainerComponent
-} from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {NGXLogger} from "ngx-logger";
-import {CurrencyPipe, NgClass, NgForOf, NgSwitch, NgSwitchCase} from "@angular/common";
+import {NgClass, NgForOf, NgSwitch, NgSwitchCase} from "@angular/common";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 import {
 	NewCustomerTypeCustomerComponent
@@ -36,20 +23,10 @@ import {CustomerForm} from "@customer/presentation/form";
 	selector: 'app-customer-type-customer-component',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		FormInputComponent,
-		DatetimeLocalInputComponent,
 		TranslateModule,
-		FormTextareaComponent,
-		CardComponent,
-		FormBusinessProfileComponent,
-		SwitchComponent,
-		ButtonSaveContainerComponent,
 		FormsModule,
-		PrimaryButtonDirective,
-		CurrencyPipe,
 		NgSelectModule,
 		ReactiveFormsModule,
-		DefaultLabelDirective,
 		NgForOf,
 		NgClass,
 		NgSwitch,
@@ -76,7 +53,7 @@ import {CustomerForm} from "@customer/presentation/form";
             </ng-container>
         </div>
 
-        <ng-container [ngSwitch]="form.value.customerType">
+        <ng-container [ngSwitch]="form().value.customerType">
 
             <ng-content *ngSwitchCase="customerTypeEnum.new" select="[slot='banner'][customer-type='new']"/>
             <ng-content *ngSwitchCase="customerTypeEnum.regular" select="[slot='banner'][customer-type='regular']"/>
@@ -84,10 +61,10 @@ import {CustomerForm} from "@customer/presentation/form";
             <ng-content *ngSwitchCase="customerTypeEnum.unregistered"
                         select="[slot='banner'][customer-type='unregistered']"/>
 
-            <app-new-customer-type-customer [form]="form" *ngSwitchCase="customerTypeEnum.new"/>
-            <app-regular-customer-type-customer [form]="form" *ngSwitchCase="customerTypeEnum.regular" [showList]="showList"/>
-            <app-anonymous-customer-type-customer [form]="form" *ngSwitchCase="customerTypeEnum.anonymous"/>
-            <app-unregistered-customer-type-customer [form]="form" *ngSwitchCase="customerTypeEnum.unregistered"/>
+            <app-new-customer-type-customer [form]="form()" *ngSwitchCase="customerTypeEnum.new"/>
+            <app-regular-customer-type-customer [form]="form()" *ngSwitchCase="customerTypeEnum.regular" [showList]="showList()"/>
+            <app-anonymous-customer-type-customer [form]="form()" *ngSwitchCase="customerTypeEnum.anonymous"/>
+            <app-unregistered-customer-type-customer [form]="form()" *ngSwitchCase="customerTypeEnum.unregistered"/>
 
         </ng-container>
 
@@ -95,11 +72,9 @@ import {CustomerForm} from "@customer/presentation/form";
 })
 export class CustomerTypeCustomerComponent implements OnInit {
 
-	@Input()
-	public form!: CustomerForm;
+	public readonly form = input.required<CustomerForm>();
 
-	@Input()
-	public showList = false;
+	public readonly showList = input(false);
 
 	@HostBinding()
 	public readonly class = 'flex flex-col gap-4'
@@ -131,13 +106,13 @@ export class CustomerTypeCustomerComponent implements OnInit {
 
 		this.ngxLogger.info('CustomerTypeCustomerComponent.setCustomerType()', {customerType});
 
-		this.form.reset();
-		this.form.controls.customerType.setValue(customerType);
+		this.form().reset();
+		this.form().controls.customerType.setValue(customerType);
 	}
 
 	public isCustomerTypeSelected(customerType: CustomerTypeEnum): boolean {
 
-		return this.form.controls.customerType.value === customerType;
+		return this.form().controls.customerType.value === customerType;
 	}
 
 }

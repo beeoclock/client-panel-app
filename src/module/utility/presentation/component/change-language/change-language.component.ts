@@ -6,11 +6,9 @@ import {
 	HostBinding,
 	inject,
 	Input,
-	ViewChild,
+	viewChild,
 	ViewEncapsulation
 } from '@angular/core';
-import {RouterLink} from '@angular/router';
-import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
 import {LanguageCodeEnum, LanguageRecord, LANGUAGES} from "@utility/domain/enum";
 import {NgForOf} from "@angular/common";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
@@ -74,8 +72,6 @@ import {TranslateService} from "@ngx-translate/core";
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    RouterLink,
-    DropdownComponent,
     NgForOf,
     ReactiveFormsModule
   ],
@@ -91,11 +87,9 @@ export class ChangeLanguageComponent implements AfterViewInit {
     language: new FormControl<LanguageCodeEnum>(LANGUAGES[0].code)
   });
 
-  @ViewChild('dropdownButton')
-  public dropdownButton!: ElementRef<HTMLButtonElement>;
+  readonly dropdownButton = viewChild.required<ElementRef<HTMLButtonElement>>('dropdownButton');
 
-  @ViewChild('dropdownMenu')
-  public dropdownMenu!: ElementRef<HTMLDivElement>;
+  readonly dropdownMenu = viewChild.required<ElementRef<HTMLDivElement>>('dropdownMenu');
 
   @Input()
   @HostBinding()
@@ -136,7 +130,7 @@ export class ChangeLanguageComponent implements AfterViewInit {
     * triggerEl: required
     * options: optional
     */
-    this.#dropdown = new Dropdown(this.dropdownMenu.nativeElement, this.dropdownButton.nativeElement, options);
+    this.#dropdown = new Dropdown(this.dropdownMenu().nativeElement, this.dropdownButton().nativeElement, options);
 
     // Handle change language
     this.form.controls.language.valueChanges.subscribe((languageCode: LanguageCodeEnum | null) => {

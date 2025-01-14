@@ -6,17 +6,14 @@ import {
 	EventEmitter,
 	inject,
 	Input,
+	input,
 	OnInit,
 	Output,
 	QueryList,
-	ViewChild,
+	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
-import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
-import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {Router} from "@angular/router";
 import {NGXLogger} from "ngx-logger";
 import {firstValueFrom} from "rxjs";
@@ -33,13 +30,7 @@ import {Reactive} from "@utility/cdk/reactive";
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		NgForOf,
-		LoaderComponent,
-		NgIf,
 		TranslateModule,
-		CurrencyPipe,
-		HumanizeDurationPipe,
-		PrimaryButtonDirective,
 		CustomerExternalListComponent
 	],
 	template: `
@@ -48,17 +39,14 @@ import {Reactive} from "@utility/cdk/reactive";
 })
 export class SelectCustomerPushBoxComponent extends Reactive implements OnInit, AfterViewInit {
 
-	@ViewChild(CustomerExternalListComponent)
-	public customerExternalListComponent!: CustomerExternalListComponent;
+	readonly customerExternalListComponent = viewChild.required(CustomerExternalListComponent);
 
-	@Input()
-	public selectedCustomerList: ICustomer[] = [];
+	public readonly selectedCustomerList = input<ICustomer[]>([]);
 
 	@Input()
 	public newSelectedCustomerList: ICustomer[] = [];
 
-	@Input()
-	public multiple = true;
+	public readonly multiple = input(true);
 
 	@Output()
 	public readonly selectedCustomerListener = new EventEmitter<ICustomer[]>();
@@ -69,7 +57,7 @@ export class SelectCustomerPushBoxComponent extends Reactive implements OnInit, 
 
 	public ngOnInit(): void {
 
-		this.newSelectedCustomerList = [...(this.selectedCustomerList ?? [])];
+		this.newSelectedCustomerList = [...(this.selectedCustomerList() ?? [])];
 
 	}
 
@@ -78,13 +66,13 @@ export class SelectCustomerPushBoxComponent extends Reactive implements OnInit, 
 	}
 
 	private async initializeCustomConfiguration() {
-		const mobileLayoutListComponents = await firstValueFrom<QueryList<MobileLayoutListComponent>>(this.customerExternalListComponent.mobileLayoutListComponents.changes);
+		const mobileLayoutListComponents = await firstValueFrom<QueryList<MobileLayoutListComponent>>(this.customerExternalListComponent().mobileLayoutListComponents.changes);
 		const {first: mobileLayoutListComponent} = mobileLayoutListComponents;
-		const {first: cardListComponent} = mobileLayoutListComponent.cardListComponents;
+		const {0: cardListComponent} = mobileLayoutListComponent.cardListComponents();
 		cardListComponent.selectedIds = this.newSelectedCustomerList.map((customer) => customer._id);
 		cardListComponent.showAction.doFalse();
 		cardListComponent.showSelectedStatus.doTrue();
-		cardListComponent.goToDetailsOnSingleClick = false;
+		cardListComponent.goToDetailsOnSingleClick;
 		cardListComponent.singleClickEmitter.pipe(this.takeUntil()).subscribe((item) => {
 			if (this.isSelected(item)) {
 				this.deselect(item);
@@ -103,7 +91,7 @@ export class SelectCustomerPushBoxComponent extends Reactive implements OnInit, 
 	}
 
 	public select(service: ICustomer): void {
-		if (!this.multiple) {
+		if (!this.multiple()) {
 			if (this.newSelectedCustomerList.length) {
 				this.newSelectedCustomerList.splice(0, 1);
 			}

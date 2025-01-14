@@ -256,7 +256,7 @@ export class OrderState extends BaseState<IOrderDto> {
 
 			// TODO: call function to increase defaultAppointmentStartDateTimeIso
 
-			componentRef.instance.destroySelf();
+			componentRef.instance.destroySelf()();
 
 		});
 

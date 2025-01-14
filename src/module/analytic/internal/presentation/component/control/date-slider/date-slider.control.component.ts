@@ -4,15 +4,16 @@ import {
 	Component,
 	inject,
 	Input,
+	input,
 	OnChanges,
 	OnInit,
 	SimpleChanges,
-	ViewChild,
+	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {DateTime, Interval} from "luxon";
-import {AsyncPipe, DatePipe, DOCUMENT, NgIf} from "@angular/common";
+import {DatePipe, DOCUMENT} from "@angular/common";
 import {IonDatetime, IonicModule, IonModal} from "@ionic/angular";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
@@ -29,9 +30,7 @@ import {NGXLogger} from "ngx-logger";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
-		AsyncPipe,
 		IonicModule,
-		NgIf,
 		TranslateModule,
 		DatePipe,
 		ReactiveFormsModule,
@@ -50,14 +49,11 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 		}),
 	});
 
-	@Input()
-	public initialIntervalType: IntervalTypeEnum = IntervalTypeEnum.day;
+	public readonly initialIntervalType = input<IntervalTypeEnum>(IntervalTypeEnum.day);
 
-	@ViewChild(IonDatetime)
-	public ionDateTime!: IonDatetime;
+	readonly ionDateTime = viewChild.required(IonDatetime);
 
-	@ViewChild(IonModal)
-	public ionModal!: IonModal;
+	readonly ionModal = viewChild.required(IonModal);
 
 	public readonly intervalTypeEnum = IntervalTypeEnum;
 
@@ -72,7 +68,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 		IntervalTypeEnum.year,
 	];
 
-	public readonly intervalTypeControl = new FormControl<IntervalTypeEnum>(this.initialIntervalType, {
+	public readonly intervalTypeControl = new FormControl<IntervalTypeEnum>(this.initialIntervalType(), {
 		nonNullable: true,
 	});
 
@@ -184,7 +180,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 	public ngOnChanges(changes: SimpleChanges & { initialIntervalType?: SimpleChanges }) {
 		if (changes.initialIntervalType) {
-			this.intervalTypeControl.setValue(this.initialIntervalType);
+			this.intervalTypeControl.setValue(this.initialIntervalType());
 			this.detectCase();
 			this.changeDetectorRef.detectChanges();
 		}
@@ -208,7 +204,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 	}
 
 	protected cancelChanges() {
-		this.ionModal.dismiss({}, 'cancel').then();
+		this.ionModal().dismiss({}, 'cancel').then();
 	}
 
 	protected acceptChanges() {
@@ -217,7 +213,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 
 		this.ngxLogger.debug('acceptChanges', {intervalType, selectedDate});
 
-		this.ionModal.dismiss({
+		this.ionModal().dismiss({
 			intervalType,
 			selectedDate
 		}, 'accept').then();
@@ -232,7 +228,7 @@ export class DateSliderControlComponent extends Reactive implements OnChanges, O
 	}
 
 	protected async setToday() {
-		await this.ionDateTime.reset();
+		await this.ionDateTime().reset();
 		this.dateControl.patchValue(this.today.endOf('day').toJSDate().toISOString());
 	}
 

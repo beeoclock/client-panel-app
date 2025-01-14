@@ -1,10 +1,8 @@
 import {AfterViewInit, Component, HostBinding, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {SidebarComponent} from '@utility/presentation/component/sidebar/sidebar.component';
 import {NavbarComponent} from '@utility/presentation/component/navbar/navbar.component';
-import {FooterComponent} from '@utility/presentation/component/footer/footer.component';
 import {RouterOutlet} from '@angular/router';
-import {AsyncPipe, DOCUMENT, NgIf} from "@angular/common";
-import {ModalComponent} from "@utility/presentation/component/modal/modal.component";
+import {AsyncPipe, DOCUMENT} from "@angular/common";
 import {
 	PageLoadingProgressBarComponent
 } from "@utility/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
@@ -55,11 +53,8 @@ import {environment} from "@environment/environment";
 	imports: [
 		SidebarComponent,
 		NavbarComponent,
-		FooterComponent,
 		RouterOutlet,
-		ModalComponent,
 		PageLoadingProgressBarComponent,
-		NgIf,
 		AsyncPipe,
 		WhacAMole
 	],

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ElementRef, HostBinding, inject, Input} from "@angular/core";
+import {ChangeDetectionStrategy, Component, ElementRef, HostBinding, inject, input} from "@angular/core";
 import {NgForOf} from "@angular/common";
 import {DateTime} from "luxon";
 import {DEFAULT_PRESENTATION_CALENDAR_TYPE} from "@event/domain/enum/presentation-calendar-type.enum";
@@ -14,7 +14,7 @@ import {DEFAULT_PRESENTATION_CALENDAR_TYPE} from "@event/domain/enum/presentatio
 		<!-- Calendar frame -->
 		<div
 			class="min-h-[50px] test bg-white sticky top-0 z-10 dark:bg-gradient-to-b dark:from-slate-600 dark:to-slate-700 border-slate-100 dark:border-black/10 bg-clip-padding text-slate-900 dark:text-slate-200 border-b text-sm font-medium py-2 text-center">
-			{{ currentDate.getFullYear() }}
+			{{ currentDate().getFullYear() }}
 		</div>
 
 		<div
@@ -27,8 +27,7 @@ import {DEFAULT_PRESENTATION_CALENDAR_TYPE} from "@event/domain/enum/presentatio
 })
 export class HoursComponent {
 
-	@Input()
-	public currentDate: Date = DateTime.local().startOf(DEFAULT_PRESENTATION_CALENDAR_TYPE).toJSDate();
+	public readonly currentDate = input<Date>(DateTime.local().startOf(DEFAULT_PRESENTATION_CALENDAR_TYPE).toJSDate());
 
 	@HostBinding()
 	public class = 'sticky z-20 left-0 [&>.test:nth-child(odd)]:bg-white [&>.test:nth-child(even)]:bg-neutral-50 [&>*]:border-b [&>*]:border-neutral-200 [&>*]:border-r hover:[&>.clickMe]:!bg-blue-100 flex flex-col';
