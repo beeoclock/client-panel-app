@@ -183,6 +183,11 @@
 			"title": "Change name"
 		}
 	},
+	"change-phone": {
+		"modal": {
+			"title": "Change of phone number"
+		}
+	},
 	"change-phone-number": {
 		"form": {
 			"input": {

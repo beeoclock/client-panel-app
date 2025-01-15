@@ -183,6 +183,11 @@
 			"title": "Skift navn"
 		}
 	},
+	"change-phone": {
+		"modal": {
+			"title": "Ændring af telefonnummer"
+		}
+	},
 	"change-phone-number": {
 		"form": {
 			"input": {

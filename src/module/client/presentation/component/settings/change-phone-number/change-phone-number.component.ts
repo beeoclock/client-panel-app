@@ -43,7 +43,7 @@ export class ChangePhoneNumberComponent {
     return this.changePhoneNumberClientAdapter.changePhoneNumberApiAdapter.executeAsync(this.form.value)
       .then((result) => {
         this.toastController.create({
-          header: this.translateService.instant('change-name.modal.title'),
+          header: this.translateService.instant('change-phone.modal.title'),
           message: 'Success',
           color: 'success',
           position: 'top',
