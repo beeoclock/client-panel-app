@@ -183,6 +183,11 @@
 			"title": "Зміна імені"
 		}
 	},
+	"change-phone": {
+		"modal": {
+			"title": "Зміна телефону"
+		}
+	},
 	"change-phone-number": {
 		"form": {
 			"input": {

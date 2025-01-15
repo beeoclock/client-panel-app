@@ -183,6 +183,11 @@
 			"title": "Zmiana imienia"
 		}
 	},
+	"change-phone": {
+		"modal": {
+			"title": "Zmiana numeru telefonu"
+		}
+	},
 	"change-phone-number": {
 		"form": {
 			"input": {

@@ -37,28 +37,30 @@ export class ChangePhoneNumberComponent {
 	private readonly toastController = inject(ToastController);
 	private readonly translateService = inject(TranslateService);
 
-	public async submit() {
-		this.form.markAsPending();
-		try {
-			await this.changePhoneNumberClientAdapter.changePhoneNumberApiAdapter.executeAsync(this.form.value);
-			this.toastController.create({
-				header: this.translateService.instant('change-name.modal.title'),
-				message: 'Success',
-				color: 'success',
-				position: 'top',
-				duration: MS_THREE_SECONDS,
-				buttons: [
-					{
-						text: this.translateService.instant('keyword.capitalize.close'),
-						role: 'cancel',
-					},
-				],
-			}).then((toast) => {
-				toast.present().then();
-			});
-		} catch {
-			this.form.markAsPristine();
-		}
-	}
+  public async submit(): Promise<unknown> {
+    this.form.markAsPending();
+    return this.changePhoneNumberClientAdapter.changePhoneNumberApiAdapter.executeAsync(this.form.value)
+      .then((result) => {
+        this.toastController.create({
+          header: this.translateService.instant('change-phone.modal.title'),
+          message: 'Success',
+          color: 'success',
+          position: 'top',
+          duration: MS_THREE_SECONDS,
+          buttons: [
+            {
+              text: this.translateService.instant('keyword.capitalize.close'),
+              role: 'cancel',
+            },
+          ],
+        }).then((toast) => {
+          toast.present().then();
+        });
+        return result;
+      })
+      .catch(() => {
+        this.form.markAsPristine();
+      });
+  }
 
 }
