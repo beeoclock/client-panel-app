@@ -28,7 +28,10 @@ import {TelFormInputComponent} from "@utility/presentation/component/tel-form-in
 
 		</div>
 
-	`
+	`,
+	host: {
+		class: `block md:min-h-[300px]`
+	}
 })
 export class ChangePhoneNumberComponent {
 
