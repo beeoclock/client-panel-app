@@ -51,7 +51,7 @@
 			</div>
 			<div tableColumnFlex="price">
 				<span class="truncate">
-					{{ item.price?.value | currency: item.price?.currency }}
+					{{ item.price?.value | currency: item.price?.currency : 'symbol-narrow' }}	
 				</span>
 			</div>
 			<div tableColumnFlex="tags">

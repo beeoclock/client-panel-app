@@ -11,7 +11,7 @@
 								{{ item.sku | noData }}
 							</div>&nbsp;
 							<div> 
-								{{ item.price?.value | currency: item.price?.currency }}
+								{{ item.price?.value | currency: item.price?.currency : 'symbol-narrow' }}	
 							</div>
 						</div>
 					</div>
