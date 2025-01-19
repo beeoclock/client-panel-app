@@ -50,6 +50,9 @@ export const productEndpoint: EndpointCollectionType = {
 		[productEndpointEnum.deleteProduct]: {
 			source: SourceNetworkEnum.panel,
             replace: true,
+			before: {
+				accept: true,
+			},
 			header: {
 				authorization: true,
 				tenantId: true,

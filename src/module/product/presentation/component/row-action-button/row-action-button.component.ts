@@ -4,6 +4,7 @@ import { Store } from '@ngxs/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { IProduct } from '@product/domain';
+import { ProductActions } from '@product/state/product/product.actions';
 
 @Component({
 	selector: 'product-row-action-button-component',
@@ -12,6 +13,8 @@ import { IProduct } from '@product/domain';
 	template: `
 		<utility-table-column-action
 			(delete)="delete()"
+			(open)="open()"
+			(edit)="edit()"
 			[id]="id()"
 		>
 		</utility-table-column-action>
@@ -28,5 +31,21 @@ export class RowActionButtonComponent {
 	public readonly returnUrl = this.router.url;
 
 	public delete(): void {
+		this.store.dispatch(new ProductActions.DeleteItem(this.item()._id));
+	}
+
+	public open(): void {
+		this.store.dispatch(new ProductActions.OpenDetails(this.item()));
+	}
+
+	public edit(): void {
+		this.store.dispatch(
+			new ProductActions.OpenForm({
+				componentInputs: {
+					isEditMode: true,
+					item: this.item(),
+				},
+			})
+		);
 	}
 }

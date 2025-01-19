@@ -1281,6 +1281,15 @@
 	"product": {
 		"button": {
 			"create": "Dodaj produkt"
+		},
+		"details": {
+			"title": "Informacje o produkcie"
+		},
+		"form": {
+			"title": {
+				"edit": "Edycja produktu",
+				"create": "Dodawanie produktu"
+			}
 		}
 	},
 	"notificationSetting": {

@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { AsyncPipe, CurrencyPipe } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, NgFor } from '@angular/common';
 import { TableStatePaginationComponent } from '@utility/presentation/component/pagination/table-state-pagination.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { TableComponent } from '@utility/table.component';
@@ -8,11 +8,14 @@ import { NoDataPipe } from '@utility/presentation/pipes/no-data.pipe';
 import { BooleanStreamState } from '@utility/domain/boolean-stream.state';
 import { IProduct } from '@product/domain';
 import { DynamicDatePipe } from '@utility/presentation/pipes/dynamic-date/dynamic-date.pipe';
+import { IonChip, IonLabel } from '@ionic/angular/standalone';
+import { ProductActions } from '@product/state/product/product.actions';
+import { RowActionButtonComponent } from '@product/presentation/component/row-action-button/row-action-button.component';
 
 @Component({
 	selector: 'product-card-list-component',
 	templateUrl: './card.list.component.html',
-	standalone: true,
+standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		TableStatePaginationComponent,
@@ -21,7 +24,11 @@ import { DynamicDatePipe } from '@utility/presentation/pipes/dynamic-date/dynami
 		NoDataPipe,
 		AsyncPipe,
 		CurrencyPipe,
-		DynamicDatePipe
+		DynamicDatePipe,
+		IonChip,
+		IonLabel,
+		NgFor,
+		RowActionButtonComponent
 	],
 })
 export class CardListComponent extends TableComponent<IProduct> {
@@ -29,5 +36,7 @@ export class CardListComponent extends TableComponent<IProduct> {
 
 	public showSelectedStatus = new BooleanStreamState(false);
 
-	public override open(item: IProduct) {}
+	public override open(item: IProduct): void {
+		this.store.dispatch(new ProductActions.OpenDetails(item));
+	}
 }

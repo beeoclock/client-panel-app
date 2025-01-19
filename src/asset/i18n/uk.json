@@ -1281,6 +1281,15 @@
 	"product": {
 		"button": {
 			"create": "Dodaj produkt"
+		},
+		"details": {
+			"title": "Інформація про продукт"
+		},
+		"form": {
+			"title": {
+				"edit": "Редагувати товар",
+				"create": "Додати товар"
+			}
 		}
 	},
 	"notificationSetting": {

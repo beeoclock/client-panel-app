@@ -26,7 +26,6 @@ import {ITableState} from "@utility/domain/table.state";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		NgForOf,
 		ActiveStyleDirective,
 		TableStatePaginationComponent,
 		DynamicDatePipe,
@@ -36,8 +35,7 @@ import {ITableState} from "@utility/domain/table.state";
 		ColumnTableFlexDirective,
 		RowTableFlexDirective,
 		TableTableFlexDirective,
-		RowActionButtonComponent,
-		NgIf,
+		RowActionButtonComponent
 	],
 	providers: [
 		CurrencyPipe,

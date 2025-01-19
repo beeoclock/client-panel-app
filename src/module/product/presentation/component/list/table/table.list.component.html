@@ -18,7 +18,7 @@
 				<utility-sort-indicator orderBy="tags" [tableState]="tableState()" />
 			</div>
 		</div>
-		<div tableColumnFlex="isActive" data-orderBy="active">
+		<div tableColumnFlex="active" data-orderBy="active">
 			<div class="flex gap-3 items-center">
 				{{ 'keyword.capitalize.active' | translate }}
 				<utility-sort-indicator orderBy="active" [tableState]="tableState()" />
@@ -55,14 +55,14 @@
 				</span>
 			</div>
 			<div tableColumnFlex="tags">
-				<span [title]="item.tags" class="truncate">
+				<span [title]="item.tags?.join(', ')" class="truncate">
 					<ion-chip *ngFor="let tag of item.tags">
 						<ion-label>{{ tag }}</ion-label>
 					</ion-chip>
 				</span>
 			</div>
-			<div tableColumnFlex="isActive">
-				<div activeStyle [active]="item.isActive">
+			<div tableColumnFlex="active">
+				<div activeStyle [active]="item.active">
 				</div>
 			</div>
 			<div tableColumnFlex="createdAt">

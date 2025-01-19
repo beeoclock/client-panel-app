@@ -4,15 +4,34 @@ import { IProduct } from "@product/domain";
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace ProductActions {
 
-	export class Init extends BaseActions.Init {
-		public static override readonly type = '[Product State] Init';
+	export class OpenDetails extends BaseActions.OpenDetails<IProduct> {
+		public static override readonly type = '[Product Application] Open Details';
 	}
 
 	export class CloseDetails extends BaseActions.CloseDetails {
-		public static override readonly type = '[Product State] Close Details';
+		public static override readonly type = '[Product Application] Close Details';
+	}
+
+	export class CloseForm extends BaseActions.CloseForm {
+		public static override readonly type = '[Product Application] Close Form';
+	}
+
+	export class OpenForm extends BaseActions.OpenForm<{
+			isEditMode?: boolean;
+			item?: IProduct;
+		}> {
+		public static override readonly type = '[Product Application] Open Form';
+	}
+
+	export class OpenFormToEditById extends BaseActions.OpenFormToEditById {
+		public static override readonly type = '[Product Application] Open Form To Edit By Id';
 	}
 
 	// API
+
+	export class Init extends BaseActions.Init {
+		public static override readonly type = '[Product State] Init';
+	}
 
 	export class GetList extends BaseActions.GetList {
 		public static override readonly type = '[Product API] Get List';

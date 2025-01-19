@@ -13,6 +13,7 @@ import { DeleteProductApiAdapter } from '@product/adapter/external/api/delete.pr
 import { ItemProductApiAdapter } from '@product/adapter/external/api/item.product.api.adapter';
 import { UpdateProductApiAdapter } from '@product/adapter/external/api/update.product.api.adapter';
 import { CreateProductApiAdapter } from '@product/adapter/external/api/create.product.api.adapter';
+import { TranslateService } from '@ngx-translate/core';
 
 export type IProductState = IBaseState<Product.IProduct>;
 
@@ -36,15 +37,83 @@ export class ProductState extends BaseState<Product.IProduct> {
 	protected override readonly delete = inject(DeleteProductApiAdapter);
 	protected override readonly paged = inject(ListProductApiAdapter);
 
+	private readonly translateService = inject(TranslateService);
+
 	constructor() {
 		super(defaults);
 	}
 
 	// Application layer
 
+	@Action(ProductActions.OpenDetails)
+	public async openDetailsAction(ctx: StateContext<IProductState>, {payload}: ProductActions.OpenDetails) {
+	
+		const title = await this.translateService.instant('product.details.title');
+
+		const {ProductDetailsContainerComponent} = await import("@product/presentation/component/details/product-details-container.component");
+
+		await this.whacAMaleProvider.buildItAsync({
+			title,
+			componentInputs: {
+				item: payload
+			},
+			component: ProductDetailsContainerComponent,
+		});
+	
+	}
+
+	@Action(ProductActions.OpenFormToEditById)
+	public async openFormToEditById(ctx: StateContext<IProductState>, action: ProductActions.OpenFormToEditById) {
+	
+		const title = await this.translateService.instant('product.form.title.edit');
+
+		await this.openForm(ctx, {
+			payload: {
+				pushBoxInputs: {
+					title,
+					showLoading: true,
+					id: action.payload,
+				},
+			}
+		});
+
+		const item = await this.item.executeAsync(action.payload);
+
+		await this.openForm(ctx, {
+			payload: {
+				pushBoxInputs: {
+					title,
+					id: action.payload,
+				},
+				componentInputs: {
+					item,
+					isEditMode: true,
+				}
+			}
+		});
+	
+	}
+
 	@Action(ProductActions.CloseDetails)
 	public async closeDetails(ctx: StateContext<IProductState>, action?: ProductActions.CloseDetails) {
-		
+		const {ProductDetailsContainerComponent} = await import("@product/presentation/component/details/product-details-container.component");
+
+		await this.whacAMaleProvider.destroyComponent(ProductDetailsContainerComponent);
+	}
+
+	@Action(ProductActions.OpenForm)
+	public async openForm(ctx: StateContext<IProductState>, {payload}: ProductActions.OpenForm): Promise<void> {
+	
+		const {ProductFormContainerComponent} = await import("@product/presentation/component/form/product-form-container.component");
+
+		const {componentInputs, pushBoxInputs} = payload ?? {};
+
+		await this.whacAMaleProvider.buildItAsync({
+			title: this.translateService.instant('product.form.title.create'),
+			...pushBoxInputs,
+			component: ProductFormContainerComponent,
+			componentInputs,
+		});
 	}
 
 	// API

@@ -1,6 +1,5 @@
 import { Component, input } from '@angular/core';
 import { SearchInputComponent } from '@utility/presentation/component/input/search.input.component';
-import { FilterForm } from '@customer/presentation/form/filter.form';
 import { PrimaryButtonDirective } from '@utility/presentation/directives/button/primary.button.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { IonSelectActiveComponent } from '@utility/presentation/component/input/ion/ion-select-active.component';
@@ -11,6 +10,7 @@ import { AutoRefreshComponent } from '@utility/presentation/component/auto-refre
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductState } from '@product/state/product/product.state';
 import { ProductActions } from '@product/state/product/product.actions';
+import { BaseFilterForm } from '@utility/presentation/form/base-filter.form';
 
 @Component({
 	selector: 'product-filter-component',
@@ -98,7 +98,7 @@ import { ProductActions } from '@product/state/product/product.actions';
 export class FilterComponent extends BaseFilterComponent {
 	public readonly showButtonGoToForm = input(true);
 
-	public override readonly form = new FilterForm();
+	public override readonly form = new BaseFilterForm();
 	public override readonly actions = ProductActions;
 	public override readonly state = ProductState;
 
@@ -107,5 +107,7 @@ export class FilterComponent extends BaseFilterComponent {
 		super.initHandlers();
 	}
 
-	public openForm() {}
+	public openForm() {
+		this.store.dispatch(new ProductActions.OpenForm());
+	}
 }

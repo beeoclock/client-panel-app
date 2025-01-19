@@ -1281,6 +1281,15 @@
 	"product": {
 		"button": {
 			"create": "Dodaj produkt"
+		},
+		"details": {
+			"title": "Info om produktet"
+		},
+		"form": {
+			"title": {
+				"edit": "Rediger produkt",
+				"create": "Tilføj produkt"
+			}
 		}
 	},
 	"notificationSetting": {

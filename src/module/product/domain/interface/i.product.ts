@@ -11,7 +11,7 @@ export interface IProduct extends IBaseEntity<'ProductDTO'> {
 	sku: string;
     languageVersions: IProductLanguageVersion[];
     price?: IProductPrice;
-    isActive: Enum.ActiveEnum;
+    active: Enum.ActiveEnum;
     tags?: string[]
     images?: IMedia[];
 }

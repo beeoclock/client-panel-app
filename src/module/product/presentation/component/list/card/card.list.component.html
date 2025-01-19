@@ -17,8 +17,7 @@
 					</div>
 				</div>
 				@if (showAction.state$ | async) {
-
-					<!-- ROW ACTION -->
+					<product-row-action-button-component [item]="item" [id]="item._id"/>
 				}
 
 				@if (showSelectedStatus.state$ | async) {
@@ -32,8 +31,10 @@
 					</div>
 				}
 			</div>
-			<div class="">
-				{{ item.tags | noData }}
+			<div [title]="item.tags?.join(', ')" class="truncate">
+				<ion-chip *ngFor="let tag of item.tags">
+					<ion-label>{{ tag }}</ion-label>
+				</ion-chip>
 			</div>
 			<div class="">
 				{{ item.createdAt | dynamicDate }}

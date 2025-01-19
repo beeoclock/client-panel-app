@@ -14,6 +14,8 @@ import { IProduct } from '@product/domain';
 import { CurrencyPipe, NgFor } from '@angular/common';
 import { RowActionButtonComponent } from '@product/presentation/component/row-action-button/row-action-button.component';
 import { IonChip, IonLabel } from '@ionic/angular/standalone';
+import * as Product from "@product/domain";
+import { ProductActions } from '@src/module/product/state/product/product.actions';
 
 @Component({
 	selector: 'product-table-list-component',
@@ -58,7 +60,7 @@ export class TableListComponent extends TableComponent<IProduct> {
 					flexGrow: 1,
 				},
 			},
-			isActive: {
+			active: {
 				style: {
 					minWidth: '150px'
 				},
@@ -82,7 +84,7 @@ export class TableListComponent extends TableComponent<IProduct> {
 		},
 	};
 
-	// public override open(item: ICustomer) {
-	// 	this.store.dispatch(new CustomerActions.OpenDetails(item));
-	// }
+	public override open(item: Product.IProduct) {
+		this.store.dispatch(new ProductActions.OpenDetails(item));
+	}
 }
