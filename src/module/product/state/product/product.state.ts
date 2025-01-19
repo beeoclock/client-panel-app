@@ -40,6 +40,13 @@ export class ProductState extends BaseState<Product.IProduct> {
 		super(defaults);
 	}
 
+	// Application layer
+
+	@Action(ProductActions.CloseDetails)
+	public async closeDetails(ctx: StateContext<IProductState>, action?: ProductActions.CloseDetails) {
+		
+	}
+
 	// API
 
 	@Action(ProductActions.Init)
@@ -75,12 +82,12 @@ export class ProductState extends BaseState<Product.IProduct> {
 	@Action(ProductActions.DeleteItem)
 	public override async deleteItem(ctx: StateContext<IProductState>, action: ProductActions.DeleteItem) {
 		await super.deleteItem(ctx, action);
+		await this.closeDetails(ctx, action);
 	}
 
 	@Action(ProductActions.GetList)
 	public override async getList(ctx: StateContext<IProductState>, action: ProductActions.GetList): Promise<void> {
 		await super.getList(ctx, action);
-
 	}
 
 	// Selectors

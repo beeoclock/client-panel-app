@@ -681,6 +681,14 @@
 						"message": "Are you sure you want to remove the service?"
 					}
 				}
+			},
+			"/api/v1/product/{id}": {
+				"before": {
+					"accept": {
+						"header": "Deleting a product",
+						"message": "Are you sure you want to remove the product?"
+					}
+				}
 			}
 		},
 		"PATCH": {
@@ -1175,7 +1183,7 @@
 			"yesterday": "Yesterday",
 			"zipCode": "Zip code",
 			"sku": "SKU",
-			"tags": "Tagi"
+			"tags": "Tags"
 		},
 		"lowercase": {
 			"after": "after",

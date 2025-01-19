@@ -681,6 +681,14 @@
 						"message": "Er du sikker på, at du vil fjerne tjenesten?"
 					}
 				}
+			},
+			"/api/v1/product/{id}": {
+				"before": {
+					"accept": {
+						"header": "Sletning af et produkt",
+						"message": "Er du sikker på, at du vil fjerne produktet?"
+					}
+				}
 			}
 		},
 		"PATCH": {

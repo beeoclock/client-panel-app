@@ -3,11 +3,16 @@ import { IProduct } from "@product/domain";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace ProductActions {
-	// API
 
 	export class Init extends BaseActions.Init {
 		public static override readonly type = '[Product State] Init';
 	}
+
+	export class CloseDetails extends BaseActions.CloseDetails {
+		public static override readonly type = '[Product State] Close Details';
+	}
+
+	// API
 
 	export class GetList extends BaseActions.GetList {
 		public static override readonly type = '[Product API] Get List';

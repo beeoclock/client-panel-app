@@ -681,6 +681,14 @@
 						"message": "Czy na pewno chcesz usunąć usługę?"
 					}
 				}
+			},
+			"/api/v1/product/{id}": {
+				"before": {
+					"accept": {
+						"header": "Usuwanie produkt",
+						"message": "Czy na pewno chcesz usunąć produkt?"
+					}
+				}
 			}
 		},
 		"PATCH": {
