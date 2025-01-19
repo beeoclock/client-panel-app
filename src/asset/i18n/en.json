@@ -1173,7 +1173,9 @@
 			"year": "Year",
 			"yes": "Yes",
 			"yesterday": "Yesterday",
-			"zipCode": "Zip code"
+			"zipCode": "Zip code",
+			"sku": "SKU",
+			"tags": "Tagi"
 		},
 		"lowercase": {
 			"after": "after",
@@ -1267,6 +1269,11 @@
 			}
 		},
 		"title": "Member"
+	},
+	"product": {
+		"button": {
+			"create": "Create product"
+		}
 	},
 	"notificationSetting": {
 		"cardTitle": "Customer Notification Settings",
@@ -1515,6 +1522,7 @@
 		},
 		"requested": "Requests",
 		"services": "Services",
+		"products": "Products",
 		"settings": "Settings",
 		"statistic": "Statistics",
 		"switch-business-client": "Change context",

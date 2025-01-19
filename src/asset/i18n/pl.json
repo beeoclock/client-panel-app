@@ -1173,7 +1173,9 @@
 			"year": "Rok",
 			"yes": "Tak",
 			"yesterday": "Wczoraj",
-			"zipCode": "Kod pocztowy"
+			"zipCode": "Kod pocztowy",
+			"sku": "SKU",
+			"tags": "Tagi"
 		},
 		"lowercase": {
 			"after": "za",
@@ -1267,6 +1269,11 @@
 			}
 		},
 		"title": "Członek"
+	},
+	"product": {
+		"button": {
+			"create": "Dodaj produkt"
+		}
 	},
 	"notificationSetting": {
 		"cardTitle": "Ustawienia Powiadomień Klienta",
@@ -1515,6 +1522,7 @@
 		},
 		"requested": "Zażądane",
 		"services": "Usługi",
+		"products": "Produkty",
 		"settings": "Ustawienia",
 		"statistic": "Statystyki",
 		"switch-business-client": "Zmień kontekst",

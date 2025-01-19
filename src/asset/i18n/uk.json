@@ -1173,7 +1173,9 @@
 			"year": "Рік",
 			"yes": "Так",
 			"yesterday": "Вчора",
-			"zipCode": "Поштовий індекс"
+			"zipCode": "Поштовий індекс",
+			"sku": "SKU",
+			"tags": "Tagi"
 		},
 		"lowercase": {
 			"after": "через",
@@ -1267,6 +1269,11 @@
 			}
 		},
 		"title": "Учасник"
+	},
+	"product": {
+		"button": {
+			"create": "Dodaj produkt"
+		}
 	},
 	"notificationSetting": {
 		"cardTitle": "Налаштування сповіщень клієнта",
@@ -1515,6 +1522,7 @@
 		},
 		"requested": "Запити",
 		"services": "Послуги",
+		"products": "Продукти",
 		"settings": "Налаштування",
 		"statistic": "Статистика",
 		"switch-business-client": "Змінити контекст",

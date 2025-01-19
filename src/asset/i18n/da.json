@@ -1173,7 +1173,9 @@
 			"year": "År",
 			"yes": "Ja",
 			"yesterday": "Yesterday",
-			"zipCode": "Postnummer"
+			"zipCode": "Postnummer",
+			"sku": "SKU",
+			"tags": "Tagi"
 		},
 		"lowercase": {
 			"after": "efter",
@@ -1267,6 +1269,11 @@
 			}
 		},
 		"title": "Medlem"
+	},
+	"product": {
+		"button": {
+			"create": "Dodaj produkt"
+		}
 	},
 	"notificationSetting": {
 		"cardTitle": "Kunde Notifikationsindstillinger",
@@ -1515,6 +1522,7 @@
 		},
 		"requested": "Anmodninger",
 		"services": "Tjenester",
+		"products": "Produkter",
 		"settings": "Indstillinger",
 		"statistic": "Statistik",
 		"switch-business-client": "Skift kontekst",

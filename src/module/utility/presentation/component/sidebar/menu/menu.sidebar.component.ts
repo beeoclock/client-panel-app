@@ -280,6 +280,19 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 		});
 		this.menu.push({
 			order: 10,
+			url: 'product/list',
+			translateKey: 'sidebar.products',
+			icon: 'bi bi-basket',
+			visible: true,
+			routerLinkActiveOptions: {
+				paths: "subset",
+				matrixParams: "ignored",
+				queryParams: "ignored",
+				fragment: "ignored",
+			}
+		});
+		this.menu.push({
+			order: 11,
 			url: 'client/business-profile',
 			translateKey: 'sidebar.businessProfile',
 			visible: true,
@@ -292,7 +305,7 @@ export class MenuSidebarComponent extends Reactive implements OnInit {
 			}
 		});
 		this.menu.push({
-			order: 11,
+			order: 12,
 			url: 'client/business-settings',
 			translateKey: 'sidebar.businessSettings',
 			icon: 'bi bi-building-gear',

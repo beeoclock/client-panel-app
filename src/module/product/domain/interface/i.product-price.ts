@@ -1,6 +1,6 @@
 import { CurrencyCodeEnum } from '@utility/domain/enum';
 
 export interface IProductPrice {
-	price: number;
+	value: number;
 	currency: CurrencyCodeEnum;
 }

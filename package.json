@@ -42,7 +42,8 @@
 			"@customer/(.*)": "<rootDir>/src/module/customer/$1",
 			"@event/(.*)": "<rootDir>/src/module/event/$1",
 			"@service/(.*)": "<rootDir>/src/module/service/$1",
-			"@member/(.*)": "<rootDir>/src/module/member/$1"
+			"@member/(.*)": "<rootDir>/src/module/member/$1",
+			"@product/(.*)": "<rootDir>/src/module/product/$1"
 		}
 	},
 	"private": true,

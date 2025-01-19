@@ -1,0 +1,87 @@
+<!-- <span class="truncate">
+						{{ item.price?.value | currency: item.price?.currency }}
+					</span>
+				</div> -->
+
+<div [tableFlex]="tableConfiguration">
+	<div tableRowFlex="header">
+		<div tableColumnFlex="sku">
+			{{ 'keyword.capitalize.sku' | translate }}
+		</div>
+		<div tableColumnFlex="price" data-orderBy="price">
+			<div class="flex gap-3 items-center">
+				{{ 'keyword.capitalize.price' | translate }}
+				<utility-sort-indicator orderBy="price" [tableState]="tableState()" />
+			</div>
+		</div>
+		<div tableColumnFlex="tags" data-orderBy="tags">
+			<div class="flex gap-3 items-center">
+				{{ 'keyword.capitalize.tags' | translate }}
+				<utility-sort-indicator orderBy="tags" [tableState]="tableState()" />
+			</div>
+		</div>
+		<div tableColumnFlex="isActive" data-orderBy="active">
+			<div class="flex gap-3 items-center">
+				{{ 'keyword.capitalize.active' | translate }}
+				<utility-sort-indicator orderBy="active" [tableState]="tableState()" />
+			</div>
+		</div>
+		<div tableColumnFlex="createdAt" data-orderBy="createdAt">
+			<div class="flex gap-3 items-center">
+				{{ 'keyword.capitalize.createdAt' | translate }}
+				<utility-sort-indicator orderBy="createdAt" [tableState]="tableState()" />
+			</div>
+		</div>
+		<div tableColumnFlex="updatedAt" data-orderBy="updatedAt">
+			<div class="flex gap-3 items-center">
+				{{ 'keyword.capitalize.updatedAt' | translate }}
+				<utility-sort-indicator orderBy="updatedAt" [tableState]="tableState()" />
+			</div>
+		</div>
+		<div tableColumnFlex="action" class="border-l sticky right-0">
+			{{ 'keyword.capitalize.action' | translate }}
+		</div>
+	</div>
+	<!-- Column Cell	-->
+	<div tableBodyFlex>
+		@for(item of tableState().items; track item._id) {
+		<div tableRowFlex="body" (click)="doubleClick(item)">
+			<div tableColumnFlex="sku">
+				<span class="truncate">
+					{{ item.sku | noData }}
+				</span>
+			</div>
+			<div tableColumnFlex="price">
+				<span class="truncate">
+					{{ item.price?.value | currency: item.price?.currency }}
+				</span>
+			</div>
+			<div tableColumnFlex="tags">
+				<span [title]="item.tags" class="truncate">
+					<ion-chip *ngFor="let tag of item.tags">
+						<ion-label>{{ tag }}</ion-label>
+					</ion-chip>
+				</span>
+			</div>
+			<div tableColumnFlex="isActive">
+				<div activeStyle [active]="item.isActive">
+				</div>
+			</div>
+			<div tableColumnFlex="createdAt">
+				<span [title]="item.createdAt | dynamicDate" class="truncate">
+					{{ item.createdAt | dynamicDate }}
+				</span>
+			</div>
+			<div tableColumnFlex="updatedAt">
+				<span [title]="item.updatedAt | dynamicDate" class="truncate">
+					{{ item.updatedAt | dynamicDate }}
+				</span>
+			</div>
+			<div tableColumnFlex="action" class="border-l sticky right-0">
+				<product-row-action-button-component [item]="item" [id]="item._id" />
+			</div>
+		</div>
+		}
+	</div>
+</div>
+<utility-table-state-pagination-component (page)="pageChange($event)" [tableState]="tableState()" />

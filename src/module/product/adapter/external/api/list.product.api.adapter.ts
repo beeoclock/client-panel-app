@@ -3,11 +3,11 @@ import { TableState_BackendFormat } from '@utility/domain/table.state';
 import { BaseApiAdapter } from '@utility/adapter/base.api.adapter';
 import { TypeGuard } from '@p4ck493/ts-type-guard';
 import { is } from '@utility/checker';
-import { IProduct } from '@src/module/product/domain/interface';
+import * as Product from "@product/domain";
 import { productEndpointEnum } from '@src/module/product/endpoint/product.endpoint';
 
 type ResponseType = {
-	items: IProduct[];
+	items: Product.IProduct[];
 	totalSize: number;
 };
 

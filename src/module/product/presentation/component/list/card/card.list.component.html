@@ -1,0 +1,40 @@
+<div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState().items.length">
+	@for (item of tableState().items; track item._id) {
+		<bee-card class="text-sm border-2 border-transparent hover:border-blue-500 !gap-0"
+				  [class.!border-green-500]="selectedIds.includes(item._id)">
+			<div class="flex justify-between items-center gap-8">
+
+				<div (click)="singleClick(item)" class="flex justify-between">
+					<div class="flex-1">
+						<div class="font-bold flex">
+							<div>{{ item.sku | noData }}</div>&nbsp;<div> {{ item.price?.value | currency: item.price?.currency }}</div>
+						</div>
+					</div>
+				</div>
+				@if (showAction.state$ | async) {
+
+					<!-- ROW ACTION -->
+				}
+
+				@if (showSelectedStatus.state$ | async) {
+
+					<div (click)="singleClick(item)">
+						@if (selectedIds.includes(item._id)) {
+							<i class="bi bi-check-circle text-green-600 text-xl"></i>
+						} @else {
+							<i class="bi bi-circle text-gray-600 text-xl"></i>
+						}
+					</div>
+				}
+			</div>
+			<div class="">
+				{{ item.tags | noData }}
+			</div>
+			<div>{{ item.isActive | noData }}</div>
+		</bee-card>
+	}
+</div>
+<utility-table-state-pagination-component
+	[mobileMode]="true"
+	(page)="pageChange($event)"
+	[tableState]="tableState()"/>

@@ -1,0 +1,16 @@
+<product-filter-component/>
+@if (tableState(); as data) {
+	@if (data.total) {
+		<product-table-list-component [tableState]="data" />
+	}
+	@else {
+		<not-found-table-data-component
+			class="block h-full"
+			(clickListener)="openForm()"
+			[showLinkToForm]="true"
+			[linkLabel]="'product.button.create' | translate"
+			[label]="'keyword.capitalize.dataNotFound' | translate">
+			<product-auto-refresh-component  [resetPage]="true" [resetParams]="true"/>
+		</not-found-table-data-component>
+	}
+}
