@@ -1,12 +1,10 @@
-<!-- <span class="truncate">
-						{{ item.price?.value | currency: item.price?.currency }}
-					</span>
-				</div> -->
-
 <div [tableFlex]="tableConfiguration">
 	<div tableRowFlex="header">
-		<div tableColumnFlex="sku">
-			{{ 'keyword.capitalize.sku' | translate }}
+		<div tableColumnFlex="sku" data-orderBy="sku">
+			<div class="flex gap-3 items-center">
+				{{ 'keyword.capitalize.sku' | translate }}
+				<utility-sort-indicator orderBy="sku" [tableState]="tableState()" />
+			</div>
 		</div>
 		<div tableColumnFlex="price" data-orderBy="price">
 			<div class="flex gap-3 items-center">

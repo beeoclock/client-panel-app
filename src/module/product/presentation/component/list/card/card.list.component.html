@@ -7,7 +7,12 @@
 				<div (click)="singleClick(item)" class="flex justify-between">
 					<div class="flex-1">
 						<div class="font-bold flex">
-							<div>{{ item.sku | noData }}</div>&nbsp;<div> {{ item.price?.value | currency: item.price?.currency }}</div>
+							<div>
+								{{ item.sku | noData }}
+							</div>&nbsp;
+							<div> 
+								{{ item.price?.value | currency: item.price?.currency }}
+							</div>
 						</div>
 					</div>
 				</div>
@@ -30,7 +35,9 @@
 			<div class="">
 				{{ item.tags | noData }}
 			</div>
-			<div>{{ item.isActive | noData }}</div>
+			<div class="">
+				{{ item.createdAt | dynamicDate }}
+			</div>
 		</bee-card>
 	}
 </div>
