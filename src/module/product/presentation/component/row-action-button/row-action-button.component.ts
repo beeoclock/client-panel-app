@@ -1,7 +1,7 @@
 import { Component, inject, input, ViewEncapsulation } from '@angular/core';
 import { ActionComponent } from '@utility/presentation/component/table/column/action.component';
 import { Store } from '@ngxs/store';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { IProduct } from '@product/domain';
 import { ProductActions } from '@product/state/product/product.actions';
@@ -28,6 +28,7 @@ export class RowActionButtonComponent {
 
 	private readonly store = inject(Store);
 	private readonly router = inject(Router);
+	private readonly translateService = inject(TranslateService);
 	public readonly returnUrl = this.router.url;
 
 	public delete(): void {
@@ -45,6 +46,9 @@ export class RowActionButtonComponent {
 					isEditMode: true,
 					item: this.item(),
 				},
+				pushBoxInputs: {
+					title: this.translateService.instant('product.form.title.edit')
+				}
 			})
 		);
 	}

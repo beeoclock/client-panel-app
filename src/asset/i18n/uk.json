@@ -1183,7 +1183,8 @@
 			"yesterday": "Вчора",
 			"zipCode": "Поштовий індекс",
 			"sku": "SKU",
-			"tags": "Tagi"
+			"productName": "Назва продукту",
+			"tags": "Категорія"
 		},
 		"lowercase": {
 			"after": "через",

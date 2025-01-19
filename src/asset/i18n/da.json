@@ -1183,7 +1183,8 @@
 			"yesterday": "Yesterday",
 			"zipCode": "Postnummer",
 			"sku": "SKU",
-			"tags": "Tagi"
+			"productName": "Produktets navn",
+			"tags": "Kategori"
 		},
 		"lowercase": {
 			"after": "efter",

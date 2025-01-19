@@ -9,6 +9,15 @@
 					{{ product.sku }}
 				</dd>
 			</div>
+
+			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.productName' | translate }}
+				</dt>
+				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
+					{{ product.languageVersions[0].title }}
+				</dd>
+			</div>
 			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.tags' | translate }}
@@ -16,7 +25,7 @@
 				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2"  class="truncate">
 					<span [title]="product.tags?.join(', ')">
 						<ion-chip *ngFor="let tag of product.tags">
-							<ion-label>{{ tag }}</ion-label>
+							{{ tag }}
 						</ion-chip>
 					</span>
 				</dd>
@@ -37,18 +46,6 @@
 					<div activeStyle [active]="product.active"></div>
 				</dd>
 			</div>
-			<!-- <button (click)="openCustomersOrders()"
-					class="w-full p-3 flex justify-between cursor-pointer hover:bg-gray-50 transition-all">
-
-				<dt class="text-sm font-medium leading-6 text-gray-900 text-start">
-					{{ 'sidebar.order' | translate }}
-				</dt>
-				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex justify-end">
-					<div class="flex items-center gap-4">
-						<i class="bi bi-chevron-right"></i>
-					</div>
-				</dd>
-			</button> -->
 		</dl>
 	</div>
 

@@ -36,7 +36,6 @@ import { ProductActions } from '@src/module/product/state/product/product.action
 		CurrencyPipe,
 		RowActionButtonComponent,
 		IonChip,
-		IonLabel,
 		NgFor,
 	],
 })
@@ -45,19 +44,25 @@ export class TableListComponent extends TableComponent<IProduct> {
 		columns: {
 			sku: {
 				style: {
-					minWidth: '150px'
-				},
+					minWidth: '200px',
+					maxWidth: '200px',	
+				}
 			},
+			productName: {
+				style: {
+					minWidth: '250px',
+					flexGrow: 1
+				},
+			},	
 			price: {
 				style: {
 					minWidth: '100px',
-					maxWidth: '150px',
 				},
 			},
 			tags: {
 				style: {
-					minWidth: '150px',
-					flexGrow: 1,
+					minWidth: '200px',
+					maxWidth: '200px',			
 				},
 			},
 			active: {

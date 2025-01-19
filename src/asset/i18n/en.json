@@ -1183,7 +1183,8 @@
 			"yesterday": "Yesterday",
 			"zipCode": "Zip code",
 			"sku": "SKU",
-			"tags": "Tags"
+			"productName": "Product name",
+			"tags": "Categorie"
 		},
 		"lowercase": {
 			"after": "after",

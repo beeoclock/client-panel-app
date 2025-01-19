@@ -31,13 +31,30 @@
 					</div>
 				}
 			</div>
-			<div [title]="item.tags?.join(', ')" class="truncate">
-				<ion-chip *ngFor="let tag of item.tags">
-					<ion-label>{{ tag }}</ion-label>
-				</ion-chip>
-			</div>
-			<div class="">
-				{{ item.createdAt | dynamicDate }}
+			<div (click)="singleClick(item)">
+				<div class="flex flex-col divide-y" >
+					@for (languageVersion of item.languageVersions; track languageVersion.language) {
+	
+						<div
+							class="relative flex gap-2 items-start py-2 font-sans text-xs font-bold uppercase text-neutral-900">
+							<span
+								class="relative flex items-center justify-center p-0 cursor-pointer border-2 border-neutral-200 px-1 rounded-lg">
+								{{ languageVersion.language }}
+							</span>
+							<div>
+								{{ languageVersion.title }}
+							</div>
+						</div>
+					}
+				</div>
+				<div [title]="item.tags?.join(', ')" class="truncate">
+					<ion-chip *ngFor="let tag of item.tags">
+						{{ tag }}
+					</ion-chip>
+				</div>
+				<div class="">
+					{{ item.createdAt | dynamicDate }}
+				</div>
 			</div>
 		</bee-card>
 	}

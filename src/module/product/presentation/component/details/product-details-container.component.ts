@@ -5,7 +5,7 @@ import { IProduct } from '@product/domain';
 import { DynamicDatePipe } from '@utility/presentation/pipes/dynamic-date/dynamic-date.pipe';
 import { ActiveStyleDirective } from '@utility/presentation/directives/active-style/active-style.directive';
 import { CurrencyPipe, NgFor } from '@angular/common';
-import { IonChip, IonLabel } from '@ionic/angular/standalone';
+import { IonChip } from '@ionic/angular/standalone';
 import { DeleteButtonComponent } from '@utility/presentation/component/button/delete.button.component';
 import { EditButtonComponent } from '@utility/presentation/component/button/edit.button.component';
 import { firstValueFrom } from 'rxjs';
@@ -22,10 +22,9 @@ import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 		DynamicDatePipe,
 		CurrencyPipe,
 		IonChip,
-		IonLabel,
 		NgFor,
 		DeleteButtonComponent,
-		EditButtonComponent,
+		EditButtonComponent
 	],
 	standalone: true,
 })

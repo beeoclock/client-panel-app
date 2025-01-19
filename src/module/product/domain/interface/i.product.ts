@@ -13,6 +13,7 @@ export interface IProduct extends IBaseEntity<'ProductDTO'> {
     price?: IProductPrice;
     active: Enum.ActiveEnum;
     tags?: string[]
+    order?: number;
     images?: IMedia[];
 }
 

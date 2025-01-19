@@ -4,13 +4,13 @@ import { TableStatePaginationComponent } from '@utility/presentation/component/p
 import { TranslateModule } from '@ngx-translate/core';
 import { TableComponent } from '@utility/table.component';
 import { CardComponent } from '@utility/presentation/component/card/card.component';
-import { NoDataPipe } from '@utility/presentation/pipes/no-data.pipe';
 import { BooleanStreamState } from '@utility/domain/boolean-stream.state';
 import { IProduct } from '@product/domain';
 import { DynamicDatePipe } from '@utility/presentation/pipes/dynamic-date/dynamic-date.pipe';
-import { IonChip, IonLabel } from '@ionic/angular/standalone';
+import { IonChip } from '@ionic/angular/standalone';
 import { ProductActions } from '@product/state/product/product.actions';
 import { RowActionButtonComponent } from '@product/presentation/component/row-action-button/row-action-button.component';
+import { NoDataPipe } from '@utility/presentation/pipes/no-data.pipe';
 
 @Component({
 	selector: 'product-card-list-component',
@@ -21,19 +21,17 @@ standalone: true,
 		TableStatePaginationComponent,
 		TranslateModule,
 		CardComponent,
-		NoDataPipe,
 		AsyncPipe,
+		NoDataPipe,
 		CurrencyPipe,
 		DynamicDatePipe,
 		IonChip,
-		IonLabel,
 		NgFor,
 		RowActionButtonComponent
 	],
 })
 export class CardListComponent extends TableComponent<IProduct> {
 	public showAction = new BooleanStreamState(true);
-
 	public showSelectedStatus = new BooleanStreamState(false);
 
 	public override open(item: IProduct): void {
