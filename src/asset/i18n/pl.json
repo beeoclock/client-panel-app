@@ -1184,7 +1184,7 @@
 			"zipCode": "Kod pocztowy",
 			"sku": "SKU",
 			"productName": "Nazwa produktu",
-			"tags": "Kategoria"
+			"tags": "Kategorie"
 		},
 		"lowercase": {
 			"after": "za",

@@ -1184,7 +1184,7 @@
 			"zipCode": "Zip code",
 			"sku": "SKU",
 			"productName": "Product name",
-			"tags": "Categorie"
+			"tags": "Categories"
 		},
 		"lowercase": {
 			"after": "after",
