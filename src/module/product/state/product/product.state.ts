@@ -65,19 +65,8 @@ export class ProductState extends BaseState<Product.IProduct> {
 	@Action(ProductActions.OpenFormToEditById)
 	public async openFormToEditById(ctx: StateContext<IProductState>, action: ProductActions.OpenFormToEditById) {
 	
-		const title = await this.translateService.instant('product.form.title.edit');
-
-		await this.openForm(ctx, {
-			payload: {
-				pushBoxInputs: {
-					title,
-					showLoading: true,
-					id: action.payload,
-				},
-			}
-		});
-
 		const item = await this.item.executeAsync(action.payload);
+		const title = await this.translateService.instant('product.form.title.edit');
 
 		await this.openForm(ctx, {
 			payload: {

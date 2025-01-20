@@ -26,6 +26,12 @@
 				<utility-sort-indicator orderBy="price" [tableState]="tableState()" />
 			</div>
 		</div>
+		<div tableColumnFlex="order" data-orderBy="order">
+			<div class="flex gap-3 items-center">
+				{{ 'keyword.capitalize.order' | translate }}
+				<utility-sort-indicator orderBy="order" [tableState]="tableState()" />
+			</div>
+		</div>
 		<div tableColumnFlex="active" data-orderBy="active">
 			<div class="flex gap-3 items-center">
 				{{ 'keyword.capitalize.active' | translate }}
@@ -82,6 +88,11 @@
 			<div tableColumnFlex="price">
 				<span class="truncate">
 					{{ item.price?.value | currency: item.price?.currency : 'symbol-narrow' }}	
+				</span>
+			</div>
+			<div tableColumnFlex="order">
+				<span>
+					{{ item?.order | noData }}	
 				</span>
 			</div>
 			<div tableColumnFlex="active">

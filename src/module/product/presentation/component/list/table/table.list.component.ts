@@ -13,7 +13,7 @@ import { NoDataPipe } from '@utility/presentation/pipes/no-data.pipe';
 import { IProduct } from '@product/domain';
 import { CurrencyPipe, NgFor } from '@angular/common';
 import { RowActionButtonComponent } from '@product/presentation/component/row-action-button/row-action-button.component';
-import { IonChip, IonLabel } from '@ionic/angular/standalone';
+import { IonChip } from '@ionic/angular/standalone';
 import * as Product from "@product/domain";
 import { ProductActions } from '@src/module/product/state/product/product.actions';
 
@@ -63,6 +63,11 @@ export class TableListComponent extends TableComponent<IProduct> {
 				style: {
 					minWidth: '200px',
 					maxWidth: '200px',			
+				},
+			},
+			order: {
+				style: {
+					minWidth: '100px'
 				},
 			},
 			active: {

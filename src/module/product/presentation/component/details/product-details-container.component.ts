@@ -11,6 +11,7 @@ import { EditButtonComponent } from '@utility/presentation/component/button/edit
 import { firstValueFrom } from 'rxjs';
 import { ProductActions } from '@product/state/product/product.actions';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
+import { NoDataPipe } from '@src/module/utility/presentation/pipes/no-data.pipe';
 
 @Component({
 	selector: 'product-detail-page',
@@ -24,7 +25,8 @@ import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 		IonChip,
 		NgFor,
 		DeleteButtonComponent,
-		EditButtonComponent
+		EditButtonComponent,
+		NoDataPipe
 	],
 	standalone: true,
 })

@@ -40,6 +40,14 @@
 			</div>
 			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.order' | translate }}
+				</dt>
+				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2 flex">
+					{{ product?.order | noData }}	
+				</dd>
+			</div>
+			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.status' | translate }}
 				</dt>
 				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2 flex">
