@@ -90,7 +90,7 @@ import {ApplicationEnum} from "@utility/domain/enum/application.enum";
 		TranslatePipe
 	],
 	host: {
-		class: 'block max-w-full lg:max-w-lg'
+		class: 'block max-w-full'
 	}
 })
 export class TotalRevenueDiagramComponent extends Reactive implements AfterViewInit, OnDestroy {

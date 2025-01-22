@@ -98,6 +98,15 @@
 					"label": "Beløb efter ordrestatus"
 				}
 			},
+			"summary": {
+				"revenue": {
+					"by": {
+						"status": {
+							"done": "Indtægter"
+						}
+					}
+				}
+			},
 			"total": {
 				"counter": {
 					"customers": {

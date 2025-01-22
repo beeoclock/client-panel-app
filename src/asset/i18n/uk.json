@@ -98,6 +98,15 @@
 					"label": "Сума по статусу замовлення"
 				}
 			},
+			"summary": {
+				"revenue": {
+					"by": {
+						"status": {
+							"done": "Виручка"
+						}
+					}
+				}
+			},
 			"total": {
 				"counter": {
 					"customers": {

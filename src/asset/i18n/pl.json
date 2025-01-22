@@ -98,6 +98,15 @@
 					"label": "Kwota według statusu zamówienia"
 				}
 			},
+			"summary": {
+				"revenue": {
+					"by": {
+						"status": {
+							"done": "Przychody"
+						}
+					}
+				}
+			},
 			"total": {
 				"counter": {
 					"customers": {
