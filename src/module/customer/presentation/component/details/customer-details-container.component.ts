@@ -1,4 +1,4 @@
-import {Component, inject, input, ViewEncapsulation} from '@angular/core';
+import {Component, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {firstValueFrom} from 'rxjs';
 import {ICustomer} from '@customer/domain';
 import {Store} from "@ngxs/store";
@@ -13,6 +13,7 @@ import {
 } from "@order/presentation/component/external/case/customer/list/customer.order.list.external.whac-a-mole";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {CustomerTenantDatabaseService} from "@customer/database/tenant/customer.tenant.database.service";
 
 @Component({
     selector: 'customer-detail-page',
@@ -28,16 +29,23 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 	],
     standalone: true
 })
-export class CustomerDetailsContainerComponent {
+export class CustomerDetailsContainerComponent implements OnInit {
 
     // TODO add base index of details with store and delete method
 
     public readonly item = input.required<ICustomer>();
 
+	public readonly customerTenantDatabaseService = inject(CustomerTenantDatabaseService)
     public readonly store = inject(Store);
     public readonly customerOrderListExternalWhacAMole = inject(CustomerOrderListExternalWhacAMole);
 
-    public async delete(customer: ICustomer) {
+	public ngOnInit() {
+		this.customerTenantDatabaseService.get(this.item()._id).then((customer) => {
+			console.log({customer});
+		})
+	}
+
+	public async delete(customer: ICustomer) {
 
         const {active} = customer;
 

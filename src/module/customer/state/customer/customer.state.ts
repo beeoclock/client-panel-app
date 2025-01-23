@@ -12,6 +12,7 @@ import {ListCustomerApiAdapter} from "@customer/adapter/external/api/list.custom
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {UnarchiveCustomerApiAdapter} from "@customer/adapter/external/api/unarchive.customer.api.adapter";
 import {TranslateService} from "@ngx-translate/core";
+import {SyncCustomerTenantDatabaseService} from "@customer/database/tenant/sync.customer.tenant.database.service";
 
 export type ICustomerState = IBaseState<Customer.ICustomer>;
 
@@ -39,10 +40,60 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 	private readonly translateService = inject(TranslateService);
 
+	// private readonly customerTenantDatabaseService = inject(CustomerTenantDatabaseService);
+	private readonly syncCustomerTenantDatabaseService = inject(SyncCustomerTenantDatabaseService);
+
+
 	constructor() {
 		super(
 			defaults,
 		);
+	}
+
+	// DataBase layer
+
+	@Action(CustomerActions.Sync)
+	public async sync(ctx: StateContext<ICustomerState>) {
+
+		await this.syncCustomerTenantDatabaseService.execute();
+
+		// const list = await this.customerTenantDatabaseService.getAll();
+		//
+		// for (const item of list) {
+		//
+		// 	try {
+		//
+		// 		let action: CustomerActions.DeleteItem | CustomerActions.CreateItem | CustomerActions.UpdateItem | null = null;
+		//
+		// 		// Is Created?
+		// 		if (!item.syncedAt) {
+		// 			// action = new CustomerActions.CreateItem(item);
+		// 		}
+		//
+		// 		// Is Deleted?
+		// 		if (item.deletedAt && item.deletedAt > item.data.updatedAt)  {
+		// 			action = new CustomerActions.DeleteItem(item._id);
+		// 		}
+		//
+		// 		// Is Updated?
+		// 		if (item.syncedAt && item.data.updatedAt > item.syncedAt) {
+		// 			// action = new CustomerActions.UpdateItem(item);
+		// 		}
+		//
+		// 		if (action) {
+		//
+		// 			await ctx.dispatch(action);  // Видалення на сервері
+		//
+		// 		}
+		//
+		// 	} catch (error) {
+		//
+		// 		console.error('Sync failed for:', {item}, error);
+		//
+		// 	}
+		//
+		// }
+
 	}
 
 	// Application layer
@@ -221,7 +272,12 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 	@Action(CustomerActions.GetList)
 	public override async getList(ctx: StateContext<ICustomerState>, action: CustomerActions.GetList): Promise<void> {
 		await super.getList(ctx, action);
-
+		// const syncedAt = new Date().toISOString();
+		// const {tableState} = ctx.getState();
+		// tableState.items.forEach((item) => {
+		// 	const entity = LocalEntity.create(item, syncedAt);
+		// 	this.customerTenantDatabaseService.put(entity);
+		// });
 	}
 
 	// Selectors
