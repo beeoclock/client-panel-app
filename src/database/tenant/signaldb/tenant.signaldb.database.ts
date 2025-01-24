@@ -112,7 +112,7 @@ Promise.all([
 
 	const syncManager = new SyncManager({
 		pull: async ({ apiPath }) => {
-			console.log({apiPath})
+			console.log('pull',{apiPath})
 			const queryParams = new URLSearchParams({
 				orderBy: 'updatedAt',
 				orderDir: OrderDirEnum.DESC,
@@ -130,7 +130,7 @@ Promise.all([
 		},
 		push: async ({ apiPath }, { changes }) => {
 
-			console.log({apiPath, changes});
+			console.log('push',{apiPath, changes});
 
 			await Promise.all(changes.added.map(async (item) => {
 				const response = await fetch(apiPath, { method: 'POST', body: JSON.stringify(item) })
