@@ -13,6 +13,7 @@ import {CheckForUpdatePwaService} from "@utility/cdk/check-for-update-pwa.servic
 import {NotificationManagerService} from "@utility/cdk/notification.manager.service";
 import {AppActions} from "@utility/state/app/app.actions";
 import {Reactive} from "@utility/cdk/reactive";
+import {Customers} from "@src/database/tenant/signaldb/tenant.signaldb.database";
 
 @Component({
 	selector: 'app-root',
@@ -35,12 +36,14 @@ export class MainRouterOutlet extends Reactive implements AfterViewInit {
 	private readonly document = inject(DOCUMENT);
 	private readonly notificationManagerService = inject(NotificationManagerService);
 
-
 	constructor() {
 		super();
 		this.languageService.initialize();
 		this.themeService.initialize();
 		this.checkForUpdatePwaService.initialize();
+
+		const customers = Customers.find().fetch();
+		console.log('0;', customers);
 	}
 
 	public ngAfterViewInit(): void {

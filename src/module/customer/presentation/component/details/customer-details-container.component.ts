@@ -1,6 +1,6 @@
-import {Component, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, effect, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {firstValueFrom} from 'rxjs';
-import {ICustomer} from '@customer/domain';
+import {ICustomer, randomCustomer} from '@customer/domain';
 import {Store} from "@ngxs/store";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
@@ -14,6 +14,8 @@ import {
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {CustomerTenantDatabaseService} from "@customer/database/tenant/customer.tenant.database.service";
+import {Customers} from "@src/database/tenant/signaldb/tenant.signaldb.database";
+import ObjectID from "bson-objectid";
 
 @Component({
     selector: 'customer-detail-page',
@@ -43,6 +45,30 @@ export class CustomerDetailsContainerComponent implements OnInit {
 		this.customerTenantDatabaseService.get(this.item()._id).then((customer) => {
 			console.log({customer});
 		})
+
+		setTimeout(() => {
+			// const id = new ObjectID().toHexString();
+			// console.log({id})
+			Customers.insert(randomCustomer());
+			// Posts.insert({
+			// 	id: new ObjectID().toHexString(),
+			// 	authorId: id,
+			// 	title: 'Hello world',
+			// 	content: 'Hello world content',
+			// 	createdAt: new Date().toISOString(),
+			// });
+		}, 10_000);
+	}
+
+	public constructor() {
+
+		const customers = Customers.find().fetch();
+		console.log('0;', customers);
+		effect(() => {
+			const customers = Customers.find().fetch();
+			console.log('1:', customers);
+			// console.log(posts[0].getAuthor());
+		});
 	}
 
 	public async delete(customer: ICustomer) {
