@@ -1,5 +1,5 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
-import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
+import {CurrencyPipe} from "@angular/common";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {
 	TableStatePaginationComponent
@@ -26,7 +26,6 @@ import {ITableState} from "@utility/domain/table.state";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		NgForOf,
 		ActiveStyleDirective,
 		TableStatePaginationComponent,
 		DynamicDatePipe,
@@ -37,7 +36,6 @@ import {ITableState} from "@utility/domain/table.state";
 		RowTableFlexDirective,
 		TableTableFlexDirective,
 		RowActionButtonComponent,
-		NgIf,
 	],
 	providers: [
 		CurrencyPipe,
