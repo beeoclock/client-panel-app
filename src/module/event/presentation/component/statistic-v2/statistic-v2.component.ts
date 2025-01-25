@@ -1,4 +1,5 @@
 import {
+	AfterViewInit,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
@@ -58,6 +59,9 @@ import {
 import {
 	ServicesCounterStatisticComponent
 } from "@event/presentation/component/statistic-v2/components/table/total/counter/services.counter.statistic.component";
+import {
+	RevenueStatisticComponent
+} from "@event/presentation/component/statistic-v2/components/table/total/counter/revenue.statistic.component";
 
 @Component({
 	selector: 'event-statistic-v2-component',
@@ -77,11 +81,12 @@ import {
 		OrderServicesCounterStatisticComponent,
 		CustomersCounterStatisticComponent,
 		ServicesCounterStatisticComponent,
-		TotalRevenueDiagramComponent
+		TotalRevenueDiagramComponent,
+		RevenueStatisticComponent
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StatisticV2Component extends Reactive implements OnInit {
+export class StatisticV2Component extends Reactive implements OnInit, AfterViewInit {
 
 	readonly dateSliderControlComponent = viewChild.required(DateSliderControlComponent);
 

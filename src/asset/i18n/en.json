@@ -98,6 +98,15 @@
 					"label": "Amount by order status"
 				}
 			},
+			"summary": {
+				"revenue": {
+					"by": {
+						"status": {
+							"done": "Revenue"
+						}
+					}
+				}
+			},
 			"total": {
 				"counter": {
 					"customers": {
