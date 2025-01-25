@@ -13,7 +13,7 @@ import {CheckForUpdatePwaService} from "@utility/cdk/check-for-update-pwa.servic
 import {NotificationManagerService} from "@utility/cdk/notification.manager.service";
 import {AppActions} from "@utility/state/app/app.actions";
 import {Reactive} from "@utility/cdk/reactive";
-import {Customers} from "@src/database/tenant/signaldb/tenant.signaldb.database";
+import {Customers, syncManager} from "@src/database/tenant/signaldb/tenant.signaldb.database";
 
 @Component({
 	selector: 'app-root',
@@ -43,10 +43,17 @@ export class MainRouterOutlet extends Reactive implements AfterViewInit {
 		this.checkForUpdatePwaService.initialize();
 
 		const customers = Customers.find().fetch();
-		console.log('0;', customers);
+		console.log('SignalDB:', customers);
 	}
 
 	public ngAfterViewInit(): void {
+
+		syncManager.then((syncManager) => {
+			console.log('SignalDB:syncManager', {syncManager});
+			syncManager.syncAll().then((result) => {
+				console.log('SignalDB:syncManager:syncAll', {result});
+			});
+		});
 
 		this.notificationManagerService.initialize().then();
 
