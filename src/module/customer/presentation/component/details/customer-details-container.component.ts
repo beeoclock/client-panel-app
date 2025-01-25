@@ -47,6 +47,9 @@ export class CustomerDetailsContainerComponent implements OnInit {
 		this.customerTenantDatabaseService.get(this.item()._id).then((customer) => {
 			console.log({customer});
 		});
+		this.customerTenantDatabaseService.db().customer.where('data.active').equals(ActiveEnum.YES).toArray().then((customers) => {
+			console.log({customers});
+		});
 
 		const findId = '6794d056e3f23d13dff0026f';
 
@@ -124,6 +127,14 @@ export class CustomerDetailsContainerComponent implements OnInit {
 			console.log('1:', customers);
 			// console.log(posts[0].getAuthor());
 		});
+
+		effect((onCleanup) => {
+			const cursor = Customers.find({ firstName: 'Mark' });
+			console.log(cursor.count())
+			onCleanup(() => {
+				cursor.cleanup()
+			})
+		})
 	}
 
 	public async delete(customer: ICustomer) {

@@ -35,7 +35,7 @@ export class TenantDatabase extends Dexie {
 
 		this.version(1).stores({
 
-			customer: '_id, syncedAt, deletedAt', // Індекси
+			customer: '_id, syncedAt, deletedAt, data.createdAt, data.active', // Індекси
 
 		});
 

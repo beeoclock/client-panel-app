@@ -48,12 +48,17 @@ export class MainRouterOutlet extends Reactive implements AfterViewInit {
 
 	public ngAfterViewInit(): void {
 
-		syncManager.then((syncManager) => {
-			console.log('SignalDB:syncManager', {syncManager});
-			syncManager.syncAll().then((result) => {
-				console.log('SignalDB:syncManager:syncAll', {result});
-			});
+		console.log({Customers})
+
+		syncManager.syncAll().then((result) => {
+			console.log('SignalDB:syncManager:syncAll', {result});
 		});
+		// syncManager.then((syncManager) => {
+		// 	console.log('SignalDB:syncManager', {syncManager});
+		// 	syncManager.syncAll().then((result) => {
+		// 		console.log('SignalDB:syncManager:syncAll', {result});
+		// 	});
+		// });
 
 		this.notificationManagerService.initialize().then();
 
