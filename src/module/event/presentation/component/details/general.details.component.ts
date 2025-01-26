@@ -1,10 +1,9 @@
-import {Component, HostBinding, inject, Input} from "@angular/core";
+import {Component, HostBinding, inject, input} from "@angular/core";
 import {RMIEvent} from "@event/domain";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {CurrencyPipe, NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase} from "@angular/common";
 import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 
@@ -14,11 +13,9 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 	imports: [
 		DynamicDatePipe,
 		TranslateModule,
-		CurrencyPipe,
 		NgForOf,
 		NgIf,
 		EventStatusStyleDirective,
-		HumanizeDurationPipe,
 		NgClass,
 		NgSwitch,
 		NgSwitchCase,
@@ -30,12 +27,16 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 	template: `
 
 		<div class="p-4 flex justify-between">
-			<div *ngIf="isNotPreview" eventStatusStyle [status]="event.status"></div>
-			<div
-				*ngIf="isPreview"
-				class="px-2 py-1 flex items-center justify-center h-6 text-xs rounded-full border text-white uppercase bg-blue-500 border-blue-500 dark:bg-blue-900 dark:text-blue-400 dark:border-blue-800">
-				{{ 'keyword.capitalize.preview' | translate }}
-			</div>
+			@if (isPreview()) {
+
+				<div
+					class="px-2 py-1 flex items-center justify-center h-6 text-xs rounded-full border text-white uppercase bg-blue-500 border-blue-500 dark:bg-blue-900 dark:text-blue-400 dark:border-blue-800">
+					{{ 'keyword.capitalize.preview' | translate }}
+				</div>
+			} @else {
+
+				<div eventStatusStyle [status]="event().status"></div>
+			}
 		</div>
 		<div class="border-t border-gray-100">
 			<dl class="divide-y divide-gray-100">
@@ -46,24 +47,25 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 					<dd class="mt-2 text-sm text-gray-900 ">
 						<ul role="list" class="divide-y divide-gray-100 rounded-md border border-gray-200">
 							<li class="flex">
-								<img
-									*ngIf="event.services[0].presentation?.banners?.[0]?.url as bannerUrl"
-									[src]="bannerUrl"
-									class="object-cover bg-beeColor-200 rounded-l-md w-14"
-									alt=""/>
+								@if (event().services[0].presentation?.banners?.[0]?.url; as bannerUrl) {
+									<img
+										[src]="bannerUrl"
+										class="object-cover bg-beeColor-200 rounded-l-md w-14"
+										alt=""/>
+								}
 								<div class="flex flex-col justify-center text-sm leading-6 p-4">
-									<strong>{{ event.services[0].languageVersions[0].title }}</strong>
+									<strong>{{ event().services[0].languageVersions[0].title }}</strong>
 									<div class="flex w-full gap-4">
 										<div
 											class="flex flex-col"
-											[innerHTML]="durationVersionHtmlHelper.getDurationValue(event.services[0])">
+											[innerHTML]="durationVersionHtmlHelper.getDurationValue(event().services[0])">
 										</div>
 										<div
 											class="flex flex-col"
-											[innerHTML]="durationVersionHtmlHelper.getPriceValue(event.services[0])">
+											[innerHTML]="durationVersionHtmlHelper.getPriceValue(event().services[0])">
 										</div>
 									</div>
-									<p class="text-beeColor-500 line-clamp-2">{{ event.services[0].languageVersions[0].description }}</p>
+									<p class="text-beeColor-500 line-clamp-2">{{ event().services[0].languageVersions[0].description }}</p>
 								</div>
 							</li>
 						</ul>
@@ -75,37 +77,41 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 					</dt>
 					<dd class="mt-2 text-sm text-gray-900">
 						<ul role="list" class="divide-y divide-gray-100 rounded-md border border-gray-200">
-							<ng-container *ngFor="let attendant of event.attendees; let index = index;">
-								<li
-									*ngIf="attendant.customer"
-									class="grid grid-cols-1 py-4 pl-4 pr-5 text-sm leading-6">
+							@for (attendant of event().attendees; track attendant._id) {
 
-									<ng-container [ngSwitch]="attendant.customer.customerType">
-										<ng-container *ngSwitchCase="customerTypeEnum.unregistered">
-											<div class="">
-												{{ attendant.customer.firstName }} {{ attendant.customer.lastName }}
-											</div>
-										</ng-container>
-										<ng-container *ngSwitchCase="customerTypeEnum.regular">
-											<div class="">
-												{{ attendant.customer.firstName }} {{ attendant.customer.lastName }}
-											</div>
-											<div class="">
-												{{ attendant.customer.email }}
-											</div>
-											<div class="">
-												{{ attendant.customer.phone }}
-											</div>
-										</ng-container>
-										<ng-container *ngSwitchCase="customerTypeEnum.anonymous">
-											<div class="">
-												{{ 'keyword.capitalize.anonymous' | translate }}
-											</div>
-										</ng-container>
-									</ng-container>
+								@if (attendant.customer) {
 
-								</li>
-							</ng-container>
+									<li
+										class="grid grid-cols-1 py-4 pl-4 pr-5 text-sm leading-6">
+
+										@switch (attendant.customer.customerType) {
+
+											@case (customerTypeEnum.unregistered) {
+												<div class="">
+													{{ attendant.customer.firstName }} {{ attendant.customer.lastName }}
+												</div>
+											}
+											@case (customerTypeEnum.regular) {
+												<div class="">
+													{{ attendant.customer.firstName }} {{ attendant.customer.lastName }}
+												</div>
+												<div class="">
+													{{ attendant.customer.email }}
+												</div>
+												<div class="">
+													{{ attendant.customer.phone }}
+												</div>
+											}
+											@case (customerTypeEnum.anonymous) {
+												<div class="">
+													{{ 'keyword.capitalize.anonymous' | translate }}
+												</div>
+											}
+										}
+
+									</li>
+								}
+							}
 						</ul>
 					</dd>
 				</div>
@@ -126,7 +132,7 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 						{{ 'keyword.capitalize.dateAndTime' | translate }}
 					</dt>
 					<dd class="mt-1 text-sm leading-6 text-gray-700">
-						{{ event.start | dynamicDate: 'medium' }}
+						{{ event().start | dynamicDate: 'medium' }}
 					</dd>
 				</div>
 				<div class="px-4 py-6 ">
@@ -139,7 +145,7 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 							'text-beeColor-500 italic': !thereIsDescription,
 							'text-gray-700': thereIsDescription
 						}">
-						{{ thereIsDescription ? event.note : ('keyword.capitalize.noData' | translate) }}
+						{{ thereIsDescription ? event().note : ('keyword.capitalize.noData' | translate) }}
 					</dd>
 				</div>
 			</dl>
@@ -149,11 +155,9 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 })
 export class GeneralDetailsComponent {
 
-	@Input({required: true})
-	public event!: RMIEvent;
+	public readonly event = input.required<RMIEvent>();
 
-	@Input()
-	public isPreview = false;
+	public readonly isPreview = input(false);
 
 	@HostBinding()
 	public class = 'block bg-white';
@@ -162,19 +166,19 @@ export class GeneralDetailsComponent {
 	public readonly customerTypeEnum = CustomerTypeEnum;
 
 	public get isNotPreview(): boolean {
-		return !this.isPreview;
+		return !this.isPreview();
 	}
 
 	public get firstName(): string {
-		return this.event?.specialists?.[0]?.member?.firstName ?? '';
+		return this.event()?.specialists?.[0]?.member?.firstName ?? '';
 	}
 
 	public get lastName(): string {
-		return this.event?.specialists?.[0]?.member?.lastName ?? '';
+		return this.event()?.specialists?.[0]?.member?.lastName ?? '';
 	}
 
 	public get thereIsDescription(): boolean {
-		return !!this.event?.note?.length;
+		return !!this.event()?.note?.length;
 	}
 
 }

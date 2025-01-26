@@ -16,7 +16,7 @@
 		</div>
 	</div>
 	<service-form-image-component
-		*ngFor="let banner of presentationForm.controls.banners.value; let index = index"
+		*ngFor="let banner of presentationForm().controls.banners.value; let index = index"
 		[index]="index"
 		[showHit]="toggleInfo.isOn"
 		[banner]="banner"/>

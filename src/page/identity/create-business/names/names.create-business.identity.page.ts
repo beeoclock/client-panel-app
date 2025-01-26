@@ -8,12 +8,11 @@ import {CreateBusinessQuery} from "@identity/query/create-business.query";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {filter, map, Observable, tap} from "rxjs";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {AsyncPipe} from "@angular/common";
 import {Select, Store} from "@ngxs/store";
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {IMember} from "@identity/domain/interface/i.member";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
-import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 
 @Component({
 	selector: 'app-names-create-business-identity-page',
@@ -26,11 +25,9 @@ import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/butto
 		TranslateModule,
 		BackLinkComponent,
 		ChangeLanguageComponent,
-		NgIf,
 		PrimaryButtonDirective,
 		RouterLink,
 		AsyncPipe,
-		PrimaryLinkButtonDirective,
 	],
 	encapsulation: ViewEncapsulation.None
 })
@@ -49,7 +46,9 @@ export class NamesCreateBusinessIdentityPage {
 		}),
 		filter(Array.isArray),
 	);
-
+	private readonly createBusinessQuery = inject(CreateBusinessQuery);
+	public readonly businessNameControl = this.createBusinessQuery.getBusinessNameControl();
+	public readonly businessOwnerForm = this.createBusinessQuery.getBusinessOwnerForm();
 	public readonly firstCompany$ = this.members$.pipe(
 		map((members) => members.length === 0),
 		tap((firstCompany) => {
@@ -59,10 +58,6 @@ export class NamesCreateBusinessIdentityPage {
 			}
 		}),
 	);
-
-	private readonly createBusinessQuery = inject(CreateBusinessQuery);
-	public readonly businessNameControl = this.createBusinessQuery.getBusinessNameControl();
-	public readonly businessOwnerForm = this.createBusinessQuery.getBusinessOwnerForm();
 
 	public get valid(): boolean {
 		const ifBusinessOwnerEnableUseStatusOfValidation = (this.businessOwnerForm.disabled ? true : this.businessOwnerForm.valid);

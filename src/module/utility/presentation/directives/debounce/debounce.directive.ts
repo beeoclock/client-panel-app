@@ -1,54 +1,52 @@
-import {Directive, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {Subject, Subscription} from 'rxjs';
+import {Directive, HostListener, input, OnInit, output} from '@angular/core';
+import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import {Reactive} from "@utility/cdk/reactive";
 
 @Directive({
-  selector: '[appDebounceClick]',
-  standalone: true
+	selector: '[appDebounceClick]',
+	standalone: true
 })
-export class DebounceClickDirective extends Reactive implements OnInit, OnDestroy {
+export class DebounceClickDirective extends Reactive implements OnInit {
 
-  @Input()
-  public enabledDebounceClick = true;
+	public readonly enabledDebounceClick = input(true);
 
-  @Input()
-  public debounceTime = 250;
+	public readonly debounceTime = input(250);
 
-  @Output()
-  public debounceClick = new EventEmitter();
+	public readonly debounceClick = output<Event>();
 
-  private clicks = new Subject();
-  private subscription: Subscription | undefined;
+	private readonly clicks = new Subject<Event>();
 
-  public ngOnInit(): void {
-    this.subscription = this.clicks
-      .pipe(
-          debounceTime(this.debounceTime),
-          this.takeUntil(),
-      )
-      .subscribe(e => this.debounceClick.emit(e));
-  }
+	public ngOnInit(): void {
+		this.clicks
+			.pipe(
+				debounceTime(this.debounceTime()),
+				this.takeUntil(),
+			)
+			.subscribe({
+				next: (event) => {
+					this.debounceClick.emit(event)
+				},
+				error: (error) => {
+					console.error(error);
+				}
+			});
+	}
 
-  public override ngOnDestroy(): void {
-    super.ngOnDestroy();
-    this.subscription?.unsubscribe();
-  }
-
-  /**
-   *
-   * @param event
-   * @private
-   */
-  @HostListener('click', ['$event'])
-  private clickEvent(event: Event): void {
-    event.preventDefault();
-    event.stopPropagation();
-    if (this.enabledDebounceClick) {
-      this.clicks.next(event);
-    } else {
-      this.debounceClick.emit(event);
-    }
-  }
+	/**
+	 *
+	 * @param event
+	 * @private
+	 */
+	@HostListener('click', ['$event'])
+	private clickEvent(event: Event): void {
+		event.preventDefault();
+		event.stopPropagation();
+		if (this.enabledDebounceClick()) {
+			this.clicks.next(event);
+		} else {
+			this.debounceClick.emit(event);
+		}
+	}
 
 }

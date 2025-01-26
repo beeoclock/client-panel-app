@@ -1,7 +1,6 @@
-import {ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, CurrencyPipe, DatePipe, NgForOf, NgIf} from "@angular/common";
+import {ChangeDetectionStrategy, Component, HostBinding, Input, input, OnInit, ViewEncapsulation} from "@angular/core";
+import {CurrencyPipe} from "@angular/common";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@order/presentation/component/row-action-button/row-action-button.component";
 import {TranslateModule} from "@ngx-translate/core";
@@ -9,7 +8,6 @@ import {debounce} from "typescript-debounce-decorator";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {OrderActions} from "@order/state/order/order.actions";
 import {IOrderServiceDto} from "@src/module/order/external/interface/i.order-service.dto";
-import DurationPricePipe from "@utility/presentation/pipes/duration-price.pipe";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {
 	ListServiceFormCardOrderComponent
@@ -23,17 +21,11 @@ import {CurrencyCodeEnum} from "@utility/domain/enum";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 	imports: [
-		AsyncPipe,
 		CardComponent,
-		DynamicDatePipe,
-		NgIf,
 		NoDataPipe,
 		RowActionButtonComponent,
 		TranslateModule,
 		CurrencyPipe,
-		NgForOf,
-		DatePipe,
-		DurationPricePipe,
 		ListServiceFormCardOrderComponent,
 	],
 	providers: [
@@ -41,7 +33,7 @@ import {CurrencyCodeEnum} from "@utility/domain/enum";
 	],
 	template: `
 		<bee-card padding="p-0" class="text-sm border-2 border-transparent hover:border-blue-500"
-				  [class.!border-green-500]="selectedIds.includes(orderDto._id)">
+				  [class.!border-green-500]="selectedIds().includes(orderDto._id)">
 			<div class="flex flex-col gap-2">
 				<div class="p-2 flex flex-wrap justify-between items-center gap-8">
 
@@ -61,15 +53,17 @@ import {CurrencyCodeEnum} from "@utility/domain/enum";
 								💰{{ totalAmount | currency: baseCurrency : 'symbol-narrow' }}
 							</div>
 						}
-						<app-order-row-action-button-component
-							*ngIf="showAction"
-							[item]="orderDto"
-							[id]="orderDto._id"/>
+						@if (showAction()) {
+
+							<app-order-row-action-button-component
+								[item]="orderDto"
+								[id]="orderDto._id"/>
+						}
 					</div>
 
-					@if (showSelectedStatus) {
+					@if (showSelectedStatus()) {
 						<div (click)="singleClick()" class=" cursor-pointer">
-							@if (selectedIds.includes(orderDto._id)) {
+							@if (selectedIds().includes(orderDto._id)) {
 								<div
 									class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
 									{{ 'keyword.capitalize.selected' | translate }}
@@ -104,17 +98,14 @@ import {CurrencyCodeEnum} from "@utility/domain/enum";
 })
 export class CardItemOrderComponent implements OnInit {
 
-	@Input({required: true})
-	public selectedIds!: string[];
+	public readonly selectedIds = input.required<string[]>();
 
 	@Input({required: true})
 	public orderDto!: IOrderDto;
 
-	@Input({required: true})
-	showAction: boolean = true;
+	readonly showAction = input.required<boolean>();
 
-	@Input({required: true})
-	showSelectedStatus: boolean = false;
+	readonly showSelectedStatus = input.required<boolean>();
 
 	@HostBinding()
 	public id!: string;

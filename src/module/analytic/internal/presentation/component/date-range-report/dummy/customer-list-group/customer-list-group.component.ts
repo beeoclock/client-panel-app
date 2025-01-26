@@ -1,7 +1,6 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, input, OnChanges, SimpleChanges, ViewEncapsulation} from "@angular/core";
 import {Analytic} from "@module/analytic/internal/store/date-range-report/interface/i.analytic";
 import {TranslateModule} from "@ngx-translate/core";
-import {CurrencyPipe} from "@angular/common";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 
 type T = Analytic.ICustomer | Omit<Analytic.ICustomer, 'specialistRecord'>;
@@ -63,7 +62,6 @@ type T = Analytic.ICustomer | Omit<Analytic.ICustomer, 'specialistRecord'>;
 	`,
 	imports: [
 		TranslateModule,
-		CurrencyPipe
 	],
 	host: {
 		class: 'w-full md:max-w-xs'
@@ -71,13 +69,11 @@ type T = Analytic.ICustomer | Omit<Analytic.ICustomer, 'specialistRecord'>;
 })
 export class CustomerListGroupComponent implements OnChanges {
 
-	@Input({required: true})
-	public customerReport!: {
-		[customerId: string]: T;
-	};
+	public readonly customerReport = input.required<{
+    [customerId: string]: T;
+}>();
 
-	@Input({required: true})
-	public baseCurrency!: CurrencyCodeEnum;
+	public readonly baseCurrency = input.required<CurrencyCodeEnum>();
 
 	public readonly customerList: T[] = [];
 
@@ -93,15 +89,16 @@ export class CustomerListGroupComponent implements OnChanges {
 
 	private buildCustomerList(): void {
 		this.customerList.length = 0;
-		Object.keys(this.customerReport).forEach((customerId) => {
-			const customer = this.customerReport?.[customerId];
+		Object.keys(this.customerReport()).forEach((customerId) => {
+			const customerReport = this.customerReport();
+   const customer = customerReport?.[customerId];
 			if (!customer?.details?.firstName?.length) {
 				return;
 			}
 			if (!customer.summary.revenue.total.by.status.done) {
 				return;
 			}
-			this.customerList.push(this.customerReport[customerId]);
+			this.customerList.push(customerReport[customerId]);
 		});
 		// Sort by revenue
 		// this.customerList.sort((a, b) => b.summary.revenue.total.by.status.done - a.summary.revenue.total.by.status.done);

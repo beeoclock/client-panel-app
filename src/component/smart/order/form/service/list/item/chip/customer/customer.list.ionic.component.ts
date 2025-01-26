@@ -3,7 +3,7 @@ import {
 	ChangeDetectorRef,
 	Component,
 	inject,
-	Input,
+	input,
 	OnInit,
 	output,
 	ViewEncapsulation
@@ -121,19 +121,19 @@ import {NGXLogger} from "ngx-logger";
 
 					<div class="min-w-[20rem] max-h-full">
 						<ion-searchbar
-							[id]="id + 'ion-searchbar'"
+							[id]="id() + 'ion-searchbar'"
 							[debounce]="1000"
 							(ionInput)="handleInput($event)"
 							[placeholder]="'keyword.capitalize.search' | translate">
 						</ion-searchbar>
 						<ion-list
 							class="pb-3"
-							[id]="id + 'ion-list'">
+							[id]="id() + 'ion-list'">
 							@for (customer of eventListCustomerAdapter.tableState.items; track customer._id) {
 								<ion-item
 									(click)="select(customer)"
 									lines="full"
-									[id]="id + 'ion-item-' + customer._id"
+									[id]="id() + 'ion-item-' + customer._id"
 									[button]="true"
 									[detailIcon]="false">
 									<ion-avatar aria-hidden="true" slot="start">
@@ -157,9 +157,9 @@ import {NGXLogger} from "ngx-logger";
 							}
 							@if (eventListCustomerAdapter.loading$.isFalse) {
 
-								<ion-item [id]="id + '-ion-item-download-more'" lines="full" [button]="true"
+								<ion-item [id]="id() + '-ion-item-download-more'" lines="full" [button]="true"
 										  [detailIcon]="false" (click)="nextPage()">
-									<ion-label [id]="id + '-ion-item-download-more-ion-label'">
+									<ion-label [id]="id() + '-ion-item-download-more-ion-label'">
 										{{ 'keyword.capitalize.downloadMore' | translate }}
 									</ion-label>
 								</ion-item>
@@ -169,7 +169,7 @@ import {NGXLogger} from "ngx-logger";
 						</ion-list>
 						@if (eventListCustomerAdapter.loading$.isTrue) {
 							<div class="p-3">
-								<ion-spinner [id]="id + '-ion-spinner'" name="dots"></ion-spinner>
+								<ion-spinner [id]="id() + '-ion-spinner'" name="dots"></ion-spinner>
 							</div>
 						}
 					</div>
@@ -190,11 +190,9 @@ import {NGXLogger} from "ngx-logger";
 })
 export class CustomerListIonicComponent extends Reactive implements OnInit {
 
-	@Input({ required: true })
-	public customerForm!: CustomerForm;
+	public readonly customerForm = input.required<CustomerForm>();
 
-	@Input({ required: true })
-	public id!: string;
+	public readonly id = input.required<string>();
 
 	public readonly doDone = output<boolean>();
 
@@ -234,11 +232,11 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 	}
 
 	private initFormValue() {
-		this.customerForm.patchValue(this.localCustomerForm.value);
+		this.customerForm().patchValue(this.localCustomerForm.value);
 	}
 
 	private initLocalFormValue() {
-		this.localCustomerForm.patchValue(this.customerForm.value);
+		this.localCustomerForm.patchValue(this.customerForm().value);
 		this.detectIfCustomerSelect();
 	}
 
@@ -287,8 +285,9 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 	protected readonly customerTypeEnum = CustomerTypeEnum;
 
 	private detectIfCustomerSelect() {
-		if (this.customerForm.value.customerType === CustomerTypeEnum.regular) {
-			this.selectedCustomer = this.customerForm.getRawValue();
+		const customerForm = this.customerForm();
+  if (customerForm.value.customerType === CustomerTypeEnum.regular) {
+			this.selectedCustomer = customerForm.getRawValue();
 		}
 	}
 

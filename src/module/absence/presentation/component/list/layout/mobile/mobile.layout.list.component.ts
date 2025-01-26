@@ -1,5 +1,5 @@
-import {Component, Input, QueryList, ViewChildren, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, NgClass, NgIf} from "@angular/common";
+import {Component, input, viewChildren, ViewEncapsulation} from "@angular/core";
+import {NgClass} from "@angular/common";
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
@@ -12,6 +12,8 @@ import {
 } from "@absence/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {ITableState} from "@utility/domain/table.state";
 
 @Component({
 	selector: 'app-absence-mobile-layout-list-component',
@@ -19,9 +21,7 @@ import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		AsyncPipe,
 		CardListComponent,
-		NgIf,
 		NotFoundTableDataComponent,
 		TranslateModule,
 		FilterComponent,
@@ -30,15 +30,14 @@ import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 	]
 })
 export class MobileLayoutListComponent extends LayoutListComponent<IAbsenceDto> {
+	public override readonly tableState = input.required<ITableState<IAbsenceDto> | null>();
+	public readonly showButtonGoToForm = input(true);
 
-	@Input()
-	public showButtonGoToForm = true;
+	readonly cardListComponents = viewChildren(CardListComponent);
 
-	@ViewChildren(CardListComponent)
-	public cardListComponents!: QueryList<CardListComponent>;
-
-	public openForm(): void {
-		this.store.dispatch(new AbsenceActions.OpenForm());
+	@Dispatch()
+	public openForm() {
+		return new AbsenceActions.OpenForm();
 	}
 
 	protected readonly open = open;

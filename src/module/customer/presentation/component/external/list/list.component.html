@@ -1,16 +1,21 @@
-<ng-container *ngIf="initialized.isOn; else NotInitializedTemplate">
-	<customer-mobile-layout-list-component
-		[showButtonGoToForm]="false"
-		[isPage]="false"
-		[tableState]="tableState$ | async"
-		*ngIf="isMobile$ | async" />
-	<customer-desktop-layout-list-component
-		[tableState]="tableState$ | async"
-		*ngIf="isNotMobile$ | async" />
-</ng-container>
-<ng-template #NotInitializedTemplate>
+@if (initialized.isOn) {
+
+	@if (isMobile$ | async) {
+
+		<customer-mobile-layout-list-component
+			[showButtonGoToForm]="false"
+			[isPage]="false"
+			[tableState]="tableState$ | async"/>
+	} @else {
+
+		<customer-desktop-layout-list-component
+			[tableState]="tableState$ | async"
+		/>
+	}
+} @else {
+
 	<div class="p-4">
 		{{ 'keyword.capitalize.initializing' | translate }}...
 	</div>
-</ng-template>
+}
 

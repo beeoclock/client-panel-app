@@ -1,5 +1,5 @@
-import {Component, inject, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, DOCUMENT, NgIf} from "@angular/common";
+import {Component, inject, OnInit, viewChild, ViewEncapsulation} from "@angular/core";
+import {AsyncPipe, DOCUMENT} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
@@ -28,7 +28,8 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 			<ion-modal [keepContentsMounted]="true">
 				<ng-template>
-					<ion-datetime [firstDayOfWeek]="1" [locale]="locale" [max]="datetimeAttributes.max" id="datetime" presentation="date" [formControl]="dateControl"/>
+					<ion-datetime [firstDayOfWeek]="1" [locale]="locale" [max]="datetimeAttributes.max" id="datetime"
+								  presentation="date" [formControl]="dateControl"/>
 					<ion-list [inset]="true">
 						<ion-item [button]="true" (click)="setToday()" detail="false" color="light">
 							<ion-label class="text-center">
@@ -40,9 +41,9 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 			</ion-modal>
 
 			<button (click)="openDateModal()"
-							[disabled]="loader$ | async"
-							id="open-modal"
-							class="border-y border-beeColor-300 text-nowrap px-3.5 text-beeColor-900 flex flex-col justify-center items-center cursor-pointer hover:bg-beeColor-100 transition-all">
+					[disabled]="loader$ | async"
+					id="open-modal"
+					class="border-y border-beeColor-300 text-nowrap px-3.5 text-beeColor-900 flex flex-col justify-center items-center cursor-pointer hover:bg-beeColor-100 transition-all">
 
 				@if (hint$ | async; as translateKey) {
 					<span class="text-sm font-semibold">
@@ -50,9 +51,11 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 					</span>
 				}
 
-				<span class="text-xs" *ngIf="selectedDate$ | async as selectedDate">
-					{{ selectedDate.toFormat('yyyy-MM-dd') }}
-				</span>
+				@if (selectedDate$ | async; as selectedDate) {
+					<span class="text-xs">
+						{{ selectedDate.toFormat('yyyy-MM-dd') }}
+					</span>
+				}
 
 			</button>
 
@@ -68,7 +71,6 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 	`,
 	standalone: true,
 	imports: [
-		NgIf,
 		TranslateModule,
 		AsyncPipe,
 		IonicModule,
@@ -86,14 +88,8 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 		max: DateTime.now().plus({years: 3}).toISODate() ?? ''
 	};
 
-	@ViewChild(IonDatetime)
-	public readonly ionDateTime!: IonDatetime;
-
+	readonly ionDateTime = viewChild.required(IonDatetime);
 	private readonly store = inject(Store);
-	private readonly translateService = inject(TranslateService);
-	private readonly document = inject(DOCUMENT);
-	private readonly modalController = inject(ModalController);
-
 	public readonly loader$ = this.store.select(CalendarWithSpecialistsQueries.loader);
 	public readonly selectedDate$ = this.store.select(CalendarWithSpecialistsQueries.start).pipe(
 		this.takeUntil(),
@@ -107,16 +103,14 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 			this.dateControl.setValue(selectedDatetime.toISODate() ?? '', {emitEvent: false});
 		})
 	);
-
 	public readonly isTodayOrTomorrowStreams$ = combineLatest([
 		this.store.select(CalendarWithSpecialistsQueries.isToday),
 		this.store.select(CalendarWithSpecialistsQueries.isTomorrow)
 	]);
-
 	public readonly isTodayOrTomorrow$ = this.isTodayOrTomorrowStreams$.pipe(
 		map(([isToday, isTomorrow]) => isToday || isTomorrow)
 	);
-
+	private readonly translateService = inject(TranslateService);
 	public readonly hint$ = combineLatest([
 		this.isTodayOrTomorrowStreams$,
 		this.selectedDate$
@@ -133,8 +127,9 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 			}
 		})
 	);
-
 	public readonly locale = this.translateService.currentLang;
+	private readonly document = inject(DOCUMENT);
+	private readonly modalController = inject(ModalController);
 
 	public ngOnInit() {
 		this.dateControl.valueChanges.pipe(
@@ -174,7 +169,7 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 		if (!shadowRoot) {
 			return;
 		}
-		const {firstElementChild} = shadowRoot as unknown as {firstElementChild: HTMLButtonElement};
+		const {firstElementChild} = shadowRoot as unknown as { firstElementChild: HTMLButtonElement };
 		if (!firstElementChild) {
 			return;
 		}
@@ -183,7 +178,7 @@ export class DateControlCalendarWithSpecialistsComponent extends Reactive implem
 
 	public async setToday() {
 		const today = DateTime.now().toISODate() ?? this.dateControl.value;
-		await this.ionDateTime.reset();
+		await this.ionDateTime().reset();
 		setTimeout(() => {
 			this.dateControl.setValue(today);
 		}, 350)

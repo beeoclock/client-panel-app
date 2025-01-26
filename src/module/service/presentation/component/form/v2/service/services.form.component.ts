@@ -1,10 +1,8 @@
 import {LanguageVersionsForm} from '@service/presentation/form/service.form';
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {AsyncPipe, NgClass, NgForOf, NgIf} from '@angular/common';
+import {Component, Input, input, OnInit, ViewEncapsulation} from '@angular/core';
+import {NgClass} from '@angular/common';
 import {LanguageCodeEnum, LanguageRecord} from '@utility/domain/enum';
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {FormButtonWithIconComponent} from "@utility/presentation/component/button/form-button-with-icon.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {DetailsBlockComponent} from "@service/presentation/component/form/v2/details/details-block.component";
@@ -15,11 +13,6 @@ import {ServiceFormComponent} from "@service/presentation/component/form/v2/serv
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		NgForOf,
-		NgIf,
-		AsyncPipe,
-		PrimaryButtonDirective,
-		FormButtonWithIconComponent,
 		TranslateModule,
 		NgClass,
 		DetailsBlockComponent,
@@ -27,11 +20,10 @@ import {ServiceFormComponent} from "@service/presentation/component/form/v2/serv
 	],
 	template: `
 
-		<ng-container *ngIf="businessHasMoreThanOneLanguage; else SingleLanguageTemplate">
-
+		@if (businessHasMoreThanOneLanguage) {
 
 			<div class="bg-white dark:bg-beeDarkColor-800 dark:border dark:border-beeDarkColor-700 shadow rounded-2xl"
-					 id="accordion-open" data-accordion="open">
+				 id="accordion-open" data-accordion="open">
 
 				<div class="p-4 pb-0">
 					<h2 class="text-2xl font-bold text-beeColor-500">
@@ -41,7 +33,7 @@ import {ServiceFormComponent} from "@service/presentation/component/form/v2/serv
 				</div>
 
 				<div class="p-4 flex flex-wrap gap-4">
-					<ng-container *ngFor="let availableLanguage of availableLanguages">
+					@for (availableLanguage of availableLanguages(); track availableLanguage) {
 						<button
 							(click)="pushNewLanguageVersionForm(availableLanguage)"
 							type="button"
@@ -51,35 +43,37 @@ import {ServiceFormComponent} from "@service/presentation/component/form/v2/serv
 							class="rounded-xl border px-3 text-center py-1.5 dark:bg-beeDarkColor-800 dark:border-beeDarkColor-700 dark:text-white border-neutral-100 hover:bg-blue-300 active:bg-blue-500">
 							{{ getLanguageName(availableLanguage) }}
 						</button>
-					</ng-container>
+					}
 				</div>
 
-				<div class="border-t p-4 flex flex-col gap-4" *ngFor="let languageVersionForm of form.controls; let index = index">
+				@for (languageVersionForm of form.controls; track languageVersionForm.language) {
 
-					<div class="flex justify-between">
-						<h2 class="text-2xl font-bold">
-							{{ getLanguageName(languageVersionForm.controls.language.value) }}
-						</h2>
-						<button type="button" class="text-red-500" (click)="removeLanguageVersion(index)"
-										*ngIf="form.controls.length > 1">
-							<i class="bi bi-trash"></i>
-						</button>
+					<div class="border-t p-4 flex flex-col gap-4">
+
+						<div class="flex justify-between">
+							<h2 class="text-2xl font-bold">
+								{{ getLanguageName(languageVersionForm.controls.language.value) }}
+							</h2>
+							@if (form.controls.length) {
+
+								<button type="button" class="text-red-500" (click)="removeLanguageVersion($index)">
+									<i class="bi bi-trash"></i>
+								</button>
+							}
+						</div>
+						<service-service-form-component
+							[hiddenControls]="['language']"
+							[form]="languageVersionForm"/>
 					</div>
-					<service-service-form-component
-						[hiddenControls]="['language']"
-						[form]="languageVersionForm"/>
-				</div>
+				}
 
 			</div>
 
-		</ng-container>
-
-		<ng-template #SingleLanguageTemplate>
+		} @else {
 
 			<service-form-details-block-component
 				[form]="form.controls[0]"/>
-
-		</ng-template>
+		}
 
 	`
 })
@@ -88,29 +82,30 @@ export class ServicesFormComponent extends Reactive implements OnInit {
 	@Input()
 	public form = new LanguageVersionsForm();
 
-	@Input()
-	public availableLanguages: LanguageCodeEnum[] = [];
+	public readonly availableLanguages = input<LanguageCodeEnum[]>([]);
 
 	public get businessHasMoreThanOneLanguage() {
-		return this.availableLanguages.length > 0;
+		return this.availableLanguages().length > 0;
 	}
 
 	public readonly showAddMore = new BooleanStreamState();
 
 	public ngOnInit() {
 
-		if (this.form.length === 0 && this.availableLanguages.length) {
-			this.pushNewLanguageVersionForm(this.availableLanguages[0]);
+		const availableLanguages = this.availableLanguages();
+		if (this.form.length === 0 && availableLanguages.length) {
+			this.pushNewLanguageVersionForm(availableLanguages[0]);
 		}
 
 	}
 
 	public async updateShowAddMore(): Promise<void> {
-		if (!this.availableLanguages) {
+		const availableLanguages = this.availableLanguages();
+		if (!availableLanguages) {
 			this.showAddMore.doFalse();
 			return;
 		}
-		this.showAddMore.toggle(this.form.length < this.availableLanguages.length);
+		this.showAddMore.toggle(this.form.length < availableLanguages.length);
 	}
 
 	public pushNewLanguageVersionForm(languageCode: LanguageCodeEnum): void {

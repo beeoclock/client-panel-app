@@ -1,21 +1,17 @@
-import {Component, inject, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {AsyncPipe, CurrencyPipe, NgForOf, NgIf, NgTemplateOutlet} from '@angular/common';
+import {Component, inject, Input, input, OnInit, viewChildren} from '@angular/core';
+import {CurrencyPipe} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {NgSelectModule} from "@ng-select/ng-select";
 
 import {ModalSelectServiceListAdapter} from "@service/adapter/external/component/modal-select-service.list.adapter";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {
 	DurationVersionTypeRangeComponent
 } from "@event/presentation/component/form/services/duration-version-type/duration-version-type.range.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 import {
 	SpecialistServiceComponent
@@ -37,22 +33,13 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	templateUrl: './services.component.html',
 	standalone: true,
 	imports: [
-		NgIf,
 		TranslateModule,
-		FormInputComponent,
-		FormTextareaComponent,
 		NgSelectModule,
 		ReactiveFormsModule,
-		NgForOf,
-		CurrencyPipe,
-		NgTemplateOutlet,
 		PrimaryLinkButtonDirective,
-		HumanizeDurationPipe,
 		InvalidTooltipComponent,
 		DurationVersionTypeRangeComponent,
-		AsyncPipe,
 		CardComponent,
-		RowActionButtonComponent,
 		SpecialistServiceComponent,
 		LanguageVersionOrderControlComponent,
 	],
@@ -66,31 +53,23 @@ export class ServicesComponent extends Reactive implements OnInit {
 	@Input({required: true})
 	public serviceListControl: FormControl<IServiceDto[]> = new FormControl([] as any);
 
-	@Input({required: true})
-	public languageControl: FormControl<LanguageCodeEnum> = new FormControl();
+	public readonly languageControl = input.required<FormControl<LanguageCodeEnum>>();
 
-	@Input()
-	public editable = true;
+	public readonly editable = input(true);
 
-	@Input()
-	public rememberLastSelectedMember = true;
+	public readonly rememberLastSelectedMember = input(true);
 
-	@Input()
-	public setMemberOnlyOnce = true;
+	public readonly setMemberOnlyOnce = input(true);
 
-	@Input()
-	public member: RIMember | undefined;
+	public readonly member = input<RIMember>();
 
-	@ViewChildren(DurationVersionTypeRangeComponent)
-	public durationVersionTypeRangeComponentList!: QueryList<DurationVersionTypeRangeComponent>;
+	readonly durationVersionTypeRangeComponentList = viewChildren(DurationVersionTypeRangeComponent);
 
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly modalSelectServiceListAdapter = inject(ModalSelectServiceListAdapter);
-	private readonly itemMemberApiAdapter = inject(ItemMemberApiAdapter);
-
 	public readonly loading$ = this.modalSelectServiceListAdapter.loading$;
-
+	private readonly itemMemberApiAdapter = inject(ItemMemberApiAdapter);
 	private readonly memberHasBeenSet = new BooleanState(false);
 
 	private lastSelectedMember: RIMember | undefined;
@@ -123,18 +102,6 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 	}
 
-
-	private async initServices() {
-
-		if (!this.serviceListControl.value.length) {
-
-			this.modalSelectServiceListAdapter.resetTableState();
-			await this.modalSelectServiceListAdapter.getPageAsync();
-
-		}
-
-	}
-
 	public async openModalToSelectService() {
 
 		const {SelectServiceWhacAMoleComponent} = await import("@service/presentation/push-box/select-service.whac-a-mole.component");
@@ -142,7 +109,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 		let useTableStateFromStore = true;
 		let tableState = new TableState<IServiceDto>().toCache();
 
-		const member = this.lastSelectedMember || this.member;
+		const member = this.lastSelectedMember || this.member();
 
 		if (member) {
 			if (!member.assignments.service.full) {
@@ -202,7 +169,18 @@ export class ServicesComponent extends Reactive implements OnInit {
 	}
 
 	public checkValidationOfDurationVersionTypeRangeComponentList(): boolean {
-		return this.durationVersionTypeRangeComponentList.toArray().every((component) => component.checkIfSelectedVariantIsValid());
+		return this.durationVersionTypeRangeComponentList().every((component) => component.checkIfSelectedVariantIsValid());
+	}
+
+	private async initServices() {
+
+		if (!this.serviceListControl.value.length) {
+
+			this.modalSelectServiceListAdapter.resetTableState();
+			await this.modalSelectServiceListAdapter.getPageAsync();
+
+		}
+
 	}
 
 	/**
@@ -216,9 +194,10 @@ export class ServicesComponent extends Reactive implements OnInit {
 	 */
 	private setMember(newSelectedServiceList: IServiceDto[]): IServiceDto[] {
 		// Check if a member is available to be set
-		if (this.member) {
+		const memberValue = this.member();
+		if (memberValue) {
 			// If setMemberOnlyOnce is true, check if a member has already been set
-			if (this.setMemberOnlyOnce) {
+			if (this.setMemberOnlyOnce()) {
 				// If a member has been set, return the list without making changes
 				if (this.memberHasBeenSet.isOn) {
 					return newSelectedServiceList;
@@ -228,7 +207,7 @@ export class ServicesComponent extends Reactive implements OnInit {
 			}
 
 			// Assign the member to each service's specialists array
-			const member = this.member;
+			const member = memberValue;
 			newSelectedServiceList = newSelectedServiceList.map((service) => {
 				return {
 					...service,

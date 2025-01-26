@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, OnInit} from "@angular/core";
+import {Component, HostBinding, input, OnInit} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {LanguageCodeEnum, LANGUAGES} from "@utility/domain/enum";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
@@ -25,7 +25,7 @@ import {Reactive} from "@utility/cdk/reactive";
 				invalidTooltip
 				[items]="languageList"
 				[clearable]="false"
-				[formControl]="control">
+				[formControl]="control()">
 			</ng-select>
 		</div>
 		<div class="italic leading-tight p-2 text-beeColor-500 text-sm">
@@ -45,11 +45,9 @@ import {Reactive} from "@utility/cdk/reactive";
 })
 export class EmailLanguageBusinessSettingsComponent extends Reactive implements OnInit {
 
-	@Input({required: true})
-	public control!: FormControl<LanguageCodeEnum>;
+	public readonly control = input.required<FormControl<LanguageCodeEnum>>();
 
-	@Input({required: true})
-	public availableLanguagesControl!: FormControl<LanguageCodeEnum[]>;
+	public readonly availableLanguagesControl = input.required<FormControl<LanguageCodeEnum[]>>();
 
 	public languageList = LANGUAGES;
 
@@ -57,8 +55,9 @@ export class EmailLanguageBusinessSettingsComponent extends Reactive implements 
 	public class = 'flex flex-col text-start';
 
 	public ngOnInit() {
-		this.updateLanguageList(this.availableLanguagesControl.value);
-		this.availableLanguagesControl.valueChanges.pipe(this.takeUntil()).subscribe((languageCodeList) => {
+		const availableLanguagesControl = this.availableLanguagesControl();
+  this.updateLanguageList(availableLanguagesControl.value);
+		availableLanguagesControl.valueChanges.pipe(this.takeUntil()).subscribe((languageCodeList) => {
 			this.updateLanguageList(languageCodeList);
 
 		});
@@ -68,8 +67,9 @@ export class EmailLanguageBusinessSettingsComponent extends Reactive implements 
 		this.languageList = LANGUAGES.filter((language) => {
 			return languageCodeList.includes(language.code);
 		});
-		if (!languageCodeList.includes(this.control.value)) {
-			this.control.setValue(languageCodeList[0]);
+		const control = this.control();
+  if (!languageCodeList.includes(control.value)) {
+			control.setValue(languageCodeList[0]);
 		}
 	}
 

@@ -1,5 +1,13 @@
-import {AfterViewInit, Component, ElementRef, HostBinding, Input, ViewChild, ViewEncapsulation} from "@angular/core";
-import {NgIf} from "@angular/common";
+import {
+	AfterViewInit,
+	Component,
+	ElementRef,
+	HostBinding,
+	Input,
+	input,
+	viewChild,
+	ViewEncapsulation
+} from "@angular/core";
 import {Dropdown, DropdownInterface, DropdownOptions} from "flowbite";
 import {Placement} from "@popperjs/core/lib/enums";
 
@@ -7,9 +15,6 @@ import {Placement} from "@popperjs/core/lib/enums";
   selector: 'utility-dropdown',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [
-    NgIf
-  ],
   template: `
 
     <!--  Dropdown button  -->
@@ -32,32 +37,29 @@ import {Placement} from "@popperjs/core/lib/enums";
         items-center
         dark:bg-beeDarkColor-600
         dark:hover:bg-beeDarkColor-700"
-			[class.rounded-r-none]="group === 'right'"
-			[class.rounded-l-none]="group === 'left'"
+			[class.rounded-r-none]="group() === 'right'"
+			[class.rounded-l-none]="group() === 'left'"
       type="button">
-      <ng-container *ngIf="threeDot; else DefaultTemplate">
-        <i class="bi bi-three-dots-vertical"></i>
-      </ng-container>
-      <ng-template #DefaultTemplate>
+		@if (threeDot()) {
 
-        <ng-container *ngIf="customButtonContent">
-          <ng-content select="[button]"></ng-content>
-        </ng-container>
+			<i class="bi bi-three-dots-vertical"></i>
+		} @else {
 
-        <ng-container *ngIf="!customButtonContent">
-          {{ buttonLabel }}
-          <i class="bi bi-chevron-down -mr-1 ml-1.5 h-5 w-5"></i>
+			@if (customButtonContent()) {
+				<ng-content select="[button]"/>
+			} @else {
 
-        </ng-container>
-
-      </ng-template>
+				{{ buttonLabel() }}
+				<i class="bi bi-chevron-down -mr-1 ml-1.5 h-5 w-5"></i>
+			}
+		}
     </button>
 
     <!-- Dropdown menu -->
     <div
       #dropdownMenu
       class="z-10 hidden bg-white divide-y divide-beeColor-100 rounded-lg shadow-xl w-44 dark:bg-beeDarkColor-700">
-      <ul [class]="menuClassList" aria-labelledby="dropdownDefaultButton">
+      <ul [class]="menuClassList()" aria-labelledby="dropdownDefaultButton">
         <ng-content select="[content]"></ng-content>
       </ul>
     </div>
@@ -66,32 +68,23 @@ import {Placement} from "@popperjs/core/lib/enums";
 })
 export class DropdownComponent implements AfterViewInit {
 
-  @ViewChild('dropdownButton')
-  public dropdownButton!: ElementRef<HTMLButtonElement>;
+  readonly dropdownButton = viewChild.required<ElementRef<HTMLButtonElement>>('dropdownButton');
 
-  @ViewChild('dropdownMenu')
-  public dropdownMenu!: ElementRef<HTMLDivElement>;
+  readonly dropdownMenu = viewChild.required<ElementRef<HTMLDivElement>>('dropdownMenu');
 
-  @Input()
-  public placement: Placement = 'bottom-start';
+  public readonly placement = input<Placement>('bottom-start');
 
-  @Input()
-  public buttonLabel = 'More';
+  public readonly buttonLabel = input('More');
 
-  @Input()
-  public customButtonContent = false;
+  public readonly customButtonContent = input(false);
 
-  @Input()
-  public threeDot = false;
+  public readonly threeDot = input(false);
 
-  @Input()
-  public group: false | 'left' | 'right' = false;
+  public readonly group = input<false | 'left' | 'right'>(false);
 
-  @Input()
-  public offsetDistance = 0;
+  public readonly offsetDistance = input(0);
 
-  @Input()
-  public menuClassList = 'py-2 text-sm text-beeColor-700 dark:text-beeDarkColor-200';
+  public readonly menuClassList = input('py-2 text-sm text-beeColor-700 dark:text-beeDarkColor-200');
 
   @Input()
   @HostBinding()
@@ -112,9 +105,9 @@ export class DropdownComponent implements AfterViewInit {
 
     // options with default values
     const options: DropdownOptions = {
-      placement: this.placement,
+      placement: this.placement(),
       triggerType: 'click',
-			offsetDistance: this.offsetDistance,
+			offsetDistance: this.offsetDistance(),
     };
 
     /*
@@ -122,7 +115,7 @@ export class DropdownComponent implements AfterViewInit {
     * triggerEl: required
     * options: optional
     */
-    this.#dropdown = new Dropdown(this.dropdownMenu.nativeElement, this.dropdownButton.nativeElement, options);
+    this.#dropdown = new Dropdown(this.dropdownMenu().nativeElement, this.dropdownButton().nativeElement, options);
 
   }
 

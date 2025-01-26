@@ -1,5 +1,4 @@
-import {Component, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {Component, effect, input, ViewEncapsulation} from "@angular/core";
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
@@ -12,6 +11,8 @@ import {
 	AutoRefreshButtonComponent
 } from "@absence/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {ITableState} from "@utility/domain/table.state";
 
 @Component({
 	selector: 'app-absence-desktop-layout-list-component',
@@ -19,9 +20,7 @@ import {AbsenceActions} from "@absence/state/absence/absence.actions";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		AsyncPipe,
 		FilterComponent,
-		NgIf,
 		NotFoundTableDataComponent,
 		TableListComponent,
 		TranslateModule,
@@ -29,9 +28,18 @@ import {AbsenceActions} from "@absence/state/absence/absence.actions";
 	]
 })
 export class DesktopLayoutListComponent extends LayoutListComponent<IAbsenceDto> {
+	public override readonly tableState = input.required<ITableState<IAbsenceDto> | null>();
 
-	public openForm(): void {
-		this.store.dispatch(new AbsenceActions.OpenForm());
+	public constructor() {
+		super();
+		effect(() => {
+			console.log('effect', this.tableState());
+		})
+	}
+
+	@Dispatch()
+	public openForm() {
+		return new AbsenceActions.OpenForm()
 	}
 
 }

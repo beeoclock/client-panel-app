@@ -1,5 +1,5 @@
-import {Component, ElementRef, HostBinding, inject, Input, ViewChild, ViewEncapsulation} from '@angular/core';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {Component, ElementRef, HostBinding, inject, Input, input, viewChild, ViewEncapsulation} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateModule} from "@ngx-translate/core";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
 import {WINDOW, WINDOW_PROVIDERS} from "@utility/cdk/window.provider";
@@ -16,7 +16,6 @@ import {WINDOW, WINDOW_PROVIDERS} from "@utility/cdk/window.provider";
     </button>
   `,
   imports: [
-    RouterLink,
     TranslateModule,
     LinkButtonDirective
   ],
@@ -29,14 +28,12 @@ export class BackLinkComponent {
 
   private readonly activatedRoute = inject(ActivatedRoute);
 
-  @Input()
-  public queryParams = {};
+  public readonly queryParams = input({});
 
   @Input()
   public url: never | string[] = [];
 
-  @ViewChild('link')
-  public link!: ElementRef<HTMLElement>;
+  readonly link = viewChild.required<ElementRef<HTMLElement>>('link');
 
   @HostBinding()
   public readonly class = 'flex';
@@ -60,7 +57,7 @@ export class BackLinkComponent {
 		}
 		return this.router.navigate(this.url, {
 			relativeTo: this.activatedRoute,
-			queryParams: this.queryParams
+			queryParams: this.queryParams()
 		});
 	}
 

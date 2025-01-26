@@ -1,7 +1,6 @@
-import {AfterViewInit, Component, forwardRef, HostBinding, inject, Injector, Input} from '@angular/core';
+import {AfterViewInit, Component, forwardRef, HostBinding, inject, Injector, input} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {NgIcon} from "@ng-icons/core";
 import {IconComponent} from "@src/component/adapter/icon/icon.component";
 import {is} from "@utility/checker";
 
@@ -11,7 +10,6 @@ import {is} from "@utility/checker";
 	imports: [
 		ReactiveFormsModule,
 		TranslateModule,
-		NgIcon,
 		IconComponent
 	],
 	template: `
@@ -25,7 +23,7 @@ import {is} from "@utility/checker";
 					type="text"
 					(keydown)="keydown($event)"
 					[id]="id"
-					[placeholder]="placeholder"
+					[placeholder]="placeholder()"
 					[formControl]="control"
 					class="py-3 px-4 block w-full border-gray-200 rounded-s-2xl text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
 				@if (control.value.length > 0) {
@@ -105,8 +103,7 @@ export class SearchInputComponent implements ControlValueAccessor, AfterViewInit
 
 	public ngControl!: NgControl;
 
-	@Input()
-	public placeholder = this.translateService.instant('keyword.capitalize.placeholder.search');
+	public readonly placeholder = input(this.translateService.instant('keyword.capitalize.placeholder.search'));
 
 	@HostBinding()
 	public id = 'search-input-component';

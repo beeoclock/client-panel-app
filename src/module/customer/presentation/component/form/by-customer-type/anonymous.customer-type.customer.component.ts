@@ -1,4 +1,4 @@
-import {Component, Input, ViewEncapsulation} from '@angular/core';
+import {Component, input, ViewEncapsulation} from '@angular/core';
 import {CustomerForm} from "@customer/presentation/form";
 
 @Component({
@@ -12,7 +12,6 @@ import {CustomerForm} from "@customer/presentation/form";
 })
 export class AnonymousCustomerTypeCustomerComponent {
 
-	@Input()
-	public form!: CustomerForm;
+	public readonly form = input.required<CustomerForm>();
 
 }

@@ -1,5 +1,4 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
-import {RouterLink} from '@angular/router';
 import {TranslateModule} from "@ngx-translate/core";
 import {LogoutService} from "@utility/presentation/component/logout/logout.service";
 
@@ -33,7 +32,6 @@ import {LogoutService} from "@utility/presentation/component/logout/logout.servi
 		</button>
 	`,
 	imports: [
-		RouterLink,
 		TranslateModule
 	],
 	encapsulation: ViewEncapsulation.None

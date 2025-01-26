@@ -3,7 +3,7 @@ import {
 	ChangeDetectorRef,
 	Component,
 	inject,
-	Input,
+	input,
 	OnInit,
 	ViewEncapsulation
 } from "@angular/core";
@@ -18,7 +18,7 @@ import {Reactive} from "@utility/cdk/reactive";
 	selector: 'country-select-component',
 	standalone: true,
 	template: `
-		<label default [for]="id">
+		<label default [for]="id()">
 			{{ 'keyword.capitalize.country' | translate }}
 		</label>
 		<ng-select
@@ -26,8 +26,8 @@ import {Reactive} from "@utility/cdk/reactive";
 			bindValue="code"
 			[items]="countryList"
 			[clearable]="false"
-			[id]="id"
-			[formControl]="control">
+			[id]="id()"
+			[formControl]="control()">
 		</ng-select>
 	`,
 	encapsulation: ViewEncapsulation.None,
@@ -41,11 +41,9 @@ import {Reactive} from "@utility/cdk/reactive";
 })
 export class PriceAndCurrencyComponent extends Reactive implements OnInit {
 
-	@Input()
-	public id = '';
+	public readonly id = input('');
 
-	@Input()
-	public control = new FormControl();
+	public readonly control = input(new FormControl());
 
 	public readonly translateService = inject(TranslateService);
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
@@ -59,9 +57,10 @@ export class PriceAndCurrencyComponent extends Reactive implements OnInit {
 			this.updateCountryList();
 		});
 
-		if (!this.control.value) {
+		const control = this.control();
+  if (!control.value) {
 
-			this.control.patchValue(CountryCodeEnum.UA);
+			control.patchValue(CountryCodeEnum.UA);
 			this.changeDetectorRef.detectChanges();
 
 		}

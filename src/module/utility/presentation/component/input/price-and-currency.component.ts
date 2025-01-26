@@ -2,7 +2,7 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	inject,
-	Input,
+	input,
 	OnChanges,
 	SimpleChange,
 	SimpleChanges,
@@ -21,11 +21,11 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 	selector: 'price-and-currency-component',
 	standalone: true,
 	template: `
-		<label default [for]="prefix + 'price'">{{ label }}</label>
+		<label default [for]="prefix() + 'price'">{{ label() }}</label>
 		<div class="flex">
 			<input
-				[id]="prefix + 'price'"
-				[formControl]="priceControl"
+				[id]="prefix() + 'price'"
+				[formControl]="priceControl()"
 				mask="separator.2"
 				type="text"
 				hasError
@@ -73,10 +73,10 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 			  class="border-0"
 			  bindLabel="name"
 			  bindValue="id"
-			  [items]="currencyList"
+			  [items]="currencyList()"
 			  [clearable]="false"
-			  [id]="prefix + 'currency'"
-			  [formControl]="currencyControl">
+			  [id]="prefix() + 'currency'"
+			  [formControl]="currencyControl()">
           </ng-select>
         </span>
 		</div>
@@ -95,20 +95,18 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 })
 export class PriceAndCurrencyComponent implements OnChanges {
 
-	@Input()
-	public prefix = '';
+	public readonly prefix = input('');
 
-	@Input()
-	public label = '';
+	public readonly label = input('');
 
-	@Input({required: true})
-	public currencyList: { id: CurrencyCodeEnum; name: CurrencyCodeEnum; }[] = [];
+	public readonly currencyList = input.required<{
+    id: CurrencyCodeEnum;
+    name: CurrencyCodeEnum;
+}[]>();
 
-	@Input()
-	public currencyControl = new FormControl();
+	public readonly currencyControl = input(new FormControl());
 
-	@Input()
-	public priceControl = new FormControl();
+	public readonly priceControl = input(new FormControl());
 
 	public readonly translateService = inject(TranslateService);
 
@@ -119,8 +117,9 @@ export class PriceAndCurrencyComponent implements OnChanges {
 	}
 
 	private updateValue(currencies: { id: CurrencyCodeEnum; name: CurrencyCodeEnum; }[]): void {
-		if (!this.currencyControl.value) {
-			this.currencyControl.setValue(currencies[0].id);
+		const currencyControl = this.currencyControl();
+  if (!currencyControl.value) {
+			currencyControl.setValue(currencies[0].id);
 		}
 	}
 

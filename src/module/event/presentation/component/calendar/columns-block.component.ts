@@ -5,12 +5,11 @@ import {
 	ElementRef,
 	HostBinding,
 	inject,
-	Input,
+	input,
 	OnChanges,
 	SimpleChanges
 } from "@angular/core";
-import {NgForOf, NgIf} from "@angular/common";
-import {DataBlockComponent} from "@event/presentation/component/calendar/data-block.component";
+import {NgForOf} from "@angular/common";
 import {CellComponent} from "@event/presentation/component/calendar/cell.component";
 import {DateTime, Interval} from "luxon";
 
@@ -20,8 +19,6 @@ import {DateTime, Interval} from "luxon";
 	standalone: true,
 	imports: [
 		NgForOf,
-		NgIf,
-		DataBlockComponent,
 		CellComponent
 	],
 	template: `
@@ -53,34 +50,36 @@ export class ColumnsBlockComponent implements OnChanges {
 	@HostBinding()
 	public style = '';
 
-	@Input()
-	public rowsAmount = 24;
+	public readonly rowsAmount = input(24);
 
-	@Input()
-	public preferences!: {
+	public readonly preferences = input.required<{
 		from: Date;
 		to: Date;
-	};
+	}>();
 
 	public days: DateTime[] = [];
 
 	// Using outside of template
 	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
+
 	public dayIdentify(index: number, day: DateTime) {
 		return day.toFormat('dd.MM.yyyy');
 	}
+
 	public hourIdentify(index: number, hour: DateTime) {
 		return hour.toFormat('HH:mm');
 	}
 
-	public ngOnChanges(changes: SimpleChanges & {preferences: {currentValue: ColumnsBlockComponent['preferences']} }): void {
+	public ngOnChanges(changes: SimpleChanges & {
+		preferences: { currentValue: ColumnsBlockComponent['preferences'] }
+	}): void {
 
 		const {preferences} = changes;
 
 		if (preferences.currentValue) {
 
-			const {from, to} = preferences.currentValue;
+			const {from, to} = preferences.currentValue();
 			this.days = Interval.fromDateTimes(from, to).splitBy({days: 1}).map(({start}) => start) as DateTime[]
 
 			this.style += ` grid-template-columns: repeat(${this.days.length}, auto);`;
@@ -94,7 +93,7 @@ export class ColumnsBlockComponent implements OnChanges {
 
 	public getHours(day: DateTime) {
 		// TODO type: minute, day, week, month
-		return Array.from({length: this.rowsAmount}, (_, index) => {
+		return Array.from({length: this.rowsAmount()}, (_, index) => {
 			return day.plus({hours: index});
 		});
 	}

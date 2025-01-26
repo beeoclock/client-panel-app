@@ -4,18 +4,16 @@ import {
 	Component,
 	HostBinding,
 	inject,
-	Input,
+	input,
 	OnChanges,
 	ViewEncapsulation
 } from "@angular/core";
 import {
 	ItemV2ListServiceFormOrderComponent
 } from "@src/component/smart/order/form/service/list/item/item-v2.list.service.form.order.component";
-import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {Reactive} from "@utility/cdk/reactive";
-import {NgForOf} from "@angular/common";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {RIMember} from "@member/domain";
 import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
@@ -34,17 +32,15 @@ import {OrderActions} from "@order/state/order/order.actions";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		ItemV2ListServiceFormOrderComponent,
-		PrimaryLinkButtonDirective,
 		TranslateModule,
-		NgForOf
 	],
 	template: `
 		<div class="flex-col justify-start items-start flex">
 			<div class="bg-white flex-col justify-start items-start flex divide-y border border-gray-200 rounded-2xl">
 				@for (item of selectedServicePlusControlList; track item._id; let index = $index) {
-					@if (specificOrderServiceId === null || specificOrderServiceId === item._id) {
+					@if (specificOrderServiceId() === null || specificOrderServiceId() === item._id) {
 						<app-item-list-v2-service-form-order-component
-							[id]="idPrefix + item._id"
+							[id]="idPrefix() + item._id"
 							(deleteMe)="deleteItem(item._id)"
 							(saveChanges)="saveChanges(item.control)"
 							[item]="item"
@@ -57,14 +53,11 @@ import {OrderActions} from "@order/state/order/order.actions";
 })
 export class ListServiceFormCardOrderComponent extends Reactive implements OnChanges {
 
-	@Input({required: true})
-	public order!: IOrderDto;
+	public readonly order = input.required<IOrderDto>();
 
-	@Input()
-	public specificOrderServiceId: string | null = null;
+	public readonly specificOrderServiceId = input<string | null>(null);
 
-	@Input()
-	public idPrefix = '';
+	public readonly idPrefix = input('');
 
 	@HostBinding()
 	public class = 'flex-col justify-start items-start flex';
@@ -89,7 +82,7 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 
 	public ngOnChanges() {
 		this.selectedServicePlusControlList.length = 0;
-		this.order.services.forEach((orderServiceDto) => {
+		this.order().services.forEach((orderServiceDto) => {
 			this.selectedServicePlusControlList.push({
 				_id: orderServiceDto._id,
 				service: orderServiceDto.serviceSnapshot,
@@ -163,8 +156,8 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 
 		const orderServiceDto = control.getRawValue();
 		this.saveNewChanges({
-			...this.order,
-			services: this.order.services.map((service) => {
+			...this.order(),
+			services: this.order().services.map((service) => {
 				if (service._id === orderServiceDto._id) {
 					return orderServiceDto;
 				}
@@ -180,13 +173,13 @@ export class ListServiceFormCardOrderComponent extends Reactive implements OnCha
 
 	@Dispatch()
 	protected deleteOrder() {
-		return new OrderActions.DeleteItem(this.order._id);
+		return new OrderActions.DeleteItem(this.order()._id);
 	}
 
 	protected deleteServiceOrderAt(orderServiceId: string) {
 		this.saveNewChanges({
-			...this.order,
-			services: this.order.services.filter(({_id}) => _id !== orderServiceId),
+			...this.order(),
+			services: this.order().services.filter(({_id}) => _id !== orderServiceId),
 		});
 	}
 }

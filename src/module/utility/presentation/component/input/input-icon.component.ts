@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, input, ViewEncapsulation} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {NgxMaskDirective} from "ngx-mask";
 import {NgClass} from "@angular/common";
@@ -10,13 +10,13 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
   selector: 'form-icon-input',
   standalone: true,
   template: `
-    <label default [for]="id">{{ label }}</label>
+    <label default [for]="id()">{{ label() }}</label>
     <div class="flex">
       <input
-        [id]="id"
-        [formControl]="control"
-        [placeholder]="placeholder"
-        [mask]="mask"
+        [id]="id()"
+        [formControl]="control()"
+        [placeholder]="placeholder()"
+        [mask]="mask()"
         [dropSpecialCharacters]="false"
         type="text"
         hasError
@@ -57,7 +57,7 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
           dark:bg-beeDarkColor-600
           dark:text-beeDarkColor-400
           dark:border-beeDarkColor-600">
-        <i class="bi" [ngClass]="icon"></i>
+        <i class="bi" [ngClass]="icon()"></i>
         </span>
     </div>
   `,
@@ -74,22 +74,16 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 })
 export class InputIconComponent {
 
-  @Input()
-  public placeholder = '';
+  public readonly placeholder = input('');
 
-  @Input()
-  public label = '';
+  public readonly label = input('');
 
-  @Input()
-  public mask = '';
+  public readonly mask = input('');
 
-  @Input()
-  public id = '';
+  public readonly id = input('');
 
-  @Input()
-  public icon = '';
+  public readonly icon = input('');
 
-  @Input()
-  public control = new FormControl();
+  public readonly control = input(new FormControl());
 
 }

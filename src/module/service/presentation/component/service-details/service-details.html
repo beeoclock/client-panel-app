@@ -1,34 +1,25 @@
-<ng-container *ngIf="item as service">
+@if (item(); as service) {
+
 	<div class="bg-white">
 		<dl class="divide-y divide-gray-100">
 
-			<div *ngIf="(service.presentation?.banners ?? []).length > 0" class="p-4 sm:gap-4 flex flex-wrap">
-				<div
-					*ngFor="let banner of service.presentation?.banners"
-					class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-beeColor-400">
-					<img
-						*ngIf="banner"
-						[src]="banner"
-						class="object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
-						alt="Uploaded Image"/>
+			@if ((service.presentation?.banners ?? []).length) {
+
+				<div class="p-4 sm:gap-4 flex flex-wrap">
+					@for (banner of service.presentation?.banners; track banner._id) {
+						<div
+							class="md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px] rounded-2xl bg-beeColor-400">
+							@if (banner) {
+
+								<img
+									[src]="banner"
+									class="object-cover rounded-2xl md:min-w-[128px] md:max-w-[128px] md:min-h-[128px] md:max-h-[128px]"
+									alt="Uploaded Image"/>
+							}
+						</div>
+					}
 				</div>
-			</div>
-			<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
-				<dt class="text-sm font-medium leading-6 text-gray-900">
-					{{ 'keyword.capitalize.title' | translate }}
-				</dt>
-				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-					{{ service.languageVersions[0].title }}
-				</dd>
-			</div>
-			<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
-				<dt class="text-sm font-medium leading-6 text-gray-900">
-					{{ 'keyword.capitalize.description' | translate }}
-				</dt>
-				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-					{{ service.languageVersions[0].description }}
-				</dd>
-			</div>
+			}
 			<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
 					{{ 'keyword.capitalize.order' | translate }}
@@ -42,10 +33,14 @@
 					{{ 'keyword.capitalize.color' | translate }}
 				</dt>
 				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-					<div class="h-10 w-10 rounded-full" *ngIf="service.presentation?.color" [style.background-color]="service.presentation?.color ?? ''"></div>
-					<div class="h-10 w-10 rounded-full flex justify-center items-center bg-gray-100" *ngIf="!service.presentation?.color">
-						❓
-					</div>
+					@if (service.presentation?.color) {
+						<div class="h-10 w-10 rounded-full" [style.background-color]="service.presentation?.color ?? ''"></div>
+					} @else {
+
+						<div class="h-10 w-10 rounded-full flex justify-center items-center bg-gray-100">
+							❓
+						</div>
+					}
 				</dd>
 			</div>
 			<div class="p-4 sm:grid sm:grid-cols-3 sm:gap-4">
@@ -54,7 +49,7 @@
 				</dt>
 				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
 					<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
-							 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="service.active">
+						 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="service.active">
 					</div>
 				</dd>
 			</div>
@@ -64,7 +59,7 @@
 				</dt>
 				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
 					<div class="flex flex-col items-start"
-							 [innerHTML]="durationVersionHtmlHelper.getPriceValue(service)">
+						 [innerHTML]="durationVersionHtmlHelper.getPriceValue(service)">
 					</div>
 				</dd>
 			</div>
@@ -74,9 +69,29 @@
 				</dt>
 				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 ">
 					<div class="flex flex-col items-start"
-							 [innerHTML]="durationVersionHtmlHelper.getDurationValue(service)">
+						 [innerHTML]="durationVersionHtmlHelper.getDurationValue(service)">
 					</div>
 				</dd>
+			</div>
+
+			<div class="p-4">
+
+				<div class="flex flex-col divide-y w-full rounded-lg border text-sm">
+					@for (languageVersion of service.languageVersions; track languageVersion.language) {
+
+						<div
+							class="relative text-wrap flex gap-2 items-start p-2 font-sans text-neutral-900">
+							<label
+								class="relative font-bold uppercase flex items-center justify-center p-0 cursor-pointer border-2 border-neutral-200 px-1 rounded-lg">
+								{{ languageVersion.language }}
+							</label>
+							<div class="flex flex-col gap-1">
+								<div class="font-bold">{{ languageVersion.title }}</div>
+								<div>{{ languageVersion.description }}</div>
+							</div>
+						</div>
+					}
+				</div>
 			</div>
 		</dl>
 	</div>
@@ -132,4 +147,4 @@
 		</div>
 
 	</div>
-</ng-container>
+}

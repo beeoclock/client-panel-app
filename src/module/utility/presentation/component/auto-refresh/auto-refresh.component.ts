@@ -1,10 +1,6 @@
-import {Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output, ViewEncapsulation} from "@angular/core";
-import {NgForOf, NgIf} from "@angular/common";
+import {Component, inject, input, OnDestroy, OnInit, output, ViewEncapsulation} from "@angular/core";
+import {NgForOf} from "@angular/common";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
-import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
-import {EditLinkComponent} from "@utility/presentation/component/link/edit.link.component";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {IonicModule} from "@ionic/angular";
@@ -65,19 +61,14 @@ const allowedAutoRefreshTimes = [
 					type="submit"
 					link
 					class="rounded-l-none border border-l-0 !p-3 h-full text-sm border-beeColor-300 shadow-sm">
-					<i [class.animate-spin]="isLoading" class="bi bi-arrow-clockwise"></i>
+					<i [class.animate-spin]="isLoading()" class="bi bi-arrow-clockwise"></i>
 				</button>
 			</div>
 		</form>
 
 	`,
 	imports: [
-		NgIf,
 		FormsModule,
-		DeleteButtonComponent,
-		DropdownComponent,
-		EditLinkComponent,
-		PrimaryButtonDirective,
 		LinkButtonDirective,
 		TranslateModule,
 		IonicModule,
@@ -87,14 +78,11 @@ const allowedAutoRefreshTimes = [
 })
 export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit {
 
-	@Input()
-	public id = '@default';
+	public readonly id = input('@default');
 
-	@Input()
-	public isLoading = false;
+	public readonly isLoading = input(false);
 
-	@Output()
-	public readonly emitter: EventEmitter<void> = new EventEmitter<void>();
+	public readonly emitter = output<void>();
 
 	public readonly control = new FormControl(60, {
 		nonNullable: true,
@@ -145,7 +133,7 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 	public ngOnInit() {
 
 		this.control.valueChanges.pipe(this.takeUntil(), filter(is.number)).subscribe((value) => {
-			this.autoRefreshStorageService.set(this.id, value.toString());
+			this.autoRefreshStorageService.set(this.id(), value.toString());
 			this.initTimer(value);
 		});
 
@@ -154,10 +142,10 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 	}
 
 	public init() {
-		const value = this.autoRefreshStorageService.get(this.id);
+		const value = this.autoRefreshStorageService.get(this.id());
 		if (is.string(value)) {
 			if (!allowedAutoRefreshTimes.includes(Number(value))) {
-				this.autoRefreshStorageService.remove(this.id);
+				this.autoRefreshStorageService.remove(this.id());
 				this.control.setValue(AutoRefreshTime.ONE_MIN);
 				return;
 			}
@@ -179,10 +167,10 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 		}
 
 		this.timer = setTimeout(() => {
-			if (this.visibilityService.visibilityChange.value && !this.isLoading) {
+			if (this.visibilityService.visibilityChange.value && !this.isLoading()) {
 				this.emitter.emit();
 				this.analyticsService.logEvent('auto_refresh_component_emit', {
-					id: this.id,
+					id: this.id(),
 					seconds,
 				});
 			}

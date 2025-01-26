@@ -1,49 +1,58 @@
 <div class="relative pt-12 pb-40 sm:py-16 lg:pt-20 xl:pb-0">
 	<div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<div class="mx-auto max-w-3xl text-center">
-<!--			<h1-->
-<!--				class="mt-5 text-3xl font-bold leading-tight text-gray-900 sm:text-3xl sm:leading-tight lg:text-4xl lg:leading-tight">-->
-<!--				{{ 'identity.create-business.section.services.title' | translate }}-->
-<!--			</h1>-->
+			<!--			<h1-->
+			<!--				class="mt-5 text-3xl font-bold leading-tight text-gray-900 sm:text-3xl sm:leading-tight lg:text-4xl lg:leading-tight">-->
+			<!--				{{ 'identity.create-business.section.services.title' | translate }}-->
+			<!--			</h1>-->
 
 
 			<bee-card padding="py-16">
 				<ol class="space-y-4 w-72 m-auto">
-					<li *ngFor="let step of steps; let index = index">
-						<div
-							class="
+					@for (step of steps; track step.title) {
+
+						<li>
+							<div
+								[ngClass]="classes[step.status]"
+								class="
 								w-full
 								p-4
 								border
 								rounded-lg
 								dark:bg-gray-800"
-							[ngClass]="classes[step.status]"
-							role="alert">
-							<div class="flex items-center justify-between">
-								<span class="sr-only">{{ step.title }}</span>
-								<h3 class="font-medium">{{ index + 1 }}. {{ step.title }}</h3>
-								<ng-template [ngIf]="step.status === 'inQueue'">
-									<i class="bi bi-hourglass"></i>
-								</ng-template>
-								<ng-template [ngIf]="step.status === 'failed'">
-									<i class="bi bi-x-circle"></i>
-								</ng-template>
-								<ng-template [ngIf]="step.status === 'inProgress'">
-									<utility-loader [px5]="false" [py2_5]="false" [mr2]="false"/>
-								</ng-template>
-								<ng-template [ngIf]="step.status === 'success'">
-									<i class="bi bi-check-lg"></i>
-								</ng-template>
+								role="alert">
+								<div class="flex items-center justify-between">
+									<span class="sr-only">{{ step.title }}</span>
+									<h3 class="font-medium">{{ $index + 1 }}. {{ step.title }}</h3>
+									@switch (step.status) {
+										@case ('inQueue') {
+											<i class="bi bi-hourglass"></i>
+										}
+										@case ('failed') {
+											<i class="bi bi-x-circle"></i>
+										}
+										@case ('inProgress') {
+											<utility-loader [mr2]="false" [px5]="false" [py2_5]="false"/>
+										}
+										@case ('success') {
+											<i class="bi bi-check-lg"></i>
+										}
+									}
+								</div>
 							</div>
-						</div>
-					</li>
+						</li>
+					}
 				</ol>
 
-				<div *ngIf="allStepsFinishedWithSuccess.isOn" class="flex justify-center px-2 mt-4 w-full">
-					<button #goToDashboardPage [routerLink]="'event/calendar-with-specialists' | withTenantId" primary class="max-w-sm">
-						{{ 'identity.create-business.section.processing.button' | translate }}
-					</button>
-				</div>
+				@if (allStepsFinishedWithSuccess.isOn) {
+
+					<div class="flex justify-center px-2 mt-4 w-full">
+						<button #goToDashboardPage [routerLink]="'event/calendar-with-specialists' | withTenantId" class="max-w-sm"
+								primary>
+							{{ 'identity.create-business.section.processing.button' | translate }}
+						</button>
+					</div>
+				}
 			</bee-card>
 
 

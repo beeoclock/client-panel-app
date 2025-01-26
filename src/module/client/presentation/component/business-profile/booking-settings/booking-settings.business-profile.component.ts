@@ -1,22 +1,12 @@
-import {Component, Input, ViewEncapsulation} from "@angular/core";
+import {Component, input, ViewEncapsulation} from "@angular/core";
 import {BookingSettingsForm} from "@client/presentation/form/booking-settings.form";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {SelectEarliestBookingComponent} from "@utility/presentation/component/input/select-earliest-booking.component";
 import {SelectLatestBookingComponent} from "@utility/presentation/component/input/select-latest-booking.component";
 import {
-	SelectAutoActionOnEventInSecondsComponent
-} from "@utility/presentation/component/input/select-auto-action-on-event-in-seconds.component";
-import {
-	SelectAutoActionTypeOnEventComponent
-} from "@utility/presentation/component/input/select-auto-action-type-on-event.component";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
-import {
 	SelectSlotBuildingStrategyComponent
 } from "@utility/presentation/component/input/select-slot-building-strategy.component";
-import {
-	SelectSlotRetrievingStrategyComponent
-} from "@utility/presentation/component/input/select-slot-retrieving-strategy.component";
 import {
 	MandatoryAttendeePropertiesComponent
 } from "@client/presentation/component/booking-settings/mandatory-attendee-properties/mandatory-attendee-properties.component";
@@ -30,11 +20,7 @@ import {
 		TranslateModule,
 		SelectEarliestBookingComponent,
 		SelectLatestBookingComponent,
-		SelectAutoActionOnEventInSecondsComponent,
-		SelectAutoActionTypeOnEventComponent,
-		HumanizeDurationPipe,
 		SelectSlotBuildingStrategyComponent,
-		SelectSlotRetrievingStrategyComponent,
 		MandatoryAttendeePropertiesComponent
 	],
   template: `
@@ -45,14 +31,14 @@ import {
       </strong>
 
       <select-latest-booking-component
-        [control]="form.controls.latestBooking"/>
+        [control]="form().controls.latestBooking"/>
 
       <select-earliest-booking-component
-        [control]="form.controls.earliestBooking"/>
+        [control]="form().controls.earliestBooking"/>
 
 			<hr>
 
-			<select-slot-building-strategy-component [slotSettings]="form.controls.slotSettings"/>
+			<select-slot-building-strategy-component [slotSettings]="form().controls.slotSettings"/>
 
 <!--	В низу знаходяться налаштування які відповідаю за крок "ЗАПИТ" коли бізнес має ще підтвердити чи приймає заявку на реалізацію		-->
 
@@ -78,14 +64,13 @@ import {
 
 
 		<client-booking-settings-mandatory-attendee-properties-component
-			[control]="form.controls.mandatoryAttendeeProperties"/>
+			[control]="form().controls.mandatoryAttendeeProperties"/>
 
     </bee-card>
   `
 })
 export class BookingSettingsBusinessProfileComponent {
 
-  @Input()
-  public form = new BookingSettingsForm();
+  public readonly form = input(new BookingSettingsForm());
 
 }

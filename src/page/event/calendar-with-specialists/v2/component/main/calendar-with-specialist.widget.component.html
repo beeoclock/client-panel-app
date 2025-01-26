@@ -7,10 +7,10 @@
 	<div #calendar class="flex relative overflow-auto h-0 min-h-full bg-white snap-mandatory snap-x scroll-pl-[50px]">
 
 		<div
-			class="bg-white border-r flex flex-col left-0 sticky z-10 text-sm text-center snap-start"
-			data-is-column="true"
+			[style.min-height]="calendarWithSpecialistLocaStateService.columnHeightInPx"
 			[style.width]="calendarWithSpecialistLocaStateService.hoursWidthInPx"
-			[style.min-height]="calendarWithSpecialistLocaStateService.columnHeightInPx">
+			class="bg-white border-r flex flex-col left-0 sticky z-10 text-sm text-center snap-start"
+			data-is-column="true">
 
 			@if (showTimeLine$ | async) {
 

@@ -8,10 +8,10 @@ import {
 	inject,
 	Input,
 	Renderer2,
-	ViewChild,
+	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
-import {DatePipe, NgIf} from "@angular/common";
+import {DatePipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {IEvent_V2} from "@event/domain";
@@ -40,7 +40,6 @@ type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenc
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		NgIf,
 		OrderEventCalendarWithSpecialistWidgetComponent,
 		AbsenceEventCalendarWithSpecialistWidgetComponent,
 		DatePipe
@@ -59,17 +58,18 @@ type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenc
 			<div
 				data-dragging="position"
 				class="overflow-hidden absolute bg-black/50 bg-opacity-50 border-2 border-blue-500 bottom-0 left-0 p-1 right-0 rounded-md text-white top-0">
-				<div
-					data-dragging="position"
-					class="h-full py-1 text-white flex flex-col justify-between"
-					*ngIf="temporaryInformationAboutNewStartAndEnd">
-					<div data-dragging="position" class="w-full text-center">
-						{{ temporaryInformationAboutNewStartAndEnd.start | date: 'HH:mm' }}
+				@if (temporaryInformationAboutNewStartAndEnd) {
+					<div
+						data-dragging="position"
+						class="h-full py-1 text-white flex flex-col justify-between">
+						<div data-dragging="position" class="w-full text-center">
+							{{ temporaryInformationAboutNewStartAndEnd.start | date: 'HH:mm' }}
+						</div>
+						<div data-dragging="position" class="w-full text-center">
+							{{ temporaryInformationAboutNewStartAndEnd.end | date: 'HH:mm' }}
+						</div>
 					</div>
-					<div data-dragging="position" class="w-full text-center">
-						{{ temporaryInformationAboutNewStartAndEnd.end | date: 'HH:mm' }}
-					</div>
-				</div>
+				}
 			</div>
 			<div
 				class="-top-1 absolute bg-blue-500 h-3 left-1/2 rounded-full w-3"
@@ -88,39 +88,26 @@ type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenc
 				class="-bottom-2 w-full absolute bg-transparent h-5 left-0 right-0 rounded-full cursor-ns-resize">
 			</div>
 		}
-	`
+	`,
+	host: {
+		class: 'absolute w-full',
+		'[class.cursor-all-scroll]': 'draggable',
+		'[class.select-none]': 'draggable'
+	}
 })
 export class EventCalendarWithSpecialistWidgetComponent {
 
 	@Input({required: true})
 	public item!: DATA;
 
-	@ViewChild(OrderEventCalendarWithSpecialistWidgetComponent)
-	private orderEventCalendarWithSpecialistWidgetComponent!: OrderEventCalendarWithSpecialistWidgetComponent;
+	readonly orderEventCalendarWithSpecialistWidgetComponent = viewChild(OrderEventCalendarWithSpecialistWidgetComponent);
 
-	@ViewChild(AbsenceEventCalendarWithSpecialistWidgetComponent)
-	private absenceEventCalendarWithSpecialistWidgetComponent!: AbsenceEventCalendarWithSpecialistWidgetComponent;
+	readonly absenceEventCalendarWithSpecialistWidgetComponent = viewChild(AbsenceEventCalendarWithSpecialistWidgetComponent);
 
 	@SelectSnapshot(CalendarWithSpecialistsQueries.start)
 	public selectedDate!: DateTime;
-
-	private readonly ngxLogger = inject(NGXLogger);
-
 	public readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
-	private readonly renderer2 = inject(Renderer2);
-	private readonly changeDetectorRef = inject(ChangeDetectorRef);
-	private readonly updateServiceOrderApiAdapter = inject(UpdateServiceOrderApiAdapter);
-	private readonly updateAbsenceApiAdapter = inject(UpdateAbsenceApiAdapter);
-	private readonly alertController = inject(AlertController);
-	private readonly translateService = inject(TranslateService);
-
-	private saveInProgress = false;
-
-	@HostBinding()
-	public get class() {
-		return 'absolute';
-	}
 
 	@HostBinding('style.touch-action')
 	public touchAction = 'auto';
@@ -134,15 +121,22 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	@HostBinding('attr.data-draggable')
 	public draggable = false;
 
-	@HostBinding('class.cursor-all-scroll')
-	public get cursorAllScroll() {
-		return this.draggable;
-	}
-
-	@HostBinding('class.select-none')
-	public get selectNone() {
-		return this.draggable;
-	}
+	public temporaryInformationAboutNewStartAndEnd: { start: string, end: string } | null = null;
+	public temporaryNewMember: RIMember | null = null;
+	public snapshotOfOriginalPosition: { top: number, height: number } | null = null;
+	public previousData: {
+		member: RIMember | undefined;
+		htmlParent: HTMLElement | null | undefined;
+		memberId: string | undefined;
+	} | null = null;
+	private readonly ngxLogger = inject(NGXLogger);
+	private readonly renderer2 = inject(Renderer2);
+	private readonly changeDetectorRef = inject(ChangeDetectorRef);
+	private readonly updateServiceOrderApiAdapter = inject(UpdateServiceOrderApiAdapter);
+	private readonly updateAbsenceApiAdapter = inject(UpdateAbsenceApiAdapter);
+	private readonly alertController = inject(AlertController);
+	private readonly translateService = inject(TranslateService);
+	private saveInProgress = false;
 
 	@HostBinding('style.top')
 	public get top() {
@@ -168,27 +162,24 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		return `${(duration * this.calendarWithSpecialistLocaStateService.oneMinuteForPx)}px`;
 	}
 
-	@HostBinding('style.width')
-	public get width() {
-		return '100%';
-	}
-
 	// Hover
 	@HostListener('mouseenter')
 	public onMouseEnter() {
-		if (this.orderEventCalendarWithSpecialistWidgetComponent) {
+		const orderEventCalendarWithSpecialistWidgetComponent = this.orderEventCalendarWithSpecialistWidgetComponent();
+		if (orderEventCalendarWithSpecialistWidgetComponent) {
 			this.renderer2.addClass(this.elementRef.nativeElement, 'z-20');
-			if (this.elementRef.nativeElement.clientHeight < this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.scrollHeight) {
-				this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.remove('bottom-0');
+			if (this.elementRef.nativeElement.clientHeight < orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.scrollHeight) {
+				orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.remove('bottom-0');
 			}
 		}
 	}
 
 	@HostListener('mouseleave')
 	public onMouseLeave() {
-		if (this.orderEventCalendarWithSpecialistWidgetComponent) {
-			if (this.elementRef.nativeElement.clientHeight < this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.scrollHeight) {
-				this.orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.add('bottom-0');
+		const orderEventCalendarWithSpecialistWidgetComponent = this.orderEventCalendarWithSpecialistWidgetComponent();
+		if (orderEventCalendarWithSpecialistWidgetComponent) {
+			if (this.elementRef.nativeElement.clientHeight < orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.scrollHeight) {
+				orderEventCalendarWithSpecialistWidgetComponent.elementRef.nativeElement.classList.add('bottom-0');
 			}
 			this.renderer2.removeClass(this.elementRef.nativeElement, 'z-20');
 		}
@@ -201,8 +192,8 @@ export class EventCalendarWithSpecialistWidgetComponent {
 			return;
 		}
 		this.ngxLogger.debug('tap event detected:', event);
-		this.orderEventCalendarWithSpecialistWidgetComponent?.onClick?.();
-		this.absenceEventCalendarWithSpecialistWidgetComponent?.onClick?.();
+		this.orderEventCalendarWithSpecialistWidgetComponent()?.onClick?.();
+		this.absenceEventCalendarWithSpecialistWidgetComponent()?.onClick?.();
 	}
 
 	// If draggable is enabled and user press outside of the event, then disable draggable mode
@@ -229,15 +220,6 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		// Додайте вашу логіку тут
 		this.toggleMode(true);
 	}
-
-	public temporaryInformationAboutNewStartAndEnd: { start: string, end: string } | null = null;
-	public temporaryNewMember: RIMember | null = null;
-	public snapshotOfOriginalPosition: { top: number, height: number } | null = null;
-	public previousData: {
-		member: RIMember | undefined;
-		htmlParent: HTMLElement | null | undefined;
-		memberId: string | undefined;
-	} | null = null;
 
 	public changeMember(member: RIMember) {
 		this.temporaryNewMember = member;

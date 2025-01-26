@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
-import {AsyncPipe, NgIf} from '@angular/common';
+import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {AsyncPipe} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {ListPage} from "@utility/list.page";
 import {Observable, tap} from "rxjs";
@@ -22,7 +22,6 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		AsyncPipe,
-		NgIf,
 		TranslateModule,
 		DesktopLayoutListComponent,
 		MobileLayoutListComponent,
@@ -33,9 +32,9 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 			useClass: ServiceTableService
 		}
 	],
-	standalone: true
+	standalone: true,
 })
-export class ListServicePage extends ListPage<IServiceDto> {
+export class ListServicePage extends ListPage<IServiceDto> implements OnInit {
 
 	public readonly tableState$: Observable<ITableState<IServiceDto>> = this.store.select(ServiceState.tableState)
 		.pipe(

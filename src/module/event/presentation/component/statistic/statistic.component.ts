@@ -4,7 +4,7 @@ import {
 	Component,
 	inject,
 	OnInit,
-	ViewChild,
+	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
 import {IonicModule} from "@ionic/angular";
@@ -56,8 +56,7 @@ import {statisticCalculator} from "@event/state/statistic/statistic.calculator";
 })
 export class StatisticComponent extends Reactive implements AfterViewInit, OnInit {
 
-	@ViewChild(DateSliderControlComponent)
-	public dateSliderControlComponent!: DateSliderControlComponent;
+	readonly dateSliderControlComponent = viewChild.required(DateSliderControlComponent);
 
 	private readonly router = inject(Router);
 	private readonly activatedRoute = inject(ActivatedRoute);
@@ -156,7 +155,7 @@ export class StatisticComponent extends Reactive implements AfterViewInit, OnIni
 			})
 		).subscribe();
 
-		this.dateSliderControlComponent.initialize();
+		this.dateSliderControlComponent().initialize();
 
 	}
 

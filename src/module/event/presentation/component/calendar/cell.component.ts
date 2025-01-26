@@ -4,11 +4,10 @@ import {
 	HostBinding,
 	HostListener,
 	inject,
-	Input,
+	input,
 	OnChanges,
 	SimpleChanges
 } from "@angular/core";
-import {NgIf} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
 import {Store} from "@ngxs/store";
 import {RefreshCalendarAction} from "@event/state/calendar/actions/refresh.calendar.action";
@@ -20,23 +19,17 @@ import {
 	selector: 'event-calendar-cell-component',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
-	imports: [
-		NgIf
-	],
 	template: `
 
 	`
 })
 export class CellComponent implements OnChanges {
 
-	@Input()
-	public baseId!: string;
+	public readonly baseId = input.required<string>();
 
-	@Input()
-	public idSuffix = '';
+	public readonly idSuffix = input('');
 
-	@Input()
-	public datetimeISO = (new Date()).toISOString();
+	public readonly datetimeISO = input((new Date()).toISOString());
 
 	@HostBinding()
 	public class = 'clickMe test relative border-slate-100 dark:border-slate-200/5 h-[50px]';
@@ -53,7 +46,7 @@ export class CellComponent implements OnChanges {
 
 	public ngOnChanges(changes: SimpleChanges & { baseId: { currentValue: CellComponent['baseId'] } }) {
 		if (changes.baseId) {
-			this.id =  `${this.baseId}-${this.idSuffix}`;
+			this.id = `${this.baseId()}-${this.idSuffix()}`;
 		}
 	}
 

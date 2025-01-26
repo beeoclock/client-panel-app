@@ -6,17 +6,14 @@ import {
 	EventEmitter,
 	inject,
 	Input,
+	input,
 	OnInit,
 	Output,
 	QueryList,
-	ViewChild,
+	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
-import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
-import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {NGXLogger} from "ngx-logger";
 import {Reactive} from "@utility/cdk/reactive";
 import {RIMember} from "@member/domain";
@@ -32,13 +29,7 @@ import {
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		NgForOf,
-		LoaderComponent,
-		NgIf,
 		TranslateModule,
-		CurrencyPipe,
-		HumanizeDurationPipe,
-		PrimaryButtonDirective,
 		MemberExternalListComponent,
 	],
 	template: `
@@ -47,8 +38,7 @@ import {
 })
 export class SelectMemberPushBoxComponent extends Reactive implements OnInit, AfterViewInit {
 
-	@Input()
-	public selectedMemberList: RIMember[] = [];
+	public readonly selectedMemberList = input<RIMember[]>([]);
 
 	@Input()
 	public newSelectedMemberList: RIMember[] = [];
@@ -56,8 +46,7 @@ export class SelectMemberPushBoxComponent extends Reactive implements OnInit, Af
 	@Output()
 	public readonly selectedMembersListener = new EventEmitter<void>();
 
-	@ViewChild(MemberExternalListComponent)
-	public memberExternalListComponent!: MemberExternalListComponent;
+	readonly memberExternalListComponent = viewChild.required(MemberExternalListComponent);
 
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly logger = inject(NGXLogger);
@@ -66,7 +55,7 @@ export class SelectMemberPushBoxComponent extends Reactive implements OnInit, Af
 
 	public ngOnInit(): void {
 
-		this.newSelectedMemberList = [...(this.selectedMemberList ?? [])];
+		this.newSelectedMemberList = [...(this.selectedMemberList() ?? [])];
 
 	}
 
@@ -75,9 +64,9 @@ export class SelectMemberPushBoxComponent extends Reactive implements OnInit, Af
 	}
 
 	private async initializeCustomConfiguration() {
-		const mobileLayoutListComponents = await firstValueFrom<QueryList<MobileLayoutListComponent>>(this.memberExternalListComponent.mobileLayoutListComponents.changes);
+		const mobileLayoutListComponents = await firstValueFrom<QueryList<MobileLayoutListComponent>>(this.memberExternalListComponent().mobileLayoutListComponents.changes);
 		const {first: mobileLayoutListComponent} = mobileLayoutListComponents;
-		const {first: cardListComponent} = mobileLayoutListComponent.cardListComponents;
+		const {0: cardListComponent} = mobileLayoutListComponent.cardListComponents();
 		cardListComponent.selectedIds = this.newSelectedMemberList.map(({_id}) => _id);
 		// cardListComponent.showAction.doFalse();
 		// cardListComponent.showSelectedStatus.doTrue();

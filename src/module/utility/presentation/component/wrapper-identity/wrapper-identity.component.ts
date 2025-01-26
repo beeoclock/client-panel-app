@@ -1,6 +1,5 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {AsyncPipe, NgIf} from "@angular/common";
 import {
 	PageLoadingProgressBarComponent
 } from "@utility/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
@@ -16,8 +15,6 @@ import {
 	`,
 	imports: [
 		RouterOutlet,
-		NgIf,
-		AsyncPipe,
 		PageLoadingProgressBarComponent,
 	],
 	encapsulation: ViewEncapsulation.None

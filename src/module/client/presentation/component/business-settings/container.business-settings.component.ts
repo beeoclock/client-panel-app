@@ -4,13 +4,6 @@ import {
 } from "@client/presentation/component/business-settings/email-language.business-settings.component";
 import {BusinessSettingsForm} from "@client/presentation/form/business-settings.form";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {NgIf} from "@angular/common";
-import {
-	CurrenciesBusinessSettingsComponent
-} from "@client/presentation/component/business-settings/currencies.business-settings.component";
-import {
-	MandatoryAttendeePropertiesComponent
-} from "@client/presentation/component/booking-settings/mandatory-attendee-properties/mandatory-attendee-properties.component";
 import {
 	TimeZoneBookingSettingsComponent
 } from "@client/presentation/component/business-settings/time-zone/time-zone.booking-settings.component";
@@ -28,34 +21,34 @@ import {
 @Component({
 	selector: 'client-container-business-settings-component',
 	template: `
-		<bee-card *ngIf="businessSettings">
+		@if (businessSettings) {
 
-			<strong class="dark:text-white">
-				{{ 'keyword.capitalize.languageAndRegion' | translate }}
-			</strong>
-			<client-available-languages-business-settings-component
-				[control]="businessSettings.controls.availableLanguages"/>
-			<client-base-language-business-settings-component
-				[include]="businessSettings.controls.availableLanguages.value"
-				[control]="businessSettings.controls.baseLanguage"/>
-			<client-email-language-business-settings-component
-				[availableLanguagesControl]="businessSettings.controls.availableLanguages"
-				[control]="businessSettings.controls.emailLanguage"/>
-			<client-booking-settings-time-zone-component
-				[control]="businessSettings.controls.timeZone"/>
-			<app-client-base-currency-business-settings-component
-				[control]="businessSettings.controls.baseCurrency"/>
-			<!--			<client-currencies-business-settings-component-->
-			<!--				[control]="businessSettings.controls.currencies"/>-->
-		</bee-card>
+			<bee-card>
+
+				<strong class="dark:text-white">
+					{{ 'keyword.capitalize.languageAndRegion' | translate }}
+				</strong>
+				<client-available-languages-business-settings-component
+					[control]="businessSettings.controls.availableLanguages"/>
+				<client-base-language-business-settings-component
+					[include]="businessSettings.controls.availableLanguages.value"
+					[control]="businessSettings.controls.baseLanguage"/>
+				<client-email-language-business-settings-component
+					[availableLanguagesControl]="businessSettings.controls.availableLanguages"
+					[control]="businessSettings.controls.emailLanguage"/>
+				<client-booking-settings-time-zone-component
+					[control]="businessSettings.controls.timeZone"/>
+				<app-client-base-currency-business-settings-component
+					[control]="businessSettings.controls.baseCurrency"/>
+				<!--			<client-currencies-business-settings-component-->
+				<!--				[control]="businessSettings.controls.currencies"/>-->
+			</bee-card>
+		}
 	`,
 	imports: [
 		AvailableLanguagesBusinessSettingsComponent,
 		EmailLanguageBusinessSettingsComponent,
 		CardComponent,
-		NgIf,
-		CurrenciesBusinessSettingsComponent,
-		MandatoryAttendeePropertiesComponent,
 		TimeZoneBookingSettingsComponent,
 		BaseCurrencyBusinessSettingsComponent,
 		TranslateModule,

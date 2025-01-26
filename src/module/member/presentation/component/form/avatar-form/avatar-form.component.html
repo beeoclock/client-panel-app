@@ -9,9 +9,10 @@
 		<img
 				#previewImage
 				class="absolute top-0 left-0 object-cover rounded-xl w-full h-full hidden" alt="Uploaded Image"/>
-		<utility-placeholder-image-component
-				*ngIf="showHit"
+		@if (showHit()) {
+			<utility-placeholder-image-component
 				[labelOfDragAndDropZone]="labelOfDragAndDropZone"/>
+		}
 		<input
 				id="logo-business-profile-dropzone-file" type="file" #fileInput class="hidden"
 				(change)="onFileSelected($event)"

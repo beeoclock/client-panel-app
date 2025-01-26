@@ -2,7 +2,6 @@ import {Component, Input, ViewEncapsulation} from "@angular/core";
 import {IsRequiredDirective} from "@utility/presentation/directives/is-required/is-required";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {NgIf} from "@angular/common";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
 
 @Component({
@@ -13,7 +12,6 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
 		IsRequiredDirective,
 		InvalidTooltipDirective,
 		ReactiveFormsModule,
-		NgIf,
 		DefaultLabelDirective,
 	],
   template: `
@@ -51,18 +49,20 @@ import {DefaultLabelDirective} from "@utility/presentation/directives/label/defa
           placeholder:text-beeColor-400
           focus:border-beeColor-800
           sm:leading-6">
-			<button
-				(click)="callback()"
-				*ngIf="showButton"
-				class="
+			@if (showButton) {
+
+				<button
+					(click)="callback()"
+					class="
           px-3
           rounded-r-md
           hover:bg-beeColor-100
           border
           border-l-0
           border-beeColor-300">
-				<ng-content select="[button-icon]"/>
-			</button>
+					<ng-content select="[button-icon]"/>
+				</button>
+			}
 		</div>
 
 	`

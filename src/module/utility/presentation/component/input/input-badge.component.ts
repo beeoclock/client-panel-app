@@ -1,6 +1,5 @@
-import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, input, ViewEncapsulation} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {NgxMaskDirective} from "ngx-mask";
 import {InvalidTooltipDirective} from "@utility/presentation/directives/invalid-tooltip/invalid-tooltip.directive";
 import {HasErrorDirective} from "@utility/presentation/directives/has-error/has-error.directive";
 import {DefaultLabelDirective} from "@utility/presentation/directives/label/default.label.directive";
@@ -10,15 +9,15 @@ import {IonicModule, IonModal} from "@ionic/angular";
 	selector: 'bee-form-badge-input',
 	standalone: true,
 	template: `
-		<label default [for]="id">{{ label }}</label>
+		<label default [for]="id()">{{ label() }}</label>
 		<div class="flex">
 <!--
 				[dropSpecialCharacters]="false"
 				[mask]="mask"-->
 			<input
-				[id]="id"
-				[formControl]="control"
-				[placeholder]="placeholder"
+				[id]="id()"
+				[formControl]="control()"
+				[placeholder]="placeholder()"
 				type="time"
 				hasError
 				invalidTooltip
@@ -75,7 +74,7 @@ import {IonicModule, IonModal} from "@ionic/angular";
           dark:bg-beeDarkColor-600
           dark:text-beeDarkColor-400 hover:text-white
           dark:border-beeDarkColor-600">
-            {{ badge }}
+            {{ badge() }}
         </button>
 		</div>
 	`,
@@ -84,7 +83,6 @@ import {IonicModule, IonModal} from "@ionic/angular";
 		ReactiveFormsModule,
 		InvalidTooltipDirective,
 		HasErrorDirective,
-		NgxMaskDirective,
 		DefaultLabelDirective,
 		IonicModule
 	],
@@ -92,23 +90,17 @@ import {IonicModule, IonModal} from "@ionic/angular";
 })
 export class InputBadgeComponent {
 
-	@Input()
-	public placeholder = '';
+	public readonly placeholder = input('');
 
-	@Input()
-	public label = '';
+	public readonly label = input('');
 
-	@Input()
-	public mask = '';
+	public readonly mask = input('');
 
-	@Input()
-	public id = '';
+	public readonly id = input('');
 
-	@Input()
-	public badge = '';
+	public readonly badge = input('');
 
-	@Input()
-	public control = new FormControl();
+	public readonly control = input(new FormControl());
 
 	public open(modal: IonModal) {
 		modal.present();

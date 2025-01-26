@@ -5,7 +5,7 @@ import {
 	Component,
 	ElementRef,
 	inject,
-	Input,
+	input,
 	QueryList,
 	ViewChildren,
 	ViewEncapsulation
@@ -18,7 +18,6 @@ import {DateTime} from "luxon";
 import {Store} from "@ngxs/store";
 import {filter, map, switchMap} from "rxjs";
 import {Reactive} from "@utility/cdk/reactive";
-import {NgForOf} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {BooleanState} from "@utility/domain";
@@ -40,9 +39,6 @@ interface IData {
 	selector: 'app-schedule-element-calendar-with-specialist-widget-component',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
-	imports: [
-		NgForOf
-	],
 	template: `
 		@for (elementData of dataToBuildScheduleElements; track elementData.start) {
 
@@ -65,14 +61,11 @@ interface IData {
 })
 export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reactive implements AfterViewInit {
 
-	@Input()
-	public member: RIMember | null = null;
+	public readonly member = input<RIMember | null>(null);
 
-	@Input()
-	public index: number = -1; // Index of instance
+	public readonly index = input<number>(-1); // Index of instance
 
-	@Input()
-	public calendar: HTMLDivElement | null = null;
+	public readonly calendar = input<HTMLDivElement | null>(null);
 
 	@ViewChildren('scheduleElement')
 	public scheduleElements!: QueryList<ElementRef<HTMLDivElement>>;
@@ -105,7 +98,7 @@ export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reacti
 
 	public ngAfterViewInit() {
 
-		if (this.index === 1) {
+		if (this.index() === 1) {
 
 			this.scheduleElements.changes.pipe(
 				this.takeUntil(),
@@ -116,7 +109,7 @@ export class ScheduleElementCalendarWithSpecialistWidgetComponent extends Reacti
 				}
 				this.scrollInitialized.switchOn();
 
-				this.calendar?.scrollTo({
+				this.calendar()?.scrollTo({
 					top: (scheduleElements?.first?.nativeElement?.offsetTop ?? 0) - this.calendarWithSpecialistLocaStateService.specialistCellHeightForPx,
 				})
 

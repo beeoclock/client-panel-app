@@ -1,57 +1,60 @@
-<bee-card *ngIf="form">
+@if (form) {
 
-	<strong class="dark:text-white">{{ 'client.profile.form.section.address.title' | translate }}</strong>
+	<bee-card>
 
-	<country-select-component
-		[hidden]="hideInputList.includes('country')"
-		[control]="form.controls.country"/>
+		<strong class="dark:text-white">{{ 'client.profile.form.section.address.title' | translate }}</strong>
 
-	<form-input
-		id="business-profile-form-address-city-input"
-		inputType="text"
-		autocomplete="city"
-		[hidden]="hideInputList.includes('city')"
-		[placeholder]="'client.profile.form.section.address.input.city.placeholder' | translate"
-		[control]="form.controls.city"
-		[label]="'keyword.capitalize.city' | translate"/>
+		<country-select-component
+			[hidden]="hideInputList().includes('country')"
+			[control]="form.controls.country"/>
 
-	<form-input
-		id="business-profile-form-address-zipCode-input"
-		inputType="text"
-		autocomplete="zipCode"
-		[hidden]="hideInputList.includes('zipCode')"
-		[placeholder]="'client.profile.form.section.address.input.zipCode.placeholder' | translate"
-		[control]="form.controls.zipCode"
-		[label]="'keyword.capitalize.zipCode' | translate"/>
-
-	<form-input
-		id="business-profile-form-address-streetAddressLineOne-input"
-		inputType="text"
-		autocomplete="streetAddressLineOne"
-		[hidden]="hideInputList.includes('addressLineOne')"
-		[placeholder]="'client.profile.form.section.address.input.streetAddressLineOne.placeholder' | translate"
-		[control]="form.controls.streetAddressLineOne"
-		[label]="'keyword.capitalize.streetAddressLineOne' | translate"/>
-
-	<form-input
-		id="business-profile-form-address-streetAddressLineTwo-input"
-		inputType="text"
-		autocomplete="streetAddressLineTwo"
-		[hidden]="hideInputList.includes('addressLineTwo')"
-		[placeholder]="'client.profile.form.section.address.input.streetAddressLineTwo.placeholder' | translate"
-		[control]="form.controls.streetAddressLineTwo"
-		[label]="'keyword.capitalize.streetAddressLineTwo' | translate"/>
-
-	<div>
 		<form-input
-			id="business-profile-form-address-customLink-input"
+			id="business-profile-form-address-city-input"
 			inputType="text"
-			autocomplete="address.customLink"
-			[hidden]="hideInputList.includes('customLink')"
-			[placeholder]="'client.profile.form.section.address.input.customLink.placeholder' | translate"
-			[control]="form.controls.customLink"
-			[label]="'client.profile.form.section.address.input.customLink.label' | translate"/>
-		<p class="italic leading-tight p-2 text-beeColor-500 text-sm">{{ 'client.profile.form.section.address.input.customLink.hint' | translate }}</p>
-	</div>
+			autocomplete="city"
+			[hidden]="hideInputList().includes('city')"
+			[placeholder]="'client.profile.form.section.address.input.city.placeholder' | translate"
+			[control]="form.controls.city"
+			[label]="'keyword.capitalize.city' | translate"/>
 
-</bee-card>
+		<form-input
+			id="business-profile-form-address-zipCode-input"
+			inputType="text"
+			autocomplete="zipCode"
+			[hidden]="hideInputList().includes('zipCode')"
+			[placeholder]="'client.profile.form.section.address.input.zipCode.placeholder' | translate"
+			[control]="form.controls.zipCode"
+			[label]="'keyword.capitalize.zipCode' | translate"/>
+
+		<form-input
+			id="business-profile-form-address-streetAddressLineOne-input"
+			inputType="text"
+			autocomplete="streetAddressLineOne"
+			[hidden]="hideInputList().includes('addressLineOne')"
+			[placeholder]="'client.profile.form.section.address.input.streetAddressLineOne.placeholder' | translate"
+			[control]="form.controls.streetAddressLineOne"
+			[label]="'keyword.capitalize.streetAddressLineOne' | translate"/>
+
+		<form-input
+			id="business-profile-form-address-streetAddressLineTwo-input"
+			inputType="text"
+			autocomplete="streetAddressLineTwo"
+			[hidden]="hideInputList().includes('addressLineTwo')"
+			[placeholder]="'client.profile.form.section.address.input.streetAddressLineTwo.placeholder' | translate"
+			[control]="form.controls.streetAddressLineTwo"
+			[label]="'keyword.capitalize.streetAddressLineTwo' | translate"/>
+
+		<div>
+			<form-input
+				id="business-profile-form-address-customLink-input"
+				inputType="text"
+				autocomplete="address.customLink"
+				[hidden]="hideInputList().includes('customLink')"
+				[placeholder]="'client.profile.form.section.address.input.customLink.placeholder' | translate"
+				[control]="form.controls.customLink"
+				[label]="'client.profile.form.section.address.input.customLink.label' | translate"/>
+			<p class="italic leading-tight p-2 text-beeColor-500 text-sm">{{ 'client.profile.form.section.address.input.customLink.hint' | translate }}</p>
+		</div>
+
+	</bee-card>
+}

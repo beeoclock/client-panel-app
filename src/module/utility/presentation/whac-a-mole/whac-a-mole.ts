@@ -6,13 +6,12 @@ import {
 	HostBinding,
 	HostListener,
 	inject,
-	Input,
+	input,
 	OnInit,
 	reflectComponentType,
-	ViewChild,
+	viewChild,
 	ViewContainerRef
 } from '@angular/core';
-import {NgClass, NgForOf, NgIf} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {NGXLogger} from 'ngx-logger';
 import {Reactive} from "@utility/cdk/reactive";
@@ -24,7 +23,7 @@ import {WhacAMoleWrapper} from "@utility/presentation/whac-a-mole/whac-a-mole.wr
 @Component({
 	selector: 'whac-a-mole',
 	standalone: true,
-	imports: [NgIf, NgForOf, NgClass, TranslateModule, WhacAMoleContainer],
+	imports: [TranslateModule, WhacAMoleContainer],
 	template: `
 		<whac-a-mole-container>
 			<ng-container #listOfComponents></ng-container>
@@ -32,15 +31,13 @@ import {WhacAMoleWrapper} from "@utility/presentation/whac-a-mole/whac-a-mole.wr
 	`
 })
 export class WhacAMole extends Reactive implements OnInit {
-	@Input()
-	public id = 'whac-a-mole';
+	public readonly id = input('whac-a-mole');
 
 	@HostBinding()
 	public class =
 		'not-tablet:animate-slideOut hidden tablet:hidden w-full not-tablet:!w-0 absolute top-0 right-0 h-screen z-50 bg-black/50 flex justify-end lg:min-w-[375px] lg:max-w-[375px] lg:relative';
 
-	@ViewChild('listOfComponents', {read: ViewContainerRef, static: true})
-	public readonly listOfComponents!: ViewContainerRef;
+	readonly listOfComponents = viewChild.required('listOfComponents', { read: ViewContainerRef });
 
 	// It is for table device
 	@HostListener('click', ['$event'])
@@ -130,14 +127,14 @@ export class WhacAMole extends Reactive implements OnInit {
 		if (existComponentRef) {
 			this.ngxLogger.debug('WhacAMole.buildComponentAndRender', 'Component already exist, moving to the top');
 
-			this.listOfComponents.move(existComponentRef.hostView, 0);
+			this.listOfComponents().move(existComponentRef.hostView, 0);
 
 			return existComponentRef;
 		}
 
 		this.ngxLogger.debug('WhacAMole.buildComponentAndRender', selector, component);
 
-		const whacAMoleWrapperComponentRef = this.listOfComponents.createComponent(WhacAMoleWrapper, {
+		const whacAMoleWrapperComponentRef = this.listOfComponents().createComponent(WhacAMoleWrapper, {
 			index: 0 // Insert at the beginning
 		});
 		whacAMoleWrapperComponentRef.setInput('title', title);
@@ -187,10 +184,10 @@ export class WhacAMole extends Reactive implements OnInit {
 			return;
 		}
 
-		const wasLoading = componentRef.instance.showLoading;
+		const wasLoading = componentRef.instance.showLoading();
 		componentRef.setInput('showLoading', showLoading ?? false);
 
-		componentRef.instance.updateSelfBefore(componentInputs);
+		componentRef.instance.updateSelfBefore()(componentInputs);
 
 		// Render the component if it was loading and now it's not
 		if (wasLoading && !showLoading) {
@@ -204,7 +201,7 @@ export class WhacAMole extends Reactive implements OnInit {
 			});
 		}
 
-		componentRef.instance.updateSelfAfter(componentInputs);
+		componentRef.instance.updateSelfAfter()(componentInputs);
 
 		if (callback?.on?.update?.before) {
 			componentRef.setInput('updateSelfBefore', callback?.on?.update?.before);

@@ -3,7 +3,7 @@ import {
 	Component,
 	HostBinding,
 	inject,
-	Input,
+	input,
 	OnChanges,
 	SimpleChange,
 	SimpleChanges,
@@ -30,8 +30,7 @@ import {FromToChronologyComponent} from "@event/presentation/component/details/c
 })
 export class ListFromToChronologyComponent implements OnChanges {
 
-	@Input({required: true})
-	public valueWithFromToProperties!: string; // JSON
+	public readonly valueWithFromToProperties = input.required<string>(); // JSON
 
 	@HostBinding()
 	public class = 'flex flex-col gap-2'

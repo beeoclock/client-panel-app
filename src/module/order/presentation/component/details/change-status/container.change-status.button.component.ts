@@ -1,12 +1,9 @@
-import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, HostBinding, input, ViewEncapsulation} from "@angular/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {
 	CancelledChangeStatusButtonComponent
 } from "@order/presentation/component/details/change-status/buttons/cancelled.change-status.button.component";
-import {
-	RequestedChangeStatusButtonComponent
-} from "@order/presentation/component/details/change-status/buttons/requested.change-status.button.component";
 import {
 	ConfirmedChangeStatusButtonComponent
 } from "@order/presentation/component/details/change-status/buttons/confirmed.change-status.button.component";
@@ -14,14 +11,8 @@ import {
 	DoneChangeStatusButtonComponent
 } from "@order/presentation/component/details/change-status/buttons/done.change-status.button.component";
 import {
-	InProgressChangeStatusButtonComponent
-} from "@order/presentation/component/details/change-status/buttons/in-progress.change-status.button.component";
-import {
 	RejectedChangeStatusButtonComponent
 } from "@order/presentation/component/details/change-status/buttons/rejected.change-status.button.component";
-import {
-	DraftChangeStatusButtonComponent
-} from "@order/presentation/component/details/change-status/buttons/draft.change-status.button.component";
 import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 import {NgSwitch, NgSwitchCase} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
@@ -32,14 +23,10 @@ import {TranslateModule} from "@ngx-translate/core";
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		DraftChangeStatusButtonComponent,
 		CancelledChangeStatusButtonComponent,
-		RequestedChangeStatusButtonComponent,
 		ConfirmedChangeStatusButtonComponent,
 		DoneChangeStatusButtonComponent,
-		InProgressChangeStatusButtonComponent,
 		RejectedChangeStatusButtonComponent,
-		DraftChangeStatusButtonComponent,
 		NgSwitch,
 		NgSwitchCase,
 		TranslateModule
@@ -54,18 +41,18 @@ import {TranslateModule} from "@ngx-translate/core";
 				{{ 'order.confirmation.change-status.hint' | translate }}
 			</div>
 		</div>
-		<div class="flex flex-col gap-4" [ngSwitch]="item.status">
+		<div class="flex flex-col gap-4" [ngSwitch]="item().status">
 
 			<ng-container *ngSwitchCase="status.inProgress">
-				<app-cancelled-change-status-button [item]="item"/>
-				<app-done-change-status-button [item]="item"/>
+				<app-cancelled-change-status-button [item]="item()"/>
+				<app-done-change-status-button [item]="item()"/>
 			</ng-container>
 			<ng-container *ngSwitchCase="status.done">
 
 			</ng-container>
 			<ng-container *ngSwitchCase="status.confirmed">
-				<app-cancelled-change-status-button [item]="item"/>
-				<app-done-change-status-button [item]="item"/>
+				<app-cancelled-change-status-button [item]="item()"/>
+				<app-done-change-status-button [item]="item()"/>
 			</ng-container>
 			<ng-container *ngSwitchCase="status.cancelled">
 <!--				<app-confirmed-change-status-button [item]="item"/>-->
@@ -77,8 +64,8 @@ import {TranslateModule} from "@ngx-translate/core";
 
 			</ng-container>
 			<ng-container *ngSwitchCase="status.requested">
-				<app-confirmed-change-status-button [item]="item"/>
-				<app-rejected-change-status-button [item]="item"/>
+				<app-confirmed-change-status-button [item]="item()"/>
+				<app-rejected-change-status-button [item]="item()"/>
 			</ng-container>
 
 		</div>
@@ -92,8 +79,7 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class ContainerChangeStatusButtonComponent extends Reactive {
 
-	@Input()
-	public item!: IOrderDto;
+	public readonly item = input.required<IOrderDto>();
 
 	public readonly status = OrderStatusEnum;
 

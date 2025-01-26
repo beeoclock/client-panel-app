@@ -1,7 +1,5 @@
-import {AfterViewInit, Component, inject, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {DOCUMENT, NgForOf, NgIf} from "@angular/common";
-import {HoursComponent} from "@event/presentation/component/calendar/hours.component";
-import {ColumnsBlockComponent} from "@event/presentation/component/calendar/columns-block.component";
+import {AfterViewInit, Component, inject, OnDestroy, OnInit, viewChild, ViewEncapsulation} from '@angular/core';
+import {DOCUMENT} from "@angular/common";
 import {Store} from "@ngxs/store";
 import {CalendarQueries} from "@event/state/calendar/calendar.queries";
 import {DateTime} from "luxon";
@@ -15,7 +13,6 @@ import {
 	DataCalendarDomManipulationService
 } from "@event/presentation/dom-manipulation-service/data.calendar.dom-manipulation-service";
 import {TranslateService} from "@ngx-translate/core";
-import {SpeedDialComponent} from "@event/presentation/component/calendar/speed-dial.component";
 import {Reactive} from "@utility/cdk/reactive";
 import {InitCalendarAction} from "@event/state/calendar/actions/init.calendar.action";
 import {ContainerCalendarComponent} from "@event/presentation/component/calendar/container.calendar.component";
@@ -24,11 +21,6 @@ import {ContainerCalendarComponent} from "@event/presentation/component/calendar
 	selector: 'app-event-calendar-page',
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		NgIf,
-		HoursComponent,
-		ColumnsBlockComponent,
-		NgForOf,
-		SpeedDialComponent,
 		ContainerCalendarComponent,
 	],
 	providers: [
@@ -45,36 +37,29 @@ import {ContainerCalendarComponent} from "@event/presentation/component/calendar
 })
 export default class CalendarEventPage extends Reactive implements OnInit, AfterViewInit, OnDestroy {
 
+	public currentDate: Date = DateTime.local().startOf(DEFAULT_PRESENTATION_CALENDAR_TYPE).toJSDate();
+	readonly containerOfCalendarsRef = viewChild.required(ContainerCalendarComponent);
+	public readonly initialized = new BooleanStreamState(false);
+	public readonly isPushingNextCalendar = new BooleanStreamState(false);
+	public readonly isPushingPrevCalendar = new BooleanStreamState(false);
+	public readonly preferencesOfCalendars: {
+		from: Date;
+		to: Date;
+	}[] = [];
 	private readonly calendarDomManipulationService = inject(DataCalendarDomManipulationService);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly store = inject(Store);
 	private readonly translateService = inject(TranslateService);
 	private readonly document = inject(DOCUMENT);
-
 	// Hours
 	private readonly selectedHour = '06:00';
-
 	private readonly presentationType$ = this.store.select(CalendarQueries.presentationType);
 	private readonly dateRanges$ = this.store.select(CalendarQueries.dateRanges);
 	private readonly firstDate$ = this.store.select(CalendarQueries.firstDate);
 	private readonly lastDate$ = this.store.select(CalendarQueries.lastDate);
 	private readonly dataByType$ = this.store.select(CalendarQueries.dataByType);
-
 	// Dates
 	private readonly currentDate$ = this.store.select(CalendarQueries.currentDate);
-	public currentDate: Date = DateTime.local().startOf(DEFAULT_PRESENTATION_CALENDAR_TYPE).toJSDate();
-
-	@ViewChild(ContainerCalendarComponent)
-	private containerOfCalendarsRef!: ContainerCalendarComponent;
-
-	public readonly initialized = new BooleanStreamState(false);
-	public readonly isPushingNextCalendar = new BooleanStreamState(false);
-	public readonly isPushingPrevCalendar = new BooleanStreamState(false);
-
-	public readonly preferencesOfCalendars: {
-		from: Date;
-		to: Date;
-	}[] = [];
 
 	constructor() {
 		super();
@@ -102,7 +87,7 @@ export default class CalendarEventPage extends Reactive implements OnInit, After
 			this.ngxLogger.debug('currentDate', currentDate);
 			this.currentDate = currentDate;
 			// TODO reset all calendars
-			this.containerOfCalendarsRef.initCurrentCalendar();
+			this.containerOfCalendarsRef().initCurrentCalendar();
 		});
 
 		this.firstDate$.pipe(
@@ -144,7 +129,7 @@ export default class CalendarEventPage extends Reactive implements OnInit, After
 	ngAfterViewInit() {
 
 		this.initHandlers();
-		this.containerOfCalendarsRef.initCurrentCalendar();
+		this.containerOfCalendarsRef().initCurrentCalendar();
 		this.initialized.doTrue();
 
 	}
@@ -171,9 +156,9 @@ export default class CalendarEventPage extends Reactive implements OnInit, After
 		if (push) {
 			this.preferencesOfCalendars.push(preferences);
 		} else {
-			const currentPosition = this.containerOfCalendarsRef.elementRef.nativeElement.scrollLeft;
+			const currentPosition = this.containerOfCalendarsRef().elementRef.nativeElement.scrollLeft;
 			this.preferencesOfCalendars.unshift(preferences);
-			this.containerOfCalendarsRef.scrollToCorrectPosition(currentPosition);
+			this.containerOfCalendarsRef().scrollToCorrectPosition(currentPosition);
 		}
 
 	}
@@ -197,7 +182,7 @@ export default class CalendarEventPage extends Reactive implements OnInit, After
 				this.store.dispatch(new PushNextCalendarAction());
 			}
 		}
-		this.containerOfCalendarsRef.initHandlerOnHorizontalScroll(prevCallback, nextCallback);
+		this.containerOfCalendarsRef().initHandlerOnHorizontalScroll(prevCallback, nextCallback);
 	}
 
 }

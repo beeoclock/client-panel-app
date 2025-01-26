@@ -81,7 +81,7 @@ import {AdditionalMenuComponent} from "@event/presentation/component/additional-
 					type="button"
 					primary
 					[isLoading]="form.pending"
-					[isDisabled]="form.disabled || (!appListServiceFormOrderComponent.serviceOrderFormArray.length)"
+					[isDisabled]="form.disabled || (!appListServiceFormOrderComponent.serviceOrderFormArray().length)"
 					[scrollToFirstError]="true"
 					(click)="save()">
 					{{ 'keyword.capitalize.save' | translate }}

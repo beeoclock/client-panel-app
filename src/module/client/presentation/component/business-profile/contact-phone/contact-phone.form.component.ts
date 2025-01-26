@@ -1,4 +1,4 @@
-import {Component, Input, ViewEncapsulation} from '@angular/core';
+import {Component, input, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
@@ -25,7 +25,7 @@ import {CELL_COUNTRY_PREFIX_OBJECT_LIST} from "@utility/domain/enum/cell-country
           id="type"
           bindLabel="label"
           bindValue="id"
-          [formControl]="form.controls.countryCode"
+          [formControl]="form().controls.countryCode"
           [items]="cellCountryPrefixObjectList"
           [clearable]="false">
           <ng-template ng-label-tmp let-item="item" let-clear="clear">
@@ -41,7 +41,7 @@ import {CELL_COUNTRY_PREFIX_OBJECT_LIST} from "@utility/domain/enum/cell-country
           id="business-profile-form-social-media-link-input"
           autocomplete="socialMedia.link"
           placeholder="000000000"
-          [control]="form.controls.phoneNumber"
+          [control]="form().controls.phoneNumber"
 		  [label]="'keyword.capitalize.phone' | translate"
 		/>
 
@@ -52,8 +52,7 @@ import {CELL_COUNTRY_PREFIX_OBJECT_LIST} from "@utility/domain/enum/cell-country
 })
 export class ContactPhoneFormComponent {
 
-  @Input()
-  public form!: ContactForm;
+  public readonly form = input.required<ContactForm>();
 
   public readonly cellCountryPrefixObjectList = CELL_COUNTRY_PREFIX_OBJECT_LIST;
 

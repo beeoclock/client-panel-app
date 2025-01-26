@@ -1,8 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, input, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {InputIconComponent} from "@utility/presentation/component/input/input-icon.component";
 import {extractSecondsFrom_hh_mm_ss, secondsTo_hh_mm} from "@utility/domain/time";
-import {InputBadgeComponent} from "@utility/presentation/component/input/input-badge.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 
@@ -10,15 +8,13 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
   selector: 'time-input-component',
   standalone: true,
 	imports: [
-		InputIconComponent,
-		InputBadgeComponent,
 		TranslateModule,
 		FormInputComponent,
 	],
   template: `
 		<form-input
-			[id]="id"
-			[label]="label"
+			[id]="id()"
+			[label]="label()"
 			[control]="localControl"
 			placeholder="00:00"
 			inputType="time">
@@ -28,43 +24,39 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 })
 export class TimeInputComponent implements OnInit {
 
-	@Input({required: true})
-	public control!: FormControl;
+	public readonly control = input.required<FormControl>();
 
   public readonly localControl = new FormControl();
 
-  @Input()
-  public label = '';
+  public readonly label = input('');
 
-  @Input()
-  public id = '';
+  public readonly id = input('');
 
-  @Input()
-  public valueAsNumber = true;
+  public readonly valueAsNumber = input(true);
 
-  @Input()
-  public utc = false;
+  public readonly utc = input(false);
 
 	public ngOnInit(): void {
 
 		// Values
-		if (this.valueAsNumber) {
-			this.localControl.patchValue(secondsTo_hh_mm(this.control.value, this.utc));
+		const control = this.control();
+  if (this.valueAsNumber()) {
+			this.localControl.patchValue(secondsTo_hh_mm(control.value, this.utc()));
 		} else {
-			this.localControl.patchValue(this.control.value);
+			this.localControl.patchValue(control.value);
 		}
 		this.localControl.valueChanges.subscribe((value) => {
-			if (this.valueAsNumber) {
-				this.control.patchValue(extractSecondsFrom_hh_mm_ss(value, this.utc));
+			if (this.valueAsNumber()) {
+				this.control().patchValue(extractSecondsFrom_hh_mm_ss(value, this.utc()));
 			} else {
-				this.control.patchValue(value);
+				this.control().patchValue(value);
 			}
 		});
 
 		// Errors
-		this.localControl.setErrors(this.control.errors);
-		this.control.statusChanges.subscribe(() => {
-			this.localControl.setErrors(this.control.errors);
+		this.localControl.setErrors(control.errors);
+		control.statusChanges.subscribe(() => {
+			this.localControl.setErrors(this.control().errors);
 		})
 
 	}

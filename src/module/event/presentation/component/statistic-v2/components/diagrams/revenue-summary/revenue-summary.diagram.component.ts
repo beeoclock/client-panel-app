@@ -23,9 +23,6 @@ import {Store} from "@ngxs/store";
 import {ClientState} from "@client/state/client/client.state";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
-import {
-	StatusIconComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.icon.component";
 import {IonicModule} from "@ionic/angular";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Reactive} from "@utility/cdk/reactive";
@@ -83,13 +80,12 @@ import {TranslatePipe} from "@ngx-translate/core";
 	imports: [
 		CurrencyPipe,
 		KeyValuePipe,
-		StatusIconComponent,
 		IonicModule,
 		ReactiveFormsModule,
 		TranslatePipe
 	],
 	host: {
-		class: 'block max-w-full lg:max-w-lg'
+		class: 'block max-w-full'
 	}
 })
 export class RevenueSummaryDiagramComponent extends Reactive implements AfterViewInit, OnDestroy {

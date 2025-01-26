@@ -247,7 +247,7 @@ export abstract class BaseState<ITEM extends IBaseEntity<string>> {
 
 		}
 
-		this.getList(ctx, {
+		await this.getList(ctx, {
 			payload: {
 				resetPage: false,
 				resetParams: false
@@ -282,7 +282,7 @@ export abstract class BaseState<ITEM extends IBaseEntity<string>> {
 				});
 			} else {
 
-				this.getList(ctx, {
+				await this.getList(ctx, {
 					payload: {
 						resetPage: false,
 						resetParams: false
@@ -325,7 +325,7 @@ export abstract class BaseState<ITEM extends IBaseEntity<string>> {
 				});
 			} else {
 				// Update list
-				this.getList(ctx, {
+				await this.getList(ctx, {
 					payload: {
 						resetPage: false,
 						resetParams: false

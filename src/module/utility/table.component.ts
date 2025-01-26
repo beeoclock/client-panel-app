@@ -2,15 +2,14 @@ import {
 	AfterViewInit,
 	ChangeDetectorRef,
 	Component,
+	effect,
 	ElementRef,
 	EventEmitter,
 	inject,
 	Input,
-	OnChanges,
+	input,
 	Output,
-	Renderer2,
-	SimpleChange,
-	SimpleChanges
+	Renderer2
 } from "@angular/core";
 import {Store} from "@ngxs/store";
 import {firstValueFrom} from "rxjs";
@@ -27,23 +26,20 @@ import {TableService} from "@utility/table.service";
 	providers: [TableService],
 	template: ``
 })
-export abstract class TableComponent<ITEM extends IBaseEntity<string>> implements AfterViewInit, OnChanges {
+export abstract class TableComponent<ITEM extends IBaseEntity<string>> implements AfterViewInit {
 
 	@Input()
 	public goToDetailsOnSingleClick = true;
 
-	@Input({required: true})
-	public tableState!: ITableState<ITEM>;
+	public readonly tableState = input.required<ITableState<ITEM>>();
 
 	@Output()
 	public readonly singleClickEmitter = new EventEmitter<ITEM>();
 
-	public ngOnChanges(changes: SimpleChanges & {
-		tableState: SimpleChange
-	}) {
-		if (changes.tableState?.currentValue) {
+	public constructor() {
+		effect(() => {
 			this.changeDetectorRef.detectChanges();
-		}
+		});
 	}
 
 	public readonly router = inject(Router);

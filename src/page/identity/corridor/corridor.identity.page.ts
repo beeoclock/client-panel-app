@@ -1,11 +1,10 @@
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
-import {SignInComponent} from '@identity/presentation/component/sign-in.component/sign-in.component';
 import {Select, Store} from '@ngxs/store';
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {filter, from, Observable, switchMap, tap} from "rxjs";
-import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe} from "@angular/common";
 import {IMember} from "@identity/domain/interface/i.member";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
@@ -15,7 +14,6 @@ import {LogoutComponent} from "@utility/presentation/component/logout/logout.com
 import {BooleanState} from "@utility/domain";
 import {AppActions} from "@utility/state/app/app.actions";
 import {Reactive} from "@utility/cdk/reactive";
-import {BackButtonComponent} from "@utility/presentation/component/button/back.button.component";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {LAST_OPENED_TENANT_ID_MAP_BY_LOGIN, TENANT_ID} from "@src/token";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
@@ -27,42 +25,31 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 	templateUrl: './corridor.identity.page.html',
 	standalone: true,
 	imports: [
-		RouterLink,
 		ReactiveFormsModule,
-		SignInComponent,
-		NgForOf,
 		AsyncPipe,
-		NgIf,
 		LoaderComponent,
 		TranslateModule,
 		ChangeLanguageComponent,
 		LogoutComponent,
-		BackButtonComponent,
 		BackLinkComponent
 	],
 	encapsulation: ViewEncapsulation.None
 })
 export class CorridorIdentityPage extends Reactive implements OnInit {
 
+	public readonly tenantId$ = inject(TENANT_ID);
+	public backPath: string[] = [];
+	public lastOpenedPath: string[] = [];
+	public readonly loader = new BooleanState(true);
+	public readonly disabled = new BooleanState(false);
 	private readonly store = inject(Store);
 	private readonly router = inject(Router);
 	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly lastOpenedTenantIdMapByLogin$ = inject(LAST_OPENED_TENANT_ID_MAP_BY_LOGIN);
-
 	readonly #analyticsService = inject(AnalyticsService);
-
 	@Select(IdentityState.clients)
 	private readonly clients$!: Observable<IMember[]>;
-
-	@SelectSnapshot(IdentityState.accountEmail)
-	private readonly accountEmail!: string;
-
-	public readonly tenantId$ = inject(TENANT_ID);
-
-	public backPath: string[] = [];
-	public lastOpenedPath: string[] = [];
-
-	public readonly members$ = this.clients$.pipe(
+	public readonly members$: Observable<IMember[]> = this.clients$.pipe(
 		filter(Array.isArray),
 		tap((result) => {
 
@@ -87,9 +74,8 @@ export class CorridorIdentityPage extends Reactive implements OnInit {
 
 		})
 	);
-
-	public readonly loader = new BooleanState(true);
-	public readonly disabled = new BooleanState(false);
+	@SelectSnapshot(IdentityState.accountEmail)
+	private readonly accountEmail!: string;
 
 	public ngOnInit(): void {
 
@@ -107,11 +93,6 @@ export class CorridorIdentityPage extends Reactive implements OnInit {
 			switchMap(() => from(this.gotToMainAuthorizedPage()))
 		).subscribe();
 
-	}
-
-	private buildBackPath(): void {
-		this.backPath = this.getPathToBack();
-		this.lastOpenedPath = this.getPathToMainAuthorizedPageWithTenantId();
 	}
 
 	public async gotToCreateBusinessPage(queryParams = {}): Promise<boolean> {
@@ -163,6 +144,11 @@ export class CorridorIdentityPage extends Reactive implements OnInit {
 			}
 		});
 
+	}
+
+	private buildBackPath(): void {
+		this.backPath = this.getPathToBack();
+		this.lastOpenedPath = this.getPathToMainAuthorizedPageWithTenantId();
 	}
 
 	@Dispatch()

@@ -1,7 +1,6 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Component, input, output} from "@angular/core";
 import {NgIf, NgOptimizedImage} from "@angular/common";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {RouterLink} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
@@ -10,7 +9,6 @@ import {TranslateModule} from "@ngx-translate/core";
 	imports: [
 		NgOptimizedImage,
 		PrimaryButtonDirective,
-		RouterLink,
 		TranslateModule,
 		NgIf
 	],
@@ -19,12 +17,12 @@ import {TranslateModule} from "@ngx-translate/core";
 			<div class="col-span-8 col-start-3 md:col-span-4 md:col-start-5 flex flex-col justify-center items-center gap-4 text-center">
 				<img ngSrc="/asset/img/starter.svg" alt="" height="327" width="355">
 				<div class="text-beeColor-500">
-					{{ label }}
+					{{ label() }}
 				</div>
-				<ng-template [ngIf]="showLinkToForm">
+				<ng-template [ngIf]="showLinkToForm()">
 					<button type="button" primary (click)="clickListener.emit($event)">
 						<i class="bi bi-plus-lg"></i>
-						{{ linkLabel }}
+						{{ linkLabel() }}
 					</button>
 				</ng-template>
 				<ng-content/>
@@ -34,16 +32,12 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class NotFoundTableDataComponent {
 
-	@Input()
-	public label = 'Data not found, try adding';
+	public readonly label = input('Data not found, try adding');
 
-	@Input()
-	public showLinkToForm = false;
+	public readonly showLinkToForm = input(false);
 
-	@Input()
-	public linkLabel = 'TODO';
+	public readonly linkLabel = input('TODO');
 
-	@Output()
-	public readonly clickListener = new EventEmitter<MouseEvent>();
+	public readonly clickListener = output<MouseEvent>();
 
 }

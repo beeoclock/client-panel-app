@@ -16,15 +16,12 @@ import * as am5 from '@amcharts/amcharts5';
 import {PieChart, PieSeries} from "@amcharts/amcharts5/percent";
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 import am5themes_Kelly from '@amcharts/amcharts5/themes/Kelly';
-import {CurrencyPipe, isPlatformBrowser, KeyValuePipe} from "@angular/common";
+import {isPlatformBrowser} from "@angular/common";
 import {Analytic} from "@module/analytic/internal/store/date-range-report/interface/i.analytic";
 import {Store} from "@ngxs/store";
 import {ClientState} from "@client/state/client/client.state";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
-import {
-	StatusIconComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.icon.component";
 import {IonicModule} from "@ionic/angular";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Reactive} from "@utility/cdk/reactive";
@@ -88,15 +85,12 @@ import {ApplicationEnum} from "@utility/domain/enum/application.enum";
 		</div>
 	`,
 	imports: [
-		CurrencyPipe,
-		KeyValuePipe,
-		StatusIconComponent,
 		IonicModule,
 		ReactiveFormsModule,
 		TranslatePipe
 	],
 	host: {
-		class: 'block max-w-full lg:max-w-lg'
+		class: 'block max-w-full'
 	}
 })
 export class TotalRevenueDiagramComponent extends Reactive implements AfterViewInit, OnDestroy {

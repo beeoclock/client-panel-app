@@ -1,4 +1,4 @@
-import {Component, inject, Input} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {IonicModule, ModalController} from "@ionic/angular";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
@@ -16,8 +16,8 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class NotificationSettingsComponent {
 	private readonly modalCtrl: ModalController = inject(ModalController);
-	@Input() public askSmsNotifications: boolean | undefined;
-	@Input() public askEmailNotifications: boolean | undefined;
+	public readonly askSmsNotifications = input<boolean>();
+	public readonly askEmailNotifications = input<boolean>();
 
 	public sendTypesFormGroup: FormGroup<{
 		sms: FormControl<boolean>,

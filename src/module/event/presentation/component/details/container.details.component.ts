@@ -1,7 +1,4 @@
 import {ChangeDetectionStrategy, Component, HostBinding, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe} from "@angular/common";
-import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {GeneralDetailsComponent} from "@event/presentation/component/details/general.details.component";
 import {MetaDetailsComponent} from "@event/presentation/component/details/meta.details.component";
 import {IEvent_V2} from "@event/domain";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
@@ -18,9 +15,6 @@ import {Reactive} from "@utility/cdk/reactive";
 import {EventActions} from "@event/state/event/event.actions";
 import {NGXLogger} from "ngx-logger";
 import {
-	ItemV2ListServiceFormOrderComponent
-} from "@src/component/smart/order/form/service/list/item/item-v2.list.service.form.order.component";
-import {
 	ListServiceFormCardOrderComponent
 } from "@order/presentation/component/list/card/item/services/list.service.form.card.order.component";
 
@@ -30,15 +24,11 @@ import {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		AsyncPipe,
-		CardComponent,
-		GeneralDetailsComponent,
 		MetaDetailsComponent,
 		LoaderComponent,
 		V2GeneralDetailsComponent,
 		V2ButtonsDetailsComponent,
 		ButtonOpenOrderDetailsComponent,
-		ItemV2ListServiceFormOrderComponent,
 		ListServiceFormCardOrderComponent
 	],
 	template: `

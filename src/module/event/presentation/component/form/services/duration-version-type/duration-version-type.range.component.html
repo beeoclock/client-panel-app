@@ -1,37 +1,43 @@
 <div class="flex flex-col gap-4">
-	<bee-card
-		*ngFor="let variant of variantList; let index = index;"
-		[flexCol]="false"
-		padding="p-0"
-		class="shadow-none"
-		(click)="selectVariant(index)">
+	@for (variant of variantList; track $index) {
+
+		<bee-card
+			(click)="selectVariant($index)"
+			[flexCol]="false"
+			class="shadow-none"
+			padding="p-0">
 
 
-		<div class="flex-1 flex flex-col gap-4">
-			<bee-duration-select-component
-				class="flex-1"
-				[label]="'keyword.capitalize.duration' | translate"
-				[control]="variant.duration.control"/>
+			<div class="flex-1 flex flex-col gap-4">
+				<bee-duration-select-component
+					[control]="variant.duration.control"
+					[label]="'keyword.capitalize.duration' | translate"
+					class="flex-1"/>
 
-			<price-and-currency-component
-				class="flex-1"
-				[currencyList]="(currencyList$ | async) ?? []"
-				[label]="'keyword.capitalize.price' | translate"
-				[priceControl]="variant.price.control"
-				[currencyControl]="variant.currency.control"/>
-		</div>
+				<price-and-currency-component
+					[currencyControl]="variant.currency.control"
+					[currencyList]="(currencyList$ | async) ?? []"
+					[label]="'keyword.capitalize.price' | translate"
+					[priceControl]="variant.price.control"
+					class="flex-1"/>
+			</div>
 
-		<div *ngIf="variantList.length > 1" [ngSwitch]="isSelected(index)">
-			<div class="py-0.5">&nbsp;</div>
-			<ng-container *ngSwitchCase="true">
-				<ng-container *ngTemplateOutlet="SelectedTemplate"></ng-container>
-			</ng-container>
-			<ng-container *ngSwitchCase="false">
-				<ng-container *ngTemplateOutlet="NotSelectedTemplate"></ng-container>
-			</ng-container>
-		</div>
+			@if (variantList.length) {
+				<div [ngSwitch]="isSelected($index)">
+					<div class="py-0.5">&nbsp;</div>
+					<ng-container *ngSwitchCase="true">
+						<ng-container *ngTemplateOutlet="SelectedTemplate"></ng-container>
+					</ng-container>
+					<ng-container *ngSwitchCase="false">
+						<ng-container *ngTemplateOutlet="NotSelectedTemplate"></ng-container>
+					</ng-container>
+				</div>
+			}
 
-	</bee-card>
+
+
+		</bee-card>
+	}
 </div>
 
 <ng-template #NotSelectedTemplate>

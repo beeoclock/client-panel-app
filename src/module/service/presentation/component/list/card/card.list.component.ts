@@ -1,16 +1,10 @@
-import {Component, inject, OnChanges, SimpleChange, SimpleChanges, ViewEncapsulation} from "@angular/core";
-import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from "@angular/common";
-import {RouterLink} from "@angular/router";
-import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
+import {Component, effect, inject, ViewEncapsulation} from "@angular/core";
+import {AsyncPipe, CurrencyPipe} from "@angular/common";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
-import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
-import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
-import {EventStatusStyleDirective} from "@event/presentation/directive/event-status-style/event-status-style.directive";
-import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {ILanguageVersion} from "@service/domain";
 import {ServiceActions} from "@service/state/service/service.actions";
@@ -26,18 +20,9 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		NgForOf,
-		RouterLink,
-		ActiveStyleDirective,
 		TableStatePaginationComponent,
-		DynamicDatePipe,
-		SortIndicatorComponent,
 		TranslateModule,
-		EventStatusStyleDirective,
-		CurrencyPipe,
-		HumanizeDurationPipe,
 		CardComponent,
-		NgIf,
 		AsyncPipe,
 		RowActionButtonComponent
 	],
@@ -47,7 +32,7 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 		ServiceTableService
 	],
 })
-export class CardListComponent extends TableComponent<IServiceDto> implements OnChanges {
+export class CardListComponent extends TableComponent<IServiceDto> {
 
 	public readonly translateService = inject(TranslateService);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
@@ -58,27 +43,20 @@ export class CardListComponent extends TableComponent<IServiceDto> implements On
 
 	public list: IServiceDto[] = [];
 
-	public override ngOnChanges(changes: SimpleChanges & { tableState: SimpleChange }): void {
+	public constructor() {
+		super();
+		effect(() => {
+			const tableState = this.tableState();
+			const {page, items} = tableState;
 
-		super.ngOnChanges(changes);
-
-		if (changes.tableState.firstChange) {
-			this.list = [...changes.tableState.currentValue.items];
-		} else {
-
-			if (changes.tableState.currentValue.page === changes.tableState.previousValue.page) {
-				this.list.length = this.list.length - changes.tableState.previousValue.items.length;
-				this.list = [...this.list, ...changes.tableState.currentValue.items];
-			} else {
-				if (changes.tableState.currentValue.page > 1) {
-					this.list = [...this.list, ...changes.tableState.currentValue.items];
-				} else {
-					this.list = [...changes.tableState.currentValue.items];
-				}
+			if (page === 1) {
+				// Якщо це перша сторінка, оновлюємо список повністю
+				this.list = [...items];
+			} else if (this.list.length > 0 && page > 1) {
+				// Якщо це не перша сторінка, додаємо нові елементи
+				this.list = [...this.list, ...items];
 			}
-
-		}
-
+		})
 	}
 
 	public getFirstLanguageVersion(languageVersions: ILanguageVersion[] = []): ILanguageVersion {

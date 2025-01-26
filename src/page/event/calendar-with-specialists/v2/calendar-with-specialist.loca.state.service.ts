@@ -56,12 +56,6 @@ export default class CalendarWithSpecialistLocaStateService {
 	public readonly hoursWidthInPx = '50px';
 
 	public readonly eventCalendarWithSpecialistWidgetComponent$ = new BehaviorSubject<EventCalendarWithSpecialistWidgetComponent | null>(null);
-
-	public setEventCalendarWithSpecialistWidgetComponent(value: EventCalendarWithSpecialistWidgetComponent | null) {
-		this.eventCalendarWithSpecialistWidgetComponent$.next(value);
-		return this;
-	}
-
 	#earliestScheduleInSeconds = 0;
 	#latestScheduleInSeconds = 0;
 	#startTimeToDisplay = 0; // e.g. 8 (It means: 08:00)
@@ -73,14 +67,34 @@ export default class CalendarWithSpecialistLocaStateService {
 		return this.#startTimeToDisplay;
 	}
 
-	public setStartTimeToDisplay(value: number) {
-		this.#startTimeToDisplay = value;
+	public get earliestScheduleInSeconds(): number {
+		return this.#earliestScheduleInSeconds;
+	}
+
+	public get endTimeToDisplay(): number {
+		return this.#endTimeToDisplay;
+	}
+
+	public get latestScheduleInSeconds(): number {
+		return this.#latestScheduleInSeconds;
+	}
+
+	public get members(): Member.RIMember[] {
+		return this.#members;
+	}
+
+	public get schedules(): ISchedule[] {
+		return this.#schedules;
+	}
+
+	public setEventCalendarWithSpecialistWidgetComponent(value: EventCalendarWithSpecialistWidgetComponent | null) {
+		this.eventCalendarWithSpecialistWidgetComponent$.next(value);
 		return this;
 	}
 
-
-	public get earliestScheduleInSeconds(): number {
-		return this.#earliestScheduleInSeconds;
+	public setStartTimeToDisplay(value: number) {
+		this.#startTimeToDisplay = value;
+		return this;
 	}
 
 	public setEarliestScheduleInSeconds(value: number) {
@@ -88,17 +102,9 @@ export default class CalendarWithSpecialistLocaStateService {
 		return this;
 	}
 
-	public get endTimeToDisplay(): number {
-		return this.#endTimeToDisplay;
-	}
-
 	public setEndTimeToDisplay(value: number) {
 		this.#endTimeToDisplay = value;
 		return this;
-	}
-
-	public get latestScheduleInSeconds(): number {
-		return this.#latestScheduleInSeconds;
 	}
 
 	public setLatestScheduleInSeconds(value: number) {
@@ -106,17 +112,9 @@ export default class CalendarWithSpecialistLocaStateService {
 		return this;
 	}
 
-	public get members(): Member.RIMember[] {
-		return this.#members;
-	}
-
 	public setMembers(value: Member.RIMember[]) {
 		this.#members = value;
 		return this;
-	}
-
-	public get schedules(): ISchedule[] {
-		return this.#schedules;
 	}
 
 	public setSchedules(value: ISchedule[]) {

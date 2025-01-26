@@ -1,18 +1,7 @@
-import {Component, inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
-import {DatetimeLocalInputComponent} from "@utility/presentation/component/input/datetime-local.input.component";
+import {Component, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {
-	FormBusinessProfileComponent
-} from "@client/presentation/component/business-profile/form-business-profile.component";
-import {SwitchComponent} from "@utility/presentation/component/switch/switch.component";
-import {
-	ButtonSaveContainerComponent
-} from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {NGXLogger} from "ngx-logger";
 import {PaymentForm} from "@module/payment/presentation/form/payment.form";
 import {CurrencyPipe} from "@angular/common";
@@ -27,16 +16,9 @@ import {BASE_CURRENCY} from '@src/token';
     selector: 'app-payment-order-form-container',
     encapsulation: ViewEncapsulation.None,
     imports: [
-        FormInputComponent,
-        DatetimeLocalInputComponent,
         TranslateModule,
-        FormTextareaComponent,
         CardComponent,
-        FormBusinessProfileComponent,
-        SwitchComponent,
-        ButtonSaveContainerComponent,
         FormsModule,
-        PrimaryButtonDirective,
         CurrencyPipe,
         NgSelectModule,
         ReactiveFormsModule,
@@ -55,7 +37,7 @@ import {BASE_CURRENCY} from '@src/token';
                         {{ 'keyword.capitalize.amount' | translate }}:
                     </div>
                     <div>
-                        {{ (amount || paymentForm.controls.amount.value) | currency: paymentForm.controls.currency.value ?? 'USD': 'symbol-narrow' }}
+                        {{ (amount() || paymentForm.controls.amount.value) | currency: paymentForm.controls.currency.value ?? 'USD': 'symbol-narrow' }}
                     </div>
                 </li>
             </ul>
@@ -93,11 +75,9 @@ import {BASE_CURRENCY} from '@src/token';
 })
 export class PaymentOrderFormContainerComponent implements OnInit {
 
-    @Input()
-    public form!: CreateOrderForm;
+    public readonly form = input.required<CreateOrderForm>();
 
-	@Input()
-	public amount = 0;
+	public readonly amount = input(0);
 
     private readonly ngxLogger = inject(NGXLogger);
     private readonly translateService = inject(TranslateService);
@@ -105,7 +85,7 @@ export class PaymentOrderFormContainerComponent implements OnInit {
     private readonly BASE_CURRENCY = inject(BASE_CURRENCY);
 
     public get paymentForm(): PaymentForm {
-        return this.form.controls.payment;
+        return this.form().controls.payment;
     }
 
     public readonly paymentMethodOptions = [PaymentMethodEnum.CASH, PaymentMethodEnum.CARD].map((value) => {

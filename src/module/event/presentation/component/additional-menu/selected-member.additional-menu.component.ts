@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, HostBinding, input, ViewEncapsulation} from "@angular/core";
 import {RIMember} from "@member/domain";
 import {TranslateModule} from "@ngx-translate/core";
 
@@ -16,7 +16,7 @@ import {TranslateModule} from "@ngx-translate/core";
             <!--                #{{ member._id }}-->
             <!--            </div>-->
         </div>
-        <div class="text-beeColor-500">{{ member.firstName }}&nbsp;{{ member.lastName }}</div>
+        <div class="text-beeColor-500">{{ member().firstName }}&nbsp;{{ member().lastName }}</div>
     `,
     imports: [
         TranslateModule
@@ -24,8 +24,7 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class SelectedMemberAdditionalMenuComponent {
 
-    @Input({required: true})
-    public member!: RIMember;
+    public readonly member = input.required<RIMember>();
 
     @HostBinding()
     public get class() {

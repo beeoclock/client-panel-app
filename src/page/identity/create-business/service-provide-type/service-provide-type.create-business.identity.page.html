@@ -1,21 +1,21 @@
-	<div class="flex justify-between">
-		<utility-back-link-component [url]="['../industry']"/>
-		<utility-change-language-component/>
-	</div>
-	<div class="relative pt-12 pb-40 sm:py-16 lg:pt-20 xl:pb-0">
-		<div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<div class="mx-auto max-w-3xl text-center">
-				<h1
-					class="mt-5 text-3xl font-bold leading-tight text-gray-900 sm:text-3xl sm:leading-tight lg:text-4xl lg:leading-tight">
-					{{ 'identity.create-business.section.serviceProvideType.title' | translate }}
-				</h1>
+<div class="flex justify-between">
+	<utility-back-link-component [url]="['../industry']"/>
+	<utility-change-language-component/>
+</div>
+<div class="relative pt-12 pb-40 sm:py-16 lg:pt-20 xl:pb-0">
+	<div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="mx-auto max-w-3xl text-center">
+			<h1
+				class="mt-5 text-3xl font-bold leading-tight text-gray-900 sm:text-3xl sm:leading-tight lg:text-4xl lg:leading-tight">
+				{{ 'identity.create-business.section.serviceProvideType.title' | translate }}
+			</h1>
 
-				<form class="py-8 md:py-16">
+			<form class="py-8 md:py-16">
 
-					<ul class="grid w-full gap-6 grid-cols-2 md:grid-cols-3 overflow-y-auto max-h-[64vh]">
-						<li
-							*ngFor="let serviceProvideType of listWithIcon"
-							class="
+				<ul class="grid w-full gap-6 grid-cols-2 md:grid-cols-3 overflow-y-auto max-h-[64vh]">
+					<li
+						*ngFor="let serviceProvideType of listWithIcon"
+						class="
 								bg-white
 								border
 								border-gray-200
@@ -25,16 +25,16 @@
 								hover:bg-gray-100
 								dark:bg-gray-800
 								dark:hover:bg-gray-700">
-							<input
-								type="radio"
-								name="serviceProvideType"
-								class="hidden peer"
-								[id]="'create-business-form-business-serviceProvideType-' + serviceProvideType.label"
-								[value]="serviceProvideType.label"
-								[formControl]="serviceProvideTypeControl" />
-							<label
-								[for]="'create-business-form-business-serviceProvideType-' + serviceProvideType.label"
-								class="
+						<input
+							[formControl]="serviceProvideTypeControl"
+							[id]="'create-business-form-business-serviceProvideType-' + serviceProvideType.label"
+							[value]="serviceProvideType.label"
+							class="hidden peer"
+							name="serviceProvideType"
+							type="radio"/>
+						<label
+							[for]="'create-business-form-business-serviceProvideType-' + serviceProvideType.label"
+							class="
 									flex
 									flex-col
 									items-center
@@ -51,23 +51,25 @@
 									hover:text-gray-600
 									dark:text-gray-400
 									md:min-h-[200px]">
-								<div class="w-full text-4xl font-semibold">
-									<i [class]="serviceProvideType.icon"></i>
-								</div>
-								<div class="w-full">{{ ('serviceProvideType.' + serviceProvideType.label) | translate }}</div>
-							</label>
-						</li>
-					</ul>
+							<div class="w-full text-4xl font-semibold">
+								<i [class]="serviceProvideType.icon"></i>
+							</div>
+							<div class="w-full">{{ ('serviceProvideType.' + serviceProvideType.label) | translate }}
+							</div>
+						</label>
+					</li>
+				</ul>
 
-				</form>
+			</form>
 
 
-				<ng-template [ngIf]="!!serviceProvideTypeControl.value">
-					<button primary [routerLink]="['../', nextStepPath]" [class.disabled]="!serviceProvideTypeControl.value">
-						{{ 'keyword.capitalize.nextStep' | translate }}
-					</button>
-				</ng-template>
+			<ng-template [ngIf]="!!serviceProvideTypeControl.value">
+				<button [class.disabled]="!serviceProvideTypeControl.value" [routerLink]="['../', nextStepPath]"
+						primary>
+					{{ 'keyword.capitalize.nextStep' | translate }}
+				</button>
+			</ng-template>
 
-			</div>
 		</div>
 	</div>
+</div>

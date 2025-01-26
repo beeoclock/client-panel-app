@@ -1,10 +1,9 @@
-import {Component, inject, Input, OnInit} from "@angular/core";
+import {Component, inject, input, OnInit} from "@angular/core";
 
 import {FormControl, Validators} from "@angular/forms";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
-import {AsyncPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgTemplateOutlet} from "@angular/common";
+import {AsyncPipe, NgSwitch, NgSwitchCase, NgTemplateOutlet} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
-import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {DurationSelectComponent} from "@utility/presentation/component/input/duration.select.component";
 import {PriceAndCurrencyComponent} from "@utility/presentation/component/input/price-and-currency.component";
 import {NGXLogger} from "ngx-logger";
@@ -22,28 +21,22 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	standalone: true,
 	imports: [
 		CardComponent,
-		NgForOf,
 		AsyncPipe,
-		NgIf,
 		TranslateModule,
 		NgSwitch,
 		NgSwitchCase,
 		NgTemplateOutlet,
-		FormInputComponent,
 		DurationSelectComponent,
 		PriceAndCurrencyComponent
 	]
 })
 export class DurationVersionTypeRangeComponent extends Reactive implements OnInit {
 
-	@Input({required: true})
-	public service!: IServiceDto;
+	public readonly service = input.required<IServiceDto>();
 
-	@Input({required: true})
-	public serviceListControl!: FormControl<IServiceDto[]>;
+	public readonly serviceListControl = input.required<FormControl<IServiceDto[]>>();
 
-	@Input({required: true})
-	public index = 0;
+	public readonly index = input.required<number>();
 
 	public readonly variantList: {
 		price: {
@@ -73,15 +66,17 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 			}));
 		}),
 	);
-
-	private selectedVariantIndex = -1;
-	private handler: Subscription | undefined;
-
 	public readonly baseCurrency$ = this.store.select(ClientState.item).pipe(
 		map((item) => {
 			return item?.businessSettings?.baseCurrency;
 		})
 	);
+	private selectedVariantIndex = -1;
+	private handler: Subscription | undefined;
+
+	public get selectedVariant() {
+		return this.variantList[this.selectedVariantIndex];
+	}
 
 	public ngOnInit() {
 		this.logger.debug('ngOnInit');
@@ -90,10 +85,6 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 
 	public isSelected(index: number): boolean {
 		return this.selectedVariantIndex === index;
-	}
-
-	public get selectedVariant() {
-		return this.variantList[this.selectedVariantIndex];
 	}
 
 	public async buildVariants() {
@@ -106,7 +97,7 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 		// this.service.durationVersions.forEach((durationVersion) => {
 		// });
 
-		const lastDurationVersion = this.service.durationVersions[this.service.durationVersions.length - 1];
+		const lastDurationVersion = this.service().durationVersions[this.service().durationVersions.length - 1];
 		const durationVersion = lastDurationVersion;
 
 		// Price
@@ -172,8 +163,9 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 		const {duration, price, currency} = this.selectedVariant;
 
 		// Check if duration version is already exists
-		if (this.service.durationVersions.length) {
-			const [firstDurationVersion] = this.service.durationVersions;
+		const service = this.service();
+		if (service.durationVersions.length) {
+			const [firstDurationVersion] = service.durationVersions;
 			const durationIsSame = firstDurationVersion.durationInSeconds === duration.control.value;
 			const priceIsSame = firstDurationVersion.prices[0].price === price.control.value;
 			const currencyIsSame = firstDurationVersion.prices[0].currency === currency.control.value;
@@ -183,7 +175,7 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 			}
 		}
 
-		Object.defineProperties(this.service, {
+		Object.defineProperties(service, {
 			durationVersions: {
 				value: [
 					{
@@ -202,13 +194,13 @@ export class DurationVersionTypeRangeComponent extends Reactive implements OnIni
 		});
 
 		this.updateServiceListControl();
-		this.logger.debug('setToService:result', this.service);
+		this.logger.debug('setToService:result', service);
 	}
 
 	private updateServiceListControl(): void {
 		this.logger.debug('updateServiceListControl');
 		// Update service in service list control
-		this.serviceListControl.patchValue(this.serviceListControl.value);
+		this.serviceListControl().patchValue(this.serviceListControl().value);
 	}
 
 	private clearValidations(): void {

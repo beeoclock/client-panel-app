@@ -3,16 +3,13 @@ import {
 	ChangeDetectorRef,
 	Component,
 	inject,
-	Input,
+	input,
 	OnInit,
 	output,
-	ViewChild
+	viewChild
 } from "@angular/core";
 import {IonPopover} from "@ionic/angular/standalone";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
-import {
-	CustomerTypeCustomerComponent
-} from "@customer/presentation/component/form/by-customer-type/customer-type.customer.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {CustomerForm} from "@customer/presentation/form";
 import ObjectID from "bson-objectid";
@@ -36,13 +33,12 @@ import {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		IonPopover,
-		CustomerTypeCustomerComponent,
 		TranslateModule,
 		CustomerListIonicComponent
 	],
 	template: `
 		<button
-			[id]="'customer-trigger-' + id"
+			[id]="'customer-trigger-' + id()"
 			class="px-3 py-2 rounded-xl border border-gray-200 justify-center items-center flex w-full">
 			<div class="text-slate-900 text-sm font-normal">
 				👤
@@ -64,11 +60,11 @@ import {
 
 		</button>
 		<ion-popover #customerPopover
-					 [trigger]="'customer-trigger-' + id"
+					 [trigger]="'customer-trigger-' + id()"
 					 [keepContentsMounted]="true">
 			<ng-template>
 				<app-customer-list-ionic-component
-					[id]="'customer-list-ionic-' + id"
+					[id]="'customer-list-ionic-' + id()"
 					[customerForm]="customerForm"
 					(doDone)="doDone($event)"/>
 			</ng-template>
@@ -77,16 +73,13 @@ import {
 })
 export class CustomerChipComponent extends Reactive implements OnInit {
 
-	@Input()
-	public initialValue: ICustomer | undefined;
+	public readonly initialValue = input<ICustomer>();
 
-	@Input()
-	public id: string = ObjectID().toHexString();
+	public readonly id = input<string>(ObjectID().toHexString());
 
 	public readonly customerChanges = output<ICustomer>();
 
-	@ViewChild('customerPopover')
-	public readonly customerPopover!: IonPopover;
+	readonly customerPopover = viewChild.required<IonPopover>('customerPopover');
 
 	readonly #changeDetectorRef = inject(ChangeDetectorRef);
 
@@ -95,8 +88,9 @@ export class CustomerChipComponent extends Reactive implements OnInit {
 	});
 
 	public ngOnInit() {
-		if (this.initialValue) {
-			this.customerForm.patchValue(this.initialValue);
+		const initialValue = this.initialValue();
+  if (initialValue) {
+			this.customerForm.patchValue(initialValue);
 			this.#changeDetectorRef.detectChanges();
 		}
 	}
@@ -109,7 +103,7 @@ export class CustomerChipComponent extends Reactive implements OnInit {
 				const rawValue = this.customerForm.getRawValue();
 				this.customerChanges.emit(rawValue);
 			}
-			this.customerPopover.dismiss().then();
+			this.customerPopover().dismiss().then();
 		}
 	}
 }

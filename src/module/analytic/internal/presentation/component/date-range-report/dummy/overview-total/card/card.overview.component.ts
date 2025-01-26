@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, Input, input, ViewEncapsulation} from "@angular/core";
 
 @Component({
 	selector: 'card-overview',
@@ -12,7 +12,7 @@ import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@ang
 			<div class="p-2">
 				<div class="flex items-center gap-x-2">
 					<p class="text-xs uppercase tracking-wide text-gray-500 dark:text-neutral-500">
-						{{ label }}
+						{{ label() }}
 					</p>
 				</div>
 
@@ -29,8 +29,7 @@ import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@ang
 	`
 })
 export class CardOverviewComponent {
-	@Input({required: true})
-	public label!: string;
+	public readonly label = input.required<string>();
 
 	@Input({required: true})
 	public value: string | number | null = 0;

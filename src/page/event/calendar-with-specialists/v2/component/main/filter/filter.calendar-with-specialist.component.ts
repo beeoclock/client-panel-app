@@ -1,6 +1,4 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, inject, Input} from "@angular/core";
-import {AsyncPipe} from "@angular/common";
-import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
+import {AfterViewInit, ChangeDetectionStrategy, Component, inject, input} from "@angular/core";
 import {
 	DateControlCalendarWithSpecialistsComponent
 } from "@page/event/calendar-with-specialists/v2/filter/date-control/date-control.calendar-with-specialists.component";
@@ -29,8 +27,6 @@ import {IonPopover} from "@ionic/angular/standalone";
 		`
 	],
 	imports: [
-		AsyncPipe,
-		AutoRefreshComponent,
 		DateControlCalendarWithSpecialistsComponent,
 		IonSelectWrapperComponent,
 		SettingsComponent,
@@ -63,7 +59,7 @@ import {IonPopover} from "@ionic/angular/standalone";
 									id="calendar-with-specialists-filter-order-service-status"
 									[multiple]="true"
 									[options]="orderServiceStatusOptions"
-									[control]="orderServiceStatusesControl"/>
+									[control]="orderServiceStatusesControl()"/>
 							</div>
 						</div>
 					</ng-template>
@@ -75,19 +71,19 @@ import {IonPopover} from "@ionic/angular/standalone";
 })
 export class FilterCalendarWithSpecialistComponent implements AfterViewInit {
 
-	@Input({required: true})
-	public orderServiceStatusesControl!: FormControl<OrderServiceStatusEnum[]>;
-
-	private readonly translateService = inject(TranslateService);
-	private readonly store = inject(Store);
-	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
-
+	public readonly orderServiceStatusesControl = input.required<FormControl<OrderServiceStatusEnum[]>>();
 	public orderServiceStatusOptions: {
 		value: any;
 		label: string;
 	}[] = [];
-
+	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
+	private readonly translateService = inject(TranslateService);
+	private readonly store = inject(Store);
 	public readonly loader$ = this.store.select(CalendarWithSpecialistsQueries.loader);
+
+	public ngAfterViewInit() {
+		this.initEventStatusList();
+	}
 
 	private initEventStatusList() {
 		Object.keys(OrderStatusEnum).forEach((status) => {
@@ -96,10 +92,6 @@ export class FilterCalendarWithSpecialistComponent implements AfterViewInit {
 				label: this.translateService.instant(`order.enum.status.singular.${status}`)
 			});
 		});
-	}
-
-	public ngAfterViewInit() {
-		this.initEventStatusList();
 	}
 
 }

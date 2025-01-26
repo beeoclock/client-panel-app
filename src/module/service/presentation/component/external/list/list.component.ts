@@ -2,12 +2,13 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	Input,
+	input,
 	OnInit,
 	QueryList,
 	ViewChildren,
 	ViewEncapsulation
 } from '@angular/core';
-import {AsyncPipe, NgIf} from '@angular/common';
+import {AsyncPipe} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {ListPage} from "@utility/list.page";
 import {tap} from "rxjs";
@@ -31,7 +32,6 @@ import {OrderDirEnum} from "@utility/domain/enum";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		AsyncPipe,
-		NgIf,
 		TranslateModule,
 		DesktopLayoutListComponent,
 		MobileLayoutListComponent,
@@ -46,8 +46,7 @@ import {OrderDirEnum} from "@utility/domain/enum";
 })
 export class ServiceExternalListComponent extends ListPage<IServiceDto> implements OnInit {
 
-	@Input()
-	public useTableStateFromStore = true;
+	public readonly useTableStateFromStore = input(true);
 
 	@Input()
 	public tableState: ITableState<IServiceDto> = new TableState<IServiceDto>().toCache();
@@ -66,7 +65,7 @@ export class ServiceExternalListComponent extends ListPage<IServiceDto> implemen
 			.pipe(
 				this.takeUntil(),
 				tap((tableState) => {
-					if (this.useTableStateFromStore) {
+					if (this.useTableStateFromStore()) {
 						this.tableState = tableState;
 						this.changeDetectorRef.detectChanges();
 					}

@@ -47,7 +47,7 @@ export class WhacAMoleProvider<COMPONENT> {
     this.ngxLogger.debug('WhacAMole.destroyComponent', selector);
 
     componentRefList.forEach((componentRef) => {
-      componentRef.instance.destroySelf();
+      componentRef.instance.destroySelf()();
     });
 
     this.componentRefMapByComponentName.delete(selector);

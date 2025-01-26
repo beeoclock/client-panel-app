@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {Component, inject, input, OnInit, ViewEncapsulation} from "@angular/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
@@ -38,7 +38,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 				[items]="items"
 				[closeOnSelect]="false"
 				[clearable]="false"
-				[formControl]="control">
+				[formControl]="control()">
 			</ng-select>
 		</div>
 		<div class="italic leading-tight text-start p-2 text-beeColor-500 text-sm">
@@ -48,8 +48,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 })
 export class TimeZoneBookingSettingsComponent extends Reactive implements OnInit {
 
-	@Input({required: true})
-	public control!: FormControl<string>;
+	public readonly control = input.required<FormControl<string>>();
 
 	private readonly translateService = inject(TranslateService);
 

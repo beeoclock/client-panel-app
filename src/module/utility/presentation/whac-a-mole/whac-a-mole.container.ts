@@ -1,5 +1,4 @@
 import {Component, HostBinding, inject, OnInit, ViewEncapsulation} from '@angular/core';
-import {AsyncPipe, NgIf} from '@angular/common';
 import {WhacAMoleResizeContainer} from "@utility/presentation/whac-a-mole/whac-a-mole.resize-container";
 import {Reactive} from "@utility/cdk/reactive";
 import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
@@ -8,7 +7,7 @@ import {WindowWidthSizeService} from "@utility/cdk/window-width-size.service";
 	selector: 'whac-a-mole-container',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
-	imports: [WhacAMoleResizeContainer, NgIf, AsyncPipe, WhacAMoleResizeContainer],
+	imports: [WhacAMoleResizeContainer, WhacAMoleResizeContainer],
 	template: `
 		<whac-a-mole-resize-container></whac-a-mole-resize-container>
 		<ng-content></ng-content>

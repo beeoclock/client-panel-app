@@ -5,7 +5,7 @@
                 {{ 'absence.form.inputs.type.label' | translate }}
                 <utility-sort-indicator
                         orderBy="type"
-                        [tableState]="tableState"/>
+                        [tableState]="tableState()"/>
             </div>
         </div>
         <div tableColumnFlex="start" data-orderBy="start">
@@ -13,7 +13,7 @@
                 {{ 'event.keyword.capitalize.start' | translate }}
                 <utility-sort-indicator
                         orderBy="start"
-                        [tableState]="tableState"/>
+                        [tableState]="tableState()"/>
             </div>
         </div>
         <div tableColumnFlex="end" data-orderBy="end">
@@ -21,7 +21,7 @@
                 {{ 'event.keyword.capitalize.end' | translate }}
                 <utility-sort-indicator
                         orderBy="end"
-                        [tableState]="tableState"/>
+                        [tableState]="tableState()"/>
             </div>
         </div>
         <div tableColumnFlex="attendees">
@@ -35,7 +35,7 @@
                 {{ 'keyword.capitalize.active' | translate }}
                 <utility-sort-indicator
                         orderBy="active"
-                        [tableState]="tableState"/>
+                        [tableState]="tableState()"/>
             </div>
         </div>
         <div tableColumnFlex="createdAt" data-orderBy="createdAt">
@@ -43,7 +43,7 @@
                 {{ 'keyword.capitalize.createdAt' | translate }}
                 <utility-sort-indicator
                         orderBy="createdAt"
-                        [tableState]="tableState"/>
+                        [tableState]="tableState()"/>
             </div>
         </div>
         <div tableColumnFlex="updatedAt" data-orderBy="updatedAt">
@@ -51,7 +51,7 @@
                 {{ 'keyword.capitalize.updatedAt' | translate }}
                 <utility-sort-indicator
                         orderBy="updatedAt"
-                        [tableState]="tableState"/>
+                        [tableState]="tableState()"/>
             </div>
         </div>
         <div tableColumnFlex="action" class="border-l sticky right-0">
@@ -60,7 +60,7 @@
     </div>
     <!-- Column Cell	-->
     <div tableBodyFlex>
-		@for (item of tableState.items; track item._id) {
+		@for (item of tableState().items; track item._id) {
 			<div tableRowFlex="body" (click)="doubleClick(item)">
 				<div tableColumnFlex="type">
 				<span [title]="item.type" class="truncate">
@@ -80,12 +80,12 @@
 				</span>
 				</div>
 				<div tableColumnFlex="attendees">
-					<ng-container *ngIf="item.entireBusiness; else MembersTemplate">
+					@if (item.entireBusiness) {
 						{{ 'absence.form.inputs.entireBusiness.label' | translate }}
-					</ng-container>
-					<ng-template #MembersTemplate>
+					} @else {
+
 						{{ item?.members?.length ?? 0 }}
-					</ng-template>
+					}
 				</div>
 				<div tableColumnFlex="note">
 				<span [title]="item.note" class="truncate">
@@ -117,4 +117,4 @@
 </div>
 <utility-table-state-pagination-component
         (page)="pageChange($event)"
-        [tableState]="tableState"/>
+        [tableState]="tableState()"/>

@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {Component, inject, input, OnInit, ViewEncapsulation} from "@angular/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
@@ -12,13 +12,15 @@ import {is} from "@utility/checker";
 import {filter, map} from "rxjs";
 import {NGXLogger} from "ngx-logger";
 import {Reactive} from "@utility/cdk/reactive";
-import {NgIf} from "@angular/common";
 
 @Component({
 	selector: 'bee-duration-select-component',
 	standalone: true,
 	template: `
-		<label *ngIf="showLabel" default [for]="id">{{ label }}</label>
+		@if (showLabel()) {
+
+			<label default [for]="id()">{{ label() }}</label>
+		}
 		<ng-select
 			isRequired
 			invalidTooltip
@@ -31,7 +33,7 @@ import {NgIf} from "@angular/common";
 			[addTag]="addTag.bind(this)"
 			[items]="items"
 			[clearable]="false"
-			[id]="id"
+			[id]="id()"
 			[formControl]="localControl">
 		</ng-select>
 	`,
@@ -43,31 +45,23 @@ import {NgIf} from "@angular/common";
 		DefaultLabelDirective,
 		IsRequiredDirective,
 		InvalidTooltipDirective,
-		NgIf
 	],
 })
 export class DurationSelectComponent extends Reactive implements OnInit {
 
-	@Input()
-	public id = '';
+	public readonly id = input('');
 
-	@Input()
-	public label = '';
+	public readonly label = input('');
 
-	@Input()
-	public showLabel = true;
+	public readonly showLabel = input(true);
 
-	@Input()
-	public from = '00:15';
+	public readonly from = input('00:15');
 
-	@Input()
-	public to = '10:00';
+	public readonly to = input('10:00');
 
-	@Input()
-	public step = '00:15';
+	public readonly step = input('00:15');
 
-	@Input()
-	public control = new FormControl();
+	public readonly control = input(new FormControl());
 
 	public localControl = new FormControl();
 
@@ -75,9 +69,9 @@ export class DurationSelectComponent extends Reactive implements OnInit {
 	private readonly humanizeDurationHelper = inject(HumanizeDurationHelper);
 
 	public readonly items = generateTimeOptions({
-		from: this.from,
-		to: this.to,
-	}, this.step).map(({value}) => {
+		from: this.from(),
+		to: this.to(),
+	}, this.step()).map(({value}) => {
 		return {
 			label: this.humanizeDurationHelper.fromSeconds(value),
 			value,
@@ -120,9 +114,9 @@ export class DurationSelectComponent extends Reactive implements OnInit {
 			filter(is.number)
 		).subscribe((value) => {
 			this.logger.debug('DurationSelectComponent:localControl:valueChanges', value);
-			this.control.patchValue(value);
+			this.control().patchValue(value);
 		});
-		this.control.valueChanges
+		this.control().valueChanges
 			.pipe(
 				this.takeUntil(),
 				filter((value) => secondsTo_hh_mm(value) !== this.localControl.value),
@@ -137,7 +131,7 @@ export class DurationSelectComponent extends Reactive implements OnInit {
 	}
 
 	private initLocalControlValue() {
-		const localControlValue = this.control.value;
+		const localControlValue = this.control().value;
 		if (localControlValue) {
 			const foundValue = this.items.some(({value}) => value === localControlValue);
 			if (!foundValue) {

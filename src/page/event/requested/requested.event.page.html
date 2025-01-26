@@ -1,8 +1,7 @@
-<ng-container *ngIf="initialized.isOn; else NotInitializedTemplate">
+@if (initialized.isOn) {
 	<event-list-of-card-collection-by-date-component/>
-</ng-container>
-<ng-template #NotInitializedTemplate>
+} @else {
 	<div class="p-4">
 		{{ 'keyword.capitalize.initializing' | translate }}...
 	</div>
-</ng-template>
+}
