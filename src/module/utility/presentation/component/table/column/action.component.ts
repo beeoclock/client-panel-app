@@ -43,7 +43,7 @@ import {Placement} from "@popperjs/core/lib/enums";
 						{{ 'keyword.capitalize.delete' | translate }}
 					</button>
 				</li>
-				@if (active() === activeEnum.NO && activateButtonsVisible()) {
+				@if (active() === activeEnum.NO) {
 					<li>
 						<button
 							(click)="activate.emit(id())"
@@ -53,7 +53,7 @@ import {Placement} from "@popperjs/core/lib/enums";
 						</button>
 					</li>
 				}
-				@if (active() === activeEnum.YES && activateButtonsVisible()) {
+				@if (active() === activeEnum.YES) {
 					<li>
 						<button
 							(click)="deactivate.emit(id())"
@@ -76,8 +76,6 @@ export class ActionComponent {
 	public readonly placement = input<Placement>('auto');
 
 	public readonly offsetDistance = input(26);
-
-	public readonly activateButtonsVisible = input(true);
 
 	public readonly edit = output<string>();
 

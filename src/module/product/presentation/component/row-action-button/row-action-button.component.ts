@@ -11,11 +11,13 @@ import { ActionComponent } from '@utility/presentation/component/table/column/ac
 	encapsulation: ViewEncapsulation.None,
 	template: `
 		<utility-table-column-action
+			(activate)="activate()"
+			(deactivate)="deactivate()"
 			(delete)="delete()"
 			(open)="open()"
 			(edit)="edit()"
 			[id]="id()"
-			[activateButtonsVisible]="false"
+			[active]="item().active"
 		>
 		</utility-table-column-action>
 	`,
@@ -35,6 +37,10 @@ export class RowActionButtonComponent {
 			return;
 		}
 		this.#store.dispatch(new ProductActions.DeleteItem(this.item()._id));
+	}
+
+	public activate(): void {
+		this.#store.dispatch(new ProductActions.UnarchiveItem(this.item()._id));
 	}
 
 	public deactivate(): void {

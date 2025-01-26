@@ -61,6 +61,10 @@ export namespace ProductActions {
 		public static override readonly type = '[Product API] Archive Item';
 	}
 
+	export class UnarchiveItem extends BaseActions.UnarchiveItem {
+		public static override readonly type = '[Product API] UnarchiveItem Item';
+	}
+
 	// Updates of state
 
 	export class UpdateFilters extends BaseActions.UpdateFilters {

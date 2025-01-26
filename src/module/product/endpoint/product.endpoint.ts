@@ -1,5 +1,4 @@
 import { TranslateService } from '@ngx-translate/core';
-import { serviceEndpointEnum } from '@src/module/service/endpoint/service.endpoint';
 import { Endpoint, EndpointCollectionType } from '@utility/domain/endpoint';
 import { SourceNetworkEnum } from '@utility/domain/enum/source.network.enum';
 
@@ -8,7 +7,9 @@ export enum productEndpointEnum {
     putUpdateProduct = '/api/v1/product/{id}',
     deleteProduct = '/api/v1/product/{id}',
     getPagedProducts = '/api/v1/product/paged',
-    getProduct = '/api/v1/product/{id}'
+    getProduct = '/api/v1/product/{id}',
+	archive = '/api/v1/product/{id}/archive',
+    unarchive = '/api/v1/product/{id}/unarchive',
 }
 
 export const productEndpoint: EndpointCollectionType = {
@@ -73,6 +74,24 @@ export const productEndpoint: EndpointCollectionType = {
 						}
 					}
 				}
+			}
+		},
+	},
+	PATCH: {
+		[productEndpointEnum.archive]: {
+			source: SourceNetworkEnum.panel,
+			replace: true,
+			header: {
+				authorization: true,
+				tenantId: true,
+			}
+		},
+		[productEndpointEnum.unarchive]: {
+			source: SourceNetworkEnum.panel,
+			replace: true,
+			header: {
+				authorization: true,
+				tenantId: true,
 			}
 		},
 	},

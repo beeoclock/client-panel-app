@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Selector, State, StateContext, Action } from '@ngxs/store';
-import * as Product from "@product/domain";
+import { IProduct } from '@product/domain';
 import {
 	baseDefaults,
 	BaseState,
@@ -14,10 +14,12 @@ import { ItemProductApiAdapter } from '@product/adapter/external/api/item.produc
 import { UpdateProductApiAdapter } from '@product/adapter/external/api/update.product.api.adapter';
 import { CreateProductApiAdapter } from '@product/adapter/external/api/create.product.api.adapter';
 import { TranslateService } from '@ngx-translate/core';
+import { ArchiveProductApiAdapter } from '@product/adapter/external/api/archive.product.api.adapter';
+import { UnarchiveProductApiAdapter } from '@product/adapter/external/api/unarchive.product.api.adapter';
 
-export type IProductState = IBaseState<Product.IProduct>;
+export type IProductState = IBaseState<IProduct>;
 
-const defaults = baseDefaults<Product.IProduct>({
+const defaults = baseDefaults<IProduct>({
 	filters: {},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
@@ -29,12 +31,13 @@ const defaults = baseDefaults<Product.IProduct>({
 	defaults,
 })
 @Injectable()
-export class ProductState extends BaseState<Product.IProduct> {
-
+export class ProductState extends BaseState<IProduct> {
 	protected override readonly create = inject(CreateProductApiAdapter);
 	protected override readonly update = inject(UpdateProductApiAdapter);
 	protected override readonly item = inject(ItemProductApiAdapter);
 	protected override readonly delete = inject(DeleteProductApiAdapter);
+	protected override readonly archive = inject(ArchiveProductApiAdapter);
+	protected override readonly unarchive = inject(UnarchiveProductApiAdapter);
 	protected override readonly paged = inject(ListProductApiAdapter);
 
 	private readonly translateService = inject(TranslateService);
@@ -46,27 +49,36 @@ export class ProductState extends BaseState<Product.IProduct> {
 	// Application layer
 
 	@Action(ProductActions.OpenDetails)
-	public async openDetailsAction(ctx: StateContext<IProductState>, {payload}: ProductActions.OpenDetails) {
-	
-		const title = await this.translateService.instant('product.details.title');
+	public async openDetailsAction(
+		ctx: StateContext<IProductState>,
+		{ payload }: ProductActions.OpenDetails
+	) {
+		const title = await this.translateService.instant(
+			'product.details.title'
+		);
 
-		const {ProductDetailsContainerComponent} = await import("@product/presentation/component/details/product-details-container.component");
+		const { ProductDetailsContainerComponent } = await import(
+			'@product/presentation/component/details/product-details-container.component'
+		);
 
 		await this.whacAMaleProvider.buildItAsync({
 			title,
 			componentInputs: {
-				item: payload
+				item: payload,
 			},
 			component: ProductDetailsContainerComponent,
 		});
-	
 	}
 
 	@Action(ProductActions.OpenFormToEditById)
-	public async openFormToEditById(ctx: StateContext<IProductState>, action: ProductActions.OpenFormToEditById) {
-	
+	public async openFormToEditById(
+		ctx: StateContext<IProductState>,
+		action: ProductActions.OpenFormToEditById
+	) {
 		const item = await this.item.executeAsync(action.payload);
-		const title = await this.translateService.instant('product.form.title.edit');
+		const title = await this.translateService.instant(
+			'product.form.title.edit'
+		);
 
 		await this.openForm(ctx, {
 			payload: {
@@ -77,47 +89,68 @@ export class ProductState extends BaseState<Product.IProduct> {
 				componentInputs: {
 					item,
 					isEditMode: true,
-				}
-			}
+				},
+			},
 		});
-	
 	}
 
 	@Action(ProductActions.CloseDetails)
-	public async closeDetails(ctx: StateContext<IProductState>, action?: ProductActions.CloseDetails) {
-		const {ProductDetailsContainerComponent} = await import("@product/presentation/component/details/product-details-container.component");
+	public async closeDetails(
+		ctx: StateContext<IProductState>,
+		action?: ProductActions.CloseDetails
+	) {
+		const { ProductDetailsContainerComponent } = await import(
+			'@product/presentation/component/details/product-details-container.component'
+		);
 
-		await this.whacAMaleProvider.destroyComponent(ProductDetailsContainerComponent);
+		await this.whacAMaleProvider.destroyComponent(
+			ProductDetailsContainerComponent
+		);
 	}
 
 	@Action(ProductActions.CloseForm)
-	public async closeForm(ctx: StateContext<IProductState>, action?: ProductActions.CloseForm) {
-	
-		const {ProductFormContainerComponent} = await import("@product/presentation/component/form/product-form-container.component");
+	public async closeForm(
+		ctx: StateContext<IProductState>,
+		action?: ProductActions.CloseForm
+	) {
+		const { ProductFormContainerComponent } = await import(
+			'@product/presentation/component/form/product-form-container.component'
+		);
 
-		await this.whacAMaleProvider.destroyComponent(ProductFormContainerComponent);
+		await this.whacAMaleProvider.destroyComponent(
+			ProductFormContainerComponent
+		);
 	}
 
 	@Action(ProductActions.UpdateOpenedDetails)
-	public async updateOpenedDetails(ctx: StateContext<IProductState>, {payload}: ProductActions.UpdateOpenedDetails) {
-	
-		const {ProductDetailsContainerComponent} = await import("@product/presentation/component/details/product-details-container.component");
-	
-		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
-			component: ProductDetailsContainerComponent,
-			componentInputs: {item: payload},
-		}).catch((error) => {
-			this.ngxLogger.error('ServiceState.updateOpenedDetails', error);
-		});
-	
+	public async updateOpenedDetails(
+		ctx: StateContext<IProductState>,
+		{ payload }: ProductActions.UpdateOpenedDetails
+	) {
+		const { ProductDetailsContainerComponent } = await import(
+			'@product/presentation/component/details/product-details-container.component'
+		);
+
+		await this.whacAMaleProvider
+			.updateWhacAMoleComponentAsync({
+				component: ProductDetailsContainerComponent,
+				componentInputs: { item: payload },
+			})
+			.catch((error) => {
+				this.ngxLogger.error('ServiceState.updateOpenedDetails', error);
+			});
 	}
 
 	@Action(ProductActions.OpenForm)
-	public async openForm(ctx: StateContext<IProductState>, {payload}: ProductActions.OpenForm): Promise<void> {
-	
-		const {ProductFormContainerComponent} = await import("@product/presentation/component/form/product-form-container.component");
+	public async openForm(
+		ctx: StateContext<IProductState>,
+		{ payload }: ProductActions.OpenForm
+	): Promise<void> {
+		const { ProductFormContainerComponent } = await import(
+			'@product/presentation/component/form/product-form-container.component'
+		);
 
-		const {componentInputs, pushBoxInputs} = payload ?? {};
+		const { componentInputs, pushBoxInputs } = payload ?? {};
 
 		await this.whacAMaleProvider.buildItAsync({
 			title: this.translateService.instant('product.form.title.create'),
@@ -130,54 +163,88 @@ export class ProductState extends BaseState<Product.IProduct> {
 	// API
 
 	@Action(ProductActions.Init)
-	public override async init(ctx: StateContext<IProductState>): Promise<void> {
+	public override async init(
+		ctx: StateContext<IProductState>
+	): Promise<void> {
 		await super.init(ctx);
 	}
 
 	@Action(ProductActions.UpdateFilters)
-	public override updateFilters(ctx: StateContext<IProductState>, action: ProductActions.UpdateFilters) {
+	public override updateFilters(
+		ctx: StateContext<IProductState>,
+		action: ProductActions.UpdateFilters
+	) {
 		super.updateFilters(ctx, action);
 	}
 
 	@Action(ProductActions.UpdateTableState)
-	public override updateTableState(ctx: StateContext<IProductState>, action: ProductActions.UpdateTableState) {
+	public override updateTableState(
+		ctx: StateContext<IProductState>,
+		action: ProductActions.UpdateTableState
+	) {
 		super.updateTableState(ctx, action);
 	}
 
 	@Action(ProductActions.GetItem)
-	public override async getItem(ctx: StateContext<IProductState>, action: ProductActions.GetItem): Promise<void> {
+	public override async getItem(
+		ctx: StateContext<IProductState>,
+		action: ProductActions.GetItem
+	): Promise<void> {
 		await super.getItem(ctx, action);
 	}
 
 	@Action(ProductActions.CreateItem)
-	public override async createItem(ctx: StateContext<IProductState>, action: ProductActions.CreateItem): Promise<void> {
+	public override async createItem(
+		ctx: StateContext<IProductState>,
+		action: ProductActions.CreateItem
+	): Promise<void> {
 		await super.createItem(ctx, action);
 		await this.closeForm(ctx);
 	}
 
 	@Action(ProductActions.UpdateItem)
-	public override async updateItem(ctx: StateContext<IProductState>, action: ProductActions.UpdateItem): Promise<void> {
+	public override async updateItem(
+		ctx: StateContext<IProductState>,
+		action: ProductActions.UpdateItem
+	): Promise<void> {
 		await super.updateItem(ctx, action);
 		await this.closeForm(ctx, {
-			payload: action.payload._id
+			payload: action.payload._id,
 		});
-		const {data} = ctx.getState().item;
-		data && await this.updateOpenedDetails(ctx, {payload: data});
+		const { data } = ctx.getState().item;
+		data && (await this.updateOpenedDetails(ctx, { payload: data }));
 	}
 
 	@Action(ProductActions.ArchiveItem)
-	public override async archiveItem(ctx: StateContext<IProductState>, action: ProductActions.ArchiveItem) {
+	public override async archiveItem(
+		ctx: StateContext<IProductState>,
+		action: ProductActions.ArchiveItem
+	) {
 		await super.archiveItem(ctx, action);
 	}
 
+	@Action(ProductActions.UnarchiveItem)
+	public override async unarchiveItem(
+		ctx: StateContext<IProductState>,
+		action: ProductActions.UnarchiveItem
+	) {
+		await super.unarchiveItem(ctx, action);
+	}
+
 	@Action(ProductActions.DeleteItem)
-	public override async deleteItem(ctx: StateContext<IProductState>, action: ProductActions.DeleteItem) {
+	public override async deleteItem(
+		ctx: StateContext<IProductState>,
+		action: ProductActions.DeleteItem
+	) {
 		await super.deleteItem(ctx, action);
 		await this.closeDetails(ctx, action);
 	}
 
 	@Action(ProductActions.GetList)
-	public override async getList(ctx: StateContext<IProductState>, action: ProductActions.GetList): Promise<void> {
+	public override async getList(
+		ctx: StateContext<IProductState>,
+		action: ProductActions.GetList
+	): Promise<void> {
 		await super.getList(ctx, action);
 	}
 
