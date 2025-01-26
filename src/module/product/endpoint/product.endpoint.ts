@@ -1,3 +1,5 @@
+import { TranslateService } from '@ngx-translate/core';
+import { serviceEndpointEnum } from '@src/module/service/endpoint/service.endpoint';
 import { Endpoint, EndpointCollectionType } from '@utility/domain/endpoint';
 import { SourceNetworkEnum } from '@utility/domain/enum/source.network.enum';
 
@@ -33,6 +35,20 @@ export const productEndpoint: EndpointCollectionType = {
             header: {
 			    authorization: true,
 				tenantId: true,
+			},
+			after: {
+				success: {
+					notification: {
+						execute: (translateService: TranslateService) => {
+							const key = `http.POST.${productEndpointEnum.postCreateProduct}.after.success`;
+							const {title, message} = translateService.instant(key);
+							return {
+								title,
+								message
+							}
+						}
+					}
+				}
 			}
 		}
 	},
@@ -44,6 +60,20 @@ export const productEndpoint: EndpointCollectionType = {
 				authorization: true,
 				tenantId: true,
 			},
+			after: {
+				success: {
+					notification: {
+						execute: (translateService: TranslateService) => {
+							const key = `http.PUT.${productEndpointEnum.putUpdateProduct}.after.success`;
+							const {title, message} = translateService.instant(key);
+							return {
+								title,
+								message
+							}
+						}
+					}
+				}
+			}
 		},
 	},
     DELETE: {
@@ -57,6 +87,20 @@ export const productEndpoint: EndpointCollectionType = {
 				authorization: true,
 				tenantId: true,
 			},
+			after: {
+				success: {
+					notification: {
+						execute: (translateService: TranslateService) => {
+							const key = `http.DELETE.${productEndpointEnum.deleteProduct}.after.success`;
+							const {title, message} = translateService.instant(key);
+							return {
+								title,
+								message
+							}
+						}
+					}
+				}
+			}
 		},
 	}
 };

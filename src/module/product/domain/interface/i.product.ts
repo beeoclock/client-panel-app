@@ -7,10 +7,10 @@ import { IProductLanguageVersion } from './i.product-language-version';
 /**
  * Declare interface by business logic, if you need case when each property is optional, use Partial<IProduct>
  */
-export interface IProduct extends IBaseEntity<'ProductDTO'> {
+export interface IProduct extends IBaseEntity<'ProductDto'> {
 	sku: string;
     languageVersions: IProductLanguageVersion[];
-    price?: IProductPrice;
+    price: IProductPrice;
     active: Enum.ActiveEnum;
     tags?: string[]
     order?: number;

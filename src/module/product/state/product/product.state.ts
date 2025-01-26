@@ -90,6 +90,28 @@ export class ProductState extends BaseState<Product.IProduct> {
 		await this.whacAMaleProvider.destroyComponent(ProductDetailsContainerComponent);
 	}
 
+	@Action(ProductActions.CloseForm)
+	public async closeForm(ctx: StateContext<IProductState>, action?: ProductActions.CloseForm) {
+	
+		const {ProductFormContainerComponent} = await import("@product/presentation/component/form/product-form-container.component");
+
+		await this.whacAMaleProvider.destroyComponent(ProductFormContainerComponent);
+	}
+
+	@Action(ProductActions.UpdateOpenedDetails)
+	public async updateOpenedDetails(ctx: StateContext<IProductState>, {payload}: ProductActions.UpdateOpenedDetails) {
+	
+		const {ProductDetailsContainerComponent} = await import("@product/presentation/component/details/product-details-container.component");
+	
+		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
+			component: ProductDetailsContainerComponent,
+			componentInputs: {item: payload},
+		}).catch((error) => {
+			this.ngxLogger.error('ServiceState.updateOpenedDetails', error);
+		});
+	
+	}
+
 	@Action(ProductActions.OpenForm)
 	public async openForm(ctx: StateContext<IProductState>, {payload}: ProductActions.OpenForm): Promise<void> {
 	
@@ -130,11 +152,17 @@ export class ProductState extends BaseState<Product.IProduct> {
 	@Action(ProductActions.CreateItem)
 	public override async createItem(ctx: StateContext<IProductState>, action: ProductActions.CreateItem): Promise<void> {
 		await super.createItem(ctx, action);
+		await this.closeForm(ctx);
 	}
 
 	@Action(ProductActions.UpdateItem)
 	public override async updateItem(ctx: StateContext<IProductState>, action: ProductActions.UpdateItem): Promise<void> {
 		await super.updateItem(ctx, action);
+		await this.closeForm(ctx, {
+			payload: action.payload._id
+		});
+		const {data} = ctx.getState().item;
+		data && await this.updateOpenedDetails(ctx, {payload: data});
 	}
 
 	@Action(ProductActions.DeleteItem)

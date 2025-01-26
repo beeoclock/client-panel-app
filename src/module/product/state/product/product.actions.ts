@@ -16,6 +16,10 @@ export namespace ProductActions {
 		public static override readonly type = '[Product Application] Close Form';
 	}
 
+	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<IProduct> {
+		public static override readonly type = '[Product Application] Update Opened Details';
+	}
+
 	export class OpenForm extends BaseActions.OpenForm<{
 			isEditMode?: boolean;
 			item?: IProduct;

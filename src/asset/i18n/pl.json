@@ -688,8 +688,13 @@
 						"header": "Usuwanie produkt",
 						"message": "Czy na pewno chcesz usunąć produkt?"
 					}
+				},
+				"after": {
+					"success": {
+						"header": "Produkt",
+						"message": "Produkt został usunięty."
+					}
 				}
-			}
 		},
 		"PATCH": {
 			"/api/v1/event/{id}/booked": {
@@ -757,6 +762,14 @@
 						"message": "Usługa została utworzona."
 					}
 				}
+			},
+			"/api/v1/product": {
+				"after": {
+					"success": {
+						"header": "Utworzono produkt",
+						"message": "Produkt został utworzony."
+					}
+				}
 			}
 		},
 		"PUT": {
@@ -789,6 +802,14 @@
 					"success": {
 						"header": "Usługa zaktualizowana",
 						"message": "Usługa została zaktualizowana."
+					}
+				}
+			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Produkt",
+						"message": "Produkt został zaktualizowany."
 					}
 				}
 			}
@@ -1184,7 +1205,17 @@
 			"zipCode": "Kod pocztowy",
 			"sku": "SKU",
 			"productName": "Nazwa produktu",
-			"tags": "Kategorie"
+			"category": {
+				"single": "Kategoria",
+				"plural": "Kategorie",
+				"create": {
+					"tooltip": "Dodaj kategorie do listy",
+					"choose": "Wybierz kategorie",
+					"first": "Dodaj pierwszą kategorie",
+					"enter": "Wpisz kategorie",
+					"uniqueError": "Nazwa kategorii musi być unikalna"
+				}
+			}
 		},
 		"lowercase": {
 			"after": "za",
@@ -1290,6 +1321,9 @@
 			"title": {
 				"edit": "Edycja produktu",
 				"create": "Dodawanie produktu"
+			},
+			"availableLanguages": {
+				"hint": "Możesz nadać swojemu produktowi nazwę w ramach dostępnych języków"
 			}
 		}
 	},

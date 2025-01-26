@@ -20,13 +20,15 @@
 			</div>
 			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 items-center">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
-					{{ 'keyword.capitalize.tags' | translate }}
+					{{ 'keyword.capitalize.category.plural' | translate }}
 				</dt>
 				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2"  class="truncate">
 					<span [title]="product.tags?.join(', ')">
-						<ion-chip *ngFor="let tag of product.tags">
-							{{ tag }}
-						</ion-chip>
+						@for (tag of product.tags; track tag ) {
+							<ion-chip>
+								{{ tag }}
+							</ion-chip>
+						}		
 					</span>
 				</dd>
 			</div>

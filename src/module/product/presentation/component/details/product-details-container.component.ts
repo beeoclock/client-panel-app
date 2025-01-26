@@ -1,17 +1,17 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, inject, input, ViewEncapsulation } from '@angular/core';
+import { IonChip } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
+import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import { Store } from '@ngxs/store';
 import { IProduct } from '@product/domain';
-import { DynamicDatePipe } from '@utility/presentation/pipes/dynamic-date/dynamic-date.pipe';
-import { ActiveStyleDirective } from '@utility/presentation/directives/active-style/active-style.directive';
-import { CurrencyPipe, NgFor } from '@angular/common';
-import { IonChip } from '@ionic/angular/standalone';
+import { ProductActions } from '@product/state/product/product.actions';
+import { NoDataPipe } from '@src/module/utility/presentation/pipes/no-data.pipe';
 import { DeleteButtonComponent } from '@utility/presentation/component/button/delete.button.component';
 import { EditButtonComponent } from '@utility/presentation/component/button/edit.button.component';
+import { ActiveStyleDirective } from '@utility/presentation/directives/active-style/active-style.directive';
+import { DynamicDatePipe } from '@utility/presentation/pipes/dynamic-date/dynamic-date.pipe';
 import { firstValueFrom } from 'rxjs';
-import { ProductActions } from '@product/state/product/product.actions';
-import { Dispatch } from '@ngxs-labs/dispatch-decorator';
-import { NoDataPipe } from '@src/module/utility/presentation/pipes/no-data.pipe';
 
 @Component({
 	selector: 'product-detail-page',
@@ -23,7 +23,6 @@ import { NoDataPipe } from '@src/module/utility/presentation/pipes/no-data.pipe'
 		DynamicDatePipe,
 		CurrencyPipe,
 		IonChip,
-		NgFor,
 		DeleteButtonComponent,
 		EditButtonComponent,
 		NoDataPipe
