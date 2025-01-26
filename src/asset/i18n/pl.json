@@ -98,6 +98,15 @@
 					"label": "Kwota według statusu zamówienia"
 				}
 			},
+			"summary": {
+				"revenue": {
+					"by": {
+						"status": {
+							"done": "Przychody"
+						}
+					}
+				}
+			},
 			"total": {
 				"counter": {
 					"customers": {
@@ -1066,6 +1075,7 @@
 			"every": "Każdą",
 			"facilities": "Udogodnienia",
 			"feature": "Funkcja",
+			"finished": "Zakończono",
 			"firstName": "Imię",
 			"from": "Od",
 			"fullName": "Pełne imię i nazwisko",
@@ -1080,6 +1090,7 @@
 			"lastName": "Nazwisko",
 			"lastUpdate": "Ostatnia aktualizacja",
 			"latestBooking": "Najpóźniejszy termin rezerwacji",
+			"leftInDays": "Pozostała ilość dni",
 			"logout": "Wyloguj się",
 			"members": "Członkowie",
 			"menu": "Menu",
@@ -1090,6 +1101,7 @@
 			"no": "Nie",
 			"noData": "Brak danych",
 			"notSpecified": "Nie określono",
+			"notYetStarted": "Jeszcze nie rozpoczęto",
 			"note": "Notatka",
 			"notification": "Powiadomienia",
 			"openTimePicker": "Wybierz",
