@@ -1,6 +1,7 @@
 import {ActiveEnum} from "@utility/domain/enum";
 import {AbsenceTypeEnum} from "@module/absence/domain/enums/absence.type.enum";
 import {RIMember} from "@member/domain";
+import {Tools} from "@utility/tools";
 
 export interface IAbsenceDto {
 	object: 'AbsenceDto';
@@ -18,3 +19,7 @@ export interface IAbsenceDto {
 	createdAt: string;
 	updatedAt: string;
 }
+
+export const isAbsence = Tools.createIs<IAbsenceDto>();
+export const validAbsence = Tools.createValidate<IAbsenceDto>();
+export const randomAbsence = Tools.createRandom<IAbsenceDto>();

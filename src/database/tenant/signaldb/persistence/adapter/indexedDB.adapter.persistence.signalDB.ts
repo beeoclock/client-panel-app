@@ -13,11 +13,13 @@ export default function indexedDBAdapterPersistenceSignalDB<
 	I extends IDBValidKey,
 >(options: {
 	databaseName: string;
+	version: number;
 	storeName: string;
+	storeParameters: IDBObjectStoreParameters;
 	indexes?: Array<{ name: string, keyPath: string, options?: IDBIndexParameters }>;
 }) {
 
-	const {databaseName, storeName, indexes} = options
+	const {databaseName, storeName, indexes, storeParameters, version} = options
 
 	// const databaseName = `signaldb-${name}`
 	// const storeName = 'items'
@@ -28,11 +30,11 @@ export default function indexedDBAdapterPersistenceSignalDB<
 	 */
 	function openDatabase(): Promise<IDBDatabase> {
 		return new Promise((resolve, reject) => {
-			const request = indexedDB.open(databaseName, 1);
+			const request = indexedDB.open(databaseName, version);
 			request.addEventListener('upgradeneeded', () => {
 				const database = request.result
 				if (!database.objectStoreNames.contains(storeName)) {
-					const store = database.createObjectStore(storeName, {keyPath: 'id'});
+					const store = database.createObjectStore(storeName, storeParameters);
 					indexes?.forEach(index => store.createIndex(index.name, index.keyPath, index.options))
 				}
 			});
