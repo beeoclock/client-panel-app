@@ -7,7 +7,6 @@ import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 import {ActiveEnum, OrderDirEnum} from "@utility/domain/enum";
 import {ICustomer, validCustomer} from "@customer/domain";
 import {ResponseListType} from "@utility/adapter/base.api.adapter";
-import ObjectID from "bson-objectid";
 import indexedDBAdapterPersistenceSignalDB
 	from "@src/database/tenant/signaldb/persistence/adapter/indexedDB.adapter.persistence.signalDB";
 import {AbsenceTypeEnum} from "@absence/domain/enums/absence.type.enum";
@@ -202,8 +201,6 @@ interface ICustomerEntity extends BaseItem<string> {
 	note: string | null;
 	customerType: CustomerTypeEnum & Types.Default<CustomerTypeEnum.new>;
 
-	children: ICustomerEntity[];
-
 	active: ActiveEnum;
 }
 
@@ -221,10 +218,7 @@ export class Customer extends BaseEntity<ICustomerEntity> implements ICustomerEn
 	customerType!: CustomerTypeEnum & Types.Default<CustomerTypeEnum.new>;
 	active!: ActiveEnum;
 
-	children!: ICustomerEntity[];
-	child!: ICustomerEntity;
-
-	public static create(data: ICustomer, level = 0): Customer {
+	public static create(data: ICustomer): Customer {
 
 		const valid = validCustomer(data);
 
@@ -233,31 +227,14 @@ export class Customer extends BaseEntity<ICustomerEntity> implements ICustomerEn
 			throw new Error('Invalid customer data');
 		}
 
-		const children = [];
-
-		if (level < 3) {
-			children.push(
-				Customer.create({
-					...data,
-					_id: new ObjectID().toHexString()
-				}, level + 1)
-			)
-		}
-
 		return new Customer({
 			...data,
 			id: data._id,
-			children,
-			child: new Customer({
-				...data,
-				id: new ObjectID().toHexString(),
-				children: [],
-			})
 		});
 	}
 
 	public toDto(): ICustomer {
-		const {id, children, child, ...data} = this;
+		const {id, ...data} = this;
 		return data;
 	}
 
