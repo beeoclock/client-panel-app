@@ -1323,6 +1323,7 @@
 		"title": "Członek"
 	},
 	"product": {
+		"deactivateBeforeDelete": "Nie można usunąć aktywnego produktu",
 		"button": {
 			"create": "Dodaj produkt"
 		},

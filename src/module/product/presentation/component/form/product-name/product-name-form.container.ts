@@ -10,12 +10,10 @@ import { LanguageCodeEnum, LanguageRecord } from '@utility/domain/enum';
 import { BooleanStreamState } from '@utility/domain/boolean-stream.state';
 import { TranslateModule } from '@ngx-translate/core';
 import { Reactive } from '@utility/cdk/reactive';
-import { LanguageVersionsForm } from '@module/product/domain/model/product.form';
+import { LanguageVersionsForm } from '@product/domain/model/product.form';
 import { ProductLanguageComponent } from './product-language.component';
-import { FormInputComponent } from '@src/module/utility/presentation/component/input/form.input.component';
-import { FormTextareaComponent } from '@src/module/utility/presentation/component/input/form.textarea.component';
-// import { DetailsBlockComponent } from '@service/presentation/component/form/v2/details/details-block.component';
-// import { ServiceFormComponent } from '@service/presentation/component/form/v2/service/service.form.component';
+import { FormInputComponent } from '@utility/presentation/component/input/form.input.component';
+import { FormTextareaComponent } from '@utility/presentation/component/input/form.textarea.component';
 
 @Component({
 	selector: 'product-name-form-component',

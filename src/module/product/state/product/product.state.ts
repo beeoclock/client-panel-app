@@ -165,6 +165,11 @@ export class ProductState extends BaseState<Product.IProduct> {
 		data && await this.updateOpenedDetails(ctx, {payload: data});
 	}
 
+	@Action(ProductActions.ArchiveItem)
+	public override async archiveItem(ctx: StateContext<IProductState>, action: ProductActions.ArchiveItem) {
+		await super.archiveItem(ctx, action);
+	}
+
 	@Action(ProductActions.DeleteItem)
 	public override async deleteItem(ctx: StateContext<IProductState>, action: ProductActions.DeleteItem) {
 		await super.deleteItem(ctx, action);

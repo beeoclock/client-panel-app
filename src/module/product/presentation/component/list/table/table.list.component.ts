@@ -1,4 +1,4 @@
-import { Component, inject, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { ActiveStyleDirective } from '@utility/presentation/directives/active-style/active-style.directive';
 import { TableStatePaginationComponent } from '@utility/presentation/component/pagination/table-state-pagination.component';
 import { DynamicDatePipe } from '@utility/presentation/pipes/dynamic-date/dynamic-date.pipe';
@@ -15,7 +15,7 @@ import { CurrencyPipe, NgFor } from '@angular/common';
 import { RowActionButtonComponent } from '@product/presentation/component/row-action-button/row-action-button.component';
 import { IonChip } from '@ionic/angular/standalone';
 import * as Product from "@product/domain";
-import { ProductActions } from '@src/module/product/state/product/product.actions';
+import { ProductActions } from '@product/state/product/product.actions';
 
 @Component({
 	selector: 'product-table-list-component',

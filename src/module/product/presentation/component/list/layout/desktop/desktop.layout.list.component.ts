@@ -7,6 +7,7 @@ import { IProduct } from '@product/domain';
 import { FilterComponent } from '@product/presentation/component/filter/filter.component';
 import { AutoRefreshButtonComponent } from '@product/presentation/component/auto-refresh/auto-refresh.button.component';
 import { NotFoundTableDataComponent } from '@utility/presentation/component/not-found-table-data/not-found-table-data.component';
+import { ProductActions } from '@product/state/product/product.actions';
 
 @Component({
 	selector: 'product-desktop-layout-list-component',
@@ -25,5 +26,7 @@ export class DesktopLayoutListComponent extends LayoutListComponent<IProduct> {
 	public override readonly tableState =
 		input.required<ITableState<IProduct> | null>();
 
-	public openForm(): void {}
+	public openForm(): void {
+		this.store.dispatch(new ProductActions.OpenForm());
+	}
 }

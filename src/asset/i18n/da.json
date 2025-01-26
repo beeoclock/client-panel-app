@@ -697,6 +697,12 @@
 						"header": "Sletning af et produkt",
 						"message": "Er du sikker på, at du vil fjerne produktet?"
 					}
+				},
+				"after": {
+					"success": {
+					  "header": "Produkt",
+					  "message": "Produktet er blevet slettet."
+					}
 				}
 			}
 		},
@@ -766,6 +772,14 @@
 						"message": "Tjenesten blev oprettet med succes."
 					}
 				}
+			},
+			"/api/v1/product": {
+				"after": {
+					"success": {
+						"header": "Produkt oprettet",
+      					"message": "Produktet er blevet oprettet."
+					}
+				}
 			}
 		},
 		"PUT": {
@@ -800,7 +814,15 @@
 						"message": "Tjenesten blev opdateret med succes."
 					}
 				}
-			}
+			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Produkt opdateret",
+						"message": "Produktet blev opdateret med succes."
+					}
+				}
+  			}
 		},
 		"response": {
 			"status": {
@@ -1302,8 +1324,9 @@
 		"title": "Medlem"
 	},
 	"product": {
+		"deactivateBeforeDelete": "Du kan ikke slette et aktivt produkt",
 		"button": {
-			"create": "Dodaj produkt"
+			"create": "Tilføj produkt"
 		},
 		"details": {
 			"title": "Info om produktet"

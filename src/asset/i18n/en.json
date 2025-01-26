@@ -1324,6 +1324,7 @@
 		"title": "Member"
 	},
 	"product": {
+		"deactivateBeforeDelete": "You cannot delete an active product",
 		"button": {
 			"create": "Create product"
 		},

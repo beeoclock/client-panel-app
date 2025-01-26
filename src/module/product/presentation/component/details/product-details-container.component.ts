@@ -1,7 +1,7 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, inject, input, ViewEncapsulation } from '@angular/core';
 import { IonChip } from '@ionic/angular/standalone';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import { Store } from '@ngxs/store';
 import { IProduct } from '@product/domain';
@@ -31,11 +31,17 @@ import { firstValueFrom } from 'rxjs';
 })
 export class ProductDetailsContainerComponent {
 	public readonly item = input.required<IProduct>();
-	public readonly store = inject(Store);
+	
+	readonly #store = inject(Store);
+	readonly #translateService = inject(TranslateService);
 
 	public async delete(product: IProduct) {
+		if(this.item().active) {
+			alert(this.#translateService.instant('product.deactivateBeforeDelete'));
+			return;
+		}
 		await firstValueFrom(
-			this.store.dispatch(new ProductActions.DeleteItem(product._id))
+			this.#store.dispatch(new ProductActions.DeleteItem(product._id))
 		);
 	}
 

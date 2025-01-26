@@ -72,14 +72,16 @@ import ObjectID from 'bson-objectid';
 						[placeholder]="translations().choose | translate"
 						class="!min-h-0"
 						fill="solid"
-						id="ionic-tag-selection"
+						class="ion-select-tags-selector"
 						interface="popover"
+						[title]="tagsTooltip"
 					>
 						@for(option of options(); track option.id) {
 							<ion-select-option [value]="option.value">
 								{{ option.label }}
 							</ion-select-option>
 						}
+						
 					</ion-select>
 				} @else {
 					<p class="italic leading-tight p-2 text-beeColor-500 text-sm">
@@ -98,6 +100,12 @@ import ObjectID from 'bson-objectid';
 		IonSelectOption,
 		IonButton,
 	],
+	styles: `
+	 	.ion-select-tags-selector {
+			max-width: 300px !important;
+		}
+	
+	`
 })
 export class IonSelectTagsComponent {
 	readonly #translateService = inject(TranslateService);
@@ -120,6 +128,10 @@ export class IonSelectTagsComponent {
 
 	@HostBinding()
 	public class = 'flex items-center';
+
+	get tagsTooltip() {
+		return (this.options() || []).map(x => x.value).join(', ')
+	}
 
 	public toggleAddMode(): void {
 		this.addMode = !this.addMode;

@@ -13,7 +13,7 @@ import { IProduct } from '@product/domain';
 import { CardListComponent } from '@product/presentation/component/list/card/card.list.component';
 import { AutoRefreshButtonComponent } from '@product/presentation/component/auto-refresh/auto-refresh.button.component';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
-import { ProductActions } from '@src/module/product/state/product/product.actions';
+import { ProductActions } from '@product/state/product/product.actions';
 
 @Component({
 	selector: 'product-mobile-layout-list-component',

@@ -1,10 +1,9 @@
 import { Component, inject, input, ViewEncapsulation } from '@angular/core';
-import { ActionComponent } from '@utility/presentation/component/table/column/action.component';
-import { Store } from '@ngxs/store';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
 import { IProduct } from '@product/domain';
 import { ProductActions } from '@product/state/product/product.actions';
+import { ActionComponent } from '@utility/presentation/component/table/column/action.component';
 
 @Component({
 	selector: 'product-row-action-button-component',
@@ -16,6 +15,7 @@ import { ProductActions } from '@product/state/product/product.actions';
 			(open)="open()"
 			(edit)="edit()"
 			[id]="id()"
+			[activateButtonsVisible]="false"
 		>
 		</utility-table-column-action>
 	`,
@@ -26,28 +26,34 @@ export class RowActionButtonComponent {
 
 	public readonly item = input.required<IProduct>();
 
-	private readonly store = inject(Store);
-	private readonly router = inject(Router);
-	private readonly translateService = inject(TranslateService);
-	public readonly returnUrl = this.router.url;
+	readonly #translateService = inject(TranslateService);
+	readonly #store = inject(Store);
 
 	public delete(): void {
-		this.store.dispatch(new ProductActions.DeleteItem(this.item()._id));
+		if(this.item().active) {
+			alert(this.#translateService.instant('product.deactivateBeforeDelete'));
+			return;
+		}
+		this.#store.dispatch(new ProductActions.DeleteItem(this.item()._id));
+	}
+
+	public deactivate(): void {
+		this.#store.dispatch(new ProductActions.ArchiveItem(this.item()._id));
 	}
 
 	public open(): void {
-		this.store.dispatch(new ProductActions.OpenDetails(this.item()));
+		this.#store.dispatch(new ProductActions.OpenDetails(this.item()));
 	}
 
 	public edit(): void {
-		this.store.dispatch(
+		this.#store.dispatch(
 			new ProductActions.OpenForm({
 				componentInputs: {
 					isEditMode: true,
 					item: this.item(),
 				},
 				pushBoxInputs: {
-					title: this.translateService.instant('product.form.title.edit')
+					title: this.#translateService.instant('product.form.title.edit')
 				}
 			})
 		);
