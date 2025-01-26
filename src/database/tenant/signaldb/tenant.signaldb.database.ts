@@ -8,6 +8,8 @@ import {ActiveEnum, OrderDirEnum} from "@utility/domain/enum";
 import {ICustomer, validCustomer} from "@customer/domain";
 import {ResponseListType} from "@utility/adapter/base.api.adapter";
 import ObjectID from "bson-objectid";
+import indexedDBAdapterPersistenceSignalDB
+	from "@src/database/tenant/signaldb/persistence/adapter/indexedDB.adapter.persistence.signalDB";
 
 loadDeveloperTools();
 
@@ -50,27 +52,39 @@ abstract class BaseEntity<T extends object> implements BaseItem<string> {
 // 	transform: toPost
 // });
 //
-// interface IUser extends BaseItem<string> {
-// 	firstName: string;
-// 	lastName: string;
-// 	createdAt: number;
-// }
-//
-// export class User extends BaseEntity<IUser> {
-//
-// 	getPosts() {
-// 		return Posts.find({ authorId: this.id })
-// 	}
-//
-// }
-//
-// const toUser = (data: IUser) => new User(data);
-//
-// export const Users = new Collection<IUser, string, User>({
-// 	reactivity: angularReactivityAdapter,
-// 	persistence: createIndexedDBAdapter('users'),
-// 	transform: toUser,
-// });
+interface IUser extends BaseItem<string> {
+	firstName: string;
+	lastName: string;
+	createdAt: number;
+}
+
+export class User extends BaseEntity<IUser> {
+
+	// getPosts() {
+	// 	return Posts.find({ authorId: this.id })
+	// }
+
+}
+
+const toUser = (data: IUser) => new User(data);
+
+export const Users = new Collection<IUser, string, User>({
+	reactivity: angularReactivityAdapter,
+	persistence: createIndexedDBAdapter('users'),
+	transform: toUser,
+	indices: [
+		createIndex('createdAt'),
+	]
+});
+
+Users.isReady().then(() => {
+	Users.insert({
+		id: new ObjectID().toHexString(),
+		firstName: 'Mark',
+		lastName: 'Smith',
+		createdAt: Date.now()
+	})
+})
 
 interface ICustomerEntity extends BaseItem<string> {
 
@@ -151,13 +165,21 @@ const toCustomer = Customer.create;
 
 export const Customers = new Collection<ICustomerEntity, string, Customer>({
 	reactivity: angularReactivityAdapter,
-	persistence: createIndexedDBAdapter('customers'),
+	persistence: indexedDBAdapterPersistenceSignalDB({
+		databaseName: 'tenant-test',
+		storeName: 'customers',
+		indexes: [
+			{name: '_id', keyPath: '_id'},
+			{name: 'createdAt', keyPath: 'createdAt'},
+			{name: 'child.firstName', keyPath: 'child.firstName'},
+			// From array
+			// https://stackoverflow.com/questions/36034150/indexeddb-multyentry-with-sub-objects
+			// https://github.com/w3c/IndexedDB/issues/35
+			{name: 'children.lastName', keyPath: 'children.lastName'},
+		]
+	}),
 	transform: toCustomer,
 	enableDebugMode: true,
-	indices: [
-		createIndex('createdAt'),
-		createIndex('child.firstName'),
-	]
 });
 
 
@@ -165,7 +187,7 @@ const headers = {
 	'Accept': 'application/json',
 	'Content-Type': 'application/json',
 	'X-Business-Tenant-Id': '66f9378141ed7954254c40c8',
-	Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjgxYjUyMjFlN2E1ZGUwZTVhZjQ5N2UzNzVhNzRiMDZkODJiYTc4OGIiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoidGVzdCIsImFjY291bnRJZCI6IjY2ZjkzMTgxNDFlZDc5NTQyNTRjNDBiZCIsImZyb250ZW5kU2V0dGluZ3MiOnsiYnVzaW5lc3NQYW5lbCI6eyJsYW5ndWFnZSI6ImVuIiwidGhlbWUiOiJsaWdodCJ9fSwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2JlZW9jbG9jay1kZXZlbG9wIiwiYXVkIjoiYmVlb2Nsb2NrLWRldmVsb3AiLCJhdXRoX3RpbWUiOjE3Mzc4MjU4ODMsInVzZXJfaWQiOiJ4eGxZeU9UaEVKUDlXZGdmOHpma1BtM1hiUjgzIiwic3ViIjoieHhsWXlPVGhFSlA5V2RnZjh6ZmtQbTNYYlI4MyIsImlhdCI6MTczNzgzODg5MywiZXhwIjoxNzM3ODQyNDkzLCJlbWFpbCI6ImRlbW9AYmVlb2Nsb2NrLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaG9uZV9udW1iZXIiOiIrNDgxMDAyMDAzMDAiLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImRlbW9AYmVlb2Nsb2NrLmNvbSJdLCJwaG9uZSI6WyIrNDgxMDAyMDAzMDAiXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.RVRTAEnCF4tJBlTNCZ4fIzKewT7sMugHnc9yD2ZExaCw5FI7mzMZj6diE4mY6Xkby8gKhCpAfTHFeIxy-dCzqqVQEk9KJO4ItziSTXhjPSm8qRNYT4Xa771v-vBF1MzkIa8Trn8izzVu1qSRAaY225e91NMoyRyE4EMlj1APgEOtJ-2RFVpJZ554K5jPNeqwCqZZdRY8C1rv5HtWrGOTDdgVpJGUjHY3qCDSCmFOFV3yi2wvJpNtpNmV4x42teoM-dzOpcbkmtNXDSclP626JR9sdPeBDAguq_dwlOdR7KTDHYg-W_uofTQAvHbPXdxup9zzAifp-mYm-m57f35mzg'
+	Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjgxYjUyMjFlN2E1ZGUwZTVhZjQ5N2UzNzVhNzRiMDZkODJiYTc4OGIiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoidGVzdCIsImFjY291bnRJZCI6IjY2ZjkzMTgxNDFlZDc5NTQyNTRjNDBiZCIsImZyb250ZW5kU2V0dGluZ3MiOnsiYnVzaW5lc3NQYW5lbCI6eyJsYW5ndWFnZSI6ImVuIiwidGhlbWUiOiJsaWdodCJ9fSwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2JlZW9jbG9jay1kZXZlbG9wIiwiYXVkIjoiYmVlb2Nsb2NrLWRldmVsb3AiLCJhdXRoX3RpbWUiOjE3Mzc4MjU4ODMsInVzZXJfaWQiOiJ4eGxZeU9UaEVKUDlXZGdmOHpma1BtM1hiUjgzIiwic3ViIjoieHhsWXlPVGhFSlA5V2RnZjh6ZmtQbTNYYlI4MyIsImlhdCI6MTczNzg1MzU3MSwiZXhwIjoxNzM3ODU3MTcxLCJlbWFpbCI6ImRlbW9AYmVlb2Nsb2NrLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaG9uZV9udW1iZXIiOiIrNDgxMDAyMDAzMDAiLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImRlbW9AYmVlb2Nsb2NrLmNvbSJdLCJwaG9uZSI6WyIrNDgxMDAyMDAzMDAiXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.Av7sMlpjfukl8suq49Hq2SXQqmsGb7cosAZ_SY5ozoJokx7jARVPDL8F-P6wDBkpQZvBPKc6401RyKghoRVfMD7t43yNjQuQfXm154yBfE2vfNbSHQNQF5YNYeP8Qf8-cLKntKCtcWgT5zXP6aLTGqEZ-EIEUtbtSspizaLfSmHpS1qpNLGQ5AWKfsmHNzb_eMcLz4hyBLszKo6qElZL4u27m_QxRDvMlL1PyoRjyks8iDsDW0zTUE7-hzMUHOPNwto6Pv8WwmzC1IPoFDEr_5cu9B6u2b0aTGeN4GJysoGCig0ynRyipQWrRGFI8qmICbhBP191pJXb9z1B5m5y6A'
 };
 
 const customers = Customers.find().fetch();
