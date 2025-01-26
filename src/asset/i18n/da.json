@@ -98,6 +98,15 @@
 					"label": "Beløb efter ordrestatus"
 				}
 			},
+			"summary": {
+				"revenue": {
+					"by": {
+						"status": {
+							"done": "Indtægter"
+						}
+					}
+				}
+			},
 			"total": {
 				"counter": {
 					"customers": {
@@ -1074,6 +1083,7 @@
 			"every": "Hver",
 			"facilities": "Faciliteter",
 			"feature": "Funktion",
+			"finished": "Voltooid",
 			"firstName": "Fornavn",
 			"from": "Fra",
 			"fullName": "Fulde navn",
@@ -1088,6 +1098,7 @@
 			"lastName": "Efternavn",
 			"lastUpdate": "Sidste opdatering",
 			"latestBooking": "Hvornår en begivenhed kan bookes",
+			"leftInDays": "Dagen te gaan",
 			"logout": "Log ud",
 			"members": "Medlemmer",
 			"menu": "Menu",
@@ -1098,6 +1109,7 @@
 			"no": "Nej",
 			"noData": "Ingen data",
 			"notSpecified": "Ikke specificeret",
+			"notYetStarted": "Nog niet begonnen",
 			"note": "Note",
 			"notification": "Notifikation",
 			"openTimePicker": "Vælg",

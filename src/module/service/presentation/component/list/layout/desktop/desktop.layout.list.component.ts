@@ -11,7 +11,7 @@ import {
 } from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
-import {CardListComponent} from "@service/presentation/component/list/card/card.list.component";
+import {TableListComponent} from "@service/presentation/component/list/table/table.list.component";
 
 @Component({
 	selector: 'service-desktop-layout-list-component',
@@ -23,7 +23,7 @@ import {CardListComponent} from "@service/presentation/component/list/card/card.
 		NotFoundTableDataComponent,
 		TranslateModule,
 		AutoRefreshButtonComponent,
-		CardListComponent,
+		TableListComponent,
 	],
 })
 export class DesktopLayoutListComponent extends LayoutListComponent<IServiceDto> {
