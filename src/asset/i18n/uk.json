@@ -98,6 +98,15 @@
 					"label": "Сума по статусу замовлення"
 				}
 			},
+			"summary": {
+				"revenue": {
+					"by": {
+						"status": {
+							"done": "Виручка"
+						}
+					}
+				}
+			},
 			"total": {
 				"counter": {
 					"customers": {
@@ -1096,6 +1105,7 @@
 			"every": "Кожні",
 			"facilities": "Зручності",
 			"feature": "Особливість",
+			"finished": "Завершена",
 			"firstName": "Ім'я",
 			"from": "Від",
 			"fullName": "Повне ім'я",
@@ -1110,6 +1120,7 @@
 			"lastName": "Прізвище",
 			"lastUpdate": "Останнє оновлення",
 			"latestBooking": "На коли можна зарезервувати послугу",
+			"leftInDays": "Днів залишилось",
 			"logout": "Вихід",
 			"members": "Учасники",
 			"menu": "Меню",
@@ -1120,6 +1131,7 @@
 			"no": "Ні",
 			"noData": "Немає даних",
 			"notSpecified": "Не вказано",
+			"notYetStarted": "Ще не розпочато",
 			"note": "Примітка",
 			"notification": "Повідомлення",
 			"openTimePicker": "Вибрати",

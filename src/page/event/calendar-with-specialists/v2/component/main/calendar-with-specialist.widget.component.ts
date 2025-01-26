@@ -513,7 +513,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 			return;
 		}
 
-		this.fixNearEventsWidth(nearEvents, htmlDivElement, column, () => {
+		this.fixNearEventsWidth(Array.from(nearEvents)  as HTMLDivElement[], htmlDivElement, column, () => {
 			this.restoreWidthOfMutatedEvents(column);
 		});
 
@@ -687,13 +687,13 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 			return;
 		}
 
-		const eventsArray = Array.from(events);
+		const eventsArray = Array.from(events) as HTMLDivElement[];
 
 		eventsArray.forEach((event) => {
 
 			const eventElement = event as HTMLDivElement;
 
-			this.fixNearEventsWidth(events, eventElement, columnElement);
+			this.fixNearEventsWidth(eventsArray, eventElement, columnElement);
 
 		});
 
@@ -701,18 +701,43 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 	}
 
-	public fixNearEventsWidth(nearEvents: NodeListOf<Element>, htmlDivElement: HTMLElement, column: HTMLElement, callbackIfNoNearEvents: (() => void) = (() => {
+	public fixNearEventsWidth(nearEvents: HTMLElement[], htmlDivElement: HTMLElement, column: HTMLElement, callbackIfNoNearEvents: (() => void) = (() => {
 	})) {
-		const findNearEvents = Array.from(nearEvents).filter((element) => {
+		let foundNearEvents = nearEvents.reduce((acc, element) => {
 			if (element === htmlDivElement) {
-				return false;
+				return acc;
 			}
 
-			return this.targetIsNearOfSource(element as HTMLDivElement, htmlDivElement);
+			if (acc.some((e) => e === element)) {
+				return acc;
+			}
 
-		});
+			if (this.targetIsNearOfSource(element, htmlDivElement)) {
+				acc.push(element);
+			}
 
-		if (!findNearEvents.length) {
+			return acc;
+
+		}, [] as HTMLElement[]);
+
+		foundNearEvents = foundNearEvents.reduce((acc, element, index) => {
+			const result = foundNearEvents.filter((elm) => {
+				if (elm === element) {
+					return false;
+				}
+				return this.targetIsNearOfSource(elm, element);
+
+			});
+
+
+			acc.push(...result);
+			if (!acc.length && index === foundNearEvents.length - 1) {
+				acc.push(element);
+			}
+			return acc;
+		}, [] as HTMLElement[]);
+
+		if (!foundNearEvents.length) {
 			htmlDivElement.style.width = '100%';
 			htmlDivElement.style.transform = `translateX(0)`;
 			callbackIfNoNearEvents();
@@ -720,7 +745,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		}
 
 		const top = htmlDivElement.offsetTop;
-		const htmlDivElementHasSmollerTop = findNearEvents.every((element) => {
+		const htmlDivElementHasSmollerTop = foundNearEvents.every((element) => {
 			const elm = element as HTMLDivElement;
 			return elm.offsetTop > top;
 		});
@@ -730,7 +755,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 			this.mutatedOtherEventHtmlList.length = 0;
 		}
 
-		findNearEvents.forEach((element, index) => {
+		foundNearEvents.forEach((element, index) => {
 			if (element === htmlDivElement) {
 				return;
 			}
@@ -741,12 +766,12 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 				this.mutatedOtherEventHtmlList.push(elm);
 			}
 
-			elm.style.width = `${column.clientWidth / (findNearEvents.length + 1)}px`;
+			elm.style.width = `${column.clientWidth / (foundNearEvents.length + 1)}px`;
 			elm.style.transform = `translateX(calc(100% * ${index + (htmlDivElementHasSmollerTop ? 1 : 0)}))`
 		});
 
-		htmlDivElement.style.width = `${column.clientWidth / (findNearEvents.length + 1)}px`;
-		htmlDivElement.style.transform = `translateX(calc(100% * ${(htmlDivElementHasSmollerTop ? 0 : findNearEvents.length)}))`;
+		htmlDivElement.style.width = `${column.clientWidth / (foundNearEvents.length + 1)}px`;
+		htmlDivElement.style.transform = `translateX(calc(100% * ${(htmlDivElementHasSmollerTop ? 0 : foundNearEvents.length)}))`;
 	}
 
 	protected restoreWidthOfMutatedEvents(column: HTMLElement) {

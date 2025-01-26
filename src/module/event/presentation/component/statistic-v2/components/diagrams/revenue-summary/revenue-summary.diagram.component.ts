@@ -85,7 +85,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 		TranslatePipe
 	],
 	host: {
-		class: 'block max-w-full lg:max-w-lg'
+		class: 'block max-w-full'
 	}
 })
 export class RevenueSummaryDiagramComponent extends Reactive implements AfterViewInit, OnDestroy {

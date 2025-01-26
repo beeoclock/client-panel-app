@@ -1,7 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 
 import {DurationHelper} from "@utility/helper/duration.helper";
-import {TranslateService} from "@ngx-translate/core";
 import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
 import {CurrencyPipe} from "@angular/common";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
@@ -12,7 +11,6 @@ import {BASE_CURRENCY} from "@src/token";
 export class DurationVersionHtmlHelper {
 
 	private readonly durationHelper = inject(DurationHelper);
-	private readonly translateService = inject(TranslateService);
 	private readonly humanizeDurationHelper = inject(HumanizeDurationHelper);
 	private readonly currencyPipe = inject(CurrencyPipe);
 	private readonly baseCurrency = inject(BASE_CURRENCY);
@@ -20,16 +18,11 @@ export class DurationVersionHtmlHelper {
 	public getDurationValue(item: IServiceDto): string {
 		const {durationVersions} = item;
 		if (this.durationHelper.durationIsRangeMode(item) && durationVersions.length > 1) {
-			const translateKeyFrom = 'keyword.capitalize.from';
-			const fromLabel = this.translateService.instant(translateKeyFrom);
-			const translateKeyTo = 'keyword.capitalize.to';
-			const toLabel = this.translateService.instant(translateKeyTo);
 			const [fromDurationVersion, toDurationVersion] = durationVersions;
 			const durationFrom = this.humanizeDurationHelper.fromSeconds(fromDurationVersion.durationInSeconds);
 			const durationTo = this.humanizeDurationHelper.fromSeconds(toDurationVersion.durationInSeconds);
 			return `
-				<div class="flex gap-1"><div class="text-beeColor-500">${fromLabel}:</div> <div class="">${durationFrom}</div></div>
-				<div class="flex gap-1"><div class="text-beeColor-500">${toLabel}:</div> <div class="">${durationTo}</div></div>
+				<div class="flex gap-1"><div class="">${durationFrom} <span class="text-neutral-400">—</span> ${durationTo}</div></div>
 			`;
 		}
 		const result: string[] = [];
@@ -45,22 +38,17 @@ export class DurationVersionHtmlHelper {
 	public getPriceValue(item: IServiceDto): string {
 		const {durationVersions} = item;
 		if (this.durationHelper.durationIsRangeMode(item) && durationVersions.length > 1) {
-			const translateKeyFrom = 'keyword.capitalize.from';
-			const fromLabel = this.translateService.instant(translateKeyFrom);
-			const translateKeyTo = 'keyword.capitalize.to';
-			const toLabel = this.translateService.instant(translateKeyTo);
 			const [fromDurationVersion, toDurationVersion] = durationVersions;
 			let priceForm = this.currencyPipe.transform(fromDurationVersion.prices[0].price, fromDurationVersion.prices[0].currency, 'symbol-narrow');
 			if (!priceForm) {
-				priceForm = '-';
+				priceForm = `<span class="text-neutral-400">∞</span>`;
 			}
 			let priceTo = this.currencyPipe.transform(toDurationVersion.prices[0].price, toDurationVersion.prices[0].currency, 'symbol-narrow');
 			if (!priceTo) {
-				priceTo = '-';
+				priceTo = `<span class="text-neutral-400">∞</span>`;
 			}
 			return `
-					<div class="flex gap-1"><div class="text-beeColor-500">${fromLabel}:</div> <div class="">${priceForm}</div></div>
-					<div class="flex gap-1"><div class="text-beeColor-500">${toLabel}:</div> <div class="">${priceTo}</div></div>
+					<div class="flex gap-1"><div class="">${priceForm} <span class="text-neutral-400">—</span> ${priceTo}</div></div>
 				`;
 		}
 		const result: string[] = [];
@@ -71,7 +59,7 @@ export class DurationVersionHtmlHelper {
 			}
 		});
 		if (result.length === 0) {
-			return '-';
+			return `<span class="text-neutral-400">—</span>`;
 		}
 		return result.join(' / ');
 	}
@@ -124,7 +112,7 @@ export class DurationVersionHtmlHelper {
 			'1.0-2',
 		);
 		if (!priceForm) {
-			return '-';
+			return `<span class="text-neutral-400">—</span>`;
 		}
 		if (
 			this.durationHelper.durationIsRangeMode(item) &&
