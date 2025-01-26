@@ -80,7 +80,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 		TranslatePipe
 	],
 	host: {
-		class: 'rounded-2xl bg-neutral-100 p-2 flex flex-col gap-2 w-full h-full'
+		class: 'rounded-2xl bg-neutral-100 p-2 flex flex-col gap-2 w-full lg:max-w-sm h-full'
 	}
 })
 export class ServicesCounterStatisticComponent {

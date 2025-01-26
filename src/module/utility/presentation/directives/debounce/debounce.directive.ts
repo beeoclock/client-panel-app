@@ -1,5 +1,5 @@
-import {Directive, HostListener, input, OnInit, output} from '@angular/core';
-import {Subject} from 'rxjs';
+import {Directive, HostListener, input, OnDestroy, OnInit, output} from '@angular/core';
+import {Subject, Subscription} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import {Reactive} from "@utility/cdk/reactive";
 
@@ -7,7 +7,7 @@ import {Reactive} from "@utility/cdk/reactive";
 	selector: '[appDebounceClick]',
 	standalone: true
 })
-export class DebounceClickDirective extends Reactive implements OnInit {
+export class DebounceClickDirective extends Reactive implements OnInit, OnDestroy {
 
 	public readonly enabledDebounceClick = input(true);
 
@@ -15,10 +15,11 @@ export class DebounceClickDirective extends Reactive implements OnInit {
 
 	public readonly debounceClick = output<Event>();
 
-	private readonly clicks = new Subject<Event>();
+	private clicks = new Subject<Event>();
+	private subscription: Subscription | undefined;
 
 	public ngOnInit(): void {
-		this.clicks
+		this.subscription = this.clicks
 			.pipe(
 				debounceTime(this.debounceTime()),
 				this.takeUntil(),
@@ -27,10 +28,12 @@ export class DebounceClickDirective extends Reactive implements OnInit {
 				next: (event) => {
 					this.debounceClick.emit(event)
 				},
-				error: (error) => {
-					console.error(error);
-				}
 			});
+	}
+
+	public override ngOnDestroy(): void {
+		super.ngOnDestroy();
+		this.subscription?.unsubscribe();
 	}
 
 	/**

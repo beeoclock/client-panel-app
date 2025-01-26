@@ -2,57 +2,34 @@
 
 	<div class="bg-white">
 		<dl class="divide-y divide-gray-100">
-			<div class="p-4 gap-4 flex">
-				@if (member?.avatar?.url?.length) {
-					<img [ngSrc]="member.avatar.url"
-						 width="192"
-						 height="192"
-						 class="min-w-[192px] max-w-[192px] min-h-[192px] max-h-[192px] flex flex-col items-center justify-center w-full relative rounded-xl bg-beeColor-50 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-800 dark:bg-beeColor-700 dark:border-beeDarkColor-600 dark:hover:border-beeDarkColor-500 object-cover"
-						 alt="">
-				} @else {
-					<div
-						class="text-neutral-400 font-extrabold text-6xl min-w-[192px] max-w-[192px] min-h-[192px] max-h-[192px] flex items-center justify-center bg-neutral-200 rounded-xl">
-						<span class="">{{ (member.lastName ?? '')[0] }}</span>
-						<span class="">{{ (member.firstName ?? '')[0] }}</span>
-					</div>
-				}
-				<div class="flex flex-col justify-between">
-					<div class="flex flex-col gap-2">
-						<div>
-							@switch (member.profileStatus) {
-								@case ('active') {
-									<div
-										class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">
-										{{ ('member.enum.profileStatus.active') | translate }}
-									</div>
-								}
-								@case ('deleted') {
-									<div
-										class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">
-										{{ ('member.enum.profileStatus.deleted') | translate }}
-									</div>
-								}
-								@case ('suspended') {
-									<div
-										class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-800/30 dark:text-yellow-500">
-										{{ ('member.enum.profileStatus.suspended') | translate }}
-									</div>
-								}
-							}
-						</div>
-						<div>
-							<div
-								class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-neutral-100 text-neutral-800 dark:bg-white/10 dark:text-white">
-								<span>{{ 'role.' + member.role | translate }}</span>
-							</div>
-						</div>
-					</div>
-					<div class="font-bold flex flex-col">
-						<span class="text-3xl">{{ member.lastName }}</span>
-						<span class="text-2xl">{{ member.secondName }}</span>
-						<span class="text-4xl">{{ member.firstName }}</span>
-					</div>
+			@if (member?.avatar?.url?.length) {
+
+				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+					<dt class="text-sm font-medium leading-6 text-gray-900">
+						{{ 'keyword.capitalize.avatar' | translate }}
+					</dt>
+					<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+						<img [src]="member?.avatar?.url"
+							 class="min-w-[192px] max-w-[192px] min-h-[192px] max-h-[192px] flex flex-col items-center justify-center w-full relative rounded-xl cursor-pointer bg-beeColor-50 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-800 dark:bg-beeColor-700 dark:border-beeDarkColor-600 dark:hover:border-beeDarkColor-500 object-cover"
+							 alt="">
+					</dd>
 				</div>
+			}
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.fullName' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ member.firstName }}&nbsp;{{ member.secondName }}&nbsp;{{ member.lastName }}
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.role' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+					{{ 'role.' + member.role | translate }}
+				</dd>
 			</div>
 			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
@@ -62,8 +39,7 @@
 					<div>
 						@if (member.assignments.service.full) {
 
-							<div
-								class="border bg-green-50 border-green-600 text-green-600 leading-tight px-3 py-1 rounded-full">
+							<div class="border bg-green-50 border-green-600 text-green-600 leading-tight px-3 py-1 rounded-full">
 								{{ 'keyword.lowercase.all' | translate }}
 							</div>
 						} @else {
@@ -81,6 +57,14 @@
 							}
 						}
 					</div>
+				</dd>
+			</div>
+			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
+				<dt class="text-sm font-medium leading-6 text-gray-900">
+					{{ 'keyword.capitalize.status' | translate }}
+				</dt>
+				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
+					{{ ('member.enum.profileStatus.' + member.profileStatus) | translate }}
 				</dd>
 			</div>
 			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">

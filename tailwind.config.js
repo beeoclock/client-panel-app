@@ -74,7 +74,6 @@ module.exports = {
 		require('@tailwindcss/aspect-ratio'),
 		require('@tailwindcss/typography'),
 		require('@tailwindcss/forms'),
-		require('@tailwindcss/container-queries'),
 	],
 }
 

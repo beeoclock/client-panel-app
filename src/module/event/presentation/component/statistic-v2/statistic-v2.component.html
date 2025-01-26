@@ -22,19 +22,16 @@
 
 						</div>
 
-						<div class="flex justify-center w-full">
+						<div>
 
 							@if (clientItem._id === control.value) {
 
-								<div class="p-2 flex flex-col max-w-xl gap-2">
+								<div class="p-2 flex flex-wrap gap-2">
 
-									<div class="flex flex-wrap gap-2">
-										<orders-counter-statistic-component [analytic]="analytic"/>
-										<order-services-counter-statistic-component [analytic]="analytic"/>
-										<customers-counter-statistic-component [analytic]="analytic"/>
-										<revenue-statistic-component [analytic]="analytic"/>
-									</div>
-									<services-counter-statistic-component [analytic]="analytic"/>
+									<orders-counter-statistic-component [analytic]="analytic"/>
+									<order-services-counter-statistic-component [analytic]="analytic"/>
+									<customers-counter-statistic-component [analytic]="analytic"/>
+									<services-counter-statistic-component  [analytic]="analytic"/>
 									<total-revenue-diagram [analytic]="analytic"/>
 									<revenue-summary-diagram [analytic]="analytic"/>
 
@@ -44,15 +41,12 @@
 
 								@if (analytic.specialistRecord[control.value]; as specialist) {
 
-									<div class="p-2 flex flex-col max-w-xl gap-2">
+									<div class="p-2 flex flex-wrap gap-2">
 
-										<div class="flex flex-wrap gap-2">
-											<orders-counter-statistic-component [analytic]="specialist"/>
-											<order-services-counter-statistic-component [analytic]="specialist"/>
-											<customers-counter-statistic-component [analytic]="specialist"/>
-											<revenue-statistic-component [analytic]="specialist"/>
-										</div>
-										<!--										<services-counter-statistic-component  [analytic]="specialist"/>-->
+										<orders-counter-statistic-component [analytic]="specialist"/>
+										<order-services-counter-statistic-component [analytic]="specialist"/>
+										<customers-counter-statistic-component [analytic]="specialist"/>
+<!--										<services-counter-statistic-component  [analytic]="specialist"/>-->
 										<total-revenue-diagram [analytic]="specialist"/>
 
 									</div>

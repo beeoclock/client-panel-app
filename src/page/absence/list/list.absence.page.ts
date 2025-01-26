@@ -38,7 +38,10 @@ export class ListAbsencePage extends ListPage<IAbsenceDto> {
 
 	public readonly tableState$: Observable<ITableState<IAbsenceDto>> = this.store.select(AbsenceState.tableState)
 		.pipe(
-			tap(() => {
+			tap((tableState) => {
+				console.log({
+					tableState
+				});
 				this.changeDetectorRef.detectChanges();
 			})
 		);

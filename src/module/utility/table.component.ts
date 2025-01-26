@@ -38,6 +38,7 @@ export abstract class TableComponent<ITEM extends IBaseEntity<string>> implement
 
 	public constructor() {
 		effect(() => {
+			console.log('TableComponent', this.tableState());
 			this.changeDetectorRef.detectChanges();
 		});
 	}

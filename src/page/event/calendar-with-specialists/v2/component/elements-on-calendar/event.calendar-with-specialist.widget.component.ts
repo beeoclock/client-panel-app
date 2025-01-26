@@ -88,12 +88,7 @@ type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenc
 				class="-bottom-2 w-full absolute bg-transparent h-5 left-0 right-0 rounded-full cursor-ns-resize">
 			</div>
 		}
-	`,
-	host: {
-		class: 'absolute w-full',
-		'[class.cursor-all-scroll]': 'draggable',
-		'[class.select-none]': 'draggable'
-	}
+	`
 })
 export class EventCalendarWithSpecialistWidgetComponent {
 
@@ -108,19 +103,14 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	public selectedDate!: DateTime;
 	public readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 	public readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
-
 	@HostBinding('style.touch-action')
 	public touchAction = 'auto';
-
 	@HostBinding('style.z-index')
 	public zIndex = 3;
-
 	@HostBinding('attr.data-is-event')
 	public isEvent = true;
-
 	@HostBinding('attr.data-draggable')
 	public draggable = false;
-
 	public temporaryInformationAboutNewStartAndEnd: { start: string, end: string } | null = null;
 	public temporaryNewMember: RIMember | null = null;
 	public snapshotOfOriginalPosition: { top: number, height: number } | null = null;
@@ -137,6 +127,21 @@ export class EventCalendarWithSpecialistWidgetComponent {
 	private readonly alertController = inject(AlertController);
 	private readonly translateService = inject(TranslateService);
 	private saveInProgress = false;
+
+	@HostBinding()
+	public get class() {
+		return 'absolute';
+	}
+
+	@HostBinding('class.cursor-all-scroll')
+	public get cursorAllScroll() {
+		return this.draggable;
+	}
+
+	@HostBinding('class.select-none')
+	public get selectNone() {
+		return this.draggable;
+	}
 
 	@HostBinding('style.top')
 	public get top() {
@@ -160,6 +165,11 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		}
 		const duration = endDateTime.diff(startDateTime, 'minutes').minutes;
 		return `${(duration * this.calendarWithSpecialistLocaStateService.oneMinuteForPx)}px`;
+	}
+
+	@HostBinding('style.width')
+	public get width() {
+		return '100%';
 	}
 
 	// Hover

@@ -6,19 +6,17 @@ import {MemberActions} from "@member/state/member/member.actions";
 import {RIMember} from "@member/domain";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
-import {NgOptimizedImage} from "@angular/common";
 
 @Component({
 	selector: 'member-detail-page',
 	templateUrl: './member-details-container.component.html',
 	encapsulation: ViewEncapsulation.None,
-	imports: [
-		TranslateModule,
-		DeleteButtonComponent,
-		EditButtonComponent,
-		DynamicDatePipe,
-		NgOptimizedImage,
-	],
+    imports: [
+        TranslateModule,
+        DeleteButtonComponent,
+        EditButtonComponent,
+        DynamicDatePipe,
+    ],
 	standalone: true
 })
 export class MemberDetailsContainerComponent {
@@ -33,7 +31,7 @@ export class MemberDetailsContainerComponent {
 
 	public openForm() {
 		const item = this.item();
-		if (!item) {
+  if (!item) {
 			return
 		}
 		this.store.dispatch(new MemberActions.OpenFormToEditById(item._id));
