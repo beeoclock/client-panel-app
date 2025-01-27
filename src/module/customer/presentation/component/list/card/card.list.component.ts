@@ -9,7 +9,6 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {ICustomer} from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
-import {RowActionButtonComponent} from "@customer/presentation/component/row-action-button/row-action-button.component";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 
 @Component({
@@ -22,7 +21,6 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 		TranslateModule,
 		CardComponent,
 		NoDataPipe,
-		RowActionButtonComponent,
 		AsyncPipe
 	]
 })
