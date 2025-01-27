@@ -68,21 +68,6 @@ export class DurationVersionHtmlHelper {
 	 * V2
 	 */
 
-	public getDurationValueV2(item: IServiceDto): string {
-		const {durationVersions} = item;
-		const {0: fromDurationVersion} = durationVersions;
-		const durationFrom = this.humanizeDurationHelper.fromSeconds(
-			fromDurationVersion.durationInSeconds,
-		);
-		if (
-			this.durationHelper.durationIsRangeMode(item) &&
-			durationVersions.length > 1
-		) {
-			return `⌛ ${durationFrom}+`;
-		}
-		return `⌛ ${durationFrom}`;
-	}
-
 	public getTotalDurationValueV2(items: IServiceDto[]): string {
 		let totalDurationInSeconds = 0;
 		items.forEach((item) => {
@@ -100,27 +85,6 @@ export class DurationVersionHtmlHelper {
 			totalDurationInSeconds,
 		);
 		return `${durationFrom}`;
-	}
-
-	public getPriceValueV2(item: IServiceDto): string {
-		const {durationVersions} = item;
-		const {0: fromDurationVersion} = durationVersions;
-		const priceForm = this.currencyPipe.transform(
-			fromDurationVersion.prices[0].price,
-			fromDurationVersion.prices[0].currency,
-			'symbol-narrow',
-			'1.0-2',
-		);
-		if (!priceForm) {
-			return `<span class="text-neutral-400">—</span>`;
-		}
-		if (
-			this.durationHelper.durationIsRangeMode(item) &&
-			durationVersions.length > 1
-		) {
-			return `💰 ${priceForm}+`;
-		}
-		return `💰 ${priceForm}`;
 	}
 
 	public getTotalPriceValueV2(items: IServiceDto[]): string {
