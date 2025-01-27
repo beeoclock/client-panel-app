@@ -13,6 +13,9 @@
 		"client_mode": "navigate-existing"
 	},
 	"orientation": "portrait",
+	"categories": ["productivity", "business"],
+	"dir": "auto",
+	"lang": "en",
 	"icons": [
 		{
 			"src": "asset/icons/icon-72x72.png",
