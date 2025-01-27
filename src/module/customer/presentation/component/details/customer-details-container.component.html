@@ -1,13 +1,33 @@
 @if (item(); as customer) {
 	<div class="bg-white">
 		<dl class="divide-y divide-gray-100">
-			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
-				<dt class="text-sm font-medium leading-6 text-gray-900">
-					{{ 'keyword.capitalize.fullName' | translate }}
-				</dt>
-				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
-					{{ customer.firstName }}&nbsp;{{ customer.lastName }}
-				</dd>
+
+			<div class="p-4 gap-4 flex">
+				<div
+					class="text-neutral-400 font-extrabold text-6xl min-w-[192px] max-w-[192px] min-h-[192px] max-h-[192px] flex items-center justify-center bg-neutral-200 rounded-xl">
+					<span class="">{{ (customer.firstName ?? '')[0] }}</span>
+					<span class="">{{ (customer.lastName ?? '')[0] }}</span>
+				</div>
+				<div class="flex flex-col justify-between">
+					<div class="flex flex-col gap-2">
+						<div>
+							<div activeStyle [active]="customer.active"></div>
+						</div>
+					</div>
+					<div class=" flex flex-col">
+						@if (customer.firstName; as firstName) {
+							<span
+								[class.text-xl]="firstName.length > 10"
+								[class.text-2xl]="firstName.length > 9 && firstName.length < 11"
+								[class.text-3xl]="firstName.length > 4 && firstName.length < 9"
+								[class.text-4xl]="firstName.length < 5"
+								class="font-extrabold break-all">{{ customer.firstName }}</span>
+						}
+						@if (customer.lastName) {
+							<span class="text-xl break-all">{{ customer.lastName }}</span>
+						}
+					</div>
+				</div>
 			</div>
 			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
 				<dt class="text-sm font-medium leading-6 text-gray-900">
@@ -48,14 +68,6 @@
 				</dt>
 				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2">
 					{{ customer.note }}
-				</dd>
-			</div>
-			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
-				<dt class="text-sm font-medium leading-6 text-gray-900">
-					{{ 'keyword.capitalize.status' | translate }}
-				</dt>
-				<dd class="text-sm leading-6 text-gray-700 sm:col-span-2 flex">
-					<div activeStyle [active]="customer.active"></div>
 				</dd>
 			</div>
 			<button (click)="openCustomersOrders()"
