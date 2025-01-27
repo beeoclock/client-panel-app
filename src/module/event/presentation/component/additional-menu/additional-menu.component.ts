@@ -80,7 +80,7 @@ enum SegmentEnum {
 					<div
 						class="flex flex-col gap-2 items-center justify-between w-full">
 						<div class="rounded-full p-3 bg-white min-h-[46px] flex items-center">
-							<ul class="leading-tight flex gap-2">
+							<ul class="leading-tight flex gap-4">
 								<li class="flex gap-1"><span>{{ selectServiceListComponent.selectedServices.length }}</span><i
 									class="bi bi-cart"></i></li>
 								<li><span class="text-nowrap whitespace-nowrap"
