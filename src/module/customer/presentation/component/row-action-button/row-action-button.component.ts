@@ -18,6 +18,7 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 			(delete)="delete()"
 			(open)="open()"
 			(edit)="edit()"
+			[hide]="hide()"
 			[id]="id()"
 			[active]="item().active">
 			<!--			<li>-->
@@ -41,6 +42,8 @@ export class RowActionButtonComponent {
 	public readonly id = input.required<string>();
 
 	public readonly item = input.required<ICustomer>();
+
+	public readonly hide = input<('details' | 'edit' | 'delete' | 'activate' | 'deactivate')[]>([]);
 
 	private readonly store = inject(Store);
 	private readonly router = inject(Router);

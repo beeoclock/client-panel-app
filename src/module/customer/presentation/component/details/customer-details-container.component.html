@@ -2,31 +2,39 @@
 	<div class="bg-white">
 		<dl class="divide-y divide-gray-100">
 
-			<div class="p-4 gap-4 flex">
-				<div
-					class="text-neutral-400 font-extrabold text-6xl min-w-[192px] max-w-[192px] min-h-[192px] max-h-[192px] flex items-center justify-center bg-neutral-200 rounded-xl">
-					<span class="">{{ (customer.firstName ?? '')[0] }}</span>
-					<span class="">{{ (customer.lastName ?? '')[0] }}</span>
-				</div>
-				<div class="flex flex-col justify-between">
-					<div class="flex flex-col gap-2">
-						<div>
-							<div activeStyle [active]="customer.active"></div>
+			<div class="p-4 gap-4 flex justify-between">
+				<div class="gap-4 flex">
+					<div
+						class="text-neutral-400 font-extrabold text-4xl min-w-[116px] max-w-[116px] min-h-[116px] max-h-[116px] flex items-center justify-center bg-neutral-200 rounded-full">
+						<span class="">{{ (customer.firstName ?? '')[0] }}</span>
+						<span class="">{{ (customer.lastName ?? '')[0] }}</span>
+					</div>
+					<div class="flex flex-col justify-center">
+						<div class="flex flex-col gap-2">
+							<div>
+								<div activeStyle [active]="customer.active"></div>
+							</div>
+						</div>
+						<div class=" flex flex-col">
+							@if (customer.firstName; as firstName) {
+								<span
+									[class.text-xl]="firstName.length > 10"
+									[class.text-2xl]="firstName.length > 9 && firstName.length < 11"
+									[class.text-3xl]="firstName.length > 4 && firstName.length < 9"
+									[class.text-4xl]="firstName.length < 5"
+									class="font-extrabold break-all">{{ customer.firstName }}</span>
+							}
+							@if (customer.lastName) {
+								<span class="text-xl break-all">{{ customer.lastName }}</span>
+							}
 						</div>
 					</div>
-					<div class=" flex flex-col">
-						@if (customer.firstName; as firstName) {
-							<span
-								[class.text-xl]="firstName.length > 10"
-								[class.text-2xl]="firstName.length > 9 && firstName.length < 11"
-								[class.text-3xl]="firstName.length > 4 && firstName.length < 9"
-								[class.text-4xl]="firstName.length < 5"
-								class="font-extrabold break-all">{{ customer.firstName }}</span>
-						}
-						@if (customer.lastName) {
-							<span class="text-xl break-all">{{ customer.lastName }}</span>
-						}
-					</div>
+				</div>
+				<div class="flex flex-col justify-center">
+					<customer-row-action-button-component
+						[hide]="['details']"
+						[item]="customer"
+						[id]="customer._id"/>
 				</div>
 			</div>
 			<div class="px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4">
@@ -86,13 +94,6 @@
 	</div>
 
 	<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4 mb-[100px]">
-
-		<div class="flex justify-between flex-col md:flex-row gap-4 bg-white p-4 border-y">
-
-			<bee-delete-button [buttonWidthFull]="true" (event)="delete(customer)"/>
-			<edit-button-component [buttonWidthFull]="true" (click)="openForm()"/>
-
-		</div>
 
 		<div class="text-start text-beeColor-400 text-sm px-4">
 
