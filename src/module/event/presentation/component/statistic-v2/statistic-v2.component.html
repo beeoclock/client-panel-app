@@ -26,7 +26,7 @@
 
 							@if (clientItem._id === control.value) {
 
-								<div class="p-2 flex flex-col max-w-xl gap-2">
+								<div class="p-2 flex flex-col w-full max-w-[100vw] md:max-w-xl gap-2">
 
 									<div class="flex flex-wrap gap-2">
 										<orders-counter-statistic-component [analytic]="analytic"/>
@@ -44,7 +44,7 @@
 
 								@if (analytic.specialistRecord[control.value]; as specialist) {
 
-									<div class="p-2 flex flex-col max-w-xl gap-2">
+									<div class="p-2 flex flex-col w-full max-w-[100vw] md:max-w-xl gap-2">
 
 										<div class="flex flex-wrap gap-2">
 											<orders-counter-statistic-component [analytic]="specialist"/>
