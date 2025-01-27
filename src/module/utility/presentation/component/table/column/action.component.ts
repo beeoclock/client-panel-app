@@ -16,58 +16,70 @@ import {Placement} from "@popperjs/core/lib/enums";
 		<utility-dropdown [placement]="placement()" [offsetDistance]="offsetDistance()" [threeDot]="true"
 											[id]="'table-row-' + id()">
 			<ng-container content>
-				<li>
-					<button
-						type="button"
-						(click)="open.emit(id())"
-						class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-						<i class="bi bi-eye"></i>
-						{{ 'keyword.capitalize.details' | translate }}
-					</button>
-				</li>
-				<li>
-					<button
-						type="button"
-						(click)="edit.emit(id())"
-						class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-						<i class="bi bi-pencil"></i>
-						{{ 'keyword.capitalize.edit' | translate }}
-					</button>
-				</li>
-				<ng-content/>
-				<li>
-					<button
-						(click)="delete.emit(id())"
-						class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-						<i class="bi bi-trash"></i>
-						{{ 'keyword.capitalize.delete' | translate }}
-					</button>
-				</li>
-				@if (active() === activeEnum.NO) {
+				@if (!hide().includes('details')) {
 					<li>
 						<button
-							(click)="activate.emit(id())"
+							type="button"
+							(click)="open.emit(id())"
 							class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-							<i class="bi bi-toggle-on"></i>
-							{{ 'keyword.capitalize.activate' | translate }}
+							<i class="bi bi-eye"></i>
+							{{ 'keyword.capitalize.details' | translate }}
 						</button>
 					</li>
 				}
-				@if (active() === activeEnum.YES) {
+				@if (!hide().includes('edit')) {
 					<li>
 						<button
-							(click)="deactivate.emit(id())"
+							type="button"
+							(click)="edit.emit(id())"
 							class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
-							<i class="bi bi-toggle-off"></i>
-							{{ 'keyword.capitalize.deactivate' | translate }}
+							<i class="bi bi-pencil"></i>
+							{{ 'keyword.capitalize.edit' | translate }}
 						</button>
 					</li>
+				}
+				<ng-content/>
+				@if (!hide().includes('delete')) {
+					<li>
+						<button
+							(click)="delete.emit(id())"
+							class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
+							<i class="bi bi-trash"></i>
+							{{ 'keyword.capitalize.delete' | translate }}
+						</button>
+					</li>
+				}
+				@if (!hide().includes('activate')) {
+					@if (active() === activeEnum.NO) {
+						<li>
+							<button
+								(click)="activate.emit(id())"
+								class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
+								<i class="bi bi-toggle-on"></i>
+								{{ 'keyword.capitalize.activate' | translate }}
+							</button>
+						</li>
+					}
+				}
+				@if (!hide().includes('deactivate')) {
+					@if (active() === activeEnum.YES) {
+						<li>
+							<button
+								(click)="deactivate.emit(id())"
+								class="w-full flex gap-4 text-start px-4 py-2 hover:bg-beeColor-100 dark:hover:bg-beeDarkColor-600 dark:hover:text-white">
+								<i class="bi bi-toggle-off"></i>
+								{{ 'keyword.capitalize.deactivate' | translate }}
+							</button>
+						</li>
+					}
 				}
 			</ng-container>
 		</utility-dropdown>
 	`
 })
 export class ActionComponent {
+
+	public readonly hide = input<('details' | 'edit' | 'delete' | 'activate' | 'deactivate')[]>([]);
 
 	public readonly id = input.required<string>();
 
