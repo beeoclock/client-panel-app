@@ -62,6 +62,7 @@
 		"@ionic/angular": "8.4.1",
 		"@ng-icons/core": "30.2.0",
 		"@ng-select/ng-select": "14.1.0",
+		"@ngrx/signals": "^19.0.0",
 		"@ngx-translate/core": "16.0.4",
 		"@ngx-translate/http-loader": "16.0.1",
 		"@ngxs-labs/dispatch-decorator": "5.0.0",

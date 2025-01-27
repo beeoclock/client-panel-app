@@ -12,6 +12,7 @@ import indexedDBAdapterPersistenceSignalDB
 import {AbsenceTypeEnum} from "@absence/domain/enums/absence.type.enum";
 import {RIMember} from "@member/domain";
 import {IAbsenceDto, validAbsence} from "@absence/external/interface/i.absence.dto";
+import {signalStore, withState,} from '@ngrx/signals';
 
 loadDeveloperTools();
 
@@ -182,9 +183,66 @@ export const Absences = new Collection<IAbsenceEntity, string, Absence>({
 });
 
 /**
- * CUSTOMER
+ * Posts
  */
 
+class PostsCollection extends Collection<IPost> {
+	constructor() {
+		super({
+			name: 'posts',
+			reactivity: angularReactivityAdapter,
+			persistence: indexedDBAdapterPersistenceSignalDB({
+				databaseName: 'tenant-test-posts',
+				storeName: 'items',
+				version: 1,
+				storeParameters: {
+					keyPath: 'id',
+					autoIncrement: false,
+				}
+			}),
+			transform: Post.create,
+		})
+	}
+
+	getPublishedPosts() {
+		return this.find({published: true})
+	}
+
+}
+
+interface IPost extends BaseItem<string> {
+	title: string;
+	content: string;
+	authorId: string;
+	createdAt: number;
+	published: boolean;
+}
+
+class Post extends BaseEntity<IPost> implements IPost {
+
+    title!: string;
+    content!: string;
+    authorId!: string;
+    createdAt!: number;
+    published!: boolean;
+
+
+	public static create(data: IPost): Post {
+		return new Post(data);
+	}
+
+	public static readonly collection = new PostsCollection();
+	public static readonly store = signalStore(
+		{providedIn: 'root'},
+		withState({}),
+	);
+
+}
+
+
+/**
+ * CUSTOMER
+ */
 
 
 interface ICustomerEntity extends BaseItem<string> {
@@ -316,11 +374,13 @@ export const syncManager = new SyncManager({
 			headers
 		})
 			.then(res => res.json())
-			.then(data => data as ResponseListType<ICustomer>);
+			.then(data => data as ResponseListType<never>);
 
 		console.log('SignalDB:pull:data', {data});
 
-		const items = data.items.map(Customer.create);
+		const {items} = data;
+
+		// const items = data.items.map(Customer.create);
 
 		console.log('SignalDB:pull:items', {items});
 
@@ -332,8 +392,10 @@ export const syncManager = new SyncManager({
 
 		await Promise.all(changes.added.map(async (raw) => {
 			console.log('SignalDB:push:added', {raw});
-			const item = Customer.create(raw);
-			const body = item.toDto();
+			// const item = Customer.create(raw);
+			// const body = item.toDto();
+			// TODO: Create register to get model and create object to get toDto method
+			const body = raw;
 			console.log('SignalDB:push:added', {body});
 			const response = await fetch(`${source}/${apiPath}`, {
 				method: 'POST',
@@ -347,8 +409,10 @@ export const syncManager = new SyncManager({
 			}
 		}))
 
-		await Promise.all(changes.modified.map(async (item) => {
-			const body = item.toDto();
+		await Promise.all(changes.modified.map(async (item: {id: string}) => {
+			// const body = item.toDto();
+			// TODO: Create register to get model and create object to get toDto method
+			const body = item;
 			console.log('SignalDB:push:modified', {body});
 			const response = await fetch(`${source}/${apiPath}/${item.id}`, {
 				method: 'PUT',
@@ -362,8 +426,10 @@ export const syncManager = new SyncManager({
 			}
 		}))
 
-		await Promise.all(changes.removed.map(async (item) => {
-			const body = item.toDto();
+		await Promise.all(changes.removed.map(async (item: {id: string}) => {
+			// const body = item.toDto();
+			// TODO: Create register to get model and create object to get toDto method
+			const body = item;
 			console.log('SignalDB:push:removed', {body});
 			const response = await fetch(`${source}/${apiPath}/${item.id}`, {
 				method: 'DELETE',
@@ -382,6 +448,11 @@ export const syncManager = new SyncManager({
 syncManager.addCollection(Customers, {
 	name: 'customers',
 	apiPath: 'api/v1/customer',
+});
+
+syncManager.addCollection(Post.collection, {
+	name: 'posts',
+	apiPath: 'api/v1/posts',
 });
 // syncManager.addCollection(Users, {
 // 	name: 'users',
