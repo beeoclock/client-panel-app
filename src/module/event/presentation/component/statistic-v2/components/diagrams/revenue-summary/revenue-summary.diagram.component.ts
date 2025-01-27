@@ -35,8 +35,6 @@ import {TranslatePipe} from "@ngx-translate/core";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 
-		<div class="rounded-2xl bg-neutral-100 p-2 flex flex-col gap-2">
-
 			<div class="flex gap-2 justify-between items-center max-w-full overflow-auto">
 				<div>
 					{{ 'analytic.widget.revenue.summary.label' | translate }}
@@ -75,7 +73,6 @@ import {TranslatePipe} from "@ngx-translate/core";
 			<div class="text-neutral-400 text-sm">
 				{{ 'analytic.widget.revenue.summary.description' | translate }}
 			</div>
-		</div>
 	`,
 	imports: [
 		CurrencyPipe,
@@ -85,7 +82,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 		TranslatePipe
 	],
 	host: {
-		class: 'block max-w-full'
+		class: 'block max-w-full rounded-2xl bg-neutral-100 p-2 flex flex-col gap-2'
 	}
 })
 export class RevenueSummaryDiagramComponent extends Reactive implements AfterViewInit, OnDestroy {
