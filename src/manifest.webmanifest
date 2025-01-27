@@ -1,60 +1,78 @@
 {
-  "name": "Bee O`clock",
-  "short_name": "Bee O`clock",
-  "theme_color": "#fafafa",
-  "background_color": "#fafafa",
-  "display": "standalone",
-  "scope": "./",
-  "start_url": "./",
-  "gcm_sender_id": "957741407419",
-  "icons": [
-    {
-      "src": "asset/icons/icon-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "asset/icons/icon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "asset/icons/icon-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "asset/icons/icon-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "asset/icons/icon-152x152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "asset/icons/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "asset/icons/icon-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "asset/icons/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable any"
-    }
-  ]
+	"name": "Bee O`clock",
+	"short_name": "Bee O`clock",
+	"theme_color": "#fafafa",
+	"background_color": "#fafafa",
+	"display": "standalone",
+	"scope": "./",
+	"start_url": "./",
+	"gcm_sender_id": "957741407419",
+	"description": "Bee O'Clock is a scheduling and booking app for businesses.",
+	"id": "com.beeoclock.app",
+	"launch_handler": {
+		"client_mode": "navigate-existing"
+	},
+	"orientation": "portrait",
+	"icons": [
+		{
+			"src": "asset/icons/icon-72x72.png",
+			"sizes": "72x72",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "asset/icons/icon-96x96.png",
+			"sizes": "96x96",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "asset/icons/icon-128x128.png",
+			"sizes": "128x128",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "asset/icons/icon-144x144.png",
+			"sizes": "144x144",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "asset/icons/icon-152x152.png",
+			"sizes": "152x152",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "asset/icons/icon-192x192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "asset/icons/icon-384x384.png",
+			"sizes": "384x384",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "asset/icons/icon-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable any"
+		}
+	],
+	"screenshots": [
+		{
+			"src": "asset/screenshots/calendar-with-specialists.png",
+			"sizes": "1080x1920",
+			"type": "image/png"
+		},
+		{
+			"src": "asset/screenshots/statistics.png",
+			"sizes": "1080x1920",
+			"type": "image/png"
+		}
+	]
 }
