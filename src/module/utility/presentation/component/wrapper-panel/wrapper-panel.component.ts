@@ -29,6 +29,8 @@ import {Reactive} from "@utility/cdk/reactive";
 import {SocketActions} from "@utility/state/socket/socket.actions";
 import {environment} from "@environment/environment";
 import {LastSynchronizationInService} from "@utility/cdk/last-synchronization-in.service";
+import ECustomer from "@core/entity/e.customer";
+import {syncManager} from "@src/database/tenant/signaldb/sync-manager.tenant.signaldb.database";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -92,6 +94,18 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 
 		this.connectWebSocket();
 		this.prepareDatabase();
+
+		ECustomer.database.isReady().then(() => {
+
+			syncManager.sync(ECustomer.collectionName).then((result) => {
+				console.log('SignalDB:syncManager:syncAll', {result});
+			});
+
+			syncManager.pauseSync(ECustomer.collectionName).then((result) => {
+				console.log('SignalDB:syncManager:pauseSync', {result});
+			})
+
+		});
 
 	}
 

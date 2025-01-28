@@ -13,8 +13,6 @@ import {CheckForUpdatePwaService} from "@utility/cdk/check-for-update-pwa.servic
 import {NotificationManagerService} from "@utility/cdk/notification.manager.service";
 import {AppActions} from "@utility/state/app/app.actions";
 import {Reactive} from "@utility/cdk/reactive";
-import {Absences, Customers, syncManager} from "@src/database/tenant/signaldb/tenant.signaldb.database";
-import {randomAbsence} from "@absence/external/interface/i.absence.dto";
 
 @Component({
 	selector: 'app-root',
@@ -43,31 +41,9 @@ export class MainRouterOutlet extends Reactive implements AfterViewInit {
 		this.themeService.initialize();
 		this.checkForUpdatePwaService.initialize();
 
-		const customers = Customers.find().fetch();
-		console.log('SignalDB:customers', customers);
-
-		const absences = Absences.find().fetch();
-		console.log('SignalDB:absences', absences);
 	}
 
 	public ngAfterViewInit(): void {
-
-		console.log({Customers, Absences});
-
-		Absences.isReady().then(() => {
-			console.log('SignalDB:Absences:isReady');
-			Absences.insert(randomAbsence());
-		})
-
-		syncManager.syncAll().then((result) => {
-			console.log('SignalDB:syncManager:syncAll', {result});
-		});
-		// syncManager.then((syncManager) => {
-		// 	console.log('SignalDB:syncManager', {syncManager});
-		// 	syncManager.syncAll().then((result) => {
-		// 		console.log('SignalDB:syncManager:syncAll', {result});
-		// 	});
-		// });
 
 		this.notificationManagerService.initialize().then();
 

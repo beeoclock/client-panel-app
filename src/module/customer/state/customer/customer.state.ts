@@ -12,7 +12,7 @@ import {ListCustomerApiAdapter} from "@customer/adapter/external/api/list.custom
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {UnarchiveCustomerApiAdapter} from "@customer/adapter/external/api/unarchive.customer.api.adapter";
 import {TranslateService} from "@ngx-translate/core";
-import {SyncCustomerTenantDatabaseService} from "@customer/database/tenant/sync.customer.tenant.database.service";
+// import {SyncCustomerTenantDatabaseService} from "@customer/database/tenant/sync.customer.tenant.database.service";
 
 export type ICustomerState = IBaseState<Customer.ICustomer>;
 
@@ -41,7 +41,7 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 	private readonly translateService = inject(TranslateService);
 
 	// private readonly customerTenantDatabaseService = inject(CustomerTenantDatabaseService);
-	private readonly syncCustomerTenantDatabaseService = inject(SyncCustomerTenantDatabaseService);
+	// private readonly syncCustomerTenantDatabaseService = inject(SyncCustomerTenantDatabaseService);
 
 
 	constructor() {
@@ -55,7 +55,7 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 	@Action(CustomerActions.Sync)
 	public async sync(ctx: StateContext<ICustomerState>) {
 
-		await this.syncCustomerTenantDatabaseService.execute();
+		// await this.syncCustomerTenantDatabaseService.execute();
 
 		// const list = await this.customerTenantDatabaseService.getAll();
 		//

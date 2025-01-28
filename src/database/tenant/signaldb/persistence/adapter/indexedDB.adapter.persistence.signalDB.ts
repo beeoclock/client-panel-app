@@ -21,9 +21,6 @@ export default function indexedDBAdapterPersistenceSignalDB<
 
 	const {databaseName, storeName, indexes, storeParameters, version} = options
 
-	// const databaseName = `signaldb-${name}`
-	// const storeName = 'items'
-
 	/**
 	 * Opens the IndexedDB database and creates the object store if it doesn't exist.
 	 * @returns A promise that resolves with the opened database.

@@ -13,11 +13,6 @@ import {
 } from "@order/presentation/component/external/case/customer/list/customer.order.list.external.whac-a-mole";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {CustomerTenantDatabaseService} from "@customer/database/tenant/customer.tenant.database.service";
-import {Customer, Customers} from "@src/database/tenant/signaldb/tenant.signaldb.database";
-import ObjectID from "bson-objectid";
-import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
-import {ActiveEnum} from "@utility/domain/enum";
 
 @Component({
 	selector: 'customer-detail-page',
@@ -39,51 +34,51 @@ export class CustomerDetailsContainerComponent implements OnInit {
 
 	public readonly item = input.required<ICustomer>();
 
-	public readonly customerTenantDatabaseService = inject(CustomerTenantDatabaseService)
+	// public readonly customerTenantDatabaseService = inject(CustomerTenantDatabaseService)
 	public readonly store = inject(Store);
 	public readonly customerOrderListExternalWhacAMole = inject(CustomerOrderListExternalWhacAMole);
 
 	public ngOnInit() {
-		this.customerTenantDatabaseService.get(this.item()._id).then((customer) => {
-			console.log({customer});
-		});
-		this.customerTenantDatabaseService.db().customer.where('data.active').equals(ActiveEnum.YES).toArray().then((customers) => {
-			console.log({customers});
-		});
+		// this.customerTenantDatabaseService.get(this.item()._id).then((customer) => {
+		// 	console.log({customer});
+		// });
+		// this.customerTenantDatabaseService.db().customer.where('data.active').equals(ActiveEnum.YES).toArray().then((customers) => {
+		// 	console.log({customers});
+		// });
 
-		const findId = '6794d056e3f23d13dff0026f';
+		// const findId = '6794d056e3f23d13dff0026f';
 
-		const id = new ObjectID().toHexString();
-		const dateISO = new Date().toISOString();
-		const item = Customer.create({
-			object: "CustomerDto",
-			email: "jan.kowalski@example.com",
-			firstName: "Jan",
-			lastName: "Kowalski",
-			customerType: CustomerTypeEnum.new,
-			phone: "48999999999",
-			active: ActiveEnum.YES,
-			note: "Check SignalDB!",
-			createdAt: dateISO,
-			updatedAt: dateISO,
-			_id: id,
-		});
-
-		console.log('SignalDB:findOne:children', Customers.findOne({
-			'children.0.active': ActiveEnum.YES
-		}));
-
-		console.log('SignalDB:findOne:children', Customers.findOne({
-			active: ActiveEnum.YES
-		}));
-
-		console.log('SignalDB:findOne:children:$elemMatch', Customers.findOne({
-			'child.active': ActiveEnum.YES
-		}));
-
-		console.log('SignalDB:findOne:child', Customers.findOne({
-			'child.active': ActiveEnum.YES
-		}));
+		// const id = new ObjectID().toHexString();
+		// const dateISO = new Date().toISOString();
+		// const item = Customer.create({
+		// 	object: "CustomerDto",
+		// 	email: "jan.kowalski@example.com",
+		// 	firstName: "Jan",
+		// 	lastName: "Kowalski",
+		// 	customerType: CustomerTypeEnum.new,
+		// 	phone: "48999999999",
+		// 	active: ActiveEnum.YES,
+		// 	note: "Check SignalDB!",
+		// 	createdAt: dateISO,
+		// 	updatedAt: dateISO,
+		// 	_id: id,
+		// });
+		//
+		// console.log('SignalDB:findOne:children', Customers.findOne({
+		// 	'children.0.active': ActiveEnum.YES
+		// }));
+		//
+		// console.log('SignalDB:findOne:children', Customers.findOne({
+		// 	active: ActiveEnum.YES
+		// }));
+		//
+		// console.log('SignalDB:findOne:children:$elemMatch', Customers.findOne({
+		// 	'child.active': ActiveEnum.YES
+		// }));
+		//
+		// console.log('SignalDB:findOne:child', Customers.findOne({
+		// 	'child.active': ActiveEnum.YES
+		// }));
 
 		// setTimeout(() => {
 		// 	const result = Customers.find().fetch();
@@ -120,19 +115,19 @@ export class CustomerDetailsContainerComponent implements OnInit {
 
 	public constructor() {
 
-		const customers = Customers.find().fetch();
-		console.log('0;', customers);
+		// const customers = Customers.find().fetch();
+		// console.log('0;', customers);
 		effect(() => {
-			const customers = Customers.find().fetch();
-			console.log('1:', customers);
+			// const customers = Customers.find().fetch();
+			// console.log('1:', customers);
 			// console.log(posts[0].getAuthor());
 		});
 
 		effect((onCleanup) => {
-			const cursor = Customers.find({ firstName: 'Mark' });
-			console.log(cursor.count())
+			// const cursor = Customers.find({firstName: 'Mark'});
+			// console.log(cursor.count())
 			onCleanup(() => {
-				cursor.cleanup()
+				// cursor.cleanup()
 			})
 		})
 	}

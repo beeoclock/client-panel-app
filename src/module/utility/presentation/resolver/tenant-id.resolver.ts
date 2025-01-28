@@ -2,29 +2,29 @@ import {ResolveFn, Router} from "@angular/router";
 import {inject} from "@angular/core";
 import {EMPTY, of} from "rxjs";
 import {TENANT_ID} from "@src/token";
-import {TenantDatabaseService} from "@src/database/tenant/tenant.database.service";
+import ECustomer from "@core/entity/e.customer";
 
 export const tenantIdResolver: ResolveFn<string | undefined> = (route) => {
 
 	const tenantId$ = inject(TENANT_ID);
 	const router = inject(Router);
 
-	if (tenantId$.value) {
-		return of(tenantId$.value);
-	}
-
-	const {tenantId} = route.params;
+	let tenantId = tenantId$.value;
 
 	if (!tenantId) {
-		router.navigate(['/', 'identity', 'corridor']).then();
-		return EMPTY;
+
+		tenantId = route.params.tenantId;
+
+		if (!tenantId) {
+			router.navigate(['/', 'identity', 'corridor']).then();
+			return EMPTY;
+		}
+
+		tenantId$.next(tenantId);
+
 	}
 
-	tenantId$.next(tenantId);
-
-	// Ініціалізація бази даних для держави
-	const tenantDatabaseService = inject(TenantDatabaseService);
-	tenantDatabaseService.init(tenantId);
+	ECustomer.initDatabase(tenantId);
 
 	return of(tenantId);
 
