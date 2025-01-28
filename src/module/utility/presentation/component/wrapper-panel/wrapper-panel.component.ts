@@ -99,11 +99,15 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 
 			syncManager.sync(ECustomer.collectionName).then((result) => {
 				console.log('SignalDB:syncManager:syncAll', {result});
+
+				const customers = ECustomer.database.find().fetch();
+				console.log({customers});
+				console.log(ECustomer.database.getNew().fetch());
 			});
 
-			syncManager.pauseSync(ECustomer.collectionName).then((result) => {
-				console.log('SignalDB:syncManager:pauseSync', {result});
-			})
+			// syncManager.pauseSync(ECustomer.collectionName).then((result) => {
+			// 	console.log('SignalDB:syncManager:pauseSync', {result});
+			// })
 
 		});
 

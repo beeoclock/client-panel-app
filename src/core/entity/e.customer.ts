@@ -22,11 +22,20 @@ class CustomerCollection extends Collection<IECustomer> {
 				storeName: 'items',
 				version: 1,
 				storeParameters: {
-					keyPath: 'id',
+					keyPath: 'id', // should be id (not _id) because syncManager uses id
 					autoIncrement: false,
-				}
+				},
+				indexes: [
+					// {
+					// 	name: 'customerType',
+					// 	keyPath: 'raw.customerType',
+					// 	options: {
+					// 		unique: false
+					// 	}
+					// }
+				]
 			}),
-			transform: ECustomer.transform,
+			transform: ECustomer.create,
 		})
 	}
 
@@ -34,9 +43,19 @@ class CustomerCollection extends Collection<IECustomer> {
 	 * Here you can declare methods for this collection
 	 */
 
-	// public getPublishedPosts() {
-	// 	return this.find({published: true})
-	// }
+	public getRegular() {
+		return this.find({
+			customerType: 'regular',
+		})
+	}
+
+	public getNew() {
+		return this.find({
+			updatedAt: {
+				$gte: "2025-01-28T21:00:01.095Z"
+			},
+		})
+	}
 
 }
 
@@ -53,16 +72,8 @@ export class ECustomer extends ABaseItem<ICustomer> implements IECustomer {
 	 * Use it to create new entity, e.g. from API or form
 	 * @param data
 	 */
-	public static create(data: ICustomer): ECustomer {
+	public static create(data: IECustomer): ECustomer {
 		return new ECustomer(data);
-	}
-
-	/**
-	 * Use it to transform data from database to entity
-	 * @param data
-	 */
-	public static transform(data: IECustomer): ECustomer {
-		return new ECustomer(data.raw);
 	}
 
 	/**
@@ -80,11 +91,7 @@ export class ECustomer extends ABaseItem<ICustomer> implements IECustomer {
 	 * @param force
 	 */
 	public static initDatabase(tenantId: string, force = false) {
-		console.log('ECustomer:initDatabase:force', {force});
-
 		force ||= !this.databasePreparedFor(tenantId);
-
-		console.log('ECustomer:initDatabase:force', {force});
 
 		if (!force) {
 
@@ -121,20 +128,17 @@ export class ECustomer extends ABaseItem<ICustomer> implements IECustomer {
 
 	public static registerSync() {
 
-		console.log('ECustomer:registerSync');
 
 		if (!this.#database) {
-			console.log('ECustomer:registerSync:result:false');
 			return false;
 		}
-
-		console.log('ECustomer:registerSync:result:true');
 
 		syncManager.addCollection(
 			this.#database.collection,
 			{
 				name: this.collectionName,
 				apiPath: 'api/v1/customer',
+				create: this.create
 			}
 		);
 

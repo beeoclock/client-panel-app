@@ -10,15 +10,15 @@ import {IBaseEntity} from "@utility/domain";
 export abstract class ABaseItem<T extends IBaseEntity<string>> implements IBaseItem<T> {
 
 	id!: string;
-	raw!: T;
 
-	protected constructor(raw: T) {
-		this.id = raw._id;
-		this.raw = raw;
+	protected constructor(data: IBaseItem<T>) {
+		console.log('ABaseItem:constructor', {data});
+		this.id = data._id;
+		Object.assign(this, data);
 	}
 
 	public toDTO(): T {
-		return this.raw;
+		throw new Error('Method not implemented.');
 	}
 
 }

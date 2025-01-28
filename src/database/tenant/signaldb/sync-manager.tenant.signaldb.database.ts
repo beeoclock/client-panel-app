@@ -261,7 +261,7 @@ const headers = {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
     'X-Business-Tenant-Id': '66f9378141ed7954254c40c8',
-    Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImE0MzRmMzFkN2Y3NWRiN2QyZjQ0YjgxZDg1MjMwZWQxN2ZlNTk3MzciLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoidGVzdCIsImFjY291bnRJZCI6IjY2ZjkzMTgxNDFlZDc5NTQyNTRjNDBiZCIsImZyb250ZW5kU2V0dGluZ3MiOnsiYnVzaW5lc3NQYW5lbCI6eyJsYW5ndWFnZSI6InBsIn19LCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYmVlb2Nsb2NrLWRldmVsb3AiLCJhdWQiOiJiZWVvY2xvY2stZGV2ZWxvcCIsImF1dGhfdGltZSI6MTczODA5MDI4MywidXNlcl9pZCI6Inh4bFl5T1RoRUpQOVdkZ2Y4emZrUG0zWGJSODMiLCJzdWIiOiJ4eGxZeU9UaEVKUDlXZGdmOHpma1BtM1hiUjgzIiwiaWF0IjoxNzM4MDk3NzA3LCJleHAiOjE3MzgxMDEzMDcsImVtYWlsIjoiZGVtb0BiZWVvY2xvY2suY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBob25lX251bWJlciI6Iis0ODEwMDIwMDMwMCIsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsiZGVtb0BiZWVvY2xvY2suY29tIl0sInBob25lIjpbIis0ODEwMDIwMDMwMCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Bo-7hEsWpYBBLwyAtA_5FU5F_t7upkoJcM_2olO3N-DzwaqfHfnOShfBsBPwy1ok24A4Mc7FYIcIWQ9916nNGEH1LmwEvPGZXz84B_IN3_0_IrcZFRYdip-JPhi0weE9mbsqHJGeYSzA2HssH0OPzWA4XOoH9WQUgf_3zDjac38jdSu1SDuK7f5iNMu_xDEZXKp-KYIJJMARxJoJvPx4sXD2Tj_b1LYDqJhNtqEGYZdUAvM53y-gFox_dVaG5rKgQJq_hIouMMLoe0JGtPHqmg0DH_gJXM_zHnVgKAU85EY4F3wK6j0HeI4Hy_NC5n2ZqdzdO6ryOm20-0d8RTZDwA'
+    Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImE0MzRmMzFkN2Y3NWRiN2QyZjQ0YjgxZDg1MjMwZWQxN2ZlNTk3MzciLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoidGVzdCIsImFjY291bnRJZCI6IjY2ZjkzMTgxNDFlZDc5NTQyNTRjNDBiZCIsImZyb250ZW5kU2V0dGluZ3MiOnsiYnVzaW5lc3NQYW5lbCI6eyJsYW5ndWFnZSI6ImVuIiwidGhlbWUiOiJsaWdodCJ9fSwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2JlZW9jbG9jay1kZXZlbG9wIiwiYXVkIjoiYmVlb2Nsb2NrLWRldmVsb3AiLCJhdXRoX3RpbWUiOjE3MzgxMDE0NDksInVzZXJfaWQiOiJ4eGxZeU9UaEVKUDlXZGdmOHpma1BtM1hiUjgzIiwic3ViIjoieHhsWXlPVGhFSlA5V2RnZjh6ZmtQbTNYYlI4MyIsImlhdCI6MTczODEwMTQ0OSwiZXhwIjoxNzM4MTA1MDQ5LCJlbWFpbCI6ImRlbW9AYmVlb2Nsb2NrLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaG9uZV9udW1iZXIiOiIrNDgxMDAyMDAzMDAiLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImRlbW9AYmVlb2Nsb2NrLmNvbSJdLCJwaG9uZSI6WyIrNDgxMDAyMDAzMDAiXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.CmYFeeURo5SfxWWXlSGh_nu4QN4MNUXqrgZOry4BQYVYJeQ_YeKg6_o-81l-HzrSfPFrDi6N3oUEpqcZU_x3xTA_WTS9sYXh4nPHX7_bmDFl8_BJLvO4UpOxiiCKHksYFJwh9h4GVTe4sJd7rznQHJkzEkWGCrM0or3RfnIf9k6Cjfp1lJKR3vhxuNrTuPi2AnkX2oeLMsa5gz600Xn5XL411cKb4rUaaBZ7pKr18-VdcBWsBUpk8YyfUVRiBmdVqpOHXjZ-wj6LHqTsNSvRZI_LQnm9xstjSUDRYKu0IbGJ49F1pgAiLSqmFMF-M7pxESj_hvjCCTazOLgFmb-xWg'
 };
 
 // const customers = Customers.find().fetch();
@@ -280,8 +280,16 @@ export const syncManager = new SyncManager({
     autostart: true,
     reactivity: angularReactivityAdapter,
     persistenceAdapter: createIndexedDBAdapter,
+	// registerRemoteChange: async (collectionOptions, onChange)  => {
+	// 	console.log('SignalDB:registerRemoteChange', {collectionOptions, onChange});
+	// 	onChange().then((result) => {
+	// 		console.log('SignalDB:registerRemoteChange:onChange:done', {result});
+	// 	}).catch((error) => {
+	// 		console.error('SignalDB:registerRemoteChange:onChange:error', {error});
+	// 	});
+	// },
     pull: async (something, pullParameters) => {
-        const {apiPath} = something;
+        const {apiPath, create} = something;
         const {lastFinishedSyncEnd} = pullParameters;
 
         console.log('SignalDB:pull:params', {something, pullParameters})
@@ -310,7 +318,8 @@ export const syncManager = new SyncManager({
 
         console.log('SignalDB:pull:data', {data});
 
-        const {items} = data;
+        let {items} = data;
+		items = items.map(create) as never;
 
         // const items = data.items.map(Customer.create);
 
