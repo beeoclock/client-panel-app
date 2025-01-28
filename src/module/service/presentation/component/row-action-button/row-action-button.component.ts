@@ -19,6 +19,7 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 			(delete)="delete()"
 			(open)="open()"
 			(edit)="edit()"
+			[hide]="hide()"
 			[id]="id()"
 			[active]="item().active">
 			<!--			<li>-->
@@ -38,6 +39,8 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	]
 })
 export class RowActionButtonComponent {
+
+	public readonly hide = input<('details' | 'edit' | 'delete' | 'activate' | 'deactivate')[]>([]);
 
 	public readonly id = input.required<string>();
 

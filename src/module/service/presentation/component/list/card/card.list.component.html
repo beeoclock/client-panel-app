@@ -1,9 +1,9 @@
-<div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!list.length">
+<div class="flex flex-col divide-y divide-neutral-200 my-4" [class.h-[calc(100vh-134px)]]="!list.length">
 	@for (item of list; track item._id) {
-		<bee-card class="text-sm cursor-pointer border-2 border-transparent hover:border-blue-500"
+		<bee-card (click)="singleClick(item)" class="focus:bg-beeColor-100 active:bg-beeColor-100 cursor-pointer transition-all hover:bg-beeColor-100 text-sm border-2 rounded-none border-transparent hover:border-blue-500"
 				  [class.!border-green-500]="selectedIds.includes(item._id)">
 			<div class="flex justify-between items-start gap-2">
-				<div class="w-full flex flex-col gap-2" (click)="singleClick(item)">
+				<div class="w-full flex flex-col gap-2">
 					<div class="flex justify-between gap-2">
 						<div class="flex gap-2">
 							<div>
@@ -31,7 +31,7 @@
 
 						@if (showSelectedStatus.state$ | async) {
 
-							<div (click)="singleClick(item)">
+							<div>
 								@if (selectedIds.includes(item._id)) {
 									<i
 										class="bi bi-check-circle text-green-600 text-xl"></i>
@@ -42,11 +42,11 @@
 							</div>
 						}
 					</div>
-					<div class="flex flex-col divide-y">
+					<div class="flex flex-col divide-y rounded-2xl bg-neutral-100 border">
 						@for (languageVersion of item.languageVersions; track languageVersion.language) {
 
 							<div
-								class="relative flex gap-2 items-start py-2 font-sans text-xs font-bold uppercase text-neutral-900">
+								class="relative px-2 flex gap-2 items-start py-2 font-sans text-xs font-bold uppercase text-neutral-900">
 								<label
 									class="relative flex items-center justify-center p-0 cursor-pointer border-2 border-neutral-200 px-1 rounded-lg">
 									{{ languageVersion.language }}
@@ -58,9 +58,6 @@
 						}
 					</div>
 				</div>
-				@if (showAction.state$ | async) {
-					<service-row-action-button-component [item]="item" [id]="item._id"/>
-				}
 
 			</div>
 		</bee-card>
