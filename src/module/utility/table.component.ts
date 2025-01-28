@@ -20,13 +20,14 @@ import {ITableState} from "@utility/domain/table.state";
 import {debounce} from "typescript-debounce-decorator";
 import {OrderByEnum} from "./domain/enum";
 import {TableService} from "@utility/table.service";
+import {Reactive} from "@utility/cdk/reactive";
 
 @Component({
 	selector: 'utility-table-component',
 	providers: [TableService],
 	template: ``
 })
-export abstract class TableComponent<ITEM extends IBaseEntity<string>> implements AfterViewInit {
+export abstract class TableComponent<ITEM extends IBaseEntity<string>> extends Reactive implements AfterViewInit {
 
 	@Input()
 	public goToDetailsOnSingleClick = true;
@@ -37,6 +38,7 @@ export abstract class TableComponent<ITEM extends IBaseEntity<string>> implement
 	public readonly singleClickEmitter = new EventEmitter<ITEM>();
 
 	public constructor() {
+		super();
 		effect(() => {
 			this.changeDetectorRef.detectChanges();
 		});
@@ -57,7 +59,7 @@ export abstract class TableComponent<ITEM extends IBaseEntity<string>> implement
 	}
 
 	private initUserTapOnTheCardHandler(): void {
-		this.singleClickEmitter.subscribe((item) => {
+		this.singleClickEmitter.pipe(this.takeUntil()).subscribe((item) => {
 			if (this.goToDetailsOnSingleClick) {
 				this.open(item);
 			}
