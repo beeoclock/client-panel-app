@@ -36,6 +36,7 @@
 		},
 		"progress": {
 			"status": {
+				"cancel": "Aflyst",
 				"finished": "Færdig",
 				"inProgress": "I gang",
 				"notStarted": "Planlagt"

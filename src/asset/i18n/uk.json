@@ -36,6 +36,7 @@
 		},
 		"progress": {
 			"status": {
+				"cancel": "Скасована",
 				"finished": "Завершено",
 				"inProgress": "У процесі",
 				"notStarted": "Заплановано"

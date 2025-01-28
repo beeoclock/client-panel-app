@@ -1,5 +1,4 @@
 import {Component, ViewEncapsulation} from "@angular/core";
-import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
@@ -27,7 +26,6 @@ import {
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		ActiveStyleDirective,
 		TableStatePaginationComponent,
 		DynamicDatePipe,
 		SortIndicatorComponent,
