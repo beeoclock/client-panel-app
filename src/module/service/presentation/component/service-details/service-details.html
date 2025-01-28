@@ -3,6 +3,13 @@
 	<div class="bg-white">
 		<dl class="divide-y divide-gray-100">
 
+			<div class="p-2 flex justify-end">
+				<service-row-action-button-component
+					[hide]="['details']"
+					[item]="service"
+					[id]="service._id"/>
+			</div>
+
 			@if ((service.presentation?.banners ?? []).length) {
 
 				<div class="p-4 sm:gap-4 flex flex-wrap">
@@ -98,12 +105,6 @@
 
 	<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4 mb-[100px]">
 
-		<div class="flex justify-between flex-col md:flex-row gap-4 bg-white p-4 border-y">
-
-			<bee-delete-button [buttonWidthFull]="true" (event)="delete(service)"/>
-			<edit-button-component [buttonWidthFull]="true" (click)="edit()"/>
-
-		</div>
 
 		<div class="text-start text-beeColor-400 text-sm px-4">
 
