@@ -6,8 +6,8 @@ import {
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
 import {RIMember} from "@member/domain";
-import {RowActionButtonComponent} from "@member/presentation/component/row-action-button/row-action-button.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
+import {MemberActions} from "@member/state/member/member.actions";
 
 @Component({
 	selector: 'member-card-list-component',
@@ -18,7 +18,6 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 		TableStatePaginationComponent,
 		TranslateModule,
 		AsyncPipe,
-		RowActionButtonComponent,
 		CardComponent,
 	]
 })
@@ -29,5 +28,9 @@ export class CardListComponent extends TableComponent<RIMember> {
 	// public showAction = new BooleanStreamState(true);
 	//
 	// public showSelectedStatus = new BooleanStreamState(false);
+
+	public override open(item: RIMember) {
+		this.store.dispatch(new MemberActions.OpenDetails(item));
+	}
 
 }
