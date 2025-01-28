@@ -86,6 +86,7 @@
 		"strictInjectionParameters": true,
 		"strictInputAccessModifiers": true,
 		"strictTemplates": true,
+		"strictStandalone": true,
 		"extendedDiagnostics": {
 			"checks": {
 				"unusedStandaloneImports": "error"

@@ -3,12 +3,16 @@ import {firstValueFrom} from 'rxjs';
 import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
+import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
+import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {DatePipe} from "@angular/common";
-import {RowActionButtonComponent} from "@absence/presentation/component/row-action-button/row-action-button.component";
+import {
+	AbsenceProgressStatusEnum,
+	AbsenceProgressStatusPipe
+} from "@absence/presentation/pipe/absence-progress-status.pipe";
 
 @Component({
 	selector: 'absence-detail-page',
@@ -17,10 +21,11 @@ import {RowActionButtonComponent} from "@absence/presentation/component/row-acti
 	imports: [
 		DynamicDatePipe,
 		TranslateModule,
-		ActiveStyleDirective,
+		DeleteButtonComponent,
+		EditButtonComponent,
 		NoDataPipe,
 		DatePipe,
-		RowActionButtonComponent
+		AbsenceProgressStatusPipe
 	],
 	standalone: true
 })
@@ -109,4 +114,5 @@ export class AbsenceDetailsContainerComponent implements OnChanges {
 		}
 	}
 
+	protected readonly absenceProgressStatusEnum = AbsenceProgressStatusEnum;
 }
