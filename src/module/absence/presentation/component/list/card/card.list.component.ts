@@ -9,7 +9,6 @@ import {TableComponent} from "@utility/table.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
-import {RowActionButtonComponent} from "@absence/presentation/component/row-action-button/row-action-button.component";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 
 @Component({
@@ -23,7 +22,6 @@ import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 		TranslateModule,
 		CardComponent,
 		NoDataPipe,
-		RowActionButtonComponent,
 		AsyncPipe
 	]
 })

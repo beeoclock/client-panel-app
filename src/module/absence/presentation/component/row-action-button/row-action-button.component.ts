@@ -17,9 +17,9 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 			(edit)="edit()"
 			(deactivate)="deactivate()"
 			(activate)="activate()"
+			[hide]="hide()"
 			[id]="id()"
-			[active]="item().active">
-		</utility-table-column-action>
+			[active]="item().active"/>
 	`,
 	imports: [
 		ActionComponent,
@@ -27,6 +27,8 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 	]
 })
 export class RowActionButtonComponent {
+
+	public readonly hide = input<('details' | 'edit' | 'delete' | 'activate' | 'deactivate')[]>([]);
 
 	public readonly id = input.required<string>();
 

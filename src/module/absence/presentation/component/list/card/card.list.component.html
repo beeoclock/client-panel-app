@@ -1,9 +1,9 @@
-<div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState().items.length">
+<div class="flex flex-col divide-y divide-neutral-200 my-4" [class.h-[calc(100vh-134px)]]="!tableState().items.length">
 	@for(item of tableState().items; track item._id) {
-		<bee-card class="text-sm border-2 border-transparent hover:border-blue-500" [class.!border-green-500]="selectedIds.includes(item._id)">
-			<div class="flex justify-between items-center gap-8">
+		<bee-card (click)="singleClick(item)" class="focus:bg-beeColor-100 active:bg-beeColor-100 cursor-pointer transition-all hover:bg-beeColor-100 text-sm border-2 rounded-none border-transparent hover:border-blue-500" [class.!border-green-500]="selectedIds.includes(item._id)">
+			<div class="flex justify-between items-center gap-2">
 
-				<div (click)="singleClick(item)" class="flex justify-between">
+				<div class="flex gap-2 justify-between flex-1">
 					<div class="flex-1">
 						<div>
 							{{ 'absence.form.inputs.type.label' | translate }}
@@ -13,31 +13,43 @@
 						</div>
 					</div>
 				</div>
-				@if (tableService.showAction.state$ | async) {
 
-					<app-absence-row-action-button-component
-						[item]="item"
-						[id]="item._id"/>
-				}
+				<div class="flex justify-between flex-1">
 
-				@if (tableService.showSelectedStatus.state$ | async) {
+					<div class="flex-1 self-start">
+						<div>
+							{{ 'keyword.capitalize.attendees' | translate }}
+						</div>
+						<div class="font-bold">
+							@if (item.entireBusiness) {
 
-					<div (click)="singleClick(item)">
-						@if (selectedIds.includes(item._id)) {
-							<div
-								class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
-								{{ 'keyword.capitalize.selected' | translate }}
-							</div>
-						} @else {
-							<div
-								class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">
-								{{ 'keyword.capitalize.select' | translate }}
-							</div>
-						}
+								{{ 'absence.form.inputs.entireBusiness.label' | translate }}
+							} @else {
+
+								{{ item?.members?.length ?? 0 }}
+							}
+						</div>
 					</div>
-				}
+
+					@if (tableService.showSelectedStatus.state$ | async) {
+
+						<div>
+							@if (selectedIds.includes(item._id)) {
+								<div
+									class="w-full border border-green-200 bg-green-50 text-green-600 px-2 py-1 rounded-2xl">
+									{{ 'keyword.capitalize.selected' | translate }}
+								</div>
+							} @else {
+								<div
+									class="w-full border border-blue-200 bg-blue-50 text-blue-600 px-2 py-1 rounded-2xl">
+									{{ 'keyword.capitalize.select' | translate }}
+								</div>
+							}
+						</div>
+					}
+				</div>
 			</div>
-			<div (click)="singleClick(item)" class="grid grid-cols-2 gap-2">
+			<div class="grid grid-cols-2 gap-2">
 
 				<div class="flex justify-between">
 					<div class="flex-1">
@@ -60,51 +72,13 @@
 					</div>
 				</div>
 			</div>
-			<div (click)="singleClick(item)" class="flex justify-between">
-				<div class="flex-1">
-					<div>
-						{{ 'keyword.capitalize.attendees' | translate }}
-					</div>
-					<div class="font-bold">
-						@if (item.entireBusiness) {
-
-							{{ 'absence.form.inputs.entireBusiness.label' | translate }}
-						} @else {
-
-							{{ item?.members?.length ?? 0 }}
-						}
-					</div>
-				</div>
-			</div>
-			<div (click)="singleClick(item)" class="flex justify-between">
+			<div class="flex justify-between">
 				<div class="flex-1">
 					<div>
 						{{ 'keyword.capitalize.note' | translate }}
 					</div>
 					<div class="font-bold">
 						{{ item.note | noData }}
-					</div>
-				</div>
-			</div>
-			<div (click)="singleClick(item)" class="grid grid-cols-2 gap-2">
-				<div class="flex justify-between">
-					<div class="flex-1">
-						<div>
-							{{ 'keyword.capitalize.updatedAt' | translate }}
-						</div>
-						<div class="font-bold">
-							{{ item.updatedAt | dynamicDate }}
-						</div>
-					</div>
-				</div>
-				<div class="flex justify-between">
-					<div class="flex-1">
-						<div>
-							{{ 'keyword.capitalize.createdAt' | translate }}
-						</div>
-						<div class="font-bold">
-							{{ item.createdAt | dynamicDate }}
-						</div>
 					</div>
 				</div>
 			</div>

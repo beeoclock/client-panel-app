@@ -34,13 +34,15 @@ import {ReactiveFormsModule} from "@angular/forms";
 					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
 					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
 				</div>
-				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
 			} @else {
 
 				<div class="flex overflow-x-auto gap-2">
 					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
 					<ng-container *ngTemplateOutlet="AbsenceActiveSelect"></ng-container>
 					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
+				</div>
+				<div>
+					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
 				</div>
 			}
 		</utility-default-panel-component>
