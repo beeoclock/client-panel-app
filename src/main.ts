@@ -43,6 +43,8 @@ import '@angular/common/locales/global/da';
 import '@angular/common/locales/global/pl';
 import '@angular/common/locales/global/uk';
 import {SocketIoModule} from "ngx-socket-io";
+import {IsOnlineService} from "@utility/cdk/is-online.service";
+import {provideAnimations} from "@angular/platform-browser/animations";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -76,8 +78,10 @@ initRuntimeEnvironment();
 
 bootstrapApplication(MainRouterOutlet, {
 	providers: [
+		IsOnlineService,
 		...tokens,
 		NgEventBus,
+		provideAnimations(),
 		provideZoneChangeDetection({
 			eventCoalescing: true,
 			runCoalescing: true,

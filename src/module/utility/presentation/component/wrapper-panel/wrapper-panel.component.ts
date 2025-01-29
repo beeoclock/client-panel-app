@@ -11,7 +11,7 @@ import {
 import {SidebarComponent} from '@utility/presentation/component/sidebar/sidebar.component';
 import {NavbarComponent} from '@utility/presentation/component/navbar/navbar.component';
 import {RouterOutlet} from '@angular/router';
-import {AsyncPipe, DOCUMENT} from "@angular/common";
+import {AsyncPipe} from "@angular/common";
 import {
 	PageLoadingProgressBarComponent
 } from "@utility/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
@@ -41,6 +41,7 @@ import {LastSynchronizationInService} from "@utility/cdk/last-synchronization-in
 import ECustomer from "@core/entity/e.customer";
 import {SyncManagerService} from "@src/database/tenant/signaldb/sync-manager.tenant.signaldb.database";
 import {VisibilityService} from "@utility/cdk/visibility.service";
+
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -75,12 +76,11 @@ import {VisibilityService} from "@utility/cdk/visibility.service";
 		VisibilityService,
 		SyncManagerService
 	],
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
 })
 export default class WrapperPanelComponent extends Reactive implements OnInit, AfterViewInit, OnDestroy {
 
 	public readonly mainContainerId = inject(MAIN_CONTAINER_ID);
-	private readonly document = inject(DOCUMENT);
 	public readonly getFrontendSettingsAccountApiAdapter = inject(GetFrontendSettingsAccountApiAdapter);
 	private readonly store = inject(Store);
 	private readonly visibilityService = inject(VisibilityService);
