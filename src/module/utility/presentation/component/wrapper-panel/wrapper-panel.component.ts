@@ -1,4 +1,13 @@
-import {AfterViewInit, Component, HostBinding, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {
+	AfterViewInit,
+	Component,
+	effect,
+	HostBinding,
+	inject,
+	OnDestroy,
+	OnInit,
+	ViewEncapsulation
+} from '@angular/core';
 import {SidebarComponent} from '@utility/presentation/component/sidebar/sidebar.component';
 import {NavbarComponent} from '@utility/presentation/component/navbar/navbar.component';
 import {RouterOutlet} from '@angular/router';
@@ -30,7 +39,7 @@ import {SocketActions} from "@utility/state/socket/socket.actions";
 import {environment} from "@environment/environment";
 import {LastSynchronizationInService} from "@utility/cdk/last-synchronization-in.service";
 import ECustomer from "@core/entity/e.customer";
-import {syncManager} from "@src/database/tenant/signaldb/sync-manager.tenant.signaldb.database";
+import {SyncManagerService} from "@src/database/tenant/signaldb/sync-manager.tenant.signaldb.database";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -61,6 +70,9 @@ import {syncManager} from "@src/database/tenant/signaldb/sync-manager.tenant.sig
 		AsyncPipe,
 		WhacAMole
 	],
+	providers: [
+		SyncManagerService
+	],
 	encapsulation: ViewEncapsulation.None
 })
 export default class WrapperPanelComponent extends Reactive implements OnInit, AfterViewInit, OnDestroy {
@@ -69,6 +81,7 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 	private readonly document = inject(DOCUMENT);
 	public readonly getFrontendSettingsAccountApiAdapter = inject(GetFrontendSettingsAccountApiAdapter);
 	private readonly store = inject(Store);
+	private readonly syncManagerService = inject(SyncManagerService);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly themeService = inject(ThemeService);
 	private readonly lastSynchronizationInService = inject(LastSynchronizationInService);
@@ -88,28 +101,40 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 	constructor() {
 		super();
 		this.initNotificationChecker();
+		effect((onCleanup) => {
+			const cursor = ECustomer.database.getNew();
+			const customers = cursor.fetch();
+			const namesakes = (customers[0] as ECustomer)?.getNamesake().fetch();
+			console.log({namesakes})
+			console.log(cursor.count(), customers);
+			onCleanup(() => {
+				cursor.cleanup()
+			})
+		})
 	}
 
 	public ngOnInit(): void {
 
 		this.connectWebSocket();
-		this.prepareDatabase();
 
-		ECustomer.database.isReady().then(() => {
+		this.syncManagerService.getSyncManager().syncAll().then();
+		// this.prepareDatabase();
 
-			syncManager.sync(ECustomer.collectionName).then((result) => {
-				console.log('SignalDB:syncManager:syncAll', {result});
+		// ECustomer.database.isReady().then(() => {
 
-				const customers = ECustomer.database.find().fetch();
-				console.log({customers});
-				console.log(ECustomer.database.getNew().fetch());
-			});
+			// syncManager.sync(ECustomer.collectionName).then((result) => {
+			// 	console.log('SignalDB:syncManager:syncAll', {result});
+
+				// const customers = ECustomer.database.find().fetch();
+				// console.log({customers});
+				// console.log(ECustomer.database.getNew().fetch());
+			// });
 
 			// syncManager.pauseSync(ECustomer.collectionName).then((result) => {
 			// 	console.log('SignalDB:syncManager:pauseSync', {result});
 			// })
 
-		});
+		// });
 
 	}
 
@@ -130,14 +155,14 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 
 	}
 
-	private prepareDatabase(): void {
-		const lastSynchronizedIn = this.lastSynchronizationInService.getLastSynchronizedIn();
-		console.log({lastSynchronizedIn});
-		if (lastSynchronizedIn || this.lastSynchronizationInService.setLastSynchronizedIn()) {
-			const action = new CustomerActions.Sync();
-			this.store.dispatch(action);
-		}
-	}
+	// private prepareDatabase(): void {
+	// 	const lastSynchronizedIn = this.lastSynchronizationInService.getLastSynchronizedIn();
+	// 	console.log({lastSynchronizedIn});
+	// 	if (lastSynchronizedIn || this.lastSynchronizationInService.setLastSynchronizedIn()) {
+	// 		const action = new CustomerActions.Sync();
+	// 		this.store.dispatch(action);
+	// 	}
+	// }
 
 	private initMemberList(): void {
 		this.store.dispatch(new MemberActions.GetList());

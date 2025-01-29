@@ -7,18 +7,19 @@ import indexedDBAdapterPersistenceSignalDB
 	from "@src/database/tenant/signaldb/persistence/adapter/indexedDB.adapter.persistence.signalDB";
 import {IBaseItem} from "@core/interface/i.base-item";
 import {Collection} from '@signaldb/core';
-import {syncManager} from "@src/database/tenant/signaldb/sync-manager.tenant.signaldb.database";
+import {syncManagerConfigurationRegister} from "@src/database/tenant/signaldb/sync-manager.tenant.signaldb.database";
+import {customerEndpointEnum} from "@customer/endpoint/customer.endpoint";
 
-type IECustomer = IBaseItem<ICustomer>;
+type IECustomer = IBaseItem<'CustomerDto'>;
 
 class CustomerCollection extends Collection<IECustomer> {
 	public constructor(params: { tenantId: string, name: string }) {
-		const {tenantId, name} = params;
+		const {name} = params;
 		super({
 			name,
 			reactivity: angularReactivityAdapter,
 			persistence: indexedDBAdapterPersistenceSignalDB({
-				databaseName: `${tenantId}-${name}`,
+				databaseName: name,
 				storeName: 'items',
 				version: 1,
 				storeParameters: {
@@ -64,9 +65,27 @@ const store = signalStore(
 	withState({}),
 );
 
-export class ECustomer extends ABaseItem<ICustomer> implements IECustomer {
+export class ECustomer extends ABaseItem<'CustomerDto'> implements IECustomer {
 
-	public static readonly collectionName = 'customer';
+	// Implement to find customer with the same lastName
+	public getNamesake() {
+		const {lastName, id} = this as unknown as IECustomer;
+		// Not me but with the same lastName
+		console.log('namesakes', {lastName})
+		return ECustomer.database.find({
+			lastName,
+			_id: {
+				$ne: id,
+			},
+		})
+	}
+
+	public static collectionName = 'customer';
+
+	public static toDTO(data: IECustomer): ICustomer {
+		const {id, ...rest} = data;
+		return rest as unknown as ICustomer;
+	}
 
 	/**
 	 * Use it to create new entity, e.g. from API or form
@@ -99,6 +118,8 @@ export class ECustomer extends ABaseItem<ICustomer> implements IECustomer {
 
 		}
 
+		this.collectionName = `${tenantId}-customer`;
+
 		const collection = new CustomerCollection({
 			tenantId,
 			name: this.collectionName,
@@ -108,8 +129,6 @@ export class ECustomer extends ABaseItem<ICustomer> implements IECustomer {
 			tenantId,
 			collection,
 		};
-
-		this.registerSync();
 
 		return 'created';
 	}
@@ -126,23 +145,29 @@ export class ECustomer extends ABaseItem<ICustomer> implements IECustomer {
 		return this.#database.collection;
 	}
 
-	public static registerSync() {
-
+	public static getSyncConfiguration() {
 
 		if (!this.#database) {
-			return false;
+			throw new Error('Database is not initialized');
 		}
 
-		syncManager.addCollection(
-			this.#database.collection,
-			{
-				name: this.collectionName,
-				apiPath: 'api/v1/customer',
-				create: this.create
-			}
-		);
+		const {collection} = this.#database;
 
-		return true;
+		return {
+			collection,
+			options: {
+				name: this.collectionName,
+				toDTO: this.toDTO,
+				create: this.create,
+				endpoint: {
+					get: customerEndpointEnum.paged,
+					post: customerEndpointEnum.create,
+					put: customerEndpointEnum.update,
+					delete: customerEndpointEnum.delete,
+				}
+			}
+		};
+
 	}
 
 	/**
@@ -169,5 +194,7 @@ export class ECustomer extends ABaseItem<ICustomer> implements IECustomer {
 	};
 
 }
+
+syncManagerConfigurationRegister.push(ECustomer.getSyncConfiguration.bind(ECustomer) as never);
 
 export default ECustomer;

@@ -4,12 +4,6 @@ import {ICustomer} from "@customer/domain";
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace CustomerActions {
 
-	// DataBase layer
-
-	export class Sync {
-		public static readonly type = '[Customer DataBase] Sync';
-	}
-
 	// Application layer
 
 	export class CloseDetails extends BaseActions.CloseDetails {

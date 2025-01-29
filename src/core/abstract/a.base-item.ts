@@ -1,5 +1,5 @@
 import {IBaseItem} from "@src/core/interface/i.base-item";
-import {IBaseEntity} from "@utility/domain";
+import {Types} from "@utility/types";
 
 /**
  * Base class for all items.
@@ -7,17 +7,22 @@ import {IBaseEntity} from "@utility/domain";
  *
  * @template T - type of item data.
  */
-export abstract class ABaseItem<T extends IBaseEntity<string>> implements IBaseItem<T> {
+export abstract class ABaseItem<T extends string> implements IBaseItem<T> {
 
 	id!: string;
 
-	protected constructor(data: IBaseItem<T>) {
+	_id!: string & Types.ObjectId;
+	createdAt!: string & Types.DateTime;
+	object!: T;
+	updatedAt!: string & Types.DateTime;
+
+	public constructor(data: { _id: string & Types.ObjectId }) {
 		console.log('ABaseItem:constructor', {data});
 		this.id = data._id;
 		Object.assign(this, data);
 	}
 
-	public toDTO(): T {
+	public toDTO(): never {
 		throw new Error('Method not implemented.');
 	}
 

@@ -2,6 +2,7 @@ import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import * as Customer from "@customer/domain";
+import {ICustomer} from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ArchiveCustomerApiAdapter} from "@customer/adapter/external/api/archive.customer.api.adapter";
 import {CreateCustomerApiAdapter} from "@customer/adapter/external/api/create.customer.api.adapter";
@@ -12,6 +13,11 @@ import {ListCustomerApiAdapter} from "@customer/adapter/external/api/list.custom
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {UnarchiveCustomerApiAdapter} from "@customer/adapter/external/api/unarchive.customer.api.adapter";
 import {TranslateService} from "@ngx-translate/core";
+import ECustomer from "@core/entity/e.customer";
+import {firstValueFrom} from "rxjs";
+import {AppActions} from "@utility/state/app/app.actions";
+import {TableState} from "@utility/domain/table.state";
+import {getMaxPage} from "@utility/domain/max-page";
 // import {SyncCustomerTenantDatabaseService} from "@customer/database/tenant/sync.customer.tenant.database.service";
 
 export type ICustomerState = IBaseState<Customer.ICustomer>;
@@ -48,52 +54,6 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 		super(
 			defaults,
 		);
-	}
-
-	// DataBase layer
-
-	@Action(CustomerActions.Sync)
-	public async sync(ctx: StateContext<ICustomerState>) {
-
-		// await this.syncCustomerTenantDatabaseService.execute();
-
-		// const list = await this.customerTenantDatabaseService.getAll();
-		//
-		// for (const item of list) {
-		//
-		// 	try {
-		//
-		// 		let action: CustomerActions.DeleteItem | CustomerActions.CreateItem | CustomerActions.UpdateItem | null = null;
-		//
-		// 		// Is Created?
-		// 		if (!item.syncedAt) {
-		// 			// action = new CustomerActions.CreateItem(item);
-		// 		}
-		//
-		// 		// Is Deleted?
-		// 		if (item.deletedAt && item.deletedAt > item.data.updatedAt)  {
-		// 			action = new CustomerActions.DeleteItem(item._id);
-		// 		}
-		//
-		// 		// Is Updated?
-		// 		if (item.syncedAt && item.data.updatedAt > item.syncedAt) {
-		// 			// action = new CustomerActions.UpdateItem(item);
-		// 		}
-		//
-		// 		if (action) {
-		//
-		// 			await ctx.dispatch(action);  // Видалення на сервері
-		//
-		// 		}
-		//
-		// 	} catch (error) {
-		//
-		// 		console.error('Sync failed for:', {item}, error);
-		//
-		// 	}
-		//
-		// }
-
 	}
 
 	// Application layer
@@ -241,13 +201,25 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 	@Action(CustomerActions.CreateItem)
 	public override async createItem(ctx: StateContext<ICustomerState>, action: CustomerActions.CreateItem): Promise<void> {
-		await super.createItem(ctx, action);
+		// await super.createItem(ctx, action);
+		ECustomer.database.insert(ECustomer.create({
+			...action.payload,
+			id: action.payload._id,
+		}));
 		await this.closeForm(ctx);
 	}
 
 	@Action(CustomerActions.UpdateItem)
 	public override async updateItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateItem): Promise<void> {
-		await super.updateItem(ctx, action);
+		// await super.updateItem(ctx, action);
+		ECustomer.database.updateOne({
+			id: action.payload._id,
+		}, {
+			$set: ECustomer.create({
+				...action.payload,
+				id: action.payload._id,
+			})
+		});
 		await this.closeForm(ctx);
 		const {data} = ctx.getState().item;
 		data && await this.updateOpenedDetails(ctx, {payload: data});
@@ -271,13 +243,75 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 	@Action(CustomerActions.GetList)
 	public override async getList(ctx: StateContext<ICustomerState>, action: CustomerActions.GetList): Promise<void> {
-		await super.getList(ctx, action);
+		// await super.getList(ctx, action);
 		// const syncedAt = new Date().toISOString();
 		// const {tableState} = ctx.getState();
 		// tableState.items.forEach((item) => {
 		// 	const entity = LocalEntity.create(item, syncedAt);
 		// 	this.customerTenantDatabaseService.put(entity);
 		// });
+
+
+		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
+
+		const state = ctx.getState();
+
+		try {
+
+			const newTableState = TableState.fromCache(state.tableState);
+
+			const {
+				// queryParams,
+				resetPage,
+				resetParams
+			} = action.payload ?? {};
+
+			if (resetPage) {
+				newTableState.setPage(1);
+			}
+
+			if (resetParams) {
+				newTableState.filters = {};
+			}
+
+			// const params = newTableState.toBackendFormat();
+
+			// Update current state
+			// const {items, totalSize} = await this.paged.executeAsync({
+			// 	...params,
+			// 	...(queryParams ?? {})
+			// });
+
+			const items = ECustomer.database.find({
+
+			},{
+				limit: newTableState.pageSize,
+				skip: (newTableState.page - 1) * newTableState.pageSize,
+				sort: {
+					[newTableState.orderBy]: newTableState.orderDir === OrderDirEnum.ASC ? 1 : -1
+				}
+			});
+
+			console.log('items:count', items.count());
+
+			newTableState
+				.setTotal(ECustomer.database.find().count())
+				.setItems(items.fetch() as unknown as ICustomer[])
+				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
+
+			this.ngxLogger.debug('Table state: ', newTableState);
+
+			ctx.patchState({
+				tableState: newTableState.toCache(),
+				lastTableHashSum: newTableState.hashSum
+			});
+
+		} catch (e) {
+			this.ngxLogger.error(e);
+		}
+
+		// Switch of page loader
+		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 	}
 
 	// Selectors
