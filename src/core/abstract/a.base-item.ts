@@ -17,7 +17,6 @@ export abstract class ABaseItem<T extends string> implements IBaseItem<T> {
 	updatedAt!: string & Types.DateTime;
 
 	public constructor(data: { _id: string & Types.ObjectId }) {
-		console.log('ABaseItem:constructor', {data});
 		this.id = data._id;
 		Object.assign(this, data);
 	}

@@ -167,7 +167,7 @@ export class AutoRefreshComponent extends Reactive implements OnDestroy, OnInit 
 		}
 
 		this.timer = setTimeout(() => {
-			if (this.visibilityService.visibilityChange.value && !this.isLoading()) {
+			if (this.visibilityService.isVisible && !this.isLoading()) {
 				this.emitter.emit();
 				this.analyticsService.logEvent('auto_refresh_component_emit', {
 					id: this.id(),

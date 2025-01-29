@@ -1,15 +1,22 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {BehaviorSubject, fromEvent} from 'rxjs';
+import {DOCUMENT} from "@angular/common";
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class VisibilityService {
-    public readonly visibilityChange: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
-    constructor() {
-        fromEvent(document, 'visibilitychange').subscribe(() => {
-            this.visibilityChange.next(!document.hidden);
-        });
-    }
+	private readonly document = inject(DOCUMENT);
+
+	readonly #visibilityChange$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+	public readonly visibilityChange$ = this.#visibilityChange$.asObservable();
+
+	public get isVisible(): boolean {
+		return this.#visibilityChange$.value;
+	}
+
+	public constructor() {
+		fromEvent(this.document, 'visibilitychange').subscribe(() => {
+			this.#visibilityChange$.next(!this.document.hidden);
+		});
+	}
 }

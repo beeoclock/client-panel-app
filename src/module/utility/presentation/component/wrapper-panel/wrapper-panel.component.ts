@@ -40,6 +40,7 @@ import {environment} from "@environment/environment";
 import {LastSynchronizationInService} from "@utility/cdk/last-synchronization-in.service";
 import ECustomer from "@core/entity/e.customer";
 import {SyncManagerService} from "@src/database/tenant/signaldb/sync-manager.tenant.signaldb.database";
+import {VisibilityService} from "@utility/cdk/visibility.service";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -71,6 +72,7 @@ import {SyncManagerService} from "@src/database/tenant/signaldb/sync-manager.ten
 		WhacAMole
 	],
 	providers: [
+		VisibilityService,
 		SyncManagerService
 	],
 	encapsulation: ViewEncapsulation.None
@@ -81,6 +83,7 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 	private readonly document = inject(DOCUMENT);
 	public readonly getFrontendSettingsAccountApiAdapter = inject(GetFrontendSettingsAccountApiAdapter);
 	private readonly store = inject(Store);
+	private readonly visibilityService = inject(VisibilityService);
 	private readonly syncManagerService = inject(SyncManagerService);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly themeService = inject(ThemeService);
@@ -118,28 +121,22 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 		this.connectWebSocket();
 
 		this.syncManagerService.getSyncManager().syncAll().then();
-		// this.prepareDatabase();
 
-		// ECustomer.database.isReady().then(() => {
+		this.visibilityService.visibilityChange$.pipe(
+			this.takeUntil()
+		).subscribe((visible) => {
 
-			// syncManager.sync(ECustomer.collectionName).then((result) => {
-			// 	console.log('SignalDB:syncManager:syncAll', {result});
+			this.isUserOnWebSite = visible;
+			if (visible) {
+				this.syncManagerService.getSyncManager().syncAll().then();
+			}
 
-				// const customers = ECustomer.database.find().fetch();
-				// console.log({customers});
-				// console.log(ECustomer.database.getNew().fetch());
-			// });
+		});
 
-			// syncManager.pauseSync(ECustomer.collectionName).then((result) => {
-			// 	console.log('SignalDB:syncManager:pauseSync', {result});
-			// })
-
-		// });
 
 	}
 
 	public ngAfterViewInit(): void {
-		this.initDetectorIfUserHasActiveWebsite();
 		this.initClient();
 		this.initMemberList();
 		this.initAccountFrontendSettings();
@@ -154,15 +151,6 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 		});
 
 	}
-
-	// private prepareDatabase(): void {
-	// 	const lastSynchronizedIn = this.lastSynchronizationInService.getLastSynchronizedIn();
-	// 	console.log({lastSynchronizedIn});
-	// 	if (lastSynchronizedIn || this.lastSynchronizationInService.setLastSynchronizedIn()) {
-	// 		const action = new CustomerActions.Sync();
-	// 		this.store.dispatch(action);
-	// 	}
-	// }
 
 	private initMemberList(): void {
 		this.store.dispatch(new MemberActions.GetList());
@@ -207,12 +195,6 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 
 			}, MS_ONE_MINUTE);
 		}
-	}
-
-	private initDetectorIfUserHasActiveWebsite(): void {
-		this.document.onvisibilitychange = () => {
-			this.isUserOnWebSite = !this.document.hidden;
-		};
 	}
 
 	public override ngOnDestroy(): void {

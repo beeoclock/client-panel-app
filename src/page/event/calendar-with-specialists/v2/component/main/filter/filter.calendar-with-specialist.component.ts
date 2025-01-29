@@ -13,10 +13,10 @@ import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-special
 import {Store} from "@ngxs/store";
 import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 import {IonPopover} from "@ionic/angular/standalone";
-import {VisibilityAppService} from "@utility/cdk/visibility-app.service";
 import {Reactive} from "@utility/cdk/reactive";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {VisibilityService} from "@utility/cdk/visibility.service";
 
 @Component({
 	selector: 'filter-calendar-with-specialist',
@@ -82,14 +82,14 @@ export class FilterCalendarWithSpecialistComponent extends Reactive implements A
 	}[] = [];
 	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 	private readonly translateService = inject(TranslateService);
-	private readonly visibilityAppService = inject(VisibilityAppService);
+	private readonly visibilityService = inject(VisibilityService);
 	private readonly store = inject(Store);
 
 	public readonly loader$ = this.store.select(CalendarWithSpecialistsQueries.loader);
 
 	public ngAfterViewInit() {
 		this.initEventStatusList();
-		this.visibilityAppService.visibility$.pipe(
+		this.visibilityService.visibilityChange$.pipe(
 			this.takeUntil()
 		).subscribe((visible) => {
 			if (visible) {
