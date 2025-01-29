@@ -9,7 +9,6 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {ILanguageVersion} from "@service/domain";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {ServiceTableService} from "@service/presentation/component/list/service.table.service";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
@@ -23,8 +22,7 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 		TableStatePaginationComponent,
 		TranslateModule,
 		CardComponent,
-		AsyncPipe,
-		RowActionButtonComponent
+		AsyncPipe
 	],
 	providers: [
 		CurrencyPipe,

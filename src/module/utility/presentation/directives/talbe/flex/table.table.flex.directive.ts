@@ -22,7 +22,7 @@ export class TableTableFlexDirective {
 		'text-start',
 		'overflow-scroll',
 		'bg-white',
-		'h-[calc(100vh-199px)]',
+		'h-[calc(100vh-210px)]',
 		'md:h-[calc(100vh-135px)]'
 	];
 

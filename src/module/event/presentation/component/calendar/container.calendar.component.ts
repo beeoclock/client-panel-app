@@ -48,7 +48,7 @@ export class ContainerCalendarComponent implements AfterViewInit {
 	readonly hoursComponentRef = viewChild.required(HoursComponent);
 
 	@HostBinding()
-	public class = 'bg-white	flex overflow-auto h-[calc(100dvh-64px)] md:h-full relative';
+	public class = 'bg-white	flex overflow-auto h-[calc(100dvh-80px)] md:h-full relative';
 
 	public readonly elementRef = inject(ElementRef);
 	private readonly ngxLogger = inject(NGXLogger);

@@ -1,10 +1,10 @@
-<div class="flex flex-col gap-4 my-4" [class.h-[calc(100vh-134px)]]="!tableState().items.length">
+<div class="flex flex-col divide-y divide-beeColor-200 my-4" [class.h-[calc(100vh-134px)]]="!tableState().items.length">
 	@for (item of tableState().items; track item._id) {
-		<bee-card class="text-sm border-2 border-transparent hover:border-blue-500 !gap-0"
+		<bee-card (click)="singleClick(item)" class="focus:bg-beeColor-100 active:bg-beeColor-100 cursor-pointer transition-all hover:bg-beeColor-100 text-sm border-2 rounded-none border-transparent hover:border-blue-500 !gap-0"
 				  [class.!border-green-500]="selectedIds.includes(item._id)">
 			<div class="flex justify-between items-center gap-8">
 
-				<div (click)="singleClick(item)" class="flex justify-between">
+				<div class="flex justify-between">
 					<div class="flex-1">
 						<div class="font-bold flex">
 							<!--						{{ 'keyword.capitalize.fullName' | translate }}-->
@@ -12,12 +12,6 @@
 						</div>
 					</div>
 				</div>
-				@if (showAction.state$ | async) {
-
-					<customer-row-action-button-component
-						[item]="item"
-						[id]="item._id"/>
-				}
 
 				@if (showSelectedStatus.state$ | async) {
 
