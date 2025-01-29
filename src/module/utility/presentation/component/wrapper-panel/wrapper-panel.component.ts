@@ -73,6 +73,7 @@ import {VisibilityService} from "@utility/cdk/visibility.service";
 		WhacAMole
 	],
 	providers: [
+		LastSynchronizationInService,
 		VisibilityService,
 		SyncManagerService
 	],
@@ -87,7 +88,6 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 	private readonly syncManagerService = inject(SyncManagerService);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly themeService = inject(ThemeService);
-	private readonly lastSynchronizationInService = inject(LastSynchronizationInService);
 	private readonly translateService = inject(TranslateService);
 	private readonly tenantId$ = inject(TENANT_ID);
 
@@ -120,7 +120,7 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 
 		this.connectWebSocket();
 
-		this.syncManagerService.getSyncManager().syncAll().then();
+		this.syncManagerService.syncAll().then();
 
 		this.visibilityService.visibilityChange$.pipe(
 			this.takeUntil()
@@ -128,7 +128,7 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 
 			this.isUserOnWebSite = visible;
 			if (visible) {
-				this.syncManagerService.getSyncManager().syncAll().then();
+				this.syncManagerService.syncAll().then();
 			}
 
 		});

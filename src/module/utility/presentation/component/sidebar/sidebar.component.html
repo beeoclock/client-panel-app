@@ -18,13 +18,7 @@
         dark:bg-beeDarkColor-900
         dark:border-beeDarkColor-800">
 
-	<div [@collapse]="collapsed">
-		<div class="bg-red-50 text-red-400 p-2 flex justify-center items-center">
-			{{ 'keyword.capitalize.youOffline' | translate }}
-		</div>
-	</div>
-
-	@switch (sidebarService.currentContent) {
+	@switch (sidebarService.currentContent$ | async) {
 		@case (sidebarService.sidebarContentEnum.MENU) {
 			<utility-sidebar-menu-component class="flex-1"/>
 		}
@@ -32,5 +26,7 @@
 			<utility-sidebar-profile-component class="flex-1"/>
 		}
 	}
+
+	<sync-button-component/>
 
 </aside>

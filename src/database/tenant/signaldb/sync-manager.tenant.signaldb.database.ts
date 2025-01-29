@@ -6,9 +6,10 @@ import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {ResponseListType} from "@utility/adapter/base.api.adapter";
 import {inject, Injectable} from "@angular/core";
 import {HttpClient, HttpContext} from "@angular/common/http";
-import {firstValueFrom} from "rxjs";
+import {BehaviorSubject, firstValueFrom} from "rxjs";
 import {TokensHttpContext} from "@src/tokens.http-context";
 import {TENANT_ID} from "@src/token";
+import {LastSynchronizationInService} from "@utility/cdk/last-synchronization-in.service";
 
 
 /**
@@ -228,6 +229,11 @@ export class SyncManagerService {
 
 	private readonly httpClient = inject(HttpClient);
 	private readonly tenantId$ = inject(TENANT_ID);
+	private readonly lastSynchronizationInService = inject(LastSynchronizationInService);
+
+	readonly #isSyncing$ = new BehaviorSubject<boolean>(false);
+
+	public readonly isSyncing$ = this.#isSyncing$.asObservable();
 
 	private readonly syncManager = SyncManagerService.syncMangers[this.tenantId$.value ?? ''];
 
@@ -243,8 +249,19 @@ export class SyncManagerService {
 		}
 	}
 
+	public async syncAll() {
+		this.#isSyncing$.next(true);
+		await this.getSyncManager().syncAll();
+		this.lastSynchronizationInService.setLastSynchronizedIn();
+		this.#isSyncing$.next(false);
+	}
+
 	public getSyncManager() {
 		return this.syncManager;
+	}
+
+	public get lastSynchronizedIn() {
+		return this.lastSynchronizationInService.getLastSynchronizedIn();
 	}
 
 	public static syncMangers: {

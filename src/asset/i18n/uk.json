@@ -1165,6 +1165,8 @@
 			"streetAddressLineOne": "Адреса 1",
 			"streetAddressLineTwo": "Адреса 2",
 			"successfully": "Успішно",
+			"synced": "Синхронізовано",
+			"syncing": "Синхронізація триває…",
 			"theme": "Тема",
 			"thereArentAnyEvents": "Подій немає на {{ datetime }}",
 			"time": "Час",

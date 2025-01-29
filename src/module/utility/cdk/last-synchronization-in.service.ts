@@ -1,9 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {TENANT_ID} from "@src/token";
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class LastSynchronizationInService {
 
 	public readonly tenantId$ = inject(TENANT_ID);
