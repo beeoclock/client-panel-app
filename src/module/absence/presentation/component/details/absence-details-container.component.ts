@@ -9,6 +9,10 @@ import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {DatePipe} from "@angular/common";
 import {RowActionButtonComponent} from "@absence/presentation/component/row-action-button/row-action-button.component";
+import {
+	AbsenceProgressStatusEnum,
+	AbsenceProgressStatusPipe
+} from "@absence/presentation/pipe/absence-progress-status.pipe";
 
 @Component({
 	selector: 'absence-detail-page',
@@ -20,7 +24,8 @@ import {RowActionButtonComponent} from "@absence/presentation/component/row-acti
 		ActiveStyleDirective,
 		NoDataPipe,
 		DatePipe,
-		RowActionButtonComponent
+		RowActionButtonComponent,
+		AbsenceProgressStatusPipe
 	],
 	standalone: true
 })
@@ -109,4 +114,5 @@ export class AbsenceDetailsContainerComponent implements OnChanges {
 		}
 	}
 
+	protected readonly absenceProgressStatusEnum = AbsenceProgressStatusEnum;
 }

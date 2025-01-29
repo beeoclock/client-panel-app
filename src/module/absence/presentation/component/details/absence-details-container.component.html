@@ -57,7 +57,31 @@
 					{{ 'keyword.capitalize.status' | translate }}
 				</dt>
 				<dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
-					<div activeStyle [active]="item.active"></div>
+					@if (item.active) {
+						@switch (item.start | absenceProgressStatus: item.end) {
+
+							@case (absenceProgressStatusEnum.FINISHED) {
+								<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">
+								{{ 'absence.progress.status.finished' | translate }}
+							</span>
+							}
+							@case (absenceProgressStatusEnum.IN_PROGRESS) {
+								<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-800/30 dark:text-yellow-500">
+								{{ 'absence.progress.status.inProgress' | translate }}
+							</span>
+							}
+							@case (absenceProgressStatusEnum.NOT_STARTED) {
+								<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-800/30 dark:text-blue-500">
+								{{ 'absence.progress.status.notStarted' | translate }}
+							</span>
+							}
+
+						}
+					} @else {
+						<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">
+							{{ 'absence.progress.status.cancel' | translate }}
+						</span>
+					}
 				</dd>
 			</div>
 			<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4">
