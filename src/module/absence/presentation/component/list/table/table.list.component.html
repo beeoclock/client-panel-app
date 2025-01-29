@@ -1,71 +1,103 @@
 <div [tableFlex]="tableConfiguration">
-    <div tableRowFlex="header">
-        <div tableColumnFlex="type" data-orderBy="type">
-            <div class="flex gap-3 items-center">
-                {{ 'absence.form.inputs.type.label' | translate }}
-                <utility-sort-indicator
-                        orderBy="type"
-                        [tableState]="tableState()"/>
-            </div>
-        </div>
-        <div tableColumnFlex="start" data-orderBy="start">
-            <div class="flex gap-3 items-center">
-                {{ 'event.keyword.capitalize.start' | translate }}
-                <utility-sort-indicator
-                        orderBy="start"
-                        [tableState]="tableState()"/>
-            </div>
-        </div>
-        <div tableColumnFlex="end" data-orderBy="end">
-            <div class="flex gap-3 items-center">
-                {{ 'event.keyword.capitalize.end' | translate }}
-                <utility-sort-indicator
-                        orderBy="end"
-                        [tableState]="tableState()"/>
-            </div>
-        </div>
-        <div tableColumnFlex="attendees">
-            {{ 'keyword.capitalize.attendees' | translate }}
-        </div>
-        <div tableColumnFlex="note">
-            {{ 'keyword.capitalize.note' | translate }}
-        </div>
-        <div tableColumnFlex="active" data-orderBy="active">
-            <div class="flex gap-3 items-center">
-                {{ 'keyword.capitalize.active' | translate }}
-                <utility-sort-indicator
-                        orderBy="active"
-                        [tableState]="tableState()"/>
-            </div>
-        </div>
-        <div tableColumnFlex="createdAt" data-orderBy="createdAt">
-            <div class="flex gap-3 items-center">
-                {{ 'keyword.capitalize.createdAt' | translate }}
-                <utility-sort-indicator
-                        orderBy="createdAt"
-                        [tableState]="tableState()"/>
-            </div>
-        </div>
-        <div tableColumnFlex="updatedAt" data-orderBy="updatedAt">
-            <div class="flex gap-3 items-center">
-                {{ 'keyword.capitalize.updatedAt' | translate }}
-                <utility-sort-indicator
-                        orderBy="updatedAt"
-                        [tableState]="tableState()"/>
-            </div>
-        </div>
-        <div tableColumnFlex="action" class="border-l sticky right-0">
-            {{ 'keyword.capitalize.action' | translate }}
-        </div>
-    </div>
-    <!-- Column Cell	-->
-    <div tableBodyFlex>
+	<div tableRowFlex="header">
+		<div tableColumnFlex="type" data-orderBy="type">
+			<div class="flex gap-3 items-center">
+				{{ 'absence.form.inputs.type.label' | translate }}
+				<utility-sort-indicator
+					orderBy="type"
+					[tableState]="tableState()"/>
+			</div>
+		</div>
+		<div tableColumnFlex="progressStatus">
+			<div class="flex gap-3 items-center">
+				{{ 'absence.form.inputs.type.progressStatus' | translate }}
+			</div>
+		</div>
+		<div tableColumnFlex="start" data-orderBy="start">
+			<div class="flex gap-3 items-center">
+				{{ 'event.keyword.capitalize.start' | translate }}
+				<utility-sort-indicator
+					orderBy="start"
+					[tableState]="tableState()"/>
+			</div>
+		</div>
+		<div tableColumnFlex="end" data-orderBy="end">
+			<div class="flex gap-3 items-center">
+				{{ 'event.keyword.capitalize.end' | translate }}
+				<utility-sort-indicator
+					orderBy="end"
+					[tableState]="tableState()"/>
+			</div>
+		</div>
+		<div tableColumnFlex="attendees">
+			{{ 'keyword.capitalize.attendees' | translate }}
+		</div>
+		<div tableColumnFlex="note">
+			{{ 'keyword.capitalize.note' | translate }}
+		</div>
+		<div tableColumnFlex="active" data-orderBy="active">
+			<div class="flex gap-3 items-center">
+				{{ 'keyword.capitalize.active' | translate }}
+				<utility-sort-indicator
+					orderBy="active"
+					[tableState]="tableState()"/>
+			</div>
+		</div>
+		<div tableColumnFlex="createdAt" data-orderBy="createdAt">
+			<div class="flex gap-3 items-center">
+				{{ 'keyword.capitalize.createdAt' | translate }}
+				<utility-sort-indicator
+					orderBy="createdAt"
+					[tableState]="tableState()"/>
+			</div>
+		</div>
+		<div tableColumnFlex="updatedAt" data-orderBy="updatedAt">
+			<div class="flex gap-3 items-center">
+				{{ 'keyword.capitalize.updatedAt' | translate }}
+				<utility-sort-indicator
+					orderBy="updatedAt"
+					[tableState]="tableState()"/>
+			</div>
+		</div>
+		<div tableColumnFlex="action" class="border-l sticky right-0">
+			{{ 'keyword.capitalize.action' | translate }}
+		</div>
+	</div>
+	<!-- Column Cell	-->
+	<div tableBodyFlex>
 		@for (item of tableState().items; track item._id) {
 			<div tableRowFlex="body" (click)="doubleClick(item)">
 				<div tableColumnFlex="type">
-				<span [title]="item.type" class="truncate">
-					{{ ('absence.type.' + item.type + '.label') | translate }}
-				</span>
+					<span [title]="item.type" class="truncate">
+						{{ ('absence.type.' + item.type + '.label') | translate }}
+					</span>
+				</div>
+				<div tableColumnFlex="progressStatus">
+					@if (item.active) {
+						@switch (item.start | absenceProgressStatus: item.end) {
+
+							@case (absenceProgressStatusEnum.FINISHED) {
+								<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">
+								{{ 'absence.progress.status.finished' | translate }}
+							</span>
+							}
+							@case (absenceProgressStatusEnum.IN_PROGRESS) {
+								<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-800/30 dark:text-yellow-500">
+								{{ 'absence.progress.status.inProgress' | translate }}
+							</span>
+							}
+							@case (absenceProgressStatusEnum.NOT_STARTED) {
+								<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-800/30 dark:text-blue-500">
+								{{ 'absence.progress.status.notStarted' | translate }}
+							</span>
+							}
+
+						}
+					} @else {
+						<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">
+							{{ 'absence.progress.status.cancel' | translate }}
+						</span>
+					}
 				</div>
 				<div tableColumnFlex="start" #startColumn
 					 [attr.data-value]="(item.start ? (item.start | dynamicDate) : null) ?? 'Invalid Time'">
@@ -92,10 +124,6 @@
 					{{ item.note | noData }}
 				</span>
 				</div>
-				<div tableColumnFlex="active">
-					<div activeStyle [active]="item.active">
-					</div>
-				</div>
 				<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">
 				<span [title]="createdAtColumn.getAttribute('data-value')" class="truncate">
 					{{ createdAtColumn.getAttribute('data-value') }}
@@ -113,8 +141,8 @@
 				</div>
 			</div>
 		}
-    </div>
+	</div>
 </div>
 <utility-table-state-pagination-component
-        (page)="pageChange($event)"
-        [tableState]="tableState()"/>
+	(page)="pageChange($event)"
+	[tableState]="tableState()"/>
