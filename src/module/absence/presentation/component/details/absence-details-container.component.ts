@@ -3,12 +3,11 @@ import {firstValueFrom} from 'rxjs';
 import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
-import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {DatePipe} from "@angular/common";
+import {RowActionButtonComponent} from "@absence/presentation/component/row-action-button/row-action-button.component";
 import {
 	AbsenceProgressStatusEnum,
 	AbsenceProgressStatusPipe
@@ -21,10 +20,9 @@ import {
 	imports: [
 		DynamicDatePipe,
 		TranslateModule,
-		DeleteButtonComponent,
-		EditButtonComponent,
 		NoDataPipe,
 		DatePipe,
+		RowActionButtonComponent,
 		AbsenceProgressStatusPipe
 	],
 	standalone: true

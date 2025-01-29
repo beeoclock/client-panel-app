@@ -2,6 +2,12 @@
 
 	<div class="bg-white">
 		<dl class="divide-y divide-gray-100">
+			<div class="p-2 flex justify-end">
+				<app-absence-row-action-button-component
+					[hide]="['details']"
+					[item]="item"
+					[id]="item._id"/>
+			</div>
 			<div class="p-4 flex gap-4 justify-between">
 				<div class="rounded-2xl flex flex-col gap-1 items-center justify-center bg-yellow-700 text-white p-3">
 					<span>{{ item.start | date: 'yyyy' }}</span>
@@ -127,13 +133,6 @@
 	</div>
 
 	<div class="col-span-12 xl:col-start-3 xl:col-span-8 2xl:col-start-4 2xl:col-span-6 flex flex-col gap-4 mb-[100px]">
-
-		<div class="flex justify-between flex-col md:flex-row gap-4 bg-white p-4 border-y">
-
-			<bee-delete-button [buttonWidthFull]="true" (event)="delete(item)"/>
-			<edit-button-component [buttonWidthFull]="true" (click)="openForm()"/>
-
-		</div>
 
 		<div class="text-start text-beeColor-400 text-sm px-4">
 

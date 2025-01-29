@@ -10,7 +10,7 @@ import {MemberActions} from "@member/state/member/member.actions";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		<utility-table-column-action [id]="id()" (delete)="delete($event)" (open)="open()" (edit)="edit()">
+		<utility-table-column-action [id]="id()" [hide]="hide()" (delete)="delete($event)" (open)="open()" (edit)="edit()">
 			<!--			<li>-->
 			<!--				<a-->
 			<!--					[routerLink]="['../../', 'event', 'form']"-->
@@ -27,6 +27,8 @@ import {MemberActions} from "@member/state/member/member.actions";
 	]
 })
 export class RowActionButtonComponent {
+
+	public readonly hide = input<('details' | 'edit' | 'delete' | 'activate' | 'deactivate')[]>([]);
 
 	public readonly id = input.required<string>();
 

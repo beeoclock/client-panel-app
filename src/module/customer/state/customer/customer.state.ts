@@ -239,6 +239,8 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 	@Action(CustomerActions.UnarchiveItem)
 	public override async unarchiveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UnarchiveItem) {
 		await super.unarchiveItem(ctx, action);
+		// TODO: Update opened details
+
 	}
 
 	@Action(CustomerActions.GetList)
