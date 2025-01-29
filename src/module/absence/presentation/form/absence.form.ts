@@ -1,9 +1,9 @@
 import {FormControl} from '@angular/forms';
-import {ActiveEnum} from "@utility/domain/enum";
 import {BaseEntityForm} from "@utility/base.form";
 import {AbsenceTypeEnum} from "@absence/domain/enums/absence.type.enum";
 import {DateTime} from "luxon";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 export type IAbsenceForm = {
 	[K in keyof IAbsenceDto]: FormControl<IAbsenceDto[K]>;
@@ -41,7 +41,11 @@ export class AbsenceForm extends BaseEntityForm<'AbsenceDto', IAbsenceForm> {
 				nonNullable: true,
 			}),
 
-			active: new FormControl(ActiveEnum.YES, {
+			state: new FormControl(StateEnum.active, {
+				nonNullable: true,
+			}),
+
+			stateHistory: new FormControl([], {
 				nonNullable: true,
 			}),
 

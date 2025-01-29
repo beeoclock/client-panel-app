@@ -1,4 +1,4 @@
-import {Enum, IBaseEntity} from "@src/module/utility/domain";
+import {IBaseEntity} from "@src/module/utility/domain";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 import {Tools} from "@utility/tools";
 import {Types} from "@utility/types";
@@ -13,8 +13,6 @@ export interface ICustomer extends IBaseEntity<'CustomerDto'> {
 	email: string & Types.Email | null;
 	note: string | null;
 	customerType: CustomerTypeEnum & Types.Default<CustomerTypeEnum.new>;
-
-	active: Enum.ActiveEnum;
 }
 
 export const isCustomer = Tools.createIs<ICustomer>();

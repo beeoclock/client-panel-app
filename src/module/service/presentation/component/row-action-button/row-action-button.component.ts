@@ -6,6 +6,7 @@ import {ServiceActions} from "@service/state/service/service.actions";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 
 @Component({
@@ -21,7 +22,7 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 			(edit)="edit()"
 			[hide]="hide()"
 			[id]="id()"
-			[active]="item().active">
+			[state]="item().state">
 			<!--			<li>-->
 			<!--				<a-->
 			<!--					[routerLink]="['../../', 'event', 'form']"-->
@@ -52,14 +53,16 @@ export class RowActionButtonComponent {
 	public readonly returnUrl = this.router.url;
 
 	public delete(): void {
-		const {active} = this.item();
+		const {state} = this.item();
 
-		if (active) {
+		if (state === StateEnum.active) {
 
 			return alert('You can\'t delete active service');
 
 		}
+
 		this.store.dispatch(new ServiceActions.DeleteItem(this.item()._id));
+
 	}
 
 	public activate(): void {

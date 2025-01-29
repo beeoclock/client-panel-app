@@ -8,10 +8,8 @@ import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {DatePipe} from "@angular/common";
 import {RowActionButtonComponent} from "@absence/presentation/component/row-action-button/row-action-button.component";
-import {
-	AbsenceProgressStatusEnum,
-	AbsenceProgressStatusPipe
-} from "@absence/presentation/pipe/absence-progress-status.pipe";
+import {AbsenceProgressStatusEnum} from "@absence/presentation/pipe/absence-progress-status.pipe";
+import {StateStatusComponent} from "@absence/presentation/component/state-status/state-status.component";
 
 @Component({
 	selector: 'absence-detail-page',
@@ -23,7 +21,7 @@ import {
 		NoDataPipe,
 		DatePipe,
 		RowActionButtonComponent,
-		AbsenceProgressStatusPipe
+		StateStatusComponent
 	],
 	standalone: true
 })

@@ -1,20 +1,17 @@
 import {AbstractControl, FormControl, Validators} from '@angular/forms';
-import {ActiveEnum} from "@utility/domain/enum";
 import {noWhitespaceValidator} from "@utility/validation/whitespace";
 import {
 	atLeastOneFieldMustBeFilledValidator
 } from "@customer/presentation/form/validation/atLeastOneFieldMustBeFilled.validation";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormTextareaComponent} from "@utility/presentation/component/input/form.textarea.component";
-import {
-	SwitchActiveBlockComponent
-} from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
 import {BaseEntityForm} from "@utility/base.form";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 import {ICustomer} from "@customer/domain";
 import {Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
 import {TelFormInputComponent} from "@utility/presentation/component/tel-form-input/tel.form.input.component";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 export const enum CustomerFormFieldsEnum {
 
@@ -25,7 +22,8 @@ export const enum CustomerFormFieldsEnum {
 	phone = 'phone',
 	customerType = 'customerType',
 
-	active = 'active',
+	state = 'state',
+	stateHistory = 'stateHistory',
 }
 
 export interface ICustomerForm {
@@ -36,7 +34,8 @@ export interface ICustomerForm {
 	[CustomerFormFieldsEnum.email]: FormControl<string | null>;
 	[CustomerFormFieldsEnum.phone]: FormControl<string | null>;
 
-	[CustomerFormFieldsEnum.active]: FormControl<ActiveEnum>;
+	[CustomerFormFieldsEnum.state]: FormControl<StateEnum>;
+	[CustomerFormFieldsEnum.stateHistory]: FormControl<{state: StateEnum; setAt: string}[]>;
 	[CustomerFormFieldsEnum.customerType]: FormControl<CustomerTypeEnum>;
 
 }
@@ -106,14 +105,7 @@ export class CustomerForm extends BaseEntityForm<'CustomerDto', ICustomerForm> {
 				placeholderTranslateKey: 'customer.form.input.note.placeholder',
 				control: this.controls.note,
 			}
-		},
-		[CustomerFormFieldsEnum.active]: {
-			componentRef: SwitchActiveBlockComponent,
-			inputs: {
-				id: 'customer-form-active',
-				control: this.controls.active,
-			}
-		},
+		}
 	};
 
 	public readonly componentList = [
@@ -133,7 +125,11 @@ export class CustomerForm extends BaseEntityForm<'CustomerDto', ICustomerForm> {
 
 			[CustomerFormFieldsEnum.note]: new FormControl(),
 
-			[CustomerFormFieldsEnum.active]: new FormControl(ActiveEnum.YES, {
+			[CustomerFormFieldsEnum.state]: new FormControl(StateEnum.active, {
+				nonNullable: true,
+			}),
+
+			[CustomerFormFieldsEnum.stateHistory]: new FormControl([], {
 				nonNullable: true,
 			}),
 

@@ -1,6 +1,6 @@
 import {Directive, ElementRef, inject, input, OnChanges, OnInit} from '@angular/core';
-import {ActiveEnum} from "@utility/domain/enum";
 import {TranslateService} from "@ngx-translate/core";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 @Directive({
 	selector: '[activeStyle]',
@@ -8,7 +8,7 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class ActiveStyleDirective implements OnInit, OnChanges {
 
-	public readonly active = input<ActiveEnum>(ActiveEnum.NO);
+	public readonly state = input<StateEnum>(StateEnum.active);
 
 	public readonly activeText = input<string>();
 
@@ -37,15 +37,20 @@ export class ActiveStyleDirective implements OnInit, OnChanges {
 
 		let text: string;
 
-		switch (this.active()) {
+		switch (this.state()) {
 
-			case ActiveEnum.NO:
+			case StateEnum.active:
 				this.elementRef.nativeElement.classList.add('bg-red-100', 'text-red-800', 'dark:bg-red-800/30', 'dark:text-red-500');
 				text = this.inactiveText() ?? this.translateService.instant('keyword.capitalize.inactive');
 				break;
 
-			case ActiveEnum.YES:
+			case StateEnum.inactive:
 				this.elementRef.nativeElement.classList.add('bg-teal-100', 'text-teal-800', 'dark:bg-teal-800/30', 'dark:text-teal-500');
+				text = this.activeText() ?? this.translateService.instant('keyword.capitalize.active');
+				break;
+
+			case StateEnum.deleted:
+				this.elementRef.nativeElement.classList.add('bg-red-100', 'text-red-800', 'dark:bg-red-800/30', 'dark:text-red-500');
 				text = this.activeText() ?? this.translateService.instant('keyword.capitalize.active');
 				break;
 

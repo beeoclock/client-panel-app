@@ -9,6 +9,7 @@ import {ActiveStyleDirective} from "@utility/presentation/directives/active-styl
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 @Component({
 	selector: 'service-detail-page',
@@ -35,8 +36,8 @@ export class ServiceDetails {
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
 	public async delete(service: IServiceDto): Promise<void> {
-		const {_id: id, active} = service;
-		if (active) {
+		const {_id: id, state} = service;
+		if (state === StateEnum.active) {
 			return alert('You can\'t delete active service');
 		}
 		await firstValueFrom(this.store.dispatch(new ServiceActions.DeleteItem(id)));

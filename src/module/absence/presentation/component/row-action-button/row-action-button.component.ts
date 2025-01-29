@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 @Component({
 	selector: 'app-absence-row-action-button-component',
@@ -19,7 +20,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 			(activate)="activate()"
 			[hide]="hide()"
 			[id]="id()"
-			[active]="item().active"/>
+			[state]="item().state"/>
 	`,
 	imports: [
 		ActionComponent,
@@ -39,9 +40,9 @@ export class RowActionButtonComponent {
 
 	@Dispatch()
 	public delete() {
-		const {active} = this.item();
+		const {state} = this.item();
 
-		if (active) {
+		if (state === StateEnum.active) {
 
 			return alert('You can\'t delete active absence');
 

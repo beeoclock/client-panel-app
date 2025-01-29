@@ -36,6 +36,7 @@ import {NGXLogger} from "ngx-logger";
 import {is} from "@utility/checker";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 @Component({
 	selector: 'service-form-v2-page-component',
@@ -78,6 +79,8 @@ export class ServiceContainerFormComponent implements OnInit {
 				size: 0,
 				width: 0
 			},
+			state: StateEnum.active,
+			stateHistory: [],
 			createdAt: '',
 			updatedAt: '',
 		}]
@@ -175,7 +178,7 @@ export class ServiceContainerFormComponent implements OnInit {
 		) {
 			this.form.disable();
 			this.form.markAsPending();
-			const value = this.form.getRawValue() as IServiceDto;
+			const value = this.form.getRawValue() as unknown as IServiceDto;
 			if (this.isEditMode()) {
 				await firstValueFrom(this.store.dispatch(new ServiceActions.UpdateItem(value)));
 				await this.imageBlock().save(value._id);

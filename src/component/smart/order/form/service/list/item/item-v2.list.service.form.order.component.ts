@@ -28,6 +28,7 @@ import {NGXLogger} from "ngx-logger";
 import {DateTime} from "luxon";
 import {ICustomer} from "@customer/domain";
 import {SpecialistModel} from "@service/domain/model/specialist.model";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 @Component({
 	selector: 'app-item-list-v2-service-form-order-component',
@@ -215,6 +216,8 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 			createdAt: DateTime.now().toJSDate().toISOString(),
 			updatedAt: DateTime.now().toJSDate().toISOString(),
 			object: "AttendeeDto",
+			state: StateEnum.active,
+			stateHistory: []
 		}];
 		this.item().control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);
 		this.saveChanges.emit();
