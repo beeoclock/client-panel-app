@@ -11,21 +11,26 @@ import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@absence/presentation/component/row-action-button/row-action-button.component";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {
+	AbsenceProgressStatusEnum,
+	AbsenceProgressStatusPipe
+} from "@absence/presentation/pipe/absence-progress-status.pipe";
 
 @Component({
 	selector: 'app-absence-card-list-component',
 	templateUrl: './card.list.component.html',
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
-	imports: [
-		TableStatePaginationComponent,
-		DynamicDatePipe,
-		TranslateModule,
-		CardComponent,
-		NoDataPipe,
-		RowActionButtonComponent,
-		AsyncPipe
-	]
+    imports: [
+        TableStatePaginationComponent,
+        DynamicDatePipe,
+        TranslateModule,
+        CardComponent,
+        NoDataPipe,
+        RowActionButtonComponent,
+        AsyncPipe,
+        AbsenceProgressStatusPipe
+    ]
 })
 export class CardListComponent extends TableComponent<IAbsenceDto> {
 
@@ -39,4 +44,5 @@ export class CardListComponent extends TableComponent<IAbsenceDto> {
 		this.store.dispatch(new AbsenceActions.OpenDetails(item));
 	}
 
+	protected readonly absenceProgressStatusEnum = AbsenceProgressStatusEnum;
 }

@@ -5,11 +5,14 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
 import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
-import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {DatePipe} from "@angular/common";
+import {
+	AbsenceProgressStatusEnum,
+	AbsenceProgressStatusPipe
+} from "@absence/presentation/pipe/absence-progress-status.pipe";
 
 @Component({
 	selector: 'absence-detail-page',
@@ -20,9 +23,9 @@ import {DatePipe} from "@angular/common";
 		TranslateModule,
 		DeleteButtonComponent,
 		EditButtonComponent,
-		ActiveStyleDirective,
 		NoDataPipe,
-		DatePipe
+		DatePipe,
+		AbsenceProgressStatusPipe
 	],
 	standalone: true
 })
@@ -40,7 +43,7 @@ export class AbsenceDetailsContainerComponent implements OnChanges {
 	public leftInDays = 0;
 	public isStarted = false;
 
-	public ngOnChanges(changes: SimpleChanges & {items: SimpleChange}) {
+	public ngOnChanges(changes: SimpleChanges & { items: SimpleChange }) {
 
 		if (changes.item) {
 			this.buildProgressBar();
@@ -111,4 +114,5 @@ export class AbsenceDetailsContainerComponent implements OnChanges {
 		}
 	}
 
+	protected readonly absenceProgressStatusEnum = AbsenceProgressStatusEnum;
 }

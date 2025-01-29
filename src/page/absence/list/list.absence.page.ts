@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ListPage} from "@utility/list.page";
 import {AbsenceState} from "@absence/state/absence/absence.state";
 import {Observable, tap} from "rxjs";
@@ -14,6 +14,9 @@ import {
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {TableService} from "@utility/table.service";
 import {AbsenceTableService} from "@absence/presentation/component/list/absence.table.service";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {AbsenceActions} from "@absence/state/absence/absence.actions";
+import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 
 @Component({
 	selector: 'app-list-absence-page',
@@ -34,7 +37,7 @@ import {AbsenceTableService} from "@absence/presentation/component/list/absence.
 		}
 	]
 })
-export class ListAbsencePage extends ListPage<IAbsenceDto> {
+export class ListAbsencePage extends ListPage<IAbsenceDto> implements OnDestroy, OnInit {
 
 	public readonly tableState$: Observable<ITableState<IAbsenceDto>> = this.store.select(AbsenceState.tableState)
 		.pipe(
@@ -46,6 +49,21 @@ export class ListAbsencePage extends ListPage<IAbsenceDto> {
 	public override ngOnInit() {
 		super.ngOnInit();
 		this.analyticsService.logEvent('list_absence_page_initialized');
+	}
+
+	@Dispatch()
+	public resetFilter() {
+		return new AbsenceActions.UpdateTableState({
+			filters: {},
+			orderBy: OrderByEnum.CREATED_AT,
+			orderDir: OrderDirEnum.DESC,
+			pageSize: 20
+		});
+	}
+
+	public override ngOnDestroy() {
+		this.resetFilter();
+		super.ngOnDestroy();
 	}
 
 }
