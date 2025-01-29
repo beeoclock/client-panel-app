@@ -704,6 +704,7 @@
 						"message": "Produkt został usunięty."
 					}
 				}
+			}
 		},
 		"PATCH": {
 			"/api/v1/event/{id}/booked": {
