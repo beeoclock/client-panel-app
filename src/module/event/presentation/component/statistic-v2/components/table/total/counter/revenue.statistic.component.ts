@@ -9,8 +9,6 @@ import {AsyncPipe, CurrencyPipe} from "@angular/common";
 @Component({
 	selector: 'revenue-statistic-component',
 	template: `
-
-		<div class="rounded-2xl bg-neutral-100 p-2 flex flex-col gap-2">
 			<div class="uppercase text-neutral-400 flex gap-2">
 				<div>
 					<i class="w-6 h-6 ms-1 text-beeColor-500 transition duration-75 dark:text-beeDarkColor-400 group-hover:text-beeColor-900 dark:group-hover:text-white bi bi-person-vcard"></i>
@@ -26,7 +24,6 @@ import {AsyncPipe, CurrencyPipe} from "@angular/common";
 					}
 				</div>
 			</div>
-		</div>
 	`,
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,7 +32,10 @@ import {AsyncPipe, CurrencyPipe} from "@angular/common";
 		TranslatePipe,
 		AsyncPipe,
 		CurrencyPipe
-	]
+	],
+	host: {
+		class: 'rounded-2xl bg-neutral-100 p-2 flex flex-col gap-2'
+	}
 })
 export class RevenueStatisticComponent {
 
