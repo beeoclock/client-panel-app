@@ -3,7 +3,6 @@ import {firstValueFrom} from 'rxjs';
 import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
@@ -21,7 +20,6 @@ import {
 	imports: [
 		DynamicDatePipe,
 		TranslateModule,
-		ActiveStyleDirective,
 		NoDataPipe,
 		DatePipe,
 		RowActionButtonComponent,
