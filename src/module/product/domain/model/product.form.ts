@@ -31,7 +31,7 @@ export class PriceForm extends FormGroup<IPriceForm> {
 
 	public initValue(): void {
 		this.controls.value.setValidators(Validators.required);
-		this.controls.currency.setValue(CurrencyCodeEnum.USD);
+		this.controls.currency.setValidators(Validators.required);
 	}
 }
 
