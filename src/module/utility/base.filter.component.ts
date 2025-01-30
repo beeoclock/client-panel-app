@@ -52,7 +52,7 @@ export abstract class BaseFilterComponent extends Reactive {
 				emitEvent: false,
 				onlySelf: true
 			});
-			await firstValueFrom(this.store.dispatch(new this.actions.UpdateFilters(value)));
+			await firstValueFrom(this.store.dispatch(new this.actions.UpdateTableState(value)));
 			await firstValueFrom(this.store.dispatch(new this.actions.GetList()));
 			this.form.enable({
 				emitEvent: false,

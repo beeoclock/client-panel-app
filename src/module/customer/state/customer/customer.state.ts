@@ -212,17 +212,18 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 	@Action(CustomerActions.UpdateItem)
 	public override async updateItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateItem): Promise<void> {
 		// await super.updateItem(ctx, action);
+		const item = ECustomer.create({
+			...action.payload,
+			id: action.payload._id,
+		});
 		ECustomer.database.updateOne({
 			id: action.payload._id,
 		}, {
-			$set: ECustomer.create({
-				...action.payload,
-				id: action.payload._id,
-			})
+			$set: item
 		});
 		await this.closeForm(ctx);
 		const {data} = ctx.getState().item;
-		data && await this.updateOpenedDetails(ctx, {payload: data});
+		data && await this.updateOpenedDetails(ctx, {payload: item.toDTO()});
 	}
 
 	@Action(CustomerActions.DeleteItem)
@@ -262,8 +263,10 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 
 			const newTableState = TableState.fromCache(state.tableState);
 
+			console.log(state.tableState, {newTableState})
+
 			const {
-				// queryParams,
+				queryParams,
 				resetPage,
 				resetParams
 			} = action.payload ?? {};
@@ -284,13 +287,26 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 			// 	...(queryParams ?? {})
 			// });
 
-			const items = ECustomer.database.find({
+			const phraseFields = ['firstName', 'lastName'];
 
-			},{
-				limit: newTableState.pageSize,
-				skip: (newTableState.page - 1) * newTableState.pageSize,
+			const params = newTableState.toBackendFormat();
+
+			const items = ECustomer.database.find({
+				...((newTableState.filters?.phrase as string)?.length ? {
+					$or: phraseFields.map((field) => {
+						return {
+							[field]: {
+								$regex: newTableState.filters.phrase,
+								$options: "i"
+							}
+						}
+					})
+				} : {})
+			}, {
+				limit: params.pageSize,
+				skip: (params.page - 1) * params.pageSize,
 				sort: {
-					[newTableState.orderBy]: newTableState.orderDir === OrderDirEnum.ASC ? 1 : -1
+					[params.orderBy]: params.orderDir === OrderDirEnum.ASC ? 1 : -1
 				}
 			});
 
