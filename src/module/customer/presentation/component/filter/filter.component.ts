@@ -1,7 +1,6 @@
-import {Component, input} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {SearchInputComponent} from '@utility/presentation/component/input/search.input.component';
 import {FilterForm} from "@customer/presentation/form/filter.form";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {TranslateModule} from "@ngx-translate/core";
 import {IonSelectActiveComponent} from "@utility/presentation/component/input/ion/ion-select-active.component";
@@ -11,6 +10,10 @@ import {DefaultPanelComponent} from "@utility/presentation/component/panel/defau
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {ReactiveFormsModule} from "@angular/forms";
+import ECustomer from "@core/entity/e.customer";
+import {firstValueFrom, map} from "rxjs";
+import {clearObjectClone} from "@utility/domain/clear.object";
+import {toObservable} from "@angular/core/rxjs-interop";
 
 @Component({
 	selector: 'customer-filter-component',
@@ -47,7 +50,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 			}
 		</utility-default-panel-component>
 		@if (isMobile$ | async) {
-			<div  class="flex overflow-x-auto gap-2 my-2 px-2">
+			<div class="flex overflow-x-auto gap-2 my-2 px-2">
 				<ng-container *ngTemplateOutlet="CustomerActiveSelect"></ng-container>
 				<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
 			</div>
@@ -85,15 +88,56 @@ export class FilterComponent extends BaseFilterComponent {
 	public readonly showButtonGoToForm = input(true);
 
 	public override readonly form = new FilterForm();
-	public override readonly actions = CustomerActions;
 	public override readonly state = CustomerState;
+	private readonly customerStore = inject(ECustomer.store);
 
-	constructor() {
-		super();
-		super.initHandlers();
+
+	public override initHandlers() {
+
+		toObservable(this.customerStore.tableState)
+			.pipe(
+				this.takeUntil(),
+			)
+			.subscribe(({filters}: any) => {
+				Object.keys(filters).forEach((key) => {
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					// @ts-expect-error
+					if (!this.form.controls[key]) {
+						return;
+					}
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					// @ts-expect-error
+					this.form.controls[key].patchValue(filters[key], {
+						emitEvent: false,
+						onlySelf: true,
+					});
+				})
+			});
+		this.form.valueChanges.pipe(
+			this.takeUntil(),
+			map(clearObjectClone)
+		).subscribe(async (value: any) => {
+			this.form.disable({
+				emitEvent: false,
+				onlySelf: true
+			});
+			await firstValueFrom(this.store.dispatch(new this.actions.UpdateTableState(value)));
+			await firstValueFrom(this.store.dispatch(new this.actions.GetList()));
+			this.form.enable({
+				emitEvent: false,
+				onlySelf: true
+			});
+		});
+
+	}
+
+	public override forceRefresh(resetPage = false) {
+		// this.store.dispatch(new this.actions.GetList({resetPage}))
+		this.customerStore.getList({resetPage});
 	}
 
 	public openForm() {
-		this.store.dispatch(new CustomerActions.OpenForm());
+		// this.store.dispatch(new CustomerActions.OpenForm());
+		this.customerStore.openForm();
 	}
 }

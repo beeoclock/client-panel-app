@@ -18,7 +18,6 @@ import {
 import {Store} from "@ngxs/store";
 import {BeeoclockIdTokenResult, IdentityState} from "@identity/state/identity/identity.state";
 import {combineLatest, filter, map, switchMap, tap} from "rxjs";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {MemberActions} from "@member/state/member/member.actions";
 import {MAIN_CONTAINER_ID, TENANT_ID} from "@src/token";
@@ -198,7 +197,7 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 	}
 
 	public override ngOnDestroy(): void {
-		this.store.dispatch(new CustomerActions.Init());
+		// this.store.dispatch(new CustomerActions.Init());
 		this.store.dispatch(new ServiceActions.Init());
 		this.store.dispatch(new MemberActions.Init());
 		this.store.dispatch(new EventRequestedActions.Init());

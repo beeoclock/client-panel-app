@@ -48,6 +48,7 @@
 	"private": true,
 	"dependencies": {
 		"@amcharts/amcharts5": "5.10.10",
+		"@angular-architects/ngrx-toolkit": "^19.0.2",
 		"@angular/animations": "19.0.6",
 		"@angular/cdk": "19.0.5",
 		"@angular/common": "19.0.6",

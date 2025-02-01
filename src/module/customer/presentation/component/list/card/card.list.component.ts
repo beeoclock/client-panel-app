@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from "@angular/core";
+import {Component, inject, ViewEncapsulation} from "@angular/core";
 import {AsyncPipe} from "@angular/common";
 import {
 	TableStatePaginationComponent
@@ -7,9 +7,9 @@ import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {ICustomer} from "@customer/domain";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
+import ECustomer from "@core/entity/e.customer";
 
 @Component({
 	selector: 'customer-card-list-component',
@@ -31,9 +31,11 @@ export class CardListComponent extends TableComponent<ICustomer> {
 	public showAction = new BooleanStreamState(true);
 
 	public showSelectedStatus = new BooleanStreamState(false);
+	private readonly customerStore = inject(ECustomer.store);
 
 	public override open(item: ICustomer) {
-		this.store.dispatch(new CustomerActions.OpenDetails(item));
+		// this.store.dispatch(new CustomerActions.OpenDetails(item));
+		this.customerStore.openDetailsById(item._id);
 	}
 
 }

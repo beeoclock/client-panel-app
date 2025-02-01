@@ -1,5 +1,4 @@
-import {Component, effect, inject, input, OnInit, ViewEncapsulation} from '@angular/core';
-import {ICustomer} from '@customer/domain';
+import {Component, inject, input, ViewEncapsulation} from '@angular/core';
 import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
@@ -9,6 +8,7 @@ import {
 } from "@order/presentation/component/external/case/customer/list/customer.order.list.external.whac-a-mole";
 import {PrimaryLinkStyleDirective} from "@utility/presentation/directives/link/primary.link.style.directive";
 import {RowActionButtonComponent} from "@customer/presentation/component/row-action-button/row-action-button.component";
+import {ICustomer} from "@core/interface/i.customer";
 
 @Component({
 	selector: 'customer-detail-page',
@@ -23,28 +23,30 @@ import {RowActionButtonComponent} from "@customer/presentation/component/row-act
 	],
 	standalone: true
 })
-export class CustomerDetailsContainerComponent implements OnInit {
+export class CustomerDetailsContainerComponent {
 
-	// TODO add base index of details with store and delete method
+	public readonly item = input.required<ICustomer.Entity>();
 
-	public readonly item = input.required<ICustomer>();
-
+	// public readonly customerStore = inject(ECustomer.store);
 	public readonly store = inject(Store);
 	public readonly customerOrderListExternalWhacAMole = inject(CustomerOrderListExternalWhacAMole);
-
-	public ngOnInit() {
-
-	}
+	public customer: undefined | ICustomer.Entity = undefined;
 
 	public constructor() {
 
-		effect((onCleanup) => {
-			// const cursor = Customers.find({firstName: 'Mark'});
-			// console.log(cursor.count())
-			onCleanup(() => {
-				// cursor.cleanup()
-			})
-		})
+		// effect(() => {
+		// 	// const cursor = Customers.find({firstName: 'Mark'});
+		// 	// console.log(cursor.count())
+		//
+		// 	// this.customer = this.customerStore.getItem(this.item()._id);
+		//
+		// 	// const item = this.customerStore.getItem(this.item()._id);
+		// 	this.customer = ECustomer.database.findOne({
+		// 		id: this.item()._id,
+		// 	});
+		// 	console.log('effect:', this.customer);
+		//
+		// })
 	}
 
 	public async openCustomersOrders() {

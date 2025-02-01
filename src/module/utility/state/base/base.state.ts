@@ -107,8 +107,6 @@ export abstract class BaseState<ITEM extends IBaseEntity<string>> {
 
 		const {tableState} = state;
 
-		console.log({payload, tableState});
-
 		if (Reflect.has(payload, 'orderBy') && Reflect.has(tableState, 'orderDir')) {
 			if (tableState.orderBy === payload.orderBy) {
 				payload['orderDir'] = tableState.orderDir === OrderDirEnum.ASC ? OrderDirEnum.DESC : OrderDirEnum.ASC;

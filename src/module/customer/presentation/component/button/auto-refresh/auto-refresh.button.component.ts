@@ -1,7 +1,7 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {Store} from "@ngxs/store";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
+import ECustomer from "@core/entity/e.customer";
 
 @Component({
 	selector: 'customer-auto-refresh-component',
@@ -21,12 +21,13 @@ export class AutoRefreshButtonComponent {
 	public readonly resetParams = input(false);
 
 	private readonly store = inject(Store);
+	private readonly customerStore = inject(ECustomer.store);
 
 	public forceRefresh() {
-		this.store.dispatch(new CustomerActions.GetList({
+		this.customerStore.getItems({
 			resetPage: this.resetPage(),
 			resetParams: this.resetParams(),
-		}))
+		})
 	}
 
 }

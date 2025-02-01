@@ -1,4 +1,4 @@
-import {Component, input, viewChildren, ViewEncapsulation} from "@angular/core";
+import {Component, inject, input, viewChildren, ViewEncapsulation} from "@angular/core";
 import {NgClass} from "@angular/common";
 import {
 	NotFoundTableDataComponent
@@ -11,8 +11,8 @@ import LayoutListComponent from "@utility/layout.list.component";
 import {
 	AutoRefreshButtonComponent
 } from "@customer/presentation/component/button/auto-refresh/auto-refresh.button.component";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ITableState} from "@utility/domain/table.state";
+import ECustomer from "@core/entity/e.customer";
 
 @Component({
 	selector: 'customer-mobile-layout-list-component',
@@ -34,9 +34,11 @@ export class MobileLayoutListComponent extends LayoutListComponent<ICustomer> {
 	public override readonly tableState = input.required<ITableState<ICustomer> | null>();
 
 	readonly cardListComponents = viewChildren(CardListComponent);
+	private readonly customerStore = inject(ECustomer.store);
 
 	public openForm(): void {
-		this.store.dispatch(new CustomerActions.OpenForm());
+		// this.store.dispatch(new CustomerActions.OpenForm());
+		this.customerStore.openForm();
 	}
 
 	protected readonly open = open;

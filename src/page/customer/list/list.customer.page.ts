@@ -1,6 +1,5 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ListPage} from "@utility/list.page";
-import {CustomerState} from "@customer/state/customer/customer.state";
 import {Observable, tap} from "rxjs";
 import {ICustomer} from "@customer/domain";
 import {ITableState} from "@utility/domain/table.state";
@@ -13,10 +12,12 @@ import {
 	MobileLayoutListComponent
 } from "@customer/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {TableService} from "@utility/table.service";
-import {CustomerTableService} from "@customer/presentation/component/list/customer.table.service";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
+import ECustomer from "@core/entity/e.customer";
+import {toObservable} from "@angular/core/rxjs-interop";
+import {CustomerTableService} from "@customer/presentation/component/list/customer.table.service";
+
 
 @Component({
 	selector: 'app-list-customer-page',
@@ -41,7 +42,9 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 })
 export class ListCustomerPage extends ListPage<ICustomer> implements OnDestroy, OnInit {
 
-	public readonly tableState$: Observable<ITableState<ICustomer>> = this.store.select(CustomerState.tableState)
+
+	private readonly customerStore = inject(ECustomer.store);
+	public readonly tableState$: Observable<ITableState<ICustomer>> = toObservable(this.customerStore.tableState)
 		.pipe(
 			tap((tableState) => {
 				this.changeDetectorRef.detectChanges();
@@ -55,7 +58,7 @@ export class ListCustomerPage extends ListPage<ICustomer> implements OnDestroy, 
 
 	@Dispatch()
 	public resetFilter() {
-		return new CustomerActions.UpdateTableState({
+		return this.customerStore.updateTableState({
 			filters: {},
 			orderBy: OrderByEnum.CREATED_AT,
 			orderDir: OrderDirEnum.DESC,

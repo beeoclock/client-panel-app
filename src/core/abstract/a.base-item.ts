@@ -7,7 +7,7 @@ import {Types} from "@utility/types";
  *
  * @template T - type of item data.
  */
-export abstract class ABaseItem<T extends string> implements IBaseItem<T> {
+export abstract class ABaseItem<T extends string, DTO> implements IBaseItem<T> {
 
 	id!: string;
 
@@ -21,7 +21,7 @@ export abstract class ABaseItem<T extends string> implements IBaseItem<T> {
 		Object.assign(this, data);
 	}
 
-	public toDTO(): never {
+	public toDTO(): DTO {
 		throw new Error('Method not implemented.');
 	}
 

@@ -1,4 +1,4 @@
-import {Component, input, ViewEncapsulation} from "@angular/core";
+import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
@@ -10,8 +10,8 @@ import LayoutListComponent from "@utility/layout.list.component";
 import {
 	AutoRefreshButtonComponent
 } from "@customer/presentation/component/button/auto-refresh/auto-refresh.button.component";
-import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ITableState} from "@utility/domain/table.state";
+import ECustomer from "@core/entity/e.customer";
 
 @Component({
 	selector: 'customer-desktop-layout-list-component',
@@ -28,8 +28,10 @@ import {ITableState} from "@utility/domain/table.state";
 })
 export class DesktopLayoutListComponent extends LayoutListComponent<ICustomer> {
 	public override readonly tableState = input.required<ITableState<ICustomer> | null>();
+	private readonly customerStore = inject(ECustomer.store);
 	public openForm(): void {
-		this.store.dispatch(new CustomerActions.OpenForm());
+		// this.store.dispatch(new CustomerActions.OpenForm());
+		this.customerStore.openForm();
 	}
 
 }
