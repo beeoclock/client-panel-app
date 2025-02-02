@@ -11,6 +11,7 @@ import {OrderState} from "@order/state/order/order.state";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
+import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 
 @Component({
 	selector: 'app-order-filter-component',
@@ -22,7 +23,8 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 		IonSelectWrapperComponent,
 		AsyncPipe,
 		NgTemplateOutlet,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		AutoRefreshComponent
 	],
 	template: `
 		<utility-default-panel-component>
@@ -31,12 +33,14 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 					<!--					TODO: return this feature when backend will ready for it -->
 <!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
 					<!--				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>-->
+					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
 				</div>
 			} @else {
 				<div class="flex overflow-x-auto gap-2">
 					<!--					TODO: return this feature when backend will ready for it -->
 <!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
 					<ng-container *ngTemplateOutlet="SelectOrderStatus"></ng-container>
+					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
 				</div>
 			}
 		</utility-default-panel-component>
@@ -57,6 +61,9 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 				[multiple]="true"
 				[options]="orderStatusOptions"
 				[control]="orderStatusControl"/>
+		</ng-template>
+		<ng-template #AutoRefresh>
+			<utility-auto-refresh-component id="order-filter-auto-refresh" (emitter)="forceRefresh()"/>
 		</ng-template>
 	`
 })
