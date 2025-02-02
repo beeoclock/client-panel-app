@@ -39,19 +39,24 @@ export class ActiveStyleDirective implements OnInit, OnChanges {
 
 		switch (this.state()) {
 
-			case StateEnum.active:
+			case StateEnum.archived:
 				this.elementRef.nativeElement.classList.add('bg-red-100', 'text-red-800', 'dark:bg-red-800/30', 'dark:text-red-500');
 				text = this.inactiveText() ?? this.translateService.instant('keyword.capitalize.inactive');
 				break;
 
 			case StateEnum.inactive:
+				this.elementRef.nativeElement.classList.add('bg-red-100', 'text-red-800', 'dark:bg-red-800/30', 'dark:text-red-500');
+				text = this.inactiveText() ?? this.translateService.instant('keyword.capitalize.inactive');
+				break;
+
+			case StateEnum.active:
 				this.elementRef.nativeElement.classList.add('bg-teal-100', 'text-teal-800', 'dark:bg-teal-800/30', 'dark:text-teal-500');
 				text = this.activeText() ?? this.translateService.instant('keyword.capitalize.active');
 				break;
 
 			case StateEnum.deleted:
 				this.elementRef.nativeElement.classList.add('bg-red-100', 'text-red-800', 'dark:bg-red-800/30', 'dark:text-red-500');
-				text = this.activeText() ?? this.translateService.instant('keyword.capitalize.active');
+				text = this.activeText() ?? this.translateService.instant('keyword.capitalize.deleted');
 				break;
 
 			default:
