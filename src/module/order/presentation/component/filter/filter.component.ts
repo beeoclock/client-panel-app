@@ -28,12 +28,14 @@ import {OrderStatusEnum} from '@src/module/order/domain/enum/order.status.enum';
 		<utility-default-panel-component>
 			@if (isMobile$ | async) {
 				<div class="flex gap-4 justify-between w-full">
-					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
+					<!--					TODO: return this feature when backend will ready for it -->
+<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
 					<!--				<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>-->
 				</div>
 			} @else {
 				<div class="flex overflow-x-auto gap-2">
-					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
+					<!--					TODO: return this feature when backend will ready for it -->
+<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
 					<ng-container *ngTemplateOutlet="SelectOrderStatus"></ng-container>
 				</div>
 			}
