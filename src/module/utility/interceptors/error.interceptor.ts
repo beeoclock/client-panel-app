@@ -2,6 +2,7 @@ import {HttpErrorResponse, HttpInterceptorFn} from "@angular/common/http";
 import {catchError, throwError} from 'rxjs';
 import {inject} from "@angular/core";
 import {IonicSafeString, ToastController} from "@ionic/angular";
+import {HttpStatusEnum} from "@utility/domain/enum/http-status.enum";
 
 /**
  * TODO Handle any error on response
@@ -16,6 +17,13 @@ export const ErrorInterceptor: HttpInterceptorFn = (request, next) => {
 
 	return next(request).pipe(
 		catchError((response: HttpErrorResponse) => {
+			console.log('ErrorInterceptor:', {response});
+
+			if (response.status === HttpStatusEnum.Unauthorized) {
+				// TODO send some data into Sentry
+				return throwError(() => response);
+			}
+
 			const {error} = response;
 
 			let message: string | IonicSafeString = 'Unknown';
@@ -59,7 +67,7 @@ export const ErrorInterceptor: HttpInterceptorFn = (request, next) => {
 			}).then((toast) => {
 				toast.present().then();
 			});
-			return throwError(error);
+			return throwError(() => response);
 		})
 	);
 
