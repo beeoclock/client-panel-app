@@ -7,7 +7,7 @@ import {
 	viewChild,
 	ViewEncapsulation
 } from '@angular/core';
-import {RouterLink} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {CreateBusinessQuery} from "@identity/query/create-business.query";
@@ -34,8 +34,6 @@ import {CreateServiceApiAdapter} from "@service/adapter/external/api/create.serv
 import {
 	ModalSelectSpecialistListAdapter
 } from "@member/adapter/external/component/modal-select-specialist.list.adapter";
-
-import {TENANT_ID} from "@src/token";
 import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 
@@ -95,10 +93,12 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 			'dark:text-blue-400'
 		],
 	}
+
+	readonly #activatedRoute = inject(ActivatedRoute);
+
 	public readonly patchMediaGalleryClientApiAdapter = inject(PatchMediaGalleryClientApiAdapter);
 	public readonly identityApiAdapter = inject(IdentityApiAdapter);
 	public readonly store = inject(Store);
-	public readonly tenantId$ = inject(TENANT_ID);
 	public readonly allStepsFinishedWithSuccess = new BooleanState(false);
 	public readonly modalSelectSpecialistListAdapter = inject(ModalSelectSpecialistListAdapter);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
@@ -106,6 +106,7 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 	private readonly createServiceApiAdapter = inject(CreateServiceApiAdapter);
 	private readonly updateBusinessProfileApiAdapter = inject(UpdateBusinessProfileApiAdapter);
 	private readonly translateService = inject(TranslateService);
+
 	public readonly steps = [
 		{
 			title: this.translateService.instant('keyword.capitalize.business'),
@@ -186,6 +187,7 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 			const businessCategory = this.createBusinessQuery.getBusinessCategoryControl().value;
 			const bookingSettings = this.createBusinessQuery.getBookingSettingsControl().value;
 			const businessOwner = this.createBusinessQuery.getBusinessOwnerForm().value;
+
 			const body: IBusinessClient = {
 				name: this.createBusinessQuery.getBusinessNameControl().value,
 				businessIndustry: this.createBusinessQuery.getBusinessIndustryControl().value,
@@ -213,9 +215,6 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 			const {id: tenantId} = await firstValueFrom(request$);
 			this.ngxLogger.debug('stepCreateBusiness:tenantId', tenantId);
 
-			this.tenantId$.next(tenantId);
-			this.ngxLogger.debug('stepCreateBusiness:context switched');
-
 			// Refresh token and receive new claims
 			await firstValueFrom(this.store.dispatch(new IdentityActions.InitToken()));
 			this.ngxLogger.debug('stepCreateBusiness:done');
@@ -227,7 +226,9 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 	}
 
 	private async stepAddBusinessProfile(): Promise<void> {
+		const {tenantId} = this.#activatedRoute.snapshot as unknown as {tenantId: string};
 		let body: Client.IClient = {
+			_id: tenantId,
 			schedules: this.createBusinessQuery.getSchedulesForm().value,
 			published: this.createBusinessQuery.publishedControl().value
 		}
@@ -241,7 +242,9 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 	}
 
 	private async stepAddBusinessSettings(): Promise<void> {
+		const {tenantId} = this.#activatedRoute.snapshot as unknown as {tenantId: string};
 		const body: Client.IClient = {
+			_id: tenantId,
 			businessSettings: this.createBusinessQuery.getBusinessSettings().value,
 		}
 		await this.updateBusinessProfileApiAdapter.executeAsync(body);

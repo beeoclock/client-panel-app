@@ -3,6 +3,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterOutlet} from "@angular/router";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {CreateBusinessQuery} from "@identity/query/create-business.query";
+import {CreateBusinessFormRepository} from "@identity/repository/create-business.form.repository";
 
 @Component({
 	selector: 'app-identity-create-business-identity-page',
@@ -17,69 +19,26 @@ import {AnalyticsService} from "@utility/cdk/analytics.service";
 		TranslateModule,
 		RouterOutlet
 	],
+	providers: [
+		CreateBusinessFormRepository,
+		CreateBusinessQuery
+	],
 	encapsulation: ViewEncapsulation.None
 })
 export class CreateBusinessIdentityPage implements OnInit {
+
 	readonly #analyticsService = inject(AnalyticsService);
+	// readonly #activatedRoute = inject(ActivatedRoute);
+	// readonly #router = inject(Router);
 
 	public ngOnInit() {
 		this.#analyticsService.logEvent('member_list_page_initialized');
+		// let {tenantId} = this.#activatedRoute.snapshot.params;
+		// if (!tenantId) {
+		// 	tenantId = new ObjectID().toHexString();
+		// 	this.#router.navigate([tenantId], {relativeTo: this.#activatedRoute}).then();
+		// }
 	}
-
-	// private readonly logger = inject(NGXLogger);
-	// public readonly translateService = inject(TranslateService);
-	// public readonly identityApiAdapter = inject(IdentityApiAdapter);
-	// private readonly toastController = inject(ToastController);
-	// private readonly router = inject(Router);
-	// private readonly changeDetectorRef = inject(ChangeDetectorRef);
-	// private readonly activatedRoute = inject(ActivatedRoute);
-	//
-	// public readonly firstCompany$ = this.activatedRoute.queryParams.pipe(
-	//   map(({firstCompany}) => !!firstCompany)
-	// );
-	//
-	// public readonly notFirstCompany$ = this.firstCompany$.pipe(
-	//   map((firstCompany) => !firstCompany)
-	// );
-	//
-	// public readonly form = new CreateBusinessForm();
-	//
-	// public async save(): Promise<void> {
-	//   this.form.markAllAsTouched();
-	//   if (this.form.valid) {
-	//     this.form.disable();
-	//     this.form.markAsPending();
-	//     try {
-	//       await firstValueFrom(this.identityApiAdapter.postCreateBusinessClient$(this.form.getRawValue()));
-	//       const toast = await this.toastController.create({
-	//         header: 'Business client',
-	//         message: 'You successfully create new business client!',
-	//         color: 'success',
-	//         position: 'top',
-	//         duration: 10_000,
-	//         buttons: [
-	//           {
-	//             text: this.translateService.instant('keyword.capitalize.close'),
-	//             role: 'cancel',
-	//           },
-	//         ],
-	//       });
-	//       await toast.present().then();
-	//       const {firstCompany} = this.activatedRoute.snapshot.queryParams;
-	//       await this.router.navigate(['/', 'identity', 'corridor'], {
-	//         queryParams: {
-	//           force: true,
-	//           firstCompany
-	//         }
-	//       });
-	//     } catch (e) {
-	// 			this.logger.error(e);
-	//     }
-	//     this.form.enable();
-	//     this.form.updateValueAndValidity();
-	//     this.changeDetectorRef.detectChanges();
-	//   }
-	// }
 
 }
 

@@ -1,9 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {CreateBusinessFormRepository} from "@identity/repository/create-business.form.repository";
 
-@Injectable({
-	providedIn: 'root',
-})
+@Injectable()
 export class CreateBusinessQuery {
 
 	private readonly createBusinessFormRepository = inject(CreateBusinessFormRepository);

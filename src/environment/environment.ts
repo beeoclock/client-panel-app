@@ -14,7 +14,10 @@ export const environment = {
 		analytic: 'https://api-dev.beeoclock.com/analytic',
 		panel: 'https://api-dev.beeoclock.com/panel',
 		identity: 'https://api-dev.beeoclock.com/identity',
-		ws: 'https://api-dev.beeoclock.com'
+		ws: {
+			url: 'https://api-dev.beeoclock.com',
+			path: '/ws/panel/socket.io'
+		}
 	},
 	endpoint,
 	constant,

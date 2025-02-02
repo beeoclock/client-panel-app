@@ -123,7 +123,58 @@ export const routes: Routes = [
 						path: 'processing',
 						loadComponent: () => import('@page/identity/create-business/processing/processing.create-business.identity.page'),
 					}
-				]
+				],
+				// children: [
+				// 	{
+				// 		path: ':tenantId', // tenantId of new business context
+				// 		children: [
+				// 			{
+				// 				path: '',
+				// 				loadComponent: () => import('@page/identity/create-business/introduction/introduction.create-business.identity.page'),
+				// 			},
+				// 			{
+				// 				path: 'names',
+				// 				loadComponent: () => import('@page/identity/create-business/names/names.create-business.identity.page'),
+				// 			},
+				// 			{
+				// 				path: 'industry',
+				// 				loadComponent: () => import('@page/identity/create-business/industry/industry.create-business.identity.page'),
+				// 			},
+				// 			{
+				// 				path: 'point-of-sale',
+				// 				loadComponent: () => import('@page/identity/create-business/point-of-sale/point-of-sale.create-business.identity.page'),
+				// 			},
+				// 			{
+				// 				path: 'schedules',
+				// 				loadComponent: () => import('@page/identity/create-business/schedules/schedules.create-business.identity.page'),
+				// 			},
+				// 			{
+				// 				path: 'languages',
+				// 				loadComponent: () => import('@page/identity/create-business/languages/languages.create-business.identity.page'),
+				// 			},
+				// 			{
+				// 				path: 'portfolio',
+				// 				loadComponent: () => import('@page/identity/create-business/portfolio/portfolio.create-business.identity.page'),
+				// 			},
+				// 			{
+				// 				path: 'services',
+				// 				loadComponent: () => import('@page/identity/create-business/services/services.create-business.identity.page'),
+				// 			},
+				// 			{
+				// 				path: 'category',
+				// 				loadComponent: () => import('@page/identity/create-business/category/category.create-business.identity.page'),
+				// 			},
+				// 			{
+				// 				path: 'service-provide-type',
+				// 				loadComponent: () => import('@page/identity/create-business/service-provide-type/service-provide-type.create-business.identity.page'),
+				// 			},
+				// 			{
+				// 				path: 'processing',
+				// 				loadComponent: () => import('@page/identity/create-business/processing/processing.create-business.identity.page'),
+				// 			}
+				// 		]
+				// 	}
+				// ]
 			},
 		]
 	},
