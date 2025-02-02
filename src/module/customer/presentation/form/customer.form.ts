@@ -11,10 +11,10 @@ import {
 } from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
 import {BaseEntityForm} from "@utility/base.form";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
-import {ICustomer} from "@customer/domain";
 import {Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
 import {TelFormInputComponent} from "@utility/presentation/component/tel-form-input/tel.form.input.component";
+import {ICustomer} from "@module/customer";
 
 export const enum CustomerFormFieldsEnum {
 
@@ -188,7 +188,7 @@ export class CustomerForm extends BaseEntityForm<'CustomerDto', ICustomerForm> {
 		this.removeValidators(this.unregisteredCaseValidator);
 	}
 
-	public static create(initValue: Partial<ICustomer> = {}): CustomerForm {
+	public static create(initValue: Partial<ICustomer.DTO> = {}): CustomerForm {
 
 		const form = new CustomerForm();
 

@@ -1,22 +1,32 @@
-import {Enum, IBaseEntity} from "@src/module/utility/domain";
-import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
-import {Tools} from "@utility/tools";
+import {Enum, IBaseEntity} from "@utility/domain";
 import {Types} from "@utility/types";
+import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
+import IBaseItem from "@core/interface/i.base-item";
+import Cursor from "@signaldb/core/Collection/Cursor";
 
-/**
- * Declare interface by business logic, if you need case when each property is optional, use Partial<ICustomer>
- */
-export interface ICustomer extends IBaseEntity<'CustomerDto'> {
-	firstName: string & Types.MaxLength<50> | null;
-	lastName: string & Types.MaxLength<50> | null;
-	phone: string | "" | null;
-	email: string & Types.Email | null;
-	note: string | null;
-	customerType: CustomerTypeEnum & Types.Default<CustomerTypeEnum.new>;
+export namespace ICustomer {
 
-	active: Enum.ActiveEnum;
+	export interface DTO extends IBaseEntity<'CustomerDto'> {
+		firstName: string & Types.MaxLength<50> | null;
+		lastName: string & Types.MaxLength<50> | null;
+		phone: string | "" | null;
+		email: string & Types.Email | null;
+		note: string | null;
+		customerType: CustomerTypeEnum & Types.Default<CustomerTypeEnum.new>;
+
+		active: Enum.ActiveEnum;
+	}
+
+	export interface Entity extends IBaseItem<'CustomerDto'>, DTO {
+
+		getNamesake(): Cursor<ICustomer.Entity, ICustomer.Entity>;
+
+		// TODO: getOrders
+		// TODO: getFavoriteSpecialist
+		// TODO: getFavoriteService
+		// TODO: getFavoriteProduct
+		// TODO: getSpecialistData - when customer is also as specialist
+
+	}
+
 }
-
-export const isCustomer = Tools.createIs<ICustomer>();
-export const validCustomer = Tools.createValidate<ICustomer>();
-export const randomCustomer = Tools.createRandom<ICustomer>();

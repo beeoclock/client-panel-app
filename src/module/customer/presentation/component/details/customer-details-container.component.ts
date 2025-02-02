@@ -1,5 +1,4 @@
 import {Component, inject, input, ViewEncapsulation} from '@angular/core';
-import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
@@ -28,7 +27,6 @@ export class CustomerDetailsContainerComponent {
 	public readonly item = input.required<ICustomer.Entity>();
 
 	// public readonly customerStore = inject(ECustomer.store);
-	public readonly store = inject(Store);
 	public readonly customerOrderListExternalWhacAMole = inject(CustomerOrderListExternalWhacAMole);
 	public customer: undefined | ICustomer.Entity = undefined;
 

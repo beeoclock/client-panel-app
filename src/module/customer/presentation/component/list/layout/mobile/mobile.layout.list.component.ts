@@ -37,7 +37,6 @@ export class MobileLayoutListComponent extends LayoutListComponent<ICustomer> {
 	private readonly customerStore = inject(ECustomer.store);
 
 	public openForm(): void {
-		// this.store.dispatch(new CustomerActions.OpenForm());
 		this.customerStore.openForm();
 	}
 

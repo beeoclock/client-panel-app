@@ -9,11 +9,13 @@ import {Types} from "@utility/types";
  */
 export abstract class ABaseItem<T extends string, DTO> implements IBaseItem<T> {
 
+	// For IndexedDB
 	id!: string;
 
+	// From MongoDB/Backend
 	_id!: string & Types.ObjectId;
-	createdAt!: string & Types.DateTime;
 	object!: T;
+	createdAt!: string & Types.DateTime;
 	updatedAt!: string & Types.DateTime;
 
 	public constructor(data: { _id: string & Types.ObjectId }) {

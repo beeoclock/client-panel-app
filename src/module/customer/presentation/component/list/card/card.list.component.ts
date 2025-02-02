@@ -34,7 +34,6 @@ export class CardListComponent extends TableComponent<ICustomer> {
 	private readonly customerStore = inject(ECustomer.store);
 
 	public override open(item: ICustomer) {
-		// this.store.dispatch(new CustomerActions.OpenDetails(item));
 		this.customerStore.openDetailsById(item._id);
 	}
 

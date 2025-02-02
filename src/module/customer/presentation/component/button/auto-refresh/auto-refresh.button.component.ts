@@ -1,6 +1,5 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
-import {Store} from "@ngxs/store";
 import ECustomer from "@core/entity/e.customer";
 
 @Component({
@@ -20,7 +19,6 @@ export class AutoRefreshButtonComponent {
 
 	public readonly resetParams = input(false);
 
-	private readonly store = inject(Store);
 	private readonly customerStore = inject(ECustomer.store);
 
 	public forceRefresh() {

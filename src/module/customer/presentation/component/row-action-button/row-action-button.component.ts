@@ -1,10 +1,8 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
-import {Store} from "@ngxs/store";
 import {TranslateModule} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {ICustomer} from "@customer/domain";
-import ECustomer from "@core/entity/e.customer";
 
 @Component({
 	selector: 'customer-row-action-button-component',
@@ -40,12 +38,11 @@ export class RowActionButtonComponent {
 
 	public readonly id = input.required<string>();
 
-	public readonly item = input.required<ICustomer>();
+	public readonly item = input.required<ICustomer.DTO>();
 
 	public readonly hide = input<('details' | 'edit' | 'delete' | 'activate' | 'deactivate')[]>([]);
 
 	private readonly customerStore = inject(ECustomer.store);
-	private readonly store = inject(Store);
 	private readonly router = inject(Router);
 	public readonly returnUrl = this.router.url;
 
@@ -57,32 +54,22 @@ export class RowActionButtonComponent {
 			return alert('You can\'t delete active customer');
 
 		}
-		// this.store.dispatch(new CustomerActions.DeleteItem(this.item()._id));
 		this.customerStore.deleteItem(this.item()._id);
 	}
 
 	public activate(): void {
-		// this.store.dispatch(new CustomerActions.UnarchiveItem(this.item()._id));
 		this.customerStore.unarchiveItem(this.item()._id);
 	}
 
 	public deactivate(): void {
-		// this.store.dispatch(new CustomerActions.ArchiveItem(this.item()._id));
 		this.customerStore.archiveItem(this.item()._id);
 	}
 
 	public open(): void {
-		// this.store.dispatch(new CustomerActions.OpenDetails(this.item()));
 		this.customerStore.openDetailsById(this.item()._id);
 	}
 
 	public edit(): void {
-		// this.store.dispatch(new CustomerActions.OpenForm({
-		// 	componentInputs: {
-		// 		isEditMode: true,
-		// 		item: this.item()
-		// 	}
-		// }));
 		this.customerStore.openForm({
 			componentInputs: {
 				isEditMode: true,

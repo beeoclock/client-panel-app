@@ -1,8 +1,6 @@
 import {Component, inject, Input, input, OnInit, ViewEncapsulation} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {ICustomer, validCustomer} from "@customer/domain";
 import {TranslateModule} from "@ngx-translate/core";
-import {Store} from "@ngxs/store";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {CustomerForm} from "@customer/presentation/form";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
@@ -13,7 +11,6 @@ import {
 import {NgComponentOutlet, NgForOf} from "@angular/common";
 import {NGXLogger} from "ngx-logger";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
-import ECustomer from "@core/entity/e.customer";
 
 @Component({
 	selector: 'customer-form-page',
@@ -36,7 +33,6 @@ export class CustomerFormContainerComponent implements OnInit {
 	// TODO move functions to store effects/actions
 
 	private readonly customerStore = inject(ECustomer.store);
-	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
 
 	public readonly form = CustomerForm.create({
@@ -77,10 +73,8 @@ export class CustomerFormContainerComponent implements OnInit {
 			this.form.markAsPending();
 			if (this.isEditMode) {
 				await this.customerStore.updateItem(value);
-				// await firstValueFrom(this.store.dispatch(new CustomerActions.UpdateItem(value)));
 			} else {
 				await this.customerStore.createItem(value);
-				// await firstValueFrom(this.store.dispatch(new CustomerActions.CreateItem(value)));
 			}
 			this.form.enable();
 			this.form.updateValueAndValidity();

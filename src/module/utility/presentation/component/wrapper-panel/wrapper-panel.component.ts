@@ -1,13 +1,4 @@
-import {
-	AfterViewInit,
-	Component,
-	effect,
-	HostBinding,
-	inject,
-	OnDestroy,
-	OnInit,
-	ViewEncapsulation
-} from '@angular/core';
+import {AfterViewInit, Component, HostBinding, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {SidebarComponent} from '@utility/presentation/component/sidebar/sidebar.component';
 import {NavbarComponent} from '@utility/presentation/component/navbar/navbar.component';
 import {RouterOutlet} from '@angular/router';
@@ -37,9 +28,14 @@ import {Reactive} from "@utility/cdk/reactive";
 import {SocketActions} from "@utility/state/socket/socket.actions";
 import {environment} from "@environment/environment";
 import {LastSynchronizationInService} from "@utility/cdk/last-synchronization-in.service";
-import ECustomer from "@core/entity/e.customer";
-import {SyncManagerService} from "@src/database/tenant/signaldb/sync-manager.tenant.signaldb.database";
 import {VisibilityService} from "@utility/cdk/visibility.service";
+import {
+	buildSyncManagerConfigurationPerTenant,
+	SyncManagerService
+} from "@core/infrastructure/database/tenant/signaldb/sync-manager.tenant.signaldb.database";
+import CustomerStore from "@customer/infrastructure/store/customer.store";
+import CustomerPresentationStore from "@customer/infrastructure/store/customer.presentation.store";
+import {CustomerMainPageStore} from "@module/customer";
 
 
 @Component({
@@ -74,7 +70,10 @@ import {VisibilityService} from "@utility/cdk/visibility.service";
 	providers: [
 		LastSynchronizationInService,
 		VisibilityService,
-		SyncManagerService
+		buildSyncManagerConfigurationPerTenant(),
+		CustomerStore,
+		CustomerPresentationStore,
+		CustomerMainPageStore,
 	],
 	encapsulation: ViewEncapsulation.None,
 })
@@ -103,16 +102,6 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 	constructor() {
 		super();
 		this.initNotificationChecker();
-		effect((onCleanup) => {
-			const cursor = ECustomer.database.getNew();
-			const customers = cursor.fetch();
-			const namesakes = (customers[0] as ECustomer)?.getNamesake().fetch();
-			console.log({namesakes})
-			console.log(cursor.count(), customers);
-			onCleanup(() => {
-				cursor.cleanup()
-			})
-		})
 	}
 
 	public ngOnInit(): void {
@@ -197,7 +186,6 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 	}
 
 	public override ngOnDestroy(): void {
-		// this.store.dispatch(new CustomerActions.Init());
 		this.store.dispatch(new ServiceActions.Init());
 		this.store.dispatch(new MemberActions.Init());
 		this.store.dispatch(new EventRequestedActions.Init());

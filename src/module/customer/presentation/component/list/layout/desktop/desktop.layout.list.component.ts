@@ -30,7 +30,6 @@ export class DesktopLayoutListComponent extends LayoutListComponent<ICustomer> {
 	public override readonly tableState = input.required<ITableState<ICustomer> | null>();
 	private readonly customerStore = inject(ECustomer.store);
 	public openForm(): void {
-		// this.store.dispatch(new CustomerActions.OpenForm());
 		this.customerStore.openForm();
 	}
 

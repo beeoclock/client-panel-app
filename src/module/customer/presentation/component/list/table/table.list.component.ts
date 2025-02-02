@@ -7,14 +7,13 @@ import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-
 import {SortIndicatorComponent} from "@utility/presentation/component/pagination/sort.indicator.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableComponent} from "@utility/table.component";
-import {ICustomer} from "@customer/domain";
+import {ECustomer, ICustomer} from "@customer/domain";
 import {BodyTableFlexDirective} from "@utility/presentation/directives/talbe/flex/body.table.flex.directive";
 import {ColumnTableFlexDirective} from "@utility/presentation/directives/talbe/flex/column.table.flex.directive";
 import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex/row.table.flex.directive";
 import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@customer/presentation/component/row-action-button/row-action-button.component";
-import ECustomer from "@core/entity/e.customer";
 
 @Component({
 	selector: 'customer-table-list-component',
@@ -35,7 +34,7 @@ import ECustomer from "@core/entity/e.customer";
 		RowActionButtonComponent
 	]
 })
-export class TableListComponent extends TableComponent<ICustomer> {
+export class TableListComponent extends TableComponent<ICustomer.DTO> {
 
 	private readonly customerStore = inject(ECustomer.store);
 
@@ -92,8 +91,7 @@ export class TableListComponent extends TableComponent<ICustomer> {
 		},
 	};
 
-	public override open(item: ICustomer) {
-		// this.store.dispatch(new CustomerActions.OpenDetails(item));
+	public override open(item: ICustomer.DTO) {
 		this.customerStore.openDetailsById(item._id);
 	}
 

@@ -11,7 +11,7 @@ import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import ECustomer from "@core/entity/e.customer";
-import {firstValueFrom, map} from "rxjs";
+import {map} from "rxjs";
 import {clearObjectClone} from "@utility/domain/clear.object";
 import {toObservable} from "@angular/core/rxjs-interop";
 
@@ -121,8 +121,8 @@ export class FilterComponent extends BaseFilterComponent {
 				emitEvent: false,
 				onlySelf: true
 			});
-			await firstValueFrom(this.store.dispatch(new this.actions.UpdateTableState(value)));
-			await firstValueFrom(this.store.dispatch(new this.actions.GetList()));
+			// await firstValueFrom(this.store.dispatch(new this.actions.UpdateTableState(value)));
+			// await firstValueFrom(this.store.dispatch(new this.actions.GetList()));
 			this.form.enable({
 				emitEvent: false,
 				onlySelf: true
@@ -132,12 +132,10 @@ export class FilterComponent extends BaseFilterComponent {
 	}
 
 	public override forceRefresh(resetPage = false) {
-		// this.store.dispatch(new this.actions.GetList({resetPage}))
 		this.customerStore.getList({resetPage});
 	}
 
 	public openForm() {
-		// this.store.dispatch(new CustomerActions.OpenForm());
 		this.customerStore.openForm();
 	}
 }
