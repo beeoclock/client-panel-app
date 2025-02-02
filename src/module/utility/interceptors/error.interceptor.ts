@@ -17,7 +17,6 @@ export const ErrorInterceptor: HttpInterceptorFn = (request, next) => {
 
 	return next(request).pipe(
 		catchError((response: HttpErrorResponse) => {
-			console.log('ErrorInterceptor:', {response});
 
 			if (response.status === HttpStatusEnum.Unauthorized) {
 				// TODO send some data into Sentry
