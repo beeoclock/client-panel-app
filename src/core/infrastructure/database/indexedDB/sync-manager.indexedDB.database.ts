@@ -6,10 +6,12 @@ import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {ResponseListType} from "@utility/adapter/base.api.adapter";
 import {inject, Injectable, Optional, SkipSelf} from "@angular/core";
 import {HttpClient, HttpContext} from "@angular/common/http";
-import {BehaviorSubject, firstValueFrom} from "rxjs";
+import {BehaviorSubject, filter, firstValueFrom} from "rxjs";
 import {TokensHttpContext} from "@src/tokens.http-context";
 import {LastSynchronizationInService} from "@utility/cdk/last-synchronization-in.service";
-import {CURRENT_TENANT_ID} from "@src/token";
+import {TENANT_ID} from "@src/token";
+import {Reactive} from "@utility/cdk/reactive";
+import {is} from "@utility/checker";
 
 const errorEmitter = new EventEmitter();
 errorEmitter.on('error', (message: unknown) => {
@@ -122,19 +124,23 @@ const getSyncMangerInstance = (httpClient: HttpClient, tenantId: string) => new 
 	},
 });
 
-@Injectable()
-export class SyncManagerService {
+// TODO find a way to delete providedIn: 'root' from the class decorator
+@Injectable({
+	providedIn: 'root'
+})
+export class SyncManagerService extends Reactive {
 
 	private readonly httpClient = inject(HttpClient);
-	private readonly currentTenantId = inject(CURRENT_TENANT_ID);
+	// private readonly currentTenantId = inject(CURRENT_TENANT_ID);
+	private readonly tenantId$ = inject(TENANT_ID);
 	private readonly lastSynchronizationInService = inject(LastSynchronizationInService);
 
 	readonly #isSyncing$ = new BehaviorSubject<boolean>(false);
 
 	public readonly isSyncing$ = this.#isSyncing$.asObservable();
 
-	readonly #syncManager;
-	readonly #tenantId: string;
+	#syncManager!: SyncManager<Record<string, any>, never, any>;
+	#tenantId!: string;
 
 	public constructor(
 		@Optional()
@@ -142,25 +148,33 @@ export class SyncManagerService {
 		public readonly otherInstance: SyncManagerService,
 	) {
 
-		console.log('SyncManagerService', {otherInstance}, this.currentTenantId)
+		super();
 
-		if (otherInstance) {
-			throw new Error('SyncManagerService is already provided');
-		}
+		// console.log('SyncManagerService', {otherInstance}, this.currentTenantId)
+		//
+		// if (otherInstance) {
+		// 	throw new Error('SyncManagerService is already provided');
+		// }
 
-		this.#tenantId = this.currentTenantId;
+		// this.#tenantId = this.currentTenantId;
 
-		let syncManager = SyncManagerService.syncMangers.get(this.#tenantId);
+		this.tenantId$.pipe(this.takeUntil(), filter(is.string)).subscribe((tenantId) => {
 
-		if (!syncManager) {
+			this.#tenantId = tenantId;
 
-			syncManager = getSyncMangerInstance(this.httpClient, this.#tenantId);
+			let syncManager = SyncManagerService.syncMangers.get(this.#tenantId);
 
-			SyncManagerService.syncMangers.set(this.#tenantId, syncManager);
+			if (!syncManager) {
 
-		}
+				syncManager = getSyncMangerInstance(this.httpClient, this.#tenantId);
 
-		this.#syncManager = syncManager;
+				SyncManagerService.syncMangers.set(this.#tenantId, syncManager);
+
+			}
+
+			this.#syncManager = syncManager;
+
+		})
 
 	}
 

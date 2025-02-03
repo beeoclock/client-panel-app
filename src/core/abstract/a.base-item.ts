@@ -9,7 +9,7 @@ import {ActiveEnum} from "@utility/domain/enum";
  *
  * @template T - type of item data.
  */
-export abstract class ABaseItem<T extends string, DTO> implements IBaseItem<T> {
+export abstract class ABaseItem<T extends string, DTO> implements IBaseItem<T, DTO> {
 
 	// For IndexedDB
 	id!: string;

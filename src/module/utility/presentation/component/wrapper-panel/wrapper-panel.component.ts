@@ -12,7 +12,7 @@ import {combineLatest, filter, map, switchMap, tap} from "rxjs";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {MemberActions} from "@member/state/member/member.actions";
-import {getCurrentTenantId, MAIN_CONTAINER_ID, TENANT_ID} from "@src/token";
+import {CURRENT_TENANT_ID, MAIN_CONTAINER_ID, TENANT_ID} from "@src/token";
 import {NGXLogger} from "ngx-logger";
 import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
 import {ClientActions} from "@client/state/client/client.actions";
@@ -28,12 +28,10 @@ import {is} from "@utility/checker";
 import {Reactive} from "@utility/cdk/reactive";
 import {SocketActions} from "@utility/state/socket/socket.actions";
 import {environment} from "@environment/environment";
-import {LastSynchronizationInService} from "@utility/cdk/last-synchronization-in.service";
 import {
 	CustomerIndexedDBCollectionManager
 } from "@customer/infrastructure/manager/customer.indexedDB.collection.manager";
 import {CustomerIndexedDBFacade} from "@customer/infrastructure/facade/indexedDB/customer.indexedDB.facade";
-import {SyncManagerService} from "@src/core/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -65,9 +63,21 @@ import {SyncManagerService} from "@src/core/infrastructure/database/indexedDB/sy
 		WhacAMole,
 	],
 	providers: [
-		getCurrentTenantId(),
-		SyncManagerService,
-		LastSynchronizationInService,
+		{
+			provide: CURRENT_TENANT_ID,
+			useFactory: () => {
+				const tenantId$ = inject(TENANT_ID);
+				// const route = inject(ActivatedRouteSnapshot);
+				console.log('CURRENT_TENANT_ID', tenantId$.value);
+				return tenantId$.value;
+				// const {value: tenantId} = tenantId$;
+				// console.log('CURRENT_TENANT_ID', {tenantId});
+				// if (!tenantId) {
+				// 	throw new Error('tenantId is not provided');
+				// }
+				// return tenantId;
+			},
+		},
 		CustomerIndexedDBCollectionManager,
 		CustomerIndexedDBFacade,
 	],

@@ -1,6 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
-import {baseDefaults, IBaseState} from "@utility/state/base/base.state";
+import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import * as Customer from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ArchiveCustomerApiAdapter} from "@customer/infrastructure/api/archive.customer.api.adapter";
@@ -14,6 +14,12 @@ import {UnarchiveCustomerApiAdapter} from "@customer/infrastructure/api/unarchiv
 import {TranslateService} from "@ngx-translate/core";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
+import {CustomerIndexedDBFacade} from "@customer/infrastructure/facade/indexedDB/customer.indexedDB.facade";
+import {firstValueFrom} from "rxjs";
+import {AppActions} from "@utility/state/app/app.actions";
+import {TableState} from "@utility/domain/table.state";
+import {getMaxPage} from "@utility/domain/max-page";
+import ECustomer from "@customer/domain/entity/e.customer";
 
 export type ICustomerState = IBaseState<Customer.ICustomer.Entity>;
 
@@ -41,6 +47,8 @@ export class CustomerState {
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
+
+	public readonly customerIndexedDBFacade = inject(CustomerIndexedDBFacade);
 
 	// Application layer
 
@@ -172,12 +180,14 @@ export class CustomerState {
 
 	@Action(CustomerActions.UpdateFilters)
 	public updateFilters(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateFilters) {
-		// super.updateFilters(ctx, action);
+
+		BaseState.updateFilters(ctx, action);
+
 	}
 
 	@Action(CustomerActions.UpdateTableState)
 	public updateTableState(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateTableState) {
-		// super.updateTableState(ctx, action);
+		BaseState.updateTableState(ctx, action);
 	}
 
 	@Action(CustomerActions.GetItem)
@@ -194,9 +204,22 @@ export class CustomerState {
 	@Action(CustomerActions.UpdateItem)
 	public async updateItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateItem): Promise<void> {
 		// await super.updateItem(ctx, action);
+
+		// await this.closeForm(ctx);
+		// const {data} = ctx.getState().item;
+		// data && await this.updateOpenedDetails(ctx, {payload: data});
+
+		const item = ECustomer.create({
+			...action.payload
+		});
+		this.customerIndexedDBFacade.source.updateOne({
+			id: action.payload._id,
+		}, {
+			$set: item
+		});
 		await this.closeForm(ctx);
 		const {data} = ctx.getState().item;
-		data && await this.updateOpenedDetails(ctx, {payload: data});
+		data && await this.updateOpenedDetails(ctx, {payload: item});
 	}
 
 	@Action(CustomerActions.DeleteItem)
@@ -219,7 +242,76 @@ export class CustomerState {
 
 	@Action(CustomerActions.GetList)
 	public async getList(ctx: StateContext<ICustomerState>, action: CustomerActions.GetList): Promise<void> {
-		// await super.getList(ctx, action);
+		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
+
+		const state = ctx.getState();
+
+		try {
+
+			const newTableState = TableState.fromCache(state.tableState);
+
+			console.log(state.tableState, {newTableState})
+
+			const {
+				queryParams,
+				resetPage,
+				resetParams
+			} = action.payload ?? {};
+
+			if (resetPage) {
+				newTableState.setPage(1);
+			}
+
+			if (resetParams) {
+				newTableState.filters = {};
+			}
+
+			const phraseFields = ['firstName', 'lastName'];
+
+			const params = newTableState.toBackendFormat();
+
+			const selector = {
+				...((newTableState.filters?.phrase as string)?.length ? {
+					$or: phraseFields.map((field) => {
+						return {
+							[field]: {
+								$regex: newTableState.filters.phrase,
+								$options: "i"
+							}
+						}
+					})
+				} : {})
+			};
+
+			const items = this.customerIndexedDBFacade.source.find(selector, {
+				limit: params.pageSize,
+				skip: (params.page - 1) * params.pageSize,
+				sort: {
+					[params.orderBy]: params.orderDir === OrderDirEnum.ASC ? 1 : -1
+				}
+			}).fetch();
+
+			const count = this.customerIndexedDBFacade.source.find(selector).count();
+
+			newTableState
+				.setTotal(count)
+				.setItems(items)
+				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
+
+			this.ngxLogger.debug('Table state: ', newTableState);
+
+			ctx.patchState({
+				tableState: newTableState.toCache(),
+				lastTableHashSum: newTableState.hashSum
+			});
+
+		} catch (e) {
+			this.ngxLogger.error(e);
+		}
+
+		// Switch of page loader
+		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
+
 
 	}
 

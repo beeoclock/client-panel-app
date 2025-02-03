@@ -6,20 +6,6 @@ import {BehaviorSubject} from "rxjs";
 
 // Use in [tenantId] router or in wrapper-panel.component.ts
 export const CURRENT_TENANT_ID = new InjectionToken<string>('TENANT_ID');
-export const getCurrentTenantId = () => {
-	return {
-		provide: CURRENT_TENANT_ID,
-		useFactory: (tenantId$: BehaviorSubject<string>) => {
-			const {value: tenantId} = tenantId$;
-			console.log('CURRENT_TENANT_ID', {tenantId});
-			if (!tenantId) {
-				throw new Error('tenantId is not provided');
-			}
-			return tenantId;
-		},
-		deps: [TENANT_ID],
-	};
-}
 
 // Use global
 export const THEME = new InjectionToken<BehaviorSubject<ThemeEnum>>('THEME');

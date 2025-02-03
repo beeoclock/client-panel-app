@@ -1,17 +1,24 @@
 import {inject, Injectable, Optional, SkipSelf} from "@angular/core";
-import {CURRENT_TENANT_ID} from "@src/token";
+import {TENANT_ID} from "@src/token";
 import {CustomerIndexedDBCollection} from "@customer/infrastructure/collection/indexedDB/customer.indexedDB.collection";
 import ECustomer from "@customer/domain/entity/e.customer";
 import {customerEndpointEnum} from "@customer/infrastructure/endpoint/customer.endpoint";
 import {SyncManagerService} from "@src/core/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
+import {Reactive} from "@utility/cdk/reactive";
+import {is} from "@utility/checker";
+import {filter} from "rxjs";
 
-@Injectable()
-export class CustomerIndexedDBCollectionManager {
+@Injectable({
+	providedIn: 'root',
+})
+export class CustomerIndexedDBCollectionManager extends Reactive {
 
 	private readonly syncManagerService = inject(SyncManagerService);
-	private readonly currentTenantId = inject(CURRENT_TENANT_ID);
+	private readonly tenantId$ = inject(TENANT_ID);
+	// private readonly currentTenantId = inject(CURRENT_TENANT_ID);
 
-	public readonly context = CustomerIndexedDBCollectionManagerContext.create(this.currentTenantId);
+	// public readonly context = CustomerIndexedDBCollectionManagerContext.create(this.currentTenantId);
+	public context!: CustomerIndexedDBCollectionManagerContext;
 
 	public constructor(
 		@Optional()
@@ -19,14 +26,25 @@ export class CustomerIndexedDBCollectionManager {
 		public readonly otherInstance: SyncManagerService,
 	) {
 
+		super();
+
 		if (otherInstance) {
 			throw new Error('SyncManagerService is already provided');
 		}
 
-		// Add collection to syncManager instance if you need to sync data with server
-		const {collection, options} = this.context.getSyncConfiguration();
-		this.syncManagerService.getSyncManager().addCollection(collection, options);
-		this.syncManagerService.getSyncManager().syncAll();
+		this.tenantId$.pipe(this.takeUntil(), filter(is.string)).subscribe((tenantId) => {
+
+			console.log({tenantId})
+
+			this.context = CustomerIndexedDBCollectionManagerContext.create(tenantId);
+
+			// Add collection to syncManager instance if you need to sync data with server
+			const {collection, options} = this.context.getSyncConfiguration();
+			this.syncManagerService.getSyncManager().addCollection(collection, options);
+			this.syncManagerService.syncAll().then();
+
+		});
+
 	}
 
 }

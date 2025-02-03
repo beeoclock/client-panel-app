@@ -106,6 +106,7 @@ export class ClientState {
 		ctx.dispatch(new AppActions.PageLoading(true));
 
 		const item = await this.itemBusinessProfileApiAdapter.executeAsync();
+		await this.itemBusinessProfileApiAdapter.executeAsync();
 		ctx.patchState({
 			item
 		});

@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {Select, Store} from '@ngxs/store';
 import {IdentityState} from "@identity/state/identity/identity.state";
-import {filter, from, Observable, switchMap, tap} from "rxjs";
+import {filter, from, map, Observable, switchMap, tap} from "rxjs";
 import {AsyncPipe} from "@angular/common";
 import {IMember} from "@identity/domain/interface/i.member";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
@@ -128,12 +128,11 @@ export class CorridorIdentityPage extends Reactive implements OnInit {
 		this.disabled.switchOn();
 
 		this.store.dispatch(new AppActions.PageLoading(true)).pipe(
-			tap(() => {
+			map(() => {
 				const tenantId = member.client._id;
 				this.setLastOpenedTenantIdMapByLogin(tenantId);
-				this.tenantId$.next(tenantId);
+				return tenantId;
 			}),
-			switchMap(() => this.tenantId$),
 			filter((tenantId) => tenantId === member.client._id),
 			tap(() => this.store.dispatch(new AppActions.PageLoading(false))),
 			switchMap(() => from(this.gotToMainAuthorizedPage())),

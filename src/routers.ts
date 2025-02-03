@@ -1,24 +1,24 @@
 import {Routes} from '@angular/router';
 import {AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
-import {tenantIdResolver} from "@utility/presentation/resolver/tenant-id.resolver";
-import {importProvidersFrom} from "@angular/core";
-import {NgxsModule} from "@ngxs/store";
-import WrapperPanelComponent from "@utility/presentation/component/wrapper-panel/wrapper-panel.component";
-import {CalendarWithSpecialistsState} from "@event/state/calendar-with-specialists/calendar–with-specialists.state";
-import {ServiceState} from "@service/state/service/service.state";
-import {CustomerState} from "@customer/state/customer/customer.state";
+import {canMatchBecauseTenantId} from "@utility/can-match/can-match-because-tenant.id";
 import WrapperIdentityComponent from "@utility/presentation/component/wrapper-identity/wrapper-identity.component";
 import {tokenResolver} from "@utility/presentation/resolver/token.resolver";
+import WrapperPanelComponent from "@utility/presentation/component/wrapper-panel/wrapper-panel.component";
+import {importProvidersFrom} from "@angular/core";
+import {NgxsModule} from "@ngxs/store";
 import {AbsenceState} from "@absence/state/absence/absence.state";
-import {OrderState} from "@order/state/order/order.state";
-import {EventState} from "@event/state/event/event.state";
-import {CalendarState} from "@event/state/calendar/calendar.state";
 import {SmsUsedAnalyticState} from "@module/analytic/internal/store/sms-used/sms-used.analytic.state";
 import {
 	DateRangeReportAnalyticState
 } from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.state";
 import {DailyReportAnalyticState} from "@module/analytic/internal/store/daily-report/daily-report.analytic.state";
+import {EventState} from "@event/state/event/event.state";
+import {OrderState} from "@order/state/order/order.state";
+import {CalendarState} from "@event/state/calendar/calendar.state";
+import {CalendarWithSpecialistsState} from "@event/state/calendar-with-specialists/calendar–with-specialists.state";
+import {ServiceState} from "@service/state/service/service.state";
 import {PeerCustomerOrderState} from "@order/state/peer-customer/peer-customer.order.state";
+import {CustomerState} from "@customer/state/customer/customer.state";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
@@ -199,13 +199,14 @@ export const routes: Routes = [
 			},
 			{
 				path: ':tenantId',
-				resolve: {
-					tenantId: tenantIdResolver,
-				},
+				canMatch: [canMatchBecauseTenantId],
+				component: WrapperPanelComponent,
 				providers: [
-					importProvidersFrom(NgxsModule.forFeature([PeerCustomerOrderState])),
+					importProvidersFrom(NgxsModule.forFeature([
+						PeerCustomerOrderState,
+						CustomerState
+					]))
 				],
-				loadComponent: () => WrapperPanelComponent,
 				children: [
 					{
 						path: '',
@@ -333,9 +334,6 @@ export const routes: Routes = [
 					},
 					{
 						path: 'customer',
-						providers: [
-							importProvidersFrom(NgxsModule.forFeature([CustomerState])),
-						],
 						children: [
 							{
 								path: 'list',

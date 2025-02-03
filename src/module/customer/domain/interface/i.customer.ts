@@ -16,7 +16,7 @@ export namespace ICustomer {
 		customerType: CustomerTypeEnum & Types.Default<CustomerTypeEnum.new>;
 	}
 
-	export interface Entity extends IBaseItem<'CustomerDto'>, DTO {
+	export interface Entity extends IBaseItem<'CustomerDto', DTO>, DTO {
 
 		getNamesake(): Cursor<ICustomer.Entity, ICustomer.Entity>;
 

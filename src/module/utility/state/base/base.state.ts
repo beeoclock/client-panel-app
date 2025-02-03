@@ -84,6 +84,11 @@ export abstract class BaseState<ITEM extends IBaseEntity<string>> {
 	 */
 	public updateFilters(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateFilters) {
 
+		BaseState.updateFilters<ITEM>(ctx, {payload});
+
+	}
+	public static updateFilters<ITEM>(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateFilters) {
+
 		const state = ctx.getState();
 
 		this.updateTableState(ctx, {
@@ -102,6 +107,12 @@ export abstract class BaseState<ITEM extends IBaseEntity<string>> {
 	 * @constructor
 	 */
 	public updateTableState(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateTableState<ITEM>) {
+
+		BaseState.updateTableState<ITEM>(ctx, {payload});
+
+	}
+
+	public static updateTableState<ITEM>(ctx: StateContext<IBaseState<ITEM>>, {payload}: BaseActions.UpdateTableState<ITEM>) {
 
 		const state = ctx.getState();
 
