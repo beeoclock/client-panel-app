@@ -1165,6 +1165,8 @@
 			"streetAddressLineOne": "Adresse 1",
 			"streetAddressLineTwo": "Adresse 2",
 			"successfully": "Med succes",
+			"synced": "Synkroniseret",
+			"syncing": "Synkronisering pågår…",
 			"theme": "Tema",
 			"thereArentAnyEvents": "Der er ingen begivenheder den {{ datetime }}",
 			"time": "Tid",

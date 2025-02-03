@@ -1165,6 +1165,8 @@
 			"streetAddressLineOne": "Adres 1",
 			"streetAddressLineTwo": "Adres 2",
 			"successfully": "Pomyślnie",
+			"synced": "Zsynchronizowano",
+			"syncing": "Synchronizacja w toku…",
 			"theme": "Motyw",
 			"thereArentAnyEvents": "Nie ma żadnych wydarzeń na {{ datetime }}",
 			"time": "Czas",
