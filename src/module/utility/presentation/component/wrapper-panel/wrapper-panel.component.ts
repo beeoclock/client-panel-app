@@ -12,7 +12,7 @@ import {combineLatest, filter, map, switchMap, tap} from "rxjs";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {MemberActions} from "@member/state/member/member.actions";
-import {MAIN_CONTAINER_ID, TENANT_ID} from "@src/token";
+import {getCurrentTenantId, MAIN_CONTAINER_ID, TENANT_ID} from "@src/token";
 import {NGXLogger} from "ngx-logger";
 import {MS_ONE_MINUTE} from "@utility/domain/const/c.time";
 import {ClientActions} from "@client/state/client/client.actions";
@@ -28,6 +28,12 @@ import {is} from "@utility/checker";
 import {Reactive} from "@utility/cdk/reactive";
 import {SocketActions} from "@utility/state/socket/socket.actions";
 import {environment} from "@environment/environment";
+import {LastSynchronizationInService} from "@utility/cdk/last-synchronization-in.service";
+import {
+	CustomerIndexedDBCollectionManager
+} from "@customer/infrastructure/manager/customer.indexedDB.collection.manager";
+import {CustomerIndexedDBFacade} from "@customer/infrastructure/facade/indexedDB/customer.indexedDB.facade";
+import {SyncManagerService} from "@src/core/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -56,7 +62,14 @@ import {environment} from "@environment/environment";
 		RouterOutlet,
 		PageLoadingProgressBarComponent,
 		AsyncPipe,
-		WhacAMole
+		WhacAMole,
+	],
+	providers: [
+		getCurrentTenantId(),
+		SyncManagerService,
+		LastSynchronizationInService,
+		CustomerIndexedDBCollectionManager,
+		CustomerIndexedDBFacade,
 	],
 	encapsulation: ViewEncapsulation.None
 })
@@ -173,19 +186,22 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 			this.store.select(IdentityState.token).pipe(filter(is.object<BeeoclockIdTokenResult>)),
 			this.tenantId$.pipe(filter(is.string))
 		])
-		.pipe(
-			this.takeUntil(),
-			map(([beeoclockTokenResult, tenantId]) => {
-				const {token} = beeoclockTokenResult;
-				return {token, tenantId};
-			}),
-			switchMap(({token, tenantId}) => {
-				this.ngxLogger.info(WrapperPanelComponent.name, 'connectWebSocket:DisconnectSocket', {token, tenantId});
-				return this.store.dispatch(new SocketActions.DisconnectSocket()).pipe(
-					map(() => ({token, tenantId}))
-				);
-			})
-		).subscribe({
+			.pipe(
+				this.takeUntil(),
+				map(([beeoclockTokenResult, tenantId]) => {
+					const {token} = beeoclockTokenResult;
+					return {token, tenantId};
+				}),
+				switchMap(({token, tenantId}) => {
+					this.ngxLogger.info(WrapperPanelComponent.name, 'connectWebSocket:DisconnectSocket', {
+						token,
+						tenantId
+					});
+					return this.store.dispatch(new SocketActions.DisconnectSocket()).pipe(
+						map(() => ({token, tenantId}))
+					);
+				})
+			).subscribe({
 			next: ({token, tenantId}) => {
 				this.ngxLogger.info(WrapperPanelComponent.name, 'connectWebSocket:ConnectSocket', {token, tenantId});
 				this.store.dispatch(new SocketActions.ConnectSocket({

@@ -1,10 +1,16 @@
-import angularReactivityAdapter from "@signaldb/angular/index";
+import angularReactivityAdapter from "@signaldb/angular";
 import {Collection} from "@signaldb/core";
 import {ICustomer} from "@customer/domain";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 import indexedDBPersistenceAdapter from "@src/packages/SignalDB/adapter/indexedDB.persistence.adapter";
+import ECustomer from "@customer/domain/entity/e.customer";
 
-class CustomerIndexedDBCollection extends Collection<ICustomer.Entity> {
+/**
+ * Collection for Customer
+ * Use this if you know what you are doing!
+ *
+ */
+export class CustomerIndexedDBCollection extends Collection<ICustomer.Entity> {
 	public constructor(params: { tenantId: string, name: string }) {
 		const {name} = params;
 		super({

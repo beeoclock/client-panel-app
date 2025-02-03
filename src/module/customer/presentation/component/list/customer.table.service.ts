@@ -6,4 +6,8 @@ import {ICustomer} from "@customer/domain";
 @Injectable()
 export class CustomerTableService extends TableService<ICustomer.Entity> {
 	public override readonly actions = CustomerActions;
+
+	constructor() {
+		super();
+	}
 }

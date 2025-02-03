@@ -9,7 +9,7 @@ import {HttpClient, HttpContext} from "@angular/common/http";
 import {BehaviorSubject, firstValueFrom} from "rxjs";
 import {TokensHttpContext} from "@src/tokens.http-context";
 import {LastSynchronizationInService} from "@utility/cdk/last-synchronization-in.service";
-import {ActivatedRoute} from "@angular/router";
+import {CURRENT_TENANT_ID} from "@src/token";
 
 const errorEmitter = new EventEmitter();
 errorEmitter.on('error', (message: unknown) => {
@@ -17,8 +17,9 @@ errorEmitter.on('error', (message: unknown) => {
 	// display validation errors to the user
 });
 
-const getSyncMangerInstance = (httpClient: HttpClient) => new SyncManager({
+const getSyncMangerInstance = (httpClient: HttpClient, tenantId: string) => new SyncManager({
 	// autostart: false,
+	id: tenantId,
 	reactivity: angularReactivityAdapter,
 	persistenceAdapter: createIndexedDBAdapter,
 	pull: async (something, pullParameters) => {
@@ -121,20 +122,11 @@ const getSyncMangerInstance = (httpClient: HttpClient) => new SyncManager({
 	},
 });
 
-export const syncManagerConfigurationRegister: (() => {
-	collection: never;
-	options: {
-		name: string;
-		apiPath: string;
-		toDTO: (raw: never) => never;
-		create: (data: never) => never;
-	};
-})[] = [];
-
 @Injectable()
 export class SyncManagerService {
 
 	private readonly httpClient = inject(HttpClient);
+	private readonly currentTenantId = inject(CURRENT_TENANT_ID);
 	private readonly lastSynchronizationInService = inject(LastSynchronizationInService);
 
 	readonly #isSyncing$ = new BehaviorSubject<boolean>(false);
@@ -142,37 +134,29 @@ export class SyncManagerService {
 	public readonly isSyncing$ = this.#isSyncing$.asObservable();
 
 	readonly #syncManager;
-	readonly #tokenId: string;
+	readonly #tenantId: string;
 
 	public constructor(
-		private readonly activatedRoute: ActivatedRoute,
 		@Optional()
 		@SkipSelf()
 		public readonly otherInstance: SyncManagerService,
 	) {
 
-		console.log('SyncManagerService', {otherInstance, activatedRoute})
+		console.log('SyncManagerService', {otherInstance}, this.currentTenantId)
 
 		if (otherInstance) {
 			throw new Error('SyncManagerService is already provided');
 		}
 
-		this.#tokenId = this.activatedRoute.snapshot.params['tenantId'];
+		this.#tenantId = this.currentTenantId;
 
-		let syncManager = SyncManagerService.syncMangers.get(this.#tokenId);
+		let syncManager = SyncManagerService.syncMangers.get(this.#tenantId);
 
 		if (!syncManager) {
 
-			syncManager = getSyncMangerInstance(this.httpClient);
+			syncManager = getSyncMangerInstance(this.httpClient, this.#tenantId);
 
-			SyncManagerService.syncMangers.set(this.#tokenId, syncManager);
-
-			syncManagerConfigurationRegister.forEach((getSyncConfiguration) => {
-
-				const {collection, options} = getSyncConfiguration();
-				this.#syncManager.addCollection(collection, options);
-
-			});
+			SyncManagerService.syncMangers.set(this.#tenantId, syncManager);
 
 		}
 

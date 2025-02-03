@@ -1,4 +1,4 @@
-import {ActivatedRoute, Routes} from '@angular/router';
+import {Routes} from '@angular/router';
 import {AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
 import {tenantIdResolver} from "@utility/presentation/resolver/tenant-id.resolver";
 import {importProvidersFrom} from "@angular/core";
@@ -13,15 +13,12 @@ import {AbsenceState} from "@absence/state/absence/absence.state";
 import {OrderState} from "@order/state/order/order.state";
 import {EventState} from "@event/state/event/event.state";
 import {CalendarState} from "@event/state/calendar/calendar.state";
-import {PeerCustomerOrderState} from "@order/state/peer-customer/peer-customer.order.state";
 import {SmsUsedAnalyticState} from "@module/analytic/internal/store/sms-used/sms-used.analytic.state";
 import {
 	DateRangeReportAnalyticState
 } from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.state";
 import {DailyReportAnalyticState} from "@module/analytic/internal/store/daily-report/daily-report.analytic.state";
-import {LastSynchronizationInService} from "@utility/cdk/last-synchronization-in.service";
-import {SyncManagerService} from "@src/core/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
-import {CURRENT_TENANT_ID} from "@src/token";
+import {PeerCustomerOrderState} from "@order/state/peer-customer/peer-customer.order.state";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
@@ -205,21 +202,10 @@ export const routes: Routes = [
 				resolve: {
 					tenantId: tenantIdResolver,
 				},
-				component: WrapperPanelComponent,
 				providers: [
-					LastSynchronizationInService,
-					SyncManagerService,
 					importProvidersFrom(NgxsModule.forFeature([PeerCustomerOrderState])),
-					{
-						provide: CURRENT_TENANT_ID,
-						useFactory: (activatedRoute: ActivatedRoute) => {
-							const {tenantId} =  activatedRoute.snapshot.params;
-							console.log('CURRENT_TENANT_ID:', {tenantId})
-							return tenantId;
-						},
-						deps: [ActivatedRoute],
-					}
 				],
+				loadComponent: () => WrapperPanelComponent,
 				children: [
 					{
 						path: '',

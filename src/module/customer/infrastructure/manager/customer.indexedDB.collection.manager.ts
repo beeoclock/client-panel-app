@@ -1,17 +1,41 @@
-import {inject, Injectable} from "@angular/core";
-import {TENANT_ID} from "@src/token";
+import {inject, Injectable, Optional, SkipSelf} from "@angular/core";
+import {CURRENT_TENANT_ID} from "@src/token";
+import {CustomerIndexedDBCollection} from "@customer/infrastructure/collection/indexedDB/customer.indexedDB.collection";
+import ECustomer from "@customer/domain/entity/e.customer";
+import {customerEndpointEnum} from "@customer/infrastructure/endpoint/customer.endpoint";
+import {SyncManagerService} from "@src/core/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
 
 @Injectable()
-export class CustomerIndexedDBRepository {
+export class CustomerIndexedDBCollectionManager {
+
+	private readonly syncManagerService = inject(SyncManagerService);
+	private readonly currentTenantId = inject(CURRENT_TENANT_ID);
+
+	public readonly context = CustomerIndexedDBCollectionManagerContext.create(this.currentTenantId);
+
+	public constructor(
+		@Optional()
+		@SkipSelf()
+		public readonly otherInstance: SyncManagerService,
+	) {
+
+		if (otherInstance) {
+			throw new Error('SyncManagerService is already provided');
+		}
+
+		// Add collection to syncManager instance if you need to sync data with server
+		const {collection, options} = this.context.getSyncConfiguration();
+		this.syncManagerService.getSyncManager().addCollection(collection, options);
+		this.syncManagerService.getSyncManager().syncAll();
+	}
+
+}
 
 
-	private readonly tenantId$ = inject(TENANT_ID);
+class CustomerIndexedDBCollectionManagerContext {
 
 	// Key is tenantId, value is CustomerCollection
-	public static readonly registerCollectionPerTenantId = new Map<string, CustomerCollection>();
-	public static readonly register = new Map<string, CustomerIndexedDBRepository>();
-
-	public readonly collectionName = `customer`;
+	public static readonly register = new Map<string, CustomerIndexedDBCollectionManagerContext>();
 
 	/**
 	 * Database in indexedDB
@@ -19,41 +43,34 @@ export class CustomerIndexedDBRepository {
 
 	readonly #database!: {
 		tenantId: string;
-		collection: CustomerCollection;
+		collection: CustomerIndexedDBCollection;
 	};
 
-	public constructor() {
-		this.tenantId$.value
-		this.collectionName.concat(`-${tenantId}`);
-		let collection = CustomerIndexedDBRepository.registerCollectionPerTenantId.get(tenantId);
-		if (!collection) {
-			collection = CustomerIndexedDBRepository.getCollection(this.tenantId, this.collectionName);
-			CustomerIndexedDBRepository.registerCollectionPerTenantId.set(this.tenantId, collection);
+	public constructor(
+		public readonly tenantId: string,
+		public readonly createdByNew = true,
+		public readonly collectionName = `signaldb-${tenantId}-customer`,
+	) {
+		if (this.createdByNew) {
+			throw new Error('Use CustomerIndexedDBCollectionManagerContext.create()');
 		}
 		this.#database = {
 			tenantId,
-			collection,
+			collection: new CustomerIndexedDBCollection({
+				tenantId,
+				name: this.collectionName,
+			}),
 		};
-		CustomerIndexedDBRepository.register.set(tenantId, this);
+		CustomerIndexedDBCollectionManagerContext.register.set(tenantId, this);
 	}
 
-	public static getCollection(tenantId: string, name: string) {
-
-		const collection = new CustomerCollection({
-			tenantId,
-			name,
-		});
-
-		return collection;
+	public static create(tenantId: string) {
+		return (
+			CustomerIndexedDBCollectionManagerContext.register.get(tenantId) ??
+			new CustomerIndexedDBCollectionManagerContext(tenantId, false)
+		);
 	}
 
-	/**
-	 * Use for factory pattern at wrapper-panel.component.ts
-	 * @param tenantId
-	 */
-	public static createOrGetExist(tenantId: string) {
-		return CustomerIndexedDBRepository.register.get(tenantId) ?? new CustomerIndexedDBRepository(tenantId);
-	}
 
 	public get database() {
 		return this.#database.collection;
