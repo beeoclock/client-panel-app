@@ -43,7 +43,7 @@ export class CustomerFormContainerComponent implements OnInit {
 		customerType: CustomerTypeEnum.regular
 	});
 
-	public readonly item = input<ICustomer | undefined>();
+	public readonly item = input<ICustomer.DTO | undefined>();
 
 	@Input()
 	private isEditMode = false;
@@ -66,7 +66,7 @@ export class CustomerFormContainerComponent implements OnInit {
 
 	public async save(): Promise<void> {
 		this.form.markAllAsTouched();
-		const value = this.form.getRawValue() as ICustomer;
+		const value = this.form.getRawValue() as ICustomer.Entity;
 		const validStatus = validCustomer(value);
 		if (!(validStatus.success) && validStatus.errors.length) {
 			this.ngxLogger.error('Object is invalid', validStatus);

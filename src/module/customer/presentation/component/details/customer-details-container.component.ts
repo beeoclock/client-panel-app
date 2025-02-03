@@ -27,7 +27,7 @@ export class CustomerDetailsContainerComponent {
 
 	// TODO add base index of details with store and delete method
 
-	public readonly item = input.required<ICustomer>();
+	public readonly item = input.required<ICustomer.Entity>();
 
 	public readonly store = inject(Store);
 	public readonly customerOrderListExternalWhacAMole = inject(CustomerOrderListExternalWhacAMole);

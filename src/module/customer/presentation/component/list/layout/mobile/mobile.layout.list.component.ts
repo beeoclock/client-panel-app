@@ -28,10 +28,10 @@ import {ITableState} from "@utility/domain/table.state";
 		NgClass,
 	]
 })
-export class MobileLayoutListComponent extends LayoutListComponent<ICustomer> {
+export class MobileLayoutListComponent extends LayoutListComponent<ICustomer.Entity> {
 
 	public readonly showButtonGoToForm = input(true);
-	public override readonly tableState = input.required<ITableState<ICustomer> | null>();
+	public override readonly tableState = input.required<ITableState<ICustomer.Entity> | null>();
 
 	readonly cardListComponents = viewChildren(CardListComponent);
 

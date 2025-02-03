@@ -2,6 +2,7 @@ import {RoleEnum} from "@utility/domain/enum/role.enum";
 import {Tools} from "@utility/tools";
 import {Types} from "@utility/types";
 import {StateEnum} from "@utility/domain/enum/state.enum";
+import {ActiveEnum} from "@utility/domain/enum";
 
 export interface IBaseEntity<OBJECT_TYPE extends string> {
 
@@ -11,6 +12,8 @@ export interface IBaseEntity<OBJECT_TYPE extends string> {
 	updatedAt: string & Types.DateTime;
 	object: OBJECT_TYPE;
 
+	active: ActiveEnum;
+
 	state: StateEnum;
 	stateHistory: {
 		state: StateEnum;
@@ -18,8 +21,6 @@ export interface IBaseEntity<OBJECT_TYPE extends string> {
 	}[];
 
 }
-
-export type RIBaseEntity<OBJECT_TYPE extends string> = Required<IBaseEntity<OBJECT_TYPE>>;
 
 
 export type IMeta = {

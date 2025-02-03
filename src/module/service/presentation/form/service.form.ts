@@ -221,9 +221,6 @@ export class ServiceForm extends BaseEntityForm<'ServiceDto', IServiceDtoForm> {
 			prepaymentPolicy: new PrepaymentPolicyForm(),
 			languageVersions: new LanguageVersionsForm(),
 			durationVersions: new DurationVersionsForm(),
-			active: new FormControl(ActiveEnum.YES, {
-				nonNullable: true,
-			}),
 			presentation: new PresentationForm(),
 			order: new FormControl(),
 		});

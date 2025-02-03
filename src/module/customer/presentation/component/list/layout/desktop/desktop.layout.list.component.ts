@@ -26,8 +26,8 @@ import {ITableState} from "@utility/domain/table.state";
 		AutoRefreshButtonComponent,
 	]
 })
-export class DesktopLayoutListComponent extends LayoutListComponent<ICustomer> {
-	public override readonly tableState = input.required<ITableState<ICustomer> | null>();
+export class DesktopLayoutListComponent extends LayoutListComponent<ICustomer.Entity> {
+	public override readonly tableState = input.required<ITableState<ICustomer.Entity> | null>();
 	public openForm(): void {
 		this.store.dispatch(new CustomerActions.OpenForm());
 	}

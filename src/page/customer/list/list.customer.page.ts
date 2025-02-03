@@ -39,9 +39,9 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 		}
 	]
 })
-export class ListCustomerPage extends ListPage<ICustomer> implements OnDestroy, OnInit {
+export class ListCustomerPage extends ListPage<ICustomer.Entity> implements OnDestroy, OnInit {
 
-	public readonly tableState$: Observable<ITableState<ICustomer>> = this.store.select(CustomerState.tableState)
+	public readonly tableState$: Observable<ITableState<ICustomer.Entity>> = this.store.select(CustomerState.tableState)
 		.pipe(
 			tap((tableState) => {
 				this.changeDetectorRef.detectChanges();

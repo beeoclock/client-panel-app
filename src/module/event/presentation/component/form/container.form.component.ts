@@ -83,9 +83,12 @@ export class ContainerFormComponent extends Reactive implements OnInit, OnChange
 	public readonly form = new EventForm();
 	public specialist = '';
 	public eventDurationInSeconds = 0;
+
 	readonly servicesComponent = viewChildren(ServicesComponent);
+
 	@SelectSnapshot(ClientState.item)
 	public readonly clientItem!: RIClient;
+
 	private readonly store = inject(Store);
 	public readonly client$ = this.store.select(ClientState.item).pipe(
 		filter(is.not_undefined<RIClient>),

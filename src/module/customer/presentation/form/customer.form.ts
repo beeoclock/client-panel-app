@@ -12,6 +12,7 @@ import {Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
 import {TelFormInputComponent} from "@utility/presentation/component/tel-form-input/tel.form.input.component";
 import {StateEnum} from "@utility/domain/enum/state.enum";
+import {ActiveEnum} from "@utility/domain/enum";
 
 export const enum CustomerFormFieldsEnum {
 
@@ -22,6 +23,7 @@ export const enum CustomerFormFieldsEnum {
 	phone = 'phone',
 	customerType = 'customerType',
 
+	active = 'active',
 	state = 'state',
 	stateHistory = 'stateHistory',
 }
@@ -34,6 +36,7 @@ export interface ICustomerForm {
 	[CustomerFormFieldsEnum.email]: FormControl<string | null>;
 	[CustomerFormFieldsEnum.phone]: FormControl<string | null>;
 
+	[CustomerFormFieldsEnum.active]: FormControl<ActiveEnum>;
 	[CustomerFormFieldsEnum.state]: FormControl<StateEnum>;
 	[CustomerFormFieldsEnum.stateHistory]: FormControl<{state: StateEnum; setAt: string}[]>;
 	[CustomerFormFieldsEnum.customerType]: FormControl<CustomerTypeEnum>;
@@ -125,14 +128,6 @@ export class CustomerForm extends BaseEntityForm<'CustomerDto', ICustomerForm> {
 
 			[CustomerFormFieldsEnum.note]: new FormControl(),
 
-			[CustomerFormFieldsEnum.state]: new FormControl(StateEnum.active, {
-				nonNullable: true,
-			}),
-
-			[CustomerFormFieldsEnum.stateHistory]: new FormControl([], {
-				nonNullable: true,
-			}),
-
 			[CustomerFormFieldsEnum.customerType]: new FormControl(CustomerTypeEnum.new, {
 				nonNullable: true,
 			}),
@@ -184,7 +179,7 @@ export class CustomerForm extends BaseEntityForm<'CustomerDto', ICustomerForm> {
 		this.removeValidators(this.unregisteredCaseValidator);
 	}
 
-	public static create(initValue: Partial<ICustomer> = {}): CustomerForm {
+	public static create(initValue: Partial<ICustomer.Entity> = {}): CustomerForm {
 
 		const form = new CustomerForm();
 

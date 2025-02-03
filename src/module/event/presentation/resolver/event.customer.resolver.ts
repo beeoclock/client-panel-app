@@ -2,7 +2,7 @@ import {inject} from "@angular/core";
 import {ActivatedRouteSnapshot, ResolveFn} from "@angular/router";
 import {Store} from "@ngxs/store";
 import {catchError, EMPTY, of, switchMap} from "rxjs";
-import {ItemCustomerApiAdapter} from "@customer/adapter/external/api/item.customer.api.adapter";
+import {ItemCustomerApiAdapter} from "@customer/infrastructure/api/item.customer.api.adapter";
 import {ICustomer} from "@customer/domain";
 import {ICustomerState} from "@customer/state/customer/customer.state";
 import {CustomerActions} from "@customer/state/customer/customer.actions";

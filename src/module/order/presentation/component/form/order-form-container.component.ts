@@ -96,7 +96,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		defaultAppointmentStartDateTimeIso?: string;
 		defaultMemberForService?: RIMember;
 		serviceList?: IServiceDto[];
-		customer?: ICustomer;
+		customer?: ICustomer.Entity;
 	}>({});
 	public readonly orderDto = input<Partial<IOrderDto>>({});
 	public readonly paymentDto = input<Partial<IPaymentDto>>({});
@@ -122,7 +122,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 
-	public readonly availableCustomersInForm = signal<{ [key: string]: ICustomer }>({});
+	public readonly availableCustomersInForm = signal<{ [key: string]: ICustomer.DTO }>({});
 
 	public ngOnChanges(changes: SimpleChanges & {
 		orderDto: SimpleChange;

@@ -71,7 +71,7 @@ export class RegularCustomerTypeCustomerComponent extends Reactive {
 		return form.value;
 	}
 
-	public selectCustomer(customer: ICustomer) {
+	public selectCustomer(customer: ICustomer.DTO) {
 		this.form().patchValue(customer);
 	}
 

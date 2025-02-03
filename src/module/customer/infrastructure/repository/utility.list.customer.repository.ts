@@ -1,18 +1,18 @@
 import {inject, Injectable} from '@angular/core';
 import {TableState} from "@utility/domain/table.state";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import {ListCustomerApiAdapter} from "@customer/adapter/external/api/list.customer.api.adapter";
+import {ListCustomerApiAdapter} from "@customer/infrastructure/api/list.customer.api.adapter";
 import * as Customer from "@customer/domain";
 import {NGXLogger} from "ngx-logger";
 
 @Injectable({
 	providedIn: 'root'
 })
-export class UtilityListCustomerAdapter {
+export class UtilityListCustomerRepository {
 
 	private readonly logger = inject(NGXLogger);
 	public readonly listCustomerApiAdapter = inject(ListCustomerApiAdapter);
-	public readonly tableState = new TableState<Customer.ICustomer>();
+	public readonly tableState = new TableState<Customer.ICustomer.Entity>();
 	public readonly loading$ = new BooleanStreamState(false);
 
 	public resetTableState(): void {

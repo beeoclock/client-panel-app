@@ -55,7 +55,7 @@ export namespace OrderActions {
 			defaultAppointmentStartDateTimeIso?: string;
 			defaultMemberForService?: RIMember;
 			serviceList?: IServiceDto[];
-			customer?: ICustomer;
+			customer?: ICustomer.DTO;
 		};
 	}> {
 		public static override readonly type = '[Order Application] Open Form';

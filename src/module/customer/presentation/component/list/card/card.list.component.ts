@@ -24,7 +24,7 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 		AsyncPipe
 	]
 })
-export class CardListComponent extends TableComponent<ICustomer> {
+export class CardListComponent extends TableComponent<ICustomer.Entity> {
 
 	// public override readonly actions = CustomerActions;
 
@@ -32,7 +32,7 @@ export class CardListComponent extends TableComponent<ICustomer> {
 
 	public showSelectedStatus = new BooleanStreamState(false);
 
-	public override open(item: ICustomer) {
+	public override open(item: ICustomer.Entity) {
 		this.store.dispatch(new CustomerActions.OpenDetails(item));
 	}
 

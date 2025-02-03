@@ -13,7 +13,7 @@ export interface IAttendee extends IBaseEntity<'Event.Attendant'> {
 	isOptional: IsOptionalEnum;
 	isOrganizer: IsOrganizerEnum;
 	responseStatus: ResponseStatusEnum;
-	customer: ICustomer;
+	customer: ICustomer.DTO;
 }
 
 export interface IEvent extends IBaseEntity<'Event'> {

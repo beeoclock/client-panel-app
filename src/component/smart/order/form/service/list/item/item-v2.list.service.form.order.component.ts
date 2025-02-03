@@ -29,6 +29,7 @@ import {DateTime} from "luxon";
 import {ICustomer} from "@customer/domain";
 import {SpecialistModel} from "@service/domain/model/specialist.model";
 import {StateEnum} from "@utility/domain/enum/state.enum";
+import {ActiveEnum} from "@utility/domain/enum";
 
 @Component({
 	selector: 'app-item-list-v2-service-form-order-component',
@@ -205,7 +206,7 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 		this.saveChanges.emit();
 	}
 
-	public handleCustomerChanges(customer: ICustomer) {
+	public handleCustomerChanges(customer: ICustomer.DTO) {
 		this.#ngxLogger.debug('handleCustomerChanges', this.id(), customer);
 		const {orderAppointmentDetails} = this.item().control.getRawValue();
 
@@ -217,6 +218,7 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 			updatedAt: DateTime.now().toJSDate().toISOString(),
 			object: "AttendeeDto",
 			state: StateEnum.active,
+			active: ActiveEnum.YES,
 			stateHistory: []
 		}];
 		this.item().control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);

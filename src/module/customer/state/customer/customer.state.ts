@@ -1,21 +1,23 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
-import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
+import {baseDefaults, IBaseState} from "@utility/state/base/base.state";
 import * as Customer from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
-import {ArchiveCustomerApiAdapter} from "@customer/adapter/external/api/archive.customer.api.adapter";
-import {CreateCustomerApiAdapter} from "@customer/adapter/external/api/create.customer.api.adapter";
-import {UpdateCustomerApiAdapter} from "@customer/adapter/external/api/update.customer.api.adapter";
-import {ItemCustomerApiAdapter} from "@customer/adapter/external/api/item.customer.api.adapter";
-import {RemoveCustomerApiAdapter} from "@customer/adapter/external/api/remove.customer.api.adapter";
-import {ListCustomerApiAdapter} from "@customer/adapter/external/api/list.customer.api.adapter";
+import {ArchiveCustomerApiAdapter} from "@customer/infrastructure/api/archive.customer.api.adapter";
+import {CreateCustomerApiAdapter} from "@customer/infrastructure/api/create.customer.api.adapter";
+import {UpdateCustomerApiAdapter} from "@customer/infrastructure/api/update.customer.api.adapter";
+import {ItemCustomerApiAdapter} from "@customer/infrastructure/api/item.customer.api.adapter";
+import {RemoveCustomerApiAdapter} from "@customer/infrastructure/api/remove.customer.api.adapter";
+import {ListCustomerApiAdapter} from "@customer/infrastructure/api/list.customer.api.adapter";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
-import {UnarchiveCustomerApiAdapter} from "@customer/adapter/external/api/unarchive.customer.api.adapter";
+import {UnarchiveCustomerApiAdapter} from "@customer/infrastructure/api/unarchive.customer.api.adapter";
 import {TranslateService} from "@ngx-translate/core";
+import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
+import {NGXLogger} from "ngx-logger";
 
-export type ICustomerState = IBaseState<Customer.ICustomer>;
+export type ICustomerState = IBaseState<Customer.ICustomer.Entity>;
 
-const defaults = baseDefaults<Customer.ICustomer>({
+const defaults = baseDefaults<Customer.ICustomer.Entity>({
 	filters: {},
 	orderBy: OrderByEnum.CREATED_AT,
 	orderDir: OrderDirEnum.DESC,
@@ -27,23 +29,18 @@ const defaults = baseDefaults<Customer.ICustomer>({
 	defaults,
 })
 @Injectable()
-export class CustomerState extends BaseState<Customer.ICustomer> {
+export class CustomerState {
 
-	protected override readonly archive = inject(ArchiveCustomerApiAdapter);
-	protected override readonly unarchive = inject(UnarchiveCustomerApiAdapter);
-	protected override readonly create = inject(CreateCustomerApiAdapter);
-	protected override readonly update = inject(UpdateCustomerApiAdapter);
-	protected override readonly item = inject(ItemCustomerApiAdapter);
-	protected override readonly delete = inject(RemoveCustomerApiAdapter);
-	protected override readonly paged = inject(ListCustomerApiAdapter);
-
+	private readonly archive = inject(ArchiveCustomerApiAdapter);
+	private readonly unarchive = inject(UnarchiveCustomerApiAdapter);
+	private readonly create = inject(CreateCustomerApiAdapter);
+	private readonly update = inject(UpdateCustomerApiAdapter);
+	private readonly item = inject(ItemCustomerApiAdapter);
+	private readonly delete = inject(RemoveCustomerApiAdapter);
+	private readonly paged = inject(ListCustomerApiAdapter);
+	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
-
-	constructor() {
-		super(
-			defaults,
-		);
-	}
+	private readonly ngxLogger = inject(NGXLogger);
 
 	// Application layer
 
@@ -169,60 +166,60 @@ export class CustomerState extends BaseState<Customer.ICustomer> {
 	// API
 
 	@Action(CustomerActions.Init)
-	public override async init(ctx: StateContext<ICustomerState>): Promise<void> {
-		await super.init(ctx);
+	public async init(ctx: StateContext<ICustomerState>): Promise<void> {
+		ctx.setState(structuredClone(defaults));
 	}
 
 	@Action(CustomerActions.UpdateFilters)
-	public override updateFilters(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateFilters) {
-		super.updateFilters(ctx, action);
+	public updateFilters(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateFilters) {
+		// super.updateFilters(ctx, action);
 	}
 
 	@Action(CustomerActions.UpdateTableState)
-	public override updateTableState(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateTableState) {
-		super.updateTableState(ctx, action);
+	public updateTableState(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateTableState) {
+		// super.updateTableState(ctx, action);
 	}
 
 	@Action(CustomerActions.GetItem)
-	public override async getItem(ctx: StateContext<ICustomerState>, action: CustomerActions.GetItem): Promise<void> {
-		await super.getItem(ctx, action);
+	public async getItem(ctx: StateContext<ICustomerState>, action: CustomerActions.GetItem): Promise<void> {
+		// await super.getItem(ctx, action);
 	}
 
 	@Action(CustomerActions.CreateItem)
-	public override async createItem(ctx: StateContext<ICustomerState>, action: CustomerActions.CreateItem): Promise<void> {
-		await super.createItem(ctx, action);
+	public async createItem(ctx: StateContext<ICustomerState>, action: CustomerActions.CreateItem): Promise<void> {
+		// await super.createItem(ctx, action);
 		await this.closeForm(ctx);
 	}
 
 	@Action(CustomerActions.UpdateItem)
-	public override async updateItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateItem): Promise<void> {
-		await super.updateItem(ctx, action);
+	public async updateItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateItem): Promise<void> {
+		// await super.updateItem(ctx, action);
 		await this.closeForm(ctx);
 		const {data} = ctx.getState().item;
 		data && await this.updateOpenedDetails(ctx, {payload: data});
 	}
 
 	@Action(CustomerActions.DeleteItem)
-	public override async deleteItem(ctx: StateContext<ICustomerState>, action: CustomerActions.DeleteItem) {
-		await super.deleteItem(ctx, action);
+	public async deleteItem(ctx: StateContext<ICustomerState>, action: CustomerActions.DeleteItem) {
+		// await super.deleteItem(ctx, action);
 		await this.closeDetails(ctx, action);
 	}
 
 	@Action(CustomerActions.ArchiveItem)
-	public override async archiveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.ArchiveItem) {
-		await super.archiveItem(ctx, action);
+	public async archiveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.ArchiveItem) {
+		// await super.archiveItem(ctx, action);
 	}
 
 	@Action(CustomerActions.UnarchiveItem)
-	public override async unarchiveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UnarchiveItem) {
-		await super.unarchiveItem(ctx, action);
+	public async unarchiveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UnarchiveItem) {
+		// await super.unarchiveItem(ctx, action);
 		// TODO: Update opened details
 
 	}
 
 	@Action(CustomerActions.GetList)
-	public override async getList(ctx: StateContext<ICustomerState>, action: CustomerActions.GetList): Promise<void> {
-		await super.getList(ctx, action);
+	public async getList(ctx: StateContext<ICustomerState>, action: CustomerActions.GetList): Promise<void> {
+		// await super.getList(ctx, action);
 
 	}
 

@@ -34,7 +34,7 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {NGXLogger} from "ngx-logger";
 import {is} from "@utility/checker";
-import {CurrencyCodeEnum} from "@utility/domain/enum";
+import {ActiveEnum, CurrencyCodeEnum} from "@utility/domain/enum";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {StateEnum} from "@utility/domain/enum/state.enum";
 
@@ -79,6 +79,7 @@ export class ServiceContainerFormComponent implements OnInit {
 				size: 0,
 				width: 0
 			},
+			active: ActiveEnum.YES,
 			state: StateEnum.active,
 			stateHistory: [],
 			createdAt: '',

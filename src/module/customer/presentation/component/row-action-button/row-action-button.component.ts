@@ -42,7 +42,7 @@ export class RowActionButtonComponent {
 
 	public readonly id = input.required<string>();
 
-	public readonly item = input.required<ICustomer>();
+	public readonly item = input.required<ICustomer.Entity>();
 
 	public readonly hide = input<('details' | 'edit' | 'delete' | 'activate' | 'deactivate')[]>([]);
 

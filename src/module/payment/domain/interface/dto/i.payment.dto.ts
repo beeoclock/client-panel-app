@@ -11,7 +11,7 @@ import {Types} from "@utility/types";
 export interface IPaymentDto extends IBaseEntity<'PaymentDto'> {
 	providerPaymentRef: string | null;
 	orderId: string;
-	payer: ICustomer;
+	payer: ICustomer.Entity;
 	amount: number & Types.Minimum<0>;
 	currency: CurrencyCodeEnum & Types.Default<CurrencyCodeEnum.USD>;
 	method: PaymentMethodEnum & Types.Default<PaymentMethodEnum.CASH>;

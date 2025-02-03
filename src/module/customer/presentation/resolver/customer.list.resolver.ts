@@ -8,7 +8,7 @@ import {ICustomer} from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {ICustomerState} from "@customer/state/customer/customer.state";
 
-export const customerListResolver: ResolveFn<ITableState<ICustomer>> = () => {
+export const customerListResolver: ResolveFn<ITableState<ICustomer.Entity>> = () => {
 
 	const store = inject(Store); // NGXS
 	const router = inject(Router);

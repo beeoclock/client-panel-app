@@ -34,12 +34,12 @@ import {TableService} from "@utility/table.service";
 		}
 	]
 })
-export class CustomerExternalListComponent extends ListPage<ICustomer> {
+export class CustomerExternalListComponent extends ListPage<ICustomer.Entity> {
 
 	@ViewChildren(MobileLayoutListComponent)
 	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
 
-	public readonly tableState$: Observable<ITableState<ICustomer>> = this.store.select(CustomerState.tableState)
+	public readonly tableState$: Observable<ITableState<ICustomer.Entity>> = this.store.select(CustomerState.tableState)
 		.pipe(
 			tap((tableState) => {
 				this.changeDetectorRef.detectChanges();

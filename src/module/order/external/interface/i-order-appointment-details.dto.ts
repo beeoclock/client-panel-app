@@ -20,7 +20,7 @@ export interface ILocationsDto {
 }
 
 export interface IAttendeeDto extends IBaseEntity<'AttendeeDto'> {
-	customer: ICustomer;
+	customer: ICustomer.DTO;
 	firstTime?: boolean;
 }
 

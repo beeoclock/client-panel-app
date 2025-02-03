@@ -35,7 +35,7 @@ import {RowActionButtonComponent} from "@customer/presentation/component/row-act
 		RowActionButtonComponent
 	]
 })
-export class TableListComponent extends TableComponent<ICustomer> {
+export class TableListComponent extends TableComponent<ICustomer.Entity> {
 
 	public readonly tableConfiguration = {
 		columns: {
@@ -90,7 +90,7 @@ export class TableListComponent extends TableComponent<ICustomer> {
 		},
 	};
 
-	public override open(item: ICustomer) {
+	public override open(item: ICustomer.Entity) {
 		this.store.dispatch(new CustomerActions.OpenDetails(item));
 	}
 

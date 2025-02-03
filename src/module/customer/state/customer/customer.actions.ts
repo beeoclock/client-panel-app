@@ -14,11 +14,11 @@ export namespace CustomerActions {
 		public static override readonly type = '[Customer Application] Close Form';
 	}
 
-	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<ICustomer> {
+	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<ICustomer.Entity> {
 		public static override readonly type = '[Customer Application] Update Opened Details';
 	}
 
-	export class OpenDetails extends BaseActions.OpenDetails<ICustomer> {
+	export class OpenDetails extends BaseActions.OpenDetails<ICustomer.Entity> {
 		public static override readonly type = '[Customer Application] Open Details';
 	}
 
@@ -32,7 +32,7 @@ export namespace CustomerActions {
 
 	export class OpenForm extends BaseActions.OpenForm<{
 		isEditMode?: boolean;
-		item?: ICustomer;
+		item?: ICustomer.DTO;
 	}> {
 		public static override readonly type = '[Customer Application] Open Form';
 	}
@@ -55,11 +55,11 @@ export namespace CustomerActions {
 		public static override readonly type = '[Customer API] Get Item';
 	}
 
-	export class CreateItem extends BaseActions.CreateItem<ICustomer> {
+	export class CreateItem extends BaseActions.CreateItem<ICustomer.Entity> {
 		public static override readonly type = '[Customer API] Create Item';
 	}
 
-	export class UpdateItem extends BaseActions.UpdateItem<ICustomer> {
+	export class UpdateItem extends BaseActions.UpdateItem<ICustomer.Entity> {
 		public static override readonly type = '[Customer API] Update Item';
 	}
 
@@ -77,7 +77,7 @@ export namespace CustomerActions {
 		public static override readonly type = '[Customer State] Update Filters';
 	}
 
-	export class UpdateTableState extends BaseActions.UpdateTableState<ICustomer> {
+	export class UpdateTableState extends BaseActions.UpdateTableState<ICustomer.Entity> {
 		public static override readonly type = '[Customer State] Update Table State';
 	}
 

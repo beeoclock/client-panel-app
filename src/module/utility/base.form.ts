@@ -1,6 +1,9 @@
 import {FormControl, FormGroup} from "@angular/forms";
 import {DateTime} from "luxon";
 import ObjectID from "bson-objectid";
+import {StateEnum} from "@utility/domain/enum/state.enum";
+import {ActiveEnum} from "@utility/domain/enum";
+import {Types} from "@utility/types";
 
 
 export interface IBaseEntityForm<OBJECT_NAME> {
@@ -8,10 +11,18 @@ export interface IBaseEntityForm<OBJECT_NAME> {
 	createdAt: FormControl<string>;
 	updatedAt: FormControl<string>;
 	_id: FormControl<string>;
+
+	active: FormControl<ActiveEnum>;
+	state: FormControl<StateEnum>;
+	stateHistory: FormControl<{
+		state: StateEnum;
+		setAt: string & Types.DateTime;
+	}[]>;
 }
 
+type DEFAULT_OMIT = 'object' | '_id' | 'createdAt' | 'updatedAt' | 'active' | 'state' | 'stateHistory';
 type EXTERNAL_FORM_WITHOUT_LOCAL_CONTROLS<FORM_INTERFACE> = {
-	[K in keyof Omit<FORM_INTERFACE, 'object' | '_id' | 'createdAt' | 'updatedAt'>]: Omit<FORM_INTERFACE, 'object' | '_id' | 'createdAt' | 'updatedAt'>[K];
+	[K in keyof Omit<FORM_INTERFACE, DEFAULT_OMIT>]: Omit<FORM_INTERFACE, DEFAULT_OMIT>[K];
 };
 
 export class BaseEntityForm<OBJECT_NAME, FORM_INTERFACE extends EXTERNAL_FORM_WITHOUT_LOCAL_CONTROLS<FORM_INTERFACE>> extends FormGroup<EXTERNAL_FORM_WITHOUT_LOCAL_CONTROLS<FORM_INTERFACE> & IBaseEntityForm<OBJECT_NAME>> {
@@ -30,6 +41,18 @@ export class BaseEntityForm<OBJECT_NAME, FORM_INTERFACE extends EXTERNAL_FORM_WI
 				nonNullable: true,
 			}),
 			_id: new FormControl(ObjectID().toHexString(), {
+				nonNullable: true,
+			}),
+
+			active: new FormControl(ActiveEnum.YES, {
+				nonNullable: true,
+			}),
+
+			state: new FormControl(StateEnum.active, {
+				nonNullable: true,
+			}),
+
+			stateHistory: new FormControl([], {
 				nonNullable: true,
 			}),
 			...controls

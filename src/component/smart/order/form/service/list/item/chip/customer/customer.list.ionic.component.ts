@@ -35,7 +35,7 @@ import {Store} from "@ngxs/store";
 import {Reactive} from "@utility/cdk/reactive";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import ObjectID from "bson-objectid";
-import {EventListCustomerAdapter} from "@customer/adapter/external/module/event.list.customer.adapter";
+import {EventListCustomerRepository} from "@customer/infrastructure/repository/event.list.customer.repository";
 import {DefaultButtonDirective} from "@utility/presentation/directives/button/default.button.directive";
 import {NGXLogger} from "ngx-logger";
 
@@ -201,9 +201,9 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 
 	public readonly ngxLogger = inject(NGXLogger);
 	public readonly changeDetectorRef = inject(ChangeDetectorRef);
-	public readonly eventListCustomerAdapter = inject(EventListCustomerAdapter);
+	public readonly eventListCustomerAdapter = inject(EventListCustomerRepository);
 
-	protected selectedCustomer: ICustomer | undefined;
+	protected selectedCustomer: ICustomer.DTO | undefined;
 
 	public ngOnInit() {
 		if (!this.eventListCustomerAdapter.tableState.items.length) {
@@ -220,13 +220,13 @@ export class CustomerListIonicComponent extends Reactive implements OnInit {
 		this.changeDetectorRef.detectChanges();
 	}
 
-	public select(customer: ICustomer) {
+	public select(customer: ICustomer.DTO) {
 		this.selectedCustomer = customer;
 		this.localCustomerForm.patchValue(customer);
 		this.changeDetectorRef.detectChanges();
 	}
 
-	public isChecked(customer: ICustomer) {
+	public isChecked(customer: ICustomer.DTO) {
 		if (!this.selectedCustomer) return false;
 		return this.selectedCustomer._id === customer._id;
 	}

@@ -152,7 +152,7 @@ export class V2GeneralDetailsComponent implements OnChanges {
 
 	public readonly attendantMap: {
 		specialists: ISpecialist[];
-		customers: ICustomer[];
+		customers: ICustomer.DTO[];
 	} = {
 		specialists: [],
 		customers: [],
@@ -197,7 +197,7 @@ export class V2GeneralDetailsComponent implements OnChanges {
 	}
 
 	@Dispatch()
-	public openCustomerDetails(customer: ICustomer) {
+	public openCustomerDetails(customer: ICustomer.DTO) {
 		return new CustomerActions.OpenDetailsById(customer._id);
 	}
 
