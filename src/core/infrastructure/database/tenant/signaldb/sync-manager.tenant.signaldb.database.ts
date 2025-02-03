@@ -4,12 +4,12 @@ import angularReactivityAdapter from '@signaldb/angular';
 import {SyncManager} from '@signaldb/sync'
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {ResponseListType} from "@utility/adapter/base.api.adapter";
-import {inject, Injectable} from "@angular/core";
+import {inject, Injectable, Optional, SkipSelf} from "@angular/core";
 import {HttpClient, HttpContext} from "@angular/common/http";
 import {BehaviorSubject, firstValueFrom} from "rxjs";
 import {TokensHttpContext} from "@src/tokens.http-context";
-import {TENANT_ID} from "@src/token";
 import {LastSynchronizationInService} from "@utility/cdk/last-synchronization-in.service";
+import {ActivatedRoute} from "@angular/router";
 
 const errorEmitter = new EventEmitter();
 errorEmitter.on('error', (message: unknown) => {
@@ -96,7 +96,7 @@ const getSyncMangerInstance = (httpClient: HttpClient) => new SyncManager({
 
 		await Promise.all(changes.removed.map(async (item: { id: string }) => {
 
-			const body = item;
+			// const body = item;
 
 			const request$ = httpClient.delete(endpoint.delete, {
 				context: new HttpContext().set(TokensHttpContext.REPLACE, {
@@ -142,18 +142,30 @@ export class SyncManagerService {
 	public readonly isSyncing$ = this.#isSyncing$.asObservable();
 
 	readonly #syncManager;
+	readonly #tokenId: string;
 
 	public constructor(
-		public readonly tenantId: string
+		private readonly activatedRoute: ActivatedRoute,
+		@Optional()
+		@SkipSelf()
+		public readonly otherInstance: SyncManagerService,
 	) {
 
-		let syncManager = SyncManagerService.syncMangers.get(tenantId);
+		console.log('SyncManagerService', {otherInstance, activatedRoute})
+
+		if (otherInstance) {
+			throw new Error('SyncManagerService is already provided');
+		}
+
+		this.#tokenId = this.activatedRoute.snapshot.params['tenantId'];
+
+		let syncManager = SyncManagerService.syncMangers.get(this.#tokenId);
 
 		if (!syncManager) {
 
 			syncManager = getSyncMangerInstance(this.httpClient);
 
-			SyncManagerService.syncMangers.set(tenantId, syncManager);
+			SyncManagerService.syncMangers.set(this.#tokenId, syncManager);
 
 			syncManagerConfigurationRegister.forEach((getSyncConfiguration) => {
 
@@ -187,12 +199,3 @@ export class SyncManagerService {
 
 }
 
-export const buildSyncManagerConfigurationPerTenant = () => {
-	return {
-		provide: SyncManagerService,
-		useFactory: (TENANT_ID: string) => {
-			return new SyncManagerService(TENANT_ID);
-		},
-		deps: [TENANT_ID]
-	};
-};
