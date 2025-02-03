@@ -17,19 +17,19 @@ import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.en
 import {EventActions} from "@event/state/event/event.actions";
 import {
 	AnybodySpecialistIconComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/anybody-specialist.icon.component";
+} from "@page/[tenantId]/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/anybody-specialist.icon.component";
 import {
 	NoteIconComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/note.icon.component";
+} from "@page/[tenantId]/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/note.icon.component";
 import {
 	StatusIconComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.icon.component";
+} from "@page/[tenantId]/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/status.icon.component";
 import {
 	FirstTimeIconComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/first-time.icon.component";
+} from "@page/[tenantId]/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/first-time.icon.component";
 import {
 	BusinessNoteIconComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/business-note.icon.component";
+} from "@page/[tenantId]/event/calendar-with-specialists/v2/component/elements-on-calendar/icon/business-note.icon.component";
 
 @Component({
 	selector: 'app-order-event-calendar-with-specialist-widget-component',

@@ -9,7 +9,7 @@ import {AsyncPipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService from "./calendar-with-specialist.loca.state.service";
 import {
 	CalendarWithSpecialistWidgetComponent
-} from "@page/event/calendar-with-specialists/v2/component/main/calendar-with-specialist.widget.component";
+} from "@page/[tenantId]/event/calendar-with-specialists/v2/component/main/calendar-with-specialist.widget.component";
 
 @Component({
 	selector: 'app-event-v2-schedule-container-week-calendar-component',

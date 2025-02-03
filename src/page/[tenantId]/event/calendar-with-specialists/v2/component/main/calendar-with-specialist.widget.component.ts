@@ -14,12 +14,12 @@ import {
 } from "@angular/core";
 import {AsyncPipe, DOCUMENT} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
-	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
+	from "@page/[tenantId]/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {Reactive} from "@utility/cdk/reactive";
 import {NGXLogger} from "ngx-logger";
 import {
 	HeaderCalendarWithSpecialistWidgetComponent
-} from "@page/event/calendar-with-specialists/v2/component/header.calendar-with-specialist.widget.component";
+} from "@page/[tenantId]/event/calendar-with-specialists/v2/component/header.calendar-with-specialist.widget.component";
 import {firstValueFrom, map, switchMap} from "rxjs";
 import {IEvent_V2} from "@event/domain";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
@@ -32,7 +32,7 @@ import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-speciali
 import {TranslateModule} from "@ngx-translate/core";
 import {
 	TimeLineCalendarWithSpecialistWidgetComponent
-} from "@page/event/calendar-with-specialists/v2/component/time-line.calendar-with-specialist.widget.component";
+} from "@page/[tenantId]/event/calendar-with-specialists/v2/component/time-line.calendar-with-specialist.widget.component";
 import {FormControl} from "@angular/forms";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 import {OrderActions} from "@order/state/order/order.actions";
@@ -41,18 +41,18 @@ import {ClientState} from "@client/state/client/client.state";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {
 	ScheduleElementCalendarWithSpecialistWidgetComponent
-} from "@page/event/calendar-with-specialists/v2/component/schedule-element.calendar-with-specialist.widget.component";
+} from "@page/[tenantId]/event/calendar-with-specialists/v2/component/schedule-element.calendar-with-specialist.widget.component";
 import {
 	EventCalendarWithSpecialistWidgetComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/event.calendar-with-specialist.widget.component";
+} from "@page/[tenantId]/event/calendar-with-specialists/v2/component/elements-on-calendar/event.calendar-with-specialist.widget.component";
 import {
 	EmptySlotCalendarWithSpecialistWidgetComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/empty-slot.calendar-with-specialist.widget.component";
+} from "@page/[tenantId]/event/calendar-with-specialists/v2/component/elements-on-calendar/empty-slot.calendar-with-specialist.widget.component";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {
 	FilterCalendarWithSpecialistComponent
-} from "@page/event/calendar-with-specialists/v2/component/main/filter/filter.calendar-with-specialist.component";
+} from "@page/[tenantId]/event/calendar-with-specialists/v2/component/main/filter/filter.calendar-with-specialist.component";
 
 @Component({
 	selector: 'app-calendar-with-specialists-widget-component',

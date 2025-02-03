@@ -13,7 +13,7 @@ import {
 } from "@angular/core";
 import {DatePipe} from "@angular/common";
 import CalendarWithSpecialistLocaStateService
-	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
+	from "@page/[tenantId]/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {IEvent_V2} from "@event/domain";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
@@ -27,10 +27,10 @@ import {AlertController} from "@ionic/angular";
 import {TranslateService} from "@ngx-translate/core";
 import {
 	OrderEventCalendarWithSpecialistWidgetComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/order-event.calendar-with-specialist.widget.component";
+} from "@page/[tenantId]/event/calendar-with-specialists/v2/component/elements-on-calendar/order-event.calendar-with-specialist.widget.component";
 import {
 	AbsenceEventCalendarWithSpecialistWidgetComponent
-} from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/absence-event.calendar-with-specialist.widget.component";
+} from "@page/[tenantId]/event/calendar-with-specialists/v2/component/elements-on-calendar/absence-event.calendar-with-specialist.widget.component";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
 

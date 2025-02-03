@@ -12,7 +12,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import ScheduleV2ContainerWeekCalendarComponent from "./schedule.container.week-calendar.component";
 import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
 import CalendarWithSpecialistLocaStateService
-	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
+	from "@page/[tenantId]/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 
 @Component({
 	selector: 'app-event-v2-members-container-week-calendar-component',

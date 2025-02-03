@@ -1,6 +1,6 @@
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import MembersV2ContainerWeekCalendarComponent
-	from "@page/event/calendar-with-specialists/v2/members.container.week-calendar.component";
+	from "@page/[tenantId]/event/calendar-with-specialists/v2/members.container.week-calendar.component";
 import {NGXLogger} from "ngx-logger";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 
