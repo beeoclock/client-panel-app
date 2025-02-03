@@ -19,7 +19,9 @@
 					"options": {
 						"allowedCommonJsDependencies": [
 							"hash-sum",
-							"typescript-debounce-decorator"
+							"typescript-debounce-decorator",
+							"typia",
+							"bson-objectid"
 						],
 						"outputPath": "dist",
 						"index": "src/index.html",
