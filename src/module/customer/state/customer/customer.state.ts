@@ -20,6 +20,7 @@ import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
 import ECustomer from "@customer/domain/entity/e.customer";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 export type ICustomerState = IBaseState<Customer.ICustomer.Entity>;
 
@@ -193,11 +194,29 @@ export class CustomerState {
 	@Action(CustomerActions.GetItem)
 	public async getItem(ctx: StateContext<ICustomerState>, action: CustomerActions.GetItem): Promise<void> {
 		// await super.getItem(ctx, action);
+
+		const data = this.customerIndexedDBFacade.source.findOne({
+			id: action.payload
+		});
+
+		if (!data) {
+			return;
+		}
+
+		ctx.patchState({
+			item: {
+				data,
+				downloadedAt: new Date(),
+			}
+		});
+
 	}
 
 	@Action(CustomerActions.CreateItem)
 	public async createItem(ctx: StateContext<ICustomerState>, action: CustomerActions.CreateItem): Promise<void> {
 		// await super.createItem(ctx, action);
+		// await this.closeForm(ctx);
+		this.customerIndexedDBFacade.source.insert(ECustomer.create(action.payload));
 		await this.closeForm(ctx);
 	}
 
@@ -225,18 +244,69 @@ export class CustomerState {
 	@Action(CustomerActions.DeleteItem)
 	public async deleteItem(ctx: StateContext<ICustomerState>, action: CustomerActions.DeleteItem) {
 		// await super.deleteItem(ctx, action);
+		this.customerIndexedDBFacade.source.removeOne({
+			id: action.payload
+		});
 		await this.closeDetails(ctx, action);
 	}
 
 	@Action(CustomerActions.ArchiveItem)
 	public async archiveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.ArchiveItem) {
 		// await super.archiveItem(ctx, action);
+		const item = this.customerIndexedDBFacade.source.findOne({
+			id: action.payload
+		});
+		if (!item) {
+			return;
+		}
+		this.customerIndexedDBFacade.source.updateOne({
+				id: action.payload
+			},
+			{
+				$set: {
+					status: StateEnum.archived,
+					stateHistory: [
+						...item.stateHistory,
+						{
+							state: StateEnum.archived,
+							setAt: new Date().toISOString()
+						}
+					]
+				}
+			});
+		const {data} = ctx.getState().item;
+		data && await this.updateOpenedDetails(ctx, {payload: item});
 	}
 
 	@Action(CustomerActions.UnarchiveItem)
 	public async unarchiveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UnarchiveItem) {
 		// await super.unarchiveItem(ctx, action);
 		// TODO: Update opened details
+		const item = this.customerIndexedDBFacade.source.findOne({
+			id: action.payload
+		});
+		if (!item) {
+			return;
+		}
+
+		this.customerIndexedDBFacade.source.updateOne({
+				id: action.payload
+			},
+			{
+				$set: {
+					status: StateEnum.active,
+					stateHistory: [
+						...item.stateHistory,
+						{
+							state: StateEnum.active,
+							setAt: new Date().toISOString()
+						}
+					]
+				}
+			});
+		const {data} = ctx.getState().item;
+		data && await this.updateOpenedDetails(ctx, {payload: item});
+
 
 	}
 
