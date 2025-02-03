@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, inject, ViewEncapsulation} from '@angular/core';
-import {NgSwitch, NgSwitchCase} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {SidebarService} from "@utility/presentation/component/sidebar/sidebar.service";
 import {SIDEBAR_ID} from "@src/token";
@@ -16,8 +15,6 @@ import {SyncButtonComponent} from "@utility/presentation/component/sync-button/s
 	imports: [
 		TranslateModule,
 		MenuSidebarComponent,
-		NgSwitch,
-		NgSwitchCase,
 		ProfileSidebarComponent,
 		SyncButtonComponent
 	],
