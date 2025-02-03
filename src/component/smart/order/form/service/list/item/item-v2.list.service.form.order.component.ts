@@ -204,7 +204,7 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 		this.saveChanges.emit();
 	}
 
-	public handleCustomerChanges(customer: ICustomer) {
+	public handleCustomerChanges(customer: ICustomer.DTO) {
 		this.#ngxLogger.debug('handleCustomerChanges', this.id(), customer);
 		const {orderAppointmentDetails} = this.item().control.getRawValue();
 

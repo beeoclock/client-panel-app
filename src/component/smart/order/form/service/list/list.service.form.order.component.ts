@@ -68,7 +68,7 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
     defaultAppointmentStartDateTimeIso?: string;
     defaultMemberForService?: RIMember;
     serviceList?: IServiceDto[];
-    customer?: ICustomer;
+    customer?: ICustomer.DTO;
 }>({});
 
 	public readonly serviceOrderFormArray = input.required<ServiceOrderFormArray>();

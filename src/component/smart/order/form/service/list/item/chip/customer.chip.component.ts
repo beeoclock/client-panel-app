@@ -73,11 +73,11 @@ import {
 })
 export class CustomerChipComponent extends Reactive implements OnInit {
 
-	public readonly initialValue = input<ICustomer>();
+	public readonly initialValue = input<ICustomer.DTO>();
 
 	public readonly id = input<string>(ObjectID().toHexString());
 
-	public readonly customerChanges = output<ICustomer>();
+	public readonly customerChanges = output<ICustomer.DTO>();
 
 	readonly customerPopover = viewChild.required<IonPopover>('customerPopover');
 
@@ -89,7 +89,7 @@ export class CustomerChipComponent extends Reactive implements OnInit {
 
 	public ngOnInit() {
 		const initialValue = this.initialValue();
-  if (initialValue) {
+		if (initialValue) {
 			this.customerForm.patchValue(initialValue);
 			this.#changeDetectorRef.detectChanges();
 		}
