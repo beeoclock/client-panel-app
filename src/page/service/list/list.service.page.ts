@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {AsyncPipe} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {ListPage} from "@utility/list.page";
@@ -14,6 +14,9 @@ import {
 import {TableService} from "@utility/table.service";
 import {ServiceTableService} from "@service/presentation/component/list/service.table.service";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {ServiceActions} from "@service/state/service/service.actions";
 
 @Component({
 	selector: 'app-list-service-page',
@@ -34,7 +37,7 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 	],
 	standalone: true,
 })
-export class ListServicePage extends ListPage<IServiceDto> implements OnInit {
+export class ListServicePage extends ListPage<IServiceDto> implements OnInit, OnDestroy {
 
 	public readonly tableState$: Observable<ITableState<IServiceDto>> = this.store.select(ServiceState.tableState)
 		.pipe(
@@ -46,6 +49,21 @@ export class ListServicePage extends ListPage<IServiceDto> implements OnInit {
 	public override ngOnInit() {
 		super.ngOnInit();
 		this.analyticsService.logEvent('service_list_page_initialized');
+	}
+
+	@Dispatch()
+	public resetFilter() {
+		return new ServiceActions.UpdateTableState({
+			filters: {},
+			orderBy: OrderByEnum.CREATED_AT,
+			orderDir: OrderDirEnum.DESC,
+			pageSize: 20
+		});
+	}
+
+	public override ngOnDestroy() {
+		this.resetFilter();
+		super.ngOnDestroy();
 	}
 
 }

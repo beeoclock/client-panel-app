@@ -1,12 +1,11 @@
 import {Component, inject, input, ViewEncapsulation} from '@angular/core';
-import {DeleteButtonComponent} from '@utility/presentation/component/button/delete.button.component';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {MemberActions} from "@member/state/member/member.actions";
 import {RIMember} from "@member/domain";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
-import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
 import {NgOptimizedImage} from "@angular/common";
+import {RowActionButtonComponent} from "@member/presentation/component/row-action-button/row-action-button.component";
 
 @Component({
 	selector: 'member-detail-page',
@@ -14,10 +13,9 @@ import {NgOptimizedImage} from "@angular/common";
 	encapsulation: ViewEncapsulation.None,
 	imports: [
 		TranslateModule,
-		DeleteButtonComponent,
-		EditButtonComponent,
 		DynamicDatePipe,
 		NgOptimizedImage,
+		RowActionButtonComponent,
 	],
 	standalone: true
 })

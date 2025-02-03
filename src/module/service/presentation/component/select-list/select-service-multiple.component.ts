@@ -24,11 +24,11 @@ import {NgStyle} from "@angular/common";
 						<div class="flex gap-3">
 							<div
 								class="text-md text-start font-semibold leading-tight "
-								[innerHTML]="durationVersionHtmlHelper.getPriceValueV2(service)"
+								[innerHTML]="durationVersionHtmlHelper.getPriceValue(service)"
 							></div>
 							<div
 								class="text-start text-base font-normal leading-tight "
-								[innerHTML]="durationVersionHtmlHelper.getDurationValueV2(service)"
+								[innerHTML]="durationVersionHtmlHelper.getDurationValue(service)"
 							></div>
 						</div>
 
@@ -61,11 +61,11 @@ import {NgStyle} from "@angular/common";
 					<div class="flex gap-3">
 						<div
 							class="text-md text-start font-semibold leading-tight "
-							[innerHTML]="durationVersionHtmlHelper.getPriceValueV2(service)"
+							[innerHTML]="durationVersionHtmlHelper.getPriceValue(service)"
 						></div>
 						<div
 							class="text-start text-base font-normal leading-tight "
-							[innerHTML]="durationVersionHtmlHelper.getDurationValueV2(service)"
+							[innerHTML]="durationVersionHtmlHelper.getDurationValue(service)"
 						></div>
 					</div>
 				</div>

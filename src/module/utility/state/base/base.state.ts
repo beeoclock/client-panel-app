@@ -105,10 +105,22 @@ export abstract class BaseState<ITEM extends IBaseEntity<string>> {
 
 		const state = ctx.getState();
 
-		if (Reflect.has(payload, 'orderBy') && Reflect.has(state.tableState, 'orderDir')) {
-			if (state.tableState.orderBy === payload.orderBy) {
-				payload['orderDir'] = state.tableState.orderDir === OrderDirEnum.ASC ? OrderDirEnum.DESC : OrderDirEnum.ASC;
+		const {tableState} = state;
+
+		if (Reflect.has(payload, 'orderBy') && Reflect.has(tableState, 'orderDir')) {
+			if (tableState.orderBy === payload.orderBy) {
+				payload['orderDir'] = tableState.orderDir === OrderDirEnum.ASC ? OrderDirEnum.DESC : OrderDirEnum.ASC;
 			}
+		}
+
+		// If phrase is exist then page should be reset
+		if (payload.filters && 'phrase' in payload.filters && payload.filters.phrase) {
+			payload['page'] = 1;
+		}
+
+		// Is tableState has phrase and payload has not then reset page
+		if ('phrase' in tableState.filters && !(payload.filters && 'phrase' in payload.filters)) {
+			payload['page'] = 1;
 		}
 
 		const newTableState = TableState.fromCache({
