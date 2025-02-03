@@ -1,11 +1,11 @@
-import {ElementRef, inject, Pipe} from "@angular/core";
+import {ElementRef, inject, Pipe, PipeTransform} from "@angular/core";
 
 @Pipe({
 	name: 'noData',
 	standalone: true,
 	// pure: true,
 })
-export class NoDataPipe {
+export class NoDataPipe implements PipeTransform {
 
 	// private readonly translateService = inject(TranslateService);
 	private readonly elementRef = inject(ElementRef<HTMLDivElement>);
