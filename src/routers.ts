@@ -6,7 +6,6 @@ import {NgxsModule} from "@ngxs/store";
 import WrapperPanelComponent from "@utility/presentation/component/wrapper-panel/wrapper-panel.component";
 import {CalendarWithSpecialistsState} from "@event/state/calendar-with-specialists/calendar–with-specialists.state";
 import {ServiceState} from "@service/state/service/service.state";
-import {CustomerState} from "@customer/state/customer/customer.state";
 import WrapperIdentityComponent from "@utility/presentation/component/wrapper-identity/wrapper-identity.component";
 import {tokenResolver} from "@utility/presentation/resolver/token.resolver";
 import {AbsenceState} from "@absence/state/absence/absence.state";
@@ -137,9 +136,6 @@ export const routes: Routes = [
 		data: {
 			authGuardPipe: redirectUnauthorizedToLogin
 		},
-		// providers: [
-		//     importProvidersFrom(NgxsModule.forFeature([EventRequestedState])),
-		// ],
 		children: [
 			{
 				path: '',
@@ -166,7 +162,7 @@ export const routes: Routes = [
 						children: [
 							{
 								path: 'list',
-								loadComponent: () => import('@page/member/list/list.member.page')
+								loadComponent: () => import('@page/[tenantId]/member/list/list.member.page')
 							}
 						]
 					},
@@ -178,7 +174,7 @@ export const routes: Routes = [
 						children: [
 							{
 								path: 'list',
-								loadComponent: () => import('@page/absence/list/list.absence.page')
+								loadComponent: () => import('@page/[tenantId]/absence/list/list.absence.page')
 							}
 						]
 					},
@@ -190,21 +186,21 @@ export const routes: Routes = [
 								providers: [
 									importProvidersFrom(NgxsModule.forFeature([SmsUsedAnalyticState])),
 								],
-								loadComponent: () => import('@page/analytic/sms-used/sms-used.analytic.page')
+								loadComponent: () => import('@page/[tenantId]/analytic/sms-used/sms-used.analytic.page')
 							},
 							{
 								path: 'date-range-report',
 								providers: [
 									importProvidersFrom(NgxsModule.forFeature([DateRangeReportAnalyticState])),
 								],
-								loadComponent: () => import('@page/analytic/date-range-report/date-range-report.analytic.page')
+								loadComponent: () => import('@page/[tenantId]/analytic/date-range-report/date-range-report.analytic.page')
 							},
 							{
 								path: 'daily-report',
 								providers: [
 									importProvidersFrom(NgxsModule.forFeature([DailyReportAnalyticState])),
 								],
-								loadComponent: () => import('@page/analytic/daily-report/daily-report.analytic.page')
+								loadComponent: () => import('@page/[tenantId]/analytic/daily-report/daily-report.analytic.page')
 							}
 						]
 					},
@@ -213,7 +209,7 @@ export const routes: Routes = [
 						children: [
 							{
 								path: 'list',
-								loadComponent: () => import('@page/order/list/list.order.page')
+								loadComponent: () => import('@page/[tenantId]/order/list/list.order.page')
 							}
 						]
 					},
@@ -225,28 +221,25 @@ export const routes: Routes = [
 						children: [
 							{
 								path: 'requested',
-								loadComponent: () => import('@page/event/requested/requested.event.page')
+								loadComponent: () => import('@page/[tenantId]/event/requested/requested.event.page')
 							},
 							{
 								path: 'calendar',
 								providers: [
 									importProvidersFrom(NgxsModule.forFeature([CalendarState])),
 								],
-								loadComponent: () => import('@page/event/calendar/calendar.event.page')
+								loadComponent: () => import('@page/[tenantId]/event/calendar/calendar.event.page')
 							},
 							{
 								path: 'statistic',
-								providers: [
-									// importProvidersFrom(NgxsModule.forFeature([StatisticState])),
-								],
-								loadComponent: () => import('@page/event/statistic/statistic.event.page')
+								loadComponent: () => import('@page/[tenantId]/event/statistic/statistic.event.page')
 							},
 							{
 								path: 'calendar-with-specialists',
 								providers: [
 									importProvidersFrom(NgxsModule.forFeature([CalendarWithSpecialistsState])),
 								],
-								loadComponent: () => import('@page/event/calendar-with-specialists/calendar-with-specialists.event.page')
+								loadComponent: () => import('@page/[tenantId]/event/calendar-with-specialists/calendar-with-specialists.event.page')
 							},
 						]
 					},
@@ -255,26 +248,26 @@ export const routes: Routes = [
 						children: [
 							{
 								path: 'business-profile',
-								loadComponent: () => import('@page/client/business-profile/business-profile.page')
+								loadComponent: () => import('@page/[tenantId]/client/business-profile/business-profile.page')
 							},
 							{
 								path: 'business-settings',
-								loadComponent: () => import('@page/client/business-settings/business-settings.page')
+								loadComponent: () => import('@page/[tenantId]/client/business-settings/business-settings.page')
 							},
 							{
 								path: 'settings',
-								loadComponent: () => import('@page/client/settings/settings.page')
+								loadComponent: () => import('@page/[tenantId]/client/settings/settings.page')
 							},
 							{
 								path: 'notification',
 								children: [
 									{
 										path: '',
-										loadComponent: () => import('@page/client/notification/notification.page')
+										loadComponent: () => import('@page/[tenantId]/client/notification/notification.page')
 									},
 									{
 										path: ':id',
-										loadComponent: () => import('@page/client/notification/notification.page')
+										loadComponent: () => import('@page/[tenantId]/client/notification/notification.page')
 									}
 								]
 							}
@@ -282,13 +275,10 @@ export const routes: Routes = [
 					},
 					{
 						path: 'customer',
-						providers: [
-							importProvidersFrom(NgxsModule.forFeature([CustomerState])),
-						],
 						children: [
 							{
 								path: 'list',
-								loadComponent: () => import('@page/customer/list/list.customer.page')
+								loadComponent: () => import('@page/[tenantId]/customer/list/list.customer.page')
 							}
 						]
 					},
@@ -300,7 +290,7 @@ export const routes: Routes = [
 						children: [
 							{
 								path: 'list',
-								loadComponent: () => import('@page/service/list/list.service.page')
+								loadComponent: () => import('@page/[tenantId]/service/list/list.service.page')
 							}
 						]
 					},
