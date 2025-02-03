@@ -20,6 +20,7 @@ import {
 } from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.state";
 import {DailyReportAnalyticState} from "@module/analytic/internal/store/daily-report/daily-report.analytic.state";
 import {LastSynchronizationInService} from "@utility/cdk/last-synchronization-in.service";
+import {SyncManagerService} from "@src/core/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
@@ -206,6 +207,7 @@ export const routes: Routes = [
 				component: WrapperPanelComponent,
 				providers: [
 					LastSynchronizationInService,
+					SyncManagerService,
 					importProvidersFrom(NgxsModule.forFeature([PeerCustomerOrderState])),
 				],
 				children: [
