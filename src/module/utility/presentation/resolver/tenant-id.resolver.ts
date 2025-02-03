@@ -2,7 +2,6 @@ import {ResolveFn, Router} from "@angular/router";
 import {inject} from "@angular/core";
 import {EMPTY, of} from "rxjs";
 import {TENANT_ID} from "@src/token";
-import ECustomer from "@core/entity/e.customer";
 
 export const tenantIdResolver: ResolveFn<string | undefined> = (route) => {
 
@@ -23,8 +22,6 @@ export const tenantIdResolver: ResolveFn<string | undefined> = (route) => {
 		tenantId$.next(tenantId);
 
 	}
-
-	ECustomer.initDatabase(tenantId);
 
 	return of(tenantId);
 
