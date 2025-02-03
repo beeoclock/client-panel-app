@@ -39,6 +39,7 @@ import '@angular/common/locales/global/uk';
 import {SocketIoModule} from "ngx-socket-io";
 import {IsOnlineService} from "@utility/cdk/is-online.service";
 import {firebase} from "@src/firebase";
+import {loadDeveloperTools} from '@signaldb/core';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -61,6 +62,10 @@ if (environment.production) {
 		replaysSessionSampleRate: 0.1, // This sets the sample rate at 10%. You may want to change it to 100% while in development and then sample at a lower rate in production.
 		replaysOnErrorSampleRate: 1.0, // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
 	});
+} else {
+
+	loadDeveloperTools();
+
 }
 
 initRuntimeEnvironment();
