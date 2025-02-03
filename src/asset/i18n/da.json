@@ -20,8 +20,7 @@
 					"placeholder": "Det er bedre at have og ikke have brug for end ikke at have og have brug for, efterlad en note for at forstå, hvad der skete senere."
 				},
 				"type": {
-					"label": "Type",
-					"progressStatus": "Aktuel status"
+					"label": "Type"
 				}
 			},
 			"membersIds": {
@@ -32,14 +31,6 @@
 			"title": {
 				"create": "Tilføjelse af fravær",
 				"edit": "Redigering af fravær"
-			}
-		},
-		"progress": {
-			"status": {
-				"cancel": "Aflyst",
-				"finished": "Færdig",
-				"inProgress": "I gang",
-				"notStarted": "Planlagt"
 			}
 		},
 		"type": {
@@ -1194,6 +1185,7 @@
 			"year": "År",
 			"yes": "Ja",
 			"yesterday": "Yesterday",
+			"youOffline": "Du er offline!",
 			"zipCode": "Postnummer"
 		},
 		"lowercase": {

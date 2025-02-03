@@ -20,8 +20,7 @@
 					"placeholder": "Lepiej mieć i nie potrzebować, niż nie mieć i potrzebować, zostawić notatkę, aby później zrozumieć, co się stało"
 				},
 				"type": {
-					"label": "Typ",
-					"progressStatus": "Aktualny status"
+					"label": "Typ"
 				}
 			},
 			"membersIds": {
@@ -32,14 +31,6 @@
 			"title": {
 				"create": "Dodawanie nieobecności",
 				"edit": "Edytowanie nieobecności"
-			}
-		},
-		"progress": {
-			"status": {
-				"cancel": "Anulowana",
-				"finished": "Zakończone",
-				"inProgress": "W trakcie",
-				"notStarted": "Zaplanowane"
 			}
 		},
 		"type": {
@@ -1194,6 +1185,7 @@
 			"year": "Rok",
 			"yes": "Tak",
 			"yesterday": "Wczoraj",
+			"youOffline": "Jesteś offline!",
 			"zipCode": "Kod pocztowy"
 		},
 		"lowercase": {

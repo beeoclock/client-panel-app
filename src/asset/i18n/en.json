@@ -20,8 +20,7 @@
 					"placeholder": "It is better to have and not need than not to have and need, leave a note from which you will understand what happened later"
 				},
 				"type": {
-					"label": "Type",
-					"progressStatus": "Current Status"
+					"label": "Type"
 				}
 			},
 			"membersIds": {
@@ -32,14 +31,6 @@
 			"title": {
 				"create": "Adding an absence",
 				"edit": "Editing an absence"
-			}
-		},
-		"progress": {
-			"status": {
-				"cancel": "Canceled",
-				"finished": "Finished",
-				"inProgress": "In Progress",
-				"notStarted": "Scheduled"
 			}
 		},
 		"type": {
@@ -1194,6 +1185,7 @@
 			"year": "Year",
 			"yes": "Yes",
 			"yesterday": "Yesterday",
+			"youOffline": "You are offline!",
 			"zipCode": "Zip code"
 		},
 		"lowercase": {
