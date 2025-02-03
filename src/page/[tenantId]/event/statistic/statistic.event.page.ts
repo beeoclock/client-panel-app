@@ -5,7 +5,7 @@ import {StatisticV2Component} from "@event/presentation/component/statistic-v2/s
 import {Store} from "@ngxs/store";
 import {
 	DateRangeReportAnalyticActions
-} from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.actions";
+} from "@module/[tenant]/analytic/internal/store/date-range-report/date-range-report.analytic.actions";
 
 @Component({
 	selector: 'app-event-statistic-page',

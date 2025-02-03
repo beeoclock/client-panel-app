@@ -1,21 +1,9 @@
-import {ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ListPage} from "@utility/list.page";
-import {Observable, tap} from "rxjs";
 import {ICustomer} from "@customer/domain";
-import {ITableState} from "@utility/domain/table.state";
 import {TranslateModule} from "@ngx-translate/core";
 import {AsyncPipe} from "@angular/common";
-import {
-	DesktopLayoutListComponent
-} from "@customer/presentation/component/list/layout/desktop/desktop.layout.list.component";
-import {
-	MobileLayoutListComponent
-} from "@customer/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {TableService} from "@utility/table.service";
-import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
-import ECustomer from "@core/entity/e.customer";
-import {toObservable} from "@angular/core/rxjs-interop";
 import {CustomerTableService} from "@customer/presentation/component/list/customer.table.service";
 
 
@@ -27,10 +15,6 @@ import {CustomerTableService} from "@customer/presentation/component/list/custom
 	imports: [
 		TranslateModule,
 		AsyncPipe,
-		DesktopLayoutListComponent,
-		MobileLayoutListComponent,
-		DesktopLayoutListComponent,
-		MobileLayoutListComponent,
 	],
 	standalone: true,
 	providers: [
@@ -40,30 +24,30 @@ import {CustomerTableService} from "@customer/presentation/component/list/custom
 		}
 	]
 })
-export class ListCustomerPage extends ListPage<ICustomer> implements OnDestroy, OnInit {
+export class ListCustomerPage extends ListPage<ICustomer.DTO> implements OnDestroy, OnInit {
 
 
-	private readonly customerStore = inject(ECustomer.store);
-	public readonly tableState$: Observable<ITableState<ICustomer>> = toObservable(this.customerStore.tableState)
-		.pipe(
-			tap((tableState) => {
-				this.changeDetectorRef.detectChanges();
-			})
-		);
+	// private readonly customerStore = inject(ECustomer.store);
+	// public readonly tableState$: Observable<ITableState<ICustomer>> = toObservable(this.customerStore.tableState)
+	// 	.pipe(
+	// 		tap((tableState) => {
+	// 			this.changeDetectorRef.detectChanges();
+	// 		})
+	// 	);
 
 	public override ngOnInit() {
 		super.ngOnInit();
 		this.analyticsService.logEvent('customer_list_page_initialized');
 	}
 
-	@Dispatch()
+	// @Dispatch()
 	public resetFilter() {
-		return this.customerStore.updateTableState({
-			filters: {},
-			orderBy: OrderByEnum.CREATED_AT,
-			orderDir: OrderDirEnum.DESC,
-			pageSize: 20
-		});
+		// return this.customerStore.updateTableState({
+		// 	filters: {},
+		// 	orderBy: OrderByEnum.CREATED_AT,
+		// 	orderDir: OrderDirEnum.DESC,
+		// 	pageSize: 20
+		// });
 	}
 
 	public override ngOnDestroy() {

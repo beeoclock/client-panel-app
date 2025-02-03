@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ElementRef, inject, input, OnChanges, viewChil
 import {extractFile} from "@utility/domain/extract-file";
 import {file2base64} from "@utility/domain/file2base64";
 import {NGXLogger} from "ngx-logger";
-import {RIMedia} from "@module/media/domain/interface/i.media";
+import {RIMedia} from "@module/[tenant]/media/domain/interface/i.media";
 
 export enum MediaStateEnum {
 	NOT_CHANGED = 'NOT_CHANGED',

@@ -2,10 +2,10 @@ import {ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation} f
 import {Store} from "@ngxs/store";
 import {
 	DateRangeReportAnalyticActions
-} from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.actions";
+} from "@module/[tenant]/analytic/internal/store/date-range-report/date-range-report.analytic.actions";
 import {
 	TotalDateRangeReportSmartAnalyticComponent
-} from "@module/analytic/internal/presentation/component/date-range-report/smart/total/total.date-range-report.smart.analytic.component";
+} from "@module/[tenant]/analytic/internal/presentation/component/date-range-report/smart/total/total.date-range-report.smart.analytic.component";
 
 @Component({
 	selector: 'date-range-report-analytic-page',

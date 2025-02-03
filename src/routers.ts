@@ -13,11 +13,13 @@ import {OrderState} from "@order/state/order/order.state";
 import {EventState} from "@event/state/event/event.state";
 import {CalendarState} from "@event/state/calendar/calendar.state";
 import {PeerCustomerOrderState} from "@order/state/peer-customer/peer-customer.order.state";
-import {SmsUsedAnalyticState} from "@module/analytic/internal/store/sms-used/sms-used.analytic.state";
+import {SmsUsedAnalyticState} from "@module/[tenant]/analytic/internal/store/sms-used/sms-used.analytic.state";
 import {
 	DateRangeReportAnalyticState
-} from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.state";
-import {DailyReportAnalyticState} from "@module/analytic/internal/store/daily-report/daily-report.analytic.state";
+} from "@module/[tenant]/analytic/internal/store/date-range-report/date-range-report.analytic.state";
+import {
+	DailyReportAnalyticState
+} from "@module/[tenant]/analytic/internal/store/daily-report/daily-report.analytic.state";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);

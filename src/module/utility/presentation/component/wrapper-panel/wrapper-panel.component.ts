@@ -18,7 +18,7 @@ import {ClientActions} from "@client/state/client/client.actions";
 import {EventRequestedActions} from "@event/state/event-requested/event-requested.actions";
 import {
 	GetFrontendSettingsAccountApiAdapter
-} from "@module/account/adapter/external/api/get.frontend-settings.account.api.adapter";
+} from "@module/[tenant]/account/adapter/external/api/get.frontend-settings.account.api.adapter";
 import {ThemeService} from "@utility/cdk/theme.service";
 import {TranslateService} from "@ngx-translate/core";
 import {WhacAMole} from "@utility/presentation/whac-a-mole/whac-a-mole";
@@ -35,7 +35,7 @@ import {
 } from "@core/infrastructure/database/tenant/signaldb/sync-manager.tenant.signaldb.database";
 import CustomerStore from "@customer/infrastructure/store/customer.store";
 import CustomerPresentationStore from "@customer/infrastructure/store/customer.presentation.store";
-import {CustomerMainPageStore} from "@module/customer";
+import {CustomerMainPageStore} from "src/module/[tenant]/customer";
 
 
 @Component({
