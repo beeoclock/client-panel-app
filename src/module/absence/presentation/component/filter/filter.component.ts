@@ -31,13 +31,15 @@ import {ReactiveFormsModule} from "@angular/forms";
 			@if (isMobile$ | async) {
 
 				<div class="flex gap-4 justify-between w-full">
-					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
+<!--					TODO: return this feature when backend will ready for it -->
+<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
 					<ng-container *ngTemplateOutlet="ButtonToOpenForm"></ng-container>
 				</div>
 			} @else {
 
 				<div class="flex overflow-x-auto gap-2">
-					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>
+					<!--					TODO: return this feature when backend will ready for it -->
+<!--					<ng-container *ngTemplateOutlet="SearchInput"></ng-container>-->
 					<ng-container *ngTemplateOutlet="AbsenceActiveSelect"></ng-container>
 					<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
 				</div>
