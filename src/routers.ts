@@ -1,4 +1,4 @@
-import {Routes} from '@angular/router';
+import {ActivatedRoute, Routes} from '@angular/router';
 import {AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
 import {tenantIdResolver} from "@utility/presentation/resolver/tenant-id.resolver";
 import {importProvidersFrom} from "@angular/core";
@@ -21,6 +21,7 @@ import {
 import {DailyReportAnalyticState} from "@module/analytic/internal/store/daily-report/daily-report.analytic.state";
 import {LastSynchronizationInService} from "@utility/cdk/last-synchronization-in.service";
 import {SyncManagerService} from "@src/core/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
+import {CURRENT_TENANT_ID} from "@src/token";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
@@ -209,6 +210,15 @@ export const routes: Routes = [
 					LastSynchronizationInService,
 					SyncManagerService,
 					importProvidersFrom(NgxsModule.forFeature([PeerCustomerOrderState])),
+					{
+						provide: CURRENT_TENANT_ID,
+						useFactory: (activatedRoute: ActivatedRoute) => {
+							const {tenantId} =  activatedRoute.snapshot.params;
+							console.log('CURRENT_TENANT_ID:', {tenantId})
+							return tenantId;
+						},
+						deps: [ActivatedRoute],
+					}
 				],
 				children: [
 					{

@@ -4,6 +4,10 @@ import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
 import {ThemeEnum} from "@utility/cdk/theme.service";
 import {BehaviorSubject} from "rxjs";
 
+// Use in [tenantId] router or in wrapper-panel.component.ts
+export const CURRENT_TENANT_ID = new InjectionToken<string>('TENANT_ID');
+
+// Use global
 export const THEME = new InjectionToken<BehaviorSubject<ThemeEnum>>('THEME');
 export const ACCESS_TOKEN = new InjectionToken<BehaviorSubject<string | null>>('ACCESS_TOKEN');
 export const TENANT_ID = new InjectionToken<BehaviorSubject<string | null>>('TENANT_ID');
