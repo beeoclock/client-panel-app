@@ -28,60 +28,156 @@
 			"dom"
 		],
 		"paths": {
-			"@src/*": [
-				"./src/*"
-			],
-			"@environment/*": [
-				"./src/environment/*"
-			],
+
+			////////////////////////
+			// Asset
+			////////////////////////
+
 			"@asset/*": [
-				"./src/asset/*"
+				"src/asset/*"
 			],
 			"@scss/*": [
-				"./src/asset/scss/*"
+				"src/asset/scss/*"
 			],
 			"@icon/*": [
-				"./src/asset/icon/*"
+				"src/asset/icon/*"
 			],
-			"@app/*": [
-				"./src/app/*"
+
+			////////////////////////
+			// Host
+			////////////////////////
+
+			"@src/*": [
+				"src/*"
 			],
-			"@module/*": [
-				"./src/module/*"
-			],
-			"@client/*": [
-				"./src/module/client/*"
-			],
-			"@customer/*": [
-				"./src/module/customer/*"
-			],
-			"@event/*": [
-				"./src/module/event/*"
-			],
-			"@identity/*": [
-				"./src/module/identity/*"
-			],
-			"@service/*": [
-				"./src/module/service/*"
-			],
-			"@utility/*": [
-				"./src/module/utility/*"
-			],
-			"@member/*": [
-				"./src/module/member/*"
-			],
-			"@order/*": [
-				"./src/module/order/*"
-			],
-			"@absence/*": [
-				"./src/module/absence/*"
-			],
-			"@page/*": [
-				"./src/page/*"
+			"@environment/*": [
+				"src/environment/*"
 			],
 			"@core/*": [
-				"./src/core/*"
-			]
+				"src/core/*"
+			],
+			"@app/*": [
+				"src/app/*"
+			],
+			"@module/*": [
+				"src/module/*"
+			],
+
+			////////////////////////
+			// UI
+			////////////////////////
+
+			"@page/*": [
+				"src/page/*"
+			],
+
+			////////////////////////
+			// Auth
+			////////////////////////
+
+			"@identity/*": [
+				"src/module/identity/*"
+			],
+
+			////////////////////////
+			// Per tenant
+			////////////////////////
+
+			// client
+			"@client/*": [
+				"src/module/[tenant]/client/*"
+			],
+			"@client": [
+				"src/module/[tenant]/client/index.ts"
+			],
+
+			// customer
+			"@customer/*": [
+				"src/module/[tenant]/customer/*"
+			],
+			"@customer": [
+				"src/module/[tenant]/customer/index.ts"
+			],
+
+			// event
+			"@event/*": [
+				"src/module/[tenant]/event/*"
+			],
+			"@event": [
+				"src/module/[tenant]/event/index.ts"
+			],
+
+			// service
+			"@service/*": [
+				"src/module/[tenant]/service/*"
+			],
+			"@service": [
+				"src/module/[tenant]/service/index.ts"
+			],
+
+			// utility
+			"@utility/*": [
+				"src/module/utility/*"
+			],
+			"@utility": [
+				"src/module/[tenant]/utility/index.ts"
+			],
+
+			// member
+			"@member/*": [
+				"src/module/[tenant]/member/*"
+			],
+			"@member": [
+				"src/module/[tenant]/member/index.ts"
+			],
+
+			// order
+			"@order/*": [
+				"src/module/[tenant]/order/*"
+			],
+			"@order": [
+				"src/module/[order]/event/index.ts"
+			],
+
+			// absence
+			"@absence/*": [
+				"src/module/[tenant]/absence/*"
+			],
+			"@absence": [
+				"src/module/[tenant]/absence/index.ts"
+			],
+
+			// analytic
+			"@analytic/*": [
+				"src/module/[tenant]/analytic/*"
+			],
+			"@analytic": [
+				"src/module/[tenant]/analytic/index.ts"
+			],
+
+			// account
+			"@account/*": [
+				"src/module/[tenant]/account/*"
+			],
+			"@account": [
+				"src/module/[tenant]/account/index.ts"
+			],
+
+			// payment
+			"@payment/*": [
+				"src/module/[tenant]/payment/*"
+			],
+			"@payment": [
+				"src/module/[tenant]/payment/index.ts"
+			],
+
+			// media
+			"@media/*": [
+				"src/module/[tenant]/media/*"
+			],
+			"@media": [
+				"src/module/[tenant]/media/index.ts"
+			],
 		}
 	},
 	"angularCompilerOptions": {
