@@ -34,6 +34,8 @@ import {
 import {CustomerIndexedDBFacade} from "@customer/infrastructure/facade/indexedDB/customer.indexedDB.facade";
 import {ServiceIndexedDBCollectionManager} from "@service/infrastructure/manager/service.indexedDB.collection.manager";
 import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
+import {VisibilityService} from "@utility/cdk/visibility.service";
+import {SyncManagerService} from "@src/core/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -95,6 +97,8 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly themeService = inject(ThemeService);
 	private readonly translateService = inject(TranslateService);
+	private readonly visibilityService = inject(VisibilityService);
+	private readonly syncManagerService = inject(SyncManagerService);
 	private readonly tenantId$ = inject(TENANT_ID);
 
 	public readonly token$ = this.store.select(IdentityState.token);
@@ -114,11 +118,21 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 
 	public ngOnInit(): void {
 
+		this.visibilityService.visibility$.pipe(
+			this.takeUntil()
+		).subscribe((visible) => {
+
+			this.isUserOnWebSite = visible;
+			if (visible) {
+				this.syncManagerService.syncAll().then();
+			}
+
+		});
+
 		this.connectWebSocket();
 	}
 
 	public ngAfterViewInit(): void {
-		this.initDetectorIfUserHasActiveWebsite();
 		this.initClient();
 		this.initMemberList();
 		this.initAccountFrontendSettings();
@@ -177,12 +191,6 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 
 			}, MS_ONE_MINUTE);
 		}
-	}
-
-	private initDetectorIfUserHasActiveWebsite(): void {
-		this.document.onvisibilitychange = () => {
-			this.isUserOnWebSite = !this.document.hidden;
-		};
 	}
 
 	public override ngOnDestroy(): void {
