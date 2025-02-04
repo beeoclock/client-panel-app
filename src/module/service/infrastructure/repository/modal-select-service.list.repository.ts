@@ -1,7 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {TableState} from "@utility/domain/table.state";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import {ListServiceApiAdapter} from "@service/adapter/external/api/list.service.api.adapter";
+import {ListServiceApiAdapter} from "@service/infrastructure/api/list.service.api.adapter";
 import {ActiveEnum} from "@utility/domain/enum";
 import {NGXLogger} from "ngx-logger";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
@@ -9,7 +9,7 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 @Injectable({
 	providedIn: 'root'
 })
-export class ModalSelectServiceListAdapter {
+export class ModalSelectServiceListRepository {
 
 	private readonly logger = inject(NGXLogger);
 	public readonly listServiceApiAdapter = inject(ListServiceApiAdapter);

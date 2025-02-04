@@ -10,7 +10,7 @@ import {
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {Store} from "@ngxs/store";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
-import {ListServiceApiAdapter} from "@service/adapter/external/api/list.service.api.adapter";
+import {ListServiceApiAdapter} from "@service/infrastructure/api/list.service.api.adapter";
 import {ResponseListType} from "@utility/adapter/base.api.adapter";
 import {
 	SelectServiceMultipleComponent

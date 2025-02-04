@@ -1,5 +1,6 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IService} from "@service/domain/interface/i.service";
 
 export namespace ServiceActions {
 
@@ -64,11 +65,11 @@ export namespace ServiceActions {
 		public static override readonly type = '[Service API] Get Item';
 	}
 
-	export class CreateItem extends BaseActions.CreateItem<IServiceDto> {
+	export class CreateItem extends BaseActions.CreateItem<IService.DTO> {
 		public static override readonly type = '[Service API] Create Item';
 	}
 
-	export class UpdateItem extends BaseActions.UpdateItem<IServiceDto> {
+	export class UpdateItem extends BaseActions.UpdateItem<IService.DTO> {
 		public static override readonly type = '[Service API] Update Item';
 	}
 
@@ -78,7 +79,7 @@ export namespace ServiceActions {
 		public static override readonly type = '[Service State] Update Filters';
 	}
 
-	export class UpdateTableState extends BaseActions.UpdateTableState<IServiceDto> {
+	export class UpdateTableState extends BaseActions.UpdateTableState<IService.DTO> {
 		public static override readonly type = '[Service State] Update Table State';
 	}
 

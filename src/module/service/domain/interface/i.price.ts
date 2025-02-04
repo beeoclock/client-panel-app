@@ -5,3 +5,5 @@ export interface IPrice {
   currency?: CurrencyCodeEnum;
   preferredLanguages?: LanguageCodeEnum[];
 }
+
+export type RIPrice = Required<IPrice>;

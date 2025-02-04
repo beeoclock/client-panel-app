@@ -4,3 +4,5 @@ export interface IPrepaymentPolicy {
   value?: string;
   minimalCancelTime?: string;
 }
+
+export type RIPrepaymentPolicy = Required<IPrepaymentPolicy>;

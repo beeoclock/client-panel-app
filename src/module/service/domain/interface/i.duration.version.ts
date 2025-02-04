@@ -1,4 +1,4 @@
-import {IPrice} from "@service/domain";
+import {IPrice, RIPrice} from "@service/domain";
 
 export interface IDurationVersion {
   breakInSeconds: number;
@@ -6,5 +6,7 @@ export interface IDurationVersion {
   prices: IPrice[];
 }
 
-export type RIDurationVersion = Required<IDurationVersion>;
+export type RIDurationVersion = Required<IDurationVersion> & {
+	prices: RIPrice[];
+};
 export type ListDurationVersion = RIDurationVersion[];

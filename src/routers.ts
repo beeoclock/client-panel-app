@@ -204,7 +204,8 @@ export const routes: Routes = [
 				providers: [
 					importProvidersFrom(NgxsModule.forFeature([
 						PeerCustomerOrderState,
-						CustomerState
+						CustomerState,
+						ServiceState,
 					]))
 				],
 				children: [
@@ -343,9 +344,6 @@ export const routes: Routes = [
 					},
 					{
 						path: 'service',
-						providers: [
-							importProvidersFrom(NgxsModule.forFeature([ServiceState])),
-						],
 						children: [
 							{
 								path: 'list',

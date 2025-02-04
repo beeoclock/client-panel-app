@@ -2,17 +2,19 @@ import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
-import {ArchiveServiceApiAdapter} from "@service/adapter/external/api/archive.service.api.adapter";
-import {CreateServiceApiAdapter} from "@service/adapter/external/api/create.service.api.adapter";
-import {UpdateServiceApiAdapter} from "@service/adapter/external/api/update.service.api.adapter";
-import {ItemServiceApiAdapter} from "@service/adapter/external/api/item.service.api.adapter";
-import {RemoveServiceApiAdapter} from "@service/adapter/external/api/remove.service.api.adapter";
-import {ListServiceApiAdapter} from "@service/adapter/external/api/list.service.api.adapter";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
-import {UnarchiveServiceApiAdapter} from "@service/adapter/external/api/unarchive.service.api.adapter";
 import {TranslateService} from "@ngx-translate/core";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
+import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
+import {NGXLogger} from "ngx-logger";
+import EService from "@service/domain/entity/e.service";
+import {StateEnum} from "@utility/domain/enum/state.enum";
+import {firstValueFrom} from "rxjs";
+import {AppActions} from "@utility/state/app/app.actions";
+import {TableState} from "@utility/domain/table.state";
+import {getMaxPage} from "@utility/domain/max-page";
 
 export type IServiceState = IBaseState<IServiceDto>
 
@@ -28,42 +30,26 @@ const defaults = baseDefaults<IServiceDto>({
 	defaults
 })
 @Injectable()
-export class ServiceState extends BaseState<IServiceDto> {
+export class ServiceState {
 
-	protected override readonly unarchive = inject(UnarchiveServiceApiAdapter);
-	protected override readonly archive = inject(ArchiveServiceApiAdapter);
-	protected override readonly create = inject(CreateServiceApiAdapter);
-	protected override readonly update = inject(UpdateServiceApiAdapter);
-	protected override readonly item = inject(ItemServiceApiAdapter);
-	protected override readonly delete = inject(RemoveServiceApiAdapter);
-	protected override readonly paged = inject(ListServiceApiAdapter);
+	public readonly serviceIndexedDBFacade = inject(ServiceIndexedDBFacade);
 
+	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
-
-	constructor() {
-		super(
-			defaults,
-		);
-	}
+	private readonly ngxLogger = inject(NGXLogger);
 
 	// Application layer
 
 	@Action(ServiceActions.CloseDetails)
 	public async closeDetails(ctx: StateContext<IServiceState>, action?: ServiceActions.CloseDetails) {
-
 		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
-
 		await this.whacAMaleProvider.destroyComponent(ServiceDetails);
-
 	}
 
 	@Action(ServiceActions.CloseForm)
 	public async closeForm(ctx: StateContext<IServiceState>, action?: ServiceActions.CloseForm) {
-
 		const {ServiceContainerFormComponent} = await import("@service/presentation/component/form/service-container–form/service-container–form.component");
-
 		await this.whacAMaleProvider.destroyComponent(ServiceContainerFormComponent);
-
 	}
 
 	@Action(ServiceActions.UpdateOpenedDetails)
@@ -101,18 +87,20 @@ export class ServiceState extends BaseState<IServiceDto> {
 	public async openDetailsById(ctx: StateContext<IServiceState>, {payload: id}: ServiceActions.OpenDetailsById) {
 
 		const title = this.translateService.instant('service.details.title');
+		const item = this.serviceIndexedDBFacade.source.findOne({
+			id
+		});
+
+		if (!item) {
+			this.ngxLogger.error('ServiceState.openDetailsById', 'Item not found');
+			return;
+		}
 
 		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
 
 		await this.whacAMaleProvider.buildItAsync({
 			title,
 			showLoading: true,
-			component: ServiceDetails,
-		});
-
-		const item = await this.item.executeAsync(id);
-
-		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 			component: ServiceDetails,
 			componentInputs: {item},
 		});
@@ -123,18 +111,14 @@ export class ServiceState extends BaseState<IServiceDto> {
 	public async openFormToEditById(ctx: StateContext<IServiceState>, {payload: id}: ServiceActions.OpenFormToEditById) {
 
 		const title = this.translateService.instant('service.form.title.edit');
-
-		await this.openForm(ctx, {
-			payload: {
-				pushBoxInputs: {
-					id,
-					showLoading: true,
-					title
-				}
-			}
+		const item = this.serviceIndexedDBFacade.source.findOne({
+			id
 		});
 
-		const item = await this.item.executeAsync(id);
+		if (!item) {
+			this.ngxLogger.error('ServiceState.openFormToEditById', 'Item not found');
+			return;
+		}
 
 		await this.openForm(ctx, {
 			payload: {
@@ -170,61 +154,197 @@ export class ServiceState extends BaseState<IServiceDto> {
 	// API
 
 	@Action(ServiceActions.Init)
-	public override async init(ctx: StateContext<IServiceState>): Promise<void> {
-		await super.init(ctx);
+	public  async init(ctx: StateContext<IServiceState>): Promise<void> {
+		ctx.setState(structuredClone(defaults));
 	}
 
 	@Action(ServiceActions.UpdateFilters)
-	public override updateFilters(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateFilters) {
-		super.updateFilters(ctx, action);
+	public  updateFilters(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateFilters) {
+
+		BaseState.updateFilters(ctx, action);
 	}
 
 	@Action(ServiceActions.UpdateTableState)
-	public override updateTableState(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateTableState) {
-		super.updateTableState(ctx, action);
+	public  updateTableState(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateTableState) {
+		BaseState.updateTableState(ctx, action);
 	}
 
 	@Action(ServiceActions.CreateItem)
-	public override async createItem(ctx: StateContext<IServiceState>, action: ServiceActions.CreateItem) {
-		await super.createItem(ctx, action);
+	public  async createItem(ctx: StateContext<IServiceState>, action: ServiceActions.CreateItem) {
+		this.serviceIndexedDBFacade.source.insert(EService.create(action.payload));
 		await this.closeForm(ctx);
 	}
 
 	@Action(ServiceActions.UpdateItem)
-	public override async updateItem(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateItem): Promise<void> {
-		await super.updateItem(ctx, action);
-		await this.closeForm(ctx, {
-			payload: action.payload._id
+	public  async updateItem(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateItem): Promise<void> {
+		const item = EService.create({
+			...action.payload
 		});
+		this.serviceIndexedDBFacade.source.updateOne({
+			id: action.payload._id,
+		}, {
+			$set: item
+		});
+		await this.closeForm(ctx);
 		const {data} = ctx.getState().item;
-		data && await this.updateOpenedDetails(ctx, {payload: data});
+		data && await this.updateOpenedDetails(ctx, {payload: item});
 	}
 
 	@Action(ServiceActions.GetItem)
-	public override async getItem(ctx: StateContext<IServiceState>, action: ServiceActions.GetItem): Promise<void> {
-		await super.getItem(ctx, action);
+	public  async getItem(ctx: StateContext<IServiceState>, action: ServiceActions.GetItem): Promise<void> {
+		const data = this.serviceIndexedDBFacade.source.findOne({
+			id: action.payload
+		});
+
+		if (!data) {
+			return;
+		}
+
+		ctx.patchState({
+			item: {
+				data,
+				downloadedAt: new Date(),
+			}
+		});
 	}
 
 	@Action(ServiceActions.DeleteItem)
-	public override async deleteItem(ctx: StateContext<IServiceState>, action: ServiceActions.DeleteItem) {
-		await super.deleteItem(ctx, action);
+	public  async deleteItem(ctx: StateContext<IServiceState>, action: ServiceActions.DeleteItem) {
+		this.serviceIndexedDBFacade.source.removeOne({
+			id: action.payload
+		});
 		await this.closeDetails(ctx, action);
 	}
 
 	@Action(ServiceActions.GetList)
-	public override async getList(ctx: StateContext<IServiceState>, action: ServiceActions.GetList): Promise<void> {
-		await super.getList(ctx, action);
+	public  async getList(ctx: StateContext<IServiceState>, action: ServiceActions.GetList): Promise<void> {
+		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
+
+		const state = ctx.getState();
+
+		try {
+
+			const newTableState = TableState.fromCache(state.tableState);
+
+			console.log(state.tableState, {newTableState})
+
+			const {
+				queryParams,
+				resetPage,
+				resetParams
+			} = action.payload ?? {};
+
+			if (resetPage) {
+				newTableState.setPage(1);
+			}
+
+			if (resetParams) {
+				newTableState.filters = {};
+			}
+
+			const phraseFields = ['firstName', 'lastName'];
+
+			const params = newTableState.toBackendFormat();
+
+			const selector = {
+				...((newTableState.filters?.phrase as string)?.length ? {
+					$or: phraseFields.map((field) => {
+						return {
+							[field]: {
+								$regex: newTableState.filters.phrase,
+								$options: "i"
+							}
+						}
+					})
+				} : {})
+			};
+
+			const items = this.serviceIndexedDBFacade.source.find(selector, {
+				limit: params.pageSize,
+				skip: (params.page - 1) * params.pageSize,
+				sort: {
+					[params.orderBy]: params.orderDir === OrderDirEnum.ASC ? 1 : -1
+				}
+			}).fetch();
+
+			const count = this.serviceIndexedDBFacade.source.find(selector).count();
+
+			newTableState
+				.setTotal(count)
+				.setItems(items)
+				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
+
+			this.ngxLogger.debug('Table state: ', newTableState);
+
+			ctx.patchState({
+				tableState: newTableState.toCache(),
+				lastTableHashSum: newTableState.hashSum
+			});
+
+		} catch (e) {
+			this.ngxLogger.error(e);
+		}
+
+		// Switch of page loader
+		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 
 	}
 
 	@Action(ServiceActions.ArchiveItem)
-	public override async archiveItem(ctx: StateContext<IServiceState>, action: ServiceActions.ArchiveItem) {
-		await super.archiveItem(ctx, action);
+	public  async archiveItem(ctx: StateContext<IServiceState>, action: ServiceActions.ArchiveItem) {
+		const item = this.serviceIndexedDBFacade.source.findOne({
+			id: action.payload
+		});
+		if (!item) {
+			this.ngxLogger.error('ServiceState.archiveItem', 'Item not found');
+			return;
+		}
+		this.serviceIndexedDBFacade.source.updateOne({
+				id: action.payload
+			},
+			{
+				$set: {
+					status: StateEnum.archived,
+					stateHistory: [
+						...item.stateHistory,
+						{
+							state: StateEnum.archived,
+							setAt: new Date().toISOString()
+						}
+					]
+				}
+			});
+		const {data} = ctx.getState().item;
+		data && await this.updateOpenedDetails(ctx, {payload: item});
 	}
 
 	@Action(ServiceActions.UnarchiveItem)
-	public override async unarchiveItem(ctx: StateContext<IServiceState>, action: ServiceActions.UnarchiveItem) {
-		await super.unarchiveItem(ctx, action);
+	public  async unarchiveItem(ctx: StateContext<IServiceState>, action: ServiceActions.UnarchiveItem) {
+		const item = this.serviceIndexedDBFacade.source.findOne({
+			id: action.payload
+		});
+		if (!item) {
+			this.ngxLogger.error('ServiceState.unarchiveItem', 'Item not found');
+			return;
+		}
+
+		this.serviceIndexedDBFacade.source.updateOne({
+				id: action.payload
+			},
+			{
+				$set: {
+					status: StateEnum.active,
+					stateHistory: [
+						...item.stateHistory,
+						{
+							state: StateEnum.active,
+							setAt: new Date().toISOString()
+						}
+					]
+				}
+			});
+		const {data} = ctx.getState().item;
+		data && await this.updateOpenedDetails(ctx, {payload: item});
 	}
 
 	// Selectors

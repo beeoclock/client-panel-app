@@ -32,6 +32,8 @@ import {
 	CustomerIndexedDBCollectionManager
 } from "@customer/infrastructure/manager/customer.indexedDB.collection.manager";
 import {CustomerIndexedDBFacade} from "@customer/infrastructure/facade/indexedDB/customer.indexedDB.facade";
+import {ServiceIndexedDBCollectionManager} from "@service/infrastructure/manager/service.indexedDB.collection.manager";
+import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -66,20 +68,21 @@ import {CustomerIndexedDBFacade} from "@customer/infrastructure/facade/indexedDB
 		{
 			provide: CURRENT_TENANT_ID,
 			useFactory: () => {
-				const tenantId$ = inject(TENANT_ID);
-				// const route = inject(ActivatedRouteSnapshot);
-				console.log('CURRENT_TENANT_ID', tenantId$.value);
-				return tenantId$.value;
-				// const {value: tenantId} = tenantId$;
-				// console.log('CURRENT_TENANT_ID', {tenantId});
-				// if (!tenantId) {
-				// 	throw new Error('tenantId is not provided');
-				// }
-				// return tenantId;
+				const tenantId = inject(TENANT_ID).value;
+				console.log('CURRENT_TENANT_ID', {tenantId});
+				return tenantId;
 			},
 		},
+		/**
+		 * CUSTOMER
+		 */
 		CustomerIndexedDBCollectionManager,
 		CustomerIndexedDBFacade,
+		/**
+		 * SERVICE
+		 */
+		ServiceIndexedDBCollectionManager,
+		ServiceIndexedDBFacade,
 	],
 	encapsulation: ViewEncapsulation.None
 })

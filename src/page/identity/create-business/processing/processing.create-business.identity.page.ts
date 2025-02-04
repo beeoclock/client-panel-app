@@ -30,7 +30,7 @@ import {IAddress} from "@client/domain/interface/i.address";
 import {
 	PatchMediaGalleryClientApiAdapter
 } from "@client/adapter/external/api/media/gallery/patch.media.gallery.client.api.adapter";
-import {CreateServiceApiAdapter} from "@service/adapter/external/api/create.service.api.adapter";
+import {CreateServiceApiAdapter} from "@service/infrastructure/api/create.service.api.adapter";
 import {
 	ModalSelectSpecialistListAdapter
 } from "@member/adapter/external/component/modal-select-specialist.list.adapter";

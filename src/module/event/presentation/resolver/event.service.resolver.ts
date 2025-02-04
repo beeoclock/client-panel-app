@@ -5,7 +5,7 @@ import {catchError, EMPTY, of, switchMap} from "rxjs";
 
 import {IServiceState} from "@service/state/service/service.state";
 import {ServiceActions} from "@service/state/service/service.actions";
-import {ItemServiceApiAdapter} from "@service/adapter/external/api/item.service.api.adapter";
+import {ItemServiceApiAdapter} from "@service/infrastructure/api/item.service.api.adapter";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 
 export const eventServiceResolver: ResolveFn<IServiceDto | undefined> = (

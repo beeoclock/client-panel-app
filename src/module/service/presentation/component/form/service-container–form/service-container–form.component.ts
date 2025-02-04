@@ -37,6 +37,7 @@ import {is} from "@utility/checker";
 import {ActiveEnum, CurrencyCodeEnum} from "@utility/domain/enum";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {StateEnum} from "@utility/domain/enum/state.enum";
+import {IService} from "@service/domain/interface/i.service";
 
 @Component({
 	selector: 'service-form-v2-page-component',
@@ -130,7 +131,7 @@ export class ServiceContainerFormComponent implements OnInit {
 
 	public detectItem(): void {
 		const item = this.item();
-  if (this.isEditMode() && item) {
+		if (this.isEditMode() && item) {
 
 			const {durationVersions, languageVersions, presentation, ...rest} = item;
 
@@ -179,14 +180,14 @@ export class ServiceContainerFormComponent implements OnInit {
 		) {
 			this.form.disable();
 			this.form.markAsPending();
-			const value = this.form.getRawValue() as unknown as IServiceDto;
+			const value = this.form.getRawValue() as unknown as IService.DTO;
 			if (this.isEditMode()) {
 				await firstValueFrom(this.store.dispatch(new ServiceActions.UpdateItem(value)));
 				await this.imageBlock().save(value._id);
 			} else {
 				await firstValueFrom(this.store.dispatch(new ServiceActions.CreateItem(value)));
 				const item = this.item();
-    if (item) {
+				if (item) {
 					await this.imageBlock().save(item._id);
 				}
 			}

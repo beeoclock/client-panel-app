@@ -4,7 +4,6 @@ import {TranslateModule} from "@ngx-translate/core";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {NgSelectModule} from "@ng-select/ng-select";
 
-import {ModalSelectServiceListAdapter} from "@service/adapter/external/component/modal-select-service.list.adapter";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
 import {InvalidTooltipComponent} from "@utility/presentation/component/invalid-message/invalid-message";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
@@ -27,6 +26,9 @@ import {
 } from "@event/presentation/component/form/services/language-version/language-version.order.control.component";
 import {LanguageCodeEnum} from "@utility/domain/enum";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {
+	ModalSelectServiceListRepository
+} from "@service/infrastructure/repository/modal-select-service.list.repository";
 
 @Component({
 	selector: 'event-service-component',
@@ -67,8 +69,8 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
-	private readonly modalSelectServiceListAdapter = inject(ModalSelectServiceListAdapter);
-	public readonly loading$ = this.modalSelectServiceListAdapter.loading$;
+	private readonly modalSelectServiceListRepository = inject(ModalSelectServiceListRepository);
+	public readonly loading$ = this.modalSelectServiceListRepository.loading$;
 	private readonly itemMemberApiAdapter = inject(ItemMemberApiAdapter);
 	private readonly memberHasBeenSet = new BooleanState(false);
 
@@ -176,8 +178,8 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 		if (!this.serviceListControl.value.length) {
 
-			this.modalSelectServiceListAdapter.resetTableState();
-			await this.modalSelectServiceListAdapter.getPageAsync();
+			this.modalSelectServiceListRepository.resetTableState();
+			await this.modalSelectServiceListRepository.getPageAsync();
 
 		}
 
