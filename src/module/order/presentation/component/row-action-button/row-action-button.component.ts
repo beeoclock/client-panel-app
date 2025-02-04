@@ -1,7 +1,7 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {Store} from "@ngxs/store";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {OrderActions} from "@order/state/order/order.actions";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
@@ -33,16 +33,17 @@ export class RowActionButtonComponent {
 
 	private readonly store = inject(Store);
 	private readonly router = inject(Router);
+	private readonly translateService = inject(TranslateService);
 	public readonly returnUrl = this.router.url;
 
 	public delete(): void {
-		// const {active} = this.item;
-		//
-		// if (active) {
-		//
-		// 	return alert('You can\'t delete active order');
-		//
-		// }
+
+		const question = this.translateService.instant('order.action.delete.question');
+
+		if (!confirm(question)) {
+
+			throw new Error('User canceled the action');
+		}
 		this.store.dispatch(new OrderActions.DeleteItem(this.item()._id));
 	}
 
