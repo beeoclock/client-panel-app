@@ -31,8 +31,6 @@ const getSyncMangerInstance = (httpClient: HttpClient, tenantId: string) => new 
 
 		const updatedSince = lastFinishedSyncStart ? new Date(lastFinishedSyncStart).toISOString() : new Date(0).toISOString();
 
-		// TODO: if response totalSize is more than 100 then we have to fetch all data
-
 		const request$ = httpClient.get<ResponseListType<never>>(endpoint.get, {
 			params: {
 				orderBy: OrderByEnum.UPDATED_AT,
@@ -68,10 +66,6 @@ const getSyncMangerInstance = (httpClient: HttpClient, tenantId: string) => new 
 		}
 
 		items = items.map(create) as never;
-
-		console.log('SignalDB:pull', {items, lastFinishedSyncStart});
-		console.trace('SignalDB:pull');
-		// debugger;
 
 		if (lastFinishedSyncStart) {
 			return {changes: {added: items, modified: [], removed: []}};
