@@ -1,18 +1,19 @@
 import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
 import {Store} from "@ngxs/store";
-import {filter, tap} from "rxjs";
+import {delay, filter, iif, of, switchMap, tap} from "rxjs";
 import {is} from "@utility/checker";
 import {AsyncPipe} from "@angular/common";
 import {MemberState} from "@member/state/member/member.state";
 import {ITableState} from "@utility/domain/table.state";
 import * as Member from "@member/domain";
 import {RIMember} from "@member/domain";
-import {MemberActions} from "@member/state/member/member.actions";
 import {Reactive} from "@utility/cdk/reactive";
 import ScheduleV2ContainerWeekCalendarComponent from "./schedule.container.week-calendar.component";
 import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
 import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
+import {MemberActions} from "@member/state/member/member.actions";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'app-event-v2-members-container-week-calendar-component',
@@ -35,18 +36,29 @@ export default class MembersV2ContainerWeekCalendarComponent extends Reactive {
 
 	public readonly item$ = this.store.select(MemberState.tableState).pipe(
 		this.takeUntil(),
-		filter(is.object_not_empty<ITableState<Member.RIMember>>),
-		tap((tableState) => {
-			if (tableState.total === 0) {
-				this.store.dispatch(new MemberActions.GetList());
-			}
+		// If tableState is empty then wait one second and try call initMemberList use iif and delay
+		switchMap((tableState) => {
+			return iif(
+				() => tableState.total === 0,
+				of(tableState).pipe(
+					delay(1_000),
+					tap(() => this.initMemberList())
+				),
+				of(tableState)
+			);
 		}),
+		filter(is.object_not_empty<ITableState<Member.RIMember>>),
 		filter((tableState) => tableState.total > 0),
 		tap((tableState) => {
 			const members = tableState.items.filter((member: RIMember) => member.profileStatus === MemberProfileStatusEnum.active);
 			this.calendarWithSpecialistLocaStateService.setMembers(members);
 		})
 	);
+
+	@Dispatch()
+	private initMemberList() {
+		return new MemberActions.GetList()
+	}
 
 
 }

@@ -226,6 +226,7 @@ export class MemberState {
 	@Action(MemberActions.GetList)
 	public async getList(ctx: StateContext<IMemberState>, action: MemberActions.GetList): Promise<void> {
 
+
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
 
 		const state = ctx.getState();
