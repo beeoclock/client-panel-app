@@ -2,7 +2,6 @@ import {BaseActions} from "@utility/state/base/base.actions";
 import {IEvent_V2} from "@event/domain";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace EventActions {
 
 	// Application layer

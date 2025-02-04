@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace StatisticAction {
 	export class GetItems {
 		static readonly type = '[Event Statistic] Get Items';

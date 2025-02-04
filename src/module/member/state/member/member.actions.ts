@@ -1,7 +1,6 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {RIMember} from "@member/domain";
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace MemberActions {
 
 	// Application layer

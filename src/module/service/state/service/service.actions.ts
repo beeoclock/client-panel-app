@@ -1,10 +1,7 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace ServiceActions {
-
 
 	// Application layer
 

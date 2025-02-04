@@ -6,7 +6,6 @@ import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {ICustomer} from "@customer/domain";
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace OrderActions {
 
 	// Application layer

@@ -1,7 +1,6 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {IAbsenceDto} from "@module/absence/external/interface/i.absence.dto";
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace AbsenceActions {
 
 	// Application layer

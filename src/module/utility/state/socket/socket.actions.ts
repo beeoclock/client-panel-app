@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace SocketActions {
 	export class ConnectSocket {
 		static readonly type = '[Socket] Connect';

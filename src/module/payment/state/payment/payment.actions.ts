@@ -1,7 +1,6 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {IPaymentDto} from "@module/payment/domain/interface/dto/i.payment.dto";
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace PaymentActions {
 
 	// Application layer

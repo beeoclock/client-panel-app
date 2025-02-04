@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace CalendarWithSpecialistsAction {
 	export class GetItems {
 		static readonly type = '[CalendarWithSpecialists] Get Items';

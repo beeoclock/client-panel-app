@@ -1,7 +1,6 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {IEvent, RMIEvent} from "@event/domain";
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace EventRequestedActions {
 
 	export class Init extends BaseActions.Init {

@@ -1,7 +1,6 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {ICustomer} from "@customer/domain";
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace CustomerActions {
 
 	// Application layer
