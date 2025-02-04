@@ -22,7 +22,7 @@ import {
 } from "@service/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {Reactive} from "@utility/cdk/reactive";
 import {ITableState, TableState} from "@utility/domain/table.state";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IService} from "@service/domain/interface/i.service";
 
 @Component({
 	selector: 'utility-modal-select-service-component',
@@ -40,17 +40,17 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 })
 export class SelectServiceWhacAMoleComponent extends Reactive implements OnInit, AfterViewInit {
 
-	public readonly selectedServiceList = input<IServiceDto[]>([]);
+	public readonly selectedServiceList = input<IService.DTO[]>([]);
 
 	@Input()
-	public newSelectedServiceList: IServiceDto[] = [];
+	public newSelectedServiceList: IService.DTO[] = [];
 
 	@Output()
 	public readonly selectedServicesListener = new EventEmitter<void>();
 
 	public readonly useTableStateFromStore = input(true);
 
-	public readonly tableState = input<ITableState<IServiceDto>>(new TableState<IServiceDto>().toCache());
+	public readonly tableState = input<ITableState<IService.DTO>>(new TableState<IService.DTO>().toCache());
 
 	readonly serviceExternalListComponent = viewChild.required(ServiceExternalListComponent);
 
@@ -88,13 +88,13 @@ export class SelectServiceWhacAMoleComponent extends Reactive implements OnInit,
 		});
 	}
 
-	public async submit(): Promise<IServiceDto[]> {
+	public async submit(): Promise<IService.DTO[]> {
 		return new Promise((resolve) => {
 			resolve(this.newSelectedServiceList);
 		});
 	}
 
-	public async select(service: IServiceDto) {
+	public async select(service: IService.DTO) {
 		if (!this.multiple()) {
 			if (this.newSelectedServiceList.length) {
 				this.newSelectedServiceList.splice(0, 1);
@@ -106,17 +106,17 @@ export class SelectServiceWhacAMoleComponent extends Reactive implements OnInit,
 
 	}
 
-	public deselect(service: IServiceDto): void {
+	public deselect(service: IService.DTO): void {
 		this.newSelectedServiceList = this.newSelectedServiceList.filter(({_id}) => _id !== service._id);
 		this.selectedServicesListener.emit();
 		this.changeDetectorRef.detectChanges();
 	}
 
-	public isSelected(service: IServiceDto): boolean {
+	public isSelected(service: IService.DTO): boolean {
 		return this.newSelectedServiceList.some(({_id}) => _id === service._id);
 	}
 
-	public isNotSelected(service: IServiceDto): boolean {
+	public isNotSelected(service: IService.DTO): boolean {
 		return !this.isSelected(service);
 	}
 }

@@ -6,9 +6,8 @@ import {ServiceActions} from "@service/state/service/service.actions";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {IService} from "@service/domain/interface/i.service";
 
 @Component({
 	selector: 'service-detail-page',
@@ -29,7 +28,7 @@ import {StateEnum} from "@utility/domain/enum/state.enum";
 })
 export class ServiceDetails {
 
-	public readonly item = input<IServiceDto | null>(null);
+	public readonly item = input<IService.DTO | null>(null);
 
 	public readonly store = inject(Store);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);

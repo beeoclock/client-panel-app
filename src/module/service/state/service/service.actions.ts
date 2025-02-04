@@ -1,5 +1,4 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {IService} from "@service/domain/interface/i.service";
 
 export namespace ServiceActions {
@@ -16,11 +15,11 @@ export namespace ServiceActions {
 		public static override readonly type = '[Service Application] Close Form';
 	}
 
-	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<IServiceDto> {
+	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<IService.DTO> {
 		public static override readonly type = '[Service Application] Update Opened Details';
 	}
 
-	export class OpenDetails extends BaseActions.OpenDetails<IServiceDto> {
+	export class OpenDetails extends BaseActions.OpenDetails<IService.DTO> {
 		public static override readonly type = '[Service Application] Open Details';
 	}
 
@@ -34,7 +33,7 @@ export namespace ServiceActions {
 
 	export class OpenForm extends BaseActions.OpenForm<{
 		isEditMode?: boolean;
-		item?: IServiceDto;
+		item?: IService.DTO;
 	}> {
 		public static override readonly type = '[Service Application] Open Form';
 	}

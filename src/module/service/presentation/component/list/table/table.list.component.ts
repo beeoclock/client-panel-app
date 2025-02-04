@@ -17,8 +17,8 @@ import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex
 import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {ITableState} from "@utility/domain/table.state";
+import {IService} from "@service/domain/interface/i.service";
 
 @Component({
 	selector: 'service-table-list-component',
@@ -42,11 +42,11 @@ import {ITableState} from "@utility/domain/table.state";
 		DurationVersionHtmlHelper,
 	]
 })
-export class TableListComponent extends TableComponent<IServiceDto> {
+export class TableListComponent extends TableComponent<IService.DTO> {
 
 	public readonly translateService = inject(TranslateService);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
-	public override readonly tableState = input.required<ITableState<IServiceDto>>();
+	public override readonly tableState = input.required<ITableState<IService.DTO>>();
 
 	public get currentLanguageCode(): LanguageCodeEnum {
 		return this.translateService.getDefaultLang() as LanguageCodeEnum;
@@ -104,7 +104,7 @@ export class TableListComponent extends TableComponent<IServiceDto> {
 		},
 	}
 
-	public override open(item: IServiceDto) {
+	public override open(item: IService.DTO) {
 		this.store.dispatch(new ServiceActions.OpenDetails(item));
 	}
 

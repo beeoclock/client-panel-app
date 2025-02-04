@@ -5,9 +5,8 @@ import {Store} from "@ngxs/store";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {StateEnum} from "@utility/domain/enum/state.enum";
+import {IService} from "@service/domain/interface/i.service";
 
 
 @Component({
@@ -46,7 +45,7 @@ export class RowActionButtonComponent {
 
 	public readonly id = input.required<string>();
 
-	public readonly item = input.required<IServiceDto>();
+	public readonly item = input.required<IService.DTO>();
 
 	private readonly translateService = inject(TranslateService);
 	private readonly store = inject(Store);
@@ -62,7 +61,7 @@ export class RowActionButtonComponent {
 
 			throw new Error('User canceled the action');
 		}
-		return new ServiceActions.DeleteItem(this.item()._id)
+		return new ServiceActions.DeleteItem(this.item()._id);
 	}
 
 	public activate(): void {

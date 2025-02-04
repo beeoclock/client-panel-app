@@ -5,7 +5,6 @@ import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.stat
 import {ServiceActions} from "@service/state/service/service.actions";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {TranslateService} from "@ngx-translate/core";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
@@ -15,10 +14,11 @@ import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
+import {IService} from "@service/domain/interface/i.service";
 
-export type IServiceState = IBaseState<IServiceDto>
+export type IServiceState = IBaseState<IService.DTO>
 
-const defaults = baseDefaults<IServiceDto>({
+const defaults = baseDefaults<IService.DTO>({
 	filters: {},
 	orderDir: OrderDirEnum.DESC,
 	orderBy: OrderByEnum.CREATED_AT,
@@ -154,29 +154,29 @@ export class ServiceState {
 	// API
 
 	@Action(ServiceActions.Init)
-	public  async init(ctx: StateContext<IServiceState>): Promise<void> {
+	public async init(ctx: StateContext<IServiceState>): Promise<void> {
 		ctx.setState(structuredClone(defaults));
 	}
 
 	@Action(ServiceActions.UpdateFilters)
-	public  updateFilters(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateFilters) {
+	public updateFilters(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateFilters) {
 
 		BaseState.updateFilters(ctx, action);
 	}
 
 	@Action(ServiceActions.UpdateTableState)
-	public  updateTableState(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateTableState) {
+	public updateTableState(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateTableState) {
 		BaseState.updateTableState(ctx, action);
 	}
 
 	@Action(ServiceActions.CreateItem)
-	public  async createItem(ctx: StateContext<IServiceState>, action: ServiceActions.CreateItem) {
+	public async createItem(ctx: StateContext<IServiceState>, action: ServiceActions.CreateItem) {
 		this.serviceIndexedDBFacade.source.insert(EService.create(action.payload));
 		await this.closeForm(ctx);
 	}
 
 	@Action(ServiceActions.UpdateItem)
-	public  async updateItem(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateItem): Promise<void> {
+	public async updateItem(ctx: StateContext<IServiceState>, action: ServiceActions.UpdateItem): Promise<void> {
 		const item = EService.create({
 			...action.payload
 		});
@@ -191,7 +191,7 @@ export class ServiceState {
 	}
 
 	@Action(ServiceActions.GetItem)
-	public  async getItem(ctx: StateContext<IServiceState>, action: ServiceActions.GetItem): Promise<void> {
+	public async getItem(ctx: StateContext<IServiceState>, action: ServiceActions.GetItem): Promise<void> {
 		const data = this.serviceIndexedDBFacade.source.findOne({
 			id: action.payload
 		});
@@ -209,7 +209,7 @@ export class ServiceState {
 	}
 
 	@Action(ServiceActions.DeleteItem)
-	public  async deleteItem(ctx: StateContext<IServiceState>, action: ServiceActions.DeleteItem) {
+	public async deleteItem(ctx: StateContext<IServiceState>, action: ServiceActions.DeleteItem) {
 		this.serviceIndexedDBFacade.source.removeOne({
 			id: action.payload
 		});
@@ -217,7 +217,7 @@ export class ServiceState {
 	}
 
 	@Action(ServiceActions.GetList)
-	public  async getList(ctx: StateContext<IServiceState>, action: ServiceActions.GetList): Promise<void> {
+	public async getList(ctx: StateContext<IServiceState>, action: ServiceActions.GetList): Promise<void> {
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
 
 		const state = ctx.getState();
@@ -291,7 +291,7 @@ export class ServiceState {
 	}
 
 	@Action(ServiceActions.ArchiveItem)
-	public  async archiveItem(ctx: StateContext<IServiceState>, action: ServiceActions.ArchiveItem) {
+	public async archiveItem(ctx: StateContext<IServiceState>, action: ServiceActions.ArchiveItem) {
 		const item = this.serviceIndexedDBFacade.source.findOne({
 			id: action.payload
 		});
@@ -319,7 +319,7 @@ export class ServiceState {
 	}
 
 	@Action(ServiceActions.UnarchiveItem)
-	public  async unarchiveItem(ctx: StateContext<IServiceState>, action: ServiceActions.UnarchiveItem) {
+	public async unarchiveItem(ctx: StateContext<IServiceState>, action: ServiceActions.UnarchiveItem) {
 		const item = this.serviceIndexedDBFacade.source.findOne({
 			id: action.payload
 		});

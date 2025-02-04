@@ -11,7 +11,7 @@ import {ServiceActions} from "@service/state/service/service.actions";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {ServiceTableService} from "@service/presentation/component/list/service.table.service";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IService} from "@service/domain/interface/i.service";
 
 @Component({
 	selector: 'service-card-list-component',
@@ -30,7 +30,7 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 		ServiceTableService
 	],
 })
-export class CardListComponent extends TableComponent<IServiceDto> {
+export class CardListComponent extends TableComponent<IService.DTO> {
 
 	public readonly translateService = inject(TranslateService);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
@@ -39,7 +39,7 @@ export class CardListComponent extends TableComponent<IServiceDto> {
 
 	public showSelectedStatus = new BooleanStreamState(false);
 
-	public list: IServiceDto[] = [];
+	public list: IService.DTO[] = [];
 
 	public constructor() {
 		super();
@@ -62,7 +62,7 @@ export class CardListComponent extends TableComponent<IServiceDto> {
 		return firstFoundOption ?? languageVersions[0];
 	}
 
-	public override open(item: IServiceDto): void {
+	public override open(item: IService.DTO): void {
 		this.store.dispatch(new ServiceActions.OpenDetails(item));
 	}
 

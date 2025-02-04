@@ -10,8 +10,8 @@ import {
 	AutoRefreshButtonComponent
 } from "@service/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {ServiceActions} from "@service/state/service/service.actions";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {TableListComponent} from "@service/presentation/component/list/table/table.list.component";
+import {IService} from "@service/domain/interface/i.service";
 
 @Component({
 	selector: 'service-desktop-layout-list-component',
@@ -26,7 +26,7 @@ import {TableListComponent} from "@service/presentation/component/list/table/tab
 		TableListComponent,
 	],
 })
-export class DesktopLayoutListComponent extends LayoutListComponent<IServiceDto> {
+export class DesktopLayoutListComponent extends LayoutListComponent<IService.DTO> {
 
 	openForm() {
 		this.store.dispatch(new ServiceActions.OpenForm());

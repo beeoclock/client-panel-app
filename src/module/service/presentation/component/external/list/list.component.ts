@@ -22,8 +22,8 @@ import {
 } from "@service/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {TableService} from "@utility/table.service";
 import {ServiceTableService} from "@service/presentation/component/list/service.table.service";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {OrderDirEnum} from "@utility/domain/enum";
+import {IService} from "@service/domain/interface/i.service";
 
 @Component({
 	selector: 'service-external-list-component',
@@ -44,12 +44,12 @@ import {OrderDirEnum} from "@utility/domain/enum";
 		}
 	]
 })
-export class ServiceExternalListComponent extends ListPage<IServiceDto> implements OnInit {
+export class ServiceExternalListComponent extends ListPage<IService.DTO> implements OnInit {
 
 	public readonly useTableStateFromStore = input(true);
 
 	@Input()
-	public tableState: ITableState<IServiceDto> = new TableState<IServiceDto>().toCache();
+	public tableState: ITableState<IService.DTO> = new TableState<IService.DTO>().toCache();
 
 	@ViewChildren(MobileLayoutListComponent)
 	public mobileLayoutListComponents!: QueryList<MobileLayoutListComponent>;
