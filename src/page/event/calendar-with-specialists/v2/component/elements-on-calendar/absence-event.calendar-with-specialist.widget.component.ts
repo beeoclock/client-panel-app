@@ -10,7 +10,7 @@ import {
 
 import {IAttendee, IEvent_V2} from "@event/domain";
 import {Store} from "@ngxs/store";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {IAbsence} from "@absence/domain/interface/i.absence";
 import {TranslateModule} from "@ngx-translate/core";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {DateTime} from "luxon";
@@ -48,7 +48,7 @@ import {DateTime} from "luxon";
 export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnChanges {
 
 	@Input()
-	public event!: IEvent_V2<IAbsenceDto>;
+	public event!: IEvent_V2<IAbsence.DTO>;
 
 	public startEndTitle = '';
 
@@ -134,7 +134,7 @@ export class AbsenceEventCalendarWithSpecialistWidgetComponent implements OnChan
 
 	}
 
-	private async openAbsenceDetails(event: IEvent_V2<IAbsenceDto>) {
+	private async openAbsenceDetails(event: IEvent_V2<IAbsence.DTO>) {
 		this.store.dispatch(new AbsenceActions.OpenDetails(event.originalData));
 	}
 

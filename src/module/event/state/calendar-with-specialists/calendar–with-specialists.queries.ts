@@ -6,7 +6,7 @@ import {
 import {DateTime} from "luxon";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {IAbsence} from "@absence/domain/interface/i.absence";
 import {IEvent_V2} from "@event/domain";
 
 export class CalendarWithSpecialistsQueries {
@@ -39,7 +39,7 @@ export class CalendarWithSpecialistsQueries {
 
 	@Selector([CalendarWithSpecialistsQueries.state.data])
 	static data(data: ICalendarWithSpecialist['data']) {
-		return data as IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenceDto>[];
+		return data as IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsence.DTO>[];
 	}
 
 }

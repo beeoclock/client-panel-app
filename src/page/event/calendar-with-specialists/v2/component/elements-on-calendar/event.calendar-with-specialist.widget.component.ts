@@ -17,11 +17,11 @@ import CalendarWithSpecialistLocaStateService
 import {IEvent_V2} from "@event/domain";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {IAbsence} from "@absence/domain/interface/i.absence";
 import {DateTime} from "luxon";
 import {RIMember} from "@member/domain";
 import {UpdateServiceOrderApiAdapter} from "@order/external/adapter/api/update.service.order.api.adapter";
-import {UpdateAbsenceApiAdapter} from "@absence/external/adapter/api/update.order.api.adapter";
+import {UpdateAbsenceApiAdapter} from "@absence/infrastructure/api/update.order.api.adapter";
 import {NGXLogger} from "ngx-logger";
 import {AlertController} from "@ionic/angular";
 import {TranslateService} from "@ngx-translate/core";
@@ -34,7 +34,7 @@ import {
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
 
-type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenceDto>;
+type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsence.DTO>;
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -355,7 +355,7 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		return event.is === 'order';
 	}
 
-	public isAbsence(event: DATA): event is IEvent_V2<IAbsenceDto> {
+	public isAbsence(event: DATA): event is IEvent_V2<IAbsence.DTO> {
 		return event.is === 'absence';
 	}
 

@@ -29,6 +29,7 @@ import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {
 	ModalSelectServiceListRepository
 } from "@service/infrastructure/repository/modal-select-service.list.repository";
+import {IService} from "@service/domain/interface/i.service";
 
 @Component({
 	selector: 'event-service-component',
@@ -191,10 +192,10 @@ export class ServicesComponent extends Reactive implements OnInit {
 	 * It operates under the condition that if `setMemberOnlyOnce` is true, a member will only be set once
 	 * across all service updates to prevent overriding existing member assignments.
 	 *
-	 * @param {IServiceDto[]} newSelectedServiceList - The list of services to update with a member.
-	 * @returns {IServiceDto[]} The updated list of services with a member set for each service's specialists.
+	 * @param {IService.DTO[]} newSelectedServiceList - The list of services to update with a member.
+	 * @returns {IService.DTO[]} The updated list of services with a member set for each service's specialists.
 	 */
-	private setMember(newSelectedServiceList: IServiceDto[]): IServiceDto[] {
+	private setMember(newSelectedServiceList: IService.DTO[]): IService.DTO[] {
 		// Check if a member is available to be set
 		const memberValue = this.member();
 		if (memberValue) {

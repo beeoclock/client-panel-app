@@ -13,10 +13,10 @@ import {
 } from "@service/presentation/component/list/layout/desktop/desktop.layout.list.component";
 import {TableService} from "@utility/table.service";
 import {ServiceTableService} from "@service/presentation/component/list/service.table.service";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {ServiceActions} from "@service/state/service/service.actions";
+import {IService} from "@service/domain/interface/i.service";
 
 @Component({
 	selector: 'app-list-service-page',
@@ -37,9 +37,9 @@ import {ServiceActions} from "@service/state/service/service.actions";
 	],
 	standalone: true,
 })
-export class ListServicePage extends ListPage<IServiceDto> implements OnInit, OnDestroy {
+export class ListServicePage extends ListPage<IService.DTO> implements OnInit, OnDestroy {
 
-	public readonly tableState$: Observable<ITableState<IServiceDto>> = this.store.select(ServiceState.tableState)
+	public readonly tableState$: Observable<ITableState<IService.DTO>> = this.store.select(ServiceState.tableState)
 		.pipe(
 			tap((tableState) => {
 				this.changeDetectorRef.detectChanges();

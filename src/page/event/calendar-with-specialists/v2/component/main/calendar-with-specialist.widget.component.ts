@@ -26,7 +26,7 @@ import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-special
 import {Actions, ofActionSuccessful, Store} from "@ngxs/store";
 import {IOrderDto} from "@order/external/interface/details/i.order.dto";
 import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {IAbsence} from "@absence/domain/interface/i.absence";
 import {ActivatedRoute} from "@angular/router";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 import {TranslateModule} from "@ngx-translate/core";
@@ -80,7 +80,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 	});
 	readonly calendar = viewChild.required<ElementRef<HTMLDivElement>>('calendar');
 	public eventsBySpecialistId: {
-		[key: string]: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenceDto>[]
+		[key: string]: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsence.DTO>[]
 	} = {};
 	// Find all #column
 	@ViewChildren('column')
@@ -224,7 +224,7 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 				return acc;
 
-			}, {} as { [key: string]: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsenceDto>[] });
+			}, {} as { [key: string]: IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsence.DTO>[] });
 
 		}),
 	);

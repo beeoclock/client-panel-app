@@ -11,7 +11,7 @@ import {
 import {
 	MobileLayoutListComponent
 } from "@absence/presentation/component/list/layout/mobile/mobile.layout.list.component";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {IAbsence} from "@absence/domain/interface/i.absence";
 import {TableService} from "@utility/table.service";
 import {AbsenceTableService} from "@absence/presentation/component/list/absence.table.service";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
@@ -37,9 +37,9 @@ import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 		}
 	]
 })
-export class ListAbsencePage extends ListPage<IAbsenceDto> implements OnDestroy, OnInit {
+export class ListAbsencePage extends ListPage<IAbsence.DTO> implements OnDestroy, OnInit {
 
-	public readonly tableState$: Observable<ITableState<IAbsenceDto>> = this.store.select(AbsenceState.tableState)
+	public readonly tableState$: Observable<ITableState<IAbsence.DTO>> = this.store.select(AbsenceState.tableState)
 		.pipe(
 			tap(() => {
 				this.changeDetectorRef.detectChanges();
