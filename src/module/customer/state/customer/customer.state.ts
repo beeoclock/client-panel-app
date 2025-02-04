@@ -3,14 +3,7 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import * as Customer from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
-import {ArchiveCustomerApiAdapter} from "@customer/infrastructure/api/archive.customer.api.adapter";
-import {CreateCustomerApiAdapter} from "@customer/infrastructure/api/create.customer.api.adapter";
-import {UpdateCustomerApiAdapter} from "@customer/infrastructure/api/update.customer.api.adapter";
-import {ItemCustomerApiAdapter} from "@customer/infrastructure/api/item.customer.api.adapter";
-import {RemoveCustomerApiAdapter} from "@customer/infrastructure/api/remove.customer.api.adapter";
-import {ListCustomerApiAdapter} from "@customer/infrastructure/api/list.customer.api.adapter";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
-import {UnarchiveCustomerApiAdapter} from "@customer/infrastructure/api/unarchive.customer.api.adapter";
 import {TranslateService} from "@ngx-translate/core";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
@@ -38,13 +31,6 @@ const defaults = baseDefaults<Customer.ICustomer.Entity>({
 @Injectable()
 export class CustomerState {
 
-	private readonly archive = inject(ArchiveCustomerApiAdapter);
-	private readonly unarchive = inject(UnarchiveCustomerApiAdapter);
-	private readonly create = inject(CreateCustomerApiAdapter);
-	private readonly update = inject(UpdateCustomerApiAdapter);
-	private readonly item = inject(ItemCustomerApiAdapter);
-	private readonly delete = inject(RemoveCustomerApiAdapter);
-	private readonly paged = inject(ListCustomerApiAdapter);
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
 	private readonly ngxLogger = inject(NGXLogger);
@@ -106,18 +92,20 @@ export class CustomerState {
 	public async openDetailsById(ctx: StateContext<ICustomerState>, {payload: id}: CustomerActions.OpenDetailsById) {
 
 		const title = await this.translateService.instant('customer.details.title');
+		const item = this.customerIndexedDBFacade.source.findOne({
+			id
+		});
+
+		if (!item) {
+			this.ngxLogger.error('CustomerState.openDetailsById', 'Item not found');
+			return;
+		}
 
 		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
 
 		await this.whacAMaleProvider.buildItAsync({
 			title,
 			showLoading: true,
-			component: CustomerDetailsContainerComponent,
-		});
-
-		const item = await this.item.executeAsync(id);
-
-		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 			component: CustomerDetailsContainerComponent,
 			componentInputs: {item},
 		});
@@ -128,18 +116,14 @@ export class CustomerState {
 	public async openFormToEditById(ctx: StateContext<ICustomerState>, action: CustomerActions.OpenFormToEditById) {
 
 		const title = await this.translateService.instant('customer.form.title.edit');
-
-		await this.openForm(ctx, {
-			payload: {
-				pushBoxInputs: {
-					title,
-					showLoading: true,
-					id: action.payload,
-				},
-			}
+		const item = this.customerIndexedDBFacade.source.findOne({
+			id: action.payload
 		});
 
-		const item = await this.item.executeAsync(action.payload);
+		if (!item) {
+			this.ngxLogger.error('CustomerState.openFormToEditById', 'Item not found');
+			return;
+		}
 
 		await this.openForm(ctx, {
 			payload: {
@@ -193,8 +177,6 @@ export class CustomerState {
 
 	@Action(CustomerActions.GetItem)
 	public async getItem(ctx: StateContext<ICustomerState>, action: CustomerActions.GetItem): Promise<void> {
-		// await super.getItem(ctx, action);
-
 		const data = this.customerIndexedDBFacade.source.findOne({
 			id: action.payload
 		});
@@ -214,20 +196,12 @@ export class CustomerState {
 
 	@Action(CustomerActions.CreateItem)
 	public async createItem(ctx: StateContext<ICustomerState>, action: CustomerActions.CreateItem): Promise<void> {
-		// await super.createItem(ctx, action);
-		// await this.closeForm(ctx);
 		this.customerIndexedDBFacade.source.insert(ECustomer.create(action.payload));
 		await this.closeForm(ctx);
 	}
 
 	@Action(CustomerActions.UpdateItem)
 	public async updateItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UpdateItem): Promise<void> {
-		// await super.updateItem(ctx, action);
-
-		// await this.closeForm(ctx);
-		// const {data} = ctx.getState().item;
-		// data && await this.updateOpenedDetails(ctx, {payload: data});
-
 		const item = ECustomer.create({
 			...action.payload
 		});
@@ -257,6 +231,7 @@ export class CustomerState {
 			id: action.payload
 		});
 		if (!item) {
+			this.ngxLogger.error('CustomerState.archiveItem', 'Item not found');
 			return;
 		}
 		this.customerIndexedDBFacade.source.updateOne({
@@ -286,6 +261,7 @@ export class CustomerState {
 			id: action.payload
 		});
 		if (!item) {
+			this.ngxLogger.error('CustomerState.unarchiveItem', 'Item not found');
 			return;
 		}
 
