@@ -32,16 +32,14 @@ export class ServiceIndexedDBCollectionManager extends Reactive {
 			throw new Error('SyncManagerService is already provided');
 		}
 
-		this.tenantId$.pipe(this.takeUntil(), filter(is.string)).subscribe((tenantId) => {
+		this.tenantId$.pipe(this.takeUntil(), filter(is.string)).subscribe((currentTenantId) => {
 
-			console.log({tenantId})
 
-			this.context = ServiceIndexedDBCollectionManagerContext.create(tenantId);
+			this.context = ServiceIndexedDBCollectionManagerContext.create(currentTenantId);
 
 			// Add collection to syncManager instance if you need to sync data with server
-			const {collection, options} = this.context.getSyncConfiguration();
-			this.syncManagerService.getSyncManager().addCollection(collection, options);
-			this.syncManagerService.syncAll().then();
+			const {collection, options, tenantId} = this.context.getSyncConfiguration();
+			this.syncManagerService.addCollection(tenantId, collection, options);
 
 		});
 
@@ -100,9 +98,10 @@ class ServiceIndexedDBCollectionManagerContext {
 			throw new Error('Database is not initialized');
 		}
 
-		const {collection} = this.#database;
+		const {collection, tenantId} = this.#database;
 
 		return {
+			tenantId,
 			collection,
 			options: {
 				name: this.collectionName,

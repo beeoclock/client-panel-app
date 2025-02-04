@@ -1,4 +1,4 @@
-import {EventEmitter} from '@signaldb/core';
+import {Collection, EventEmitter} from '@signaldb/core';
 import createIndexedDBAdapter from '@signaldb/indexeddb'
 import angularReactivityAdapter from '@signaldb/angular';
 import {SyncManager} from '@signaldb/sync'
@@ -26,9 +26,9 @@ const getSyncMangerInstance = (httpClient: HttpClient, tenantId: string) => new 
 	persistenceAdapter: createIndexedDBAdapter,
 	pull: async (something, pullParameters) => {
 		const {endpoint, create} = something;
-		const {lastFinishedSyncEnd} = pullParameters;
+		const {lastFinishedSyncStart} = pullParameters;
 
-		const updatedSince = lastFinishedSyncEnd ? new Date(lastFinishedSyncEnd).toISOString() : new Date(0).toISOString();
+		const updatedSince = lastFinishedSyncStart ? new Date(lastFinishedSyncStart).toISOString() : new Date(0).toISOString();
 
 		const request$ = httpClient.get<ResponseListType<never>>(endpoint.get, {
 			params: {
@@ -44,7 +44,11 @@ const getSyncMangerInstance = (httpClient: HttpClient, tenantId: string) => new 
 		let {items} = response;
 		items = items.map(create) as never;
 
-		if (lastFinishedSyncEnd) {
+		console.log('SignalDB:pull', {items, lastFinishedSyncStart});
+		console.trace('SignalDB:pull');
+		// debugger;
+
+		if (lastFinishedSyncStart) {
 			return {changes: {added: items, modified: [], removed: []}};
 		}
 
@@ -175,6 +179,45 @@ export class SyncManagerService extends Reactive {
 			this.#syncManager = syncManager;
 
 		})
+
+	}
+
+
+	/**
+	 * Add collection to syncManager instance if you need to sync data with server
+	 * @param tenantId
+	 * @param collection
+	 * @param options
+	 */
+	public addCollection(tenantId: string, collection: Collection, options: any) {
+
+		if (tenantId !== this.#tenantId) {
+			throw new Error('TenantId does not match');
+		}
+
+		/**
+		 * Check if collection already exists in syncManager instance before adding it!
+		 * This is important because syncManager instance is shared across the application and we don't want to add the same collection multiple times.
+		 * Because it will cause syncManager to sync the same collection multiple times and it will cause not stop syncing (A call B, B call A instance).
+		 */
+
+		try {
+
+			/**
+			 * If collection already exists in syncManager instance, it will throw an error and we can safely ignore it.
+			 */
+
+			this.#syncManager.getCollectionProperties(collection.name);
+
+		} catch {
+
+			/**
+			 * Catch means collection not found in syncManager instance and it is safe to add it.
+			 */
+
+			this.#syncManager.addCollection(collection, options);
+
+		}
 
 	}
 
