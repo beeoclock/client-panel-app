@@ -1,4 +1,3 @@
-import {Tools} from "@utility/tools";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 import {Types} from "@utility/types";
 import {ICustomer} from "@customer/domain";
@@ -50,18 +49,18 @@ export class ECustomer extends ABaseItem<'CustomerDto', ICustomer.DTO> implement
 	 * Tools
 	 */
 
-	public static readonly is = {
-		dto: Tools.createIs<ICustomer.DTO>(),
-		entity: Tools.createIs<ICustomer.Entity>(),
-	};
-	public static readonly isValid = {
-		dto: Tools.createValidate<ICustomer.DTO>(),
-		entity: Tools.createValidate<ICustomer.Entity>(),
-	};
-	public static readonly getRandom = {
-		dto: Tools.createRandom<ICustomer.DTO>(),
-		entity: Tools.createRandom<ICustomer.Entity>(),
-	};
+	// public static readonly is = {
+	// 	dto: Tools.createIs<ICustomer.DTO>(),
+	// 	entity: Tools.createIs<ICustomer.Entity>(),
+	// };
+	// public static readonly isValid = {
+	// 	dto: Tools.createValidate<ICustomer.DTO>(),
+	// 	entity: Tools.createValidate<ICustomer.Entity>(),
+	// };
+	// public static readonly getRandom = {
+	// 	dto: Tools.createRandom<ICustomer.DTO>(),
+	// 	entity: Tools.createRandom<ICustomer.Entity>(),
+	// };
 
 }
 
