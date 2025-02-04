@@ -2,7 +2,7 @@ import {AfterViewInit, Component, HostBinding, inject, OnDestroy, OnInit, ViewEn
 import {SidebarComponent} from '@utility/presentation/component/sidebar/sidebar.component';
 import {NavbarComponent} from '@utility/presentation/component/navbar/navbar.component';
 import {RouterOutlet} from '@angular/router';
-import {AsyncPipe, DOCUMENT} from "@angular/common";
+import {AsyncPipe} from "@angular/common";
 import {
 	PageLoadingProgressBarComponent
 } from "@utility/presentation/component/page-loading-progress-bar/page-loading-progress-bar.component";
@@ -38,6 +38,8 @@ import {VisibilityService} from "@utility/cdk/visibility.service";
 import {SyncManagerService} from "@src/core/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
 import {AbsenceIndexedDBFacade} from "@absence/infrastructure/facade/indexedDB/absence.indexedDB.facade";
 import {AbsenceIndexedDBCollectionManager} from "@absence/infrastructure/manager/absence.indexedDB.collection.manager";
+import {MemberIndexedDBFacade} from "@member/infrastructure/facade/indexedDB/member.indexedDB.facade";
+import {MemberIndexedDBCollectionManager} from "@member/infrastructure/manager/member.indexedDB.collection.manager";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -92,13 +94,17 @@ import {AbsenceIndexedDBCollectionManager} from "@absence/infrastructure/manager
 		 */
 		AbsenceIndexedDBCollectionManager,
 		AbsenceIndexedDBFacade,
+		/**
+		 * MEMBER
+		 */
+		MemberIndexedDBCollectionManager,
+		MemberIndexedDBFacade,
 	],
 	encapsulation: ViewEncapsulation.None
 })
 export default class WrapperPanelComponent extends Reactive implements OnInit, AfterViewInit, OnDestroy {
 
 	public readonly mainContainerId = inject(MAIN_CONTAINER_ID);
-	private readonly document = inject(DOCUMENT);
 	public readonly getFrontendSettingsAccountApiAdapter = inject(GetFrontendSettingsAccountApiAdapter);
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);

@@ -31,13 +31,13 @@ import {
 	PatchMediaGalleryClientApiAdapter
 } from "@client/adapter/external/api/media/gallery/patch.media.gallery.client.api.adapter";
 import {CreateServiceApiAdapter} from "@service/infrastructure/api/create.service.api.adapter";
-import {
-	ModalSelectSpecialistListAdapter
-} from "@member/adapter/external/component/modal-select-specialist.list.adapter";
 
 import {TENANT_ID} from "@src/token";
 import {WithTenantIdPipe} from "@utility/presentation/pipes/with-tenant-id.pipe";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {
+	ModalSelectSpecialistListRepository
+} from "@member/infrastructure/repository/modal-select-specialist.list.repository";
 
 const enum Status {
 	Success = 'success',
@@ -100,7 +100,7 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 	public readonly store = inject(Store);
 	public readonly tenantId$ = inject(TENANT_ID);
 	public readonly allStepsFinishedWithSuccess = new BooleanState(false);
-	public readonly modalSelectSpecialistListAdapter = inject(ModalSelectSpecialistListAdapter);
+	public readonly modalSelectSpecialistListRepository = inject(ModalSelectSpecialistListRepository);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly createServiceApiAdapter = inject(CreateServiceApiAdapter);
@@ -271,10 +271,10 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 
 	private async stepAddServices(): Promise<void> {
 
-		if (!this.modalSelectSpecialistListAdapter.tableState.total) {
+		if (!this.modalSelectSpecialistListRepository.tableState.total) {
 
-			this.modalSelectSpecialistListAdapter.resetTableState();
-			await this.modalSelectSpecialistListAdapter.getPageAsync();
+			this.modalSelectSpecialistListRepository.resetTableState();
+			await this.modalSelectSpecialistListRepository.getPageAsync();
 
 		}
 

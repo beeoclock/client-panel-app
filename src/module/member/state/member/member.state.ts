@@ -3,15 +3,17 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 import * as Member from "@member/domain";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {MemberActions} from "@member/state/member/member.actions";
-import {ArchiveMemberApiAdapter} from "@member/adapter/external/api/archive.member.api.adapter";
-import {CreateMemberApiAdapter} from "@member/adapter/external/api/create.member.api.adapter";
-import {UpdateMemberApiAdapter} from "@member/adapter/external/api/update.member.api.adapter";
-import {ItemMemberApiAdapter} from "@member/adapter/external/api/item.member.api.adapter";
-import {RemoveMemberApiAdapter} from "@member/adapter/external/api/remove.member.api.adapter";
-import {ListMemberApiAdapter} from "@member/adapter/external/api/list.member.api.adapter";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {TranslateService} from "@ngx-translate/core";
 import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
+import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
+import {NGXLogger} from "ngx-logger";
+import {MemberIndexedDBFacade} from "@member/infrastructure/facade/indexedDB/member.indexedDB.facade";
+import EMember from "@member/domain/entity/e.member";
+import {firstValueFrom} from "rxjs";
+import {AppActions} from "@utility/state/app/app.actions";
+import {TableState} from "@utility/domain/table.state";
+import {getMaxPage} from "@utility/domain/max-page";
 
 export type IMemberState = IBaseState<Member.RIMember>;
 
@@ -27,22 +29,13 @@ const defaults = baseDefaults<Member.RIMember>({
 	defaults,
 })
 @Injectable()
-export class MemberState extends BaseState<Member.RIMember> {
+export class MemberState {
 
-	protected override readonly archive = inject(ArchiveMemberApiAdapter);
-	protected override readonly create = inject(CreateMemberApiAdapter);
-	protected override readonly update = inject(UpdateMemberApiAdapter);
-	protected override readonly item = inject(ItemMemberApiAdapter);
-	protected override readonly delete = inject(RemoveMemberApiAdapter);
-	protected override readonly paged = inject(ListMemberApiAdapter);
+	public readonly memberIndexedDBFacade = inject(MemberIndexedDBFacade);
 
+	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
-
-	constructor() {
-		super(
-			defaults,
-		);
-	}
+	private readonly ngxLogger = inject(NGXLogger);
 
 	// Application layer
 
@@ -101,18 +94,20 @@ export class MemberState extends BaseState<Member.RIMember> {
 	public async openDetailsById(ctx: StateContext<IMemberState>, {payload: id}: MemberActions.OpenDetailsById) {
 
 		const title = await this.translateService.instant('member.details.title');
+		const item = this.memberIndexedDBFacade.source.findOne({
+			id
+		});
+
+		if (!item) {
+			this.ngxLogger.error('MemberState.openDetailsById', 'Item not found');
+			return;
+		}
 
 		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
 
 		await this.whacAMaleProvider.buildItAsync({
 			title,
 			showLoading: true,
-			component: MemberDetailsContainerComponent,
-		});
-
-		const item = await this.item.executeAsync(id);
-
-		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 			component: MemberDetailsContainerComponent,
 			componentInputs: {
 				item
@@ -125,18 +120,14 @@ export class MemberState extends BaseState<Member.RIMember> {
 	public async openFormToEditById(ctx: StateContext<IMemberState>, {payload: id}: MemberActions.OpenFormToEditById) {
 
 		const title = this.translateService.instant('member.form.title.edit');
-
-		await this.openForm(ctx, {
-			payload: {
-				pushBoxInputs: {
-					title,
-					showLoading: true,
-					id,
-				},
-			}
+		const item = this.memberIndexedDBFacade.source.findOne({
+			id
 		});
 
-		const item = await this.item.executeAsync(id);
+		if (!item) {
+			this.ngxLogger.error('MemberState.openDetailsById', 'Item not found');
+			return;
+		}
 
 		await this.openForm(ctx, {
 			payload: {
@@ -172,48 +163,138 @@ export class MemberState extends BaseState<Member.RIMember> {
 	// API
 
 	@Action(MemberActions.Init)
-	public override async init(ctx: StateContext<IMemberState>): Promise<void> {
-		await super.init(ctx);
+	public async init(ctx: StateContext<IMemberState>): Promise<void> {
+		ctx.setState(structuredClone(defaults));
 	}
 
 	@Action(MemberActions.UpdateFilters)
-	public override updateFilters(ctx: StateContext<IMemberState>, action: MemberActions.UpdateFilters) {
-		super.updateFilters(ctx, action);
+	public updateFilters(ctx: StateContext<IMemberState>, action: MemberActions.UpdateFilters) {
+		BaseState.updateFilters(ctx, action);
 	}
 
 	@Action(MemberActions.UpdateTableState)
-	public override updateTableState(ctx: StateContext<IMemberState>, action: MemberActions.UpdateTableState) {
-		super.updateTableState(ctx, action);
-	}
-
-	@Action(MemberActions.GetItem)
-	public override async getItem(ctx: StateContext<IMemberState>, action: MemberActions.GetItem): Promise<void> {
-		await super.getItem(ctx, action);
-	}
-
-	@Action(MemberActions.DeleteItem)
-	public override async deleteItem(ctx: StateContext<IMemberState>, action: MemberActions.DeleteItem) {
-		await super.deleteItem(ctx, action);
-		await this.closeDetails(ctx, action);
+	public updateTableState(ctx: StateContext<IMemberState>, action: MemberActions.UpdateTableState) {
+		BaseState.updateTableState(ctx, action);
 	}
 
 	@Action(MemberActions.CreateItem)
-	public override async createItem(ctx: StateContext<IMemberState>, action: MemberActions.CreateItem): Promise<void> {
-		await super.createItem(ctx, action);
+	public async createItem(ctx: StateContext<IMemberState>, action: MemberActions.CreateItem): Promise<void> {
+		this.memberIndexedDBFacade.source.insert(EMember.create(action.payload));
 		await this.closeForm(ctx);
 	}
 
 	@Action(MemberActions.UpdateItem)
-	public override async updateItem(ctx: StateContext<IMemberState>, action: MemberActions.UpdateItem): Promise<void> {
-		await super.updateItem(ctx, action);
+	public async updateItem(ctx: StateContext<IMemberState>, action: MemberActions.UpdateItem): Promise<void> {
+
+		const item = EMember.create(action.payload);
+		this.memberIndexedDBFacade.source.updateOne({
+			id: action.payload._id,
+		}, {
+			$set: item
+		});
 		await this.closeForm(ctx);
 		const {data} = ctx.getState().item;
-		data && await this.updateOpenedDetails(ctx, {payload: data});
+		data && await this.updateOpenedDetails(ctx, {payload: item});
+	}
+
+	@Action(MemberActions.GetItem)
+	public async getItem(ctx: StateContext<IMemberState>, action: MemberActions.GetItem): Promise<void> {
+		const data = this.memberIndexedDBFacade.source.findOne({
+			id: action.payload
+		});
+
+		if (!data) {
+			return;
+		}
+
+		ctx.patchState({
+			item: {
+				data,
+				downloadedAt: new Date(),
+			}
+		});
+	}
+
+	@Action(MemberActions.DeleteItem)
+	public async deleteItem(ctx: StateContext<IMemberState>, action: MemberActions.DeleteItem) {
+		this.memberIndexedDBFacade.source.removeOne({
+			id: action.payload
+		});
+		await this.closeDetails(ctx, action);
 	}
 
 	@Action(MemberActions.GetList)
-	public override async getList(ctx: StateContext<IMemberState>, action: MemberActions.GetList): Promise<void> {
-		await super.getList(ctx, action);
+	public async getList(ctx: StateContext<IMemberState>, action: MemberActions.GetList): Promise<void> {
+
+		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
+
+		const state = ctx.getState();
+
+		try {
+
+			const newTableState = TableState.fromCache(state.tableState);
+
+			console.log(state.tableState, {newTableState})
+
+			const {
+				queryParams,
+				resetPage,
+				resetParams
+			} = action.payload ?? {};
+
+			if (resetPage) {
+				newTableState.setPage(1);
+			}
+
+			if (resetParams) {
+				newTableState.filters = {};
+			}
+
+			const phraseFields = ['firstName', 'lastName'];
+
+			const params = newTableState.toBackendFormat();
+
+			const selector = {
+				...((newTableState.filters?.phrase as string)?.length ? {
+					$or: phraseFields.map((field) => {
+						return {
+							[field]: {
+								$regex: newTableState.filters.phrase,
+								$options: "i"
+							}
+						}
+					})
+				} : {})
+			};
+
+			const items = this.memberIndexedDBFacade.source.find(selector, {
+				limit: params.pageSize,
+				skip: (params.page - 1) * params.pageSize,
+				sort: {
+					[params.orderBy]: params.orderDir === OrderDirEnum.ASC ? 1 : -1
+				}
+			}).fetch();
+
+			const count = this.memberIndexedDBFacade.source.find(selector).count();
+
+			newTableState
+				.setTotal(count)
+				.setItems(items)
+				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
+
+			this.ngxLogger.debug('Table state: ', newTableState);
+
+			ctx.patchState({
+				tableState: newTableState.toCache(),
+				lastTableHashSum: newTableState.hashSum
+			});
+
+		} catch (e) {
+			this.ngxLogger.error(e);
+		}
+
+		// Switch of page loader
+		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 	}
 
 	// Selectors

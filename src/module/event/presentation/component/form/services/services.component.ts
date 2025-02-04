@@ -20,7 +20,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {RIMember} from "@member/domain";
 import {BooleanState} from "@utility/domain";
 import {TableState} from "@utility/domain/table.state";
-import {ItemMemberApiAdapter} from "@member/adapter/external/api/item.member.api.adapter";
+import {ItemMemberApiAdapter} from "@member/infrastructure/api/item.member.api.adapter";
 import {
 	LanguageVersionOrderControlComponent
 } from "@event/presentation/component/form/services/language-version/language-version.order.control.component";

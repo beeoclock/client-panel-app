@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import * as Member from '@member/domain';
-import {memberEndpointEnum} from "@member/endpoint/member.endpoint";
+import {memberEndpointEnum} from "@member/infrastructure/endpoint/member.endpoint";
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@utility/checker";

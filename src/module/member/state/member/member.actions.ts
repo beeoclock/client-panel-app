@@ -1,5 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {RIMember} from "@member/domain";
+import {IMember} from "@member/domain/interface/i.member";
 
 export namespace MemberActions {
 
@@ -13,11 +13,11 @@ export namespace MemberActions {
 		public static override readonly type = '[Member Application] Close Form';
 	}
 
-	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<RIMember> {
+	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<IMember.DTO> {
 		public static override readonly type = '[Member Application] Update Opened Details';
 	}
 
-	export class OpenDetails extends BaseActions.OpenDetails<RIMember> {
+	export class OpenDetails extends BaseActions.OpenDetails<IMember.DTO> {
 		public static override readonly type = '[Member Application] Open Details';
 	}
 
@@ -30,7 +30,7 @@ export namespace MemberActions {
 	}
 
 	export class OpenForm extends BaseActions.OpenForm<{
-		item?: RIMember;
+		item?: IMember.DTO;
 		isEditMode?: boolean;
 	}> {
 		public static override readonly type = '[Member Application] Open Form';
@@ -58,11 +58,11 @@ export namespace MemberActions {
 		public static override readonly type = '[Member API] Get Item';
 	}
 
-	export class CreateItem extends BaseActions.CreateItem<RIMember> {
+	export class CreateItem extends BaseActions.CreateItem<IMember.DTO> {
 		public static override readonly type = '[Member API] Create Item';
 	}
 
-	export class UpdateItem extends BaseActions.UpdateItem<RIMember> {
+	export class UpdateItem extends BaseActions.UpdateItem<IMember.DTO> {
 		public static override readonly type = '[Member API] Update Item';
 	}
 
@@ -72,7 +72,7 @@ export namespace MemberActions {
 		public static override readonly type = '[Member State] Update Filters';
 	}
 
-	export class UpdateTableState extends BaseActions.UpdateTableState<RIMember> {
+	export class UpdateTableState extends BaseActions.UpdateTableState<IMember.DTO> {
 		public static override readonly type = '[Member State] Update Table State';
 	}
 

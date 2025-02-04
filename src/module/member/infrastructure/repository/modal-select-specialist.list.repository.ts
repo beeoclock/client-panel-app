@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {ListMemberApiAdapter} from "@member/adapter/external/api/list.member.api.adapter";
+import {ListMemberApiAdapter} from "@member/infrastructure/api/list.member.api.adapter";
 import {TableState} from "@utility/domain/table.state";
 import * as Member from "@member/domain";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
@@ -8,7 +8,7 @@ import {NGXLogger} from "ngx-logger";
 @Injectable({
   providedIn: 'root'
 })
-export class ModalSelectSpecialistListAdapter {
+export class ModalSelectSpecialistListRepository {
 
   private readonly logger = inject(NGXLogger);
   public readonly listMemberApiAdapter = inject(ListMemberApiAdapter);
