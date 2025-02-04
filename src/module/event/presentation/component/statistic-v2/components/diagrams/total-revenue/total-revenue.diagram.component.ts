@@ -35,8 +35,6 @@ import {ApplicationEnum} from "@utility/domain/enum/application.enum";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 
-		<div class="rounded-2xl bg-neutral-100 p-2 flex flex-col gap-2">
-
 			<div class="flex gap-2 justify-between items-center max-w-full overflow-auto">
 				<div>
 					{{ 'analytic.widget.revenue.summary.by.form.source.label' | translate }}
@@ -82,7 +80,6 @@ import {ApplicationEnum} from "@utility/domain/enum/application.enum";
 			<div class="text-neutral-400 text-sm">
 				{{ 'analytic.widget.revenue.summary.by.description' | translate }}
 			</div>
-		</div>
 	`,
 	imports: [
 		IonicModule,
@@ -90,7 +87,7 @@ import {ApplicationEnum} from "@utility/domain/enum/application.enum";
 		TranslatePipe
 	],
 	host: {
-		class: 'block max-w-full'
+		class: 'block max-w-full rounded-2xl bg-neutral-100 p-2 flex flex-col gap-2'
 	}
 })
 export class TotalRevenueDiagramComponent extends Reactive implements AfterViewInit, OnDestroy {

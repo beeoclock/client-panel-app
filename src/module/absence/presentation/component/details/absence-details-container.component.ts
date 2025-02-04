@@ -1,15 +1,16 @@
 import {Component, inject, Input, OnChanges, SimpleChange, SimpleChanges, ViewEncapsulation} from '@angular/core';
-import {firstValueFrom} from 'rxjs';
 import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {DeleteButtonComponent} from "@utility/presentation/component/button/delete.button.component";
-import {EditButtonComponent} from "@utility/presentation/component/button/edit.button.component";
-import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {DatePipe} from "@angular/common";
+import {RowActionButtonComponent} from "@absence/presentation/component/row-action-button/row-action-button.component";
+import {
+	AbsenceProgressStatusEnum,
+	AbsenceProgressStatusPipe
+} from "@absence/presentation/pipe/absence-progress-status.pipe";
 
 @Component({
 	selector: 'absence-detail-page',
@@ -18,11 +19,10 @@ import {DatePipe} from "@angular/common";
 	imports: [
 		DynamicDatePipe,
 		TranslateModule,
-		DeleteButtonComponent,
-		EditButtonComponent,
-		ActiveStyleDirective,
 		NoDataPipe,
-		DatePipe
+		DatePipe,
+		RowActionButtonComponent,
+		AbsenceProgressStatusPipe
 	],
 	standalone: true
 })
@@ -40,7 +40,7 @@ export class AbsenceDetailsContainerComponent implements OnChanges {
 	public leftInDays = 0;
 	public isStarted = false;
 
-	public ngOnChanges(changes: SimpleChanges & {items: SimpleChange}) {
+	public ngOnChanges(changes: SimpleChanges & { items: SimpleChange }) {
 
 		if (changes.item) {
 			this.buildProgressBar();
@@ -48,17 +48,6 @@ export class AbsenceDetailsContainerComponent implements OnChanges {
 
 	}
 
-	public async delete(absence: IAbsenceDto) {
-
-		const question = this.translateService.instant('absence.action.delete.question');
-
-		if (!confirm(question)) {
-			return;
-		}
-
-		await firstValueFrom(this.store.dispatch(new AbsenceActions.DeleteItem(absence._id)));
-
-	}
 
 	public openForm() {
 		if (!this.item) {
@@ -111,4 +100,5 @@ export class AbsenceDetailsContainerComponent implements OnChanges {
 		}
 	}
 
+	protected readonly absenceProgressStatusEnum = AbsenceProgressStatusEnum;
 }

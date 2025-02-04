@@ -20,7 +20,8 @@
 					"placeholder": "Det er bedre at have og ikke have brug for end ikke at have og have brug for, efterlad en note for at forstå, hvad der skete senere."
 				},
 				"type": {
-					"label": "Type"
+					"label": "Type",
+					"progressStatus": "Aktuel status"
 				}
 			},
 			"membersIds": {
@@ -31,6 +32,14 @@
 			"title": {
 				"create": "Tilføjelse af fravær",
 				"edit": "Redigering af fravær"
+			}
+		},
+		"progress": {
+			"status": {
+				"cancel": "Aflyst",
+				"finished": "Færdig",
+				"inProgress": "I gang",
+				"notStarted": "Planlagt"
 			}
 		},
 		"type": {
@@ -409,6 +418,11 @@
 		"UA": "Ukraine"
 	},
 	"customer": {
+		"action": {
+			"delete": {
+				"question": "Er du sikker på, at du vil slette din klient?"
+			}
+		},
 		"button": {
 			"create": "Tilføj kunde"
 		},
@@ -1365,6 +1379,11 @@
 		}
 	},
 	"order": {
+		"action": {
+			"delete": {
+				"question": "Er du sikker på, at du vil slette ordren?"
+			}
+		},
 		"button": {
 			"create": "Tilføj ordre"
 		},
@@ -1498,6 +1517,11 @@
 		"SPECIALIST": "Specialist"
 	},
 	"service": {
+		"action": {
+			"delete": {
+				"question": "Er du sikker på, at du vil slette tjenesten?"
+			}
+		},
 		"details": {
 			"title": "Information om tjenesten"
 		},

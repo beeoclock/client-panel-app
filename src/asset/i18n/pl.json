@@ -20,7 +20,8 @@
 					"placeholder": "Lepiej mieć i nie potrzebować, niż nie mieć i potrzebować, zostawić notatkę, aby później zrozumieć, co się stało"
 				},
 				"type": {
-					"label": "Typ"
+					"label": "Typ",
+					"progressStatus": "Aktualny status"
 				}
 			},
 			"membersIds": {
@@ -31,6 +32,14 @@
 			"title": {
 				"create": "Dodawanie nieobecności",
 				"edit": "Edytowanie nieobecności"
+			}
+		},
+		"progress": {
+			"status": {
+				"cancel": "Anulowana",
+				"finished": "Zakończone",
+				"inProgress": "W trakcie",
+				"notStarted": "Zaplanowane"
 			}
 		},
 		"type": {
@@ -409,6 +418,11 @@
 		"UA": "Ukraina"
 	},
 	"customer": {
+		"action": {
+			"delete": {
+				"question": "Czy na pewno chcesz usunąć klienta?"
+			}
+		},
 		"button": {
 			"create": "Dodaj klienta"
 		},
@@ -1365,6 +1379,11 @@
 		}
 	},
 	"order": {
+		"action": {
+			"delete": {
+				"question": "Czy na pewno chcesz usunąć zamówienie?"
+			}
+		},
 		"button": {
 			"create": "Dodaj zamówienie"
 		},
@@ -1498,6 +1517,11 @@
 		"SPECIALIST": "Specjalista"
 	},
 	"service": {
+		"action": {
+			"delete": {
+				"question": "Czy na pewno chcesz usunąć usługę?"
+			}
+		},
 		"details": {
 			"title": "Informacje o usłudze"
 		},

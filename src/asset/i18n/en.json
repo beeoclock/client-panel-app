@@ -20,7 +20,8 @@
 					"placeholder": "It is better to have and not need than not to have and need, leave a note from which you will understand what happened later"
 				},
 				"type": {
-					"label": "Type"
+					"label": "Type",
+					"progressStatus": "Current Status"
 				}
 			},
 			"membersIds": {
@@ -31,6 +32,14 @@
 			"title": {
 				"create": "Adding an absence",
 				"edit": "Editing an absence"
+			}
+		},
+		"progress": {
+			"status": {
+				"cancel": "Canceled",
+				"finished": "Finished",
+				"inProgress": "In Progress",
+				"notStarted": "Scheduled"
 			}
 		},
 		"type": {
@@ -409,6 +418,11 @@
 		"UA": "Ukraine"
 	},
 	"customer": {
+		"action": {
+			"delete": {
+				"question": "Are you sure you want to delete the client?"
+			}
+		},
 		"button": {
 			"create": "Add customer"
 		},
@@ -1365,6 +1379,11 @@
 		}
 	},
 	"order": {
+		"action": {
+			"delete": {
+				"question": "Are you sure you want to remove the order?"
+			}
+		},
 		"button": {
 			"create": "Add order"
 		},
@@ -1498,6 +1517,11 @@
 		"SPECIALIST": "Specialist"
 	},
 	"service": {
+		"action": {
+			"delete": {
+				"question": "Are you sure you want to remove the service?"
+			}
+		},
 		"details": {
 			"title": "Information about the service"
 		},

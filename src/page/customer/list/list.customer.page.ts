@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ListPage} from "@utility/list.page";
 import {CustomerState} from "@customer/state/customer/customer.state";
 import {Observable, tap} from "rxjs";
@@ -14,6 +14,9 @@ import {
 } from "@customer/presentation/component/list/layout/mobile/mobile.layout.list.component";
 import {TableService} from "@utility/table.service";
 import {CustomerTableService} from "@customer/presentation/component/list/customer.table.service";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
+import {CustomerActions} from "@customer/state/customer/customer.actions";
 
 @Component({
 	selector: 'app-list-customer-page',
@@ -36,7 +39,7 @@ import {CustomerTableService} from "@customer/presentation/component/list/custom
 		}
 	]
 })
-export class ListCustomerPage extends ListPage<ICustomer> {
+export class ListCustomerPage extends ListPage<ICustomer> implements OnDestroy, OnInit {
 
 	public readonly tableState$: Observable<ITableState<ICustomer>> = this.store.select(CustomerState.tableState)
 		.pipe(
@@ -48,6 +51,21 @@ export class ListCustomerPage extends ListPage<ICustomer> {
 	public override ngOnInit() {
 		super.ngOnInit();
 		this.analyticsService.logEvent('customer_list_page_initialized');
+	}
+
+	@Dispatch()
+	public resetFilter() {
+		return new CustomerActions.UpdateTableState({
+			filters: {},
+			orderBy: OrderByEnum.CREATED_AT,
+			orderDir: OrderDirEnum.DESC,
+			pageSize: 20
+		});
+	}
+
+	public override ngOnDestroy() {
+		this.resetFilter();
+		super.ngOnDestroy();
 	}
 
 }

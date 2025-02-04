@@ -2,10 +2,11 @@ import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {ICustomer} from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'customer-row-action-button-component',
@@ -18,6 +19,7 @@ import {CustomerActions} from "@customer/state/customer/customer.actions";
 			(delete)="delete()"
 			(open)="open()"
 			(edit)="edit()"
+			[hide]="hide()"
 			[id]="id()"
 			[active]="item().active">
 			<!--			<li>-->
@@ -42,19 +44,24 @@ export class RowActionButtonComponent {
 
 	public readonly item = input.required<ICustomer>();
 
+	public readonly hide = input<('details' | 'edit' | 'delete' | 'activate' | 'deactivate')[]>([]);
+
 	private readonly store = inject(Store);
 	private readonly router = inject(Router);
+	private readonly translateService = inject(TranslateService);
 	public readonly returnUrl = this.router.url;
 
-	public delete(): void {
-		const {active} = this.item();
+	@Dispatch()
+	public delete() {
 
-		if (active) {
+		const question = this.translateService.instant('customer.action.delete.question');
 
-			return alert('You can\'t delete active customer');
+		if (!confirm(question)) {
 
+			throw new Error('User canceled the action');
 		}
-		this.store.dispatch(new CustomerActions.DeleteItem(this.item()._id));
+
+		return new CustomerActions.DeleteItem(this.item()._id);
 	}
 
 	public activate(): void {

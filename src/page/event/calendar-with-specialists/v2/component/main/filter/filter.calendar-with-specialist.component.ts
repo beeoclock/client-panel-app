@@ -13,6 +13,10 @@ import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-special
 import {Store} from "@ngxs/store";
 import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 import {IonPopover} from "@ionic/angular/standalone";
+import {VisibilityAppService} from "@utility/cdk/visibility-app.service";
+import {Reactive} from "@utility/cdk/reactive";
+import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 
 @Component({
 	selector: 'filter-calendar-with-specialist',
@@ -69,7 +73,7 @@ import {IonPopover} from "@ionic/angular/standalone";
 		</div>
 	`
 })
-export class FilterCalendarWithSpecialistComponent implements AfterViewInit {
+export class FilterCalendarWithSpecialistComponent extends Reactive implements AfterViewInit {
 
 	public readonly orderServiceStatusesControl = input.required<FormControl<OrderServiceStatusEnum[]>>();
 	public orderServiceStatusOptions: {
@@ -78,11 +82,20 @@ export class FilterCalendarWithSpecialistComponent implements AfterViewInit {
 	}[] = [];
 	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 	private readonly translateService = inject(TranslateService);
+	private readonly visibilityAppService = inject(VisibilityAppService);
 	private readonly store = inject(Store);
+
 	public readonly loader$ = this.store.select(CalendarWithSpecialistsQueries.loader);
 
 	public ngAfterViewInit() {
 		this.initEventStatusList();
+		this.visibilityAppService.visibility$.pipe(
+			this.takeUntil()
+		).subscribe((visible) => {
+			if (visible) {
+				this.forceRefresh().then();
+			}
+		});
 	}
 
 	private initEventStatusList() {
@@ -92,6 +105,11 @@ export class FilterCalendarWithSpecialistComponent implements AfterViewInit {
 				label: this.translateService.instant(`order.enum.status.singular.${status}`)
 			});
 		});
+	}
+
+	@Dispatch()
+	public async forceRefresh() {
+		return new CalendarWithSpecialistsAction.GetItems();
 	}
 
 }

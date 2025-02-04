@@ -1,5 +1,4 @@
 import {Component, ViewEncapsulation} from "@angular/core";
-import {ActiveStyleDirective} from "@utility/presentation/directives/active-style/active-style.directive";
 import {
 	TableStatePaginationComponent
 } from "@utility/presentation/component/pagination/table-state-pagination.component";
@@ -16,6 +15,10 @@ import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@absence/presentation/component/row-action-button/row-action-button.component";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {
+	AbsenceProgressStatusEnum,
+	AbsenceProgressStatusPipe
+} from "@absence/presentation/pipe/absence-progress-status.pipe";
 
 @Component({
 	selector: 'app-list-absence-table',
@@ -23,7 +26,6 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		ActiveStyleDirective,
 		TableStatePaginationComponent,
 		DynamicDatePipe,
 		SortIndicatorComponent,
@@ -34,9 +36,12 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 		TableTableFlexDirective,
 		NoDataPipe,
 		RowActionButtonComponent,
+		AbsenceProgressStatusPipe,
 	]
 })
 export class TableListComponent extends TableComponent<IAbsenceDto> {
+
+	public readonly absenceProgressStatusEnum = AbsenceProgressStatusEnum
 
 	public readonly tableConfiguration = {
 		columns: {
@@ -44,6 +49,11 @@ export class TableListComponent extends TableComponent<IAbsenceDto> {
 				style: {
 					minWidth: '100px',
 					flexGrow: 1,
+				},
+			},
+			progressStatus: {
+				style: {
+					minWidth: '140px',
 				},
 			},
 			start: {
