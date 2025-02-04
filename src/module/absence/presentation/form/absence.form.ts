@@ -2,10 +2,10 @@ import {FormControl} from '@angular/forms';
 import {BaseEntityForm} from "@utility/base.form";
 import {AbsenceTypeEnum} from "@absence/domain/enums/absence.type.enum";
 import {DateTime} from "luxon";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {IAbsence} from "@absence/domain/interface/i.absence";
 
 export type IAbsenceForm = {
-	[K in keyof IAbsenceDto]: FormControl<IAbsenceDto[K]>;
+	[K in keyof IAbsence.DTO]: FormControl<IAbsence.DTO[K]>;
 };
 
 export class AbsenceForm extends BaseEntityForm<'AbsenceDto', IAbsenceForm> {
@@ -47,7 +47,7 @@ export class AbsenceForm extends BaseEntityForm<'AbsenceDto', IAbsenceForm> {
 
 	}
 
-	public static create(initialValues: Partial<IAbsenceDto> = {}): AbsenceForm {
+	public static create(initialValues: Partial<IAbsence.DTO> = {}): AbsenceForm {
 		const form = new AbsenceForm();
 		form.patchValue(initialValues);
 		return form;

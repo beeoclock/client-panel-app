@@ -36,6 +36,8 @@ import {ServiceIndexedDBCollectionManager} from "@service/infrastructure/manager
 import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
 import {VisibilityService} from "@utility/cdk/visibility.service";
 import {SyncManagerService} from "@src/core/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
+import {AbsenceIndexedDBFacade} from "@absence/infrastructure/facade/indexedDB/absence.indexedDB.facade";
+import {AbsenceIndexedDBCollectionManager} from "@absence/infrastructure/manager/absence.indexedDB.collection.manager";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -85,6 +87,11 @@ import {SyncManagerService} from "@src/core/infrastructure/database/indexedDB/sy
 		 */
 		ServiceIndexedDBCollectionManager,
 		ServiceIndexedDBFacade,
+		/**
+		 * ABSENCE
+		 */
+		AbsenceIndexedDBCollectionManager,
+		AbsenceIndexedDBFacade,
 	],
 	encapsulation: ViewEncapsulation.None
 })

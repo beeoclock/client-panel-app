@@ -10,7 +10,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {
 	MembersAbsenceFormContainerComponent
 } from "@absence/presentation/component/form/members.absence-form-container.component";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {IAbsence} from "@absence/domain/interface/i.absence";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
 import {firstValueFrom} from "rxjs";
@@ -122,7 +122,7 @@ import {DateTime} from "luxon";
 })
 export class AbsenceFormContainerComponent extends Reactive implements OnChanges, OnInit {
 
-	public readonly item = input.required<Partial<IAbsenceDto>>();
+	public readonly item = input.required<Partial<IAbsence.DTO>>();
 
 	public readonly isEditMode = input<boolean>(false);
 
@@ -138,7 +138,7 @@ export class AbsenceFormContainerComponent extends Reactive implements OnChanges
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
 
-	public ngOnChanges(changes: SimpleChanges & { item: Partial<IAbsenceDto> }) {
+	public ngOnChanges(changes: SimpleChanges & { item: Partial<IAbsence.DTO> }) {
 
 		const {item} = changes;
 		if (item) {
@@ -178,7 +178,7 @@ export class AbsenceFormContainerComponent extends Reactive implements OnChanges
 	}
 
 	private async finishSave() {
-		const value = this.form.getRawValue();
+		const value = this.form.getRawValue() as IAbsence.DTO;
 
 		this.form.disable();
 		this.form.markAsPending();

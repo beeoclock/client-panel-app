@@ -9,7 +9,7 @@ import {TableComponent} from "@utility/table.component";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {IAbsence} from "@absence/domain/interface/i.absence";
 import {AbsenceProgressStatusEnum} from "@absence/presentation/pipe/absence-progress-status.pipe";
 import {StateStatusComponent} from "@absence/presentation/component/state-status/state-status.component";
 
@@ -28,9 +28,9 @@ import {StateStatusComponent} from "@absence/presentation/component/state-status
 		StateStatusComponent
 	]
 })
-export class CardListComponent extends TableComponent<IAbsenceDto> {
+export class CardListComponent extends TableComponent<IAbsence.DTO> {
 
-	public override open(item: IAbsenceDto) {
+	public override open(item: IAbsence.DTO) {
 		this.store.dispatch(new AbsenceActions.OpenDetails(item));
 	}
 

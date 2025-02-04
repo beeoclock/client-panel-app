@@ -13,7 +13,7 @@ import {RowTableFlexDirective} from "@utility/presentation/directives/talbe/flex
 import {TableTableFlexDirective} from "@utility/presentation/directives/talbe/flex/table.table.flex.directive";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@absence/presentation/component/row-action-button/row-action-button.component";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {IAbsence} from "@absence/domain/interface/i.absence";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {AbsenceProgressStatusEnum} from "@absence/presentation/pipe/absence-progress-status.pipe";
 import {StateStatusComponent} from "@absence/presentation/component/state-status/state-status.component";
@@ -37,7 +37,7 @@ import {StateStatusComponent} from "@absence/presentation/component/state-status
 		StateStatusComponent,
 	]
 })
-export class TableListComponent extends TableComponent<IAbsenceDto> {
+export class TableListComponent extends TableComponent<IAbsence.DTO> {
 
 	public readonly absenceProgressStatusEnum = AbsenceProgressStatusEnum
 
@@ -94,7 +94,7 @@ export class TableListComponent extends TableComponent<IAbsenceDto> {
 	};
 
 	@Dispatch()
-	public override open(item: IAbsenceDto) {
+	public override open(item: IAbsence.DTO) {
 		return new AbsenceActions.OpenDetails(item);
 	}
 

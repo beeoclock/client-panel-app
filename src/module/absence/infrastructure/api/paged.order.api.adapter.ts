@@ -3,13 +3,13 @@ import {BaseApiAdapter, ResponseListType} from "@utility/adapter/base.api.adapte
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@utility/checker";
 import {TableState_BackendFormat} from "@utility/domain/table.state";
-import {IAbsenceDto} from "@module/absence/external/interface/i.absence.dto";
-import {AbsenceEndpoint} from "@module/absence/external/endpoint/absence.endpoint";
+import {IAbsence} from "@absence/domain/interface/i.absence";
+import {absenceEndpointEnum} from "@absence/infrastructure/endpoint/absenceEndpointEnum";
 
 @Injectable({
 	providedIn: 'root'
 })
-export class PagedAbsenceApiAdapter extends BaseApiAdapter<ResponseListType<IAbsenceDto>, [TableState_BackendFormat]> {
+export class PagedAbsenceApiAdapter extends BaseApiAdapter<ResponseListType<IAbsence.DTO>, [TableState_BackendFormat]> {
 
 
 	/**
@@ -18,7 +18,7 @@ export class PagedAbsenceApiAdapter extends BaseApiAdapter<ResponseListType<IAbs
 	 */
 	@TypeGuard([is.object_not_empty])
 	public override execute$(params: TableState_BackendFormat) {
-		return this.httpClient.get<ResponseListType<IAbsenceDto>>(AbsenceEndpoint.PAGED, {
+		return this.httpClient.get<ResponseListType<IAbsence.DTO>>(absenceEndpointEnum.PAGED, {
 			params: params as never,
 		});
 	}

@@ -1,7 +1,7 @@
 import {Endpoint, EndpointCollectionType} from "@utility/domain/endpoint";
 import {SourceNetworkEnum} from "@utility/domain/enum/source.network.enum";
 
-export const AbsenceEndpoint = {
+export const absenceEndpointEnum = {
     CREATE: '/api/v1/absence',
     UPDATE: '/api/v1/absence/{id}',
     DELETE: '/api/v1/absence/{id}',
@@ -13,7 +13,7 @@ export const AbsenceEndpoint = {
 
 export const absenceEndpoint: EndpointCollectionType = {
     PATCH: {
-        [AbsenceEndpoint.ARCHIVE]: {
+        [absenceEndpointEnum.ARCHIVE]: {
             source: SourceNetworkEnum.panel,
             replace: true,
             header: {
@@ -21,7 +21,7 @@ export const absenceEndpoint: EndpointCollectionType = {
                 tenantId: true,
             }
         },
-        [AbsenceEndpoint.UNARCHIVE]: {
+        [absenceEndpointEnum.UNARCHIVE]: {
             source: SourceNetworkEnum.panel,
             replace: true,
             header: {
@@ -31,7 +31,7 @@ export const absenceEndpoint: EndpointCollectionType = {
         },
     },
     POST: {
-        [AbsenceEndpoint.CREATE]: {
+        [absenceEndpointEnum.CREATE]: {
             source: SourceNetworkEnum.panel,
             header: {
                 authorization: true,
@@ -40,7 +40,7 @@ export const absenceEndpoint: EndpointCollectionType = {
         }
     },
     PUT: {
-        [AbsenceEndpoint.UPDATE]: {
+        [absenceEndpointEnum.UPDATE]: {
             source: SourceNetworkEnum.panel,
             replace: true,
             header: {
@@ -50,7 +50,7 @@ export const absenceEndpoint: EndpointCollectionType = {
         }
     },
     DELETE: {
-        [AbsenceEndpoint.DELETE]: {
+        [absenceEndpointEnum.DELETE]: {
             source: SourceNetworkEnum.panel,
             replace: true,
             header: {
@@ -60,14 +60,14 @@ export const absenceEndpoint: EndpointCollectionType = {
         }
     },
     GET: {
-        [AbsenceEndpoint.PAGED]: {
+        [absenceEndpointEnum.PAGED]: {
             source: SourceNetworkEnum.panel,
             header: {
                 authorization: true,
                 tenantId: true,
             }
         },
-        [AbsenceEndpoint.DETAILS]: {
+        [absenceEndpointEnum.DETAILS]: {
             source: SourceNetworkEnum.panel,
             replace: true,
             header: {

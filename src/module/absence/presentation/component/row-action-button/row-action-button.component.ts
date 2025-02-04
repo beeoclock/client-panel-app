@@ -2,10 +2,9 @@ import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {IAbsence} from "@absence/domain/interface/i.absence";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {StateEnum} from "@utility/domain/enum/state.enum";
 
 @Component({
 	selector: 'app-absence-row-action-button-component',
@@ -33,7 +32,7 @@ export class RowActionButtonComponent {
 
 	public readonly id = input.required<string>();
 
-	public readonly item = input.required<IAbsenceDto>();
+	public readonly item = input.required<IAbsence.DTO>();
 
 	private readonly router = inject(Router);
 	private readonly translateService = inject(TranslateService);

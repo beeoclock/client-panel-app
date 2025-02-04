@@ -1,5 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IAbsenceDto} from "@module/absence/external/interface/i.absence.dto";
+import {IAbsence} from "@absence/domain/interface/i.absence";
 
 export namespace AbsenceActions {
 
@@ -13,11 +13,11 @@ export namespace AbsenceActions {
 		public static override readonly type = '[Absence Application] Close Form';
 	}
 
-	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<IAbsenceDto> {
+	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<IAbsence.DTO> {
 		public static override readonly type = '[Absence Application] Update Opened Details';
 	}
 
-	export class OpenDetails extends BaseActions.OpenDetails<IAbsenceDto> {
+	export class OpenDetails extends BaseActions.OpenDetails<IAbsence.DTO> {
 		public static override readonly type = '[Absence Application] Open Details';
 	}
 
@@ -31,7 +31,7 @@ export namespace AbsenceActions {
 
 	export class OpenForm extends BaseActions.OpenForm<{
 		isEditMode?: boolean;
-		item?: Partial<IAbsenceDto>;
+		item?: Partial<IAbsence.DTO>;
 	}> {
 		public static override readonly type = '[Absence Application] Open Form';
 	}
@@ -54,11 +54,11 @@ export namespace AbsenceActions {
 		public static override readonly type = '[Absence API] Get Item';
 	}
 
-	export class CreateItem extends BaseActions.CreateItem<IAbsenceDto> {
+	export class CreateItem extends BaseActions.CreateItem<IAbsence.DTO> {
 		public static override readonly type = '[Absence API] Create Item';
 	}
 
-	export class UpdateItem extends BaseActions.UpdateItem<IAbsenceDto> {
+	export class UpdateItem extends BaseActions.UpdateItem<IAbsence.DTO> {
 		public static override readonly type = '[Absence API] Update Item';
 	}
 
@@ -76,7 +76,7 @@ export namespace AbsenceActions {
 		public static override readonly type = '[Absence State] Update Filters';
 	}
 
-	export class UpdateTableState extends BaseActions.UpdateTableState<IAbsenceDto> {
+	export class UpdateTableState extends BaseActions.UpdateTableState<IAbsence.DTO> {
 		public static override readonly type = '[Absence State] Update Table State';
 	}
 

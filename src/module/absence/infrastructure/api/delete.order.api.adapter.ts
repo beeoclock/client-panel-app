@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
-import {AbsenceEndpoint} from "@module/absence/external/endpoint/absence.endpoint";
+import {absenceEndpointEnum} from "@absence/infrastructure/endpoint/absenceEndpointEnum";
 
 @Injectable({
 	providedIn: 'root'
@@ -15,7 +15,7 @@ export class DeleteAbsenceApiAdapter extends BaseApiAdapter<void, [string]> {
 	 * @param id
 	 */
 	public override execute$(id: string) {
-		return this.httpClient.delete<void>(AbsenceEndpoint.DELETE, {
+		return this.httpClient.delete<void>(absenceEndpointEnum.DELETE, {
 			context: new HttpContext().set(TokensHttpContext.REPLACE, {
 				id
 			}),

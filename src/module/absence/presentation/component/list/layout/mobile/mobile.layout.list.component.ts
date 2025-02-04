@@ -11,7 +11,7 @@ import {
 	AutoRefreshButtonComponent
 } from "@absence/presentation/component/button/auto-refresh/auto-refresh.button.component";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {IAbsence} from "@absence/domain/interface/i.absence";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {ITableState} from "@utility/domain/table.state";
 
@@ -29,8 +29,8 @@ import {ITableState} from "@utility/domain/table.state";
 		NgClass,
 	]
 })
-export class MobileLayoutListComponent extends LayoutListComponent<IAbsenceDto> {
-	public override readonly tableState = input.required<ITableState<IAbsenceDto> | null>();
+export class MobileLayoutListComponent extends LayoutListComponent<IAbsence.DTO> {
+	public override readonly tableState = input.required<ITableState<IAbsence.DTO> | null>();
 	public readonly showButtonGoToForm = input(true);
 
 	readonly cardListComponents = viewChildren(CardListComponent);

@@ -4,7 +4,7 @@ import {
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
 import {TranslateModule} from "@ngx-translate/core";
 import LayoutListComponent from "@utility/layout.list.component";
-import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
+import {IAbsence} from "@absence/domain/interface/i.absence";
 import {FilterComponent} from "@absence/presentation/component/filter/filter.component";
 import {TableListComponent} from "@absence/presentation/component/list/table/table.list.component";
 import {
@@ -27,8 +27,8 @@ import {ITableState} from "@utility/domain/table.state";
 		AutoRefreshButtonComponent,
 	]
 })
-export class DesktopLayoutListComponent extends LayoutListComponent<IAbsenceDto> {
-	public override readonly tableState = input.required<ITableState<IAbsenceDto> | null>();
+export class DesktopLayoutListComponent extends LayoutListComponent<IAbsence.DTO> {
+	public override readonly tableState = input.required<ITableState<IAbsence.DTO> | null>();
 
 	public constructor() {
 		super();
