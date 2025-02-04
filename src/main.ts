@@ -47,24 +47,23 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 if (environment.production) {
 	enableProdMode();
+	Sentry.init({
+		dsn: "https://23c78c6bf4b43dfdb0bc7569e3e0195c@o4508184180686848.ingest.de.sentry.io/4508184181997648",
+		integrations: [
+			Sentry.browserTracingIntegration(),
+			Sentry.replayIntegration(),
+		],
+		// Tracing
+		tracesSampleRate: 1.0, //  Capture 100% of the transactions
+		// Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
+		tracePropagationTargets: ["localhost", /^https:\/\/api\.dev\.beeoclock\.com/, /^https:\/\/api\.beeoclock\.com/],
+		// Session Replay
+		replaysSessionSampleRate: 0.1, // This sets the sample rate at 10%. You may want to change it to 100% while in development and then sample at a lower rate in production.
+		replaysOnErrorSampleRate: 1.0, // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
+	});
 }
 
 initRuntimeEnvironment();
-
-Sentry.init({
-	dsn: "https://23c78c6bf4b43dfdb0bc7569e3e0195c@o4508184180686848.ingest.de.sentry.io/4508184181997648",
-	integrations: [
-		Sentry.browserTracingIntegration(),
-		Sentry.replayIntegration(),
-	],
-	// Tracing
-	tracesSampleRate: 1.0, //  Capture 100% of the transactions
-	// Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
-	tracePropagationTargets: ["localhost", /^https:\/\/api\.dev\.beeoclock\.com/, /^https:\/\/api\.beeoclock\.com/],
-	// Session Replay
-	replaysSessionSampleRate: 0.1, // This sets the sample rate at 10%. You may want to change it to 100% while in development and then sample at a lower rate in production.
-	replaysOnErrorSampleRate: 1.0, // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
-});
 
 bootstrapApplication(MainRouterOutlet, {
 	providers: [
@@ -131,10 +130,12 @@ bootstrapApplication(MainRouterOutlet, {
 			enabled: !isDevMode(),
 			registrationStrategy: 'registerWhenStable:30000'
 		}),
-		{
-			provide: ErrorHandler,
-			useValue: Sentry.createErrorHandler(),
-		},
+		...(environment.production ? [
+			{
+				provide: ErrorHandler,
+				useValue: Sentry.createErrorHandler(),
+			}
+		] : []),
 	]
 }).then((ref) => {
 

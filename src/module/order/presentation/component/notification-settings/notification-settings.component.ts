@@ -1,4 +1,4 @@
-import {Component, inject, input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation} from '@angular/core';
 import {IonicModule, ModalController} from "@ionic/angular";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
@@ -11,13 +11,14 @@ import {TranslateModule} from "@ngx-translate/core";
 		TranslateModule,
 		ReactiveFormsModule
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './notification-settings.component.html',
-	styles: ``
+	encapsulation: ViewEncapsulation.None,
 })
 export class NotificationSettingsComponent {
 	private readonly modalCtrl: ModalController = inject(ModalController);
-	public readonly askSmsNotifications = input<boolean>();
-	public readonly askEmailNotifications = input<boolean>();
+	@Input() public askSmsNotifications: boolean = false;
+	@Input() public askEmailNotifications: boolean = false;
 
 	public sendTypesFormGroup: FormGroup<{
 		sms: FormControl<boolean>,
