@@ -19,6 +19,7 @@ import {CalendarWithSpecialistsState} from "@event/state/calendar-with-specialis
 import {ServiceState} from "@service/state/service/service.state";
 import {PeerCustomerOrderState} from "@order/state/peer-customer/peer-customer.order.state";
 import {CustomerState} from "@customer/state/customer/customer.state";
+import {MemberState} from "@member/state/member/member.state";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
@@ -206,6 +207,8 @@ export const routes: Routes = [
 						PeerCustomerOrderState,
 						CustomerState,
 						ServiceState,
+						AbsenceState,
+						MemberState,
 					]))
 				],
 				children: [
@@ -225,9 +228,6 @@ export const routes: Routes = [
 					},
 					{
 						path: 'absence',
-						providers: [
-							importProvidersFrom(NgxsModule.forFeature([AbsenceState])),
-						],
 						children: [
 							{
 								path: 'list',
