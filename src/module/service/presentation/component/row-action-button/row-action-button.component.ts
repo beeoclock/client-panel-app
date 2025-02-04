@@ -58,7 +58,8 @@ export class RowActionButtonComponent {
 		const question = this.translateService.instant('service.action.delete.question');
 
 		if (!confirm(question)) {
-			return;
+
+			throw new Error('User canceled the action');
 		}
 		return new ServiceActions.DeleteItem(this.item()._id)
 	}
