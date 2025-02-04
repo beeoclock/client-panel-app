@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation} from '@angular/core';
 import {CurrencyPipe} from '@angular/common';
-import {firstValueFrom} from 'rxjs';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {ServiceActions} from "@service/state/service/service.actions";
@@ -33,14 +32,6 @@ export class ServiceDetails {
 
 	public readonly store = inject(Store);
 	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
-
-	public async delete(service: IServiceDto): Promise<void> {
-		const {_id: id, active} = service;
-		if (active) {
-			return alert('You can\'t delete active service');
-		}
-		await firstValueFrom(this.store.dispatch(new ServiceActions.DeleteItem(id)));
-	}
 
 	public edit(): void {
 		const item = this.item();

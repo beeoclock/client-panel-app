@@ -1,6 +1,6 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
@@ -35,17 +35,19 @@ export class RowActionButtonComponent {
 	public readonly item = input.required<IAbsenceDto>();
 
 	private readonly router = inject(Router);
+	private readonly translateService = inject(TranslateService);
 	public readonly returnUrl = this.router.url;
+
 
 	@Dispatch()
 	public delete() {
-		const {active} = this.item();
 
-		if (active) {
+		const question = this.translateService.instant('absence.action.delete.question');
 
-			return alert('You can\'t delete active absence');
-
+		if (!confirm(question)) {
+			throw new Error('User canceled the action');
 		}
+
 		return new AbsenceActions.DeleteItem(this.item()._id);
 	}
 
