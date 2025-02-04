@@ -12,6 +12,7 @@ import {LastSynchronizationInService} from "@utility/cdk/last-synchronization-in
 import {TENANT_ID} from "@src/token";
 import {Reactive} from "@utility/cdk/reactive";
 import {is} from "@utility/checker";
+import {environment} from "@environment/environment";
 
 const errorEmitter = new EventEmitter();
 errorEmitter.on('error', (message: unknown) => {
@@ -30,18 +31,42 @@ const getSyncMangerInstance = (httpClient: HttpClient, tenantId: string) => new 
 
 		const updatedSince = lastFinishedSyncStart ? new Date(lastFinishedSyncStart).toISOString() : new Date(0).toISOString();
 
+		// TODO: if response totalSize is more than 100 then we have to fetch all data
+
 		const request$ = httpClient.get<ResponseListType<never>>(endpoint.get, {
 			params: {
 				orderBy: OrderByEnum.UPDATED_AT,
 				orderDir: OrderDirEnum.DESC,
-				page: '1',
-				pageSize: '100',
+				page: environment.config.syncManager.pull.page,
+				pageSize: environment.config.syncManager.pull.pageSize,
 				updatedSince
 			}
 		});
 		const response = await firstValueFrom(request$);
 
+		const {totalSize} = response;
 		let {items} = response;
+
+		if (totalSize > +environment.config.syncManager.pull.pageSize) {
+
+			const pages = Math.ceil(totalSize / +environment.config.syncManager.pull.pageSize);
+
+			for (let page = 2; page <= pages; page++) {
+				const request$ = httpClient.get<ResponseListType<never>>(endpoint.get, {
+					params: {
+						orderBy: OrderByEnum.UPDATED_AT,
+						orderDir: OrderDirEnum.DESC,
+						page,
+						pageSize: environment.config.syncManager.pull.pageSize,
+						updatedSince
+					}
+				});
+				const response = await firstValueFrom(request$);
+				items = items.concat(response.items);
+			}
+
+		}
+
 		items = items.map(create) as never;
 
 		console.log('SignalDB:pull', {items, lastFinishedSyncStart});
