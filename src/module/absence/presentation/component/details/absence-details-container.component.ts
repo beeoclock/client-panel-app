@@ -1,5 +1,4 @@
 import {Component, inject, Input, OnChanges, SimpleChange, SimpleChanges, ViewEncapsulation} from '@angular/core';
-import {firstValueFrom} from 'rxjs';
 import {Store} from "@ngxs/store";
 import {DynamicDatePipe} from "@utility/presentation/pipes/dynamic-date/dynamic-date.pipe";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -49,17 +48,6 @@ export class AbsenceDetailsContainerComponent implements OnChanges {
 
 	}
 
-	public async delete(absence: IAbsenceDto) {
-
-		const question = this.translateService.instant('absence.action.delete.question');
-
-		if (!confirm(question)) {
-			return;
-		}
-
-		await firstValueFrom(this.store.dispatch(new AbsenceActions.DeleteItem(absence._id)));
-
-	}
 
 	public openForm() {
 		if (!this.item) {
