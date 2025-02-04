@@ -704,6 +704,20 @@
 						"message": "Are you sure you want to remove the service?"
 					}
 				}
+			},
+			"/api/v1/product/{id}": {
+				"before": {
+					"accept": {
+						"header": "Deleting a product",
+						"message": "Are you sure you want to remove the product?"
+					}
+				},
+				"after": {
+					"success": {
+						"header": "Product",
+						"message": "Product was successfully deleted."
+					}
+				}
 			}
 		},
 		"PATCH": {
@@ -772,6 +786,14 @@
 						"message": "Service was successfully created."
 					}
 				}
+			},
+			"/api/v1/product": {
+				"after": {
+					"success": {
+						"header": "Product created",
+						"message": "Product was successfully created."
+					}
+				}
 			}
 		},
 		"PUT": {
@@ -804,6 +826,14 @@
 					"success": {
 						"header": "Service updated",
 						"message": "Service was successfully updated."
+					}
+				}
+			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Product updated",
+						"message": "Product was successfully updated."
 					}
 				}
 			}
@@ -1199,7 +1229,20 @@
 			"year": "Year",
 			"yes": "Yes",
 			"yesterday": "Yesterday",
-			"zipCode": "Zip code"
+			"zipCode": "Zip code",
+			"sku": "SKU",
+			"productName": "Product name",
+			"category": {
+				"single": "Category",
+				"plural": "Categories",
+				"create": {
+					"tooltip": "Add categories to the list",
+					"choose": "Choose a category",
+					"first": "Add the first category",
+					"enter": "Enter a category",
+					"uniqueError": "The category name must be unique"
+    			}
+  			}
 		},
 		"lowercase": {
 			"after": "after",
@@ -1293,6 +1336,24 @@
 			}
 		},
 		"title": "Member"
+	},
+	"product": {
+		"deactivateBeforeDelete": "You cannot delete an active product",
+		"button": {
+			"create": "Create product"
+		},
+		"details": {
+			"title": "Info about the product"
+		},
+		"form": {
+			"title": {
+				"edit": "Edit product",
+				"create": "Add product"
+			},
+			"availableLanguages": {
+    			"hint": "You can name your product in the available languages"
+  			}
+		}
 	},
 	"notificationSetting": {
 		"cardTitle": "Customer Notification Settings",
@@ -1551,6 +1612,7 @@
 		},
 		"requested": "Requests",
 		"services": "Services",
+		"products": "Products",
 		"settings": "Settings",
 		"statistic": "Statistics",
 		"switch-business-client": "Change context",

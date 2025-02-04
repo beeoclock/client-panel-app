@@ -704,6 +704,20 @@
 						"message": "Er du sikker på, at du vil fjerne tjenesten?"
 					}
 				}
+			},
+			"/api/v1/product/{id}": {
+				"before": {
+					"accept": {
+						"header": "Sletning af et produkt",
+						"message": "Er du sikker på, at du vil fjerne produktet?"
+					}
+				},
+				"after": {
+					"success": {
+					  "header": "Produkt",
+					  "message": "Produktet er blevet slettet."
+					}
+				}
 			}
 		},
 		"PATCH": {
@@ -772,6 +786,14 @@
 						"message": "Tjenesten blev oprettet med succes."
 					}
 				}
+			},
+			"/api/v1/product": {
+				"after": {
+					"success": {
+						"header": "Produkt oprettet",
+      					"message": "Produktet er blevet oprettet."
+					}
+				}
 			}
 		},
 		"PUT": {
@@ -806,7 +828,15 @@
 						"message": "Tjenesten blev opdateret med succes."
 					}
 				}
-			}
+			},
+			"/api/v1/product/{id}": {
+				"after": {
+					"success": {
+						"header": "Produkt opdateret",
+						"message": "Produktet blev opdateret med succes."
+					}
+				}
+  			}
 		},
 		"response": {
 			"status": {
@@ -1199,7 +1229,20 @@
 			"year": "År",
 			"yes": "Ja",
 			"yesterday": "Yesterday",
-			"zipCode": "Postnummer"
+			"zipCode": "Postnummer",
+			"sku": "SKU",
+			"productName": "Produktets navn",
+			"category": {
+				"single": "Kategori",
+				"plural": "Kategorier",
+				"create": {
+				"tooltip": "Tilføj kategorier til listen",
+					"choose": "Vælg en kategori",
+					"first": "Tilføj den første kategori",
+					"enter": "Indtast en kategori",
+					"uniqueError": "Kategorinavnet skal være unikt"
+    			}
+  			}
 		},
 		"lowercase": {
 			"after": "efter",
@@ -1293,6 +1336,24 @@
 			}
 		},
 		"title": "Medlem"
+	},
+	"product": {
+		"deactivateBeforeDelete": "Du kan ikke slette et aktivt produkt",
+		"button": {
+			"create": "Tilføj produkt"
+		},
+		"details": {
+			"title": "Info om produktet"
+		},
+		"form": {
+			"title": {
+				"edit": "Rediger produkt",
+				"create": "Tilføj produkt"
+			},
+			"availableLanguages": {
+    			"hint": "Du kan give dit produkt et navn på de tilgængelige sprog"
+  			}
+		}
 	},
 	"notificationSetting": {
 		"cardTitle": "Kunde Notifikationsindstillinger",
@@ -1551,6 +1612,7 @@
 		},
 		"requested": "Anmodninger",
 		"services": "Tjenester",
+		"products": "Produkter",
 		"settings": "Indstillinger",
 		"statistic": "Statistik",
 		"switch-business-client": "Skift kontekst",

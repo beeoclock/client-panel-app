@@ -46,7 +46,7 @@ export class ClientState {
 
 	@Selector()
 	public static currencies(state: IClientState): CurrencyCodeEnum[] | undefined {
-		return state.item?.businessSettings?.currencies;
+		return state.item?.businessSettings?.currencies ?? [];
 	}
 
 	@Selector()

@@ -19,6 +19,7 @@ import {
 	DateRangeReportAnalyticState
 } from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.state";
 import {DailyReportAnalyticState} from "@module/analytic/internal/store/daily-report/daily-report.analytic.state";
+import {ProductState} from '@product/state/product/product.state';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
@@ -289,6 +290,18 @@ export const routes: Routes = [
 							{
 								path: 'list',
 								loadComponent: () => import('@page/customer/list/list.customer.page')
+							}
+						]
+					},
+					{
+						path: 'product',
+						providers: [
+							importProvidersFrom(NgxsModule.forFeature([ProductState])),
+						],
+						children: [
+							{
+								path: 'list',
+								loadComponent: () => import('@page/product/list/list.product.page')
 							}
 						]
 					},
