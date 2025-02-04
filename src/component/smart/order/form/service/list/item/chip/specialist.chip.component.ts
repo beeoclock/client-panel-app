@@ -110,7 +110,8 @@ export class SpecialistChipComponent extends Reactive implements OnInit {
 
 	public initSpecialist() {
 		const initialValue = this.initialValue();
-  if (initialValue instanceof SpecialistModel) {
+		console.log({initialValue})
+		if (initialValue instanceof SpecialistModel) {
 			this.setSpecialist(initialValue);
 		} else {
 			this.setMemberAsSpecialist(initialValue);

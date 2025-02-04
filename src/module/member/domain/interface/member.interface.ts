@@ -18,7 +18,6 @@ export interface IAssignments {
 
 export interface IMember extends IBaseEntity<'MemberDto'> {
 	firstName?: string;
-	secondName?: string; // Deprecated
 	lastName?: string;
 	email: string;
 	profileStatus: MemberProfileStatusEnum;
