@@ -6,6 +6,7 @@ import {ServiceActions} from "@service/state/service/service.actions";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {StateEnum} from "@utility/domain/enum/state.enum";
 
 
@@ -52,17 +53,16 @@ export class RowActionButtonComponent {
 	private readonly router = inject(Router);
 	public readonly returnUrl = this.router.url;
 
-	public delete(): void {
-		const {state} = this.item();
+	@Dispatch()
+	public delete() {
 
-		if (state === StateEnum.active) {
+		const question = this.translateService.instant('service.action.delete.question');
 
-			return alert('You can\'t delete active service');
+		if (!confirm(question)) {
 
+			throw new Error('User canceled the action');
 		}
-
-		this.store.dispatch(new ServiceActions.DeleteItem(this.item()._id));
-
+		return new ServiceActions.DeleteItem(this.item()._id)
 	}
 
 	public activate(): void {

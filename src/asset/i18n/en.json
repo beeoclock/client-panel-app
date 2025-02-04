@@ -409,6 +409,11 @@
 		"UA": "Ukraine"
 	},
 	"customer": {
+		"action": {
+			"delete": {
+				"question": "Are you sure you want to delete the client?"
+			}
+		},
 		"button": {
 			"create": "Add customer"
 		},
@@ -1307,6 +1312,11 @@
 		}
 	},
 	"order": {
+		"action": {
+			"delete": {
+				"question": "Are you sure you want to remove the order?"
+			}
+		},
 		"button": {
 			"create": "Add order"
 		},
@@ -1440,6 +1450,11 @@
 		"SPECIALIST": "Specialist"
 	},
 	"service": {
+		"action": {
+			"delete": {
+				"question": "Are you sure you want to remove the service?"
+			}
+		},
 		"details": {
 			"title": "Information about the service"
 		},

@@ -409,6 +409,11 @@
 		"UA": "Ukraine"
 	},
 	"customer": {
+		"action": {
+			"delete": {
+				"question": "Er du sikker på, at du vil slette din klient?"
+			}
+		},
 		"button": {
 			"create": "Tilføj kunde"
 		},
@@ -1307,6 +1312,11 @@
 		}
 	},
 	"order": {
+		"action": {
+			"delete": {
+				"question": "Er du sikker på, at du vil slette ordren?"
+			}
+		},
 		"button": {
 			"create": "Tilføj ordre"
 		},
@@ -1440,6 +1450,11 @@
 		"SPECIALIST": "Specialist"
 	},
 	"service": {
+		"action": {
+			"delete": {
+				"question": "Er du sikker på, at du vil slette tjenesten?"
+			}
+		},
 		"details": {
 			"title": "Information om tjenesten"
 		},
