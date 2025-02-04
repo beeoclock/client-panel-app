@@ -19,5 +19,11 @@ export const config = {
 	pagination: {
 		maxLength: 5
 	},
-	startYear: 2022
+	startYear: 2022,
+	syncManager: {
+		pull: {
+			pageSize: '100',
+			page: '1'
+		}
+	}
 };
