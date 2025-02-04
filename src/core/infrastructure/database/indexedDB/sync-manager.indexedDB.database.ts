@@ -67,8 +67,20 @@ const getSyncMangerInstance = (httpClient: HttpClient, tenantId: string) => new 
 
 		items = items.map(create) as never;
 
+		/**
+		 * If lastFinishedSyncStart is available, it means we are in the middle of a sync process, and we need to return only changes.
+		 * Because we already have all the items in the syncManager instance.
+		 * And if we return just items, it will cause delete exist data and add new items.
+		 * So, we need to return only changes if lastFinishedSyncStart is available.
+		 */
 		if (lastFinishedSyncStart) {
-			return {changes: {added: items, modified: [], removed: []}};
+			return {
+				changes: {
+					added: items,
+					modified: [],
+					removed: []
+				}
+			};
 		}
 
 		return {items};
