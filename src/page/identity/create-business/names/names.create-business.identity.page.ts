@@ -1,5 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
-import {RouterLink} from "@angular/router";
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, ViewEncapsulation} from '@angular/core';
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
@@ -13,6 +12,7 @@ import {Select, Store} from "@ngxs/store";
 import {IdentityState} from "@identity/state/identity/identity.state";
 import {IMember} from "@identity/domain/interface/i.member";
 import {IdentityActions} from "@identity/state/identity/identity.actions";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
 	selector: 'app-names-create-business-identity-page',
@@ -26,7 +26,6 @@ import {IdentityActions} from "@identity/state/identity/identity.actions";
 		BackLinkComponent,
 		ChangeLanguageComponent,
 		PrimaryButtonDirective,
-		RouterLink,
 		AsyncPipe,
 	],
 	encapsulation: ViewEncapsulation.None
@@ -46,7 +45,10 @@ export class NamesCreateBusinessIdentityPage {
 		}),
 		filter(Array.isArray),
 	);
+	private readonly router = inject(Router);
+	private readonly activatedRoute = inject(ActivatedRoute);
 	private readonly createBusinessQuery = inject(CreateBusinessQuery);
+	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 	public readonly businessNameControl = this.createBusinessQuery.getBusinessNameControl();
 	public readonly businessOwnerForm = this.createBusinessQuery.getBusinessOwnerForm();
 	public readonly firstCompany$ = this.members$.pipe(
@@ -67,6 +69,17 @@ export class NamesCreateBusinessIdentityPage {
 	public get invalid(): boolean {
 		return !this.valid;
 	}
+
+	public goToNext() {
+		this.businessNameControl.markAllAsTouched();
+		this.businessOwnerForm.markAllAsTouched();
+		this.changeDetectorRef.detectChanges();
+		if (this.invalid) {
+			return;
+		}
+		this.router.navigate(['../industry'], {relativeTo: this.activatedRoute}).then();
+	}
+
 }
 
 export default NamesCreateBusinessIdentityPage;
