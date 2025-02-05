@@ -16,7 +16,7 @@ import {environment} from "@environment/environment";
 
 const errorEmitter = new EventEmitter();
 errorEmitter.on('error', (message: unknown) => {
-	console.log({message})
+	console.log('errorEmitter:', {message})
 	// display validation errors to the user
 });
 

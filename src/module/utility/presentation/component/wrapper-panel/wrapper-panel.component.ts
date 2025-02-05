@@ -77,7 +77,6 @@ import {OrderIndexedDBCollectionManager} from "@order/infrastructure/manager/ord
 			provide: CURRENT_TENANT_ID,
 			useFactory: () => {
 				const tenantId = inject(TENANT_ID).value;
-				console.log('CURRENT_TENANT_ID', {tenantId});
 				return tenantId;
 			},
 		},

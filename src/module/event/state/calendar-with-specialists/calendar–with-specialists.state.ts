@@ -59,10 +59,8 @@ export interface ICalendarWithSpecialist {
 export class CalendarWithSpecialistsState {
 
 	private readonly ngxLogger = inject(NGXLogger);
-	// private readonly pagedOrderApiAdapter = inject(PagedOrderApiAdapter);
 	private readonly orderIndexedDBFacade = inject(OrderIndexedDBFacade);
 
-	// private readonly pagedAbsenceApiAdapter = inject(PagedAbsenceApiAdapter);
 	private readonly absenceIndexedDBFacade = inject(AbsenceIndexedDBFacade);
 	private readonly router = inject(Router);
 
@@ -95,8 +93,6 @@ export class CalendarWithSpecialistsState {
 		if ('status' in absenceParams) {
 			delete absenceParams.status;
 		}
-
-		console.log({orderParams, absenceParams});
 
 		const absenceQuery = this.absenceIndexedDBFacade.source.find({
 			$or: [
@@ -166,15 +162,6 @@ export class CalendarWithSpecialistsState {
 			}
 		});
 		const orders = orderQuery.fetch();
-		console.log({orders})
-
-		// const {
-		// 	0: orderPaged,
-			// 1: absencePaged
-		// } = await Promise.all([
-			// this.pagedOrderApiAdapter.executeAsync(orderParams),
-			// this.pagedAbsenceApiAdapter.executeAsync(absenceParams),
-		// ]);
 
 		const {startTime, endTime} = settings;
 

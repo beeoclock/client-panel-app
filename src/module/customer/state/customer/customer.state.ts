@@ -296,8 +296,6 @@ export class CustomerState {
 
 			const newTableState = TableState.fromCache(state.tableState);
 
-			console.log(state.tableState, {newTableState})
-
 			const {
 				queryParams,
 				resetPage,

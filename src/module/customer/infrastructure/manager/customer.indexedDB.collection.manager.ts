@@ -34,8 +34,6 @@ export class CustomerIndexedDBCollectionManager extends Reactive {
 
 		this.tenantId$.pipe(this.takeUntil(), filter(is.string)).subscribe((currentTenantId) => {
 
-			console.log({currentTenantId})
-
 			this.context = CustomerIndexedDBCollectionManagerContext.create(currentTenantId);
 
 			// Add collection to syncManager instance if you need to sync data with server

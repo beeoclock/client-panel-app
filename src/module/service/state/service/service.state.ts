@@ -226,10 +226,8 @@ export class ServiceState {
 
 			const newTableState = TableState.fromCache(state.tableState);
 
-			console.log(state.tableState, {newTableState})
 
 			const {
-				queryParams,
 				resetPage,
 				resetParams
 			} = action.payload ?? {};

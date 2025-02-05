@@ -7,6 +7,7 @@ import {ITableState, TableState} from "@utility/domain/table.state";
 import {PeerCustomerOrderActions} from "@order/state/peer-customer/peer-customer.order.actions";
 import {getMaxPage} from "@utility/domain/max-page";
 import {NGXLogger} from "ngx-logger";
+import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
 
 export type IPeerCustomerOrderState = {
 	tableState: ITableState<IOrderDto>;
@@ -28,6 +29,7 @@ export class PeerCustomerOrderState {
 
 	private readonly paged = inject(PagedOrderApiAdapter);
 	private readonly ngxLogger = inject(NGXLogger);
+	private readonly orderIndexedDBFacade = inject(OrderIndexedDBFacade);
 
 	@Action(PeerCustomerOrderActions.UpdateFilters)
 	public updateFilters(
@@ -98,15 +100,19 @@ export class PeerCustomerOrderState {
 
 			const params = newTableState.toBackendFormat();
 
-			// Update current state
-			const {items, totalSize} = await this.paged.executeAsync({
-				...params,
-				...(queryParams ?? {})
+			const orderParams = {
+				'services.orderAppointmentDetails.attendees.customer._id': params.customerId
+			};
+			const orderQuery = this.orderIndexedDBFacade.source.find(orderParams, {
+				sort: {
+					updatedAt: -1
+				},
+				limit: 10
 			});
 
 			newTableState
-				.setTotal(totalSize)
-				.setItems(items)
+				.setTotal(this.orderIndexedDBFacade.source.find(orderParams).count())
+				.setItems(orderQuery.fetch())
 				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
 
 			this.ngxLogger.debug('Table state: ', newTableState);
