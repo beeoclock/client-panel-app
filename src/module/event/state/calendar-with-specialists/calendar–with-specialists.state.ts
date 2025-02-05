@@ -6,10 +6,10 @@ import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-speciali
 import {IAttendee_V2, IEvent_V2} from "@event/domain";
 import {NGXLogger} from "ngx-logger";
 import {Router} from "@angular/router";
-import {PagedOrderApiAdapter} from "@order/infrastructure/api/paged.order.api.adapter";
-import {PagedAbsenceApiAdapter} from "@absence/infrastructure/api/paged.order.api.adapter";
 import {clearObject} from "@utility/domain/clear.object";
 import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
+import {AbsenceIndexedDBFacade} from "@absence/infrastructure/facade/indexedDB/absence.indexedDB.facade";
+import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
 
 export interface ICalendarWithSpecialist {
 	params: {
@@ -59,8 +59,11 @@ export interface ICalendarWithSpecialist {
 export class CalendarWithSpecialistsState {
 
 	private readonly ngxLogger = inject(NGXLogger);
-	private readonly pagedOrderApiAdapter = inject(PagedOrderApiAdapter);
-	private readonly pagedAbsenceApiAdapter = inject(PagedAbsenceApiAdapter);
+	// private readonly pagedOrderApiAdapter = inject(PagedOrderApiAdapter);
+	private readonly orderIndexedDBFacade = inject(OrderIndexedDBFacade);
+
+	// private readonly pagedAbsenceApiAdapter = inject(PagedAbsenceApiAdapter);
+	private readonly absenceIndexedDBFacade = inject(AbsenceIndexedDBFacade);
 	private readonly router = inject(Router);
 
 	@Action(CalendarWithSpecialistsAction.GetItems)
@@ -93,15 +96,90 @@ export class CalendarWithSpecialistsState {
 			delete absenceParams.status;
 		}
 
-		const {0: orderPaged, 1: absencePaged} = await Promise.all([
-			this.pagedOrderApiAdapter.executeAsync(orderParams),
-			this.pagedAbsenceApiAdapter.executeAsync(absenceParams),
-		]);
+		console.log({orderParams, absenceParams});
+
+		const absenceQuery = this.absenceIndexedDBFacade.source.find({
+			$or: [
+				{
+					start: {
+						$gte: params.start,
+						$lte: params.end,
+					},
+				},
+				{
+					end: {
+						$gte: params.start,
+						$lte: params.end,
+					}
+				},
+				{
+					start: {
+						$lt: params.start,
+					},
+					end: {
+						$gt: params.end,
+					}
+				}
+			]
+		}, {
+			sort: {
+				createdAt: -1
+			}
+		});
+		const absences = absenceQuery.fetch();
+
+		const orderQuery = this.orderIndexedDBFacade.source.find({
+			$and: [
+				{
+					$or: [
+						{
+							'services.orderAppointmentDetails.start': {
+								$gte: params.start,
+								$lte: params.end,
+							},
+						},
+						{
+							'services.orderAppointmentDetails.end': {
+								$gte: params.start,
+								$lte: params.end,
+							}
+						},
+						{
+							'services.orderAppointmentDetails.start': {
+								$lt: params.start,
+							},
+							'services.orderAppointmentDetails.end': {
+								$gt: params.end,
+							}
+						}
+					]
+				},
+				{
+					status: {
+						$in: orderParams.statuses
+					}
+				}
+			]
+		}, {
+			sort: {
+				createdAt: -1
+			}
+		});
+		const orders = orderQuery.fetch();
+		console.log({orders})
+
+		// const {
+		// 	0: orderPaged,
+			// 1: absencePaged
+		// } = await Promise.all([
+			// this.pagedOrderApiAdapter.executeAsync(orderParams),
+			// this.pagedAbsenceApiAdapter.executeAsync(absenceParams),
+		// ]);
 
 		const {startTime, endTime} = settings;
 
 		const data: IEvent_V2[] = [
-			...orderPaged.items.reduce((acc, order) => {
+			...orders.reduce((acc, order) => {
 				if (order.services.length === 0) {
 					return acc;
 				}
@@ -174,7 +252,7 @@ export class CalendarWithSpecialistsState {
 				return acc;
 
 			}, [] as IEvent_V2[]),
-			...absencePaged.items.reduce((acc, absence) => {
+			...absences.reduce((acc, absence) => {
 
 				const start = DateTime.fromISO(absence.start);
 				const end = DateTime.fromISO(absence.end);

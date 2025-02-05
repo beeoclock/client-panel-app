@@ -25,6 +25,9 @@ const getSyncMangerInstance = (httpClient: HttpClient, tenantId: string) => new 
 	id: tenantId,
 	reactivity: angularReactivityAdapter,
 	persistenceAdapter: createIndexedDBAdapter,
+	onError: (error) => {
+		console.log('SignalDB:onError', {error})
+	},
 	pull: async (something, pullParameters) => {
 		const {endpoint, create} = something;
 		const {lastFinishedSyncStart} = pullParameters;
