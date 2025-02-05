@@ -6,7 +6,7 @@ import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-speciali
 import {IAttendee_V2, IEvent_V2} from "@event/domain";
 import {NGXLogger} from "ngx-logger";
 import {Router} from "@angular/router";
-import {PagedOrderApiAdapter} from "@order/external/adapter/api/paged.order.api.adapter";
+import {PagedOrderApiAdapter} from "@order/infrastructure/api/paged.order.api.adapter";
 import {PagedAbsenceApiAdapter} from "@absence/infrastructure/api/paged.order.api.adapter";
 import {clearObject} from "@utility/domain/clear.object";
 import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";

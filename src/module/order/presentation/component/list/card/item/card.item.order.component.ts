@@ -5,9 +5,9 @@ import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@order/presentation/component/row-action-button/row-action-button.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {debounce} from "typescript-debounce-decorator";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
 import {OrderActions} from "@order/state/order/order.actions";
-import {IOrderServiceDto} from "@src/module/order/external/interface/i.order-service.dto";
+import {IOrderServiceDto} from "@order/domain/interface/i.order-service.dto";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {
 	ListServiceFormCardOrderComponent

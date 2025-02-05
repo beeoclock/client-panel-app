@@ -1,4 +1,4 @@
-import {IProductDto} from "@order/external/interface/i.product.dto";
+import {IProductDto} from "@order/domain/interface/i.product.dto";
 
 export interface IOrderProductDto {
 	object: "OrderProductDto";

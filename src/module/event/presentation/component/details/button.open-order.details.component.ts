@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, HostBinding, inject, input, ViewEncapsulation} from "@angular/core";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
 import {Store} from "@ngxs/store";
 import {OrderActions} from "@order/state/order/order.actions";
 import {TranslateModule} from "@ngx-translate/core";

@@ -3,8 +3,8 @@ import {BaseApiAdapter, ResponseListType} from "@utility/adapter/base.api.adapte
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@utility/checker";
 import {TableState_BackendFormat} from "@utility/domain/table.state";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {OrderEndpoint} from "@order/external/endpoint/order.endpoint";
+import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
+import {OrderEndpoint} from "@order/infrastructure/endpoint/order.endpoint";
 
 @Injectable({
 	providedIn: 'root'

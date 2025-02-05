@@ -5,7 +5,7 @@ import {EventConfigurationForm} from "@event/presentation/form/configuration.for
 import {LanguageCodeEnum} from "@utility/domain/enum";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {ISpecialist} from "@service/domain/interface/i.specialist";
 
 

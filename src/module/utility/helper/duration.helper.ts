@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 
 @Injectable({
 	providedIn: 'root'

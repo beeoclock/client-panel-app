@@ -37,13 +37,13 @@ import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {IPresentation, RIConfiguration} from "@service/domain";
 import {Reactive} from "@utility/cdk/reactive";
 import * as Member from '@member/domain';
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {IOrderServiceDto} from "@order/domain/interface/i.order-service.dto";
 import {RIMedia} from "@module/media/domain/interface/i.media";
 import {
 	CustomerTypeCustomerComponent
 } from "@customer/presentation/component/form/by-customer-type/customer-type.customer.component";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 
 @Component({
 	selector: 'event-container-form-component',

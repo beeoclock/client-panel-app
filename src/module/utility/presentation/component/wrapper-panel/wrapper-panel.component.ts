@@ -40,6 +40,8 @@ import {AbsenceIndexedDBFacade} from "@absence/infrastructure/facade/indexedDB/a
 import {AbsenceIndexedDBCollectionManager} from "@absence/infrastructure/manager/absence.indexedDB.collection.manager";
 import {MemberIndexedDBFacade} from "@member/infrastructure/facade/indexedDB/member.indexedDB.facade";
 import {MemberIndexedDBCollectionManager} from "@member/infrastructure/manager/member.indexedDB.collection.manager";
+import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
+import {OrderIndexedDBCollectionManager} from "@order/infrastructure/manager/order.indexedDB.collection.manager";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -99,6 +101,11 @@ import {MemberIndexedDBCollectionManager} from "@member/infrastructure/manager/m
 		 */
 		MemberIndexedDBCollectionManager,
 		MemberIndexedDBFacade,
+		/**
+		 * MEMBER
+		 */
+		OrderIndexedDBCollectionManager,
+		OrderIndexedDBFacade,
 	],
 	encapsulation: ViewEncapsulation.None
 })

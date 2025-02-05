@@ -7,7 +7,7 @@ import {
 	output,
 	ViewEncapsulation
 } from "@angular/core";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {Store} from "@ngxs/store";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {ListServiceApiAdapter} from "@service/infrastructure/api/list.service.api.adapter";

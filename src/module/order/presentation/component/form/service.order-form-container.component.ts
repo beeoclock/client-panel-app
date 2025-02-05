@@ -32,7 +32,7 @@ import {ContainerFormComponent} from '@event/presentation/component/form/contain
 import {IEvent} from "@event/domain";
 import {ActiveEnum} from "@utility/domain/enum";
 import {ReservationTypeEnum} from "@order/domain/enum/reservation.type.enum";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
 import {
@@ -48,7 +48,7 @@ import {EventStatusStyleDirective} from "@event/presentation/directive/event-sta
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {LinkButtonDirective} from "@utility/presentation/directives/button/link.button.directive";
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {IOrderServiceDto} from "@order/domain/interface/i.order-service.dto";
 import {RIMember} from "@member/domain";
 import {
 	OrderServiceDetailsComponent
@@ -58,7 +58,7 @@ import {filter} from 'rxjs';
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {ClientState} from "@client/state/client/client.state";
 import {RIClient} from "@client/domain";
-import {IAttendeeDto} from "@order/external/interface/i-order-appointment-details.dto";
+import {IAttendeeDto} from "@order/domain/interface/i-order-appointment-details.dto";
 
 
 @Component({

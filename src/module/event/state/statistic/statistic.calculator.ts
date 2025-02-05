@@ -1,8 +1,8 @@
 import {ResponseListType} from "@utility/adapter/base.api.adapter";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
+import {IOrderServiceDto} from "@order/domain/interface/i.order-service.dto";
 import {ISpecialist} from "@service/domain/interface/i.specialist";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 

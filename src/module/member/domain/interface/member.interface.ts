@@ -2,7 +2,7 @@ import {IBaseEntity} from "@utility/domain";
 import {RoleEnum} from "@utility/domain/enum/role.enum";
 import {RESPONSE_IMemberMedia} from "@member/domain/interface/i.member-media";
 import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 
 export interface IAssignments {
 	// object: 'Assignments';

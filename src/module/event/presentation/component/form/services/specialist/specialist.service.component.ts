@@ -10,7 +10,7 @@ import {TableState} from "@utility/domain/table.state";
 import {FormControl} from "@angular/forms";
 
 import {MemberProfileStatusEnum} from "@member/domain/enums/member-profile-status.enum";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 
 @Component({
 	selector: 'event-service-specialist-component',

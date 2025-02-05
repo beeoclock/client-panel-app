@@ -25,7 +25,7 @@ import {
 	LanguageVersionOrderControlComponent
 } from "@event/presentation/component/form/services/language-version/language-version.order.control.component";
 import {LanguageCodeEnum} from "@utility/domain/enum";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {
 	ModalSelectServiceListRepository
 } from "@service/infrastructure/repository/modal-select-service.list.repository";

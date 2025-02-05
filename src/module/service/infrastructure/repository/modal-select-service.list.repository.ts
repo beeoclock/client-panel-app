@@ -4,7 +4,7 @@ import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 import {ListServiceApiAdapter} from "@service/infrastructure/api/list.service.api.adapter";
 import {ActiveEnum} from "@utility/domain/enum";
 import {NGXLogger} from "ngx-logger";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 
 @Injectable({
 	providedIn: 'root'

@@ -4,8 +4,8 @@ import {
 	ICalendarWithSpecialist
 } from "@event/state/calendar-with-specialists/calendar–with-specialists.state";
 import {DateTime} from "luxon";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
+import {IOrderServiceDto} from "@order/domain/interface/i.order-service.dto";
 import {IAbsence} from "@absence/domain/interface/i.absence";
 import {IEvent_V2} from "@event/domain";
 

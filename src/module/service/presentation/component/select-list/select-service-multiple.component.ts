@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject, Input, output, ViewEncapsulation} from "@angular/core";
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {NgStyle} from "@angular/common";
 
 @Component({

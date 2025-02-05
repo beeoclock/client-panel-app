@@ -13,7 +13,7 @@ import {Reactive} from "@utility/cdk/reactive";
 import {Store} from "@ngxs/store";
 import {ClientState} from "@client/state/client/client.state";
 import {is} from "@utility/checker";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 
 @Component({
 	selector: 'event-duration-version-type-range',

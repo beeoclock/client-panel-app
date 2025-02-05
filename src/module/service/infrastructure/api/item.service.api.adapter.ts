@@ -3,7 +3,7 @@ import {serviceEndpointEnum} from "@service/infrastructure/endpoint/service.endp
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 
 @Injectable({
   providedIn: 'root'

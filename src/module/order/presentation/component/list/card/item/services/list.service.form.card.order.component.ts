@@ -14,14 +14,14 @@ import {
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NGXLogger} from "ngx-logger";
 import {Reactive} from "@utility/cdk/reactive";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {RIMember} from "@member/domain";
 import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {ClientState} from "@client/state/client/client.state";
 import {LanguageCodeEnum} from "@utility/domain/enum";
 import {AlertController} from "@ionic/angular";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {OrderActions} from "@order/state/order/order.actions";
 

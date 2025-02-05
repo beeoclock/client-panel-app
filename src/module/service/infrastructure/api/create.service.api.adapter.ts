@@ -3,7 +3,7 @@ import {serviceEndpointEnum} from "@service/infrastructure/endpoint/service.endp
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@utility/checker";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 
 @Injectable({
   providedIn: 'root'

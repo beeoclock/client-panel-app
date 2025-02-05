@@ -4,7 +4,7 @@ import {FormControl} from "@angular/forms";
 import {NgClass} from "@angular/common";
 import {LanguageNamePipe} from "@utility/presentation/pipes/language-name/language-name.pipe";
 import {LanguageCodeEnum} from "@utility/domain/enum";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 
 @Component({
 	standalone: true,

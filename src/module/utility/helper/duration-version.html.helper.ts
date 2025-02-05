@@ -3,7 +3,7 @@ import {inject, Injectable} from "@angular/core";
 import {DurationHelper} from "@utility/helper/duration.helper";
 import {HumanizeDurationHelper} from "@utility/helper/humanize/humanize-duration.helper";
 import {CurrencyPipe} from "@angular/common";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {BASE_CURRENCY} from "@src/token";
 

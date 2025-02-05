@@ -35,7 +35,7 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {NGXLogger} from "ngx-logger";
 import {is} from "@utility/checker";
 import {ActiveEnum, CurrencyCodeEnum} from "@utility/domain/enum";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {StateEnum} from "@utility/domain/enum/state.enum";
 import {IService} from "@service/domain/interface/i.service";
 

@@ -5,7 +5,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {IOrderState} from "@order/state/order/order.state";
 import {
 	PatchStatusServiceOrderApiAdapter
-} from "@order/external/adapter/api/status/patch.status.service.order.api.adapter";
+} from "@order/infrastructure/api/status/patch.status.service.order.api.adapter";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
 

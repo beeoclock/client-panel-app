@@ -2,7 +2,7 @@ import {ICustomer} from "@customer/domain";
 import {IsOptionalEnum, IsOrganizerEnum, LanguageCodeEnum, ResponseStatusEnum} from "@utility/domain/enum";
 import {IBaseEntity} from "@utility/domain";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {ISpecialist} from "@service/domain/interface/i.specialist";
 
 export interface IEventConfiguration {

@@ -19,7 +19,7 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {TableState} from "@utility/domain/table.state";
 import {Reactive} from "@utility/cdk/reactive";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {RIMember} from "@member/domain";
 import {ServiceOrderForm, ServiceOrderFormArray} from "@order/presentation/form/service.order.form";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
@@ -29,7 +29,7 @@ import {ReservationTypeEnum} from "@order/domain/enum/reservation.type.enum";
 import {DateTime} from "luxon";
 import {ICustomer} from "@customer/domain";
 import ObjectID from "bson-objectid";
-import {IAttendeeDto} from "@order/external/interface/i-order-appointment-details.dto";
+import {IAttendeeDto} from "@order/domain/interface/i-order-appointment-details.dto";
 import {StateEnum} from "@utility/domain/enum/state.enum";
 
 @Component({

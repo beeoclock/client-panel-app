@@ -2,8 +2,8 @@ import {Component, inject, input, output, ViewEncapsulation} from "@angular/core
 import {TranslateModule} from "@ngx-translate/core";
 import {IEvent_V2} from "@event/domain";
 import {Store} from "@ngxs/store";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
+import {IOrderServiceDto} from "@order/domain/interface/i.order-service.dto";
 
 @Component({
 	selector: 'event-delete-button-component',

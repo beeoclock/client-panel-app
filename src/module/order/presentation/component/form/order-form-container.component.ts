@@ -19,7 +19,7 @@ import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
 import {CreateOrderForm} from "@order/presentation/form/create.order.form";
@@ -28,7 +28,7 @@ import {
 	PaymentOrderFormContainerComponent
 } from "@order/presentation/component/form/payment.order-form-container.component";
 import {OrderActions} from "@order/state/order/order.actions";
-import {CreateOrderApiAdapter} from "@order/external/adapter/api/create.order.api.adapter";
+import {CreateOrderApiAdapter} from "@order/infrastructure/api/create.order.api.adapter";
 import {CreatePaymentApiAdapter} from "@module/payment/external/adapter/api/create.payment.api.adapter";
 import {RIMember} from "@member/domain";
 import {Reactive} from "@utility/cdk/reactive";
@@ -39,7 +39,7 @@ import {
 import {FormsModule} from "@angular/forms";
 import {lastValueFrom} from "rxjs";
 import {PaymentActions} from "@module/payment/state/payment/payment.actions";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {AdditionalMenuComponent} from "@event/presentation/component/additional-menu/additional-menu.component";
 

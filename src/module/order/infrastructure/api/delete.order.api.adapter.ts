@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
-import {OrderEndpoint} from "@order/external/endpoint/order.endpoint";
+import {OrderEndpoint} from "@order/infrastructure/endpoint/order.endpoint";
 
 @Injectable({
     providedIn: 'root'

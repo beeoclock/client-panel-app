@@ -6,7 +6,7 @@ import {CurrencyPipe, DatePipe, NgIf} from "@angular/common";
 import {HumanizeDurationPipe} from "@utility/presentation/pipes/humanize-duration.pipe";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {TranslateModule} from "@ngx-translate/core";
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {IOrderServiceDto} from "@order/domain/interface/i.order-service.dto";
 
 @Component({
 	standalone: true,

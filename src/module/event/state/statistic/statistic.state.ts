@@ -4,10 +4,10 @@ import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {DateTime} from "luxon";
 import {NGXLogger} from "ngx-logger";
 import {StatisticAction} from "@event/state/statistic/statistic.action";
-import {PagedOrderApiAdapter} from "@order/external/adapter/api/paged.order.api.adapter";
+import {PagedOrderApiAdapter} from "@order/infrastructure/api/paged.order.api.adapter";
 import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 import {ResponseListType} from "@utility/adapter/base.api.adapter";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
 import {initStatisticCalculator, statisticCalculator} from "@event/state/statistic/statistic.calculator";
 
 export interface IStatisticState {

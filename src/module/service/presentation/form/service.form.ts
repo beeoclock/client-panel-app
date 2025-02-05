@@ -7,7 +7,7 @@ import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-typ
 import {filter} from "rxjs";
 import {is} from "@utility/checker";
 import {BaseEntityForm} from "@utility/base.form";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 
 export interface ILanguageVersionForm {
 	title: FormControl<string>;

@@ -3,22 +3,26 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {ActiveEnum, OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {TranslateService} from "@ngx-translate/core";
-import {CreateOrderApiAdapter} from "@order/external/adapter/api/create.order.api.adapter";
-import {UpdateOrderApiAdapter} from "@order/external/adapter/api/update.order.api.adapter";
-import {DetailsOrderApiAdapter} from "@order/external/adapter/api/details.order.api.adapter";
-import {PagedOrderApiAdapter} from "@order/external/adapter/api/paged.order.api.adapter";
-import {DeleteOrderApiAdapter} from "../../external/adapter/api/delete.order.api.adapter";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {UpdateOrderApiAdapter} from "@order/infrastructure/api/update.order.api.adapter";
+import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
 import {OrderActions} from "@order/state/order/order.actions";
 import {PagedPaymentApiAdapter} from "@module/payment/external/adapter/api/paged.payment.api.adapter";
-import {UpdateServiceOrderApiAdapter} from "@order/external/adapter/api/update.service.order.api.adapter";
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {UpdateServiceOrderApiAdapter} from "@order/infrastructure/api/update.service.order.api.adapter";
+import {IOrderServiceDto} from "@order/domain/interface/i.order-service.dto";
 import {ContainerFormComponent} from "@event/presentation/component/form/container.form.component";
 import {IEvent} from "@event/domain";
 import {ReservationTypeEnum} from "@order/domain/enum/reservation.type.enum";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
-import {PatchStatusOrderApiAdapter} from "@order/external/adapter/api/status/patch.status.order.api.adapter";
+import {PatchStatusOrderApiAdapter} from "@order/infrastructure/api/status/patch.status.order.api.adapter";
+import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
+import {NGXLogger} from "ngx-logger";
+import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
+import EOrder from "@order/domain/entity/e.order";
+import {firstValueFrom} from "rxjs";
+import {AppActions} from "@utility/state/app/app.actions";
+import {TableState} from "@utility/domain/table.state";
+import {getMaxPage} from "@utility/domain/max-page";
 
 export type IOrderState = IBaseState<IOrderDto>;
 
@@ -34,26 +38,19 @@ const defaults = baseDefaults<IOrderDto>({
 	defaults,
 })
 @Injectable()
-export class OrderState extends BaseState<IOrderDto> {
-
-	protected override readonly create = inject(CreateOrderApiAdapter);
-	protected override readonly update = inject(UpdateOrderApiAdapter);
-	protected override readonly item = inject(DetailsOrderApiAdapter);
-	protected override readonly delete = inject(DeleteOrderApiAdapter);
-	protected override readonly paged = inject(PagedOrderApiAdapter);
+export class OrderState {
 
 	private readonly updateServiceOrderApiAdapter = inject(UpdateServiceOrderApiAdapter);
-	private readonly translateService = inject(TranslateService);
 	private readonly patchStatusOrderApiAdapter = inject(PatchStatusOrderApiAdapter);
 
 	private readonly updateOrderApiAdapter = inject(UpdateOrderApiAdapter);
 	private readonly pagedPaymentApiAdapter = inject(PagedPaymentApiAdapter);
 
-	constructor() {
-		super(
-			defaults,
-		);
-	}
+	public readonly orderIndexedDBFacade = inject(OrderIndexedDBFacade);
+
+	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
+	private readonly translateService = inject(TranslateService);
+	private readonly ngxLogger = inject(NGXLogger);
 
 	// Application layer
 
@@ -109,18 +106,20 @@ export class OrderState extends BaseState<IOrderDto> {
 	public async openDetailsByIdAction(ctx: StateContext<IOrderState>, {payload: id}: OrderActions.OpenDetailsById) {
 
 		const title = await this.translateService.instant('order.details.title');
+		const item = this.orderIndexedDBFacade.source.findOne({
+			id
+		});
+
+		if (!item) {
+			this.ngxLogger.error('OrderState.openDetailsById', 'Item not found');
+			return;
+		}
 
 		const {OrderDetailsContainerComponent} = await import("@order/presentation/component/details/order-details-container.component");
 
 		await this.whacAMaleProvider.buildItAsync({
 			title,
 			showLoading: true,
-			component: OrderDetailsContainerComponent,
-		});
-
-		const item = await this.item.executeAsync(id);
-
-		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
 			component: OrderDetailsContainerComponent,
 			componentInputs: {item},
 		});
@@ -137,6 +136,14 @@ export class OrderState extends BaseState<IOrderDto> {
 		}
 
 		const title = await this.translateService.instant('order.form.title.edit');
+		const orderDto = this.orderIndexedDBFacade.source.findOne({
+			id: action.payload
+		});
+
+		if (!orderDto) {
+			this.ngxLogger.error('OrderState.openDetailsById', 'Item not found');
+			return;
+		}
 
 		const {OrderFormContainerComponent} = await import("@order/presentation/component/form/order-form-container.component");
 
@@ -147,8 +154,6 @@ export class OrderState extends BaseState<IOrderDto> {
 			componentInputs: {},
 			showLoading: true,
 		});
-
-		const orderDto = await this.item.executeAsync(action.payload);
 
 		const paymentResponse = await this.pagedPaymentApiAdapter.executeAsync({
 			orderId: action.payload,
@@ -286,48 +291,143 @@ export class OrderState extends BaseState<IOrderDto> {
 	}
 
 	@Action(OrderActions.Init)
-	public override async init(ctx: StateContext<IOrderState>): Promise<void> {
-		await super.init(ctx);
+	public async init(ctx: StateContext<IOrderState>): Promise<void> {
+		ctx.setState(structuredClone(defaults));
 	}
 
 	@Action(OrderActions.UpdateFilters)
-	public override updateFilters(ctx: StateContext<IOrderState>, action: OrderActions.UpdateFilters) {
-		super.updateFilters(ctx, action);
+	public updateFilters(ctx: StateContext<IOrderState>, action: OrderActions.UpdateFilters) {
+		BaseState.updateFilters(ctx, action);
 	}
 
 	@Action(OrderActions.UpdateTableState)
-	public override updateTableState(ctx: StateContext<IOrderState>, action: OrderActions.UpdateTableState) {
-		super.updateTableState(ctx, action);
+	public updateTableState(ctx: StateContext<IOrderState>, action: OrderActions.UpdateTableState) {
+		BaseState.updateTableState(ctx, action);
 	}
 
 	@Action(OrderActions.CreateItem)
-	public override async createItem(ctx: StateContext<IOrderState>, action: OrderActions.CreateItem) {
-		await super.createItem(ctx, action);
+	public async createItem(ctx: StateContext<IOrderState>, action: OrderActions.CreateItem) {
+		this.orderIndexedDBFacade.source.insert(EOrder.create(action.payload));
 		await this.closeFormAction(ctx);
 	}
 
 	@Action(OrderActions.UpdateItem)
-	public override async updateItem(ctx: StateContext<IOrderState>, action: OrderActions.UpdateItem): Promise<void> {
-		await super.updateItem(ctx, action);
-		ctx.dispatch(new OrderActions.CloseForm(action.payload._id))
+	public async updateItem(ctx: StateContext<IOrderState>, action: OrderActions.UpdateItem): Promise<void> {
+
+		const item = EOrder.create(action.payload);
+		this.orderIndexedDBFacade.source.updateOne({
+			id: action.payload._id,
+		}, {
+			$set: item
+		});
+		await this.closeFormAction(ctx);
 		const {data} = ctx.getState().item;
-		if (data) ctx.dispatch(new OrderActions.UpdateOpenedDetails(data));
+		data && await this.updateOpenedDetailsAction(ctx, {payload: item});
+
+		// await super.updateItem(ctx, action);
+		// ctx.dispatch(new OrderActions.CloseForm(action.payload._id))
+		// const {data} = ctx.getState().item;
+		// if (data) ctx.dispatch(new OrderActions.UpdateOpenedDetails(data));
 	}
 
 	@Action(OrderActions.GetItem)
-	public override async getItem(ctx: StateContext<IOrderState>, action: OrderActions.GetItem): Promise<void> {
-		await super.getItem(ctx, action);
+	public async getItem(ctx: StateContext<IOrderState>, action: OrderActions.GetItem): Promise<void> {
+		const data = this.orderIndexedDBFacade.source.findOne({
+			id: action.payload
+		});
+
+		if (!data) {
+			return;
+		}
+
+		ctx.patchState({
+			item: {
+				data,
+				downloadedAt: new Date(),
+			}
+		});
 	}
 
 	@Action(OrderActions.DeleteItem)
-	public override async deleteItem(ctx: StateContext<IOrderState>, action: OrderActions.DeleteItem) {
-		await super.deleteItem(ctx, action);
+	public async deleteItem(ctx: StateContext<IOrderState>, action: OrderActions.DeleteItem) {
+		this.orderIndexedDBFacade.source.removeOne({
+			id: action.payload
+		});
 		await this.closeDetailsAction(ctx, action);
 	}
 
 	@Action(OrderActions.GetList)
-	public override async getList(ctx: StateContext<IOrderState>, action: OrderActions.GetList): Promise<void> {
-		await super.getList(ctx, action);
+	public async getList(ctx: StateContext<IOrderState>, action: OrderActions.GetList): Promise<void> {
+
+		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(true)));
+
+		const state = ctx.getState();
+
+		try {
+
+			const newTableState = TableState.fromCache(state.tableState);
+
+			console.log(state.tableState, {newTableState})
+
+			const {
+				queryParams,
+				resetPage,
+				resetParams
+			} = action.payload ?? {};
+
+			if (resetPage) {
+				newTableState.setPage(1);
+			}
+
+			if (resetParams) {
+				newTableState.filters = {};
+			}
+
+			const phraseFields = ['firstName', 'lastName'];
+
+			const params = newTableState.toBackendFormat();
+
+			const selector = {
+				...((newTableState.filters?.phrase as string)?.length ? {
+					$or: phraseFields.map((field) => {
+						return {
+							[field]: {
+								$regex: newTableState.filters.phrase,
+								$options: "i"
+							}
+						}
+					})
+				} : {})
+			};
+
+			const items = this.orderIndexedDBFacade.source.find(selector, {
+				limit: params.pageSize,
+				skip: (params.page - 1) * params.pageSize,
+				sort: {
+					[params.orderBy]: params.orderDir === OrderDirEnum.ASC ? 1 : -1
+				}
+			}).fetch();
+
+			const count = this.orderIndexedDBFacade.source.find(selector).count();
+
+			newTableState
+				.setTotal(count)
+				.setItems(items)
+				.setMaxPage(getMaxPage(newTableState.total, newTableState.pageSize));
+
+			this.ngxLogger.debug('Table state: ', newTableState);
+
+			ctx.patchState({
+				tableState: newTableState.toCache(),
+				lastTableHashSum: newTableState.hashSum
+			});
+
+		} catch (e) {
+			this.ngxLogger.error(e);
+		}
+
+		// Switch of page loader
+		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 	}
 
 	@Action(OrderActions.PutItem)

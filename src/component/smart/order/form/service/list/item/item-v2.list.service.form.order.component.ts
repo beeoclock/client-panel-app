@@ -10,7 +10,7 @@ import {
 	ViewEncapsulation
 } from "@angular/core";
 import {PrimaryLinkButtonDirective} from "@utility/presentation/directives/button/primary.link.button.directive";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {RIMember} from "@member/domain";
 import ObjectID from "bson-objectid";
 import {Reactive} from "@utility/cdk/reactive";

@@ -3,8 +3,8 @@ import {TranslateModule} from "@ngx-translate/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NGXLogger} from "ngx-logger";
 import {IEvent_V2} from "@event/domain";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
-import {IOrderServiceDto} from "@order/external/interface/i.order-service.dto";
+import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
+import {IOrderServiceDto} from "@order/domain/interface/i.order-service.dto";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
 
 @Component({

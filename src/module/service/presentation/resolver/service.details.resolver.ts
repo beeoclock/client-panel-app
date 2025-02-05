@@ -5,7 +5,7 @@ import {catchError, EMPTY} from "rxjs";
 
 import {ServiceActions} from "@service/state/service/service.actions";
 import {IAppState} from "@utility/state/app/app.state";
-import {IServiceDto} from "@order/external/interface/i.service.dto";
+import {IServiceDto} from "@order/domain/interface/i.service.dto";
 
 export const serviceDetailsResolver: ResolveFn<IServiceDto> = (
 	route: ActivatedRouteSnapshot,

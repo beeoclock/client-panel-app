@@ -209,6 +209,7 @@ export const routes: Routes = [
 						ServiceState,
 						AbsenceState,
 						MemberState,
+						OrderState,
 					]))
 				],
 				children: [
@@ -273,7 +274,7 @@ export const routes: Routes = [
 					{
 						path: 'event',
 						providers: [
-							importProvidersFrom(NgxsModule.forFeature([EventState, OrderState, DateRangeReportAnalyticState])),
+							importProvidersFrom(NgxsModule.forFeature([EventState, DateRangeReportAnalyticState])),
 						],
 						children: [
 							{

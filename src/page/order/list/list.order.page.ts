@@ -4,7 +4,7 @@ import {Observable, tap} from "rxjs";
 import {ITableState} from "@utility/domain/table.state";
 import {TranslateModule} from "@ngx-translate/core";
 import {AsyncPipe} from "@angular/common";
-import {IOrderDto} from "@order/external/interface/details/i.order.dto";
+import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
 import {OrderState} from "@order/state/order/order.state";
 import {TableService} from "@utility/table.service";
 import {OrderTableService} from "@order/presentation/component/list/order.table.service";
