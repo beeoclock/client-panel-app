@@ -42,6 +42,12 @@ import {MemberIndexedDBFacade} from "@member/infrastructure/facade/indexedDB/mem
 import {MemberIndexedDBCollectionManager} from "@member/infrastructure/manager/member.indexedDB.collection.manager";
 import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
 import {OrderIndexedDBCollectionManager} from "@order/infrastructure/manager/order.indexedDB.collection.manager";
+import {
+	BusinessProfileIndexedDBFacade
+} from "@client/infrastructure/facade/indexedDB/business-profile.indexedDB.facade";
+import {
+	BusinessProfileIndexedDBCollectionManager
+} from "@client/infrastructure/manager/business-profile.indexedDB.collection.manager";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -105,6 +111,11 @@ import {OrderIndexedDBCollectionManager} from "@order/infrastructure/manager/ord
 		 */
 		OrderIndexedDBCollectionManager,
 		OrderIndexedDBFacade,
+		/**
+		 * BUSINESS PROFILE
+		 */
+		BusinessProfileIndexedDBCollectionManager,
+		BusinessProfileIndexedDBFacade,
 	],
 	encapsulation: ViewEncapsulation.None
 })

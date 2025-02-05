@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, OnInit} from "@angular/core";
 import {Store} from "@ngxs/store";
 import {delay, filter, iif, of, switchMap, tap} from "rxjs";
 import {is} from "@utility/checker";
@@ -14,6 +14,7 @@ import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
 import {MemberActions} from "@member/state/member/member.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
 	selector: 'app-event-v2-members-container-week-calendar-component',
@@ -29,9 +30,10 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 		ScheduleV2ContainerWeekCalendarComponent
 	]
 })
-export default class MembersV2ContainerWeekCalendarComponent extends Reactive {
+export default class MembersV2ContainerWeekCalendarComponent extends Reactive implements OnInit {
 
 	private readonly store = inject(Store);
+	private readonly ngxLogger = inject(NGXLogger);
 	private readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 
 	public readonly item$ = this.store.select(MemberState.tableState).pipe(
@@ -58,6 +60,10 @@ export default class MembersV2ContainerWeekCalendarComponent extends Reactive {
 	@Dispatch()
 	private initMemberList() {
 		return new MemberActions.GetList()
+	}
+
+	public ngOnInit(): void {
+		this.ngxLogger.info('MembersV2ContainerWeekCalendarComponent');
 	}
 
 

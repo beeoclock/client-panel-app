@@ -20,6 +20,7 @@ import {ServiceState} from "@service/state/service/service.state";
 import {PeerCustomerOrderState} from "@order/state/peer-customer/peer-customer.order.state";
 import {CustomerState} from "@customer/state/customer/customer.state";
 import {MemberState} from "@member/state/member/member.state";
+import {ClientState} from "@client/state/client/client.state";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
@@ -210,6 +211,7 @@ export const routes: Routes = [
 						AbsenceState,
 						MemberState,
 						OrderState,
+						ClientState
 					]))
 				],
 				children: [

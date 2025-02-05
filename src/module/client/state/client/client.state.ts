@@ -1,18 +1,18 @@
 import {inject, Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
-import * as Client from "@client/domain";
 import {INotificationsSettings} from "@client/domain";
 import {ClientActions} from "@client/state/client/client.actions";
 import {AppActions} from "@utility/state/app/app.actions";
-import {
-	ItemBusinessProfileApiAdapter
-} from "@client/adapter/external/api/buisness-profile/item.business-profile.api.adapter";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
 import {BASE_CURRENCY} from "@src/token";
+import {
+	BusinessProfileIndexedDBFacade
+} from "@client/infrastructure/facade/indexedDB/business-profile.indexedDB.facade";
+import EBusinessProfile from "@client/domain/entity/e.business-profile";
 
 interface IClientState {
-	item: Client.RIClient | undefined;
+	item: EBusinessProfile | undefined;
 }
 
 @State<IClientState>({
@@ -25,7 +25,7 @@ interface IClientState {
 export class ClientState {
 
 	@Selector()
-	public static item(state: IClientState): Client.RIClient | undefined {
+	public static item(state: IClientState): EBusinessProfile | undefined {
 		return state.item;
 	}
 
@@ -98,15 +98,22 @@ export class ClientState {
 	}
 
 	private readonly BASE_CURRENCY = inject(BASE_CURRENCY);
-	private readonly itemBusinessProfileApiAdapter = inject(ItemBusinessProfileApiAdapter);
+	private readonly businessProfileIndexedDBFacade = inject(BusinessProfileIndexedDBFacade);
 
 	@Action(ClientActions.InitClient)
 	public async getItem(ctx: StateContext<IClientState>): Promise<void> {
 
 		ctx.dispatch(new AppActions.PageLoading(true));
 
-		const item = await this.itemBusinessProfileApiAdapter.executeAsync();
-		await this.itemBusinessProfileApiAdapter.executeAsync();
+		const {0: item} = this.businessProfileIndexedDBFacade.source.find().fetch();
+
+		console.log({item});
+
+		if (!item) {
+			console.error('ClientState.getItem', 'Item not found');
+			return;
+		}
+
 		ctx.patchState({
 			item
 		});

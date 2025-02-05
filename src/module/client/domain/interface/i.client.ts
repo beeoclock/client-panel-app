@@ -11,8 +11,8 @@ import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.
 import {BusinessIndustryEnum} from "@utility/domain/enum/business-industry.enum";
 import {BusinessClientStatusEnum} from "@client/domain/enum/business-client-status.enum";
 import {RIMedia} from "@module/media/domain/interface/i.media";
-import {DeepPartial} from "@utility/base.type";
 import {SendNotificationConditionEnum} from "@utility/domain/enum/send-notification-condition.enum";
+import {DeepPartial} from "@utility/base.type";
 
 export interface IBusinessSettings {
 	timeZone?: string;
@@ -62,3 +62,5 @@ export interface RIClient extends IBaseEntity<'Client'> {
 }
 
 export type IClient = DeepPartial<RIClient>;
+
+

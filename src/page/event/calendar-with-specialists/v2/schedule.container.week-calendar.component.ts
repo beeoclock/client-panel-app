@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, OnInit} from "@angular/core";
 import {ClientState} from "@client/state/client/client.state";
 import {Store} from "@ngxs/store";
 import {combineLatest, filter, tap} from "rxjs";
@@ -10,6 +10,8 @@ import CalendarWithSpecialistLocaStateService from "./calendar-with-specialist.l
 import {
 	CalendarWithSpecialistWidgetComponent
 } from "@page/event/calendar-with-specialists/v2/component/main/calendar-with-specialist.widget.component";
+import {NGXLogger} from "ngx-logger";
+import {ClientActions} from "@client/state/client/client.actions";
 
 @Component({
 	selector: 'app-event-v2-schedule-container-week-calendar-component',
@@ -25,9 +27,10 @@ import {
 		CalendarWithSpecialistWidgetComponent
 	]
 })
-export default class ScheduleV2ContainerWeekCalendarComponent extends Reactive {
+export default class ScheduleV2ContainerWeekCalendarComponent extends Reactive implements OnInit {
 
 	private readonly store = inject(Store);
+	private readonly ngxLogger = inject(NGXLogger);
 	private readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 
 	public readonly item$ = combineLatest([
@@ -49,5 +52,10 @@ export default class ScheduleV2ContainerWeekCalendarComponent extends Reactive {
 	]).pipe(
 		this.takeUntil(),
 	);
+
+	public ngOnInit() {
+		this.ngxLogger.info('ScheduleV2ContainerWeekCalendarComponent ngOnInit');
+		this.store.dispatch(new ClientActions.InitClient());
+	}
 
 }

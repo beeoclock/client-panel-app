@@ -11,7 +11,7 @@ import {ClientState} from "@client/state/client/client.state";
 import {filter} from "rxjs";
 import {
 	UpdateBusinessProfileApiAdapter
-} from "@client/adapter/external/api/buisness-profile/update.business-profile.api.adapter";
+} from "@client/infrastructure/adapter/api/buisness-profile/update.business-profile.api.adapter";
 import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
 import {ClientActions} from "@client/state/client/client.actions";
 import {
@@ -83,6 +83,8 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 	public ngOnInit(): void {
 
 		this.analyticsService.logEvent('business_profile_page_initialized');
+
+		this.store.dispatch(new ClientActions.InitClient());
 
 		this.item$.pipe(this.takeUntil()).subscribe((item) => {
 

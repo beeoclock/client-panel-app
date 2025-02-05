@@ -20,7 +20,7 @@ import {PublicPageSettings} from "@client/presentation/form/public-page-settings
 
 export interface IBusinessProfile {
 	_id: FormControl<string>;
-	object: FormControl<'Client'>;
+	object: FormControl<'BusinessProfileDto'>;
 
 	name: FormControl<string>;
 	username: FormControl<string | null>;
@@ -55,7 +55,7 @@ export class BusinessProfileForm extends FormGroup<IBusinessProfile> {
 	constructor() {
 		super({
 			_id: new FormControl(),
-			object: new FormControl('Client', {
+			object: new FormControl('BusinessProfileDto', {
 				nonNullable: true,
 			}),
 			name: new FormControl(),

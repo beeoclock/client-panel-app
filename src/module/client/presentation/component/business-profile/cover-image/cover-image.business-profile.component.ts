@@ -10,7 +10,7 @@ import {
 } from "@client/presentation/component/business-profile/cover-image/image.cover-image.business-profile/image.cover-image.business-profile.component";
 import {
 	PatchMediaBannersClientApiAdapter
-} from "@client/adapter/external/api/media/banners/patch.media.banners.client.api.adapter";
+} from "@client/infrastructure/adapter/api/media/banners/patch.media.banners.client.api.adapter";
 import {RIMedia} from "@module/media/domain/interface/i.media";
 import {MediaStateEnum} from "@utility/presentation/component/image/base.image.component";
 

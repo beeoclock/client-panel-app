@@ -1,7 +1,6 @@
 import {Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {BusinessProfileForm} from "@client/presentation/form/business-profile.form";
 import {Select, Store} from "@ngxs/store";
-import * as Client from "@client/domain";
 import {IClient} from "@client/domain";
 import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
@@ -9,7 +8,7 @@ import {ClientState} from "@client/state/client/client.state";
 import {filter, Observable} from "rxjs";
 import {
 	UpdateBusinessProfileApiAdapter
-} from "@client/adapter/external/api/buisness-profile/update.business-profile.api.adapter";
+} from "@client/infrastructure/adapter/api/buisness-profile/update.business-profile.api.adapter";
 import {ClientActions} from "@client/state/client/client.actions";
 import {
 	BookingSettingsBusinessProfileComponent
@@ -29,6 +28,7 @@ import {NGXLogger} from "ngx-logger";
 import {
 	NotificationSettingsComponent
 } from "@client/presentation/component/business-profile/notification-settings/notification-settings.component";
+import EBusinessProfile from "@client/domain/entity/e.business-profile";
 
 @Component({
 	selector: 'client-business-settings-page',
@@ -54,7 +54,7 @@ export default class BusinessSettingsPage extends Reactive implements OnInit, On
 	public readonly updateBusinessProfileApiAdapter = inject(UpdateBusinessProfileApiAdapter);
 
 	@Select(ClientState.item)
-	public readonly item$!: Observable<Client.RIClient>;
+	public readonly item$!: Observable<EBusinessProfile>;
 
 	public ngOnInit(): void {
 

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import * as Client from "@client/domain";
-import {clientEndpointEnum} from "@client/endpoint/client.endpoint";
+import {clientEndpointEnum} from "@client/infrastructure/endpoint/client.endpoint";
 
 @Injectable({
 	providedIn: 'root'

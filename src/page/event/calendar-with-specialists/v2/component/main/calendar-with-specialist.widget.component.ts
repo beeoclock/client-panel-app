@@ -179,6 +179,8 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 		this.takeUntil(),
 		map((items) => {
 
+			this.ngxLogger.info('CalendarWithSpecialistWidgetComponent:events$: ', items);
+
 			return items.reduce((acc, event) => {
 
 				const {attendees, entireBusiness} = event;
@@ -290,6 +292,8 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 	public ngOnInit() {
 
+		this.ngxLogger.info('CalendarWithSpecialistWidgetComponent: ngOnInit');
+
 		this.detectParamsInQueryParams();
 		this.calendarWithSpecialistLocaStateService.eventCalendarWithSpecialistWidgetComponent$.pipe(
 			this.takeUntil()
@@ -355,6 +359,15 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 				this.findAndFixNearEventsWidthInEachColumn(column);
 			});
 		});
+
+		// Check if data is empty if true then dispatch action to get items
+		firstValueFrom(this.store.select(CalendarWithSpecialistsQueries.data)).then((data) => {
+			console.log('data: ', {data});
+			if (!data.length) {
+				this.dispatchActionToUpdateCalendar();
+			}
+		});
+
 	}
 
 	@Dispatch()

@@ -29,7 +29,15 @@ const getSyncMangerInstance = (httpClient: HttpClient, tenantId: string) => new 
 		console.log('SignalDB:onError', {error})
 	},
 	pull: async (something, pullParameters) => {
-		const {endpoint, create} = something;
+		const {endpoint, create, single = false} = something;
+
+		if (single) {
+			const request$ = httpClient.get(endpoint.get);
+			const response = await firstValueFrom(request$);
+			const item = create(response) as never;
+			return {items: [item]};
+		}
+
 		const {lastFinishedSyncStart} = pullParameters;
 
 		const updatedSince = lastFinishedSyncStart ? new Date(lastFinishedSyncStart).toISOString() : new Date(0).toISOString();
