@@ -23,6 +23,7 @@ import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 export type IOrderState = IBaseState<IOrderDto>;
 
@@ -384,9 +385,14 @@ export class OrderState {
 
 			const params = newTableState.toBackendFormat();
 
-			console.log({params})
-
 			const selector = {
+				$and: [
+					{
+						state: {
+							$in: [StateEnum.active, StateEnum.archived, StateEnum.inactive]
+						}
+					}
+				]
 			};
 
 			const items = this.orderIndexedDBFacade.source.find(selector, {

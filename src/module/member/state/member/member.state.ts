@@ -14,6 +14,7 @@ import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 export type IMemberState = IBaseState<Member.RIMember>;
 
@@ -253,16 +254,23 @@ export class MemberState {
 			const params = newTableState.toBackendFormat();
 
 			const selector = {
-				...((newTableState.filters?.phrase as string)?.length ? {
-					$or: phraseFields.map((field) => {
-						return {
-							[field]: {
-								$regex: newTableState.filters.phrase,
-								$options: "i"
+				$and: [
+					...((newTableState.filters?.phrase as string)?.length ? [{
+						$or: phraseFields.map((field) => {
+							return {
+								[field]: {
+									$regex: newTableState.filters.phrase,
+									$options: "i"
+								}
 							}
+						})
+					}] : []),
+					{
+						state: {
+							$in: [StateEnum.active, StateEnum.archived, StateEnum.inactive]
 						}
-					})
-				} : {})
+					}
+				]
 			};
 
 			const items = this.memberIndexedDBFacade.source.find(selector, {

@@ -297,7 +297,7 @@ export class CustomerState {
 			const newTableState = TableState.fromCache(state.tableState);
 
 			const {
-				queryParams,
+				// queryParams,
 				resetPage,
 				resetParams
 			} = action.payload ?? {};
@@ -315,16 +315,23 @@ export class CustomerState {
 			const params = newTableState.toBackendFormat();
 
 			const selector = {
-				...((newTableState.filters?.phrase as string)?.length ? {
-					$or: phraseFields.map((field) => {
-						return {
-							[field]: {
-								$regex: newTableState.filters.phrase,
-								$options: "i"
+				$and: [
+					...((newTableState.filters?.phrase as string)?.length ? [{
+						$or: phraseFields.map((field) => {
+							return {
+								[field]: {
+									$regex: newTableState.filters.phrase,
+									$options: "i"
+								}
 							}
+						})
+					}] : []),
+					{
+						state: {
+							$in: [StateEnum.active, StateEnum.archived, StateEnum.inactive]
 						}
-					})
-				} : {})
+					}
+				]
 			};
 
 			const items = this.customerIndexedDBFacade.source.find(selector, {

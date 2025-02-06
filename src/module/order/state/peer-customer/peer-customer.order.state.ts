@@ -8,6 +8,7 @@ import {PeerCustomerOrderActions} from "@order/state/peer-customer/peer-customer
 import {getMaxPage} from "@utility/domain/max-page";
 import {NGXLogger} from "ngx-logger";
 import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 export type IPeerCustomerOrderState = {
 	tableState: ITableState<IOrderDto>;
@@ -75,7 +76,7 @@ export class PeerCustomerOrderState {
 			payload: {
 				resetPage,
 				resetParams,
-				queryParams,
+				// queryParams,
 			}
 		}: PeerCustomerOrderActions.GetList
 	): Promise<void> {
@@ -101,7 +102,16 @@ export class PeerCustomerOrderState {
 			const params = newTableState.toBackendFormat();
 
 			const orderParams = {
-				'services.orderAppointmentDetails.attendees.customer._id': params.customerId
+				$and: [
+					{
+						'services.orderAppointmentDetails.attendees.customer._id': params.customerId,
+					},
+					{
+						state: {
+							$in: [StateEnum.active, StateEnum.archived, StateEnum.inactive]
+						}
+					}
+				]
 			};
 			const orderQuery = this.orderIndexedDBFacade.source.find(orderParams, {
 				sort: {

@@ -229,10 +229,8 @@ export class AbsenceState {
 
 			const newTableState = TableState.fromCache(state.tableState);
 
-			console.log(state.tableState, {newTableState})
-
 			const {
-				queryParams,
+				// queryParams,
 				resetPage,
 				resetParams
 			} = action.payload ?? {};
@@ -250,16 +248,23 @@ export class AbsenceState {
 			const params = newTableState.toBackendFormat();
 
 			const selector = {
-				...((newTableState.filters?.phrase as string)?.length ? {
-					$or: phraseFields.map((field) => {
-						return {
-							[field]: {
-								$regex: newTableState.filters.phrase,
-								$options: "i"
+				$and: [
+					...((newTableState.filters?.phrase as string)?.length ? [{
+						$or: phraseFields.map((field) => {
+							return {
+								[field]: {
+									$regex: newTableState.filters.phrase,
+									$options: "i"
+								}
 							}
+						})
+					}] : []),
+					{
+						state: {
+							$in: [StateEnum.active, StateEnum.archived, StateEnum.inactive]
 						}
-					})
-				} : {})
+					}
+				]
 			};
 
 			const items = this.absenceIndexedDBFacade.source.find(selector, {
