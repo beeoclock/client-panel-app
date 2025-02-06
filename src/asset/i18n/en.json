@@ -632,6 +632,7 @@
 					"accepted": "Accepted",
 					"cancelled": "Canceled",
 					"confirmed": "Confirmed",
+					"deleted": "Deleted",
 					"done": "Done",
 					"inProgress": "In progress",
 					"rejected": "Rejected",

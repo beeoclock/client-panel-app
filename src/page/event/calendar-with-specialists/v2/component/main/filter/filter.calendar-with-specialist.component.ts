@@ -9,9 +9,6 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {FormControl} from "@angular/forms";
 import CalendarWithSpecialistLocaStateService
 	from "@page/event/calendar-with-specialists/v2/calendar-with-specialist.loca.state.service";
-import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
-import {Store} from "@ngxs/store";
-import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 import {IonPopover} from "@ionic/angular/standalone";
 import {Reactive} from "@utility/cdk/reactive";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
@@ -83,9 +80,6 @@ export class FilterCalendarWithSpecialistComponent extends Reactive implements A
 	protected readonly calendarWithSpecialistLocaStateService = inject(CalendarWithSpecialistLocaStateService);
 	private readonly translateService = inject(TranslateService);
 	private readonly visibilityService = inject(VisibilityService);
-	private readonly store = inject(Store);
-
-	public readonly loader$ = this.store.select(CalendarWithSpecialistsQueries.loader);
 
 	public ngAfterViewInit() {
 		this.initEventStatusList();
@@ -99,10 +93,10 @@ export class FilterCalendarWithSpecialistComponent extends Reactive implements A
 	}
 
 	private initEventStatusList() {
-		Object.keys(OrderStatusEnum).forEach((status) => {
+		Object.keys(OrderServiceStatusEnum).forEach((status) => {
 			this.orderServiceStatusOptions.push({
 				value: status,
-				label: this.translateService.instant(`order.enum.status.singular.${status}`)
+				label: this.translateService.instant(`event.keyword.status.singular.${status}`)
 			});
 		});
 	}

@@ -7,9 +7,9 @@ import {IAttendee_V2, IEvent_V2} from "@event/domain";
 import {NGXLogger} from "ngx-logger";
 import {Router} from "@angular/router";
 import {clearObject} from "@utility/domain/clear.object";
-import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 import {AbsenceIndexedDBFacade} from "@absence/infrastructure/facade/indexedDB/absence.indexedDB.facade";
 import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
+import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
 
 export interface ICalendarWithSpecialist {
 	params: {
@@ -19,7 +19,7 @@ export interface ICalendarWithSpecialist {
 		pageSize: number;
 		orderBy: OrderByEnum;
 		orderDir: OrderDirEnum;
-		statuses: OrderStatusEnum[];
+		statuses: OrderServiceStatusEnum[];
 	};
 	data: IEvent_V2[];
 	loader: boolean;
@@ -40,11 +40,10 @@ export interface ICalendarWithSpecialist {
 			orderBy: OrderByEnum.CREATED_AT,
 			orderDir: OrderDirEnum.DESC,
 			statuses: [
-				OrderStatusEnum.done,
-				OrderStatusEnum.draft,
-				OrderStatusEnum.inProgress,
-				OrderStatusEnum.confirmed,
-				OrderStatusEnum.requested,
+				OrderServiceStatusEnum.done,
+				OrderServiceStatusEnum.inProgress,
+				OrderServiceStatusEnum.accepted,
+				OrderServiceStatusEnum.requested,
 			]
 		},
 		data: [],
@@ -151,7 +150,7 @@ export class CalendarWithSpecialistsState {
 					]
 				},
 				{
-					status: {
+					'services.status': {
 						$in: orderParams.statuses
 					}
 				}
@@ -178,6 +177,10 @@ export class CalendarWithSpecialistsState {
 						if (service.status !== orderParams.status) {
 							return;
 						}
+					}
+
+					if (!orderParams.statuses.includes(service.status)) {
+						return;
 					}
 
 					const start = DateTime.fromISO(service.orderAppointmentDetails.start);

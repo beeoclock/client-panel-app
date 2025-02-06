@@ -632,6 +632,7 @@
 					"accepted": "Прийнято",
 					"cancelled": "Скасована",
 					"confirmed": "Підтверджено",
+					"deleted": "Видалено",
 					"done": "Виконано",
 					"inProgress": "В процесі",
 					"rejected": "Відхилено",

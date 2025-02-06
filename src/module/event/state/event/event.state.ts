@@ -98,14 +98,41 @@ export class EventState {
 
 	@Action(EventActions.ChangeServiceStatus)
 	public async changeStatusActionHandler(ctx: StateContext<IOrderState>, action: EventActions.ChangeServiceStatus): Promise<void> {
-		this.orderIndexedDBFacade.source.updateOne({
+		const foundItem = this.orderIndexedDBFacade.source.findOne({
 			id: action.payload.orderId,
 			'services._id': action.payload.serviceId
-		}, {
-			$set: {
-				'services.$[].status': action.payload.status,
-			}
 		});
+
+		if (!foundItem) {
+			return;
+		}
+
+		const modifiedItem = {
+			...foundItem,
+			services: foundItem.services.map((service) => {
+				if (service._id === action.payload.serviceId) {
+					return {
+						...service,
+						status: action.payload.status,
+					};
+				}
+				return service;
+			})
+		}
+
+		this.orderIndexedDBFacade.source.updateOne({
+			id: action.payload.orderId,
+		}, {$set: modifiedItem});
+
+		// TODO: wait for the implementation. https://github.com/maxnowack/signaldb/issues/1375
+		// this.orderIndexedDBFacade.source.updateOne({
+		// 	id: action.payload.orderId,
+		// 	'services._id': action.payload.serviceId
+		// }, {
+		// 	$set: {
+		// 		'services.$[service].status': action.payload.status,
+		// 	}
+		// }, [{ service: action.payload.serviceId }]);
 
 	}
 

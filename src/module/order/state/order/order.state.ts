@@ -381,21 +381,12 @@ export class OrderState {
 				newTableState.filters = {};
 			}
 
-			const phraseFields = ['firstName', 'lastName'];
 
 			const params = newTableState.toBackendFormat();
 
+			console.log({params})
+
 			const selector = {
-				...((newTableState.filters?.phrase as string)?.length ? {
-					$or: phraseFields.map((field) => {
-						return {
-							[field]: {
-								$regex: newTableState.filters.phrase,
-								$options: "i"
-							}
-						}
-					})
-				} : {})
 			};
 
 			const items = this.orderIndexedDBFacade.source.find(selector, {
