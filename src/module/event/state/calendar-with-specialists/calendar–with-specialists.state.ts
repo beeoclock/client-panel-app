@@ -10,6 +10,7 @@ import {clearObject} from "@utility/domain/clear.object";
 import {AbsenceIndexedDBFacade} from "@absence/infrastructure/facade/indexedDB/absence.indexedDB.facade";
 import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
 import {OrderServiceStatusEnum} from "@order/domain/enum/order-service.status.enum";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 export interface ICalendarWithSpecialist {
 	params: {
@@ -94,26 +95,33 @@ export class CalendarWithSpecialistsState {
 		}
 
 		const absenceQuery = this.absenceIndexedDBFacade.source.find({
-			$or: [
+			$and: [
 				{
-					start: {
-						$gte: params.start,
-						$lte: params.end,
-					},
+					$or: [
+						{
+							start: {
+								$gte: params.start,
+								$lte: params.end,
+							},
+						},
+						{
+							end: {
+								$gte: params.start,
+								$lte: params.end,
+							}
+						},
+						{
+							start: {
+								$lt: params.start,
+							},
+							end: {
+								$gt: params.end,
+							}
+						}
+					]
 				},
 				{
-					end: {
-						$gte: params.start,
-						$lte: params.end,
-					}
-				},
-				{
-					start: {
-						$lt: params.start,
-					},
-					end: {
-						$gt: params.end,
-					}
+					state: StateEnum.active
 				}
 			]
 		}, {
@@ -122,6 +130,8 @@ export class CalendarWithSpecialistsState {
 			}
 		});
 		const absences = absenceQuery.fetch();
+
+		console.log({absences})
 
 		const orderQuery = this.orderIndexedDBFacade.source.find({
 			$and: [
@@ -286,6 +296,8 @@ export class CalendarWithSpecialistsState {
 
 			}, [] as IEvent_V2[])
 		];
+
+		console.log({data})
 
 		ctx.patchState({
 			loader: false,
