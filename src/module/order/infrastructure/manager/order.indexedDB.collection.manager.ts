@@ -112,8 +112,8 @@ class OrderIndexedDBCollectionManagerContext {
 				create: EOrder.create,
 				endpoint: {
 					get: OrderEndpoint.PAGED,
-					post: OrderEndpoint.PAGED,
-					put: OrderEndpoint.PAGED,
+					post: OrderEndpoint.CREATE,
+					put: OrderEndpoint.UPDATE,
 					delete: OrderEndpoint.DELETE,
 				}
 			}

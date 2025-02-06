@@ -28,8 +28,6 @@ import {
 	PaymentOrderFormContainerComponent
 } from "@order/presentation/component/form/payment.order-form-container.component";
 import {OrderActions} from "@order/state/order/order.actions";
-import {CreateOrderApiAdapter} from "@order/infrastructure/api/create.order.api.adapter";
-import {CreatePaymentApiAdapter} from "@module/payment/external/adapter/api/create.payment.api.adapter";
 import {RIMember} from "@member/domain";
 import {Reactive} from "@utility/cdk/reactive";
 import {ICustomer} from "@customer/domain";
@@ -37,7 +35,7 @@ import {
 	ListServiceFormOrderComponent
 } from "@src/component/smart/order/form/service/list/list.service.form.order.component";
 import {FormsModule} from "@angular/forms";
-import {lastValueFrom} from "rxjs";
+import {firstValueFrom, lastValueFrom} from "rxjs";
 import {PaymentActions} from "@module/payment/state/payment/payment.actions";
 import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
@@ -117,8 +115,8 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
-	private readonly createOrderApiAdapter = inject(CreateOrderApiAdapter);
-	private readonly createPaymentApiAdapter = inject(CreatePaymentApiAdapter);
+	// private readonly createOrderApiAdapter = inject(CreateOrderApiAdapter);
+	// private readonly createPaymentApiAdapter = inject(CreatePaymentApiAdapter);
 
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 
@@ -205,15 +203,17 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 			} else {
 
 				// TODO: Refactoring it into state actions
-				const createOrderResponse = await this.createOrderApiAdapter.executeAsync(order as IOrderDto);
-				this.ngxLogger.info('Order created', createOrderResponse);
 
-				payment.orderId = createOrderResponse._id;
+				payment.orderId = order._id;
 
-				if (payment.orderId) {
-					const createPaymentResponse = await this.createPaymentApiAdapter.executeAsync(payment as IPaymentDto);
-					this.ngxLogger.info('Payment created', createPaymentResponse);
-				}
+				console.log({order, payment});
+
+				const actions$ = this.store.dispatch([
+					new OrderActions.CreateItem(order),
+					new PaymentActions.CreateItem(payment)
+				]);
+
+				await firstValueFrom(actions$);
 
 			}
 

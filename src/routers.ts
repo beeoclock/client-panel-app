@@ -21,6 +21,7 @@ import {PeerCustomerOrderState} from "@order/state/peer-customer/peer-customer.o
 import {CustomerState} from "@customer/state/customer/customer.state";
 import {MemberState} from "@member/state/member/member.state";
 import {ClientState} from "@client/state/client/client.state";
+import {PaymentState} from "@module/payment/state/payment/payment.state";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/', 'identity']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['/', 'identity', 'corridor']);
@@ -211,7 +212,8 @@ export const routes: Routes = [
 						AbsenceState,
 						MemberState,
 						OrderState,
-						ClientState
+						ClientState,
+						PaymentState,
 					]))
 				],
 				children: [
