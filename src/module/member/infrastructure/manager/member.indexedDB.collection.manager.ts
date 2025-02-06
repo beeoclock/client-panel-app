@@ -23,13 +23,16 @@ export class MemberIndexedDBCollectionManager extends Reactive {
 	public constructor(
 		@Optional()
 		@SkipSelf()
-		public readonly otherInstance: SyncManagerService,
+		public readonly otherInstance: MemberIndexedDBCollectionManager,
 	) {
 
 		super();
 
 		if (otherInstance) {
-			throw new Error('SyncManagerService is already provided');
+			/**
+			 * SyncManagerService is already provided
+			 */
+			return otherInstance;
 		}
 
 		this.tenantId$.pipe(this.takeUntil(), filter(is.string)).subscribe((currentTenantId) => {

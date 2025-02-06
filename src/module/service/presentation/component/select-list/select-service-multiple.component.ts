@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, inject, Input, output, ViewEncapsula
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {NgStyle} from "@angular/common";
+import {IService} from "@service/domain/interface/i.service";
 
 @Component({
 	selector: 'select-service-multiple',
@@ -73,7 +74,8 @@ import {NgStyle} from "@angular/common";
 				<div class="flex gap-4 items-center" [ngStyle]="{color: service.presentation.color}">
 					@if (counter) {
 						<button
-							class="min-w-[44px] min-h-[44px] max-w-[44px] max-h-[44px] text-xl rounded-full border flex justify-center items-center" [ngStyle]="{borderColor: service.presentation.color}"
+							class="min-w-[44px] min-h-[44px] max-w-[44px] max-h-[44px] text-xl rounded-full border flex justify-center items-center"
+							[ngStyle]="{borderColor: service.presentation.color}"
 							(click)="decrement()">
 							<i class="bi bi-dash-lg"></i>
 						</button>
@@ -82,7 +84,8 @@ import {NgStyle} from "@angular/common";
 						</div>
 					}
 					<button
-						class="min-w-[44px] min-h-[44px] max-w-[44px] max-h-[44px] text-xl rounded-full border flex justify-center items-center" [ngStyle]="{borderColor: service.presentation.color}"
+						class="min-w-[44px] min-h-[44px] max-w-[44px] max-h-[44px] text-xl rounded-full border flex justify-center items-center"
+						[ngStyle]="{borderColor: service.presentation.color}"
 						(click)="increment()">
 						<i class="bi bi-plus-lg"></i>
 					</button>
@@ -102,27 +105,27 @@ import {NgStyle} from "@angular/common";
 })
 export class SelectServiceMultipleComponent {
 
-    @Input({required: true})
-    public service!: IServiceDto;
+	@Input({required: true})
+	public service!: IService.DTO;
 
-    public readonly emitSelect = output<IServiceDto>();
-    public readonly emitDeselect = output<IServiceDto>();
+	public readonly emitSelect = output<IServiceDto>();
+	public readonly emitDeselect = output<IServiceDto>();
 
-    public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
+	public readonly durationVersionHtmlHelper = inject(DurationVersionHtmlHelper);
 
-    public counter = 0;
+	public counter = 0;
 
-    public increment() {
-        this.counter++;
-        this.emitSelect.emit(this.service);
-    }
+	public increment() {
+		this.counter++;
+		this.emitSelect.emit(this.service);
+	}
 
-    public decrement() {
-        if (this.counter === 0) {
-            return;
-        }
-        this.counter--;
-        this.emitDeselect.emit(this.service);
-    }
+	public decrement() {
+		if (this.counter === 0) {
+			return;
+		}
+		this.counter--;
+		this.emitDeselect.emit(this.service);
+	}
 
 }

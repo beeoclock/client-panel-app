@@ -198,9 +198,12 @@ export class SyncManagerService extends Reactive {
 
 		// console.log('SyncManagerService', {otherInstance}, this.currentTenantId)
 		//
-		// if (otherInstance) {
-		// 	throw new Error('SyncManagerService is already provided');
-		// }
+		if (otherInstance) {
+			/**
+			 * SyncManagerService is already provided
+			 */
+			return otherInstance;
+		}
 
 		// this.#tenantId = this.currentTenantId;
 

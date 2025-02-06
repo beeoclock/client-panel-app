@@ -9,12 +9,12 @@ import {
 } from "@angular/core";
 import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {Store} from "@ngxs/store";
-import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {ListServiceApiAdapter} from "@service/infrastructure/api/list.service.api.adapter";
-import {ResponseListType} from "@utility/adapter/base.api.adapter";
 import {
 	SelectServiceMultipleComponent
 } from "@service/presentation/component/select-list/select-service-multiple.component";
+import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
+import {IService} from "@service/domain/interface/i.service";
 
 @Component({
 	selector: 'app-select-service-list-component',
@@ -22,8 +22,9 @@ import {
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
 	template: `
-		@for (service of serviceList.items; track service._id) {
-			<select-service-multiple [service]="service" (emitSelect)="select($event)" (emitDeselect)="deselect($event)"/>
+		@for (service of serviceList; track service._id) {
+			<select-service-multiple [service]="service" (emitSelect)="select($event)"
+									 (emitDeselect)="deselect($event)"/>
 		}
 	`,
 	imports: [
@@ -36,15 +37,13 @@ import {
 export class SelectServiceListComponent implements OnInit {
 
 	private readonly store = inject(Store);
+	private readonly serviceIndexedDBFacade = inject(ServiceIndexedDBFacade);
 	private readonly listServiceApiAdapter = inject(ListServiceApiAdapter);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
 	public readonly emitSelectedServiceList = output<IServiceDto[]>();
 
-	public serviceList: ResponseListType<IServiceDto> = {
-		items: [],
-		totalSize: 0,
-	};
+	public serviceList: IService.DTO[] = [];
 	public readonly selectedServices: IServiceDto[] = [];
 
 	public ngOnInit() {
@@ -52,12 +51,7 @@ export class SelectServiceListComponent implements OnInit {
 	}
 
 	public async initServiceList() {
-		this.serviceList = await this.listServiceApiAdapter.executeAsync({
-			page: 1,
-			pageSize: 100,
-			orderBy: OrderByEnum.ORDER,
-			orderDir: OrderDirEnum.ASC,
-		});
+		this.serviceList = this.serviceIndexedDBFacade.source.find().fetch();
 		this.changeDetectorRef.detectChanges();
 	}
 

@@ -1,4 +1,4 @@
-import {inject, Injectable} from "@angular/core";
+import {inject, Injectable, Optional, SkipSelf} from "@angular/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {TENANT_ID} from "@src/token";
 import {filter} from "rxjs";
@@ -17,8 +17,19 @@ export class ServiceIndexedDBFacade extends Reactive {
 	// public readonly source = this.serviceIndexedDBCollectionManager.context.database;
 	#source!: ServiceIndexedDBCollection;
 
-	public constructor() {
+	public constructor(
+		@Optional()
+		@SkipSelf()
+		public readonly otherInstance: ServiceIndexedDBFacade,
+	) {
 		super();
+
+		if (otherInstance) {
+			/**
+			 * ServiceIndexedDBFacade is already provided
+			 */
+			return otherInstance;
+		}
 		this.tenantId$.pipe(this.takeUntil(), filter(is.string)).subscribe((tenantId) => {
 			console.log('ServiceIndexedDBFacade', {tenantId});
 			this.#source = this.serviceIndexedDBCollectionManager.context.database;
