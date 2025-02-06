@@ -11,6 +11,7 @@ export interface IServiceOrderForm {
 	serviceSnapshot: FormControl<IServiceDto>;
 	orderAppointmentDetails: FormControl<IOrderAppointmentDetailsDto>;
 	customerNote: FormControl<string>;
+	orderId: FormControl<string>;
 
 	status: FormControl<OrderServiceStatusEnum>;
 	meta: FormControl<IMeta>;
@@ -32,6 +33,7 @@ export class ServiceOrderForm extends BaseEntityForm<'OrderServiceDto', IService
 			customerNote: new FormControl('', {
 				nonNullable: true,
 			}),
+			orderId: new FormControl(),
 
 		});
 
@@ -41,7 +43,7 @@ export class ServiceOrderForm extends BaseEntityForm<'OrderServiceDto', IService
 
 		const form = new ServiceOrderForm();
 
-		initValue && form.patchValue(initValue);
+		if (initValue) form.patchValue(initValue);
 
 		return form;
 

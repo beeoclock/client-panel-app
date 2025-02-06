@@ -8,7 +8,6 @@ import {
 	viewChild,
 	ViewEncapsulation
 } from "@angular/core";
-import {IonicModule} from "@ionic/angular";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Store} from "@ngxs/store";
@@ -69,7 +68,6 @@ import {
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	imports: [
-		IonicModule,
 		DefaultPanelComponent,
 		AsyncPipe,
 		LoaderComponent,

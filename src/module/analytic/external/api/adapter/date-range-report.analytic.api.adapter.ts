@@ -83,9 +83,7 @@ export namespace DateRangeReportAnalyticApi {
 
 	export type IResponse = IDateRangeReport;
 
-	@Injectable({
-		providedIn: 'root'
-	})
+	@Injectable()
 	export class Adapter extends BaseApiAdapter<IResponse, [IRequestQueryParams]> {
 
 		/**

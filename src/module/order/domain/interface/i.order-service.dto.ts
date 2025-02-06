@@ -9,6 +9,7 @@ import {Types} from "@utility/types";
 export interface IOrderServiceDto {
 	object: "OrderServiceDto";
 	_id: string & Types.ObjectId;
+	orderId: string & Types.ObjectId;
 	serviceSnapshot: IServiceDto;
 	orderAppointmentDetails: IOrderAppointmentDetailsDto;
 	status: OrderServiceStatusEnum;
