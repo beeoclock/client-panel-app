@@ -2,7 +2,7 @@ import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
 import RegistrationForm from '@identity/presentation/form/registration.form';
-import {IdentityApiAdapter} from "@identity/adapter/external/api/identity.api.adapter";
+import {IdentityApiAdapter} from "@identity/infrastructure/api/identity.api.adapter";
 import {firstValueFrom} from "rxjs";
 import {FormInputComponent} from "@utility/presentation/component/input/form.input.component";
 import {FormInputPasswordComponent} from "@utility/presentation/component/input/form.input.password.component";

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
-import {identityEndpointEnum} from "@identity/endpoint/identity.endpoint";
+import {identityEndpointEnum} from "@identity/infrastructure/endpoint/identity.endpoint";
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@utility/checker";
 

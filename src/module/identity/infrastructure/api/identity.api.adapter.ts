@@ -1,7 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {identityEndpointEnum} from "@identity/endpoint/identity.endpoint";
+import {identityEndpointEnum} from "@identity/infrastructure/endpoint/identity.endpoint";
 import {IBusinessClient} from "@identity/domain/interface/RIBusinessClient";
 
 @Injectable({

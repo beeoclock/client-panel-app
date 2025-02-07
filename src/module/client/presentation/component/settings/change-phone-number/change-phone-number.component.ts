@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from "@angular/core";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {ToastController} from "@ionic/angular";
-import {ChangePhoneNumberClientAdapter} from "@identity/adapter/external/module/change-phone-number.client.adapter";
+import {ChangePhoneNumberClientAdapter} from "@identity/infrastructure/module/change-phone-number.client.adapter";
 import {ChangePhoneNumberForm} from "@client/presentation/form/change-phone-number.form";
 import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 import {TelFormInputComponent} from "@utility/presentation/component/tel-form-input/tel.form.input.component";

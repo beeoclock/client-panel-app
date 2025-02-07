@@ -48,6 +48,8 @@ import {
 import {
 	BusinessProfileIndexedDBCollectionManager
 } from "@client/infrastructure/manager/business-profile.indexedDB.collection.manager";
+import {IsOnlineService} from "@utility/cdk/is-online.service";
+import {Auth, Unsubscribe} from "@angular/fire/auth";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -128,8 +130,10 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 	private readonly themeService = inject(ThemeService);
 	private readonly translateService = inject(TranslateService);
 	private readonly visibilityService = inject(VisibilityService);
+	private readonly isOnlineService = inject(IsOnlineService);
 	private readonly syncManagerService = inject(SyncManagerService);
 	private readonly tenantId$ = inject(TENANT_ID);
+	private readonly auth = inject(Auth);
 
 	public readonly token$ = this.store.select(IdentityState.token);
 
@@ -147,6 +151,50 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 	}
 
 	public ngOnInit(): void {
+
+		this.isOnlineService.isOffline$.pipe(this.takeUntil()).subscribe((isOffline) => {
+			console.log({isOffline});
+
+			if (!isOffline) {
+				return;
+			}
+
+			console.log('isOffline:identity:', {currentUser: this.auth.currentUser}, this.auth);
+
+			// Check if user is not authorized!
+			if (!this.auth.currentUser) {
+
+				let unsubscribeAuthState: Unsubscribe | undefined = undefined;
+				const awaitOfAuthState = new Promise((resolve) => {
+					unsubscribeAuthState = this.auth.onAuthStateChanged((result) => {
+						if (result) {
+							resolve(result)
+						}
+					});
+				});
+
+				awaitOfAuthState.then((result) => {
+
+					console.log('isOffline:identity:', {result});
+					if (unsubscribeAuthState) {
+						(unsubscribeAuthState as Unsubscribe)();
+					}
+
+				})
+			}
+
+			if (this.auth.currentUser) {
+				this.auth.currentUser.getIdTokenResult(true)
+					.then((token) => {
+						console.log('isOffline:identity:', {token});
+					})
+					.catch((error) => {
+						console.log('isOffline:identity:', {error});
+					});
+
+			}
+
+		})
 
 		this.visibilityService.visibility$.pipe(
 			this.takeUntil()

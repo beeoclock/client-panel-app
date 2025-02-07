@@ -3,7 +3,7 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
-import {CreateBusinessQuery} from "@identity/query/create-business.query";
+import {CreateBusinessQuery} from "@identity/infrastructure/query/create-business.query";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {filter, map, Observable, tap} from "rxjs";

@@ -2,7 +2,7 @@ import {inject, Injectable} from "@angular/core";
 import {HttpClient, HttpContext} from "@angular/common/http";
 import {IList} from "@utility/domain/interface/i.endpoint/i.list";
 import {IMember} from "@identity/domain/interface/i.member";
-import {memberContextEndpointEnum} from "@identity/endpoint/member-context.endpoint";
+import {memberContextEndpointEnum} from "@identity/infrastructure/endpoint/member-context.endpoint";
 import {TokensHttpContext} from "@src/tokens.http-context";
 
 @Injectable({

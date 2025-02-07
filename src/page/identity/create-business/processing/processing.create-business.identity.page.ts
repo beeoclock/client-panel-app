@@ -10,12 +10,12 @@ import {
 import {RouterLink} from "@angular/router";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {CreateBusinessQuery} from "@identity/query/create-business.query";
+import {CreateBusinessQuery} from "@identity/infrastructure/query/create-business.query";
 import {NgClass} from "@angular/common";
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {LoaderComponent} from "@utility/presentation/component/loader/loader.component";
 import {BooleanState} from "@utility/domain";
-import {IdentityApiAdapter} from "@identity/adapter/external/api/identity.api.adapter";
+import {IdentityApiAdapter} from "@identity/infrastructure/api/identity.api.adapter";
 import {firstValueFrom} from "rxjs";
 import {IBusinessClient} from "@identity/domain/interface/RIBusinessClient";
 import {IdentityActions} from "@identity/state/identity/identity.actions";

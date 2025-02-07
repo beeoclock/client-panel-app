@@ -1,5 +1,5 @@
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
-import {identityEndpointEnum} from "@identity/endpoint/identity.endpoint";
+import {identityEndpointEnum} from "@identity/infrastructure/endpoint/identity.endpoint";
 import {Injectable} from "@angular/core";
 
 type TBody = { phoneNumber?: string };

@@ -1,7 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {clientEndpointEnum} from "@identity/endpoint/cliet.endpoint";
+import {clientEndpointEnum} from "@identity/infrastructure/endpoint/cliet.endpoint";
 
 @Injectable({
   providedIn: 'root'

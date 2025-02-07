@@ -1,5 +1,5 @@
 import {inject, Injectable} from "@angular/core";
-import {ChangePhoneNumberApiAdapter} from "@identity/adapter/external/api/change-phone-number.api.adapter";
+import {ChangePhoneNumberApiAdapter} from "@identity/infrastructure/api/change-phone-number.api.adapter";
 
 @Injectable({
   providedIn: 'root'

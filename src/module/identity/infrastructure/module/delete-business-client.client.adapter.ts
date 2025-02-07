@@ -1,5 +1,5 @@
 import {inject, Injectable} from "@angular/core";
-import {MemberContextApiAdapter} from "@identity/adapter/external/api/member-context.api.adapter";
+import {MemberContextApiAdapter} from "@identity/infrastructure/api/member-context.api.adapter";
 
 @Injectable({
   providedIn: 'root'

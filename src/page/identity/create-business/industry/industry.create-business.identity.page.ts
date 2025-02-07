@@ -3,7 +3,7 @@ import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {BackLinkComponent} from "@utility/presentation/component/link/back.link.component";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
-import {CreateBusinessQuery} from "@identity/query/create-business.query";
+import {CreateBusinessQuery} from "@identity/infrastructure/query/create-business.query";
 import {BusinessIndustry} from "@utility/domain/business-industry";
 import {NgForOf, NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";

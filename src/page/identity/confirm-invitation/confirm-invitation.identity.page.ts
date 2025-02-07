@@ -10,7 +10,7 @@ import {FormInputPasswordComponent} from "@utility/presentation/component/input/
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {ChangeLanguageComponent} from "@utility/presentation/component/change-language/change-language.component";
-import {ConfirmInvitationApiAdapter} from "@identity/adapter/external/api/confirm-invitation.api.adapter";
+import {ConfirmInvitationApiAdapter} from "@identity/infrastructure/api/confirm-invitation.api.adapter";
 import {NGXLogger} from "ngx-logger";
 import {MS_THREE_SECONDS} from "@utility/domain/const/c.time";
 import {ToastController} from "@ionic/angular";

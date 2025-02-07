@@ -1,5 +1,5 @@
 import {inject, Injectable} from "@angular/core";
-import {CreateBusinessFormRepository} from "@identity/repository/create-business.form.repository";
+import {CreateBusinessFormRepository} from "@identity/infrastructure/repository/create-business.form.repository";
 
 @Injectable()
 export class CreateBusinessQuery {
