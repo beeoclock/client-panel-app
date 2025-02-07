@@ -124,5 +124,18 @@ export class ClientState {
 
 	}
 
+	@Action(ClientActions.UpdateClient)
+	public async updateItem(ctx: StateContext<IClientState>, {item}: ClientActions.UpdateClient): Promise<void> {
+
+		this.businessProfileIndexedDBFacade.source.updateOne({
+			_id: item._id
+		}, {
+			$set: item
+		});
+
+		this.BASE_CURRENCY.next(item.businessSettings.baseCurrency ?? null);
+
+	}
+
 
 }

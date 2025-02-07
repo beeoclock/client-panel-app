@@ -4,7 +4,6 @@ import {
 	LogoBusinessProfileComponent
 } from "@client/presentation/component/business-profile/logo/logo.business-profile.component";
 import {Store} from "@ngxs/store";
-import {IClient} from "@client/domain";
 import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {ClientState} from "@client/state/client/client.state";
@@ -39,6 +38,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {Reactive} from "@utility/cdk/reactive";
 import {is} from "@utility/checker";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
+import {IBusinessProfile} from "@client/domain/interface/i.business-profile";
 
 @Component({
 	selector: 'app-business-profile-client-page',
@@ -138,7 +138,7 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 		this.form.markAllAsTouched();
 		if (this.form.valid) {
 			this.store.dispatch(new AppActions.PageLoading(true));
-			const value = this.form.getRawValue() as unknown as IClient;
+			const value = this.form.getRawValue() as unknown as IBusinessProfile.DTO;
 			this.checkUsername(value);
 			this.form.disable();
 			this.form.markAsPending();
@@ -151,7 +151,8 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 				// Save gallery
 				// this.galleryBusinessProfileComponent.save(),
 				// Save data
-				this.updateBusinessProfileApiAdapter.executeAsync(value),
+				// this.updateBusinessProfileApiAdapter.executeAsync(value),
+				this.store.dispatch(new ClientActions.UpdateClient(value)),
 			]);
 
 			this.store.dispatch(new AppActions.PageLoading(false));
@@ -166,7 +167,7 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 		this.form.destroyHandlers();
 	}
 
-	private checkUsername(value: IClient): void {
+	private checkUsername(value: IBusinessProfile.DTO): void {
 		if (is.string_empty(value.username)) {
 			value.username = null;
 		}

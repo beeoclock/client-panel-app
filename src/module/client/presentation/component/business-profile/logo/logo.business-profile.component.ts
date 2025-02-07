@@ -35,7 +35,7 @@ export class LogoBusinessProfileComponent {
 	public async save(): Promise<void> {
 
 		const imageLogoBusinessProfileComponent = this.imageLogoBusinessProfileComponent();
-  if (imageLogoBusinessProfileComponent.mediaState === MediaStateEnum.NOT_CHANGED) {
+		if (imageLogoBusinessProfileComponent.mediaState === MediaStateEnum.NOT_CHANGED) {
 			return;
 		}
 
@@ -43,7 +43,7 @@ export class LogoBusinessProfileComponent {
 		formData.append('file', imageLogoBusinessProfileComponent.selectedFile as Blob);
 
 		const banner = imageLogoBusinessProfileComponent.banner();
-  if (banner) {
+		if (banner) {
 			formData.append('_id', banner._id);
 		}
 		await this.patchMediaLogoClientApiAdapter.executeAsync(formData);
