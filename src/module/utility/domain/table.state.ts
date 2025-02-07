@@ -26,6 +26,7 @@ export type TableState_BackendFormat<ITEM = unknown> =
 	Pick<ITableState<ITEM>, 'orderDir' | 'orderBy' | 'pageSize' | 'page'>
 	& ITableState<ITEM>['filters'];
 
+// FILTERS = { [key in keyof ITEM]?: ITEM[key] }
 export class TableState<ITEM> implements ITableState<ITEM> {
 
 	#filters = {};
@@ -251,7 +252,7 @@ export class TableState<ITEM> implements ITableState<ITEM> {
 		this.#lastUpdate = (new Date()).toISOString();
 	}
 
-	public toBackendFormat(): TableState_BackendFormat {
+	public toBackendFormat<T>(): TableState_BackendFormat<T> {
 		return {
 			...this.filters,
 			orderBy: this.orderBy,

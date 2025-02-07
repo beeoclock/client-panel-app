@@ -8,9 +8,6 @@ import {AppActions} from "@utility/state/app/app.actions";
 import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {ClientState} from "@client/state/client/client.state";
 import {filter} from "rxjs";
-import {
-	UpdateBusinessProfileApiAdapter
-} from "@client/infrastructure/adapter/api/buisness-profile/update.business-profile.api.adapter";
 import {ServiceProvideTypeEnum} from "@utility/domain/enum/service-provide-type.enum";
 import {ClientActions} from "@client/state/client/client.actions";
 import {
@@ -72,7 +69,6 @@ export class BusinessProfilePage extends Reactive implements OnInit, OnDestroy {
 	public readonly form = new BusinessProfileForm();
 	public readonly store = inject(Store);
 	public readonly analyticsService = inject(AnalyticsService);
-	public readonly updateBusinessProfileApiAdapter = inject(UpdateBusinessProfileApiAdapter);
 
 	public readonly serviceProfideType = ServiceProvideTypeEnum;
 
