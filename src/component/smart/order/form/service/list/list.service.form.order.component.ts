@@ -205,7 +205,6 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 						updatedAt: DateTime.now().toJSDate().toISOString(),
 						object: "AttendeeDto",
 						state: StateEnum.active,
-						active: ActiveEnum.YES,
 						stateHistory: []
 					});
 				}

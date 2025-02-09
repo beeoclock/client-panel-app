@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {IAbsence} from "@absence/domain/interface/i.absence";
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 @Component({
 	selector: 'app-absence-row-action-button-component',

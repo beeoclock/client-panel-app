@@ -80,7 +80,6 @@ export class ServiceContainerFormComponent implements OnInit {
 				size: 0,
 				width: 0
 			},
-			active: ActiveEnum.YES,
 			state: StateEnum.active,
 			stateHistory: [],
 			createdAt: '',

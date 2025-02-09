@@ -29,7 +29,6 @@ import {DateTime} from "luxon";
 import {ICustomer} from "@customer/domain";
 import {SpecialistModel} from "@service/domain/model/specialist.model";
 import {StateEnum} from "@utility/domain/enum/state.enum";
-import {ActiveEnum} from "@utility/domain/enum";
 import {is} from "@utility/checker";
 
 @Component({
@@ -219,7 +218,6 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 			updatedAt: DateTime.now().toJSDate().toISOString(),
 			object: "AttendeeDto",
 			state: StateEnum.active,
-			active: ActiveEnum.YES,
 			stateHistory: []
 		}];
 		this.item().control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);

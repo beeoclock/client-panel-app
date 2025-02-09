@@ -8,6 +8,7 @@ import {ActiveStyleDirective} from "@utility/presentation/directives/active-styl
 import {DurationVersionHtmlHelper} from "@utility/helper/duration-version.html.helper";
 import {RowActionButtonComponent} from "@service/presentation/component/row-action-button/row-action-button.component";
 import {IService} from "@service/domain/interface/i.service";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 @Component({
 	selector: 'service-detail-page',

@@ -25,7 +25,6 @@ export class MEvent implements RMIEvent {
 	public readonly configuration!: IEventConfiguration;
 	public readonly specialists!: ISpecialist[];
 	public readonly state!: StateEnum;
-	public readonly active!: ActiveEnum;
 	public readonly stateHistory!: { state: StateEnum; setAt: string & Types.DateTime; }[];
 
 	constructor(initialValue?: Partial<IEvent>) {

@@ -3,6 +3,7 @@ import {BaseEntityForm} from "@utility/base.form";
 import {AbsenceTypeEnum} from "@absence/domain/enums/absence.type.enum";
 import {DateTime} from "luxon";
 import {IAbsence} from "@absence/domain/interface/i.absence";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 export type IAbsenceForm = {
 	[K in keyof IAbsence.DTO]: FormControl<IAbsence.DTO[K]>;
@@ -37,6 +38,14 @@ export class AbsenceForm extends BaseEntityForm<'AbsenceDto', IAbsenceForm> {
 			}),
 
 			type: new FormControl(AbsenceTypeEnum.break, {
+				nonNullable: true,
+			}),
+
+			state: new FormControl(StateEnum.active, {
+				nonNullable: true,
+			}),
+
+			stateHistory: new FormControl([], {
 				nonNullable: true,
 			}),
 
