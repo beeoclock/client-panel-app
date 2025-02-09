@@ -11,9 +11,7 @@ import {RISchedule} from "@utility/domain/interface/i.schedule";
 import {Reactive} from "@utility/cdk/reactive";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class CreateBusinessFormRepository extends Reactive implements OnDestroy {
 
 	readonly #form = new CreateBusinessForm();

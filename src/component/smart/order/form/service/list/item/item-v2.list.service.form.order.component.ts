@@ -28,6 +28,8 @@ import {NGXLogger} from "ngx-logger";
 import {DateTime} from "luxon";
 import {ICustomer} from "@customer/domain";
 import {SpecialistModel} from "@service/domain/model/specialist.model";
+import {StateEnum} from "@utility/domain/enum/state.enum";
+import {is} from "@utility/checker";
 
 @Component({
 	selector: 'app-item-list-v2-service-form-order-component',
@@ -126,11 +128,11 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 	public get initialSpecialistOrMember() {
 		const specialist = this.item().control.getRawValue().orderAppointmentDetails.specialists[0];
 
-		if (specialist?.member?.firstName?.length) return SpecialistModel.create(specialist);
+		if (is.object_not_empty(specialist)) return SpecialistModel.create(specialist);
 
 		const member = this.setupPartialData().defaultMemberForService;
 
-		if (member?.firstName?.length) return SpecialistModel.create({member});
+		if (is.object_not_empty(member)) return SpecialistModel.create({member});
 
 		return null;
 	}
@@ -215,6 +217,8 @@ export class ItemV2ListServiceFormOrderComponent extends Reactive implements OnC
 			createdAt: DateTime.now().toJSDate().toISOString(),
 			updatedAt: DateTime.now().toJSDate().toISOString(),
 			object: "AttendeeDto",
+			state: StateEnum.active,
+			stateHistory: []
 		}];
 		this.item().control.controls.orderAppointmentDetails.patchValue(copyOrderAppointmentDetails);
 		this.saveChanges.emit();

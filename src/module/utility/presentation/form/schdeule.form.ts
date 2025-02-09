@@ -1,4 +1,4 @@
-import {AbstractControl, FormArray, FormControl, FormGroup} from "@angular/forms";
+import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {WeekDaysEnum, WORK_WEEK} from "@utility/domain/enum";
 import {ISchedule, RISchedule} from "@utility/domain/interface/i.schedule";
 import {extractSecondsFrom_hh_mm_ss} from "@utility/domain/time";
@@ -21,9 +21,15 @@ export class ScheduleForm extends FormGroup<IScheduleForm> {
 
 	constructor(initialValue?: ISchedule) {
 		super({
-			workDays: new FormControl(),
-			startInSeconds: new FormControl(),
-			endInSeconds: new FormControl(),
+			workDays: new FormControl(WORK_WEEK, {
+				nonNullable: true,
+			}),
+			startInSeconds: new FormControl(extractSecondsFrom_hh_mm_ss('08:00'), {
+				nonNullable: true,
+			}),
+			endInSeconds: new FormControl(extractSecondsFrom_hh_mm_ss('18:00'), {
+				nonNullable: true,
+			}),
 		});
 		this.initValue(initialValue);
 		this.initValidations();
@@ -31,8 +37,6 @@ export class ScheduleForm extends FormGroup<IScheduleForm> {
 	}
 
 	public initValue(initialValue?: ISchedule): void {
-		this.controls.startInSeconds.setValue(extractSecondsFrom_hh_mm_ss('08:00'));
-		this.controls.endInSeconds.setValue(extractSecondsFrom_hh_mm_ss('18:00'));
 		if (initialValue) {
 			Object.keys(initialValue).forEach(key => {
 				if (this.contains(key)) {
@@ -43,6 +47,7 @@ export class ScheduleForm extends FormGroup<IScheduleForm> {
 	}
 
 	private initValidations(): void {
+		this.controls.workDays.setValidators([Validators.required, Validators.minLength(1)]);
 		this.controls.endInSeconds.setValidators([ShouldBeMoreThenValidation(this, 'startInSeconds')]);
 	}
 

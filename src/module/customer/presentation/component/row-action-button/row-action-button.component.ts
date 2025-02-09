@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {ICustomer} from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 @Component({
 	selector: 'customer-row-action-button-component',
@@ -21,7 +22,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 			(edit)="edit()"
 			[hide]="hide()"
 			[id]="id()"
-			[active]="item().active">
+			[state]="item().state">
 			<!--			<li>-->
 			<!--				<a-->
 			<!--					[routerLink]="['../../', 'event', 'form']"-->

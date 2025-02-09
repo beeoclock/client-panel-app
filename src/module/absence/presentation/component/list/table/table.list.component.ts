@@ -15,10 +15,8 @@ import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {RowActionButtonComponent} from "@absence/presentation/component/row-action-button/row-action-button.component";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {
-	AbsenceProgressStatusEnum,
-	AbsenceProgressStatusPipe
-} from "@absence/presentation/pipe/absence-progress-status.pipe";
+import {AbsenceProgressStatusEnum} from "@absence/presentation/pipe/absence-progress-status.pipe";
+import {StateStatusComponent} from "@absence/presentation/component/state-status/state-status.component";
 
 @Component({
 	selector: 'app-list-absence-table',
@@ -36,7 +34,7 @@ import {
 		TableTableFlexDirective,
 		NoDataPipe,
 		RowActionButtonComponent,
-		AbsenceProgressStatusPipe,
+		StateStatusComponent,
 	]
 })
 export class TableListComponent extends TableComponent<IAbsenceDto> {

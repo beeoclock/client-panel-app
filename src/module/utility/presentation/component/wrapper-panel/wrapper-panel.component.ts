@@ -189,13 +189,13 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 			next: ({token, tenantId}) => {
 				this.ngxLogger.info(WrapperPanelComponent.name, 'connectWebSocket:ConnectSocket', {token, tenantId});
 				this.store.dispatch(new SocketActions.ConnectSocket({
-					url: environment.apiUrls.ws,
+					url: environment.apiUrls.ws.url,
 					options: {
 						query: {
 							tenantId,
 							token
 						},
-						path: '/ws/panel/socket.io',
+						path: environment.apiUrls.ws.path,
 						transports: ['websocket']
 					}
 				}));

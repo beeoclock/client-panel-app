@@ -4,6 +4,8 @@ import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-typ
 import {LanguageCodeEnum} from "@utility/domain/enum";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {ISpecialist} from "@service/domain/interface/i.specialist";
+import {StateEnum} from "@utility/domain/enum/state.enum";
+import {Types} from "@src/module/utility/types";
 
 export class MEvent implements RMIEvent {
 
@@ -22,6 +24,8 @@ export class MEvent implements RMIEvent {
 	public readonly timeZone!: string;
 	public readonly configuration!: IEventConfiguration;
 	public readonly specialists!: ISpecialist[];
+	public readonly state!: StateEnum;
+	public readonly stateHistory!: { state: StateEnum; setAt: string & Types.DateTime; }[];
 
 	constructor(initialValue?: Partial<IEvent>) {
 		if (initialValue) {

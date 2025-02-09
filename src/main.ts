@@ -1,9 +1,7 @@
 import {bootstrapApplication, HammerModule} from '@angular/platform-browser';
 import {MainRouterOutlet} from '@src/main.router-outlet';
 import {enableProdMode, ErrorHandler, importProvidersFrom, isDevMode, provideZoneChangeDetection} from '@angular/core';
-import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {environment} from '@src/environment/environment';
-import {connectAuthEmulator, getAuth, provideAuth} from '@angular/fire/auth';
 import {
 	HTTP_INTERCEPTORS,
 	HttpClient,
@@ -21,7 +19,6 @@ import {
 	withPreloading
 } from '@angular/router';
 import {routes} from '@src/routers';
-import {browserLocalPersistence} from "@firebase/auth";
 import {IonicModule} from "@ionic/angular";
 import {Utility} from "@utility/index";
 import {initRuntimeEnvironment} from "@src/runtime.environment";
@@ -31,8 +28,6 @@ import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
 import {provideServiceWorker} from '@angular/service-worker';
 import {LanguageCodeEnum} from "@utility/domain/enum";
 import {NgEventBus} from 'ng-event-bus';
-import {getMessaging, provideMessaging} from "@angular/fire/messaging";
-import {getAnalytics, provideAnalytics} from "@angular/fire/analytics";
 import {ngxsProviders} from "@src/ngxs";
 import * as Sentry from "@sentry/angular";
 
@@ -42,6 +37,8 @@ import '@angular/common/locales/global/da';
 import '@angular/common/locales/global/pl';
 import '@angular/common/locales/global/uk';
 import {SocketIoModule} from "ngx-socket-io";
+import {IsOnlineService} from "@utility/cdk/is-online.service";
+import {firebase} from "@src/firebase";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -70,6 +67,7 @@ initRuntimeEnvironment();
 
 bootstrapApplication(MainRouterOutlet, {
 	providers: [
+		IsOnlineService,
 		...tokens,
 		NgEventBus,
 		provideZoneChangeDetection({
@@ -78,22 +76,7 @@ bootstrapApplication(MainRouterOutlet, {
 
 		}),
 		provideEnvironmentNgxMask(),
-		provideFirebaseApp(() =>
-			initializeApp(environment.firebase.options)
-		),
-		provideAnalytics(() => getAnalytics()),
-		provideMessaging(() => getMessaging()),
-		provideAuth(() => {
-			const auth = getAuth();
-			auth.setPersistence(browserLocalPersistence)
-				.catch((error) => {
-					console.error(error);
-				});
-			if (environment.firebase.emulator.all || environment.firebase.emulator.authorization) {
-				connectAuthEmulator(auth, 'http://localhost:9099');
-			}
-			return auth;
-		}),
+		...firebase,
 		importProvidersFrom(
 			HammerModule,
 			LoggerModule.forRoot({

@@ -1,9 +1,9 @@
 import {Component, inject, input, output} from "@angular/core";
 import {Router} from "@angular/router";
 import {DropdownComponent} from "@utility/presentation/component/dropdown/dropdown.component";
-import {ActiveEnum} from "@utility/domain/enum";
 import {TranslateModule} from "@ngx-translate/core";
 import {Placement} from "@popperjs/core/lib/enums";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 @Component({
 	selector: 'utility-table-column-action',
@@ -14,7 +14,7 @@ import {Placement} from "@popperjs/core/lib/enums";
 	],
 	template: `
 		<utility-dropdown [placement]="placement()" [offsetDistance]="offsetDistance()" [threeDot]="true"
-											[id]="'table-row-' + id()">
+						  [id]="'table-row-' + id()">
 			<ng-container content>
 				@if (!hide().includes('details')) {
 					<li>
@@ -50,7 +50,7 @@ import {Placement} from "@popperjs/core/lib/enums";
 					</li>
 				}
 				@if (!hide().includes('activate')) {
-					@if (active() === activeEnum.NO) {
+					@if (state() !== stateEnum.active) {
 						<li>
 							<button
 								(click)="activate.emit(id())"
@@ -62,7 +62,7 @@ import {Placement} from "@popperjs/core/lib/enums";
 					}
 				}
 				@if (!hide().includes('deactivate')) {
-					@if (active() === activeEnum.YES) {
+					@if (state() === stateEnum.active) {
 						<li>
 							<button
 								(click)="deactivate.emit(id())"
@@ -83,7 +83,7 @@ export class ActionComponent {
 
 	public readonly id = input.required<string>();
 
-	public readonly active = input<ActiveEnum>(ActiveEnum.YES);
+	public readonly state = input<StateEnum>(StateEnum.active);
 
 	public readonly placement = input<Placement>('auto');
 
@@ -99,10 +99,10 @@ export class ActionComponent {
 
 	public readonly deactivate = output<string>();
 
-	public readonly activeEnum = ActiveEnum;
-
 	private readonly router = inject(Router);
 
 	public readonly returnUrl = this.router.url;
+
+	public readonly stateEnum = StateEnum;
 
 }

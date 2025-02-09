@@ -1,11 +1,9 @@
 import {ActiveEnum, CurrencyCodeEnum, LanguageCodeEnum} from "@utility/domain/enum";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 import {IPresentation} from "@service/domain";
+import {IBaseEntity} from "@utility/domain";
 
-export interface IServiceDto {
-	object: "ServiceDto";
-	_id: string;
-	active: number;
+export interface IServiceDto extends IBaseEntity<'ServiceDto'> {
 	configuration: {
 		// object: string; // TODO: Add type
 		duration: {
@@ -35,7 +33,5 @@ export interface IServiceDto {
 			preferredLanguages: LanguageCodeEnum[];
 		}[];
 	}[];
-	createdAt: string;
-	updatedAt: string;
 	order: number;
 }

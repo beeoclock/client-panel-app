@@ -98,7 +98,7 @@
 				</div>
 				<div tableColumnFlex="active">
 					<div activeStyle [activeText]="'service.keyword.capitalize.active' | translate"
-						 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [active]="item.active">
+						 [inactiveText]="'service.keyword.capitalize.inactive' | translate" [state]="item.state">
 					</div>
 				</div>
 				<div tableColumnFlex="createdAt" #createdAtColumn [attr.data-value]="item.createdAt | dynamicDate">

@@ -30,6 +30,7 @@ import {DateTime} from "luxon";
 import {ICustomer} from "@customer/domain";
 import ObjectID from "bson-objectid";
 import {IAttendeeDto} from "@order/external/interface/i-order-appointment-details.dto";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 @Component({
 	standalone: true,
@@ -203,6 +204,8 @@ export class ListServiceFormOrderComponent extends Reactive implements OnChanges
 						createdAt: DateTime.now().toJSDate().toISOString(),
 						updatedAt: DateTime.now().toJSDate().toISOString(),
 						object: "AttendeeDto",
+						state: StateEnum.active,
+						stateHistory: []
 					});
 				}
 			}

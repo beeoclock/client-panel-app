@@ -227,7 +227,9 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 	}
 
 	private async stepAddBusinessProfile(): Promise<void> {
+		const tenantId = this.tenantId$.value as string;
 		let body: Client.IClient = {
+			_id: tenantId,
 			schedules: this.createBusinessQuery.getSchedulesForm().value,
 			published: this.createBusinessQuery.publishedControl().value
 		}
@@ -241,7 +243,9 @@ export class ProcessingCreateBusinessIdentityPage implements AfterViewInit {
 	}
 
 	private async stepAddBusinessSettings(): Promise<void> {
+		const tenantId = this.tenantId$.value as string;
 		const body: Client.IClient = {
+			_id: tenantId,
 			businessSettings: this.createBusinessQuery.getBusinessSettings().value,
 		}
 		await this.updateBusinessProfileApiAdapter.executeAsync(body);

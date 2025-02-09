@@ -10,10 +10,8 @@ import {CardComponent} from "@utility/presentation/component/card/card.component
 import {AbsenceActions} from "@absence/state/absence/absence.actions";
 import {NoDataPipe} from "@utility/presentation/pipes/no-data.pipe";
 import {IAbsenceDto} from "@absence/external/interface/i.absence.dto";
-import {
-	AbsenceProgressStatusEnum,
-	AbsenceProgressStatusPipe
-} from "@absence/presentation/pipe/absence-progress-status.pipe";
+import {AbsenceProgressStatusEnum} from "@absence/presentation/pipe/absence-progress-status.pipe";
+import {StateStatusComponent} from "@absence/presentation/component/state-status/state-status.component";
 
 @Component({
 	selector: 'app-absence-card-list-component',
@@ -27,7 +25,7 @@ import {
 		CardComponent,
 		NoDataPipe,
 		AsyncPipe,
-		AbsenceProgressStatusPipe
+		StateStatusComponent
 	]
 })
 export class CardListComponent extends TableComponent<IAbsenceDto> {

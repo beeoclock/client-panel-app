@@ -1,5 +1,5 @@
 import {ICustomer} from "@customer/domain";
-import {ActiveEnum, IsOptionalEnum, IsOrganizerEnum, LanguageCodeEnum, ResponseStatusEnum} from "@utility/domain/enum";
+import {IsOptionalEnum, IsOrganizerEnum, LanguageCodeEnum, ResponseStatusEnum} from "@utility/domain/enum";
 import {IBaseEntity} from "@utility/domain";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
@@ -14,7 +14,6 @@ export interface IAttendee extends IBaseEntity<'Event.Attendant'> {
 	isOrganizer: IsOrganizerEnum;
 	responseStatus: ResponseStatusEnum;
 	customer: ICustomer;
-	active: ActiveEnum;
 }
 
 export interface IEvent extends IBaseEntity<'Event'> {

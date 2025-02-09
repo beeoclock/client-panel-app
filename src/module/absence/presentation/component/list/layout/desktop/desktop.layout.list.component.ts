@@ -1,4 +1,4 @@
-import {Component, effect, input, ViewEncapsulation} from "@angular/core";
+import {Component, input, ViewEncapsulation} from "@angular/core";
 import {
 	NotFoundTableDataComponent
 } from "@utility/presentation/component/not-found-table-data/not-found-table-data.component";
@@ -32,9 +32,6 @@ export class DesktopLayoutListComponent extends LayoutListComponent<IAbsenceDto>
 
 	public constructor() {
 		super();
-		effect(() => {
-			console.log('effect', this.tableState());
-		})
 	}
 
 	@Dispatch()

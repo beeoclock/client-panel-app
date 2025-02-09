@@ -7,6 +7,7 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {IServiceDto} from "@order/external/interface/i.service.dto";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 
 @Component({
@@ -22,7 +23,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 			(edit)="edit()"
 			[hide]="hide()"
 			[id]="id()"
-			[active]="item().active">
+			[state]="item().state">
 			<!--			<li>-->
 			<!--				<a-->
 			<!--					[routerLink]="['../../', 'event', 'form']"-->

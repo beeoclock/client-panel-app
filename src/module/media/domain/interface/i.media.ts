@@ -3,7 +3,6 @@ import {IBaseEntity} from "@utility/domain";
 
 export interface IMedia extends IBaseEntity<'MediaDto'> {
 	mediaType?: MediaTypeEnum;
-	_id: string;
 	url: string;
 	metadata: {
 		object: "MediaMetadataDto";
