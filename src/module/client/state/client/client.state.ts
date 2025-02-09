@@ -107,8 +107,6 @@ export class ClientState {
 
 		const {0: item} = this.businessProfileIndexedDBFacade.source.find().fetch();
 
-		console.log({item});
-
 		if (!item) {
 			console.error('ClientState.getItem', 'Item not found');
 			return;

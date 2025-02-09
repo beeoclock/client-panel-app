@@ -66,7 +66,7 @@ export class CustomerFormContainerComponent implements OnInit {
 
 	public async save(): Promise<void> {
 		this.form.markAllAsTouched();
-		const value = this.form.getRawValue() as ICustomer.Entity;
+		const value = this.form.getRawValue() as ICustomer.DTO;
 		const validStatus = validCustomer(value);
 		if (!(validStatus.success) && validStatus.errors.length) {
 			this.ngxLogger.error('Object is invalid', validStatus);

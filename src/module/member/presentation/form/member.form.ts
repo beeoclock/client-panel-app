@@ -56,6 +56,7 @@ export class AssignmentsForm extends FormGroup<IAssignmentsForm> {
 
 export interface IMemberForm {
 	email: FormControl<string>;
+	phone: FormControl<string>;
 	avatar: FormControl<RESPONSE_IMemberMedia>;
 	firstName: FormControl<string>;
 	lastName: FormControl<string>;
@@ -72,6 +73,7 @@ export class MemberForm extends BaseEntityForm<'MemberDto', IMemberForm> {
 	constructor() {
 		super('MemberDto', {
 			email: new FormControl(),
+			phone: new FormControl(),
 			avatar: new FormControl(),
 			firstName: new FormControl(),
 			lastName: new FormControl(),

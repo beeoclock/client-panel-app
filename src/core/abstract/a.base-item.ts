@@ -1,7 +1,6 @@
 import {IBaseItem} from "@src/core/interface/i.base-item";
 import {Types} from "@utility/types";
 import {StateEnum} from "@utility/domain/enum/state.enum";
-import {ActiveEnum} from "@utility/domain/enum";
 
 /**
  * Base class for all items.
@@ -20,7 +19,6 @@ export abstract class ABaseItem<T extends string, DTO> implements IBaseItem<T, D
 	createdAt!: string & Types.DateTime;
 	updatedAt!: string & Types.DateTime;
 
-	active!: ActiveEnum;
 	state!: StateEnum;
 	stateHistory!: {
 		state: StateEnum;

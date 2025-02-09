@@ -2,7 +2,6 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {DateTime} from "luxon";
 import ObjectID from "bson-objectid";
 import {StateEnum} from "@utility/domain/enum/state.enum";
-import {ActiveEnum} from "@utility/domain/enum";
 import {Types} from "@utility/types";
 
 
@@ -12,7 +11,6 @@ export interface IBaseEntityForm<OBJECT_NAME> {
 	updatedAt: FormControl<string>;
 	_id: FormControl<string>;
 
-	active: FormControl<ActiveEnum>;
 	state: FormControl<StateEnum>;
 	stateHistory: FormControl<{
 		state: StateEnum;
@@ -20,7 +18,7 @@ export interface IBaseEntityForm<OBJECT_NAME> {
 	}[]>;
 }
 
-type DEFAULT_OMIT = 'object' | '_id' | 'createdAt' | 'updatedAt' | 'active' | 'state' | 'stateHistory';
+type DEFAULT_OMIT = 'object' | '_id' | 'createdAt' | 'updatedAt' | 'state' | 'stateHistory';
 type EXTERNAL_FORM_WITHOUT_LOCAL_CONTROLS<FORM_INTERFACE> = {
 	[K in keyof Omit<FORM_INTERFACE, DEFAULT_OMIT>]: Omit<FORM_INTERFACE, DEFAULT_OMIT>[K];
 };
@@ -41,10 +39,6 @@ export class BaseEntityForm<OBJECT_NAME, FORM_INTERFACE extends EXTERNAL_FORM_WI
 				nonNullable: true,
 			}),
 			_id: new FormControl(ObjectID().toHexString(), {
-				nonNullable: true,
-			}),
-
-			active: new FormControl(ActiveEnum.YES, {
 				nonNullable: true,
 			}),
 

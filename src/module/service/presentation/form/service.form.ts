@@ -208,7 +208,6 @@ export interface IServiceDtoForm {
 	prepaymentPolicy: PrepaymentPolicyForm;
 	languageVersions: LanguageVersionsForm;
 	durationVersions: DurationVersionsForm;
-	active: FormControl<ActiveEnum>;
 	order: FormControl<number | null>;
 	presentation: PresentationForm;
 }

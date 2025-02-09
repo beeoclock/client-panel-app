@@ -23,9 +23,6 @@ import {ImageBlockComponent} from "@service/presentation/component/form/v2/image
 import {
 	ButtonSaveContainerComponent
 } from "@utility/presentation/component/container/button-save/button-save.container.component";
-import {
-	SwitchActiveBlockComponent
-} from "@utility/presentation/component/switch/switch-active/switch-active-block.component";
 import {ServicePresentationForm} from "@service/presentation/form/service.presentation.form";
 import {MediaTypeEnum} from "@utility/domain/enum/media.type.enum";
 import {ServicesFormComponent} from "@service/presentation/component/form/v2/service/services.form.component";
@@ -34,7 +31,7 @@ import {FormInputComponent} from "@utility/presentation/component/input/form.inp
 import {CardComponent} from "@utility/presentation/component/card/card.component";
 import {NGXLogger} from "ngx-logger";
 import {is} from "@utility/checker";
-import {ActiveEnum, CurrencyCodeEnum} from "@utility/domain/enum";
+import {CurrencyCodeEnum} from "@utility/domain/enum";
 import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {StateEnum} from "@utility/domain/enum/state.enum";
 import {IService} from "@service/domain/interface/i.service";
@@ -50,7 +47,6 @@ import {IService} from "@service/domain/interface/i.service";
 		ReactiveFormsModule,
 		TranslateModule,
 		PricesBlockComponent,
-		SwitchActiveBlockComponent,
 		PrimaryButtonDirective,
 		AsyncPipe,
 		ButtonSaveContainerComponent,

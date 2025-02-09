@@ -11,9 +11,6 @@ import {ICustomer} from "@customer/domain";
 import {Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
 import {TelFormInputComponent} from "@utility/presentation/component/tel-form-input/tel.form.input.component";
-import {StateEnum} from "@utility/domain/enum/state.enum";
-import {ActiveEnum} from "@utility/domain/enum";
-import {StateEnum} from "@utility/domain/enum/state.enum";
 
 export const enum CustomerFormFieldsEnum {
 
@@ -36,8 +33,6 @@ export interface ICustomerForm {
 	[CustomerFormFieldsEnum.email]: FormControl<string | null>;
 	[CustomerFormFieldsEnum.phone]: FormControl<string | null>;
 
-	[CustomerFormFieldsEnum.state]: FormControl<StateEnum>;
-	[CustomerFormFieldsEnum.stateHistory]: FormControl<{state: StateEnum; setAt: string}[]>;
 	[CustomerFormFieldsEnum.customerType]: FormControl<CustomerTypeEnum>;
 
 }
@@ -126,14 +121,6 @@ export class CustomerForm extends BaseEntityForm<'CustomerDto', ICustomerForm> {
 			[CustomerFormFieldsEnum.phone]: new FormControl(),
 
 			[CustomerFormFieldsEnum.note]: new FormControl(),
-
-			[CustomerFormFieldsEnum.state]: new FormControl(StateEnum.active, {
-				nonNullable: true,
-			}),
-
-			[CustomerFormFieldsEnum.stateHistory]: new FormControl([], {
-				nonNullable: true,
-			}),
 
 			[CustomerFormFieldsEnum.customerType]: new FormControl(CustomerTypeEnum.new, {
 				nonNullable: true,

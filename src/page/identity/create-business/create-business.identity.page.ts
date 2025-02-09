@@ -3,8 +3,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterOutlet} from "@angular/router";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
-import {CreateBusinessQuery} from "@identity/query/create-business.query";
-import {CreateBusinessFormRepository} from "@identity/repository/create-business.form.repository";
+import {CreateBusinessFormRepository} from "@identity/infrastructure/repository/create-business.form.repository";
+import {CreateBusinessQuery} from "@identity/infrastructure/query/create-business.query";
 
 @Component({
 	selector: 'app-identity-create-business-identity-page',

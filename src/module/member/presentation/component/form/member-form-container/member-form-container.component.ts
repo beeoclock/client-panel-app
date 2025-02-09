@@ -87,7 +87,7 @@ export class MemberFormContainerComponent implements OnInit, OnChanges {
 
 			this.form.disable();
 			this.form.markAsPending();
-			const memberBody = this.form.getRawValue() as RIMember;
+			const memberBody = this.form.getRawValue();
 			let memberId = memberBody._id;
 			if (this.isEditMode) {
 				await firstValueFrom(this.store.dispatch(new MemberActions.UpdateItem(memberBody)));

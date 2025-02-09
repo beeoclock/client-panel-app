@@ -54,11 +54,11 @@ export namespace CustomerActions {
 		public static override readonly type = '[Customer API] Get Item';
 	}
 
-	export class CreateItem extends BaseActions.CreateItem<ICustomer.Entity> {
+	export class CreateItem extends BaseActions.CreateItem<ICustomer.DTO> {
 		public static override readonly type = '[Customer API] Create Item';
 	}
 
-	export class UpdateItem extends BaseActions.UpdateItem<ICustomer.Entity> {
+	export class UpdateItem extends BaseActions.UpdateItem<ICustomer.DTO> {
 		public static override readonly type = '[Customer API] Update Item';
 	}
 
