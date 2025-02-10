@@ -108,8 +108,6 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		serviceFormWasOpened: false
 	});
 
-	// TODO: add input of callback and call it on save
-
 	public readonly form: CreateOrderForm = CreateOrderForm.create();
 
 	private readonly store = inject(Store);
@@ -159,7 +157,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 			return;
 		}
 		await this.finishSave();
-		this.whacAMaleProvider.destroyComponent(AdditionalMenuComponent);
+		await this.whacAMaleProvider.destroyComponent(AdditionalMenuComponent);
 	}
 
 	/**
@@ -199,8 +197,6 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 				await lastValueFrom(this.dispatchPutOrderAction$(order));
 
 			} else {
-
-				// TODO: Refactoring it into state actions
 
 				payment.orderId = order._id;
 
