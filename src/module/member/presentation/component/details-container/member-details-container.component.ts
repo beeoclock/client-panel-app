@@ -1,4 +1,4 @@
-import {Component, inject, input, ViewEncapsulation} from '@angular/core';
+import {Component, inject, Input, ViewEncapsulation} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngxs/store";
 import {MemberActions} from "@member/state/member/member.actions";
@@ -21,7 +21,8 @@ import {RowActionButtonComponent} from "@member/presentation/component/row-actio
 })
 export class MemberDetailsContainerComponent {
 
-	public readonly item = input<RIMember | null>(null);
+	@Input({required: true})
+	public readonly item!: RIMember;
 
 	public readonly store = inject(Store);
 
@@ -30,7 +31,7 @@ export class MemberDetailsContainerComponent {
 	}
 
 	public openForm() {
-		const item = this.item();
+		const item = this.item;
 		if (!item) {
 			return
 		}

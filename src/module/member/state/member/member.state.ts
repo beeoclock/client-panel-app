@@ -1,4 +1,4 @@
-import {inject, Injectable} from "@angular/core";
+import {inject, Injectable, reflectComponentType} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import * as Member from "@member/domain";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
@@ -61,16 +61,42 @@ export class MemberState {
 	@Action(MemberActions.UpdateOpenedDetails)
 	public async updateOpenedDetails(ctx: StateContext<IMemberState>, {payload}: MemberActions.UpdateOpenedDetails) {
 
-		const {MemberDetailsContainerComponent} = await import("@member/presentation/component/details-container/member-details-container.component");
+		import("@member/presentation/component/details-container/member-details-container.component")
+			.then(async ({MemberDetailsContainerComponent}) => {
 
-		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
-			component: MemberDetailsContainerComponent,
-			componentInputs: {
-				item: payload
-			},
-		}).catch((error) => {
-			this.ngxLogger.error('MemberState.updateOpenedDetails', error);
-		})
+				const componentMirror = reflectComponentType(MemberDetailsContainerComponent);
+
+				if (!componentMirror) {
+					this.ngxLogger.error('MemberState.updateOpenedDetails', 'value of `component` property is not a component');
+					return;
+				}
+
+				const componentRefList = this.whacAMaleProvider.componentRefMapByComponentName.get(componentMirror.selector);
+
+				if (!componentRefList?.length) {
+					this.ngxLogger.debug('MemberState.updateOpenedDetails Did not find', componentMirror.selector, this);
+					return;
+				}
+
+				const {0: componentRef} = componentRefList;
+
+				const {renderedComponentRef} = componentRef.instance;
+
+				if (!renderedComponentRef) {
+					this.ngxLogger.error('MemberState.updateOpenedDetails', 'renderedComponentRef is not defined');
+					return;
+				}
+
+				if ('item' in renderedComponentRef.instance) {
+					const {_id} = renderedComponentRef.instance.item;
+					if (_id === payload._id) {
+						renderedComponentRef.setInput('item', payload);
+						return;
+					}
+					this.ngxLogger.error('MemberState.updateOpenedDetails', 'Item not found');
+				}
+			});
+
 
 	}
 
@@ -182,6 +208,7 @@ export class MemberState {
 	public async createItem(ctx: StateContext<IMemberState>, action: MemberActions.CreateItem): Promise<void> {
 		this.memberIndexedDBFacade.source.insert(EMember.create(action.payload));
 		await this.closeForm(ctx);
+		ctx.dispatch(new MemberActions.GetList());
 	}
 
 	@Action(MemberActions.UpdateItem)
@@ -194,8 +221,8 @@ export class MemberState {
 			$set: item
 		});
 		await this.closeForm(ctx);
-		const {data} = ctx.getState().item;
-		data && await this.updateOpenedDetails(ctx, {payload: item});
+		await this.updateOpenedDetails(ctx, {payload: item});
+		ctx.dispatch(new MemberActions.GetList());
 	}
 
 	@Action(MemberActions.GetItem)
@@ -222,6 +249,7 @@ export class MemberState {
 			id: action.payload
 		});
 		await this.closeDetails(ctx, action);
+		ctx.dispatch(new MemberActions.GetList());
 	}
 
 	@Action(MemberActions.GetList)

@@ -20,7 +20,6 @@ export class OrderIndexedDBFacade extends Reactive {
 	public constructor() {
 		super();
 		this.tenantId$.pipe(this.takeUntil(), filter(is.string)).subscribe((tenantId) => {
-			console.log('OrderIndexedDBFacade', {tenantId});
 			this.#source = this.orderIndexedDBCollectionManager.context.database;
 		});
 	}

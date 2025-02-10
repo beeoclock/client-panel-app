@@ -31,7 +31,6 @@ export class ServiceIndexedDBFacade extends Reactive {
 			return otherInstance;
 		}
 		this.tenantId$.pipe(this.takeUntil(), filter(is.string)).subscribe((tenantId) => {
-			console.log('ServiceIndexedDBFacade', {tenantId});
 			this.#source = this.serviceIndexedDBCollectionManager.context.database;
 		});
 	}

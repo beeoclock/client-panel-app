@@ -1,4 +1,4 @@
-import {inject, Injectable} from "@angular/core";
+import {inject, Injectable, reflectComponentType} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
@@ -60,12 +60,42 @@ export class AbsenceState {
 	@Action(AbsenceActions.UpdateOpenedDetails)
 	public async updateOpenedDetailsAction(ctx: StateContext<IAbsenceState>, {payload}: AbsenceActions.UpdateOpenedDetails) {
 
-		const {AbsenceDetailsContainerComponent} = await import("@absence/presentation/component/details/absence-details-container.component");
+		import("@absence/presentation/component/details/absence-details-container.component")
+			.then(({AbsenceDetailsContainerComponent}) => {
 
-		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
-			component: AbsenceDetailsContainerComponent,
-			componentInputs: {item: payload},
-		});
+				const componentMirror = reflectComponentType(AbsenceDetailsContainerComponent);
+
+				if (!componentMirror) {
+					this.ngxLogger.error('AbsenceState.updateOpenedDetails', 'value of `component` property is not a component');
+					return;
+				}
+
+				const componentRefList = this.whacAMaleProvider.componentRefMapByComponentName.get(componentMirror.selector);
+
+				if (!componentRefList?.length) {
+					this.ngxLogger.debug('AbsenceState.updateOpenedDetails Did not find', componentMirror.selector, this);
+					return;
+				}
+
+				const {0: componentRef} = componentRefList;
+
+				const {renderedComponentRef} = componentRef.instance;
+
+				if (!renderedComponentRef) {
+					this.ngxLogger.error('AbsenceState.updateOpenedDetails', 'renderedComponentRef is not defined');
+					return;
+				}
+
+				if ('item' in renderedComponentRef.instance) {
+					const {_id} = renderedComponentRef.instance.item;
+					if (_id === payload._id) {
+						renderedComponentRef.setInput('item', payload);
+						return;
+					}
+					this.ngxLogger.error('AbsenceState.updateOpenedDetails', 'Item not found');
+				}
+
+			});
 
 	}
 
@@ -89,7 +119,6 @@ export class AbsenceState {
 	@Action(AbsenceActions.OpenDetailsById)
 	public async openDetailsByIdAction(ctx: StateContext<IAbsenceState>, {payload: id}: AbsenceActions.OpenDetailsById) {
 
-		const title = await this.translateService.instant('absence.details.title');
 		const item = this.absenceIndexedDBFacade.source.findOne({
 			id
 		});
@@ -99,15 +128,7 @@ export class AbsenceState {
 			return;
 		}
 
-
-		const {AbsenceDetailsContainerComponent} = await import("@absence/presentation/component/details/absence-details-container.component");
-
-		await this.whacAMaleProvider.buildItAsync({
-			title,
-			showLoading: true,
-			component: AbsenceDetailsContainerComponent,
-			componentInputs: {item},
-		});
+		ctx.dispatch(new AbsenceActions.OpenDetails(item));
 
 	}
 
@@ -176,6 +197,7 @@ export class AbsenceState {
 	public async createItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.CreateItem) {
 		this.absenceIndexedDBFacade.source.insert(EAbsence.create(action.payload));
 		await this.closeFormAction(ctx);
+		ctx.dispatch(new AbsenceActions.GetList());
 	}
 
 	@Action(AbsenceActions.UpdateItem)
@@ -188,8 +210,8 @@ export class AbsenceState {
 			$set: item
 		});
 		await this.closeFormAction(ctx);
-		const {data} = ctx.getState().item;
-		data && await this.updateOpenedDetailsAction(ctx, {payload: item});
+		await this.updateOpenedDetailsAction(ctx, {payload: item});
+		ctx.dispatch(new AbsenceActions.GetList());
 	}
 
 	@Action(AbsenceActions.GetItem)
@@ -216,6 +238,7 @@ export class AbsenceState {
 			id: action.payload
 		});
 		await this.closeDetailsAction(ctx, action);
+		ctx.dispatch(new AbsenceActions.GetList());
 	}
 
 	@Action(AbsenceActions.GetList)
@@ -321,8 +344,8 @@ export class AbsenceState {
 					]
 				}
 			});
-		const {data} = ctx.getState().item;
-		data && await this.updateOpenedDetailsAction(ctx, {payload: item});
+		await this.updateOpenedDetailsAction(ctx, {payload: item});
+		ctx.dispatch(new AbsenceActions.GetList());
 	}
 
 	@Action(AbsenceActions.UnarchiveItem)
@@ -350,8 +373,8 @@ export class AbsenceState {
 					]
 				}
 			});
-		const {data} = ctx.getState().item;
-		data && await this.updateOpenedDetailsAction(ctx, {payload: item});
+		await this.updateOpenedDetailsAction(ctx, {payload: item});
+		ctx.dispatch(new AbsenceActions.GetList());
 	}
 
 	// Selectors

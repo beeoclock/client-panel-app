@@ -1,4 +1,4 @@
-import {inject, Injectable} from "@angular/core";
+import {inject, Injectable, reflectComponentType} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import * as Customer from "@customer/domain";
@@ -60,14 +60,41 @@ export class CustomerState {
 	@Action(CustomerActions.UpdateOpenedDetails)
 	public async updateOpenedDetails(ctx: StateContext<ICustomerState>, {payload}: CustomerActions.UpdateOpenedDetails) {
 
-		const {CustomerDetailsContainerComponent} = await import("@customer/presentation/component/details/customer-details-container.component");
+		import("@customer/presentation/component/details/customer-details-container.component")
+			.then(async ({CustomerDetailsContainerComponent}) => {
 
-		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
-			component: CustomerDetailsContainerComponent,
-			componentInputs: {item: payload},
-		}).catch((error) => {
-			this.ngxLogger.error('CustomerState.updateOpenedDetails', error);
-		});
+				const componentMirror = reflectComponentType(CustomerDetailsContainerComponent);
+
+				if (!componentMirror) {
+					this.ngxLogger.error('CustomerState.updateOpenedDetails', 'value of `component` property is not a component');
+					return;
+				}
+
+				const componentRefList = this.whacAMaleProvider.componentRefMapByComponentName.get(componentMirror.selector);
+
+				if (!componentRefList?.length) {
+					this.ngxLogger.debug('CustomerState.updateOpenedDetails Did not find', componentMirror.selector, this);
+					return;
+				}
+
+				const {0: componentRef} = componentRefList;
+
+				const {renderedComponentRef} = componentRef.instance;
+
+				if (!renderedComponentRef) {
+					this.ngxLogger.error('CustomerState.updateOpenedDetails', 'renderedComponentRef is not defined');
+					return;
+				}
+
+				if ('item' in renderedComponentRef.instance) {
+					const {_id} = renderedComponentRef.instance.item;
+					if (_id === payload._id) {
+						renderedComponentRef.setInput('item', payload);
+						return;
+					}
+					this.ngxLogger.error('CustomerState.updateOpenedDetails', 'Item not found');
+				}
+			})
 
 	}
 
@@ -282,7 +309,7 @@ export class CustomerState {
 				}
 			});
 		const {data} = ctx.getState().item;
-		if(data) await this.updateOpenedDetails(ctx, {payload: item});
+		if (data) await this.updateOpenedDetails(ctx, {payload: item});
 
 
 	}

@@ -362,7 +362,6 @@ export class CalendarWithSpecialistWidgetComponent extends Reactive implements O
 
 		// Check if data is empty if true then dispatch action to get items
 		firstValueFrom(this.store.select(CalendarWithSpecialistsQueries.data)).then((data) => {
-			console.log('data: ', {data});
 			if (!data.length) {
 				this.dispatchActionToUpdateCalendar();
 			}

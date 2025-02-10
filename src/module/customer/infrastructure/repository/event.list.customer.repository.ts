@@ -55,8 +55,6 @@ export class EventListCustomerRepository {
 
 		try {
 
-			console.log('this.tableState.toBackendFormat()', this.tableState.toBackendFormat());
-
 			const phraseFields = ['firstName', 'lastName', 'phone', 'email']
 
 			const newTableState = this.tableState.toBackendFormat();

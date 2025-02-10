@@ -1,4 +1,4 @@
-import {inject, Injectable} from "@angular/core";
+import {inject, Injectable, reflectComponentType} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {ActiveEnum, OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
@@ -78,10 +78,39 @@ export class OrderState {
 
 		import("@order/presentation/component/details/order-details-container.component")
 			.then(({OrderDetailsContainerComponent}) => {
-				this.whacAMaleProvider.updateWhacAMoleComponentAsync({
-					component: OrderDetailsContainerComponent,
-					componentInputs: {item: payload},
-				})
+
+				const componentMirror = reflectComponentType(OrderDetailsContainerComponent);
+
+				if (!componentMirror) {
+					this.ngxLogger.error('OrderState.updateOpenedDetails', 'value of `component` property is not a component');
+					return;
+				}
+
+				const componentRefList = this.whacAMaleProvider.componentRefMapByComponentName.get(componentMirror.selector);
+
+				if (!componentRefList?.length) {
+					this.ngxLogger.debug('OrderState.updateOpenedDetails Did not find', componentMirror.selector, this);
+					return;
+				}
+
+				const {0: componentRef} = componentRefList;
+
+				const {renderedComponentRef} = componentRef.instance;
+
+				if (!renderedComponentRef) {
+					this.ngxLogger.error('OrderState.updateOpenedDetails', 'renderedComponentRef is not defined');
+					return;
+				}
+
+				if ('item' in renderedComponentRef.instance) {
+					const {_id} = renderedComponentRef.instance.item;
+					if (_id === payload._id) {
+						renderedComponentRef.setInput('item', payload);
+						return;
+					}
+					this.ngxLogger.error('OrderState.updateOpenedDetails', 'Item not found');
+				}
+
 			});
 
 	}
@@ -322,8 +351,7 @@ export class OrderState {
 			$set: item
 		});
 		await this.closeFormAction(ctx);
-		const {data} = ctx.getState().item;
-		data && await this.updateOpenedDetailsAction(ctx, {payload: item});
+		await this.updateOpenedDetailsAction(ctx, {payload: item});
 
 		// await super.updateItem(ctx, action);
 		// ctx.dispatch(new OrderActions.CloseForm(action.payload._id))

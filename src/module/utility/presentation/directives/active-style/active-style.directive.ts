@@ -31,8 +31,6 @@ export class ActiveStyleDirective {
 
 		let text: string;
 
-		console.log('this.state()', this.state());
-
 		switch (this.state()) {
 
 			case StateEnum.archived:

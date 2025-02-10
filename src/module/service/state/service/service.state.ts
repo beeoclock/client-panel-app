@@ -1,4 +1,4 @@
-import {inject, Injectable} from "@angular/core";
+import {inject, Injectable, reflectComponentType} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
@@ -55,14 +55,41 @@ export class ServiceState {
 	@Action(ServiceActions.UpdateOpenedDetails)
 	public async updateOpenedDetails(ctx: StateContext<IServiceState>, {payload}: ServiceActions.UpdateOpenedDetails) {
 
-		const {ServiceDetails} = await import("@service/presentation/component/service-details/service-details");
+		import("@service/presentation/component/service-details/service-details")
+			.then(({ServiceDetails}) => {
 
-		await this.whacAMaleProvider.updateWhacAMoleComponentAsync({
-			component: ServiceDetails,
-			componentInputs: {item: payload},
-		}).catch((error) => {
-			this.ngxLogger.error('ServiceState.updateOpenedDetails', error);
-		});
+				const componentMirror = reflectComponentType(ServiceDetails);
+
+				if (!componentMirror) {
+					this.ngxLogger.error('ServiceState.updateOpenedDetails', 'value of `component` property is not a component');
+					return;
+				}
+
+				const componentRefList = this.whacAMaleProvider.componentRefMapByComponentName.get(componentMirror.selector);
+
+				if (!componentRefList?.length) {
+					this.ngxLogger.debug('ServiceState.updateOpenedDetails Did not find', componentMirror.selector, this);
+					return;
+				}
+
+				const {0: componentRef} = componentRefList;
+
+				const {renderedComponentRef} = componentRef.instance;
+
+				if (!renderedComponentRef) {
+					this.ngxLogger.error('ServiceState.updateOpenedDetails', 'renderedComponentRef is not defined');
+					return;
+				}
+
+				if ('item' in renderedComponentRef.instance) {
+					const {_id} = renderedComponentRef.instance.item;
+					if (_id === payload._id) {
+						renderedComponentRef.setInput('item', payload);
+						return;
+					}
+					this.ngxLogger.error('ServiceState.updateOpenedDetails', 'Item not found', {payload, _id, renderedComponentRef});
+				}
+			});
 
 	}
 
@@ -173,6 +200,7 @@ export class ServiceState {
 	public async createItem(ctx: StateContext<IServiceState>, action: ServiceActions.CreateItem) {
 		this.serviceIndexedDBFacade.source.insert(EService.create(action.payload));
 		await this.closeForm(ctx);
+		ctx.dispatch(new ServiceActions.GetList());
 	}
 
 	@Action(ServiceActions.UpdateItem)
@@ -186,8 +214,8 @@ export class ServiceState {
 			$set: item
 		});
 		await this.closeForm(ctx);
-		const {data} = ctx.getState().item;
-		data && await this.updateOpenedDetails(ctx, {payload: item});
+		await this.updateOpenedDetails(ctx, {payload: item});
+		ctx.dispatch(new ServiceActions.GetList());
 	}
 
 	@Action(ServiceActions.GetItem)
@@ -214,6 +242,7 @@ export class ServiceState {
 			id: action.payload
 		});
 		await this.closeDetails(ctx, action);
+		ctx.dispatch(new ServiceActions.GetList());
 	}
 
 	@Action(ServiceActions.GetList)
@@ -320,7 +349,8 @@ export class ServiceState {
 				}
 			});
 		const {data} = ctx.getState().item;
-		data && await this.updateOpenedDetails(ctx, {payload: item});
+		if (data) await this.updateOpenedDetails(ctx, {payload: item});
+		ctx.dispatch(new ServiceActions.GetList());
 	}
 
 	@Action(ServiceActions.UnarchiveItem)
@@ -349,7 +379,8 @@ export class ServiceState {
 				}
 			});
 		const {data} = ctx.getState().item;
-		data && await this.updateOpenedDetails(ctx, {payload: item});
+		if (data) await this.updateOpenedDetails(ctx, {payload: item});
+		ctx.dispatch(new ServiceActions.GetList());
 	}
 
 	// Selectors

@@ -190,8 +190,8 @@ export class PaymentState extends BaseState<IPaymentDto> {
 		await this.closeFormAction(ctx, {
 			payload: action.payload._id
 		});
-		const {data} = ctx.getState().item;
-		data && await this.updateOpenedDetailsAction(ctx, {payload: data});
+		// TODO
+		// await this.updateOpenedDetailsAction(ctx, {payload: data});
 	}
 
 	@Action(PaymentActions.GetItem)

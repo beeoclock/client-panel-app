@@ -131,8 +131,6 @@ export class CalendarWithSpecialistsState {
 		});
 		const absences = absenceQuery.fetch();
 
-		console.log({absences})
-
 		const orderQuery = this.orderIndexedDBFacade.source.find({
 			$and: [
 				{
@@ -296,8 +294,6 @@ export class CalendarWithSpecialistsState {
 
 			}, [] as IEvent_V2[])
 		];
-
-		console.log({data})
 
 		ctx.patchState({
 			loader: false,

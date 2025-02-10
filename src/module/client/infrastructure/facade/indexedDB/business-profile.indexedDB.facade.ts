@@ -24,7 +24,6 @@ export class BusinessProfileIndexedDBFacade extends Reactive {
 	public constructor() {
 		super();
 		this.tenantId$.pipe(this.takeUntil(), filter(is.string)).subscribe((tenantId) => {
-			console.log('BusinessProfileIndexedDBFacade', {tenantId});
 			this.#source = this.businessProfileIndexedDBCollectionManager.context.database;
 		});
 	}

@@ -22,7 +22,6 @@ export class CustomerIndexedDBFacade extends Reactive {
 	public constructor() {
 		super();
 		this.tenantId$.pipe(this.takeUntil(), filter(is.string)).subscribe((tenantId) => {
-			console.log('CustomerIndexedDBFacade', {tenantId});
 			this.#source = this.customerIndexedDBCollectionManager.context.database;
 		});
 	}

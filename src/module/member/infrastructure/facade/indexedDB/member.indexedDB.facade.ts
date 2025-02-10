@@ -20,7 +20,6 @@ export class MemberIndexedDBFacade extends Reactive {
 	public constructor() {
 		super();
 		this.tenantId$.pipe(this.takeUntil(), filter(is.string)).subscribe((tenantId) => {
-			console.log('MemberIndexedDBFacade', {tenantId});
 			this.#source = this.memberIndexedDBCollectionManager.context.database;
 		});
 	}
