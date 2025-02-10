@@ -30,11 +30,11 @@
 		<div tableColumnFlex="note">
 			{{ 'keyword.capitalize.note' | translate }}
 		</div>
-		<div tableColumnFlex="active" data-orderBy="active">
+		<div tableColumnFlex="state" data-orderBy="state">
 			<div class="flex gap-3 items-center">
 				{{ 'keyword.capitalize.active' | translate }}
 				<utility-sort-indicator
-					orderBy="active"
+					orderBy="state"
 					[tableState]="tableState()"/>
 			</div>
 		</div>
@@ -87,7 +87,7 @@
 					{{ item.note | noData }}
 				</span>
 				</div>
-				<div tableColumnFlex="active">
+				<div tableColumnFlex="state">
 					<div activeStyle [state]="item.state">
 					</div>
 				</div>

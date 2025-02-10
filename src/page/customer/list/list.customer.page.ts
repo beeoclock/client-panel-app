@@ -44,6 +44,7 @@ export class ListCustomerPage extends ListPage<ICustomer.Entity> implements OnDe
 	public readonly tableState$: Observable<ITableState<ICustomer.Entity>> = this.store.select(CustomerState.tableState)
 		.pipe(
 			tap((tableState) => {
+				console.log('tableState', tableState);
 				this.changeDetectorRef.detectChanges();
 			})
 		);

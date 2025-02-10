@@ -197,6 +197,7 @@ export class CustomerState {
 	@Action(CustomerActions.CreateItem)
 	public async createItem(ctx: StateContext<ICustomerState>, action: CustomerActions.CreateItem): Promise<void> {
 		this.customerIndexedDBFacade.source.insert(ECustomer.create(action.payload));
+		ctx.dispatch(new CustomerActions.GetList());
 		await this.closeForm(ctx);
 	}
 
@@ -210,23 +211,24 @@ export class CustomerState {
 		}, {
 			$set: item
 		});
+		ctx.dispatch(new CustomerActions.GetList());
 		await this.closeForm(ctx);
 		const {data} = ctx.getState().item;
-		data && await this.updateOpenedDetails(ctx, {payload: item});
+		if (data) await this.updateOpenedDetails(ctx, {payload: item});
 	}
 
 	@Action(CustomerActions.DeleteItem)
 	public async deleteItem(ctx: StateContext<ICustomerState>, action: CustomerActions.DeleteItem) {
-		// await super.deleteItem(ctx, action);
 		this.customerIndexedDBFacade.source.removeOne({
 			id: action.payload
 		});
+		ctx.dispatch(new CustomerActions.GetList());
 		await this.closeDetails(ctx, action);
+		ctx.dispatch(new CustomerActions.GetList());
 	}
 
 	@Action(CustomerActions.ArchiveItem)
 	public async archiveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.ArchiveItem) {
-		// await super.archiveItem(ctx, action);
 		const item = this.customerIndexedDBFacade.source.findOne({
 			id: action.payload
 		});
@@ -250,12 +252,11 @@ export class CustomerState {
 				}
 			});
 		const {data} = ctx.getState().item;
-		data && await this.updateOpenedDetails(ctx, {payload: item});
+		if (data) await this.updateOpenedDetails(ctx, {payload: item});
 	}
 
 	@Action(CustomerActions.UnarchiveItem)
 	public async unarchiveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UnarchiveItem) {
-		// await super.unarchiveItem(ctx, action);
 		// TODO: Update opened details
 		const item = this.customerIndexedDBFacade.source.findOne({
 			id: action.payload
@@ -281,7 +282,7 @@ export class CustomerState {
 				}
 			});
 		const {data} = ctx.getState().item;
-		data && await this.updateOpenedDetails(ctx, {payload: item});
+		if(data) await this.updateOpenedDetails(ctx, {payload: item});
 
 
 	}

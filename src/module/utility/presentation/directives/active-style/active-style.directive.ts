@@ -1,4 +1,4 @@
-import {Directive, ElementRef, inject, input, OnChanges, OnInit} from '@angular/core';
+import {Directive, effect, ElementRef, inject, input} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {StateEnum} from "@utility/domain/enum/state.enum";
 
@@ -6,7 +6,7 @@ import {StateEnum} from "@utility/domain/enum/state.enum";
 	selector: '[activeStyle]',
 	standalone: true,
 })
-export class ActiveStyleDirective implements OnInit, OnChanges {
+export class ActiveStyleDirective {
 
 	public readonly state = input<StateEnum>(StateEnum.active);
 
@@ -17,16 +17,10 @@ export class ActiveStyleDirective implements OnInit, OnChanges {
 	private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 	private readonly translateService = inject(TranslateService);
 
-	public ngOnChanges(): void {
-
-		this.initActive();
-
-	}
-
-	public ngOnInit(): void {
-
-		this.initActive();
-
+	public constructor() {
+		effect(() => {
+			this.initActive();
+		});
 	}
 
 	public initActive(): void {
@@ -36,6 +30,8 @@ export class ActiveStyleDirective implements OnInit, OnChanges {
 		this.elementRef.nativeElement.classList.add('inline-flex', 'items-center', 'gap-x-1.5', 'py-1.5', 'px-3', 'rounded-full', 'text-xs', 'font-medium');
 
 		let text: string;
+
+		console.log('this.state()', this.state());
 
 		switch (this.state()) {
 

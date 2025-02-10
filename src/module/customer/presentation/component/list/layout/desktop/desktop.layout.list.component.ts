@@ -24,7 +24,10 @@ import {ITableState} from "@utility/domain/table.state";
 		TableListComponent,
 		TranslateModule,
 		AutoRefreshButtonComponent,
-	]
+	],
+	host: {
+		class: 'flex flex-col overflow-hidden h-full',
+	}
 })
 export class DesktopLayoutListComponent extends LayoutListComponent<ICustomer.Entity> {
 	public override readonly tableState = input.required<ITableState<ICustomer.Entity> | null>();

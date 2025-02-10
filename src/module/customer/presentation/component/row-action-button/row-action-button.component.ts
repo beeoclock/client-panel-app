@@ -1,13 +1,11 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
-import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {ICustomer} from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
-import {StateEnum} from "@utility/domain/enum/state.enum";
 
 @Component({
 	selector: 'customer-row-action-button-component',
@@ -62,20 +60,24 @@ export class RowActionButtonComponent {
 			throw new Error('User canceled the action');
 		}
 
-		return new CustomerActions.DeleteItem(this.item()._id);
+		return [
+			new CustomerActions.DeleteItem(this.item()._id),
+			new CustomerActions.GetList()
+		];
 	}
 
 	public activate(): void {
-		this.store.dispatch(new CustomerActions.UnarchiveItem(this.item()._id));
+		this.store.dispatch([
+			new CustomerActions.UnarchiveItem(this.item()._id),
+			new CustomerActions.GetList()
+		]);
 	}
 
 	public deactivate(): void {
-		this.store.dispatch(new CustomerActions.ArchiveItem(this.item()._id));
-	}
-
-	public async archive(id: string): Promise<void> {
-		await firstValueFrom(this.store.dispatch(
-			new CustomerActions.ArchiveItem(id)));
+		this.store.dispatch([
+			new CustomerActions.ArchiveItem(this.item()._id),
+			new CustomerActions.GetList()
+		]);
 	}
 
 	public open(): void {

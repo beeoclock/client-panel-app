@@ -60,7 +60,7 @@ export class TableListComponent extends TableComponent<ICustomer.Entity> {
 					minWidth: '200px',
 				},
 			},
-			active: {
+			state: {
 				style: {
 					minWidth: '100px',
 				},
