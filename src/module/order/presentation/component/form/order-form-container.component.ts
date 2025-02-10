@@ -40,6 +40,7 @@ import {PaymentActions} from "@module/payment/state/payment/payment.actions";
 import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {AdditionalMenuComponent} from "@event/presentation/component/additional-menu/additional-menu.component";
+import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
 
 @Component({
 	selector: 'app-order-form-container',
@@ -109,14 +110,11 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 
 	// TODO: add input of callback and call it on save
 
-	public readonly form: CreateOrderForm = new CreateOrderForm();
+	public readonly form: CreateOrderForm = CreateOrderForm.create();
 
 	private readonly store = inject(Store);
 	private readonly ngxLogger = inject(NGXLogger);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
-
-	// private readonly createOrderApiAdapter = inject(CreateOrderApiAdapter);
-	// private readonly createPaymentApiAdapter = inject(CreatePaymentApiAdapter);
 
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 
@@ -129,8 +127,8 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	}) {
 
 		const {orderDto, paymentDto} = changes;
-		orderDto && this.patchOrderValue(orderDto);
-		paymentDto && this.form.controls.payment.patchValue(paymentDto.currentValue);
+		if (orderDto) this.patchOrderValue(orderDto);
+		if (paymentDto) this.form.controls.payment.patchValue(paymentDto.currentValue);
 		if (this.isEditMode()) {
 			this.updatePaymentFormWithOrderDto(orderDto.currentValue);
 		}
@@ -206,11 +204,10 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 
 				payment.orderId = order._id;
 
-				console.log({order, payment});
-
 				const actions$ = this.store.dispatch([
 					new OrderActions.CreateItem(order),
-					new PaymentActions.CreateItem(payment)
+					new PaymentActions.CreateItem(payment),
+					new CalendarWithSpecialistsAction.GetItems(),
 				]);
 
 				await firstValueFrom(actions$);
