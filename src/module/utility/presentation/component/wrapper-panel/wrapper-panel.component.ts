@@ -49,7 +49,7 @@ import {
 	BusinessProfileIndexedDBCollectionManager
 } from "@client/infrastructure/manager/business-profile.indexedDB.collection.manager";
 import {IsOnlineService} from "@utility/cdk/is-online.service";
-import {Auth, Unsubscribe} from "@angular/fire/auth";
+import {Auth} from "@angular/fire/auth";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -152,47 +152,12 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 
 	public ngOnInit(): void {
 
-		this.isOnlineService.isOffline$.pipe(this.takeUntil()).subscribe((isOffline) => {
-			console.log({isOffline});
+		this.isOnlineService.isOnline$.pipe(this.takeUntil(), filter(is.true)).subscribe(() => {
 
-			if (!isOffline) {
-				return;
-			}
-
-			console.log('isOffline:identity:', {currentUser: this.auth.currentUser}, this.auth);
-
-			// Check if user is not authorized!
-			if (!this.auth.currentUser) {
-
-				let unsubscribeAuthState: Unsubscribe | undefined = undefined;
-				const awaitOfAuthState = new Promise((resolve) => {
-					unsubscribeAuthState = this.auth.onAuthStateChanged((result) => {
-						if (result) {
-							resolve(result)
-						}
-					});
-				});
-
-				awaitOfAuthState.then((result) => {
-
-					console.log('isOffline:identity:', {result});
-					if (unsubscribeAuthState) {
-						(unsubscribeAuthState as Unsubscribe)();
-					}
-
-				})
-			}
-
-			if (this.auth.currentUser) {
-				this.auth.currentUser.getIdTokenResult(true)
-					.then((token) => {
-						console.log('isOffline:identity:', {token});
-					})
-					.catch((error) => {
-						console.log('isOffline:identity:', {error});
-					});
-
-			}
+			/**
+			 * Sync all data when the user is online
+			 */
+			this.syncManagerService.syncAll().then();
 
 		})
 
