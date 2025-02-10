@@ -1,4 +1,4 @@
-import {Collection, EventEmitter} from '@signaldb/core';
+import {BaseItem, Collection, EventEmitter} from '@signaldb/core';
 import createIndexedDBAdapter from '@signaldb/indexeddb'
 import angularReactivityAdapter from '@signaldb/angular';
 import {SyncManager} from '@signaldb/sync'
@@ -6,13 +6,15 @@ import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {ResponseListType} from "@utility/adapter/base.api.adapter";
 import {inject, Injectable, Optional, SkipSelf} from "@angular/core";
 import {HttpClient, HttpContext} from "@angular/common/http";
-import {BehaviorSubject, filter, firstValueFrom} from "rxjs";
+import {BehaviorSubject, delay, filter, firstValueFrom} from "rxjs";
 import {TokensHttpContext} from "@src/tokens.http-context";
 import {LastSynchronizationInService} from "@utility/cdk/last-synchronization-in.service";
 import {TENANT_ID} from "@src/token";
 import {Reactive} from "@utility/cdk/reactive";
 import {is} from "@utility/checker";
 import {environment} from "@environment/environment";
+
+const paginationEmitter = new EventEmitter();
 
 const errorEmitter = new EventEmitter();
 errorEmitter.on('error', (message: unknown) => {
@@ -28,6 +30,51 @@ const getSyncMangerInstance = (httpClient: HttpClient, tenantId: string) => new 
 	onError: (error) => {
 		console.log('SignalDB:onError', {error})
 	},
+	registerRemoteChange: (collectionOptions, onChange) => {
+		paginationEmitter.on(collectionOptions.name, async (data: {
+			endpoint: {
+				get: string
+			},
+			totalSize: number,
+			updatedSince: string,
+		}) => {
+
+			console.log('SignalDB:registerRemoteChange', {data})
+
+			if (!data) {
+				return;
+			}
+
+			paginationEmitter.emit(`${collectionOptions.name}-start`, data);
+
+			const {endpoint, totalSize, updatedSince} = data;
+
+			const pages = Math.ceil(totalSize / +environment.config.syncManager.pull.pageSize);
+
+			for (let page = 2; page <= pages; page++) {
+				const request$ = httpClient.get<ResponseListType<BaseItem>>(endpoint.get, {
+					params: {
+						orderBy: OrderByEnum.UPDATED_AT,
+						orderDir: OrderDirEnum.DESC,
+						page,
+						pageSize: environment.config.syncManager.pull.pageSize,
+						updatedSince
+					}
+				}).pipe(delay(environment.config.syncManager.pull.delay));
+				const response = await firstValueFrom(request$);
+				await onChange({
+					changes: {
+						added: response.items.map(collectionOptions.create) as unknown as BaseItem[],
+						modified: [],
+						removed: []
+					}
+				});
+			}
+
+			paginationEmitter.emit(`${collectionOptions.name}-finish`, data);
+
+		});
+	},
 	pull: async (something, pullParameters) => {
 		const {endpoint, create, single = false} = something;
 
@@ -42,7 +89,7 @@ const getSyncMangerInstance = (httpClient: HttpClient, tenantId: string) => new 
 
 		const updatedSince = lastFinishedSyncStart ? new Date(lastFinishedSyncStart).toISOString() : new Date(0).toISOString();
 
-		const request$ = httpClient.get<ResponseListType<never>>(endpoint.get, {
+		const request$ = httpClient.get<ResponseListType<BaseItem>>(endpoint.get, {
 			params: {
 				orderBy: OrderByEnum.UPDATED_AT,
 				orderDir: OrderDirEnum.DESC,
@@ -58,25 +105,15 @@ const getSyncMangerInstance = (httpClient: HttpClient, tenantId: string) => new 
 
 		if (totalSize > +environment.config.syncManager.pull.pageSize) {
 
-			const pages = Math.ceil(totalSize / +environment.config.syncManager.pull.pageSize);
-
-			for (let page = 2; page <= pages; page++) {
-				const request$ = httpClient.get<ResponseListType<never>>(endpoint.get, {
-					params: {
-						orderBy: OrderByEnum.UPDATED_AT,
-						orderDir: OrderDirEnum.DESC,
-						page,
-						pageSize: environment.config.syncManager.pull.pageSize,
-						updatedSince
-					}
-				});
-				const response = await firstValueFrom(request$);
-				items = items.concat(response.items);
-			}
+			paginationEmitter.emit(something.name, {
+				...something,
+				totalSize,
+				updatedSince
+			});
 
 		}
 
-		items = items.map(create) as never;
+		items = items.map(create) as unknown as BaseItem[];
 
 		/**
 		 * If lastFinishedSyncStart is available, it means we are in the middle of a sync process, and we need to return only changes.
@@ -185,8 +222,10 @@ export class SyncManagerService extends Reactive {
 
 	public readonly isSyncing$ = this.#isSyncing$.asObservable();
 
-	#syncManager!: SyncManager<Record<string, any>, never, any>;
+	#syncManager!: SyncManager<Record<string, BaseItem>, BaseItem, string>;
 	#tenantId!: string;
+
+	public static readonly isLoadingPerCollection = new Map<string, boolean>();
 
 	public constructor(
 		@Optional()
@@ -223,7 +262,7 @@ export class SyncManagerService extends Reactive {
 
 			this.#syncManager = syncManager;
 
-		})
+		});
 
 	}
 
@@ -262,8 +301,28 @@ export class SyncManagerService extends Reactive {
 
 			this.#syncManager.addCollection(collection, options);
 
+			/**
+			 * Listen to paginationEmitter to get all pages of data from the server
+			 */
+
+			paginationEmitter.on(`${collection.name}-start`, () => {
+				SyncManagerService.isLoadingPerCollection.set(collection.name, true);
+				this.updateSynchronizationStatus();
+			});
+
+			paginationEmitter.on(`${collection.name}-finish`, () => {
+				this.#isSyncing$.next(false);
+				SyncManagerService.isLoadingPerCollection.set(collection.name, false);
+				this.updateSynchronizationStatus();
+			});
+
 		}
 
+	}
+
+	private updateSynchronizationStatus() {
+		const someCollectionLoading = Array.from(SyncManagerService.isLoadingPerCollection.values()).some(is.true);
+		this.#isSyncing$.next(someCollectionLoading);
 	}
 
 	public async syncAll() {
@@ -281,6 +340,6 @@ export class SyncManagerService extends Reactive {
 		return this.lastSynchronizationInService.getLastSynchronizedIn();
 	}
 
-	public static readonly syncMangers = new Map<string, SyncManager<Record<string, any>, never, any>>();
+	public static readonly syncMangers = new Map<string, SyncManager<Record<string, BaseItem>, BaseItem, string>>();
 
 }

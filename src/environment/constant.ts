@@ -23,7 +23,8 @@ export const config = {
 	syncManager: {
 		pull: {
 			pageSize: '100',
-			page: '1'
+			page: '1',
+			delay: 500
 		}
 	}
 };
