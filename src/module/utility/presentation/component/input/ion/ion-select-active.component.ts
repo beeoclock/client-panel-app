@@ -12,7 +12,7 @@ import {is} from "@utility/checker";
 	template: `
 		<ion-select
 			[formControl]="control()"
-			class="!min-h-0"
+			class="!min-h-0 px-4 py-3 border border-beeColor-300 rounded-2xl h-full"
 			fill="solid"
 			interface="popover">
 			@for (status of statusList; track status.id) {

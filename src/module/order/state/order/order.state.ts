@@ -24,6 +24,9 @@ import {AppActions} from "@utility/state/app/app.actions";
 import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
 import {StateEnum} from "@utility/domain/enum/state.enum";
+import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
+import {CustomerIndexedDBFacade} from "@customer/infrastructure/facade/indexedDB/customer.indexedDB.facade";
+import ECustomer from "@customer/domain/entity/e.customer";
 
 export type IOrderState = IBaseState<IOrderDto>;
 
@@ -47,6 +50,7 @@ export class OrderState {
 	private readonly updateOrderApiAdapter = inject(UpdateOrderApiAdapter);
 	private readonly pagedPaymentApiAdapter = inject(PagedPaymentApiAdapter);
 
+	public readonly customerIndexedDBFacade = inject(CustomerIndexedDBFacade);
 	public readonly orderIndexedDBFacade = inject(OrderIndexedDBFacade);
 
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
@@ -337,7 +341,54 @@ export class OrderState {
 
 	@Action(OrderActions.CreateItem)
 	public async createItem(ctx: StateContext<IOrderState>, action: OrderActions.CreateItem) {
-		this.orderIndexedDBFacade.source.insert(EOrder.create(action.payload));
+		/**
+		 * Check customer:
+		 * 1. If customerType === 'new' then we have to check in local storage if customer exists and
+		 * 	  if not then create new customer, but if customer exists then we have to use it
+		 */
+
+		const orderEntity = EOrder.create(action.payload);
+
+		// Resolve new customer case
+		orderEntity.services.forEach((service) => {
+			service.orderAppointmentDetails.attendees.forEach((attendee) => {
+				if (attendee.customer.customerType === CustomerTypeEnum.new) {
+					const customerFound = this.customerIndexedDBFacade.source.findOne({
+						$or: [
+							{
+								// Phone should not be null and should have length > 0 and equal to the phone number
+								phone: {
+									$ne: null,
+									$gt: '',
+									$eq: attendee.customer.phone
+								}
+							},
+							{
+								// E-mail should not be null and should have length > 0 and equal to the phone number
+								email: {
+									$ne: null,
+									$gt: '',
+									$eq: attendee.customer.email
+								}
+							}
+						]
+					});
+
+					if (customerFound) {
+						attendee.customer = customerFound.toDTO();
+					} else {
+						const customerEntity = ECustomer.create({
+							...attendee.customer,
+							customerType: CustomerTypeEnum.regular,
+						});
+						this.customerIndexedDBFacade.source.insert(customerEntity);
+						attendee.customer = customerEntity.toDTO();
+					}
+				}
+			});
+		});
+
+		this.orderIndexedDBFacade.source.insert(orderEntity);
 		await this.closeFormAction(ctx);
 	}
 
@@ -353,10 +404,6 @@ export class OrderState {
 		await this.closeFormAction(ctx);
 		await this.updateOpenedDetailsAction(ctx, {payload: item});
 
-		// await super.updateItem(ctx, action);
-		// ctx.dispatch(new OrderActions.CloseForm(action.payload._id))
-		// const {data} = ctx.getState().item;
-		// if (data) ctx.dispatch(new OrderActions.UpdateOpenedDetails(data));
 	}
 
 	@Action(OrderActions.GetItem)

@@ -56,7 +56,6 @@ import {ReactiveFormsModule} from "@angular/forms";
 
 		<ng-template #ServiceActiveSelect>
 			<ion-select-active
-				class="px-4 py-3 border border-beeColor-300 rounded-2xl"
 				[control]="form.controls.active"/>
 		</ng-template>
 
