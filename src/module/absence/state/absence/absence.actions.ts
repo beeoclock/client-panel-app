@@ -1,5 +1,6 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {IAbsence} from "@absence/domain/interface/i.absence";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 export namespace AbsenceActions {
 
@@ -62,12 +63,14 @@ export namespace AbsenceActions {
 		public static override readonly type = '[Absence API] Update Item';
 	}
 
-	export class ArchiveItem extends BaseActions.ArchiveItem {
-		public static override readonly type = '[Absence API] Archive Item';
-	}
+	export class SetState {
+		public static readonly type = '[Absence API] SetState';
 
-	export class UnarchiveItem extends BaseActions.UnarchiveItem {
-		public static override readonly type = '[Absence API] Unarchive Item';
+		constructor(
+			public readonly id: string,
+			public readonly state: StateEnum,
+		) {
+		}
 	}
 
 	// Updates of state

@@ -13,11 +13,12 @@ import {StateEnum} from "@utility/domain/enum/state.enum";
 	encapsulation: ViewEncapsulation.None,
 	template: `
 		<utility-table-column-action
-			(delete)="delete()"
 			(open)="open()"
 			(edit)="edit()"
 			(deactivate)="deactivate()"
 			(activate)="activate()"
+			(archive)="archive()"
+			(delete)="delete()"
 			[hide]="hide()"
 			[id]="id()"
 			[state]="item().state"/>
@@ -35,12 +36,10 @@ export class RowActionButtonComponent {
 
 	public readonly item = input.required<IAbsence.DTO>();
 
-	private readonly router = inject(Router);
 	private readonly translateService = inject(TranslateService);
+	private readonly router = inject(Router);
 	public readonly returnUrl = this.router.url;
 
-
-	@Dispatch()
 	public delete() {
 
 		const question = this.translateService.instant('absence.action.delete.question');
@@ -49,17 +48,24 @@ export class RowActionButtonComponent {
 			throw new Error('User canceled the action');
 		}
 
-		return new AbsenceActions.DeleteItem(this.item()._id);
+		this.setState(StateEnum.deleted);
 	}
 
-	@Dispatch()
-	public activate() {
-		return new AbsenceActions.UnarchiveItem(this.item()._id);
-	}
-
-	@Dispatch()
 	public deactivate() {
-		return new AbsenceActions.ArchiveItem(this.item()._id);
+		this.setState(StateEnum.inactive);
+	}
+
+	public archive() {
+		this.setState(StateEnum.archived);
+	}
+
+	public activate() {
+		this.setState(StateEnum.active);
+	}
+
+	@Dispatch()
+	public setState(state: StateEnum) {
+		return new AbsenceActions.SetState(this.item()._id, state);
 	}
 
 	@Dispatch()

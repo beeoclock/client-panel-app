@@ -53,23 +53,6 @@ export class RowActionButtonComponent {
 	private readonly router = inject(Router);
 	public readonly returnUrl = this.router.url;
 
-	@Dispatch()
-	public delete() {
-
-		const question = this.translateService.instant('service.action.delete.question');
-
-		if (!confirm(question)) {
-
-			throw new Error('User canceled the action');
-		}
-		return new ServiceActions.DeleteItem(this.item()._id);
-	}
-
-	@Dispatch()
-	public setState(state: StateEnum) {
-		return new ServiceActions.SetState(this.item()._id, state);
-	}
-
 	public open(): void {
 		this.store.dispatch(new ServiceActions.OpenDetails(this.item()));
 	}
@@ -86,6 +69,17 @@ export class RowActionButtonComponent {
 		}));
 	}
 
+	public delete() {
+		const question = this.translateService.instant('service.action.delete.question');
+
+		if (!confirm(question)) {
+
+			throw new Error('User canceled the action');
+		}
+
+		this.setState(StateEnum.deleted);
+	}
+
 	public deactivate() {
 		this.setState(StateEnum.inactive);
 	}
@@ -96,5 +90,10 @@ export class RowActionButtonComponent {
 
 	public activate() {
 		this.setState(StateEnum.active);
+	}
+
+	@Dispatch()
+	public setState(state: StateEnum) {
+		return new ServiceActions.SetState(this.item()._id, state);
 	}
 }

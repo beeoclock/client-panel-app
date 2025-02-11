@@ -14,6 +14,7 @@ import {TableState} from "@utility/domain/table.state";
 import {getMaxPage} from "@utility/domain/max-page";
 import {StateEnum} from "@utility/domain/enum/state.enum";
 import EAbsence from "@absence/domain/entity/e.absence";
+import {ServiceActions} from "@service/state/service/service.actions";
 
 export type IAbsenceState = IBaseState<IAbsence.DTO>;
 
@@ -270,13 +271,19 @@ export class AbsenceState {
 
 			const params = newTableState.toBackendFormat();
 
+			const inState = (
+				params?.state ?
+					[params.state] :
+					[StateEnum.active, StateEnum.archived, StateEnum.inactive]
+			);
+
 			const selector = {
 				$and: [
-					...((newTableState.filters?.phrase as string)?.length ? [{
+					...((params?.phrase as string)?.length ? [{
 						$or: phraseFields.map((field) => {
 							return {
 								[field]: {
-									$regex: newTableState.filters.phrase,
+									$regex: params.phrase,
 									$options: "i"
 								}
 							}
@@ -284,7 +291,7 @@ export class AbsenceState {
 					}] : []),
 					{
 						state: {
-							$in: [StateEnum.active, StateEnum.archived, StateEnum.inactive]
+							$in: inState
 						}
 					}
 				]
@@ -320,61 +327,33 @@ export class AbsenceState {
 		await firstValueFrom(ctx.dispatch(new AppActions.PageLoading(false)));
 	}
 
-	@Action(AbsenceActions.ArchiveItem)
-	public async archiveItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.ArchiveItem) {
+	@Action(AbsenceActions.SetState)
+	public async setState(ctx: StateContext<IAbsenceState>, {id, state}: AbsenceActions.SetState) {
 		const item = this.absenceIndexedDBFacade.source.findOne({
-			id: action.payload
+			id
 		});
 		if (!item) {
-			this.ngxLogger.error('AbsenceState.archiveItem', 'Item not found');
+			this.ngxLogger.error('AbsenceState.setState', 'Item not found');
 			return;
 		}
 		this.absenceIndexedDBFacade.source.updateOne({
-				id: action.payload
+				id
 			},
 			{
 				$set: {
-					status: StateEnum.archived,
+					state,
 					stateHistory: [
 						...item.stateHistory,
 						{
-							state: StateEnum.archived,
+							state,
 							setAt: new Date().toISOString()
 						}
 					]
 				}
 			});
-		await this.updateOpenedDetailsAction(ctx, {payload: item});
-		ctx.dispatch(new AbsenceActions.GetList());
-	}
-
-	@Action(AbsenceActions.UnarchiveItem)
-	public async unarchiveItem(ctx: StateContext<IAbsenceState>, action: AbsenceActions.UnarchiveItem) {
-		const item = this.absenceIndexedDBFacade.source.findOne({
-			id: action.payload
-		});
-		if (!item) {
-			this.ngxLogger.error('AbsenceState.unarchiveItem', 'Item not found');
-			return;
-		}
-
-		this.absenceIndexedDBFacade.source.updateOne({
-				id: action.payload
-			},
-			{
-				$set: {
-					status: StateEnum.active,
-					stateHistory: [
-						...item.stateHistory,
-						{
-							state: StateEnum.active,
-							setAt: new Date().toISOString()
-						}
-					]
-				}
-			});
-		await this.updateOpenedDetailsAction(ctx, {payload: item});
-		ctx.dispatch(new AbsenceActions.GetList());
+		const {data} = ctx.getState().item;
+		if (data) await this.updateOpenedDetailsAction(ctx, {payload: item});
+		ctx.dispatch(new ServiceActions.GetList());
 	}
 
 	// Selectors
