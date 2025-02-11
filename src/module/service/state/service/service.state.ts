@@ -87,7 +87,11 @@ export class ServiceState {
 						renderedComponentRef.setInput('item', payload);
 						return;
 					}
-					this.ngxLogger.error('ServiceState.updateOpenedDetails', 'Item not found', {payload, _id, renderedComponentRef});
+					this.ngxLogger.error('ServiceState.updateOpenedDetails', 'Item not found', {
+						payload,
+						_id,
+						renderedComponentRef
+					});
 				}
 			});
 
@@ -269,17 +273,26 @@ export class ServiceState {
 				newTableState.filters = {};
 			}
 
-			const phraseFields = ['firstName', 'lastName'];
+			const phraseFields = [
+				'languageVersions.title',
+				'languageVersions.description',
+			];
 
 			const params = newTableState.toBackendFormat();
 
+			const inState = (
+				params?.state ?
+					[params.state] :
+					[StateEnum.active, StateEnum.archived, StateEnum.inactive]
+			);
+
 			const selector = {
 				$and: [
-					...((newTableState.filters?.phrase as string)?.length ? [{
+					...((params?.phrase as string)?.length ? [{
 						$or: phraseFields.map((field) => {
 							return {
 								[field]: {
-									$regex: newTableState.filters.phrase,
+									$regex: params.phrase,
 									$options: "i"
 								}
 							}
@@ -287,7 +300,7 @@ export class ServiceState {
 					}] : []),
 					{
 						state: {
-							$in: [StateEnum.active, StateEnum.archived, StateEnum.inactive]
+							$in: inState
 						}
 					}
 				]
@@ -324,55 +337,25 @@ export class ServiceState {
 
 	}
 
-	@Action(ServiceActions.ArchiveItem)
-	public async archiveItem(ctx: StateContext<IServiceState>, action: ServiceActions.ArchiveItem) {
+	@Action(ServiceActions.SetState)
+	public async setState(ctx: StateContext<IServiceState>, {id, state}: ServiceActions.SetState) {
 		const item = this.serviceIndexedDBFacade.source.findOne({
-			id: action.payload
+			id
 		});
 		if (!item) {
-			this.ngxLogger.error('ServiceState.archiveItem', 'Item not found');
+			this.ngxLogger.error('ServiceState.setState', 'Item not found');
 			return;
 		}
 		this.serviceIndexedDBFacade.source.updateOne({
-				id: action.payload
+				id
 			},
 			{
 				$set: {
-					status: StateEnum.archived,
+					state,
 					stateHistory: [
 						...item.stateHistory,
 						{
-							state: StateEnum.archived,
-							setAt: new Date().toISOString()
-						}
-					]
-				}
-			});
-		const {data} = ctx.getState().item;
-		if (data) await this.updateOpenedDetails(ctx, {payload: item});
-		ctx.dispatch(new ServiceActions.GetList());
-	}
-
-	@Action(ServiceActions.UnarchiveItem)
-	public async unarchiveItem(ctx: StateContext<IServiceState>, action: ServiceActions.UnarchiveItem) {
-		const item = this.serviceIndexedDBFacade.source.findOne({
-			id: action.payload
-		});
-		if (!item) {
-			this.ngxLogger.error('ServiceState.unarchiveItem', 'Item not found');
-			return;
-		}
-
-		this.serviceIndexedDBFacade.source.updateOne({
-				id: action.payload
-			},
-			{
-				$set: {
-					status: StateEnum.active,
-					stateHistory: [
-						...item.stateHistory,
-						{
-							state: StateEnum.active,
+							state,
 							setAt: new Date().toISOString()
 						}
 					]

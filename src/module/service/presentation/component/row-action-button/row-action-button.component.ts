@@ -1,12 +1,12 @@
 import {Component, inject, input, ViewEncapsulation} from "@angular/core";
 import {ActionComponent} from "@utility/presentation/component/table/column/action.component";
-import {firstValueFrom} from "rxjs";
 import {Store} from "@ngxs/store";
 import {ServiceActions} from "@service/state/service/service.actions";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {IService} from "@service/domain/interface/i.service";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 
 @Component({
@@ -17,6 +17,7 @@ import {IService} from "@service/domain/interface/i.service";
 		<utility-table-column-action
 			(activate)="activate()"
 			(deactivate)="deactivate()"
+			(archive)="archive()"
 			(delete)="delete()"
 			(open)="open()"
 			(edit)="edit()"
@@ -64,12 +65,9 @@ export class RowActionButtonComponent {
 		return new ServiceActions.DeleteItem(this.item()._id);
 	}
 
-	public activate(): void {
-		this.store.dispatch(new ServiceActions.UnarchiveItem(this.item()._id));
-	}
-
-	public deactivate(): void {
-		this.store.dispatch(new ServiceActions.ArchiveItem(this.item()._id));
+	@Dispatch()
+	public setState(state: StateEnum) {
+		return new ServiceActions.SetState(this.item()._id, state);
 	}
 
 	public open(): void {
@@ -88,9 +86,15 @@ export class RowActionButtonComponent {
 		}));
 	}
 
-	public async archive(id: string): Promise<void> {
-		await firstValueFrom(this.store.dispatch(
-			new ServiceActions.ArchiveItem(id)));
+	public deactivate() {
+		this.setState(StateEnum.inactive);
 	}
 
+	public archive() {
+		this.setState(StateEnum.archived);
+	}
+
+	public activate() {
+		this.setState(StateEnum.active);
+	}
 }

@@ -1,5 +1,6 @@
 import hash_sum from "hash-sum";
 import {ActiveEnum, OrderByEnum, OrderDirEnum} from "./enum";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 export interface ITableState<ITEM> {
 	hashSum: string;
@@ -9,6 +10,7 @@ export interface ITableState<ITEM> {
 	filters: {
 		search?: string;
 		active?: string | ActiveEnum;
+		state?: StateEnum;
 		[key: string]: undefined | unknown;
 	};
 	page: number;

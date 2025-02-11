@@ -96,8 +96,8 @@ export class ActionComponent {
 	public readonly delete = output<string>();
 
 	public readonly activate = output<string>();
-
 	public readonly deactivate = output<string>();
+	public readonly archive = output<string>();
 
 	private readonly router = inject(Router);
 

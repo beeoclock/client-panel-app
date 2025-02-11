@@ -1,5 +1,6 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {IService} from "@service/domain/interface/i.service";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 export namespace ServiceActions {
 
@@ -52,12 +53,14 @@ export namespace ServiceActions {
 		public static override readonly type = '[Service API] Delete Item';
 	}
 
-	export class ArchiveItem extends BaseActions.ArchiveItem {
-		public static override readonly type = '[Service API] Archive Item';
-	}
+	export class SetState {
+		public static readonly type = '[Service API] SetState';
 
-	export class UnarchiveItem extends BaseActions.UnarchiveItem {
-		public static override readonly type = '[Service API] Unarchive Item';
+		constructor(
+			public readonly id: string,
+			public readonly state: StateEnum,
+		) {
+		}
 	}
 
 	export class GetItem extends BaseActions.GetItem {
