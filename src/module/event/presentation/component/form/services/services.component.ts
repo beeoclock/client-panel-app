@@ -20,7 +20,6 @@ import {Reactive} from "@utility/cdk/reactive";
 import {RIMember} from "@member/domain";
 import {BooleanState} from "@utility/domain";
 import {TableState} from "@utility/domain/table.state";
-import {ItemMemberApiAdapter} from "@member/infrastructure/api/item.member.api.adapter";
 import {
 	LanguageVersionOrderControlComponent
 } from "@event/presentation/component/form/services/language-version/language-version.order.control.component";
@@ -30,6 +29,7 @@ import {
 	ModalSelectServiceListRepository
 } from "@service/infrastructure/repository/modal-select-service.list.repository";
 import {IService} from "@service/domain/interface/i.service";
+import {MemberIndexedDBFacade} from "@member/infrastructure/facade/indexedDB/member.indexedDB.facade";
 
 @Component({
 	selector: 'event-service-component',
@@ -72,7 +72,8 @@ export class ServicesComponent extends Reactive implements OnInit {
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly modalSelectServiceListRepository = inject(ModalSelectServiceListRepository);
 	public readonly loading$ = this.modalSelectServiceListRepository.loading$;
-	private readonly itemMemberApiAdapter = inject(ItemMemberApiAdapter);
+	// private readonly itemMemberApiAdapter = inject(ItemMemberApiAdapter);
+	private readonly memberIndexedDBFacade = inject(MemberIndexedDBFacade);
 	private readonly memberHasBeenSet = new BooleanState(false);
 
 	private lastSelectedMember: RIMember | undefined;
@@ -116,7 +117,13 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 		if (member) {
 			if (!member.assignments.service.full) {
-				const memberWithPopulateServices = await this.itemMemberApiAdapter.executeAsync(member._id);
+				// const memberWithPopulateServices = await this.itemMemberApiAdapter.executeAsync(member._id);
+				const memberWithPopulateServices = this.memberIndexedDBFacade.source.findOne({
+					_id: member._id
+				});
+				if (!memberWithPopulateServices) {
+					return;
+				}
 				const items = memberWithPopulateServices.assignments.service.include.map(({service}) => service as unknown as IServiceDto);
 				useTableStateFromStore = false;
 				tableState = new TableState<IServiceDto>().setItems(items).setTotal(items.length).toCache();
