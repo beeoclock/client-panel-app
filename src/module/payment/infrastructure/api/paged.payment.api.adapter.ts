@@ -3,8 +3,8 @@ import {BaseApiAdapter, ResponseListType} from "@utility/adapter/base.api.adapte
 import {TypeGuard} from "@p4ck493/ts-type-guard";
 import {is} from "@utility/checker";
 import {TableState_BackendFormat} from "@utility/domain/table.state";
-import {PaymentEndpoint} from '../../endpoint/payment.endpoint';
-import {IPaymentDto} from "@module/payment/domain/interface/dto/i.payment.dto";
+import {PaymentEndpoint} from '../endpoint/payment.endpoint';
+import {IPaymentDto} from "@module/payment/domain/interface/i.payment";
 
 type TParams = TableState_BackendFormat;
 

@@ -49,7 +49,10 @@ import {
 	BusinessProfileIndexedDBCollectionManager
 } from "@client/infrastructure/manager/business-profile.indexedDB.collection.manager";
 import {IsOnlineService} from "@utility/cdk/is-online.service";
-import {Auth} from "@angular/fire/auth";
+import {
+	PaymentIndexedDBCollectionManager
+} from "@module/payment/infrastructure/manager/payment.indexedDB.collection.manager";
+import {PaymentIndexedDBFacade} from "@module/payment/infrastructure/facade/indexedDB/payment.indexedDB.facade";
 
 @Component({
 	selector: 'utility-wrapper-panel-component',
@@ -118,6 +121,11 @@ import {Auth} from "@angular/fire/auth";
 		 */
 		BusinessProfileIndexedDBCollectionManager,
 		BusinessProfileIndexedDBFacade,
+		/**
+		 * Payment
+		 */
+		PaymentIndexedDBCollectionManager,
+		PaymentIndexedDBFacade,
 	],
 	encapsulation: ViewEncapsulation.None
 })
@@ -133,7 +141,6 @@ export default class WrapperPanelComponent extends Reactive implements OnInit, A
 	private readonly isOnlineService = inject(IsOnlineService);
 	private readonly syncManagerService = inject(SyncManagerService);
 	private readonly tenantId$ = inject(TENANT_ID);
-	private readonly auth = inject(Auth);
 
 	public readonly token$ = this.store.select(IdentityState.token);
 

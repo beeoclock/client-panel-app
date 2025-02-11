@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
-import {IPaymentDto} from "@module/payment/domain/interface/dto/i.payment.dto";
-import {PaymentEndpoint} from "@module/payment/external/endpoint/payment.endpoint";
+import {IPaymentDto} from "@module/payment/domain/interface/i.payment";
+import {PaymentEndpoint} from "@module/payment/infrastructure/endpoint/payment.endpoint";
 
 @Injectable({
 	providedIn: 'root'

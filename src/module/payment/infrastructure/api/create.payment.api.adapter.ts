@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
-import {PaymentEndpoint} from "@module/payment/external/endpoint/payment.endpoint";
-import {IPaymentDto} from "@module/payment/domain/interface/dto/i.payment.dto";
+import {PaymentEndpoint} from "@module/payment/infrastructure/endpoint/payment.endpoint";
+import {IPaymentDto} from "@module/payment/domain/interface/i.payment";
 
 @Injectable({
     providedIn: 'root'

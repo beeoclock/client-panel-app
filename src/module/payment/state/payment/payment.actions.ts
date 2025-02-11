@@ -1,5 +1,5 @@
 import {BaseActions} from "@utility/state/base/base.actions";
-import {IPaymentDto} from "@module/payment/domain/interface/dto/i.payment.dto";
+import {IPayment} from "@module/payment/domain/interface/i.payment";
 
 export namespace PaymentActions {
 
@@ -13,11 +13,11 @@ export namespace PaymentActions {
 		public static override readonly type = '[Payment Application] Close Form';
 	}
 
-	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<IPaymentDto> {
+	export class UpdateOpenedDetails extends BaseActions.UpdateOpenedDetails<IPayment.DTO> {
 		public static override readonly type = '[Payment Application] Update Opened Details';
 	}
 
-	export class OpenDetails extends BaseActions.OpenDetails<IPaymentDto> {
+	export class OpenDetails extends BaseActions.OpenDetails<IPayment.DTO> {
 		public static override readonly type = '[Payment Application] Open Details';
 	}
 
@@ -31,7 +31,7 @@ export namespace PaymentActions {
 
 	export class OpenForm extends BaseActions.OpenForm<{
 		isEditMode?: boolean;
-		item?: IPaymentDto;
+		item?: IPayment.DTO;
 	}> {
 		public static override readonly type = '[Payment Application] Open Form';
 	}
@@ -54,11 +54,11 @@ export namespace PaymentActions {
 		public static override readonly type = '[Payment API] Get Item';
 	}
 
-	export class CreateItem extends BaseActions.CreateItem<IPaymentDto> {
+	export class CreateItem extends BaseActions.CreateItem<IPayment.DTO> {
 		public static override readonly type = '[Payment API] Create Item';
 	}
 
-	export class UpdateItem extends BaseActions.UpdateItem<IPaymentDto> {
+	export class UpdateItem extends BaseActions.UpdateItem<IPayment.DTO> {
 		public static override readonly type = '[Payment API] Update Item';
 	}
 
@@ -66,7 +66,7 @@ export namespace PaymentActions {
 		public static readonly type = '[Payment API] Put Item';
 
 		constructor(
-			public readonly payload: { item: IPaymentDto }
+			public readonly payload: { item: IPayment.DTO }
 		) {
 		}
 	}
@@ -77,7 +77,7 @@ export namespace PaymentActions {
 		public static override readonly type = '[Payment State] Update Filters';
 	}
 
-	export class UpdateTableState extends BaseActions.UpdateTableState<IPaymentDto> {
+	export class UpdateTableState extends BaseActions.UpdateTableState<IPayment.DTO> {
 		public static override readonly type = '[Payment State] Update Table State';
 	}
 

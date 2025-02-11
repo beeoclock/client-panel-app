@@ -23,7 +23,6 @@ import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
 import {Store} from "@ngxs/store";
 import {NGXLogger} from "ngx-logger";
 import {CreateOrderForm} from "@order/presentation/form/create.order.form";
-import {IPaymentDto} from "@module/payment/domain/interface/dto/i.payment.dto";
 import {
 	PaymentOrderFormContainerComponent
 } from "@order/presentation/component/form/payment.order-form-container.component";
@@ -41,6 +40,7 @@ import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {AdditionalMenuComponent} from "@event/presentation/component/additional-menu/additional-menu.component";
 import {CalendarWithSpecialistsAction} from "@event/state/calendar-with-specialists/calendar-with-specialists.action";
+import {IPayment} from "@module/payment/domain/interface/i.payment";
 
 @Component({
 	selector: 'app-order-form-container',
@@ -98,7 +98,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 		customer?: ICustomer.Entity;
 	}>({});
 	public readonly orderDto = input<Partial<IOrderDto>>({});
-	public readonly paymentDto = input<Partial<IPaymentDto>>({});
+	public readonly paymentDto = input<Partial<IPayment.DTO>>({});
 	public readonly isEditMode = input<boolean>(false);
 	public readonly firstStepOnInit = input<{
 		openServiceForm: boolean;
@@ -177,7 +177,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	 * @param item
 	 * @private
 	 */
-	private dispatchPutPaymentAction$(item: IPaymentDto) {
+	private dispatchPutPaymentAction$(item: IPayment.DTO) {
 		const action = new PaymentActions.PutItem({
 			item
 		});
@@ -185,7 +185,7 @@ export class OrderFormContainerComponent extends Reactive implements OnInit, OnD
 	}
 
 	private async finishSave() {
-		const {order, payment} = this.form.value as { order: IOrderDto, payment: IPaymentDto };
+		const {order, payment} = this.form.value as { order: IOrderDto, payment: IPayment.DTO };
 		this.form.disable();
 		this.form.markAsPending();
 

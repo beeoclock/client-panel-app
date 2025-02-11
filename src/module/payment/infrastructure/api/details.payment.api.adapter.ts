@@ -3,7 +3,7 @@ import {BaseApiAdapter} from "@utility/adapter/base.api.adapter";
 import {HttpContext} from "@angular/common/http";
 import {TokensHttpContext} from "@src/tokens.http-context";
 import {absenceEndpointEnum} from "@absence/infrastructure/endpoint/absenceEndpointEnum";
-import {IPaymentDto} from "@module/payment/domain/interface/dto/i.payment.dto";
+import {IPaymentDto} from "@module/payment/domain/interface/i.payment";
 
 @Injectable({
 	providedIn: 'root'

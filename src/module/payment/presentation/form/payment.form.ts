@@ -6,7 +6,7 @@ import {BaseEntityForm} from "@utility/base.form";
 import {FormControl} from "@angular/forms";
 import {CustomerForm} from "@customer/presentation/form";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
-import {IPaymentDto} from "@module/payment/domain/interface/dto/i.payment.dto";
+import {IPayment} from "@module/payment/domain/interface/i.payment";
 
 export interface IPaymentForm {
     providerPaymentRef: FormControl<string | null>;
@@ -48,7 +48,7 @@ export class PaymentForm extends BaseEntityForm<'PaymentDto', IPaymentForm> {
         });
     }
 
-    public static create(initValue: Partial<IPaymentDto> = {}): PaymentForm {
+    public static create(initValue: Partial<IPayment.DTO> = {}): PaymentForm {
 
         const form = new PaymentForm();
 

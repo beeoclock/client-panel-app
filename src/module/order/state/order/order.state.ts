@@ -3,18 +3,14 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
 import {ActiveEnum, OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {TranslateService} from "@ngx-translate/core";
-import {UpdateOrderApiAdapter} from "@order/infrastructure/api/update.order.api.adapter";
 import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
 import {OrderActions} from "@order/state/order/order.actions";
-import {PagedPaymentApiAdapter} from "@module/payment/external/adapter/api/paged.payment.api.adapter";
-import {UpdateServiceOrderApiAdapter} from "@order/infrastructure/api/update.service.order.api.adapter";
 import {IOrderServiceDto} from "@order/domain/interface/i.order-service.dto";
 import {ContainerFormComponent} from "@event/presentation/component/form/container.form.component";
 import {IEvent} from "@event/domain";
 import {ReservationTypeEnum} from "@order/domain/enum/reservation.type.enum";
 import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {ServiceOrderForm} from "@order/presentation/form/service.order.form";
-import {PatchStatusOrderApiAdapter} from "@order/infrastructure/api/status/patch.status.order.api.adapter";
 import {WhacAMoleProvider} from "@utility/presentation/whac-a-mole/whac-a-mole.provider";
 import {NGXLogger} from "ngx-logger";
 import {OrderIndexedDBFacade} from "@order/infrastructure/facade/indexedDB/order.indexedDB.facade";
@@ -27,6 +23,7 @@ import {StateEnum} from "@utility/domain/enum/state.enum";
 import {CustomerTypeEnum} from "@customer/domain/enum/customer-type.enum";
 import {CustomerIndexedDBFacade} from "@customer/infrastructure/facade/indexedDB/customer.indexedDB.facade";
 import ECustomer from "@customer/domain/entity/e.customer";
+import {PaymentIndexedDBFacade} from "@module/payment/infrastructure/facade/indexedDB/payment.indexedDB.facade";
 
 export type IOrderState = IBaseState<IOrderDto>;
 
@@ -44,14 +41,9 @@ const defaults = baseDefaults<IOrderDto>({
 @Injectable()
 export class OrderState {
 
-	private readonly updateServiceOrderApiAdapter = inject(UpdateServiceOrderApiAdapter);
-	private readonly patchStatusOrderApiAdapter = inject(PatchStatusOrderApiAdapter);
-
-	private readonly updateOrderApiAdapter = inject(UpdateOrderApiAdapter);
-	private readonly pagedPaymentApiAdapter = inject(PagedPaymentApiAdapter);
-
 	public readonly customerIndexedDBFacade = inject(CustomerIndexedDBFacade);
 	public readonly orderIndexedDBFacade = inject(OrderIndexedDBFacade);
+	public readonly paymentIndexedDBFacade = inject(PaymentIndexedDBFacade);
 
 	private readonly whacAMaleProvider = inject(WhacAMoleProvider);
 	private readonly translateService = inject(TranslateService);
@@ -153,7 +145,6 @@ export class OrderState {
 
 		await this.whacAMaleProvider.buildItAsync({
 			title,
-			showLoading: true,
 			component: OrderDetailsContainerComponent,
 			componentInputs: {item},
 		});
@@ -181,22 +172,9 @@ export class OrderState {
 
 		const {OrderFormContainerComponent} = await import("@order/presentation/component/form/order-form-container.component");
 
-		await this.whacAMaleProvider.buildItAsync({
-			title,
-			id: whacamoleId,
-			component: OrderFormContainerComponent,
-			componentInputs: {},
-			showLoading: true,
-		});
-
-		const paymentResponse = await this.pagedPaymentApiAdapter.executeAsync({
+		const paymentEntity = this.paymentIndexedDBFacade.source.findOne({
 			orderId: action.payload,
-			page: 1,
-			pageSize: 1,
-			orderBy: OrderByEnum.CREATED_AT,
-			orderDir: OrderDirEnum.DESC,
 		});
-		const paymentDto = paymentResponse.items[0];
 
 		await this.whacAMaleProvider.buildItAsync({
 			title,
@@ -204,7 +182,7 @@ export class OrderState {
 			component: OrderFormContainerComponent,
 			componentInputs: {
 				orderDto,
-				paymentDto,
+				paymentDto: paymentEntity,
 				isEditMode: true,
 			},
 		});
@@ -291,7 +269,14 @@ export class OrderState {
 				} as unknown as IServiceDto,
 			});
 
-			this.updateServiceOrderApiAdapter.executeAsync(orderId, orderServiceForm.value);
+			// this.updateServiceOrderApiAdapter.executeAsync(orderId, orderServiceForm.value);
+			this.orderIndexedDBFacade.source.updateOne({
+				id: orderId
+			}, {
+				$push: {
+					services: orderServiceForm.value
+				}
+			})
 
 			// TODO: call function to increase defaultAppointmentStartDateTimeIso
 
@@ -516,7 +501,12 @@ export class OrderState {
 
 	@Action(OrderActions.PutItem)
 	public async putItem(ctx: StateContext<IOrderState>, action: OrderActions.PutItem): Promise<void> {
-		await this.updateOrderApiAdapter.executeAsync(action.payload.item);
+		// await this.updateOrderApiAdapter.executeAsync(action.payload.item);
+		this.orderIndexedDBFacade.source.updateOne({
+			id: action.payload.item._id
+		}, {
+			$set: action.payload.item
+		});
 	}
 
 	// Selectors
