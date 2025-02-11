@@ -20,8 +20,6 @@ import {IOrderServiceDto} from "@order/domain/interface/i.order-service.dto";
 import {IAbsence} from "@absence/domain/interface/i.absence";
 import {DateTime} from "luxon";
 import {RIMember} from "@member/domain";
-import {UpdateServiceOrderApiAdapter} from "@order/infrastructure/api/update.service.order.api.adapter";
-import {UpdateAbsenceApiAdapter} from "@absence/infrastructure/api/update.order.api.adapter";
 import {NGXLogger} from "ngx-logger";
 import {AlertController} from "@ionic/angular";
 import {TranslateService} from "@ngx-translate/core";
@@ -33,6 +31,10 @@ import {
 } from "@page/event/calendar-with-specialists/v2/component/elements-on-calendar/absence-event.calendar-with-specialist.widget.component";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {CalendarWithSpecialistsQueries} from "@event/state/calendar-with-specialists/calendar–with-specialists.queries";
+import {Store} from "@ngxs/store";
+import {firstValueFrom} from "rxjs";
+import {OrderActions} from "@order/state/order/order.actions";
+import {AbsenceActions} from "@absence/state/absence/absence.actions";
 
 type DATA = IEvent_V2<{ order: IOrderDto; service: IOrderServiceDto; } | IAbsence.DTO>;
 
@@ -130,10 +132,9 @@ export class EventCalendarWithSpecialistWidgetComponent {
 		memberId: string | undefined;
 	} | null = null;
 	private readonly ngxLogger = inject(NGXLogger);
+	private readonly store = inject(Store);
 	private readonly renderer2 = inject(Renderer2);
 	private readonly changeDetectorRef = inject(ChangeDetectorRef);
-	private readonly updateServiceOrderApiAdapter = inject(UpdateServiceOrderApiAdapter);
-	private readonly updateAbsenceApiAdapter = inject(UpdateAbsenceApiAdapter);
 	private readonly alertController = inject(AlertController);
 	private readonly translateService = inject(TranslateService);
 	private saveInProgress = false;
@@ -323,17 +324,32 @@ export class EventCalendarWithSpecialistWidgetComponent {
 				const durationInSeconds = DateTime.fromISO(this.item.end).diff(DateTime.fromISO(this.item.start), 'seconds').seconds;
 				const editedService = this.item.originalData.service;
 				editedService.serviceSnapshot.durationVersions[0].durationInSeconds = durationInSeconds;
-				await this.updateServiceOrderApiAdapter.executeAsync(this.item.originalData.order._id, {
-					serviceSnapshot: editedService.serviceSnapshot,
-					orderAppointmentDetails: editedService.orderAppointmentDetails,
-					_id: editedService._id,
-					status: editedService.status
-				});
+
+				const {order} = this.item.originalData;
+				const action = new OrderActions.UpdateItem({
+					...order,
+					services: order.services.map(service => {
+						if (editedService._id === service._id) {
+							return {
+								...service,
+								serviceSnapshot: editedService.serviceSnapshot,
+								orderAppointmentDetails: editedService.orderAppointmentDetails,
+								_id: editedService._id,
+								status: editedService.status
+							};
+						}
+						return service;
+					})
+				})
+				const action$ = this.store.dispatch(action);
+				await firstValueFrom(action$);
 				this.item = structuredClone(this.item);
 			}
 
 			if (this.isAbsence(this.item)) {
-				await this.updateAbsenceApiAdapter.executeAsync(this.item.originalData);
+				const action = new AbsenceActions.UpdateItem(this.item.originalData);
+				const action$ = this.store.dispatch(action);
+				await firstValueFrom(action$);
 				this.item = structuredClone(this.item);
 			}
 
