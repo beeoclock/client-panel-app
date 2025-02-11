@@ -134,7 +134,6 @@ export class MemberState {
 
 		await this.whacAMaleProvider.buildItAsync({
 			title,
-			showLoading: true,
 			component: MemberDetailsContainerComponent,
 			componentInputs: {
 				item
