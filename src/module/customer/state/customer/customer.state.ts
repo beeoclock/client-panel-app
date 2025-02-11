@@ -132,7 +132,6 @@ export class CustomerState {
 
 		await this.whacAMaleProvider.buildItAsync({
 			title,
-			showLoading: true,
 			component: CustomerDetailsContainerComponent,
 			componentInputs: {item},
 		});
