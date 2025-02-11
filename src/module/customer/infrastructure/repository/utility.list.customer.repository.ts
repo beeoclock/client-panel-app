@@ -1,9 +1,9 @@
 import {inject, Injectable} from '@angular/core';
 import {TableState} from "@utility/domain/table.state";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import {ListCustomerApiAdapter} from "@customer/infrastructure/api/list.customer.api.adapter";
 import * as Customer from "@customer/domain";
 import {NGXLogger} from "ngx-logger";
+import {CustomerIndexedDBFacade} from "@customer/infrastructure/facade/indexedDB/customer.indexedDB.facade";
 
 @Injectable({
 	providedIn: 'root'
@@ -11,7 +11,7 @@ import {NGXLogger} from "ngx-logger";
 export class UtilityListCustomerRepository {
 
 	private readonly logger = inject(NGXLogger);
-	public readonly listCustomerApiAdapter = inject(ListCustomerApiAdapter);
+	public readonly customerIndexedDBFacade = inject(CustomerIndexedDBFacade);
 	public readonly tableState = new TableState<Customer.ICustomer.Entity>();
 	public readonly loading$ = new BooleanStreamState(false);
 
@@ -34,24 +34,26 @@ export class UtilityListCustomerRepository {
 		}
 
 		this.loading$.doTrue();
+		// TODO
 
-		try {
-
-			const data = await this.listCustomerApiAdapter.executeAsync(this.tableState.toBackendFormat());
-
-			if (data.items.length === this.tableState.pageSize || this.tableState.page > 1) {
-				this.tableState.nextPage().setItems(([] as Customer.ICustomer[]).concat(this.tableState.items, data.items))
-			} else {
-
-				// Add items to tableState
-				this.tableState.setItems(data.items);
-			}
-
-			this.tableState.setTotal(data.totalSize);
-
-		} catch (e) {
-			this.logger.error(e);
-		}
+		// try {
+		//
+		// 	const params = this.tableState.toBackendFormat();
+		// 	const data = this.customerIndexedDBFacade.source.find();
+		//
+		// 	if (data.items.length === this.tableState.pageSize || this.tableState.page > 1) {
+		// 		this.tableState.nextPage().setItems(([] as Customer.ICustomer[]).concat(this.tableState.items, data.items))
+		// 	} else {
+		//
+		// 		// Add items to tableState
+		// 		this.tableState.setItems(data.items);
+		// 	}
+		//
+		// 	this.tableState.setTotal(data.totalSize);
+		//
+		// } catch (e) {
+		// 	this.logger.error(e);
+		// }
 
 		this.loading$.doFalse();
 
