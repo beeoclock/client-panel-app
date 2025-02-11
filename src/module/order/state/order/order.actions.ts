@@ -2,9 +2,9 @@ import {BaseActions} from "@utility/state/base/base.actions";
 import {IOrderDto} from "@order/domain/interface/details/i.order.dto";
 import {RIMember} from "@member/domain";
 import {IOrderServiceDto} from "@order/domain/interface/i.order-service.dto";
-import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 import {IServiceDto} from "@order/domain/interface/i.service.dto";
 import {ICustomer} from "@customer/domain";
+import {OrderStatusEnum} from "@order/domain/enum/order.status.enum";
 
 export namespace OrderActions {
 

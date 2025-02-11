@@ -321,7 +321,21 @@ export class OrderState {
 
 	@Action(OrderActions.ChangeStatus)
 	public async changeStatusActionHandler(ctx: StateContext<IOrderState>, action: OrderActions.ChangeStatus): Promise<void> {
-		await this.patchStatusOrderApiAdapter.executeAsync(action.payload.id, action.payload.status);
+		// await this.patchStatusOrderApiAdapter.executeAsync(action.payload.id, action.payload.status);
+		const foundOrder = this.orderIndexedDBFacade.source.findOne({
+			id: action.payload.id
+		});
+		if (!foundOrder) {
+			return;
+		}
+		const orderEntity = EOrder.create(foundOrder);
+		orderEntity.status = action.payload.status;
+		this.orderIndexedDBFacade.source.updateOne({
+			id: action.payload.id
+		}, {
+			$set: orderEntity
+		});
+
 	}
 
 	@Action(OrderActions.Init)
