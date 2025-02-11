@@ -1033,6 +1033,7 @@
 			"anonymous": "Anonym",
 			"approvalType": "Godkendelsestype",
 			"approve": "Godkend",
+			"archived": "Arkiveret",
 			"attendees": "Deltagere",
 			"autoActionOnOrderInSeconds": "Automatisk handlings starttid",
 			"autoActionTypeOnOrder": "Type automatisk handling",
@@ -1074,6 +1075,7 @@
 			"day": "Dag",
 			"deactivate": "Deaktiver",
 			"delete": "Slet",
+			"deleted": "Slettet",
 			"description": "Beskrivelse",
 			"details": "Detaljer",
 			"dismiss": "Afvis",
@@ -1232,6 +1234,14 @@
 				"freeMovement": "Fri bevægelighed",
 				"openDetails": "Åbn detaljer",
 				"type": "Type"
+			}
+		},
+		"state": {
+			"plural": {
+				"active": "Aktiv",
+				"archived": "Arkiveret",
+				"deleted": "Slettet",
+				"inactive": "Inaktiv"
 			}
 		},
 		"status": {

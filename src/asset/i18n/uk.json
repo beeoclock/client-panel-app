@@ -1033,6 +1033,7 @@
 			"anonymous": "Анонімний",
 			"approvalType": "Тип схвалення",
 			"approve": "Затвердити",
+			"archived": "Архівовано",
 			"attendees": "Учасники",
 			"autoActionOnOrderInSeconds": "Час запуску автоматичної дії",
 			"autoActionTypeOnOrder": "Тип автоматичної дії",
@@ -1074,6 +1075,7 @@
 			"day": "День",
 			"deactivate": "Деактивувати",
 			"delete": "Видалити",
+			"deleted": "Видалено",
 			"description": "Опис",
 			"details": "Деталі",
 			"dismiss": "Відхилити",
@@ -1232,6 +1234,14 @@
 				"freeMovement": "Вільне переміщення",
 				"openDetails": "Відкрити деталі",
 				"type": "Тип"
+			}
+		},
+		"state": {
+			"plural": {
+				"active": "Активні",
+				"archived": "Архівовано",
+				"deleted": "Видалені",
+				"inactive": "Неактивні"
 			}
 		},
 		"status": {

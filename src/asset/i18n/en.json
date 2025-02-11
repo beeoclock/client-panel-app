@@ -1033,6 +1033,7 @@
 			"anonymous": "Anonymous",
 			"approvalType": "Approval type",
 			"approve": "Approve",
+			"archived": "Archived",
 			"attendees": "Attendees",
 			"autoActionOnOrderInSeconds": "Automatic action start time",
 			"autoActionTypeOnOrder": "Type of automatic action",
@@ -1074,6 +1075,7 @@
 			"day": "Day",
 			"deactivate": "Deactivate",
 			"delete": "Delete",
+			"deleted": "Deleted",
 			"description": "Description",
 			"details": "Details",
 			"dismiss": "Dismiss",
@@ -1232,6 +1234,14 @@
 				"freeMovement": "Free movement",
 				"openDetails": "Open details",
 				"type": "Type"
+			}
+		},
+		"state": {
+			"plural": {
+				"active": "Active",
+				"archived": "Archived",
+				"deleted": "Deleted",
+				"inactive": "Inactive"
 			}
 		},
 		"status": {
