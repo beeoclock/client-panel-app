@@ -4,13 +4,13 @@ import {FilterForm} from "@customer/presentation/form/filter.form";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {PrimaryButtonDirective} from "@utility/presentation/directives/button/primary.button.directive";
 import {TranslateModule} from "@ngx-translate/core";
-import {IonSelectActiveComponent} from "@utility/presentation/component/input/ion/ion-select-active.component";
 import {CustomerState} from "@customer/state/customer/customer.state";
 import {BaseFilterComponent} from "@utility/base.filter.component";
 import {DefaultPanelComponent} from "@utility/presentation/component/panel/default.panel.component";
 import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import {AutoRefreshComponent} from "@utility/presentation/component/auto-refresh/auto-refresh.component";
 import {ReactiveFormsModule} from "@angular/forms";
+import {IonSelectStateComponent} from "@utility/presentation/component/input/ion/ion-select-state.component";
 
 @Component({
 	selector: 'customer-filter-component',
@@ -19,12 +19,12 @@ import {ReactiveFormsModule} from "@angular/forms";
 		SearchInputComponent,
 		PrimaryButtonDirective,
 		TranslateModule,
-		IonSelectActiveComponent,
 		DefaultPanelComponent,
 		AsyncPipe,
 		NgTemplateOutlet,
 		AutoRefreshComponent,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		IonSelectStateComponent
 	],
 	template: `
 		<utility-default-panel-component>
@@ -47,15 +47,15 @@ import {ReactiveFormsModule} from "@angular/forms";
 			}
 		</utility-default-panel-component>
 		@if (isMobile$ | async) {
-			<div  class="flex overflow-x-auto gap-2 my-2 px-2">
+			<div class="flex overflow-x-auto gap-2 my-2 px-2">
 				<ng-container *ngTemplateOutlet="CustomerActiveSelect"></ng-container>
 				<ng-container *ngTemplateOutlet="AutoRefresh"></ng-container>
 			</div>
 		}
 
 		<ng-template #CustomerActiveSelect>
-			<ion-select-active
-				[control]="form.controls.active"/>
+			<ion-select-state
+				[control]="form.controls.state"/>
 		</ng-template>
 
 		<ng-template #SearchInput>

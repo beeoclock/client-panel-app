@@ -1,5 +1,6 @@
 import {BaseActions} from "@utility/state/base/base.actions";
 import {ICustomer} from "@customer/domain";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 export namespace CustomerActions {
 
@@ -61,14 +62,16 @@ export namespace CustomerActions {
 	export class UpdateItem extends BaseActions.UpdateItem<ICustomer.DTO> {
 		public static override readonly type = '[Customer API] Update Item';
 	}
+	export class SetState {
+		public static readonly type = '[Customer API] SetState';
 
-	export class ArchiveItem extends BaseActions.ArchiveItem {
-		public static override readonly type = '[Customer API] Archive Item';
+		constructor(
+			public readonly id: string,
+			public readonly state: StateEnum,
+		) {
+		}
 	}
 
-	export class UnarchiveItem extends BaseActions.UnarchiveItem {
-		public static override readonly type = '[Customer API] Unarchive Item';
-	}
 
 	// Updates of state
 

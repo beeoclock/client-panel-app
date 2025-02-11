@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {ICustomer} from "@customer/domain";
 import {CustomerActions} from "@customer/state/customer/customer.actions";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 @Component({
 	selector: 'customer-row-action-button-component',
@@ -15,6 +16,7 @@ import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 		<utility-table-column-action
 			(activate)="activate()"
 			(deactivate)="deactivate()"
+			(archive)="archive()"
 			(delete)="delete()"
 			(open)="open()"
 			(edit)="edit()"
@@ -50,7 +52,6 @@ export class RowActionButtonComponent {
 	private readonly translateService = inject(TranslateService);
 	public readonly returnUrl = this.router.url;
 
-	@Dispatch()
 	public delete() {
 
 		const question = this.translateService.instant('customer.action.delete.question');
@@ -60,24 +61,24 @@ export class RowActionButtonComponent {
 			throw new Error('User canceled the action');
 		}
 
-		return [
-			new CustomerActions.DeleteItem(this.item()._id),
-			new CustomerActions.GetList()
-		];
+		this.setState(StateEnum.deleted);
 	}
 
-	public activate(): void {
-		this.store.dispatch([
-			new CustomerActions.UnarchiveItem(this.item()._id),
-			new CustomerActions.GetList()
-		]);
+	public deactivate() {
+		this.setState(StateEnum.inactive);
 	}
 
-	public deactivate(): void {
-		this.store.dispatch([
-			new CustomerActions.ArchiveItem(this.item()._id),
-			new CustomerActions.GetList()
-		]);
+	public archive() {
+		this.setState(StateEnum.archived);
+	}
+
+	public activate() {
+		this.setState(StateEnum.active);
+	}
+
+	@Dispatch()
+	public setState(state: StateEnum) {
+		return new CustomerActions.SetState(this.item()._id, state);
 	}
 
 	public open(): void {

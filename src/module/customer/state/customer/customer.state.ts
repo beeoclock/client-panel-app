@@ -253,25 +253,25 @@ export class CustomerState {
 		ctx.dispatch(new CustomerActions.GetList());
 	}
 
-	@Action(CustomerActions.ArchiveItem)
-	public async archiveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.ArchiveItem) {
+	@Action(CustomerActions.SetState)
+	public async setState(ctx: StateContext<ICustomerState>, {id, state}: CustomerActions.SetState) {
 		const item = this.customerIndexedDBFacade.source.findOne({
-			id: action.payload
+			id
 		});
 		if (!item) {
-			this.ngxLogger.error('CustomerState.archiveItem', 'Item not found');
+			this.ngxLogger.error('CustomerState.setState', 'Item not found');
 			return;
 		}
 		this.customerIndexedDBFacade.source.updateOne({
-				id: action.payload
+				id
 			},
 			{
 				$set: {
-					status: StateEnum.archived,
+					state,
 					stateHistory: [
 						...item.stateHistory,
 						{
-							state: StateEnum.archived,
+							state,
 							setAt: new Date().toISOString()
 						}
 					]
@@ -279,39 +279,9 @@ export class CustomerState {
 			});
 		const {data} = ctx.getState().item;
 		if (data) await this.updateOpenedDetails(ctx, {payload: item});
+		ctx.dispatch(new CustomerActions.GetList());
 	}
 
-	@Action(CustomerActions.UnarchiveItem)
-	public async unarchiveItem(ctx: StateContext<ICustomerState>, action: CustomerActions.UnarchiveItem) {
-		// TODO: Update opened details
-		const item = this.customerIndexedDBFacade.source.findOne({
-			id: action.payload
-		});
-		if (!item) {
-			this.ngxLogger.error('CustomerState.unarchiveItem', 'Item not found');
-			return;
-		}
-
-		this.customerIndexedDBFacade.source.updateOne({
-				id: action.payload
-			},
-			{
-				$set: {
-					status: StateEnum.active,
-					stateHistory: [
-						...item.stateHistory,
-						{
-							state: StateEnum.active,
-							setAt: new Date().toISOString()
-						}
-					]
-				}
-			});
-		const {data} = ctx.getState().item;
-		if (data) await this.updateOpenedDetails(ctx, {payload: item});
-
-
-	}
 
 	@Action(CustomerActions.GetList)
 	public async getList(ctx: StateContext<ICustomerState>, action: CustomerActions.GetList): Promise<void> {
@@ -341,13 +311,19 @@ export class CustomerState {
 
 			const params = newTableState.toBackendFormat();
 
+			const inState = (
+				params?.state ?
+					[params.state] :
+					[StateEnum.active, StateEnum.archived, StateEnum.inactive]
+			);
+
 			const selector = {
 				$and: [
-					...((newTableState.filters?.phrase as string)?.length ? [{
+					...((params?.phrase as string)?.length ? [{
 						$or: phraseFields.map((field) => {
 							return {
 								[field]: {
-									$regex: newTableState.filters.phrase,
+									$regex: params.phrase,
 									$options: "i"
 								}
 							}
@@ -355,7 +331,7 @@ export class CustomerState {
 					}] : []),
 					{
 						state: {
-							$in: [StateEnum.active, StateEnum.archived, StateEnum.inactive]
+							$in: inState
 						}
 					}
 				]
