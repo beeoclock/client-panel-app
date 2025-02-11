@@ -65,26 +65,27 @@ export class StatisticState {
 			loader: true,
 		});
 
-		this.pagedOrderApiAdapter.executeAsync(params)
-			.then((data) => {
-
-				ctx.patchState({
-					data,
-					loader: false,
-				});
-
-				ctx.dispatch(new StatisticAction.Calculate())
-
-			})
-			.catch((error) => {
-
-				this.ngxLogger.error('CalendarWithSpecialistsState.getItems', error);
-
-				ctx.patchState({
-					loader: false,
-				});
-
-			});
+		// TODO: Delete it when it will safe to delete
+		// this.pagedOrderApiAdapter.executeAsync(params)
+		// 	.then((data) => {
+		//
+		// 		ctx.patchState({
+		// 			data,
+		// 			loader: false,
+		// 		});
+		//
+		// 		ctx.dispatch(new StatisticAction.Calculate())
+		//
+		// 	})
+		// 	.catch((error) => {
+		//
+		// 		this.ngxLogger.error('CalendarWithSpecialistsState.getItems', error);
+		//
+		// 		ctx.patchState({
+		// 			loader: false,
+		// 		});
+		//
+		// 	});
 
 	}
 

@@ -117,7 +117,6 @@ export class ServicesComponent extends Reactive implements OnInit {
 
 		if (member) {
 			if (!member.assignments.service.full) {
-				// const memberWithPopulateServices = await this.itemMemberApiAdapter.executeAsync(member._id);
 				const memberWithPopulateServices = this.memberIndexedDBFacade.source.findOne({
 					_id: member._id
 				});
