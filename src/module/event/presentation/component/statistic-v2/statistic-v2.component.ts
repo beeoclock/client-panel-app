@@ -38,7 +38,6 @@ import {
 	MemberRadioTailwindcssComponent
 } from "@utility/presentation/component/input/tailwindcss/radio/member.radio.tailwindcss.component";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {StatisticAction} from "@event/state/statistic/statistic.action";
 import {AnalyticsService} from "@utility/cdk/analytics.service";
 import {
 	RevenueSummaryDiagramComponent
@@ -200,7 +199,8 @@ export class StatisticV2Component extends Reactive implements OnInit, AfterViewI
 					period: interval,
 					payload: JSON.stringify(payload),
 				});
-				this.store.dispatch(new StatisticAction.SetDate(payload));
+				// TODO add to store
+				// this.store.dispatch(new DateRangeReportAnalyticActions.set(payload));
 				this.router.navigate([], {
 					queryParams: {
 						interval,

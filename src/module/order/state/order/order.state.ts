@@ -269,7 +269,6 @@ export class OrderState {
 				} as unknown as IServiceDto,
 			});
 
-			// this.updateServiceOrderApiAdapter.executeAsync(orderId, orderServiceForm.value);
 			this.orderIndexedDBFacade.source.updateOne({
 				id: orderId
 			}, {
@@ -306,7 +305,6 @@ export class OrderState {
 
 	@Action(OrderActions.ChangeStatus)
 	public async changeStatusActionHandler(ctx: StateContext<IOrderState>, action: OrderActions.ChangeStatus): Promise<void> {
-		// await this.patchStatusOrderApiAdapter.executeAsync(action.payload.id, action.payload.status);
 		const foundOrder = this.orderIndexedDBFacade.source.findOne({
 			id: action.payload.id
 		});
@@ -501,7 +499,6 @@ export class OrderState {
 
 	@Action(OrderActions.PutItem)
 	public async putItem(ctx: StateContext<IOrderState>, action: OrderActions.PutItem): Promise<void> {
-		// await this.updateOrderApiAdapter.executeAsync(action.payload.item);
 		this.orderIndexedDBFacade.source.updateOne({
 			id: action.payload.item._id
 		}, {
