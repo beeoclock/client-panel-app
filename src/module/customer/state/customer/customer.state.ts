@@ -307,7 +307,7 @@ export class CustomerState {
 				newTableState.filters = {};
 			}
 
-			const phraseFields = ['firstName', 'lastName'];
+			const phraseFields = ['firstName', 'lastName', 'email', 'phone', 'note']
 
 			const params = newTableState.toBackendFormat();
 
