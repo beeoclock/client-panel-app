@@ -1,10 +1,11 @@
 import {inject, Injectable} from "@angular/core";
 import {TableState} from "@utility/domain/table.state";
 import {BooleanStreamState} from "@utility/domain/boolean-stream.state";
-import {ListServiceApiAdapter} from "@service/infrastructure/api/list.service.api.adapter";
-import {ActiveEnum} from "@utility/domain/enum";
+import {ActiveEnum, OrderDirEnum} from "@utility/domain/enum";
 import {NGXLogger} from "ngx-logger";
 import {IServiceDto} from "@order/domain/interface/i.service.dto";
+import {ServiceIndexedDBFacade} from "@service/infrastructure/facade/indexedDB/service.indexedDB.facade";
+import {StateEnum} from "@utility/domain/enum/state.enum";
 
 @Injectable({
 	providedIn: 'root'
@@ -12,7 +13,7 @@ import {IServiceDto} from "@order/domain/interface/i.service.dto";
 export class ModalSelectServiceListRepository {
 
 	private readonly logger = inject(NGXLogger);
-	public readonly listServiceApiAdapter = inject(ListServiceApiAdapter);
+	public readonly serviceIndexedDBFacade = inject(ServiceIndexedDBFacade);
 	public readonly tableState = new TableState<IServiceDto>().setFilters({
 		active: ActiveEnum.YES
 	});
@@ -38,12 +39,32 @@ export class ModalSelectServiceListRepository {
 
 		try {
 
-			const data = await this.listServiceApiAdapter.executeAsync(this.tableState.toBackendFormat());
+			const params = this.tableState.toBackendFormat();
+
+			const selector = {
+				$and: [
+					{
+						state: {
+							$in: [StateEnum.active, StateEnum.archived, StateEnum.inactive]
+						}
+					}
+				]
+			};
+
+			const items = this.serviceIndexedDBFacade.source.find(selector, {
+				limit: params.pageSize,
+				skip: (params.page - 1) * params.pageSize,
+				sort: {
+					[params.orderBy]: params.orderDir === OrderDirEnum.ASC ? 1 : -1
+				}
+			}).fetch();
+
+			const total = this.serviceIndexedDBFacade.source.find(selector).count();
 
 			this.tableState
 				.nextPage()
-				.setItems(([] as IServiceDto[]).concat(this.tableState.items, data.items))
-				.setTotal(data.totalSize);
+				.setItems(([] as IServiceDto[]).concat(this.tableState.items, items))
+				.setTotal(total);
 
 		} catch (e) {
 			this.logger.error(e);
