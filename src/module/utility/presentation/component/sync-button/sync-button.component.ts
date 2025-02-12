@@ -1,8 +1,11 @@
-import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit, ViewEncapsulation} from "@angular/core";
 import {IsOnlineService} from "@utility/cdk/is-online.service";
 import {AsyncPipe, DatePipe} from "@angular/common";
 import {TranslatePipe} from "@ngx-translate/core";
 import {SyncManagerService} from "@src/core/infrastructure/database/indexedDB/sync-manager.indexedDB.database";
+import {TimeAgoPipe} from "@utility/presentation/pipes/time-ago.pipe";
+import {Reactive} from "@utility/cdk/reactive";
+import {setIntervals$} from "@utility/domain/timer";
 
 @Component({
 	standalone: true,
@@ -12,7 +15,8 @@ import {SyncManagerService} from "@src/core/infrastructure/database/indexedDB/sy
 	imports: [
 		AsyncPipe,
 		DatePipe,
-		TranslatePipe
+		TranslatePipe,
+		TimeAgoPipe
 	],
 	host: {
 		class: 'px-3 pb-4 pt-0'
@@ -52,14 +56,17 @@ import {SyncManagerService} from "@src/core/infrastructure/database/indexedDB/sy
 				} @else {
 
 					<button (click)="syncAll()"
+							[title]="syncManagerService.lastSynchronizedIn | date: 'dd.MM.yyyy HH:mm:ss'"
 							class="h-[48px] text-black gap-2 p-2 px-3 rounded-2xl flex justify-start items-center hover:bg-neutral-200 cursor-pointer transition-all">
 						<i class="bi bi-arrow-repeat text-xl"></i>
 						<div class="flex flex-col items-start">
 							<span class="text-xs">
-								{{ 'keyword.capitalize.synced' | translate }}:
+								{{ 'keyword.capitalize.synced' | translate }}
 							</span>
 							<span class="text-xs">
-								{{ syncManagerService.lastSynchronizedIn | date: 'dd.MM.yyyy HH:mm:ss' }}
+								@if (syncManagerService.lastSynchronizedIn) {
+									{{ syncManagerService.lastSynchronizedIn | timeAgo }}
+								}
 							</span>
 						</div>
 					</button>
@@ -71,16 +78,23 @@ import {SyncManagerService} from "@src/core/infrastructure/database/indexedDB/sy
 
 	`
 })
-export class SyncButtonComponent {
+export class SyncButtonComponent extends Reactive implements OnInit {
 
 	private readonly isOnlineService = inject(IsOnlineService);
 	protected readonly syncManagerService = inject(SyncManagerService);
+	private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
 	public readonly isOffline$ = this.isOnlineService.isOffline$;
 	public readonly isSyncing$ = this.syncManagerService.isSyncing$;
 
 	public syncAll() {
 		this.syncManagerService.syncAll().then();
+	}
+
+	public ngOnInit() {
+		setIntervals$(() => {
+			this.changeDetectorRef.detectChanges();
+		}, 5_000).pipe(this.takeUntil()).subscribe();
 	}
 
 }
