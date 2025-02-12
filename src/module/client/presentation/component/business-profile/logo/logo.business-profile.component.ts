@@ -39,6 +39,11 @@ export class LogoBusinessProfileComponent {
 			return;
 		}
 
+		// const file = imageLogoBusinessProfileComponent.selectedFile;
+		// if (file) {
+		// 	this.updateClientLogo$(file);
+		// }
+
 		const formData = new FormData();
 		formData.append('file', imageLogoBusinessProfileComponent.selectedFile as Blob);
 
@@ -51,5 +56,10 @@ export class LogoBusinessProfileComponent {
 		imageLogoBusinessProfileComponent.mediaState = MediaStateEnum.NOT_CHANGED;
 
 	}
+
+	// @Dispatch()
+	// private updateClientLogo$(file: Blob): ClientActions.UpdateClientLogo {
+	// 	return new ClientActions.UpdateClientLogo(file);
+	// }
 
 }
