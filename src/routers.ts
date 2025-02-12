@@ -11,7 +11,6 @@ import {SmsUsedAnalyticState} from "@module/analytic/internal/store/sms-used/sms
 import {
 	DateRangeReportAnalyticState
 } from "@module/analytic/internal/store/date-range-report/date-range-report.analytic.state";
-import {DailyReportAnalyticState} from "@module/analytic/internal/store/daily-report/daily-report.analytic.state";
 import {EventState} from "@event/state/event/event.state";
 import {OrderState} from "@order/state/order/order.state";
 import {CalendarState} from "@event/state/calendar/calendar.state";
@@ -206,6 +205,7 @@ export const routes: Routes = [
 				component: WrapperPanelComponent,
 				providers: [
 					importProvidersFrom(NgxsModule.forFeature([
+						DateRangeReportAnalyticState,
 						PeerCustomerOrderState,
 						CustomerState,
 						ServiceState,
@@ -257,13 +257,6 @@ export const routes: Routes = [
 								],
 								loadComponent: () => import('@page/analytic/date-range-report/date-range-report.analytic.page')
 							},
-							{
-								path: 'daily-report',
-								providers: [
-									importProvidersFrom(NgxsModule.forFeature([DailyReportAnalyticState])),
-								],
-								loadComponent: () => import('@page/analytic/daily-report/daily-report.analytic.page')
-							}
 						]
 					},
 					{

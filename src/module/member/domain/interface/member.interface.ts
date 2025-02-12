@@ -27,6 +27,6 @@ export interface IMember extends IBaseEntity<'MemberDto'> {
 	assignments: IAssignments;
 }
 
-export type RIMember = Required<IMember>
+export type RIMember = Required<IMember>;
 export type ListMember = RIMember[];
 export type PIMember = Partial<RIMember>;
