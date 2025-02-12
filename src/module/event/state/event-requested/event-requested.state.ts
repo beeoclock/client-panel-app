@@ -2,12 +2,11 @@ import {Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import * as Event from "@event/domain";
 import {MEvent} from "@event/domain";
-import {baseDefaults, BaseState, IBaseState} from "@utility/state/base/base.state";
+import {baseDefaults, IBaseState} from "@utility/state/base/base.state";
 import {firstValueFrom} from "rxjs";
 import {AppActions} from "@utility/state/app/app.actions";
 import {EventStatusEnum} from "@utility/domain/enum/event-status.enum";
 import {EventRequestedActions} from "./event-requested.actions";
-import {EventBusTokenEnum} from "@src/event-bus-token.enum";
 import {OrderByEnum, OrderDirEnum} from "@utility/domain/enum";
 import {DurationVersionTypeEnum} from "@service/domain/enum/duration-version-type.enum";
 
@@ -27,20 +26,7 @@ const defaults = baseDefaults<Event.RIEvent>({
 	defaults
 })
 @Injectable()
-export class EventRequestedState extends BaseState<Event.RIEvent> {
-
-	// protected override readonly update = inject(UpdateEventApiAdapter);
-	// protected override readonly paged = inject(ListEventApiAdapter);
-
-	// Change status
-	// protected readonly rejectedStatusEventApiAdapter = inject(RejectedStatusEventApiAdapter);
-	// protected readonly bookedStatusEventApiAdapter = inject(BookedStatusEventApiAdapter);
-
-	constructor() {
-		super(
-			defaults
-		);
-	}
+export class EventRequestedState {
 
 	@Selector()
 	public static itemData(state: IEventRequestedState) {
@@ -58,27 +44,27 @@ export class EventRequestedState extends BaseState<Event.RIEvent> {
 	}
 
 	@Action(EventRequestedActions.Init)
-	public override async init(ctx: StateContext<IEventRequestedState>): Promise<void> {
-		await super.init(ctx);
+	public async init(ctx: StateContext<IEventRequestedState>): Promise<void> {
+		// await super.init(ctx);
 	}
 
 	// Statuses
 
 	@Action(EventRequestedActions.UpdateFilters)
-	public override updateFilters(ctx: StateContext<IEventRequestedState>, action: EventRequestedActions.UpdateFilters) {
-		super.updateFilters(ctx, action);
+	public updateFilters(ctx: StateContext<IEventRequestedState>, action: EventRequestedActions.UpdateFilters) {
+		// super.updateFilters(ctx, action);
 	}
 
 	@Action(EventRequestedActions.UpdateTableState)
-	public override updateTableState(ctx: StateContext<IEventRequestedState>, action: EventRequestedActions.UpdateTableState) {
-		super.updateTableState(ctx, action);
+	public updateTableState(ctx: StateContext<IEventRequestedState>, action: EventRequestedActions.UpdateTableState) {
+		// super.updateTableState(ctx, action);
 	}
 
 	@Action(EventRequestedActions.GetList)
-	public override async getList(ctx: StateContext<IEventRequestedState>, action: EventRequestedActions.GetList): Promise<void> {
-		await super.getList(ctx, action);
-		const {tableState} = ctx.getState();
-		this.ngEventBus.cast(EventBusTokenEnum.SIDE_BAR_EVENT_REQUESTED_BADGE, tableState.total);
+	public async getList(ctx: StateContext<IEventRequestedState>, action: EventRequestedActions.GetList): Promise<void> {
+		// await super.getList(ctx, action);
+		// const {tableState} = ctx.getState();
+		// this.ngEventBus.cast(EventBusTokenEnum.SIDE_BAR_EVENT_REQUESTED_BADGE, tableState.total);
 	}
 
 	// Selectors
