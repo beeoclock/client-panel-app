@@ -202,153 +202,159 @@ export const routes: Routes = [
 			{
 				path: ':tenantId',
 				canMatch: [canMatchBecauseTenantId],
-				component: WrapperPanelComponent,
-				providers: [
-					importProvidersFrom(NgxsModule.forFeature([
-						DateRangeReportAnalyticState,
-						PeerCustomerOrderState,
-						CustomerState,
-						ServiceState,
-						AbsenceState,
-						MemberState,
-						OrderState,
-						ClientState,
-						PaymentState,
-					]))
-				],
 				children: [
 					{
 						path: '',
-						pathMatch: 'full',
-						redirectTo: '/identity/corridor',
-					},
-					{
-						path: 'member',
-						children: [
-							{
-								path: 'list',
-								loadComponent: () => import('@page/member/list/list.member.page')
-							}
-						]
-					},
-					{
-						path: 'absence',
-						children: [
-							{
-								path: 'list',
-								loadComponent: () => import('@page/absence/list/list.absence.page')
-							}
-						]
-					},
-					{
-						path: 'analytic',
-						children: [
-							{
-								path: 'sms-used',
-								providers: [
-									importProvidersFrom(NgxsModule.forFeature([SmsUsedAnalyticState])),
-								],
-								loadComponent: () => import('@page/analytic/sms-used/sms-used.analytic.page')
-							},
-							{
-								path: 'date-range-report',
-								providers: [
-									importProvidersFrom(NgxsModule.forFeature([DateRangeReportAnalyticState])),
-								],
-								loadComponent: () => import('@page/analytic/date-range-report/date-range-report.analytic.page')
-							},
-						]
-					},
-					{
-						path: 'order',
-						children: [
-							{
-								path: 'list',
-								loadComponent: () => import('@page/order/list/list.order.page')
-							}
-						]
-					},
-					{
-						path: 'event',
+						component: WrapperPanelComponent,
 						providers: [
-							importProvidersFrom(NgxsModule.forFeature([EventState, DateRangeReportAnalyticState])),
+							importProvidersFrom(NgxsModule.forFeature([
+								DateRangeReportAnalyticState,
+								PeerCustomerOrderState,
+								CustomerState,
+								ServiceState,
+								AbsenceState,
+								MemberState,
+								OrderState,
+								ClientState,
+								PaymentState,
+							]))
 						],
 						children: [
+
 							{
-								path: 'requested',
-								loadComponent: () => import('@page/event/requested/requested.event.page')
+								path: '',
+								pathMatch: 'full',
+								redirectTo: '/identity/corridor',
 							},
 							{
-								path: 'calendar',
-								providers: [
-									importProvidersFrom(NgxsModule.forFeature([CalendarState])),
-								],
-								loadComponent: () => import('@page/event/calendar/calendar.event.page')
-							},
-							{
-								path: 'statistic',
-								providers: [
-									// importProvidersFrom(NgxsModule.forFeature([StatisticState])),
-								],
-								loadComponent: () => import('@page/event/statistic/statistic.event.page')
-							},
-							{
-								path: 'calendar-with-specialists',
-								providers: [
-									importProvidersFrom(NgxsModule.forFeature([CalendarWithSpecialistsState])),
-								],
-								loadComponent: () => import('@page/event/calendar-with-specialists/calendar-with-specialists.event.page')
-							},
-						]
-					},
-					{
-						path: 'client',
-						children: [
-							{
-								path: 'business-profile',
-								loadComponent: () => import('@page/client/business-profile/business-profile.page')
-							},
-							{
-								path: 'business-settings',
-								loadComponent: () => import('@page/client/business-settings/business-settings.page')
-							},
-							{
-								path: 'settings',
-								loadComponent: () => import('@page/client/settings/settings.page')
-							},
-							{
-								path: 'notification',
+								path: 'member',
 								children: [
 									{
-										path: '',
-										loadComponent: () => import('@page/client/notification/notification.page')
-									},
-									{
-										path: ':id',
-										loadComponent: () => import('@page/client/notification/notification.page')
+										path: 'list',
+										loadComponent: () => import('@page/member/list/list.member.page')
 									}
 								]
-							}
-						]
-					},
-					{
-						path: 'customer',
-						children: [
+							},
 							{
-								path: 'list',
-								loadComponent: () => import('@page/customer/list/list.customer.page')
-							}
-						]
-					},
-					{
-						path: 'service',
-						children: [
+								path: 'absence',
+								children: [
+									{
+										path: 'list',
+										loadComponent: () => import('@page/absence/list/list.absence.page')
+									}
+								]
+							},
 							{
-								path: 'list',
-								loadComponent: () => import('@page/service/list/list.service.page')
-							}
+								path: 'analytic',
+								children: [
+									{
+										path: 'sms-used',
+										providers: [
+											importProvidersFrom(NgxsModule.forFeature([SmsUsedAnalyticState])),
+										],
+										loadComponent: () => import('@page/analytic/sms-used/sms-used.analytic.page')
+									},
+									{
+										path: 'date-range-report',
+										providers: [
+											importProvidersFrom(NgxsModule.forFeature([DateRangeReportAnalyticState])),
+										],
+										loadComponent: () => import('@page/analytic/date-range-report/date-range-report.analytic.page')
+									},
+								]
+							},
+							{
+								path: 'order',
+								children: [
+									{
+										path: 'list',
+										loadComponent: () => import('@page/order/list/list.order.page')
+									}
+								]
+							},
+							{
+								path: 'event',
+								providers: [
+									importProvidersFrom(NgxsModule.forFeature([EventState, DateRangeReportAnalyticState])),
+								],
+								children: [
+									{
+										path: 'requested',
+										loadComponent: () => import('@page/event/requested/requested.event.page')
+									},
+									{
+										path: 'calendar',
+										providers: [
+											importProvidersFrom(NgxsModule.forFeature([CalendarState])),
+										],
+										loadComponent: () => import('@page/event/calendar/calendar.event.page')
+									},
+									{
+										path: 'statistic',
+										providers: [
+											// importProvidersFrom(NgxsModule.forFeature([StatisticState])),
+										],
+										loadComponent: () => import('@page/event/statistic/statistic.event.page')
+									},
+									{
+										path: 'calendar-with-specialists',
+										providers: [
+											importProvidersFrom(NgxsModule.forFeature([CalendarWithSpecialistsState])),
+										],
+										loadComponent: () => import('@page/event/calendar-with-specialists/calendar-with-specialists.event.page')
+									},
+								]
+							},
+							{
+								path: 'client',
+								children: [
+									{
+										path: 'business-profile',
+										loadComponent: () => import('@page/client/business-profile/business-profile.page')
+									},
+									{
+										path: 'business-settings',
+										loadComponent: () => import('@page/client/business-settings/business-settings.page')
+									},
+									{
+										path: 'settings',
+										loadComponent: () => import('@page/client/settings/settings.page')
+									},
+									{
+										path: 'notification',
+										children: [
+											{
+												path: '',
+												loadComponent: () => import('@page/client/notification/notification.page')
+											},
+											{
+												path: ':id',
+												loadComponent: () => import('@page/client/notification/notification.page')
+											}
+										]
+									}
+								]
+							},
+							{
+								path: 'customer',
+								children: [
+									{
+										path: 'list',
+										loadComponent: () => import('@page/customer/list/list.customer.page')
+									}
+								]
+							},
+							{
+								path: 'service',
+								children: [
+									{
+										path: 'list',
+										loadComponent: () => import('@page/service/list/list.service.page')
+									}
+								]
+							},
 						]
-					},
+					}
 				]
 			}
 		]

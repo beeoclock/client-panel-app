@@ -11,7 +11,13 @@ import {
 } from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {provideRouter, withComponentInputBinding, withInMemoryScrolling} from '@angular/router';
+import {
+	PreloadAllModules,
+	provideRouter,
+	withComponentInputBinding,
+	withInMemoryScrolling,
+	withPreloading
+} from '@angular/router';
 import {routes} from '@src/routers';
 import {IonicModule} from "@ionic/angular";
 import {Utility} from "@utility/index";
@@ -121,7 +127,7 @@ bootstrapApplication(MainRouterOutlet, {
 			withInMemoryScrolling({
 				scrollPositionRestoration: 'enabled'
 			}),
-			// withPreloading(PreloadAllModules), // Don't use it, because it will preload all modules also lazy loaded and tenant modules but the module doesn't have to be loaded without tenant
+			withPreloading(PreloadAllModules), // Don't use it, because it will preload all modules also lazy loaded and tenant modules but the module doesn't have to be loaded without tenant
 			// withViewTransitions(), // TODO add when we will control which container should have animation
 			withComponentInputBinding(),
 		),
